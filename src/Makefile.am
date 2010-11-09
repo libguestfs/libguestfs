@@ -133,9 +133,13 @@ libguestfs_la_SOURCES = \
 	launch.c \
 	listfs.c \
 	proto.c \
+	virt.c \
 	libguestfs.syms
 
-libguestfs_la_LIBADD = $(HIVEX_LIBS) $(AUGEAS_LIBS) $(PCRE_LIBS) $(MAGIC_LIBS) $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
+libguestfs_la_LIBADD = \
+	$(HIVEX_LIBS) $(AUGEAS_LIBS) $(PCRE_LIBS) $(MAGIC_LIBS) \
+	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
+	$(LTLIBTHREAD) ../gnulib/lib/libgnu.la
 
 # Make libguestfs include the convenience libraries.
 noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
@@ -144,6 +148,7 @@ libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
 libguestfs_la_CFLAGS = \
   -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
   $(HIVEX_CFLAGS) $(AUGEAS_CFLAGS) $(PCRE_CFLAGS) \
+  $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib

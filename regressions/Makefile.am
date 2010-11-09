@@ -32,6 +32,7 @@ TESTS = \
 	rhbz576879.sh \
 	rhbz578407.sh \
 	rhbz580246.sh \
+	test-add-domain.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
 	test-copy.sh \

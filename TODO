@@ -347,11 +347,3 @@ Eric Sandeen pointed out the blktrace tool which is a better way of
 capturing traces than using patched qemu (see
 contrib/visualize-alignment).  We would still use the same
 visualization tools in conjunction with blktrace traces.
-
-Add-domain command
-------------------
-
-guestfs_add_domain (g, "libvirt-dom");
-
-However this would need to not depend on libvirt, eg. loading it
-on demand.

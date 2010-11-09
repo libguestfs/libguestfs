@@ -1058,6 +1058,67 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
 This returns the internal QEMU command line.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
+  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"]), -1, [FishAlias "domain"],
+   [],
+   "add the disk(s) from a named libvirt domain",
+   "\
+This function adds the disk(s) attached to the named libvirt
+domain C<dom>.  It works by connecting to libvirt, requesting
+the domain and domain XML from libvirt, parsing it for disks,
+and calling C<guestfs_add_drive_opts> on each one.
+
+The number of disks added is returned.  This operation is atomic:
+if an error is returned, then no disks are added.
+
+This function does some minimal checks to make sure the libvirt
+domain is not running (unless C<readonly> is true).  In a future
+version we will try to acquire the libvirt lock on each disk.
+
+Disks must be accessible locally.  This often means that adding disks
+from a remote libvirt connection (see L<http://libvirt.org/remote.html>)
+will fail unless those disks are accessible via the same device path
+locally too.
+
+The optional C<libvirturi> parameter sets the libvirt URI
+(see L<http://libvirt.org/uri.html>).  If this is not set then
+we connect to the default libvirt URI (or one set through an
+environment variable, see the libvirt documentation for full
+details).  If you are using the C API directly then it is more
+flexible to create the libvirt connection object yourself, get
+the domain object, and call C<guestfs_add_libvirt_dom>.
+
+The other optional parameters are passed directly through to
+C<guestfs_add_drive_opts>.");
+
+(*
+This interface is not quite baked yet. -- RWMJ 2010-11-11
+  ("add_libvirt_dom", (RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"]), -1, [NotInFish],
+   [],
+   "add the disk(s) from a libvirt domain",
+   "\
+This function adds the disk(s) attached to the libvirt domain C<dom>.
+It works by requesting the domain XML from libvirt, parsing it for
+disks, and calling C<guestfs_add_drive_opts> on each one.
+
+In the C API we declare C<void *dom>, but really it has type
+C<virDomainPtr dom>.  This is so we don't need E<lt>libvirt.hE<gt>.
+
+The number of disks added is returned.  This operation is atomic:
+if an error is returned, then no disks are added.
+
+This function does some minimal checks to make sure the libvirt
+domain is not running (unless C<readonly> is true).  In a future
+version we will try to acquire the libvirt lock on each disk.
+
+Disks must be accessible locally.  This often means that adding disks
+from a remote libvirt connection (see L<http://libvirt.org/remote.html>)
+will fail unless those disks are accessible via the same device path
+locally too.
+
+The optional parameters are passed directly through to
+C<guestfs_add_drive_opts>.");
+*)
+
 ]
 
 (* daemon_functions are any functions which cause some action
