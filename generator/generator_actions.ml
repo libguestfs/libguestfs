@@ -1051,6 +1051,13 @@ found or the caller has not called C<guestfs_inspect_os>.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
 
+  ("debug_cmdline", (RStringList "cmdline", [], []), -1, [NotInDocs],
+   [],
+   "debug the QEMU command line (internal use only)",
+   "\
+This returns the internal QEMU command line.  'debug' commands are
+not part of the formal API and can be removed or changed at any time.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
