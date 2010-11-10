@@ -2269,7 +2269,7 @@ This is the same as the C<guestfs_mount> command, but it
 allows you to set both the mount options and the vfstype
 as for the L<mount(8)> I<-o> and I<-t> flags.");
 
-  ("debug", (RString "result", [String "subcmd"; StringList "extraargs"], []), 76, [],
+  ("debug", (RString "result", [String "subcmd"; StringList "extraargs"], []), 76, [NotInDocs],
    [],
    "debugging and internals",
    "\
@@ -4816,7 +4816,7 @@ is the same as the L<augtool(1)> C<clear> command.");
 Return the current umask.  By default the umask is C<022>
 unless it has been set by calling C<guestfs_umask>.");
 
-  ("debug_upload", (RErr, [FileIn "filename"; String "tmpname"; Int "mode"], []), 241, [],
+  ("debug_upload", (RErr, [FileIn "filename"; String "tmpname"; Int "mode"], []), 241, [NotInDocs],
    [],
    "upload a file to the appliance (internal use only)",
    "\
