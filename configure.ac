@@ -460,6 +460,7 @@ PKG_CHECK_MODULES([LIBVIRT], [libvirt],
          AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
         ],
         [AC_MSG_WARN([libvirt not found, some core features will be disabled])])
+AM_CONDITIONAL([HAVE_LIBVIRT],[test "x$LIBVIRT_LIBS" != "x"])
 
 dnl libxml2 (highly recommended)
 PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],

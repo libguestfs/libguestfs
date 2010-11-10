@@ -21,6 +21,7 @@ autom4te.cache
 *.bak
 bindtests.tmp
 capitests/test-add-drive-opts
+capitests/test-add-libvirt-dom
 capitests/test-command
 capitests/test-config
 capitests/test-create-handle
