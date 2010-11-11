@@ -26,6 +26,7 @@ EXTRA_DIST = $(BUILT_SOURCES)
 check_PROGRAMS = \
 	tests \
 	test-command \
+	test-just-header \
 	test-create-handle \
 	test-config \
 	test-add-drive-opts \
@@ -33,6 +34,7 @@ check_PROGRAMS = \
 
 TESTS = \
 	tests \
+	test-just-header \
 	test-create-handle \
 	test-config \
 	test-add-drive-opts \
@@ -64,6 +66,13 @@ test_command_SOURCES = test-command.c
 test_command_LDFLAGS = -all-static
 
 # Hand-written C API tests.
+
+test_just_header_SOURCES = test-just-header.c
+test_just_header_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_just_header_LDADD = \
+	$(top_builddir)/src/libguestfs.la
 
 test_create_handle_SOURCES = test-create-handle.c
 test_create_handle_CFLAGS = \

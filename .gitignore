@@ -25,6 +25,7 @@ capitests/test-add-libvirt-dom
 capitests/test-command
 capitests/test-config
 capitests/test-create-handle
+capitests/test-just-header
 capitests/test-last-errno
 capitests/test*.img
 capitests/tests
