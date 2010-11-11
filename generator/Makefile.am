@@ -54,8 +54,8 @@ OBJECTS = $(SOURCES_ML:.ml=.cmo)
 
 EXTRA_DIST = $(SOURCES)
 
-OCAMLCFLAGS = -I +xml-light -I +../pkg-lib/xml-light -warn-error CDEFLMPSUVYZX
-OCAMLCLIBS = xml-light.cma unix.cma str.cma
+OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX
+OCAMLCLIBS = unix.cma str.cma
 
 noinst_PROGRAM = generator
 

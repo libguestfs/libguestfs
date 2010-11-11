@@ -1,6 +1,6 @@
 name="guestfs"
 version="@PACKAGE_VERSION@"
-description="libguestfs and virt-inspector bindings for OCaml"
-requires="xml-light,unix"
+description="libguestfs bindings for OCaml"
+requires="unix"
 archive(byte)="mlguestfs.cma"
 archive(native)="mlguestfs.cmxa"
