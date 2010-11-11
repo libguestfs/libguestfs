@@ -77,8 +77,7 @@ Run it from the top source directory using the command
   load_api_versions "src/api-support/added";
 
   output_to "src/guestfs_protocol.x" generate_xdr;
-  output_to "src/guestfs-structs.h" generate_structs_h;
-  output_to "src/guestfs-actions.h" generate_actions_h;
+  output_to "src/guestfs.h" generate_guestfs_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
   output_to "src/actions.c" generate_client_actions;
   output_to "src/bindtests.c" generate_bindtests;

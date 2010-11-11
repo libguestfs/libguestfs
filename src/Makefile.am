@@ -19,8 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
 	guestfs_protocol.x \
-	guestfs-structs.h \
-	guestfs-actions.h \
+	guestfs.h
 	guestfs-internal-actions.h \
 	actions.c \
 	bindtests.c \
@@ -47,7 +46,7 @@ EXTRA_DIST = \
 	api-support/README \
 	api-support/update-from-tarballs.sh
 
-include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
+include_HEADERS = guestfs.h
 
 lib_LTLIBRARIES = libguestfs.la
 
@@ -120,9 +119,7 @@ libguestfs_la_LDFLAGS += $(VERSION_SCRIPT_FLAGS)libguestfs.syms
 libguestfs_la_SOURCES = \
 	guestfs.c \
 	guestfs.h \
-	guestfs-actions.h \
 	guestfs-internal.h \
-	guestfs-structs.h \
 	guestfs_protocol.h \
 	gettext.h \
 	actions.c \
