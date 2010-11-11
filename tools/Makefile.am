@@ -33,7 +33,6 @@ tools = \
 EXTRA_DIST = \
 	run-locally \
 	$(tools:%=virt-%) \
-	make-test-img.sh \
 	test-virt-*.sh
 
 CLEANFILES = test.img
@@ -75,11 +74,6 @@ TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	PERL5LIB=$(top_builddir)/perl/blib/lib:$(top_builddir)/perl/blib/arch
-
-# Build a standard test image to be used by all these tests.
-check_DATA = test.img
-test.img: make-test-img.sh
-	$(TESTS_ENVIRONMENT) $(srcdir)/make-test-img.sh
 
 TESTS = test-virt-cat.sh \
 	test-virt-df.sh \

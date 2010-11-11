@@ -1,5 +1,5 @@
 #!/bin/bash -
-# libguestfs virt-* tools
+# libguestfs
 # Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,24 +16,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Make a standard test image which is used by all the tools/test-*.sh
-# test scripts.  This test image is supposed to look like a Fedora
-# installation, or at least enough of one to fool virt-inspector's
+# Make a standard test image which is used by all the tools test
+# scripts.  This test image is supposed to look like a Fedora
+# installation, or at least enough of one to fool the inspection API
 # heuristics.
 
 export LANG=C
 set -e
 
-rm -f test.img
+rm -f fedora.img
 
-cat > fstab <<EOF
+cat > fstab.tmp <<EOF
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
 EOF
 
 # Create a disk image.
 ../fish/guestfish <<'EOF'
-sparse test.img- 512M
+sparse fedora.img- 512M
 run
 
 # Format the disk.
@@ -63,7 +63,7 @@ mount-options "" /dev/sda1 /boot
 mkdir /bin
 mkdir /etc
 mkdir /usr
-upload fstab /etc/fstab
+upload fstab.tmp /etc/fstab
 mkdir /boot/grub
 touch /boot/grub/grub.conf
 
@@ -85,5 +85,5 @@ mkfs-b ext2 1024 /dev/VG/LV2
 mkfs-b ext2 2048 /dev/VG/LV3
 EOF
 
-rm fstab
-mv test.img- test.img
+rm fstab.tmp
+mv fedora.img- fedora.img

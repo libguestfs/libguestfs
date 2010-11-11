@@ -7,7 +7,7 @@ set -e
 uuid=868b1447-0ec5-41bf-a2e5-6a77a4c9b66f
 
 # Read out the test directory using virt-ls.
-if [ "$(./virt-ls test.img /bin)" != "test1
+if [ "$(./virt-ls ../images/fedora.img /bin)" != "test1
 test2
 test3
 test4

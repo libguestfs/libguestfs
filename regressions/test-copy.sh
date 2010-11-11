@@ -29,17 +29,21 @@ test -d /dev/fd || {
 set -e
 
 rm -f test1.img
-rm -rf copy
+rm -rf original copy
+
+mkdir original
+cp $srcdir/../images/known* original
+cp -P $srcdir/../images/abssymlink* original
 
 output=$(
 ../fish/guestfish -N fs -m /dev/sda1 <<EOF
 mkdir /data
 # This creates a directory /data/images/
-copy-in ../images /data
-is-file /data/images/known-1
-is-file /data/images/known-3
-is-file /data/images/known-5
-is-symlink /data/images/abssymlink
+copy-in original /data
+is-file /data/original/known-1
+is-file /data/original/known-3
+is-file /data/original/known-5
+is-symlink /data/original/abssymlink
 is-file /data/known-1
 is-file /known-1
 EOF
@@ -60,13 +64,13 @@ fi
 mkdir copy
 
 ../fish/guestfish --ro -a test1.img -m /dev/sda1 <<EOF
-copy-out /data/images copy
+copy-out /data/original copy
 EOF
 
-if test ! -f copy/images/known-1 || \
-   test ! -f copy/images/known-3 || \
-   test ! -f copy/images/known-5 || \
-   test ! -L copy/images/abssymlink || \
+if test ! -f copy/original/known-1 || \
+   test ! -f copy/original/known-3 || \
+   test ! -f copy/original/known-5 || \
+   test ! -L copy/original/abssymlink || \
    test -f copy/known-1 || \
    test -f known-1
 then
@@ -75,4 +79,4 @@ then
 fi
 
 rm -f test1.img
-rm -rf copy
+rm -rf original copy
