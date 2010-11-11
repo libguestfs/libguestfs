@@ -488,7 +488,6 @@ AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 dnl Check for OCaml (optional, for OCaml bindings).
 OCAMLC=no
 OCAMLFIND=no
-OCAML_PKG_xml_light=no
 AC_ARG_ENABLE([ocaml],
         AS_HELP_STRING([--disable-ocaml], [Disable OCaml language bindings]),
         [],
@@ -500,14 +499,9 @@ AS_IF([test "x$enable_ocaml" != "xno"],
          OCAMLFIND=
          AC_PROG_OCAML
          AC_PROG_FINDLIB
-
-         dnl Optional xml-light for running the generator.
-         if test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"; then
-             AC_CHECK_OCAML_PKG([xml-light])
-         fi])
+        ])
 AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
-AM_CONDITIONAL([HAVE_XML_LIGHT],[test "x$OCAML_PKG_xml_light" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings).
 PERL=no

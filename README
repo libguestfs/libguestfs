@@ -72,9 +72,8 @@ Requirements
 
 - (Optional) xmllint to validate virt-inspector RELAX NG schema
 
-- (Optional) OCaml + OCaml library xml-light if you want to rebuild
-  the generated files, and also to build the OCaml bindings
-  (http://tech.motion-twin.com/xmllight.html)
+- (Optional) OCaml if you want to rebuild the generated files, and
+  also to build the OCaml bindings
 
 - (Optional) local Fedora mirror
 

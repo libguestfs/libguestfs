@@ -42,32 +42,6 @@ if [ ! -z "$BUILDDIR" ]; then
     CONFIGUREDIR=..
 fi
 
-# Ensure that an ocaml package is present for build-from sources.
-# This is *not* for anything that is required at configure-time
-# when configure is run from a distribution tarball.  From those,
-# nothing ocaml-related is required.
-# ocamlfind cannot detect the presence of -devel packages directly,
-# so if $pkg ends in -devel, first check for the base package, and
-# if that's found, check for the existence of $base.cmxa in the
-# resulting directory.
-require_ocaml_pkg()
-{
-  pkg=$1
-  case $pkg in
-    *-devel)
-      local base=${pkg%%-devel}
-      local dir=$(ocamlfind query "$base") || return 1
-      test -f "$dir/$base.cmxa" || return 1
-      ;;
-    *) ocamlfind query "$pkg" > /dev/null 2>&1 || return 1;;
-  esac
-  return 0
-}
-
-{ require_ocaml_pkg xml-light && require_ocaml_pkg xml-light-devel; } \
-  || { echo "you must have ocaml, ocamlfind, ocaml-xml-light" \
-         "and ocaml-xml-light-devel" >&2; exit 1; }
-
 # If no arguments were specified and configure has run before, use the previous
 # arguments
 if test $# == 0 && test -x ./config.status; then
