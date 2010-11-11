@@ -360,10 +360,9 @@ and generate_guestfs_h () =
 extern \"C\" {
 #endif
 
+#include <stddef.h>
 #include <stdint.h>
 #include <stdarg.h>
-#include <rpc/types.h>
-#include <rpc/xdr.h>
 
 /* The handle. */
 #ifndef GUESTFS_TYPEDEF_H

@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <inttypes.h>
 #include <math.h>
+#include <sys/time.h>
 
 #include <guestfs.h>
 

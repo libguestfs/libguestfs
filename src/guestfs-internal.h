@@ -19,6 +19,9 @@
 #ifndef GUESTFS_INTERNAL_H_
 #define GUESTFS_INTERNAL_H_
 
+#include <rpc/types.h>
+#include <rpc/xdr.h>
+
 #ifdef HAVE_PCRE
 #include <pcre.h>
 #endif
