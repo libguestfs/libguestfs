@@ -366,7 +366,10 @@ extern \"C\" {
 #include <rpc/xdr.h>
 
 /* The handle. */
+#ifndef GUESTFS_TYPEDEF_GUESTFS_H
+#define GUESTFS_TYPEDEF_GUESTFS_H 1
 typedef struct guestfs_h guestfs_h;
+#endif
 
 /* Connection management. */
 extern guestfs_h *guestfs_create (void);
@@ -377,8 +380,15 @@ extern const char *guestfs_last_error (guestfs_h *g);
 #define LIBGUESTFS_HAVE_LAST_ERRNO 1
 extern int guestfs_last_errno (guestfs_h *g);
 
+#ifndef GUESTFS_TYPEDEF_GUESTFS_ERROR_HANDLER_CB
+#define GUESTFS_TYPEDEF_GUESTFS_ERROR_HANDLER_CB 1
 typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *opaque, const char *msg);
+#endif
+
+#ifndef GUESTFS_TYPEDEF_GUESTFS_ABORT_CB
+#define GUESTFS_TYPEDEF_GUESTFS_ABORT_CB 1
 typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));
+#endif
 
 extern void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
 extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **opaque_rtn);
@@ -387,11 +397,30 @@ extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 /* Events. */
+#ifndef GUESTFS_TYPEDEF_GUESTFS_LOG_MESSAGE_CB
+#define GUESTFS_TYPEDEF_GUESTFS_LOG_MESSAGE_CB 1
 typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *opaque, char *buf, int len);
+#endif
+
+#ifndef GUESTFS_TYPEDEF_GUESTFS_SUBPROCESS_QUIT_CB
+#define GUESTFS_TYPEDEF_GUESTFS_SUBPROCESS_QUIT_CB 1
 typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *opaque);
+#endif
+
+#ifndef GUESTFS_TYPEDEF_GUESTFS_LAUNCH_DONE_CB
+#define GUESTFS_TYPEDEF_GUESTFS_LAUNCH_DONE_CB 1
 typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *opaque);
+#endif
+
+#ifndef GUESTFS_TYPEDEF_GUESTFS_CLOSE_CB
+#define GUESTFS_TYPEDEF_GUESTFS_CLOSE_CB 1
 typedef void (*guestfs_close_cb) (guestfs_h *g, void *opaque);
+#endif
+
+#ifndef GUESTFS_TYPEDEF_GUESTFS_PROGRESS_CB
+#define GUESTFS_TYPEDEF_GUESTFS_PROGRESS_CB 1
 typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque, int proc_nr, int serial, uint64_t position, uint64_t total);
+#endif
 
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
