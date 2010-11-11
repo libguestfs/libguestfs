@@ -102,16 +102,16 @@ test_last_errno_CFLAGS = \
 test_last_errno_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
-if HAVE_LIBVIRT
-test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
-test_add_libvirt_dom_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib \
-	$(LIBVIRT_CFLAGS) \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
-test_add_libvirt_dom_LDADD = \
-	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
-	$(LTLIBTHREAD) ../gnulib/lib/libgnu.la
-endif
+#if HAVE_LIBVIRT
+#test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
+#test_add_libvirt_dom_CFLAGS = \
+#	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib \
+#	$(LIBVIRT_CFLAGS) \
+#	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+#test_add_libvirt_dom_LDADD = \
+#	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
+#	$(LTLIBTHREAD) ../gnulib/lib/libgnu.la
+#endif
 
 # Run the tests under valgrind.
 
