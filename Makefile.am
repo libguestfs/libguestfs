@@ -35,6 +35,9 @@ SUBDIRS += gnulib/tests capitests regressions test-tool
 # Guestfish.
 SUBDIRS += fish
 
+# virt-cat (in C).
+SUBDIRS += cat
+
 # Language bindings.
 if HAVE_PERL
 SUBDIRS += perl

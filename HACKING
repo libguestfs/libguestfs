@@ -71,6 +71,9 @@ appliance/
 capitests/
         Automated tests of the C API.
 
+cat/
+        The 'virt-cat' command and documentation.
+
 contrib/
         Outside contributions, experimental parts.
 
@@ -145,10 +148,7 @@ ruby/
         Ruby bindings.
 
 tools/
-        Command line tools like virt-cat, virt-df, virt-edit and more.
-        In versions <= 1.0.73 these were all in separate directories
-        like cat/, df/, edit/, but since then we moved them all into
-        one directory to simplify builds.
+        Command line tools like virt-df, virt-edit and more.
 
 src/
         Source code to the C library.

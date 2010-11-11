@@ -1,0 +1,200 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-cat - Display files in a virtual machine
+
+=head1 SYNOPSIS
+
+ virt-cat [--options] -d domname file [file ...]
+
+ virt-cat [--options] -a disk.img [-a disk.img ...] file [file ...]
+
+Old-style:
+
+ virt-cat domname file
+
+ virt-cat disk.img file
+
+=head1 DESCRIPTION
+
+C<virt-cat> is a command line tool to display the contents of C<file>
+where C<file> exists in the named virtual machine (or disk image).
+
+Multiple filenames can be given, in which case they are concatenated
+together.  Each filename must be a full path, starting at the root
+directory (starting with '/').
+
+C<virt-cat> can be used to quickly view a file.  To edit a file, use
+C<virt-edit>.  For more complex cases you should look at the
+L<guestfish(1)> tool.
+
+=head1 EXAMPLES
+
+Display C</etc/fstab> file from inside the libvirt VM called
+C<mydomain>:
+
+ virt-cat -d mydomain /etc/fstab
+
+List syslog messages from a VM disk image file:
+
+ virt-cat -a disk.img /var/log/messages | tail
+
+Find out what DHCP IP address a VM acquired:
+
+ virt-cat -d mydomain /var/log/messages | \
+   grep 'dhclient: bound to' | tail
+
+Find out what packages were recently installed:
+
+ virt-cat -d mydomain /var/log/yum.log | tail
+
+Find out who is logged on inside a virtual machine:
+
+ virt-cat -d mydomain /var/run/utmp > /tmp/utmp
+ who /tmp/utmp
+
+or who was logged on:
+
+ virt-cat -d mydomain /var/log/wtmp > /tmp/wtmp
+ last -f /tmp/wtmp
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.  If
+the virtual machine has multiple block devices, you must supply all of
+them with separate I<-a> options.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.
+
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, virt-cat normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room you
+can specify this flag to see what you are typing.
+
+=item B<--format=raw|qcow2|..> | B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-cat --format=raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-cat --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).  See also
+L</add-drive-opts>.
+
+=item B<--keys-from-stdin>
+
+Read key or passphrase parameters from stdin.  The default is
+to try to read passphrases from the user by opening C</dev/tty>.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 OLD-STYLE COMMAND LINE ARGUMENTS
+
+Previous versions of virt-cat allowed you to write either:
+
+ virt-cat disk.img [disk.img ...] file
+
+or
+
+ virt-cat guestname file
+
+whereas in this version you should use I<-a> or I<-d> respectively
+to avoid the confusing case where a disk image might have the same
+name as a guest.
+
+For compatibility the old style is still supported.
+
+=head1 SHELL QUOTING
+
+Libvirt guest names can contain arbitrary characters, some of which
+have meaning to the shell such as C<#> and space.  You may need to
+quote or escape these characters on the command line.  See the shell
+manual page L<sh(1)> for details.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-edit(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

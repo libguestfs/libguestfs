@@ -1,5 +1,5 @@
-# libguestfs virt-* tools
-# Copyright (C) 2009-2010 Red Hat Inc.
+# libguestfs virt-cat.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,52 +17,54 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-tools = \
-	df \
-	edit \
-	list-filesystems \
-	list-partitions \
-	ls \
-	make-fs \
-	rescue \
-	resize \
-	tar \
-	win-reg
-
 EXTRA_DIST = \
-	run-locally \
-	$(tools:%=virt-%) \
-	test-virt-*.sh
+	run-cat-locally \
+	test-virt-cat.sh \
+	virt-cat.pod
 
-CLEANFILES = test.img
+bin_PROGRAMS = virt-cat
 
-if HAVE_TOOLS
+SHARED_SOURCE_FILES = \
+	../fish/inspect.c \
+	../fish/keys.c \
+	../fish/options.h \
+	../fish/options.c \
+	../fish/virt.c
 
-bin_SCRIPTS = $(tools:%=virt-%)
+virt_cat_SOURCES = \
+	$(SHARED_SOURCE_FILES) \
+	virt-cat.c
+
+virt_cat_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+virt_cat_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.
+man_MANS = virt-cat.1
 
-# XXX Bug in automake?  If you list virt-df.1 explicitly, then it
-# builds and installs the man pages.  However if this is removed,
-# then the man pages are neither built nor installed.
-man_MANS = virt-df.1 $(patsubst %,virt-%.1,$(filter-out df,$(tools)))
+noinst_DATA = $(top_builddir)/html/virt-cat.1.html
 
-noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
-
-virt-%.1: virt-%
+virt-cat.1: virt-cat.pod
 	$(POD2MAN) \
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
 
-$(top_builddir)/html/virt-%.1.html: virt-%
+$(top_builddir)/html/virt-cat.1.html: virt-cat.pod
 	mkdir -p $(top_builddir)/html
 	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
 	  --htmldir html \
-	  --outfile html/$<.1.html \
-	  tools/$<
+	  --outfile html/$@ \
+	  $(abs_srcdir)/$<
 
 # Tests.
 
@@ -71,23 +73,6 @@ random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	PERL5LIB=$(top_builddir)/perl/blib/lib:$(top_builddir)/perl/blib/arch
+	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
-TESTS = test-virt-df.sh \
-	test-virt-list-filesystems.sh \
-	test-virt-ls.sh \
-	test-virt-make-fs.sh \
-	test-virt-resize.sh \
-	test-virt-tar.sh
-
-endif
-
-# Make symlinks from virt-foo.pl to virt-foo.  This is just to keep
-# xgettext happy since it uses the file extension to determine the
-# implementation language of a file.
-
-all-local: $(tools:%=virt-%.pl)
-
-virt-%.pl: virt-%
-	ln -sf $< $@
+TESTS = test-virt-cat.sh

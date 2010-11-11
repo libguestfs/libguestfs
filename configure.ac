@@ -859,6 +859,7 @@ AC_CONFIG_FILES([Makefile
                  po-docs/ja/Makefile
                  php/Makefile
                  csharp/Makefile
+                 cat/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 

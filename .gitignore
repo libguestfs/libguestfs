@@ -30,6 +30,8 @@ capitests/test*.img
 capitests/tests
 capitests/tests.c
 capitests/test*.tmp
+cat/virt-cat
+cat/virt-cat.1
 ChangeLog
 *.class
 *.cma
