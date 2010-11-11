@@ -4,7 +4,7 @@ export LANG=C
 set -e
 
 # Read out the test directory using virt-tar.
-./virt-tar -x test.img /bin test.tar
+./virt-tar -x ../images/fedora.img /bin test.tar
 
 if [ "$(tar tf test.tar)" != "./
 ./test1

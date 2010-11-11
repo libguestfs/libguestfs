@@ -1,5 +1,5 @@
 # libguestfs test images
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,14 +36,19 @@ EXTRA_DIST = \
 	lib-win32.dll \
 	lib-win64.dll \
 	lib-x86_64.so \
-	test-grep.txt
+	test-grep.txt \
+	make-dummy-fedora-img.sh
 
 noinst_DATA = test.iso
+
+# This is 'check_DATA' because we don't need it until 'make check'
+# time and we need the tools we have built in order to make it.
+check_DATA = fedora.img
 
 CLEANFILES = \
 	test.iso test.sqsh \
 	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
-	initrd
+	initrd fedora.img
 
 images_files_src = \
 	$(srcdir)/helloworld.tar \
@@ -150,3 +155,9 @@ $(builddir)/test-grep.txt.gz: test-grep.txt
 	rm -f $@ $@-t
 	gzip --best -c $< > $@-t
 	mv $@-t $@
+
+# Make a (dummy) Fedora image.
+fedora.img: make-dummy-fedora-img.sh
+	LIBGUESTFS_PATH=../appliance \
+	LD_LIBRARY_PATH=../src/.libs \
+	bash $<
