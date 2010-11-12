@@ -200,17 +200,17 @@ foreach $root (@roots) {
     # Basic OS fields.
     $xml->dataElement (root => canonicalize ($root));
 
-    my ($s, $distro, $major_version);
+    my $s;
     $s = $g->inspect_get_type ($root);
     $xml->dataElement (name => $s) if $s ne "unknown";
     $s = $g->inspect_get_arch ($root);
     $xml->dataElement (arch => $s) if $s ne "unknown";
-    $distro = $g->inspect_get_distro ($root);
-    $xml->dataElement (distro => $distro) if $distro ne "unknown";
+    $s = $g->inspect_get_distro ($root);
+    $xml->dataElement (distro => $s) if $s ne "unknown";
     $s = $g->inspect_get_product_name ($root);
     $xml->dataElement (product_name => $s) if $s ne "unknown";
-    $major_version = $g->inspect_get_major_version ($root);
-    $xml->dataElement (major_version => $major_version);
+    $s = $g->inspect_get_major_version ($root);
+    $xml->dataElement (major_version => $s);
     $s = $g->inspect_get_minor_version ($root);
     $xml->dataElement (minor_version => $s);
 
@@ -226,7 +226,7 @@ foreach $root (@roots) {
     output_filesystems ($root);
 
     # Package format / management and applications.
-    output_applications ($root, $distro, $major_version);
+    output_applications ($root);
 
     $xml->endTag("operatingsystem");
 
@@ -370,58 +370,24 @@ sub output_applications
 {
     local $_;
     my $root = shift;
-    my $distro = shift;
-    my $major_version = shift;
 
     # Based on the distro, take a guess at the package format
     # and package management.
     my ($package_format, $package_management);
-    if (defined $distro) {
-        if ($distro eq "archlinux") {
-            $package_format = "pacman";
-            $package_management = "pacman";
-        }
-        elsif ($distro eq "debian" || $distro eq "ubuntu") {
-            $package_format = "deb";
-            $package_management = "apt";
-        }
-        elsif ($distro eq "fedora" || $distro eq "meego") {
-            $package_format = "rpm";
-            $package_management = "yum";
-        }
-        elsif ($distro eq "gentoo") {
-            $package_format = "ebuild";
-            $package_management = "portage";
-        }
-        elsif ($distro eq "pardus") {
-            $package_format = "pisi";
-            $package_management = "pisi";
-        }
-        elsif ($distro =~ /redhat/ || $distro =~ /rhel/) {
-            if ($major_version >= 5) {
-                $package_format = "rpm";
-                $package_management = "yum";
-            } else {
-                $package_format = "rpm";
-                $package_management = "up2date";
-            }
-        }
-        # else unknown.
-    }
+    $package_format = $g->inspect_get_package_format ($root);
+    $package_management = $g->inspect_get_package_management ($root);
 
     $xml->dataElement (package_format => $package_format)
-        if defined $package_format;
+        if $package_format ne "unknown";
     $xml->dataElement (package_management => $package_management)
-        if defined $package_management;
+        if $package_management ne "unknown";
 
     # Do we know how to get a list of applications?
-    if (defined $package_format) {
-        if ($package_format eq "rpm") {
-            output_applications_rpm ($root);
-        }
-        elsif ($package_format eq "deb") {
-            output_applications_deb ($root);
-        }
+    if ($package_format eq "rpm") {
+        output_applications_rpm ($root);
+    }
+    elsif ($package_format eq "deb") {
+        output_applications_deb ($root);
     }
 }
 

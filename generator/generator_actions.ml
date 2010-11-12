@@ -1119,6 +1119,52 @@ The optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
 *)
 
+  ("inspect_get_package_format", (RString "packageformat", [Device "root"], []), -1, [],
+   [],
+   "get package format used by the operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This function and C<guestfs_inspect_get_package_management> return
+the package format and package management tool used by the
+inspected operating system.  For example for Fedora these
+functions would return C<rpm> (package format) and
+C<yum> (package management).
+
+This returns the string C<unknown> if we could not determine the
+package format I<or> if the operating system does not have
+a real packaging system (eg. Windows).
+
+Possible strings include: C<rpm>, C<deb>, C<ebuild>, C<pisi>, C<pacman>.
+Future versions of libguestfs may return other strings.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_package_management", (RString "packagemanagement", [Device "root"], []), -1, [],
+   [],
+   "get package management tool used by the operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+C<guestfs_inspect_get_package_format> and this function return
+the package format and package management tool used by the
+inspected operating system.  For example for Fedora these
+functions would return C<rpm> (package format) and
+C<yum> (package management).
+
+This returns the string C<unknown> if we could not determine the
+package management tool I<or> if the operating system does not have
+a real packaging system (eg. Windows).
+
+Possible strings include: C<yum>, C<up2date>,
+C<apt> (for all Debian derivatives),
+C<portage>, C<pisi>, C<pacman>.
+Future versions of libguestfs may return other strings.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

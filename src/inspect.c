@@ -197,6 +197,8 @@ static int parse_unsigned_int (guestfs_h *g, const char *str);
 static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
                             const char *spec, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec);
+static void check_package_format (guestfs_h *g, struct inspect_fs *fs);
+static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
 
 static int
 check_for_filesystem_on (guestfs_h *g, const char *device)
@@ -516,6 +518,10 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
  skip_release_checks:;
 
+  /* If distro test above was successful, work out the package format. */
+  check_package_format (g, fs);
+  check_package_management (g, fs);
+
   /* Determine the architecture. */
   const char *binaries[] =
     { "/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh" };
@@ -776,6 +782,9 @@ check_windows_root (guestfs_h *g, struct inspect_fs *fs)
   if (check_windows_registry (g, fs) == -1)
     return -1;
 
+  check_package_format (g, fs);
+  check_package_management (g, fs);
+
   return 0;
 }
 
@@ -970,6 +979,84 @@ parse_unsigned_int (guestfs_h *g, const char *str)
     return -1;
   }
   return ret;
+}
+
+/* At the moment, package format and package management is just a
+ * simple function of the distro and major_version fields, so these
+ * can never return an error.  We might be cleverer in future.
+ */
+static void
+check_package_format (guestfs_h *g, struct inspect_fs *fs)
+{
+  switch (fs->distro) {
+  case OS_DISTRO_FEDORA:
+  case OS_DISTRO_MEEGO:
+  case OS_DISTRO_REDHAT_BASED:
+  case OS_DISTRO_RHEL:
+    fs->package_format = OS_PACKAGE_FORMAT_RPM;
+    break;
+
+  case OS_DISTRO_DEBIAN:
+  case OS_DISTRO_UBUNTU:
+    fs->package_format = OS_PACKAGE_FORMAT_DEB;
+    break;
+
+  case OS_DISTRO_ARCHLINUX:
+    fs->package_format = OS_PACKAGE_FORMAT_PACMAN;
+    break;
+  case OS_DISTRO_GENTOO:
+    fs->package_format = OS_PACKAGE_FORMAT_EBUILD;
+    break;
+  case OS_DISTRO_PARDUS:
+    fs->package_format = OS_PACKAGE_FORMAT_PISI;
+    break;
+
+  case OS_DISTRO_WINDOWS:
+  case OS_DISTRO_UNKNOWN:
+  default:
+    fs->package_format = OS_PACKAGE_FORMAT_UNKNOWN;
+    break;
+  }
+}
+
+static void
+check_package_management (guestfs_h *g, struct inspect_fs *fs)
+{
+  switch (fs->distro) {
+  case OS_DISTRO_FEDORA:
+  case OS_DISTRO_MEEGO:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
+    break;
+
+  case OS_DISTRO_REDHAT_BASED:
+  case OS_DISTRO_RHEL:
+    if (fs->major_version >= 5)
+      fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
+    else
+      fs->package_management = OS_PACKAGE_MANAGEMENT_UP2DATE;
+    break;
+
+  case OS_DISTRO_DEBIAN:
+  case OS_DISTRO_UBUNTU:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_APT;
+    break;
+
+  case OS_DISTRO_ARCHLINUX:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_PACMAN;
+    break;
+  case OS_DISTRO_GENTOO:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_PORTAGE;
+    break;
+  case OS_DISTRO_PARDUS:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_PISI;
+    break;
+
+  case OS_DISTRO_WINDOWS:
+  case OS_DISTRO_UNKNOWN:
+  default:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_UNKNOWN;
+    break;
+  }
 }
 
 static struct inspect_fs *
@@ -1194,6 +1281,53 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
   return ret;
 }
 
+char *
+guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  char *ret;
+  switch (fs->package_format) {
+  case OS_PACKAGE_FORMAT_RPM: ret = safe_strdup (g, "rpm"); break;
+  case OS_PACKAGE_FORMAT_DEB: ret = safe_strdup (g, "deb"); break;
+  case OS_PACKAGE_FORMAT_PACMAN: ret = safe_strdup (g, "pacman"); break;
+  case OS_PACKAGE_FORMAT_EBUILD: ret = safe_strdup (g, "ebuild"); break;
+  case OS_PACKAGE_FORMAT_PISI: ret = safe_strdup (g, "pisi"); break;
+  case OS_PACKAGE_FORMAT_UNKNOWN:
+  default:
+    ret = safe_strdup (g, "unknown");
+    break;
+  }
+
+  return ret;
+}
+
+char *
+guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  char *ret;
+  switch (fs->package_management) {
+  case OS_PACKAGE_MANAGEMENT_YUM: ret = safe_strdup (g, "yum"); break;
+  case OS_PACKAGE_MANAGEMENT_UP2DATE: ret = safe_strdup (g, "up2date"); break;
+  case OS_PACKAGE_MANAGEMENT_APT: ret = safe_strdup (g, "apt"); break;
+  case OS_PACKAGE_MANAGEMENT_PACMAN: ret = safe_strdup (g, "pacman"); break;
+  case OS_PACKAGE_MANAGEMENT_PORTAGE: ret = safe_strdup (g, "portage"); break;
+  case OS_PACKAGE_MANAGEMENT_PISI: ret = safe_strdup (g, "pisi"); break;
+  case OS_PACKAGE_MANAGEMENT_UNKNOWN:
+  default:
+    ret = safe_strdup (g, "unknown");
+    break;
+  }
+
+  return ret;
+}
+
 #else /* no PCRE or hivex at compile time */
 
 /* XXX These functions should be in an optgroup. */
@@ -1264,6 +1398,18 @@ guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
 
 char **
 guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
 {
   NOT_IMPL(NULL);
 }

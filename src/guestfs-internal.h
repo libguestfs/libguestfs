@@ -181,6 +181,25 @@ enum inspect_os_distro {
   OS_DISTRO_MEEGO,
 };
 
+enum inspect_os_package_format {
+  OS_PACKAGE_FORMAT_UNKNOWN = 0,
+  OS_PACKAGE_FORMAT_RPM,
+  OS_PACKAGE_FORMAT_DEB,
+  OS_PACKAGE_FORMAT_PACMAN,
+  OS_PACKAGE_FORMAT_EBUILD,
+  OS_PACKAGE_FORMAT_PISI
+};
+
+enum inspect_os_package_management {
+  OS_PACKAGE_MANAGEMENT_UNKNOWN = 0,
+  OS_PACKAGE_MANAGEMENT_YUM,
+  OS_PACKAGE_MANAGEMENT_UP2DATE,
+  OS_PACKAGE_MANAGEMENT_APT,
+  OS_PACKAGE_MANAGEMENT_PACMAN,
+  OS_PACKAGE_MANAGEMENT_PORTAGE,
+  OS_PACKAGE_MANAGEMENT_PISI,
+};
+
 struct inspect_fs {
   int is_root;
   char *device;
@@ -189,6 +208,8 @@ struct inspect_fs {
   enum inspect_fs_content content;
   enum inspect_os_type type;
   enum inspect_os_distro distro;
+  enum inspect_os_package_format package_format;
+  enum inspect_os_package_management package_management;
   char *product_name;
   int major_version;
   int minor_version;
