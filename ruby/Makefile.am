@@ -51,4 +51,13 @@ TESTS_ENVIRONMENT = \
 all: $(generator_built)
 	rake build
 
+RUBY_SITELIB := $(shell ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+RUBY_SITEARCH := $(shell ruby -rrbconfig -e "puts Config::CONFIG['sitearchdir']")
+
+install:
+	$(MKDIR_P) $(DESTDIR)$(RUBY_SITELIB)
+	$(MKDIR_P) $(DESTDIR)$(RUBY_SITEARCH)
+	$(INSTALL) -p -m 0644 lib/guestfs.rb $(DESTDIR)$(RUBY_SITELIB)
+	$(INSTALL) -p -m 0755 ext/guestfs/_guestfs.so $(DESTDIR)$(RUBY_SITEARCH)
+
 endif
