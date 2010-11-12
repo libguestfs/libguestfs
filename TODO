@@ -347,3 +347,31 @@ Eric Sandeen pointed out the blktrace tool which is a better way of
 capturing traces than using patched qemu (see
 contrib/visualize-alignment).  We would still use the same
 visualization tools in conjunction with blktrace traces.
+
+guestfish parsing
+-----------------
+
+At the moment guestfish uses an ad hoc parser which has many
+shortcomings.  We should change to using a lex/yacc-based scanner and
+parser (there are better parsers out there, but yacc is sufficient and
+very widely available).
+
+The scanner must deal with the case of parsing a whole command string,
+eg. for a command that the user types in:
+
+ ><fs> add-drive-opts "/tmp/foo" readonly:true
+
+and also with parsing single words from the command line:
+
+ guestfish add-drive-opts /tmp/foo readonly:true
+
+Note the quotes are for scanning and don't indicate types.
+
+We should also allow variables and expressions as part of this new
+parsing code, eg:
+
+ set roots inspect-os
+ set product inspect-get-product-name %{roots[0]}
+
+% is better than $ because of shell escaping and confusion with shell
+variables.
