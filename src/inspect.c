@@ -257,13 +257,18 @@ check_filesystem (guestfs_h *g, const char *device)
   fs->device = safe_strdup (g, device);
   fs->is_mountable = 1;
 
+  /* Optimize some of the tests by avoiding multiple tests of the same thing. */
+  int is_dir_etc = guestfs_is_dir (g, "/etc") > 0;
+  int is_dir_bin = guestfs_is_dir (g, "/bin") > 0;
+  int is_dir_share = guestfs_is_dir (g, "/share") > 0;
+
   /* Grub /boot? */
   if (guestfs_is_file (g, "/grub/menu.lst") > 0 ||
       guestfs_is_file (g, "/grub/grub.conf") > 0)
     fs->content = FS_CONTENT_LINUX_BOOT;
   /* Linux root? */
-  else if (guestfs_is_dir (g, "/etc") > 0 &&
-           guestfs_is_dir (g, "/bin") > 0 &&
+  else if (is_dir_etc &&
+           is_dir_bin &&
            guestfs_is_file (g, "/etc/fstab") > 0) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_LINUX_ROOT;
@@ -271,16 +276,16 @@ check_filesystem (guestfs_h *g, const char *device)
       return -1;
   }
   /* Linux /usr/local? */
-  else if (guestfs_is_dir (g, "/etc") > 0 &&
-           guestfs_is_dir (g, "/bin") > 0 &&
-           guestfs_is_dir (g, "/share") > 0 &&
+  else if (is_dir_etc &&
+           is_dir_bin &&
+           is_dir_share &&
            guestfs_exists (g, "/local") == 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
     fs->content = FS_CONTENT_LINUX_USR_LOCAL;
   /* Linux /usr? */
-  else if (guestfs_is_dir (g, "/etc") > 0 &&
-           guestfs_is_dir (g, "/bin") > 0 &&
-           guestfs_is_dir (g, "/share") > 0 &&
+  else if (is_dir_etc &&
+           is_dir_bin &&
+           is_dir_share &&
            guestfs_exists (g, "/local") > 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
     fs->content = FS_CONTENT_LINUX_USR;
