@@ -1526,4 +1526,29 @@ guestfs___match2 (guestfs_h *g, const char *str, const pcre *re,
   return 1;
 }
 
+/* Match a regular expression which contains exactly three captures. */
+int
+guestfs___match3 (guestfs_h *g, const char *str, const pcre *re,
+                  char **ret1, char **ret2, char **ret3)
+{
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
+  if (r == PCRE_ERROR_NOMATCH)
+    return 0;
+  if (r != 4) {
+    /* Internal error -- should not happen. */
+    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+             __FILE__, __func__, r, str);
+    return 0;
+  }
+
+  *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
+  *ret3 = safe_strndup (g, &str[vec[6]], vec[7]-vec[6]);
+
+  return 1;
+}
+
 #endif /* HAVE_PCRE */
