@@ -349,7 +349,7 @@ parse_release_file (guestfs_h *g, struct inspect_fs *fs,
   if (product_name == NULL)
     return -1;
   if (product_name[0] == NULL) {
-    error (g, "%s: file is empty", release_filename);
+    error (g, _("%s: file is empty"), release_filename);
     guestfs___free_string_list (product_name);
     return -1;
   }
@@ -654,7 +654,7 @@ check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs)
     return -1;
 
   if (lines[0] == NULL) {
-    error (g, "could not parse /etc/fstab or empty file");
+    error (g, _("could not parse /etc/fstab or empty file"));
     guestfs___free_string_list (lines);
     return -1;
   }
@@ -1079,7 +1079,7 @@ parse_unsigned_int (guestfs_h *g, const char *str)
   long ret;
   int r = xstrtol (str, NULL, 10, &ret, "");
   if (r != LONGINT_OK) {
-    error (g, "could not parse integer in version number: %s", str);
+    error (g, _("could not parse integer in version number: %s"), str);
     return -1;
   }
   return ret;
