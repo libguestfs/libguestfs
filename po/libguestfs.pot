@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.5\n"
+"Project-Id-Version: libguestfs 1.7.6\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-12 22:55+0000\n"
+"POT-Creation-Date: 2010-11-13 16:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2274,7 +2274,12 @@ msgstr ""
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
-#: src/filearch.c:258
+#: src/filearch.c:153 src/inspect.c:956
+#, c-format
+msgid "size of %s unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/filearch.c:266
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without PCRE or libmagic libraries"
@@ -2290,32 +2295,51 @@ msgstr ""
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/guestfs.c:775
+#: src/guestfs.c:791
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:769
+#: src/inspect.c:352
+#, c-format
+msgid "%s: file is empty"
+msgstr ""
+
+#: src/inspect.c:637
+#, c-format
+msgid "size of /etc/fstab unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/inspect.c:665
+msgid "could not parse /etc/fstab or empty file"
+msgstr ""
+
+#: src/inspect.c:881
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1066
+#: src/inspect.c:1098
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr ""
+
+#: src/inspect.c:1186
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1078
+#: src/inspect.c:1198
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1204
+#: src/inspect.c:1325
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1336
+#: src/inspect.c:1457
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

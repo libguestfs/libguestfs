@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-12 22:55+0000\n"
+"POT-Creation-Date: 2010-11-13 16:18+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2484,7 +2484,12 @@ msgstr "crea un directorio temporal"
 msgid "external command failed, see earlier error messages"
 msgstr "falló el comando externo, vea mensajes de errores anteriores"
 
-#: src/filearch.c:258
+#: src/filearch.c:153 src/inspect.c:956
+#, c-format
+msgid "size of %s unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/filearch.c:266
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without PCRE or libmagic libraries"
@@ -2500,21 +2505,41 @@ msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:775
+#: src/guestfs.c:791
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:769
+#: src/inspect.c:352
+#, c-format
+msgid "%s: file is empty"
+msgstr ""
+
+#: src/inspect.c:637
+#, c-format
+msgid "size of /etc/fstab unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/inspect.c:665
+#, fuzzy
+msgid "could not parse /etc/fstab or empty file"
+msgstr "no se pudo analizar el tamaño de arranque"
+
+#: src/inspect.c:881
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "no es posible resolver  %%SYSTEMROOT%% de Windows"
 
-#: src/inspect.c:1066
+#: src/inspect.c:1098
+#, fuzzy, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "no se pudo analizar el tamaño de arranque"
+
+#: src/inspect.c:1186
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "no existen datos de inspección: invoque primero a guestfs_inspect_os"
 
-#: src/inspect.c:1078
+#: src/inspect.c:1198
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2523,11 +2548,11 @@ msgstr ""
 "%s: no se ha encontrado un dispositivo raíz: sólo invoque esta función con "
 "un dispositivo raíz previamente obtenido mediante  guestfs_inspect_os"
 
-#: src/inspect.c:1204
+#: src/inspect.c:1325
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1336
+#: src/inspect.c:1457
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-12 22:55+0000\n"
+"POT-Creation-Date: 2010-11-13 16:18+0000\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -2420,7 +2420,12 @@ msgstr "ഒരു താല്‍ക്കാലിക ഡയറക്ടറി 
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/filearch.c:258
+#: src/filearch.c:153 src/inspect.c:956
+#, c-format
+msgid "size of %s unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/filearch.c:266
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without PCRE or libmagic libraries"
@@ -2436,32 +2441,52 @@ msgstr "guestfs_close: ഒരേ ഹാന്‍ഡിലില്‍ രണ്�
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: പിശക്: %s\n"
 
-#: src/guestfs.c:775
+#: src/guestfs.c:791
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:769
+#: src/inspect.c:352
+#, c-format
+msgid "%s: file is empty"
+msgstr ""
+
+#: src/inspect.c:637
+#, c-format
+msgid "size of /etc/fstab unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/inspect.c:665
+#, fuzzy
+msgid "could not parse /etc/fstab or empty file"
+msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
+
+#: src/inspect.c:881
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1066
+#: src/inspect.c:1098
+#, fuzzy, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
+
+#: src/inspect.c:1186
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1078
+#: src/inspect.c:1198
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1204
+#: src/inspect.c:1325
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1336
+#: src/inspect.c:1457
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
