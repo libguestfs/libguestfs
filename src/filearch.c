@@ -147,6 +147,14 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   else
     method = "cat";
 
+  /* Security: Refuse to download initrd if it is huge. */
+  int64_t size = guestfs_filesize (g, path);
+  if (size == -1 || size > 100000000) {
+    error (g, _("size of %s unreasonable (%" PRIi64 " bytes)"),
+           path, size);
+    goto out;
+  }
+
   if (mkdtemp (dir) == NULL) {
     perrorf (g, "mkdtemp");
     goto out;
