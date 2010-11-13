@@ -629,6 +629,14 @@ static int
 check_fstab (guestfs_h *g, struct inspect_fs *fs)
 {
   int r;
+  int64_t size;
+
+  /* Security: Refuse to do this if /etc/fstab is huge. */
+  size = guestfs_filesize (g, "/etc/fstab");
+  if (size == -1 || size > 100000) {
+    error (g, _("size of /etc/fstab unreasonable (%" PRIi64 " bytes)"), size);
+    return -1;
+  }
 
   /* XXX What if !feature_available (g, "augeas")? */
   if (guestfs_aug_init (g, "/", 16|32) == -1)
