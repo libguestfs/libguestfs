@@ -427,6 +427,22 @@ guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size)
   return p;
 }
 
+char *
+guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
+{
+  va_list args;
+  char *msg;
+
+  va_start (args, fs);
+  int err = vasprintf (&msg, fs, args);
+  va_end (args);
+
+  if (err == -1)
+    g->abort_cb ();
+
+  return msg;
+}
+
 void
 guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb cb)
 {
