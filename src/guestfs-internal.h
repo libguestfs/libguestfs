@@ -210,6 +210,8 @@ extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+extern char *guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
 extern void guestfs___print_timestamped_argv (guestfs_h *g, const char *argv[]);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern void guestfs___free_inspect_info (guestfs_h *g);
@@ -240,6 +242,7 @@ extern void guestfs___free_string_list (char **);
 #define safe_strdup guestfs_safe_strdup
 #define safe_strndup guestfs_safe_strndup
 #define safe_memdup guestfs_safe_memdup
+#define safe_asprintf guestfs_safe_asprintf
 #ifdef HAVE_PCRE
 #define match guestfs___match
 #define match1 guestfs___match1
