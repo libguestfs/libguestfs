@@ -875,6 +875,14 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
+  /* Security: Refuse to download registry if it is huge. */
+  int64_t size = guestfs_filesize (g, software_path);
+  if (size == -1 || size > 100000000) {
+    error (g, _("size of %s unreasonable (%" PRIi64 " bytes)"),
+           software_path, size);
+    goto out;
+  }
+
   if (mkdtemp (dir) == NULL) {
     perrorf (g, "mkdtemp");
     goto out;
