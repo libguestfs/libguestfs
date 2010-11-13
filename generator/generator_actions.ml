@@ -738,6 +738,10 @@ Any Linux-based operating system.
 
 Any Microsoft Windows operating system.
 
+=item \"freebsd\"
+
+FreeBSD.
+
 =item \"unknown\"
 
 The operating system type could not be determined.

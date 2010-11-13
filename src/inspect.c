@@ -57,6 +57,8 @@ static pcre *re_rhel_no_minor;
 static pcre *re_major_minor;
 static pcre *re_aug_seq;
 static pcre *re_xdev;
+static pcre *re_first_partition;
+static pcre *re_freebsd;
 static pcre *re_windows_version;
 
 static void compile_regexps (void) __attribute__((constructor));
@@ -87,6 +89,8 @@ compile_regexps (void)
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
+  COMPILE (re_first_partition, "^/dev/(?:h|s|v)d.1$", 0);
+  COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
   COMPILE (re_windows_version, "^(\\d+)\\.(\\d+)", 0);
 }
 
@@ -100,6 +104,8 @@ free_regexps (void)
   pcre_free (re_major_minor);
   pcre_free (re_aug_seq);
   pcre_free (re_xdev);
+  pcre_free (re_first_partition);
+  pcre_free (re_freebsd);
   pcre_free (re_windows_version);
 }
 
@@ -187,6 +193,8 @@ guestfs__inspect_os (guestfs_h *g)
  */
 static int check_filesystem (guestfs_h *g, const char *device);
 static int check_linux_root (guestfs_h *g, struct inspect_fs *fs);
+static int check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
+static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
@@ -266,6 +274,23 @@ check_filesystem (guestfs_h *g, const char *device)
   if (guestfs_is_file (g, "/grub/menu.lst") > 0 ||
       guestfs_is_file (g, "/grub/grub.conf") > 0)
     fs->content = FS_CONTENT_LINUX_BOOT;
+  /* FreeBSD root? */
+  else if (is_dir_etc &&
+           is_dir_bin &&
+           guestfs_is_file (g, "/etc/freebsd-update.conf") > 0 &&
+           guestfs_is_file (g, "/etc/fstab") > 0) {
+    /* Ignore /dev/sda1 which is a shadow of the real root filesystem
+     * that is probably /dev/sda5 (see:
+     * http://www.freebsd.org/doc/handbook/disk-organization.html)
+     */
+    if (match (g, device, re_first_partition))
+      return 0;
+
+    fs->is_root = 1;
+    fs->content = FS_CONTENT_FREEBSD_ROOT;
+    if (check_freebsd_root (g, fs) == -1)
+      return -1;
+  }
   /* Linux root? */
   else if (is_dir_etc &&
            is_dir_bin &&
@@ -528,9 +553,57 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   check_package_management (g, fs);
 
   /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* We already know /etc/fstab exists because it's part of the test
+   * for Linux root above.  We must now parse this file to determine
+   * which filesystems are used by the operating system and how they
+   * are mounted.
+   */
+  if (check_fstab (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
+/* The currently mounted device is known to be a FreeBSD root. */
+static int
+check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+
+  fs->type = OS_TYPE_FREEBSD;
+
+  /* FreeBSD has no authoritative version file.  The version number is
+   * in /etc/motd, which the system administrator might edit, but
+   * we'll use that anyway.
+   */
+
+  if (guestfs_exists (g, "/etc/motd") > 0) {
+    if (parse_release_file (g, fs, "/etc/motd") == -1)
+      return -1;
+
+    if (parse_major_minor (g, fs) == -1)
+      return -1;
+  }
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* We already know /etc/fstab exists because it's part of the test above. */
+  if (check_fstab (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
+static void
+check_architecture (guestfs_h *g, struct inspect_fs *fs)
+{
   const char *binaries[] =
     { "/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh" };
   size_t i;
+
   for (i = 0; i < sizeof binaries / sizeof binaries[0]; ++i) {
     if (guestfs_is_file (g, binaries[i]) > 0) {
       /* Ignore errors from file_architecture call. */
@@ -548,13 +621,16 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       }
     }
   }
+}
 
-  /* We already know /etc/fstab exists because it's part of the test
-   * for Linux root above.  We must now parse this file to determine
-   * which filesystems are used by the operating system and how they
-   * are mounted.
-   * XXX What if !feature_available (g, "augeas")?
-   */
+static int check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs);
+
+static int
+check_fstab (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+
+  /* XXX What if !feature_available (g, "augeas")? */
   if (guestfs_aug_init (g, "/", 16|32) == -1)
     return -1;
 
@@ -562,7 +638,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   guestfs_aug_rm (g, "/augeas/load//incl[. != \"/etc/fstab\"]");
   guestfs_aug_load (g);
 
-  r = check_fstab (g, fs);
+  r = check_fstab_aug_open (g, fs);
   guestfs_aug_close (g);
   if (r == -1)
     return -1;
@@ -571,7 +647,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 }
 
 static int
-check_fstab (guestfs_h *g, struct inspect_fs *fs)
+check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs)
 {
   char **lines = guestfs_aug_ls (g, "/files/etc/fstab");
   if (lines == NULL)
@@ -708,6 +784,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
 {
   char *a1;
   char *device = NULL;
+  char *bsddisk, *bsdslice, *bsdpart;
 
   if (STRPREFIX (spec, "/dev/mapper/")) {
     /* LVM2 does some strange munging on /dev/mapper paths for VGs and
@@ -741,10 +818,32 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
     free (a1);
     guestfs___free_string_list (devices);
   }
-  else {
-    /* Didn't match device pattern, return original spec unchanged. */
-    device = safe_strdup (g, spec);
+  else if (match3 (g, spec, re_freebsd, &bsddisk, &bsdslice, &bsdpart)) {
+    /* FreeBSD disks are organized quite differently.  See:
+     * http://www.freebsd.org/doc/handbook/disk-organization.html
+     * FreeBSD "partitions" are exposed as quasi-extended partitions
+     * numbered from 5 in Linux.  I have no idea what happens when you
+     * have multiple "slices" (the FreeBSD term for MBR partitions).
+     */
+    int disk = parse_unsigned_int (g, bsddisk);
+    int slice = parse_unsigned_int (g, bsdslice);
+    int part = bsdpart[0] - 'a' /* counting from 0 */;
+    free (bsddisk);
+    free (bsdslice);
+    free (bsdpart);
+
+    if (disk == -1 || disk > 26 ||
+        slice <= 0 || slice > 1 /* > 4 .. see comment above */ ||
+        part < 0 || part >= 26)
+      goto out;
+
+    device = safe_asprintf (g, "/dev/sd%c%d", disk + 'a', part + 5);
   }
+
+ out:
+  /* Didn't match device pattern, return original spec unchanged. */
+  if (device == NULL)
+    device = safe_strdup (g, spec);
 
   return device;
 }
@@ -1127,6 +1226,7 @@ guestfs__inspect_get_type (guestfs_h *g, const char *root)
   switch (fs->type) {
   case OS_TYPE_LINUX: ret = safe_strdup (g, "linux"); break;
   case OS_TYPE_WINDOWS: ret = safe_strdup (g, "windows"); break;
+  case OS_TYPE_FREEBSD: ret = safe_strdup (g, "freebsd"); break;
   case OS_TYPE_UNKNOWN: default: ret = safe_strdup (g, "unknown"); break;
   }
 

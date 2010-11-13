@@ -159,12 +159,14 @@ enum inspect_fs_content {
   FS_CONTENT_LINUX_USR,
   FS_CONTENT_LINUX_USR_LOCAL,
   FS_CONTENT_LINUX_VAR,
+  FS_CONTENT_FREEBSD_ROOT,
 };
 
 enum inspect_os_type {
   OS_TYPE_UNKNOWN = 0,
   OS_TYPE_LINUX,
   OS_TYPE_WINDOWS,
+  OS_TYPE_FREEBSD,
 };
 
 enum inspect_os_distro {
