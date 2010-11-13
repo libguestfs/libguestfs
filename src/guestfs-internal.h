@@ -230,6 +230,7 @@ extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_siz
 extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
 extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
 extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
+extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
 #endif
 extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern void guestfs___free_string_list (char **);
@@ -247,6 +248,7 @@ extern void guestfs___free_string_list (char **);
 #define match guestfs___match
 #define match1 guestfs___match1
 #define match2 guestfs___match2
+#define match3 guestfs___match3
 #endif
 
 #endif /* GUESTFS_INTERNAL_H_ */
