@@ -1028,7 +1028,7 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
         if (fs->minor_version == -1) {
           free (key);
           free (version);
-          return -1;
+          goto out;
         }
       }
 
