@@ -33,6 +33,7 @@ capitests/tests.c
 capitests/test*.tmp
 cat/virt-cat
 cat/virt-cat.1
+cat/virt-cat.static
 ChangeLog
 *.class
 *.cma

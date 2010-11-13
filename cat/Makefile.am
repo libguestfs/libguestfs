@@ -76,3 +76,9 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
 TESTS = test-virt-cat.sh
+
+# Build a partly-static library (for the binary distribution).
+
+virt-cat.static$(EXEEXT): $(virt_cat_OBJECTS) $(virt_cat_DEPENDENCIES)
+	$(top_srcdir)/relink-static.sh \
+	$(virt_cat_LINK) $(virt_cat_OBJECTS) -static $(virt_cat_LDADD) $(virt_cat_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

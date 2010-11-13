@@ -253,5 +253,7 @@ bindist:
 	cp fuse/guestmount.static $(BINTMPDIR)$(bindir)/guestmount
 	$(MAKE) -C test-tool libguestfs-test-tool.static
 	cp test-tool/libguestfs-test-tool.static $(BINTMPDIR)$(bindir)/libguestfs-test-tool
+	$(MAKE) -C cat virt-cat.static
+	cp cat/virt-cat.static $(BINTMPDIR)$(bindir)/virt-cat
 	(cd $(BINTMPDIR) && tar cf - .) | \
 	  gzip -c -9 > libguestfs-$(VERSION)-$(host_cpu).tar.gz
