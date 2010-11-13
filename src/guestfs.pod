@@ -852,6 +852,171 @@ libguestfs might end up being written out to the swap partition.  If
 this is a concern, scrub the swap partition or don't use libguestfs on
 encrypted devices.
 
+=head2 MULTIPLE HANDLES AND MULTIPLE THREADS
+
+All high-level libguestfs actions are synchronous.  If you want
+to use libguestfs asynchronously then you must create a thread.
+
+Only use the handle from a single thread.  Either use the handle
+exclusively from one thread, or provide your own mutex so that two
+threads cannot issue calls on the same handle at the same time.
+
+See the graphical program guestfs-browser for one possible
+architecture for multithreaded programs using libvirt and libguestfs.
+
+=head2 PATH
+
+Libguestfs needs a kernel and initrd.img, which it finds by looking
+along an internal path.
+
+By default it looks for these in the directory C<$libdir/guestfs>
+(eg. C</usr/local/lib/guestfs> or C</usr/lib64/guestfs>).
+
+Use L</guestfs_set_path> or set the environment variable
+L</LIBGUESTFS_PATH> to change the directories that libguestfs will
+search in.  The value is a colon-separated list of paths.  The current
+directory is I<not> searched unless the path contains an empty element
+or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
+search the current directory and then C</usr/lib/guestfs>.
+
+=head2 QEMU WRAPPERS
+
+If you want to compile your own qemu, run qemu from a non-standard
+location, or pass extra arguments to qemu, then you can write a
+shell-script wrapper around qemu.
+
+There is one important rule to remember: you I<must C<exec qemu>> as
+the last command in the shell script (so that qemu replaces the shell
+and becomes the direct child of the libguestfs-using program).  If you
+don't do this, then the qemu process won't be cleaned up correctly.
+
+Here is an example of a wrapper, where I have built my own copy of
+qemu from source:
+
+ #!/bin/sh -
+ qemudir=/home/rjones/d/qemu
+ exec $qemudir/x86_64-softmmu/qemu-system-x86_64 -L $qemudir/pc-bios "$@"
+
+Save this script as C</tmp/qemu.wrapper> (or wherever), C<chmod +x>,
+and then use it by setting the LIBGUESTFS_QEMU environment variable.
+For example:
+
+ LIBGUESTFS_QEMU=/tmp/qemu.wrapper guestfish
+
+Note that libguestfs also calls qemu with the -help and -version
+options in order to determine features.
+
+=head2 ABI GUARANTEE
+
+We guarantee the libguestfs ABI (binary interface), for public,
+high-level actions as outlined in this section.  Although we will
+deprecate some actions, for example if they get replaced by newer
+calls, we will keep the old actions forever.  This allows you the
+developer to program in confidence against the libguestfs API.
+
+=head2 BLOCK DEVICE NAMING
+
+In the kernel there is now quite a profusion of schemata for naming
+block devices (in this context, by I<block device> I mean a physical
+or virtual hard drive).  The original Linux IDE driver used names
+starting with C</dev/hd*>.  SCSI devices have historically used a
+different naming scheme, C</dev/sd*>.  When the Linux kernel I<libata>
+driver became a popular replacement for the old IDE driver
+(particularly for SATA devices) those devices also used the
+C</dev/sd*> scheme.  Additionally we now have virtual machines with
+paravirtualized drivers.  This has created several different naming
+systems, such as C</dev/vd*> for virtio disks and C</dev/xvd*> for Xen
+PV disks.
+
+As discussed above, libguestfs uses a qemu appliance running an
+embedded Linux kernel to access block devices.  We can run a variety
+of appliances based on a variety of Linux kernels.
+
+This causes a problem for libguestfs because many API calls use device
+or partition names.  Working scripts and the recipe (example) scripts
+that we make available over the internet could fail if the naming
+scheme changes.
+
+Therefore libguestfs defines C</dev/sd*> as the I<standard naming
+scheme>.  Internally C</dev/sd*> names are translated, if necessary,
+to other names as required.  For example, under RHEL 5 which uses the
+C</dev/hd*> scheme, any device parameter C</dev/sda2> is translated to
+C</dev/hda2> transparently.
+
+Note that this I<only> applies to parameters.  The
+L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
+return the true names of the devices and partitions as known to the
+appliance.
+
+=head3 ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION
+
+Usually this translation is transparent.  However in some (very rare)
+cases you may need to know the exact algorithm.  Such cases include
+where you use L</guestfs_config> to add a mixture of virtio and IDE
+devices to the qemu-based appliance, so have a mixture of C</dev/sd*>
+and C</dev/vd*> devices.
+
+The algorithm is applied only to I<parameters> which are known to be
+either device or partition names.  Return values from functions such
+as L</guestfs_list_devices> are never changed.
+
+=over 4
+
+=item *
+
+Is the string a parameter which is a device or partition name?
+
+=item *
+
+Does the string begin with C</dev/sd>?
+
+=item *
+
+Does the named device exist?  If so, we use that device.
+However if I<not> then we continue with this algorithm.
+
+=item *
+
+Replace initial C</dev/sd> string with C</dev/hd>.
+
+For example, change C</dev/sda2> to C</dev/hda2>.
+
+If that named device exists, use it.  If not, continue.
+
+=item *
+
+Replace initial C</dev/sd> string with C</dev/vd>.
+
+If that named device exists, use it.  If not, return an error.
+
+=back
+
+=head3 PORTABILITY CONCERNS WITH BLOCK DEVICE NAMING
+
+Although the standard naming scheme and automatic translation is
+useful for simple programs and guestfish scripts, for larger programs
+it is best not to rely on this mechanism.
+
+Where possible for maximum future portability programs using
+libguestfs should use these future-proof techniques:
+
+=over 4
+
+=item *
+
+Use L</guestfs_list_devices> or L</guestfs_list_partitions> to list
+actual device names, and then use those names directly.
+
+Since those device names exist by definition, they will never be
+translated.
+
+=item *
+
+Use higher level ways to identify filesystems, such as LVM names,
+UUIDs and filesystem labels.
+
+=back
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
@@ -989,30 +1154,7 @@ situations.
 
 This returns the current out of memory handler.
 
-=head1 PATH
-
-Libguestfs needs a kernel and initrd.img, which it finds by looking
-along an internal path.
-
-By default it looks for these in the directory C<$libdir/guestfs>
-(eg. C</usr/local/lib/guestfs> or C</usr/lib64/guestfs>).
-
-Use L</guestfs_set_path> or set the environment variable
-L</LIBGUESTFS_PATH> to change the directories that libguestfs will
-search in.  The value is a colon-separated list of paths.  The current
-directory is I<not> searched unless the path contains an empty element
-or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
-search the current directory and then C</usr/lib/guestfs>.
-
-=head1 HIGH-LEVEL API ACTIONS
-
-=head2 ABI GUARANTEE
-
-We guarantee the libguestfs ABI (binary interface), for public,
-high-level actions as outlined in this section.  Although we will
-deprecate some actions, for example if they get replaced by newer
-calls, we will keep the old actions forever.  This allows you the
-developer to program in confidence against the libguestfs API.
+=head1 API CALLS
 
 @ACTIONS@
 
@@ -1207,112 +1349,6 @@ language-specific documentation for more details on that.
 
 For guestfish, see L<guestfish(1)/OPTIONAL ARGUMENTS>.
 
-=begin html
-
-<!-- old anchor for the next section -->
-<a name="state_machine_and_low_level_event_api"/>
-
-=end html
-
-=head1 ARCHITECTURE
-
-Internally, libguestfs is implemented by running an appliance (a
-special type of small virtual machine) using L<qemu(1)>.  Qemu runs as
-a child process of the main program.
-
-  ___________________
- /                   \
- | main program      |
- |                   |
- |                   |           child process / appliance
- |                   |           __________________________
- |                   |          / qemu                     \
- +-------------------+   RPC    |      +-----------------+ |
- | libguestfs     <--------------------> guestfsd        | |
- |                   |          |      +-----------------+ |
- \___________________/          |      | Linux kernel    | |
-                                |      +--^--------------+ |
-                                \_________|________________/
-                                          |
-                                   _______v______
-                                  /              \
-                                  | Device or    |
-                                  | disk image   |
-                                  \______________/
-
-The library, linked to the main program, creates the child process and
-hence the appliance in the L</guestfs_launch> function.
-
-Inside the appliance is a Linux kernel and a complete stack of
-userspace tools (such as LVM and ext2 programs) and a small
-controlling daemon called L</guestfsd>.  The library talks to
-L</guestfsd> using remote procedure calls (RPC).  There is a mostly
-one-to-one correspondence between libguestfs API calls and RPC calls
-to the daemon.  Lastly the disk image(s) are attached to the qemu
-process which translates device access by the appliance's Linux kernel
-into accesses to the image.
-
-A common misunderstanding is that the appliance "is" the virtual
-machine.  Although the disk image you are attached to might also be
-used by some virtual machine, libguestfs doesn't know or care about
-this.  (But you will care if both libguestfs's qemu process and your
-virtual machine are trying to update the disk image at the same time,
-since these usually results in massive disk corruption).
-
-=head1 STATE MACHINE
-
-libguestfs uses a state machine to model the child process:
-
-                         |
-                    guestfs_create
-                         |
-                         |
-                     ____V_____
-                    /          \
-                    |  CONFIG  |
-                    \__________/
-                     ^ ^   ^  \
-                    /  |    \  \ guestfs_launch
-                   /   |    _\__V______
-                  /    |   /           \
-                 /     |   | LAUNCHING |
-                /      |   \___________/
-               /       |       /
-              /        |  guestfs_launch
-             /         |     /
-    ______  /        __|____V
-   /      \ ------> /        \
-   | BUSY |         | READY  |
-   \______/ <------ \________/
-
-The normal transitions are (1) CONFIG (when the handle is created, but
-there is no child process), (2) LAUNCHING (when the child process is
-booting up), (3) alternating between READY and BUSY as commands are
-issued to, and carried out by, the child process.
-
-The guest may be killed by L</guestfs_kill_subprocess>, or may die
-asynchronously at any time (eg. due to some internal error), and that
-causes the state to transition back to CONFIG.
-
-Configuration commands for qemu such as L</guestfs_add_drive> can only
-be issued when in the CONFIG state.
-
-The API offers one call that goes from CONFIG through LAUNCHING to
-READY.  L</guestfs_launch> blocks until the child process is READY to
-accept commands (or until some failure or timeout).
-L</guestfs_launch> internally moves the state from CONFIG to LAUNCHING
-while it is running.
-
-API actions such as L</guestfs_mount> can only be issued when in the
-READY state.  These API calls block waiting for the command to be
-carried out (ie. the state to transition to BUSY and then back to
-READY).  There are no non-blocking versions, and no way to issue more
-than one command per handle at the same time.
-
-Finally, the child process sends asynchronous messages back to the
-main program, such as kernel log messages.  You can register a
-callback to receive these messages.
-
 =head2 SETTING CALLBACKS TO HANDLE EVENTS
 
 The child process generates events in some situations.  Current events
@@ -1471,108 +1507,111 @@ and note that only one callback can be registered for a handle).
 The private data area is implemented using a hash table, and should be
 reasonably efficient for moderate numbers of keys.
 
-=head1 BLOCK DEVICE NAMING
+=begin html
 
-In the kernel there is now quite a profusion of schemata for naming
-block devices (in this context, by I<block device> I mean a physical
-or virtual hard drive).  The original Linux IDE driver used names
-starting with C</dev/hd*>.  SCSI devices have historically used a
-different naming scheme, C</dev/sd*>.  When the Linux kernel I<libata>
-driver became a popular replacement for the old IDE driver
-(particularly for SATA devices) those devices also used the
-C</dev/sd*> scheme.  Additionally we now have virtual machines with
-paravirtualized drivers.  This has created several different naming
-systems, such as C</dev/vd*> for virtio disks and C</dev/xvd*> for Xen
-PV disks.
+<!-- old anchor for the next section -->
+<a name="state_machine_and_low_level_event_api"/>
 
-As discussed above, libguestfs uses a qemu appliance running an
-embedded Linux kernel to access block devices.  We can run a variety
-of appliances based on a variety of Linux kernels.
+=end html
 
-This causes a problem for libguestfs because many API calls use device
-or partition names.  Working scripts and the recipe (example) scripts
-that we make available over the internet could fail if the naming
-scheme changes.
+=head1 ARCHITECTURE
 
-Therefore libguestfs defines C</dev/sd*> as the I<standard naming
-scheme>.  Internally C</dev/sd*> names are translated, if necessary,
-to other names as required.  For example, under RHEL 5 which uses the
-C</dev/hd*> scheme, any device parameter C</dev/sda2> is translated to
-C</dev/hda2> transparently.
+Internally, libguestfs is implemented by running an appliance (a
+special type of small virtual machine) using L<qemu(1)>.  Qemu runs as
+a child process of the main program.
 
-Note that this I<only> applies to parameters.  The
-L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
-return the true names of the devices and partitions as known to the
-appliance.
+  ___________________
+ /                   \
+ | main program      |
+ |                   |
+ |                   |           child process / appliance
+ |                   |           __________________________
+ |                   |          / qemu                     \
+ +-------------------+   RPC    |      +-----------------+ |
+ | libguestfs     <--------------------> guestfsd        | |
+ |                   |          |      +-----------------+ |
+ \___________________/          |      | Linux kernel    | |
+                                |      +--^--------------+ |
+                                \_________|________________/
+                                          |
+                                   _______v______
+                                  /              \
+                                  | Device or    |
+                                  | disk image   |
+                                  \______________/
 
-=head2 ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION
+The library, linked to the main program, creates the child process and
+hence the appliance in the L</guestfs_launch> function.
 
-Usually this translation is transparent.  However in some (very rare)
-cases you may need to know the exact algorithm.  Such cases include
-where you use L</guestfs_config> to add a mixture of virtio and IDE
-devices to the qemu-based appliance, so have a mixture of C</dev/sd*>
-and C</dev/vd*> devices.
+Inside the appliance is a Linux kernel and a complete stack of
+userspace tools (such as LVM and ext2 programs) and a small
+controlling daemon called L</guestfsd>.  The library talks to
+L</guestfsd> using remote procedure calls (RPC).  There is a mostly
+one-to-one correspondence between libguestfs API calls and RPC calls
+to the daemon.  Lastly the disk image(s) are attached to the qemu
+process which translates device access by the appliance's Linux kernel
+into accesses to the image.
 
-The algorithm is applied only to I<parameters> which are known to be
-either device or partition names.  Return values from functions such
-as L</guestfs_list_devices> are never changed.
+A common misunderstanding is that the appliance "is" the virtual
+machine.  Although the disk image you are attached to might also be
+used by some virtual machine, libguestfs doesn't know or care about
+this.  (But you will care if both libguestfs's qemu process and your
+virtual machine are trying to update the disk image at the same time,
+since these usually results in massive disk corruption).
 
-=over 4
+=head1 STATE MACHINE
 
-=item *
+libguestfs uses a state machine to model the child process:
 
-Is the string a parameter which is a device or partition name?
+                         |
+                    guestfs_create
+                         |
+                         |
+                     ____V_____
+                    /          \
+                    |  CONFIG  |
+                    \__________/
+                     ^ ^   ^  \
+                    /  |    \  \ guestfs_launch
+                   /   |    _\__V______
+                  /    |   /           \
+                 /     |   | LAUNCHING |
+                /      |   \___________/
+               /       |       /
+              /        |  guestfs_launch
+             /         |     /
+    ______  /        __|____V
+   /      \ ------> /        \
+   | BUSY |         | READY  |
+   \______/ <------ \________/
 
-=item *
+The normal transitions are (1) CONFIG (when the handle is created, but
+there is no child process), (2) LAUNCHING (when the child process is
+booting up), (3) alternating between READY and BUSY as commands are
+issued to, and carried out by, the child process.
 
-Does the string begin with C</dev/sd>?
+The guest may be killed by L</guestfs_kill_subprocess>, or may die
+asynchronously at any time (eg. due to some internal error), and that
+causes the state to transition back to CONFIG.
 
-=item *
+Configuration commands for qemu such as L</guestfs_add_drive> can only
+be issued when in the CONFIG state.
 
-Does the named device exist?  If so, we use that device.
-However if I<not> then we continue with this algorithm.
+The API offers one call that goes from CONFIG through LAUNCHING to
+READY.  L</guestfs_launch> blocks until the child process is READY to
+accept commands (or until some failure or timeout).
+L</guestfs_launch> internally moves the state from CONFIG to LAUNCHING
+while it is running.
 
-=item *
+API actions such as L</guestfs_mount> can only be issued when in the
+READY state.  These API calls block waiting for the command to be
+carried out (ie. the state to transition to BUSY and then back to
+READY).  There are no non-blocking versions, and no way to issue more
+than one command per handle at the same time.
 
-Replace initial C</dev/sd> string with C</dev/hd>.
-
-For example, change C</dev/sda2> to C</dev/hda2>.
-
-If that named device exists, use it.  If not, continue.
-
-=item *
-
-Replace initial C</dev/sd> string with C</dev/vd>.
-
-If that named device exists, use it.  If not, return an error.
-
-=back
-
-=head2 PORTABILITY CONCERNS
-
-Although the standard naming scheme and automatic translation is
-useful for simple programs and guestfish scripts, for larger programs
-it is best not to rely on this mechanism.
-
-Where possible for maximum future portability programs using
-libguestfs should use these future-proof techniques:
-
-=over 4
-
-=item *
-
-Use L</guestfs_list_devices> or L</guestfs_list_partitions> to list
-actual device names, and then use those names directly.
-
-Since those device names exist by definition, they will never be
-translated.
-
-=item *
-
-Use higher level ways to identify filesystems, such as LVM names,
-UUIDs and filesystem labels.
-
-=back
+Finally, the child process sends asynchronous messages back to the
+main program, such as kernel log messages.  You can register a
+callback to receive these messages.
 
 =head1 INTERNALS
 
@@ -1727,45 +1766,6 @@ or discards them if not.
 The daemon self-limits the frequency of progress messages it sends
 (see C<daemon/proto.c:notify_progress>).  Not all calls generate
 progress messages.
-
-=head1 MULTIPLE HANDLES AND MULTIPLE THREADS
-
-All high-level libguestfs actions are synchronous.  If you want
-to use libguestfs asynchronously then you must create a thread.
-
-Only use the handle from a single thread.  Either use the handle
-exclusively from one thread, or provide your own mutex so that two
-threads cannot issue calls on the same handle at the same time.
-
-See the graphical program guestfs-browser for one possible
-architecture for multithreaded programs using libvirt and libguestfs.
-
-=head1 QEMU WRAPPERS
-
-If you want to compile your own qemu, run qemu from a non-standard
-location, or pass extra arguments to qemu, then you can write a
-shell-script wrapper around qemu.
-
-There is one important rule to remember: you I<must C<exec qemu>> as
-the last command in the shell script (so that qemu replaces the shell
-and becomes the direct child of the libguestfs-using program).  If you
-don't do this, then the qemu process won't be cleaned up correctly.
-
-Here is an example of a wrapper, where I have built my own copy of
-qemu from source:
-
- #!/bin/sh -
- qemudir=/home/rjones/d/qemu
- exec $qemudir/x86_64-softmmu/qemu-system-x86_64 -L $qemudir/pc-bios "$@"
-
-Save this script as C</tmp/qemu.wrapper> (or wherever), C<chmod +x>,
-and then use it by setting the LIBGUESTFS_QEMU environment variable.
-For example:
-
- LIBGUESTFS_QEMU=/tmp/qemu.wrapper guestfish
-
-Note that libguestfs also calls qemu with the -help and -version
-options in order to determine features.
 
 =head1 LIBGUESTFS VERSION NUMBERS
 
