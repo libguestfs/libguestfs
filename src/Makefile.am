@@ -19,7 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
 	guestfs_protocol.x \
-	guestfs.h
+	guestfs.h \
 	guestfs-internal-actions.h \
 	actions.c \
 	bindtests.c \
