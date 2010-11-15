@@ -207,6 +207,7 @@ static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
 static char *resolve_fstab_device (guestfs_h *g, const char *spec);
 static void check_package_format (guestfs_h *g, struct inspect_fs *fs);
 static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
+static int download_to_tmp (guestfs_h *g, const char *filename, char *localtmp, int64_t max_size);
 
 static int
 check_for_filesystem_on (guestfs_h *g, const char *device)
@@ -952,12 +953,7 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
 {
-  TMP_TEMPLATE_ON_STACK (dir);
-#define dir_len (strlen (dir))
-#define software_hive_len (dir_len + 16)
-  char software_hive[software_hive_len];
-#define cmd_len (dir_len + 16)
-  char cmd[cmd_len];
+  TMP_TEMPLATE_ON_STACK (software_local);
 
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
@@ -975,25 +971,10 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
-  /* Security: Refuse to download registry if it is huge. */
-  int64_t size = guestfs_filesize (g, software_path);
-  if (size == -1 || size > 100000000) {
-    error (g, _("size of %s unreasonable (%" PRIi64 " bytes)"),
-           software_path, size);
-    goto out;
-  }
-
-  if (mkdtemp (dir) == NULL) {
-    perrorf (g, "mkdtemp");
-    goto out;
-  }
-
-  snprintf (software_hive, software_hive_len, "%s/software", dir);
-
-  if (guestfs_download (g, software_path, software_hive) == -1)
+  if (download_to_tmp (g, software_path, software_local, 100000000) == -1)
     goto out;
 
-  h = hivex_open (software_hive, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -1070,15 +1051,9 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
   free (values);
   free (software_path);
 
-  /* Free up the temporary directory.  Note the directory name cannot
-   * contain shell meta-characters because of the way it was
-   * constructed above.
-   */
-  snprintf (cmd, cmd_len, "rm -rf %s", dir);
-  ignore_value (system (cmd));
-#undef dir_len
-#undef software_hive_len
-#undef cmd_len
+  /* Free up the temporary file. */
+  unlink (software_local);
+#undef software_local_len
 
   return ret;
 }
@@ -1481,6 +1456,51 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
   }
 
   return ret;
+}
+
+/* Download to a guest file to a local temporary file.  Refuse to
+ * download the guest file if it is larger than max_size.  The caller
+ * is responsible for deleting the temporary file after use.
+ */
+static int
+download_to_tmp (guestfs_h *g, const char *filename,
+                 char *localtmp, int64_t max_size)
+{
+  int fd;
+  char buf[32];
+  int64_t size;
+
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > max_size) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  fd = mkstemp (localtmp);
+  if (fd == -1) {
+    perrorf (g, "mkstemp");
+    return -1;
+  }
+
+  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, filename, buf) == -1) {
+    close (fd);
+    unlink (localtmp);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", localtmp);
+    unlink (localtmp);
+    return -1;
+  }
+
+  return 0;
 }
 
 #else /* no PCRE or hivex at compile time */
