@@ -175,6 +175,22 @@ let structs = [
     "part_end", FBytes;
     "part_size", FBytes;
   ];
+
+  (* Application. *)
+  "application", [
+    "app_name", FString;
+    "app_display_name", FString;
+    "app_epoch", FInt32;
+    "app_version", FString;
+    "app_release", FString;
+    "app_install_path", FString;
+    "app_trans_path", FString;
+    "app_publisher", FString;
+    "app_url", FString;
+    "app_source_package", FString;
+    "app_summary", FString;
+    "app_description", FString;
+  ];
 ] (* end of structs *)
 
 (* Ugh, Java has to be different ..
@@ -192,6 +208,7 @@ let java_structs = [
   "xattr", "XAttr";
   "inotify_event", "INotifyEvent";
   "partition", "Partition";
+  "application", "Application";
 ]
 
 let java_name_of_struct typ =

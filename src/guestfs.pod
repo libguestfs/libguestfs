@@ -576,7 +576,9 @@ inspection and caches the results in the guest handle.  Subsequent
 calls to C<guestfs_inspect_get_*> return this cached information, but
 I<do not> re-read the disks.  If you change the content of the guest
 disks, you can redo inspection by calling L</guestfs_inspect_os>
-again.
+again.  (L</guestfs_inspect_list_applications> works a little
+differently from the other calls and does read the disks.  See
+documentation for that function for details).
 
 =head2 SPECIAL CONSIDERATIONS FOR WINDOWS GUESTS
 

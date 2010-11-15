@@ -1458,6 +1458,452 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
   return ret;
 }
 
+static struct guestfs_application_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
+static void add_application (guestfs_h *g, struct guestfs_application_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *install_path, const char *publisher, const char *url, const char *description);
+static void sort_applications (struct guestfs_application_list *);
+
+/* Unlike the simple inspect-get-* calls, this one assumes that the
+ * disks are mounted up, and reads files from the mounted disks.
+ */
+struct guestfs_application_list *
+guestfs__inspect_list_applications (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  struct guestfs_application_list *ret = NULL;
+
+  switch (fs->type) {
+  case OS_TYPE_LINUX:
+    switch (fs->package_format) {
+    case OS_PACKAGE_FORMAT_RPM:
+      ret = list_applications_rpm (g, fs);
+      if (ret == NULL)
+        return NULL;
+      break;
+
+    case OS_PACKAGE_FORMAT_DEB:
+      ret = list_applications_deb (g, fs);
+      if (ret == NULL)
+        return NULL;
+      break;
+
+    case OS_PACKAGE_FORMAT_PACMAN:
+    case OS_PACKAGE_FORMAT_EBUILD:
+    case OS_PACKAGE_FORMAT_PISI:
+    case OS_PACKAGE_FORMAT_UNKNOWN:
+    default:
+      /* nothing - keep GCC happy */;
+    }
+    break;
+
+  case OS_TYPE_WINDOWS:
+    ret = list_applications_windows (g, fs);
+    if (ret == NULL)
+      return NULL;
+    break;
+
+  case OS_TYPE_FREEBSD:
+  case OS_TYPE_UNKNOWN:
+  default:
+      /* nothing - keep GCC happy */;
+  }
+
+  if (ret == NULL) {
+    /* Don't know how to do inspection.  Not an error, return an
+     * empty list.
+     */
+    ret = safe_malloc (g, sizeof *ret);
+    ret->len = 0;
+    ret->val = NULL;
+  }
+
+  sort_applications (ret);
+
+  return ret;
+}
+
+static struct guestfs_application_list *
+list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
+{
+  TMP_TEMPLATE_ON_STACK (tmpfile);
+
+  if (download_to_tmp (g, "/var/lib/rpm/Name", tmpfile, 10000000) == -1)
+    return NULL;
+
+  struct guestfs_application_list *apps = NULL, *ret = NULL;
+#define cmd_len (strlen (tmpfile) + 64)
+  char cmd[cmd_len];
+  FILE *pp = NULL;
+  char line[1024];
+  size_t len;
+
+  snprintf (cmd, cmd_len, "db_dump -p '%s'", tmpfile);
+
+  if (g->verbose)
+    fprintf (stderr, "list_applications_rpm: %s\n", cmd);
+
+  pp = popen (cmd, "r");
+  if (pp == NULL) {
+    perrorf (g, "popen: %s", cmd);
+    goto out;
+  }
+
+  /* Ignore everything to end-of-header marker. */
+  for (;;) {
+    if (fgets (line, sizeof line, pp) == NULL) {
+      error (g, _("unexpected end of output from db_dump command"));
+      goto out;
+    }
+
+    len = strlen (line);
+    if (len > 0 && line[len-1] == '\n') {
+      line[len-1] = '\0';
+      len--;
+    }
+
+    if (STREQ (line, "HEADER=END"))
+      break;
+  }
+
+  /* Allocate 'apps' list. */
+  apps = safe_malloc (g, sizeof *apps);
+  apps->len = 0;
+  apps->val = NULL;
+
+  /* Read alternate lines until end of data marker. */
+  for (;;) {
+    if (fgets (line, sizeof line, pp) == NULL) {
+      error (g, _("unexpected end of output from db_dump command"));
+      goto out;
+    }
+
+    len = strlen (line);
+    if (len > 0 && line[len-1] == '\n') {
+      line[len-1] = '\0';
+      len--;
+    }
+
+    if (STREQ (line, "DATA=END"))
+      break;
+
+    char *p = line;
+    if (len > 0 && line[0] == ' ')
+      p = line+1;
+    /* Ignore any application name that contains non-printable chars.
+     * In the db_dump output these would be escaped with backslash, so
+     * we can just ignore any such line.
+     */
+    if (strchr (p, '\\') == NULL)
+      add_application (g, apps, p, "", 0, "", "", "", "", "", "");
+
+    /* Discard next line. */
+    if (fgets (line, sizeof line, pp) == NULL) {
+      error (g, _("unexpected end of output from db_dump command"));
+      goto out;
+    }
+  }
+
+  /* Catch errors from the db_dump command. */
+  if (pclose (pp) == -1) {
+    perrorf (g, "pclose: %s", cmd);
+    goto out;
+  }
+  pp = NULL;
+
+  ret = apps;
+
+ out:
+  if (ret == NULL && apps != NULL)
+    guestfs_free_application_list (apps);
+  if (pp)
+    pclose (pp);
+  unlink (tmpfile);
+#undef cmd_len
+
+  return ret;
+}
+
+static struct guestfs_application_list *
+list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
+{
+  TMP_TEMPLATE_ON_STACK (tmpfile);
+
+  if (download_to_tmp (g, "/var/lib/dpkg/status", tmpfile, 10000000) == -1)
+    return NULL;
+
+  struct guestfs_application_list *apps = NULL, *ret = NULL;
+  FILE *fp = NULL;
+  char line[1024];
+  size_t len;
+  char *name = NULL, *version = NULL, *release = NULL;
+  int installed_flag = 0;
+
+  fp = fopen (tmpfile, "r");
+  if (fp == NULL) {
+    perrorf (g, "fopen: %s", tmpfile);
+    goto out;
+  }
+
+  /* Allocate 'apps' list. */
+  apps = safe_malloc (g, sizeof *apps);
+  apps->len = 0;
+  apps->val = NULL;
+
+  /* Read the temporary file.  Each package entry is separated by
+   * a blank line.
+   * XXX Strictly speaking this is in mailbox header format, so it
+   * would be possible for fields to spread across multiple lines,
+   * although for the short fields that we are concerned about this is
+   * unlikely and not seen in practice.
+   */
+  while (fgets (line, sizeof line, fp) != NULL) {
+    len = strlen (line);
+    if (len > 0 && line[len-1] == '\n') {
+      line[len-1] = '\0';
+      len--;
+    }
+
+    if (STRPREFIX (line, "Package: ")) {
+      free (name);
+      name = safe_strdup (g, &line[9]);
+    }
+    else if (STRPREFIX (line, "Status: ")) {
+      installed_flag = strstr (&line[8], "installed") != NULL;
+    }
+    else if (STRPREFIX (line, "Version: ")) {
+      free (version);
+      free (release);
+      char *p = strchr (&line[9], '-');
+      if (p) {
+        *p = '\0';
+        version = safe_strdup (g, &line[9]);
+        release = safe_strdup (g, p+1);
+      } else {
+        version = safe_strdup (g, &line[9]);
+        release = NULL;
+      }
+    }
+    else if (STREQ (line, "")) {
+      if (installed_flag && name && version)
+        add_application (g, apps, name, "", 0, version, release ? : "",
+                         "", "", "", "");
+      free (name);
+      free (version);
+      free (release);
+      name = version = release = NULL;
+      installed_flag = 0;
+    }
+  }
+
+  if (fclose (fp) == -1) {
+    perrorf (g, "fclose: %s", tmpfile);
+    goto out;
+  }
+  fp = NULL;
+
+  ret = apps;
+
+ out:
+  if (ret == NULL && apps != NULL)
+    guestfs_free_application_list (apps);
+  if (fp)
+    fclose (fp);
+  free (name);
+  free (version);
+  free (release);
+  unlink (tmpfile);
+  return ret;
+}
+
+/* XXX We already download the SOFTWARE hive when doing general
+ * inspection.  We could avoid this second download of the same file
+ * by caching these entries in the handle.
+ */
+static struct guestfs_application_list *
+list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
+{
+  TMP_TEMPLATE_ON_STACK (software_local);
+
+  size_t len = strlen (fs->windows_systemroot) + 64;
+  char software[len];
+  snprintf (software, len, "%s/system32/config/software",
+            fs->windows_systemroot);
+
+  char *software_path = resolve_windows_path_silently (g, software);
+  if (!software_path)
+    /* If the software hive doesn't exist, just accept that we cannot
+     * find product_name etc.
+     */
+    return 0;
+
+  struct guestfs_application_list *apps = NULL, *ret = NULL;
+  hive_h *h = NULL;
+  hive_node_h *children = NULL;
+
+  if (download_to_tmp (g, software_path, software_local, 100000000) == -1)
+    goto out;
+
+  h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  if (h == NULL) {
+    perrorf (g, "hivex_open");
+    goto out;
+  }
+
+  hive_node_h node = hivex_root (h);
+  const char *hivepath[] =
+    { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
+  size_t i;
+  for (i = 0;
+       node != 0 && i < sizeof hivepath / sizeof hivepath[0];
+       ++i) {
+    node = hivex_node_get_child (h, node, hivepath[i]);
+  }
+
+  if (node == 0) {
+    perrorf (g, "hivex: cannot locate HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall");
+    goto out;
+  }
+
+  children = hivex_node_children (h, node);
+  if (children == NULL) {
+    perrorf (g, "hivex_node_children");
+    goto out;
+  }
+
+  /* Allocate 'apps' list. */
+  apps = safe_malloc (g, sizeof *apps);
+  apps->len = 0;
+  apps->val = NULL;
+
+  /* Consider any child node that has a DisplayName key.
+   * See also:
+   * http://nsis.sourceforge.net/Add_uninstall_information_to_Add/Remove_Programs#Optional_values
+   */
+  for (i = 0; children[i] != 0; ++i) {
+    hive_value_h value;
+    char *name = NULL;
+    char *display_name = NULL;
+    char *version = NULL;
+    char *install_path = NULL;
+    char *publisher = NULL;
+    char *url = NULL;
+    char *comments = NULL;
+
+    /* Use the node name as a proxy for the package name in Linux.  The
+     * display name is not language-independent, so it cannot be used.
+     */
+    name = hivex_node_name (h, children[i]);
+    if (name == NULL) {
+      perrorf (g, "hivex_node_get_name");
+      goto out;
+    }
+
+    value = hivex_node_get_value (h, children[i], "DisplayName");
+    if (value) {
+      display_name = hivex_value_string (h, value);
+      if (display_name) {
+        value = hivex_node_get_value (h, children[i], "DisplayVersion");
+        if (value)
+          version = hivex_value_string (h, value);
+        value = hivex_node_get_value (h, children[i], "InstallLocation");
+        if (value)
+          install_path = hivex_value_string (h, value);
+        value = hivex_node_get_value (h, children[i], "Publisher");
+        if (value)
+          publisher = hivex_value_string (h, value);
+        value = hivex_node_get_value (h, children[i], "URLInfoAbout");
+        if (value)
+          url = hivex_value_string (h, value);
+        value = hivex_node_get_value (h, children[i], "Comments");
+        if (value)
+          comments = hivex_value_string (h, value);
+
+        add_application (g, apps, name, display_name, 0,
+                         version ? : "",
+                         "",
+                         install_path ? : "",
+                         publisher ? : "",
+                         url ? : "",
+                         comments ? : "");
+      }
+    }
+
+    free (name);
+    free (display_name);
+    free (version);
+    free (install_path);
+    free (publisher);
+    free (url);
+    free (comments);
+  }
+
+  ret = apps;
+
+ out:
+  if (ret == NULL && apps != NULL)
+    guestfs_free_application_list (apps);
+  if (h) hivex_close (h);
+  free (children);
+  free (software_path);
+
+  /* Free up the temporary file. */
+  unlink (software_local);
+#undef software_local_len
+
+  return ret;
+}
+
+static void
+add_application (guestfs_h *g, struct guestfs_application_list *apps,
+                 const char *name, const char *display_name, int32_t epoch,
+                 const char *version, const char *release,
+                 const char *install_path,
+                 const char *publisher, const char *url,
+                 const char *description)
+{
+  apps->len++;
+  apps->val = safe_realloc (g, apps->val,
+                            apps->len * sizeof (struct guestfs_application));
+  apps->val[apps->len-1].app_name = safe_strdup (g, name);
+  apps->val[apps->len-1].app_display_name = safe_strdup (g, display_name);
+  apps->val[apps->len-1].app_epoch = epoch;
+  apps->val[apps->len-1].app_version = safe_strdup (g, version);
+  apps->val[apps->len-1].app_release = safe_strdup (g, release);
+  apps->val[apps->len-1].app_install_path = safe_strdup (g, install_path);
+  /* XXX Translated path is not implemented yet. */
+  apps->val[apps->len-1].app_trans_path = safe_strdup (g, "");
+  apps->val[apps->len-1].app_publisher = safe_strdup (g, publisher);
+  apps->val[apps->len-1].app_url = safe_strdup (g, url);
+  /* XXX The next two are not yet implemented for any package
+   * format, but we could easily support them for rpm and deb.
+   */
+  apps->val[apps->len-1].app_source_package = safe_strdup (g, "");
+  apps->val[apps->len-1].app_summary = safe_strdup (g, "");
+  apps->val[apps->len-1].app_description = safe_strdup (g, description);
+}
+
+/* Sort applications by name before returning the list. */
+static int
+compare_applications (const void *vp1, const void *vp2)
+{
+  const struct guestfs_application *v1 = vp1;
+  const struct guestfs_application *v2 = vp2;
+
+  return strcmp (v1->app_name, v2->app_name);
+}
+
+static void
+sort_applications (struct guestfs_application_list *apps)
+{
+  if (apps && apps->val)
+    qsort (apps->val, apps->len, sizeof (struct guestfs_application),
+           compare_applications);
+}
+
 /* Download to a guest file to a local temporary file.  Refuse to
  * download the guest file if it is larger than max_size.  The caller
  * is responsible for deleting the temporary file after use.
@@ -1585,6 +2031,12 @@ guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
 
 char *
 guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+struct guestfs_application_list *
+guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 {
   NOT_IMPL(NULL);
 }
