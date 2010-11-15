@@ -789,7 +789,7 @@ Arch Linux.
 
 =item \"debian\"
 
-Debian or a Debian-derived distro such as Ubuntu.
+Debian.
 
 =item \"fedora\"
 
