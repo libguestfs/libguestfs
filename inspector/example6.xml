@@ -3,10 +3,12 @@
     <root>/dev/sda1</root>
     <name>linux</name>
     <arch>x86_64</arch>
-    <distro>debian</distro>
-    <product_name>squeeze/sid</product_name>
-    <major_version>0</major_version>
-    <minor_version>0</minor_version>
+    <distro>ubuntu</distro>
+    <product_name>Ubuntu 10.10</product_name>
+    <major_version>10</major_version>
+    <minor_version>10</minor_version>
+    <package_format>deb</package_format>
+    <package_management>apt</package_management>
     <mountpoints>
       <mountpoint dev="/dev/sda1">/</mountpoint>
     </mountpoints>
@@ -20,13 +22,19 @@
         <uuid>c0d1b68f-c0f9-4497-a366-938b37532613</uuid>
       </filesystem>
     </filesystems>
-    <package_format>deb</package_format>
-    <package_management>apt</package_management>
     <applications>
+      <application>
+        <name>acpi-support</name>
+        <version>0.137</version>
+      </application>
       <application>
         <name>acpid</name>
         <version>1.0.10</version>
         <release>5ubuntu4</release>
+      </application>
+      <application>
+        <name>adduser</name>
+        <version>3.112ubuntu1</version>
       </application>
       <application>
         <name>adium-theme-ubuntu</name>
@@ -59,6 +67,14 @@
         <release>14ubuntu1</release>
       </application>
       <application>
+        <name>app-install-data</name>
+        <version>0.10.10.6</version>
+      </application>
+      <application>
+        <name>app-install-data-partner</name>
+        <version>12.10.10.2</version>
+      </application>
+      <application>
         <name>apparmor</name>
         <version>2.5.1~rc1</version>
         <release>0ubuntu2</release>
@@ -79,9 +95,37 @@
         <release>0ubuntu8</release>
       </application>
       <application>
+        <name>apport-symptoms</name>
+        <version>0.9</version>
+      </application>
+      <application>
+        <name>apt</name>
+        <version>0.8.3ubuntu7</version>
+      </application>
+      <application>
+        <name>apt-transport-https</name>
+        <version>0.8.3ubuntu7</version>
+      </application>
+      <application>
+        <name>apt-utils</name>
+        <version>0.8.3ubuntu7</version>
+      </application>
+      <application>
+        <name>apt-xapian-index</name>
+        <version>0.39ubuntu1</version>
+      </application>
+      <application>
         <name>aptdaemon</name>
         <version>0.31+bzr506</version>
         <release>0ubuntu2</release>
+      </application>
+      <application>
+        <name>apturl</name>
+        <version>0.4.1ubuntu7</version>
+      </application>
+      <application>
+        <name>apturl-common</name>
+        <version>0.4.1ubuntu7</version>
       </application>
       <application>
         <name>aspell</name>
@@ -124,6 +168,14 @@
         <release>0ubuntu1</release>
       </application>
       <application>
+        <name>base-files</name>
+        <version>5.0.0ubuntu23</version>
+      </application>
+      <application>
+        <name>base-passwd</name>
+        <version>3.5.22</version>
+      </application>
+      <application>
         <name>bash</name>
         <version>4.1</version>
         <release>2ubuntu4</release>
@@ -147,6 +199,10 @@
         <name>bind9-host</name>
         <version>1:9.7.1.dfsg.P2</version>
         <release>2</release>
+      </application>
+      <application>
+        <name>binfmt-support</name>
+        <version>1.2.18</version>
       </application>
       <application>
         <name>binutils</name>
@@ -219,6 +275,10 @@
         <release>3ubuntu1</release>
       </application>
       <application>
+        <name>bsdmainutils</name>
+        <version>8.0.11ubuntu1</version>
+      </application>
+      <application>
         <name>bsdutils</name>
         <version>1:2.17.2</version>
         <release>0ubuntu1</release>
@@ -244,9 +304,33 @@
         <release>4ubuntu1</release>
       </application>
       <application>
+        <name>ca-certificates</name>
+        <version>20090814</version>
+      </application>
+      <application>
         <name>capplets-data</name>
         <version>1:2.32.0</version>
         <release>0ubuntu2</release>
+      </application>
+      <application>
+        <name>checkbox</name>
+        <version>0.10.3</version>
+      </application>
+      <application>
+        <name>checkbox-gtk</name>
+        <version>0.10.3</version>
+      </application>
+      <application>
+        <name>cli-common</name>
+        <version>0.7.1</version>
+      </application>
+      <application>
+        <name>command-not-found</name>
+        <version>0.2.40ubuntu15</version>
+      </application>
+      <application>
+        <name>command-not-found-data</name>
+        <version>0.2.40ubuntu15</version>
       </application>
       <application>
         <name>compiz</name>
@@ -287,6 +371,10 @@
         <name>computer-janitor-gtk</name>
         <version>2.0.4</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>console-setup</name>
+        <version>1.34ubuntu15</version>
       </application>
       <application>
         <name>console-terminus</name>
@@ -379,6 +467,22 @@
         <release>2</release>
       </application>
       <application>
+        <name>debconf</name>
+        <version>1.5.32ubuntu3</version>
+      </application>
+      <application>
+        <name>debconf-i18n</name>
+        <version>1.5.32ubuntu3</version>
+      </application>
+      <application>
+        <name>debianutils</name>
+        <version>3.2.3</version>
+      </application>
+      <application>
+        <name>defoma</name>
+        <version>0.11.11ubuntu1</version>
+      </application>
+      <application>
         <name>desktop-file-utils</name>
         <version>0.16</version>
         <release>0ubuntu4</release>
@@ -399,6 +503,10 @@
         <release>2ubuntu6</release>
       </application>
       <application>
+        <name>dictionaries-common</name>
+        <version>1.5.11ubuntu1</version>
+      </application>
+      <application>
         <name>diffutils</name>
         <version>1:3.0</version>
         <release>1</release>
@@ -414,6 +522,10 @@
         <release>1ubuntu6</release>
       </application>
       <application>
+        <name>dmz-cursor-theme</name>
+        <version>0.4.1</version>
+      </application>
+      <application>
         <name>dnsmasq-base</name>
         <version>2.55</version>
         <release>1</release>
@@ -424,6 +536,10 @@
         <release>2</release>
       </application>
       <application>
+        <name>doc-base</name>
+        <version>0.9.5</version>
+      </application>
+      <application>
         <name>docbook-xml</name>
         <version>4.5</version>
         <release>7</release>
@@ -432,6 +548,10 @@
         <name>dosfstools</name>
         <version>3.0.9</version>
         <release>1</release>
+      </application>
+      <application>
+        <name>dpkg</name>
+        <version>1.15.8.4ubuntu3</version>
       </application>
       <application>
         <name>dvd+rw-tools</name>
@@ -584,6 +704,10 @@
         <release>1</release>
       </application>
       <application>
+        <name>example-content</name>
+        <version>43</version>
+      </application>
+      <application>
         <name>exiv2</name>
         <version>0.19</version>
         <release>3</release>
@@ -657,6 +781,10 @@
         <name>foomatic-filters</name>
         <version>4.0.5</version>
         <release>0ubuntu3</release>
+      </application>
+      <application>
+        <name>friendly-recovery</name>
+        <version>0.2.10</version>
       </application>
       <application>
         <name>ftp</name>
@@ -734,6 +862,10 @@
         <release>0ubuntu4</release>
       </application>
       <application>
+        <name>gdm-guest-session</name>
+        <version>0.16</version>
+      </application>
+      <application>
         <name>gedit</name>
         <version>2.30.3</version>
         <release>1ubuntu1</release>
@@ -807,6 +939,10 @@
         <name>gnome-bluetooth</name>
         <version>2.32.0</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>gnome-codec-install</name>
+        <version>0.4.7ubuntu2</version>
       </application>
       <application>
         <name>gnome-control-center</name>
@@ -979,6 +1115,18 @@
         <release>0ubuntu1</release>
       </application>
       <application>
+        <name>gnome-themes-ubuntu</name>
+        <version>0.6.1</version>
+      </application>
+      <application>
+        <name>gnome-user-guide</name>
+        <version>2.30.0+git20100403ubuntu2</version>
+      </application>
+      <application>
+        <name>gnome-user-guide-en</name>
+        <version>2.30.0+git20100403ubuntu2</version>
+      </application>
+      <application>
         <name>gnome-utils</name>
         <version>2.31.1</version>
         <release>0ubuntu1</release>
@@ -1139,6 +1287,10 @@
         <release>1</release>
       </application>
       <application>
+        <name>hostname</name>
+        <version>3.04ubuntu1</version>
+      </application>
+      <application>
         <name>hpijs</name>
         <version>3.10.6</version>
         <release>1ubuntu10</release>
@@ -1157,6 +1309,10 @@
         <name>hplip-data</name>
         <version>3.10.6</version>
         <release>1ubuntu10</release>
+      </application>
+      <application>
+        <name>humanity-icon-theme</name>
+        <version>0.5.3.2</version>
       </application>
       <application>
         <name>hunspell-en-ca</name>
@@ -1199,6 +1355,14 @@
         <release>1</release>
       </application>
       <application>
+        <name>ifupdown</name>
+        <version>0.6.10ubuntu3</version>
+      </application>
+      <application>
+        <name>im-switch</name>
+        <version>1.20ubuntu2</version>
+      </application>
+      <application>
         <name>indicator-applet</name>
         <version>0.4.6</version>
         <release>0ubuntu1</release>
@@ -1237,6 +1401,14 @@
         <name>info</name>
         <version>4.13a.dfsg.1</version>
         <release>5ubuntu1</release>
+      </application>
+      <application>
+        <name>initramfs-tools</name>
+        <version>0.98.1ubuntu6</version>
+      </application>
+      <application>
+        <name>initramfs-tools-bin</name>
+        <version>0.98.1ubuntu6</version>
       </application>
       <application>
         <name>initscripts</name>
@@ -1322,6 +1494,46 @@
         <name>klibc-utils</name>
         <version>1.5.20</version>
         <release>1</release>
+      </application>
+      <application>
+        <name>language-pack-en</name>
+        <version>1:10.10+20100930</version>
+      </application>
+      <application>
+        <name>language-pack-en-base</name>
+        <version>1:10.10+20100930</version>
+      </application>
+      <application>
+        <name>language-pack-gnome-en</name>
+        <version>1:10.10+20100930</version>
+      </application>
+      <application>
+        <name>language-pack-gnome-en-base</name>
+        <version>1:10.10+20100930</version>
+      </application>
+      <application>
+        <name>language-selector</name>
+        <version>0.6.6</version>
+      </application>
+      <application>
+        <name>language-selector-common</name>
+        <version>0.6.6</version>
+      </application>
+      <application>
+        <name>language-support-en</name>
+        <version>1:9.10+20090909</version>
+      </application>
+      <application>
+        <name>language-support-writing-en</name>
+        <version>1:10.04+20100311</version>
+      </application>
+      <application>
+        <name>laptop-detect</name>
+        <version>0.13.7ubuntu2</version>
+      </application>
+      <application>
+        <name>launchpad-integration</name>
+        <version>0.1.38</version>
       </application>
       <application>
         <name>less</name>
@@ -1877,6 +2089,10 @@
         <name>libenchant1c2a</name>
         <version>1.6.0</version>
         <release>1</release>
+      </application>
+      <application>
+        <name>libept1</name>
+        <version>1.0.3</version>
       </application>
       <application>
         <name>libespeak1</name>
@@ -2714,6 +2930,14 @@
         <release>5ubuntu0.1</release>
       </application>
       <application>
+        <name>liblaunchpad-integration1</name>
+        <version>0.1.38</version>
+      </application>
+      <application>
+        <name>liblaunchpad-integration1.0-cil</name>
+        <version>0.1.38</version>
+      </application>
+      <application>
         <name>liblcms1</name>
         <version>1.18.dfsg</version>
         <release>1ubuntu2</release>
@@ -3062,6 +3286,14 @@
         <name>libpangomm-1.4-1</name>
         <version>2.26.2</version>
         <release>1</release>
+      </application>
+      <application>
+        <name>libpaper-utils</name>
+        <version>1.1.24</version>
+      </application>
+      <application>
+        <name>libpaper1</name>
+        <version>1.1.24</version>
       </application>
       <application>
         <name>libparted0debian1</name>
@@ -3939,6 +4171,18 @@
         <release>1</release>
       </application>
       <application>
+        <name>light-themes</name>
+        <version>0.1.8.2</version>
+      </application>
+      <application>
+        <name>linux-firmware</name>
+        <version>1.38</version>
+      </application>
+      <application>
+        <name>linux-generic</name>
+        <version>2.6.35.22.23</version>
+      </application>
+      <application>
         <name>linux-headers-2.6.35-22</name>
         <version>2.6.35</version>
         <release>22.33</release>
@@ -3949,9 +4193,17 @@
         <release>22.33</release>
       </application>
       <application>
+        <name>linux-headers-generic</name>
+        <version>2.6.35.22.23</version>
+      </application>
+      <application>
         <name>linux-image-2.6.35-22-generic</name>
         <version>2.6.35</version>
         <release>22.33</release>
+      </application>
+      <application>
+        <name>linux-image-generic</name>
+        <version>2.6.35.22.23</version>
       </application>
       <application>
         <name>linux-libc-dev</name>
@@ -3977,6 +4229,10 @@
         <name>locales</name>
         <version>2.13+git20100825</version>
         <release>1</release>
+      </application>
+      <application>
+        <name>lockfile-progs</name>
+        <version>0.1.15</version>
       </application>
       <application>
         <name>login</name>
@@ -4134,6 +4390,10 @@
         <release>0ubuntu1</release>
       </application>
       <application>
+        <name>mountall</name>
+        <version>2.19</version>
+      </application>
+      <application>
         <name>mousetweaks</name>
         <version>2.32.0</version>
         <release>0ubuntu1</release>
@@ -4214,6 +4474,10 @@
         <release>23ubuntu3</release>
       </application>
       <application>
+        <name>netbase</name>
+        <version>4.35ubuntu3</version>
+      </application>
+      <application>
         <name>netcat-openbsd</name>
         <version>1.89</version>
         <release>3ubuntu2</release>
@@ -4244,6 +4508,10 @@
         <release>0ubuntu3</release>
       </application>
       <application>
+        <name>notify-osd-icons</name>
+        <version>0.6</version>
+      </application>
+      <application>
         <name>ntfs-3g</name>
         <version>1:2010.8.8</version>
         <release>0ubuntu1</release>
@@ -4267,6 +4535,10 @@
         <name>nvidia-96-modaliases</name>
         <version>96.43.18</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>nvidia-common</name>
+        <version>0.2.24</version>
       </application>
       <application>
         <name>nvidia-current-modaliases</name>
@@ -4339,6 +4611,10 @@
         <release>6ubuntu1</release>
       </application>
       <application>
+        <name>openoffice.org-hyphenation</name>
+        <version>0.6</version>
+      </application>
+      <application>
         <name>openoffice.org-hyphenation-en-us</name>
         <version>2.5</version>
         <release>1ubuntu1</release>
@@ -4402,6 +4678,10 @@
         <name>openssl</name>
         <version>0.9.8o</version>
         <release>1ubuntu4.1</release>
+      </application>
+      <application>
+        <name>os-prober</name>
+        <version>1.39</version>
       </application>
       <application>
         <name>parted</name>
@@ -4489,14 +4769,34 @@
         <release>2ubuntu4</release>
       </application>
       <application>
+        <name>policykit-desktop-privileges</name>
+        <version>0.2</version>
+      </application>
+      <application>
         <name>poppler-utils</name>
         <version>0.14.3</version>
         <release>0ubuntu1</release>
       </application>
       <application>
+        <name>popularity-contest</name>
+        <version>1.48ubuntu1</version>
+      </application>
+      <application>
+        <name>powermgmt-base</name>
+        <version>1.31</version>
+      </application>
+      <application>
         <name>ppp</name>
         <version>2.4.5~git20081126t100229</version>
         <release>0ubuntu4</release>
+      </application>
+      <application>
+        <name>pppconfig</name>
+        <version>2.3.18ubuntu2</version>
+      </application>
+      <application>
+        <name>pppoeconf</name>
+        <version>1.19ubuntu1</version>
       </application>
       <application>
         <name>pptp-linux</name>
@@ -4569,6 +4869,10 @@
         <release>0ubuntu8</release>
       </application>
       <application>
+        <name>python-apt</name>
+        <version>0.7.96.1ubuntu11</version>
+      </application>
+      <application>
         <name>python-aptdaemon</name>
         <version>0.31+bzr506</version>
         <release>0ubuntu2</release>
@@ -4599,6 +4903,10 @@
         <release>1</release>
       </application>
       <application>
+        <name>python-central</name>
+        <version>0.6.15ubuntu2</version>
+      </application>
+      <application>
         <name>python-configglue</name>
         <version>0.9pre1</version>
         <release>0ubuntu1</release>
@@ -4627,6 +4935,10 @@
         <name>python-dbus</name>
         <version>0.83.0</version>
         <release>1ubuntu3</release>
+      </application>
+      <application>
+        <name>python-debian</name>
+        <version>0.1.16ubuntu1</version>
       </application>
       <application>
         <name>python-desktopcouch-records</name>
@@ -4742,6 +5054,10 @@
         <name>python-indicate</name>
         <version>0.4.4</version>
         <release>0ubuntu2</release>
+      </application>
+      <application>
+        <name>python-launchpad-integration</name>
+        <version>0.1.38</version>
       </application>
       <application>
         <name>python-launchpadlib</name>
@@ -4884,9 +5200,17 @@
         <release>0ubuntu1</release>
       </application>
       <application>
+        <name>python-software-properties</name>
+        <version>0.76.7</version>
+      </application>
+      <application>
         <name>python-speechd</name>
         <version>0.7</version>
         <release>5ubuntu3</release>
+      </application>
+      <application>
+        <name>python-support</name>
+        <version>1.0.9ubuntu1</version>
       </application>
       <application>
         <name>python-telepathy</name>
@@ -4967,6 +5291,10 @@
         <name>python-xdg</name>
         <version>0.19</version>
         <release>2ubuntu1</release>
+      </application>
+      <application>
+        <name>python-xkit</name>
+        <version>0.4.2.2</version>
       </application>
       <application>
         <name>python-zope.interface</name>
@@ -5064,6 +5392,10 @@
         <release>14ubuntu4</release>
       </application>
       <application>
+        <name>screen-resolution-extra</name>
+        <version>0.14</version>
+      </application>
+      <application>
         <name>screensaver-default-images</name>
         <version>0.2</version>
         <release>1</release>
@@ -5079,9 +5411,21 @@
         <release>7</release>
       </application>
       <application>
+        <name>sensible-utils</name>
+        <version>0.0.4ubuntu1</version>
+      </application>
+      <application>
         <name>sessioninstaller</name>
         <version>0.20+bzr115</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>sgml-base</name>
+        <version>1.26</version>
+      </application>
+      <application>
+        <name>sgml-data</name>
+        <version>2.0.4</version>
       </application>
       <application>
         <name>shared-mime-info</name>
@@ -5104,6 +5448,14 @@
         <release>1ubuntu8</release>
       </application>
       <application>
+        <name>software-center</name>
+        <version>3.0.4</version>
+      </application>
+      <application>
+        <name>software-properties-gtk</name>
+        <version>0.76.7</version>
+      </application>
+      <application>
         <name>speech-dispatcher</name>
         <version>0.7</version>
         <release>5ubuntu3</release>
@@ -5119,6 +5471,10 @@
         <release>4ubuntu4</release>
       </application>
       <application>
+        <name>ssl-cert</name>
+        <version>1.0.26</version>
+      </application>
+      <application>
         <name>strace</name>
         <version>4.5.20</version>
         <release>2ubuntu2</release>
@@ -5127,6 +5483,10 @@
         <name>sudo</name>
         <version>1.7.2p7</version>
         <release>1ubuntu2</release>
+      </application>
+      <application>
+        <name>synaptic</name>
+        <version>0.63.1ubuntu14</version>
       </application>
       <application>
         <name>syslinux</name>
@@ -5294,6 +5654,10 @@
         <release>7</release>
       </application>
       <application>
+        <name>ttf-indic-fonts-core</name>
+        <version>1:0.5.10ubuntu1</version>
+      </application>
+      <application>
         <name>ttf-kacst-one</name>
         <version>3.0</version>
         <release>1ubuntu2</release>
@@ -5317,6 +5681,10 @@
         <name>ttf-opensymbol</name>
         <version>1:3.2.1</version>
         <release>7ubuntu1</release>
+      </application>
+      <application>
+        <name>ttf-punjabi-fonts</name>
+        <version>1:0.5.10ubuntu1</version>
       </application>
       <application>
         <name>ttf-takao-pgothic</name>
@@ -5354,9 +5722,53 @@
         <release>0ubuntu5</release>
       </application>
       <application>
+        <name>ubuntu-artwork</name>
+        <version>53.8</version>
+      </application>
+      <application>
+        <name>ubuntu-desktop</name>
+        <version>1.207</version>
+      </application>
+      <application>
+        <name>ubuntu-docs</name>
+        <version>10.10.3</version>
+      </application>
+      <application>
+        <name>ubuntu-extras-keyring</name>
+        <version>2010.09.27</version>
+      </application>
+      <application>
+        <name>ubuntu-keyring</name>
+        <version>2010.+09.30</version>
+      </application>
+      <application>
+        <name>ubuntu-minimal</name>
+        <version>1.207</version>
+      </application>
+      <application>
+        <name>ubuntu-mono</name>
+        <version>0.0.22</version>
+      </application>
+      <application>
+        <name>ubuntu-sounds</name>
+        <version>0.12</version>
+      </application>
+      <application>
         <name>ubuntu-sso-client</name>
         <version>1.0.3</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>ubuntu-standard</name>
+        <version>1.207</version>
+      </application>
+      <application>
+        <name>ubuntu-system-service</name>
+        <version>0.1.20.1</version>
+      </application>
+      <application>
+        <name>ubuntu-wallpapers</name>
+        <version>0.31.6</version>
       </application>
       <application>
         <name>ubuntuone-client</name>
@@ -5367,6 +5779,10 @@
         <name>ubuntuone-client-gnome</name>
         <version>1.4.4.1</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>ucf</name>
+        <version>3.0025</version>
       </application>
       <application>
         <name>udev</name>
@@ -5384,6 +5800,10 @@
         <release>1ubuntu2</release>
       </application>
       <application>
+        <name>unattended-upgrades</name>
+        <version>0.62ubuntu1</version>
+      </application>
+      <application>
         <name>uno-libs3</name>
         <version>1.6.1+OOo3.2.1</version>
         <release>7ubuntu1</release>
@@ -5392,6 +5812,26 @@
         <name>unzip</name>
         <version>6.0</version>
         <release>4</release>
+      </application>
+      <application>
+        <name>update-inetd</name>
+        <version>4.36</version>
+      </application>
+      <application>
+        <name>update-manager</name>
+        <version>1:0.142.19</version>
+      </application>
+      <application>
+        <name>update-manager-core</name>
+        <version>1:0.142.19</version>
+      </application>
+      <application>
+        <name>update-notifier</name>
+        <version>0.105ubuntu1</version>
+      </application>
+      <application>
+        <name>update-notifier-common</name>
+        <version>0.105ubuntu1</version>
       </application>
       <application>
         <name>upower</name>
@@ -5412,6 +5852,14 @@
         <name>ureadahead</name>
         <version>0.100.0</version>
         <release>8</release>
+      </application>
+      <application>
+        <name>usb-creator-common</name>
+        <version>0.2.25</version>
+      </application>
+      <application>
+        <name>usb-creator-gtk</name>
+        <version>0.2.25</version>
       </application>
       <application>
         <name>usb-modeswitch</name>
@@ -5494,6 +5942,14 @@
         <release>1</release>
       </application>
       <application>
+        <name>whois</name>
+        <version>5.0.7ubuntu1</version>
+      </application>
+      <application>
+        <name>wireless-crda</name>
+        <version>1.12</version>
+      </application>
+      <application>
         <name>wireless-tools</name>
         <version>30~pre9</version>
         <release>3ubuntu4</release>
@@ -5507,6 +5963,38 @@
         <name>wpasupplicant</name>
         <version>0.6.10</version>
         <release>2</release>
+      </application>
+      <application>
+        <name>x-ttcidfont-conf</name>
+        <version>32</version>
+      </application>
+      <application>
+        <name>x11-apps</name>
+        <version>7.5+5</version>
+      </application>
+      <application>
+        <name>x11-common</name>
+        <version>1:7.5+6ubuntu3</version>
+      </application>
+      <application>
+        <name>x11-session-utils</name>
+        <version>7.5+1</version>
+      </application>
+      <application>
+        <name>x11-utils</name>
+        <version>7.5+4</version>
+      </application>
+      <application>
+        <name>x11-xfs-utils</name>
+        <version>7.4+1build2</version>
+      </application>
+      <application>
+        <name>x11-xkb-utils</name>
+        <version>7.5+5</version>
+      </application>
+      <application>
+        <name>x11-xserver-utils</name>
+        <version>7.5+2ubuntu1</version>
       </application>
       <application>
         <name>xauth</name>
@@ -5539,14 +6027,34 @@
         <release>1</release>
       </application>
       <application>
+        <name>xfonts-100dpi</name>
+        <version>1:1.0.1</version>
+      </application>
+      <application>
+        <name>xfonts-75dpi</name>
+        <version>1:1.0.1</version>
+      </application>
+      <application>
+        <name>xfonts-base</name>
+        <version>1:1.0.1</version>
+      </application>
+      <application>
         <name>xfonts-encodings</name>
         <version>1:1.0.3</version>
         <release>1</release>
       </application>
       <application>
+        <name>xfonts-mathml</name>
+        <version>4ubuntu1</version>
+      </application>
+      <application>
         <name>xfonts-scalable</name>
         <version>1:1.0.1</version>
         <release>1</release>
+      </application>
+      <application>
+        <name>xfonts-utils</name>
+        <version>1:7.5+2</version>
       </application>
       <application>
         <name>xinit</name>
@@ -5562,6 +6070,14 @@
         <name>xkb-data</name>
         <version>1.8</version>
         <release>1ubuntu8</release>
+      </application>
+      <application>
+        <name>xml-core</name>
+        <version>0.13</version>
+      </application>
+      <application>
+        <name>xorg</name>
+        <version>1:7.5+6ubuntu3</version>
       </application>
       <application>
         <name>xorg-docs-core</name>
@@ -5584,9 +6100,17 @@
         <release>0ubuntu7</release>
       </application>
       <application>
+        <name>xserver-xorg</name>
+        <version>1:7.5+6ubuntu3</version>
+      </application>
+      <application>
         <name>xserver-xorg-core</name>
         <version>2:1.9.0</version>
         <release>0ubuntu7</release>
+      </application>
+      <application>
+        <name>xserver-xorg-input-all</name>
+        <version>1:7.5+6ubuntu3</version>
       </application>
       <application>
         <name>xserver-xorg-input-evdev</name>
@@ -5612,6 +6136,10 @@
         <name>xserver-xorg-input-wacom</name>
         <version>1:0.10.8</version>
         <release>0ubuntu1</release>
+      </application>
+      <application>
+        <name>xserver-xorg-video-all</name>
+        <version>1:7.5+6ubuntu3</version>
       </application>
       <application>
         <name>xserver-xorg-video-apm</name>

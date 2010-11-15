@@ -189,6 +189,8 @@ $xml->startTag ("operatingsystems");
 
 my $root;
 foreach $root (@roots) {
+    # Note that output_applications requires the filesystems
+    # to be mounted up.
     my %fses = $g->inspect_get_mountpoints ($root);
     my @fses = sort { length $a <=> length $b } keys %fses;
     foreach (@fses) {
@@ -213,6 +215,10 @@ foreach $root (@roots) {
     $xml->dataElement (major_version => $s);
     $s = $g->inspect_get_minor_version ($root);
     $xml->dataElement (minor_version => $s);
+    $s = $g->inspect_get_package_format ($root);
+    $xml->dataElement (package_format => $s) if $s ne "unknown";
+    $s = $g->inspect_get_package_management ($root);
+    $xml->dataElement (package_management => $s) if $s ne "unknown";
 
     eval {
         $s = $g->inspect_get_windows_systemroot ($root);
@@ -361,8 +367,9 @@ installed.
          <release>1</release>
        </application>
 
-(The version and release fields may not be available for
-some package types).
+The version and release fields may not be available for some types
+guests.  Other fields are possible, see
+L<guestfs(3)/guestfs_inspect_list_applications>.
 
 =cut
 
@@ -371,124 +378,33 @@ sub output_applications
     local $_;
     my $root = shift;
 
-    # Based on the distro, take a guess at the package format
-    # and package management.
-    my ($package_format, $package_management);
-    $package_format = $g->inspect_get_package_format ($root);
-    $package_management = $g->inspect_get_package_management ($root);
+    my @apps = $g->inspect_list_applications ($root);
 
-    $xml->dataElement (package_format => $package_format)
-        if $package_format ne "unknown";
-    $xml->dataElement (package_management => $package_management)
-        if $package_management ne "unknown";
-
-    # Do we know how to get a list of applications?
-    if ($package_format eq "rpm") {
-        output_applications_rpm ($root);
-    }
-    elsif ($package_format eq "deb") {
-        output_applications_deb ($root);
-    }
-}
-
-sub output_applications_rpm
-{
-    local $_;
-    my $root = shift;
-
-    # Previous virt-inspector ran the 'rpm' program from the guest.
-    # This is insecure, and unnecessary because we can get the same
-    # information directly from the RPM database.
-
-    my @applications;
-
-    eval {
-        my ($fh, $filename) = tempfile (UNLINK => 1);
-        my $fddev = "/dev/fd/" . fileno ($fh);
-        $g->download ("/var/lib/rpm/Name", $fddev);
-        close $fh or die "close: $!";
-
-        # Read the database with the Berkeley DB dump tool.
-        my $cmd = "db_dump -p '$filename'";
-        open PIPE, "$cmd |" or die "close: $!";
-        while (<PIPE>) {
-            chomp;
-            last if /^HEADER=END$/;
-        }
-        while (<PIPE>) {
-            chomp;
-            last if /^DATA=END$/;
-
-            # First character on each data line is a space.
-            if (length $_ > 0 && substr ($_, 0, 1) eq ' ') {
-                $_ = substr ($_, 1);
-            }
-            # Name should never contain non-printable chars.
-            die "name contains non-printable chars" if /\\/;
-            push @applications, $_;
-
-            $_ = <PIPE>; # discard value
-        }
-        close PIPE or die "close: $!";
-    };
-    if (!$@ && @applications > 0) {
-        @applications = sort @applications;
+    if (@apps) {
         $xml->startTag ("applications");
-        foreach (@applications) {
+        foreach (@apps) {
             $xml->startTag ("application");
-            $xml->dataElement (name => $_);
-            $xml->endTag ("application");
-        }
-        $xml->endTag ("applications");
-    }
-}
-
-sub output_applications_deb
-{
-    local $_;
-    my $root = shift;
-
-    my @applications;
-
-    eval {
-        my ($fh, $filename) = tempfile (UNLINK => 1);
-        my $fddev = "/dev/fd/" . fileno ($fh);
-        $g->download ("/var/lib/dpkg/status", $fddev);
-        close $fh or die "close: $!";
-
-        # Read the file.  Each package is separated by a blank line.
-        open FILE, $filename or die "$filename: $!";
-        my ($name, $installed, $version, $release);
-        while (<FILE>) {
-            chomp;
-            if (/^Package: (.*)/) {
-                $name = $1;
-            } elsif (/^Status: .*\binstalled\b/) {
-                $installed = 1;
-            } elsif (/^Version: (.*?)-(.*)/) {
-                $version = $1;
-                $release = $2;
-            } elsif ($_ eq "") {
-                if ($installed &&
-                    defined $name && defined $version && defined $release) {
-                    push @applications, [ $name, $version, $release ];
-                }
-                $name = undef;
-                $installed = undef;
-                $version = undef;
-                $release = undef;
-            }
-        }
-        close FILE or die "$filename: $!";
-    };
-    if (!$@ && @applications > 0) {
-        @applications = sort { $a->[0] cmp $b->[0] } @applications;
-        $xml->startTag ("applications");
-        foreach (@applications) {
-            $xml->startTag ("application");
-            $xml->dataElement (name => $_->[0]);
-            $xml->dataElement (version => $_->[1]);
-            $xml->dataElement (release => $_->[2]);
+            $xml->dataElement (name => $_->{app_name});
+            $xml->dataElement (display_name => $_->{app_display_name})
+                if $_->{app_display_name} ne "";
+            $xml->dataElement (epoch => $_->{app_epoch})
+                if $_->{app_epoch} != 0;
+            $xml->dataElement (version => $_->{app_version})
+                if $_->{app_version} ne "";
+            $xml->dataElement (release => $_->{app_release})
+                if $_->{app_release} ne "";
+            $xml->dataElement (install_path => $_->{app_install_path})
+                if $_->{app_install_path} ne "";
+            $xml->dataElement (publisher => $_->{app_publisher})
+                if $_->{app_publisher} ne "";
+            $xml->dataElement (url => $_->{app_url})
+                if $_->{app_url} ne "";
+            $xml->dataElement (source_package => $_->{app_source_package})
+                if $_->{app_source_package} ne "";
+            $xml->dataElement (summary => $_->{app_summary})
+                if $_->{app_summary} ne "";
+            $xml->dataElement (description => $_->{app_description})
+                if $_->{app_description} ne "";
             $xml->endTag ("application");
         }
         $xml->endTag ("applications");

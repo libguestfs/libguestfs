@@ -17,5 +17,24 @@
         <uuid>F2E8996AE8992E3B</uuid>
       </filesystem>
     </filesystems>
+    <applications>
+      <application>
+        <name>Mozilla Firefox (3.6.12)</name>
+        <display_name>Mozilla Firefox (3.6.12)</display_name>
+        <version>3.6.12 (en-GB)</version>
+        <install_path>C:\Program Files\Mozilla Firefox</install_path>
+        <publisher>Mozilla</publisher>
+        <url>http://www.mozilla.com/en-GB/</url>
+        <description>Mozilla Firefox</description>
+      </application>
+      <application>
+        <name>VLC media player</name>
+        <display_name>VLC media player 1.1.5</display_name>
+        <version>1.1.5</version>
+        <install_path>C:\Program Files\VideoLAN\VLC</install_path>
+        <publisher>VideoLAN</publisher>
+        <url>http://www.videolan.org/</url>
+      </application>
+    </applications>
   </operatingsystem>
 </operatingsystems>

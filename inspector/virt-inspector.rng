@@ -84,8 +84,16 @@
       <zeroOrMore>
         <element name="application">
           <element name="name"><text/></element>
+          <optional><element name="display_name"><text/></element></optional>
+          <optional><element name="epoch"><text/></element></optional>
           <optional><element name="version"><text/></element></optional>
           <optional><element name="release"><text/></element></optional>
+          <optional><element name="install_path"><text/></element></optional>
+          <optional><element name="publisher"><text/></element></optional>
+          <optional><element name="url"><text/></element></optional>
+          <optional><element name="source_package"><text/></element></optional>
+          <optional><element name="summary"><text/></element></optional>
+          <optional><element name="description"><text/></element></optional>
         </element>
       </zeroOrMore>
     </element>
