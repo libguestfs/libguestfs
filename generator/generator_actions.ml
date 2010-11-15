@@ -815,11 +815,6 @@ Some Red Hat-derived distro.
 
 Red Hat Enterprise Linux and some derivatives.
 
-=item \"windows\"
-
-Windows does not have distributions.  This string is
-returned if the OS type is Windows.
-
 =item \"ubuntu\"
 
 Ubuntu.
@@ -827,6 +822,11 @@ Ubuntu.
 =item \"unknown\"
 
 The distro could not be determined.
+
+=item \"windows\"
+
+Windows does not have distributions.  This string is
+returned if the OS type is Windows.
 
 =back
 
