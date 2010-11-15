@@ -375,3 +375,10 @@ parsing code, eg:
 
 % is better than $ because of shell escaping and confusion with shell
 variables.
+
+live CD inspection
+------------------
+
+guestfish -i livecd.iso
+
+Could this be done through the core API and existing calls?
