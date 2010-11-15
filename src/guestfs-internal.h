@@ -181,6 +181,8 @@ enum inspect_os_distro {
   OS_DISTRO_GENTOO,
   OS_DISTRO_UBUNTU,
   OS_DISTRO_MEEGO,
+  OS_DISTRO_LINUX_MINT,
+  OS_DISTRO_MANDRIVA,
 };
 
 enum inspect_os_package_format {
@@ -200,6 +202,7 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_PACMAN,
   OS_PACKAGE_MANAGEMENT_PORTAGE,
   OS_PACKAGE_MANAGEMENT_PISI,
+  OS_PACKAGE_MANAGEMENT_URPMI,
 };
 
 struct inspect_fs {

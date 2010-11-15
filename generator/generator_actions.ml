@@ -799,6 +799,14 @@ Fedora.
 
 Gentoo.
 
+=item \"linuxmint\"
+
+Linux Mint.
+
+=item \"mandriva\"
+
+Mandriva.
+
 =item \"meego\"
 
 MeeGo.
@@ -1164,7 +1172,7 @@ a real packaging system (eg. Windows).
 
 Possible strings include: C<yum>, C<up2date>,
 C<apt> (for all Debian derivatives),
-C<portage>, C<pisi>, C<pacman>.
+C<portage>, C<pisi>, C<pacman>, C<urpmi>.
 Future versions of libguestfs may return other strings.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");

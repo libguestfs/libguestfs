@@ -389,7 +389,22 @@ parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
  *   DISTRIB_RELEASE=10.04                            # Version
  *   DISTRIB_CODENAME=lucid
  *   DISTRIB_DESCRIPTION="Ubuntu 10.04.1 LTS"         # Product name
- * In theory other distros could have this LSB file, but none do.
+ *
+ * [Ubuntu-derived ...] Linux Mint was found to have this:
+ *   DISTRIB_ID=LinuxMint
+ *   DISTRIB_RELEASE=10
+ *   DISTRIB_CODENAME=julia
+ *   DISTRIB_DESCRIPTION="Linux Mint 10 Julia"
+ * Linux Mint also has /etc/linuxmint/info with more information,
+ * but we can use the LSB file.
+ *
+ * Mandriva has:
+ *   LSB_VERSION=lsb-4.0-amd64:lsb-4.0-noarch
+ *   DISTRIB_ID=MandrivaLinux
+ *   DISTRIB_RELEASE=2010.1
+ *   DISTRIB_CODENAME=Henry_Farman
+ *   DISTRIB_DESCRIPTION="Mandriva Linux 2010.1"
+ * Mandriva also has a normal release file called /etc/mandriva-release.
  */
 static int
 parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
@@ -406,6 +421,16 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
     if (fs->distro == 0 &&
         STREQ (lines[i], "DISTRIB_ID=Ubuntu")) {
       fs->distro = OS_DISTRO_UBUNTU;
+      r = 1;
+    }
+    else if (fs->distro == 0 &&
+             STREQ (lines[i], "DISTRIB_ID=LinuxMint")) {
+      fs->distro = OS_DISTRO_LINUX_MINT;
+      r = 1;
+    }
+    else if (fs->distro == 0 &&
+             STREQ (lines[i], "DISTRIB_ID=MandrivaLinux")) {
+      fs->distro = OS_DISTRO_MANDRIVA;
       r = 1;
     }
     else if (STRPREFIX (lines[i], "DISTRIB_RELEASE=")) {
@@ -1113,11 +1138,13 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_MEEGO:
   case OS_DISTRO_REDHAT_BASED:
   case OS_DISTRO_RHEL:
+  case OS_DISTRO_MANDRIVA:
     fs->package_format = OS_PACKAGE_FORMAT_RPM;
     break;
 
   case OS_DISTRO_DEBIAN:
   case OS_DISTRO_UBUNTU:
+  case OS_DISTRO_LINUX_MINT:
     fs->package_format = OS_PACKAGE_FORMAT_DEB;
     break;
 
@@ -1158,6 +1185,7 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
 
   case OS_DISTRO_DEBIAN:
   case OS_DISTRO_UBUNTU:
+  case OS_DISTRO_LINUX_MINT:
     fs->package_management = OS_PACKAGE_MANAGEMENT_APT;
     break;
 
@@ -1169,6 +1197,9 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
     break;
   case OS_DISTRO_PARDUS:
     fs->package_management = OS_PACKAGE_MANAGEMENT_PISI;
+    break;
+  case OS_DISTRO_MANDRIVA:
+    fs->package_management = OS_PACKAGE_MANAGEMENT_URPMI;
     break;
 
   case OS_DISTRO_WINDOWS:
@@ -1272,6 +1303,8 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;
+  case OS_DISTRO_LINUX_MINT: ret = safe_strdup (g, "linuxmint"); break;
+  case OS_DISTRO_MANDRIVA: ret = safe_strdup (g, "mandriva"); break;
   case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
@@ -1440,6 +1473,7 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
   case OS_PACKAGE_MANAGEMENT_PACMAN: ret = safe_strdup (g, "pacman"); break;
   case OS_PACKAGE_MANAGEMENT_PORTAGE: ret = safe_strdup (g, "portage"); break;
   case OS_PACKAGE_MANAGEMENT_PISI: ret = safe_strdup (g, "pisi"); break;
+  case OS_PACKAGE_MANAGEMENT_URPMI: ret = safe_strdup (g, "urpmi"); break;
   case OS_PACKAGE_MANAGEMENT_UNKNOWN:
   default:
     ret = safe_strdup (g, "unknown");
