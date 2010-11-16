@@ -37,6 +37,8 @@ EXTRA_DIST = \
 	lib-win64.dll \
 	lib-x86_64.so \
 	test-grep.txt \
+	guest-aux/make-debian-img.sh \
+	guest-aux/debian-packages \
 	guest-aux/make-fedora-img.sh \
 	guest-aux/fedora-name.db.txt \
 	guest-aux/fedora-name.db
@@ -45,12 +47,12 @@ noinst_DATA = test.iso
 
 # This is 'check_DATA' because we don't need it until 'make check'
 # time and we need the tools we have built in order to make it.
-check_DATA = fedora.img
+check_DATA = debian.img fedora.img
 
 CLEANFILES = \
 	test.iso test.sqsh \
 	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
-	initrd fedora.img
+	initrd $(check_DATA)
 
 images_files_src = \
 	$(srcdir)/helloworld.tar \
@@ -166,3 +168,9 @@ fedora.img: guest-aux/make-fedora-img.sh guest-aux/fedora-name.db
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
 	db_load $@ < $<
+
+# Make a (dummy) Debian image.
+debian.img: guest-aux/make-debian-img.sh
+	LIBGUESTFS_PATH=../appliance \
+	LD_LIBRARY_PATH=../src/.libs \
+	bash $<
