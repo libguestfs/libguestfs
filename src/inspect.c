@@ -216,6 +216,7 @@ static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
                             const char *spec, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec);
 static int download_to_tmp (guestfs_h *g, const char *filename, char *localtmp, int64_t max_size);
+static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename, int (*f) (guestfs_h *, struct inspect_fs *));
 
 static int
 check_for_filesystem_on (guestfs_h *g, const char *device)
@@ -543,7 +544,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
    * which filesystems are used by the operating system and how they
    * are mounted.
    */
-  if (check_fstab (g, fs) == -1)
+  if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
     return -1;
 
   return 0;
@@ -575,39 +576,8 @@ check_architecture (guestfs_h *g, struct inspect_fs *fs)
   }
 }
 
-static int check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs);
-
 static int
 check_fstab (guestfs_h *g, struct inspect_fs *fs)
-{
-  int r;
-  int64_t size;
-
-  /* Security: Refuse to do this if /etc/fstab is huge. */
-  size = guestfs_filesize (g, "/etc/fstab");
-  if (size == -1 || size > 100000) {
-    error (g, _("size of /etc/fstab unreasonable (%" PRIi64 " bytes)"), size);
-    return -1;
-  }
-
-  /* XXX What if !feature_available (g, "augeas")? */
-  if (guestfs_aug_init (g, "/", 16|32) == -1)
-    return -1;
-
-  /* Tell Augeas to only load /etc/fstab (thanks Raphaël Pinson). */
-  guestfs_aug_rm (g, "/augeas/load//incl[. != \"/etc/fstab\"]");
-  guestfs_aug_load (g);
-
-  r = check_fstab_aug_open (g, fs);
-  guestfs_aug_close (g);
-  if (r == -1)
-    return -1;
-
-  return 0;
-}
-
-static int
-check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs)
 {
   char **lines = guestfs_aug_ls (g, "/files/etc/fstab");
   if (lines == NULL)
@@ -1235,6 +1205,53 @@ download_to_tmp (guestfs_h *g, const char *filename,
   }
 
   return 0;
+}
+
+/* Call 'f' with Augeas opened and having parsed 'filename' (this file
+ * must exist).  As a security measure, this bails if the file is too
+ * large for a reasonable configuration file.  After the call to 'f'
+ * Augeas is closed.
+ */
+static int
+inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename,
+                     int (*f) (guestfs_h *, struct inspect_fs *))
+{
+  /* Security: Refuse to do this if filename is too large. */
+  int64_t size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > 100000) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  /* If !feature_available (g, "augeas") then the next call will fail.
+   * Arguably we might want to fall back to a non-Augeas method in
+   * this case.
+   */
+  if (guestfs_aug_init (g, "/", 16|32) == -1)
+    return -1;
+
+  int r = -1;
+
+  /* Tell Augeas to only load one file (thanks Raphaël Pinson). */
+  char buf[strlen (filename) + 64];
+  snprintf (buf, strlen (filename) + 64, "/augeas/load//incl[. != \"%s\"]",
+            filename);
+  if (guestfs_aug_rm (g, buf) == -1)
+    goto out;
+
+  if (guestfs_aug_load (g) == -1)
+    goto out;
+
+  r = f (g, fs);
+
+ out:
+  guestfs_aug_close (g);
+
+  return r;
 }
 
 #else /* no PCRE or hivex at compile time */
