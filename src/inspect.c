@@ -400,11 +400,26 @@ parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
 static int
 parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
 {
+  const char *filename = "/etc/lsb-release";
+  int64_t size;
   char **lines;
   size_t i;
   int r = 0;
 
-  lines = guestfs_head_n (g, 10, "/etc/lsb-release");
+  /* Don't trust guestfs_head_n not to break with very large files.
+   * Check the file size is something reasonable first.
+   */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > 1000000) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  lines = guestfs_head_n (g, 10, filename);
   if (lines == NULL)
     return -1;
 
