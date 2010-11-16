@@ -1,0 +1,48 @@
+Package: test1
+Status: installed ok
+Priority: optional
+Section: libs
+Installed-Size: 123
+Architecture: amd64
+Source: test
+Version: 1.2.3-1
+Config-Version: 1.2.3-1
+Depends: libc6 (>= 2.3)
+Description: this is a test package
+ This is a test package.
+ .
+ Don't confuse it with a real package.
+Homepage: http://libguestfs.org/
+
+Package: test2
+Status: installed ok
+Priority: optional
+Section: libs
+Installed-Size: 123
+Architecture: amd64
+Source: test
+Version: 1.2.3-1
+Config-Version: 1.2.3-1
+Depends: libc6 (>= 2.3)
+Description: this is a test package
+ This is a test package.
+ .
+ Don't confuse it with a real package.
+Homepage: http://libguestfs.org/
+
+Package: test3
+Status: installed ok
+Priority: optional
+Section: libs
+Installed-Size: 123
+Architecture: amd64
+Source: test
+Version: 1.2.3-1
+Config-Version: 1.2.3-1
+Depends: libc6 (>= 2.3)
+Description: this is a test package
+ This is a test package.
+ .
+ Don't confuse it with a real package.
+Homepage: http://libguestfs.org/
+
