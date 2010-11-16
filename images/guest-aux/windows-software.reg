@@ -1,0 +1,32 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion]
+"ProductName"=str(1):"Microsoft Windows 7 Phony Edition"
+"CurrentVersion"=str(1):"6.1"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\test1]
+"DisplayName"=str(1):"Test1 is not real software"
+"URLInfoAbout"=str(1):"http://libguestfs.org/"
+"DisplayVersion"=str(1):"1.2.3"
+"VersionMajor"=dword:00000001
+"VersionMinor"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\test2]
+"DisplayName"=str(1):"Test2 is not real software"
+"URLInfoAbout"=str(1):"http://libguestfs.org/"
+"DisplayVersion"=str(1):"1.2.4"
+"Comments"=str(1):"Longer description about phony test2 software"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\test3]
+"DisplayName"=str(1):"Test3 is not real software"
+"DisplayVersion"=str(1):"1.2.5"
+"Publisher"=str(1):"Red Hat Inc."
+"InstallLocation"=str(1):"C:\\Program Files\\Red Hat\\test3"
