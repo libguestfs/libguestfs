@@ -219,6 +219,7 @@ struct inspect_fs {
   int major_version;
   int minor_version;
   char *arch;
+  char *hostname;
   char *windows_systemroot;
   struct inspect_fstab_entry *fstab;
   size_t nr_fstab;

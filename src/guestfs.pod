@@ -1095,6 +1095,14 @@ data.  Callers should be careful to escape these before printing them
 to a structured file (for example, use HTML escaping if creating a web
 page).
 
+Guest configuration may be altered in unusual ways by the
+administrator of the virtual machine, and may not reflect reality
+(particularly for untrusted or actively malicious guests).  For
+example we parse the hostname from configuration files like
+C</etc/sysconfig/network> that we find in the guest, but the guest
+administrator can easily manipulate these files to provide the wrong
+hostname.
+
 The inspection API parses guest configuration using two external
 libraries: Augeas (Linux configuration) and hivex (Windows Registry).
 Both are designed to be robust in the face of malicious data, although

@@ -1276,6 +1276,21 @@ If unavailable this is returned as an empty string C<\"\">.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
 
+  ("inspect_get_hostname", (RString "hostname", [Device "root"], []), -1, [],
+   [],
+   "get hostname of the operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This function returns the hostname of the operating system
+as found by inspection of the guest's configuration files.
+
+If the hostname could not be determined, then the
+string C<unknown> is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

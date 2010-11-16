@@ -195,10 +195,14 @@ static int check_filesystem (guestfs_h *g, const char *device);
 static int check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
+static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
+static int check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs);
+static int check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
-static int check_windows_registry (guestfs_h *g, struct inspect_fs *fs);
+static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
+static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
 static char *resolve_windows_path_silently (guestfs_h *g, const char *);
 static int extend_fses (guestfs_h *g);
 static int parse_unsigned_int (guestfs_h *g, const char *str);
@@ -594,6 +598,10 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
     return -1;
 
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
   return 0;
 }
 
@@ -625,6 +633,10 @@ check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
   if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
     return -1;
 
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
   return 0;
 }
 
@@ -652,6 +664,124 @@ check_architecture (guestfs_h *g, struct inspect_fs *fs)
       }
     }
   }
+}
+
+/* Try several methods to determine the hostname from a Linux or
+ * FreeBSD guest.  Note that type and distro have been set, so we can
+ * use that information to direct the search.
+ */
+static int
+check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
+{
+  char **lines;
+
+  switch (fs->type) {
+  case OS_TYPE_LINUX:
+    /* Red Hat-derived would be in /etc/sysconfig/network, and
+     * Debian-derived in the file /etc/hostname.  Very old Debian and
+     * SUSE use /etc/HOSTNAME.  It's best to just look for each of
+     * these files in turn, rather than try anything clever based on
+     * distro.
+     */
+    if (guestfs_is_file (g, "/etc/HOSTNAME")) {
+      fs->hostname = first_line_of_file (g, "/etc/HOSTNAME");
+      if (fs->hostname == NULL)
+        return -1;
+    }
+    else if (guestfs_is_file (g, "/etc/hostname")) {
+      fs->hostname = first_line_of_file (g, "/etc/hostname");
+      if (fs->hostname == NULL)
+        return -1;
+    }
+    else if (guestfs_is_file (g, "/etc/sysconfig/network")) {
+      if (inspect_with_augeas (g, fs, "/etc/sysconfig/network",
+                               check_hostname_redhat) == -1)
+        return -1;
+    }
+    break;
+
+  case OS_TYPE_FREEBSD:
+    /* /etc/rc.conf contains the hostname, but there is no Augeas lens
+     * for this file.
+     */
+    if (guestfs_is_file (g, "/etc/rc.conf")) {
+      if (check_hostname_freebsd (g, fs) == -1)
+        return -1;
+    }
+    break;
+
+  case OS_TYPE_WINDOWS: /* not here, see check_windows_system_registry */
+  case OS_TYPE_UNKNOWN:
+  default:
+    /* nothing, keep GCC warnings happy */;
+  }
+
+  return 0;
+}
+
+/* Parse the hostname from /etc/sysconfig/network.  This must be called
+ * from the inspect_with_augeas wrapper.
+ */
+static int
+check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs)
+{
+  char *hostname;
+
+  hostname = guestfs_aug_get (g, "/files/etc/sysconfig/network/HOSTNAME");
+  if (!hostname)
+    return -1;
+
+  fs->hostname = hostname;  /* freed by guestfs___free_inspect_info */
+  return 0;
+}
+
+/* Parse the hostname from /etc/rc.conf.  On FreeBSD this file
+ * contains comments, blank lines and:
+ *   hostname="freebsd8.example.com"
+ *   ifconfig_re0="DHCP"
+ *   keymap="uk.iso"
+ *   sshd_enable="YES"
+ */
+static int
+check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs)
+{
+  const char *filename = "/etc/rc.conf";
+  int64_t size;
+  char **lines;
+  size_t i;
+
+  /* Don't trust guestfs_read_lines not to break with very large files.
+   * Check the file size is something reasonable first.
+   */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > 1000000) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  lines = guestfs_read_lines (g, filename);
+  if (lines == NULL)
+    return -1;
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (STRPREFIX (lines[i], "hostname=\"") ||
+        STRPREFIX (lines[i], "hostname='")) {
+      size_t len = strlen (lines[i]) - 10 - 1;
+      fs->hostname = safe_strndup (g, &lines[i][10], len);
+      break;
+    } else if (STRPREFIX (lines[i], "hostname=")) {
+      size_t len = strlen (lines[i]) - 9;
+      fs->hostname = safe_strndup (g, &lines[i][9], len);
+      break;
+    }
+  }
+
+  guestfs___free_string_list (lines);
+  return 0;
 }
 
 static int
@@ -891,11 +1021,16 @@ check_windows_root (guestfs_h *g, struct inspect_fs *fs)
   if (check_windows_arch (g, fs) == -1)
     return -1;
 
-  if (check_windows_registry (g, fs) == -1)
+  /* Product name and version. */
+  if (check_windows_software_registry (g, fs) == -1)
     return -1;
 
   check_package_format (g, fs);
   check_package_management (g, fs);
+
+  /* Hostname. */
+  if (check_windows_system_registry (g, fs) == -1)
+    return -1;
 
   return 0;
 }
@@ -925,7 +1060,7 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
  * registry fields available to callers.
  */
 static int
-check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
+check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 {
   TMP_TEMPLATE_ON_STACK (software_local);
 
@@ -1028,6 +1163,90 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
   /* Free up the temporary file. */
   unlink (software_local);
 #undef software_local_len
+
+  return ret;
+}
+
+static int
+check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
+{
+  TMP_TEMPLATE_ON_STACK (system_local);
+
+  size_t len = strlen (fs->windows_systemroot) + 64;
+  char system[len];
+  snprintf (system, len, "%s/system32/config/system",
+            fs->windows_systemroot);
+
+  char *system_path = resolve_windows_path_silently (g, system);
+  if (!system_path)
+    /* If the system hive doesn't exist, just accept that we cannot
+     * find hostname etc.
+     */
+    return 0;
+
+  int ret = -1;
+  hive_h *h = NULL;
+  hive_value_h *values = NULL;
+
+  if (download_to_tmp (g, system_path, system_local, 100000000) == -1)
+    goto out;
+
+  h = hivex_open (system_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  if (h == NULL) {
+    perrorf (g, "hivex_open");
+    goto out;
+  }
+
+  hive_node_h node = hivex_root (h);
+  /* XXX Don't hard-code ControlSet001.  The current control set would
+   * be another good thing to expose up through the inspection API.
+   */
+  const char *hivepath[] =
+    { "ControlSet001", "Services", "Tcpip", "Parameters" };
+  size_t i;
+  for (i = 0;
+       node != 0 && i < sizeof hivepath / sizeof hivepath[0];
+       ++i) {
+    node = hivex_node_get_child (h, node, hivepath[i]);
+  }
+
+  if (node == 0) {
+    perrorf (g, "hivex: cannot locate HKLM\\SYSTEM\\ControlSet001\\Services\\Tcpip\\Parameters");
+    goto out;
+  }
+
+  values = hivex_node_values (h, node);
+
+  for (i = 0; values[i] != 0; ++i) {
+    char *key = hivex_value_key (h, values[i]);
+    if (key == NULL) {
+      perrorf (g, "hivex_value_key");
+      goto out;
+    }
+
+    if (STRCASEEQ (key, "Hostname")) {
+      fs->hostname = hivex_value_string (h, values[i]);
+      if (!fs->hostname) {
+        perrorf (g, "hivex_value_string");
+        free (key);
+        goto out;
+      }
+    }
+    /* many other interesting fields here ... */
+
+    free (key);
+  }
+
+  ret = 0;
+
+ out:
+  if (h) hivex_close (h);
+  free (values);
+  free (system_path);
+
+  /* Free up the temporary file. */
+  unlink (system_local);
+#undef system_local_len
 
   return ret;
 }
@@ -1430,6 +1649,16 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
   }
 
   return ret;
+}
+
+char *
+guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  return safe_strdup (g, fs->hostname ? : "unknown");
 }
 
 static struct guestfs_application_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
@@ -2091,6 +2320,12 @@ guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
 
 char *
 guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
 {
   NOT_IMPL(NULL);
 }
