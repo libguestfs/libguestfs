@@ -42,13 +42,19 @@ EXTRA_DIST = \
 	guest-aux/make-fedora-img.sh \
 	guest-aux/fedora-name.db.txt \
 	guest-aux/fedora-name.db \
-	guest-aux/make-ubuntu-img.sh
+	guest-aux/make-ubuntu-img.sh \
+	guest-aux/make-windows-img.sh \
+	guest-aux/windows-software \
+	guest-aux/windows-software.reg \
+	guest-aux/windows-system \
+	guest-aux/windows-system.reg \
+	guest-aux/minimal-hive
 
 noinst_DATA = test.iso
 
 # This is 'check_DATA' because we don't need it until 'make check'
 # time and we need the tools we have built in order to make it.
-check_DATA = debian.img fedora.img ubuntu.img
+check_DATA = debian.img fedora.img ubuntu.img windows.img
 
 CLEANFILES = \
 	test.iso test.sqsh \
@@ -181,3 +187,24 @@ ubuntu.img: guest-aux/make-ubuntu-img.sh
 	LIBGUESTFS_PATH=../appliance \
 	LD_LIBRARY_PATH=../src/.libs \
 	bash $<
+
+# Make a (dummy) Windows image.
+windows.img: guest-aux/make-windows-img.sh \
+	     guest-aux/windows-software guest-aux/windows-system
+	LIBGUESTFS_PATH=../appliance \
+	LD_LIBRARY_PATH=../src/.libs \
+	bash $<
+
+# Since users might not have the tools needed to create this, we
+# also distribute these files.
+guest-aux/windows-software: guest-aux/windows-software.reg
+	rm -f $@ $@-t
+	cp guest-aux/minimal-hive $@-t
+	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SOFTWARE' $<
+	mv $@-t $@
+
+guest-aux/windows-system: guest-aux/windows-system.reg
+	rm -f $@ $@-t
+	cp guest-aux/minimal-hive $@-t
+	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
+	mv $@-t $@

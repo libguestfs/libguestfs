@@ -1,0 +1,8 @@
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001]
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services]
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip]
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip\Parameters]
+"Hostname"=str(1):"windows.invalid"
