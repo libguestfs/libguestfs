@@ -172,7 +172,7 @@ parameter is specified in megabytes.
 
 my $network;
 
-=item B<--network MB>
+=item B<--network>
 
 Enable QEMU user networking in the guest.
 
