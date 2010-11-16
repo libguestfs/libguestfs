@@ -24,8 +24,7 @@
 export LANG=C
 set -e
 
-rm -f fedora.img
-
+# fstab file.
 cat > fstab.tmp <<EOF
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
@@ -33,7 +32,7 @@ EOF
 
 # Create a disk image.
 ../fish/guestfish <<'EOF'
-sparse fedora.img- 512M
+sparse fedora.img.tmp 512M
 run
 
 # Format the disk.
@@ -51,19 +50,32 @@ lvcreate LV3 VG 64
 # Phony /boot filesystem.
 mkfs-b ext2 4096 /dev/sda1
 set-e2label /dev/sda1 BOOT
+set-e2uuid /dev/sda1 01234567-0123-0123-0123-012345678901
 
 # Phony root filesystem.
 mkfs-b ext2 4096 /dev/VG/Root
 set-e2label /dev/VG/Root ROOT
+set-e2uuid /dev/VG/Root 01234567-0123-0123-0123-012345678902
 
-# Enough to fool virt-inspector.
+# Enough to fool inspection API.
 mount-options "" /dev/VG/Root /
 mkdir /boot
 mount-options "" /dev/sda1 /boot
 mkdir /bin
 mkdir /etc
+mkdir /etc/sysconfig
 mkdir /usr
+mkdir-p /var/lib/rpm
+
 upload fstab.tmp /etc/fstab
+write /etc/redhat-release "Fedora release 14 (Phony)"
+write /etc/fedora-release "Fedora release 14 (Phony)"
+write /etc/sysconfig/network "HOSTNAME=fedora.invalid"
+
+upload guest-aux/fedora-name.db /var/lib/rpm/Name
+
+upload bin-x86_64-dynamic /bin/ls
+
 mkdir /boot/grub
 touch /boot/grub/grub.conf
 
@@ -86,4 +98,4 @@ mkfs-b ext2 2048 /dev/VG/LV3
 EOF
 
 rm fstab.tmp
-mv fedora.img- fedora.img
+mv fedora.img.tmp fedora.img

@@ -7,6 +7,7 @@ set -e
 ./virt-tar -x ../images/fedora.img /bin test.tar
 
 if [ "$(tar tf test.tar)" != "./
+./ls
 ./test1
 ./test2
 ./test3

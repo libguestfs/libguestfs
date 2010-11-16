@@ -125,6 +125,7 @@ images/100krandom
 images/10klines
 images/abssymlink
 images/fedora.img
+images/guest-aux/fedora-name.db
 images/hello.b64
 images/initrd
 images/initrd-x86_64.img
