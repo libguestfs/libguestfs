@@ -41,13 +41,14 @@ EXTRA_DIST = \
 	guest-aux/debian-packages \
 	guest-aux/make-fedora-img.sh \
 	guest-aux/fedora-name.db.txt \
-	guest-aux/fedora-name.db
+	guest-aux/fedora-name.db \
+	guest-aux/make-ubuntu-img.sh
 
 noinst_DATA = test.iso
 
 # This is 'check_DATA' because we don't need it until 'make check'
 # time and we need the tools we have built in order to make it.
-check_DATA = debian.img fedora.img
+check_DATA = debian.img fedora.img ubuntu.img
 
 CLEANFILES = \
 	test.iso test.sqsh \
@@ -171,6 +172,12 @@ guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
 
 # Make a (dummy) Debian image.
 debian.img: guest-aux/make-debian-img.sh
+	LIBGUESTFS_PATH=../appliance \
+	LD_LIBRARY_PATH=../src/.libs \
+	bash $<
+
+# Make a (dummy) Ubuntu image.
+ubuntu.img: guest-aux/make-ubuntu-img.sh
 	LIBGUESTFS_PATH=../appliance \
 	LD_LIBRARY_PATH=../src/.libs \
 	bash $<
