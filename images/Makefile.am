@@ -37,7 +37,9 @@ EXTRA_DIST = \
 	lib-win64.dll \
 	lib-x86_64.so \
 	test-grep.txt \
-	make-dummy-fedora-img.sh
+	guest-aux/make-fedora-img.sh \
+	guest-aux/fedora-name.db.txt \
+	guest-aux/fedora-name.db
 
 noinst_DATA = test.iso
 
@@ -157,7 +159,10 @@ $(builddir)/test-grep.txt.gz: test-grep.txt
 	mv $@-t $@
 
 # Make a (dummy) Fedora image.
-fedora.img: make-dummy-fedora-img.sh
+fedora.img: guest-aux/make-fedora-img.sh guest-aux/fedora-name.db
 	LIBGUESTFS_PATH=../appliance \
 	LD_LIBRARY_PATH=../src/.libs \
 	bash $<
+
+guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
+	db_load $@ < $<
