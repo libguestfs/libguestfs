@@ -56,6 +56,22 @@ findfs (const char *tag, const char *label_or_uuid)
   if (len > 0 && out[len-1] == '\n')
     out[len-1] = '\0';
 
+  if (STRPREFIX (out, "/dev/mapper/") || STRPREFIX (out, "/dev/dm-")) {
+    char *canonical;
+    r = lv_canonical (out, &canonical);
+    if (r == -1) {
+      free (out);
+      return NULL;
+    }
+    if (r == 1) {
+      free (out);
+      out = canonical;
+    }
+    /* Ignore the case where r == 0.  /dev/mapper does not correspond
+     * to an LV, so the best we can do is just return it as-is.
+     */
+  }
+
   return out;                   /* caller frees */
 }
 
