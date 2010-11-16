@@ -123,6 +123,7 @@ images/initrd-x86_64.img
 images/initrd-x86_64.img.gz
 images/test.iso
 images/test-grep.txt.gz
+images/ubuntu.img
 initramfs
 initramfs.timestamp
 inspector/virt-inspector.1
