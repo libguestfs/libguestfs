@@ -209,6 +209,7 @@ static void check_package_format (guestfs_h *g, struct inspect_fs *fs);
 static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
 static int download_to_tmp (guestfs_h *g, const char *filename, char *localtmp, int64_t max_size);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename, int (*f) (guestfs_h *, struct inspect_fs *));
+static char *first_line_of_file (guestfs_h *g, const char *filename);
 
 static int
 check_for_filesystem_on (guestfs_h *g, const char *device)
@@ -347,21 +348,9 @@ static int
 parse_release_file (guestfs_h *g, struct inspect_fs *fs,
                     const char *release_filename)
 {
-  char **product_name = guestfs_head_n (g, 1, release_filename);
-  if (product_name == NULL)
+  fs->product_name = first_line_of_file (g, release_filename);
+  if (fs->product_name == NULL)
     return -1;
-  if (product_name[0] == NULL) {
-    error (g, _("%s: file is empty"), release_filename);
-    guestfs___free_string_list (product_name);
-    return -1;
-  }
-
-  /* Note that this string becomes owned by the handle and will
-   * be freed by guestfs___free_inspect_info.
-   */
-  fs->product_name = product_name[0];
-  free (product_name);
-
   return 0;
 }
 
@@ -1964,6 +1953,45 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   guestfs_aug_close (g);
 
   return r;
+}
+
+/* Get the first line of a small file, without any trailing newline
+ * character.
+ */
+static char *
+first_line_of_file (guestfs_h *g, const char *filename)
+{
+  char **lines;
+  int64_t size;
+  char *ret;
+
+  /* Don't trust guestfs_head_n not to break with very large files.
+   * Check the file size is something reasonable first.
+   */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return NULL;
+  if (size > 1000000) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return NULL;
+  }
+
+  lines = guestfs_head_n (g, 1, filename);
+  if (lines == NULL)
+    return NULL;
+  if (lines[0] == NULL) {
+    error (g, _("%s: file is empty"), filename);
+    guestfs___free_string_list (lines);
+    return NULL;
+  }
+  /* lines[1] should be NULL because of '1' argument above ... */
+
+  ret = lines[0];               /* caller frees */
+  free (lines);                 /* free the array */
+
+  return ret;
 }
 
 #else /* no PCRE or hivex at compile time */
