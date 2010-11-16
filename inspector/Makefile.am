@@ -18,8 +18,10 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXAMPLE_XML = \
-	example1.xml example2.xml example3.xml \
-	example4.xml example5.xml example6.xml
+	example-debian.xml \
+	example-fedora.xml \
+	example-ubuntu.xml \
+	example-windows.xml
 
 EXTRA_DIST = \
 	run-inspector-locally \
@@ -60,6 +62,18 @@ TESTS = $(EXAMPLE_XML)
 TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng virt-inspector.rng
 
 endif
+
+# These rules require virt-inspector so there is no good time that we
+# can run them.  Instead you can run them by hand.
+
+example-debian.xml:
+	./run-inspector-locally ../images/debian.img > $@
+example-fedora.xml:
+	./run-inspector-locally ../images/fedora.img > $@
+example-ubuntu.xml:
+	./run-inspector-locally ../images/ubuntu.img > $@
+example-windows.xml:
+	./run-inspector-locally ../images/windows.img | fgrep -v '<uuid>' > $@
 
 endif
 

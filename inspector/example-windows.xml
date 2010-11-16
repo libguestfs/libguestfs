@@ -1,0 +1,42 @@
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/sda2</root>
+    <name>windows</name>
+    <arch>i386</arch>
+    <distro>windows</distro>
+    <product_name>Microsoft Windows 7 Phony Edition</product_name>
+    <major_version>6</major_version>
+    <minor_version>1</minor_version>
+    <windows_systemroot>/Windows</windows_systemroot>
+    <mountpoints>
+      <mountpoint dev="/dev/sda2">/</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/sda2">
+        <type>ntfs</type>
+      </filesystem>
+    </filesystems>
+    <applications>
+      <application>
+        <name>test1</name>
+        <display_name>Test1 is not real software</display_name>
+        <version>1.2.3</version>
+        <url>http://libguestfs.org/</url>
+      </application>
+      <application>
+        <name>test2</name>
+        <display_name>Test2 is not real software</display_name>
+        <version>1.2.4</version>
+        <url>http://libguestfs.org/</url>
+        <description>Longer description about phony test2 software</description>
+      </application>
+      <application>
+        <name>test3</name>
+        <display_name>Test3 is not real software</display_name>
+        <version>1.2.5</version>
+        <install_path>C:\Program Files\Red Hat\test3</install_path>
+        <publisher>Red Hat Inc.</publisher>
+      </application>
+    </applications>
+  </operatingsystem>
+</operatingsystems>

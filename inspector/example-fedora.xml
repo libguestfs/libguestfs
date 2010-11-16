@@ -1,0 +1,40 @@
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/VG/Root</root>
+    <name>linux</name>
+    <arch>x86_64</arch>
+    <distro>fedora</distro>
+    <product_name>Fedora release 14 (Phony)</product_name>
+    <major_version>14</major_version>
+    <minor_version>0</minor_version>
+    <package_format>rpm</package_format>
+    <package_management>yum</package_management>
+    <mountpoints>
+      <mountpoint dev="/dev/VG/Root">/</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/VG/Root">
+        <type>ext2</type>
+        <label>ROOT</label>
+        <uuid>01234567-0123-0123-0123-012345678902</uuid>
+      </filesystem>
+      <filesystem dev="/dev/sda1">
+        <type>ext2</type>
+        <label>BOOT</label>
+        <uuid>01234567-0123-0123-0123-012345678901</uuid>
+      </filesystem>
+    </filesystems>
+    <applications>
+      <application>
+        <name>test1</name>
+      </application>
+      <application>
+        <name>test2</name>
+      </application>
+      <application>
+        <name>test3</name>
+      </application>
+    </applications>
+  </operatingsystem>
+</operatingsystems>
