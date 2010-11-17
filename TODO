@@ -382,3 +382,9 @@ live CD inspection
 guestfish -i livecd.iso
 
 Could this be done through the core API and existing calls?
+
+Trace
+-----
+
+Traces should include the return value from functions as well,
+to make them more useful when debugging problems.
