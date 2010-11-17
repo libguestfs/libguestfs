@@ -785,9 +785,77 @@ check_state (guestfs_h *g, const char *caller)
         );
     ) optargs;
 
-    pr "    fputc ('\\n', stderr);\n";
     pr "  }\n";
     pr "\n";
+  in
+
+  let trace_return ?(indent = 2) (ret, _, _) rv =
+    let indent = spaces indent in
+
+    pr "%sif (trace_flag) {\n" indent;
+
+    let needs_i =
+      match ret with
+      | RStringList _ | RHashtable _ | RStructList _ -> true
+      | _ -> false in
+    if needs_i then (
+      pr "%s  size_t i;\n" indent;
+      pr "\n"
+    );
+
+    pr "%s  fputs (\" = \", stderr);\n" indent;
+    (match ret with
+     | RErr | RInt _ | RBool _ ->
+         pr "%s  fprintf (stderr, \"%%d\", %s);\n" indent rv
+     | RInt64 _ ->
+         pr "%s  fprintf (stderr, \"%%\" PRIi64, %s);\n" indent rv
+     | RConstString _ | RString _ ->
+         pr "%s  fprintf (stderr, \"\\\"%%s\\\"\", %s);\n" indent rv
+     | RConstOptString _ ->
+         pr "%s  fprintf (stderr, \"\\\"%%s\\\"\", %s != NULL ? %s : \"NULL\");\n"
+           indent rv rv
+     | RBufferOut _ ->
+         pr "%s  guestfs___print_BufferOut (stderr, %s, *size_r);\n" indent rv
+     | RStringList _ | RHashtable _ ->
+         pr "%s  fputs (\"[\\\"\", stderr);\n" indent;
+         pr "%s  for (i = 0; %s[i]; ++i) {\n" indent rv;
+         pr "%s    if (i > 0) fputs (\"\\\", \\\"\", stderr);\n" indent;
+         pr "%s    fputs (%s[i], stderr);\n" indent rv;
+         pr "%s  }\n" indent;
+         pr "%s  fputs (\"\\\"]\", stderr);\n" indent;
+     | RStruct (_, typ) ->
+         (* XXX There is code generated for guestfish for printing
+          * these structures.  We need to make it generally available
+          * for all callers
+          *)
+         pr "%s  fprintf (stderr, \"<struct guestfs_%s *>\");\n"
+           indent typ (* XXX *)
+     | RStructList (_, typ) ->
+         pr "%s  fprintf (stderr, \"<struct guestfs_%s_list *>\");\n"
+           indent typ (* XXX *)
+    );
+    pr "%s  fputc ('\\n', stderr);\n" indent;
+    pr "%s}\n" indent;
+    pr "\n";
+  in
+
+  let trace_return_error ?(indent = 2) (ret, _, _) =
+    let indent = spaces indent in
+
+    pr "%sif (trace_flag)\n" indent;
+
+    (match ret with
+     | RErr | RInt _ | RBool _
+     | RInt64 _ ->
+         pr "%s  fputs (\" = -1 (error)\\n\", stderr);\n" indent
+     | RConstString _ | RString _
+     | RConstOptString _
+     | RBufferOut _
+     | RStringList _ | RHashtable _
+     | RStruct _
+     | RStructList _ ->
+         pr "%s  fputs (\" = NULL (error)\\n\", stderr);\n" indent
+    );
   in
 
   (* For non-daemon functions, generate a wrapper around each function. *)
@@ -826,6 +894,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  r = guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+      trace_return style "r";
       pr "  return r;\n";
       pr "}\n";
       pr "\n"
@@ -892,8 +961,10 @@ check_state (guestfs_h *g, const char *caller)
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
       trace_call shortname style;
-      pr "  if (check_state (g, \"%s\") == -1) return %s;\n"
-        shortname error_code;
+      pr "  if (check_state (g, \"%s\") == -1) {\n" shortname;
+      trace_return_error ~indent:4 style;
+      pr "    return %s;\n" error_code;
+      pr "  }\n";
       pr "  guestfs___set_busy (g);\n";
       pr "\n";
 
@@ -922,6 +993,7 @@ check_state (guestfs_h *g, const char *caller)
              | BufferIn n ->
                  pr "  /* Just catch grossly large sizes. XDR encoding will make this precise. */\n";
                  pr "  if (%s_size >= GUESTFS_MESSAGE_MAX) {\n" n;
+                 trace_return_error ~indent:4 style;
                  pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
                    shortname;
                  pr "    guestfs___end_busy (g);\n";
@@ -938,6 +1010,7 @@ check_state (guestfs_h *g, const char *caller)
       );
       pr "  if (serial == -1) {\n";
       pr "    guestfs___end_busy (g);\n";
+      trace_return_error ~indent:4 style;
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -950,6 +1023,7 @@ check_state (guestfs_h *g, const char *caller)
             pr "  r = guestfs___send_file (g, %s);\n" n;
             pr "  if (r == -1) {\n";
             pr "    guestfs___end_busy (g);\n";
+            trace_return_error ~indent:4 style;
             pr "    return %s;\n" error_code;
             pr "  }\n";
             pr "  if (r == -2) /* daemon cancelled */\n";
@@ -974,6 +1048,7 @@ check_state (guestfs_h *g, const char *caller)
 
       pr "  if (r == -1) {\n";
       pr "    guestfs___end_busy (g);\n";
+      trace_return_error ~indent:4 style;
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -981,11 +1056,13 @@ check_state (guestfs_h *g, const char *caller)
       pr "  if (check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
         (String.uppercase shortname);
       pr "    guestfs___end_busy (g);\n";
+      trace_return_error ~indent:4 style;
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
       pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      trace_return_error ~indent:4 style;
       pr "    int errnum = 0;\n";
       pr "    if (err.errno_string[0] != '\\0')\n";
       pr "      errnum = guestfs___string_to_errno (err.errno_string);\n";
@@ -1009,6 +1086,7 @@ check_state (guestfs_h *g, const char *caller)
         | FileOut n ->
             pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
             pr "    guestfs___end_busy (g);\n";
+            trace_return_error ~indent:4 style;
             pr "    return %s;\n" error_code;
             pr "  }\n";
             pr "\n";
@@ -1056,6 +1134,7 @@ check_state (guestfs_h *g, const char *caller)
            pr "    ret_v = p;\n";
            pr "  }\n";
       );
+      trace_return style "ret_v";
       pr "  return ret_v;\n";
       pr "}\n\n"
   ) daemon_functions;

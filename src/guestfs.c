@@ -792,6 +792,12 @@ guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size)
 }
 
 void
+guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size)
+{
+  guestfs___print_BufferIn (out, buf, buf_size);
+}
+
+void
 guestfs___free_string_list (char **argv)
 {
   size_t i;
