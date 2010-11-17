@@ -712,7 +712,7 @@ check_state (guestfs_h *g, const char *caller)
 
   (* Generate code to generate guestfish call traces. *)
   let trace_call shortname (ret, args, optargs) =
-    pr "  if (guestfs__get_trace (g)) {\n";
+    pr "  if (trace_flag) {\n";
 
     let needs_i =
       List.exists (function
@@ -802,6 +802,8 @@ check_state (guestfs_h *g, const char *caller)
           ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
           shortname style;
       pr "{\n";
+      pr "  int trace_flag = g->trace;\n";
+      pr "\n";
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
       trace_call shortname style;
@@ -852,6 +854,7 @@ check_state (guestfs_h *g, const char *caller)
 
       pr "  int serial;\n";
       pr "  int r;\n";
+      pr "  int trace_flag = g->trace;\n";
       pr "\n";
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
