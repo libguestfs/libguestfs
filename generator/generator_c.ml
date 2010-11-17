@@ -792,7 +792,7 @@ check_state (guestfs_h *g, const char *caller)
 
   (* For non-daemon functions, generate a wrapper around each function. *)
   List.iter (
-    fun (shortname, (_, _, optargs as style), _, _, _, _, _) ->
+    fun (shortname, (ret, _, optargs as style), _, _, _, _, _) ->
       if optargs = [] then
         generate_prototype ~extern:false ~semicolon:false ~newline:true
           ~handle:"g" ~prefix:"guestfs_"
@@ -803,13 +803,30 @@ check_state (guestfs_h *g, const char *caller)
           shortname style;
       pr "{\n";
       pr "  int trace_flag = g->trace;\n";
+      (match ret with
+       | RErr | RInt _ | RBool _ ->
+           pr "  int r;\n"
+       | RInt64 _ ->
+           pr "  int64_t r;\n"
+       | RConstString _ | RConstOptString _ ->
+           pr "  const char *r;\n"
+       | RString _ | RBufferOut _ ->
+           pr "  char *r;\n"
+       | RStringList _ | RHashtable _ ->
+           pr "  char **r;\n"
+       | RStruct (_, typ) ->
+           pr "  struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) ->
+           pr "  struct guestfs_%s_list *r;\n" typ
+      );
       pr "\n";
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
       trace_call shortname style;
-      pr "  return guestfs__%s " shortname;
+      pr "  r = guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+      pr "  return r;\n";
       pr "}\n";
       pr "\n"
   ) non_daemon_functions;
@@ -855,6 +872,22 @@ check_state (guestfs_h *g, const char *caller)
       pr "  int serial;\n";
       pr "  int r;\n";
       pr "  int trace_flag = g->trace;\n";
+      (match ret with
+       | RErr | RInt _ | RBool _ ->
+           pr "  int ret_v;\n"
+       | RInt64 _ ->
+           pr "  int64_t ret_v;\n"
+       | RConstString _ | RConstOptString _ ->
+           pr "  const char *ret_v;\n"
+       | RString _ | RBufferOut _ ->
+           pr "  char *ret_v;\n"
+       | RStringList _ | RHashtable _ ->
+           pr "  char **ret_v;\n"
+       | RStruct (_, typ) ->
+           pr "  struct guestfs_%s *ret_v;\n" typ
+       | RStructList (_, typ) ->
+           pr "  struct guestfs_%s_list *ret_v;\n" typ
+      );
       pr "\n";
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
@@ -985,13 +1018,14 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs___end_busy (g);\n";
 
       (match ret with
-       | RErr -> pr "  return 0;\n"
+       | RErr ->
+           pr "  ret_v = 0;\n"
        | RInt n | RInt64 n | RBool n ->
-           pr "  return ret.%s;\n" n
+           pr "  ret_v = ret.%s;\n" n
        | RConstString _ | RConstOptString _ ->
            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RString n ->
-           pr "  return ret.%s; /* caller will free */\n" n
+           pr "  ret_v = ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
            pr "  /* caller will free this, but we need to add a NULL entry */\n";
            pr "  ret.%s.%s_val =\n" n n;
@@ -999,13 +1033,13 @@ check_state (guestfs_h *g, const char *caller)
            pr "                  sizeof (char *) * (ret.%s.%s_len + 1));\n"
              n n;
            pr "  ret.%s.%s_val[ret.%s.%s_len] = NULL;\n" n n n n;
-           pr "  return ret.%s.%s_val;\n" n n
+           pr "  ret_v = ret.%s.%s_val;\n" n n
        | RStruct (n, _) ->
            pr "  /* caller will free this */\n";
-           pr "  return safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
+           pr "  ret_v = safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
        | RStructList (n, _) ->
            pr "  /* caller will free this */\n";
-           pr "  return safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
+           pr "  ret_v = safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
        | RBufferOut n ->
            pr "  /* RBufferOut is tricky: If the buffer is zero-length, then\n";
            pr "   * _val might be NULL here.  To make the API saner for\n";
@@ -1014,15 +1048,15 @@ check_state (guestfs_h *g, const char *caller)
            pr "   */\n";
            pr "  if (ret.%s.%s_len > 0) {\n" n n;
            pr "    *size_r = ret.%s.%s_len;\n" n n;
-           pr "    return ret.%s.%s_val; /* caller will free */\n" n n;
+           pr "    ret_v = ret.%s.%s_val; /* caller will free */\n" n n;
            pr "  } else {\n";
            pr "    free (ret.%s.%s_val);\n" n n;
            pr "    char *p = safe_malloc (g, 1);\n";
            pr "    *size_r = ret.%s.%s_len;\n" n n;
-           pr "    return p;\n";
+           pr "    ret_v = p;\n";
            pr "  }\n";
       );
-
+      pr "  return ret_v;\n";
       pr "}\n\n"
   ) daemon_functions;
 
