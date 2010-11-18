@@ -204,6 +204,7 @@ guestfs__inspect_os (guestfs_h *g)
  */
 static int check_filesystem (guestfs_h *g, const char *device);
 static int check_linux_root (guestfs_h *g, struct inspect_fs *fs);
+static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
@@ -534,9 +535,26 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
  skip_release_checks:;
 
   /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* We already know /etc/fstab exists because it's part of the test
+   * for Linux root above.  We must now parse this file to determine
+   * which filesystems are used by the operating system and how they
+   * are mounted.
+   */
+  if (check_fstab (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
+static void
+check_architecture (guestfs_h *g, struct inspect_fs *fs)
+{
   const char *binaries[] =
     { "/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh" };
   size_t i;
+
   for (i = 0; i < sizeof binaries / sizeof binaries[0]; ++i) {
     if (guestfs_is_file (g, binaries[i]) > 0) {
       /* Ignore errors from file_architecture call. */
@@ -554,13 +572,16 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       }
     }
   }
+}
 
-  /* We already know /etc/fstab exists because it's part of the test
-   * for Linux root above.  We must now parse this file to determine
-   * which filesystems are used by the operating system and how they
-   * are mounted.
-   * XXX What if !feature_available (g, "augeas")?
-   */
+static int check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs);
+
+static int
+check_fstab (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+
+  /* XXX What if !feature_available (g, "augeas")? */
   if (guestfs_aug_init (g, "/", 16|32) == -1)
     return -1;
 
@@ -568,7 +589,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   guestfs_aug_rm (g, "/augeas/load//incl[. != \"/etc/fstab\"]");
   guestfs_aug_load (g);
 
-  r = check_fstab (g, fs);
+  r = check_fstab_aug_open (g, fs);
   guestfs_aug_close (g);
   if (r == -1)
     return -1;
@@ -577,7 +598,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 }
 
 static int
-check_fstab (guestfs_h *g, struct inspect_fs *fs)
+check_fstab_aug_open (guestfs_h *g, struct inspect_fs *fs)
 {
   char **lines = guestfs_aug_ls (g, "/files/etc/fstab");
   if (lines == NULL)
