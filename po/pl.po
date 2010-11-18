@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-05 15:20+0000\n"
+"POT-Creation-Date: 2010-11-18 12:58+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -1682,60 +1682,60 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 "Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
-#: fish/fish.c:201 fuse/guestmount.c:975
+#: fish/fish.c:202 fuse/guestmount.c:976
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
-#: fish/fish.c:238
+#: fish/fish.c:239
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID nie był liczbą: %s\n"
 
-#: fish/fish.c:245
+#: fish/fish.c:246
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego procesu\n"
 
-#: fish/fish.c:267 fuse/guestmount.c:1020
+#: fish/fish.c:268 fuse/guestmount.c:1021
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
 
-#: fish/fish.c:291
+#: fish/fish.c:292
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: można podać tylko jeden parametr -f\n"
 
-#: fish/fish.c:441
+#: fish/fish.c:446
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --remote w tym samym czasie\n"
 
-#: fish/fish.c:449
+#: fish/fish.c:454
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: dodatkowe parametry wiersza poleceń za pomocą flagi --listen\n"
 
-#: fish/fish.c:455
+#: fish/fish.c:460
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
 
-#: fish/fish.c:512
+#: fish/fish.c:517
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 "guestfish: nie można uzyskać dostępu do bazy danych termcap lub terminfo.\n"
 
-#: fish/fish.c:516
+#: fish/fish.c:521
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr "guestfish: typ terminala \"%s\" nie jest określony.\n"
 
-#: fish/fish.c:625
+#: fish/fish.c:630
 #, c-format
 msgid ""
 "\n"
@@ -1756,45 +1756,45 @@ msgstr ""
 "              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
-#: fish/fish.c:712
+#: fish/fish.c:717
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niezakończony podwójny cudzysłów\n"
 
-#: fish/fish.c:718 fish/fish.c:735
+#: fish/fish.c:723 fish/fish.c:740
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: parametry poleceń nie są oddzielone spacjami\n"
 
-#: fish/fish.c:729
+#: fish/fish.c:734
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niezakończony pojedynczy cudzysłów\n"
 
-#: fish/fish.c:784
+#: fish/fish.c:789
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: wewnętrzny błąd przetwarzania ciągu \"%s\"\n"
 
-#: fish/fish.c:801
+#: fish/fish.c:806
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: za dużo parametrów\n"
 
-#: fish/fish.c:830
+#: fish/fish.c:835
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:971
+#: fish/fish.c:976
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:973
+#: fish/fish.c:978
 msgid "quit guestfish"
 msgstr "kończy działanie programu guestfish"
 
-#: fish/fish.c:984
+#: fish/fish.c:989
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1805,7 +1805,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:992
+#: fish/fish.c:997
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1814,14 +1814,14 @@ msgstr ""
 "quit - kończy działanie programu guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:997
+#: fish/fish.c:1002
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
 "poleceń\n"
 
-#: fish/fish.c:1013
+#: fish/fish.c:1018
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1832,12 +1832,12 @@ msgstr ""
 "Lista poleceń:                        guestfish -h\n"
 "Pełna dokumentacja:                   man guestfish\n"
 
-#: fish/fish.c:1170
+#: fish/fish.c:1175
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cytat ucieczki w ciągu \"%s\"\n"
 
-#: fish/fish.c:1506
+#: fish/fish.c:1511
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Proszę podać klucz lub hasło (\"%s\"): "
@@ -2226,12 +2226,12 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: fuse/guestmount.c:1084
+#: fuse/guestmount.c:1089
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: musi posiadać co najmniej jedną opcję -a i co najmniej jedną -m\n"
 
-#: fuse/guestmount.c:1092
+#: fuse/guestmount.c:1097
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
@@ -2389,7 +2389,7 @@ msgstr "{path} nie zgadza się ze wzorem Augeas"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
 
-#: src/appliance.c:138
+#: src/appliance.c:142
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
@@ -2398,21 +2398,32 @@ msgstr ""
 "nie można odnaleźć żadnego przyrządu biblioteki libguestfs typu \"supermin\" "
 "lub \"ordinary\" w LIBGUESTFS_PATH (ścieżka wyszukiwania: %s)"
 
-#: src/appliance.c:353
+#: src/appliance.c:358
 #, fuzzy, c-format
 msgid "failed to create temporary cache directory: %m"
 msgstr "tworzy katalog tymczasowy"
 
-#: src/appliance.c:441
+#: src/appliance.c:446
 #, fuzzy, c-format
 msgid "error renaming temporary cache directory: %m"
 msgstr "tworzy katalog tymczasowy"
 
-#: src/appliance.c:517
+#: src/appliance.c:522
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "zewnętrzne polecenie nie powiodło się, proszę zobaczyć wcześniejsze "
 "komunikaty błędów"
+
+#: src/filearch.c:153
+#, c-format
+msgid "size of %s unreasonable (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/filearch.c:266
+msgid ""
+"file-architecture API not available since this version of libguestfs was "
+"compiled without PCRE or libmagic libraries"
+msgstr ""
 
 #: src/guestfs.c:178
 #, c-format
@@ -2424,21 +2435,36 @@ msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: błąd: %s\n"
 
-#: src/guestfs.c:762
+#: src/guestfs.c:778
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:1077
+#: src/inspect.c:388 src/inspect.c:1186 src/inspect.c:1229 src/inspect.c:1279
+#, c-format
+msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
+msgstr ""
+
+#: src/inspect.c:591
+#, fuzzy
+msgid "could not parse /etc/fstab or empty file"
+msgstr "nie można przetworzyć rozmiaru partycji startowej"
+
+#: src/inspect.c:784
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
 
-#: src/inspect.c:1293
+#: src/inspect.c:972
+#, fuzzy, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "nie można przetworzyć rozmiaru partycji startowej"
+
+#: src/inspect.c:982
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "brak danych badania: najpierw należy wywołać guestfs_inspect_os"
 
-#: src/inspect.c:1305
+#: src/inspect.c:994
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2447,8 +2473,19 @@ msgstr ""
 "%s: nie odnaleziono urządzenia root: należy wywoływać tę funkcję tylko z "
 "urządzeniem root poprzednio zwróconym przez guestfs_inspect_os"
 
-#: src/inspect.c:1400
+#: src/inspect.c:1089
 msgid "not a Windows guest, or systemroot could not be determined"
+msgstr ""
+
+#: src/inspect.c:1288
+#, c-format
+msgid "%s: file is empty"
+msgstr ""
+
+#: src/inspect.c:1305
+msgid ""
+"inspection API not available since this version of libguestfs was compiled "
+"without PCRE or hivex libraries"
 msgstr ""
 
 #: src/launch.c:94
