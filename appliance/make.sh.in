@@ -128,6 +128,11 @@ if [ "@DIST@" = "REDHAT" ]; then
     /var/log/yum.log \
     $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
 
+  # Remove all .*.hmac files (RHBZ#654638).  These are not used unless
+  # you are using FIPS, and they cause hard dependencies on files
+  # which change whenever a library version is bumped.
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -f $(cd initramfs && find -name '.*.hmac')
+
   # Kernel modules take up nearly half of the image.  Only include ones
   # which are on the whitelist.
   exec 5<appliance/kmod.whitelist
