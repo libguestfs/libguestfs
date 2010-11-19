@@ -50,4 +50,4 @@ $ENV{LD_LIBRARY_PATH} = $path.'/src/.libs';
 $ENV{LIBGUESTFS_PATH} = $path.'/appliance';
 
 #print (join " ", ("$path/$tool/virt-$tool", @ARGV), "\n");
-exec('perl', "$path/$tool/virt-$tool", @ARGV);
+exec("$path/$tool/virt-$tool", @ARGV);
