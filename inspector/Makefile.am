@@ -73,7 +73,7 @@ virt-inspector.1: virt-inspector.pod
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
 
-$(top_builddir)/html/virt-inspector.1.html: virt-inspector
+$(top_builddir)/html/virt-inspector.1.html: virt-inspector.pod
 	mkdir -p $(top_builddir)/html
 	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
