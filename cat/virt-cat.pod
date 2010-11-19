@@ -101,7 +101,9 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room you
 can specify this flag to see what you are typing.
 
-=item B<--format=raw|qcow2|..> | B<--format>
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
 
 The default for the I<-a> option is to auto-detect the format of the
 disk image.  Using this forces the disk format for I<-a> options which
