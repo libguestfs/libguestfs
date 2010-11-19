@@ -35,8 +35,8 @@ SUBDIRS += gnulib/tests capitests regressions test-tool
 # Guestfish.
 SUBDIRS += fish
 
-# virt-cat (in C).
-SUBDIRS += cat
+# virt-tools in C.
+SUBDIRS += cat inspector
 
 # Language bindings.
 if HAVE_PERL
@@ -64,11 +64,7 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
-# Virt-inspector, tools and guestmount.
-if HAVE_INSPECTOR
-SUBDIRS += inspector
-endif
-
+# Perl tools and guestmount.
 if HAVE_TOOLS
 SUBDIRS += tools
 endif
@@ -255,5 +251,7 @@ bindist:
 	cp test-tool/libguestfs-test-tool.static $(BINTMPDIR)$(bindir)/libguestfs-test-tool
 	$(MAKE) -C cat virt-cat.static
 	cp cat/virt-cat.static $(BINTMPDIR)$(bindir)/virt-cat
+	$(MAKE) -C inspector virt-inspector.static
+	cp inspector/virt-inspector.static $(BINTMPDIR)$(bindir)/virt-inspector
 	(cd $(BINTMPDIR) && tar cf - .) | \
 	  gzip -c -9 > libguestfs-$(VERSION)-$(host_cpu).tar.gz

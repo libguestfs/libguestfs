@@ -28,8 +28,6 @@
 
 #include "options.h"
 
-static void do_decrypt (void);
-
 /* Global that saves the root device between inspect_mount and
  * print_inspect_prompt.
  */
@@ -75,7 +73,7 @@ compare_keys (const void *p1, const void *p2)
 void
 inspect_mount (void)
 {
-  do_decrypt ();
+  inspect_do_decrypt ();
 
   char **roots = guestfs_inspect_os (g);
   if (roots == NULL)
@@ -96,6 +94,12 @@ inspect_mount (void)
   root = roots[0];
   free (roots);
 
+  inspect_mount_root (root);
+}
+
+void
+inspect_mount_root (const char *root)
+{
   char **mountpoints = guestfs_inspect_get_mountpoints (g, root);
   if (mountpoints == NULL)
     exit (EXIT_FAILURE);
@@ -178,8 +182,8 @@ make_mapname (const char *device, char *mapname, size_t len)
  * for Fedora whole-disk encryption.  WIP to make this work for other
  * encryption schemes.
  */
-static void
-do_decrypt (void)
+void
+inspect_do_decrypt (void)
 {
   char **partitions = guestfs_list_partitions (g);
   if (partitions == NULL)

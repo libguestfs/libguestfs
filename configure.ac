@@ -469,6 +469,7 @@ PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],
          AC_DEFINE([HAVE_LIBXML2],[1],[libxml2 found at compile time.])
         ],
         [AC_MSG_WARN([libxml2 not found, some core features will be disabled])])
+AM_CONDITIONAL([HAVE_LIBXML2],[test "x$LIBXML2_LIBS" != "x"])
 
 dnl hivex library (highly recommended)
 dnl This used to be a part of libguestfs, but was spun off into its
@@ -787,7 +788,7 @@ AS_IF([test "x$enable_php" != "xno"],
         ])
 AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
-dnl Check for Perl modules needed by virt-df, inspector, etc.
+dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],
         [
         missing_perl_modules=no
@@ -801,12 +802,10 @@ AS_IF([test "x$PERL" != "xno"],
             fi
         done
         if test "x$missing_perl_modules" = "xyes"; then
-            AC_MSG_WARN([some Perl modules required to compile virt-inspector and the other virt-* tools are missing])
+            AC_MSG_WARN([some Perl modules required to compile the Perl virt-* tools are missing])
         fi
         ])
 
-AM_CONDITIONAL([HAVE_INSPECTOR],
-    [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
@@ -882,8 +881,6 @@ echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "PHP bindings ........................ "
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "virt-inspector ...................... "
-if test "x$HAVE_INSPECTOR_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-* tools ........................ "
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"

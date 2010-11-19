@@ -106,7 +106,7 @@ fish/time.c
 fish/virt.c
 fuse/dircache.c
 fuse/guestmount.c
-inspector/virt-inspector.pl
+inspector/virt-inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 ocaml/guestfs_c.c
 ocaml/guestfs_c_actions.c

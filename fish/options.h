@@ -104,6 +104,9 @@ struct mp {
 /* in inspect.c */
 extern void inspect_mount (void);
 extern void print_inspect_prompt (void);
+/* (low-level inspection functions, used by virt-inspector only) */
+extern void inspect_do_decrypt (void);
+extern void inspect_mount_root (const char *root);
 
 /* in key.c */
 extern char *read_key (const char *param);

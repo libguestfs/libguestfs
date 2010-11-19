@@ -1,5 +1,5 @@
 # libguestfs virt-inspector
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,22 +25,48 @@ EXAMPLE_XML = \
 
 EXTRA_DIST = \
 	run-inspector-locally \
-	virt-inspector
+	virt-inspector.pod
 
 docdir = @docdir@
 dist_doc_DATA = \
 	virt-inspector.rng \
 	$(EXAMPLE_XML)
 
-if HAVE_INSPECTOR
+if HAVE_LIBXML2
 
-bin_SCRIPTS = virt-inspector
+bin_PROGRAMS = virt-inspector
+
+SHARED_SOURCE_FILES = \
+	../fish/inspect.c \
+	../fish/keys.c \
+	../fish/options.h \
+	../fish/options.c \
+	../fish/virt.c
+
+virt_inspector_SOURCES = \
+	$(SHARED_SOURCE_FILES) \
+	virt-inspector.c
+
+virt_inspector_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	$(LIBXML2_CFLAGS) \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+virt_inspector_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	../gnulib/lib/libgnu.la
+
+# Manual pages and HTML files for the website.
 man_MANS = virt-inspector.1
 
 noinst_DATA = \
 	$(top_builddir)/html/virt-inspector.1.html
 
-virt-inspector.1: virt-inspector
+virt-inspector.1: virt-inspector.pod
 	$(POD2MAN) \
 	  --section 1 \
 	  -c "Virtualization Support" \
@@ -63,6 +89,8 @@ TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng virt-inspector.rng
 
 endif
 
+endif
+
 # These rules require virt-inspector so there is no good time that we
 # can run them.  Instead you can run them by hand.
 
@@ -75,13 +103,8 @@ example-ubuntu.xml:
 example-windows.xml:
 	./run-inspector-locally ../images/windows.img | fgrep -v '<uuid>' > $@
 
-endif
+# Build a partly-static library (for the binary distribution).
 
-# Make symlink from virt-inspector.pl to virt-inspector.  This is just
-# to keep xgettext happy since it uses the file extension to determine
-# the implementation language of a file.
-
-all-local: virt-inspector.pl
-
-virt-inspector.pl: virt-inspector
-	ln -sf $< $@
+virt-inspector.static$(EXEEXT): $(virt_inspector_OBJECTS) $(virt_inspector_DEPENDENCIES)
+	$(top_srcdir)/relink-static.sh \
+	$(virt_inspector_LINK) $(virt_inspector_OBJECTS) -static $(virt_inspector_LDADD) $(virt_inspector_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

@@ -47,6 +47,5 @@ $path = abs_path(dirname($path).'/..');
 
 $ENV{LD_LIBRARY_PATH} = $path.'/src/.libs';
 $ENV{LIBGUESTFS_PATH} = $path.'/appliance';
-$ENV{PERL5LIB}        = $path.'/perl/blib/lib:'.$path.'/perl/blib/arch';
 
-exec('perl', $path.'/inspector/virt-inspector', @ARGV);
+exec($path.'/inspector/virt-inspector', @ARGV);

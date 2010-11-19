@@ -137,9 +137,9 @@ images/ubuntu.img
 images/windows.img
 initramfs
 initramfs.timestamp
+inspector/virt-inspector
 inspector/virt-inspector.1
-inspector/virt-inspector.pl
-inspector/stamp-inspector-generator
+inspector/virt-inspector.static
 install-sh
 *.jar
 java/api

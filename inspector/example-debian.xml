@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <operatingsystems>
   <operatingsystem>
     <root>/dev/debian/root</root>
@@ -13,8 +14,8 @@
       <mountpoint dev="/dev/debian/root">/</mountpoint>
       <mountpoint dev="/dev/debian/usr">/usr</mountpoint>
       <mountpoint dev="/dev/debian/var">/var</mountpoint>
-      <mountpoint dev="/dev/debian/home">/home</mountpoint>
       <mountpoint dev="/dev/sda1">/boot</mountpoint>
+      <mountpoint dev="/dev/debian/home">/home</mountpoint>
     </mountpoints>
     <filesystems>
       <filesystem dev="/dev/debian/home">
