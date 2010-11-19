@@ -204,6 +204,7 @@ do_decrypt (void)
 
       need_rescan = 1;
     }
+    free (type);
   }
 
   free_strings (partitions);
