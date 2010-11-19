@@ -220,6 +220,10 @@ main (int argc, char *argv[])
   if (optind >= argc || argc - optind < 1)
     usage (EXIT_FAILURE);
 
+  /* User must have specified some drives. */
+  if (drvs == NULL)
+    usage (EXIT_FAILURE);
+
   /* Add drives, inspect and mount.  Note that inspector is always true,
    * and there is no -m option.
    */
