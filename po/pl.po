@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-17 20:52+0000\n"
+"POT-Creation-Date: 2010-11-19 16:11+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 fish/fish.c:86 fuse/guestmount.c:841
+#: inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
@@ -65,11 +66,13 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
 #: cat/virt-cat.c:115 fish/fish.c:204 fuse/guestmount.c:952
+#: inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
 #: cat/virt-cat.c:137 fish/fish.c:272 fuse/guestmount.c:1000
+#: inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -1982,24 +1985,24 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: nieprawidłowy zakres\n"
 
-#: fish/inspect.c:85
+#: fish/inspect.c:83
 #, fuzzy, c-format
 msgid "%s: no operating system was found on this disk\n"
 msgstr "guestfish: na dysku nie odnaleziono żadnych systemów operacyjnych\n"
 
-#: fish/inspect.c:91
+#: fish/inspect.c:89
 #, fuzzy, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
 "guestfish: systemy operacyjne \"multiboot\" nie są obsługiwane przez opcję -"
 "i\n"
 
-#: fish/inspect.c:131
+#: fish/inspect.c:135
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "System operacyjny: %s\n"
 
-#: fish/inspect.c:144
+#: fish/inspect.c:148
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s zamontowano w %s\n"
@@ -2289,19 +2292,62 @@ msgstr "%s: musi posiadać co najmniej jedną opcję -a i co najmniej jedną -m\
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
 
-#: inspector/virt-inspector.pl:134
-msgid "virt-inspector: no image or VM names given"
-msgstr "virt-inspector: nie podano nazw obrazu lub maszyny wirtualnej"
-
-#: inspector/virt-inspector.pl:145 tools/virt-edit.pl:185 tools/virt-ls.pl:194
-#: tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
-#, fuzzy, perl-brace-format
+#: inspector/virt-inspector.c:71
+#, fuzzy, c-format
 msgid ""
-"{prog}: No operating system could be detected inside this disk image.\n"
+"%s: display information about a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Echo each command before executing it\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: moduł FUSE dla biblioteki libguestfs\n"
+"%s umożliwia zamontowanie systemu plików maszyny wirtualnej\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Użycie:\n"
+"  %s [--opcje] [-- [--opcje-FUSE]] punkt_montowania\n"
+"Opcje:\n"
+"  -a|--add image       Dodaje obraz\n"
+"  --dir-cache-timeout  Ustawia czas oczekiwania na pamięć podręczną\n"
+"                       odczytania katalogu (domyślnie pięć sekund)\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --help               Wyświetla komunikat pomocy i kończy działanie\n"
+"  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
+"  -n|--no-sync         Nie synchronizuje automatycznie\n"
+"  -o|--option opt      Przekazuje dodatkowe opcje do FUSE\n"
+"  -r|--ro              Montuje w trybie tylko do odczytu\n"
+"  --selinux            Włącza obsługę SELinuksa\n"
+"  --trace              Śledzi wywołania API biblioteki guestfs (do\n"
+"                       standardowego wyjścia błędów)\n"
+"  -v|--verbose         Wyświetla więcej komunikatów\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
+
+#: inspector/virt-inspector.c:259
+#, fuzzy, c-format
+msgid ""
+"%s: no operating system could be detected inside this disk image.\n"
 "\n"
 "This may be because the file is not a disk image, or is not a virtual "
 "machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
+"install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
@@ -2313,6 +2359,21 @@ msgstr ""
 "\n"
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
 "informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+
+#: inspector/virt-inspector.c:284
+#, c-format
+msgid "%s: XML write error at \"%s\": %m\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:296
+#, c-format
+msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:304
+#, c-format
+msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
 msgid "open_guest: first parameter must be a string or an arrayref"
@@ -2971,6 +3032,27 @@ msgstr ""
 "virt-edit: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
 "polecenia edit"
 
+#: tools/virt-edit.pl:185 tools/virt-ls.pl:194 tools/virt-tar.pl:238
+#: tools/virt-win-reg.pl:292
+#, fuzzy, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"Nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku.\n"
+"\n"
+"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
+"maszyną wirtualną lub program virt-inspector nie rozumie tego typu systemu.\n"
+"\n"
+"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
+"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+
 #: tools/virt-edit.pl:189 tools/virt-ls.pl:198 tools/virt-tar.pl:242
 #: tools/virt-win-reg.pl:296
 #, fuzzy, perl-brace-format
@@ -3322,6 +3404,9 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
+
+#~ msgid "virt-inspector: no image or VM names given"
+#~ msgstr "virt-inspector: nie podano nazw obrazu lub maszyny wirtualnej"
 
 #~ msgid "virt-cat: no image, VM names or filenames to cat given"
 #~ msgstr ""

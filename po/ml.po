@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-17 20:52+0000\n"
+"POT-Creation-Date: 2010-11-19 16:11+0000\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 fish/fish.c:86 fuse/guestmount.c:841
+#: inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി `%s --help' ശ്രമിക്കുക.\n"
@@ -64,11 +65,13 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 
 #: cat/virt-cat.c:115 fish/fish.c:204 fuse/guestmount.c:952
+#: inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
 #: cat/virt-cat.c:137 fish/fish.c:272 fuse/guestmount.c:1000
+#: inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
@@ -1988,22 +1991,22 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr ""
 
-#: fish/inspect.c:85
+#: fish/inspect.c:83
 #, c-format
 msgid "%s: no operating system was found on this disk\n"
 msgstr ""
 
-#: fish/inspect.c:91
+#: fish/inspect.c:89
 #, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
 
-#: fish/inspect.c:131
+#: fish/inspect.c:135
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:144
+#: fish/inspect.c:148
 #, fuzzy, c-format
 msgid "%s mounted on %s\n"
 msgstr "മൌണ്ട് പോയിന്റുകള്‍ കാണിക്കുക"
@@ -2270,22 +2273,76 @@ msgstr "%s: കുറഞ്ഞതു് ഒരു -a ഉപാധിയും �
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ഹോസ്റ്റ് ഫയല്‍സിസ്റ്റത്തില്‍ ഒരു മൌണ്ട് പോയിന്റ് നല്‍കണം\n"
 
-#: inspector/virt-inspector.pl:134
-msgid "virt-inspector: no image or VM names given"
-msgstr ""
-
-#: inspector/virt-inspector.pl:145 tools/virt-edit.pl:185 tools/virt-ls.pl:194
-#: tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
-#, perl-brace-format
+#: inspector/virt-inspector.c:71
+#, fuzzy, c-format
 msgid ""
-"{prog}: No operating system could be detected inside this disk image.\n"
+"%s: display information about a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Echo each command before executing it\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  --help               Display help message and exit\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  --trace              Trace guestfs API calls (to stderr)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+
+#: inspector/virt-inspector.c:259
+#, c-format
+msgid ""
+"%s: no operating system could be detected inside this disk image.\n"
 "\n"
 "This may be because the file is not a disk image, or is not a virtual "
 "machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
+"install the separate libguestfs-winsupport package.\n"
+"\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:284
+#, c-format
+msgid "%s: XML write error at \"%s\": %m\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:296
+#, c-format
+msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:304
+#, c-format
+msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
@@ -2913,6 +2970,20 @@ msgstr ""
 
 #: tools/virt-edit.pl:169
 msgid "virt-edit: no image, VM names or filenames to edit given"
+msgstr ""
+
+#: tools/virt-edit.pl:185 tools/virt-ls.pl:194 tools/virt-tar.pl:238
+#: tools/virt-win-reg.pl:292
+#, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
 msgstr ""
 
 #: tools/virt-edit.pl:189 tools/virt-ls.pl:198 tools/virt-tar.pl:242

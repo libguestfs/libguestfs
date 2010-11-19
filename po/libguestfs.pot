@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.10\n"
+"Project-Id-Version: libguestfs 1.7.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-17 20:52+0000\n"
+"POT-Creation-Date: 2010-11-19 16:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 fish/fish.c:86 fuse/guestmount.c:841
+#: inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -46,11 +47,13 @@ msgid ""
 msgstr ""
 
 #: cat/virt-cat.c:115 fish/fish.c:204 fuse/guestmount.c:952
+#: inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: cat/virt-cat.c:137 fish/fish.c:272 fuse/guestmount.c:1000
+#: inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
@@ -1867,22 +1870,22 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr ""
 
-#: fish/inspect.c:85
+#: fish/inspect.c:83
 #, c-format
 msgid "%s: no operating system was found on this disk\n"
 msgstr ""
 
-#: fish/inspect.c:91
+#: fish/inspect.c:89
 #, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
 
-#: fish/inspect.c:131
+#: fish/inspect.c:135
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:144
+#: fish/inspect.c:148
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -2126,22 +2129,58 @@ msgstr ""
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:134
-msgid "virt-inspector: no image or VM names given"
+#: inspector/virt-inspector.c:71
+#, c-format
+msgid ""
+"%s: display information about a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Echo each command before executing it\n"
+"For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:145 tools/virt-edit.pl:185 tools/virt-ls.pl:194
-#: tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
-#, perl-brace-format
+#: inspector/virt-inspector.c:259
+#, c-format
 msgid ""
-"{prog}: No operating system could be detected inside this disk image.\n"
+"%s: no operating system could be detected inside this disk image.\n"
 "\n"
 "This may be because the file is not a disk image, or is not a virtual "
 "machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
+"install the separate libguestfs-winsupport package.\n"
+"\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:284
+#, c-format
+msgid "%s: XML write error at \"%s\": %m\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:296
+#, c-format
+msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:304
+#, c-format
+msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
@@ -2731,6 +2770,20 @@ msgstr ""
 
 #: tools/virt-edit.pl:169
 msgid "virt-edit: no image, VM names or filenames to edit given"
+msgstr ""
+
+#: tools/virt-edit.pl:185 tools/virt-ls.pl:194 tools/virt-tar.pl:238
+#: tools/virt-win-reg.pl:292
+#, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
 msgstr ""
 
 #: tools/virt-edit.pl:189 tools/virt-ls.pl:198 tools/virt-tar.pl:242
