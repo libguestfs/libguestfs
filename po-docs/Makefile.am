@@ -46,7 +46,6 @@ PODFILES = \
 	../fish/guestfish-commands.pod \
 	../test-tool/libguestfs-test-tool.pod \
 	../fuse/guestmount.pod \
-	../inspector/virt-inspector.pl \
 	$(wildcard ../tools/virt-*.pl)
 
 if HAVE_PO4A
