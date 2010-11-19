@@ -2346,6 +2346,7 @@ guestfs___free_inspect_info (guestfs_h *g)
     free (g->fses[i].device);
     free (g->fses[i].product_name);
     free (g->fses[i].arch);
+    free (g->fses[i].hostname);
     free (g->fses[i].windows_systemroot);
     size_t j;
     for (j = 0; j < g->fses[i].nr_fstab; ++j) {
