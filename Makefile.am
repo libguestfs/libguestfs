@@ -142,6 +142,7 @@ HTMLFILES = \
 	html/virt-cat.1.html \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
+	html/virt-filesystems.1.html \
 	html/virt-inspector.1.html \
 	html/virt-list-filesystems.1.html \
 	html/virt-list-partitions.1.html \
@@ -249,8 +250,9 @@ bindist:
 	cp fuse/guestmount.static $(BINTMPDIR)$(bindir)/guestmount
 	$(MAKE) -C test-tool libguestfs-test-tool.static
 	cp test-tool/libguestfs-test-tool.static $(BINTMPDIR)$(bindir)/libguestfs-test-tool
-	$(MAKE) -C cat virt-cat.static virt-ls.static
+	$(MAKE) -C cat virt-cat.static virt-filesystems.static virt-ls.static
 	cp cat/virt-cat.static $(BINTMPDIR)$(bindir)/virt-cat
+	cp cat/virt-filesystems.static $(BINTMPDIR)$(bindir)/virt-filesystems
 	cp cat/virt-ls.static $(BINTMPDIR)$(bindir)/virt-ls
 	$(MAKE) -C inspector virt-inspector.static
 	cp inspector/virt-inspector.static $(BINTMPDIR)$(bindir)/virt-inspector

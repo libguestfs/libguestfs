@@ -173,3 +173,8 @@ xsize.m4
 /wchar_h.m4
 /wctype_h.m4
 /asm-underscore.m4
+/argmatch.m4
+/human.m4
+/quote.m4
+/strtoimax.m4
+/strtoumax.m4

@@ -72,7 +72,8 @@ capitests/
         Automated tests of the C API.
 
 cat/
-        The 'virt-cat' and 'virt-ls' commands and documentation.
+        The 'virt-cat', 'virt-filesystems' and 'virt-ls' commands and
+        documentation.
 
 contrib/
         Outside contributions, experimental parts.

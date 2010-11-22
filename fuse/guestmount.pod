@@ -57,9 +57,9 @@ For a libvirt guest called "Guest" you could do:
  guestmount -d Guest -i --ro /mnt
 
 If you don't know what filesystems are contained in a guest or
-disk image, use L<virt-list-filesystems(1)> first:
+disk image, use L<virt-filesystems(1)> first:
 
- virt-list-filesystems MyGuest
+ virt-filesystems MyGuest
 
 If you want to trace the libguestfs calls but without excessive
 debugging information, we recommend:

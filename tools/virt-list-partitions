@@ -39,6 +39,9 @@ virt-list-partitions - List partitions in a virtual machine or disk image
 
 =head1 DESCRIPTION
 
+This tool is obsolete.  Use L<virt-filesystems(1)> as a more
+flexible replacement.
+
 C<virt-list-partitions> is a command line tool to list
 the partitions that are contained in a virtual machine or
 disk image.  It is mainly useful as a first step to using
@@ -255,6 +258,7 @@ manual page L<sh(1)> for details.
 
 L<guestfs(3)>,
 L<guestfish(1)>,
+L<virt-filesystems(1)>,
 L<virt-list-filesystems(1)>,
 L<virt-resize(1)>,
 L<Sys::Guestfs(3)>,

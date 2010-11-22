@@ -1,4 +1,5 @@
 cat/virt-cat.c
+cat/virt-filesystems.c
 cat/virt-ls.c
 daemon/augeas.c
 daemon/available.c

@@ -34,6 +34,9 @@ capitests/test*.tmp
 cat/virt-cat
 cat/virt-cat.1
 cat/virt-cat.static
+cat/virt-filesystems
+cat/virt-filesystems.1
+cat/virt-filesystems.static
 cat/virt-ls
 cat/virt-ls.1
 cat/virt-ls.static
@@ -112,6 +115,7 @@ html/recipes.html
 html/virt-cat.1.html
 html/virt-df.1.html
 html/virt-edit.1.html
+html/virt-filesystems.1.html
 html/virt-inspector.1.html
 html/virt-list-filesystems.1.html
 html/virt-list-partitions.1.html

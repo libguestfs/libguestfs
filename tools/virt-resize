@@ -58,10 +58,8 @@ B<should not> be used on live virtual machines - for consistent
 results, shut the virtual machine down before resizing it.
 
 If you are not familiar with the associated tools:
-L<virt-list-partitions(1)>,
-L<virt-list-filesystems(1)> and
-L<virt-df(1)>,
-we recommend you go and read those manual pages first.
+L<virt-filesystems(1)> and L<virt-df(1)>, we recommend you go and read
+those manual pages first.
 
 =head1 EXAMPLES
 
@@ -69,7 +67,7 @@ Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions
 to fill the extra 5GB of space.
 
  truncate -r olddisk newdisk; truncate -s +5G newdisk
- virt-list-partitions -lht olddisk
+ virt-filesystems --long --h --all -a olddisk
  # Note "/dev/sda2" is a partition inside the "olddisk" file.
  virt-resize --expand /dev/sda2 olddisk newdisk
 
@@ -104,13 +102,14 @@ can use C<virsh dumpxml> like this to find the disk image name:
 
 =item 3. Look at current sizing
 
-Use L<virt-list-partitions(1)> to display the current partitions and
+Use L<virt-filesystems(1)> to display the current partitions and
 sizes:
 
- # virt-list-partitions -lht /dev/vg/lv_guest
- /dev/sda1 ext3 101.9M
- /dev/sda2 pv 7.9G
- /dev/sda device 8.0G
+ # virt-filesystems --long --parts --blkdevs -h -a /dev/vg/lv_guest
+ Name       Type       Size  Parent
+ /dev/sda1  partition  101M  /dev/sda
+ /dev/sda2  partition  7.9G  /dev/sda
+ /dev/sda   device     8.0G  -
 
 (This example is a virtual machine with an 8 GB disk which we would
 like to expand up to 10 GB).
@@ -443,7 +442,7 @@ The contents of the LV are also resized if virt-resize knows how to do
 that.  You can stop virt-resize from trying to expand the content by
 using the option C<--no-expand-content>.
 
-Use L<virt-list-filesystems(1)> to list the filesystems in
+Use L<virt-filesystems(1)> to list the filesystems in
 the guest.
 
 You can give this option multiple times, I<but> it doesn't
@@ -1485,8 +1484,7 @@ manual page L<sh(1)> for details.
 
 =head1 SEE ALSO
 
-L<virt-list-partitions(1)>,
-L<virt-list-filesystems(1)>,
+L<virt-filesystems(1)>,
 L<virt-df(1)>,
 L<guestfs(3)>,
 L<guestfish(1)>,

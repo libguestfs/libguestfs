@@ -57,6 +57,7 @@ gnu-make
 gnumakefile
 hash
 hash-pjw
+human
 ignore-value
 lock
 maintainer-makefile
