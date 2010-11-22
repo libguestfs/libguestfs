@@ -112,11 +112,11 @@ switches back to auto-detection for subsequent I<-a> options.
 
 For example:
 
- virt-cat --format=raw -a disk.img
+ virt-cat --format=raw -a disk.img file
 
 forces raw format (no auto-detection) for C<disk.img>.
 
- virt-cat --format=raw -a disk.img --format -a another.img
+ virt-cat --format=raw -a disk.img --format -a another.img file
 
 forces raw format (no auto-detection) for C<disk.img> and reverts to
 auto-detection for C<another.img>.
