@@ -237,13 +237,15 @@ main (int argc, char *argv[])
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
 
+  unsigned errors = 0;
+
   while (optind < argc) {
     if (guestfs_download (g, argv[optind], "/dev/stdout") == -1)
-      exit (EXIT_FAILURE);
+      errors++;
     optind++;
   }
 
   guestfs_close (g);
 
-  exit (EXIT_SUCCESS);
+  exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }
