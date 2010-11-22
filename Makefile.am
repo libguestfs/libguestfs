@@ -249,8 +249,9 @@ bindist:
 	cp fuse/guestmount.static $(BINTMPDIR)$(bindir)/guestmount
 	$(MAKE) -C test-tool libguestfs-test-tool.static
 	cp test-tool/libguestfs-test-tool.static $(BINTMPDIR)$(bindir)/libguestfs-test-tool
-	$(MAKE) -C cat virt-cat.static
+	$(MAKE) -C cat virt-cat.static virt-ls.static
 	cp cat/virt-cat.static $(BINTMPDIR)$(bindir)/virt-cat
+	cp cat/virt-ls.static $(BINTMPDIR)$(bindir)/virt-ls
 	$(MAKE) -C inspector virt-inspector.static
 	cp inspector/virt-inspector.static $(BINTMPDIR)$(bindir)/virt-inspector
 	(cd $(BINTMPDIR) && tar cf - .) | \

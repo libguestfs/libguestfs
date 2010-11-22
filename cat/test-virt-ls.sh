@@ -3,9 +3,6 @@
 export LANG=C
 set -e
 
-# Just a random UUID.
-uuid=868b1447-0ec5-41bf-a2e5-6a77a4c9b66f
-
 # Read out the test directory using virt-ls.
 if [ "$(./virt-ls ../images/fedora.img /bin)" != "ls
 test1

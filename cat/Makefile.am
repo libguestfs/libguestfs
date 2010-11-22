@@ -1,4 +1,4 @@
-# libguestfs virt-cat.
+# libguestfs virt-cat and virt-ls.
 # Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -20,9 +20,12 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	run-cat-locally \
 	test-virt-cat.sh \
-	virt-cat.pod
+	virt-cat.pod \
+	run-ls-locally \
+	test-virt-ls.sh \
+	virt-ls.pod
 
-bin_PROGRAMS = virt-cat
+bin_PROGRAMS = virt-cat virt-ls
 
 SHARED_SOURCE_FILES = \
 	../fish/inspect.c \
@@ -46,10 +49,27 @@ virt_cat_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
-# Manual pages and HTML files for the website.
-man_MANS = virt-cat.1
+virt_ls_SOURCES = \
+	$(SHARED_SOURCE_FILES) \
+	virt-ls.c
 
-noinst_DATA = $(top_builddir)/html/virt-cat.1.html
+virt_ls_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+virt_ls_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	../gnulib/lib/libgnu.la
+
+# Manual pages and HTML files for the website.
+man_MANS = virt-cat.1 virt-ls.1
+
+noinst_DATA = \
+	$(top_builddir)/html/virt-cat.1.html \
+	$(top_builddir)/html/virt-ls.1.html
 
 virt-cat.1: virt-cat.pod
 	$(POD2MAN) \
@@ -66,6 +86,21 @@ $(top_builddir)/html/virt-cat.1.html: virt-cat.pod
 	  --outfile html/$@ \
 	  $(abs_srcdir)/$<
 
+virt-ls.1: virt-ls.pod
+	$(POD2MAN) \
+	  --section 1 \
+	  -c "Virtualization Support" \
+	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
+	  $< > $@-t && mv $@-t $@
+
+$(top_builddir)/html/virt-ls.1.html: virt-ls.pod
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
+	  --css 'pod.css' \
+	  --htmldir html \
+	  --outfile html/$@ \
+	  $(abs_srcdir)/$<
+
 # Tests.
 
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
@@ -75,10 +110,14 @@ TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
-TESTS = test-virt-cat.sh
+TESTS = test-virt-cat.sh test-virt-ls.sh
 
-# Build a partly-static library (for the binary distribution).
+# Build a partly-static binary (for the binary distribution).
 
 virt-cat.static$(EXEEXT): $(virt_cat_OBJECTS) $(virt_cat_DEPENDENCIES)
 	$(top_srcdir)/relink-static.sh \
 	$(virt_cat_LINK) $(virt_cat_OBJECTS) -static $(virt_cat_LDADD) $(virt_cat_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm
+
+virt-ls.static$(EXEEXT): $(virt_ls_OBJECTS) $(virt_ls_DEPENDENCIES)
+	$(top_srcdir)/relink-static.sh \
+	$(virt_ls_LINK) $(virt_ls_OBJECTS) -static $(virt_ls_LDADD) $(virt_ls_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

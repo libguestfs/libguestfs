@@ -1,0 +1,222 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-ls - List files in a virtual machine
+
+=head1 SYNOPSIS
+
+ virt-ls [--options] -d domname directory [directory ...]
+
+ virt-ls [--options] -a disk.img [-a disk.img ...] directory [directory ...]
+
+Old style:
+
+ virt-ls [--options] domname directory
+
+ virt-ls [--options] disk.img [disk.img ...] directory
+
+=head1 DESCRIPTION
+
+C<virt-ls> is a command line tool to list the names of files in a
+directory inside a virtual machine or disk image.
+
+Multiple directory names can be given, in which case the output
+from each is concatenated.
+
+C<virt-ls> is just a simple wrapper around L<libguestfs(3)>
+functionality.  For more complex cases you should look at the
+L<guestfish(1)> tool.
+
+To list directories from a libvirt guest use the I<-d> option to
+specify the name of the guest.  For a disk image, use the I<-a>
+option.
+
+C<virt-ls> can be used in one of three modes: simple, long and
+recursive.  A simple listing is like the ordinary L<ls(1)> command:
+
+ $ virt-ls -d myguest /
+ bin
+ boot
+ [etc.]
+
+With the C<-l> (C<--long>) option, C<virt-ls> shows more detail:
+
+ $ virt-ls -l -d myguest /
+ total 204
+ dr-xr-xr-x.   2 root root   4096 2009-08-25 19:06 bin
+ dr-xr-xr-x.   5 root root   3072 2009-08-25 19:06 boot
+ [etc.]
+
+With the C<-R> (C<--recursive>) option, C<virt-ls> lists the
+names of files and directories recursively:
+
+ $ virt-ls -R -d myguest /tmp
+ foo
+ foo/bar
+ [etc.]
+
+You I<cannot> combine these options.  To do more complicated things,
+use L<guestfish(1)>.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.  If
+the virtual machine has multiple block devices, you must supply all of
+them with separate I<-a> options.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.
+
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, virt-ls normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room you
+can specify this flag to see what you are typing.
+
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-ls --format=raw -a disk.img /dir
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-ls --format=raw -a disk.img --format -a another.img /dir
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).  See also
+L</add-drive-opts>.
+
+=item B<--keys-from-stdin>
+
+Read key or passphrase parameters from stdin.  The default is
+to try to read passphrases from the user by opening C</dev/tty>.
+
+=item B<-l> | B<--long>
+
+=item B<-R> | B<--recursive>
+
+Select the mode.  With neither of these options, C<virt-ls>
+produces a simple, flat list of the files in the named directory.
+
+C<virt-ls -l> produces a "long listing", which shows more detail (just
+like the plain C<ls -l> command).
+
+C<virt-ls -R> produces a recursive list of files starting at the named
+directory.  See the documentation for L<guestfs(3)/guestfs_find0>
+for precise details.
+
+You cannot combine these options.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 OLD-STYLE COMMAND LINE ARGUMENTS
+
+Previous versions of virt-ls allowed you to write either:
+
+ virt-ls disk.img [disk.img ...] /dir
+
+or
+
+ virt-ls guestname /dir
+
+whereas in this version you should use I<-a> or I<-d> respectively
+to avoid the confusing case where a disk image might have the same
+name as a guest.
+
+For compatibility the old style is still supported.
+
+=head1 SHELL QUOTING
+
+Libvirt guest names can contain arbitrary characters, some of which
+have meaning to the shell such as C<#> and space.  You may need to
+quote or escape these characters on the command line.  See the shell
+manual page L<sh(1)> for details.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-cat(1)>,
+L<virt-tar(1)>,
+L<Sys::Guestfs(3)>,
+L<Sys::Guestfs::Lib(3)>,
+L<Sys::Virt(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

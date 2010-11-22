@@ -22,7 +22,6 @@ tools = \
 	edit \
 	list-filesystems \
 	list-partitions \
-	ls \
 	make-fs \
 	rescue \
 	resize \
@@ -76,7 +75,6 @@ TESTS_ENVIRONMENT = \
 
 TESTS = test-virt-df.sh \
 	test-virt-list-filesystems.sh \
-	test-virt-ls.sh \
 	test-virt-make-fs.sh \
 	test-virt-resize.sh \
 	test-virt-tar.sh
