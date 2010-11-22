@@ -69,7 +69,7 @@ usage (int status)
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
-             "  -x                   Echo each command before executing it\n"
+             "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
              program_name);
