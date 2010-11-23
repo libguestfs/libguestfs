@@ -65,6 +65,9 @@ Requirements
 
 - hivex >= 1.2.1 (http://libguestfs.org/download)
 
+- (Optional) Berkeley DB 'db_dump' and 'db_load' utilities
+  (db4-utils or db4.X-util or similar)
+
 - (Optional) FUSE to build the FUSE module
 
 - perldoc (pod2man, pod2text) to generate the manual pages and

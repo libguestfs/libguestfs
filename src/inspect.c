@@ -1661,7 +1661,9 @@ guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
   return safe_strdup (g, fs->hostname ? : "unknown");
 }
 
+#ifdef DB_DUMP
 static struct guestfs_application_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
+#endif
 static struct guestfs_application_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
 static struct guestfs_application_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
 static void add_application (guestfs_h *g, struct guestfs_application_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *install_path, const char *publisher, const char *url, const char *description);
@@ -1683,9 +1685,11 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
   case OS_TYPE_LINUX:
     switch (fs->package_format) {
     case OS_PACKAGE_FORMAT_RPM:
+#ifdef DB_DUMP
       ret = list_applications_rpm (g, fs);
       if (ret == NULL)
         return NULL;
+#endif
       break;
 
     case OS_PACKAGE_FORMAT_DEB:
@@ -1729,6 +1733,7 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
   return ret;
 }
 
+#ifdef DB_DUMP
 static struct guestfs_application_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
@@ -1744,7 +1749,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   char line[1024];
   size_t len;
 
-  snprintf (cmd, cmd_len, "db_dump -p '%s'", tmpfile);
+  snprintf (cmd, cmd_len, DB_DUMP " -p '%s'", tmpfile);
 
   if (g->verbose)
     fprintf (stderr, "list_applications_rpm: %s\n", cmd);
@@ -1829,6 +1834,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 
   return ret;
 }
+#endif /* defined DB_DUMP */
 
 static struct guestfs_application_list *
 list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
