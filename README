@@ -90,8 +90,13 @@ bindings
 
 - (Optional) GHC if you want to build the Haskell bindings
 
-- (Optional) Perl XML::XPath, Sys::Virt modules (for libvirt support
-in virt-inspector).
+- (Optional) Perl Sys::Virt module.
+
+- (Optional) Perl Win::Hivex module.
+
+- (Optional) Perl Pod::Usage module.
+
+- (Optional) Perl Test::More module (from perl Test::Simple).
 
 - (Optional, but highly recommended) perl-libintl for translating perl code.
 
