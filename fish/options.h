@@ -77,6 +77,16 @@ extern const char *program_name;
 /* List of drives added via -a, -d or -N options. */
 struct drv {
   struct drv *next;
+
+  char *device;    /* Device name inside the appliance (eg. /dev/sda).
+                    * This is filled in when we add the drives in
+                    * add_drives.  Note that guests (-d option) may
+                    * have multiple drives, in which case this is the
+                    * first drive, and nr_drives is the number of
+                    * drives used.
+                    */
+  int nr_drives;   /* number of drives for this guest */
+
   enum { drv_a, drv_d, drv_N } type;
   union {
     struct {
@@ -90,7 +100,6 @@ struct drv {
       char *filename;       /* disk filename (testX.img) */
       void *data;           /* prepared type */
       void (*data_free)(void*); /* function to free 'data' */
-      char *device;         /* device inside the appliance */
     } N;
   };
 };
@@ -131,6 +140,8 @@ extern int add_libvirt_drives (const char *guest);
     exit (EXIT_FAILURE);                        \
   }                                             \
   drv->type = drv_a;                            \
+  drv->device = NULL;                           \
+  drv->nr_drives = -1;                          \
   drv->a.filename = optarg;                     \
   drv->a.format = format;                       \
   drv->next = drvs;                             \
@@ -146,6 +157,8 @@ extern int add_libvirt_drives (const char *guest);
     exit (EXIT_FAILURE);                        \
   }                                             \
   drv->type = drv_d;                            \
+  drv->device = NULL;                           \
+  drv->nr_drives = -1;                          \
   drv->d.guest = optarg;                        \
   drv->next = drvs;                             \
   drvs = drv

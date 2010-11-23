@@ -41,6 +41,11 @@ add_drives (struct drv *drv, char next_drive)
   if (drv) {
     next_drive = add_drives (drv->next, next_drive);
 
+    if (asprintf (&drv->device, "/dev/sd%c", next_drive) == -1) {
+      perror ("asprintf");
+      exit (EXIT_FAILURE);
+    }
+
     switch (drv->type) {
     case drv_a:
       ad_optargs.bitmask = 0;
@@ -56,6 +61,7 @@ add_drives (struct drv *drv, char next_drive)
       if (r == -1)
         exit (EXIT_FAILURE);
 
+      drv->nr_drives = 1;
       next_drive++;
       break;
 
@@ -64,6 +70,7 @@ add_drives (struct drv *drv, char next_drive)
       if (r == -1)
         exit (EXIT_FAILURE);
 
+      drv->nr_drives = r;
       next_drive += r;
       break;
 
@@ -78,11 +85,7 @@ add_drives (struct drv *drv, char next_drive)
       if (r == -1)
         exit (EXIT_FAILURE);
 
-      if (asprintf (&drv->N.device, "/dev/sd%c", next_drive) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-
+      drv->nr_drives = 1;
       next_drive++;
       break;
 
@@ -133,12 +136,13 @@ free_drives (struct drv *drv)
   if (!drv) return;
   free_drives (drv->next);
 
+  free (drv->device);
+
   switch (drv->type) {
   case drv_a: /* a.filename and a.format are optargs, don't free them */ break;
   case drv_d: /* d.filename is optarg, don't free it */ break;
   case drv_N:
     free (drv->N.filename);
-    free (drv->N.device);
     drv->N.data_free (drv->N.data);
     break;
   default: ;                    /* keep GCC happy */

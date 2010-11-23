@@ -339,6 +339,8 @@ main (int argc, char *argv[])
         exit (EXIT_FAILURE);
       }
       drv->type = drv_N;
+      drv->device = NULL;
+      drv->nr_drives = -1;
       if (asprintf (&drv->N.filename, "test%d.img",
                     next_prepared_drive++) == -1) {
         perror ("asprintf");
@@ -346,7 +348,6 @@ main (int argc, char *argv[])
       }
       drv->N.data = create_prepared_file (optarg, drv->N.filename);
       drv->N.data_free = free_prep_data;
-      drv->N.device = NULL;     /* filled in by add_drives */
       drv->next = drvs;
       drvs = drv;
       break;
@@ -554,7 +555,7 @@ prepare_drives (struct drv *drv)
   if (drv) {
     prepare_drives (drv->next);
     if (drv->type == drv_N)
-      prepare_drive (drv->N.filename, drv->N.data, drv->N.device);
+      prepare_drive (drv->N.filename, drv->N.data, drv->device);
   }
 }
 
