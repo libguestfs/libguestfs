@@ -45,6 +45,7 @@
   libaugeas0
   linux-image
   nilfs2-tools
+  ntfsprogs
   reiserfsprogs
   udev
   util-linux
