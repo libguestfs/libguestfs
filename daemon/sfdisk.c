@@ -101,7 +101,7 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
    * other component.  In any case, reread the partition table
    * unconditionally here.
    */
-  (void) command (NULL, NULL, "blockdev", "--rereadpt", NULL);
+  (void) command (NULL, NULL, "blockdev", "--rereadpt", device, NULL);
 
   udev_settle ();
 
