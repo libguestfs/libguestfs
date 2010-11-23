@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-19 16:11+0000\n"
+"POT-Creation-Date: 2010-11-23 10:16+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.6.1\n"
 
-#: cat/virt-cat.c:53 fish/fish.c:86 fuse/guestmount.c:841
-#: inspector/virt-inspector.c:67
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 fish/fish.c:86
+#: fuse/guestmount.c:841 inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
@@ -42,7 +42,7 @@ msgid ""
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
-"  -x                   Echo each command before executing it\n"
+"  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: FUSE module voor libguestfs\n"
@@ -64,17 +64,103 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: cat/virt-cat.c:115 fish/fish.c:204 fuse/guestmount.c:952
-#: inspector/virt-inspector.c:129
+#: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
+#: fish/fish.c:204 fuse/guestmount.c:952 inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
-#: cat/virt-cat.c:137 fish/fish.c:272 fuse/guestmount.c:1000
-#: inspector/virt-inspector.c:151
+#: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
+#: fish/fish.c:272 fuse/guestmount.c:1000 inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
+
+#: cat/virt-filesystems.c:90
+#, c-format
+msgid ""
+"%s: list filesystems, partitions, block devices, LVM in a VM\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --all                Display everything\n"
+"  --blkdevs|--block-devices\n"
+"                       Display block devices\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --extra              Display swap and data filesystems\n"
+"  --filesystems        Display mountable filesystems\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long output\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Display LVM logical volumes\n"
+"  --no-title           No title in --long output\n"
+"  --parts|--partitions Display partitions\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Display LVM physical volumes\n"
+"  --uuid|--uuids       Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Display LVM volume groups\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+
+#: cat/virt-filesystems.c:304
+#, fuzzy, c-format
+msgid "%s: you cannot use -h and --csv options together.\n"
+msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"
+
+#: cat/virt-ls.c:58
+#, fuzzy, c-format
+msgid ""
+"%s: list files in a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [dir ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long listing\n"
+"  -R|--recursive       Recursive listing\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: FUSE module voor libguestfs\n"
+"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
+"  --fuse-help          Laat extra FUSE opties zien\n"
+"  --help               Laat hulp boodschap zien en sluit af\n"
+"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
+"  -n|--no-sync         Geen autosync\n"
+"  -o|--option opt      Geeft optie door aan FUSE\n"
+"  -r|--ro              Alleez-lezen aankoppelen\n"
+"  --selinux            Zet SELinux ondersteuning aan\n"
+"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Laat versie zien en sluit af\n"
 
 #: fish/alloc.c:37
 #, c-format
@@ -2301,7 +2387,7 @@ msgid ""
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
-"  -x                   Echo each command before executing it\n"
+"  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: FUSE module voor libguestfs\n"
@@ -3010,8 +3096,7 @@ msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 "virt-edit: geen afbeelding, VM namen of bestandsnamen gegeven om te bewerken"
 
-#: tools/virt-edit.pl:185 tools/virt-ls.pl:194 tools/virt-tar.pl:238
-#: tools/virt-win-reg.pl:292
+#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
 #, fuzzy, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3032,8 +3117,7 @@ msgstr ""
 "Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
 "met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
 
-#: tools/virt-edit.pl:189 tools/virt-ls.pl:198 tools/virt-tar.pl:242
-#: tools/virt-win-reg.pl:296
+#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:296
 #, fuzzy, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
@@ -3043,21 +3127,13 @@ msgstr ""
 msgid "File not changed.\n"
 msgstr "Bestand niet gewijzigd.\n"
 
-#: tools/virt-list-filesystems.pl:139
+#: tools/virt-list-filesystems.pl:142
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 
-#: tools/virt-list-partitions.pl:149
+#: tools/virt-list-partitions.pl:152
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
-
-#: tools/virt-ls.pl:153 tools/virt-ls.pl:159
-msgid "virt-ls: cannot combine -l and -R options\n"
-msgstr "virt-ls: kan -l en -R opties niet combineren\n"
-
-#: tools/virt-ls.pl:178
-msgid "virt-ls: no image, VM names or directory to list given"
-msgstr "virt-ls: geen image, VM namen of map opgegeven om te tonen"
 
 #: tools/virt-make-fs.pl:291
 msgid "virt-make-fs input output\n"
@@ -3118,12 +3194,12 @@ msgstr "virt-rescue: geen image of VM namen redding opgegeven"
 msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
 msgstr "virt-resize: sorry, dit programma werkt niet op een 32-bit host\n"
 
-#: tools/virt-resize.pl:584
+#: tools/virt-resize.pl:583
 #, perl-brace-format
 msgid "virt-resize: {file}: does not exist or is not readable\n"
 msgstr "virt-resize: {file}: bestaat niet of is niet leesbaar\n"
 
-#: tools/virt-resize.pl:586
+#: tools/virt-resize.pl:585
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: does not exist or is not writable\n"
@@ -3134,7 +3210,7 @@ msgstr ""
 "Je moet de bestemming schijf aanmaken voordat je dit programma uitvoert.\n"
 "Lees de virt-resize(1) man pagina voor meer informatie.\n"
 
-#: tools/virt-resize.pl:665 tools/virt-resize.pl:668
+#: tools/virt-resize.pl:664 tools/virt-resize.pl:667
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
@@ -3142,16 +3218,16 @@ msgstr ""
 "virt-resize: {file}: bestand is te klein om een schijf image te zijn ({sz} "
 "bytes)\n"
 
-#: tools/virt-resize.pl:684 tools/virt-resize.pl:696
+#: tools/virt-resize.pl:683 tools/virt-resize.pl:695
 msgid "virt-resize: short read"
 msgstr ""
 
-#: tools/virt-resize.pl:830
+#: tools/virt-resize.pl:829
 #, perl-brace-format
 msgid "virt-resize: no logical volume called {n}\n"
 msgstr "virt-resize: geen logische gevolume aangeroepen {n}\n"
 
-#: tools/virt-resize.pl:850
+#: tools/virt-resize.pl:849
 #, perl-brace-format
 msgid ""
 "{p}: partition not found in the source disk image, when using the '{opt}' "
@@ -3160,7 +3236,7 @@ msgstr ""
 "{p}: partitie niet gevonden on de bron schijf image bij gebruik van de "
 "'{opt}' commando-regel optie\n"
 
-#: tools/virt-resize.pl:856
+#: tools/virt-resize.pl:855
 #, perl-brace-format
 msgid ""
 "{p}: partition ignored, you cannot use it in another command line argument\n"
@@ -3168,7 +3244,7 @@ msgstr ""
 "{p}: partitie genegeerd, je kunt het niet in een ander commando-regel "
 "argument gebruiken\n"
 
-#: tools/virt-resize.pl:860
+#: tools/virt-resize.pl:859
 #, perl-brace-format
 msgid ""
 "{p}: partition deleted, you cannot use it in another command line argument\n"
@@ -3176,27 +3252,27 @@ msgstr ""
 "{p}: partitie verwijderd, je kunt het niet in een ander commando-regel "
 "argument gebruiken\n"
 
-#: tools/virt-resize.pl:902
+#: tools/virt-resize.pl:901
 #, perl-brace-format
 msgid "{p}: this partition has already been marked for resizing\n"
 msgstr "{p}: deze partitie is al gemarkeerd voor het veranderen in grootte\n"
 
-#: tools/virt-resize.pl:910
+#: tools/virt-resize.pl:909
 #, perl-brace-format
 msgid "{p}: missing size field in {o} option\n"
 msgstr "{p}: ontbrekende grootte veld in {o} optie\n"
 
-#: tools/virt-resize.pl:927
+#: tools/virt-resize.pl:926
 #, perl-brace-format
 msgid "{p}: {f}: cannot parse size field\n"
 msgstr "{p}: {f}: kan size veld niet ontleden\n"
 
-#: tools/virt-resize.pl:932
+#: tools/virt-resize.pl:931
 #, perl-brace-format
 msgid "{p}: new size is zero or negative\n"
 msgstr "{p}: nieuwe grootte is nul of negatief\n"
 
-#: tools/virt-resize.pl:955
+#: tools/virt-resize.pl:954
 #, perl-brace-format
 msgid ""
 "{p}: cannot make this partition smaller because it contains a\n"
@@ -3208,12 +3284,12 @@ msgstr ""
 "fysieke volume, of andere inhoud bevat die groter is dan de nieuwe grootte.\n"
 "Je moet de inhoud eerst in grootte veranderen, bekijk virt-resize(1).\n"
 
-#: tools/virt-resize.pl:971
+#: tools/virt-resize.pl:970
 msgid "virt-resize: you cannot use options --expand and --shrink together\n"
 msgstr ""
 "virt-resize: je kunt de opties --expand en --shrink niet tezamen gebruiken\n"
 
-#: tools/virt-resize.pl:1020
+#: tools/virt-resize.pl:1019
 #, perl-brace-format
 msgid ""
 "virt-resize: error: cannot use --expand when there is no surplus space to\n"
@@ -3223,7 +3299,7 @@ msgstr ""
 "is\n"
 "voor het expanderen.  Je moet de doel schijf tenminste {h} groter maken.\n"
 
-#: tools/virt-resize.pl:1035
+#: tools/virt-resize.pl:1034
 msgid ""
 "virt-resize: error: cannot use --shrink because there is no deficit\n"
 "(see 'deficit' in the virt-resize(1) man page)\n"
@@ -3231,56 +3307,56 @@ msgstr ""
 "virt-resize: fout: kan --shrink niet gebruiken omdat er geen deficit is\n"
 "(zie 'deficit' in de virt-resize(1) man pagina)\n"
 
-#: tools/virt-resize.pl:1050
+#: tools/virt-resize.pl:1049
 msgid "Summary of changes:\n"
 msgstr "Samenvatting van de veranderingen:\n"
 
-#: tools/virt-resize.pl:1054
+#: tools/virt-resize.pl:1053
 #, perl-brace-format
 msgid "{p}: partition will be ignored\n"
 msgstr "{p}: partitie zal genegeerd worden\n"
 
-#: tools/virt-resize.pl:1056
+#: tools/virt-resize.pl:1055
 #, perl-brace-format
 msgid "{p}: partition will be deleted\n"
 msgstr "{p}: partitie zal verwijderd worden\n"
 
-#: tools/virt-resize.pl:1058
+#: tools/virt-resize.pl:1057
 #, perl-brace-format
 msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
 msgstr ""
 "{p}: partitie zal in grootte veranderd worden van {oldsize} naar {newsize}\n"
 
-#: tools/virt-resize.pl:1063
+#: tools/virt-resize.pl:1062
 #, perl-brace-format
 msgid "{p}: content will be expanded using the '{meth}' method\n"
 msgstr "{p}: inhoud zal geëxpandeerd worden met de '{meth}' methode\n"
 
-#: tools/virt-resize.pl:1068
+#: tools/virt-resize.pl:1067
 #, perl-brace-format
 msgid "{p}: partition will be left alone\n"
 msgstr "{p}: partitie zal met rust gelaten worden\n"
 
-#: tools/virt-resize.pl:1073
+#: tools/virt-resize.pl:1072
 #, perl-brace-format
 msgid "{n}: LV will be expanded to maximum size\n"
 msgstr "{n}: LV zal geëxpandeerd worden tot de maximale grootte\n"
 
-#: tools/virt-resize.pl:1079
+#: tools/virt-resize.pl:1078
 #, perl-brace-format
 msgid "{n}: content will be expanded using the '{meth}' method\n"
 msgstr "{n}: inhoud zal geëxpandeerd worden met de '{meth}' methode\n"
 
-#: tools/virt-resize.pl:1086
+#: tools/virt-resize.pl:1085
 #, perl-brace-format
 msgid "There is a surplus of {spl} bytes ({h}).\n"
 msgstr "Er is een overschot van {spl} bytes ({h}).\n"
 
-#: tools/virt-resize.pl:1091
+#: tools/virt-resize.pl:1090
 msgid "An extra partition will be created for the surplus.\n"
 msgstr "Er zal een extra partitie aangemaakt worden voor het overschot.\n"
 
-#: tools/virt-resize.pl:1093
+#: tools/virt-resize.pl:1092
 msgid ""
 "The surplus space is not large enough for an extra partition to be created\n"
 "and so it will just be ignored.\n"
@@ -3288,7 +3364,7 @@ msgstr ""
 "De overschot ruimte is niet groot genoeg om een extra partitie aan te maken\n"
 "en daarom genegeerd worden.\n"
 
-#: tools/virt-resize.pl:1096
+#: tools/virt-resize.pl:1095
 msgid ""
 "The surplus space will be ignored.  Run a partitioning program in the guest\n"
 "to partition this extra space if you want.\n"
@@ -3297,7 +3373,7 @@ msgstr ""
 "programma in de gast\n"
 "om deze extra ruimte te partitioneren als je dat wilt.\n"
 
-#: tools/virt-resize.pl:1099
+#: tools/virt-resize.pl:1098
 #, perl-brace-format
 msgid ""
 "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
@@ -3308,16 +3384,16 @@ msgstr ""
 "Je moet de doel schijf tenminste deze hoeveelheid groter maken,\n"
 "of jouw in grootte verander verzoek aanpassen.\n"
 
-#: tools/virt-resize.pl:1116
+#: tools/virt-resize.pl:1115
 msgid "virt-resize: source disk does not have a first partition\n"
 msgstr "virt-resize: bron schijf heeft geen eerste partitie\n"
 
-#: tools/virt-resize.pl:1211
+#: tools/virt-resize.pl:1210
 #, fuzzy, perl-brace-format
 msgid "Copying {p} ...\n"
 msgstr "{p} kopiëren ..."
 
-#: tools/virt-resize.pl:1274 tools/virt-resize.pl:1332
+#: tools/virt-resize.pl:1273 tools/virt-resize.pl:1331
 #, perl-brace-format
 msgid "Expanding {p} using the '{meth}' method\n"
 msgstr "{p} expanderen met de '{meth}' methode\n"
@@ -3377,6 +3453,12 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
+
+#~ msgid "virt-ls: cannot combine -l and -R options\n"
+#~ msgstr "virt-ls: kan -l en -R opties niet combineren\n"
+
+#~ msgid "virt-ls: no image, VM names or directory to list given"
+#~ msgstr "virt-ls: geen image, VM namen of map opgegeven om te tonen"
 
 #~ msgid "virt-inspector: no image or VM names given"
 #~ msgstr "virt-inspector: geen image of VM namen opgegeven"

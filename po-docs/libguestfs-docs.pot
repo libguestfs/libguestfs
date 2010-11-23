@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.11\n"
+"Project-Id-Version: libguestfs 1.7.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2010-11-19 22:30+0000\n"
+"POT-Creation-Date: 2010-11-23 10:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: ENCODING"
 
 # type: =encoding
-#: ../src/guestfs.pod:1 ../fish/guestfish.pod:1 ../test-tool/libguestfs-test-tool.pod:1 ../fuse/guestmount.pod:1 ../tools/virt-edit.pl:30 ../tools/virt-win-reg.pl:33 ../tools/virt-df.pl:32 ../tools/virt-ls.pl:30 ../tools/virt-resize.pl:38 ../tools/virt-list-filesystems.pl:28 ../tools/virt-tar.pl:29 ../tools/virt-rescue.pl:29 ../tools/virt-make-fs.pl:33 ../tools/virt-list-partitions.pl:28
+#: ../src/guestfs.pod:1 ../fish/guestfish.pod:1 ../test-tool/libguestfs-test-tool.pod:1 ../fuse/guestmount.pod:1 ../tools/virt-edit.pl:30 ../tools/virt-win-reg.pl:33 ../tools/virt-df.pl:32 ../tools/virt-resize.pl:38 ../tools/virt-list-filesystems.pl:28 ../tools/virt-tar.pl:29 ../tools/virt-rescue.pl:29 ../tools/virt-make-fs.pl:33 ../tools/virt-list-partitions.pl:28
 msgid "utf8"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-df.pl:34 ../tools/virt-ls.pl:32 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-rescue.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
+#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-df.pl:34 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-rescue.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
 msgid "NAME"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgid "guestfs - Library for accessing and modifying virtual machine images"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-df.pl:38 ../tools/virt-ls.pl:36 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-rescue.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
+#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-df.pl:38 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-rescue.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
 msgid "SYNOPSIS"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:24 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-df.pl:46 ../tools/virt-ls.pl:42 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:72 ../tools/virt-rescue.pl:51 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
+#: ../src/guestfs.pod:24 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-df.pl:46 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:72 ../tools/virt-rescue.pl:51 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
 msgid "DESCRIPTION"
 msgstr ""
 
@@ -753,7 +753,7 @@ msgid "There are many limitations to this:"
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:360 ../src/guestfs.pod:365 ../src/guestfs.pod:370 ../src/guestfs.pod:374 ../src/guestfs.pod:379 ../src/guestfs.pod:383 ../src/guestfs.pod:388 ../src/guestfs.pod:393 ../src/guestfs.pod:957 ../src/guestfs.pod:961 ../src/guestfs.pod:965 ../src/guestfs.pod:970 ../src/guestfs.pod:978 ../src/guestfs.pod:997 ../src/guestfs.pod:1005 ../src/guestfs.pod:1027 ../src/guestfs.pod:1031 ../src/guestfs.pod:1035 ../src/guestfs.pod:1039 ../src/guestfs.pod:1043 ../src/guestfs.pod:1047 ../src/guestfs.pod:1529 ../src/guestfs.pod:1534 ../src/guestfs.pod:1538 ../src/guestfs.pod:1648 ../src/guestfs.pod:1653 ../src/guestfs.pod:1657 ../src/guestfs.pod:2001 ../src/guestfs.pod:2007 ../src/guestfs.pod:2012 ../src/guestfs.pod:2018 ../src/guestfs.pod:2125 ../src/guestfs.pod:2129 ../src/guestfs.pod:2133 ../src/guestfs.pod:2137 ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:569 ../src/guestfs-actions.pod:577 ../src/guestfs-actions.pod:584 ../src/guestfs-actions.pod:591 ../src/guestfs-actions.pod:1587 ../src/guestfs-actions.pod:1591 ../src/guestfs-actions.pod:1595 ../src/guestfs-actions.pod:1599 ../src/guestfs-actions.pod:1607 ../src/guestfs-actions.pod:1611 ../src/guestfs-actions.pod:1615 ../src/guestfs-actions.pod:1625 ../src/guestfs-actions.pod:1629 ../src/guestfs-actions.pod:1633 ../src/guestfs-actions.pod:1771 ../src/guestfs-actions.pod:1775 ../src/guestfs-actions.pod:1780 ../src/guestfs-actions.pod:1785 ../src/guestfs-actions.pod:1846 ../src/guestfs-actions.pod:1850 ../src/guestfs-actions.pod:1855 ../fish/guestfish.pod:376 ../fish/guestfish.pod:380 ../fish/guestfish.pod:384 ../fish/guestfish.pod:388 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:375 ../fish/guestfish-actions.pod:383 ../fish/guestfish-actions.pod:390 ../fish/guestfish-actions.pod:397 ../fish/guestfish-actions.pod:1067 ../fish/guestfish-actions.pod:1071 ../fish/guestfish-actions.pod:1075 ../fish/guestfish-actions.pod:1079 ../fish/guestfish-actions.pod:1087 ../fish/guestfish-actions.pod:1091 ../fish/guestfish-actions.pod:1095 ../fish/guestfish-actions.pod:1105 ../fish/guestfish-actions.pod:1109 ../fish/guestfish-actions.pod:1113 ../fish/guestfish-actions.pod:1203 ../fish/guestfish-actions.pod:1207 ../fish/guestfish-actions.pod:1212 ../fish/guestfish-actions.pod:1217 ../fish/guestfish-actions.pod:1259 ../fish/guestfish-actions.pod:1263 ../fish/guestfish-actions.pod:1268 ../tools/virt-df.pl:161 ../tools/virt-df.pl:167 ../tools/virt-resize.pl:348 ../tools/virt-resize.pl:353 ../tools/virt-resize.pl:363
+#: ../src/guestfs.pod:360 ../src/guestfs.pod:365 ../src/guestfs.pod:370 ../src/guestfs.pod:374 ../src/guestfs.pod:379 ../src/guestfs.pod:383 ../src/guestfs.pod:388 ../src/guestfs.pod:393 ../src/guestfs.pod:957 ../src/guestfs.pod:961 ../src/guestfs.pod:965 ../src/guestfs.pod:970 ../src/guestfs.pod:978 ../src/guestfs.pod:997 ../src/guestfs.pod:1005 ../src/guestfs.pod:1027 ../src/guestfs.pod:1031 ../src/guestfs.pod:1035 ../src/guestfs.pod:1039 ../src/guestfs.pod:1043 ../src/guestfs.pod:1047 ../src/guestfs.pod:1529 ../src/guestfs.pod:1534 ../src/guestfs.pod:1538 ../src/guestfs.pod:1648 ../src/guestfs.pod:1653 ../src/guestfs.pod:1657 ../src/guestfs.pod:2001 ../src/guestfs.pod:2007 ../src/guestfs.pod:2012 ../src/guestfs.pod:2018 ../src/guestfs.pod:2126 ../src/guestfs.pod:2130 ../src/guestfs.pod:2134 ../src/guestfs.pod:2138 ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:569 ../src/guestfs-actions.pod:577 ../src/guestfs-actions.pod:584 ../src/guestfs-actions.pod:591 ../src/guestfs-actions.pod:1587 ../src/guestfs-actions.pod:1591 ../src/guestfs-actions.pod:1595 ../src/guestfs-actions.pod:1599 ../src/guestfs-actions.pod:1607 ../src/guestfs-actions.pod:1611 ../src/guestfs-actions.pod:1615 ../src/guestfs-actions.pod:1625 ../src/guestfs-actions.pod:1629 ../src/guestfs-actions.pod:1633 ../src/guestfs-actions.pod:1771 ../src/guestfs-actions.pod:1775 ../src/guestfs-actions.pod:1780 ../src/guestfs-actions.pod:1785 ../src/guestfs-actions.pod:1846 ../src/guestfs-actions.pod:1850 ../src/guestfs-actions.pod:1855 ../fish/guestfish.pod:377 ../fish/guestfish.pod:381 ../fish/guestfish.pod:385 ../fish/guestfish.pod:389 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:375 ../fish/guestfish-actions.pod:383 ../fish/guestfish-actions.pod:390 ../fish/guestfish-actions.pod:397 ../fish/guestfish-actions.pod:1067 ../fish/guestfish-actions.pod:1071 ../fish/guestfish-actions.pod:1075 ../fish/guestfish-actions.pod:1079 ../fish/guestfish-actions.pod:1087 ../fish/guestfish-actions.pod:1091 ../fish/guestfish-actions.pod:1095 ../fish/guestfish-actions.pod:1105 ../fish/guestfish-actions.pod:1109 ../fish/guestfish-actions.pod:1113 ../fish/guestfish-actions.pod:1203 ../fish/guestfish-actions.pod:1207 ../fish/guestfish-actions.pod:1212 ../fish/guestfish-actions.pod:1217 ../fish/guestfish-actions.pod:1259 ../fish/guestfish-actions.pod:1263 ../fish/guestfish-actions.pod:1268 ../tools/virt-df.pl:161 ../tools/virt-df.pl:167 ../tools/virt-resize.pl:347 ../tools/virt-resize.pl:352 ../tools/virt-resize.pl:362
 msgid "*"
 msgstr ""
 
@@ -991,7 +991,7 @@ msgid "For more information about umask, see L<umask(2)>."
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:491 ../fish/guestfish.pod:669
+#: ../src/guestfs.pod:491 ../fish/guestfish.pod:670
 msgid "ENCRYPTED DISKS"
 msgstr ""
 
@@ -2635,7 +2635,7 @@ msgid "API CALLS"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1360 ../fish/guestfish.pod:907
+#: ../src/guestfs.pod:1360 ../fish/guestfish.pod:908
 msgid "@ACTIONS@"
 msgstr ""
 
@@ -3893,22 +3893,22 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2034 ../fish/guestfish.pod:914 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:330 ../tools/virt-rescue.pl:255
+#: ../src/guestfs.pod:2034 ../fish/guestfish.pod:915 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:330 ../tools/virt-rescue.pl:255
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2038 ../fish/guestfish.pod:940
+#: ../src/guestfs.pod:2038 ../fish/guestfish.pod:941
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2040 ../fish/guestfish.pod:942
+#: ../src/guestfs.pod:2040 ../fish/guestfish.pod:943
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2042 ../fish/guestfish.pod:944
+#: ../src/guestfs.pod:2042 ../fish/guestfish.pod:945
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
@@ -3920,17 +3920,17 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2047 ../fish/guestfish.pod:949
+#: ../src/guestfs.pod:2047 ../fish/guestfish.pod:950
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2049 ../fish/guestfish.pod:951
+#: ../src/guestfs.pod:2049 ../fish/guestfish.pod:952
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 # type: verbatim
-#: ../src/guestfs.pod:2052 ../fish/guestfish.pod:954
+#: ../src/guestfs.pod:2052 ../fish/guestfish.pod:955
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -3938,7 +3938,7 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2054 ../fish/guestfish.pod:956
+#: ../src/guestfs.pod:2054 ../fish/guestfish.pod:957
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
@@ -3950,12 +3950,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2059 ../fish/guestfish.pod:961
+#: ../src/guestfs.pod:2059 ../fish/guestfish.pod:962
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2061 ../fish/guestfish.pod:963
+#: ../src/guestfs.pod:2061 ../fish/guestfish.pod:964
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
@@ -3967,7 +3967,7 @@ msgid "See also L</QEMU WRAPPERS> above."
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2067 ../fish/guestfish.pod:967
+#: ../src/guestfs.pod:2067 ../fish/guestfish.pod:968
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
@@ -3979,17 +3979,17 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:2072 ../fish/guestfish.pod:976
+#: ../src/guestfs.pod:2072 ../fish/guestfish.pod:977
 msgid "TMPDIR"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2074 ../fish/guestfish.pod:978
+#: ../src/guestfs.pod:2074 ../fish/guestfish.pod:979
 msgid "Location of temporary directory, defaults to C</tmp>."
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2076 ../fish/guestfish.pod:980
+#: ../src/guestfs.pod:2076 ../fish/guestfish.pod:981
 msgid ""
 "If libguestfs was compiled to use the supermin appliance then the real "
 "appliance is cached in this directory, shared between all handles belonging "
@@ -3998,7 +3998,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2084 ../fish/guestfish.pod:1038 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233 ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:484 ../tools/virt-df.pl:640 ../tools/virt-ls.pl:232 ../tools/virt-resize.pl:1486 ../tools/virt-list-filesystems.pl:186 ../tools/virt-tar.pl:281 ../tools/virt-rescue.pl:267 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:254
+#: ../src/guestfs.pod:2084 ../fish/guestfish.pod:1039 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233 ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:484 ../tools/virt-df.pl:640 ../tools/virt-resize.pl:1485 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:281 ../tools/virt-rescue.pl:267 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr ""
 
@@ -4006,93 +4006,93 @@ msgstr ""
 #: ../src/guestfs.pod:2086
 msgid ""
 "L<guestfish(1)>, L<guestmount(1)>, L<virt-cat(1)>, L<virt-df(1)>, "
-"L<virt-edit(1)>, L<virt-inspector(1)>, L<virt-list-filesystems(1)>, "
-"L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, "
-"L<virt-rescue(1)>, L<virt-tar(1)>, L<virt-win-reg(1)>, L<qemu(1)>, "
-"L<febootstrap(1)>, L<hivex(3)>, L<http://libguestfs.org/>."
+"L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, "
+"L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, "
+"L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-tar(1)>, L<virt-win-reg(1)>, "
+"L<qemu(1)>, L<febootstrap(1)>, L<hivex(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2104
+#: ../src/guestfs.pod:2105
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, "
 "L<lvm(8)>, L<disktype(1)>."
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2111 ../tools/virt-win-reg.pl:499 ../tools/virt-make-fs.pl:548
+#: ../src/guestfs.pod:2112 ../tools/virt-win-reg.pl:499 ../tools/virt-make-fs.pl:548
 msgid "BUGS"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2113
+#: ../src/guestfs.pod:2114
 msgid "To get a list of bugs against libguestfs use this link:"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2115
+#: ../src/guestfs.pod:2116
 msgid "L<https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2117
+#: ../src/guestfs.pod:2118
 msgid "To report a new bug against libguestfs use this link:"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2119
+#: ../src/guestfs.pod:2120
 msgid "L<https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2121
+#: ../src/guestfs.pod:2122
 msgid "When reporting a bug, please check:"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2127
+#: ../src/guestfs.pod:2128
 msgid "That the bug hasn't been reported already."
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2131
+#: ../src/guestfs.pod:2132
 msgid "That you are testing a recent version."
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2135
+#: ../src/guestfs.pod:2136
 msgid "Describe the bug accurately, and give a way to reproduce it."
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2139
+#: ../src/guestfs.pod:2140
 msgid ""
 "Run libguestfs-test-tool and paste the B<complete, unedited> output into the "
 "bug report."
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2144 ../fish/guestfish.pod:1055 ../test-tool/libguestfs-test-tool.pod:115 ../fuse/guestmount.pod:244
+#: ../src/guestfs.pod:2145 ../fish/guestfish.pod:1058 ../test-tool/libguestfs-test-tool.pod:115 ../fuse/guestmount.pod:244
 msgid "AUTHORS"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2146 ../fish/guestfish.pod:1057 ../test-tool/libguestfs-test-tool.pod:117 ../fuse/guestmount.pod:246
+#: ../src/guestfs.pod:2147 ../fish/guestfish.pod:1060 ../test-tool/libguestfs-test-tool.pod:117 ../fuse/guestmount.pod:246
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2148 ../fish/guestfish.pod:1059 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248 ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:514 ../tools/virt-df.pl:653 ../tools/virt-ls.pl:247 ../tools/virt-resize.pl:1512 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:296 ../tools/virt-rescue.pl:281 ../tools/virt-make-fs.pl:563 ../tools/virt-list-partitions.pl:269
+#: ../src/guestfs.pod:2149 ../fish/guestfish.pod:1062 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248 ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:514 ../tools/virt-df.pl:653 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:296 ../tools/virt-rescue.pl:281 ../tools/virt-make-fs.pl:563 ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2150 ../fish/guestfish.pod:1061 ../fuse/guestmount.pod:250
+#: ../src/guestfs.pod:2151 ../fish/guestfish.pod:1064 ../fuse/guestmount.pod:250
 msgid "Copyright (C) 2009-2010 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2153
+#: ../src/guestfs.pod:2154
 msgid ""
 "This library is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU Lesser General Public License as published by the "
@@ -4101,7 +4101,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2158
+#: ../src/guestfs.pod:2159
 msgid ""
 "This library is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -4110,7 +4110,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:2163
+#: ../src/guestfs.pod:2164
 msgid ""
 "You should have received a copy of the GNU Lesser General Public License "
 "along with this library; if not, write to the Free Software Foundation, "
@@ -16467,7 +16467,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:41 ../fish/guestfish.pod:846 ../fuse/guestmount.pod:39 ../tools/virt-edit.pl:58 ../tools/virt-resize.pl:66 ../tools/virt-tar.pl:45
+#: ../fish/guestfish.pod:41 ../fish/guestfish.pod:847 ../fuse/guestmount.pod:39 ../tools/virt-edit.pl:58 ../tools/virt-resize.pl:64 ../tools/virt-tar.pl:45
 msgid "EXAMPLES"
 msgstr ""
 
@@ -16702,7 +16702,7 @@ msgid "To list what is available do:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:139 ../fish/guestfish.pod:837
+#: ../fish/guestfish.pod:139 ../fish/guestfish.pod:838
 #, no-wrap
 msgid ""
 " guestfish -N help | less\n"
@@ -16726,12 +16726,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72 ../tools/virt-win-reg.pl:171 ../tools/virt-df.pl:71 ../tools/virt-ls.pl:78 ../tools/virt-resize.pl:257 ../tools/virt-list-filesystems.pl:50 ../tools/virt-tar.pl:98 ../tools/virt-rescue.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:51
+#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72 ../tools/virt-win-reg.pl:171 ../tools/virt-df.pl:71 ../tools/virt-resize.pl:256 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:98 ../tools/virt-rescue.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
 msgid "OPTIONS"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:179 ../tools/virt-df.pl:79 ../tools/virt-ls.pl:86 ../tools/virt-resize.pl:265 ../tools/virt-list-filesystems.pl:58 ../tools/virt-tar.pl:106 ../tools/virt-rescue.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:59
+#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:179 ../tools/virt-df.pl:79 ../tools/virt-resize.pl:264 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:106 ../tools/virt-rescue.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
 msgid "B<--help>"
 msgstr ""
 
@@ -16875,7 +16875,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:216 ../fish/guestfish.pod:543
+#: ../fish/guestfish.pod:216 ../fish/guestfish.pod:544
 msgid "For example:"
 msgstr ""
 
@@ -17045,30 +17045,30 @@ msgstr ""
 #: ../fish/guestfish.pod:278
 msgid ""
 "If you don't know what filesystems a disk image contains, you can either run "
-"guestfish without this option, then list the partitions and LVs available "
-"(see L</list-partitions> and L</lvs> commands), or you can use the "
-"L<virt-list-filesystems(1)> program."
+"guestfish without this option, then list the partitions, filesystems and LVs "
+"available (see L</list-partitions>, L</list-filesystems> and L</lvs> "
+"commands), or you can use the L<virt-filesystems(1)> program."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:283 ../fuse/guestmount.pod:154
+#: ../fish/guestfish.pod:284 ../fuse/guestmount.pod:154
 msgid "B<-n> | B<--no-sync>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:285
+#: ../fish/guestfish.pod:286
 msgid ""
 "Disable autosync.  This is enabled by default.  See the discussion of "
 "autosync in the L<guestfs(3)> manpage."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:288
+#: ../fish/guestfish.pod:289
 msgid "B<-N type> | B<--new type> | B<-N help>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:290
+#: ../fish/guestfish.pod:291
 msgid ""
 "Prepare a fresh disk image formatted as \"type\".  This is an alternative to "
 "the I<-a> option: whereas I<-a> adds an existing disk, I<-N> creates a "
@@ -17077,58 +17077,58 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:295
+#: ../fish/guestfish.pod:296
 msgid "B<--progress-bars>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:297
+#: ../fish/guestfish.pod:298
 msgid "Enable progress bars, even when guestfish is used non-interactively."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:299
+#: ../fish/guestfish.pod:300
 msgid ""
 "Progress bars are enabled by default when guestfish is used as an "
 "interactive shell."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:302
+#: ../fish/guestfish.pod:303
 msgid "B<--no-progress-bars>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:304
+#: ../fish/guestfish.pod:305
 msgid "Disable progress bars."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:306
+#: ../fish/guestfish.pod:307
 msgid "B<--remote[=pid]>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:308
+#: ../fish/guestfish.pod:309
 msgid ""
 "Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section L</REMOTE "
 "CONTROL GUESTFISH OVER A SOCKET> below."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:311 ../fuse/guestmount.pod:196
+#: ../fish/guestfish.pod:312 ../fuse/guestmount.pod:196
 msgid "B<-r> | B<--ro>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:313
+#: ../fish/guestfish.pod:314
 msgid ""
 "This changes the I<-a> and I<-m> options so that disks are added and mounts "
 "are done read-only (see L<guestfs(3)/guestfs_mount_ro>)."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:316 ../tools/virt-rescue.pl:187
+#: ../fish/guestfish.pod:317 ../tools/virt-rescue.pl:187
 msgid ""
 "The option must always be used if the disk image or virtual machine might be "
 "running, and is generally recommended in cases where you don't need write "
@@ -17136,90 +17136,90 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:320
+#: ../fish/guestfish.pod:321
 msgid ""
 "Note that prepared disk images created with I<-N> are not affected by the "
 "I<--ro> option."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:323
+#: ../fish/guestfish.pod:324
 msgid "See also L</OPENING DISKS FOR READ AND WRITE> below."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:325 ../fuse/guestmount.pod:208 ../tools/virt-rescue.pl:195
+#: ../fish/guestfish.pod:326 ../fuse/guestmount.pod:208 ../tools/virt-rescue.pl:195
 msgid "B<--selinux>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:327
+#: ../fish/guestfish.pod:328
 msgid "Enable SELinux support for the guest.  See L<guestfs(3)/SELINUX>."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:329 ../fuse/guestmount.pod:212
+#: ../fish/guestfish.pod:330 ../fuse/guestmount.pod:212
 msgid "B<-v> | B<--verbose>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:331
+#: ../fish/guestfish.pod:332
 msgid ""
 "Enable very verbose messages.  This is particularly useful if you find a "
 "bug."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:334 ../fuse/guestmount.pod:216
+#: ../fish/guestfish.pod:335 ../fuse/guestmount.pod:216
 msgid "B<-V> | B<--version>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:336
+#: ../fish/guestfish.pod:337
 msgid "Display the guestfish / libguestfs version number and exit."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:338 ../fuse/guestmount.pod:220
+#: ../fish/guestfish.pod:339 ../fuse/guestmount.pod:220
 msgid "B<-w> | B<--rw>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:340
+#: ../fish/guestfish.pod:341
 msgid ""
 "This option does nothing at the moment.  See L</OPENING DISKS FOR READ AND "
 "WRITE> below."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:343
+#: ../fish/guestfish.pod:344
 msgid "B<-x>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:345
+#: ../fish/guestfish.pod:346
 msgid "Echo each command before executing it."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:349
+#: ../fish/guestfish.pod:350
 msgid "COMMANDS ON COMMAND LINE"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:351
+#: ../fish/guestfish.pod:352
 msgid "Any additional (non-option) arguments are treated as commands to execute."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:354
+#: ../fish/guestfish.pod:355
 msgid ""
 "Commands to execute should be separated by a colon (C<:>), where the colon "
 "is a separate parameter.  Thus:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:357
+#: ../fish/guestfish.pod:358
 #, no-wrap
 msgid ""
 " guestfish cmd [args...] : cmd [args...] : cmd [args...] ...\n"
@@ -17227,7 +17227,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:359
+#: ../fish/guestfish.pod:360
 msgid ""
 "If there are no additional arguments, then we enter a shell, either an "
 "interactive shell with a prompt (if the input is a terminal) or a "
@@ -17235,7 +17235,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:363
+#: ../fish/guestfish.pod:364
 msgid ""
 "In either command line mode or non-interactive shell, the first command that "
 "gives an error causes the whole shell to exit.  In interactive mode (with a "
@@ -17243,12 +17243,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:368
+#: ../fish/guestfish.pod:369
 msgid "USING launch (OR run)"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:370
+#: ../fish/guestfish.pod:371
 msgid ""
 "As with L<guestfs(3)>, you must first configure your guest by adding disks, "
 "then launch it, then mount any disks you need, and finally issue "
@@ -17256,34 +17256,34 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:378
+#: ../fish/guestfish.pod:379
 msgid "add or -a/--add"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:382
+#: ../fish/guestfish.pod:383
 msgid "launch (aka run)"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:386
+#: ../fish/guestfish.pod:387
 msgid "mount or -m/--mount"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:390
+#: ../fish/guestfish.pod:391
 msgid "any other commands"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:394
+#: ../fish/guestfish.pod:395
 msgid ""
 "C<run> is a synonym for C<launch>.  You must C<launch> (or C<run>)  your "
 "guest before mounting or performing any other commands."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:397
+#: ../fish/guestfish.pod:398
 msgid ""
 "The only exception is that if any of the I<-i>, I<-m>, I<--mount>, I<-N> or "
 "I<--new> options were given then C<run> is done automatically, simply "
@@ -17291,12 +17291,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:402
+#: ../fish/guestfish.pod:403
 msgid "OPENING DISKS FOR READ AND WRITE"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:404
+#: ../fish/guestfish.pod:405
 msgid ""
 "The guestfish (and L<guestmount(1)>) options I<--ro> and I<--rw> affect "
 "whether the other command line options I<-a>, I<-c>, I<-d>, I<-i> and I<-m> "
@@ -17304,7 +17304,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:408
+#: ../fish/guestfish.pod:409
 msgid ""
 "In libguestfs E<lt> 1.6.2, guestfish and guestmount defaulted to opening "
 "disk images supplied on the command line for write.  To open a disk image "
@@ -17312,14 +17312,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:412
+#: ../fish/guestfish.pod:413
 msgid ""
 "This matters: If you accidentally open a live VM disk image writable then "
 "you will cause irreversible disk corruption."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:415
+#: ../fish/guestfish.pod:416
 msgid ""
 "By libguestfs 1.8 we intend to change the default the other way.  Disk "
 "images will be opened read-only.  You will have to either specify "
@@ -17328,7 +17328,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:420
+#: ../fish/guestfish.pod:421
 msgid ""
 "This version of guestfish has a I<--rw> option which does nothing (it is "
 "already the default).  However it is highly recommended that you use this "
@@ -17337,26 +17337,26 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:426
+#: ../fish/guestfish.pod:427
 msgid ""
 "B<Note:> This does I<not> affect commands like L</add> and L</mount>, or any "
 "other libguestfs program apart from guestfish and guestmount."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:429
+#: ../fish/guestfish.pod:430
 msgid "QUOTING"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:431
+#: ../fish/guestfish.pod:432
 msgid ""
 "You can quote ordinary parameters using either single or double quotes.  For "
 "example:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:434
+#: ../fish/guestfish.pod:435
 #, no-wrap
 msgid ""
 " add \"file with a space.img\"\n"
@@ -17364,7 +17364,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:436
+#: ../fish/guestfish.pod:437
 #, no-wrap
 msgid ""
 " rm '/file name'\n"
@@ -17372,7 +17372,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:438
+#: ../fish/guestfish.pod:439
 #, no-wrap
 msgid ""
 " rm '/\"'\n"
@@ -17380,7 +17380,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:440
+#: ../fish/guestfish.pod:441
 msgid ""
 "A few commands require a list of strings to be passed.  For these, use a "
 "whitespace-separated list, enclosed in quotes.  Strings containing "
@@ -17389,7 +17389,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:445
+#: ../fish/guestfish.pod:446
 #, no-wrap
 msgid ""
 " vgcreate VG \"/dev/sda1 /dev/sdb1\"\n"
@@ -17399,19 +17399,19 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:449
+#: ../fish/guestfish.pod:450
 msgid "OPTIONAL ARGUMENTS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:451
+#: ../fish/guestfish.pod:452
 msgid ""
 "Some commands take optional arguments.  These arguments appear in this "
 "documentation as C<[argname:..]>.  You can use them as in these examples:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:455
+#: ../fish/guestfish.pod:456
 #, no-wrap
 msgid ""
 " add-drive-opts filename\n"
@@ -17419,7 +17419,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:457
+#: ../fish/guestfish.pod:458
 #, no-wrap
 msgid ""
 " add-drive-opts filename readonly:true\n"
@@ -17427,7 +17427,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:459
+#: ../fish/guestfish.pod:460
 #, no-wrap
 msgid ""
 " add-drive-opts filename format:qcow2 readonly:false\n"
@@ -17435,196 +17435,196 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:461
+#: ../fish/guestfish.pod:462
 msgid ""
 "Each optional argument can appear at most once.  All optional arguments must "
 "appear after the required ones."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:464
+#: ../fish/guestfish.pod:465
 msgid "NUMBERS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:466
+#: ../fish/guestfish.pod:467
 msgid "This section applies to all commands which can take integers as parameters."
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:469
+#: ../fish/guestfish.pod:470
 msgid "SIZE SUFFIX"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:471
+#: ../fish/guestfish.pod:472
 msgid ""
 "When the command takes a parameter measured in bytes, you can use one of the "
 "following suffixes to specify kilobytes, megabytes and larger sizes:"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:477
+#: ../fish/guestfish.pod:478
 msgid "B<k> or B<K> or B<KiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:479
+#: ../fish/guestfish.pod:480
 msgid "The size in kilobytes (multiplied by 1024)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:481
+#: ../fish/guestfish.pod:482
 msgid "B<KB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:483
+#: ../fish/guestfish.pod:484
 msgid "The size in SI 1000 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:485
+#: ../fish/guestfish.pod:486
 msgid "B<M> or B<MiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:487
+#: ../fish/guestfish.pod:488
 msgid "The size in megabytes (multiplied by 1048576)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:489
+#: ../fish/guestfish.pod:490
 msgid "B<MB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:491
+#: ../fish/guestfish.pod:492
 msgid "The size in SI 1000000 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:493
+#: ../fish/guestfish.pod:494
 msgid "B<G> or B<GiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:495
+#: ../fish/guestfish.pod:496
 msgid "The size in gigabytes (multiplied by 2**30)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:497
+#: ../fish/guestfish.pod:498
 msgid "B<GB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:499
+#: ../fish/guestfish.pod:500
 msgid "The size in SI 10**9 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:501
+#: ../fish/guestfish.pod:502
 msgid "B<T> or B<TiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:503
+#: ../fish/guestfish.pod:504
 msgid "The size in terabytes (multiplied by 2**40)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:505
+#: ../fish/guestfish.pod:506
 msgid "B<TB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:507
+#: ../fish/guestfish.pod:508
 msgid "The size in SI 10**12 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:509
+#: ../fish/guestfish.pod:510
 msgid "B<P> or B<PiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:511
+#: ../fish/guestfish.pod:512
 msgid "The size in petabytes (multiplied by 2**50)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:513
+#: ../fish/guestfish.pod:514
 msgid "B<PB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:515
+#: ../fish/guestfish.pod:516
 msgid "The size in SI 10**15 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:517
+#: ../fish/guestfish.pod:518
 msgid "B<E> or B<EiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:519
+#: ../fish/guestfish.pod:520
 msgid "The size in exabytes (multiplied by 2**60)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:521
+#: ../fish/guestfish.pod:522
 msgid "B<EB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:523
+#: ../fish/guestfish.pod:524
 msgid "The size in SI 10**18 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:525
+#: ../fish/guestfish.pod:526
 msgid "B<Z> or B<ZiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:527
+#: ../fish/guestfish.pod:528
 msgid "The size in zettabytes (multiplied by 2**70)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:529
+#: ../fish/guestfish.pod:530
 msgid "B<ZB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:531
+#: ../fish/guestfish.pod:532
 msgid "The size in SI 10**21 byte units."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:533
+#: ../fish/guestfish.pod:534
 msgid "B<Y> or B<YiB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:535
+#: ../fish/guestfish.pod:536
 msgid "The size in yottabytes (multiplied by 2**80)."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:537
+#: ../fish/guestfish.pod:538
 msgid "B<YB>"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:539
+#: ../fish/guestfish.pod:540
 msgid "The size in SI 10**24 byte units."
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:545
+#: ../fish/guestfish.pod:546
 #, no-wrap
 msgid ""
 " truncate-size /file 1G\n"
@@ -17632,12 +17632,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:547
+#: ../fish/guestfish.pod:548
 msgid "would truncate the file to 1 gigabyte."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:549
+#: ../fish/guestfish.pod:550
 msgid ""
 "Be careful because a few commands take sizes in kilobytes or megabytes "
 "(eg. the parameter to L</memsize> is specified in megabytes already).  "
@@ -17645,19 +17645,19 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:553
+#: ../fish/guestfish.pod:554
 msgid "OCTAL AND HEXADECIMAL NUMBERS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:555
+#: ../fish/guestfish.pod:556
 msgid ""
 "For specifying the radix (base) use the C convention: C<0> to prefix an "
 "octal number or C<0x> to prefix a hexadecimal number.  For example:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:558
+#: ../fish/guestfish.pod:559
 #, no-wrap
 msgid ""
 " 1234      decimal number 1234\n"
@@ -17667,7 +17667,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:562
+#: ../fish/guestfish.pod:563
 msgid ""
 "When using the C<chmod> command, you almost always want to specify an octal "
 "number for the mode, and you must prefix it with C<0> (unlike the Unix "
@@ -17675,7 +17675,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:566
+#: ../fish/guestfish.pod:567
 #, no-wrap
 msgid ""
 " chmod 0777 /public  # OK\n"
@@ -17684,7 +17684,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:569
+#: ../fish/guestfish.pod:570
 msgid ""
 "Commands that return numbers usually print them in decimal, but some "
 "commands print numbers in other radices (eg. C<umask> prints the mode in "
@@ -17692,12 +17692,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:573
+#: ../fish/guestfish.pod:574
 msgid "WILDCARDS AND GLOBBING"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:575
+#: ../fish/guestfish.pod:576
 msgid ""
 "Neither guestfish nor the underlying guestfs API performs wildcard expansion "
 "(globbing) by default.  So for example the following will not do what you "
@@ -17705,7 +17705,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:579
+#: ../fish/guestfish.pod:580
 #, no-wrap
 msgid ""
 " rm-rf /home/*\n"
@@ -17713,19 +17713,19 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:581
+#: ../fish/guestfish.pod:582
 msgid ""
 "Assuming you don't have a directory called literally C</home/*> then the "
 "above command will return an error."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:584
+#: ../fish/guestfish.pod:585
 msgid "To perform wildcard expansion, use the C<glob> command."
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:586
+#: ../fish/guestfish.pod:587
 #, no-wrap
 msgid ""
 " glob rm-rf /home/*\n"
@@ -17733,14 +17733,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:588
+#: ../fish/guestfish.pod:589
 msgid ""
 "runs C<rm-rf> on each path that matches (ie. potentially running the command "
 "many times), equivalent to:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:591
+#: ../fish/guestfish.pod:592
 #, no-wrap
 msgid ""
 " rm-rf /home/jim\n"
@@ -17750,24 +17750,24 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:595
+#: ../fish/guestfish.pod:596
 msgid "C<glob> only works on simple guest paths and not on device names."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:597
+#: ../fish/guestfish.pod:598
 msgid ""
 "If you have several parameters, each containing a wildcard, then glob will "
 "perform a Cartesian product."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:600
+#: ../fish/guestfish.pod:601
 msgid "COMMENTS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:602
+#: ../fish/guestfish.pod:603
 msgid ""
 "Any line which starts with a I<#> character is treated as a comment and "
 "ignored.  The I<#> can optionally be preceeded by whitespace, but B<not> by "
@@ -17775,7 +17775,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:606
+#: ../fish/guestfish.pod:607
 #, no-wrap
 msgid ""
 " # this is a comment\n"
@@ -17785,24 +17785,24 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:610
+#: ../fish/guestfish.pod:611
 msgid "Blank lines are also ignored."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:612
+#: ../fish/guestfish.pod:613
 msgid "RUNNING COMMANDS LOCALLY"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:614
+#: ../fish/guestfish.pod:615
 msgid ""
 "Any line which starts with a I<!> character is treated as a command sent to "
 "the local shell (C</bin/sh> or whatever L<system(3)> uses).  For example:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:618
+#: ../fish/guestfish.pod:619
 #, no-wrap
 msgid ""
 " !mkdir local\n"
@@ -17811,7 +17811,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:621
+#: ../fish/guestfish.pod:622
 msgid ""
 "will create a directory C<local> on the host, and then export the contents "
 "of C</remote> on the mounted filesystem to C<local/remote-data.tar.gz>.  "
@@ -17819,19 +17819,19 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:625
+#: ../fish/guestfish.pod:626
 msgid ""
 "To change the local directory, use the C<lcd> command.  C<!cd> will have no "
 "effect, due to the way that subprocesses work in Unix."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:628
+#: ../fish/guestfish.pod:629
 msgid "PIPES"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:630
+#: ../fish/guestfish.pod:631
 msgid ""
 "Use C<command E<lt>spaceE<gt> | command> to pipe the output of the first "
 "command (a guestfish command) to the second command (any host command).  For "
@@ -17839,7 +17839,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:634
+#: ../fish/guestfish.pod:635
 #, no-wrap
 msgid ""
 " cat /etc/passwd | awk -F: '$3 == 0 { print }'\n"
@@ -17847,7 +17847,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:636
+#: ../fish/guestfish.pod:637
 msgid ""
 "(where C<cat> is the guestfish cat command, but C<awk> is the host awk "
 "program).  The above command would list all accounts in the guest filesystem "
@@ -17855,7 +17855,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:641
+#: ../fish/guestfish.pod:642
 #, no-wrap
 msgid ""
 " hexdump /bin/ls | head\n"
@@ -17865,7 +17865,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:645
+#: ../fish/guestfish.pod:646
 msgid ""
 "The space before the pipe symbol is required, any space after the pipe "
 "symbol is optional.  Everything after the pipe symbol is just passed "
@@ -17874,14 +17874,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:650
+#: ../fish/guestfish.pod:651
 msgid ""
 "To use a literal argument which begins with a pipe symbol, you have to quote "
 "it, eg:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:653
+#: ../fish/guestfish.pod:654
 #, no-wrap
 msgid ""
 " echo \"|\"\n"
@@ -17889,12 +17889,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:655
+#: ../fish/guestfish.pod:656
 msgid "HOME DIRECTORIES"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:657
+#: ../fish/guestfish.pod:658
 msgid ""
 "If a parameter starts with the character C<~> then the tilde may be expanded "
 "as a home directory path (either C<~> for the current user's home directory, "
@@ -17902,21 +17902,21 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:661
+#: ../fish/guestfish.pod:662
 msgid ""
 "Note that home directory expansion happens for users known I<on the host>, "
 "not in the guest filesystem."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:664
+#: ../fish/guestfish.pod:665
 msgid ""
 "To use a literal argument which begins with a tilde, you have to quote it, "
 "eg:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:667
+#: ../fish/guestfish.pod:668
 #, no-wrap
 msgid ""
 " echo \"~\"\n"
@@ -17924,7 +17924,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:671
+#: ../fish/guestfish.pod:672
 msgid ""
 "Libguestfs has some support for Linux guests encrypted according to the "
 "Linux Unified Key Setup (LUKS) standard, which includes nearly all whole "
@@ -17933,12 +17933,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:676
+#: ../fish/guestfish.pod:677
 msgid "Identify encrypted block devices and partitions using L</vfs-type>:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:678
+#: ../fish/guestfish.pod:679
 #, no-wrap
 msgid ""
 " ><fs> vfs-type /dev/sda2\n"
@@ -17947,14 +17947,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:681
+#: ../fish/guestfish.pod:682
 msgid ""
 "Then open those devices using L</luks-open>.  This creates a device-mapper "
 "device called C</dev/mapper/luksdev>."
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:684
+#: ../fish/guestfish.pod:685
 #, no-wrap
 msgid ""
 " ><fs> luks-open /dev/sda2 luksdev\n"
@@ -17963,14 +17963,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:687
+#: ../fish/guestfish.pod:688
 msgid ""
 "Finally you have to tell LVM to scan for volume groups on the newly created "
 "mapper device:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:690
+#: ../fish/guestfish.pod:691
 #, no-wrap
 msgid ""
 " vgscan\n"
@@ -17979,12 +17979,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:693
+#: ../fish/guestfish.pod:694
 msgid "The logical volume(s) can now be mounted in the usual way."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:695
+#: ../fish/guestfish.pod:696
 msgid ""
 "Before closing a LUKS device you must unmount any logical volumes on it and "
 "deactivate the volume groups by calling C<vg-activate false VG> on each "
@@ -17992,7 +17992,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:699
+#: ../fish/guestfish.pod:700
 #, no-wrap
 msgid ""
 " vg-activate false /dev/VG\n"
@@ -18001,19 +18001,19 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:702
+#: ../fish/guestfish.pod:703
 msgid "WINDOWS PATHS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:704
+#: ../fish/guestfish.pod:705
 msgid ""
 "If a path is prefixed with C<win:> then you can use Windows-style paths "
 "(with some limitations).  The following commands are equivalent:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:707
+#: ../fish/guestfish.pod:708
 #, no-wrap
 msgid ""
 " file /WINDOWS/system32/config/system.LOG\n"
@@ -18021,7 +18021,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:709
+#: ../fish/guestfish.pod:710
 #, no-wrap
 msgid ""
 " file win:/windows/system32/config/system.log\n"
@@ -18029,7 +18029,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:711
+#: ../fish/guestfish.pod:712
 #, no-wrap
 msgid ""
 " file win:\\windows\\system32\\config\\system.log\n"
@@ -18037,7 +18037,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:713
+#: ../fish/guestfish.pod:714
 #, no-wrap
 msgid ""
 " file WIN:C:\\Windows\\SYSTEM32\\conFIG\\SYSTEM.LOG\n"
@@ -18045,7 +18045,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:715
+#: ../fish/guestfish.pod:716
 msgid ""
 "This syntax implicitly calls C<case-sensitive-path> (q.v.) so it also "
 "handles case insensitivity like Windows would.  This only works in argument "
@@ -18053,12 +18053,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:719
+#: ../fish/guestfish.pod:720
 msgid "UPLOADING AND DOWNLOADING FILES"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:721
+#: ../fish/guestfish.pod:722
 msgid ""
 "For commands such as C<upload>, C<download>, C<tar-in>, C<tar-out> and "
 "others which upload from or download to a local file, you can use the "
@@ -18066,7 +18066,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:725
+#: ../fish/guestfish.pod:726
 #, no-wrap
 msgid ""
 " upload - /foo\n"
@@ -18074,12 +18074,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:727
+#: ../fish/guestfish.pod:728
 msgid "reads stdin and creates from that a file C</foo> in the disk image, and:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:730
+#: ../fish/guestfish.pod:731
 #, no-wrap
 msgid ""
 " tar-out /etc - | tar tf -\n"
@@ -18087,14 +18087,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:732
+#: ../fish/guestfish.pod:733
 msgid ""
 "writes the tarball to stdout and then pipes that into the external \"tar\" "
 "command (see L</PIPES>)."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:735
+#: ../fish/guestfish.pod:736
 msgid ""
 "When using C<-> to read from stdin, the input is read up to the end of "
 "stdin.  You can also use a special \"heredoc\"-like syntax to read up to "
@@ -18102,7 +18102,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:739
+#: ../fish/guestfish.pod:740
 #, no-wrap
 msgid ""
 " upload -<<END /foo\n"
@@ -18114,7 +18114,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:745
+#: ../fish/guestfish.pod:746
 msgid ""
 "Any string of characters can be used instead of C<END>.  The end marker must "
 "appear on a line of its own, without any preceeding or following characters "
@@ -18122,19 +18122,19 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:749
+#: ../fish/guestfish.pod:750
 msgid ""
 "Note that the C<-E<lt>E<lt>> syntax only applies to parameters used to "
 "upload local files (so-called \"FileIn\" parameters in the generator)."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:752
+#: ../fish/guestfish.pod:753
 msgid "EXIT ON ERROR BEHAVIOUR"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:754
+#: ../fish/guestfish.pod:755
 msgid ""
 "By default, guestfish will ignore any errors when in interactive mode "
 "(ie. taking commands from a human over a tty), and will exit on the first "
@@ -18142,19 +18142,19 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:759
+#: ../fish/guestfish.pod:760
 msgid ""
 "If you prefix a command with a I<-> character, then that command will not "
 "cause guestfish to exit, even if that (one) command returns an error."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:763
+#: ../fish/guestfish.pod:764
 msgid "REMOTE CONTROL GUESTFISH OVER A SOCKET"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:765
+#: ../fish/guestfish.pod:766
 msgid ""
 "Guestfish can be remote-controlled over a socket.  This is useful "
 "particularly in shell scripts where you want to make several different "
@@ -18163,12 +18163,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:770
+#: ../fish/guestfish.pod:771
 msgid "Start a guestfish server process using:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:772
+#: ../fish/guestfish.pod:773
 #, no-wrap
 msgid ""
 " eval \"`guestfish --listen`\"\n"
@@ -18176,12 +18176,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:774
+#: ../fish/guestfish.pod:775
 msgid "and then send it commands by doing:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:776
+#: ../fish/guestfish.pod:777
 #, no-wrap
 msgid ""
 " guestfish --remote cmd [...]\n"
@@ -18189,12 +18189,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:778
+#: ../fish/guestfish.pod:779
 msgid "To cause the server to exit, send it the exit command:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:780
+#: ../fish/guestfish.pod:781
 #, no-wrap
 msgid ""
 " guestfish --remote exit\n"
@@ -18202,7 +18202,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:782
+#: ../fish/guestfish.pod:783
 msgid ""
 "Note that the server will normally exit if there is an error in a command.  "
 "You can change this in the usual way.  See section L</EXIT ON ERROR "
@@ -18210,12 +18210,12 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:786
+#: ../fish/guestfish.pod:787
 msgid "CONTROLLING MULTIPLE GUESTFISH PROCESSES"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:788
+#: ../fish/guestfish.pod:789
 msgid ""
 "The C<eval> statement sets the environment variable C<$GUESTFISH_PID>, which "
 "is how the I<--remote> option knows where to send the commands.  You can "
@@ -18223,7 +18223,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:792
+#: ../fish/guestfish.pod:793
 #, no-wrap
 msgid ""
 " eval \"`guestfish --listen`\"\n"
@@ -18237,19 +18237,19 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:800
+#: ../fish/guestfish.pod:801
 msgid "REMOTE CONTROL AND CSH"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:802
+#: ../fish/guestfish.pod:803
 msgid ""
 "When using csh-like shells (csh, tcsh etc) you have to add the I<--csh> "
 "option:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:805
+#: ../fish/guestfish.pod:806
 #, no-wrap
 msgid ""
 " eval \"`guestfish --listen --csh`\"\n"
@@ -18257,12 +18257,12 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:807
+#: ../fish/guestfish.pod:808
 msgid "REMOTE CONTROL DETAILS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:809
+#: ../fish/guestfish.pod:810
 msgid ""
 "Remote control happens over a Unix domain socket called "
 "C</tmp/.guestfish-$UID/socket-$PID>, where C<$UID> is the effective user ID "
@@ -18270,17 +18270,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:813
+#: ../fish/guestfish.pod:814
 msgid "Guestfish client and server versions must match exactly."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:815
+#: ../fish/guestfish.pod:816
 msgid "PREPARED DISK IMAGES"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:817
+#: ../fish/guestfish.pod:818
 msgid ""
 "Use the I<-N type> or I<--new type> parameter to select one of a set of "
 "preformatted disk images that guestfish can make for you to save typing.  "
@@ -18290,7 +18290,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:823
+#: ../fish/guestfish.pod:824
 msgid ""
 "The new disk is called C<test1.img> for the first I<-N>, C<test2.img> for "
 "the second and so on.  Existing files in the current directory are "
@@ -18298,7 +18298,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:827
+#: ../fish/guestfish.pod:828
 msgid ""
 "The type briefly describes how the disk should be sized, partitioned, how "
 "filesystem(s) should be created, and how content should be added.  "
@@ -18310,31 +18310,31 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:835
+#: ../fish/guestfish.pod:836
 msgid "To list the available types and any extra parameters they take, run:"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:839
+#: ../fish/guestfish.pod:840
 msgid ""
 "Note that the prepared filesystem is not mounted.  You would usually have to "
 "use the C<mount /dev/sda1 /> command or add the I<-m /dev/sda1> option."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:843
+#: ../fish/guestfish.pod:844
 msgid ""
 "If any I<-N> or I<--new> options are given, the guest is automatically "
 "launched."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:848
+#: ../fish/guestfish.pod:849
 msgid "Create a 100MB disk with an ext4-formatted partition:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:850
+#: ../fish/guestfish.pod:851
 #, no-wrap
 msgid ""
 " guestfish -N fs:ext4\n"
@@ -18342,12 +18342,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:852
+#: ../fish/guestfish.pod:853
 msgid "Create a 32MB disk with a VFAT-formatted partition, and mount it:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:854
+#: ../fish/guestfish.pod:855
 #, no-wrap
 msgid ""
 " guestfish -N fs:vfat:32M -m /dev/sda1\n"
@@ -18355,12 +18355,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:856
+#: ../fish/guestfish.pod:857
 msgid "Create a blank 200MB disk:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:858
+#: ../fish/guestfish.pod:859
 #, no-wrap
 msgid ""
 " guestfish -N disk:200M\n"
@@ -18368,19 +18368,19 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:860
+#: ../fish/guestfish.pod:861
 msgid "PROGRESS BARS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:862
+#: ../fish/guestfish.pod:863
 msgid ""
 "Some (not all) long-running commands send progress notification messages as "
 "they are running.  Guestfish turns these messages into progress bars."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:866
+#: ../fish/guestfish.pod:867
 msgid ""
 "When a command that supports progress bars takes longer than two seconds to "
 "run, and if progress bars are enabled, then you will see one appearing below "
@@ -18388,7 +18388,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:870
+#: ../fish/guestfish.pod:871
 #, no-wrap
 msgid ""
 " ><fs> copy-size /large-file /another-file 2048M\n"
@@ -18397,7 +18397,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:873
+#: ../fish/guestfish.pod:874
 msgid ""
 "The spinner on the left hand side moves round once for every progress "
 "notification received from the backend.  This is a (reasonably) golden "
@@ -18408,7 +18408,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:880
+#: ../fish/guestfish.pod:881
 msgid ""
 "Progress bars are enabled by default when guestfish is used interactively.  "
 "You can enable them even for non-interactive modes using I<--progress-bars>, "
@@ -18416,24 +18416,24 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:885
+#: ../fish/guestfish.pod:886
 msgid "GUESTFISH COMMANDS"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:887
+#: ../fish/guestfish.pod:888
 msgid ""
 "The commands in this section are guestfish convenience commands, in other "
 "words, they are not part of the L<guestfs(3)> API."
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:890
+#: ../fish/guestfish.pod:891
 msgid "help"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:892
+#: ../fish/guestfish.pod:893
 #, no-wrap
 msgid ""
 " help\n"
@@ -18442,155 +18442,155 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:895
+#: ../fish/guestfish.pod:896
 msgid "Without any parameter, this provides general help."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:897
+#: ../fish/guestfish.pod:898
 msgid "With a C<cmd> parameter, this displays detailed help for that command."
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:899
+#: ../fish/guestfish.pod:900
 msgid "quit | exit"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:901
+#: ../fish/guestfish.pod:902
 msgid "This exits guestfish.  You can also use C<^D> key."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:903
+#: ../fish/guestfish.pod:904
 msgid "@FISH_COMMANDS@"
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:905
+#: ../fish/guestfish.pod:906
 msgid "COMMANDS"
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:909 ../test-tool/libguestfs-test-tool.pod:83
+#: ../fish/guestfish.pod:910 ../test-tool/libguestfs-test-tool.pod:83
 msgid "EXIT CODE"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:911
+#: ../fish/guestfish.pod:912
 msgid ""
 "guestfish returns 0 if the commands completed without error, or 1 if there "
 "was an error."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:918
+#: ../fish/guestfish.pod:919
 msgid "EDITOR"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:920
+#: ../fish/guestfish.pod:921
 msgid ""
 "The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
 "C<vi>."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:923
+#: ../fish/guestfish.pod:924
 msgid "GUESTFISH_PID"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:925
+#: ../fish/guestfish.pod:926
 msgid ""
 "Used with the I<--remote> option to specify the remote guestfish process to "
 "control.  See section L</REMOTE CONTROL GUESTFISH OVER A SOCKET>."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:929
+#: ../fish/guestfish.pod:930
 msgid "HEXEDITOR"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:931
+#: ../fish/guestfish.pod:932
 msgid ""
 "The L</hexedit> command uses C<$HEXEDITOR> as the external hex editor.  If "
 "not specified, the external L<hexedit(1)> program is used."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:935
+#: ../fish/guestfish.pod:936
 msgid "HOME"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:937
+#: ../fish/guestfish.pod:938
 msgid ""
 "If compiled with GNU readline support, various files in the home directory "
 "can be used.  See L</FILES>."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:946
+#: ../fish/guestfish.pod:947
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as using the B<-v> option."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:958
+#: ../fish/guestfish.pod:959
 msgid ""
 "Set the path that guestfish uses to search for kernel and initrd.img.  See "
 "the discussion of paths in L<guestfs(3)>."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:969
+#: ../fish/guestfish.pod:970
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:971
+#: ../fish/guestfish.pod:972
 msgid "PAGER"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:973
+#: ../fish/guestfish.pod:974
 msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:988 ../test-tool/libguestfs-test-tool.pod:88
+#: ../fish/guestfish.pod:989 ../test-tool/libguestfs-test-tool.pod:88
 msgid "FILES"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:992
+#: ../fish/guestfish.pod:993
 msgid "$HOME/.guestfish"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:994
+#: ../fish/guestfish.pod:995
 msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:997
+#: ../fish/guestfish.pod:998
 msgid "$HOME/.inputrc"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:999
+#: ../fish/guestfish.pod:1000
 msgid "/etc/inputrc"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1001
+#: ../fish/guestfish.pod:1002
 msgid ""
 "If compiled with GNU readline support, then these files can be used to "
 "configure readline.  For further information, please see "
@@ -18598,12 +18598,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1005
+#: ../fish/guestfish.pod:1006
 msgid "To write rules which only apply to guestfish, use:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:1007
+#: ../fish/guestfish.pod:1008
 #, no-wrap
 msgid ""
 " $if guestfish\n"
@@ -18613,26 +18613,26 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1011
+#: ../fish/guestfish.pod:1012
 msgid ""
 "Variables that you can set in inputrc that change the behaviour of guestfish "
 "in useful ways include:"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1016
+#: ../fish/guestfish.pod:1017
 msgid "completion-ignore-case (default: on)"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1018
+#: ../fish/guestfish.pod:1019
 msgid ""
 "By default, guestfish will ignore case when tab-completing paths on the "
 "disk.  Use:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:1021
+#: ../fish/guestfish.pod:1022
 #, no-wrap
 msgid ""
 " set completion-ignore-case off\n"
@@ -18640,22 +18640,22 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1023
+#: ../fish/guestfish.pod:1024
 msgid "to make guestfish case sensitive."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1027
+#: ../fish/guestfish.pod:1028
 msgid "test1.img"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1029
+#: ../fish/guestfish.pod:1030
 msgid "test2.img (etc)"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1031
+#: ../fish/guestfish.pod:1032
 msgid ""
 "When using the C<-N> or C<--new> option, the prepared disk or filesystem "
 "will be created in the file C<test1.img> in the current directory.  The "
@@ -18664,16 +18664,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1040
+#: ../fish/guestfish.pod:1041
 msgid ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-cat(1)>, L<virt-df(1)>, "
-"L<virt-edit(1)>, L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>, "
-"L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, "
-"L<virt-tar(1)>, L<virt-win-reg(1)>, L<hexedit(1)>."
+"L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, "
+"L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, "
+"L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-tar(1)>, "
+"L<virt-win-reg(1)>, L<hexedit(1)>."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1064 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370 ../tools/virt-win-reg.pl:518 ../tools/virt-df.pl:657 ../tools/virt-ls.pl:251 ../tools/virt-resize.pl:1516 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:300 ../tools/virt-rescue.pl:285 ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:273
+#: ../fish/guestfish.pod:1067 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370 ../tools/virt-win-reg.pl:518 ../tools/virt-df.pl:657 ../tools/virt-resize.pl:1514 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:300 ../tools/virt-rescue.pl:285 ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -18682,7 +18683,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1069 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375 ../tools/virt-win-reg.pl:523 ../tools/virt-df.pl:662 ../tools/virt-ls.pl:256 ../tools/virt-resize.pl:1521 ../tools/virt-list-filesystems.pl:211 ../tools/virt-tar.pl:305 ../tools/virt-rescue.pl:290 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:278
+#: ../fish/guestfish.pod:1072 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375 ../tools/virt-win-reg.pl:523 ../tools/virt-df.pl:662 ../tools/virt-resize.pl:1519 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:305 ../tools/virt-rescue.pl:290 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -18691,7 +18692,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1074 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380 ../tools/virt-win-reg.pl:528 ../tools/virt-df.pl:667 ../tools/virt-ls.pl:261 ../tools/virt-resize.pl:1526 ../tools/virt-list-filesystems.pl:216 ../tools/virt-tar.pl:310 ../tools/virt-rescue.pl:295 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:283
+#: ../fish/guestfish.pod:1077 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380 ../tools/virt-win-reg.pl:528 ../tools/virt-df.pl:667 ../tools/virt-resize.pl:1524 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:310 ../tools/virt-rescue.pl:295 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -25243,14 +25244,14 @@ msgstr ""
 #: ../fuse/guestmount.pod:59
 msgid ""
 "If you don't know what filesystems are contained in a guest or disk image, "
-"use L<virt-list-filesystems(1)> first:"
+"use L<virt-filesystems(1)> first:"
 msgstr ""
 
 # type: verbatim
 #: ../fuse/guestmount.pod:62
 #, no-wrap
 msgid ""
-" virt-list-filesystems MyGuest\n"
+" virt-filesystems MyGuest\n"
 "\n"
 msgstr ""
 
@@ -25591,17 +25592,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:181 ../tools/virt-df.pl:81 ../tools/virt-ls.pl:88 ../tools/virt-list-filesystems.pl:60 ../tools/virt-tar.pl:108 ../tools/virt-rescue.pl:113 ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:61
+#: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:181 ../tools/virt-df.pl:81 ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:108 ../tools/virt-rescue.pl:113 ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
 msgid "Display brief help."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:88 ../tools/virt-win-reg.pl:187 ../tools/virt-df.pl:87 ../tools/virt-ls.pl:94 ../tools/virt-resize.pl:273 ../tools/virt-list-filesystems.pl:66 ../tools/virt-tar.pl:114 ../tools/virt-rescue.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:67
+#: ../tools/virt-edit.pl:88 ../tools/virt-win-reg.pl:187 ../tools/virt-df.pl:87 ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:114 ../tools/virt-rescue.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
 msgid "B<--version>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:189 ../tools/virt-df.pl:89 ../tools/virt-ls.pl:96 ../tools/virt-resize.pl:275 ../tools/virt-list-filesystems.pl:68 ../tools/virt-tar.pl:116 ../tools/virt-rescue.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:69
+#: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:189 ../tools/virt-df.pl:89 ../tools/virt-resize.pl:274 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:116 ../tools/virt-rescue.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
 msgid "Display version number and exit."
 msgstr ""
 
@@ -25638,38 +25639,38 @@ msgid "By default, no backup file is made."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:203 ../tools/virt-df.pl:95 ../tools/virt-ls.pl:102 ../tools/virt-list-filesystems.pl:74 ../tools/virt-tar.pl:122 ../tools/virt-rescue.pl:135 ../tools/virt-list-partitions.pl:75
+#: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:203 ../tools/virt-df.pl:95 ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:122 ../tools/virt-rescue.pl:135 ../tools/virt-list-partitions.pl:78
 msgid "B<--connect URI> | B<-c URI>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:205 ../tools/virt-df.pl:97 ../tools/virt-ls.pl:104 ../tools/virt-list-filesystems.pl:76 ../tools/virt-tar.pl:124 ../tools/virt-rescue.pl:137 ../tools/virt-list-partitions.pl:77
+#: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:205 ../tools/virt-df.pl:97 ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:124 ../tools/virt-rescue.pl:137 ../tools/virt-list-partitions.pl:80
 msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:208 ../tools/virt-df.pl:100 ../tools/virt-ls.pl:107 ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:127 ../tools/virt-rescue.pl:140 ../tools/virt-list-partitions.pl:80
+#: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:208 ../tools/virt-df.pl:100 ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:127 ../tools/virt-rescue.pl:140 ../tools/virt-list-partitions.pl:83
 msgid ""
 "If you specify guest block devices directly, then libvirt is not used at "
 "all."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:215 ../tools/virt-df.pl:117 ../tools/virt-ls.pl:114 ../tools/virt-resize.pl:523 ../tools/virt-list-filesystems.pl:86 ../tools/virt-tar.pl:134 ../tools/virt-rescue.pl:147 ../tools/virt-list-partitions.pl:87
+#: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:215 ../tools/virt-df.pl:117 ../tools/virt-resize.pl:522 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:134 ../tools/virt-rescue.pl:147 ../tools/virt-list-partitions.pl:90
 msgid "B<--format> raw"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:217 ../tools/virt-df.pl:119 ../tools/virt-ls.pl:116 ../tools/virt-list-filesystems.pl:88 ../tools/virt-tar.pl:136 ../tools/virt-rescue.pl:149 ../tools/virt-list-partitions.pl:89
+#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:217 ../tools/virt-df.pl:119 ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:136 ../tools/virt-rescue.pl:149 ../tools/virt-list-partitions.pl:92
 msgid ""
 "Specify the format of disk images given on the command line.  If this is "
 "omitted then the format is autodetected from the content of the disk image."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:221 ../tools/virt-df.pl:123 ../tools/virt-ls.pl:120 ../tools/virt-list-filesystems.pl:92 ../tools/virt-tar.pl:140 ../tools/virt-rescue.pl:153 ../tools/virt-list-partitions.pl:93
+#: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:221 ../tools/virt-df.pl:123 ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:140 ../tools/virt-rescue.pl:153 ../tools/virt-list-partitions.pl:96
 msgid ""
 "If disk images are requested from libvirt, then this program asks libvirt "
 "for this information.  In this case, the value of the format parameter is "
@@ -25677,7 +25678,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:225 ../tools/virt-df.pl:127 ../tools/virt-ls.pl:124 ../tools/virt-resize.pl:528 ../tools/virt-resize.pl:543 ../tools/virt-list-filesystems.pl:96 ../tools/virt-tar.pl:144 ../tools/virt-rescue.pl:157 ../tools/virt-list-partitions.pl:97
+#: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:225 ../tools/virt-df.pl:127 ../tools/virt-resize.pl:527 ../tools/virt-resize.pl:542 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:144 ../tools/virt-rescue.pl:157 ../tools/virt-list-partitions.pl:100
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
 "the format is always specified."
@@ -25861,12 +25862,12 @@ msgid "If not set, C<vi> is used."
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:141 ../tools/virt-win-reg.pl:477 ../tools/virt-df.pl:633 ../tools/virt-ls.pl:225 ../tools/virt-resize.pl:1479 ../tools/virt-list-filesystems.pl:179 ../tools/virt-tar.pl:274 ../tools/virt-rescue.pl:260 ../tools/virt-make-fs.pl:527 ../tools/virt-list-partitions.pl:247
+#: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:141 ../tools/virt-win-reg.pl:477 ../tools/virt-df.pl:633 ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:274 ../tools/virt-rescue.pl:260 ../tools/virt-make-fs.pl:527 ../tools/virt-list-partitions.pl:250
 msgid "SHELL QUOTING"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:479 ../tools/virt-df.pl:635 ../tools/virt-ls.pl:227 ../tools/virt-resize.pl:1481 ../tools/virt-list-filesystems.pl:181 ../tools/virt-tar.pl:276 ../tools/virt-rescue.pl:262 ../tools/virt-make-fs.pl:529 ../tools/virt-list-partitions.pl:249
+#: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:479 ../tools/virt-df.pl:635 ../tools/virt-resize.pl:1480 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:276 ../tools/virt-rescue.pl:262 ../tools/virt-make-fs.pl:529 ../tools/virt-list-partitions.pl:252
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -25883,17 +25884,17 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:510 ../tools/virt-df.pl:649 ../tools/virt-ls.pl:243 ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:198 ../tools/virt-tar.pl:292 ../tools/virt-rescue.pl:277 ../tools/virt-make-fs.pl:559 ../tools/virt-list-partitions.pl:265
+#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:510 ../tools/virt-df.pl:649 ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:292 ../tools/virt-rescue.pl:277 ../tools/virt-make-fs.pl:559 ../tools/virt-list-partitions.pl:269
 msgid "AUTHOR"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:512 ../tools/virt-df.pl:651 ../tools/virt-ls.pl:245 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:200 ../tools/virt-tar.pl:294 ../tools/virt-rescue.pl:279 ../tools/virt-make-fs.pl:561 ../tools/virt-list-partitions.pl:267
+#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:512 ../tools/virt-df.pl:651 ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:294 ../tools/virt-rescue.pl:279 ../tools/virt-make-fs.pl:561 ../tools/virt-list-partitions.pl:271
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:368 ../tools/virt-df.pl:655 ../tools/virt-rescue.pl:283 ../tools/virt-list-partitions.pl:271
+#: ../tools/virt-edit.pl:368 ../tools/virt-df.pl:655 ../tools/virt-rescue.pl:283 ../tools/virt-list-partitions.pl:275
 msgid "Copyright (C) 2009-2010 Red Hat Inc."
 msgstr ""
 
@@ -26206,7 +26207,7 @@ msgid "B<--debug>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-win-reg.pl:197 ../tools/virt-resize.pl:501
+#: ../tools/virt-win-reg.pl:197 ../tools/virt-resize.pl:500
 msgid "Enable debugging messages."
 msgstr ""
 
@@ -26284,7 +26285,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-win-reg.pl:516 ../tools/virt-resize.pl:1514 ../tools/virt-make-fs.pl:565
+#: ../tools/virt-win-reg.pl:516 ../tools/virt-resize.pl:1512 ../tools/virt-make-fs.pl:565
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr ""
 
@@ -26521,151 +26522,6 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-ls.pl:34
-msgid "virt-ls - List files in a virtual machine"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-ls.pl:38
-#, no-wrap
-msgid ""
-" virt-ls [--options] domname directory\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-ls.pl:40
-#, no-wrap
-msgid ""
-" virt-ls [--options] disk.img [disk.img ...] directory\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:44
-msgid ""
-"C<virt-ls> is a command line tool to list the names of files in a directory "
-"inside a virtual machine or disk image."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:47
-msgid ""
-"C<virt-ls> is just a simple wrapper around L<libguestfs(3)> functionality.  "
-"For more complex cases you should look at the L<guestfish(1)> tool."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:51
-msgid ""
-"C<virt-ls> can be used in one of three modes: simple, long and recursive.  A "
-"simple listing is like the ordinary L<ls(1)> command:"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-ls.pl:54
-#, no-wrap
-msgid ""
-" $ virt-ls myguest /\n"
-" bin\n"
-" boot\n"
-" [etc.]\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:59
-msgid "With the C<-l> (C<--long>) option, C<virt-ls> shows more detail:"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-ls.pl:61
-#, no-wrap
-msgid ""
-" $ virt-ls -l myguest /\n"
-" total 204\n"
-" dr-xr-xr-x.   2 root root   4096 2009-08-25 19:06 bin\n"
-" dr-xr-xr-x.   5 root root   3072 2009-08-25 19:06 boot\n"
-" [etc.]\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:67
-msgid ""
-"With the C<-R> (C<--recursive>) option, C<virt-ls> lists the names of files "
-"and directories recursively:"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-ls.pl:70
-#, no-wrap
-msgid ""
-" $ virt-ls -R myguest /tmp\n"
-" foo\n"
-" foo/bar\n"
-" [etc.]\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:75
-msgid ""
-"You I<cannot> combine these options.  To do more complicated things, use "
-"L<guestfish(1)>."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-ls.pl:131 ../tools/virt-list-filesystems.pl:103 ../tools/virt-list-partitions.pl:112
-msgid "B<-l> | B<--long>"
-msgstr ""
-
-# type: =item
-#: ../tools/virt-ls.pl:133
-msgid "B<-R> | B<--recursive>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:135
-msgid ""
-"Select the mode.  With neither of these options, C<virt-ls> produces a "
-"simple, flat list of the files in the named directory."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:138
-msgid ""
-"C<virt-ls -l> produces a \"long listing\", which shows more detail (just "
-"like the plain C<ls -l> command)."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:141
-msgid ""
-"C<virt-ls -R> produces a recursive list of files starting at the named "
-"directory.  See the documentation for L<guestfs(3)/guestfs_find> for precise "
-"details."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:145
-msgid "You cannot combine these options."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:234
-msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-tar(1)>, "
-"L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, "
-"L<http://libguestfs.org/>."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-ls.pl:249 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:298
-msgid "Copyright (C) 2009 Red Hat Inc."
-msgstr ""
-
-# type: textblock
 #: ../tools/virt-resize.pl:42
 msgid "virt-resize - Resize a virtual machine disk"
 msgstr ""
@@ -26699,38 +26555,37 @@ msgstr ""
 # type: textblock
 #: ../tools/virt-resize.pl:60
 msgid ""
-"If you are not familiar with the associated tools: "
-"L<virt-list-partitions(1)>, L<virt-list-filesystems(1)> and L<virt-df(1)>, "
-"we recommend you go and read those manual pages first."
+"If you are not familiar with the associated tools: L<virt-filesystems(1)> "
+"and L<virt-df(1)>, we recommend you go and read those manual pages first."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:68
+#: ../tools/virt-resize.pl:66
 msgid ""
 "Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions to "
 "fill the extra 5GB of space."
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:71
+#: ../tools/virt-resize.pl:69
 #, no-wrap
 msgid ""
 " truncate -r olddisk newdisk; truncate -s +5G newdisk\n"
-" virt-list-partitions -lht olddisk\n"
+" virt-filesystems --long --h --all -a olddisk\n"
 " # Note \"/dev/sda2\" is a partition inside the \"olddisk\" file.\n"
 " virt-resize --expand /dev/sda2 olddisk newdisk\n"
 "\n"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:76
+#: ../tools/virt-resize.pl:74
 msgid ""
 "As above, but make the /boot partition 200MB bigger, while giving the "
 "remaining space to /dev/sda2:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:79
+#: ../tools/virt-resize.pl:77
 #, no-wrap
 msgid ""
 " virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 olddisk newdisk\n"
@@ -26738,12 +26593,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:81
+#: ../tools/virt-resize.pl:79
 msgid "As above, but the output format will be uncompressed qcow2:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:83
+#: ../tools/virt-resize.pl:81
 #, no-wrap
 msgid ""
 " qemu-img create -f qcow2 newdisk.qcow2 15G\n"
@@ -26752,27 +26607,27 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-resize.pl:86
+#: ../tools/virt-resize.pl:84
 msgid "DETAILED USAGE"
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:88
+#: ../tools/virt-resize.pl:86
 msgid "EXPANDING A VIRTUAL MACHINE DISK"
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:92
+#: ../tools/virt-resize.pl:90
 msgid "1. Shut down the virtual machine"
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:94
+#: ../tools/virt-resize.pl:92
 msgid "2. Locate input disk image"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:96
+#: ../tools/virt-resize.pl:94
 msgid ""
 "Locate the input disk image (ie. the file or device on the host containing "
 "the guest's disk).  If the guest is managed by libvirt, you can use C<virsh "
@@ -26780,7 +26635,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:100
+#: ../tools/virt-resize.pl:98
 #, no-wrap
 msgid ""
 " # virsh dumpxml guestname | xpath /domain/devices/disk/source\n"
@@ -26791,52 +26646,53 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:105
+#: ../tools/virt-resize.pl:103
 msgid "3. Look at current sizing"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:107
-msgid "Use L<virt-list-partitions(1)> to display the current partitions and sizes:"
+#: ../tools/virt-resize.pl:105
+msgid "Use L<virt-filesystems(1)> to display the current partitions and sizes:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:110
+#: ../tools/virt-resize.pl:108
 #, no-wrap
 msgid ""
-" # virt-list-partitions -lht /dev/vg/lv_guest\n"
-" /dev/sda1 ext3 101.9M\n"
-" /dev/sda2 pv 7.9G\n"
-" /dev/sda device 8.0G\n"
+" # virt-filesystems --long --parts --blkdevs -h -a /dev/vg/lv_guest\n"
+" Name       Type       Size  Parent\n"
+" /dev/sda1  partition  101M  /dev/sda\n"
+" /dev/sda2  partition  7.9G  /dev/sda\n"
+" /dev/sda   device     8.0G  -\n"
 "\n"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:115
+#: ../tools/virt-resize.pl:114
 msgid ""
 "(This example is a virtual machine with an 8 GB disk which we would like to "
 "expand up to 10 GB)."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:118
+#: ../tools/virt-resize.pl:117
 msgid "4. Create output disk"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:120
+#: ../tools/virt-resize.pl:119
 msgid ""
 "Virt-resize cannot do in-place disk modifications.  You have to have space "
 "to store the resized output disk."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:123
+#: ../tools/virt-resize.pl:122
 msgid "To store the resized disk image in a file, create a file of a suitable size:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:126
+#: ../tools/virt-resize.pl:125
 #, no-wrap
 msgid ""
 " # rm -f outdisk\n"
@@ -26845,12 +26701,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:129
+#: ../tools/virt-resize.pl:128
 msgid "Or use L<lvcreate(1)> to create a logical volume:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:131
+#: ../tools/virt-resize.pl:130
 #, no-wrap
 msgid ""
 " # lvcreate -L 10G -n lv_name vg_name\n"
@@ -26858,12 +26714,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:133
+#: ../tools/virt-resize.pl:132
 msgid "Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:135
+#: ../tools/virt-resize.pl:134
 #, no-wrap
 msgid ""
 " # virsh pool-list\n"
@@ -26872,12 +26728,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:138
+#: ../tools/virt-resize.pl:137
 msgid "5. Resize"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:140
+#: ../tools/virt-resize.pl:139
 msgid ""
 "virt-resize takes two mandatory parameters, the input disk (eg. device or "
 "file) and the output disk.  The output disk is the one created in the "
@@ -26885,7 +26741,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:144
+#: ../tools/virt-resize.pl:143
 #, no-wrap
 msgid ""
 " # virt-resize indisk outdisk\n"
@@ -26893,7 +26749,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:146
+#: ../tools/virt-resize.pl:145
 msgid ""
 "This command just copies disk image C<indisk> to disk image C<outdisk> "
 "I<without> resizing or changing any existing partitions.  If C<outdisk> is "
@@ -26903,7 +26759,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:152
+#: ../tools/virt-resize.pl:151
 msgid ""
 "More realistically you'd want to expand existing partitions in the disk "
 "image by passing extra options (for the full list see the L</OPTIONS> "
@@ -26911,14 +26767,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:156
+#: ../tools/virt-resize.pl:155
 msgid ""
 "L</--expand> is the most useful option.  It expands the named partition "
 "within the disk to fill any extra space:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:159
+#: ../tools/virt-resize.pl:158
 #, no-wrap
 msgid ""
 " # virt-resize --expand /dev/sda2 indisk outdisk\n"
@@ -26926,14 +26782,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:161
+#: ../tools/virt-resize.pl:160
 msgid ""
 "(In this case, an extra partition is I<not> created at the end of the disk, "
 "because there will be no unused space)."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:164
+#: ../tools/virt-resize.pl:163
 msgid ""
 "L</--resize> is the other commonly used option.  The following would "
 "increase the size of /dev/sda1 by 200M, and expand /dev/sda2 to fill the "
@@ -26941,7 +26797,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:168
+#: ../tools/virt-resize.pl:167
 #, no-wrap
 msgid ""
 " # virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \\\n"
@@ -26950,7 +26806,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:171
+#: ../tools/virt-resize.pl:170
 msgid ""
 "If the expanded partition in the image contains a filesystem or LVM PV, then "
 "if virt-resize knows how, it will resize the contents, the equivalent of "
@@ -26963,27 +26819,27 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:180
+#: ../tools/virt-resize.pl:179
 msgid "Other options are covered below."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:182
+#: ../tools/virt-resize.pl:181
 msgid "6. Test"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:184
+#: ../tools/virt-resize.pl:183
 msgid "Thoroughly test the new disk image I<before> discarding the old one."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:186
+#: ../tools/virt-resize.pl:185
 msgid "If you are using libvirt, edit the XML to point at the new disk:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:188
+#: ../tools/virt-resize.pl:187
 #, no-wrap
 msgid ""
 " # virsh edit guestname\n"
@@ -26991,19 +26847,19 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:190
+#: ../tools/virt-resize.pl:189
 msgid ""
 "Change E<lt>source ...E<gt>, see "
 "L<http://libvirt.org/formatdomain.html#elementsDisks>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:193
+#: ../tools/virt-resize.pl:192
 msgid "Then start up the domain with the new, resized disk:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:195
+#: ../tools/virt-resize.pl:194
 #, no-wrap
 msgid ""
 " # virsh start guestname\n"
@@ -27011,24 +26867,24 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:197
+#: ../tools/virt-resize.pl:196
 msgid ""
 "and check that it still works.  See also the L</NOTES> section below for "
 "additional information."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:200
+#: ../tools/virt-resize.pl:199
 msgid "7. Resize LVs etc inside the guest"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:202
+#: ../tools/virt-resize.pl:201
 msgid "(This can also be done offline using L<guestfish(1)>)"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:204
+#: ../tools/virt-resize.pl:203
 msgid ""
 "Once the guest has booted you should see the new space available, at least "
 "for filesystems that virt-resize knows how to resize, and for PVs.  The user "
@@ -27037,19 +26893,19 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:211
+#: ../tools/virt-resize.pl:210
 msgid "SHRINKING A VIRTUAL MACHINE DISK"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:213
+#: ../tools/virt-resize.pl:212
 msgid ""
 "Shrinking is somewhat more complex than expanding, and only an overview is "
 "given here."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:216
+#: ../tools/virt-resize.pl:215
 msgid ""
 "Firstly virt-resize will not attempt to shrink any partition content (PVs, "
 "filesystems).  The user has to shrink content before passing the disk image "
@@ -27058,29 +26914,29 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:221
+#: ../tools/virt-resize.pl:220
 msgid "(Shrinking can also be done offline using L<guestfish(1)>)"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:223
+#: ../tools/virt-resize.pl:222
 msgid ""
 "After shrinking PVs and filesystems, shut down the guest, and proceed with "
 "steps 3 and 4 above to allocate a new disk image."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:226
+#: ../tools/virt-resize.pl:225
 msgid "Then run virt-resize with any of the C<--shrink> and/or C<--resize> options."
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:229
+#: ../tools/virt-resize.pl:228
 msgid "IGNORING OR DELETING PARTITIONS"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:231
+#: ../tools/virt-resize.pl:230
 msgid ""
 "virt-resize also gives a convenient way to ignore or delete partitions when "
 "copying from the input disk to the output disk.  Ignoring a partition speeds "
@@ -27091,12 +26947,12 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:238
+#: ../tools/virt-resize.pl:237
 msgid "QCOW2 AND NON-SPARSE RAW FORMATS"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:240
+#: ../tools/virt-resize.pl:239
 msgid ""
 "If the input disk is in qcow2 format, then you may prefer that the output is "
 "in qcow2 format as well.  Alternately, virt-resize can convert the format on "
@@ -27105,7 +26961,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:246
+#: ../tools/virt-resize.pl:245
 #, no-wrap
 msgid ""
 " qemu-img create [-c] -f qcow2 outdisk [size]\n"
@@ -27113,17 +26969,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:248
+#: ../tools/virt-resize.pl:247
 msgid "instead of the truncate command (use C<-c> for a compressed disk)."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:250
+#: ../tools/virt-resize.pl:249
 msgid "Similarly, to get non-sparse raw output use:"
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:252
+#: ../tools/virt-resize.pl:251
 #, no-wrap
 msgid ""
 " fallocate -l size outdisk\n"
@@ -27131,31 +26987,31 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:254
+#: ../tools/virt-resize.pl:253
 msgid ""
 "(on older systems that don't have the L<fallocate(1)> command use C<dd "
 "if=/dev/zero of=outdisk bs=1M count=..>)"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:267
+#: ../tools/virt-resize.pl:266
 msgid "Display help."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:281
+#: ../tools/virt-resize.pl:280
 msgid "B<--resize part=size>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:283
+#: ../tools/virt-resize.pl:282
 msgid ""
 "Resize the named partition (expanding or shrinking it) so that it has the "
 "given size."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:286
+#: ../tools/virt-resize.pl:285
 msgid ""
 "C<size> can be expressed as an absolute number followed by b/K/M/G/T/P/E to "
 "mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Petabytes or "
@@ -27164,7 +27020,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:291
+#: ../tools/virt-resize.pl:290
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=10G\n"
@@ -27172,7 +27028,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:293
+#: ../tools/virt-resize.pl:292
 #, no-wrap
 msgid ""
 " --resize /dev/sda4=90%\n"
@@ -27180,7 +27036,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:295
+#: ../tools/virt-resize.pl:294
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=+1G\n"
@@ -27188,7 +27044,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:297
+#: ../tools/virt-resize.pl:296
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=-200M\n"
@@ -27196,7 +27052,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:299
+#: ../tools/virt-resize.pl:298
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+128K\n"
@@ -27204,7 +27060,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:301
+#: ../tools/virt-resize.pl:300
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+10%\n"
@@ -27212,7 +27068,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:303
+#: ../tools/virt-resize.pl:302
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=-10%\n"
@@ -27220,14 +27076,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:305
+#: ../tools/virt-resize.pl:304
 msgid ""
 "You can increase the size of any partition.  Virt-resize will expand the "
 "direct content of the partition if it knows how (see C<--expand> below)."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:309
+#: ../tools/virt-resize.pl:308
 msgid ""
 "You can only I<decrease> the size of partitions that contain filesystems or "
 "PVs which have already been shrunk.  Virt-resize will check this has been "
@@ -27236,17 +27092,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:314 ../tools/virt-resize.pl:406 ../tools/virt-resize.pl:423
+#: ../tools/virt-resize.pl:313 ../tools/virt-resize.pl:405 ../tools/virt-resize.pl:422
 msgid "You can give this option multiple times."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:320
+#: ../tools/virt-resize.pl:319
 msgid "B<--resize-force part=size>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:322
+#: ../tools/virt-resize.pl:321
 msgid ""
 "This is the same as C<--resize> except that it will let you decrease the "
 "size of any partition.  Generally this means you will lose any data which "
@@ -27256,24 +27112,24 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:328
+#: ../tools/virt-resize.pl:327
 msgid "See also the C<--ignore> option."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:334
+#: ../tools/virt-resize.pl:333
 msgid "B<--expand part>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:336
+#: ../tools/virt-resize.pl:335
 msgid ""
 "Expand the named partition so it uses up all extra space (space left over "
 "after any other resize changes that you request have been done)."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:339
+#: ../tools/virt-resize.pl:338
 msgid ""
 "If virt-resize knows how, it will expand the direct content of the "
 "partition.  For example, if the partition is an LVM PV, it will expand the "
@@ -27282,26 +27138,26 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:344
+#: ../tools/virt-resize.pl:343
 msgid "Currently virt-resize can resize:"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:350
+#: ../tools/virt-resize.pl:349
 msgid ""
 "ext2, ext3 and ext4 filesystems when they are contained directly inside a "
 "partition."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:355
+#: ../tools/virt-resize.pl:354
 msgid ""
 "NTFS filesystems contained directly in a partition, if libguestfs was "
 "compiled with support for NTFS."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:358
+#: ../tools/virt-resize.pl:357
 msgid ""
 "The filesystem must have been shut down consistently last time it was used.  "
 "Additionally, L<ntfsresize(8)> marks the resized filesystem as requiring a "
@@ -27310,24 +27166,24 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:365
+#: ../tools/virt-resize.pl:364
 msgid ""
 "LVM PVs (physical volumes).  However virt-resize does I<not> resize anything "
 "inside the PV.  The user will have to resize LVs as desired."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:371 ../tools/virt-resize.pl:393
+#: ../tools/virt-resize.pl:370 ../tools/virt-resize.pl:392
 msgid "Note that you cannot use C<--expand> and C<--shrink> together."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:377
+#: ../tools/virt-resize.pl:376
 msgid "B<--shrink part>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:379
+#: ../tools/virt-resize.pl:378
 msgid ""
 "Shrink the named partition until the overall disk image fits in the "
 "destination.  The named partition B<must> contain a filesystem or PV which "
@@ -27337,7 +27193,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:385
+#: ../tools/virt-resize.pl:384
 msgid ""
 "The amount by which the overall disk must be shrunk (after carrying out all "
 "other operations requested by the user) is called the \"deficit\".  For "
@@ -27348,12 +27204,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:399
+#: ../tools/virt-resize.pl:398
 msgid "B<--ignore part>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:401
+#: ../tools/virt-resize.pl:400
 msgid ""
 "Ignore the named partition.  Effectively this means the partition is "
 "allocated on the destination disk, but the content is not copied across from "
@@ -27362,12 +27218,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:412
+#: ../tools/virt-resize.pl:411
 msgid "B<--delete part>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:414
+#: ../tools/virt-resize.pl:413
 msgid ""
 "Delete the named partition.  It would be more accurate to describe this as "
 "\"don't copy it over\", since virt-resize doesn't do in-place changes and "
@@ -27375,7 +27231,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:418
+#: ../tools/virt-resize.pl:417
 msgid ""
 "Note that when you delete a partition, then anything contained in the "
 "partition is also deleted.  Furthermore, this causes any partitions that "
@@ -27383,12 +27239,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:429
+#: ../tools/virt-resize.pl:428
 msgid "B<--LV-expand logvol>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:431
+#: ../tools/virt-resize.pl:430
 msgid ""
 "This takes the logical volume and, as a final step, expands it to fill all "
 "the space available in its volume group.  A typical usage, assuming a Linux "
@@ -27397,7 +27253,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:436
+#: ../tools/virt-resize.pl:435
 #, no-wrap
 msgid ""
 " virt-resize indisk outdisk \\\n"
@@ -27406,14 +27262,14 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:439
+#: ../tools/virt-resize.pl:438
 msgid ""
 "This would first expand the partition (and PV), and then expand the root "
 "device to fill the extra space in the PV."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:442
+#: ../tools/virt-resize.pl:441
 msgid ""
 "The contents of the LV are also resized if virt-resize knows how to do "
 "that.  You can stop virt-resize from trying to expand the content by using "
@@ -27421,12 +27277,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:446
-msgid "Use L<virt-list-filesystems(1)> to list the filesystems in the guest."
+#: ../tools/virt-resize.pl:445
+msgid "Use L<virt-filesystems(1)> to list the filesystems in the guest."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:449
+#: ../tools/virt-resize.pl:448
 msgid ""
 "You can give this option multiple times, I<but> it doesn't make sense to do "
 "this unless the logical volumes you specify are all in different volume "
@@ -27434,12 +27290,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:457
+#: ../tools/virt-resize.pl:456
 msgid "B<--no-copy-boot-loader>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:459
+#: ../tools/virt-resize.pl:458
 msgid ""
 "By default, virt-resize copies over some sectors at the start of the disk "
 "(up to the beginning of the first partition).  Commonly these sectors "
@@ -27448,19 +27304,19 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:464
+#: ../tools/virt-resize.pl:463
 msgid ""
 "If you specify this flag, then this initial copy is not done.  You may need "
 "to reinstall the boot loader in this case."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:472
+#: ../tools/virt-resize.pl:471
 msgid "B<--no-extra-partition>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:474
+#: ../tools/virt-resize.pl:473
 msgid ""
 "By default, virt-resize creates an extra partition if there is any extra, "
 "unused space after all resizing has happened.  Use this option to prevent "
@@ -27470,101 +27326,101 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:480
+#: ../tools/virt-resize.pl:479
 msgid ""
 "Note that if the surplus space is smaller than 10 MB, no extra partition "
 "will be created."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:487
+#: ../tools/virt-resize.pl:486
 msgid "B<--no-expand-content>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:489
+#: ../tools/virt-resize.pl:488
 msgid ""
 "By default, virt-resize will try to expand the direct contents of "
 "partitions, if it knows how (see C<--expand> option above)."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:492
+#: ../tools/virt-resize.pl:491
 msgid ""
 "If you give the C<--no-expand-content> option then virt-resize will not "
 "attempt this."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:499
+#: ../tools/virt-resize.pl:498
 msgid "B<-d> | B<--debug>"
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:507
+#: ../tools/virt-resize.pl:506
 msgid "B<-n> | B<--dryrun>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:509
+#: ../tools/virt-resize.pl:508
 msgid "Print a summary of what would be done, but don't do anything."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:515
+#: ../tools/virt-resize.pl:514
 msgid "B<-q> | B<--quiet>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:517
+#: ../tools/virt-resize.pl:516
 msgid "Don't print the summary."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:525
+#: ../tools/virt-resize.pl:524
 msgid ""
 "Specify the format of the input disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:531
+#: ../tools/virt-resize.pl:530
 msgid ""
 "Note that this option I<does not> affect the output format.  See L</QCOW2 "
 "AND NON-SPARSE RAW FORMATS>."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-resize.pl:538
+#: ../tools/virt-resize.pl:537
 msgid "B<--output-format> raw"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:540
+#: ../tools/virt-resize.pl:539
 msgid ""
 "Specify the format of the output disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:546
+#: ../tools/virt-resize.pl:545
 msgid ""
 "Note that you still need to create the output disk with the right format.  "
 "See L</QCOW2 AND NON-SPARSE RAW FORMATS>."
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:1422 ../tools/virt-rescue.pl:90
+#: ../tools/virt-resize.pl:1421 ../tools/virt-rescue.pl:90
 msgid "NOTES"
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:1424
+#: ../tools/virt-resize.pl:1423
 msgid "\"Partition 1 does not end on cylinder boundary.\""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1426
+#: ../tools/virt-resize.pl:1425
 msgid ""
 "Virt-resize aligns partitions to multiples of 64 sectors.  Usually this "
 "means the partitions will not be aligned to the ancient CHS geometry.  "
@@ -27574,12 +27430,12 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:1433
+#: ../tools/virt-resize.pl:1432
 msgid "RESIZING WINDOWS VIRTUAL MACHINES"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1435
+#: ../tools/virt-resize.pl:1434
 msgid ""
 "In Windows Vista and later versions, Microsoft switched to using a separate "
 "boot partition.  In these VMs, typically C</dev/sda1> is the boot partition "
@@ -27589,7 +27445,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1442
+#: ../tools/virt-resize.pl:1441
 msgid ""
 "Windows may initiate a lengthy \"chkdsk\" on first boot after a resize, if "
 "NTFS partitions have been expanded.  This is just a safety check and (unless "
@@ -27597,12 +27453,12 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#: ../tools/virt-resize.pl:1446
+#: ../tools/virt-resize.pl:1445
 msgid "GUEST BOOT STUCK AT \"GRUB\""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1448
+#: ../tools/virt-resize.pl:1447
 msgid ""
 "If a Linux guest does not boot after resizing, and the boot is stuck after "
 "printing C<GRUB> on the console, try reinstalling grub.  This sometimes "
@@ -27611,7 +27467,7 @@ msgid ""
 msgstr ""
 
 # type: verbatim
-#: ../tools/virt-resize.pl:1453
+#: ../tools/virt-resize.pl:1452
 #, no-wrap
 msgid ""
 " guestfish -i -a newdisk\n"
@@ -27624,26 +27480,26 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1460
+#: ../tools/virt-resize.pl:1459
 msgid ""
 "For more flexible guest reconfiguration, including if you need to specify "
 "other parameters to grub-install, use L<virt-rescue(1)>."
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-resize.pl:1463
+#: ../tools/virt-resize.pl:1462
 msgid "ALTERNATIVE TOOLS"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1465
+#: ../tools/virt-resize.pl:1464
 msgid ""
 "There are several proprietary tools for resizing partitions.  We won't "
 "mention any here."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1468
+#: ../tools/virt-resize.pl:1467
 msgid ""
 "L<parted(8)> and its graphical shell gparted can do some types of resizing "
 "operations on disk images.  They can resize and move partitions, but I don't "
@@ -27652,7 +27508,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1473
+#: ../tools/virt-resize.pl:1472
 msgid ""
 "L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
 "but at a much lower level.  You will probably end up hand-calculating sector "
@@ -27662,13 +27518,13 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-resize.pl:1488
+#: ../tools/virt-resize.pl:1487
 msgid ""
-"L<virt-list-partitions(1)>, L<virt-list-filesystems(1)>, L<virt-df(1)>, "
-"L<guestfs(3)>, L<guestfish(1)>, L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, "
-"L<resize2fs(8)>, L<ntfsresize(8)>, L<virsh(1)>, L<parted(8)>, "
-"L<truncate(1)>, L<fallocate(1)>, L<grub(8)>, L<grub-install(8)>, "
-"L<virt-rescue(1)>, L<Sys::Guestfs(3)>, L<http://libguestfs.org/>."
+"L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, "
+"L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, "
+"L<ntfsresize(8)>, L<virsh(1)>, L<parted(8)>, L<truncate(1)>, "
+"L<fallocate(1)>, L<grub(8)>, L<grub-install(8)>, L<virt-rescue(1)>, "
+"L<Sys::Guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 # type: textblock
@@ -27693,45 +27549,62 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-filesystems.pl:42
+#: ../tools/virt-list-filesystems.pl:42 ../tools/virt-list-partitions.pl:42
+msgid ""
+"This tool is obsolete.  Use L<virt-filesystems(1)> as a more flexible "
+"replacement."
+msgstr ""
+
+# type: textblock
+#: ../tools/virt-list-filesystems.pl:45
 msgid ""
 "C<virt-list-filesystems> is a command line tool to list the filesystems that "
 "are contained in a virtual machine or disk image."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-filesystems.pl:46
+#: ../tools/virt-list-filesystems.pl:49
 msgid ""
 "C<virt-list-filesystems> is just a simple wrapper around L<libguestfs(3)> "
 "functionality.  For more complex cases you should look at the "
 "L<guestfish(1)> tool."
 msgstr ""
 
+# type: =item
+#: ../tools/virt-list-filesystems.pl:106 ../tools/virt-list-partitions.pl:115
+msgid "B<-l> | B<--long>"
+msgstr ""
+
 # type: textblock
-#: ../tools/virt-list-filesystems.pl:105
+#: ../tools/virt-list-filesystems.pl:108
 msgid ""
 "With this option, C<virt-list-filesystems> displays the type of each "
 "filesystem too (where \"type\" means C<ext3>, C<xfs> etc.)"
 msgstr ""
 
 # type: =item
-#: ../tools/virt-list-filesystems.pl:112
+#: ../tools/virt-list-filesystems.pl:115
 msgid "B<-a> | B<--all>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-filesystems.pl:114
+#: ../tools/virt-list-filesystems.pl:117
 msgid ""
 "Normally we only show mountable filesystems.  If this option is given then "
 "swap devices are shown too."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-filesystems.pl:188
+#: ../tools/virt-list-filesystems.pl:191
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-tar(1)>, "
-"L<virt-list-partitions(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, "
-"L<Sys::Virt(3)>, L<http://libguestfs.org/>."
+"L<virt-filesystems(1)>, L<virt-list-partitions(1)>, L<Sys::Guestfs(3)>, "
+"L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>."
+msgstr ""
+
+# type: textblock
+#: ../tools/virt-list-filesystems.pl:208 ../tools/virt-tar.pl:298
+msgid "Copyright (C) 2009 Red Hat Inc."
 msgstr ""
 
 # type: textblock
@@ -28574,7 +28447,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-partitions.pl:42
+#: ../tools/virt-list-partitions.pl:45
 msgid ""
 "C<virt-list-partitions> is a command line tool to list the partitions that "
 "are contained in a virtual machine or disk image.  It is mainly useful as a "
@@ -28582,7 +28455,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-partitions.pl:47
+#: ../tools/virt-list-partitions.pl:50
 msgid ""
 "C<virt-list-partitions> is just a simple wrapper around L<libguestfs(3)> "
 "functionality.  For more complex cases you should look at the "
@@ -28590,36 +28463,36 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../tools/virt-list-partitions.pl:104
+#: ../tools/virt-list-partitions.pl:107
 msgid "B<-h> | B<--human-readable>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-partitions.pl:106
+#: ../tools/virt-list-partitions.pl:109
 msgid "Show sizes in human-readable form (eg. \"1G\")."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-partitions.pl:114
+#: ../tools/virt-list-partitions.pl:117
 msgid ""
 "With this option, C<virt-list-partitions> displays the type and size of each "
 "partition too (where \"type\" means C<ext3>, C<pv> etc.)"
 msgstr ""
 
 # type: =item
-#: ../tools/virt-list-partitions.pl:121
+#: ../tools/virt-list-partitions.pl:124
 msgid "B<-t> | B<--total>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-partitions.pl:123
+#: ../tools/virt-list-partitions.pl:126
 msgid "Display the total size of each block device (as a separate row or rows)."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-list-partitions.pl:256
+#: ../tools/virt-list-partitions.pl:259
 msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-list-filesystems(1)>, "
-"L<virt-resize(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, "
-"L<Sys::Virt(3)>, L<http://libguestfs.org/>."
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, "
+"L<virt-list-filesystems(1)>, L<virt-resize(1)>, L<Sys::Guestfs(3)>, "
+"L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>."
 msgstr ""
