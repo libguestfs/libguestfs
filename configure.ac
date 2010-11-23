@@ -222,6 +222,10 @@ dnl Check for optional xmllint.
 AC_CHECK_PROG([XMLLINT],[xmllint],[xmllint],[no])
 AM_CONDITIONAL([HAVE_XMLLINT],[test "x$XMLLINT" != "xno"])
 
+dnl po4a for translating man pages and POD files (optional).
+AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
+AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 default_qemu="qemu-kvm kvm qemu-system-$host_cpu qemu"
@@ -808,10 +812,6 @@ AS_IF([test "x$PERL" != "xno"],
 
 AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
-
-dnl po4a for translating man pages and POD files (optional).
-AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
-AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
 
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
