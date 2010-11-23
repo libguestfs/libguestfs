@@ -1394,7 +1394,7 @@ sub canonicalize
 {
     local $_ = shift;
 
-    if (m{^/dev/[hv]d([a-z]\d)$}) {
+    if (m{^/dev/[hv]d([a-z]\d*)$}) {
         return "/dev/sd$1";
     }
     $_;
