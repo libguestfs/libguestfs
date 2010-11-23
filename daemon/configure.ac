@@ -91,6 +91,8 @@ if test "$gl_gcc_warnings" = yes; then
                                     # was not possible, safe to ignore
   nw="$nw -Wlong-long"              # Allow long long since it's required
                                     # by Python, Ruby and xstrtoll.
+  nw="$nw -Wstack-protector"        # Don't warn about stack-protector
+                                    # failures (seen on Ubuntu).
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
