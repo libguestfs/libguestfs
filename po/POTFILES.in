@@ -74,6 +74,10 @@ daemon/wc.c
 daemon/xattr.c
 daemon/zero.c
 daemon/zerofree.c
+df/df.c
+df/domains.c
+df/main.c
+df/output.c
 fish/alloc.c
 fish/cmds.c
 fish/cmds_gperf.c
@@ -137,7 +141,6 @@ src/proto.c
 src/virt.c
 test-tool/helper.c
 test-tool/test-tool.c
-tools/virt-df.pl
 tools/virt-edit.pl
 tools/virt-list-filesystems.pl
 tools/virt-list-partitions.pl

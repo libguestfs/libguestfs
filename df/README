@@ -1,0 +1,17 @@
+This is the third rewrite of the virt-df program.  It very much
+follows the outline of the Perl program which this replaced in
+libguestfs 1.7.14.
+
+main.c -    main program
+
+domains.c - dealing with libvirt, only used if libvirt is around
+            at compile time
+
+df.c -      getting the stats from libguestfs
+
+output.c -  writing the output, CSV output
+
+virt-df.h - header file
+
+Note this also uses the shared options parsing code in
+'fish/options.[ch]'.

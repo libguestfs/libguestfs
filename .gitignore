@@ -75,6 +75,10 @@ daemon/optgroups.h
 daemon/stubs.c
 depcomp
 .deps
+df/stamp-virt-df.pod
+df/virt-df
+df/virt-df.1
+df/virt-df.static
 emptydisk
 examples/create_disk
 examples/guestfs-examples.3

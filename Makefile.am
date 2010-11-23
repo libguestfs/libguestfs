@@ -36,7 +36,7 @@ SUBDIRS += gnulib/tests capitests regressions test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += cat inspector
+SUBDIRS += cat df inspector
 
 # Language bindings.
 if HAVE_PERL
@@ -221,6 +221,8 @@ bindist:
 	cp cat/virt-cat.static $(BINTMPDIR)$(bindir)/virt-cat
 	cp cat/virt-filesystems.static $(BINTMPDIR)$(bindir)/virt-filesystems
 	cp cat/virt-ls.static $(BINTMPDIR)$(bindir)/virt-ls
+	$(MAKE) -C df virt-df.static
+	cp df/virt-df.static $(BINTMPDIR)$(bindir)/virt-df
 	$(MAKE) -C inspector virt-inspector.static
 	cp inspector/virt-inspector.static $(BINTMPDIR)$(bindir)/virt-inspector
 	(cd $(BINTMPDIR) && tar cf - .) | \

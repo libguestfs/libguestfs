@@ -1,0 +1,229 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-df - Display free space on virtual filesystems
+
+=head1 SYNOPSIS
+
+ virt-df [--options]
+
+ virt-df [--options] -d domname
+
+ virt-df [--options] -a disk.img [-a disk.img ...]
+
+Old style:
+
+ virt-df [--options] domname
+
+ virt-df [--options] disk.img [disk.img ...]
+
+=head1 DESCRIPTION
+
+C<virt-df> is a command line tool to display free space on virtual
+machine filesystems.  Unlike other tools, it doesn't just display the
+amount of space allocated to a virtual machine, but can look inside
+the virtual machine to see how much space is really being used.
+
+It is like the L<df(1)> command, but for virtual machines, except that
+it also works for Windows virtual machines.
+
+If used without any arguments, C<virt-df> checks with libvirt to get a
+list of all active and inactive guests, and performs a C<df>-type
+operation on each one in turn, printing out the results.
+
+If used with any argument(s), C<virt-df> performs a C<df>-type
+operation on either the single named libvirt domain, or on the disk
+image(s) listed on the command line (which must all belong to a single
+VM).  In this mode (with arguments), C<virt-df> will I<only work for a
+single guest>.  If you want to run on multiple guests, then you have
+to invoke C<virt-df> multiple times.
+
+Use the C<--csv> option to get a format which can be easily parsed by
+other programs.  Other options are mostly similar to standard C<df>
+options.  See below for the complete list.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.  If
+the virtual machine has multiple block devices, you must supply all of
+them with separate I<-a> options.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.
+
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-df --format=raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-df --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).  See also
+L</add-drive-opts>.
+
+=item B<-h>
+
+=item B<--human-readable>
+
+Print sizes in human-readable format.
+
+You are not allowed to use I<-h> and I<--csv> at the same time.
+
+=item B<--inodes> | B<-i>
+
+Print inodes instead of blocks.
+
+=item B<--one-per-guest>
+
+Run one libguestfs appliance per guest.  Normally C<virt-df> will
+add the disks from several guests to a single libguestfs appliance.
+
+You might use this option in the following circumstances:
+
+=over 4
+
+=item *
+
+If you think an untrusted guest might actively try to exploit the
+libguestfs appliance kernel, then this prevents one guest from
+interfering with the stats printed for another guest.
+
+=item *
+
+If the kernel has a bug which stops it from accessing a
+filesystem in one guest (see for example RHBZ#635373) then
+this allows libguestfs to continue and report stats for further
+guests.
+
+=back
+
+=item B<--uuid>
+
+Print UUIDs instead of names.  This is useful for following
+a guest even when the guest is migrated or renamed, or when
+two guests happen to have the same name.
+
+Note that only domains that we fetch from libvirt come with UUIDs.
+For disk images, we still print the disk image name even when
+this option is specified.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 NOTE ABOUT CSV FORMAT
+
+Comma-separated values (CSV) is a deceptive format.  It I<seems> like
+it should be easy to parse, but it is definitely not easy to parse.
+
+Myth: Just split fields at commas.  Reality: This does I<not> work
+reliably.  This example has two columns:
+
+ "foo,bar",baz
+
+Myth: Read the file one line at a time.  Reality: This does I<not>
+work reliably.  This example has one row:
+
+ "foo
+ bar",baz
+
+For shell scripts, use C<csvtool> (L<http://merjis.com/developers/csv>
+also packaged in major Linux distributions).
+
+For other languages, use a CSV processing library (eg. C<Text::CSV>
+for Perl or Python's built-in csv library).
+
+Most spreadsheets and databases can import CSV directly.
+
+=head1 SHELL QUOTING
+
+Libvirt guest names can contain arbitrary characters, some of which
+have meaning to the shell such as C<#> and space.  You may need to
+quote or escape these characters on the command line.  See the shell
+manual page L<sh(1)> for details.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-filesystems(1)>,
+L<Sys::Virt(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2010 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

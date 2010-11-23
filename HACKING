@@ -84,6 +84,9 @@ csharp/
 daemon/
         The daemon that runs inside the guest and carries out actions.
 
+df/
+        'virt-df' command and documentation.
+
 examples/
         The examples.
 

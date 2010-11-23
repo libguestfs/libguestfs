@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 tools = \
-	df \
 	edit \
 	list-filesystems \
 	list-partitions \
@@ -41,10 +40,10 @@ bin_SCRIPTS = $(tools:%=virt-%)
 
 # Manual pages and HTML files for the website.
 
-# XXX Bug in automake?  If you list virt-df.1 explicitly, then it
+# XXX Bug in automake?  If you list virt-edit.1 explicitly, then it
 # builds and installs the man pages.  However if this is removed,
 # then the man pages are neither built nor installed.
-man_MANS = virt-df.1 $(patsubst %,virt-%.1,$(filter-out df,$(tools)))
+man_MANS = virt-edit.1 $(patsubst %,virt-%.1,$(filter-out edit,$(tools)))
 
 noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
 
@@ -68,8 +67,7 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	PERL5LIB=$(top_builddir)/perl/blib/lib:$(top_builddir)/perl/blib/arch
 
-TESTS = test-virt-df.sh \
-	test-virt-list-filesystems.sh \
+TESTS = test-virt-list-filesystems.sh \
 	test-virt-make-fs.sh \
 	test-virt-resize.sh \
 	test-virt-tar.sh
