@@ -38,7 +38,8 @@ get_blkid_tag (const char *device, const char *tag)
    * supposed to do this, but (a) it doesn't work and (b) that option
    * is not supported in RHEL 5.
    */
-  unlink ("/etc/blkid/blkid.tab");
+  unlink ("/etc/blkid/blkid.tab"); /* Red Hat, Fedora */
+  unlink ("/etc/blkid.tab"); /* Debian */
 
   r = command (&out, &err,
                "blkid", "-o", "value", "-s", tag, device, NULL);
