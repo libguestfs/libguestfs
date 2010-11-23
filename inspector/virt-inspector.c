@@ -632,7 +632,7 @@ canonicalize (char *dev)
       (dev[5] == 'h' || dev[5] == 'v') &&
       dev[6] == 'd' &&
       c_isalpha (dev[7]) &&
-      c_isdigit (dev[8]))
+      (c_isdigit (dev[8]) || dev[8] == '\0'))
     dev[5] = 's';
 }
 
