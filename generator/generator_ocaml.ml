@@ -537,7 +537,8 @@ copy_table (char * const * argv)
         pr "CAMLprim value ";
         pr "ocaml_guestfs_%s_byte (value *argv, int argn);\n" name;
         pr "CAMLprim value\n";
-        pr "ocaml_guestfs_%s_byte (value *argv, int argn)\n" name;
+        pr "ocaml_guestfs_%s_byte (value *argv, int argn ATTRIBUTE_UNUSED)\n"
+          name;
         pr "{\n";
         pr "  return ocaml_guestfs_%s (argv[0]" name;
         iteri (fun i _ -> pr ", argv[%d]" i) (List.tl params);

@@ -225,7 +225,7 @@ clear_progress_callback (guestfs_h *g)
 }
 
 static void
-progress_callback (guestfs_h *g, void *root,
+progress_callback (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
                    int proc_nr, int serial, uint64_t position, uint64_t total)
 {
   CAMLparam0 ();

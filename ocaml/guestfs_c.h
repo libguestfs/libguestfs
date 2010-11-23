@@ -29,4 +29,14 @@ extern void ocaml_guestfs_raise_closed (const char *func)
 extern char **ocaml_guestfs_strings_val (guestfs_h *g, value sv);
 extern void ocaml_guestfs_free_strings (char **r);
 
+# ifdef __GNUC__
+# ifndef ATTRIBUTE_UNUSED
+#  define ATTRIBUTE_UNUSED __attribute__((__unused__))
+# endif
+#else
+# ifndef ATTRIBUTE_UNUSED
+#  define ATTRIBUTE_UNUSED
+# endif
+#endif
+
 #endif /* GUESTFS_OCAML_C_H */
