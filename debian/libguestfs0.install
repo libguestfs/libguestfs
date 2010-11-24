@@ -1,0 +1,7 @@
+usr/bin/libguestfs-test-tool
+usr/lib/lib*.so.*
+usr/lib/guestfs/*
+usr/lib/libguestfs/libguestfs-test-tool-helper
+usr/share/man/man1/libguestfs-test-tool*
+usr/share/man/man3/guestfs.3*
+usr/share/man/man3/libguestfs.3*

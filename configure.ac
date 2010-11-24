@@ -807,6 +807,7 @@ AC_CONFIG_FILES([Makefile
                  cat/Makefile
                  df/Makefile
                  rescue/Makefile
+                 debian/changelog
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 
