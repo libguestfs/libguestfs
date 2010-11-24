@@ -49,7 +49,7 @@ if HAVE_PYTHON
 SUBDIRS += python python/examples
 endif
 if HAVE_RUBY
-SUBDIRS += ruby
+SUBDIRS += ruby ruby/examples
 endif
 if HAVE_JAVA
 SUBDIRS += java
@@ -105,6 +105,7 @@ HTMLFILES = \
 	html/guestfs-examples.3.html \
 	html/guestfs-ocaml.3.html \
 	html/guestfs-python.3.html \
+	html/guestfs-ruby.3.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
 	html/virt-cat.1.html \

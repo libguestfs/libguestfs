@@ -2,25 +2,28 @@
 
 =head1 NAME
 
-guestfs-examples - Examples of using libguestfs from C
+guestfs-ruby - How to use libguestfs from Ruby
 
 =head1 SYNOPSIS
 
- #include <guestfs.h>
- 
- guestfs_h *g = guestfs_create ();
- guestfs_add_drive_ro (g, "disk.img");
- guestfs_launch (g);
-
- cc prog.c -o prog -lguestfs
-or:
- cc prog.c -o prog `pkg-config libguestfs --cflags --libs`
+ require 'guestfs'
+ g = Guestfs::Guestfs.new()
+ g.add_drive_opts("disk.img",
+                  :readonly => 1, :format => "raw")
+ g.launch()
 
 =head1 DESCRIPTION
 
-This manual page contains examples of calling libguestfs from
-the C programming language.  If you are not familiar with using
+This manual page documents how to call libguestfs from the Ruby
+programming language.  This page just documents the differences from
+the C API and gives some examples.  If you are not familiar with using
 libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 EXCEPTIONS
+
+Errors from libguestfs functions are mapped into the C<Error>
+exception.  This has a single parameter which is the error message (a
+string).
 
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
@@ -33,11 +36,10 @@ libguestfs, you also need to read L<guestfs(3)>.
 =head1 SEE ALSO
 
 L<guestfs(3)>,
+L<guestfs-examples(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-python(3)>,
-L<guestfs-ruby(3)>,
-L<http://libguestfs.org/>,
-L<http://caml.inria.fr/>.
+L<http://libguestfs.org/>.
 
 =head1 AUTHORS
 

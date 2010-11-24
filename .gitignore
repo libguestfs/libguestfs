@@ -118,6 +118,7 @@ html/guestfs.3.html
 html/guestfs-examples.3.html
 html/guestfs-ocaml.3.html
 html/guestfs-python.3.html
+html/guestfs-ruby.3.html
 html/guestmount.1.html
 html/recipes.html
 html/virt-cat.1.html
@@ -279,6 +280,8 @@ regressions/test2.img
 regressions/test.err
 regressions/test.out
 ruby/bindtests.rb
+ruby/examples/guestfs-ruby.3
+ruby/examples/stamp-guestfs-ruby.pod
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/_guestfs.bundle
 ruby/ext/guestfs/_guestfs.c

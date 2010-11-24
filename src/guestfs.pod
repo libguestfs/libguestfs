@@ -676,8 +676,7 @@ For documentation see L<guestfs-python(3)>.
 
 =item B<Ruby>
 
-Use the Guestfs module.  There is no Ruby-specific documentation, but
-you can find examples written in Ruby in the libguestfs source.
+For documentation see L<guestfs-ruby(3)>.
 
 =item B<shell scripts>
 
@@ -2085,6 +2084,7 @@ enough.
 L<guestfs-examples(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-python(3)>,
+L<guestfs-ruby(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
 L<virt-cat(1)>,
