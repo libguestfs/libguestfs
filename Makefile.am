@@ -102,6 +102,7 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 
 HTMLFILES = \
 	html/guestfs.3.html \
+	html/guestfs-examples.3.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
 	html/virt-cat.1.html \

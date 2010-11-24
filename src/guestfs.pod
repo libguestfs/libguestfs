@@ -52,6 +52,9 @@ need enough permissions to access the disk images.
 Libguestfs is a large API because it can do many things.  For a gentle
 introduction, please read the L</API OVERVIEW> section next.
 
+There are also some example programs in the L<guestfs-examples(3)>
+manual page.
+
 =head1 API OVERVIEW
 
 This section provides a gentler overview of the libguestfs API.  We
@@ -2083,6 +2086,7 @@ enough.
 
 =head1 SEE ALSO
 
+L<guestfs-examples(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
 L<virt-cat(1)>,

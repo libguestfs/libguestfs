@@ -76,8 +76,10 @@ daemon/stubs.c
 depcomp
 .deps
 emptydisk
-examples/hello
-examples/to-xml
+examples/create_disk
+examples/guestfs-examples.3
+examples/inspect_vm
+examples/stamp-guestfs-examples.pod
 fish/cmds.c
 fish/cmds_gperf.c
 fish/cmds_gperf.gperf
@@ -113,6 +115,7 @@ haskell/Guestfs.hs
 *.hi
 html/guestfish.1.html
 html/guestfs.3.html
+html/guestfs-examples.3.html
 html/guestmount.1.html
 html/recipes.html
 html/virt-cat.1.html
