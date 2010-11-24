@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-23 10:16+0000\n"
+"POT-Creation-Date: 2010-11-24 20:19+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -78,13 +78,13 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
 
 #: cat/virt-filesystems.c:90
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] -d domname file\n"
-"  %s [--options] -a disk.img [-a disk.img ...] file\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  --all                Display everything\n"
@@ -115,6 +115,28 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: moduł FUSE dla biblioteki libguestfs\n"
+"%s umożliwia zamontowanie systemu plików maszyny wirtualnej\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Użycie:\n"
+"  %s [--opcje] [-- [--opcje-FUSE]] punkt_montowania\n"
+"Opcje:\n"
+"  -a|--add image       Dodaje obraz\n"
+"  --dir-cache-timeout  Ustawia czas oczekiwania na pamięć podręczną\n"
+"                       odczytania katalogu (domyślnie pięć sekund)\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --help               Wyświetla komunikat pomocy i kończy działanie\n"
+"  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
+"  -n|--no-sync         Nie synchronizuje automatycznie\n"
+"  -o|--option opt      Przekazuje dodatkowe opcje do FUSE\n"
+"  -r|--ro              Montuje w trybie tylko do odczytu\n"
+"  --selinux            Włącza obsługę SELinuksa\n"
+"  --trace              Śledzi wywołania API biblioteki guestfs (do\n"
+"                       standardowego wyjścia błędów)\n"
+"  -v|--verbose         Wyświetla więcej komunikatów\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
 
 #: cat/virt-filesystems.c:304
 #, fuzzy, c-format
@@ -2643,8 +2665,8 @@ msgstr "libguestfs: błąd: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2127 src/inspect.c:2170
-#: src/inspect.c:2220
+#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2133 src/inspect.c:2176
+#: src/inspect.c:2226
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -2681,17 +2703,17 @@ msgstr ""
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1761 src/inspect.c:1783 src/inspect.c:1808
+#: src/inspect.c:1766 src/inspect.c:1788 src/inspect.c:1813
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
-#: src/inspect.c:2229
+#: src/inspect.c:2235
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2246
+#: src/inspect.c:2252
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

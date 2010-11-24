@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-23 10:16+0000\n"
+"POT-Creation-Date: 2010-11-24 20:19+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -77,13 +77,13 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
 
 #: cat/virt-filesystems.c:90
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] -d domname file\n"
-"  %s [--options] -a disk.img [-a disk.img ...] file\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  --all                Display everything\n"
@@ -114,6 +114,24 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: FUSE module voor libguestfs\n"
+"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
+"  --fuse-help          Laat extra FUSE opties zien\n"
+"  --help               Laat hulp boodschap zien en sluit af\n"
+"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
+"  -n|--no-sync         Geen autosync\n"
+"  -o|--option opt      Geeft optie door aan FUSE\n"
+"  -r|--ro              Alleez-lezen aankoppelen\n"
+"  --selinux            Zet SELinux ondersteuning aan\n"
+"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Laat versie zien en sluit af\n"
 
 #: cat/virt-filesystems.c:304
 #, fuzzy, c-format
@@ -2627,8 +2645,8 @@ msgstr "libguestfs: foutr: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2127 src/inspect.c:2170
-#: src/inspect.c:2220
+#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2133 src/inspect.c:2176
+#: src/inspect.c:2226
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -2664,17 +2682,17 @@ msgstr ""
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1761 src/inspect.c:1783 src/inspect.c:1808
+#: src/inspect.c:1766 src/inspect.c:1788 src/inspect.c:1813
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "onverwachte output  van 'du' commando"
 
-#: src/inspect.c:2229
+#: src/inspect.c:2235
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2246
+#: src/inspect.c:2252
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

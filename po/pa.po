@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-23 10:16+0000\n"
+"POT-Creation-Date: 2010-11-24 20:19+0000\n"
 "PO-Revision-Date: 2010-01-29 12:50+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -77,13 +77,13 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
 
 #: cat/virt-filesystems.c:90
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] -d domname file\n"
-"  %s [--options] -a disk.img [-a disk.img ...] file\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  --all                Display everything\n"
@@ -114,6 +114,24 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  --help               Display help message and exit\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  --trace              Trace guestfs API calls (to stderr)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
 
 #: cat/virt-filesystems.c:304
 #, fuzzy, c-format
@@ -2596,8 +2614,8 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2127 src/inspect.c:2170
-#: src/inspect.c:2220
+#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2133 src/inspect.c:2176
+#: src/inspect.c:2226
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -2632,17 +2650,17 @@ msgstr ""
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1761 src/inspect.c:1783 src/inspect.c:1808
+#: src/inspect.c:1766 src/inspect.c:1788 src/inspect.c:1813
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "ਡੈਮਨ ਤੋਂ ਪੜਨ ਸਮੇਂ ਅਚਾਨਕ ਫਾਇਲ ਅੰਤ"
 
-#: src/inspect.c:2229
+#: src/inspect.c:2235
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2246
+#: src/inspect.c:2252
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

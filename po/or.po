@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-23 10:16+0000\n"
+"POT-Creation-Date: 2010-11-24 20:19+0000\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -81,13 +81,13 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
 
 #: cat/virt-filesystems.c:90
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] -d domname file\n"
-"  %s [--options] -a disk.img [-a disk.img ...] file\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  --all                Display everything\n"
@@ -118,6 +118,24 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: libguestfs ପାଇଁ FUSE ଏକକାଂଶ\n"
+"%s ଆପଣଙ୍କୁ ଗୋଟିଏ ଆଭାସୀ ଯନ୍ତ୍ର ଫାଇଲତନ୍ତ୍ରକୁ ସ୍ଥାପନ କରିବାକୁ ଦେଇଥାଏ\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"ଉପଯୋଗୀତା:\n"
+"  %s [--options] [-- [--FUSE-options]] ସ୍ଥାପନ ବିନ୍ଦୁ\n"
+"ବିକଳ୍ପଗୁଡ଼ିକ:\n"
+"  -a|--add image       ପ୍ରତିଛବି ଯୋଗକରନ୍ତୁ\n"
+"  --dir-cache-timeout  readdir କ୍ୟାଶେ ସମୟ ସମାପ୍ତି (ପୂର୍ବନିର୍ଦ୍ଧାରିତ 5 ସେକଣ୍ଡ)\n"
+"  --fuse-help          ଅତିରିକ୍ତ FUSE ବିକଳ୍ପଗୁଡ଼ିକୁ ଦର୍ଶାନ୍ତୁ\n"
+"  --help               ସହାୟତା ସନ୍ଦେଶକୁ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
+"  -m|--mount dev[:mnt] dev କୁ mnt ଉପରେ ସ୍ଥାପନ କରନ୍ତୁ (ଯଦି ଛାଡ଼ିଦିଆଯାଏ, /)\n"
+"  -n|--no-sync         autosync କରନ୍ତୁ ନାହିଁ\n"
+"  -o|--option opt      FUSE ମଧ୍ଯକୁ ଅତିରିକ୍ତ ବିକଳ୍ପ ପାସ କରନ୍ତୁ\n"
+"  -r|--ro              କେବଳ-ପଠନୀୟକୁ ସ୍ଥାପନ କରନ୍ତୁ\n"
+"  --selinux            SELinux ସମର୍ଥନକୁ ସକ୍ରିୟ କରନ୍ତୁ\n"
+"  --trace              guestfs API ଡାକକୁ ଅନୁସରଣ କରନ୍ତୁ (stderr କୁ)\n"
+"  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
+"  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
 #: cat/virt-filesystems.c:304
 #, fuzzy, c-format
@@ -2598,8 +2616,8 @@ msgstr "libguestfs: ତ୍ରୁଟି: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2127 src/inspect.c:2170
-#: src/inspect.c:2220
+#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2133 src/inspect.c:2176
+#: src/inspect.c:2226
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -2634,17 +2652,17 @@ msgstr ""
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1761 src/inspect.c:1783 src/inspect.c:1808
+#: src/inspect.c:1766 src/inspect.c:1788 src/inspect.c:1813
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
 
-#: src/inspect.c:2229
+#: src/inspect.c:2235
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2246
+#: src/inspect.c:2252
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
