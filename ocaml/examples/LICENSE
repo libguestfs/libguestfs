@@ -1,9 +1,2 @@
-All the examples in the ocaml/examples/ subdirectory may be freely
-copied without any restrictions.
-
-The files 'Throbber.png' and 'Throbber.gif' come from the source to
-Firefox, and you should check the Firefox license before
-redistributing those files.
-
-The files 'xmllight_loader.ml' and 'xmllight_loader.mli' come from
-http://yquem.inria.fr/~frisch/ocamlcduce/samples/xmllight/
+All the examples in the 'ocaml/examples' subdirectory may be freely
+copied, modified and distributed without any restrictions.

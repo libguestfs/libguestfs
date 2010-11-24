@@ -116,6 +116,7 @@ haskell/Guestfs.hs
 html/guestfish.1.html
 html/guestfs.3.html
 html/guestfs-examples.3.html
+html/guestfs-ocaml.3.html
 html/guestmount.1.html
 html/recipes.html
 html/virt-cat.1.html
@@ -198,7 +199,10 @@ missing
 ocaml/bindtests
 ocaml/bindtests.ml
 ocaml/dllmlguestfs.so
-ocaml/examples/lvs
+ocaml/examples/create_disk
+ocaml/examples/guestfs-ocaml.3
+ocaml/examples/inspect_vm
+ocaml/examples/stamp-guestfs-ocaml.pod
 ocaml/guestfs_c_actions.c
 ocaml/guestfs_inspector.ml
 ocaml/guestfs_inspector.mli

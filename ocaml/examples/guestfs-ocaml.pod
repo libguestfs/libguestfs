@@ -1,0 +1,108 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-ocaml - How to use libguestfs from OCaml
+
+=head1 SYNOPSIS
+
+Module style:
+
+ let g = Guestfs.create () in
+ Guestfs.add_drive_opts g ~format:"raw" ~readonly:true "disk.img";
+ Guestfs.launch g;
+
+Object-oriented style:
+
+ let g = new Guestfs.guestfs () in
+ g#add_drive_opts ~format:"raw" ~readonly:true "disk.img";
+ g#launch ();
+
+ ocamlfind opt prog.ml -package guestfs -linkpkg -o prog
+or:
+ ocamlopt -I +guestfs mlguestfs.cmxa prog.ml -o prog
+
+=head1 DESCRIPTION
+
+This manual page documents how to call libguestfs from the OCaml
+programming language.  This page just documents the differences from
+the C API and gives some examples.  If you are not familiar with using
+libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 PROGRAMMING STYLES
+
+There are two different programming styles supported by the OCaml
+bindings.  You can use a module style, with each C function mapped to
+an OCaml function:
+
+ int guestfs_set_verbose (guestfs_h *g, int flag);
+
+becomes:
+
+ val Guestfs.set_verbose : Guestfs.t -> bool -> unit
+
+Alternately you can use an object-oriented style, calling methods
+on the class C<Guestfs.guestfs>:
+
+ method set_verbose : bool -> unit
+
+The object-oriented style is usually briefer, and the minor performance
+penalty isn't noticable in the general overhead of performing
+libguestfs functions.
+
+=head2 CLOSING THE HANDLE
+
+The handle is closed when it is reaped by the garbage collector.
+Because libguestfs handles include a lot of state, it is also
+possible to close (and hence free) them explicitly by calling
+C<Guestfs.close> or the C<#close> method.
+
+=head2 EXCEPTIONS
+
+Errors from libguestfs functions are mapped into the C<Guestfs.Error>
+exception.  This has a single parameter which is the error message (a
+string).
+
+Calling any function/method on a closed handle raises
+C<Guestfs.Handle_closed>.  The single parameter is the name of the
+function that you called.
+
+=head1 EXAMPLE 1: CREATE A DISK IMAGE
+
+@EXAMPLE1@
+
+=head1 EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE
+
+@EXAMPLE2@
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<http://libguestfs.org/>,
+L<http://caml.inria.fr/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 Red Hat Inc. L<http://libguestfs.org/>
+
+The examples in this manual page may be freely copied, modified and
+distributed without any restrictions.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA

@@ -1,9 +1,0 @@
-This directory contains various example programs which use the OCaml
-Guestfs bindings to the libguestfs API.
-
-As they are examples, these are licensed so they can be freely copied
-and used without any restrictions.
-
-Tips:
-
-(1) To enable verbose messages, set environment variable LIBGUESTFS_DEBUG=1

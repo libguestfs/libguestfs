@@ -657,7 +657,7 @@ with libguestfs.
 
 =item B<OCaml>
 
-For documentation see the file C<guestfs.mli>.
+For documentation see L<guestfs-ocaml(3)>.
 
 =item B<Perl>
 
@@ -2087,6 +2087,7 @@ enough.
 =head1 SEE ALSO
 
 L<guestfs-examples(3)>,
+L<guestfs-ocaml(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
 L<virt-cat(1)>,
