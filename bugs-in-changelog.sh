@@ -1,5 +1,5 @@
 #!/bin/bash -
-# bugs-in-changelog
+# bugs-in-changelog.sh
 # Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 # (or any release).  To use it, the only parameter should be the git
 # commit range, eg:
 #
-#   ./bugs-in-changelog "1.0.89.."
+#   ./bugs-in-changelog.sh "1.0.89.."
 
 if [ -z "$1" ]; then
     echo "$0 git-commit-range"
