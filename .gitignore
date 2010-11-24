@@ -117,6 +117,7 @@ html/guestfish.1.html
 html/guestfs.3.html
 html/guestfs-examples.3.html
 html/guestfs-ocaml.3.html
+html/guestfs-python.3.html
 html/guestmount.1.html
 html/recipes.html
 html/virt-cat.1.html
@@ -267,6 +268,8 @@ po-docs/*/*.1
 po-docs/*/*.3
 podwrapper.sh
 python/bindtests.py
+python/examples/guestfs-python.3
+python/examples/stamp-guestfs-python.pod
 python/guestfs.py
 python/guestfs-py.c
 python/guestfs.pyc

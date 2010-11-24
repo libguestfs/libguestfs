@@ -2,25 +2,34 @@
 
 =head1 NAME
 
-guestfs-examples - Examples of using libguestfs from C
+guestfs-python - How to use libguestfs from Python
 
 =head1 SYNOPSIS
 
- #include <guestfs.h>
- 
- guestfs_h *g = guestfs_create ();
- guestfs_add_drive_ro (g, "disk.img");
- guestfs_launch (g);
-
- cc prog.c -o prog -lguestfs
-or:
- cc prog.c -o prog `pkg-config libguestfs --cflags --libs`
+ import guestfs
+ g = guestfs.GuestFS ()
+ g.add_drive_opts ("disk.img", format="raw", readonly=1)
+ g.launch
 
 =head1 DESCRIPTION
 
-This manual page contains examples of calling libguestfs from
-the C programming language.  If you are not familiar with using
+This manual page documents how to call libguestfs from the Python
+programming language.  This page just documents the differences from
+the C API and gives some examples.  If you are not familiar with using
 libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 EXCEPTIONS
+
+Errors from libguestfs functions are mapped into C<RuntimeException>
+with a single string argument which is the error message.
+
+=head2 MORE DOCUMENTATION
+
+Type:
+
+ $ python
+ >>> import guestfs
+ >>> help (guestfs)
 
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
@@ -33,10 +42,9 @@ libguestfs, you also need to read L<guestfs(3)>.
 =head1 SEE ALSO
 
 L<guestfs(3)>,
+L<guestfs-examples(3)>,
 L<guestfs-ocaml(3)>,
-L<guestfs-python(3)>,
-L<http://libguestfs.org/>,
-L<http://caml.inria.fr/>.
+L<http://libguestfs.org/>.
 
 =head1 AUTHORS
 

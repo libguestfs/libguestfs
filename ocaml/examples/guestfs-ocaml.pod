@@ -79,6 +79,7 @@ function that you called.
 
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
+L<guestfs-python(3)>,
 L<http://libguestfs.org/>,
 L<http://caml.inria.fr/>.
 

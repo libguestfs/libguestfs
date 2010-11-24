@@ -853,7 +853,7 @@ AC_CONFIG_FILES([Makefile
                  test-tool/Makefile
                  ocaml/Makefile ocaml/examples/Makefile
                  perl/Makefile
-                 python/Makefile
+                 python/Makefile python/examples/Makefile
                  ruby/Makefile ruby/Rakefile
                  java/Makefile
                  haskell/Makefile

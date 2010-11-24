@@ -672,11 +672,7 @@ The PHP binding only works correctly on 64 bit machines.
 
 =item B<Python>
 
-For documentation do:
-
- $ python
- >>> import guestfs
- >>> help (guestfs)
+For documentation see L<guestfs-python(3)>.
 
 =item B<Ruby>
 
@@ -2088,6 +2084,7 @@ enough.
 
 L<guestfs-examples(3)>,
 L<guestfs-ocaml(3)>,
+L<guestfs-python(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
 L<virt-cat(1)>,
