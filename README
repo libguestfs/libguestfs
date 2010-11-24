@@ -101,6 +101,8 @@ bindings
 
 - (Optional) Perl Test::More module (from perl Test::Simple).
 
+- (Optional) Perl String::ShellQuote module.
+
 - (Optional, but highly recommended) perl-libintl for translating perl code.
 
 - (Optional) po4a for translating manpages and POD files.
