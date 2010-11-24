@@ -46,54 +46,35 @@ if HAVE_PO4A
 all-local: $(MANPAGES)
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
-	sed \
-	  -e '/@ACTIONS@/rguestfs-actions.pod' \
-	  -e 's/@ACTIONS@//' \
-	  -e '/@AVAILABILITY@/rguestfs-availability.pod' \
-	  -e 's/@AVAILABILITY@//' \
-	  -e '/@STRUCTS@/rguestfs-structs.pod' \
-	  -e 's/@STRUCTS@//' \
-	< $< | \
-	$(POD2MAN) -u \
+	$(top_srcdir)/podwrapper.sh \
 	  --section 3 \
-	  -c "Virtualization Support" \
-	  --name "guestfs" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  > $@-t; mv $@-t $@
+	  --man $@ \
+	  --insert guestfs-actions.pod:@ACTIONS@ \
+	  --insert guestfs-availability.pod:@AVAILABILITY@ \
+	  --insert guestfs-structs.pod:@STRUCTS@ \
+	  $<
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
-	sed \
-	  -e '/@ACTIONS@/rguestfish-actions.pod' -e 's/@ACTIONS@//' \
-	  -e '/@FISH_COMMANDS@/rguestfish-commands.pod' -e 's/@FISH_COMMANDS@//' \
-	  < $< | \
-	$(POD2MAN) -u \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --name "guestfish" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  > $@-t; mv $@-t $@
+	$(top_srcdir)/podwrapper.sh \
+	  --man $@ \
+	  --insert guestfish-actions.pod:@ACTIONS@ \
+	  --insert guestfish-commands.pod:@FISH_COMMANDS@ \
+	  $<
 
 guestmount.1: guestmount.pod
-	$(POD2MAN) -u \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --name "guestmount" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t; mv $@-t $@
+	$(top_srcdir)/podwrapper.sh \
+	  --man $@ \
+	  $<
 
 libguestfs-test-tool.1: libguestfs-test-tool.pod
-	$(POD2MAN) -u \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t; mv $@-t $@
+	$(top_srcdir)/podwrapper.sh \
+	  --man $@ \
+	  $<
 
 virt-%.1: virt-%.pl
-	$(POD2MAN) -u \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t && mv $@-t $@
+	$(top_srcdir)/podwrapper.sh \
+	  --man $@ \
+	  $<
 
 else
 

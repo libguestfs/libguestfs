@@ -93,41 +93,6 @@ EXTRA_DIST = \
 	.gitignore \
 	m4/.gitignore
 
-# HTML versions of manual pages.
-
-noinst_DATA = html/guestfs.3.html html/guestfish.1.html
-
-html/guestfs.3.html: src/guestfs.pod \
-		src/guestfs-actions.pod \
-		src/guestfs-availability.pod \
-		src/guestfs-structs.pod
-	mkdir -p html
-	sed \
-	  -e '/@ACTIONS@/rsrc/guestfs-actions.pod' \
-	  -e 's/@ACTIONS@//' \
-	  -e '/@AVAILABILITY@/rsrc/guestfs-availability.pod' \
-	  -e 's/@AVAILABILITY@//' \
-	  -e '/@STRUCTS@/rsrc/guestfs-structs.pod' \
-	  -e 's/@STRUCTS@//' \
-	  < $< | \
-	pod2html \
-	  --css 'pod.css' \
-	  --title "libguestfs API documentation" \
-	  --htmldir html \
-	  --outfile $@
-
-html/guestfish.1.html: fish/guestfish.pod fish/guestfish-actions.pod fish/guestfish-commands.pod
-	mkdir -p html
-	sed \
-	  -e '/@ACTIONS@/rfish/guestfish-actions.pod' -e 's/@ACTIONS@//' \
-	  -e '/@FISH_COMMANDS@/rfish/guestfish-commands.pod' -e 's/@FISH_COMMANDS@//' \
-	  < $< | \
-	pod2html \
-	  --css 'pod.css' \
-	  --title "guestfish, libguestfs filesystem interactive shell" \
-	  --htmldir html \
-	  --outfile $@
-
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
 	mkdir -p html

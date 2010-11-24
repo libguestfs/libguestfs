@@ -46,8 +46,6 @@ libguestfs-test-tool.static$(EXEEXT): $(libguestfs_test_tool_OBJECTS) $(libguest
 	$(libguestfs_test_tool_LINK) $(libguestfs_test_tool_OBJECTS) -static $(libguestfs_test_tool_LDADD) $(libguestfs_test_tool_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm
 
 libguestfs-test-tool.1: libguestfs-test-tool.pod
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@
+	$(top_srcdir)/podwrapper.sh \
+	  --man $@ \
+	  $<

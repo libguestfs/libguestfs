@@ -49,19 +49,14 @@ man_MANS = virt-df.1 $(patsubst %,virt-%.1,$(filter-out df,$(tools)))
 noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
 
 virt-%.1: virt-%
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t && mv $@-t $@
+	$(top_srcdir)/podwrapper.sh \
+	  --man $@ \
+	  $<
 
 $(top_builddir)/html/virt-%.1.html: virt-%
-	mkdir -p $(top_builddir)/html
-	cd $(top_builddir) && pod2html \
-	  --css 'pod.css' \
-	  --htmldir html \
-	  --outfile html/$<.1.html \
-	  tools/$<
+	$(top_srcdir)/podwrapper.sh \
+	  --html $@ \
+	  $<
 
 # Tests.
 

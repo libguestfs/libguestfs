@@ -1,0 +1,165 @@
+#!/bin/bash -
+# podwrapper.sh
+# Copyright (C) 2010 Red Hat Inc.
+# @configure_input@
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+# Wrapper script around POD utilities which can include files in the
+# POD and controls HTML generation.
+
+unset CDPATH
+
+set -e
+#set -x
+
+PACKAGE_NAME="@PACKAGE_NAME@"
+PACKAGE_VERSION="@PACKAGE_VERSION@"
+POD2MAN="@POD2MAN@"
+POD2TEXT="@POD2TEXT@"
+POD2HTML="@POD2HTML@"
+
+declare -a inserts
+declare -a pattern
+declare -a indent
+nr_inserts=0
+
+TEMP=`getopt \
+        -o '' \
+        --long section:,name:,man:,text:,html:,insert:,verbatim: \
+        -n podwrapper.sh -- "$@"`
+if [ $? != 0 ]; then
+    echo "podwrapper.sh: problem parsing the command line arguments"
+    exit 1
+fi
+eval set -- "$TEMP"
+
+while true; do
+    case "$1" in
+        --section)
+            section="$2"
+            shift 2;;
+        --name)
+            name="$2"
+            shift 2;;
+        --man)
+            [ -z "$man_output" ] || {
+                echo "podwrapper.sh: --text option specified more than once"
+                exit 1
+            }
+            man_output="$2"
+            shift 2;;
+        --text)
+            [ -z "$text_output" ] || {
+                echo "podwrapper.sh: --text option specified more than once"
+                exit 1
+            }
+            text_output="$2"
+            shift 2;;
+        --html)
+            [ -z "$html_output" ] || {
+                echo "podwrapper.sh: --html option specified more than once"
+                exit 1
+            }
+            html_output="$2"
+            shift 2;;
+        --insert)
+            inserts[$nr_inserts]=`echo "$2" | awk -F: '{print $1}'`
+            pattern[$nr_inserts]=`echo "$2" | awk -F: '{print $2}'`
+            indent[$nr_inserts]=no
+            ((++nr_inserts))
+            shift 2;;
+        --verbatim)
+            inserts[$nr_inserts]=`echo "$2" | awk -F: '{print $1}'`
+            pattern[$nr_inserts]=`echo "$2" | awk -F: '{print $2}'`
+            indent[$nr_inserts]=yes
+            ((++nr_inserts))
+            shift 2;;
+        --)
+            shift; break;;
+        *)
+            echo "podwrapper.sh: internal error in option parsing"
+            exit 1;;
+    esac
+done
+
+# The remaining argument is the input POD file.
+if [ $# -ne 1 ]; then
+    echo "podwrapper.sh [--options] input.pod"
+    exit 1
+fi
+input="$1"
+
+#echo "input=$input"
+#echo "man_output=$man_output"
+#echo "text_output=$text_output"
+#echo "html_output=$html_output"
+#for i in `seq 0 $(($nr_inserts-1))`; do
+#    echo "insert $i: ${inserts[$i]} (pattern: ${pattern[$i]} indent: ${indent[$i]})"
+#done
+
+# Should be at least one sort of output.
+[ -z "$man_output" -a -z "$text_output" -a -z "$html_output" ] && {
+    echo "podwrapper.sh: no output specified"
+    exit 1
+}
+
+# If name and section are not set, make some sensible defaults.
+[ -z "$section" ] && section=1
+[ -z "$name" ] && name=$(basename "$input" .pod)
+
+# Perform the insertions to produce a temporary POD file.
+tmpdir="$(mktemp -d)"
+trap "rm -rf $tmpdir; exit $?" EXIT
+
+if [ $nr_inserts -gt 0 ]; then
+    cmd="sed"
+
+    for i in `seq 0 $(($nr_inserts-1))`; do
+        if [ "${indent[$i]}" = "yes" ]; then
+            sed 's/^/ /' < "${inserts[$i]}" > $tmpdir/$i
+        else
+            cp "${inserts[$i]}" $tmpdir/$i
+        fi
+
+        cmd="$cmd -e /${pattern[$i]}/r$tmpdir/$i -e s/${pattern[$i]}//"
+    done
+
+    $cmd < "$input" > $tmpdir/full.pod
+else
+    cp "$input" $tmpdir/full.pod
+fi
+
+# Now generate the final output format(s).
+if [ -n "$man_output" ]; then
+    "$POD2MAN" --stderr -u \
+        --section "$section" -c "Virtualization Support" --name "$name" \
+        --release "$PACKAGE_NAME-$PACKAGE_VERSION" \
+        < $tmpdir/full.pod > "$man_output".tmp
+        mv "$man_output".tmp "$man_output"
+fi
+
+if [ -n "$text_output" ]; then
+    "$POD2TEXT" --stderr -u \
+        < $tmpdir/full.pod > "$text_output".tmp
+        mv "$text_output".tmp "$text_output"
+fi
+
+if [ -n "$html_output" ]; then
+    "$POD2HTML" \
+        --css "pod.css" --htmldir "$builddir/html" \
+        < $tmpdir/full.pod > "$html_output".tmp
+        mv "$html_output".tmp "$html_output"
+fi

@@ -27,6 +27,8 @@ EXTRA_DIST = \
 	run-inspector-locally \
 	virt-inspector.pod
 
+CLEANFILES = stamp-virt-inspector.pod
+
 docdir = @docdir@
 dist_doc_DATA = \
 	virt-inspector.rng \
@@ -62,25 +64,16 @@ virt_inspector_LDADD = \
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-inspector.1
+noinst_DATA = $(top_builddir)/html/virt-inspector.1.html
 
-noinst_DATA = \
-	$(top_builddir)/html/virt-inspector.1.html
+virt-inspector.1 $(top_builddir)/html/virt-inspector.1.html: stamp-virt-inspector.pod
 
-virt-inspector.1: virt-inspector.pod
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t && mv $@-t $@
-
-$(top_builddir)/html/virt-inspector.1.html: virt-inspector.pod
-	mkdir -p $(top_builddir)/html
-	cd $(top_builddir) && pod2html \
-	  --css 'pod.css' \
-	  --title 'virt-inspector, display OS version, kernel, drivers, mount points, applications, etc. in a virtual machine' \
-	  --htmldir html \
-	  --outfile html/virt-inspector.1.html \
-	  inspector/$<
+stamp-virt-inspector.pod: virt-inspector.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-inspector.1 \
+	  --html $(top_builddir)/html/virt-inspector.1.html \
+	  $<
+	touch $@
 
 if HAVE_XMLLINT
 

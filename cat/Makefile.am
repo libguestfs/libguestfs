@@ -28,6 +28,8 @@ EXTRA_DIST = \
 	test-virt-ls.sh \
 	virt-ls.pod
 
+CLEANFILES = stamp-virt-cat.pod stamp-virt-ls.pod stamp-virt-filesystems.pod
+
 bin_PROGRAMS = virt-cat virt-filesystems virt-ls
 
 SHARED_SOURCE_FILES = \
@@ -90,50 +92,32 @@ noinst_DATA = \
 	$(top_builddir)/html/virt-filesystems.1.html \
 	$(top_builddir)/html/virt-ls.1.html
 
-virt-cat.1: virt-cat.pod
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t && mv $@-t $@
+virt-cat.1 $(top_builddir)/html/virt-cat.1.html: stamp-virt-cat.pod
 
-$(top_builddir)/html/virt-cat.1.html: virt-cat.pod
-	mkdir -p $(top_builddir)/html
-	cd $(top_builddir) && pod2html \
-	  --css 'pod.css' \
-	  --htmldir html \
-	  --outfile html/$@ \
-	  $(abs_srcdir)/$<
+stamp-virt-cat.pod: virt-cat.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-cat.1 \
+	  --html $(top_builddir)/html/virt-cat.1.html \
+	  $<
+	touch $@
 
-virt-filesystems.1: virt-filesystems.pod
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t && mv $@-t $@
+virt-ls.1 $(top_builddir)/html/virt-ls.1.html: stamp-virt-ls.pod
 
-$(top_builddir)/html/virt-filesystems.1.html: virt-filesystems.pod
-	mkdir -p $(top_builddir)/html
-	cd $(top_builddir) && pod2html \
-	  --css 'pod.css' \
-	  --htmldir html \
-	  --outfile html/$@ \
-	  $(abs_srcdir)/$<
+stamp-virt-ls.pod: virt-ls.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-ls.1 \
+	  --html $(top_builddir)/html/virt-ls.1.html \
+	  $<
+	touch $@
 
-virt-ls.1: virt-ls.pod
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t && mv $@-t $@
+virt-filesystems.1 $(top_builddir)/html/virt-filesystems.1.html: stamp-virt-filesystems.pod
 
-$(top_builddir)/html/virt-ls.1.html: virt-ls.pod
-	mkdir -p $(top_builddir)/html
-	cd $(top_builddir) && pod2html \
-	  --css 'pod.css' \
-	  --htmldir html \
-	  --outfile html/$@ \
-	  $(abs_srcdir)/$<
+stamp-virt-filesystems.pod: virt-filesystems.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-filesystems.1 \
+	  --html $(top_builddir)/html/virt-filesystems.1.html \
+	  $<
+	touch $@
 
 # Tests.
 

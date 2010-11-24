@@ -70,8 +70,8 @@ Requirements
 
 - (Optional) FUSE to build the FUSE module
 
-- perldoc (pod2man, pod2text) to generate the manual pages and
-  other documentation.
+- perldoc (pod2man, pod2text, pod2html) to generate the manual pages
+  and other documentation.
 
 - (Optional) Readline to have nicer command-line editing in guestfish.
 

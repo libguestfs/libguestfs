@@ -19,6 +19,8 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = guestmount.pod test-fuse.sh
 
+CLEANFILES = stamp-guestmount.pod
+
 if HAVE_FUSE
 
 bin_PROGRAMS = guestmount
@@ -62,25 +64,16 @@ guestmount.static$(EXEEXT): $(guestmount_OBJECTS) $(guestmount_DEPENDENCIES)
 # Documentation.
 
 man_MANS = guestmount.1
+noinst_DATA = $(top_builddir)/html/guestmount.1.html
 
-guestmount.1: guestmount.pod
-	$(POD2MAN) \
-	  --section 1 \
-	  -c "Virtualization Support" \
-	  --name "guestmount" \
-	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@-t; mv $@-t $@
+guestmount.1 $(top_builddir)/html/guestmount.1.html: stamp-guestmount.pod
 
-noinst_DATA = \
-	$(top_builddir)/html/guestmount.1.html
-
-$(top_builddir)/html/guestmount.1.html: guestmount.pod
-	mkdir -p $(top_builddir)/html
-	cd $(top_builddir) && pod2html \
-	  --css 'pod.css' \
-	  --htmldir html \
-	  --outfile html/guestmount.1.html \
-	  fuse/guestmount.pod
+stamp-guestmount.pod: guestmount.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man guestmount.1 \
+	  --html $(top_builddir)/html/guestmount.1.html \
+	  $<
+	touch $@
 
 # Tests.
 

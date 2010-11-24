@@ -205,13 +205,16 @@ AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
 test "x$GPERF" = "xno" &&
      AC_MSG_ERROR([gperf must be installed])
 
-dnl Check for pod2man and pod2text.
+dnl Check for pod2man, pod2text, pod2html.
 AC_CHECK_PROG([POD2MAN],[pod2man],[pod2man],[no])
 test "x$POD2MAN" = "xno" &&
      AC_MSG_ERROR([pod2man must be installed])
 AC_CHECK_PROG([POD2TEXT],[pod2text],[pod2text],[no])
 test "x$POD2TEXT" = "xno" &&
      AC_MSG_ERROR([pod2text must be installed])
+AC_CHECK_PROG([POD2HTML],[pod2html],[pod2html],[no])
+test "x$POD2HTML" = "xno" &&
+     AC_MSG_ERROR([pod2html must be installed])
 
 dnl Check for mkisofs.
 AC_PATH_PROGS([MKISOFS],[mkisofs],[no],
@@ -837,6 +840,8 @@ AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/update.sh],
                 [chmod +x appliance/update.sh])
+AC_CONFIG_FILES([podwrapper.sh],
+                [chmod +x podwrapper.sh])
 AC_CONFIG_FILES([Makefile
                  generator/Makefile
                  src/Makefile fish/Makefile po/Makefile.in examples/Makefile

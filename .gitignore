@@ -31,6 +31,7 @@ capitests/test*.img
 capitests/tests
 capitests/tests.c
 capitests/test*.tmp
+cat/stamp-virt-*.pod
 cat/virt-cat
 cat/virt-cat.1
 cat/virt-cat.static
@@ -87,9 +88,11 @@ fish/prepopts.c
 fish/prepopts.h
 fish/rc_protocol.c
 fish/rc_protocol.h
+fish/stamp-guestfish.pod
 fuse/guestmount
 fuse/guestmount.1
 fuse/guestmount.static
+fuse/stamp-guestmount.pod
 generator/.pod2text.data
 generator/generator
 generator/stamp-generator
@@ -144,6 +147,7 @@ images/ubuntu.img
 images/windows.img
 initramfs
 initramfs.timestamp
+inspector/stamp-virt-inspector.pod
 inspector/virt-inspector
 inspector/virt-inspector.1
 inspector/virt-inspector.static
@@ -254,6 +258,7 @@ po-docs/*/*.pl
 po-docs/*/*.pod
 po-docs/*/*.1
 po-docs/*/*.3
+podwrapper.sh
 python/bindtests.py
 python/guestfs.py
 python/guestfs-py.c
@@ -283,6 +288,7 @@ src/guestfs_protocol.h
 src/guestfs_protocol.x
 src/.libs/libguestfs.so
 src/libguestfs.syms
+src/stamp-guestfs.pod
 *.swp
 stamp-h1
 test1.img
