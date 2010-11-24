@@ -50,11 +50,15 @@ $g = undef;
 waitpid ($pid, 0) or die ("waitpid: $!");
 die ("child failed") unless ($? == 0);
 
-# Check that only 1 temporary cache directory was created
+# Check that only 1 temporary cache directory was created.
+#
+# No cache directory is OK too (as long as the appliance launched w/o
+# failure) because it indicates we're not using supermin.
 my $dh;
 opendir ($dh, $tmpdir) or die ("Failed to open $tmpdir: $!");
 my @cachedirs = grep { /^guestfs\./ } readdir ($dh);
 closedir ($dh) or die ("Failed to close $tmpdir: $!");
 
 my $ncachedirs = scalar(@cachedirs);
-die ("Expected 1 cachedir, found $ncachedirs") unless ($ncachedirs == 1);
+die "Expected 0 or 1 cachedir, found $ncachedirs"
+    unless $ncachedirs == 0 || $ncachedirs == 1;
