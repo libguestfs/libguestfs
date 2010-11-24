@@ -796,7 +796,7 @@ check_state (guestfs_h *g, const char *caller)
 
     let needs_i =
       match ret with
-      | RStringList _ | RHashtable _ | RStructList _ -> true
+      | RStringList _ | RHashtable _ -> true
       | _ -> false in
     if needs_i then (
       pr "%s  size_t i;\n" indent;
