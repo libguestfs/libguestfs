@@ -33,6 +33,8 @@
 #include <libxml/tree.h>
 #endif
 
+#define GUESTFS_PRIVATE_FOR_EACH_DISK 1
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
@@ -116,40 +118,28 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   return r;
 }
 
-/* This was proposed as an external API, but it's not quite baked yet. */
-static int
-guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
-                           const struct guestfs___add_libvirt_dom_argv *optargs)
+/* This function is also used in virt-df to avoid having all that
+ * stupid XPath code repeated.  This is something that libvirt should
+ * really provide.
+ *
+ * The callback function 'f' is called once for each disk.
+ *
+ * Returns number of disks, or -1 if there was an error.
+ */
+int
+guestfs___for_each_disk (guestfs_h *g,
+                         virDomainPtr dom,
+                         int (*f) (guestfs_h *g,
+                                   const char *filename, const char *format,
+                                   void *data),
+                         void *data)
 {
-  int r = -1, nr_added = 0, i;
+  int i, nr_added = 0, r = -1;
   virErrorPtr err;
   xmlDocPtr doc = NULL;
   xmlXPathContextPtr xpathCtx = NULL;
   xmlXPathObjectPtr xpathObj = NULL;
   char *xml = NULL;
-  int readonly;
-  const char *iface;
-  int cmdline_pos;
-
-  cmdline_pos = guestfs___checkpoint_cmdline (g);
-
-  readonly = optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
-             ? optargs->readonly : 0;
-  iface = optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK
-          ? optargs->iface : NULL;
-
-  if (!readonly) {
-    virDomainInfo info;
-    if (virDomainGetInfo (dom, &info) == -1) {
-      err = virGetLastError ();
-      error (g, _("error getting domain info: %s"), err->message);
-      goto cleanup;
-    }
-    if (info.state != VIR_DOMAIN_SHUTOFF) {
-      error (g, _("error: domain is a live virtual machine.\nYou must use readonly access because write access to a running virtual machine\ncan cause disk corruption."));
-      goto cleanup;
-    }
-  }
 
   /* Domain XML. */
   xml = virDomainGetXMLDesc (dom, 0);
@@ -258,22 +248,11 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
       format = (char *) xmlNodeListGetString (doc, attr->children, 1);
     }
 
-    /* Add the disk, with optional format. */
-    struct guestfs_add_drive_opts_argv optargs2 = { .bitmask = 0 };
-    if (readonly) {
-      optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
-      optargs2.readonly = readonly;
-    }
-    if (format) {
-      optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
-      optargs2.format = format;
-    }
-    if (iface) {
-      optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
-      optargs2.iface = iface;
-    }
-
-    int t = guestfs__add_drive_opts (g, filename, &optargs2);
+    int t;
+    if (f)
+      t = f (g, filename, format, data);
+    else
+      t = 0;
 
     xmlFree (filename);
     xmlFree (format);
@@ -295,12 +274,75 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   r = nr_added;
 
  cleanup:
-  if (r == -1) guestfs___rollback_cmdline (g, cmdline_pos);
   free (xml);
   if (xpathObj) xmlXPathFreeObject (xpathObj);
   if (xpathCtx) xmlXPathFreeContext (xpathCtx);
   if (doc) xmlFreeDoc (doc);
 
+  return r;
+}
+
+static int
+add_disk (guestfs_h *g, const char *filename, const char *format,
+          void *optargs_vp)
+{
+  struct guestfs_add_drive_opts_argv *optargs = optargs_vp;
+
+  if (format) {
+    optargs->bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+    optargs->format = format;
+  } else
+    optargs->bitmask &= ~GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+
+  return guestfs__add_drive_opts (g, filename, optargs);
+}
+
+/* This was proposed as an external API, but it's not quite baked yet. */
+static int
+guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
+                           const struct guestfs___add_libvirt_dom_argv *optargs)
+{
+  int r = -1;
+  virErrorPtr err;
+  int cmdline_pos;
+
+  cmdline_pos = guestfs___checkpoint_cmdline (g);
+
+  int readonly =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
+    ? optargs->readonly : 0;
+  const char *iface =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK
+    ? optargs->iface : NULL;
+
+  if (!readonly) {
+    virDomainInfo info;
+    if (virDomainGetInfo (dom, &info) == -1) {
+      err = virGetLastError ();
+      error (g, _("error getting domain info: %s"), err->message);
+      goto cleanup;
+    }
+    if (info.state != VIR_DOMAIN_SHUTOFF) {
+      error (g, _("error: domain is a live virtual machine.\nYou must use readonly access because write access to a running virtual machine\ncan cause disk corruption."));
+      goto cleanup;
+    }
+  }
+
+  /* Add the disks. */
+  struct guestfs_add_drive_opts_argv optargs2 = { .bitmask = 0 };
+  if (readonly) {
+    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+    optargs2.readonly = readonly;
+  }
+  if (iface) {
+    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
+    optargs2.iface = iface;
+  }
+
+  r = guestfs___for_each_disk (g, dom, add_disk, &optargs2);
+
+ cleanup:
+  if (r == -1) guestfs___rollback_cmdline (g, cmdline_pos);
   return r;
 }
 
