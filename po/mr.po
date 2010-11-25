@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-24 20:19+0000\n"
+"POT-Creation-Date: 2010-11-25 18:53+0000\n"
 "PO-Revision-Date: 2010-02-03 19:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 fish/fish.c:86
-#: fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
@@ -66,13 +66,15 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
-#: fish/fish.c:204 fuse/guestmount.c:952 inspector/virt-inspector.c:129
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
+#: inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
-#: fish/fish.c:272 fuse/guestmount.c:1000 inspector/virt-inspector.c:151
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
+#: inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
@@ -134,7 +136,7 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: cat/virt-filesystems.c:304
+#: cat/virt-filesystems.c:304 df/main.c:250
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
@@ -180,6 +182,129 @@ msgstr ""
 "  --trace              Trace guestfs API calls (to stderr)\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+
+#: df/domains.c:115
+#, c-format
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:124
+#, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:134
+#, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:145
+#, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:155
+#, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:281
+#, c-format
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+msgstr ""
+
+#: df/main.c:70
+#, fuzzy, c-format
+msgid ""
+"%s: display free space on virtual filesystems\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  -i|--inodes          Display inodes\n"
+"  --one-per-guest      Separate appliance per guest\n"
+"  --uuid               Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  --help               Display help message and exit\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  --trace              Trace guestfs API calls (to stderr)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+
+#: df/main.c:262
+#, c-format
+msgid "%s: compiled without support for libvirt.\n"
+msgstr ""
+
+#: df/output.c:50
+msgid "VirtualMachine"
+msgstr ""
+
+#: df/output.c:51
+#, fuzzy
+msgid "Filesystem"
+msgstr "फाइलप्रणाली निर्माण करा"
+
+#: df/output.c:54
+msgid "1K-blocks"
+msgstr ""
+
+#: df/output.c:56
+msgid "Size"
+msgstr ""
+
+#: df/output.c:57
+msgid "Used"
+msgstr ""
+
+#: df/output.c:58
+msgid "Available"
+msgstr ""
+
+#: df/output.c:59
+msgid "Use%"
+msgstr ""
+
+#: df/output.c:61
+msgid "Inodes"
+msgstr ""
+
+#: df/output.c:62
+msgid "IUsed"
+msgstr ""
+
+#: df/output.c:63
+msgid "IFree"
+msgstr ""
+
+#: df/output.c:64
+msgid "IUse%"
+msgstr ""
 
 #: fish/alloc.c:37
 #, c-format
@@ -1912,32 +2037,32 @@ msgstr "%s: रिमोट: $GUESTFISH_PID यांस रिमोट का�
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: फक्त एकच -f घटक दिले जाऊ शकते\n"
 
-#: fish/fish.c:450
+#: fish/fish.c:451
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen व --remote पर्याय एकाच वेळी वापरणे अशक्य\n"
 
-#: fish/fish.c:458
+#: fish/fish.c:459
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen फ्लॅगसह आदेश ओळीवरील अगाऊ घटके\n"
 
-#: fish/fish.c:464
+#: fish/fish.c:465
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
-#: fish/fish.c:521
+#: fish/fish.c:522
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:525
+#: fish/fish.c:526
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:634
+#: fish/fish.c:635
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1957,45 +2082,45 @@ msgstr ""
 "      शेल पासून बाहेर पडण्यासाठी 'quit' करा\n"
 "\n"
 
-#: fish/fish.c:721
+#: fish/fish.c:722
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: न ओळखलेले डबल क्वोट\n"
 
-#: fish/fish.c:727 fish/fish.c:744
+#: fish/fish.c:728 fish/fish.c:745
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: आदेश घटके वाईटस्पेस द्वारे विभाजीत नाही\n"
 
-#: fish/fish.c:738
+#: fish/fish.c:739
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: न ओळखलेले सींगल क्वोट\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:794
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
 
-#: fish/fish.c:810
+#: fish/fish.c:811
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: खूप जास्त घटके आढळले\n"
 
-#: fish/fish.c:839
+#: fish/fish.c:840
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/fish.c:980
+#: fish/fish.c:981
 msgid "display a list of commands or help on a command"
 msgstr "आदेश सूची किंवा आदेशकरीता मदत दाखवा"
 
-#: fish/fish.c:982
+#: fish/fish.c:983
 msgid "quit guestfish"
 msgstr "guestfish पासून बाहेर पडा"
 
-#: fish/fish.c:993
+#: fish/fish.c:994
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2006,7 +2131,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2015,12 +2140,12 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1006
+#: fish/fish.c:1007
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1022
+#: fish/fish.c:1023
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2028,7 +2153,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1179
+#: fish/fish.c:1180
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
@@ -2141,7 +2266,7 @@ msgstr "फाइल पेज करण्यासाठी '%s filename' य�
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/options.c:118
+#: fish/options.c:121
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -2803,22 +2928,46 @@ msgstr "फाइल खंड वाचण्यास अपयशी"
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
-#: src/virt.c:88
+#: src/virt.c:90
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: src/virt.c:96
+#: src/virt.c:98
 #, fuzzy, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr "%s: -i यांस libvirt क्षेत्र किंवा डिस्क प्रतिमाकरीता मार्ग देणे आवश्यक आहे\n"
 
-#: src/virt.c:145
+#: src/virt.c:149
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr ""
+
+#: src/virt.c:159
+msgid "unable to parse XML information returned by libvirt"
+msgstr ""
+
+#: src/virt.c:165
+#, fuzzy
+msgid "unable to create new XPath context"
+msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
+
+#: src/virt.c:172
+#, fuzzy
+msgid "unable to evaluate XPath expression"
+msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
+
+#: src/virt.c:269
+#, fuzzy
+msgid "libvirt domain has no disks"
+msgstr "%s: -i यांस libvirt क्षेत्र किंवा डिस्क प्रतिमाकरीता मार्ग देणे आवश्यक आहे\n"
+
+#: src/virt.c:322
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: src/virt.c:149
+#: src/virt.c:326
 msgid ""
 "error: domain is a live virtual machine.\n"
 "You must use readonly access because write access to a running virtual "
@@ -2826,31 +2975,7 @@ msgid ""
 "can cause disk corruption."
 msgstr ""
 
-#: src/virt.c:159
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr ""
-
-#: src/virt.c:169
-msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-
-#: src/virt.c:175
-#, fuzzy
-msgid "unable to create new XPath context"
-msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
-
-#: src/virt.c:182
-#, fuzzy
-msgid "unable to evaluate XPath expression"
-msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
-
-#: src/virt.c:289
-#, fuzzy
-msgid "libvirt domain has no disks"
-msgstr "%s: -i यांस libvirt क्षेत्र किंवा डिस्क प्रतिमाकरीता मार्ग देणे आवश्यक आहे\n"
-
-#: src/virt.c:309
+#: src/virt.c:352
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -3002,66 +3127,6 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs आदेश अपयशी: %s\n"
-
-#: tools/virt-df.pl:213
-#, fuzzy
-msgid "virt-df: cannot use -h and --csv options together\n"
-msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
-
-#: tools/virt-df.pl:277
-#, perl-brace-format
-msgid "{name} is not the name of a libvirt domain\n"
-msgstr ""
-
-#: tools/virt-df.pl:345
-#, perl-brace-format
-msgid "virt-df: ignoring {name}, it has too many disks ({c} > {max})"
-msgstr ""
-
-#: tools/virt-df.pl:521
-msgid "Virtual Machine"
-msgstr ""
-
-#: tools/virt-df.pl:521
-#, fuzzy
-msgid "Filesystem"
-msgstr "फाइलप्रणाली निर्माण करा"
-
-#: tools/virt-df.pl:524
-msgid "1K-blocks"
-msgstr ""
-
-#: tools/virt-df.pl:526
-msgid "Size"
-msgstr ""
-
-#: tools/virt-df.pl:528
-msgid "Used"
-msgstr ""
-
-#: tools/virt-df.pl:529
-msgid "Available"
-msgstr ""
-
-#: tools/virt-df.pl:530
-msgid "Use%"
-msgstr ""
-
-#: tools/virt-df.pl:532
-msgid "Inodes"
-msgstr ""
-
-#: tools/virt-df.pl:533
-msgid "IUsed"
-msgstr ""
-
-#: tools/virt-df.pl:534
-msgid "IFree"
-msgstr ""
-
-#: tools/virt-df.pl:535
-msgid "IUse%"
-msgstr ""
 
 #: tools/virt-edit.pl:169
 msgid "virt-edit: no image, VM names or filenames to edit given"
@@ -3377,6 +3442,10 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+
+#, fuzzy
+#~ msgid "virt-df: cannot use -h and --csv options together\n"
+#~ msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
 #, fuzzy
 #~ msgid "  Mountpoints:\n"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-24 20:19+0000\n"
+"POT-Creation-Date: 2010-11-25 18:53+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: ARGENTINA\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 fish/fish.c:86
-#: fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
@@ -68,13 +68,15 @@ msgstr ""
 "  -V|--version         Muestra la versión y finaliza\n"
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
-#: fish/fish.c:204 fuse/guestmount.c:952 inspector/virt-inspector.c:129
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
+#: inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
-#: fish/fish.c:272 fuse/guestmount.c:1000 inspector/virt-inspector.c:151
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
+#: inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
@@ -137,7 +139,7 @@ msgstr ""
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
 
-#: cat/virt-filesystems.c:304
+#: cat/virt-filesystems.c:304 df/main.c:250
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -185,6 +187,130 @@ msgstr ""
 "  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
+
+#: df/domains.c:115
+#, fuzzy, c-format
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+
+#: df/domains.c:124
+#, fuzzy, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+
+#: df/domains.c:134
+#, fuzzy, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+
+#: df/domains.c:145
+#, fuzzy, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+
+#: df/domains.c:155
+#, fuzzy, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+
+#: df/domains.c:281
+#, fuzzy, c-format
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+msgstr "virt-df: ignorando {name}, posee demasiados discos ({c} > {max})"
+
+#: df/main.c:70
+#, fuzzy, c-format
+msgid ""
+"%s: display free space on virtual filesystems\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  -i|--inodes          Display inodes\n"
+"  --one-per-guest      Separate appliance per guest\n"
+"  --uuid               Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: módulo FUSE para libguestfs\n"
+"%s le permite montar un sistema de archivos de máquina virtual\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Utilización:\n"
+"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
+"Options:\n"
+"  -a|--add image       Agrega una imagen\n"
+"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
+"5 sec)\n"
+"  --fuse-help          Muestra opciones FUSE adicionales\n"
+"  --help               Muestra el mensaje de ayuda y finaliza\n"
+"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
+"  -n|--no-sync         No sincroniza automáticamente\n"
+"  -o|--option opt      Transmite opciones extra a FUSE\n"
+"  -r|--ro              Montaje de solo lectura\n"
+"  --selinux            Habilita soporte para SELinux\n"
+"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
+"  -v|--verbose         Mensajes detallados\n"
+"  -V|--version         Muestra la versión y finaliza\n"
+
+#: df/main.c:262
+#, c-format
+msgid "%s: compiled without support for libvirt.\n"
+msgstr ""
+
+#: df/output.c:50
+#, fuzzy
+msgid "VirtualMachine"
+msgstr "Máquina virtual"
+
+#: df/output.c:51
+msgid "Filesystem"
+msgstr "Sistema de archivos"
+
+#: df/output.c:54
+msgid "1K-blocks"
+msgstr "Bloques de 1K"
+
+#: df/output.c:56
+msgid "Size"
+msgstr "Tamaño"
+
+#: df/output.c:57
+msgid "Used"
+msgstr "Utilizado"
+
+#: df/output.c:58
+msgid "Available"
+msgstr "Disponible"
+
+#: df/output.c:59
+msgid "Use%"
+msgstr "Utilización%"
+
+#: df/output.c:61
+msgid "Inodes"
+msgstr "Inodos"
+
+#: df/output.c:62
+msgid "IUsed"
+msgstr "Iutilizados"
+
+#: df/output.c:63
+msgid "IFree"
+msgstr "Ilibres"
+
+#: df/output.c:64
+msgid "IUse%"
+msgstr "UtilizaciónI%"
 
 #: fish/alloc.c:37
 #, c-format
@@ -1922,35 +2048,35 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 
-#: fish/fish.c:450
+#: fish/fish.c:451
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:458
+#: fish/fish.c:459
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:464
+#: fish/fish.c:465
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:521
+#: fish/fish.c:522
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 "guestfish: no es posible acceder a la base de datos termcap o terminfo.\n"
 
-#: fish/fish.c:525
+#: fish/fish.c:526
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr "guestfish: el tipo de terminal \"%s\" no ha sido definido.\n"
 
-#: fish/fish.c:634
+#: fish/fish.c:635
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1972,46 +2098,46 @@ msgstr ""
 "      'quit' para abandonar la shell\n"
 "\n"
 
-#: fish/fish.c:721
+#: fish/fish.c:722
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:727 fish/fish.c:744
+#: fish/fish.c:728 fish/fish.c:745
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:738
+#: fish/fish.c:739
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:794
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:810
+#: fish/fish.c:811
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:839
+#: fish/fish.c:840
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:980
+#: fish/fish.c:981
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:982
+#: fish/fish.c:983
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:993
+#: fish/fish.c:994
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2022,7 +2148,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2031,12 +2157,12 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1006
+#: fish/fish.c:1007
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1022
+#: fish/fish.c:1023
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2047,7 +2173,7 @@ msgstr ""
 "Para obtener una lista de comandos:             guestfish -h\n"
 "Para obtener la documentación completa:         man guestfish\n"
 
-#: fish/fish.c:1179
+#: fish/fish.c:1180
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
@@ -2167,7 +2293,7 @@ msgstr ""
 "guestfish: han sido agregados demasiados dispositivos en la línea de "
 "comando\n"
 
-#: fish/options.c:118
+#: fish/options.c:121
 #, fuzzy, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr "guestfish: '%s' no pudo ser montado. ¿Se refería a alguno de estos?\n"
@@ -2887,24 +3013,51 @@ msgstr "falló al analizar porciones del archivo"
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
-#: src/virt.c:88
+#: src/virt.c:90
 #, fuzzy, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
 
-#: src/virt.c:96
+#: src/virt.c:98
 #, fuzzy, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr "guestfish: no existe un dominio libvirt denominado '%s': %s\n"
 
-#: src/virt.c:145
+#: src/virt.c:149
+#, fuzzy, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr ""
+"guestfish: error leyendo información XML de libvirt acerca de '%s': %s\n"
+
+#: src/virt.c:159
+#, fuzzy
+msgid "unable to parse XML information returned by libvirt"
+msgstr ""
+"guestfish: no es posible analizar la información XML obtenida con libvirt\n"
+
+#: src/virt.c:165
+#, fuzzy
+msgid "unable to create new XPath context"
+msgstr "guestfish: no es posible crear un nuevo contexto XPath\n"
+
+#: src/virt.c:172
+#, fuzzy
+msgid "unable to evaluate XPath expression"
+msgstr "guestfish: no es posible evaluar expresiones XPath\n"
+
+#: src/virt.c:269
+#, fuzzy
+msgid "libvirt domain has no disks"
+msgstr "guestfish: el dominio '%s' de libvirt no posee discos\n"
+
+#: src/virt.c:322
 #, fuzzy, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 "guestfish: error al intentar obtener información de dominio relacionada con "
 "'%s': %s\n"
 
-#: src/virt.c:149
+#: src/virt.c:326
 #, fuzzy
 msgid ""
 "error: domain is a live virtual machine.\n"
@@ -2916,34 +3069,7 @@ msgstr ""
 "Debe utilizar '--ro' ya que el acceso de escritura sobre una máquina\n"
 "virtual en ejecución puede provocar la corrupción del disco.\n"
 
-#: src/virt.c:159
-#, fuzzy, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr ""
-"guestfish: error leyendo información XML de libvirt acerca de '%s': %s\n"
-
-#: src/virt.c:169
-#, fuzzy
-msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-"guestfish: no es posible analizar la información XML obtenida con libvirt\n"
-
-#: src/virt.c:175
-#, fuzzy
-msgid "unable to create new XPath context"
-msgstr "guestfish: no es posible crear un nuevo contexto XPath\n"
-
-#: src/virt.c:182
-#, fuzzy
-msgid "unable to evaluate XPath expression"
-msgstr "guestfish: no es posible evaluar expresiones XPath\n"
-
-#: src/virt.c:289
-#, fuzzy
-msgid "libvirt domain has no disks"
-msgstr "guestfish: el dominio '%s' de libvirt no posee discos\n"
-
-#: src/virt.c:309
+#: src/virt.c:352
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -3099,65 +3225,6 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "falló el comando mkisofs: %s\n"
-
-#: tools/virt-df.pl:213
-msgid "virt-df: cannot use -h and --csv options together\n"
-msgstr ""
-"virt-df: no es posible utilizar las opciones -h y --csv en forma simultánea\n"
-
-#: tools/virt-df.pl:277
-#, perl-brace-format
-msgid "{name} is not the name of a libvirt domain\n"
-msgstr "{name} no es el nombre de un dominio libvirt\n"
-
-#: tools/virt-df.pl:345
-#, perl-brace-format
-msgid "virt-df: ignoring {name}, it has too many disks ({c} > {max})"
-msgstr "virt-df: ignorando {name}, posee demasiados discos ({c} > {max})"
-
-#: tools/virt-df.pl:521
-msgid "Virtual Machine"
-msgstr "Máquina virtual"
-
-#: tools/virt-df.pl:521
-msgid "Filesystem"
-msgstr "Sistema de archivos"
-
-#: tools/virt-df.pl:524
-msgid "1K-blocks"
-msgstr "Bloques de 1K"
-
-#: tools/virt-df.pl:526
-msgid "Size"
-msgstr "Tamaño"
-
-#: tools/virt-df.pl:528
-msgid "Used"
-msgstr "Utilizado"
-
-#: tools/virt-df.pl:529
-msgid "Available"
-msgstr "Disponible"
-
-#: tools/virt-df.pl:530
-msgid "Use%"
-msgstr "Utilización%"
-
-#: tools/virt-df.pl:532
-msgid "Inodes"
-msgstr "Inodos"
-
-#: tools/virt-df.pl:533
-msgid "IUsed"
-msgstr "Iutilizados"
-
-#: tools/virt-df.pl:534
-msgid "IFree"
-msgstr "Ilibres"
-
-#: tools/virt-df.pl:535
-msgid "IUse%"
-msgstr "UtilizaciónI%"
 
 #: tools/virt-edit.pl:169
 msgid "virt-edit: no image, VM names or filenames to edit given"
@@ -3537,6 +3604,14 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
+
+#~ msgid "virt-df: cannot use -h and --csv options together\n"
+#~ msgstr ""
+#~ "virt-df: no es posible utilizar las opciones -h y --csv en forma "
+#~ "simultánea\n"
+
+#~ msgid "{name} is not the name of a libvirt domain\n"
+#~ msgstr "{name} no es el nombre de un dominio libvirt\n"
 
 #~ msgid "virt-ls: cannot combine -l and -R options\n"
 #~ msgstr "virt-ls: no es posible combinar las opciones -l y -R\n"

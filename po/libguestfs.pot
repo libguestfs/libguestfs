@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.13\n"
+"Project-Id-Version: libguestfs 1.7.14\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-24 20:19+0000\n"
+"POT-Creation-Date: 2010-11-25 18:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 fish/fish.c:86
-#: fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -47,13 +47,15 @@ msgid ""
 msgstr ""
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
-#: fish/fish.c:204 fuse/guestmount.c:952 inspector/virt-inspector.c:129
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
+#: inspector/virt-inspector.c:129
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
-#: fish/fish.c:272 fuse/guestmount.c:1000 inspector/virt-inspector.c:151
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
+#: inspector/virt-inspector.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
@@ -97,7 +99,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-filesystems.c:304
+#: cat/virt-filesystems.c:304 df/main.c:250
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -124,6 +126,110 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
+msgstr ""
+
+#: df/domains.c:115
+#, c-format
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:124
+#, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:134
+#, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:145
+#, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:155
+#, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgstr ""
+
+#: df/domains.c:281
+#, c-format
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+msgstr ""
+
+#: df/main.c:70
+#, c-format
+msgid ""
+"%s: display free space on virtual filesystems\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  -i|--inodes          Display inodes\n"
+"  --one-per-guest      Separate appliance per guest\n"
+"  --uuid               Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+
+#: df/main.c:262
+#, c-format
+msgid "%s: compiled without support for libvirt.\n"
+msgstr ""
+
+#: df/output.c:50
+msgid "VirtualMachine"
+msgstr ""
+
+#: df/output.c:51
+msgid "Filesystem"
+msgstr ""
+
+#: df/output.c:54
+msgid "1K-blocks"
+msgstr ""
+
+#: df/output.c:56
+msgid "Size"
+msgstr ""
+
+#: df/output.c:57
+msgid "Used"
+msgstr ""
+
+#: df/output.c:58
+msgid "Available"
+msgstr ""
+
+#: df/output.c:59
+msgid "Use%"
+msgstr ""
+
+#: df/output.c:61
+msgid "Inodes"
+msgstr ""
+
+#: df/output.c:62
+msgid "IUsed"
+msgstr ""
+
+#: df/output.c:63
+msgid "IFree"
+msgstr ""
+
+#: df/output.c:64
+msgid "IUse%"
 msgstr ""
 
 #: fish/alloc.c:37
@@ -1771,32 +1877,32 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:450
+#: fish/fish.c:451
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:458
+#: fish/fish.c:459
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr ""
 
-#: fish/fish.c:464
+#: fish/fish.c:465
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:521
+#: fish/fish.c:522
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:525
+#: fish/fish.c:526
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:634
+#: fish/fish.c:635
 #, c-format
 msgid ""
 "\n"
@@ -1809,45 +1915,45 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:721
+#: fish/fish.c:722
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:727 fish/fish.c:744
+#: fish/fish.c:728 fish/fish.c:745
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:738
+#: fish/fish.c:739
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:793
+#: fish/fish.c:794
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:810
+#: fish/fish.c:811
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:839
+#: fish/fish.c:840
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:980
+#: fish/fish.c:981
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:982
+#: fish/fish.c:983
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:993
+#: fish/fish.c:994
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1855,19 +1961,19 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1006
+#: fish/fish.c:1007
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1022
+#: fish/fish.c:1023
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1875,7 +1981,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1179
+#: fish/fish.c:1180
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
@@ -1988,7 +2094,7 @@ msgstr ""
 msgid "%s: too many drives added on the command line\n"
 msgstr ""
 
-#: fish/options.c:118
+#: fish/options.c:121
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -2602,22 +2708,43 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/virt.c:88
+#: src/virt.c:90
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: src/virt.c:96
+#: src/virt.c:98
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/virt.c:145
+#: src/virt.c:149
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr ""
+
+#: src/virt.c:159
+msgid "unable to parse XML information returned by libvirt"
+msgstr ""
+
+#: src/virt.c:165
+msgid "unable to create new XPath context"
+msgstr ""
+
+#: src/virt.c:172
+msgid "unable to evaluate XPath expression"
+msgstr ""
+
+#: src/virt.c:269
+msgid "libvirt domain has no disks"
+msgstr ""
+
+#: src/virt.c:322
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: src/virt.c:149
+#: src/virt.c:326
 msgid ""
 "error: domain is a live virtual machine.\n"
 "You must use readonly access because write access to a running virtual "
@@ -2625,28 +2752,7 @@ msgid ""
 "can cause disk corruption."
 msgstr ""
 
-#: src/virt.c:159
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr ""
-
-#: src/virt.c:169
-msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-
-#: src/virt.c:175
-msgid "unable to create new XPath context"
-msgstr ""
-
-#: src/virt.c:182
-msgid "unable to evaluate XPath expression"
-msgstr ""
-
-#: src/virt.c:289
-msgid "libvirt domain has no disks"
-msgstr ""
-
-#: src/virt.c:309
+#: src/virt.c:352
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -2776,64 +2882,6 @@ msgstr ""
 #: test-tool/test-tool.c:432
 #, c-format
 msgid "mkisofs command failed: %s\n"
-msgstr ""
-
-#: tools/virt-df.pl:213
-msgid "virt-df: cannot use -h and --csv options together\n"
-msgstr ""
-
-#: tools/virt-df.pl:277
-#, perl-brace-format
-msgid "{name} is not the name of a libvirt domain\n"
-msgstr ""
-
-#: tools/virt-df.pl:345
-#, perl-brace-format
-msgid "virt-df: ignoring {name}, it has too many disks ({c} > {max})"
-msgstr ""
-
-#: tools/virt-df.pl:521
-msgid "Virtual Machine"
-msgstr ""
-
-#: tools/virt-df.pl:521
-msgid "Filesystem"
-msgstr ""
-
-#: tools/virt-df.pl:524
-msgid "1K-blocks"
-msgstr ""
-
-#: tools/virt-df.pl:526
-msgid "Size"
-msgstr ""
-
-#: tools/virt-df.pl:528
-msgid "Used"
-msgstr ""
-
-#: tools/virt-df.pl:529
-msgid "Available"
-msgstr ""
-
-#: tools/virt-df.pl:530
-msgid "Use%"
-msgstr ""
-
-#: tools/virt-df.pl:532
-msgid "Inodes"
-msgstr ""
-
-#: tools/virt-df.pl:533
-msgid "IUsed"
-msgstr ""
-
-#: tools/virt-df.pl:534
-msgid "IFree"
-msgstr ""
-
-#: tools/virt-df.pl:535
-msgid "IUse%"
 msgstr ""
 
 #: tools/virt-edit.pl:169

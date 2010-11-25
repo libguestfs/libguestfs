@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.13\n"
+"Project-Id-Version: libguestfs 1.7.14\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2010-11-24 20:19+0000\n"
+"POT-Creation-Date: 2010-11-25 18:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: ENCODING"
 
 # type: =encoding
-#: ../src/guestfs.pod:1 ../fish/guestfish.pod:1 ../test-tool/libguestfs-test-tool.pod:1 ../fuse/guestmount.pod:1 ../tools/virt-edit.pl:30 ../tools/virt-win-reg.pl:33 ../tools/virt-df.pl:32 ../tools/virt-resize.pl:38 ../tools/virt-list-filesystems.pl:28 ../tools/virt-tar.pl:29 ../tools/virt-rescue.pl:29 ../tools/virt-make-fs.pl:33 ../tools/virt-list-partitions.pl:28
+#: ../src/guestfs.pod:1 ../fish/guestfish.pod:1 ../test-tool/libguestfs-test-tool.pod:1 ../fuse/guestmount.pod:1 ../tools/virt-edit.pl:30 ../tools/virt-win-reg.pl:33 ../tools/virt-resize.pl:38 ../tools/virt-list-filesystems.pl:28 ../tools/virt-tar.pl:29 ../tools/virt-rescue.pl:29 ../tools/virt-make-fs.pl:33 ../tools/virt-list-partitions.pl:28
 msgid "utf8"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-df.pl:34 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-rescue.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
+#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-rescue.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
 msgid "NAME"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgid "guestfs - Library for accessing and modifying virtual machine images"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-df.pl:38 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-rescue.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
+#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-rescue.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
 msgid "SYNOPSIS"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:24 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-df.pl:46 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:72 ../tools/virt-rescue.pl:51 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
+#: ../src/guestfs.pod:24 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:72 ../tools/virt-rescue.pl:51 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
 msgid "DESCRIPTION"
 msgstr ""
 
@@ -760,7 +760,7 @@ msgid "There are many limitations to this:"
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:363 ../src/guestfs.pod:368 ../src/guestfs.pod:373 ../src/guestfs.pod:377 ../src/guestfs.pod:382 ../src/guestfs.pod:386 ../src/guestfs.pod:391 ../src/guestfs.pod:396 ../src/guestfs.pod:955 ../src/guestfs.pod:959 ../src/guestfs.pod:963 ../src/guestfs.pod:968 ../src/guestfs.pod:976 ../src/guestfs.pod:995 ../src/guestfs.pod:1003 ../src/guestfs.pod:1025 ../src/guestfs.pod:1029 ../src/guestfs.pod:1033 ../src/guestfs.pod:1037 ../src/guestfs.pod:1041 ../src/guestfs.pod:1045 ../src/guestfs.pod:1527 ../src/guestfs.pod:1532 ../src/guestfs.pod:1536 ../src/guestfs.pod:1646 ../src/guestfs.pod:1651 ../src/guestfs.pod:1655 ../src/guestfs.pod:1999 ../src/guestfs.pod:2005 ../src/guestfs.pod:2010 ../src/guestfs.pod:2016 ../src/guestfs.pod:2128 ../src/guestfs.pod:2132 ../src/guestfs.pod:2136 ../src/guestfs.pod:2140 ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:569 ../src/guestfs-actions.pod:577 ../src/guestfs-actions.pod:584 ../src/guestfs-actions.pod:591 ../src/guestfs-actions.pod:1587 ../src/guestfs-actions.pod:1591 ../src/guestfs-actions.pod:1595 ../src/guestfs-actions.pod:1599 ../src/guestfs-actions.pod:1607 ../src/guestfs-actions.pod:1611 ../src/guestfs-actions.pod:1615 ../src/guestfs-actions.pod:1625 ../src/guestfs-actions.pod:1629 ../src/guestfs-actions.pod:1633 ../src/guestfs-actions.pod:1771 ../src/guestfs-actions.pod:1775 ../src/guestfs-actions.pod:1780 ../src/guestfs-actions.pod:1785 ../src/guestfs-actions.pod:1846 ../src/guestfs-actions.pod:1850 ../src/guestfs-actions.pod:1855 ../fish/guestfish.pod:377 ../fish/guestfish.pod:381 ../fish/guestfish.pod:385 ../fish/guestfish.pod:389 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:375 ../fish/guestfish-actions.pod:383 ../fish/guestfish-actions.pod:390 ../fish/guestfish-actions.pod:397 ../fish/guestfish-actions.pod:1067 ../fish/guestfish-actions.pod:1071 ../fish/guestfish-actions.pod:1075 ../fish/guestfish-actions.pod:1079 ../fish/guestfish-actions.pod:1087 ../fish/guestfish-actions.pod:1091 ../fish/guestfish-actions.pod:1095 ../fish/guestfish-actions.pod:1105 ../fish/guestfish-actions.pod:1109 ../fish/guestfish-actions.pod:1113 ../fish/guestfish-actions.pod:1203 ../fish/guestfish-actions.pod:1207 ../fish/guestfish-actions.pod:1212 ../fish/guestfish-actions.pod:1217 ../fish/guestfish-actions.pod:1259 ../fish/guestfish-actions.pod:1263 ../fish/guestfish-actions.pod:1268 ../tools/virt-df.pl:161 ../tools/virt-df.pl:167 ../tools/virt-resize.pl:347 ../tools/virt-resize.pl:352 ../tools/virt-resize.pl:362
+#: ../src/guestfs.pod:363 ../src/guestfs.pod:368 ../src/guestfs.pod:373 ../src/guestfs.pod:377 ../src/guestfs.pod:382 ../src/guestfs.pod:386 ../src/guestfs.pod:391 ../src/guestfs.pod:396 ../src/guestfs.pod:955 ../src/guestfs.pod:959 ../src/guestfs.pod:963 ../src/guestfs.pod:968 ../src/guestfs.pod:976 ../src/guestfs.pod:995 ../src/guestfs.pod:1003 ../src/guestfs.pod:1025 ../src/guestfs.pod:1029 ../src/guestfs.pod:1033 ../src/guestfs.pod:1037 ../src/guestfs.pod:1041 ../src/guestfs.pod:1045 ../src/guestfs.pod:1527 ../src/guestfs.pod:1532 ../src/guestfs.pod:1536 ../src/guestfs.pod:1646 ../src/guestfs.pod:1651 ../src/guestfs.pod:1655 ../src/guestfs.pod:1999 ../src/guestfs.pod:2005 ../src/guestfs.pod:2010 ../src/guestfs.pod:2016 ../src/guestfs.pod:2128 ../src/guestfs.pod:2132 ../src/guestfs.pod:2136 ../src/guestfs.pod:2140 ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:569 ../src/guestfs-actions.pod:577 ../src/guestfs-actions.pod:584 ../src/guestfs-actions.pod:591 ../src/guestfs-actions.pod:1587 ../src/guestfs-actions.pod:1591 ../src/guestfs-actions.pod:1595 ../src/guestfs-actions.pod:1599 ../src/guestfs-actions.pod:1607 ../src/guestfs-actions.pod:1611 ../src/guestfs-actions.pod:1615 ../src/guestfs-actions.pod:1625 ../src/guestfs-actions.pod:1629 ../src/guestfs-actions.pod:1633 ../src/guestfs-actions.pod:1771 ../src/guestfs-actions.pod:1775 ../src/guestfs-actions.pod:1780 ../src/guestfs-actions.pod:1785 ../src/guestfs-actions.pod:1846 ../src/guestfs-actions.pod:1850 ../src/guestfs-actions.pod:1855 ../fish/guestfish.pod:377 ../fish/guestfish.pod:381 ../fish/guestfish.pod:385 ../fish/guestfish.pod:389 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:375 ../fish/guestfish-actions.pod:383 ../fish/guestfish-actions.pod:390 ../fish/guestfish-actions.pod:397 ../fish/guestfish-actions.pod:1067 ../fish/guestfish-actions.pod:1071 ../fish/guestfish-actions.pod:1075 ../fish/guestfish-actions.pod:1079 ../fish/guestfish-actions.pod:1087 ../fish/guestfish-actions.pod:1091 ../fish/guestfish-actions.pod:1095 ../fish/guestfish-actions.pod:1105 ../fish/guestfish-actions.pod:1109 ../fish/guestfish-actions.pod:1113 ../fish/guestfish-actions.pod:1203 ../fish/guestfish-actions.pod:1207 ../fish/guestfish-actions.pod:1212 ../fish/guestfish-actions.pod:1217 ../fish/guestfish-actions.pod:1259 ../fish/guestfish-actions.pod:1263 ../fish/guestfish-actions.pod:1268 ../tools/virt-resize.pl:347 ../tools/virt-resize.pl:352 ../tools/virt-resize.pl:362
 msgid "*"
 msgstr ""
 
@@ -3993,7 +3993,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2082 ../fish/guestfish.pod:1039 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233 ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:484 ../tools/virt-df.pl:640 ../tools/virt-resize.pl:1485 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:281 ../tools/virt-rescue.pl:267 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:257
+#: ../src/guestfs.pod:2082 ../fish/guestfish.pod:1039 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233 ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:484 ../tools/virt-resize.pl:1485 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:281 ../tools/virt-rescue.pl:267 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr ""
 
@@ -4079,7 +4079,7 @@ msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2151 ../fish/guestfish.pod:1062 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248 ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:514 ../tools/virt-df.pl:653 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:296 ../tools/virt-rescue.pl:281 ../tools/virt-make-fs.pl:563 ../tools/virt-list-partitions.pl:273
+#: ../src/guestfs.pod:2151 ../fish/guestfish.pod:1062 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248 ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:514 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:296 ../tools/virt-rescue.pl:281 ../tools/virt-make-fs.pl:563 ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -16723,12 +16723,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72 ../tools/virt-win-reg.pl:171 ../tools/virt-df.pl:71 ../tools/virt-resize.pl:256 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:98 ../tools/virt-rescue.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
+#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72 ../tools/virt-win-reg.pl:171 ../tools/virt-resize.pl:256 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:98 ../tools/virt-rescue.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
 msgid "OPTIONS"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:179 ../tools/virt-df.pl:79 ../tools/virt-resize.pl:264 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:106 ../tools/virt-rescue.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
+#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:179 ../tools/virt-resize.pl:264 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:106 ../tools/virt-rescue.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
 msgid "B<--help>"
 msgstr ""
 
@@ -18671,7 +18671,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1067 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370 ../tools/virt-win-reg.pl:518 ../tools/virt-df.pl:657 ../tools/virt-resize.pl:1514 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:300 ../tools/virt-rescue.pl:285 ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
+#: ../fish/guestfish.pod:1067 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370 ../tools/virt-win-reg.pl:518 ../tools/virt-resize.pl:1514 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:300 ../tools/virt-rescue.pl:285 ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -18680,7 +18680,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1072 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375 ../tools/virt-win-reg.pl:523 ../tools/virt-df.pl:662 ../tools/virt-resize.pl:1519 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:305 ../tools/virt-rescue.pl:290 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
+#: ../fish/guestfish.pod:1072 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375 ../tools/virt-win-reg.pl:523 ../tools/virt-resize.pl:1519 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:305 ../tools/virt-rescue.pl:290 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -18689,7 +18689,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1077 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380 ../tools/virt-win-reg.pl:528 ../tools/virt-df.pl:667 ../tools/virt-resize.pl:1524 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:310 ../tools/virt-rescue.pl:295 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
+#: ../fish/guestfish.pod:1077 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380 ../tools/virt-win-reg.pl:528 ../tools/virt-resize.pl:1524 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:310 ../tools/virt-rescue.pl:295 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -25589,17 +25589,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:181 ../tools/virt-df.pl:81 ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:108 ../tools/virt-rescue.pl:113 ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
+#: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:181 ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:108 ../tools/virt-rescue.pl:113 ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
 msgid "Display brief help."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:88 ../tools/virt-win-reg.pl:187 ../tools/virt-df.pl:87 ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:114 ../tools/virt-rescue.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
+#: ../tools/virt-edit.pl:88 ../tools/virt-win-reg.pl:187 ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:114 ../tools/virt-rescue.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
 msgid "B<--version>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:189 ../tools/virt-df.pl:89 ../tools/virt-resize.pl:274 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:116 ../tools/virt-rescue.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
+#: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:189 ../tools/virt-resize.pl:274 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:116 ../tools/virt-rescue.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
 msgid "Display version number and exit."
 msgstr ""
 
@@ -25636,38 +25636,38 @@ msgid "By default, no backup file is made."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:203 ../tools/virt-df.pl:95 ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:122 ../tools/virt-rescue.pl:135 ../tools/virt-list-partitions.pl:78
+#: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:203 ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:122 ../tools/virt-rescue.pl:135 ../tools/virt-list-partitions.pl:78
 msgid "B<--connect URI> | B<-c URI>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:205 ../tools/virt-df.pl:97 ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:124 ../tools/virt-rescue.pl:137 ../tools/virt-list-partitions.pl:80
+#: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:205 ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:124 ../tools/virt-rescue.pl:137 ../tools/virt-list-partitions.pl:80
 msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:208 ../tools/virt-df.pl:100 ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:127 ../tools/virt-rescue.pl:140 ../tools/virt-list-partitions.pl:83
+#: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:208 ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:127 ../tools/virt-rescue.pl:140 ../tools/virt-list-partitions.pl:83
 msgid ""
 "If you specify guest block devices directly, then libvirt is not used at "
 "all."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:215 ../tools/virt-df.pl:117 ../tools/virt-resize.pl:522 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:134 ../tools/virt-rescue.pl:147 ../tools/virt-list-partitions.pl:90
+#: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:215 ../tools/virt-resize.pl:522 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:134 ../tools/virt-rescue.pl:147 ../tools/virt-list-partitions.pl:90
 msgid "B<--format> raw"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:217 ../tools/virt-df.pl:119 ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:136 ../tools/virt-rescue.pl:149 ../tools/virt-list-partitions.pl:92
+#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:217 ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:136 ../tools/virt-rescue.pl:149 ../tools/virt-list-partitions.pl:92
 msgid ""
 "Specify the format of disk images given on the command line.  If this is "
 "omitted then the format is autodetected from the content of the disk image."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:221 ../tools/virt-df.pl:123 ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:140 ../tools/virt-rescue.pl:153 ../tools/virt-list-partitions.pl:96
+#: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:221 ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:140 ../tools/virt-rescue.pl:153 ../tools/virt-list-partitions.pl:96
 msgid ""
 "If disk images are requested from libvirt, then this program asks libvirt "
 "for this information.  In this case, the value of the format parameter is "
@@ -25675,7 +25675,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:225 ../tools/virt-df.pl:127 ../tools/virt-resize.pl:527 ../tools/virt-resize.pl:542 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:144 ../tools/virt-rescue.pl:157 ../tools/virt-list-partitions.pl:100
+#: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:225 ../tools/virt-resize.pl:527 ../tools/virt-resize.pl:542 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:144 ../tools/virt-rescue.pl:157 ../tools/virt-list-partitions.pl:100
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
 "the format is always specified."
@@ -25859,12 +25859,12 @@ msgid "If not set, C<vi> is used."
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:141 ../tools/virt-win-reg.pl:477 ../tools/virt-df.pl:633 ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:274 ../tools/virt-rescue.pl:260 ../tools/virt-make-fs.pl:527 ../tools/virt-list-partitions.pl:250
+#: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:141 ../tools/virt-win-reg.pl:477 ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:274 ../tools/virt-rescue.pl:260 ../tools/virt-make-fs.pl:527 ../tools/virt-list-partitions.pl:250
 msgid "SHELL QUOTING"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:479 ../tools/virt-df.pl:635 ../tools/virt-resize.pl:1480 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:276 ../tools/virt-rescue.pl:262 ../tools/virt-make-fs.pl:529 ../tools/virt-list-partitions.pl:252
+#: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:479 ../tools/virt-resize.pl:1480 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:276 ../tools/virt-rescue.pl:262 ../tools/virt-make-fs.pl:529 ../tools/virt-list-partitions.pl:252
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -25881,17 +25881,17 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:510 ../tools/virt-df.pl:649 ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:292 ../tools/virt-rescue.pl:277 ../tools/virt-make-fs.pl:559 ../tools/virt-list-partitions.pl:269
+#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:510 ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:292 ../tools/virt-rescue.pl:277 ../tools/virt-make-fs.pl:559 ../tools/virt-list-partitions.pl:269
 msgid "AUTHOR"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:512 ../tools/virt-df.pl:651 ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:294 ../tools/virt-rescue.pl:279 ../tools/virt-make-fs.pl:561 ../tools/virt-list-partitions.pl:271
+#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:512 ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:294 ../tools/virt-rescue.pl:279 ../tools/virt-make-fs.pl:561 ../tools/virt-list-partitions.pl:271
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:368 ../tools/virt-df.pl:655 ../tools/virt-rescue.pl:283 ../tools/virt-list-partitions.pl:275
+#: ../tools/virt-edit.pl:368 ../tools/virt-rescue.pl:283 ../tools/virt-list-partitions.pl:275
 msgid "Copyright (C) 2009-2010 Red Hat Inc."
 msgstr ""
 
@@ -26284,238 +26284,6 @@ msgstr ""
 # type: textblock
 #: ../tools/virt-win-reg.pl:516 ../tools/virt-resize.pl:1512 ../tools/virt-make-fs.pl:565
 msgid "Copyright (C) 2010 Red Hat Inc."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:36
-msgid "virt-df - Display free space on virtual filesystems"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-df.pl:40
-#, no-wrap
-msgid ""
-" virt-df [--options]\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-df.pl:42
-#, no-wrap
-msgid ""
-" virt-df [--options] domname\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-df.pl:44
-#, no-wrap
-msgid ""
-" virt-df [--options] disk.img [disk.img ...]\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:48
-msgid ""
-"C<virt-df> is a command line tool to display free space on virtual machine "
-"filesystems.  Unlike other tools, it doesn't just display the amount of "
-"space allocated to a virtual machine, but can look inside the virtual "
-"machine to see how much space is really being used."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:53
-msgid ""
-"It is like the L<df(1)> command, but for virtual machines, except that it "
-"also works for Windows virtual machines."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:56
-msgid ""
-"If used without any arguments, C<virt-df> checks with libvirt to get a list "
-"of all active and inactive guests, and performs a C<df>-type operation on "
-"each one in turn, printing out the results."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:60
-msgid ""
-"If used with any argument(s), C<virt-df> performs a C<df>-type operation on "
-"either the single named libvirt domain, or on the disk image(s) listed on "
-"the command line (which must all belong to a single VM).  In this mode (with "
-"arguments), C<virt-df> will I<only work for a single guest>.  If you want to "
-"run on multiple guests, then you have to invoke C<virt-df> multiple times."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:67
-msgid ""
-"Use the C<--csv> option to get a format which can be easily parsed by other "
-"programs.  Other options are mostly similar to standard C<df> options.  See "
-"below for the complete list."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-df.pl:107
-msgid "B<--csv>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:109
-msgid ""
-"Write out the results in CSV format (comma-separated values).  This format "
-"can be imported easily into databases and spreadsheets, but read L</NOTE "
-"ABOUT CSV FORMAT> below."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-df.pl:134
-msgid "B<--human-readable> | B<-h>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:136
-msgid "Print sizes in human-readable format."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:138
-msgid "You are not allowed to use I<-h> and I<--csv> at the same time."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-df.pl:144
-msgid "B<--inodes> | B<-i>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:146
-msgid "Print inodes instead of blocks."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-df.pl:152
-msgid "B<--one-per-guest>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:154
-msgid ""
-"Run one libguestfs appliance per guest.  Normally C<virt-df> will add the "
-"disks from several guests to a single libguestfs appliance."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:157
-msgid "You might use this option in the following circumstances:"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:163
-msgid ""
-"If you think an untrusted guest might actively try to exploit the libguestfs "
-"appliance kernel, then this prevents one guest from interfering with the "
-"stats printed for another guest."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:169
-msgid ""
-"If the kernel has a bug which stops it from accessing a filesystem in one "
-"guest (see for example RHBZ#635373) then this allows libguestfs to continue "
-"and report stats for further guests."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-df.pl:180
-msgid "B<--uuid>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:182
-msgid ""
-"Print UUIDs instead of names.  This is useful for following a guest even "
-"when the guest is migrated or renamed, or when two guests happen to have the "
-"same name."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:186
-msgid ""
-"Note that only domains that we fetch from libvirt come with UUIDs.  For disk "
-"images, we still print the disk image name even when this option is "
-"specified."
-msgstr ""
-
-# type: =head1
-#: ../tools/virt-df.pl:609
-msgid "NOTE ABOUT CSV FORMAT"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:611
-msgid ""
-"Comma-separated values (CSV) is a deceptive format.  It I<seems> like it "
-"should be easy to parse, but it is definitely not easy to parse."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:614
-msgid ""
-"Myth: Just split fields at commas.  Reality: This does I<not> work "
-"reliably.  This example has two columns:"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-df.pl:617
-#, no-wrap
-msgid ""
-" \"foo,bar\",baz\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:619
-msgid ""
-"Myth: Read the file one line at a time.  Reality: This does I<not> work "
-"reliably.  This example has one row:"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-df.pl:622
-#, no-wrap
-msgid ""
-" \"foo\n"
-" bar\",baz\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:625
-msgid ""
-"For shell scripts, use C<csvtool> (L<http://merjis.com/developers/csv> also "
-"packaged in major Linux distributions)."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:628
-msgid ""
-"For other languages, use a CSV processing library (eg. C<Text::CSV> for Perl "
-"or Python's built-in csv library)."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:631
-msgid "Most spreadsheets and databases can import CSV directly."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-df.pl:642
-msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, "
-"L<Sys::Virt(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 # type: textblock
