@@ -1,31 +1,3 @@
-#!/usr/bin/perl -w
-# virt-rescue
-# Copyright (C) 2009-2010 Red Hat Inc.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-use warnings;
-use strict;
-
-use Errno;
-use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest);
-use Pod::Usage;
-use Getopt::Long;
-use Locale::TextDomain 'libguestfs';
-
 =encoding utf8
 
 =head1 NAME
@@ -33,6 +5,12 @@ use Locale::TextDomain 'libguestfs';
 virt-rescue - Run a rescue shell on a virtual machine
 
 =head1 SYNOPSIS
+
+ virt-rescue [--options] -d domname
+
+ virt-rescue [--options] -a disk.img [-a disk.img ...]
+
+Old style:
 
  virt-rescue [--options] domname
 
@@ -58,11 +36,11 @@ machine or disk image.
 You can run virt-rescue on any virtual machine known to libvirt, or
 directly on disk image(s):
 
- virt-rescue GuestName
+ virt-rescue -d GuestName
 
- virt-rescue --ro /path/to/disk.img
+ virt-rescue --ro -a /path/to/disk.img
 
- virt-rescue /dev/sdc
+ virt-rescue -a /dev/sdc
 
 For live VMs you I<must> use the --ro option.
 
@@ -104,83 +82,82 @@ use to make scripted changes to guests, use L<guestfish(1)>.
 
 =over 4
 
-=cut
-
-my $help;
-
 =item B<--help>
 
 Display brief help.
 
-=cut
+=item B<-a> file
 
-my $version;
+=item B<--add> file
 
-=item B<--version>
+Add I<file> which should be a disk image from a virtual machine.  If
+the virtual machine has multiple block devices, you must supply all of
+them with separate I<-a> options.
 
-Display version number and exit.
-
-=cut
-
-my $append;
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
 
 =item B<--append kernelopts>
 
 Pass additional options to the rescue kernel.
 
-=cut
+=item B<-c> URI
 
-my $uri;
-
-=item B<--connect URI> | B<-c URI>
+=item B<--connect> URI
 
 If using libvirt, connect to the given I<URI>.  If omitted, then we
 connect to the default libvirt hypervisor.
 
-If you specify guest block devices directly, then libvirt is not used
-at all.
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
 
-=cut
+=item B<-d> guest
 
-my $format;
+=item B<--domain> guest
 
-=item B<--format> raw
+Add all the disks from the named libvirt guest.
 
-Specify the format of disk images given on the command line.  If this
-is omitted then the format is autodetected from the content of the
-disk image.
+=item B<--format=raw|qcow2|..>
 
-If disk images are requested from libvirt, then this program asks
-libvirt for this information.  In this case, the value of the format
-parameter is ignored.
+=item B<--format>
 
-If working with untrusted raw-format guest disk images, you should
-ensure the format is always specified.
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
 
-=cut
+For example:
 
-my $memsize;
+ virt-rescue --format=raw -a disk.img
 
-=item B<--memsize MB> | B<-m MB>
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-rescue --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).  See also
+L</add-drive-opts>.
+
+=item B<-m MB>
+
+=item B<--memsize MB>
 
 Change the amount of memory allocated to the rescue system.  The
 default is set by libguestfs and is small but adequate for running
 system tools.  The occasional program might need more memory.  The
 parameter is specified in megabytes.
 
-=cut
-
-my $network;
-
 =item B<--network>
 
 Enable QEMU user networking in the guest.
 
-=cut
+=item B<-r>
 
-my $readonly;
-
-=item B<--ro> | B<-r>
+=item B<--ro>
 
 Open the image read-only.
 
@@ -188,69 +165,44 @@ The option must always be used if the disk image or virtual machine
 might be running, and is generally recommended in cases where you
 don't need write access to the disk.
 
-=cut
-
-my $selinux;
-
 =item B<--selinux>
 
 Enable SELinux in the rescue appliance.  You should read
 L<guestfs(3)/SELINUX> before using this option.
 
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
 =back
 
-=cut
+=head1 OLD-STYLE COMMAND LINE ARGUMENTS
 
-GetOptions ("help|?" => \$help,
-            "version" => \$version,
-            "append=s" => \$append,
-            "connect|c=s" => \$uri,
-            "format=s" => \$format,
-            "memsize|m=i" => \$memsize,
-            "network" => \$network,
-            "ro|r" => \$readonly,
-            "selinux" => \$selinux,
-    ) or pod2usage (2);
-pod2usage (1) if $help;
-if ($version) {
-    my $g = Sys::Guestfs->new ();
-    my %h = $g->version ();
-    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
-    exit
-}
+Previous versions of virt-rescue allowed you to write either:
 
-pod2usage (__"virt-rescue: no image or VM names rescue given")
-    if @ARGV == 0;
+ virt-rescue disk.img [disk.img ...]
 
-my @args = (\@ARGV);
-push @args, address => $uri if $uri;
-push @args, rw => 1 unless $readonly;
-push @args, format => $format if defined $format;
-my $g = open_guest (@args);
+or
 
-# Setting "direct mode" is required for the rescue appliance.
-$g->set_direct (1);
+ virt-rescue guestname
 
-# Set other features.
-$g->set_selinux (1) if $selinux;
-$g->set_memsize ($memsize) if defined $memsize;
-$g->set_network (1) if $network;
+whereas in this version you should use I<-a> or I<-d> respectively
+to avoid the confusing case where a disk image might have the same
+name as a guest.
 
-# Set the kernel command line, which must include guestfs_rescue=1
-# (see appliance/init).
-my $str = "guestfs_rescue=1";
-$str .= " $append" if defined $append;
-$g->set_append ($str);
-
-# Run the appliance.  This won't return until the user quits the
-# appliance.
-eval { $g->launch (); };
-
-# launch() expects guestfsd to start. However, virt-rescue doesn't run guestfsd,
-# so this will always fail with ECHILD when the appliance exits unexpectedly.
-die $@ unless $!{ECHILD};
-
-exit 0;
+For compatibility the old style is still supported.
 
 =head1 ENVIRONMENT VARIABLES
 
@@ -269,9 +221,7 @@ manual page L<sh(1)> for details.
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-cat(1)>,
-L<Sys::Guestfs(3)>,
-L<Sys::Guestfs::Lib(3)>,
-L<Sys::Virt(3)>,
+L<virt-edit(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR

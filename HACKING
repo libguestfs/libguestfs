@@ -148,6 +148,9 @@ python/
 regressions/
         Regression tests.
 
+rescue/
+        'virt-rescue' command and documentation.
+
 ruby/
         Ruby bindings.
 

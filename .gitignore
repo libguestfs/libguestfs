@@ -283,6 +283,10 @@ regressions/test1.img
 regressions/test2.img
 regressions/test.err
 regressions/test.out
+rescue/stamp-virt-rescue.pod
+rescue/virt-rescue
+rescue/virt-rescue.1
+rescue/virt-rescue.static
 ruby/bindtests.rb
 ruby/examples/guestfs-ruby.3
 ruby/examples/stamp-guestfs-ruby.pod

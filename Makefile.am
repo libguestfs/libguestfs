@@ -36,7 +36,7 @@ SUBDIRS += gnulib/tests capitests regressions test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += cat df inspector
+SUBDIRS += cat df inspector rescue
 
 # Language bindings.
 if HAVE_PERL
@@ -225,5 +225,7 @@ bindist:
 	cp df/virt-df.static $(BINTMPDIR)$(bindir)/virt-df
 	$(MAKE) -C inspector virt-inspector.static
 	cp inspector/virt-inspector.static $(BINTMPDIR)$(bindir)/virt-inspector
+	$(MAKE) -C rescue virt-rescue.static
+	cp rescue/virt-rescue.static $(BINTMPDIR)$(bindir)/virt-rescue
 	(cd $(BINTMPDIR) && tar cf - .) | \
 	  gzip -c -9 > libguestfs-$(VERSION)-$(host_cpu).tar.gz

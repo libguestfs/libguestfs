@@ -869,6 +869,7 @@ AC_CONFIG_FILES([Makefile
                  csharp/Makefile
                  cat/Makefile
                  df/Makefile
+                 rescue/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 

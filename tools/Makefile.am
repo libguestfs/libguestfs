@@ -22,7 +22,6 @@ tools = \
 	list-filesystems \
 	list-partitions \
 	make-fs \
-	rescue \
 	resize \
 	tar \
 	win-reg
