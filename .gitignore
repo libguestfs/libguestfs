@@ -99,7 +99,7 @@ fuse/guestmount
 fuse/guestmount.1
 fuse/guestmount.static
 fuse/stamp-guestmount.pod
-generator/.pod2text.data
+generator/.pod2text.data*
 generator/generator
 generator/stamp-generator
 guestfish.1

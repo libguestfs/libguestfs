@@ -244,15 +244,17 @@ let seq_of_test = function
   | TestLastFail s -> s
 
 let c_quote str =
+  let str = replace_str str "\\" "\\\\" in
   let str = replace_str str "\r" "\\r" in
   let str = replace_str str "\n" "\\n" in
   let str = replace_str str "\t" "\\t" in
   let str = replace_str str "\000" "\\0" in
+  let str = replace_str str "\"" "\\\"" in
   str
 
 (* Used to memoize the result of pod2text. *)
-let pod2text_memo_filename = "generator/.pod2text.data"
-let pod2text_memo : ((int * string * string), string list) Hashtbl.t =
+let pod2text_memo_filename = "generator/.pod2text.data.version.2"
+let pod2text_memo : ((int option * bool * bool * string * string), string list) Hashtbl.t =
   try
     let chan = open_in pod2text_memo_filename in
     let v = input_value chan in
@@ -271,22 +273,27 @@ let pod2text_memo_updated () =
  * Because this is very slow (the slowest part of autogeneration),
  * we memoize the results.
  *)
-let pod2text ~width name longdesc =
-  let key = width, name, longdesc in
+let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
+  let key = width, trim, discard, name, longdesc in
   try Hashtbl.find pod2text_memo key
   with Not_found ->
     let filename, chan = Filename.open_temp_file "gen" ".tmp" in
     fprintf chan "=head1 %s\n\n%s\n" name longdesc;
     close_out chan;
-    let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
+    let cmd =
+      match width with
+      | Some width ->
+          sprintf "pod2text -w %d %s" width (Filename.quote filename)
+      | None ->
+          sprintf "pod2text %s" (Filename.quote filename) in
     let chan = open_process_in cmd in
     let lines = ref [] in
     let rec loop i =
       let line = input_line chan in
-      if i = 1 then		(* discard the first line of output *)
+      if i = 1 && discard then  (* discard the first line of output *)
         loop (i+1)
       else (
-        let line = triml line in
+        let line = if trim then triml line else line in
         lines := line :: !lines;
         loop (i+1)
       ) in

@@ -91,14 +91,23 @@ val seq_of_test : Generator_types.test -> Generator_types.seq
 val c_quote : string -> string
 (** Perform quoting on a string so it is safe to include in a C source file. *)
 
-val pod2text : width:int -> string -> string -> string list
-(** [pod2text ~width name longdesc] converts the POD in [longdesc] to
-    plain ASCII lines of text.  This is the slowest part of
-    autogeneration, so the results are memoized into a temporary
-    file. *)
+val pod2text : ?width:int -> ?trim:bool -> ?discard:bool -> string -> string -> string list
+  (** [pod2text ?width ?trim ?discard name longdesc] converts the POD in
+      [longdesc] to plain ASCII lines of text.
+
+      [width] is the width in characters.  If not specified, then
+      use the pod2text default.
+
+      [trim] means trim the left margin (useful when including the
+      output inside comments, as in Java generator).
+
+      [discard] means discard the first heading.
+
+      This is the slowest part of autogeneration, so the results are
+      memoized into a temporary file. *)
 
 val action_compare : Generator_types.action -> Generator_types.action -> int
-(** Compare the names of two actions, for sorting. *)
+  (** Compare the names of two actions, for sorting. *)
 
 val chars : char -> int -> string
 (** [chars c n] creates a string containing character c repeated n times. *)
