@@ -47,11 +47,14 @@ virt_df_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBVIRT_CFLAGS)
 
 virt_df_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
-	../gnulib/lib/libgnu.la -lm
+	../gnulib/lib/libgnu.la \
+	$(LIBVIRT_LIBS) \
+	-lm
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-df.1
