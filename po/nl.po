@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-25 18:53+0000\n"
+"POT-Creation-Date: 2010-11-26 14:47+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -20,6 +20,7 @@ msgstr ""
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
@@ -66,14 +67,14 @@ msgstr ""
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
-#: inspector/virt-inspector.c:129
+#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
-#: inspector/virt-inspector.c:151
+#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
@@ -2720,6 +2721,59 @@ msgstr "{path} komt niet overeen met augeas patroon"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
 
+#: rescue/virt-rescue.c:59
+#, fuzzy, c-format
+msgid ""
+"%s: Run a rescue shell on a virtual machine\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --append kernelopts  Append kernel options\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -m|--memsize MB      Set memory size in megabytes\n"
+"  --network            Enable network\n"
+"  -r|--ro              Access read-only\n"
+"  --selinux            Enable SELinux\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: FUSE module voor libguestfs\n"
+"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
+"  --fuse-help          Laat extra FUSE opties zien\n"
+"  --help               Laat hulp boodschap zien en sluit af\n"
+"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
+"  -n|--no-sync         Geen autosync\n"
+"  -o|--option opt      Geeft optie door aan FUSE\n"
+"  -r|--ro              Alleez-lezen aankoppelen\n"
+"  --selinux            Zet SELinux ondersteuning aan\n"
+"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Laat versie zien en sluit af\n"
+
+#: rescue/virt-rescue.c:173
+#, c-format
+msgid "%s: could not parse memory size '%s'\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:407
+#, fuzzy, c-format
+msgid "%s: unknown child exit status (%d)\n"
+msgstr "%s: onbekende lange optie: %s (%d)\n"
+
 #: src/appliance.c:142
 #, c-format
 msgid ""
@@ -3271,10 +3325,6 @@ msgstr ""
 "bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man "
 "pagina.\n"
 
-#: tools/virt-rescue.pl:222
-msgid "virt-rescue: no image or VM names rescue given"
-msgstr "virt-rescue: geen image of VM namen redding opgegeven"
-
 #: tools/virt-resize.pl:33
 msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
 msgstr "virt-resize: sorry, dit programma werkt niet op een 32-bit host\n"
@@ -3538,6 +3588,9 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
+
+#~ msgid "virt-rescue: no image or VM names rescue given"
+#~ msgstr "virt-rescue: geen image of VM namen redding opgegeven"
 
 #~ msgid "virt-df: cannot use -h and --csv options together\n"
 #~ msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"

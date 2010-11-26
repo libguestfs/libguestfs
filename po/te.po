@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-25 18:53+0000\n"
+"POT-Creation-Date: 2010-11-26 14:47+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -22,6 +22,7 @@ msgstr ""
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "అధిక సమాచారము కొరకు `%s --help' ప్రయత్నించండి\n"
@@ -68,14 +69,14 @@ msgstr ""
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
-#: inspector/virt-inspector.c:129
+#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: సంభాలికను సృష్టించుటకు విఫలమైంది\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
-#: inspector/virt-inspector.c:151
+#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: తెలియని long ఐచ్చికము: %s (%d)\n"
@@ -2692,6 +2693,59 @@ msgstr "మాదిరిని పోలిన వరుసలను తిప
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
+#: rescue/virt-rescue.c:59
+#, fuzzy, c-format
+msgid ""
+"%s: Run a rescue shell on a virtual machine\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --append kernelopts  Append kernel options\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -m|--memsize MB      Set memory size in megabytes\n"
+"  --network            Enable network\n"
+"  -r|--ro              Access read-only\n"
+"  --selinux            Enable SELinux\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: libguestfs కొరకు FUSE మాడ్యూల్\n"
+"%s మిమ్ములను వర్చ్యువల్ మిషన్ ఫైల్‌సిస్టమ్‌ను మౌంట్ చేయనిస్తుంది\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"వినియోగం:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  --help               Display help message and exit\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  --trace              Trace guestfs API calls (to stderr)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+
+#: rescue/virt-rescue.c:173
+#, fuzzy, c-format
+msgid "%s: could not parse memory size '%s'\n"
+msgstr "పరిమాణ వివరణలను పార్శ్ చేయలేకపోయింది '%s'\n"
+
+#: rescue/virt-rescue.c:407
+#, fuzzy, c-format
+msgid "%s: unknown child exit status (%d)\n"
+msgstr "%s: తెలియని long ఐచ్చికము: %s (%d)\n"
+
 #: src/appliance.c:142
 #, c-format
 msgid ""
@@ -3209,10 +3263,6 @@ msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
-msgstr ""
-
-#: tools/virt-rescue.pl:222
-msgid "virt-rescue: no image or VM names rescue given"
 msgstr ""
 
 #: tools/virt-resize.pl:33

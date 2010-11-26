@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-25 18:53+0000\n"
+"POT-Creation-Date: 2010-11-26 14:47+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
@@ -67,14 +68,14 @@ msgstr ""
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
-#: inspector/virt-inspector.c:129
+#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
-#: inspector/virt-inspector.c:151
+#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -2753,6 +2754,63 @@ msgstr "{path} nie zgadza się ze wzorem Augeas"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
 
+#: rescue/virt-rescue.c:59
+#, fuzzy, c-format
+msgid ""
+"%s: Run a rescue shell on a virtual machine\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --append kernelopts  Append kernel options\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -m|--memsize MB      Set memory size in megabytes\n"
+"  --network            Enable network\n"
+"  -r|--ro              Access read-only\n"
+"  --selinux            Enable SELinux\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: moduł FUSE dla biblioteki libguestfs\n"
+"%s umożliwia zamontowanie systemu plików maszyny wirtualnej\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Użycie:\n"
+"  %s [--opcje] [-- [--opcje-FUSE]] punkt_montowania\n"
+"Opcje:\n"
+"  -a|--add image       Dodaje obraz\n"
+"  --dir-cache-timeout  Ustawia czas oczekiwania na pamięć podręczną\n"
+"                       odczytania katalogu (domyślnie pięć sekund)\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --help               Wyświetla komunikat pomocy i kończy działanie\n"
+"  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
+"  -n|--no-sync         Nie synchronizuje automatycznie\n"
+"  -o|--option opt      Przekazuje dodatkowe opcje do FUSE\n"
+"  -r|--ro              Montuje w trybie tylko do odczytu\n"
+"  --selinux            Włącza obsługę SELinuksa\n"
+"  --trace              Śledzi wywołania API biblioteki guestfs (do\n"
+"                       standardowego wyjścia błędów)\n"
+"  -v|--verbose         Wyświetla więcej komunikatów\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
+
+#: rescue/virt-rescue.c:173
+#, fuzzy, c-format
+msgid "%s: could not parse memory size '%s'\n"
+msgstr "nie można przetworzyć rozmiaru partycji startowej"
+
+#: rescue/virt-rescue.c:407
+#, fuzzy, c-format
+msgid "%s: unknown child exit status (%d)\n"
+msgstr "%s: nieznana długa opcja: %s (%d)\n"
+
 #: src/appliance.c:142
 #, c-format
 msgid ""
@@ -3316,12 +3374,6 @@ msgstr ""
 "Błąd w tym miejscu zwykle oznacza, że program nie oszacował poprawnie\n"
 "rozmiar systemu plików. Proszę przeczytać sekcję BUGS strony podręcznika.\n"
 
-#: tools/virt-rescue.pl:222
-msgid "virt-rescue: no image or VM names rescue given"
-msgstr ""
-"virt-rescue: nie podano obrazu lub nazw maszyn wirtualnych dla polecenia "
-"rescue"
-
 #: tools/virt-resize.pl:33
 msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
 msgstr "virt-rescue: ten program nie działa na 32 bitowym gospodarzu\n"
@@ -3585,6 +3637,11 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
+
+#~ msgid "virt-rescue: no image or VM names rescue given"
+#~ msgstr ""
+#~ "virt-rescue: nie podano obrazu lub nazw maszyn wirtualnych dla polecenia "
+#~ "rescue"
 
 #~ msgid "virt-df: cannot use -h and --csv options together\n"
 #~ msgstr "virt-df: nie można używać opcji -h oraz --csv jednocześnie\n"

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.14\n"
+"Project-Id-Version: libguestfs 1.7.15\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2010-11-25 18:53+0000\n"
+"POT-Creation-Date: 2010-11-26 17:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: ENCODING"
 
 # type: =encoding
-#: ../src/guestfs.pod:1 ../fish/guestfish.pod:1 ../test-tool/libguestfs-test-tool.pod:1 ../fuse/guestmount.pod:1 ../tools/virt-edit.pl:30 ../tools/virt-win-reg.pl:33 ../tools/virt-resize.pl:38 ../tools/virt-list-filesystems.pl:28 ../tools/virt-tar.pl:29 ../tools/virt-rescue.pl:29 ../tools/virt-make-fs.pl:33 ../tools/virt-list-partitions.pl:28
+#: ../src/guestfs.pod:1 ../fish/guestfish.pod:1 ../test-tool/libguestfs-test-tool.pod:1 ../fuse/guestmount.pod:1 ../tools/virt-edit.pl:30 ../tools/virt-win-reg.pl:33 ../tools/virt-resize.pl:38 ../tools/virt-list-filesystems.pl:28 ../tools/virt-tar.pl:29 ../tools/virt-make-fs.pl:33 ../tools/virt-list-partitions.pl:28
 msgid "utf8"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-rescue.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
+#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
 msgid "NAME"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgid "guestfs - Library for accessing and modifying virtual machine images"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-rescue.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
+#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
 msgid "SYNOPSIS"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:24 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:72 ../tools/virt-rescue.pl:51 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
+#: ../src/guestfs.pod:24 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:72 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
 msgid "DESCRIPTION"
 msgstr ""
 
@@ -3888,7 +3888,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2032 ../fish/guestfish.pod:915 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:330 ../tools/virt-rescue.pl:255
+#: ../src/guestfs.pod:2032 ../fish/guestfish.pod:915 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:330
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
@@ -3993,7 +3993,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2082 ../fish/guestfish.pod:1039 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233 ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:484 ../tools/virt-resize.pl:1485 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:281 ../tools/virt-rescue.pl:267 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:257
+#: ../src/guestfs.pod:2082 ../fish/guestfish.pod:1039 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233 ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:484 ../tools/virt-resize.pl:1485 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr ""
 
@@ -4079,7 +4079,7 @@ msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:2151 ../fish/guestfish.pod:1062 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248 ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:514 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:296 ../tools/virt-rescue.pl:281 ../tools/virt-make-fs.pl:563 ../tools/virt-list-partitions.pl:273
+#: ../src/guestfs.pod:2151 ../fish/guestfish.pod:1062 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248 ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:514 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:296 ../tools/virt-make-fs.pl:563 ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -16433,7 +16433,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:23 ../fuse/guestmount.pod:15 ../tools/virt-edit.pl:44 ../tools/virt-win-reg.pl:51 ../tools/virt-tar.pl:59 ../tools/virt-rescue.pl:41
+#: ../fish/guestfish.pod:23 ../fuse/guestmount.pod:15 ../tools/virt-edit.pl:44 ../tools/virt-win-reg.pl:51 ../tools/virt-tar.pl:59
 msgid "WARNING"
 msgstr ""
 
@@ -16723,12 +16723,12 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72 ../tools/virt-win-reg.pl:171 ../tools/virt-resize.pl:256 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:98 ../tools/virt-rescue.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
+#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72 ../tools/virt-win-reg.pl:171 ../tools/virt-resize.pl:256 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:98 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
 msgid "OPTIONS"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:179 ../tools/virt-resize.pl:264 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:106 ../tools/virt-rescue.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
+#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:179 ../tools/virt-resize.pl:264 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:106 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
 msgid "B<--help>"
 msgstr ""
 
@@ -17125,7 +17125,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:317 ../tools/virt-rescue.pl:187
+#: ../fish/guestfish.pod:317
 msgid ""
 "The option must always be used if the disk image or virtual machine might be "
 "running, and is generally recommended in cases where you don't need write "
@@ -17145,7 +17145,7 @@ msgid "See also L</OPENING DISKS FOR READ AND WRITE> below."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:326 ../fuse/guestmount.pod:208 ../tools/virt-rescue.pl:195
+#: ../fish/guestfish.pod:326 ../fuse/guestmount.pod:208
 msgid "B<--selinux>"
 msgstr ""
 
@@ -18671,7 +18671,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1067 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370 ../tools/virt-win-reg.pl:518 ../tools/virt-resize.pl:1514 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:300 ../tools/virt-rescue.pl:285 ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
+#: ../fish/guestfish.pod:1067 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370 ../tools/virt-win-reg.pl:518 ../tools/virt-resize.pl:1514 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:300 ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -18680,7 +18680,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1072 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375 ../tools/virt-win-reg.pl:523 ../tools/virt-resize.pl:1519 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:305 ../tools/virt-rescue.pl:290 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
+#: ../fish/guestfish.pod:1072 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375 ../tools/virt-win-reg.pl:523 ../tools/virt-resize.pl:1519 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -18689,7 +18689,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1077 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380 ../tools/virt-win-reg.pl:528 ../tools/virt-resize.pl:1524 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:310 ../tools/virt-rescue.pl:295 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
+#: ../fish/guestfish.pod:1077 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380 ../tools/virt-win-reg.pl:528 ../tools/virt-resize.pl:1524 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:310 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -25589,17 +25589,17 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:181 ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:108 ../tools/virt-rescue.pl:113 ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
+#: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:181 ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:108 ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
 msgid "Display brief help."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:88 ../tools/virt-win-reg.pl:187 ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:114 ../tools/virt-rescue.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
+#: ../tools/virt-edit.pl:88 ../tools/virt-win-reg.pl:187 ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:114 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
 msgid "B<--version>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:189 ../tools/virt-resize.pl:274 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:116 ../tools/virt-rescue.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
+#: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:189 ../tools/virt-resize.pl:274 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:116 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
 msgid "Display version number and exit."
 msgstr ""
 
@@ -25636,38 +25636,38 @@ msgid "By default, no backup file is made."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:203 ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:122 ../tools/virt-rescue.pl:135 ../tools/virt-list-partitions.pl:78
+#: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:203 ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:122 ../tools/virt-list-partitions.pl:78
 msgid "B<--connect URI> | B<-c URI>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:205 ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:124 ../tools/virt-rescue.pl:137 ../tools/virt-list-partitions.pl:80
+#: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:205 ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:124 ../tools/virt-list-partitions.pl:80
 msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:208 ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:127 ../tools/virt-rescue.pl:140 ../tools/virt-list-partitions.pl:83
+#: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:208 ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:127 ../tools/virt-list-partitions.pl:83
 msgid ""
 "If you specify guest block devices directly, then libvirt is not used at "
 "all."
 msgstr ""
 
 # type: =item
-#: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:215 ../tools/virt-resize.pl:522 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:134 ../tools/virt-rescue.pl:147 ../tools/virt-list-partitions.pl:90
+#: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:215 ../tools/virt-resize.pl:522 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:134 ../tools/virt-list-partitions.pl:90
 msgid "B<--format> raw"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:217 ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:136 ../tools/virt-rescue.pl:149 ../tools/virt-list-partitions.pl:92
+#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:217 ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:136 ../tools/virt-list-partitions.pl:92
 msgid ""
 "Specify the format of disk images given on the command line.  If this is "
 "omitted then the format is autodetected from the content of the disk image."
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:221 ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:140 ../tools/virt-rescue.pl:153 ../tools/virt-list-partitions.pl:96
+#: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:221 ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:140 ../tools/virt-list-partitions.pl:96
 msgid ""
 "If disk images are requested from libvirt, then this program asks libvirt "
 "for this information.  In this case, the value of the format parameter is "
@@ -25675,7 +25675,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:225 ../tools/virt-resize.pl:527 ../tools/virt-resize.pl:542 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:144 ../tools/virt-rescue.pl:157 ../tools/virt-list-partitions.pl:100
+#: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:225 ../tools/virt-resize.pl:527 ../tools/virt-resize.pl:542 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:144 ../tools/virt-list-partitions.pl:100
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
 "the format is always specified."
@@ -25859,12 +25859,12 @@ msgid "If not set, C<vi> is used."
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:141 ../tools/virt-win-reg.pl:477 ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:274 ../tools/virt-rescue.pl:260 ../tools/virt-make-fs.pl:527 ../tools/virt-list-partitions.pl:250
+#: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:141 ../tools/virt-win-reg.pl:477 ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:274 ../tools/virt-make-fs.pl:527 ../tools/virt-list-partitions.pl:250
 msgid "SHELL QUOTING"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:479 ../tools/virt-resize.pl:1480 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:276 ../tools/virt-rescue.pl:262 ../tools/virt-make-fs.pl:529 ../tools/virt-list-partitions.pl:252
+#: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:479 ../tools/virt-resize.pl:1480 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:276 ../tools/virt-make-fs.pl:529 ../tools/virt-list-partitions.pl:252
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -25881,17 +25881,17 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:510 ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:292 ../tools/virt-rescue.pl:277 ../tools/virt-make-fs.pl:559 ../tools/virt-list-partitions.pl:269
+#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:510 ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:292 ../tools/virt-make-fs.pl:559 ../tools/virt-list-partitions.pl:269
 msgid "AUTHOR"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:512 ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:294 ../tools/virt-rescue.pl:279 ../tools/virt-make-fs.pl:561 ../tools/virt-list-partitions.pl:271
+#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:512 ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:294 ../tools/virt-make-fs.pl:561 ../tools/virt-list-partitions.pl:271
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 # type: textblock
-#: ../tools/virt-edit.pl:368 ../tools/virt-rescue.pl:283 ../tools/virt-list-partitions.pl:275
+#: ../tools/virt-edit.pl:368 ../tools/virt-list-partitions.pl:275
 msgid "Copyright (C) 2009-2010 Red Hat Inc."
 msgstr ""
 
@@ -27174,8 +27174,8 @@ msgid ""
 "See L</QCOW2 AND NON-SPARSE RAW FORMATS>."
 msgstr ""
 
-# type: =head2
-#: ../tools/virt-resize.pl:1421 ../tools/virt-rescue.pl:90
+# type: =head1
+#: ../tools/virt-resize.pl:1421
 msgid "NOTES"
 msgstr ""
 
@@ -27557,209 +27557,6 @@ msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
 "L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, "
 "L<http://libguestfs.org/>."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:33
-msgid "virt-rescue - Run a rescue shell on a virtual machine"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-rescue.pl:37
-#, no-wrap
-msgid ""
-" virt-rescue [--options] domname\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-rescue.pl:39
-#, no-wrap
-msgid ""
-" virt-rescue [--options] disk.img [disk.img ...]\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:43
-msgid ""
-"You must I<not> use C<virt-rescue> on live virtual machines.  Doing so will "
-"probably result in disk corruption in the VM.  C<virt-rescue> tries to stop "
-"you from doing this, but doesn't catch all cases."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:47
-msgid ""
-"However if you use the I<--ro> (read only) option, then you can attach a "
-"shell to a live virtual machine.  The results might be strange or "
-"inconsistent at times but you won't get disk corruption."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:53
-msgid ""
-"virt-rescue is like a Rescue CD, but for virtual machines, and without the "
-"need for a CD.  virt-rescue gives you a rescue shell and some simple "
-"recovery tools which you can use to examine or rescue a virtual machine or "
-"disk image."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:58
-msgid ""
-"You can run virt-rescue on any virtual machine known to libvirt, or directly "
-"on disk image(s):"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-rescue.pl:61
-#, no-wrap
-msgid ""
-" virt-rescue GuestName\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-rescue.pl:63
-#, no-wrap
-msgid ""
-" virt-rescue --ro /path/to/disk.img\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-rescue.pl:65
-#, no-wrap
-msgid ""
-" virt-rescue /dev/sdc\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:67
-msgid "For live VMs you I<must> use the --ro option."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:69
-msgid ""
-"When you run virt-rescue on a virtual machine or disk image, you are placed "
-"in an interactive bash shell where you can use many ordinary Linux "
-"commands.  What you see in C</> (C</bin>, C</lib> etc) is the rescue "
-"appliance.  You must mount the virtual machine's filesystems by hand.  There "
-"is an empty directory called C</sysroot> where you can mount filesystems."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:76
-msgid ""
-"In the example below, we list logical volumes, then choose one to mount "
-"under C</sysroot>:"
-msgstr ""
-
-# type: verbatim
-#: ../tools/virt-rescue.pl:79
-#, no-wrap
-msgid ""
-" ><rescue> lvs\n"
-" LV      VG        Attr   LSize   Origin Snap%  Move Log Copy%  Convert\n"
-" lv_root vg_f11x64 -wi-a-   8.83G\n"
-" lv_swap vg_f11x64 -wi-a- 992.00M\n"
-" ><rescue> mount /dev/vg_f11x64/lv_root /sysroot\n"
-" ><rescue> ls /sysroot\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:86
-msgid ""
-"If you don't know what filesystems are available on the virtual machine then "
-"you can use commands such as L<parted(8)> and L<lvs(8)> to find out."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:92
-msgid ""
-"Virt-rescue can be used on I<any> disk image file or device, not just a "
-"virtual machine.  For example you can use it on a blank file if you want to "
-"partition that file (although we would recommend using L<guestfish(1)> "
-"instead as it is more suitable for this purpose).  You can even use "
-"virt-rescue on things like SD cards."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:98
-msgid ""
-"This tool is just designed for quick interactive hacking on a virtual "
-"machine.  For more structured access to a virtual machine disk image, you "
-"should use L<guestfs(3)>.  To get a structured shell that you can use to "
-"make scripted changes to guests, use L<guestfish(1)>."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-rescue.pl:127
-msgid "B<--append kernelopts>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:129
-msgid "Pass additional options to the rescue kernel."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-rescue.pl:164
-msgid "B<--memsize MB> | B<-m MB>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:166
-msgid ""
-"Change the amount of memory allocated to the rescue system.  The default is "
-"set by libguestfs and is small but adequate for running system tools.  The "
-"occasional program might need more memory.  The parameter is specified in "
-"megabytes."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-rescue.pl:175
-msgid "B<--network>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:177
-msgid "Enable QEMU user networking in the guest."
-msgstr ""
-
-# type: =item
-#: ../tools/virt-rescue.pl:183
-msgid "B<--ro> | B<-r>"
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:185
-msgid "Open the image read-only."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:197
-msgid ""
-"Enable SELinux in the rescue appliance.  You should read "
-"L<guestfs(3)/SELINUX> before using this option."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:257
-msgid ""
-"Several environment variables affect virt-rescue.  See "
-"L<guestfs(3)/ENVIRONMENT VARIABLES> for the complete list."
-msgstr ""
-
-# type: textblock
-#: ../tools/virt-rescue.pl:269
-msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<Sys::Guestfs(3)>, "
-"L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 # type: textblock
