@@ -61,8 +61,10 @@ checksum (const char *csumtype, int fd)
   int len;
 
   program = program_of_csum (csumtype);
-  if (program == NULL)
+  if (program == NULL) {
+    close (fd);
     return NULL;
+  }
 
   flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
   r = commandf (&out, &err, flags, program, NULL);
