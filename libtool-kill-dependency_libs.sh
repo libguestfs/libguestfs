@@ -49,9 +49,12 @@ done
 # Run libtool as normal.
 #echo "${args[@]}"
 "${args[@]}"
-mv "$output" "$output.tmp"
 
-# Remove dependency_libs from output.
-sed "s/^dependency_libs=.*/dependency_libs=''/" < "$output.tmp" > "$output"
-chmod --reference="$output.tmp" "$output"
-rm "$output.tmp"
+if [ -n "$output" ]; then
+    mv "$output" "$output.tmp"
+
+    # Remove dependency_libs from output.
+    sed "s/^dependency_libs=.*/dependency_libs=''/" < "$output.tmp" > "$output"
+    chmod --reference="$output.tmp" "$output"
+    rm "$output.tmp"
+fi
