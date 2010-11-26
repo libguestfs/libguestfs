@@ -152,7 +152,7 @@ ruby/
         Ruby bindings.
 
 tools/
-        Command line tools like virt-df, virt-edit and more.
+        Command line tools written in Perl (virt-resize and more).
 
 src/
         Source code to the C library.
