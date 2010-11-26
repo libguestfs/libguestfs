@@ -92,7 +92,11 @@ EXTRA_DIST = \
 	bindtests \
 	.gitignore \
 	m4/.gitignore \
-	libtool-kill-dependency_libs.sh
+	libtool-kill-dependency_libs.sh \
+	autogen.sh \
+	bugs-in-changelog.sh \
+	relink-static.sh \
+	update-bugs.sh
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
