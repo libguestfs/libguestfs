@@ -91,7 +91,8 @@ EXTRA_DIST = \
 	contrib/README \
 	bindtests \
 	.gitignore \
-	m4/.gitignore
+	m4/.gitignore \
+	libtool-kill-dependency_libs.sh
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
