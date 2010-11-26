@@ -531,24 +531,6 @@ set_up_terminal (void)
   have_terminfo = 1;
 }
 
-void
-pod2text (const char *name, const char *shortdesc, const char *str)
-{
-  FILE *fp;
-
-  fp = popen ("pod2text", "w");
-  if (fp == NULL) {
-    /* pod2text failed, maybe not found, so let's just print the
-     * source instead, since that's better than doing nothing.
-     */
-    printf ("%s - %s\n\n%s\n", name, shortdesc, str);
-    return;
-  }
-  fprintf (fp, "=head1 NAME\n\n%s - %s\n\n", name, shortdesc);
-  fputs (str, fp);
-  pclose (fp);
-}
-
 static void
 prepare_drives (struct drv *drv)
 {

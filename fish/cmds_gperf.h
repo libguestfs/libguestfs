@@ -23,10 +23,8 @@
  * guestfish can execute.
  */
 struct command_entry {
-  /* These fields are passed to pod2text to implement the online help. */
-  const char *name;
-  const char *shortdesc;
-  const char *podbody;
+  const char *name;             /* Short name. */
+  const char *help;             /* Online help. */
 
   /* The run_* function. */
   int (*run) (const char *cmd, size_t argc, char *argv[]);

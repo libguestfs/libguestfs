@@ -76,11 +76,7 @@ let generate_fish_cmds () =
   (* List of command_entry structs. *)
   List.iter (
     fun (name, _, _, flags, _, shortdesc, longdesc) ->
-      pr "struct command_entry %s_cmd_entry = {\n" name;
-
       let name2 = replace_char name '_' '-' in
-      pr "  .name = \"%s\",\n" name2;
-
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
       let describe_alias =
@@ -89,10 +85,16 @@ let generate_fish_cmds () =
             (String.concat " or " (List.map (fun s -> "'" ^ s ^ "'") aliases))
         else "" in
 
-      pr "  .shortdesc = \"%s\",\n" shortdesc;
-      pr "  .podbody = %S,\n"
-        ("=head1 DESCRIPTION\n\n" ^ longdesc ^ describe_alias);
+      let pod =
+        sprintf "%s - %s\n\n=head1 DESCRIPTION\n\n%s\n\n%s"
+          name2 shortdesc longdesc describe_alias in
+      let text =
+        String.concat "\n" (pod2text ~trim:false ~discard:false "NAME" pod)
+        ^ "\n" in
 
+      pr "struct command_entry %s_cmd_entry = {\n" name;
+      pr "  .name = \"%s\",\n" name2;
+      pr "  .help = \"%s\",\n" (c_quote text);
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
@@ -100,11 +102,7 @@ let generate_fish_cmds () =
 
   List.iter (
     fun (name, (_, args, optargs), _, flags, _, shortdesc, longdesc) ->
-      pr "struct command_entry %s_cmd_entry = {\n" name;
-
       let name2 = replace_char name '_' '-' in
-      pr "  .name = \"%s\",\n" name2;
-
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
 
@@ -155,12 +153,16 @@ Guestfish will prompt for these separately."
             (String.concat " or " (List.map (fun s -> "'" ^ s ^ "'") aliases))
         else "" in
 
-      pr "  .shortdesc = \"%s\",\n" shortdesc;
-      pr "  .podbody = %S,\n"
-        ("=head1 SYNOPSIS\n\n " ^ synopsis ^ "\n\n" ^
-         "=head1 DESCRIPTION\n\n" ^
-         longdesc ^ warnings ^ describe_alias);
+      let pod =
+        sprintf "%s - %s\n\n=head1 SYNOPSIS\n\n %s\n\n=head1 DESCRIPTION\n\n%s%s%s"
+          name2 shortdesc synopsis longdesc warnings describe_alias in
+      let text =
+        String.concat "\n" (pod2text ~trim:false ~discard:false "NAME" pod)
+        ^ "\n" in
 
+      pr "struct command_entry %s_cmd_entry = {\n" name;
+      pr "  .name = \"%s\",\n" name2;
+      pr "  .help = \"%s\",\n" (c_quote text);
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
@@ -189,7 +191,7 @@ Guestfish will prompt for these separately."
   pr "\n";
   pr "  ct = lookup_fish_command (cmd, strlen (cmd));\n";
   pr "  if (ct) {\n";
-  pr "    pod2text (ct->entry->name, ct->entry->shortdesc, ct->entry->podbody);\n";
+  pr "    fputs (ct->entry->help, stdout);\n";
   pr "    return 0;\n";
   pr "  }\n";
   pr "  else\n";
