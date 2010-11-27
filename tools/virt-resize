@@ -172,9 +172,7 @@ PV, then if virt-resize knows how, it will resize the contents, the
 equivalent of calling a command such as L<pvresize(8)>,
 L<resize2fs(8)> or L<ntfsresize(8)>.  However virt-resize does not
 know how to resize some filesystems, so you would have to online
-resize them after booting the guest.  And virt-resize also does not
-resize anything inside an LVM PV, it just resizes the PV itself and
-leaves the user to resize any LVs inside that PV as desired.
+resize them after booting the guest.
 
 Other options are covered below.
 
@@ -361,9 +359,9 @@ Windows will check the disk.
 
 =item *
 
-LVM PVs (physical volumes).  However virt-resize does I<not>
-resize anything inside the PV.  The user will have to resize
-LVs as desired.
+LVM PVs (physical volumes).  virt-resize does not usually resize
+anything inside the PV, but see the C<--LV-expand> option.  The user
+could also resize LVs as desired after boot.
 
 =back
 
