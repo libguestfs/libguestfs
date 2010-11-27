@@ -153,7 +153,7 @@ you can specify this flag to see what you are typing.
 
 =item B<--extra>
 
-This causes filesystems that are not normally, mountable filesystems
+This causes filesystems that are not ordinary, mountable filesystems
 to be displayed.  This category includes swapspace, and filesystems
 that are empty or contain unknown data.
 
