@@ -100,8 +100,7 @@ auto-detection for C<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
-security problem with malicious guests (CVE-2010-3851).  See also
-L</add-drive-opts>.
+security problem with malicious guests (CVE-2010-3851).
 
 =item B<-h>
 
