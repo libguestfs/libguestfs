@@ -27,7 +27,7 @@ use Getopt::Long;
 use File::Temp qw(tempfile tempdir);
 use POSIX qw(mkfifo floor);
 use Data::Dumper;
-use String::ShellQuote qw(shell_quote);
+use Carp qw(croak);
 use Locale::TextDomain 'libguestfs';
 use Fcntl qw(SEEK_SET);
 
@@ -617,6 +617,88 @@ sub create_pipe
     return $pipe;
 }
 
+# Avoid having to depend on external String::ShellQuote package
+# by including the code here.
+
+# $Id: ShellQuote.pm,v 1.9 2005/05/03 10:53:33 roderick Exp $
+#
+# Copyright (c) 1997 Roderick Schertler.  All rights reserved.  This
+# program is free software; you can redistribute it and/or modify it
+# under the same terms as Perl itself.
+
+sub _shell_quote_backend {
+    my @in = @_;
+    my @err = ();
+
+    if (0) {
+	require RS::Handy;
+	print RS::Handy::data_dump(\@in);
+    }
+
+    return \@err, '' unless @in;
+
+    my $ret = '';
+    foreach (@in) {
+	if (!defined $_ or $_ eq '') {
+	    $_ = "''";
+	    next;
+	}
+
+	if (s/\x00//g) {
+	    push @err, "No way to quote string containing null (\\000) bytes";
+	}
+
+	# = does need quoting else in command position it's a program-local
+	# environment setting
+
+	if (m|[^\w!%+,\-./:@^]|) {
+
+	    # ' -> '\''
+    	    s/'/'\\''/g;
+
+	    # make multiple ' in a row look simpler
+	    # '\'''\'''\'' -> '"'''"'
+    	    s|((?:'\\''){2,})|q{'"} . (q{'} x (length($1) / 4)) . q{"'}|ge;
+
+	    $_ = "'$_'";
+	    s/^''//;
+	    s/''$//;
+	}
+    }
+    continue {
+	$ret .= "$_ ";
+    }
+
+    chop $ret;
+    return \@err, $ret;
+}
+
+#=item B<shell_quote> [I<string>]...
+#
+#B<shell_quote> quotes strings so they can be passed through the shell.
+#Each I<string> is quoted so that the shell will pass it along as a
+#single argument and without further interpretation.  If no I<string>s
+#are given an empty string is returned.
+#
+#If any I<string> can't be safely quoted B<shell_quote> will B<croak>.
+#
+#=cut
+
+sub shell_quote {
+    my ($rerr, $s) = _shell_quote_backend @_;
+
+    if (@$rerr) {
+    	my %seen;
+    	@$rerr = grep { !$seen{$_}++ } @$rerr;
+	my $s = join '', map { "shell_quote(): $_\n" } @$rerr;
+	chomp $s;
+	croak $s;
+    }
+    return $s;
+}
+
+#----------------------------------------------------------------------
+
 =head1 SHELL QUOTING
 
 Libvirt guest names can contain arbitrary characters, some of which
@@ -646,3 +728,10 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 =head1 COPYRIGHT
 
 Copyright (C) 2010-2012 Red Hat Inc.
+
+Contains code from perl String::ShellQuote under the following
+copyright and license:
+
+Copyright (c) 1997 Roderick Schertler.  All rights reserved.  This
+program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
