@@ -279,6 +279,8 @@ main (int argc, char *argv[])
     switch (drvs->type) {
     case drv_a:
       name = strrchr (drvs->a.filename, '/');
+      if (name == NULL)
+        name = drvs->a.filename;
       break;
     case drv_d:
       name = drvs->d.guest;
