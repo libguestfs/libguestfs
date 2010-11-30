@@ -1,5 +1,5 @@
 (* libguestfs OCaml bindings
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,27 +16,50 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *)
 
+(* Test basic functionality. *)
+
 open Unix
 
 let () =
-  let g = Guestfs.create () in
+  let g = new Guestfs.guestfs () in
 
   let fd = openfile "test.img" [O_WRONLY;O_CREAT;O_NOCTTY;O_TRUNC] 0o666 in
   ftruncate fd (500 * 1024 * 1024);
   close fd;
 
-  Guestfs.add_drive g "test.img";
-  Guestfs.launch g;
+  g#set_autosync true;
 
-  Guestfs.pvcreate g "/dev/sda";
-  Guestfs.vgcreate g "VG" [|"/dev/sda"|];
-  Guestfs.lvcreate g "LV1" "VG" 200;
-  Guestfs.lvcreate g "LV2" "VG" 200;
+  g#add_drive "test.img";
+  g#launch ();
 
-  let lvs = Guestfs.lvs g in
+  g#pvcreate "/dev/sda";
+  g#vgcreate "VG" [|"/dev/sda"|];
+  g#lvcreate "LV1" "VG" 200;
+  g#lvcreate "LV2" "VG" 200;
+
+  let lvs = g#lvs () in
   if lvs <> [|"/dev/VG/LV1"; "/dev/VG/LV2"|] then
     failwith "Guestfs.lvs returned incorrect result";
 
-  Guestfs.sync g;
-  Guestfs.close g;
+  g#mkfs "ext2" "/dev/VG/LV1";
+  g#mount_options "" "/dev/VG/LV1" "/";
+  g#mkdir "/p";
+  g#touch "/q";
+
+  let dirs = g#readdir "/" in
+  let dirs = Array.to_list dirs in
+  let cmp { Guestfs.name = n1 } { Guestfs.name = n2 } = compare n1 n2 in
+  let dirs = List.sort cmp dirs in
+  let dirs = List.map (
+    fun { Guestfs.name = name; Guestfs.ftyp = ftyp } -> (name, ftyp)
+  ) dirs in
+
+  if dirs <> [ ".", 'd';
+               "..", 'd';
+               "lost+found", 'd';
+               "p", 'd';
+               "q", 'r' ] then
+    failwith "Guestfs.readdir returned incorrect result";
+
+  g#close ();
   unlink "test.img"

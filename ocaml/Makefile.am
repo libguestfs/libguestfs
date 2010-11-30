@@ -62,13 +62,15 @@ TESTS_ENVIRONMENT = \
 	$(VG)
 
 TESTS = run-bindtests \
-	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_070_threads \
+	t/guestfs_005_load \
+	t/guestfs_010_basic \
+	t/guestfs_070_threads \
 	t/guestfs_080_optargs \
 	t/guestfs_400_progress
 noinst_DATA += bindtests \
-	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_070_threads \
+	t/guestfs_005_load \
+	t/guestfs_010_basic \
+	t/guestfs_070_threads \
 	t/guestfs_080_optargs \
 	t/guestfs_400_progress
 
@@ -80,15 +82,7 @@ t/guestfs_005_load: t/guestfs_005_load.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_010_launch: t/guestfs_010_launch.cmx mlguestfs.cmxa
-	mkdir -p t
-	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
-
-t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.cmx mlguestfs.cmxa
-	mkdir -p t
-	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
-
-t/guestfs_060_readdir: t/guestfs_060_readdir.cmx mlguestfs.cmxa
+t/guestfs_010_basic: t/guestfs_010_basic.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
