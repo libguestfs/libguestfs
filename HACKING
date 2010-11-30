@@ -69,7 +69,7 @@ appliance/
         The qemu appliance, build scripts and so on.
 
 capitests/
-        Automated tests of the C API.
+        Automated tests of the C API.  See "Tests" below.
 
 cat/
         The 'virt-cat', 'virt-filesystems' and 'virt-ls' commands and
@@ -162,6 +162,41 @@ src/
 
 test-tool/
         Interactive qemu/kernel test tool.
+
+Tests
+----------------------------------------------------------------------
+
+You can supply zero or as many tests as you want per API call.
+
+Note that the test environment has 3 block devices, of size 500MB,
+50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc), and
+a fourth ISO block device with some known files on it (/dev/sdd).
+
+Note for partitioning purposes, the 500MB device has 1015 cylinders.
+Number of cylinders was 63 for IDE emulated disks with precisely
+the same size.  How exactly this is calculated is a mystery.
+
+The ISO block device (/dev/sdd) comes from images/test.iso.
+
+To be able to run the tests in a reasonable amount of time,
+the virtual machine and block devices are reused between tests.
+So don't try testing kill_subprocess :-x
+
+Between each test we blockdev-setrw, umount-all, lvm-remove-all.
+
+Don't assume anything about the previous contents of the block
+devices.  Use 'Init*' to create some initial scenarios.
+
+You can add a prerequisite clause to any individual test.  This
+is a run-time check, which, if it fails, causes the test to be
+skipped.  Useful if testing a command which might not work on
+all variations of libguestfs builds.  A test that has prerequisite
+of 'Always' is run unconditionally.
+
+In addition, packagers can skip individual tests by setting the
+environment variables:     eg:
+  SKIP_TEST_<CMD>_<NUM>=1  SKIP_TEST_COMMAND_3=1  (skips test #3 of command)
+  SKIP_TEST_<CMD>=1        SKIP_TEST_ZEROFREE=1   (skips all zerofree tests)
 
 Debugging
 ----------------------------------------------------------------------
