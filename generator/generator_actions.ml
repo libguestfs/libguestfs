@@ -1342,9 +1342,9 @@ You should always call this if you have modified a disk image, before
 closing the handle.");
 
   ("touch", (RErr, [Pathname "path"], []), 3, [],
-   [InitBasicFS, Always, TestOutputTrue (
-      [["touch"; "/new"];
-       ["exists"; "/new"]])],
+   [InitScratchFS, Always, TestOutputTrue (
+      [["touch"; "/touch"];
+       ["exists"; "/touch"]])],
    "update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
@@ -1379,11 +1379,12 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
   ("ls", (RStringList "listing", [Pathname "directory"], []), 6, [],
-   [InitBasicFS, Always, TestOutputList (
-      [["touch"; "/new"];
-       ["touch"; "/newer"];
-       ["touch"; "/newest"];
-       ["ls"; "/"]], ["lost+found"; "new"; "newer"; "newest"])],
+   [InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/ls"];
+       ["touch"; "/ls/new"];
+       ["touch"; "/ls/newer"];
+       ["touch"; "/ls/newest"];
+       ["ls"; "/ls"]], ["new"; "newer"; "newest"])],
    "list the files in a directory",
    "\
 List the files in C<directory> (relative to the root directory,
@@ -1700,38 +1701,40 @@ This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
   ("rm", (RErr, [Pathname "path"], []), 29, [],
-   [InitBasicFS, Always, TestRun
-      [["touch"; "/new"];
-       ["rm"; "/new"]];
-    InitBasicFS, Always, TestLastFail
-      [["rm"; "/new"]];
-    InitBasicFS, Always, TestLastFail
-      [["mkdir"; "/new"];
-       ["rm"; "/new"]]],
+   [InitScratchFS, Always, TestRun
+      [["mkdir"; "/rm"];
+       ["touch"; "/rm/new"];
+       ["rm"; "/rm/new"]];
+    InitScratchFS, Always, TestLastFail
+      [["rm"; "/nosuchfile"]];
+    InitScratchFS, Always, TestLastFail
+      [["mkdir"; "/rm2"];
+       ["rm"; "/rm2"]]],
    "remove a file",
    "\
 Remove the single file C<path>.");
 
   ("rmdir", (RErr, [Pathname "path"], []), 30, [],
-   [InitBasicFS, Always, TestRun
-      [["mkdir"; "/new"];
-       ["rmdir"; "/new"]];
-    InitBasicFS, Always, TestLastFail
-      [["rmdir"; "/new"]];
-    InitBasicFS, Always, TestLastFail
-      [["touch"; "/new"];
-       ["rmdir"; "/new"]]],
+   [InitScratchFS, Always, TestRun
+      [["mkdir"; "/rmdir"];
+       ["rmdir"; "/rmdir"]];
+    InitScratchFS, Always, TestLastFail
+      [["rmdir"; "/rmdir2"]];
+    InitScratchFS, Always, TestLastFail
+      [["mkdir"; "/rmdir3"];
+       ["touch"; "/rmdir3/new"];
+       ["rmdir"; "/rmdir3/new"]]],
    "remove a directory",
    "\
 Remove the single directory C<path>.");
 
   ("rm_rf", (RErr, [Pathname "path"], []), 31, [],
-   [InitBasicFS, Always, TestOutputFalse
-      [["mkdir"; "/new"];
-       ["mkdir"; "/new/foo"];
-       ["touch"; "/new/foo/bar"];
-       ["rm_rf"; "/new"];
-       ["exists"; "/new"]]],
+   [InitScratchFS, Always, TestOutputFalse
+      [["mkdir"; "/rm_rf"];
+       ["mkdir"; "/rm_rf/foo"];
+       ["touch"; "/rm_rf/foo/bar"];
+       ["rm_rf"; "/rm_rf"];
+       ["exists"; "/rm_rf"]]],
    "remove a file or directory recursively",
    "\
 Remove the file or directory C<path>, recursively removing the
@@ -1739,32 +1742,32 @@ contents if its a directory.  This is like the C<rm -rf> shell
 command.");
 
   ("mkdir", (RErr, [Pathname "path"], []), 32, [],
-   [InitBasicFS, Always, TestOutputTrue
-      [["mkdir"; "/new"];
-       ["is_dir"; "/new"]];
-    InitBasicFS, Always, TestLastFail
-      [["mkdir"; "/new/foo/bar"]]],
+   [InitScratchFS, Always, TestOutputTrue
+      [["mkdir"; "/mkdir"];
+       ["is_dir"; "/mkdir"]];
+    InitScratchFS, Always, TestLastFail
+      [["mkdir"; "/mkdir2/foo/bar"]]],
    "create a directory",
    "\
 Create a directory named C<path>.");
 
   ("mkdir_p", (RErr, [Pathname "path"], []), 33, [],
-   [InitBasicFS, Always, TestOutputTrue
-      [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new/foo/bar"]];
-    InitBasicFS, Always, TestOutputTrue
-      [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new/foo"]];
-    InitBasicFS, Always, TestOutputTrue
-      [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new"]];
+   [InitScratchFS, Always, TestOutputTrue
+      [["mkdir_p"; "/mkdir_p/foo/bar"];
+       ["is_dir"; "/mkdir_p/foo/bar"]];
+    InitScratchFS, Always, TestOutputTrue
+      [["mkdir_p"; "/mkdir_p2/foo/bar"];
+       ["is_dir"; "/mkdir_p2/foo"]];
+    InitScratchFS, Always, TestOutputTrue
+      [["mkdir_p"; "/mkdir_p3/foo/bar"];
+       ["is_dir"; "/mkdir_p3"]];
     (* Regression tests for RHBZ#503133: *)
-    InitBasicFS, Always, TestRun
-      [["mkdir"; "/new"];
-       ["mkdir_p"; "/new"]];
-    InitBasicFS, Always, TestLastFail
-      [["touch"; "/new"];
-       ["mkdir_p"; "/new"]]],
+    InitScratchFS, Always, TestRun
+      [["mkdir"; "/mkdir_p4"];
+       ["mkdir_p"; "/mkdir_p4"]];
+    InitScratchFS, Always, TestLastFail
+      [["touch"; "/mkdir_p5"];
+       ["mkdir_p"; "/mkdir_p5"]]],
    "create a directory and parents",
    "\
 Create a directory named C<path>, creating any parent directories
@@ -1932,8 +1935,8 @@ C<guestfs_part_init>");
 
   ("write_file", (RErr, [Pathname "path"; String "content"; Int "size"], []), 44, [ProtocolLimitWarning; DeprecatedBy "write"],
    (* Regression test for RHBZ#597135. *)
-   [InitBasicFS, Always, TestLastFail
-      [["write_file"; "/new"; "abc"; "10000"]]],
+   [InitScratchFS, Always, TestLastFail
+      [["write_file"; "/write_file"; "abc"; "10000"]]],
    "create a file",
    "\
 This call creates a file called C<path>.  The contents of the
@@ -1966,8 +1969,8 @@ specified either by its mountpoint (path) or the device which
 contains the filesystem.");
 
   ("mounts", (RStringList "devices", [], []), 46, [],
-   [InitBasicFS, Always, TestOutputListOfDevices (
-      [["mounts"]], ["/dev/sda1"])],
+   [InitScratchFS, Always, TestOutputListOfDevices (
+      [["mounts"]], ["/dev/sdb1"])],
    "show mounted filesystems",
    "\
 This returns the list of currently mounted filesystems.  It returns
@@ -1978,7 +1981,7 @@ Some internal mounts are not shown.
 See also: C<guestfs_mountpoints>");
 
   ("umount_all", (RErr, [], []), 47, [FishAlias "unmount-all"],
-   [InitBasicFS, Always, TestOutputList (
+   [InitScratchFS, Always, TestOutputList (
       [["umount_all"];
        ["mounts"]], []);
     (* check that umount_all can unmount nested mounts correctly: *)
@@ -2045,54 +2048,66 @@ For other file types (directory, symbolic link etc) it
 will just return the string C<directory> etc.");
 
   ("command", (RString "output", [StringList "arguments"], []), 50, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 1"]], "Result1");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 2"]], "Result2\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 3"]], "\nResult3");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 4"]], "\nResult4\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 5"]], "\nResult5\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 6"]], "\n\nResult6\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 7"]], "");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 8"]], "\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 9"]], "\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 10"]], "Result10-1\nResult10-2\n");
-    InitBasicFS, Always, TestOutput (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command 11"]], "Result11-1\nResult11-2");
-    InitBasicFS, Always, TestLastFail (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command"; "/test-command"]])],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command"];
+       ["upload"; "test-command"; "/command/test-command"];
+       ["chmod"; "0o755"; "/command/test-command"];
+       ["command"; "/command/test-command 1"]], "Result1");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command2"];
+       ["upload"; "test-command"; "/command2/test-command"];
+       ["chmod"; "0o755"; "/command2/test-command"];
+       ["command"; "/command2/test-command 2"]], "Result2\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command3"];
+       ["upload"; "test-command"; "/command3/test-command"];
+       ["chmod"; "0o755"; "/command3/test-command"];
+       ["command"; "/command3/test-command 3"]], "\nResult3");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command4"];
+       ["upload"; "test-command"; "/command4/test-command"];
+       ["chmod"; "0o755"; "/command4/test-command"];
+       ["command"; "/command4/test-command 4"]], "\nResult4\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command5"];
+       ["upload"; "test-command"; "/command5/test-command"];
+       ["chmod"; "0o755"; "/command5/test-command"];
+       ["command"; "/command5/test-command 5"]], "\nResult5\n\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command6"];
+       ["upload"; "test-command"; "/command6/test-command"];
+       ["chmod"; "0o755"; "/command6/test-command"];
+       ["command"; "/command6/test-command 6"]], "\n\nResult6\n\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command7"];
+       ["upload"; "test-command"; "/command7/test-command"];
+       ["chmod"; "0o755"; "/command7/test-command"];
+       ["command"; "/command7/test-command 7"]], "");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command8"];
+       ["upload"; "test-command"; "/command8/test-command"];
+       ["chmod"; "0o755"; "/command8/test-command"];
+       ["command"; "/command8/test-command 8"]], "\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command9"];
+       ["upload"; "test-command"; "/command9/test-command"];
+       ["chmod"; "0o755"; "/command9/test-command"];
+       ["command"; "/command9/test-command 9"]], "\n\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command10"];
+       ["upload"; "test-command"; "/command10/test-command"];
+       ["chmod"; "0o755"; "/command10/test-command"];
+       ["command"; "/command10/test-command 10"]], "Result10-1\nResult10-2\n");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/command11"];
+       ["upload"; "test-command"; "/command11/test-command"];
+       ["chmod"; "0o755"; "/command11/test-command"];
+       ["command"; "/command11/test-command 11"]], "Result11-1\nResult11-2");
+    InitScratchFS, Always, TestLastFail (
+      [["mkdir"; "/command12"];
+       ["upload"; "test-command"; "/command12/test-command"];
+       ["chmod"; "0o755"; "/command12/test-command"];
+       ["command"; "/command12/test-command"]])],
    "run a command from the guest filesystem",
    "\
 This call runs a command from the guest filesystem.  The
@@ -2126,50 +2141,61 @@ all filesystems that are needed are mounted at the right
 locations.");
 
   ("command_lines", (RStringList "lines", [StringList "arguments"], []), 51, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 1"]], ["Result1"]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 2"]], ["Result2"]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 3"]], ["";"Result3"]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 4"]], ["";"Result4"]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 5"]], ["";"Result5";""]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 6"]], ["";"";"Result6";""]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 7"]], []);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 8"]], [""]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 9"]], ["";""]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 10"]], ["Result10-1";"Result10-2"]);
-    InitBasicFS, Always, TestOutputList (
-      [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "0o755"; "/test-command"];
-       ["command_lines"; "/test-command 11"]], ["Result11-1";"Result11-2"])],
+   [InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines"];
+       ["upload"; "test-command"; "/command_lines/test-command"];
+       ["chmod"; "0o755"; "/command_lines/test-command"];
+       ["command_lines"; "/command_lines/test-command 1"]], ["Result1"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines2"];
+       ["upload"; "test-command"; "/command_lines2/test-command"];
+       ["chmod"; "0o755"; "/command_lines2/test-command"];
+       ["command_lines"; "/command_lines2/test-command 2"]], ["Result2"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines3"];
+       ["upload"; "test-command"; "/command_lines3/test-command"];
+       ["chmod"; "0o755"; "/command_lines3/test-command"];
+       ["command_lines"; "/command_lines3/test-command 3"]], ["";"Result3"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines4"];
+       ["upload"; "test-command"; "/command_lines4/test-command"];
+       ["chmod"; "0o755"; "/command_lines4/test-command"];
+       ["command_lines"; "/command_lines4/test-command 4"]], ["";"Result4"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines5"];
+       ["upload"; "test-command"; "/command_lines5/test-command"];
+       ["chmod"; "0o755"; "/command_lines5/test-command"];
+       ["command_lines"; "/command_lines5/test-command 5"]], ["";"Result5";""]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines6"];
+       ["upload"; "test-command"; "/command_lines6/test-command"];
+       ["chmod"; "0o755"; "/command_lines6/test-command"];
+       ["command_lines"; "/command_lines6/test-command 6"]], ["";"";"Result6";""]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines7"];
+       ["upload"; "test-command"; "/command_lines7/test-command"];
+       ["chmod"; "0o755"; "/command_lines7/test-command"];
+       ["command_lines"; "/command_lines7/test-command 7"]], []);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines8"];
+       ["upload"; "test-command"; "/command_lines8/test-command"];
+       ["chmod"; "0o755"; "/command_lines8/test-command"];
+       ["command_lines"; "/command_lines8/test-command 8"]], [""]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines9"];
+       ["upload"; "test-command"; "/command_lines9/test-command"];
+       ["chmod"; "0o755"; "/command_lines9/test-command"];
+       ["command_lines"; "/command_lines9/test-command 9"]], ["";""]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines10"];
+       ["upload"; "test-command"; "/command_lines10/test-command"];
+       ["chmod"; "0o755"; "/command_lines10/test-command"];
+       ["command_lines"; "/command_lines10/test-command 10"]], ["Result10-1";"Result10-2"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/command_lines11"];
+       ["upload"; "test-command"; "/command_lines11/test-command"];
+       ["chmod"; "0o755"; "/command_lines11/test-command"];
+       ["command_lines"; "/command_lines11/test-command 11"]], ["Result11-1";"Result11-2"])],
    "run a command, returning lines",
    "\
 This is the same as C<guestfs_command>, but splits the
@@ -2334,10 +2360,11 @@ Reread the partition table on C<device>.
 This uses the L<blockdev(8)> command.");
 
   ("upload", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"], []), 66, [],
-   [InitBasicFS, Always, TestOutput (
+   [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
-      [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
-       ["checksum"; "md5"; "/COPYING.LIB"]],
+      [["mkdir"; "/upload"];
+       ["upload"; "../COPYING.LIB"; "/upload/COPYING.LIB"];
+       ["checksum"; "md5"; "/upload/COPYING.LIB"]],
       Digest.to_hex (Digest.file "COPYING.LIB"))],
    "upload a file from the local machine",
    "\
@@ -2349,12 +2376,13 @@ C<filename> can also be a named pipe.
 See also C<guestfs_download>.");
 
   ("download", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"], []), 67, [Progress],
-   [InitBasicFS, Always, TestOutput (
+   [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
-      [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
-       ["download"; "/COPYING.LIB"; "testdownload.tmp"];
-       ["upload"; "testdownload.tmp"; "/upload"];
-       ["checksum"; "md5"; "/upload"]],
+      [["mkdir"; "/download"];
+       ["upload"; "../COPYING.LIB"; "/download/COPYING.LIB"];
+       ["download"; "/download/COPYING.LIB"; "testdownload.tmp"];
+       ["upload"; "testdownload.tmp"; "/download/upload"];
+       ["checksum"; "md5"; "/download/upload"]],
       Digest.to_hex (Digest.file "COPYING.LIB"))],
    "download a file to the local machine",
    "\
@@ -2433,9 +2461,10 @@ To get the checksum for a device, use C<guestfs_checksum_device>.
 To get the checksums for many files, use C<guestfs_checksums_out>.");
 
   ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"], []), 69, [],
-   [InitBasicFS, Always, TestOutput (
-      [["tar_in"; "../images/helloworld.tar"; "/"];
-       ["cat"; "/hello"]], "hello\n")],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/tar_in"];
+       ["tar_in"; "../images/helloworld.tar"; "/tar_in"];
+       ["cat"; "/tar_in/hello"]], "hello\n")],
    "unpack tarfile to directory",
    "\
 This command uploads and unpacks local file C<tarfile> (an
@@ -2455,9 +2484,10 @@ To download a compressed tarball, use C<guestfs_tgz_out>
 or C<guestfs_txz_out>.");
 
   ("tgz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 71, [],
-   [InitBasicFS, Always, TestOutput (
-      [["tgz_in"; "../images/helloworld.tar.gz"; "/"];
-       ["cat"; "/hello"]], "hello\n")],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/tgz_in"];
+       ["tgz_in"; "../images/helloworld.tar.gz"; "/tgz_in"];
+       ["cat"; "/tgz_in/hello"]], "hello\n")],
    "unpack compressed tarball to directory",
    "\
 This command uploads and unpacks local file C<tarball> (a
@@ -2750,45 +2780,50 @@ a file containing:
 replacing C</dev/vda> with the name of the installation device.");
 
   ("cp", (RErr, [Pathname "src"; Pathname "dest"], []), 87, [],
-   [InitBasicFS, Always, TestOutput (
-      [["write"; "/old"; "file content"];
-       ["cp"; "/old"; "/new"];
-       ["cat"; "/new"]], "file content");
-    InitBasicFS, Always, TestOutputTrue (
-      [["write"; "/old"; "file content"];
-       ["cp"; "/old"; "/new"];
-       ["is_file"; "/old"]]);
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/old"; "file content"];
-       ["mkdir"; "/dir"];
-       ["cp"; "/old"; "/dir/new"];
-       ["cat"; "/dir/new"]], "file content")],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/cp"];
+       ["write"; "/cp/old"; "file content"];
+       ["cp"; "/cp/old"; "/cp/new"];
+       ["cat"; "/cp/new"]], "file content");
+    InitScratchFS, Always, TestOutputTrue (
+      [["mkdir"; "/cp2"];
+       ["write"; "/cp2/old"; "file content"];
+       ["cp"; "/cp2/old"; "/cp2/new"];
+       ["is_file"; "/cp2/old"]]);
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/cp3"];
+       ["write"; "/cp3/old"; "file content"];
+       ["mkdir"; "/cp3/dir"];
+       ["cp"; "/cp3/old"; "/cp3/dir/new"];
+       ["cat"; "/cp3/dir/new"]], "file content")],
    "copy a file",
    "\
 This copies a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.");
 
   ("cp_a", (RErr, [Pathname "src"; Pathname "dest"], []), 88, [],
-   [InitBasicFS, Always, TestOutput (
-      [["mkdir"; "/olddir"];
-       ["mkdir"; "/newdir"];
-       ["write"; "/olddir/file"; "file content"];
-       ["cp_a"; "/olddir"; "/newdir"];
-       ["cat"; "/newdir/olddir/file"]], "file content")],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/cp_a1"];
+       ["mkdir"; "/cp_a2"];
+       ["write"; "/cp_a1/file"; "file content"];
+       ["cp_a"; "/cp_a1"; "/cp_a2"];
+       ["cat"; "/cp_a2/cp_a1/file"]], "file content")],
    "copy a file or directory recursively",
    "\
 This copies a file or directory from C<src> to C<dest>
 recursively using the C<cp -a> command.");
 
   ("mv", (RErr, [Pathname "src"; Pathname "dest"], []), 89, [],
-   [InitBasicFS, Always, TestOutput (
-      [["write"; "/old"; "file content"];
-       ["mv"; "/old"; "/new"];
-       ["cat"; "/new"]], "file content");
-    InitBasicFS, Always, TestOutputFalse (
-      [["write"; "/old"; "file content"];
-       ["mv"; "/old"; "/new"];
-       ["is_file"; "/old"]])],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/mv"];
+       ["write"; "/mv/old"; "file content"];
+       ["mv"; "/mv/old"; "/mv/new"];
+       ["cat"; "/mv/new"]], "file content");
+    InitScratchFS, Always, TestOutputFalse (
+      [["mkdir"; "/mv2"];
+       ["write"; "/mv2/old"; "file content"];
+       ["mv"; "/mv2/old"; "/mv2/new"];
+       ["is_file"; "/mv2/old"]])],
    "move a file",
    "\
 This moves a file from C<src> to C<dest> where C<dest> is
@@ -2834,16 +2869,19 @@ daemon responds to the ping message, without affecting the daemon
 or attached block device(s) in any other way.");
 
   ("equal", (RBool "equality", [Pathname "file1"; Pathname "file2"], []), 93, [],
-   [InitBasicFS, Always, TestOutputTrue (
-      [["write"; "/file1"; "contents of a file"];
-       ["cp"; "/file1"; "/file2"];
-       ["equal"; "/file1"; "/file2"]]);
-    InitBasicFS, Always, TestOutputFalse (
-      [["write"; "/file1"; "contents of a file"];
-       ["write"; "/file2"; "contents of another file"];
-       ["equal"; "/file1"; "/file2"]]);
-    InitBasicFS, Always, TestLastFail (
-      [["equal"; "/file1"; "/file2"]])],
+   [InitScratchFS, Always, TestOutputTrue (
+      [["mkdir"; "/equal"];
+       ["write"; "/equal/file1"; "contents of a file"];
+       ["cp"; "/equal/file1"; "/equal/file2"];
+       ["equal"; "/equal/file1"; "/equal/file2"]]);
+    InitScratchFS, Always, TestOutputFalse (
+      [["mkdir"; "/equal2"];
+       ["write"; "/equal2/file1"; "contents of a file"];
+       ["write"; "/equal2/file2"; "contents of another file"];
+       ["equal"; "/equal2/file1"; "/equal2/file2"]]);
+    InitScratchFS, Always, TestLastFail (
+      [["mkdir"; "/equal3"];
+       ["equal"; "/equal3/file1"; "/equal3/file2"]])],
    "test if two files have equal contents",
    "\
 This compares the two files C<file1> and C<file2> and returns
@@ -2867,9 +2905,9 @@ the list of printable strings found.");
   ("strings_e", (RStringList "stringsout", [String "encoding"; Pathname "path"], []), 95, [ProtocolLimitWarning],
    [InitISOFS, Always, TestOutputList (
       [["strings_e"; "b"; "/known-5"]], []);
-    InitBasicFS, Always, TestOutputList (
-      [["write"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"];
-       ["strings_e"; "b"; "/new"]], ["hello"; "world"])],
+    InitScratchFS, Always, TestOutputList (
+      [["write"; "/strings_e"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"];
+       ["strings_e"; "b"; "/strings_e"]], ["hello"; "world"])],
    "print the printable strings in a file",
    "\
 This is like the C<guestfs_strings> command, but allows you to
@@ -3078,10 +3116,10 @@ calling this function.");
        ["mkdir"; "/b"];
        ["touch"; "/b/c"];
        ["find"; "/"]], ["a"; "b"; "b/c"; "lost+found"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mkdir_p"; "/a/b/c"];
-       ["touch"; "/a/b/c/d"];
-       ["find"; "/a/b/"]], ["c"; "c/d"])],
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir_p"; "/find/b/c"];
+       ["touch"; "/find/b/c/d"];
+       ["find"; "/find/b/"]], ["c"; "c/d"])],
    "find all files and directories",
    "\
 This command lists out all files and directories, recursively,
@@ -3183,21 +3221,21 @@ See also: C<guestfs_command_lines>");
     * code in stubs.c, since all valid glob patterns must start with "/".
     * There is no concept of "cwd" in libguestfs, hence no "."-relative names.
     *)
-   [InitBasicFS, Always, TestOutputList (
-      [["mkdir_p"; "/a/b/c"];
-       ["touch"; "/a/b/c/d"];
-       ["touch"; "/a/b/c/e"];
-       ["glob_expand"; "/a/b/c/*"]], ["/a/b/c/d"; "/a/b/c/e"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mkdir_p"; "/a/b/c"];
-       ["touch"; "/a/b/c/d"];
-       ["touch"; "/a/b/c/e"];
-       ["glob_expand"; "/a/*/c/*"]], ["/a/b/c/d"; "/a/b/c/e"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mkdir_p"; "/a/b/c"];
-       ["touch"; "/a/b/c/d"];
-       ["touch"; "/a/b/c/e"];
-       ["glob_expand"; "/a/*/x/*"]], [])],
+   [InitScratchFS, Always, TestOutputList (
+      [["mkdir_p"; "/glob_expand/b/c"];
+       ["touch"; "/glob_expand/b/c/d"];
+       ["touch"; "/glob_expand/b/c/e"];
+       ["glob_expand"; "/glob_expand/b/c/*"]], ["/glob_expand/b/c/d"; "/glob_expand/b/c/e"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir_p"; "/glob_expand2/b/c"];
+       ["touch"; "/glob_expand2/b/c/d"];
+       ["touch"; "/glob_expand2/b/c/e"];
+       ["glob_expand"; "/glob_expand2/*/c/*"]], ["/glob_expand2/b/c/d"; "/glob_expand2/b/c/e"]);
+    InitScratchFS, Always, TestOutputList (
+      [["mkdir_p"; "/glob_expand3/b/c"];
+       ["touch"; "/glob_expand3/b/c/d"];
+       ["touch"; "/glob_expand3/b/c/e"];
+       ["glob_expand"; "/glob_expand3/*/x/*"]], [])],
    "expand a wildcard path",
    "\
 This command searches for all the pathnames matching
@@ -3223,9 +3261,9 @@ It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
   ("scrub_file", (RErr, [Pathname "file"], []), 115, [Optional "scrub"],
-   [InitBasicFS, Always, TestRun (
-      [["write"; "/file"; "content"];
-       ["scrub_file"; "/file"]])],
+   [InitScratchFS, Always, TestRun (
+      [["write"; "/scrub_file"; "content"];
+       ["scrub_file"; "/scrub_file"]])],
    "scrub (securely wipe) a file",
    "\
 This command writes patterns over a file to make data retrieval
@@ -3250,9 +3288,9 @@ It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
   ("mkdtemp", (RString "dir", [Pathname "template"], []), 117, [],
-   [InitBasicFS, Always, TestRun (
-      [["mkdir"; "/tmp"];
-       ["mkdtemp"; "/tmp/tmpXXXXXX"]])],
+   [InitScratchFS, Always, TestRun (
+      [["mkdir"; "/mkdtemp"];
+       ["mkdtemp"; "/mkdtemp/tmpXXXXXX"]])],
    "create a temporary directory",
    "\
 This command creates a temporary directory.  The
@@ -3447,13 +3485,13 @@ a limitation of the kernel or swap tools.");
 Create a swap partition on C<device> with UUID C<uuid>.");
 
   ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"], []), 133, [Optional "mknod"],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["mknod"; "0o10777"; "0"; "0"; "/node"];
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mknod"; "0o10777"; "0"; "0"; "/mknod"];
        (* NB: default umask 022 means 0777 -> 0755 in these tests *)
-       ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)]);
-    InitBasicFS, Always, TestOutputStruct (
-      [["mknod"; "0o60777"; "66"; "99"; "/node"];
-       ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
+       ["stat"; "/mknod"]], [CompareWithInt ("mode", 0o10755)]);
+    InitScratchFS, Always, TestOutputStruct (
+      [["mknod"; "0o60777"; "66"; "99"; "/mknod2"];
+       ["stat"; "/mknod2"]], [CompareWithInt ("mode", 0o60755)])],
    "make block, character or FIFO devices",
    "\
 This call creates block or character special devices, or
@@ -3475,9 +3513,9 @@ in the appropriate constant for you.
 The mode actually set is affected by the umask.");
 
   ("mkfifo", (RErr, [Int "mode"; Pathname "path"], []), 134, [Optional "mknod"],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["mkfifo"; "0o777"; "/node"];
-       ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mkfifo"; "0o777"; "/mkfifo"];
+       ["stat"; "/mkfifo"]], [CompareWithInt ("mode", 0o10755)])],
    "make FIFO (named pipe)",
    "\
 This call creates a FIFO (named pipe) called C<path> with
@@ -3487,9 +3525,9 @@ C<guestfs_mknod>.
 The mode actually set is affected by the umask.");
 
   ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"], []), 135, [Optional "mknod"],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["mknod_b"; "0o777"; "99"; "66"; "/node"];
-       ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mknod_b"; "0o777"; "99"; "66"; "/mknod_b"];
+       ["stat"; "/mknod_b"]], [CompareWithInt ("mode", 0o60755)])],
    "make block device node",
    "\
 This call creates a block device node called C<path> with
@@ -3499,9 +3537,9 @@ It is just a convenient wrapper around C<guestfs_mknod>.
 The mode actually set is affected by the umask.");
 
   ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"], []), 136, [Optional "mknod"],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["mknod_c"; "0o777"; "99"; "66"; "/node"];
-       ["stat"; "/node"]], [CompareWithInt ("mode", 0o20755)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mknod_c"; "0o777"; "99"; "66"; "/mknod_c"];
+       ["stat"; "/mknod_c"]], [CompareWithInt ("mode", 0o20755)])],
    "make char device node",
    "\
 This call creates a char device node called C<path> with
@@ -3742,18 +3780,18 @@ for full details.");
    [InitISOFS, Always, TestOutputBuffer (
       [["read_file"; "/known-4"]], "abc\ndef\nghi");
     (* Test various near large, large and too large files (RHBZ#589039). *)
-    InitBasicFS, Always, TestLastFail (
-      [["touch"; "/a"];
-       ["truncate_size"; "/a"; "4194303"]; (* GUESTFS_MESSAGE_MAX - 1 *)
-       ["read_file"; "/a"]]);
-    InitBasicFS, Always, TestLastFail (
-      [["touch"; "/a"];
-       ["truncate_size"; "/a"; "4194304"]; (* GUESTFS_MESSAGE_MAX *)
-       ["read_file"; "/a"]]);
-    InitBasicFS, Always, TestLastFail (
-      [["touch"; "/a"];
-       ["truncate_size"; "/a"; "41943040"]; (* GUESTFS_MESSAGE_MAX * 10 *)
-       ["read_file"; "/a"]])],
+    InitScratchFS, Always, TestLastFail (
+      [["touch"; "/read_file"];
+       ["truncate_size"; "/read_file"; "4194303"]; (* GUESTFS_MESSAGE_MAX - 1 *)
+       ["read_file"; "/read_file"]]);
+    InitScratchFS, Always, TestLastFail (
+      [["touch"; "/read_file2"];
+       ["truncate_size"; "/read_file2"; "4194304"]; (* GUESTFS_MESSAGE_MAX *)
+       ["read_file"; "/read_file2"]]);
+    InitScratchFS, Always, TestLastFail (
+      [["touch"; "/read_file3"];
+       ["truncate_size"; "/read_file3"; "41943040"]; (* GUESTFS_MESSAGE_MAX * 10 *)
+       ["read_file"; "/read_file3"]])],
    "read a file",
    "\
 This calls returns the contents of the file C<path> as a
@@ -3874,40 +3912,43 @@ Return the canonicalized absolute pathname of C<path>.  The
 returned path has no C<.>, C<..> or symbolic link path elements.");
 
   ("ln", (RErr, [String "target"; Pathname "linkname"], []), 164, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/a"];
-       ["ln"; "/a"; "/b"];
-       ["stat"; "/b"]], [CompareWithInt ("nlink", 2)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mkdir"; "/ln"];
+       ["touch"; "/ln/a"];
+       ["ln"; "/ln/a"; "/ln/b"];
+       ["stat"; "/ln/b"]], [CompareWithInt ("nlink", 2)])],
    "create a hard link",
    "\
 This command creates a hard link using the C<ln> command.");
 
   ("ln_f", (RErr, [String "target"; Pathname "linkname"], []), 165, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/a"];
-       ["touch"; "/b"];
-       ["ln_f"; "/a"; "/b"];
-       ["stat"; "/b"]], [CompareWithInt ("nlink", 2)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mkdir"; "/ln_f"];
+       ["touch"; "/ln_f/a"];
+       ["touch"; "/ln_f/b"];
+       ["ln_f"; "/ln_f/a"; "/ln_f/b"];
+       ["stat"; "/ln_f/b"]], [CompareWithInt ("nlink", 2)])],
    "create a hard link",
    "\
 This command creates a hard link using the C<ln -f> command.
 The C<-f> option removes the link (C<linkname>) if it exists already.");
 
   ("ln_s", (RErr, [String "target"; Pathname "linkname"], []), 166, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/a"];
-       ["ln_s"; "a"; "/b"];
-       ["lstat"; "/b"]], [CompareWithInt ("mode", 0o120777)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mkdir"; "/ln_s"];
+       ["touch"; "/ln_s/a"];
+       ["ln_s"; "a"; "/ln_s/b"];
+       ["lstat"; "/ln_s/b"]], [CompareWithInt ("mode", 0o120777)])],
    "create a symbolic link",
    "\
 This command creates a symbolic link using the C<ln -s> command.");
 
   ("ln_sf", (RErr, [String "target"; Pathname "linkname"], []), 167, [],
-   [InitBasicFS, Always, TestOutput (
-      [["mkdir_p"; "/a/b"];
-       ["touch"; "/a/b/c"];
-       ["ln_sf"; "../d"; "/a/b/c"];
-       ["readlink"; "/a/b/c"]], "../d")],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir_p"; "/ln_sf/b"];
+       ["touch"; "/ln_sf/b/c"];
+       ["ln_sf"; "../d"; "/ln_sf/b/c"];
+       ["readlink"; "/ln_sf/b/c"]], "../d")],
    "create a symbolic link",
    "\
 This command creates a symbolic link using the C<ln -sf> command,
@@ -3920,9 +3961,9 @@ The C<-f> option removes the link (C<linkname>) if it exists already.");
 This command reads the target of a symbolic link.");
 
   ("fallocate", (RErr, [Pathname "path"; Int "len"], []), 169, [DeprecatedBy "fallocate64"],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["fallocate"; "/a"; "1000000"];
-       ["stat"; "/a"]], [CompareWithInt ("size", 1_000_000)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["fallocate"; "/fallocate"; "1000000"];
+       ["stat"; "/fallocate"]], [CompareWithInt ("size", 1_000_000)])],
    "preallocate a file in the guest filesystem",
    "\
 This command preallocates a file (containing zero bytes) named
@@ -3961,11 +4002,12 @@ device or partition named C<device>.
 See C<guestfs_swapon_device>.");
 
   ("swapon_file", (RErr, [Pathname "file"], []), 172, [],
-   [InitBasicFS, Always, TestRun (
-      [["fallocate"; "/swap"; "8388608"];
-       ["mkswap_file"; "/swap"];
-       ["swapon_file"; "/swap"];
-       ["swapoff_file"; "/swap"]])],
+   [InitScratchFS, Always, TestRun (
+      [["fallocate"; "/swapon_file"; "8388608"];
+       ["mkswap_file"; "/swapon_file"];
+       ["swapon_file"; "/swapon_file"];
+       ["swapoff_file"; "/swapon_file"];
+       ["rm"; "/swapon_file"]])],
    "enable swap on file",
    "\
 This command enables swap to a file.
@@ -4016,9 +4058,10 @@ This command disables the libguestfs appliance swap partition
 with the given UUID.");
 
   ("mkswap_file", (RErr, [Pathname "path"], []), 178, [],
-   [InitBasicFS, Always, TestRun (
-      [["fallocate"; "/swap"; "8388608"];
-       ["mkswap_file"; "/swap"]])],
+   [InitScratchFS, Always, TestRun (
+      [["fallocate"; "/mkswap_file"; "8388608"];
+       ["mkswap_file"; "/mkswap_file"];
+       ["rm"; "/mkswap_file"]])],
    "create a swap file",
    "\
 Create a swap file.
@@ -4068,11 +4111,12 @@ via libguestfs.  Note that there is one global inotify handle
 per libguestfs instance.");
 
   ("inotify_add_watch", (RInt64 "wd", [Pathname "path"; Int "mask"], []), 180, [Optional "inotify"],
-   [InitBasicFS, Always, TestOutputList (
-      [["inotify_init"; "0"];
-       ["inotify_add_watch"; "/"; "1073741823"];
-       ["touch"; "/a"];
-       ["touch"; "/b"];
+   [InitScratchFS, Always, TestOutputList (
+      [["mkdir"; "/inotify_add_watch"];
+       ["inotify_init"; "0"];
+       ["inotify_add_watch"; "/inotify_add_watch"; "1073741823"];
+       ["touch"; "/inotify_add_watch/a"];
+       ["touch"; "/inotify_add_watch/b"];
        ["inotify_files"]], ["a"; "b"])],
    "add an inotify watch",
    "\
@@ -4311,21 +4355,21 @@ The result list is not sorted.
       [["case_sensitive_path"; "/Known-1"]], "/known-1");
     InitISOFS, Always, TestLastFail (
       [["case_sensitive_path"; "/Known-1/"]]);
-    InitBasicFS, Always, TestOutput (
-      [["mkdir"; "/a"];
-       ["mkdir"; "/a/bbb"];
-       ["touch"; "/a/bbb/c"];
-       ["case_sensitive_path"; "/A/bbB/C"]], "/a/bbb/c");
-    InitBasicFS, Always, TestOutput (
-      [["mkdir"; "/a"];
-       ["mkdir"; "/a/bbb"];
-       ["touch"; "/a/bbb/c"];
-       ["case_sensitive_path"; "/A////bbB/C"]], "/a/bbb/c");
-    InitBasicFS, Always, TestLastFail (
-      [["mkdir"; "/a"];
-       ["mkdir"; "/a/bbb"];
-       ["touch"; "/a/bbb/c"];
-       ["case_sensitive_path"; "/A/bbb/../bbb/C"]])],
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/case_sensitive_path"];
+       ["mkdir"; "/case_sensitive_path/bbb"];
+       ["touch"; "/case_sensitive_path/bbb/c"];
+       ["case_sensitive_path"; "/CASE_SENSITIVE_path/bbB/C"]], "/case_sensitive_path/bbb/c");
+    InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/case_sensitive_path2"];
+       ["mkdir"; "/case_sensitive_path2/bbb"];
+       ["touch"; "/case_sensitive_path2/bbb/c"];
+       ["case_sensitive_path"; "/case_sensitive_PATH2////bbB/C"]], "/case_sensitive_path2/bbb/c");
+    InitScratchFS, Always, TestLastFail (
+      [["mkdir"; "/case_sensitive_path3"];
+       ["mkdir"; "/case_sensitive_path3/bbb"];
+       ["touch"; "/case_sensitive_path3/bbb/c"];
+       ["case_sensitive_path"; "/case_SENSITIVE_path3/bbb/../bbb/C"]])],
    "return true path on case-insensitive filesystem",
    "\
 This can be used to resolve case insensitive paths on
@@ -4361,8 +4405,8 @@ This function does not handle drive names, backslashes etc.
 See also C<guestfs_realpath>.");
 
   ("vfs_type", (RString "fstype", [Device "device"], []), 198, [],
-   [InitBasicFS, Always, TestOutput (
-      [["vfs_type"; "/dev/sda1"]], "ext2")],
+   [InitScratchFS, Always, TestOutput (
+      [["vfs_type"; "/dev/sdb1"]], "ext2")],
    "get the Linux VFS type corresponding to a mounted device",
    "\
 This command gets the filesystem type corresponding to
@@ -4374,20 +4418,20 @@ if you mounted it without specifying the filesystem type.
 For example a string such as C<ext3> or C<ntfs>.");
 
   ("truncate", (RErr, [Pathname "path"], []), 199, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["write"; "/test"; "some stuff so size is not zero"];
-       ["truncate"; "/test"];
-       ["stat"; "/test"]], [CompareWithInt ("size", 0)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["write"; "/truncate"; "some stuff so size is not zero"];
+       ["truncate"; "/truncate"];
+       ["stat"; "/truncate"]], [CompareWithInt ("size", 0)])],
    "truncate a file to zero size",
    "\
 This command truncates C<path> to a zero-length file.  The
 file must exist already.");
 
   ("truncate_size", (RErr, [Pathname "path"; Int64 "size"], []), 200, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/test"];
-       ["truncate_size"; "/test"; "1000"];
-       ["stat"; "/test"]], [CompareWithInt ("size", 1000)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["touch"; "/truncate_size"];
+       ["truncate_size"; "/truncate_size"; "1000"];
+       ["stat"; "/truncate_size"]], [CompareWithInt ("size", 1000)])],
    "truncate a file to a particular size",
    "\
 This command truncates C<path> to size C<size> bytes.  The file
@@ -4400,10 +4444,10 @@ for the file until you write to it).  To create a non-sparse
 file of zeroes, use C<guestfs_fallocate64> instead.");
 
   ("utimens", (RErr, [Pathname "path"; Int64 "atsecs"; Int64 "atnsecs"; Int64 "mtsecs"; Int64 "mtnsecs"], []), 201, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/test"];
-       ["utimens"; "/test"; "12345"; "67890"; "9876"; "5432"];
-       ["stat"; "/test"]], [CompareWithInt ("mtime", 9876)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["touch"; "/utimens"];
+       ["utimens"; "/utimens"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens"]], [CompareWithInt ("mtime", 9876)])],
    "set timestamp of a file with nanosecond precision",
    "\
 This command sets the timestamps of a file with nanosecond
@@ -4424,9 +4468,9 @@ the corresponding timestamp is left unchanged.  (The
 C<*secs> field is ignored in this case).");
 
   ("mkdir_mode", (RErr, [Pathname "path"; Int "mode"], []), 202, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["mkdir_mode"; "/test"; "0o111"];
-       ["stat"; "/test"]], [CompareWithInt ("mode", 0o40111)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["mkdir_mode"; "/mkdir_mode"; "0o111"];
+       ["stat"; "/mkdir_mode"]], [CompareWithInt ("mode", 0o40111)])],
    "create a directory with a particular mode",
    "\
 This command creates a directory, setting the initial permissions
@@ -4725,9 +4769,9 @@ values are possible, although unusual.  See C<guestfs_part_init>
 for a full list.");
 
   ("fill", (RErr, [Int "c"; Int "len"; Pathname "path"], []), 215, [Progress],
-   [InitBasicFS, Always, TestOutputBuffer (
-      [["fill"; "0x63"; "10"; "/test"];
-       ["read_file"; "/test"]], "cccccccccc")],
+   [InitScratchFS, Always, TestOutputBuffer (
+      [["fill"; "0x63"; "10"; "/fill"];
+       ["read_file"; "/fill"]], "cccccccccc")],
    "fill a file with octets",
    "\
 This command creates a new file called C<path>.  The initial
@@ -4801,10 +4845,11 @@ See also C<guestfs_version>.
 =back");
 
   ("dd", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"], []), 217, [],
-   [InitBasicFS, Always, TestOutputBuffer (
-      [["write"; "/src"; "hello, world"];
-       ["dd"; "/src"; "/dest"];
-       ["read_file"; "/dest"]], "hello, world")],
+   [InitScratchFS, Always, TestOutputBuffer (
+      [["mkdir"; "/dd"];
+       ["write"; "/dd/src"; "hello, world"];
+       ["dd"; "/dd/src"; "/dd/dest"];
+       ["read_file"; "/dd/dest"]], "hello, world")],
    "copy from source to destination using dd",
    "\
 This command copies from one source device or file C<src>
@@ -4817,9 +4862,9 @@ than the source file or device, otherwise the copy will fail.
 This command cannot do partial copies (see C<guestfs_copy_size>).");
 
   ("filesize", (RInt64 "size", [Pathname "file"], []), 218, [],
-   [InitBasicFS, Always, TestOutputInt (
-      [["write"; "/file"; "hello, world"];
-       ["filesize"; "/file"]], 12)],
+   [InitScratchFS, Always, TestOutputInt (
+      [["write"; "/filesize"; "hello, world"];
+       ["filesize"; "/filesize"]], 12)],
    "return the size of the file in bytes",
    "\
 This command returns the size of C<file> in bytes.
@@ -4908,10 +4953,11 @@ calls to associate logical volumes and volume groups.
 See also C<guestfs_vgpvuuids>.");
 
   ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"], []), 227, [Progress],
-   [InitBasicFS, Always, TestOutputBuffer (
-      [["write"; "/src"; "hello, world"];
-       ["copy_size"; "/src"; "/dest"; "5"];
-       ["read_file"; "/dest"]], "hello")],
+   [InitScratchFS, Always, TestOutputBuffer (
+      [["mkdir"; "/copy_size"];
+       ["write"; "/copy_size/src"; "hello, world"];
+       ["copy_size"; "/copy_size/src"; "/copy_size/dest"; "5"];
+       ["read_file"; "/copy_size/dest"]], "hello")],
    "copy size bytes from source to destination using dd",
    "\
 This command copies exactly C<size> bytes from one source device
@@ -4930,9 +4976,10 @@ with C<guestfs_zero> which just zeroes the first few blocks of
 a device.");
 
   ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 229, [Optional "xz"],
-   [InitBasicFS, Always, TestOutput (
-      [["txz_in"; "../images/helloworld.tar.xz"; "/"];
-       ["cat"; "/hello"]], "hello\n")],
+   [InitScratchFS, Always, TestOutput (
+      [["mkdir"; "/txz_in"];
+       ["txz_in"; "../images/helloworld.tar.xz"; "/txz_in"];
+       ["cat"; "/txz_in/hello"]], "hello\n")],
    "unpack compressed tarball to directory",
    "\
 This command uploads and unpacks local file C<tarball> (an
@@ -5068,9 +5115,9 @@ to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what it is for.");
 
   ("base64_in", (RErr, [FileIn "base64file"; Pathname "filename"], []), 242, [],
-   [InitBasicFS, Always, TestOutput (
-      [["base64_in"; "../images/hello.b64"; "/hello"];
-       ["cat"; "/hello"]], "hello\n")],
+   [InitScratchFS, Always, TestOutput (
+      [["base64_in"; "../images/hello.b64"; "/base64_in"];
+       ["cat"; "/base64_in"]], "hello\n")],
    "upload base64-encoded data to file",
    "\
 This command uploads base64-encoded data from C<base64file>
@@ -5100,9 +5147,9 @@ backslash syntax.  For more information, see the GNU
 coreutils info file.");
 
   ("fill_pattern", (RErr, [String "pattern"; Int "len"; Pathname "path"], []), 245, [Progress],
-   [InitBasicFS, Always, TestOutputBuffer (
-      [["fill_pattern"; "abcdefghijklmnopqrstuvwxyz"; "28"; "/test"];
-       ["read_file"; "/test"]], "abcdefghijklmnopqrstuvwxyzab")],
+   [InitScratchFS, Always, TestOutputBuffer (
+      [["fill_pattern"; "abcdefghijklmnopqrstuvwxyz"; "28"; "/fill_pattern"];
+       ["read_file"; "/fill_pattern"]], "abcdefghijklmnopqrstuvwxyzab")],
    "fill a file with a repeating pattern of bytes",
    "\
 This function is like C<guestfs_fill> except that it creates
@@ -5111,42 +5158,42 @@ of bytes in C<pattern>.  The pattern is truncated if necessary
 to ensure the length of the file is exactly C<len> bytes.");
 
   ("write", (RErr, [Pathname "path"; BufferIn "content"], []), 246, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "new file contents"];
-       ["cat"; "/new"]], "new file contents");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "\nnew file contents\n"];
-       ["cat"; "/new"]], "\nnew file contents\n");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "\n\n"];
-       ["cat"; "/new"]], "\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; ""];
-       ["cat"; "/new"]], "");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "\n\n\n"];
-       ["cat"; "/new"]], "\n\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "\n"];
-       ["cat"; "/new"]], "\n")],
+   [InitScratchFS, Always, TestOutput (
+      [["write"; "/write"; "new file contents"];
+       ["cat"; "/write"]], "new file contents");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/write2"; "\nnew file contents\n"];
+       ["cat"; "/write2"]], "\nnew file contents\n");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/write3"; "\n\n"];
+       ["cat"; "/write3"]], "\n\n");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/write4"; ""];
+       ["cat"; "/write4"]], "");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/write5"; "\n\n\n"];
+       ["cat"; "/write5"]], "\n\n\n");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/write6"; "\n"];
+       ["cat"; "/write6"]], "\n")],
    "create a new file",
    "\
 This call creates a file called C<path>.  The content of the
 file is the string C<content> (which can contain any 8 bit data).");
 
   ("pwrite", (RInt "nbytes", [Pathname "path"; BufferIn "content"; Int64 "offset"], []), 247, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "new file contents"];
-       ["pwrite"; "/new"; "data"; "4"];
-       ["cat"; "/new"]], "new data contents");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "new file contents"];
-       ["pwrite"; "/new"; "is extended"; "9"];
-       ["cat"; "/new"]], "new file is extended");
-    InitBasicFS, Always, TestOutput (
-      [["write"; "/new"; "new file contents"];
-       ["pwrite"; "/new"; ""; "4"];
-       ["cat"; "/new"]], "new file contents")],
+   [InitScratchFS, Always, TestOutput (
+      [["write"; "/pwrite"; "new file contents"];
+       ["pwrite"; "/pwrite"; "data"; "4"];
+       ["cat"; "/pwrite"]], "new data contents");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/pwrite2"; "new file contents"];
+       ["pwrite"; "/pwrite2"; "is extended"; "9"];
+       ["cat"; "/pwrite2"]], "new file is extended");
+    InitScratchFS, Always, TestOutput (
+      [["write"; "/pwrite3"; "new file contents"];
+       ["pwrite"; "/pwrite3"; ""; "4"];
+       ["cat"; "/pwrite3"]], "new file contents")],
    "write to part of a file",
    "\
 This command writes to part of a file.  It writes the data
@@ -5194,9 +5241,9 @@ returned list.
 See also C<guestfs_available> and L<guestfs(3)/AVAILABILITY>.");
 
   ("fallocate64", (RErr, [Pathname "path"; Int64 "len"], []), 252, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["fallocate64"; "/a"; "1000000"];
-       ["stat"; "/a"]], [CompareWithInt ("size", 1_000_000)])],
+   [InitScratchFS, Always, TestOutputStruct (
+      [["fallocate64"; "/fallocate64"; "1000000"];
+       ["stat"; "/fallocate64"]], [CompareWithInt ("size", 1_000_000)])],
    "preallocate a file in the guest filesystem",
    "\
 This command preallocates a file (containing zero bytes) named
@@ -5390,9 +5437,9 @@ To find the label of a filesystem, use C<guestfs_vfs_label>.");
   ("is_chardev", (RBool "flag", [Pathname "path"], []), 267, [],
    [InitISOFS, Always, TestOutputFalse (
       [["is_chardev"; "/directory"]]);
-    InitBasicFS, Always, TestOutputTrue (
-      [["mknod_c"; "0o777"; "99"; "66"; "/test"];
-       ["is_chardev"; "/test"]])],
+    InitScratchFS, Always, TestOutputTrue (
+      [["mknod_c"; "0o777"; "99"; "66"; "/is_chardev"];
+       ["is_chardev"; "/is_chardev"]])],
    "test if character device",
    "\
 This returns C<true> if and only if there is a character device
@@ -5403,9 +5450,9 @@ See also C<guestfs_stat>.");
   ("is_blockdev", (RBool "flag", [Pathname "path"], []), 268, [],
    [InitISOFS, Always, TestOutputFalse (
       [["is_blockdev"; "/directory"]]);
-    InitBasicFS, Always, TestOutputTrue (
-      [["mknod_b"; "0o777"; "99"; "66"; "/test"];
-       ["is_blockdev"; "/test"]])],
+    InitScratchFS, Always, TestOutputTrue (
+      [["mknod_b"; "0o777"; "99"; "66"; "/is_blockdev"];
+       ["is_blockdev"; "/is_blockdev"]])],
    "test if block device",
    "\
 This returns C<true> if and only if there is a block device
@@ -5416,9 +5463,9 @@ See also C<guestfs_stat>.");
   ("is_fifo", (RBool "flag", [Pathname "path"], []), 269, [],
    [InitISOFS, Always, TestOutputFalse (
       [["is_fifo"; "/directory"]]);
-    InitBasicFS, Always, TestOutputTrue (
-      [["mkfifo"; "0o777"; "/test"];
-       ["is_fifo"; "/test"]])],
+    InitScratchFS, Always, TestOutputTrue (
+      [["mkfifo"; "0o777"; "/is_fifo"];
+       ["is_fifo"; "/is_fifo"]])],
    "test if FIFO (named pipe)",
    "\
 This returns C<true> if and only if there is a FIFO (named pipe)
@@ -5465,9 +5512,9 @@ from C<guestfs_list_partitions>.");
 
   ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273, [],
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
-    [InitBasicFS, Always, TestOutput (
-       [["upload_offset"; "../COPYING.LIB"; "/COPYING.LIB"; "0"];
-        ["checksum"; "md5"; "/COPYING.LIB"]], md5)]),
+    [InitScratchFS, Always, TestOutput (
+       [["upload_offset"; "../COPYING.LIB"; "/upload_offset"; "0"];
+        ["checksum"; "md5"; "/upload_offset"]], md5)]),
    "upload a file from the local machine with offset",
    "\
 Upload local file C<filename> to C<remotefilename> on the
@@ -5491,12 +5538,13 @@ See also C<guestfs_upload>, C<guestfs_pwrite>.");
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
     let offset = string_of_int 100 in
     let size = string_of_int ((Unix.stat "COPYING.LIB").Unix.st_size - 100) in
-    [InitBasicFS, Always, TestOutput (
+    [InitScratchFS, Always, TestOutput (
        (* Pick a file from cwd which isn't likely to change. *)
-       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
-        ["download_offset"; "/COPYING.LIB"; "testdownload.tmp"; offset; size];
-        ["upload_offset"; "testdownload.tmp"; "/COPYING.LIB"; offset];
-        ["checksum"; "md5"; "/COPYING.LIB"]], md5)]),
+       [["mkdir"; "/download_offset"];
+        ["upload"; "../COPYING.LIB"; "/download_offset/COPYING.LIB"];
+        ["download_offset"; "/download_offset/COPYING.LIB"; "testdownload.tmp"; offset; size];
+        ["upload_offset"; "testdownload.tmp"; "/download_offset/COPYING.LIB"; offset];
+        ["checksum"; "md5"; "/download_offset/COPYING.LIB"]], md5)]),
    "download a file to the local machine with offset and size",
    "\
 Download file C<remotefilename> and save it as C<filename>
