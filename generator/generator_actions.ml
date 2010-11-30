@@ -2661,10 +2661,10 @@ to return the existing UUID of a filesystem.");
   ("get_e2uuid", (RString "uuid", [Device "device"], []), 83, [DeprecatedBy "vfs_uuid"],
    (* Regression test for RHBZ#597112. *)
    (let uuid = uuidgen () in
-    [InitBasicFS, Always, TestOutput (
-       [["mke2journal"; "1024"; "/dev/sdb"];
-        ["set_e2uuid"; "/dev/sdb"; uuid];
-        ["get_e2uuid"; "/dev/sdb"]], uuid)]),
+    [InitNone, Always, TestOutput (
+       [["mke2journal"; "1024"; "/dev/sdc"];
+        ["set_e2uuid"; "/dev/sdc"; uuid];
+        ["get_e2uuid"; "/dev/sdc"]], uuid)]),
    "get the ext2/3/4 filesystem UUID",
    "\
 This returns the ext2/3/4 filesystem UUID of the filesystem on
@@ -3979,12 +3979,12 @@ This command disables the libguestfs appliance swap on file.");
 
   ("swapon_label", (RErr, [String "label"], []), 174, [],
    [InitEmpty, Always, TestRun (
-      [["part_disk"; "/dev/sdb"; "mbr"];
-       ["mkswap_L"; "swapit"; "/dev/sdb1"];
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["mkswap_L"; "swapit"; "/dev/sda1"];
        ["swapon_label"; "swapit"];
        ["swapoff_label"; "swapit"];
-       ["zero"; "/dev/sdb"];
-       ["blockdev_rereadpt"; "/dev/sdb"]])],
+       ["zero"; "/dev/sda"];
+       ["blockdev_rereadpt"; "/dev/sda"]])],
    "enable swap on labeled swap partition",
    "\
 This command enables swap to a labeled swap partition.
@@ -4000,7 +4000,7 @@ labeled swap partition.");
   ("swapon_uuid", (RErr, [String "uuid"], []), 176, [Optional "linuxfsuuid"],
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestRun (
-       [["mkswap_U"; uuid; "/dev/sdb"];
+       [["mkswap_U"; uuid; "/dev/sdc"];
         ["swapon_uuid"; uuid];
         ["swapoff_uuid"; uuid]])]),
    "enable swap on swap partition by UUID",
