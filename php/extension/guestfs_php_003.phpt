@@ -1,5 +1,5 @@
 --TEST--
-Create a disk containing LV and filesystem.
+Check function with optional arguments.
 --FILE--
 <?php
 
@@ -8,32 +8,26 @@ Create a disk containing LV and filesystem.
 
 $g = guestfs_create ();
 if ($g == false) {
-  die ("Failed to create guestfs_php handle.\n");
+  echo ("Failed to create guestfs_php handle.\n");
+  exit;
 }
-
-$tmp = dirname(__FILE__)."/test.img";
-$size = 100 * 1024 * 1024;
-if (! $fp = fopen ($tmp, 'w+')) {
-  die ("Error: cannot create file '".$tmp."'\n");
+if (guestfs_add_drive_opts ($g, "/dev/null") == false) {
+  echo ("Failed add_drive_opts, no optional arguments.\n");
+  exit;
 }
-ftruncate ($fp, $size);
-fclose ($fp);
-
-if (! guestfs_add_drive ($g, "test.img") ||
-    ! guestfs_launch ($g) ||
-    ! guestfs_part_disk ($g, "/dev/sda", "mbr") ||
-    ! guestfs_pvcreate ($g, "/dev/sda") ||
-    ! guestfs_vgcreate ($g, "VG", array ("/dev/sda")) ||
-    ! guestfs_lvcreate ($g, "LV", "VG", 64) ||
-    ! guestfs_mkfs ($g, "ext2", "/dev/VG/LV")) {
-  die ("Error: ".guestfs_last_error ($g)."\n");
+if (guestfs_add_drive_opts ($g, "/dev/null", 0) == false) {
+  echo ("Failed add_drive_opts, one optional argument.\n");
+  exit;
 }
-echo ("OK\n");
-?>
---CLEAN--
-<?php
-$tmp = dirname(__FILE__)."/test.img";
-unlink ($tmp);
+if (guestfs_add_drive_opts ($g, "/dev/null", 1) == false) {
+  echo ("Failed add_drive_opts, one optional argument.\n");
+  exit;
+}
+if (guestfs_add_drive_opts ($g, "/dev/null", 1, "qcow2") == false) {
+  echo ("Failed add_drive_opts, two optional arguments.\n");
+  exit;
+}
+echo ("Completed tests OK.\n");
 ?>
 --EXPECT--
-OK
+Completed tests OK.
