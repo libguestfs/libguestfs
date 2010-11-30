@@ -32,13 +32,13 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	$(VG)
 
-TESTS = run-bindtests Guestfs005Load Guestfs010Launch Guestfs050LVCreate
+TESTS = run-bindtests Guestfs005Load Guestfs010Basic
 
 check_DATA = Bindtests
 
 GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs
 
-all_targets = Bindtests Guestfs005Load Guestfs010Launch Guestfs050LVCreate
+all_targets = Bindtests Guestfs005Load Guestfs010Basic
 $(all_targets): $(top_builddir)/src/libguestfs.la
 
 all: $(all_targets)
@@ -52,12 +52,9 @@ Bindtests: Bindtests.hs Guestfs.o
 Guestfs005Load: Guestfs005Load.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs010Launch: Guestfs010Launch.hs Guestfs.o
+Guestfs010Basic: Guestfs010Basic.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs050LVCreate: Guestfs050LVCreate.hs Guestfs.o
-	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
-
-CLEANFILES = $(all_targets) *~ Guestfs.o
+CLEANFILES = $(all_targets) *~ *.hi *.o
 
 endif

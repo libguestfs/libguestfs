@@ -1,5 +1,5 @@
 {- libguestfs Haskell bindings
-   Copyright (C) 2009 Red Hat Inc.
+   Copyright (C) 2009-2010 Red Hat Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 -}
 
-module Guestfs050LVCreate where
+module Guestfs010Basic where
 import qualified Guestfs
 import System.IO (openFile, hClose, hSetFileSize, IOMode(WriteMode))
 import System.Posix.Files (removeLink)
@@ -35,7 +35,5 @@ main = do
   -- Guestfs.lvcreate g "LV2" "VG" 200
 
   -- Guestfs.lvs g and check returned list
-
-  Guestfs.sync g
 
   removeLink "test.img"

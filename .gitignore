@@ -113,8 +113,7 @@ guestfsd-in-wine.log
 haskell/Bindtests
 haskell/Bindtests.hs
 haskell/Guestfs005Load
-haskell/Guestfs010Launch
-haskell/Guestfs050LVCreate
+haskell/Guestfs010Basic
 haskell/Guestfs.hs
 *.hi
 html/guestfish.1.html
