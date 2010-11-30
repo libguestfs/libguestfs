@@ -334,15 +334,16 @@ and test_init =
   | InitEmpty
 
     (* /dev/sda contains a single partition /dev/sda1, with random
-     * content.  /dev/sdb and /dev/sdc may have random content.
-     * No LVM.
+     * content.  No LVM.
      *)
   | InitPartition
 
     (* /dev/sda contains a single partition /dev/sda1, which is formatted
      * as ext2, empty [except for lost+found] and mounted on /.
-     * /dev/sdb and /dev/sdc may have random content.
      * No LVM.
+     *
+     * Note: for testing filesystem operations, it is quicker to use
+     * InitScratchFS
      *)
   | InitBasicFS
 
@@ -350,7 +351,9 @@ and test_init =
      *   /dev/sda1 (is a PV):
      *     /dev/VG/LV (size 8MB):
      *       formatted as ext2, empty [except for lost+found], mounted on /
-     * /dev/sdb and /dev/sdc may have random content.
+     *
+     * Note: only use this if you really need a freshly created filesystem
+     * on LVM.  Normally you should use InitScratchFS instead.
      *)
   | InitBasicFSonLVM
 
@@ -358,6 +361,16 @@ and test_init =
      * is mounted on /
      *)
   | InitISOFS
+
+    (* /dev/sdb1 (write scratch disk) is mounted on /.  The filesystem
+     * will be empty.
+     *
+     * Note that this filesystem is not recreated between tests, and
+     * could contain random files and directories from previous tests.
+     * Therefore it is recommended that you create uniquely named files
+     * and directories for your tests.
+     *)
+  | InitScratchFS
 
 (* Sequence of commands for testing. *)
 and seq = cmd list

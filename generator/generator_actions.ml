@@ -1406,13 +1406,13 @@ See also C<guestfs_list_filesystems>.");
 
   ("list_partitions", (RStringList "partitions", [], []), 8, [],
    [InitBasicFS, Always, TestOutputListOfDevices (
-      [["list_partitions"]], ["/dev/sda1"]);
+      [["list_partitions"]], ["/dev/sda1"; "/dev/sdb1"]);
     InitEmpty, Always, TestOutputListOfDevices (
       [["part_init"; "/dev/sda"; "mbr"];
        ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
        ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
        ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
-       ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
+       ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"; "/dev/sdb1"])],
    "list the partitions",
    "\
 List all the partitions detected on all block devices.
@@ -5513,10 +5513,10 @@ error occurs.
 See also C<guestfs_download>, C<guestfs_pread>.");
 
   ("pwrite_device", (RInt "nbytes", [Device "device"; BufferIn "content"; Int64 "offset"], []), 275, [ProtocolLimitWarning],
-   [InitPartition, Always, TestOutputList (
+   [InitPartition, Always, TestOutputListOfDevices (
       [["pwrite_device"; "/dev/sda"; "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"; "446"];
        ["blockdev_rereadpt"; "/dev/sda"];
-       ["list_partitions"]], [])],
+       ["list_partitions"]], ["/dev/sdb1"])],
    "write to part of a device",
    "\
 This command writes to part of a device.  It writes the data

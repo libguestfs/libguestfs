@@ -257,6 +257,16 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
+  /* Create ext2 filesystem on /dev/sdb1 partition. */
+  if (guestfs_part_disk (g, \"/dev/sdb\", \"mbr\") == -1) {
+    printf (\"guestfs_part_disk FAILED\\n\");
+    exit (EXIT_FAILURE);
+  }
+  if (guestfs_mkfs (g, \"ext2\", \"/dev/sdb1\") == -1) {
+    printf (\"guestfs_mkfs (/dev/sdb1) FAILED\\n\");
+    exit (EXIT_FAILURE);
+  }
+
   nr_tests = %d;
 
 " (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024) nr_tests;
@@ -435,6 +445,13 @@ and generate_one_test_body name i test_name init test =
           ["umount_all"];
           ["lvm_remove_all"];
           ["mount_ro"; "/dev/sdd"; "/"]]
+   | InitScratchFS ->
+       pr "  /* InitScratchFS for %s */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["mount_options"; ""; "/dev/sdb1"; "/"]]
   );
 
   let get_seq_last = function
