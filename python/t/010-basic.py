@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,5 +24,13 @@ f.truncate (500 * 1024 * 1024)
 f.close ()
 g.add_drive ("test.img")
 g.launch ()
+
+g.pvcreate ("/dev/sda")
+g.vgcreate ("VG", ["/dev/sda"])
+g.lvcreate ("LV1", "VG", 200)
+g.lvcreate ("LV2", "VG", 200)
+if (g.lvs () != ["/dev/VG/LV1", "/dev/VG/LV2"]):
+    raise "Error: g.lvs() returned incorrect result"
+del g
 
 os.unlink ("test.img")
