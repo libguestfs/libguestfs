@@ -1,5 +1,5 @@
 /* libguestfs Java bindings
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,16 +19,16 @@
 import java.io.*;
 import com.redhat.et.libguestfs.*;
 
-public class GuestFS050LVCreate {
+public class GuestFS010Basic
+{
     public static void main (String[] argv)
     {
         try {
-            GuestFS g = new GuestFS ();
-
             RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
             f.setLength (500 * 1024 * 1024);
             f.close ();
 
+            GuestFS g = new GuestFS ();
             g.add_drive ("test.img");
             g.launch ();
 
@@ -41,7 +41,6 @@ public class GuestFS050LVCreate {
             assert lvs[0].equals ("/dev/VG/LV1");
             assert lvs[1].equals ("/dev/VG/LV2");
 
-            g.sync ();
             g.close ();
 
             File f2 = new File ("test.img");
