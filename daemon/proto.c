@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
 #include <sys/param.h>		/* defines MIN */
@@ -44,6 +45,23 @@
 /* The message currently being processed. */
 int proc_nr;
 int serial;
+
+/* Hint for implementing progress messages for uploaded/incoming data.
+ * The caller sets this to a value > 0 if it knows or can estimate how
+ * much data will be sent (this is not always known, eg. for uploads
+ * coming from a pipe).  If this is known then we can emit progress
+ * messages as we write the data.
+ */
+uint64_t progress_hint;
+
+/* Optional arguments bitmask.  Caller sets this to indicate which
+ * optional arguments in the guestfs_<foo>_args structure are
+ * meaningful.  Optional arguments not covered by the bitmask are set
+ * to arbitrary values and the daemon should ignore them.  If the
+ * bitmask has bits set that the daemon doesn't understand, then the
+ * whole call is rejected early in processing.
+ */
+uint64_t optargs_bitmask;
 
 /* Time at which we received the current request. */
 static struct timeval start_t;
@@ -149,9 +167,19 @@ main_loop (int _sock)
       reply_with_error ("unexpected message status (%d)", hdr.status);
       goto cont;
     }
+    /* This version of the daemon does not understand optional arguments
+     * at all.  When we fix this, we will remove the next conditional.
+     */
+    if (hdr.optargs_bitmask != 0) {
+      reply_with_error ("optargs_bitmask != 0 (%" PRIu64 ")",
+                        hdr.optargs_bitmask);
+      goto cont;
+    }
 
     proc_nr = hdr.proc;
     serial = hdr.serial;
+    progress_hint = hdr.progress_hint;
+    optargs_bitmask = hdr.optargs_bitmask;
 
     /* Clear errors before we call the stub functions.  This is just
      * to ensure that we can accurately report errors in cases where

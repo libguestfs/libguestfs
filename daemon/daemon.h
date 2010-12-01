@@ -103,6 +103,8 @@ extern const char *function_names[];
 /*-- in proto.c --*/
 extern int proc_nr;
 extern int serial;
+extern uint64_t progress_hint;
+extern uint64_t optargs_bitmask;
 
 /*-- in mount.c --*/
 extern int root_mounted;

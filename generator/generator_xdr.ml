@@ -158,7 +158,7 @@ let generate_xdr () =
  */
 
 const GUESTFS_PROGRAM = 0x2000F5F5;
-const GUESTFS_PROTOCOL_VERSION = 3;
+const GUESTFS_PROTOCOL_VERSION = 4;
 
 /* These constants must be larger than any possible message length. */
 const GUESTFS_LAUNCH_FLAG = 0xf5f55ff5;
@@ -193,6 +193,8 @@ struct guestfs_message_header {
   guestfs_procedure proc;            /* GUESTFS_PROC_x */
   guestfs_message_direction direction;
   unsigned serial;                   /* message serial number */
+  unsigned hyper progress_hint;      /* upload hint for progress bar */
+  unsigned hyper optargs_bitmask;    /* bitmask for optional args */
   guestfs_message_status status;
 };
 

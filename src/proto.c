@@ -658,6 +658,8 @@ guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   hdr.direction = GUESTFS_DIRECTION_CALL;
   hdr.serial = serial;
   hdr.status = GUESTFS_STATUS_OK;
+  hdr.progress_hint = 0;
+  hdr.optargs_bitmask = 0;
 
   if (!xdr_guestfs_message_header (&xdr, &hdr)) {
     error (g, _("xdr_guestfs_message_header failed"));

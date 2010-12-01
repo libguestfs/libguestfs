@@ -1855,6 +1855,14 @@ The header contains the procedure number (C<guestfs_proc>) which is
 how the receiver knows what type of args structure to expect, or none
 at all.
 
+For functions that take optional arguments, the optional arguments are
+encoded in the C<guestfs_I<foo>_args> structure in the same way as
+ordinary arguments.  A bitmask in the header indicates which optional
+arguments are meaningful.  The bitmask is also checked to see if it
+contains bits set which the daemon does not know about (eg. if more
+optional arguments were added in a later version of the library), and
+this causes the call to be rejected.
+
 The reply message for ordinary functions is:
 
  total length (header + ret,
