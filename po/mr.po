@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-11-30 15:00+0000\n"
+"POT-Creation-Date: 2010-12-01 17:33+0000\n"
 "PO-Revision-Date: 2010-02-03 19:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
@@ -2903,82 +2903,82 @@ msgstr "qemu अजूनही सुरू केले नाही"
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
-#: src/proto.c:143
+#: src/proto.c:146
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: state %d != READY स्थितीत असताना कॉल केले"
 
-#: src/proto.c:166
+#: src/proto.c:169
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: स्तर %d मध्ये असतेवेळी कॉल केले"
 
-#: src/proto.c:281
+#: src/proto.c:350
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: डिमन पासून 0x%x वाचा, 0x%x अपेक्षीत\n"
 
-#: src/proto.c:453 src/proto.c:514
+#: src/proto.c:519 src/proto.c:580
 msgid "unexpected end of file when reading from daemon"
 msgstr "डिमन पासून वाचतेवेळी फाइल अनपेक्षीतपणे समाप्त झाले"
 
-#: src/proto.c:474
+#: src/proto.c:540
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd पासून मॅजीक स्वाक्षरी प्राप्त, परंतु स्तर %d असे आढळले"
 
-#: src/proto.c:491
+#: src/proto.c:557
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "संदेश लांबी (%u) > कमाल शक्य आकार (%d)"
 
-#: src/proto.c:641
+#: src/proto.c:708
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/proto.c:663
+#: src/proto.c:732
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header अपयशी"
 
-#: src/proto.c:672
+#: src/proto.c:741
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:802
+#: src/proto.c:871
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/proto.c:818
+#: src/proto.c:887
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:941
+#: src/proto.c:1010
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:969
+#: src/proto.c:1038
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:992
+#: src/proto.c:1061
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:997
+#: src/proto.c:1066
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:1005
+#: src/proto.c:1074
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:1014
+#: src/proto.c:1083
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
