@@ -577,6 +577,9 @@ and generate_client_actions () =
 #include <stdint.h>
 #include <string.h>
 #include <inttypes.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-internal.h\"
@@ -960,10 +963,34 @@ check_state (guestfs_h *g, const char *caller)
        | RStructList (_, typ) ->
            pr "  struct guestfs_%s_list *ret_v;\n" typ
       );
+
+      let has_filein =
+        List.exists (function FileIn _ -> true | _ -> false) args in
+      if has_filein then (
+        pr "  uint64_t progress_hint = 0;\n";
+        pr "  struct stat progress_stat;\n";
+      ) else
+        pr "  const uint64_t progress_hint = 0;\n";
+
       pr "\n";
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
       trace_call shortname style;
+
+      (* Calculate the total size of all FileIn arguments to pass
+       * as a progress bar hint.
+       *)
+      List.iter (
+        function
+        | FileIn n ->
+            pr "  if (stat (%s, &progress_stat) == 0 &&\n" n;
+            pr "      S_ISREG (progress_stat.st_mode))\n";
+            pr "    progress_hint += progress_stat.st_size;\n";
+            pr "\n";
+        | _ -> ()
+      ) args;
+
+      (* Check we are in the right state for sending a request. *)
       pr "  if (check_state (g, \"%s\") == -1) {\n" shortname;
       trace_return_error ~indent:4 style;
       pr "    return %s;\n" error_code;
@@ -974,8 +1001,9 @@ check_state (guestfs_h *g, const char *caller)
       (* Send the main header and arguments. *)
       (match args with
        | [] ->
-           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
-             (String.uppercase shortname)
+           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint,\n"
+             (String.uppercase shortname);
+           pr "                           NULL, NULL);\n"
        | args ->
            List.iter (
              function
@@ -1006,7 +1034,7 @@ check_state (guestfs_h *g, const char *caller)
                  pr "  args.%s.%s_len = %s_size;\n" n n n
              | Pointer _ -> assert false
            ) args;
-           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s,\n"
+           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint,\n"
              (String.uppercase shortname);
            pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
              name;

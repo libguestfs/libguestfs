@@ -627,7 +627,8 @@ guestfs___accept_from_daemon (guestfs_h *g)
 }
 
 int
-guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
+guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint,
+                xdrproc_t xdrp, char *args)
 {
   struct guestfs_message_header hdr;
   XDR xdr;
@@ -658,7 +659,7 @@ guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   hdr.direction = GUESTFS_DIRECTION_CALL;
   hdr.serial = serial;
   hdr.status = GUESTFS_STATUS_OK;
-  hdr.progress_hint = 0;
+  hdr.progress_hint = progress_hint;
   hdr.optargs_bitmask = 0;
 
   if (!xdr_guestfs_message_header (&xdr, &hdr)) {
