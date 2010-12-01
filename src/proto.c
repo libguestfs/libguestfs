@@ -245,11 +245,56 @@ read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
   return 0;
 }
 
+/* Read 'n' bytes, setting the socket to blocking temporarily so
+ * that we really read the number of bytes requested.
+ * Returns:  0 == EOF while reading
+ *          -1 == error, error() function has been called
+ *           n == read 'n' bytes in full
+ */
+static ssize_t
+really_read_from_socket (guestfs_h *g, int sock, char *buf, size_t n)
+{
+  long flags;
+  ssize_t r;
+  size_t got;
+
+  /* Set socket to blocking. */
+  flags = fcntl (sock, F_GETFL);
+  if (flags == -1) {
+    perrorf (g, "fcntl");
+    return -1;
+  }
+  if (fcntl (sock, F_SETFL, flags & ~O_NONBLOCK) == -1) {
+    perrorf (g, "fcntl");
+    return -1;
+  }
+
+  got = 0;
+  while (got < n) {
+    r = read (sock, &buf[got], n-got);
+    if (r == -1) {
+      perrorf (g, "read");
+      return -1;
+    }
+    if (r == 0)
+      return 0; /* EOF */
+    got += r;
+  }
+
+  /* Restore original socket flags. */
+  if (fcntl (sock, F_SETFL, flags) == -1) {
+    perrorf (g, "fcntl");
+    return -1;
+  }
+
+  return (ssize_t) got;
+}
+
 static int
 check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
 {
   char buf[4];
-  int n;
+  ssize_t n;
   uint32_t flag;
   XDR xdr;
 
@@ -258,18 +303,12 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
              "check_for_daemon_cancellation_or_eof: %p g->state = %d, fd = %d\n",
              g, g->state, fd);
 
-  n = read (fd, buf, 4);
+  n = really_read_from_socket (g, fd, buf, 4);
+  if (n == -1)
+    return -1;
   if (n == 0) {
     /* Hopefully this indicates the qemu child process has died. */
     child_cleanup (g);
-    return -1;
-  }
-
-  if (n == -1) {
-    if (errno == EINTR || errno == EAGAIN)
-      return 0;
-
-    perrorf (g, "read");
     return -1;
   }
 
