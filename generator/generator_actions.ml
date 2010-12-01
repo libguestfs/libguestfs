@@ -2359,7 +2359,7 @@ Reread the partition table on C<device>.
 
 This uses the L<blockdev(8)> command.");
 
-  ("upload", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"], []), 66, [],
+  ("upload", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"], []), 66, [Progress],
    [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["mkdir"; "/upload"];
@@ -5510,7 +5510,7 @@ removes the partition number, returning the device name
 The named partition must exist, for example as a string returned
 from C<guestfs_list_partitions>.");
 
-  ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273, [],
+  ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273, [Progress],
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
     [InitScratchFS, Always, TestOutput (
        [["upload_offset"; "../COPYING.LIB"; "/upload_offset"; "0"];

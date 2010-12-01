@@ -31,25 +31,42 @@
 #include "daemon.h"
 #include "actions.h"
 
+struct write_cb_data {
+  int fd;                       /* file descriptor */
+  uint64_t written;             /* bytes written so far */
+};
+
 static int
-write_cb (void *fd_ptr, const void *buf, size_t len)
+write_cb (void *data_vp, const void *buf, size_t len)
 {
-  int fd = *(int *)fd_ptr;
-  return xwrite (fd, buf, len);
+  struct write_cb_data *data = data_vp;
+  int r;
+
+  r = xwrite (data->fd, buf, len);
+  if (r == -1)
+    return -1;
+
+  data->written += len;
+
+  if (progress_hint > 0)
+    notify_progress (data->written, progress_hint);
+
+  return 0;
 }
 
 /* Has one FileIn parameter. */
 static int
 upload (const char *filename, int flags, int64_t offset)
 {
-  int err, fd, r, is_dev;
+  struct write_cb_data data = { .written = 0 };
+  int err, r, is_dev;
 
   is_dev = STRPREFIX (filename, "/dev/");
 
   if (!is_dev) CHROOT_IN;
-  fd = open (filename, flags, 0666);
+  data.fd = open (filename, flags, 0666);
   if (!is_dev) CHROOT_OUT;
-  if (fd == -1) {
+  if (data.fd == -1) {
     err = errno;
     r = cancel_receive ();
     errno = err;
@@ -58,7 +75,7 @@ upload (const char *filename, int flags, int64_t offset)
   }
 
   if (offset) {
-    if (lseek (fd, offset, SEEK_SET) == -1) {
+    if (lseek (data.fd, offset, SEEK_SET) == -1) {
       err = errno;
       r = cancel_receive ();
       errno = err;
@@ -67,22 +84,22 @@ upload (const char *filename, int flags, int64_t offset)
     }
   }
 
-  r = receive_file (write_cb, &fd);
+  r = receive_file (write_cb, &data.fd);
   if (r == -1) {		/* write error */
     err = errno;
     r = cancel_receive ();
     errno = err;
     if (r != -2) reply_with_error ("write error: %s", filename);
-    close (fd);
+    close (data.fd);
     return -1;
   }
   if (r == -2) {		/* cancellation from library */
-    close (fd);
+    close (data.fd);
     /* Do NOT send any error. */
     return -1;
   }
 
-  if (close (fd) == -1) {
+  if (close (data.fd) == -1) {
     err = errno;
     if (r == -1)                /* if r == 0, file transfer ended already */
       r = cancel_receive ();
