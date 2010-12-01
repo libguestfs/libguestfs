@@ -70,6 +70,9 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+/* Size of guestfs_progress message on the wire. */
+#define PROGRESS_MESSAGE_SIZE 24
+
 /* This is the code used to send and receive RPC messages and (for
  * certain types of message) to perform file transfers.  This code is
  * driven from the generated actions (src/actions.c).  There
@@ -316,6 +319,33 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
   xdr_uint32_t (&xdr, &flag);
   xdr_destroy (&xdr);
 
+  /* Read and process progress messages that happen during FileIn. */
+  if (flag == GUESTFS_PROGRESS_FLAG) {
+    char buf[PROGRESS_MESSAGE_SIZE];
+
+    n = really_read_from_socket (g, fd, buf, PROGRESS_MESSAGE_SIZE);
+    if (n == -1)
+      return -1;
+    if (n == 0) {
+      child_cleanup (g);
+      return -1;
+    }
+
+    if (g->state == BUSY && g->progress_cb) {
+      guestfs_progress message;
+
+      xdrmem_create (&xdr, buf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
+      xdr_guestfs_progress (&xdr, &message);
+      xdr_destroy (&xdr);
+
+      g->progress_cb (g, g->progress_cb_data,
+                      message.proc, message.serial,
+                      message.position, message.total);
+    }
+
+    return 0;
+  }
+
   if (flag != GUESTFS_CANCEL_FLAG) {
     error (g, _("check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"),
            flag, GUESTFS_CANCEL_FLAG);
@@ -417,9 +447,6 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
  * If the callback exists, it is called.  The caller of this function
  * will not see GUESTFS_PROGRESS_FLAG.
  */
-
-/* Size of guestfs_progress message on the wire. */
-#define PROGRESS_MESSAGE_SIZE 24
 
 int
 guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)

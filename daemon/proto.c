@@ -425,6 +425,7 @@ receive_file (receive_cb cb, void *opaque)
       return 0;			/* end of file */
     }
 
+    /* Note that the callback can generate progress messages. */
     if (cb)
       r = cb (opaque, chunk.data.data_val, chunk.data.data_len);
     else
