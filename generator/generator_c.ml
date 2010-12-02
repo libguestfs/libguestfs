@@ -511,8 +511,8 @@ extern void *guestfs_get_private (guestfs_h *g, const char *key);
             let c_type =
               match argt with
               | Bool n -> "int "
-              | Int n -> "int64_t "
-              | Int64 n -> "int "
+              | Int n -> "int "
+              | Int64 n -> "int64_t "
               | String n -> "const char *"
               | _ -> assert false (* checked in generator_checks *) in
             let uc_shortname = String.uppercase shortname in
