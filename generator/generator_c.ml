@@ -909,19 +909,17 @@ check_state (guestfs_h *g, const char *caller)
   (* Client-side stubs for each function. *)
   List.iter (
     fun (shortname, (ret, args, optargs as style), _, _, _, _, _) ->
-      if optargs <> [] then
-        failwithf "optargs not yet implemented for daemon functions";
-
       let name = "guestfs_" ^ shortname in
       let error_code = error_code_of ret in
 
       (* Generate the action stub. *)
       if optargs = [] then
         generate_prototype ~extern:false ~semicolon:false ~newline:true
-          ~handle:"g" name style
+          ~handle:"g" ~prefix:"guestfs_" shortname style
       else
         generate_prototype ~extern:false ~semicolon:false ~newline:true
-          ~handle:"g" ~suffix:"_argv" ~optarg_proto:Argv name style;
+          ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv"
+          ~optarg_proto:Argv shortname style;
 
       pr "{\n";
 
@@ -999,45 +997,69 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n";
 
       (* Send the main header and arguments. *)
-      (match args with
-       | [] ->
-           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint,\n"
-             (String.uppercase shortname);
-           pr "                           NULL, NULL);\n"
-       | args ->
-           List.iter (
-             function
-             | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
-                 pr "  args.%s = (char *) %s;\n" n n
-             | OptString n ->
-                 pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
-             | StringList n | DeviceList n ->
-                 pr "  args.%s.%s_val = (char **) %s;\n" n n n;
-                 pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
-             | Bool n ->
-                 pr "  args.%s = %s;\n" n n
-             | Int n ->
-                 pr "  args.%s = %s;\n" n n
+      if args = [] && optargs = [] then (
+        pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint, 0,\n"
+          (String.uppercase shortname);
+        pr "                           NULL, NULL);\n"
+      ) else (
+        List.iter (
+          function
+          | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
+              pr "  args.%s = (char *) %s;\n" n n
+          | OptString n ->
+              pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
+          | StringList n | DeviceList n ->
+              pr "  args.%s.%s_val = (char **) %s;\n" n n n;
+              pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
+          | Bool n ->
+              pr "  args.%s = %s;\n" n n
+          | Int n ->
+              pr "  args.%s = %s;\n" n n
+          | Int64 n ->
+              pr "  args.%s = %s;\n" n n
+          | FileIn _ | FileOut _ -> ()
+          | BufferIn n ->
+              pr "  /* Just catch grossly large sizes. XDR encoding will make this precise. */\n";
+              pr "  if (%s_size >= GUESTFS_MESSAGE_MAX) {\n" n;
+              trace_return_error ~indent:4 style;
+              pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
+                shortname;
+              pr "    guestfs___end_busy (g);\n";
+              pr "    return %s;\n" error_code;
+              pr "  }\n";
+              pr "  args.%s.%s_val = (char *) %s;\n" n n n;
+              pr "  args.%s.%s_len = %s_size;\n" n n n
+          | Pointer _ -> assert false
+        ) args;
+
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_shortname = String.uppercase shortname in
+            let uc_n = String.uppercase n in
+            pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK))\n"
+              uc_shortname uc_n;
+            (match argt with
+             | Bool n
+             | Int n
              | Int64 n ->
-                 pr "  args.%s = %s;\n" n n
-             | FileIn _ | FileOut _ -> ()
-             | BufferIn n ->
-                 pr "  /* Just catch grossly large sizes. XDR encoding will make this precise. */\n";
-                 pr "  if (%s_size >= GUESTFS_MESSAGE_MAX) {\n" n;
-                 trace_return_error ~indent:4 style;
-                 pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
-                   shortname;
-                 pr "    guestfs___end_busy (g);\n";
-                 pr "    return %s;\n" error_code;
-                 pr "  }\n";
-                 pr "  args.%s.%s_val = (char *) %s;\n" n n n;
-                 pr "  args.%s.%s_len = %s_size;\n" n n n
-             | Pointer _ -> assert false
-           ) args;
-           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint,\n"
-             (String.uppercase shortname);
-           pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
-             name;
+                 pr "    args.%s = optargs->%s;\n" n n;
+                 pr "  else\n";
+                 pr "    args.%s = 0;\n" n
+             | String n ->
+                 pr "    args.%s = (char *) %s;\n" n n;
+                 pr "  else\n";
+                 pr "    args.%s = (char *) \"\";\n" n
+             | _ -> assert false
+            )
+        ) optargs;
+
+        pr "  serial = guestfs___send (g, GUESTFS_PROC_%s,\n"
+          (String.uppercase shortname);
+        pr "                           progress_hint, %s,\n"
+          (if optargs <> [] then "optargs->bitmask" else "0");
+        pr "                           (xdrproc_t) xdr_%s_args, (char *) &args);\n"
+          name;
       );
       pr "  if (serial == -1) {\n";
       pr "    guestfs___end_busy (g);\n";

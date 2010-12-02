@@ -709,7 +709,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
   | [] -> assert false
   | name :: args ->
       (* Look up the command to find out what args/ret it has. *)
-      let style =
+      let style_ret, style_args, style_optargs =
         try
           let _, style, _, _, _, _, _ =
             List.find (fun (n, _, _, _, _, _, _) -> n = name) all_functions in
@@ -717,16 +717,24 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         with Not_found ->
           failwithf "%s: in test, command %s was not found" test_name name in
 
-      (* If the call has optional args, fold them all together.  We cannot
-       * test partial optional args yet.
-       *)
-      let style =
-        let ret, args, optargs = style in
-        ret, args@optargs in
-
-      if List.length (snd style) <> List.length args then
-        failwithf "%s: in test, wrong number of args given to %s"
-          test_name name;
+      (* Match up the arguments strings and argument types. *)
+      let args, optargs =
+        let rec loop argts args =
+          match argts, args with
+          | (t::ts), (s::ss) ->
+              let args, rest = loop ts ss in
+              ((t, s) :: args), rest
+          | [], ss -> [], ss
+          | ts, [] ->
+              failwithf "%s: in test, too few args given to function %s"
+                test_name name
+        in
+        let args, optargs = loop style_args args in
+        let optargs, rest = loop style_optargs optargs in
+        if rest <> [] then
+          failwithf "%s: in test, too many args given to function %s"
+            test_name name;
+        args, optargs in
 
       pr "  {\n";
 
@@ -764,10 +772,28 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Pointer _, _ ->
             (* Difficult to make these pointers in order to run a test. *)
             assert false
-      ) (List.combine (snd style) args);
+      ) args;
+
+      (* Currently can only deal with a complete, in-order list of optargs. *)
+      if optargs <> [] then (
+        pr "    struct guestfs_%s_argv optargs;\n" name;
+        let len = List.length style_optargs in
+        let bitmask = Int64.pred (Int64.shift_left 1L len) in
+        pr "    optargs.bitmask = UINT64_C(0x%Lx);\n" bitmask;
+        List.iter (
+          function
+          | Bool n, arg
+          | Int n, arg
+          | Int64 n, arg ->
+              pr "    optargs.%s = %s;\n" n arg
+          | String n, arg ->
+              pr "    optargs.%s = \"%s\";\n" n (c_quote arg);
+          | _ -> assert false
+        ) optargs;
+      );
 
       let error_code =
-        match fst style with
+        match style_ret with
         | RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
         | RInt64 _ -> pr "    int64_t r;\n"; "-1"
         | RConstString _ | RConstOptString _ ->
@@ -787,7 +813,10 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
             "NULL" in
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
-      pr "    r = guestfs_%s (g" name;
+      if optargs = [] then
+        pr "    r = guestfs_%s (g" name
+      else
+        pr "    r = guestfs_%s_argv (g" name;
 
       (* Generate the parameters. *)
       List.iter (
@@ -820,12 +849,15 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Bool _, arg ->
             let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
         | Pointer _, _ -> assert false
-      ) (List.combine (snd style) args);
+      ) args;
 
-      (match fst style with
+      (match style_ret with
        | RBufferOut _ -> pr ", &size"
        | _ -> ()
       );
+
+      if optargs <> [] then
+        pr ", &optargs";
 
       pr ");\n";
 
@@ -841,7 +873,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
        | Some f -> f ()
       );
 
-      (match fst style with
+      (match style_ret with
        | RErr | RInt _ | RInt64 _ | RBool _
        | RConstString _ | RConstOptString _ -> ()
        | RString _ | RBufferOut _ -> pr "    free (r);\n"

@@ -37,7 +37,22 @@ let generate_daemon_actions_h () =
   pr "\n";
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    function
+    | shortname, (_, _, (_::_ as optargs)), _, _, _, _, _ ->
+        iteri (
+          fun i arg ->
+            let uc_shortname = String.uppercase shortname in
+            let n = name_of_argt arg in
+            let uc_n = String.uppercase n in
+            pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n"
+              uc_shortname uc_n i
+        ) optargs
+    | _ -> ()
+  ) daemon_functions;
+
+  List.iter (
+    fun (name, (ret, args, optargs), _, _, _, _, _) ->
+      let style = ret, args @ optargs, [] in
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
         name style;
@@ -64,9 +79,6 @@ and generate_daemon_actions () =
 
   List.iter (
     fun (name, (ret, args, optargs), _, _, _, _, _) ->
-      if optargs <> [] then
-        failwithf "optional arguments not supported in the daemon yet";
-
       (* Generate server-side stubs. *)
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
@@ -86,98 +98,108 @@ and generate_daemon_actions () =
             pr "  char *r;\n";
             "NULL" in
 
-      (match args with
-       | [] -> ()
-       | args ->
-           pr "  struct guestfs_%s_args args;\n" name;
-           List.iter (
-             function
-             | Device n | Dev_or_Path n
-             | Pathname n
-             | String n
-             | Key n -> ()
-             | OptString n -> pr "  char *%s;\n" n
-             | StringList n | DeviceList n -> pr "  char **%s;\n" n
-             | Bool n -> pr "  int %s;\n" n
-             | Int n -> pr "  int %s;\n" n
-             | Int64 n -> pr "  int64_t %s;\n" n
-             | FileIn _ | FileOut _ -> ()
-             | BufferIn n ->
-                 pr "  const char *%s;\n" n;
-                 pr "  size_t %s_size;\n" n
-             | Pointer _ -> assert false
-           ) args
+      if args <> [] || optargs <> [] then (
+        pr "  struct guestfs_%s_args args;\n" name;
+        List.iter (
+          function
+          | Device n | Dev_or_Path n
+          | Pathname n
+          | String n
+          | Key n -> ()
+          | OptString n -> pr "  char *%s;\n" n
+          | StringList n | DeviceList n -> pr "  char **%s;\n" n
+          | Bool n -> pr "  int %s;\n" n
+          | Int n -> pr "  int %s;\n" n
+          | Int64 n -> pr "  int64_t %s;\n" n
+          | FileIn _ | FileOut _ -> ()
+          | BufferIn n ->
+              pr "  const char *%s;\n" n;
+              pr "  size_t %s_size;\n" n
+          | Pointer _ -> assert false
+        ) (args @ optargs)
       );
       pr "\n";
 
       let is_filein =
         List.exists (function FileIn _ -> true | _ -> false) args in
 
-      (match args with
-       | [] -> ()
-       | args ->
-           pr "  memset (&args, 0, sizeof args);\n";
-           pr "\n";
-           pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
-           if is_filein then
-             pr "    if (cancel_receive () != -2)\n";
-           pr "      reply_with_error (\"daemon failed to decode procedure arguments\");\n";
-           pr "    goto done;\n";
-           pr "  }\n";
-           let pr_args n =
-             pr "  char *%s = args.%s;\n" n n
-           in
-           let pr_list_handling_code n =
-             pr "  %s = realloc (args.%s.%s_val,\n" n n n;
-             pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
-             pr "  if (%s == NULL) {\n" n;
-             if is_filein then
-               pr "    if (cancel_receive () != -2)\n";
-             pr "      reply_with_perror (\"realloc\");\n";
-             pr "    goto done;\n";
-             pr "  }\n";
-             pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
-             pr "  args.%s.%s_val = %s;\n" n n n;
-           in
-           List.iter (
-             function
-             | Pathname n ->
-                 pr_args n;
-                 pr "  ABS_PATH (%s, %s, goto done);\n"
-                   n (if is_filein then "cancel_receive ()" else "0");
-             | Device n ->
-                 pr_args n;
-                 pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
-                   n (if is_filein then "cancel_receive ()" else "0");
-             | Dev_or_Path n ->
-                 pr_args n;
-                 pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
-                   n (if is_filein then "cancel_receive ()" else "0");
-             | String n | Key n -> pr_args n
-             | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
-             | StringList n ->
-                 pr_list_handling_code n;
-             | DeviceList n ->
-                 pr_list_handling_code n;
-                 pr "  /* Ensure that each is a device,\n";
-                 pr "   * and perform device name translation.\n";
-                 pr "   */\n";
-                 pr "  {\n";
-                 pr "    size_t i;\n";
-                 pr "    for (i = 0; %s[i] != NULL; ++i)\n" n;
-                 pr "      RESOLVE_DEVICE (%s[i], %s, goto done);\n" n
-                   (if is_filein then "cancel_receive ()" else "0");
-                 pr "  }\n";
-             | Bool n -> pr "  %s = args.%s;\n" n n
-             | Int n -> pr "  %s = args.%s;\n" n n
-             | Int64 n -> pr "  %s = args.%s;\n" n n
-             | FileIn _ | FileOut _ -> ()
-             | BufferIn n ->
-                 pr "  %s = args.%s.%s_val;\n" n n n;
-                 pr "  %s_size = args.%s.%s_len;\n" n n n
-             | Pointer _ -> assert false
-           ) args;
-           pr "\n"
+      (* Reject unknown optional arguments. *)
+      if optargs <> [] then (
+        let len = List.length optargs in
+        let mask = Int64.lognot (Int64.pred (Int64.shift_left 1L len)) in
+        pr "  if (optargs_bitmask & UINT64_C(0x%Lx)) {\n" mask;
+        if is_filein then
+          pr "    if (cancel_receive () != -2)\n";
+        pr "    reply_with_error (\"unknown option in optional arguments bitmask (this can happen if a program is compiled against a newer version of libguestfs, then run against an older version of the daemon)\");\n";
+        pr "    goto done;\n";
+        pr "  }\n";
+        pr "\n"
+      );
+
+      (* Decode arguments. *)
+      if args <> [] || optargs <> [] then (
+        pr "  memset (&args, 0, sizeof args);\n";
+        pr "\n";
+        pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
+        if is_filein then
+          pr "    if (cancel_receive () != -2)\n";
+        pr "      reply_with_error (\"daemon failed to decode procedure arguments\");\n";
+        pr "    goto done;\n";
+        pr "  }\n";
+        let pr_args n =
+          pr "  char *%s = args.%s;\n" n n
+        in
+        let pr_list_handling_code n =
+          pr "  %s = realloc (args.%s.%s_val,\n" n n n;
+          pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
+          pr "  if (%s == NULL) {\n" n;
+          if is_filein then
+            pr "    if (cancel_receive () != -2)\n";
+          pr "      reply_with_perror (\"realloc\");\n";
+          pr "    goto done;\n";
+          pr "  }\n";
+          pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
+          pr "  args.%s.%s_val = %s;\n" n n n;
+        in
+        List.iter (
+          function
+          | Pathname n ->
+              pr_args n;
+              pr "  ABS_PATH (%s, %s, goto done);\n"
+                n (if is_filein then "cancel_receive ()" else "0");
+          | Device n ->
+              pr_args n;
+              pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
+                n (if is_filein then "cancel_receive ()" else "0");
+          | Dev_or_Path n ->
+              pr_args n;
+              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
+                n (if is_filein then "cancel_receive ()" else "0");
+          | String n | Key n -> pr_args n
+          | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
+          | StringList n ->
+              pr_list_handling_code n;
+          | DeviceList n ->
+              pr_list_handling_code n;
+              pr "  /* Ensure that each is a device,\n";
+              pr "   * and perform device name translation.\n";
+              pr "   */\n";
+              pr "  {\n";
+              pr "    size_t i;\n";
+              pr "    for (i = 0; %s[i] != NULL; ++i)\n" n;
+              pr "      RESOLVE_DEVICE (%s[i], %s, goto done);\n" n
+                (if is_filein then "cancel_receive ()" else "0");
+              pr "  }\n";
+          | Bool n -> pr "  %s = args.%s;\n" n n
+          | Int n -> pr "  %s = args.%s;\n" n n
+          | Int64 n -> pr "  %s = args.%s;\n" n n
+          | FileIn _ | FileOut _ -> ()
+          | BufferIn n ->
+              pr "  %s = args.%s.%s_val;\n" n n n;
+              pr "  %s_size = args.%s.%s_len;\n" n n n
+          | Pointer _ -> assert false
+        ) (args @ optargs);
+        pr "\n"
       );
 
       (* this is used at least for do_equal *)
@@ -191,11 +213,14 @@ and generate_daemon_actions () =
       (* Don't want to call the impl with any FileIn or FileOut
        * parameters, since these go "outside" the RPC protocol.
        *)
-      let args' =
-        List.filter (function FileIn _ | FileOut _ -> false | _ -> true) args in
-      pr "  r = do_%s " name;
-      generate_c_call_args (ret, args', optargs);
-      pr ";\n";
+      let () =
+        let args' =
+          List.filter
+            (function FileIn _ | FileOut _ -> false | _ -> true) args in
+        let style = ret, args' @ optargs, [] in
+        pr "  r = do_%s " name;
+        generate_c_call_args style;
+        pr ";\n" in
 
       (match ret with
        | RErr | RInt _ | RInt64 _ | RBool _

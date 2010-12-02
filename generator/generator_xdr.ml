@@ -65,12 +65,14 @@ let generate_xdr () =
 
   List.iter (
     fun (shortname, (ret, args, optargs), _, _, _, _, _) ->
-      if optargs <> [] then
-        failwithf "optional arguments not supported in XDR yet";
-
       let name = "guestfs_" ^ shortname in
 
-      (match args with
+      (* Ordinary arguments and optional arguments are concatenated
+       * together in the XDR args struct.  The optargs_bitmask field
+       * in the header controls which optional arguments are
+       * meaningful.
+       *)
+      (match args @ optargs with
        | [] -> ()
        | args ->
            pr "struct %s_args {\n" name;

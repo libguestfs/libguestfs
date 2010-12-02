@@ -167,14 +167,6 @@ main_loop (int _sock)
       reply_with_error ("unexpected message status (%d)", hdr.status);
       goto cont;
     }
-    /* This version of the daemon does not understand optional arguments
-     * at all.  When we fix this, we will remove the next conditional.
-     */
-    if (hdr.optargs_bitmask != 0) {
-      reply_with_error ("optargs_bitmask != 0 (%" PRIu64 ")",
-                        hdr.optargs_bitmask);
-      goto cont;
-    }
 
     proc_nr = hdr.proc;
     serial = hdr.serial;
