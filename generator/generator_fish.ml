@@ -459,10 +459,12 @@ Guestfish will prompt for these separately."
                      "The Int type in the generator is a signed 31 bit int." in
                    Some (min, max, comment) in
                  let expr = sprintf "&argv[i][%d]" (len+1) in
-                 parse_integer expr "xstrtoll" "long long" "int" range name
+                 parse_integer expr "xstrtoll" "long long" "int" range
+                   (sprintf "optargs_s.%s" n)
              | Int64 n ->
                  let expr = sprintf "&argv[i][%d]" (len+1) in
-                 parse_integer expr "xstrtoll" "long long" "int64_t" None name
+                 parse_integer expr "xstrtoll" "long long" "int64_t" None
+                   (sprintf "optargs_s.%s" n)
              | String n ->
                  pr "      optargs_s.%s = &argv[i][%d];\n" n (len+1);
              | _ -> assert false
