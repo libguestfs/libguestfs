@@ -46,12 +46,12 @@ part-add /dev/sda p 64     524287
 part-add /dev/sda p 524288    -64
 
 # Phony /boot filesystem.
-mkfs-b ext2 4096 /dev/sda1
+mkfs-opts ext2 /dev/sda1 blocksize:4096
 set-e2label /dev/sda1 BOOT
 set-e2uuid /dev/sda1 01234567-0123-0123-0123-012345678901
 
 # Phony root filesystem (Ubuntu doesn't use LVM by default).
-mkfs-b ext2 4096 /dev/sda2
+mkfs-opts ext2 /dev/sda2 blocksize:4096
 set-e2uuid /dev/sda2 01234567-0123-0123-0123-012345678902
 
 # Enough to fool inspection API.

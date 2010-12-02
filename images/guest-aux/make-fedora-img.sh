@@ -48,12 +48,12 @@ lvcreate LV2 VG 32
 lvcreate LV3 VG 64
 
 # Phony /boot filesystem.
-mkfs-b ext2 4096 /dev/sda1
+mkfs-opts ext2 /dev/sda1 blocksize:4096
 set-e2label /dev/sda1 BOOT
 set-e2uuid /dev/sda1 01234567-0123-0123-0123-012345678901
 
 # Phony root filesystem.
-mkfs-b ext2 4096 /dev/VG/Root
+mkfs-opts ext2 /dev/VG/Root blocksize:4096
 set-e2label /dev/VG/Root ROOT
 set-e2uuid /dev/VG/Root 01234567-0123-0123-0123-012345678902
 
@@ -92,9 +92,9 @@ mknod 0777 10 10 /bin/test7
 
 # Other filesystems.
 # Note that these should be empty, for testing virt-df.
-mkfs-b ext2 4096 /dev/VG/LV1
-mkfs-b ext2 1024 /dev/VG/LV2
-mkfs-b ext2 2048 /dev/VG/LV3
+mkfs-opts ext2 /dev/VG/LV1 blocksize:4096
+mkfs-opts ext2 /dev/VG/LV2 blocksize:1024
+mkfs-opts ext2 /dev/VG/LV3 blocksize:2048
 EOF
 
 rm fstab.tmp

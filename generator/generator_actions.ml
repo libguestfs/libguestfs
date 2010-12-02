@@ -4186,7 +4186,7 @@ This gets the SELinux security context of the daemon.
 See the documentation about SELINUX in L<guestfs(3)>,
 and C<guestfs_setcon>");
 
-  ("mkfs_b", (RErr, [String "fstype"; Int "blocksize"; Device "device"], []), 187, [],
+  ("mkfs_b", (RErr, [String "fstype"; Int "blocksize"; Device "device"], []), 187, [DeprecatedBy "mkfs_opts"],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
@@ -5605,6 +5605,33 @@ This command returns an error if the C<lvname> parameter does
 not refer to a logical volume.
 
 See also C<guestfs_is_lv>.");
+
+  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"]), 278, [],
+   [InitEmpty, Always, TestOutput (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["mkfs_opts"; "ext2"; "/dev/sda1"; "4096"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
+       ["write"; "/new"; "new file contents"];
+       ["cat"; "/new"]], "new file contents")],
+   "make a filesystem",
+   "\
+This function creates a filesystem on C<device>.  The filesystem
+type is C<fstype>, for example C<ext3>.
+
+The optional arguments are:
+
+=over 4
+
+=item C<blocksize>
+
+The filesystem block size.  Supported block sizes depend on the
+filesystem type, but typically they are C<1024>, C<2048> or C<4096>
+for Linux ext2/3 filesystems.
+
+For VFAT and NTFS the C<blocksize> parameter is treated as
+the requested cluster size.
+
+=back");
 
 ]
 

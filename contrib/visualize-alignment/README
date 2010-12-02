@@ -54,7 +54,7 @@ qemu patch in the current directory.
       pvcreate /dev/vda : \
       vgcreate VG /dev/vda : \
       lvcreate LV VG 32 : \
-      mkfs-b ext4 4096 /dev/VG/LV
+      mkfs-opts ext4 /dev/VG/LV blocksize:4096
 
   Some points to note:
     * an ext4 filesystem, so it has a journal and extents
