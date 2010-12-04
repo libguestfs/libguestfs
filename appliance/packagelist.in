@@ -36,6 +36,7 @@
   bsdmainutils
   btrfs-tools
   cryptsetup
+  e2fsprogs
   /* Dependency problem prevents installation of these two:
   gfs-tools
   gfs2-tools
@@ -63,7 +64,10 @@ binutils
 coreutils
 dosfstools
 file
+findutils
+grep
 grub
+gzip
 jfsutils
 lsof
 lvm2
@@ -78,5 +82,6 @@ parted
 procps
 scrub
 strace
+tar
 xfsprogs
 zerofree
