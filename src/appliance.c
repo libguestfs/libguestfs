@@ -154,7 +154,7 @@ contains_ordinary_appliance (guestfs_h *g, const char *path, void *data)
 static int
 contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 {
-  return dir_contains_files (path, "supermin.d", "kmod.whitelist", NULL);
+  return dir_contains_files (path, "supermin.d", NULL);
 }
 
 /* supermin_path is a path which is known to contain a supermin
