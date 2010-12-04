@@ -43,6 +43,7 @@ fs_DATA += kmod.whitelist
 superminfs_DATA = \
 	supermin.d/base.img \
 	supermin.d/daemon.img \
+	supermin.d/init.img \
 	supermin.d/hostfiles
 endif
 
@@ -101,6 +102,14 @@ supermin.d/daemon.img: $(INITRAMFSIMG)
 	(cd $(top_builddir)/initramfs && \
 	  echo -e "sbin\nsbin/guestfsd" | cpio --quiet -o -H newc ) > $@-t
 	mv $@-t $@
+
+supermin.d/init.img: $(INITRAMFSIMG)
+	mkdir -p supermin.d
+	rm -f $@ $@-t
+	(cd $(top_builddir)/initramfs && \
+	  echo -e "init\n" | cpio --quiet -o -H newc ) > $@-t
+	mv $@-t $@
+
 endif
 
 # Extra symlinks needed by the Debian appliance.
