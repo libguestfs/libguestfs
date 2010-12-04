@@ -1,6 +1,6 @@
 #!/bin/bash -
 # @configure_input@
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,167 +16,46 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# This is called from the Makefile to build the initramfs.
-
 unset CDPATH
 
 set -e
-set -x
 
-if [ "@DIST@" = "REDHAT" ]; then
-  cd @top_builddir@
-  # Decide on names for the final output.  These have to match Makefile.am.
-  output=appliance/initramfs.@host_cpu@.img
-  koutput=appliance/vmlinuz.@host_cpu@
-  rm -f $output
-  rm -f $koutput
+# XXX Distro-dependent in future.
+excludes="--exclude '^perl' --exclude '^python' --exclude '^fedora-logos' --exclude '^redhat-logos' --exclude '^dracut' --exclude '^upstart' --exclude '^plymouth' --exclude '^systemd' --exclude '^linux-firmware' --exclude '^kbd-misc'"
 
-  # Create the basic initramfs.
-  exec 5<appliance/packagelist
-  packages=
-  while read pkg 0<&5; do
-      packages="$packages -i $pkg"
-  done
-  exec 5<&-
-
-  @FEBOOTSTRAP@ $packages -u @UPDATES@ @REPO@ initramfs @MIRROR@
-
-  # Create modules.dep.  This is only used in the normal appliance
-  # (not supermin).
-  kversion=$(basename initramfs/lib/modules/*)
-  @FEBOOTSTRAP_RUN@ initramfs -- /sbin/depmod -a $kversion
-
-  # /sysroot is where the guest root filesystem will be mounted.
-  @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /sysroot
-
-  # Create /tmp if it is missing.
-  @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /tmp
-
-  # Create /selinux if it is missing.
-  @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0755 /selinux
-
-  # Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
-  # all of Python.  Sheez.
-  (cd initramfs && find -name '*python*' -print0) |
-    xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
-  (cd initramfs && find -name '*plymouth*' -print0) |
-    xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
-  (cd initramfs && find -name 'libply-*' -print0) |
-    xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
-
-  # In Fedora >= 11, it pulls in all of Perl from somewhere.  Nuke from orbit.
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/perl5 /usr/lib64/perl5
-
-  # Anaconda?  JPEG images?
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/anaconda-runtime
-
-  # Don't need any firmware.
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/firmware
-
-  # Don't need any keyboard maps.
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/kbd
-
-  # Remove anything in home directory.  Because of the potential for disaster
-  # we don't put a slash before 'home'.
-  (cd initramfs && echo home/*) |
-    xargs @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
-
-  # Remove /var/lib/yum stuff.
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /var/lib/yum
-
-  # Remove some unreadable binaries which are incompatible with
-  # the supermin appliance.  Since these binaries can't be read
-  # from the host filesystem, they cannot be added to the supermin
-  # appliance at run time.  XXX Need a better fix for this.
-  # Probably we should change febootstrap-supermin-helper to just
-  # ignore such files.
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -f \
-    /usr/bin/chfn \
-    /usr/bin/chsh \
-    /usr/libexec/pt_chown \
-    /usr/libexec/utempter/utempter \
-    /usr/sbin/groupdel \
-    /usr/sbin/groupadd \
-    /usr/sbin/useradd \
-    /usr/sbin/tzdata-update \
-    /usr/sbin/userdel \
-    /usr/sbin/usermod \
-    /usr/sbin/groupmod \
-    /usr/sbin/groupmems \
-    /sbin/unix_update \
-    /usr/sbin/tcpd \
-    /usr/share/dbus-1/services/org.selinux.Restorecond.service \
-    /lib/dbus-1/dbus-daemon-launch-helper \
-    /lib64/dbus-1/dbus-daemon-launch-helper \
-    /etc/passwd- \
-    /etc/group- \
-    /etc/gshadow \
-    /etc/gshadow- \
-    /etc/shadow \
-    /etc/shadow- \
-    /etc/securetty \
-    /etc/sysconfig/iptables-config \
-    /etc/default/useradd \
-    /etc/security/opasswd \
-    /etc/libaudit.conf \
-    /var/log/tallylog \
-    /var/log/maillog \
-    /var/log/secure \
-    /var/log/spooler \
-    /var/log/messages \
-    /var/log/btmp \
-    /var/log/yum.log \
-    $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
-
-  # Remove all .*.hmac files (RHBZ#654638).  These are not used unless
-  # you are using FIPS, and they cause hard dependencies on files
-  # which change whenever a library version is bumped.
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -f $(cd initramfs && find -name '.*.hmac')
-
-  # Kernel modules take up nearly half of the image.  Only include ones
-  # which are on the whitelist.
-  exec 5<appliance/kmod.whitelist
-  whitelist=
-  while read kmod 0<&5; do
-      whitelist="$whitelist -a -not -name $kmod"
-  done
-  exec 5<&-
-
-  (cd initramfs && \
-    find lib/modules/*/kernel -name '*.ko' $whitelist -a -print0 ) |
-    xargs -0 febootstrap-run initramfs -- rm
-
-  # Pull the kernel out into the current directory.  We don't want it in
-  # the initramfs image.
-  cp initramfs/boot/vmlinuz* $koutput
-  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf boot
-
-  # Minimize the image.
-  @FEBOOTSTRAP_MINIMIZE@ initramfs
-
-  # Add some missing configuration files.
-  if [ ! -f initramfs/etc/hosts ]; then
-      cat > hosts.new <<'__EOF__'
-  127.0.0.1 guestfs localhost.localdomain localhost
-  ::1       localhost6.localdomain6 localhost6
-__EOF__
-      @FEBOOTSTRAP_INSTALL@ initramfs hosts.new /etc/hosts 0644 root.root
-      rm hosts.new
-  fi
-
-  if [ ! -f initramfs/etc/fstab ]; then
-      @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
-  fi
-
-  echo nameserver 169.254.2.3 > resolv.conf.new
-  @FEBOOTSTRAP_INSTALL@ initramfs resolv.conf.new /etc/resolv.conf 0644 root.root
-  rm resolv.conf.new
-
-  ls -lh $koutput
-
-elif [ "@DIST@" = "DEBIAN" ]; then
-  cd @top_builddir@/appliance
-  debirf make -n debian
-  mkdir -p @top_builddir@/initramfs
-  touch @top_builddir@/initramfs/fakeroot.log
+# Run febootstrap on the package list.
+if [ -z "@PACKAGE_DIRECTORY@" ]; then
+    @FEBOOTSTRAP@ -v -o supermin.d $excludes --names $(< packagelist )
+else
+    @FEBOOTSTRAP@ -v -o supermin.d $excludes @PACKAGE_DIRECTORY@/*
 fi
+
+# Remove some things that we don't want in the appliance.  This is
+# copied from the old febootstrap-minimize.  However minimization is
+# not so important now that we are caching the appliance.
+< supermin.d/hostfiles \
+grep -v '^/usr/lib/locale' |
+grep -v '^/usr/share/locale' |
+grep -v '^/usr/lib/gconv' |
+grep -v '^/usr/lib64/gconv' |
+grep -v '^/usr/bin/localedef' |
+grep -v '^/usr/sbin/build-locale-archive' |
+grep -v '^/usr/share/man/' |
+grep -v '^/usr/share/doc/' |
+grep -v '^/usr/share/info/' |
+grep -v '^/usr/share/gnome/help/' |
+grep -v '^/usr/share/cracklib/' |
+grep -v '^/usr/share/i18n/' > supermin.d/hostfiles-t
+
+# XXX resolv.conf?  The old script had:
+# echo nameserver 169.254.2.3 > resolv.conf
+if ! grep -q /etc/resolv.conf supermin.d/hostfiles-t; then
+    echo /etc/resolv.conf >> supermin.d/hostfiles-t
+fi
+
+# Include any Augeas lenses from the host.
+if grep -q /usr/share/augeas/lenses supermin.d/hostfiles-t; then
+    echo "/usr/share/augeas/lenses/*.aug" >> supermin.d/hostfiles-t
+fi
+
+mv supermin.d/hostfiles-t supermin.d/hostfiles

@@ -186,9 +186,6 @@ CLEANFILES = \
 	pod2htm?.tmp \
 	html/*.html
 
-clean-local:
-	rm -rf initramfs
-
 # If you don't want to run all of the tests ('make check') then this
 # will just run libguestfs-test-tool for a quick check.  Note this
 # is NOT a substitute for proper testing!

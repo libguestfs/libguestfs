@@ -188,6 +188,44 @@ AC_ARG_ENABLE([appliance],
 AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
 AC_MSG_RESULT([$enable_appliance])
 
+if test "x$enable_appliance" = "xyes"; then
+    dnl Check for febootstrap >= 3.0
+    AC_CHECK_PROG([FEBOOTSTRAP],
+                  [febootstrap],[febootstrap],[no])
+    test "x$FEBOOTSTRAP" = "xno" &&
+        AC_MSG_ERROR([febootstrap must be installed])
+    dnl febootstrap 2.x did not support the --version parameter
+    $FEBOOTSTRAP --version >/dev/null 2>&1 ||
+        AC_MSG_ERROR([febootstrap >= 3.0 must be installed, your version is too old])
+
+    dnl Build from local package files, used when building with no network
+    dnl access, ie. under Koji.
+    AC_MSG_CHECKING([if we should build the appliance from local packages])
+    AC_ARG_WITH([local-package-directory],
+        [AS_HELP_STRING([--with-local-package-directory],
+          [build from local packages in dir @<:@default=no@:>@])],
+        [local_package_directory=$withval],
+        [local_package_directory=no])
+    AC_MSG_RESULT([$local_package_directory])
+    PACKAGE_DIRECTORY=
+    test "x$local_package_directory" != "xno" &&
+        PACKAGE_DIRECTORY="$local_package_directory"
+    AC_SUBST([PACKAGE_DIRECTORY])
+
+    dnl Which distro?
+    dnl
+    dnl This used to be Very Important but is now just used to select
+    dnl which packages to install in the appliance, since the package
+    dnl names vary slightly across distros.  (See appliance/packagelist.in)
+    AC_MSG_CHECKING([which Linux distro for package names])
+    DISTRO=REDHAT
+    if test -f /etc/debian_version; then
+        DISTRO=DEBIAN
+    fi
+    AC_MSG_RESULT([$DISTRO])
+    AC_SUBST([DISTRO])
+fi
+
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
@@ -304,117 +342,6 @@ AC_ARG_WITH([net-if],
         [],
         [with_net_if=virtio-net-pci])
 AC_DEFINE_UNQUOTED([NET_IF],["$with_net_if"],[Default network interface.])
-
-dnl Check for febootstrap etc.
-if test "x$enable_appliance" = "xyes"; then
-    AC_CHECK_PROG([FEBOOTSTRAP],
-                  [febootstrap],[febootstrap],[no])
-    if test "x$FEBOOTSTRAP" != "xno"; then
-      AC_CHECK_PROG([FEBOOTSTRAP_RUN],
-                    [febootstrap-run],[febootstrap-run],[no])
-      test "x$FEBOOTSTRAP_RUN" = "xno" && \
-          AC_MSG_ERROR([febootstrap-run must be installed])
-      AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
-                    [febootstrap-install],[febootstrap-install],[no])
-      test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
-          AC_MSG_ERROR([febootstrap-install must be installed])
-      AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
-                    [febootstrap-minimize],[febootstrap-minimize],[no])
-      test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
-          AC_MSG_ERROR([febootstrap-minimize must be installed])
-      AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
-                    [febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
-      test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
-          AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
-      AC_CHECK_PROG([FEBOOTSTRAP_TO_SUPERMIN],
-                    [febootstrap-to-supermin],[febootstrap-to-supermin],[no])
-      test "x$FEBOOTSTRAP_TO_SUPERMIN" = "xno" && \
-          AC_MSG_ERROR([febootstrap-to-supermin must be installed])
-
-      dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
-      dnl of febootstrap, but old versions will fail with yum).
-      AC_CHECK_PROG([FAKECHROOT],
-                    [fakechroot],[fakechroot],[no])
-      test "x$FAKECHROOT" = "xno" && \
-         AC_MSG_ERROR([fakechroot must be installed])
-
-      AC_MSG_CHECKING([fakechroot version])
-      fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
-      if test -z "$fakechroot_version"; then
-        AC_MSG_RESULT([failed])
-        AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
-      else
-        AC_MSG_RESULT([$fakechroot_version])
-        fakechroot_major=`echo "$fakechroot_version" | awk -F. '{print $1}'`
-        fakechroot_minor=`echo "$fakechroot_version" | awk -F. '{print $2}'`
-        if test "$fakechroot_major" -lt 2 || \
-          ( test "$fakechroot_major" -eq 2 && test "$fakechroot_minor" -lt 9 ); then
-          AC_MSG_ERROR([fakechroot version must be >= 2.9])
-        fi
-      fi
-      DIST="REDHAT"
-    else
-      # check for debootstrap and debirf
-      AC_CHECK_PROG([DEBOOTSTRAP],
-                    [debootstrap],[debootstrap],[no])
-      test "x$DEBOOTSTRAP" = "xno" && \
-          AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
-      AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
-      test "x$DEBIRF" = "xno" &&
-          AC_MSG_ERROR([debirf must be installed])
-      DIST="DEBIAN"
-      case "$host_cpu" in
-      *86)
-          DEBIAN_KERNEL_ARCH=486
-          ;;
-      x86_64)
-          DEBIAN_KERNEL_ARCH=amd64
-          ;;
-      *)
-         DEBIAN_KERNEL_ARCH=$host_cpu
-         ;;
-      esac
-      AC_SUBST(DEBIAN_KERNEL_ARCH)
-    fi
-    AC_SUBST(DIST)
-
-    dnl --with-updates to specify a Fedora updates repository.
-    AC_ARG_WITH([updates],
-        [AS_HELP_STRING([--with-updates],
-          [set name of Fedora updates repository @<:@default=updates-released-f12@:>@])],
-        [],
-        [with_updates=updates-released-f12])
-    UPDATES="$with_updates"
-    AC_SUBST(UPDATES)
-
-    dnl --with-mirror to specify a local Fedora mirror.
-    AC_ARG_WITH([mirror],
-        [AS_HELP_STRING([--with-mirror],
-          [set URI of a local Fedora mirror])],
-        [],
-        [with_mirror=])
-    MIRROR="$with_mirror"
-    AC_SUBST(MIRROR)
-fi
-
-dnl --with-repo to specify a repository.
-AC_ARG_WITH([repo],
-        [AS_HELP_STRING([--with-repo],
-          [set name of Fedora repository @<:@default=fedora-13@:>@])],
-        [],
-        [with_repo=fedora-13])
-REPO="$with_repo"
-AC_SUBST(REPO)
-AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of software repository.])
-
-dnl Build the supermin appliance?  Please see README file before
-dnl enabling this option.
-AC_ARG_ENABLE([supermin],
-        [AS_HELP_STRING([--enable-supermin],
-          [enable supermin appliance (see README) @<:@default=no@:>@])],
-        [AC_DEFINE([ENABLE_SUPERMIN],[1],[Supermin appliance enabled.])],
-        [enable_supermin=no])
-AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
 
 dnl Enable packet dumps when in verbose mode.  This generates lots
 dnl of debug info, only useful for people debugging the RPC mechanism.
@@ -843,15 +770,12 @@ fi
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
-AC_CONFIG_FILES([appliance/update.sh],
-                [chmod +x appliance/update.sh])
 AC_CONFIG_FILES([podwrapper.sh],
                 [chmod +x podwrapper.sh])
 AC_CONFIG_FILES([Makefile
                  generator/Makefile
                  src/Makefile fish/Makefile po/Makefile.in examples/Makefile
                  appliance/Makefile
-                 appliance/debian/debirf.conf
                  images/Makefile
                  capitests/Makefile
                  regressions/Makefile
@@ -905,7 +829,6 @@ echo -n "PHP bindings ........................ "
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-* tools ........................ "
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo "supermin appliance .................. $enable_supermin"
 echo "FUSE filesystem ..................... $enable_fuse"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"

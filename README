@@ -39,11 +39,10 @@ Requirements
 
 - recent QEMU >= 0.12 with virtio-serial support
 
-- febootstrap >= 2.10
-
-- fakeroot
-
-- fakechroot >= 2.9
+- febootstrap >= 3.0
+     *NB*: febootstrap 2.x WILL NOT WORK
+           febootstrap 3.x is distro-independent, and is required on
+             Debian and other distros too
 
 - XDR, rpcgen (on Linux these are provided by glibc)
 
@@ -135,40 +134,6 @@ this command as root:
   make install
 
 
-Fedora
-----------------------------------------------------------------------
-
-We provide packages for Fedora >= 11 in Fedora.  Use those, or build
-from our source RPMs - it's far simpler that way.
-
-You can compile libguestfs on Fedora 10 but you cannot use it with the
-version of qemu in Fedora 10.  You need to compile your own qemu, see
-section 'qemu' below.
-
-
-RHEL / EPEL / CentOS etc
-----------------------------------------------------------------------
-
-We provide packages in EPEL which cover RHEL/CentOS >= 5.  Use those
-or build from our source RPMs.
-
-
-Debian
-----------------------------------------------------------------------
-
-libguestfs is now built as a package in Debian by Guido Gunther and
-the other Debian libvirt maintainers.  See:
-
-http://wiki.debian.org/Teams/DebianLibvirtTeam#Packages
-
-You can build for Debian in two different ways, either building a
-Fedora-based appliance using febootstrap, yum, rpm, fakeroot,
-fakechroot (all packaged in Debian).  However the recommended way is
-to build a Debian-based appliance using debootstrap and debirf.
-
-Both ways are supported by the configure script.
-
-
 qemu
 ----------------------------------------------------------------------
 
@@ -231,72 +196,9 @@ and removed all the other vmchannels and the SLIRP channel.
 Supermin appliance
 ----------------------------------------------------------------------
 
-If you configure with --enable-supermin then we will build a supermin
-appliance (supermin = super-minimized).  This is a very specialized
-appliance which is built on-the-fly at runtime (specifically, when you
-call guestfs_launch).
-
-The normal appliance is a self-contained Linux operating system, based
-on the Fedora/RHEL/CentOS Linux distro.  So it contains a complete
-copy of all the libraries and programs needed, like kernel, libc,
-bash, coreutils etc etc.
-
-The supermin appliance removes the kernel and all the executable
-libraries and programs from the appliance.  That just leaves a
-skeleton of config files and some data files, which is obviously
-massively smaller than the normal appliance.  At runtime we rebuild
-the appliance on-the-fly from the libraries and programs on the host
-(eg. pulling in the real /lib/libc.so, the real /bin/bash etc.)
-
-Although this process of rebuilding the appliance each time sounds
-slow, it turns out to be faster than using the prebuilt appliance.
-(Most of the saving comes from not compressing the appliance - it
-transpires that decompressing the appliance is the slowest part of the
-whole boot sequence).  On my machine, a new appliance can be built in
-under a fifth of a second, and the boot time is several seconds
-shorter.
-
-The big advantage of the supermin appliance for distributions like
-Fedora is that it gets security fixes automatically from the host, so
-there is no need to rebuild the whole of libguestfs for a security
-update in some underlying library.
-
-There are several DISADVANTAGES:
-
-It won't work at all except in very narrow, controlled cases like the
-Fedora packaging case.  We control the dependencies of the libguestfs
-RPM tightly to ensure that the required binaries are actually present
-on the host.
-
-Furthermore there are certain unlikely changes in the packages on the
-host which could break a supermin appliance, eg. an updated library
-which depends on an additional data file.
-
-Also supermin appliances are subjected to changes in the host kernel
-which might break compatibility with qemu -- these are, of course,
-real bugs in any case.
-
-Lastly, supermin appliances really can't be moved between branches of
-distributions (eg. built on Fedora 12 and moved to Fedora 10) because
-they are not self-contained and they rely on certain libraries being
-around.  You shouldn't do this anyway.
-
-Use supermin appliances with caution.
-
-
-Notes on cross-architecture support
-----------------------------------------------------------------------
-
-At the moment we basically don't support cross-architecture or
-32-on-64.  This limits what is possible for some guests.  Filesystem
-operations and FUSE will work fine, but running commands in guests may
-not be possible.
-
-To enable this requires work for cross-architecture and 32-on-64
-support in febootstrap, fakeroot and fakechroot.
-
-The daemon/ directory contains its own configure script.  This is so
-that in future we will be able to cross-compile the daemon.
+In libguestfs >= 1.7.19 the supermin appliance is the default and only
+supported form of appliance.  For more information see febootstrap
+(http://people.redhat.com/~rjones/febootstrap/).
 
 
 Mirroring tip
@@ -327,15 +229,8 @@ distributions.  Non-Linux ports are trickier, but we will accept
 patches if they aren't too invasive.
 
 The main porting issues are with the dependencies needed to build the
-appliance.  You will need to find or port the following packages
-first:
-
- - fakeroot
- - fakechroot
- - python
- - rpm-python    http://www.rpm.org/
- - yum           http://yum.baseurl.org/
- - febootstrap   http://people.redhat.com/~rjones/febootstrap/
+appliance.  You will need to port the febootstrap first
+(http://people.redhat.com/~rjones/febootstrap/).
 
 
 Copyright and license information
