@@ -21,7 +21,7 @@ unset CDPATH
 set -e
 
 # XXX Distro-dependent in future.
-excludes="--exclude '^perl' --exclude '^python' --exclude '^fedora-logos' --exclude '^redhat-logos' --exclude '^dracut' --exclude '^upstart' --exclude '^plymouth' --exclude '^systemd' --exclude '^linux-firmware' --exclude '^kbd-misc'"
+excludes="--exclude ^perl --exclude ^python --exclude ^fedora-logos --exclude ^redhat-logos --exclude ^dracut --exclude ^upstart --exclude ^plymouth --exclude ^systemd --exclude ^linux-firmware --exclude ^kbd-misc"
 
 # Run febootstrap on the package list.
 if [ "x@FEBOOTSTRAP_YUM_CONFIG@" != "xno" ]; then
