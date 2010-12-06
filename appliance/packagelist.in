@@ -24,6 +24,7 @@
   e4fsprogs
   gfs-utils
   gfs2-utils
+  grub
   hfsplus-tools
   iputils
   kernel
@@ -48,6 +49,7 @@
   e2fsprogs
   gfs-tools
   gfs2-tools
+  grub-pc
   hfsplus
   iproute
   libaugeas0
@@ -71,7 +73,6 @@ dosfstools
 file
 findutils
 grep
-grub
 gzip
 jfsutils
 lsof
