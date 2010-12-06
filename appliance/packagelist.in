@@ -5,10 +5,16 @@
  * following symbols defined (depending on the distro):
  *
  *   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
- *   DEBIAN=1     For Debian based distros.
+ *   DEBIAN=1     For Debian.
+ *   UBUNTU=1     For Ubuntu.
  */
 
-#if REDHAT == 1
+/* Basically the same with a few minor tweaks. */
+#ifdef UBUNTU
+#define DEBIAN 1
+#endif
+
+#ifdef REDHAT
   augeas-libs
   btrfs-progs
   cryptsetup-luks
@@ -32,7 +38,9 @@
   vim-minimal
   xz
   zfs-fuse
-#elif DEBIAN == 1
+#endif /* REDHAT */
+
+#ifdef DEBIAN
   bsdmainutils
   btrfs-tools
   cryptsetup
@@ -52,7 +60,7 @@
   vim-tiny
   xz-utils
   zfs-fuse
-#endif
+#endif /* DEBIAN */
 
 bash
 binutils

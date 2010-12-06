@@ -223,6 +223,9 @@ if test "x$enable_appliance" = "xyes"; then
     DISTRO=REDHAT
     if test -f /etc/debian_version; then
         DISTRO=DEBIAN
+	if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>/dev/null; then
+            DISTRO=UBUNTU
+	fi
     fi
     AC_MSG_RESULT([$DISTRO])
     AC_SUBST([DISTRO])
