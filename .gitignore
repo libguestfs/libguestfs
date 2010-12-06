@@ -23,13 +23,10 @@ capitests/test*.tmp
 cat/stamp-virt-*.pod
 cat/virt-cat
 cat/virt-cat.1
-cat/virt-cat.static
 cat/virt-filesystems
 cat/virt-filesystems.1
-cat/virt-filesystems.static
 cat/virt-ls
 cat/virt-ls.1
-cat/virt-ls.static
 ChangeLog
 *.class
 *.cma
@@ -67,7 +64,6 @@ depcomp
 df/stamp-virt-df.pod
 df/virt-df
 df/virt-df.1
-df/virt-df.static
 emptydisk
 examples/create_disk
 examples/guestfs-examples.3
@@ -78,7 +74,6 @@ fish/cmds_gperf.c
 fish/cmds_gperf.gperf
 fish/completion.c
 fish/guestfish
-fish/guestfish.static
 fish/prepopts.c
 fish/prepopts.h
 fish/rc_protocol.c
@@ -86,7 +81,6 @@ fish/rc_protocol.h
 fish/stamp-guestfish.pod
 fuse/guestmount
 fuse/guestmount.1
-fuse/guestmount.static
 fuse/stamp-guestmount.pod
 generator/.pod2text.data*
 generator/generator
@@ -146,7 +140,6 @@ images/windows.img
 inspector/stamp-virt-inspector.pod
 inspector/virt-inspector
 inspector/virt-inspector.1
-inspector/virt-inspector.static
 install-sh
 *.jar
 java/api
@@ -270,7 +263,6 @@ regressions/test.out
 rescue/stamp-virt-rescue.pod
 rescue/virt-rescue
 rescue/virt-rescue.1
-rescue/virt-rescue.static
 ruby/bindtests.rb
 ruby/examples/guestfs-ruby.3
 ruby/examples/stamp-guestfs-ruby.pod
@@ -299,7 +291,6 @@ stamp-h1
 test1.img
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool.1
-test-tool/libguestfs-test-tool.static
 test-tool/libguestfs-test-tool-helper
 tools/test.img
 tools/virt-*.1

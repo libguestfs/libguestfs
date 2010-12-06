@@ -79,9 +79,3 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
 TESTS = test-virt-df.sh
-
-# Build a partly-static binary (for the binary distribution).
-
-virt-df.static$(EXEEXT): $(virt_df_OBJECTS) $(virt_df_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(virt_df_LINK) $(virt_df_OBJECTS) -static $(virt_df_LDADD) $(virt_df_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

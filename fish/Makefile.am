@@ -128,12 +128,6 @@ rc_protocol.h: rc_protocol.x
 	mv $@-t $@
 endif
 
-# Build a partly-static library (for the binary distribution).
-
-guestfish.static$(EXEEXT): $(guestfish_OBJECTS) $(guestfish_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(guestfish_LINK) $(guestfish_OBJECTS) -static $(guestfish_LDADD) $(guestfish_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -ltinfo -lpcre -lhivex -lmagic -lz -lm
-
 # Manual page.
 
 man_MANS = guestfish.1

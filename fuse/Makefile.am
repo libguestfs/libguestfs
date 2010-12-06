@@ -55,12 +55,6 @@ guestmount_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
-# Build a partly-static library (for the binary distribution).
-
-guestmount.static$(EXEEXT): $(guestmount_OBJECTS) $(guestmount_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(guestmount_LINK) $(guestmount_OBJECTS) -static $(guestmount_LDADD) $(guestmount_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm
-
 # Documentation.
 
 man_MANS = guestmount.1

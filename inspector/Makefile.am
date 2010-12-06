@@ -95,9 +95,3 @@ example-ubuntu.xml:
 	./run-inspector-locally ../images/ubuntu.img > $@
 example-windows.xml:
 	./run-inspector-locally ../images/windows.img | fgrep -v '<uuid>' > $@
-
-# Build a partly-static library (for the binary distribution).
-
-virt-inspector.static$(EXEEXT): $(virt_inspector_OBJECTS) $(virt_inspector_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(virt_inspector_LINK) $(virt_inspector_OBJECTS) -static $(virt_inspector_LDADD) $(virt_inspector_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

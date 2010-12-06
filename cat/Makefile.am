@@ -129,17 +129,3 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
 TESTS = test-virt-cat.sh test-virt-filesystems.sh test-virt-ls.sh
-
-# Build a partly-static binary (for the binary distribution).
-
-virt-cat.static$(EXEEXT): $(virt_cat_OBJECTS) $(virt_cat_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(virt_cat_LINK) $(virt_cat_OBJECTS) -static $(virt_cat_LDADD) $(virt_cat_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm
-
-virt-filesystems.static$(EXEEXT): $(virt_filesystems_OBJECTS) $(virt_filesystems_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(virt_filesystems_LINK) $(virt_filesystems_OBJECTS) -static $(virt_filesystems_LDADD) $(virt_filesystems_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm
-
-virt-ls.static$(EXEEXT): $(virt_ls_OBJECTS) $(virt_ls_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(virt_ls_LINK) $(virt_ls_OBJECTS) -static $(virt_ls_LDADD) $(virt_ls_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

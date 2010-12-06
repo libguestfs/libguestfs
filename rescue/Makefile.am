@@ -59,9 +59,3 @@ stamp-virt-rescue.pod: virt-rescue.pod
 	  --html $(top_builddir)/html/virt-rescue.1.html \
 	  $<
 	touch $@
-
-# Build a partly-static binary (for the binary distribution).
-
-virt-rescue.static$(EXEEXT): $(virt_rescue_OBJECTS) $(virt_rescue_DEPENDENCIES)
-	$(top_srcdir)/relink-static.sh \
-	$(virt_rescue_LINK) $(virt_rescue_OBJECTS) -static $(virt_rescue_LDADD) $(virt_rescue_LIBS) $(LIBVIRT_LIBS) $(LIBXML2_LIBS) -lpcre -lhivex -lmagic -lz -lm

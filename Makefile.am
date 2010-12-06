@@ -193,14 +193,7 @@ CLEANFILES = \
 quickcheck:
 	test-tool/run-test-tool-locally
 
-# Mostly static binary distribution.
-#
-# Some binaries are relinked partially statically.  You can make these
-# binaries "more static" by making sure that as many foo-static
-# packages are installed as possible.
-#
-# We remove the supermin appliance and adjust some directories to make
-# them non-Fedora-specific.
+# Make binary distribution.
 
 BINTMPDIR = /tmp/libguestfs-bin
 bindist:
@@ -208,26 +201,6 @@ bindist:
 	mkdir $(BINTMPDIR)
 	$(MAKE)
 	$(MAKE) DESTDIR=$(BINTMPDIR) install
-	rm -r $(BINTMPDIR)$(libdir)/guestfs/supermin.d
-	rm $(BINTMPDIR)$(libdir)/guestfs/kmod.whitelist
-	mv $(BINTMPDIR)$(prefix)/lib64/* $(BINTMPDIR)$(libdir)
-	mv $(BINTMPDIR)/usr/lib64/* $(BINTMPDIR)$(libdir)
 	-find $(BINTMPDIR) -type d -exec rmdir --ignore-fail-on-non-empty {} \;
-	$(MAKE) -C fish guestfish.static
-	cp fish/guestfish.static $(BINTMPDIR)$(bindir)/guestfish
-	$(MAKE) -C fuse guestmount.static
-	cp fuse/guestmount.static $(BINTMPDIR)$(bindir)/guestmount
-	$(MAKE) -C test-tool libguestfs-test-tool.static
-	cp test-tool/libguestfs-test-tool.static $(BINTMPDIR)$(bindir)/libguestfs-test-tool
-	$(MAKE) -C cat virt-cat.static virt-filesystems.static virt-ls.static
-	cp cat/virt-cat.static $(BINTMPDIR)$(bindir)/virt-cat
-	cp cat/virt-filesystems.static $(BINTMPDIR)$(bindir)/virt-filesystems
-	cp cat/virt-ls.static $(BINTMPDIR)$(bindir)/virt-ls
-	$(MAKE) -C df virt-df.static
-	cp df/virt-df.static $(BINTMPDIR)$(bindir)/virt-df
-	$(MAKE) -C inspector virt-inspector.static
-	cp inspector/virt-inspector.static $(BINTMPDIR)$(bindir)/virt-inspector
-	$(MAKE) -C rescue virt-rescue.static
-	cp rescue/virt-rescue.static $(BINTMPDIR)$(bindir)/virt-rescue
 	(cd $(BINTMPDIR) && tar cf - .) | \
-	  gzip -c -9 > libguestfs-$(VERSION)-$(host_cpu).tar.gz
+	  gzip -c -9 > libguestfs-$(VERSION)-$(DISTRO)-$(host_cpu).tar.gz
