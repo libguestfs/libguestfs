@@ -65,6 +65,7 @@
 bash
 binutils
 coreutils
+cpio
 dosfstools
 file
 findutils
