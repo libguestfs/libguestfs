@@ -86,5 +86,10 @@ procps
 scrub
 strace
 tar
+#ifndef UBUNTU
+/* on Ubuntu contains a file in /lib64 which conflicts with libc6 that has
+ * /lib64 as a symbolic link
+ */
 xfsprogs
+#endif
 zerofree
