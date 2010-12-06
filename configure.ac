@@ -273,8 +273,10 @@ AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
 AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
 
 dnl Check for db_dump, db_load (optional).
-AC_CHECK_PROGS([DB_DUMP],[db_dump db4_dump db4.8_dump],[no])
-AC_CHECK_PROGS([DB_LOAD],[db_load db4_load db4.8_load],[no])
+AC_CHECK_PROGS([DB_DUMP],
+               [db_dump db4_dump db4.8_dump db4.7_dump db4.6_dump],[no])
+AC_CHECK_PROGS([DB_LOAD],
+               [db_load db4_load db4.8_load db4.7_load db4.6_load],[no])
 if test "x$DB_DUMP" != "xno"; then
     AC_DEFINE_UNQUOTED([DB_DUMP],["$DB_DUMP"],[Name of db_dump program.])
 fi
