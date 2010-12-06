@@ -44,6 +44,7 @@
   bsdmainutils
   btrfs-tools
   cryptsetup
+  diff
   e2fsprogs
   gfs-tools
   gfs2-tools
