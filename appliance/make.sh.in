@@ -24,11 +24,12 @@ set -e
 excludes="--exclude '^perl' --exclude '^python' --exclude '^fedora-logos' --exclude '^redhat-logos' --exclude '^dracut' --exclude '^upstart' --exclude '^plymouth' --exclude '^systemd' --exclude '^linux-firmware' --exclude '^kbd-misc'"
 
 # Run febootstrap on the package list.
-if [ -z "@PACKAGE_DIRECTORY@" ]; then
-    @FEBOOTSTRAP@ -v -o supermin.d $excludes --names $(< packagelist )
-else
-    @FEBOOTSTRAP@ -v -o supermin.d $excludes @PACKAGE_DIRECTORY@/*
+if [ "x@FEBOOTSTRAP_YUM_CONFIG@" != "xno" ]; then
+    extra="--yum-config @FEBOOTSTRAP_YUM_CONFIG@"
 fi
+
+echo @FEBOOTSTRAP@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
+@FEBOOTSTRAP@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
 
 # Remove some things that we don't want in the appliance.  This is
 # copied from the old febootstrap-minimize.  However minimization is

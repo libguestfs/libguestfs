@@ -200,19 +200,15 @@ if test "x$enable_appliance" = "xyes"; then
     $FEBOOTSTRAP --version >/dev/null 2>&1 ||
         AC_MSG_ERROR([febootstrap >= 3.0 must be installed, your version is too old])
 
-    dnl Build from local package files, used when building with no network
-    dnl access, ie. under Koji.
-    AC_MSG_CHECKING([if we should build the appliance from local packages])
-    AC_ARG_WITH([local-package-directory],
-        [AS_HELP_STRING([--with-local-package-directory],
-          [build from local packages in dir @<:@default=no@:>@])],
-        [local_package_directory=$withval],
-        [local_package_directory=no])
-    AC_MSG_RESULT([$local_package_directory])
-    PACKAGE_DIRECTORY=
-    test "x$local_package_directory" != "xno" &&
-        PACKAGE_DIRECTORY="$local_package_directory"
-    AC_SUBST([PACKAGE_DIRECTORY])
+    dnl Pass a febootstrap --yum-config option.
+    AC_MSG_CHECKING([if user requested febootstrap --yum-config option])
+    AC_ARG_WITH([febootstrap-yum-config],
+        [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
+          [pass febootstrap --yum-config option @<:@default=no@:>@])],
+        [FEBOOTSTRAP_YUM_CONFIG="$withval"],
+        [FEBOOTSTRAP_YUM_CONFIG=no])
+    AC_MSG_RESULT([$FEBOOTSTRAP_YUM_CONFIG])
+    AC_SUBST([FEBOOTSTRAP_YUM_CONFIG])
 
     dnl Which distro?
     dnl
