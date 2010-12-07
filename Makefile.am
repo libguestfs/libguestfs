@@ -95,7 +95,6 @@ EXTRA_DIST = \
 	libtool-kill-dependency_libs.sh \
 	autogen.sh \
 	bugs-in-changelog.sh \
-	relink-static.sh \
 	update-bugs.sh
 
 # Recipes web page.
