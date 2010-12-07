@@ -20,6 +20,11 @@
 
 set -e
 
+[ -n "$SKIP_TEST_LUKS_SH" ] && {
+    echo "test-luks.sh skipped (environment variable set)"
+    exit 0
+}
+
 rm -f test1.img
 
 ../fish/guestfish --keys-from-stdin <<EOF
