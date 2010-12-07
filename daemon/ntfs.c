@@ -32,7 +32,11 @@ int
 optgroup_ntfs3g_available (void)
 {
   int r = access ("/bin/ntfs-3g.probe", X_OK);
-  return r == 0;
+  if (r == 0)
+    return 1;
+  /* On Debian: */
+  r = access ("/usr/bin/ntfs-3g.probe", X_OK);
+  return (r == 0);
 }
 
 int
