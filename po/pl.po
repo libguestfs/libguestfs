@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-05 10:35+0000\n"
+"POT-Creation-Date: 2010-12-07 18:39+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: fish/fish.c:86 fuse/guestmount.c:804 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -67,14 +67,14 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
 #: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2484,7 +2484,7 @@ msgstr "nie"
 msgid "use 'time command [args...]'\n"
 msgstr "należy użyć \"time polecenie [parametry...]\"\n"
 
-#: fuse/guestmount.c:845
+#: fuse/guestmount.c:808
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2535,12 +2535,12 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: fuse/guestmount.c:1068
+#: fuse/guestmount.c:1031
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: musi posiadać co najmniej jedną opcję -a i co najmniej jedną -m\n"
 
-#: fuse/guestmount.c:1076
+#: fuse/guestmount.c:1039
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"

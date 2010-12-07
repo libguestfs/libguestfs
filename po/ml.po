@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-05 10:35+0000\n"
+"POT-Creation-Date: 2010-12-07 18:39+0000\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: fish/fish.c:86 fuse/guestmount.c:804 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -66,14 +66,14 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
 #: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2447,7 +2447,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' ഉപയോഗിക്കുക\n"
 
-#: fuse/guestmount.c:845
+#: fuse/guestmount.c:808
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2494,12 +2494,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: fuse/guestmount.c:1068
+#: fuse/guestmount.c:1031
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: കുറഞ്ഞതു് ഒരു -a ഉപാധിയും ഒരു -m ഉപാധിയും ആവശ്യമുണ്ടു്\n"
 
-#: fuse/guestmount.c:1076
+#: fuse/guestmount.c:1039
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ഹോസ്റ്റ് ഫയല്‍സിസ്റ്റത്തില്‍ ഒരു മൌണ്ട് പോയിന്റ് നല്‍കണം\n"

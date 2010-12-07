@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.19\n"
+"Project-Id-Version: libguestfs 1.7.20\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-05 10:35+0000\n"
+"POT-Creation-Date: 2010-12-07 18:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:841 inspector/virt-inspector.c:67
+#: fish/fish.c:86 fuse/guestmount.c:804 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -48,14 +48,14 @@ msgid ""
 msgstr ""
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:952
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
 #: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1000
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2266,7 +2266,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: fuse/guestmount.c:845
+#: fuse/guestmount.c:808
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2295,12 +2295,12 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:1068
+#: fuse/guestmount.c:1031
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1076
+#: fuse/guestmount.c:1039
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
