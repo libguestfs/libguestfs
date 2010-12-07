@@ -322,6 +322,12 @@ do_lvm_remove_all (void)
     return -1;
 
   for (i = 0; xs[i] != NULL; ++i) {
+    /* Deactivate the LV first.  On Ubuntu, lvremove '-f' option
+     * does not remove active LVs reliably.
+     */
+    (void) command (NULL, NULL, "lvm", "lvchange", "-an", xs[i], NULL);
+    udev_settle ();
+
     r = command (NULL, &err, "lvm", "lvremove", "-f", xs[i], NULL);
     if (r == -1) {
       reply_with_error ("lvremove: %s: %s", xs[i], err);
@@ -339,6 +345,10 @@ do_lvm_remove_all (void)
     return -1;
 
   for (i = 0; xs[i] != NULL; ++i) {
+    /* Deactivate the VG first, see note above. */
+    (void) command (NULL, NULL, "lvm", "vgchange", "-an", xs[i], NULL);
+    udev_settle ();
+
     r = command (NULL, &err, "lvm", "vgremove", "-f", xs[i], NULL);
     if (r == -1) {
       reply_with_error ("vgremove: %s: %s", xs[i], err);
