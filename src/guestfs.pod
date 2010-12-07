@@ -14,7 +14,6 @@ guestfs - Library for accessing and modifying virtual machine images
  guestfs_mount (g, "/dev/sda1", "/");
  guestfs_touch (g, "/hello");
  guestfs_umount (g, "/");
- guestfs_sync (g);
  guestfs_close (g);
 
  cc prog.c -o prog -lguestfs
@@ -100,11 +99,10 @@ this:
   * disk image.
   */
  guestfs_touch (g, "/hello");
- 
- /* You only need to call guestfs_sync if you have made
-  * changes to the guest image.  (But if you've made changes
-  * then you *must* sync).  See also: guestfs_umount and
-  * guestfs_umount_all calls.
+
+ /* This is only needed for libguestfs < 1.5.24.  Since then
+  * it is done automatically when you close the handle.  See
+  * discussion of autosync in this page.
   */
  guestfs_sync (g);
  
