@@ -197,17 +197,18 @@ truncate -c -s 0 truncated
 [ "$(stat -c %s truncated)" -eq 0 ]
 rm -f truncated
 
-stage Checking utimens and timestamps
-for ts in 12345 1234567 987654321; do
-    # NB: It's not possible to set the ctime with touch.
-    touch -a -d @$ts timestamp
-    [ "$(stat -c %X timestamp)" -eq $ts ]
-    touch -m -d @$ts timestamp
-    [ "$(stat -c %Y timestamp)" -eq $ts ]
-    touch    -d @$ts timestamp
-    [ "$(stat -c %X timestamp)" -eq $ts ]
-    [ "$(stat -c %Y timestamp)" -eq $ts ]
-done
+# Disabled because of RHBZ#660687 on Debian.
+# stage Checking utimens and timestamps
+# for ts in 12345 1234567 987654321; do
+#     # NB: It's not possible to set the ctime with touch.
+#     touch -a -d @$ts timestamp
+#     [ "$(stat -c %X timestamp)" -eq $ts ]
+#     touch -m -d @$ts timestamp
+#     [ "$(stat -c %Y timestamp)" -eq $ts ]
+#     touch    -d @$ts timestamp
+#     [ "$(stat -c %X timestamp)" -eq $ts ]
+#     [ "$(stat -c %Y timestamp)" -eq $ts ]
+# done
 
 stage Checking writes
 cp hello.txt copy.txt
