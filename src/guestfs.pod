@@ -115,7 +115,8 @@ functions that return integers return C<-1> on error, and all
 functions that return pointers return C<NULL> on error.  See section
 L</ERROR HANDLING> below for how to handle errors, and consult the
 documentation for each function call below to see precisely how they
-return error indications.
+return error indications.  See L<guestfs-examples(3)> for fully worked
+examples.
 
 =head2 DISK IMAGES
 
