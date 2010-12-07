@@ -324,6 +324,9 @@ do_umount_all (void)
 
   free_stringslen (mounts, size);
 
+  /* Without this, lvm_remove_all was failing on Ubuntu. */
+  udev_settle ();
+
   /* We've unmounted root now, so ... */
   root_mounted = 0;
 
