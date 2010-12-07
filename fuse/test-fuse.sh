@@ -99,7 +99,9 @@ $guestfish <<EOF
 EOF
 
 stage Mounting the filesystem
-$guestmount -a "$image" -m /dev/sda1 "$mp"
+$guestmount \
+    -a "$image" -m /dev/sda1 \
+    -o uid="$(id -u)" -o gid="$(id -g)" "$mp"
 # To debug guestmount, add this to the end of the preceding command:
 # -v -x & sleep 60
 
