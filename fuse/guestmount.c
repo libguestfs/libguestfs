@@ -535,53 +535,16 @@ fg_utimens (const char *path, const struct timespec ts[2])
   return 0;
 }
 
-/* This call is quite hard to emulate through the guestfs(3) API.  In
- * one sense it's a little like access (see above) because it tests
- * whether opening a file would succeed given the flags.  But it also
- * has side effects such as truncating the file if O_TRUNC is given.
- * Therefore we need to emulate it ... painfully.
+/* All this function needs to do is to check that the requested open
+ * flags are valid.  See the notes in <fuse/fuse.h>.
  */
 static int
 fg_open (const char *path, struct fuse_file_info *fi)
 {
-  int r, exists;
+  int flags = fi->flags & 3;
 
-  if (fi->flags & O_WRONLY) {
-    if (read_only)
-      return -EROFS;
-  }
-
-  exists = guestfs_exists (g, path);
-  if (exists == -1)
-    return error ();
-
-  if (fi->flags & O_CREAT) {
-    if (read_only)
-      return -EROFS;
-
-    dir_cache_invalidate (path);
-
-    /* Exclusive?  File must not exist already. */
-    if (fi->flags & O_EXCL) {
-      if (exists)
-        return -EEXIST;
-    }
-
-    /* Create?  Touch it and optionally truncate it. */
-    r = guestfs_touch (g, path);
-    if (r == -1)
-      return error ();
-
-    if (fi->flags & O_TRUNC) {
-      r = guestfs_truncate (g, path);
-      if (r == -1)
-        return error ();
-    }
-  } else {
-    /* Not create, just check it exists. */
-    if (!exists)
-      return -ENOENT;
-  }
+  if (read_only && flags != O_RDONLY)
+    return -EROFS;
 
   return 0;
 }
