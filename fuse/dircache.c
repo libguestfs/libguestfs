@@ -384,7 +384,7 @@ lsc_remove (Hash_table *ht, const char *pathname, Hash_data_freer freer)
 
   entry = hash_delete (ht, &key);
 
-  if (verbose)
+  if (verbose && entry)
     fprintf (stderr, "dir cache: invalidating entry %p (%s)\n",
              entry, entry->pathname);
 
