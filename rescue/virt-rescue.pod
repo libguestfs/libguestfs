@@ -73,6 +73,9 @@ want to partition that file (although we would recommend using
 L<guestfish(1)> instead as it is more suitable for this purpose).  You
 can even use virt-rescue on things like SD cards.
 
+Virt-rescue does not require root.  You only need to run it as root if
+you need root to open the disk image.
+
 This tool is just designed for quick interactive hacking on a virtual
 machine.  For more structured access to a virtual machine disk image,
 you should use L<guestfs(3)>.  To get a structured shell that you can
