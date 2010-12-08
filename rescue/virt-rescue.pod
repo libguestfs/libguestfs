@@ -155,7 +155,7 @@ parameter is specified in megabytes.
 
 =item B<--network>
 
-Enable QEMU user networking in the guest.
+Enable QEMU user networking in the guest.  See L</NETWORK>.
 
 =item B<-r>
 
@@ -205,6 +205,42 @@ to avoid the confusing case where a disk image might have the same
 name as a guest.
 
 For compatibility the old style is still supported.
+
+=head1 NETWORK
+
+Adding the I<--network> option enables QEMU user networking
+in the rescue appliance.  There are some differences between
+user networking and ordinary networking:
+
+=over 4
+
+=item ping does not work
+
+Because the ICMP ECHO_REQUEST protocol generally requires root in
+order to send the ping packets, and because virt-rescue must be able
+to run as non-root, QEMU user networking is not able to emulate the
+L<ping(8)> command.  The ping command will appear to resolve addresses
+but will not be able to send or receive any packets.  This does not
+mean that the network is not working.
+
+=item cannot receive connections
+
+QEMU user networking cannot receive incoming connections.
+
+=item making TCP connections
+
+The virt-rescue appliance needs to be small and so does not include
+many network tools.  In particular there is no L<telnet(1)> command.
+You can make TCP connections from the shell using the magical
+C</dev/tcp/E<lt>hostnameE<gt>/E<lt>portE<gt>> syntax:
+
+ exec 3<>/dev/tcp/redhat.com/80
+ echo "GET /" >&3
+ cat <&3
+
+See L<bash(1)> for more details.
+
+=back
 
 =head1 ENVIRONMENT VARIABLES
 
