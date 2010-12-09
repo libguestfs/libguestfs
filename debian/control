@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 7), autotools-dev,
   febootstrap (>= 3.2),
   libreadline-dev, cdbs, libaugeas-dev, libhivex-dev, libvirt-dev,
   libmagic-dev, libncurses5-dev, libpcre3-dev, libxml2-dev,
-  qemu-system (>= 0.13) | kvm (>= 0.13),
+  qemu-system (>= 0.13) | kvm (>= 0.13) | qemu-kvm (>= 0.13) | qemu (>= 0.13),
 # XXX how to say we need Linux >= 2.6.36?
   mkisofs, pkg-config,
 # when building from git:
@@ -29,7 +29,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
   febootstrap (>= 3.2),
 # These are needed for virtio-serial:
-  qemu-system (>= 0.13),
+  qemu-system (>= 0.13) | kvm (>= 0.13) | qemu-kvm (>= 0.13) | qemu (>= 0.13),
 # XXX how to say we need Linux >= 2.6.36?
 # For the supermin appliance (see appliance/packagelist):
   bsdmainutils,
