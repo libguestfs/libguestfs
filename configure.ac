@@ -480,7 +480,7 @@ dnl Check for Python (optional, for Python bindings).
 PYTHON_PREFIX=
 PYTHON_VERSION=
 PYTHON_INCLUDEDIR=
-PYTHON_SITE_PACKAGES=
+PYTHON_INSTALLDIR=
 
 AC_ARG_ENABLE([python],
         AS_HELP_STRING([--disable-python], [Disable Python language bindings]),
@@ -516,23 +516,33 @@ AS_IF([test "x$enable_python" != "xno"],
                 AC_MSG_WARN([Python include directory not found])
             fi
 
-            for d in \
-                $PYTHON_PREFIX/lib64/python$PYTHON_VERSION/site-packages \
-                $PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages \
-                /usr/lib64/python$PYTHON_VERSION/site-packages \
-                /usr/lib/python$PYTHON_VERSION/site-packages \
-                /usr/local/lib/python$PYTHON_VERSION/site-packages
-            do
-                AC_MSG_CHECKING([for $d])
-                if test -d "$d"; then
-                    AC_MSG_RESULT([found])
-                    PYTHON_SITE_PACKAGES=$d
-                    break
+            AC_ARG_WITH([python-installdir],
+                        [AS_HELP_STRING([--with-python-installdir],
+			                [directory to install python modules @<:@default=check@:>@])],
+			[PYTHON_INSTALLDIR="$withval"
+			AC_MSG_NOTICE([Python install dir $PYTHON_INSTALLDIR])],
+			[PYTHON_INSTALLDIR=check])
+
+	    if test "x$PYTHON_INSTALLDIR" = "xcheck"; then
+	        PYTHON_INSTALLDIR=
+                for d in \
+                    $PYTHON_PREFIX/lib64/python$PYTHON_VERSION/site-packages \
+                    $PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages \
+                    /usr/lib64/python$PYTHON_VERSION/site-packages \
+                    /usr/lib/python$PYTHON_VERSION/site-packages \
+                    /usr/local/lib/python$PYTHON_VERSION/site-packages
+                do
+                    AC_MSG_CHECKING([for $d])
+                    if test -d "$d"; then
+                        AC_MSG_RESULT([found])
+                        PYTHON_INSTALLDIR=$d
+                        break
+                    fi
+                    AC_MSG_RESULT([not found])
+                done
+                if test "x$PYTHON_INSTALLDIR" = "x"; then
+                    AC_MSG_WARN([Python site-packages directory not found])
                 fi
-                AC_MSG_RESULT([not found])
-            done
-            if test "x$PYTHON_SITE_PACKAGES" = "x"; then
-                AC_MSG_WARN([Python site-packages directory not found])
             fi
 
             old_LIBS="$LIBS"
@@ -544,10 +554,10 @@ AS_IF([test "x$enable_python" != "xno"],
         AC_SUBST(PYTHON_PREFIX)
         AC_SUBST(PYTHON_VERSION)
         AC_SUBST(PYTHON_INCLUDEDIR)
-        AC_SUBST(PYTHON_SITE_PACKAGES)
+        AC_SUBST(PYTHON_INSTALLDIR)
         ])
 AM_CONDITIONAL([HAVE_PYTHON],
-    [test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_SITE_PACKAGES" != "x"])
+    [test "x$PYTHON" != "xno" && test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_INSTALLDIR" != "x"])
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
 AC_ARG_ENABLE([ruby],
