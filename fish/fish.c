@@ -224,7 +224,7 @@ main (int argc, char *argv[])
    * getopt_long uses argv[0], so give it the sanitized name.  Save a copy
    * of the original, in case it's needed below.
    */
-  char *real_argv0 = argv[0];
+  //char *real_argv0 = argv[0];
   argv[0] = bad_cast (program_name);
 
   for (;;) {
@@ -854,7 +854,7 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   int argc;
   int stdout_saved_fd = -1;
   int pid = 0;
-  int i, r;
+  int r;
 
   reset_progress_bar ();
 
