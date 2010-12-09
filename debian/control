@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 7), autotools-dev,
   libmagic-dev, libncurses5-dev, libpcre3-dev, libxml2-dev,
   qemu-system (>= 0.13) | kvm (>= 0.13),
 # XXX how to say we need Linux >= 2.6.36?
-  mkisofs, pkg-config, quilt,
+  mkisofs, pkg-config,
 # when building from git:
   automake, autoconf, libtool, ocaml,
 # for python bindings:
