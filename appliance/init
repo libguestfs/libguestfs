@@ -5,6 +5,11 @@ echo Starting /init script ...
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
 
+# Debian bug 606622.
+RUNLEVEL=S
+PREVLEVEL=N
+export RUNLEVEL PREVLEVEL
+
 mkdir -p /sysroot
 
 rm -f /proc; mkdir /proc
