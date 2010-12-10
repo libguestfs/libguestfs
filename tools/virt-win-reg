@@ -466,6 +466,96 @@ to find out is to look at the C<HKLM\SYSTEM\Select> key:
 Similarly, other C<Current...> keys in the path may need to
 be replaced.
 
+=head1 WINDOWS TIPS
+
+Note that some of these tips modify the guest disk image.  The guest
+I<must> be shut off, else you will get disk corruption.
+
+=head2 RUNNING A BATCH SCRIPT WHEN A USER LOGS IN
+
+Prepare a DOS batch script, VBScript or executable.  Upload this using
+L<guestfish(1)>.  For this example the script is called C<test.bat>
+and it is uploaded into C<C:\>:
+
+ guestfish -i -d WindowsGuest upload test.bat /test.bat
+
+Prepare a regedit file containing the registry change:
+
+ cat > test.reg <<'EOF'
+ [HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce]
+ "Test"="c:\\test.bat"
+ EOF
+
+In this example we use the key C<RunOnce> which means that the script
+will run precisely once when the first user logs in.  If you want it
+to run every time a user logs in, replace C<RunOnce> with C<Run>.
+
+Now update the registry:
+
+ virt-win-reg --merge WindowsGuest test.reg
+
+=head2 INSTALLING A SERVICE
+
+This section assumes you are familiar with Windows services, and you
+either have a program which handles the Windows Service Control
+Protocol directly or you want to run any program using a service
+wrapper like SrvAny or the free RHSrvAny.
+
+First upload the program and optionally the service wrapper.  In this
+case the test program is called C<test.exe> and we are using the
+RHSrvAny wrapper:
+
+ guestfish -i -d WindowsGuest <<EOF
+   upload rhsrvany.exe /rhsrvany.exe
+   upload test.exe /test.exe
+ EOF
+
+Prepare a regedit file containing the registry changes.  In this
+example, the first registry change is needed for the service itself or
+the service wrapper (if used).  The second registry change is only
+needed because I am using the RHSrvAny service wrapper.
+
+ cat > service.reg <<'EOF'
+ [HKLM\SYSTEM\ControlSet001\services\RHSrvAny]
+ "Type"=dword:00000010
+ "Start"=dword:00000002
+ "ErrorControl"=dword:00000001
+ "ImagePath"="c:\\rhsrvany.exe"
+ "DisplayName"="RHSrvAny"
+ "ObjectName"="NetworkService"
+ 
+ [HKLM\SYSTEM\ControlSet001\services\RHSrvAny\Parameters]
+ "CommandLine"="c:\\test.exe"
+ "PWD"="c:\\Temp"
+ EOF
+
+Notes:
+
+=over 4
+
+=item *
+
+For use of C<ControlSet001> see the section above in this manual page.
+You may need to adjust this according to the control set that is in
+use by the guest.
+
+=item *
+
+C<"ObjectName"> controls the privileges that the service will have.
+An alternative is C<"ObjectName"="LocalSystem"> which would be the
+most privileged account.
+
+=item *
+
+For the meaning of the magic numbers, see this Microsoft KB article:
+L<http://support.microsoft.com/kb/103000>.
+
+=back
+
+Update the registry:
+
+ virt-win-reg --merge WindowsGuest service.reg
+
 =head1 SHELL QUOTING
 
 Be careful when passing parameters containing C<\> (backslash) in the
