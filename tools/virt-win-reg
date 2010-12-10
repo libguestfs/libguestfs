@@ -85,21 +85,6 @@ the Windows Registry:
 
  $ virt-win-reg --merge Windows7 changes.reg
 
-=head2 SUPPORTED SYSTEMS
-
-The program currently supports Windows NT-derived guests starting with
-Windows XP through to at least Windows 7.
-
-Registry support is done for C<HKEY_LOCAL_MACHINE\SAM>,
-C<HKEY_LOCAL_MACHINE\SECURITY>, C<HKEY_LOCAL_MACHINE\SOFTWARE>,
-C<HKEY_LOCAL_MACHINE\SYSTEM> and C<HKEY_USERS\.DEFAULT>.
-
-You can use C<HKLM> as a shorthand for C<HKEY_LOCAL_MACHINE>, and
-C<HKU> for C<HKEY_USERS>.
-
-C<HKEY_USERS\$SID> and C<HKEY_CURRENT_USER> are B<not> supported at
-this time.
-
 =head2 NOTE
 
 This program is only meant for simple access to the registry.  If you
@@ -107,66 +92,6 @@ want to do complicated things with the registry, we suggest you
 download the Registry hive files from the guest using L<libguestfs(3)>
 or L<guestfish(1)> and access them locally, eg. using L<hivex(3)>,
 L<hivexsh(1)> or L<hivexregedit(1)>.
-
-=head2 ENCODING
-
-C<virt-win-reg> expects that regedit files have already been reencoded
-in the local encoding.  Usually on Linux hosts, this means UTF-8 with
-Unix-style line endings.  Since Windows regedit files are often in
-UTF-16LE with Windows-style line endings, you may need to reencode the
-whole file before or after processing.
-
-To reencode a file from Windows format to Linux (before processing it
-with the C<--merge> option), you would do something like this:
-
- iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg
-
-To go in the opposite direction, after exporting and before sending
-the file to a Windows user, do something like this:
-
- unix2dos linux.reg | iconv -f utf-8 -t utf-16le > win.reg
-
-For more information about encoding, see L<Win::Hivex::Regedit(3)>.
-
-If you are unsure about the current encoding, use the L<file(1)>
-command.  Recent versions of Windows regedit.exe produce a UTF-16LE
-file with Windows-style (CRLF) line endings, like this:
-
- $ file software.reg
- software.reg: Little-endian UTF-16 Unicode text, with very long lines,
- with CRLF line terminators
-
-This file would need conversion before you could C<--merge> it.
-
-=head2 SHELL QUOTING
-
-Be careful when passing parameters containing C<\> (backslash) in the
-shell.  Usually you will have to use 'single quotes' or double
-backslashes (but not both) to protect them from the shell.
-
-Paths and value names are case-insensitive.
-
-=head2 CurrentControlSet etc.
-
-Registry keys like C<CurrentControlSet> don't really exist in the
-Windows Registry at the level of the hive file, and therefore you
-cannot modify these.
-
-C<CurrentControlSet> is usually an alias for C<ControlSet001>.  In
-some circumstances it might refer to another control set.  The way
-to find out is to look at the C<HKLM\SYSTEM\Select> key:
-
- # virt-win-reg WindowsGuest 'HKLM\SYSTEM\Select'
- [HKEY_LOCAL_MACHINE\SYSTEM\Select]
- "Current"=dword:00000001
- "Default"=dword:00000001
- "Failed"=dword:00000000
- "LastKnownGood"=dword:00000002
-
-"Current" is the one which Windows will choose when it boots.
-
-Similarly, other C<Current...> keys in the path may need to
-be replaced.
 
 =head1 OPTIONS
 
@@ -474,7 +399,80 @@ sub upload_hive
     }
 }
 
+=head1 SUPPORTED SYSTEMS
+
+The program currently supports Windows NT-derived guests starting with
+Windows XP through to at least Windows 7.
+
+Registry support is done for C<HKEY_LOCAL_MACHINE\SAM>,
+C<HKEY_LOCAL_MACHINE\SECURITY>, C<HKEY_LOCAL_MACHINE\SOFTWARE>,
+C<HKEY_LOCAL_MACHINE\SYSTEM> and C<HKEY_USERS\.DEFAULT>.
+
+You can use C<HKLM> as a shorthand for C<HKEY_LOCAL_MACHINE>, and
+C<HKU> for C<HKEY_USERS>.
+
+C<HKEY_USERS\$SID> and C<HKEY_CURRENT_USER> are B<not> supported at
+this time.
+
+=head1 ENCODING
+
+C<virt-win-reg> expects that regedit files have already been reencoded
+in the local encoding.  Usually on Linux hosts, this means UTF-8 with
+Unix-style line endings.  Since Windows regedit files are often in
+UTF-16LE with Windows-style line endings, you may need to reencode the
+whole file before or after processing.
+
+To reencode a file from Windows format to Linux (before processing it
+with the C<--merge> option), you would do something like this:
+
+ iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg
+
+To go in the opposite direction, after exporting and before sending
+the file to a Windows user, do something like this:
+
+ unix2dos linux.reg | iconv -f utf-8 -t utf-16le > win.reg
+
+For more information about encoding, see L<Win::Hivex::Regedit(3)>.
+
+If you are unsure about the current encoding, use the L<file(1)>
+command.  Recent versions of Windows regedit.exe produce a UTF-16LE
+file with Windows-style (CRLF) line endings, like this:
+
+ $ file software.reg
+ software.reg: Little-endian UTF-16 Unicode text, with very long lines,
+ with CRLF line terminators
+
+This file would need conversion before you could C<--merge> it.
+
+=head1 CurrentControlSet etc.
+
+Registry keys like C<CurrentControlSet> don't really exist in the
+Windows Registry at the level of the hive file, and therefore you
+cannot modify these.
+
+C<CurrentControlSet> is usually an alias for C<ControlSet001>.  In
+some circumstances it might refer to another control set.  The way
+to find out is to look at the C<HKLM\SYSTEM\Select> key:
+
+ # virt-win-reg WindowsGuest 'HKLM\SYSTEM\Select'
+ [HKEY_LOCAL_MACHINE\SYSTEM\Select]
+ "Current"=dword:00000001
+ "Default"=dword:00000001
+ "Failed"=dword:00000000
+ "LastKnownGood"=dword:00000002
+
+"Current" is the one which Windows will choose when it boots.
+
+Similarly, other C<Current...> keys in the path may need to
+be replaced.
+
 =head1 SHELL QUOTING
+
+Be careful when passing parameters containing C<\> (backslash) in the
+shell.  Usually you will have to use 'single quotes' or double
+backslashes (but not both) to protect them from the shell.
+
+Paths and value names are case-insensitive.
 
 Libvirt guest names can contain arbitrary characters, some of which
 have meaning to the shell such as C<#> and space.  You may need to
