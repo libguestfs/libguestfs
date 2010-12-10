@@ -213,6 +213,9 @@ if test "x$enable_appliance" = "xyes"; then
             DISTRO=UBUNTU
 	fi
     fi
+    if test -f /etc/arch-release; then
+        DISTRO=ARCHLINUX
+    fi
     AC_MSG_RESULT([$DISTRO])
     AC_SUBST([DISTRO])
 fi
