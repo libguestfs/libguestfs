@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-07 18:39+0000\n"
+"POT-Creation-Date: 2010-12-10 13:41+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -66,16 +66,16 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
+#: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
-#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
+#: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
-#: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
+#: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
-#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
+#: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -284,48 +284,48 @@ msgstr ""
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
-#: df/output.c:50
+#: df/output.c:49
 #, fuzzy
 msgid "VirtualMachine"
 msgstr "Maszyna wirtualna"
 
-#: df/output.c:51
+#: df/output.c:50
 msgid "Filesystem"
 msgstr "System plików"
 
-#: df/output.c:54
+#: df/output.c:53
 msgid "1K-blocks"
 msgstr "K-bloki"
 
-#: df/output.c:56
+#: df/output.c:55
 msgid "Size"
 msgstr "Rozmiar"
 
-#: df/output.c:57
+#: df/output.c:56
 msgid "Used"
 msgstr "Użyte"
 
-#: df/output.c:58
+#: df/output.c:57
 msgid "Available"
 msgstr "Dostępne"
 
-#: df/output.c:59
+#: df/output.c:58
 msgid "Use%"
 msgstr "Użycie%"
 
-#: df/output.c:61
+#: df/output.c:60
 msgid "Inodes"
 msgstr "I-węzły"
 
-#: df/output.c:62
+#: df/output.c:61
 msgid "IUsed"
 msgstr "IUżyte"
 
-#: df/output.c:63
+#: df/output.c:62
 msgid "IFree"
 msgstr "IWolne"
 
-#: df/output.c:64
+#: df/output.c:63
 msgid "IUse%"
 msgstr "IUżyte%"
 
@@ -2589,7 +2589,7 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: inspector/virt-inspector.c:259
+#: inspector/virt-inspector.c:257
 #, fuzzy, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2613,17 +2613,17 @@ msgstr ""
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
 "informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
-#: inspector/virt-inspector.c:284
+#: inspector/virt-inspector.c:282
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:296
+#: inspector/virt-inspector.c:294
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:304
+#: inspector/virt-inspector.c:302
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
@@ -2802,12 +2802,12 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: rescue/virt-rescue.c:173
+#: rescue/virt-rescue.c:172
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
-#: rescue/virt-rescue.c:407
+#: rescue/virt-rescue.c:406
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -2863,32 +2863,32 @@ msgstr "libguestfs: błąd: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2133 src/inspect.c:2176
-#: src/inspect.c:2226
+#: src/inspect.c:421 src/inspect.c:757 src/inspect.c:2129 src/inspect.c:2172
+#: src/inspect.c:2222
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:795
+#: src/inspect.c:791
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
-#: src/inspect.c:1011
+#: src/inspect.c:1007
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
 
-#: src/inspect.c:1291
+#: src/inspect.c:1287
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
-#: src/inspect.c:1385
+#: src/inspect.c:1381
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "brak danych badania: najpierw należy wywołać guestfs_inspect_os"
 
-#: src/inspect.c:1397
+#: src/inspect.c:1393
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2897,21 +2897,21 @@ msgstr ""
 "%s: nie odnaleziono urządzenia root: należy wywoływać tę funkcję tylko z "
 "urządzeniem root poprzednio zwróconym przez guestfs_inspect_os"
 
-#: src/inspect.c:1526
+#: src/inspect.c:1522
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1766 src/inspect.c:1788 src/inspect.c:1813
+#: src/inspect.c:1762 src/inspect.c:1784 src/inspect.c:1809
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
-#: src/inspect.c:2235
+#: src/inspect.c:2231
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2252
+#: src/inspect.c:2248
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
@@ -2940,31 +2940,31 @@ msgstr "nazwa pliku nie może zawierać znaku \",\" (przecinka)"
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "parametr %s jest pusty lub zawiera niedozwolone znaki"
 
-#: src/launch.c:361
+#: src/launch.c:360
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch.c:366
+#: src/launch.c:365
 msgid "the libguestfs handle has already been launched"
 msgstr "program obsługi libguestfs został już uruchomiony"
 
-#: src/launch.c:378
+#: src/launch.c:377
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: nie można utworzyć katalogu tymczasowego"
 
-#: src/launch.c:726
+#: src/launch.c:725
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:739
+#: src/launch.c:738
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:880
+#: src/launch.c:879
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2973,11 +2973,11 @@ msgstr ""
 "%s: polecenie nie powiodło się: jeśli QEMU jest położone w niestandardowej "
 "ścieżce, należy spróbować ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
 
-#: src/launch.c:972
+#: src/launch.c:971
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
 
-#: src/launch.c:983
+#: src/launch.c:982
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 

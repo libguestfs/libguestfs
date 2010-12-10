@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-07 18:39+0000\n"
+"POT-Creation-Date: 2010-12-10 13:41+0000\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -65,16 +65,16 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: cat/virt-cat.c:115 cat/virt-filesystems.c:189 cat/virt-ls.c:121
+#: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
-#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:126
+#: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
 
-#: cat/virt-cat.c:137 cat/virt-filesystems.c:243 cat/virt-ls.c:143
+#: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
-#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:150
+#: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
@@ -261,48 +261,48 @@ msgstr ""
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
-#: df/output.c:50
+#: df/output.c:49
 msgid "VirtualMachine"
 msgstr ""
 
-#: df/output.c:51
+#: df/output.c:50
 #, fuzzy
 msgid "Filesystem"
 msgstr "ஒரு கோப்புமுறையை செய்"
 
-#: df/output.c:54
+#: df/output.c:53
 msgid "1K-blocks"
 msgstr ""
 
-#: df/output.c:56
+#: df/output.c:55
 msgid "Size"
 msgstr ""
 
-#: df/output.c:57
+#: df/output.c:56
 msgid "Used"
 msgstr ""
 
-#: df/output.c:58
+#: df/output.c:57
 msgid "Available"
 msgstr ""
 
-#: df/output.c:59
+#: df/output.c:58
 msgid "Use%"
 msgstr ""
 
-#: df/output.c:61
+#: df/output.c:60
 msgid "Inodes"
 msgstr ""
 
-#: df/output.c:62
+#: df/output.c:61
 msgid "IUsed"
 msgstr ""
 
-#: df/output.c:63
+#: df/output.c:62
 msgid "IFree"
 msgstr ""
 
-#: df/output.c:64
+#: df/output.c:63
 msgid "IUse%"
 msgstr ""
 
@@ -2545,7 +2545,7 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: inspector/virt-inspector.c:259
+#: inspector/virt-inspector.c:257
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2562,17 +2562,17 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:284
+#: inspector/virt-inspector.c:282
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:296
+#: inspector/virt-inspector.c:294
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:304
+#: inspector/virt-inspector.c:302
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
@@ -2739,12 +2739,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: rescue/virt-rescue.c:173
+#: rescue/virt-rescue.c:172
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "'%s'க்கான பகுப்பு அளவை குறிப்பிட முடியவில்லை\n"
 
-#: rescue/virt-rescue.c:407
+#: rescue/virt-rescue.c:406
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
@@ -2797,53 +2797,53 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:761 src/inspect.c:2133 src/inspect.c:2176
-#: src/inspect.c:2226
+#: src/inspect.c:421 src/inspect.c:757 src/inspect.c:2129 src/inspect.c:2172
+#: src/inspect.c:2222
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:795
+#: src/inspect.c:791
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "'%s'க்கான பகுப்பு அளவை குறிப்பிட முடியவில்லை\n"
 
-#: src/inspect.c:1011
+#: src/inspect.c:1007
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1291
+#: src/inspect.c:1287
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "'%s'க்கான பகுப்பு அளவை குறிப்பிட முடியவில்லை\n"
 
-#: src/inspect.c:1385
+#: src/inspect.c:1381
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1397
+#: src/inspect.c:1393
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1526
+#: src/inspect.c:1522
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1766 src/inspect.c:1788 src/inspect.c:1813
+#: src/inspect.c:1762 src/inspect.c:1784 src/inspect.c:1809
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "unexpected end of file when reading from daemon"
 
-#: src/inspect.c:2235
+#: src/inspect.c:2231
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2252
+#: src/inspect.c:2248
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
@@ -2871,29 +2871,29 @@ msgstr "கோப்புபெயர் ',' (கம்மா) எழுத்�
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:361
+#: src/launch.c:360
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch.c:366
+#: src/launch.c:365
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ஏற்கனவே துவங்கப்பட்டுவிட்டது"
 
-#: src/launch.c:378
+#: src/launch.c:377
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/launch.c:726
+#: src/launch.c:725
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch தோல்வியுற்றது, முந்தைய பிழைச் செய்தியைப் பார்"
 
-#: src/launch.c:739
+#: src/launch.c:738
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/launch.c:880
+#: src/launch.c:879
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2902,11 +2902,11 @@ msgstr ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 
-#: src/launch.c:972
+#: src/launch.c:971
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
 
-#: src/launch.c:983
+#: src/launch.c:982
 msgid "no subprocess to kill"
 msgstr "அழிப்பதற்கு துணைசெயல்பாடுகள் இல்லை"
 
