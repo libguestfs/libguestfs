@@ -609,8 +609,6 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
 {
-  int r;
-
   fs->type = OS_TYPE_FREEBSD;
 
   /* FreeBSD has no authoritative version file.  The version number is
@@ -673,8 +671,6 @@ check_architecture (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
 {
-  char **lines;
-
   switch (fs->type) {
   case OS_TYPE_LINUX:
     /* Red Hat-derived would be in /etc/sysconfig/network, and

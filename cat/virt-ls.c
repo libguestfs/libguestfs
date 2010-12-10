@@ -270,7 +270,6 @@ main (int argc, char *argv[])
     }
     else if (mode == 'l') {
       char *out;
-      size_t i;
 
       if ((out = guestfs_ll (g, dir)) == NULL)
         errors++;

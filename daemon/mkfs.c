@@ -36,7 +36,7 @@ int
 do_mkfs_opts (const char *fstype, const char *device, int blocksize)
 {
   const char *argv[MAX_ARGS];
-  size_t i = 0, j;
+  size_t i = 0;
   char blocksize_str[32];
   int r;
   char *err;

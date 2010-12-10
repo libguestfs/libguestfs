@@ -352,7 +352,6 @@ guestfs__launch (guestfs_h *g)
 {
   int r;
   int wfd[2], rfd[2];
-  int tries;
   char unixsock[256];
   struct sockaddr_un addr;
 

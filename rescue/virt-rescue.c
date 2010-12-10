@@ -112,7 +112,6 @@ main (int argc, char *argv[])
   };
   struct drv *drvs = NULL;
   struct drv *drv;
-  char *p, *file = NULL;
   const char *format = NULL;
   int c;
   int option_index;

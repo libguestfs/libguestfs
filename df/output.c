@@ -45,7 +45,6 @@ void
 print_title (void)
 {
   const char *cols[6];
-  size_t i;
 
   cols[0] = _("VirtualMachine");
   cols[1] = _("Filesystem");
