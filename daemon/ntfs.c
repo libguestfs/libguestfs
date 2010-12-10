@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,19 +31,13 @@
 int
 optgroup_ntfs3g_available (void)
 {
-  int r = access ("/bin/ntfs-3g.probe", X_OK);
-  if (r == 0)
-    return 1;
-  /* On Debian: */
-  r = access ("/usr/bin/ntfs-3g.probe", X_OK);
-  return (r == 0);
+  return prog_exists ("ntfs-3g.probe");
 }
 
 int
 optgroup_ntfsprogs_available (void)
 {
-  int r = access ("/usr/sbin/ntfsresize", X_OK);
-  return r == 0;
+  return prog_exists ("ntfsresize");
 }
 
 int
