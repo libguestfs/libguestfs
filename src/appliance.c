@@ -329,17 +329,17 @@ check_for_cached_appliance (guestfs_h *g,
   if (lstat (cachedir, &statbuf) == -1)
     return 0;
   if (statbuf.st_uid != uid) {
-    error (g, _("security: cached appliance %s is not owned by UID %d\n"),
+    error (g, _("security: cached appliance %s is not owned by UID %d"),
            filename, uid);
     return -1;
   }
   if (!S_ISDIR (statbuf.st_mode)) {
-    error (g, _("security: cached appliance %s is not a directory (mode %o)\n"),
+    error (g, _("security: cached appliance %s is not a directory (mode %o)"),
            filename, statbuf.st_mode);
     return -1;
   }
   if ((statbuf.st_mode & 0022) != 0) {
-    error (g, _("security: cached appliance %s is writable by group or other (mode %o)\n"),
+    error (g, _("security: cached appliance %s is writable by group or other (mode %o)"),
            cachedir, statbuf.st_mode);
     return -1;
   }
