@@ -563,18 +563,23 @@ hard_link_to_cached_appliance (guestfs_h *g,
     perrorf (g, "link: %s %s", filename, *kernel);
     goto error;
   }
+  (void) lutimes (filename, NULL); /* lutimes because it's a symlink */
+
   snprintf (filename, len, "%s/initrd", cachedir);
   (void) unlink (*initrd);
   if (link (filename, *initrd) == -1) {
     perrorf (g, "link: %s %s", filename, *initrd);
     goto error;
   }
+  (void) utime (filename, NULL);
+
   snprintf (filename, len, "%s/root", cachedir);
   (void) unlink (*appliance);
   if (link (filename, *appliance) == -1) {
     perrorf (g, "link: %s %s", filename, *appliance);
     goto error;
   }
+  (void) utime (filename, NULL);
 
   return 0;
 
