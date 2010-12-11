@@ -320,7 +320,6 @@ check_for_cached_appliance (guestfs_h *g,
   snprintf (filename, len, "%s/checksum", cachedir);
 
   (void) mkdir (cachedir, 0755);
-  (void) utime (cachedir, NULL);
 
   /* See if the cache directory exists and passes some simple checks
    * to make sure it has not been tampered with.
@@ -343,6 +342,8 @@ check_for_cached_appliance (guestfs_h *g,
            cachedir, statbuf.st_mode);
     return -1;
   }
+
+  (void) utime (cachedir, NULL);
 
   garbage_collect_appliances (cachedir);
 
