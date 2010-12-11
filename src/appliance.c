@@ -51,8 +51,9 @@ static int dir_contains_files (const char *dir, ...);
 static int contains_ordinary_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static char *calculate_supermin_checksum (guestfs_h *g, const char *supermin_path);
-static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, char **kernel, char **initrd, char **appliance);
-static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, char **kernel, char **initrd, char **appliance);
+static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
+static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
+static int hard_link_to_cached_appliance (guestfs_h *g, const char *cachedir, char **kernel, char **initrd, char **appliance);
 static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir, size_t cdlen);
 
 /* Locate or build the appliance.
@@ -74,20 +75,61 @@ static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const c
  * (1) Look for the first element of g->path which contains a
  * supermin appliance skeleton.  If no element has this, skip
  * straight to step (5).
+ *
  * (2) Calculate the checksum of this supermin appliance.
- * (3) Check whether $TMPDIR/$checksum/ directory exists, contains
- * a cached appliance, and passes basic security checks.  If so,
- * return this appliance.
- * (4) Try to build the supermin appliance into $TMPDIR/$checksum/.
- * If this is successful, return it.
+ *
+ * (3) Check whether a cached appliance with the checksum calculated
+ * in (2) exists and passes basic security checks.  If so, return
+ * this appliance.
+ *
+ * (4) Try to build the supermin appliance.  If this is successful,
+ * return it.
+ *
  * (5) Check each element of g->path, looking for an ordinary appliance.
  * If one is found, return it.
+ *
+ * The supermin appliance cache directory lives in
+ * $TMPDIR/.guestfs-$UID/ and consists of four files:
+ *
+ *   $TMPDIR/.guestfs-$UID/checksum       - the checksum
+ *   $TMPDIR/.guestfs-$UID/kernel         - symlink to the kernel
+ *   $TMPDIR/.guestfs-$UID/initrd         - the febootstrap initrd
+ *   $TMPDIR/.guestfs-$UID/root           - the appliance
+ *
+ * Since multiple instances of libguestfs with the same UID may be
+ * racing to create an appliance, we need to be careful when building
+ * and using the appliance.
+ *
+ * If a cached appliance with checksum exists (step (2) above) then we
+ * make a hard link to it with our current PID, so that we have a copy
+ * even if the appliance is replaced by another process building an
+ * appliance afterwards:
+ *
+ *   $TMPDIR/.guestfs-$UID/kernel.$PID
+ *   $TMPDIR/.guestfs-$UID/initrd.$PID
+ *   $TMPDIR/.guestfs-$UID/root.$PID
+ *
+ * A lock is taken on "checksum" while we perform the link.
+ *
+ * Linked files are deleted by a garbage collection sweep which can be
+ * initiated by any libguestfs process with the same UID when the
+ * corresponding PID no longer exists.  (This is safe: the parent is
+ * always around in guestfs_launch() while qemu is starting up, and
+ * after that qemu will either have finished with the files or be
+ * holding them open, so we can unlink them).
+ *
+ * When building a new appliance (step (3)), it is built into randomly
+ * named temporary files in the $TMPDIR.  Then a lock is acquired on
+ * $TMPDIR/.guestfs-$UID/checksum (this file being created if
+ * necessary), the files are renamed into their final location, and
+ * the lock is released.
  */
 int
 guestfs___build_appliance (guestfs_h *g,
                            char **kernel, char **initrd, char **appliance)
 {
   int r;
+  uid_t uid = geteuid ();
 
   /* Step (1). */
   char *supermin_path;
@@ -100,7 +142,7 @@ guestfs___build_appliance (guestfs_h *g,
     char *checksum = calculate_supermin_checksum (g, supermin_path);
     if (checksum) {
       /* Step (3): cached appliance exists? */
-      r = check_for_cached_appliance (g, supermin_path, checksum,
+      r = check_for_cached_appliance (g, supermin_path, checksum, uid,
                                       kernel, initrd, appliance);
       if (r != 0) {
         free (supermin_path);
@@ -109,7 +151,7 @@ guestfs___build_appliance (guestfs_h *g,
       }
 
       /* Step (4): build supermin appliance. */
-      r = build_supermin_appliance (g, supermin_path, checksum,
+      r = build_supermin_appliance (g, supermin_path, checksum, uid,
                                     kernel, initrd, appliance);
       free (supermin_path);
       free (checksum);
@@ -216,121 +258,152 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
   return safe_strndup (g, checksum, len);
 }
 
-/* Check for cached appliance in $TMPDIR/$checksum.  Check it exists
- * and passes some basic security checks.
- *
- * Returns:
- * 1 = exists, and passes
- * 0 = does not exist
- * -1 = error which should abort the whole launch process
- */
 static int
-security_check_cache_file (guestfs_h *g, const char *filename,
-                           const struct stat *statbuf)
+process_exists (int pid)
 {
-  uid_t uid = geteuid ();
+  if (kill (pid, 0) == 0)
+    return 1;
 
-  if (statbuf->st_uid != uid) {
-    error (g, ("libguestfs cached appliance %s is not owned by UID %d\n"),
-           filename, uid);
-    return -1;
+  if (errno == ESRCH)
+    return 0;
+
+  return -1;
+}
+
+/* Garbage collect appliance hard links.  Files that match
+ * (kernel|initrd|root).$PID where the corresponding PID doesn't exist
+ * are deleted.  Note that errors in this function don't matter.
+ * There may also be other libguestfs processes racing to do the same
+ * thing here.
+ */
+static void
+garbage_collect_appliances (const char *cachedir)
+{
+  DIR *dir;
+  struct dirent *d;
+  int pid;
+
+  dir = opendir (cachedir);
+  if (dir == NULL)
+    return;
+
+  while ((d = readdir (dir)) != NULL) {
+    if (sscanf (d->d_name, "kernel.%d", &pid) == 1 &&
+        process_exists (pid) == 0)
+      unlinkat (dirfd (dir), d->d_name, 0);
+    else if (sscanf (d->d_name, "initrd.%d", &pid) == 1 &&
+             process_exists (pid) == 0)
+      unlinkat (dirfd (dir), d->d_name, 0);
+    else if (sscanf (d->d_name, "root.%d", &pid) == 1 &&
+             process_exists (pid) == 0)
+      unlinkat (dirfd (dir), d->d_name, 0);
   }
 
-  if ((statbuf->st_mode & 0022) != 0) {
-    error (g, ("libguestfs cached appliance %s is writable by group or other (mode %o)\n"),
-           filename, statbuf->st_mode);
-    return -1;
-  }
-
-  return 0;
+  closedir (dir);
 }
 
 static int
 check_for_cached_appliance (guestfs_h *g,
                             const char *supermin_path, const char *checksum,
+                            uid_t uid,
                             char **kernel, char **initrd, char **appliance)
 {
   const char *tmpdir = guestfs_tmpdir ();
 
-  size_t len = strlen (tmpdir) + strlen (checksum) + 10;
-  char cachedir[len];
-  snprintf (cachedir, len, "%s/guestfs.%s", tmpdir, checksum);
-
-  /* Touch the directory to prevent it being deleting in a rare race
-   * between us doing the checks and a tmp cleaner running.  Note this
-   * doesn't create the directory, and we ignore any error.
+  /* len must be longer than the length of any pathname we can
+   * generate in this function.
    */
+  size_t len = strlen (tmpdir) + 128;
+  char cachedir[len];
+  snprintf (cachedir, len, "%s/.guestfs-%d", tmpdir, uid);
+  char filename[len];
+  snprintf (filename, len, "%s/checksum", cachedir);
+
+  (void) mkdir (cachedir, 0755);
   (void) utime (cachedir, NULL);
 
   /* See if the cache directory exists and passes some simple checks
-   * to make sure it has not been tampered with.  Note that geteuid()
-   * forms a part of the checksum.
+   * to make sure it has not been tampered with.
    */
   struct stat statbuf;
   if (lstat (cachedir, &statbuf) == -1)
     return 0;
-
-  if (security_check_cache_file (g, cachedir, &statbuf) == -1)
+  if (statbuf.st_uid != uid) {
+    error (g, _("security: cached appliance %s is not owned by UID %d\n"),
+           filename, uid);
     return -1;
+  }
+  if (!S_ISDIR (statbuf.st_mode)) {
+    error (g, _("security: cached appliance %s is not a directory (mode %o)\n"),
+           filename, statbuf.st_mode);
+    return -1;
+  }
+  if ((statbuf.st_mode & 0022) != 0) {
+    error (g, _("security: cached appliance %s is writable by group or other (mode %o)\n"),
+           cachedir, statbuf.st_mode);
+    return -1;
+  }
 
-  int ret;
+  garbage_collect_appliances (cachedir);
 
-  *kernel = safe_malloc (g, len + 8 /* / + "kernel" + \0 */);
-  *initrd = safe_malloc (g, len + 8 /* / + "initrd" + \0 */);
-  *appliance = safe_malloc (g, len + 6 /* / + "root" + \0 */);
-  sprintf (*kernel, "%s/kernel", cachedir);
-  sprintf (*initrd, "%s/initrd", cachedir);
-  sprintf (*appliance, "%s/root", cachedir);
+  /* Try to open and acquire a lock on the checksum file. */
+  int fd = open (filename, O_RDONLY);
+  if (fd == -1)
+    return 0;
+  (void) futimens (fd, NULL);
+  struct flock fl;
+  fl.l_type = F_RDLCK;
+  fl.l_whence = SEEK_SET;
+  fl.l_start = 0;
+  fl.l_len = 1;
+ again:
+  if (fcntl (fd, F_SETLKW, &fl) == -1) {
+    if (errno == EINTR)
+      goto again;
+    perrorf (g, "fcntl: F_SETLKW: %s", filename);
+    close (fd);
+    return -1;
+  }
 
-  /* Touch the files to prevent them being deleted, and to bring the
-   * cache up to date.  Note this doesn't create the files.
+  /* Read the checksum file. */
+  size_t clen = strlen (checksum);
+  char checksum_on_disk[clen];
+  ssize_t rr = read (fd, checksum_on_disk, clen);
+  if (rr == -1) {
+    perrorf (g, "read: %s", filename);
+    close (fd);
+    return -1;
+  }
+  if ((size_t) rr != clen) {
+    close (fd);
+    return 0;
+  }
+
+  if (memcmp (checksum, checksum_on_disk, clen) != 0) {
+    close (fd);
+    return 0;
+  }
+
+  /* At this point, cachedir exists, and checksum matches, and we have
+   * a read lock on the checksum file.  Make hard links to the files.
    */
-  (void) utime (*kernel, NULL);
-
-  /* NB. *kernel is a symlink, so we want to check the kernel, not the
-   * link (stat, not lstat).  We don't do a security check on the
-   * kernel since it's always under /boot.
-   */
-  if (stat (*kernel, &statbuf) == -1) {
-    ret = 0;
-    goto error;
+  if (hard_link_to_cached_appliance (g, cachedir,
+                                     kernel, initrd, appliance) == -1) {
+    close (fd);
+    return -1;
   }
 
-  (void) utime (*initrd, NULL);
-
-  if (lstat (*initrd, &statbuf) == -1) {
-    ret = 0;
-    goto error;
-  }
-
-  if (security_check_cache_file (g, *initrd, &statbuf) == -1) {
-    ret = -1;
-    goto error;
-  }
-
-  (void) utime (*appliance, NULL);
-
-  if (lstat (*appliance, &statbuf) == -1) {
-    ret = 0;
-    goto error;
-  }
-
-  if (security_check_cache_file (g, *appliance, &statbuf) == -1) {
-    ret = -1;
-    goto error;
+  /* Releases the lock on checksum. */
+  if (close (fd) == -1) {
+    perrorf (g, "close");
+    return -1;
   }
 
   /* Exists! */
   return 1;
-
- error:
-  free (*kernel);
-  free (*initrd);
-  free (*appliance);
-  return ret;
 }
 
-/* Build supermin appliance from supermin_path to $TMPDIR/$checksum.
+/* Build supermin appliance from supermin_path to $TMPDIR/.guestfs-$UID.
  *
  * Returns:
  * 0 = built
@@ -339,6 +412,7 @@ check_for_cached_appliance (guestfs_h *g,
 static int
 build_supermin_appliance (guestfs_h *g,
                           const char *supermin_path, const char *checksum,
+                          uid_t uid,
                           char **kernel, char **initrd, char **appliance)
 {
   if (g->verbose)
@@ -346,112 +420,169 @@ build_supermin_appliance (guestfs_h *g,
 
   const char *tmpdir = guestfs_tmpdir ();
 
-  size_t tmpcdlen = strlen (tmpdir) + 16;
-  char tmpcd[tmpcdlen];
-  snprintf (tmpcd, tmpcdlen, "%s/guestfs.XXXXXX", tmpdir);
+  /* len must be longer than the length of any pathname we can
+   * generate in this function.
+   */
+  size_t len = strlen (tmpdir) + 128;
 
-  if (NULL == mkdtemp (tmpcd)) {
-    error (g, _("failed to create temporary cache directory: %m"));
+  /* Build the appliance into a temporary directory. */
+  char tmpcd[len];
+  snprintf (tmpcd, len, "%s/guestfs.XXXXXX", tmpdir);
+
+  if (mkdtemp (tmpcd) == NULL) {
+    perrorf (g, "mkdtemp");
     return -1;
   }
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "run febootstrap-supermin-helper");
 
-  int r = run_supermin_helper (g, supermin_path, tmpcd, tmpcdlen);
+  int r = run_supermin_helper (g, supermin_path, tmpcd, len);
   if (r == -1)
     return -1;
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "finished building supermin appliance");
 
-  size_t cdlen = strlen (tmpdir) + strlen (checksum) + 10;
-  char cachedir[cdlen];
-  snprintf (cachedir, cdlen, "%s/guestfs.%s", tmpdir, checksum);
+  char cachedir[len];
+  snprintf (cachedir, len, "%s/.guestfs-%d", tmpdir, uid);
+  char filename[len];
+  char filename2[len];
+  snprintf (filename, len, "%s/checksum", cachedir);
 
-  /* Make the temporary directory world readable */
-  if (chmod (tmpcd, 0755) == -1) {
-    error (g, "chmod %s: %m", tmpcd);
+  /* Open and acquire write lock on checksum file.  The file might
+   * not exist, in which case we want to create it.
+   */
+  int fd = open (filename, O_WRONLY|O_CREAT, 0755);
+  if (fd == -1) {
+    perrorf (g, "open: %s", filename);
+    return -1;
+  }
+  struct flock fl;
+  fl.l_type = F_WRLCK;
+  fl.l_whence = SEEK_SET;
+  fl.l_start = 0;
+  fl.l_len = 1;
+ again:
+  if (fcntl (fd, F_SETLKW, &fl) == -1) {
+    if (errno == EINTR)
+      goto again;
+    perrorf (g, "fcntl: F_SETLKW: %s", filename);
+    close (fd);
+    return -1;
   }
 
-  /* Try to rename the temporary directory to its non-temporary name */
-  if (rename (tmpcd, cachedir) == -1) {
-    /* If the cache directory now exists, we may have been racing with another
-     * libguestfs process. Check the new directory and use it if it's valid. */
-    if (errno == ENOTEMPTY || errno == EEXIST) {
-      /* Appliance cache consists of 2 files and a symlink in the cache
-       * directory. Delete them first. */
-      DIR *dir = opendir (tmpcd);
-      if (dir == NULL) {
-        error (g, "opendir %s: %m", tmpcd);
-        return -1;
-      }
-
-      int fd = dirfd (dir);
-      if (fd == -1) {
-        error (g, "dirfd: %m");
-        closedir (dir);
-        return -1;
-      }
-
-      struct dirent *dirent;
-      for (;;) {
-        errno = 0;
-        dirent = readdir (dir);
-
-        if (dirent == NULL) {
-          break;
-        }
-
-        /* Check that dirent is a file so we don't try to delete . and .. */
-        struct stat st;
-        if (fstatat (fd, dirent->d_name, &st, AT_SYMLINK_NOFOLLOW) == -1) {
-          error (g, "fstatat %s: %m", dirent->d_name);
-          return -1;
-        }
-
-        if (!S_ISDIR(st.st_mode)) {
-          if (unlinkat (fd, dirent->d_name, 0) == -1) {
-            error (g, "unlinkat %s: %m", dirent->d_name);
-            closedir (dir);
-            return -1;
-          }
-        }
-      }
-
-      if (errno != 0) {
-        error (g, "readdir %s: %m", tmpcd);
-        closedir (dir);
-        return -1;
-      }
-
-      closedir (dir);
-
-      /* Delete the temporary cache directory itself. */
-      if (rmdir (tmpcd) == -1) {
-        error (g, "rmdir %s: %m", tmpcd);
-        return -1;
-      }
-
-      /* Check the new cache directory, and return it if valid */
-      return check_for_cached_appliance (g, supermin_path, checksum,
-                                         kernel, initrd, appliance);
-    }
-
-    else {
-      error (g, _("error renaming temporary cache directory: %m"));
-      return -1;
-    }
+  /* At this point we have acquired a write lock on the checksum
+   * file so we go ahead and replace it with the new checksum, and
+   * rename in appliance files into this directory.
+   */
+  size_t clen = strlen (checksum);
+  if (ftruncate (fd, clen) == -1) {
+    perrorf (g, "ftruncate: %s", filename);
+    close (fd);
+    return -1;
   }
 
-  *kernel = safe_malloc (g, cdlen + 8 /* / + "kernel" + \0 */);
-  *initrd = safe_malloc (g, cdlen + 8 /* / + "initrd" + \0 */);
-  *appliance = safe_malloc (g, cdlen + 6 /* / + "root" + \0 */);
-  sprintf (*kernel, "%s/kernel", cachedir);
-  sprintf (*initrd, "%s/initrd", cachedir);
-  sprintf (*appliance, "%s/root", cachedir);
+  ssize_t rr = write (fd, checksum, clen);
+  if (rr == -1) {
+    perrorf (g, "write: %s", filename);
+    close (fd);
+    return -1;
+  }
+  if ((size_t) rr != clen) {
+    error (g, "partial write: %s", filename);
+    close (fd);
+    return -1;
+  }
+
+  snprintf (filename, len, "%s/kernel", tmpcd);
+  snprintf (filename2, len, "%s/kernel", cachedir);
+  unlink (filename2);
+  if (rename (filename, filename2) == -1) {
+    perrorf (g, "rename: %s %s", filename, filename2);
+    close (fd);
+    return -1;
+  }
+
+  snprintf (filename, len, "%s/initrd", tmpcd);
+  snprintf (filename2, len, "%s/initrd", cachedir);
+  unlink (filename2);
+  if (rename (filename, filename2) == -1) {
+    perrorf (g, "rename: %s %s", filename, filename2);
+    close (fd);
+    return -1;
+  }
+
+  snprintf (filename, len, "%s/root", tmpcd);
+  snprintf (filename2, len, "%s/root", cachedir);
+  unlink (filename2);
+  if (rename (filename, filename2) == -1) {
+    perrorf (g, "rename: %s %s", filename, filename2);
+    close (fd);
+    return -1;
+  }
+
+  rmdir (tmpcd);
+
+  /* Now finish off by linking to the cached appliance and returning it. */
+  if (hard_link_to_cached_appliance (g, cachedir,
+                                     kernel, initrd, appliance) == -1) {
+    close (fd);
+    return -1;
+  }
+
+  /* Releases the lock on checksum. */
+  if (close (fd) == -1) {
+    perrorf (g, "close");
+    return -1;
+  }
 
   return 0;
+}
+
+/* NB: lock on checksum file must be held when this is called. */
+static int
+hard_link_to_cached_appliance (guestfs_h *g,
+                               const char *cachedir,
+                               char **kernel, char **initrd, char **appliance)
+{
+  pid_t pid = getpid ();
+  size_t len = strlen (cachedir) + 32;
+
+  *kernel = safe_malloc (g, len);
+  *initrd = safe_malloc (g, len);
+  *appliance = safe_malloc (g, len);
+  snprintf (*kernel, len, "%s/kernel.%d", cachedir, pid);
+  snprintf (*initrd, len, "%s/initrd.%d", cachedir, pid);
+  snprintf (*appliance, len, "%s/root.%d", cachedir, pid);
+
+  char filename[len];
+  snprintf (filename, len, "%s/kernel", cachedir);
+  (void) unlink (*kernel);
+  if (link (filename, *kernel) == -1) {
+    perrorf (g, "link: %s %s", filename, *kernel);
+    goto error;
+  }
+  snprintf (filename, len, "%s/initrd", cachedir);
+  (void) unlink (*initrd);
+  if (link (filename, *initrd) == -1) {
+    perrorf (g, "link: %s %s", filename, *initrd);
+    goto error;
+  }
+  snprintf (filename, len, "%s/root", cachedir);
+  (void) unlink (*appliance);
+  if (link (filename, *appliance) == -1) {
+    perrorf (g, "link: %s %s", filename, *appliance);
+    goto error;
+  }
+
+  return 0;
+
+ error:
+  free (*kernel);
+  free (*initrd);
+  free (*appliance);
+  return -1;
 }
 
 /* Run febootstrap-supermin-helper and tell it to generate the
