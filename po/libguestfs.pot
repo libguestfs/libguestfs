@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.21\n"
+"Project-Id-Version: libguestfs 1.7.22\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-10 13:41+0000\n"
+"POT-Creation-Date: 2010-12-11 17:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2512,24 +2512,29 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 
-#: src/appliance.c:139
+#: src/appliance.c:181
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:354
+#: src/appliance.c:332
 #, c-format
-msgid "failed to create temporary cache directory: %m"
+msgid "security: cached appliance %s is not owned by UID %d\n"
 msgstr ""
 
-#: src/appliance.c:442
+#: src/appliance.c:337
 #, c-format
-msgid "error renaming temporary cache directory: %m"
+msgid "security: cached appliance %s is not a directory (mode %o)\n"
 msgstr ""
 
-#: src/appliance.c:518
+#: src/appliance.c:342
+#, c-format
+msgid "security: cached appliance %s is writable by group or other (mode %o)\n"
+msgstr ""
+
+#: src/appliance.c:649
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
@@ -2925,7 +2930,7 @@ msgstr ""
 msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
+#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -2938,7 +2943,7 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:296
+#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
@@ -3199,32 +3204,32 @@ msgstr ""
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:276
+#: tools/virt-win-reg.pl:201
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:315
+#: tools/virt-win-reg.pl:240
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:426
+#: tools/virt-win-reg.pl:351
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:443 tools/virt-win-reg.pl:465
+#: tools/virt-win-reg.pl:368 tools/virt-win-reg.pl:390
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:450
+#: tools/virt-win-reg.pl:375
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:472
+#: tools/virt-win-reg.pl:397
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""

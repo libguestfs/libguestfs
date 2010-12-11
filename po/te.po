@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-10 13:41+0000\n"
+"POT-Creation-Date: 2010-12-11 17:52+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -2747,24 +2747,29 @@ msgstr "పరిమాణ వివరణలను పార్శ్ చేయ
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: తెలియని long ఐచ్చికము: %s (%d)\n"
 
-#: src/appliance.c:139
+#: src/appliance.c:181
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:354
-#, fuzzy, c-format
-msgid "failed to create temporary cache directory: %m"
-msgstr "తాత్కాలిక డైరెక్టరీను సృష్టించుము"
+#: src/appliance.c:332
+#, c-format
+msgid "security: cached appliance %s is not owned by UID %d\n"
+msgstr ""
 
-#: src/appliance.c:442
-#, fuzzy, c-format
-msgid "error renaming temporary cache directory: %m"
-msgstr "తాత్కాలిక డైరెక్టరీను సృష్టించుము"
+#: src/appliance.c:337
+#, c-format
+msgid "security: cached appliance %s is not a directory (mode %o)\n"
+msgstr ""
 
-#: src/appliance.c:518
+#: src/appliance.c:342
+#, c-format
+msgid "security: cached appliance %s is writable by group or other (mode %o)\n"
+msgstr ""
+
+#: src/appliance.c:649
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
@@ -3190,7 +3195,7 @@ msgstr "mkisofs ఆదేశము విఫలమైంది: %s\n"
 msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
+#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3203,7 +3208,7 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:296
+#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
@@ -3467,35 +3472,43 @@ msgstr ""
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:276
+#: tools/virt-win-reg.pl:201
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:315
+#: tools/virt-win-reg.pl:240
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:426
+#: tools/virt-win-reg.pl:351
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:443 tools/virt-win-reg.pl:465
+#: tools/virt-win-reg.pl:368 tools/virt-win-reg.pl:390
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:450
+#: tools/virt-win-reg.pl:375
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:472
+#: tools/virt-win-reg.pl:397
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+
+#, fuzzy
+#~ msgid "failed to create temporary cache directory: %m"
+#~ msgstr "తాత్కాలిక డైరెక్టరీను సృష్టించుము"
+
+#, fuzzy
+#~ msgid "error renaming temporary cache directory: %m"
+#~ msgstr "తాత్కాలిక డైరెక్టరీను సృష్టించుము"
 
 #, fuzzy
 #~ msgid "virt-df: cannot use -h and --csv options together\n"

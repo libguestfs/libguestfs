@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-10 13:41+0000\n"
+"POT-Creation-Date: 2010-12-11 17:52+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -2775,7 +2775,7 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
 
-#: src/appliance.c:139
+#: src/appliance.c:181
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
@@ -2784,17 +2784,22 @@ msgstr ""
 "kon geen geschikte libguestfs supermin of gewoon toestel vinden op "
 "LIBGUESTFS_PATH (zoek pad: %s)"
 
-#: src/appliance.c:354
-#, fuzzy, c-format
-msgid "failed to create temporary cache directory: %m"
-msgstr "maak een tijdelijke map aan"
+#: src/appliance.c:332
+#, c-format
+msgid "security: cached appliance %s is not owned by UID %d\n"
+msgstr ""
 
-#: src/appliance.c:442
-#, fuzzy, c-format
-msgid "error renaming temporary cache directory: %m"
-msgstr "maak een tijdelijke map aan"
+#: src/appliance.c:337
+#, c-format
+msgid "security: cached appliance %s is not a directory (mode %o)\n"
+msgstr ""
 
-#: src/appliance.c:518
+#: src/appliance.c:342
+#, c-format
+msgid "security: cached appliance %s is writable by group or other (mode %o)\n"
+msgstr ""
+
+#: src/appliance.c:649
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
@@ -3236,7 +3241,7 @@ msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 "virt-edit: geen afbeelding, VM namen of bestandsnamen gegeven om te bewerken"
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:292
+#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
 #, fuzzy, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3257,7 +3262,7 @@ msgstr ""
 "Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
 "met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:296
+#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
 #, fuzzy, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
@@ -3558,11 +3563,11 @@ msgstr "virt-tar: {tarball}: bestand niet gevonden\n"
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
 
-#: tools/virt-win-reg.pl:276
+#: tools/virt-win-reg.pl:201
 msgid "no libvirt domain name or disk image given\n"
 msgstr "geen libvirt domein naam of schijf image gegeven\n"
 
-#: tools/virt-win-reg.pl:315
+#: tools/virt-win-reg.pl:240
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -3570,25 +3575,33 @@ msgstr ""
 "verwacht 1 of 2 extra parameters, subkey pad en optioneel de waarde om te "
 "exporteren\n"
 
-#: tools/virt-win-reg.pl:426
+#: tools/virt-win-reg.pl:351
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: geen ondersteund Windows Registry pad\n"
 
-#: tools/virt-win-reg.pl:443 tools/virt-win-reg.pl:465
+#: tools/virt-win-reg.pl:368 tools/virt-win-reg.pl:390
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr "virt-win-reg: {p}: bestand niet gevonden in gast: {err}\n"
 
-#: tools/virt-win-reg.pl:450
+#: tools/virt-win-reg.pl:375
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 
-#: tools/virt-win-reg.pl:472
+#: tools/virt-win-reg.pl:397
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
+
+#, fuzzy
+#~ msgid "failed to create temporary cache directory: %m"
+#~ msgstr "maak een tijdelijke map aan"
+
+#, fuzzy
+#~ msgid "error renaming temporary cache directory: %m"
+#~ msgstr "maak een tijdelijke map aan"
 
 #~ msgid "virt-rescue: no image or VM names rescue given"
 #~ msgstr "virt-rescue: geen image of VM namen redding opgegeven"
