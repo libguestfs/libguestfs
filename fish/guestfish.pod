@@ -354,15 +354,16 @@ L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<--ro>
 
-This changes the I<-a> and I<-m> options so that disks are added and
-mounts are done read-only (see L<guestfs(3)/guestfs_mount_ro>).
+This changes the I<-a>, I<-d> and I<-m> options so that disks are
+added and mounts are done read-only.
 
 The option must always be used if the disk image or virtual machine
 might be running, and is generally recommended in cases where you
 don't need write access to the disk.
 
 Note that prepared disk images created with I<-N> are not affected by
-the I<--ro> option.
+this option.  Also commands like C<add> are not affected - you have to
+specify the C<readonly:true> option explicitly if you need it.
 
 See also L</OPENING DISKS FOR READ AND WRITE> below.
 
