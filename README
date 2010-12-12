@@ -39,7 +39,7 @@ Requirements
 
 - recent QEMU >= 0.12 with virtio-serial support
 
-- febootstrap >= 3.0
+- febootstrap >= 3.0 (recommended >= 3.3)
      *NB*: febootstrap 2.x WILL NOT WORK
            febootstrap 3.x is distro-independent, and is required on
              Debian and other distros too
