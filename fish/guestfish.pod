@@ -174,6 +174,10 @@ Add a block device or virtual machine image to the shell.
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
+Using this flag is mostly equivalent to using the C<add> command,
+with C<readonly:true> if the I<--ro> flag was given, and
+with C<format:...> if the I<--format:...> flag was given.
+
 =item B<-c URI>
 
 =item B<--connect URI>
@@ -194,6 +198,10 @@ See section L</REMOTE CONTROL AND CSH> below.
 Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
 mode, only libvirt domains which are shut down can be named here.
+
+Using this flag is mostly equivalent to using the C<add-domain> command,
+with C<readonly:true> if the I<--ro> flag was given, and
+with C<format:...> if the I<--format:...> flag was given.
 
 =item B<-D>
 
@@ -272,6 +280,10 @@ versions of guestfish.  You can still use the old syntax:
 
  guestfish [--ro] -i libvirt-domain
 
+Using this flag is mostly equivalent to using the C<inspect-os>
+command and then using other commands to mount the filesystems that
+were found.
+
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
@@ -300,6 +312,9 @@ either run guestfish without this option, then list the partitions,
 filesystems and LVs available (see L</list-partitions>,
 L</list-filesystems> and L</lvs> commands), or you can use the
 L<virt-filesystems(1)> program.
+
+Using this flag is mostly equivalent to using the C<mount-options>
+command or the C<mount-ro> command if the I<--ro> flag was given.
 
 =item B<-n>
 
