@@ -1,13 +1,20 @@
 Release notes for libguestfs 1.8.0
 ----------------------------------
 
-Updated to commit 0b2a3bd8404a72a3b7e99e330143c26bf42d458a (1.7.16).
+Updated to commit 573e01e0871324c038bac2fd391c86c8b7fb0247 (1.7.23)
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.6.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
 
 New features
+
+ - Support and packages for Debian and Ubuntu.
+
+ - Daily builds from git repository on Debian and Ubuntu to reduce risk
+   of regressions.
+
+ - Port to ArchLinux 'pacman' (thanks Thomas S Hatch).
 
  - The following tools have been rewritten in C (originally in Perl):
 
@@ -54,7 +61,13 @@ New features
  - guestfs_last_errno allows you to retrieve the errno from the
    daemon, correctly translated to the local operating system.
 
- - Some functions now support optional parameters.
+ - Functions can now have optional parameters.
+
+ - Progress bars and progress notifications can now happen for upload
+   commands.
+
+ - Appliance builder more careful about not leaving temporary files
+   around in /tmp.
 
 Security
 
@@ -74,6 +87,7 @@ New APIs
  - inspect-get-package-management
  - inspect-get-roots
  - inspect-list-applications
+ - mkfs-opts
 
 Internals
 
@@ -103,6 +117,9 @@ Internals
    Maxim Koltsov).
 
  - Old ocaml-viewer program removed (use guestfs-browser instead).
+
+ - New C API test type 'InitScratchFS' makes the tests run a little
+   more quickly.
 
 Bugs fixed
 
