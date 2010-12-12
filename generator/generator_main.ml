@@ -132,11 +132,15 @@ Run it from the top source directory using the command
   output_to "php/extension/php_guestfs_php.h" generate_php_h;
   output_to "php/extension/guestfs_php.c" generate_php_c;
 
+  (* Generate the list of files generated -- last. *)
+  printf "generated %d lines of code\n" (get_lines_generated ());
+  let files = List.sort compare (get_files_generated ()) in
+  output_to "generator/files-generated.txt"
+    (fun () -> List.iter (pr "%s\n") files);
+
   (* Always generate this file last, and unconditionally.  It's used
    * by the Makefile to know when we must re-run the generator.
    *)
   let chan = open_out "generator/stamp-generator" in
   fprintf chan "1\n";
-  close_out chan;
-
-  printf "generated %d lines of code\n" (get_lines_generated ())
+  close_out chan

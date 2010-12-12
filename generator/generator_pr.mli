@@ -30,3 +30,6 @@ val output_to : string -> (unit -> unit) -> unit
 
 val get_lines_generated : unit -> int
 (** Return number of lines of code generated. *)
+
+val get_files_generated : unit -> string list
+(** Return names of the files that were generated. *)

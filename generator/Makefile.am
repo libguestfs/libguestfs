@@ -52,7 +52,7 @@ SOURCES = \
 SOURCES_ML = $(filter %.ml,$(SOURCES))
 OBJECTS = $(SOURCES_ML:.ml=.cmo)
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) files-generated.txt
 
 OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX
 OCAMLCLIBS = unix.cma str.cma

@@ -83,6 +83,7 @@ fuse/guestmount
 fuse/guestmount.1
 fuse/stamp-guestmount.pod
 generator/.pod2text.data*
+generator/files-generated.txt
 generator/generator
 generator/stamp-generator
 guestfish.1

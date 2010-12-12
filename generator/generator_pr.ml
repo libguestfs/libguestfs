@@ -23,9 +23,18 @@ open Printf
 
 open Generator_utils
 
-(* 'pr' prints to the current output file. *)
+(* Output channel, 'pr' prints to this. *)
 let chan = ref Pervasives.stdout
+
+(* Number of lines generated. *)
 let lines = ref 0
+
+(* Name of each file generated. *)
+let files = ref []
+
+(* Print-to-current-output function, used everywhere.  It has
+ * printf-like semantics.
+ *)
 let pr fs =
   ksprintf
     (fun str ->
@@ -35,6 +44,8 @@ let pr fs =
     ) fs
 
 let output_to filename k =
+  files := filename :: !files;
+
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
   k ();
@@ -54,3 +65,6 @@ let output_to filename k =
 
 let get_lines_generated () =
   !lines
+
+let get_files_generated () =
+  List.rev !files
