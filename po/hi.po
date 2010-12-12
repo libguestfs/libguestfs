@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-11 17:52+0000\n"
+"POT-Creation-Date: 2010-12-12 21:32+0000\n"
 "PO-Revision-Date: 2010-02-16 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Red Hat>\n"
@@ -2753,22 +2753,22 @@ msgid ""
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:332
+#: src/appliance.c:331
 #, c-format
-msgid "security: cached appliance %s is not owned by UID %d\n"
+msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:337
+#: src/appliance.c:336
 #, c-format
-msgid "security: cached appliance %s is not a directory (mode %o)\n"
+msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:342
+#: src/appliance.c:341
 #, c-format
-msgid "security: cached appliance %s is writable by group or other (mode %o)\n"
+msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:649
+#: src/appliance.c:655
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"

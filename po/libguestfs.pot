@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.7.22\n"
+"Project-Id-Version: libguestfs 1.7.23\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-11 17:52+0000\n"
+"POT-Creation-Date: 2010-12-12 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2519,22 +2519,22 @@ msgid ""
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:332
+#: src/appliance.c:331
 #, c-format
-msgid "security: cached appliance %s is not owned by UID %d\n"
+msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:337
+#: src/appliance.c:336
 #, c-format
-msgid "security: cached appliance %s is not a directory (mode %o)\n"
+msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:342
+#: src/appliance.c:341
 #, c-format
-msgid "security: cached appliance %s is writable by group or other (mode %o)\n"
+msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:649
+#: src/appliance.c:655
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
