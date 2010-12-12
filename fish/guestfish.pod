@@ -153,22 +153,30 @@ To list what is available do:
 
 Displays general help on options.
 
-=item B<-h> | B<--cmd-help>
+=item B<-h>
+
+=item B<--cmd-help>
 
 Lists all available guestfish commands.
 
-=item B<-h cmd> | B<--cmd-help cmd>
+=item B<-h cmd>
+
+=item B<--cmd-help cmd>
 
 Displays detailed help on a single command C<cmd>.
 
-=item B<-a image> | B<--add image>
+=item B<-a image>
+
+=item B<--add image>
 
 Add a block device or virtual machine image to the shell.
 
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
-=item B<-c URI> | B<--connect URI>
+=item B<-c URI>
+
+=item B<--connect URI>
 
 When used in conjunction with the I<-d> option, this specifies
 the libvirt URI to use.  The default is to use the default libvirt
@@ -179,13 +187,17 @@ connection.
 If using the I<--listen> option and a csh-like shell, use this option.
 See section L</REMOTE CONTROL AND CSH> below.
 
-=item B<-d libvirt-domain> | B<--domain libvirt-domain>
+=item B<-d libvirt-domain>
+
+=item B<--domain libvirt-domain>
 
 Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
 mode, only libvirt domains which are shut down can be named here.
 
-=item B<-D> | B<--no-dest-paths>
+=item B<-D>
+
+=item B<--no-dest-paths>
 
 Don't tab-complete paths on the guest filesystem.  It is useful to be
 able to hit the tab key to complete paths on the guest filesystem, but
@@ -199,14 +211,18 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room
 you can specify this flag to see what you are typing.
 
-=item B<-f file> | B<--file file>
+=item B<-f file>
+
+=item B<--file file>
 
 Read commands from C<file>.  To write pure guestfish
 scripts, use:
 
  #!/usr/bin/guestfish -f
 
-=item B<--format=raw|qcow2|..> | B<--format>
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
 
 The default for the I<-a> option is to auto-detect the format of the
 disk image.  Using this forces the disk format for I<-a> options which
@@ -229,7 +245,9 @@ this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).  See also
 L</add-drive-opts>.
 
-=item B<-i> | B<--inspector>
+=item B<-i>
+
+=item B<--inspector>
 
 Using L<virt-inspector(1)> code, inspect the disks looking for
 an operating system and mount filesystems as they would be
@@ -264,7 +282,9 @@ to try to read passphrases from the user by opening C</dev/tty>.
 Fork into the background and listen for remote commands.  See section
 L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
-=item B<-m dev[:mountpoint]> | B<--mount dev[:mountpoint]>
+=item B<-m dev[:mountpoint]>
+
+=item B<--mount dev[:mountpoint]>
 
 Mount the named partition or logical volume on the given mountpoint.
 
@@ -281,12 +301,18 @@ filesystems and LVs available (see L</list-partitions>,
 L</list-filesystems> and L</lvs> commands), or you can use the
 L<virt-filesystems(1)> program.
 
-=item B<-n> | B<--no-sync>
+=item B<-n>
+
+=item B<--no-sync>
 
 Disable autosync.  This is enabled by default.  See the discussion
 of autosync in the L<guestfs(3)> manpage.
 
-=item B<-N type> | B<--new type> | B<-N help>
+=item B<-N type>
+
+=item B<--new type>
+
+=item B<-N help>
 
 Prepare a fresh disk image formatted as "type".  This is an
 alternative to the I<-a> option: whereas I<-a> adds an existing disk,
@@ -309,7 +335,9 @@ Disable progress bars.
 Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section
 L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
-=item B<-r> | B<--ro>
+=item B<-r>
+
+=item B<--ro>
 
 This changes the I<-a> and I<-m> options so that disks are added and
 mounts are done read-only (see L<guestfs(3)/guestfs_mount_ro>).
@@ -327,16 +355,22 @@ See also L</OPENING DISKS FOR READ AND WRITE> below.
 
 Enable SELinux support for the guest.  See L<guestfs(3)/SELINUX>.
 
-=item B<-v> | B<--verbose>
+=item B<-v>
+
+=item B<--verbose>
 
 Enable very verbose messages.  This is particularly useful if you find
 a bug.
 
-=item B<-V> | B<--version>
+=item B<-V>
+
+=item B<--version>
 
 Display the guestfish / libguestfs version number and exit.
 
-=item B<-w> | B<--rw>
+=item B<-w>
+
+=item B<--rw>
 
 This option does nothing at the moment.
 See L</OPENING DISKS FOR READ AND WRITE> below.
