@@ -587,6 +587,8 @@ documentation for that function for details).
 Libguestfs can mount NTFS partitions.  It does this using the
 L<http://www.ntfs-3g.org/> driver.
 
+=head3 DRIVE LETTERS AND PATHS
+
 DOS and Windows still use drive letters, and the filesystems are
 always treated as case insensitive by Windows itself, and therefore
 you might find a Windows configuration file referring to a path like
@@ -604,6 +606,8 @@ outside the scope of libguestfs, but something that you can easily do.
 Where we can help is in resolving the case insensitivity of paths.
 For this, call L</guestfs_case_sensitive_path>.
 
+=head3 ACCESSING THE WINDOWS REGISTRY
+
 Libguestfs also provides some help for decoding Windows Registry
 "hive" files, through the library C<hivex> which is part of the
 libguestfs project although ships as a separate tarball.  You have to
@@ -611,6 +615,33 @@ locate and download the hive file(s) yourself, and then pass them to
 C<hivex> functions.  See also the programs L<hivexml(1)>,
 L<hivexsh(1)>, L<hivexregedit(1)> and L<virt-win-reg(1)> for more help
 on this issue.
+
+=head3 SYMLINKS ON NTFS-3G FILESYSTEMS
+
+Ntfs-3g tries to rewrite "Junction Points" and NTFS "symbolic links"
+to provide something which looks like a Linux symlink.  The way it
+tries to do the rewriting is described here:
+
+L<http://www.tuxera.com/community/ntfs-3g-advanced/junction-points-and-symbolic-links/>
+
+The essential problem is that ntfs-3g simply does not have enough
+information to do a correct job.  NTFS links can contain drive letters
+and references to external device GUIDs that ntfs-3g has no way of
+resolving.  It is almost certainly the case that libguestfs callers
+should ignore what ntfs-3g does (ie. don't use L</guestfs_readlink> on
+NTFS volumes).
+
+Instead if you encounter a symbolic link on an ntfs-3g filesystem, use
+L</guestfs_lgetxattr> to read the C<system.ntfs_reparse_data> extended
+attribute, and read the raw reparse data from that (you can find the
+format documented in various places around the web).
+
+=head3 EXTENDED ATTRIBUTES ON NTFS-3G FILESYSTEMS
+
+There are other useful extended attributes that can be read from
+ntfs-3g filesystems (using L</guestfs_getxattr>).  See:
+
+L<http://www.tuxera.com/community/ntfs-3g-advanced/extended-attributes/>
 
 =head2 USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES
 
