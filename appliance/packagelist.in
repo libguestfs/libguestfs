@@ -86,6 +86,7 @@
   xz
 #endif /* ARCHLINUX */
 
+attr
 bash
 binutils
 coreutils
