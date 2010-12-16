@@ -448,6 +448,90 @@ do_lxattrlist (const char *path, char *const *names)
 #endif
 }
 
+char *
+do_getxattr (const char *path, const char *name, size_t *size_r)
+{
+  ssize_t r;
+  char *buf;
+  size_t len;
+
+  CHROOT_IN;
+  r = getxattr (path, name, NULL, 0);
+  CHROOT_OUT;
+  if (r == -1) {
+    reply_with_perror ("getxattr");
+    return NULL;
+  }
+
+  len = r;
+  buf = malloc (len);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  CHROOT_IN;
+  r = getxattr (path, name, buf, len);
+  CHROOT_OUT;
+  if (r == -1) {
+    reply_with_perror ("getxattr");
+    free (buf);
+    return NULL;
+  }
+
+  if (len != (size_t) r) {
+    reply_with_error ("getxattr: unexpected size (%zu/%zd)", len, r);
+    free (buf);
+    return NULL;
+  }
+
+  /* Must set size_r last thing before returning. */
+  *size_r = len;
+  return buf; /* caller frees */
+}
+
+char *
+do_lgetxattr (const char *path, const char *name, size_t *size_r)
+{
+  ssize_t r;
+  char *buf;
+  size_t len;
+
+  CHROOT_IN;
+  r = lgetxattr (path, name, NULL, 0);
+  CHROOT_OUT;
+  if (r == -1) {
+    reply_with_perror ("lgetxattr");
+    return NULL;
+  }
+
+  len = r;
+  buf = malloc (len);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  CHROOT_IN;
+  r = lgetxattr (path, name, buf, len);
+  CHROOT_OUT;
+  if (r == -1) {
+    reply_with_perror ("lgetxattr");
+    free (buf);
+    return NULL;
+  }
+
+  if (len != (size_t) r) {
+    reply_with_error ("lgetxattr: unexpected size (%zu/%zd)", len, r);
+    free (buf);
+    return NULL;
+  }
+
+  /* Must set size_r last thing before returning. */
+  *size_r = len;
+  return buf; /* caller frees */
+}
+
 #else /* no xattr.h */
 int
 optgroup_linuxxattrs_available (void)
@@ -493,6 +577,18 @@ do_lremovexattr (const char *xattr, const char *path)
 
 guestfs_int_xattr_list *
 do_lxattrlist (const char *path, char *const *names)
+{
+  NOT_AVAILABLE (NULL);
+}
+
+char *
+do_getxattr (const char *path, const char *name, size_t *size_r)
+{
+  NOT_AVAILABLE (NULL);
+}
+
+char *
+do_lgetxattr (const char *path, const char *name, size_t *size_r)
 {
   NOT_AVAILABLE (NULL);
 }

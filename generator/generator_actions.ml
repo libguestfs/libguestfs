@@ -5633,6 +5633,46 @@ the requested cluster size.
 
 =back");
 
+  ("getxattr", (RBufferOut "xattr", [Pathname "path"; String "name"], []), 279, [Optional "linuxxattrs"],
+   [],
+   "get a single extended attribute",
+   "\
+Get a single extended attribute from file C<path> named C<name>.
+This call follows symlinks.  If you want to lookup an extended
+attribute for the symlink itself, use C<guestfs_lgetxattr>.
+
+Normally it is better to get all extended attributes from a file
+in one go by calling C<guestfs_getxattrs>.  However some Linux
+filesystem implementations are buggy and do not provide a way to
+list out attributes.  For these filesystems (notably ntfs-3g)
+you have to know the names of the extended attributes you want
+in advance and call this function.
+
+Extended attribute values are blobs of binary data.  If there
+is no extended attribute named C<name>, this returns an error.
+
+See also: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>.");
+
+  ("lgetxattr", (RBufferOut "xattr", [Pathname "path"; String "name"], []), 280, [Optional "linuxxattrs"],
+   [],
+   "get a single extended attribute",
+   "\
+Get a single extended attribute from file C<path> named C<name>.
+If C<path> is a symlink, then this call returns an extended
+attribute from the symlink.
+
+Normally it is better to get all extended attributes from a file
+in one go by calling C<guestfs_getxattrs>.  However some Linux
+filesystem implementations are buggy and do not provide a way to
+list out attributes.  For these filesystems (notably ntfs-3g)
+you have to know the names of the extended attributes you want
+in advance and call this function.
+
+Extended attribute values are blobs of binary data.  If there
+is no extended attribute named C<name>, this returns an error.
+
+See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
