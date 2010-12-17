@@ -334,6 +334,27 @@ Use L</guestfs_download>.  See L</DOWNLOADING> above.
 
 =back
 
+=head2 UPLOADING AND DOWNLOADING TO PIPES AND FILE DESCRIPTORS
+
+Calls like L</guestfs_upload>, L</guestfs_download>,
+L</guestfs_tar_in>, L</guestfs_tar_out> etc appear to only take
+filenames as arguments, so it appears you can only upload and download
+to files.  However many Un*x-like hosts let you use the special device
+files C</dev/stdin>, C</dev/stdout>, C</dev/stderr> and C</dev/fd/N>
+to read and write from stdin, stdout, stderr, and arbitrary file
+descriptor N.
+
+For example, L<virt-cat(1)> writes its output to stdout by
+doing:
+
+ guestfs_download (filename, "/dev/stdout");
+
+and you can write tar output to a pipe C<fd> by doing:
+
+ char devfd[64];
+ snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
+ guestfs_tar_out ("/", devfd);
+
 =head2 LISTING FILES
 
 L</guestfs_ll> is just designed for humans to read (mainly when using
