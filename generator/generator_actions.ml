@@ -3402,7 +3402,7 @@ This command runs the C<df> command to report disk space used.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
-Use C<statvfs> from programs.");
+Use C<guestfs_statvfs> from programs.");
 
   ("df_h", (RString "output", [], []), 126, [],
    [], (* XXX Tricky to test because it depends on the exact format
@@ -3415,7 +3415,7 @@ in human-readable format.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
-Use C<statvfs> from programs.");
+Use C<guestfs_statvfs> from programs.");
 
   ("du", (RInt64 "sizekb", [Pathname "path"], []), 127, [],
    [InitISOFS, Always, TestOutputInt (
