@@ -1,8 +1,6 @@
 Release notes for libguestfs 1.8.0
 ----------------------------------
 
-Updated to commit 573e01e0871324c038bac2fd391c86c8b7fb0247 (1.7.23)
-
 These release notes only cover the differences from the previous
 stable/dev branch split (1.6.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
@@ -69,6 +67,10 @@ New features
  - Appliance builder more careful about not leaving temporary files
    around in /tmp.
 
+ - getfattr/setfattr commands added to virt-rescue.
+
+ - ROADMAP file covers roadmap and goals for future releases.
+
 Security
 
  - New SECURITY section in guestfs(3) API documentation.
@@ -78,15 +80,19 @@ Security
  - Inspection code is more careful about avoiding very large files
    from guests which might previously have caused a denial of service.
 
+ - FUSE calls into guestmount are now traced when using guestmount -x.
+
 New APIs
 
  - add-domain
  - add-drive-opts
+ - getxattr
  - inspect-get-hostname
  - inspect-get-package-format
  - inspect-get-package-management
  - inspect-get-roots
  - inspect-list-applications
+ - lgetxattr
  - mkfs-opts
 
 Internals
@@ -121,8 +127,13 @@ Internals
  - New C API test type 'InitScratchFS' makes the tests run a little
    more quickly.
 
+ - Excluded packages in the appliance are now listed in a separate
+   file appliance/excludelist.in, and can be customized per-distro.
+
 Bugs fixed
 
+ - 663407 readlink and readlinklist returns /sysroot/ in some paths
+ - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
  - 657499 checksum: wrong check sum type causes umount to fail
  - 655554 Whole disk paths are not made canonical by virt-inspector
  - 654638 openssl updated to 1.0.0b libguestfs depends on exact file names
