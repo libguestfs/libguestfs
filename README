@@ -1,43 +1,21 @@
-Libguestfs is a library for accessing and modifying guest disk images.
-Amongst the things this is good for: making batch configuration
-changes to guests, getting disk used/free statistics (see also:
-virt-df), migrating between virtualization systems (see also:
-virt-p2v), performing partial backups, performing partial guest
-clones, cloning guests and changing registry/UUID/hostname info, and
-much else besides.
-
-Libguestfs uses Linux kernel and qemu code, and can access any type of
-guest filesystem that Linux and qemu can, including but not limited
-to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
-schemes, qcow, qcow2, vmdk.
-
-Libguestfs provides ways to enumerate guest storage (eg. partitions,
-LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can access filesystems over
-FUSE.
-
-Libguestfs is a library that can be linked with C and C++ management
-programs (or management programs written in OCaml, Perl, Python, Ruby,
-Java, PHP, Haskell or C#).  You can also use it from shell scripts or the
-command line.
-
-Libguestfs was written by Richard W.M. Jones (rjones@redhat.com) and
-hacked on by lots of other people.  For discussion, development,
-patches, etc. please use the mailing list:
-
-  http://www.redhat.com/mailman/listinfo/libguestfs
-
-
-Home page
-----------------------------------------------------------------------
+Libguestfs is tools and a library for accessing and modifying guest
+disk images.  For more information see the home page:
 
   http://libguestfs.org/
+
+For discussion, development, patches, etc. please use the mailing
+list:
+
+  http://www.redhat.com/mailman/listinfo/libguestfs
 
 
 Requirements
 ----------------------------------------------------------------------
 
-- recent QEMU >= 0.12 with virtio-serial support
+- recent QEMU >= 0.13 with virtio-serial support
+
+- kernel >= 2.6.34 with virtio-serial support enabled.  virtio-block
+  and virtio-serial support are not required but highly recommended.
 
 - febootstrap >= 3.0 (recommended >= 3.3)
      *NB*: febootstrap 2.x WILL NOT WORK
@@ -79,8 +57,6 @@ Requirements
 - (Optional) OCaml if you want to rebuild the generated files, and
   also to build the OCaml bindings
 
-- (Optional) local Fedora mirror
-
 - (Optional) Perl if you want to build the perl bindings
 
 - (Optional) Python if you want to build the python bindings
@@ -117,12 +93,8 @@ Building
 
 Then make the daemon, library and root filesystem:
 
-  ./configure [--with-mirror=URI]
+  ./configure
   make
-
-Use the optional --with-mirror parameter to specify the URI of a local
-Fedora mirror.  See the discussion of the MIRROR parameter in the
-febootstrap(8) manpage.
 
 Finally run the tests:
 
@@ -205,7 +177,7 @@ Mirroring tip
 ----------------------------------------------------------------------
 
 On my machines I can usually rebuild the appliance in around 3
-minutes.  If it takes much longer for you, use a local Fedora mirror
+minutes.  If it takes much longer for you, use a local distro mirror
 or squid.
 
 To use squid to cache yum downloads, read this first:
