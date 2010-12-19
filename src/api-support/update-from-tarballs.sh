@@ -84,7 +84,7 @@ for v in $rev_versions; do
     for sym in $symbols; do
         # If symbol is missing from the file, that indicates it
         # was added in the previous file we checked ($previous).
-        if ! grep -sq $sym $v; then
+        if ! egrep -sq \\b$sym\\b $v; then
             echo $sym $previous >&5
         else
             next_symbols="$next_symbols $sym"
