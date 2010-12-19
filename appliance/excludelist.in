@@ -35,7 +35,6 @@
 /* Replacements for SysVinit.  We don't use ordinary init in the
  * appliance.
  */
-^upstart
 ^systemd
 
 /* Linux firmware.  Note that febootstrap itself excludes the kernel
