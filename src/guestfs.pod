@@ -2088,6 +2088,348 @@ dot-oh release won't necessarily be so stable at this point, but by
 backporting fixes from development, that branch will stabilize over
 time.
 
+=head1 EXTENDING LIBGUESTFS
+
+=head2 ADDING A NEW API ACTION
+
+Large amounts of boilerplate code in libguestfs (RPC, bindings,
+documentation) are generated, and this makes it easy to extend the
+libguestfs API.
+
+To add a new API action there are two changes:
+
+=over 4
+
+=item 1.
+
+You need to add a description of the call (name, parameters, return
+type, tests, documentation) to C<generator/generator_actions.ml>.
+
+There are two sorts of API action, depending on whether the call goes
+through to the daemon in the appliance, or is serviced entirely by the
+library (see L</ARCHITECTURE> above).  L</guestfs_sync> is an example
+of the former, since the sync is done in the appliance.
+L</guestfs_set_trace> is an example of the latter, since a trace flag
+is maintained in the handle and all tracing is done on the library
+side.
+
+Most new actions are of the first type, and get added to the
+C<daemon_functions> list.  Each function has a unique procedure number
+used in the RPC protocol which is assigned to that action when we
+publish libguestfs and cannot be reused.  Take the latest procedure
+number and increment it.
+
+For library-only actions of the second type, add to the
+C<non_daemon_functions> list.  Since these functions are serviced by
+the library and do not travel over the RPC mechanism to the daemon,
+these functions do not need a procedure number, and so the procedure
+number is set to C<-1>.
+
+=item 2.
+
+Implement the action (in C):
+
+For daemon actions, implement the function C<do_E<lt>nameE<gt>> in the
+C<daemon/> directory.
+
+For library actions, implement the function C<guestfs__E<lt>nameE<gt>>
+(note: double underscore) in the C<src/> directory.
+
+In either case, use another function as an example of what to do.
+
+=back
+
+After making these changes, use C<make> to compile.
+
+Note that you don't need to implement the RPC, language bindings,
+manual pages or anything else.  It's all automatically generated from
+the OCaml description.
+
+=head2 ADDING TESTS FOR AN API ACTION
+
+You can supply zero or as many tests as you want per API call.  The
+tests can either be added as part of the API description
+(C<generator/generator_actions.ml>), or in some rarer cases you may
+want to drop a script into C<regressions/>.  Note that adding a script
+to C<regressions/> is slower, so if possible use the first method.
+
+The following describes the test environment used when you add an API
+test in C<generator_actions.ml>.
+
+The test environment has 4 block devices:
+
+=over 4
+
+=item C</dev/sda> 500MB
+
+General block device for testing.
+
+=item C</dev/sdb> 50MB
+
+C</dev/sdb1> is an ext2 filesystem used for testing
+filesystem write operations.
+
+=item C</dev/sdc> 10MB
+
+Used in a few tests where two block devices are needed.
+
+=item C</dev/sdd>
+
+ISO with fixed content (see C<images/test.iso>).
+
+=back
+
+To be able to run the tests in a reasonable amount of time, the
+libguestfs appliance and block devices are reused between tests.  So
+don't try testing L</guestfs_kill_subprocess> :-x
+
+Each test starts with an initial scenario, selected using one of the
+C<Init*> expressions, described in C<generator/generator_types.ml>.
+These initialize the disks mentioned above in a particular way as
+documented in C<generator_types.ml>.  You should not assume anything
+about the previous contents of other disks that are not initialized.
+
+You can add a prerequisite clause to any individual test.  This is a
+run-time check, which, if it fails, causes the test to be skipped.
+Useful if testing a command which might not work on all variations of
+libguestfs builds.  A test that has prerequisite of C<Always> means to
+run unconditionally.
+
+In addition, packagers can skip individual tests by setting
+environment variables before running C<make check>.
+
+ SKIP_TEST_<CMD>_<NUM>=1
+
+eg: C<SKIP_TEST_COMMAND_3=1> skips test #3 of L</guestfs_command>.
+
+or:
+
+ SKIP_TEST_<CMD>=1
+
+eg: C<SKIP_TEST_ZEROFREE=1> skips all L</guestfs_zerofree> tests.
+
+Packagers can run only certain tests by setting for example:
+
+ TEST_ONLY="vfs_type zerofree"
+
+See C<capitests/tests.c> for more details of how these environment
+variables work.
+
+=head2 DEBUGGING NEW API ACTIONS
+
+Test new actions work before submitting them.
+
+You can use guestfish to try out new commands.
+
+Debugging the daemon is a problem because it runs inside a minimal
+environment.  However you can fprintf messages in the daemon to
+stderr, and they will show up if you use C<guestfish -v>.
+
+=head2 FORMATTING CODE AND OTHER CONVENTIONS
+
+Our C source code generally adheres to some basic code-formatting
+conventions.  The existing code base is not totally consistent on this
+front, but we do prefer that contributed code be formatted similarly.
+In short, use spaces-not-TABs for indentation, use 2 spaces for each
+indentation level, and other than that, follow the K&R style.
+
+If you use Emacs, add the following to one of one of your start-up files
+(e.g., ~/.emacs), to help ensure that you get indentation right:
+
+ ;;; In libguestfs, indent with spaces everywhere (not TABs).
+ ;;; Exceptions: Makefile and ChangeLog modes.
+ (add-hook 'find-file-hook
+     '(lambda () (if (and buffer-file-name
+                          (string-match "/libguestfs\\>"
+                              (buffer-file-name))
+                          (not (string-equal mode-name "Change Log"))
+                          (not (string-equal mode-name "Makefile")))
+                     (setq indent-tabs-mode nil))))
+ 
+ ;;; When editing C sources in libguestfs, use this style.
+ (defun libguestfs-c-mode ()
+   "C mode with adjusted defaults for use with libguestfs."
+   (interactive)
+   (c-set-style "K&R")
+   (setq c-indent-level 2)
+   (setq c-basic-offset 2))
+ (add-hook 'c-mode-hook
+           '(lambda () (if (string-match "/libguestfs\\>"
+                               (buffer-file-name))
+                           (libguestfs-c-mode))))
+
+Enable warnings when compiling (and fix any problems this
+finds):
+
+ ./configure --enable-gcc-warnings
+
+Useful targets are:
+
+ make syntax-check  # checks the syntax of the C code
+ make check         # runs the test suite
+
+=head2 DAEMON CUSTOM PRINTF FORMATTERS
+
+In the daemon code we have created custom printf formatters C<%Q> and
+C<%R>, which are used to do shell quoting.
+
+=over 4
+
+=item %Q
+
+Simple shell quoted string.  Any spaces or other shell characters are
+escaped for you.
+
+=item %R
+
+Same as C<%Q> except the string is treated as a path which is prefixed
+by the sysroot.
+
+=back
+
+For example:
+
+ asprintf (&cmd, "cat %R", path);
+
+would produce C<cat /sysroot/some\ path\ with\ spaces>
+
+I<Note:> Do I<not> use these when you are passing parameters to the
+C<command{,r,v,rv}()> functions.  These parameters do NOT need to be
+quoted because they are not passed via the shell (instead, straight to
+exec).  You probably want to use the C<sysroot_path()> function
+however.
+
+=head2 SUBMITTING YOUR NEW API ACTIONS
+
+Submit patches to the mailing list:
+L<http://www.redhat.com/mailman/listinfo/libguestfs>
+and CC to L<rjones@redhat.com>.
+
+=head2 INTERNATIONALIZATION (I18N) SUPPORT
+
+We support i18n (gettext anyhow) in the library.
+
+However many messages come from the daemon, and we don't translate
+those at the moment.  One reason is that the appliance generally has
+all locale files removed from it, because they take up a lot of space.
+So we'd have to readd some of those, as well as copying our PO files
+into the appliance.
+
+Debugging messages are never translated, since they are intended for
+the programmers.
+
+=head2 SOURCE CODE SUBDIRECTORIES
+
+=over 4
+
+=item C<appliance>
+
+The libguestfs appliance, build scripts and so on.
+
+=item C<capitests>
+
+Automated tests of the C API.
+
+=item C<cat>
+
+The L<virt-cat(1)>, L<virt-filesystems(1)> and L<virt-ls(1)> commands
+and documentation.
+
+=item C<contrib>
+
+Outside contributions, experimental parts.
+
+=item C<daemon>
+
+The daemon that runs inside the libguestfs appliance and carries out
+actions.
+
+=item C<df>
+
+L<virt-df(1)> command and documentation.
+
+=item C<examples>
+
+C API example code.
+
+=item C<fish>
+
+L<guestfish(1)>, the command-line shell.
+
+=item C<fuse>
+
+L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
+
+=item C<generator>
+
+The crucially important generator, used to automatically generate
+large amounts of boilerplate C code for things like RPC and bindings.
+
+=item C<images>
+
+Files used by the test suite.
+
+Some "phony" guest images which we test against.
+
+=item C<inspector>
+
+L<virt-inspector(1)>, the virtual machine image inspector.
+
+=item C<m4>
+
+M4 macros used by autoconf.
+
+=item C<po>
+
+Translations of simple gettext strings.
+
+=item C<po-docs>
+
+The build infrastructure and PO files for translations of manpages and
+POD files.  Eventually this will be combined with the C<po> directory,
+but that is rather complicated.
+
+=item C<regressions>
+
+Regression tests.
+
+=item C<rescue>
+
+L<virt-rescue(1)> command and documentation.
+
+=item C<src>
+
+Source code to the C library.
+
+=item C<tools>
+
+Command line tools written in Perl (L<virt-resize(1)> and many others).
+
+=item C<test-tool>
+
+Test tool for end users to test if their qemu/kernel combination
+will work with libguestfs.
+
+=item C<csharp>
+
+=item C<haskell>
+
+=item C<java>
+
+=item C<ocaml>
+
+=item C<php>
+
+=item C<perl>
+
+=item C<python>
+
+=item C<ruby>
+
+Language bindings.
+
+=back
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4

@@ -218,7 +218,7 @@ and fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)
   | FishOutputHexadecimal (* for int return, print in hex *)
 
-(* See section "Tests" in HACKING file. *)
+(* See guestfs(3)/EXTENDING LIBGUESTFS. *)
 type tests = (test_init * test_prereq * test) list
 and test =
     (* Run the command sequence and just expect nothing to fail. *)
