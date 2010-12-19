@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-16 23:16+0000\n"
+"POT-Creation-Date: 2010-12-19 15:38+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Virtaal 0.6.1\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:804 inspector/virt-inspector.c:67
+#: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -66,14 +66,14 @@ msgstr ""
 "  -V|--version         Laat versie zien en sluit af\n"
 
 #: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2462,7 +2462,7 @@ msgstr "nee"
 msgid "use 'time command [args...]'\n"
 msgstr "gebruik 'time command [args...]'\n"
 
-#: fuse/guestmount.c:808
+#: fuse/guestmount.c:866
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2509,12 +2509,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: fuse/guestmount.c:1031
+#: fuse/guestmount.c:1090
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: moet tenminste een -a en tenminste een -m optie hebben\n"
 
-#: fuse/guestmount.c:1039
+#: fuse/guestmount.c:1098
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""

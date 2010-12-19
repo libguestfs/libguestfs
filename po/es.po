@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-16 23:16+0000\n"
+"POT-Creation-Date: 2010-12-19 15:38+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-Country: ARGENTINA\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:804 inspector/virt-inspector.c:67
+#: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -69,14 +69,14 @@ msgstr ""
 "  -V|--version         Muestra la versión y finaliza\n"
 
 #: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:915
+#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
 #: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:963
+#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2492,7 +2492,7 @@ msgstr "no"
 msgid "use 'time command [args...]'\n"
 msgstr "utilice 'time comando [args...]'\n"
 
-#: fuse/guestmount.c:808
+#: fuse/guestmount.c:866
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2540,12 +2540,12 @@ msgstr ""
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
 
-#: fuse/guestmount.c:1031
+#: fuse/guestmount.c:1090
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: debe poseer al menos una opción -a, y al menos una opción -m\n"
 
-#: fuse/guestmount.c:1039
+#: fuse/guestmount.c:1098
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
