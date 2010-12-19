@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-if [ ! -f HACKING ]; then
+if [ ! -f BUGS ]; then
     echo "You should run this script from the top source directory."
     exit 1
 fi
