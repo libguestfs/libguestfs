@@ -1,0 +1,58 @@
+/* This is the list of distro packages which are
+ * excluded from the appliance, even if they appear in
+ * packagelist.in (or more likely, as dependencies of
+ * packages in packagelist.in).
+ *
+ * List is a list of basic regular expressions, one per line.
+ *
+ * This file is processed by cpp with one of the
+ * following symbols defined (depending on the distro):
+ *
+ *   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+ *   DEBIAN=1     For Debian.
+ *   UBUNTU=1     For Ubuntu.
+ *   ARCHLINUX=1  For Archlinux.
+ *
+ * Note that any file provided by one of these packages will
+ * be dropped from the appliance.  Of course, this may break
+ * the appliance, so be careful.  Other files are also dropped
+ * from the appliance such as docs and man pages: see 'make.sh.in'
+ * for the full details.
+ */
+
+/* Basically the same with a few minor tweaks. */
+#ifdef UBUNTU
+#define DEBIAN 1
+#endif
+
+/* Don't need any Perl or Python appearing in the appliance. */
+^perl
+^python
+
+/* Plymouth is a graphical boot thing - not needed. */
+^plymouth
+
+/* Replacements for SysVinit.  We don't use ordinary init in the
+ * appliance.
+ */
+^upstart
+^systemd
+
+/* Linux firmware.  Note that febootstrap itself excludes the kernel
+ * which is also not needed since we get the kernel, modules etc
+ * from the host at appliance boot.
+ */
+^linux-firmware
+
+/* Keyboard maps - appliance is not interactive. */
+^kbd-misc
+
+#ifdef REDHAT
+^fedora-logos
+^redhat-logos
+^dracut
+#endif
+
+#ifdef DEBIAN
+^file-rc
+#endif

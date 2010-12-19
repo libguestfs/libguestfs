@@ -20,11 +20,12 @@ unset CDPATH
 
 set -e
 
-# XXX Distro-dependent in future.
-excludes="--exclude ^perl --exclude ^python --exclude ^fedora-logos --exclude ^redhat-logos --exclude ^dracut --exclude ^upstart --exclude ^plymouth --exclude ^systemd --exclude ^linux-firmware --exclude ^kbd-misc"
-
-# For Debian:
-excludes="$excludes --exclude ^file-rc"
+# Turn excludelist file into command line arguments.
+exec 5<excludelist
+while read regexp <&5; do
+    excludes="$excludes --exclude $regexp"
+done
+exec 5<&-
 
 # Run febootstrap on the package list.
 if [ "x@FEBOOTSTRAP_YUM_CONFIG@" != "xno" ]; then

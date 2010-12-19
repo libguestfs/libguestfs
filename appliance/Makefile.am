@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	packagelist.in \
+	excludelist.in \
 	init \
 	make.sh.in
 
@@ -46,8 +47,13 @@ packagelist: packagelist.in
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	mv $@-t $@
 
+excludelist: excludelist.in
+	cpp -undef -D$(DISTRO)=1 < $< | \
+	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
+	mv $@-t $@
+
 supermin.d/base.img supermin.d/hostfiles: stamp-supermin
-stamp-supermin: make.sh packagelist
+stamp-supermin: make.sh packagelist excludelist
 	mkdir -p supermin.d
 	rm -f $@ supermin.d/base.img supermin.d/hostfiles
 	./make.sh
@@ -70,7 +76,7 @@ supermin.d/init.img: init
 
 # Make clean.
 
-CLEANFILES = packagelist
+CLEANFILES = packagelist excludelist
 
 clean-local:
 	rm -rf supermin.d

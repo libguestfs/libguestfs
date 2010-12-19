@@ -8,6 +8,9 @@
  *   DEBIAN=1     For Debian.
  *   UBUNTU=1     For Ubuntu.
  *   ARCHLINUX=1  For Archlinux.
+ *
+ * There is also a list of packages which are excluded if they appear
+ * as dependencies of the packages below.  See: excludelist.in
  */
 
 /* Basically the same with a few minor tweaks. */

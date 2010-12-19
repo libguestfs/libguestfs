@@ -2,6 +2,7 @@
 *.a
 ABOUT-NLS
 aclocal.m4
+appliance/excludelist
 appliance/make.sh
 appliance/packagelist
 appliance/stamp-supermin

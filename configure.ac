@@ -204,7 +204,8 @@ if test "x$enable_appliance" = "xyes"; then
     dnl
     dnl This used to be Very Important but is now just used to select
     dnl which packages to install in the appliance, since the package
-    dnl names vary slightly across distros.  (See appliance/packagelist.in)
+    dnl names vary slightly across distros.  (See
+    dnl appliance/packagelist.in and appliance/excludelist.in)
     AC_MSG_CHECKING([which Linux distro for package names])
     DISTRO=REDHAT
     if test -f /etc/debian_version; then
