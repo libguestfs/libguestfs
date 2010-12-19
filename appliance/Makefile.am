@@ -43,7 +43,8 @@ make.sh: make.sh.in
 
 packagelist: packagelist.in
 	cpp -undef -D$(DISTRO)=1 < $< | \
-	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@
+	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
+	mv $@-t $@
 
 supermin.d/base.img supermin.d/hostfiles: stamp-supermin
 stamp-supermin: make.sh packagelist
