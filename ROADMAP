@@ -1,0 +1,57 @@
+Roadmap for future releases
+---------------------------
+
+Before you read this:
+
+(1) To see what's in the current release, read 'RELEASE-NOTES'.
+
+(2) To see the list of bugs, read 'BUGS'.
+
+(3) To understand libguestfs versioning, read section
+    'LIBGUESTFS VERSION NUMBERS' of guestfs(3) man page.
+
+(4) For general "might be good to have" items, see 'TODO'.
+
+For next major stable release (1.10)
+------------------------------------
+
+* Continue with general reduction in use of Perl.  This is not because
+  we think Perl is a bad thing or anything like that, but because a
+  major consumer (RHEV) does not want to include the Perl interpreter
+  in the tiny hypervisor they ship, thus any tool written in or
+  requiring Perl cannot be used by RHEV.  OCaml and other high-level
+  compiled languages are fine.  For 1.8 we rewrote many tools in C.
+
+* Make 'guestfish --ro' be the default, and get users to use
+  'guestfish --rw' for write access (but allow the default to be
+  overridden in a configuration file).  This was originally planned
+  for 1.8 but there's not nearly enough adoption of the new 'guestfish
+  --rw' option out there to do this yet.
+
+* Allow alternate methods to start the appliance, including through
+  libvirt and by connecting to an existing appliance.  This was
+  originally planned for 1.8 but we didn't get patches in time.
+
+* Deeper and wider support for progress messages.  Many long-running
+  operations in guestfs-browser don't display progress messages, eg.
+  "du", "tar-in/out", because it's hard to estimate the runtime of
+  these commands.  We should modify the protocol so that the library
+  can hint at when progress messages would be useful (there's no point
+  going to extra lengths to generate them if on the library side no
+  one is registered to listen to them), and modify the daemon to try
+  harder to generate them, even if they are only estimates.  Also
+  GtkProgressBar supports a "pulse mode" where it indicates activity
+  with no time estimate, and we should try to support that as well.
+
+* Better handling of partitions, including MBR extended partitions
+  (RHBZ#593511, RHBZ#602997, RHBZ#642821).
+
+Bugs assigned to 1.10 (put "1.10" in the Devel Whiteboard field in
+Bugzilla):
+
+https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.10&component=libguestfs&product=Virtualization%20Tools&classification=Other
+
+Beyond 1.10
+-----------
+
+See TODO and BUGS files.

@@ -79,7 +79,7 @@ SUBDIRS += po-docs
 EXTRA_DIST = \
 	$(generator_built) \
 	html/pod.css \
-	BUGS HACKING RELEASE-NOTES TODO \
+	BUGS HACKING RELEASE-NOTES ROADMAP TODO \
 	libguestfs.pc libguestfs.pc.in \
 	recipes/LICENSE \
 	recipes/README \
@@ -128,7 +128,7 @@ HTMLFILES = \
 	html/recipes.html \
 	html/pod.css html/recipes.css
 
-TEXTFILES = BUGS HACKING README RELEASE-NOTES TODO
+TEXTFILES = BUGS HACKING README RELEASE-NOTES ROADMAP TODO
 
 WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
