@@ -224,7 +224,7 @@ See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 =item B<-x> | B<--trace>
 
-Trace libguestfs calls.
+Trace libguestfs calls and entry into each FUSE function.
 
 This also stops the daemon from forking into the background.
 

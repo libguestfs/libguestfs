@@ -65,6 +65,13 @@ int keys_from_stdin = 0;
 int echo_keys = 0;
 const char *libvirt_uri;
 int dir_cache_timeout = 60;
+static int trace_calls = 0;
+
+#define TRACE_CALL(fs,...)                                              \
+  if (trace_calls) {                                                    \
+    fprintf (stderr, "%s: %s (" fs ")\n",                               \
+             program_name, __func__, __VA_ARGS__);                      \
+  }
 
 static int
 error (void)
@@ -106,6 +113,8 @@ static int
 fg_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
             off_t offset, struct fuse_file_info *fi)
 {
+  TRACE_CALL ("%s, %p, %ld", path, buf, (long) offset);
+
   time_t now;
   time (&now);
 
@@ -227,6 +236,8 @@ fg_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
 static int
 fg_getattr (const char *path, struct stat *statbuf)
 {
+  TRACE_CALL ("%s, %p", path, statbuf);
+
   const struct stat *buf;
 
   buf = lsc_lookup (path);
@@ -267,6 +278,8 @@ fg_getattr (const char *path, struct stat *statbuf)
 static int
 fg_access (const char *path, int mask)
 {
+  TRACE_CALL ("%s, %d", path, mask);
+
   struct stat statbuf;
   int r;
 
@@ -302,6 +315,8 @@ fg_access (const char *path, int mask)
 static int
 fg_readlink (const char *path, char *buf, size_t size)
 {
+  TRACE_CALL ("%s, %p, %zu", path, buf, size);
+
   const char *r;
   int free_it = 0;
 
@@ -334,6 +349,8 @@ fg_readlink (const char *path, char *buf, size_t size)
 static int
 fg_mknod (const char *path, mode_t mode, dev_t rdev)
 {
+  TRACE_CALL ("%s, 0%o, 0x%lx", path, mode, (long) rdev);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -350,6 +367,8 @@ fg_mknod (const char *path, mode_t mode, dev_t rdev)
 static int
 fg_mkdir (const char *path, mode_t mode)
 {
+  TRACE_CALL ("%s, 0%o", path, mode);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -366,6 +385,8 @@ fg_mkdir (const char *path, mode_t mode)
 static int
 fg_unlink (const char *path)
 {
+  TRACE_CALL ("%s", path);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -382,6 +403,8 @@ fg_unlink (const char *path)
 static int
 fg_rmdir (const char *path)
 {
+  TRACE_CALL ("%s", path);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -398,6 +421,8 @@ fg_rmdir (const char *path)
 static int
 fg_symlink (const char *from, const char *to)
 {
+  TRACE_CALL ("%s, %s", from, to);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -414,6 +439,8 @@ fg_symlink (const char *from, const char *to)
 static int
 fg_rename (const char *from, const char *to)
 {
+  TRACE_CALL ("%s, %s", from, to);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -435,6 +462,8 @@ fg_rename (const char *from, const char *to)
 static int
 fg_link (const char *from, const char *to)
 {
+  TRACE_CALL ("%s, %s", from, to);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -452,6 +481,8 @@ fg_link (const char *from, const char *to)
 static int
 fg_chmod (const char *path, mode_t mode)
 {
+  TRACE_CALL ("%s, 0%o", path, mode);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -468,6 +499,8 @@ fg_chmod (const char *path, mode_t mode)
 static int
 fg_chown (const char *path, uid_t uid, gid_t gid)
 {
+  TRACE_CALL ("%s, %ld, %ld", path, (long) uid, (long) gid);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -484,6 +517,8 @@ fg_chown (const char *path, uid_t uid, gid_t gid)
 static int
 fg_truncate (const char *path, off_t size)
 {
+  TRACE_CALL ("%s, %ld", path, (long) size);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -500,6 +535,9 @@ fg_truncate (const char *path, off_t size)
 static int
 fg_utimens (const char *path, const struct timespec ts[2])
 {
+  TRACE_CALL ("%s, [{ %ld, %ld }, { %ld, %ld }]",
+              path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -541,6 +579,8 @@ fg_utimens (const char *path, const struct timespec ts[2])
 static int
 fg_open (const char *path, struct fuse_file_info *fi)
 {
+  TRACE_CALL ("%s, 0%o", path, fi->flags);
+             
   int flags = fi->flags & 3;
 
   if (read_only && flags != O_RDONLY)
@@ -553,6 +593,8 @@ static int
 fg_read (const char *path, char *buf, size_t size, off_t offset,
          struct fuse_file_info *fi)
 {
+  TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, offset);
+             
   char *r;
   size_t rsize;
 
@@ -588,6 +630,8 @@ static int
 fg_write (const char *path, const char *buf, size_t size,
           off_t offset, struct fuse_file_info *fi)
 {
+  TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, offset);
+
   if (read_only) return -EROFS;
 
   dir_cache_invalidate (path);
@@ -608,6 +652,8 @@ fg_write (const char *path, const char *buf, size_t size,
 static int
 fg_statfs (const char *path, struct statvfs *stbuf)
 {
+  TRACE_CALL ("%s, %p", path, stbuf);
+
   struct guestfs_statvfs *r;
 
   r = guestfs_statvfs (g, path);
@@ -634,6 +680,8 @@ fg_statfs (const char *path, struct statvfs *stbuf)
 static int
 fg_release (const char *path, struct fuse_file_info *fi)
 {
+  TRACE_CALL ("%s", path);
+
   /* Just a stub. This method is optional and can safely be left
    * unimplemented.
    */
@@ -644,6 +692,8 @@ fg_release (const char *path, struct fuse_file_info *fi)
 static int fg_fsync(const char *path, int isdatasync,
                      struct fuse_file_info *fi)
 {
+  TRACE_CALL ("%s, %d", path, isdatasync);
+
   int r;
 
   r = guestfs_sync (g);
@@ -657,6 +707,8 @@ static int
 fg_setxattr (const char *path, const char *name, const char *value,
              size_t size, int flags)
 {
+  TRACE_CALL ("%s, %s, %p, %zu", path, name, value, size);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -679,6 +731,8 @@ static int
 fg_getxattr (const char *path, const char *name, char *value,
              size_t size)
 {
+  TRACE_CALL ("%s, %s, %p, %zu", path, name, value, size);
+
   const struct guestfs_xattr_list *xattrs;
   int free_attrs = 0;
 
@@ -713,6 +767,8 @@ fg_getxattr (const char *path, const char *name, char *value,
 static int
 fg_listxattr (const char *path, char *list, size_t size)
 {
+  TRACE_CALL ("%s, %p, %zu", path, list, size);
+
   const struct guestfs_xattr_list *xattrs;
   int free_attrs = 0;
 
@@ -748,6 +804,8 @@ fg_listxattr (const char *path, char *list, size_t size)
 static int
 fg_removexattr(const char *path, const char *name)
 {
+  TRACE_CALL ("%s, %s", path, name);
+
   int r;
 
   if (read_only) return -EROFS;
@@ -1015,6 +1073,7 @@ main (int argc, char *argv[])
       OPTION_x;
       ADD_FUSE_ARG ("-f");
       guestfs_set_recovery_proc (g, 1);
+      trace_calls = 1;
       break;
 
     case HELP_OPTION:
