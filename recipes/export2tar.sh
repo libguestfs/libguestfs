@@ -1,3 +1,3 @@
 #!/bin/sh -
 
-guestfish -a "$1" --ro -m "$2" tgz-out "$3" "$4"
+guestfish --ro -a "$1" -m "$2" tgz-out "$3" "$4"

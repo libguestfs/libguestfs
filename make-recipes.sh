@@ -66,9 +66,9 @@ for f in recipes/*.sh; do
         cat recipes/$b.html
     fi
     echo '<h3>'$b'.sh</h3>'
-    echo '<pre class="example">'
-    sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < $f
-    echo '</pre>'
+    echo '<div class="example">'
+    source-highlight --output=STDOUT --src-lang=sh --input=$f
+    echo '</div>'
     if [ -r recipes/$b.example ]; then
         echo '<h3>Example output</h3>'
         echo '<pre>'
