@@ -1,8 +1,8 @@
 /* CSS to make pod2html files look a little bit better. */
 @import url("http://people.redhat.com/~rjones/css/standard.css");
 
-pre.example {
-  font-weight: bold;
-  width: 40em;
-  border: 1px solid #c00;
+div.example pre {
+    /*font-weight: bold;*/
+    width: 40em;
+    border: 1px solid #c00;
 }

@@ -1,3 +1,3 @@
 #!/bin/sh -
 
-guestfish -a "$1" -m "$2" vi /grub/grub.conf
+guestfish -a "$1" -i edit /boot/grub/grub.conf
