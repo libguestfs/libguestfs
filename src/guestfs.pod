@@ -262,10 +262,9 @@ L<http://tldp.org/HOWTO/LVM-HOWTO/>.
 
 =head2 DOWNLOADING
 
-Use L</guestfs_cat> to download small, text only files.  This call
-is limited to files which are less than 2 MB and which cannot contain
-any ASCII NUL (C<\0>) characters.  However it has a very simple
-to use API.
+Use L</guestfs_cat> to download small, text only files.  This call is
+limited to files which are less than 2 MB and which cannot contain any
+ASCII NUL (C<\0>) characters.  However the API is very simple to use.
 
 L</guestfs_read_file> can be used to read files which contain
 arbitrary 8 bit data, since it returns a (pointer, size) pair.
