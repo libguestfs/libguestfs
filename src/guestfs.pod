@@ -162,27 +162,33 @@ NAMING> below.
 
 Before you can read or write files, create directories and so on in a
 disk image that contains filesystems, you have to mount those
-filesystems using L</guestfs_mount>.  If you already know that a disk
-image contains (for example) one partition with a filesystem on that
-partition, then you can mount it directly:
+filesystems using L</guestfs_mount_options> or L</guestfs_mount_ro>.
+If you already know that a disk image contains (for example) one
+partition with a filesystem on that partition, then you can mount it
+directly:
 
- guestfs_mount (g, "/dev/sda1", "/");
+ guestfs_mount_options (g, "", "/dev/sda1", "/");
 
 where C</dev/sda1> means literally the first partition (C<1>) of the
 first disk image that we added (C</dev/sda>).  If the disk contains
-Linux LVM2 logical volumes you could refer to those instead (eg. C</dev/VG/LV>).
+Linux LVM2 logical volumes you could refer to those instead
+(eg. C</dev/VG/LV>).  Note that these are libguestfs virtual devices,
+and are nothing to do with host devices.
 
 If you are given a disk image and you don't know what it contains then
 you have to find out.  Libguestfs can do that too: use
 L</guestfs_list_partitions> and L</guestfs_lvs> to list possible
 partitions and LVs, and either try mounting each to see what is
 mountable, or else examine them with L</guestfs_vfs_type> or
-L</guestfs_file>.  Libguestfs also has a set of APIs for inspection of
-disk images (see L</INSPECTION> below).  But you might find it easier
-to look at higher level programs built on top of libguestfs, in
+L</guestfs_file>.  To list just filesystems, use
+L</guestfs_list_filesystems>.
+
+Libguestfs also has a set of APIs for inspection of unknown disk
+images (see L</INSPECTION> below).  But you might find it easier to
+look at higher level programs built on top of libguestfs, in
 particular L<virt-inspector(1)>.
 
-To mount a disk image read-only, use L</guestfs_mount_ro>.  There are
+To mount a filesystem read-only, use L</guestfs_mount_ro>.  There are
 several other variations of the C<guestfs_mount_*> call.
 
 =head2 FILESYSTEM ACCESS AND MODIFICATION
