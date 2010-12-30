@@ -1095,9 +1095,7 @@ The optional C<libvirturi> parameter sets the libvirt URI
 (see L<http://libvirt.org/uri.html>).  If this is not set then
 we connect to the default libvirt URI (or one set through an
 environment variable, see the libvirt documentation for full
-details).  If you are using the C API directly then it is more
-flexible to create the libvirt connection object yourself, get
-the domain object, and call C<guestfs_add_libvirt_dom>.
+details).
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
