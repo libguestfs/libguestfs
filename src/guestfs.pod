@@ -352,13 +352,13 @@ descriptor N.
 For example, L<virt-cat(1)> writes its output to stdout by
 doing:
 
- guestfs_download (filename, "/dev/stdout");
+ guestfs_download (g, filename, "/dev/stdout");
 
 and you can write tar output to a pipe C<fd> by doing:
 
  char devfd[64];
  snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
- guestfs_tar_out ("/", devfd);
+ guestfs_tar_out (g, "/", devfd);
 
 =head2 LISTING FILES
 
