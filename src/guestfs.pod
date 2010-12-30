@@ -675,9 +675,9 @@ Although we don't want to discourage you from using the C API, we will
 mention here that the same API is also available in other languages.
 
 The API is broadly identical in all supported languages.  This means
-that the C call C<guestfs_mount(g,path)> is
-C<$g-E<gt>mount($path)> in Perl, C<g.mount(path)> in Python,
-and C<Guestfs.mount g path> in OCaml.  In other words, a
+that the C call C<guestfs_add_drive_ro(g,file)> is
+C<$g-E<gt>add_drive_ro($file)> in Perl, C<g.add_drive_ro(file)> in Python,
+and C<g#add_drive_ro file> in OCaml.  In other words, a
 straightforward, predictable isomorphism between each language.
 
 Error messages are automatically transformed
