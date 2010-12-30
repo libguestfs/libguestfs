@@ -713,11 +713,11 @@ with libguestfs.
 
 =item B<OCaml>
 
-For documentation see L<guestfs-ocaml(3)>.
+See L<guestfs-ocaml(3)>.
 
 =item B<Perl>
 
-For documentation see L<Sys::Guestfs(3)>.
+See L<Sys::Guestfs(3)>.
 
 =item B<PHP>
 
@@ -728,15 +728,15 @@ The PHP binding only works correctly on 64 bit machines.
 
 =item B<Python>
 
-For documentation see L<guestfs-python(3)>.
+See L<guestfs-python(3)>.
 
 =item B<Ruby>
 
-For documentation see L<guestfs-ruby(3)>.
+See L<guestfs-ruby(3)>.
 
 =item B<shell scripts>
 
-For documentation see L<guestfish(1)>.
+See L<guestfish(1)>.
 
 =back
 
