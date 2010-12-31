@@ -168,18 +168,18 @@ if [ -n "$man_output" ]; then
         --section "$section" -c "Virtualization Support" --name "$name" \
         --release "$PACKAGE_NAME-$PACKAGE_VERSION" \
         < $tmpdir/full.pod > "$man_output".tmp
-        mv "$man_output".tmp "$man_output"
+    mv "$man_output".tmp "$man_output"
 fi
 
 if [ -n "$text_output" ]; then
     "$POD2TEXT" --stderr -u \
         < $tmpdir/full.pod > "$text_output".tmp
-        mv "$text_output".tmp "$text_output"
+    mv "$text_output".tmp "$text_output"
 fi
 
 if [ -n "$html_output" ]; then
     "$POD2HTML" \
         --css "pod.css" --htmldir "$abs_top_builddir/html" \
         < $tmpdir/full.pod > "$html_output".tmp
-        mv "$html_output".tmp "$html_output"
+    mv "$html_output".tmp "$html_output"
 fi
