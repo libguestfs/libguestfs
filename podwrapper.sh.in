@@ -31,6 +31,26 @@ POD2MAN="@POD2MAN@"
 POD2TEXT="@POD2TEXT@"
 POD2HTML="@POD2HTML@"
 
+# This script could be run with any current directory, so if a source
+# or build path is required it must be relative to the following
+# absolute paths:
+abs_top_srcdir="@abs_top_srcdir@"
+abs_top_builddir="@abs_top_builddir@"
+
+if [ -z "$abs_top_srcdir" ]; then
+    echo "*** podwrapper.sh: error: abs_top_srcdir not defined"
+    echo "probably this is a very old version of autoconf and you need to"
+    echo "upgrade to a recent version"
+    exit 1
+fi
+
+if [ -z "$abs_top_builddir" ]; then
+    echo "*** podwrapper.sh: error: abs_top_builddir not defined"
+    echo "probably this is a very old version of autoconf and you need to"
+    echo "upgrade to a recent version"
+    exit 1
+fi
+
 declare -a inserts
 declare -a pattern
 declare -a indent
@@ -159,7 +179,7 @@ fi
 
 if [ -n "$html_output" ]; then
     "$POD2HTML" \
-        --css "pod.css" --htmldir "$builddir/html" \
+        --css "pod.css" --htmldir "$abs_top_builddir/html" \
         < $tmpdir/full.pod > "$html_output".tmp
         mv "$html_output".tmp "$html_output"
 fi
