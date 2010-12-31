@@ -182,4 +182,23 @@ if [ -n "$html_output" ]; then
         --css "pod.css" --htmldir "$abs_top_builddir/html" \
         < $tmpdir/full.pod > "$html_output".tmp
     mv "$html_output".tmp "$html_output"
+
+    # Fix up some of the mess in the HTML output, mainly to make links
+    # between man pages work properly.
+
+    # Rewrite <em>manpage(n)</em> to <a href=...>manpage(n)</a> if
+    # there is a linkable manual page.
+    sed_cmd="sed"
+    for f in $(cd "$abs_top_builddir/html" && ls -1 *.html); do
+        b=$(basename $f .html)
+        m=$(echo $b | sed 's/\(.*\)\.\([1-9]\)$/\1(\2)/')
+        sed_cmd="$sed_cmd -e 's,<em>$m</em>,<a href=$f>$m</a>,g'"
+    done
+    echo $sed_cmd
+    eval $sed_cmd < "$html_output" > "$html_output".tmp
+    mv "$html_output".tmp "$html_output"
+
+    # Fix links like L<guestfs-foo(3)>
+    sed 's,<a href="#\([a-z]\+\)">guestfs-\1(\([1-9]\)),<a href="guestfs-\1.\2.html">guestfs-\1(\2),g' < "$html_output" > "$html_output".tmp
+    mv "$html_output".tmp "$html_output"
 fi
