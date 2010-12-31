@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 # major/minor/release must be numbers
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [9])
-m4_define([libguestfs_release], [0])
+m4_define([libguestfs_release], [1])
 # extra can be any string
 m4_define([libguestfs_extra],   [])
 
