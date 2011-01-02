@@ -283,6 +283,60 @@ Enable tracing of libguestfs API calls.
 
 =back
 
+=head1 COLUMNS
+
+Note that columns in the output are subject to reordering and change
+in future versions of this tool.
+
+=over 4
+
+=item B<Name>
+
+The filesystem, partition, block device or LVM name.
+
+For device and partition names these are displayed as canonical
+libguestfs names, so that for example C</dev/sda2> is the second
+partition on the first device.
+
+If the I<--long> option is B<not> specified, then only the name column
+is shown in the output.
+
+=item B<Type>
+
+The object type, for example C<filesystem>, C<lv>, C<device> etc.
+
+=item B<VFS>
+
+If there is a filesystem, then this column displays the filesystem
+type if one could be detected, eg. C<ext4>.
+
+=item B<Label>
+
+If the object has a label (used for identifying and mounting
+filesystems) then this column contains the label.
+
+=item B<Size>
+
+The size of the object in bytes.  If the I<--human> option is used
+then the size is displayed in a human-readable form.
+
+=item B<Parent>
+
+The parent column records the parent relationship between objects.
+For example, if the object is a partition, then this column contains
+the name of the containing device.  If the object is a logical volume,
+then this column is the name of the volume group.
+
+=item B<UUID>
+
+If the object has a UUID (used for identifying and mounting
+filesystems and block devices) then this column contains the UUID as a
+string.
+
+The UUID is only displayed if the I<--uuid> option is given.
+
+=back
+
 =head1 NOTE ABOUT CSV FORMAT
 
 Comma-separated values (CSV) is a deceptive format.  It I<seems> like
