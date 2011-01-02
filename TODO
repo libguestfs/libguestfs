@@ -364,6 +364,14 @@ parsing code, eg:
 % is better than $ because of shell escaping and confusion with shell
 variables.
 
+Can we combine this with ability to set and read environment
+variables?  Currently guestfish uses many environment variables like
+$EDITOR without any corresponding ability to set them.
+
+ set EDITOR /usr/bin/emacs
+ echo $EDITOR  # or %{EDITOR}
+ edit /etc/resolv.conf
+
 live CD inspection
 ------------------
 
