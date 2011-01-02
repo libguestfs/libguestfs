@@ -929,6 +929,7 @@ sub _find_filesystem
         }
 
         return () if m{/dev/cdrom};
+        return () if m{/dev/fd0};
 
         warn __x("unknown filesystem {fs}\n", fs => $_);
         return ();
