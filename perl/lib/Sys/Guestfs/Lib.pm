@@ -893,7 +893,7 @@ sub _find_filesystem
         my $label = $1;
         foreach (sort keys %$fses) {
             if (exists $fses->{$_}->{label} &&
-                $fses->{$_}->{label} eq $label) {
+                $fses->{$_}->{label} =~ /$label/i) {
                 return ($_, $fses->{$_});
             }
         }
