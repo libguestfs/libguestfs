@@ -218,9 +218,7 @@ type, the label, and the UUID.
 
 The related elements E<lt>package_formatE<gt>,
 E<lt>package_managementE<gt> and E<lt>applicationsE<gt> describe
-applications installed in the virtual machine.  At the moment we are
-only able to list RPMs and Debian packages installed, but in future we
-will support other Linux distros and Windows.
+applications installed in the virtual machine.
 
 E<lt>package_formatE<gt>, if present, describes the packaging
 system used.  Typical values would be C<rpm> and C<deb>.
