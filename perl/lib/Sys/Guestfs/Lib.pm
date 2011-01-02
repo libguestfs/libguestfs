@@ -867,7 +867,7 @@ sub _assign_mount_points
         foreach (@fstab) {
             my ($spec, $file) = @$_;
 
-            my ($dev, $fs) = _find_filesystem ($g, $fses, $spec);
+            my ($dev, $fs) = _find_filesystem ($g, $fses, $spec, $file);
             if ($dev) {
                 $r->{mounts}->{$file} = $dev;
                 $r->{filesystems}->{$dev} = $fs;
@@ -888,6 +888,7 @@ sub _find_filesystem
     my $g = shift;
     my $fses = shift;
     local $_ = shift;
+    my $file = shift;
 
     if (/^LABEL=(.*)/) {
         my $label = $1;
@@ -928,6 +929,7 @@ sub _find_filesystem
             return ("/dev/$1/$2", $fses->{"/dev/$1/$2"});
         }
 
+	return () if $file =~ (/media\/cdrom/);
         return () if m{/dev/cdrom};
         return () if m{/dev/fd0};
 
