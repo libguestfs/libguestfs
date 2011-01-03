@@ -46,6 +46,11 @@ For next major stable release (1.10)
 * Better handling of partitions, including MBR extended partitions
   (RHBZ#593511, RHBZ#602997, RHBZ#642821).
 
+* Hot plugging of disks using QMP.  This would allow more efficient
+  reuse of the appliance in some circumstances: multiple disks
+  (ie. VMs) can be added in turn to the same appliance.  In particular
+  this would help virt-df.
+
 Bugs assigned to 1.10 (put "1.10" in the Devel Whiteboard field in
 Bugzilla):
 
