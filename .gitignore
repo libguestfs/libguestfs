@@ -75,6 +75,9 @@ fish/cmds_gperf.c
 fish/cmds_gperf.gperf
 fish/completion.c
 fish/guestfish
+fish/guestfish.1
+fish/guestfish-actions.pod
+fish/guestfish-commands.pod
 fish/prepopts.c
 fish/prepopts.h
 fish/rc_protocol.c
@@ -87,13 +90,6 @@ generator/.pod2text.data*
 generator/files-generated.txt
 generator/generator
 generator/stamp-generator
-guestfish.1
-guestfish-actions.pod
-guestfish-commands.pod
-guestfs.3
-guestfs-actions.pod
-guestfs-availability.pod
-guestfs-structs.pod
 guestfsd-in-wine.log
 haskell/Bindtests
 haskell/Bindtests.hs
@@ -284,6 +280,10 @@ src/guestfs-internal-actions.h
 src/guestfs_protocol.c
 src/guestfs_protocol.h
 src/guestfs_protocol.x
+src/guestfs.3
+src/guestfs-actions.pod
+src/guestfs-availability.pod
+src/guestfs-structs.pod
 src/.libs/libguestfs.so
 src/libguestfs.syms
 src/stamp-guestfs.pod
