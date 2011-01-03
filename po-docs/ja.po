@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2010-12-31 08:37+0000\n"
+"POT-Creation-Date: 2011-01-03 18:07+0000\n"
 "PO-Revision-Date: 2010-09-02 14:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 #: ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20
 #: ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63
 #: ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40
-#: ../tools/virt-tar.pl:72 ../tools/virt-make-fs.pl:47
+#: ../tools/virt-tar.pl:77 ../tools/virt-make-fs.pl:47
 #: ../tools/virt-list-partitions.pl:40
 msgid "DESCRIPTION"
 msgstr ""
@@ -926,8 +926,8 @@ msgstr ""
 #: ../src/guestfs.pod:1583 ../src/guestfs.pod:1588 ../src/guestfs.pod:1592
 #: ../src/guestfs.pod:1702 ../src/guestfs.pod:1707 ../src/guestfs.pod:1711
 #: ../src/guestfs.pod:2063 ../src/guestfs.pod:2069 ../src/guestfs.pod:2074
-#: ../src/guestfs.pod:2080 ../src/guestfs.pod:2534 ../src/guestfs.pod:2538
-#: ../src/guestfs.pod:2542 ../src/guestfs.pod:2546
+#: ../src/guestfs.pod:2080 ../src/guestfs.pod:2540 ../src/guestfs.pod:2544
+#: ../src/guestfs.pod:2548 ../src/guestfs.pod:2552
 #: ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22
 #: ../src/guestfs-actions.pod:569 ../src/guestfs-actions.pod:577
 #: ../src/guestfs-actions.pod:584 ../src/guestfs-actions.pod:591
@@ -5137,84 +5137,87 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:2362
-msgid "L<guestfish(1)>, the command-line shell."
+msgid ""
+"L<guestfish(1)>, the command-line shell, and various shell scripts built on "
+"top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, "
+"L<virt-tar-out(1)>."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2364
+#: ../src/guestfs.pod:2366
 msgid "C<fuse>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2366
+#: ../src/guestfs.pod:2368
 msgid ""
 "L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2368
+#: ../src/guestfs.pod:2370
 msgid "C<generator>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2370
+#: ../src/guestfs.pod:2372
 msgid ""
 "The crucially important generator, used to automatically generate large "
 "amounts of boilerplate C code for things like RPC and bindings."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2373
+#: ../src/guestfs.pod:2375
 msgid "C<images>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2375
+#: ../src/guestfs.pod:2377
 msgid "Files used by the test suite."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2377
+#: ../src/guestfs.pod:2379
 msgid "Some \"phony\" guest images which we test against."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2379
+#: ../src/guestfs.pod:2381
 msgid "C<inspector>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2381
+#: ../src/guestfs.pod:2383
 msgid "L<virt-inspector(1)>, the virtual machine image inspector."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2383
+#: ../src/guestfs.pod:2385
 msgid "C<m4>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2385
+#: ../src/guestfs.pod:2387
 msgid "M4 macros used by autoconf."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2387
+#: ../src/guestfs.pod:2389
 msgid "C<po>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2389
+#: ../src/guestfs.pod:2391
 msgid "Translations of simple gettext strings."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2391
+#: ../src/guestfs.pod:2393
 msgid "C<po-docs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2393
+#: ../src/guestfs.pod:2395
 msgid ""
 "The build infrastructure and PO files for translations of manpages and POD "
 "files.  Eventually this will be combined with the C<po> directory, but that "
@@ -5222,130 +5225,130 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2397
+#: ../src/guestfs.pod:2399
 msgid "C<regressions>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2399
+#: ../src/guestfs.pod:2401
 msgid "Regression tests."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2401
+#: ../src/guestfs.pod:2403
 msgid "C<rescue>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2403
+#: ../src/guestfs.pod:2405
 msgid "L<virt-rescue(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2405
+#: ../src/guestfs.pod:2407
 msgid "C<src>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2407
+#: ../src/guestfs.pod:2409
 msgid "Source code to the C library."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2409
+#: ../src/guestfs.pod:2411
 msgid "C<tools>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2411
+#: ../src/guestfs.pod:2413
 msgid "Command line tools written in Perl (L<virt-resize(1)> and many others)."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2413
+#: ../src/guestfs.pod:2415
 msgid "C<test-tool>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2415
+#: ../src/guestfs.pod:2417
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2418
+#: ../src/guestfs.pod:2420
 msgid "C<csharp>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2420
+#: ../src/guestfs.pod:2422
 msgid "C<haskell>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2422
+#: ../src/guestfs.pod:2424
 msgid "C<java>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2424
+#: ../src/guestfs.pod:2426
 msgid "C<ocaml>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2426
+#: ../src/guestfs.pod:2428
 msgid "C<php>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2428
+#: ../src/guestfs.pod:2430
 msgid "C<perl>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2430
+#: ../src/guestfs.pod:2432
 msgid "C<python>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2432
+#: ../src/guestfs.pod:2434
 msgid "C<ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2434
+#: ../src/guestfs.pod:2436
 msgid "Language bindings."
 msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2438 ../fish/guestfish.pod:965
+#: ../src/guestfs.pod:2440 ../fish/guestfish.pod:965
 #: ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:330
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2442 ../fish/guestfish.pod:991
+#: ../src/guestfs.pod:2444 ../fish/guestfish.pod:991
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2444 ../fish/guestfish.pod:993
+#: ../src/guestfs.pod:2446 ../fish/guestfish.pod:993
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2446 ../fish/guestfish.pod:995
+#: ../src/guestfs.pod:2448 ../fish/guestfish.pod:995
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2448
+#: ../src/guestfs.pod:2450
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as calling C<guestfs_set_verbose (g, 1)>."
@@ -5353,20 +5356,20 @@ msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2451 ../fish/guestfish.pod:1000
+#: ../src/guestfs.pod:2453 ../fish/guestfish.pod:1000
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2453 ../fish/guestfish.pod:1002
+#: ../src/guestfs.pod:2455 ../fish/guestfish.pod:1002
 msgid ""
 "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 # type: verbatim
 #. type: verbatim
-#: ../src/guestfs.pod:2456 ../fish/guestfish.pod:1005
+#: ../src/guestfs.pod:2458 ../fish/guestfish.pod:1005
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -5375,13 +5378,13 @@ msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2458 ../fish/guestfish.pod:1007
+#: ../src/guestfs.pod:2460 ../fish/guestfish.pod:1007
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2460
+#: ../src/guestfs.pod:2462
 msgid ""
 "Set the path that libguestfs uses to search for kernel and initrd.img.  See "
 "the discussion of paths in section PATH above."
@@ -5389,13 +5392,13 @@ msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2463 ../fish/guestfish.pod:1012
+#: ../src/guestfs.pod:2465 ../fish/guestfish.pod:1012
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2465 ../fish/guestfish.pod:1014
+#: ../src/guestfs.pod:2467 ../fish/guestfish.pod:1014
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
@@ -5403,19 +5406,19 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2469
+#: ../src/guestfs.pod:2471
 msgid "See also L</QEMU WRAPPERS> above."
 msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2471 ../fish/guestfish.pod:1018
+#: ../src/guestfs.pod:2473 ../fish/guestfish.pod:1018
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2473
+#: ../src/guestfs.pod:2475
 msgid ""
 "Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This has the same "
 "effect as calling C<guestfs_set_trace (g, 1)>."
@@ -5423,19 +5426,19 @@ msgstr ""
 
 # type: =item
 #. type: =item
-#: ../src/guestfs.pod:2476 ../fish/guestfish.pod:1027
+#: ../src/guestfs.pod:2478 ../fish/guestfish.pod:1027
 msgid "TMPDIR"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2478 ../fish/guestfish.pod:1029
+#: ../src/guestfs.pod:2480 ../fish/guestfish.pod:1029
 msgid "Location of temporary directory, defaults to C</tmp>."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2480 ../fish/guestfish.pod:1031
+#: ../src/guestfs.pod:2482 ../fish/guestfish.pod:1031
 msgid ""
 "If libguestfs was compiled to use the supermin appliance then the real "
 "appliance is cached in this directory, shared between all handles belonging "
@@ -5445,30 +5448,30 @@ msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2488 ../fish/guestfish.pod:1089
+#: ../src/guestfs.pod:2490 ../fish/guestfish.pod:1089
 #: ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:233
 #: ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:572
 #: ../tools/virt-resize.pl:1483 ../tools/virt-list-filesystems.pl:189
-#: ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:534
+#: ../tools/virt-tar.pl:286 ../tools/virt-make-fs.pl:534
 #: ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr ""
 
-# type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2490
+#: ../src/guestfs.pod:2492
 msgid ""
 "L<guestfs-examples(3)>, L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-"
-"ruby(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-cat(1)>, L<virt-df(1)>, "
-"L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-list-"
-"filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)"
-">, L<virt-rescue(1)>, L<virt-tar(1)>, L<virt-win-reg(1)>, L<qemu(1)>, "
-"L<febootstrap(1)>, L<hivex(3)>, L<http://libguestfs.org/>."
+"ruby(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-cat(1)>, L<virt-copy-in"
+"(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit(1)>, L<virt-filesystems"
+"(1)>, L<virt-inspector(1)>, L<virt-list-filesystems(1)>, L<virt-list-"
+"partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-"
+"tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg(1)>, L<qemu(1)"
+">, L<febootstrap(1)>, L<hivex(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2513
+#: ../src/guestfs.pod:2519
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
 "(8)>, L<disktype(1)>."
@@ -5476,20 +5479,20 @@ msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2520 ../tools/virt-win-reg.pl:587
+#: ../src/guestfs.pod:2526 ../tools/virt-win-reg.pl:587
 #: ../tools/virt-make-fs.pl:548
 msgid "BUGS"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2522
+#: ../src/guestfs.pod:2528
 msgid "To get a list of bugs against libguestfs use this link:"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2524
+#: ../src/guestfs.pod:2530
 msgid ""
 "L<https://bugzilla.redhat.com/buglist.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -5497,13 +5500,13 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2526
+#: ../src/guestfs.pod:2532
 msgid "To report a new bug against libguestfs use this link:"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2528
+#: ../src/guestfs.pod:2534
 msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -5511,31 +5514,31 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2530
+#: ../src/guestfs.pod:2536
 msgid "When reporting a bug, please check:"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2536
+#: ../src/guestfs.pod:2542
 msgid "That the bug hasn't been reported already."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2540
+#: ../src/guestfs.pod:2546
 msgid "That you are testing a recent version."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2544
+#: ../src/guestfs.pod:2550
 msgid "Describe the bug accurately, and give a way to reproduce it."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2548
+#: ../src/guestfs.pod:2554
 msgid ""
 "Run libguestfs-test-tool and paste the B<complete, unedited> output into the "
 "bug report."
@@ -5543,39 +5546,39 @@ msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2553 ../fish/guestfish.pod:1108
+#: ../src/guestfs.pod:2559 ../fish/guestfish.pod:1112
 #: ../test-tool/libguestfs-test-tool.pod:115 ../fuse/guestmount.pod:244
 msgid "AUTHORS"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2555 ../fish/guestfish.pod:1110
+#: ../src/guestfs.pod:2561 ../fish/guestfish.pod:1114
 #: ../test-tool/libguestfs-test-tool.pod:117 ../fuse/guestmount.pod:246
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2557 ../fish/guestfish.pod:1112
+#: ../src/guestfs.pod:2563 ../fish/guestfish.pod:1116
 #: ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:248
-#: ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:602
+#: ../tools/virt-edit.pl:368 ../tools/virt-win-reg.pl:602
 #: ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:206
-#: ../tools/virt-tar.pl:296 ../tools/virt-make-fs.pl:563
+#: ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:563
 #: ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2559 ../fish/guestfish.pod:1114
+#: ../src/guestfs.pod:2565 ../fish/guestfish.pod:1118
 #: ../fuse/guestmount.pod:250
 msgid "Copyright (C) 2009-2010 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2562
+#: ../src/guestfs.pod:2568
 msgid ""
 "This library is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU Lesser General Public License as published by the "
@@ -5585,7 +5588,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2567
+#: ../src/guestfs.pod:2573
 msgid ""
 "This library is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -5595,7 +5598,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2572
+#: ../src/guestfs.pod:2578
 msgid ""
 "You should have received a copy of the GNU Lesser General Public License "
 "along with this library; if not, write to the Free Software Foundation, "
@@ -20319,7 +20322,7 @@ msgstr ""
 # type: =head1
 #. type: =head1
 #: ../fish/guestfish.pod:23 ../fuse/guestmount.pod:15 ../tools/virt-edit.pl:44
-#: ../tools/virt-win-reg.pl:51 ../tools/virt-tar.pl:59
+#: ../tools/virt-win-reg.pl:51 ../tools/virt-tar.pl:64
 msgid "WARNING"
 msgstr ""
 
@@ -20356,7 +20359,7 @@ msgstr ""
 #. type: =head1
 #: ../fish/guestfish.pod:41 ../fish/guestfish.pod:897
 #: ../fuse/guestmount.pod:39 ../tools/virt-edit.pl:58
-#: ../tools/virt-resize.pl:64 ../tools/virt-tar.pl:45
+#: ../tools/virt-resize.pl:64 ../tools/virt-tar.pl:50
 msgid "EXAMPLES"
 msgstr ""
 
@@ -20651,7 +20654,7 @@ msgstr ""
 #: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37
 #: ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:72
 #: ../tools/virt-win-reg.pl:96 ../tools/virt-resize.pl:254
-#: ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:98
+#: ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:103
 #: ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
 msgid "OPTIONS"
 msgstr ""
@@ -20661,7 +20664,7 @@ msgstr ""
 #: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131
 #: ../tools/virt-edit.pl:80 ../tools/virt-win-reg.pl:104
 #: ../tools/virt-resize.pl:262 ../tools/virt-list-filesystems.pl:61
-#: ../tools/virt-tar.pl:106 ../tools/virt-make-fs.pl:161
+#: ../tools/virt-tar.pl:111 ../tools/virt-make-fs.pl:161
 #: ../tools/virt-list-partitions.pl:62
 msgid "B<--help>"
 msgstr ""
@@ -21298,7 +21301,7 @@ msgstr ""
 #. type: =item
 #: ../fish/guestfish.pod:383 ../tools/virt-edit.pl:88
 #: ../tools/virt-win-reg.pl:112 ../tools/virt-resize.pl:270
-#: ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:114
+#: ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:119
 #: ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
 msgid "B<--version>"
 msgstr ""
@@ -23024,23 +23027,23 @@ msgid ""
 "the same name will be overwritten."
 msgstr ""
 
-# type: textblock
 #. type: textblock
 #: ../fish/guestfish.pod:1091
 msgid ""
-"L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-cat(1)>, L<virt-df(1)>, "
-"L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-list-"
-"filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)"
-">, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-tar(1)>, L<virt-win-reg(1)>, "
-"L<hexedit(1)>."
+"L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-cat(1)>, L<virt-copy-in(1)"
+">, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit(1)>, L<virt-filesystems(1)"
+">, L<virt-inspector(1)>, L<virt-list-filesystems(1)>, L<virt-list-partitions"
+"(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)"
+">, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg(1)"
+">, L<hexedit(1)>."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../fish/guestfish.pod:1117 ../test-tool/libguestfs-test-tool.pod:124
-#: ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:370
+#: ../fish/guestfish.pod:1121 ../test-tool/libguestfs-test-tool.pod:124
+#: ../fuse/guestmount.pod:253 ../tools/virt-edit.pl:372
 #: ../tools/virt-win-reg.pl:606 ../tools/virt-resize.pl:1512
-#: ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:300
+#: ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:309
 #: ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
@@ -23051,10 +23054,10 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../fish/guestfish.pod:1122 ../test-tool/libguestfs-test-tool.pod:129
-#: ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:375
+#: ../fish/guestfish.pod:1126 ../test-tool/libguestfs-test-tool.pod:129
+#: ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:377
 #: ../tools/virt-win-reg.pl:611 ../tools/virt-resize.pl:1517
-#: ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:305
+#: ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:314
 #: ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
@@ -23065,10 +23068,10 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../fish/guestfish.pod:1127 ../test-tool/libguestfs-test-tool.pod:134
-#: ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:380
+#: ../fish/guestfish.pod:1131 ../test-tool/libguestfs-test-tool.pod:134
+#: ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:382
 #: ../tools/virt-win-reg.pl:616 ../tools/virt-resize.pl:1522
-#: ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:310
+#: ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:319
 #: ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
@@ -31177,7 +31180,7 @@ msgstr ""
 # type: textblock
 #. type: textblock
 #: ../tools/virt-edit.pl:82 ../tools/virt-win-reg.pl:106
-#: ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:108
+#: ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:113
 #: ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
 msgid "Display brief help."
 msgstr ""
@@ -31186,7 +31189,7 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-edit.pl:90 ../tools/virt-win-reg.pl:114
 #: ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:71
-#: ../tools/virt-tar.pl:116 ../tools/virt-make-fs.pl:171
+#: ../tools/virt-tar.pl:121 ../tools/virt-make-fs.pl:171
 #: ../tools/virt-list-partitions.pl:72
 msgid "Display version number and exit."
 msgstr ""
@@ -31231,7 +31234,7 @@ msgstr ""
 # type: =item
 #. type: =item
 #: ../tools/virt-edit.pl:112 ../tools/virt-win-reg.pl:128
-#: ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:122
+#: ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:127
 #: ../tools/virt-list-partitions.pl:78
 msgid "B<--connect URI> | B<-c URI>"
 msgstr ""
@@ -31239,7 +31242,7 @@ msgstr ""
 # type: textblock
 #. type: textblock
 #: ../tools/virt-edit.pl:114 ../tools/virt-win-reg.pl:130
-#: ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:124
+#: ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:129
 #: ../tools/virt-list-partitions.pl:80
 msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
@@ -31249,7 +31252,7 @@ msgstr ""
 # type: textblock
 #. type: textblock
 #: ../tools/virt-edit.pl:117 ../tools/virt-win-reg.pl:133
-#: ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:127
+#: ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:132
 #: ../tools/virt-list-partitions.pl:83
 msgid ""
 "If you specify guest block devices directly, then libvirt is not used at all."
@@ -31259,14 +31262,14 @@ msgstr ""
 #. type: =item
 #: ../tools/virt-edit.pl:124 ../tools/virt-win-reg.pl:140
 #: ../tools/virt-resize.pl:520 ../tools/virt-list-filesystems.pl:89
-#: ../tools/virt-tar.pl:134 ../tools/virt-list-partitions.pl:90
+#: ../tools/virt-tar.pl:139 ../tools/virt-list-partitions.pl:90
 msgid "B<--format> raw"
 msgstr ""
 
 # type: textblock
 #. type: textblock
 #: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:142
-#: ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:136
+#: ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:141
 #: ../tools/virt-list-partitions.pl:92
 msgid ""
 "Specify the format of disk images given on the command line.  If this is "
@@ -31276,7 +31279,7 @@ msgstr ""
 # type: textblock
 #. type: textblock
 #: ../tools/virt-edit.pl:130 ../tools/virt-win-reg.pl:146
-#: ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:140
+#: ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:145
 #: ../tools/virt-list-partitions.pl:96
 msgid ""
 "If disk images are requested from libvirt, then this program asks libvirt "
@@ -31288,7 +31291,7 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-edit.pl:134 ../tools/virt-win-reg.pl:150
 #: ../tools/virt-resize.pl:525 ../tools/virt-resize.pl:540
-#: ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:144
+#: ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:149
 #: ../tools/virt-list-partitions.pl:100
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
@@ -31500,7 +31503,7 @@ msgstr ""
 #. type: =head1
 #: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:559
 #: ../tools/virt-resize.pl:1476 ../tools/virt-list-filesystems.pl:182
-#: ../tools/virt-tar.pl:274 ../tools/virt-make-fs.pl:527
+#: ../tools/virt-tar.pl:279 ../tools/virt-make-fs.pl:527
 #: ../tools/virt-list-partitions.pl:250
 msgid "SHELL QUOTING"
 msgstr ""
@@ -31509,7 +31512,7 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:567
 #: ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:184
-#: ../tools/virt-tar.pl:276 ../tools/virt-make-fs.pl:529
+#: ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:529
 #: ../tools/virt-list-partitions.pl:252
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
@@ -31518,36 +31521,35 @@ msgid ""
 "(1)> for details."
 msgstr ""
 
-# type: textblock
 #. type: textblock
 #: ../tools/virt-edit.pl:352
 msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<Sys::Guestfs(3)>, L<Sys::"
-"Guestfs::Lib(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>, L<perl(1)>, "
-"L<perlre(1)>."
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-"
+"tar-in(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, "
+"L<http://libguestfs.org/>, L<perl(1)>, L<perlre(1)>."
 msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../tools/virt-edit.pl:362 ../tools/virt-win-reg.pl:598
+#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:598
 #: ../tools/virt-resize.pl:1504 ../tools/virt-list-filesystems.pl:202
-#: ../tools/virt-tar.pl:292 ../tools/virt-make-fs.pl:559
+#: ../tools/virt-tar.pl:301 ../tools/virt-make-fs.pl:559
 #: ../tools/virt-list-partitions.pl:269
 msgid "AUTHOR"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:600
+#: ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:600
 #: ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:204
-#: ../tools/virt-tar.pl:294 ../tools/virt-make-fs.pl:561
+#: ../tools/virt-tar.pl:303 ../tools/virt-make-fs.pl:561
 #: ../tools/virt-list-partitions.pl:271
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-edit.pl:368 ../tools/virt-list-partitions.pl:275
+#: ../tools/virt-edit.pl:370 ../tools/virt-list-partitions.pl:275
 msgid "Copyright (C) 2009-2010 Red Hat Inc."
 msgstr ""
 
@@ -31692,8 +31694,8 @@ msgid ""
 msgstr ""
 
 # type: =head2
-#. type: =head2
-#: ../tools/virt-win-reg.pl:88
+#. type: =head1
+#: ../tools/virt-win-reg.pl:88 ../tools/virt-tar.pl:45
 msgid "NOTE"
 msgstr ""
 
@@ -33430,7 +33432,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:208 ../tools/virt-tar.pl:298
+#: ../tools/virt-list-filesystems.pl:208 ../tools/virt-tar.pl:307
 msgid "Copyright (C) 2009 Red Hat Inc."
 msgstr ""
 
@@ -33476,15 +33478,22 @@ msgid ""
 "\n"
 msgstr ""
 
-# type: textblock
 #. type: textblock
 #: ../tools/virt-tar.pl:47
+msgid ""
+"This tool is obsolete.  Use L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-"
+"tar-in(1)>, L<virt-tar-out(1)> as replacements."
+msgstr ""
+
+# type: textblock
+#. type: textblock
+#: ../tools/virt-tar.pl:52
 msgid "Download C</home> from the VM into a local tarball:"
 msgstr ""
 
 # type: verbatim
 #. type: verbatim
-#: ../tools/virt-tar.pl:49
+#: ../tools/virt-tar.pl:54
 #, no-wrap
 msgid ""
 " virt-tar -x domname /home home.tar\n"
@@ -33493,7 +33502,7 @@ msgstr ""
 
 # type: verbatim
 #. type: verbatim
-#: ../tools/virt-tar.pl:51
+#: ../tools/virt-tar.pl:56
 #, no-wrap
 msgid ""
 " virt-tar -zx domname /home home.tar.gz\n"
@@ -33502,13 +33511,13 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:53
+#: ../tools/virt-tar.pl:58
 msgid "Upload a local tarball and unpack it inside C</tmp> in the VM:"
 msgstr ""
 
 # type: verbatim
 #. type: verbatim
-#: ../tools/virt-tar.pl:55
+#: ../tools/virt-tar.pl:60
 #, no-wrap
 msgid ""
 " virt-tar -u domname uploadstuff.tar /tmp\n"
@@ -33517,7 +33526,7 @@ msgstr ""
 
 # type: verbatim
 #. type: verbatim
-#: ../tools/virt-tar.pl:57
+#: ../tools/virt-tar.pl:62
 #, no-wrap
 msgid ""
 " virt-tar -zu domname uploadstuff.tar.gz /tmp\n"
@@ -33526,7 +33535,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:61
+#: ../tools/virt-tar.pl:66
 msgid ""
 "You must I<not> use C<virt-tar> with the C<-u> option (upload) on live "
 "virtual machines.  If you do this, you risk disk corruption in the VM.  "
@@ -33535,7 +33544,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:66
+#: ../tools/virt-tar.pl:71
 msgid ""
 "You can use C<-x> (extract) on live virtual machines, but you might get "
 "inconsistent results or errors if there is filesystem activity inside the "
@@ -33546,7 +33555,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:74
+#: ../tools/virt-tar.pl:79
 msgid ""
 "C<virt-tar> is a general purpose archive tool for downloading and uploading "
 "parts of a guest filesystem.  There are many possibilities: making backups, "
@@ -33556,7 +33565,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:79
+#: ../tools/virt-tar.pl:84
 msgid ""
 "If you want to just view a single file, use L<virt-cat(1)>.  If you just "
 "want to edit a single file, use L<virt-edit(1)>.  For more complex cases you "
@@ -33565,7 +33574,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:83
+#: ../tools/virt-tar.pl:88
 msgid ""
 "There are two modes of operation: C<-x> (eXtract) downloads a directory and "
 "its contents (recursively) from the virtual machine into a local tarball.  "
@@ -33575,7 +33584,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:89
+#: ../tools/virt-tar.pl:94
 msgid ""
 "In addition, you may need to use the C<-z> (gZip) option to enable "
 "compression.  When uploading, you have to specify C<-z> if the upload file "
@@ -33584,7 +33593,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:93
+#: ../tools/virt-tar.pl:98
 msgid ""
 "C<virt-tar> can only handle tar (optionally gzipped) format tarballs.  For "
 "example it cannot do PKZip files or bzip2 compression.  If you want that "
@@ -33594,19 +33603,19 @@ msgstr ""
 
 # type: =item
 #. type: =item
-#: ../tools/virt-tar.pl:151
+#: ../tools/virt-tar.pl:156
 msgid "B<-x> | B<--extract> | B<--download>"
 msgstr ""
 
 # type: =item
 #. type: =item
-#: ../tools/virt-tar.pl:153
+#: ../tools/virt-tar.pl:158
 msgid "B<-u> | B<--upload>"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:155
+#: ../tools/virt-tar.pl:160
 msgid ""
 "Use C<-x> to extract (download) a directory from a virtual machine to a "
 "local tarball."
@@ -33614,7 +33623,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:158
+#: ../tools/virt-tar.pl:163
 msgid ""
 "Use C<-u> to upload and unpack from a local tarball into a virtual machine.  "
 "Please read the L</WARNING> section above before using this option."
@@ -33622,27 +33631,27 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:162
+#: ../tools/virt-tar.pl:167
 msgid "You must specify exactly one of these options."
 msgstr ""
 
 # type: =item
 #. type: =item
-#: ../tools/virt-tar.pl:168
+#: ../tools/virt-tar.pl:173
 msgid "B<-z> | B<--gzip>"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:170
+#: ../tools/virt-tar.pl:175
 msgid "Specify that the input or output tarball is gzip-compressed."
 msgstr ""
 
-# type: textblock
 #. type: textblock
-#: ../tools/virt-tar.pl:283
+#: ../tools/virt-tar.pl:288
 msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, L<Sys::"
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, L<virt-copy-"
+"in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<Sys::"
 "Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, L<http://libguestfs."
 "org/>."
 msgstr ""
@@ -34113,11 +34122,10 @@ msgid ""
 "\n"
 msgstr ""
 
-# type: textblock
 #. type: textblock
 #: ../tools/virt-make-fs.pl:536
 msgid ""
-"L<guestfish(1)>, L<virt-resize(1)>, L<virt-tar(1)>, L<mkisofs(1)>, "
+"L<guestfish(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, L<mkisofs(1)>, "
 "L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, L<resize2fs(8)>, L<guestfs"
 "(3)>, L<Sys::Guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""

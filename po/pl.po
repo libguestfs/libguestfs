@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-31 08:37+0000\n"
+"POT-Creation-Date: 2011-01-03 18:06+0000\n"
 "PO-Revision-Date: 2010-12-21 14:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -2713,66 +2713,66 @@ msgstr ""
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
 "informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:900
+#: perl/lib/Sys/Guestfs/Lib.pm:901
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
 msgstr "nieznana etykieta systemu plików {label}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:910
+#: perl/lib/Sys/Guestfs/Lib.pm:911
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr "nieznany UUID systemu plików {uuid}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:933
+#: perl/lib/Sys/Guestfs/Lib.pm:936
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "nieznany system plików {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1011
+#: perl/lib/Sys/Guestfs/Lib.pm:1014
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "Błąd podczas wykonywania polecenia rpm -qa: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1037
+#: perl/lib/Sys/Guestfs/Lib.pm:1040
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "Błąd podczas wykonywania polecenia dpkg-query: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1102
+#: perl/lib/Sys/Guestfs/Lib.pm:1105
 msgid "Can't find grub on guest"
 msgstr "Nie można odnaleźć programu GRUB w gościu"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1157
+#: perl/lib/Sys/Guestfs/Lib.pm:1160
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "Wpis programu GRUB {title} nie posiada jądra"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1188
+#: perl/lib/Sys/Guestfs/Lib.pm:1191
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "program GRUB odnosi się do {path}, który nie istnieje\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1211
+#: perl/lib/Sys/Guestfs/Lib.pm:1214
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "Wpis programu GRUB {title} nie określa initrd"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1280
+#: perl/lib/Sys/Guestfs/Lib.pm:1283
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "Nie odnaleziono katalogu modułów {modules} dla jądra {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1288
+#: perl/lib/Sys/Guestfs/Lib.pm:1291
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "Nie można odgadnąć numeru wersji jądra ze ścieżki jądra {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1342
+#: perl/lib/Sys/Guestfs/Lib.pm:1345
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} nie zgadza się ze wzorem Augeas"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1381
+#: perl/lib/Sys/Guestfs/Lib.pm:1384
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
@@ -3309,7 +3309,7 @@ msgstr ""
 "virt-edit: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
 "polecenia edit"
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
+#: tools/virt-edit.pl:185 tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3330,7 +3330,7 @@ msgstr ""
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
 "informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
+#: tools/virt-edit.pl:189 tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr "{prog}: systemy operacyjne \"multiboot\" nie są obsługiwane.\n"
@@ -3607,26 +3607,26 @@ msgstr "Kopiowanie {p}...\n"
 msgid "Expanding {p} using the '{meth}' method\n"
 msgstr "Rozszerzanie {p} używając metody \"{meth}\"\n"
 
-#: tools/virt-tar.pl:178 tools/virt-tar.pl:185
+#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr "virt-tar: wydobywa/wysyła tryb podany dwukrotnie w wierszu poleceń\n"
 
-#: tools/virt-tar.pl:207
+#: tools/virt-tar.pl:212
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 "virt-tar: nie podano obrazu, nazw maszyn wirtualnych, katalogu lub nazwy "
 "pliku"
 
-#: tools/virt-tar.pl:210
+#: tools/virt-tar.pl:215
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: należy podać opcję -x lub -u w wierszu poleceń\n"
 
-#: tools/virt-tar.pl:221
+#: tools/virt-tar.pl:226
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: nie odnaleziono pliku\n"
 
-#: tools/virt-tar.pl:224
+#: tools/virt-tar.pl:229
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: nazwa katalogu musi zaczynać się od znaku \"/\"\n"
