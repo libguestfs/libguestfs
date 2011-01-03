@@ -1,0 +1,70 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-copy-out - Copy files and directories out of a virtual machine disk image.
+
+=head1 SYNOPSIS
+
+ virt-copy-out -a disk.img /file|dir [/file|dir ...] localdir
+
+ virt-copy-out -d domain /file|dir [/file|dir ...] localdir
+
+=head1 DESCRIPTION
+
+C<virt-copy-out> copies files and directories out of a virtual machine
+disk image or named libvirt domain.
+
+You can give one of more filenames and directories on the command
+line.  Directories are copied out recursively.
+
+=head1 EXAMPLES
+
+Download the home directories from a virtual machine:
+
+ mkdir homes
+ virt-copy-out -d MyGuest /home homes
+
+=head1 JUST A SHELL SCRIPT WRAPPER AROUND GUESTFISH
+
+This command is just a simple shell script wrapper around the
+L<guestfish(1)> C<copy-out> command.  For anything more complex than a
+trivial copy, you are probably better off using guestfish directly.
+
+=head1 OPTIONS
+
+Since the shell script just passes options straight to guestfish, read
+L<guestfish(1)> to see the full list of options.
+
+=head1 SEE ALSO
+
+L<guestfish(1)>,
+L<virt-cat(1)>,
+L<virt-copy-in(1)>,
+L<virt-edit(1)>,
+L<virt-tar-in(1)>,
+L<virt-tar-out(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc.
+L<http://libguestfs.org/>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

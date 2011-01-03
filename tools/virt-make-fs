@@ -535,7 +535,7 @@ manual page L<sh(1)> for details.
 
 L<guestfish(1)>,
 L<virt-resize(1)>,
-L<virt-tar(1)>,
+L<virt-tar-in(1)>,
 L<mkisofs(1)>,
 L<genisoimage(1)>,
 L<mksquashfs(1)>,

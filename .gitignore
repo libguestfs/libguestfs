@@ -83,6 +83,14 @@ fish/prepopts.h
 fish/rc_protocol.c
 fish/rc_protocol.h
 fish/stamp-guestfish.pod
+fish/stamp-virt-copy-in.pod
+fish/stamp-virt-copy-out.pod
+fish/stamp-virt-tar-in.pod
+fish/stamp-virt-tar-out.pod
+fish/virt-copy-in.1
+fish/virt-copy-out.1
+fish/virt-tar-in.1
+fish/virt-tar-out.1
 fuse/guestmount
 fuse/guestmount.1
 fuse/stamp-guestmount.pod
@@ -106,6 +114,8 @@ html/guestfs-ruby.3.html
 html/guestmount.1.html
 html/recipes.html
 html/virt-cat.1.html
+html/virt-copy-in.1.html
+html/virt-copy-out.1.html
 html/virt-df.1.html
 html/virt-edit.1.html
 html/virt-filesystems.1.html
@@ -117,6 +127,8 @@ html/virt-make-fs.1.html
 html/virt-rescue.1.html
 html/virt-resize.1.html
 html/virt-tar.1.html
+html/virt-tar-in.1.html
+html/virt-tar-out.1.html
 html/virt-win-reg.1.html
 images/100kallnewlines
 images/100kallspaces

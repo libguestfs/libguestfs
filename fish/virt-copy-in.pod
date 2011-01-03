@@ -1,0 +1,81 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-copy-in - Copy files and directories into a virtual machine disk image.
+
+=head1 SYNOPSIS
+
+ virt-copy-in -a disk.img file|dir [file|dir ...] /destination
+
+ virt-copy-in -d domain file|dir [file|dir ...] /destination
+
+=head1 WARNING
+
+Using C<virt-copy-in> on live virtual machines can be dangerous,
+potentially causing disk corruption.  The virtual machine must be
+shut down before you use this command.
+
+=head1 DESCRIPTION
+
+C<virt-copy-in> copies files and directories from the local disk into
+a virtual machine disk image or named libvirt domain.
+
+You can give one of more filenames and directories on the command
+line.  Directories are copied in recursively.  The final parameter
+must be the destination directory in the disk image which must be an
+absolute path starting with a C</> character.
+
+=head1 EXAMPLES
+
+Update C</etc/resolv.conf> in a guest:
+
+ virt-copy-in -d MyGuest resolv.conf /etc
+
+Upload a home directory to a guest:
+
+ virt-copy-in -d MyGuest skel /home
+
+=head1 JUST A SHELL SCRIPT WRAPPER AROUND GUESTFISH
+
+This command is just a simple shell script wrapper around the
+L<guestfish(1)> C<copy-in> command.  For anything more complex than a
+trivial copy, you are probably better off using guestfish directly.
+
+=head1 OPTIONS
+
+Since the shell script just passes options straight to guestfish, read
+L<guestfish(1)> to see the full list of options.
+
+=head1 SEE ALSO
+
+L<guestfish(1)>,
+L<virt-cat(1)>,
+L<virt-copy-out(1)>,
+L<virt-edit(1)>,
+L<virt-tar-in(1)>,
+L<virt-tar-out(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc.
+L<http://libguestfs.org/>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

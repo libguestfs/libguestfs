@@ -2359,7 +2359,9 @@ C API example code.
 
 =item C<fish>
 
-L<guestfish(1)>, the command-line shell.
+L<guestfish(1)>, the command-line shell, and various shell scripts
+built on top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>,
+L<virt-tar-in(1)>, L<virt-tar-out(1)>.
 
 =item C<fuse>
 
@@ -2494,6 +2496,8 @@ L<guestfs-ruby(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
 L<virt-cat(1)>,
+L<virt-copy-in(1)>,
+L<virt-copy-out(1)>,
 L<virt-df(1)>,
 L<virt-edit(1)>,
 L<virt-filesystems(1)>,
@@ -2504,6 +2508,8 @@ L<virt-ls(1)>,
 L<virt-make-fs(1)>,
 L<virt-rescue(1)>,
 L<virt-tar(1)>,
+L<virt-tar-in(1)>,
+L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
 L<qemu(1)>,
 L<febootstrap(1)>,

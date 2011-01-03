@@ -40,7 +40,15 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	rc_protocol.x \
 	guestfish.pod \
-	guestfish-bash-completion.sh
+	guestfish-bash-completion.sh \
+	virt-copy-in \
+	virt-copy-out \
+	virt-tar-in \
+	virt-tar-out \
+	virt-copy-in.pod \
+	virt-copy-out.pod \
+	virt-tar-in.pod \
+	virt-tar-out.pod
 
 # These source files (all related to option parsing) are shared
 # between guestfish and guestmount.  Keep a convenient list here just
@@ -128,10 +136,24 @@ rc_protocol.h: rc_protocol.x
 	mv $@-t $@
 endif
 
-# Manual page.
+# Script wrappers.
 
-man_MANS = guestfish.1
-noinst_DATA = $(top_builddir)/html/guestfish.1.html
+bin_SCRIPTS = virt-copy-in virt-copy-out virt-tar-in virt-tar-out
+
+# Manual pages.
+
+man_MANS = \
+	guestfish.1 \
+	virt-copy-in.1 \
+	virt-copy-out.1 \
+	virt-tar-in.1 \
+	virt-tar-out.1
+noinst_DATA = \
+	$(top_builddir)/html/guestfish.1.html \
+	$(top_builddir)/html/virt-copy-in.1.html \
+	$(top_builddir)/html/virt-copy-out.1.html \
+	$(top_builddir)/html/virt-tar-in.1.html \
+	$(top_builddir)/html/virt-tar-out.1.html
 
 guestfish.1 $(top_builddir)/html/guestfish.1.html: stamp-guestfish.pod
 
@@ -141,6 +163,42 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	  --html $(top_builddir)/html/guestfish.1.html \
 	  --insert guestfish-actions.pod:@ACTIONS@ \
 	  --insert guestfish-commands.pod:@FISH_COMMANDS@ \
+	  $<
+	touch $@
+
+virt-copy-in.1 $(top_builddir)/html/virt-copy-in.1.html: stamp-virt-copy-in.pod
+
+stamp-virt-copy-in.pod: virt-copy-in.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-copy-in.1 \
+	  --html $(top_builddir)/html/virt-copy-in.1.html \
+	  $<
+	touch $@
+
+virt-copy-out.1 $(top_builddir)/html/virt-copy-out.1.html: stamp-virt-copy-out.pod
+
+stamp-virt-copy-out.pod: virt-copy-out.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-copy-out.1 \
+	  --html $(top_builddir)/html/virt-copy-out.1.html \
+	  $<
+	touch $@
+
+virt-tar-in.1 $(top_builddir)/html/virt-tar-in.1.html: stamp-virt-tar-in.pod
+
+stamp-virt-tar-in.pod: virt-tar-in.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-tar-in.1 \
+	  --html $(top_builddir)/html/virt-tar-in.1.html \
+	  $<
+	touch $@
+
+virt-tar-out.1 $(top_builddir)/html/virt-tar-out.1.html: stamp-virt-tar-out.pod
+
+stamp-virt-tar-out.pod: virt-tar-out.pod
+	$(top_srcdir)/podwrapper.sh \
+	  --man virt-tar-out.1 \
+	  --html $(top_builddir)/html/virt-tar-out.1.html \
 	  $<
 	touch $@
 

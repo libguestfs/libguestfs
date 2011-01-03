@@ -113,6 +113,8 @@ HTMLFILES = \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
 	html/virt-cat.1.html \
+	html/virt-copy-in.1.html \
+	html/virt-copy-out.1.html \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
 	html/virt-filesystems.1.html \
@@ -124,6 +126,8 @@ HTMLFILES = \
 	html/virt-rescue.1.html \
 	html/virt-resize.1.html \
 	html/virt-tar.1.html \
+	html/virt-tar-in.1.html \
+	html/virt-tar-out.1.html \
 	html/virt-win-reg.1.html \
 	html/recipes.html \
 	html/pod.css html/recipes.css

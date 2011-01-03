@@ -42,6 +42,11 @@ virt-tar - Extract or upload files to a virtual machine
 
  virt-tar [--options] disk.img [disk.img ...] -u tarball directory
 
+=head1 NOTE
+
+This tool is obsolete.  Use L<virt-copy-in(1)>, L<virt-copy-out(1)>,
+L<virt-tar-in(1)>, L<virt-tar-out(1)> as replacements.
+
 =head1 EXAMPLES
 
 Download C</home> from the VM into a local tarball:
@@ -284,6 +289,10 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-cat(1)>,
 L<virt-edit(1)>,
+L<virt-copy-in(1)>,
+L<virt-copy-out(1)>,
+L<virt-tar-in(1)>,
+L<virt-tar-out(1)>,
 L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,

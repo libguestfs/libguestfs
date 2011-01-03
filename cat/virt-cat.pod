@@ -175,7 +175,9 @@ manual page L<sh(1)> for details.
 
 L<guestfs(3)>,
 L<guestfish(1)>,
+L<virt-copy-out(1)>,
 L<virt-edit(1)>,
+L<virt-tar-out(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR

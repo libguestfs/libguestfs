@@ -1,0 +1,72 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-tar-out - Pack a virtual machine disk image directory into a tarball.
+
+=head1 SYNOPSIS
+
+ virt-tar-out -a disk.img /dir files.tar
+
+ virt-tar-out -d domain /dir files.tar
+
+ virt-tar-out -d domain /dir - | gzip --best > files.tar.gz
+
+=head1 DESCRIPTION
+
+C<virt-tar-out> packs a virtual machine disk image directory into a
+tarball.
+
+The first parameter is the absolute path of the virtual machine
+directory.  The second parameter is the tar file to write.  Use C<->
+to write to standard output.
+
+=head1 EXAMPLES
+
+Download the home directories from a guest:
+
+ virt-tar-out -d MyGuest /home - | gzip --best > homes.tar.gz
+
+=head1 JUST A SHELL SCRIPT WRAPPER AROUND GUESTFISH
+
+This command is just a simple shell script wrapper around the
+L<guestfish(1)> C<tar-out> command.  For anything more complex than a
+trivial copy, you are probably better off using guestfish directly.
+
+=head1 OPTIONS
+
+Since the shell script just passes options straight to guestfish, read
+L<guestfish(1)> to see the full list of options.
+
+=head1 SEE ALSO
+
+L<guestfish(1)>,
+L<virt-cat(1)>,
+L<virt-copy-in(1)>,
+L<virt-copy-out(1)>,
+L<virt-edit(1)>,
+L<virt-tar-in(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc.
+L<http://libguestfs.org/>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
