@@ -58,7 +58,7 @@ try_tilde_expansion (char *str)
     home = find_home_for_username (&str[1], len);
 
     if (home) {
-      len = strlen (home) + strlen (rest);
+      len = strlen (home) + strlen (rest) + 1;
       str = malloc (len);
       if (str == NULL) {
         perror ("malloc");
