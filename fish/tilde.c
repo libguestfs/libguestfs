@@ -28,8 +28,9 @@
 
 #include "fish.h"
 
-static char *expand_home (const char *);
+static char *expand_home (char *orig, const char *append);
 static const char *find_home_for_username (const char *, size_t);
+static const char *find_home_for_current_user (void);
 
 /* This is called from the script loop if we find a candidate for
  * ~username (tilde-expansion).
@@ -39,13 +40,11 @@ try_tilde_expansion (char *str)
 {
   assert (str[0] == '~');
 
-  /* Expand current user's home directory.  By simple experimentation
-   * I found out that bash always uses $HOME.
-   */
+  /* Expand "~" to current user's home directory. */
   if (str[1] == '\0')		/* ~ */
-    return expand_home (NULL);
+    return expand_home (str, NULL);
   else if (str[1] == '/')	/* ~/... */
-    return expand_home (&str[1]);
+    return expand_home (str, &str[1]);
 
   /* Try expanding the part up to the following '\0' or '/' as a
    * username from the password file.
@@ -76,14 +75,21 @@ try_tilde_expansion (char *str)
 
 /* Return $HOME + append string. */
 static char *
-expand_home (const char *append)
+expand_home (char *orig, const char *append)
 {
   const char *home;
   int len;
   char *str;
 
   home = getenv ("HOME");
-  if (!home) home = "~";
+  if (!home) {
+    /* $HOME not set, bash can look up the current user in the
+     * password file and find their home that way.  (RHBZ#617440).
+     */
+    home = find_home_for_current_user ();
+    if (!home)
+      return orig;
+  }
 
   len = strlen (home) + (append ? strlen (append) : 0) + 1;
   str = malloc (len);
@@ -111,6 +117,21 @@ find_home_for_username (const char *username, size_t ulen)
   while ((pw = getpwent ()) != NULL) {
     if (strlen (pw->pw_name) == ulen &&
         STREQLEN (username, pw->pw_name, ulen))
+      return pw->pw_dir;
+  }
+
+  return NULL;
+}
+
+static const char *
+find_home_for_current_user (void)
+{
+  struct passwd *pw;
+  uid_t euid = geteuid ();
+
+  setpwent ();
+  while ((pw = getpwent ()) != NULL) {
+    if (pw->pw_uid == euid)
       return pw->pw_dir;
   }
 
