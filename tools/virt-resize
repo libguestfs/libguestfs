@@ -67,7 +67,7 @@ Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions
 to fill the extra 5GB of space.
 
  truncate -r olddisk newdisk; truncate -s +5G newdisk
- virt-filesystems --long --h --all -a olddisk
+ virt-filesystems --long -h --all -a olddisk
  # Note "/dev/sda2" is a partition inside the "olddisk" file.
  virt-resize --expand /dev/sda2 olddisk newdisk
 
