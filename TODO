@@ -375,9 +375,54 @@ $EDITOR without any corresponding ability to set them.
 live CD inspection
 ------------------
 
-guestfish -i livecd.iso
+ virt-inspector livecd.iso
 
 Could this be done through the core API and existing calls?
+
+There is a soft requirement for this in virt-manager, where it would
+be nice to be able to prepopulate the operating system hints based on
+what sort of ISO the user is trying to install from.
+
+Several sorts of CDs:
+
+  - live CD
+  - install-only CD
+  - network install CD
+  - supplemental CDs with additional packages but not bootable
+    on its own
+
+Some CDs are formatted as ISO9660 and larger ones as UDF (DVD format),
+but they all are unpartitioned.
+
+Bootable Linux CDs have an /isolinux directory.
+
+Bootable EFI CDs have an /EFI/BOOT directory.
+
+Fedora live CDs have /images/install.img which is a squashfs
+containing an ext4 root.  We could consider mounting this and
+inspecting it separately, but it would be simple to get everything we
+need from other files in the CD directory.
+
+More recent Fedora install DVD has /.discinfo and /.treeinfo with some
+easy to parse information in it.
+
+Debian and Ubuntu CDs have a /.disk/info file which is the product
+string.  There are other interesting files in /.disk.  They also have
+a characteristic directory structure (eg. /dists, /pool/main) which
+looks like a Debian archive.
+
+Windows 2003 install CDs have some characteristic stamp files in the
+root directory, like: /win51 /win51ia /win51ia.sp2.  The main
+installation files (CAB files) are in /i386 directory.  The following
+files contain a lot of interesting information:
+
+  /i386/hivesft.inf
+  /i386/layout.inf
+  /i386/sis.inf
+  /i386/txtsetup.sif
+
+Windows 7 install CDs are quite different and pretty impenetrable.
+There are no obvious files to parse.
 
 More ntfs tools
 ---------------
