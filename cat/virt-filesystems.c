@@ -33,6 +33,15 @@
 #include "guestfs.h"
 #include "options.h"
 
+#define DISABLE_GUESTFS_ERRORS_FOR(stmt) do {                           \
+    guestfs_error_handler_cb old_error_cb;                              \
+    void *old_error_data;                                               \
+    old_error_cb = guestfs_get_error_handler (g, &old_error_data);      \
+    guestfs_set_error_handler (g, NULL, NULL);                          \
+    stmt;                                                               \
+    guestfs_set_error_handler (g, old_error_cb, old_error_data);        \
+  } while (0)
+
 /* These globals are shared with options.c. */
 guestfs_h *g;
 
@@ -438,14 +447,28 @@ do_output_filesystems (void)
      * otherwise pass them as NULL.
      */
     if ((columns & COLUMN_VFS_LABEL)) {
-      vfs_label = guestfs_vfs_label (g, fses[i]);
-      if (vfs_label == NULL)
-        exit (EXIT_FAILURE);
+      DISABLE_GUESTFS_ERRORS_FOR (
+        vfs_label = guestfs_vfs_label (g, fses[i]);
+      );
+      if (vfs_label == NULL) {
+        vfs_label = strdup ("");
+        if (!vfs_label) {
+          perror ("strdup");
+          exit (EXIT_FAILURE);
+        }
+      }
     }
     if ((columns & COLUMN_UUID)) {
-      vfs_uuid = guestfs_vfs_uuid (g, fses[i]);
-      if (vfs_uuid == NULL)
-        exit (EXIT_FAILURE);
+      DISABLE_GUESTFS_ERRORS_FOR (
+        vfs_uuid = guestfs_vfs_uuid (g, fses[i]);
+      );
+      if (vfs_uuid == NULL) {
+        vfs_uuid = strdup ("");
+        if (!vfs_uuid) {
+          perror ("strdup");
+          exit (EXIT_FAILURE);
+        }
+      }
     }
     if ((columns & COLUMN_SIZE)) {
       size = guestfs_blockdev_getsize64 (g, fses[i]);
