@@ -454,3 +454,18 @@ More mkfs_opts options
 Useful options to offer:
  - Set label.
  - Set UUID.
+
+Use /proc/self/mountinfo
+------------------------
+
+This file contains lots of interesting information about
+what is mounted and where. eg:
+
+  16 21 0:3 / /proc rw,relatime - proc /proc rw
+  17 21 0:16 / /sys rw,relatime - sysfs /sys rw,seclabel
+  18 23 0:5 / /dev rw,relatime - devtmpfs udev rw,seclabel,size=1906740k,nr_inodes=476685,mode=755
+  26 21 253:3 / /home rw,relatime - ext4 /dev/mapper/vg-lv_home rw,seclabel,barrier=1,data=ordered
+
+This could be used instead of current hairy code to parse the output
+of the 'mount' command.  We could add new APIs to return kernel mount
+options, type of filesystem at a mountpoint etc.
