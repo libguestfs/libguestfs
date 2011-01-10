@@ -95,7 +95,8 @@ EXTRA_DIST = \
 	libtool-kill-dependency_libs.sh \
 	autogen.sh \
 	bugs-in-changelog.sh \
-	update-bugs.sh
+	update-bugs.sh \
+	logo/fish.svg
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
