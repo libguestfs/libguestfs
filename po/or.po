@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-19 15:38+0000\n"
+"POT-Creation-Date: 2011-01-10 10:09+0000\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
@@ -69,21 +69,21 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
+#: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ନିୟନ୍ତ୍ରଣ ପ୍ରସ୍ତୁତ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
+#: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
 
-#: cat/virt-filesystems.c:90
+#: cat/virt-filesystems.c:99
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -140,7 +140,7 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: cat/virt-filesystems.c:304 df/main.c:250
+#: cat/virt-filesystems.c:313 df/main.c:250
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
@@ -2637,66 +2637,66 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:900
+#: perl/lib/Sys/Guestfs/Lib.pm:901
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:910
+#: perl/lib/Sys/Guestfs/Lib.pm:911
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:933
+#: perl/lib/Sys/Guestfs/Lib.pm:936
 #, fuzzy, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "ଗୋଟିଏ ଫାଇଲତନ୍ତ୍ରକୁ ବିସ୍ଥାପିତ କରନ୍ତୁ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1011
+#: perl/lib/Sys/Guestfs/Lib.pm:1014
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1037
+#: perl/lib/Sys/Guestfs/Lib.pm:1040
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1102
+#: perl/lib/Sys/Guestfs/Lib.pm:1105
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1157
+#: perl/lib/Sys/Guestfs/Lib.pm:1160
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1188
+#: perl/lib/Sys/Guestfs/Lib.pm:1191
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1211
+#: perl/lib/Sys/Guestfs/Lib.pm:1214
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1280
+#: perl/lib/Sys/Guestfs/Lib.pm:1283
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1288
+#: perl/lib/Sys/Guestfs/Lib.pm:1291
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1342
+#: perl/lib/Sys/Guestfs/Lib.pm:1345
 #, fuzzy, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "ଗୋଟିଏ ପ୍ରକାର ସହିତ ମେଳଖାଉଥିବା ଧାଡ଼ିଗୁଡ଼ିକୁ ଫେରାନ୍ତୁ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1381
+#: perl/lib/Sys/Guestfs/Lib.pm:1384
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""

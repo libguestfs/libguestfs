@@ -9,18 +9,18 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-12-19 15:38+0000\n"
+"POT-Creation-Date: 2011-01-10 10:09+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: ARGENTINA\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
@@ -68,21 +68,21 @@ msgstr ""
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
 
-#: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
+#: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
-#: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
+#: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
 
-#: cat/virt-filesystems.c:90
+#: cat/virt-filesystems.c:99
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -140,7 +140,7 @@ msgstr ""
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
 
-#: cat/virt-filesystems.c:304 df/main.c:250
+#: cat/virt-filesystems.c:313 df/main.c:250
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -2703,70 +2703,70 @@ msgstr ""
 "mayor cantidad de información acerca de la imagen de disco que le sea "
 "posible.\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:900
+#: perl/lib/Sys/Guestfs/Lib.pm:901
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
 msgstr "etiqueta de sistema de archivos {label} desconocida\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:910
+#: perl/lib/Sys/Guestfs/Lib.pm:911
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr "sistema de archivos UUID {uuid} desconocido\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:933
+#: perl/lib/Sys/Guestfs/Lib.pm:936
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "sistema de archivos desconocido {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1011
+#: perl/lib/Sys/Guestfs/Lib.pm:1014
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "Error ejecutando rpm -qa: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1037
+#: perl/lib/Sys/Guestfs/Lib.pm:1040
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "Error ejecutando dpkg-query: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1102
+#: perl/lib/Sys/Guestfs/Lib.pm:1105
 msgid "Can't find grub on guest"
 msgstr "No es posible encontrar el grub en el huésped"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1157
+#: perl/lib/Sys/Guestfs/Lib.pm:1160
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "La entrada del grub {title} no posee un kernel"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1188
+#: perl/lib/Sys/Guestfs/Lib.pm:1191
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "el grub hace referencia a {path}, que no existe\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1211
+#: perl/lib/Sys/Guestfs/Lib.pm:1214
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "La entrada del grub {title} no especifica ningún initrd"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1280
+#: perl/lib/Sys/Guestfs/Lib.pm:1283
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 "No ha sido encontrados un directorio de módulos {modules} para la {path} del "
 "kernel"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1288
+#: perl/lib/Sys/Guestfs/Lib.pm:1291
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 "No ha sido posible adivinar el número de versión del kernel desde la {path} "
 "del kernel"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1342
+#: perl/lib/Sys/Guestfs/Lib.pm:1345
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} no coincide con el patrón augeas"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1381
+#: perl/lib/Sys/Guestfs/Lib.pm:1384
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: no es posible leer formato initrd"
