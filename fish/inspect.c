@@ -23,6 +23,7 @@
 #include <string.h>
 #include <errno.h>
 #include <libintl.h>
+#include <unistd.h>
 
 #include "c-ctype.h"
 
@@ -68,6 +69,10 @@ inspect_mount (void)
     exit (EXIT_FAILURE);
 
   if (roots[0] == NULL) {
+    int libguestfs_winsupport_installed =
+      access ("/usr/lib/guestfs/supermin.d/ntfs.img", F_OK) == 0 ||
+      access ("/usr/lib64/guestfs/supermin.d/ntfs.img", F_OK) == 0;
+
     fprintf (stderr,
       _("%s: no operating system was found on this disk\n"
         "\n"
@@ -84,6 +89,16 @@ inspect_mount (void)
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
              program_name);
+
+    if (!libguestfs_winsupport_installed)
+      fprintf (stderr,
+    _("\nRHEL 6 notice\n"
+      "-------------\n"
+      "libguestfs will return this error for Microsoft Windows guests if the\n"
+      "separate 'libguestfs-winsupport' package is not installed. If the\n"
+      "guest is running Microsoft Windows, please try again after installing\n"
+      "'libguestfs-winsupport'.\n"));
+
     guestfs___free_string_list (roots);
     exit (EXIT_FAILURE);
   }
