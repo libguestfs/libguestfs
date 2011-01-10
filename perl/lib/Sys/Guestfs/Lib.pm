@@ -836,7 +836,18 @@ sub inspect_operating_systems
 
     # If we didn't find any operating systems then it's an error (RHBZ#591142).
     if (0 == keys %oses) {
-        die __"No operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by virt-inspector.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n";
+	my $libguestfs_winsupport_installed =
+	    -f "/usr/lib/guestfs/supermin.d/ntfs.img" ||
+	    -f "/usr/lib64/guestfs/supermin.d/ntfs.img";
+
+	my $msg =
+	    __"No operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by virt-inspector.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n";
+
+	if (!$libguestfs_winsupport_installed) {
+	    $msg .= __"\nRHEL 6 notice\n-------------\nlibguestfs will return this error for Microsoft Windows guests if the\nseparate 'libguestfs-winsupport' package is not installed. If the\nguest is running Microsoft Windows, please try again after installing\n'libguestfs-winsupport'.\n";
+	}
+
+	die $msg;
     }
 
     return \%oses;
