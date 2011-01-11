@@ -98,8 +98,10 @@ main (int argc, char *argv[])
     qsort (mountpoints, count_strings (mountpoints) / 2, 2 * sizeof (char *),
            compare_keys_len);
     for (i = 0; mountpoints[i] != NULL; i += 2) {
-      if (guestfs_mount_ro (g, mountpoints[i+1], mountpoints[i]) == -1)
-        exit (EXIT_FAILURE);
+      /* Ignore failures from this call, since bogus entries can
+       * appear in the guest's /etc/fstab.
+       */
+      guestfs_mount_ro (g, mountpoints[i+1], mountpoints[i]);
       free (mountpoints[i]);
       free (mountpoints[i+1]);
     }

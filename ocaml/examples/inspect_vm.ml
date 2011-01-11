@@ -43,7 +43,11 @@ let () =
       let cmp (a,_) (b,_) =
         compare (String.length a) (String.length b) in
       let mps = List.sort cmp mps in
-      List.iter (fun (mp, dev) -> g#mount_ro dev mp) mps;
+      List.iter (
+        fun (mp, dev) ->
+          try g#mount_ro dev mp
+          with Guestfs.Error msg -> eprintf "%s (ignored)\n" msg
+      ) mps;
 
       (* If /etc/issue.net file exists, print up to 3 lines. *)
       let filename = "/etc/issue.net" in

@@ -41,7 +41,11 @@ for root in roots do
   mps = g.inspect_get_mountpoints(root)
   mps = mps.sort {|a,b| a[0].length <=> b[0].length}
   for mp in mps do
-    g.mount_ro(mp[1], mp[0])
+    begin
+      g.mount_ro(mp[1], mp[0])
+    rescue Guestfs::Error => msg
+      printf("%s (ignored)\n", msg)
+    end
   end
 
   # If /etc/issue.net file exists, print up to 3 lines.

@@ -907,6 +907,10 @@ This returns a hash of where we think the filesystems
 associated with this operating system should be mounted.
 Callers should note that this is at best an educated guess
 made by reading configuration files such as C</etc/fstab>.
+I<In particular note> that this may return filesystems
+which are non-existent or not mountable and callers should
+be prepared to handle or ignore failures if they try to
+mount them.
 
 Each element in the returned hashtable has a key which
 is the path of the mountpoint (eg. C</boot>) and a value
