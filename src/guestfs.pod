@@ -2382,6 +2382,10 @@ Some "phony" guest images which we test against.
 
 L<virt-inspector(1)>, the virtual machine image inspector.
 
+=item C<logo>
+
+Logo used on the website.  The fish is called Arthur by the way.
+
 =item C<m4>
 
 M4 macros used by autoconf.

@@ -96,7 +96,7 @@ EXTRA_DIST = \
 	autogen.sh \
 	bugs-in-changelog.sh \
 	update-bugs.sh \
-	logo/fish.svg
+	logo/fish.svg logo/fish.png
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
