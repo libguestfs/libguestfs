@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-03 18:06+0000\n"
+"POT-Creation-Date: 2011-01-11 21:54+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: ARGENTINA\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
@@ -68,21 +68,21 @@ msgstr ""
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
 
-#: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
+#: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
-#: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
+#: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
 
-#: cat/virt-filesystems.c:90
+#: cat/virt-filesystems.c:99
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -140,7 +140,7 @@ msgstr ""
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
 
-#: cat/virt-filesystems.c:304 df/main.c:250
+#: cat/virt-filesystems.c:313 df/main.c:250
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -2259,12 +2259,17 @@ msgstr ""
 "guestfish: con la opción -i, no existe soporte para sistemas operativos "
 "multiarranque\n"
 
-#: fish/inspect.c:135
+#: fish/inspect.c:128
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr ""
+
+#: fish/inspect.c:140
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Sistema operativo: %s\n"
 
-#: fish/inspect.c:148
+#: fish/inspect.c:153
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s montado en %s\n"

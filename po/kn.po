@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-03 18:06+0000\n"
+"POT-Creation-Date: 2011-01-11 21:54+0000\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:86 cat/virt-ls.c:54 df/main.c:66
+#: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
 #: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
@@ -66,21 +66,21 @@ msgstr ""
 "  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
 "  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
-#: cat/virt-cat.c:113 cat/virt-filesystems.c:189 cat/virt-ls.c:119
+#: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
 #: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
-#: cat/virt-cat.c:135 cat/virt-filesystems.c:243 cat/virt-ls.c:141
+#: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
 #: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
 
-#: cat/virt-filesystems.c:90
+#: cat/virt-filesystems.c:99
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -138,7 +138,7 @@ msgstr ""
 "  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
 "  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
-#: cat/virt-filesystems.c:304 df/main.c:250
+#: cat/virt-filesystems.c:313 df/main.c:250
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
@@ -2240,12 +2240,17 @@ msgstr ""
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
 
-#: fish/inspect.c:135
+#: fish/inspect.c:128
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr ""
+
+#: fish/inspect.c:140
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:148
+#: fish/inspect.c:153
 #, fuzzy, c-format
 msgid "%s mounted on %s\n"
 msgstr "ಆರೋಹಣಾತಾಣವನ್ನು ತೋರಿಸು"
