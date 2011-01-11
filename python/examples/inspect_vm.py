@@ -44,7 +44,10 @@ for root in roots:
             return -1
     mps.sort (compare)
     for mp_dev in mps:
-        g.mount_ro (mp_dev[1], mp_dev[0])
+        try:
+            g.mount_ro (mp_dev[1], mp_dev[0])
+        except RuntimeError as msg:
+            print "%s (ignored)" % msg
 
     # If /etc/issue.net file exists, print up to 3 lines.
     filename = "/etc/issue.net"

@@ -39,6 +39,7 @@ TESTS = \
 	test-guestfish-a.sh \
 	test-guestfish-d.sh \
 	test-guestfish-tilde.sh \
+	test-inspect-fstab.sh \
 	test-launch-race.pl \
 	test-luks.sh \
 	test-lvm-filtering.sh \

@@ -111,6 +111,7 @@ inspect_mount_root (const char *root)
          compare_keys_len);
 
   size_t i;
+  size_t mount_errors = 0;
   for (i = 0; mountpoints[i] != NULL; i += 2) {
     int r;
     if (!read_only)
@@ -118,10 +119,14 @@ inspect_mount_root (const char *root)
     else
       r = guestfs_mount_ro (g, mountpoints[i+1], mountpoints[i]);
     if (r == -1)
-      exit (EXIT_FAILURE);
+      mount_errors++;
   }
 
   free_strings (mountpoints);
+
+  if (mount_errors)
+    fprintf (stderr, _("%s: some filesystems could not be mounted (ignored)\n"),
+             program_name);
 }
 
 /* This function is called only if the above function was called,
