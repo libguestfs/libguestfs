@@ -281,6 +281,8 @@ main (int argc, char *argv[])
       name = strrchr (drvs->a.filename, '/');
       if (name == NULL)
         name = drvs->a.filename;
+      else
+        name++; /* skip '/' character */
       break;
     case drv_d:
       name = drvs->d.guest;
