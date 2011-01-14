@@ -11008,7 +11008,7 @@ See L</WILDCARDS AND GLOBBING>." };
  hexedit <filename|device> <max>
  hexedit <filename|device> <start> <max>
 
-Use hexedit (a hex editor) to edit all or part of a binary file
+Use a hex editor to edit all or part of a binary file
 or block device.
 
 This command works by downloading potentially the whole file or
@@ -11032,9 +11032,10 @@ To edit the superblock of an ext2 filesystem on C</dev/sda1>, do:
 
 (assuming the superblock is in the standard location).
 
-This command requires the external L<hexedit(1)> program.  You
-can specify another program to use by setting the C<HEXEDITOR>
-environment variable.
+This command requires an external hexeditor program.  You
+can specify the program to use by setting the C<HEXEDITOR>
+environment variable.  If C<HEXEDITOR> is not set then this
+prints an error.
 
 See also L</hexdump>." };
 
