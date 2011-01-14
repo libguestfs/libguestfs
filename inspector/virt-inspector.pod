@@ -34,6 +34,9 @@ several I<-a> options one after another, with the first corresponding
 to the guest's C</dev/sda>, the second to the guest's C</dev/sdb> and
 so on.
 
+You can also run virt-inspector on install disks, live CDs, bootable
+USB keys and similar.
+
 Virt-inspector can only inspect and report upon I<one domain at a
 time>.  To inspect several virtual machines, you have to run
 virt-inspector several times (for example, from a shell script
@@ -165,6 +168,7 @@ describe the operating system, its architecture, the descriptive
      <major_version>6</major_version>
      <minor_version>1</minor_version>
      <windows_systemroot>/Windows</windows_systemroot>
+     <format>installed</format>
 
 These fields are derived from the libguestfs inspection API, and
 you can find more details in L<guestfs(3)/INSPECTION>.
@@ -242,6 +246,27 @@ installed.
 The version and release fields may not be available for some types
 guests.  Other fields are possible, see
 L<guestfs(3)/guestfs_inspect_list_applications>.
+
+=head2 INSPECTING INSTALL DISKS, LIVE CDs
+
+Virt-inspector can detect some operating system installers on
+install disks, live CDs, bootable USB keys and more.
+
+In this case the E<lt>formatE<gt> tag will contain C<installer>
+and other fields may be present to indicate a live CD, network
+installer, or one part of a multipart CD.  For example:
+
+ <operatingsystems>
+   <operatingsystem>
+     <root>/dev/sda</root>
+     <name>linux</name>
+     <arch>i386</arch>
+     <distro>ubuntu</distro>
+     <product_name>Ubuntu 10.10 &quot;Maverick Meerkat&quot;</product_name>
+     <major_version>10</major_version>
+     <minor_version>10</minor_version>
+     <format>installer</format>
+     <live/>
 
 =head1 USING XPATH
 

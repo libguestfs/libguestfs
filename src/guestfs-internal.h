@@ -160,6 +160,14 @@ enum inspect_fs_content {
   FS_CONTENT_LINUX_USR_LOCAL,
   FS_CONTENT_LINUX_VAR,
   FS_CONTENT_FREEBSD_ROOT,
+  FS_CONTENT_INSTALLER,
+};
+
+enum inspect_os_format {
+  OS_FORMAT_UNKNOWN = 0,
+  OS_FORMAT_INSTALLED,
+  OS_FORMAT_INSTALLER,
+  /* in future: supplemental disks */
 };
 
 enum inspect_os_type {
@@ -221,6 +229,10 @@ struct inspect_fs {
   char *arch;
   char *hostname;
   char *windows_systemroot;
+  enum inspect_os_format format;
+  int is_live_disk;
+  int is_netinst_disk;
+  int is_multipart_disk;
   struct inspect_fstab_entry *fstab;
   size_t nr_fstab;
 };

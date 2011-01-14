@@ -21,7 +21,16 @@ EXAMPLE_XML = \
 	example-debian.xml \
 	example-fedora.xml \
 	example-ubuntu.xml \
-	example-windows.xml
+	example-windows.xml \
+	example-debian-netinst-cd.xml \
+	example-fedora-dvd.xml \
+	example-fedora-netinst-cd.xml \
+	example-rhel-6-dvd.xml \
+	example-rhel-6-netinst-cd.xml \
+	example-ubuntu-live-cd.xml \
+	example-windows-2003-x64-cd.xml \
+	example-windows-2003-x86-cd.xml \
+	example-windows-xp-cd.xml
 
 EXTRA_DIST = \
 	run-inspector-locally \

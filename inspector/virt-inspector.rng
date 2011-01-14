@@ -30,7 +30,7 @@
                 <value>windows</value>
               </choice>
             </element>
-            <element name="arch"><text/></element>
+            <optional><element name="arch"><text/></element></optional>
             <optional><element name="distro"><text/></element></optional>
             <optional><element name="product_name"><text/></element></optional>
             <element name="major_version"><text/></element>
@@ -39,6 +39,10 @@
 
             <optional><element name="package_format"><text/></element></optional>
             <optional><element name="package_management"><text/></element></optional>
+            <optional><element name="format"><text/></element></optional>
+            <optional><element name="live"><empty/></element></optional>
+            <optional><element name="netinst"><empty/></element></optional>
+            <optional><element name="multipart"><empty/></element></optional>
 
             <ref name="mountpoints"/>
             <ref name="filesystems"/>

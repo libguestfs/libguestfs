@@ -135,7 +135,7 @@ free_regexps (void)
 }
 
 /* The main inspection code. */
-static int check_for_filesystem_on (guestfs_h *g, const char *device);
+static int check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
 
 char **
 guestfs__inspect_os (guestfs_h *g)
@@ -158,7 +158,7 @@ guestfs__inspect_os (guestfs_h *g)
 
   size_t i;
   for (i = 0; devices[i] != NULL; ++i) {
-    if (check_for_filesystem_on (g, devices[i]) == -1) {
+    if (check_for_filesystem_on (g, devices[i], 1, 0) == -1) {
       guestfs___free_string_list (devices);
       guestfs___free_inspect_info (g);
       return NULL;
@@ -175,7 +175,7 @@ guestfs__inspect_os (guestfs_h *g)
   }
 
   for (i = 0; partitions[i] != NULL; ++i) {
-    if (check_for_filesystem_on (g, partitions[i]) == -1) {
+    if (check_for_filesystem_on (g, partitions[i], 0, i+1) == -1) {
       guestfs___free_string_list (partitions);
       guestfs___free_inspect_info (g);
       return NULL;
@@ -193,7 +193,7 @@ guestfs__inspect_os (guestfs_h *g)
     }
 
     for (i = 0; lvs[i] != NULL; ++i) {
-      if (check_for_filesystem_on (g, lvs[i]) == -1) {
+      if (check_for_filesystem_on (g, lvs[i], 0, 0) == -1) {
         guestfs___free_string_list (lvs);
         guestfs___free_inspect_info (g);
         return NULL;
@@ -216,9 +216,10 @@ guestfs__inspect_os (guestfs_h *g)
 /* Find out if 'device' contains a filesystem.  If it does, add
  * another entry in g->fses.
  */
-static int check_filesystem (guestfs_h *g, const char *device);
+static int check_filesystem (guestfs_h *g, const char *device, int is_block, int is_partnum);
 static int check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
+static int check_installer_root (guestfs_h *g, struct inspect_fs *fs);
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs);
@@ -231,6 +232,7 @@ static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
 static char *resolve_windows_path_silently (guestfs_h *g, const char *);
 static int extend_fses (guestfs_h *g);
 static int parse_unsigned_int (guestfs_h *g, const char *str);
+static int parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
                             const char *spec, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec);
@@ -239,9 +241,11 @@ static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
 static int download_to_tmp (guestfs_h *g, const char *filename, char *localtmp, int64_t max_size);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename, int (*f) (guestfs_h *, struct inspect_fs *));
 static char *first_line_of_file (guestfs_h *g, const char *filename);
+static int first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
 
 static int
-check_for_filesystem_on (guestfs_h *g, const char *device)
+check_for_filesystem_on (guestfs_h *g, const char *device,
+                         int is_block, int is_partnum)
 {
   /* Get vfs-type in order to check if it's a Linux(?) swap device.
    * If there's an error we should ignore it, so to do that we have to
@@ -255,8 +259,9 @@ check_for_filesystem_on (guestfs_h *g, const char *device)
   int is_swap = vfs_type && STREQ (vfs_type, "swap");
 
   if (g->verbose)
-    fprintf (stderr, "check_for_filesystem_on: %s (%s)\n",
-             device, vfs_type ? vfs_type : "failed to get vfs type");
+    fprintf (stderr, "check_for_filesystem_on: %s %d %d (%s)\n",
+             device, is_block, is_partnum,
+             vfs_type ? vfs_type : "failed to get vfs type");
 
   if (is_swap) {
     free (vfs_type);
@@ -277,7 +282,7 @@ check_for_filesystem_on (guestfs_h *g, const char *device)
     return 0;
 
   /* Do the rest of the checks. */
-  r = check_filesystem (g, device);
+  r = check_filesystem (g, device, is_block, is_partnum);
 
   /* Unmount the filesystem. */
   if (guestfs_umount_all (g) == -1)
@@ -286,8 +291,15 @@ check_for_filesystem_on (guestfs_h *g, const char *device)
   return r;
 }
 
+/* is_block and is_partnum are just hints: is_block is true if the
+ * filesystem is a whole block device (eg. /dev/sda).  is_partnum
+ * is > 0 if the filesystem is a direct partition, and in this case
+ * it is the partition number counting from 1
+ * (eg. /dev/sda1 => is_partnum == 1).
+ */
 static int
-check_filesystem (guestfs_h *g, const char *device)
+check_filesystem (guestfs_h *g, const char *device,
+                  int is_block, int is_partnum)
 {
   if (extend_fses (g) == -1)
     return -1;
@@ -320,6 +332,7 @@ check_filesystem (guestfs_h *g, const char *device)
 
     fs->is_root = 1;
     fs->content = FS_CONTENT_FREEBSD_ROOT;
+    fs->format = OS_FORMAT_INSTALLED;
     if (check_freebsd_root (g, fs) == -1)
       return -1;
   }
@@ -329,6 +342,7 @@ check_filesystem (guestfs_h *g, const char *device)
            guestfs_is_file (g, "/etc/fstab") > 0) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_LINUX_ROOT;
+    fs->format = OS_FORMAT_INSTALLED;
     if (check_linux_root (g, fs) == -1)
       return -1;
   }
@@ -365,7 +379,25 @@ check_filesystem (guestfs_h *g, const char *device)
            guestfs_is_file (g, "/ntldr") > 0) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_WINDOWS_ROOT;
+    fs->format = OS_FORMAT_INSTALLED;
     if (check_windows_root (g, fs) == -1)
+      return -1;
+  }
+  /* Install CD/disk?  Skip these checks if it's not a whole device
+   * (eg. CD) or the first partition (eg. bootable USB key).
+   */
+  else if ((is_block || is_partnum == 1) &&
+           (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0 ||
+            guestfs_is_dir (g, "/EFI/BOOT") > 0 ||
+            guestfs_is_file (g, "/images/install.img") > 0 ||
+            guestfs_is_dir (g, "/.disk") > 0 ||
+            guestfs_is_file (g, "/.discinfo") > 0 ||
+            guestfs_is_file (g, "/i386/txtsetup.sif") > 0 ||
+            guestfs_is_file (g, "/amd64/txtsetup.sif")) > 0) {
+    fs->is_root = 1;
+    fs->content = FS_CONTENT_INSTALLER;
+    fs->format = OS_FORMAT_INSTALLER;
+    if (check_installer_root (g, fs) == -1)
       return -1;
   }
 
@@ -659,6 +691,355 @@ check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
   /* Determine hostname. */
   if (check_hostname_unix (g, fs) == -1)
     return -1;
+
+  return 0;
+}
+
+/* Debian/Ubuntu install disks are easy ...
+ *
+ * These files are added by the debian-cd program, and it is worth
+ * looking at the source code to determine exact values, in
+ * particular '/usr/share/debian-cd/tools/start_new_disc'
+ *
+ * XXX Architecture?  We could parse it out of the product name
+ * string, but that seems quite hairy.  We could look for the names
+ * of packages.  Also note that some Debian install disks are
+ * multiarch.
+ */
+static int
+check_debian_installer_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  fs->product_name = first_line_of_file (g, "/.disk/info");
+  if (!fs->product_name)
+    return -1;
+
+  fs->type = OS_TYPE_LINUX;
+  if (STRPREFIX (fs->product_name, "Ubuntu"))
+    fs->distro = OS_DISTRO_UBUNTU;
+  else if (STRPREFIX (fs->product_name, "Debian"))
+    fs->distro = OS_DISTRO_DEBIAN;
+
+  (void) parse_major_minor (g, fs);
+
+  if (guestfs_is_file (g, "/.disk/cd_type") > 0) {
+    char *cd_type = first_line_of_file (g, "/.disk/cd_type");
+    if (!cd_type)
+      return -1;
+
+    if (STRPREFIX (cd_type, "dvd/single") ||
+        STRPREFIX (cd_type, "full_cd/single")) {
+      fs->is_multipart_disk = 0;
+      fs->is_netinst_disk = 0;
+    }
+    else if (STRPREFIX (cd_type, "dvd") ||
+             STRPREFIX (cd_type, "full_cd")) {
+      fs->is_multipart_disk = 1;
+      fs->is_netinst_disk = 0;
+    }
+    else if (STRPREFIX (cd_type, "not_complete")) {
+      fs->is_multipart_disk = 0;
+      fs->is_netinst_disk = 1;
+    }
+
+    free (cd_type);
+  }
+
+  return 0;
+}
+
+/* Take string which must look like "key = value" and find the value.
+ * There may or may not be spaces before and after the equals sign.
+ * This function is used by both check_fedora_installer_root and
+ * check_w2k3_installer_root.
+ */
+static const char *
+find_value (const char *kv)
+{
+  const char *p;
+
+  p = strchr (kv, '=');
+  if (!p)
+    abort ();
+
+  do {
+    ++p;
+  } while (c_isspace (*p));
+
+  return p;
+}
+
+/* Fedora CDs and DVD (not netinst).  The /.treeinfo file contains
+ * an initial section somewhat like this:
+ *
+ * [general]
+ * version = 14
+ * arch = x86_64
+ * family = Fedora
+ * variant = Fedora
+ * discnum = 1
+ * totaldiscs = 1
+ */
+static int
+check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  char *str;
+  const char *v;
+  int r;
+  int discnum = 0, totaldiscs = 0;
+
+  fs->type = OS_TYPE_LINUX;
+
+  r = first_egrep_of_file (g, "/.treeinfo",
+                           "^family = Fedora$", 0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_FEDORA;
+    free (str);
+  }
+
+  r = first_egrep_of_file (g, "/.treeinfo",
+                           "^family = Red Hat Enterprise Linux$", 0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_RHEL;
+    free (str);
+  }
+
+  /* XXX should do major.minor before this */
+  r = first_egrep_of_file (g, "/.treeinfo",
+                           "^version = [[:digit:]]+", 0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    v = find_value (str);
+    fs->major_version = parse_unsigned_int_ignore_trailing (g, v);
+    free (str);
+    if (fs->major_version == -1)
+      return -1;
+  }
+
+  r = first_egrep_of_file (g, "/.treeinfo",
+                           "^arch = [-_[:alnum:]]+$", 0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    v = find_value (str);
+    fs->arch = safe_strdup (g, v);
+    free (str);
+  }
+
+  r = first_egrep_of_file (g, "/.treeinfo",
+                           "^discnum = [[:digit:]]+$", 0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    v = find_value (str);
+    discnum = parse_unsigned_int (g, v);
+    free (str);
+    if (discnum == -1)
+      return -1;
+  }
+
+  r = first_egrep_of_file (g, "/.treeinfo",
+                           "^totaldiscs = [[:digit:]]+$", 0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    v = find_value (str);
+    totaldiscs = parse_unsigned_int (g, v);
+    free (str);
+    if (totaldiscs == -1)
+      return -1;
+  }
+
+  fs->is_multipart_disk = totaldiscs > 0;
+  /* and what about discnum? */
+
+  return 0;
+}
+
+/* Linux with /isolinux/isolinux.cfg.
+ *
+ * This file is not easily parsable so we have to do our best.
+ * Look for the "menu title" line which contains:
+ *   menu title Welcome to Fedora 14!   # since at least Fedora 10
+ *   menu title Welcome to Red Hat Enterprise Linux 6.0!
+ */
+static int
+check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  char *str;
+  int r;
+
+  fs->type = OS_TYPE_LINUX;
+
+  r = first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+                           "^menu title Welcome to Fedora [[:digit:]]+",
+                           0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_FEDORA;
+    fs->major_version = parse_unsigned_int_ignore_trailing (g, &str[29]);
+    free (str);
+    if (fs->major_version == -1)
+      return -1;
+  }
+
+  /* XXX parse major.minor */
+  r = first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+                           "^menu title Welcome to Red Hat Enterprise Linux [[:digit:]]+",
+                           0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_RHEL;
+    fs->major_version = parse_unsigned_int_ignore_trailing (g, &str[47]);
+    free (str);
+    if (fs->major_version == -1)
+      return -1;
+  }
+
+  return 0;
+}
+
+/* Windows 2003 and similar versions.
+ *
+ * NB: txtsetup file contains Windows \r\n line endings, which guestfs_grep
+ * does not remove.  We have to remove them by hand here.
+ */
+static void
+trim_cr (char *str)
+{
+  size_t n = strlen (str);
+  if (n > 0 && str[n-1] == '\r')
+    str[n-1] = '\0';
+}
+
+static void
+trim_quot (char *str)
+{
+  size_t n = strlen (str);
+  if (n > 0 && str[n-1] == '"')
+    str[n-1] = '\0';
+}
+
+static int
+check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
+                           const char *txtsetup)
+{
+  char *str;
+  const char *v;
+  int r;
+
+  fs->type = OS_TYPE_WINDOWS;
+  fs->distro = OS_DISTRO_WINDOWS;
+
+  r = first_egrep_of_file (g, txtsetup,
+                           "^productname[[:space:]]*=[[:space:]]*\"", 1, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    trim_cr (str);
+    trim_quot (str);
+    v = find_value (str);
+    fs->product_name = safe_strdup (g, v+1);
+    free (str);
+  }
+
+  r = first_egrep_of_file (g, txtsetup,
+                           "^majorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
+                           1, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    trim_cr (str);
+    v = find_value (str);
+    fs->major_version = parse_unsigned_int_ignore_trailing (g, v);
+    free (str);
+    if (fs->major_version == -1)
+      return -1;
+  }
+
+  r = first_egrep_of_file (g, txtsetup,
+                           "^minorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
+                           1, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    trim_cr (str);
+    v = find_value (str);
+    fs->minor_version = parse_unsigned_int_ignore_trailing (g, v);
+    free (str);
+    if (fs->minor_version == -1)
+      return -1;
+  }
+
+  /* This is the windows systemroot that would be chosen on
+   * installation by default, although not necessarily the one that
+   * the user will finally choose.
+   */
+  r = first_egrep_of_file (g, txtsetup, "^defaultpath[[:space:]]*=[[:space:]]*",
+                           1, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    trim_cr (str);
+    v = find_value (str);
+    fs->windows_systemroot = safe_strdup (g, v);
+    free (str);
+  }
+
+  return 0;
+}
+
+/* The currently mounted device is very likely to be an installer. */
+static int
+check_installer_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  /* The presence of certain files indicates a live CD.
+   *
+   * XXX Fedora netinst contains a ~120MB squashfs called
+   * /images/install.img.  However this is not a live CD (unlike the
+   * Fedora live CDs which contain the same, but larger file).  We
+   * need to unpack this and look inside to tell the difference.
+   */
+  if (guestfs_is_file (g, "/casper/filesystem.squashfs") > 0)
+    fs->is_live_disk = 1;
+
+  /* Debian/Ubuntu. */
+  if (guestfs_is_file (g, "/.disk/info") > 0) {
+    if (check_debian_installer_root (g, fs) == -1)
+      return -1;
+  }
+
+  /* Fedora CDs and DVD (not netinst). */
+  else if (guestfs_is_file (g, "/.treeinfo") > 0) {
+    if (check_fedora_installer_root (g, fs) == -1)
+      return -1;
+  }
+
+  /* Linux with /isolinux/isolinux.cfg. */
+  else if (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0) {
+    if (check_isolinux_installer_root (g, fs) == -1)
+      return -1;
+  }
+
+  /* Windows 2003 64 bit */
+  else if (guestfs_is_file (g, "/amd64/txtsetup.sif") > 0) {
+    fs->arch = safe_strdup (g, "x86_64");
+    if (check_w2k3_installer_root (g, fs, "/amd64/txtsetup.sif") == -1)
+      return -1;
+  }
+
+  /* Windows 2003 32 bit */
+  else if (guestfs_is_file (g, "/i386/txtsetup.sif") > 0) {
+    fs->arch = safe_strdup (g, "i386");
+    if (check_w2k3_installer_root (g, fs, "/i386/txtsetup.sif") == -1)
+      return -1;
+  }
 
   return 0;
 }
@@ -1316,6 +1697,19 @@ parse_unsigned_int (guestfs_h *g, const char *str)
   return ret;
 }
 
+/* Like parse_unsigned_int, but ignore trailing stuff. */
+static int
+parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
+{
+  long ret;
+  int r = xstrtol (str, NULL, 10, &ret, NULL);
+  if (r != LONGINT_OK) {
+    error (g, _("could not parse integer in version number: %s"), str);
+    return -1;
+  }
+  return ret;
+}
+
 /* At the moment, package format and package management is just a
  * simple function of the distro and major_version fields, so these
  * can never return an error.  We might be cleverer in future.
@@ -1552,6 +1946,53 @@ guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
   return safe_strdup (g, fs->windows_systemroot);
 }
 
+char *
+guestfs__inspect_get_format (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  char *ret;
+  switch (fs->format) {
+  case OS_FORMAT_INSTALLED: ret = safe_strdup (g, "installed"); break;
+  case OS_FORMAT_INSTALLER: ret = safe_strdup (g, "installer"); break;
+  case OS_FORMAT_UNKNOWN: default: ret = safe_strdup (g, "unknown"); break;
+  }
+
+  return ret;
+}
+
+int
+guestfs__inspect_is_live (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return -1;
+
+  return fs->is_live_disk;
+}
+
+int
+guestfs__inspect_is_netinst (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return -1;
+
+  return fs->is_netinst_disk;
+}
+
+int
+guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return -1;
+
+  return fs->is_multipart_disk;
+}
+
 char **
 guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
 {
@@ -1703,42 +2144,47 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 
   struct guestfs_application_list *ret = NULL;
 
-  switch (fs->type) {
-  case OS_TYPE_LINUX:
-    switch (fs->package_format) {
-    case OS_PACKAGE_FORMAT_RPM:
+  /* Presently we can only list applications for installed disks.  It
+   * is possible in future to get lists of packages from installers.
+   */
+  if (fs->format == OS_FORMAT_INSTALLED) {
+    switch (fs->type) {
+    case OS_TYPE_LINUX:
+      switch (fs->package_format) {
+      case OS_PACKAGE_FORMAT_RPM:
 #ifdef DB_DUMP
-      ret = list_applications_rpm (g, fs);
-      if (ret == NULL)
-        return NULL;
+        ret = list_applications_rpm (g, fs);
+        if (ret == NULL)
+          return NULL;
 #endif
+        break;
+
+      case OS_PACKAGE_FORMAT_DEB:
+        ret = list_applications_deb (g, fs);
+        if (ret == NULL)
+          return NULL;
+        break;
+
+      case OS_PACKAGE_FORMAT_PACMAN:
+      case OS_PACKAGE_FORMAT_EBUILD:
+      case OS_PACKAGE_FORMAT_PISI:
+      case OS_PACKAGE_FORMAT_UNKNOWN:
+      default:
+        /* nothing - keep GCC happy */;
+      }
       break;
 
-    case OS_PACKAGE_FORMAT_DEB:
-      ret = list_applications_deb (g, fs);
+    case OS_TYPE_WINDOWS:
+      ret = list_applications_windows (g, fs);
       if (ret == NULL)
         return NULL;
       break;
 
-    case OS_PACKAGE_FORMAT_PACMAN:
-    case OS_PACKAGE_FORMAT_EBUILD:
-    case OS_PACKAGE_FORMAT_PISI:
-    case OS_PACKAGE_FORMAT_UNKNOWN:
+    case OS_TYPE_FREEBSD:
+    case OS_TYPE_UNKNOWN:
     default:
       /* nothing - keep GCC happy */;
     }
-    break;
-
-  case OS_TYPE_WINDOWS:
-    ret = list_applications_windows (g, fs);
-    if (ret == NULL)
-      return NULL;
-    break;
-
-  case OS_TYPE_FREEBSD:
-  case OS_TYPE_UNKNOWN:
-  default:
-      /* nothing - keep GCC happy */;
   }
 
   if (ret == NULL) {
@@ -2266,6 +2712,52 @@ first_line_of_file (guestfs_h *g, const char *filename)
   free (lines);                 /* free the array */
 
   return ret;
+}
+
+/* Get the first matching line (using guestfs_egrep{,i}) of a small file,
+ * without any trailing newline character.
+ *
+ * Returns: 1 = returned a line (in *ret)
+ *          0 = no match
+ *          -1 = error
+ */
+static int
+first_egrep_of_file (guestfs_h *g, const char *filename,
+                     const char *eregex, int iflag, char **ret)
+{
+  char **lines;
+  int64_t size;
+  size_t i;
+
+  /* Don't trust guestfs_egrep not to break with very large files.
+   * Check the file size is something reasonable first.
+   */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > MAX_SMALL_FILE_SIZE) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  lines = (!iflag ? guestfs_egrep : guestfs_egrepi) (g, eregex, filename);
+  if (lines == NULL)
+    return -1;
+  if (lines[0] == NULL) {
+    guestfs___free_string_list (lines);
+    return 0;
+  }
+
+  *ret = lines[0];              /* caller frees */
+
+  /* free up any other matches and the array itself */
+  for (i = 1; lines[i] != NULL; ++i)
+    free (lines[i]);
+  free (lines);
+
+  return 1;
 }
 
 #else /* no PCRE or hivex at compile time */

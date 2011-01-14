@@ -1293,6 +1293,81 @@ string C<unknown> is returned.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
 
+  ("inspect_get_format", (RString "format", [Device "root"], []), -1, [],
+   [],
+   "get format of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the format of the inspected operating system.  You
+can use it to detect install images, live CDs and similar.
+
+Currently defined formats are:
+
+=over 4
+
+=item \"installed\"
+
+This is an installed operating system.
+
+=item \"installer\"
+
+The disk image being inspected is not an installed operating system,
+but a I<bootable> install disk, live CD, or similar.
+
+=item \"unknown\"
+
+The format of this disk image is not known.
+
+=back
+
+Future versions of libguestfs may return other strings here.
+The caller should be prepared to handle any string.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_is_live", (RBool "live", [Device "root"], []), -1, [],
+   [],
+   "get live flag for install disk",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+If C<guestfs_inspect_get_format> returns C<installer> (this
+is an install disk), then this returns true if a live image
+was detected on the disk.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_is_netinst", (RBool "netinst", [Device "root"], []), -1, [],
+   [],
+   "get netinst (network installer) flag for install disk",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+If C<guestfs_inspect_get_format> returns C<installer> (this
+is an install disk), then this returns true if the disk is
+a network installer, ie. not a self-contained install CD but
+one which is likely to require network access to complete
+the install.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_is_multipart", (RBool "multipart", [Device "root"], []), -1, [],
+   [],
+   "get multipart flag for install disk",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+If C<guestfs_inspect_get_format> returns C<installer> (this
+is an install disk), then this returns true if the disk is
+part of a set.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

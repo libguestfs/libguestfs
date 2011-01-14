@@ -550,10 +550,11 @@ device (I<not> the underlying encrypted block device).
 =head2 INSPECTION
 
 Libguestfs has APIs for inspecting an unknown disk image to find out
-if it contains operating systems.  (These APIs used to be in a
-separate Perl-only library called L<Sys::Guestfs::Lib(3)> but since
-version 1.5.3 the most frequently used part of this library has been
-rewritten in C and moved into the core code).
+if it contains operating systems, an install CD or a live CD.  (These
+APIs used to be in a separate Perl-only library called
+L<Sys::Guestfs::Lib(3)> but since version 1.5.3 the most frequently
+used part of this library has been rewritten in C and moved into the
+core code).
 
 Add all disks belonging to the unknown virtual machine and call
 L</guestfs_launch> in the usual way.
@@ -607,6 +608,25 @@ disks, you can redo inspection by calling L</guestfs_inspect_os>
 again.  (L</guestfs_inspect_list_applications> works a little
 differently from the other calls and does read the disks.  See
 documentation for that function for details).
+
+=head3 INSPECTING INSTALL DISKS
+
+Libguestfs (since 1.9.4) can detect some install disks, install
+CDs, live CDs and more.
+
+Call L</guestfs_inspect_get_format> to return the format of the
+operating system, which currently can be C<installed> (a regular
+operating system) or C<installer> (some sort of install disk).
+
+Further information is available about the operating system that can
+be installed using the regular inspection APIs like
+L</guestfs_inspect_get_product_name>,
+L</guestfs_inspect_get_major_version> etc.
+
+Some additional information specific to installer disks is also
+available from the L</guestfs_inspect_is_live>,
+L</guestfs_inspect_is_netinst> and L</guestfs_inspect_is_multipart>
+calls.
 
 =head2 SPECIAL CONSIDERATIONS FOR WINDOWS GUESTS
 
