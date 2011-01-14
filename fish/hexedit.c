@@ -116,8 +116,10 @@ run_hexedit (const char *cmd, size_t argc, char *argv[])
 
   /* Choose an editor. */
   editor = getenv ("HEXEDITOR");
-  if (editor == NULL)
-    editor = "hexedit";
+  if (editor == NULL) {
+    fprintf (stderr, _("the $HEXEDITOR environment variable must be set\n"));
+    return -1;
+  }
 
   snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
 
