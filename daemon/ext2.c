@@ -266,6 +266,27 @@ do_resize2fs_size (const char *device, int64_t size)
 }
 
 int
+do_resize2fs_M (const char *device)
+{
+  char *err;
+  int r;
+
+  char prog[] = "resize2fs";
+  if (e2prog (prog) == -1)
+    return -1;
+
+  r = command (NULL, &err, prog, "-M" , device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
 do_e2fsck_f (const char *device)
 {
   char *err;

@@ -5675,6 +5675,19 @@ is no extended attribute named C<name>, this returns an error.
 
 See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>.");
 
+  ("resize2fs_M", (RErr, [Device "device"], []), 281, [],
+   [],
+   "resize an ext2, ext3 or ext4 filesystem to the minimum size",
+   "\
+This command is the same as C<guestfs_resize2fs>, but the filesystem
+is resized to its minimum size.  This works like the C<-M> option
+to the C<resize2fs> command.
+
+To get the resulting size of the filesystem you should call
+C<guestfs_tune2fs_l> and read the C<Block size> and C<Block count>
+values.  These two numbers, multiplied together, give the
+resulting size of the minimal filesystem in bytes.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
