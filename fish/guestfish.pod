@@ -1265,8 +1265,7 @@ Set the command prompt.  See L</PROMPT>.
 =item HEXEDITOR
 
 The L</hexedit> command uses C<$HEXEDITOR> as the external hex
-editor.  If not specified, the external L<hexedit(1)> program
-is used.
+editor.  If not set, then an error message is printed.
 
 =item HOME
 
