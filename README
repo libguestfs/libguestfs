@@ -80,7 +80,9 @@ bindings
 
 - (Optional, but highly recommended) perl-libintl for translating perl code.
 
-- (Optional) po4a for translating manpages and POD files.
+- po4a for translating manpages and POD files.
+  This is optional when compiling from the tarball, but mandatory
+  if you compile from git.
 
 - (Optional) PHP, phpize if you want to build the PHP bindings
 
