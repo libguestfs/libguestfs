@@ -45,6 +45,31 @@
 
 #if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
 
+/* Some limits on what we will read, for safety. */
+
+/* Small text configuration files.
+ *
+ * The upper limit is for general files that we grep or download.  The
+ * largest such file is probably "txtsetup.sif" from Windows CDs
+ * (~500K).  This number has to be larger than any legitimate file and
+ * smaller than the protocol message size.
+ *
+ * The lower limit is for files parsed by Augeas on the daemon side,
+ * where Augeas is running in reduced memory and can potentially
+ * create a lot of metadata so we really need to be careful about
+ * those.
+ */
+#define MAX_SMALL_FILE_SIZE    (2 * 1000 * 1000)
+#define MAX_AUGEAS_FILE_SIZE        (100 * 1000)
+
+/* Maximum Windows Registry hive that we will download to /tmp.  Some
+ * registries can be legitimately very large.
+ */
+#define MAX_REGISTRY_SIZE    (100 * 1000 * 1000)
+
+/* Maximum RPM or dpkg database we will download to /tmp. */
+#define MAX_PKG_DB_SIZE       (10 * 1000 * 1000)
+
 /* Compile all the regular expressions once when the shared library is
  * loaded.  PCRE is thread safe so we're supposedly OK here if
  * multiple threads call into the libguestfs API functions below
@@ -417,7 +442,7 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
   if (size == -1)
     /* guestfs_filesize failed and has already set error in handle */
     return -1;
-  if (size > 1000000) {
+  if (size > MAX_SMALL_FILE_SIZE) {
     error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
            filename, size);
     return -1;
@@ -753,7 +778,7 @@ check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs)
   if (size == -1)
     /* guestfs_filesize failed and has already set error in handle */
     return -1;
-  if (size > 1000000) {
+  if (size > MAX_SMALL_FILE_SIZE) {
     error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
            filename, size);
     return -1;
@@ -1076,7 +1101,8 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
-  if (download_to_tmp (g, software_path, software_local, 100000000) == -1)
+  if (download_to_tmp (g, software_path, software_local,
+                       MAX_REGISTRY_SIZE) == -1)
     goto out;
 
   h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
@@ -1184,7 +1210,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
-  if (download_to_tmp (g, system_path, system_local, 100000000) == -1)
+  if (download_to_tmp (g, system_path, system_local, MAX_REGISTRY_SIZE) == -1)
     goto out;
 
   h = hivex_open (system_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
@@ -1735,7 +1761,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
   TMP_TEMPLATE_ON_STACK (tmpfile);
 
-  if (download_to_tmp (g, "/var/lib/rpm/Name", tmpfile, 10000000) == -1)
+  if (download_to_tmp (g, "/var/lib/rpm/Name", tmpfile, MAX_PKG_DB_SIZE) == -1)
     return NULL;
 
   struct guestfs_application_list *apps = NULL, *ret = NULL;
@@ -1837,7 +1863,8 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 {
   TMP_TEMPLATE_ON_STACK (tmpfile);
 
-  if (download_to_tmp (g, "/var/lib/dpkg/status", tmpfile, 10000000) == -1)
+  if (download_to_tmp (g, "/var/lib/dpkg/status", tmpfile,
+                       MAX_PKG_DB_SIZE) == -1)
     return NULL;
 
   struct guestfs_application_list *apps = NULL, *ret = NULL;
@@ -1949,7 +1976,8 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   hive_h *h = NULL;
   hive_node_h *children = NULL;
 
-  if (download_to_tmp (g, software_path, software_local, 100000000) == -1)
+  if (download_to_tmp (g, software_path, software_local,
+                       MAX_REGISTRY_SIZE) == -1)
     goto out;
 
   h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
@@ -2168,7 +2196,7 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   if (size == -1)
     /* guestfs_filesize failed and has already set error in handle */
     return -1;
-  if (size > 100000) {
+  if (size > MAX_AUGEAS_FILE_SIZE) {
     error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
            filename, size);
     return -1;
@@ -2218,7 +2246,7 @@ first_line_of_file (guestfs_h *g, const char *filename)
   if (size == -1)
     /* guestfs_filesize failed and has already set error in handle */
     return NULL;
-  if (size > 1000000) {
+  if (size > MAX_SMALL_FILE_SIZE) {
     error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
            filename, size);
     return NULL;
