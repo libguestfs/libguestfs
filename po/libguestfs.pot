@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.9.4\n"
+"Project-Id-Version: libguestfs 1.9.5\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-15 14:51+0000\n"
+"POT-Creation-Date: 2011-01-18 13:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
+#: fish/fish.c:95 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -48,14 +48,14 @@ msgid ""
 msgstr ""
 
 #: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
+#: df/domains.c:428 df/main.c:132 fish/fish.c:213 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
+#: df/main.c:156 fish/fish.c:281 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -1846,7 +1846,7 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
 
-#: fish/fish.c:90
+#: fish/fish.c:99
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1891,48 +1891,48 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:241
+#: fish/fish.c:250
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr ""
 
-#: fish/fish.c:248
+#: fish/fish.c:257
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 
-#: fish/fish.c:296
+#: fish/fish.c:305
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:451
+#: fish/fish.c:460
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:459
+#: fish/fish.c:468
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr ""
 
-#: fish/fish.c:465
+#: fish/fish.c:474
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:522
+#: fish/fish.c:531
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:526
+#: fish/fish.c:535
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:617
+#: fish/fish.c:623
 #, c-format
 msgid ""
 "\n"
@@ -1945,45 +1945,45 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:704
+#: fish/fish.c:764
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:710 fish/fish.c:727
+#: fish/fish.c:770 fish/fish.c:787
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:721
+#: fish/fish.c:781
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:776
+#: fish/fish.c:811
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:793
+#: fish/fish.c:828
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:822
+#: fish/fish.c:896
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:963
+#: fish/fish.c:1042
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:965
+#: fish/fish.c:1044
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:976
+#: fish/fish.c:1055
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1991,19 +1991,19 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:984
+#: fish/fish.c:1063
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:989
+#: fish/fish.c:1068
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1005
+#: fish/fish.c:1084
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2011,7 +2011,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1162
+#: fish/fish.c:1241
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""

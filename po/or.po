@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-15 14:51+0000\n"
+"POT-Creation-Date: 2011-01-18 13:31+0000\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "\n"
 
 #: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
+#: fish/fish.c:95 fuse/guestmount.c:862 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:55
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -70,14 +70,14 @@ msgstr ""
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
 #: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
+#: df/domains.c:428 df/main.c:132 fish/fish.c:213 fuse/guestmount.c:973
 #: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ନିୟନ୍ତ୍ରଣ ପ୍ରସ୍ତୁତ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
 #: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
+#: df/main.c:156 fish/fish.c:281 fuse/guestmount.c:1021
 #: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -1980,7 +1980,7 @@ msgstr "ଗୋଟିଏ ଫାଇଲ କିମ୍ବା ଡିରେକ୍ଟୋ
 msgid "use '%s filename' to edit a file\n"
 msgstr "ଗୋଟିଏ ଫାଇଲକୁ ସମ୍ପାଦନ କରିବା ପାଇଁ '%s filename' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:90
+#: fish/fish.c:99
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2056,48 +2056,48 @@ msgstr ""
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "ଅଧିକ ସୂଚନା ପାଇଁ,  man ପୃଷ୍ଠା ଦେଖନ୍ତୁ %s(1).\n"
 
-#: fish/fish.c:241
+#: fish/fish.c:250
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ଗୋଟିଏ ସଂଖ୍ୟା ନୁହଁ: %s\n"
 
-#: fish/fish.c:248
+#: fish/fish.c:257
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: ସୁଦୂର: $GUESTFISH_PID ନିଶ୍ଚିତ ଭାବରେ PID ରେ ସୁଦୂର ପଦ୍ଧତିରେ ସେଟ ହୋଇଛି\n"
 
-#: fish/fish.c:296
+#: fish/fish.c:305
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: କେବଳ ଗୋଟିଏ -f ପ୍ରାଚଳ ଦିଆହୋଇଛି\n"
 
-#: fish/fish.c:451
+#: fish/fish.c:460
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ଏବଂ --remote ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକ ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:459
+#: fish/fish.c:468
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ ସହିତ ଅତିରିକ୍ତ ପ୍ରଚଳଗୁଡ଼ିକ\n"
 
-#: fish/fish.c:465
+#: fish/fish.c:474
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:522
+#: fish/fish.c:531
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:526
+#: fish/fish.c:535
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:617
+#: fish/fish.c:623
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2117,45 +2117,45 @@ msgstr ""
 "      'quit' shellରୁ ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ\n"
 "\n"
 
-#: fish/fish.c:704
+#: fish/fish.c:764
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:710 fish/fish.c:727
+#: fish/fish.c:770 fish/fish.c:787
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:721
+#: fish/fish.c:781
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:776
+#: fish/fish.c:811
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:828
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:822
+#: fish/fish.c:896
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:963
+#: fish/fish.c:1042
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:965
+#: fish/fish.c:1044
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:976
+#: fish/fish.c:1055
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2166,7 +2166,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:984
+#: fish/fish.c:1063
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2175,13 +2175,13 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:1068
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1005
+#: fish/fish.c:1084
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2189,7 +2189,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1162
+#: fish/fish.c:1241
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
