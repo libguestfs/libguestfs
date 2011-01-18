@@ -69,7 +69,6 @@ int verbose = 0;
 int remote_control_listen = 0;
 int remote_control_csh = 0;
 int remote_control = 0;
-static int exit_on_error = 1;
 int command_num = 0;
 int keys_from_stdin = 0;
 int echo_keys = 0;
@@ -611,6 +610,7 @@ script (int prompt)
   char *argv[64];
   int len;
   int global_exit_on_error = !prompt;
+  int exit_on_error;
   int tilde_candidate;
 
   if (prompt) {
@@ -798,7 +798,7 @@ script (int prompt)
     argv[i] = NULL;
 
   got_command:
-    if (issue_command (cmd, argv, pipe) == -1) {
+    if (issue_command (cmd, argv, pipe, exit_on_error) == -1) {
       if (exit_on_error) exit (EXIT_FAILURE);
     }
 
@@ -812,6 +812,7 @@ cmdline (char *argv[], int optind, int argc)
 {
   const char *cmd;
   char **params;
+  int exit_on_error;
 
   exit_on_error = 1;
 
@@ -838,18 +839,23 @@ cmdline (char *argv[], int optind, int argc)
     optind++;
 
   if (optind == argc) {
-    if (issue_command (cmd, params, NULL) == -1 && exit_on_error)
+    if (issue_command (cmd, params, NULL, exit_on_error) == -1 && exit_on_error)
         exit (EXIT_FAILURE);
   } else {
     argv[optind] = NULL;
-    if (issue_command (cmd, params, NULL) == -1 && exit_on_error)
+    if (issue_command (cmd, params, NULL, exit_on_error) == -1 && exit_on_error)
       exit (EXIT_FAILURE);
     cmdline (argv, optind+1, argc);
   }
 }
 
+/* Note: 'rc_exit_on_error_flag' is the exit_on_error flag that we
+ * pass to the remote server (when issuing --remote commands).  It
+ * does not cause issue_command itself to exit on error.
+ */
 int
-issue_command (const char *cmd, char *argv[], const char *pipecmd)
+issue_command (const char *cmd, char *argv[], const char *pipecmd,
+               int rc_exit_on_error_flag)
 {
   int argc;
   int stdout_saved_fd = -1;
@@ -912,7 +918,7 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
 
   /* If --remote was set, then send this command to a remote process. */
   if (remote_control)
-    r = rc_remote (remote_control, cmd, argc, argv, exit_on_error);
+    r = rc_remote (remote_control, cmd, argc, argv, rc_exit_on_error_flag);
 
   /* Otherwise execute it locally. */
   else if (STRCASEEQ (cmd, "help")) {

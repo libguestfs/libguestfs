@@ -284,7 +284,7 @@ rc_listen (void)
         }
 
         /* Run the command. */
-        reply.r = issue_command (call.cmd, argv, NULL);
+        reply.r = issue_command (call.cmd, argv, NULL, 0);
 
         xdr_free ((xdrproc_t) xdr_guestfish_call, (char *) &call);
 

@@ -39,7 +39,7 @@ run_time (const char *cmd, size_t argc, char *argv[])
 
   gettimeofday (&start_t, NULL);
 
-  if (issue_command (argv[0], &argv[1], NULL) == -1)
+  if (issue_command (argv[0], &argv[1], NULL, 0) == -1)
     return -1;
 
   gettimeofday (&end_t, NULL);

@@ -63,7 +63,7 @@ extern int have_terminfo;
 extern int progress_bars;
 extern int remote_control_csh;
 extern const char *libvirt_uri;
-extern int issue_command (const char *cmd, char *argv[], const char *pipe);
+extern int issue_command (const char *cmd, char *argv[], const char *pipe, int rc_exit_on_error_flag);
 extern void list_builtin_commands (void);
 extern int display_builtin_command (const char *cmd);
 extern void free_strings (char **argv);

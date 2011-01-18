@@ -144,7 +144,7 @@ glob_issue (char *cmd, size_t argc,
   for (i = 1; i < argc; ++i)
     argv[i] = globs[i][posn[i]];
 
-  if (issue_command (argv[0], &argv[1], NULL) == -1)
+  if (issue_command (argv[0], &argv[1], NULL, 0) == -1)
     *r = -1;			/* ... but don't exit */
 
   for (i = argc-1; i >= 1; --i) {
