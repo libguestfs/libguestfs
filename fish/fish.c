@@ -45,6 +45,14 @@
 #include "closeout.h"
 #include "progname.h"
 
+/* Return from parse_command_line.  See description below. */
+struct parsed_command {
+  int status;
+  char *pipe;
+  char *cmd;
+  char *argv[64];
+};
+
 static void set_up_terminal (void);
 static void prepare_drives (struct drv *drv);
 static int launch (void);
@@ -52,6 +60,7 @@ static void interactive (void);
 static void shell_script (void);
 static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
+static struct parsed_command parse_command_line (char *buf, int *exit_on_error_rtn);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 #ifdef HAVE_LIBREADLINE
@@ -605,13 +614,9 @@ static void
 script (int prompt)
 {
   char *buf;
-  char *cmd;
-  char *p, *pend;
-  char *argv[64];
-  int len;
   int global_exit_on_error = !prompt;
   int exit_on_error;
-  int tilde_candidate;
+  struct parsed_command pcmd;
 
   if (prompt) {
     printf (_("\n"
@@ -630,8 +635,6 @@ script (int prompt)
   }
 
   while (!quit) {
-    char *pipe = NULL;
-
     exit_on_error = global_exit_on_error;
 
     buf = rl_gets (prompt);
@@ -640,171 +643,184 @@ script (int prompt)
       break;
     }
 
-    /* Skip any initial whitespace before the command. */
-  again:
-    while (*buf && c_isspace (*buf))
-      buf++;
-
-    if (!*buf) continue;
-
-    /* If the next character is '#' then this is a comment. */
-    if (*buf == '#') continue;
-
-    /* If the next character is '!' then pass the whole lot to system(3). */
-    if (*buf == '!') {
-      int r;
-
-      r = system (buf+1);
-      if (exit_on_error) {
-        if (r == -1 ||
-            (WIFSIGNALED (r) &&
-             (WTERMSIG (r) == SIGINT || WTERMSIG (r) == SIGQUIT)) ||
-            WEXITSTATUS (r) != 0)
-          exit (EXIT_FAILURE);
+    pcmd = parse_command_line (buf, &exit_on_error);
+    if (pcmd.status == -1 && exit_on_error)
+      exit (EXIT_FAILURE);
+    if (pcmd.status == 1) {
+      if (issue_command (pcmd.cmd, pcmd.argv, pcmd.pipe, exit_on_error) == -1) {
+        if (exit_on_error) exit (EXIT_FAILURE);
       }
-      continue;
     }
-
-    /* If the next character is '-' allow the command to fail without
-     * exiting on error (just for this one command though).
-     */
-    if (*buf == '-') {
-      exit_on_error = 0;
-      buf++;
-      goto again;
-    }
-
-    /* Get the command (cannot be quoted). */
-    len = strcspn (buf, " \t");
-
-    if (len == 0) continue;
-
-    cmd = buf;
-    unsigned int i = 0;
-    if (buf[len] == '\0') {
-      argv[0] = NULL;
-      goto got_command;
-    }
-
-    buf[len] = '\0';
-    p = &buf[len+1];
-    p += strspn (p, " \t");
-
-    /* Get the parameters. */
-    while (*p && i < sizeof argv / sizeof argv[0]) {
-      tilde_candidate = 0;
-
-      /* Parameters which start with quotes or pipes are treated
-       * specially.  Bare parameters are delimited by whitespace.
-       */
-      if (*p == '"') {
-        p++;
-        len = strcspn (p, "\"");
-        if (p[len] == '\0') {
-          fprintf (stderr, _("%s: unterminated double quote\n"), program_name);
-          if (exit_on_error) exit (EXIT_FAILURE);
-          goto next_command;
-        }
-        if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
-          fprintf (stderr,
-                   _("%s: command arguments not separated by whitespace\n"),
-                   program_name);
-          if (exit_on_error) exit (EXIT_FAILURE);
-          goto next_command;
-        }
-        p[len] = '\0';
-        pend = p[len+1] ? &p[len+2] : &p[len+1];
-      } else if (*p == '\'') {
-        p++;
-        len = strcspn (p, "'");
-        if (p[len] == '\0') {
-          fprintf (stderr, _("%s: unterminated single quote\n"), program_name);
-          if (exit_on_error) exit (EXIT_FAILURE);
-          goto next_command;
-        }
-        if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
-          fprintf (stderr,
-                   _("%s: command arguments not separated by whitespace\n"),
-                   program_name);
-          if (exit_on_error) exit (EXIT_FAILURE);
-          goto next_command;
-        }
-        p[len] = '\0';
-        pend = p[len+1] ? &p[len+2] : &p[len+1];
-      } else if (*p == '|') {
-        *p = '\0';
-        pipe = p+1;
-        continue;
-        /*
-      } else if (*p == '[') {
-        int c = 1;
-        p++;
-        pend = p;
-        while (*pend && c != 0) {
-          if (*pend == '[') c++;
-          else if (*pend == ']') c--;
-          pend++;
-        }
-        if (c != 0) {
-          fprintf (stderr,
-                   _("%s: unterminated \"[...]\" sequence\n"), program_name);
-          if (exit_on_error) exit (EXIT_FAILURE);
-          goto next_command;
-        }
-        if (*pend && (*pend != ' ' && *pend != '\t')) {
-          fprintf (stderr,
-                   _("%s: command arguments not separated by whitespace\n"),
-                   program_name);
-          if (exit_on_error) exit (EXIT_FAILURE);
-          goto next_command;
-        }
-        *(pend-1) = '\0';
-        */
-      } else if (*p != ' ' && *p != '\t') {
-        /* If the first character is a ~ then note that this parameter
-         * is a candidate for ~username expansion.  NB this does not
-         * apply to quoted parameters.
-         */
-        tilde_candidate = *p == '~';
-        len = strcspn (p, " \t");
-        if (p[len]) {
-          p[len] = '\0';
-          pend = &p[len+1];
-        } else
-          pend = &p[len];
-      } else {
-        fprintf (stderr, _("%s: internal error parsing string at '%s'\n"),
-                 program_name, p);
-        abort ();
-      }
-
-      if (!tilde_candidate)
-        argv[i] = p;
-      else
-        argv[i] = try_tilde_expansion (p);
-      i++;
-      p = pend;
-
-      if (*p)
-        p += strspn (p, " \t");
-    }
-
-    if (i == sizeof argv / sizeof argv[0]) {
-      fprintf (stderr, _("%s: too many arguments\n"), program_name);
-      if (exit_on_error) exit (EXIT_FAILURE);
-      goto next_command;
-    }
-
-    argv[i] = NULL;
-
-  got_command:
-    if (issue_command (cmd, argv, pipe, exit_on_error) == -1) {
-      if (exit_on_error) exit (EXIT_FAILURE);
-    }
-
-  next_command:;
   }
   if (prompt) printf ("\n");
+}
+
+/* Parse a command string, splitting at whitespace, handling '!', '#' etc.
+ * This destructively updates 'buf'.
+ *
+ * 'exit_on_error_rtn' is used to pass in the global exit_on_error
+ * setting and to return the local setting (eg. if the command begins
+ * with '-').
+ *
+ * Returns in parsed_command.status:
+ *   1 = got a guestfish command (returned in cmd_rtn/argv_rtn/pipe_rtn)
+ *   0 = no guestfish command, but otherwise OK
+ *  -1 = an error
+ */
+static struct parsed_command
+parse_command_line (char *buf, int *exit_on_error_rtn)
+{
+  struct parsed_command pcmd;
+  char *p, *pend;
+  int len;
+  int tilde_candidate;
+  int r;
+  const size_t argv_len = sizeof pcmd.argv / sizeof pcmd.argv[0];
+
+  pcmd.pipe = NULL;
+
+ again:
+  /* Skip any initial whitespace before the command. */
+  while (*buf && c_isspace (*buf))
+    buf++;
+
+  if (!*buf) {
+    pcmd.status = 0;
+    return pcmd;
+  }
+
+  /* If the next character is '#' then this is a comment. */
+  if (*buf == '#') {
+    pcmd.status = 0;
+    return pcmd;
+  }
+
+  /* If the next character is '!' then pass the whole lot to system(3). */
+  if (*buf == '!') {
+    r = system (buf+1);
+    if (r == -1 ||
+        (WIFSIGNALED (r) &&
+         (WTERMSIG (r) == SIGINT || WTERMSIG (r) == SIGQUIT)) ||
+        WEXITSTATUS (r) != 0)
+      pcmd.status = -1;
+    else
+      pcmd.status = 0;
+    return pcmd;
+  }
+
+  /* If the next character is '-' allow the command to fail without
+   * exiting on error (just for this one command though).
+   */
+  if (*buf == '-') {
+    *exit_on_error_rtn = 0;
+    buf++;
+    goto again;
+  }
+
+  /* Get the command (cannot be quoted). */
+  len = strcspn (buf, " \t");
+
+  if (len == 0) {
+    pcmd.status = 0;
+    return pcmd;
+  }
+
+  pcmd.cmd = buf;
+  unsigned int i = 0;
+  if (buf[len] == '\0') {
+    pcmd.argv[0] = NULL;
+    pcmd.status = 1;
+    return pcmd;
+  }
+
+  buf[len] = '\0';
+  p = &buf[len+1];
+  p += strspn (p, " \t");
+
+  /* Get the parameters. */
+  while (*p && i < argv_len) {
+    tilde_candidate = 0;
+
+    /* Parameters which start with quotes or pipes are treated
+     * specially.  Bare parameters are delimited by whitespace.
+     */
+    if (*p == '"') {
+      p++;
+      len = strcspn (p, "\"");
+      if (p[len] == '\0') {
+        fprintf (stderr, _("%s: unterminated double quote\n"), program_name);
+        pcmd.status = -1;
+        return pcmd;
+      }
+      if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
+        fprintf (stderr,
+                 _("%s: command arguments not separated by whitespace\n"),
+                 program_name);
+        pcmd.status = -1;
+        return pcmd;
+      }
+      p[len] = '\0';
+      pend = p[len+1] ? &p[len+2] : &p[len+1];
+    } else if (*p == '\'') {
+      p++;
+      len = strcspn (p, "'");
+      if (p[len] == '\0') {
+        fprintf (stderr, _("%s: unterminated single quote\n"), program_name);
+        pcmd.status = -1;
+        return pcmd;
+      }
+      if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
+        fprintf (stderr,
+                 _("%s: command arguments not separated by whitespace\n"),
+                 program_name);
+        pcmd.status = -1;
+        return pcmd;
+      }
+      p[len] = '\0';
+      pend = p[len+1] ? &p[len+2] : &p[len+1];
+    } else if (*p == '|') {
+      *p = '\0';
+      pcmd.pipe = p+1;
+      continue;
+    } else if (*p != ' ' && *p != '\t') {
+      /* If the first character is a ~ then note that this parameter
+       * is a candidate for ~username expansion.  NB this does not
+       * apply to quoted parameters.
+       */
+      tilde_candidate = *p == '~';
+      len = strcspn (p, " \t");
+      if (p[len]) {
+        p[len] = '\0';
+        pend = &p[len+1];
+      } else
+        pend = &p[len];
+    } else {
+      fprintf (stderr, _("%s: internal error parsing string at '%s'\n"),
+               program_name, p);
+      abort ();
+    }
+
+    if (!tilde_candidate)
+      pcmd.argv[i] = p;
+    else
+      pcmd.argv[i] = try_tilde_expansion (p);
+    i++;
+    p = pend;
+
+    if (*p)
+      p += strspn (p, " \t");
+  }
+
+  if (i == argv_len) {
+    fprintf (stderr, _("%s: too many arguments\n"), program_name);
+    pcmd.status = -1;
+    return pcmd;
+  }
+
+  pcmd.argv[i] = NULL;
+
+  pcmd.status = 1;
+  return pcmd;
 }
 
 static void
