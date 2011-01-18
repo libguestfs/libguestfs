@@ -677,7 +677,10 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
   int r;
   const size_t argv_len = sizeof pcmd.argv / sizeof pcmd.argv[0];
 
-  pcmd.pipe = NULL;
+  /* Note that pcmd.pipe must be set to NULL for correct usage.  Other
+   * fields do not need to be, but this silences a gcc warning.
+   */
+  memset (&pcmd, 0, sizeof pcmd);
 
  again:
   /* Skip any initial whitespace before the command. */
