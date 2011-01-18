@@ -61,6 +61,7 @@ static void shell_script (void);
 static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
 static struct parsed_command parse_command_line (char *buf, int *exit_on_error_rtn);
+static int execute_and_inline (const char *cmd, int exit_on_error);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 #ifdef HAVE_LIBREADLINE
@@ -708,6 +709,18 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
     return pcmd;
   }
 
+  /* If the next two characters are "<!" then pass the command to
+   * popen(3), read the result and execute it as guestfish commands.
+   */
+  if (buf[0] == '<' && buf[1] == '!') {
+    int r = execute_and_inline (&buf[2], *exit_on_error_rtn);
+    if (r == -1)
+      pcmd.status = -1;
+    else
+      pcmd.status = 0;
+    return pcmd;
+  }
+
   /* If the next character is '-' allow the command to fail without
    * exiting on error (just for this one command though).
    */
@@ -821,6 +834,50 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
 
   pcmd.status = 1;
   return pcmd;
+}
+
+/* Used to handle "<!" (execute command and inline result). */
+static int
+execute_and_inline (const char *cmd, int global_exit_on_error)
+{
+  FILE *pp;
+  char *line = NULL;
+  size_t len = 0;
+  ssize_t n;
+  int exit_on_error;
+  struct parsed_command pcmd;
+
+  pp = popen (cmd, "r");
+  if (!pp) {
+    perror ("popen");
+    return -1;
+  }
+
+  while ((n = getline (&line, &len, pp)) != -1) {
+    exit_on_error = global_exit_on_error;
+
+    /* Chomp final line ending which parse_command_line would not expect. */
+    if (n > 0 && line[n-1] == '\n')
+      line[n-1] = '\0';
+
+    pcmd = parse_command_line (line, &exit_on_error);
+    if (pcmd.status == -1 && exit_on_error)
+      exit (EXIT_FAILURE);
+    if (pcmd.status == 1) {
+      if (issue_command (pcmd.cmd, pcmd.argv, pcmd.pipe, exit_on_error) == -1) {
+        if (exit_on_error) exit (EXIT_FAILURE);
+      }
+    }
+  }
+
+  free (line);
+
+  if (pclose (pp) == -1) {
+    perror ("pclose");
+    return -1;
+  }
+
+  return 0;
 }
 
 static void
