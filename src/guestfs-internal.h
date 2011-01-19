@@ -257,6 +257,7 @@ extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 extern char *guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
+extern const char *guestfs___persistent_tmpdir (void);
 extern void guestfs___print_timestamped_argv (guestfs_h *g, const char *argv[]);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern void guestfs___free_inspect_info (guestfs_h *g);

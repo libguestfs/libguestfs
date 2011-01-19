@@ -2501,12 +2501,13 @@ has the same effect as calling C<guestfs_set_trace (g, 1)>.
 
 =item TMPDIR
 
-Location of temporary directory, defaults to C</tmp>.
+Location of temporary directory, defaults to C</tmp> except for the
+cached supermin appliance which defaults to C</var/tmp>.
 
 If libguestfs was compiled to use the supermin appliance then the
 real appliance is cached in this directory, shared between all
 handles belonging to the same EUID.  You can use C<$TMPDIR> to
-configure another directory to use in case C</tmp> is not large
+configure another directory to use in case C</var/tmp> is not large
 enough.
 
 =back

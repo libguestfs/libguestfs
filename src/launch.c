@@ -770,6 +770,7 @@ guestfs__launch (guestfs_h *g)
 
 /* Return the location of the tmpdir (eg. "/tmp") and allow users
  * to override it at runtime using $TMPDIR.
+ * http://www.pathname.com/fhs/pub/fhs-2.3.html#TMPTEMPORARYFILES
  */
 const char *
 guestfs_tmpdir (void)
@@ -781,6 +782,23 @@ guestfs_tmpdir (void)
 #else
   tmpdir = "/tmp";
 #endif
+
+  const char *t = getenv ("TMPDIR");
+  if (t) tmpdir = t;
+
+  return tmpdir;
+}
+
+/* Return the location of the persistent tmpdir (eg. "/var/tmp") and
+ * allow users to override it at runtime using $TMPDIR.
+ * http://www.pathname.com/fhs/pub/fhs-2.3.html#VARTMPTEMPORARYFILESPRESERVEDBETWEE
+ */
+const char *
+guestfs___persistent_tmpdir (void)
+{
+  const char *tmpdir;
+
+  tmpdir = "/var/tmp";
 
   const char *t = getenv ("TMPDIR");
   if (t) tmpdir = t;

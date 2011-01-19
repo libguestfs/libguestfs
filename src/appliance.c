@@ -308,7 +308,7 @@ check_for_cached_appliance (guestfs_h *g,
                             uid_t uid,
                             char **kernel, char **initrd, char **appliance)
 {
-  const char *tmpdir = guestfs_tmpdir ();
+  const char *tmpdir = guestfs___persistent_tmpdir ();
 
   /* len must be longer than the length of any pathname we can
    * generate in this function.
@@ -419,7 +419,7 @@ build_supermin_appliance (guestfs_h *g,
   if (g->verbose)
     guestfs___print_timestamped_message (g, "begin building supermin appliance");
 
-  const char *tmpdir = guestfs_tmpdir ();
+  const char *tmpdir = guestfs___persistent_tmpdir ();
 
   /* len must be longer than the length of any pathname we can
    * generate in this function.
