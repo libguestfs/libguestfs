@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-18 13:31+0000\n"
+"POT-Creation-Date: 2011-01-22 18:05+0000\n"
 "PO-Revision-Date: 2010-12-21 14:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -1942,7 +1942,7 @@ msgstr ""
 "należy użyć \"copy-in <lokalny> [<lokalny>...] <zdalny_katalog>\", aby "
 "skopiować pliki do obrazu\n"
 
-#: fish/copy.c:54 fish/copy.c:195
+#: fish/copy.c:54
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
@@ -1961,6 +1961,11 @@ msgid ""
 msgstr ""
 "należy użyć \"copy-out <zdalny> [<zdalny>...] <lokalny_katalog>\", aby "
 "skopiować pliki z obrazu\n"
+
+#: fish/copy.c:195
+#, fuzzy, c-format
+msgid "copy-out: target '%s' is not a directory\n"
+msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
 
 #: fish/copy.c:225
 #, c-format
@@ -2124,45 +2129,45 @@ msgstr ""
 "              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
-#: fish/fish.c:764
+#: fish/fish.c:767
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niezakończony podwójny cudzysłów\n"
 
-#: fish/fish.c:770 fish/fish.c:787
+#: fish/fish.c:773 fish/fish.c:790
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: parametry poleceń nie są oddzielone spacjami\n"
 
-#: fish/fish.c:781
+#: fish/fish.c:784
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niezakończony pojedynczy cudzysłów\n"
 
-#: fish/fish.c:811
+#: fish/fish.c:814
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: wewnętrzny błąd przetwarzania ciągu \"%s\"\n"
 
-#: fish/fish.c:828
+#: fish/fish.c:831
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: za dużo parametrów\n"
 
-#: fish/fish.c:896
+#: fish/fish.c:899
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:1042
+#: fish/fish.c:1045
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:1044
+#: fish/fish.c:1047
 msgid "quit guestfish"
 msgstr "kończy działanie programu guestfish"
 
-#: fish/fish.c:1055
+#: fish/fish.c:1058
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2173,7 +2178,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:1063
+#: fish/fish.c:1066
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2182,14 +2187,14 @@ msgstr ""
 "quit - kończy działanie programu guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1068
+#: fish/fish.c:1071
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
 "poleceń\n"
 
-#: fish/fish.c:1084
+#: fish/fish.c:1087
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2200,7 +2205,7 @@ msgstr ""
 "Lista poleceń:                        guestfish -h\n"
 "Pełna dokumentacja:                   man guestfish\n"
 
-#: fish/fish.c:1241
+#: fish/fish.c:1244
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cytat ucieczki w ciągu \"%s\"\n"
@@ -3027,7 +3032,7 @@ msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:879
+#: src/launch.c:897
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3036,11 +3041,11 @@ msgstr ""
 "%s: polecenie nie powiodło się: jeśli QEMU jest położone w niestandardowej "
 "ścieżce, należy spróbować ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
 
-#: src/launch.c:971
+#: src/launch.c:989
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
 
-#: src/launch.c:982
+#: src/launch.c:1000
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 
