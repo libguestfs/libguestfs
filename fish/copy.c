@@ -192,7 +192,7 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
   struct stat statbuf;
   if (stat (local, &statbuf) == -1 ||
       ! (S_ISDIR (statbuf.st_mode))) {
-    fprintf (stderr, _("copy-in: target '%s' is not a directory\n"), local);
+    fprintf (stderr, _("copy-out: target '%s' is not a directory\n"), local);
     return -1;
   }
 
