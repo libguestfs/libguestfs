@@ -1047,7 +1047,7 @@ check_state (guestfs_h *g, const char *caller)
                  pr "  else\n";
                  pr "    args.%s = 0;\n" n
              | String n ->
-                 pr "    args.%s = (char *) %s;\n" n n;
+                 pr "    args.%s = (char *) optargs->%s;\n" n n;
                  pr "  else\n";
                  pr "    args.%s = (char *) \"\";\n" n
              | _ -> assert false
