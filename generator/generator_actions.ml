@@ -5633,6 +5633,8 @@ for Linux ext2/3 filesystems.
 For VFAT and NTFS the C<blocksize> parameter is treated as
 the requested cluster size.
 
+For UFS block sizes, please see L<mkfs.ufs(8)>.
+
 =back");
 
   ("getxattr", (RBufferOut "xattr", [Pathname "path"; String "name"], []), 279, [Optional "linuxxattrs"],
