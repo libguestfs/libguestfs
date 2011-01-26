@@ -33,7 +33,7 @@
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_mkfs_opts (const char *fstype, const char *device, int blocksize)
+do_mkfs_opts (const char *fstype, const char *device, int blocksize, const char *features)
 {
   const char *argv[MAX_ARGS];
   size_t i = 0;
@@ -115,6 +115,11 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize)
     }
   }
 
+  if (optargs_bitmask & GUESTFS_MKFS_OPTS_FEATURES_BITMASK) {
+     argv[i++] = "-O";
+     argv[i++] = features;
+  }
+
   argv[i++] = device;
   argv[i++] = NULL;
 
@@ -136,12 +141,12 @@ int
 do_mkfs (const char *fstype, const char *device)
 {
   optargs_bitmask = 0;
-  return do_mkfs_opts (fstype, device, 0);
+  return do_mkfs_opts (fstype, device, 0, 0);
 }
 
 int
 do_mkfs_b (const char *fstype, int blocksize, const char *device)
 {
   optargs_bitmask = GUESTFS_MKFS_OPTS_BLOCKSIZE_BITMASK;
-  return do_mkfs_opts (fstype, device, blocksize);
+  return do_mkfs_opts (fstype, device, blocksize, 0);
 }

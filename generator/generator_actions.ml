@@ -5683,10 +5683,10 @@ not refer to a logical volume.
 
 See also C<guestfs_is_lv>.");
 
-  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"]), 278, [],
+  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"; String "features"]), 278, [],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
-       ["mkfs_opts"; "ext2"; "/dev/sda1"; "4096"];
+       ["mkfs_opts"; "ext2"; "/dev/sda1"; "4096"; ""];
        ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
@@ -5709,6 +5709,17 @@ For VFAT and NTFS the C<blocksize> parameter is treated as
 the requested cluster size.
 
 For UFS block sizes, please see L<mkfs.ufs(8)>.
+
+=item C<features>
+
+This passes the C<-O> parameter to the external mkfs program.
+
+For certain filesystem types, this allows extra filesystem
+features to be selected.  See L<mke2fs(8)> and L<mkfs.ufs(8)>
+for more details.
+
+You cannot use this optional parameter with the C<gfs> or
+C<gfs2> filesystem type.
 
 =back");
 
