@@ -258,6 +258,7 @@ main (int argc, char *argv[])
              "output to the libguestfs developers, either in a bug report\n"
              "or on the libguestfs redhat com mailing list.\n"
              "\n");
+    perror ("/dev/virtio-ports/org.libguestfs.channel.0");
     exit (EXIT_FAILURE);
   }
 
@@ -270,8 +271,10 @@ main (int argc, char *argv[])
   xdrmem_create (&xdr, lenbuf, sizeof lenbuf, XDR_ENCODE);
   xdr_u_int (&xdr, &len);
 
-  if (xwrite (sock, lenbuf, sizeof lenbuf) == -1)
+  if (xwrite (sock, lenbuf, sizeof lenbuf) == -1) {
+    perror ("xwrite");
     exit (EXIT_FAILURE);
+  }
 
   xdr_destroy (&xdr);
 
