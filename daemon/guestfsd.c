@@ -118,6 +118,9 @@ winsock_init (void)
 const char *sysroot = "/sysroot"; /* No trailing slash. */
 int sysroot_len = 8;
 
+/* If set (the default), do 'umount-all' when performing autosync. */
+int autosync_umount = 1;
+
 /* Not used explicitly, but required by the gnulib 'error' module. */
 const char *program_name = "guestfsd";
 
@@ -125,13 +128,13 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "guestfsd [-f|--foreground] [-v|--verbose]\n");
+    "guestfsd [-f|--foreground] [-v|--verbose] [-r]\n");
 }
 
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "fv?";
+  static const char *options = "frv?";
   static const struct option long_options[] = {
     { "foreground", 0, 0, 'f' },
     { "help", 0, 0, '?' },
@@ -171,6 +174,15 @@ main (int argc, char *argv[])
     switch (c) {
     case 'f':
       dont_fork = 1;
+      break;
+
+      /* The -r flag is used when running standalone.  It changes
+       * several aspects of the daemon.
+       */
+    case 'r':
+      sysroot = "";
+      sysroot_len = 0;
+      autosync_umount = 0;
       break;
 
     case 'v':

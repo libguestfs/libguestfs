@@ -51,9 +51,10 @@ do_sync (void)
 int
 do_internal_autosync (void)
 {
-  int r;
+  int r = 0;
 
-  r = do_umount_all ();
+  if (autosync_umount)
+    r = do_umount_all ();
 
   sync_disks ();
 

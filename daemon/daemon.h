@@ -33,6 +33,8 @@
 /*-- in guestfsd.c --*/
 extern int verbose;
 
+extern int autosync_umount;
+
 extern const char *sysroot;
 extern int sysroot_len;
 
@@ -253,17 +255,21 @@ extern void notify_progress (uint64_t position, uint64_t total);
  */
 #define CHROOT_IN				\
   do {						\
-    int __old_errno = errno;			\
-    if (chroot (sysroot) == -1)			\
-      perror ("CHROOT_IN: sysroot");		\
-    errno = __old_errno;			\
+    if (sysroot_len > 0) {                      \
+      int __old_errno = errno;			\
+      if (chroot (sysroot) == -1)               \
+        perror ("CHROOT_IN: sysroot");		\
+      errno = __old_errno;			\
+    }                                           \
   } while (0)
 #define CHROOT_OUT				\
   do {						\
-    int __old_errno = errno;			\
-    if (chroot (".") == -1)			\
-      perror ("CHROOT_OUT: .");			\
-    errno = __old_errno;			\
+    if (sysroot_len > 0) {                      \
+      int __old_errno = errno;			\
+      if (chroot (".") == -1)			\
+        perror ("CHROOT_OUT: .");               \
+      errno = __old_errno;			\
+    }                                           \
   } while (0)
 
 /* Marks functions which are not implemented.
