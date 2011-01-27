@@ -24,12 +24,43 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <mntent.h>
 
 #include "daemon.h"
 #include "actions.h"
 
-/* You must mount something on "/" first, hence: */
-int root_mounted = 0;
+/* You must mount something on "/" first before many operations.
+ * Hence we have an internal function which can test if something is
+ * mounted on *or under* the sysroot directory.  (It has to be *or
+ * under* because of mkmountpoint and friends).
+ */
+int
+is_root_mounted (void)
+{
+  FILE *fp;
+  struct mntent *m;
+
+  fp = setmntent ("/etc/mtab", "r");
+  if (fp == NULL) {
+    perror ("/etc/mtab");
+    exit (EXIT_FAILURE);
+  }
+
+  while ((m = getmntent (fp)) != NULL) {
+    /* Allow a mount directory like "/sysroot". */
+    if (sysroot_len > 0 && STREQ (m->mnt_dir, sysroot)) {
+    gotit:
+      endmntent (fp);
+      return 1;
+    }
+    /* Or allow a mount directory like "/sysroot/...". */
+    if (STRPREFIX (m->mnt_dir, sysroot) && m->mnt_dir[sysroot_len] == '/')
+      goto gotit;
+  }
+
+  endmntent (fp);
+  return 0;
+}
 
 /* The "simple mount" call offers no complex options, you can just
  * mount a device on a mountpoint.  The variations like mount_ro,
@@ -44,22 +75,28 @@ int
 do_mount_vfs (const char *options, const char *vfstype,
               const char *device, const char *mountpoint)
 {
-  int r, is_root;
+  int r;
   char *mp;
   char *error;
+  struct stat statbuf;
 
   ABS_PATH (mountpoint, 0, return -1);
-
-  is_root = STREQ (mountpoint, "/");
-
-  if (!root_mounted && !is_root) {
-    reply_with_error ("you must mount something on / first");
-    return -1;
-  }
 
   mp = sysroot_path (mountpoint);
   if (!mp) {
     reply_with_perror ("malloc");
+    return -1;
+  }
+
+  /* Check the mountpoint exists and is a directory. */
+  if (stat (mp, &statbuf) == -1) {
+    reply_with_perror ("mount: %s", mountpoint);
+    free (mp);
+    return -1;
+  }
+  if (!S_ISDIR (statbuf.st_mode)) {
+    reply_with_perror ("mount: %s: mount point is not a directory", mountpoint);
+    free (mp);
     return -1;
   }
 
@@ -75,9 +112,6 @@ do_mount_vfs (const char *options, const char *vfstype,
     free (error);
     return -1;
   }
-
-  if (is_root)
-    root_mounted = 1;
 
   return 0;
 }
@@ -133,8 +167,6 @@ do_umount (const char *pathordevice)
   }
 
   free (err);
-
-  /* update root_mounted? */
 
   return 0;
 }
@@ -324,9 +356,6 @@ do_umount_all (void)
 
   free_stringslen (mounts, size);
 
-  /* We've unmounted root now, so ... */
-  root_mounted = 0;
-
   return 0;
 }
 
@@ -368,8 +397,8 @@ do_mount_loop (const char *file, const char *mountpoint)
 }
 
 /* Specialized calls mkmountpoint and rmmountpoint are really
- * variations on mkdir and rmdir which do no checking and (in the
- * mkmountpoint case) set the root_mounted flag.
+ * variations on mkdir and rmdir which do no checking of the
+ * is_root_mounted() flag.
  */
 int
 do_mkmountpoint (const char *path)
@@ -387,11 +416,6 @@ do_mkmountpoint (const char *path)
     reply_with_perror ("%s", path);
     return -1;
   }
-
-  /* Set the flag so that filesystems can be mounted here,
-   * not just on /sysroot.
-   */
-  root_mounted = 1;
 
   return 0;
 }

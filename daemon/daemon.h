@@ -107,7 +107,7 @@ extern uint64_t progress_hint;
 extern uint64_t optargs_bitmask;
 
 /*-- in mount.c --*/
-extern int root_mounted;
+extern int is_root_mounted (void);
 
 /*-- in stubs.c (auto-generated) --*/
 extern void dispatch_incoming_message (XDR *);
@@ -178,7 +178,7 @@ extern void notify_progress (uint64_t position, uint64_t total);
  */
 #define NEED_ROOT(cancel_stmt,fail_stmt)                                \
   do {									\
-    if (!root_mounted) {						\
+    if (!is_root_mounted ()) {						\
       if ((cancel_stmt) != -2)                                          \
         reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
       fail_stmt;							\
