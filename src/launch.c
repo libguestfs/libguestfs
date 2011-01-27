@@ -70,6 +70,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+static int launch_appliance (guestfs_h *g);
 static int qemu_supports (guestfs_h *g, const char *option);
 
 /* Add a string to the current command line. */
@@ -350,24 +351,11 @@ static int is_openable (guestfs_h *g, const char *path, int flags);
 int
 guestfs__launch (guestfs_h *g)
 {
-  int r;
-  int wfd[2], rfd[2];
-  char unixsock[256];
-  struct sockaddr_un addr;
-
   /* Configured? */
-  if (!g->cmdline) {
-    error (g, _("you must call guestfs_add_drive before guestfs_launch"));
-    return -1;
-  }
-
   if (g->state != CONFIG) {
     error (g, _("the libguestfs handle has already been launched"));
     return -1;
   }
-
-  /* Start the clock ... */
-  gettimeofday (&g->launch_t, NULL);
 
   /* Make the temporary directory. */
   if (!g->tmpdir) {
@@ -375,7 +363,7 @@ guestfs__launch (guestfs_h *g)
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
       perrorf (g, _("%s: cannot create temporary directory"), dir_template);
-      goto cleanup0;
+      return -1;
     }
   }
 
@@ -385,6 +373,28 @@ guestfs__launch (guestfs_h *g)
    */
   if (chmod (g->tmpdir, 0755) == -1)
     fprintf (stderr, "chmod: %s: %m (ignored)\n", g->tmpdir);
+
+  return launch_appliance (g);
+}
+
+static int
+launch_appliance (guestfs_h *g)
+{
+  int r;
+  int wfd[2], rfd[2];
+  char unixsock[256];
+  struct sockaddr_un addr;
+
+  /* At present you must add drives before starting the appliance.  In
+   * future when we enable hotplugging you won't need to do this.
+   */
+  if (!g->cmdline) {
+    error (g, _("you must call guestfs_add_drive before guestfs_launch"));
+    return -1;
+  }
+
+  /* Start the clock ... */
+  gettimeofday (&g->launch_t, NULL);
 
   /* Locate and/or build the appliance. */
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
