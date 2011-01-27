@@ -972,6 +972,63 @@ For example:
 Note that libguestfs also calls qemu with the -help and -version
 options in order to determine features.
 
+=head2 ATTACHING TO RUNNING DAEMONS
+
+I<Note (1):> This is B<highly experimental> and has a tendency to eat
+babies.  Use with caution.
+
+I<Note (2):> This section explains how to attach to a running daemon
+from a low level perspective.  For most users, simply using virt tools
+such as L<guestfish(1)> with the I<--live> option will "just work".
+
+=head3 Using guestfs_set_attach_method
+
+By calling L</guestfs_set_attach_method> you can change how the
+library connects to the C<guestfsd> daemon in L</guestfs_launch>
+(read L</ARCHITECTURE> for some background).
+
+The normal attach method is C<appliance>, where a small appliance is
+created containing the daemon, and then the library connects to this.
+
+Setting attach method to C<unix:I<path>> (where I<path> is the path of
+a Unix domain socket) causes L</guestfs_launch> to connect to an
+existing daemon over the Unix domain socket.
+
+The normal use for this is to connect to a running virtual machine
+that contains a C<guestfsd> daemon, and send commands so you can read
+and write files inside the live virtual machine.
+
+=head3 Using guestfs_add_domain with live flag
+
+L</guestfs_add_domain> provides some help for getting the
+correct attach method.  If you pass the C<live> option to this
+function, then (if the virtual machine is running) it will
+examine the libvirt XML looking for a virtio-serial channel
+to connect to:
+
+ <domain>
+   ...
+   <devices>
+     ...
+     <channel type='unix'>
+       <source mode='bind' path='/path/to/socket'/>
+       <target type='virtio' name='org.libguestfs.channel.0'/>
+     </channel>
+     ...
+   </devices>
+ </domain>
+
+L</guestfs_add_domain> extracts C</path/to/socket> and sets the attach
+method to C<unix:/path/to/socket>.
+
+Some of the libguestfs tools (including guestfish) support a I<--live>
+option which is passed through to L</guestfs_add_domain> thus allowing
+you to attach to and modify live virtual machines.
+
+The virtual machine needs to have been set up beforehand so that it
+has the virtio-serial channel and so that guestfsd is running inside
+it.
+
 =head2 ABI GUARANTEE
 
 We guarantee the libguestfs ABI (binary interface), for public,

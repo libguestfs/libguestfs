@@ -1105,7 +1105,8 @@ The optional C<live> flag controls whether this call will try
 to connect to a running virtual machine C<guestfsd> process if
 it sees a suitable E<lt>channelE<gt> element in the libvirt
 XML definition.  The default (if the flag is omitted) is never
-to try.
+to try.  See L<guestfs(3)/ATTACHING TO RUNNING DAEMONS> for more
+information.
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
@@ -1139,7 +1140,8 @@ The optional C<live> flag controls whether this call will try
 to connect to a running virtual machine C<guestfsd> process if
 it sees a suitable E<lt>channelE<gt> element in the libvirt
 XML definition.  The default (if the flag is omitted) is never
-to try.
+to try.  See L<guestfs(3)/ATTACHING TO RUNNING DAEMONS> for more
+information.
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
@@ -1399,7 +1401,8 @@ and the default.
 Connect to the Unix domain socket I<path>.
 
 This method lets you connect to an existing daemon or (using
-virtio-serial) to a live guest.
+virtio-serial) to a live guest.  For more information, see
+L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>.
 
 =back");
 

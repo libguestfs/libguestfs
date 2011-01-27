@@ -467,7 +467,8 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   }
 
   if (path == NULL) {
-    error (g, _("this guest has no libvirt <channel> definition for guestfsd"));
+    error (g, _("this guest has no libvirt <channel> definition for guestfsd\n"
+                "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."));
     goto cleanup;
   }
 
