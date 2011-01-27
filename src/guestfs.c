@@ -645,6 +645,51 @@ guestfs__get_network (guestfs_h *g)
   return g->enable_network;
 }
 
+int
+guestfs__set_attach_method (guestfs_h *g, const char *method)
+{
+  if (STREQ (method, "appliance")) {
+    g->attach_method = ATTACH_METHOD_APPLIANCE;
+    free (g->attach_method_arg);
+    g->attach_method_arg = NULL;
+  }
+  else if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
+    g->attach_method = ATTACH_METHOD_UNIX;
+    free (g->attach_method_arg);
+    g->attach_method_arg = safe_strdup (g, method + 5);
+    /* Note that we don't check the path exists until launch is called. */
+  }
+  else {
+    error (g, "invalid attach method: %s", method);
+    return -1;
+  }
+
+  return 0;
+}
+
+char *
+guestfs__get_attach_method (guestfs_h *g)
+{
+  char *ret;
+
+  switch (g->attach_method) {
+  case ATTACH_METHOD_APPLIANCE:
+    ret = safe_strdup (g, "appliance");
+    break;
+
+  case ATTACH_METHOD_UNIX:
+    ret = safe_malloc (g, strlen (g->attach_method_arg) + 5 + 1);
+    strcpy (ret, "unix:");
+    strcat (ret, g->attach_method_arg);
+    break;
+
+  default: /* keep GCC happy - this is not reached */
+    abort ();
+  }
+
+  return ret;
+}
+
 void
 guestfs_set_log_message_callback (guestfs_h *g,
                                   guestfs_log_message_cb cb, void *opaque)

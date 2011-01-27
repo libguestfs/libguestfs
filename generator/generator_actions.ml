@@ -1368,6 +1368,36 @@ part of a set.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
 
+  ("set_attach_method", (RErr, [String "attachmethod"], []), -1, [FishAlias "attach-method"],
+   [],
+   "set the attach method",
+   "\
+Set the method that libguestfs uses to connect to the back end
+guestfsd daemon.  Possible methods are:
+
+=over 4
+
+=item C<appliance>
+
+Launch an appliance and connect to it.  This is the ordinary method
+and the default.
+
+=item C<unix:I<path>>
+
+Connect to the Unix domain socket I<path>.
+
+This method lets you connect to an existing daemon or (using
+virtio-serial) to a live guest.
+
+=back");
+
+  ("get_attach_method", (RString "attachmethod", [], []), -1, [],
+   [InitNone, Always, TestOutput (
+      [["get_attach_method"]], "appliance")],
+   "get the attach method",
+   "\
+Return the current attach method.  See C<guestfs_set_attach_method>.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

@@ -84,6 +84,9 @@
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
 
+/* Attach method. */
+enum attach_method { ATTACH_METHOD_APPLIANCE = 0, ATTACH_METHOD_UNIX };
+
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
@@ -115,6 +118,9 @@ struct guestfs_h
   char *path;			/* Path to kernel, initrd. */
   char *qemu;			/* Qemu binary. */
   char *append;			/* Append to kernel command line. */
+
+  enum attach_method attach_method;
+  char *attach_method_arg;
 
   int memsize;			/* Size of RAM (megabytes). */
 
