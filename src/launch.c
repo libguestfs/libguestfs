@@ -71,6 +71,7 @@
 #include "guestfs_protocol.h"
 
 static int launch_appliance (guestfs_h *g);
+static int connect_unix_socket (guestfs_h *g, const char *sock);
 static int qemu_supports (guestfs_h *g, const char *option);
 
 /* Add a string to the current command line. */
@@ -374,7 +375,17 @@ guestfs__launch (guestfs_h *g)
   if (chmod (g->tmpdir, 0755) == -1)
     fprintf (stderr, "chmod: %s: %m (ignored)\n", g->tmpdir);
 
-  return launch_appliance (g);
+  /* Launch the appliance or attach to an existing daemon. */
+  switch (g->attach_method) {
+  case ATTACH_METHOD_APPLIANCE:
+    return launch_appliance (g);
+
+  case ATTACH_METHOD_UNIX:
+    return connect_unix_socket (g, g->attach_method_arg);
+
+  default:
+    abort ();
+  }
 }
 
 static int
@@ -775,6 +786,78 @@ launch_appliance (guestfs_h *g)
   free (kernel);
   free (initrd);
   free (appliance);
+  return -1;
+}
+
+/* Alternate attach method: instead of launching the appliance,
+ * connect to an existing unix socket.
+ */
+static int
+connect_unix_socket (guestfs_h *g, const char *sockpath)
+{
+  int r;
+  struct sockaddr_un addr;
+
+  /* Start the clock ... */
+  gettimeofday (&g->launch_t, NULL);
+
+  /* Set these to nothing so we don't try to kill random processes or
+   * read from random file descriptors.
+   */
+  g->pid = 0;
+  g->recoverypid = 0;
+  g->fd[0] = -1;
+  g->fd[1] = -1;
+
+  if (g->verbose)
+    guestfs___print_timestamped_message (g, "connecting to %s", sockpath);
+
+  g->sock = socket (AF_UNIX, SOCK_STREAM, 0);
+  if (g->sock == -1) {
+    perrorf (g, "socket");
+    return -1;
+  }
+
+  addr.sun_family = AF_UNIX;
+  strncpy (addr.sun_path, sockpath, UNIX_PATH_MAX);
+  addr.sun_path[UNIX_PATH_MAX-1] = '\0';
+
+  g->state = LAUNCHING;
+
+  if (connect (g->sock, &addr, sizeof addr) == -1) {
+    perrorf (g, "bind");
+    goto cleanup;
+  }
+
+  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+    perrorf (g, "fcntl");
+    goto cleanup;
+  }
+
+  uint32_t size;
+  void *buf = NULL;
+  r = guestfs___recv_from_daemon (g, &size, &buf);
+  free (buf);
+
+  if (r == -1) return -1;
+
+  if (size != GUESTFS_LAUNCH_FLAG) {
+    error (g, _("guestfs_launch failed, unexpected initial message from guestfsd"));
+    goto cleanup;
+  }
+
+  if (g->verbose)
+    guestfs___print_timestamped_message (g, "connected");
+
+  if (g->state != READY) {
+    error (g, _("contacted guestfsd, but state != READY"));
+    goto cleanup;
+  }
+
+  return 0;
+
+ cleanup:
+  close (g->sock);
   return -1;
 }
 

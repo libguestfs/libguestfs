@@ -183,8 +183,8 @@ child_cleanup (guestfs_h *g)
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
   waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
-  close (g->fd[0]);
-  close (g->fd[1]);
+  if (g->fd[0] >= 0) close (g->fd[0]);
+  if (g->fd[1] >= 0) close (g->fd[1]);
   close (g->sock);
   g->fd[0] = -1;
   g->fd[1] = -1;
@@ -381,7 +381,8 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
   FD_ZERO (&rset);
   FD_ZERO (&wset);
 
-  FD_SET (g->fd[1], &rset);     /* Read qemu stdout for log messages & EOF. */
+  if (g->fd[1] >= 0)            /* Read qemu stdout for log messages & EOF. */
+    FD_SET (g->fd[1], &rset);
   FD_SET (g->sock, &rset);      /* Read socket for cancellation & EOF. */
   FD_SET (g->sock, &wset);      /* Write to socket to send the data. */
 
@@ -398,7 +399,7 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
       return -1;
     }
 
-    if (FD_ISSET (g->fd[1], &rset2)) {
+    if (g->fd[1] >= 0 && FD_ISSET (g->fd[1], &rset2)) {
       if (read_log_message_or_eof (g, g->fd[1], 0) == -1)
         return -1;
     }
@@ -460,7 +461,8 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 
   FD_ZERO (&rset);
 
-  FD_SET (g->fd[1], &rset);     /* Read qemu stdout for log messages & EOF. */
+  if (g->fd[1] >= 0)            /* Read qemu stdout for log messages & EOF. */
+    FD_SET (g->fd[1], &rset);
   FD_SET (g->sock, &rset);      /* Read socket for data & EOF. */
 
   int max_fd = MAX (g->sock, g->fd[1]);
@@ -492,7 +494,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
       return -1;
     }
 
-    if (FD_ISSET (g->fd[1], &rset2)) {
+    if (g->fd[1] >= 0 && FD_ISSET (g->fd[1], &rset2)) {
       if (read_log_message_or_eof (g, g->fd[1], 0) == -1) {
         free (*buf_rtn);
         *buf_rtn = NULL;
@@ -650,7 +652,8 @@ guestfs___accept_from_daemon (guestfs_h *g)
 
   FD_ZERO (&rset);
 
-  FD_SET (g->fd[1], &rset);     /* Read qemu stdout for log messages & EOF. */
+  if (g->fd[1] >= 0)            /* Read qemu stdout for log messages & EOF. */
+    FD_SET (g->fd[1], &rset);
   FD_SET (g->sock, &rset);      /* Read socket for accept. */
 
   int max_fd = MAX (g->sock, g->fd[1]);
@@ -674,7 +677,7 @@ guestfs___accept_from_daemon (guestfs_h *g)
       return -1;
     }
 
-    if (FD_ISSET (g->fd[1], &rset2)) {
+    if (g->fd[1] >= 0 && FD_ISSET (g->fd[1], &rset2)) {
       if (read_log_message_or_eof (g, g->fd[1], 1) == -1)
         return -1;
     }
