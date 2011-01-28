@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
  */
 
 #include <config.h>
-
-#define _BSD_SOURCE		/* for daemon(3) */
 
 #ifdef HAVE_WINDOWS_H
 # include <windows.h>
@@ -87,17 +85,6 @@ static int print_arginfo (const struct printf_info *info, size_t n, int *argtype
 
 #ifdef WIN32
 static int
-daemon (int nochdir, int noclose)
-{
-  fprintf (stderr,
-           "On Windows the daemon does not support forking into the "
-           "background.\nYou *must* run the daemon with the -f option.\n");
-  exit (EXIT_FAILURE);
-}
-#endif /* WIN32 */
-
-#ifdef WIN32
-static int
 winsock_init (void)
 {
   int r;
@@ -128,21 +115,19 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "guestfsd [-f|--foreground] [-v|--verbose] [-r]\n");
+    "guestfsd [-r] [-v|--verbose]\n");
 }
 
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "frv?";
+  static const char *options = "rv?";
   static const struct option long_options[] = {
-    { "foreground", 0, 0, 'f' },
     { "help", 0, 0, '?' },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
   int c;
-  int dont_fork = 0;
   char *cmdline;
 
   chdir ("/");
@@ -172,10 +157,6 @@ main (int argc, char *argv[])
     if (c == -1) break;
 
     switch (c) {
-    case 'f':
-      dont_fork = 1;
-      break;
-
       /* The -r flag is used when running standalone.  It changes
        * several aspects of the daemon.
        */
@@ -291,14 +272,6 @@ main (int argc, char *argv[])
   }
 
   xdr_destroy (&xdr);
-
-  /* Fork into the background. */
-  if (!dont_fork) {
-    if (daemon (0, 1) == -1) {
-      perror ("daemon");
-      exit (EXIT_FAILURE);
-    }
-  }
 
   /* Enter the main loop, reading and performing actions. */
   main_loop (sock);
