@@ -73,6 +73,12 @@ compare_keys (const void *p1, const void *p2)
 void
 inspect_mount (void)
 {
+  if (live) {
+    fprintf (stderr, _("%s: don't use --live and -i options together\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
+
   inspect_do_decrypt ();
 
   char **roots = guestfs_inspect_os (g);

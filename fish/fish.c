@@ -74,6 +74,7 @@ static int override_progress_bars = -1;
 guestfs_h *g;
 
 int read_only = 0;
+int live = 0;
 int quit = 0;
 int verbose = 0;
 int remote_control_listen = 0;
@@ -124,6 +125,7 @@ usage (int status)
              "  -i|--inspector       Automatically mount filesystems\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  --listen             Listen for remote commands\n"
+             "  --live               Connect to a live virtual machine\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -N|--new type        Create prepared disk (test1.img, ...)\n"
@@ -173,6 +175,7 @@ main (int argc, char *argv[])
     { "inspector", 0, 0, 'i' },
     { "keys-from-stdin", 0, 0, 0 },
     { "listen", 0, 0, 0 },
+    { "live", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "new", 1, 0, 'N' },
     { "no-dest-paths", 0, 0, 'D' },
@@ -277,6 +280,8 @@ main (int argc, char *argv[])
           format = optarg;
       } else if (STREQ (long_options[option_index].name, "csh")) {
         remote_control_csh = 1;
+      } else if (STREQ (long_options[option_index].name, "live")) {
+        live = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);

@@ -59,6 +59,7 @@
 
 guestfs_h *g = NULL;
 int read_only = 0;
+int live = 0;
 int verbose = 0;
 int inspector = 0;
 int keys_from_stdin = 0;
@@ -879,6 +880,7 @@ usage (int status)
              "  -i|--inspector       Automatically mount filesystems\n"
              "  --help               Display help message and exit\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
+             "  --live               Connect to a live virtual machine\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -o|--option opt      Pass extra option to FUSE\n"
@@ -917,6 +919,7 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
     { "keys-from-stdin", 0, 0, 0 },
+    { "live", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "no-sync", 0, 0, 'n' },
     { "option", 1, 0, 'o' },
@@ -1017,6 +1020,8 @@ main (int argc, char *argv[])
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
+      } else if (STREQ (long_options[option_index].name, "live")) {
+        live = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);

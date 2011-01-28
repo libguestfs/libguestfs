@@ -43,6 +43,10 @@ add_libvirt_drives (const char *guest)
     optargs.bitmask |= GUESTFS_ADD_DOMAIN_READONLY_BITMASK;
     optargs.readonly = 1;
   }
+  if (live) {
+    optargs.bitmask |= GUESTFS_ADD_DOMAIN_LIVE_BITMASK;
+    optargs.live = 1;
+  }
 
   return guestfs_add_domain_argv (g, guest, &optargs);
 }

@@ -67,6 +67,7 @@
 /* Provided by guestfish or guestmount. */
 extern guestfs_h *g;
 extern int read_only;
+extern int live;
 extern int verbose;
 extern int inspector;
 extern int keys_from_stdin;

@@ -294,6 +294,11 @@ to try to read passphrases from the user by opening C</dev/tty>.
 Fork into the background and listen for remote commands.  See section
 L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
+=item B<--live>
+
+Connect to a live virtual machine.
+(Experimental, see L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>).
+
 =item B<-m dev[:mountpoint]>
 
 =item B<--mount dev[:mountpoint]>
