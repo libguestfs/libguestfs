@@ -59,6 +59,8 @@ struct guestfs___add_libvirt_dom_argv {
   int readonly;
 #define GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK (UINT64_C(1)<<1)
   const char *iface;
+#define GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK (UINT64_C(1)<<2)
+  int live;
 };
 
 static int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
@@ -73,6 +75,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   int r = -1;
   const char *libvirturi;
   int readonly;
+  int live;
   const char *iface;
   struct guestfs___add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
@@ -82,6 +85,13 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
              ? optargs->readonly : 0;
   iface = optargs->bitmask & GUESTFS_ADD_DOMAIN_IFACE_BITMASK
           ? optargs->iface : NULL;
+  live = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIVE_BITMASK
+         ? optargs->live : 0;
+
+  if (live && readonly) {
+    error (g, _("you cannot set both live and readonly flags"));
+    return -1;
+  }
 
   /* Connect to libvirt, find the domain. */
   conn = virConnectOpenReadOnly (libvirturi);
@@ -107,6 +117,10 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   if (iface) {
     optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK;
     optargs2.iface = iface;
+  }
+  if (live) {
+    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK;
+    optargs2.live = live;
   }
 
   r = guestfs___add_libvirt_dom (g, dom, &optargs2);
@@ -282,6 +296,88 @@ guestfs___for_each_disk (guestfs_h *g,
   return r;
 }
 
+/* This was proposed as an external API, but it's not quite baked yet. */
+
+static int add_disk (guestfs_h *g, const char *filename, const char *format, void *optargs_vp);
+static int connect_live (guestfs_h *g, virDomainPtr dom);
+
+static int
+guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
+                           const struct guestfs___add_libvirt_dom_argv *optargs)
+{
+  int cmdline_pos;
+  int r;
+  int readonly;
+  const char *iface;
+  int live;
+
+  readonly =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
+    ? optargs->readonly : 0;
+  iface =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK
+    ? optargs->iface : NULL;
+  live =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK
+    ? optargs->live : 0;
+
+  if (live && readonly) {
+    error (g, _("you cannot set both live and readonly flags"));
+    return -1;
+  }
+
+  if (!readonly) {
+    virDomainInfo info;
+    virErrorPtr err;
+    int vm_running;
+
+    if (virDomainGetInfo (dom, &info) == -1) {
+      err = virGetLastError ();
+      error (g, _("error getting domain info: %s"), err->message);
+      return -1;
+    }
+    vm_running = info.state != VIR_DOMAIN_SHUTOFF;
+
+    if (vm_running) {
+      /* If the caller specified the 'live' flag, then they want us to
+       * try to connect to guestfsd if the domain is running.  Note
+       * that live readonly connections are not possible.
+       */
+      if (live)
+        return connect_live (g, dom);
+
+      /* Dangerous to modify the disks of a running VM. */
+      error (g, _("error: domain is a live virtual machine.\n"
+                  "Writing to the disks of a running virtual machine can cause disk corruption.\n"
+                  "Either use read-only access, or if the guest is running the guestfsd daemon\n"
+                  "specify live access.  In most libguestfs tools these options are --ro or\n"
+                  "--live respectively.  Consult the documentation for further information."));
+      return -1;
+    }
+  }
+
+  /* Add the disks. */
+  struct guestfs_add_drive_opts_argv optargs2 = { .bitmask = 0 };
+  if (readonly) {
+    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+    optargs2.readonly = readonly;
+  }
+  if (iface) {
+    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
+    optargs2.iface = iface;
+  }
+
+  /* Checkpoint the command line around the operation so that either
+   * all disks are added or none are added.
+   */
+  cmdline_pos = guestfs___checkpoint_cmdline (g);
+  r = guestfs___for_each_disk (g, dom, add_disk, &optargs2);
+  if (r == -1)
+    guestfs___rollback_cmdline (g, cmdline_pos);
+
+  return r;
+}
+
 static int
 add_disk (guestfs_h *g, const char *filename, const char *format,
           void *optargs_vp)
@@ -297,52 +393,98 @@ add_disk (guestfs_h *g, const char *filename, const char *format,
   return guestfs__add_drive_opts (g, filename, optargs);
 }
 
-/* This was proposed as an external API, but it's not quite baked yet. */
 static int
-guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
-                           const struct guestfs___add_libvirt_dom_argv *optargs)
+connect_live (guestfs_h *g, virDomainPtr dom)
 {
-  int r = -1;
+  int i, r = -1;
   virErrorPtr err;
-  int cmdline_pos;
+  xmlDocPtr doc = NULL;
+  xmlXPathContextPtr xpathCtx = NULL;
+  xmlXPathObjectPtr xpathObj = NULL;
+  char *xml = NULL;
+  char *path = NULL;
+  char *attach_method = NULL;
 
-  cmdline_pos = guestfs___checkpoint_cmdline (g);
+  /* Domain XML. */
+  xml = virDomainGetXMLDesc (dom, 0);
 
-  int readonly =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
-    ? optargs->readonly : 0;
-  const char *iface =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK
-    ? optargs->iface : NULL;
+  if (!xml) {
+    err = virGetLastError ();
+    error (g, _("error reading libvirt XML information: %s"),
+           err->message);
+    goto cleanup;
+  }
 
-  if (!readonly) {
-    virDomainInfo info;
-    if (virDomainGetInfo (dom, &info) == -1) {
-      err = virGetLastError ();
-      error (g, _("error getting domain info: %s"), err->message);
-      goto cleanup;
+  /* Parse XML to document. */
+  doc = xmlParseMemory (xml, strlen (xml));
+  if (doc == NULL) {
+    error (g, _("unable to parse XML information returned by libvirt"));
+    goto cleanup;
+  }
+
+  xpathCtx = xmlXPathNewContext (doc);
+  if (xpathCtx == NULL) {
+    error (g, _("unable to create new XPath context"));
+    goto cleanup;
+  }
+
+  /* This gives us a set of all the <channel> nodes related to the
+   * guestfsd virtio-serial channel.
+   */
+  xpathObj = xmlXPathEvalExpression (BAD_CAST
+      "//devices/channel[@type=\"unix\" and "
+                        "./source/@mode=\"bind\" and "
+                        "./source/@path and "
+                        "./target/@type=\"virtio\" and "
+                        "./target/@name=\"org.libguestfs.channel.0\"]",
+                                     xpathCtx);
+  if (xpathObj == NULL) {
+    error (g, _("unable to evaluate XPath expression"));
+    goto cleanup;
+  }
+
+  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  for (i = 0; i < nodes->nodeNr; ++i) {
+    xmlXPathObjectPtr xppath;
+
+    /* See note in function above. */
+    xpathCtx->node = nodes->nodeTab[i];
+
+    /* The path is in <source path=..> attribute. */
+    xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
+    if (xppath == NULL ||
+        xppath->nodesetval == NULL ||
+        xppath->nodesetval->nodeNr == 0) {
+      xmlXPathFreeObject (xppath);
+      continue;                 /* no type attribute, skip it */
     }
-    if (info.state != VIR_DOMAIN_SHUTOFF) {
-      error (g, _("error: domain is a live virtual machine.\nYou must use readonly access because write access to a running virtual machine\ncan cause disk corruption."));
-      goto cleanup;
-    }
+    assert (xppath->nodesetval->nodeTab[0]);
+    assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+    xmlAttrPtr attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
+    path = (char *) xmlNodeListGetString (doc, attr->children, 1);
+    xmlXPathFreeObject (xppath);
+    break;
   }
 
-  /* Add the disks. */
-  struct guestfs_add_drive_opts_argv optargs2 = { .bitmask = 0 };
-  if (readonly) {
-    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
-    optargs2.readonly = readonly;
-  }
-  if (iface) {
-    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
-    optargs2.iface = iface;
+  if (path == NULL) {
+    error (g, _("this guest has no libvirt <channel> definition for guestfsd"));
+    goto cleanup;
   }
 
-  r = guestfs___for_each_disk (g, dom, add_disk, &optargs2);
+  /* Got a path. */
+  attach_method = safe_malloc (g, strlen (path) + 5 + 1);
+  strcpy (attach_method, "unix:");
+  strcat (attach_method, path);
+  r = guestfs_set_attach_method (g, attach_method);
 
  cleanup:
-  if (r == -1) guestfs___rollback_cmdline (g, cmdline_pos);
+  free (path);
+  free (attach_method);
+  free (xml);
+  if (xpathObj) xmlXPathFreeObject (xpathObj);
+  if (xpathCtx) xmlXPathFreeContext (xpathCtx);
+  if (doc) xmlFreeDoc (doc);
+
   return r;
 }
 

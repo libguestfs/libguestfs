@@ -1074,7 +1074,7 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
 This returns the internal QEMU command line.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
-  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"]), -1, [FishAlias "domain"],
+  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"]), -1, [FishAlias "domain"],
    [],
    "add the disk(s) from a named libvirt domain",
    "\
@@ -1101,12 +1101,18 @@ we connect to the default libvirt URI (or one set through an
 environment variable, see the libvirt documentation for full
 details).
 
+The optional C<live> flag controls whether this call will try
+to connect to a running virtual machine C<guestfsd> process if
+it sees a suitable E<lt>channelE<gt> element in the libvirt
+XML definition.  The default (if the flag is omitted) is never
+to try.
+
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
 
 (*
 This interface is not quite baked yet. -- RWMJ 2010-11-11
-  ("add_libvirt_dom", (RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"]), -1, [NotInFish],
+  ("add_libvirt_dom", (RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"]), -1, [NotInFish],
    [],
    "add the disk(s) from a libvirt domain",
    "\
@@ -1129,7 +1135,13 @@ from a remote libvirt connection (see L<http://libvirt.org/remote.html>)
 will fail unless those disks are accessible via the same device path
 locally too.
 
-The optional parameters are passed directly through to
+The optional C<live> flag controls whether this call will try
+to connect to a running virtual machine C<guestfsd> process if
+it sees a suitable E<lt>channelE<gt> element in the libvirt
+XML definition.  The default (if the flag is omitted) is never
+to try.
+
+The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
 *)
 
