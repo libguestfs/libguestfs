@@ -189,10 +189,8 @@ guestfs_close (guestfs_h *g)
   guestfs___free_inspect_info (g);
 
   /* Try to sync if autosync flag is set. */
-  if (g->autosync && g->state == READY) {
-    guestfs_umount_all (g);
-    guestfs_sync (g);
-  }
+  if (g->autosync && g->state == READY)
+    guestfs_internal_autosync (g);
 
   /* Remove any handlers that might be called back before we kill the
    * subprocess.

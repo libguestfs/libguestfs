@@ -282,8 +282,8 @@ If C<NULL> then no options are added.");
    "set autosync mode",
    "\
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
-best effort attempt to run C<guestfs_umount_all> followed by
-C<guestfs_sync> when the handle is closed
+best effort attempt to make filesystems consistent and synchronized
+when the handle is closed
 (also if the program exits without closing handles).
 
 This is enabled by default (since libguestfs 1.5.24, previously it was
@@ -3842,7 +3842,7 @@ pathnames, as in the example code above.
 For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>
 
 Autosync [see C<guestfs_set_autosync>, this is set by default on
-handles] means that C<guestfs_umount_all> is called when the handle
+handles] can cause C<guestfs_umount_all> to be called when the handle
 is closed which can also trigger these issues.");
 
   ("rmmountpoint", (RErr, [String "exemptpath"], []), 149, [],
@@ -5775,6 +5775,16 @@ To get the resulting size of the filesystem you should call
 C<guestfs_tune2fs_l> and read the C<Block size> and C<Block count>
 values.  These two numbers, multiplied together, give the
 resulting size of the minimal filesystem in bytes.");
+
+  ("internal_autosync", (RErr, [], []), 282, [NotInFish; NotInDocs],
+   [],
+   "internal autosync operation",
+   "\
+This command performs the autosync operation just before the
+handle is closed.  You should not call this command directly.
+Instead, use the autosync flag (C<guestfs_set_autosync>) to
+control whether or not this operation is performed when the
+handle is closed.");
 
 ]
 
