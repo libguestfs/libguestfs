@@ -58,6 +58,8 @@ gitsha=$(git log|head -1|awk '{print $2}')
     exit 1
 }
 
+make clean ||:
+
 # Do the build step.
 make || {
     failed "build step"
