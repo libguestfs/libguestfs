@@ -196,8 +196,8 @@ guestfs___for_each_disk (guestfs_h *g,
     assert (xptype->nodesetval->nodeTab[0]);
     assert (xptype->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
     xmlAttrPtr attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
-    xmlXPathFreeObject (xptype);
     char *type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+    xmlXPathFreeObject (xptype);
 
     xmlXPathObjectPtr xpfilename;
 
