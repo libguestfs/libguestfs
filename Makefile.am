@@ -40,7 +40,7 @@ SUBDIRS += cat df inspector rescue
 
 # Language bindings.
 if HAVE_PERL
-SUBDIRS += perl
+SUBDIRS += perl perl/examples
 endif
 if HAVE_OCAML
 SUBDIRS += ocaml ocaml/examples
@@ -109,6 +109,7 @@ HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
 	html/guestfs-ocaml.3.html \
+	html/guestfs-perl.3.html \
 	html/guestfs-python.3.html \
 	html/guestfs-ruby.3.html \
 	html/guestfish.1.html \

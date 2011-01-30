@@ -737,7 +737,7 @@ See L<guestfs-ocaml(3)>.
 
 =item B<Perl>
 
-See L<Sys::Guestfs(3)>.
+See L<guestfs-perl(3)> and L<Sys::Guestfs(3)>.
 
 =item B<PHP>
 

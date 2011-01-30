@@ -2,34 +2,31 @@
 
 =head1 NAME
 
-guestfs-python - How to use libguestfs from Python
+guestfs-perl - How to use libguestfs from Perl
 
 =head1 SYNOPSIS
 
- import guestfs
- g = guestfs.GuestFS ()
- g.add_drive_opts ("disk.img", format="raw", readonly=1)
- g.launch
+ use Sys::Guestfs;
+ 
+ my $h = Sys::Guestfs->new ();
+ $h->add_drive_opts ('guest.img', format => 'raw');
+ $h->launch ();
+ $h->mount_options ('', '/dev/sda1', '/');
+ $h->touch ('/hello');
+ $h->sync ();
 
 =head1 DESCRIPTION
 
-This manual page documents how to call libguestfs from the Python
+This manual page documents how to call libguestfs from the Perl
 programming language.  This page just documents the differences from
 the C API and gives some examples.  If you are not familiar with using
-libguestfs, you also need to read L<guestfs(3)>.
+libguestfs, you also need to read L<guestfs(3)>.  To read the
+full Perl API, see L<Sys::Guestfs(3)>.
 
-=head2 EXCEPTIONS
+=head2 ERRORS
 
-Errors from libguestfs functions are mapped into C<RuntimeException>
-with a single string argument which is the error message.
-
-=head2 MORE DOCUMENTATION
-
-Type:
-
- $ python
- >>> import guestfs
- >>> help (guestfs)
+Errors from libguestfs functions turn into calls to
+C<croak> (see L<Carp(3)>).
 
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
@@ -41,10 +38,11 @@ Type:
 
 =head1 SEE ALSO
 
+L<Sys::Guestfs(3)>,
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
 L<guestfs-ocaml(3)>,
-L<guestfs-perl(3)>,
+L<guestfs-python(3)>,
 L<guestfs-ruby(3)>,
 L<http://libguestfs.org/>.
 
@@ -54,7 +52,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 Red Hat Inc. L<http://libguestfs.org/>
+Copyright (C) 2011 Red Hat Inc. L<http://libguestfs.org/>
 
 The examples in this manual page may be freely copied, modified and
 distributed without any restrictions.

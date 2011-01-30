@@ -793,7 +793,7 @@ AC_CONFIG_FILES([Makefile
                  regressions/Makefile
                  test-tool/Makefile
                  ocaml/Makefile ocaml/examples/Makefile
-                 perl/Makefile
+                 perl/Makefile perl/examples/Makefile
                  python/Makefile python/examples/Makefile
                  ruby/Makefile ruby/Rakefile ruby/examples/Makefile
                  java/Makefile

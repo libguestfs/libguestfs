@@ -109,6 +109,7 @@ html/guestfish.1.html
 html/guestfs.3.html
 html/guestfs-examples.3.html
 html/guestfs-ocaml.3.html
+html/guestfs-perl.3.html
 html/guestfs-python.3.html
 html/guestfs-ruby.3.html
 html/guestmount.1.html
@@ -213,6 +214,8 @@ perl/blib
 perl/Guestfs.bs
 perl/Guestfs.c
 perl/Guestfs.xs
+perl/examples/guestfs-perl.3
+perl/examples/stamp-guestfs-perl.pod
 perl/lib/Sys/Guestfs.pm
 perl/Makefile-pl
 perl/Makefile-pl.old
