@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-22 18:05+0000\n"
+"POT-Creation-Date: 2011-01-30 23:51+0000\n"
 "PO-Revision-Date: 2010-12-23 17:40+0530\n"
 "Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
 "Language-Team: PLTG\n"
@@ -1743,7 +1743,7 @@ msgstr "ਇੱਕ ਕਮਾਂਡ ਲਈ ਵਿਸਥਾਰ ਜਾਣਕਾਰ�
 #: fish/cmds.c:11097 fish/cmds.c:11117 fish/cmds.c:11138 fish/cmds.c:11159
 #: fish/cmds.c:11180 fish/cmds.c:11201 fish/cmds.c:11222 fish/cmds.c:11244
 #: fish/cmds.c:11282 fish/cmds.c:11333 fish/cmds.c:11371 fish/cmds.c:11427
-#: fish/cmds.c:11512 fish/cmds.c:11541 fish/cmds.c:11568
+#: fish/cmds.c:11517 fish/cmds.c:11546 fish/cmds.c:11573
 #, c-format
 msgid "%s should have %d parameter(s)\n"
 msgstr "%s ਦੇ ਪੈਰਾਮੀਟਰ %d ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ\n"
@@ -1832,8 +1832,8 @@ msgstr "%s ਦੇ ਪੈਰਾਮੀਟਰ %d ਹੋਣੇ ਚਾਹੀਦੇ �
 #: fish/cmds.c:11059 fish/cmds.c:11078 fish/cmds.c:11098 fish/cmds.c:11118
 #: fish/cmds.c:11139 fish/cmds.c:11160 fish/cmds.c:11181 fish/cmds.c:11202
 #: fish/cmds.c:11223 fish/cmds.c:11245 fish/cmds.c:11283 fish/cmds.c:11334
-#: fish/cmds.c:11372 fish/cmds.c:11428 fish/cmds.c:11451 fish/cmds.c:11513
-#: fish/cmds.c:11542 fish/cmds.c:11569
+#: fish/cmds.c:11372 fish/cmds.c:11428 fish/cmds.c:11451 fish/cmds.c:11518
+#: fish/cmds.c:11547 fish/cmds.c:11574
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr "'help %s' ਟਾਈਪ ਕਰੋ ਜੇ %s ਲਈ ਸਹਾਇਤਾ ਵੇਖਣੀ ਹੈ\n"
@@ -1890,17 +1890,17 @@ msgstr "%s: %s: ਪੂਰਨਅੰਕ ਰੇਂਜ ਤੋਂ ਬਾਹਰ ਹੈ
 msgid "%s should have %d-%d parameter(s)\n"
 msgstr "%s ਦੇ %d-%d ਪੈਰਾਮੀਟਰ ਹੋਣਾ ਚਾਹੀਦੇ ਹਨ\n"
 
-#: fish/cmds.c:4075 fish/cmds.c:4182 fish/cmds.c:11485
+#: fish/cmds.c:4075 fish/cmds.c:4182 fish/cmds.c:11490
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: ਅਣਜਾਣ ਚੋਣਵੇਂ ਆਰਗੂਮੈਂਟ \"%s\"\n"
 
-#: fish/cmds.c:4081 fish/cmds.c:4188 fish/cmds.c:11491
+#: fish/cmds.c:4081 fish/cmds.c:4188 fish/cmds.c:11496
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: ਚੋਣਵੇਂ ਆਰਗੂਮੈਂਟ \"%s\" ਦੋ ਵਾਰ ਦਿੱਤੇ ਹਨ\n"
 
-#: fish/cmds.c:11586
+#: fish/cmds.c:11591
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: ਅਣਜਾਣ ਕਮਾਂਡ\n"
@@ -2854,12 +2854,12 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: called twice on the same handle\n"
 
-#: src/guestfs.c:290
+#: src/guestfs.c:288
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:791
+#: src/guestfs.c:789
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<ਘਟਾਇਆ, ਅਸਲੀ ਅਕਾਰ %zu ਬਾਈਟ>"
