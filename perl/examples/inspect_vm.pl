@@ -56,7 +56,7 @@ for my $root (@roots) {
     if ($g->is_file ($filename)) {
         printf "--- %s ---\n", $filename;
         my @lines = $g->head_n (3, $filename);
-        print $_ foreach @lines;
+        print "$_\n" foreach @lines;
     }
 
     # Unmount everything.
