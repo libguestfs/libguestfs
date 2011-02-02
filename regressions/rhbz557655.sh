@@ -77,6 +77,7 @@ EOF
 # number of truncate_size.
 mv test.err test.err~
 grep -E 'set[-_]memsize|truncate[-_]size' test.err~ |
+  grep -Ev 'libguestfs: trace:' |
   grep -Ev 'proc 200' > test.err
 rm test.err~
 
