@@ -234,6 +234,7 @@ php/extension/guestfs_php_*.exp
 php/extension/guestfs_php_*.log
 php/extension/guestfs_php_*.out
 php/extension/guestfs_php_*.php
+php/extension/guestfs_php_*.sh
 php/extension/mkinstalldirs
 php/extension/modules/
 php/extension/php_guestfs_php.h
