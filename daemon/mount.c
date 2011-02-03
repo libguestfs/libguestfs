@@ -40,9 +40,12 @@ is_root_mounted (void)
   FILE *fp;
   struct mntent *m;
 
-  fp = setmntent ("/etc/mtab", "r");
+  /* NB: Eventually we should aim to parse /proc/self/mountinfo, but
+   * that requires custom parsing code.
+   */
+  fp = setmntent ("/proc/mounts", "r");
   if (fp == NULL) {
-    perror ("/etc/mtab");
+    perror ("/proc/mounts");
     exit (EXIT_FAILURE);
   }
 
