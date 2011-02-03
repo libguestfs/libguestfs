@@ -142,7 +142,7 @@ main (int argc, char *argv[])
   int dont_fork = 0;
   char *cmdline;
 
-  chdir ("/");
+  ignore_value (chdir ("/"));
 
   if (winsock_init () == -1)
     error (EXIT_FAILURE, 0, "winsock initialization failed");
