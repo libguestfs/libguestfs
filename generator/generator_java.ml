@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -133,8 +133,8 @@ public class GuestFS {
         pr "   * %s\n" doc;
         pr "   * @throws LibGuestFSException\n";
         pr "   */\n";
-        pr "  ";
       );
+      pr "  ";
       generate_java_prototype ~public:true ~semicolon:false name style;
       pr "\n";
       pr "  {\n";
