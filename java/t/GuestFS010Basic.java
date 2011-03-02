@@ -24,6 +24,10 @@ public class GuestFS010Basic
     public static void main (String[] argv)
     {
         try {
+            // Delete any previous test file if one was left around.
+            File old = new File ("test.img");
+            old.delete ();
+
             RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
             f.setLength (500 * 1024 * 1024);
             f.close ();
