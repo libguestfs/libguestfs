@@ -37,6 +37,7 @@ let rec generate_java_java () =
 package com.redhat.et.libguestfs;
 
 import java.util.HashMap;
+import java.util.Map;
 import com.redhat.et.libguestfs.LibGuestFSException;
 import com.redhat.et.libguestfs.PV;
 import com.redhat.et.libguestfs.VG;
@@ -183,7 +184,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RStructList (_, typ) ->
        let name = java_name_of_struct typ in
        pr "%s[] " name;
-   | RHashtable _ -> pr "HashMap<String,String> ";
+   | RHashtable _ -> pr "Map<String,String> ";
   );
 
   if native then pr "_%s " name else pr "%s " name;
