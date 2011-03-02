@@ -142,11 +142,25 @@ public class GuestFS {
       pr "    if (g == 0)\n";
       pr "      throw new LibGuestFSException (\"%s: handle is closed\");\n"
         name;
-      pr "    ";
-      if ret <> RErr then pr "return ";
-      pr "_%s " name;
-      generate_java_call_args ~handle:"g" style;
-      pr ";\n";
+      (match ret with
+       | RErr ->
+           pr "    _%s " name;
+           generate_java_call_args ~handle:"g" style;
+           pr ";\n"
+       | RHashtable _ ->
+           pr "    String[] r = _%s " name;
+           generate_java_call_args ~handle:"g" style;
+           pr ";\n";
+           pr "\n";
+           pr "    HashMap rhash = new HashMap ();\n";
+           pr "    for (int i = 0; i < r.length; i += 2)\n";
+           pr "      rhash.put (r[i], r[i+1]);\n";
+           pr "    return rhash;\n"
+       | _ ->
+           pr "    return _%s " name;
+           generate_java_call_args ~handle:"g" style;
+           pr ";\n"
+      );
       pr "  }\n";
       pr "  ";
       generate_java_prototype ~privat:true ~native:true name style;
@@ -184,7 +198,11 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RStructList (_, typ) ->
        let name = java_name_of_struct typ in
        pr "%s[] " name;
-   | RHashtable _ -> pr "Map<String,String> ";
+   | RHashtable _ ->
+       if not native then
+         pr "Map<String,String> "
+       else
+         pr "String[] ";
   );
 
   if native then pr "_%s " name else pr "%s " name;
@@ -367,7 +385,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | RString _ ->
             pr "  jstring jr;\n";
             pr "  char *r;\n"; "NULL", "NULL"
-        | RStringList _ ->
+        | RStringList _
+        | RHashtable _ ->
             pr "  jobjectArray jr;\n";
             pr "  int r_len;\n";
             pr "  jclass cl;\n";
@@ -384,7 +403,6 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  jfieldID fl;\n";
             pr "  jobject jfl;\n";
             pr "  struct guestfs_%s_list *r;\n" typ; "NULL", "NULL"
-        | RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
         | RBufferOut _ ->
             pr "  jstring jr;\n";
             pr "  char *r;\n";
@@ -417,10 +435,10 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       let needs_i =
         (match ret with
-         | RStringList _ | RStructList _ -> true
+         | RStringList _ | RStructList _ | RHashtable _ -> true
          | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
          | RConstOptString _
-         | RString _ | RBufferOut _ | RStruct _ | RHashtable _ -> false) ||
+         | RString _ | RBufferOut _ | RStruct _ -> false) ||
           List.exists (function
                        | StringList _ -> true
                        | DeviceList _ -> true
@@ -527,7 +545,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
            pr "  jr = (*env)->NewStringUTF (env, r);\n";
            pr "  free (r);\n";
            pr "  return jr;\n"
-       | RStringList _ ->
+       | RStringList _
+       | RHashtable _ ->
            pr "  for (r_len = 0; r[r_len] != NULL; ++r_len) ;\n";
            pr "  cl = (*env)->FindClass (env, \"java/lang/String\");\n";
            pr "  jstr = (*env)->NewStringUTF (env, \"\");\n";
@@ -547,10 +566,6 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
            let jtyp = java_name_of_struct typ in
            let cols = cols_of_struct typ in
            generate_java_struct_list_return typ jtyp cols
-       | RHashtable _ ->
-           (* XXX *)
-           pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
-           pr "  return NULL;\n"
        | RBufferOut _ ->
            pr "  jr = (*env)->NewStringUTF (env, r); /* XXX size */\n";
            pr "  free (r);\n";
