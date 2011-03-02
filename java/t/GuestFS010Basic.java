@@ -17,6 +17,7 @@
  */
 
 import java.io.*;
+import java.util.Map;
 import com.redhat.et.libguestfs.*;
 
 public class GuestFS010Basic
@@ -44,6 +45,15 @@ public class GuestFS010Basic
             String[] lvs = g.lvs ();
             assert lvs[0].equals ("/dev/VG/LV1");
             assert lvs[1].equals ("/dev/VG/LV2");
+
+            g.mkfs ("ext2", "/dev/VG/LV1");
+
+            Map<String,String> m = g.list_filesystems ();
+            assert m.containsKey ("/dev/VG/LV1");
+            assert m.size () == 2;
+
+            assert m.get ("/dev/VG/LV1").equals ("ext2");
+            assert m.get ("/dev/VG/LV2").equals ("unknown");
 
             g.close ();
 
