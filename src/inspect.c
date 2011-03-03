@@ -2366,6 +2366,30 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
   NOT_IMPL(NULL);
 }
 
+char *
+guestfs__inspect_get_format (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+int
+guestfs__inspect_is_live (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(-1);
+}
+
+int
+guestfs__inspect_is_netinst (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(-1);
+}
+
+int
+guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(-1);
+}
+
 #endif /* no PCRE or hivex at compile time */
 
 void
