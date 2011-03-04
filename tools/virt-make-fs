@@ -397,6 +397,9 @@ if (!defined $size) {
 # Take the unusual step of invoking qemu-img here.
 
 my @cmd = ("qemu-img", "create", "-f", $format, $output, $size);
+if ($debug) {
+    print STDERR ("running: ", join (" ", @cmd), "\n");
+}
 system (@cmd) == 0 or
     die __"qemu-img create: failed to create disk image, see earlier error messages\n";
 
