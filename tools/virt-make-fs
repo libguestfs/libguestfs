@@ -393,6 +393,8 @@ if (!defined $size) {
     }
 }
 
+$size = int ($size);
+
 # Create the output disk.
 # Take the unusual step of invoking qemu-img here.
 
