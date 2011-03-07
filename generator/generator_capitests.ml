@@ -792,25 +792,23 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         ) optargs;
       );
 
-      let error_code =
-        match style_ret with
-        | RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
-        | RInt64 _ -> pr "    int64_t r;\n"; "-1"
-        | RConstString _ | RConstOptString _ ->
-            pr "    const char *r;\n"; "NULL"
-        | RString _ -> pr "    char *r;\n"; "NULL"
-        | RStringList _ | RHashtable _ ->
-            pr "    char **r;\n";
-            pr "    size_t i;\n";
-            "NULL"
-        | RStruct (_, typ) ->
-            pr "    struct guestfs_%s *r;\n" typ; "NULL"
-        | RStructList (_, typ) ->
-            pr "    struct guestfs_%s_list *r;\n" typ; "NULL"
-        | RBufferOut _ ->
-            pr "    char *r;\n";
-            pr "    size_t size;\n";
-            "NULL" in
+      (match style_ret with
+       | RErr | RInt _ | RBool _ -> pr "    int r;\n"
+       | RInt64 _ -> pr "    int64_t r;\n"
+       | RConstString _ | RConstOptString _ ->
+           pr "    const char *r;\n"
+       | RString _ -> pr "    char *r;\n"
+       | RStringList _ | RHashtable _ ->
+           pr "    char **r;\n";
+           pr "    size_t i;\n"
+       | RStruct (_, typ) ->
+           pr "    struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) ->
+           pr "    struct guestfs_%s_list *r;\n" typ
+       | RBufferOut _ ->
+           pr "    char *r;\n";
+           pr "    size_t size;\n"
+      );
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
       if optargs = [] then
@@ -861,11 +859,21 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 
       pr ");\n";
 
-      if not expect_error then
-        pr "    if (r == %s)\n" error_code
-      else
-        pr "    if (r != %s)\n" error_code;
-      pr "      return -1;\n";
+      (match errcode_of_ret style_ret, expect_error with
+       | `CannotReturnError, _ -> ()
+       | `ErrorIsMinusOne, false ->
+           pr "    if (r == -1)\n";
+           pr "      return -1;\n";
+       | `ErrorIsMinusOne, true ->
+           pr "    if (r != -1)\n";
+           pr "      return -1;\n";
+       | `ErrorIsNULL, false ->
+           pr "    if (r == NULL)\n";
+           pr "      return -1;\n";
+       | `ErrorIsNULL, true ->
+           pr "    if (r != NULL)\n";
+           pr "      return -1;\n";
+      );
 
       (* Insert the test code. *)
       (match test with

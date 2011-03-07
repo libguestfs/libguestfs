@@ -430,31 +430,28 @@ copy_table (char * const * argv)
         ) optargs
       );
 
-      let error_code =
-        match ret with
-        | RErr -> pr "  int r;\n"; "-1"
-        | RInt _ -> pr "  int r;\n"; "-1"
-        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
-        | RBool _ -> pr "  int r;\n"; "-1"
-        | RConstString _ | RConstOptString _ ->
-            pr "  const char *r;\n"; "NULL"
-        | RString _ -> pr "  char *r;\n"; "NULL"
-        | RStringList _ ->
-            pr "  size_t i;\n";
-            pr "  char **r;\n";
-            "NULL"
-        | RStruct (_, typ) ->
-            pr "  struct guestfs_%s *r;\n" typ; "NULL"
-        | RStructList (_, typ) ->
-            pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
-        | RHashtable _ ->
-            pr "  size_t i;\n";
-            pr "  char **r;\n";
-            "NULL"
-        | RBufferOut _ ->
-            pr "  char *r;\n";
-            pr "  size_t size;\n";
-            "NULL" in
+      (match ret with
+       | RErr -> pr "  int r;\n"
+       | RInt _ -> pr "  int r;\n"
+       | RInt64 _ -> pr "  int64_t r;\n"
+       | RBool _ -> pr "  int r;\n"
+       | RConstString _ | RConstOptString _ ->
+           pr "  const char *r;\n"
+       | RString _ -> pr "  char *r;\n"
+       | RStringList _ ->
+           pr "  size_t i;\n";
+           pr "  char **r;\n"
+       | RStruct (_, typ) ->
+           pr "  struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) ->
+           pr "  struct guestfs_%s_list *r;\n" typ
+       | RHashtable _ ->
+           pr "  size_t i;\n";
+           pr "  char **r;\n"
+       | RBufferOut _ ->
+           pr "  char *r;\n";
+           pr "  size_t size;\n"
+      );
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
@@ -487,8 +484,15 @@ copy_table (char * const * argv)
         | StringList _ | DeviceList _ | Pointer _ -> ()
       ) optargs;
 
-      pr "  if (r == %s)\n" error_code;
-      pr "    ocaml_guestfs_raise_error (g, \"%s\");\n" name;
+      (match errcode_of_ret ret with
+       | `CannotReturnError -> ()
+       | `ErrorIsMinusOne ->
+           pr "  if (r == -1)\n";
+           pr "    ocaml_guestfs_raise_error (g, \"%s\");\n" name;
+       | `ErrorIsNULL ->
+           pr "  if (r == NULL)\n";
+           pr "    ocaml_guestfs_raise_error (g, \"%s\");\n" name;
+      );
       pr "\n";
 
       (match ret with

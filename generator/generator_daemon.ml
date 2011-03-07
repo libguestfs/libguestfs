@@ -82,21 +82,20 @@ and generate_daemon_actions () =
       (* Generate server-side stubs. *)
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
-      let error_code =
-        match ret with
-        | RErr | RInt _ -> pr "  int r;\n"; "-1"
-        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
-        | RBool _ -> pr "  int r;\n"; "-1"
-        | RConstString _ | RConstOptString _ ->
-            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-        | RString _ -> pr "  char *r;\n"; "NULL"
-        | RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-        | RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
-        | RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL"
-        | RBufferOut _ ->
-            pr "  size_t size = 1;\n";
-            pr "  char *r;\n";
-            "NULL" in
+      (match ret with
+       | RErr | RInt _ -> pr "  int r;\n"
+       | RInt64 _ -> pr "  int64_t r;\n"
+       | RBool _ -> pr "  int r;\n"
+       | RConstString _ | RConstOptString _ ->
+           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+       | RString _ -> pr "  char *r;\n"
+       | RStringList _ | RHashtable _ -> pr "  char **r;\n"
+       | RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ
+       | RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ
+       | RBufferOut _ ->
+           pr "  size_t size = 1;\n";
+           pr "  char *r;\n"
+      );
 
       if args <> [] || optargs <> [] then (
         pr "  struct guestfs_%s_args args;\n" name;
@@ -223,11 +222,16 @@ and generate_daemon_actions () =
         pr ";\n" in
 
       (match ret with
+       | RConstOptString _ -> assert false
        | RErr | RInt _ | RInt64 _ | RBool _
-       | RConstString _ | RConstOptString _
+       | RConstString _
        | RString _ | RStringList _ | RHashtable _
        | RStruct (_, _) | RStructList (_, _) ->
-           pr "  if (r == %s)\n" error_code;
+           let errcode =
+             match errcode_of_ret ret with
+             | `CannotReturnError -> assert false
+             | (`ErrorIsMinusOne | `ErrorIsNULL) as e -> e in
+           pr "  if (r == %s)\n" (string_of_errcode errcode);
            pr "    /* do_%s has already called reply_with_error */\n" name;
            pr "    goto done;\n";
            pr "\n"
@@ -235,7 +239,7 @@ and generate_daemon_actions () =
            pr "  /* size == 0 && r == NULL could be a non-error case (just\n";
            pr "   * an ordinary zero-length buffer), so be careful ...\n";
            pr "   */\n";
-           pr "  if (size == 1 && r == %s)\n" error_code;
+           pr "  if (size == 1 && r == NULL)\n";
            pr "    /* do_%s has already called reply_with_error */\n" name;
            pr "    goto done;\n";
            pr "\n"

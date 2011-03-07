@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -202,6 +202,8 @@ and argt =
      * tests, although we should fix this in future.
      *)
   | Pointer of (string * string)
+
+type errcode = [ `CannotReturnError | `ErrorIsMinusOne | `ErrorIsNULL ]
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
