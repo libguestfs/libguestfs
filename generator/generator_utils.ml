@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,21 @@ open Unix
 open Printf
 
 open Generator_types
+
+let errcode_of_ret = function
+  | RConstOptString _ ->
+      `CannotReturnError
+  | RErr | RInt _ | RBool _ | RInt64 _ ->
+      `ErrorIsMinusOne
+  | RConstString _
+  | RString _ | RBufferOut _
+  | RStringList _ | RHashtable _
+  | RStruct _ | RStructList _ ->
+      `ErrorIsNULL
+
+let string_of_errcode = function
+  | `ErrorIsMinusOne -> "-1"
+  | `ErrorIsNULL -> "NULL"
 
 (* Generate a uuidgen-compatible UUID (used in tests).  However to
  * avoid having the UUID change every time we rebuild the tests,

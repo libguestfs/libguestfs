@@ -374,40 +374,40 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       pr ")\n";
       pr "{\n";
       pr "  guestfs_h *g = (guestfs_h *) (long) jg;\n";
-      let error_code, no_ret =
-        match ret with
-        | RErr -> pr "  int r;\n"; "-1", ""
-        | RBool _
-        | RInt _ -> pr "  int r;\n"; "-1", "0"
-        | RInt64 _ -> pr "  int64_t r;\n"; "-1", "0"
-        | RConstString _ -> pr "  const char *r;\n"; "NULL", "NULL"
-        | RConstOptString _ -> pr "  const char *r;\n"; "NULL", "NULL"
-        | RString _ ->
-            pr "  jstring jr;\n";
-            pr "  char *r;\n"; "NULL", "NULL"
-        | RStringList _
-        | RHashtable _ ->
-            pr "  jobjectArray jr;\n";
-            pr "  int r_len;\n";
-            pr "  jclass cl;\n";
-            pr "  jstring jstr;\n";
-            pr "  char **r;\n"; "NULL", "NULL"
-        | RStruct (_, typ) ->
-            pr "  jobject jr;\n";
-            pr "  jclass cl;\n";
-            pr "  jfieldID fl;\n";
-            pr "  struct guestfs_%s *r;\n" typ; "NULL", "NULL"
-        | RStructList (_, typ) ->
-            pr "  jobjectArray jr;\n";
-            pr "  jclass cl;\n";
-            pr "  jfieldID fl;\n";
-            pr "  jobject jfl;\n";
-            pr "  struct guestfs_%s_list *r;\n" typ; "NULL", "NULL"
-        | RBufferOut _ ->
-            pr "  jstring jr;\n";
-            pr "  char *r;\n";
-            pr "  size_t size;\n";
-            "NULL", "NULL" in
+      (match ret with
+       | RErr -> pr "  int r;\n"
+       | RBool _
+       | RInt _ -> pr "  int r;\n"
+       | RInt64 _ -> pr "  int64_t r;\n"
+       | RConstString _ -> pr "  const char *r;\n"
+       | RConstOptString _ -> pr "  const char *r;\n"
+       | RString _ ->
+           pr "  jstring jr;\n";
+           pr "  char *r;\n"
+       | RStringList _
+       | RHashtable _ ->
+           pr "  jobjectArray jr;\n";
+           pr "  int r_len;\n";
+           pr "  jclass cl;\n";
+           pr "  jstring jstr;\n";
+           pr "  char **r;\n"
+       | RStruct (_, typ) ->
+           pr "  jobject jr;\n";
+           pr "  jclass cl;\n";
+           pr "  jfieldID fl;\n";
+           pr "  struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) ->
+           pr "  jobjectArray jr;\n";
+           pr "  jclass cl;\n";
+           pr "  jfieldID fl;\n";
+           pr "  jobject jfl;\n";
+           pr "  struct guestfs_%s_list *r;\n" typ
+       | RBufferOut _ ->
+           pr "  jstring jr;\n";
+           pr "  char *r;\n";
+           pr "  size_t size;\n"
+      );
+
       List.iter (
         function
         | Pathname n
@@ -527,10 +527,19 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       ) args;
 
       (* Check for errors. *)
-      pr "  if (r == %s) {\n" error_code;
-      pr "    throw_exception (env, guestfs_last_error (g));\n";
-      pr "    return %s;\n" no_ret;
-      pr "  }\n";
+      (match errcode_of_ret ret with
+       | `CannotReturnError -> ()
+       | `ErrorIsMinusOne ->
+           pr "  if (r == -1) {\n";
+           pr "    throw_exception (env, guestfs_last_error (g));\n";
+           pr "    return -1;\n";
+           pr "  }\n"
+       | `ErrorIsNULL ->
+           pr "  if (r == NULL) {\n";
+           pr "    throw_exception (env, guestfs_last_error (g));\n";
+           pr "    return NULL;\n";
+           pr "  }\n"
+      );
 
       (* Return value. *)
       (match ret with

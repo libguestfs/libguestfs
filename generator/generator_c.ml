@@ -637,14 +637,6 @@ check_state (guestfs_h *g, const char *caller)
 
 ";
 
-  let error_code_of = function
-    | RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
-    | RConstString _ | RConstOptString _
-    | RString _ | RStringList _
-    | RStruct _ | RStructList _
-    | RHashtable _ | RBufferOut _ -> "NULL"
-  in
-
   (* Generate code to check String-like parameters are not passed in
    * as NULL (returning an error if they are).
    *)
@@ -667,7 +659,17 @@ check_state (guestfs_h *g, const char *caller)
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" shortname n;
-          pr "    return %s;\n" (error_code_of ret);
+          let errcode =
+            match errcode_of_ret ret with
+            | `CannotReturnError ->
+                if shortname = "test0rconstoptstring" then (* XXX hack *)
+                  `ErrorIsNULL
+                else
+                  failwithf
+                    "%s: RConstOptString function has invalid parameter '%s'"
+                    shortname n
+            | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
+          pr "    return %s;\n" (string_of_errcode errcode);
           pr "  }\n";
           pr_newline := true
 
@@ -689,7 +691,11 @@ check_state (guestfs_h *g, const char *caller)
           pr "      optargs->%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: optional parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" shortname n;
-          pr "    return %s;\n" (error_code_of ret);
+          let errcode =
+            match errcode_of_ret ret with
+            | `CannotReturnError -> assert false
+            | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
+          pr "    return %s;\n" (string_of_errcode errcode);
           pr "  }\n";
           pr_newline := true
 
@@ -711,7 +717,11 @@ check_state (guestfs_h *g, const char *caller)
         pr "  if (optargs->bitmask & UINT64_C(0x%Lx)) {\n" mask;
         pr "    error (g, \"%%s: unknown option in guestfs_%%s_argv->bitmask (this can happen if a program is compiled against a newer version of libguestfs, then dynamically linked to an older version)\",\n";
         pr "           \"%s\", \"%s\");\n" shortname shortname;
-        pr "    return %s;\n" (error_code_of ret);
+        let errcode =
+          match errcode_of_ret ret with
+          | `CannotReturnError -> assert false
+          | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
+        pr "    return %s;\n" (string_of_errcode errcode);
         pr "  }\n";
         pr "\n";
   in
@@ -882,7 +892,9 @@ check_state (guestfs_h *g, const char *caller)
            pr "  int r;\n"
        | RInt64 _ ->
            pr "  int64_t r;\n"
-       | RConstString _ | RConstOptString _ ->
+       | RConstString _ ->
+           pr "  const char *r;\n"
+       | RConstOptString _ ->
            pr "  const char *r;\n"
        | RString _ | RBufferOut _ ->
            pr "  char *r;\n"
@@ -900,7 +912,18 @@ check_state (guestfs_h *g, const char *caller)
       pr "  r = guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
-      trace_return style "r";
+      pr "\n";
+      (match errcode_of_ret ret with
+       | (`ErrorIsMinusOne | `ErrorIsNULL) as errcode ->
+           pr "  if (r != %s) {\n" (string_of_errcode errcode);
+           trace_return ~indent:4 style "r";
+           pr "  } else {\n";
+           trace_return_error ~indent:4 style;
+           pr "  }\n";
+       | `CannotReturnError ->
+           trace_return style "r";
+      );
+      pr "\n";
       pr "  return r;\n";
       pr "}\n";
       pr "\n"
@@ -910,7 +933,10 @@ check_state (guestfs_h *g, const char *caller)
   List.iter (
     fun (shortname, (ret, args, optargs as style), _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
-      let error_code = error_code_of ret in
+      let errcode =
+        match errcode_of_ret ret with
+        | `CannotReturnError -> assert false
+        | (`ErrorIsMinusOne | `ErrorIsNULL) as e -> e in
 
       (* Generate the action stub. *)
       if optargs = [] then
@@ -991,7 +1017,7 @@ check_state (guestfs_h *g, const char *caller)
       (* Check we are in the right state for sending a request. *)
       pr "  if (check_state (g, \"%s\") == -1) {\n" shortname;
       trace_return_error ~indent:4 style;
-      pr "    return %s;\n" error_code;
+      pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "  guestfs___set_busy (g);\n";
       pr "\n";
@@ -1025,7 +1051,7 @@ check_state (guestfs_h *g, const char *caller)
               pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
                 shortname;
               pr "    guestfs___end_busy (g);\n";
-              pr "    return %s;\n" error_code;
+              pr "    return %s;\n" (string_of_errcode errcode);
               pr "  }\n";
               pr "  args.%s.%s_val = (char *) %s;\n" n n n;
               pr "  args.%s.%s_len = %s_size;\n" n n n
@@ -1064,7 +1090,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  if (serial == -1) {\n";
       pr "    guestfs___end_busy (g);\n";
       trace_return_error ~indent:4 style;
-      pr "    return %s;\n" error_code;
+      pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
 
@@ -1077,7 +1103,7 @@ check_state (guestfs_h *g, const char *caller)
             pr "  if (r == -1) {\n";
             pr "    guestfs___end_busy (g);\n";
             trace_return_error ~indent:4 style;
-            pr "    return %s;\n" error_code;
+            pr "    return %s;\n" (string_of_errcode errcode);
             pr "  }\n";
             pr "  if (r == -2) /* daemon cancelled */\n";
             pr "    goto read_reply;\n";
@@ -1102,7 +1128,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  if (r == -1) {\n";
       pr "    guestfs___end_busy (g);\n";
       trace_return_error ~indent:4 style;
-      pr "    return %s;\n" error_code;
+      pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
 
@@ -1110,7 +1136,7 @@ check_state (guestfs_h *g, const char *caller)
         (String.uppercase shortname);
       pr "    guestfs___end_busy (g);\n";
       trace_return_error ~indent:4 style;
-      pr "    return %s;\n" error_code;
+      pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
 
@@ -1129,7 +1155,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "    free (err.error_message);\n";
       pr "    free (err.errno_string);\n";
       pr "    guestfs___end_busy (g);\n";
-      pr "    return %s;\n" error_code;
+      pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
 
@@ -1140,7 +1166,7 @@ check_state (guestfs_h *g, const char *caller)
             pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
             pr "    guestfs___end_busy (g);\n";
             trace_return_error ~indent:4 style;
-            pr "    return %s;\n" error_code;
+            pr "    return %s;\n" (string_of_errcode errcode);
             pr "  }\n";
             pr "\n";
         | _ -> ()
@@ -1231,16 +1257,16 @@ check_state (guestfs_h *g, const char *caller)
           | [] -> "g"
           | args -> name_of_argt (List.hd (List.rev args)) in
 
-        let rerrcode, rtype =
+        let rtype =
           match ret with
-          | RErr | RInt _ | RBool _ -> "-1", "int "
-          | RInt64 _ -> "-1", "int64_t "
-          | RConstString _ | RConstOptString _ -> "NULL", "const char *"
-          | RString _ | RBufferOut _ -> "NULL", "char *"
-          | RStringList _ | RHashtable _ -> "NULL", "char **"
-          | RStruct (_, typ) -> "NULL", sprintf "struct guestfs_%s *" typ
+          | RErr | RInt _ | RBool _ -> "int "
+          | RInt64 _ -> "int64_t "
+          | RConstString _ | RConstOptString _ -> "const char *"
+          | RString _ | RBufferOut _ -> "char *"
+          | RStringList _ | RHashtable _ -> "char **"
+          | RStruct (_, typ) -> sprintf "struct guestfs_%s *" typ
           | RStructList (_, typ) ->
-              "NULL", sprintf "struct guestfs_%s_list *" typ in
+              sprintf "struct guestfs_%s_list *" typ in
 
         (* The regular variable args function, just calls the _va variant. *)
         generate_prototype ~extern:false ~semicolon:false ~newline:true
@@ -1286,17 +1312,22 @@ check_state (guestfs_h *g, const char *caller)
             pr "      break;\n";
         ) optargs;
 
+        let errcode =
+          match errcode_of_ret ret with
+          | `CannotReturnError -> assert false
+          | (`ErrorIsMinusOne | `ErrorIsNULL) as e -> e in
+
         pr "    default:\n";
         pr "      error (g, \"%%s: unknown option %%d (this can happen if a program is compiled against a newer version of libguestfs, then dynamically linked to an older version)\",\n";
         pr "             \"%s\", i);\n" shortname;
-        pr "      return %s;\n" rerrcode;
+        pr "      return %s;\n" (string_of_errcode errcode);
         pr "    }\n";
         pr "\n";
         pr "    uint64_t i_mask = UINT64_C(1) << i;\n";
         pr "    if (optargs_s.bitmask & i_mask) {\n";
         pr "      error (g, \"%%s: same optional argument specified more than once\",\n";
         pr "             \"%s\");\n" shortname;
-        pr "      return %s;\n" rerrcode;
+        pr "      return %s;\n" (string_of_errcode errcode);
         pr "    }\n";
         pr "    optargs_s.bitmask |= i_mask;\n";
         pr "  }\n";

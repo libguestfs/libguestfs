@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,17 @@
 (* Please read generator/README first. *)
 
 (** Useful utility functions. *)
+
+val errcode_of_ret : Generator_types.ret -> Generator_types.errcode
+(** Map [ret] type to the error indication that the action returns,
+    eg. [errcode_of_ret RErr] => [`ErrorIsMinusOne] (meaning that
+    these actions return [-1]).
+
+    Note that [RConstOptString] cannot return an error indication, and
+    this returns [`CannotReturnError].  Callers must deal with it. *)
+
+val string_of_errcode : [`ErrorIsMinusOne|`ErrorIsNULL] -> string
+(** Return errcode as a string.  Untyped for [`CannotReturnError]. *)
 
 val uuidgen : unit -> string
 (** Generate a random UUID (used in tests). *)

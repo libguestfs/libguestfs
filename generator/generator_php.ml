@@ -357,28 +357,27 @@ PHP_FUNCTION (guestfs_last_error)
       );
 
       (* Return value. *)
-      let error_code =
-        match ret with
-        | RErr -> pr "  int r;\n"; "-1"
-        | RBool _
-        | RInt _ -> pr "  int r;\n"; "-1"
-        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
-        | RConstString _ -> pr "  const char *r;\n"; "NULL"
-        | RConstOptString _ -> pr "  const char *r;\n"; "NULL"
-        | RString _ ->
-            pr "  char *r;\n"; "NULL"
-        | RStringList _ ->
-            pr "  char **r;\n"; "NULL"
-        | RStruct (_, typ) ->
-            pr "  struct guestfs_%s *r;\n" typ; "NULL"
-        | RStructList (_, typ) ->
-            pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
-        | RHashtable _ ->
-            pr "  char **r;\n"; "NULL"
-        | RBufferOut _ ->
-            pr "  char *r;\n";
-            pr "  size_t size;\n";
-            "NULL" in
+      (match ret with
+       | RErr -> pr "  int r;\n"
+       | RBool _
+       | RInt _ -> pr "  int r;\n"
+       | RInt64 _ -> pr "  int64_t r;\n"
+       | RConstString _ -> pr "  const char *r;\n"
+       | RConstOptString _ -> pr "  const char *r;\n"
+       | RString _ ->
+           pr "  char *r;\n"
+       | RStringList _ ->
+           pr "  char **r;\n"
+       | RStruct (_, typ) ->
+           pr "  struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) ->
+           pr "  struct guestfs_%s_list *r;\n" typ
+       | RHashtable _ ->
+           pr "  char **r;\n"
+       | RBufferOut _ ->
+           pr "  char *r;\n";
+           pr "  size_t size;\n"
+      );
 
       (* Call the function. *)
       if optargs = [] then
@@ -410,9 +409,17 @@ PHP_FUNCTION (guestfs_last_error)
         ) args;
 
       (* Check for errors. *)
-      pr "  if (r == %s) {\n" error_code;
-      pr "    RETURN_FALSE;\n";
-      pr "  }\n";
+      (match errcode_of_ret ret with
+       | `CannotReturnError -> ()
+       | `ErrorIsMinusOne ->
+           pr "  if (r == -1) {\n";
+           pr "    RETURN_FALSE;\n";
+           pr "  }\n"
+       | `ErrorIsNULL ->
+           pr "  if (r == NULL) {\n";
+           pr "    RETURN_FALSE;\n";
+           pr "  }\n"
+      );
       pr "\n";
 
       (* Convert the return value. *)

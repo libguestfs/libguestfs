@@ -184,21 +184,20 @@ static VALUE ruby_guestfs_close (VALUE gv)
         pr "\n";
       );
 
-      let error_code =
-        match ret with
-        | RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
-        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
-        | RConstString _ | RConstOptString _ ->
-            pr "  const char *r;\n"; "NULL"
-        | RString _ -> pr "  char *r;\n"; "NULL"
-        | RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-        | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
-        | RStructList (_, typ) ->
-            pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
-        | RBufferOut _ ->
-            pr "  char *r;\n";
-            pr "  size_t size;\n";
-            "NULL" in
+      (match ret with
+       | RErr | RInt _ | RBool _ -> pr "  int r;\n"
+       | RInt64 _ -> pr "  int64_t r;\n"
+       | RConstString _ | RConstOptString _ ->
+           pr "  const char *r;\n"
+       | RString _ -> pr "  char *r;\n"
+       | RStringList _ | RHashtable _ -> pr "  char **r;\n"
+       | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) ->
+           pr "  struct guestfs_%s_list *r;\n" typ
+       | RBufferOut _ ->
+           pr "  char *r;\n";
+           pr "  size_t size;\n"
+      );
       pr "\n";
 
       if optargs = [] then
@@ -217,8 +216,15 @@ static VALUE ruby_guestfs_close (VALUE gv)
             pr "  free (%s);\n" n
       ) args;
 
-      pr "  if (r == %s)\n" error_code;
-      pr "    rb_raise (e_Error, \"%%s\", guestfs_last_error (g));\n";
+      (match errcode_of_ret ret with
+       | `CannotReturnError -> ()
+       | `ErrorIsMinusOne ->
+           pr "  if (r == -1)\n";
+           pr "    rb_raise (e_Error, \"%%s\", guestfs_last_error (g));\n"
+       | `ErrorIsNULL ->
+           pr "  if (r == NULL)\n";
+           pr "    rb_raise (e_Error, \"%%s\", guestfs_last_error (g));\n"
+      );
       pr "\n";
 
       (match ret with
