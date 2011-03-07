@@ -887,22 +887,24 @@ check_state (guestfs_h *g, const char *caller)
           shortname style;
       pr "{\n";
       pr "  int trace_flag = g->trace;\n";
-      (match ret with
-       | RErr | RInt _ | RBool _ ->
-           pr "  int r;\n"
-       | RInt64 _ ->
-           pr "  int64_t r;\n"
-       | RConstString _ | RConstOptString _ ->
-           pr "  const char *r;\n"
-       | RString _ | RBufferOut _ ->
-           pr "  char *r;\n"
-       | RStringList _ | RHashtable _ ->
-           pr "  char **r;\n"
-       | RStruct (_, typ) ->
-           pr "  struct guestfs_%s *r;\n" typ
-       | RStructList (_, typ) ->
-           pr "  struct guestfs_%s_list *r;\n" typ
-      );
+      let errcode =
+        match ret with
+        | RErr | RInt _ | RBool _ ->
+            pr "  int r;\n"; Some "-1"
+        | RInt64 _ ->
+            pr "  int64_t r;\n"; Some "-1"
+        | RConstString _ ->
+            pr "  const char *r;\n"; Some "NULL"
+        | RConstOptString _ ->
+            pr "  const char *r;\n"; None
+        | RString _ | RBufferOut _ ->
+            pr "  char *r;\n"; Some "NULL"
+        | RStringList _ | RHashtable _ ->
+            pr "  char **r;\n"; Some "NULL"
+        | RStruct (_, typ) ->
+            pr "  struct guestfs_%s *r;\n" typ; Some "NULL"
+        | RStructList (_, typ) ->
+            pr "  struct guestfs_%s_list *r;\n" typ; Some "NULL" in
       pr "\n";
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
@@ -910,7 +912,18 @@ check_state (guestfs_h *g, const char *caller)
       pr "  r = guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
-      trace_return shortname style "r";
+      pr "\n";
+      (match errcode with
+       | Some errcode ->
+           pr "  if (r != %s) {\n" errcode;
+           trace_return ~indent:4 shortname style "r";
+           pr "  } else {\n";
+           trace_return_error ~indent:4 shortname style;
+           pr "  }\n";
+       | None ->
+           trace_return shortname style "r";
+      );
+      pr "\n";
       pr "  return r;\n";
       pr "}\n";
       pr "\n"
