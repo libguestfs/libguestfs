@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <fcntl.h>
+#include <locale.h>
 #include <assert.h>
 
 #include "progname.h"

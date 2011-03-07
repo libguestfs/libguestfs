@@ -23,6 +23,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <locale.h>
 #include <assert.h>
 
 #include <libxml/xmlIO.h>
