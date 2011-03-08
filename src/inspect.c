@@ -106,11 +106,11 @@ compile_regexps (void)
 
   COMPILE (re_fedora, "Fedora release (\\d+)", 0);
   COMPILE (re_rhel_old,
-           "(?:Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\\d+).*Update (\\d+)", 0);
+           "(?:Red Hat|CentOS|Scientific Linux).*release (\\d+).*Update (\\d+)", 0);
   COMPILE (re_rhel,
-           "(?:Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\\d+)\\.(\\d+)", 0);
+           "(?:Red Hat|CentOS|Scientific Linux).*release (\\d+)\\.(\\d+)", 0);
   COMPILE (re_rhel_no_minor,
-           "(?:Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\\d+)", 0);
+           "(?:Red Hat|CentOS|Scientific Linux).*release (\\d+)", 0);
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
