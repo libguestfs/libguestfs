@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-10 10:09+0000\n"
+"POT-Creation-Date: 2011-03-08 15:33+0000\n"
 "PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -15,14 +15,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
-#: rescue/virt-rescue.c:55
+#: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
+#: fish/fish.c:94 fuse/guestmount.c:862 inspector/virt-inspector.c:68
+#: rescue/virt-rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
 
-#: cat/virt-cat.c:57
+#: cat/virt-cat.c:58
 #, fuzzy, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -66,21 +66,21 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
-#: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
+#: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
+#: df/domains.c:428 df/main.c:133 fish/fish.c:212 fuse/guestmount.c:973
+#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
-#: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
-#: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
+#: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
+#: df/main.c:157 fish/fish.c:280 fuse/guestmount.c:1021
+#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
 
-#: cat/virt-filesystems.c:99
+#: cat/virt-filesystems.c:100
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -141,12 +141,12 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: cat/virt-filesystems.c:313 df/main.c:250
+#: cat/virt-filesystems.c:314 df/main.c:251
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "virt-df: nie można używać opcji -h oraz --csv jednocześnie\n"
 
-#: cat/virt-ls.c:58
+#: cat/virt-ls.c:59
 #, fuzzy, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -232,7 +232,7 @@ msgstr ""
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr "virt-df: ignorowanie {name}, posiada za dużo dysków ({c} > {max})"
 
-#: df/main.c:70
+#: df/main.c:71
 #, fuzzy, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -279,7 +279,7 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: df/main.c:262
+#: df/main.c:263
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
@@ -1920,7 +1920,7 @@ msgstr ""
 "należy użyć \"copy-in <lokalny> [<lokalny>...] <zdalny_katalog>\", aby "
 "skopiować pliki do obrazu\n"
 
-#: fish/copy.c:54 fish/copy.c:195
+#: fish/copy.c:54
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
@@ -1940,6 +1940,11 @@ msgstr ""
 "należy użyć \"copy-out <zdalny> [<zdalny>...] <lokalny_katalog>\", aby "
 "skopiować pliki z obrazu\n"
 
+#: fish/copy.c:195
+#, fuzzy, c-format
+msgid "copy-out: target '%s' is not a directory\n"
+msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
+
 #: fish/copy.c:225
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
@@ -1950,7 +1955,7 @@ msgstr "copy-out: \"%s\" nie jest plikiem lub katalogiem\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "należy użyć \"%s nazwa_pliku\", aby zmodyfikować plik\n"
 
-#: fish/fish.c:90
+#: fish/fish.c:98
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2037,50 +2042,50 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 "Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
-#: fish/fish.c:241
+#: fish/fish.c:249
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID nie był liczbą: %s\n"
 
-#: fish/fish.c:248
+#: fish/fish.c:256
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego procesu\n"
 
-#: fish/fish.c:296
+#: fish/fish.c:304
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: można podać tylko jeden parametr -f\n"
 
-#: fish/fish.c:451
+#: fish/fish.c:459
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --remote w tym samym czasie\n"
 
-#: fish/fish.c:459
+#: fish/fish.c:467
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: dodatkowe parametry wiersza poleceń za pomocą flagi --listen\n"
 
-#: fish/fish.c:465
+#: fish/fish.c:473
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
 
-#: fish/fish.c:522
+#: fish/fish.c:530
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 "guestfish: nie można uzyskać dostępu do bazy danych termcap lub terminfo.\n"
 
-#: fish/fish.c:526
+#: fish/fish.c:534
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr "guestfish: typ terminala \"%s\" nie jest określony.\n"
 
-#: fish/fish.c:617
+#: fish/fish.c:622
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2101,45 +2106,45 @@ msgstr ""
 "              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
-#: fish/fish.c:704
+#: fish/fish.c:754
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niezakończony podwójny cudzysłów\n"
 
-#: fish/fish.c:710 fish/fish.c:727
+#: fish/fish.c:760 fish/fish.c:777
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: parametry poleceń nie są oddzielone spacjami\n"
 
-#: fish/fish.c:721
+#: fish/fish.c:771
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niezakończony pojedynczy cudzysłów\n"
 
-#: fish/fish.c:776
+#: fish/fish.c:801
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: wewnętrzny błąd przetwarzania ciągu \"%s\"\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:818
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: za dużo parametrów\n"
 
-#: fish/fish.c:822
+#: fish/fish.c:842
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:963
+#: fish/fish.c:988
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:965
+#: fish/fish.c:990
 msgid "quit guestfish"
 msgstr "kończy działanie programu guestfish"
 
-#: fish/fish.c:976
+#: fish/fish.c:1001
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2150,7 +2155,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:984
+#: fish/fish.c:1009
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2159,14 +2164,14 @@ msgstr ""
 "quit - kończy działanie programu guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:1014
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
 "poleceń\n"
 
-#: fish/fish.c:1005
+#: fish/fish.c:1030
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2177,7 +2182,7 @@ msgstr ""
 "Lista poleceń:                        guestfish -h\n"
 "Pełna dokumentacja:                   man guestfish\n"
 
-#: fish/fish.c:1162
+#: fish/fish.c:1187
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cytat ucieczki w ciągu \"%s\"\n"
@@ -2256,12 +2261,17 @@ msgstr ""
 "guestfish: systemy operacyjne \"multiboot\" nie są obsługiwane przez opcję -"
 "i\n"
 
-#: fish/inspect.c:135
+#: fish/inspect.c:128
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr ""
+
+#: fish/inspect.c:140
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "System operacyjny: %s\n"
 
-#: fish/inspect.c:148
+#: fish/inspect.c:153
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s zamontowano w %s\n"
@@ -2551,7 +2561,7 @@ msgstr "%s: musi posiadać co najmniej jedną opcję -a i co najmniej jedną -m\
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
 
-#: inspector/virt-inspector.c:71
+#: inspector/virt-inspector.c:72
 #, fuzzy, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -2595,7 +2605,7 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: inspector/virt-inspector.c:257
+#: inspector/virt-inspector.c:258
 #, fuzzy, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2619,17 +2629,17 @@ msgstr ""
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
 "informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
-#: inspector/virt-inspector.c:282
+#: inspector/virt-inspector.c:283
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:294
+#: inspector/virt-inspector.c:295
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:302
+#: inspector/virt-inspector.c:303
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
@@ -2761,7 +2771,7 @@ msgstr "{path} nie zgadza się ze wzorem Augeas"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
 
-#: rescue/virt-rescue.c:59
+#: rescue/virt-rescue.c:60
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2808,12 +2818,12 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -V|--version         Wyświetla wersję i kończy działanie\n"
 
-#: rescue/virt-rescue.c:172
+#: rescue/virt-rescue.c:173
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
-#: rescue/virt-rescue.c:406
+#: rescue/virt-rescue.c:407
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -2874,32 +2884,32 @@ msgstr "libguestfs: błąd: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:757 src/inspect.c:2129 src/inspect.c:2172
-#: src/inspect.c:2222
+#: src/inspect.c:446 src/inspect.c:782 src/inspect.c:2157 src/inspect.c:2200
+#: src/inspect.c:2250
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:791
+#: src/inspect.c:816
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
-#: src/inspect.c:1007
+#: src/inspect.c:1032
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
 
-#: src/inspect.c:1287
+#: src/inspect.c:1313
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
-#: src/inspect.c:1381
+#: src/inspect.c:1407
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "brak danych badania: najpierw należy wywołać guestfs_inspect_os"
 
-#: src/inspect.c:1393
+#: src/inspect.c:1419
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2908,74 +2918,74 @@ msgstr ""
 "%s: nie odnaleziono urządzenia root: należy wywoływać tę funkcję tylko z "
 "urządzeniem root poprzednio zwróconym przez guestfs_inspect_os"
 
-#: src/inspect.c:1522
+#: src/inspect.c:1548
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1762 src/inspect.c:1784 src/inspect.c:1809
+#: src/inspect.c:1788 src/inspect.c:1810 src/inspect.c:1835
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
-#: src/inspect.c:2231
+#: src/inspect.c:2259
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2248
+#: src/inspect.c:2276
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
 msgstr ""
 
-#: src/launch.c:95
+#: src/launch.c:96
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "wiersz poleceń nie może zostać zmieniony po uruchomieniu podprocesu QEMU"
 
-#: src/launch.c:152
+#: src/launch.c:153
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: parametr musi zaczynać się od znaku \"-\""
 
-#: src/launch.c:166
+#: src/launch.c:167
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parametr \"%s\" nie jest dozwolony"
 
-#: src/launch.c:232 src/launch.c:336
+#: src/launch.c:233 src/launch.c:337
 msgid "filename cannot contain ',' (comma) character"
 msgstr "nazwa pliku nie może zawierać znaku \",\" (przecinka)"
 
-#: src/launch.c:244 src/launch.c:249
+#: src/launch.c:245 src/launch.c:250
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "parametr %s jest pusty lub zawiera niedozwolone znaki"
 
-#: src/launch.c:360
-msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
-
-#: src/launch.c:365
+#: src/launch.c:356
 msgid "the libguestfs handle has already been launched"
 msgstr "program obsługi libguestfs został już uruchomiony"
 
-#: src/launch.c:377
+#: src/launch.c:365
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: nie można utworzyć katalogu tymczasowego"
 
-#: src/launch.c:725
+#: src/launch.c:392
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
+
+#: src/launch.c:735
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:738
+#: src/launch.c:748
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:879
+#: src/launch.c:889
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2984,11 +2994,11 @@ msgstr ""
 "%s: polecenie nie powiodło się: jeśli QEMU jest położone w niestandardowej "
 "ścieżce, należy spróbować ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
 
-#: src/launch.c:971
+#: src/launch.c:981
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
 
-#: src/launch.c:982
+#: src/launch.c:992
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 
@@ -3342,7 +3352,7 @@ msgid "unexpected output from 'du' command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
 #: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
-#: tools/virt-make-fs.pl:453
+#: tools/virt-make-fs.pl:458
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: nieznany format wyjścia: {fmt}\n"
@@ -3352,31 +3362,31 @@ msgstr "{f}: nieznany format wyjścia: {fmt}\n"
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: nie można przetworzyć parametru rozmiaru: {sz}\n"
 
-#: tools/virt-make-fs.pl:401
+#: tools/virt-make-fs.pl:406
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: utworzenie obrazu dysku nie powiodło się, proszę zobaczyć "
 "wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:412
+#: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: obsługa systemu plików NTFS została wyłączona podczas "
 "komplikacji biblioteki libguestfs\n"
 
-#: tools/virt-make-fs.pl:437
+#: tools/virt-make-fs.pl:442
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
 "tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:459
+#: tools/virt-make-fs.pl:464
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "polecenie uncompress nie powiodło się, proszę zobaczyć wcześniejsze "
 "komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:494
+#: tools/virt-make-fs.pl:499
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-01-10 10:09+0000\n"
+"POT-Creation-Date: 2011-03-08 15:33+0000\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cat/virt-cat.c:53 cat/virt-filesystems.c:95 cat/virt-ls.c:54 df/main.c:66
-#: fish/fish.c:86 fuse/guestmount.c:862 inspector/virt-inspector.c:67
-#: rescue/virt-rescue.c:55
+#: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
+#: fish/fish.c:94 fuse/guestmount.c:862 inspector/virt-inspector.c:68
+#: rescue/virt-rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി `%s --help' ശ്രമിക്കുക.\n"
 
-#: cat/virt-cat.c:57
+#: cat/virt-cat.c:58
 #, fuzzy, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -65,21 +65,21 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: cat/virt-cat.c:113 cat/virt-filesystems.c:198 cat/virt-ls.c:119
-#: df/domains.c:428 df/main.c:132 fish/fish.c:204 fuse/guestmount.c:973
-#: inspector/virt-inspector.c:127 rescue/virt-rescue.c:125
+#: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
+#: df/domains.c:428 df/main.c:133 fish/fish.c:212 fuse/guestmount.c:973
+#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: cat/virt-cat.c:135 cat/virt-filesystems.c:252 cat/virt-ls.c:141
-#: df/main.c:156 fish/fish.c:272 fuse/guestmount.c:1021
-#: inspector/virt-inspector.c:149 rescue/virt-rescue.c:149
+#: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
+#: df/main.c:157 fish/fish.c:280 fuse/guestmount.c:1021
+#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
 
-#: cat/virt-filesystems.c:99
+#: cat/virt-filesystems.c:100
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -136,12 +136,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: cat/virt-filesystems.c:313 df/main.c:250
+#: cat/virt-filesystems.c:314 df/main.c:251
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: cat/virt-ls.c:58
+#: cat/virt-ls.c:59
 #, fuzzy, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -213,7 +213,7 @@ msgstr ""
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
 
-#: df/main.c:70
+#: df/main.c:71
 #, fuzzy, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -256,7 +256,7 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: df/main.c:262
+#: df/main.c:263
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
@@ -1930,7 +1930,7 @@ msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
-#: fish/copy.c:54 fish/copy.c:195
+#: fish/copy.c:54
 #, fuzzy, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "ഒരു ഡയറക്ടറിയിലുള്ള ഫയലുകള്‍ ലഭ്യമാക്കുക"
@@ -1947,6 +1947,11 @@ msgid ""
 "image\n"
 msgstr ""
 
+#: fish/copy.c:195
+#, fuzzy, c-format
+msgid "copy-out: target '%s' is not a directory\n"
+msgstr "ഒരു ഡയറക്ടറിയിലുള്ള ഫയലുകള്‍ ലഭ്യമാക്കുക"
+
 #: fish/copy.c:225
 #, fuzzy, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
@@ -1957,7 +1962,7 @@ msgstr "ആവര്‍ത്തിച്ചു് ഒരു ഫയല്‍ അ
 msgid "use '%s filename' to edit a file\n"
 msgstr "ഒരു ഫയല്‍ ചിട്ടപ്പെടുത്തുന്നതിനായി '%s filename' ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:90
+#: fish/fish.c:98
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2033,48 +2038,48 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:241
+#: fish/fish.c:249
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ഒരു നംബറല്ല: %s\n"
 
-#: fish/fish.c:248
+#: fish/fish.c:256
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: റിമോട്ട് പ്രക്രിയയുടെ PID-ലേക്ക് $GUESTFISH_PID സജ്ജമാക്കേണം\n"
 
-#: fish/fish.c:296
+#: fish/fish.c:304
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ഒരു -f പരാമീറ്റര്‍ മാത്രമേ പാടുള്ളൂ\n"
 
-#: fish/fish.c:451
+#: fish/fish.c:459
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --remote എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/fish.c:459
+#: fish/fish.c:467
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ഫ്ലാഗിനൊപ്പം കമാന്‍ഡ് ലൈനില്‍ അധികമായ പരാമീറ്ററുകള്‍\n"
 
-#: fish/fish.c:465
+#: fish/fish.c:473
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/fish.c:522
+#: fish/fish.c:530
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:526
+#: fish/fish.c:534
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:617
+#: fish/fish.c:622
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2094,45 +2099,45 @@ msgstr ""
 "      ഷെല്ലില്‍ നിന്നും പുറത്തു് കടക്കുന്നതിനായി 'quit'\n"
 "\n"
 
-#: fish/fish.c:704
+#: fish/fish.c:754
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ ഡബിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:710 fish/fish.c:727
+#: fish/fish.c:760 fish/fish.c:777
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
 
-#: fish/fish.c:721
+#: fish/fish.c:771
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ സിംഗിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:776
+#: fish/fish.c:801
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'-ല്‍ സ്ട്രിങ് പാഴ്സ് ചെയ്യുമ്പോള്‍ ഇന്റേര്‍ണല്‍ പിശക്\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:818
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: അനവധി ആര്‍ഗ്യുമെന്റുകള്‍\n"
 
-#: fish/fish.c:822
+#: fish/fish.c:842
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ കമാന്‍ഡ്\n"
 
-#: fish/fish.c:963
+#: fish/fish.c:988
 msgid "display a list of commands or help on a command"
 msgstr "കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുക"
 
-#: fish/fish.c:965
+#: fish/fish.c:990
 msgid "quit guestfish"
 msgstr "guestfish-ല്‍ നിന്നും പുറത്തു് കടക്കുക"
 
-#: fish/fish.c:976
+#: fish/fish.c:1001
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2143,7 +2148,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:984
+#: fish/fish.c:1009
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2152,12 +2157,12 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:1014
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:1005
+#: fish/fish.c:1030
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2165,7 +2170,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1162
+#: fish/fish.c:1187
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
@@ -2238,12 +2243,17 @@ msgstr ""
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
 
-#: fish/inspect.c:135
+#: fish/inspect.c:128
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr ""
+
+#: fish/inspect.c:140
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:148
+#: fish/inspect.c:153
 #, fuzzy, c-format
 msgid "%s mounted on %s\n"
 msgstr "മൌണ്ട് പോയിന്റുകള്‍ കാണിക്കുക"
@@ -2510,7 +2520,7 @@ msgstr "%s: കുറഞ്ഞതു് ഒരു -a ഉപാധിയും �
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ഹോസ്റ്റ് ഫയല്‍സിസ്റ്റത്തില്‍ ഒരു മൌണ്ട് പോയിന്റ് നല്‍കണം\n"
 
-#: inspector/virt-inspector.c:71
+#: inspector/virt-inspector.c:72
 #, fuzzy, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -2550,7 +2560,7 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: inspector/virt-inspector.c:257
+#: inspector/virt-inspector.c:258
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2567,17 +2577,17 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:282
+#: inspector/virt-inspector.c:283
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:294
+#: inspector/virt-inspector.c:295
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:302
+#: inspector/virt-inspector.c:303
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
@@ -2701,7 +2711,7 @@ msgstr "ഒരു മാതൃകയ്ക്കു് ചേരുന്ന വ
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:59
+#: rescue/virt-rescue.c:60
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2744,12 +2754,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: rescue/virt-rescue.c:172
+#: rescue/virt-rescue.c:173
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
 
-#: rescue/virt-rescue.c:406
+#: rescue/virt-rescue.c:407
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
@@ -2807,103 +2817,103 @@ msgstr "libguestfs: പിശക്: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:421 src/inspect.c:757 src/inspect.c:2129 src/inspect.c:2172
-#: src/inspect.c:2222
+#: src/inspect.c:446 src/inspect.c:782 src/inspect.c:2157 src/inspect.c:2200
+#: src/inspect.c:2250
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:791
+#: src/inspect.c:816
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
 
-#: src/inspect.c:1007
+#: src/inspect.c:1032
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1287
+#: src/inspect.c:1313
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
 
-#: src/inspect.c:1381
+#: src/inspect.c:1407
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1393
+#: src/inspect.c:1419
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1522
+#: src/inspect.c:1548
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1762 src/inspect.c:1784 src/inspect.c:1809
+#: src/inspect.c:1788 src/inspect.c:1810 src/inspect.c:1835
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "ഡെമണില്‍ നിന്നും വായിക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായി ഫയല്‍ അവസാനിച്ചിരിക്കുന്നു"
 
-#: src/inspect.c:2231
+#: src/inspect.c:2259
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2248
+#: src/inspect.c:2276
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
 msgstr ""
 
-#: src/launch.c:95
+#: src/launch.c:96
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ഉപപ്രക്രിയ വിന്യസിച്ചശേഷം കമാന്‍ഡ് ലൈനില്‍ മാറ്റം വരുത്തുവാന്‍ സാധ്യമല്ല"
 
-#: src/launch.c:152
+#: src/launch.c:153
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '-' ഉപയോഗിച്ചു് ആരംഭിക്കണം"
 
-#: src/launch.c:166
+#: src/launch.c:167
 #, fuzzy, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '%s' അനുവദിച്ചിട്ടില്ല"
 
-#: src/launch.c:232 src/launch.c:336
+#: src/launch.c:233 src/launch.c:337
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ഫയല്‍നാമത്തില്‍ ',' (കോമാ) അടങ്ങുന്നു"
 
-#: src/launch.c:244 src/launch.c:249
+#: src/launch.c:245 src/launch.c:250
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:360
-msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
-
-#: src/launch.c:365
+#: src/launch.c:356
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu നിലവില്‍ വിന്യസിച്ചിരിക്കുന്നു"
 
-#: src/launch.c:377
+#: src/launch.c:365
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
 
-#: src/launch.c:725
+#: src/launch.c:392
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
+
+#: src/launch.c:735
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/launch.c:738
+#: src/launch.c:748
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/launch.c:879
+#: src/launch.c:889
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2912,11 +2922,11 @@ msgstr ""
 "%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
 "എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
-#: src/launch.c:971
+#: src/launch.c:981
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/launch.c:982
+#: src/launch.c:992
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 
@@ -3246,7 +3256,7 @@ msgid "unexpected output from 'du' command"
 msgstr ""
 
 #: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
-#: tools/virt-make-fs.pl:453
+#: tools/virt-make-fs.pl:458
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr ""
@@ -3256,27 +3266,27 @@ msgstr ""
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:401
+#: tools/virt-make-fs.pl:406
 #, fuzzy
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: tools/virt-make-fs.pl:412
+#: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:437
+#: tools/virt-make-fs.pl:442
 #, fuzzy
 msgid "tar: failed, see earlier messages\n"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: tools/virt-make-fs.pl:459
+#: tools/virt-make-fs.pl:464
 #, fuzzy
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: tools/virt-make-fs.pl:494
+#: tools/virt-make-fs.pl:499
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
