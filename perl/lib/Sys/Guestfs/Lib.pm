@@ -524,12 +524,12 @@ sub _check_linux_root
             $r->{package_management} = "yum";
         }
 
-        elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux)/) {
+        elsif (/(Red Hat|CentOS|Scientific Linux)/) {
             chomp; $r->{product_name} = $_;
 
             my $distro = $1;
 
-            if($distro eq "Red Hat Enterprise Linux") {
+            if($distro eq "Red Hat") {
                 $r->{osdistro} = "rhel";
             }
 
