@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-04 10:09+0000\n"
+"POT-Creation-Date: 2011-03-08 16:20+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.6.1\n"
 
-#: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
-#: fish/fish.c:96 fuse/guestmount.c:863 inspector/virt-inspector.c:68
-#: rescue/virt-rescue.c:56
+#: cat/virt-cat.c:55 cat/virt-filesystems.c:97 cat/virt-ls.c:56 df/main.c:68
+#: fish/fish.c:96 fuse/guestmount.c:863 inspector/virt-inspector.c:69
+#: rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
 
-#: cat/virt-cat.c:58
+#: cat/virt-cat.c:59
 #, fuzzy, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -65,21 +65,21 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:216 fuse/guestmount.c:976
-#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
+#: cat/virt-cat.c:115 cat/virt-filesystems.c:200 cat/virt-ls.c:121
+#: df/domains.c:428 df/main.c:134 fish/fish.c:216 fuse/guestmount.c:976
+#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:127
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
-#: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:286 fuse/guestmount.c:1026
-#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
+#: cat/virt-cat.c:137 cat/virt-filesystems.c:254 cat/virt-ls.c:143
+#: df/main.c:158 fish/fish.c:286 fuse/guestmount.c:1026
+#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
 
-#: cat/virt-filesystems.c:100
+#: cat/virt-filesystems.c:101
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -136,12 +136,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: cat/virt-filesystems.c:315 df/main.c:252
+#: cat/virt-filesystems.c:316 df/main.c:253
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"
 
-#: cat/virt-ls.c:59
+#: cat/virt-ls.c:60
 #, fuzzy, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -213,7 +213,7 @@ msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
 
-#: df/main.c:71
+#: df/main.c:72
 #, fuzzy, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -256,7 +256,7 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: df/main.c:264
+#: df/main.c:265
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
@@ -2573,7 +2573,7 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 "%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
 
-#: inspector/virt-inspector.c:72
+#: inspector/virt-inspector.c:73
 #, fuzzy, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -2613,7 +2613,7 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: inspector/virt-inspector.c:259
+#: inspector/virt-inspector.c:260
 #, fuzzy, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2638,17 +2638,17 @@ msgstr ""
 "Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
 "met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
 
-#: inspector/virt-inspector.c:284
+#: inspector/virt-inspector.c:285
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:296
+#: inspector/virt-inspector.c:297
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:304
+#: inspector/virt-inspector.c:305
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
@@ -2781,7 +2781,7 @@ msgstr "{path} komt niet overeen met augeas patroon"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
 
-#: rescue/virt-rescue.c:60
+#: rescue/virt-rescue.c:61
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2824,12 +2824,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: rescue/virt-rescue.c:173
+#: rescue/virt-rescue.c:174
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:408
+#: rescue/virt-rescue.c:409
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
@@ -3367,7 +3367,7 @@ msgid "unexpected output from 'du' command"
 msgstr "onverwachte output  van 'du' commando"
 
 #: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
-#: tools/virt-make-fs.pl:453
+#: tools/virt-make-fs.pl:458
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: onbekend invoer formaat: {fmt}\n"
@@ -3377,28 +3377,28 @@ msgstr "{f}: onbekend invoer formaat: {fmt}\n"
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: kan size parameter niet ontleden: {sz}\n"
 
-#: tools/virt-make-fs.pl:401
+#: tools/virt-make-fs.pl:406
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: aanmaken schijf image mislukte, zie eerdere fout "
 "boodschappen\n"
 
-#: tools/virt-make-fs.pl:412
+#: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: NTFS ondersteuning was uitgezet toen libguestfs gecompileerd "
 "werd\n"
 
-#: tools/virt-make-fs.pl:437
+#: tools/virt-make-fs.pl:442
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: misluket, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:459
+#: tools/virt-make-fs.pl:464
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "decomprimeer commando mislukte, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:494
+#: tools/virt-make-fs.pl:499
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"

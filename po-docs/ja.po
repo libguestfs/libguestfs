@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-02-06 17:14+0000\n"
+"POT-Creation-Date: 2011-03-08 16:20+0000\n"
 "PO-Revision-Date: 2010-09-02 14:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5608,7 +5608,7 @@ msgstr ""
 #: ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:238
 #: ../tools/virt-edit.pl:350 ../tools/virt-win-reg.pl:572
 #: ../tools/virt-resize.pl:1483 ../tools/virt-list-filesystems.pl:189
-#: ../tools/virt-tar.pl:286 ../tools/virt-make-fs.pl:534
+#: ../tools/virt-tar.pl:286 ../tools/virt-make-fs.pl:539
 #: ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr ""
@@ -5636,7 +5636,7 @@ msgstr ""
 # type: =head1
 #. type: =head1
 #: ../src/guestfs.pod:2608 ../tools/virt-win-reg.pl:587
-#: ../tools/virt-make-fs.pl:548
+#: ../tools/virt-make-fs.pl:553
 msgid "BUGS"
 msgstr ""
 
@@ -5720,7 +5720,7 @@ msgstr ""
 #: ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:253
 #: ../tools/virt-edit.pl:368 ../tools/virt-win-reg.pl:602
 #: ../tools/virt-resize.pl:1508 ../tools/virt-list-filesystems.pl:206
-#: ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:563
+#: ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:568
 #: ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr ""
@@ -23540,7 +23540,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:258 ../tools/virt-edit.pl:372
 #: ../tools/virt-win-reg.pl:606 ../tools/virt-resize.pl:1512
 #: ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:309
-#: ../tools/virt-make-fs.pl:567 ../tools/virt-list-partitions.pl:277
+#: ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -23554,7 +23554,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:263 ../tools/virt-edit.pl:377
 #: ../tools/virt-win-reg.pl:611 ../tools/virt-resize.pl:1517
 #: ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:314
-#: ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:282
+#: ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -23568,7 +23568,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:268 ../tools/virt-edit.pl:382
 #: ../tools/virt-win-reg.pl:616 ../tools/virt-resize.pl:1522
 #: ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:319
-#: ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:287
+#: ../tools/virt-make-fs.pl:582 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -32130,7 +32130,7 @@ msgstr ""
 #. type: =head1
 #: ../tools/virt-edit.pl:343 ../tools/virt-win-reg.pl:559
 #: ../tools/virt-resize.pl:1476 ../tools/virt-list-filesystems.pl:182
-#: ../tools/virt-tar.pl:279 ../tools/virt-make-fs.pl:527
+#: ../tools/virt-tar.pl:279 ../tools/virt-make-fs.pl:532
 #: ../tools/virt-list-partitions.pl:250
 msgid "SHELL QUOTING"
 msgstr ""
@@ -32139,7 +32139,7 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-edit.pl:345 ../tools/virt-win-reg.pl:567
 #: ../tools/virt-resize.pl:1478 ../tools/virt-list-filesystems.pl:184
-#: ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:529
+#: ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:534
 #: ../tools/virt-list-partitions.pl:252
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
@@ -32160,7 +32160,7 @@ msgstr ""
 #. type: =head1
 #: ../tools/virt-edit.pl:364 ../tools/virt-win-reg.pl:598
 #: ../tools/virt-resize.pl:1504 ../tools/virt-list-filesystems.pl:202
-#: ../tools/virt-tar.pl:301 ../tools/virt-make-fs.pl:559
+#: ../tools/virt-tar.pl:301 ../tools/virt-make-fs.pl:564
 #: ../tools/virt-list-partitions.pl:269
 msgid "AUTHOR"
 msgstr ""
@@ -32169,7 +32169,7 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-edit.pl:366 ../tools/virt-win-reg.pl:600
 #: ../tools/virt-resize.pl:1506 ../tools/virt-list-filesystems.pl:204
-#: ../tools/virt-tar.pl:303 ../tools/virt-make-fs.pl:561
+#: ../tools/virt-tar.pl:303 ../tools/virt-make-fs.pl:566
 #: ../tools/virt-list-partitions.pl:271
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
@@ -32790,7 +32790,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-win-reg.pl:589 ../tools/virt-make-fs.pl:550
+#: ../tools/virt-win-reg.pl:589 ../tools/virt-make-fs.pl:555
 msgid ""
 "When reporting bugs, please enable debugging and capture the I<complete> "
 "output:"
@@ -32817,7 +32817,7 @@ msgstr ""
 # type: textblock
 #. type: textblock
 #: ../tools/virt-win-reg.pl:604 ../tools/virt-resize.pl:1510
-#: ../tools/virt-make-fs.pl:565
+#: ../tools/virt-make-fs.pl:570
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr ""
 
@@ -34748,7 +34748,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:536
+#: ../tools/virt-make-fs.pl:541
 msgid ""
 "L<guestfish(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, L<mkisofs(1)>, "
 "L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, L<resize2fs(8)>, L<guestfs"
@@ -34757,7 +34757,7 @@ msgstr ""
 
 # type: verbatim
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:553
+#: ../tools/virt-make-fs.pl:558
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_DEBUG=1\n"
@@ -34767,7 +34767,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../tools/virt-make-fs.pl:556
+#: ../tools/virt-make-fs.pl:561
 msgid ""
 "Attach /tmp/virt-make-fs.log to a new bug report at L<https://bugzilla."
 "redhat.com/>"
