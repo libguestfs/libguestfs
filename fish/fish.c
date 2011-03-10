@@ -499,7 +499,8 @@ main (int argc, char *argv[])
     : (optind >= argc && isatty (0));
 
   if (progress_bars)
-    guestfs_set_progress_callback (g, progress_callback, NULL);
+    guestfs_set_event_callback (g, progress_callback,
+                                GUESTFS_EVENT_PROGRESS, 0, NULL);
 
   /* Interactive, shell script, or command(s) on the command line? */
   if (optind >= argc) {

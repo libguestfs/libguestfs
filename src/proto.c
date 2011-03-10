@@ -176,8 +176,7 @@ guestfs___end_busy (guestfs_h *g)
 static void
 child_cleanup (guestfs_h *g)
 {
-  if (g->verbose)
-    fprintf (stderr, "child_cleanup: %p: child process died\n", g);
+  debug (g, "child_cleanup: %p: child process died", g);
 
   /*if (g->pid > 0) kill (g->pid, SIGTERM);*/
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
@@ -193,8 +192,7 @@ child_cleanup (guestfs_h *g)
   g->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
   g->state = CONFIG;
-  if (g->subprocess_quit_cb)
-    g->subprocess_quit_cb (g, g->subprocess_quit_cb_data);
+  guestfs___call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
 }
 
 static int
@@ -204,10 +202,8 @@ read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
   int n;
 
 #if 0
-  if (g->verbose)
-    fprintf (stderr,
-             "read_log_message_or_eof: %p g->state = %d, fd = %d\n",
-             g, g->state, fd);
+  debug (g, "read_log_message_or_eof: %p g->state = %d, fd = %d",
+         g, g->state, fd);
 #endif
 
   /* QEMU's console emulates a 16550A serial port.  The real 16550A
@@ -237,13 +233,8 @@ read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
     return -1;
   }
 
-  /* In verbose mode, copy all log messages to stderr. */
-  if (g->verbose)
-    ignore_value (write (STDERR_FILENO, buf, n));
-
   /* It's an actual log message, send it upwards if anyone is listening. */
-  if (g->log_message_cb)
-    g->log_message_cb (g, g->log_message_cb_data, buf, n);
+  guestfs___call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, n);
 
   return 0;
 }
@@ -293,6 +284,20 @@ really_read_from_socket (guestfs_h *g, int sock, char *buf, size_t n)
   return (ssize_t) got;
 }
 
+static void
+send_progress_message (guestfs_h *g, const guestfs_progress *message)
+{
+  uint64_t array[4];
+
+  array[0] = message->proc;
+  array[1] = message->serial;
+  array[2] = message->position;
+  array[3] = message->total;
+
+  guestfs___call_callbacks_array (g, GUESTFS_EVENT_PROGRESS,
+                                  array, sizeof array / sizeof array[0]);
+}
+
 static int
 check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
 {
@@ -301,10 +306,8 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
   uint32_t flag;
   XDR xdr;
 
-  if (g->verbose)
-    fprintf (stderr,
-             "check_for_daemon_cancellation_or_eof: %p g->state = %d, fd = %d\n",
-             g, g->state, fd);
+  debug (g, "check_for_daemon_cancellation_or_eof: %p g->state = %d, fd = %d",
+         g, g->state, fd);
 
   n = really_read_from_socket (g, fd, buf, 4);
   if (n == -1)
@@ -331,16 +334,14 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
       return -1;
     }
 
-    if (g->state == BUSY && g->progress_cb) {
+    if (g->state == BUSY) {
       guestfs_progress message;
 
       xdrmem_create (&xdr, buf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
       xdr_guestfs_progress (&xdr, &message);
       xdr_destroy (&xdr);
 
-      g->progress_cb (g, g->progress_cb_data,
-                      message.proc, message.serial,
-                      message.position, message.total);
+      send_progress_message (g, &message);
     }
 
     return 0;
@@ -374,9 +375,7 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
   fd_set rset, rset2;
   fd_set wset, wset2;
 
-  if (g->verbose)
-    fprintf (stderr,
-             "send_to_daemon: %p g->state = %d, n = %zu\n", g, g->state, n);
+  debug (g, "send_to_daemon: %p g->state = %d, n = %zu", g, g->state, n);
 
   FD_ZERO (&rset);
   FD_ZERO (&wset);
@@ -454,10 +453,8 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
   fd_set rset, rset2;
 
-  if (g->verbose)
-    fprintf (stderr,
-             "recv_from_daemon: %p g->state = %d, size_rtn = %p, buf_rtn = %p\n",
-             g, g->state, size_rtn, buf_rtn);
+  debug (g, "recv_from_daemon: %p g->state = %d, size_rtn = %p, buf_rtn = %p",
+         g, g->state, size_rtn, buf_rtn);
 
   FD_ZERO (&rset);
 
@@ -543,8 +540,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
                    g->state);
           else {
             g->state = READY;
-            if (g->launch_done_cb)
-              g->launch_done_cb (g, g->launch_done_cb_data);
+            guestfs___call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);
           }
           return 0;
         }
@@ -614,16 +610,14 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 #endif
 
   if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
-    if (g->state == BUSY && g->progress_cb) {
+    if (g->state == BUSY) {
       guestfs_progress message;
       XDR xdr;
       xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
       xdr_guestfs_progress (&xdr, &message);
       xdr_destroy (&xdr);
 
-      g->progress_cb (g, g->progress_cb_data,
-                      message.proc, message.serial,
-                      message.position, message.total);
+      send_progress_message (g, &message);
     }
 
     free (*buf_rtn);
@@ -646,9 +640,7 @@ guestfs___accept_from_daemon (guestfs_h *g)
 {
   fd_set rset, rset2;
 
-  if (g->verbose)
-    fprintf (stderr,
-             "accept_from_daemon: %p g->state = %d\n", g, g->state);
+  debug (g, "accept_from_daemon: %p g->state = %d", g, g->state);
 
   FD_ZERO (&rset);
 
@@ -908,8 +900,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 
   /* Did the daemon send a cancellation message? */
   if (r == -2) {
-    if (g->verbose)
-      fprintf (stderr, "got daemon cancellation\n");
+    debug (g, "got daemon cancellation");
     return -2;
   }
 
@@ -1030,9 +1021,8 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
   char fbuf[4];
   uint32_t flag = GUESTFS_CANCEL_FLAG;
 
-  if (g->verbose)
-    fprintf (stderr, "%s: waiting for daemon to acknowledge cancellation\n",
-             __func__);
+  debug (g, "%s: waiting for daemon to acknowledge cancellation",
+         __func__);
 
   xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
   xdr_uint32_t (&xdr, &flag);

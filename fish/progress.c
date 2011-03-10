@@ -167,9 +167,18 @@ estimate_remaining_time (double ratio)
 /* Callback which displays a progress bar. */
 void
 progress_callback (guestfs_h *g, void *data,
-                   int proc_nr, int serial,
-                   uint64_t position, uint64_t total)
+                   uint64_t event, int event_handle, int flags,
+                   const char *buf, size_t buf_len,
+                   const uint64_t *array, size_t array_len)
 {
+  if (array_len < 4)
+    return;
+
+  /*uint64_t proc_nr = array[0];*/
+  /*uint64_t serial = array[1];*/
+  uint64_t position = array[2];
+  uint64_t total = array[3];
+
   if (have_terminfo == 0) {
   dumb:
     printf ("%" PRIu64 "/%" PRIu64 "\n", position, total);

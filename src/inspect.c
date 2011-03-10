@@ -258,10 +258,9 @@ check_for_filesystem_on (guestfs_h *g, const char *device,
 
   int is_swap = vfs_type && STREQ (vfs_type, "swap");
 
-  if (g->verbose)
-    fprintf (stderr, "check_for_filesystem_on: %s %d %d (%s)\n",
-             device, is_block, is_partnum,
-             vfs_type ? vfs_type : "failed to get vfs type");
+  debug (g, "check_for_filesystem_on: %s %d %d (%s)",
+         device, is_block, is_partnum,
+         vfs_type ? vfs_type : "failed to get vfs type");
 
   if (is_swap) {
     free (vfs_type);
@@ -1307,8 +1306,7 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   fs->fstab[n-1].device = device;
   fs->fstab[n-1].mountpoint = mountpoint;
 
-  if (g->verbose)
-    fprintf (stderr, "fstab: device=%s mountpoint=%s\n", device, mountpoint);
+  debug (g, "fstab: device=%s mountpoint=%s", device, mountpoint);
 
   return 0;
 }
@@ -1414,8 +1412,7 @@ check_windows_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   }
 
-  if (g->verbose)
-    fprintf (stderr, "windows %%SYSTEMROOT%% = %s", systemroot);
+  debug (g, "windows %%SYSTEMROOT%% = %s", systemroot);
 
   /* Freed by guestfs___free_inspect_info. */
   fs->windows_systemroot = systemroot;
@@ -2219,8 +2216,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 
   snprintf (cmd, cmd_len, DB_DUMP " -p '%s'", tmpfile);
 
-  if (g->verbose)
-    fprintf (stderr, "list_applications_rpm: %s\n", cmd);
+  debug (g, "list_applications_rpm: %s", cmd);
 
   pp = popen (cmd, "r");
   if (pp == NULL) {
@@ -2940,7 +2936,7 @@ guestfs___match (guestfs_h *g, const char *str, const pcre *re)
     return 0;
   if (r != 1) {
     /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+    warning (g, "%s: %s: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
              __FILE__, __func__, r, str);
     return 0;
   }
@@ -2963,7 +2959,7 @@ guestfs___match1 (guestfs_h *g, const char *str, const pcre *re)
     return NULL;
   if (r != 2) {
     /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+    warning (g, "%s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"",
              __FILE__, __func__, r, str);
     return NULL;
   }
@@ -2984,7 +2980,7 @@ guestfs___match2 (guestfs_h *g, const char *str, const pcre *re,
     return 0;
   if (r != 3) {
     /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+    warning (g, "%s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"",
              __FILE__, __func__, r, str);
     return 0;
   }
@@ -3008,7 +3004,7 @@ guestfs___match3 (guestfs_h *g, const char *str, const pcre *re,
     return 0;
   if (r != 4) {
     /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+    warning (g, "%s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"",
              __FILE__, __func__, r, str);
     return 0;
   }

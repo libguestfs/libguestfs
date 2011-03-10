@@ -373,7 +373,7 @@ guestfs__launch (guestfs_h *g)
    * want. (RHBZ#610880).
    */
   if (chmod (g->tmpdir, 0755) == -1)
-    fprintf (stderr, "chmod: %s: %m (ignored)\n", g->tmpdir);
+    warning (g, "chmod: %s: %m (ignored)", g->tmpdir);
 
   /* Launch the appliance or attach to an existing daemon. */
   switch (g->attach_method) {
@@ -918,27 +918,40 @@ guestfs___print_timestamped_argv (guestfs_h *g, const char * argv[])
 {
   int i = 0;
   int needs_quote;
+  char *buf = NULL;
+  size_t len;
+  FILE *fp;
+
+  fp = open_memstream (&buf, &len);
+  if (fp == NULL) {
+    warning (g, "open_memstream: %m");
+    return;
+  }
 
   struct timeval tv;
   gettimeofday (&tv, NULL);
-  fprintf (stderr, "[%05" PRIi64 "ms] ", timeval_diff (&g->launch_t, &tv));
+  fprintf (fp, "[%05" PRIi64 "ms] ", timeval_diff (&g->launch_t, &tv));
 
   while (argv[i]) {
     if (argv[i][0] == '-') /* -option starts a new line */
-      fprintf (stderr, " \\\n   ");
+      fprintf (fp, " \\\n   ");
 
-    if (i > 0) fputc (' ', stderr);
+    if (i > 0) fputc (' ', fp);
 
     /* Does it need shell quoting?  This only deals with simple cases. */
     needs_quote = strcspn (argv[i], " ") != strlen (argv[i]);
 
-    if (needs_quote) fputc ('\'', stderr);
-    fprintf (stderr, "%s", argv[i]);
-    if (needs_quote) fputc ('\'', stderr);
+    if (needs_quote) fputc ('\'', fp);
+    fprintf (fp, "%s", argv[i]);
+    if (needs_quote) fputc ('\'', fp);
     i++;
   }
 
-  fputc ('\n', stderr);
+  fclose (fp);
+
+  debug (g, "%s", buf);
+
+  free (buf);
 }
 
 void
@@ -957,8 +970,7 @@ guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...)
 
   gettimeofday (&tv, NULL);
 
-  fprintf (stderr, "[%05" PRIi64 "ms] %s\n",
-           timeval_diff (&g->launch_t, &tv), msg);
+  debug (g, "[%05" PRIi64 "ms] %s", timeval_diff (&g->launch_t, &tv), msg);
 
   free (msg);
 }
@@ -1064,8 +1076,7 @@ is_openable (guestfs_h *g, const char *path, int flags)
 {
   int fd = open (path, flags);
   if (fd == -1) {
-    if (g->verbose)
-      perror (path);
+    debug (g, "is_openable: %s: %m", path);
     return 0;
   }
   close (fd);
@@ -1094,8 +1105,7 @@ guestfs__kill_subprocess (guestfs_h *g)
     return -1;
   }
 
-  if (g->verbose)
-    fprintf (stderr, "sending SIGTERM to process %d\n", g->pid);
+  debug (g, "sending SIGTERM to process %d", g->pid);
 
   if (g->pid > 0) kill (g->pid, SIGTERM);
   if (g->recoverypid > 0) kill (g->recoverypid, 9);

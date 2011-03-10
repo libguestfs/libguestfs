@@ -28,6 +28,7 @@ SOURCES = \
 	generator_optgroups.ml \
 	generator_prepopts.mli \
 	generator_prepopts.ml \
+	generator_events.ml \
 	generator_pr.mli \
 	generator_pr.ml \
 	generator_docstrings.ml \

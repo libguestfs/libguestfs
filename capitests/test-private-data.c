@@ -30,6 +30,34 @@
 
 #define PREFIX "test_"
 
+static size_t close_callback_called = 0;
+
+/* This callback deletes all test keys in the handle. */
+static void
+close_callback (guestfs_h *g,
+                void *opaque,
+                uint64_t event,
+                int event_handle,
+                int flags,
+                const char *buf, size_t buf_len,
+                const uint64_t *array, size_t array_len)
+{
+  const char *key;
+  void *data;
+
+  close_callback_called++;
+
+ again:
+  data = guestfs_first_private (g, &key);
+  while (data != NULL) {
+    if (strncmp (key, PREFIX, strlen (PREFIX)) == 0) {
+      guestfs_set_private (g, key, NULL);
+      goto again;
+    }
+    data = guestfs_next_private (g, &key);
+  }
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -43,6 +71,10 @@ main (int argc, char *argv[])
     fprintf (stderr, "failed to create handle\n");
     exit (EXIT_FAILURE);
   }
+
+  if (guestfs_set_event_callback (g, close_callback, GUESTFS_EVENT_CLOSE,
+                                  0, NULL) == -1)
+    exit (EXIT_FAILURE);
 
   guestfs_set_private (g, PREFIX "a", (void *) 1);
   guestfs_set_private (g, PREFIX "b", (void *) 2);
@@ -79,7 +111,10 @@ main (int argc, char *argv[])
   }
   assert (count == 1);
 
+  /* Closing should implicitly call the close_callback function. */
   guestfs_close (g);
+
+  assert (close_callback_called == 1);
 
   exit (EXIT_SUCCESS);
 }

@@ -10,11 +10,13 @@ appliance/supermin.d
 autom4te.cache
 *.bak
 bindtests.tmp
+capitests/test.log
 capitests/test-add-drive-opts
 capitests/test-add-libvirt-dom
 capitests/test-command
 capitests/test-config
 capitests/test-create-handle
+capitests/test-debug-to-file
 capitests/test-just-header
 capitests/test-last-errno
 capitests/test-private-data

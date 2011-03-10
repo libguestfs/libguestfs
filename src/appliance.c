@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -241,14 +241,14 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
   }
 
   if (pclose (pp) == -1) {
-    perror ("pclose");
+    warning (g, "pclose: %m");
     return NULL;
   }
 
   len = strlen (checksum);
 
   if (len < 16) {               /* sanity check */
-    fprintf (stderr, "libguestfs: internal error: febootstrap-supermin-helper -f checksum returned a short string\n");
+    warning (g, "febootstrap-supermin-helper -f checksum returned a short string");
     return NULL;
   }
 

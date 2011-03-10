@@ -28,6 +28,7 @@ open Generator_api_versions
 open Generator_optgroups
 open Generator_actions
 open Generator_structs
+open Generator_events
 
 (* Generate C API. *)
 
@@ -396,6 +397,39 @@ extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 /* Events. */
+";
+
+  List.iter (
+    fun (name, bitmask) ->
+      pr "#define GUESTFS_EVENT_%-16s 0x%04x\n"
+        (String.uppercase name) bitmask
+  ) events;
+  pr "#define GUESTFS_EVENT_%-16s UINT64_MAX\n" "ALL";
+  pr "\n";
+
+  pr "\
+#ifndef GUESTFS_TYPEDEF_EVENT_CALLBACK
+#define GUESTFS_TYPEDEF_EVENT_CALLBACK 1
+typedef void (*guestfs_event_callback) (
+                        guestfs_h *g,
+                        void *opaque,
+                        uint64_t event,
+                        int event_handle,
+                        int flags,
+                        const char *buf, size_t buf_len,
+                        const uint64_t *array, size_t array_len);
+#endif
+
+#define LIBGUESTFS_HAVE_SET_EVENT_CALLBACK 1
+int guestfs_set_event_callback (guestfs_h *g,
+                                guestfs_event_callback cb,
+                                uint64_t event_bitmask,
+                                int flags,
+                                void *opaque);
+#define LIBGUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
+void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
+
+/* Old-style event handling.  In new code use guestfs_set_event_callback. */
 #ifndef GUESTFS_TYPEDEF_LOG_MESSAGE_CB
 #define GUESTFS_TYPEDEF_LOG_MESSAGE_CB 1
 typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *opaque, char *buf, int len);
@@ -584,6 +618,7 @@ and generate_client_actions () =
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <assert.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-internal.h\"
@@ -637,6 +672,42 @@ check_state (guestfs_h *g, const char *caller)
     return -1;
   }
   return 0;
+}
+
+/* Convenience wrapper for tracing. */
+static FILE *
+trace_open (guestfs_h *g)
+{
+  assert (g->trace_fp == NULL);
+  g->trace_buf = NULL;
+  g->trace_len = 0;
+  g->trace_fp = open_memstream (&g->trace_buf, &g->trace_len);
+  if (g->trace_fp)
+    return g->trace_fp;
+  else
+    return stderr;
+}
+
+static void
+trace_send_line (guestfs_h *g)
+{
+  char *buf;
+  size_t len;
+
+  if (g->trace_fp) {
+    fclose (g->trace_fp);
+    g->trace_fp = NULL;
+
+    /* The callback might invoke other libguestfs calls, so keep
+     * a copy of the pointer to the buffer and length.
+     */
+    buf = g->trace_buf;
+    len = g->trace_len;
+    g->trace_buf = NULL;
+    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, buf, len);
+
+    free (buf);
+  }
 }
 
 ";
@@ -743,8 +814,9 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n"
     );
 
-    pr "    fprintf (stderr, \"%%s: %%s: %%s\",\n";
-    pr "             \"libguestfs\", \"trace\", \"%s\");\n" shortname;
+    pr "    trace_fp = trace_open (g);\n";
+
+    pr "    fprintf (trace_fp, \"%%s\", \"%s\");\n" shortname;
 
     (* Required arguments. *)
     List.iter (
@@ -756,33 +828,33 @@ check_state (guestfs_h *g, const char *caller)
       | FileIn n
       | FileOut n ->
           (* guestfish doesn't support string escaping, so neither do we *)
-          pr "    fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n
+          pr "    fprintf (trace_fp, \" \\\"%%s\\\"\", %s);\n" n
       | Key n ->
           (* don't print keys *)
-          pr "    fprintf (stderr, \" \\\"***\\\"\");\n"
+          pr "    fprintf (trace_fp, \" \\\"***\\\"\");\n"
       | OptString n ->			(* string option *)
-          pr "    if (%s) fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n n;
-          pr "    else fprintf (stderr, \" null\");\n"
+          pr "    if (%s) fprintf (trace_fp, \" \\\"%%s\\\"\", %s);\n" n n;
+          pr "    else fprintf (trace_fp, \" null\");\n"
       | StringList n
       | DeviceList n ->			(* string list *)
-          pr "    fputc (' ', stderr);\n";
-          pr "    fputc ('\"', stderr);\n";
+          pr "    fputc (' ', trace_fp);\n";
+          pr "    fputc ('\"', trace_fp);\n";
           pr "    for (i = 0; %s[i]; ++i) {\n" n;
-          pr "      if (i > 0) fputc (' ', stderr);\n";
-          pr "      fputs (%s[i], stderr);\n" n;
+          pr "      if (i > 0) fputc (' ', trace_fp);\n";
+          pr "      fputs (%s[i], trace_fp);\n" n;
           pr "    }\n";
-          pr "    fputc ('\"', stderr);\n";
+          pr "    fputc ('\"', trace_fp);\n";
       | Bool n ->			(* boolean *)
-          pr "    fputs (%s ? \" true\" : \" false\", stderr);\n" n
+          pr "    fputs (%s ? \" true\" : \" false\", trace_fp);\n" n
       | Int n ->			(* int *)
-          pr "    fprintf (stderr, \" %%d\", %s);\n" n
+          pr "    fprintf (trace_fp, \" %%d\", %s);\n" n
       | Int64 n ->
-          pr "    fprintf (stderr, \" %%\" PRIi64, %s);\n" n
+          pr "    fprintf (trace_fp, \" %%\" PRIi64, %s);\n" n
       | BufferIn n ->                   (* RHBZ#646822 *)
-          pr "    fputc (' ', stderr);\n";
-          pr "    guestfs___print_BufferIn (stderr, %s, %s_size);\n" n n
+          pr "    fputc (' ', trace_fp);\n";
+          pr "    guestfs___print_BufferIn (trace_fp, %s, %s_size);\n" n n
       | Pointer (t, n) ->
-          pr "    fprintf (stderr, \" (%s)%%p\", %s);\n" t n
+          pr "    fprintf (trace_fp, \" (%s)%%p\", %s);\n" t n
     ) args;
 
     (* Optional arguments. *)
@@ -795,18 +867,18 @@ check_state (guestfs_h *g, const char *caller)
           uc_shortname uc_n;
         (match argt with
          | String n ->
-             pr "      fprintf (stderr, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s);\n" n n
+             pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s);\n" n n
          | Bool n ->
-             pr "      fprintf (stderr, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s ? \"true\" : \"false\");\n" n n
+             pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s ? \"true\" : \"false\");\n" n n
          | Int n ->
-             pr "      fprintf (stderr, \" \\\"%%s:%%d\\\"\", \"%s\", optargs->%s);\n" n n
+             pr "      fprintf (trace_fp, \" \\\"%%s:%%d\\\"\", \"%s\", optargs->%s);\n" n n
          | Int64 n ->
-             pr "      fprintf (stderr, \" \\\"%%s:%%\" PRIi64 \"\\\"\", \"%s\", optargs->%s);\n" n n
+             pr "      fprintf (trace_fp, \" \\\"%%s:%%\" PRIi64 \"\\\"\", \"%s\", optargs->%s);\n" n n
          | _ -> assert false
         );
     ) optargs;
 
-    pr "    fputc ('\\n', stderr);\n";
+    pr "    trace_send_line (g);\n";
     pr "  }\n";
     pr "\n";
   in
@@ -825,67 +897,53 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n"
     );
 
-    pr "%s  fprintf (stderr, \"%%s: %%s: %%s = \",\n" indent;
-    pr "%s           \"libguestfs\", \"trace\", \"%s\");\n"
-      indent shortname;
+    pr "%s  trace_fp = trace_open (g);\n" indent;
+
+    pr "%s  fprintf (trace_fp, \"%%s = \", \"%s\");\n" indent shortname;
 
     (match ret with
      | RErr | RInt _ | RBool _ ->
-         pr "%s  fprintf (stderr, \"%%d\", %s);\n" indent rv
+         pr "%s  fprintf (trace_fp, \"%%d\", %s);\n" indent rv
      | RInt64 _ ->
-         pr "%s  fprintf (stderr, \"%%\" PRIi64, %s);\n" indent rv
+         pr "%s  fprintf (trace_fp, \"%%\" PRIi64, %s);\n" indent rv
      | RConstString _ | RString _ ->
-         pr "%s  fprintf (stderr, \"\\\"%%s\\\"\", %s);\n" indent rv
+         pr "%s  fprintf (trace_fp, \"\\\"%%s\\\"\", %s);\n" indent rv
      | RConstOptString _ ->
-         pr "%s  fprintf (stderr, \"\\\"%%s\\\"\", %s != NULL ? %s : \"NULL\");\n"
+         pr "%s  fprintf (trace_fp, \"\\\"%%s\\\"\", %s != NULL ? %s : \"NULL\");\n"
            indent rv rv
      | RBufferOut _ ->
-         pr "%s  guestfs___print_BufferOut (stderr, %s, *size_r);\n" indent rv
+         pr "%s  guestfs___print_BufferOut (trace_fp, %s, *size_r);\n" indent rv
      | RStringList _ | RHashtable _ ->
-         pr "%s  fputs (\"[\\\"\", stderr);\n" indent;
+         pr "%s  fputs (\"[\\\"\", trace_fp);\n" indent;
          pr "%s  for (i = 0; %s[i]; ++i) {\n" indent rv;
-         pr "%s    if (i > 0) fputs (\"\\\", \\\"\", stderr);\n" indent;
-         pr "%s    fputs (%s[i], stderr);\n" indent rv;
+         pr "%s    if (i > 0) fputs (\"\\\", \\\"\", trace_fp);\n" indent;
+         pr "%s    fputs (%s[i], trace_fp);\n" indent rv;
          pr "%s  }\n" indent;
-         pr "%s  fputs (\"\\\"]\", stderr);\n" indent;
+         pr "%s  fputs (\"\\\"]\", trace_fp);\n" indent;
      | RStruct (_, typ) ->
          (* XXX There is code generated for guestfish for printing
           * these structures.  We need to make it generally available
           * for all callers
           *)
-         pr "%s  fprintf (stderr, \"<struct guestfs_%s *>\");\n"
+         pr "%s  fprintf (trace_fp, \"<struct guestfs_%s *>\");\n"
            indent typ (* XXX *)
      | RStructList (_, typ) ->
-         pr "%s  fprintf (stderr, \"<struct guestfs_%s_list *>\");\n"
+         pr "%s  fprintf (trace_fp, \"<struct guestfs_%s_list *>\");\n"
            indent typ (* XXX *)
     );
-    pr "%s  fputc ('\\n', stderr);\n" indent;
+    pr "%s  trace_send_line (g);\n" indent;
     pr "%s}\n" indent;
     pr "\n";
   in
 
-  let trace_return_error ?(indent = 2) shortname (ret, _, _) =
+  let trace_return_error ?(indent = 2) shortname (ret, _, _) errcode =
     let indent = spaces indent in
 
     pr "%sif (trace_flag)\n" indent;
 
-    pr "%s  fprintf (stderr, \"%%s: %%s: %%s = %%s (error)\\n\",\n" indent;
-    pr "%s           \"libguestfs\", \"trace\", \"%s\", "
-      indent shortname;
-
-    (match ret with
-     | RErr | RInt _ | RBool _
-     | RInt64 _ ->
-         pr "\"-1\""
-     | RConstString _ | RString _
-     | RConstOptString _
-     | RBufferOut _
-     | RStringList _ | RHashtable _
-     | RStruct _
-     | RStructList _ ->
-         pr "\"NULL\""
-    );
-    pr ");\n"
+    pr "%s  guestfs___trace (g, \"%%s = %%s (error)\",\n" indent;
+    pr "%s                   \"%s\", \"%s\");\n"
+      indent shortname (string_of_errcode errcode)
   in
 
   (* For non-daemon functions, generate a wrapper around each function. *)
@@ -901,6 +959,7 @@ check_state (guestfs_h *g, const char *caller)
           shortname style;
       pr "{\n";
       pr "  int trace_flag = g->trace;\n";
+      pr "  FILE *trace_fp;\n";
       (match ret with
        | RErr | RInt _ | RBool _ ->
            pr "  int r;\n"
@@ -932,7 +991,7 @@ check_state (guestfs_h *g, const char *caller)
            pr "  if (r != %s) {\n" (string_of_errcode errcode);
            trace_return ~indent:4 shortname style "r";
            pr "  } else {\n";
-           trace_return_error ~indent:4 shortname style;
+           trace_return_error ~indent:4 shortname style errcode;
            pr "  }\n";
        | `CannotReturnError ->
            trace_return shortname style "r";
@@ -985,6 +1044,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  int serial;\n";
       pr "  int r;\n";
       pr "  int trace_flag = g->trace;\n";
+      pr "  FILE *trace_fp;\n";
       (match ret with
        | RErr | RInt _ | RBool _ ->
            pr "  int ret_v;\n"
@@ -1030,7 +1090,7 @@ check_state (guestfs_h *g, const char *caller)
 
       (* Check we are in the right state for sending a request. *)
       pr "  if (check_state (g, \"%s\") == -1) {\n" shortname;
-      trace_return_error ~indent:4 shortname style;
+      trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "  guestfs___set_busy (g);\n";
@@ -1061,7 +1121,7 @@ check_state (guestfs_h *g, const char *caller)
           | BufferIn n ->
               pr "  /* Just catch grossly large sizes. XDR encoding will make this precise. */\n";
               pr "  if (%s_size >= GUESTFS_MESSAGE_MAX) {\n" n;
-              trace_return_error ~indent:4 shortname style;
+              trace_return_error ~indent:4 shortname style errcode;
               pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
                 shortname;
               pr "    guestfs___end_busy (g);\n";
@@ -1103,7 +1163,7 @@ check_state (guestfs_h *g, const char *caller)
       );
       pr "  if (serial == -1) {\n";
       pr "    guestfs___end_busy (g);\n";
-      trace_return_error ~indent:4 shortname style;
+      trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
@@ -1116,7 +1176,7 @@ check_state (guestfs_h *g, const char *caller)
             pr "  r = guestfs___send_file (g, %s);\n" n;
             pr "  if (r == -1) {\n";
             pr "    guestfs___end_busy (g);\n";
-            trace_return_error ~indent:4 shortname style;
+            trace_return_error ~indent:4 shortname style errcode;
             pr "    return %s;\n" (string_of_errcode errcode);
             pr "  }\n";
             pr "  if (r == -2) /* daemon cancelled */\n";
@@ -1141,7 +1201,7 @@ check_state (guestfs_h *g, const char *caller)
 
       pr "  if (r == -1) {\n";
       pr "    guestfs___end_busy (g);\n";
-      trace_return_error ~indent:4 shortname style;
+      trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
@@ -1149,13 +1209,13 @@ check_state (guestfs_h *g, const char *caller)
       pr "  if (check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
         (String.uppercase shortname);
       pr "    guestfs___end_busy (g);\n";
-      trace_return_error ~indent:4 shortname style;
+      trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
 
       pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      trace_return_error ~indent:4 shortname style;
+      trace_return_error ~indent:4 shortname style errcode;
       pr "    int errnum = 0;\n";
       pr "    if (err.errno_string[0] != '\\0')\n";
       pr "      errnum = guestfs___string_to_errno (err.errno_string);\n";
@@ -1179,7 +1239,7 @@ check_state (guestfs_h *g, const char *caller)
         | FileOut n ->
             pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
             pr "    guestfs___end_busy (g);\n";
-            trace_return_error ~indent:4 shortname style;
+            trace_return_error ~indent:4 shortname style errcode;
             pr "    return %s;\n" (string_of_errcode errcode);
             pr "  }\n";
             pr "\n";
@@ -1363,6 +1423,7 @@ and generate_linker_script () =
   let globals = [
     "guestfs_create";
     "guestfs_close";
+    "guestfs_delete_event_callback";
     "guestfs_first_private";
     "guestfs_get_error_handler";
     "guestfs_get_out_of_memory_handler";
@@ -1372,6 +1433,7 @@ and generate_linker_script () =
     "guestfs_next_private";
     "guestfs_set_close_callback";
     "guestfs_set_error_handler";
+    "guestfs_set_event_callback";
     "guestfs_set_launch_done_callback";
     "guestfs_set_log_message_callback";
     "guestfs_set_out_of_memory_handler";

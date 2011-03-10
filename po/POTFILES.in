@@ -133,6 +133,7 @@ src/appliance.c
 src/bindtests.c
 src/errnostring.c
 src/errnostring_gperf.c
+src/events.c
 src/filearch.c
 src/guestfs.c
 src/inspect.c

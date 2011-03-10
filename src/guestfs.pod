@@ -1683,82 +1683,71 @@ For guestfish, see L<guestfish(1)/OPTIONAL ARGUMENTS>.
 
 =head2 SETTING CALLBACKS TO HANDLE EVENTS
 
-The child process generates events in some situations.  Current events
-include: receiving a log message, the child process exits.
+B<Note:> This section documents the generic event mechanism introduced
+in libguestfs 1.10, which you should use in new code if possible.  The
+old functions C<guestfs_set_log_message_callback>,
+C<guestfs_set_subprocess_quit_callback>,
+C<guestfs_set_launch_done_callback>, C<guestfs_set_close_callback> and
+C<guestfs_set_progress_callback> are no longer documented in this
+manual page.
 
-Use the C<guestfs_set_*_callback> functions to set a callback for
-different types of events.
+Handles generate events when certain things happen, such as log
+messages being generated, progress messages during long-running
+operations, or the handle being closed.  The API calls described below
+let you register a callback to be called when events happen.  You can
+register multiple callbacks (for the same, different or overlapping
+sets of events), and individually remove callbacks.  If callbacks are
+not removed, then they remain in force until the handle is closed.
 
-Only I<one callback of each type> can be registered for each handle.
-Calling C<guestfs_set_*_callback> again overwrites the previous
-callback of that type.  Cancel all callbacks of this type by calling
-this function with C<cb> set to C<NULL>.
+In the current implementation, events are only generated
+synchronously: that means that events (and hence callbacks) can only
+happen while you are in the middle of making another libguestfs call.
+The callback is called in the same thread.
 
-=head2 guestfs_set_log_message_callback
+Events may contain a payload, usually nothing (void), an array of 64
+bit unsigned integers, or a message buffer.  Payloads are discussed
+later on.
 
- typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *opaque,
-                                         char *buf, int len);
- void guestfs_set_log_message_callback (guestfs_h *g,
-                                        guestfs_log_message_cb cb,
-                                        void *opaque);
+=head3 CLASSES OF EVENTS
 
-The callback function C<cb> will be called whenever qemu or the guest
-writes anything to the console.
+=over 4
 
-Use this function to capture kernel messages and similar.
+=item GUESTFS_EVENT_CLOSE
+(payload type: void)
 
-Normally there is no log message handler, and log messages are just
-discarded.
+The callback function will be called while the handle is being closed
+(synchronously from L</guestfs_close>).
 
-=head2 guestfs_set_subprocess_quit_callback
+Note that libguestfs installs an L<atexit(3)> handler to try to clean
+up handles that are open when the program exits.  This means that this
+callback might be called indirectly from L<exit(3)>, which can cause
+unexpected problems in higher-level languages (eg. if your HLL
+interpreter has already been cleaned up by the time this is called,
+and if your callback then jumps into some HLL function).
 
- typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *opaque);
- void guestfs_set_subprocess_quit_callback (guestfs_h *g,
-                                            guestfs_subprocess_quit_cb cb,
-                                            void *opaque);
+If no callback is registered: the handle is closed without any
+callback being invoked.
 
-The callback function C<cb> will be called when the child process
-quits, either asynchronously or if killed by
-L</guestfs_kill_subprocess>.  (This corresponds to a transition from
-any state to the CONFIG state).
+=item GUESTFS_EVENT_SUBPROCESS_QUIT
+(payload type: void)
 
-=head2 guestfs_set_launch_done_callback
+The callback function will be called when the child process quits,
+either asynchronously or if killed by L</guestfs_kill_subprocess>.
+(This corresponds to a transition from any state to the CONFIG state).
 
- typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *opaque);
- void guestfs_set_launch_done_callback (guestfs_h *g,
-                                        guestfs_launch_done_cb cb,
-                                        void *opaque);
+If no callback is registered: the event is ignored.
 
-The callback function C<cb> will be called when the child process
-becomes ready first time after it has been launched.  (This
-corresponds to a transition from LAUNCHING to the READY state).
+=item GUESTFS_EVENT_LAUNCH_DONE
+(payload type: void)
 
-=head2 guestfs_set_close_callback
+The callback function will be called when the child process becomes
+ready first time after it has been launched.  (This corresponds to a
+transition from LAUNCHING to the READY state).
 
- typedef void (*guestfs_close_cb) (guestfs_h *g, void *opaque);
- void guestfs_set_close_callback (guestfs_h *g,
-                                  guestfs_close_cb cb,
-                                  void *opaque);
+If no callback is registered: the event is ignored.
 
-The callback function C<cb> will be called while the handle
-is being closed (synchronously from L</guestfs_close>).
-
-Note that libguestfs installs an L<atexit(3)> handler to try to
-clean up handles that are open when the program exits.  This
-means that this callback might be called indirectly from
-L<exit(3)>, which can cause unexpected problems in higher-level
-languages (eg. if your HLL interpreter has already been cleaned
-up by the time this is called, and if your callback then jumps
-into some HLL function).
-
-=head2 guestfs_set_progress_callback
-
- typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque,
-                                      int proc_nr, int serial,
-                                      uint64_t position, uint64_t total);
- void guestfs_set_progress_callback (guestfs_h *g,
-                                     guestfs_progress_cb cb,
-                                     void *opaque);
+=item GUESTFS_EVENT_PROGRESS
+(payload type: array of 4 x uint64_t)
 
 Some long-running operations can generate progress messages.  If
 this callback is registered, then it will be called each time a
@@ -1766,7 +1755,9 @@ progress message is generated (usually two seconds after the
 operation started, and three times per second thereafter until
 it completes, although the frequency may change in future versions).
 
-The callback receives two numbers: C<position> and C<total>.
+The callback receives in the payload four unsigned 64 bit numbers
+which are (in order): C<proc_nr>, C<serial>, C<position>, C<total>.
+
 The units of C<total> are not defined, although for some
 operations C<total> may relate in some way to the amount of
 data to be transferred (eg. in bytes or megabytes), and
@@ -1796,10 +1787,168 @@ requiring special code to detect this case.
 
 =back
 
-The callback also receives the procedure number and serial number of
-the call.  These are only useful for debugging protocol issues, and
-the callback can normally ignore them.  The callback may want to
-print these numbers in error messages or debugging messages.
+The callback also receives the procedure number (C<proc_nr>) and
+serial number (C<serial>) of the call.  These are only useful for
+debugging protocol issues, and the callback can normally ignore them.
+The callback may want to print these numbers in error messages or
+debugging messages.
+
+If no callback is registered: progress messages are discarded.
+
+=item GUESTFS_EVENT_APPLIANCE
+(payload type: message buffer)
+
+The callback function is called whenever a log message is generated by
+qemu, the appliance kernel, guestfsd (daemon), or utility programs.
+
+If the verbose flag (L</guestfs_set_verbose>) is set before launch
+(L</guestfs_launch>) then additional debug messages are generated.
+
+If no callback is registered: the messages are discarded unless the
+verbose flag is set in which case they are sent to stderr.  You can
+override the printing of verbose messages to stderr by setting up a
+callback.
+
+=item GUESTFS_EVENT_LIBRARY
+(payload type: message buffer)
+
+The callback function is called whenever a log message is generated by
+the library part of libguestfs.
+
+If the verbose flag (L</guestfs_set_verbose>) is set then additional
+debug messages are generated.
+
+If no callback is registered: the messages are discarded unless the
+verbose flag is set in which case they are sent to stderr.  You can
+override the printing of verbose messages to stderr by setting up a
+callback.
+
+=item GUESTFS_EVENT_TRACE
+(payload type: message buffer)
+
+The callback function is called whenever a trace message is generated.
+This only applies if the trace flag (L</guestfs_set_trace>) is set.
+
+If no callback is registered: the messages are sent to stderr.  You
+can override the printing of trace messages to stderr by setting up a
+callback.
+
+=back
+
+=head3 guestfs_set_event_callback
+
+ int guestfs_set_event_callback (guestfs_h *g,
+                                 guestfs_event_callback cb,
+                                 uint64_t event_bitmask,
+                                 int flags,
+                                 void *opaque);
+
+This function registers a callback (C<cb>) for all event classes
+in the C<event_bitmask>.
+
+For example, to register for all log message events, you could call
+this function with the bitmask
+C<GUESTFS_EVENT_APPLIANCE|GUESTFS_EVENT_LIBRARY>.  To register a
+single callback for all possible classes of events, use
+C<GUESTFS_EVENT_ALL>.
+
+C<flags> should always be passed as 0.
+
+C<opaque> is an opaque pointer which is passed to the callback.  You
+can use it for any purpose.
+
+The return value is the event handle (an integer) which you can use to
+delete the callback (see below).
+
+If there is an error, this function returns C<-1>, and sets the error
+in the handle in the usual way (see L</guestfs_last_error> etc.)
+
+Callbacks remain in effect until they are deleted, or until the handle
+is closed.
+
+In the case where multiple callbacks are registered for a particular
+event class, all of the callbacks are called.  The order in which
+multiple callbacks are called is not defined.
+
+=head3 guestfs_delete_event_callback
+
+ void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
+
+Delete a callback that was previously registered.  C<event_handle>
+should be the integer that was returned by a previous call to
+C<guestfs_set_event_callback> on the same handle.
+
+=head3 guestfs_event_callback
+
+ typedef void (*guestfs_event_callback) (
+                  guestfs_h *g,
+                  void *opaque,
+                  uint64_t event,
+                  int event_handle,
+                  int flags,
+                  const char *buf, size_t buf_len,
+                  const uint64_t *array, size_t array_len);
+
+This is the type of the event callback function that you have to
+provide.
+
+The basic parameters are: the handle (C<g>), the opaque user pointer
+(C<opaque>), the event class (eg. C<GUESTFS_EVENT_PROGRESS>), the
+event handle, and C<flags> which in the current API you should ignore.
+
+The remaining parameters contain the event payload (if any).  Each
+event may contain a payload, which usually relates to the event class,
+but for future proofing your code should be written to handle any
+payload for any event class.
+
+C<buf> and C<buf_len> contain a message buffer (if C<buf_len == 0>,
+then there is no message buffer).  Note that this message buffer can
+contain arbitrary 8 bit data, including NUL bytes.
+
+C<array> and C<array_len> is an array of 64 bit unsigned integers.  At
+the moment this is only used for progress messages.
+
+=head3 EXAMPLE: CAPTURING LOG MESSAGES
+
+One motivation for the generic event API was to allow GUI programs to
+capture debug and other messages.  In libguestfs E<le> 1.8 these were
+sent unconditionally to C<stderr>.
+
+Events associated with log messages are: C<GUESTFS_EVENT_LIBRARY>,
+C<GUESTFS_EVENT_APPLIANCE> and C<GUESTFS_EVENT_TRACE>.  (Note that
+error messages are not events; you must capture error messages
+separately).
+
+Programs have to set up a callback to capture the classes of events of
+interest:
+
+ int eh =
+   guestfs_set_event_callback
+     (g, message_callback,
+      GUESTFS_EVENT_LIBRARY|GUESTFS_EVENT_APPLIANCE|
+      GUESTFS_EVENT_TRACE,
+      0, NULL) == -1)
+ if (eh == -1) {
+   // handle error in the usual way
+ }
+
+The callback can then direct messages to the appropriate place.  In
+this example, messages are directed to syslog:
+
+ static void
+ message_callback (
+         guestfs_h *g,
+         void *opaque,
+         uint64_t event,
+         int event_handle,
+         int flags,
+         const char *buf, size_t buf_len,
+         const uint64_t *array, size_t array_len)
+ {
+   const int priority = LOG_USER|LOG_INFO;
+   if (buf_len > 0)
+     syslog (priority, "event 0x%lx: %s", event, buf);
+ }
 
 =head1 PRIVATE DATA AREA
 
@@ -1834,8 +1983,7 @@ any way.  As far as libguestfs is concerned, it need not be a valid
 pointer at all.  In particular, libguestfs does I<not> try to free the
 data when the handle is closed.  If the data must be freed, then the
 caller must either free it before calling L</guestfs_close> or must
-set up a close callback to do it (see L</guestfs_set_close_callback>,
-and note that only one callback can be registered for a handle).
+set up a close callback to do it (see L</GUESTFS_EVENT_CLOSE>).
 
 To walk over all entries, use these two functions:
 
@@ -2193,8 +2341,8 @@ are distinguished by the normal length word being replaced by
 C<GUESTFS_PROGRESS_FLAG>, followed by a fixed size progress message.
 
 The library turns them into progress callbacks (see
-C<guestfs_set_progress_callback>) if there is a callback registered,
-or discards them if not.
+L</GUESTFS_EVENT_PROGRESS>) if there is a callback registered, or
+discards them if not.
 
 The daemon self-limits the frequency of progress messages it sends
 (see C<daemon/proto.c:notify_progress>).  Not all calls generate

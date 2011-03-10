@@ -132,7 +132,7 @@ guestfs_create (void)
   str = getenv ("LIBGUESTFS_MEMSIZE");
   if (str) {
     if (sscanf (str, "%d", &g->memsize) != 1 || g->memsize <= 256) {
-      fprintf (stderr, "libguestfs: non-numeric or too small value for LIBGUESTFS_MEMSIZE\n");
+      warning (g, "non-numeric or too small value for LIBGUESTFS_MEMSIZE");
       goto error;
     }
   } else
@@ -153,8 +153,7 @@ guestfs_create (void)
   }
   gl_lock_unlock (handles_lock);
 
-  if (g->verbose)
-    fprintf (stderr, "new guestfs handle %p\n", g);
+  debug (g, "new guestfs handle %p", g);
 
   return g;
 
@@ -174,31 +173,32 @@ guestfs_close (guestfs_h *g)
   guestfs_h *gg;
 
   if (g->state == NO_HANDLE) {
-    /* Not safe to call 'error' here, so ... */
+    /* Not safe to call ANY callbacks here, so ... */
     fprintf (stderr, _("guestfs_close: called twice on the same handle\n"));
     return;
   }
 
-  if (g->verbose)
-    fprintf (stderr, "closing guestfs handle %p (state %d)\n", g, g->state);
-
-  /* Run user close callback before anything else. */
-  if (g->close_cb)
-    g->close_cb (g, g->close_cb_data);
-
-  guestfs___free_inspect_info (g);
+  debug (g, "closing guestfs handle %p (state %d)", g, g->state);
 
   /* Try to sync if autosync flag is set. */
   if (g->autosync && g->state == READY)
     guestfs_internal_autosync (g);
 
-  /* Remove any handlers that might be called back before we kill the
-   * subprocess.
-   */
-  g->log_message_cb = NULL;
-
+  /* Kill the qemu subprocess. */
   if (g->state != CONFIG)
     guestfs_kill_subprocess (g);
+
+  /* Run user close callbacks. */
+  guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
+
+  /* Remove all other registered callbacks.  Since we've already
+   * called the close callbacks, we shouldn't call any others.
+   */
+  free (g->events);
+  g->nr_events = 0;
+  g->events = NULL;
+
+  guestfs___free_inspect_info (g);
 
   /* Close sockets. */
   if (g->fd[0] >= 0)
@@ -280,6 +280,79 @@ set_last_error (guestfs_h *g, int errnum, const char *msg)
   free (g->last_error);
   g->last_error = strdup (msg);
   g->last_errnum = errnum;
+}
+
+/* Warning are printed unconditionally.  We try to make these rare.
+ * Generally speaking, a warning should either be an error, or if it's
+ * not important for end users then it should be a debug message.
+ */
+void
+guestfs___warning (guestfs_h *g, const char *fs, ...)
+{
+  va_list args;
+  char *msg, *msg2;
+  int len;
+
+  va_start (args, fs);
+  len = vasprintf (&msg, fs, args);
+  va_end (args);
+
+  if (len < 0) return;
+
+  len = asprintf (&msg2, _("warning: %s"), msg);
+  free (msg);
+
+  if (len < 0) return;
+
+  guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg2, len);
+
+  free (msg2);
+}
+
+/* Debug messages. */
+void
+guestfs___debug (guestfs_h *g, const char *fs, ...)
+{
+  va_list args;
+  char *msg;
+  int len;
+
+  /* The cpp macro "debug" has already checked that g->verbose is true
+   * before calling this function, but we check it again just in case
+   * anyone calls this function directly.
+   */
+  if (!g->verbose)
+    return;
+
+  va_start (args, fs);
+  len = vasprintf (&msg, fs, args);
+  va_end (args);
+
+  if (len < 0) return;
+
+  guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg, len);
+}
+
+/* Call trace messages.  These are enabled by setting g->trace, and
+ * calls to this function should only happen from the generated code
+ * in src/actions.c
+ */
+void
+guestfs___trace (guestfs_h *g, const char *fs, ...)
+{
+  va_list args;
+  char *msg;
+  int len;
+
+  va_start (args, fs);
+  len = vasprintf (&msg, fs, args);
+  va_end (args);
+
+  if (len < 0) return;
+
+  guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, msg, len);
+
+  free (msg);
 }
 
 static void
@@ -688,46 +761,6 @@ guestfs__get_attach_method (guestfs_h *g)
   }
 
   return ret;
-}
-
-void
-guestfs_set_log_message_callback (guestfs_h *g,
-                                  guestfs_log_message_cb cb, void *opaque)
-{
-  g->log_message_cb = cb;
-  g->log_message_cb_data = opaque;
-}
-
-void
-guestfs_set_subprocess_quit_callback (guestfs_h *g,
-                                      guestfs_subprocess_quit_cb cb, void *opaque)
-{
-  g->subprocess_quit_cb = cb;
-  g->subprocess_quit_cb_data = opaque;
-}
-
-void
-guestfs_set_launch_done_callback (guestfs_h *g,
-                                  guestfs_launch_done_cb cb, void *opaque)
-{
-  g->launch_done_cb = cb;
-  g->launch_done_cb_data = opaque;
-}
-
-void
-guestfs_set_close_callback (guestfs_h *g,
-                            guestfs_close_cb cb, void *opaque)
-{
-  g->close_cb = cb;
-  g->close_cb_data = opaque;
-}
-
-void
-guestfs_set_progress_callback (guestfs_h *g,
-                               guestfs_progress_cb cb, void *opaque)
-{
-  g->progress_cb = cb;
-  g->progress_cb_data = opaque;
 }
 
 /* Note the private data area is allocated lazily, since the vast

@@ -300,10 +300,14 @@ Get the autosync flag.");
    [],
    "set verbose mode",
    "\
-If C<verbose> is true, this turns on verbose messages (to C<stderr>).
+If C<verbose> is true, this turns on verbose messages.
 
 Verbose messages are disabled unless the environment variable
-C<LIBGUESTFS_DEBUG> is defined and set to C<1>.");
+C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
+
+Verbose messages are normally sent to C<stderr>, unless you
+register a callback to send them somewhere else (see
+C<guestfs_set_event_callback>).");
 
   ("get_verbose", (RBool "verbose", [], []), -1, [],
    [],
@@ -469,19 +473,19 @@ see L<guestfs(3)>.");
        ["get_trace"]])],
    "enable or disable command traces",
    "\
-If the command trace flag is set to 1, then commands are
-printed on stderr before they are executed in a format
-which is very similar to the one used by guestfish.  In
-other words, you can run a program with this enabled, and
-you will get out a script which you can feed to guestfish
-to perform the same set of actions.
+If the command trace flag is set to 1, then libguestfs
+calls, parameters and return values are traced.
 
 If you want to trace C API calls into libguestfs (and
 other libraries) then possibly a better way is to use
 the external ltrace(1) command.
 
 Command traces are disabled unless the environment variable
-C<LIBGUESTFS_TRACE> is defined and set to C<1>.");
+C<LIBGUESTFS_TRACE> is defined and set to C<1>.
+
+Trace messages are normally sent to C<stderr>, unless you
+register a callback to send them somewhere else (see
+C<guestfs_set_event_callback>).");
 
   ("get_trace", (RBool "trace", [], []), -1, [],
    [],

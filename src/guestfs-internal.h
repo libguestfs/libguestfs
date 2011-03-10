@@ -87,6 +87,18 @@ enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
 /* Attach method. */
 enum attach_method { ATTACH_METHOD_APPLIANCE = 0, ATTACH_METHOD_UNIX };
 
+/* Event. */
+struct event {
+  uint64_t event_bitmask;
+  guestfs_event_callback cb;
+  void *opaque;
+
+  /* opaque2 is not exposed through the API, but is used internally to
+   * emulate the old-style callback API.
+   */
+  void *opaque2;
+};
+
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
@@ -133,16 +145,10 @@ struct guestfs_h
   guestfs_abort_cb           abort_cb;
   guestfs_error_handler_cb   error_cb;
   void *                     error_cb_data;
-  guestfs_log_message_cb     log_message_cb;
-  void *                     log_message_cb_data;
-  guestfs_subprocess_quit_cb subprocess_quit_cb;
-  void *                     subprocess_quit_cb_data;
-  guestfs_launch_done_cb     launch_done_cb;
-  void *                     launch_done_cb_data;
-  guestfs_close_cb           close_cb;
-  void *                     close_cb_data;
-  guestfs_progress_cb        progress_cb;
-  void *                     progress_cb_data;
+
+  /* Events. */
+  struct event *events;
+  size_t nr_events;
 
   int msg_next_serial;
 
@@ -155,6 +161,11 @@ struct guestfs_h
   /* Private data area. */
   struct hash_table *pda;
   struct pda_entry *pda_next;
+
+  /* Used by src/actions.c:trace_* functions. */
+  FILE *trace_fp;
+  char *trace_buf;
+  size_t trace_len;
 };
 
 /* Per-filesystem data stored for inspect_os. */
@@ -264,6 +275,12 @@ extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 extern char *guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
+extern void guestfs___warning (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+extern void guestfs___debug (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
 extern const char *guestfs___persistent_tmpdir (void);
 extern void guestfs___print_timestamped_argv (guestfs_h *g, const char *argv[]);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
@@ -290,9 +307,15 @@ extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern void guestfs___free_string_list (char **);
 extern int guestfs___checkpoint_cmdline (guestfs_h *g);
 extern void guestfs___rollback_cmdline (guestfs_h *g, int pos);
+extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
+extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
+extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
 
 #define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf
+#define warning(g,...) guestfs___warning((g),__VA_ARGS__)
+#define debug(g,...) \
+  do { if ((g)->verbose) guestfs___debug ((g),__VA_ARGS__); } while (0)
 #define safe_calloc guestfs_safe_calloc
 #define safe_malloc guestfs_safe_malloc
 #define safe_realloc guestfs_safe_realloc

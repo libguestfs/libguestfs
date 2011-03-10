@@ -146,7 +146,7 @@ extern int vg_lv_parse (const char *device, char **vg, char **lv);
 
 /* in progress.c */
 extern void reset_progress_bar (void);
-extern void progress_callback (guestfs_h *g, void *data, int proc_nr, int serial, uint64_t position, uint64_t total);
+extern void progress_callback (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
 /* in rc.c (remote control) */
 extern void rc_listen (void) __attribute__((noreturn));
