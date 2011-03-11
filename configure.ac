@@ -249,6 +249,27 @@ AC_CHECK_PROG([POD2HTML],[pod2html],[pod2html],[no])
 test "x$POD2HTML" = "xno" &&
      AC_MSG_ERROR([pod2html must be installed])
 
+dnl Check if pod2man, pod2text take --stderr and -u options (not in RHEL 5).
+AC_MSG_CHECKING([if pod2man takes --stderr option])
+if "$POD2MAN" --stderr >/dev/null 2>&1; then
+    AC_MSG_RESULT([yes])
+    POD2_STDERR_OPTION="--stderr"
+else
+    AC_MSG_RESULT([no])
+    POD2_STDERR_OPTION=""
+fi
+AC_SUBST([POD2_STDERR_OPTION])
+
+AC_MSG_CHECKING([if pod2man takes -u option])
+if "$POD2MAN" -u >/dev/null 2>&1; then
+    AC_MSG_RESULT([yes])
+    POD2_UTF8_OPTION="-u"
+else
+    AC_MSG_RESULT([no])
+    POD2_UTF8_OPTION=""
+fi
+AC_SUBST([POD2_UTF8_OPTION])
+
 dnl Check for mkisofs.
 AC_PATH_PROGS([MKISOFS],[mkisofs],[no],
         [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])

@@ -1,6 +1,6 @@
 #!/bin/bash -
 # podwrapper.sh
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 # @configure_input@
 #
 # This program is free software; you can redistribute it and/or modify
@@ -30,6 +30,8 @@ PACKAGE_VERSION="@PACKAGE_VERSION@"
 POD2MAN="@POD2MAN@"
 POD2TEXT="@POD2TEXT@"
 POD2HTML="@POD2HTML@"
+POD2_STDERR_OPTION="@POD2_STDERR_OPTION@"
+POD2_UTF8_OPTION="@POD2_UTF8_OPTION@"
 
 # This script could be run with any current directory, so if a source
 # or build path is required it must be relative to the following
@@ -164,7 +166,7 @@ fi
 
 # Now generate the final output format(s).
 if [ -n "$man_output" ]; then
-    "$POD2MAN" --stderr -u \
+    "$POD2MAN" "$POD2_STDERR_OPTION" "$POD2_UTF8_OPTION" \
         --section "$section" -c "Virtualization Support" --name "$name" \
         --release "$PACKAGE_NAME-$PACKAGE_VERSION" \
         < $tmpdir/full.pod > "$man_output".tmp
@@ -172,7 +174,7 @@ if [ -n "$man_output" ]; then
 fi
 
 if [ -n "$text_output" ]; then
-    "$POD2TEXT" --stderr -u \
+    "$POD2TEXT" "$POD2_STDERR_OPTION" "$POD2_UTF8_OPTION" \
         < $tmpdir/full.pod > "$text_output".tmp
     mv "$text_output".tmp "$text_output"
 fi
