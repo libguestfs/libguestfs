@@ -158,7 +158,7 @@ dnl Headers.
 AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h endian.h byteswap.h])
 
 dnl Functions.
-AC_CHECK_FUNCS([posix_fallocate])
+AC_CHECK_FUNCS([futimens posix_fallocate])
 
 dnl Build the daemon?
 AC_MSG_CHECKING([if we should build the daemon])
