@@ -351,7 +351,11 @@ check_for_cached_appliance (guestfs_h *g,
   int fd = open (filename, O_RDONLY);
   if (fd == -1)
     return 0;
+#ifdef HAVE_FUTIMENS
   (void) futimens (fd, NULL);
+#else
+  (void) futimes (fd, NULL);
+#endif
   struct flock fl;
   fl.l_type = F_RDLCK;
   fl.l_whence = SEEK_SET;
