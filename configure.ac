@@ -292,7 +292,6 @@ if test "x$vmchannel_test" != "xno"; then
     AC_MSG_CHECKING([for virtio-serial support in $QEMU])
     if $QEMU -nographic -device \? 2>&1 | grep -sq virtio-serial; then
         AC_MSG_RESULT([yes])
-        vmchannel_guestfwd=guestfwd
     else
         AC_MSG_RESULT([no])
         AC_MSG_FAILURE(
