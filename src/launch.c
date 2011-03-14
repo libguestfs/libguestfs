@@ -769,7 +769,7 @@ launch_appliance (guestfs_h *g)
   }
   if (g->pid > 0) kill (g->pid, 9);
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
-  waitpid (g->pid, NULL, 0);
+  if (g->pid > 0) waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
   g->fd[0] = -1;
   g->fd[1] = -1;
