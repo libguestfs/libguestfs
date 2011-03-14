@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ open Generator_optgroups
 open Generator_actions
 open Generator_structs
 open Generator_c
+open Generator_events
 
 (* Generate the OCaml bindings interface. *)
 let rec generate_ocaml_mli () =
@@ -60,27 +61,38 @@ val close : t -> unit
     unreferenced, but callers can call this in order to provide
     predictable cleanup. *)
 
-type progress_cb = int -> int -> int64 -> int64 -> unit
+type event =
+";
+  List.iter (
+    fun (name, _) ->
+      pr "  | EVENT_%s\n" (String.uppercase name)
+  ) events;
+  pr "\n";
 
-val set_progress_callback : t -> progress_cb -> unit
-(** [set_progress_callback g f] sets [f] as the progress callback function.
-    For some long-running functions, [f] will be called repeatedly
-    during the function with progress updates.
+  pr "\
+val event_all : event list
+(** A list containing all event types. *)
 
-    The callback is [f proc_nr serial position total].  See
-    the description of [guestfs_set_progress_callback] in guestfs(3)
-    for the meaning of these four numbers.
+type event_handle
+(** The opaque event handle which can be used to delete event callbacks. *)
+
+type event_callback =
+  t -> event -> event_handle -> string -> int64 array -> unit
+(** The event callback. *)
+
+val set_event_callback : t -> event_callback -> event list -> event_handle
+(** [set_event_callback g f es] sets [f] as the event callback function
+    for all events in the set [es].
 
     Note that if the closure captures a reference to the handle,
     this reference will prevent the handle from being
-    automatically closed by the garbage collector.  There are
-    three ways to avoid this: be careful not to capture the handle
-    in the closure, or use a weak reference, or call
-    {!Guestfs.clear_progress_callback} to remove the reference. *)
+    automatically closed by the garbage collector.  Since the
+    handle is passed to the event callback, with careful programming
+    it should be possible to avoid capturing the handle in the closure. *)
 
-val clear_progress_callback : t -> unit
-(** [clear_progress_callback g] removes any progress callback function
-    associated with the handle.  See {!Guestfs.set_progress_callback}. *)
+val delete_event_callback : t -> event_handle -> unit
+(** [delete_event_callback g eh] removes a previously registered
+    event callback.  See {!set_event_callback}. *)
 
 ";
   generate_ocaml_structure_decls ();
@@ -115,8 +127,8 @@ val clear_progress_callback : t -> unit
 
 class guestfs : unit -> object
   method close : unit -> unit
-  method set_progress_callback : progress_cb -> unit
-  method clear_progress_callback : unit -> unit
+  method set_event_callback : event_callback -> event list -> event_handle
+  method delete_event_callback : event_handle -> unit
   method ocaml_handle : t
 ";
 
@@ -147,12 +159,34 @@ exception Handle_closed of string
 external create : unit -> t = \"ocaml_guestfs_create\"
 external close : t -> unit = \"ocaml_guestfs_close\"
 
-type progress_cb = int -> int -> int64 -> int64 -> unit
+type event =
+";
+  List.iter (
+    fun (name, _) ->
+      pr "  | EVENT_%s\n" (String.uppercase name)
+  ) events;
+  pr "\n";
 
-external set_progress_callback : t -> progress_cb -> unit
-  = \"ocaml_guestfs_set_progress_callback\"
-external clear_progress_callback : t -> unit
-  = \"ocaml_guestfs_clear_progress_callback\"
+  pr "\
+let event_all = [
+";
+  List.iter (
+    fun (name, _) ->
+      pr "  EVENT_%s;\n" (String.uppercase name)
+  ) events;
+
+  pr "\
+]
+
+type event_handle = int
+
+type event_callback =
+  t -> event -> event_handle -> string -> int64 array -> unit
+
+external set_event_callback : t -> event_callback -> event list -> event_handle
+  = \"ocaml_guestfs_set_event_callback\"
+external delete_event_callback : t -> event_handle -> unit
+  = \"ocaml_guestfs_delete_event_callback\"
 
 (* Give the exceptions names, so they can be raised from the C code. *)
 let () =
@@ -175,8 +209,8 @@ class guestfs () =
   let g = create () in
   object
     method close () = close g
-    method set_progress_callback = set_progress_callback g
-    method clear_progress_callback () = clear_progress_callback g
+    method set_event_callback = set_event_callback g
+    method delete_event_callback = delete_event_callback g
     method ocaml_handle = g
 ";
 

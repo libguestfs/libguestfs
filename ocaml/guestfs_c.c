@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,8 +35,8 @@
 
 #include "guestfs_c.h"
 
-static void clear_progress_callback (guestfs_h *g);
-static void progress_callback (guestfs_h *g, void *data, int proc_nr, int serial, uint64_t position, uint64_t total);
+static value **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
+static void event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
 /* This macro was added in OCaml 3.10.  Backport for earlier versions. */
 #ifndef CAMLreturnT
@@ -50,17 +50,39 @@ static void progress_callback (guestfs_h *g, void *data, int proc_nr, int serial
 /* These prototypes are solely to quiet gcc warning.  */
 CAMLprim value ocaml_guestfs_create (void);
 CAMLprim value ocaml_guestfs_close (value gv);
-CAMLprim value ocaml_guestfs_set_progress_callback (value gv, value closure);
-CAMLprim value ocaml_guestfs_clear_progress_callback (value gv);
+CAMLprim value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
+CAMLprim value ocaml_guestfs_delete_event_callback (value gv, value eh);
 
 /* Allocate handles and deal with finalization. */
 static void
 guestfs_finalize (value gv)
 {
   guestfs_h *g = Guestfs_val (gv);
+
   if (g) {
-    clear_progress_callback (g);
+    /* There is a nasty, difficult to solve case here where the
+     * user deletes events in one of the callbacks that we are
+     * about to invoke, resulting in a double-free.  XXX
+     */
+    size_t len, i;
+    value **roots = get_all_event_callbacks (g, &len);
+
+    value *v = guestfs_get_private (g, "_ocaml_g");
+
+    /* Close the handle: this could invoke callbacks from the list
+     * above, which is why we don't want to delete them before
+     * closing the handle.
+     */
     guestfs_close (g);
+
+    /* Now unregister the global roots. */
+    for (i = 0; i < len; ++i) {
+      caml_remove_global_root (roots[i]);
+      free (roots[i]);
+    }
+
+    caml_remove_global_root (v);
+    free (v);
   }
 }
 
@@ -121,6 +143,7 @@ ocaml_guestfs_create (void)
   CAMLparam0 ();
   CAMLlocal1 (gv);
   guestfs_h *g;
+  value *v;
 
   g = guestfs_create ();
   if (g == NULL)
@@ -129,6 +152,18 @@ ocaml_guestfs_create (void)
   guestfs_set_error_handler (g, NULL, NULL);
 
   gv = Val_guestfs (g);
+
+  /* Store the OCaml handle into the C handle.  This is only so we can
+   * map the C handle to the OCaml handle in event_callback_wrapper.
+   */
+  v = guestfs_safe_malloc (g, sizeof *v);
+  *v = gv;
+  /* XXX This global root is generational, but we cannot rely on every
+   * user having the OCaml 3.11 version which supports this.
+   */
+  caml_register_global_root (v);
+  guestfs_set_private (g, "_ocaml_g", v);
+
   CAMLreturn (gv);
 }
 
@@ -173,80 +208,166 @@ ocaml_guestfs_free_strings (char **argv)
   free (argv);
 }
 
-#define PROGRESS_ROOT_KEY "_ocaml_progress_root"
-
-/* Guestfs.set_progress_callback */
-CAMLprim value
-ocaml_guestfs_set_progress_callback (value gv, value closure)
+static uint64_t
+event_bitmask_of_event_list (value events)
 {
-  CAMLparam2 (gv, closure);
+  uint64_t r = 0;
+
+  while (events != Val_int (0)) {
+    r |= UINT64_C(1) << Int_val (Field (events, 0));
+    events = Field (events, 1);
+  }
+
+  return r;
+}
+
+/* Guestfs.set_event_callback */
+CAMLprim value
+ocaml_guestfs_set_event_callback (value gv, value closure, value events)
+{
+  CAMLparam3 (gv, closure, events);
+  char key[64];
+  int eh;
+  uint64_t event_bitmask;
 
   guestfs_h *g = Guestfs_val (gv);
-  clear_progress_callback (g);
+
+  event_bitmask = event_bitmask_of_event_list (events);
 
   value *root = guestfs_safe_malloc (g, sizeof *root);
   *root = closure;
+
+  eh = guestfs_set_event_callback (g, event_callback_wrapper,
+                                   event_bitmask, 0, root);
+
+  if (eh == -1) {
+    free (root);
+    ocaml_guestfs_raise_error (g, "set_event_callback");
+  }
 
   /* XXX This global root is generational, but we cannot rely on every
    * user having the OCaml 3.11 version which supports this.
    */
   caml_register_global_root (root);
 
-  guestfs_set_private (g, PROGRESS_ROOT_KEY, root);
+  snprintf (key, sizeof key, "_ocaml_event_%d", eh);
+  guestfs_set_private (g, key, root);
 
-  guestfs_set_progress_callback (g, progress_callback, root);
-
-  CAMLreturn (Val_unit);
+  CAMLreturn (Val_int (eh));
 }
 
-/* Guestfs.clear_progress_callback */
+/* Guestfs.delete_event_callback */
 CAMLprim value
-ocaml_guestfs_clear_progress_callback (value gv)
+ocaml_guestfs_delete_event_callback (value gv, value ehv)
 {
-  CAMLparam1 (gv);
+  CAMLparam2 (gv, ehv);
+  char key[64];
+  int eh = Int_val (ehv);
 
   guestfs_h *g = Guestfs_val (gv);
-  clear_progress_callback (g);
 
-  CAMLreturn (Val_unit);
-}
+  snprintf (key, sizeof key, "_ocaml_event_%d", eh);
 
-static void
-clear_progress_callback (guestfs_h *g)
-{
-  guestfs_set_progress_callback (g, NULL, NULL);
-
-  value *root = guestfs_get_private (g, PROGRESS_ROOT_KEY);
+  value *root = guestfs_get_private (g, key);
   if (root) {
     caml_remove_global_root (root);
     free (root);
-    guestfs_set_private (g, PROGRESS_ROOT_KEY, NULL);
+    guestfs_set_private (g, key, NULL);
+    guestfs_delete_event_callback (g, eh);
   }
+
+  CAMLreturn (Val_unit);
+}
+
+static value **
+get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
+{
+  value **r;
+  size_t i;
+  const char *key;
+  value *root;
+
+  /* Count the length of the array that will be needed. */
+  *len_rtn = 0;
+  root = guestfs_first_private (g, &key);
+  while (root != NULL) {
+    if (strncmp (key, "_ocaml_event_", strlen ("_ocaml_event_")) == 0)
+      (*len_rtn)++;
+    root = guestfs_next_private (g, &key);
+  }
+
+  /* Copy them into the return array. */
+  r = guestfs_safe_malloc (g, sizeof (value *) * (*len_rtn));
+
+  i = 0;
+  root = guestfs_first_private (g, &key);
+  while (root != NULL) {
+    if (strncmp (key, "_ocaml_event_", strlen ("_ocaml_event_")) == 0) {
+      r[i] = root;
+      i++;
+    }
+    root = guestfs_next_private (g, &key);
+  }
+
+  return r;
+}
+
+/* Could do better: http://graphics.stanford.edu/~seander/bithacks.html */
+static int
+event_bitmask_to_event (uint64_t event)
+{
+  int r = 0;
+
+  while (event >>= 1)
+    r++;
+
+  return r;
 }
 
 static void
-progress_callback (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
-                   int proc_nr, int serial, uint64_t position, uint64_t total)
+event_callback_wrapper (guestfs_h *g,
+                        void *data,
+                        uint64_t event,
+                        int event_handle,
+                        int flags,
+                        const char *buf, size_t buf_len,
+                        const uint64_t *array, size_t array_len)
 {
   CAMLparam0 ();
-  CAMLlocal5 (proc_nrv, serialv, positionv, totalv, rv);
+  CAMLlocal5 (gv, evv, ehv, bufv, arrayv);
+  CAMLlocal2 (rv, v);
+  value *root;
+  size_t i;
 
-  proc_nrv = Val_int (proc_nr);
-  serialv = Val_int (serial);
-  positionv = caml_copy_int64 (position);
-  totalv = caml_copy_int64 (total);
+  root = guestfs_get_private (g, "_ocaml_g");
+  gv = *root;
 
-  value args[4] = { proc_nrv, serialv, positionv, totalv };
+  /* Only one bit should be set in 'event'.  Which one? */
+  evv = Val_int (event_bitmask_to_event (event));
+
+  ehv = Val_int (event_handle);
+
+  bufv = caml_alloc_string (buf_len);
+  memcpy (String_val (bufv), buf, buf_len);
+
+  arrayv = caml_alloc (array_len, 0);
+  for (i = 0; i < array_len; ++i) {
+    v = caml_copy_int64 (array[i]);
+    Store_field (arrayv, i, v);
+  }
+
+  value args[5] = { gv, evv, ehv, bufv, arrayv };
 
   caml_leave_blocking_section ();
-  rv = caml_callbackN_exn (*(value*)root, 4, args);
+  rv = caml_callbackN_exn (*(value*)data, 5, args);
   caml_enter_blocking_section ();
 
   /* Callbacks shouldn't throw exceptions.  There's not much we can do
    * except to print it.
    */
   if (Is_exception_result (rv))
-    fprintf (stderr, "libguestfs: uncaught OCaml exception in progress callback: %s",
+    fprintf (stderr,
+             "libguestfs: uncaught OCaml exception in event callback: %s",
              caml_format_exception (Extract_exception (rv)));
 
   CAMLreturn0;

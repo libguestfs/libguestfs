@@ -1,5 +1,5 @@
 (* libguestfs OCaml bindings
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,15 +25,15 @@ let () =
   G.launch g;
 
   let calls = ref 0 in
-  let cb _ _ _ _ = incr calls in
-  G.set_progress_callback g cb;
+  let cb _ _ _ _ _ = incr calls in
+  let eh = G.set_event_callback g cb [G.EVENT_PROGRESS] in
   assert ("ok" = G.debug g "progress" [| "5" |]);
   assert (!calls > 0);
   calls := 0;
-  G.clear_progress_callback g;
+  G.delete_event_callback g eh;
   assert ("ok" = G.debug g "progress" [| "5" |]);
   assert (!calls = 0);
-  G.set_progress_callback g cb;
+  ignore (G.set_event_callback g cb [G.EVENT_PROGRESS]);
   assert ("ok" = G.debug g "progress" [| "5" |]);
   assert (!calls > 0);
 
