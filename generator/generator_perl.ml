@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ open Generator_optgroups
 open Generator_actions
 open Generator_structs
 open Generator_c
+open Generator_events
 
 (* Generate Perl xs code, a sort of crazy variation of C with macros. *)
 let rec generate_perl_xs () =
@@ -101,44 +102,85 @@ XS_unpack_charPtrPtr (SV *arg) {
   return ret;
 }
 
-#define PROGRESS_KEY \"_perl_progress_cb\"
-
-static void
-_clear_progress_callback (guestfs_h *g)
-{
-  guestfs_set_progress_callback (g, NULL, NULL);
-  SV *cb = guestfs_get_private (g, PROGRESS_KEY);
-  if (cb) {
-    guestfs_set_private (g, PROGRESS_KEY, NULL);
-    SvREFCNT_dec (cb);
-  }
-}
-
 /* http://www.perlmonks.org/?node=338857 */
 static void
-_progress_callback (guestfs_h *g, void *cb,
-                    int proc_nr, int serial, uint64_t position, uint64_t total)
+_event_callback_wrapper (guestfs_h *g,
+                         void *cb,
+                         uint64_t event,
+                         int event_handle,
+                         int flags,
+                         const char *buf, size_t buf_len,
+                         const uint64_t *array, size_t array_len)
 {
   dSP;
   ENTER;
   SAVETMPS;
   PUSHMARK (SP);
-  XPUSHs (sv_2mortal (newSViv (proc_nr)));
-  XPUSHs (sv_2mortal (newSViv (serial)));
-  XPUSHs (sv_2mortal (my_newSVull (position)));
-  XPUSHs (sv_2mortal (my_newSVull (total)));
+  XPUSHs (sv_2mortal (my_newSVull (event)));
+  XPUSHs (sv_2mortal (newSViv (event_handle)));
+  XPUSHs (sv_2mortal (newSVpvn (buf ? buf : \"\", buf_len)));
+  AV *av = newAV ();
+  size_t i;
+  for (i = 0; i < array_len; ++i)
+    av_push (av, my_newSVull (array[i]));
+  XPUSHs (sv_2mortal (newRV ((SV *) av)));
   PUTBACK;
   call_sv ((SV *) cb, G_VOID | G_DISCARD | G_EVAL);
   FREETMPS;
   LEAVE;
 }
 
+static SV **
+get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
+{
+  SV **r;
+  size_t i;
+  const char *key;
+  SV *cb;
+
+  /* Count the length of the array that will be needed. */
+  *len_rtn = 0;
+  cb = guestfs_first_private (g, &key);
+  while (cb != NULL) {
+    if (strncmp (key, \"_perl_event_\", strlen (\"_perl_event_\")) == 0)
+      (*len_rtn)++;
+    cb = guestfs_next_private (g, &key);
+  }
+
+  /* Copy them into the return array. */
+  r = guestfs_safe_malloc (g, sizeof (SV *) * (*len_rtn));
+
+  i = 0;
+  cb = guestfs_first_private (g, &key);
+  while (cb != NULL) {
+    if (strncmp (key, \"_perl_event_\", strlen (\"_perl_event_\")) == 0) {
+      r[i] = cb;
+      i++;
+    }
+    cb = guestfs_next_private (g, &key);
+  }
+
+  return r;
+}
+
 static void
 _close_handle (guestfs_h *g)
 {
+  size_t i, len;
+  SV **cbs;
+
   assert (g != NULL);
-  _clear_progress_callback (g);
+
+  /* As in the OCaml bindings, there is a hard to solve case where the
+   * caller can delete a callback from within the callback, resulting
+   * in a double-free here.  XXX
+   */
+  cbs = get_all_event_callbacks (g, &len);
+
   guestfs_close (g);
+
+  for (i = 0; i < len; ++i)
+    SvREFCNT_dec (cbs[i]);
 }
 
 MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
@@ -180,21 +222,45 @@ close (g)
       HV *hv = (HV *) SvRV (ST(0));
       (void) hv_delete (hv, \"_g\", 2, G_DISCARD);
 
-void
-set_progress_callback (g, cb)
+SV *
+set_event_callback (g, cb, event_bitmask)
       guestfs_h *g;
       SV *cb;
- PPCODE:
-      _clear_progress_callback (g);
+      int event_bitmask;
+PREINIT:
+      int eh;
+      char key[64];
+   CODE:
+      eh = guestfs_set_event_callback (g, _event_callback_wrapper,
+                                       event_bitmask, 0, cb);
+      if (eh == -1)
+        croak (\"%%s\", guestfs_last_error (g));
+
+      /* Increase the refcount for this callback, since we are storing
+       * it in the opaque C libguestfs handle.  We need to remember that
+       * we did this, so we can decrease the refcount for all undeleted
+       * callbacks left around at close time (see _close_handle).
+       */
       SvREFCNT_inc (cb);
-      guestfs_set_private (g, PROGRESS_KEY, cb);
-      guestfs_set_progress_callback (g, _progress_callback, cb);
+
+      snprintf (key, sizeof key, \"_perl_event_%%d\", eh);
+      guestfs_set_private (g, key, cb);
+
+      RETVAL = newSViv (eh);
+ OUTPUT:
+      RETVAL
 
 void
-clear_progress_callback (g)
+delete_event_callback (g, event_handle)
       guestfs_h *g;
- PPCODE:
-      _clear_progress_callback (g);
+      int event_handle;
+PREINIT:
+      char key[64];
+   CODE:
+      snprintf (key, sizeof key, \"_perl_event_%%d\", event_handle);
+      guestfs_set_private (g, key, NULL);
+
+      guestfs_delete_event_callback (g, event_handle);
 
 ";
 
@@ -579,6 +645,10 @@ $VERSION = '0.%d';
 require XSLoader;
 XSLoader::load ('Sys::Guestfs');
 
+" max_proc_nr;
+
+  (* Methods. *)
+  pr "\
 =item $h = Sys::Guestfs->new ();
 
 Create a new guestfs handle.
@@ -609,28 +679,68 @@ C<close> the program must not call any method (including C<close>)
 on the handle (but the implicit call to C<DESTROY> that happens
 when the final reference is cleaned up is OK).
 
-=item $h->set_progress_callback (\\&cb);
+";
 
-Set the progress notification callback for this handle
-to the Perl closure C<cb>.
+  List.iter (
+    fun (name, bitmask) ->
+      pr "=item $Sys::Guestfs::EVENT_%s\n" (String.uppercase name);
+      pr "\n";
+      pr "See L<guestfs(3)/GUESTFS_EVENT_%s>.\n"
+        (String.uppercase name);
+      pr "\n";
+      pr "=cut\n";
+      pr "\n";
+      pr "our $EVENT_%s = 0x%x;\n" (String.uppercase name) bitmask;
+      pr "\n"
+  ) events;
 
-C<cb> will be called whenever a long-running operation
-generates a progress notification message.  The 4 parameters
-to the function are: C<proc_nr>, C<serial>, C<position>
-and C<total>.
+  pr "\
+=item $event_handle = $h->set_event_callback (\\&cb, $event_bitmask);
+
+Register C<cb> as a callback function for all of the events
+in C<$event_bitmask> (one or more C<$Sys::Guestfs::EVENT_*> flags
+logically or'd together).
+
+This function returns an event handle which
+can be used to delete the callback using C<delete_event_callback>.
+
+The callback function receives 4 parameters:
+
+ &cb ($event, $event_handle, $buf, $array)
+
+=over 4
+
+=item $event
+
+The event which happened (equal to one of C<$Sys::Guestfs::EVENT_*>).
+
+=item $event_handle
+
+The event handle.
+
+=item $buf
+
+For some event types, this is a message buffer (ie. a string).
+
+=item $array
+
+For some event types (notably progress events), this is
+an array of integers.
+
+=back
 
 You should carefully read the documentation for
-L<guestfs(3)/guestfs_set_progress_callback> before using
+L<guestfs(3)/guestfs_set_event_callback> before using
 this function.
 
-=item $h->clear_progress_callback ();
+=item $h->delete_event_callback ($event_handle);
 
-This removes any progress callback function associated with
-the handle.
+This removes the callback which was previously registered using
+C<set_event_callback>.
 
 =cut
 
-" max_proc_nr;
+";
 
   (* Actions.  We only need to print documentation for these as
    * they are pulled in from the XS code automatically.
