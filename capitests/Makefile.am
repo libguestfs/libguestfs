@@ -30,7 +30,8 @@ check_PROGRAMS = \
 	test-create-handle \
 	test-config \
 	test-add-drive-opts \
-	test-last-errno
+	test-last-errno \
+	test-private-data
 
 TESTS = \
 	tests \
@@ -38,7 +39,8 @@ TESTS = \
 	test-create-handle \
 	test-config \
 	test-add-drive-opts \
-	test-last-errno
+	test-last-errno \
+	test-private-data
 
 # The API behind this test is not baked yet.
 #if HAVE_LIBVIRT
@@ -101,6 +103,13 @@ test_last_errno_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_last_errno_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+test_private_data_SOURCES = test-private-data.c
+test_private_data_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_private_data_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 #if HAVE_LIBVIRT

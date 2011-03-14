@@ -154,6 +154,7 @@ struct guestfs_h
 
   /* Private data area. */
   struct hash_table *pda;
+  struct pda_entry *pda_next;
 };
 
 /* Per-filesystem data stored for inspect_os. */

@@ -1804,8 +1804,9 @@ print these numbers in error messages or debugging messages.
 =head1 PRIVATE DATA AREA
 
 You can attach named pieces of private data to the libguestfs handle,
-and fetch them by name for the lifetime of the handle.  This is called
-the private data area and is only available from the C API.
+fetch them by name, and walk over them, for the lifetime of the
+handle.  This is called the private data area and is only available
+from the C API.
 
 To attach a named piece of data, use the following call:
 
@@ -1836,8 +1837,100 @@ caller must either free it before calling L</guestfs_close> or must
 set up a close callback to do it (see L</guestfs_set_close_callback>,
 and note that only one callback can be registered for a handle).
 
-The private data area is implemented using a hash table, and should be
-reasonably efficient for moderate numbers of keys.
+To walk over all entries, use these two functions:
+
+ void *guestfs_first_private (guestfs_h *g, const char **key_rtn);
+
+ void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
+
+C<guestfs_first_private> returns the first key, pointer pair ("first"
+does not have any particular meaning -- keys are not returned in any
+defined order).  A pointer to the key is returned in C<*key_rtn> and
+the corresponding data pointer is returned from the function.  C<NULL>
+is returned if there are no keys stored in the handle.
+
+C<guestfs_next_private> returns the next key, pointer pair.  The
+return value of this function is also C<NULL> is there are no further
+entries to return.
+
+Notes about walking over entries:
+
+=over 4
+
+=item *
+
+You must not call C<guestfs_set_private> while walking over the
+entries.
+
+=item *
+
+The handle maintains an internal iterator which is reset when you call
+C<guestfs_first_private>.  This internal iterator is invalidated when
+you call C<guestfs_set_private>.
+
+=item *
+
+If you have set the data pointer associated with a key to C<NULL>, ie:
+
+ guestfs_set_private (g, key, NULL);
+
+then that C<key> is not returned when walking.
+
+=item *
+
+C<*key_rtn> is only valid until the next call to
+C<guestfs_first_private>, C<guestfs_next_private> or
+C<guestfs_set_private>.
+
+=back
+
+The following example code shows how to print all keys and data
+pointers that are associated with the handle C<g>:
+
+ const char *key;
+ void *data = guestfs_first_private (g, &key);
+ while (data != NULL)
+   {
+     printf ("key = %s, data = %p\n", key, data);
+     data = guestfs_next_private (g, &key);
+   }
+
+More commonly you are only interested in keys that begin with an
+application-specific prefix C<foo_>.  Modify the loop like so:
+
+ const char *key;
+ void *data = guestfs_first_private (g, &key);
+ while (data != NULL)
+   {
+     if (strncmp (key, "foo_", strlen ("foo_")) == 0)
+       printf ("key = %s, data = %p\n", key, data);
+     data = guestfs_next_private (g, &key);
+   }
+
+If you need to modify keys while walking, then you have to jump back
+to the beginning of the loop.  For example, to delete all keys
+prefixed with C<foo_>:
+
+  const char *key;
+  void *data;
+ again:
+  data = guestfs_first_private (g, &key);
+  while (data != NULL)
+    {
+      if (strncmp (key, "foo_", strlen ("foo_")) == 0)
+        {
+          guestfs_set_private (g, key, NULL);
+          /* note that 'key' pointer is now invalid, and so is
+             the internal iterator */
+          goto again;
+        }
+      data = guestfs_next_private (g, &key);
+    }
+
+Note that the above loop is guaranteed to terminate because the keys
+are being deleted, but other manipulations of keys within the loop
+might not terminate unless you also maintain an indication of which
+keys have been visited.
 
 =begin html
 

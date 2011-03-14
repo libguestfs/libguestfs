@@ -434,6 +434,10 @@ extern void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb,
 extern void guestfs_set_private (guestfs_h *g, const char *key, void *data);
 #define LIBGUESTFS_HAVE_GET_PRIVATE 1
 extern void *guestfs_get_private (guestfs_h *g, const char *key);
+#define LIBGUESTFS_HAVE_FIRST_PRIVATE 1
+extern void *guestfs_first_private (guestfs_h *g, const char **key_rtn);
+#define LIBGUESTFS_HAVE_NEXT_PRIVATE 1
+extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
 
 /* Structures. */
 ";
@@ -1359,11 +1363,13 @@ and generate_linker_script () =
   let globals = [
     "guestfs_create";
     "guestfs_close";
+    "guestfs_first_private";
     "guestfs_get_error_handler";
     "guestfs_get_out_of_memory_handler";
     "guestfs_get_private";
     "guestfs_last_errno";
     "guestfs_last_error";
+    "guestfs_next_private";
     "guestfs_set_close_callback";
     "guestfs_set_error_handler";
     "guestfs_set_launch_done_callback";

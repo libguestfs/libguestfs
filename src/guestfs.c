@@ -806,6 +806,47 @@ guestfs_get_private (guestfs_h *g, const char *key)
     return NULL;
 }
 
+/* Iterator. */
+void *
+guestfs_first_private (guestfs_h *g, const char **key_rtn)
+{
+  if (g->pda == NULL)
+    return NULL;
+
+  g->pda_next = hash_get_first (g->pda);
+
+  /* Ignore any keys with NULL data pointers. */
+  while (g->pda_next && g->pda_next->data == NULL)
+    g->pda_next = hash_get_next (g->pda, g->pda_next);
+
+  if (g->pda_next == NULL)
+    return NULL;
+
+  *key_rtn = g->pda_next->key;
+  return g->pda_next->data;
+}
+
+void *
+guestfs_next_private (guestfs_h *g, const char **key_rtn)
+{
+  if (g->pda == NULL)
+    return NULL;
+
+  if (g->pda_next == NULL)
+    return NULL;
+
+  /* Walk to the next key with a non-NULL data pointer. */
+  do {
+    g->pda_next = hash_get_next (g->pda, g->pda_next);
+  } while (g->pda_next && g->pda_next->data == NULL);
+
+  if (g->pda_next == NULL)
+    return NULL;
+
+  *key_rtn = g->pda_next->key;
+  return g->pda_next->data;
+}
+
 /* When tracing, be careful how we print BufferIn parameters which
  * usually contain large amounts of binary data (RHBZ#646822).
  */
