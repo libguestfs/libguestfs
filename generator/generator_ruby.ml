@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ open Generator_optgroups
 open Generator_actions
 open Generator_structs
 open Generator_c
+open Generator_events
 
 (* Generate ruby bindings. *)
 let rec generate_ruby_c () =
@@ -36,6 +37,7 @@ let rec generate_ruby_c () =
   pr "\
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include <ruby.h>
 
@@ -52,10 +54,34 @@ static VALUE m_guestfs;			/* guestfs module */
 static VALUE c_guestfs;			/* guestfs_h handle */
 static VALUE e_Error;			/* used for all errors */
 
-static void ruby_guestfs_free (void *p)
+static void ruby_event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
+static VALUE **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
+
+static void ruby_guestfs_free (void *gvp)
 {
-  if (!p) return;
-  guestfs_close ((guestfs_h *) p);
+  guestfs_h *g = gvp;
+
+  if (g) {
+    /* As in the OCaml binding, there is a nasty, difficult to
+     * solve case here where the user deletes events in one of
+     * the callbacks that we are about to invoke, resulting in
+     * a double-free.  XXX
+     */
+    size_t len, i;
+    VALUE **roots = get_all_event_callbacks (g, &len);
+
+    /* Close the handle: this could invoke callbacks from the list
+     * above, which is why we don't want to delete them before
+     * closing the handle.
+     */
+    guestfs_close (g);
+
+    /* Now unregister the global roots. */
+    for (i = 0; i < len; ++i) {
+      rb_gc_unregister_address (roots[i]);
+      free (roots[i]);
+    }
+  }
 }
 
 static VALUE ruby_guestfs_create (VALUE m)
@@ -84,6 +110,122 @@ static VALUE ruby_guestfs_close (VALUE gv)
   DATA_PTR (gv) = NULL;
 
   return Qnil;
+}
+
+static VALUE
+ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
+{
+  guestfs_h *g;
+  uint64_t event_bitmask;
+  int eh;
+  VALUE *root;
+  char key[64];
+
+  Data_Get_Struct (gv, guestfs_h, g);
+
+  event_bitmask = NUM2ULL (event_bitmaskv);
+
+  root = guestfs_safe_malloc (g, sizeof *root);
+  *root = cbv;
+
+  eh = guestfs_set_event_callback (g, ruby_event_callback_wrapper,
+                                   event_bitmask, 0, root);
+  if (eh == -1) {
+    free (root);
+    rb_raise (e_Error, \"%%s\", guestfs_last_error (g));
+  }
+
+  rb_gc_register_address (root);
+
+  snprintf (key, sizeof key, \"_ruby_event_%%d\", eh);
+  guestfs_set_private (g, key, root);
+
+  return INT2NUM (eh);
+}
+
+static VALUE
+ruby_delete_event_callback (VALUE gv, VALUE event_handlev)
+{
+  guestfs_h *g;
+  char key[64];
+  int eh = NUM2INT (event_handlev);
+  VALUE *root;
+
+  Data_Get_Struct (gv, guestfs_h, g);
+
+  snprintf (key, sizeof key, \"_ruby_event_%%d\", eh);
+
+  root = guestfs_get_private (g, key);
+  if (root) {
+    rb_gc_unregister_address (root);
+    free (root);
+    guestfs_set_private (g, key, NULL);
+    guestfs_delete_event_callback (g, eh);
+  }
+
+  return Qnil;
+}
+
+static void
+ruby_event_callback_wrapper (guestfs_h *g,
+                             void *data,
+                             uint64_t event,
+                             int event_handle,
+                             int flags,
+                             const char *buf, size_t buf_len,
+                             const uint64_t *array, size_t array_len)
+{
+  size_t i;
+  VALUE eventv, event_handlev, bufv, arrayv;
+
+  eventv = ULL2NUM (event);
+  event_handlev = INT2NUM (event_handle);
+
+  bufv = rb_str_new (buf, buf_len);
+
+  arrayv = rb_ary_new2 (array_len);
+  for (i = 0; i < array_len; ++i)
+    rb_ary_push (arrayv, ULL2NUM (array[i]));
+
+  /* XXX If the Ruby callback raises any sort of exception then
+   * it causes the process to segfault.  I don't understand how
+   * to catch exceptions here.
+   */
+  rb_funcall (*(VALUE *) data, rb_intern (\"call\"), 4,
+              eventv, event_handlev, bufv, arrayv);
+}
+
+static VALUE **
+get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
+{
+  VALUE **r;
+  size_t i;
+  const char *key;
+  VALUE *root;
+
+  /* Count the length of the array that will be needed. */
+  *len_rtn = 0;
+  root = guestfs_first_private (g, &key);
+  while (root != NULL) {
+    if (strncmp (key, \"_ruby_event_\", strlen (\"_ruby_event_\")) == 0)
+      (*len_rtn)++;
+    root = guestfs_next_private (g, &key);
+  }
+
+  /* Copy them into the return array. */
+  r = guestfs_safe_malloc (g, sizeof (VALUE *) * (*len_rtn));
+
+  i = 0;
+  root = guestfs_first_private (g, &key);
+  while (root != NULL) {
+    if (strncmp (key, \"_ruby_event_\", strlen (\"_ruby_event_\")) == 0) {
+      r[i] = root;
+      i++;
+    }
+    root = guestfs_next_private (g, &key);
+  }
+
+  return r;
 }
 
 ";
@@ -295,9 +437,23 @@ void Init__guestfs ()
 
   rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, 0);
   rb_define_method (c_guestfs, \"close\", ruby_guestfs_close, 0);
+  rb_define_method (c_guestfs, \"set_event_callback\",
+                    ruby_set_event_callback, 2);
+  rb_define_method (c_guestfs, \"delete_event_callback\",
+                    ruby_delete_event_callback, 1);
 
 ";
-  (* Define the rest of the methods. *)
+
+  (* Constants. *)
+  List.iter (
+    fun (name, bitmask) ->
+      pr "  rb_define_const (m_guestfs, \"EVENT_%s\",\n"
+        (String.uppercase name);
+      pr "                   ULL2NUM (UINT64_C (0x%x)));\n" bitmask;
+  ) events;
+  pr "\n";
+
+  (* Methods. *)
   List.iter (
     fun (name, (_, args, optargs), _, _, _, _, _) ->
       let nr_args = List.length args + if optargs <> [] then 1 else 0 in
