@@ -214,7 +214,7 @@ guestfs_close (guestfs_h *g)
   g->sock = -1;
 
   /* Wait for subprocess(es) to exit. */
-  waitpid (g->pid, NULL, 0);
+  if (g->pid > 0) waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
 
   /* Remove tmpfiles. */
