@@ -367,7 +367,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
             pr "  {\n";
             pr "    size_t i, len;\n";
             pr "    len = RARRAY_LEN (%sv);\n" n;
-            pr "    %s = guestfs_safe_malloc (g, sizeof (char *) * (len+1));\n"
+            pr "    %s = ALLOC_N (char *, len+1);\n"
               n;
             pr "    for (i = 0; i < len; ++i) {\n";
             pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
