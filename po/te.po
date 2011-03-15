@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-08 16:20+0000\n"
+"POT-Creation-Date: 2011-03-15 21:45+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -2104,17 +2104,17 @@ msgstr "%s: --listen ఫ్లాగ్‌తో ఆదేశ వరుసపై
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ఒకే సమయంలో --listen మరియు --file ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:536
+#: fish/fish.c:537
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:540
+#: fish/fish.c:541
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:628
+#: fish/fish.c:629
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2134,45 +2134,45 @@ msgstr ""
 "      'quit' షెల్ నిష్క్రమించుటకు\n"
 "\n"
 
-#: fish/fish.c:772
+#: fish/fish.c:773
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: మూయని డబుల్ కోట్\n"
 
-#: fish/fish.c:778 fish/fish.c:795
+#: fish/fish.c:779 fish/fish.c:796
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: వెట్‌స్పేస్ ద్వారా వేరుచేయబడిన కమాండ్ ఆర్గుమెంట్స్\n"
 
-#: fish/fish.c:789
+#: fish/fish.c:790
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: మూయని సింగిల్ కోట్\n"
 
-#: fish/fish.c:819
+#: fish/fish.c:820
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'వద్ద స్ట్రింగును పార్శ్ చేయుటలో అంతర్గత దోషము\n"
 
-#: fish/fish.c:836
+#: fish/fish.c:837
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: చాలా యెక్కువ ఆర్గుమెంట్లు\n"
 
-#: fish/fish.c:904
+#: fish/fish.c:905
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ఆదేశ వరుసపై ఖాళీ ఆదేశము\n"
 
-#: fish/fish.c:1050
+#: fish/fish.c:1051
 msgid "display a list of commands or help on a command"
 msgstr "ఆదేశముల జాబితాను లేదా ఆదేశముపై సహాయమును ప్రదర్శించుము"
 
-#: fish/fish.c:1052
+#: fish/fish.c:1053
 msgid "quit guestfish"
 msgstr "guestfish నిష్క్రమించుము"
 
-#: fish/fish.c:1063
+#: fish/fish.c:1064
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2183,7 +2183,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1071
+#: fish/fish.c:1072
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2192,12 +2192,12 @@ msgstr ""
 "quit - guestfish నిష్క్రమించును\n"
 "     quit\n"
 
-#: fish/fish.c:1076
+#: fish/fish.c:1077
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: తెలియని ఆదేశము, అన్ని ఆదేశములను జాబితాచేయుటకు -h వుపయోగించుము\n"
 
-#: fish/fish.c:1092
+#: fish/fish.c:1093
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2205,7 +2205,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1249
+#: fish/fish.c:1250
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" స్ట్రింగునందు రన్‌యెవే స్ట్రింగ్\n"
@@ -2826,7 +2826,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:655
+#: src/appliance.c:659
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
@@ -2842,68 +2842,73 @@ msgid ""
 "compiled without PCRE or libmagic libraries"
 msgstr ""
 
-#: src/guestfs.c:178
+#: src/guestfs.c:177
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ఒకే సంభాలికపై రెండుసార్లు పిలువబడింది\n"
 
-#: src/guestfs.c:288
+#: src/guestfs.c:302
+#, c-format
+msgid "warning: %s"
+msgstr ""
+
+#: src/guestfs.c:361
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: దోషము: %s\n"
 
-#: src/guestfs.c:834
+#: src/guestfs.c:908
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:478 src/inspect.c:1163 src/inspect.c:2603 src/inspect.c:2646
-#: src/inspect.c:2696 src/inspect.c:2740
+#: src/inspect.c:477 src/inspect.c:1162 src/inspect.c:2599 src/inspect.c:2642
+#: src/inspect.c:2692 src/inspect.c:2736
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:1197
+#: src/inspect.c:1196
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "పరిమాణ వివరణలను పార్శ్ చేయలేకపోయింది '%s'\n"
 
-#: src/inspect.c:1413
+#: src/inspect.c:1411
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1694 src/inspect.c:1707
+#: src/inspect.c:1691 src/inspect.c:1704
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "పరిమాణ వివరణలను పార్శ్ చేయలేకపోయింది '%s'\n"
 
-#: src/inspect.c:1801
+#: src/inspect.c:1798
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1813
+#: src/inspect.c:1810
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1942
+#: src/inspect.c:1939
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:2234 src/inspect.c:2256 src/inspect.c:2281
+#: src/inspect.c:2230 src/inspect.c:2252 src/inspect.c:2277
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "డెమోన్‌నుండి చదువునప్పుడు అనుకోని ఫైలు ముగింపు"
 
-#: src/inspect.c:2705
+#: src/inspect.c:2701
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2768
+#: src/inspect.c:2764
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
@@ -2963,7 +2968,7 @@ msgstr "guestfs_launch విఫలమైంది, ముందలి దోష
 msgid "contacted guestfsd, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
-#: src/launch.c:990
+#: src/launch.c:1002
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2972,11 +2977,11 @@ msgstr ""
 "%s: ఆదేశము విఫలమైంది: ఒకవేళ qemu ప్రామాణికం-కాని పాత్‌పై వుంటే, LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ "
 "వేరియబుల్ అమర్చుటకు ప్రయత్నించుము."
 
-#: src/launch.c:1082
+#: src/launch.c:1093
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
-#: src/launch.c:1093
+#: src/launch.c:1104
 msgid "no subprocess to kill"
 msgstr "అంతంచేయుటకు యే వుపకార్యక్రమము లేదు"
 
@@ -2990,72 +2995,72 @@ msgstr "guestfs_set_busy: state %d != READY అయినప్పుడు ప�
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: state %d నందు పిలువబడును"
 
-#: src/proto.c:350
+#: src/proto.c:351
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: డెమోన్‌నుండి 0x%x చదివెను, కావలసినది 0x%x\n"
 
-#: src/proto.c:521 src/proto.c:582
+#: src/proto.c:518 src/proto.c:578
 msgid "unexpected end of file when reading from daemon"
 msgstr "డెమోన్‌నుండి చదువునప్పుడు అనుకోని ఫైలు ముగింపు"
 
-#: src/proto.c:542
+#: src/proto.c:539
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "స్థితి %d నందు, guestfsd నుండి చమత్కార సంతకము పొందబడింది"
 
-#: src/proto.c:559
+#: src/proto.c:555
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "సందేశము పొడవు (%u) > సాధ్యమగు గరిష్ట పరిమాణము (%d)"
 
-#: src/proto.c:712
+#: src/proto.c:704
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/proto.c:736
+#: src/proto.c:728
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header విఫలమైంది"
 
-#: src/proto.c:745
+#: src/proto.c:737
 msgid "dispatch failed to marshal args"
 msgstr "మార్షల్ argsకు చేరవేత విఫలమైంది"
 
-#: src/proto.c:875
+#: src/proto.c:867
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/proto.c:891
+#: src/proto.c:883
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1014
+#: src/proto.c:1005
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: చంకడ్ ఎన్కోడింగ్ నందు దోషము"
 
-#: src/proto.c:1042
+#: src/proto.c:1032
 msgid "write to daemon socket"
 msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
-#: src/proto.c:1065
+#: src/proto.c:1055
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ నందు పార్శ్ దోషము"
 
-#: src/proto.c:1070
+#: src/proto.c:1060
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
-#: src/proto.c:1078
+#: src/proto.c:1068
 msgid "failed to parse file chunk"
 msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
 
-#: src/proto.c:1087
+#: src/proto.c:1077
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
@@ -3367,61 +3372,61 @@ msgid ""
 "Please read the virt-resize(1) manpage for more information.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:662 tools/virt-resize.pl:665
+#: tools/virt-resize.pl:663 tools/virt-resize.pl:666
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
 msgstr ""
 
-#: tools/virt-resize.pl:681 tools/virt-resize.pl:693
+#: tools/virt-resize.pl:682 tools/virt-resize.pl:694
 msgid "virt-resize: short read"
 msgstr ""
 
-#: tools/virt-resize.pl:827
+#: tools/virt-resize.pl:828
 #, fuzzy, perl-brace-format
 msgid "virt-resize: no logical volume called {n}\n"
 msgstr "LVM తార్కిక వాల్యూమ్ పునఃపరిమాణము చేయుము"
 
-#: tools/virt-resize.pl:847
+#: tools/virt-resize.pl:848
 #, perl-brace-format
 msgid ""
 "{p}: partition not found in the source disk image, when using the '{opt}' "
 "command line option\n"
 msgstr ""
 
-#: tools/virt-resize.pl:853
+#: tools/virt-resize.pl:854
 #, perl-brace-format
 msgid ""
 "{p}: partition ignored, you cannot use it in another command line argument\n"
 msgstr ""
 
-#: tools/virt-resize.pl:857
+#: tools/virt-resize.pl:858
 #, perl-brace-format
 msgid ""
 "{p}: partition deleted, you cannot use it in another command line argument\n"
 msgstr ""
 
-#: tools/virt-resize.pl:899
+#: tools/virt-resize.pl:900
 #, perl-brace-format
 msgid "{p}: this partition has already been marked for resizing\n"
 msgstr ""
 
-#: tools/virt-resize.pl:907
+#: tools/virt-resize.pl:908
 #, perl-brace-format
 msgid "{p}: missing size field in {o} option\n"
 msgstr ""
 
-#: tools/virt-resize.pl:924
+#: tools/virt-resize.pl:925
 #, perl-brace-format
 msgid "{p}: {f}: cannot parse size field\n"
 msgstr ""
 
-#: tools/virt-resize.pl:929
+#: tools/virt-resize.pl:930
 #, perl-brace-format
 msgid "{p}: new size is zero or negative\n"
 msgstr ""
 
-#: tools/virt-resize.pl:952
+#: tools/virt-resize.pl:953
 #, perl-brace-format
 msgid ""
 "{p}: cannot make this partition smaller because it contains a\n"
@@ -3430,84 +3435,84 @@ msgid ""
 "You have to resize the content first, see virt-resize(1).\n"
 msgstr ""
 
-#: tools/virt-resize.pl:968
+#: tools/virt-resize.pl:969
 msgid "virt-resize: you cannot use options --expand and --shrink together\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1017
+#: tools/virt-resize.pl:1018
 #, perl-brace-format
 msgid ""
 "virt-resize: error: cannot use --expand when there is no surplus space to\n"
 "expand into.  You need to make the target disk larger by at least {h}.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1032
+#: tools/virt-resize.pl:1033
 msgid ""
 "virt-resize: error: cannot use --shrink because there is no deficit\n"
 "(see 'deficit' in the virt-resize(1) man page)\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1047
+#: tools/virt-resize.pl:1048
 msgid "Summary of changes:\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1051
+#: tools/virt-resize.pl:1052
 #, perl-brace-format
 msgid "{p}: partition will be ignored\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1053
+#: tools/virt-resize.pl:1054
 #, perl-brace-format
 msgid "{p}: partition will be deleted\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1055
+#: tools/virt-resize.pl:1056
 #, perl-brace-format
 msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1060
+#: tools/virt-resize.pl:1061
 #, perl-brace-format
 msgid "{p}: content will be expanded using the '{meth}' method\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1065
+#: tools/virt-resize.pl:1066
 #, perl-brace-format
 msgid "{p}: partition will be left alone\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1070
+#: tools/virt-resize.pl:1071
 #, perl-brace-format
 msgid "{n}: LV will be expanded to maximum size\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1076
+#: tools/virt-resize.pl:1077
 #, perl-brace-format
 msgid "{n}: content will be expanded using the '{meth}' method\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1083
+#: tools/virt-resize.pl:1084
 #, perl-brace-format
 msgid "There is a surplus of {spl} bytes ({h}).\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1088
+#: tools/virt-resize.pl:1089
 msgid "An extra partition will be created for the surplus.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1090
+#: tools/virt-resize.pl:1091
 msgid ""
 "The surplus space is not large enough for an extra partition to be created\n"
 "and so it will just be ignored.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1093
+#: tools/virt-resize.pl:1094
 msgid ""
 "The surplus space will be ignored.  Run a partitioning program in the guest\n"
 "to partition this extra space if you want.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1096
+#: tools/virt-resize.pl:1097
 #, perl-brace-format
 msgid ""
 "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
@@ -3515,16 +3520,16 @@ msgid ""
 "or adjust your resizing requests.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1113
+#: tools/virt-resize.pl:1114
 msgid "virt-resize: source disk does not have a first partition\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1208
+#: tools/virt-resize.pl:1209
 #, perl-brace-format
 msgid "Copying {p} ...\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1271 tools/virt-resize.pl:1329
+#: tools/virt-resize.pl:1272 tools/virt-resize.pl:1330
 #, perl-brace-format
 msgid "Expanding {p} using the '{meth}' method\n"
 msgstr ""
