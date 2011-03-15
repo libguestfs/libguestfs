@@ -24,6 +24,8 @@ generator_built = \
 EXTRA_DIST = \
 	$(generator_built) \
 	Rakefile.in \
+	README.rdoc \
+	doc/site/index.html \
 	ext/guestfs/extconf.rb \
 	lib/guestfs.rb \
 	run-bindtests \
