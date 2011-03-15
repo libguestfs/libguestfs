@@ -351,11 +351,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         function
         | Pathname n | Device n | Dev_or_Path n | String n | Key n
         | FileIn n | FileOut n ->
-            pr "  Check_Type (%sv, T_STRING);\n" n;
             pr "  const char *%s = StringValueCStr (%sv);\n" n n;
-            pr "  if (!%s)\n" n;
-            pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
-            pr "              \"%s\", \"%s\");\n" n name
         | BufferIn n ->
             pr "  Check_Type (%sv, T_STRING);\n" n;
             pr "  const char *%s = RSTRING (%sv)->ptr;\n" n n;
@@ -411,7 +407,6 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
              | Int64 n ->
                  pr "    optargs_s.%s = NUM2LL (v);\n" n;
              | String _ ->
-                 pr "    Check_Type (v, T_STRING);\n";
                  pr "    optargs_s.%s = StringValueCStr (v);\n" n
              | _ -> assert false
             );
