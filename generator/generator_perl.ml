@@ -262,6 +262,17 @@ PREINIT:
 
       guestfs_delete_event_callback (g, event_handle);
 
+SV *
+last_errno (g)
+      guestfs_h *g;
+PREINIT:
+      int errnum;
+   CODE:
+      errnum = guestfs_last_errno (g);
+      RETVAL = newSViv (errnum);
+ OUTPUT:
+      RETVAL
+
 ";
 
   List.iter (
@@ -625,6 +636,9 @@ with libvirt.
 
 All errors turn into calls to C<croak> (see L<Carp(3)>).
 
+The error string from libguestfs is directly available from
+C<$@>.  Use the C<last_errno> method if you want to get the errno.
+
 =head1 METHODS
 
 =over 4
@@ -737,6 +751,26 @@ this function.
 
 This removes the callback which was previously registered using
 C<set_event_callback>.
+
+=item $errnum = $h->last_errno ();
+
+This returns the last error number (errno) that happened on the
+handle C<$h>.
+
+If successful, an errno integer not equal to zero is returned.
+
+If no error number is available, this returns 0.
+See L<guestfs(3)/guestfs_last_errno> for more details of why
+this can happen.
+
+You can use the standard Perl module L<Errno(3)> to compare
+the numeric error returned from this call with symbolic
+errnos:
+
+ $h->mkdir (\"/foo\");
+ if ($h->last_errno() == Errno::EEXIST()) {
+   # mkdir failed because the directory exists already.
+ }
 
 =cut
 
