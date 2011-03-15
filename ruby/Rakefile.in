@@ -60,10 +60,23 @@ Rake::TestTask.new(:test) do |t|
 end
 task :test => :build
 
+RDOC_FILES = FileList[
+    "README.rdoc",
+    "lib/**/*.rb",
+    "ext/**/*.[ch]"
+]
+
 Rake::RDocTask.new do |rd|
     rd.main = "README.rdoc"
     rd.rdoc_dir = "doc/site/api"
-    rd.rdoc_files.include("README.rdoc", "lib/**/*.rb", "ext/**/*.[ch]")
+    rd.rdoc_files.include(RDOC_FILES)
+end
+
+Rake::RDocTask.new(:ri) do |rd|
+    rd.main = "README.rdoc"
+    rd.rdoc_dir = "doc/ri"
+    rd.options << "--ri-system"
+    rd.rdoc_files.include(RDOC_FILES)
 end
 
 # Package tasks

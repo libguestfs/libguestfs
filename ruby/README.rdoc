@@ -1,0 +1,4 @@
+= Ruby bindings for libguestfs
+
+The module Guestfs provides Ruby bindings for
+{the libguestfs API}[http://libguestfs.org/guestfs.3.html].

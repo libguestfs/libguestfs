@@ -50,6 +50,7 @@ TESTS_ENVIRONMENT = \
 
 all: $(generator_built)
 	rake build
+	rake rdoc
 
 RUBY_SITELIB := $(shell ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
 RUBY_SITEARCH := $(shell ruby -rrbconfig -e "puts Config::CONFIG['sitearchdir']")

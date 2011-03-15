@@ -281,6 +281,7 @@ rescue/stamp-virt-rescue.pod
 rescue/virt-rescue
 rescue/virt-rescue.1
 ruby/bindtests.rb
+ruby/doc/site/api
 ruby/examples/guestfs-ruby.3
 ruby/examples/stamp-guestfs-ruby.pod
 ruby/ext/guestfs/extconf.h

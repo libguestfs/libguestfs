@@ -57,7 +57,8 @@ static VALUE e_Error;			/* used for all errors */
 static void ruby_event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 static VALUE **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
 
-static void ruby_guestfs_free (void *gvp)
+static void
+ruby_guestfs_free (void *gvp)
 {
   guestfs_h *g = gvp;
 
@@ -84,7 +85,17 @@ static void ruby_guestfs_free (void *gvp)
   }
 }
 
-static VALUE ruby_guestfs_create (VALUE m)
+/*
+ * call-seq:
+ *   Guestfs::Guestfs.new() -> Guestfs::Guestfs
+ *
+ * Call
+ * +guestfs_create+[http://libguestfs.org/guestfs.3.html#guestfs_create]
+ * to create a new libguestfs handle.  The handle is represented in
+ * Ruby as an instance of the Guestfs::Guestfs class.
+ */
+static VALUE
+ruby_guestfs_create (VALUE m)
 {
   guestfs_h *g;
 
@@ -101,7 +112,16 @@ static VALUE ruby_guestfs_create (VALUE m)
   return Data_Wrap_Struct (c_guestfs, NULL, ruby_guestfs_free, g);
 }
 
-static VALUE ruby_guestfs_close (VALUE gv)
+/*
+ * call-seq:
+ *   g.close() -> nil
+ *
+ * Call
+ * +guestfs_close+[http://libguestfs.org/guestfs.3.html#guestfs_close]
+ * to close the libguestfs handle.
+ */
+static VALUE
+ruby_guestfs_close (VALUE gv)
 {
   guestfs_h *g;
   Data_Get_Struct (gv, guestfs_h, g);
@@ -112,6 +132,14 @@ static VALUE ruby_guestfs_close (VALUE gv)
   return Qnil;
 }
 
+/*
+ * call-seq:
+ *   g.set_event_callback(cb, event_bitmask) -> event_handle
+ *
+ * Call
+ * +guestfs_set_event_callback+[http://libguestfs.org/guestfs.3.html#guestfs_set_event_callback]
+ * to register an event callback.  This returns an event handle.
+ */
 static VALUE
 ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
 {
@@ -143,6 +171,14 @@ ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
   return INT2NUM (eh);
 }
 
+/*
+ * call-seq:
+ *   g.delete_event_callback(event_handle) -> nil
+ *
+ * Call
+ * +guestfs_delete_event_callback+[http://libguestfs.org/guestfs.3.html#guestfs_delete_event_callback]
+ * to delete an event callback.
+ */
 static VALUE
 ruby_delete_event_callback (VALUE gv, VALUE event_handlev)
 {
@@ -231,8 +267,67 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
 ";
 
   List.iter (
-    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
-      pr "static VALUE ruby_guestfs_%s (VALUE gv" name;
+    fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
+      (* Generate rdoc. *)
+      if not (List.mem NotInDocs flags); then (
+        let doc = replace_str longdesc "C<guestfs_" "C<g." in
+        let doc =
+          if optargs <> [] then
+            doc ^ "\n\nOptional arguments are supplied in the final hash parameter, which is a hash of the argument name to its value.  Pass an empty {} for no optional arguments."
+          else doc in
+        let doc =
+          if List.mem ProtocolLimitWarning flags then
+            doc ^ "\n\n" ^ protocol_limit_warning
+          else doc in
+        let doc =
+          if List.mem DangerWillRobinson flags then
+            doc ^ "\n\n" ^ danger_will_robinson
+          else doc in
+        let doc =
+          match deprecation_notice flags with
+          | None -> doc
+          | Some txt -> doc ^ "\n\n" ^ txt in
+        let doc = pod2text ~width:60 name doc in
+        let doc = String.concat "\n * " doc in
+        let doc = trim doc in
+
+        let args = List.map name_of_argt args in
+        let args = if optargs <> [] then args @ ["{optargs...}"] else args in
+        let args = String.concat ", " args in
+
+        let ret =
+          match ret with
+          | RErr -> "nil"
+          | RBool _ -> "[True|False]"
+          | RInt _ -> "fixnum"
+          | RInt64 _ -> "fixnum"
+          | RConstString _ -> "string"
+          | RConstOptString _ -> "string"
+          | RString _ -> "string"
+          | RBufferOut _ -> "string"
+          | RStruct _
+          | RHashtable _ -> "hash"
+          | RStringList _
+          | RStructList _ -> "list" in
+
+        pr "\
+/*
+ * call-seq:
+ *   g.%s(%s) -> %s
+ *
+ * %s
+ *
+ * %s
+ *
+ * (For the C API documentation for this function, see
+ * +guestfs_%s+[http://libguestfs.org/guestfs.3.html#guestfs_%s]).
+ */
+" name args ret shortdesc doc name name
+      );
+
+      (* Generate the function. *)
+      pr "static VALUE\n";
+      pr "ruby_guestfs_%s (VALUE gv" name;
       List.iter (fun arg -> pr ", VALUE %sv" (name_of_argt arg)) args;
       (* XXX This makes the hash mandatory, meaning that you have
        * to specify {} for no arguments.  We could make it so this
