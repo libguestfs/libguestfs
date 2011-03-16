@@ -117,9 +117,11 @@ test_private_data_LDADD = \
 test_debug_to_file_SOURCES = test-debug-to-file.c
 test_debug_to_file_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/gnulib/lib \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_debug_to_file_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/src/libguestfs.la \
+	../gnulib/lib/libgnu.la
 
 #if HAVE_LIBVIRT
 #test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c

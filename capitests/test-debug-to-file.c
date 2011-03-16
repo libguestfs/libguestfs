@@ -27,6 +27,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "ignore-value.h"
+
 #include "guestfs.h"
 
 static void
@@ -40,7 +42,7 @@ debug_to_file (guestfs_h *g,
 {
   FILE *fp = opaque;
 
-  fwrite (buf, 1, buf_len, fp);
+  ignore_value (fwrite (buf, 1, buf_len, fp));
 }
 
 int
