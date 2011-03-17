@@ -25,7 +25,7 @@ set -e
 rm -f test1.img
 
 ../fish/guestfish -N disk <<EOF
--upload $srcdir/rhbz576879.sh /test.sh
+-upload $srcdir/rhbz576879c0.sh /test.sh
 # Shouldn't lose synchronization, so next command should work:
 ping-daemon
 EOF
