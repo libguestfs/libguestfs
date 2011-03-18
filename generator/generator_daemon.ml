@@ -165,15 +165,15 @@ and generate_daemon_actions () =
           | Pathname n ->
               pr_args n;
               pr "  ABS_PATH (%s, %s, goto done);\n"
-                n (if is_filein then "cancel_receive ()" else "0");
+                n (if is_filein then "cancel_receive ()" else "");
           | Device n ->
               pr_args n;
               pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
-                n (if is_filein then "cancel_receive ()" else "0");
+                n (if is_filein then "cancel_receive ()" else "");
           | Dev_or_Path n ->
               pr_args n;
               pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
-                n (if is_filein then "cancel_receive ()" else "0");
+                n (if is_filein then "cancel_receive ()" else "");
           | String n | Key n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
           | StringList n ->
@@ -187,7 +187,7 @@ and generate_daemon_actions () =
               pr "    size_t i;\n";
               pr "    for (i = 0; %s[i] != NULL; ++i)\n" n;
               pr "      RESOLVE_DEVICE (%s[i], %s, goto done);\n" n
-                (if is_filein then "cancel_receive ()" else "0");
+                (if is_filein then "cancel_receive ()" else "");
               pr "  }\n";
           | Bool n -> pr "  %s = args.%s;\n" n n
           | Int n -> pr "  %s = args.%s;\n" n n
@@ -206,7 +206,7 @@ and generate_daemon_actions () =
         (* Emit NEED_ROOT just once, even when there are two or
            more Pathname args *)
         pr "  NEED_ROOT (%s, goto done);\n"
-          (if is_filein then "cancel_receive ()" else "0");
+          (if is_filein then "cancel_receive ()" else "");
       );
 
       (* Don't want to call the impl with any FileIn or FileOut

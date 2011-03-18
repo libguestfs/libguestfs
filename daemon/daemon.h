@@ -150,10 +150,6 @@ extern int receive_file (receive_cb cb, void *opaque);
 
 /* daemon functions that receive files (FileIn) can call this
  * to cancel incoming transfers (eg. if there is a local error).
- *
- * If and only if this function does NOT return -2, they MUST then
- * call reply_with_*
- * (see https://bugzilla.redhat.com/show_bug.cgi?id=576879#c5).
  */
 extern int cancel_receive (void);
 
@@ -179,8 +175,8 @@ extern void notify_progress (uint64_t position, uint64_t total);
 #define NEED_ROOT(cancel_stmt,fail_stmt)                                \
   do {									\
     if (!root_mounted) {						\
-      if ((cancel_stmt) != -2)                                          \
-        reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
+      cancel_stmt;                                                      \
+      reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
       fail_stmt;							\
     }									\
   }									\
@@ -192,8 +188,8 @@ extern void notify_progress (uint64_t position, uint64_t total);
 #define ABS_PATH(path,cancel_stmt,fail_stmt)                            \
   do {									\
     if ((path)[0] != '/') {						\
-      if ((cancel_stmt) != -2)                                          \
-        reply_with_error ("%s: path must start with a / character", __func__); \
+      cancel_stmt;                                                      \
+      reply_with_error ("%s: path must start with a / character", __func__); \
       fail_stmt;							\
     }									\
   } while (0)
@@ -208,18 +204,17 @@ extern void notify_progress (uint64_t position, uint64_t total);
 #define RESOLVE_DEVICE(path,cancel_stmt,fail_stmt)                      \
   do {									\
     if (STRNEQLEN ((path), "/dev/", 5)) {				\
-      if ((cancel_stmt) != -2)                                          \
-        reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
+      cancel_stmt;                                                      \
+      reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       fail_stmt;							\
     }									\
     if (is_root_device (path))                                          \
       reply_with_error ("%s: %s: device not found", __func__, path);    \
     if (device_name_translation ((path)) == -1) {                       \
       int err = errno;                                                  \
-      int r = cancel_stmt;                                              \
+      cancel_stmt;                                                      \
       errno = err;                                                      \
-      if (r != -2)                                                      \
-        reply_with_perror ("%s: %s", __func__, path);                   \
+      reply_with_perror ("%s: %s", __func__, path);                     \
       fail_stmt;							\
     }                                                                   \
   } while (0)

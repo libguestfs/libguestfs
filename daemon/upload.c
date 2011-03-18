@@ -70,7 +70,7 @@ upload (const char *filename, int flags, int64_t offset)
     err = errno;
     r = cancel_receive ();
     errno = err;
-    if (r != -2) reply_with_perror ("%s", filename);
+    reply_with_perror ("%s", filename);
     return -1;
   }
 
@@ -79,7 +79,7 @@ upload (const char *filename, int flags, int64_t offset)
       err = errno;
       r = cancel_receive ();
       errno = err;
-      if (r != -2) reply_with_perror ("lseek: %s", filename);
+      reply_with_perror ("lseek: %s", filename);
       return -1;
     }
   }
@@ -89,7 +89,7 @@ upload (const char *filename, int flags, int64_t offset)
     err = errno;
     r = cancel_receive ();
     errno = err;
-    if (r != -2) reply_with_error ("write error: %s", filename);
+    reply_with_error ("write error: %s", filename);
     close (data.fd);
     return -1;
   }
@@ -104,8 +104,7 @@ upload (const char *filename, int flags, int64_t offset)
     if (r == -1)                /* if r == 0, file transfer ended already */
       r = cancel_receive ();
     errno = err;
-    if (r != -2)
-      reply_with_perror ("close: %s", filename);
+    reply_with_perror ("close: %s", filename);
     return -1;
   }
 
