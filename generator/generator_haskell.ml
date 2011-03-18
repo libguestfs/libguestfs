@@ -74,7 +74,7 @@ import Prelude hiding (truncate)
 import Foreign
 import Foreign.C
 import Foreign.C.Types
-import IO
+import System.IO
 import Control.Exception
 import Data.Typeable
 
