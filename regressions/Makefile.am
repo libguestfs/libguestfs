@@ -29,6 +29,8 @@ TESTS = \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \
 	rhbz557655.sh \
+	rhbz576879c0.sh \
+	rhbz576879c5.sh \
 	rhbz578407.sh \
 	rhbz580246.sh \
 	test-add-domain.sh \
@@ -57,8 +59,6 @@ SKIPPED_TESTS = \
 	test-bootbootboot.sh
 
 FAILING_TESTS = \
-	rhbz576879c0.sh \
-	rhbz576879c5.sh \
 	test-qemudie-launchfail.sh
 
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
