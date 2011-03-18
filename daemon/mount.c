@@ -83,7 +83,7 @@ do_mount_vfs (const char *options, const char *vfstype,
   char *error;
   struct stat statbuf;
 
-  ABS_PATH (mountpoint, 0, return -1);
+  ABS_PATH (mountpoint, , return -1);
 
   mp = sysroot_path (mountpoint);
   if (!mp) {
@@ -158,7 +158,7 @@ do_umount (const char *pathordevice)
   }
 
   if (is_dev)
-    RESOLVE_DEVICE (buf, 0, { free (buf); return -1; });
+    RESOLVE_DEVICE (buf, , { free (buf); return -1; });
 
   r = command (NULL, &err, "umount", buf, NULL);
   free (buf);
@@ -409,7 +409,7 @@ do_mkmountpoint (const char *path)
   int r;
 
   /* NEED_ROOT (return -1); - we don't want this test for this call. */
-  ABS_PATH (path, 0, return -1);
+  ABS_PATH (path, , return -1);
 
   CHROOT_IN;
   r = mkdir (path, 0777);
@@ -429,7 +429,7 @@ do_rmmountpoint (const char *path)
   int r;
 
   /* NEED_ROOT (return -1); - we don't want this test for this call. */
-  ABS_PATH (path, 0, return -1);
+  ABS_PATH (path, , return -1);
 
   CHROOT_IN;
   r = rmdir (path);

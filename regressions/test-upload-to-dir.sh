@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010-2011 Red Hat Inc.
+# Copyright (C) 2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,18 +16,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Regression test for:
-# https://bugzilla.redhat.com/show_bug.cgi?id=576879#c0
-# upload loses synchronization if the disk is not mounted
+# If you used the guestfish command 'upload' and accidentally set the
+# target to a directory instead of the full filename, then previously
+# libguestfs would hang.  It should return an error instead.
 
 set -e
 
-rm -f test1.img
+rm -f test1.img test.out
 
-../fish/guestfish -N disk <<EOF
--upload $srcdir/rhbz576879c0.sh /test.sh
-# Shouldn't lose synchronization, so next command should work:
-ping-daemon
-EOF
+if ../fish/guestfish -N fs -m /dev/sda1 upload ../images/test.iso / 2>test.out
+then
+  echo "$0: expecting guestfish to return an error"
+  exit 1
+fi
 
-rm -f test1.img
+if ! grep -q "upload: /: Is a directory" test.out; then
+  echo "$0: unexpected error message from guestfish"
+  cat test.out
+  exit 1
+fi
+
+rm -f test1.img test.out
