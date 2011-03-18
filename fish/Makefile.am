@@ -17,7 +17,12 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-CLEANFILES = stamp-guestfish.pod
+CLEANFILES = \
+	stamp-guestfish.pod \
+	stamp-virt-copy-in.pod \
+	stamp-virt-copy-out.pod \
+	stamp-virt-tar-in.pod \
+	stamp-virt-tar-out.pod
 
 bin_PROGRAMS = guestfish
 
