@@ -405,6 +405,13 @@ receive_file (receive_cb cb, void *opaque)
                "receive_file: got chunk: cancel = 0x%x, len = %d, buf = %p\n",
                chunk.cancel, chunk.data.data_len, chunk.data.data_val);
 
+    if (chunk.cancel != 0 && chunk.cancel != 1) {
+      fprintf (stderr,
+               "receive_file: chunk.cancel != [0|1] ... "
+               "continuing even though we have probably lost synchronization with the library\n");
+      return -1;
+    }
+
     if (chunk.cancel) {
       if (verbose)
         fprintf (stderr, "receive_file: received cancellation from library\n");
