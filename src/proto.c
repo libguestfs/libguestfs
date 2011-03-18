@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -121,6 +121,13 @@
  * functions send_to_daemon and recv_from_daemon.
  */
 
+/* This is only used on the debug path, to generate a one-line
+ * printable summary of a protocol message.  'workspace' is scratch
+ * space used to format the message, and it must be at least
+ * MAX_MESSAGE_SUMMARY bytes in size.
+ */
+#define MAX_MESSAGE_SUMMARY 200 /* >= 5 * (4 * 3 + 2) + a few bytes overhead */
+
 static int
 xwrite (int fd, const void *v_buf, size_t len)
 {
@@ -137,6 +144,41 @@ xwrite (int fd, const void *v_buf, size_t len)
   }
 
   return 0;
+}
+
+static const char *
+message_summary (const void *buf, size_t n, char *workspace)
+{
+  const unsigned char *cbuf = buf;
+  size_t i = 0;
+  char *p = workspace;
+  int truncate = 0;
+
+  /* Print only up to 5 x 32 bits of the message.  That is enough to
+   * cover the message length, and the first four fields of the
+   * message header (prog, vers, proc, direction).
+   */
+  if (n > 5 * 4) {
+    n = 5 * 4;
+    truncate = 1;
+  }
+
+  while (n > 0) {
+    sprintf (p, "%02x ", cbuf[i]);
+    p += 3;
+    n--;
+    i++;
+
+    if ((i & 3) == 0) {
+      strcpy (p, "| ");
+      p += 2;
+    }
+  }
+
+  if (truncate)
+    strcpy (p, "...");
+
+  return workspace;
 }
 
 int
@@ -301,13 +343,11 @@ send_progress_message (guestfs_h *g, const guestfs_progress *message)
 static int
 check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
 {
+  char summary[MAX_MESSAGE_SUMMARY];
   char buf[4];
   ssize_t n;
   uint32_t flag;
   XDR xdr;
-
-  debug (g, "check_for_daemon_cancellation_or_eof: %p g->state = %d, fd = %d",
-         g, g->state, fd);
 
   n = really_read_from_socket (g, fd, buf, 4);
   if (n == -1)
@@ -317,6 +357,9 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
     child_cleanup (g);
     return -1;
   }
+
+  debug (g, "check_for_daemon_cancellation_or_eof: %s",
+         message_summary (buf, 4, summary));
 
   xdrmem_create (&xdr, buf, 4, XDR_DECODE);
   xdr_uint32_t (&xdr, &flag);
@@ -374,8 +417,10 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
   const char *buf = v_buf;
   fd_set rset, rset2;
   fd_set wset, wset2;
+  char summary[MAX_MESSAGE_SUMMARY];
 
-  debug (g, "send_to_daemon: %p g->state = %d, n = %zu", g, g->state, n);
+  debug (g, "send_to_daemon: %zu bytes: %s", n,
+         message_summary (v_buf, n, summary));
 
   FD_ZERO (&rset);
   FD_ZERO (&wset);
@@ -451,10 +496,8 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
 int
 guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
+  char summary[MAX_MESSAGE_SUMMARY];
   fd_set rset, rset2;
-
-  debug (g, "recv_from_daemon: %p g->state = %d, size_rtn = %p, buf_rtn = %p",
-         g, g->state, size_rtn, buf_rtn);
 
   FD_ZERO (&rset);
 
@@ -542,10 +585,13 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
             g->state = READY;
             guestfs___call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);
           }
+          debug (g, "recv_from_daemon: received GUESTFS_LAUNCH_FLAG");
           return 0;
         }
-        else if (*size_rtn == GUESTFS_CANCEL_FLAG)
+        else if (*size_rtn == GUESTFS_CANCEL_FLAG) {
+          debug (g, "recv_from_daemon: received GUESTFS_CANCEL_FLAG");
           return 0;
+        }
         else if (*size_rtn == GUESTFS_PROGRESS_FLAG)
           /*FALLTHROUGH*/;
         /* If this happens, it's pretty bad and we've probably lost
@@ -626,6 +672,9 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     /* Process next message. */
     return guestfs___recv_from_daemon (g, size_rtn, buf_rtn);
   }
+
+  debug (g, "recv_from_daemon: %" PRIu32 " bytes: %s", *size_rtn,
+         message_summary (*buf_rtn, *size_rtn, summary));
 
   return 0;
 }

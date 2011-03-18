@@ -401,7 +401,8 @@ receive_file (receive_cb cb, void *opaque)
     free (buf);
 
     if (verbose)
-      fprintf (stderr, "receive_file: got chunk: cancel = %d, len = %d, buf = %p\n",
+      fprintf (stderr,
+               "receive_file: got chunk: cancel = 0x%x, len = %d, buf = %p\n",
                chunk.cancel, chunk.data.data_len, chunk.data.data_val);
 
     if (chunk.cancel) {
