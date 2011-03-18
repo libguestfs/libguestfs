@@ -118,8 +118,11 @@ do_tXz_in (const char *dir, const char *filter)
     return -1;
   }
   if (r == -2) {		/* cancellation from library */
+    /* This error is ignored by the library since it initiated the
+     * cancel.  Nevertheless we must send an error reply here.
+     */
+    reply_with_error ("file upload cancelled");
     pclose (fp);
-    /* Do NOT send any error. */
     return -1;
   }
 

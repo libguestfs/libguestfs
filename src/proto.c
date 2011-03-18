@@ -848,9 +848,6 @@ guestfs___send_file (guestfs_h *g, const char *filename)
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
     send_file_cancellation (g);
-    /* Daemon sees cancellation and won't reply, so caller can
-     * just return here.
-     */
     return -1;
   }
 
@@ -1030,6 +1027,34 @@ guestfs___recv (guestfs_h *g, const char *fn,
   }
   xdr_destroy (&xdr);
   free (buf);
+
+  return 0;
+}
+
+/* Same as guestfs___recv, but it discards the reply message. */
+int
+guestfs___recv_discard (guestfs_h *g, const char *fn)
+{
+  void *buf;
+  uint32_t size;
+  int r;
+
+ again:
+  r = guestfs___recv_from_daemon (g, &size, &buf);
+  if (r == -1)
+    return -1;
+
+  /* This can happen if a cancellation happens right at the end
+   * of us sending a FileIn parameter to the daemon.  Discard.  The
+   * daemon should send us an error message next.
+   */
+  if (size == GUESTFS_CANCEL_FLAG)
+    goto again;
+
+  if (size == GUESTFS_LAUNCH_FLAG) {
+    error (g, "%s: received unexpected launch flag from daemon when expecting reply", fn);
+    return -1;
+  }
 
   return 0;
 }

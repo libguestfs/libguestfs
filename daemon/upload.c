@@ -94,8 +94,11 @@ upload (const char *filename, int flags, int64_t offset)
     return -1;
   }
   if (r == -2) {		/* cancellation from library */
+    /* This error is ignored by the library since it initiated the
+     * cancel.  Nevertheless we must send an error reply here.
+     */
+    reply_with_error ("file upload cancelled");
     close (data.fd);
-    /* Do NOT send any error. */
     return -1;
   }
 

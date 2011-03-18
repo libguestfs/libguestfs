@@ -33,6 +33,7 @@ TESTS = \
 	rhbz578407.sh \
 	rhbz580246.sh \
 	test-add-domain.sh \
+	test-both-ends-cancel.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
 	test-copy.sh \
@@ -59,7 +60,6 @@ SKIPPED_TESTS = \
 	test-bootbootboot.sh
 
 FAILING_TESTS = \
-	test-both-ends-cancel.sh \
 	test-qemudie-launchfail.sh
 
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)

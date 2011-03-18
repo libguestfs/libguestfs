@@ -128,7 +128,7 @@ and generate_daemon_actions () =
         let mask = Int64.lognot (Int64.pred (Int64.shift_left 1L len)) in
         pr "  if (optargs_bitmask & UINT64_C(0x%Lx)) {\n" mask;
         if is_filein then
-          pr "    if (cancel_receive () != -2)\n";
+          pr "    cancel_receive ();\n";
         pr "    reply_with_error (\"unknown option in optional arguments bitmask (this can happen if a program is compiled against a newer version of libguestfs, then run against an older version of the daemon)\");\n";
         pr "    goto done;\n";
         pr "  }\n";
@@ -141,8 +141,8 @@ and generate_daemon_actions () =
         pr "\n";
         pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
         if is_filein then
-          pr "    if (cancel_receive () != -2)\n";
-        pr "      reply_with_error (\"daemon failed to decode procedure arguments\");\n";
+          pr "    cancel_receive ();\n";
+        pr "    reply_with_error (\"daemon failed to decode procedure arguments\");\n";
         pr "    goto done;\n";
         pr "  }\n";
         let pr_args n =
@@ -153,8 +153,8 @@ and generate_daemon_actions () =
           pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
           pr "  if (%s == NULL) {\n" n;
           if is_filein then
-            pr "    if (cancel_receive () != -2)\n";
-          pr "      reply_with_perror (\"realloc\");\n";
+            pr "    cancel_receive ();\n";
+          pr "    reply_with_perror (\"realloc\");\n";
           pr "    goto done;\n";
           pr "  }\n";
           pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
