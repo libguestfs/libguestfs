@@ -101,6 +101,11 @@ main_loop (int _sock)
     xdr_u_int (&xdr, &len);
     xdr_destroy (&xdr);
 
+    if (verbose)
+      fprintf (stderr,
+	       "guestfsd: main_loop: new request, len 0x%" PRIx32 "\n",
+	       len);
+
     if (len > GUESTFS_MESSAGE_MAX) {
       fprintf (stderr, "guestfsd: incoming message is too long (%u bytes)\n",
                len);
@@ -197,7 +202,8 @@ main_loop (int _sock)
       end_us = (int64_t) end_t.tv_sec * 1000000 + end_t.tv_usec;
       elapsed_us = end_us - start_us;
 
-      fprintf (stderr, "proc %d (%s) took %d.%02d seconds\n",
+      fprintf (stderr,
+	       "guestfsd: main_loop: proc %d (%s) took %d.%02d seconds\n",
                proc_nr,
                proc_nr >= 0 && proc_nr < GUESTFS_PROC_NR_PROCS
                ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
@@ -288,11 +294,11 @@ send_error (int errnum, const char *msg)
   xdr_destroy (&xdr);
 
   if (xwrite (sock, lenbuf, 4) == -1) {
-    fprintf (stderr, "xwrite failed\n");
+    fprintf (stderr, "guestfsd: xwrite failed\n");
     exit (EXIT_FAILURE);
   }
   if (xwrite (sock, buf, len) == -1) {
-    fprintf (stderr, "xwrite failed\n");
+    fprintf (stderr, "guestfsd: xwrite failed\n");
     exit (EXIT_FAILURE);
   }
 }
@@ -340,11 +346,11 @@ reply (xdrproc_t xdrp, char *ret)
   xdr_destroy (&xdr);
 
   if (xwrite (sock, lenbuf, 4) == -1) {
-    fprintf (stderr, "xwrite failed\n");
+    fprintf (stderr, "guestfsd: xwrite failed\n");
     exit (EXIT_FAILURE);
   }
   if (xwrite (sock, buf, len) == -1) {
-    fprintf (stderr, "xwrite failed\n");
+    fprintf (stderr, "guestfsd: xwrite failed\n");
     exit (EXIT_FAILURE);
   }
 }
@@ -362,7 +368,7 @@ receive_file (receive_cb cb, void *opaque)
 
   for (;;) {
     if (verbose)
-      fprintf (stderr, "receive_file: reading length word\n");
+      fprintf (stderr, "guestfsd: receive_file: reading length word\n");
 
     /* Read the length word. */
     if (xread (sock, lenbuf, 4) == -1)
@@ -402,25 +408,27 @@ receive_file (receive_cb cb, void *opaque)
 
     if (verbose)
       fprintf (stderr,
-               "receive_file: got chunk: cancel = 0x%x, len = %d, buf = %p\n",
+               "guestfsd: receive_file: got chunk: cancel = 0x%x, len = %d, buf = %p\n",
                chunk.cancel, chunk.data.data_len, chunk.data.data_val);
 
     if (chunk.cancel != 0 && chunk.cancel != 1) {
       fprintf (stderr,
-               "receive_file: chunk.cancel != [0|1] ... "
+               "guestfsd: receive_file: chunk.cancel != [0|1] ... "
                "continuing even though we have probably lost synchronization with the library\n");
       return -1;
     }
 
     if (chunk.cancel) {
       if (verbose)
-        fprintf (stderr, "receive_file: received cancellation from library\n");
+        fprintf (stderr,
+	  "guestfsd: receive_file: received cancellation from library\n");
       xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
       return -2;
     }
     if (chunk.data.data_len == 0) {
       if (verbose)
-        fprintf (stderr, "receive_file: end of file, leaving function\n");
+        fprintf (stderr,
+		 "guestfsd: receive_file: end of file, leaving function\n");
       xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
       return 0;			/* end of file */
     }
@@ -434,7 +442,7 @@ receive_file (receive_cb cb, void *opaque)
     xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
     if (r == -1) {		/* write error */
       if (verbose)
-        fprintf (stderr, "receive_file: write error\n");
+        fprintf (stderr, "guestfsd: receive_file: write error\n");
       return -1;
     }
   }
@@ -472,7 +480,7 @@ send_file_write (const void *buf, int len)
   int cancel;
 
   if (len > GUESTFS_MAX_CHUNK_SIZE) {
-    fprintf (stderr, "send_file_write: len (%d) > GUESTFS_MAX_CHUNK_SIZE (%d)\n",
+    fprintf (stderr, "guestfsd: send_file_write: len (%d) > GUESTFS_MAX_CHUNK_SIZE (%d)\n",
              len, GUESTFS_MAX_CHUNK_SIZE);
     return -1;
   }
@@ -528,7 +536,7 @@ check_for_library_cancellation (void)
   xdr_destroy (&xdr);
 
   if (flag != GUESTFS_CANCEL_FLAG) {
-    fprintf (stderr, "check_for_library_cancellation: read 0x%x from library, expected 0x%x\n",
+    fprintf (stderr, "guestfsd: check_for_library_cancellation: read 0x%x from library, expected 0x%x\n",
              flag, GUESTFS_CANCEL_FLAG);
     return 0;
   }
@@ -557,7 +565,7 @@ send_chunk (const guestfs_chunk *chunk)
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
   if (!xdr_guestfs_chunk (&xdr, (guestfs_chunk *) chunk)) {
-    fprintf (stderr, "send_chunk: failed to encode chunk\n");
+    fprintf (stderr, "guestfsd: send_chunk: failed to encode chunk\n");
     xdr_destroy (&xdr);
     return -1;
   }
@@ -572,7 +580,7 @@ send_chunk (const guestfs_chunk *chunk)
   int err = (xwrite (sock, lenbuf, 4) == 0
              && xwrite (sock, buf, len) == 0 ? 0 : -1);
   if (err) {
-    fprintf (stderr, "send_chunk: write failed\n");
+    fprintf (stderr, "guestfsd: send_chunk: write failed\n");
     exit (EXIT_FAILURE);
   }
 
@@ -628,7 +636,7 @@ notify_progress (uint64_t position, uint64_t total)
   xdr_destroy (&xdr);
 
   if (xwrite (sock, buf, 4) == -1) {
-    fprintf (stderr, "xwrite failed\n");
+    fprintf (stderr, "guestfsd: xwrite failed\n");
     exit (EXIT_FAILURE);
   }
 
@@ -641,7 +649,7 @@ notify_progress (uint64_t position, uint64_t total)
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
   if (!xdr_guestfs_progress (&xdr, &message)) {
-    fprintf (stderr, "xdr_guestfs_progress: failed to encode message\n");
+    fprintf (stderr, "guestfsd: xdr_guestfs_progress: failed to encode message\n");
     xdr_destroy (&xdr);
     return;
   }
@@ -649,7 +657,7 @@ notify_progress (uint64_t position, uint64_t total)
   xdr_destroy (&xdr);
 
   if (xwrite (sock, buf, len) == -1) {
-    fprintf (stderr, "xwrite failed\n");
+    fprintf (stderr, "guestfsd: xwrite failed\n");
     exit (EXIT_FAILURE);
   }
 }
