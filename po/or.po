@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-15 21:45+0000\n"
+"POT-Creation-Date: 2011-03-18 19:28+0000\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -2986,81 +2986,81 @@ msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହ�
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 
-#: src/proto.c:146
+#: src/proto.c:188
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: ଅବସ୍ଥା %d ରେ ଥିବା ସମୟରେ ଡ଼ାକିଥିଲା != READY"
 
-#: src/proto.c:169
+#: src/proto.c:211
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: ଅବସ୍ଥା %d ରେ ଥିବା ସମୟରେ ଡ଼ାକିଥିଲା"
 
-#: src/proto.c:351
+#: src/proto.c:394
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr "check_for_daemon_cancellation_or_eof: ଡେମନରୁ 0x%x କୁ ପଢ଼ନ୍ତୁ, ଆଶାତିତ 0x%x\n"
 
-#: src/proto.c:518 src/proto.c:578
+#: src/proto.c:572 src/proto.c:635
 msgid "unexpected end of file when reading from daemon"
 msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
 
-#: src/proto.c:539
+#: src/proto.c:593
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ରୁ ଚମତ୍କାର ହସ୍ତାକ୍ଷର ଗ୍ରହଣ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା %d ରେ"
 
-#: src/proto.c:555
+#: src/proto.c:612
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "ସନ୍ଦେଶ ଲମ୍ବ (%u) > ସର୍ବାଧିକ ସମ୍ଭାବ୍ୟ ଆକାର (%d)"
 
-#: src/proto.c:704
+#: src/proto.c:764
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: ଅବସ୍ଥା %d != BUSY"
 
-#: src/proto.c:728
+#: src/proto.c:788
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header ବିଫଳ ହୋଇଛି"
 
-#: src/proto.c:737
+#: src/proto.c:797
 msgid "dispatch failed to marshal args"
 msgstr "ମାର୍ଶାଲ args କୁ ପଠାଇବା ବିଫଳ ହୋଇଛି"
 
-#: src/proto.c:867
+#: src/proto.c:924
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: ଅବସ୍ଥା %d != READY"
 
-#: src/proto.c:883
+#: src/proto.c:940
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk ବିଫଳ ହୋଇଛି (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1005
+#: src/proto.c:1090
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ମିଶ୍ରିତ ସାଙ୍କେତିକରଣରେ ତ୍ରୁଟି"
 
-#: src/proto.c:1032
+#: src/proto.c:1117
 msgid "write to daemon socket"
 msgstr "ଡେମନ ସକେଟରେ ଲେଖନ୍ତୁ"
 
-#: src/proto.c:1055
+#: src/proto.c:1140
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ଉତ୍ତର ଡ଼ାକରାରେ ବିଶ୍ଳେଷଣ ତ୍ରୁଟି"
 
-#: src/proto.c:1060
+#: src/proto.c:1145
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
 
-#: src/proto.c:1068
+#: src/proto.c:1153
 msgid "failed to parse file chunk"
 msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
 
-#: src/proto.c:1077
+#: src/proto.c:1162
 msgid "file receive cancelled by daemon"
 msgstr "ଫାଇଲ ଗ୍ରହଣ ଡେମନ ଦ୍ଵାରା ବାତିଲ ହୋଇଛି"
 

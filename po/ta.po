@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-15 21:45+0000\n"
+"POT-Creation-Date: 2011-03-18 19:28+0000\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -2987,17 +2987,17 @@ msgstr "qemu இன்னும் துவங்கப்படவில்ல
 msgid "no subprocess to kill"
 msgstr "அழிப்பதற்கு துணைசெயல்பாடுகள் இல்லை"
 
-#: src/proto.c:146
+#: src/proto.c:188
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d நிலையில் உள்ள போது அழைத்தது!= READY"
 
-#: src/proto.c:169
+#: src/proto.c:211
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: நிலை %dல் உள்ள போது அழைத்தது"
 
-#: src/proto.c:351
+#: src/proto.c:394
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -3005,65 +3005,65 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: டொமைனிலிருந்து 0x%x ஐ வாசி, "
 "எதிர்பார்க்கப்பட்ட 0x%x\n"
 
-#: src/proto.c:518 src/proto.c:578
+#: src/proto.c:572 src/proto.c:635
 msgid "unexpected end of file when reading from daemon"
 msgstr "unexpected end of file when reading from daemon"
 
-#: src/proto.c:539
+#: src/proto.c:593
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "received magic signature from guestfsd, but in state %d"
 
-#: src/proto.c:555
+#: src/proto.c:612
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "செய்தி அளவு (%u) > குறைந்தபட்ச சாத்தியமான அளவு (%d)"
 
-#: src/proto.c:704
+#: src/proto.c:764
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: நிலை%d != BUSY"
 
-#: src/proto.c:728
+#: src/proto.c:788
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header தோல்வியுற்றது"
 
-#: src/proto.c:737
+#: src/proto.c:797
 msgid "dispatch failed to marshal args"
 msgstr "marshal args ஐ அனுப்ப முடியவில்லை"
 
-#: src/proto.c:867
+#: src/proto.c:924
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: நிலை %d != READY"
 
-#: src/proto.c:883
+#: src/proto.c:940
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk தோல்வியுற்றது (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1005
+#: src/proto.c:1090
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1032
+#: src/proto.c:1117
 msgid "write to daemon socket"
 msgstr "டொமைன் சாக்கெட்டிற்கு எழுது"
 
-#: src/proto.c:1055
+#: src/proto.c:1140
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: பதில் பின்அழைப்பில் உள்ள பிழையை பகுக்கவும்"
 
-#: src/proto.c:1060
+#: src/proto.c:1145
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
-#: src/proto.c:1068
+#: src/proto.c:1153
 msgid "failed to parse file chunk"
 msgstr "கோப்பு சங்க்கை பகுக்க முடியவில்லை"
 
-#: src/proto.c:1077
+#: src/proto.c:1162
 msgid "file receive cancelled by daemon"
 msgstr "கோப்பினை பெறுதல் டொமைனால் ரத்து செய்யப்பட்டது"
 

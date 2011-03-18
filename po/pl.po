@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-15 21:45+0000\n"
+"POT-Creation-Date: 2011-03-18 19:28+0000\n"
 "PO-Revision-Date: 2010-12-21 14:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -3085,17 +3085,17 @@ msgstr "QEMU nie zostało jeszcze uruchomione"
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 
-#: src/proto.c:146
+#: src/proto.c:188
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: wywołano, kiedy w stanie %d != GOTOWY"
 
-#: src/proto.c:169
+#: src/proto.c:211
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
 
-#: src/proto.c:351
+#: src/proto.c:394
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -3103,67 +3103,67 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x"
 "%x\n"
 
-#: src/proto.c:518 src/proto.c:578
+#: src/proto.c:572 src/proto.c:635
 msgid "unexpected end of file when reading from daemon"
 msgstr "nieoczekiwany koniec pliku podczas odczytywania z demona"
 
-#: src/proto.c:539
+#: src/proto.c:593
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "otrzymano podpis magic z guestfsd, ale w stanie %d"
 
-#: src/proto.c:555
+#: src/proto.c:612
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "długość komunikatu (%u) > maksymalny możliwy rozmiar (%d)"
 
-#: src/proto.c:704
+#: src/proto.c:764
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: stan %d != ZAJĘTY"
 
-#: src/proto.c:728
+#: src/proto.c:788
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header nie powiodło się"
 
-#: src/proto.c:737
+#: src/proto.c:797
 msgid "dispatch failed to marshal args"
 msgstr "rozdzielenie parametrów marszałka nie powiodło się"
 
-#: src/proto.c:867
+#: src/proto.c:924
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: stan %d != GOTOWY"
 
-#: src/proto.c:883
+#: src/proto.c:940
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk nie powiodło się (bufor = %p, długość bufora = %zu)"
 
-#: src/proto.c:1005
+#: src/proto.c:1090
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: błąd w kodowaniu fragmentu"
 
-#: src/proto.c:1032
+#: src/proto.c:1117
 msgid "write to daemon socket"
 msgstr "zapisuje do gniazda demona"
 
-#: src/proto.c:1055
+#: src/proto.c:1140
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
 
-#: src/proto.c:1060
+#: src/proto.c:1145
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: otrzymano nieoczekiwaną flagę podczas odczytywania "
 "fragmentów pliku"
 
-#: src/proto.c:1068
+#: src/proto.c:1153
 msgid "failed to parse file chunk"
 msgstr "przetworzenie fragmentu pliku nie powiodło się"
 
-#: src/proto.c:1077
+#: src/proto.c:1162
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
 

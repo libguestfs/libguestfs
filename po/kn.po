@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-15 21:45+0000\n"
+"POT-Creation-Date: 2011-03-18 19:28+0000\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -2994,17 +2994,17 @@ msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗ�
 msgid "no subprocess to kill"
 msgstr "ಅಂತ್ಯಗೊಳಿಸಲು ಯಾವುದೆ ಉಪಪ್ರಕ್ರಿಯೆಯು ಇಲ್ಲ"
 
-#: src/proto.c:146
+#: src/proto.c:188
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d != READY ಎಂಬ ಸ್ಥಿತಿಯಲ್ಲಿದ್ದಾಗ ಕರೆಯಲಾಗಿದೆ"
 
-#: src/proto.c:169
+#: src/proto.c:211
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: %d ಎಂಬ ಸ್ಥಿತಿಯಲ್ಲಿದ್ದಾಗ ಕರೆಯಲಾಗಿದೆ"
 
-#: src/proto.c:351
+#: src/proto.c:394
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -3012,65 +3012,65 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: ಡೀಮನ್‌ನಿಂದ 0x%x ಅನ್ನು ಓದಲಾಗಿದೆ, ಆದರೆ 0x%x "
 "ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗಿತ್ತು\n"
 
-#: src/proto.c:518 src/proto.c:578
+#: src/proto.c:572 src/proto.c:635
 msgid "unexpected end of file when reading from daemon"
 msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
 
-#: src/proto.c:539
+#: src/proto.c:593
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ಇಂದ ಮ್ಯಾಜಿಕ್ ಸಹಿಯನ್ನು ಪಡೆಯಲಾಗಿದೆ, ಆದರೆ %d ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/proto.c:555
+#: src/proto.c:612
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "ಸಂದೇಶದ ಉದ್ದ (%u) > ಸಾಧ್ಯವಿರುವ ಗರಿಷ್ಟ ಉದ್ದ (%d)"
 
-#: src/proto.c:704
+#: src/proto.c:764
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: ಸ್ಥಿತಿ %d != BUSY"
 
-#: src/proto.c:728
+#: src/proto.c:788
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/proto.c:737
+#: src/proto.c:797
 msgid "dispatch failed to marshal args"
 msgstr "ವಿಫಲಗೊಂಡವುಗಳನ್ನು ಮಾರ್ಶಲ್ ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳಿಗೆ ರವಾನಿಸು"
 
-#: src/proto.c:867
+#: src/proto.c:924
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: ಸ್ಥಿತಿ %d != READY"
 
-#: src/proto.c:883
+#: src/proto.c:940
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk ವಿಫಲಗೊಂಡಿದೆ (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1005
+#: src/proto.c:1090
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ತುಂಡರಿಸಲಾದ ಎನ್ಕೋಡಿಂಗ್‌ನಲ್ಲಿ ದೋಷ"
 
-#: src/proto.c:1032
+#: src/proto.c:1117
 msgid "write to daemon socket"
 msgstr "ಡೀಮನ್ ಸಾಕೆಟ್‌ಗೆ ಬರೆಯುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/proto.c:1055
+#: src/proto.c:1140
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ಪ್ರತ್ಯುತ್ತರ ಕಾಲ್‌ಬ್ಯಾಕ್‌ನಲ್ಲಿ ಪಾರ್ಸ್ ದೋಷ"
 
-#: src/proto.c:1060
+#: src/proto.c:1145
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
 
-#: src/proto.c:1068
+#: src/proto.c:1153
 msgid "failed to parse file chunk"
 msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/proto.c:1077
+#: src/proto.c:1162
 msgid "file receive cancelled by daemon"
 msgstr "ಕಡತವನ್ನು ಸ್ವೀಕರಿಸುವುದನ್ನು ಡೆಮನ್ ರದ್ದುಗೊಳಿಸಿದೆ"
 
