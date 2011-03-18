@@ -449,8 +449,19 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
     }
     if (FD_ISSET (g->sock, &rset2)) {
       r = check_for_daemon_cancellation_or_eof (g, g->sock);
-      if (r < 0)
-        return r;
+      if (r == -1)
+	return r;
+      if (r == -2) {
+	/* Daemon sent cancel message.  But to maintain
+	 * synchronization we must write out the remainder of the
+	 * write buffer before we return (RHBZ#576879).
+	 */
+	if (xwrite (g->sock, buf, n) == -1) {
+	  perrorf (g, "write");
+	  return -1;
+	}
+	return -2; /* cancelled */
+      }
     }
     if (FD_ISSET (g->sock, &wset2)) {
       r = write (g->sock, buf, n);
