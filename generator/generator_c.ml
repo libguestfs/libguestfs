@@ -1103,6 +1103,8 @@ check_state (guestfs_h *g, const char *caller)
             pr "  if (r == -1) {\n";
             pr "    guestfs___end_busy (g);\n";
             trace_return_error ~indent:4 style;
+            pr "    /* daemon will send an error reply which we discard */\n";
+            pr "    guestfs___recv_discard (g, \"%s\");\n" shortname;
             pr "    return %s;\n" (string_of_errcode errcode);
             pr "  }\n";
             pr "  if (r == -2) /* daemon cancelled */\n";

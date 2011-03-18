@@ -252,6 +252,7 @@ extern int guestfs___set_busy (guestfs_h *g);
 extern int guestfs___end_busy (guestfs_h *g);
 extern int guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint, uint64_t optargs_bitmask, xdrproc_t xdrp, char *args);
 extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
+extern int guestfs___recv_discard (guestfs_h *g, const char *fn);
 extern int guestfs___send_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_file (guestfs_h *g, const char *filename);
 extern int guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
