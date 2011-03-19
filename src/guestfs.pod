@@ -912,8 +912,8 @@ architecture for multithreaded programs using libvirt and libguestfs.
 
 =head2 PATH
 
-Libguestfs needs a kernel and initrd.img, which it finds by looking
-along an internal path.
+Libguestfs needs a supermin appliance, which it finds by looking along
+an internal path.
 
 By default it looks for these in the directory C<$libdir/guestfs>
 (eg. C</usr/local/lib/guestfs> or C</usr/lib64/guestfs>).
@@ -2457,8 +2457,8 @@ example:
 
 =item LIBGUESTFS_PATH
 
-Set the path that libguestfs uses to search for kernel and initrd.img.
-See the discussion of paths in section PATH above.
+Set the path that libguestfs uses to search for a supermin appliance.
+See the discussion of paths in section L</PATH> above.
 
 =item LIBGUESTFS_QEMU
 
