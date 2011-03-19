@@ -394,6 +394,8 @@ ntfsinfo: print various information about NTFS volume and files
 
 ntfs streams: extract alternate streams from NTFS files
 
+ntfsck: checker for NTFS filesystems
+
 Undelete files
 --------------
 
