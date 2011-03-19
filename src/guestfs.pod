@@ -99,7 +99,7 @@ this:
   * disk image.
   */
  guestfs_touch (g, "/hello");
-
+ 
  /* This is only needed for libguestfs < 1.5.24.  Since then
   * it is done automatically when you close the handle.  See
   * discussion of autosync in this page.
