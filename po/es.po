@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-08 15:33+0000\n"
+"POT-Creation-Date: 2011-03-21 11:57+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2859,7 +2859,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:655
+#: src/appliance.c:659
 msgid "external command failed, see earlier error messages"
 msgstr "falló el comando externo, vea mensajes de errores anteriores"
 
@@ -3024,69 +3024,69 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: se ha leído 0x%x desde el demonio, se "
 "esperaba 0x%x\n"
 
-#: src/proto.c:519 src/proto.c:580
+#: src/proto.c:530 src/proto.c:591
 msgid "unexpected end of file when reading from daemon"
 msgstr "fin no esperado del archivo mientras se leía desde el demonio"
 
-#: src/proto.c:540
+#: src/proto.c:551
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 "se ha recibido una identificación mágica desde guestfsd, pero en estado %d"
 
-#: src/proto.c:557
+#: src/proto.c:568
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: src/proto.c:709
+#: src/proto.c:720
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: estado %d != BUSY"
 
-#: src/proto.c:733
+#: src/proto.c:744
 msgid "xdr_guestfs_message_header failed"
 msgstr "falló xdr_guestfs_message_header"
 
-#: src/proto.c:742
+#: src/proto.c:753
 msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
-#: src/proto.c:872
+#: src/proto.c:880
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: estado %d != READY"
 
-#: src/proto.c:888
+#: src/proto.c:896
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "falló xdr_guestfs_chunk (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1011
+#: src/proto.c:1047
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error en codificación fragmentada"
 
-#: src/proto.c:1039
+#: src/proto.c:1075
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: src/proto.c:1062
+#: src/proto.c:1098
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 "receive_file_data: error de análisis en la respuesta de devolución de llamada"
 
-#: src/proto.c:1067
+#: src/proto.c:1103
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido una marca no esperada mientras se leían "
 "porciones del archivo "
 
-#: src/proto.c:1075
+#: src/proto.c:1111
 msgid "failed to parse file chunk"
 msgstr "falló al analizar porciones del archivo"
 
-#: src/proto.c:1084
+#: src/proto.c:1120
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 

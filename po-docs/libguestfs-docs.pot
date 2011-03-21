@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.8.2\n"
+"Project-Id-Version: libguestfs 1.8.3\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-03-08 15:34+0000\n"
+"POT-Creation-Date: 2011-03-21 11:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,7 +220,7 @@ msgid ""
 "  * disk image.\n"
 "  */\n"
 " guestfs_touch (g, \"/hello\");\n"
-"\n"
+" \n"
 msgstr ""
 
 #. type: verbatim
@@ -1826,7 +1826,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs.pod:915
 msgid ""
-"Libguestfs needs a kernel and initrd.img, which it finds by looking along an "
+"Libguestfs needs a supermin appliance, which it finds by looking along an "
 "internal path."
 msgstr ""
 
@@ -4791,8 +4791,8 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs.pod:2460
 msgid ""
-"Set the path that libguestfs uses to search for kernel and initrd.img.  See "
-"the discussion of paths in section PATH above."
+"Set the path that libguestfs uses to search for a supermin appliance.  See "
+"the discussion of paths in section L</PATH> above."
 msgstr ""
 
 #. type: =item

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-08 15:33+0000\n"
+"POT-Creation-Date: 2011-03-21 11:57+0000\n"
 "PO-Revision-Date: 2010-01-29 12:50+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -2784,7 +2784,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:655
+#: src/appliance.c:659
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
@@ -2945,65 +2945,65 @@ msgid ""
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/proto.c:519 src/proto.c:580
+#: src/proto.c:530 src/proto.c:591
 msgid "unexpected end of file when reading from daemon"
 msgstr "ਡੈਮਨ ਤੋਂ ਪੜਨ ਸਮੇਂ ਅਚਾਨਕ ਫਾਇਲ ਅੰਤ"
 
-#: src/proto.c:540
+#: src/proto.c:551
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ਤੋਂ ਮੈਜਿਕ ਸਿਗਨੇਚਰ , ਪਰ %d ਸਥਿਤੀ ਵਿੱਚ"
 
-#: src/proto.c:557
+#: src/proto.c:568
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "message length (%u) > maximum possible size (%d)"
 
-#: src/proto.c:709
+#: src/proto.c:720
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/proto.c:733
+#: src/proto.c:744
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header failed"
 
-#: src/proto.c:742
+#: src/proto.c:753
 msgid "dispatch failed to marshal args"
 msgstr "dispatch failed to marshal args"
 
-#: src/proto.c:872
+#: src/proto.c:880
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/proto.c:888
+#: src/proto.c:896
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1011
+#: src/proto.c:1047
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1039
+#: src/proto.c:1075
 msgid "write to daemon socket"
 msgstr "ਡੈਮਨ ਸਾਕਟ ਵਿੱਚ ਲਿਖੋ"
 
-#: src/proto.c:1062
+#: src/proto.c:1098
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/proto.c:1067
+#: src/proto.c:1103
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: unexpected flag received when reading file chunks"
 
-#: src/proto.c:1075
+#: src/proto.c:1111
 msgid "failed to parse file chunk"
 msgstr "ਫਾਇਲ ਚੰਕ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਫੇਲ ਹੋਇਆ"
 
-#: src/proto.c:1084
+#: src/proto.c:1120
 msgid "file receive cancelled by daemon"
 msgstr "ਫਾਇਲ ਸਵੀਕਾਰ ਕਰਨਾ ਡੈਮਨ ਦੁਆਰਾ ਰੱਦ ਕੀਤਾ ਗਿਆ ਹੈ"
 

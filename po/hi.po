@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-08 15:33+0000\n"
+"POT-Creation-Date: 2011-03-21 11:57+0000\n"
 "PO-Revision-Date: 2010-02-16 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Red Hat>\n"
@@ -2784,7 +2784,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:655
+#: src/appliance.c:659
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
@@ -2945,65 +2945,65 @@ msgid ""
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/proto.c:519 src/proto.c:580
+#: src/proto.c:530 src/proto.c:591
 msgid "unexpected end of file when reading from daemon"
 msgstr "डेमॉन से पढ़ने के दौरान फाइल का अप्रत्याशित अंत"
 
-#: src/proto.c:540
+#: src/proto.c:551
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd से जादुई हस्ताक्षर पाया , लेकिन %d स्थिति में"
 
-#: src/proto.c:557
+#: src/proto.c:568
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "message length (%u) > maximum possible size (%d)"
 
-#: src/proto.c:709
+#: src/proto.c:720
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/proto.c:733
+#: src/proto.c:744
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header failed"
 
-#: src/proto.c:742
+#: src/proto.c:753
 msgid "dispatch failed to marshal args"
 msgstr "dispatch failed to marshal args"
 
-#: src/proto.c:872
+#: src/proto.c:880
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/proto.c:888
+#: src/proto.c:896
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1011
+#: src/proto.c:1047
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1039
+#: src/proto.c:1075
 msgid "write to daemon socket"
 msgstr "डेमॉन सॉकेट में लिखें"
 
-#: src/proto.c:1062
+#: src/proto.c:1098
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/proto.c:1067
+#: src/proto.c:1103
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: unexpected flag received when reading file chunks"
 
-#: src/proto.c:1075
+#: src/proto.c:1111
 msgid "failed to parse file chunk"
 msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
 
-#: src/proto.c:1084
+#: src/proto.c:1120
 msgid "file receive cancelled by daemon"
 msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
 
