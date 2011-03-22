@@ -298,50 +298,40 @@ compare_longest_first (const void *vp1, const void *vp2)
 int
 do_umount_all (void)
 {
-  char *out, *err;
-  int i, r;
+  FILE *fp;
+  struct mntent *m;
   char **mounts = NULL;
   int size = 0, alloc = 0;
-  char *p, *p2, *p3, *pend;
-  char matching[5 + sysroot_len];
+  char *err;
+  int i, r;
 
-  r = command (&out, &err, "mount", NULL);
-  if (r == -1) {
-    reply_with_error ("mount: %s", err);
-    free (out);
-    free (err);
-    return -1;
+  /* NB: Eventually we should aim to parse /proc/self/mountinfo, but
+   * that requires custom parsing code.
+   */
+  fp = setmntent ("/proc/mounts", "r");
+  if (fp == NULL) {
+    perror ("/proc/mounts");
+    exit (EXIT_FAILURE);
   }
 
-  free (err);
-
-  /* Lines have the format:
-   *   /dev/foo on /mountpoint type ...
-   */
-  snprintf (matching, 5 + sysroot_len, " on %s", sysroot);
-
-  p = out;
-  while (p) {
-    pend = strchr (p, '\n');
-    if (pend) {
-      *pend = '\0';
-      pend++;
-    }
-
-    p2 = strstr (p, matching);
-    if (p2 != NULL) {
-      p2 += 4;
-      p3 = p2 + strcspn (p2, " ");
-      *p3 = '\0';
-      if (add_string (&mounts, &size, &alloc, p2) == -1) {
-        free (out);
+  while ((m = getmntent (fp)) != NULL) {
+    /* Allow a mount directory like "/sysroot". */
+    if (sysroot_len > 0 && STREQ (m->mnt_dir, sysroot)) {
+      if (add_string (&mounts, &size, &alloc, m->mnt_dir) == -1) {
+        endmntent (fp);
         return -1;
       }
     }
-
-    p = pend;
+    /* Or allow a mount directory like "/sysroot/...". */
+    if (STRPREFIX (m->mnt_dir, sysroot) && m->mnt_dir[sysroot_len] == '/') {
+      if (add_string (&mounts, &size, &alloc, m->mnt_dir) == -1) {
+        endmntent (fp);
+        return -1;
+      }
+    }
   }
-  free (out);
+
+  endmntent (fp);
 
   qsort (mounts, size, sizeof (char *), compare_longest_first);
 
