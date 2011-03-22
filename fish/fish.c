@@ -102,15 +102,6 @@ usage (int status)
              "Copyright (C) 2009-2011 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] cmd [: cmd : cmd ...]\n"
-             "  %s [--ro] -i -a disk-image\n"
-             "  %s [--ro] -i -d libvirt-domain\n"
-             "or for interactive use:\n"
-             "  %s\n"
-             "or from a shell script:\n"
-             "  %s <<EOF\n"
-             "  cmd\n"
-             "  ...\n"
-             "  EOF\n"
              "Options:\n"
              "  -h|--cmd-help        List available commands\n"
              "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
@@ -138,10 +129,19 @@ usage (int status)
              "  -V|--version         Display version and exit\n"
              "  -w|--rw              Mount read-write\n"
              "  -x                   Echo each command before executing it\n"
+             "\n"
+             "To examine a disk image, ISO, hard disk, filesystem etc:\n"
+             "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+             "or\n"
+             "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+             "\n"
+             "--ro recommended to avoid any writes to the disk image.  If -i option fails\n"
+             "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+             "\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
              program_name, program_name, program_name,
-             program_name, program_name, program_name);
+             program_name);
   }
   exit (status);
 }
