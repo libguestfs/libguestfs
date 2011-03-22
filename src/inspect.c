@@ -366,9 +366,13 @@ check_filesystem (guestfs_h *g, const char *device,
            guestfs_is_dir (g, "/run") > 0 &&
            guestfs_is_dir (g, "/spool") > 0)
     fs->content = FS_CONTENT_LINUX_VAR;
-  /* Windows root? */
+  /* Windows root?
+   * Note that if a Windows guest has multiple disks and applications
+   * are installed on those other disks, then those other disks will
+   * contain "/Program Files" and "/System Volume Information".  Those
+   * would *not* be Windows root disks.  (RHBZ#674130)
+   */
   else if (is_file_nocase (g, "/AUTOEXEC.BAT") > 0 ||
-           is_dir_nocase (g, "/Program Files") > 0 ||
            is_dir_nocase (g, "/WINDOWS") > 0 ||
            is_dir_nocase (g, "/WIN32") > 0 ||
            is_dir_nocase (g, "/WINNT") > 0 ||
@@ -380,6 +384,13 @@ check_filesystem (guestfs_h *g, const char *device,
     if (check_windows_root (g, fs) == -1)
       return -1;
   }
+  /* Windows volume with installed applications (but not root)? */
+  else if (is_dir_nocase (g, "/System Volume Information") > 0 &&
+           is_dir_nocase (g, "/Program Files") > 0)
+    fs->content = FS_CONTENT_WINDOWS_VOLUME_WITH_APPS;
+  /* Windows volume (but not root)? */
+  else if (is_dir_nocase (g, "/System Volume Information") > 0)
+    fs->content = FS_CONTENT_WINDOWS_VOLUME;
   /* Install CD/disk?  Skip these checks if it's not a whole device
    * (eg. CD) or the first partition (eg. bootable USB key).
    */
