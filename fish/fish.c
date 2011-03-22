@@ -97,7 +97,7 @@ usage (int status)
     fprintf (stdout,
            _("%s: guest filesystem shell\n"
              "%s lets you edit virtual machine filesystems\n"
-             "Copyright (C) 2009-2010 Red Hat Inc.\n"
+             "Copyright (C) 2009-2011 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] cmd [: cmd : cmd ...]\n"
              "  %s [--ro] -i -a disk-image\n"
@@ -133,6 +133,7 @@ usage (int status)
              "  --selinux            Enable SELinux support\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
+             "  -w|--rw              Mount read-write\n"
              "  -x                   Echo each command before executing it\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
