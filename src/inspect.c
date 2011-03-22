@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -230,6 +230,8 @@ static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
 static char *resolve_windows_path_silently (guestfs_h *g, const char *);
+static int is_file_nocase (guestfs_h *g, const char *);
+static int is_dir_nocase (guestfs_h *g, const char *);
 static int extend_fses (guestfs_h *g);
 static int parse_unsigned_int (guestfs_h *g, const char *str);
 static int parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
@@ -365,17 +367,13 @@ check_filesystem (guestfs_h *g, const char *device,
            guestfs_is_dir (g, "/spool") > 0)
     fs->content = FS_CONTENT_LINUX_VAR;
   /* Windows root? */
-  else if (guestfs_is_file (g, "/AUTOEXEC.BAT") > 0 ||
-           guestfs_is_file (g, "/autoexec.bat") > 0 ||
-           guestfs_is_dir (g, "/Program Files") > 0 ||
-           guestfs_is_dir (g, "/WINDOWS") > 0 ||
-           guestfs_is_dir (g, "/Windows") > 0 ||
-           guestfs_is_dir (g, "/windows") > 0 ||
-           guestfs_is_dir (g, "/WIN32") > 0 ||
-           guestfs_is_dir (g, "/Win32") > 0 ||
-           guestfs_is_dir (g, "/WINNT") > 0 ||
-           guestfs_is_file (g, "/boot.ini") > 0 ||
-           guestfs_is_file (g, "/ntldr") > 0) {
+  else if (is_file_nocase (g, "/AUTOEXEC.BAT") > 0 ||
+           is_dir_nocase (g, "/Program Files") > 0 ||
+           is_dir_nocase (g, "/WINDOWS") > 0 ||
+           is_dir_nocase (g, "/WIN32") > 0 ||
+           is_dir_nocase (g, "/WINNT") > 0 ||
+           is_file_nocase (g, "/boot.ini") > 0 ||
+           is_file_nocase (g, "/ntldr") > 0) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_WINDOWS_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
@@ -1659,6 +1657,34 @@ resolve_windows_path_silently (guestfs_h *g, const char *path)
   char *ret = guestfs_case_sensitive_path (g, path);
   g->error_cb = old_error_cb;
   return ret;
+}
+
+static int
+is_file_nocase (guestfs_h *g, const char *path)
+{
+  char *p;
+  int r;
+
+  p = resolve_windows_path_silently (g, path);
+  if (!p)
+    return 0;
+  r = guestfs_is_file (g, p);
+  free (p);
+  return r > 0;
+}
+
+static int
+is_dir_nocase (guestfs_h *g, const char *path)
+{
+  char *p;
+  int r;
+
+  p = resolve_windows_path_silently (g, path);
+  if (!p)
+    return 0;
+  r = guestfs_is_dir (g, p);
+  free (p);
+  return r > 0;
 }
 
 static int
