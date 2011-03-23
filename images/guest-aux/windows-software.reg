@@ -5,6 +5,7 @@
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion]
 "ProductName"=str(1):"Microsoft Windows 7 Phony Edition"
 "CurrentVersion"=str(1):"6.1"
+"InstallationType"=str(1):"Client"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows]
 

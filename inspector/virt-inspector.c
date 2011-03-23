@@ -1,5 +1,5 @@
 /* virt-inspector
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -371,6 +371,13 @@ output_root (xmlTextWriterPtr xo, char *root)
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
       xmlTextWriterWriteElement (xo, BAD_CAST "product_name", BAD_CAST str));
+  free (str);
+
+  str = guestfs_inspect_get_product_variant (g, root);
+  if (!str) exit (EXIT_FAILURE);
+  if (STRNEQ (str, "unknown"))
+    XMLERROR (-1,
+      xmlTextWriterWriteElement (xo, BAD_CAST "product_variant", BAD_CAST str));
   free (str);
 
   i = guestfs_inspect_get_major_version (g, root);

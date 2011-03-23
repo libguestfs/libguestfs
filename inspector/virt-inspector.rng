@@ -33,6 +33,7 @@
             <optional><element name="arch"><text/></element></optional>
             <optional><element name="distro"><text/></element></optional>
             <optional><element name="product_name"><text/></element></optional>
+            <optional><element name="product_variant"><text/></element></optional>
             <element name="major_version"><text/></element>
             <element name="minor_version"><text/></element>
             <optional><element name="windows_systemroot"><text/></element></optional>

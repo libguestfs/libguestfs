@@ -6,9 +6,11 @@
     <arch>i386</arch>
     <distro>windows</distro>
     <product_name>Microsoft Windows 7 Phony Edition</product_name>
+    <product_variant>Client</product_variant>
     <major_version>6</major_version>
     <minor_version>1</minor_version>
     <windows_systemroot>/Windows</windows_systemroot>
+    <format>installed</format>
     <mountpoints>
       <mountpoint dev="/dev/sda2">/</mountpoint>
     </mountpoints>

@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1416,6 +1416,36 @@ L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>.
    "get the attach method",
    "\
 Return the current attach method.  See C<guestfs_set_attach_method>.");
+
+  ("inspect_get_product_variant", (RString "variant", [Device "root"], []), -1, [],
+   [],
+   "get product variant of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the product variant of the inspected operating
+system.
+
+For Windows guests, this returns the contents of the Registry key
+C<HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion>
+C<InstallationType> which is usually a string such as
+C<Client> or C<Server> (other values are possible).  This
+can be used to distinguish consumer and enterprise versions
+of Windows that have the same version number (for example,
+Windows 7 and Windows 2008 Server are both version 6.1,
+but the former is C<Client> and the latter is C<Server>).
+
+For enterprise Linux guests, in future we intend this to return
+the product variant such as C<Desktop>, C<Server> and so on.  But
+this is not implemented at present.
+
+If the product variant could not be determined, then the
+string C<unknown> is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.
+See also C<guestfs_inspect_get_product_name>,
+C<guestfs_inspect_get_major_version>.");
 
 ]
 

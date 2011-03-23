@@ -1558,6 +1558,14 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 
       free (version);
     }
+    else if (STRCASEEQ (key, "InstallationType")) {
+      fs->product_variant = hivex_value_string (h, values[i]);
+      if (!fs->product_variant) {
+        perrorf (g, "hivex_value_string");
+        free (key);
+        goto out;
+      }
+    }
 
     free (key);
   }
@@ -1963,6 +1971,16 @@ guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
     return NULL;
 
   return safe_strdup (g, fs->product_name ? : "unknown");
+}
+
+char *
+guestfs__inspect_get_product_variant (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  return safe_strdup (g, fs->product_variant ? : "unknown");
 }
 
 char *
@@ -2850,6 +2868,12 @@ guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
 }
 
 char *
+guestfs__inspect_get_product_variant (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
 guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
 {
   NOT_IMPL(NULL);
@@ -2924,6 +2948,7 @@ guestfs___free_inspect_info (guestfs_h *g)
   for (i = 0; i < g->nr_fses; ++i) {
     free (g->fses[i].device);
     free (g->fses[i].product_name);
+    free (g->fses[i].product_variant);
     free (g->fses[i].arch);
     free (g->fses[i].hostname);
     free (g->fses[i].windows_systemroot);

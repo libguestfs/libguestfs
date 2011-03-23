@@ -244,6 +244,7 @@ struct inspect_fs {
   enum inspect_os_package_format package_format;
   enum inspect_os_package_management package_management;
   char *product_name;
+  char *product_variant;
   int major_version;
   int minor_version;
   char *arch;
