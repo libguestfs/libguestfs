@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,6 +125,9 @@ extern struct optgroup optgroups[];
 /*-- in sync.c --*/
 /* Use this as a replacement for sync(2). */
 extern int sync_disks (void);
+
+/*-- in ext2.c --*/
+extern int e2prog (char *name); /* Massive hack for RHEL 5. */
 
 /*-- in lvm.c --*/
 extern int lv_canonical (const char *device, char **ret);
