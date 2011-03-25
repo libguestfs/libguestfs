@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ TESTS = \
 	rhbz576879.sh \
 	rhbz578407.sh \
 	rhbz580246.sh \
+	rhbz690819.sh \
 	test-add-domain.sh \
 	test-both-ends-cancel.sh \
 	test-cancellation-download-librarycancels.sh \

@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,9 +41,25 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize, const char 
   int r;
   char *err;
 
-  argv[i++] = "mkfs";
+  /* For ext2/3/4 run the mke2fs program directly.  This is because
+   * the mkfs program "eats" some options, in particular the -F
+   * option.
+   */
+  if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
+      STREQ (fstype, "ext4"))
+    argv[i++] = "mke2fs";
+  else
+    argv[i++] = "mkfs";
+
   argv[i++] = "-t";
   argv[i++] = fstype;
+
+  /* Force mke2fs to create a filesystem, even if it thinks it
+   * shouldn't (RHBZ#690819).
+   */
+  if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
+      STREQ (fstype, "ext4"))
+    argv[i++] = "-F";
 
   /* mkfs.ntfs requires the -Q argument otherwise it writes zeroes
    * to every block and does bad block detection, neither of which
