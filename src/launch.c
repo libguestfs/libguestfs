@@ -393,7 +393,7 @@ launch_appliance (guestfs_h *g)
 {
   int r;
   int wfd[2], rfd[2];
-  char unixsock[256];
+  char guestfsd_sock[256];
   struct sockaddr_un addr;
 
   /* At present you must add drives before starting the appliance.  In
@@ -422,8 +422,8 @@ launch_appliance (guestfs_h *g)
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
    */
-  snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
-  unlink (unixsock);
+  snprintf (guestfsd_sock, sizeof guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
+  unlink (guestfsd_sock);
 
   g->sock = socket (AF_UNIX, SOCK_STREAM, 0);
   if (g->sock == -1) {
@@ -437,7 +437,7 @@ launch_appliance (guestfs_h *g)
   }
 
   addr.sun_family = AF_UNIX;
-  strncpy (addr.sun_path, unixsock, UNIX_PATH_MAX);
+  strncpy (addr.sun_path, guestfsd_sock, UNIX_PATH_MAX);
   addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
   if (bind (g->sock, &addr, sizeof addr) == -1) {
@@ -546,7 +546,7 @@ launch_appliance (guestfs_h *g)
 
     /* Set up virtio-serial for the communications channel. */
     add_cmdline (g, "-chardev");
-    snprintf (buf, sizeof buf, "socket,path=%s,id=channel0", unixsock);
+    snprintf (buf, sizeof buf, "socket,path=%s,id=channel0", guestfsd_sock);
     add_cmdline (g, buf);
     add_cmdline (g, "-device");
     add_cmdline (g, "virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
