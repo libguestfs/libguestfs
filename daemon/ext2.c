@@ -39,7 +39,7 @@
  * We specify e4fsprogs in the package list to ensure it is loaded
  * if it exists.
  */
-static int
+int
 e2prog (char *name)
 {
   char *p = strstr (name, "e2");
