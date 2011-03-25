@@ -219,7 +219,7 @@ guestfs_close (guestfs_h *g)
 
   /* Remove tmpfiles. */
   if (g->tmpdir) {
-    snprintf (filename, sizeof filename, "%s/sock", g->tmpdir);
+    snprintf (filename, sizeof filename, "%s/guestfsd.sock", g->tmpdir);
     unlink (filename);
 
     rmdir (g->tmpdir);
