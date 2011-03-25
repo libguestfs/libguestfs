@@ -827,6 +827,10 @@ Some Red Hat-derived distro.
 
 Red Hat Enterprise Linux and some derivatives.
 
+=item \"slackware\"
+
+Slackware.
+
 =item \"ubuntu\"
 
 Ubuntu.

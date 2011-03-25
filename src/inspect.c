@@ -645,6 +645,15 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_major_minor (g, fs) == -1)
       return -1;
   }
+  else if (guestfs_exists (g, "/etc/slackware-version") > 0) {
+    fs->distro = OS_DISTRO_SLACKWARE;
+
+    if (parse_release_file (g, fs, "/etc/slackware-version") == -1)
+      return -1;
+
+    if (parse_major_minor (g, fs) == -1)
+      return -1;
+  }
 
  skip_release_checks:;
 
@@ -1784,6 +1793,7 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
     fs->package_format = OS_PACKAGE_FORMAT_PISI;
     break;
 
+  case OS_DISTRO_SLACKWARE:
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_UNKNOWN:
   default:
@@ -1828,6 +1838,7 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
     fs->package_management = OS_PACKAGE_MANAGEMENT_URPMI;
     break;
 
+  case OS_DISTRO_SLACKWARE:
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_UNKNOWN:
   default:
@@ -1935,6 +1946,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
+  case OS_DISTRO_SLACKWARE: ret = safe_strdup (g, "slackware"); break;
   case OS_DISTRO_WINDOWS: ret = safe_strdup (g, "windows"); break;
   case OS_DISTRO_UBUNTU: ret = safe_strdup (g, "ubuntu"); break;
   case OS_DISTRO_UNKNOWN: default: ret = safe_strdup (g, "unknown"); break;

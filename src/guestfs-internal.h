@@ -211,6 +211,7 @@ enum inspect_os_distro {
   OS_DISTRO_MEEGO,
   OS_DISTRO_LINUX_MINT,
   OS_DISTRO_MANDRIVA,
+  OS_DISTRO_SLACKWARE,
 };
 
 enum inspect_os_package_format {
