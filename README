@@ -84,6 +84,8 @@ bindings
 
 - (Optional) PHP, phpize if you want to build the PHP bindings
 
+- (Optional, but highly recommended) getfacl, getfattr
+
 Running ./configure will check you have all the requirements installed
 on your machine.
 
