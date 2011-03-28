@@ -1,3 +1,101 @@
+Release notes for libguestfs 1.10.0
+-----------------------------------
+
+[Not complete. Last update commit e751293e10d5ecbb2ef43a61b9c153a1fc4f0304]
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.8.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+New features
+
+ - [NOT DONE] --ro is now the default for guestfish.
+
+ - libguestfs and tools can be used against live virtual machines.
+   See the 'guestfish --live' and 'guestmount --live' options, and (for
+   the low-level interface) the new APIs set-attach-method and
+   get-attach-method.
+
+ - New virt tools:
+   virt-copy-in, virt-copy-out, virt-tar-in, virt-tar-out.
+
+ - You can now inspect the install disks and live CDs of many different
+   operating systems.
+
+ - guestfish <! cmd which executes a shell cmd and inlines the result.
+
+ - New event API allows more than one callback to be registered for
+   each event, makes it possible to call the API from other languages,
+   and allows nearly all log, debug and trace messages to be rerouted
+   from stderr.
+
+ - A series of protocol fixes has fixed the old bug RHBZ#576879
+   which used to cause errors during the upload command to lose
+   protocol synchronization.
+
+ - Greater FHS compliance for temporary files, including using /var/tmp
+   for large cached files that should survive reboot (instead of /tmp).
+
+ - mkfs-opts allows filesystem features to be specified.
+
+ - More intelligent handling of mountpoints, allowing mkmountpoint, mount
+   and umount-all commands to work together properly.
+
+ - Trace messages are prefixed with a distinct string, allowing them to
+   be easily 'grepped' out from debug output.
+
+ - Publish example code in: C, Perl, Python, OCaml, Ruby.
+
+ - The Java and Ruby bindings have been improved greatly.
+
+ - Perl includes a way to get the errno of the last error.
+
+ - Transifex is now being used to manage translations.
+   http://www.transifex.net/projects/p/libguestfs/
+
+ - Inspection now supports Red Hat Desktop, Slackware distributions.
+
+ - Inspection no longer fails for Windows guests that have two or
+   more disks.
+
+ - Inspection can now tell the difference between Windows 2008 Server
+   and Windows 7.
+
+ - New logo!
+
+Security
+
+New APIs
+
+  first-private,
+  get-attach-method,
+  inspect-get-product-variant,
+  next-private,
+  resize2fs-M,
+  set-attach-method,
+
+Internals
+
+ - The 'HACKING' file is obsolete.  The contents have been moved into
+   a section of the guestfs(3) manual page.
+
+Bugs fixed
+
+ - 502533 Updated Polish translation of libguestfs
+ - 576879 libguestfs protocol loses synchronization if you 'upload' before mounting disks
+ - 599503 document that mkmountpoint and umount-all cannot be mixed
+ - 617440 guestfish: fails to tilde expand '~' when the $HOME env is unset
+ - 664558 RFE: Allow to set log callback in Ruby bindings
+ - 665358 Punjabi Translation Completed (pa_IN)
+ - 666577 libguestfs: unknown filesystem /dev/fd0
+ - 667610 Multiple bugs, memory leaks in libguestfs ruby bindings
+ - 668112 virt-filesystems command fails on guest with corrupt filesystem label
+ - 668574 guestfish -i is trying to mount all mounts from /etc/fstab and fails with an error when device doesn't exists
+ - 673479 Add a grep-friendly string to LIBGUESTFS_TRACE output
+ - 682756 libguestfs trace segfaults when list-filesystems returns error
+ - 682979 libguestfs incorrectly detects Red Hat desktop as 'redhat-based' instead of 'redhat'
+ - 690819 mkfs fails creating a filesytem on a disk device when using a disk with 'ide' interface
+
 Release notes for libguestfs 1.8.0
 ----------------------------------
 
