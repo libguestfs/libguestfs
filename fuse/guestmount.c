@@ -1,5 +1,5 @@
 /* guestmount - mount guests using libguestfs and FUSE
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -744,19 +744,41 @@ fg_getxattr (const char *path, const char *name, char *value,
     free_attrs = 1;
   }
 
+  /* Find the matching attribute (index in 'i'). */
+  ssize_t r;
   size_t i;
-  int r = -ENOATTR;
   for (i = 0; i < xattrs->len; ++i) {
-    if (STREQ (xattrs->val[i].attrname, name)) {
-      size_t sz = xattrs->val[i].attrval_len;
-      if (sz > size)
-        sz = size;
-      memcpy (value, xattrs->val[i].attrval, sz);
-      r = 0;
+    if (STREQ (xattrs->val[i].attrname, name))
       break;
-    }
   }
 
+  if (i == xattrs->len) {       /* not found */
+    r = -ENOATTR;
+    goto out;
+  }
+
+  /* The getxattr man page is unclear, but if value == NULL then we
+   * return the space required (the caller then makes a second syscall
+   * after allocating the required amount of space).  If value != NULL
+   * then it's not clear what we should do, but it appears we should
+   * copy as much as possible and return -ERANGE if there's not enough
+   * space in the buffer.
+   */
+  size_t sz = xattrs->val[i].attrval_len;
+  if (value == NULL) {
+    r = sz;
+    goto out;
+  }
+
+  if (sz <= size)
+    r = sz;
+  else {
+    r = -ERANGE;
+    sz = size;
+  }
+  memcpy (value, xattrs->val[i].attrval, sz);
+
+out:
   if (free_attrs)
     guestfs_free_xattr_list ((struct guestfs_xattr_list *) xattrs);
 
@@ -780,25 +802,47 @@ fg_listxattr (const char *path, char *list, size_t size)
     free_attrs = 1;
   }
 
+  /* Calculate how much space is required to hold the result. */
+  size_t space = 0;
+  size_t len;
   size_t i;
-  ssize_t copied = 0;
   for (i = 0; i < xattrs->len; ++i) {
-    size_t len = strlen (xattrs->val[i].attrname) + 1;
+    len = strlen (xattrs->val[i].attrname) + 1;
+    space += len;
+  }
+
+  /* The listxattr man page is unclear, but if list == NULL then we
+   * return the space required (the caller then makes a second syscall
+   * after allocating the required amount of space).  If list != NULL
+   * then it's not clear what we should do, but it appears we should
+   * copy as much as possible and return -ERANGE if there's not enough
+   * space in the buffer.
+   */
+  ssize_t r;
+  if (list == NULL) {
+    r = space;
+    goto out;
+  }
+
+  r = 0;
+  for (i = 0; i < xattrs->len; ++i) {
+    len = strlen (xattrs->val[i].attrname) + 1;
     if (size >= len) {
       memcpy (list, xattrs->val[i].attrname, len);
       size -= len;
       list += len;
-      copied += len;
+      r += len;
     } else {
-      copied = -ERANGE;
+      r = -ERANGE;
       break;
     }
   }
 
+ out:
   if (free_attrs)
     guestfs_free_xattr_list ((struct guestfs_xattr_list *) xattrs);
 
-  return copied;
+  return r;
 }
 
 static int

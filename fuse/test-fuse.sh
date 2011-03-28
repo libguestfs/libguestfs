@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -92,10 +92,15 @@ $guestfish <<EOF
   run
   part-disk /dev/sda mbr
   mkfs ext2 /dev/sda1
-  mount /dev/sda1 /
+  mount_options acl,user_xattr /dev/sda1 /
   write /hello.txt hello
   write /world.txt "hello world"
   touch /empty
+  touch /user_xattr
+  setxattr user.test hello123 8 /user_xattr
+  touch /acl
+  # XXX hack until libguestfs gets ACL support
+  debug sh "setfacl -m u:500:r /sysroot/acl" | cat > /dev/null
 EOF
 
 stage Mounting the filesystem
