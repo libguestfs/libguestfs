@@ -1,5 +1,5 @@
 /* libguestfs - guestfish and guestmount shared option parsing
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -109,6 +109,7 @@ struct mp {
   struct mp *next;
   char *device;
   char *mountpoint;
+  char *options;
 };
 
 /* in inspect.c */
@@ -173,12 +174,20 @@ extern int add_libvirt_drives (const char *guest);
     perror ("malloc");                          \
     exit (EXIT_FAILURE);                        \
   }                                             \
+  mp->options = NULL;                           \
+  mp->mountpoint = bad_cast ("/");              \
   p = strchr (optarg, ':');                     \
   if (p) {                                      \
     *p = '\0';                                  \
-    mp->mountpoint = p+1;                       \
-  } else                                        \
-    mp->mountpoint = bad_cast ("/");            \
+    p++;                                        \
+    mp->mountpoint = p;                         \
+    p = strchr (p, ':');                        \
+    if (p) {                                    \
+      *p = '\0';                                \
+      p++;                                      \
+      mp->options = p;                          \
+    }                                           \
+  }                                             \
   mp->device = optarg;                          \
   mp->next = mps;                               \
   mps = mp

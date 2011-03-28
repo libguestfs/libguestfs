@@ -148,13 +148,25 @@ to try to read passphrases from the user by opening C</dev/tty>.
 Connect to a live virtual machine.
 (Experimental, see L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>).
 
-=item B<-m dev[:mnt]> | B<--mount dev[:mnt]>
+=item B<-m dev[:mountpoint[:options]]>
+
+=item B<--mount dev[:mountpoint[:options]]>
 
 Mount the named partition or logical volume on the given mountpoint
 B<in the guest> (this has nothing to do with mountpoints in the host).
 
 If the mountpoint is omitted, it defaults to C</>.  You have to mount
 something on C</>.
+
+The third (and rarely used) part of the mount parameter is the list of
+mount options used to mount the underlying filesystem.  If this is not
+given, then the mount options are either the empty string or C<ro>
+(the latter if the I<--ro> flag is used).  By specifying the mount
+options, you override this default choice.  Probably the only time you
+would use this is to enable ACLs and/or extended attributes if the
+filesystem can support them:
+
+ -m /dev/sda1:/:acl,user_xattr
 
 =item B<-n> | B<--no-sync>
 

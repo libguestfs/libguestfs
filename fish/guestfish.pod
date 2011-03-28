@@ -299,9 +299,9 @@ L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 Connect to a live virtual machine.
 (Experimental, see L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>).
 
-=item B<-m dev[:mountpoint]>
+=item B<-m dev[:mountpoint[:options]]>
 
-=item B<--mount dev[:mountpoint]>
+=item B<--mount dev[:mountpoint[:options]]>
 
 Mount the named partition or logical volume on the given mountpoint.
 
@@ -318,8 +318,17 @@ filesystems and LVs available (see L</list-partitions>,
 L</list-filesystems> and L</lvs> commands), or you can use the
 L<virt-filesystems(1)> program.
 
-Using this flag is mostly equivalent to using the C<mount-options>
-command or the C<mount-ro> command if the I<--ro> flag was given.
+The third (and rarely used) part of the mount parameter is the list of
+mount options used to mount the underlying filesystem.  If this is not
+given, then the mount options are either the empty string or C<ro>
+(the latter if the I<--ro> flag is used).  By specifying the mount
+options, you override this default choice.  Probably the only time you
+would use this is to enable ACLs and/or extended attributes if the
+filesystem can support them:
+
+ -m /dev/sda1:/:acl,user_xattr
+
+Using this flag is equivalent to using the C<mount-options> command.
 
 =item B<-n>
 

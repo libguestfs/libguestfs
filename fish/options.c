@@ -1,5 +1,5 @@
 /* libguestfs - guestfish and guestmount shared option parsing
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,11 +106,18 @@ mount_mps (struct mp *mp)
   if (mp) {
     mount_mps (mp->next);
 
+    const char *options;
+    if (mp->options)
+      options = mp->options;
+    else if (read_only)
+      options = "ro";
+    else
+      options = "";
+
     /* Don't use guestfs_mount here because that will default to mount
      * options -o sync,noatime.  For more information, see guestfs(3)
      * section "LIBGUESTFS GOTCHAS".
      */
-    const char *options = read_only ? "ro" : "";
     r = guestfs_mount_options (g, options, mp->device, mp->mountpoint);
     if (r == -1) {
       /* Display possible mountpoints before exiting. */
