@@ -90,6 +90,7 @@
   xz
 #endif /* ARCHLINUX */
 
+acl
 attr
 bash
 binutils
