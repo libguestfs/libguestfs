@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.9.13\n"
+"Project-Id-Version: libguestfs 1.9.14\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-24 12:04+0000\n"
+"POT-Creation-Date: 2011-03-28 17:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:55 cat/virt-filesystems.c:97 cat/virt-ls.c:56 df/main.c:68
-#: fish/fish.c:96 fuse/guestmount.c:863 inspector/virt-inspector.c:69
+#: fish/fish.c:96 fuse/guestmount.c:907 inspector/virt-inspector.c:69
 #: rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -48,14 +48,14 @@ msgid ""
 msgstr ""
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:200 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:134 fish/fish.c:217 fuse/guestmount.c:976
+#: df/domains.c:428 df/main.c:134 fish/fish.c:217 fuse/guestmount.c:1020
 #: inspector/virt-inspector.c:129 rescue/virt-rescue.c:127
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:254 cat/virt-ls.c:143
-#: df/main.c:158 fish/fish.c:287 fuse/guestmount.c:1026
+#: df/main.c:158 fish/fish.c:287 fuse/guestmount.c:1070
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:151
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -1888,7 +1888,7 @@ msgid ""
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
 "  --live               Connect to a live virtual machine\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
 "  -n|--no-sync         Don't autosync\n"
 "  -N|--new type        Create prepared disk (test1.img, ...)\n"
 "  --progress-bars      Enable progress bars even when not interactive\n"
@@ -2155,7 +2155,7 @@ msgstr ""
 msgid "%s: too many drives added on the command line\n"
 msgstr ""
 
-#: fish/options.c:121
+#: fish/options.c:128
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -2325,7 +2325,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: fuse/guestmount.c:867
+#: fuse/guestmount.c:911
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2345,7 +2345,7 @@ msgid ""
 "  --help               Display help message and exit\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --live               Connect to a live virtual machine\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
 "  -n|--no-sync         Don't autosync\n"
 "  -o|--option opt      Pass extra option to FUSE\n"
 "  -r|--ro              Mount read-only\n"
@@ -2355,12 +2355,12 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:1095
+#: fuse/guestmount.c:1139
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1103
+#: fuse/guestmount.c:1147
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
@@ -2629,51 +2629,51 @@ msgstr ""
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:486 src/inspect.c:1171 src/inspect.c:2654 src/inspect.c:2697
-#: src/inspect.c:2747 src/inspect.c:2791
+#: src/inspect.c:486 src/inspect.c:1180 src/inspect.c:2666 src/inspect.c:2709
+#: src/inspect.c:2759 src/inspect.c:2803
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:1205
+#: src/inspect.c:1214
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
-#: src/inspect.c:1420
+#: src/inspect.c:1429
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1736 src/inspect.c:1749
+#: src/inspect.c:1745 src/inspect.c:1758
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect.c:1843
+#: src/inspect.c:1854
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1855
+#: src/inspect.c:1866
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1994
+#: src/inspect.c:2006
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:2285 src/inspect.c:2307 src/inspect.c:2332
+#: src/inspect.c:2297 src/inspect.c:2319 src/inspect.c:2344
 msgid "unexpected end of output from db_dump command"
 msgstr ""
 
-#: src/inspect.c:2756
+#: src/inspect.c:2768
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2819
+#: src/inspect.c:2831
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
