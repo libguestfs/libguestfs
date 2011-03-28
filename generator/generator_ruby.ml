@@ -55,6 +55,8 @@ static VALUE c_guestfs;			/* guestfs_h handle */
 static VALUE e_Error;			/* used for all errors */
 
 static void ruby_event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
+static VALUE ruby_event_callback_wrapper_wrapper (VALUE argv);
+static VALUE ruby_event_callback_handle_exception (VALUE not_used, VALUE exn);
 static VALUE **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
 
 static void
@@ -212,7 +214,7 @@ ruby_event_callback_wrapper (guestfs_h *g,
                              const uint64_t *array, size_t array_len)
 {
   size_t i;
-  VALUE eventv, event_handlev, bufv, arrayv;
+  VALUE eventv, event_handlev, bufv, arrayv, argv;
 
   eventv = ULL2NUM (event);
   event_handlev = INT2NUM (event_handle);
@@ -223,12 +225,49 @@ ruby_event_callback_wrapper (guestfs_h *g,
   for (i = 0; i < array_len; ++i)
     rb_ary_push (arrayv, ULL2NUM (array[i]));
 
-  /* XXX If the Ruby callback raises any sort of exception then
-   * it causes the process to segfault.  I don't understand how
-   * to catch exceptions here.
+  /* Wrap up the arguments in an array which will be unpacked
+   * and passed as multiple arguments.  This is a crap limitation
+   * of rb_rescue.
+   * http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/~poffice/mail/ruby-talk/65698
    */
-  rb_funcall (*(VALUE *) data, rb_intern (\"call\"), 4,
+  argv = rb_ary_new2 (5);
+  rb_ary_store (argv, 0, * (VALUE *) data /* function */);
+  rb_ary_store (argv, 1, eventv);
+  rb_ary_store (argv, 2, event_handlev);
+  rb_ary_store (argv, 3, bufv);
+  rb_ary_store (argv, 4, arrayv);
+
+  rb_rescue (ruby_event_callback_wrapper_wrapper, argv,
+             ruby_event_callback_handle_exception, Qnil);
+}
+
+static VALUE
+ruby_event_callback_wrapper_wrapper (VALUE argv)
+{
+  VALUE fn, eventv, event_handlev, bufv, arrayv;
+
+  fn = rb_ary_entry (argv, 0);
+  eventv = rb_ary_entry (argv, 1);
+  event_handlev = rb_ary_entry (argv, 2);
+  bufv = rb_ary_entry (argv, 3);
+  arrayv = rb_ary_entry (argv, 4);
+
+  rb_funcall (fn, rb_intern (\"call\"), 4,
               eventv, event_handlev, bufv, arrayv);
+
+  return Qnil;
+}
+
+static VALUE
+ruby_event_callback_handle_exception (VALUE not_used, VALUE exn)
+{
+  /* Callbacks aren't supposed to throw exceptions.  The best we
+   * can do is to print the error.
+   */
+  fprintf (stderr, \"libguestfs: exception in callback: %%s\",
+           StringValueCStr (exn));
+
+  return Qnil;
 }
 
 static VALUE **
