@@ -1,5 +1,5 @@
 # libguestfs translations of man pages and POD files
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,13 +48,7 @@ PODFILES = \
 	../fuse/guestmount.pod \
 	$(wildcard ../tools/virt-*.pl)
 
-if HAVE_PO4A
 update-po: libguestfs-docs.pot
-else
-update-po:
-endif
-
-if HAVE_PO4A
 
 # Note: po4a leaves empty '=encoding' lines in POD files.  Also it
 # includes a large warning message which ends up in the output.  We
@@ -84,5 +78,3 @@ po4a.conf: $(PODFILES)
 	  echo >> $@-t; \
 	done;
 	mv $@-t $@
-
-endif
