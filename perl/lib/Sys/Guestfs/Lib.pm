@@ -922,6 +922,9 @@ sub _find_filesystem
         if (m{^/dev/hd(.*)} && exists $fses->{"/dev/sd$1"}) {
             return ("/dev/sd$1", $fses->{"/dev/sd$1"});
         }
+        if (m{^/dev/vd(.*)} && exists $fses->{"/dev/sd$1"}) {
+            return ("/dev/sd$1", $fses->{"/dev/sd$1"});
+        }
         if (m{^/dev/xvd(.*)} && exists $fses->{"/dev/sd$1"}) {
             return ("/dev/sd$1", $fses->{"/dev/sd$1"});
         }
