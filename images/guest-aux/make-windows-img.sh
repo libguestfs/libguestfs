@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,20 @@
 
 export LANG=C
 set -e
+
+# If the currently compiled libguestfs doesn't support
+# ntfs-3g/ntfsprogs then we cannot create a Windows phony image.
+# Nothing actually uses windows.img in the standard build so we can
+# just 'touch' it and emit a warning.
+if ! ../fish/guestfish -a /dev/null run : available "ntfs3g ntfsprogs"; then
+  echo "***"
+  echo "Warning: cannot create windows.img because there is no NTFS"
+  echo "support in this build of libguestfs.  Just touching the output"
+  echo "file instead."
+  echo "***"
+  touch windows.img
+  exit 0
+fi
 
 # Create a disk image.
 ../fish/guestfish <<'EOF'
