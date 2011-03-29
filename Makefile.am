@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -74,7 +74,9 @@ SUBDIRS += fuse
 endif
 
 # po-docs must come after tools, inspector.
+if HAVE_PO4A
 SUBDIRS += po-docs
+endif
 
 EXTRA_DIST = \
 	$(generator_built) \

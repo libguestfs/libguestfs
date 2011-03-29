@@ -1,5 +1,5 @@
 # libguestfs translations of man pages and POD files
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,8 +41,6 @@ EXTRA_DIST = \
 	libguestfs-test-tool.pod \
 	$(wildcard virt-*.pl)
 
-if HAVE_PO4A
-
 all-local: $(MANPAGES)
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
@@ -75,12 +73,6 @@ virt-%.1: virt-%.pl
 	$(top_srcdir)/podwrapper.sh \
 	  --man $@ \
 	  $<
-
-else
-
-all-local:
-
-endif
 
 # XXX Can automake do this properly?
 install-data-hook:
