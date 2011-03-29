@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-21 11:57+0000\n"
+"POT-Creation-Date: 2011-03-29 21:33+0100\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "\n"
 
 #: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
-#: fish/fish.c:94 fuse/guestmount.c:862 inspector/virt-inspector.c:68
+#: fish/fish.c:94 fuse/guestmount.c:906 inspector/virt-inspector.c:68
 #: rescue/virt-rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -68,14 +68,14 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 
 #: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:212 fuse/guestmount.c:973
+#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1017
 #: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: సంభాలికను సృష్టించుటకు విఫలమైంది\n"
 
 #: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:280 fuse/guestmount.c:1021
+#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1065
 #: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -1967,18 +1967,9 @@ msgstr "ఫైలును సరికూర్చుటకు '%s filename' �
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s [--ro] -i -a disk-image\n"
-"  %s [--ro] -i -d libvirt-domain\n"
-"or for interactive use:\n"
-"  %s\n"
-"or from a shell script:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
 "Options:\n"
 "  -h|--cmd-help        List available commands\n"
 "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
@@ -2003,7 +1994,17 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Echo each command before executing it\n"
+"\n"
+"To examine a disk image, ISO, hard disk, filesystem etc:\n"
+"  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+"or\n"
+"  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+"\n"
+"--ro recommended to avoid any writes to the disk image.  If -i option fails\n"
+"run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+"\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: guest filesystem shell\n"
@@ -2038,48 +2039,48 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:249
+#: fish/fish.c:250
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID సంఖ్య కాదు: %s\n"
 
-#: fish/fish.c:256
+#: fish/fish.c:257
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID అనునది రిమోట్ కార్యక్రమము యొక్క PIDకు అమర్చాలి\n"
 
-#: fish/fish.c:304
+#: fish/fish.c:305
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ఒక -f పారామితి మాత్రమే యివ్వగలము\n"
 
-#: fish/fish.c:459
+#: fish/fish.c:460
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: ఒకే సమయం వద్ద --listen మరియు --remote ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:467
+#: fish/fish.c:468
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ఫ్లాగ్‌తో ఆదేశ వరుసపై అదనపు పారామితులు\n"
 
-#: fish/fish.c:473
+#: fish/fish.c:474
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ఒకే సమయంలో --listen మరియు --file ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:530
+#: fish/fish.c:531
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:534
+#: fish/fish.c:535
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:622
+#: fish/fish.c:623
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2099,45 +2100,45 @@ msgstr ""
 "      'quit' షెల్ నిష్క్రమించుటకు\n"
 "\n"
 
-#: fish/fish.c:754
+#: fish/fish.c:755
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: మూయని డబుల్ కోట్\n"
 
-#: fish/fish.c:760 fish/fish.c:777
+#: fish/fish.c:761 fish/fish.c:778
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: వెట్‌స్పేస్ ద్వారా వేరుచేయబడిన కమాండ్ ఆర్గుమెంట్స్\n"
 
-#: fish/fish.c:771
+#: fish/fish.c:772
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: మూయని సింగిల్ కోట్\n"
 
-#: fish/fish.c:801
+#: fish/fish.c:802
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'వద్ద స్ట్రింగును పార్శ్ చేయుటలో అంతర్గత దోషము\n"
 
-#: fish/fish.c:818
+#: fish/fish.c:819
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: చాలా యెక్కువ ఆర్గుమెంట్లు\n"
 
-#: fish/fish.c:842
+#: fish/fish.c:843
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ఆదేశ వరుసపై ఖాళీ ఆదేశము\n"
 
-#: fish/fish.c:988
+#: fish/fish.c:989
 msgid "display a list of commands or help on a command"
 msgstr "ఆదేశముల జాబితాను లేదా ఆదేశముపై సహాయమును ప్రదర్శించుము"
 
-#: fish/fish.c:990
+#: fish/fish.c:991
 msgid "quit guestfish"
 msgstr "guestfish నిష్క్రమించుము"
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2148,7 +2149,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1009
+#: fish/fish.c:1010
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2157,12 +2158,12 @@ msgstr ""
 "quit - guestfish నిష్క్రమించును\n"
 "     quit\n"
 
-#: fish/fish.c:1014
+#: fish/fish.c:1015
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: తెలియని ఆదేశము, అన్ని ఆదేశములను జాబితాచేయుటకు -h వుపయోగించుము\n"
 
-#: fish/fish.c:1030
+#: fish/fish.c:1031
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2170,7 +2171,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1187
+#: fish/fish.c:1188
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" స్ట్రింగునందు రన్‌యెవే స్ట్రింగ్\n"
@@ -2462,7 +2463,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' వుపయోగించుము\n"
 
-#: fuse/guestmount.c:866
+#: fuse/guestmount.c:910
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2509,12 +2510,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: fuse/guestmount.c:1090
+#: fuse/guestmount.c:1134
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: తప్పక కనీసం వొక -a మరియు వొక -m ఐచ్చికాన్ని కలిగివుండాలి\n"
 
-#: fuse/guestmount.c:1098
+#: fuse/guestmount.c:1142
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
@@ -2656,56 +2657,56 @@ msgstr ""
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:936
+#: perl/lib/Sys/Guestfs/Lib.pm:939
 #, fuzzy, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "ఫైల్‌సిస్టమ్‌ను అన్‌మౌంట్ చేయుము"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1014
+#: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1040
+#: perl/lib/Sys/Guestfs/Lib.pm:1043
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1105
+#: perl/lib/Sys/Guestfs/Lib.pm:1108
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1160
+#: perl/lib/Sys/Guestfs/Lib.pm:1163
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1191
+#: perl/lib/Sys/Guestfs/Lib.pm:1194
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1214
+#: perl/lib/Sys/Guestfs/Lib.pm:1217
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1283
+#: perl/lib/Sys/Guestfs/Lib.pm:1286
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1345
+#: perl/lib/Sys/Guestfs/Lib.pm:1348
 #, fuzzy, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "మాదిరిని పోలిన వరుసలను తిప్పియివ్వుము"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1384
+#: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -2816,53 +2817,53 @@ msgstr "libguestfs: దోషము: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:446 src/inspect.c:782 src/inspect.c:2157 src/inspect.c:2200
-#: src/inspect.c:2250
+#: src/inspect.c:455 src/inspect.c:791 src/inspect.c:2194 src/inspect.c:2237
+#: src/inspect.c:2287
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:816
+#: src/inspect.c:825
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "పరిమాణ వివరణలను పార్శ్ చేయలేకపోయింది '%s'\n"
 
-#: src/inspect.c:1032
+#: src/inspect.c:1041
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1313
+#: src/inspect.c:1350
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "పరిమాణ వివరణలను పార్శ్ చేయలేకపోయింది '%s'\n"
 
-#: src/inspect.c:1407
+#: src/inspect.c:1444
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1419
+#: src/inspect.c:1456
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1548
+#: src/inspect.c:1585
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1788 src/inspect.c:1810 src/inspect.c:1835
+#: src/inspect.c:1825 src/inspect.c:1847 src/inspect.c:1872
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "డెమోన్‌నుండి చదువునప్పుడు అనుకోని ఫైలు ముగింపు"
 
-#: src/inspect.c:2259
+#: src/inspect.c:2296
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2276
+#: src/inspect.c:2313
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

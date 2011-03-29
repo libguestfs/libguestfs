@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-21 11:57+0000\n"
+"POT-Creation-Date: 2011-03-29 21:33+0100\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
-#: fish/fish.c:94 fuse/guestmount.c:862 inspector/virt-inspector.c:68
+#: fish/fish.c:94 fuse/guestmount.c:906 inspector/virt-inspector.c:68
 #: rescue/virt-rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -67,14 +67,14 @@ msgstr ""
 "  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:212 fuse/guestmount.c:973
+#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1017
 #: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
 #: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:280 fuse/guestmount.c:1021
+#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1065
 #: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -1969,18 +1969,9 @@ msgstr "ಒಂದು ಕಡತವನ್ನು ಸಂಪಾದಿಸಲು '%s fi
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s [--ro] -i -a disk-image\n"
-"  %s [--ro] -i -d libvirt-domain\n"
-"or for interactive use:\n"
-"  %s\n"
-"or from a shell script:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
 "Options:\n"
 "  -h|--cmd-help        List available commands\n"
 "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
@@ -2005,7 +1996,17 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Echo each command before executing it\n"
+"\n"
+"To examine a disk image, ISO, hard disk, filesystem etc:\n"
+"  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+"or\n"
+"  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+"\n"
+"--ro recommended to avoid any writes to the disk image.  If -i option fails\n"
+"run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+"\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: ಅತಿಥಿ ಕಡತವ್ಯವಸ್ಥೆ ಶೆಲ್\n"
@@ -2040,48 +2041,48 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:249
+#: fish/fish.c:250
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ಒಂದು ಸಂಖ್ಯೆಯಾಗಿಲ್ಲ: %s\n"
 
-#: fish/fish.c:256
+#: fish/fish.c:257
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID ಅನ್ನು ದೂರಸ್ಥ ಪ್ರಕ್ರಿಯೆಯ PID ಗೆ ಹೊಂದಿಸಬೇಕು\n"
 
-#: fish/fish.c:304
+#: fish/fish.c:305
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ಕೇವಲ ಒಂದು -f ನಿಯತಾಂಕವನ್ನು ಒದಗಿಸಬಹುದು\n"
 
-#: fish/fish.c:459
+#: fish/fish.c:460
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ಹಾಗು --remote ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:467
+#: fish/fish.c:468
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ಫ್ಲಾಗ್‌ಗಾಗಿ ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಹೆಚ್ಚುವರಿ ನಿಯತಾಂಕಗಳು\n"
 
-#: fish/fish.c:473
+#: fish/fish.c:474
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:530
+#: fish/fish.c:531
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:534
+#: fish/fish.c:535
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:622
+#: fish/fish.c:623
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2101,45 +2102,45 @@ msgstr ""
 "      ಶೆಲ್‌ನಿಂದ ನಿರ್ಗಮಿಸಲು 'quit' ಅನ್ನು ಬಳಸಿ\n"
 "\n"
 
-#: fish/fish.c:754
+#: fish/fish.c:755
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಜೋಡಿ ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:760 fish/fish.c:777
+#: fish/fish.c:761 fish/fish.c:778
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ಆಜ್ಞೆಯ ಆರ್ಗುಮೆಂಟ್‌ಗಳ ನಡುವೆ ಖಾಲಿ ಜಾಗಗಳು ಇರುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:771
+#: fish/fish.c:772
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಒಂದೆ ಒಂದು ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:801
+#: fish/fish.c:802
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ನಲ್ಲಿ ವಾಕ್ಯವನ್ನು ಪಾರ್ಸ್ ಮಾಡುವಲ್ಲಿ ಆಂತರಿಕ ದೋಷ\n"
 
-#: fish/fish.c:818
+#: fish/fish.c:819
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ಅಗತ್ಯಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು   ಚರಪರಿಮಾಣಗಳು (ಆರ್ಗ್ಯೂಮೆಂಟ್)\n"
 
-#: fish/fish.c:842
+#: fish/fish.c:843
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಯಾವುದೆ ಆಜ್ಞೆ ಇಲ್ಲ\n"
 
-#: fish/fish.c:988
+#: fish/fish.c:989
 msgid "display a list of commands or help on a command"
 msgstr "ಆಜ್ಞೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಅಥವ ಒಂದು ಆಜ್ಞೆಯ ನೆರವನ್ನು ತೋರಿಸು"
 
-#: fish/fish.c:990
+#: fish/fish.c:991
 msgid "quit guestfish"
 msgstr "guestfish ಇಂದ ನಿರ್ಗಮಿಸು"
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2150,7 +2151,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1009
+#: fish/fish.c:1010
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2159,12 +2160,12 @@ msgstr ""
 "quit - guestfish ಇಂದ ನಿರ್ಗಮಿಸು \n"
 "     quit\n"
 
-#: fish/fish.c:1014
+#: fish/fish.c:1015
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: ಆಜ್ಞೆಯು ತಿಳಿದಿಲ್ಲ, ಎಲ್ಲಾ ಆಜ್ಞೆಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸಲು -h ಉಪಯೋಗಿಸಿ\n"
 
-#: fish/fish.c:1030
+#: fish/fish.c:1031
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2172,7 +2173,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1187
+#: fish/fish.c:1188
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" ಎಂಬ ವಾಕ್ಯದಲ್ಲಿ ರನ್‌ಅವೆ ಕೋಟ್\n"
@@ -2468,7 +2469,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' ಅನ್ನು ಬಳಸು\n"
 
-#: fuse/guestmount.c:866
+#: fuse/guestmount.c:910
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2516,12 +2517,12 @@ msgstr ""
 "  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
 "  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
-#: fuse/guestmount.c:1090
+#: fuse/guestmount.c:1134
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: ಕನಿಷ್ಟ ಒಂದು -a ಹಾಗು ಕನಿಷ್ಟ ಒಂದು -m ಆಯ್ಕೆಯನ್ನು ಹೊಂದಿರಬೇಕು\n"
 
-#: fuse/guestmount.c:1098
+#: fuse/guestmount.c:1142
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ಆತಿಥೇಯ ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿ ಒಂದು ಆರೋಹಣಾ ತಾಣವನ್ನು ನೀವು ಸೂಚಿಸಬೇಕು\n"
@@ -2664,56 +2665,56 @@ msgstr ""
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:936
+#: perl/lib/Sys/Guestfs/Lib.pm:939
 #, fuzzy, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಅವರೋಹಿಸಿ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1014
+#: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1040
+#: perl/lib/Sys/Guestfs/Lib.pm:1043
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1105
+#: perl/lib/Sys/Guestfs/Lib.pm:1108
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1160
+#: perl/lib/Sys/Guestfs/Lib.pm:1163
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1191
+#: perl/lib/Sys/Guestfs/Lib.pm:1194
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1214
+#: perl/lib/Sys/Guestfs/Lib.pm:1217
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1283
+#: perl/lib/Sys/Guestfs/Lib.pm:1286
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1345
+#: perl/lib/Sys/Guestfs/Lib.pm:1348
 #, fuzzy, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "ಒಂದು ವಿನ್ಯಾಸಕ್ಕೆ ತಾಳೆಯಾಗುವ ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1384
+#: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -2825,53 +2826,53 @@ msgstr "libguestfs: ದೋಷ: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:446 src/inspect.c:782 src/inspect.c:2157 src/inspect.c:2200
-#: src/inspect.c:2250
+#: src/inspect.c:455 src/inspect.c:791 src/inspect.c:2194 src/inspect.c:2237
+#: src/inspect.c:2287
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:816
+#: src/inspect.c:825
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
 
-#: src/inspect.c:1032
+#: src/inspect.c:1041
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1313
+#: src/inspect.c:1350
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
 
-#: src/inspect.c:1407
+#: src/inspect.c:1444
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1419
+#: src/inspect.c:1456
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1548
+#: src/inspect.c:1585
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1788 src/inspect.c:1810 src/inspect.c:1835
+#: src/inspect.c:1825 src/inspect.c:1847 src/inspect.c:1872
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
 
-#: src/inspect.c:2259
+#: src/inspect.c:2296
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2276
+#: src/inspect.c:2313
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

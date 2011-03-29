@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-21 11:57+0000\n"
+"POT-Creation-Date: 2011-03-29 21:33+0100\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Virtaal 0.6.1\n"
 
 #: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
-#: fish/fish.c:94 fuse/guestmount.c:862 inspector/virt-inspector.c:68
+#: fish/fish.c:94 fuse/guestmount.c:906 inspector/virt-inspector.c:68
 #: rescue/virt-rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -66,14 +66,14 @@ msgstr ""
 "  -V|--version         Laat versie zien en sluit af\n"
 
 #: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:212 fuse/guestmount.c:973
+#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1017
 #: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:280 fuse/guestmount.c:1021
+#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1065
 #: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -1948,18 +1948,9 @@ msgstr "gebruik '%s bestandsnaam' om een bestand te bewerken\n"
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s [--ro] -i -a disk-image\n"
-"  %s [--ro] -i -d libvirt-domain\n"
-"or for interactive use:\n"
-"  %s\n"
-"or from a shell script:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
 "Options:\n"
 "  -h|--cmd-help        List available commands\n"
 "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
@@ -1984,7 +1975,17 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Echo each command before executing it\n"
+"\n"
+"To examine a disk image, ISO, hard disk, filesystem etc:\n"
+"  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+"or\n"
+"  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+"\n"
+"--ro recommended to avoid any writes to the disk image.  If -i option fails\n"
+"run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+"\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: gast bestandssysteem shell\n"
@@ -2023,12 +2024,12 @@ msgstr ""
 "  -V|--version         Laat versie zien en sluit af\n"
 "Voor meer informatie,  bekijk de man pagina %s(1).\n"
 
-#: fish/fish.c:249
+#: fish/fish.c:250
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID was geen getal: %s\n"
 
-#: fish/fish.c:256
+#: fish/fish.c:257
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
@@ -2036,40 +2037,40 @@ msgstr ""
 "%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op "
 "afstand\n"
 
-#: fish/fish.c:304
+#: fish/fish.c:305
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: er kan slechts een -f parameter opgegeven worden\n"
 
-#: fish/fish.c:459
+#: fish/fish.c:460
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: de --listen en --remote opties kunnen niet tegelijkertijd gebruikt "
 "worden\n"
 
-#: fish/fish.c:467
+#: fish/fish.c:468
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
 
-#: fish/fish.c:473
+#: fish/fish.c:474
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
 
-#: fish/fish.c:530
+#: fish/fish.c:531
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:534
+#: fish/fish.c:535
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:622
+#: fish/fish.c:623
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2091,45 +2092,45 @@ msgstr ""
 "      'quit' om de shell te verlaten\n"
 "\n"
 
-#: fish/fish.c:754
+#: fish/fish.c:755
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niet afgesloten dubbel aanhalingsteken\n"
 
-#: fish/fish.c:760 fish/fish.c:777
+#: fish/fish.c:761 fish/fish.c:778
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: commando argumenten niet gescheiden door spaties\n"
 
-#: fish/fish.c:771
+#: fish/fish.c:772
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niet afgesloten enkel aanhalingsteken\n"
 
-#: fish/fish.c:801
+#: fish/fish.c:802
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: interne fout bij ontleden van tekenreeks op '%s'\n"
 
-#: fish/fish.c:818
+#: fish/fish.c:819
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: teveel argumenten\n"
 
-#: fish/fish.c:842
+#: fish/fish.c:843
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: leeg commando op commando regel\n"
 
-#: fish/fish.c:988
+#: fish/fish.c:989
 msgid "display a list of commands or help on a command"
 msgstr "laat een lijst van commando's of hulp over een commando zien"
 
-#: fish/fish.c:990
+#: fish/fish.c:991
 msgid "quit guestfish"
 msgstr "sluit guestfish af"
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2140,7 +2141,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1009
+#: fish/fish.c:1010
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2149,12 +2150,12 @@ msgstr ""
 "quit - sluit guestfish af\n"
 "     quit\n"
 
-#: fish/fish.c:1014
+#: fish/fish.c:1015
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: commando niet bekend, gebruik -h om alle commando's te tonen\n"
 
-#: fish/fish.c:1030
+#: fish/fish.c:1031
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2165,7 +2166,7 @@ msgstr ""
 "Voor een lijst commando's:         guestfish -h\n"
 "Voor complete documentatie:        man guestfish\n"
 
-#: fish/fish.c:1187
+#: fish/fish.c:1188
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Los aanhalingsteken in tekenreeks \"%s\"\n"
@@ -2472,7 +2473,7 @@ msgstr "nee"
 msgid "use 'time command [args...]'\n"
 msgstr "gebruik 'time command [args...]'\n"
 
-#: fuse/guestmount.c:866
+#: fuse/guestmount.c:910
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2519,12 +2520,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: fuse/guestmount.c:1090
+#: fuse/guestmount.c:1134
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: moet tenminste een -a en tenminste een -m optie hebben\n"
 
-#: fuse/guestmount.c:1098
+#: fuse/guestmount.c:1142
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
@@ -2684,56 +2685,56 @@ msgstr "onbekend bestandssysteem label {label}\n"
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr "onbekend bestandssysteem UUID {uuid}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:936
+#: perl/lib/Sys/Guestfs/Lib.pm:939
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "onbekend bestandssysteem {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1014
+#: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "Fout bij het draaien van rpm -qa: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1040
+#: perl/lib/Sys/Guestfs/Lib.pm:1043
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "Fout bij het draaien van dpkg-query: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1105
+#: perl/lib/Sys/Guestfs/Lib.pm:1108
 msgid "Can't find grub on guest"
 msgstr "Kan grub niet op de gast vinden"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1160
+#: perl/lib/Sys/Guestfs/Lib.pm:1163
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "Grub ingang {title} heeft geen kernel"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1191
+#: perl/lib/Sys/Guestfs/Lib.pm:1194
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "grub refereert naar {path}, welke niet bestaat\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1214
+#: perl/lib/Sys/Guestfs/Lib.pm:1217
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "Grub ingang {title} specificeert geen initrd"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1283
+#: perl/lib/Sys/Guestfs/Lib.pm:1286
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "Kon modules map {modules} niet vinden voor kernel {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "Kon kernel versie nummer niet raden uit het pad voor kernel {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1345
+#: perl/lib/Sys/Guestfs/Lib.pm:1348
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} komt niet overeen met augeas patroon"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1384
+#: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
@@ -2846,31 +2847,31 @@ msgstr "libguestfs: foutr: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:446 src/inspect.c:782 src/inspect.c:2157 src/inspect.c:2200
-#: src/inspect.c:2250
+#: src/inspect.c:455 src/inspect.c:791 src/inspect.c:2194 src/inspect.c:2237
+#: src/inspect.c:2287
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:816
+#: src/inspect.c:825
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
-#: src/inspect.c:1032
+#: src/inspect.c:1041
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
 
-#: src/inspect.c:1313
+#: src/inspect.c:1350
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect.c:1407
+#: src/inspect.c:1444
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "geen inspectie data: roep eerst guestfs_inspect_os aan"
 
-#: src/inspect.c:1419
+#: src/inspect.c:1456
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2879,21 +2880,21 @@ msgstr ""
 "%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
 "apparaat eerder teruggegeven door guestfs_inspect_os"
 
-#: src/inspect.c:1548
+#: src/inspect.c:1585
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:1788 src/inspect.c:1810 src/inspect.c:1835
+#: src/inspect.c:1825 src/inspect.c:1847 src/inspect.c:1872
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "onverwachte output  van 'du' commando"
 
-#: src/inspect.c:2259
+#: src/inspect.c:2296
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2276
+#: src/inspect.c:2313
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
