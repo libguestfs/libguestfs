@@ -76,6 +76,7 @@ usage (int status)
              "  --selinux            Enable SELinux\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
+             "  -w|--rw              Mount read-write\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
@@ -107,6 +108,7 @@ main (int argc, char *argv[])
     { "memsize", 1, 0, 'm' },
     { "network", 0, 0, 0 },
     { "ro", 0, 0, 'r' },
+    { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
@@ -187,6 +189,10 @@ main (int argc, char *argv[])
 
     case 'V':
       OPTION_V;
+      break;
+
+    case 'w':
+      OPTION_w;
       break;
 
     case 'x':
