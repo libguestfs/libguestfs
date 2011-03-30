@@ -930,6 +930,7 @@ usage (int status)
              "  --selinux            Enable SELinux support\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
+             "  -w|--rw              Mount read-write\n"
              "  -x|--trace           Trace guestfs API calls\n"
              ),
              program_name, program_name, program_name);
