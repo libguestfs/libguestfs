@@ -28,6 +28,7 @@ bin_PROGRAMS = guestmount
 # These source files (all related to option parsing) are shared
 # between guestfish and guestmount.
 SHARED_SOURCE_FILES = \
+	../fish/config.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
@@ -48,10 +49,12 @@ guestmount_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	$(FUSE_CFLAGS) \
+	$(LIBCONFIG_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestmount_LDADD = \
 	$(FUSE_LIBS) -lulockmgr \
+	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 

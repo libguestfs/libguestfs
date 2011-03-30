@@ -431,6 +431,15 @@ PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],
         [AC_MSG_WARN([libxml2 not found, some core features will be disabled])])
 AM_CONDITIONAL([HAVE_LIBXML2],[test "x$LIBXML2_LIBS" != "x"])
 
+dnl libconfig (highly recommended)
+PKG_CHECK_MODULES([LIBCONFIG], [libconfig],
+        [AC_SUBST([LIBCONFIG_CFLAGS])
+         AC_SUBST([LIBCONFIG_LIBS])
+         AC_DEFINE([HAVE_LIBCONFIG],[1],[libconfig found at compile time.])
+        ],
+        [AC_MSG_WARN([libconfig not found, some features will be disabled])])
+AM_CONDITIONAL([HAVE_LIBCONFIG],[test "x$LIBCONFIG_LIBS" != "x"])
+
 dnl hivex library (highly recommended)
 dnl This used to be a part of libguestfs, but was spun off into its
 dnl own separate upstream project in libguestfs 1.0.85.

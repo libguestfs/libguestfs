@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -60,6 +60,7 @@ EXTRA_DIST = \
 # so we know which ones are shared.  These files must not include
 # other guestfish files.
 SHARED_SOURCE_FILES = \
+	config.c \
 	inspect.c \
 	keys.c \
 	options.h \
@@ -118,10 +119,13 @@ guestfish_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBCONFIG_CFLAGS)
 
 guestfish_LDADD = \
-	$(top_builddir)/src/libguestfs.la $(LIBREADLINE) -lm
+	$(LIBCONFIG_LIBS) \
+	$(LIBREADLINE) \
+	$(top_builddir)/src/libguestfs.la -lm
 
 # Make guestfish use the convenience libraries.
 noinst_LTLIBRARIES = libcmds.la librc_protocol.la
@@ -206,6 +210,11 @@ stamp-virt-tar-out.pod: virt-tar-out.pod
 	  --html $(top_builddir)/html/virt-tar-out.1.html \
 	  $<
 	touch $@
+
+# libguestfs tools config file.
+
+toolsconfdir = $(sysconfdir)
+toolsconf_DATA = libguestfs-tools.conf
 
 # Bash completion script.
 

@@ -112,6 +112,9 @@ struct mp {
   char *options;
 };
 
+/* in config.c */
+extern void parse_config (void);
+
 /* in inspect.c */
 extern void inspect_mount (void);
 extern void print_inspect_prompt (void);

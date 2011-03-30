@@ -82,6 +82,7 @@ fish/alloc.c
 fish/cmds.c
 fish/cmds_gperf.c
 fish/completion.c
+fish/config.c
 fish/copy.c
 fish/destpaths.c
 fish/echo.c

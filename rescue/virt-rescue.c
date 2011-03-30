@@ -95,6 +95,8 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
 
+  parse_config ();
+
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
   static const char *options = "a:c:d:m:rvVx";

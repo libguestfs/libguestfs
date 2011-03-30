@@ -236,7 +236,9 @@ Display the program version and exit.
 
 =item B<-w> | B<--rw>
 
-This option does nothing at the moment.
+This changes the I<-a>, I<-d> and I<-m> options so that disks are
+added and mounts are done read-write.
+
 See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 =item B<-x> | B<--trace>
@@ -244,6 +246,21 @@ See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 Trace libguestfs calls and entry into each FUSE function.
 
 This also stops the daemon from forking into the background.
+
+=back
+
+=head1 FILES
+
+=over 4
+
+=item $HOME/.libguestfs-tools.rc
+
+=item /etc/libguestfs-tools.conf
+
+This configuration file controls the default read-only or read-write
+mode (I<--ro> or I<--rw>).
+
+See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 =back
 

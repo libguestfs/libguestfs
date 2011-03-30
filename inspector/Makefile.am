@@ -1,5 +1,5 @@
 # libguestfs virt-inspector
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,6 +48,7 @@ if HAVE_LIBXML2
 bin_PROGRAMS = virt-inspector
 
 SHARED_SOURCE_FILES = \
+	../fish/config.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
@@ -64,9 +65,11 @@ virt_inspector_CFLAGS = \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	$(LIBXML2_CFLAGS) \
+	$(LIBCONFIG_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 virt_inspector_LDADD = \
+	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	../gnulib/lib/libgnu.la

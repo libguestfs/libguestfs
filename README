@@ -32,6 +32,8 @@ Requirements
 
 - libxml2 (optional)
 
+- libconfig (optional, to parse /etc/libguestfs-tools.conf)
+
 - Augeas (http://augeas.net/) (optional)
 
 - gperf

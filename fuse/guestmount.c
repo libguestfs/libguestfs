@@ -947,6 +947,8 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
 
+  parse_config ();
+
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
   /* The command line arguments are broadly compatible with (a subset

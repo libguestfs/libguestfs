@@ -1,5 +1,5 @@
 # libguestfs virt-cat, virt-filesystems and virt-ls.
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ CLEANFILES = stamp-virt-cat.pod stamp-virt-ls.pod stamp-virt-filesystems.pod
 bin_PROGRAMS = virt-cat virt-filesystems virt-ls
 
 SHARED_SOURCE_FILES = \
+	../fish/config.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
@@ -48,9 +49,11 @@ virt_cat_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBCONFIG_CFLAGS)
 
 virt_cat_LDADD = \
+	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
@@ -63,9 +66,11 @@ virt_filesystems_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBCONFIG_CFLAGS)
 
 virt_filesystems_LDADD = \
+	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
@@ -78,9 +83,11 @@ virt_ls_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBCONFIG_CFLAGS)
 
 virt_ls_LDADD = \
+	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 

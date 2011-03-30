@@ -1,5 +1,5 @@
 # libguestfs virt-rescue
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ CLEANFILES = stamp-virt-rescue.pod
 bin_PROGRAMS = virt-rescue
 
 SHARED_SOURCE_FILES = \
+	../fish/config.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
@@ -41,9 +42,11 @@ virt_rescue_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	$(LIBCONFIG_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 virt_rescue_LDADD = \
+	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 

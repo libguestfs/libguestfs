@@ -402,7 +402,9 @@ Display the guestfish / libguestfs version number and exit.
 
 =item B<--rw>
 
-This option does nothing at the moment.
+This changes the I<-a>, I<-d> and I<-m> options so that disks are
+added and mounts are done read-write.
+
 See L</OPENING DISKS FOR READ AND WRITE> below.
 
 =item B<-x>
@@ -466,27 +468,30 @@ asked for without doing this.
 
 =head1 OPENING DISKS FOR READ AND WRITE
 
-The guestfish (and L<guestmount(1)>) options I<--ro> and I<--rw>
-affect whether the other command line options I<-a>, I<-c>, I<-d>,
-I<-i> and I<-m> open disk images read-only or for writing.
+The guestfish, L<guestmount(1)> and L<virt-rescue(1)> options I<--ro>
+and I<--rw> affect whether the other command line options I<-a>,
+I<-c>, I<-d>, I<-i> and I<-m> open disk images read-only or for
+writing.
 
-In libguestfs E<lt> 1.6.2, guestfish and guestmount defaulted to
-opening disk images supplied on the command line for write.  To open a
-disk image read-only you have to do I<-a image --ro>.
+In libguestfs E<le> 1.8, guestfish, guestmount and virt-rescue
+defaulted to opening disk images supplied on the command line for
+write.  To open a disk image read-only you have to do I<-a image --ro>.
 
 This matters: If you accidentally open a live VM disk image writable
 then you will cause irreversible disk corruption.
 
-By libguestfs 1.10 we intend to change the default the other way.  Disk
-images will be opened read-only.  You will have to either specify
-I<guestfish --rw> or change a configuration file in order to get write
-access for disk images specified by those other command line options.
+By libguestfs 1.10 we intend to change the default the other way.
+Disk images will be opened read-only.  You will have to either specify
+I<guestfish --rw>, I<guestmount --rw>, I<virt-rescue --rw>, or change
+the configuration file C</etc/libguestfs-tools.conf> in order to get
+write access for disk images specified by those other command line
+options.
 
-This version of guestfish has a I<--rw> option which does nothing (it
-is already the default).  However it is highly recommended that you
-use this option to indicate that guestfish needs write access, and to
-prepare your scripts for the day when this option will be required for
-write access.
+This version of guestfish, guestmount and virt-rescue has a I<--rw>
+option which does nothing (it is already the default).  However it is
+highly recommended that you use this option to indicate that you need
+write access, and prepare your scripts for the day when this option
+will be required for write access.
 
 B<Note:> This does I<not> affect commands like L</add> and L</mount>,
 or any other libguestfs program apart from guestfish and guestmount.
@@ -1081,6 +1086,15 @@ enough.
 
 =over 4
 
+=item $HOME/.libguestfs-tools.rc
+
+=item /etc/libguestfs-tools.conf
+
+This configuration file controls the default read-only or read-write
+mode (I<--ro> or I<--rw>).
+
+See L</OPENING DISKS FOR READ AND WRITE>.
+
 =item $HOME/.guestfish
 
 If compiled with GNU readline support, then the command history
@@ -1156,7 +1170,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2010 Red Hat Inc.
+Copyright (C) 2009-2011 Red Hat Inc.
 L<http://libguestfs.org/>
 
 This program is free software; you can redistribute it and/or modify
