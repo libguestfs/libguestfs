@@ -184,6 +184,13 @@ Enable verbose messages for debugging.
 
 Display version number and exit.
 
+=item B<-w>
+
+=item B<--rw>
+
+This option does nothing at the moment.
+See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
+
 =item B<-x>
 
 Enable tracing of libguestfs API calls.
