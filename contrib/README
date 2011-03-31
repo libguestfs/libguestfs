@@ -5,7 +5,9 @@ centos5.3-libguestfs.spec
         [REMOVED]
         This used to be a centos5.3 specfile.  Please use the specfile
         from EL-5 here:
-        http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/EL-5/
+        http://pkgs.fedoraproject.org/gitweb/?p=libguestfs.git;a=shortlog;h=refs/heads/el5/master
+        or the RHEL 5 source RPMs here:
+        http://libguestfs.org/download/binaries/rhel5-packages/
 
 dependency-diagram/
         A "dot" file (for graphviz) which describes the dependencies
@@ -22,13 +24,13 @@ fedora-libguestfs.spec
         [REMOVED]
         This used to be a Fedora 10+ specfile.  Please use the specfile
         from Fedora instead:
-        http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/devel/
+        http://pkgs.fedoraproject.org/gitweb/?p=libguestfs.git
 
 guestfsd-in-wine.sh
         Run a Windows-compiled guestfsd under Wine.  Read the
         instructions at the top of this file carefully.
 
-visualize-alignment
+visualize-alignment/
         Tests for visualizing block device reads and writes and
         alignment using a patched qemu.  See the README file in that
         directory.
