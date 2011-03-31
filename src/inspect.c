@@ -2460,15 +2460,17 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   return ret;
 }
 
-/* XXX We already download the SOFTWARE hive when doing general
- * inspection.  We could avoid this second download of the same file
- * by caching these entries in the handle.
- */
+static void list_applications_windows_from_path (guestfs_h *g, hive_h *h, struct guestfs_application_list *apps, const char **path, size_t path_len);
+
 static struct guestfs_application_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
   TMP_TEMPLATE_ON_STACK (software_local);
 
+  /* XXX We already download the SOFTWARE hive when doing general
+   * inspection.  We could avoid this second download of the same file
+   * by caching these entries in the handle.
+   */
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software",
@@ -2481,13 +2483,15 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
      */
     return 0;
 
-  struct guestfs_application_list *apps = NULL, *ret = NULL;
+  struct guestfs_application_list *ret = NULL;
   hive_h *h = NULL;
-  hive_node_h *children = NULL;
 
   if (download_to_tmp (g, software_path, software_local,
                        MAX_REGISTRY_SIZE) == -1)
     goto out;
+
+  free (software_path);
+  software_path = NULL;
 
   h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
@@ -2495,31 +2499,56 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
     goto out;
   }
 
-  hive_node_h node = hivex_root (h);
+  /* Allocate apps list. */
+  ret = safe_malloc (g, sizeof *ret);
+  ret->len = 0;
+  ret->val = NULL;
+
+  /* Ordinary native applications. */
   const char *hivepath[] =
     { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
-  size_t i;
-  for (i = 0;
-       node != 0 && i < sizeof hivepath / sizeof hivepath[0];
-       ++i) {
-    node = hivex_node_get_child (h, node, hivepath[i]);
-  }
+  list_applications_windows_from_path (g, h, ret, hivepath,
+                                       sizeof hivepath / sizeof hivepath[0]);
 
-  if (node == 0) {
-    perrorf (g, "hivex: cannot locate HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall");
-    goto out;
-  }
+  /* 32-bit emulated Windows apps running on the WOW64 emulator.
+   * http://support.microsoft.com/kb/896459 (RHBZ#692545).
+   */
+  const char *hivepath2[] =
+    { "WOW6432node", "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
+  list_applications_windows_from_path (g, h, ret, hivepath2,
+                                       sizeof hivepath2 / sizeof hivepath2[0]);
+
+ out:
+  if (h) hivex_close (h);
+  free (software_path);
+
+  /* Delete the temporary file. */
+  unlink (software_local);
+#undef software_local_len
+
+  return ret;
+}
+
+static void
+list_applications_windows_from_path (guestfs_h *g, hive_h *h,
+                                     struct guestfs_application_list *apps,
+                                     const char **path, size_t path_len)
+{
+  hive_node_h *children = NULL;
+  hive_node_h node;
+  size_t i;
+
+  node = hivex_root (h);
+
+  for (i = 0; node != 0 && i < path_len; ++i)
+    node = hivex_node_get_child (h, node, path[i]);
+
+  if (node == 0)
+    return;
 
   children = hivex_node_children (h, node);
-  if (children == NULL) {
-    perrorf (g, "hivex_node_children");
-    goto out;
-  }
-
-  /* Allocate 'apps' list. */
-  apps = safe_malloc (g, sizeof *apps);
-  apps->len = 0;
-  apps->val = NULL;
+  if (children == NULL)
+    return;
 
   /* Consider any child node that has a DisplayName key.
    * See also:
@@ -2539,10 +2568,8 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
      * display name is not language-independent, so it cannot be used.
      */
     name = hivex_node_name (h, children[i]);
-    if (name == NULL) {
-      perrorf (g, "hivex_node_get_name");
-      goto out;
-    }
+    if (name == NULL)
+      continue;
 
     value = hivex_node_get_value (h, children[i], "DisplayName");
     if (value) {
@@ -2583,20 +2610,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
     free (comments);
   }
 
-  ret = apps;
-
- out:
-  if (ret == NULL && apps != NULL)
-    guestfs_free_application_list (apps);
-  if (h) hivex_close (h);
   free (children);
-  free (software_path);
-
-  /* Free up the temporary file. */
-  unlink (software_local);
-#undef software_local_len
-
-  return ret;
 }
 
 static void

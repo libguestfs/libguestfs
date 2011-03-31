@@ -31,3 +31,19 @@
 "DisplayVersion"=str(1):"1.2.5"
 "Publisher"=str(1):"Red Hat Inc."
 "InstallLocation"=str(1):"C:\\Program Files\\Red Hat\\test3"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432node]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432node\Microsoft]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432node\Microsoft\Windows]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432node\Microsoft\Windows\CurrentVersion]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432node\Microsoft\Windows\CurrentVersion\Uninstall]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432node\Microsoft\Windows\CurrentVersion\Uninstall\test4]
+"DisplayName"=str(1):"Test4 is not real software"
+"DisplayVersion"=str(1):"1.2.6"
+"Publisher"=str(1):"Red Hat Inc."
+"Comments"=str(1):"WOW6432node is where 32 bit emulated apps are installed on 64 bit Windows"

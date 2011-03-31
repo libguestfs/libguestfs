@@ -40,6 +40,13 @@
         <install_path>C:\Program Files\Red Hat\test3</install_path>
         <publisher>Red Hat Inc.</publisher>
       </application>
+      <application>
+        <name>test4</name>
+        <display_name>Test4 is not real software</display_name>
+        <version>1.2.6</version>
+        <publisher>Red Hat Inc.</publisher>
+        <description>WOW6432node is where 32 bit emulated apps are installed on 64 bit Windows</description>
+      </application>
     </applications>
   </operatingsystem>
 </operatingsystems>
