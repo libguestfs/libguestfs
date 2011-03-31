@@ -22,6 +22,9 @@ EXTRA_DIST = \
 CLEANFILES = stamp-guestfs-examples.pod
 
 noinst_PROGRAMS = create_disk inspect_vm
+if HAVE_HIVEX
+noinst_PROGRAMS += virt-dhcp-address
+endif
 
 create_disk_SOURCES = create_disk.c
 create_disk_CFLAGS = \
@@ -35,6 +38,15 @@ inspect_vm_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 inspect_vm_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+virt_dhcp_address_SOURCES = virt-dhcp-address.c
+virt_dhcp_address_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(HIVEX_CFLAGS)
+virt_dhcp_address_LDADD = \
+	$(HIVEX_LIBS) \
 	$(top_builddir)/src/libguestfs.la
 
 man_MANS = guestfs-examples.3

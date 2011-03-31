@@ -73,6 +73,7 @@ examples/create_disk
 examples/guestfs-examples.3
 examples/inspect_vm
 examples/stamp-guestfs-examples.pod
+examples/virt-dhcp-address
 fish/cmds.c
 fish/cmds_gperf.c
 fish/cmds_gperf.gperf

@@ -449,6 +449,7 @@ PKG_CHECK_MODULES([HIVEX], [hivex],
          AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
         ],
         [AC_MSG_WARN([hivex not found, some core features will be disabled])])
+AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
 dnl FUSE is optional to build the FUSE module.
 AC_ARG_ENABLE([fuse],
