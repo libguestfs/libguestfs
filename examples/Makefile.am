@@ -1,5 +1,5 @@
 # libguestfs C examples
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,12 +24,18 @@ CLEANFILES = stamp-guestfs-examples.pod
 noinst_PROGRAMS = create_disk inspect_vm
 
 create_disk_SOURCES = create_disk.c
-create_disk_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src -Wall
-create_disk_LDADD = $(top_builddir)/src/libguestfs.la
+create_disk_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+create_disk_LDADD = \
+	$(top_builddir)/src/libguestfs.la
 
 inspect_vm_SOURCES = inspect_vm.c
-inspect_vm_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src -Wall
-inspect_vm_LDADD = $(top_builddir)/src/libguestfs.la
+inspect_vm_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+inspect_vm_LDADD = \
+	$(top_builddir)/src/libguestfs.la
 
 man_MANS = guestfs-examples.3
 noinst_DATA = $(top_builddir)/html/guestfs-examples.3.html
