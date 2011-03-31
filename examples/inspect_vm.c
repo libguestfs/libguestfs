@@ -11,10 +11,10 @@ compare_keys_len (const void *p1, const void *p2)
   return strlen (key1) - strlen (key2);
 }
 
-static int
+static size_t
 count_strings (char *const *argv)
 {
-  int c;
+  size_t c;
 
   for (c = 0; argv[c]; ++c)
     ;
