@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -71,6 +71,7 @@
 #include "guestfs_protocol.h"
 
 static int launch_appliance (guestfs_h *g);
+static int64_t timeval_diff (const struct timeval *x, const struct timeval *y);
 static int qemu_supports (guestfs_h *g, const char *option);
 
 /* Add a string to the current command line. */
