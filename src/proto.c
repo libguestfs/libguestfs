@@ -326,8 +326,10 @@ really_read_from_socket (guestfs_h *g, int sock, char *buf, size_t n)
   return (ssize_t) got;
 }
 
-static void
-send_progress_message (guestfs_h *g, const guestfs_progress *message)
+/* Convenient wrapper to generate a progress message callback. */
+void
+guestfs___progress_message_callback (guestfs_h *g,
+                                     const guestfs_progress *message)
 {
   uint64_t array[4];
 
@@ -384,7 +386,7 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
       xdr_guestfs_progress (&xdr, &message);
       xdr_destroy (&xdr);
 
-      send_progress_message (g, &message);
+      guestfs___progress_message_callback (g, &message);
     }
 
     return 0;
@@ -674,7 +676,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
       xdr_guestfs_progress (&xdr, &message);
       xdr_destroy (&xdr);
 
-      send_progress_message (g, &message);
+      guestfs___progress_message_callback (g, &message);
     }
 
     free (*buf_rtn);

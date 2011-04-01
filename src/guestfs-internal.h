@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -266,6 +266,7 @@ struct inspect_fstab_entry {
 
 struct guestfs_message_header;
 struct guestfs_message_error;
+struct guestfs_progress;
 
 extern void guestfs_error (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
@@ -299,6 +300,7 @@ extern int guestfs___recv_file (guestfs_h *g, const char *filename);
 extern int guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
 extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
 extern int guestfs___accept_from_daemon (guestfs_h *g);
+extern void guestfs___progress_message_callback (guestfs_h *g, const struct guestfs_progress *message);
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size);
