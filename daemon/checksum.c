@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,9 +66,12 @@ checksum (const char *csumtype, int fd)
     return NULL;
   }
 
+  pulse_mode_start ();
+
   flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
   r = commandf (&out, &err, flags, program, NULL);
   if (r == -1) {
+    pulse_mode_cancel ();
     reply_with_error ("%s: %s", program, err);
     free (out);
     free (err);
@@ -80,6 +83,8 @@ checksum (const char *csumtype, int fd)
   /* Split it at the first whitespace. */
   len = strcspn (out, " \t\n");
   out[len] = '\0';
+
+  pulse_mode_end ();
 
   return out;			/* Caller frees. */
 }
