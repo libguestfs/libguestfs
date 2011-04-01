@@ -116,7 +116,7 @@ parse_config (void)
     }
 
     if (fclose (fp) == -1) {
-      perror (path);
+      perror (etc_filename);
       exit (EXIT_FAILURE);
     }
 
