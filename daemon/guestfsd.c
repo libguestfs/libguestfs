@@ -679,6 +679,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
   }
 
   if (pid == 0) {		/* Child process running the command. */
+    signal (SIGALRM, SIG_DFL);
     signal (SIGPIPE, SIG_DFL);
     close (0);
     if (flag_copy_stdin) {

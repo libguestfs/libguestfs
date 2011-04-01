@@ -1786,6 +1786,20 @@ This is to simplify caller code, so callers can easily set the
 progress indicator to "100%" at the end of the operation, without
 requiring special code to detect this case.
 
+=item *
+
+For some calls we are unable to estimate the progress of the call, but
+we can still generate progress messages to indicate activity.  This is
+known as "pulse mode", and is directly supported by certain progress
+bar implementations (eg. GtkProgressBar).
+
+For these calls, zero or more progress messages are generated with
+C<position = 0> and C<total = 1>, followed by a final message with
+C<position = total = 1>.
+
+As noted above, if the call fails with an error then the final message
+may not be generated.
+
 =back
 
 The callback also receives the procedure number (C<proc_nr>) and

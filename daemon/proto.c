@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <signal.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
@@ -661,3 +662,117 @@ notify_progress (uint64_t position, uint64_t total)
     exit (EXIT_FAILURE);
   }
 }
+
+/* "Pulse mode" progress messages. */
+
+#if defined(HAVE_SETITIMER) && defined(HAVE_SIGACTION)
+
+static void async_safe_send_pulse (int sig);
+
+void
+pulse_mode_start (void)
+{
+  struct sigaction act;
+  struct itimerval it;
+
+  memset (&act, 0, sizeof act);
+  act.sa_handler = async_safe_send_pulse;
+  act.sa_flags = SA_RESTART;
+
+  if (sigaction (SIGALRM, &act, NULL) == -1) {
+    perror ("pulse_mode_start: sigaction");
+    return;
+  }
+
+  it.it_value.tv_sec = NOTIFICATION_INITIAL_DELAY / 1000000;
+  it.it_value.tv_usec = NOTIFICATION_INITIAL_DELAY % 1000000;
+  it.it_interval.tv_sec = NOTIFICATION_PERIOD / 1000000;
+  it.it_interval.tv_usec = NOTIFICATION_PERIOD % 1000000;
+
+  if (setitimer (ITIMER_REAL, &it, NULL) == -1)
+    perror ("pulse_mode_start: setitimer");
+}
+
+void
+pulse_mode_end (void)
+{
+  pulse_mode_cancel ();         /* Cancel the itimer. */
+
+  notify_progress (1, 1);
+}
+
+void
+pulse_mode_cancel (void)
+{
+  int err = errno;              /* Function must preserve errno. */
+  struct itimerval it;
+  struct sigaction act;
+
+  /* Setting it_value to zero cancels the itimer. */
+  it.it_value.tv_sec = 0;
+  it.it_value.tv_usec = 0;
+  it.it_interval.tv_sec = 0;
+  it.it_interval.tv_usec = 0;
+
+  if (setitimer (ITIMER_REAL, &it, NULL) == -1)
+    perror ("pulse_mode_cancel: setitimer");
+
+  memset (&act, 0, sizeof act);
+  act.sa_handler = SIG_DFL;
+
+  if (sigaction (SIGALRM, &act, NULL) == -1)
+    perror ("pulse_mode_cancel: sigaction");
+
+  errno = err;
+}
+
+/* Send a position = 0, total = 1 (pulse mode) message.  The tricky
+ * part is we have to do it without invoking any non-async-safe
+ * functions (see signal(7) for a list).  Therefore, KISS.
+ */
+static void
+async_safe_send_pulse (int sig)
+{
+  /* XDR is a RFC ... */
+  unsigned char msg[] = {
+    (GUESTFS_PROGRESS_FLAG & 0xff000000) >> 24,
+    (GUESTFS_PROGRESS_FLAG & 0x00ff0000) >> 16,
+    (GUESTFS_PROGRESS_FLAG & 0x0000ff00) >> 8,
+    GUESTFS_PROGRESS_FLAG & 0x000000ff,
+    (proc_nr & 0xff000000) >> 24,
+    (proc_nr & 0x00ff0000) >> 16,
+    (proc_nr & 0x0000ff00) >> 8,
+    proc_nr & 0x000000ff,
+    (serial & 0xff000000) >> 24,
+    (serial & 0x00ff0000) >> 16,
+    (serial & 0x0000ff00) >> 8,
+    serial & 0x000000ff,
+    /* 64 bit position = 0 */ 0, 0, 0, 0, 0, 0, 0, 0,
+    /* 64 bit total = 1 */    0, 0, 0, 0, 0, 0, 0, 1
+  };
+
+  if (xwrite (sock, msg, sizeof msg) == -1)
+    exit (EXIT_FAILURE);
+}
+
+#else /* !HAVE_SETITIMER || !HAVE_SIGACTION */
+
+void
+pulse_mode_start (void)
+{
+  /* empty */
+}
+
+void
+pulse_mode_end (void)
+{
+  /* empty */
+}
+
+void
+pulse_mode_cancel (void)
+{
+  /* empty */
+}
+
+#endif /* !HAVE_SETITIMER || !HAVE_SIGACTION */

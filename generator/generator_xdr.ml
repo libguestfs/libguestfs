@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -214,8 +214,14 @@ struct guestfs_chunk {
  * 'position' and 'total' have undefined units; however they may
  * have meaning for some calls.
  *
- * NB. guestfs___recv_from_daemon assumes the XDR-encoded
+ * Notes:
+ *
+ * (1) guestfs___recv_from_daemon assumes the XDR-encoded
  * structure is 24 bytes long.
+ *
+ * (2) daemon/proto.c:async_safe_send_pulse assumes the progress
+ * message is laid out precisely in this way.  So if you change
+ * this then you'd better change that function as well.
  */
 struct guestfs_progress {
   guestfs_procedure proc;            /* @0:  GUESTFS_PROC_x */

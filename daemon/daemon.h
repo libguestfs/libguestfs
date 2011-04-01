@@ -174,6 +174,23 @@ extern void reply (xdrproc_t xdrp, char *ret);
  */
 extern void notify_progress (uint64_t position, uint64_t total);
 
+/* Pulse mode progress messages.
+ *
+ * Call pulse_mode_start to start sending progress messages.
+ *
+ * Call pulse_mode_end along the ordinary exit path (ie. before a
+ * reply message is sent).
+ *
+ * Call pulse_mode_cancel along all error paths *before* any reply is
+ * sent.  pulse_mode_cancel does not modify errno, so it is safe to
+ * call it before reply_with_perror.
+ *
+ * Pulse mode and ordinary notify_progress must not be mixed.
+ */
+extern void pulse_mode_start (void);
+extern void pulse_mode_end (void);
+extern void pulse_mode_cancel (void);
+
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.
  */
