@@ -251,8 +251,15 @@ read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
   /* QEMU's console emulates a 16550A serial port.  The real 16550A
    * device has a small FIFO buffer (16 bytes) which means here we see
    * lots of small reads of 1-16 bytes in length, usually single
-   * bytes.
+   * bytes.  Sleeping here for a very brief period groups reads
+   * together (so we usually get a few lines of output at once) and
+   * improves overall throughput, as well as making the event
+   * interface a bit more sane for callers.  With a virtio-serial
+   * based console (not yet implemented) we may be able to remove
+   * this.  XXX
    */
+  usleep (1000);
+
   n = read (fd, buf, sizeof buf);
   if (n == 0) {
     /* Hopefully this indicates the qemu child process has died. */
