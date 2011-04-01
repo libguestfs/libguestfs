@@ -30,7 +30,7 @@ let progress_message =
   "This long-running command can generate progress notification messages
 so that the caller can display a progress bar or indicator.
 To receive these messages, the caller must register a progress
-callback.  See L<guestfs(3)/guestfs_set_progress_callback>."
+event callback.  See L<guestfs(3)/GUESTFS_EVENT_PROGRESS>."
 
 let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
