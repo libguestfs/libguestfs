@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,6 +65,8 @@ cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
     return -1;
   }
 
+  pulse_mode_start ();
+
   if (flags)
     r = command (NULL, &err, cmd, flags, srcbuf, destbuf, NULL);
   else
@@ -74,11 +76,14 @@ cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
   free (destbuf);
 
   if (r == -1) {
+    pulse_mode_cancel ();
     reply_with_error ("%s", err);
     free (err);
     return -1;
   }
   free (err);
+
+  pulse_mode_end ();
 
   return 0;
 }
