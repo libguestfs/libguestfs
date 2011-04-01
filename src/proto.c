@@ -285,6 +285,24 @@ read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
   /* It's an actual log message, send it upwards if anyone is listening. */
   guestfs___call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, n);
 
+  /* This is a gross hack.  See the comment above
+   * guestfs___launch_send_progress.
+   */
+  if (g->state == LAUNCHING) {
+    const char *sentinel;
+    size_t len;
+
+    sentinel = "Linux version"; /* kernel up */
+    len = strlen (sentinel);
+    if (memmem (buf, n, sentinel, len) != NULL)
+      guestfs___launch_send_progress (g, 6);
+
+    sentinel = "Starting /init script"; /* /init running */
+    len = strlen (sentinel);
+    if (memmem (buf, n, sentinel, len) != NULL)
+      guestfs___launch_send_progress (g, 9);
+  }
+
   return 0;
 }
 

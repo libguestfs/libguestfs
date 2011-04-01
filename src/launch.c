@@ -407,11 +407,14 @@ launch_appliance (guestfs_h *g)
 
   /* Start the clock ... */
   gettimeofday (&g->launch_t, NULL);
+  guestfs___launch_send_progress (g, 0);
 
   /* Locate and/or build the appliance. */
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
+
+  guestfs___launch_send_progress (g, 3);
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "begin testing qemu features");
@@ -761,6 +764,8 @@ launch_appliance (guestfs_h *g)
     goto cleanup1;
   }
 
+  guestfs___launch_send_progress (g, 12);
+
   return 0;
 
  cleanup1:
@@ -860,6 +865,36 @@ connect_unix_socket (guestfs_h *g, const char *sockpath)
  cleanup:
   close (g->sock);
   return -1;
+}
+
+/* launch (of the ordinary appliance) generates approximate progress
+ * messages.  Currently these are defined as follows:
+ *
+ *    0 / 12: launch clock starts
+ *    3 / 12: appliance created
+ *    6 / 12: detected that guest kernel started
+ *    9 / 12: detected that /init script is running
+ *   12 / 12: launch completed successfully
+ *
+ * Notes:
+ * (1) This is not a documented ABI and the behaviour may be changed
+ * or removed in future.
+ * (2) Messages are only sent if more than 5 seconds has elapsed
+ * since the launch clock started.
+ * (3) There is a gross hack in proto.c to make this work.
+ */
+void
+guestfs___launch_send_progress (guestfs_h *g, int perdozen)
+{
+  struct timeval tv;
+
+  gettimeofday (&tv, NULL);
+  if (timeval_diff (&g->launch_t, &tv) >= 5000) {
+    guestfs_progress progress_message =
+      { .proc = 0, .serial = 0, .position = perdozen, .total = 12 };
+
+    guestfs___progress_message_callback (g, &progress_message);
+  }
 }
 
 /* Return the location of the tmpdir (eg. "/tmp") and allow users

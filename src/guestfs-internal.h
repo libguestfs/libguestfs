@@ -302,6 +302,7 @@ extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **
 extern int guestfs___accept_from_daemon (guestfs_h *g);
 extern void guestfs___progress_message_callback (guestfs_h *g, const struct guestfs_progress *message);
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
+extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size);
 #ifdef HAVE_PCRE
