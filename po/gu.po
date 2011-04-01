@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-28 17:11+0100\n"
+"POT-Creation-Date: 2011-04-01 09:14+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -67,15 +67,15 @@ msgstr ""
 "  -V|--version     આવૃત્તિને દર્શાવોsઅને બહાર નીકળોexit\n"
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:200 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:134 fish/fish.c:217 fuse/guestmount.c:1020
-#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:127
+#: df/domains.c:428 df/main.c:134 fish/fish.c:219 fuse/guestmount.c:1023
+#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:131
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: હેન્ડલ ને બનાવવાનું નિષ્ફળ\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:254 cat/virt-ls.c:143
-#: df/main.c:158 fish/fish.c:287 fuse/guestmount.c:1070
-#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:151
+#: df/main.c:158 fish/fish.c:289 fuse/guestmount.c:1073
+#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:155
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: અજ્ઞાત લાંબો વિકલ્પ: %s (%d)\n"
@@ -1959,6 +1959,11 @@ msgstr "%s: ઘણીબધી દલીલો છે\n"
 msgid "%s: unknown command\n"
 msgstr "%s: અજ્ઞાત આદેશ\n"
 
+#: fish/config.c:73 fish/config.c:112
+#, fuzzy, c-format
+msgid "%s: %s: line %d: error parsing configuration file: %s\n"
+msgstr "%s: આંતરિક ભૂલ '%s' પર શબ્દમાળાનું પદચ્છેદન કરી રહી છે\n"
+
 #: fish/copy.c:41
 #, c-format
 msgid ""
@@ -2075,48 +2080,48 @@ msgstr ""
 "  -V|--version         આવૃત્તિને દર્શાવો અને બહાર નીકળો\n"
 "વધારે જાણકારી માટે,  મુખ્યપાનું %s(1) ને જુઓ.\n"
 
-#: fish/fish.c:254
+#: fish/fish.c:256
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID એ નંબર ન હતો: %s\n"
 
-#: fish/fish.c:261
+#: fish/fish.c:263
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: દૂરસ્થ: $GUESTFISH_PID એ દૂરસ્થ પ્રક્રિયાનાં PID ને સુયોજિત કરવુ જ પડશે\n"
 
-#: fish/fish.c:311
+#: fish/fish.c:313
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ફક્ત એક -f પરિમાણને આપી શકાય છે\n"
 
-#: fish/fish.c:466
+#: fish/fish.c:468
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: સરખા સમયે --listen અને --remote વિકલ્પોને વાપરી શકાતા નથી\n"
 
-#: fish/fish.c:474
+#: fish/fish.c:476
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ફ્લેગ સાથે આદેશ વાક્ય પર વધારાનાં પરિમાણો\n"
 
-#: fish/fish.c:480
+#: fish/fish.c:482
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: સરખા સમયે --listen અને --file વિકલ્પોને વાપરી શકાતુ નથી\n"
 
-#: fish/fish.c:538
+#: fish/fish.c:540
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:542
+#: fish/fish.c:544
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:630
+#: fish/fish.c:632
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2136,45 +2141,45 @@ msgstr ""
 "      શેલને બહાર નીકળવા માટે 'quit'\n"
 "\n"
 
-#: fish/fish.c:774
+#: fish/fish.c:776
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: અંત ન બમણા અવતરણચિહ્નો \n"
 
-#: fish/fish.c:780 fish/fish.c:797
+#: fish/fish.c:782 fish/fish.c:799
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: આદેશ દલીલો એ ખાલી જગ્યા દ્દારા અલગ થયેલ નથી\n"
 
-#: fish/fish.c:791
+#: fish/fish.c:793
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: અંત ન આવેલ એક અવતરણ ચિહ્ન\n"
 
-#: fish/fish.c:821
+#: fish/fish.c:823
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: આંતરિક ભૂલ '%s' પર શબ્દમાળાનું પદચ્છેદન કરી રહી છે\n"
 
-#: fish/fish.c:838
+#: fish/fish.c:840
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ઘણીબધી દલીલો છે\n"
 
-#: fish/fish.c:906
+#: fish/fish.c:908
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: આદેશ વાક્ય પર ખાલી આદેશ\n"
 
-#: fish/fish.c:1052
+#: fish/fish.c:1054
 msgid "display a list of commands or help on a command"
 msgstr "આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ "
 
-#: fish/fish.c:1054
+#: fish/fish.c:1056
 msgid "quit guestfish"
 msgstr "guestfish માંથી બહાર નીકળો"
 
-#: fish/fish.c:1065
+#: fish/fish.c:1067
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2185,7 +2190,7 @@ msgstr ""
 "     help cmd\n"
 "     મદદ\n"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1075
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2194,12 +2199,12 @@ msgstr ""
 "quit - guestfish માંથી બહાર નીકળો\n"
 "     બહાર નીકળો\n"
 
-#: fish/fish.c:1078
+#: fish/fish.c:1080
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: આદેશ જાણીતો નથી, બધા આદેશોની યાદી માટે -h ને વાપરો\n"
 
-#: fish/fish.c:1094
+#: fish/fish.c:1096
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2207,7 +2212,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1251
+#: fish/fish.c:1253
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "શબ્દમાળા \"%s\" માં દૂર થતો અવતરણચિહ્ન\n"
@@ -2531,6 +2536,7 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 "%s: libguestfs માટે FUSE મોડ્યુલ\n"
@@ -2552,12 +2558,12 @@ msgstr ""
 "  -v|--verbose     વર્બોસ સંદેશાઓages\n"
 "  -V|--version     આવૃત્તિને દર્શાવોsઅને બહાર નીકળોexit\n"
 
-#: fuse/guestmount.c:1139
+#: fuse/guestmount.c:1142
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: ઓછામાં ઓછુ એક -a અને -m વિકલ્પ પર હોવુ જ જોઇએ\n"
 
-#: fuse/guestmount.c:1147
+#: fuse/guestmount.c:1150
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: યજમાન ફાઇલસિસ્ટમમાં માઉન્ટબિંદુને સ્પષ્ટ કરવુ જ પડશે\n"
@@ -2699,56 +2705,56 @@ msgstr ""
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:936
+#: perl/lib/Sys/Guestfs/Lib.pm:939
 #, fuzzy, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "ફાઇલસિસ્ટમને અનમાઉન્ટ કરો"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1014
+#: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1040
+#: perl/lib/Sys/Guestfs/Lib.pm:1043
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1105
+#: perl/lib/Sys/Guestfs/Lib.pm:1108
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1160
+#: perl/lib/Sys/Guestfs/Lib.pm:1163
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1191
+#: perl/lib/Sys/Guestfs/Lib.pm:1194
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1214
+#: perl/lib/Sys/Guestfs/Lib.pm:1217
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1283
+#: perl/lib/Sys/Guestfs/Lib.pm:1286
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1345
+#: perl/lib/Sys/Guestfs/Lib.pm:1348
 #, fuzzy, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "ભાતને બંધબેસતા વાક્યોને પાછા લાવો"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1384
+#: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -2774,6 +2780,7 @@ msgid ""
 "  --selinux            Enable SELinux\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
@@ -2796,12 +2803,12 @@ msgstr ""
 "  -v|--verbose     વર્બોસ સંદેશાઓages\n"
 "  -V|--version     આવૃત્તિને દર્શાવોsઅને બહાર નીકળોexit\n"
 
-#: rescue/virt-rescue.c:174
+#: rescue/virt-rescue.c:178
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "વિશિષ્ટ માપ '%s' નું પદચ્છેદન કરી શકાતુ નથી\n"
 
-#: rescue/virt-rescue.c:409
+#: rescue/virt-rescue.c:417
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: અજ્ઞાત લાંબો વિકલ્પ: %s (%d)\n"
@@ -2864,8 +2871,8 @@ msgstr "libguestfs: ભૂલ: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:486 src/inspect.c:1180 src/inspect.c:2666 src/inspect.c:2709
-#: src/inspect.c:2759 src/inspect.c:2803
+#: src/inspect.c:486 src/inspect.c:1180 src/inspect.c:2680 src/inspect.c:2723
+#: src/inspect.c:2773 src/inspect.c:2817
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -2905,12 +2912,12 @@ msgstr ""
 msgid "unexpected end of output from db_dump command"
 msgstr "ફાઇલનો અનિચ્છનીય અંત જ્યારે ડિમન માંથી વાંચી રહ્યા હોય"
 
-#: src/inspect.c:2768
+#: src/inspect.c:2782
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:2831
+#: src/inspect.c:2845
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"

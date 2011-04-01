@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-28 17:11+0100\n"
+"POT-Creation-Date: 2011-04-01 09:14+0100\n"
 "PO-Revision-Date: 2010-12-23 17:40+0530\n"
 "Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
 "Language-Team: PLTG\n"
@@ -65,15 +65,15 @@ msgstr ""
 "For more information, see the manpage %s(1)।\n"
 
 #: cat/virt-cat.c:115 cat/virt-filesystems.c:200 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:134 fish/fish.c:217 fuse/guestmount.c:1020
-#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:127
+#: df/domains.c:428 df/main.c:134 fish/fish.c:219 fuse/guestmount.c:1023
+#: inspector/virt-inspector.c:129 rescue/virt-rescue.c:131
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ਹੈਂਡਲ ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ\n"
 
 #: cat/virt-cat.c:137 cat/virt-filesystems.c:254 cat/virt-ls.c:143
-#: df/main.c:158 fish/fish.c:287 fuse/guestmount.c:1070
-#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:151
+#: df/main.c:158 fish/fish.c:289 fuse/guestmount.c:1073
+#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:155
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
@@ -1922,6 +1922,11 @@ msgstr "%s: ਚੋਣਵੇਂ ਆਰਗੂਮੈਂਟ \"%s\" ਦੋ ਵਾਰ 
 msgid "%s: unknown command\n"
 msgstr "%s: ਅਣਜਾਣ ਕਮਾਂਡ\n"
 
+#: fish/config.c:73 fish/config.c:112
+#, fuzzy, c-format
+msgid "%s: %s: line %d: error parsing configuration file: %s\n"
+msgstr "%s: internal error parsing string at '%s'\n"
+
 #: fish/copy.c:41
 #, c-format
 msgid ""
@@ -2049,49 +2054,49 @@ msgstr ""
 "  -x                   Echo each command before executing it\n"
 "For more information, see the manpage %s(1)।\n"
 
-#: fish/fish.c:254
+#: fish/fish.c:256
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID was not a number: %s\n"
 
-#: fish/fish.c:261
+#: fish/fish.c:263
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 
-#: fish/fish.c:311
+#: fish/fish.c:313
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: only one -f parameter can be given\n"
 
-#: fish/fish.c:466
+#: fish/fish.c:468
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: cannot use --listen and --remote options at the same time\n"
 
-#: fish/fish.c:474
+#: fish/fish.c:476
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters on the command line with --listen flag\n"
 
-#: fish/fish.c:480
+#: fish/fish.c:482
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: cannot use --listen and --file options at the same time\n"
 
-#: fish/fish.c:538
+#: fish/fish.c:540
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr "guestfish: termcap ਜਾਂ terminfo ਡਾਟਾਬੇਸ ਨੂੰ ਵਰਤ ਨਹੀਂ ਸਕਿਆ।\n"
 
-#: fish/fish.c:542
+#: fish/fish.c:544
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr "guestfish: ਟਰਮੀਨਲ ਕਿਸਮ \"%s\" ਪਰਿਭਾਸ਼ਤ ਨਹੀਂ ਹੈ।\n"
 
-#: fish/fish.c:630
+#: fish/fish.c:632
 #, c-format
 msgid ""
 "\n"
@@ -2112,45 +2117,45 @@ msgstr ""
 "      'quit' to quit the shell\n"
 "\n"
 
-#: fish/fish.c:774
+#: fish/fish.c:776
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:780 fish/fish.c:797
+#: fish/fish.c:782 fish/fish.c:799
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ਕਮਾਂਡ ਆਰਗੂਮੈਂਟ ਸਪੇਸ ਨਾਲ ਵੱਖ ਨਹੀਂ ਕੀਤਾ\n"
 
-#: fish/fish.c:791
+#: fish/fish.c:793
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:821
+#: fish/fish.c:823
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: internal error parsing string at '%s'\n"
 
-#: fish/fish.c:838
+#: fish/fish.c:840
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: too many arguments\n"
 
-#: fish/fish.c:906
+#: fish/fish.c:908
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: empty command on command line\n"
 
-#: fish/fish.c:1052
+#: fish/fish.c:1054
 msgid "display a list of commands or help on a command"
 msgstr "ਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਜਾਂ ਕਮਾਂਡ ਬਾਰੇ ਸਹਾਇਤਾ ਵੇਖਾਓ"
 
-#: fish/fish.c:1054
+#: fish/fish.c:1056
 msgid "quit guestfish"
 msgstr "quit guestfish"
 
-#: fish/fish.c:1065
+#: fish/fish.c:1067
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2161,7 +2166,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1075
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2170,12 +2175,12 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1078
+#: fish/fish.c:1080
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: command not known, use -h to list all commands\n"
 
-#: fish/fish.c:1094
+#: fish/fish.c:1096
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2186,7 +2191,7 @@ msgstr ""
 "ਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਲਈ:             guestfish -h\n"
 "ਮੁਕੰਮਲ ਦਸਤਾਵੇਜੀ ਲਈ:         man guestfish\n"
 
-#: fish/fish.c:1251
+#: fish/fish.c:1253
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ਸਤਰ \"%s\" ਵਿੱਚ ਗਲਤ ਸ਼ਬਦਾਵਲੀ ਹੈ\n"
@@ -2530,6 +2535,7 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 "%s: FUSE module for libguestfs\n"
@@ -2557,12 +2563,12 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "  -x|--trace           Trace guestfs API calls\n"
 
-#: fuse/guestmount.c:1139
+#: fuse/guestmount.c:1142
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: ਸਾਡੇ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਇੱਕ -a/-d ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ -m/-i ਚੋਣ ਹੋਣੀ ਜਰੂਰੀ ਹੈ\n"
 
-#: fuse/guestmount.c:1147
+#: fuse/guestmount.c:1150
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ਤੁਹਾਨੂੰ ਹੋਸਟ ਫਾਇਲ-ਸਿਸਟਮ ਵਿੱਚ ਮਾਊਂਟਪੁਆਂਇਟ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ\n"
@@ -2724,62 +2730,62 @@ msgstr "ਅਣਜਾਣ ਫਾਇਲਸਿਸਟਮ ਲੇਬਲ {label}\n"
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr "ਅਣਜਾਣ ਫਾਇਲਸਿਸਟਮ UUID {uuid}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:936
+#: perl/lib/Sys/Guestfs/Lib.pm:939
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "ਅਣਜਾਣ ਫਾਇਲਸਿਸਟਮ {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1014
+#: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "rpm -qa ਚਲਾਉਣ ਵੇਲੇ ਗਲਤੀ: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1040
+#: perl/lib/Sys/Guestfs/Lib.pm:1043
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "dpkg-query ਚੱਲਣ ਸਮੇਂ ਗਲਤੀ: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1105
+#: perl/lib/Sys/Guestfs/Lib.pm:1108
 msgid "Can't find grub on guest"
 msgstr "ਗਿਸਟ ਉੱਪਰ ਗਰੱਬ (grub) ਨਹੀਂ ਲੱਭ ਸਕਦਾ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1160
+#: perl/lib/Sys/Guestfs/Lib.pm:1163
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "ਗਰੱਬ (Grub) ਆਂਟਰੀ {title} ਵਿੱਚ ਕੋਈ ਕਰਨ ਨਹੀਂ ਹੈ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1191
+#: perl/lib/Sys/Guestfs/Lib.pm:1194
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "ਗਰੱਬ (grub) ਦਾ ਹਵਾਲਾ {path} ਵੱਲ ਹੈ, ਜੋ ਮੌਜੂਦ ਨਹੀਂ ਹੈ\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1214
+#: perl/lib/Sys/Guestfs/Lib.pm:1217
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "ਗਰੱਬ (Grub) ਐਂਟਰੀ {title} ਵਿੱਚ ਇੱਕ initrd ਨਹੀਂ ਦਿੱਤਾ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1283
+#: perl/lib/Sys/Guestfs/Lib.pm:1286
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "ਕਰਨਲ {path} ਲਈ ਮੋਡੀਊਲ ਡਾਇਰੈਕਟਰੀ {modules} ਨਹੀਂ ਲੱਭੀ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "ਕਰਨਲ ਲਈ ਮਾਰਗ {path} ਤੋਂ ਕਰਨ ਦਾ ਵਰਜਨ ਪਤਾ ਨਹੀਂ ਲੱਗ ਸਕਿਆ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1345
+#: perl/lib/Sys/Guestfs/Lib.pm:1348
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} ਦਾ ਮੇਲ augeas ਪੈਟਰਨ ਨਾਲ ਨਹੀਂ ਹੁੰਦਾ"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1384
+#: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: initrd ਫਾਰਮੈਟ ਪੜ ਨਹੀਂ ਸਕਿਆ"
 
 #: rescue/virt-rescue.c:61
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2010 Red Hat Inc.\n"
@@ -2799,6 +2805,7 @@ msgid ""
 "  --selinux            Enable SELinux\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
@@ -2823,12 +2830,12 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1)।\n"
 
-#: rescue/virt-rescue.c:174
+#: rescue/virt-rescue.c:178
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: ਮੈਮੋਰੀ ਅਕਾਰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ '%s'\n"
 
-#: rescue/virt-rescue.c:409
+#: rescue/virt-rescue.c:417
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: ਅਣਜਾਣ ਲੰਬਾ ਚੋਣ:  (%d)\n"
@@ -2894,8 +2901,8 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<ਘਟਾਇਆ, ਅਸਲੀ ਅਕਾਰ %zu ਬਾਈਟ>"
 
-#: src/inspect.c:486 src/inspect.c:1180 src/inspect.c:2666 src/inspect.c:2709
-#: src/inspect.c:2759 src/inspect.c:2803
+#: src/inspect.c:486 src/inspect.c:1180 src/inspect.c:2680 src/inspect.c:2723
+#: src/inspect.c:2773 src/inspect.c:2817
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s ਦਾ ਅਕਾਰ ਬੇਲੋੜਾ ਹੈ (%<PRIi64> ਬਾਈਟਾਂ)"
@@ -2935,12 +2942,12 @@ msgstr "ਇੱਕ Windows ਗਿਸਟ ਨਹੀਂ ਹੈ, ਜਾਂ systemroot
 msgid "unexpected end of output from db_dump command"
 msgstr "db_dump ਕਮਾਂਡ ਤੋਂ ਆਊਟਪੁੱਟ ਦਾ ਅਚਾਨਕ ਅੰਤ"
 
-#: src/inspect.c:2768
+#: src/inspect.c:2782
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: ਫਾਇਲ ਖਾਲੀ ਹੈ"
 
-#: src/inspect.c:2831
+#: src/inspect.c:2845
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
