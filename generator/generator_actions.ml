@@ -3577,7 +3577,7 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
 Use C<guestfs_statvfs> from programs.");
 
-  ("du", (RInt64 "sizekb", [Pathname "path"], []), 127, [],
+  ("du", (RInt64 "sizekb", [Pathname "path"], []), 127, [Progress],
    [InitISOFS, Always, TestOutputInt (
       [["du"; "/directory"]], 2 (* ISO fs blocksize is 2K *))],
    "estimate file space usage",

@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,9 +43,12 @@ do_du (const char *path)
     return -1;
   }
 
+  pulse_mode_start ();
+
   r = command (&out, &err, "du", "-s", buf, NULL);
   free (buf);
   if (r == -1) {
+    pulse_mode_cancel ();
     reply_with_error ("%s: %s", path, err);
     free (out);
     free (err);
@@ -55,12 +58,15 @@ do_du (const char *path)
   free (err);
 
   if (sscanf (out, "%"SCNi64, &rv) != 1) {
+    pulse_mode_cancel ();
     reply_with_error ("%s: could not read output: %s", path, out);
     free (out);
     return -1;
   }
 
   free (out);
+
+  pulse_mode_end ();
 
   return rv;
 }
