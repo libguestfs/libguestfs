@@ -768,9 +768,13 @@ commandrvf (char **stdoutput, char **stderror, int flags,
 
   quit = 0;
   while (quit < 2) {
+  again:
     rset2 = rset;
     r = select (MAX (so_fd[0], se_fd[0]) + 1, &rset2, NULL, NULL, NULL);
     if (r == -1) {
+      if (errno == EINTR)
+        goto again;
+
       perror ("select");
     quit:
       if (stdoutput) free (*stdoutput);
