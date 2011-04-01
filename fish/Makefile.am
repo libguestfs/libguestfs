@@ -46,6 +46,7 @@ EXTRA_DIST = \
 	rc_protocol.x \
 	guestfish.pod \
 	guestfish-bash-completion.sh \
+	libguestfs-tools.conf \
 	virt-copy-in \
 	virt-copy-out \
 	virt-tar-in \
