@@ -1711,7 +1711,8 @@ indicator which shows the ratio of C<position>:C<total>.
 =item *
 
 If any progress notification is sent during a call, then a final
-progress notification is always sent when C<position> = C<total>.
+progress notification is always sent when C<position> = C<total>
+(I<unless> the call fails with an error).
 
 This is to simplify caller code, so callers can easily set the
 progress indicator to "100%" at the end of the operation, without
