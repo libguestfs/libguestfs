@@ -836,6 +836,7 @@ AC_CONFIG_FILES([Makefile
                  fuse/Makefile
                  po-docs/Makefile
                  po-docs/ja/Makefile
+                 po-docs/uk/Makefile
                  php/Makefile
                  csharp/Makefile
                  cat/Makefile

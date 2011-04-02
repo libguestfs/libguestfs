@@ -20,7 +20,7 @@
 # libguestfs.pot file.
 
 # Languages.
-LINGUAS = ja
+LINGUAS = ja uk
 
 EXTRA_DIST = \
 	libguestfs-docs.pot \

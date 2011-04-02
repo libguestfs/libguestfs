@@ -1,0 +1,3735 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
+"POT-Creation-Date: 2011-03-04 10:09+0000\n"
+"PO-Revision-Date: 2011-03-22 15:28+0000\n"
+"Last-Translator: yurchor <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: cat/virt-cat.c:54 cat/virt-filesystems.c:96 cat/virt-ls.c:55 df/main.c:67
+#: fish/fish.c:96 fuse/guestmount.c:863 inspector/virt-inspector.c:68
+#: rescue/virt-rescue.c:56
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
+
+#: cat/virt-cat.c:58
+#, c-format
+msgid ""
+"%s: display files in a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: показ файлів у віртуальній машині\n"
+"© Red Hat Inc., 2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену файл [файл ...]\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...] файл [файл ...]\n"
+"Options:\n"
+"  -a|--add образ       Додати образ\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --echo-keys          Не вимикати показ введених символів паролів\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати короткі довідкові дані\n"
+"  --keys-from-stdin    Прочитати паролі зі stdin\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
+#: df/domains.c:428 df/main.c:133 fish/fish.c:216 fuse/guestmount.c:976
+#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: не вдалося створити елемент керування\n"
+
+#: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
+#: df/main.c:157 fish/fish.c:286 fuse/guestmount.c:1026
+#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
+#, c-format
+msgid "%s: unknown long option: %s (%d)\n"
+msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
+
+#: cat/virt-filesystems.c:100
+#, c-format
+msgid ""
+"%s: list filesystems, partitions, block devices, LVM in a VM\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --all                Display everything\n"
+"  --blkdevs|--block-devices\n"
+"                       Display block devices\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --extra              Display swap and data filesystems\n"
+"  --filesystems        Display mountable filesystems\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long output\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Display LVM logical volumes\n"
+"  --no-title           No title in --long output\n"
+"  --parts|--partitions Display partitions\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Display LVM physical volumes\n"
+"  --uuid|--uuids       Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Display LVM volume groups\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: показ даних щодо файлових системи, розділів, блокових пристроїв, LVM у віртуальній машині\n"
+"© Red Hat Inc., 2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+"Параметри:\n"
+"  -a|--add образ       Додати образ\n"
+"  --all                Показати всі дані\n"
+"  --blkdevs|--block-devices\n"
+"                       Показати дані щодо блокових пристроїв\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  --csv                Вивести дані у форматі записів, відокремлених комами\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --echo-keys          Не вимикати показ символів паролів\n"
+"  --extra              Показати дані щодо файлових систем даних і резервної пам’яті\n"
+"  --filesystems        Показати дані щодо придатних до монтування файлових систем\n"
+"  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
+"  -h|--human-readable  Зручні для читання записи розмірів у даних, виведених --long\n"
+"  --help               Показати коротеньку довідкову інформацію\n"
+"  --keys-from-stdin    Читати паролі stdin\n"
+"  -l|--long            Виводити докладні дані\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Показати логічні томи LVM\n"
+"  --no-title           Не показувати заголовок у даних, виведених --long\n"
+"  --parts|--partitions Показати розділи\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Показати фізичні томи LVM\n"
+"  --uuid|--uuids       Додавати UUID до даних, виведених --long\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Показати групу томів LVM\n"
+"  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#: cat/virt-filesystems.c:315 df/main.c:252
+#, c-format
+msgid "%s: you cannot use -h and --csv options together.\n"
+msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
+
+#: cat/virt-ls.c:59
+#, c-format
+msgid ""
+"%s: list files in a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [dir ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long listing\n"
+"  -R|--recursive       Recursive listing\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: показ списку файлів у віртуальній машині\n"
+"© Red Hat Inc., 2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену файл [каталог ]\n"
+"  %s [--параметри] -a диск.img [-a диск.img ] каталог [каталог ...]\n"
+"Options:\n"
+"  -a|--add image       Додати образ\n"
+"  -c|--connect uri     Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain guest    Додати диски з гостьової системи libvirt\n"
+"  --echo-keys          Не вимикати показ введених символів паролів\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати короткі довідкові дані\n"
+"  --keys-from-stdin    Прочитати паролі зі stdin\n"
+"  -l|--long            Довгі списки\n"
+"  -R|--recursive       Рекурсивні списки\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#: df/domains.c:115
+#, c-format
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgstr "%s: не вдалося встановити з’єднання з libvirt (код %d, домен %d): %s"
+
+#: df/domains.c:124
+#, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgstr ""
+"%s: не вдалося отримати кількість запущених доменів (код %d, домен %d): %s"
+
+#: df/domains.c:134
+#, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgstr ""
+"%s: не вдалося побудувати список запущених доменів (код %d, домен %d): %s"
+
+#: df/domains.c:145
+#, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgstr ""
+"%s: не вдалося отримати кількість неактивних доменів (код %d, домен %d): %s"
+
+#: df/domains.c:155
+#, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgstr ""
+"%s: не вдалося отримати список неактивних доменів (код %d, домен %d): %s"
+
+#: df/domains.c:281
+#, c-format
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+msgstr "%s: пропущено %s, там занадто багато дисків (%zu > %d)"
+
+#: df/main.c:71
+#, c-format
+msgid ""
+"%s: display free space on virtual filesystems\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  -i|--inodes          Display inodes\n"
+"  --one-per-guest      Separate appliance per guest\n"
+"  --uuid               Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: показ даних щодо вільного місця на віртуальних файлових системах\n"
+"© Red Hat Inc., 2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+"Параметри:\n"
+"  -a|--add image       Додати образ\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  --csv                Вивести дані у форматі записів, відокремлених комами\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
+"  -h|--human-readable  Зручні для читання записи розмірів у даних, виведених --long\n"
+"  --help               Показати коротеньку довідкову інформацію\n"
+"  -i|--inodes          Показати inode-и\n"
+"  --one-per-guest      Окремий пристрій для кожної гостьової системи\n"
+"  --uuid               Додати UUID до даних, виведених --long\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#: df/main.c:264
+#, c-format
+msgid "%s: compiled without support for libvirt.\n"
+msgstr "%s: зібрано без підтримки libvirt.\n"
+
+#: df/output.c:49
+msgid "VirtualMachine"
+msgstr "Віртуальна машина"
+
+#: df/output.c:50
+msgid "Filesystem"
+msgstr "Файлова система"
+
+#: df/output.c:53
+msgid "1K-blocks"
+msgstr "1кБ-блоків"
+
+#: df/output.c:55
+msgid "Size"
+msgstr "Розмір"
+
+#: df/output.c:56
+msgid "Used"
+msgstr "Використано"
+
+#: df/output.c:57
+msgid "Available"
+msgstr "Доступно"
+
+#: df/output.c:58
+msgid "Use%"
+msgstr "% використання"
+
+#: df/output.c:60
+msgid "Inodes"
+msgstr "Inode-и"
+
+#: df/output.c:61
+msgid "IUsed"
+msgstr "IВикористано"
+
+#: df/output.c:62
+msgid "IFree"
+msgstr "IВільно"
+
+#: df/output.c:63
+msgid "IUse%"
+msgstr "% IВикористання"
+
+#: fish/alloc.c:37
+#, c-format
+msgid "use 'alloc file size' to create an image\n"
+msgstr "скористайтеся командою «alloc розмір_файла» для створення образу\n"
+
+#: fish/alloc.c:51
+#, c-format
+msgid "use 'sparse file size' to create a sparse image\n"
+msgstr ""
+"скористайтеся командою «sparse розмір_файла» для створення розрідженого "
+"образу\n"
+
+#: fish/alloc.c:75
+#, c-format
+msgid "can't allocate or add disks after launching\n"
+msgstr "не вдалося виокремити або додати диски після запуску\n"
+
+#: fish/alloc.c:156
+#, c-format
+msgid "%s: invalid integer parameter (%s returned %d)\n"
+msgstr "%s: некоректний цілий параметр (%s повернуто %d)\n"
+
+#: fish/cmds.c:2536
+msgid "Command"
+msgstr "Команда"
+
+#: fish/cmds.c:2536
+msgid "Description"
+msgstr "Опис"
+
+#: fish/cmds.c:2538
+msgid "add a CD-ROM disk image to examine"
+msgstr "додати образ диска CD-ROM для вивчення"
+
+#: fish/cmds.c:2539
+msgid "add the disk(s) from a named libvirt domain"
+msgstr "додати диски з іменованого домену libvirt"
+
+#: fish/cmds.c:2540 fish/cmds.c:2541
+msgid "add an image to examine or modify"
+msgstr "додати образ для вивчення або внесення змін"
+
+#: fish/cmds.c:2542
+msgid "add a drive in snapshot mode (read-only)"
+msgstr "додати пристрій у режимі знімка даних (лише для читання)"
+
+#: fish/cmds.c:2543
+msgid "add a drive read-only specifying the QEMU block emulation to use"
+msgstr ""
+"додати пристрій у режимі лише читання з визначенням режиму емуляції блоків "
+"QEMU"
+
+#: fish/cmds.c:2544
+msgid "add a drive specifying the QEMU block emulation to use"
+msgstr "додати пристрій з визначенням режиму емуляції блоків QEMU"
+
+#: fish/cmds.c:2545
+msgid "allocate and add a disk file"
+msgstr "виокремити місце і додати файл диска"
+
+#: fish/cmds.c:2546
+msgid "clear Augeas path"
+msgstr "спорожнити адресу каталогу Augeas"
+
+#: fish/cmds.c:2547
+msgid "close the current Augeas handle"
+msgstr "закрити поточний елемент керування Augeas"
+
+#: fish/cmds.c:2548
+msgid "define an Augeas node"
+msgstr "визначити вузол Augeas"
+
+#: fish/cmds.c:2549
+msgid "define an Augeas variable"
+msgstr "визначити змінну Augeas"
+
+#: fish/cmds.c:2550
+msgid "look up the value of an Augeas path"
+msgstr "шукати значення запису каталогу Augeas"
+
+#: fish/cmds.c:2551
+msgid "create a new Augeas handle"
+msgstr "створити елемент керування Augeas"
+
+#: fish/cmds.c:2552
+msgid "insert a sibling Augeas node"
+msgstr "вставити вузол Augeas того самого рівня"
+
+#: fish/cmds.c:2553
+msgid "load files into the tree"
+msgstr "завантажити файли до ієрархії"
+
+#: fish/cmds.c:2554
+msgid "list Augeas nodes under augpath"
+msgstr "повернути список вузлів Augeas у каталозі augpath"
+
+#: fish/cmds.c:2555
+msgid "return Augeas nodes which match augpath"
+msgstr "повернути вузли Augeas, які відповідають вказаному значенню augpath"
+
+#: fish/cmds.c:2556
+msgid "move Augeas node"
+msgstr "пересунути вузол Augeas"
+
+#: fish/cmds.c:2557
+msgid "remove an Augeas path"
+msgstr "вилучити запис каталогу Augeas"
+
+#: fish/cmds.c:2558
+msgid "write all pending Augeas changes to disk"
+msgstr "записати всі зміни з черги змін Augeas на диск"
+
+#: fish/cmds.c:2559
+msgid "set Augeas path to value"
+msgstr "встановити для шляху Augeas вказане значення"
+
+#: fish/cmds.c:2560
+msgid "test availability of some parts of the API"
+msgstr "перевірити доступність певних частин програмного інтерфейсу"
+
+#: fish/cmds.c:2561
+msgid "return a list of all optional groups"
+msgstr "повернути список всіх додаткових груп"
+
+#: fish/cmds.c:2562
+msgid "upload base64-encoded data to file"
+msgstr "вивантажити дані, закодовані у форматі base64, до файла"
+
+#: fish/cmds.c:2563
+msgid "download file and encode as base64"
+msgstr "отримати файл і закодувати його у форматі base64"
+
+#: fish/cmds.c:2564
+msgid "flush device buffers"
+msgstr "спорожнити буфери пристрою"
+
+#: fish/cmds.c:2565
+msgid "get blocksize of block device"
+msgstr "отримати розмір у блоках блокового пристрою"
+
+#: fish/cmds.c:2566
+msgid "is block device set to read-only"
+msgstr "визначити, чи працює блоковий пристрій у режимі лише читання"
+
+#: fish/cmds.c:2567
+msgid "get total size of device in bytes"
+msgstr "отримати дані щодо загального об’єму зберігання пристрою у байтах"
+
+#: fish/cmds.c:2568
+msgid "get sectorsize of block device"
+msgstr "отримати розмір сектора блокового пристрою"
+
+#: fish/cmds.c:2569
+msgid "get total size of device in 512-byte sectors"
+msgstr ""
+"отримати загальний об’єм зберігання на пристрої у 512-байтових секторах"
+
+#: fish/cmds.c:2570
+msgid "reread partition table"
+msgstr "повторно прочитати таблицю розділів"
+
+#: fish/cmds.c:2571
+msgid "set blocksize of block device"
+msgstr "встановити розмір у блоках блокового пристрою"
+
+#: fish/cmds.c:2572
+msgid "set block device to read-only"
+msgstr "перевести блоковий пристрій у режим лише читання"
+
+#: fish/cmds.c:2573
+msgid "set block device to read-write"
+msgstr "перевести блоковий пристрій у режим читання-запису"
+
+#: fish/cmds.c:2574
+msgid "return true path on case-insensitive filesystem"
+msgstr ""
+"повернути справжню адресу у файловій системі без врахування регістру "
+"символів"
+
+#: fish/cmds.c:2575
+msgid "list the contents of a file"
+msgstr "показати вміст файла"
+
+#: fish/cmds.c:2576
+msgid "compute MD5, SHAx or CRC checksum of file"
+msgstr "обчислити контрольну суму MD5, SHAx або CRC файла"
+
+#: fish/cmds.c:2577
+msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
+msgstr "обчислити контрольну суму MD5, SHAx або CRC вмісту пристрою"
+
+#: fish/cmds.c:2578
+msgid "compute MD5, SHAx or CRC checksum of files in a directory"
+msgstr "обчислити контрольну суму MD5, SHAx або CRC файлів у каталозі"
+
+#: fish/cmds.c:2579
+msgid "change file mode"
+msgstr "змінити режим доступу до файла"
+
+#: fish/cmds.c:2580 fish/cmds.c:2693
+msgid "change file owner and group"
+msgstr "змінити власника і групу належності файла"
+
+#: fish/cmds.c:2581
+msgid "run a command from the guest filesystem"
+msgstr "виконати команду з гостьової файлової системи"
+
+#: fish/cmds.c:2582
+msgid "run a command, returning lines"
+msgstr "виконати команду, повернути виведені рядки"
+
+#: fish/cmds.c:2583
+msgid "add qemu parameters"
+msgstr "додати параметри qemu"
+
+#: fish/cmds.c:2584
+msgid "copy local files or directories into an image"
+msgstr "копіювати локальні файли або каталоги на образ"
+
+#: fish/cmds.c:2585
+msgid "copy remote files or directories out of an image"
+msgstr "копіювати файли або каталоги з віддалених джерел поза межі образу"
+
+#: fish/cmds.c:2586
+msgid "copy size bytes from source to destination using dd"
+msgstr ""
+"копіювати вказану кількість байтів з джерела до призначення за допомогою dd"
+
+#: fish/cmds.c:2587
+msgid "copy a file"
+msgstr "копіювати файл"
+
+#: fish/cmds.c:2588
+msgid "copy a file or directory recursively"
+msgstr "копіювати файл або каталог рекурсивно"
+
+#: fish/cmds.c:2589
+msgid "copy from source to destination using dd"
+msgstr "копіювати з джерела до призначення за допомогою dd"
+
+#: fish/cmds.c:2590
+msgid "debugging and internals"
+msgstr "діагностика і внутрішні функції"
+
+#: fish/cmds.c:2591
+msgid "debug the QEMU command line (internal use only)"
+msgstr ""
+"виконати діагностичну перевірку командного рядка QEMU (лише для внутрішнього"
+" використання)"
+
+#: fish/cmds.c:2592
+msgid "upload a file to the appliance (internal use only)"
+msgstr "вивантажити файл на пристрій (лише для внутрішнього використання)"
+
+#: fish/cmds.c:2593
+msgid "report file system disk space usage"
+msgstr "повідомити про використання файлової системи"
+
+#: fish/cmds.c:2594
+msgid "report file system disk space usage (human readable)"
+msgstr ""
+"повідомити про використання файлової системи (у зручному для читання "
+"форматі)"
+
+#: fish/cmds.c:2595
+msgid "return kernel messages"
+msgstr "повернути повідомлення ядра"
+
+#: fish/cmds.c:2596
+msgid "download a file to the local machine"
+msgstr "зберегти файл у локальній системі"
+
+#: fish/cmds.c:2597
+msgid "download a file to the local machine with offset and size"
+msgstr "зберегти файл у локальній системі з вказаним зсувом та розміром"
+
+#: fish/cmds.c:2598
+msgid "drop kernel page cache, dentries and inodes"
+msgstr "скинути кеш сторінок ядра, записи dentry та inode."
+
+#: fish/cmds.c:2599
+msgid "estimate file space usage"
+msgstr "оцінити об’єм даних файлів"
+
+#: fish/cmds.c:2600
+msgid "check an ext2/ext3 filesystem"
+msgstr "перевірити файлову систему ext2/ext3"
+
+#: fish/cmds.c:2601
+msgid "display a line of text"
+msgstr "показати рядок тексту"
+
+#: fish/cmds.c:2602
+msgid "echo arguments back to the client"
+msgstr "повернути копію параметрів клієнту"
+
+#: fish/cmds.c:2603
+msgid "edit a file"
+msgstr "редагувати файл"
+
+#: fish/cmds.c:2604 fish/cmds.c:2605 fish/cmds.c:2610 fish/cmds.c:2611
+#: fish/cmds.c:2644 fish/cmds.c:2645 fish/cmds.c:2886 fish/cmds.c:2887
+#: fish/cmds.c:2891 fish/cmds.c:2892 fish/cmds.c:2894 fish/cmds.c:2895
+msgid "return lines matching a pattern"
+msgstr "повернути рядки, що відповідають зразку"
+
+#: fish/cmds.c:2606
+msgid "test if two files have equal contents"
+msgstr "перевірити, чи є вміст двох файлів тотожнім"
+
+#: fish/cmds.c:2607
+msgid "test if file or directory exists"
+msgstr "перевірити, чи існує файл або каталог"
+
+#: fish/cmds.c:2608 fish/cmds.c:2609
+msgid "preallocate a file in the guest filesystem"
+msgstr "попередньо виокремити місце для файла на гостьовій файловій системі"
+
+#: fish/cmds.c:2612
+msgid "determine file type"
+msgstr "визначити тип файла"
+
+#: fish/cmds.c:2613
+msgid "detect the architecture of a binary file"
+msgstr "визначити архітектуру бінарного файла"
+
+#: fish/cmds.c:2614
+msgid "return the size of the file in bytes"
+msgstr "повернути розмір файла у байтах"
+
+#: fish/cmds.c:2615
+msgid "fill a file with octets"
+msgstr "заповнити файл вісімковими значеннями"
+
+#: fish/cmds.c:2616
+msgid "fill a file with a repeating pattern of bytes"
+msgstr "заповнити файл повторюваним зразком рядка байтів"
+
+#: fish/cmds.c:2617
+msgid "find all files and directories"
+msgstr "знайти всі файли і каталоги"
+
+#: fish/cmds.c:2618
+msgid "find all files and directories, returning NUL-separated list"
+msgstr ""
+"знайти всі файли і каталоги, повернути відокремлений символами NUL список"
+
+#: fish/cmds.c:2619
+msgid "find a filesystem by label"
+msgstr "знайти файлову систему за міткою"
+
+#: fish/cmds.c:2620
+msgid "find a filesystem by UUID"
+msgstr "знайти файлову систему за UUID"
+
+#: fish/cmds.c:2621
+msgid "run the filesystem checker"
+msgstr "виконати перевірку файлової системи"
+
+#: fish/cmds.c:2622
+msgid "get the additional kernel options"
+msgstr "отримати додаткові параметри ядра"
+
+#: fish/cmds.c:2623
+msgid "get the attach method"
+msgstr "отримати значення методу долучення"
+
+#: fish/cmds.c:2624
+msgid "get autosync mode"
+msgstr "отримати значення режиму автосинхронізації"
+
+#: fish/cmds.c:2625
+msgid "get direct appliance mode flag"
+msgstr "отримати значення режиму безпосередньої роботи з пристроєм"
+
+#: fish/cmds.c:2626
+msgid "get the ext2/3/4 filesystem label"
+msgstr "отримати мітку файлової системи ext2/3/4"
+
+#: fish/cmds.c:2627
+msgid "get the ext2/3/4 filesystem UUID"
+msgstr "отримати UUID файлової системи ext2/3/4"
+
+#: fish/cmds.c:2628
+msgid "get memory allocated to the qemu subprocess"
+msgstr "отримати дані щодо пам’яті, отриманої підпроцесом qemu"
+
+#: fish/cmds.c:2629
+msgid "get enable network flag"
+msgstr "отримати значення прапорця вмикання мережі"
+
+#: fish/cmds.c:2630
+msgid "get the search path"
+msgstr "отримати адресу каталогу пошуку"
+
+#: fish/cmds.c:2631
+msgid "get PID of qemu subprocess"
+msgstr "отримати ідентифікатор підпроцесу qemu"
+
+#: fish/cmds.c:2632
+msgid "get the qemu binary"
+msgstr "отримати назву виконуваного файла qemu"
+
+#: fish/cmds.c:2633
+msgid "get recovery process enabled flag"
+msgstr "отримати значення прапорця відновлення процесу"
+
+#: fish/cmds.c:2634
+msgid "get SELinux enabled flag"
+msgstr "отримати значення прапорця вмикання SELinux"
+
+#: fish/cmds.c:2635
+msgid "get the current state"
+msgstr "отримати значення поточного стану"
+
+#: fish/cmds.c:2636
+msgid "get command trace enabled flag"
+msgstr "отримати значення вмикання трасування команди"
+
+#: fish/cmds.c:2637
+msgid "get the current umask"
+msgstr "отримати поточне значення umask"
+
+#: fish/cmds.c:2638
+msgid "get verbose mode"
+msgstr "отримати значення режиму докладних повідомлень"
+
+#: fish/cmds.c:2639
+msgid "get SELinux security context"
+msgstr "отримати значення контексту захисту SELinux"
+
+#: fish/cmds.c:2640 fish/cmds.c:2694
+msgid "get a single extended attribute"
+msgstr "отримати окремий додатковий атрибут"
+
+#: fish/cmds.c:2641 fish/cmds.c:2695
+msgid "list extended attributes of a file or directory"
+msgstr "показати список додаткових атрибутів файла або каталогу"
+
+#: fish/cmds.c:2642
+msgid "expand wildcards in command"
+msgstr "розгорнути шаблони заміни у команду"
+
+#: fish/cmds.c:2643
+msgid "expand a wildcard path"
+msgstr "розгорнути адресу каталогу з шаблонами заміни"
+
+#: fish/cmds.c:2646
+msgid "install GRUB"
+msgstr "встановити GRUB"
+
+#: fish/cmds.c:2647
+msgid "return first 10 lines of a file"
+msgstr "повернути перші 10 рядків файла"
+
+#: fish/cmds.c:2648
+msgid "return first N lines of a file"
+msgstr "повернути перші N рядків файла"
+
+#: fish/cmds.c:2649
+msgid "dump a file in hexadecimal"
+msgstr "створити шістнадцятковий дамп файла"
+
+#: fish/cmds.c:2650
+msgid "edit with a hex editor"
+msgstr "редагувати за допомогою шістнадцяткового редактора"
+
+#: fish/cmds.c:2651
+msgid "list the contents of a single file in an initrd"
+msgstr "показати вміст окремого файла у initrd"
+
+#: fish/cmds.c:2652
+msgid "list files in an initrd"
+msgstr "показати список файлів у initrd"
+
+#: fish/cmds.c:2653
+msgid "add an inotify watch"
+msgstr "додати спостереження за inotify"
+
+#: fish/cmds.c:2654
+msgid "close the inotify handle"
+msgstr "закрити елемент керування inotify"
+
+#: fish/cmds.c:2655
+msgid "return list of watched files that had events"
+msgstr ""
+"повернути список файлів, за якими ведеться спостереження, для яких сталися "
+"події"
+
+#: fish/cmds.c:2656
+msgid "create an inotify handle"
+msgstr "створити елемент керування inotify"
+
+#: fish/cmds.c:2657
+msgid "return list of inotify events"
+msgstr "повернути список подій inotify"
+
+#: fish/cmds.c:2658
+msgid "remove an inotify watch"
+msgstr "вилучити спостереження за inotify"
+
+#: fish/cmds.c:2659
+msgid "get architecture of inspected operating system"
+msgstr "отримати значення архітектури операційної системи, яка вивчається"
+
+#: fish/cmds.c:2660
+msgid "get distro of inspected operating system"
+msgstr ""
+"отримати значення запису дистрибутива операційної системи, яка вивчається"
+
+#: fish/cmds.c:2661
+msgid "get filesystems associated with inspected operating system"
+msgstr ""
+"отримати значення записів файлових систем, пов’язаних з операційною "
+"системою, яка вивчається"
+
+#: fish/cmds.c:2662
+msgid "get format of inspected operating system"
+msgstr "отримати значення запису формату операційної системи, яка вивчається"
+
+#: fish/cmds.c:2663
+msgid "get hostname of the operating system"
+msgstr "отримати значення назви вузла операційної системи"
+
+#: fish/cmds.c:2664
+msgid "get major version of inspected operating system"
+msgstr "отримати значення основної версії операційної системи, яка вивчається"
+
+#: fish/cmds.c:2665
+msgid "get minor version of inspected operating system"
+msgstr ""
+"отримати значення версії виправлення операційної системи, яка вивчається"
+
+#: fish/cmds.c:2666
+msgid "get mountpoints of inspected operating system"
+msgstr ""
+"отримати значення точок монтування операційної системи, яка вивчається"
+
+#: fish/cmds.c:2667
+msgid "get package format used by the operating system"
+msgstr ""
+"отримати значення формату пакунків, що використовується операційною системою"
+
+#: fish/cmds.c:2668
+msgid "get package management tool used by the operating system"
+msgstr ""
+"отримати значення назви програми для керування пакунками, що "
+"використовується операційною системою"
+
+#: fish/cmds.c:2669
+msgid "get product name of inspected operating system"
+msgstr "отримати значення назви продукту операційної системи, яка вивчається"
+
+#: fish/cmds.c:2670
+msgid "return list of operating systems found by last inspection"
+msgstr ""
+"повернути список операційних систем, знайдених під час останньої перевірки"
+
+#: fish/cmds.c:2671
+msgid "get type of inspected operating system"
+msgstr "отримати значення типу операційної системи, яка вивчається"
+
+#: fish/cmds.c:2672
+msgid "get Windows systemroot of inspected operating system"
+msgstr ""
+"отримати значення кореневого каталогу Windows операційної системи, яка "
+"вивчається"
+
+#: fish/cmds.c:2673
+msgid "get live flag for install disk"
+msgstr ""
+"отримати значення прапорця портативного носія для диска для встановлення"
+
+#: fish/cmds.c:2674
+msgid "get multipart flag for install disk"
+msgstr ""
+"отримати значення прапорця носія з декількох частин для диска для "
+"встановлення"
+
+#: fish/cmds.c:2675
+msgid "get netinst (network installer) flag for install disk"
+msgstr ""
+"отримати значення прапорця netinst (встановлення з мережі) для диска для "
+"встановлення"
+
+#: fish/cmds.c:2676
+msgid "get list of applications installed in the operating system"
+msgstr "отримати список програм, встановлених у операційній системі"
+
+#: fish/cmds.c:2677
+msgid "inspect disk and return list of operating systems found"
+msgstr "вивчити диск і повернути список знайдених операційних систем"
+
+#: fish/cmds.c:2678
+msgid "test if block device"
+msgstr "перевірити, чи є пристрій блоковим"
+
+#: fish/cmds.c:2679
+msgid "is busy processing a command"
+msgstr "зайнятий виконанням команди"
+
+#: fish/cmds.c:2680
+msgid "test if character device"
+msgstr "перевірити, чи є пристрій символьним"
+
+#: fish/cmds.c:2681
+msgid "is in configuration state"
+msgstr "у стані налаштування"
+
+#: fish/cmds.c:2682
+msgid "test if a directory"
+msgstr "перевірити, чи є каталогом"
+
+#: fish/cmds.c:2683
+msgid "test if FIFO (named pipe)"
+msgstr "перевірити, чи є FIFO (іменованим каналом)"
+
+#: fish/cmds.c:2684
+msgid "test if a regular file"
+msgstr "перевірити, чи є звичайним файлом"
+
+#: fish/cmds.c:2685
+msgid "is launching subprocess"
+msgstr "запускає підпроцес"
+
+#: fish/cmds.c:2686
+msgid "test if device is a logical volume"
+msgstr "перевірити, чи є пристрій логічним томом"
+
+#: fish/cmds.c:2687
+msgid "is ready to accept commands"
+msgstr "готовий до прийняття команд"
+
+#: fish/cmds.c:2688
+msgid "test if socket"
+msgstr "перевірити, чи є сокетом"
+
+#: fish/cmds.c:2689
+msgid "test if symbolic link"
+msgstr "перевірити, чи є символічним посиланням"
+
+#: fish/cmds.c:2690
+msgid "kill the qemu subprocess"
+msgstr "завершити роботу підпроцесу qemu"
+
+#: fish/cmds.c:2691
+msgid "launch the qemu subprocess"
+msgstr "запустити підпроцес qemu"
+
+#: fish/cmds.c:2692
+msgid "change working directory"
+msgstr "змінити робочий каталог"
+
+#: fish/cmds.c:2696
+msgid "list the block devices"
+msgstr "показати список блокових пристроїв"
+
+#: fish/cmds.c:2697
+msgid "list filesystems"
+msgstr "показати список файлових систем"
+
+#: fish/cmds.c:2698
+msgid "list the partitions"
+msgstr "показати список розділів"
+
+#: fish/cmds.c:2699
+msgid "list the files in a directory (long format)"
+msgstr "показати список файлів у каталозі (у розширеному форматі)"
+
+#: fish/cmds.c:2700 fish/cmds.c:2701
+msgid "create a hard link"
+msgstr "створити жорстке посилання"
+
+#: fish/cmds.c:2702 fish/cmds.c:2703
+msgid "create a symbolic link"
+msgstr "створити символічне посилання"
+
+#: fish/cmds.c:2704 fish/cmds.c:2795
+msgid "remove extended attribute of a file or directory"
+msgstr "вилучити додатковий атрибут файла або каталогу"
+
+#: fish/cmds.c:2705
+msgid "list the files in a directory"
+msgstr "показати список файлів у каталозі"
+
+#: fish/cmds.c:2706 fish/cmds.c:2822
+msgid "set extended attribute of a file or directory"
+msgstr "встановити додатковий атрибут файла або каталогу"
+
+#: fish/cmds.c:2707
+msgid "get file information for a symbolic link"
+msgstr "отримати дані щодо файла за символічним посиланням"
+
+#: fish/cmds.c:2708
+msgid "lstat on multiple files"
+msgstr "lstat для декількох файлів"
+
+#: fish/cmds.c:2709
+msgid "add a key on a LUKS encrypted device"
+msgstr "додати ключ на зашифрованому LUKS пристрої"
+
+#: fish/cmds.c:2710
+msgid "close a LUKS device"
+msgstr "закрити пристрій LUKS"
+
+#: fish/cmds.c:2711 fish/cmds.c:2712
+msgid "format a block device as a LUKS encrypted device"
+msgstr "форматувати блоковий пристрій як зашифрований LUKS пристрій"
+
+#: fish/cmds.c:2713
+msgid "remove a key from a LUKS encrypted device"
+msgstr "вилучити ключ з зашифрованого LUKS пристрою"
+
+#: fish/cmds.c:2714
+msgid "open a LUKS-encrypted block device"
+msgstr "відкрити зашифрований LUKS блоковий пристрій"
+
+#: fish/cmds.c:2715
+msgid "open a LUKS-encrypted block device read-only"
+msgstr ""
+"відкрити зашифрований LUKS блоковий пристрій у режимі лише для читання"
+
+#: fish/cmds.c:2716
+msgid "create an LVM logical volume"
+msgstr "створити логічний том LVM"
+
+#: fish/cmds.c:2717
+msgid "get canonical name of an LV"
+msgstr "отримати канонічну назву логічного тому"
+
+#: fish/cmds.c:2718
+msgid "clear LVM device filter"
+msgstr "спорожнити фільтр пристроїв LVM"
+
+#: fish/cmds.c:2719
+msgid "remove all LVM LVs, VGs and PVs"
+msgstr "вилучити всі логічні томи, групи томів та фізичні томи LVM"
+
+#: fish/cmds.c:2720
+msgid "set LVM device filter"
+msgstr "встановити фільтр пристроїв LVM"
+
+#: fish/cmds.c:2721
+msgid "remove an LVM logical volume"
+msgstr "вилучити логічний том LVM"
+
+#: fish/cmds.c:2722
+msgid "rename an LVM logical volume"
+msgstr "перейменувати логічний том LVM"
+
+#: fish/cmds.c:2723
+msgid "resize an LVM logical volume"
+msgstr "змінити розміри логічного тому LVM"
+
+#: fish/cmds.c:2724
+msgid "expand an LV to fill free space"
+msgstr "розширити логічний том для заповнення вільного місця"
+
+#: fish/cmds.c:2725 fish/cmds.c:2726
+msgid "list the LVM logical volumes (LVs)"
+msgstr "показати список логічних томів LVM"
+
+#: fish/cmds.c:2727
+msgid "get the UUID of a logical volume"
+msgstr "отримати UUID логічного тому"
+
+#: fish/cmds.c:2728
+msgid "lgetxattr on multiple files"
+msgstr "lgetxattr для декількох файлів"
+
+#: fish/cmds.c:2729
+msgid "open the manual"
+msgstr "відкрити сторінку довідки"
+
+#: fish/cmds.c:2730
+msgid "create a directory"
+msgstr "створити каталог"
+
+#: fish/cmds.c:2731
+msgid "create a directory with a particular mode"
+msgstr "створити каталог у вказаному режимі"
+
+#: fish/cmds.c:2732
+msgid "create a directory and parents"
+msgstr "створити каталог і його батьківські каталоги"
+
+#: fish/cmds.c:2733
+msgid "create a temporary directory"
+msgstr "створити тимчасовий каталог"
+
+#: fish/cmds.c:2734 fish/cmds.c:2735 fish/cmds.c:2736
+msgid "make ext2/3/4 filesystem with external journal"
+msgstr "створити файлову систему ext2/3/4 з зовнішнім журналом"
+
+#: fish/cmds.c:2737
+msgid "make ext2/3/4 external journal"
+msgstr "створити зовнішній журнал ext2/3/4"
+
+#: fish/cmds.c:2738
+msgid "make ext2/3/4 external journal with label"
+msgstr "створити зовнішній журнал ext2/3/4 з міткою"
+
+#: fish/cmds.c:2739
+msgid "make ext2/3/4 external journal with UUID"
+msgstr "створити зовнішній журнал ext2/3/4 з UUID"
+
+#: fish/cmds.c:2740
+msgid "make FIFO (named pipe)"
+msgstr "створити FIFO (іменований канал)"
+
+#: fish/cmds.c:2741 fish/cmds.c:2743
+msgid "make a filesystem"
+msgstr "створити файлову систему"
+
+#: fish/cmds.c:2742
+msgid "make a filesystem with block size"
+msgstr "створити файлову систему з розміром блоку"
+
+#: fish/cmds.c:2744
+msgid "create a mountpoint"
+msgstr "створити точку монтування"
+
+#: fish/cmds.c:2745
+msgid "make block, character or FIFO devices"
+msgstr "створити блокові, символьні пристрої або пристрої FIFO"
+
+#: fish/cmds.c:2746
+msgid "make block device node"
+msgstr "створити вузол блокового пристрою"
+
+#: fish/cmds.c:2747
+msgid "make char device node"
+msgstr "створити вузол символьного пристрою"
+
+#: fish/cmds.c:2748
+msgid "create a swap partition"
+msgstr "створити розділ резервних даних (свопінгу)"
+
+#: fish/cmds.c:2749
+msgid "create a swap partition with a label"
+msgstr "створити розділ резервних даних (свопінгу) з міткою"
+
+#: fish/cmds.c:2750
+msgid "create a swap partition with an explicit UUID"
+msgstr "створити розділ резервних даних (свопінгу) з явним визначенням UUID"
+
+#: fish/cmds.c:2751
+msgid "create a swap file"
+msgstr "створити файл резервної пам’яті"
+
+#: fish/cmds.c:2752
+msgid "load a kernel module"
+msgstr "завантажити модуль ядра"
+
+#: fish/cmds.c:2753
+msgid "view a file"
+msgstr "переглянути файл"
+
+#: fish/cmds.c:2754
+msgid "mount a guest disk at a position in the filesystem"
+msgstr "змонтувати гостьовий диск до вказаного каталогу файлової системи"
+
+#: fish/cmds.c:2755
+msgid "mount a file using the loop device"
+msgstr "змонтувати файли за допомогою петльового пристрою"
+
+#: fish/cmds.c:2756
+msgid "mount a guest disk with mount options"
+msgstr "змонтувати гостьовий диск з вказаними параметрами монтування"
+
+#: fish/cmds.c:2757
+msgid "mount a guest disk, read-only"
+msgstr "змонтувати гостьовий диск у режимі лише читання"
+
+#: fish/cmds.c:2758
+msgid "mount a guest disk with mount options and vfstype"
+msgstr ""
+"змонтувати гостьовий диск з вказаними параметрами монтування та типом ВФС"
+
+#: fish/cmds.c:2759
+msgid "show mountpoints"
+msgstr "показати точки монтування"
+
+#: fish/cmds.c:2760
+msgid "show mounted filesystems"
+msgstr "показати список змонтованих файлових систем"
+
+#: fish/cmds.c:2761
+msgid "move a file"
+msgstr "пересунути файл"
+
+#: fish/cmds.c:2762
+msgid "probe NTFS volume"
+msgstr "зондувати том NTFS"
+
+#: fish/cmds.c:2763
+msgid "resize an NTFS filesystem"
+msgstr "змінити розміри файлової системи NTFS"
+
+#: fish/cmds.c:2764
+msgid "resize an NTFS filesystem (with size)"
+msgstr "змінити розміри файлової системи NTFS (з визначенням розміру)"
+
+#: fish/cmds.c:2765
+msgid "add a partition to the device"
+msgstr "додати розділ на пристрій"
+
+#: fish/cmds.c:2766
+msgid "delete a partition"
+msgstr "вилучити розділ"
+
+#: fish/cmds.c:2767
+msgid "partition whole disk with a single primary partition"
+msgstr "поділити на розділи весь диск з єдиним основним розділом"
+
+#: fish/cmds.c:2768
+msgid "return true if a partition is bootable"
+msgstr "повернути «true», якщо розділ придатний до завантаження"
+
+#: fish/cmds.c:2769
+msgid "get the MBR type byte (ID byte) from a partition"
+msgstr "отримати байт типу MBR (байт-ідентифікатор) з розділу"
+
+#: fish/cmds.c:2770
+msgid "get the partition table type"
+msgstr "отримати тип таблиці розділів"
+
+#: fish/cmds.c:2771
+msgid "create an empty partition table"
+msgstr "створити порожню таблицю розділів"
+
+#: fish/cmds.c:2772
+msgid "list partitions on a device"
+msgstr "показати список розділів на пристрої"
+
+#: fish/cmds.c:2773
+msgid "make a partition bootable"
+msgstr "зробити розділ придатним до завантаження"
+
+#: fish/cmds.c:2774
+msgid "set the MBR type byte (ID byte) of a partition"
+msgstr "встановити байт типу MBR (байт-ідентифікатор) розділу"
+
+#: fish/cmds.c:2775
+msgid "set partition name"
+msgstr "встановити назву розділу"
+
+#: fish/cmds.c:2776
+msgid "convert partition name to device name"
+msgstr "перетворити назву розділу на назву пристрою"
+
+#: fish/cmds.c:2777
+msgid "ping the guest daemon"
+msgstr "перевірити луна-імпульсом фонову службу гостьових систем"
+
+#: fish/cmds.c:2778
+msgid "read part of a file"
+msgstr "прочитати частину файла"
+
+#: fish/cmds.c:2779
+msgid "read part of a device"
+msgstr "прочитати частину пристрою"
+
+#: fish/cmds.c:2780
+msgid "create an LVM physical volume"
+msgstr "створити фізичний том LVM"
+
+#: fish/cmds.c:2781
+msgid "remove an LVM physical volume"
+msgstr "вилучити фізичний том LVM"
+
+#: fish/cmds.c:2782
+msgid "resize an LVM physical volume"
+msgstr "змінити розміри фізичного тому LVM"
+
+#: fish/cmds.c:2783
+msgid "resize an LVM physical volume (with size)"
+msgstr "змінити розміри фізичного тому LVM (з визначенням розміру)"
+
+#: fish/cmds.c:2784 fish/cmds.c:2785
+msgid "list the LVM physical volumes (PVs)"
+msgstr "показати список фізичних томів LVM"
+
+#: fish/cmds.c:2786
+msgid "get the UUID of a physical volume"
+msgstr "отримати значення UUID фізичного тому"
+
+#: fish/cmds.c:2787
+msgid "write to part of a file"
+msgstr "записати частину файла"
+
+#: fish/cmds.c:2788
+msgid "write to part of a device"
+msgstr "записати частину пристрою"
+
+#: fish/cmds.c:2789
+msgid "read a file"
+msgstr "прочитати файл"
+
+#: fish/cmds.c:2790
+msgid "read file as lines"
+msgstr "прочитати файл як набір рядків"
+
+#: fish/cmds.c:2791
+msgid "read directories entries"
+msgstr "прочитати записи каталогів"
+
+#: fish/cmds.c:2792
+msgid "read the target of a symbolic link"
+msgstr "прочитати файл, на який вказує символічне посилання"
+
+#: fish/cmds.c:2793
+msgid "readlink on multiple files"
+msgstr "readlink для декількох файлів"
+
+#: fish/cmds.c:2794
+msgid "canonicalized absolute pathname"
+msgstr "канонічний запис абсолютного шляху"
+
+#: fish/cmds.c:2796
+msgid "close and reopen libguestfs handle"
+msgstr "закрити, а потім повторно відкрити елемент керування libguestfs"
+
+#: fish/cmds.c:2797
+msgid "resize an ext2, ext3 or ext4 filesystem"
+msgstr "змінити розміри файлової системи ext2, ext3 або ext4"
+
+#: fish/cmds.c:2798
+msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
+msgstr "змінити розміри файлової системи ext2, ext3 або ext4 до мінімальних"
+
+#: fish/cmds.c:2799
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
+msgstr ""
+"змінити розміри файлової системи ext2, ext3 або ext4 (з визначенням розміру)"
+
+#: fish/cmds.c:2800
+msgid "remove a file"
+msgstr "вилучити файл"
+
+#: fish/cmds.c:2801
+msgid "remove a file or directory recursively"
+msgstr "вилучити файл або каталог рекурсивно"
+
+#: fish/cmds.c:2802
+msgid "remove a directory"
+msgstr "вилучити каталог"
+
+#: fish/cmds.c:2803
+msgid "remove a mountpoint"
+msgstr "вилучити точку монтування"
+
+#: fish/cmds.c:2804
+msgid "scrub (securely wipe) a device"
+msgstr "витерти (безпечно спорожнити) пристрій"
+
+#: fish/cmds.c:2805
+msgid "scrub (securely wipe) a file"
+msgstr "витерти (безпечно спорожнити) файл"
+
+#: fish/cmds.c:2806
+msgid "scrub (securely wipe) free space"
+msgstr "витерти (безпечно спорожнити) вільний об’єм"
+
+#: fish/cmds.c:2807
+msgid "add options to kernel command line"
+msgstr "додати параметри до командного рядка ядра"
+
+#: fish/cmds.c:2808
+msgid "set the attach method"
+msgstr "встановити метод долучення"
+
+#: fish/cmds.c:2809
+msgid "set autosync mode"
+msgstr "встановити режим автоматичної синхронізації"
+
+#: fish/cmds.c:2810
+msgid "enable or disable direct appliance mode"
+msgstr "увімкнути або вимкнути режим безпосередньої роботи з пристроєм"
+
+#: fish/cmds.c:2811
+msgid "set the ext2/3/4 filesystem label"
+msgstr "встановити мітку файлової системи ext2/3/4 filesystem"
+
+#: fish/cmds.c:2812
+msgid "set the ext2/3/4 filesystem UUID"
+msgstr "встановити UUID файлової системи ext2/3/4"
+
+#: fish/cmds.c:2813
+msgid "set memory allocated to the qemu subprocess"
+msgstr "встановити дані пам’яті, отриманої підпроцесом qemu"
+
+#: fish/cmds.c:2814
+msgid "set enable network flag"
+msgstr "встановити значення прапорця вмикання мережі"
+
+#: fish/cmds.c:2815
+msgid "set the search path"
+msgstr "встановити адресу каталогу пошуку"
+
+#: fish/cmds.c:2816
+msgid "set the qemu binary"
+msgstr "встановити назву виконуваного файла qemu"
+
+#: fish/cmds.c:2817
+msgid "enable or disable the recovery process"
+msgstr "увімкнути або вимкнути процес відновлення"
+
+#: fish/cmds.c:2818
+msgid "set SELinux enabled or disabled at appliance boot"
+msgstr ""
+"встановити параметр вмикання або вимикання SELinux під час завантаження з "
+"пристрою"
+
+#: fish/cmds.c:2819
+msgid "enable or disable command traces"
+msgstr "увімкнути або вимкнути трасування команд"
+
+#: fish/cmds.c:2820
+msgid "set verbose mode"
+msgstr "увімкнути докладний режим"
+
+#: fish/cmds.c:2821
+msgid "set SELinux security context"
+msgstr "встановити значення контексту захисту SELinux"
+
+#: fish/cmds.c:2823 fish/cmds.c:2824
+msgid "create partitions on a block device"
+msgstr "створити розділи на блоковому пристрої"
+
+#: fish/cmds.c:2825
+msgid "modify a single partition on a block device"
+msgstr "змінити окремий розділ на блоковому пристрої"
+
+#: fish/cmds.c:2826
+msgid "display the disk geometry from the partition table"
+msgstr "показати дані щодо конфігурації диска з таблиці розділів"
+
+#: fish/cmds.c:2827
+msgid "display the kernel geometry"
+msgstr "показати дані щодо конфігурації ядра"
+
+#: fish/cmds.c:2828
+msgid "display the partition table"
+msgstr "показати таблицю розділів"
+
+#: fish/cmds.c:2829
+msgid "run a command via the shell"
+msgstr "запустити команду у оболонці"
+
+#: fish/cmds.c:2830
+msgid "run a command via the shell returning lines"
+msgstr "виконати команду за допомогою оболонки, повернути виведені рядки"
+
+#: fish/cmds.c:2831
+msgid "sleep for some seconds"
+msgstr "призупинити обробку на декілька секунд"
+
+#: fish/cmds.c:2832
+msgid "create a sparse disk image and add"
+msgstr "створити розріджений образ диска та додати"
+
+#: fish/cmds.c:2833
+msgid "get file information"
+msgstr "отримати дані щодо файла"
+
+#: fish/cmds.c:2834
+msgid "get file system statistics"
+msgstr "отримати статистичні дані щодо файлової системи"
+
+#: fish/cmds.c:2835 fish/cmds.c:2836
+msgid "print the printable strings in a file"
+msgstr "вивести придатні до друку рядки до файла"
+
+#: fish/cmds.c:2837
+msgid "list supported groups of commands"
+msgstr "показати список підтримуваних груп команд"
+
+#: fish/cmds.c:2838
+msgid "disable swap on device"
+msgstr "вимкнути резервування місця на диску"
+
+#: fish/cmds.c:2839
+msgid "disable swap on file"
+msgstr "вимкнути резервування місця у файлі"
+
+#: fish/cmds.c:2840
+msgid "disable swap on labeled swap partition"
+msgstr "вимкнути резервування місця на позначеному розділі резервної пам’яті"
+
+#: fish/cmds.c:2841
+msgid "disable swap on swap partition by UUID"
+msgstr ""
+"вимкнути резервування місця на розділі резервної пам’яті, вказаному за "
+"допомогою UUID"
+
+#: fish/cmds.c:2842
+msgid "enable swap on device"
+msgstr "увімкнути резервну пам’ять на диску"
+
+#: fish/cmds.c:2843
+msgid "enable swap on file"
+msgstr "увімкнути резервну пам’ять у файлі"
+
+#: fish/cmds.c:2844
+msgid "enable swap on labeled swap partition"
+msgstr "увімкнути резервування місця на позначеному розділі резервної пам’яті"
+
+#: fish/cmds.c:2845
+msgid "enable swap on swap partition by UUID"
+msgstr ""
+"увімкнути резервування місця на розділі резервної пам’яті, вказаному за "
+"допомогою UUID"
+
+#: fish/cmds.c:2846
+msgid "sync disks, writes are flushed through to the disk image"
+msgstr "синхронізувати диски, буфери запису буде випорожнено до образу диска"
+
+#: fish/cmds.c:2847
+msgid "return last 10 lines of a file"
+msgstr "повернути останні 10 рядків файла"
+
+#: fish/cmds.c:2848
+msgid "return last N lines of a file"
+msgstr "повернути останні N рядків файла"
+
+#: fish/cmds.c:2849
+msgid "unpack tarfile to directory"
+msgstr "розпакувати архів tar до каталогу"
+
+#: fish/cmds.c:2850
+msgid "pack directory into tarfile"
+msgstr "запакувати каталог до архіву tar"
+
+#: fish/cmds.c:2851 fish/cmds.c:2858
+msgid "unpack compressed tarball to directory"
+msgstr "розпакувати стиснений архів tar до каталогу"
+
+#: fish/cmds.c:2852 fish/cmds.c:2859
+msgid "pack directory into compressed tarball"
+msgstr "запакувати каталог до стиснутого архіву tar"
+
+#: fish/cmds.c:2853
+msgid "print elapsed time taken to run a command"
+msgstr "показувати час, витрачений на виконання команди"
+
+#: fish/cmds.c:2854
+msgid "update file timestamps or create a new file"
+msgstr "оновити позначки часу файла або створити новий файл"
+
+#: fish/cmds.c:2855
+msgid "truncate a file to zero size"
+msgstr "обрізати файл до нульового розміру"
+
+#: fish/cmds.c:2856
+msgid "truncate a file to a particular size"
+msgstr "обрізати файл до вказаного розміру"
+
+#: fish/cmds.c:2857
+msgid "get ext2/ext3/ext4 superblock details"
+msgstr "отримати дані щодо суперблоку ext2/ext3/ext4"
+
+#: fish/cmds.c:2860
+msgid "set file mode creation mask (umask)"
+msgstr "встановити маску режиму створення файла (umask)"
+
+#: fish/cmds.c:2861
+msgid "unmount a filesystem"
+msgstr "демонтувати файлову систему"
+
+#: fish/cmds.c:2862
+msgid "unmount all filesystems"
+msgstr "демонтувати всі файлові системи"
+
+#: fish/cmds.c:2863
+msgid "upload a file from the local machine"
+msgstr "вивантажити файл з локальної системи"
+
+#: fish/cmds.c:2864
+msgid "upload a file from the local machine with offset"
+msgstr "вивантажити файл з локальної системи зі зсувом"
+
+#: fish/cmds.c:2865
+msgid "set timestamp of a file with nanosecond precision"
+msgstr "встановити часову позначку файла з точністю до наносекунди"
+
+#: fish/cmds.c:2866
+msgid "get the library version number"
+msgstr "отримати номер версії бібліотеки"
+
+#: fish/cmds.c:2867
+msgid "get the filesystem label"
+msgstr "отримати значення мітки файлової системи"
+
+#: fish/cmds.c:2868
+msgid "get the Linux VFS type corresponding to a mounted device"
+msgstr ""
+"отримати тип віртуальної файлової системи Linux, відповідний до змонтованого"
+" пристрою"
+
+#: fish/cmds.c:2869
+msgid "get the filesystem UUID"
+msgstr "отримати UUID файлової системи"
+
+#: fish/cmds.c:2870
+msgid "activate or deactivate some volume groups"
+msgstr "задіяти або вимкнути певні групи томів"
+
+#: fish/cmds.c:2871
+msgid "activate or deactivate all volume groups"
+msgstr "задіяти або вимкнути всі групи томів"
+
+#: fish/cmds.c:2872
+msgid "create an LVM volume group"
+msgstr "створити групу томів LVM"
+
+#: fish/cmds.c:2873
+msgid "get the LV UUIDs of all LVs in the volume group"
+msgstr "отримати UUID всіх логічних томів у групі томів"
+
+#: fish/cmds.c:2874
+msgid "get the PV UUIDs containing the volume group"
+msgstr "отримати UUID фізичних томів, що містяться у групі томів"
+
+#: fish/cmds.c:2875
+msgid "remove an LVM volume group"
+msgstr "вилучити групу томів LVM"
+
+#: fish/cmds.c:2876
+msgid "rename an LVM volume group"
+msgstr "перейменувати групу томів LVM"
+
+#: fish/cmds.c:2877 fish/cmds.c:2878
+msgid "list the LVM volume groups (VGs)"
+msgstr "показати список груп томів LVM"
+
+#: fish/cmds.c:2879
+msgid "rescan for LVM physical volumes, volume groups and logical volumes"
+msgstr ""
+"виконати повторне сканування фізичних томів, груп томів та логічних томів "
+"LVM"
+
+#: fish/cmds.c:2880
+msgid "get the UUID of a volume group"
+msgstr "отримати UUID групи томів"
+
+#: fish/cmds.c:2881
+msgid "count characters in a file"
+msgstr "порахувати символи у файлі"
+
+#: fish/cmds.c:2882
+msgid "count lines in a file"
+msgstr "порахувати рядки у файлі"
+
+#: fish/cmds.c:2883
+msgid "count words in a file"
+msgstr "порахувати слова у файлі"
+
+#: fish/cmds.c:2884
+msgid "create a new file"
+msgstr "створити новий файл"
+
+#: fish/cmds.c:2885
+msgid "create a file"
+msgstr "створити файл"
+
+#: fish/cmds.c:2888
+msgid "write zeroes to the device"
+msgstr "записати нулі на пристрій"
+
+#: fish/cmds.c:2889
+msgid "write zeroes to an entire device"
+msgstr "занулити весь пристрій"
+
+#: fish/cmds.c:2890
+msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
+msgstr ""
+"занулити невикористані inode і дискові блоки на файловій системі ext2/3"
+
+#: fish/cmds.c:2893
+msgid "determine file type inside a compressed file"
+msgstr "визначити тип файлів у стиснутому файлі"
+
+#: fish/cmds.c:2896
+msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
+msgstr ""
+"Скористайтеся -h <команда> або help <команда>, щоб переглянути докладну "
+"довідку щодо команди."
+
+#: fish/cmds.c:3214 fish/cmds.c:3228 fish/cmds.c:3244 fish/cmds.c:3261
+#: fish/cmds.c:3278 fish/cmds.c:3296 fish/cmds.c:3315 fish/cmds.c:3331
+#: fish/cmds.c:3349 fish/cmds.c:3365 fish/cmds.c:3383 fish/cmds.c:3399
+#: fish/cmds.c:3416 fish/cmds.c:3431 fish/cmds.c:3449 fish/cmds.c:3464
+#: fish/cmds.c:3480 fish/cmds.c:3496 fish/cmds.c:3512 fish/cmds.c:3528
+#: fish/cmds.c:3544 fish/cmds.c:3562 fish/cmds.c:3595 fish/cmds.c:3611
+#: fish/cmds.c:3627 fish/cmds.c:3646 fish/cmds.c:3661 fish/cmds.c:3679
+#: fish/cmds.c:3694 fish/cmds.c:3712 fish/cmds.c:3727 fish/cmds.c:3745
+#: fish/cmds.c:3760 fish/cmds.c:3779 fish/cmds.c:3798 fish/cmds.c:3816
+#: fish/cmds.c:3836 fish/cmds.c:3855 fish/cmds.c:3875 fish/cmds.c:3895
+#: fish/cmds.c:3915 fish/cmds.c:3934 fish/cmds.c:3953 fish/cmds.c:3973
+#: fish/cmds.c:3993 fish/cmds.c:4013 fish/cmds.c:4028 fish/cmds.c:4044
+#: fish/cmds.c:4116 fish/cmds.c:4134 fish/cmds.c:4151 fish/cmds.c:4230
+#: fish/cmds.c:4250 fish/cmds.c:4270 fish/cmds.c:4290 fish/cmds.c:4310
+#: fish/cmds.c:4330 fish/cmds.c:4349 fish/cmds.c:4368 fish/cmds.c:4387
+#: fish/cmds.c:4402 fish/cmds.c:4422 fish/cmds.c:4438 fish/cmds.c:4454
+#: fish/cmds.c:4473 fish/cmds.c:4495 fish/cmds.c:4517 fish/cmds.c:4537
+#: fish/cmds.c:4554 fish/cmds.c:4571 fish/cmds.c:4588 fish/cmds.c:4605
+#: fish/cmds.c:4622 fish/cmds.c:4639 fish/cmds.c:4656 fish/cmds.c:4675
+#: fish/cmds.c:4698 fish/cmds.c:4734 fish/cmds.c:4751 fish/cmds.c:4774
+#: fish/cmds.c:4796 fish/cmds.c:4817 fish/cmds.c:4837 fish/cmds.c:4856
+#: fish/cmds.c:4876 fish/cmds.c:4894 fish/cmds.c:4912 fish/cmds.c:4926
+#: fish/cmds.c:4942 fish/cmds.c:4962 fish/cmds.c:4981 fish/cmds.c:5000
+#: fish/cmds.c:5019 fish/cmds.c:5038 fish/cmds.c:5058 fish/cmds.c:5098
+#: fish/cmds.c:5155 fish/cmds.c:5176 fish/cmds.c:5197 fish/cmds.c:5218
+#: fish/cmds.c:5236 fish/cmds.c:5258 fish/cmds.c:5296 fish/cmds.c:5318
+#: fish/cmds.c:5397 fish/cmds.c:5436 fish/cmds.c:5451 fish/cmds.c:5468
+#: fish/cmds.c:5482 fish/cmds.c:5498 fish/cmds.c:5520 fish/cmds.c:5542
+#: fish/cmds.c:5564 fish/cmds.c:5586 fish/cmds.c:5608 fish/cmds.c:5630
+#: fish/cmds.c:5650 fish/cmds.c:5667 fish/cmds.c:5684 fish/cmds.c:5703
+#: fish/cmds.c:5722 fish/cmds.c:5742 fish/cmds.c:5778 fish/cmds.c:5797
+#: fish/cmds.c:5816 fish/cmds.c:5833 fish/cmds.c:5851 fish/cmds.c:5874
+#: fish/cmds.c:5897 fish/cmds.c:5921 fish/cmds.c:5944 fish/cmds.c:5965
+#: fish/cmds.c:5988 fish/cmds.c:6011 fish/cmds.c:6031 fish/cmds.c:6053
+#: fish/cmds.c:6074 fish/cmds.c:6097 fish/cmds.c:6114 fish/cmds.c:6131
+#: fish/cmds.c:6149 fish/cmds.c:6167 fish/cmds.c:6188 fish/cmds.c:6206
+#: fish/cmds.c:6227 fish/cmds.c:6247 fish/cmds.c:6265 fish/cmds.c:6286
+#: fish/cmds.c:6309 fish/cmds.c:6332 fish/cmds.c:6354 fish/cmds.c:6387
+#: fish/cmds.c:6404 fish/cmds.c:6421 fish/cmds.c:6445 fish/cmds.c:6468
+#: fish/cmds.c:6491 fish/cmds.c:6513 fish/cmds.c:6530 fish/cmds.c:6552
+#: fish/cmds.c:6646 fish/cmds.c:6666 fish/cmds.c:6686 fish/cmds.c:6706
+#: fish/cmds.c:6724 fish/cmds.c:6745 fish/cmds.c:6781 fish/cmds.c:6798
+#: fish/cmds.c:6820 fish/cmds.c:6837 fish/cmds.c:6873 fish/cmds.c:6893
+#: fish/cmds.c:6913 fish/cmds.c:6933 fish/cmds.c:6955 fish/cmds.c:6972
+#: fish/cmds.c:6991 fish/cmds.c:7010 fish/cmds.c:7032 fish/cmds.c:7053
+#: fish/cmds.c:7074 fish/cmds.c:7095 fish/cmds.c:7118 fish/cmds.c:7159
+#: fish/cmds.c:7182 fish/cmds.c:7221 fish/cmds.c:7238 fish/cmds.c:7257
+#: fish/cmds.c:7278 fish/cmds.c:7301 fish/cmds.c:7323 fish/cmds.c:7341
+#: fish/cmds.c:7360 fish/cmds.c:7381 fish/cmds.c:7458 fish/cmds.c:7499
+#: fish/cmds.c:7578 fish/cmds.c:7654 fish/cmds.c:7691 fish/cmds.c:7714
+#: fish/cmds.c:7735 fish/cmds.c:7758 fish/cmds.c:7780 fish/cmds.c:7805
+#: fish/cmds.c:7848 fish/cmds.c:7889 fish/cmds.c:7910 fish/cmds.c:7928
+#: fish/cmds.c:7947 fish/cmds.c:7964 fish/cmds.c:7982 fish/cmds.c:8009
+#: fish/cmds.c:8033 fish/cmds.c:8057 fish/cmds.c:8081 fish/cmds.c:8105
+#: fish/cmds.c:8129 fish/cmds.c:8153 fish/cmds.c:8177 fish/cmds.c:8201
+#: fish/cmds.c:8225 fish/cmds.c:8249 fish/cmds.c:8273 fish/cmds.c:8296
+#: fish/cmds.c:8319 fish/cmds.c:8340 fish/cmds.c:8361 fish/cmds.c:8382
+#: fish/cmds.c:8402 fish/cmds.c:8425 fish/cmds.c:8463 fish/cmds.c:8480
+#: fish/cmds.c:8497 fish/cmds.c:8516 fish/cmds.c:8535 fish/cmds.c:8552
+#: fish/cmds.c:8569 fish/cmds.c:8586 fish/cmds.c:8603 fish/cmds.c:8622
+#: fish/cmds.c:8658 fish/cmds.c:8698 fish/cmds.c:8731 fish/cmds.c:8748
+#: fish/cmds.c:8765 fish/cmds.c:8781 fish/cmds.c:8796 fish/cmds.c:8817
+#: fish/cmds.c:8855 fish/cmds.c:8893 fish/cmds.c:8932 fish/cmds.c:8972
+#: fish/cmds.c:9013 fish/cmds.c:9054 fish/cmds.c:9092 fish/cmds.c:9109
+#: fish/cmds.c:9132 fish/cmds.c:9154 fish/cmds.c:9176 fish/cmds.c:9196
+#: fish/cmds.c:9216 fish/cmds.c:9252 fish/cmds.c:9324 fish/cmds.c:9364
+#: fish/cmds.c:9422 fish/cmds.c:9448 fish/cmds.c:9474 fish/cmds.c:9502
+#: fish/cmds.c:9561 fish/cmds.c:9582 fish/cmds.c:9627 fish/cmds.c:9647
+#: fish/cmds.c:9686 fish/cmds.c:9723 fish/cmds.c:9743 fish/cmds.c:9765
+#: fish/cmds.c:9822 fish/cmds.c:9842 fish/cmds.c:9864 fish/cmds.c:9886
+#: fish/cmds.c:9905 fish/cmds.c:9925 fish/cmds.c:9952 fish/cmds.c:9972
+#: fish/cmds.c:9992 fish/cmds.c:10012 fish/cmds.c:10032 fish/cmds.c:10054
+#: fish/cmds.c:10089 fish/cmds.c:10107 fish/cmds.c:10130 fish/cmds.c:10152
+#: fish/cmds.c:10167 fish/cmds.c:10184 fish/cmds.c:10221 fish/cmds.c:10260
+#: fish/cmds.c:10300 fish/cmds.c:10356 fish/cmds.c:10378 fish/cmds.c:10414
+#: fish/cmds.c:10429 fish/cmds.c:10449 fish/cmds.c:10489 fish/cmds.c:10512
+#: fish/cmds.c:10536 fish/cmds.c:10561 fish/cmds.c:10602 fish/cmds.c:10627
+#: fish/cmds.c:10665 fish/cmds.c:10696 fish/cmds.c:10727 fish/cmds.c:10755
+#: fish/cmds.c:10775 fish/cmds.c:10807 fish/cmds.c:10827 fish/cmds.c:10847
+#: fish/cmds.c:10864 fish/cmds.c:10882 fish/cmds.c:10905 fish/cmds.c:10926
+#: fish/cmds.c:10945 fish/cmds.c:10987 fish/cmds.c:11030 fish/cmds.c:11074
+#: fish/cmds.c:11113 fish/cmds.c:11132 fish/cmds.c:11152 fish/cmds.c:11172
+#: fish/cmds.c:11193 fish/cmds.c:11214 fish/cmds.c:11235 fish/cmds.c:11256
+#: fish/cmds.c:11277 fish/cmds.c:11299 fish/cmds.c:11337 fish/cmds.c:11388
+#: fish/cmds.c:11426 fish/cmds.c:11482 fish/cmds.c:11572 fish/cmds.c:11601
+#: fish/cmds.c:11628
+#, c-format
+msgid "%s should have %d parameter(s)\n"
+msgstr "%s повинен мати %d параметрів\n"
+
+#: fish/cmds.c:3215 fish/cmds.c:3229 fish/cmds.c:3245 fish/cmds.c:3262
+#: fish/cmds.c:3279 fish/cmds.c:3297 fish/cmds.c:3316 fish/cmds.c:3332
+#: fish/cmds.c:3350 fish/cmds.c:3366 fish/cmds.c:3384 fish/cmds.c:3400
+#: fish/cmds.c:3417 fish/cmds.c:3432 fish/cmds.c:3450 fish/cmds.c:3465
+#: fish/cmds.c:3481 fish/cmds.c:3497 fish/cmds.c:3513 fish/cmds.c:3529
+#: fish/cmds.c:3545 fish/cmds.c:3563 fish/cmds.c:3596 fish/cmds.c:3612
+#: fish/cmds.c:3628 fish/cmds.c:3647 fish/cmds.c:3662 fish/cmds.c:3680
+#: fish/cmds.c:3695 fish/cmds.c:3713 fish/cmds.c:3728 fish/cmds.c:3746
+#: fish/cmds.c:3761 fish/cmds.c:3780 fish/cmds.c:3799 fish/cmds.c:3817
+#: fish/cmds.c:3837 fish/cmds.c:3856 fish/cmds.c:3876 fish/cmds.c:3896
+#: fish/cmds.c:3916 fish/cmds.c:3935 fish/cmds.c:3954 fish/cmds.c:3974
+#: fish/cmds.c:3994 fish/cmds.c:4014 fish/cmds.c:4029 fish/cmds.c:4045
+#: fish/cmds.c:4066 fish/cmds.c:4117 fish/cmds.c:4135 fish/cmds.c:4152
+#: fish/cmds.c:4173 fish/cmds.c:4231 fish/cmds.c:4251 fish/cmds.c:4271
+#: fish/cmds.c:4291 fish/cmds.c:4311 fish/cmds.c:4331 fish/cmds.c:4350
+#: fish/cmds.c:4369 fish/cmds.c:4388 fish/cmds.c:4403 fish/cmds.c:4423
+#: fish/cmds.c:4439 fish/cmds.c:4455 fish/cmds.c:4474 fish/cmds.c:4496
+#: fish/cmds.c:4518 fish/cmds.c:4538 fish/cmds.c:4555 fish/cmds.c:4572
+#: fish/cmds.c:4589 fish/cmds.c:4606 fish/cmds.c:4623 fish/cmds.c:4640
+#: fish/cmds.c:4657 fish/cmds.c:4676 fish/cmds.c:4699 fish/cmds.c:4735
+#: fish/cmds.c:4752 fish/cmds.c:4775 fish/cmds.c:4797 fish/cmds.c:4818
+#: fish/cmds.c:4838 fish/cmds.c:4857 fish/cmds.c:4877 fish/cmds.c:4895
+#: fish/cmds.c:4913 fish/cmds.c:4927 fish/cmds.c:4943 fish/cmds.c:4963
+#: fish/cmds.c:4982 fish/cmds.c:5001 fish/cmds.c:5020 fish/cmds.c:5039
+#: fish/cmds.c:5059 fish/cmds.c:5099 fish/cmds.c:5156 fish/cmds.c:5177
+#: fish/cmds.c:5198 fish/cmds.c:5219 fish/cmds.c:5237 fish/cmds.c:5259
+#: fish/cmds.c:5297 fish/cmds.c:5319 fish/cmds.c:5398 fish/cmds.c:5437
+#: fish/cmds.c:5452 fish/cmds.c:5469 fish/cmds.c:5483 fish/cmds.c:5499
+#: fish/cmds.c:5521 fish/cmds.c:5543 fish/cmds.c:5565 fish/cmds.c:5587
+#: fish/cmds.c:5609 fish/cmds.c:5631 fish/cmds.c:5651 fish/cmds.c:5668
+#: fish/cmds.c:5685 fish/cmds.c:5704 fish/cmds.c:5723 fish/cmds.c:5743
+#: fish/cmds.c:5779 fish/cmds.c:5798 fish/cmds.c:5817 fish/cmds.c:5834
+#: fish/cmds.c:5852 fish/cmds.c:5875 fish/cmds.c:5898 fish/cmds.c:5922
+#: fish/cmds.c:5945 fish/cmds.c:5966 fish/cmds.c:5989 fish/cmds.c:6012
+#: fish/cmds.c:6032 fish/cmds.c:6054 fish/cmds.c:6075 fish/cmds.c:6098
+#: fish/cmds.c:6115 fish/cmds.c:6132 fish/cmds.c:6150 fish/cmds.c:6168
+#: fish/cmds.c:6189 fish/cmds.c:6207 fish/cmds.c:6228 fish/cmds.c:6248
+#: fish/cmds.c:6266 fish/cmds.c:6287 fish/cmds.c:6310 fish/cmds.c:6333
+#: fish/cmds.c:6355 fish/cmds.c:6388 fish/cmds.c:6405 fish/cmds.c:6422
+#: fish/cmds.c:6446 fish/cmds.c:6469 fish/cmds.c:6492 fish/cmds.c:6514
+#: fish/cmds.c:6531 fish/cmds.c:6553 fish/cmds.c:6647 fish/cmds.c:6667
+#: fish/cmds.c:6687 fish/cmds.c:6707 fish/cmds.c:6725 fish/cmds.c:6746
+#: fish/cmds.c:6782 fish/cmds.c:6799 fish/cmds.c:6821 fish/cmds.c:6838
+#: fish/cmds.c:6874 fish/cmds.c:6894 fish/cmds.c:6914 fish/cmds.c:6934
+#: fish/cmds.c:6956 fish/cmds.c:6973 fish/cmds.c:6992 fish/cmds.c:7011
+#: fish/cmds.c:7033 fish/cmds.c:7054 fish/cmds.c:7075 fish/cmds.c:7096
+#: fish/cmds.c:7119 fish/cmds.c:7160 fish/cmds.c:7183 fish/cmds.c:7222
+#: fish/cmds.c:7239 fish/cmds.c:7258 fish/cmds.c:7279 fish/cmds.c:7302
+#: fish/cmds.c:7324 fish/cmds.c:7342 fish/cmds.c:7361 fish/cmds.c:7382
+#: fish/cmds.c:7459 fish/cmds.c:7500 fish/cmds.c:7579 fish/cmds.c:7655
+#: fish/cmds.c:7692 fish/cmds.c:7715 fish/cmds.c:7736 fish/cmds.c:7759
+#: fish/cmds.c:7781 fish/cmds.c:7806 fish/cmds.c:7849 fish/cmds.c:7890
+#: fish/cmds.c:7911 fish/cmds.c:7929 fish/cmds.c:7948 fish/cmds.c:7965
+#: fish/cmds.c:7983 fish/cmds.c:8010 fish/cmds.c:8034 fish/cmds.c:8058
+#: fish/cmds.c:8082 fish/cmds.c:8106 fish/cmds.c:8130 fish/cmds.c:8154
+#: fish/cmds.c:8178 fish/cmds.c:8202 fish/cmds.c:8226 fish/cmds.c:8250
+#: fish/cmds.c:8274 fish/cmds.c:8297 fish/cmds.c:8320 fish/cmds.c:8341
+#: fish/cmds.c:8362 fish/cmds.c:8383 fish/cmds.c:8403 fish/cmds.c:8426
+#: fish/cmds.c:8464 fish/cmds.c:8481 fish/cmds.c:8498 fish/cmds.c:8517
+#: fish/cmds.c:8536 fish/cmds.c:8553 fish/cmds.c:8570 fish/cmds.c:8587
+#: fish/cmds.c:8604 fish/cmds.c:8623 fish/cmds.c:8659 fish/cmds.c:8699
+#: fish/cmds.c:8732 fish/cmds.c:8749 fish/cmds.c:8766 fish/cmds.c:8782
+#: fish/cmds.c:8797 fish/cmds.c:8818 fish/cmds.c:8856 fish/cmds.c:8894
+#: fish/cmds.c:8933 fish/cmds.c:8973 fish/cmds.c:9014 fish/cmds.c:9055
+#: fish/cmds.c:9093 fish/cmds.c:9110 fish/cmds.c:9133 fish/cmds.c:9155
+#: fish/cmds.c:9177 fish/cmds.c:9197 fish/cmds.c:9217 fish/cmds.c:9253
+#: fish/cmds.c:9325 fish/cmds.c:9365 fish/cmds.c:9423 fish/cmds.c:9449
+#: fish/cmds.c:9475 fish/cmds.c:9503 fish/cmds.c:9562 fish/cmds.c:9583
+#: fish/cmds.c:9628 fish/cmds.c:9648 fish/cmds.c:9687 fish/cmds.c:9724
+#: fish/cmds.c:9744 fish/cmds.c:9766 fish/cmds.c:9823 fish/cmds.c:9843
+#: fish/cmds.c:9865 fish/cmds.c:9887 fish/cmds.c:9906 fish/cmds.c:9926
+#: fish/cmds.c:9953 fish/cmds.c:9973 fish/cmds.c:9993 fish/cmds.c:10013
+#: fish/cmds.c:10033 fish/cmds.c:10055 fish/cmds.c:10090 fish/cmds.c:10108
+#: fish/cmds.c:10131 fish/cmds.c:10153 fish/cmds.c:10168 fish/cmds.c:10185
+#: fish/cmds.c:10222 fish/cmds.c:10261 fish/cmds.c:10301 fish/cmds.c:10357
+#: fish/cmds.c:10379 fish/cmds.c:10415 fish/cmds.c:10430 fish/cmds.c:10450
+#: fish/cmds.c:10490 fish/cmds.c:10513 fish/cmds.c:10537 fish/cmds.c:10562
+#: fish/cmds.c:10603 fish/cmds.c:10628 fish/cmds.c:10666 fish/cmds.c:10697
+#: fish/cmds.c:10728 fish/cmds.c:10756 fish/cmds.c:10776 fish/cmds.c:10808
+#: fish/cmds.c:10828 fish/cmds.c:10848 fish/cmds.c:10865 fish/cmds.c:10883
+#: fish/cmds.c:10906 fish/cmds.c:10927 fish/cmds.c:10946 fish/cmds.c:10988
+#: fish/cmds.c:11031 fish/cmds.c:11075 fish/cmds.c:11114 fish/cmds.c:11133
+#: fish/cmds.c:11153 fish/cmds.c:11173 fish/cmds.c:11194 fish/cmds.c:11215
+#: fish/cmds.c:11236 fish/cmds.c:11257 fish/cmds.c:11278 fish/cmds.c:11300
+#: fish/cmds.c:11338 fish/cmds.c:11389 fish/cmds.c:11427 fish/cmds.c:11483
+#: fish/cmds.c:11506 fish/cmds.c:11573 fish/cmds.c:11602 fish/cmds.c:11629
+#, c-format
+msgid "type 'help %s' for help on %s\n"
+msgstr "введіть «help %s», щоб отримати довідку щодо %s\n"
+
+#: fish/cmds.c:3573 fish/cmds.c:4711 fish/cmds.c:5069 fish/cmds.c:5109
+#: fish/cmds.c:5128 fish/cmds.c:5271 fish/cmds.c:5330 fish/cmds.c:5349
+#: fish/cmds.c:5368 fish/cmds.c:5411 fish/cmds.c:5754 fish/cmds.c:6365
+#: fish/cmds.c:6564 fish/cmds.c:6583 fish/cmds.c:6602 fish/cmds.c:6621
+#: fish/cmds.c:6757 fish/cmds.c:6848 fish/cmds.c:7129 fish/cmds.c:7193
+#: fish/cmds.c:7392 fish/cmds.c:7411 fish/cmds.c:7430 fish/cmds.c:7469
+#: fish/cmds.c:7510 fish/cmds.c:7529 fish/cmds.c:7548 fish/cmds.c:7589
+#: fish/cmds.c:7608 fish/cmds.c:7627 fish/cmds.c:7665 fish/cmds.c:7818
+#: fish/cmds.c:7861 fish/cmds.c:8438 fish/cmds.c:8633 fish/cmds.c:8671
+#: fish/cmds.c:8709 fish/cmds.c:8829 fish/cmds.c:8866 fish/cmds.c:8904
+#: fish/cmds.c:8943 fish/cmds.c:8984 fish/cmds.c:9025 fish/cmds.c:9066
+#: fish/cmds.c:9229 fish/cmds.c:9265 fish/cmds.c:9278 fish/cmds.c:9291
+#: fish/cmds.c:9304 fish/cmds.c:9337 fish/cmds.c:9375 fish/cmds.c:9394
+#: fish/cmds.c:9515 fish/cmds.c:9534 fish/cmds.c:9595 fish/cmds.c:9608
+#: fish/cmds.c:9659 fish/cmds.c:9698 fish/cmds.c:9776 fish/cmds.c:9795
+#: fish/cmds.c:10069 fish/cmds.c:10196 fish/cmds.c:10233 fish/cmds.c:10272
+#: fish/cmds.c:10312 fish/cmds.c:10331 fish/cmds.c:10390 fish/cmds.c:10463
+#: fish/cmds.c:10573 fish/cmds.c:10643 fish/cmds.c:10677 fish/cmds.c:10708
+#: fish/cmds.c:10739 fish/cmds.c:10788 fish/cmds.c:10959 fish/cmds.c:11001
+#: fish/cmds.c:11046 fish/cmds.c:11088 fish/cmds.c:11314 fish/cmds.c:11352
+#: fish/cmds.c:11365 fish/cmds.c:11403 fish/cmds.c:11438 fish/cmds.c:11457
+#: fish/cmds.c:11524
+#, c-format
+msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
+msgstr "%s: %s: некоректний цілий параметр (%s повернуто %d)\n"
+
+#: fish/cmds.c:3579 fish/cmds.c:4717 fish/cmds.c:5075 fish/cmds.c:5115
+#: fish/cmds.c:5134 fish/cmds.c:5277 fish/cmds.c:5336 fish/cmds.c:5355
+#: fish/cmds.c:5374 fish/cmds.c:5417 fish/cmds.c:5760 fish/cmds.c:6371
+#: fish/cmds.c:6570 fish/cmds.c:6589 fish/cmds.c:6608 fish/cmds.c:6627
+#: fish/cmds.c:6763 fish/cmds.c:6854 fish/cmds.c:7135 fish/cmds.c:7199
+#: fish/cmds.c:7398 fish/cmds.c:7417 fish/cmds.c:7436 fish/cmds.c:7475
+#: fish/cmds.c:7516 fish/cmds.c:7535 fish/cmds.c:7554 fish/cmds.c:7595
+#: fish/cmds.c:7614 fish/cmds.c:7633 fish/cmds.c:7671 fish/cmds.c:7824
+#: fish/cmds.c:7867 fish/cmds.c:8444 fish/cmds.c:8639 fish/cmds.c:8677
+#: fish/cmds.c:8715 fish/cmds.c:8835 fish/cmds.c:8872 fish/cmds.c:8910
+#: fish/cmds.c:8949 fish/cmds.c:8990 fish/cmds.c:9031 fish/cmds.c:9072
+#: fish/cmds.c:9343 fish/cmds.c:9381 fish/cmds.c:9400 fish/cmds.c:9521
+#: fish/cmds.c:9665 fish/cmds.c:9704 fish/cmds.c:9782 fish/cmds.c:9801
+#: fish/cmds.c:10202 fish/cmds.c:10239 fish/cmds.c:10278 fish/cmds.c:10318
+#: fish/cmds.c:10337 fish/cmds.c:10396 fish/cmds.c:10469 fish/cmds.c:10579
+#: fish/cmds.c:10965 fish/cmds.c:11007 fish/cmds.c:11052 fish/cmds.c:11094
+#: fish/cmds.c:11444 fish/cmds.c:11530
+#, c-format
+msgid "%s: %s: integer out of range\n"
+msgstr "%s: %s: ціле значення поза межами діапазону\n"
+
+#: fish/cmds.c:4065 fish/cmds.c:4172 fish/cmds.c:11505
+#, c-format
+msgid "%s should have %d-%d parameter(s)\n"
+msgstr "%s повинен мати %d-%d параметрів\n"
+
+#: fish/cmds.c:4091 fish/cmds.c:4203 fish/cmds.c:11545
+#, c-format
+msgid "%s: unknown optional argument \"%s\"\n"
+msgstr "%s: невідомий додатковий аргумент «%s»\n"
+
+#: fish/cmds.c:4097 fish/cmds.c:4209 fish/cmds.c:11551
+#, c-format
+msgid "%s: optional argument \"%s\" given twice\n"
+msgstr "%s: додатковий аргумент «%s» вказано двічі\n"
+
+#: fish/cmds.c:11646
+#, c-format
+msgid "%s: unknown command\n"
+msgstr "%s: невідома команда\n"
+
+#: fish/copy.c:41
+#, c-format
+msgid ""
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
+msgstr ""
+"скористайтеся командою «copy-in <локальний файл> [<локальний файл>...] "
+"<віддалений каталог>» для копіювання файлів на образ\n"
+
+#: fish/copy.c:54
+#, c-format
+msgid "copy-in: target '%s' is not a directory\n"
+msgstr "copy-in: призначення «%s» не є каталогом\n"
+
+#: fish/copy.c:139
+#, c-format
+msgid "error: argument is zero length or longer than maximum permitted\n"
+msgstr "помилка: аргумент нульової або вищої за максимальну дозволену довжини\n"
+
+#: fish/copy.c:184
+#, c-format
+msgid ""
+"use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
+"image\n"
+msgstr ""
+"скористайтеся командою «copy-out <віддалений файл> [<віддалений файл>...] "
+"<локальний каталог>» для копіювання файлів з образу\n"
+
+#: fish/copy.c:195
+#, c-format
+msgid "copy-out: target '%s' is not a directory\n"
+msgstr "copy-out: призначення «%s» не є каталогом\n"
+
+#: fish/copy.c:225
+#, c-format
+msgid "copy-out: '%s' is not a file or directory\n"
+msgstr "copy-out: «%s» не є файлом або каталогом\n"
+
+#: fish/edit.c:44
+#, c-format
+msgid "use '%s filename' to edit a file\n"
+msgstr "скористайтеся командою «%s назва_файла» для редагування файла\n"
+
+#: fish/fish.c:100
+#, c-format
+msgid ""
+"%s: guest filesystem shell\n"
+"%s lets you edit virtual machine filesystems\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] cmd [: cmd : cmd ...]\n"
+"  %s [--ro] -i -a disk-image\n"
+"  %s [--ro] -i -d libvirt-domain\n"
+"or for interactive use:\n"
+"  %s\n"
+"or from a shell script:\n"
+"  %s <<EOF\n"
+"  cmd\n"
+"  ...\n"
+"  EOF\n"
+"Options:\n"
+"  -h|--cmd-help        List available commands\n"
+"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csh                Make --listen csh-compatible\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  -f|--file file       Read commands from file\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  --listen             Listen for remote commands\n"
+"  --live               Connect to a live virtual machine\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -N|--new type        Create prepared disk (test1.img, ...)\n"
+"  --progress-bars      Enable progress bars even when not interactive\n"
+"  --no-progress-bars   Disable progress bars\n"
+"  --remote[=pid]       Send commands to remote %s\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Echo each command before executing it\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: командна оболонка гостьової файлової системи\n"
+"%s надає вам змогу редагувати файлові системи віртуальної машини\n"
+"© Red Hat Inc., 2009, 2010\n"
+"Використання:\n"
+"  %s [--параметри] команда [: команда : команда ...]\n"
+"  %s [--ro] -i -a образ-диска\n"
+"  %s [--ro] -i -d домен-libvirt\n"
+"для інтерактивного використання:\n"
+"  %s\n"
+"або зі скрипту оболонки:\n"
+"  %s <<EOF\n"
+"  команда\n"
+"  ...\n"
+"  EOF\n"
+"Параметри:\n"
+"  -h|--cmd-help         Показати список можливих команд\n"
+"  -h|--cmd-help команда Показати докладну довідку щодо «команди»\n"
+"  -a|--add образ        Додати образ\n"
+"  -c|--connect адреса   Вказати адресу libvirt для параметра -d\n"
+"  --csh                 Увімкнути режим сумісності --listen з csh\n"
+"  -d|--domain гість     Додати диски з гостьової системі libvirt\n"
+"  -D|--no-dest-paths    Не доповнювати адреси у гостьовій системі у відповідь на Tab\n"
+"  --echo-keys           Показувати символи під час введення паролів\n"
+"  -f|--file файл        Прочитати команди з файла\n"
+"  --format[=raw|..]     Вказати формат диска для параметра -a\n"
+"  -i|--inspector        Автоматично монтувати файлові системи\n"
+"  --keys-from-stdin     Прочитати паролі з stdin\n"
+"  --listen              Очікувати на віддалені команди\n"
+"  --live                Встановити з’єднання з запущеною віртуальною машиною\n"
+"  -m|--mount dev[:mnt]  Змонтувати dev до mnt (якщо не вказано, до /)\n"
+"  -n|--no-sync          Не виконувати автосинхронізації\n"
+"  -N|--new тип          Створити приготований диск (test1.img, ...)\n"
+"  --progress-bars       Увімкнути смужки поступу, навіть якщо режим не є інтерактивним\n"
+"  --no-progress-bars    Вимкнути смужки поступу\n"
+"  --remote[=pid]        Надіслати команди до віддаленого %s\n"
+"  -r|--ro               Змонтувати у режимі лише для читання\n"
+"  --selinux             Увімкнути підтримку SELinux\n"
+"  -v|--verbose          Докладні повідомлення\n"
+"  -V|--version          Показати дані щодо версії і завершити роботу\n"
+"  -x                    Показувати кожну команду до її виконання\n"
+"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#: fish/fish.c:253
+#, c-format
+msgid "%s: --listen=PID: PID was not a number: %s\n"
+msgstr "%s: --listen=PID: PID не був числом: %s\n"
+
+#: fish/fish.c:260
+#, c-format
+msgid ""
+"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgstr "%s: remote: для ідентифікатора віддаленого процесу має $GUESTFISH_PID\n"
+
+#: fish/fish.c:310
+#, c-format
+msgid "%s: only one -f parameter can be given\n"
+msgstr "%s: можна вказувати лише один параметр -f\n"
+
+#: fish/fish.c:465
+#, c-format
+msgid "%s: cannot use --listen and --remote options at the same time\n"
+msgstr "%s: не можна одночасно використовувати параметри --listen і --remote\n"
+
+#: fish/fish.c:473
+#, c-format
+msgid "%s: extra parameters on the command line with --listen flag\n"
+msgstr "%s: зайві параметри у командному рядку з прапорцем --listen\n"
+
+#: fish/fish.c:479
+#, c-format
+msgid "%s: cannot use --listen and --file options at the same time\n"
+msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
+
+#: fish/fish.c:536
+#, c-format
+msgid "guestfish: could not access termcap or terminfo database.\n"
+msgstr ""
+"guestfish: не вдалося отримати доступ до бази даних termcap або terminfo.\n"
+
+#: fish/fish.c:540
+#, c-format
+msgid "guestfish: terminal type \"%s\" not defined.\n"
+msgstr "guestfish: тип термінала «%s» не визначено.\n"
+
+#: fish/fish.c:628
+#, c-format
+msgid ""
+"\n"
+"Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+"editing virtual machine filesystems.\n"
+"\n"
+"Type: 'help' for help on commands\n"
+"      'man' to read the manual\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+"\n"
+"Ласкаво просимо до guestfish, інтерактивної оболонки файлової системи libguestfs для\n"
+"редагування файлових систем віртуальних машин.\n"
+"\n"
+"Введіть команду «help», щоб отримати довіку щодо команд,\n"
+"      «man», щоб ознайомитися зі сторінкою довідника,\n"
+"      «quit», щоб вийти з оболонки\n"
+"\n"
+
+#: fish/fish.c:772
+#, c-format
+msgid "%s: unterminated double quote\n"
+msgstr "%s: не виявлено завершальних подвійних лапок\n"
+
+#: fish/fish.c:778 fish/fish.c:795
+#, c-format
+msgid "%s: command arguments not separated by whitespace\n"
+msgstr "%s: аргументи команди не відокремлено пробілами\n"
+
+#: fish/fish.c:789
+#, c-format
+msgid "%s: unterminated single quote\n"
+msgstr "%s: не виявлено завершальних одинарних лапок\n"
+
+#: fish/fish.c:819
+#, c-format
+msgid "%s: internal error parsing string at '%s'\n"
+msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
+
+#: fish/fish.c:836
+#, c-format
+msgid "%s: too many arguments\n"
+msgstr "%s: занадто багато аргументів\n"
+
+#: fish/fish.c:904
+#, c-format
+msgid "%s: empty command on command line\n"
+msgstr "%s: порожня команда або командний рядок\n"
+
+#: fish/fish.c:1050
+msgid "display a list of commands or help on a command"
+msgstr "показати список команд або довідку щодо команди"
+
+#: fish/fish.c:1052
+msgid "quit guestfish"
+msgstr "вийти з guestfish"
+
+#: fish/fish.c:1063
+#, c-format
+msgid ""
+"help - display a list of commands or help on a command\n"
+"     help cmd\n"
+"     help\n"
+msgstr ""
+"help — показати список команд або довідку з команди\n"
+"     help команда\n"
+"     help\n"
+
+#: fish/fish.c:1071
+#, c-format
+msgid ""
+"quit - quit guestfish\n"
+"     quit\n"
+msgstr ""
+"quit — завершити роботу guestfish\n"
+"     quit\n"
+
+#: fish/fish.c:1076
+#, c-format
+msgid "%s: command not known, use -h to list all commands\n"
+msgstr ""
+"%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
+
+#: fish/fish.c:1092
+#, c-format
+msgid ""
+"Did you mean to open a disk image?  guestfish -a disk.img\n"
+"For a list of commands:             guestfish -h\n"
+"For complete documentation:         man guestfish\n"
+msgstr ""
+"Хочете відкрити образ диска?        guestfish -a диск.img\n"
+"Отримати список команд:             guestfish -h\n"
+"Ознайомитися з документацією:       man guestfish\n"
+
+#: fish/fish.c:1249
+#, c-format
+msgid "Runaway quote in string \"%s\"\n"
+msgstr "У рядку «%s» не вистачає лапок\n"
+
+#: fish/glob.c:53
+#, c-format
+msgid "use 'glob command [args...]'\n"
+msgstr "скористайтеся «glob команда [аргументи...]»\n"
+
+#: fish/glob.c:73
+#, c-format
+msgid "glob: guestfs_glob_expand call failed: %s\n"
+msgstr "glob: помилка під час виклику guestfs_glob_expand: %s\n"
+
+#: fish/help.c:38
+#, c-format
+msgid ""
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
+"Once you have done this, use the 'run' command.\n"
+msgstr ""
+"Додайте образи дисків для вивчення за допомогою параметра -a або -d чи команди «add».\n"
+"Ви також можете створити новий образ диска за допомогою параметра -N або команд «alloc» і «sparse».\n"
+"Після додавання або створення образів скористайтеся командою «run».\n"
+
+#: fish/help.c:44
+#, c-format
+msgid ""
+"Find out what filesystems are available using 'list-filesystems' and then\n"
+"mount them to examine or modify the contents using 'mount-ro' or\n"
+"'mount-options'.\n"
+msgstr ""
+"Ознайомтеся зі списком доступних файлових систем за допомогою команди «list-filesystems», а потім\n"
+"змонтуйте ці системи для вивчення або внесення змін за допомогою команд «mount-ro» і\n"
+"«mount-options».\n"
+
+#: fish/help.c:52
+#, c-format
+msgid ""
+"For more information about a command, use 'help cmd'.\n"
+"\n"
+"To read the manual, type 'man'.\n"
+msgstr ""
+"Щоб дізнатися більше про команду, скористайтеся командою «help команда».\n"
+"\n"
+"Щоб ознайомитися зі сторінкою довідника (man), відайте команду «man».\n"
+
+#: fish/hexedit.c:41
+#, c-format
+msgid "hexedit (device|filename) [max | start max]\n"
+msgstr "hexedit (пристрій|назва файла) [максимум | початок максимум]\n"
+
+#: fish/hexedit.c:52
+#, c-format
+msgid "hexedit: %s is a zero length file or device\n"
+msgstr "hexedit: %s є файлом або пристроєм нульового розміру\n"
+
+#: fish/hexedit.c:63
+#, c-format
+msgid ""
+"hexedit: %s is larger than %s. You must supply a limit using\n"
+"  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
+"  'hexedit %s <start> <max>'.\n"
+msgstr ""
+"hexedit: %s більше за %s. Вам слід вказати обмеження за допомогою команди\n"
+"  «hexedit %s <максимум>» (наприклад, «hexedit %s 1M») або діапазон за допомогою\n"
+"  «hexedit %s <початок> <максимум>».\n"
+
+#: fish/hexedit.c:92
+#, c-format
+msgid "hexedit: invalid range\n"
+msgstr "hexedit: некоректний діапазон\n"
+
+#: fish/inspect.c:77
+#, c-format
+msgid "%s: don't use --live and -i options together\n"
+msgstr "%s: не використовуйте одразу параметри --live і -i\n"
+
+#: fish/inspect.c:89
+#, c-format
+msgid "%s: no operating system was found on this disk\n"
+msgstr "%s: на цьому диску не виявлено операційної системи\n"
+
+#: fish/inspect.c:95
+#, c-format
+msgid "%s: multi-boot operating systems are not supported by the -i option\n"
+msgstr ""
+"%s: для параметра -i не передбачено підтримки операційних систем з "
+"варіантами завантаження\n"
+
+#: fish/inspect.c:134
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr "%s: деякі з файлових систем не вдалося змонтувати (проігноровано)\n"
+
+#: fish/inspect.c:146
+#, c-format
+msgid "Operating system: %s\n"
+msgstr "Операційна система: %s\n"
+
+#: fish/inspect.c:159
+#, c-format
+msgid "%s mounted on %s\n"
+msgstr "%s змонтовано до %s\n"
+
+#: fish/keys.c:52
+#, c-format
+msgid "Enter key or passphrase (\"%s\"): "
+msgstr "Введіть ключ або пароль («%s»): "
+
+#: fish/lcd.c:34
+#, c-format
+msgid "use 'lcd directory' to change local directory\n"
+msgstr "скористайтеся командою «lcd каталог», щоб змінити локальний каталог\n"
+
+#: fish/man.c:34
+#, c-format
+msgid "use 'man' without parameters to open the manual\n"
+msgstr "скористайтеся «man» без параметрів, щоб відкрити сторінку довідника\n"
+
+#: fish/man.c:53
+#, c-format
+msgid "the external 'man' program failed\n"
+msgstr "спроба використання зовнішньої програми «man» зазнала невдачі\n"
+
+#: fish/more.c:39
+#, c-format
+msgid "use '%s filename' to page a file\n"
+msgstr ""
+"скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
+"перегляду на сторінки\n"
+
+#: fish/options.c:36
+#, c-format
+msgid "%s: too many drives added on the command line\n"
+msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
+
+#: fish/options.c:121
+#, c-format
+msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
+msgstr ""
+"%s: «%s» не вдалося змонтувати. Ви мали на увазі один з цих пристроїв?\n"
+
+#: fish/prep.c:37
+#, c-format
+msgid ""
+"List of available prepared disk images:\n"
+"\n"
+msgstr ""
+"Список доступних приготованих образів дисків:\n"
+"\n"
+
+#: fish/prep.c:40
+#, c-format
+msgid ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
+msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
+
+#: fish/prep.c:48
+#, c-format
+msgid "  Optional parameters:\n"
+msgstr "  Додаткові параметри:\n"
+
+#: fish/prep.c:55
+#, c-format
+msgid "<%s> %s (default: %s)\n"
+msgstr "<%s> %s (типове значення: %s)\n"
+
+#: fish/prep.c:65
+#, c-format
+msgid ""
+"Prepared disk images are written to file \"test1.img\" in the local\n"
+"directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
+"For more information see the guestfish(1) manual.\n"
+msgstr ""
+"Приготовані образи дисків записано до файла «test1.img» у локальному\n"
+"каталозі. («test2.img» тощо, якщо параметр -N було вказано декілька разів).\n"
+"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) guestfish(1).\n"
+
+#: fish/prep.c:96
+#, c-format
+msgid ""
+"guestfish: -N parameter '%s': no such prepared disk image known.\n"
+"Use 'guestfish -N help' to list possible values for the -N parameter.\n"
+msgstr ""
+"guestfish: у параметрі -N, «%s»: невідомий приготований диск.\n"
+"Скористайтеся командою «guestfish -N help», щоб переглянути список можливих значень для параметра -N.\n"
+
+#: fish/prep.c:158
+#, c-format
+msgid "guestfish: error creating prepared disk image '%s' on '%s': "
+msgstr ""
+"guestfish: помилка під час спроби створення приготованого образу диска «%s» "
+"на «%s»: "
+
+#: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
+#: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
+msgid "failed to allocate disk"
+msgstr "не вдалося отримати простір для диска"
+
+#: fish/prep_boot.c:42 fish/prep_boot.c:97
+msgid "could not parse boot size"
+msgstr "не вдалося обробити розмір завантажувача"
+
+#: fish/prep_boot.c:46 fish/prep_boot.c:101
+#, c-format
+msgid "failed to get sector size of disk: %s"
+msgstr "не вдалося отримати розмір сектора диска: %s"
+
+#: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
+#: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
+#, c-format
+msgid "failed to partition disk: %s"
+msgstr "не вдалося поділити диск на розділи: %s"
+
+#: fish/prep_boot.c:55 fish/prep_boot.c:110
+#, c-format
+msgid "failed to add boot partition: %s"
+msgstr "не вдалося додати розділ завантаження: %s"
+
+#: fish/prep_boot.c:59 fish/prep_boot.c:114
+#, c-format
+msgid "failed to add root partition: %s"
+msgstr "не вдалося додати кореневий розділ: %s"
+
+#: fish/prep_boot.c:68 fish/prep_boot.c:128
+#, c-format
+msgid "failed to create boot filesystem: %s"
+msgstr "не вдалося створити файлову систему завантажувача: %s"
+
+#: fish/prep_boot.c:77 fish/prep_boot.c:157
+#, c-format
+msgid "failed to create root filesystem: %s"
+msgstr "не вдалося створити кореневу файлову систему: %s"
+
+#: fish/prep_boot.c:86 fish/prep_boot.c:120 fish/prep_lv.c:66
+#: fish/prep_lv.c:82 fish/prep_lv.c:119 fish/prep_lv.c:135
+msgid "incorrect format for LV name, use '/dev/VG/LV'"
+msgstr ""
+"некоректний формат назви логічного тому, має бути "
+"«/dev/група_томів/логічний_том»"
+
+#: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
+#, c-format
+msgid "failed to create PV: %s: %s"
+msgstr "не вдалося створити фізичний том: %s: %s"
+
+#: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
+#, c-format
+msgid "failed to create VG: %s: %s"
+msgstr "не вдалося створити групу томів: %s: %s"
+
+#: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
+#, c-format
+msgid "failed to create LV: /dev/%s/%s: %s"
+msgstr "не вдалося створити логічний том: /dev/%s/%s: %s"
+
+#: fish/prep_boot.c:153 fish/prep_lv.c:107 fish/prep_lv.c:160
+#, c-format
+msgid "failed to resize LV to full size: %s: %s"
+msgstr "не вдалося розширити до повного розміру логічний том: %s: %s"
+
+#: fish/prep_fs.c:51 fish/prep_lv.c:165
+#, c-format
+msgid "failed to create filesystem (%s): %s"
+msgstr "не вдалося створити файлову систему (%s): %s"
+
+#: fish/rc.c:255
+#, c-format
+msgid "guestfish: protocol error: could not read 'hello' message\n"
+msgstr ""
+"guestfish: помилка протоколу: не вдалося прочитати вітальне повідомлення\n"
+
+#: fish/rc.c:260
+#, c-format
+msgid ""
+"guestfish: protocol error: version mismatch, server version '%s' does not "
+"match client version '%s'.  The two versions must match exactly.\n"
+msgstr ""
+"guestfish: помилка протоколу: версії не збігаються: версія сервера «%s» не "
+"збігається з версією клієнтської частини, «%s». Версії мають збігатися.\n"
+
+#: fish/rc.c:335 fish/rc.c:349
+#, c-format
+msgid "guestfish: remote: looks like the server is not running\n"
+msgstr "guestfish: remote: здається, сервер не працює\n"
+
+#: fish/rc.c:361 fish/rc.c:375
+#, c-format
+msgid "guestfish: protocol error: could not send initial greeting to server\n"
+msgstr ""
+"guestfish: помилка протоколу: не вдалося надіслати початкове вітальне "
+"повідомлення до сервера\n"
+
+#: fish/rc.c:386
+#, c-format
+msgid "guestfish: protocol error: could not decode reply from server\n"
+msgstr "guestfish: помилка протоколу: не вдалося декодувати відповідь сервера\n"
+
+#: fish/reopen.c:36
+#, c-format
+msgid "'reopen' command takes no parameters\n"
+msgstr "для команди «reopen» не передбачено жодних параметрів\n"
+
+#: fish/reopen.c:46
+#, c-format
+msgid "reopen: guestfs_create: failed to create handle\n"
+msgstr "reopen: guestfs_create: не вдалося створити елемент керування\n"
+
+#: fish/supported.c:66
+msgid "yes"
+msgstr "так"
+
+#: fish/supported.c:68
+msgid "no"
+msgstr "ні"
+
+#: fish/time.c:36
+#, c-format
+msgid "use 'time command [args...]'\n"
+msgstr "скористайтеся командою «time команда [аргументи...]»\n"
+
+#: fuse/guestmount.c:867
+#, c-format
+msgid ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  --help               Display help message and exit\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  --live               Connect to a live virtual machine\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x|--trace           Trace guestfs API calls\n"
+msgstr ""
+"%s: модуль FUSE для libguestfs\n"
+"%s надає вам змогу монтувати файлову систему віртуальної машини\n"
+"© Red Hat Inc., 2009–2010\n"
+"Використання:\n"
+"  %s [--параметри] [-- [--параметри-FUSE]] точка монтування\n"
+"Параметри:\n"
+"  -a|--add образ       Додати образ\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  --dir-cache-timeout  Встановити час очікування на кешування readdir (типово 5 с)\n"
+"  -d|--domain гість    Додати диск з гостьової системи libvirt\n"
+"  --echo-keys          Не вимикати показ введених символів паролів\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --fuse-help          Показати додаткові параметри FUSE\n"
+"  -i|--inspector       Автоматично монтувати файлові системи\n"
+"  --help               Показати довідкове повідомлення і завершити роботу\n"
+"  --keys-from-stdin    Прочитати паролі зі stdin\n"
+"  --live               Встановити з’єднання з запущеною віртуальною машиною\n"
+"  -m|--mount dev[:mnt] Змонтувати dev до mnt (якщо не вказано, до /)\n"
+"  -n|--no-sync         Не виконувати автоматичної синхронізації\n"
+"  -o|--option параметр Передати додатковий параметр FUSE\n"
+"  -r|--ro              Змонтувати у режимі лише для читання\n"
+"  --selinux            Увімкнути підтримку SELinux\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x|--trace           Трасувати виклики програмного інтерфейсу guestfs\n"
+
+#: fuse/guestmount.c:1095
+#, c-format
+msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
+msgstr ""
+"%s: слід вказати принаймні один параметр -a/-d і принаймні один параметр "
+"-m/-i\n"
+
+#: fuse/guestmount.c:1103
+#, c-format
+msgid "%s: you must specify a mountpoint in the host filesystem\n"
+msgstr "%s: вам слід вказати точку монтування у основній файловій системі\n"
+
+#: inspector/virt-inspector.c:72
+#, c-format
+msgid ""
+"%s: display information about a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: показ інформації щодо віртуальної машини\n"
+"© Red Hat Inc., 2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену файл [файл ...]\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...] файл [файл ...]\n"
+"Options:\n"
+"  -a|--add image       Додати образ\n"
+"  -c|--connect uri     Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain guest    Додати диски з гостьової системи libvirt\n"
+"  --echo-keys          Не вимикати показ введених символів паролів\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати короткі довідкові дані\n"
+"  --keys-from-stdin    Прочитати паролі зі stdin\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#: inspector/virt-inspector.c:259
+#, c-format
+msgid ""
+"%s: no operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"install the separate libguestfs-winsupport package.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"%s: у цьому образі диска не вдалося виявити операційної системи.\n"
+"\n"
+"Причиною може бути те, що файл не є файлом образу диска, не є образом віртуальної\n"
+"машини або його тип ОС не підтримується libguestfs.\n"
+"\n"
+"Зауваження для користувачів Red Hat Enterprise Linux 6: щоб скористатися підтримкою гостьових систем Windows,\n"
+"вам слід встановити окремий пакунок libguestfs-winsupport.\n"
+"\n"
+"Якщо вам здається, що сталася якась помилка, будь ласка, створіть повідомлення про ваду,\n"
+"додавши до нього максимум можливої інформації щодо образу диска.\n"
+
+#: inspector/virt-inspector.c:284
+#, c-format
+msgid "%s: XML write error at \"%s\": %m\n"
+msgstr "%s: помилка запису XML у «%s»: %m\n"
+
+#: inspector/virt-inspector.c:296
+#, c-format
+msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
+msgstr "%s: xmlOutputBufferCreateFd: не вдалося відкрити stdout\n"
+
+#: inspector/virt-inspector.c:304
+#, c-format
+msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
+msgstr "%s: xmlNewTextWriter: не вдалося створити процес запису libxml2\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:158
+msgid "open_guest: first parameter must be a string or an arrayref"
+msgstr ""
+"open_guest: першим параметром має бути рядок або посилання на масив символів"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:164
+msgid "open_guest: first argument contains undefined element"
+msgstr "open_guest: перший аргумент містить невизначений елемент"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:172
+#, perl-brace-format
+msgid "guest image {imagename} does not exist or is not readable"
+msgstr ""
+"образу гостьової системи {imagename} не існує або цей образ непридатний до "
+"читання"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:179
+msgid ""
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
+msgstr ""
+"open_guest: підтримки libvirt не передбачено (встановіть Sys::Virt, "
+"XML::XPath і XML::XPath::XMLParser)"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:184
+msgid "open_guest: too many domains listed on command line"
+msgstr "open_guest: у командному рядку вказано занадто багато доменів"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:191
+msgid "open_guest: cannot connect to libvirt"
+msgstr "open_guest: не вдалося встановити з’єднання з libvirt"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:210
+#, perl-brace-format
+msgid "{imagename} is not the name of an inactive libvirt domain\n"
+msgstr "{imagename} не є назвою неактивного домену libvirt\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:213
+#, perl-brace-format
+msgid "{imagename} is not the name of a libvirt domain\n"
+msgstr "{imagename} не є назвою домену libvirt\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:242
+#, perl-brace-format
+msgid "{imagename} seems to have no disk devices\n"
+msgstr "{imagename}, здається, не містить дискових пристроїв\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:827
+msgid ""
+"No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
+"image, or because the OS type is not understood by virt-inspector.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"У цьому образі диска не вдалося виявити операційної системи\n"
+"\n"
+"Причиною може бути те, що файл не є файлом образу диска, не є образом віртуальної\n"
+"машини або його тип ОС не підтримується virt-inspector.\n"
+"\n"
+"Якщо вам здається, що сталася якась помилка, будь ласка, створіть повідомлення про ваду,\n"
+"додавши до нього максимум можливої інформації щодо образу диска.\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:901
+#, perl-brace-format
+msgid "unknown filesystem label {label}\n"
+msgstr "невідома мітка файлової системи {label}\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:911
+#, perl-brace-format
+msgid "unknown filesystem UUID {uuid}\n"
+msgstr "невідома файлова система UUID {uuid}\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:936
+#, perl-brace-format
+msgid "unknown filesystem {fs}\n"
+msgstr "невідома файлова система {fs}\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1014
+#, perl-brace-format
+msgid "Error running rpm -qa: {error}"
+msgstr "Помилка під час запуску rpm -qa: {error}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1040
+#, perl-brace-format
+msgid "Error running dpkg-query: {error}"
+msgstr "Помилка під час запуску dpkg-query: {error}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1105
+msgid "Can't find grub on guest"
+msgstr "Не вдалося знайти grub у гостьовій системі"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1160
+#, perl-brace-format
+msgid "Grub entry {title} has no kernel"
+msgstr "На запису grub {title} немає ядра"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1191
+#, perl-brace-format
+msgid "grub refers to {path}, which doesn't exist\n"
+msgstr "grub посилається на каталог {path}, якого не існує\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1214
+#, perl-brace-format
+msgid "Grub entry {title} does not specify an initrd"
+msgstr "У записі grub {title} не визначено initrd"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1283
+#, perl-brace-format
+msgid "Didn't find modules directory {modules} for kernel {path}"
+msgstr "Не вдалося знайти каталог модулів {modules} для ядра {path}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#, perl-brace-format
+msgid "Couldn't guess kernel version number from path for kernel {path}"
+msgstr "Не вдалося визначити номер версії ядра за шляхом до ядра {path}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1345
+#, perl-brace-format
+msgid "{path} doesn't match augeas pattern"
+msgstr "{path} не відповідає шаблону augeas"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1384
+#, perl-brace-format
+msgid "{filename}: could not read initrd format"
+msgstr "{filename}: не вдалося прочитати формат initrd"
+
+#: rescue/virt-rescue.c:60
+#, c-format
+msgid ""
+"%s: Run a rescue shell on a virtual machine\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --append kernelopts  Append kernel options\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -m|--memsize MB      Set memory size in megabytes\n"
+"  --network            Enable network\n"
+"  -r|--ro              Access read-only\n"
+"  --selinux            Enable SELinux\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: запуск оболонки відновлення на віртуальній машині\n"
+"© Red Hat Inc., 2009–2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва-домену\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+"Параметри:\n"
+"  -a|--add образ       Додати образ\n"
+"  --append пар_ядра    Додати параметри запуску ядра\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати коротку довідку\n"
+"  -m|--memsize МБ      Вказати розмір пам’яті у мегабайтах\n"
+"  --network            Увімкнути мережу\n"
+"  -r|--ro              Доступ у режимі лише читання\n"
+"  --selinux            Увімкнути SELinux\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#: rescue/virt-rescue.c:173
+#, c-format
+msgid "%s: could not parse memory size '%s'\n"
+msgstr "%s: не вдалося обробити запис об’єму пам’яті «%s»\n"
+
+#: rescue/virt-rescue.c:408
+#, c-format
+msgid "%s: unknown child exit status (%d)\n"
+msgstr "%s: невідоме повідомлення про стан завершення дочірнього процесу (%d)\n"
+
+#: src/appliance.c:181
+#, c-format
+msgid ""
+"cannot find any suitable libguestfs supermin or ordinary appliance on "
+"LIBGUESTFS_PATH (search path: %s)"
+msgstr ""
+"не вдалося знайти відповідного supermin libguestfs або звичайного пристрою "
+"за адресою LIBGUESTFS_PATH (каталог пошуку: %s)"
+
+#: src/appliance.c:331
+#, c-format
+msgid "security: cached appliance %s is not owned by UID %d"
+msgstr "безпека: кешований пристрій %s не належить UID %d"
+
+#: src/appliance.c:336
+#, c-format
+msgid "security: cached appliance %s is not a directory (mode %o)"
+msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
+
+#: src/appliance.c:341
+#, c-format
+msgid "security: cached appliance %s is writable by group or other (mode %o)"
+msgstr ""
+"безпека: кешований пристрій %s доступний для запису учасниками групи або "
+"іншими користувачами (режим %o)"
+
+#: src/appliance.c:655
+msgid "external command failed, see earlier error messages"
+msgstr ""
+"спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
+"попередніми повідомленнями"
+
+#: src/filearch.c:153
+#, c-format
+msgid "size of %s unreasonable (%<PRIi64> bytes)"
+msgstr "некоректний розмір %s (%<PRIi64> байтів)"
+
+#: src/filearch.c:266
+msgid ""
+"file-architecture API not available since this version of libguestfs was "
+"compiled without PCRE or libmagic libraries"
+msgstr ""
+"програмний інтерфейс file-architecture недоступний, оскільки цю версію "
+"libguestfs було зібрано без підтримки бібліотеки PCRE або libmagic"
+
+#: src/guestfs.c:178
+#, c-format
+msgid "guestfs_close: called twice on the same handle\n"
+msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
+
+#: src/guestfs.c:288
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr "libguestfs: помилка: %s\n"
+
+#: src/guestfs.c:834
+#, c-format
+msgid "<truncated, original size %zu bytes>"
+msgstr "<скорочено, початковий розмір — %zu байтів>"
+
+#: src/inspect.c:478 src/inspect.c:1163 src/inspect.c:2603 src/inspect.c:2646
+#: src/inspect.c:2696 src/inspect.c:2740
+#, c-format
+msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
+msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
+
+#: src/inspect.c:1197
+msgid "could not parse /etc/fstab or empty file"
+msgstr "не вдалося обробити /etc/fstab або порожній файл"
+
+#: src/inspect.c:1413
+#, c-format
+msgid "cannot resolve Windows %%SYSTEMROOT%%"
+msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
+
+#: src/inspect.c:1694 src/inspect.c:1707
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "не вдалося обробити ціле число у номері версії: %s"
+
+#: src/inspect.c:1801
+msgid "no inspection data: call guestfs_inspect_os first"
+msgstr ""
+"немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
+
+#: src/inspect.c:1813
+#, c-format
+msgid ""
+"%s: root device not found: only call this function with a root device "
+"previously returned by guestfs_inspect_os"
+msgstr ""
+"%s: не знайдено кореневого пристрою, цю функцію можна викликати лише для "
+"кореневого пристрою, дані якого раніше було повернуто функцією "
+"guestfs_inspect_os"
+
+#: src/inspect.c:1942
+msgid "not a Windows guest, or systemroot could not be determined"
+msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
+
+#: src/inspect.c:2234 src/inspect.c:2256 src/inspect.c:2281
+msgid "unexpected end of output from db_dump command"
+msgstr "неочікуване завершення даних, виведених командою db_dump"
+
+#: src/inspect.c:2705
+#, c-format
+msgid "%s: file is empty"
+msgstr "%s: файл порожній"
+
+#: src/inspect.c:2768
+msgid ""
+"inspection API not available since this version of libguestfs was compiled "
+"without PCRE or hivex libraries"
+msgstr ""
+"програмний інтерфейс вивчення (inspection) недоступний, оскільки цю версію "
+"libguestfs було зібрано без підтримки бібліотеки PCRE або hivex"
+
+#: src/launch.c:97
+msgid "command line cannot be altered after qemu subprocess launched"
+msgstr "не можна змінювати рядок команди після запуску підпроцесу qemu"
+
+#: src/launch.c:154
+msgid "guestfs_config: parameter must begin with '-' character"
+msgstr "guestfs_config: запис параметра має починатися з символу «-»"
+
+#: src/launch.c:168
+#, c-format
+msgid "guestfs_config: parameter '%s' isn't allowed"
+msgstr "guestfs_config: не можна використовувати параметр «%s»"
+
+#: src/launch.c:234 src/launch.c:338
+msgid "filename cannot contain ',' (comma) character"
+msgstr "у назві файла не може міститися символу коми («,»)"
+
+#: src/launch.c:246 src/launch.c:251
+#, c-format
+msgid "%s parameter is empty or contains disallowed characters"
+msgstr "параметр %s є порожнім або містить заборонені до використання символи"
+
+#: src/launch.c:357
+msgid "the libguestfs handle has already been launched"
+msgstr "елемент керування libguestfs вже запущено"
+
+#: src/launch.c:366
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: не вдалося створити тимчасовий каталог"
+
+#: src/launch.c:403
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
+
+#: src/launch.c:746
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr ""
+"спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
+"повідомленнями"
+
+#: src/launch.c:759
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr ""
+"qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
+"дорівнює READY"
+
+#: src/launch.c:845
+msgid "guestfs_launch failed, unexpected initial message from guestfsd"
+msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
+
+#: src/launch.c:853
+msgid "contacted guestfsd, but state != READY"
+msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
+
+#: src/launch.c:990
+#, c-format
+msgid ""
+"%s: command failed: If qemu is located on a non-standard path, try setting "
+"the LIBGUESTFS_QEMU environment variable."
+msgstr ""
+"%s: помилка команди: якщо qemu зберігається у нестандартному каталозі, "
+"спробуйте встановити відповідне значення змінної середовища LIBGUESTFS_QEMU."
+
+#: src/launch.c:1082
+msgid "qemu has not been launched yet"
+msgstr "qemu ще не запущено"
+
+#: src/launch.c:1093
+msgid "no subprocess to kill"
+msgstr "немає підпроцесів для завершення"
+
+#: src/proto.c:146
+#, c-format
+msgid "guestfs_set_busy: called when in state %d != READY"
+msgstr "guestfs_set_busy: викликано у стані %d != READY"
+
+#: src/proto.c:169
+#, c-format
+msgid "guestfs_end_busy: called when in state %d"
+msgstr "guestfs_end_busy: викликано у стані %d"
+
+#: src/proto.c:350
+#, c-format
+msgid ""
+"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgstr ""
+"check_for_daemon_cancellation_or_eof: від фонової служби отримано значення "
+"0x%x, мало бути 0x%x\n"
+
+#: src/proto.c:521 src/proto.c:582
+msgid "unexpected end of file when reading from daemon"
+msgstr "неочікуваний символ кінця файла під час читання даних фонової служби"
+
+#: src/proto.c:542
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr "отримано керівну послідовність байтів від guestfsd, але маємо стан %d"
+
+#: src/proto.c:559
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr "довжина повідомлення (%u) перевищує максимальний можливий розмір (%d)"
+
+#: src/proto.c:712
+#, c-format
+msgid "guestfs___send: state %d != BUSY"
+msgstr "guestfs___send: стан %d != BUSY"
+
+#: src/proto.c:736
+msgid "xdr_guestfs_message_header failed"
+msgstr "помилка xdr_guestfs_message_header"
+
+#: src/proto.c:745
+msgid "dispatch failed to marshal args"
+msgstr "помилка розподілу на основні аргументи"
+
+#: src/proto.c:875
+#, c-format
+msgid "send_file_chunk: state %d != READY"
+msgstr "send_file_chunk: стан %d != READY"
+
+#: src/proto.c:891
+#, c-format
+msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "помилка xdr_guestfs_chunk (буфер = %p, довжина буфера = %zu)"
+
+#: src/proto.c:1014
+#, c-format
+msgid "%s: error in chunked encoding"
+msgstr "%s: помилка у кодуванні фрагмента"
+
+#: src/proto.c:1042
+msgid "write to daemon socket"
+msgstr "записати до сокета фонової служби"
+
+#: src/proto.c:1065
+msgid "receive_file_data: parse error in reply callback"
+msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
+
+#: src/proto.c:1070
+msgid "receive_file_data: unexpected flag received when reading file chunks"
+msgstr ""
+"receive_file_data: під час читання фрагментів файла отримано неочікуване "
+"значення прапорця"
+
+#: src/proto.c:1078
+msgid "failed to parse file chunk"
+msgstr "не вдалося обробити фрагмент файла"
+
+#: src/proto.c:1087
+msgid "file receive cancelled by daemon"
+msgstr "отримання файла було скасовано фоновою службою"
+
+#: src/virt.c:92 src/virt.c:325
+msgid "you cannot set both live and readonly flags"
+msgstr "не можна одночасно встановлювати атрибути live і readonly"
+
+#: src/virt.c:100
+#, c-format
+msgid "could not connect to libvirt (code %d, domain %d): %s"
+msgstr "не вдалося встановити з’єднання з libvirt (код %d, домен %d): %s"
+
+#: src/virt.c:108
+#, c-format
+msgid "no libvirt domain called '%s': %s"
+msgstr "не виявлено домену libvirt з назвою «%s»: %s"
+
+#: src/virt.c:163 src/virt.c:413
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "помилка під час читання XML-даних libvirt: %s"
+
+#: src/virt.c:173 src/virt.c:421
+msgid "unable to parse XML information returned by libvirt"
+msgstr "не вдалося обробити дані XML, повернуті libvirt"
+
+#: src/virt.c:179 src/virt.c:427
+msgid "unable to create new XPath context"
+msgstr "не вдалося створити контекст XPath"
+
+#: src/virt.c:186 src/virt.c:442
+msgid "unable to evaluate XPath expression"
+msgstr "не вдалося сформувати вираз XPath"
+
+#: src/virt.c:283
+msgid "libvirt domain has no disks"
+msgstr "у домені libvirt немає дисків"
+
+#: src/virt.c:336
+#, c-format
+msgid "error getting domain info: %s"
+msgstr "помилка під час отримання даних щодо домену: %s"
+
+#: src/virt.c:350
+msgid ""
+"error: domain is a live virtual machine.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access.  In most libguestfs tools these options are --ro or\n"
+"--live respectively.  Consult the documentation for further information."
+msgstr ""
+"помилка: домен є запущеною віртуальною машиною.\n"
+"Запис на диски запущеної віртуальної машини може призвести до пошкодження диска.\n"
+"Ви можете або скористатися доступом лише для читання, або, якщо у гостьовій системі\n"
+"працює фонова служба guestfsd, вказати інтерактивний доступ. Відповідними параметрами\n"
+"інструментів libguestfs є --ro і --live. Докладніші дані можна знайти у документації."
+
+#: src/virt.c:470
+msgid ""
+"this guest has no libvirt <channel> definition for guestfsd\n"
+"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
+msgstr ""
+"для цієї гостьової системи не вказано визначення <channel> libvirt для guestfsd\n"
+"Докладнішу довідкову інформацію можна знайти у розділі ATTACHING TO RUNNING DAEMONS сторінки довідника (man) guestfs(3)."
+
+#: src/virt.c:495
+msgid ""
+"add-domain API not available since this version of libguestfs was compiled "
+"without libvirt or libxml2"
+msgstr ""
+"програмний інтерфейс add-domain недоступний, оскільки цю версію libguestfs "
+"було зібрано без підтримки бібліотеки libvirt або libxml2"
+
+#: test-tool/test-tool.c:82
+#, c-format
+msgid ""
+"libguestfs-test-tool: interactive test tool\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  libguestfs-test-tool [--options]\n"
+"Options:\n"
+"  --help         Display usage\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 Helper program (default: %s)\n"
+"  --qemudir dir  Specify QEMU source directory\n"
+"  --qemu qemu    Specify QEMU binary\n"
+"  --timeout n\n"
+"  -t n           Set launch timeout (default: %d seconds)\n"
+msgstr ""
+"libguestfs-test-tool: інтерактивний інструмент для тестування\n"
+"© Red Hat Inc., 2009\n"
+"Використання:\n"
+"  libguestfs-test-tool [--параметри]\n"
+"Параметри:\n"
+"  --help         Довідка з використання\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 Визначити допоміжну програму (типова: %s)\n"
+"  --qemudir dir  Вказати каталог коду QEMU\n"
+"  --qemu qemu    Вказати адресу виконуваного файла QEMU\n"
+"  --timeout n\n"
+"  -t n           Встановити час очікування запуску (типово %d секунд)\n"
+
+#: test-tool/test-tool.c:138
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: невідомий довгий запис параметра: %s (%d)\n"
+
+#: test-tool/test-tool.c:147
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: некоректне значення часу очікування: %s\n"
+
+#: test-tool/test-tool.c:159
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
+
+#: test-tool/test-tool.c:182
+#, c-format
+msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr ""
+"libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
+
+#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
+
+#: test-tool/test-tool.c:206
+#, c-format
+msgid "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: помилка guestfs_version\n"
+
+#: test-tool/test-tool.c:228
+#, c-format
+msgid "libguestfs-test-tool: failed to launch appliance\n"
+msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
+
+#: test-tool/test-tool.c:240
+#, c-format
+msgid "libguestfs-test-tool: failed to run sfdisk\n"
+msgstr "libguestfs-test-tool: не вдалося виконати sfdisk\n"
+
+#: test-tool/test-tool.c:246
+#, c-format
+msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
+msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
+
+#: test-tool/test-tool.c:252
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
+msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
+
+#: test-tool/test-tool.c:258
+#, c-format
+msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+msgstr "libguestfs-test-tool: не вдалося створити каталог /iso\n"
+
+#: test-tool/test-tool.c:264
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sdb до /iso\n"
+
+#: test-tool/test-tool.c:272
+#, c-format
+msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
+msgstr ""
+"libguestfs-test-tool: не вдалося запустити допоміжну програму або допоміжній"
+" програмі не вдалося виконати завдання\n"
+
+#: test-tool/test-tool.c:303
+#, c-format
+msgid ""
+"LIBGUESTFS_QEMU environment variable is already set, so\n"
+"--qemu/--qemudir options cannot be used.\n"
+msgstr ""
+"Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
+"не можна використовувати параметри --qemu/--qemudir.\n"
+
+#: test-tool/test-tool.c:311
+#, c-format
+msgid "Binary '%s' does not exist or is not executable\n"
+msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
+
+#: test-tool/test-tool.c:325
+#, c-format
+msgid "%s: does not look like a qemu source directory\n"
+msgstr "%s: не є каталогом початкових кодів qemu\n"
+
+#: test-tool/test-tool.c:374
+#, c-format
+msgid ""
+"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+"available.  Expected to find it in '%s'\n"
+"\n"
+"Use the --helper option to specify the location of this program.\n"
+msgstr ""
+"Допоміжна програма тестового інструмента «libguestfs-test-tool-helper»\n"
+"недоступна. Програма мала зберігатися у «%s»\n"
+"\n"
+"Скористайтеся параметром --helper для визначення розташування програми.\n"
+
+#: test-tool/test-tool.c:390
+#, c-format
+msgid "command failed: %s"
+msgstr "помилка команди: %s"
+
+#: test-tool/test-tool.c:398
+#, c-format
+msgid ""
+"Test tool helper program %s\n"
+"is not statically linked.  This is a build error when this test tool\n"
+"was built.\n"
+msgstr ""
+"Допоміжну програма інструмента тестування %s\n"
+"не скомпоновано статично. Це помилка збирання тестового\n"
+"інструмента.\n"
+
+#: test-tool/test-tool.c:432
+#, c-format
+msgid "mkisofs command failed: %s\n"
+msgstr "помилка команди mkisofs: %s\n"
+
+#: tools/virt-edit.pl:169
+msgid "virt-edit: no image, VM names or filenames to edit given"
+msgstr ""
+"virt-edit: не вказано образу, назв віртуальних машин або назв файлів для "
+"редагування"
+
+#: tools/virt-edit.pl:185 tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
+#, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"{prog}: у цьому образі диска не вдалося виявити операційної системи\n"
+"\n"
+"Причиною може бути те, що файл не є файлом образу диска, не є образом віртуальної\n"
+"машини або його тип ОС не підтримується libguestfs.\n"
+"\n"
+"Якщо вам здається, що сталася якась помилка, будь ласка, створіть повідомлення про ваду,\n"
+"додавши до нього максимум можливої інформації щодо образу диска.\n"
+
+#: tools/virt-edit.pl:189 tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
+#, perl-brace-format
+msgid "{prog}: multiboot operating systems are not supported.\n"
+msgstr ""
+"{prog}: підтримки операційних систем з варіантами завантаження не "
+"передбачено.\n"
+
+#: tools/virt-edit.pl:221
+msgid "File not changed.\n"
+msgstr "Файл не змінено.\n"
+
+#: tools/virt-list-filesystems.pl:142
+msgid "virt-list-filesystems: no image or VM name given"
+msgstr "virt-list-filesystems: не вказано образу або назви віртуальної машини"
+
+#: tools/virt-list-partitions.pl:152
+msgid "virt-list-partitions: no image or VM name given"
+msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
+
+#: tools/virt-make-fs.pl:291
+msgid "virt-make-fs input output\n"
+msgstr "virt-make-fs вхідні_дані вихідні_дані\n"
+
+#: tools/virt-make-fs.pl:321
+msgid "unexpected output from 'du' command"
+msgstr "несподівані вихідні дані від команди «du»"
+
+#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
+#: tools/virt-make-fs.pl:453
+#, perl-brace-format
+msgid "{f}: unknown input format: {fmt}\n"
+msgstr "{f}: невідомий формат вхідних даних: {fmt}\n"
+
+#: tools/virt-make-fs.pl:391
+#, perl-brace-format
+msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
+msgstr "virt-make-fs: не вдалося обробити параметр розміру: {sz}\n"
+
+#: tools/virt-make-fs.pl:401
+msgid ""
+"qemu-img create: failed to create disk image, see earlier error messages\n"
+msgstr ""
+"qemu-img create: не вдалося створити образ диска, ознайомтеся з попередніми "
+"повідомленнями\n"
+
+#: tools/virt-make-fs.pl:412
+msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
+msgstr ""
+"virt-make-fs: підтримку NTFS було вимкнено під час збирання libguestfs\n"
+
+#: tools/virt-make-fs.pl:437
+msgid "tar: failed, see earlier messages\n"
+msgstr "tar: помилка, ознайомтеся з попередніми повідомленнями\n"
+
+#: tools/virt-make-fs.pl:459
+msgid "uncompress command failed, see earlier messages\n"
+msgstr ""
+"помилка команди розпакування, ознайомтеся з попередніми повідомленнями\n"
+
+#: tools/virt-make-fs.pl:494
+msgid ""
+"virt-make-fs: error copying contents into filesystem\n"
+"An error here usually means that the program did not estimate the\n"
+"filesystem size correctly.  Please read the BUGS section of the manpage.\n"
+msgstr ""
+"virt-make-fs: помилка під час спроби копіювання даних до файлової системи\n"
+"Така помилка зазвичай означає, що програмі не вдалося належним чином оцінити\n"
+"розмір файлової системи. Будь ласка, ознайомтеся з розділом BUGS сторінки man.\n"
+
+#: tools/virt-resize.pl:33
+msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
+msgstr ""
+"virt-resize: вибачте, ця програма не працює у 32-бітових основних системах\n"
+
+#: tools/virt-resize.pl:581
+#, perl-brace-format
+msgid "virt-resize: {file}: does not exist or is not readable\n"
+msgstr "virt-resize: {file}: не існує або непридатний до читання\n"
+
+#: tools/virt-resize.pl:583
+#, perl-brace-format
+msgid ""
+"virt-resize: {file}: does not exist or is not writable\n"
+"You have to create the destination disk before running this program.\n"
+"Please read the virt-resize(1) manpage for more information.\n"
+msgstr ""
+"virt-resize: {file}: не існує або непридатний до запису\n"
+"Перш ніж запускати цю програму, вам слід створити диск призначення.\n"
+"Докладніші дані можна знайти на сторінці довідника (man) virt-resize(1).\n"
+
+#: tools/virt-resize.pl:662 tools/virt-resize.pl:665
+#, perl-brace-format
+msgid "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
+msgstr ""
+"virt-resize: {file}: занадто малий для образу диска файл ({sz} байтів)\n"
+
+#: tools/virt-resize.pl:681 tools/virt-resize.pl:693
+msgid "virt-resize: short read"
+msgstr "virt-resize: мало даних"
+
+#: tools/virt-resize.pl:827
+#, perl-brace-format
+msgid "virt-resize: no logical volume called {n}\n"
+msgstr "virt-resize: не викликано логічного тому {n}\n"
+
+#: tools/virt-resize.pl:847
+#, perl-brace-format
+msgid ""
+"{p}: partition not found in the source disk image, when using the '{opt}' "
+"command line option\n"
+msgstr ""
+"{p}: під час спроби використання параметра командного рядка «{opt}» у даних "
+"образу диска не виявлено розділів\n"
+
+#: tools/virt-resize.pl:853
+#, perl-brace-format
+msgid ""
+"{p}: partition ignored, you cannot use it in another command line argument\n"
+msgstr ""
+"{p}: розділ проігноровано, ви не можете використовувати його у інших "
+"параметрах командного рядка\n"
+
+#: tools/virt-resize.pl:857
+#, perl-brace-format
+msgid ""
+"{p}: partition deleted, you cannot use it in another command line argument\n"
+msgstr ""
+"{p}: розділ вилучено, ви не можете використовувати його у інших параметрах "
+"командного рядка\n"
+
+#: tools/virt-resize.pl:899
+#, perl-brace-format
+msgid "{p}: this partition has already been marked for resizing\n"
+msgstr "{p}: цей розділ вже було позначено для зміни розміру\n"
+
+#: tools/virt-resize.pl:907
+#, perl-brace-format
+msgid "{p}: missing size field in {o} option\n"
+msgstr "{p}: у параметрі {o} не вказано значення розміру\n"
+
+#: tools/virt-resize.pl:924
+#, perl-brace-format
+msgid "{p}: {f}: cannot parse size field\n"
+msgstr "{p}: {f}: не вдалося обробити значення поля розміру\n"
+
+#: tools/virt-resize.pl:929
+#, perl-brace-format
+msgid "{p}: new size is zero or negative\n"
+msgstr "{p}: новий розмір є нульовим або від’ємним\n"
+
+#: tools/virt-resize.pl:952
+#, perl-brace-format
+msgid ""
+"{p}: cannot make this partition smaller because it contains a\n"
+"filesystem, physical volume or other content that is larger than the new size.\n"
+"You have to resize the content first, see virt-resize(1).\n"
+msgstr ""
+"{p}: не можна зменшувати розміри розділу, оскільки на ньому міститься файлова\n"
+"система, фізичний том або інші дані, об’єм яких перевищує вказаний новий розмір.\n"
+"Вам спочатку слід змінити об’єм даних, див. virt-resize(1).\n"
+
+#: tools/virt-resize.pl:968
+msgid "virt-resize: you cannot use options --expand and --shrink together\n"
+msgstr ""
+"virt-resize: не можна одночасно використовувати параметри --expand і "
+"--shrink\n"
+
+#: tools/virt-resize.pl:1017
+#, perl-brace-format
+msgid ""
+"virt-resize: error: cannot use --expand when there is no surplus space to\n"
+"expand into.  You need to make the target disk larger by at least {h}.\n"
+msgstr ""
+"virt-resize: помилка: не можна використовувати --expand, якщо немає залишку місця для\n"
+"розширення. Вам слід зробити диск призначення більшим, принаймні на {h}.\n"
+
+#: tools/virt-resize.pl:1032
+msgid ""
+"virt-resize: error: cannot use --shrink because there is no deficit\n"
+"(see 'deficit' in the virt-resize(1) man page)\n"
+msgstr ""
+"virt-resize: помилка: не можна використовувати --shrink, оскільки немає дефіциту\n"
+"(див. «deficit» на сторінці довідника (man) virt-resize(1))\n"
+
+#: tools/virt-resize.pl:1047
+msgid "Summary of changes:\n"
+msgstr "Резюме змін:\n"
+
+#: tools/virt-resize.pl:1051
+#, perl-brace-format
+msgid "{p}: partition will be ignored\n"
+msgstr "{p}: розділ буде проігноровано\n"
+
+#: tools/virt-resize.pl:1053
+#, perl-brace-format
+msgid "{p}: partition will be deleted\n"
+msgstr "{p}: розділ буде вилучено\n"
+
+#: tools/virt-resize.pl:1055
+#, perl-brace-format
+msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
+msgstr "{p}: розмір розділу буде змінено з {oldsize} на {newsize}\n"
+
+#: tools/virt-resize.pl:1060
+#, perl-brace-format
+msgid "{p}: content will be expanded using the '{meth}' method\n"
+msgstr "{p}: вміст буде розширено за допомогою методу «{meth}»\n"
+
+#: tools/virt-resize.pl:1065
+#, perl-brace-format
+msgid "{p}: partition will be left alone\n"
+msgstr "{p}: розділ не буде змінено\n"
+
+#: tools/virt-resize.pl:1070
+#, perl-brace-format
+msgid "{n}: LV will be expanded to maximum size\n"
+msgstr "{n}: логічний том буде розширено до максимального розміру\n"
+
+#: tools/virt-resize.pl:1076
+#, perl-brace-format
+msgid "{n}: content will be expanded using the '{meth}' method\n"
+msgstr "{n}: вміст буде розширено за допомогою методу «{meth}»\n"
+
+#: tools/virt-resize.pl:1083
+#, perl-brace-format
+msgid "There is a surplus of {spl} bytes ({h}).\n"
+msgstr "Вільними залишилися {spl} байтів ({h}).\n"
+
+#: tools/virt-resize.pl:1088
+msgid "An extra partition will be created for the surplus.\n"
+msgstr "На решті простору сховища буде створено додатковий розділ.\n"
+
+#: tools/virt-resize.pl:1090
+msgid ""
+"The surplus space is not large enough for an extra partition to be created\n"
+"and so it will just be ignored.\n"
+msgstr ""
+"Залишок місця недостатньо великий для створення нового розділу, отже\n"
+"його буде просто проігноровано.\n"
+
+#: tools/virt-resize.pl:1093
+msgid ""
+"The surplus space will be ignored.  Run a partitioning program in the guest\n"
+"to partition this extra space if you want.\n"
+msgstr ""
+"Залишок місця буде проігноровано. Запустіть програму керування розділами гостьової\n"
+"системи, якщо бажаєте розподілити це залишок місця.\n"
+
+#: tools/virt-resize.pl:1096
+#, perl-brace-format
+msgid ""
+"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+"You need to make the target disk larger by at least this amount,\n"
+"or adjust your resizing requests.\n"
+msgstr ""
+"virt-resize: помилка: не вистачає {def} байтів ({h}).\n"
+"Вам слід збільшити розмір диска призначення принаймні на вказане значення\n"
+"або скоригувати запит щодо зміни розмірів.\n"
+
+#: tools/virt-resize.pl:1113
+msgid "virt-resize: source disk does not have a first partition\n"
+msgstr "virt-resize: на початковому диску немає першого розділу\n"
+
+#: tools/virt-resize.pl:1208
+#, perl-brace-format
+msgid "Copying {p} ...\n"
+msgstr "Копіювання {p}…\n"
+
+#: tools/virt-resize.pl:1271 tools/virt-resize.pl:1329
+#, perl-brace-format
+msgid "Expanding {p} using the '{meth}' method\n"
+msgstr "Розширення {p} за допомогою методу «{meth}»\n"
+
+#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+msgid "virt-tar: extract/upload mode specified twice on the command line\n"
+msgstr ""
+"virt-tar: у командному рядку двічі вказано режим видобування або "
+"вивантаження\n"
+
+#: tools/virt-tar.pl:212
+msgid "virt-tar: no image, VM names, directory or filename given"
+msgstr ""
+"virt-tar: не вказано образу, назв віртуальних машин, каталогу або назви "
+"файла"
+
+#: tools/virt-tar.pl:215
+msgid "virt-tar: either -x or -u must be specified on the command line\n"
+msgstr "virt-tar: у командному рядку має бути вказано -x або -u\n"
+
+#: tools/virt-tar.pl:226
+#, perl-brace-format
+msgid "virt-tar: {tarball}: file not found\n"
+msgstr "virt-tar: {tarball}: файла не знайдено\n"
+
+#: tools/virt-tar.pl:229
+#, perl-brace-format
+msgid "virt-tar: {dir}: directory name must start with '/' character\n"
+msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
+
+#: tools/virt-win-reg.pl:201
+msgid "no libvirt domain name or disk image given\n"
+msgstr "не вказано назви домену або образу диска libvirt\n"
+
+#: tools/virt-win-reg.pl:240
+msgid ""
+"expecting 1 or 2 more parameters, subkey path and optionally the value to "
+"export\n"
+msgstr ""
+"мало бути вказано 1 або 2 додаткових параметри, шлях до підключа і "
+"необов’язкове значення для експортування\n"
+
+#: tools/virt-win-reg.pl:351
+#, perl-brace-format
+msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
+msgstr "virt-win-reg: {p}: непідтримуваний запис шляху у регістрі Windows\n"
+
+#: tools/virt-win-reg.pl:368 tools/virt-win-reg.pl:390
+#, perl-brace-format
+msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
+msgstr "virt-win-reg: {p}: файл не знайдено на гостьовій системі: {err}\n"
+
+#: tools/virt-win-reg.pl:375
+#, perl-brace-format
+msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
+msgstr "virt-win-reg: {p}: не вдалося отримати файл регістра: {err}\n"
+
+#: tools/virt-win-reg.pl:397
+#, perl-brace-format
+msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
+msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
