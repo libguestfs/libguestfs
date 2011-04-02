@@ -270,10 +270,10 @@ else
 fi
 AC_SUBST([POD2_UTF8_OPTION])
 
-dnl Check for mkisofs.
-AC_PATH_PROGS([MKISOFS],[mkisofs],[no],
+dnl Check for genisoimage.
+AC_PATH_PROGS([GENISOIMAGE],[genisoimage],[no],
         [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
-test "x$MKISOFS" = "xno" && AC_MSG_ERROR([mkisofs must be installed])
+test "x$GENISOIMAGE" = "xno" && AC_MSG_ERROR([genisoimage must be installed])
 
 dnl Check for optional xmllint.
 AC_CHECK_PROG([XMLLINT],[xmllint],[xmllint],[no])

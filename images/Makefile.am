@@ -101,7 +101,7 @@ images_files = $(images_files_src) $(images_files_build)
 test.iso: $(images_files)
 	rm -f $@ $@-t
 	mkdir -p directory
-	$(MKISOFS) -J -r -graft-points \
+	$(GENISOIMAGE) -J -r -graft-points \
 	  -o $@-t \
 	  $(images_files) /directory=directory
 	rmdir directory

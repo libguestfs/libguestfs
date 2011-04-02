@@ -40,7 +40,7 @@ Requirements
 
 - squashfs-tools (mksquashfs only)
 
-- genisoimage / mkisofs
+- genisoimage (NOT mkisofs any more)
 
 - hivex >= 1.2.1 (http://libguestfs.org/download)
 
