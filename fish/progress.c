@@ -171,7 +171,7 @@ progress_callback (guestfs_h *g, void *data,
                    const char *buf, size_t buf_len,
                    const uint64_t *array, size_t array_len)
 {
-  int i, cols;
+  int i, cols, pulse_mode;
   double ratio;
   const char *s_open, *s_dot, *s_dash, *s_close;
 
@@ -201,10 +201,16 @@ progress_callback (guestfs_h *g, void *data,
       tputs (UP, 2, putchar);
     count++;
 
+    /* Find out if we're in "pulse mode". */
+    pulse_mode = position == 0 && total == 1;
+
     ratio = (double) position / total;
     if (ratio < 0) ratio = 0; else if (ratio > 1) ratio = 1;
 
-    if (ratio < 1) {
+    if (pulse_mode) {
+      printf ("%s --- ", spinner (count));
+    }
+    else if (ratio < 1) {
       int percent = 100.0 * ratio;
       printf ("%s%3d%% ", spinner (count), percent);
     }
@@ -212,15 +218,26 @@ progress_callback (guestfs_h *g, void *data,
       fputs (" 100% ", stdout);
     }
 
-    int dots = ratio * (double) (cols - COLS_OVERHEAD);
-
-
     fputs (s_open, stdout);
-    int i;
-    for (i = 0; i < dots; ++i)
-      fputs (s_dot, stdout);
-    for (i = dots; i < cols - COLS_OVERHEAD; ++i)
-      fputs (s_dash, stdout);
+
+    if (!pulse_mode) {
+      int dots = ratio * (double) (cols - COLS_OVERHEAD);
+
+      for (i = 0; i < dots; ++i)
+        fputs (s_dot, stdout);
+      for (i = dots; i < cols - COLS_OVERHEAD; ++i)
+        fputs (s_dash, stdout);
+    }
+    else {           /* "Pulse mode": the progress bar just pulses. */
+      for (i = 0; i < cols - COLS_OVERHEAD; ++i) {
+        int cc = (count * 3 - i) % (cols - COLS_OVERHEAD);
+        if (cc >= 0 && cc <= 3)
+          fputs (s_dot, stdout);
+        else
+          fputs (s_dash, stdout);
+      }
+    }
+
     fputs (s_close, stdout);
     fputc (' ', stdout);
 
