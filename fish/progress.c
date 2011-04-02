@@ -1,5 +1,5 @@
 /* guestfish - the filesystem interactive shell
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -171,6 +171,16 @@ progress_callback (guestfs_h *g, void *data,
                    const char *buf, size_t buf_len,
                    const uint64_t *array, size_t array_len)
 {
+  int i, cols;
+  double ratio;
+  const char *s_open, *s_dot, *s_dash, *s_close;
+
+  if (utf8_mode) {
+    s_open = "\u27e6"; s_dot = "\u2589"; s_dash = "\u2550"; s_close = "\u27e7";
+  } else {
+    s_open = "["; s_dot = "#"; s_dash = "-"; s_close = "]";
+  }
+
   if (array_len < 4)
     return;
 
@@ -183,7 +193,7 @@ progress_callback (guestfs_h *g, void *data,
   dumb:
     printf ("%" PRIu64 "/%" PRIu64 "\n", position, total);
   } else {
-    int cols = tgetnum ((char *) "co");
+    cols = tgetnum ((char *) "co");
     if (cols < 32) goto dumb;
 
     /* Update an existing progress bar just printed? */
@@ -191,24 +201,19 @@ progress_callback (guestfs_h *g, void *data,
       tputs (UP, 2, putchar);
     count++;
 
-    double ratio = (double) position / total;
+    ratio = (double) position / total;
     if (ratio < 0) ratio = 0; else if (ratio > 1) ratio = 1;
 
     if (ratio < 1) {
       int percent = 100.0 * ratio;
       printf ("%s%3d%% ", spinner (count), percent);
-    } else {
+    }
+    else {
       fputs (" 100% ", stdout);
     }
 
     int dots = ratio * (double) (cols - COLS_OVERHEAD);
 
-    const char *s_open, *s_dot, *s_dash, *s_close;
-    if (utf8_mode) {
-      s_open = "\u27e6"; s_dot = "\u2589"; s_dash = "\u2550"; s_close = "\u27e7";
-    } else {
-      s_open = "["; s_dot = "#"; s_dash = "-"; s_close = "]";
-    }
 
     fputs (s_open, stdout);
     int i;
