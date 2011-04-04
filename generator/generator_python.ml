@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -647,6 +647,18 @@ class GuestFS:
         let doc = String.concat "\n        " doc in
         pr "        u\"\"\"%s\"\"\"\n" doc;
       );
+      (* Callers might pass in iterables instead of plain lists;
+       * convert those to plain lists because the C side of things
+       * cannot deal with iterables.  (RHBZ#693306).
+       *)
+      List.iter (
+        function
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
+        | BufferIn _ | Pointer _ -> ()
+        | StringList n | DeviceList n ->
+            pr "        %s = list (%s)\n" n n
+      ) args;
       pr "        return libguestfsmod.%s (self._o" name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (args@optargs);
       pr ")\n\n";
