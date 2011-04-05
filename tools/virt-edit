@@ -194,7 +194,8 @@ if (@roots > 1) {
     die __x("{prog}: multiboot operating systems are not supported.\n",
             prog => basename ($0))
 }
-my %fses = $g->inspect_get_mountpoints ($roots[0]);
+my $root = $roots[0];
+my %fses = $g->inspect_get_mountpoints ($root);
 my @fses = sort { length $a <=> length $b } keys %fses;
 foreach (@fses) {
     $g->mount_options ("", $fses{$_}, $_);
