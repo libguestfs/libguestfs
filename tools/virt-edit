@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # virt-edit
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -52,8 +52,13 @@ you from doing this, but doesn't catch all cases.
 C<virt-edit> is a command line tool to edit C<file> where C<file>
 exists in the named virtual machine (or disk image).
 
-If you want to just view a file, use L<virt-cat(1)>.  For more complex
-cases you should look at the L<guestfish(1)> tool.
+If you want to just view a file, use L<virt-cat(1)>.
+
+For more complex cases you should look at the L<guestfish(1)> tool
+(see L</USING GUESTFISH> below).
+
+C<virt-edit> cannot be used to create a new file, nor to edit
+multiple files.  L<guestfish(1)> can do that and much more.
 
 =head1 EXAMPLES
 
@@ -327,6 +332,43 @@ file):
 
  my $m = $_; chomp $m; $m =~ /some text$/
 
+=head1 USING GUESTFISH
+
+L<guestfish(1)> is a more powerful, lower level tool which you can use
+when C<virt-edit> doesn't work.
+
+Using C<virt-edit> is approximately equivalent to doing:
+
+ guestfish --rw -i -d domname edit /file
+
+where C<domname> is the name of the libvirt guest, and C</file> is the
+full path to the file.
+
+The command above uses libguestfs's guest inspection feature and so
+does not work on guests that libguestfs cannot inspect, or on things
+like arbitrary disk images that don't contain guests.  To edit a file
+on a disk image directly, use:
+
+ guestfish --rw -a disk.img -m /dev/sda1 edit /file
+
+where C<disk.img> is the disk image, C</dev/sda1> is the filesystem
+within the disk image to edit, and C</file> is the full path to the
+file.
+
+C<virt-edit> cannot create new files.  Use the guestfish commands
+C<touch>, C<write> or C<upload> instead:
+
+ guestfish --rw -i -d domname touch /newfile
+
+ guestfish --rw -i -d domname write /newfile "new content"
+
+ guestfish --rw -i -d domname upload localfile /newfile
+
+C<virt-edit> cannot edit multiple files, but guestfish can
+do it like this:
+
+ guestfish --rw -i -d domname edit /file1 : edit /file2
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
@@ -367,7 +409,7 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2010 Red Hat Inc.
+Copyright (C) 2009-2011 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
