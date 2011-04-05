@@ -269,8 +269,6 @@ if (defined $do_upload) {
 
 undef $g;
 
-exit 0;
-
 =head1 NON-INTERACTIVE EDITING
 
 C<virt-edit> normally calls out to C<$EDITOR> (or vi) so
@@ -369,6 +367,10 @@ C<virt-edit> cannot edit multiple files, but guestfish can
 do it like this:
 
  guestfish --rw -i -d domname edit /file1 : edit /file2
+
+=cut
+
+exit 0;
 
 =head1 ENVIRONMENT VARIABLES
 
