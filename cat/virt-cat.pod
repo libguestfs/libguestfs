@@ -27,7 +27,7 @@ directory (starting with '/').
 
 C<virt-cat> can be used to quickly view a file.  To edit a file, use
 C<virt-edit>.  For more complex cases you should look at the
-L<guestfish(1)> tool.
+L<guestfish(1)> tool (see L</USING GUESTFISH> below).
 
 =head1 EXAMPLES
 
@@ -164,6 +164,30 @@ name as a guest.
 
 For compatibility the old style is still supported.
 
+=head1 USING GUESTFISH
+
+L<guestfish(1)> is a more powerful, lower level tool which you can use
+when C<virt-cat> doesn't work.
+
+Using C<virt-cat> is approximately equivalent to doing:
+
+ guestfish --ro -i -d domname download file -
+
+where C<domname> is the name of the libvirt guest, and C<file> is the
+full path to the file.  Note the final C<-> (meaning "output to
+stdout").
+
+The command above uses libguestfs's guest inspection feature and so
+does not work on guests that libguestfs cannot inspect, or on things
+like arbitrary disk images that don't contain guests.  To display a
+file from a disk image directly, use:
+
+ guestfish --ro -a disk.img -m /dev/sda1 download file -
+
+where C<disk.img> is the disk image, C</dev/sda1> is the filesystem
+within the disk image to edit, and C<file> is the full path to the
+file.
+
 =head1 SHELL QUOTING
 
 Libvirt guest names can contain arbitrary characters, some of which
@@ -184,7 +208,7 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 Red Hat Inc.
+Copyright (C) 2010-2011 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
