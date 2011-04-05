@@ -1,5 +1,5 @@
 /* guestfish - the filesystem interactive shell
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,15 +43,24 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
   }
 
   /* Remote directory is always the last arg. */
-  const char *remote = argv[argc-1];
+  char *remote = argv[argc-1];
+
+  /* Allow win: prefix on remote. */
+  remote = win_prefix (remote);
+  if (remote == NULL)
+    return -1;
+
   int nr_locals = argc-1;
 
   int remote_is_dir = guestfs_is_dir (g, remote);
-  if (remote_is_dir == -1)
+  if (remote_is_dir == -1) {
+    free (remote);
     return -1;
+  }
 
   if (!remote_is_dir) {
     fprintf (stderr, _("copy-in: target '%s' is not a directory\n"), remote);
+    free (remote);
     return -1;
   }
 
@@ -59,8 +68,10 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
   int i;
   for (i = 0; i < nr_locals; ++i) {
     int fd = make_tar_from_local (argv[i]);
-    if (fd == -1)
+    if (fd == -1) {
+      free (remote);
       return -1;
+    }
 
     char fdbuf[64];
     snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fd);
@@ -75,14 +86,21 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
     int status;
     if (wait (&status) == -1) {
       perror ("wait (tar-from-local subprocess)");
+      free (remote);
       return -1;
     }
-    if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0))
+    if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0)) {
+      free (remote);
       return -1;
+    }
 
-    if (r == -1)
+    if (r == -1) {
+      free (remote);
       return -1;
+    }
   }
+
+  free (remote);
 
   return 0;
 }
@@ -199,64 +217,92 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
   /* Download each remote one at a time using tar-out. */
   int i, r;
   for (i = 0; i < nr_remotes; ++i) {
+    char *remote = argv[i];
+
+    /* Allow win:... prefix on remotes. */
+    remote = win_prefix (remote);
+    if (remote == NULL)
+      return -1;
+
     /* If the remote is a file, download it.  If it's a directory,
      * create the directory in local first before using tar-out.
      */
-    r = guestfs_is_file (g, argv[i]);
-    if (r == -1)
+    r = guestfs_is_file (g, remote);
+    if (r == -1) {
+      free (remote);
       return -1;
+    }
     if (r == 1) {               /* is file */
       char buf[PATH_MAX];
       const char *basename;
-      if (split_path (buf, sizeof buf, argv[i], NULL, &basename) == -1)
+      if (split_path (buf, sizeof buf, remote, NULL, &basename) == -1) {
+        free (remote);
         return -1;
+      }
 
       char filename[PATH_MAX];
       snprintf (filename, sizeof filename, "%s/%s", local, basename);
-      if (guestfs_download (g, argv[i], filename) == -1)
+      if (guestfs_download (g, remote, filename) == -1) {
+        free (remote);
         return -1;
+      }
     }
     else {                      /* not a regular file */
-      r = guestfs_is_dir (g, argv[i]);
-      if (r == -1)
+      r = guestfs_is_dir (g, remote);
+      if (r == -1) {
+        free (remote);
         return -1;
+      }
 
       if (r == 0) {
         fprintf (stderr, _("copy-out: '%s' is not a file or directory\n"),
-                 argv[i]);
+                 remote);
+        free (remote);
         return -1;
       }
 
       char buf[PATH_MAX];
       const char *basename;
-      if (split_path (buf, sizeof buf, argv[i], NULL, &basename) == -1)
+      if (split_path (buf, sizeof buf, remote, NULL, &basename) == -1) {
+        free (remote);
         return -1;
+      }
 
       int fd = make_tar_output (local, basename);
-      if (fd == -1)
+      if (fd == -1) {
+        free (remote);
         return -1;
+      }
 
       char fdbuf[64];
       snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fd);
 
-      int r = guestfs_tar_out (g, argv[i], fdbuf);
+      int r = guestfs_tar_out (g, remote, fdbuf);
 
       if (close (fd) == -1) {
         perror ("close (tar-output subprocess)");
+        free (remote);
         r = -1;
       }
 
       int status;
       if (wait (&status) == -1) {
         perror ("wait (tar-output subprocess)");
+        free (remote);
         return -1;
       }
-      if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0))
+      if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0)) {
+        free (remote);
         return -1;
+      }
 
-      if (r == -1)
+      if (r == -1) {
+        free (remote);
         return -1;
+      }
     }
+
+    free (remote);
   }
 
   return 0;
