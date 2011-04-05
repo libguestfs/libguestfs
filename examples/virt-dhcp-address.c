@@ -189,7 +189,7 @@ print_dhcp_address_linux (guestfs_h *g, char *root, const char *logfile)
 
 /* Download the Windows SYSTEM hive and find DHCP configuration in there. */
 static void
-print_dhcp_address_windows (guestfs_h *g, char *root_unused)
+print_dhcp_address_windows (guestfs_h *g, char *root_fs)
 {
   char *system_path;
   char tmpfile[] = "/tmp/systemXXXXXX";
@@ -197,8 +197,7 @@ print_dhcp_address_windows (guestfs_h *g, char *root_unused)
   hive_h *h;
   hive_node_h root, node, *nodes;
   hive_value_h value;
-  int32_t dword;
-  char controlset[] = "ControlSetXXX";
+  char *controlset;
   size_t i;
   char *p;
 
@@ -222,6 +221,10 @@ print_dhcp_address_windows (guestfs_h *g, char *root_unused)
 
   free (system_path);
 
+  controlset = guestfs_inspect_get_windows_current_control_set (g, root_fs);
+  if (controlset == NULL)
+    exit (EXIT_FAILURE);
+
   /* Open the hive to parse it. */
   h = hivex_open (tmpfile, 0);
   err = errno;
@@ -234,31 +237,11 @@ print_dhcp_address_windows (guestfs_h *g, char *root_unused)
     exit (EXIT_FAILURE);
   }
 
-  /* Navigate to the Select key so we know which ControlSet is in use. */
   root = hivex_root (h);
   if (root == 0) {
     perror ("hivex_root");
     exit (EXIT_FAILURE);
   }
-  node = hivex_node_get_child (h, root, "Select");
-  if (node == 0) {
-    if (errno != 0)
-      perror ("hivex_node_get_child");
-    else
-      fprintf (stderr, "virt-dhcp-address: HKLM\\System\\Select key not found.");
-    exit (EXIT_FAILURE);
-  }
-  value = hivex_node_get_value (h, node, "Current");
-  if (value == 0) {
-    if (errno != 0)
-      perror ("hivex_node_get_value");
-    else
-      fprintf (stderr, "virt-dhcp-address: HKLM\\System\\Select Default entry not found.");
-    exit (EXIT_FAILURE);
-  }
-  /* XXX Should check the type. */
-  dword = hivex_value_dword (h, value);
-  snprintf (controlset, sizeof controlset, "ControlSet%03d", dword);
 
   /* Get ControlSetXXX\Services\Tcpip\Parameters\Interfaces. */
   const char *path[] = { controlset, "Services", "Tcpip", "Parameters",
@@ -311,6 +294,8 @@ print_dhcp_address_windows (guestfs_h *g, char *root_unused)
 
   /* Close the hive handle. */
   hivex_close (h);
+
+  free (controlset);
 }
 
 static int

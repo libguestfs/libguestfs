@@ -251,6 +251,7 @@ struct inspect_fs {
   char *arch;
   char *hostname;
   char *windows_systemroot;
+  char *windows_current_control_set;
   enum inspect_os_format format;
   int is_live_disk;
   int is_netinst_disk;

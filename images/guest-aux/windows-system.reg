@@ -1,3 +1,9 @@
+[HKEY_LOCAL_MACHINE\SYSTEM\Select]
+"Current"=dword:00000001
+"Default"=dword:00000001
+"Failed"=dword:00000000
+"LastKnownGood"=dword:00000002
+
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001]
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services]

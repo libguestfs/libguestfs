@@ -1451,6 +1451,22 @@ Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_product_name>,
 C<guestfs_inspect_get_major_version>.");
 
+  ("inspect_get_windows_current_control_set", (RString "controlset", [Device "root"], []), -1, [],
+   [],
+   "get Windows CurrentControlSet of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the Windows CurrentControlSet of the inspected guest.
+The CurrentControlSet is a registry key name such as C<ControlSet001>.
+
+This call assumes that the guest is Windows and that the
+Registry could be examined by inspection.  If this is not
+the case then an error is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

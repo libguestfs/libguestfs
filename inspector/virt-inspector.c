@@ -416,6 +416,14 @@ output_root (xmlTextWriterPtr xo, char *root)
                                            BAD_CAST str));
     free (str);
   );
+  DISABLE_GUESTFS_ERRORS_FOR (
+    str = guestfs_inspect_get_windows_current_control_set (g, root);
+    if (str)
+      XMLERROR (-1,
+                xmlTextWriterWriteElement (xo, BAD_CAST "windows_current_control_set",
+                                           BAD_CAST str));
+    free (str);
+  );
 
   str = guestfs_inspect_get_format (g, root);
   if (!str) exit (EXIT_FAILURE);

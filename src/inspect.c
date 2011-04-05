@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 #ifdef HAVE_PCRE
 #include <pcre.h>
@@ -1612,7 +1613,10 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
   int ret = -1;
   hive_h *h = NULL;
-  hive_value_h *values = NULL;
+  hive_node_h root, node;
+  hive_value_h value, *values = NULL;
+  int32_t dword;
+  size_t i;
 
   if (download_to_tmp (g, system_path, system_local, MAX_REGISTRY_SIZE) == -1)
     goto out;
@@ -1623,21 +1627,49 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     goto out;
   }
 
-  hive_node_h node = hivex_root (h);
-  /* XXX Don't hard-code ControlSet001.  The current control set would
-   * be another good thing to expose up through the inspection API.
-   */
+  root = hivex_root (h);
+  if (root == 0) {
+    perrorf (g, "hivex_root");
+    goto out;
+  }
+
+  /* Get the CurrentControlSet. */
+  errno = 0;
+  node = hivex_node_get_child (h, root, "Select");
+  if (node == 0) {
+    if (errno != 0)
+      perrorf (g, "hivex_node_get_child");
+    else
+      error (g, "hivex: could not locate HKLM\\SYSTEM\\Select");
+    goto out;
+  }
+
+  errno = 0;
+  value = hivex_node_get_value (h, node, "Current");
+  if (value == 0) {
+    if (errno != 0)
+      perrorf (g, "hivex_node_get_value");
+    else
+      error (g, "hivex: HKLM\\System\\Select Default entry not found.");
+    goto out;
+  }
+
+  /* XXX Should check the type. */
+  dword = hivex_value_dword (h, value);
+  fs->windows_current_control_set = safe_asprintf (g, "ControlSet%03d", dword);
+
+  /* Get the hostname. */
   const char *hivepath[] =
-    { "ControlSet001", "Services", "Tcpip", "Parameters" };
-  size_t i;
-  for (i = 0;
+    { fs->windows_current_control_set, "Services", "Tcpip", "Parameters" };
+  for (node = root, i = 0;
        node != 0 && i < sizeof hivepath / sizeof hivepath[0];
        ++i) {
     node = hivex_node_get_child (h, node, hivepath[i]);
   }
 
   if (node == 0) {
-    perrorf (g, "hivex: cannot locate HKLM\\SYSTEM\\ControlSet001\\Services\\Tcpip\\Parameters");
+    perrorf (g, "hivex: cannot locate HKLM\\SYSTEM\\%s\\Services\\Tcpip\\Parameters",
+             fs->windows_current_control_set);
     goto out;
   }
 
@@ -2008,6 +2040,22 @@ guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
   }
 
   return safe_strdup (g, fs->windows_systemroot);
+}
+
+char *
+guestfs__inspect_get_windows_current_control_set (guestfs_h *g,
+                                                  const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  if (!fs->windows_current_control_set) {
+    error (g, _("not a Windows guest, or CurrentControlSet could not be determined"));
+    return NULL;
+  }
+
+  return safe_strdup (g, fs->windows_current_control_set);
 }
 
 char *
@@ -2905,6 +2953,13 @@ guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
   NOT_IMPL(NULL);
 }
 
+char *
+guestfs__inspect_get_windows_current_control_set (guestfs_h *g,
+                                                  const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
 char **
 guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
 {
@@ -2978,6 +3033,7 @@ guestfs___free_inspect_info (guestfs_h *g)
     free (g->fses[i].arch);
     free (g->fses[i].hostname);
     free (g->fses[i].windows_systemroot);
+    free (g->fses[i].windows_current_control_set);
     size_t j;
     for (j = 0; j < g->fses[i].nr_fstab; ++j) {
       free (g->fses[i].fstab[j].device);
