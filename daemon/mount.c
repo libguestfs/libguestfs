@@ -174,68 +174,49 @@ do_umount (const char *pathordevice)
   return 0;
 }
 
+/* Implement 'mounts' (mp==0) and 'mountpoints' (mp==1) calls. */
 static char **
 mounts_or_mountpoints (int mp)
 {
-  char *out, *err;
-  int r;
+  FILE *fp;
+  struct mntent *m;
   char **ret = NULL;
   int size = 0, alloc = 0;
-  char *p, *pend, *p2;
-  int len;
-  char matching[5 + sysroot_len];
   size_t i;
+  int r;
 
-  r = command (&out, &err, "mount", NULL);
-  if (r == -1) {
-    reply_with_error ("mount: %s", err);
-    free (out);
-    free (err);
-    return NULL;
+  /* NB: Eventually we should aim to parse /proc/self/mountinfo, but
+   * that requires custom parsing code.
+   */
+  fp = setmntent ("/proc/mounts", "r");
+  if (fp == NULL) {
+    perror ("/proc/mounts");
+    exit (EXIT_FAILURE);
   }
 
-  free (err);
-
-  /* Lines have the format:
-   *   /dev/foo on /mountpoint type ...
-   */
-  snprintf (matching, 5 + sysroot_len, " on %s", sysroot);
-
-  p = out;
-  while (p) {
-    pend = strchr (p, '\n');
-    if (pend) {
-      *pend = '\0';
-      pend++;
-    }
-
-    p2 = strstr (p, matching);
-    if (p2 != NULL) {
-      *p2 = '\0';
-      if (add_string (&ret, &size, &alloc, p) == -1) {
-        free (out);
+  while ((m = getmntent (fp)) != NULL) {
+    /* Allow a mount directory like "/sysroot". */
+    if (sysroot_len > 0 && STREQ (m->mnt_dir, sysroot)) {
+      if (add_string (&ret, &size, &alloc, m->mnt_fsname) == -1) {
+      error:
+        endmntent (fp);
         return NULL;
       }
-      if (mp) {
-        p2 += 4 + sysroot_len;	/* skip " on /sysroot" */
-        len = strcspn (p2, " ");
-
-        if (len == 0)		/* .. just /sysroot, so we turn it into "/" */
-          p2 = (char *) "/";
-        else
-          p2[len] = '\0';
-
-        if (add_string (&ret, &size, &alloc, p2) == -1) {
-          free (out);
-          return NULL;
-        }
-      }
+      if (mp &&
+          add_string (&ret, &size, &alloc, "/") == -1)
+        goto error;
     }
-
-    p = pend;
+    /* Or allow a mount directory like "/sysroot/...". */
+    if (STRPREFIX (m->mnt_dir, sysroot) && m->mnt_dir[sysroot_len] == '/') {
+      if (add_string (&ret, &size, &alloc, m->mnt_fsname) == -1)
+        goto error;
+      if (mp &&
+          add_string (&ret, &size, &alloc, &m->mnt_dir[sysroot_len]) == -1)
+        goto error;
+    }
   }
 
-  free (out);
+  endmntent (fp);
 
   if (add_string (&ret, &size, &alloc, NULL) == -1)
     return NULL;
