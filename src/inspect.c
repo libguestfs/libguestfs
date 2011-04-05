@@ -229,7 +229,7 @@ static int check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
-static char *resolve_windows_path_silently (guestfs_h *g, const char *);
+static char *case_sensitive_path_silently (guestfs_h *g, const char *);
 static int is_file_nocase (guestfs_h *g, const char *);
 static int is_dir_nocase (guestfs_h *g, const char *);
 static int extend_fses (guestfs_h *g);
@@ -1422,7 +1422,7 @@ check_windows_root (guestfs_h *g, struct inspect_fs *fs)
   for (i = 0;
        systemroot == NULL && i < sizeof systemroots / sizeof systemroots[0];
        ++i) {
-    systemroot = resolve_windows_path_silently (g, systemroots[i]);
+    systemroot = case_sensitive_path_silently (g, systemroots[i]);
   }
 
   if (!systemroot) {
@@ -1459,7 +1459,7 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
   char cmd_exe[len];
   snprintf (cmd_exe, len, "%s/system32/cmd.exe", fs->windows_systemroot);
 
-  char *cmd_exe_path = resolve_windows_path_silently (g, cmd_exe);
+  char *cmd_exe_path = case_sensitive_path_silently (g, cmd_exe);
   if (!cmd_exe_path)
     return 0;
 
@@ -1486,7 +1486,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   snprintf (software, len, "%s/system32/config/software",
             fs->windows_systemroot);
 
-  char *software_path = resolve_windows_path_silently (g, software);
+  char *software_path = case_sensitive_path_silently (g, software);
   if (!software_path)
     /* If the software hive doesn't exist, just accept that we cannot
      * find product_name etc.
@@ -1603,7 +1603,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   snprintf (system, len, "%s/system32/config/system",
             fs->windows_systemroot);
 
-  char *system_path = resolve_windows_path_silently (g, system);
+  char *system_path = case_sensitive_path_silently (g, system);
   if (!system_path)
     /* If the system hive doesn't exist, just accept that we cannot
      * find hostname etc.
@@ -1678,7 +1678,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 }
 
 static char *
-resolve_windows_path_silently (guestfs_h *g, const char *path)
+case_sensitive_path_silently (guestfs_h *g, const char *path)
 {
   guestfs_error_handler_cb old_error_cb = g->error_cb;
   g->error_cb = NULL;
@@ -1693,7 +1693,7 @@ is_file_nocase (guestfs_h *g, const char *path)
   char *p;
   int r;
 
-  p = resolve_windows_path_silently (g, path);
+  p = case_sensitive_path_silently (g, path);
   if (!p)
     return 0;
   r = guestfs_is_file (g, p);
@@ -1707,7 +1707,7 @@ is_dir_nocase (guestfs_h *g, const char *path)
   char *p;
   int r;
 
-  p = resolve_windows_path_silently (g, path);
+  p = case_sensitive_path_silently (g, path);
   if (!p)
     return 0;
   r = guestfs_is_dir (g, p);
@@ -2476,7 +2476,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   snprintf (software, len, "%s/system32/config/software",
             fs->windows_systemroot);
 
-  char *software_path = resolve_windows_path_silently (g, software);
+  char *software_path = case_sensitive_path_silently (g, software);
   if (!software_path)
     /* If the software hive doesn't exist, just accept that we cannot
      * find product_name etc.
