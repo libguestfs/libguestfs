@@ -928,6 +928,12 @@ which is the filesystem that would be mounted there
 Non-mounted devices such as swap devices are I<not>
 returned in this list.
 
+For operating systems like Windows which still use drive
+letters, this call will only return an entry for the first
+drive \"mounted on\" C</>.  For information about the
+mapping of drive letters to partitions, see
+C<guestfs_inspect_get_drive_mappings>.
+
 Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_filesystems>.");
 
@@ -1466,6 +1472,42 @@ Registry could be examined by inspection.  If this is not
 the case then an error is returned.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_drive_mappings", (RHashtable "drives", [Device "root"], []), -1, [],
+   [],
+   "get drive letter mappings",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This call is useful for Windows which uses a primitive system
+of assigning drive letters (like \"C:\") to partitions.
+This inspection API examines the Windows Registry to find out
+how disks/partitions are mapped to drive letters, and returns
+a hash table as in the example below:
+
+ C      =>     /dev/vda2
+ E      =>     /dev/vdb1
+ F      =>     /dev/vdc1
+
+Note that keys are drive letters.  For Windows, the key is
+case insensitive and just contains the drive letter, without
+the customary colon separator character.
+
+In future we may support other operating systems that also used drive
+letters, but the keys for those might not be case insensitive
+and might be longer than 1 character.  For example in OS-9,
+hard drives were named C<h0>, C<h1> etc.
+
+For Windows guests, currently only hard drive mappings are
+returned.  Removable disks (eg. DVD-ROMs) are ignored.
+
+For guests that do not use drive mappings, or if the drive mappings
+could not be determined, this returns an empty hash table.
+
+Please read L<guestfs(3)/INSPECTION> for more details.
+See also C<guestfs_inspect_get_mountpoints>,
+C<guestfs_inspect_get_filesystems>.");
 
 ]
 

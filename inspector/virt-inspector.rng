@@ -47,6 +47,7 @@
 
             <ref name="mountpoints"/>
             <ref name="filesystems"/>
+            <optional><ref name="drive_mappings"/></optional>
             <optional><ref name="applications"/></optional>
 
           </interleave>
@@ -78,6 +79,18 @@
             <optional><element name="label"><text/></element></optional>
             <optional><element name="uuid"><text/></element></optional>
           </interleave>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- drive mappings (for Windows) -->
+  <define name="drive_mappings">
+    <element name="drive_mappings">
+      <oneOrMore>
+        <element name="drive_mapping">
+          <attribute name="name"><text/></attribute>
+          <text/>
         </element>
       </oneOrMore>
     </element>

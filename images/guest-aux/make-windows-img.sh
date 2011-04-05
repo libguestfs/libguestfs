@@ -45,6 +45,9 @@ part-init /dev/sda mbr
 part-add /dev/sda p 64     524287
 part-add /dev/sda p 524288    -64
 
+# Disk ID.
+pwrite-device /dev/sda "1234" 0x01b8
+
 # Phony boot loader filesystem.
 mkfs ntfs /dev/sda1
 

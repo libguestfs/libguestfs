@@ -51,6 +51,7 @@ static void output_roots (xmlTextWriterPtr xo, char **roots);
 static void output_root (xmlTextWriterPtr xo, char *root);
 static void output_mountpoints (xmlTextWriterPtr xo, char *root);
 static void output_filesystems (xmlTextWriterPtr xo, char *root);
+static void output_drive_mappings (xmlTextWriterPtr xo, char *root);
 static void output_applications (xmlTextWriterPtr xo, char *root);
 static void canonicalize (char *dev);
 static void free_strings (char **argv);
@@ -458,6 +459,8 @@ output_root (xmlTextWriterPtr xo, char *root)
 
   output_filesystems (xo, root);
 
+  output_drive_mappings (xo, root);
+
   output_applications (xo, root);
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
@@ -470,6 +473,15 @@ compare_keys (const void *p1, const void *p2)
   const char *key2 = * (char * const *) p2;
 
   return strcmp (key1, key2);
+}
+
+static int
+compare_keys_nocase (const void *p1, const void *p2)
+{
+  const char *key1 = * (char * const *) p1;
+  const char *key2 = * (char * const *) p2;
+
+  return strcasecmp (key1, key2);
 }
 
 static int
@@ -580,6 +592,48 @@ output_filesystems (xmlTextWriterPtr xo, char *root)
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   free_strings (filesystems);
+}
+
+static void
+output_drive_mappings (xmlTextWriterPtr xo, char *root)
+{
+  char **drive_mappings = NULL;
+  size_t i;
+
+  DISABLE_GUESTFS_ERRORS_FOR (
+    drive_mappings = guestfs_inspect_get_drive_mappings (g, root);
+  );
+  if (drive_mappings == NULL)
+    return;
+
+  if (drive_mappings[0] == NULL) {
+    free_strings (drive_mappings);
+    return;
+  }
+
+  /* Sort by key. */
+  qsort (drive_mappings,
+         count_strings (drive_mappings) / 2, 2 * sizeof (char *),
+         compare_keys_nocase);
+
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "drive_mappings"));
+
+  for (i = 0; drive_mappings[i] != NULL; i += 2) {
+    canonicalize (drive_mappings[i+1]);
+
+    XMLERROR (-1,
+              xmlTextWriterStartElement (xo, BAD_CAST "drive_mapping"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
+                                           BAD_CAST drive_mappings[i]));
+    XMLERROR (-1,
+              xmlTextWriterWriteString (xo, BAD_CAST drive_mappings[i+1]));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  free_strings (drive_mappings);
 }
 
 static void

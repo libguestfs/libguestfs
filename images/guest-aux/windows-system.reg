@@ -4,6 +4,9 @@
 "Failed"=dword:00000000
 "LastKnownGood"=dword:00000002
 
+[HKEY_LOCAL_MACHINE\SYSTEM\MountedDevices]
+"\\DosDevices\\C:"=hex(3):31,32,33,34,00,00,00,10,00,00,00,00
+
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001]
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services]

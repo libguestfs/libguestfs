@@ -26,6 +26,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <endian.h>
 
 #ifdef HAVE_PCRE
 #include <pcre.h>
@@ -230,6 +231,7 @@ static int check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
+static char *map_registry_disk_blob (guestfs_h *g, const char *blob);
 static char *case_sensitive_path_silently (guestfs_h *g, const char *);
 static int is_file_nocase (guestfs_h *g, const char *);
 static int is_dir_nocase (guestfs_h *g, const char *);
@@ -1616,7 +1618,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   hive_node_h root, node;
   hive_value_h value, *values = NULL;
   int32_t dword;
-  size_t i;
+  size_t i, count;
 
   if (download_to_tmp (g, system_path, system_local, MAX_REGISTRY_SIZE) == -1)
     goto out;
@@ -1657,6 +1659,69 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   /* XXX Should check the type. */
   dword = hivex_value_dword (h, value);
   fs->windows_current_control_set = safe_asprintf (g, "ControlSet%03d", dword);
+
+  /* Get the drive mappings.
+   * This page explains the contents of HKLM\System\MountedDevices:
+   * http://www.goodells.net/multiboot/partsigs.shtml
+   */
+  errno = 0;
+  node = hivex_node_get_child (h, root, "MountedDevices");
+  if (node == 0) {
+    if (errno != 0)
+      perrorf (g, "hivex_node_get_child");
+    else
+      error (g, "hivex: could not locate HKLM\\SYSTEM\\MountedDevices");
+    goto out;
+  }
+
+  values = hivex_node_values (h, node);
+
+  /* Count how many DOS drive letter mappings there are.  This doesn't
+   * ignore removable devices, so it overestimates, but that doesn't
+   * matter because it just means we'll allocate a few bytes extra.
+   */
+  for (i = count = 0; values[i] != 0; ++i) {
+    char *key = hivex_value_key (h, values[i]);
+    if (key == NULL) {
+      perrorf (g, "hivex_value_key");
+      goto out;
+    }
+    if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
+        c_isalpha (key[12]) && key[13] == ':')
+      count++;
+  }
+
+  fs->drive_mappings = calloc (2*count + 1, sizeof (char *));
+  if (fs->drive_mappings == NULL) {
+    perrorf (g, "calloc");
+    goto out;
+  }
+
+  for (i = count = 0; values[i] != 0; ++i) {
+    char *key = hivex_value_key (h, values[i]);
+    if (key == NULL) {
+      perrorf (g, "hivex_value_key");
+      goto out;
+    }
+    if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
+        c_isalpha (key[12]) && key[13] == ':') {
+      /* Get the binary value.  Is it a fixed disk? */
+      char *blob, *device;
+      size_t len;
+      hive_type type;
+
+      blob = hivex_value_value (h, values[i], &type, &len);
+      if (blob != NULL && type == 3 && len == 12) {
+        /* Try to map the blob to a known disk and partition. */
+        device = map_registry_disk_blob (g, blob);
+        if (device != NULL) {
+          fs->drive_mappings[count++] = safe_strndup (g, &key[12], 1);
+          fs->drive_mappings[count++] = device;
+        }
+      }
+      free (blob);
+    }
+  }
 
   /* Get the hostname. */
   const char *hivepath[] =
@@ -1706,6 +1771,75 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   unlink (system_local);
 #undef system_local_len
 
+  return ret;
+}
+
+/* Windows Registry HKLM\SYSTEM\MountedDevices uses a blob of data
+ * to store partitions.  This blob is described here:
+ * http://www.goodells.net/multiboot/partsigs.shtml
+ * The following function maps this blob to a libguestfs partition
+ * name, if possible.
+ */
+static char *
+map_registry_disk_blob (guestfs_h *g, const char *blob)
+{
+  char **devices = NULL;
+  struct guestfs_partition_list *partitions = NULL;
+  char *diskid;
+  size_t i, j, len;
+  char *ret = NULL;
+  uint64_t part_offset;
+
+  /* First 4 bytes are the disk ID.  Search all devices to find the
+   * disk with this disk ID.
+   */
+  devices = guestfs_list_devices (g);
+  if (devices == NULL)
+    goto out;
+
+  for (i = 0; devices[i] != NULL; ++i) {
+    /* Read the disk ID. */
+    diskid = guestfs_pread_device (g, devices[i], 4, 0x01b8, &len);
+    if (diskid == NULL)
+      continue;
+    if (len < 4) {
+      free (diskid);
+      continue;
+    }
+    if (memcmp (diskid, blob, 4) == 0) { /* found it */
+      free (diskid);
+      goto found_disk;
+    }
+    free (diskid);
+  }
+  goto out;
+
+ found_disk:
+  /* Next 8 bytes are the offset of the partition in bytes(!) given as
+   * a 64 bit little endian number.  Luckily it's easy to get the
+   * partition byte offset from guestfs_part_list.
+   */
+  part_offset = le64toh (* (uint64_t *) &blob[4]);
+
+  partitions = guestfs_part_list (g, devices[i]);
+  if (partitions == NULL)
+    goto out;
+
+  for (j = 0; j < partitions->len; ++j) {
+    if (partitions->val[j].part_start == part_offset) /* found it */
+      goto found_partition;
+  }
+  goto out;
+
+ found_partition:
+  /* Construct the full device name. */
+  ret = safe_asprintf (g, "%s%d", devices[i], partitions->val[j].part_num);
+
+ out:
+  if (devices)
+    guestfs___free_string_list (devices);
+  if (partitions)
+    guestfs_free_partition_list (partitions);
   return ret;
 }
 
@@ -2174,6 +2308,42 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
   size_t i;
   for (i = 0; i < fs->nr_fstab; ++i)
     ret[i] = safe_strdup (g, fs->fstab[i].device);
+
+  return ret;
+}
+
+char **
+guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
+{
+  char **ret;
+  size_t i, count;
+  struct inspect_fs *fs;
+
+  fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  /* If no drive mappings, return an empty hashtable. */
+  if (!fs->drive_mappings)
+    count = 0;
+  else {
+    for (count = 0; fs->drive_mappings[count] != NULL; count++)
+      ;
+  }
+
+  ret = calloc (count+1, sizeof (char *));
+  if (ret == NULL) {
+    perrorf (g, "calloc");
+    return NULL;
+  }
+
+  /* We need to make a deep copy of the hashtable since the caller
+   * will free it.
+   */
+  for (i = 0; i < count; ++i)
+    ret[i] = safe_strdup (g, fs->drive_mappings[i]);
+
+  ret[count] = NULL;
 
   return ret;
 }
@@ -2972,6 +3142,12 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
   NOT_IMPL(NULL);
 }
 
+char **
+guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
 char *
 guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
 {
@@ -3040,6 +3216,8 @@ guestfs___free_inspect_info (guestfs_h *g)
       free (g->fses[i].fstab[j].mountpoint);
     }
     free (g->fses[i].fstab);
+    if (g->fses[i].drive_mappings)
+      guestfs___free_string_list (g->fses[i].drive_mappings);
   }
   free (g->fses);
   g->nr_fses = 0;
