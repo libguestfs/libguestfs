@@ -393,7 +393,7 @@ Guestfish will prompt for these separately."
             pr "  %s = argv[i++];\n" name
         | Pathname name
         | Dev_or_Path name ->
-            pr "  %s = resolve_win_path (argv[i++]);\n" name;
+            pr "  %s = win_prefix (argv[i++]); /* process \"win:\" prefix */\n" name;
             pr "  if (%s == NULL) return -1;\n" name
         | OptString name ->
             pr "  %s = STRNEQ (argv[i], \"\") ? argv[i] : NULL;\n" name;

@@ -73,7 +73,7 @@ extern void print_table (char *const *argv);
 extern int is_true (const char *str);
 extern char **parse_string_list (const char *str);
 extern int xwrite (int fd, const void *buf, size_t len);
-extern char *resolve_win_path (const char *path);
+extern char *win_prefix (const char *path);
 extern char *file_in (const char *arg);
 extern void free_file_in (char *s);
 extern char *file_out (const char *arg);
