@@ -68,6 +68,10 @@ Edit the named files interactively:
 
  virt-edit mydomain /etc/passwd
 
+For Windows guests, some Windows paths are understood:
+
+ virt-edit mywindomain 'c:\autoexec.bat'
+
 You can also edit files non-interactively (see
 L</NON-INTERACTIVE EDITING> below).
 To change the init default level to 5:
@@ -201,6 +205,10 @@ foreach (@fses) {
     $g->mount_options ("", $fses{$_}, $_);
 }
 
+# Special handling for Windows filenames.
+$filename = windows_path ($g, $root, $filename)
+    if $g->inspect_get_type ($root) eq "windows";
+
 my ($fh, $tempname) = tempfile (UNLINK => 1);
 my $fddev = "/dev/fd/" . fileno ($fh);
 
@@ -330,6 +338,99 @@ chomp C<$_> itself (since that would remove all newlines from the
 file):
 
  my $m = $_; chomp $m; $m =~ /some text$/
+
+=head1 WINDOWS PATHS
+
+C<virt-edit> has a limited ability to understand Windows drive letters
+and paths (eg. C<E:\foo\bar.txt>).
+
+If and only if the guest is running Windows then:
+
+=over 4
+
+=item *
+
+Drive letter prefixes like C<C:> are resolved against the
+Windows Registry to the correct filesystem.
+
+=item *
+
+Any backslash (C<\>) characters in the path are replaced
+with forward slashes so that libguestfs can process it.
+
+=item *
+
+The path is resolved case insensitively to locate the file
+that should be edited.
+
+=back
+
+There are some known shortcomings:
+
+=over 4
+
+=item *
+
+Some NTFS symbolic links may not be followed correctly.
+
+=item *
+
+NTFS junction points that cross filesystems are not followed.
+
+=back
+
+=cut
+
+sub windows_path
+{
+    my $g = shift;
+    my $root = shift;
+    my $filename = shift;
+
+    # Deal with drive letters.
+    if ($filename =~ /^([a-z]):(.*)/i) {
+        $filename = $2;
+        my $drive_letter = $1;
+
+        # Look up the drive letter in the drive mapping table.  We
+        # have to do a case insensitive comparison, the slow way.
+        my $device;
+        my %drives = $g->inspect_get_drive_mappings ($root);
+        foreach (keys %drives) {
+            if (lc $_ eq lc $drive_letter) {
+                $device = $drives{$_};
+                last;
+            }
+        }
+
+        die __x("virt-edit: drive '{x}:' not found\n", x => $drive_letter)
+            unless defined $device;
+
+        # Unmount current disk and remount $device.
+        $g->umount_all ();
+        $g->mount_options ("", $device, "/");
+    }
+
+    # Replace any backslashes in the rest of the path with
+    # forward slashes.
+    $filename =~ s{\\}{/}g;
+
+    # If the user put \foo on the command line without quoting it
+    # properly, then we'll see that here as a bare path.  Add a more
+    # descriptive error message here.
+    if (substr ($filename, 0, 1) ne "/") {
+        die __x("virt-edit: '{f}' does not start with a / or \\ character.
+If you are using Windows style paths with backslashes like C:\\foo.txt
+then don't forget that you must quote them with single quotes to
+prevent the shell from munging the backslashes.\n",
+                f => $filename)
+    }
+
+    # Case sensitivity.
+    $filename = $g->case_sensitive_path ($filename);
+
+    return $filename;
+}
 
 =head1 USING GUESTFISH
 
