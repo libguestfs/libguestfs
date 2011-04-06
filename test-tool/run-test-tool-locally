@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,6 +51,4 @@ $ENV{LIBGUESTFS_PATH} = $path.'/appliance';
 
 exec("$path/test-tool/libguestfs-test-tool",
      "$path/test-tool/libguestfs-test-tool",
-     "--helper",
-     "$path/test-tool/libguestfs-test-tool-helper",
      @ARGV);

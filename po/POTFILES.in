@@ -142,7 +142,6 @@ src/launch.c
 src/listfs.c
 src/proto.c
 src/virt.c
-test-tool/helper.c
 test-tool/test-tool.c
 tools/virt-edit.pl
 tools/virt-list-filesystems.pl

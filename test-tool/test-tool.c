@@ -1,5 +1,5 @@
 /* libguestfs-test-tool
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,10 +37,10 @@
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))
-#define N_(str) dgettext(PACKAGE, (str))
+//#define N_(str) dgettext(PACKAGE, (str))
 #else
 #define _(str) str
-#define N_(str) str
+//#define N_(str) str
 #endif
 
 #if !ENABLE_NLS
@@ -51,14 +51,14 @@
 #endif
 
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
-#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
-#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
-#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
+//#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
+//#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
+//#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
 #define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
-#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
-#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
-#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+//#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
+//#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
+//#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
+//#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
 #ifndef P_tmpdir
 #define P_tmpdir "/tmp"
@@ -66,13 +66,10 @@
 
 #define DEFAULT_TIMEOUT 120
 
-static const char *helper = DEFAULT_HELPER;
 static int timeout = DEFAULT_TIMEOUT;
 static char tmpf[] = P_tmpdir "/libguestfs-test-tool-sda-XXXXXX";
-static char isof[] = P_tmpdir "/libguestfs-test-tool-iso-XXXXXX";
 static guestfs_h *g;
 
-static void preruncheck (void);
 static void make_files (void);
 static void set_qemu (const char *path, int use_wrapper);
 
@@ -80,20 +77,20 @@ static void
 usage (void)
 {
   printf (_("libguestfs-test-tool: interactive test tool\n"
-            "Copyright (C) 2009 Red Hat Inc.\n"
+            "Copyright (C) 2009-2011 Red Hat Inc.\n"
             "Usage:\n"
             "  libguestfs-test-tool [--options]\n"
             "Options:\n"
             "  --help         Display usage\n"
-            "  --helper libguestfs-test-tool-helper\n"
-            "                 Helper program (default: %s)\n"
             "  --qemudir dir  Specify QEMU source directory\n"
             "  --qemu qemu    Specify QEMU binary\n"
             "  --timeout n\n"
             "  -t n           Set launch timeout (default: %d seconds)\n"
             ),
-          DEFAULT_HELPER, DEFAULT_TIMEOUT);
+          DEFAULT_TIMEOUT);
 }
+
+extern char **environ;
 
 int
 main (int argc, char *argv[])
@@ -105,7 +102,6 @@ main (int argc, char *argv[])
   static const char *options = "t:?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
-    { "helper", 1, 0, 0 },
     { "qemu", 1, 0, 0 },
     { "qemudir", 1, 0, 0 },
     { "timeout", 1, 0, 't' },
@@ -113,13 +109,8 @@ main (int argc, char *argv[])
   };
   int c;
   int option_index;
-  extern char **environ;
   int i;
   struct guestfs_version *vers;
-  char *sfdisk_lines[] = { ",", NULL };
-  char *str;
-  /* XXX This is wrong if the user renames the helper. */
-  char *helper_args[] = { "/iso/libguestfs-test-tool-helper", NULL };
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -127,9 +118,7 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "helper"))
-        helper = optarg;
-      else if (STREQ (long_options[option_index].name, "qemu"))
+      if (STREQ (long_options[option_index].name, "qemu"))
         set_qemu (optarg, 0);
       else if (STREQ (long_options[option_index].name, "qemudir"))
         set_qemu (optarg, 1);
@@ -162,7 +151,6 @@ main (int argc, char *argv[])
     }
   }
 
-  preruncheck ();
   make_files ();
 
   printf ("===== Test starts here =====\n");
@@ -190,15 +178,6 @@ main (int argc, char *argv[])
              tmpf);
     exit (EXIT_FAILURE);
   }
-  if (guestfs_add_drive_opts (g, isof,
-                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                              GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
-                              -1) == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to add drive '%s'\n"),
-             isof);
-    exit (EXIT_FAILURE);
-  }
 
   /* Print any version info etc. */
   vers = guestfs_version (g);
@@ -211,11 +190,21 @@ main (int argc, char *argv[])
   guestfs_free_version (vers);
 
   printf ("guestfs_get_append: %s\n", guestfs_get_append (g) ? : "(null)");
+  printf ("guestfs_get_attach_method: %s\n",
+          guestfs_get_attach_method (g) ? : "(null)");
   printf ("guestfs_get_autosync: %d\n", guestfs_get_autosync (g));
+  printf ("guestfs_get_direct: %d\n", guestfs_get_direct (g));
   printf ("guestfs_get_memsize: %d\n", guestfs_get_memsize (g));
+  printf ("guestfs_get_network: %d\n", guestfs_get_network (g));
   printf ("guestfs_get_path: %s\n", guestfs_get_path (g));
   printf ("guestfs_get_qemu: %s\n", guestfs_get_qemu (g));
+  printf ("guestfs_get_recovery_proc: %d\n",
+          guestfs_get_recovery_proc (g));
+  printf ("guestfs_get_selinux: %d\n", guestfs_get_selinux (g));
+  printf ("guestfs_get_trace: %d\n", guestfs_get_trace (g));
   printf ("guestfs_get_verbose: %d\n", guestfs_get_verbose (g));
+
+  printf ("host_cpu: %s\n", host_cpu);
 
   /* Launch the guest handle. */
   printf ("Launching appliance, timeout set to %d seconds.\n", timeout);
@@ -235,9 +224,9 @@ main (int argc, char *argv[])
   fflush (stdout);
 
   /* Create the filesystem and mount everything. */
-  if (guestfs_sfdiskM (g, "/dev/sda", sfdisk_lines) == -1) {
+  if (guestfs_part_disk (g, "/dev/sda", "mbr") == -1) {
     fprintf (stderr,
-             _("libguestfs-test-tool: failed to run sfdisk\n"));
+             _("libguestfs-test-tool: failed to run part-disk\n"));
     exit (EXIT_FAILURE);
   }
 
@@ -253,27 +242,14 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_mkdir (g, "/iso") == -1) {
+  /* Touch a file. */
+  if (guestfs_touch (g, "/hello") == -1) {
     fprintf (stderr,
-             _("libguestfs-test-tool: failed to mkdir /iso\n"));
+             _("libguestfs-test-tool: failed to touch file\n"));
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_mount (g, "/dev/sdb", "/iso") == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"));
-    exit (EXIT_FAILURE);
-  }
-
-  /* Let's now run some simple tests using the helper program. */
-  str = guestfs_command (g, helper_args);
-  if (str == NULL) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: could not run helper program, or helper failed\n"));
-    exit (EXIT_FAILURE);
-  }
-  free (str);
-
+  /* Booted and performed some simple operations -- success! */
   printf ("===== TEST FINISHED OK =====\n");
   exit (EXIT_SUCCESS);
 }
@@ -358,86 +334,21 @@ set_qemu (const char *path, int use_wrapper)
   atexit (cleanup_wrapper);
 }
 
-/* After getting the command line args, but before running
- * anything, we check everything is in place to do the tests.
- */
-static void
-preruncheck (void)
-{
-  int r;
-  FILE *fp;
-  char cmd[256];
-  char buffer[1024];
-
-  if (access (helper, R_OK) == -1) {
-    fprintf (stderr,
-    _("Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-      "available.  Expected to find it in '%s'\n"
-      "\n"
-      "Use the --helper option to specify the location of this program.\n"),
-             helper);
-    exit (EXIT_FAILURE);
-  }
-
-  snprintf (cmd, sizeof cmd, "file '%s'", helper);
-  fp = popen (cmd, "r");
-  if (fp == NULL) {
-    perror (cmd);
-    exit (EXIT_FAILURE);
-  }
-  r = fread (buffer, 1, sizeof buffer - 1, fp);
-  if (r == 0) {
-    fprintf (stderr, _("command failed: %s"), cmd);
-    exit (EXIT_FAILURE);
-  }
-  pclose (fp);
-  buffer[r] = '\0';
-
-  if (strstr (buffer, "statically linked") == NULL) {
-    fprintf (stderr,
-    _("Test tool helper program %s\n"
-      "is not statically linked.  This is a build error when this test tool\n"
-      "was built.\n"),
-             helper);
-    exit (EXIT_FAILURE);
-  }
-}
-
 static void
 cleanup_tmpfiles (void)
 {
   unlink (tmpf);
-  unlink (isof);
 }
 
 static void
 make_files (void)
 {
-  int fd, r;
-  char cmd[256];
-
-  /* Make the ISO which will contain the helper program. */
-  fd = mkstemp (isof);
-  if (fd == -1) {
-    perror (isof);
-    exit (EXIT_FAILURE);
-  }
-  close (fd);
-
-  snprintf (cmd, sizeof cmd, "mkisofs -quiet -rJT -o '%s' '%s'",
-            isof, helper);
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS(r) != 0) {
-    fprintf (stderr,
-             _("mkisofs command failed: %s\n"), cmd);
-    exit (EXIT_FAILURE);
-  }
+  int fd;
 
   /* Allocate the sparse file for /dev/sda. */
   fd = mkstemp (tmpf);
   if (fd == -1) {
     perror (tmpf);
-    unlink (isof);
     exit (EXIT_FAILURE);
   }
 
@@ -445,7 +356,6 @@ make_files (void)
     perror ("lseek");
     close (fd);
     unlink (tmpf);
-    unlink (isof);
     exit (EXIT_FAILURE);
   }
 
@@ -453,11 +363,10 @@ make_files (void)
     perror ("write");
     close (fd);
     unlink (tmpf);
-    unlink (isof);
     exit (EXIT_FAILURE);
   }
 
   close (fd);
 
-  atexit (cleanup_tmpfiles);	/* Removes tmpf and isof. */
+  atexit (cleanup_tmpfiles);	/* Removes tmpf. */
 }

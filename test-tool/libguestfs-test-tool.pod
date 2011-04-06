@@ -42,12 +42,6 @@ L<http://libguestfs.org/> website.
 
 Display short usage information and exit.
 
-=item I<--helper /path/to/libguestfs-test-tool-helper>
-
-Pass an alternate name for the helper program.  libguestfs-test-tool
-will normally look in the C<$libexec> directory that was configured
-when the tool was built.
-
 =item I<--qemu qemu_binary>
 
 If you have downloaded another qemu binary, point this option at the
@@ -85,22 +79,6 @@ script when you use either of the I<--qemudir> or I<--qemu> options.
 libguestfs-test-tool returns I<0> if the tests completed without
 error, or I<1> if there was an error.
 
-=head1 FILES
-
-=over 4
-
-=item /usr/libexec/libguestfs-test-tool-helper
-
-This helper program is run inside the appliance and provides
-additional tests.
-
-=item /usr/bin/mkisofs
-
-The C<mkisofs> command is required in order to construct a CD-ROM ISO
-file which is used as part of the tests.
-
-=back
-
 =head1 ENVIRONMENT VARIABLES
 
 For the full list of environment variables which may affect
@@ -118,7 +96,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2011 Red Hat Inc.
 L<http://libguestfs.org/>
 
 This program is free software; you can redistribute it and/or modify

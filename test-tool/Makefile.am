@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,22 +22,15 @@ EXTRA_DIST = libguestfs-test-tool.pod run-test-tool-locally
 CLEANFILES =
 
 bin_PROGRAMS = libguestfs-test-tool
-libexec_PROGRAMS = libguestfs-test-tool-helper
 man_MANS = libguestfs-test-tool.1
-
-AM_CPPFLAGS = \
-	-DDEFAULT_HELPER='"$(libexecdir)/libguestfs-test-tool-helper"'
 
 libguestfs_test_tool_SOURCES = test-tool.c
 libguestfs_test_tool_CFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	-Wall
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la
-
-libguestfs_test_tool_helper_SOURCES = helper.c
-libguestfs_test_tool_helper_LDFLAGS = -all-static
 
 libguestfs-test-tool.1: libguestfs-test-tool.pod
 	$(top_srcdir)/podwrapper.sh \
