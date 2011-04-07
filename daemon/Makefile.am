@@ -45,13 +45,12 @@ BUILT_SOURCES = \
 EXTRA_DIST = $(BUILT_SOURCES) \
 	.gitignore
 
-# This convenience library is solely to avoid compiler warnings
-# in its generated sources.
 noinst_LIBRARIES = libprotocol.a
-libprotocol_a_SOURCES = \
-	guestfs_protocol.c \
-	guestfs_protocol.h
-libprotocol_a_CFLAGS =
+
+# This convenience library is solely to compile its generated sources with
+# custom flags.
+libprotocol_a_SOURCES = guestfs_protocol.c guestfs_protocol.h
+libprotocol_a_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 
 guestfs_protocol.c: $(libsrcdir)/guestfs_protocol.c
 	rm -f $@
