@@ -52,13 +52,10 @@ include_HEADERS = guestfs.h
 
 lib_LTLIBRARIES = libguestfs.la
 
-# This convenience library is solely to avoid compiler warnings
-# in its generated sources.
-libprotocol_la_SOURCES = \
-  guestfs_protocol.c \
-  guestfs_protocol.h
-
-libprotocol_la_CFLAGS =
+# This convenience library is solely to compile its generated sources with
+# custom flags.
+libprotocol_la_SOURCES = guestfs_protocol.c  guestfs_protocol.h
+libprotocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 
 # Build the errnostring perfect hash code.  The generated code has lots
 # of warnings so we must compile it in a separate mini-library.
