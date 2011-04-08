@@ -1,11 +1,20 @@
 #!/bin/bash -
-
-# virt-resize does not work on 32 bit because of limitations in Perl
-# so short-circuit this test on a 32 bit host.
-perl -e 'exit 1 if ~1 == 4294967294' || {
-    echo "$0: Skipping this test on 32 bit."
-    exit 0
-}
+# libguestfs virt-resize 2.0 test script
+# Copyright (C) 2010-2011 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 export LANG=C
 set -e

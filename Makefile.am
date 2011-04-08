@@ -64,6 +64,13 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
+# virt-resize 2.0 is written in OCaml.
+if HAVE_OCAML
+if HAVE_OCAML_PCRE
+SUBDIRS += resize
+endif
+endif
+
 # Perl tools and guestmount.
 if HAVE_TOOLS
 SUBDIRS += tools

@@ -281,6 +281,8 @@ regressions/test.out
 rescue/stamp-virt-rescue.pod
 rescue/virt-rescue
 rescue/virt-rescue.1
+resize/virt-resize
+resize/virt-resize.1
 ruby/bindtests.rb
 ruby/doc/site/api
 ruby/examples/guestfs-ruby.3

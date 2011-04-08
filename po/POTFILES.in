@@ -147,6 +147,5 @@ tools/virt-edit.pl
 tools/virt-list-filesystems.pl
 tools/virt-list-partitions.pl
 tools/virt-make-fs.pl
-tools/virt-resize.pl
 tools/virt-tar.pl
 tools/virt-win-reg.pl

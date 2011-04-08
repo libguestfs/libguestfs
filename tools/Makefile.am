@@ -1,5 +1,5 @@
 # libguestfs virt-* tools
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ tools = \
 	list-filesystems \
 	list-partitions \
 	make-fs \
-	resize \
 	tar \
 	win-reg
 
@@ -68,7 +67,6 @@ TESTS_ENVIRONMENT = \
 
 TESTS = test-virt-list-filesystems.sh \
 	test-virt-make-fs.sh \
-	test-virt-resize.sh \
 	test-virt-tar.sh
 
 endif

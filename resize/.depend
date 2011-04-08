@@ -1,0 +1,6 @@
+progress.cmo: utils.cmo
+progress.cmx: utils.cmx
+resize.cmo: utils.cmo progress.cmo
+resize.cmx: utils.cmx progress.cmx
+utils.cmo:
+utils.cmx:
