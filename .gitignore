@@ -253,7 +253,6 @@ po/remove-potcdate.sed
 po/stamp-it
 po/stamp-po
 po/LINGUAS
-po/Makefile.in.in
 po/Rules-quot
 po/boldquot.sed
 po/en@boldquot.header
