@@ -42,12 +42,12 @@ OBJECTS = \
 
 bin_SCRIPTS = virt-resize
 
-OCAMLPACKAGES = -package guestfs,pcre
+OCAMLPACKAGES = -package pcre -I ../ocaml
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 virt-resize: $(OBJECTS)
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -linkpkg $^ -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) mlguestfs.cmxa -linkpkg $^ -o $@
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
