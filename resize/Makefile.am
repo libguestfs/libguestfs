@@ -62,15 +62,14 @@ man_MANS = virt-resize.1
 
 noinst_DATA = $(top_builddir)/html/virt-resize.1.html
 
-virt-%.1: virt-%.pod
-	$(top_srcdir)/podwrapper.sh \
-	  --man $@ \
-	  $<
+virt-resize.1 $(top_builddir)/html/virt-resize.1.html: stamp-virt-resize.pod
 
-$(top_builddir)/html/virt-%.1.html: virt-%
+stamp-virt-resize.pod: virt-resize.pod
 	$(top_srcdir)/podwrapper.sh \
-	  --html $@ \
+	  --man virt-resize.1 \
+	  --html $(top_builddir)/html/virt-resize.1.html \
 	  $<
+	touch $@
 
 # Tests.
 
