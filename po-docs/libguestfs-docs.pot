@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.9.17\n"
+"Project-Id-Version: libguestfs 1.9.18\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-04-05 20:38+0200\n"
+"POT-Creation-Date: 2011-04-09 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: =head1
-#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-resize.pl:40 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
+#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3 ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3 ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35 ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31 ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
 msgid "NAME"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgid "guestfs - Library for accessing and modifying virtual machine images"
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-resize.pl:44 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
+#: ../src/guestfs.pod:7 ../fish/guestfish.pod:7 ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7 ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39 ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35 ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
 msgid "SYNOPSIS"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:23 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-resize.pl:50 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:77 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
+#: ../src/guestfs.pod:23 ../fish/guestfish.pod:30 ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20 ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63 ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:77 ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
 msgid "DESCRIPTION"
 msgstr ""
 
@@ -807,7 +807,7 @@ msgid "There are many limitations to this:"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:388 ../src/guestfs.pod:393 ../src/guestfs.pod:398 ../src/guestfs.pod:402 ../src/guestfs.pod:407 ../src/guestfs.pod:411 ../src/guestfs.pod:416 ../src/guestfs.pod:421 ../src/guestfs.pod:1088 ../src/guestfs.pod:1092 ../src/guestfs.pod:1096 ../src/guestfs.pod:1101 ../src/guestfs.pod:1109 ../src/guestfs.pod:1128 ../src/guestfs.pod:1136 ../src/guestfs.pod:1158 ../src/guestfs.pod:1162 ../src/guestfs.pod:1166 ../src/guestfs.pod:1170 ../src/guestfs.pod:1174 ../src/guestfs.pod:1178 ../src/guestfs.pod:1660 ../src/guestfs.pod:1665 ../src/guestfs.pod:1669 ../src/guestfs.pod:1770 ../src/guestfs.pod:1775 ../src/guestfs.pod:1779 ../src/guestfs.pod:1789 ../src/guestfs.pod:2023 ../src/guestfs.pod:2028 ../src/guestfs.pod:2034 ../src/guestfs.pod:2042 ../src/guestfs.pod:2396 ../src/guestfs.pod:2402 ../src/guestfs.pod:2407 ../src/guestfs.pod:2413 ../src/guestfs.pod:2878 ../src/guestfs.pod:2882 ../src/guestfs.pod:2886 ../src/guestfs.pod:2890 ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:577 ../src/guestfs-actions.pod:585 ../src/guestfs-actions.pod:592 ../src/guestfs-actions.pod:599 ../src/guestfs-actions.pod:1600 ../src/guestfs-actions.pod:1604 ../src/guestfs-actions.pod:1608 ../src/guestfs-actions.pod:1612 ../src/guestfs-actions.pod:1620 ../src/guestfs-actions.pod:1624 ../src/guestfs-actions.pod:1628 ../src/guestfs-actions.pod:1638 ../src/guestfs-actions.pod:1642 ../src/guestfs-actions.pod:1646 ../src/guestfs-actions.pod:1784 ../src/guestfs-actions.pod:1788 ../src/guestfs-actions.pod:1793 ../src/guestfs-actions.pod:1798 ../src/guestfs-actions.pod:1859 ../src/guestfs-actions.pod:1863 ../src/guestfs-actions.pod:1868 ../fish/guestfish.pod:443 ../fish/guestfish.pod:447 ../fish/guestfish.pod:451 ../fish/guestfish.pod:455 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:380 ../fish/guestfish-actions.pod:388 ../fish/guestfish-actions.pod:395 ../fish/guestfish-actions.pod:402 ../fish/guestfish-actions.pod:1072 ../fish/guestfish-actions.pod:1076 ../fish/guestfish-actions.pod:1080 ../fish/guestfish-actions.pod:1084 ../fish/guestfish-actions.pod:1092 ../fish/guestfish-actions.pod:1096 ../fish/guestfish-actions.pod:1100 ../fish/guestfish-actions.pod:1110 ../fish/guestfish-actions.pod:1114 ../fish/guestfish-actions.pod:1118 ../fish/guestfish-actions.pod:1208 ../fish/guestfish-actions.pod:1212 ../fish/guestfish-actions.pod:1217 ../fish/guestfish-actions.pod:1222 ../fish/guestfish-actions.pod:1264 ../fish/guestfish-actions.pod:1268 ../fish/guestfish-actions.pod:1273 ../tools/virt-edit.pl:351 ../tools/virt-edit.pl:356 ../tools/virt-edit.pl:361 ../tools/virt-edit.pl:372 ../tools/virt-edit.pl:376 ../tools/virt-win-reg.pl:536 ../tools/virt-win-reg.pl:542 ../tools/virt-win-reg.pl:548 ../tools/virt-resize.pl:345 ../tools/virt-resize.pl:350 ../tools/virt-resize.pl:360
+#: ../src/guestfs.pod:388 ../src/guestfs.pod:393 ../src/guestfs.pod:398 ../src/guestfs.pod:402 ../src/guestfs.pod:407 ../src/guestfs.pod:411 ../src/guestfs.pod:416 ../src/guestfs.pod:421 ../src/guestfs.pod:1088 ../src/guestfs.pod:1092 ../src/guestfs.pod:1096 ../src/guestfs.pod:1101 ../src/guestfs.pod:1109 ../src/guestfs.pod:1128 ../src/guestfs.pod:1136 ../src/guestfs.pod:1158 ../src/guestfs.pod:1162 ../src/guestfs.pod:1166 ../src/guestfs.pod:1170 ../src/guestfs.pod:1174 ../src/guestfs.pod:1178 ../src/guestfs.pod:1660 ../src/guestfs.pod:1665 ../src/guestfs.pod:1669 ../src/guestfs.pod:1770 ../src/guestfs.pod:1775 ../src/guestfs.pod:1779 ../src/guestfs.pod:1789 ../src/guestfs.pod:2023 ../src/guestfs.pod:2028 ../src/guestfs.pod:2034 ../src/guestfs.pod:2042 ../src/guestfs.pod:2396 ../src/guestfs.pod:2402 ../src/guestfs.pod:2407 ../src/guestfs.pod:2413 ../src/guestfs.pod:2878 ../src/guestfs.pod:2882 ../src/guestfs.pod:2886 ../src/guestfs.pod:2890 ../src/guestfs-actions.pod:15 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:577 ../src/guestfs-actions.pod:585 ../src/guestfs-actions.pod:592 ../src/guestfs-actions.pod:599 ../src/guestfs-actions.pod:1600 ../src/guestfs-actions.pod:1604 ../src/guestfs-actions.pod:1608 ../src/guestfs-actions.pod:1612 ../src/guestfs-actions.pod:1620 ../src/guestfs-actions.pod:1624 ../src/guestfs-actions.pod:1628 ../src/guestfs-actions.pod:1638 ../src/guestfs-actions.pod:1642 ../src/guestfs-actions.pod:1646 ../src/guestfs-actions.pod:1784 ../src/guestfs-actions.pod:1788 ../src/guestfs-actions.pod:1793 ../src/guestfs-actions.pod:1798 ../src/guestfs-actions.pod:1859 ../src/guestfs-actions.pod:1863 ../src/guestfs-actions.pod:1868 ../fish/guestfish.pod:443 ../fish/guestfish.pod:447 ../fish/guestfish.pod:451 ../fish/guestfish.pod:455 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:380 ../fish/guestfish-actions.pod:388 ../fish/guestfish-actions.pod:395 ../fish/guestfish-actions.pod:402 ../fish/guestfish-actions.pod:1072 ../fish/guestfish-actions.pod:1076 ../fish/guestfish-actions.pod:1080 ../fish/guestfish-actions.pod:1084 ../fish/guestfish-actions.pod:1092 ../fish/guestfish-actions.pod:1096 ../fish/guestfish-actions.pod:1100 ../fish/guestfish-actions.pod:1110 ../fish/guestfish-actions.pod:1114 ../fish/guestfish-actions.pod:1118 ../fish/guestfish-actions.pod:1208 ../fish/guestfish-actions.pod:1212 ../fish/guestfish-actions.pod:1217 ../fish/guestfish-actions.pod:1222 ../fish/guestfish-actions.pod:1264 ../fish/guestfish-actions.pod:1268 ../fish/guestfish-actions.pod:1273 ../tools/virt-edit.pl:351 ../tools/virt-edit.pl:356 ../tools/virt-edit.pl:361 ../tools/virt-edit.pl:372 ../tools/virt-edit.pl:376 ../tools/virt-win-reg.pl:536 ../tools/virt-win-reg.pl:542 ../tools/virt-win-reg.pl:548
 msgid "*"
 msgstr ""
 
@@ -5333,7 +5333,7 @@ msgid "Language bindings."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2777 ../fish/guestfish.pod:1010 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:476
+#: ../src/guestfs.pod:2777 ../fish/guestfish.pod:1010 ../test-tool/libguestfs-test-tool.pod:82 ../tools/virt-edit.pl:476
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
@@ -5440,7 +5440,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2828 ../fish/guestfish.pod:1144 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:267 ../tools/virt-edit.pl:496 ../tools/virt-win-reg.pl:572 ../tools/virt-resize.pl:1489 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:286 ../tools/virt-make-fs.pl:539 ../tools/virt-list-partitions.pl:257
+#: ../src/guestfs.pod:2828 ../fish/guestfish.pod:1144 ../test-tool/libguestfs-test-tool.pod:87 ../fuse/guestmount.pod:267 ../tools/virt-edit.pl:496 ../tools/virt-win-reg.pl:572 ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:286 ../tools/virt-make-fs.pl:539 ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr ""
 
@@ -5517,22 +5517,22 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2897 ../fish/guestfish.pod:1167 ../test-tool/libguestfs-test-tool.pod:115 ../fuse/guestmount.pod:278
+#: ../src/guestfs.pod:2897 ../fish/guestfish.pod:1167 ../test-tool/libguestfs-test-tool.pod:93 ../fuse/guestmount.pod:278
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2899 ../fish/guestfish.pod:1169 ../test-tool/libguestfs-test-tool.pod:117 ../fuse/guestmount.pod:280
+#: ../src/guestfs.pod:2899 ../fish/guestfish.pod:1169 ../test-tool/libguestfs-test-tool.pod:95 ../fuse/guestmount.pod:280
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2901 ../fish/guestfish.pod:1171 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:282 ../tools/virt-edit.pl:514 ../tools/virt-win-reg.pl:602 ../tools/virt-resize.pl:1514 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:568 ../tools/virt-list-partitions.pl:273
+#: ../src/guestfs.pod:2901 ../fish/guestfish.pod:1171 ../test-tool/libguestfs-test-tool.pod:97 ../fuse/guestmount.pod:282 ../tools/virt-edit.pl:514 ../tools/virt-win-reg.pl:602 ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:568 ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2903 ../fish/guestfish.pod:1173
+#: ../src/guestfs.pod:2903 ../fish/guestfish.pod:1173 ../test-tool/libguestfs-test-tool.pod:99
 msgid "Copyright (C) 2009-2011 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
@@ -18566,7 +18566,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:41 ../fish/guestfish.pod:942 ../fuse/guestmount.pod:39 ../tools/virt-edit.pl:63 ../tools/virt-resize.pl:64 ../tools/virt-tar.pl:50
+#: ../fish/guestfish.pod:41 ../fish/guestfish.pod:942 ../fuse/guestmount.pod:39 ../tools/virt-edit.pl:63 ../tools/virt-tar.pl:50
 msgid "EXAMPLES"
 msgstr ""
 
@@ -18825,12 +18825,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:81 ../tools/virt-win-reg.pl:96 ../tools/virt-resize.pl:254 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
+#: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37 ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:81 ../tools/virt-win-reg.pl:96 ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:103 ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
 msgid "OPTIONS"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:89 ../tools/virt-win-reg.pl:104 ../tools/virt-resize.pl:262 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
+#: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:131 ../tools/virt-edit.pl:89 ../tools/virt-win-reg.pl:104 ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:111 ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
 msgid "B<--help>"
 msgstr ""
 
@@ -19404,7 +19404,7 @@ msgid "B<-V>"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:397 ../tools/virt-edit.pl:97 ../tools/virt-win-reg.pl:112 ../tools/virt-resize.pl:270 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
+#: ../fish/guestfish.pod:397 ../tools/virt-edit.pl:97 ../tools/virt-win-reg.pl:112 ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:119 ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
 msgid "B<--version>"
 msgstr ""
 
@@ -20777,7 +20777,7 @@ msgid "COMMANDS"
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1005 ../test-tool/libguestfs-test-tool.pod:83
+#: ../fish/guestfish.pod:1005 ../test-tool/libguestfs-test-tool.pod:77
 msgid "EXIT CODE"
 msgstr ""
 
@@ -20868,7 +20868,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1085 ../test-tool/libguestfs-test-tool.pod:88 ../fuse/guestmount.pod:252
+#: ../fish/guestfish.pod:1085 ../fuse/guestmount.pod:252
 msgid "FILES"
 msgstr ""
 
@@ -21002,7 +21002,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1176 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:287 ../tools/virt-edit.pl:518 ../tools/virt-win-reg.pl:606 ../tools/virt-resize.pl:1518 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:309 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:277
+#: ../fish/guestfish.pod:1176 ../test-tool/libguestfs-test-tool.pod:102 ../fuse/guestmount.pod:287 ../tools/virt-edit.pl:518 ../tools/virt-win-reg.pl:606 ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:309 ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -21011,7 +21011,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1181 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:292 ../tools/virt-edit.pl:523 ../tools/virt-win-reg.pl:611 ../tools/virt-resize.pl:1523 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:314 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:282
+#: ../fish/guestfish.pod:1181 ../test-tool/libguestfs-test-tool.pod:107 ../fuse/guestmount.pod:292 ../tools/virt-edit.pl:523 ../tools/virt-win-reg.pl:611 ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:314 ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -21020,7 +21020,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1186 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:297 ../tools/virt-edit.pl:528 ../tools/virt-win-reg.pl:616 ../tools/virt-resize.pl:1528 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:319 ../tools/virt-make-fs.pl:582 ../tools/virt-list-partitions.pl:287
+#: ../fish/guestfish.pod:1186 ../test-tool/libguestfs-test-tool.pod:112 ../fuse/guestmount.pod:297 ../tools/virt-edit.pl:528 ../tools/virt-win-reg.pl:616 ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:319 ../tools/virt-make-fs.pl:582 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -27597,60 +27597,47 @@ msgstr ""
 
 #. type: =item
 #: ../test-tool/libguestfs-test-tool.pod:45
-msgid "I<--helper /path/to/libguestfs-test-tool-helper>"
-msgstr ""
-
-#. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:47
-msgid ""
-"Pass an alternate name for the helper program.  libguestfs-test-tool will "
-"normally look in the C<$libexec> directory that was configured when the tool "
-"was built."
-msgstr ""
-
-#. type: =item
-#: ../test-tool/libguestfs-test-tool.pod:51
 msgid "I<--qemu qemu_binary>"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:53
+#: ../test-tool/libguestfs-test-tool.pod:47
 msgid ""
 "If you have downloaded another qemu binary, point this option at the full "
 "path of the binary to try it."
 msgstr ""
 
 #. type: =item
-#: ../test-tool/libguestfs-test-tool.pod:56
+#: ../test-tool/libguestfs-test-tool.pod:50
 msgid "I<--qemudir qemu_source_dir>"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:58
+#: ../test-tool/libguestfs-test-tool.pod:52
 msgid ""
 "If you have compiled qemu from source, point this option at the source "
 "directory to try it."
 msgstr ""
 
 #. type: =item
-#: ../test-tool/libguestfs-test-tool.pod:61
+#: ../test-tool/libguestfs-test-tool.pod:55
 msgid "I<--timeout N>"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:63
+#: ../test-tool/libguestfs-test-tool.pod:57
 msgid ""
 "Set the launch timeout to C<N> seconds.  The default is 120 seconds which "
 "does not usually need to be adjusted unless your machine is very slow."
 msgstr ""
 
 #. type: =head1
-#: ../test-tool/libguestfs-test-tool.pod:69
+#: ../test-tool/libguestfs-test-tool.pod:63
 msgid "TRYING OUT A DIFFERENT VERSION OF QEMU"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:71
+#: ../test-tool/libguestfs-test-tool.pod:65
 msgid ""
 "If you have compiled another version of qemu from source and would like to "
 "try that, then you can use the I<--qemudir> option to point to the qemu "
@@ -27658,14 +27645,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:75
+#: ../test-tool/libguestfs-test-tool.pod:69
 msgid ""
 "If you have downloaded a qemu binary from somewhere, use the I<--qemu> "
 "option to point to the binary."
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:78
+#: ../test-tool/libguestfs-test-tool.pod:72
 msgid ""
 "When using an alternate qemu with libguestfs, usually you would need to "
 "write a qemu wrapper script (see section I<QEMU WRAPPERS> in "
@@ -27674,51 +27661,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:85
+#: ../test-tool/libguestfs-test-tool.pod:79
 msgid ""
 "libguestfs-test-tool returns I<0> if the tests completed without error, or "
 "I<1> if there was an error."
 msgstr ""
 
-#. type: =item
-#: ../test-tool/libguestfs-test-tool.pod:92
-msgid "/usr/libexec/libguestfs-test-tool-helper"
-msgstr ""
-
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:94
-msgid ""
-"This helper program is run inside the appliance and provides additional "
-"tests."
-msgstr ""
-
-#. type: =item
-#: ../test-tool/libguestfs-test-tool.pod:97
-msgid "/usr/bin/mkisofs"
-msgstr ""
-
-#. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:99
-msgid ""
-"The C<mkisofs> command is required in order to construct a CD-ROM ISO file "
-"which is used as part of the tests."
-msgstr ""
-
-#. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:106
+#: ../test-tool/libguestfs-test-tool.pod:84
 msgid ""
 "For the full list of environment variables which may affect libguestfs, "
 "please see the L<guestfs(3)> manual page."
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:111
+#: ../test-tool/libguestfs-test-tool.pod:89
 msgid "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
-msgstr ""
-
-#. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:121
-msgid "Copyright (C) 2009 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 #. type: textblock
@@ -28271,7 +28229,7 @@ msgid "Display brief help."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-edit.pl:99 ../tools/virt-win-reg.pl:114 ../tools/virt-resize.pl:272 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
+#: ../tools/virt-edit.pl:99 ../tools/virt-win-reg.pl:114 ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:121 ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
 msgid "Display version number and exit."
 msgstr ""
 
@@ -28327,7 +28285,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-edit.pl:133 ../tools/virt-win-reg.pl:140 ../tools/virt-resize.pl:520 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:139 ../tools/virt-list-partitions.pl:90
+#: ../tools/virt-edit.pl:133 ../tools/virt-win-reg.pl:140 ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:139 ../tools/virt-list-partitions.pl:90
 msgid "B<--format> raw"
 msgstr ""
 
@@ -28347,7 +28305,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-edit.pl:143 ../tools/virt-win-reg.pl:150 ../tools/virt-resize.pl:525 ../tools/virt-resize.pl:540 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:149 ../tools/virt-list-partitions.pl:100
+#: ../tools/virt-edit.pl:143 ../tools/virt-win-reg.pl:150 ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:149 ../tools/virt-list-partitions.pl:100
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
 "the format is always specified."
@@ -28679,12 +28637,12 @@ msgid "If not set, C<vi> is used."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-edit.pl:489 ../tools/virt-win-reg.pl:559 ../tools/virt-resize.pl:1482 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:279 ../tools/virt-make-fs.pl:532 ../tools/virt-list-partitions.pl:250
+#: ../tools/virt-edit.pl:489 ../tools/virt-win-reg.pl:559 ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:279 ../tools/virt-make-fs.pl:532 ../tools/virt-list-partitions.pl:250
 msgid "SHELL QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-edit.pl:491 ../tools/virt-win-reg.pl:567 ../tools/virt-resize.pl:1484 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:252
+#: ../tools/virt-edit.pl:491 ../tools/virt-win-reg.pl:567 ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:252
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -28701,12 +28659,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-edit.pl:510 ../tools/virt-win-reg.pl:598 ../tools/virt-resize.pl:1510 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:301 ../tools/virt-make-fs.pl:564 ../tools/virt-list-partitions.pl:269
+#: ../tools/virt-edit.pl:510 ../tools/virt-win-reg.pl:598 ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:301 ../tools/virt-make-fs.pl:564 ../tools/virt-list-partitions.pl:269
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-edit.pl:512 ../tools/virt-win-reg.pl:600 ../tools/virt-resize.pl:1512 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:303 ../tools/virt-make-fs.pl:566 ../tools/virt-list-partitions.pl:271
+#: ../tools/virt-edit.pl:512 ../tools/virt-win-reg.pl:600 ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:303 ../tools/virt-make-fs.pl:566 ../tools/virt-list-partitions.pl:271
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
@@ -28860,7 +28818,7 @@ msgid "B<--debug>"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:122 ../tools/virt-resize.pl:498
+#: ../tools/virt-win-reg.pl:122
 msgid "Enable debugging messages."
 msgstr ""
 
@@ -29276,1013 +29234,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:604 ../tools/virt-resize.pl:1516 ../tools/virt-make-fs.pl:570
+#: ../tools/virt-win-reg.pl:604 ../tools/virt-make-fs.pl:570
 msgid "Copyright (C) 2010 Red Hat Inc."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:42
-msgid "virt-resize - Resize a virtual machine disk"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:46
-#, no-wrap
-msgid ""
-" virt-resize [--resize /dev/sdaN=[+/-]<size>[%]]\n"
-"   [--expand /dev/sdaN] [--shrink /dev/sdaN]\n"
-"   [--ignore /dev/sdaN] [--delete /dev/sdaN] [...] indisk outdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:52
-msgid ""
-"Virt-resize is a tool which can resize a virtual machine disk, making it "
-"larger or smaller overall, and resizing or deleting any partitions contained "
-"within."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:56
-msgid ""
-"Virt-resize B<cannot> resize disk images in-place.  Virt-resize B<should "
-"not> be used on live virtual machines - for consistent results, shut the "
-"virtual machine down before resizing it."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:60
-msgid ""
-"If you are not familiar with the associated tools: L<virt-filesystems(1)> "
-"and L<virt-df(1)>, we recommend you go and read those manual pages first."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:66
-msgid ""
-"Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions to "
-"fill the extra 5GB of space."
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:69
-#, no-wrap
-msgid ""
-" truncate -r olddisk newdisk; truncate -s +5G newdisk\n"
-" virt-filesystems --long -h --all -a olddisk\n"
-" # Note \"/dev/sda2\" is a partition inside the \"olddisk\" file.\n"
-" virt-resize --expand /dev/sda2 olddisk newdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:74
-msgid ""
-"As above, but make the /boot partition 200MB bigger, while giving the "
-"remaining space to /dev/sda2:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:77
-#, no-wrap
-msgid ""
-" virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 olddisk newdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:79
-msgid "As above, but the output format will be uncompressed qcow2:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:81
-#, no-wrap
-msgid ""
-" qemu-img create -f qcow2 newdisk.qcow2 15G\n"
-" virt-resize --expand /dev/sda2 olddisk newdisk.qcow2\n"
-"\n"
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-resize.pl:84
-msgid "DETAILED USAGE"
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:86
-msgid "EXPANDING A VIRTUAL MACHINE DISK"
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:90
-msgid "1. Shut down the virtual machine"
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:92
-msgid "2. Locate input disk image"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:94
-msgid ""
-"Locate the input disk image (ie. the file or device on the host containing "
-"the guest's disk).  If the guest is managed by libvirt, you can use C<virsh "
-"dumpxml> like this to find the disk image name:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:98
-#, no-wrap
-msgid ""
-" # virsh dumpxml guestname | xpath /domain/devices/disk/source\n"
-" Found 1 nodes:\n"
-" -- NODE --\n"
-" <source dev=\"/dev/vg/lv_guest\" />\n"
-"\n"
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:103
-msgid "3. Look at current sizing"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:105
-msgid "Use L<virt-filesystems(1)> to display the current partitions and sizes:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:108
-#, no-wrap
-msgid ""
-" # virt-filesystems --long --parts --blkdevs -h -a /dev/vg/lv_guest\n"
-" Name       Type       Size  Parent\n"
-" /dev/sda1  partition  101M  /dev/sda\n"
-" /dev/sda2  partition  7.9G  /dev/sda\n"
-" /dev/sda   device     8.0G  -\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:114
-msgid ""
-"(This example is a virtual machine with an 8 GB disk which we would like to "
-"expand up to 10 GB)."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:117
-msgid "4. Create output disk"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:119
-msgid ""
-"Virt-resize cannot do in-place disk modifications.  You have to have space "
-"to store the resized output disk."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:122
-msgid "To store the resized disk image in a file, create a file of a suitable size:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:125
-#, no-wrap
-msgid ""
-" # rm -f outdisk\n"
-" # truncate -s 10G outdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:128
-msgid "Or use L<lvcreate(1)> to create a logical volume:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:130
-#, no-wrap
-msgid ""
-" # lvcreate -L 10G -n lv_name vg_name\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:132
-msgid "Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:134
-#, no-wrap
-msgid ""
-" # virsh pool-list\n"
-" # virsh vol-create-as poolname newvol 10G\n"
-"\n"
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:137
-msgid "5. Resize"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:139
-msgid ""
-"virt-resize takes two mandatory parameters, the input disk (eg. device or "
-"file) and the output disk.  The output disk is the one created in the "
-"previous step."
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:143
-#, no-wrap
-msgid ""
-" # virt-resize indisk outdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:145
-msgid ""
-"This command just copies disk image C<indisk> to disk image C<outdisk> "
-"I<without> resizing or changing any existing partitions.  If C<outdisk> is "
-"larger, then an extra, empty partition is created at the end of the disk "
-"covering the extra space.  If C<outdisk> is smaller, then it will give an "
-"error."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:151
-msgid ""
-"More realistically you'd want to expand existing partitions in the disk "
-"image by passing extra options (for the full list see the L</OPTIONS> "
-"section below)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:155
-msgid ""
-"L</--expand> is the most useful option.  It expands the named partition "
-"within the disk to fill any extra space:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:158
-#, no-wrap
-msgid ""
-" # virt-resize --expand /dev/sda2 indisk outdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:160
-msgid ""
-"(In this case, an extra partition is I<not> created at the end of the disk, "
-"because there will be no unused space)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:163
-msgid ""
-"L</--resize> is the other commonly used option.  The following would "
-"increase the size of /dev/sda1 by 200M, and expand /dev/sda2 to fill the "
-"rest of the available space:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:167
-#, no-wrap
-msgid ""
-" # virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \\\n"
-"     indisk outdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:170
-msgid ""
-"If the expanded partition in the image contains a filesystem or LVM PV, then "
-"if virt-resize knows how, it will resize the contents, the equivalent of "
-"calling a command such as L<pvresize(8)>, L<resize2fs(8)> or "
-"L<ntfsresize(8)>.  However virt-resize does not know how to resize some "
-"filesystems, so you would have to online resize them after booting the "
-"guest."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:177
-msgid "Other options are covered below."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:179
-msgid "6. Test"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:181
-msgid "Thoroughly test the new disk image I<before> discarding the old one."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:183
-msgid "If you are using libvirt, edit the XML to point at the new disk:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:185
-#, no-wrap
-msgid ""
-" # virsh edit guestname\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:187
-msgid ""
-"Change E<lt>source ...E<gt>, see "
-"L<http://libvirt.org/formatdomain.html#elementsDisks>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:190
-msgid "Then start up the domain with the new, resized disk:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:192
-#, no-wrap
-msgid ""
-" # virsh start guestname\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:194
-msgid ""
-"and check that it still works.  See also the L</NOTES> section below for "
-"additional information."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:197
-msgid "7. Resize LVs etc inside the guest"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:199
-msgid "(This can also be done offline using L<guestfish(1)>)"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:201
-msgid ""
-"Once the guest has booted you should see the new space available, at least "
-"for filesystems that virt-resize knows how to resize, and for PVs.  The user "
-"may need to resize LVs inside PVs, and also resize filesystem types that "
-"virt-resize does not know how to expand."
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:208
-msgid "SHRINKING A VIRTUAL MACHINE DISK"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:210
-msgid ""
-"Shrinking is somewhat more complex than expanding, and only an overview is "
-"given here."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:213
-msgid ""
-"Firstly virt-resize will not attempt to shrink any partition content (PVs, "
-"filesystems).  The user has to shrink content before passing the disk image "
-"to virt-resize, and virt-resize will check that the content has been shrunk "
-"properly."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:218
-msgid "(Shrinking can also be done offline using L<guestfish(1)>)"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:220
-msgid ""
-"After shrinking PVs and filesystems, shut down the guest, and proceed with "
-"steps 3 and 4 above to allocate a new disk image."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:223
-msgid "Then run virt-resize with any of the C<--shrink> and/or C<--resize> options."
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:226
-msgid "IGNORING OR DELETING PARTITIONS"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:228
-msgid ""
-"virt-resize also gives a convenient way to ignore or delete partitions when "
-"copying from the input disk to the output disk.  Ignoring a partition speeds "
-"up the copy where you don't care about the existing contents of a "
-"partition.  Deleting a partition removes it completely, but note that it "
-"also renumbers any partitions after the one which is deleted, which can "
-"leave some guests unbootable."
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:235
-msgid "QCOW2 AND NON-SPARSE RAW FORMATS"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:237
-msgid ""
-"If the input disk is in qcow2 format, then you may prefer that the output is "
-"in qcow2 format as well.  Alternately, virt-resize can convert the format on "
-"the fly.  The output format is simply determined by the format of the empty "
-"output container that you provide.  Thus to create qcow2 output, use:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:243
-#, no-wrap
-msgid ""
-" qemu-img create [-c] -f qcow2 outdisk [size]\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:245
-msgid "instead of the truncate command (use C<-c> for a compressed disk)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:247
-msgid "Similarly, to get non-sparse raw output use:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:249
-#, no-wrap
-msgid ""
-" fallocate -l size outdisk\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:251
-msgid ""
-"(on older systems that don't have the L<fallocate(1)> command use C<dd "
-"if=/dev/zero of=outdisk bs=1M count=..>)"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:264
-msgid "Display help."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:278
-msgid "B<--resize part=size>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:280
-msgid ""
-"Resize the named partition (expanding or shrinking it) so that it has the "
-"given size."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:283
-msgid ""
-"C<size> can be expressed as an absolute number followed by b/K/M/G/T/P/E to "
-"mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Petabytes or "
-"Exabytes; or as a percentage of the current size; or as a relative number or "
-"percentage.  For example:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:288
-#, no-wrap
-msgid ""
-" --resize /dev/sda2=10G\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:290
-#, no-wrap
-msgid ""
-" --resize /dev/sda4=90%\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:292
-#, no-wrap
-msgid ""
-" --resize /dev/sda2=+1G\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:294
-#, no-wrap
-msgid ""
-" --resize /dev/sda2=-200M\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:296
-#, no-wrap
-msgid ""
-" --resize /dev/sda1=+128K\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:298
-#, no-wrap
-msgid ""
-" --resize /dev/sda1=+10%\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:300
-#, no-wrap
-msgid ""
-" --resize /dev/sda1=-10%\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:302
-msgid ""
-"You can increase the size of any partition.  Virt-resize will expand the "
-"direct content of the partition if it knows how (see C<--expand> below)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:306
-msgid ""
-"You can only I<decrease> the size of partitions that contain filesystems or "
-"PVs which have already been shrunk.  Virt-resize will check this has been "
-"done before proceeding, or else will print an error (see also "
-"C<--resize-force>)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:311 ../tools/virt-resize.pl:403 ../tools/virt-resize.pl:420
-msgid "You can give this option multiple times."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:317
-msgid "B<--resize-force part=size>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:319
-msgid ""
-"This is the same as C<--resize> except that it will let you decrease the "
-"size of any partition.  Generally this means you will lose any data which "
-"was at the end of the partition you shrink, but you may not care about that "
-"(eg. if shrinking an unused partition, or if you can easily recreate it such "
-"as a swap partition)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:325
-msgid "See also the C<--ignore> option."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:331
-msgid "B<--expand part>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:333
-msgid ""
-"Expand the named partition so it uses up all extra space (space left over "
-"after any other resize changes that you request have been done)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:336
-msgid ""
-"If virt-resize knows how, it will expand the direct content of the "
-"partition.  For example, if the partition is an LVM PV, it will expand the "
-"PV to fit (like calling L<pvresize(8)>).  Virt-resize leaves any other "
-"content it doesn't know about alone."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:341
-msgid "Currently virt-resize can resize:"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:347
-msgid ""
-"ext2, ext3 and ext4 filesystems when they are contained directly inside a "
-"partition."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:352
-msgid ""
-"NTFS filesystems contained directly in a partition, if libguestfs was "
-"compiled with support for NTFS."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:355
-msgid ""
-"The filesystem must have been shut down consistently last time it was used.  "
-"Additionally, L<ntfsresize(8)> marks the resized filesystem as requiring a "
-"consistency check, so at the first boot after resizing Windows will check "
-"the disk."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:362
-msgid ""
-"LVM PVs (physical volumes).  virt-resize does not usually resize anything "
-"inside the PV, but see the C<--LV-expand> option.  The user could also "
-"resize LVs as desired after boot."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:368 ../tools/virt-resize.pl:390
-msgid "Note that you cannot use C<--expand> and C<--shrink> together."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:374
-msgid "B<--shrink part>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:376
-msgid ""
-"Shrink the named partition until the overall disk image fits in the "
-"destination.  The named partition B<must> contain a filesystem or PV which "
-"has already been shrunk using another tool (eg. L<guestfish(1)> or other "
-"online tools).  Virt-resize will check this and give an error if it has not "
-"been done."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:382
-msgid ""
-"The amount by which the overall disk must be shrunk (after carrying out all "
-"other operations requested by the user) is called the \"deficit\".  For "
-"example, a straight copy (assume no other operations)  from a 5GB disk image "
-"to a 4GB disk image results in a 1GB deficit.  In this case, virt-resize "
-"would give an error unless the user specified a partition to shrink and that "
-"partition had more than a gigabyte of free space."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:396
-msgid "B<--ignore part>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:398
-msgid ""
-"Ignore the named partition.  Effectively this means the partition is "
-"allocated on the destination disk, but the content is not copied across from "
-"the source disk.  The content of the partition will be blank (all zero "
-"bytes)."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:409
-msgid "B<--delete part>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:411
-msgid ""
-"Delete the named partition.  It would be more accurate to describe this as "
-"\"don't copy it over\", since virt-resize doesn't do in-place changes and "
-"the original disk image is left intact."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:415
-msgid ""
-"Note that when you delete a partition, then anything contained in the "
-"partition is also deleted.  Furthermore, this causes any partitions that "
-"come after to be I<renumbered>, which can easily make your guest unbootable."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:426
-msgid "B<--LV-expand logvol>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:428
-msgid ""
-"This takes the logical volume and, as a final step, expands it to fill all "
-"the space available in its volume group.  A typical usage, assuming a Linux "
-"guest with a single PV C</dev/sda2> and a root device called "
-"C</dev/vg_guest/lv_root> would be:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:433
-#, no-wrap
-msgid ""
-" virt-resize indisk outdisk \\\n"
-"   --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:436
-msgid ""
-"This would first expand the partition (and PV), and then expand the root "
-"device to fill the extra space in the PV."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:439
-msgid ""
-"The contents of the LV are also resized if virt-resize knows how to do "
-"that.  You can stop virt-resize from trying to expand the content by using "
-"the option C<--no-expand-content>."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:443
-msgid "Use L<virt-filesystems(1)> to list the filesystems in the guest."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:446
-msgid ""
-"You can give this option multiple times, I<but> it doesn't make sense to do "
-"this unless the logical volumes you specify are all in different volume "
-"groups."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:454
-msgid "B<--no-copy-boot-loader>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:456
-msgid ""
-"By default, virt-resize copies over some sectors at the start of the disk "
-"(up to the beginning of the first partition).  Commonly these sectors "
-"contain the Master Boot Record (MBR) and the boot loader, and are required "
-"in order for the guest to boot correctly."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:461
-msgid ""
-"If you specify this flag, then this initial copy is not done.  You may need "
-"to reinstall the boot loader in this case."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:469
-msgid "B<--no-extra-partition>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:471
-msgid ""
-"By default, virt-resize creates an extra partition if there is any extra, "
-"unused space after all resizing has happened.  Use this option to prevent "
-"the extra partition from being created.  If you do this then the extra space "
-"will be inaccessible until you run fdisk, parted, or some other partitioning "
-"tool in the guest."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:477
-msgid ""
-"Note that if the surplus space is smaller than 10 MB, no extra partition "
-"will be created."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:484
-msgid "B<--no-expand-content>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:486
-msgid ""
-"By default, virt-resize will try to expand the direct contents of "
-"partitions, if it knows how (see C<--expand> option above)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:489
-msgid ""
-"If you give the C<--no-expand-content> option then virt-resize will not "
-"attempt this."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:496
-msgid "B<-d> | B<--debug>"
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:504
-msgid "B<-n> | B<--dryrun>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:506
-msgid "Print a summary of what would be done, but don't do anything."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:512
-msgid "B<-q> | B<--quiet>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:514
-msgid "Don't print the summary."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:522
-msgid ""
-"Specify the format of the input disk image.  If this flag is not given then "
-"it is auto-detected from the image itself."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:528
-msgid ""
-"Note that this option I<does not> affect the output format.  See L</QCOW2 "
-"AND NON-SPARSE RAW FORMATS>."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-resize.pl:535
-msgid "B<--output-format> raw"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:537
-msgid ""
-"Specify the format of the output disk image.  If this flag is not given then "
-"it is auto-detected from the image itself."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:543
-msgid ""
-"Note that you still need to create the output disk with the right format.  "
-"See L</QCOW2 AND NON-SPARSE RAW FORMATS>."
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-resize.pl:1425
-msgid "NOTES"
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:1427
-msgid "\"Partition 1 does not end on cylinder boundary.\""
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1429
-msgid ""
-"Virt-resize aligns partitions to multiples of 64 sectors.  Usually this "
-"means the partitions will not be aligned to the ancient CHS geometry.  "
-"However CHS geometry is meaningless for disks manufactured since the early "
-"1990s, and doubly so for virtual hard drives.  Alignment of partitions to "
-"cylinders is not required by any modern operating system."
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:1436
-msgid "RESIZING WINDOWS VIRTUAL MACHINES"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1438
-msgid ""
-"In Windows Vista and later versions, Microsoft switched to using a separate "
-"boot partition.  In these VMs, typically C</dev/sda1> is the boot partition "
-"and C</dev/sda2> is the main (C:) drive.  We have not had any luck resizing "
-"the boot partition.  Doing so seems to break the guest completely.  However "
-"expanding the second partition (ie. C: drive) should work."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1445
-msgid ""
-"Windows may initiate a lengthy \"chkdsk\" on first boot after a resize, if "
-"NTFS partitions have been expanded.  This is just a safety check and (unless "
-"it find errors) is nothing to worry about."
-msgstr ""
-
-#. type: =head2
-#: ../tools/virt-resize.pl:1449
-msgid "GUEST BOOT STUCK AT \"GRUB\""
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1451
-msgid ""
-"If a Linux guest does not boot after resizing, and the boot is stuck after "
-"printing C<GRUB> on the console, try reinstalling grub.  This sometimes "
-"happens on older (RHEL 5-era) guests, for reasons we don't fully understand, "
-"although we think is to do with partition alignment."
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-resize.pl:1456
-#, no-wrap
-msgid ""
-" guestfish -i -a newdisk\n"
-" ><fs> cat /boot/grub/device.map\n"
-" # check the contents of this file are sensible or\n"
-" # edit the file if necessary\n"
-" ><fs> grub-install / /dev/vda\n"
-" ><fs> exit\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1463
-msgid ""
-"For more flexible guest reconfiguration, including if you need to specify "
-"other parameters to grub-install, use L<virt-rescue(1)>."
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-resize.pl:1466
-msgid "ALTERNATIVE TOOLS"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1468
-msgid ""
-"There are several proprietary tools for resizing partitions.  We won't "
-"mention any here."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1471
-msgid ""
-"L<parted(8)> and its graphical shell gparted can do some types of resizing "
-"operations on disk images.  They can resize and move partitions, but I don't "
-"think they can do anything with the contents, and they certainly don't "
-"understand LVM."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1476
-msgid ""
-"L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
-"but at a much lower level.  You will probably end up hand-calculating sector "
-"offsets, which is something that virt-resize was designed to avoid.  If you "
-"want to see the guestfish-equivalent commands that virt-resize runs, use the "
-"C<--debug> flag."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-resize.pl:1491
-msgid ""
-"L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, "
-"L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, "
-"L<ntfsresize(8)>, L<virsh(1)>, L<parted(8)>, L<truncate(1)>, "
-"L<fallocate(1)>, L<grub(8)>, L<grub-install(8)>, L<virt-rescue(1)>, "
-"L<Sys::Guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
