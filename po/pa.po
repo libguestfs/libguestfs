@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-05 20:38+0100\n"
+"POT-Creation-Date: 2011-04-09 20:12+0100\n"
 "PO-Revision-Date: 2010-12-23 17:40+0530\n"
 "Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
 "Language-Team: PLTG\n"
@@ -3209,17 +3209,15 @@ msgstr ""
 "add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 ਤੋਂ "
 "ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
 
-#: test-tool/test-tool.c:82
-#, c-format
+#: test-tool/test-tool.c:79
+#, fuzzy, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
 "  --help         Display usage\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Helper program (default: %s)\n"
 "  --qemudir dir  Specify QEMU source directory\n"
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
@@ -3238,72 +3236,62 @@ msgstr ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 
-#: test-tool/test-tool.c:138
+#: test-tool/test-tool.c:127
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: unknown long option: %s (%d)\n"
 
-#: test-tool/test-tool.c:147
+#: test-tool/test-tool.c:136
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: invalid timeout: %s\n"
 
-#: test-tool/test-tool.c:159
+#: test-tool/test-tool.c:148
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: unexpected command line option 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:170
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: failed to create libguestfs handle\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:177
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: failed to add drive '%s'\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version failed\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:217
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
-#: test-tool/test-tool.c:240
-#, c-format
-msgid "libguestfs-test-tool: failed to run sfdisk\n"
+#: test-tool/test-tool.c:229
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: failed to run sfdisk\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:235
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:241
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 
-#: test-tool/test-tool.c:258
-#, c-format
-msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-msgstr "libguestfs-test-tool: failed to mkdir /iso\n"
+#: test-tool/test-tool.c:248
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to touch file\n"
+msgstr "libguestfs-test-tool: failed to run sfdisk\n"
 
-#: test-tool/test-tool.c:264
-#, c-format
-msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-msgstr "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-
-#: test-tool/test-tool.c:272
-#, c-format
-msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
-msgstr "libguestfs-test-tool: could not run helper program, or helper failed\n"
-
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:279
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3312,49 +3300,15 @@ msgstr ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:287
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "ਬਾਇਨਰੀ '%s' ਬੰਦ ਨਹੀਂ ਹੋਇਆ ਜਾਂ ਚੱਲਣਯੋਗ ਨਹੀਂ ਹੈ\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:301
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ਇੱਕ qemu ਸਰੋਤ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਲੱਗਦੀ\n"
-
-#: test-tool/test-tool.c:374
-#, c-format
-msgid ""
-"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-"available.  Expected to find it in '%s'\n"
-"\n"
-"Use the --helper option to specify the location of this program.\n"
-msgstr ""
-"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-"available.  Expected to find it in '%s'\n"
-"\n"
-"Use the --helper option to specify the location of this program.\n"
-
-#: test-tool/test-tool.c:390
-#, c-format
-msgid "command failed: %s"
-msgstr "ਕਮਾਂਡ ਫੇਲ ਹੋਈ: %s"
-
-#: test-tool/test-tool.c:398
-#, c-format
-msgid ""
-"Test tool helper program %s\n"
-"is not statically linked.  This is a build error when this test tool\n"
-"was built.\n"
-msgstr ""
-"ਜਾਂਚ ਜੰਤਰ ਸਹਾਇਕ ਪਰੋਗਰਾਮ %s\n"
-"ਸਥਿਰ ਤੌਰ ਤੇ ਸੰਬੰਧਿਤ ਨਹੀਂ।  ਇਹ ਬਿਲਡ ਗਲਤੀ ਹੈ ਜਦੋਂ ਇਹ ਜਾਂਚ ਜੰਤਰ\n"
-"ਬਣਾਇਆ ਸੀ।\n"
-
-#: test-tool/test-tool.c:432
-#, c-format
-msgid "mkisofs command failed: %s\n"
-msgstr "mkisofs ਕਮਾਂਡ ਫੇਲ ਹੋਈ: %s\n"
 
 #: tools/virt-edit.pl:178
 msgid "virt-edit: no image, VM names or filenames to edit given"
@@ -3459,203 +3413,6 @@ msgstr ""
 "An error here usually means that the program did not estimate the\n"
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 
-#: tools/virt-resize.pl:33
-msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-msgstr "virt-resize: ਮਾਫ ਕਰਨਾ ਇਹ ਪਰੋਗਰਾਮ 32 ਬਿੱਟ ਹੋਸਟਾਂ ਤੇ ਕੰਮ ਨਹੀਂ ਕਰਦਾ\n"
-
-#: tools/virt-resize.pl:581
-#, perl-brace-format
-msgid "virt-resize: {file}: does not exist or is not readable\n"
-msgstr "virt-resize: {file}: ਮੌਜੂਦ ਨਹੀਂ ਜਾਂ ਪੜ੍ਹਨਯੋਗ ਨਹੀਂ ਹੈ\n"
-
-#: tools/virt-resize.pl:583
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: does not exist or is not writable\n"
-"You have to create the destination disk before running this program.\n"
-"Please read the virt-resize(1) manpage for more information.\n"
-msgstr ""
-"virt-resize: {file}: ਮੌਜੂਦ ਨਹੀਂ ਹੈ ਜਾਂ ਲਿਖਣਯੋਗ ਨਹੀਂ ਹੈ\n"
-"ਤੁਹਾਨੂੰ ਇਹ ਪਰੋਗਰਾਮ ਚਲਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਨੀਯਤ ਡਿਸਕ ਬਣਾਉਣੀ ਪਵੇਗੀ।\n"
-"ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ ਕਿਰਪਾ ਕਰਕੇ virt-resize(1) manpage ਵੇਖੋ।\n"
-
-#: tools/virt-resize.pl:663 tools/virt-resize.pl:666
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
-msgstr "virt-resize: {file}: ਡਿਸਕ ਈਮੇਜ਼ ਬਣਨ ਲਈ ਫਾਇਲ ਬਹੁਤ ਛੋਟੀ ਹੈ ({sz} bytes)\n"
-
-#: tools/virt-resize.pl:682 tools/virt-resize.pl:694
-msgid "virt-resize: short read"
-msgstr "virt-resize: ਸ਼ੌਰਟ ਰੀਡ"
-
-#: tools/virt-resize.pl:828
-#, perl-brace-format
-msgid "virt-resize: no logical volume called {n}\n"
-msgstr "virt-resize: {n} ਨਾਂ ਵਾਲਾ ਕੋਈ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਨਹੀਂ ਹੈ\n"
-
-#: tools/virt-resize.pl:848
-#, perl-brace-format
-msgid ""
-"{p}: partition not found in the source disk image, when using the '{opt}' "
-"command line option\n"
-msgstr ""
-"{p}: ਭਾਗ ਸਰੋਤ ਡਿਸਕ ਈਮੇਜ਼ ਉੱਪਰ ਨਹੀਂ ਲੱਭਿਆ, ਜਦੋਂ '{opt}' ਕਮਾਂਡ ਲਾਈਨ ਚੋਣ ਵਰਤੀ ਜਾਂਦੀ ਹੈ\n"
-
-#: tools/virt-resize.pl:854
-#, perl-brace-format
-msgid ""
-"{p}: partition ignored, you cannot use it in another command line argument\n"
-msgstr "{p}: ਭਾਗ ਰੱਦ ਕੀਤਾ ਗਿਆ ਸੀ, ਤੁਸੀਂ ਇਸਨੂੰ ਹੋਰ ਕਮਾਂਡ ਲਾਈਨ ਆਰਗੂਮੈਂਟ ਵਿੱਚ ਨਹੀਂ ਵਰਤ ਸਕਦੇ\n"
-
-#: tools/virt-resize.pl:858
-#, perl-brace-format
-msgid ""
-"{p}: partition deleted, you cannot use it in another command line argument\n"
-msgstr "{p}: ਭਾਗ ਹਟਾਇਆ ਗਿਆ ਹੈ, ਤੁਸੀਂ ਇਸਨੂੰ ਹੋਰ ਕਮਾਂਡ ਲਾਈਨ ਆਰਗੂਮੈਂਟ ਵਿੱਚ ਨਹੀਂ ਵਰਤ ਸਕਦੇ\n"
-
-#: tools/virt-resize.pl:900
-#, perl-brace-format
-msgid "{p}: this partition has already been marked for resizing\n"
-msgstr "{p}: ਇਹ ਭਾਗ ਪਹਿਲਾਂ ਹੀ ਮੁੜ-ਅਕਾਰ ਲਈ ਮਾਰਕ ਕੀਤਾ ਹੋਇਆ ਹੈ\n"
-
-#: tools/virt-resize.pl:908
-#, perl-brace-format
-msgid "{p}: missing size field in {o} option\n"
-msgstr "{p}: {o} ਚੋਣ ਵਿੱਚ ਅਕਾਰ ਖੇਤਰ ਗੌਰ-ਮੌਜੂਦ ਹੈ\n"
-
-#: tools/virt-resize.pl:925
-#, perl-brace-format
-msgid "{p}: {f}: cannot parse size field\n"
-msgstr "{p}: {f}: ਅਕਾਰ ਖੇਤਰ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ\n"
-
-#: tools/virt-resize.pl:930
-#, perl-brace-format
-msgid "{p}: new size is zero or negative\n"
-msgstr "{p}: ਨਵਾਂ ਅਕਾਰ ਸਿਫਰ ਜਾਂ ਰਿਣਾਤਮਕ ਹੈ\n"
-
-#: tools/virt-resize.pl:953
-#, perl-brace-format
-msgid ""
-"{p}: cannot make this partition smaller because it contains a\n"
-"filesystem, physical volume or other content that is larger than the new "
-"size.\n"
-"You have to resize the content first, see virt-resize(1).\n"
-msgstr ""
-"{p}: ਇਸ ਭਾਗ ਨੂੰ ਛੋਟਾ ਨਹੀਂ ਬਣਾ ਸਕਦਾ ਕਿਉਂਕਿ ਇਸ ਉੱਪਰ ਫਾਇਲਸਿਸਟਮ, ਭੌਤਿਕ ਵਾਲੀਅਮ ਜਾਂ ਹੋਰ ਸੰਖੇਪ "
-"ਹਨ ਜੋ ਨਵੇਂ ਅਕਾਰ ਤੋਂ ਵੱਡੇ ਹਨ।\n"
-"ਪਹਿਲਾਂ ਤੁਹਾਨੂੰ ਸੰਖੇਪਾਂ ਨੂੰ ਮੁੜ-ਅਕਾਰ ਦੇਣਾ ਪਵੇਗਾ, virt-resize(1) ਵੇਖੋ।\n"
-
-#: tools/virt-resize.pl:969
-msgid "virt-resize: you cannot use options --expand and --shrink together\n"
-msgstr "virt-resize: ਤੁਸੀਂ ਇਹ ਚੋਣਾਂ ਵਰਤ ਸਕਦੇ ਹੋ --expand and --shrink together\n"
-
-#: tools/virt-resize.pl:1018
-#, perl-brace-format
-msgid ""
-"virt-resize: error: cannot use --expand when there is no surplus space to\n"
-"expand into.  You need to make the target disk larger by at least {h}.\n"
-msgstr ""
-"virt-resize: ਗਲਤੀ: --expand ਨੂੰ ਵਰਤ ਨਹੀਂ ਸਕਦੇ ਜਦੋਂ ਫੈਲਾਉਣ ਲਈ ਕੋਈ ਵਾਧੂ ਮੈਮੋਰੀ ਨਾ ਹੋਵੇ।  "
-"ਤੁਹਾਨੂੰ ਟਾਰਗਿਟ ਡਿਸਕ ਬਣਾਉਣਈ ਚਾਹੀਦੀ ਹੈ ਜਿਸ ਦਾ ਘੱਟੋ-ਘੱਟ ਅਕਾਰ ਹੋਵੇ {h}।\n"
-
-#: tools/virt-resize.pl:1033
-msgid ""
-"virt-resize: error: cannot use --shrink because there is no deficit\n"
-"(see 'deficit' in the virt-resize(1) man page)\n"
-msgstr ""
-"virt-resize: error: cannot use --shrink because there is no deficit\n"
-"(see 'deficit' in the virt-resize(1) man page)\n"
-
-#: tools/virt-resize.pl:1048
-msgid "Summary of changes:\n"
-msgstr "ਤਬਦੀਲੀਆਂ ਦੀ ਜਾਣਕਾਰੀ:\n"
-
-#: tools/virt-resize.pl:1052
-#, perl-brace-format
-msgid "{p}: partition will be ignored\n"
-msgstr "{p}: ਭਾਗ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾਵੇਗਾ\n"
-
-#: tools/virt-resize.pl:1054
-#, perl-brace-format
-msgid "{p}: partition will be deleted\n"
-msgstr "{p}: ਭਾਗ ਹਟਾਇਆ ਜਾਵੇਗਾ\n"
-
-#: tools/virt-resize.pl:1056
-#, perl-brace-format
-msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-msgstr "{p}: ਭਾਗ {oldsize} ਤੋਂ {newsize} ਨਾਲ ਮੁੜ-ਅਕਾਰ ਕੀਤਾ ਗਿਆ ਹੈ\n"
-
-#: tools/virt-resize.pl:1061
-#, perl-brace-format
-msgid "{p}: content will be expanded using the '{meth}' method\n"
-msgstr "{p}: ਸੰਖੇਪਾਂ ਨੂੰ'{meth}' ਢੰਗ ਵਰਤ ਕੇ ਫੈਲਾਇਆ ਜਾਵੇਗਾ\n"
-
-#: tools/virt-resize.pl:1066
-#, perl-brace-format
-msgid "{p}: partition will be left alone\n"
-msgstr "{p}: ਭਾਗ ਇਕੱਲਾ ਛੱਡਿਆ ਜਾਵੇਗਾ\n"
-
-#: tools/virt-resize.pl:1071
-#, perl-brace-format
-msgid "{n}: LV will be expanded to maximum size\n"
-msgstr "{n}: LV ਨੂੰ ਅਧਿਕਤਮ ਅਕਾਰ ਤੱਕ ਫੈਲਾਇਆ ਜਾਵੇਗਾ\n"
-
-#: tools/virt-resize.pl:1077
-#, perl-brace-format
-msgid "{n}: content will be expanded using the '{meth}' method\n"
-msgstr "{n}: ਸੰਖੇਪਾਂ ਨੂੰ '{meth}' ਢੰਗ ਵਰਤ ਕੇ ਫੈਲਾਇਆ ਜਾਏਗਾ\n"
-
-#: tools/virt-resize.pl:1084
-#, perl-brace-format
-msgid "There is a surplus of {spl} bytes ({h}).\n"
-msgstr "{spl} ਬਾਈਟਾਂ ਦੀ ਬਚਤ ਹੈ ({h})।\n"
-
-#: tools/virt-resize.pl:1089
-msgid "An extra partition will be created for the surplus.\n"
-msgstr "ਇੱਕ ਵਾਧੂ ਭਾਗ ਬਚਤ ਲਈ ਬਣਾਇਆ ਜਾਵੇਗਾ।\n"
-
-#: tools/virt-resize.pl:1091
-msgid ""
-"The surplus space is not large enough for an extra partition to be created\n"
-"and so it will just be ignored.\n"
-msgstr ""
-"ਬਾਕੀ ਸਪੇਸ ਵਾਧੂ ਭਾਗ ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਨਹੀਂ ਹੈ\n"
-"ਅਤੇ ਇਸ ਲਈ ਇਹ ਅਣਡਿੱਠੀ ਕੀਤੀ ਜਾਵੇਗੀ।\n"
-
-#: tools/virt-resize.pl:1094
-msgid ""
-"The surplus space will be ignored.  Run a partitioning program in the guest\n"
-"to partition this extra space if you want.\n"
-msgstr ""
-"ਬਚਤ ਸਪੇਸ ਅਣਡਿੱਠੀ ਕੀਤੀ ਜਾਵੇਗੀ। ਗਿਸਟ ਵਿੱਚ ਵਿਭਾਗੀਕਰਨ ਪਰੋਗਰਾਮ ਚਲਾਓ\n"
-"ਤਾਂ ਜੋ ਇਸ ਵਾਧੂ ਸਪੇਸ ਤੇ ਭਾਗ ਬਣਾਏ ਜਾਣ ਜੇ ਤੁਸੀਂ ਚਾਹੁੰਦੇ ਹੋ।\n"
-
-#: tools/virt-resize.pl:1097
-#, perl-brace-format
-msgid ""
-"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-"You need to make the target disk larger by at least this amount,\n"
-"or adjust your resizing requests.\n"
-msgstr ""
-"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-"You need to make the target disk larger by at least this amount,\n"
-"or adjust your resizing requests.\n"
-
-#: tools/virt-resize.pl:1114
-msgid "virt-resize: source disk does not have a first partition\n"
-msgstr "virt-resize: ਸਰੋਤ ਡਿਸਕ ਉੱਪਰ ਪਹਿਲਾਂ ਭਾਗ ਨਹੀਂ ਹੈ\n"
-
-#: tools/virt-resize.pl:1209
-#, perl-brace-format
-msgid "Copying {p} ...\n"
-msgstr "{p} ਨੂੰ ਕਾਪੀ ਕਰ ਰਿਹਾ ਹੈ ...\n"
-
-#: tools/virt-resize.pl:1272 tools/virt-resize.pl:1330
-#, perl-brace-format
-msgid "Expanding {p} using the '{meth}' method\n"
-msgstr "{p} ਨੂੰ '{meth}' ਢੱਗ ਵਰਤ ਕੇ ਫੈਲ ਰਿਹਾ ਹੈ\n"
-
 #: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr "virt-tar: extract/upload ਮੋਡ ਕਮਾਂਡ ਲਾਈਨ ਵਿੱਚ ਦੋ-ਵਾਰ ਨਿਰਧਾਰਤ ਕੀਤਾ ਹੈ\n"
@@ -3707,6 +3464,189 @@ msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਡਾਊਂਲੋ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਨੂੰ ਅੱਪਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦਾ: {err}\n"
+
+#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+#~ msgstr "libguestfs-test-tool: failed to mkdir /iso\n"
+
+#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+#~ msgstr "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+
+#~ msgid ""
+#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
+#~ msgstr ""
+#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
+
+#~ msgid ""
+#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+#~ "available.  Expected to find it in '%s'\n"
+#~ "\n"
+#~ "Use the --helper option to specify the location of this program.\n"
+#~ msgstr ""
+#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+#~ "available.  Expected to find it in '%s'\n"
+#~ "\n"
+#~ "Use the --helper option to specify the location of this program.\n"
+
+#~ msgid "command failed: %s"
+#~ msgstr "ਕਮਾਂਡ ਫੇਲ ਹੋਈ: %s"
+
+#~ msgid ""
+#~ "Test tool helper program %s\n"
+#~ "is not statically linked.  This is a build error when this test tool\n"
+#~ "was built.\n"
+#~ msgstr ""
+#~ "ਜਾਂਚ ਜੰਤਰ ਸਹਾਇਕ ਪਰੋਗਰਾਮ %s\n"
+#~ "ਸਥਿਰ ਤੌਰ ਤੇ ਸੰਬੰਧਿਤ ਨਹੀਂ।  ਇਹ ਬਿਲਡ ਗਲਤੀ ਹੈ ਜਦੋਂ ਇਹ ਜਾਂਚ ਜੰਤਰ\n"
+#~ "ਬਣਾਇਆ ਸੀ।\n"
+
+#~ msgid "mkisofs command failed: %s\n"
+#~ msgstr "mkisofs ਕਮਾਂਡ ਫੇਲ ਹੋਈ: %s\n"
+
+#~ msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
+#~ msgstr "virt-resize: ਮਾਫ ਕਰਨਾ ਇਹ ਪਰੋਗਰਾਮ 32 ਬਿੱਟ ਹੋਸਟਾਂ ਤੇ ਕੰਮ ਨਹੀਂ ਕਰਦਾ\n"
+
+#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
+#~ msgstr "virt-resize: {file}: ਮੌਜੂਦ ਨਹੀਂ ਜਾਂ ਪੜ੍ਹਨਯੋਗ ਨਹੀਂ ਹੈ\n"
+
+#~ msgid ""
+#~ "virt-resize: {file}: does not exist or is not writable\n"
+#~ "You have to create the destination disk before running this program.\n"
+#~ "Please read the virt-resize(1) manpage for more information.\n"
+#~ msgstr ""
+#~ "virt-resize: {file}: ਮੌਜੂਦ ਨਹੀਂ ਹੈ ਜਾਂ ਲਿਖਣਯੋਗ ਨਹੀਂ ਹੈ\n"
+#~ "ਤੁਹਾਨੂੰ ਇਹ ਪਰੋਗਰਾਮ ਚਲਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਨੀਯਤ ਡਿਸਕ ਬਣਾਉਣੀ ਪਵੇਗੀ।\n"
+#~ "ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ ਕਿਰਪਾ ਕਰਕੇ virt-resize(1) manpage ਵੇਖੋ।\n"
+
+#~ msgid ""
+#~ "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
+#~ msgstr "virt-resize: {file}: ਡਿਸਕ ਈਮੇਜ਼ ਬਣਨ ਲਈ ਫਾਇਲ ਬਹੁਤ ਛੋਟੀ ਹੈ ({sz} bytes)\n"
+
+#~ msgid "virt-resize: short read"
+#~ msgstr "virt-resize: ਸ਼ੌਰਟ ਰੀਡ"
+
+#~ msgid "virt-resize: no logical volume called {n}\n"
+#~ msgstr "virt-resize: {n} ਨਾਂ ਵਾਲਾ ਕੋਈ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਨਹੀਂ ਹੈ\n"
+
+#~ msgid ""
+#~ "{p}: partition not found in the source disk image, when using the '{opt}' "
+#~ "command line option\n"
+#~ msgstr ""
+#~ "{p}: ਭਾਗ ਸਰੋਤ ਡਿਸਕ ਈਮੇਜ਼ ਉੱਪਰ ਨਹੀਂ ਲੱਭਿਆ, ਜਦੋਂ '{opt}' ਕਮਾਂਡ ਲਾਈਨ ਚੋਣ ਵਰਤੀ ਜਾਂਦੀ ਹੈ\n"
+
+#~ msgid ""
+#~ "{p}: partition ignored, you cannot use it in another command line "
+#~ "argument\n"
+#~ msgstr ""
+#~ "{p}: ਭਾਗ ਰੱਦ ਕੀਤਾ ਗਿਆ ਸੀ, ਤੁਸੀਂ ਇਸਨੂੰ ਹੋਰ ਕਮਾਂਡ ਲਾਈਨ ਆਰਗੂਮੈਂਟ ਵਿੱਚ ਨਹੀਂ ਵਰਤ ਸਕਦੇ\n"
+
+#~ msgid ""
+#~ "{p}: partition deleted, you cannot use it in another command line "
+#~ "argument\n"
+#~ msgstr "{p}: ਭਾਗ ਹਟਾਇਆ ਗਿਆ ਹੈ, ਤੁਸੀਂ ਇਸਨੂੰ ਹੋਰ ਕਮਾਂਡ ਲਾਈਨ ਆਰਗੂਮੈਂਟ ਵਿੱਚ ਨਹੀਂ ਵਰਤ ਸਕਦੇ\n"
+
+#~ msgid "{p}: this partition has already been marked for resizing\n"
+#~ msgstr "{p}: ਇਹ ਭਾਗ ਪਹਿਲਾਂ ਹੀ ਮੁੜ-ਅਕਾਰ ਲਈ ਮਾਰਕ ਕੀਤਾ ਹੋਇਆ ਹੈ\n"
+
+#~ msgid "{p}: missing size field in {o} option\n"
+#~ msgstr "{p}: {o} ਚੋਣ ਵਿੱਚ ਅਕਾਰ ਖੇਤਰ ਗੌਰ-ਮੌਜੂਦ ਹੈ\n"
+
+#~ msgid "{p}: {f}: cannot parse size field\n"
+#~ msgstr "{p}: {f}: ਅਕਾਰ ਖੇਤਰ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ\n"
+
+#~ msgid "{p}: new size is zero or negative\n"
+#~ msgstr "{p}: ਨਵਾਂ ਅਕਾਰ ਸਿਫਰ ਜਾਂ ਰਿਣਾਤਮਕ ਹੈ\n"
+
+#~ msgid ""
+#~ "{p}: cannot make this partition smaller because it contains a\n"
+#~ "filesystem, physical volume or other content that is larger than the new "
+#~ "size.\n"
+#~ "You have to resize the content first, see virt-resize(1).\n"
+#~ msgstr ""
+#~ "{p}: ਇਸ ਭਾਗ ਨੂੰ ਛੋਟਾ ਨਹੀਂ ਬਣਾ ਸਕਦਾ ਕਿਉਂਕਿ ਇਸ ਉੱਪਰ ਫਾਇਲਸਿਸਟਮ, ਭੌਤਿਕ ਵਾਲੀਅਮ ਜਾਂ ਹੋਰ "
+#~ "ਸੰਖੇਪ ਹਨ ਜੋ ਨਵੇਂ ਅਕਾਰ ਤੋਂ ਵੱਡੇ ਹਨ।\n"
+#~ "ਪਹਿਲਾਂ ਤੁਹਾਨੂੰ ਸੰਖੇਪਾਂ ਨੂੰ ਮੁੜ-ਅਕਾਰ ਦੇਣਾ ਪਵੇਗਾ, virt-resize(1) ਵੇਖੋ।\n"
+
+#~ msgid "virt-resize: you cannot use options --expand and --shrink together\n"
+#~ msgstr "virt-resize: ਤੁਸੀਂ ਇਹ ਚੋਣਾਂ ਵਰਤ ਸਕਦੇ ਹੋ --expand and --shrink together\n"
+
+#~ msgid ""
+#~ "virt-resize: error: cannot use --expand when there is no surplus space "
+#~ "to\n"
+#~ "expand into.  You need to make the target disk larger by at least {h}.\n"
+#~ msgstr ""
+#~ "virt-resize: ਗਲਤੀ: --expand ਨੂੰ ਵਰਤ ਨਹੀਂ ਸਕਦੇ ਜਦੋਂ ਫੈਲਾਉਣ ਲਈ ਕੋਈ ਵਾਧੂ ਮੈਮੋਰੀ ਨਾ ਹੋਵੇ।  "
+#~ "ਤੁਹਾਨੂੰ ਟਾਰਗਿਟ ਡਿਸਕ ਬਣਾਉਣਈ ਚਾਹੀਦੀ ਹੈ ਜਿਸ ਦਾ ਘੱਟੋ-ਘੱਟ ਅਕਾਰ ਹੋਵੇ {h}।\n"
+
+#~ msgid ""
+#~ "virt-resize: error: cannot use --shrink because there is no deficit\n"
+#~ "(see 'deficit' in the virt-resize(1) man page)\n"
+#~ msgstr ""
+#~ "virt-resize: error: cannot use --shrink because there is no deficit\n"
+#~ "(see 'deficit' in the virt-resize(1) man page)\n"
+
+#~ msgid "Summary of changes:\n"
+#~ msgstr "ਤਬਦੀਲੀਆਂ ਦੀ ਜਾਣਕਾਰੀ:\n"
+
+#~ msgid "{p}: partition will be ignored\n"
+#~ msgstr "{p}: ਭਾਗ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾਵੇਗਾ\n"
+
+#~ msgid "{p}: partition will be deleted\n"
+#~ msgstr "{p}: ਭਾਗ ਹਟਾਇਆ ਜਾਵੇਗਾ\n"
+
+#~ msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
+#~ msgstr "{p}: ਭਾਗ {oldsize} ਤੋਂ {newsize} ਨਾਲ ਮੁੜ-ਅਕਾਰ ਕੀਤਾ ਗਿਆ ਹੈ\n"
+
+#~ msgid "{p}: content will be expanded using the '{meth}' method\n"
+#~ msgstr "{p}: ਸੰਖੇਪਾਂ ਨੂੰ'{meth}' ਢੰਗ ਵਰਤ ਕੇ ਫੈਲਾਇਆ ਜਾਵੇਗਾ\n"
+
+#~ msgid "{p}: partition will be left alone\n"
+#~ msgstr "{p}: ਭਾਗ ਇਕੱਲਾ ਛੱਡਿਆ ਜਾਵੇਗਾ\n"
+
+#~ msgid "{n}: LV will be expanded to maximum size\n"
+#~ msgstr "{n}: LV ਨੂੰ ਅਧਿਕਤਮ ਅਕਾਰ ਤੱਕ ਫੈਲਾਇਆ ਜਾਵੇਗਾ\n"
+
+#~ msgid "{n}: content will be expanded using the '{meth}' method\n"
+#~ msgstr "{n}: ਸੰਖੇਪਾਂ ਨੂੰ '{meth}' ਢੰਗ ਵਰਤ ਕੇ ਫੈਲਾਇਆ ਜਾਏਗਾ\n"
+
+#~ msgid "There is a surplus of {spl} bytes ({h}).\n"
+#~ msgstr "{spl} ਬਾਈਟਾਂ ਦੀ ਬਚਤ ਹੈ ({h})।\n"
+
+#~ msgid "An extra partition will be created for the surplus.\n"
+#~ msgstr "ਇੱਕ ਵਾਧੂ ਭਾਗ ਬਚਤ ਲਈ ਬਣਾਇਆ ਜਾਵੇਗਾ।\n"
+
+#~ msgid ""
+#~ "The surplus space is not large enough for an extra partition to be "
+#~ "created\n"
+#~ "and so it will just be ignored.\n"
+#~ msgstr ""
+#~ "ਬਾਕੀ ਸਪੇਸ ਵਾਧੂ ਭਾਗ ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਨਹੀਂ ਹੈ\n"
+#~ "ਅਤੇ ਇਸ ਲਈ ਇਹ ਅਣਡਿੱਠੀ ਕੀਤੀ ਜਾਵੇਗੀ।\n"
+
+#~ msgid ""
+#~ "The surplus space will be ignored.  Run a partitioning program in the "
+#~ "guest\n"
+#~ "to partition this extra space if you want.\n"
+#~ msgstr ""
+#~ "ਬਚਤ ਸਪੇਸ ਅਣਡਿੱਠੀ ਕੀਤੀ ਜਾਵੇਗੀ। ਗਿਸਟ ਵਿੱਚ ਵਿਭਾਗੀਕਰਨ ਪਰੋਗਰਾਮ ਚਲਾਓ\n"
+#~ "ਤਾਂ ਜੋ ਇਸ ਵਾਧੂ ਸਪੇਸ ਤੇ ਭਾਗ ਬਣਾਏ ਜਾਣ ਜੇ ਤੁਸੀਂ ਚਾਹੁੰਦੇ ਹੋ।\n"
+
+#~ msgid ""
+#~ "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+#~ "You need to make the target disk larger by at least this amount,\n"
+#~ "or adjust your resizing requests.\n"
+#~ msgstr ""
+#~ "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+#~ "You need to make the target disk larger by at least this amount,\n"
+#~ "or adjust your resizing requests.\n"
+
+#~ msgid "virt-resize: source disk does not have a first partition\n"
+#~ msgstr "virt-resize: ਸਰੋਤ ਡਿਸਕ ਉੱਪਰ ਪਹਿਲਾਂ ਭਾਗ ਨਹੀਂ ਹੈ\n"
+
+#~ msgid "Copying {p} ...\n"
+#~ msgstr "{p} ਨੂੰ ਕਾਪੀ ਕਰ ਰਿਹਾ ਹੈ ...\n"
+
+#~ msgid "Expanding {p} using the '{meth}' method\n"
+#~ msgstr "{p} ਨੂੰ '{meth}' ਢੱਗ ਵਰਤ ਕੇ ਫੈਲ ਰਿਹਾ ਹੈ\n"
 
 #~ msgid ""
 #~ "error: domain is a live virtual machine.\n"

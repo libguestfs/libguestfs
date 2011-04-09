@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-05 20:38+0100\n"
+"POT-Creation-Date: 2011-04-09 20:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -3274,17 +3274,15 @@ msgid ""
 "without libvirt or libxml2"
 msgstr ""
 
-#: test-tool/test-tool.c:82
-#, c-format
+#: test-tool/test-tool.c:79
+#, fuzzy, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
 "  --help         Display usage\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Helper program (default: %s)\n"
 "  --qemudir dir  Specify QEMU source directory\n"
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
@@ -3304,74 +3302,62 @@ msgstr ""
 "  -t n           Define tiempo de espera de lanzamiento (por defecto: %d "
 "segundos)\n"
 
-#: test-tool/test-tool.c:138
+#: test-tool/test-tool.c:127
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: opción extensa desconocida: %s (%d)\n"
 
-#: test-tool/test-tool.c:147
+#: test-tool/test-tool.c:136
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: tiempo de espera no válido: %s\n"
 
-#: test-tool/test-tool.c:159
+#: test-tool/test-tool.c:148
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: opción de línea de comando no esperada 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:170
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "bguestfs-test-tool: falló al crear el manipulador libguestfs\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:177
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: falló al agregar dispositivo '%s'\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: falló guestfs_version\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:217
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: falló al intentar lanzar dispositivo\n"
 
-#: test-tool/test-tool.c:240
-#, c-format
-msgid "libguestfs-test-tool: failed to run sfdisk\n"
+#: test-tool/test-tool.c:229
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: falló al ejecutar sfdisk\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:235
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: falló al realizar mkfs.ext2\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:241
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: falló al montar /dev/sda1 sobre /\n"
 
-#: test-tool/test-tool.c:258
-#, c-format
-msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-msgstr "libguestfs-test-tool: falló al crear el directorio /iso\n"
+#: test-tool/test-tool.c:248
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to touch file\n"
+msgstr "libguestfs-test-tool: falló al ejecutar sfdisk\n"
 
-#: test-tool/test-tool.c:264
-#, c-format
-msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-msgstr "libguestfs-test-tool: falló al montar /dev/sdb sobre /iso\n"
-
-#: test-tool/test-tool.c:272
-#, c-format
-msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
-msgstr ""
-"libguestfs-test-tool: no pudo ejecutarse el programa de asistencia, o la "
-"asistencia ha fallado\n"
-
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:279
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3380,50 +3366,15 @@ msgstr ""
 "la variable de entorno LIBGUESTFS_QEMU ya se encuentra definida,\n"
 "de modo que las opciones --qemu/--qemudir no pueden ser utilizadas.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:287
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "El binario '%s' no existe o no es un ejecutable\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:301
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: no parece un directorio fuente de qemu\n"
-
-#: test-tool/test-tool.c:374
-#, c-format
-msgid ""
-"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-"available.  Expected to find it in '%s'\n"
-"\n"
-"Use the --helper option to specify the location of this program.\n"
-msgstr ""
-"El programa de asistencia de herramientas de prueba 'libguestfs-test-tool-"
-"helper'\n"
-"no está disponible. Se esperaba encontrarlo en '%s'\n"
-"\n"
-"Utilice la opción --helper para especificar la ubicación de este programa.\n"
-
-#: test-tool/test-tool.c:390
-#, c-format
-msgid "command failed: %s"
-msgstr "el comando ha fallado: %s"
-
-#: test-tool/test-tool.c:398
-#, c-format
-msgid ""
-"Test tool helper program %s\n"
-"is not statically linked.  This is a build error when this test tool\n"
-"was built.\n"
-msgstr ""
-"El programa de asistencia de herramientas de prueba %s\n"
-"no se encuentra enlazado definitivamente. Este es un error de\n"
-"compilación cuando esta herramienta de pruebas fue compilada.\n"
-
-#: test-tool/test-tool.c:432
-#, c-format
-msgid "mkisofs command failed: %s\n"
-msgstr "falló el comando mkisofs: %s\n"
 
 #: tools/virt-edit.pl:178
 msgid "virt-edit: no image, VM names or filenames to edit given"
@@ -3538,219 +3489,6 @@ msgstr ""
 "ha estimado correctamente el tamaño del sistema de archivos.\n"
 "Por favor lea la sección BUGS de la página man.\n"
 
-#: tools/virt-resize.pl:33
-msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-msgstr ""
-"virt-resize: lo sentimos, pero este programa no funciona en un equipo de 32 "
-"bits\n"
-
-#: tools/virt-resize.pl:581
-#, perl-brace-format
-msgid "virt-resize: {file}: does not exist or is not readable\n"
-msgstr "virt-resize: {file}: no existe o es imposible de leer\n"
-
-#: tools/virt-resize.pl:583
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: does not exist or is not writable\n"
-"You have to create the destination disk before running this program.\n"
-"Please read the virt-resize(1) manpage for more information.\n"
-msgstr ""
-"virt-resize: {file}: no existe o no es posible escribir sobre él.\n"
-"Tiene que crear el disco de destino antes de ejecutar este programa.\n"
-"Por favor, lea la página man de virt-resize (1) para obtener mayor "
-"información.\n"
-
-#: tools/virt-resize.pl:663 tools/virt-resize.pl:666
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
-msgstr ""
-"virt-resize: {file}: el archivo es demasiado pequeño para ser una imagen de "
-"disco ({sz} bytes)\n"
-
-#: tools/virt-resize.pl:682 tools/virt-resize.pl:694
-msgid "virt-resize: short read"
-msgstr ""
-
-#: tools/virt-resize.pl:828
-#, perl-brace-format
-msgid "virt-resize: no logical volume called {n}\n"
-msgstr "virt-resize: no existe un volúmen lógico denominado {n}\n"
-
-#: tools/virt-resize.pl:848
-#, perl-brace-format
-msgid ""
-"{p}: partition not found in the source disk image, when using the '{opt}' "
-"command line option\n"
-msgstr ""
-"{p}: al utilizar la opción de línea de comando '{opt}', no ha sido "
-"encontrada la partición en la imagen de disco fuente\n"
-
-#: tools/virt-resize.pl:854
-#, perl-brace-format
-msgid ""
-"{p}: partition ignored, you cannot use it in another command line argument\n"
-msgstr ""
-"{p}: partición ignorada, no puede utilizarla en ningún otro argumento de "
-"línea de comando\n"
-
-#: tools/virt-resize.pl:858
-#, perl-brace-format
-msgid ""
-"{p}: partition deleted, you cannot use it in another command line argument\n"
-msgstr ""
-"{p}: partición eliminada, no puede utilizarla en ningún otro argumento de "
-"línea de comando\n"
-
-#: tools/virt-resize.pl:900
-#, perl-brace-format
-msgid "{p}: this partition has already been marked for resizing\n"
-msgstr "{p}: esta partición ya ha sido marcada para modificar su tamaño\n"
-
-#: tools/virt-resize.pl:908
-#, perl-brace-format
-msgid "{p}: missing size field in {o} option\n"
-msgstr "{p}: falta el campo de tamaño en la opción {o}\n"
-
-#: tools/virt-resize.pl:925
-#, perl-brace-format
-msgid "{p}: {f}: cannot parse size field\n"
-msgstr "{p}: {f}: no es posible analizar el tamaño del campo\n"
-
-#: tools/virt-resize.pl:930
-#, perl-brace-format
-msgid "{p}: new size is zero or negative\n"
-msgstr "{p}: el nuevo tamañoo es cero o negativo\n"
-
-#: tools/virt-resize.pl:953
-#, perl-brace-format
-msgid ""
-"{p}: cannot make this partition smaller because it contains a\n"
-"filesystem, physical volume or other content that is larger than the new "
-"size.\n"
-"You have to resize the content first, see virt-resize(1).\n"
-msgstr ""
-"{p}: no es posible reducir el tamaño de esta partición ya que\n"
-"contiene un sistema de archivos, un volumen físico, o algún otro\n"
-"contenido que es mayor que el nuevo tamaño solicitado.\n"
-"Primero tiene que reducir dicho contenido, vea virt-resize (1).\n"
-
-#: tools/virt-resize.pl:969
-msgid "virt-resize: you cannot use options --expand and --shrink together\n"
-msgstr ""
-"virt-resize: no puede utilizar al mismo tiempo las opciones --expand y --"
-"shrink\n"
-
-#: tools/virt-resize.pl:1018
-#, perl-brace-format
-msgid ""
-"virt-resize: error: cannot use --expand when there is no surplus space to\n"
-"expand into.  You need to make the target disk larger by at least {h}.\n"
-msgstr ""
-"virt-resize: error: no puede utilizar --expand cuando no hay espacio\n"
-"excedente para poder expandirse. Necesita incrementar el tamaño\n"
-"del disco de destino, por lo menos en {h}.\n"
-
-#: tools/virt-resize.pl:1033
-msgid ""
-"virt-resize: error: cannot use --shrink because there is no deficit\n"
-"(see 'deficit' in the virt-resize(1) man page)\n"
-msgstr ""
-"virt-resize: error: no es posible utilizar --shrink debido a que no hay "
-"déficit\n"
-"(consulte 'deficit' en la página man de virt-resize (1)\n"
-
-#: tools/virt-resize.pl:1048
-msgid "Summary of changes:\n"
-msgstr "Resumen de modificaciones:\n"
-
-#: tools/virt-resize.pl:1052
-#, perl-brace-format
-msgid "{p}: partition will be ignored\n"
-msgstr "{p}: la partición será ignorada\n"
-
-#: tools/virt-resize.pl:1054
-#, perl-brace-format
-msgid "{p}: partition will be deleted\n"
-msgstr "{p}: la partición será eliminada\n"
-
-#: tools/virt-resize.pl:1056
-#, perl-brace-format
-msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-msgstr ""
-"{p}: el tamaño de la partición será modificado de {oldsize} a {newsize}\n"
-
-#: tools/virt-resize.pl:1061
-#, perl-brace-format
-msgid "{p}: content will be expanded using the '{meth}' method\n"
-msgstr "{p}: el contenido será expandido utilizando el método '{meth}'\n"
-
-#: tools/virt-resize.pl:1066
-#, perl-brace-format
-msgid "{p}: partition will be left alone\n"
-msgstr "{p}: la partición será dejada intacta\n"
-
-#: tools/virt-resize.pl:1071
-#, perl-brace-format
-msgid "{n}: LV will be expanded to maximum size\n"
-msgstr "{n} VL será expandido a su tamaño máximo\n"
-
-#: tools/virt-resize.pl:1077
-#, perl-brace-format
-msgid "{n}: content will be expanded using the '{meth}' method\n"
-msgstr "{n}: el contenido será expandido utilizando el método '{meth}'\n"
-
-#: tools/virt-resize.pl:1084
-#, perl-brace-format
-msgid "There is a surplus of {spl} bytes ({h}).\n"
-msgstr "Existe un espacio excedente de {spl} bytes ({h}).\n"
-
-#: tools/virt-resize.pl:1089
-msgid "An extra partition will be created for the surplus.\n"
-msgstr "Una partición extra será creada para el espacio excedente.\n"
-
-#: tools/virt-resize.pl:1091
-msgid ""
-"The surplus space is not large enough for an extra partition to be created\n"
-"and so it will just be ignored.\n"
-msgstr ""
-"El espacio excedente no es lo suficientemente amplio para poder\n"
-"crear una partición extra, y por lo tanto será ignorado.\n"
-
-#: tools/virt-resize.pl:1094
-msgid ""
-"The surplus space will be ignored.  Run a partitioning program in the guest\n"
-"to partition this extra space if you want.\n"
-msgstr ""
-"El espacio excedente sera ignorado. Si lo desea, ejecute un programa\n"
-"de particionamiento en el huésped, para particionar este espacio extra.\n"
-
-#: tools/virt-resize.pl:1097
-#, perl-brace-format
-msgid ""
-"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-"You need to make the target disk larger by at least this amount,\n"
-"or adjust your resizing requests.\n"
-msgstr ""
-"virt-resize: error:existe un déficir de {def} bytes ({h}).\n"
-"Necesita incrementar el tamaño del disco de destino al menos\n"
-"con esta cantidad, o modificar los parámetros de su petición.\n"
-
-#: tools/virt-resize.pl:1114
-msgid "virt-resize: source disk does not have a first partition\n"
-msgstr "virt-resize: el disco fuente no posee una partición primera\n"
-
-#: tools/virt-resize.pl:1209
-#, perl-brace-format
-msgid "Copying {p} ...\n"
-msgstr "Copiando {p} ...\n"
-
-#: tools/virt-resize.pl:1272 tools/virt-resize.pl:1330
-#, perl-brace-format
-msgid "Expanding {p} using the '{meth}' method\n"
-msgstr "Expandiendo {p} utilizando el método '{meth}'\n"
-
 #: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
@@ -3813,6 +3551,204 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
+
+#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+#~ msgstr "libguestfs-test-tool: falló al crear el directorio /iso\n"
+
+#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+#~ msgstr "libguestfs-test-tool: falló al montar /dev/sdb sobre /iso\n"
+
+#~ msgid ""
+#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
+#~ msgstr ""
+#~ "libguestfs-test-tool: no pudo ejecutarse el programa de asistencia, o la "
+#~ "asistencia ha fallado\n"
+
+#~ msgid ""
+#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+#~ "available.  Expected to find it in '%s'\n"
+#~ "\n"
+#~ "Use the --helper option to specify the location of this program.\n"
+#~ msgstr ""
+#~ "El programa de asistencia de herramientas de prueba 'libguestfs-test-tool-"
+#~ "helper'\n"
+#~ "no está disponible. Se esperaba encontrarlo en '%s'\n"
+#~ "\n"
+#~ "Utilice la opción --helper para especificar la ubicación de este "
+#~ "programa.\n"
+
+#~ msgid "command failed: %s"
+#~ msgstr "el comando ha fallado: %s"
+
+#~ msgid ""
+#~ "Test tool helper program %s\n"
+#~ "is not statically linked.  This is a build error when this test tool\n"
+#~ "was built.\n"
+#~ msgstr ""
+#~ "El programa de asistencia de herramientas de prueba %s\n"
+#~ "no se encuentra enlazado definitivamente. Este es un error de\n"
+#~ "compilación cuando esta herramienta de pruebas fue compilada.\n"
+
+#~ msgid "mkisofs command failed: %s\n"
+#~ msgstr "falló el comando mkisofs: %s\n"
+
+#~ msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
+#~ msgstr ""
+#~ "virt-resize: lo sentimos, pero este programa no funciona en un equipo de "
+#~ "32 bits\n"
+
+#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
+#~ msgstr "virt-resize: {file}: no existe o es imposible de leer\n"
+
+#~ msgid ""
+#~ "virt-resize: {file}: does not exist or is not writable\n"
+#~ "You have to create the destination disk before running this program.\n"
+#~ "Please read the virt-resize(1) manpage for more information.\n"
+#~ msgstr ""
+#~ "virt-resize: {file}: no existe o no es posible escribir sobre él.\n"
+#~ "Tiene que crear el disco de destino antes de ejecutar este programa.\n"
+#~ "Por favor, lea la página man de virt-resize (1) para obtener mayor "
+#~ "información.\n"
+
+#~ msgid ""
+#~ "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
+#~ msgstr ""
+#~ "virt-resize: {file}: el archivo es demasiado pequeño para ser una imagen "
+#~ "de disco ({sz} bytes)\n"
+
+#~ msgid "virt-resize: no logical volume called {n}\n"
+#~ msgstr "virt-resize: no existe un volúmen lógico denominado {n}\n"
+
+#~ msgid ""
+#~ "{p}: partition not found in the source disk image, when using the '{opt}' "
+#~ "command line option\n"
+#~ msgstr ""
+#~ "{p}: al utilizar la opción de línea de comando '{opt}', no ha sido "
+#~ "encontrada la partición en la imagen de disco fuente\n"
+
+#~ msgid ""
+#~ "{p}: partition ignored, you cannot use it in another command line "
+#~ "argument\n"
+#~ msgstr ""
+#~ "{p}: partición ignorada, no puede utilizarla en ningún otro argumento de "
+#~ "línea de comando\n"
+
+#~ msgid ""
+#~ "{p}: partition deleted, you cannot use it in another command line "
+#~ "argument\n"
+#~ msgstr ""
+#~ "{p}: partición eliminada, no puede utilizarla en ningún otro argumento de "
+#~ "línea de comando\n"
+
+#~ msgid "{p}: this partition has already been marked for resizing\n"
+#~ msgstr "{p}: esta partición ya ha sido marcada para modificar su tamaño\n"
+
+#~ msgid "{p}: missing size field in {o} option\n"
+#~ msgstr "{p}: falta el campo de tamaño en la opción {o}\n"
+
+#~ msgid "{p}: {f}: cannot parse size field\n"
+#~ msgstr "{p}: {f}: no es posible analizar el tamaño del campo\n"
+
+#~ msgid "{p}: new size is zero or negative\n"
+#~ msgstr "{p}: el nuevo tamañoo es cero o negativo\n"
+
+#~ msgid ""
+#~ "{p}: cannot make this partition smaller because it contains a\n"
+#~ "filesystem, physical volume or other content that is larger than the new "
+#~ "size.\n"
+#~ "You have to resize the content first, see virt-resize(1).\n"
+#~ msgstr ""
+#~ "{p}: no es posible reducir el tamaño de esta partición ya que\n"
+#~ "contiene un sistema de archivos, un volumen físico, o algún otro\n"
+#~ "contenido que es mayor que el nuevo tamaño solicitado.\n"
+#~ "Primero tiene que reducir dicho contenido, vea virt-resize (1).\n"
+
+#~ msgid "virt-resize: you cannot use options --expand and --shrink together\n"
+#~ msgstr ""
+#~ "virt-resize: no puede utilizar al mismo tiempo las opciones --expand y --"
+#~ "shrink\n"
+
+#~ msgid ""
+#~ "virt-resize: error: cannot use --expand when there is no surplus space "
+#~ "to\n"
+#~ "expand into.  You need to make the target disk larger by at least {h}.\n"
+#~ msgstr ""
+#~ "virt-resize: error: no puede utilizar --expand cuando no hay espacio\n"
+#~ "excedente para poder expandirse. Necesita incrementar el tamaño\n"
+#~ "del disco de destino, por lo menos en {h}.\n"
+
+#~ msgid ""
+#~ "virt-resize: error: cannot use --shrink because there is no deficit\n"
+#~ "(see 'deficit' in the virt-resize(1) man page)\n"
+#~ msgstr ""
+#~ "virt-resize: error: no es posible utilizar --shrink debido a que no hay "
+#~ "déficit\n"
+#~ "(consulte 'deficit' en la página man de virt-resize (1)\n"
+
+#~ msgid "Summary of changes:\n"
+#~ msgstr "Resumen de modificaciones:\n"
+
+#~ msgid "{p}: partition will be ignored\n"
+#~ msgstr "{p}: la partición será ignorada\n"
+
+#~ msgid "{p}: partition will be deleted\n"
+#~ msgstr "{p}: la partición será eliminada\n"
+
+#~ msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
+#~ msgstr ""
+#~ "{p}: el tamaño de la partición será modificado de {oldsize} a {newsize}\n"
+
+#~ msgid "{p}: content will be expanded using the '{meth}' method\n"
+#~ msgstr "{p}: el contenido será expandido utilizando el método '{meth}'\n"
+
+#~ msgid "{p}: partition will be left alone\n"
+#~ msgstr "{p}: la partición será dejada intacta\n"
+
+#~ msgid "{n}: LV will be expanded to maximum size\n"
+#~ msgstr "{n} VL será expandido a su tamaño máximo\n"
+
+#~ msgid "{n}: content will be expanded using the '{meth}' method\n"
+#~ msgstr "{n}: el contenido será expandido utilizando el método '{meth}'\n"
+
+#~ msgid "There is a surplus of {spl} bytes ({h}).\n"
+#~ msgstr "Existe un espacio excedente de {spl} bytes ({h}).\n"
+
+#~ msgid "An extra partition will be created for the surplus.\n"
+#~ msgstr "Una partición extra será creada para el espacio excedente.\n"
+
+#~ msgid ""
+#~ "The surplus space is not large enough for an extra partition to be "
+#~ "created\n"
+#~ "and so it will just be ignored.\n"
+#~ msgstr ""
+#~ "El espacio excedente no es lo suficientemente amplio para poder\n"
+#~ "crear una partición extra, y por lo tanto será ignorado.\n"
+
+#~ msgid ""
+#~ "The surplus space will be ignored.  Run a partitioning program in the "
+#~ "guest\n"
+#~ "to partition this extra space if you want.\n"
+#~ msgstr ""
+#~ "El espacio excedente sera ignorado. Si lo desea, ejecute un programa\n"
+#~ "de particionamiento en el huésped, para particionar este espacio extra.\n"
+
+#~ msgid ""
+#~ "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+#~ "You need to make the target disk larger by at least this amount,\n"
+#~ "or adjust your resizing requests.\n"
+#~ msgstr ""
+#~ "virt-resize: error:existe un déficir de {def} bytes ({h}).\n"
+#~ "Necesita incrementar el tamaño del disco de destino al menos\n"
+#~ "con esta cantidad, o modificar los parámetros de su petición.\n"
+
+#~ msgid "virt-resize: source disk does not have a first partition\n"
+#~ msgstr "virt-resize: el disco fuente no posee una partición primera\n"
+
+#~ msgid "Copying {p} ...\n"
+#~ msgstr "Copiando {p} ...\n"
+
+#~ msgid "Expanding {p} using the '{meth}' method\n"
+#~ msgstr "Expandiendo {p} utilizando el método '{meth}'\n"
 
 #, fuzzy
 #~ msgid ""

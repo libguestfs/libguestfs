@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-05 20:38+0100\n"
+"POT-Creation-Date: 2011-04-09 20:12+0100\n"
 "PO-Revision-Date: 2011-03-22 15:28+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3322,17 +3322,15 @@ msgstr ""
 "програмний інтерфейс add-domain недоступний, оскільки цю версію libguestfs "
 "було зібрано без підтримки бібліотеки libvirt або libxml2"
 
-#: test-tool/test-tool.c:82
-#, c-format
+#: test-tool/test-tool.c:79
+#, fuzzy, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
 "  --help         Display usage\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Helper program (default: %s)\n"
 "  --qemudir dir  Specify QEMU source directory\n"
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
@@ -3351,75 +3349,63 @@ msgstr ""
 "  --timeout n\n"
 "  -t n           Встановити час очікування запуску (типово %d секунд)\n"
 
-#: test-tool/test-tool.c:138
+#: test-tool/test-tool.c:127
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: невідомий довгий запис параметра: %s (%d)\n"
 
-#: test-tool/test-tool.c:147
+#: test-tool/test-tool.c:136
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: некоректне значення часу очікування: %s\n"
 
-#: test-tool/test-tool.c:159
+#: test-tool/test-tool.c:148
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:170
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:177
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: помилка guestfs_version\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:217
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:240
-#, c-format
-msgid "libguestfs-test-tool: failed to run sfdisk\n"
+#: test-tool/test-tool.c:229
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося виконати sfdisk\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:235
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:241
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:258
-#, c-format
-msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-msgstr "libguestfs-test-tool: не вдалося створити каталог /iso\n"
+#: test-tool/test-tool.c:248
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to touch file\n"
+msgstr "libguestfs-test-tool: не вдалося виконати sfdisk\n"
 
-#: test-tool/test-tool.c:264
-#, c-format
-msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sdb до /iso\n"
-
-#: test-tool/test-tool.c:272
-#, c-format
-msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
-msgstr ""
-"libguestfs-test-tool: не вдалося запустити допоміжну програму або допоміжній "
-"програмі не вдалося виконати завдання\n"
-
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:279
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3428,49 +3414,15 @@ msgstr ""
 "Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:287
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:301
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
-
-#: test-tool/test-tool.c:374
-#, c-format
-msgid ""
-"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-"available.  Expected to find it in '%s'\n"
-"\n"
-"Use the --helper option to specify the location of this program.\n"
-msgstr ""
-"Допоміжна програма тестового інструмента «libguestfs-test-tool-helper»\n"
-"недоступна. Програма мала зберігатися у «%s»\n"
-"\n"
-"Скористайтеся параметром --helper для визначення розташування програми.\n"
-
-#: test-tool/test-tool.c:390
-#, c-format
-msgid "command failed: %s"
-msgstr "помилка команди: %s"
-
-#: test-tool/test-tool.c:398
-#, c-format
-msgid ""
-"Test tool helper program %s\n"
-"is not statically linked.  This is a build error when this test tool\n"
-"was built.\n"
-msgstr ""
-"Допоміжну програма інструмента тестування %s\n"
-"не скомпоновано статично. Це помилка збирання тестового\n"
-"інструмента.\n"
-
-#: test-tool/test-tool.c:432
-#, c-format
-msgid "mkisofs command failed: %s\n"
-msgstr "помилка команди mkisofs: %s\n"
 
 #: tools/virt-edit.pl:178
 msgid "virt-edit: no image, VM names or filenames to edit given"
@@ -3585,217 +3537,6 @@ msgstr ""
 "розмір файлової системи. Будь ласка, ознайомтеся з розділом BUGS сторінки "
 "man.\n"
 
-#: tools/virt-resize.pl:33
-msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-msgstr ""
-"virt-resize: вибачте, ця програма не працює у 32-бітових основних системах\n"
-
-#: tools/virt-resize.pl:581
-#, perl-brace-format
-msgid "virt-resize: {file}: does not exist or is not readable\n"
-msgstr "virt-resize: {file}: не існує або непридатний до читання\n"
-
-#: tools/virt-resize.pl:583
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: does not exist or is not writable\n"
-"You have to create the destination disk before running this program.\n"
-"Please read the virt-resize(1) manpage for more information.\n"
-msgstr ""
-"virt-resize: {file}: не існує або непридатний до запису\n"
-"Перш ніж запускати цю програму, вам слід створити диск призначення.\n"
-"Докладніші дані можна знайти на сторінці довідника (man) virt-resize(1).\n"
-
-#: tools/virt-resize.pl:663 tools/virt-resize.pl:666
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
-msgstr ""
-"virt-resize: {file}: занадто малий для образу диска файл ({sz} байтів)\n"
-
-#: tools/virt-resize.pl:682 tools/virt-resize.pl:694
-msgid "virt-resize: short read"
-msgstr "virt-resize: мало даних"
-
-#: tools/virt-resize.pl:828
-#, perl-brace-format
-msgid "virt-resize: no logical volume called {n}\n"
-msgstr "virt-resize: не викликано логічного тому {n}\n"
-
-#: tools/virt-resize.pl:848
-#, perl-brace-format
-msgid ""
-"{p}: partition not found in the source disk image, when using the '{opt}' "
-"command line option\n"
-msgstr ""
-"{p}: під час спроби використання параметра командного рядка «{opt}» у даних "
-"образу диска не виявлено розділів\n"
-
-#: tools/virt-resize.pl:854
-#, perl-brace-format
-msgid ""
-"{p}: partition ignored, you cannot use it in another command line argument\n"
-msgstr ""
-"{p}: розділ проігноровано, ви не можете використовувати його у інших "
-"параметрах командного рядка\n"
-
-#: tools/virt-resize.pl:858
-#, perl-brace-format
-msgid ""
-"{p}: partition deleted, you cannot use it in another command line argument\n"
-msgstr ""
-"{p}: розділ вилучено, ви не можете використовувати його у інших параметрах "
-"командного рядка\n"
-
-#: tools/virt-resize.pl:900
-#, perl-brace-format
-msgid "{p}: this partition has already been marked for resizing\n"
-msgstr "{p}: цей розділ вже було позначено для зміни розміру\n"
-
-#: tools/virt-resize.pl:908
-#, perl-brace-format
-msgid "{p}: missing size field in {o} option\n"
-msgstr "{p}: у параметрі {o} не вказано значення розміру\n"
-
-#: tools/virt-resize.pl:925
-#, perl-brace-format
-msgid "{p}: {f}: cannot parse size field\n"
-msgstr "{p}: {f}: не вдалося обробити значення поля розміру\n"
-
-#: tools/virt-resize.pl:930
-#, perl-brace-format
-msgid "{p}: new size is zero or negative\n"
-msgstr "{p}: новий розмір є нульовим або від’ємним\n"
-
-#: tools/virt-resize.pl:953
-#, perl-brace-format
-msgid ""
-"{p}: cannot make this partition smaller because it contains a\n"
-"filesystem, physical volume or other content that is larger than the new "
-"size.\n"
-"You have to resize the content first, see virt-resize(1).\n"
-msgstr ""
-"{p}: не можна зменшувати розміри розділу, оскільки на ньому міститься "
-"файлова\n"
-"система, фізичний том або інші дані, об’єм яких перевищує вказаний новий "
-"розмір.\n"
-"Вам спочатку слід змінити об’єм даних, див. virt-resize(1).\n"
-
-#: tools/virt-resize.pl:969
-msgid "virt-resize: you cannot use options --expand and --shrink together\n"
-msgstr ""
-"virt-resize: не можна одночасно використовувати параметри --expand і --"
-"shrink\n"
-
-#: tools/virt-resize.pl:1018
-#, perl-brace-format
-msgid ""
-"virt-resize: error: cannot use --expand when there is no surplus space to\n"
-"expand into.  You need to make the target disk larger by at least {h}.\n"
-msgstr ""
-"virt-resize: помилка: не можна використовувати --expand, якщо немає залишку "
-"місця для\n"
-"розширення. Вам слід зробити диск призначення більшим, принаймні на {h}.\n"
-
-#: tools/virt-resize.pl:1033
-msgid ""
-"virt-resize: error: cannot use --shrink because there is no deficit\n"
-"(see 'deficit' in the virt-resize(1) man page)\n"
-msgstr ""
-"virt-resize: помилка: не можна використовувати --shrink, оскільки немає "
-"дефіциту\n"
-"(див. «deficit» на сторінці довідника (man) virt-resize(1))\n"
-
-#: tools/virt-resize.pl:1048
-msgid "Summary of changes:\n"
-msgstr "Резюме змін:\n"
-
-#: tools/virt-resize.pl:1052
-#, perl-brace-format
-msgid "{p}: partition will be ignored\n"
-msgstr "{p}: розділ буде проігноровано\n"
-
-#: tools/virt-resize.pl:1054
-#, perl-brace-format
-msgid "{p}: partition will be deleted\n"
-msgstr "{p}: розділ буде вилучено\n"
-
-#: tools/virt-resize.pl:1056
-#, perl-brace-format
-msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-msgstr "{p}: розмір розділу буде змінено з {oldsize} на {newsize}\n"
-
-#: tools/virt-resize.pl:1061
-#, perl-brace-format
-msgid "{p}: content will be expanded using the '{meth}' method\n"
-msgstr "{p}: вміст буде розширено за допомогою методу «{meth}»\n"
-
-#: tools/virt-resize.pl:1066
-#, perl-brace-format
-msgid "{p}: partition will be left alone\n"
-msgstr "{p}: розділ не буде змінено\n"
-
-#: tools/virt-resize.pl:1071
-#, perl-brace-format
-msgid "{n}: LV will be expanded to maximum size\n"
-msgstr "{n}: логічний том буде розширено до максимального розміру\n"
-
-#: tools/virt-resize.pl:1077
-#, perl-brace-format
-msgid "{n}: content will be expanded using the '{meth}' method\n"
-msgstr "{n}: вміст буде розширено за допомогою методу «{meth}»\n"
-
-#: tools/virt-resize.pl:1084
-#, perl-brace-format
-msgid "There is a surplus of {spl} bytes ({h}).\n"
-msgstr "Вільними залишилися {spl} байтів ({h}).\n"
-
-#: tools/virt-resize.pl:1089
-msgid "An extra partition will be created for the surplus.\n"
-msgstr "На решті простору сховища буде створено додатковий розділ.\n"
-
-#: tools/virt-resize.pl:1091
-msgid ""
-"The surplus space is not large enough for an extra partition to be created\n"
-"and so it will just be ignored.\n"
-msgstr ""
-"Залишок місця недостатньо великий для створення нового розділу, отже\n"
-"його буде просто проігноровано.\n"
-
-#: tools/virt-resize.pl:1094
-msgid ""
-"The surplus space will be ignored.  Run a partitioning program in the guest\n"
-"to partition this extra space if you want.\n"
-msgstr ""
-"Залишок місця буде проігноровано. Запустіть програму керування розділами "
-"гостьової\n"
-"системи, якщо бажаєте розподілити це залишок місця.\n"
-
-#: tools/virt-resize.pl:1097
-#, perl-brace-format
-msgid ""
-"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-"You need to make the target disk larger by at least this amount,\n"
-"or adjust your resizing requests.\n"
-msgstr ""
-"virt-resize: помилка: не вистачає {def} байтів ({h}).\n"
-"Вам слід збільшити розмір диска призначення принаймні на вказане значення\n"
-"або скоригувати запит щодо зміни розмірів.\n"
-
-#: tools/virt-resize.pl:1114
-msgid "virt-resize: source disk does not have a first partition\n"
-msgstr "virt-resize: на початковому диску немає першого розділу\n"
-
-#: tools/virt-resize.pl:1209
-#, perl-brace-format
-msgid "Copying {p} ...\n"
-msgstr "Копіювання {p}…\n"
-
-#: tools/virt-resize.pl:1272 tools/virt-resize.pl:1330
-#, perl-brace-format
-msgid "Expanding {p} using the '{meth}' method\n"
-msgstr "Розширення {p} за допомогою методу «{meth}»\n"
-
 #: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
@@ -3852,3 +3593,202 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+#~ msgstr "libguestfs-test-tool: не вдалося створити каталог /iso\n"
+
+#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+#~ msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sdb до /iso\n"
+
+#~ msgid ""
+#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
+#~ msgstr ""
+#~ "libguestfs-test-tool: не вдалося запустити допоміжну програму або "
+#~ "допоміжній програмі не вдалося виконати завдання\n"
+
+#~ msgid ""
+#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+#~ "available.  Expected to find it in '%s'\n"
+#~ "\n"
+#~ "Use the --helper option to specify the location of this program.\n"
+#~ msgstr ""
+#~ "Допоміжна програма тестового інструмента «libguestfs-test-tool-helper»\n"
+#~ "недоступна. Програма мала зберігатися у «%s»\n"
+#~ "\n"
+#~ "Скористайтеся параметром --helper для визначення розташування програми.\n"
+
+#~ msgid "command failed: %s"
+#~ msgstr "помилка команди: %s"
+
+#~ msgid ""
+#~ "Test tool helper program %s\n"
+#~ "is not statically linked.  This is a build error when this test tool\n"
+#~ "was built.\n"
+#~ msgstr ""
+#~ "Допоміжну програма інструмента тестування %s\n"
+#~ "не скомпоновано статично. Це помилка збирання тестового\n"
+#~ "інструмента.\n"
+
+#~ msgid "mkisofs command failed: %s\n"
+#~ msgstr "помилка команди mkisofs: %s\n"
+
+#~ msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
+#~ msgstr ""
+#~ "virt-resize: вибачте, ця програма не працює у 32-бітових основних "
+#~ "системах\n"
+
+#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
+#~ msgstr "virt-resize: {file}: не існує або непридатний до читання\n"
+
+#~ msgid ""
+#~ "virt-resize: {file}: does not exist or is not writable\n"
+#~ "You have to create the destination disk before running this program.\n"
+#~ "Please read the virt-resize(1) manpage for more information.\n"
+#~ msgstr ""
+#~ "virt-resize: {file}: не існує або непридатний до запису\n"
+#~ "Перш ніж запускати цю програму, вам слід створити диск призначення.\n"
+#~ "Докладніші дані можна знайти на сторінці довідника (man) virt-resize(1).\n"
+
+#~ msgid ""
+#~ "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
+#~ msgstr ""
+#~ "virt-resize: {file}: занадто малий для образу диска файл ({sz} байтів)\n"
+
+#~ msgid "virt-resize: short read"
+#~ msgstr "virt-resize: мало даних"
+
+#~ msgid "virt-resize: no logical volume called {n}\n"
+#~ msgstr "virt-resize: не викликано логічного тому {n}\n"
+
+#~ msgid ""
+#~ "{p}: partition not found in the source disk image, when using the '{opt}' "
+#~ "command line option\n"
+#~ msgstr ""
+#~ "{p}: під час спроби використання параметра командного рядка «{opt}» у "
+#~ "даних образу диска не виявлено розділів\n"
+
+#~ msgid ""
+#~ "{p}: partition ignored, you cannot use it in another command line "
+#~ "argument\n"
+#~ msgstr ""
+#~ "{p}: розділ проігноровано, ви не можете використовувати його у інших "
+#~ "параметрах командного рядка\n"
+
+#~ msgid ""
+#~ "{p}: partition deleted, you cannot use it in another command line "
+#~ "argument\n"
+#~ msgstr ""
+#~ "{p}: розділ вилучено, ви не можете використовувати його у інших "
+#~ "параметрах командного рядка\n"
+
+#~ msgid "{p}: this partition has already been marked for resizing\n"
+#~ msgstr "{p}: цей розділ вже було позначено для зміни розміру\n"
+
+#~ msgid "{p}: missing size field in {o} option\n"
+#~ msgstr "{p}: у параметрі {o} не вказано значення розміру\n"
+
+#~ msgid "{p}: {f}: cannot parse size field\n"
+#~ msgstr "{p}: {f}: не вдалося обробити значення поля розміру\n"
+
+#~ msgid "{p}: new size is zero or negative\n"
+#~ msgstr "{p}: новий розмір є нульовим або від’ємним\n"
+
+#~ msgid ""
+#~ "{p}: cannot make this partition smaller because it contains a\n"
+#~ "filesystem, physical volume or other content that is larger than the new "
+#~ "size.\n"
+#~ "You have to resize the content first, see virt-resize(1).\n"
+#~ msgstr ""
+#~ "{p}: не можна зменшувати розміри розділу, оскільки на ньому міститься "
+#~ "файлова\n"
+#~ "система, фізичний том або інші дані, об’єм яких перевищує вказаний новий "
+#~ "розмір.\n"
+#~ "Вам спочатку слід змінити об’єм даних, див. virt-resize(1).\n"
+
+#~ msgid "virt-resize: you cannot use options --expand and --shrink together\n"
+#~ msgstr ""
+#~ "virt-resize: не можна одночасно використовувати параметри --expand і --"
+#~ "shrink\n"
+
+#~ msgid ""
+#~ "virt-resize: error: cannot use --expand when there is no surplus space "
+#~ "to\n"
+#~ "expand into.  You need to make the target disk larger by at least {h}.\n"
+#~ msgstr ""
+#~ "virt-resize: помилка: не можна використовувати --expand, якщо немає "
+#~ "залишку місця для\n"
+#~ "розширення. Вам слід зробити диск призначення більшим, принаймні на {h}.\n"
+
+#~ msgid ""
+#~ "virt-resize: error: cannot use --shrink because there is no deficit\n"
+#~ "(see 'deficit' in the virt-resize(1) man page)\n"
+#~ msgstr ""
+#~ "virt-resize: помилка: не можна використовувати --shrink, оскільки немає "
+#~ "дефіциту\n"
+#~ "(див. «deficit» на сторінці довідника (man) virt-resize(1))\n"
+
+#~ msgid "Summary of changes:\n"
+#~ msgstr "Резюме змін:\n"
+
+#~ msgid "{p}: partition will be ignored\n"
+#~ msgstr "{p}: розділ буде проігноровано\n"
+
+#~ msgid "{p}: partition will be deleted\n"
+#~ msgstr "{p}: розділ буде вилучено\n"
+
+#~ msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
+#~ msgstr "{p}: розмір розділу буде змінено з {oldsize} на {newsize}\n"
+
+#~ msgid "{p}: content will be expanded using the '{meth}' method\n"
+#~ msgstr "{p}: вміст буде розширено за допомогою методу «{meth}»\n"
+
+#~ msgid "{p}: partition will be left alone\n"
+#~ msgstr "{p}: розділ не буде змінено\n"
+
+#~ msgid "{n}: LV will be expanded to maximum size\n"
+#~ msgstr "{n}: логічний том буде розширено до максимального розміру\n"
+
+#~ msgid "{n}: content will be expanded using the '{meth}' method\n"
+#~ msgstr "{n}: вміст буде розширено за допомогою методу «{meth}»\n"
+
+#~ msgid "There is a surplus of {spl} bytes ({h}).\n"
+#~ msgstr "Вільними залишилися {spl} байтів ({h}).\n"
+
+#~ msgid "An extra partition will be created for the surplus.\n"
+#~ msgstr "На решті простору сховища буде створено додатковий розділ.\n"
+
+#~ msgid ""
+#~ "The surplus space is not large enough for an extra partition to be "
+#~ "created\n"
+#~ "and so it will just be ignored.\n"
+#~ msgstr ""
+#~ "Залишок місця недостатньо великий для створення нового розділу, отже\n"
+#~ "його буде просто проігноровано.\n"
+
+#~ msgid ""
+#~ "The surplus space will be ignored.  Run a partitioning program in the "
+#~ "guest\n"
+#~ "to partition this extra space if you want.\n"
+#~ msgstr ""
+#~ "Залишок місця буде проігноровано. Запустіть програму керування розділами "
+#~ "гостьової\n"
+#~ "системи, якщо бажаєте розподілити це залишок місця.\n"
+
+#~ msgid ""
+#~ "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+#~ "You need to make the target disk larger by at least this amount,\n"
+#~ "or adjust your resizing requests.\n"
+#~ msgstr ""
+#~ "virt-resize: помилка: не вистачає {def} байтів ({h}).\n"
+#~ "Вам слід збільшити розмір диска призначення принаймні на вказане "
+#~ "значення\n"
+#~ "або скоригувати запит щодо зміни розмірів.\n"
+
+#~ msgid "virt-resize: source disk does not have a first partition\n"
+#~ msgstr "virt-resize: на початковому диску немає першого розділу\n"
+
+#~ msgid "Copying {p} ...\n"
+#~ msgstr "Копіювання {p}…\n"
+
+#~ msgid "Expanding {p} using the '{meth}' method\n"
+#~ msgstr "Розширення {p} за допомогою методу «{meth}»\n"

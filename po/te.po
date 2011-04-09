@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-05 20:38+0100\n"
+"POT-Creation-Date: 2011-04-09 20:12+0100\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -3181,17 +3181,15 @@ msgid ""
 "without libvirt or libxml2"
 msgstr ""
 
-#: test-tool/test-tool.c:82
-#, c-format
+#: test-tool/test-tool.c:79
+#, fuzzy, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
 "  --help         Display usage\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Helper program (default: %s)\n"
 "  --qemudir dir  Specify QEMU source directory\n"
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
@@ -3210,72 +3208,62 @@ msgstr ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 
-#: test-tool/test-tool.c:138
+#: test-tool/test-tool.c:127
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
 
-#: test-tool/test-tool.c:147
+#: test-tool/test-tool.c:136
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
 
-#: test-tool/test-tool.c:159
+#: test-tool/test-tool.c:148
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:170
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:177
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:217
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:240
-#, c-format
-msgid "libguestfs-test-tool: failed to run sfdisk\n"
+#: test-tool/test-tool.c:229
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: sfdisk నడుపుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:235
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:241
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:258
-#, c-format
-msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-msgstr "libguestfs-test-tool: mkdir /iso విఫలమైంది\n"
+#: test-tool/test-tool.c:248
+#, fuzzy, c-format
+msgid "libguestfs-test-tool: failed to touch file\n"
+msgstr "libguestfs-test-tool: sfdisk నడుపుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:264
-#, c-format
-msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-msgstr "libguestfs-test-tool: /dev/sdb ను /iso పై మౌంటుకు విఫలమైంది\n"
-
-#: test-tool/test-tool.c:272
-#, c-format
-msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
-msgstr "libguestfs-test-tool: సహాయకి ప్రోగ్రామును నడుపలేక పోయింది,  లేదా సహాయకి విఫలమైంది\n"
-
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:279
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3284,48 +3272,15 @@ msgstr ""
 "LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ యిప్పటికే అమర్చబడింది, అందువలన\n"
 "--qemu/--qemudir ఐచ్చికములు వుపయోగించలేము.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:287
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:301
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
-
-#: test-tool/test-tool.c:374
-#, c-format
-msgid ""
-"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-"available.  Expected to find it in '%s'\n"
-"\n"
-"Use the --helper option to specify the location of this program.\n"
-msgstr ""
-"పరిశీలనా సాధనపు సహాయకి ప్రోగ్రామ్ 'libguestfs-test-tool-helper' అందుబాటులో\n"
-"లేదు.  దానికి '%s' నందు కనుగొనవలసి వుంది\n"
-"\n"
-"ఈ ప్రోగ్రామ్ యొక్క స్థానమును తెలుపుటకు --helper ఐచ్చికాన్ని వుపయోగించుము.\n"
-
-#: test-tool/test-tool.c:390
-#, c-format
-msgid "command failed: %s"
-msgstr "ఆదేశము విఫలమైంది: %s"
-
-#: test-tool/test-tool.c:398
-#, c-format
-msgid ""
-"Test tool helper program %s\n"
-"is not statically linked.  This is a build error when this test tool\n"
-"was built.\n"
-msgstr ""
-"పరిశీలనా సాధనపు సహాయకి ప్రోగ్రామ్ %s\n"
-"స్థిరంగా లింకు కాబడిలేదు.  ఇది యీ పరిశీలనా సాధనము నిర్మించబడినప్పుటి వొక నిర్మాణ దోషము.\n"
-
-#: test-tool/test-tool.c:432
-#, c-format
-msgid "mkisofs command failed: %s\n"
-msgstr "mkisofs ఆదేశము విఫలమైంది: %s\n"
 
 #: tools/virt-edit.pl:178
 msgid "virt-edit: no image, VM names or filenames to edit given"
@@ -3421,185 +3376,6 @@ msgid ""
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:33
-msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-msgstr ""
-
-#: tools/virt-resize.pl:581
-#, fuzzy, perl-brace-format
-msgid "virt-resize: {file}: does not exist or is not readable\n"
-msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
-
-#: tools/virt-resize.pl:583
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: does not exist or is not writable\n"
-"You have to create the destination disk before running this program.\n"
-"Please read the virt-resize(1) manpage for more information.\n"
-msgstr ""
-
-#: tools/virt-resize.pl:663 tools/virt-resize.pl:666
-#, perl-brace-format
-msgid ""
-"virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
-msgstr ""
-
-#: tools/virt-resize.pl:682 tools/virt-resize.pl:694
-msgid "virt-resize: short read"
-msgstr ""
-
-#: tools/virt-resize.pl:828
-#, fuzzy, perl-brace-format
-msgid "virt-resize: no logical volume called {n}\n"
-msgstr "LVM తార్కిక వాల్యూమ్ పునఃపరిమాణము చేయుము"
-
-#: tools/virt-resize.pl:848
-#, perl-brace-format
-msgid ""
-"{p}: partition not found in the source disk image, when using the '{opt}' "
-"command line option\n"
-msgstr ""
-
-#: tools/virt-resize.pl:854
-#, perl-brace-format
-msgid ""
-"{p}: partition ignored, you cannot use it in another command line argument\n"
-msgstr ""
-
-#: tools/virt-resize.pl:858
-#, perl-brace-format
-msgid ""
-"{p}: partition deleted, you cannot use it in another command line argument\n"
-msgstr ""
-
-#: tools/virt-resize.pl:900
-#, perl-brace-format
-msgid "{p}: this partition has already been marked for resizing\n"
-msgstr ""
-
-#: tools/virt-resize.pl:908
-#, perl-brace-format
-msgid "{p}: missing size field in {o} option\n"
-msgstr ""
-
-#: tools/virt-resize.pl:925
-#, perl-brace-format
-msgid "{p}: {f}: cannot parse size field\n"
-msgstr ""
-
-#: tools/virt-resize.pl:930
-#, perl-brace-format
-msgid "{p}: new size is zero or negative\n"
-msgstr ""
-
-#: tools/virt-resize.pl:953
-#, perl-brace-format
-msgid ""
-"{p}: cannot make this partition smaller because it contains a\n"
-"filesystem, physical volume or other content that is larger than the new "
-"size.\n"
-"You have to resize the content first, see virt-resize(1).\n"
-msgstr ""
-
-#: tools/virt-resize.pl:969
-msgid "virt-resize: you cannot use options --expand and --shrink together\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1018
-#, perl-brace-format
-msgid ""
-"virt-resize: error: cannot use --expand when there is no surplus space to\n"
-"expand into.  You need to make the target disk larger by at least {h}.\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1033
-msgid ""
-"virt-resize: error: cannot use --shrink because there is no deficit\n"
-"(see 'deficit' in the virt-resize(1) man page)\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1048
-msgid "Summary of changes:\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1052
-#, perl-brace-format
-msgid "{p}: partition will be ignored\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1054
-#, perl-brace-format
-msgid "{p}: partition will be deleted\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1056
-#, perl-brace-format
-msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1061
-#, perl-brace-format
-msgid "{p}: content will be expanded using the '{meth}' method\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1066
-#, perl-brace-format
-msgid "{p}: partition will be left alone\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1071
-#, perl-brace-format
-msgid "{n}: LV will be expanded to maximum size\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1077
-#, perl-brace-format
-msgid "{n}: content will be expanded using the '{meth}' method\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1084
-#, perl-brace-format
-msgid "There is a surplus of {spl} bytes ({h}).\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1089
-msgid "An extra partition will be created for the surplus.\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1091
-msgid ""
-"The surplus space is not large enough for an extra partition to be created\n"
-"and so it will just be ignored.\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1094
-msgid ""
-"The surplus space will be ignored.  Run a partitioning program in the guest\n"
-"to partition this extra space if you want.\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1097
-#, perl-brace-format
-msgid ""
-"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-"You need to make the target disk larger by at least this amount,\n"
-"or adjust your resizing requests.\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1114
-msgid "virt-resize: source disk does not have a first partition\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1209
-#, perl-brace-format
-msgid "Copying {p} ...\n"
-msgstr ""
-
-#: tools/virt-resize.pl:1272 tools/virt-resize.pl:1330
-#, perl-brace-format
-msgid "Expanding {p} using the '{meth}' method\n"
-msgstr ""
-
 #: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
@@ -3651,6 +3427,49 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+
+#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+#~ msgstr "libguestfs-test-tool: mkdir /iso విఫలమైంది\n"
+
+#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+#~ msgstr "libguestfs-test-tool: /dev/sdb ను /iso పై మౌంటుకు విఫలమైంది\n"
+
+#~ msgid ""
+#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
+#~ msgstr "libguestfs-test-tool: సహాయకి ప్రోగ్రామును నడుపలేక పోయింది,  లేదా సహాయకి విఫలమైంది\n"
+
+#~ msgid ""
+#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+#~ "available.  Expected to find it in '%s'\n"
+#~ "\n"
+#~ "Use the --helper option to specify the location of this program.\n"
+#~ msgstr ""
+#~ "పరిశీలనా సాధనపు సహాయకి ప్రోగ్రామ్ 'libguestfs-test-tool-helper' అందుబాటులో\n"
+#~ "లేదు.  దానికి '%s' నందు కనుగొనవలసి వుంది\n"
+#~ "\n"
+#~ "ఈ ప్రోగ్రామ్ యొక్క స్థానమును తెలుపుటకు --helper ఐచ్చికాన్ని వుపయోగించుము.\n"
+
+#~ msgid "command failed: %s"
+#~ msgstr "ఆదేశము విఫలమైంది: %s"
+
+#~ msgid ""
+#~ "Test tool helper program %s\n"
+#~ "is not statically linked.  This is a build error when this test tool\n"
+#~ "was built.\n"
+#~ msgstr ""
+#~ "పరిశీలనా సాధనపు సహాయకి ప్రోగ్రామ్ %s\n"
+#~ "స్థిరంగా లింకు కాబడిలేదు.  ఇది యీ పరిశీలనా సాధనము నిర్మించబడినప్పుటి వొక నిర్మాణ దోషము.\n"
+
+#~ msgid "mkisofs command failed: %s\n"
+#~ msgstr "mkisofs ఆదేశము విఫలమైంది: %s\n"
+
+#, fuzzy
+#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
+#~ msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
+
+#, fuzzy
+#~ msgid "virt-resize: no logical volume called {n}\n"
+#~ msgstr "LVM తార్కిక వాల్యూమ్ పునఃపరిమాణము చేయుము"
 
 #, fuzzy
 #~ msgid "failed to create temporary cache directory: %m"
