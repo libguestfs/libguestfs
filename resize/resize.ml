@@ -35,7 +35,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
-    printf "virt-resize %Ld.%Ld.%Ld%s"
+    printf "virt-resize %Ld.%Ld.%Ld%s\n"
       version.G.major version.G.minor version.G.release version.G.extra;
     exit 0
   in
