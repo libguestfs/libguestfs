@@ -98,3 +98,7 @@ include .depend
 
 endif
 endif
+
+# Parallel builds don't obey dependencies for some reason we
+# don't understand.
+.NOTPARALLEL:
