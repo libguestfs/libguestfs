@@ -72,12 +72,12 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
     "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " Don't copy boot loader";
     "-d",        Arg.Set debug,             " Enable debugging messages";
     "--debug",   Arg.Set debug,             " -\"-";
-    "--delete",  Arg.String (add deletes),  "dev Delete partition";
-    "--expand",  Arg.String set_expand,     "dev Expand partition";
+    "--delete",  Arg.String (add deletes),  "part Delete partition";
+    "--expand",  Arg.String set_expand,     "part Expand partition";
     "--no-expand-content", Arg.Clear expand_content, " Don't expand content";
     "--no-extra-partition", Arg.Clear extra_partition, " Don't create extra partition";
     "--format",  Arg.Set_string format,     "format Format of input disk";
-    "--ignore",  Arg.String (add ignores),  "dev Ignore partition";
+    "--ignore",  Arg.String (add ignores),  "part Ignore partition";
     "--lv-expand", Arg.String (add lv_expands), "lv Expand logical volume";
     "--LV-expand", Arg.String (add lv_expands), "lv -\"-";
     "--lvexpand", Arg.String (add lv_expands), "lv -\"-";
@@ -90,7 +90,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
     "--quiet",   Arg.Set quiet,             " -\"-";
     "--resize",  Arg.String (add resizes),  "part=size Resize partition";
     "--resize-force", Arg.String (add resizes_force), "part=size Forcefully resize partition";
-    "--shrink",  Arg.String set_shrink,     "dev Shrink partition";
+    "--shrink",  Arg.String set_shrink,     "part Shrink partition";
     "-V",        Arg.Unit display_version,  " Display version and exit";
     "--version", Arg.Unit display_version,  " -\"-";
   ] in
