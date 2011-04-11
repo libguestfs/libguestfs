@@ -425,3 +425,13 @@ what is mounted and where. eg:
 This could be used instead of current hairy code to parse the output
 of the 'mount' command.  We could add new APIs to return kernel mount
 options, type of filesystem at a mountpoint etc.
+
+guestfish drive letters
+-----------------------
+
+There should be an option to mount all Windows drives as separate
+paths, like C: => /c/, D: => /d/ etc.
+
+Also the code which detects if a drive letter is already mounted
+should be smarter: it should be able to detect if the drive is mounted
+on any path (not just /) and rewrite the path accordingly.
