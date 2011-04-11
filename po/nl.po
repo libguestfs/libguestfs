@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-29 21:33+0100\n"
+"POT-Creation-Date: 2011-04-11 11:35+0100\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -66,15 +66,15 @@ msgstr ""
 "  -V|--version         Laat versie zien en sluit af\n"
 
 #: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1017
-#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
+#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1018
+#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:128
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1065
-#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
+#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1066
+#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:152
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
@@ -2499,6 +2499,7 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 "%s: FUSE module voor libguestfs\n"
@@ -2520,12 +2521,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: fuse/guestmount.c:1134
+#: fuse/guestmount.c:1135
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: moet tenminste een -a en tenminste een -m optie hebben\n"
 
-#: fuse/guestmount.c:1142
+#: fuse/guestmount.c:1143
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
@@ -2760,6 +2761,7 @@ msgid ""
 "  --selinux            Enable SELinux\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
@@ -2782,12 +2784,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: rescue/virt-rescue.c:173
+#: rescue/virt-rescue.c:175
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:407
+#: rescue/virt-rescue.c:413
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
@@ -2900,53 +2902,53 @@ msgid ""
 "without PCRE or hivex libraries"
 msgstr ""
 
-#: src/launch.c:96
+#: src/launch.c:97
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "commando regel kan niet gewijzigd worden nadat een qemu sub-proces "
 "gelanceerd is"
 
-#: src/launch.c:153
+#: src/launch.c:154
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: parameter moet met '-' beginnen"
 
-#: src/launch.c:167
+#: src/launch.c:168
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' is niet toegestaan"
 
-#: src/launch.c:233 src/launch.c:337
+#: src/launch.c:234 src/launch.c:338
 msgid "filename cannot contain ',' (comma) character"
 msgstr "bestandsnaam kan geen ',' (komma) bevatten"
 
-#: src/launch.c:245 src/launch.c:250
+#: src/launch.c:246 src/launch.c:251
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:356
+#: src/launch.c:357
 msgid "the libguestfs handle has already been launched"
 msgstr "de libguestfs hendel is al gelanceerd"
 
-#: src/launch.c:365
+#: src/launch.c:366
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: kan geen tijdelijke map aanmaken"
 
-#: src/launch.c:392
+#: src/launch.c:393
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch.c:735
+#: src/launch.c:736
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:748
+#: src/launch.c:749
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:889
+#: src/launch.c:890
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2955,11 +2957,11 @@ msgstr ""
 "%s: commando mislukte: Als qemu zich op een niet standaard pad bevindt, "
 "probeer je het instellen van de LIBGUESTFS_QEMU omgevingsvariabele."
 
-#: src/launch.c:981
+#: src/launch.c:982
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:992
+#: src/launch.c:993
 msgid "no subprocess to kill"
 msgstr "geen sub-proces om af te schieten"
 
@@ -3253,12 +3255,12 @@ msgstr ""
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs commando mislukte: %s\n"
 
-#: tools/virt-edit.pl:169
+#: tools/virt-edit.pl:174
 msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 "virt-edit: geen afbeelding, VM namen of bestandsnamen gegeven om te bewerken"
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
+#: tools/virt-edit.pl:190 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
 #, fuzzy, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3279,13 +3281,13 @@ msgstr ""
 "Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
 "met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
+#: tools/virt-edit.pl:194 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
 #, fuzzy, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 "multi-opstart besturingssystemen worden niet ondersteund door virt-ls\n"
 
-#: tools/virt-edit.pl:221
+#: tools/virt-edit.pl:227
 msgid "File not changed.\n"
 msgstr "Bestand niet gewijzigd.\n"
 

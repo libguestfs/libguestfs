@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-29 21:33+0100\n"
+"POT-Creation-Date: 2011-04-11 11:35+0100\n"
 "PO-Revision-Date: 2010-02-03 19:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
@@ -67,15 +67,15 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 
 #: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1017
-#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
+#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1018
+#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:128
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
 
 #: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1065
-#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
+#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1066
+#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:152
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
@@ -2485,6 +2485,7 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 "%s: FUSE module for libguestfs\n"
@@ -2506,12 +2507,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: fuse/guestmount.c:1134
+#: fuse/guestmount.c:1135
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: किमान एक -a व किमान एक -m पर्याय असायला हवे\n"
 
-#: fuse/guestmount.c:1142
+#: fuse/guestmount.c:1143
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
@@ -2728,6 +2729,7 @@ msgid ""
 "  --selinux            Enable SELinux\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
@@ -2750,12 +2752,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: rescue/virt-rescue.c:173
+#: rescue/virt-rescue.c:175
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "आकार संरचना '%s' वाचणे अशक्य\n"
 
-#: rescue/virt-rescue.c:407
+#: rescue/virt-rescue.c:413
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
@@ -2865,51 +2867,51 @@ msgid ""
 "without PCRE or hivex libraries"
 msgstr ""
 
-#: src/launch.c:96
+#: src/launch.c:97
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu उपकार्य सुरू केल्यावर आदेश ओळ बदलणे अशक्य आहे"
 
-#: src/launch.c:153
+#: src/launch.c:154
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: घटक '-' अक्षराने सुरू व्हायला हवे"
 
-#: src/launch.c:167
+#: src/launch.c:168
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: घटक '%s' स्वीकारले जात नाही"
 
-#: src/launch.c:233 src/launch.c:337
+#: src/launch.c:234 src/launch.c:338
 msgid "filename cannot contain ',' (comma) character"
 msgstr "फाइलनावात ',' (स्वल्पविराम) अक्षर समाविष्टीत असणे अशक्य"
 
-#: src/launch.c:245 src/launch.c:250
+#: src/launch.c:246 src/launch.c:251
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:356
+#: src/launch.c:357
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu आधिपासूनच सुरू आहे"
 
-#: src/launch.c:365
+#: src/launch.c:366
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:392
+#: src/launch.c:393
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:735
+#: src/launch.c:736
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:748
+#: src/launch.c:749
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:889
+#: src/launch.c:890
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2918,11 +2920,11 @@ msgstr ""
 "%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU एन्वार्यनमेंट "
 "वेरीयेबल सेट करण्याचा प्रयत्न करा."
 
-#: src/launch.c:981
+#: src/launch.c:982
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:992
+#: src/launch.c:993
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
@@ -3205,11 +3207,11 @@ msgstr ""
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs आदेश अपयशी: %s\n"
 
-#: tools/virt-edit.pl:169
+#: tools/virt-edit.pl:174
 msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
+#: tools/virt-edit.pl:190 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3222,12 +3224,12 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
+#: tools/virt-edit.pl:194 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-edit.pl:221
+#: tools/virt-edit.pl:227
 msgid "File not changed.\n"
 msgstr ""
 

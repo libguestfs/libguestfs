@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-03-29 21:33+0100\n"
+"POT-Creation-Date: 2011-04-11 11:35+0100\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -70,15 +70,15 @@ msgstr ""
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
 #: cat/virt-cat.c:114 cat/virt-filesystems.c:199 cat/virt-ls.c:120
-#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1017
-#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:126
+#: df/domains.c:428 df/main.c:133 fish/fish.c:213 fuse/guestmount.c:1018
+#: inspector/virt-inspector.c:128 rescue/virt-rescue.c:128
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ନିୟନ୍ତ୍ରଣ ପ୍ରସ୍ତୁତ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
 #: cat/virt-cat.c:136 cat/virt-filesystems.c:253 cat/virt-ls.c:142
-#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1065
-#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:150
+#: df/main.c:157 fish/fish.c:281 fuse/guestmount.c:1066
+#: inspector/virt-inspector.c:150 rescue/virt-rescue.c:152
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
@@ -2490,6 +2490,7 @@ msgid ""
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 "%s: libguestfs ପାଇଁ FUSE ଏକକାଂଶ\n"
@@ -2511,12 +2512,12 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fuse/guestmount.c:1134
+#: fuse/guestmount.c:1135
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: ନିଶ୍ଚିତ ଭାବରେ ଗୋଟିଏ -a ଏବଂ ଅତିକମରେ ଗୋଟିଏ -m ବିକଳ୍ପ ଥିବା ଉଚିତ\n"
 
-#: fuse/guestmount.c:1142
+#: fuse/guestmount.c:1143
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ଆପଣଙ୍କୁ ହୋଷ୍ଟ ଫାଇଲତନ୍ତ୍ରରେ ଗୋଟିଏ ସ୍ଥାପନ ବିନ୍ଦୁ ଉଲ୍ଲେଖ କରିବାକୁ ହେବ\n"
@@ -2733,6 +2734,7 @@ msgid ""
 "  --selinux            Enable SELinux\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+"  -w|--rw              Mount read-write\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
@@ -2755,12 +2757,12 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: rescue/virt-rescue.c:173
+#: rescue/virt-rescue.c:175
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
 
-#: rescue/virt-rescue.c:407
+#: rescue/virt-rescue.c:413
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
@@ -2870,51 +2872,51 @@ msgid ""
 "without PCRE or hivex libraries"
 msgstr ""
 
-#: src/launch.c:96
+#: src/launch.c:97
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ଉପପଦ୍ଧତି ଆରମ୍ଭ ହେବା ପରେ ନିର୍ଦ୍ଦେଶନାମାକୁ ପରିବର୍ତ୍ତନ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:153
+#: src/launch.c:154
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: ପ୍ରାଚଳ ନିଶ୍ଚିତ ଭାବରେ '-' ବର୍ଣ୍ଣ ସହିତ ଆରମ୍ଭ ହେବା ଉଚିତ"
 
-#: src/launch.c:167
+#: src/launch.c:168
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: ପ୍ରାଚଳ '%s' ଟି ଅନୁମତିପ୍ରାପ୍ତ ନୁହଁ"
 
-#: src/launch.c:233 src/launch.c:337
+#: src/launch.c:234 src/launch.c:338
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ଫାଇଲନାମରେ ',' (କମା) ବର୍ଣ୍ଣ ଧାରଣ ହୋଇନଥାଏ"
 
-#: src/launch.c:245 src/launch.c:250
+#: src/launch.c:246 src/launch.c:251
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:356
+#: src/launch.c:357
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ପୂର୍ବରୁ ଆରମ୍ଭ ହୋଇସାରିଛି"
 
-#: src/launch.c:365
+#: src/launch.c:366
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମାଣ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:392
+#: src/launch.c:393
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:735
+#: src/launch.c:736
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:748
+#: src/launch.c:749
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:889
+#: src/launch.c:890
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2923,11 +2925,11 @@ msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: ଯଦି qemu ମାନ୍ୟତା ପ୍ରାପ୍ତ ହୋଇନଥିବା ପଥରେ ଅବସ୍ଥିତ, ତେବେ "
 "LIBGUESTFS_QEMU ପରିବେଶ ପ୍ରାଚଳକୁ ସେଟ କରିବା ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: src/launch.c:981
+#: src/launch.c:982
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:992
+#: src/launch.c:993
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 
@@ -3210,11 +3212,11 @@ msgstr ""
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s\n"
 
-#: tools/virt-edit.pl:169
+#: tools/virt-edit.pl:174
 msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
 
-#: tools/virt-edit.pl:185 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
+#: tools/virt-edit.pl:190 tools/virt-tar.pl:238 tools/virt-win-reg.pl:217
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -3227,12 +3229,12 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-edit.pl:189 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
+#: tools/virt-edit.pl:194 tools/virt-tar.pl:242 tools/virt-win-reg.pl:221
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-edit.pl:221
+#: tools/virt-edit.pl:227
 msgid "File not changed.\n"
 msgstr ""
 
