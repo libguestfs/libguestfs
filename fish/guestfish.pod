@@ -798,19 +798,24 @@ on each one.  Then you can close the mapper device:
 =head1 WINDOWS PATHS
 
 If a path is prefixed with C<win:> then you can use Windows-style
-paths (with some limitations).  The following commands are equivalent:
+drive letters and paths (with some limitations).  The following
+commands are equivalent:
 
  file /WINDOWS/system32/config/system.LOG
 
- file win:/windows/system32/config/system.log
-
  file win:\windows\system32\config\system.log
 
- file WIN:C:\Windows\SYSTEM32\conFIG\SYSTEM.LOG
+ file WIN:C:\Windows\SYSTEM32\CONFIG\SYSTEM.LOG
 
-This syntax implicitly calls C<case-sensitive-path> (q.v.) so it also
-handles case insensitivity like Windows would.  This only works in
-argument positions that expect a path.
+The parameter is rewritten "behind the scenes" by looking up the
+position where the drive is mounted, prepending that to the path,
+changing all backslash characters to forward slash, then resolving the
+result using L</case-sensitive-path>.  For example if the E: drive
+was mounted on C</e> then the parameter might be rewritten like this:
+
+ win:e:\foo\bar => /e/FOO/bar
+
+This only works in argument positions that expect a path.
 
 =head1 UPLOADING AND DOWNLOADING FILES
 
