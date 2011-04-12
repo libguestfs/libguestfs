@@ -71,6 +71,8 @@ stamp-virt-resize.pod: virt-resize.pod
 	  $<
 	touch $@
 
+CLEANFILES += stamp-virt-resize.pod
+
 # Tests.
 
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
