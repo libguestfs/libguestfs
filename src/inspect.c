@@ -1689,6 +1689,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':')
       count++;
+    free (key);
   }
 
   fs->drive_mappings = calloc (2*count + 1, sizeof (char *));
@@ -1721,6 +1722,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
       }
       free (blob);
     }
+    free (key);
   }
 
   /* Get the hostname. */
@@ -1738,6 +1740,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     goto out;
   }
 
+  free (values);
   values = hivex_node_values (h, node);
 
   for (i = 0; values[i] != 0; ++i) {
