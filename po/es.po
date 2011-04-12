@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-09 20:12+0100\n"
+"POT-Creation-Date: 2011-04-12 20:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2249,29 +2249,29 @@ msgstr ""
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1413
+#: fish/fish.c:1451
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1420
+#: fish/fish.c:1457
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1436
+#: fish/fish.c:1471
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1454
+#: fish/fish.c:1490
 #, c-format
 msgid ""
-"%s: to access '%c:', mount %s on / first.  One way to do this is:\n"
+"%s: to access '%c:', mount %s first.  One way to do this is:\n"
 "  umount-all\n"
 "  mount %s /\n"
 msgstr ""
@@ -2988,8 +2988,8 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:489 src/inspect.c:1183 src/inspect.c:2898 src/inspect.c:2941
-#: src/inspect.c:2991 src/inspect.c:3035
+#: src/inspect.c:489 src/inspect.c:1183 src/inspect.c:2901 src/inspect.c:2944
+#: src/inspect.c:2994 src/inspect.c:3038
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3004,16 +3004,16 @@ msgstr "no se pudo analizar el tamaño de arranque"
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "no es posible resolver  %%SYSTEMROOT%% de Windows"
 
-#: src/inspect.c:1911 src/inspect.c:1924
+#: src/inspect.c:1914 src/inspect.c:1927
 #, fuzzy, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "no se pudo analizar el tamaño de arranque"
 
-#: src/inspect.c:2020
+#: src/inspect.c:2023
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "no existen datos de inspección: invoque primero a guestfs_inspect_os"
 
-#: src/inspect.c:2032
+#: src/inspect.c:2035
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3022,25 +3022,25 @@ msgstr ""
 "%s: no se ha encontrado un dispositivo raíz: sólo invoque esta función con "
 "un dispositivo raíz previamente obtenido mediante  guestfs_inspect_os"
 
-#: src/inspect.c:2172
+#: src/inspect.c:2175
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:2188
+#: src/inspect.c:2191
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:2515 src/inspect.c:2537 src/inspect.c:2562
+#: src/inspect.c:2518 src/inspect.c:2540 src/inspect.c:2565
 #, fuzzy
 msgid "unexpected end of output from db_dump command"
 msgstr "salida inesperada del comando 'du'"
 
-#: src/inspect.c:3000
+#: src/inspect.c:3003
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:3063
+#: src/inspect.c:3066
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
