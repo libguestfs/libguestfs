@@ -15,7 +15,7 @@ Requirements
 - recent QEMU >= 0.13 with virtio-serial support
 
 - kernel >= 2.6.34 with virtio-serial support enabled.  virtio-block
-  and virtio-serial support are not required but highly recommended.
+  support is not required but comes highly recommended.
 
 - febootstrap >= 3.0 (recommended >= 3.3)
      *NB*: febootstrap 2.x WILL NOT WORK
@@ -216,7 +216,7 @@ appliance.  You will need to port the febootstrap first
 Copyright and license information
 ----------------------------------------------------------------------
 
-Copyright (C) 2009-2010 Red Hat Inc.
+Copyright (C) 2009-2011 Red Hat Inc.
 
 The library is distributed under the LGPLv2+.  The programs are
 distributed under the GPLv2+.  Please see the files COPYING and
