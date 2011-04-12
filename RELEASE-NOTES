@@ -1,8 +1,6 @@
 Release notes for libguestfs 1.10.0
 -----------------------------------
 
-[Not complete. Last update commit 872e67ffdf6c7b19782514445d13e8f405e435c1]
-
 These release notes only cover the differences from the previous
 stable/dev branch split (1.8.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
@@ -24,6 +22,8 @@ New features
  - Drive letters can now be used in virt-edit and guestfish programs
    when operating on Windows guests.
 
+ - virt-resize now works on 32 bit hosts.
+
  - You can now inspect the install disks and live CDs of many different
    operating systems.
 
@@ -37,10 +37,6 @@ New features
    each event, makes it possible to call the API from other languages,
    and allows nearly all log, debug and trace messages to be rerouted
    from stderr.
-
- - A series of protocol fixes has fixed the old bug RHBZ#576879
-   which used to cause errors during the upload command to lose
-   protocol synchronization.
 
  - Greater FHS compliance for temporary files, including using /var/tmp
    for large cached files that should survive reboot (instead of /tmp).
@@ -64,7 +60,7 @@ New features
    to completion generate "pulse mode" progress events.  Progress bar
    in guestfish has been updated to display these.
 
- - Publish example code in: C, Perl, Python, OCaml, Ruby.
+ - Publish new example code in: C, Perl, Python, OCaml, Ruby.
 
  - New virt-dhcp-address example program.
 
@@ -88,6 +84,10 @@ New features
  - Inspection can detect 32 bit applications installed in 64 bit
    Windows, running on the WOW64 emulator.
 
+ - A series of protocol fixes has fixed the old bug RHBZ#576879
+   which used to cause errors during the upload command to lose
+   protocol synchronization.
+
  - New logo!
 
 Security
@@ -96,19 +96,26 @@ Security
 
 New APIs
 
-  first-private,
-  get-attach-method,
-  inspect-get-drive-mappings,
+  first-private, get-attach-method, inspect-get-drive-mappings,
   inspect-get-product-variant,
-  inspect-get-windows-current-control-set,
-  next-private,
-  resize2fs-M,
-  set-attach-method,
+  inspect-get-windows-current-control-set, next-private, resize2fs-M,
+  set-attach-method.
 
 Internals
 
  - The 'HACKING' file is obsolete.  The contents have been moved into
    a section of the guestfs(3) manual page.
+
+ - libguestfs-test-tool simplified.  It no longer needs the static
+   binary or tries to construct an ISO.
+
+ - rpcgen-generated files are compiled with -fno-strict-aliasing
+   which should be safer (thanks Matt Booth).
+
+ - virt-resize was rewritten in OCaml.
+
+ - guestfish and other tools tested with valgrind; some memory leaks
+   were fixed.
 
 Bugs fixed
 
