@@ -641,16 +641,15 @@ you might find a Windows configuration file referring to a path like
 C<c:\windows\system32>.  When the filesystem is mounted in libguestfs,
 that directory might be referred to as C</WINDOWS/System32>.
 
-Drive letter mappings are outside the scope of libguestfs.  You have
-to use libguestfs to read the appropriate Windows Registry and
-configuration files, to determine yourself how drives are mapped (see
-also L<hivex(3)> and L<virt-inspector(1)>).
+Drive letter mappings can be found using inspection
+(see L</INSPECTION> and L</guestfs_inspect_get_drive_mappings>)
 
-Replacing backslash characters with forward slash characters is also
-outside the scope of libguestfs, but something that you can easily do.
+Dealing with separator characters (backslash vs forward slash) is
+outside the scope of libguestfs, but usually a simple character
+replacement will work.
 
-Where we can help is in resolving the case insensitivity of paths.
-For this, call L</guestfs_case_sensitive_path>.
+To resolve the case insensitivity of paths, call
+L</guestfs_case_sensitive_path>.
 
 =head3 ACCESSING THE WINDOWS REGISTRY
 
