@@ -1,5 +1,5 @@
 /* virt-rescue
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +20,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <errno.h>
 #include <locale.h>
 #include <assert.h>
+#include <libintl.h>
 
 #include "progname.h"
 #include "xvasprintf.h"
