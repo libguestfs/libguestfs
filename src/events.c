@@ -26,6 +26,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <assert.h>
+#include <string.h>
 
 #include "ignore-value.h"
 
