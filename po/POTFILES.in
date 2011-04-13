@@ -140,6 +140,7 @@ src/guestfs.c
 src/inspect.c
 src/launch.c
 src/listfs.c
+src/match.c
 src/proto.c
 src/virt.c
 test-tool/test-tool.c

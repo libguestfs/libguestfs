@@ -129,6 +129,7 @@ libguestfs_la_SOURCES = \
 	inspect.c \
 	launch.c \
 	listfs.c \
+	match.c \
 	proto.c \
 	virt.c \
 	libguestfs.syms
