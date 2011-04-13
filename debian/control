@@ -21,7 +21,9 @@ Build-Depends: debhelper (>= 7), autotools-dev,
 # for Perl virt tools
   libsys-virt-perl, libwin-hivex-perl,
 # FUSE
-  libfuse-dev, fuse-utils 
+  libfuse-dev, fuse-utils,
+# virt-resize
+  libpcre-ocaml-dev
 Homepage: http://libguestfs.org
 Standards-Version: 3.8.2
 
