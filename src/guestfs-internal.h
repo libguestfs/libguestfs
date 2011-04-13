@@ -60,6 +60,31 @@
 #define xdr_uint32_t xdr_u_int32_t
 #endif
 
+/* Some limits on what the inspection code will read, for safety. */
+
+/* Small text configuration files.
+ *
+ * The upper limit is for general files that we grep or download.  The
+ * largest such file is probably "txtsetup.sif" from Windows CDs
+ * (~500K).  This number has to be larger than any legitimate file and
+ * smaller than the protocol message size.
+ *
+ * The lower limit is for files parsed by Augeas on the daemon side,
+ * where Augeas is running in reduced memory and can potentially
+ * create a lot of metadata so we really need to be careful about
+ * those.
+ */
+#define MAX_SMALL_FILE_SIZE    (2 * 1000 * 1000)
+#define MAX_AUGEAS_FILE_SIZE        (100 * 1000)
+
+/* Maximum Windows Registry hive that we will download to /tmp.  Some
+ * registries can be legitimately very large.
+ */
+#define MAX_REGISTRY_SIZE    (100 * 1000 * 1000)
+
+/* Maximum RPM or dpkg database we will download to /tmp. */
+#define MAX_PKG_DB_SIZE       (10 * 1000 * 1000)
+
 /* Network configuration of the appliance.  Note these addresses are
  * only meaningful within the context of the running appliance.  QEMU
  * translates network connections to these magic addresses into
@@ -320,6 +345,21 @@ extern void guestfs___rollback_cmdline (guestfs_h *g, int pos);
 extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
 extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
+#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
+extern int guestfs___download_to_tmp (guestfs_h *g, const char *filename, const char *basename, int64_t max_size);
+extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
+extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
+extern int guestfs___parse_unsigned_int (guestfs_h *g, const char *str);
+extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
+extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
+extern char *guestfs___first_line_of_file (guestfs_h *g, const char *filename);
+extern int guestfs___first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
+extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
+#endif
 
 #define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf

@@ -10,6 +10,7 @@
     <minor_version>0</minor_version>
     <package_format>rpm</package_format>
     <package_management>yum</package_management>
+    <format>installed</format>
     <mountpoints>
       <mountpoint dev="/dev/VG/Root">/</mountpoint>
       <mountpoint dev="/dev/sda1">/boot</mountpoint>

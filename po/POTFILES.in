@@ -138,6 +138,11 @@ src/events.c
 src/filearch.c
 src/guestfs.c
 src/inspect.c
+src/inspect_apps.c
+src/inspect_fs.c
+src/inspect_fs_cd.c
+src/inspect_fs_unix.c
+src/inspect_fs_windows.c
 src/launch.c
 src/listfs.c
 src/match.c
