@@ -20,11 +20,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <locale.h>
 #include <assert.h>
+#include <libintl.h>
 
 #include <libxml/xmlIO.h>
 #include <libxml/xmlwriter.h>
