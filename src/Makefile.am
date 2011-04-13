@@ -127,6 +127,11 @@ libguestfs_la_SOURCES = \
 	events.c \
 	filearch.c \
 	inspect.c \
+	inspect_apps.c \
+	inspect_fs.c \
+	inspect_fs_cd.c \
+	inspect_fs_unix.c \
+	inspect_fs_windows.c \
 	launch.c \
 	listfs.c \
 	match.c \

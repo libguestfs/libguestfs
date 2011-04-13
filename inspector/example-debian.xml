@@ -10,6 +10,7 @@
     <minor_version>0</minor_version>
     <package_format>deb</package_format>
     <package_management>apt</package_management>
+    <format>installed</format>
     <mountpoints>
       <mountpoint dev="/dev/debian/root">/</mountpoint>
       <mountpoint dev="/dev/debian/usr">/usr</mountpoint>
