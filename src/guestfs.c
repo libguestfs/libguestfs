@@ -72,6 +72,7 @@
 #include "guestfs_protocol.h"
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
+static void remove_tmpdir (guestfs_h *g);
 static void close_handles (void);
 
 gl_lock_define_initialized (static, handles_lock);
@@ -215,15 +216,8 @@ guestfs_close (guestfs_h *g)
   if (g->pid > 0) waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
 
-  /* Remove tmpfiles. */
-  if (g->tmpdir) {
-    snprintf (filename, sizeof filename, "%s/guestfsd.sock", g->tmpdir);
-    unlink (filename);
-
-    rmdir (g->tmpdir);
-
-    free (g->tmpdir);
-  }
+  /* Remove whole temporary directory. */
+  remove_tmpdir (g);
 
   if (g->cmdline) {
     for (i = 0; i < g->cmdline_size; ++i)
@@ -253,6 +247,43 @@ guestfs_close (guestfs_h *g)
   free (g->qemu_help);
   free (g->qemu_version);
   free (g);
+}
+
+/* g->tmpdir can contain any files (but not subdirectories).  Remove
+ * those and the directory itself.  Note that errors in this function
+ * aren't really that important: if we end up not deleting temporary
+ * files it's only annoying.
+ */
+static void
+remove_tmpdir (guestfs_h *g)
+{
+  DIR *dir;
+  struct dirent *d;
+
+  if (!g->tmpdir)
+    return;
+
+  dir = opendir (g->tmpdir);
+  if (dir == NULL) {
+    perror (g->tmpdir);
+    return;
+  }
+
+  while ((d = readdir (dir)) != NULL) {
+    if (STRNEQ (d->d_name, ".") && STRNEQ (d->d_name, "..")) {
+      if (unlinkat (dirfd (dir), d->d_name, 0) == -1)
+        perror (d->d_name);
+    }
+  }
+
+  if (closedir (dir) == -1)
+    perror (g->tmpdir);
+
+  if (rmdir (g->tmpdir) == -1)
+    perror (g->tmpdir);
+
+  free (g->tmpdir);
+  g->tmpdir = NULL;
 }
 
 /* Close all open handles (called from atexit(3)). */
