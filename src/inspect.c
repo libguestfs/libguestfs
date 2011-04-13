@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <errno.h>
@@ -243,7 +244,7 @@ static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
 static char *resolve_fstab_device (guestfs_h *g, const char *spec);
 static void check_package_format (guestfs_h *g, struct inspect_fs *fs);
 static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
-static int download_to_tmp (guestfs_h *g, const char *filename, char *localtmp, int64_t max_size);
+static int download_to_tmp (guestfs_h *g, const char *filename, const char *basename, int64_t max_size);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename, int (*f) (guestfs_h *, struct inspect_fs *));
 static char *first_line_of_file (guestfs_h *g, const char *filename);
 static int first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
@@ -1482,7 +1483,10 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 {
-  TMP_TEMPLATE_ON_STACK (software_local);
+  const char *basename = "software";
+  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
+  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
+            g->tmpdir, basename);
 
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
@@ -1500,11 +1504,10 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
-  if (download_to_tmp (g, software_path, software_local,
-                       MAX_REGISTRY_SIZE) == -1)
+  if (download_to_tmp (g, software_path, basename, MAX_REGISTRY_SIZE) == -1)
     goto out;
 
-  h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -1589,17 +1592,16 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   free (values);
   free (software_path);
 
-  /* Free up the temporary file. */
-  unlink (software_local);
-#undef software_local_len
-
   return ret;
 }
 
 static int
 check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 {
-  TMP_TEMPLATE_ON_STACK (system_local);
+  const char *basename = "system";
+  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
+  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
+            g->tmpdir, basename);
 
   size_t len = strlen (fs->windows_systemroot) + 64;
   char system[len];
@@ -1620,10 +1622,10 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   int32_t dword;
   size_t i, count;
 
-  if (download_to_tmp (g, system_path, system_local, MAX_REGISTRY_SIZE) == -1)
+  if (download_to_tmp (g, system_path, basename, MAX_REGISTRY_SIZE) == -1)
     goto out;
 
-  h = hivex_open (system_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -1769,10 +1771,6 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   if (h) hivex_close (h);
   free (values);
   free (system_path);
-
-  /* Free up the temporary file. */
-  unlink (system_local);
-#undef system_local_len
 
   return ret;
 }
@@ -2490,19 +2488,22 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 static struct guestfs_application_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
-  TMP_TEMPLATE_ON_STACK (tmpfile);
+  const char *basename = "rpm_Name";
+  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
+  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
+            g->tmpdir, basename);
 
-  if (download_to_tmp (g, "/var/lib/rpm/Name", tmpfile, MAX_PKG_DB_SIZE) == -1)
+  if (download_to_tmp (g, "/var/lib/rpm/Name", basename, MAX_PKG_DB_SIZE) == -1)
     return NULL;
 
   struct guestfs_application_list *apps = NULL, *ret = NULL;
-#define cmd_len (strlen (tmpfile) + 64)
+#define cmd_len (strlen (tmpdir_basename) + 64)
   char cmd[cmd_len];
   FILE *pp = NULL;
   char line[1024];
   size_t len;
 
-  snprintf (cmd, cmd_len, DB_DUMP " -p '%s'", tmpfile);
+  snprintf (cmd, cmd_len, DB_DUMP " -p '%s'", tmpdir_basename);
 
   debug (g, "list_applications_rpm: %s", cmd);
 
@@ -2581,8 +2582,6 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
     guestfs_free_application_list (apps);
   if (pp)
     pclose (pp);
-  unlink (tmpfile);
-#undef cmd_len
 
   return ret;
 }
@@ -2591,9 +2590,12 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 static struct guestfs_application_list *
 list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 {
-  TMP_TEMPLATE_ON_STACK (tmpfile);
+  const char *basename = "deb_status";
+  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
+  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
+            g->tmpdir, basename);
 
-  if (download_to_tmp (g, "/var/lib/dpkg/status", tmpfile,
+  if (download_to_tmp (g, "/var/lib/dpkg/status", basename,
                        MAX_PKG_DB_SIZE) == -1)
     return NULL;
 
@@ -2604,9 +2606,9 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   char *name = NULL, *version = NULL, *release = NULL;
   int installed_flag = 0;
 
-  fp = fopen (tmpfile, "r");
+  fp = fopen (tmpdir_basename, "r");
   if (fp == NULL) {
-    perrorf (g, "fopen: %s", tmpfile);
+    perrorf (g, "fopen: %s", tmpdir_basename);
     goto out;
   }
 
@@ -2662,7 +2664,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   }
 
   if (fclose (fp) == -1) {
-    perrorf (g, "fclose: %s", tmpfile);
+    perrorf (g, "fclose: %s", tmpdir_basename);
     goto out;
   }
   fp = NULL;
@@ -2677,7 +2679,6 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   free (name);
   free (version);
   free (release);
-  unlink (tmpfile);
   return ret;
 }
 
@@ -2686,12 +2687,11 @@ static void list_applications_windows_from_path (guestfs_h *g, hive_h *h, struct
 static struct guestfs_application_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
-  TMP_TEMPLATE_ON_STACK (software_local);
+  const char *basename = "software";
+  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
+  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
+            g->tmpdir, basename);
 
-  /* XXX We already download the SOFTWARE hive when doing general
-   * inspection.  We could avoid this second download of the same file
-   * by caching these entries in the handle.
-   */
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software",
@@ -2700,21 +2700,20 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   char *software_path = case_sensitive_path_silently (g, software);
   if (!software_path)
     /* If the software hive doesn't exist, just accept that we cannot
-     * find product_name etc.
+     * list windows apps.
      */
     return 0;
 
   struct guestfs_application_list *ret = NULL;
   hive_h *h = NULL;
 
-  if (download_to_tmp (g, software_path, software_local,
-                       MAX_REGISTRY_SIZE) == -1)
+  if (download_to_tmp (g, software_path, basename, MAX_REGISTRY_SIZE) == -1)
     goto out;
 
   free (software_path);
   software_path = NULL;
 
-  h = hivex_open (software_local, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -2742,10 +2741,6 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
  out:
   if (h) hivex_close (h);
   free (software_path);
-
-  /* Delete the temporary file. */
-  unlink (software_local);
-#undef software_local_len
 
   return ret;
 }
@@ -2881,49 +2876,70 @@ sort_applications (struct guestfs_application_list *apps)
            compare_applications);
 }
 
-/* Download to a guest file to a local temporary file.  Refuse to
+/* Download a guest file to a local temporary file.  The file is
+ * downloaded into g->tmpdir, unless it already exists in g->tmpdir.
+ * The final name will be g->tmpdir + "/" + basename.  Refuse to
  * download the guest file if it is larger than max_size.  The caller
- * is responsible for deleting the temporary file after use.
+ * does not need to delete the temporary file after use: it will be
+ * deleted when the handle is cleaned up.
  */
 static int
 download_to_tmp (guestfs_h *g, const char *filename,
-                 char *localtmp, int64_t max_size)
+                 const char *basename, int64_t max_size)
 {
-  int fd;
+  int tmpdirfd, fd, r = -1;
   char buf[32];
   int64_t size;
 
-  size = guestfs_filesize (g, filename);
-  if (size == -1)
-    /* guestfs_filesize failed and has already set error in handle */
-    return -1;
-  if (size > max_size) {
-    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
-           filename, size);
+  tmpdirfd = open (g->tmpdir, O_RDONLY);
+  if (tmpdirfd == -1) {
+    perrorf (g, _("%s: temporary directory not found"), g->tmpdir);
     return -1;
   }
 
-  fd = mkstemp (localtmp);
+  /* If the file has already been downloaded, return. */
+  if (faccessat (tmpdirfd, basename, R_OK, 0) == 0) {
+    r = 0;
+    goto out;
+  }
+
+  /* Check size of remote file. */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    goto out;
+  if (size > max_size) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    goto out;
+  }
+
+  fd = openat (tmpdirfd, basename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0600);
   if (fd == -1) {
-    perrorf (g, "mkstemp");
-    return -1;
+    perrorf (g, "openat: %s/%s", g->tmpdir, basename);
+    goto out;
   }
 
   snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
 
   if (guestfs_download (g, filename, buf) == -1) {
+    unlinkat (tmpdirfd, basename, 0);
     close (fd);
-    unlink (localtmp);
-    return -1;
+    goto out;
   }
 
   if (close (fd) == -1) {
-    perrorf (g, "close: %s", localtmp);
-    unlink (localtmp);
-    return -1;
+    perrorf (g, "close: %s/%s", g->tmpdir, basename);
+    unlinkat (tmpdirfd, basename, 0);
+    goto out;
   }
 
-  return 0;
+  r = 0;
+ out:
+  if (tmpdirfd >= 0)
+    close (tmpdirfd);
+
+  return r;
 }
 
 /* Call 'f' with Augeas opened and having parsed 'filename' (this file
