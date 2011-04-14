@@ -40,6 +40,7 @@
             <optional><element name="windows_current_control_set"><text/></element></optional>
             <optional><element name="package_format"><text/></element></optional>
             <optional><element name="package_management"><text/></element></optional>
+            <optional><element name="hostname"><text/></element></optional>
             <optional><element name="format"><text/></element></optional>
             <optional><element name="live"><empty/></element></optional>
             <optional><element name="netinst"><empty/></element></optional>
