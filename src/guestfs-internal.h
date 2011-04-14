@@ -355,6 +355,8 @@ extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const cha
 extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
 extern char *guestfs___first_line_of_file (guestfs_h *g, const char *filename);
 extern int guestfs___first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
+typedef int (*guestfs___db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
+extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opaque, guestfs___db_dump_callback callback);
 extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
