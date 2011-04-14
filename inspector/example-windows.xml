@@ -9,6 +9,7 @@
     <major_version>6</major_version>
     <minor_version>1</minor_version>
     <windows_systemroot>/Windows</windows_systemroot>
+    <hostname>windows.invalid</hostname>
     <mountpoints>
       <mountpoint dev="/dev/sda2">/</mountpoint>
     </mountpoints>

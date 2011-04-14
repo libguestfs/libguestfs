@@ -39,6 +39,7 @@
 
             <optional><element name="package_format"><text/></element></optional>
             <optional><element name="package_management"><text/></element></optional>
+            <optional><element name="hostname"><text/></element></optional>
 
             <ref name="mountpoints"/>
             <ref name="filesystems"/>
