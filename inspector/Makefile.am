@@ -100,10 +100,18 @@ endif
 # can run them.  Instead you can run them by hand.
 
 example-debian.xml:
-	./run-inspector-locally ../images/debian.img > $@
+	rm -f $@ $@-t
+	./run-inspector-locally ../images/debian.img > $@-t
+	mv $@-t $@
 example-fedora.xml:
-	./run-inspector-locally ../images/fedora.img > $@
+	rm -f $@ $@-t
+	./run-inspector-locally ../images/fedora.img > $@-t
+	mv $@-t $@
 example-ubuntu.xml:
-	./run-inspector-locally ../images/ubuntu.img > $@
+	rm -f $@ $@-t
+	./run-inspector-locally ../images/ubuntu.img > $@-t
+	mv $@-t $@
 example-windows.xml:
-	./run-inspector-locally ../images/windows.img | fgrep -v '<uuid>' > $@
+	rm -f $@ $@-t
+	./run-inspector-locally ../images/windows.img | fgrep -v '<uuid>' > $@-t
+	mv $@-t $@
