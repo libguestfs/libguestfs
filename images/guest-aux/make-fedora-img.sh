@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -73,6 +73,7 @@ write /etc/fedora-release "Fedora release 14 (Phony)"
 write /etc/sysconfig/network "HOSTNAME=fedora.invalid"
 
 upload guest-aux/fedora-name.db /var/lib/rpm/Name
+upload guest-aux/fedora-packages.db /var/lib/rpm/Packages
 
 upload bin-x86_64-dynamic /bin/ls
 

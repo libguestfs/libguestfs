@@ -1,0 +1,13 @@
+VERSION=3
+format=print
+type=hash
+h_nelem=3
+db_pagesize=4096
+HEADER=END
+ !\0b\00\00
+ \00test1\001.0\001.fc14\00
+ 7\0b\00\00
+ \00test2\002.0\002.fc14\00
+ \dd\0c\00\00
+ \00test3\003.0\003.fc14\00
+DATA=END

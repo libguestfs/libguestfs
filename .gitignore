@@ -144,6 +144,7 @@ images/abssymlink
 images/debian.img
 images/fedora.img
 images/guest-aux/fedora-name.db
+images/guest-aux/fedora-packages.db
 images/hello.b64
 images/initrd
 images/initrd-x86_64.img

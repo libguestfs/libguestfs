@@ -127,23 +127,136 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 
 #ifdef DB_DUMP
 
+/* This data comes from the Name database, and contains the application
+ * names and the first 4 bytes of the link field.
+ */
+struct rpm_names_list {
+  struct rpm_name *names;
+  size_t len;
+};
+struct rpm_name {
+  char *name;
+  char link[4];
+};
+
+static void
+free_rpm_names_list (struct rpm_names_list *list)
+{
+  size_t i;
+
+  for (i = 0; i < list->len; ++i)
+    free (list->names[i].name);
+  free (list->names);
+}
+
+static int
+compare_links (const void *av, const void *bv)
+{
+  const struct rpm_name *a = av;
+  const struct rpm_name *b = bv;
+  return memcmp (a->link, b->link, 4);
+}
+
 static int
 read_rpm_name (guestfs_h *g,
                const unsigned char *key, size_t keylen,
                const unsigned char *value, size_t valuelen,
-               void *appsv)
+               void *listv)
 {
-  struct guestfs_application_list *apps = appsv;
+  struct rpm_names_list *list = listv;
   char *name;
+
+  /* Ignore bogus entries. */
+  if (keylen == 0 || valuelen < 4)
+    return 0;
 
   /* The name (key) field won't be NUL-terminated, so we must do that. */
   name = safe_malloc (g, keylen+1);
   memcpy (name, key, keylen);
   name[keylen] = '\0';
 
-  add_application (g, apps, name, "", 0, "", "", "", "", "", "");
+  list->names = safe_realloc (g, list->names,
+                              (list->len + 1) * sizeof (struct rpm_name));
+  list->names[list->len].name = name;
+  memcpy (list->names[list->len].link, value, 4);
+  list->len++;
 
-  free (name);
+  return 0;
+}
+
+struct read_package_data {
+  struct rpm_names_list *list;
+  struct guestfs_application_list *apps;
+};
+
+static int
+read_package (guestfs_h *g,
+              const unsigned char *key, size_t keylen,
+              const unsigned char *value, size_t valuelen,
+              void *datav)
+{
+  struct read_package_data *data = datav;
+  struct rpm_name nkey, *entry;
+  char *p;
+  size_t len;
+  ssize_t max;
+  char *nul_name_nul, *version, *release;
+
+  /* This function reads one (key, value) pair from the Packages
+   * database.  The key is the link field (see struct rpm_name).  The
+   * value is a long binary string, but we can extract the version
+   * number from it as below.  First we have to look up the link field
+   * in the list of links (which is sorted by link field).
+   */
+
+  /* Ignore bogus entries. */
+  if (keylen < 4 || valuelen == 0)
+    return 0;
+
+  /* Look up the link (key) in the list. */
+  memcpy (nkey.link, key, 4);
+  entry = bsearch (&nkey, data->list->names, data->list->len,
+                   sizeof (struct rpm_name), compare_links);
+  if (!entry)
+    return 0;                   /* Not found - ignore it. */
+
+  /* We found a matching link entry, so that gives us the application
+   * name (entry->name).  Now we can get other data for this
+   * application out of the binary value string.  XXX This is a real
+   * hack.
+   */
+
+  /* Look for \0<name>\0 */
+  len = strlen (entry->name);
+  nul_name_nul = safe_malloc (g, len + 2);
+  nul_name_nul[0] = '\0';
+  memcpy (&nul_name_nul[1], entry->name, len);
+  nul_name_nul[len+1] = '\0';
+  p = memmem (value, valuelen, nul_name_nul, len+2);
+  free (nul_name_nul);
+  if (!p)
+    return 0;
+
+  /* Following that are \0-delimited version and release fields. */
+  p += len + 2; /* Note we have to skip \0 + name + \0. */
+  max = valuelen - (p - (char *) value);
+  if (max < 0)
+    max = 0;
+  version = safe_strndup (g, p, max);
+
+  len = strlen (version);
+  p += len + 1;
+  max = valuelen - (p - (char *) value);
+  if (max < 0)
+    max = 0;
+  release = safe_strndup (g, p, max);
+
+  /* Add the application and what we know. */
+  add_application (g, data->apps, entry->name, "", 0, version, release,
+                   "", "", "", "");
+
+  free (version);
+  free (release);
 
   return 0;
 }
@@ -151,14 +264,37 @@ read_rpm_name (guestfs_h *g,
 static struct guestfs_application_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "rpm_Name";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
+  const char *name = "rpm_Name";
+  char tmpdir_name[strlen (g->tmpdir) + strlen (name) + 2];
+  snprintf (tmpdir_name, sizeof tmpdir_name, "%s/%s",
+            g->tmpdir, name);
 
-  if (guestfs___download_to_tmp (g, "/var/lib/rpm/Name", basename,
+  if (guestfs___download_to_tmp (g, "/var/lib/rpm/Name", name,
                                  MAX_PKG_DB_SIZE) == -1)
     return NULL;
+
+  const char *pkgs = "rpm_Packages";
+  char tmpdir_pkgs[strlen (g->tmpdir) + strlen (pkgs) + 2];
+  snprintf (tmpdir_pkgs, sizeof tmpdir_pkgs, "%s/%s",
+            g->tmpdir, pkgs);
+
+  if (guestfs___download_to_tmp (g, "/var/lib/rpm/Packages", pkgs,
+                                 MAX_PKG_DB_SIZE) == -1)
+    return NULL;
+
+  /* Allocate interim structure to store names and links. */
+  struct rpm_names_list list;
+  list.names = NULL;
+  list.len = 0;
+
+  /* Read Name database. */
+  if (guestfs___read_db_dump (g, tmpdir_name, &list, read_rpm_name) == -1) {
+    free_rpm_names_list (&list);
+    return NULL;
+  }
+
+  /* Sort the names by link field for fast searching. */
+  qsort (list.names, list.len, sizeof (struct rpm_name), compare_links);
 
   /* Allocate 'apps' list. */
   struct guestfs_application_list *apps;
@@ -166,10 +302,17 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   apps->len = 0;
   apps->val = NULL;
 
-  if (guestfs___read_db_dump (g, tmpdir_basename, apps, read_rpm_name) == -1) {
+  /* Read Packages database. */
+  struct read_package_data data;
+  data.list = &list;
+  data.apps = apps;
+  if (guestfs___read_db_dump (g, tmpdir_pkgs, &data, read_package) == -1) {
+    free_rpm_names_list (&list);
     guestfs_free_application_list (apps);
     return NULL;
   }
+
+  free_rpm_names_list (&list);
 
   return apps;
 }

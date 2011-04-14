@@ -82,8 +82,12 @@
  */
 #define MAX_REGISTRY_SIZE    (100 * 1000 * 1000)
 
-/* Maximum RPM or dpkg database we will download to /tmp. */
-#define MAX_PKG_DB_SIZE       (10 * 1000 * 1000)
+/* Maximum RPM or dpkg database we will download to /tmp.  RPM
+ * 'Packages' database can get very large: 70 MB is roughly the
+ * standard size for a new Fedora install, and after lots of package
+ * installation/removal I have seen well over 100 MB databases.
+ */
+#define MAX_PKG_DB_SIZE       (300 * 1000 * 1000)
 
 /* Network configuration of the appliance.  Note these addresses are
  * only meaningful within the context of the running appliance.  QEMU

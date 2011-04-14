@@ -168,12 +168,17 @@ $(builddir)/test-grep.txt.gz: test-grep.txt
 	mv $@-t $@
 
 # Make a (dummy) Fedora image.
-fedora.img: guest-aux/make-fedora-img.sh guest-aux/fedora-name.db
+fedora.img: guest-aux/make-fedora-img.sh \
+		guest-aux/fedora-name.db \
+		guest-aux/fedora-packages.db
 	LIBGUESTFS_PATH=../appliance \
 	LD_LIBRARY_PATH=../src/.libs \
 	bash $<
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
+	$(DB_LOAD) $@ < $<
+
+guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
 	$(DB_LOAD) $@ < $<
 
 # Make a (dummy) Debian image.
