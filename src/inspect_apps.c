@@ -126,6 +126,28 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 }
 
 #ifdef DB_DUMP
+
+static int
+read_rpm_name (guestfs_h *g,
+               const unsigned char *key, size_t keylen,
+               const unsigned char *value, size_t valuelen,
+               void *appsv)
+{
+  struct guestfs_application_list *apps = appsv;
+  char *name;
+
+  /* The name (key) field won't be NUL-terminated, so we must do that. */
+  name = safe_malloc (g, keylen+1);
+  memcpy (name, key, keylen);
+  name[keylen] = '\0';
+
+  add_application (g, apps, name, "", 0, "", "", "", "", "", "");
+
+  free (name);
+
+  return 0;
+}
+
 static struct guestfs_application_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
@@ -138,95 +160,20 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
                                  MAX_PKG_DB_SIZE) == -1)
     return NULL;
 
-  struct guestfs_application_list *apps = NULL, *ret = NULL;
-#define cmd_len (strlen (tmpdir_basename) + 64)
-  char cmd[cmd_len];
-  FILE *pp = NULL;
-  char line[1024];
-  size_t len;
-
-  snprintf (cmd, cmd_len, DB_DUMP " -p '%s'", tmpdir_basename);
-
-  debug (g, "list_applications_rpm: %s", cmd);
-
-  pp = popen (cmd, "r");
-  if (pp == NULL) {
-    perrorf (g, "popen: %s", cmd);
-    goto out;
-  }
-
-  /* Ignore everything to end-of-header marker. */
-  for (;;) {
-    if (fgets (line, sizeof line, pp) == NULL) {
-      error (g, _("unexpected end of output from db_dump command"));
-      goto out;
-    }
-
-    len = strlen (line);
-    if (len > 0 && line[len-1] == '\n') {
-      line[len-1] = '\0';
-      len--;
-    }
-
-    if (STREQ (line, "HEADER=END"))
-      break;
-  }
-
   /* Allocate 'apps' list. */
+  struct guestfs_application_list *apps;
   apps = safe_malloc (g, sizeof *apps);
   apps->len = 0;
   apps->val = NULL;
 
-  /* Read alternate lines until end of data marker. */
-  for (;;) {
-    if (fgets (line, sizeof line, pp) == NULL) {
-      error (g, _("unexpected end of output from db_dump command"));
-      goto out;
-    }
-
-    len = strlen (line);
-    if (len > 0 && line[len-1] == '\n') {
-      line[len-1] = '\0';
-      len--;
-    }
-
-    if (STREQ (line, "DATA=END"))
-      break;
-
-    char *p = line;
-    if (len > 0 && line[0] == ' ')
-      p = line+1;
-    /* Ignore any application name that contains non-printable chars.
-     * In the db_dump output these would be escaped with backslash, so
-     * we can just ignore any such line.
-     */
-    if (strchr (p, '\\') == NULL)
-      add_application (g, apps, p, "", 0, "", "", "", "", "", "");
-
-    /* Discard next line. */
-    if (fgets (line, sizeof line, pp) == NULL) {
-      error (g, _("unexpected end of output from db_dump command"));
-      goto out;
-    }
-  }
-
-  /* Catch errors from the db_dump command. */
-  if (pclose (pp) == -1) {
-    perrorf (g, "pclose: %s", cmd);
-    goto out;
-  }
-  pp = NULL;
-
-  ret = apps;
-
- out:
-  if (ret == NULL && apps != NULL)
+  if (guestfs___read_db_dump (g, tmpdir_basename, apps, read_rpm_name) == -1) {
     guestfs_free_application_list (apps);
-  if (pp)
-    pclose (pp);
+    return NULL;
+  }
 
-  return ret;
+  return apps;
 }
+
 #endif /* defined DB_DUMP */
 
 static struct guestfs_application_list *
