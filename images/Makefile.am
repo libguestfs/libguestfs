@@ -174,7 +174,9 @@ fedora.img: guest-aux/make-fedora-img.sh guest-aux/fedora-name.db
 	bash $<
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
-	$(DB_LOAD) $@ < $<
+	rm -f $@ $@-t
+	$(DB_LOAD) $@-t < $<
+	mv $@-t $@
 
 # Make a (dummy) Debian image.
 debian.img: guest-aux/make-debian-img.sh
