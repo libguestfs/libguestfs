@@ -428,6 +428,14 @@ output_root (xmlTextWriterPtr xo, char *root)
     free (str);
   );
 
+  str = guestfs_inspect_get_hostname (g, root);
+  if (!str) exit (EXIT_FAILURE);
+  if (STRNEQ (str, "unknown"))
+    XMLERROR (-1,
+      xmlTextWriterWriteElement (xo, BAD_CAST "hostname",
+                                 BAD_CAST str));
+  free (str);
+
   str = guestfs_inspect_get_format (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
