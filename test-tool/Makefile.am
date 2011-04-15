@@ -17,7 +17,7 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXTRA_DIST = libguestfs-test-tool.pod run-test-tool-locally
+EXTRA_DIST = libguestfs-test-tool.pod
 
 CLEANFILES =
 

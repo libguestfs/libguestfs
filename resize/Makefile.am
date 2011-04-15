@@ -19,7 +19,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES) \
-	run-resize-locally \
 	virt-resize.pod \
 	test-virt-resize.sh
 

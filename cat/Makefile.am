@@ -18,13 +18,10 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	run-cat-locally \
 	test-virt-cat.sh \
 	virt-cat.pod \
-	run-filesystems-locally \
 	test-virt-filesystems.sh \
 	virt-filesystems.pod \
-	run-ls-locally \
 	test-virt-ls.sh \
 	virt-ls.pod
 
