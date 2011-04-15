@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	run-rescue-locally \
 	virt-rescue.pod
 
 CLEANFILES = stamp-virt-rescue.pod

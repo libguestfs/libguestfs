@@ -1,0 +1,42 @@
+#!/bin/bash -
+# libguestfs 'run' programs locally script
+# Copyright (C) 2011 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#----------------------------------------------------------------------
+
+# With this script you can run all the virt tools without needing to
+# install them first.  You just have to do for example:
+#
+#   ./run ./inspector/virt-inspector [args ...]
+#
+# This works for any C, OCaml or Perl virt tools in the libguestfs
+# distribution.  Also you can make a symbolic link to this 'run'
+# script from anywhere (eg. $HOME/bin/run) if you wish.
+
+#----------------------------------------------------------------------
+
+# Find this script.
+run=$(readlink -f "$0")
+b=$(dirname "$run")
+
+# Set local environment relative to this script.
+export LD_LIBRARY_PATH="$b/src/.libs"
+export LIBGUESTFS_PATH="$b/appliance"
+export PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
+
+# Run the program.
+libtool --mode=execute "$@"

@@ -19,7 +19,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	README \
-	run-df-locally \
 	test-virt-df.sh \
 	virt-df.pod
 

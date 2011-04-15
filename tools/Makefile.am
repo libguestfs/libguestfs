@@ -26,7 +26,6 @@ tools = \
 	win-reg
 
 EXTRA_DIST = \
-	run-locally \
 	$(tools:%=virt-%) \
 	test-virt-*.sh
 

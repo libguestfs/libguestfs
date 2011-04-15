@@ -105,7 +105,8 @@ EXTRA_DIST = \
 	autogen.sh \
 	bugs-in-changelog.sh \
 	update-bugs.sh \
-	logo/fish.svg logo/fish.png
+	logo/fish.svg logo/fish.png \
+	run
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
@@ -205,7 +206,7 @@ CLEANFILES = \
 # is NOT a substitute for proper testing!
 
 quickcheck:
-	test-tool/run-test-tool-locally
+	./run test-tool/libguestfs-test-tool
 
 # Make binary distribution.
 

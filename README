@@ -113,6 +113,34 @@ this command as root:
 
   make install
 
+You can run the virt tools without needing to install, using the "run"
+script in the top directory.  This script sets up some environment
+variables.  For example:
+
+  ./run ./inspector/virt-inspector [usual virt-inspector args ...]
+
+If you are already in the inspector/ subdirectory, then the following
+command will also work:
+
+  ../run ./virt-inspector [...]
+
+You can also make a symlink (note: NOT a hard link) from your $PATH to
+the run script, eg:
+
+  cd ~/bin
+  ln -s ~/libguestfs/run libguestfs-run
+  cd ~/libguestfs
+  libguestfs-run ./inspector/virt-inspector [...]
+
+You can also run the C programs under valgrind like this:
+
+  ./run valgrind [valgrind opts...] ./cat/virt-cat [virt-cat opts...]
+
+This also works with sudo (eg. if you need root access for libvirt or
+to access a block device):
+
+  sudo ./run ./cat/virt-cat -d LinuxGuest /etc/passwd
+
 
 qemu
 ----------------------------------------------------------------------

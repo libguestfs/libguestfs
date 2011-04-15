@@ -33,7 +33,6 @@ EXAMPLE_XML = \
 	example-windows-xp-cd.xml
 
 EXTRA_DIST = \
-	run-inspector-locally \
 	virt-inspector.pod
 
 CLEANFILES = stamp-virt-inspector.pod
@@ -101,17 +100,18 @@ endif
 
 example-debian.xml:
 	rm -f $@ $@-t
-	./run-inspector-locally ../images/debian.img > $@-t
+	../run $(builddir)/virt-inspector ../images/debian.img > $@-t
 	mv $@-t $@
 example-fedora.xml:
 	rm -f $@ $@-t
-	./run-inspector-locally ../images/fedora.img > $@-t
+	../run $(builddir)/virt-inspector ../images/fedora.img > $@-t
 	mv $@-t $@
 example-ubuntu.xml:
 	rm -f $@ $@-t
-	./run-inspector-locally ../images/ubuntu.img > $@-t
+	../run $(builddir)/virt-inspector ../images/ubuntu.img > $@-t
 	mv $@-t $@
 example-windows.xml:
 	rm -f $@ $@-t
-	./run-inspector-locally ../images/windows.img | fgrep -v '<uuid>' > $@-t
+	../run $(builddir)/virt-inspector ../images/windows.img | \
+	    fgrep -v '<uuid>' > $@-t
 	mv $@-t $@
