@@ -220,19 +220,6 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  /* If developing, add ./appliance to the path.  Note that libtools
-   * interferes with this because uninstalled guestfish is a shell
-   * script that runs the real program with an absolute path.  Detect
-   * that too.
-   *
-   * BUT if LIBGUESTFS_PATH environment variable is already set by
-   * the user, then don't override it.
-   */
-  if (getenv ("LIBGUESTFS_PATH") == NULL &&
-      argv[0] &&
-      (argv[0][0] != '/' || strstr (argv[0], "/.libs/lt-") != NULL))
-    guestfs_set_path (g, "appliance:" GUESTFS_DEFAULT_PATH);
-
   /* CAUTION: we are careful to modify argv[0] here, only after
    * using it just above.
    *

@@ -60,11 +60,7 @@ guestfsd=daemon/guestfsd.exe
 #
 # For example from the top build directory:
 #
-# LIBGUESTFS_QEMU=contrib/guestfsd-in-wine.sh fish/guestfish
-#
-# You might also need to set the environment variable LIBGUESTFS_PATH
-# to point to an appliance.  The appliance will never be used, but
-# libguestfs needs to find one.
+# LIBGUESTFS_QEMU=contrib/guestfsd-in-wine.sh ./run ./fish/guestfish
 #
 # Another suggested environment variable is LIBGUESTFS_DEBUG=1 which
 # will give you must more detail about what is going on.  Also look at
