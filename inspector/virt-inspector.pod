@@ -45,6 +45,13 @@ for-loop).
 Because virt-inspector needs direct access to guest images, it won't
 normally work over remote libvirt connections.
 
+All of the information available from virt-inspector is also available
+through the core libguestfs inspection API (see
+L<guestfs(3)/INSPECTION>).  The same information can also be fetched
+using guestfish or via libguestfs bindings in many programming
+languages
+(see L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES>).
+
 =head1 OPTIONS
 
 =over 4
@@ -145,7 +152,8 @@ For compatibility the old style is still supported.
 =head1 XML FORMAT
 
 The virt-inspector XML is described precisely in a RELAX NG schema
-which is supplied with libguestfs.  This section is just an overview.
+file C<virt-inspector.rng> which is supplied with libguestfs.  This
+section is just an overview.
 
 The top-level element is E<lt>operatingsystemsE<gt>, and it contains
 one or more E<lt>operatingsystemE<gt> elements.  You would only see
@@ -171,8 +179,13 @@ describe the operating system, its architecture, the descriptive
      <windows_systemroot>/Windows</windows_systemroot>
      <format>installed</format>
 
-These fields are derived from the libguestfs inspection API, and
-you can find more details in L<guestfs(3)/INSPECTION>.
+In brief, E<lt>nameE<gt> is the class of operating system (something
+like C<linux> or C<windows>), E<lt>distroE<gt> is the distribution
+(eg. C<fedora> but many other distros are recognized) and
+E<lt>archE<gt> is the guest architecture.  The other fields are fairly
+self-explanatory, but because these fields are taken directly from the
+libguestfs inspection API you can find precise information from
+L<guestfs(3)/INSPECTION>.
 
 The E<lt>rootE<gt> element is the root filesystem device, but from the
 point of view of libguestfs (block devices may have completely
@@ -202,7 +215,8 @@ devices.
 E<lt>filesystemsE<gt> is like E<lt>mountpointsE<gt> but covers I<all>
 filesystems belonging to the guest, including swap and empty
 partitions.  (In the rare case of a multi-boot guest, it covers
-filesystems belonging to this OS or shared by this OS and other OSes).
+filesystems belonging to this OS or shared with this OS and other
+OSes).
 
 You might see something like this:
 
@@ -247,6 +261,28 @@ installed.
 The version and release fields may not be available for some types
 guests.  Other fields are possible, see
 L<guestfs(3)/guestfs_inspect_list_applications>.
+
+=head2 E<lt>drive_mappingsE<gt>
+
+For operating systems like Windows which use drive letters,
+virt-inspector is able to find out how drive letters map to
+filesystems.
+
+ <operatingsystems>
+   <operatingsystem>
+     ...
+     <drive_mappings>
+       <drive_mapping name="C">/dev/sda2</drive_mapping>
+       <drive_mapping name="E">/dev/sdb1</drive_mapping>
+     </drive_mappings>
+
+In the example above, drive C maps to the filesystem on the second
+partition on the first disk, and drive E maps to the filesystem on the
+first partition on the second disk.
+
+Note that this only covers permanent local filesystem mappings, not
+things like network shares.  Furthermore NTFS volume mount points may
+not be listed here.
 
 =head2 INSPECTING INSTALL DISKS, LIVE CDs
 
@@ -294,6 +330,22 @@ Libvirt guest names can contain arbitrary characters, some of which
 have meaning to the shell such as C<#> and space.  You may need to
 quote or escape these characters on the command line.  See the shell
 manual page L<sh(1)> for details.
+
+=head1 OLD VERSIONS OF VIRT-INSPECTOR
+
+Early versions of libguestfs shipped with a different virt-inspector
+program written in Perl (the current version is written in C).  The
+XML output of the Perl virt-inspector was different and it could also
+output in other formats like text.
+
+The old virt-inspector is no longer supported or shipped with
+libguestfs.
+
+To confuse matters further, in Red Hat Enterprise Linux 6 we ship two
+versions of virt-inspector with different names:
+
+ virt-inspector     Old Perl version.
+ virt-inspector2    New C version.
 
 =head1 SEE ALSO
 
