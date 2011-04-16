@@ -113,16 +113,18 @@ this command as root:
 
   make install
 
-You can run the virt tools without needing to install, using the "run"
-script in the top directory.  This script sets up some environment
-variables.  For example:
+You can run guestfish, guestmount and the virt tools without needing
+to install, using the "run" script in the top directory.  This script
+sets up some environment variables.  For example:
+
+  ./run ./fish/guestfish [usual guestfish args ...]
 
   ./run ./inspector/virt-inspector [usual virt-inspector args ...]
 
-If you are already in the inspector/ subdirectory, then the following
+If you are already in the fish/ subdirectory, then the following
 command will also work:
 
-  ../run ./virt-inspector [...]
+  ../run ./guestfish [...]
 
 You can also make a symlink (note: NOT a hard link) from your $PATH to
 the run script, eg:

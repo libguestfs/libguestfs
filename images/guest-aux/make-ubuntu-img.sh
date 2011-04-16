@@ -36,7 +36,7 @@ DISTRIB_DESCRIPTION="Ubuntu 10.10 (Phony Pharaoh)"
 EOF
 
 # Create a disk image.
-../fish/guestfish <<'EOF'
+../run ../fish/guestfish <<'EOF'
 sparse ubuntu.img.tmp 512M
 run
 

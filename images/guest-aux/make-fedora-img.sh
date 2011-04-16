@@ -31,7 +31,7 @@ LABEL=ROOT / ext2 default 0 0
 EOF
 
 # Create a disk image.
-../fish/guestfish <<'EOF'
+../run ../fish/guestfish <<'EOF'
 sparse fedora.img.tmp 512M
 run
 
