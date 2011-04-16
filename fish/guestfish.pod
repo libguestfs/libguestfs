@@ -473,14 +473,14 @@ and I<--rw> affect whether the other command line options I<-a>,
 I<-c>, I<-d>, I<-i> and I<-m> open disk images read-only or for
 writing.
 
-In libguestfs E<le> 1.8, guestfish, guestmount and virt-rescue
+In libguestfs E<le> 1.10, guestfish, guestmount and virt-rescue
 defaulted to opening disk images supplied on the command line for
 write.  To open a disk image read-only you have to do I<-a image --ro>.
 
 This matters: If you accidentally open a live VM disk image writable
 then you will cause irreversible disk corruption.
 
-By libguestfs 1.10 we intend to change the default the other way.
+By libguestfs 1.12 we intend to change the default the other way.
 Disk images will be opened read-only.  You will have to either specify
 I<guestfish --rw>, I<guestmount --rw>, I<virt-rescue --rw>, or change
 the configuration file C</etc/libguestfs-tools.conf> in order to get
