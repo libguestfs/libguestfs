@@ -42,6 +42,8 @@ EXTRA_DIST = \
 	guest-aux/make-fedora-img.sh \
 	guest-aux/fedora-name.db.txt \
 	guest-aux/fedora-name.db \
+	guest-aux/fedora-packages.db.txt \
+	guest-aux/fedora-packages.db \
 	guest-aux/make-ubuntu-img.sh \
 	guest-aux/make-windows-img.sh \
 	guest-aux/windows-software \
