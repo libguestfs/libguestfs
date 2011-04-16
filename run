@@ -38,5 +38,11 @@ export LD_LIBRARY_PATH="$b/src/.libs"
 export LIBGUESTFS_PATH="$b/appliance"
 export PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
 
+# Do we have libtool?  If we have it then we can use it to make
+# running valgrind simpler.  However don't depend on it.
+if libtool --help >/dev/null 2>&1; then
+    libtool="libtool --mode=execute"
+fi
+
 # Run the program.
-libtool --mode=execute "$@"
+exec $libtool "$@"
