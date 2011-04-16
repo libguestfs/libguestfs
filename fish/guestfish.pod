@@ -176,7 +176,7 @@ force a particular format use the I<--format=..> option.
 
 Using this flag is mostly equivalent to using the C<add> command,
 with C<readonly:true> if the I<--ro> flag was given, and
-with C<format:...> if the I<--format:...> flag was given.
+with C<format:...> if the I<--format=...> flag was given.
 
 =item B<-c URI>
 
