@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-04-11 11:35+0200\n"
+"POT-Creation-Date: 2011-04-18 22:43+0200\n"
 "PO-Revision-Date: 2010-09-02 14:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20737,13 +20737,12 @@ msgid ""
 "particular format use the I<--format=..> option."
 msgstr ""
 
-# type: textblock
 #. type: textblock
 #: ../fish/guestfish.pod:177
 msgid ""
 "Using this flag is mostly equivalent to using the C<add> command, with "
 "C<readonly:true> if the I<--ro> flag was given, and with C<format:...> if "
-"the I<--format:...> flag was given."
+"the I<--format=...> flag was given."
 msgstr ""
 
 # type: =item
