@@ -180,6 +180,7 @@ py_guestfs_create (PyObject *self, PyObject *args)
 static PyObject *
 py_guestfs_close (PyObject *self, PyObject *args)
 {
+  PyThreadState *py_save = NULL;
   PyObject *py_g;
   guestfs_h *g;
 
@@ -187,7 +188,11 @@ py_guestfs_close (PyObject *self, PyObject *args)
     return NULL;
   g = get_handle (py_g);
 
+  if (PyEval_ThreadsInitialized ())
+    py_save = PyEval_SaveThread ();
   guestfs_close (g);
+  if (PyEval_ThreadsInitialized ())
+    PyEval_RestoreThread (py_save);
 
   Py_INCREF (Py_None);
   return Py_None;
@@ -284,6 +289,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
 
+      pr "  PyThreadState *py_save = NULL;\n";
       pr "  PyObject *py_g;\n";
       pr "  guestfs_h *g;\n";
       pr "  PyObject *py_r;\n";
@@ -440,12 +446,25 @@ py_guestfs_close (PyObject *self, PyObject *args)
         pr "\n"
       );
 
+      (* Release Python GIL while running.  This code is from
+       * libvirt/python/typewrappers.h.  Thanks to Dan Berrange for
+       * showing us how to do this properly.
+       *)
+      pr "  if (PyEval_ThreadsInitialized ())\n";
+      pr "    py_save = PyEval_SaveThread ();\n";
+      pr "\n";
+
       if optargs = [] then
         pr "  r = guestfs_%s " name
       else
         pr "  r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+
+      pr "\n";
+      pr "  if (PyEval_ThreadsInitialized ())\n";
+      pr "    PyEval_RestoreThread (py_save);\n";
+      pr "\n";
 
       List.iter (
         function
