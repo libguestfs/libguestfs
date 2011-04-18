@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.11.1\n"
+"Project-Id-Version: libguestfs 1.11.2\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-04-16 13:40+0200\n"
+"POT-Creation-Date: 2011-04-18 20:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18895,7 +18895,7 @@ msgstr ""
 msgid ""
 "Using this flag is mostly equivalent to using the C<add> command, with "
 "C<readonly:true> if the I<--ro> flag was given, and with C<format:...> if "
-"the I<--format:...> flag was given."
+"the I<--format=...> flag was given."
 msgstr ""
 
 #. type: =item
@@ -19549,7 +19549,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish.pod:476
 msgid ""
-"In libguestfs E<le> 1.8, guestfish, guestmount and virt-rescue defaulted to "
+"In libguestfs E<le> 1.10, guestfish, guestmount and virt-rescue defaulted to "
 "opening disk images supplied on the command line for write.  To open a disk "
 "image read-only you have to do I<-a image --ro>."
 msgstr ""
@@ -19564,7 +19564,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish.pod:483
 msgid ""
-"By libguestfs 1.10 we intend to change the default the other way.  Disk "
+"By libguestfs 1.12 we intend to change the default the other way.  Disk "
 "images will be opened read-only.  You will have to either specify "
 "I<guestfish --rw>, I<guestmount --rw>, I<virt-rescue --rw>, or change the "
 "configuration file C</etc/libguestfs-tools.conf> in order to get write "
