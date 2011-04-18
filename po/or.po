@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-12 20:13+0100\n"
+"POT-Creation-Date: 2011-04-18 22:35+0100\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -22,14 +22,14 @@ msgstr ""
 "\n"
 "\n"
 
-#: cat/virt-cat.c:55 cat/virt-filesystems.c:97 cat/virt-ls.c:56 df/main.c:68
-#: fish/fish.c:96 fuse/guestmount.c:907 inspector/virt-inspector.c:70
-#: rescue/virt-rescue.c:57
+#: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:58 df/main.c:70
+#: fish/fish.c:96 fuse/guestmount.c:908 inspector/virt-inspector.c:72
+#: rescue/virt-rescue.c:59
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ଅଧିକ ସୂଚନା ପାଇଁ `%s --help' କୁ ଚେଷ୍ଟା କରନ୍ତୁ।\n"
 
-#: cat/virt-cat.c:59
+#: cat/virt-cat.c:61
 #, fuzzy, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -69,21 +69,21 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: cat/virt-cat.c:115 cat/virt-filesystems.c:200 cat/virt-ls.c:121
-#: df/domains.c:428 df/main.c:134 fish/fish.c:219 fuse/guestmount.c:1023
-#: inspector/virt-inspector.c:130 rescue/virt-rescue.c:131
+#: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:123
+#: df/domains.c:428 df/main.c:136 fish/fish.c:219 fuse/guestmount.c:1024
+#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ନିୟନ୍ତ୍ରଣ ପ୍ରସ୍ତୁତ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: cat/virt-cat.c:137 cat/virt-filesystems.c:254 cat/virt-ls.c:143
-#: df/main.c:158 fish/fish.c:289 fuse/guestmount.c:1073
-#: inspector/virt-inspector.c:152 rescue/virt-rescue.c:155
+#: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:145
+#: df/main.c:160 fish/fish.c:276 fuse/guestmount.c:1061
+#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
 
-#: cat/virt-filesystems.c:101
+#: cat/virt-filesystems.c:103
 #, fuzzy, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -140,12 +140,12 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: cat/virt-filesystems.c:316 df/main.c:253
+#: cat/virt-filesystems.c:318 df/main.c:255
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: cat/virt-ls.c:60
+#: cat/virt-ls.c:62
 #, fuzzy, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
 
-#: df/main.c:72
+#: df/main.c:74
 #, fuzzy, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -260,53 +260,53 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: df/main.c:265
+#: df/main.c:267
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
-#: df/output.c:49
+#: df/output.c:50
 msgid "VirtualMachine"
 msgstr ""
 
-#: df/output.c:50
+#: df/output.c:51
 #, fuzzy
 msgid "Filesystem"
 msgstr "ଗୋଟିଏ ଫାଇଲ ତନ୍ତ୍ର ତିଆରି କରନ୍ତୁ"
 
-#: df/output.c:53
+#: df/output.c:54
 msgid "1K-blocks"
 msgstr ""
 
-#: df/output.c:55
+#: df/output.c:56
 msgid "Size"
 msgstr ""
 
-#: df/output.c:56
+#: df/output.c:57
 msgid "Used"
 msgstr ""
 
-#: df/output.c:57
+#: df/output.c:58
 msgid "Available"
 msgstr ""
 
-#: df/output.c:58
+#: df/output.c:59
 msgid "Use%"
 msgstr ""
 
-#: df/output.c:60
+#: df/output.c:61
 msgid "Inodes"
 msgstr ""
 
-#: df/output.c:61
+#: df/output.c:62
 msgid "IUsed"
 msgstr ""
 
-#: df/output.c:62
+#: df/output.c:63
 msgid "IFree"
 msgstr ""
 
-#: df/output.c:63
+#: df/output.c:64
 msgid "IUse%"
 msgstr ""
 
@@ -1971,7 +1971,7 @@ msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 msgid "%s: unknown command\n"
 msgstr "%s: ଅଜଣା ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/config.c:73 fish/config.c:112
+#: fish/config.c:74 fish/config.c:113
 #, fuzzy, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
@@ -2092,48 +2092,48 @@ msgstr ""
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "ଅଧିକ ସୂଚନା ପାଇଁ,  man ପୃଷ୍ଠା ଦେଖନ୍ତୁ %s(1).\n"
 
-#: fish/fish.c:256
+#: fish/fish.c:243
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ଗୋଟିଏ ସଂଖ୍ୟା ନୁହଁ: %s\n"
 
-#: fish/fish.c:263
+#: fish/fish.c:250
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: ସୁଦୂର: $GUESTFISH_PID ନିଶ୍ଚିତ ଭାବରେ PID ରେ ସୁଦୂର ପଦ୍ଧତିରେ ସେଟ ହୋଇଛି\n"
 
-#: fish/fish.c:313
+#: fish/fish.c:300
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: କେବଳ ଗୋଟିଏ -f ପ୍ରାଚଳ ଦିଆହୋଇଛି\n"
 
-#: fish/fish.c:468
+#: fish/fish.c:455
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ଏବଂ --remote ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକ ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:463
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ ସହିତ ଅତିରିକ୍ତ ପ୍ରଚଳଗୁଡ଼ିକ\n"
 
-#: fish/fish.c:482
+#: fish/fish.c:469
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:540
+#: fish/fish.c:527
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:544
+#: fish/fish.c:531
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:632
+#: fish/fish.c:619
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2153,45 +2153,45 @@ msgstr ""
 "      'quit' shellରୁ ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ\n"
 "\n"
 
-#: fish/fish.c:776
+#: fish/fish.c:763
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:782 fish/fish.c:799
+#: fish/fish.c:769 fish/fish.c:786
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:780
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:823
+#: fish/fish.c:810
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:840
+#: fish/fish.c:827
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:908
+#: fish/fish.c:895
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:1054
+#: fish/fish.c:1041
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:1056
+#: fish/fish.c:1043
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:1067
+#: fish/fish.c:1054
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2202,7 +2202,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:1075
+#: fish/fish.c:1062
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2211,13 +2211,13 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:1080
+#: fish/fish.c:1067
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1096
+#: fish/fish.c:1083
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2225,31 +2225,31 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1253
+#: fish/fish.c:1240
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
 
-#: fish/fish.c:1451
+#: fish/fish.c:1438
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1457
+#: fish/fish.c:1444
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1471
+#: fish/fish.c:1458
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1490
+#: fish/fish.c:1477
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2345,7 +2345,7 @@ msgstr ""
 msgid "%s mounted on %s\n"
 msgstr "ସ୍ଥାପନ ବିନ୍ଦୁଗୁଡ଼ିକୁ ଦର୍ଶାନ୍ତୁ"
 
-#: fish/keys.c:52
+#: fish/keys.c:53
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
@@ -2355,12 +2355,12 @@ msgstr ""
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "ସ୍ଥାନୀୟ ଡିରେକ୍ଟୋରୀକୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ 'lcd directory' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/man.c:34
+#: fish/man.c:35
 #, c-format
 msgid "use 'man' without parameters to open the manual\n"
 msgstr ""
 
-#: fish/man.c:53
+#: fish/man.c:54
 #, fuzzy, c-format
 msgid "the external 'man' program failed\n"
 msgstr "ବାହ୍ୟ ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s"
@@ -2549,7 +2549,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fuse/guestmount.c:911
+#: fuse/guestmount.c:912
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2598,17 +2598,17 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fuse/guestmount.c:1142
+#: fuse/guestmount.c:1130
 #, fuzzy, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: ନିଶ୍ଚିତ ଭାବରେ ଗୋଟିଏ -a ଏବଂ ଅତିକମରେ ଗୋଟିଏ -m ବିକଳ୍ପ ଥିବା ଉଚିତ\n"
 
-#: fuse/guestmount.c:1150
+#: fuse/guestmount.c:1138
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ଆପଣଙ୍କୁ ହୋଷ୍ଟ ଫାଇଲତନ୍ତ୍ରରେ ଗୋଟିଏ ସ୍ଥାପନ ବିନ୍ଦୁ ଉଲ୍ଲେଖ କରିବାକୁ ହେବ\n"
 
-#: inspector/virt-inspector.c:74
+#: inspector/virt-inspector.c:76
 #, fuzzy, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -2648,7 +2648,7 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: inspector/virt-inspector.c:261
+#: inspector/virt-inspector.c:263
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2665,17 +2665,17 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:286
+#: inspector/virt-inspector.c:288
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:298
+#: inspector/virt-inspector.c:300
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:306
+#: inspector/virt-inspector.c:308
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
@@ -2799,7 +2799,7 @@ msgstr "ଗୋଟିଏ ପ୍ରକାର ସହିତ ମେଳଖାଉଥି
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:61
+#: rescue/virt-rescue.c:63
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2843,12 +2843,12 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: rescue/virt-rescue.c:178
+#: rescue/virt-rescue.c:180
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
 
-#: rescue/virt-rescue.c:417
+#: rescue/virt-rescue.c:419
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
@@ -2880,6 +2880,26 @@ msgstr ""
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
+#: src/dbdump.c:87
+#, fuzzy
+msgid "unexpected end of output from db_dump command before end of header"
+msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
+
+#: src/dbdump.c:100 src/dbdump.c:112
+#, fuzzy
+msgid "unexpected line from db_dump command, no space prefix"
+msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
+
+#: src/dbdump.c:129
+#, fuzzy
+msgid "unexpected end of output from db_dump command before end of data"
+msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
+
+#: src/dbdump.c:210
+#, fuzzy
+msgid "unexpected non-hex digits in output of db_dump command"
+msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
+
 #: src/filearch.c:153
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
@@ -2891,80 +2911,81 @@ msgid ""
 "compiled without PCRE or libmagic libraries"
 msgstr ""
 
-#: src/guestfs.c:177
+#: src/guestfs.c:178
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ସମାନ ନିୟନ୍ତ୍ରଣରେ ଦୁଇଥର ଡ଼ାକିଥିଲା\n"
 
-#: src/guestfs.c:302
+#: src/guestfs.c:333
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:361
+#: src/guestfs.c:392
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: ତ୍ରୁଟି: %s\n"
 
-#: src/guestfs.c:908
+#: src/guestfs.c:939
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:489 src/inspect.c:1183 src/inspect.c:2901 src/inspect.c:2944
-#: src/inspect.c:2994 src/inspect.c:3038
+#: src/inspect.c:263
+msgid "not a Windows guest, or systemroot could not be determined"
+msgstr ""
+
+#: src/inspect.c:279
+msgid "not a Windows guest, or CurrentControlSet could not be determined"
+msgstr ""
+
+#: src/inspect.c:517
+#, fuzzy, c-format
+msgid "%s: temporary directory not found"
+msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମାଣ କରିପାରିବେ ନାହିଁ"
+
+#: src/inspect.c:533 src/inspect_fs.c:470 src/inspect_fs.c:514
+#: src/inspect_fs_unix.c:170 src/inspect_fs_unix.c:511
+#: src/inspect_fs_unix.c:753
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:1217
-#, fuzzy
-msgid "could not parse /etc/fstab or empty file"
-msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
-
-#: src/inspect.c:1432
-#, c-format
-msgid "cannot resolve Windows %%SYSTEMROOT%%"
-msgstr ""
-
-#: src/inspect.c:1914 src/inspect.c:1927
-#, fuzzy, c-format
-msgid "could not parse integer in version number: %s"
-msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
-
-#: src/inspect.c:2023
+#: src/inspect.c:570
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:2035
+#: src/inspect.c:582
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:2175
-msgid "not a Windows guest, or systemroot could not be determined"
+#: src/inspect.c:592 src/inspect_apps.c:474
+msgid ""
+"inspection API not available since this version of libguestfs was compiled "
+"without PCRE or hivex libraries"
 msgstr ""
 
-#: src/inspect.c:2191
-msgid "not a Windows guest, or CurrentControlSet could not be determined"
-msgstr ""
+#: src/inspect_fs.c:326 src/inspect_fs.c:339
+#, fuzzy, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
 
-#: src/inspect.c:2518 src/inspect.c:2540 src/inspect.c:2565
-#, fuzzy
-msgid "unexpected end of output from db_dump command"
-msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
-
-#: src/inspect.c:3003
+#: src/inspect_fs.c:479
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect.c:3066
-msgid ""
-"inspection API not available since this version of libguestfs was compiled "
-"without PCRE or hivex libraries"
+#: src/inspect_fs_unix.c:545
+#, fuzzy
+msgid "could not parse /etc/fstab or empty file"
+msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
+
+#: src/inspect_fs_windows.c:112
+#, c-format
+msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
 #: src/launch.c:98
