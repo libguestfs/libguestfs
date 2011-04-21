@@ -431,3 +431,34 @@ guestfish drive letters
 
 There should be an option to mount all Windows drives as separate
 paths, like C: => /c/, D: => /d/ etc.
+
+Select machines by UUID
+-----------------------
+
+guestfish -u UUID <or> guestfish -d UUID
+
+More inspection features
+------------------------
+
+- last shutdown time
+- DHCP address
+- last time the software was updated
+- last user who logged in
+- lastlog, last, who
+
+Get the guest icon
+------------------
+
+- For Linux guests, use /etc/favicon.png if available, else get it in
+  a distro-specific manner.
+- For Windows guests, parse it out of c:\windows\explorer.exe
+
+Integrate event log parsing more closely
+----------------------------------------
+
+https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/
+
+We should at least make sure the tools are packaged up for Fedora.  We
+could document formally how to do event log parsing.  Also the above
+only works for Windows Vista and later (since the log format changed),
+so we could extend this to work for earlier versions.
