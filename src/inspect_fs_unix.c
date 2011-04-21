@@ -57,6 +57,12 @@ static pcre *re_fedora;
 static pcre *re_rhel_old;
 static pcre *re_rhel;
 static pcre *re_rhel_no_minor;
+static pcre *re_centos_old;
+static pcre *re_centos;
+static pcre *re_centos_no_minor;
+static pcre *re_scientific_linux_old;
+static pcre *re_scientific_linux;
+static pcre *re_scientific_linux_no_minor;
 static pcre *re_major_minor;
 static pcre *re_aug_seq;
 static pcre *re_xdev;
@@ -83,11 +89,23 @@ compile_regexps (void)
 
   COMPILE (re_fedora, "Fedora release (\\d+)", 0);
   COMPILE (re_rhel_old,
-           "(?:Red Hat|CentOS|Scientific Linux).*release (\\d+).*Update (\\d+)", 0);
+           "Red Hat.*release (\\d+).*Update (\\d+)", 0);
   COMPILE (re_rhel,
-           "(?:Red Hat|CentOS|Scientific Linux).*release (\\d+)\\.(\\d+)", 0);
+           "Red Hat.*release (\\d+)\\.(\\d+)", 0);
   COMPILE (re_rhel_no_minor,
-           "(?:Red Hat|CentOS|Scientific Linux).*release (\\d+)", 0);
+           "Red Hat.*release (\\d+)", 0);
+  COMPILE (re_centos_old,
+           "CentOS.*release (\\d+).*Update (\\d+)", 0);
+  COMPILE (re_centos,
+           "CentOS.*release (\\d+)\\.(\\d+)", 0);
+  COMPILE (re_centos_no_minor,
+           "CentOS.*release (\\d+)", 0);
+  COMPILE (re_scientific_linux_old,
+           "Scientific Linux.*release (\\d+).*Update (\\d+)", 0);
+  COMPILE (re_scientific_linux,
+           "Scientific Linux.*release (\\d+)\\.(\\d+)", 0);
+  COMPILE (re_scientific_linux_no_minor,
+           "Scientific Linux.*release (\\d+)", 0);
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
@@ -101,6 +119,12 @@ free_regexps (void)
   pcre_free (re_rhel_old);
   pcre_free (re_rhel);
   pcre_free (re_rhel_no_minor);
+  pcre_free (re_centos_old);
+  pcre_free (re_centos);
+  pcre_free (re_centos_no_minor);
+  pcre_free (re_scientific_linux_old);
+  pcre_free (re_scientific_linux);
+  pcre_free (re_scientific_linux_no_minor);
   pcre_free (re_major_minor);
   pcre_free (re_aug_seq);
   pcre_free (re_xdev);
@@ -279,6 +303,50 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     }
     else if ((major = match1 (g, fs->product_name, re_rhel_no_minor)) != NULL) {
       fs->distro = OS_DISTRO_RHEL;
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1)
+        return -1;
+      fs->minor_version = 0;
+    }
+    else if (match2 (g, fs->product_name, re_centos_old, &major, &minor) ||
+             match2 (g, fs->product_name, re_centos, &major, &minor)) {
+      fs->distro = OS_DISTRO_CENTOS;
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    }
+    else if ((major = match1 (g, fs->product_name, re_centos_no_minor)) != NULL) {
+      fs->distro = OS_DISTRO_CENTOS;
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1)
+        return -1;
+      fs->minor_version = 0;
+    }
+    else if (match2 (g, fs->product_name, re_scientific_linux_old, &major, &minor) ||
+             match2 (g, fs->product_name, re_scientific_linux, &major, &minor)) {
+      fs->distro = OS_DISTRO_SCIENTIFIC_LINUX;
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    }
+    else if ((major = match1 (g, fs->product_name, re_scientific_linux_no_minor)) != NULL) {
+      fs->distro = OS_DISTRO_SCIENTIFIC_LINUX;
       fs->major_version = guestfs___parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)

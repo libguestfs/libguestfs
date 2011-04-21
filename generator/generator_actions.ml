@@ -791,6 +791,10 @@ Currently defined distros are:
 
 Arch Linux.
 
+=item \"centos\"
+
+CentOS.
+
 =item \"debian\"
 
 Debian.
@@ -825,7 +829,11 @@ Some Red Hat-derived distro.
 
 =item \"rhel\"
 
-Red Hat Enterprise Linux and some derivatives.
+Red Hat Enterprise Linux.
+
+=item \"scientificlinux\"
+
+Scientific Linux.
 
 =item \"slackware\"
 

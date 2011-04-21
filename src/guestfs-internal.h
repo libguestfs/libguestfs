@@ -241,6 +241,8 @@ enum inspect_os_distro {
   OS_DISTRO_LINUX_MINT,
   OS_DISTRO_MANDRIVA,
   OS_DISTRO_SLACKWARE,
+  OS_DISTRO_CENTOS,
+  OS_DISTRO_SCIENTIFIC_LINUX,
 };
 
 enum inspect_os_package_format {
