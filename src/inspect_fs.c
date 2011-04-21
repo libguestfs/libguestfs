@@ -223,9 +223,9 @@ check_filesystem (guestfs_h *g, const char *device,
    * would *not* be Windows root disks.  (RHBZ#674130)
    */
   else if (is_file_nocase (g, "/AUTOEXEC.BAT") > 0 ||
-           is_dir_nocase (g, "/WINDOWS") > 0 ||
-           is_dir_nocase (g, "/WIN32") > 0 ||
-           is_dir_nocase (g, "/WINNT") > 0 ||
+           is_dir_nocase (g, "/WINDOWS/SYSTEM32") > 0 ||
+           is_dir_nocase (g, "/WIN32/SYSTEM32") > 0 ||
+           is_dir_nocase (g, "/WINNT/SYSTEM32") > 0 ||
            is_file_nocase (g, "/boot.ini") > 0 ||
            is_file_nocase (g, "/ntldr") > 0) {
     fs->is_root = 1;
