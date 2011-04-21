@@ -2003,11 +2003,11 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
             fs->windows_systemroot);
 
   char *software_path = case_sensitive_path_silently (g, software);
-  if (!software_path)
-    /* If the software hive doesn't exist, just accept that we cannot
-     * find product_name etc.
-     */
-    return 0;
+  if (!software_path) {
+    /* Missing software hive is a problem. */
+    error (g, "no HKLM\\SOFTWARE hive found in the guest");
+    return NULL;
+  }
 
   struct guestfs_application_list *apps = NULL, *ret = NULL;
   hive_h *h = NULL;
