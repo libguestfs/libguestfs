@@ -194,6 +194,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   char *ret;
   switch (fs->distro) {
   case OS_DISTRO_ARCHLINUX: ret = safe_strdup (g, "archlinux"); break;
+  case OS_DISTRO_CENTOS: ret = safe_strdup (g, "centos"); break;
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;
@@ -203,6 +204,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
+  case OS_DISTRO_SCIENTIFIC_LINUX: ret = safe_strdup (g, "scientificlinux"); break;
   case OS_DISTRO_SLACKWARE: ret = safe_strdup (g, "slackware"); break;
   case OS_DISTRO_WINDOWS: ret = safe_strdup (g, "windows"); break;
   case OS_DISTRO_UBUNTU: ret = safe_strdup (g, "ubuntu"); break;
