@@ -34,51 +34,11 @@ let rec generate_python_c () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
-#define PY_SSIZE_T_CLEAN 1
-#include <Python.h>
-
-#if PY_VERSION_HEX < 0x02050000
-typedef int Py_ssize_t;
-#define PY_SSIZE_T_MAX INT_MAX
-#define PY_SSIZE_T_MIN INT_MIN
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
-#include \"guestfs.h\"
-
-#ifndef HAVE_PYCAPSULE_NEW
-typedef struct {
-  PyObject_HEAD
-  guestfs_h *g;
-} Pyguestfs_Object;
-#endif
-
-static guestfs_h *
-get_handle (PyObject *obj)
-{
-  assert (obj);
-  assert (obj != Py_None);
-#ifndef HAVE_PYCAPSULE_NEW
-  return ((Pyguestfs_Object *) obj)->g;
-#else
-  return (guestfs_h*) PyCapsule_GetPointer(obj, \"guestfs_h\");
-#endif
-}
-
-static PyObject *
-put_handle (guestfs_h *g)
-{
-  assert (g);
-#ifndef HAVE_PYCAPSULE_NEW
-  return
-    PyCObject_FromVoidPtrAndDesc ((void *) g, (char *) \"guestfs_h\", NULL);
-#else
-  return PyCapsule_New ((void *) g, \"guestfs_h\", NULL);
-#endif
-}
+#include \"guestfs-py.h\"
 
 /* This list should be freed (but not the strings) after use. */
 static char **
@@ -157,45 +117,6 @@ free_strings (char **argv)
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
   free (argv);
-}
-
-static PyObject *
-py_guestfs_create (PyObject *self, PyObject *args)
-{
-  guestfs_h *g;
-
-  g = guestfs_create ();
-  if (g == NULL) {
-    PyErr_SetString (PyExc_RuntimeError,
-                     \"guestfs.create: failed to allocate handle\");
-    return NULL;
-  }
-  guestfs_set_error_handler (g, NULL, NULL);
-  /* This can return NULL, but in that case put_handle will have
-   * set the Python error string.
-   */
-  return put_handle (g);
-}
-
-static PyObject *
-py_guestfs_close (PyObject *self, PyObject *args)
-{
-  PyThreadState *py_save = NULL;
-  PyObject *py_g;
-  guestfs_h *g;
-
-  if (!PyArg_ParseTuple (args, (char *) \"O:guestfs_close\", &py_g))
-    return NULL;
-  g = get_handle (py_g);
-
-  if (PyEval_ThreadsInitialized ())
-    py_save = PyEval_SaveThread ();
-  guestfs_close (g);
-  if (PyEval_ThreadsInitialized ())
-    PyEval_RestoreThread (py_save);
-
-  Py_INCREF (Py_None);
-  return Py_None;
 }
 
 ";
