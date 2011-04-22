@@ -91,6 +91,7 @@ py_guestfs_event_callback_wrapper (guestfs_h *g,
                                    const char *buf, size_t buf_len,
                                    const uint64_t *array, size_t array_len)
 {
+  PyGILState_STATE py_save = PyGILState_UNLOCKED;
   PyObject *py_callback = callback;
   PyObject *py_array;
   PyObject *args;
@@ -109,7 +110,14 @@ py_guestfs_event_callback_wrapper (guestfs_h *g,
                         (unsigned PY_LONG_LONG) event, event_handle,
                         buf, buf_len, py_array);
 
+  if (PyEval_ThreadsInitialized ())
+    py_save = PyGILState_Ensure ();
+
   py_r = PyEval_CallObject (py_callback, args);
+
+  if (PyEval_ThreadsInitialized ())
+    PyGILState_Release (py_save);
+
   Py_DECREF (args);
 
   if (py_r != NULL)
