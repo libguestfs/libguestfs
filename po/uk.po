@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-18 20:45+0100\n"
+"POT-Creation-Date: 2011-04-22 22:23+0100\n"
 "PO-Revision-Date: 2011-03-22 15:28+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3051,32 +3051,32 @@ msgstr "libguestfs: помилка: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
 
-#: src/inspect.c:263
+#: src/inspect.c:265
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:279
+#: src/inspect.c:281
 #, fuzzy
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:517
+#: src/inspect.c:519
 #, fuzzy, c-format
 msgid "%s: temporary directory not found"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/inspect.c:533 src/inspect_fs.c:470 src/inspect_fs.c:514
-#: src/inspect_fs_unix.c:170 src/inspect_fs_unix.c:511
-#: src/inspect_fs_unix.c:753
+#: src/inspect.c:535 src/inspect_fs.c:474 src/inspect_fs.c:518
+#: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:579
+#: src/inspect_fs_unix.c:821
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect.c:570
+#: src/inspect.c:572
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:582
+#: src/inspect.c:584
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3086,7 +3086,7 @@ msgstr ""
 "кореневого пристрою, дані якого раніше було повернуто функцією "
 "guestfs_inspect_os"
 
-#: src/inspect.c:592 src/inspect_apps.c:617
+#: src/inspect.c:594 src/inspect_apps.c:617
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
@@ -3099,12 +3099,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect_fs.c:479
+#: src/inspect_fs.c:483
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: файл порожній"
 
-#: src/inspect_fs_unix.c:545
+#: src/inspect_fs_unix.c:613
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 

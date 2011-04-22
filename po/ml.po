@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-18 20:45+0100\n"
+"POT-Creation-Date: 2011-04-22 22:23+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -2931,38 +2931,38 @@ msgstr "libguestfs: പിശക്: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:263
+#: src/inspect.c:265
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:279
+#: src/inspect.c:281
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:517
+#: src/inspect.c:519
 #, fuzzy, c-format
 msgid "%s: temporary directory not found"
 msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
 
-#: src/inspect.c:533 src/inspect_fs.c:470 src/inspect_fs.c:514
-#: src/inspect_fs_unix.c:170 src/inspect_fs_unix.c:511
-#: src/inspect_fs_unix.c:753
+#: src/inspect.c:535 src/inspect_fs.c:474 src/inspect_fs.c:518
+#: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:579
+#: src/inspect_fs_unix.c:821
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:570
+#: src/inspect.c:572
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:582
+#: src/inspect.c:584
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:592 src/inspect_apps.c:617
+#: src/inspect.c:594 src/inspect_apps.c:617
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
@@ -2973,12 +2973,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
 
-#: src/inspect_fs.c:479
+#: src/inspect_fs.c:483
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect_fs_unix.c:545
+#: src/inspect_fs_unix.c:613
 #, fuzzy
 msgid "could not parse /etc/fstab or empty file"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
