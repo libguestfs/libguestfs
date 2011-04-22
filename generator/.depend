@@ -86,10 +86,12 @@ generator_perl.cmx: generator_utils.cmx generator_types.cmx \
     generator_actions.cmx
 generator_python.cmo: generator_utils.cmi generator_types.cmo \
     generator_structs.cmi generator_pr.cmi generator_optgroups.cmo \
-    generator_docstrings.cmo generator_c.cmo generator_actions.cmi
+    generator_events.cmo generator_docstrings.cmo generator_c.cmo \
+    generator_actions.cmi
 generator_python.cmx: generator_utils.cmx generator_types.cmx \
     generator_structs.cmx generator_pr.cmx generator_optgroups.cmx \
-    generator_docstrings.cmx generator_c.cmx generator_actions.cmx
+    generator_events.cmx generator_docstrings.cmx generator_c.cmx \
+    generator_actions.cmx
 generator_ruby.cmo: generator_utils.cmi generator_types.cmo \
     generator_structs.cmi generator_pr.cmi generator_optgroups.cmo \
     generator_events.cmo generator_docstrings.cmo generator_c.cmo \
