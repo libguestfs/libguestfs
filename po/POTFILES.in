@@ -122,6 +122,7 @@ perl/bindtests.pl
 perl/lib/Sys/Guestfs.pm
 perl/lib/Sys/Guestfs/Lib.pm
 php/extension/guestfs_php.c
+python/guestfs-py-byhand.c
 python/guestfs-py.c
 regressions/rhbz501893.c
 regressions/test-launch-race.pl
