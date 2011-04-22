@@ -256,11 +256,15 @@ delete_event_callback (g, event_handle)
       int event_handle;
 PREINIT:
       char key[64];
+      SV *cb;
    CODE:
       snprintf (key, sizeof key, \"_perl_event_%%d\", event_handle);
-      guestfs_set_private (g, key, NULL);
-
-      guestfs_delete_event_callback (g, event_handle);
+      cb = guestfs_get_private (g, key);
+      if (cb) {
+        SvREFCNT_dec (cb);
+        guestfs_set_private (g, key, NULL);
+        guestfs_delete_event_callback (g, event_handle);
+      }
 
 SV *
 last_errno (g)
