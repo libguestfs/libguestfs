@@ -462,3 +462,13 @@ We should at least make sure the tools are packaged up for Fedora.  We
 could document formally how to do event log parsing.  Also the above
 only works for Windows Vista and later (since the log format changed),
 so we could extend this to work for earlier versions.
+
+Integrate virt-inspector with CMDBs
+-----------------------------------
+
+Either integrate virt-inspector with Configuration Management
+Databases (CMDBs) or at least check that virt-inspector produces the
+right range of data so that integration would be possible.  The
+standards for CMDBs come from the DMTF, see eg:
+
+http://dmtf.org/news/pr/2009/7/dmtf-releases-cmdbf-standard-federating-configuration-management-data
