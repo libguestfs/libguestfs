@@ -879,29 +879,6 @@ representation.  Also consider how it might work in guestfish.
 
 =back
 
-=head2 PROTOCOL LIMITS
-
-Internally libguestfs uses a message-based protocol to pass API calls
-and their responses to and from a small "appliance" (see L</INTERNALS>
-for plenty more detail about this).  The maximum message size used by
-the protocol is slightly less than 4 MB.  For some API calls you may
-need to be aware of this limit.  The API calls which may be affected
-are individually documented, with a link back to this section of the
-documentation.
-
-A simple call such as L</guestfs_cat> returns its result (the file
-data) in a simple string.  Because this string is at some point
-internally encoded as a message, the maximum size that it can return
-is slightly under 4 MB.  If the requested file is larger than this
-then you will get an error.
-
-In order to transfer large files into and out of the guest filesystem,
-you need to use particular calls that support this.  The sections
-L</UPLOADING> and L</DOWNLOADING> document how to do this.
-
-You might also consider mounting the disk image using our FUSE
-filesystem support (L<guestmount(1)>).
-
 =head2 KEYS AND PASSPHRASES
 
 Certain libguestfs calls take a parameter that contains sensitive key
@@ -2772,6 +2749,97 @@ will work with libguestfs.
 Language bindings.
 
 =back
+
+=head1 LIMITS
+
+=head2 PROTOCOL LIMITS
+
+Internally libguestfs uses a message-based protocol to pass API calls
+and their responses to and from a small "appliance" (see L</INTERNALS>
+for plenty more detail about this).  The maximum message size used by
+the protocol is slightly less than 4 MB.  For some API calls you may
+need to be aware of this limit.  The API calls which may be affected
+are individually documented, with a link back to this section of the
+documentation.
+
+A simple call such as L</guestfs_cat> returns its result (the file
+data) in a simple string.  Because this string is at some point
+internally encoded as a message, the maximum size that it can return
+is slightly under 4 MB.  If the requested file is larger than this
+then you will get an error.
+
+In order to transfer large files into and out of the guest filesystem,
+you need to use particular calls that support this.  The sections
+L</UPLOADING> and L</DOWNLOADING> document how to do this.
+
+You might also consider mounting the disk image using our FUSE
+filesystem support (L<guestmount(1)>).
+
+=head2 MAXIMUM NUMBER OF DISKS
+
+When using virtio disks (the default) the current limit is B<25>
+disks.
+
+Virtio itself consumes 1 virtual PCI slot per disk, and PCI is limited
+to 31 slots.  However febootstrap only understands disks with names
+C</dev/vda> through C</dev/vdz> (26 letters) and it reserves one disk
+for its own purposes.
+
+We are working to substantially raise this limit in future versions
+but it requires complex changes to qemu.
+
+In future versions of libguestfs it should also be possible to "hot
+plug" disks (add and remove disks after calling L</guestfs_launch>).
+This also requires changes to qemu.
+
+=head2 MAXIMUM NUMBER OF PARTITIONS PER DISK
+
+Virtio limits the maximum number of partitions per disk to B<15>.
+
+This is because it reserves 4 bits for the minor device number (thus
+C</dev/vda>, and C</dev/vda1> through C</dev/vda15>).
+
+If you attach a disk with more than 15 partitions, the extra
+partitions are ignored by libguestfs.
+
+=head2 MAXIMUM SIZE OF A DISK
+
+Probably the limit is between 2**63-1 and 2**64-1 bytes.
+
+We have tested block devices up to 1 exabyte (2**60 or
+1,152,921,504,606,846,976 bytes) using sparse files backed by an XFS
+host filesystem.
+
+=head2 MAXIMUM SIZE OF A PARTITION
+
+The MBR (ie. classic MS-DOS) partitioning scheme uses 32 bit sector
+numbers.  Assuming a 512 byte sector size, this means that MBR cannot
+address a partition located beyond 2 TB on the disk.
+
+It is recommended that you use GPT partitions on disks which are
+larger than this size.  GPT uses 64 bit sector numbers and so can
+address partitions which are theoretically larger than the largest
+disk we could support.
+
+=head2 MAXIMUM SIZE OF A FILESYSTEM, FILES, DIRECTORIES
+
+This depends on the filesystem type.  libguestfs itself does not
+impose any known limit.  Consult Wikipedia or the filesystem
+documentation to find out what these limits are.
+
+=head2 MAXIMUM UPLOAD AND DOWNLOAD
+
+The API functions L</guestfs_upload>, L</guestfs_download>,
+L</guestfs_tar_in>, L</guestfs_tar_out> and the like allow unlimited
+sized uploads and downloads.
+
+=head2 INSPECTION LIMITS
+
+The inspection code has several arbitrary limits on things like the
+size of Windows Registry hive it will read, and the length of product
+name.  These are intended to stop a malicious guest from consuming
+arbitrary amounts of memory and disk space on the host, and should not
+be reached in practice.  See the source code for more information.
 
 =head1 ENVIRONMENT VARIABLES
 
