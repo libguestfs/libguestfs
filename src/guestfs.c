@@ -169,9 +169,6 @@ guestfs_create (void)
 void
 guestfs_close (guestfs_h *g)
 {
-  int i;
-  guestfs_h *gg;
-
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
     fprintf (stderr, _("guestfs_close: called twice on the same handle\n"));
@@ -219,6 +216,8 @@ guestfs_close (guestfs_h *g)
   remove_tmpdir (g);
 
   if (g->cmdline) {
+    int i;
+
     for (i = 0; i < g->cmdline_size; ++i)
       free (g->cmdline[i]);
     free (g->cmdline);
@@ -231,6 +230,8 @@ guestfs_close (guestfs_h *g)
   if (handles == g)
     handles = g->next;
   else {
+    guestfs_h *gg;
+
     for (gg = handles; gg->next != g; gg = gg->next)
       ;
     gg->next = g->next;
