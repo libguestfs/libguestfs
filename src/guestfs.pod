@@ -1962,12 +1962,13 @@ To attach a named piece of data, use the following call:
 
 C<key> is the name to associate with this data, and C<data> is an
 arbitrary pointer (which can be C<NULL>).  Any previous item with the
-same name is overwritten.
+same key is overwritten.
 
-You can use any C<key> you want, but names beginning with an
-underscore character are reserved for internal libguestfs purposes
-(for implementing language bindings).  It is recommended to prefix the
-name with some unique string to avoid collisions with other users.
+You can use any C<key> you want, but your key should I<not> start with
+an underscore character.  Keys beginning with an underscore character
+are reserved for internal libguestfs purposes (eg. for implementing
+language bindings).  It is recommended that you prefix the key with
+some unique string to avoid collisions with other users.
 
 To retrieve the pointer, use:
 
