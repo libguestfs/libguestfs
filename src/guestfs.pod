@@ -1293,15 +1293,16 @@ L</MULTIPLE HANDLES AND MULTIPLE THREADS> below.
 
 Create a connection handle.
 
-You have to call L</guestfs_add_drive_opts> (or one of the equivalent
-calls) on the handle at least once.
+On success this returns a non-NULL pointer to a handle.  On error it
+returns NULL.
 
-This function returns a non-NULL pointer to a handle on success or
-NULL on error.
+You have to "configure" the handle after creating it.  This includes
+calling L</guestfs_add_drive_opts> (or one of the equivalent calls) on
+the handle at least once.
 
 After configuring the handle, you have to call L</guestfs_launch>.
 
-You may also want to configure error handling for the handle.  See
+You may also want to configure error handling for the handle.  See the
 L</ERROR HANDLING> section below.
 
 =head2 guestfs_close
@@ -1309,6 +1310,12 @@ L</ERROR HANDLING> section below.
  void guestfs_close (guestfs_h *g);
 
 This closes the connection handle and frees up all resources used.
+
+If autosync was set on the handle and the handle was launched, then
+this implicitly calls various functions to unmount filesystems and
+sync the disk.  See L</guestfs_set_autosync> for more details.
+
+If a close callback was set on the handle, then it is called.
 
 =head1 ERROR HANDLING
 
