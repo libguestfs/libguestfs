@@ -354,7 +354,7 @@ doing:
 
  guestfs_download (g, filename, "/dev/stdout");
 
-and you can write tar output to a pipe C<fd> by doing:
+and you can write tar output to a file descriptor C<fd> by doing:
 
  char devfd[64];
  snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
