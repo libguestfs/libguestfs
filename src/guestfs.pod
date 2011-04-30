@@ -1285,7 +1285,7 @@ Create a handle by calling L</guestfs_create>.  Call L</guestfs_close>
 to free the handle and release all resources used.
 
 For information on using multiple handles and threads, see the section
-L</MULTIPLE HANDLES AND MULTIPLE THREADS> below.
+L</MULTIPLE HANDLES AND MULTIPLE THREADS> above.
 
 =head2 guestfs_create
 
