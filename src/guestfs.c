@@ -175,6 +175,13 @@ guestfs_close (guestfs_h *g)
     return;
   }
 
+  if (g->trace) {
+    const char trace_msg[] = "close";
+
+    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE,
+                                      trace_msg, strlen (trace_msg));
+  }
+
   debug (g, "closing guestfs handle %p (state %d)", g, g->state);
 
   /* Try to sync if autosync flag is set. */
