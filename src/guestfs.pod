@@ -1672,7 +1672,8 @@ old functions C<guestfs_set_log_message_callback>,
 C<guestfs_set_subprocess_quit_callback>,
 C<guestfs_set_launch_done_callback>, C<guestfs_set_close_callback> and
 C<guestfs_set_progress_callback> are no longer documented in this
-manual page.
+manual page.  Because of the ABI guarantee, the old functions continue
+to work.
 
 Handles generate events when certain things happen, such as log
 messages being generated, progress messages during long-running
