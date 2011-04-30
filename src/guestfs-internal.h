@@ -143,7 +143,7 @@ struct guestfs_h
   char *qemu_help, *qemu_version; /* Output of qemu -help, qemu -version. */
 
   char **cmdline;		/* Qemu command line. */
-  int cmdline_size;
+  size_t cmdline_size;
 
   int verbose;
   int trace;
@@ -342,8 +342,8 @@ extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char
 #endif
 extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern void guestfs___free_string_list (char **);
-extern int guestfs___checkpoint_cmdline (guestfs_h *g);
-extern void guestfs___rollback_cmdline (guestfs_h *g, int pos);
+extern size_t guestfs___checkpoint_cmdline (guestfs_h *g);
+extern void guestfs___rollback_cmdline (guestfs_h *g, size_t pos);
 extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
 extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
