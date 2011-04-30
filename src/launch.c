@@ -104,16 +104,16 @@ add_cmdline (guestfs_h *g, const char *str)
   return 0;
 }
 
-int
+size_t
 guestfs___checkpoint_cmdline (guestfs_h *g)
 {
   return g->cmdline_size;
 }
 
 void
-guestfs___rollback_cmdline (guestfs_h *g, int pos)
+guestfs___rollback_cmdline (guestfs_h *g, size_t pos)
 {
-  int i;
+  size_t i;
 
   assert (g->cmdline_size >= pos);
 
@@ -127,7 +127,7 @@ guestfs___rollback_cmdline (guestfs_h *g, int pos)
 char **
 guestfs__debug_cmdline (guestfs_h *g)
 {
-  int i;
+  size_t i;
   char **r;
 
   if (g->cmdline == NULL) {

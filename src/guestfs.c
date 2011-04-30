@@ -216,7 +216,7 @@ guestfs_close (guestfs_h *g)
   remove_tmpdir (g);
 
   if (g->cmdline) {
-    int i;
+    size_t i;
 
     for (i = 0; i < g->cmdline_size; ++i)
       free (g->cmdline[i]);

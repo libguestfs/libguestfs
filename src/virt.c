@@ -305,7 +305,7 @@ static int
 guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
                            const struct guestfs___add_libvirt_dom_argv *optargs)
 {
-  int cmdline_pos;
+  size_t cmdline_pos;
   int r;
   int readonly;
   const char *iface;
