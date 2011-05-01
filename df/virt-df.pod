@@ -22,26 +22,39 @@ Old style:
 
 C<virt-df> is a command line tool to display free space on virtual
 machine filesystems.  Unlike other tools, it doesn't just display the
-amount of space allocated to a virtual machine, but can look inside
-the virtual machine to see how much space is really being used.
+size of disk allocated to a virtual machine, but can look inside disk
+images to see how much space is really being used.
 
-It is like the L<df(1)> command, but for virtual machines, except that
-it also works for Windows virtual machines.
+If used without any I<-a> or I<-d> arguments, C<virt-df> checks with
+libvirt to get a list of all active and inactive guests, and performs
+a C<df>-type operation on each one in turn, printing out the results.
 
-If used without any arguments, C<virt-df> checks with libvirt to get a
-list of all active and inactive guests, and performs a C<df>-type
-operation on each one in turn, printing out the results.
+If any I<-a> or I<-d> arguments are specified, C<virt-df> performs a
+C<df>-type operation on either the single named libvirt domain, or on
+the disk image(s) listed on the command line (which must all belong to
+a single VM).  In this mode (with arguments), C<virt-df> will I<only
+work for a single guest>.  If you want to run on multiple guests, then
+you have to invoke C<virt-df> multiple times.
 
-If used with any argument(s), C<virt-df> performs a C<df>-type
-operation on either the single named libvirt domain, or on the disk
-image(s) listed on the command line (which must all belong to a single
-VM).  In this mode (with arguments), C<virt-df> will I<only work for a
-single guest>.  If you want to run on multiple guests, then you have
-to invoke C<virt-df> multiple times.
+Use the I<--csv> option to get a format which can be easily parsed by
+other programs.  Other options are similar to the standard L<df(1)>
+command.
 
-Use the C<--csv> option to get a format which can be easily parsed by
-other programs.  Other options are mostly similar to standard C<df>
-options.  See below for the complete list.
+=head1 EXAMPLES
+
+Show disk usage for a single libvirt guest called C<F14x64>.  Make the
+output human-readable:
+
+ # virt-df -d F14x64 -h
+ Filesystem                       Size     Used  Available  Use%
+ F14x64:/dev/sda1                 484M      66M       393M   14%
+ F14x64:/dev/vg_f13x64/lv_root    7.4G     3.4G       4.0G   46%
+
+Show disk usage for a disk image file called C<test.img>:
+
+ $ virt-df -a test1.img
+ Filesystem                  1K-blocks     Used  Available  Use%
+ test1.img:/dev/sda1             99099     1551      92432    2%
 
 =head1 OPTIONS
 
@@ -199,10 +212,10 @@ manual page L<sh(1)> for details.
 
 =head1 SEE ALSO
 
+L<df(1)>,
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-filesystems(1)>,
-L<Sys::Virt(3)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR
@@ -211,7 +224,7 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2010 Red Hat Inc.
+Copyright (C) 2009-2011 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
