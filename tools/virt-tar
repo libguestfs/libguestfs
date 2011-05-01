@@ -63,12 +63,12 @@ Upload a local tarball and unpack it inside C</tmp> in the VM:
 
 =head1 WARNING
 
-You must I<not> use C<virt-tar> with the C<-u> option (upload) on live
+You must I<not> use C<virt-tar> with the I<-u> option (upload) on live
 virtual machines.  If you do this, you risk disk corruption in the VM.
 C<virt-tar> tries to stop you from doing this, but doesn't catch all
 cases.
 
-You can use C<-x> (extract) on live virtual machines, but you might
+You can use I<-x> (extract) on live virtual machines, but you might
 get inconsistent results or errors if there is filesystem activity
 inside the VM.  If the live VM is synched and quiescent, then
 C<virt-tar> will usually work, but the only way to guarantee
@@ -85,14 +85,14 @@ If you want to just view a single file, use L<virt-cat(1)>.  If you
 just want to edit a single file, use L<virt-edit(1)>.  For more
 complex cases you should look at the L<guestfish(1)> tool.
 
-There are two modes of operation: C<-x> (eXtract) downloads a
+There are two modes of operation: I<-x> (eXtract) downloads a
 directory and its contents (recursively) from the virtual machine into
-a local tarball.  C<-u> uploads from a local tarball, unpacking it
+a local tarball.  I<-u> uploads from a local tarball, unpacking it
 into a directory inside the virtual machine.  You cannot use these two
 options together.
 
-In addition, you may need to use the C<-z> (gZip) option to enable
-compression.  When uploading, you have to specify C<-z> if the upload
+In addition, you may need to use the I<-z> (gZip) option to enable
+compression.  When uploading, you have to specify I<-z> if the upload
 file is compressed because virt-tar won't detect this on its own.
 
 C<virt-tar> can only handle tar (optionally gzipped) format tarballs.
@@ -157,10 +157,10 @@ my $mode;
 
 =item B<-u> | B<--upload>
 
-Use C<-x> to extract (download) a directory from a virtual machine
+Use I<-x> to extract (download) a directory from a virtual machine
 to a local tarball.
 
-Use C<-u> to upload and unpack from a local tarball into a virtual
+Use I<-u> to upload and unpack from a local tarball into a virtual
 machine.  Please read the L</WARNING> section above before using this
 option.
 

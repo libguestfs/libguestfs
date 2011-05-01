@@ -40,7 +40,7 @@ recursive.  A simple listing is like the ordinary L<ls(1)> command:
  boot
  [etc.]
 
-With the C<-l> (C<--long>) option, C<virt-ls> shows more detail:
+With the I<-l> (I<--long>) option, C<virt-ls> shows more detail:
 
  $ virt-ls -l -d myguest /
  total 204
@@ -48,7 +48,7 @@ With the C<-l> (C<--long>) option, C<virt-ls> shows more detail:
  dr-xr-xr-x.   5 root root   3072 2009-08-25 19:06 boot
  [etc.]
 
-With the C<-R> (C<--recursive>) option, C<virt-ls> lists the
+With the I<-R> (I<--recursive>) option, C<virt-ls> lists the
 names of files and directories recursively:
 
  $ virt-ls -R -d myguest /tmp

@@ -1139,9 +1139,9 @@ to make guestfish case sensitive.
 
 =item test2.img (etc)
 
-When using the C<-N> or C<--new> option, the prepared disk or
+When using the I<-N> or I<--new> option, the prepared disk or
 filesystem will be created in the file C<test1.img> in the current
-directory.  The second use of C<-N> will use C<test2.img> and so on.
+directory.  The second use of I<-N> will use C<test2.img> and so on.
 Any existing file with the same name will be overwritten.
 
 =back
