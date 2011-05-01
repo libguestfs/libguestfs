@@ -2819,6 +2819,15 @@ We have tested block devices up to 1 exabyte (2**60 or
 1,152,921,504,606,846,976 bytes) using sparse files backed by an XFS
 host filesystem.
 
+Although libguestfs probably does not impose any limit, the underlying
+host storage will.  If you store disk images on a host ext4
+filesystem, then the maximum size will be limited by the maximum ext4
+file size (currently 16 TB).  If you store disk images as host logical
+volumes then you are limited by the maximum size of an LV.
+
+For the hugest disk image files, we recommend using XFS on the host
+for storage.
+
 =head2 MAXIMUM SIZE OF A PARTITION
 
 The MBR (ie. classic MS-DOS) partitioning scheme uses 32 bit sector
