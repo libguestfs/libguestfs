@@ -183,7 +183,7 @@ has been shrunk properly.
 After shrinking PVs and filesystems, shut down the guest, and proceed
 with steps 3 and 4 above to allocate a new disk image.
 
-Then run virt-resize with any of the C<--shrink> and/or C<--resize>
+Then run virt-resize with any of the I<--shrink> and/or I<--resize>
 options.
 
 =head2 IGNORING OR DELETING PARTITIONS
@@ -205,7 +205,7 @@ create qcow2 output, use:
 
  qemu-img create [-c] -f qcow2 outdisk [size]
 
-instead of the truncate command (use C<-c> for a compressed disk).
+instead of the truncate command (use I<-c> for a compressed disk).
 
 Similarly, to get non-sparse raw output use:
 
@@ -254,25 +254,25 @@ For example:
  --resize /dev/sda1=-10%
 
 You can increase the size of any partition.  Virt-resize will expand
-the direct content of the partition if it knows how (see C<--expand>
+the direct content of the partition if it knows how (see I<--expand>
 below).
 
 You can only I<decrease> the size of partitions that contain
 filesystems or PVs which have already been shrunk.  Virt-resize will
 check this has been done before proceeding, or else will print an
-error (see also C<--resize-force>).
+error (see also I<--resize-force>).
 
 You can give this option multiple times.
 
 =item B<--resize-force part=size>
 
-This is the same as C<--resize> except that it will let you decrease
+This is the same as I<--resize> except that it will let you decrease
 the size of any partition.  Generally this means you will lose any
 data which was at the end of the partition you shrink, but you may not
 care about that (eg. if shrinking an unused partition, or if you can
 easily recreate it such as a swap partition).
 
-See also the C<--ignore> option.
+See also the I<--ignore> option.
 
 =item B<--expand part>
 
@@ -306,12 +306,12 @@ Windows will check the disk.
 =item *
 
 LVM PVs (physical volumes).  virt-resize does not usually resize
-anything inside the PV, but see the C<--LV-expand> option.  The user
+anything inside the PV, but see the I<--LV-expand> option.  The user
 could also resize LVs as desired after boot.
 
 =back
 
-Note that you cannot use C<--expand> and C<--shrink> together.
+Note that you cannot use I<--expand> and I<--shrink> together.
 
 =item B<--shrink part>
 
@@ -329,7 +329,7 @@ In this case, virt-resize would give an error unless the user
 specified a partition to shrink and that partition had more than a
 gigabyte of free space.
 
-Note that you cannot use C<--expand> and C<--shrink> together.
+Note that you cannot use I<--expand> and I<--shrink> together.
 
 =item B<--ignore part>
 
@@ -368,7 +368,7 @@ root device to fill the extra space in the PV.
 
 The contents of the LV are also resized if virt-resize knows how to do
 that.  You can stop virt-resize from trying to expand the content by
-using the option C<--no-expand-content>.
+using the option I<--no-expand-content>.
 
 Use L<virt-filesystems(1)> to list the filesystems in the guest.
 
@@ -400,9 +400,9 @@ partition will be created.
 =item B<--no-expand-content>
 
 By default, virt-resize will try to expand the direct contents
-of partitions, if it knows how (see C<--expand> option above).
+of partitions, if it knows how (see I<--expand> option above).
 
-If you give the C<--no-expand-content> option then virt-resize
+If you give the I<--no-expand-content> option then virt-resize
 will not attempt this.
 
 =item B<-d>
@@ -504,7 +504,7 @@ L<guestfish(1)> can do everything that virt-resize can do and a lot
 more, but at a much lower level.  You will probably end up
 hand-calculating sector offsets, which is something that virt-resize
 was designed to avoid.  If you want to see the guestfish-equivalent
-commands that virt-resize runs, use the C<--debug> flag.
+commands that virt-resize runs, use the I<--debug> flag.
 
 =head1 SHELL QUOTING
 

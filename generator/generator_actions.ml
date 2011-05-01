@@ -155,7 +155,7 @@ and specifying the format.");
    "\
 This function adds a virtual CD-ROM disk image to the guest.
 
-This is equivalent to the qemu parameter C<-cdrom filename>.
+This is equivalent to the qemu parameter I<-cdrom filename>.
 
 Notes:
 
@@ -190,7 +190,7 @@ automatically.");
    "add qemu parameters",
    "\
 This can be used to add arbitrary qemu command line parameters
-of the form C<-param value>.  Actually it's not quite arbitrary - we
+of the form I<-param value>.  Actually it's not quite arbitrary - we
 prevent you from setting some parameters which would interfere with
 parameters that we use.
 
@@ -2261,7 +2261,7 @@ of compressed file.
 
 The exact command which runs is C<file -zb path>.  Note in
 particular that the filename is not prepended to the output
-(the C<-b> option).
+(the I<-b> option).
 
 This command can also be used on C</dev/> devices
 (and partitions, LV names).  You can for example use this
@@ -3380,8 +3380,8 @@ See also C<guestfs_find0>.");
    "check an ext2/ext3 filesystem",
    "\
 This runs C<e2fsck -p -f device>, ie. runs the ext2/ext3
-filesystem checker on C<device>, noninteractively (C<-p>),
-even if the filesystem appears to be clean (C<-f>).
+filesystem checker on C<device>, noninteractively (I<-p>),
+even if the filesystem appears to be clean (I<-f>).
 
 This command is only needed because of C<guestfs_resize2fs>
 (q.v.).  Normally you should use C<guestfs_fsck>.");
@@ -4157,7 +4157,7 @@ This command creates a hard link using the C<ln> command.");
    "create a hard link",
    "\
 This command creates a hard link using the C<ln -f> command.
-The C<-f> option removes the link (C<linkname>) if it exists already.");
+The I<-f> option removes the link (C<linkname>) if it exists already.");
 
   ("ln_s", (RErr, [String "target"; Pathname "linkname"], []), 166, [],
    [InitScratchFS, Always, TestOutputStruct (
@@ -4178,7 +4178,7 @@ This command creates a symbolic link using the C<ln -s> command.");
    "create a symbolic link",
    "\
 This command creates a symbolic link using the C<ln -sf> command,
-The C<-f> option removes the link (C<linkname>) if it exists already.");
+The I<-f> option removes the link (C<linkname>) if it exists already.");
 
   ("readlink", (RString "link", [Pathname "path"], []), 168, [],
    [] (* XXX tested above *),
@@ -5861,7 +5861,7 @@ For UFS block sizes, please see L<mkfs.ufs(8)>.
 
 =item C<features>
 
-This passes the C<-O> parameter to the external mkfs program.
+This passes the I<-O> parameter to the external mkfs program.
 
 For certain filesystem types, this allows extra filesystem
 features to be selected.  See L<mke2fs(8)> and L<mkfs.ufs(8)>
@@ -5917,7 +5917,7 @@ See also: C<guestfs_lgetxattrs>, C<guestfs_getxattr>, L<attr(5)>.");
    "resize an ext2, ext3 or ext4 filesystem to the minimum size",
    "\
 This command is the same as C<guestfs_resize2fs>, but the filesystem
-is resized to its minimum size.  This works like the C<-M> option
+is resized to its minimum size.  This works like the I<-M> option
 to the C<resize2fs> command.
 
 To get the resulting size of the filesystem you should call

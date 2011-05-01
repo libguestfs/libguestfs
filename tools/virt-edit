@@ -292,7 +292,7 @@ The first method is to temporarily set C<$EDITOR> to any script or
 program you want to run.  The script is invoked as C<$EDITOR tmpfile>
 and it should update C<tmpfile> in place however it likes.
 
-The second method is to use the C<-e> parameter of C<virt-edit> to run
+The second method is to use the I<-e> parameter of C<virt-edit> to run
 a short Perl snippet in the style of L<sed(1)>.  For example to
 replace all instances of C<foo> with C<bar> in a file:
 

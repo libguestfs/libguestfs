@@ -50,14 +50,14 @@ virt-win-reg - Export and merge Windows Registry entries from a Windows guest
 
 =head1 WARNING
 
-You must I<not> use C<virt-win-reg> with the C<--merge> option on live
+You must I<not> use C<virt-win-reg> with the I<--merge> option on live
 virtual machines.  If you do this, you I<will> get irreversible disk
 corruption in the VM.  C<virt-win-reg> tries to stop you from doing
 this, but doesn't catch all cases.
 
 Modifying the Windows Registry is an inherently risky operation.  The format
 is deliberately obscure and undocumented, and Registry changes
-can leave the system unbootable.  Therefore when using the C<--merge>
+can leave the system unbootable.  Therefore when using the I<--merge>
 option, make sure you have a reliable backup first.
 
 =head1 DESCRIPTION
@@ -68,7 +68,7 @@ Windows guest.
 The first parameter is the libvirt guest name or the raw disk image of
 a Windows guest.
 
-If C<--merge> is I<not> specified, then the chosen registry
+If I<--merge> is I<not> specified, then the chosen registry
 key is displayed/exported (recursively).  For example:
 
  $ virt-win-reg Windows7 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft'
@@ -80,7 +80,7 @@ for example:
  $ virt-win-reg Windows7 $cvkey ProductName
  Windows 7 Enterprise
 
-With C<--merge>, you can merge a textual regedit file into
+With I<--merge>, you can merge a textual regedit file into
 the Windows Registry:
 
  $ virt-win-reg --merge Windows7 changes.reg
@@ -160,7 +160,7 @@ In merge mode, this merges a textual regedit file into the Windows
 Registry of the virtual machine.  If this flag is I<not> given then
 virt-win-reg displays or exports Registry entries instead.
 
-Note that C<--merge> is I<unsafe> to use on live virtual machines, and
+Note that I<--merge> is I<unsafe> to use on live virtual machines, and
 will result in disk corruption.  However exporting (without this flag)
 is always safe.
 
@@ -423,7 +423,7 @@ UTF-16LE with Windows-style line endings, you may need to reencode the
 whole file before or after processing.
 
 To reencode a file from Windows format to Linux (before processing it
-with the C<--merge> option), you would do something like this:
+with the I<--merge> option), you would do something like this:
 
  iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg
 
@@ -442,7 +442,7 @@ file with Windows-style (CRLF) line endings, like this:
  software.reg: Little-endian UTF-16 Unicode text, with very long lines,
  with CRLF line terminators
 
-This file would need conversion before you could C<--merge> it.
+This file would need conversion before you could I<--merge> it.
 
 =head1 CurrentControlSet etc.
 

@@ -71,14 +71,14 @@ fit" the files that it contains, but might have extra space.
 Depending on how you are going to use the output, you might think this
 extra space is wasted and want to minimize it, or you might want to
 leave space so that more files can be added later.  Virt-make-fs
-defaults to minimizing the extra space, but you can use the C<--size>
+defaults to minimizing the extra space, but you can use the I<--size>
 flag to leave space in the filesystem if you want it.
 
 An alternative way to leave extra space but not make the output image
 any bigger is to use an alternative disk image format (instead of the
-default "raw" format).  Using C<--format=qcow2> will use the native
+default "raw" format).  Using I<--format=qcow2> will use the native
 QEmu/KVM qcow2 image format (check your hypervisor supports this
-before using it).  This allows you to choose a large C<--size> but the
+before using it).  This allows you to choose a large I<--size> but the
 extra space won't actually be allocated in the image until you try to
 store something in it.
 
@@ -190,7 +190,7 @@ my $size;
 
 =item B<-s +E<lt>NE<gt>>
 
-Use the C<--size> (or C<-s>) option to choose the size of the output
+Use the I<--size> (or I<-s>) option to choose the size of the output
 image.
 
 If this option is I<not> given, then the output image will be just
@@ -203,7 +203,7 @@ enough to contain all the input files, else you will get an error.
 
 To leave extra space, specify C<+> (plus sign) and a number followed
 by b/K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes,
-Terabytes, Petabytes or Exabytes.  For example: C<--size=+200M> means
+Terabytes, Petabytes or Exabytes.  For example: I<--size=+200M> means
 enough space for the input files, and (approximately) an extra 200 MB
 free space.
 
@@ -253,17 +253,17 @@ my $partition;
 If specified, this flag adds an MBR partition table to the output disk
 image.
 
-You can change the partition table type, eg. C<--partition=gpt> for
+You can change the partition table type, eg. I<--partition=gpt> for
 large disks.
 
-Note that if you just use a lonesome C<--partition>, the Perl option
+Note that if you just use a lonesome I<--partition>, the Perl option
 parser might consider the next parameter to be the partition type.
 For example:
 
  virt-make-fs --partition input.tar ...
 
 would cause virt-make-fs to think you wanted to use a partition type
-of C<input.tar> which is completely wrong.  To avoid this, use C<-->
+of C<input.tar> which is completely wrong.  To avoid this, use I<-->
 (a double dash) between options and the input file argument:
 
  virt-make-fs --partition -- input.tar ...
