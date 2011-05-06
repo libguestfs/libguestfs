@@ -53,6 +53,12 @@ init_libxml2 (void)
   LIBXML_TEST_VERSION;
 }
 
+static void
+ignore_errors (void *ignore, virErrorPtr ignore2)
+{
+  /* empty */
+}
+
 struct guestfs___add_libvirt_dom_argv {
   uint64_t bitmask;
 #define GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK (UINT64_C(1)<<0)
@@ -101,6 +107,12 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
            err->code, err->domain, err->message);
     goto cleanup;
   }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
 
   dom = virDomainLookupByName (conn, domain_name);
   if (!dom) {
