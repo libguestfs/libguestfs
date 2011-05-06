@@ -1096,7 +1096,7 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
 This returns the internal QEMU command line.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
-  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"]), -1, [FishAlias "domain"],
+  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"; Bool "allowuuid"]), -1, [FishAlias "domain"],
    [],
    "add the disk(s) from a named libvirt domain",
    "\
@@ -1129,6 +1129,11 @@ it sees a suitable E<lt>channelE<gt> element in the libvirt
 XML definition.  The default (if the flag is omitted) is never
 to try.  See L<guestfs(3)/ATTACHING TO RUNNING DAEMONS> for more
 information.
+
+If the C<allowuuid> flag is true (default is false) then a UUID
+I<may> be passed instead of the domain name.  The C<dom> string is
+treated as a UUID first and looked up, and if that lookup fails
+then we treat C<dom> as a name as usual.
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
