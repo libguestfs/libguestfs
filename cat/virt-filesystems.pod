@@ -142,7 +142,8 @@ read L</NOTE ABOUT CSV FORMAT> below.
 
 =item B<--domain> guest
 
-Add all the disks from the named libvirt guest.
+Add all the disks from the named libvirt guest.  Domain UUIDs can be
+used instead of names.
 
 =item B<--echo-keys>
 

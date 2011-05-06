@@ -432,11 +432,6 @@ guestfish drive letters
 There should be an option to mount all Windows drives as separate
 paths, like C: => /c/, D: => /d/ etc.
 
-Select machines by UUID
------------------------
-
-guestfish -u UUID <or> guestfish -d UUID
-
 More inspection features
 ------------------------
 

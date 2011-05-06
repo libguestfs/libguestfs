@@ -199,6 +199,8 @@ Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
 mode, only libvirt domains which are shut down can be named here.
 
+Domain UUIDs can be used instead of names.
+
 Using this flag is mostly equivalent to using the C<add-domain> command,
 with C<readonly:true> if the I<--ro> flag was given, and
 with C<format:...> if the I<--format:...> flag was given.

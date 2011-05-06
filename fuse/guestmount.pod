@@ -93,6 +93,8 @@ Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
 mode, only libvirt domains which are shut down can be named here.
 
+Domain UUIDs can be used instead of names.
+
 =item B<--dir-cache-timeout N>
 
 Set the readdir cache timeout to I<N> seconds, the default being 60

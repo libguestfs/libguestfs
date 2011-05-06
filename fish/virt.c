@@ -48,5 +48,8 @@ add_libvirt_drives (const char *guest)
     optargs.live = 1;
   }
 
+  optargs.bitmask |= GUESTFS_ADD_DOMAIN_ALLOWUUID_BITMASK;
+  optargs.allowuuid = 1;
+
   return guestfs_add_domain_argv (g, guest, &optargs);
 }
