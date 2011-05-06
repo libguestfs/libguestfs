@@ -826,6 +826,7 @@ AC_CONFIG_FILES([Makefile
                  csharp/Makefile
                  debian/changelog
                  df/Makefile
+                 edit/Makefile
                  examples/Makefile
                  fish/Makefile
                  fuse/Makefile

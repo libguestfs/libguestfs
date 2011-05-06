@@ -83,6 +83,14 @@ touch /boot/grub/grub.conf
 # Test files.
 write /etc/test1 "abcdefg"
 write /etc/test2 ""
+upload -<<__end /etc/test3
+a
+b
+c
+d
+e
+f
+__end
 write /bin/test1 "abcdefg"
 write /bin/test2 "zxcvbnm"
 write /bin/test3 "1234567"

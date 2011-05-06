@@ -36,7 +36,7 @@ SUBDIRS += gnulib/tests capitests regressions test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += cat df inspector rescue
+SUBDIRS += cat df edit inspector rescue
 
 # Language bindings.
 if HAVE_PERL

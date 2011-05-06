@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 tools = \
-	edit \
 	list-filesystems \
 	list-partitions \
 	make-fs \
@@ -37,10 +36,10 @@ bin_SCRIPTS = $(tools:%=virt-%)
 
 # Manual pages and HTML files for the website.
 
-# XXX Bug in automake?  If you list virt-edit.1 explicitly, then it
+# XXX Bug in automake?  If you list virt-tar.1 explicitly, then it
 # builds and installs the man pages.  However if this is removed,
 # then the man pages are neither built nor installed.
-man_MANS = virt-edit.1 $(patsubst %,virt-%.1,$(filter-out edit,$(tools)))
+man_MANS = virt-tar.1 $(patsubst %,virt-%.1,$(filter-out tar,$(tools)))
 
 noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
 

@@ -2671,6 +2671,10 @@ actions.
 
 L<virt-df(1)> command and documentation.
 
+=item C<edit>
+
+L<virt-edit(1)> command and documentation.
+
 =item C<examples>
 
 C API example code.

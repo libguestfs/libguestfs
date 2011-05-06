@@ -68,6 +68,9 @@ depcomp
 df/stamp-virt-df.pod
 df/virt-df
 df/virt-df.1
+edit/stamp-virt-*.pod
+edit/virt-edit
+edit/virt-edit.1
 emptydisk
 examples/create_disk
 examples/guestfs-examples.3
