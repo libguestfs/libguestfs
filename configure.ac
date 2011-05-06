@@ -820,36 +820,45 @@ dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([podwrapper.sh],
                 [chmod +x podwrapper.sh])
 AC_CONFIG_FILES([Makefile
-                 generator/Makefile
-                 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
                  appliance/Makefile
-                 images/Makefile
                  capitests/Makefile
-                 regressions/Makefile
-                 test-tool/Makefile
-                 ocaml/Makefile ocaml/examples/Makefile
-                 perl/Makefile perl/examples/Makefile
-                 python/Makefile python/examples/Makefile
-                 ruby/Makefile ruby/Rakefile ruby/examples/Makefile
-                 java/Makefile
-                 haskell/Makefile
-                 inspector/Makefile
-                 tools/Makefile
-                 libguestfs.pc
+                 cat/Makefile
+                 csharp/Makefile
+                 debian/changelog
+                 df/Makefile
+                 examples/Makefile
+                 fish/Makefile
+                 fuse/Makefile
+                 generator/Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
-                 fuse/Makefile
+                 haskell/Makefile
+                 images/Makefile
+                 inspector/Makefile
+                 java/Makefile
+                 libguestfs.pc
+                 ocaml/META
+                 ocaml/Makefile
+                 ocaml/examples/Makefile
+                 perl/Makefile
+                 perl/Makefile.PL
+                 perl/examples/Makefile
+                 php/Makefile
                  po-docs/Makefile
                  po-docs/ja/Makefile
                  po-docs/uk/Makefile
-                 php/Makefile
-                 csharp/Makefile
-                 cat/Makefile
-                 df/Makefile
+                 po/Makefile.in
+                 python/Makefile
+                 python/examples/Makefile
+                 regressions/Makefile
                  rescue/Makefile
-                 debian/changelog
-                 ocaml/META perl/Makefile.PL
-                 resize/Makefile])
+                 resize/Makefile
+                 ruby/Makefile
+                 ruby/Rakefile
+                 ruby/examples/Makefile
+                 src/Makefile
+                 test-tool/Makefile
+                 tools/Makefile])
 AC_OUTPUT
 
 dnl Produce summary.
