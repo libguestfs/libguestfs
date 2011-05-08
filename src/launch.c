@@ -117,7 +117,7 @@ guestfs___rollback_cmdline (guestfs_h *g, size_t pos)
 
   assert (g->cmdline_size >= pos);
 
-  for (i = g->cmdline_size - 1; i >= pos; --i)
+  for (i = pos; i < g->cmdline_size; ++i)
     free (g->cmdline[i]);
 
   g->cmdline_size = pos;
