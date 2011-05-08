@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,9 +100,6 @@ do_find (const char *dir)
   free (cmd);
 
   while ((r = input_to_nul (fp, str, PATH_MAX)) > 0) {
-    if (verbose)
-      printf ("find string: %s\n", str);
-
     len = strlen (str);
     if (len <= sysrootdirlen)
       continue;
@@ -197,9 +194,6 @@ do_find0 (const char *dir)
   reply (NULL, NULL);
 
   while ((r = input_to_nul (fp, str, GUESTFS_MAX_CHUNK_SIZE)) > 0) {
-    if (verbose)
-      printf ("find0 string: %s\n", str);
-
     len = strlen (str);
     if (len <= sysrootdirlen)
       continue;

@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -287,9 +287,6 @@ test_parted_m_opt (void)
   if (result >= 0)
     return result;
 
-  if (verbose)
-    fprintf (stderr, "Testing if this parted supports '-m' option.\n");
-
   char *err = NULL;
   int r = commandr (NULL, &err, "parted", "-s", "-m", "/dev/null", NULL);
   if (r == -1) {
@@ -327,9 +324,6 @@ print_partition_table (const char *device, int parted_has_m_opt)
     return NULL;
   }
   free (err);
-
-  if (verbose)
-    fprintf (stderr, "parted output:\n%s<END>\n", out);
 
   return out;
 }
