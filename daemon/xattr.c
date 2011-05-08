@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -403,28 +403,6 @@ do_lxattrlist (const char *path, char *const *names)
       reply_with_perror ("strdup");
       goto error;
     }
-  }
-
-  /* If verbose, debug what we're about to send back. */
-  if (verbose) {
-    fprintf (stderr, "lxattrlist: returning: [\n");
-    for (k = 0; k < ret->guestfs_int_xattr_list_len; ++k) {
-      const guestfs_int_xattr *entry = &ret->guestfs_int_xattr_list_val[k];
-      if (STRNEQ (entry[0].attrname, "")) {
-        fprintf (stderr, "ERROR: expecting empty attrname at k = %zu\n", k);
-        break;
-      }
-      fprintf (stderr, "  %zu: special attrval = %s\n",
-               k, entry[0].attrval.attrval_val);
-      for (i = 1; k+i < ret->guestfs_int_xattr_list_len; ++i) {
-        if (STREQ (entry[i].attrname, ""))
-          break;
-        fprintf (stderr, "    name %s, value length %d\n",
-                 entry[i].attrname, entry[i].attrval.attrval_len);
-      }
-      k += i-1;
-    }
-    fprintf (stderr, "]\n");
   }
 
   return ret;

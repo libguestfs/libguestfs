@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -103,9 +103,6 @@ sync_win32 (void)
     HANDLE drive;
     DWORD drive_type;
 
-    if (verbose)
-      fprintf (stderr, "sync_win32: examining drive %s\n", p);
-
     /* Ignore removable drives. */
     drive_type = GetDriveType (p);
     if (drive_type == DRIVE_FIXED) {
@@ -122,8 +119,6 @@ sync_win32 (void)
                           NULL, OPEN_EXISTING, 0, 0);
       if (drive == INVALID_HANDLE_VALUE)
         return -1;
-      if (verbose)
-        fprintf (stderr, "sync_win32: flushing %s\n", volname);
 
       BOOL r;
       /* This always fails in Wine:

@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,10 +91,6 @@ do_case_sensitive_path (const char *path)
       path++;
       continue;
     }
-
-    if (verbose)
-      fprintf (stderr, "case_sensitive_path: path = %s, next = %zu, i = %zu\n",
-               path, next, i);
 
     if ((i == 1 && path[0] == '.') ||
         (i == 2 && path[0] == '.' && path[1] == '.')) {

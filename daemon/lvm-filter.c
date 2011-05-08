@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2010 Red Hat Inc.
+ * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,9 +56,6 @@ is_filter_line (const char *line)
 static int
 set_filter (const char *filter)
 {
-  if (verbose)
-    fprintf (stderr, "LVM: setting device filter to %s\n", filter);
-
   FILE *ifp = fopen ("/etc/lvm/lvm.conf", "r");
   if (ifp == NULL) {
     reply_with_perror ("open: /etc/lvm/lvm.conf");
@@ -76,8 +73,6 @@ set_filter (const char *filter)
   while (getline (&line, &len, ifp) != -1) {
     int r;
     if (is_filter_line (line)) {
-      if (verbose)
-        fprintf (stderr, "LVM: replacing config line:\n%s", line);
       r = fprintf (ofp, "    filter = [ %s ]\n", filter);
     } else {
       r = fprintf (ofp, "%s", line);

@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,12 +88,6 @@ main_loop (int _sock)
   sock = _sock;
 
   for (;;) {
-    /* Most common errors are leaked memory and leaked file descriptors,
-     * so run this between each command:
-     */
-    if (verbose && 0)
-      ignore_value (system ("ls -l /proc/self/fd"));
-
     /* Read the length word. */
     if (xread (sock, lenbuf, 4) == -1)
       exit (EXIT_FAILURE);
