@@ -558,7 +558,7 @@ AS_IF([test "x$enable_python" != "xno"],
                 AC_MSG_CHECKING([for Python site-packages path])
                 if test -z "$PYTHON_INSTALLDIR"; then
                     PYTHON_INSTALLDIR=`$PYTHON -c "import distutils.sysconfig; \
-                                                   print (distutils.sysconfig.get_python_lib(0,0));"`
+                                                   print (distutils.sysconfig.get_python_lib(1,0));"`
                 fi
                 AC_MSG_RESULT([$PYTHON_INSTALLDIR])
             fi
