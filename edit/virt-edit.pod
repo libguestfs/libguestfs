@@ -114,6 +114,19 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room you
 can specify this flag to see what you are typing.
 
+=item B<-e> EXPR
+
+=item B<--expr> EXPR
+
+Instead of launching the external editor, non-interactively
+apply the Perl expression C<EXPR> to each line in the file.
+See L</NON-INTERACTIVE EDITING> below.
+
+Be careful to properly quote the expression to prevent it from
+being altered by the shell.
+
+Note that this option is only available when Perl 5 is installed.
+
 =item B<--format> raw|qcow2|...
 
 =item B<--format>
@@ -137,19 +150,6 @@ auto-detection for C<another.img>.
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
-
-=item B<-e> EXPR
-
-=item B<--expr> EXPR
-
-Instead of launching the external editor, non-interactively
-apply the Perl expression C<EXPR> to each line in the file.
-See L</NON-INTERACTIVE EDITING> below.
-
-Be careful to properly quote the expression to prevent it from
-being altered by the shell.
-
-Note that this option is only available when Perl 5 is installed.
 
 =item B<--keys-from-stdin>
 
