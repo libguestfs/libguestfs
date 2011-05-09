@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-05-08 12:57+0200\n"
+"POT-Creation-Date: 2011-05-09 15:21+0200\n"
 "PO-Revision-Date: 2011-04-01 15:39+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -21,9 +21,9 @@ msgstr ""
 #. type: =head1
 #: ../src/guestfs.pod:3 ../fish/guestfish.pod:3
 #: ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3
-#: ../tools/virt-edit.pl:32 ../tools/virt-win-reg.pl:35
-#: ../tools/virt-list-filesystems.pl:30 ../tools/virt-tar.pl:31
-#: ../tools/virt-make-fs.pl:35 ../tools/virt-list-partitions.pl:30
+#: ../tools/virt-win-reg.pl:35 ../tools/virt-list-filesystems.pl:30
+#: ../tools/virt-tar.pl:31 ../tools/virt-make-fs.pl:35
+#: ../tools/virt-list-partitions.pl:30
 msgid "NAME"
 msgstr "НАЗВА"
 
@@ -37,9 +37,9 @@ msgstr ""
 #. type: =head1
 #: ../src/guestfs.pod:7 ../fish/guestfish.pod:7
 #: ../test-tool/libguestfs-test-tool.pod:7 ../fuse/guestmount.pod:7
-#: ../tools/virt-edit.pl:36 ../tools/virt-win-reg.pl:39
-#: ../tools/virt-list-filesystems.pl:34 ../tools/virt-tar.pl:35
-#: ../tools/virt-make-fs.pl:39 ../tools/virt-list-partitions.pl:34
+#: ../tools/virt-win-reg.pl:39 ../tools/virt-list-filesystems.pl:34
+#: ../tools/virt-tar.pl:35 ../tools/virt-make-fs.pl:39
+#: ../tools/virt-list-partitions.pl:34
 msgid "SYNOPSIS"
 msgstr "КОРОТКИЙ ОПИС"
 
@@ -92,9 +92,9 @@ msgstr ""
 #. type: =head1
 #: ../src/guestfs.pod:23 ../fish/guestfish.pod:30
 #: ../test-tool/libguestfs-test-tool.pod:11 ../fuse/guestmount.pod:20
-#: ../tools/virt-edit.pl:50 ../tools/virt-win-reg.pl:63
-#: ../tools/virt-list-filesystems.pl:40 ../tools/virt-tar.pl:77
-#: ../tools/virt-make-fs.pl:47 ../tools/virt-list-partitions.pl:40
+#: ../tools/virt-win-reg.pl:63 ../tools/virt-list-filesystems.pl:40
+#: ../tools/virt-tar.pl:77 ../tools/virt-make-fs.pl:47
+#: ../tools/virt-list-partitions.pl:40
 msgid "DESCRIPTION"
 msgstr "ОПИС"
 
@@ -864,8 +864,8 @@ msgstr ""
 #: ../src/guestfs.pod:1773 ../src/guestfs.pod:2008 ../src/guestfs.pod:2013
 #: ../src/guestfs.pod:2019 ../src/guestfs.pod:2027 ../src/guestfs.pod:2381
 #: ../src/guestfs.pod:2387 ../src/guestfs.pod:2392 ../src/guestfs.pod:2398
-#: ../src/guestfs.pod:2963 ../src/guestfs.pod:2967 ../src/guestfs.pod:2971
-#: ../src/guestfs.pod:2975 ../src/guestfs-actions.pod:15
+#: ../src/guestfs.pod:2967 ../src/guestfs.pod:2971 ../src/guestfs.pod:2975
+#: ../src/guestfs.pod:2979 ../src/guestfs-actions.pod:15
 #: ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:583
 #: ../src/guestfs-actions.pod:591 ../src/guestfs-actions.pod:598
 #: ../src/guestfs-actions.pod:605 ../src/guestfs-actions.pod:1606
@@ -890,11 +890,8 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1213 ../fish/guestfish-actions.pod:1217
 #: ../fish/guestfish-actions.pod:1222 ../fish/guestfish-actions.pod:1227
 #: ../fish/guestfish-actions.pod:1269 ../fish/guestfish-actions.pod:1273
-#: ../fish/guestfish-actions.pod:1278 ../tools/virt-edit.pl:351
-#: ../tools/virt-edit.pl:356 ../tools/virt-edit.pl:361
-#: ../tools/virt-edit.pl:372 ../tools/virt-edit.pl:376
-#: ../tools/virt-win-reg.pl:536 ../tools/virt-win-reg.pl:542
-#: ../tools/virt-win-reg.pl:548
+#: ../fish/guestfish-actions.pod:1278 ../tools/virt-win-reg.pl:536
+#: ../tools/virt-win-reg.pl:542 ../tools/virt-win-reg.pl:548
 msgid "*"
 msgstr ""
 
@@ -5197,21 +5194,31 @@ msgstr ""
 
 #. type: =item
 #: ../src/guestfs.pod:2674
+msgid "C<edit>"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs.pod:2676
+msgid "L<virt-edit(1)> command and documentation."
+msgstr ""
+
+#. type: =item
+#: ../src/guestfs.pod:2678
 msgid "C<examples>"
 msgstr "C<examples>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2676
+#: ../src/guestfs.pod:2680
 msgid "C API example code."
 msgstr "Код прикладів використання програмного інтерфейсу мовою C."
 
 #. type: =item
-#: ../src/guestfs.pod:2678
+#: ../src/guestfs.pod:2682
 msgid "C<fish>"
 msgstr "C<fish>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2680
+#: ../src/guestfs.pod:2684
 msgid ""
 "L<guestfish(1)>, the command-line shell, and various shell scripts built on "
 "top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, "
@@ -5219,90 +5226,90 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2684
+#: ../src/guestfs.pod:2688
 msgid "C<fuse>"
 msgstr "C<fuse>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2686
+#: ../src/guestfs.pod:2690
 msgid ""
 "L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2688
+#: ../src/guestfs.pod:2692
 msgid "C<generator>"
 msgstr "C<generator>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2690
+#: ../src/guestfs.pod:2694
 msgid ""
 "The crucially important generator, used to automatically generate large "
 "amounts of boilerplate C code for things like RPC and bindings."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2693
+#: ../src/guestfs.pod:2697
 msgid "C<images>"
 msgstr "C<images>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2695
+#: ../src/guestfs.pod:2699
 msgid "Files used by the test suite."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2697
+#: ../src/guestfs.pod:2701
 msgid "Some \"phony\" guest images which we test against."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2699
+#: ../src/guestfs.pod:2703
 msgid "C<inspector>"
 msgstr "C<inspector>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2701
+#: ../src/guestfs.pod:2705
 msgid "L<virt-inspector(1)>, the virtual machine image inspector."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2703
+#: ../src/guestfs.pod:2707
 msgid "C<logo>"
 msgstr "C<logo>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2705
+#: ../src/guestfs.pod:2709
 msgid "Logo used on the website.  The fish is called Arthur by the way."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2707
+#: ../src/guestfs.pod:2711
 msgid "C<m4>"
 msgstr "C<m4>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2709
+#: ../src/guestfs.pod:2713
 msgid "M4 macros used by autoconf."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2711
+#: ../src/guestfs.pod:2715
 msgid "C<po>"
 msgstr "C<po>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2713
+#: ../src/guestfs.pod:2717
 msgid "Translations of simple gettext strings."
 msgstr "Переклади простих рядків gettext."
 
 #. type: =item
-#: ../src/guestfs.pod:2715
+#: ../src/guestfs.pod:2719
 msgid "C<po-docs>"
 msgstr "C<po-docs>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2717
+#: ../src/guestfs.pod:2721
 msgid ""
 "The build infrastructure and PO files for translations of manpages and POD "
 "files.  Eventually this will be combined with the C<po> directory, but that "
@@ -5310,114 +5317,114 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2721
+#: ../src/guestfs.pod:2725
 msgid "C<regressions>"
 msgstr "C<regressions>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2723
+#: ../src/guestfs.pod:2727
 msgid "Regression tests."
 msgstr "Тести на регресії."
 
 #. type: =item
-#: ../src/guestfs.pod:2725
+#: ../src/guestfs.pod:2729
 msgid "C<rescue>"
 msgstr "C<rescue>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2727
+#: ../src/guestfs.pod:2731
 msgid "L<virt-rescue(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2729
+#: ../src/guestfs.pod:2733
 msgid "C<src>"
 msgstr "C<src>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2731
+#: ../src/guestfs.pod:2735
 msgid "Source code to the C library."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2733
+#: ../src/guestfs.pod:2737
 msgid "C<tools>"
 msgstr "C<tools>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2735
+#: ../src/guestfs.pod:2739
 msgid "Command line tools written in Perl (L<virt-resize(1)> and many others)."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2737
+#: ../src/guestfs.pod:2741
 msgid "C<test-tool>"
 msgstr "C<test-tool>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2739
+#: ../src/guestfs.pod:2743
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2742
+#: ../src/guestfs.pod:2746
 msgid "C<csharp>"
 msgstr "C<csharp>"
 
 #. type: =item
-#: ../src/guestfs.pod:2744
+#: ../src/guestfs.pod:2748
 msgid "C<haskell>"
 msgstr "C<haskell>"
 
 #. type: =item
-#: ../src/guestfs.pod:2746
+#: ../src/guestfs.pod:2750
 msgid "C<java>"
 msgstr "C<java>"
 
 #. type: =item
-#: ../src/guestfs.pod:2748
+#: ../src/guestfs.pod:2752
 msgid "C<ocaml>"
 msgstr "C<ocaml>"
 
 #. type: =item
-#: ../src/guestfs.pod:2750
+#: ../src/guestfs.pod:2754
 msgid "C<php>"
 msgstr "C<php>"
 
 #. type: =item
-#: ../src/guestfs.pod:2752
+#: ../src/guestfs.pod:2756
 msgid "C<perl>"
 msgstr "C<perl>"
 
 #. type: =item
-#: ../src/guestfs.pod:2754
+#: ../src/guestfs.pod:2758
 msgid "C<python>"
 msgstr "C<python>"
 
 #. type: =item
-#: ../src/guestfs.pod:2756
+#: ../src/guestfs.pod:2760
 msgid "C<ruby>"
 msgstr "C<ruby>"
 
 #. type: textblock
-#: ../src/guestfs.pod:2758
+#: ../src/guestfs.pod:2762
 msgid "Language bindings."
 msgstr "Прив’язки до мов програмування."
 
 #. type: =head1
-#: ../src/guestfs.pod:2762
+#: ../src/guestfs.pod:2766
 msgid "LIMITS"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2764
+#: ../src/guestfs.pod:2768
 msgid "PROTOCOL LIMITS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2766
+#: ../src/guestfs.pod:2770
 msgid ""
 "Internally libguestfs uses a message-based protocol to pass API calls and "
 "their responses to and from a small \"appliance\" (see L</INTERNALS> for "
@@ -5428,7 +5435,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2774
+#: ../src/guestfs.pod:2778
 msgid ""
 "A simple call such as L</guestfs_cat> returns its result (the file data) in "
 "a simple string.  Because this string is at some point internally encoded as "
@@ -5437,7 +5444,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2780
+#: ../src/guestfs.pod:2784
 msgid ""
 "In order to transfer large files into and out of the guest filesystem, you "
 "need to use particular calls that support this.  The sections L</UPLOADING> "
@@ -5445,24 +5452,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2784
+#: ../src/guestfs.pod:2788
 msgid ""
 "You might also consider mounting the disk image using our FUSE filesystem "
 "support (L<guestmount(1)>)."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2787
+#: ../src/guestfs.pod:2791
 msgid "MAXIMUM NUMBER OF DISKS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2789
+#: ../src/guestfs.pod:2793
 msgid "When using virtio disks (the default) the current limit is B<25> disks."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2792
+#: ../src/guestfs.pod:2796
 msgid ""
 "Virtio itself consumes 1 virtual PCI slot per disk, and PCI is limited to 31 "
 "slots.  However febootstrap only understands disks with names C</dev/vda> "
@@ -5471,14 +5478,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2797
+#: ../src/guestfs.pod:2801
 msgid ""
 "We are working to substantially raise this limit in future versions but it "
 "requires complex changes to qemu."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2800
+#: ../src/guestfs.pod:2804
 msgid ""
 "In future versions of libguestfs it should also be possible to \"hot plug\" "
 "disks (add and remove disks after calling L</guestfs_launch>).  This also "
@@ -5486,41 +5493,41 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2804
+#: ../src/guestfs.pod:2808
 msgid "MAXIMUM NUMBER OF PARTITIONS PER DISK"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2806
+#: ../src/guestfs.pod:2810
 msgid "Virtio limits the maximum number of partitions per disk to B<15>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2808
+#: ../src/guestfs.pod:2812
 msgid ""
 "This is because it reserves 4 bits for the minor device number (thus C</dev/"
 "vda>, and C</dev/vda1> through C</dev/vda15>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2811
+#: ../src/guestfs.pod:2815
 msgid ""
 "If you attach a disk with more than 15 partitions, the extra partitions are "
 "ignored by libguestfs."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2814
+#: ../src/guestfs.pod:2818
 msgid "MAXIMUM SIZE OF A DISK"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2816
+#: ../src/guestfs.pod:2820
 msgid "Probably the limit is between 2**63-1 and 2**64-1 bytes."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2818
+#: ../src/guestfs.pod:2822
 msgid ""
 "We have tested block devices up to 1 exabyte (2**60 or "
 "1,152,921,504,606,846,976 bytes) using sparse files backed by an XFS host "
@@ -5528,7 +5535,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2822
+#: ../src/guestfs.pod:2826
 msgid ""
 "Although libguestfs probably does not impose any limit, the underlying host "
 "storage will.  If you store disk images on a host ext4 filesystem, then the "
@@ -5538,19 +5545,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2828
+#: ../src/guestfs.pod:2832
 msgid ""
 "For the hugest disk image files, we recommend using XFS on the host for "
 "storage."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2831
+#: ../src/guestfs.pod:2835
 msgid "MAXIMUM SIZE OF A PARTITION"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2833
+#: ../src/guestfs.pod:2837
 msgid ""
 "The MBR (ie. classic MS-DOS) partitioning scheme uses 32 bit sector "
 "numbers.  Assuming a 512 byte sector size, this means that MBR cannot "
@@ -5558,7 +5565,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2837
+#: ../src/guestfs.pod:2841
 msgid ""
 "It is recommended that you use GPT partitions on disks which are larger than "
 "this size.  GPT uses 64 bit sector numbers and so can address partitions "
@@ -5566,12 +5573,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2842
+#: ../src/guestfs.pod:2846
 msgid "MAXIMUM SIZE OF A FILESYSTEM, FILES, DIRECTORIES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2844
+#: ../src/guestfs.pod:2848
 msgid ""
 "This depends on the filesystem type.  libguestfs itself does not impose any "
 "known limit.  Consult Wikipedia or the filesystem documentation to find out "
@@ -5579,12 +5586,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2848
+#: ../src/guestfs.pod:2852
 msgid "MAXIMUM UPLOAD AND DOWNLOAD"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2850
+#: ../src/guestfs.pod:2854
 msgid ""
 "The API functions L</guestfs_upload>, L</guestfs_download>, L</"
 "guestfs_tar_in>, L</guestfs_tar_out> and the like allow unlimited sized "
@@ -5592,14 +5599,14 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2854
+#: ../src/guestfs.pod:2858
 #, fuzzy
 #| msgid "INSPECTION"
 msgid "INSPECTION LIMITS"
 msgstr "ПЕРЕВІРКА"
 
 #. type: textblock
-#: ../src/guestfs.pod:2856
+#: ../src/guestfs.pod:2860
 msgid ""
 "The inspection code has several arbitrary limits on things like the size of "
 "Windows Registry hive it will read, and the length of product name.  These "
@@ -5609,46 +5616,46 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2862 ../fish/guestfish.pod:1017
-#: ../test-tool/libguestfs-test-tool.pod:82 ../tools/virt-edit.pl:476
+#: ../src/guestfs.pod:2866 ../fish/guestfish.pod:1017
+#: ../test-tool/libguestfs-test-tool.pod:82
 msgid "ENVIRONMENT VARIABLES"
 msgstr "ЗМІННІ СЕРЕДОВИЩА"
 
 #. type: =item
-#: ../src/guestfs.pod:2866 ../fish/guestfish.pod:1043
+#: ../src/guestfs.pod:2870 ../fish/guestfish.pod:1043
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2868 ../fish/guestfish.pod:1045
+#: ../src/guestfs.pod:2872 ../fish/guestfish.pod:1045
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2870 ../fish/guestfish.pod:1047
+#: ../src/guestfs.pod:2874 ../fish/guestfish.pod:1047
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2872
+#: ../src/guestfs.pod:2876
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as calling C<guestfs_set_verbose (g, 1)>."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2875 ../fish/guestfish.pod:1052
+#: ../src/guestfs.pod:2879 ../fish/guestfish.pod:1052
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2877 ../fish/guestfish.pod:1054
+#: ../src/guestfs.pod:2881 ../fish/guestfish.pod:1054
 msgid ""
 "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2880 ../fish/guestfish.pod:1057
+#: ../src/guestfs.pod:2884 ../fish/guestfish.pod:1057
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -5656,60 +5663,60 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2882 ../fish/guestfish.pod:1059
+#: ../src/guestfs.pod:2886 ../fish/guestfish.pod:1059
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2884
+#: ../src/guestfs.pod:2888
 msgid ""
 "Set the path that libguestfs uses to search for a supermin appliance.  See "
 "the discussion of paths in section L</PATH> above."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2887 ../fish/guestfish.pod:1064
+#: ../src/guestfs.pod:2891 ../fish/guestfish.pod:1064
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2889 ../fish/guestfish.pod:1066
+#: ../src/guestfs.pod:2893 ../fish/guestfish.pod:1066
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2893
+#: ../src/guestfs.pod:2897
 msgid "See also L</QEMU WRAPPERS> above."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2895 ../fish/guestfish.pod:1070
+#: ../src/guestfs.pod:2899 ../fish/guestfish.pod:1070
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2897
+#: ../src/guestfs.pod:2901
 msgid ""
 "Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This has the same "
 "effect as calling C<guestfs_set_trace (g, 1)>."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2900 ../fish/guestfish.pod:1079
+#: ../src/guestfs.pod:2904 ../fish/guestfish.pod:1079
 msgid "TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2902 ../fish/guestfish.pod:1081
+#: ../src/guestfs.pod:2906 ../fish/guestfish.pod:1081
 msgid ""
 "Location of temporary directory, defaults to C</tmp> except for the cached "
 "supermin appliance which defaults to C</var/tmp>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2905 ../fish/guestfish.pod:1084
+#: ../src/guestfs.pod:2909 ../fish/guestfish.pod:1084
 msgid ""
 "If libguestfs was compiled to use the supermin appliance then the real "
 "appliance is cached in this directory, shared between all handles belonging "
@@ -5718,16 +5725,16 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2913 ../fish/guestfish.pod:1151
+#: ../src/guestfs.pod:2917 ../fish/guestfish.pod:1151
 #: ../test-tool/libguestfs-test-tool.pod:87 ../fuse/guestmount.pod:269
-#: ../tools/virt-edit.pl:496 ../tools/virt-win-reg.pl:572
-#: ../tools/virt-list-filesystems.pl:189 ../tools/virt-tar.pl:286
-#: ../tools/virt-make-fs.pl:539 ../tools/virt-list-partitions.pl:257
+#: ../tools/virt-win-reg.pl:572 ../tools/virt-list-filesystems.pl:189
+#: ../tools/virt-tar.pl:286 ../tools/virt-make-fs.pl:539
+#: ../tools/virt-list-partitions.pl:257
 msgid "SEE ALSO"
 msgstr "ТАКОЖ ПЕРЕГЛЯНЬТЕ"
 
 #. type: textblock
-#: ../src/guestfs.pod:2915
+#: ../src/guestfs.pod:2919
 msgid ""
 "L<guestfs-examples(3)>, L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-"
 "ruby(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-cat(1)>, L<virt-copy-in"
@@ -5739,104 +5746,104 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2942
+#: ../src/guestfs.pod:2946
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
 "(8)>, L<disktype(1)>."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2949 ../tools/virt-win-reg.pl:587
+#: ../src/guestfs.pod:2953 ../tools/virt-win-reg.pl:587
 #: ../tools/virt-make-fs.pl:553
 msgid "BUGS"
 msgstr "ВАДИ"
 
 #. type: textblock
-#: ../src/guestfs.pod:2951
+#: ../src/guestfs.pod:2955
 msgid "To get a list of bugs against libguestfs use this link:"
 msgstr ""
 "Щоб переглянути список відомих вад у libguestfs, скористайтеся таким "
 "посиланням:"
 
 #. type: textblock
-#: ../src/guestfs.pod:2953
-msgid ""
-"L<https://bugzilla.redhat.com/buglist.cgi?"
-"component=libguestfs&product=Virtualization+Tools>"
-msgstr ""
-"L<https://bugzilla.redhat.com/buglist.cgi?"
-"component=libguestfs&product=Virtualization+Tools>"
-
-#. type: textblock
-#: ../src/guestfs.pod:2955
-msgid "To report a new bug against libguestfs use this link:"
-msgstr "Для звітування щодо вад у libguestfs скористайтеся цим посиланням:"
-
-#. type: textblock
 #: ../src/guestfs.pod:2957
 msgid ""
-"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"L<https://bugzilla.redhat.com/buglist.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
-"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"L<https://bugzilla.redhat.com/buglist.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
 #: ../src/guestfs.pod:2959
+msgid "To report a new bug against libguestfs use this link:"
+msgstr "Для звітування щодо вад у libguestfs скористайтеся цим посиланням:"
+
+#. type: textblock
+#: ../src/guestfs.pod:2961
+msgid ""
+"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools>"
+msgstr ""
+"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools>"
+
+#. type: textblock
+#: ../src/guestfs.pod:2963
 msgid "When reporting a bug, please check:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2965
+#: ../src/guestfs.pod:2969
 msgid "That the bug hasn't been reported already."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2969
+#: ../src/guestfs.pod:2973
 msgid "That you are testing a recent version."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2973
+#: ../src/guestfs.pod:2977
 msgid "Describe the bug accurately, and give a way to reproduce it."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2977
+#: ../src/guestfs.pod:2981
 msgid ""
 "Run libguestfs-test-tool and paste the B<complete, unedited> output into the "
 "bug report."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2982 ../fish/guestfish.pod:1174
+#: ../src/guestfs.pod:2986 ../fish/guestfish.pod:1174
 #: ../test-tool/libguestfs-test-tool.pod:93 ../fuse/guestmount.pod:280
 msgid "AUTHORS"
 msgstr "АВТОРИ"
 
 #. type: textblock
-#: ../src/guestfs.pod:2984 ../fish/guestfish.pod:1176
+#: ../src/guestfs.pod:2988 ../fish/guestfish.pod:1176
 #: ../test-tool/libguestfs-test-tool.pod:95 ../fuse/guestmount.pod:282
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2986 ../fish/guestfish.pod:1178
+#: ../src/guestfs.pod:2990 ../fish/guestfish.pod:1178
 #: ../test-tool/libguestfs-test-tool.pod:97 ../fuse/guestmount.pod:284
-#: ../tools/virt-edit.pl:514 ../tools/virt-win-reg.pl:602
-#: ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:305
-#: ../tools/virt-make-fs.pl:568 ../tools/virt-list-partitions.pl:273
+#: ../tools/virt-win-reg.pl:602 ../tools/virt-list-filesystems.pl:206
+#: ../tools/virt-tar.pl:305 ../tools/virt-make-fs.pl:568
+#: ../tools/virt-list-partitions.pl:273
 msgid "COPYRIGHT"
 msgstr "АВТОРСЬКІ ПРАВА"
 
 #. type: textblock
-#: ../src/guestfs.pod:2988 ../fish/guestfish.pod:1180
+#: ../src/guestfs.pod:2992 ../fish/guestfish.pod:1180
 #: ../test-tool/libguestfs-test-tool.pod:99
 msgid "Copyright (C) 2009-2011 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2991
+#: ../src/guestfs.pod:2995
 msgid ""
 "This library is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU Lesser General Public License as published by the "
@@ -5845,7 +5852,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2996
+#: ../src/guestfs.pod:3000
 msgid ""
 "This library is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -5854,7 +5861,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3001
+#: ../src/guestfs.pod:3005
 msgid ""
 "You should have received a copy of the GNU Lesser General Public License "
 "along with this library; if not, write to the Free Software Foundation, "
@@ -19299,7 +19306,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:23 ../fuse/guestmount.pod:15 ../tools/virt-edit.pl:44
+#: ../fish/guestfish.pod:23 ../fuse/guestmount.pod:15
 #: ../tools/virt-win-reg.pl:51 ../tools/virt-tar.pl:64
 msgid "WARNING"
 msgstr ""
@@ -19332,7 +19339,7 @@ msgstr ""
 
 #. type: =head1
 #: ../fish/guestfish.pod:41 ../fish/guestfish.pod:949
-#: ../fuse/guestmount.pod:39 ../tools/virt-edit.pl:63 ../tools/virt-tar.pl:50
+#: ../fuse/guestmount.pod:39 ../tools/virt-tar.pl:50
 msgid "EXAMPLES"
 msgstr ""
 
@@ -19591,18 +19598,17 @@ msgstr ""
 
 #. type: =head1
 #: ../fish/guestfish.pod:148 ../test-tool/libguestfs-test-tool.pod:37
-#: ../fuse/guestmount.pod:73 ../tools/virt-edit.pl:81
-#: ../tools/virt-win-reg.pl:96 ../tools/virt-list-filesystems.pl:53
-#: ../tools/virt-tar.pl:103 ../tools/virt-make-fs.pl:153
-#: ../tools/virt-list-partitions.pl:54
+#: ../fuse/guestmount.pod:73 ../tools/virt-win-reg.pl:96
+#: ../tools/virt-list-filesystems.pl:53 ../tools/virt-tar.pl:103
+#: ../tools/virt-make-fs.pl:153 ../tools/virt-list-partitions.pl:54
 msgid "OPTIONS"
 msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:133
-#: ../tools/virt-edit.pl:89 ../tools/virt-win-reg.pl:104
-#: ../tools/virt-list-filesystems.pl:61 ../tools/virt-tar.pl:111
-#: ../tools/virt-make-fs.pl:161 ../tools/virt-list-partitions.pl:62
+#: ../tools/virt-win-reg.pl:104 ../tools/virt-list-filesystems.pl:61
+#: ../tools/virt-tar.pl:111 ../tools/virt-make-fs.pl:161
+#: ../tools/virt-list-partitions.pl:62
 msgid "B<--help>"
 msgstr ""
 
@@ -20180,10 +20186,9 @@ msgid "B<-V>"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:399 ../tools/virt-edit.pl:97
-#: ../tools/virt-win-reg.pl:112 ../tools/virt-list-filesystems.pl:69
-#: ../tools/virt-tar.pl:119 ../tools/virt-make-fs.pl:169
-#: ../tools/virt-list-partitions.pl:70
+#: ../fish/guestfish.pod:399 ../tools/virt-win-reg.pl:112
+#: ../tools/virt-list-filesystems.pl:69 ../tools/virt-tar.pl:119
+#: ../tools/virt-make-fs.pl:169 ../tools/virt-list-partitions.pl:70
 msgid "B<--version>"
 msgstr ""
 
@@ -21087,7 +21092,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:800 ../tools/virt-edit.pl:342
+#: ../fish/guestfish.pod:800
 msgid "WINDOWS PATHS"
 msgstr ""
 
@@ -21793,10 +21798,9 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1183 ../test-tool/libguestfs-test-tool.pod:102
-#: ../fuse/guestmount.pod:289 ../tools/virt-edit.pl:518
-#: ../tools/virt-win-reg.pl:606 ../tools/virt-list-filesystems.pl:210
-#: ../tools/virt-tar.pl:309 ../tools/virt-make-fs.pl:572
-#: ../tools/virt-list-partitions.pl:277
+#: ../fuse/guestmount.pod:289 ../tools/virt-win-reg.pl:606
+#: ../tools/virt-list-filesystems.pl:210 ../tools/virt-tar.pl:309
+#: ../tools/virt-make-fs.pl:572 ../tools/virt-list-partitions.pl:277
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -21806,10 +21810,9 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1188 ../test-tool/libguestfs-test-tool.pod:107
-#: ../fuse/guestmount.pod:294 ../tools/virt-edit.pl:523
-#: ../tools/virt-win-reg.pl:611 ../tools/virt-list-filesystems.pl:215
-#: ../tools/virt-tar.pl:314 ../tools/virt-make-fs.pl:577
-#: ../tools/virt-list-partitions.pl:282
+#: ../fuse/guestmount.pod:294 ../tools/virt-win-reg.pl:611
+#: ../tools/virt-list-filesystems.pl:215 ../tools/virt-tar.pl:314
+#: ../tools/virt-make-fs.pl:577 ../tools/virt-list-partitions.pl:282
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -21819,10 +21822,9 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1193 ../test-tool/libguestfs-test-tool.pod:112
-#: ../fuse/guestmount.pod:299 ../tools/virt-edit.pl:528
-#: ../tools/virt-win-reg.pl:616 ../tools/virt-list-filesystems.pl:220
-#: ../tools/virt-tar.pl:319 ../tools/virt-make-fs.pl:582
-#: ../tools/virt-list-partitions.pl:287
+#: ../fuse/guestmount.pod:299 ../tools/virt-win-reg.pl:616
+#: ../tools/virt-list-filesystems.pl:220 ../tools/virt-tar.pl:319
+#: ../tools/virt-make-fs.pl:582 ../tools/virt-list-partitions.pl:287
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -28939,594 +28941,6 @@ msgid "Copyright (C) 2009-2010 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-edit.pl:34
-msgid "virt-edit - Edit a file in a virtual machine"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:38
-#, no-wrap
-msgid ""
-" virt-edit [--options] domname file\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:40
-#, no-wrap
-msgid ""
-" virt-edit [--options] disk.img [disk.img ...] file\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:42
-#, no-wrap
-msgid ""
-" virt-edit [domname|disk.img] file -e 'expr'\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:46
-msgid ""
-"You must I<not> use C<virt-edit> on live virtual machines.  If you do this, "
-"you risk disk corruption in the VM.  C<virt-edit> tries to stop you from "
-"doing this, but doesn't catch all cases."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:52
-msgid ""
-"C<virt-edit> is a command line tool to edit C<file> where C<file> exists in "
-"the named virtual machine (or disk image)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:55
-msgid "If you want to just view a file, use L<virt-cat(1)>."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:57
-msgid ""
-"For more complex cases you should look at the L<guestfish(1)> tool (see L</"
-"USING GUESTFISH> below)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:60
-msgid ""
-"C<virt-edit> cannot be used to create a new file, nor to edit multiple "
-"files.  L<guestfish(1)> can do that and much more."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:65
-msgid "Edit the named files interactively:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:67
-#, no-wrap
-msgid ""
-" virt-edit mydomain /boot/grub/grub.conf\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:69
-#, no-wrap
-msgid ""
-" virt-edit mydomain /etc/passwd\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:71
-msgid "For Windows guests, some Windows paths are understood:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:73
-#, no-wrap
-msgid ""
-" virt-edit mywindomain 'c:\\autoexec.bat'\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:75
-msgid ""
-"You can also edit files non-interactively (see L</NON-INTERACTIVE EDITING> "
-"below).  To change the init default level to 5:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:79
-#, no-wrap
-msgid ""
-" virt-edit mydomain /etc/inittab -e 's/^id:.*/id:5:initdefault:/'\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:91 ../tools/virt-win-reg.pl:106
-#: ../tools/virt-list-filesystems.pl:63 ../tools/virt-tar.pl:113
-#: ../tools/virt-make-fs.pl:163 ../tools/virt-list-partitions.pl:64
-msgid "Display brief help."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:99 ../tools/virt-win-reg.pl:114
-#: ../tools/virt-list-filesystems.pl:71 ../tools/virt-tar.pl:121
-#: ../tools/virt-make-fs.pl:171 ../tools/virt-list-partitions.pl:72
-msgid "Display version number and exit."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-edit.pl:105
-msgid "B<--backup extension> | B<-b extension>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:107
-msgid ""
-"Create a backup of the original file I<in the guest disk image>.  The backup "
-"has the original filename with C<extension> added."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:110
-msgid ""
-"Usually the first character of C<extension> would be a dot C<.> so you would "
-"write:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:113
-#, no-wrap
-msgid ""
-" virt-edit -b .orig [etc]\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:115
-msgid "By default, no backup file is made."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-edit.pl:121 ../tools/virt-win-reg.pl:128
-#: ../tools/virt-list-filesystems.pl:77 ../tools/virt-tar.pl:127
-#: ../tools/virt-list-partitions.pl:78
-msgid "B<--connect URI> | B<-c URI>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:123 ../tools/virt-win-reg.pl:130
-#: ../tools/virt-list-filesystems.pl:79 ../tools/virt-tar.pl:129
-#: ../tools/virt-list-partitions.pl:80
-msgid ""
-"If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
-"to the default libvirt hypervisor."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:126 ../tools/virt-win-reg.pl:133
-#: ../tools/virt-list-filesystems.pl:82 ../tools/virt-tar.pl:132
-#: ../tools/virt-list-partitions.pl:83
-msgid ""
-"If you specify guest block devices directly, then libvirt is not used at all."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-edit.pl:133 ../tools/virt-win-reg.pl:140
-#: ../tools/virt-list-filesystems.pl:89 ../tools/virt-tar.pl:139
-#: ../tools/virt-list-partitions.pl:90
-msgid "B<--format> raw"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:135 ../tools/virt-win-reg.pl:142
-#: ../tools/virt-list-filesystems.pl:91 ../tools/virt-tar.pl:141
-#: ../tools/virt-list-partitions.pl:92
-msgid ""
-"Specify the format of disk images given on the command line.  If this is "
-"omitted then the format is autodetected from the content of the disk image."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:139 ../tools/virt-win-reg.pl:146
-#: ../tools/virt-list-filesystems.pl:95 ../tools/virt-tar.pl:145
-#: ../tools/virt-list-partitions.pl:96
-msgid ""
-"If disk images are requested from libvirt, then this program asks libvirt "
-"for this information.  In this case, the value of the format parameter is "
-"ignored."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:143 ../tools/virt-win-reg.pl:150
-#: ../tools/virt-list-filesystems.pl:99 ../tools/virt-tar.pl:149
-#: ../tools/virt-list-partitions.pl:100
-msgid ""
-"If working with untrusted raw-format guest disk images, you should ensure "
-"the format is always specified."
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-edit.pl:150
-msgid "B<--expr EXPR> | B<-e EXPR>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:152
-msgid ""
-"Instead of launching the external editor, non-interactively apply the Perl "
-"expression C<EXPR> to each line in the file.  See L</NON-INTERACTIVE "
-"EDITING> below."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:156
-msgid ""
-"Be careful to properly quote the expression to prevent it from being altered "
-"by the shell."
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-edit.pl:280
-msgid "NON-INTERACTIVE EDITING"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:282
-msgid ""
-"C<virt-edit> normally calls out to C<$EDITOR> (or vi) so the system "
-"administrator can interactively edit the file."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:285
-msgid ""
-"There are two ways also to use C<virt-edit> from scripts in order to make "
-"automated edits to files.  (Note that although you I<can> use C<virt-edit> "
-"like this, it's less error-prone to write scripts directly using the "
-"libguestfs API and Augeas for configuration file editing.)"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:291
-msgid ""
-"The first method is to temporarily set C<$EDITOR> to any script or program "
-"you want to run.  The script is invoked as C<$EDITOR tmpfile> and it should "
-"update C<tmpfile> in place however it likes."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:295
-msgid ""
-"The second method is to use the I<-e> parameter of C<virt-edit> to run a "
-"short Perl snippet in the style of L<sed(1)>.  For example to replace all "
-"instances of C<foo> with C<bar> in a file:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:299
-#, no-wrap
-msgid ""
-" virt-edit domname filename -e 's/foo/bar/'\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:301
-msgid ""
-"The full power of Perl regular expressions can be used (see L<perlre(1)>).  "
-"For example to delete root's password you could do:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:304
-#, no-wrap
-msgid ""
-" virt-edit domname /etc/passwd -e 's/^root:.*?:/root::/'\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:306
-msgid ""
-"What really happens is that the snippet is evaluated as a Perl expression "
-"for each line of the file.  The line, including the final C<\\n>, is passed "
-"in C<$_> and the expression should update C<$_> or leave it unchanged."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:311
-msgid ""
-"To delete a line, set C<$_> to the empty string.  For example, to delete the "
-"C<apache> user account from the password file you can do:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:314
-#, no-wrap
-msgid ""
-" virt-edit mydomain /etc/passwd -e '$_ = \"\" if /^apache:/'\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:316
-msgid ""
-"To insert a line, prepend or append it to C<$_>.  However appending lines to "
-"the end of the file is rather difficult this way since there is no concept "
-"of \"last line of the file\" - your expression just doesn't get called "
-"again.  You might want to use the first method (setting C<$EDITOR>) if you "
-"want to do this."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:322
-msgid ""
-"The variable C<$lineno> contains the current line number.  As is "
-"traditional, the first line in the file is number C<1>."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:325
-msgid ""
-"The return value from the expression is ignored, but the expression may call "
-"C<die> in order to abort the whole program, leaving the original file "
-"untouched."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:329
-msgid ""
-"Remember when matching the end of a line that C<$_> may contain the final C<"
-"\\n>, or (for DOS files) C<\\r\\n>, or if the file does not end with a "
-"newline then neither of these.  Thus to match or substitute some text at the "
-"end of a line, use this regular expression:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:334
-#, no-wrap
-msgid ""
-" /some text(\\r?\\n)?$/\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:336
-msgid ""
-"Alternately, use the perl C<chomp> function, being careful not to chomp C<"
-"$_> itself (since that would remove all newlines from the file):"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:340
-#, no-wrap
-msgid ""
-" my $m = $_; chomp $m; $m =~ /some text$/\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:344
-msgid ""
-"C<virt-edit> has a limited ability to understand Windows drive letters and "
-"paths (eg. C<E:\\foo\\bar.txt>)."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:347
-msgid "If and only if the guest is running Windows then:"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:353
-msgid ""
-"Drive letter prefixes like C<C:> are resolved against the Windows Registry "
-"to the correct filesystem."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:358
-msgid ""
-"Any backslash (C<\\>) characters in the path are replaced with forward "
-"slashes so that libguestfs can process it."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:363
-msgid ""
-"The path is resolved case insensitively to locate the file that should be "
-"edited."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:368
-msgid "There are some known shortcomings:"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:374
-msgid "Some NTFS symbolic links may not be followed correctly."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:378
-msgid "NTFS junction points that cross filesystems are not followed."
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-edit.pl:435
-msgid "USING GUESTFISH"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:437
-msgid ""
-"L<guestfish(1)> is a more powerful, lower level tool which you can use when "
-"C<virt-edit> doesn't work."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:440
-msgid "Using C<virt-edit> is approximately equivalent to doing:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:442
-#, no-wrap
-msgid ""
-" guestfish --rw -i -d domname edit /file\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:444
-msgid ""
-"where C<domname> is the name of the libvirt guest, and C</file> is the full "
-"path to the file."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:447
-msgid ""
-"The command above uses libguestfs's guest inspection feature and so does not "
-"work on guests that libguestfs cannot inspect, or on things like arbitrary "
-"disk images that don't contain guests.  To edit a file on a disk image "
-"directly, use:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:452
-#, no-wrap
-msgid ""
-" guestfish --rw -a disk.img -m /dev/sda1 edit /file\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:454
-msgid ""
-"where C<disk.img> is the disk image, C</dev/sda1> is the filesystem within "
-"the disk image to edit, and C</file> is the full path to the file."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:458
-msgid ""
-"C<virt-edit> cannot create new files.  Use the guestfish commands C<touch>, "
-"C<write> or C<upload> instead:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:461
-#, no-wrap
-msgid ""
-" guestfish --rw -i -d domname touch /newfile\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:463
-#, no-wrap
-msgid ""
-" guestfish --rw -i -d domname write /newfile \"new content\"\n"
-"\n"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:465
-#, no-wrap
-msgid ""
-" guestfish --rw -i -d domname upload localfile /newfile\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:467
-msgid ""
-"C<virt-edit> cannot edit multiple files, but guestfish can do it like this:"
-msgstr ""
-
-#. type: verbatim
-#: ../tools/virt-edit.pl:470
-#, no-wrap
-msgid ""
-" guestfish --rw -i -d domname edit /file1 : edit /file2\n"
-"\n"
-msgstr ""
-
-#. type: =item
-#: ../tools/virt-edit.pl:480
-msgid "C<EDITOR>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:482
-msgid ""
-"If set, this string is used as the editor.  It may contain arguments, eg. C<"
-"\"emacs -nw\">"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:485
-msgid "If not set, C<vi> is used."
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-edit.pl:489 ../tools/virt-win-reg.pl:559
-#: ../tools/virt-list-filesystems.pl:182 ../tools/virt-tar.pl:279
-#: ../tools/virt-make-fs.pl:532 ../tools/virt-list-partitions.pl:250
-msgid "SHELL QUOTING"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:491 ../tools/virt-win-reg.pl:567
-#: ../tools/virt-list-filesystems.pl:184 ../tools/virt-tar.pl:281
-#: ../tools/virt-make-fs.pl:534 ../tools/virt-list-partitions.pl:252
-msgid ""
-"Libvirt guest names can contain arbitrary characters, some of which have "
-"meaning to the shell such as C<#> and space.  You may need to quote or "
-"escape these characters on the command line.  See the shell manual page L<sh"
-"(1)> for details."
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:498
-msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-"
-"tar-in(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, "
-"L<http://libguestfs.org/>, L<perl(1)>, L<perlre(1)>."
-msgstr ""
-
-#. type: =head1
-#: ../tools/virt-edit.pl:510 ../tools/virt-win-reg.pl:598
-#: ../tools/virt-list-filesystems.pl:202 ../tools/virt-tar.pl:301
-#: ../tools/virt-make-fs.pl:564 ../tools/virt-list-partitions.pl:269
-msgid "AUTHOR"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:512 ../tools/virt-win-reg.pl:600
-#: ../tools/virt-list-filesystems.pl:204 ../tools/virt-tar.pl:303
-#: ../tools/virt-make-fs.pl:566 ../tools/virt-list-partitions.pl:271
-msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
-msgstr ""
-
-#. type: textblock
-#: ../tools/virt-edit.pl:516
-msgid "Copyright (C) 2009-2011 Red Hat Inc."
-msgstr ""
-
-#. type: textblock
 #: ../tools/virt-win-reg.pl:37
 msgid ""
 "virt-win-reg - Export and merge Windows Registry entries from a Windows guest"
@@ -29665,6 +29079,20 @@ msgid ""
 "L<hivexregedit(1)>."
 msgstr ""
 
+#. type: textblock
+#: ../tools/virt-win-reg.pl:106 ../tools/virt-list-filesystems.pl:63
+#: ../tools/virt-tar.pl:113 ../tools/virt-make-fs.pl:163
+#: ../tools/virt-list-partitions.pl:64
+msgid "Display brief help."
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:114 ../tools/virt-list-filesystems.pl:71
+#: ../tools/virt-tar.pl:121 ../tools/virt-make-fs.pl:171
+#: ../tools/virt-list-partitions.pl:72
+msgid "Display version number and exit."
+msgstr ""
+
 #. type: =item
 #: ../tools/virt-win-reg.pl:120 ../tools/virt-make-fs.pl:177
 msgid "B<--debug>"
@@ -29673,6 +29101,58 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-win-reg.pl:122
 msgid "Enable debugging messages."
+msgstr ""
+
+#. type: =item
+#: ../tools/virt-win-reg.pl:128 ../tools/virt-list-filesystems.pl:77
+#: ../tools/virt-tar.pl:127 ../tools/virt-list-partitions.pl:78
+msgid "B<--connect URI> | B<-c URI>"
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:130 ../tools/virt-list-filesystems.pl:79
+#: ../tools/virt-tar.pl:129 ../tools/virt-list-partitions.pl:80
+msgid ""
+"If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
+"to the default libvirt hypervisor."
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:133 ../tools/virt-list-filesystems.pl:82
+#: ../tools/virt-tar.pl:132 ../tools/virt-list-partitions.pl:83
+msgid ""
+"If you specify guest block devices directly, then libvirt is not used at all."
+msgstr ""
+
+#. type: =item
+#: ../tools/virt-win-reg.pl:140 ../tools/virt-list-filesystems.pl:89
+#: ../tools/virt-tar.pl:139 ../tools/virt-list-partitions.pl:90
+msgid "B<--format> raw"
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:142 ../tools/virt-list-filesystems.pl:91
+#: ../tools/virt-tar.pl:141 ../tools/virt-list-partitions.pl:92
+msgid ""
+"Specify the format of disk images given on the command line.  If this is "
+"omitted then the format is autodetected from the content of the disk image."
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:146 ../tools/virt-list-filesystems.pl:95
+#: ../tools/virt-tar.pl:145 ../tools/virt-list-partitions.pl:96
+msgid ""
+"If disk images are requested from libvirt, then this program asks libvirt "
+"for this information.  In this case, the value of the format parameter is "
+"ignored."
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:150 ../tools/virt-list-filesystems.pl:99
+#: ../tools/virt-tar.pl:149 ../tools/virt-list-partitions.pl:100
+msgid ""
+"If working with untrusted raw-format guest disk images, you should ensure "
+"the format is always specified."
 msgstr ""
 
 #. type: =item
@@ -30041,6 +29521,13 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: =head1
+#: ../tools/virt-win-reg.pl:559 ../tools/virt-list-filesystems.pl:182
+#: ../tools/virt-tar.pl:279 ../tools/virt-make-fs.pl:532
+#: ../tools/virt-list-partitions.pl:250
+msgid "SHELL QUOTING"
+msgstr ""
+
 #. type: textblock
 #: ../tools/virt-win-reg.pl:561
 msgid ""
@@ -30052,6 +29539,17 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-win-reg.pl:565
 msgid "Paths and value names are case-insensitive."
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:567 ../tools/virt-list-filesystems.pl:184
+#: ../tools/virt-tar.pl:281 ../tools/virt-make-fs.pl:534
+#: ../tools/virt-list-partitions.pl:252
+msgid ""
+"Libvirt guest names can contain arbitrary characters, some of which have "
+"meaning to the shell such as C<#> and space.  You may need to quote or "
+"escape these characters on the command line.  See the shell manual page L<sh"
+"(1)> for details."
 msgstr ""
 
 #. type: textblock
@@ -30083,6 +29581,20 @@ msgstr ""
 msgid ""
 "Attach /tmp/virt-win-reg.log to a new bug report at L<https://bugzilla."
 "redhat.com/>"
+msgstr ""
+
+#. type: =head1
+#: ../tools/virt-win-reg.pl:598 ../tools/virt-list-filesystems.pl:202
+#: ../tools/virt-tar.pl:301 ../tools/virt-make-fs.pl:564
+#: ../tools/virt-list-partitions.pl:269
+msgid "AUTHOR"
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-win-reg.pl:600 ../tools/virt-list-filesystems.pl:204
+#: ../tools/virt-tar.pl:303 ../tools/virt-make-fs.pl:566
+#: ../tools/virt-list-partitions.pl:271
+msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: textblock

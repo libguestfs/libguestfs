@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-05-08 16:51+0100\n"
+"POT-Creation-Date: 2011-05-09 15:21+0100\n"
 "PO-Revision-Date: 2010-12-21 14:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:58 df/main.c:70
-#: fish/fish.c:96 fuse/guestmount.c:908 inspector/virt-inspector.c:72
-#: rescue/virt-rescue.c:59
+#: edit/virt-edit.c:73 fish/fish.c:96 fuse/guestmount.c:908
+#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:59
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
@@ -63,14 +63,15 @@ msgstr ""
 "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:123
-#: df/domains.c:428 df/main.c:136 fish/fish.c:219 fuse/guestmount.c:1024
-#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
+#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:219
+#: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
+#: rescue/virt-rescue.c:133
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:145
-#: df/main.c:160 fish/fish.c:276 fuse/guestmount.c:1061
+#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:276 fuse/guestmount.c:1061
 #: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -331,6 +332,68 @@ msgstr "IWolne"
 #: df/output.c:64
 msgid "IUse%"
 msgstr "IUżyte%"
+
+#: edit/virt-edit.c:77
+#, fuzzy, c-format
+msgid ""
+"%s: Edit a file in a virtual machine\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -b|--backup .ext     Backup original as original.ext\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  -e|--expr expr       Non-interactive editing using Perl expr\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: wyświetla pliki w maszynie wirtualnej\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Użycie:\n"
+"  %s [--opcje] -d nazwa_domeny plik [plik...]\n"
+"  %s [--opcje] -a dysk.img [-a dysk.img ...] plik [plik...]\n"
+"Opcje:\n"
+"  -a|--add obraz       Dodaje obraz\n"
+"  -c|--connect uri     Określa adres URI biblioteki libvirt URI\n"
+"                       dla opcji -d\n"
+"  -d|--domain gość     Dodaje dyski z gościa biblioteki libvirt\n"
+"  --echo-keys          Bez wyłączania echa dla haseł\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+"  --help               Wyświetla krótką pomoc\n"
+"  --keys-from-stdin    Odczytuje hasła ze standardowego wejści\n"
+"  -v|--verbose         Więcej komunikatów\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
+"  -x                   Śledzi wywołania API biblioteki libguestfs\n"
+"Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
+
+#: edit/virt-edit.c:175
+#, c-format
+msgid "%s: -b option given multiple times\n"
+msgstr ""
+
+#: edit/virt-edit.c:192
+#, c-format
+msgid "%s: -e option given multiple times\n"
+msgstr ""
+
+#: edit/virt-edit.c:585 fish/fish.c:1444
+#, c-format
+msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
+msgstr ""
+
+#: edit/virt-edit.c:599
+#, fuzzy, c-format
+msgid "%s: drive '%c:' not found.\n"
+msgstr "virt-tar: {tarball}: nie odnaleziono pliku\n"
 
 #: fish/alloc.c:37
 #, c-format
@@ -2250,11 +2313,6 @@ msgid ""
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1444
-#, c-format
-msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
-msgstr ""
-
 #: fish/fish.c:1458
 #, c-format
 msgid ""
@@ -3413,56 +3471,6 @@ msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
 
-#: tools/virt-edit.pl:178
-msgid "virt-edit: no image, VM names or filenames to edit given"
-msgstr ""
-"virt-edit: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
-"polecenia edit"
-
-#: tools/virt-edit.pl:194 tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
-#, perl-brace-format
-msgid ""
-"{prog}: No operating system could be detected inside this disk image.\n"
-"\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
-"image, or because the OS type is not understood by libguestfs.\n"
-"\n"
-"If you feel this is an error, please file a bug report including as much\n"
-"information about the disk image as possible.\n"
-msgstr ""
-"{prog}: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu "
-"dysku.\n"
-"\n"
-"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
-"maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
-"\n"
-"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
-"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
-
-#: tools/virt-edit.pl:198 tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
-#, perl-brace-format
-msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr "{prog}: systemy operacyjne \"multiboot\" nie są obsługiwane.\n"
-
-#: tools/virt-edit.pl:235
-msgid "File not changed.\n"
-msgstr "Plik nie został zmieniony.\n"
-
-#: tools/virt-edit.pl:406
-#, fuzzy, perl-brace-format
-msgid "virt-edit: drive '{x}:' not found\n"
-msgstr "virt-tar: {tarball}: nie odnaleziono pliku\n"
-
-#: tools/virt-edit.pl:422
-#, perl-brace-format
-msgid ""
-"virt-edit: '{f}' does not start with a / or \\ character.\n"
-"If you are using Windows style paths with backslashes like C:\\foo.txt\n"
-"then don't forget that you must quote them with single quotes to\n"
-"prevent the shell from munging the backslashes.\n"
-msgstr ""
-
 #: tools/virt-list-filesystems.pl:142
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: nie podano obrazu lub nazwy maszyny wirtualnej"
@@ -3548,6 +3556,32 @@ msgstr "virt-tar: {tarball}: nie odnaleziono pliku\n"
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: nazwa katalogu musi zaczynać się od znaku \"/\"\n"
 
+#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
+#, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"{prog}: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu "
+"dysku.\n"
+"\n"
+"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
+"maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
+"\n"
+"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
+"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+
+#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
+#, perl-brace-format
+msgid "{prog}: multiboot operating systems are not supported.\n"
+msgstr "{prog}: systemy operacyjne \"multiboot\" nie są obsługiwane.\n"
+
 #: tools/virt-win-reg.pl:201
 msgid "no libvirt domain name or disk image given\n"
 msgstr "nie podano nazwy domeny libvirt lub obrazu dysku\n"
@@ -3580,6 +3614,14 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
+
+#~ msgid "virt-edit: no image, VM names or filenames to edit given"
+#~ msgstr ""
+#~ "virt-edit: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
+#~ "polecenia edit"
+
+#~ msgid "File not changed.\n"
+#~ msgstr "Plik nie został zmieniony.\n"
 
 #~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 #~ msgstr "libguestfs-test-tool: utworzenie katalogu /iso nie powiodło się\n"

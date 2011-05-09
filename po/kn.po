@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-05-08 16:51+0100\n"
+"POT-Creation-Date: 2011-05-09 15:21+0100\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:58 df/main.c:70
-#: fish/fish.c:96 fuse/guestmount.c:908 inspector/virt-inspector.c:72
-#: rescue/virt-rescue.c:59
+#: edit/virt-edit.c:73 fish/fish.c:96 fuse/guestmount.c:908
+#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:59
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s -help' ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ .\n"
@@ -67,14 +67,15 @@ msgstr ""
 "  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:123
-#: df/domains.c:428 df/main.c:136 fish/fish.c:219 fuse/guestmount.c:1024
-#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
+#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:219
+#: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
+#: rescue/virt-rescue.c:133
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:145
-#: df/main.c:160 fish/fish.c:276 fuse/guestmount.c:1061
+#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:276 fuse/guestmount.c:1061
 #: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -309,6 +310,69 @@ msgstr ""
 #: df/output.c:64
 msgid "IUse%"
 msgstr ""
+
+#: edit/virt-edit.c:77
+#, fuzzy, c-format
+msgid ""
+"%s: Edit a file in a virtual machine\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -b|--backup .ext     Backup original as original.ext\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  -e|--expr expr       Non-interactive editing using Perl expr\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
+"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
+"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
+"ಬಳಕೆ:\n"
+"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
+"ಆಯ್ಕೆಗಳು:\n"
+"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
+"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
+"ಸೆಕೆಂಡು)\n"
+"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
+"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
+"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
+"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
+"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
+"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
+"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
+"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
+"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
+"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
+
+#: edit/virt-edit.c:175
+#, c-format
+msgid "%s: -b option given multiple times\n"
+msgstr ""
+
+#: edit/virt-edit.c:192
+#, c-format
+msgid "%s: -e option given multiple times\n"
+msgstr ""
+
+#: edit/virt-edit.c:585 fish/fish.c:1444
+#, c-format
+msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
+msgstr ""
+
+#: edit/virt-edit.c:599
+#, fuzzy, c-format
+msgid "%s: drive '%c:' not found.\n"
+msgstr "%s: %s: ಕೀಲಿಯು ಕಂಡುಬಂದಿಲ್ಲ\n"
 
 #: fish/alloc.c:37
 #, c-format
@@ -2238,11 +2302,6 @@ msgid ""
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1444
-#, c-format
-msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
-msgstr ""
-
 #: fish/fish.c:1458
 #, c-format
 msgid ""
@@ -3316,46 +3375,6 @@ msgstr "ಬೈನರಿ '%s' ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ �
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ಇದು ಒಂದು qemu ಆಕರ ಕೋಶದ ರೀತಿ ಕಾಣಿಸುತ್ತಿಲ್ಲ\n"
 
-#: tools/virt-edit.pl:178
-msgid "virt-edit: no image, VM names or filenames to edit given"
-msgstr ""
-
-#: tools/virt-edit.pl:194 tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
-#, perl-brace-format
-msgid ""
-"{prog}: No operating system could be detected inside this disk image.\n"
-"\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
-"image, or because the OS type is not understood by libguestfs.\n"
-"\n"
-"If you feel this is an error, please file a bug report including as much\n"
-"information about the disk image as possible.\n"
-msgstr ""
-
-#: tools/virt-edit.pl:198 tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
-#, perl-brace-format
-msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr ""
-
-#: tools/virt-edit.pl:235
-msgid "File not changed.\n"
-msgstr ""
-
-#: tools/virt-edit.pl:406
-#, perl-brace-format
-msgid "virt-edit: drive '{x}:' not found\n"
-msgstr ""
-
-#: tools/virt-edit.pl:422
-#, perl-brace-format
-msgid ""
-"virt-edit: '{f}' does not start with a / or \\ character.\n"
-"If you are using Windows style paths with backslashes like C:\\foo.txt\n"
-"then don't forget that you must quote them with single quotes to\n"
-"prevent the shell from munging the backslashes.\n"
-msgstr ""
-
 #: tools/virt-list-filesystems.pl:142
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
@@ -3430,6 +3449,24 @@ msgstr ""
 #: tools/virt-tar.pl:229
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
+msgstr ""
+
+#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
+#, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+
+#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
+#, perl-brace-format
+msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
 #: tools/virt-win-reg.pl:201
@@ -3863,9 +3900,6 @@ msgstr ""
 #~ "'cd' ಆಜ್ಞೆಯನ್ನು ಬಳಸಿಕೊಂಡು ಹೈವ್‌ನ ಕೀಲಿಗಳು ಒಂದು ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿರುವಂತೆ\n"
 #~ "ವೀಕ್ಷಿಸಿ ಪ್ರಸಕ್ತ ಕೀಲಿಯ ಉಪಕೀಲಿಗಳ ಪಟ್ಟಿಯನ್ನು ನೋಡಲು 'ls' ಅನ್ನು ಬಳಸಿ.\n"
 #~ "ಸಂಪೂರ್ಣ ದಸ್ತಾವೇಜು hivexsh(1) ಮಾರ್ಗದರ್ಶಿ ಪುಟದಲ್ಲಿದೆ.\n"
-
-#~ msgid "%s: %s: key not found\n"
-#~ msgstr "%s: %s: ಕೀಲಿಯು ಕಂಡುಬಂದಿಲ್ಲ\n"
 
 #~ msgid "hivexsh: setval: unexpected end of input\n"
 #~ msgstr "hivexsh: setval: ಇನ್‌ಪುಟ್‌ಗೆ ಅನಿರೀಕ್ಷಿತವಾದ ಅಂತ್ಯ\n"

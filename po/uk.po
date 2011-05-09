@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-05-08 16:51+0100\n"
+"POT-Creation-Date: 2011-05-09 15:21+0100\n"
 "PO-Revision-Date: 2011-03-22 15:28+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:58 df/main.c:70
-#: fish/fish.c:96 fuse/guestmount.c:908 inspector/virt-inspector.c:72
-#: rescue/virt-rescue.c:59
+#: edit/virt-edit.c:73 fish/fish.c:96 fuse/guestmount.c:908
+#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:59
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -66,14 +66,15 @@ msgstr ""
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:123
-#: df/domains.c:428 df/main.c:136 fish/fish.c:219 fuse/guestmount.c:1024
-#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
+#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:219
+#: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
+#: rescue/virt-rescue.c:133
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:145
-#: df/main.c:160 fish/fish.c:276 fuse/guestmount.c:1061
+#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:276 fuse/guestmount.c:1061
 #: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -332,6 +333,67 @@ msgstr "IВільно"
 #: df/output.c:64
 msgid "IUse%"
 msgstr "% IВикористання"
+
+#: edit/virt-edit.c:77
+#, fuzzy, c-format
+msgid ""
+"%s: Edit a file in a virtual machine\n"
+"Copyright (C) 2009-2011 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -b|--backup .ext     Backup original as original.ext\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  -e|--expr expr       Non-interactive editing using Perl expr\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: показ файлів у віртуальній машині\n"
+"© Red Hat Inc., 2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену файл [файл ...]\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...] файл [файл ...]\n"
+"Options:\n"
+"  -a|--add образ       Додати образ\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --echo-keys          Не вимикати показ введених символів паролів\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати короткі довідкові дані\n"
+"  --keys-from-stdin    Прочитати паролі зі stdin\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#: edit/virt-edit.c:175
+#, c-format
+msgid "%s: -b option given multiple times\n"
+msgstr ""
+
+#: edit/virt-edit.c:192
+#, c-format
+msgid "%s: -e option given multiple times\n"
+msgstr ""
+
+#: edit/virt-edit.c:585 fish/fish.c:1444
+#, c-format
+msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
+msgstr ""
+
+#: edit/virt-edit.c:599
+#, fuzzy, c-format
+msgid "%s: drive '%c:' not found.\n"
+msgstr "virt-tar: {tarball}: файла не знайдено\n"
 
 #: fish/alloc.c:37
 #, c-format
@@ -2272,11 +2334,6 @@ msgid ""
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1444
-#, c-format
-msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
-msgstr ""
-
 #: fish/fish.c:1458
 #, c-format
 msgid ""
@@ -3446,59 +3503,6 @@ msgstr "Виконуваного файла «%s» не існує або вка
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
 
-#: tools/virt-edit.pl:178
-msgid "virt-edit: no image, VM names or filenames to edit given"
-msgstr ""
-"virt-edit: не вказано образу, назв віртуальних машин або назв файлів для "
-"редагування"
-
-#: tools/virt-edit.pl:194 tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
-#, perl-brace-format
-msgid ""
-"{prog}: No operating system could be detected inside this disk image.\n"
-"\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
-"image, or because the OS type is not understood by libguestfs.\n"
-"\n"
-"If you feel this is an error, please file a bug report including as much\n"
-"information about the disk image as possible.\n"
-msgstr ""
-"{prog}: у цьому образі диска не вдалося виявити операційної системи\n"
-"\n"
-"Причиною може бути те, що файл не є файлом образу диска, не є образом "
-"віртуальної\n"
-"машини або його тип ОС не підтримується libguestfs.\n"
-"\n"
-"Якщо вам здається, що сталася якась помилка, будь ласка, створіть "
-"повідомлення про ваду,\n"
-"додавши до нього максимум можливої інформації щодо образу диска.\n"
-
-#: tools/virt-edit.pl:198 tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
-#, perl-brace-format
-msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr ""
-"{prog}: підтримки операційних систем з варіантами завантаження не "
-"передбачено.\n"
-
-#: tools/virt-edit.pl:235
-msgid "File not changed.\n"
-msgstr "Файл не змінено.\n"
-
-#: tools/virt-edit.pl:406
-#, fuzzy, perl-brace-format
-msgid "virt-edit: drive '{x}:' not found\n"
-msgstr "virt-tar: {tarball}: файла не знайдено\n"
-
-#: tools/virt-edit.pl:422
-#, perl-brace-format
-msgid ""
-"virt-edit: '{f}' does not start with a / or \\ character.\n"
-"If you are using Windows style paths with backslashes like C:\\foo.txt\n"
-"then don't forget that you must quote them with single quotes to\n"
-"prevent the shell from munging the backslashes.\n"
-msgstr ""
-
 #: tools/virt-list-filesystems.pl:142
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: не вказано образу або назви віртуальної машини"
@@ -3584,6 +3588,35 @@ msgstr "virt-tar: {tarball}: файла не знайдено\n"
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
 
+#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:217
+#, perl-brace-format
+msgid ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"{prog}: у цьому образі диска не вдалося виявити операційної системи\n"
+"\n"
+"Причиною може бути те, що файл не є файлом образу диска, не є образом "
+"віртуальної\n"
+"машини або його тип ОС не підтримується libguestfs.\n"
+"\n"
+"Якщо вам здається, що сталася якась помилка, будь ласка, створіть "
+"повідомлення про ваду,\n"
+"додавши до нього максимум можливої інформації щодо образу диска.\n"
+
+#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:221
+#, perl-brace-format
+msgid "{prog}: multiboot operating systems are not supported.\n"
+msgstr ""
+"{prog}: підтримки операційних систем з варіантами завантаження не "
+"передбачено.\n"
+
 #: tools/virt-win-reg.pl:201
 msgid "no libvirt domain name or disk image given\n"
 msgstr "не вказано назви домену або образу диска libvirt\n"
@@ -3615,6 +3648,14 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "virt-edit: no image, VM names or filenames to edit given"
+#~ msgstr ""
+#~ "virt-edit: не вказано образу, назв віртуальних машин або назв файлів для "
+#~ "редагування"
+
+#~ msgid "File not changed.\n"
+#~ msgstr "Файл не змінено.\n"
 
 #~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 #~ msgstr "libguestfs-test-tool: не вдалося створити каталог /iso\n"
