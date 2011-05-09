@@ -538,22 +538,13 @@ AS_IF([test "x$enable_python" != "xno"],
             PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[[0:3]]"`
 	    AC_MSG_RESULT([$PYTHON_VERSION])
 
-            for d in \
-                $PYTHON_PREFIX/include/python$PYTHON_VERSION \
-                /usr/include/python$PYTHON_VERSION \
-                /usr/local/include/python$PYTHON_VERSION
-            do
-                AC_MSG_CHECKING([Python.h in $d])
-                if test -r "$d/Python.h"; then
-                    AC_MSG_RESULT([found])
-                    PYTHON_INCLUDEDIR=$d
-                    break
-                fi
-                AC_MSG_RESULT([not found])
-            done
-            if test "x$PYTHON_INCLUDEDIR" = "x"; then
-                AC_MSG_WARN([Python include directory not found])
+            AC_MSG_CHECKING([for Python include path])
+            if test -z "$PYTHON_INCLUDEDIR"; then
+                python_path=`$PYTHON -c "import distutils.sysconfig; \
+                                         print (distutils.sysconfig.get_python_inc ());"`
+                PYTHON_INCLUDEDIR=$python_path
             fi
+            AC_MSG_RESULT([$PYTHON_INCLUDEDIR])
 
             AC_ARG_WITH([python-installdir],
                         [AS_HELP_STRING([--with-python-installdir],
@@ -564,24 +555,12 @@ AS_IF([test "x$enable_python" != "xno"],
 
 	    if test "x$PYTHON_INSTALLDIR" = "xcheck"; then
 	        PYTHON_INSTALLDIR=
-                for d in \
-                    $PYTHON_PREFIX/lib64/python$PYTHON_VERSION/site-packages \
-                    $PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages \
-                    /usr/lib64/python$PYTHON_VERSION/site-packages \
-                    /usr/lib/python$PYTHON_VERSION/site-packages \
-                    /usr/local/lib/python$PYTHON_VERSION/site-packages
-                do
-                    AC_MSG_CHECKING([for $d])
-                    if test -d "$d"; then
-                        AC_MSG_RESULT([found])
-                        PYTHON_INSTALLDIR=$d
-                        break
-                    fi
-                    AC_MSG_RESULT([not found])
-                done
-                if test "x$PYTHON_INSTALLDIR" = "x"; then
-                    AC_MSG_WARN([Python site-packages directory not found])
+                AC_MSG_CHECKING([for Python site-packages path])
+                if test -z "$PYTHON_INSTALLDIR"; then
+                    PYTHON_INSTALLDIR=`$PYTHON -c "import distutils.sysconfig; \
+                                                   print (distutils.sysconfig.get_python_lib(0,0));"`
                 fi
+                AC_MSG_RESULT([$PYTHON_INSTALLDIR])
             fi
 
             old_LIBS="$LIBS"
