@@ -7,6 +7,7 @@ Build-Depends: debhelper (>= 7), autotools-dev,
   febootstrap (>= 3.2),
   libreadline-dev, cdbs, libaugeas-dev, libhivex-dev, libvirt-dev,
   libmagic-dev, libncurses5-dev, libpcre3-dev, libxml2-dev,
+# XXX libconfig-dev, but it is not in Debian
   qemu-system (>= 0.13) | kvm (>= 0.13) | qemu-kvm (>= 0.13) | qemu (>= 0.13),
 # XXX how to say we need Linux >= 2.6.36?
   genisoimage, pkg-config,
