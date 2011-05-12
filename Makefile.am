@@ -87,26 +87,26 @@ endif
 
 EXTRA_DIST = \
 	$(generator_built) \
-	html/pod.css \
 	BUGS HACKING RELEASE-NOTES ROADMAP TODO \
+	.gitignore \
+	bugs-in-changelog.sh \
+	autogen.sh \
+	bindtests \
+	contrib/README \
+	html/pod.css \
+	html/recipes.css \
 	libguestfs.pc libguestfs.pc.in \
+	libtool-kill-dependency_libs.sh \
+	logo/fish.svg logo/fish.png \
+	make-recipes.sh \
+	m4/.gitignore \
 	recipes/LICENSE \
 	recipes/README \
 	recipes/*.html \
 	recipes/*.sh \
 	recipes/*.example \
-	html/recipes.css \
-	make-recipes.sh \
-	contrib/README \
-	bindtests \
-	.gitignore \
-	m4/.gitignore \
-	libtool-kill-dependency_libs.sh \
-	autogen.sh \
-	bugs-in-changelog.sh \
-	update-bugs.sh \
-	logo/fish.svg logo/fish.png \
-	run
+	run \
+	update-bugs.sh
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
