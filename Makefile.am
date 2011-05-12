@@ -93,6 +93,31 @@ EXTRA_DIST = \
 	autogen.sh \
 	bindtests \
 	contrib/README \
+	debian/.gitignore \
+	debian/changelog \
+	debian/compat \
+	debian/control \
+	debian/copyright \
+	debian/docs \
+	debian/guestfish.dirs \
+	debian/guestfish.install \
+	debian/guestmount.dirs \
+	debian/guestmount.install \
+	debian/libguestfs-dev.dirs \
+	debian/libguestfs-dev.install \
+	debian/libguestfs-doc.docs \
+	debian/libguestfs-perl.examples \
+	debian/libguestfs-perl.install \
+	debian/libguestfs-tools.dirs \
+	debian/libguestfs-tools.install \
+	debian/libguestfs0.dirs \
+	debian/libguestfs0.install \
+	debian/patches/series \
+	debian/python-guestfs.install \
+	debian/pyversions \
+	debian/rules \
+	debian/shlibs.local \
+	debian/watch \
 	html/pod.css \
 	html/recipes.css \
 	libguestfs.pc libguestfs.pc.in \
