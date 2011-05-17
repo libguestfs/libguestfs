@@ -1524,7 +1524,7 @@ C<guestfs_inspect_get_filesystems>.");
  *)
 
 let daemon_functions = [
-  ("mount", (RErr, [Device "device"; String "mountpoint"], []), 1, [],
+  ("mount", (RErr, [Device "device"; String "mountpoint"], []), 1, [DeprecatedBy "mount_options"],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
