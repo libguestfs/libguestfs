@@ -467,8 +467,3 @@ right range of data so that integration would be possible.  The
 standards for CMDBs come from the DMTF, see eg:
 
 http://dmtf.org/news/pr/2009/7/dmtf-releases-cmdbf-standard-federating-configuration-management-data
-
-See if qemu -machine option can be used to select KVM, TCG acceleration
------------------------------------------------------------------------
-
-See upstream qemu commit 303d4e865b74402b49f52e975c396c952f063e58
