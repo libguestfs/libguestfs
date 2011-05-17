@@ -188,6 +188,38 @@ let () =
   in
   loop proc_nrs;
 
+  (* Check flags. *)
+  List.iter (
+    fun (name, _, _, flags, _, _, _) ->
+      List.iter (
+        function
+        | ProtocolLimitWarning
+        | DangerWillRobinson
+        | FishOutput _
+        | NotInFish
+        | NotInDocs
+        | Progress -> ()
+        | FishAlias n ->
+            if contains_uppercase n then
+              failwithf "%s: guestfish alias %s should not contain uppercase chars" name n;
+            if String.contains n '_' then
+              failwithf "%s: guestfish alias %s should not contain '_'" name n
+        | DeprecatedBy n ->
+            (* 'n' must be a cross-ref to the name of another action. *)
+            if not (List.exists (
+                      function
+                      | (n', _, _, _, _, _, _) when n = n' -> true
+                      | _ -> false
+                    ) all_functions) then
+              failwithf "%s: DeprecatedBy flag must be cross-reference to another action" name
+        | Optional n ->
+            if contains_uppercase n then
+              failwithf "%s: Optional group name %s should not contain uppercase chars" name n;
+            if String.contains n '-' || String.contains n '_' then
+              failwithf "%s: Optional group name %s should not contain '-' or '_'" name n
+      ) flags
+  ) (all_functions @ fish_commands);
+
   (* Check tests. *)
   List.iter (
     function
