@@ -113,7 +113,7 @@ using L<qemu(1)>.
 You should call this after configuring the handle
 (eg. adding drives) but before performing any actions.");
 
-  ("wait_ready", (RErr, [], []), -1, [NotInFish],
+  ("wait_ready", (RErr, [], []), -1, [NotInFish; DeprecatedBy "launch"],
    [],
    "wait until the qemu subprocess launches (no op)",
    "\
