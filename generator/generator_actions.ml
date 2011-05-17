@@ -2273,7 +2273,7 @@ command and it can change in future in ways beyond our control.
 In other words, the output is not guaranteed by the ABI.
 
 See also: L<file(1)>, C<guestfs_vfs_type>, C<guestfs_lstat>,
-C<guestfs_is_file>, C<guestfs_is_blockdev> (etc).");
+C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>.");
 
   ("command", (RString "output", [StringList "arguments"], []), 50, [ProtocolLimitWarning],
    [InitScratchFS, Always, TestOutput (
@@ -2979,7 +2979,8 @@ How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
 
-See also: C<guestfs_zero_device>, C<guestfs_scrub_device>.");
+See also: C<guestfs_zero_device>, C<guestfs_scrub_device>,
+C<guestfs_is_zero_device>");
 
   ("grub_install", (RErr, [Pathname "root"; Device "device"], []), 86, [],
    (* See:
@@ -5936,6 +5937,29 @@ handle is closed.  You should not call this command directly.
 Instead, use the autosync flag (C<guestfs_set_autosync>) to
 control whether or not this operation is performed when the
 handle is closed.");
+
+  ("is_zero", (RBool "zeroflag", [Pathname "path"], []), 283, [],
+   [InitISOFS, Always, TestOutputTrue (
+      [["is_zero"; "/100kallzeroes"]]);
+    InitISOFS, Always, TestOutputFalse (
+      [["is_zero"; "/100kallspaces"]])],
+   "test if a file contains all zero bytes",
+   "\
+This returns true iff the file exists and the file is empty or
+it contains all zero bytes.");
+
+  ("is_zero_device", (RBool "zeroflag", [Device "device"], []), 284, [],
+   [InitBasicFS, Always, TestOutputTrue (
+      [["umount"; "/dev/sda1"];
+       ["zero_device"; "/dev/sda1"];
+       ["is_zero_device"; "/dev/sda1"]]);
+    InitBasicFS, Always, TestOutputFalse (
+      [["is_zero_device"; "/dev/sda1"]])],
+   "test if a device contains all zero bytes",
+   "\
+This returns true iff the device exists and contains all zero bytes.
+
+Note that for large devices this can take a long time to run.");
 
 ]
 

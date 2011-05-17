@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,4 +104,77 @@ do_zero_device (const char *device)
   }
 
   return 0;
+}
+
+static char zero[BUFSIZ];
+
+int
+do_is_zero (const char *path)
+{
+  int fd;
+  char buf[BUFSIZ];
+  ssize_t r;
+
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return -1;
+  }
+
+  while ((r = read (fd, buf, sizeof buf)) > 0) {
+    if (memcmp (buf, zero, r) != 0) {
+      close (fd);
+      return 0;
+    }
+  }
+
+  if (r == -1) {
+    reply_with_perror ("read: %s", path);
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    return -1;
+  }
+
+  return 1;
+}
+
+int
+do_is_zero_device (const char *device)
+{
+  int fd;
+  char buf[BUFSIZ];
+  ssize_t r;
+
+  fd = open (device, O_RDONLY);
+  if (fd == -1) {
+    reply_with_perror ("open: %s", device);
+    return -1;
+  }
+
+  while ((r = read (fd, buf, sizeof buf)) > 0) {
+    if (memcmp (buf, zero, r) != 0) {
+      close (fd);
+      return 0;
+    }
+  }
+
+  if (r == -1) {
+    reply_with_perror ("read: %s", device);
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", device);
+    return -1;
+  }
+
+  return 1;
 }
