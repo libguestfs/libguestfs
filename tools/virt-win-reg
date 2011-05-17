@@ -275,7 +275,10 @@ my $systemroot = $g->inspect_get_windows_systemroot ($roots[0]);
 # Create a working directory to store the downloaded registry files.
 my $tmpdir = tempdir (CLEANUP => 1);
 
-# Only used when merging to map downloaded hive names to hive handles.
+# Used when merging (only) to map from the downloaded hiveshortname to
+# various properties about the hive.  The key is hiveshortname.  The
+# value is a hashref containing {h} (hive handle) and {hivefile} (full
+# hive path on the Windows side).
 my %hives;
 
 if (!$merge) {                  # Export mode.
@@ -286,24 +289,25 @@ if (!$merge) {                  # Export mode.
     my $name = shift @ARGV; # or undef
 
     # Map this to the hive name.  This function dies on failure.
-    my ($hivename, $prefix);
-    ($hivename, $path, $prefix) = map_path_to_hive ($path);
+    my ($hiveshortname, $hivefile, $prefix);
+    ($hiveshortname, $hivefile, $path, $prefix) = map_path_to_hive ($path);
 
     # Download the chosen hive.
-    download_hive ($hivename);
+    download_hive ($hivefile, $hiveshortname);
 
     # Open it.
-    my $h = Win::Hivex->open ("$tmpdir/$hivename", debug => $debug);
+    my $h = Win::Hivex->open ("$tmpdir/$hiveshortname", debug => $debug);
 
     unless ($name) {
         # Export it.
-        warn "exporting $path from $hivename with prefix $prefix ..." if $debug;
+        warn "exporting $path from $hiveshortname with prefix $prefix ..."
+            if $debug;
         reg_export ($h, $path, \*STDOUT,
                     prefix => $prefix,
                     unsafe_printable_strings => $unsafe_printable_strings);
     } else {
         # Export a single key using hivexget.
-        my @args = ("hivexget", "$tmpdir/$hivename", $path, $name);
+        my @args = ("hivexget", "$tmpdir/$hiveshortname", $path, $name);
         warn "running ", join (" ", @args), " ..." if $debug;
         system (@args) == 0 or die "hivexget failed: $?"
     }
@@ -320,17 +324,15 @@ else {                          # Import mode.
 
     # Now we've done importing, commit all the hive handles and
     # close them all.
-    $_->commit (undef) foreach values %hives;
-    %hives = ();
+    foreach (values %hives) {
+        my $h = $_->{h};
+        delete $_->{h};
+        $h->commit (undef);
+    }
 
-    # Look in the tmpdir for all the hive files which have been
-    # downloaded / modified by the import mapper, and upload
-    # each one.
-    opendir my $dh, $tmpdir or die "$tmpdir: $!";
-    foreach (readdir $dh) {
-        unless (/^\./) {
-            upload_hive ($_)
-        }
+    # Upload all the downloaded hives.
+    foreach my $hiveshortname (keys %hives) {
+        upload_hive ($hiveshortname, $hives{$hiveshortname}->{hivefile})
     }
 
     # Sync everything.
@@ -345,18 +347,19 @@ sub import_mapper
 {
     local $_ = shift;
 
-    my ($hivename, $path, $prefix) = map_path_to_hive ($_);
+    my ($hiveshortname, $hivefile, $path, $prefix) = map_path_to_hive ($_);
 
     # Need to download this hive?
-    unless (-f "$tmpdir/$hivename") {
-        download_hive ($hivename);
+    unless (-f "$tmpdir/$hiveshortname") {
+        download_hive ($hivefile, $hiveshortname);
 
-        my $h = Win::Hivex->open ("$tmpdir/$hivename",
+        my $h = Win::Hivex->open ("$tmpdir/$hiveshortname",
                                   write => 1, debug => $debug);
-        $hives{$hivename} = $h;
+        my %hash = ( h => $h, hivefile => $hivefile );
+        $hives{$hiveshortname} = \%hash;
     }
 
-    return ($hives{$hivename}, $path);
+    return ($hives{$hiveshortname}->{h}, $path);
 }
 
 # Given a path, map that to the name of the hive and the true path
@@ -364,30 +367,35 @@ sub import_mapper
 sub map_path_to_hive
 {
     local $_ = shift;
-    my ($hivename, $prefix);
+    my ($hiveshortname, $hivefile, $prefix);
 
     if (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SAM(\\.*)?$/i) {
-        $hivename = "sam";
+        $hiveshortname = "sam";
+        $hivefile = "$systemroot/system32/config/$hiveshortname";
         $_ = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SAM";
     }
     elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SECURITY(\\.*)?$/i) {
-        $hivename = "security";
+        $hiveshortname = "security";
+        $hivefile = "$systemroot/system32/config/$hiveshortname";
         $_ = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SECURITY";
     }
     elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SOFTWARE(\\.*)?$/i) {
-        $hivename = "software";
+        $hiveshortname = "software";
+        $hivefile = "$systemroot/system32/config/$hiveshortname";
         $_ = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SOFTWARE";
     }
     elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SYSTEM(\\.*)?$/i) {
-        $hivename = "system";
+        $hiveshortname = "system";
+        $hivefile = "$systemroot/system32/config/$hiveshortname";
         $_ = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SYSTEM";
     }
     elsif (/^\\?(?:HKEY_USERS|HKU)\\.DEFAULT(\\.*)?$/i) {
-        $hivename = "default";
+        $hiveshortname = "default";
+        $hivefile = "$systemroot/system32/config/$hiveshortname";
         $_ = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\.DEFAULT";
     }
@@ -396,25 +404,25 @@ sub map_path_to_hive
                 p => $_)
     }
 
-    return ($hivename, $_, $prefix);
+    return ($hiveshortname, $hivefile, $_, $prefix);
 }
 
 # Download a named hive file.  Die on failure.
 sub download_hive
 {
     local $_;
-    my $hivename = shift;
+    my $hivefile = shift;
+    my $hiveshortname = shift;
 
-    my $winfile_before = "$systemroot/system32/config/$hivename";
     my $winfile;
-    eval { $winfile = $g->case_sensitive_path ($winfile_before); };
+    eval { $winfile = $g->case_sensitive_path ($hivefile); };
     if ($@) {
         die __x("virt-win-reg: {p}: file not found in guest: {err}\n",
-                p => $winfile_before, err => $@);
+                p => $hivefile, err => $@);
     }
 
     warn "downloading $winfile ..." if $debug;
-    eval { $g->download ($winfile, "$tmpdir/$hivename"); };
+    eval { $g->download ($winfile, "$tmpdir/$hiveshortname"); };
     if ($@) {
         die __x("virt-win-reg: {p}: could not download registry file: {err}\n",
                 p => $winfile, err => $@);
@@ -425,18 +433,18 @@ sub download_hive
 sub upload_hive
 {
     local $_;
-    my $hivename = shift;
+    my $hiveshortname = shift;
+    my $hivefile = shift;
 
-    my $winfile_before = "$systemroot/system32/config/$hivename";
     my $winfile;
-    eval { $winfile = $g->case_sensitive_path ($winfile_before); };
+    eval { $winfile = $g->case_sensitive_path ($hivefile); };
     if ($@) {
         die __x("virt-win-reg: {p}: file not found in guest: {err}\n",
-                p => $winfile_before, err => $@);
+                p => $hivefile, err => $@);
     }
 
     warn "uploading $winfile ..." if $debug;
-    eval { $g->upload ("$tmpdir/$hivename", $winfile); };
+    eval { $g->upload ("$tmpdir/$hiveshortname", $winfile); };
     if ($@) {
         die __x("virt-win-reg: {p}: could not upload registry file: {err}\n",
                 p => $winfile, err => $@);
