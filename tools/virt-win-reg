@@ -486,7 +486,7 @@ sub lookup_pip_of_user_sid
     # containing %systemroot%.  Expand it and remove some other
     # windows-isms.  The caller will do case_sensitive_path for us, so
     # we don't need to do that.
-    s/%systemroot%/$systemroot/;
+    s/%systemroot%/$systemroot/i;
     s/^c://i;
     s,\\,/,g;
 
