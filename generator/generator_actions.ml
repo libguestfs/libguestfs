@@ -2263,15 +2263,12 @@ The exact command which runs is C<file -zb path>.  Note in
 particular that the filename is not prepended to the output
 (the I<-b> option).
 
-This command can also be used on C</dev/> devices
-(and partitions, LV names).  You can for example use this
-to determine if a device contains a filesystem, although
-it's usually better to use C<guestfs_vfs_type>.
+The output depends on the output of the underlying L<file(1)>
+command and it can change in future in ways beyond our control.
+In other words, the output is not guaranteed by the ABI.
 
-If the C<path> does not begin with C</dev/> then
-this command only works for the content of regular files.
-For other file types (directory, symbolic link etc) it
-will just return the string C<directory> etc.");
+See also: L<file(1)>, C<guestfs_vfs_type>, C<guestfs_lstat>,
+C<guestfs_is_file>, C<guestfs_is_blockdev> (etc).");
 
   ("command", (RString "output", [StringList "arguments"], []), 50, [ProtocolLimitWarning],
    [InitScratchFS, Always, TestOutput (
