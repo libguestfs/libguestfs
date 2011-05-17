@@ -59,6 +59,7 @@ virt_inspector_SOURCES = \
 	virt-inspector.c
 
 virt_inspector_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \

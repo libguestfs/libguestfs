@@ -42,6 +42,7 @@ virt_cat_SOURCES = \
 	virt-cat.c
 
 virt_cat_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
@@ -59,6 +60,7 @@ virt_filesystems_SOURCES = \
 	virt-filesystems.c
 
 virt_filesystems_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
@@ -76,6 +78,7 @@ virt_ls_SOURCES = \
 	virt-ls.c
 
 virt_ls_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \

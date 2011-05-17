@@ -28,6 +28,7 @@ endif
 
 create_disk_SOURCES = create_disk.c
 create_disk_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 create_disk_LDADD = \
@@ -35,6 +36,7 @@ create_disk_LDADD = \
 
 inspect_vm_SOURCES = inspect_vm.c
 inspect_vm_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 inspect_vm_LDADD = \
@@ -42,6 +44,7 @@ inspect_vm_LDADD = \
 
 virt_dhcp_address_SOURCES = virt-dhcp-address.c
 virt_dhcp_address_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(HIVEX_CFLAGS)

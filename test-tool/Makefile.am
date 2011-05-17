@@ -26,6 +26,7 @@ man_MANS = libguestfs-test-tool.1
 
 libguestfs_test_tool_SOURCES = test-tool.c
 libguestfs_test_tool_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)

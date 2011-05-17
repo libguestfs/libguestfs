@@ -37,6 +37,7 @@ virt_rescue_SOURCES = \
 	virt-rescue.c
 
 virt_rescue_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \

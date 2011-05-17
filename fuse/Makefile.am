@@ -43,6 +43,7 @@ guestmount_SOURCES = \
 	guestmount.h
 
 guestmount_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
