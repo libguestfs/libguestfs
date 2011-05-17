@@ -42,7 +42,7 @@ Requirements
 
 - genisoimage (NOT mkisofs any more)
 
-- hivex >= 1.2.1 (http://libguestfs.org/download)
+- hivex >= 1.2.7 (http://libguestfs.org/download)
 
 - (Optional) Berkeley DB 'db_dump' and 'db_load' utilities
   (db4-utils or db4.X-util or similar)
