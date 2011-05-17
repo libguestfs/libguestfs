@@ -70,6 +70,16 @@ If you want to debug the program, we recommend:
 
  guestmount [...] --trace --verbose /mnt
 
+=head1 NOTES
+
+=head2 Other users cannot see the filesystem by default
+
+If you mount a filesystem as one user (eg. root), then other users
+will not be able to see it by default.  The fix is to add the FUSE
+C<allow_other> option when mounting:
+
+ sudo guestmount [...] -o allow_other /mnt
+
 =head1 OPTIONS
 
 =over 4
