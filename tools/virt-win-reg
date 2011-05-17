@@ -483,10 +483,11 @@ sub lookup_pip_of_user_sid
     chomp;
 
     # The contents of the registry are a windows path, possibly
-    # containing %systemroot%.  Expand it and remove some other
-    # windows-isms.  The caller will do case_sensitive_path for us, so
-    # we don't need to do that.
+    # containing %systemroot% and %systemdrive% (on Win XP).  Expand
+    # it and remove some other windows-isms.  The caller will do
+    # case_sensitive_path for us, so we don't need to do that.
     s/%systemroot%/$systemroot/i;
+    s/%systemdrive%//i;
     s/^c://i;
     s,\\,/,g;
 
