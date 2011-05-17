@@ -365,6 +365,11 @@ extern \"C\" {
 #include <stdint.h>
 #include <stdarg.h>
 
+#ifdef __GNUC__
+# define GUESTFS_GCC_VERSION \\
+    (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#endif
+
 /* The handle. */
 #ifndef GUESTFS_TYPEDEF_H
 #define GUESTFS_TYPEDEF_H 1
