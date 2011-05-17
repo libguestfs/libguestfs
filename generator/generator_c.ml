@@ -570,6 +570,8 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
           ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
           shortname style;
       );
+
+      pr "\n";
   ) all_functions_sorted;
 
   pr "\
