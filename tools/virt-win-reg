@@ -367,36 +367,36 @@ sub import_mapper
 sub map_path_to_hive
 {
     local $_ = shift;
-    my ($hiveshortname, $hivefile, $prefix);
+    my ($hiveshortname, $hivefile, $path, $prefix);
 
     if (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SAM(\\.*)?$/i) {
         $hiveshortname = "sam";
         $hivefile = "$systemroot/system32/config/$hiveshortname";
-        $_ = defined $1 ? $1 : "\\";
+        $path = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SAM";
     }
     elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SECURITY(\\.*)?$/i) {
         $hiveshortname = "security";
         $hivefile = "$systemroot/system32/config/$hiveshortname";
-        $_ = defined $1 ? $1 : "\\";
+        $path = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SECURITY";
     }
     elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SOFTWARE(\\.*)?$/i) {
         $hiveshortname = "software";
         $hivefile = "$systemroot/system32/config/$hiveshortname";
-        $_ = defined $1 ? $1 : "\\";
+        $path = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SOFTWARE";
     }
     elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SYSTEM(\\.*)?$/i) {
         $hiveshortname = "system";
         $hivefile = "$systemroot/system32/config/$hiveshortname";
-        $_ = defined $1 ? $1 : "\\";
+        $path = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\SYSTEM";
     }
     elsif (/^\\?(?:HKEY_USERS|HKU)\\.DEFAULT(\\.*)?$/i) {
         $hiveshortname = "default";
         $hivefile = "$systemroot/system32/config/$hiveshortname";
-        $_ = defined $1 ? $1 : "\\";
+        $path = defined $1 ? $1 : "\\";
         $prefix = "HKEY_LOCAL_MACHINE\\.DEFAULT";
     }
     else {
@@ -404,7 +404,7 @@ sub map_path_to_hive
                 p => $_)
     }
 
-    return ($hiveshortname, $hivefile, $_, $prefix);
+    return ($hiveshortname, $hivefile, $path, $prefix);
 }
 
 # Download a named hive file.  Die on failure.
