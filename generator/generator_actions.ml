@@ -2137,7 +2137,7 @@ example C<ext3>.");
 
   ("sfdisk", (RErr, [Device "device";
                      Int "cyls"; Int "heads"; Int "sectors";
-                     StringList "lines"], []), 43, [DangerWillRobinson],
+                     StringList "lines"], []), 43, [DangerWillRobinson; DeprecatedBy "part_add"],
    [],
    "create partitions on a block device",
    "\
@@ -3228,7 +3228,7 @@ volume to match the new size of the underlying device.");
 
   ("sfdisk_N", (RErr, [Device "device"; Int "partnum";
                        Int "cyls"; Int "heads"; Int "sectors";
-                       String "line"], []), 99, [DangerWillRobinson],
+                       String "line"], []), 99, [DangerWillRobinson; DeprecatedBy "part_add"],
    [],
    "modify a single partition on a block device",
    "\
@@ -3240,7 +3240,7 @@ pass C<0> for the cyls/heads/sectors parameters.
 
 See also: C<guestfs_part_add>");
 
-  ("sfdisk_l", (RString "partitions", [Device "device"], []), 100, [],
+  ("sfdisk_l", (RString "partitions", [Device "device"], []), 100, [DeprecatedBy "part_list"],
    [],
    "display the partition table",
    "\
@@ -3859,7 +3859,7 @@ This function is primarily intended for use by programs.  To
 get a simple list of names, use C<guestfs_ls>.  To get a printable
 directory for human consumption, use C<guestfs_ll>.");
 
-  ("sfdiskM", (RErr, [Device "device"; StringList "lines"], []), 139, [DangerWillRobinson],
+  ("sfdiskM", (RErr, [Device "device"; StringList "lines"], []), 139, [DangerWillRobinson; DeprecatedBy "part_add"],
    [],
    "create partitions on a block device",
    "\
