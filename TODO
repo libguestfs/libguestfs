@@ -448,16 +448,6 @@ Get the guest icon
   a distro-specific manner.
 - For Windows guests, parse it out of c:\windows\explorer.exe
 
-Integrate event log parsing more closely
-----------------------------------------
-
-https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/
-
-We should at least make sure the tools are packaged up for Fedora.  We
-could document formally how to do event log parsing.  Also the above
-only works for Windows Vista and later (since the log format changed),
-so we could extend this to work for earlier versions.
-
 Integrate virt-inspector with CMDBs
 -----------------------------------
 
