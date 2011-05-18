@@ -2965,10 +2965,9 @@ Checking or repairing NTFS volumes is not supported
 This command is entirely equivalent to running C<fsck -a -t fstype device>.");
 
   ("zero", (RErr, [Device "device"], []), 85, [Progress],
-   [InitBasicFS, Always, TestOutput (
+   [InitBasicFS, Always, TestRun (
       [["umount"; "/dev/sda1"];
-       ["zero"; "/dev/sda1"];
-       ["file"; "/dev/sda1"]], "data")],
+       ["zero"; "/dev/sda1"]])],
    "write zeroes to the device",
    "\
 This command writes zeroes over the first few blocks of C<device>.
