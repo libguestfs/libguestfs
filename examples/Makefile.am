@@ -17,9 +17,12 @@
 
 EXTRA_DIST = \
 	LICENSE \
-	guestfs-examples.pod
+	guestfs-examples.pod \
+	guestfs-recipes.pod
 
-CLEANFILES = stamp-guestfs-examples.pod
+CLEANFILES = \
+	stamp-guestfs-examples.pod \
+	stamp-guestfs-recipes.pod
 
 noinst_PROGRAMS = create_disk inspect_vm
 if HAVE_HIVEX
@@ -52,8 +55,12 @@ virt_dhcp_address_LDADD = \
 	$(HIVEX_LIBS) \
 	$(top_builddir)/src/libguestfs.la
 
-man_MANS = guestfs-examples.3
-noinst_DATA = $(top_builddir)/html/guestfs-examples.3.html
+man_MANS = \
+	guestfs-examples.3 \
+	guestfs-recipes.1
+noinst_DATA = \
+	$(top_builddir)/html/guestfs-examples.3.html \
+	$(top_builddir)/html/guestfs-recipes.1.html
 
 guestfs-examples.3 $(top_builddir)/html/guestfs-examples.3.html: stamp-guestfs-examples.pod
 
@@ -64,5 +71,15 @@ stamp-guestfs-examples.pod: guestfs-examples.pod create_disk.c inspect_vm.c
 	  --html $(top_builddir)/html/guestfs-examples.3.html \
 	  --verbatim create_disk.c:@EXAMPLE1@ \
 	  --verbatim inspect_vm.c:@EXAMPLE2@ \
+	  $<
+	touch $@
+
+guestfs-recipes.1 $(top_builddir)/html/guestfs-recipes.1.html: stamp-guestfs-recipes.pod
+
+stamp-guestfs-recipes.pod: guestfs-recipes.pod create_disk.c inspect_vm.c
+	$(top_srcdir)/podwrapper.sh \
+	  --section 1 \
+	  --man guestfs-recipes.1 \
+	  --html $(top_builddir)/html/guestfs-recipes.1.html \
 	  $<
 	touch $@

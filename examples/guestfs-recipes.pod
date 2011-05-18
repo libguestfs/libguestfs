@@ -1,0 +1,418 @@
+=encoding utf8
+
+=begin comment
+
+pod2man and pod2html have differing bugs which makes it hard to write
+URLs here.  The only way which works for both sorts of output is to
+just write the URL directly.  Do NOT use L<...> for URLs.
+
+We break with tradition here and don't use ALL CAPS for the section
+headings, as this makes them much easier to read.
+
+=end comment
+
+=head1 NAME
+
+guestfs-recipes - libguestfs, guestfish and virt tools recipes
+
+=head1 DESCRIPTION
+
+This page contains recipes for and links to things you can do using
+libguestfs, L<guestfish(1)> and the virt tools.
+
+=head1 Audit a virtual machine for setuid files
+
+The link below contains a small program which can be used to audit a
+Linux virtual machine to see what setuid and setgid files it contains.
+
+https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/#content
+
+=head1 Change the background image in a Windows XP VM
+
+The links below explain how to use L<guestfish(1)> to change the
+background image for a user of a Windows XP VM.  Unfortunately the
+technique appears to be substantially different for each version of
+Windows.
+
+https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html
+https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html
+
+=head1 Cloning a virtual machine (Linux)
+
+The guestfish technique described in the link below works well for
+most Linux VMs.  Depending on the Linux distro you may need to change
+the paths slightly.
+
+https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-fedora-vm/#content
+
+Avoid L<virt-clone(1)>.  Currently what to do about virt-clone is
+under discussion.
+
+https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html
+
+=head1 Cloning a virtual machine (Windows)
+
+It is possible to do a "sysprep" using libguestfs alone, although not
+straightforward.  Currently there is code in the Aeolus Oz project
+which does this (using libguestfs).  As part of our review of the
+virt-clone tool, we may add sysprepping ability.
+
+https://github.com/clalancette/oz
+https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html
+
+=head1 Convert a CD-ROM / DVD / ISO to a tarball
+
+This converts input C<cd.iso> to output C<cd.tar.gz>:
+
+ guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz
+
+To export just a subdirectory, eg. C</files>, do:
+
+ guestfish --ro -a cd.iso -m /dev/sda tgz-out /files cd.tar.gz
+
+=head1 Create empty disk images
+
+You can use the L<guestfish(1)> I<-N> option to create empty disk
+images.  The useful guide below explains the options available.
+
+https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content
+
+=head1 Dump raw filesystem content from inside a disk image or VM
+
+You can use the L<guestfish(1)> C<download> command to extract the raw
+filesystem content from any filesystem in a disk image or a VM (even
+one which is encrypted or buried inside an LV):
+
+ guestfish --ro -a disk.img run : download /dev/sda1 sda1.img
+
+ guestfish --ro -d Guest run : download /dev/vg_guest/lv_root lv.img
+
+To list the filesystems in a disk image, use L<virt-filesystems(1)>.
+
+=head1 Edit grub configuration in a VM
+
+You can use this to:
+
+=over 4
+
+=item *
+
+Fix a virtual machine that does not boot.
+
+=item *
+
+Change which kernel is used to boot the VM.
+
+=item *
+
+Change kernel command line options.
+
+=back
+
+Use L<virt-edit(1)> to edit the grub configuration:
+
+ virt-edit -d BrokenGuest /boot/grub/grub.conf
+
+or for general tinkering inside an unbootable VM use L<virt-rescue(1)>
+like this:
+
+ virt-rescue -d BrokenGuest
+
+=head1 Export any directory from a VM
+
+To export C</home> from a VM into a local directory use
+L<virt-copy-out(1)>:
+
+ virt-copy-out -d Guest /home .
+
+Notes:
+
+=over 4
+
+=item *
+
+The final dot of the command is not a printing error.  It means we
+want to copy out to the current directory.
+
+=item *
+
+This creates a directory called C<home> under the current directory.
+
+=back
+
+If the guest is a Windows guest then you can use drive letters and
+backslashes, but you must prefix the path with C<win:> and quote it to
+protect it from the shell, like this:
+
+ virt-copy-out -d WinGuest 'win:c:\windows\system32\config' .
+
+To get the output as a compressed tarball, do:
+
+ virt-tar-out -d Guest /home - | gzip --best > home.tar.gz
+
+Although it sounds tempting, this is usually not a reliable way to get
+a backup from a running guest.  See the entry in the FAQ:
+http://libguestfs.org/FAQ.html#backup
+
+=head1 Find out which user is using the most space
+
+This simple script examines a Linux guest to find out which user is
+using the most space in their home directory:
+
+ #!/bin/sh -
+ 
+ set -e
+ 
+ vm="$1"
+ dir=/home
+ 
+ eval $(guestfish --ro -d "$vm" -i --listen)
+ 
+ for d in $(guestfish --remote ls "$dir"); do
+     echo -n "$dir/$d"
+     echo -ne '\t'
+     guestfish --remote du "$dir/$d";
+ done | sort -nr -k 2
+ 
+ guestfish --remote exit
+
+=head1 Get DHCP address from a VM
+
+The link below explains the many different possible techniques for
+getting the last assigned DHCP address of a virtual machine.
+
+https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-a-virtual-machine-disk-image/#content
+
+In the libguestfs source examples directory you will find the latest
+version of the C<virt-dhcp-address.c> program.
+
+=head1 Get the operating system product name string
+
+Save the following script into a file called C<product-name.sh>:
+
+ #!/bin/sh -
+ set -e
+ eval "$(guestfish --ro -d "$1" --i --listen)"
+ root="$(guestfish --remote inspect-get-roots)"
+ guestfish --remote inspect-get-product-name "$root"
+ guestfish --remote exit
+
+Make the script executable and run it on a named guest:
+
+ # product-name.sh RHEL60x64
+ Red Hat Enterprise Linux Server release 6.0 (Santiago)
+
+You can also use an XPath query on the L<virt-inspector(1)> XML using
+the C<xpath> command line tool or from your favourite programming
+language:
+
+ # virt-inspector RHEL60x64 > xml
+ # xpath '//product_name' < xml
+ Found 1 nodes:
+ -- NODE --
+ <product_name>Red Hat Enterprise Linux Server release 6.0 (Santiago)</product_name>
+
+=head1 Get the default boot kernel for a Linux VM
+
+The link below contains a program to print the default boot kernel for
+a Linux VM.
+
+https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-boot-kernel-for-a-vm/#content
+
+It uses Augeas, and the technique is generally applicable for many
+different tasks, such as:
+
+=over 4
+
+=item *
+
+listing the user accounts in the guest
+
+=item *
+
+what repositories is it configured to use
+
+=item *
+
+what NTP servers does it connect to
+
+=item *
+
+what were the boot messages last time it booted
+
+=item *
+
+listing who was logged in recently
+
+=back
+
+http://augeas.net/
+
+=head1 Install RPMs in a guest
+
+The link below contains a method to install RPMs in a guest.  In fact
+the RPMs are just uploaded to the guest along with a "firstboot"
+script that installs them next time the guest is booted.  You could
+use this technique to install vital security updates in an offline
+guest.
+
+https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content
+
+=head1 List applications installed in a VM
+
+Save the following to a file C<list-apps.sh>:
+
+ #!/bin/sh -
+ set -e
+ eval "$(guestfish --ro -d "$1" --i --listen)"
+ root="$(guestfish --remote inspect-get-roots)"
+ guestfish --remote inspect-list-applications "$root"
+ guestfish --remote exit
+
+Make the file executable and then you can run it on any named
+virtual machine:
+
+ # list-apps.sh WinGuest
+ [0] = {
+   app_name: Mozilla Firefox (3.6.12)
+   app_display_name: Mozilla Firefox (3.6.12)
+   app_epoch: 0
+   app_version: 3.6.12 (en-GB)
+   app_release:
+   app_install_path: C:\Program Files\Mozilla Firefox
+   app_trans_path:
+   app_publisher: Mozilla
+   app_url: http://www.mozilla.com/en-GB/
+   app_source_package:
+   app_summary:
+   app_description: Mozilla Firefox
+ }
+ [1] = {
+   app_name: VLC media player
+   app_display_name: VLC media player 1.1.5
+   app_epoch: 0
+   app_version: 1.1.5
+   app_release:
+   app_install_path: C:\Program Files\VideoLAN\VLC
+   app_trans_path:
+   app_publisher: VideoLAN
+   app_url: http://www.videolan.org/
+   app_source_package:
+   app_summary:
+   app_description:
+ }
+
+If you want to run the script on disk images (instead of libvirt
+virtual machines), change C<-d "$1"> to C<-a "$1">.  See also
+L<virt-inspector(1)>.
+
+=head1 List files and directories in a VM
+
+This involves using the L<guestfish(1)> C<find0> command like this:
+
+ guestfish --ro -d Guest -i find0 / - | tr '\000' '\n' | sort
+
+=head1 List services in a Windows VM
+
+The link below contains a script that can be used to list out the
+services from a Windows VM, and whether those services run at boot
+time or are loaded on demand.
+
+https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/#content
+
+=head1 Make a disk image sparse
+
+The link below contains some guides for making a disk image sparse (or
+reintroducing sparseness).
+
+https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/#content
+
+=head1 Monitor disk usage over time
+
+You can use L<virt-df(1)> to monitor disk usage of your guests over
+time.  The link below contains a guide.
+
+http://virt-tools.org/learning/advanced-virt-df/
+
+=head1 Reading the Windows Event Log from Windows Vista (or later)
+
+L<guestfish(1)> plus the tools described in the link below can be used
+to read out the Windows Event Log from any virtual machine running
+Windows Vista or a later version.
+
+https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/#content
+
+=head1 Remove root password (Linux)
+
+Using the L<virt-edit(1)> I<-e> option you can do simple replacements
+on files.  One use is to remove the root password from a Linux guest:
+
+ virt-edit domname /etc/passwd -e 's/^root:.*?:/root::/'
+
+=head1 Remove Administrator password (Windows)
+
+The link below contains one technique for removing the Administrator
+password from a Windows VM, or to be more precise, it gives you a
+command prompt the next time you log in which you can use to bypass
+any security:
+
+https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-administrator-password-with-guestfish/
+
+=head1 Unpack a live CD
+
+Linux live CDs often contain multiple layers of disk images wrapped
+like a Russian doll.  You can use L<guestfish(1)> to look inside these
+multiple layers, as outlined in the guide below.
+
+https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-cd/#content
+
+=head1 Uploading and downloading files
+
+The link below contains general tips on uploading (copying in)
+and downloading (copying out) files from VMs.
+
+https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content
+
+=head1 Use libguestfs tools on VMware ESX guests
+
+The link below explains how to use libguestfs, L<guestfish(1)> and the
+virt tools on any VMware ESX guests, by first sharing the VMware VMFS
+over sshfs.
+
+https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-guests/#content
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<guestfs-examples(3)>,
+L<guestfs-ocaml(3)>,
+L<guestfs-perl(3)>,
+L<guestfs-python(3)>,
+L<guestfs-ruby(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2011 Red Hat Inc. L<http://libguestfs.org/>
+
+The examples in this manual page may be freely copied, modified and
+distributed without any restrictions.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
