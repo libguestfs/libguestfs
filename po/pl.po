@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-04-24 09:52+0100\n"
+"POT-Creation-Date: 2011-05-18 11:59+0100\n"
 "PO-Revision-Date: 2010-12-21 14:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -3004,7 +3004,7 @@ msgstr ""
 "API architektury plików jest niedostępne, ponieważ ta wersja biblioteki "
 "libguestfs została skompilowana bez bibliotek PCRE lub libmagic"
 
-#: src/guestfs.c:178
+#: src/guestfs.c:174
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n"
