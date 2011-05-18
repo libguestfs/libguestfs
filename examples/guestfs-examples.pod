@@ -37,8 +37,7 @@ L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,
 L<guestfs-python(3)>,
 L<guestfs-ruby(3)>,
-L<http://libguestfs.org/>,
-L<http://caml.inria.fr/>.
+L<http://libguestfs.org/>.
 
 =head1 AUTHORS
 
