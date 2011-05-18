@@ -119,26 +119,12 @@ EXTRA_DIST = \
 	debian/shlibs.local \
 	debian/watch \
 	html/pod.css \
-	html/recipes.css \
 	libguestfs.pc libguestfs.pc.in \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
-	make-recipes.sh \
 	m4/.gitignore \
-	recipes/LICENSE \
-	recipes/README \
-	recipes/*.html \
-	recipes/*.sh \
-	recipes/*.example \
 	run \
 	update-bugs.sh
-
-# Recipes web page.
-html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
-	mkdir -p html
-	rm -f $@ $@-t
-	sh make-recipes.sh recipes/*.sh > $@-t
-	mv $@-t $@
 
 HTMLFILES = \
 	html/guestfs.3.html \
@@ -165,9 +151,7 @@ HTMLFILES = \
 	html/virt-tar.1.html \
 	html/virt-tar-in.1.html \
 	html/virt-tar-out.1.html \
-	html/virt-win-reg.1.html \
-	html/recipes.html \
-	html/pod.css html/recipes.css
+	html/virt-win-reg.1.html
 
 TEXTFILES = BUGS README RELEASE-NOTES ROADMAP TODO
 

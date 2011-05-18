@@ -1,8 +1,0 @@
-$ show-devices.sh /dev/mapper/Guests-RHEL53PV32
-/dev/sda
-/dev/sda1
-/dev/sda2
-/dev/sda2
-VolGroup00
-/dev/VolGroup00/LogVol00
-/dev/VolGroup00/LogVol01

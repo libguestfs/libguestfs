@@ -1,1 +1,0 @@
-$ ./tar2vm.sh ../libguestfs-1.0.10.tar.gz /tmp/test.img 10M
