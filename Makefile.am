@@ -132,6 +132,7 @@ HTMLFILES = \
 	html/guestfs-ocaml.3.html \
 	html/guestfs-perl.3.html \
 	html/guestfs-python.3.html \
+	html/guestfs-recipes.1.html \
 	html/guestfs-ruby.3.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
