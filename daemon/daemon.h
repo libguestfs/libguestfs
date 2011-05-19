@@ -36,7 +36,7 @@ extern int verbose;
 extern int autosync_umount;
 
 extern const char *sysroot;
-extern int sysroot_len;
+extern size_t sysroot_len;
 
 extern char *sysroot_path (const char *path);
 
