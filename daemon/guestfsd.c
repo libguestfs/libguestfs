@@ -103,7 +103,7 @@ winsock_init (void)
 
 /* Location to mount root device. */
 const char *sysroot = "/sysroot"; /* No trailing slash. */
-int sysroot_len = 8;
+size_t sysroot_len = 8;
 
 /* If set (the default), do 'umount-all' when performing autosync. */
 int autosync_umount = 1;
