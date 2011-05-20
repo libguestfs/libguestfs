@@ -3,10 +3,11 @@ Section: libs
 Priority: extra
 Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>
 Uploaders: Richard Jones <rjones@redhat.com>, Guido Günther <agx@sigxcpu.org>
-Build-Depends: debhelper (>= 7), autotools-dev,
+Build-Depends: debhelper (>= 7), dpkg-dev, devscripts, autotools-dev,
   febootstrap (>= 3.2),
   libreadline-dev, cdbs, libaugeas-dev, libhivex-dev, libvirt-dev,
   libmagic-dev, libncurses5-dev, libpcre3-dev, libxml2-dev,
+  gperf,
 # XXX libconfig-dev, but it is not in Debian
   qemu-system (>= 0.13) | kvm (>= 0.13) | qemu-kvm (>= 0.13) | qemu (>= 0.13),
 # XXX how to say we need Linux >= 2.6.36?
