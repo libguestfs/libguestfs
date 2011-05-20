@@ -117,7 +117,7 @@ vgchange (const char *vgchange_flag)
   char *err;
   int r = command (NULL, &err, "lvm", "vgchange", vgchange_flag, NULL);
   if (r == -1) {
-    reply_with_error ("vgscan: %s", err);
+    reply_with_error ("vgchange: %s", err);
     free (err);
     return -1;
   }
