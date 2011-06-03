@@ -45,6 +45,10 @@ int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 1;
 
+static int do_ls (const char *dir);
+static int do_ls_l (const char *dir);
+static int do_ls_R (const char *dir);
+
 static inline char *
 bad_cast (char const *s)
 {
@@ -60,7 +64,7 @@ usage (int status)
   else {
     fprintf (stdout,
            _("%s: list files in a virtual machine\n"
-             "Copyright (C) 2010 Red Hat Inc.\n"
+             "Copyright (C) 2010-2011 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] -d domname dir [dir ...]\n"
              "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
@@ -116,7 +120,10 @@ main (int argc, char *argv[])
   const char *format = NULL;
   int c;
   int option_index;
-  char mode = 0;
+#define MODE_LS_L  1
+#define MODE_LS_R  2
+#define MODE_LS_LR (MODE_LS_L|MODE_LS_R)
+  int mode = 0;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -164,11 +171,11 @@ main (int argc, char *argv[])
       usage (EXIT_SUCCESS);
 
     case 'l':
-      mode = 'l';
+      mode |= MODE_LS_L;
       break;
 
     case 'R':
-      mode = 'R';
+      mode |= MODE_LS_R;
       break;
 
     case 'v':
@@ -225,6 +232,12 @@ main (int argc, char *argv[])
     }
   }
 
+  if (mode == MODE_LS_LR) {
+    fprintf (stderr, _("%s: cannot combine -l and -R options\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
+
   /* These are really constants, but they have to be variables for the
    * options parsing code.  Assert here that they have known-good
    * values.
@@ -259,92 +272,125 @@ main (int argc, char *argv[])
   while (optind < argc) {
     const char *dir = argv[optind];
 
-    if (mode == 0) {
-      char **lines;
-      size_t i;
-
-      if ((lines = guestfs_ls (g, dir)) == NULL)
+    switch (mode) {
+    case 0:                     /* no -l or -R option */
+      if (do_ls (dir) == -1)
         errors++;
-      else {
-        for (i = 0; lines[i] != NULL; ++i) {
-          printf ("%s\n", lines[i]);
-          free (lines[i]);
-        }
-        free (lines);
-      }
-    }
-    else if (mode == 'l') {
-      char *out;
+      break;
 
-      if ((out = guestfs_ll (g, dir)) == NULL)
+    case MODE_LS_L:             /* virt-ls -l */
+      if (do_ls_l (dir) == -1)
         errors++;
-      else {
-        printf ("%s", out);
-        free (out);
-      }
-    }
-    else if (mode == 'R') {
-      /* This is TMP_TEMPLATE_ON_STACK expanded from fish.h. */
-      const char *tmpdir = guestfs_tmpdir ();
-      char tmpfile[strlen (tmpdir) + 32];
-      sprintf (tmpfile, "%s/virtlsXXXXXX", tmpdir);
+      break;
 
-      int fd = mkstemp (tmpfile);
-      if (fd == -1) {
-        perror ("mkstemp");
-        exit (EXIT_FAILURE);
-      }
-
-      char buf[BUFSIZ]; /* also used below */
-      snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
-
-      if (guestfs_find0 (g, dir, buf) == -1)
+    case MODE_LS_R:             /* virt-ls -R */
+      if (do_ls_R (dir) == -1)
         errors++;
-      else {
-        if (close (fd) == -1) {
-          perror (tmpfile);
-          exit (EXIT_FAILURE);
-        }
+      break;
 
-        /* The output of find0 is a \0-separated file.  Turn each \0 into
-         * a \n character.
-         */
-        fd = open (tmpfile, O_RDONLY);
-        if (fd == -1) {
-          perror (tmpfile);
-          exit (EXIT_FAILURE);
-        }
-
-        ssize_t r;
-        while ((r = read (fd, buf, sizeof buf)) > 0) {
-          size_t i;
-          for (i = 0; i < (size_t) r; ++i)
-            if (buf[i] == '\0')
-              buf[i] = '\n';
-
-          size_t n = r;
-          while (n > 0) {
-            r = write (1, buf, n);
-            if (r == -1) {
-              perror ("write");
-              exit (EXIT_FAILURE);
-            }
-            n -= r;
-          }
-        }
-
-        if (r == -1 || close (fd) == -1) {
-          perror (tmpfile);
-          exit (EXIT_FAILURE);
-        }
-      }
-
-      unlink (tmpfile);
+    default:
+      abort ();                 /* can't happen */
     }
+
     optind++;
   }
 
   guestfs_close (g);
 
   exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+}
+
+static int
+do_ls (const char *dir)
+{
+  char **lines;
+  size_t i;
+
+  if ((lines = guestfs_ls (g, dir)) == NULL) {
+    return -1;
+  }
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    printf ("%s\n", lines[i]);
+    free (lines[i]);
+  }
+  free (lines);
+
+  return 0;
+}
+
+static int
+do_ls_l (const char *dir)
+{
+  char *out;
+
+  if ((out = guestfs_ll (g, dir)) == NULL)
+    return -1;
+
+  printf ("%s", out);
+  free (out);
+
+  return 0;
+}
+
+static int
+do_ls_R (const char *dir)
+{
+  /* This is TMP_TEMPLATE_ON_STACK expanded from fish.h. */
+  const char *tmpdir = guestfs_tmpdir ();
+  char tmpfile[strlen (tmpdir) + 32];
+  sprintf (tmpfile, "%s/virtlsXXXXXX", tmpdir);
+
+  int fd = mkstemp (tmpfile);
+  if (fd == -1) {
+    perror ("mkstemp");
+    exit (EXIT_FAILURE);
+  }
+
+  char buf[BUFSIZ]; /* also used below */
+  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
+
+  if (guestfs_find0 (g, dir, buf) == -1)
+    return -1;
+
+  if (close (fd) == -1) {
+    perror (tmpfile);
+    exit (EXIT_FAILURE);
+  }
+
+  /* The output of find0 is a \0-separated file.  Turn each \0 into
+   * a \n character.
+   */
+  fd = open (tmpfile, O_RDONLY);
+  if (fd == -1) {
+    perror (tmpfile);
+    exit (EXIT_FAILURE);
+  }
+
+  ssize_t r;
+  while ((r = read (fd, buf, sizeof buf)) > 0) {
+    size_t i;
+    for (i = 0; i < (size_t) r; ++i)
+      if (buf[i] == '\0')
+        buf[i] = '\n';
+
+    size_t n = r;
+    while (n > 0) {
+      r = write (1, buf, n);
+      if (r == -1) {
+        perror ("write");
+        exit (EXIT_FAILURE);
+      }
+      n -= r;
+    }
+  }
+
+  if (r == -1 || close (fd) == -1) {
+    perror (tmpfile);
+    exit (EXIT_FAILURE);
+  }
+
+ unlink (tmpfile);
+
+ return 0;
 }
