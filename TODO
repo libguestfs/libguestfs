@@ -497,3 +497,6 @@ Generated code would hide most of the implementation.
 We also need to think about security issues: is it possible for the
 daemon to keep sending back data forever, and if so what happens on
 the library side.
+
+[Users can now use virt-ls to solve some of these problems, but it is
+not a general solution at the API level]
