@@ -62,7 +62,7 @@ usage (int status)
            _("%s: list files in a virtual machine\n"
              "Copyright (C) 2010 Red Hat Inc.\n"
              "Usage:\n"
-             "  %s [--options] -d domname file [dir ...]\n"
+             "  %s [--options] -d domname dir [dir ...]\n"
              "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
              "Options:\n"
              "  -a|--add image       Add image\n"
