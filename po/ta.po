@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-05-18 10:02+0100\n"
+"POT-Creation-Date: 2011-06-04 22:42+0100\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:58 df/main.c:70
+#: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:96 fuse/guestmount.c:908
 #: inspector/virt-inspector.c:72 rescue/virt-rescue.c:59
 #, c-format
@@ -65,7 +65,7 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:123
+#: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
 #: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:219
 #: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
 #: rescue/virt-rescue.c:133
@@ -73,7 +73,7 @@ msgstr ""
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
 
-#: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:145
+#: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:242
 #: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:276 fuse/guestmount.c:1061
 #: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
 #, c-format
@@ -137,29 +137,38 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: cat/virt-filesystems.c:318 df/main.c:255
+#: cat/virt-filesystems.c:318 cat/virt-ls.c:347 df/main.c:255
 #, fuzzy, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s:  --listen மற்றும் --file விருப்பங்களை அதே நேரத்தில் பயன்படுத்த முடியாது\n"
 
-#: cat/virt-ls.c:62
+#: cat/virt-ls.c:103
 #, fuzzy, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
+"Copyright (C) 2010-2011 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] -d domname file [dir ...]\n"
+"  %s [--options] -d domname dir [dir ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
+"  --checksum[=...]     Display file checksums\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Comma-Separated Values output\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --echo-keys          Don't turn off echo for passphrases\n"
+"  --extra-stats        Display extra stats\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
+"  -h|--human-readable  Human-readable sizes in output\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  -l|--long            Long listing\n"
 "  -R|--recursive       Recursive listing\n"
+"  --times              Display file times\n"
+"  --time-days          Display file times as days before now\n"
+"  --time-relative      Display file times as seconds before now\n"
+"  --time-t             Display file times as time_t's\n"
+"  --uids               Display UID, GID\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
@@ -183,6 +192,23 @@ msgstr ""
 "  --trace              Trace guestfs API calls (to stderr)\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
+
+#: cat/virt-ls.c:338
+#, c-format
+msgid ""
+"%s: used a flag which can only be combined with -lR mode\n"
+"For more information, read the virt-ls(1) man page.\n"
+msgstr ""
+
+#: cat/virt-ls.c:577
+#, c-format
+msgid "%s: error getting extended attrs for %s %s\n"
+msgstr ""
+
+#: cat/virt-ls.c:583
+#, c-format
+msgid "%s: error: cannot parse xattr count for %s %s\n"
+msgstr ""
 
 #: df/domains.c:115
 #, c-format
