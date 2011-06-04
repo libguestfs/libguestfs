@@ -41,7 +41,11 @@ OBJECTS = \
 
 bin_SCRIPTS = virt-resize
 
-OCAMLPACKAGES = -package pcre -I ../ocaml
+# -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
+# option to be passed to gcc, so we don't try linking against an
+# installed copy of libguestfs.
+OCAMLPACKAGES = -package pcre -I $(top_builddir)/src/.libs -I ../ocaml
+
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
