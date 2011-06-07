@@ -531,6 +531,25 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
  * will not see GUESTFS_PROGRESS_FLAG.
  */
 
+static inline void
+unexpected_end_of_file_from_daemon_error (guestfs_h *g)
+{
+#define UNEXPEOF_ERROR "unexpected end of file when reading from daemon.\n"
+#define UNEXPEOF_TEST_TOOL \
+  "Or you can run 'libguestfs-test-tool' and post the complete output into\n" \
+  "a bug report or message to the libguestfs mailing list."
+  if (!g->verbose)
+    error (g, _(UNEXPEOF_ERROR
+"This usually means the libguestfs appliance failed to start up.  Please\n"
+"enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
+"the debug messages output prior to this error.\n"
+UNEXPEOF_TEST_TOOL));
+  else
+    error (g, _(UNEXPEOF_ERROR
+"See earlier debug messages.\n"
+UNEXPEOF_TEST_TOOL));
+}
+
 int
 guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
@@ -596,7 +615,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
           return -1;
         }
         if (r == 0) {
-          error (g, _("unexpected end of file when reading from daemon"));
+          unexpected_end_of_file_from_daemon_error (g);
           child_cleanup (g);
           return -1;
         }
@@ -659,7 +678,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
         return -1;
       }
       if (r == 0) {
-        error (g, _("unexpected end of file when reading from daemon"));
+        unexpected_end_of_file_from_daemon_error (g);
         child_cleanup (g);
         free (*buf_rtn);
         *buf_rtn = NULL;
