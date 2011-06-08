@@ -352,7 +352,7 @@ do_mount_loop (const char *file, const char *mountpoint)
   }
 
   buf = sysroot_path (file);
-  if (!file) {
+  if (!buf) {
     reply_with_perror ("malloc");
     free (mp);
     return -1;
