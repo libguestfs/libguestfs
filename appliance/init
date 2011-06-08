@@ -28,7 +28,7 @@ elif [ -x /sbin/udevd ]; then
   echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
   /sbin/udevd --daemon
   /sbin/udevadm trigger
-  /sbin/udevadm settle --timeout=10
+  /sbin/udevadm settle
 else
   echo No udev, creating /dev manually
   mount -t tmpfs none /dev
