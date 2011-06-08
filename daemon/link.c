@@ -76,7 +76,6 @@ do_readlinklist (const char *path, char *const *names)
     r = readlinkat (fd_cwd, names[i], link, sizeof link);
     if (r >= PATH_MAX) {
       reply_with_perror ("readlinkat: returned link is too long");
-      free_strings (ret);
       close (fd_cwd);
       return NULL;
     }
