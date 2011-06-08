@@ -292,13 +292,16 @@ test_parted_m_opt (void)
   if (r == -1) {
     /* Test failed, eg. missing or completely unusable parted binary. */
     reply_with_error ("could not run 'parted' command");
+    free (err);
     return -1;
   }
 
   if (err && strstr (err, "invalid option -- m"))
-    return result = 0;
-
-  return result = 1;
+    result = 0;
+  else
+    result = 1;
+  free (err);
+  return result;
 }
 
 static char *
