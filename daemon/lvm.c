@@ -223,10 +223,12 @@ do_vgcreate (const char *volgroup, char *const *physvols)
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
+    free (argv);
     return -1;
   }
 
   free (err);
+  free (argv);
 
   udev_settle ();
 
@@ -512,10 +514,12 @@ do_vg_activate (int activate, char *const *volgroups)
   if (r == -1) {
     reply_with_error ("vgchange: %s", err);
     free (err);
+    free (argv);
     return -1;
   }
 
   free (err);
+  free (argv);
 
   udev_settle ();
 
