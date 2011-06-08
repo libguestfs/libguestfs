@@ -40,6 +40,10 @@ do_glob_expand (const char *pattern)
     char **rv;
 
     rv = malloc (sizeof (char *) * 1);
+    if (rv == NULL) {
+      reply_with_perror ("malloc");
+      return NULL;
+    }
     rv[0] = NULL;
     return rv;			/* Caller frees. */
   }
