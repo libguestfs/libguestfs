@@ -314,7 +314,7 @@ do_inotify_files (void)
   char **ret = NULL;
   int size = 0, alloc = 0;
   unsigned int i;
-  FILE *fp;
+  FILE *fp = NULL;
   guestfs_int_inotify_event_list *events;
   char buf[PATH_MAX];
 
@@ -361,13 +361,12 @@ do_inotify_files (void)
     if (len > 0 && buf[len-1] == '\n')
       buf[len-1] = '\0';
 
-    if (add_string (&ret, &size, &alloc, buf) == -1) {
-      fclose (fp);
+    if (add_string (&ret, &size, &alloc, buf) == -1)
       goto error;
-    }
   }
 
   fclose (fp);
+  fp = NULL;
 
   if (add_string (&ret, &size, &alloc, NULL) == -1)
     goto error;
@@ -376,6 +375,9 @@ do_inotify_files (void)
   return ret;
 
  error:
+  if (fp != NULL)
+    fclose (fp);
+
   unlink ("/tmp/inotify");
   return NULL;
 #else
