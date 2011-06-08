@@ -105,8 +105,9 @@ foreach_block_device (block_dev_func_t func)
     return NULL;
   }
 
-  /* Sort the devices */
-  sort_strings (r, size);
+  /* Sort the devices.  Note that r might be NULL if there are no devices. */
+  if (r != NULL)
+    sort_strings (r, size);
 
   /* NULL terminate the list */
   if (add_string (&r, &size, &alloc, NULL) == -1) {
