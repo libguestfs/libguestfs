@@ -127,8 +127,6 @@ do_tXz_in (const char *dir, const char *filter)
   }
 
   if (pclose (fp) != 0) {
-    if (r == -1)                /* if r == 0, file transfer ended already */
-      r = cancel_receive ();
     char *errstr = read_error_file ();
     reply_with_error ("tar subcommand failed on directory: %s: %s",
                       dir, errstr);

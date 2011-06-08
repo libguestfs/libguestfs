@@ -103,10 +103,6 @@ upload (const char *filename, int flags, int64_t offset)
   }
 
   if (close (data.fd) == -1) {
-    err = errno;
-    if (r == -1)                /* if r == 0, file transfer ended already */
-      r = cancel_receive ();
-    errno = err;
     reply_with_perror ("close: %s", filename);
     return -1;
   }
