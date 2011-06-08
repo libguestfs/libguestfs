@@ -183,7 +183,8 @@ do_case_sensitive_path (const char *path)
     }
   }
 
-  close (fd_cwd);
+  if (fd_cwd >= 0)
+    close (fd_cwd);
 
   ret[next] = '\0';
   char *retp = strdup (ret);
@@ -194,6 +195,8 @@ do_case_sensitive_path (const char *path)
   return retp;                  /* caller frees */
 
  error:
-  close (fd_cwd);
+  if (fd_cwd >= 0)
+    close (fd_cwd);
+
   return NULL;
 }
