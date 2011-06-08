@@ -89,6 +89,7 @@ foreach_block_device (block_dev_func_t func)
   if(0 != errno) {
     reply_with_perror ("readdir: /sys/block");
     free_stringslen(r, size);
+    closedir (dir);
     return NULL;
   }
 
@@ -175,6 +176,7 @@ add_partitions(const char *device,
   if(0 != errno) {
       reply_with_perror ("readdir: %s", devdir);
       free_stringslen(*r, *size);
+      closedir (dir);
       return -1;
   }
 
