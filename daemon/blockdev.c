@@ -68,11 +68,13 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
     if (sscanf (out, "%" SCNi64, &rv) != 1) {
       reply_with_error ("%s: expected output, but got nothing", argv[0]);
       free (out);
+      free (err);
       return -1;
     }
   }
 
   free (out);
+  free (err);
 
   return rv;
 }

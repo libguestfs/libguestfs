@@ -56,6 +56,7 @@ do_ntfs_3g_probe (int rw, const char *device)
     return -1;
   }
 
+  free (err);
   return r;
 }
 
@@ -72,6 +73,7 @@ do_ntfsresize (const char *device)
     return -1;
   }
 
+  free (err);
   return 0;
 }
 
@@ -92,5 +94,6 @@ do_ntfsresize_size (const char *device, int64_t size)
     return -1;
   }
 
+  free (err);
   return 0;
 }

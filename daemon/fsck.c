@@ -39,5 +39,6 @@ do_fsck (const char *fstype, const char *device)
     return -1;
   }
 
+  free (err);
   return r;
 }

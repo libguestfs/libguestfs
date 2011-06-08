@@ -79,6 +79,7 @@ do_mount_vfs (const char *options, const char *vfstype,
   if (is_root)
     root_mounted = 1;
 
+  free (error);
   return 0;
 }
 
@@ -364,6 +365,7 @@ do_mount_loop (const char *file, const char *mountpoint)
     return -1;
   }
 
+  free (error);
   return 0;
 }
 
