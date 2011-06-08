@@ -444,6 +444,7 @@ add_string (char ***argv, int *size, int *alloc, const char *str)
     if (new_str == NULL) {
       reply_with_perror ("strdup");
       free_strings (*argv);
+      return -1;
     }
   } else
     new_str = NULL;
