@@ -549,10 +549,6 @@ do_debug_upload (const char *filename, int mode)
   }
 
   if (close (fd) == -1) {
-    int err = errno;
-    if (r == -1)                /* if r == 0, file transfer ended already */
-      cancel_receive ();
-    errno = err;
     reply_with_perror ("close: %s", filename);
     return -1;
   }

@@ -86,8 +86,6 @@ do_base64_in (const char *file)
   }
 
   if (pclose (fp) != 0) {
-    if (r == -1)                /* if r == 0, file transfer ended already */
-      cancel_receive ();
     reply_with_error ("base64 subcommand failed on file: %s", file);
     return -1;
   }
