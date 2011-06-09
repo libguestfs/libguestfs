@@ -703,7 +703,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       close (stdin_fd[1]);
     } else {
       /* Set stdin to /dev/null (ignore failure) */
-      open ("/dev/null", O_RDONLY);
+      ignore_value (open ("/dev/null", O_RDONLY));
     }
     close (so_fd[0]);
     close (se_fd[0]);
