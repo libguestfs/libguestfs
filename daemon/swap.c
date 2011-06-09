@@ -28,6 +28,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#include "ignore-value.h"
+
 /* Confirmed this is true for Linux swap partitions from the Linux sources. */
 #define SWAP_LABEL_MAX 16
 
@@ -42,7 +44,7 @@ optgroup_linuxfsuuid_available (void)
   int av;
 
   /* Ignore return code - mkswap --help *will* fail. */
-  command (NULL, &err, "mkswap", "--help", NULL);
+  ignore_value (command (NULL, &err, "mkswap", "--help", NULL));
 
   av = strstr (err, "-U") != NULL;
   free (err);
