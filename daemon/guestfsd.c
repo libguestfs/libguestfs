@@ -793,8 +793,20 @@ commandrvf (char **stdoutput, char **stderror, int flags,
 
       perror ("select");
     quit:
-      if (stdoutput) free (*stdoutput);
-      if (stderror) free (*stderror);
+      if (stdoutput) {
+        free (*stdoutput);
+        *stdoutput = NULL;
+      }
+      if (stderror) {
+        free (*stderror);
+        /* Need to return non-NULL *stderror here since most callers
+         * will try to print and then free the err string.
+         * Unfortunately recovery from strdup failure here is not
+         * possible.
+         */
+        *stderror = strdup ("error running external command, "
+                            "see debug output for details");
+      }
       close (so_fd[0]);
       close (se_fd[0]);
       waitpid (pid, NULL, 0);
