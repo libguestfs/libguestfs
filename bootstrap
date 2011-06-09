@@ -84,6 +84,7 @@ $gnulib_tool			\
   --m4-base=m4			\
   --source-base=gnulib/lib	\
   --tests-base=gnulib/tests	\
+  --libtool			\
   --import $modules
 
 # Disable autopoint and libtoolize, since they were already done above.
