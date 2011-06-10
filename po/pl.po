@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-06-04 22:42+0100\n"
+"POT-Creation-Date: 2011-06-10 15:29+0100\n"
 "PO-Revision-Date: 2010-12-21 14:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -3276,67 +3276,76 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x"
 "%x\n"
 
-#: src/proto.c:599 src/proto.c:662
-msgid "unexpected end of file when reading from daemon"
-msgstr "nieoczekiwany koniec pliku podczas odczytywania z demona"
+#: src/proto.c:543
+msgid ""
+"This usually means the libguestfs appliance failed to start up.  Please\n"
+"enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
+"the debug messages output prior to this error.\n"
+msgstr ""
 
-#: src/proto.c:620
+#: src/proto.c:549
+#, fuzzy
+msgid "See earlier debug messages.\n"
+msgstr ""
+"tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
+
+#: src/proto.c:639
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "otrzymano podpis magic z guestfsd, ale w stanie %d"
 
-#: src/proto.c:639
+#: src/proto.c:658
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "długość komunikatu (%u) > maksymalny możliwy rozmiar (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:810
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: stan %d != ZAJĘTY"
 
-#: src/proto.c:815
+#: src/proto.c:834
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header nie powiodło się"
 
-#: src/proto.c:824
+#: src/proto.c:843
 msgid "dispatch failed to marshal args"
 msgstr "rozdzielenie parametrów marszałka nie powiodło się"
 
-#: src/proto.c:951
+#: src/proto.c:970
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: stan %d != GOTOWY"
 
-#: src/proto.c:967
+#: src/proto.c:986
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk nie powiodło się (bufor = %p, długość bufora = %zu)"
 
-#: src/proto.c:1117
+#: src/proto.c:1136
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: błąd w kodowaniu fragmentu"
 
-#: src/proto.c:1144
+#: src/proto.c:1163
 msgid "write to daemon socket"
 msgstr "zapisuje do gniazda demona"
 
-#: src/proto.c:1167
+#: src/proto.c:1186
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
 
-#: src/proto.c:1172
+#: src/proto.c:1191
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: otrzymano nieoczekiwaną flagę podczas odczytywania "
 "fragmentów pliku"
 
-#: src/proto.c:1180
+#: src/proto.c:1199
 msgid "failed to parse file chunk"
 msgstr "przetworzenie fragmentu pliku nie powiodło się"
 
-#: src/proto.c:1189
+#: src/proto.c:1208
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
 
@@ -3657,6 +3666,9 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
+
+#~ msgid "unexpected end of file when reading from daemon"
+#~ msgstr "nieoczekiwany koniec pliku podczas odczytywania z demona"
 
 #~ msgid "virt-edit: no image, VM names or filenames to edit given"
 #~ msgstr ""

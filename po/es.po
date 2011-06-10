@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-06-04 22:42+0100\n"
+"POT-Creation-Date: 2011-06-10 15:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -3258,69 +3258,77 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: se ha leído 0x%x desde el demonio, se "
 "esperaba 0x%x\n"
 
-#: src/proto.c:599 src/proto.c:662
-msgid "unexpected end of file when reading from daemon"
-msgstr "fin no esperado del archivo mientras se leía desde el demonio"
+#: src/proto.c:543
+msgid ""
+"This usually means the libguestfs appliance failed to start up.  Please\n"
+"enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
+"the debug messages output prior to this error.\n"
+msgstr ""
 
-#: src/proto.c:620
+#: src/proto.c:549
+#, fuzzy
+msgid "See earlier debug messages.\n"
+msgstr "tar: falló, vea mensajes de errores anteriores\n"
+
+#: src/proto.c:639
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 "se ha recibido una identificación mágica desde guestfsd, pero en estado %d"
 
-#: src/proto.c:639
+#: src/proto.c:658
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:810
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: estado %d != BUSY"
 
-#: src/proto.c:815
+#: src/proto.c:834
 msgid "xdr_guestfs_message_header failed"
 msgstr "falló xdr_guestfs_message_header"
 
-#: src/proto.c:824
+#: src/proto.c:843
 msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
-#: src/proto.c:951
+#: src/proto.c:970
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: estado %d != READY"
 
-#: src/proto.c:967
+#: src/proto.c:986
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "falló xdr_guestfs_chunk (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1117
+#: src/proto.c:1136
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error en codificación fragmentada"
 
-#: src/proto.c:1144
+#: src/proto.c:1163
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: src/proto.c:1167
+#: src/proto.c:1186
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 "receive_file_data: error de análisis en la respuesta de devolución de llamada"
 
-#: src/proto.c:1172
+#: src/proto.c:1191
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido una marca no esperada mientras se leían "
 "porciones del archivo "
 
-#: src/proto.c:1180
+#: src/proto.c:1199
 msgid "failed to parse file chunk"
 msgstr "falló al analizar porciones del archivo"
 
-#: src/proto.c:1189
+#: src/proto.c:1208
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
@@ -3653,6 +3661,9 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
+
+#~ msgid "unexpected end of file when reading from daemon"
+#~ msgstr "fin no esperado del archivo mientras se leía desde el demonio"
 
 #~ msgid "virt-edit: no image, VM names or filenames to edit given"
 #~ msgstr ""

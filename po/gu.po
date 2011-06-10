@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-06-04 22:42+0100\n"
+"POT-Creation-Date: 2011-06-10 15:29+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -3167,65 +3167,73 @@ msgid ""
 msgstr ""
 "check_for_daemon_cancellation_or_eof: ડિમન માંથી 0x%x ને વાંચો, ઇચ્છિત 0x%x\n"
 
-#: src/proto.c:599 src/proto.c:662
-msgid "unexpected end of file when reading from daemon"
-msgstr "ફાઇલનો અનિચ્છનીય અંત જ્યારે ડિમન માંથી વાંચી રહ્યા હોય"
+#: src/proto.c:543
+msgid ""
+"This usually means the libguestfs appliance failed to start up.  Please\n"
+"enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
+"the debug messages output prior to this error.\n"
+msgstr ""
 
-#: src/proto.c:620
+#: src/proto.c:549
+#, fuzzy
+msgid "See earlier debug messages.\n"
+msgstr "guestfs_launch નિષ્ફળ, પહેલાનાં ભૂલ સંદેશાઓને જૂઓ"
+
+#: src/proto.c:639
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd માંથી મળેલ જાદુઇ હસ્તાક્ષર, પરંતુ state %d માં છે"
 
-#: src/proto.c:639
+#: src/proto.c:658
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "સંદેશ લંબાઇ (%u) > મહત્તમ શક્ય માપ (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:810
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/proto.c:815
+#: src/proto.c:834
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header નિષ્ફળ"
 
-#: src/proto.c:824
+#: src/proto.c:843
 msgid "dispatch failed to marshal args"
 msgstr "માર્શલ દલીલોને મોકલવાનું નિષ્ફળ"
 
-#: src/proto.c:951
+#: src/proto.c:970
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/proto.c:967
+#: src/proto.c:986
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk નિષ્ફળ (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1117
+#: src/proto.c:1136
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ટૂકડા થયેલ એનકોડીંગમાં ભૂલ"
 
-#: src/proto.c:1144
+#: src/proto.c:1163
 msgid "write to daemon socket"
 msgstr "ડિમન સોકેટમાં લખો"
 
-#: src/proto.c:1167
+#: src/proto.c:1186
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: કોલબેક જવાબમાં પદચ્છેદન ભૂલ"
 
-#: src/proto.c:1172
+#: src/proto.c:1191
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
 
-#: src/proto.c:1180
+#: src/proto.c:1199
 msgid "failed to parse file chunk"
 msgstr "ફાઇલનાં ટૂકડાને પદચ્છેદન કરવાનું નિષ્ફળ"
 
-#: src/proto.c:1189
+#: src/proto.c:1208
 msgid "file receive cancelled by daemon"
 msgstr "ડિમન દ્દારા રદ થયેલ ફાઇલ મેળવી"
 
@@ -3523,6 +3531,9 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+
+#~ msgid "unexpected end of file when reading from daemon"
+#~ msgstr "ફાઇલનો અનિચ્છનીય અંત જ્યારે ડિમન માંથી વાંચી રહ્યા હોય"
 
 #~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 #~ msgstr "libguestfs-test-tool: mkdir /iso કરવાનું નિષ્ફળ\n"
