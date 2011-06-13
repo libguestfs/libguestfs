@@ -55,6 +55,14 @@ let string_of_errcode = function
  *)
 let uuidgen () =
   let s = Digest.to_hex (Digest.file "generator/generator_actions.ml") in
+
+  (* In util-linux <= 2.19, mkswap -U cannot handle the first byte of
+   * the UUID being zero, so we artificially rewrite such UUIDs.
+   * http://article.gmane.org/gmane.linux.utilities.util-linux-ng/4273
+   *)
+  if s.[0] = '0' && s.[1] = '0' then
+    s.[0] <- '1';
+
   String.sub s 0 8 ^ "-"
   ^ String.sub s 8 4 ^ "-"
   ^ String.sub s 12 4 ^ "-"
