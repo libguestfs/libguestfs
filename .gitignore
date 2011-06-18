@@ -205,6 +205,7 @@ perl/lib/Sys/Guestfs.pm
 perl/Makefile-pl
 perl/Makefile-pl.old
 perl/Makefile.PL
+perl/MYMETA.yml
 perl/pm_to_blib
 php/extension/Makefile.fragments
 php/extension/Makefile.global
