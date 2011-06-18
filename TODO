@@ -500,3 +500,8 @@ the library side.
 
 [Users can now use virt-ls to solve some of these problems, but it is
 not a general solution at the API level]
+
+Interactive disk creator
+------------------------
+
+An interactive disk creator program.
