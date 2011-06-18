@@ -1108,7 +1108,7 @@ sub _find_grub_prefix
     die(__"Can't find grub on guest") unless($g->exists('/boot/grub/menu.lst'));
 
     # Look for the most specific mount point in mounts
-    foreach my $path qw(/boot/grub /boot /) {
+    foreach my $path (qw(/boot/grub /boot /)) {
         if(exists($mounts->{$path})) {
             return "" if($path eq '/');
             return $path;
