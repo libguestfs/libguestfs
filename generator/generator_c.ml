@@ -373,7 +373,7 @@ extern \"C\" {
 /* Define GUESTFS_WARN_DEPRECATED=1 to warn about deprecated API functions. */
 #define GUESTFS_DEPRECATED_BY(s)
 #if GUESTFS_WARN_DEPRECATED
-#  if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 30100 /* gcc >= 3.1.0 */
+#  if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40500 /* gcc >= 4.5 */
 #    undef GUESTFS_DEPRECATED_BY
 #    define GUESTFS_DEPRECATED_BY(s) __attribute__((__deprecated__(\"change the program to use guestfs_\" s \" instead of this deprecated function\")))
 #  endif
