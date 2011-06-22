@@ -833,12 +833,14 @@ check_state (guestfs_h *g, const char *caller)
      | RBufferOut _ ->
          pr "%s  guestfs___print_BufferOut (stderr, %s, *size_r);\n" indent rv
      | RStringList _ | RHashtable _ ->
-         pr "%s  fputs (\"[\\\"\", stderr);\n" indent;
+         pr "%s  fputs (\"[\", stderr);\n" indent;
          pr "%s  for (i = 0; %s[i]; ++i) {\n" indent rv;
-         pr "%s    if (i > 0) fputs (\"\\\", \\\"\", stderr);\n" indent;
+         pr "%s    if (i > 0) fputs (\", \", stderr);\n" indent;
+         pr "%s    fputs (\"\\\"\", stderr);\n" indent;
          pr "%s    fputs (%s[i], stderr);\n" indent rv;
+         pr "%s    fputs (\"\\\"\", stderr);\n" indent;
          pr "%s  }\n" indent;
-         pr "%s  fputs (\"\\\"]\", stderr);\n" indent;
+         pr "%s  fputs (\"]\", stderr);\n" indent;
      | RStruct (_, typ) ->
          (* XXX There is code generated for guestfish for printing
           * these structures.  We need to make it generally available
