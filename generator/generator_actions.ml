@@ -5967,6 +5967,17 @@ Note that for large devices this can take a long time to run.");
 List all 9p filesystems attached to the guest.  A list of
 mount tags is returned.");
 
+  ("mount_9p", (RErr, [String "mounttag"; String "mountpoint"], [String "options"]), 286, [],
+   [],
+   "mount 9p filesystem",
+   "\
+Mount the virtio-9p filesystem with the tag C<mounttag> on the
+directory C<mountpoint>.
+
+If required, C<trans=virtio> will be automatically added to the options.
+Any other options required can be passed in the optional C<options>
+parameter.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

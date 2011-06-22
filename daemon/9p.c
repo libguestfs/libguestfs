@@ -168,3 +168,60 @@ read_whole_file (const char *filename)
 
   return r;
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_mount_9p (const char *mount_tag, const char *mountpoint, const char *options)
+{
+  char *mp = NULL, *opts = NULL, *err = NULL;
+  struct stat statbuf;
+  int r = -1;
+
+  ABS_PATH (mountpoint, , return -1);
+
+  mp = sysroot_path (mountpoint);
+  if (!mp) {
+    reply_with_perror ("malloc");
+    goto out;
+  }
+
+  /* Check the mountpoint exists and is a directory. */
+  if (stat (mp, &statbuf) == -1) {
+    reply_with_perror ("%s", mountpoint);
+    goto out;
+  }
+  if (!S_ISDIR (statbuf.st_mode)) {
+    reply_with_perror ("%s: mount point is not a directory", mountpoint);
+    goto out;
+  }
+
+  /* Add trans=virtio to the options. */
+  if ((optargs_bitmask & GUESTFS_MOUNT_9P_OPTIONS_BITMASK) &&
+      STRNEQ (options, "")) {
+    if (asprintf (&opts, "trans=virtio,%s", options) == -1) {
+      reply_with_perror ("asprintf");
+      goto out;
+    }
+  }
+  else {
+    opts = strdup ("trans=virtio");
+    if (opts == NULL) {
+      reply_with_perror ("strdup");
+      goto out;
+    }
+  }
+
+  r = command (NULL, &err,
+               "mount", "-o", opts, "-t", "9p", mount_tag, mp, NULL);
+  if (r == -1) {
+    reply_with_error ("%s on %s: %s", mount_tag, mountpoint, err);
+    goto out;
+  }
+
+  r = 0;
+ out:
+  free (err);
+  free (opts);
+  free (mp);
+  return r;
+}
