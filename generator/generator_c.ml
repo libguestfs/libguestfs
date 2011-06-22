@@ -942,12 +942,14 @@ trace_send_line (guestfs_h *g)
      | RBufferOut _ ->
          pr "%s  guestfs___print_BufferOut (trace_fp, %s, *size_r);\n" indent rv
      | RStringList _ | RHashtable _ ->
-         pr "%s  fputs (\"[\\\"\", trace_fp);\n" indent;
+         pr "%s  fputs (\"[\", trace_fp);\n" indent;
          pr "%s  for (i = 0; %s[i]; ++i) {\n" indent rv;
-         pr "%s    if (i > 0) fputs (\"\\\", \\\"\", trace_fp);\n" indent;
+         pr "%s    if (i > 0) fputs (\", \", trace_fp);\n" indent;
+         pr "%s    fputs (\"\\\"\", trace_fp);\n" indent;
          pr "%s    fputs (%s[i], trace_fp);\n" indent rv;
+         pr "%s    fputs (\"\\\"\", trace_fp);\n" indent;
          pr "%s  }\n" indent;
-         pr "%s  fputs (\"\\\"]\", trace_fp);\n" indent;
+         pr "%s  fputs (\"]\", trace_fp);\n" indent;
      | RStruct (_, typ) ->
          (* XXX There is code generated for guestfish for printing
           * these structures.  We need to make it generally available
