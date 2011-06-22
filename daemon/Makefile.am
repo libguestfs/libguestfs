@@ -88,6 +88,7 @@ errnostring.h: $(libsrcdir)/errnostring.h
 
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
+	9p.c \
 	actions.h \
 	available.c \
 	augeas.c \

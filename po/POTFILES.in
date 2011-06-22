@@ -1,6 +1,7 @@
 cat/virt-cat.c
 cat/virt-filesystems.c
 cat/virt-ls.c
+daemon/9p.c
 daemon/augeas.c
 daemon/available.c
 daemon/base64.c

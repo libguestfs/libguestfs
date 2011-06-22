@@ -5960,6 +5960,13 @@ This returns true iff the device exists and contains all zero bytes.
 
 Note that for large devices this can take a long time to run.");
 
+  ("list_9p", (RStringList "mounttags", [], []), 285, [],
+   [],
+   "list 9p filesystems",
+   "\
+List all 9p filesystems attached to the guest.  A list of
+mount tags is returned.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
