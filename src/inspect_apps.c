@@ -151,13 +151,12 @@ read_rpm_name (guestfs_h *g,
 static struct guestfs_application_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "rpm_Name";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
+  char *Name = NULL;
 
-  if (guestfs___download_to_tmp (g, "/var/lib/rpm/Name", basename,
-                                 MAX_PKG_DB_SIZE) == -1)
+  Name = guestfs___download_to_tmp (g, fs,
+                                    "/var/lib/rpm/Name", "rpm_Name",
+                                    MAX_PKG_DB_SIZE);
+  if (Name == NULL)
     return NULL;
 
   /* Allocate 'apps' list. */
@@ -166,8 +165,9 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   apps->len = 0;
   apps->val = NULL;
 
-  if (guestfs___read_db_dump (g, tmpdir_basename, apps, read_rpm_name) == -1) {
+  if (guestfs___read_db_dump (g, Name, apps, read_rpm_name) == -1) {
     guestfs_free_application_list (apps);
+    free (Name);
     return NULL;
   }
 
@@ -179,13 +179,10 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 static struct guestfs_application_list *
 list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "deb_status";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
-
-  if (guestfs___download_to_tmp (g, "/var/lib/dpkg/status", basename,
-                                 MAX_PKG_DB_SIZE) == -1)
+  char *status = NULL;
+  status = guestfs___download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
+                                      MAX_PKG_DB_SIZE);
+  if (status == NULL)
     return NULL;
 
   struct guestfs_application_list *apps = NULL, *ret = NULL;
@@ -195,9 +192,9 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   char *name = NULL, *version = NULL, *release = NULL;
   int installed_flag = 0;
 
-  fp = fopen (tmpdir_basename, "r");
+  fp = fopen (status, "r");
   if (fp == NULL) {
-    perrorf (g, "fopen: %s", tmpdir_basename);
+    perrorf (g, "fopen: %s", status);
     goto out;
   }
 
@@ -253,7 +250,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   }
 
   if (fclose (fp) == -1) {
-    perrorf (g, "fclose: %s", tmpdir_basename);
+    perrorf (g, "fclose: %s", status);
     goto out;
   }
   fp = NULL;
@@ -268,6 +265,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   free (name);
   free (version);
   free (release);
+  free (status);
   return ret;
 }
 
@@ -276,11 +274,6 @@ static void list_applications_windows_from_path (guestfs_h *g, hive_h *h, struct
 static struct guestfs_application_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "software";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
-
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software",
@@ -293,17 +286,19 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
     return NULL;
   }
 
+  char *software_hive = NULL;
   struct guestfs_application_list *ret = NULL;
   hive_h *h = NULL;
 
-  if (guestfs___download_to_tmp (g, software_path, basename,
-                                 MAX_REGISTRY_SIZE) == -1)
+  software_hive = guestfs___download_to_tmp (g, fs, software_path, "software",
+                                             MAX_REGISTRY_SIZE);
+  if (software_hive == NULL)
     goto out;
 
   free (software_path);
   software_path = NULL;
 
-  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (software_hive, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -331,6 +326,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
  out:
   if (h) hivex_close (h);
   free (software_path);
+  free (software_hive);
 
   return ret;
 }
