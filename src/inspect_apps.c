@@ -264,57 +264,53 @@ read_package (guestfs_h *g,
 static struct guestfs_application_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *name = "rpm_Name";
-  char tmpdir_name[strlen (g->tmpdir) + strlen (name) + 2];
-  snprintf (tmpdir_name, sizeof tmpdir_name, "%s/%s",
-            g->tmpdir, name);
+  char *Name = NULL, *Packages = NULL;
+  struct rpm_names_list list = { .names = NULL, .len = 0 };
+  struct guestfs_application_list *apps = NULL;
 
-  if (guestfs___download_to_tmp (g, "/var/lib/rpm/Name", name,
-                                 MAX_PKG_DB_SIZE) == -1)
-    return NULL;
+  Name = guestfs___download_to_tmp (g, fs,
+                                    "/var/lib/rpm/Name", "rpm_Name",
+                                    MAX_PKG_DB_SIZE);
+  if (Name == NULL)
+    goto error;
 
-  const char *pkgs = "rpm_Packages";
-  char tmpdir_pkgs[strlen (g->tmpdir) + strlen (pkgs) + 2];
-  snprintf (tmpdir_pkgs, sizeof tmpdir_pkgs, "%s/%s",
-            g->tmpdir, pkgs);
-
-  if (guestfs___download_to_tmp (g, "/var/lib/rpm/Packages", pkgs,
-                                 MAX_PKG_DB_SIZE) == -1)
-    return NULL;
-
-  /* Allocate interim structure to store names and links. */
-  struct rpm_names_list list;
-  list.names = NULL;
-  list.len = 0;
+  Packages = guestfs___download_to_tmp (g, fs,
+                                        "/var/lib/rpm/Packages", "rpm_Packages",
+                                        MAX_PKG_DB_SIZE);
+  if (Packages == NULL)
+    goto error;
 
   /* Read Name database. */
-  if (guestfs___read_db_dump (g, tmpdir_name, &list, read_rpm_name) == -1) {
-    free_rpm_names_list (&list);
-    return NULL;
-  }
+  if (guestfs___read_db_dump (g, Name, &list, read_rpm_name) == -1)
+    goto error;
 
   /* Sort the names by link field for fast searching. */
   qsort (list.names, list.len, sizeof (struct rpm_name), compare_links);
 
   /* Allocate 'apps' list. */
-  struct guestfs_application_list *apps;
   apps = safe_malloc (g, sizeof *apps);
   apps->len = 0;
   apps->val = NULL;
 
   /* Read Packages database. */
-  struct read_package_data data;
-  data.list = &list;
-  data.apps = apps;
-  if (guestfs___read_db_dump (g, tmpdir_pkgs, &data, read_package) == -1) {
-    free_rpm_names_list (&list);
-    guestfs_free_application_list (apps);
-    return NULL;
-  }
+  struct read_package_data data = { .list = &list, .apps = apps };
+  if (guestfs___read_db_dump (g, Packages, &data, read_package) == -1)
+    goto error;
 
+  free (Name);
+  free (Packages);
   free_rpm_names_list (&list);
 
   return apps;
+
+ error:
+  free (Name);
+  free (Packages);
+  free_rpm_names_list (&list);
+  if (apps != NULL)
+    guestfs_free_application_list (apps);
+
+  return NULL;
 }
 
 #endif /* defined DB_DUMP */
@@ -322,13 +318,10 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 static struct guestfs_application_list *
 list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "deb_status";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
-
-  if (guestfs___download_to_tmp (g, "/var/lib/dpkg/status", basename,
-                                 MAX_PKG_DB_SIZE) == -1)
+  char *status = NULL;
+  status = guestfs___download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
+                                      MAX_PKG_DB_SIZE);
+  if (status == NULL)
     return NULL;
 
   struct guestfs_application_list *apps = NULL, *ret = NULL;
@@ -338,9 +331,9 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   char *name = NULL, *version = NULL, *release = NULL;
   int installed_flag = 0;
 
-  fp = fopen (tmpdir_basename, "r");
+  fp = fopen (status, "r");
   if (fp == NULL) {
-    perrorf (g, "fopen: %s", tmpdir_basename);
+    perrorf (g, "fopen: %s", status);
     goto out;
   }
 
@@ -396,7 +389,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   }
 
   if (fclose (fp) == -1) {
-    perrorf (g, "fclose: %s", tmpdir_basename);
+    perrorf (g, "fclose: %s", status);
     goto out;
   }
   fp = NULL;
@@ -411,6 +404,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   free (name);
   free (version);
   free (release);
+  free (status);
   return ret;
 }
 
@@ -419,11 +413,6 @@ static void list_applications_windows_from_path (guestfs_h *g, hive_h *h, struct
 static struct guestfs_application_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "software";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
-
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software",
@@ -436,17 +425,19 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
     return NULL;
   }
 
+  char *software_hive = NULL;
   struct guestfs_application_list *ret = NULL;
   hive_h *h = NULL;
 
-  if (guestfs___download_to_tmp (g, software_path, basename,
-                                 MAX_REGISTRY_SIZE) == -1)
+  software_hive = guestfs___download_to_tmp (g, fs, software_path, "software",
+                                             MAX_REGISTRY_SIZE);
+  if (software_hive == NULL)
     goto out;
 
   free (software_path);
   software_path = NULL;
 
-  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (software_hive, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -474,6 +465,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
  out:
   if (h) hivex_close (h);
   free (software_path);
+  free (software_hive);
 
   return ret;
 }

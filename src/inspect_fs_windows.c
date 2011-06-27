@@ -159,11 +159,6 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "software";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
-
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software",
@@ -176,15 +171,17 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
      */
     return 0;
 
+  char *software_hive = NULL;
   int ret = -1;
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
-  if (guestfs___download_to_tmp (g, software_path, basename,
-                                 MAX_REGISTRY_SIZE) == -1)
+  software_hive = guestfs___download_to_tmp (g, fs, software_path, "software",
+                                             MAX_REGISTRY_SIZE);
+  if (software_hive == NULL)
     goto out;
 
-  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (software_hive, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -268,6 +265,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   if (h) hivex_close (h);
   free (values);
   free (software_path);
+  free (software_hive);
 
   return ret;
 }
@@ -275,11 +273,6 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 {
-  const char *basename = "system";
-  char tmpdir_basename[strlen (g->tmpdir) + strlen (basename) + 2];
-  snprintf (tmpdir_basename, sizeof tmpdir_basename, "%s/%s",
-            g->tmpdir, basename);
-
   size_t len = strlen (fs->windows_systemroot) + 64;
   char system[len];
   snprintf (system, len, "%s/system32/config/system",
@@ -292,6 +285,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
      */
     return 0;
 
+  char *system_hive = NULL;
   int ret = -1;
   hive_h *h = NULL;
   hive_node_h root, node;
@@ -299,11 +293,13 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   int32_t dword;
   size_t i, count;
 
-  if (guestfs___download_to_tmp (g, system_path, basename,
-                                 MAX_REGISTRY_SIZE) == -1)
+  system_hive =
+    guestfs___download_to_tmp (g, fs, system_path, "system",
+                               MAX_REGISTRY_SIZE);
+  if (system_hive == NULL)
     goto out;
 
-  h = hivex_open (tmpdir_basename, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
+  h = hivex_open (system_hive, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
   if (h == NULL) {
     perrorf (g, "hivex_open");
     goto out;
@@ -449,6 +445,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   if (h) hivex_close (h);
   free (values);
   free (system_path);
+  free (system_hive);
 
   return ret;
 }

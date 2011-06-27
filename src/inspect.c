@@ -500,69 +500,74 @@ guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
 }
 
 /* Download a guest file to a local temporary file.  The file is
- * downloaded into g->tmpdir, unless it already exists in g->tmpdir.
- * The final name will be g->tmpdir + "/" + basename.  Refuse to
- * download the guest file if it is larger than max_size.  The caller
- * does not need to delete the temporary file after use: it will be
- * deleted when the handle is cleaned up.
+ * cached in the temporary directory, and is not downloaded again.
+ *
+ * The name of the temporary (downloaded) file is returned.  The
+ * caller must free the pointer, but does *not* need to delete the
+ * temporary file.  It will be deleted when the handle is closed.
+ *
+ * Refuse to download the guest file if it is larger than max_size.
+ * On this and other errors, NULL is returned.
+ *
+ * There is actually one cache per 'struct inspect_fs *' in order
+ * to handle the case of multiple roots.
  */
-int
-guestfs___download_to_tmp (guestfs_h *g, const char *filename,
+char *
+guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
+                           const char *filename,
                            const char *basename, int64_t max_size)
 {
-  int tmpdirfd, fd, r = -1;
-  char buf[32];
+  char *r;
+  int fd;
+  char devfd[32];
   int64_t size;
 
-  tmpdirfd = open (g->tmpdir, O_RDONLY);
-  if (tmpdirfd == -1) {
-    perrorf (g, _("%s: temporary directory not found"), g->tmpdir);
-    return -1;
+  /* Make the basename unique by prefixing it with the fs number. */
+  if (asprintf (&r, "%s/%ld-%s", g->tmpdir, fs - g->fses, basename) == -1) {
+    perrorf (g, "asprintf");
+    return NULL;
   }
 
   /* If the file has already been downloaded, return. */
-  if (faccessat (tmpdirfd, basename, R_OK, 0) == 0) {
-    r = 0;
-    goto out;
-  }
+  if (access (r, R_OK) == 0)
+    return r;
 
   /* Check size of remote file. */
   size = guestfs_filesize (g, filename);
   if (size == -1)
     /* guestfs_filesize failed and has already set error in handle */
-    goto out;
+    goto error;
   if (size > max_size) {
     error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
            filename, size);
-    goto out;
+    goto error;
   }
 
-  fd = openat (tmpdirfd, basename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0600);
+  fd = open (r, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0600);
   if (fd == -1) {
-    perrorf (g, "openat: %s/%s", g->tmpdir, basename);
-    goto out;
+    perrorf (g, "open: %s", r);
+    goto error;
   }
 
-  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
+  snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
 
-  if (guestfs_download (g, filename, buf) == -1) {
-    unlinkat (tmpdirfd, basename, 0);
+  if (guestfs_download (g, filename, devfd) == -1) {
+    unlink (r);
     close (fd);
-    goto out;
+    goto error;
   }
 
   if (close (fd) == -1) {
-    perrorf (g, "close: %s/%s", g->tmpdir, basename);
-    unlinkat (tmpdirfd, basename, 0);
-    goto out;
+    perrorf (g, "close: %s", r);
+    unlink (r);
+    goto error;
   }
 
-  r = 0;
- out:
-  if (tmpdirfd >= 0)
-    close (tmpdirfd);
-
   return r;
+
+ error:
+  free (r);
+  return NULL;
 }
 
 struct inspect_fs *
