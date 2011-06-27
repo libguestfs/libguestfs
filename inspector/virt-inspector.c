@@ -340,6 +340,7 @@ output_root (xmlTextWriterPtr xo, char *root)
   int i, r;
   char buf[32];
   char canonical_root[strlen (root) + 1];
+  size_t size;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "operatingsystem"));
 
@@ -471,7 +472,31 @@ output_root (xmlTextWriterPtr xo, char *root)
 
   output_drive_mappings (xo, root);
 
+  /* We need to mount everything up in order to read out the list of
+   * applications and the icon, ie. everything below this point.
+   */
+  inspect_mount_root (root);
+
   output_applications (xo, root);
+
+  /* Don't return favicon.  XXX Should we? */
+  str = guestfs_inspect_get_icon (g, root, &size,
+                                  GUESTFS_INSPECT_GET_ICON_FAVICON, 0,
+                                  -1);
+  if (!str) exit (EXIT_FAILURE);
+  if (size > 0) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "icon"));
+    XMLERROR (-1, xmlTextWriterWriteBase64 (xo, str, 0, size));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+  /* Note we must free (str) even if size == 0, because that indicates
+   * there was no icon.
+   */
+  free (str);
+
+  /* Unmount (see inspect_mount_root above). */
+  if (guestfs_umount_all (g) == -1)
+    exit (EXIT_FAILURE);
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 }
@@ -652,18 +677,11 @@ output_applications (xmlTextWriterPtr xo, char *root)
   struct guestfs_application_list *apps;
   size_t i;
 
-  /* We need to mount everything up in order to read out the list of
-   * applications.
-   */
-  inspect_mount_root (root);
-
   /* This returns an empty list if we simply couldn't determine the
    * applications, so if it returns NULL then it's a real error.
    */
   apps = guestfs_inspect_list_applications (g, root);
   if (apps == NULL)
-    exit (EXIT_FAILURE);
-  if (guestfs_umount_all (g) == -1)
     exit (EXIT_FAILURE);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "applications"));

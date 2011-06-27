@@ -441,13 +441,6 @@ More inspection features
 - last user who logged in
 - lastlog, last, who
 
-Get the guest icon
-------------------
-
-- For Linux guests, use /etc/favicon.png if available, else get it in
-  a distro-specific manner.
-- For Windows guests, parse it out of c:\windows\explorer.exe
-
 Integrate virt-inspector with CMDBs
 -----------------------------------
 

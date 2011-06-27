@@ -1462,6 +1462,70 @@ Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>,
 C<guestfs_inspect_get_filesystems>.");
 
+  ("inspect_get_icon", (RBufferOut "icon", [Device "root"],  [Bool "favicon"; Bool "highquality"]), -1, [],
+   [],
+   "get the icon corresponding to this operating system",
+   "\
+This function returns an icon corresponding to the inspected
+operating system.  The icon is returned as a buffer containing a
+PNG image (re-encoded to PNG if necessary).
+
+If it was not possible to get an icon this function returns a
+zero-length (non-NULL) buffer.  I<Callers must check for this case>.
+
+Libguestfs will start by looking for a file called
+C</etc/favicon.png> or C<C:\\etc\\favicon.png>
+and if it has the correct format, the contents of this file will
+be returned.  You can disable favicons by passing the
+optional C<favicon> boolean as false (default is true).
+
+If finding the favicon fails, then we look in other places in the
+guest for a suitable icon.
+
+If the optional C<highquality> boolean is true then
+only high quality icons are returned, which means only icons of
+high resolution with an alpha channel.  The default (false) is
+to return any icon we can, even if it is of substandard quality.
+
+Notes:
+
+=over 4
+
+=item *
+
+Unlike most other inspection API calls, the guest's disks must be
+mounted up before you call this, since it needs to read information
+from the guest filesystem during the call.
+
+=item *
+
+B<Security:> The icon data comes from the untrusted guest,
+and should be treated with caution.  PNG files have been
+known to contain exploits.  Ensure that libpng (or other relevant
+libraries) are fully up to date before trying to process or
+display the icon.
+
+=item *
+
+The PNG image returned can be any size.  It might not be square.
+Libguestfs tries to return the largest, highest quality
+icon available.  The application must scale the icon to the
+required size.
+
+=item *
+
+Extracting icons from Windows guests requires the external
+C<wrestool> program from the C<icoutils> package, and
+several programs (C<bmptopnm>, C<pnmtopng>, C<pamcut>)
+from the C<netpbm> package.  These must be installed separately.
+
+=item *
+
+Operating system icons are usually trademarks.  Seek legal
+advice before using trademarks in applications.
+
+=back");
+
 ]
 
 (* daemon_functions are any functions which cause some action

@@ -147,6 +147,7 @@ src/inspect_fs.c
 src/inspect_fs_cd.c
 src/inspect_fs_unix.c
 src/inspect_fs_windows.c
+src/inspect_icon.c
 src/launch.c
 src/listfs.c
 src/match.c

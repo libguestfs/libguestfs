@@ -1,4 +1,6 @@
-<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!-- -*- xml -*-
   This is a RELAX NG schema for the output of 'virt-inspector'.
 
@@ -50,6 +52,8 @@
             <ref name="filesystems"/>
             <optional><ref name="drive_mappings"/></optional>
             <optional><ref name="applications"/></optional>
+
+            <optional><element name="icon"><data type="base64Binary"/></element></optional>
 
           </interleave>
         </element>

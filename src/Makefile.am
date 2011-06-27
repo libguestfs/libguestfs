@@ -133,6 +133,7 @@ libguestfs_la_SOURCES = \
 	inspect_fs_cd.c \
 	inspect_fs_unix.c \
 	inspect_fs_windows.c \
+	inspect_icon.c \
 	launch.c \
 	listfs.c \
 	match.c \
