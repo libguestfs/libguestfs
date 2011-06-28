@@ -1,11 +1,11 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
   <!-- -*- xml -*-
-  This is a RELAX NG schema for the output of 'virt-inspector - -xml'.
+  This is a RELAX NG schema for the output of 'virt-inspector'.
 
   To validate an existing document against this schema, you can
   use xmllint, like this:
 
-    virt-inspector - -xml Foo > output.xml
+    virt-inspector -d Foo > output.xml
     xmllint - -noout - -relaxng virt-inspector.rng output.xml
 
   (Note that because of limitations of XML, I have had to put spaces
