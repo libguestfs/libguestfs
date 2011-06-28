@@ -726,9 +726,6 @@ See also C<guestfs_list_filesystems>.");
    [],
    "get type of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the type of the inspected operating system.
 Currently defined types are:
 
@@ -761,9 +758,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get architecture of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the architecture of the inspected operating system.
 The possible return values are listed under
 C<guestfs_file_architecture>.
@@ -777,9 +771,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get distro of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the distro (distribution) of the inspected operating
 system.
 
@@ -863,9 +854,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get major version of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the major version number of the inspected operating
 system.
 
@@ -884,9 +872,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get minor version of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the minor version number of the inspected operating
 system.
 
@@ -899,9 +884,6 @@ See also C<guestfs_inspect_get_major_version>.");
    [],
    "get product name of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the product name of the inspected operating
 system.  The product name is generally some freeform string
 which can be displayed to the user, but should not be
@@ -916,9 +898,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get mountpoints of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns a hash of where we think the filesystems
 associated with this operating system should be mounted.
 Callers should note that this is at best an educated guess
@@ -949,9 +928,6 @@ See also C<guestfs_inspect_get_filesystems>.");
    [],
    "get filesystems associated with inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns a list of all the filesystems that we think
 are associated with this operating system.  This includes
 the root filesystem, other ordinary filesystems, and
@@ -1064,9 +1040,6 @@ deprecated C<guestfs_add_drive_with_if> call (q.v.)
    [],
    "get Windows systemroot of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the Windows systemroot of the inspected guest.
 The systemroot is a directory path such as C</WINDOWS>.
 
@@ -1178,9 +1151,6 @@ C<guestfs_add_drive_opts>.");
    [],
    "get package format used by the operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This function and C<guestfs_inspect_get_package_management> return
 the package format and package management tool used by the
 inspected operating system.  For example for Fedora these
@@ -1200,9 +1170,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get package management tool used by the operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 C<guestfs_inspect_get_package_format> and this function return
 the package format and package management tool used by the
 inspected operating system.  For example for Fedora these
@@ -1224,9 +1191,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get list of applications installed in the operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 Return the list of applications installed in the operating system.
 
 I<Note:> This call works differently from other parts of the
@@ -1323,9 +1287,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get hostname of the operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This function returns the hostname of the operating system
 as found by inspection of the guest's configuration files.
 
@@ -1338,9 +1299,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get format of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the format of the inspected operating system.  You
 can use it to detect install images, live CDs and similar.
 
@@ -1372,9 +1330,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get live flag for install disk",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 If C<guestfs_inspect_get_format> returns C<installer> (this
 is an install disk), then this returns true if a live image
 was detected on the disk.
@@ -1385,9 +1340,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get netinst (network installer) flag for install disk",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 If C<guestfs_inspect_get_format> returns C<installer> (this
 is an install disk), then this returns true if the disk is
 a network installer, ie. not a self-contained install CD but
@@ -1400,9 +1352,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get multipart flag for install disk",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 If C<guestfs_inspect_get_format> returns C<installer> (this
 is an install disk), then this returns true if the disk is
 part of a set.
@@ -1444,9 +1393,6 @@ Return the current attach method.  See C<guestfs_set_attach_method>.");
    [],
    "get product variant of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the product variant of the inspected operating
 system.
 
@@ -1474,9 +1420,6 @@ C<guestfs_inspect_get_major_version>.");
    [],
    "get Windows CurrentControlSet of inspected operating system",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This returns the Windows CurrentControlSet of the inspected guest.
 The CurrentControlSet is a registry key name such as C<ControlSet001>.
 
@@ -1490,9 +1433,6 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
    [],
    "get drive letter mappings",
    "\
-This function should only be called with a root device string
-as returned by C<guestfs_inspect_os>.
-
 This call is useful for Windows which uses a primitive system
 of assigning drive letters (like \"C:\") to partitions.
 This inspection API examines the Windows Registry to find out
