@@ -6060,6 +6060,20 @@ them with the help of L</glob> like this:
 
  glob copy-out /home/* .");
 
+  ("display", (RErr,[], []), -1, [], [],
+   "display an image",
+   " display filename
+
+Use C<display> (a graphical display program) to display an image
+file.  It downloads the file, and runs C<display> on it.
+
+To use an alternative program, set the C<GUESTFISH_DISPLAY_IMAGE>
+environment variable.  For example to use the GNOME display program:
+
+ export GUESTFISH_DISPLAY_IMAGE=eog
+
+See also L<display(1)>.");
+
   ("echo", (RErr,[], []), -1, [], [],
    "display a line of text",
    " echo [params ...]

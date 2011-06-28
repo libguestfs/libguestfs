@@ -75,6 +75,7 @@ guestfish_SOURCES = \
 	cmds_gperf.h \
 	copy.c \
 	destpaths.c \
+	display.c \
 	echo.c \
 	edit.c \
 	fish.c \

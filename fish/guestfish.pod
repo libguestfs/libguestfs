@@ -1023,6 +1023,11 @@ guestfish returns 0 if the commands completed without error, or
 The C<edit> command uses C<$EDITOR> as the editor.  If not
 set, it uses C<vi>.
 
+=item GUESTFISH_DISPLAY_IMAGE
+
+The C<display> command uses C<$GUESTFISH_DISPLAY_IMAGE> to
+display images.  If not set, it uses L<display(1)>.
+
 =item GUESTFISH_PID
 
 Used with the I<--remote> option to specify the remote guestfish
@@ -1169,6 +1174,7 @@ L<virt-tar(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
+L<display(1)>,
 L<hexedit(1)>.
 
 =head1 AUTHORS

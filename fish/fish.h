@@ -102,6 +102,9 @@ extern int parse_size (const char *str, off_t *size_rtn);
 extern int run_copy_in (const char *cmd, size_t argc, char *argv[]);
 extern int run_copy_out (const char *cmd, size_t argc, char *argv[]);
 
+/* in display.c */
+extern int run_display (const char *cmd, size_t argc, char *argv[]);
+
 /* in echo.c */
 extern int run_echo (const char *cmd, size_t argc, char *argv[]);
 

@@ -87,6 +87,7 @@ fish/completion.c
 fish/config.c
 fish/copy.c
 fish/destpaths.c
+fish/display.c
 fish/echo.c
 fish/edit.c
 fish/fish.c
