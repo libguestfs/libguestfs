@@ -135,7 +135,8 @@ let rec generate_prototype ?(extern = true) ?(static = false)
   if newline then pr "\n"
 
 (* Generate C call arguments, eg "(handle, foo, bar)" *)
-and generate_c_call_args ?handle (ret, args, optargs) =
+and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
+    (ret, args, optargs) =
   pr "(";
   let comma = ref false in
   let next () =
@@ -155,11 +156,11 @@ and generate_c_call_args ?handle (ret, args, optargs) =
         next ();
         pr "%s" (name_of_argt arg)
   ) args;
-  (* For RBufferOut calls, add implicit &size parameter. *)
+  (* For RBufferOut calls, add implicit size pointer parameter. *)
   (match ret with
    | RBufferOut _ ->
        next ();
-       pr "&size"
+       pr "%s" implicit_size_ptr
    | _ -> ()
   );
   (* For calls with optional arguments, add implicit optargs parameter. *)
@@ -992,7 +993,7 @@ trace_send_line (guestfs_h *g)
       reject_unknown_optargs shortname style;
       trace_call shortname style;
       pr "  r = guestfs__%s " shortname;
-      generate_c_call_args ~handle:"g" style;
+      generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
       pr ";\n";
       pr "\n";
       (match errcode_of_ret ret with
@@ -1338,9 +1339,12 @@ trace_send_line (guestfs_h *g)
 
         (* Get the name of the last regular argument. *)
         let last_arg =
-          match args with
-          | [] -> "g"
-          | args -> name_of_argt (List.hd (List.rev args)) in
+          match ret with
+          | RBufferOut _ -> "size_r"
+          | _ ->
+              match args with
+              | [] -> "g"
+              | args -> name_of_argt (List.hd (List.rev args)) in
 
         let rtype =
           match ret with
@@ -1361,7 +1365,7 @@ trace_send_line (guestfs_h *g)
         pr "\n";
         pr "  va_start (optargs, %s);\n" last_arg;
         pr "  %sr = guestfs_%s_va " rtype shortname;
-        generate_c_call_args ~handle:"g" style;
+        generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
         pr ";\n";
         pr "  va_end (optargs);\n";
         pr "\n";
@@ -1418,7 +1422,7 @@ trace_send_line (guestfs_h *g)
         pr "  }\n";
         pr "\n";
         pr "  return guestfs_%s_argv " shortname;
-        generate_c_call_args ~handle:"g" style;
+        generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
         pr ";\n";
         pr "}\n\n"
     | _ -> ()

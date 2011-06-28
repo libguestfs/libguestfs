@@ -576,7 +576,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
            let cols = cols_of_struct typ in
            generate_java_struct_list_return typ jtyp cols
        | RBufferOut _ ->
-           pr "  jr = (*env)->NewStringUTF (env, r); /* XXX size */\n";
+           pr "  jr = (*env)->NewStringUTF (env, r); // XXX size\n";
            pr "  free (r);\n";
            pr "  return jr;\n"
       );
