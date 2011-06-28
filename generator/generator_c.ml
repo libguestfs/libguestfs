@@ -556,6 +556,16 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
       if deprecated = None && not test0 && not debug then
         pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
 
+      if optargs <> [] then (
+        iteri (
+          fun i argt ->
+            let uc_shortname = String.uppercase shortname in
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "#define GUESTFS_%s_%s %d\n" uc_shortname uc_n i;
+        ) optargs;
+      );
+
       generate_prototype ~single_line:true ~semicolon:false
         ~handle:"g" ~prefix:"guestfs_" shortname style;
       (match deprecated with
@@ -568,6 +578,7 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
           ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
           shortname style;
 
+        pr "\n";
         pr "struct guestfs_%s_argv {\n" shortname;
         pr "  uint64_t bitmask;\n";
         iteri (
@@ -582,15 +593,16 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
             let uc_shortname = String.uppercase shortname in
             let n = name_of_argt argt in
             let uc_n = String.uppercase n in
-            pr "#define GUESTFS_%s_%s %d\n" uc_shortname uc_n i;
-            pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n" uc_shortname uc_n i;
-            pr "/* The field below is only valid in this struct if the\n";
-            pr " * GUESTFS_%s_%s_BITMASK bit is set\n" uc_shortname uc_n;
-            pr " * in the bitmask above, otherwise the contents are ignored.\n";
-            pr " */\n";
+            pr "\n";
+            pr "# define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n" uc_shortname uc_n i;
+            pr "  /* The field below is only valid in this struct if the\n";
+            pr "   * GUESTFS_%s_%s_BITMASK bit is set\n" uc_shortname uc_n;
+            pr "   * in the bitmask above.  If not, the field is ignored.\n";
+            pr "   */\n";
             pr "  %s%s;\n" c_type n
         ) optargs;
         pr "};\n";
+        pr "\n";
 
         generate_prototype ~single_line:true ~newline:true ~handle:"g"
           ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
