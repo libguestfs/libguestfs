@@ -2657,6 +2657,11 @@ Automated tests of the C API.
 The L<virt-cat(1)>, L<virt-filesystems(1)> and L<virt-ls(1)> commands
 and documentation.
 
+=item C<caution>
+
+Safety and liveness tests of components that libguestfs depends upon
+(not of libguestfs itself).  Mainly this is for qemu and the kernel.
+
 =item C<contrib>
 
 Outside contributions, experimental parts.

@@ -823,6 +823,7 @@ AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  capitests/Makefile
                  cat/Makefile
+                 caution/Makefile
                  csharp/Makefile
                  debian/changelog
                  df/Makefile
