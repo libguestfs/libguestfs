@@ -285,6 +285,27 @@ Note that this only covers permanent local filesystem mappings, not
 things like network shares.  Furthermore NTFS volume mount points may
 not be listed here.
 
+=head2 E<lt>iconE<gt>
+
+Virt-inspector is sometimes able to extract an icon or logo for the
+guest.  The icon is returned as base64-encoded PNG data.  Note that
+the icon can be very large and high quality.
+
+ <operatingsystems>
+   <operatingsystem>
+     ...
+     <icon>
+       iVBORw0KGgoAAAANSUhEUgAAAGAAAABg[.......]
+       [... many lines of base64 data ...]
+     </icon>
+
+To display the icon, you have to extract it and convert the base64
+data back to a binary file.  Use an XPath query or simply an editor to
+extract the data, then use the coreutils L<base64(1)> program to do
+the conversion back to a PNG file:
+
+ base64 -i -d < icon.data > icon.png
+
 =head2 INSPECTING INSTALL DISKS, LIVE CDs
 
 Virt-inspector can detect some operating system installers on
@@ -353,6 +374,7 @@ versions of virt-inspector with different names:
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<http://www.w3.org/TR/xpath/>,
+L<base64(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
