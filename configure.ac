@@ -810,6 +810,7 @@ AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  images/Makefile
                  capitests/Makefile
+                 caution/Makefile
                  regressions/Makefile
                  test-tool/Makefile
                  ocaml/Makefile ocaml/examples/Makefile
