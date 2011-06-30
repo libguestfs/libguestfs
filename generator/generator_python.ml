@@ -545,6 +545,9 @@ import libguestfsmod
   pr "\n";
 
   pr "\
+class ClosedHandle(ValueError):
+    pass
+
 class GuestFS:
     \"\"\"Instances of this class are libguestfs API handles.\"\"\"
 
@@ -553,7 +556,27 @@ class GuestFS:
         self._o = libguestfsmod.create ()
 
     def __del__ (self):
+        if self._o:
+            libguestfsmod.close (self._o)
+
+    def _check_not_closed (self):
+        if not self._o:
+            raise ClosedHandle (\"GuestFS: method called on closed handle\")
+
+    def close (self):
+        u\"\"\"Explicitly close the guestfs handle.
+
+        The handle is closed implicitly when its reference count goes
+        to zero (eg. when it goes out of scope or the program ends).
+
+        This call is only needed if you want to force the handle to
+        close now.  After calling this, the program must not call
+        any method on the handle (except the implicit call to
+        __del__ which happens when the final reference is cleaned up).
+        \"\"\"
+        self._check_not_closed ()
         libguestfsmod.close (self._o)
+        self._o = None
 
     def set_event_callback (self, cb, event_bitmask):
         u\"\"\"Register an event callback.
@@ -577,10 +600,12 @@ class GuestFS:
         \"guestfs_set_event_callback\" in guestfs(3) before using
         this function.
         \"\"\"
+        self._check_not_closed ()
         return libguestfsmod.set_event_callback (self._o, cb, event_bitmask)
 
     def delete_event_callback (self, event_handle):
         u\"\"\"Delete an event callback.\"\"\"
+        self._check_not_closed ()
         libguestfsmod.delete_event_callback (self._o, event_handle)
 
 ";
@@ -641,6 +666,7 @@ class GuestFS:
         | StringList n | DeviceList n ->
             pr "        %s = list (%s)\n" n n
       ) args;
+      pr "        self._check_not_closed ()\n";
       pr "        return libguestfsmod.%s (self._o" name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (args@optargs);
       pr ")\n\n";
