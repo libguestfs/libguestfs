@@ -33,11 +33,13 @@
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_mkfs_opts (const char *fstype, const char *device, int blocksize, const char *features)
+do_mkfs_opts (const char *fstype, const char *device, int blocksize,
+              const char *features, int inode)
 {
   const char *argv[MAX_ARGS];
   size_t i = 0;
   char blocksize_str[32];
+  char inode_str[32];
   int r;
   char *err;
 
@@ -140,6 +142,23 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize, const char 
      argv[i++] = features;
   }
 
+  if (optargs_bitmask & GUESTFS_MKFS_OPTS_INODE_BITMASK) {
+    if (!STREQ (fstype, "ext2") && !STREQ (fstype, "ext3") &&
+        !STREQ (fstype, "ext4")) {
+      reply_with_error ("inode size (-I) can only be set on ext2/3/4 filesystems");
+      return -1;
+    }
+
+    if (inode <= 0) {
+      reply_with_error ("inode size must be larger than zero");
+      return -1;
+    }
+
+    snprintf (inode_str, sizeof inode_str, "%d", inode);
+    argv[i++] = "-I";
+    argv[i++] = inode_str;
+  }
+
   argv[i++] = device;
   argv[i++] = NULL;
 
@@ -161,12 +180,12 @@ int
 do_mkfs (const char *fstype, const char *device)
 {
   optargs_bitmask = 0;
-  return do_mkfs_opts (fstype, device, 0, 0);
+  return do_mkfs_opts (fstype, device, 0, 0, 0);
 }
 
 int
 do_mkfs_b (const char *fstype, int blocksize, const char *device)
 {
   optargs_bitmask = GUESTFS_MKFS_OPTS_BLOCKSIZE_BITMASK;
-  return do_mkfs_opts (fstype, device, blocksize, 0);
+  return do_mkfs_opts (fstype, device, blocksize, 0, 0);
 }

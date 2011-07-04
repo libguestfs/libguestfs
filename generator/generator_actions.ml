@@ -5838,10 +5838,10 @@ not refer to a logical volume.
 
 See also C<guestfs_is_lv>.");
 
-  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"; String "features"]), 278, [],
+  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"; String "features"; Int "inode"]), 278, [],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
-       ["mkfs_opts"; "ext2"; "/dev/sda1"; "4096"; ""];
+       ["mkfs_opts"; "ext2"; "/dev/sda1"; "4096"; ""; "256"];
        ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
@@ -5875,6 +5875,11 @@ for more details.
 
 You cannot use this optional parameter with the C<gfs> or
 C<gfs2> filesystem type.
+
+=item C<inode>
+
+This passes the I<-I> parameter to the external L<mke2fs(8)> program
+which sets the inode size (only for ext2/3/4 filesystems at present).
 
 =back");
 
