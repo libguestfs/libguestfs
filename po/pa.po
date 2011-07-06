@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-06-30 15:50+0100\n"
+"POT-Creation-Date: 2011-07-06 15:21+0100\n"
 "PO-Revision-Date: 2010-12-23 17:40+0530\n"
 "Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
 "Language-Team: PLTG\n"
@@ -1886,8 +1886,8 @@ msgstr "ਇੱਕ ਕਮਾਂਡ ਲਈ ਵਿਸਥਾਰ ਜਾਣਕਾਰ�
 #: fish/cmds.c:11327 fish/cmds.c:11347 fish/cmds.c:11367 fish/cmds.c:11388
 #: fish/cmds.c:11409 fish/cmds.c:11430 fish/cmds.c:11451 fish/cmds.c:11472
 #: fish/cmds.c:11494 fish/cmds.c:11532 fish/cmds.c:11583 fish/cmds.c:11621
-#: fish/cmds.c:11677 fish/cmds.c:11767 fish/cmds.c:11796 fish/cmds.c:11823
-#: fish/cmds.c:11840 fish/cmds.c:11861 fish/cmds.c:11878
+#: fish/cmds.c:11677 fish/cmds.c:11813 fish/cmds.c:11842 fish/cmds.c:11869
+#: fish/cmds.c:11886 fish/cmds.c:11907 fish/cmds.c:11924
 #, c-format
 msgid "%s should have %d parameter(s)\n"
 msgstr "%s ਦੇ ਪੈਰਾਮੀਟਰ %d ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ\n"
@@ -1978,8 +1978,8 @@ msgstr "%s ਦੇ ਪੈਰਾਮੀਟਰ %d ਹੋਣੇ ਚਾਹੀਦੇ �
 #: fish/cmds.c:11348 fish/cmds.c:11368 fish/cmds.c:11389 fish/cmds.c:11410
 #: fish/cmds.c:11431 fish/cmds.c:11452 fish/cmds.c:11473 fish/cmds.c:11495
 #: fish/cmds.c:11533 fish/cmds.c:11584 fish/cmds.c:11622 fish/cmds.c:11678
-#: fish/cmds.c:11701 fish/cmds.c:11768 fish/cmds.c:11797 fish/cmds.c:11824
-#: fish/cmds.c:11841 fish/cmds.c:11862 fish/cmds.c:11879 fish/cmds.c:11901
+#: fish/cmds.c:11701 fish/cmds.c:11814 fish/cmds.c:11843 fish/cmds.c:11870
+#: fish/cmds.c:11887 fish/cmds.c:11908 fish/cmds.c:11925 fish/cmds.c:11947
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr "'help %s' ਟਾਈਪ ਕਰੋ ਜੇ %s ਲਈ ਸਹਾਇਤਾ ਵੇਖਣੀ ਹੈ\n"
@@ -2005,7 +2005,7 @@ msgstr "'help %s' ਟਾਈਪ ਕਰੋ ਜੇ %s ਲਈ ਸਹਾਇਤਾ ਵ
 #: fish/cmds.c:10934 fish/cmds.c:10983 fish/cmds.c:11154 fish/cmds.c:11196
 #: fish/cmds.c:11241 fish/cmds.c:11283 fish/cmds.c:11509 fish/cmds.c:11547
 #: fish/cmds.c:11560 fish/cmds.c:11598 fish/cmds.c:11633 fish/cmds.c:11652
-#: fish/cmds.c:11719
+#: fish/cmds.c:11719 fish/cmds.c:11747 fish/cmds.c:11770
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: ਗਲਤ ਅੰਕ ਪੈਰਾਮੀਟਰ (%s returned %d)\n"
@@ -2026,30 +2026,30 @@ msgstr "%s: %s: ਗਲਤ ਅੰਕ ਪੈਰਾਮੀਟਰ (%s returned %d)\n"
 #: fish/cmds.c:10397 fish/cmds.c:10434 fish/cmds.c:10473 fish/cmds.c:10513
 #: fish/cmds.c:10532 fish/cmds.c:10591 fish/cmds.c:10664 fish/cmds.c:10774
 #: fish/cmds.c:11160 fish/cmds.c:11202 fish/cmds.c:11247 fish/cmds.c:11289
-#: fish/cmds.c:11639 fish/cmds.c:11725
+#: fish/cmds.c:11639 fish/cmds.c:11725 fish/cmds.c:11753 fish/cmds.c:11776
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: ਪੂਰਨਅੰਕ ਰੇਂਜ ਤੋਂ ਬਾਹਰ ਹੈ\n"
 
 #: fish/cmds.c:4139 fish/cmds.c:4246 fish/cmds.c:4563 fish/cmds.c:11700
-#: fish/cmds.c:11900
+#: fish/cmds.c:11946
 #, c-format
 msgid "%s should have %d-%d parameter(s)\n"
 msgstr "%s ਦੇ %d-%d ਪੈਰਾਮੀਟਰ ਹੋਣਾ ਚਾਹੀਦੇ ਹਨ\n"
 
-#: fish/cmds.c:4165 fish/cmds.c:4282 fish/cmds.c:4584 fish/cmds.c:11740
-#: fish/cmds.c:11917
+#: fish/cmds.c:4165 fish/cmds.c:4282 fish/cmds.c:4584 fish/cmds.c:11786
+#: fish/cmds.c:11963
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: ਅਣਜਾਣ ਚੋਣਵੇਂ ਆਰਗੂਮੈਂਟ \"%s\"\n"
 
-#: fish/cmds.c:4171 fish/cmds.c:4288 fish/cmds.c:4590 fish/cmds.c:11746
-#: fish/cmds.c:11923
+#: fish/cmds.c:4171 fish/cmds.c:4288 fish/cmds.c:4590 fish/cmds.c:11792
+#: fish/cmds.c:11969
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: ਚੋਣਵੇਂ ਆਰਗੂਮੈਂਟ \"%s\" ਦੋ ਵਾਰ ਦਿੱਤੇ ਹਨ\n"
 
-#: fish/cmds.c:11943
+#: fish/cmds.c:11989
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: ਅਣਜਾਣ ਕਮਾਂਡ\n"
