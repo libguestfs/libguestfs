@@ -5841,7 +5841,7 @@ See also C<guestfs_is_lv>.");
   ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"; String "features"; Int "inode"; Int "sectorsize"]), 278, [],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
-       ["mkfs_opts"; "ext2"; "/dev/sda1"; "4096"; ""; "256"; ""];
+       ["mkfs_opts"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
        ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
