@@ -774,22 +774,40 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
             assert false
       ) args;
 
-      (* Currently can only deal with a complete, in-order list of optargs. *)
       if optargs <> [] then (
         pr "    struct guestfs_%s_argv optargs;\n" name;
-        let len = List.length style_optargs in
-        let bitmask = Int64.pred (Int64.shift_left 1L len) in
+        let bitmask = List.fold_left (
+          fun bitmask optarg ->
+            let is_set =
+              match optarg with
+              | Bool n, "" -> false
+              | Bool n, "true" ->
+                  pr "    optargs.%s = 1;\n" n; true
+              | Bool n, "false" ->
+                  pr "    optargs.%s = 0;\n" n; true
+              | Bool n, arg ->
+                  failwithf "boolean optional arg '%s' should be empty string or \"true\" or \"false\"" n
+              | Int n, "" -> false
+              | Int n, i ->
+                  let i =
+                    try int_of_string i
+                    with Failure _ -> failwithf "integer optional arg '%s' should be empty string or number" n in
+                  pr "    optargs.%s = %d;\n" n i; true
+              | Int64 n, "" -> false
+              | Int64 n, i ->
+                  let i =
+                    try Int64.of_string i
+                    with Failure _ -> failwithf "int64 optional arg '%s' should be empty string or number" n in
+                  pr "    optargs.%s = %Ld;\n" n i; true
+              | String n, "NOARG" -> false
+              | String n, arg ->
+                  pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true
+              | _ -> assert false in
+            let bitmask = Int64.shift_left bitmask 1 in
+            let bitmask = if is_set then Int64.succ bitmask else bitmask in
+            bitmask
+        ) 0L optargs in
         pr "    optargs.bitmask = UINT64_C(0x%Lx);\n" bitmask;
-        List.iter (
-          function
-          | Bool n, arg
-          | Int n, arg
-          | Int64 n, arg ->
-              pr "    optargs.%s = %s;\n" n arg
-          | String n, arg ->
-              pr "    optargs.%s = \"%s\";\n" n (c_quote arg);
-          | _ -> assert false
-        ) optargs;
       );
 
       (match style_ret with
