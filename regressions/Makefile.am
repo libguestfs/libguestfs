@@ -45,6 +45,7 @@ TESTS = \
 	test-inspect-fstab.sh \
 	test-launch-race.pl \
 	test-luks.sh \
+	test-luks-list.sh \
 	test-lvm-filtering.sh \
 	test-lvm-mapping.pl \
 	test-noexec-stack.pl \

@@ -5574,7 +5574,10 @@ encrypted to the underlying C<device> respectively.
 
 If this block device contains LVM volume groups, then
 calling C<guestfs_vgscan> followed by C<guestfs_vg_activate_all>
-will make them visible.");
+will make them visible.
+
+Use C<guestfs_list_dm_devices> to list all device mapper
+devices.");
 
   ("luks_open_ro", (RErr, [Device "device"; Key "key"; String "mapname"], []), 258, [Optional "luks"],
    [],
@@ -5985,6 +5988,19 @@ directory C<mountpoint>.
 If required, C<trans=virtio> will be automatically added to the options.
 Any other options required can be passed in the optional C<options>
 parameter.");
+
+  ("list_dm_devices", (RStringList "devices", [], []), 287, [],
+   [],
+   "list device mapper devices",
+   "\
+List all device mapper devices.
+
+The returned list contains C</dev/mapper/*> devices, eg. ones created
+by a previous call to C<guestfs_luks_open>.
+
+Device mapper devices which correspond to logical volumes are I<not>
+returned in this list.  Call C<guestfs_lvs> if you want to list logical
+volumes.");
 
 ]
 

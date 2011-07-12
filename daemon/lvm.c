@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 #include "daemon.h"
 #include "c-ctype.h"
@@ -762,4 +763,81 @@ do_lvm_canonical_lv_name (const char *device)
   }
 
   return canonical;             /* caller frees */
+}
+
+/* List everything in /dev/mapper which *isn't* an LV (RHBZ#688062). */
+char **
+do_list_dm_devices (void)
+{
+  char **ret = NULL;
+  int size = 0, alloc = 0;
+  struct dirent *d;
+  DIR *dir;
+  int r;
+
+  dir = opendir ("/dev/mapper");
+  if (!dir) {
+    reply_with_perror ("opendir: /dev/mapper");
+    return NULL;
+  }
+
+  while (1) {
+    errno = 0;
+    d = readdir (dir);
+    if (d == NULL) break;
+
+    /* Ignore . and .. */
+    if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
+      continue;
+
+    /* Ignore /dev/mapper/control which is used internally by dm. */
+    if (STREQ (d->d_name, "control"))
+      continue;
+
+    size_t len = strlen (d->d_name);
+    char devname[len+64];
+
+    snprintf (devname, len+64, "/dev/mapper/%s", d->d_name);
+
+    /* Ignore dm devices which are LVs. */
+    r = lv_canonical (devname, NULL);
+    if (r == -1) {
+      free_stringslen (ret, size);
+      closedir (dir);
+      return NULL;
+    }
+    if (r)
+      continue;
+
+    /* Not an LV, so add it. */
+    if (add_string (&ret, &size, &alloc, devname) == -1) {
+      closedir (dir);
+      return NULL;
+    }
+  }
+
+  /* Did readdir fail? */
+  if (errno != 0) {
+    reply_with_perror ("readdir: /dev/mapper");
+    free_stringslen (ret, size);
+    closedir (dir);
+    return NULL;
+  }
+
+  /* Close the directory handle. */
+  if (closedir (dir) == -1) {
+    reply_with_perror ("closedir: /dev/mapper");
+    free_stringslen (ret, size);
+    return NULL;
+  }
+
+  /* Sort the output (may be empty). */
+  if (ret != NULL)
+    sort_strings (ret, size);
+
+  /* NULL-terminate the list. */
+  if (add_string (&ret, &size, &alloc, NULL) == -1)
+    return NULL;
+
+  return ret;
 }
