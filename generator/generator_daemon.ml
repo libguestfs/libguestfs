@@ -122,7 +122,11 @@ and generate_daemon_actions () =
       let is_filein =
         List.exists (function FileIn _ -> true | _ -> false) args in
 
-      (* Reject unknown optional arguments. *)
+      (* Reject unknown optional arguments.
+       * Note this code is included even for calls with no optional
+       * args because the caller must not pass optargs_bitmask != 0
+       * in that case.
+       *)
       if optargs <> [] then (
         let len = List.length optargs in
         let mask = Int64.lognot (Int64.pred (Int64.shift_left 1L len)) in
@@ -132,8 +136,15 @@ and generate_daemon_actions () =
         pr "    reply_with_error (\"unknown option in optional arguments bitmask (this can happen if a program is compiled against a newer version of libguestfs, then run against an older version of the daemon)\");\n";
         pr "    goto done;\n";
         pr "  }\n";
-        pr "\n"
+      ) else (
+        pr "  if (optargs_bitmask != 0) {\n";
+        if is_filein then
+          pr "    cancel_receive ();\n";
+        pr "    reply_with_error (\"header optargs_bitmask field must be passed as 0 for calls that don't take optional arguments\");\n";
+        pr "    goto done;\n";
+        pr "  }\n";
       );
+      pr "\n";
 
       (* Decode arguments. *)
       if args <> [] || optargs <> [] then (
