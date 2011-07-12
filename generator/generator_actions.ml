@@ -5218,7 +5218,7 @@ I<xz compressed> tar file) into C<directory>.");
 This command packs the contents of C<directory> and downloads
 it to local file C<tarball> (as an xz compressed tar archive).");
 
-  ("ntfsresize", (RErr, [Device "device"], []), 231, [Optional "ntfsprogs"],
+  ("ntfsresize", (RErr, [Device "device"], []), 231, [Optional "ntfsprogs"; DeprecatedBy "ntfsresize_opts"],
    [],
    "resize an NTFS filesystem",
    "\
@@ -5456,7 +5456,7 @@ allows you to specify the new size (in bytes) explicitly.");
 This command is the same as C<guestfs_pvresize> except that it
 allows you to specify the new size (in bytes) explicitly.");
 
-  ("ntfsresize_size", (RErr, [Device "device"; Int64 "size"], []), 250, [Optional "ntfsprogs"],
+  ("ntfsresize_size", (RErr, [Device "device"; Int64 "size"], []), 250, [Optional "ntfsprogs"; DeprecatedBy "ntfsresize_opts"],
    [],
    "resize an NTFS filesystem (with size)",
    "\
@@ -6010,6 +6010,38 @@ by a previous call to C<guestfs_luks_open>.
 Device mapper devices which correspond to logical volumes are I<not>
 returned in this list.  Call C<guestfs_lvs> if you want to list logical
 volumes.");
+
+  ("ntfsresize_opts", (RErr, [Device "device"], [Int64 "size"; Bool "force"]), 288, [Optional "ntfsprogs"],
+   [],
+   "resize an NTFS filesystem",
+   "\
+This command resizes an NTFS filesystem, expanding or
+shrinking it to the size of the underlying device.
+
+The optional parameters are:
+
+=over 4
+
+=item C<size>
+
+The new size (in bytes) of the filesystem.  If omitted, the filesystem
+is resized to fit the container (eg. partition).
+
+=item C<force>
+
+If this option is true, then force the resize of the filesystem
+even if the filesystem is marked as requiring a consistency check.
+
+After the resize operation, the filesystem is always marked
+as requiring a consistency check (for safety).  You have to boot
+into Windows to perform this check and clear this condition.
+If you I<don't> set the C<force> option then it is not
+possible to call C<guestfs_ntfsresize_opts> multiple times on a
+single filesystem without booting into Windows between each resize.
+
+=back
+
+See also L<ntfsresize(8)>.");
 
 ]
 
