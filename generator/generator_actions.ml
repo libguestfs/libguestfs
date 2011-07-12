@@ -5220,6 +5220,15 @@ it to local file C<tarball> (as an xz compressed tar archive).");
    "\
 This command resizes an NTFS filesystem, expanding or
 shrinking it to the size of the underlying device.
+
+I<Note:> After the resize operation, the filesystem is marked
+as requiring a consistency check (for safety).  You have to boot
+into Windows to perform this check and clear this condition.
+Furthermore, ntfsresize refuses to resize filesystems
+which have been marked in this way.  So in effect it is
+not possible to call ntfsresize multiple times on a single
+filesystem without booting into Windows between each resize.
+
 See also L<ntfsresize(8)>.");
 
   ("vgscan", (RErr, [], []), 232, [],
