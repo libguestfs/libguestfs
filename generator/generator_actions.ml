@@ -3278,9 +3278,6 @@ be parsed.");
    "\
 This command activates or (if C<activate> is false) deactivates
 all logical volumes in all volume groups.
-If activated, then they are made known to the
-kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
-then those devices disappear.
 
 This command is the same as running C<vgchange -a y|n>");
 
@@ -3290,9 +3287,6 @@ This command is the same as running C<vgchange -a y|n>");
    "\
 This command activates or (if C<activate> is false) deactivates
 all logical volumes in the listed volume groups C<volgroups>.
-If activated, then they are made known to the
-kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
-then those devices disappear.
 
 This command is the same as running C<vgchange -a y|n volgroups...>
 
