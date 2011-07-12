@@ -155,6 +155,9 @@ complete_dest_paths_generator (const char *text, int state)
 
       strs = guestfs_lvs (g);
       APPEND_STRS_AND_FREE;
+
+      strs = guestfs_list_dm_devices (g);
+      APPEND_STRS_AND_FREE;
     }
 
     if (len < 1 || text[0] == '/') {
