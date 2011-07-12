@@ -498,3 +498,15 @@ Interactive disk creator
 ------------------------
 
 An interactive disk creator program.
+
+Attach method for disconnected operation
+----------------------------------------
+
+http://libguestfs.org/guestfs.3.html#guestfs_set_attach_method
+
+"Librarian" has an idea that he should be able to attach to a regular
+appliance, but disconnect from it and reconnect to it later.  This
+would be some sort of modified attach method (see link above).
+
+The complexity here is that we would no longer have access to
+stdin/stdout (or we'd have to direct that somewhere else).
