@@ -82,7 +82,6 @@ do_list_9p (void)
 
       if (add_string (&r, &size, &alloc, mount_tag) == -1) {
         free (mount_tag);
-        free_stringslen (r, size);
         closedir (dir);
         return NULL;
       }
