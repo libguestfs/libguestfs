@@ -579,15 +579,41 @@ do_part_get_bootable (const char *device, int partnum)
     /* New-style parsing using the "machine-readable" format from
      * 'parted -m'.
      *
-     * We want lines[1+partnum].
+     * Partitions may not be in any order, so we have to look for
+     * the matching partition number (RHBZ#602997).
      */
-    if (count_strings (lines) < (size_t) 1+partnum) {
-      reply_with_error ("partition number out of range: %d", partnum);
+    if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
+      reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
+                        lines[0] ? lines[0] : "(signature was null)");
       free_strings (lines);
       return -1;
     }
 
-    char *boot = get_table_field (lines[1+partnum], 6);
+    if (lines[1] == NULL) {
+      reply_with_error ("parted didn't return a line describing the device");
+      free_strings (lines);
+      return -1;
+    }
+
+    size_t row;
+    int pnum;
+    for (row = 2; lines[row] != NULL; ++row) {
+      if (sscanf (lines[row], "%d:", &pnum) != 1) {
+        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
+        free_strings (lines);
+        return -1;
+      }
+      if (pnum == partnum)
+        break;
+    }
+
+    if (lines[row] == NULL) {
+      reply_with_error ("partition number %d not found", partnum);
+      free_strings (lines);
+      return -1;
+    }
+
+    char *boot = get_table_field (lines[row], 6);
     if (boot == NULL) {
       free_strings (lines);
       return -1;

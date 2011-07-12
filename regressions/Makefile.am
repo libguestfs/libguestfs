@@ -32,6 +32,7 @@ TESTS = \
 	rhbz576879.sh \
 	rhbz578407.sh \
 	rhbz580246.sh \
+	rhbz602997.sh \
 	rhbz690819.sh \
 	test-add-domain.sh \
 	test-both-ends-cancel.sh \
