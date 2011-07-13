@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-06-13 15:24+0100\n"
+"POT-Creation-Date: 2011-07-13 17:55+0100\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -2977,23 +2977,18 @@ msgstr ""
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:519
-#, fuzzy, c-format
-msgid "%s: temporary directory not found"
-msgstr "%s: kan geen tijdelijke map aanmaken"
-
-#: src/inspect.c:535 src/inspect_fs.c:474 src/inspect_fs.c:518
+#: src/inspect.c:541 src/inspect_fs.c:474 src/inspect_fs.c:518
 #: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:579
 #: src/inspect_fs_unix.c:821
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:572
+#: src/inspect.c:577
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "geen inspectie data: roep eerst guestfs_inspect_os aan"
 
-#: src/inspect.c:584
+#: src/inspect.c:589
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3002,7 +2997,7 @@ msgstr ""
 "%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
 "apparaat eerder teruggegeven door guestfs_inspect_os"
 
-#: src/inspect.c:594 src/inspect_apps.c:474
+#: src/inspect.c:599 src/inspect_apps.c:470
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
@@ -3523,6 +3518,10 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
+
+#, fuzzy
+#~ msgid "%s: temporary directory not found"
+#~ msgstr "%s: kan geen tijdelijke map aanmaken"
 
 #~ msgid "unexpected end of file when reading from daemon"
 #~ msgstr "onverwacht einde van bestand bij het lezen van daemon"
