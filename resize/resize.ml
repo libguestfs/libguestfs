@@ -30,7 +30,7 @@ let prog = Filename.basename Sys.executable_name
 
 let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   expand, expand_content, extra_partition, format, ignores,
-  lv_expands, output_format,
+  lv_expands, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink =
   let display_version () =
     let g = new G.guestfs () in
@@ -57,6 +57,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   let format = ref "" in
   let ignores = ref [] in
   let lv_expands = ref [] in
+  let ntfsresize_force = ref false in
   let output_format = ref "" in
   let quiet = ref false in
   let resizes = ref [] in
@@ -85,6 +86,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
     "-n",        Arg.Set dryrun,            " Don't perform changes";
     "--dryrun",  Arg.Set dryrun,            " -\"-";
     "--dry-run", Arg.Set dryrun,            " -\"-";
+    "--ntfsresize-force", Arg.Set ntfsresize_force, " Force ntfsresize";
     "--output-format", Arg.Set_string format, "format Format of output disk";
     "-q",        Arg.Set quiet,             " Don't print the summary";
     "--quiet",   Arg.Set quiet,             " -\"-";
@@ -123,6 +125,7 @@ read the man page virt-resize(1).
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
   let lv_expands = List.rev !lv_expands in
+  let ntfsresize_force = !ntfsresize_force in
   let output_format = match !output_format with "" -> None | str -> Some str in
   let quiet = !quiet in
   let resizes = List.rev !resizes in
@@ -138,7 +141,7 @@ read the man page virt-resize(1).
 
   infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   expand, expand_content, extra_partition, format, ignores,
-  lv_expands, output_format,
+  lv_expands, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink
 
 (* Default to true, since NTFS support is usually available. *)
@@ -916,7 +919,7 @@ let () =
       | Resize2fs ->
           g#e2fsck_f target;
           g#resize2fs target
-      | NTFSResize -> g#ntfsresize target
+      | NTFSResize -> g#ntfsresize_opts ~force:ntfsresize_force target
     in
 
     (* Expand partition content as required. *)

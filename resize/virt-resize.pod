@@ -405,6 +405,14 @@ of partitions, if it knows how (see I<--expand> option above).
 If you give the I<--no-expand-content> option then virt-resize
 will not attempt this.
 
+=item B<--ntfsresize-force>
+
+Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing
+even if the NTFS disk is marked as needing a consistency check.
+You have to use this option if you want to resize a Windows
+guest multiple times without booting into Windows between each
+resize.
+
 =item B<-d>
 
 =item B<--debug>
