@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.12.0
 -----------------------------------
 
-LAST UPDATED TO COMMIT 76bd81820f50a390b7e853d65f41b29a37e63f43
+LAST UPDATED TO COMMIT f91c6f217facc88b60225769c61604a8b8c7169b
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.10.0).  For detailed changelogs, please see
@@ -53,9 +53,19 @@ New features
  - CentOS and Scientific Linux are now treated as separate distros by
    the inspection API.
 
+ - mkfs-opts can now set inode size and sector size on created filesystems
+   (thanks Nikita Menkovich).
+
+ - In guestfish, tab completion now works on /dev/mapper devices.
+
+ - New virt-resize --ntfsresize-force option allows Windows VMs to be
+   resized multiple times.
+
 Security
 
-  [none]
+ - optargs_bitmask is checked even for calls that have no optional
+   arguments.  This closes a possible exploit in the daemon from
+   untrusted callers.
 
 New APIs
 
@@ -63,7 +73,9 @@ New APIs
   is-zero
   is-zero-device
   list-9p
+  list-dm-devices
   mount-9p
+  ntfsresize-opts
 
 Internals
 
@@ -77,15 +89,20 @@ Internals
 
  - Compatible with gcc 4.6.
 
+ - Perform safety checks on QEMU.
+
+ - C API tests can now fully test calls that have optional arguments.
+
 Bugs fixed
 
   ./bugs-in-changelog.sh 1.10.0.. | sort -n
 
+ - 602997 part-get-bootable gives wrong result with an unordered part layout
+ - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
  - 700369 qemu-system-x86_64 says 'KVM not supported for this target'
  - 705200 guestmount attempt results in access denied
  - 714981 'list-filesystems' does not know about virtio 9p filesystems or detect existing mounts
  - 717786 libguestfs python bindings should have an explicit close call
-
 
 
 Release notes for libguestfs 1.10.0
