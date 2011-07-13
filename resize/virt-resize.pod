@@ -222,11 +222,168 @@ C<dd if=/dev/zero of=outdisk bs=1M count=..>)
 
 Display help.
 
-=item B<-V>
+=item B<-d>
 
-=item B<--version>
+=item B<--debug>
 
-Display version number and exit.
+Enable debugging messages.
+
+=item B<--delete part>
+
+Delete the named partition.  It would be more accurate to describe
+this as "don't copy it over", since virt-resize doesn't do in-place
+changes and the original disk image is left intact.
+
+Note that when you delete a partition, then anything contained in the
+partition is also deleted.  Furthermore, this causes any partitions
+that come after to be I<renumbered>, which can easily make your guest
+unbootable.
+
+You can give this option multiple times.
+
+=item B<--expand part>
+
+Expand the named partition so it uses up all extra space (space left
+over after any other resize changes that you request have been done).
+
+If virt-resize knows how, it will expand the direct content of the
+partition.  For example, if the partition is an LVM PV, it will expand
+the PV to fit (like calling L<pvresize(8)>).  Virt-resize leaves any
+other content it doesn't know about alone.
+
+Currently virt-resize can resize:
+
+=over 4
+
+=item *
+
+ext2, ext3 and ext4 filesystems when they are contained
+directly inside a partition.
+
+=item *
+
+NTFS filesystems contained directly in a partition, if libguestfs was
+compiled with support for NTFS.
+
+The filesystem must have been shut down consistently last time it was
+used.  Additionally, L<ntfsresize(8)> marks the resized filesystem as
+requiring a consistency check, so at the first boot after resizing
+Windows will check the disk.
+
+=item *
+
+LVM PVs (physical volumes).  virt-resize does not usually resize
+anything inside the PV, but see the I<--LV-expand> option.  The user
+could also resize LVs as desired after boot.
+
+=back
+
+Note that you cannot use I<--expand> and I<--shrink> together.
+
+=item B<--format> raw
+
+Specify the format of the input disk image.  If this flag is not
+given then it is auto-detected from the image itself.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+Note that this option I<does not> affect the output format.
+See L</QCOW2 AND NON-SPARSE RAW FORMATS>.
+
+=item B<--ignore part>
+
+Ignore the named partition.  Effectively this means the partition is
+allocated on the destination disk, but the content is not copied
+across from the source disk.  The content of the partition will be
+blank (all zero bytes).
+
+You can give this option multiple times.
+
+=item B<--LV-expand logvol>
+
+This takes the logical volume and, as a final step, expands it to fill
+all the space available in its volume group.  A typical usage,
+assuming a Linux guest with a single PV C</dev/sda2> and a root device
+called C</dev/vg_guest/lv_root> would be:
+
+ virt-resize indisk outdisk \
+   --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root
+
+This would first expand the partition (and PV), and then expand the
+root device to fill the extra space in the PV.
+
+The contents of the LV are also resized if virt-resize knows how to do
+that.  You can stop virt-resize from trying to expand the content by
+using the option I<--no-expand-content>.
+
+Use L<virt-filesystems(1)> to list the filesystems in the guest.
+
+You can give this option multiple times, I<but> it doesn't
+make sense to do this unless the logical volumes you specify
+are all in different volume groups.
+
+=item B<-n>
+
+=item B<--dryrun>
+
+Print a summary of what would be done, but don't do anything.
+
+=item B<--no-copy-boot-loader>
+
+By default, virt-resize copies over some sectors at the start of the
+disk (up to the beginning of the first partition).  Commonly these
+sectors contain the Master Boot Record (MBR) and the boot loader, and
+are required in order for the guest to boot correctly.
+
+If you specify this flag, then this initial copy is not done.  You may
+need to reinstall the boot loader in this case.
+
+=item B<--no-extra-partition>
+
+By default, virt-resize creates an extra partition if there is any
+extra, unused space after all resizing has happened.  Use this option
+to prevent the extra partition from being created.  If you do this
+then the extra space will be inaccessible until you run fdisk, parted,
+or some other partitioning tool in the guest.
+
+Note that if the surplus space is smaller than 10 MB, no extra
+partition will be created.
+
+=item B<--no-expand-content>
+
+By default, virt-resize will try to expand the direct contents
+of partitions, if it knows how (see I<--expand> option above).
+
+If you give the I<--no-expand-content> option then virt-resize
+will not attempt this.
+
+=item B<--ntfsresize-force>
+
+Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing
+even if the NTFS disk is marked as needing a consistency check.
+You have to use this option if you want to resize a Windows
+guest multiple times without booting into Windows between each
+resize.
+
+=item B<--output-format> raw
+
+Specify the format of the output disk image.  If this flag is not
+given then it is auto-detected from the image itself.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+Note that this option I<does not create> the output format.  This
+option just tells libguestfs what it is so it doesn't try to guess it.
+You still need to create the output disk with the right format.  See
+L</QCOW2 AND NON-SPARSE RAW FORMATS>.
+
+=item B<-q>
+
+=item B<--quiet>
+
+Don't print the summary.
 
 =item B<--resize part=size>
 
@@ -274,45 +431,6 @@ easily recreate it such as a swap partition).
 
 See also the I<--ignore> option.
 
-=item B<--expand part>
-
-Expand the named partition so it uses up all extra space (space left
-over after any other resize changes that you request have been done).
-
-If virt-resize knows how, it will expand the direct content of the
-partition.  For example, if the partition is an LVM PV, it will expand
-the PV to fit (like calling L<pvresize(8)>).  Virt-resize leaves any
-other content it doesn't know about alone.
-
-Currently virt-resize can resize:
-
-=over 4
-
-=item *
-
-ext2, ext3 and ext4 filesystems when they are contained
-directly inside a partition.
-
-=item *
-
-NTFS filesystems contained directly in a partition, if libguestfs was
-compiled with support for NTFS.
-
-The filesystem must have been shut down consistently last time it was
-used.  Additionally, L<ntfsresize(8)> marks the resized filesystem as
-requiring a consistency check, so at the first boot after resizing
-Windows will check the disk.
-
-=item *
-
-LVM PVs (physical volumes).  virt-resize does not usually resize
-anything inside the PV, but see the I<--LV-expand> option.  The user
-could also resize LVs as desired after boot.
-
-=back
-
-Note that you cannot use I<--expand> and I<--shrink> together.
-
 =item B<--shrink part>
 
 Shrink the named partition until the overall disk image fits in the
@@ -331,129 +449,11 @@ gigabyte of free space.
 
 Note that you cannot use I<--expand> and I<--shrink> together.
 
-=item B<--ignore part>
+=item B<-V>
 
-Ignore the named partition.  Effectively this means the partition is
-allocated on the destination disk, but the content is not copied
-across from the source disk.  The content of the partition will be
-blank (all zero bytes).
+=item B<--version>
 
-You can give this option multiple times.
-
-=item B<--delete part>
-
-Delete the named partition.  It would be more accurate to describe
-this as "don't copy it over", since virt-resize doesn't do in-place
-changes and the original disk image is left intact.
-
-Note that when you delete a partition, then anything contained in the
-partition is also deleted.  Furthermore, this causes any partitions
-that come after to be I<renumbered>, which can easily make your guest
-unbootable.
-
-You can give this option multiple times.
-
-=item B<--LV-expand logvol>
-
-This takes the logical volume and, as a final step, expands it to fill
-all the space available in its volume group.  A typical usage,
-assuming a Linux guest with a single PV C</dev/sda2> and a root device
-called C</dev/vg_guest/lv_root> would be:
-
- virt-resize indisk outdisk \
-   --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root
-
-This would first expand the partition (and PV), and then expand the
-root device to fill the extra space in the PV.
-
-The contents of the LV are also resized if virt-resize knows how to do
-that.  You can stop virt-resize from trying to expand the content by
-using the option I<--no-expand-content>.
-
-Use L<virt-filesystems(1)> to list the filesystems in the guest.
-
-You can give this option multiple times, I<but> it doesn't
-make sense to do this unless the logical volumes you specify
-are all in different volume groups.
-
-=item B<--no-copy-boot-loader>
-
-By default, virt-resize copies over some sectors at the start of the
-disk (up to the beginning of the first partition).  Commonly these
-sectors contain the Master Boot Record (MBR) and the boot loader, and
-are required in order for the guest to boot correctly.
-
-If you specify this flag, then this initial copy is not done.  You may
-need to reinstall the boot loader in this case.
-
-=item B<--no-extra-partition>
-
-By default, virt-resize creates an extra partition if there is any
-extra, unused space after all resizing has happened.  Use this option
-to prevent the extra partition from being created.  If you do this
-then the extra space will be inaccessible until you run fdisk, parted,
-or some other partitioning tool in the guest.
-
-Note that if the surplus space is smaller than 10 MB, no extra
-partition will be created.
-
-=item B<--no-expand-content>
-
-By default, virt-resize will try to expand the direct contents
-of partitions, if it knows how (see I<--expand> option above).
-
-If you give the I<--no-expand-content> option then virt-resize
-will not attempt this.
-
-=item B<--ntfsresize-force>
-
-Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing
-even if the NTFS disk is marked as needing a consistency check.
-You have to use this option if you want to resize a Windows
-guest multiple times without booting into Windows between each
-resize.
-
-=item B<-d>
-
-=item B<--debug>
-
-Enable debugging messages.
-
-=item B<-n>
-
-=item B<--dryrun>
-
-Print a summary of what would be done, but don't do anything.
-
-=item B<-q>
-
-=item B<--quiet>
-
-Don't print the summary.
-
-=item B<--format> raw
-
-Specify the format of the input disk image.  If this flag is not
-given then it is auto-detected from the image itself.
-
-If working with untrusted raw-format guest disk images, you should
-ensure the format is always specified.
-
-Note that this option I<does not> affect the output format.
-See L</QCOW2 AND NON-SPARSE RAW FORMATS>.
-
-=item B<--output-format> raw
-
-Specify the format of the output disk image.  If this flag is not
-given then it is auto-detected from the image itself.
-
-If working with untrusted raw-format guest disk images, you should
-ensure the format is always specified.
-
-Note that this option I<does not create> the output format.  This
-option just tells libguestfs what it is so it doesn't try to guess it.
-You still need to create the output disk with the right format.  See
-L</QCOW2 AND NON-SPARSE RAW FORMATS>.
+Display version number and exit.
 
 =back
 
