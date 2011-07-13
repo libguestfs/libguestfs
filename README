@@ -12,17 +12,55 @@ list:
 Requirements
 ----------------------------------------------------------------------
 
-- recent QEMU >= 0.13 with virtio-serial support
+Running ./configure will check you have all the requirements installed
+on your machine.
 
-- kernel >= 2.6.34 with virtio-serial support enabled.  virtio-block
-  support is not required but comes highly recommended.
+Fedora/RHEL users:
 
-- febootstrap >= 3.0 (recommended >= 3.3)
-     *NB*: febootstrap 2.x WILL NOT WORK
-           febootstrap 3.x is distro-independent, and is required on
-             Debian and other distros too
+  A useful tip is to run:
+
+    yum-builddep libguestfs
+
+  which will install all build dependencies automatically.  If that is
+  successful, you don't need to bother with the rest of this section.
+
+Debian/Ubuntu users:
+
+  Take a look at the debian/control file and install everything listed
+  in "Build-Depends".  If that is successful, you don't need to bother
+  with the rest of this section.
+
+The full requirements are described below.
+
+For basic functionality and the C tools:
+
+- look at appliance/packagelist.in and install as many of the packages
+  that apply to your distro as possible
+
+- recent QEMU >= 0.13 (0.14 or later is better) with virtio-serial support
+
+- kernel >= 2.6.34 with virtio-serial support enabled.
+
+- virtio-block and virtio-net drivers should be compiled into your
+  host kernel (strictly speaking this is optional, but you will have
+  to make complex changes to the ./configure command line to get it
+  to work if you don't have virtio)
+
+- febootstrap >= 3.3 (it is best to use the latest version)
+
+  Notes: (1) febootstrap 2.x WILL NOT WORK
+         (2) febootstrap 3.x is distro-independent, and is required on
+             Debian and other distros as well as Fedora
 
 - XDR, rpcgen (on Linux these are provided by glibc)
+
+- cpio
+
+- gperf
+
+- genisoimage (NOT mkisofs any more)
+
+- hivex >= 1.2.7 (http://libguestfs.org/download) (optional)
 
 - pcre (Perl Compatible Regular Expressions C library) (optional)
 
@@ -32,68 +70,66 @@ Requirements
 
 - libxml2 (optional)
 
-- libconfig (optional, to parse /etc/libguestfs-tools.conf)
+- libconfig (optional)
 
-- Augeas (http://augeas.net/) (optional)
+- augeas >= 0.5.0 (http://augeas.net/) (optional)
 
-- gperf
-
-- squashfs-tools (mksquashfs only)
-
-- genisoimage (NOT mkisofs any more)
-
-- hivex >= 1.2.7 (http://libguestfs.org/download)
-
-- (Optional) Berkeley DB 'db_dump' and 'db_load' utilities
-  (db4-utils or db4.X-util or similar)
-
-- (Optional) FUSE to build the FUSE module
+- Berkeley DB 'db_dump' and 'db_load' utilities
+  (db4-utils or db4.X-util or similar) (optional)
 
 - perldoc (pod2man, pod2text, pod2html) to generate the manual pages
   and other documentation.
 
-- (Optional) Readline to have nicer command-line editing in guestfish.
+- Readline to have nicer command-line editing in guestfish (optional)
 
-- (Optional) xmllint to validate virt-inspector RELAX NG schema
+- xmllint (part of libxml2) to validate virt-inspector
+  RELAX NG schema (optional)
 
-- (Optional) OCaml if you want to rebuild the generated files, and
-  also to build the OCaml bindings
-
-- (Optional) OCaml PCRE bindings (ocaml-pcre).
-
-- (Optional) Perl if you want to build the perl bindings
-
-- (Optional) Python if you want to build the python bindings
-
-- (Optional) Ruby, rake if you want to build the ruby bindings
-
-- (Optional) Java, JNI, jpackage-utils if you want to build the java
-bindings
-
-- (Optional) GHC if you want to build the Haskell bindings
-
-- (Optional) Perl Sys::Virt module.
-
-- (Optional) Perl Win::Hivex module.
-
-- (Optional) Perl Pod::Usage module.
-
-- (Optional) Perl Test::More module (from perl Test::Simple).
-
-- (Optional) Perl String::ShellQuote module.
-
-- (Optional, but highly recommended) perl-libintl for translating perl code.
+- OCaml if you want to rebuild the generated files, and
+  also to build the OCaml bindings (optional)
 
 - po4a for translating manpages and POD files.
   This is optional when compiling from the tarball, but mandatory
   if you compile from git.
 
-- (Optional) PHP, phpize if you want to build the PHP bindings
+- getfacl, getfattr libraries and programs (optional)
 
-- (Optional, but highly recommended) getfacl, getfattr
+To build FUSE support (guestmount):
 
-Running ./configure will check you have all the requirements installed
-on your machine.
+- FUSE libraries and kernel module (optional)
+
+To build virt-resize:
+
+- OCaml PCRE bindings (ocaml-pcre) (optional)
+
+To build language bindings:
+
+- Perl if you want to build the perl bindings (optional)
+
+- Python if you want to build the python bindings (optional)
+
+- Ruby, rake if you want to build the ruby bindings (optional)
+
+- Java, JNI, jpackage-utils if you want to build the java
+  bindings (optional)
+
+- GHC if you want to build the Haskell bindings (optional)
+
+- PHP, phpize if you want to build the PHP bindings (optional)
+
+To build the Perl tools:
+
+- Perl Sys::Virt module (optional)
+
+- Perl Win::Hivex module (optional)
+
+- Perl Pod::Usage module (optional)
+
+- Perl Test::More module (from perl Test::Simple) (optional)
+
+- Perl String::ShellQuote module (optional)
+
+- perl-libintl for translating perl code (optional)
 
 
 Building
@@ -177,38 +213,6 @@ On some systems, this will work too:
 
 On some systems, the chmod will not survive a reboot, and you will
 need to make edits to the udev configuration.
-
-
-vmchannel
-----------------------------------------------------------------------
-
-Previous versions of libguestfs required something called "vmchannel".
-Vmchannel is a special device given to virtual machines which allows
-them to communicate in some way with the host, often (but not always)
-without using a traditional network device.  In reality, there is no
-one thing called "vmchannel".  This idea has been reimplemented
-several times under the name vmchannel, and other hypervisors have
-their own incompatible implementation(s) too.
-
-In libguestfs <= 1.0.71, we required a specific vmchannel which is
-properly known as "guestfwd" and has been upstream in qemu since here:
-
-  http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
-
-In libguestfs >= 1.0.71 we don't require any vmchannel implementation,
-as long as qemu has been compiled with support for SLIRP (user mode
-networking, or "-net user"), which is almost always the case.
-
-In libguestfs >= 1.5.4 we switched again to using qemu's virtio-serial
-and removed all the other vmchannels and the SLIRP channel.
-
-
-Supermin appliance
-----------------------------------------------------------------------
-
-In libguestfs >= 1.7.19 the supermin appliance is the default and only
-supported form of appliance.  For more information see febootstrap
-(http://people.redhat.com/~rjones/febootstrap/).
 
 
 Mirroring tip
