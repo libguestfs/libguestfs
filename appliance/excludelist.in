@@ -32,11 +32,6 @@
 /* Plymouth is a graphical boot thing - not needed. */
 ^plymouth
 
-/* Replacements for SysVinit.  We don't use ordinary init in the
- * appliance.
- */
-^systemd
-
 /* Linux firmware.  Note that febootstrap itself excludes the kernel
  * which is also not needed since we get the kernel, modules etc
  * from the host at appliance boot.
