@@ -42,6 +42,7 @@ TESTS = \
 	test-find0.sh \
 	test-guestfish-a.sh \
 	test-guestfish-d.sh \
+	test-guestfish-escapes.sh \
 	test-guestfish-tilde.sh \
 	test-inspect-fstab.sh \
 	test-launch-race.pl \

@@ -518,6 +518,64 @@ must be escaped with a backslash.
  command "/bin/echo 'foo      bar'"
  command "/bin/echo \'foo\'"
 
+=head2 ESCAPE SEQUENCES IN DOUBLE QUOTED ARGUMENTS
+
+In double-quoted arguments (only) use backslash to insert special
+characters:
+
+=over 4
+
+=item C<\a>
+
+Alert (bell) character.
+
+=item C<\b>
+
+Backspace character.
+
+=item C<\f>
+
+Form feed character.
+
+=item C<\n>
+
+Newline character.
+
+=item C<\r>
+
+Carriage return character.
+
+=item C<\t>
+
+Horizontal tab character.
+
+=item C<\v>
+
+Vertical tab character.
+
+=item C<\">
+
+A literal double quote character.
+
+=item C<\ooo>
+
+A character with octal value I<ooo>.  There must be precisely 3 octal
+digits (unlike C).
+
+=item C<\xhh>
+
+A character with hex value I<hh>.  There must be precisely 2 hex
+digits.
+
+In the current implementation C<\000> and C<\x00> cannot be used
+in strings.
+
+=item C<\\>
+
+A literal backslash character.
+
+=back
+
 =head1 OPTIONAL ARGUMENTS
 
 Some commands take optional arguments.  These arguments appear in this
