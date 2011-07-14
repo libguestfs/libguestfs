@@ -40,18 +40,18 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize)
   char blocksize_str[32];
   int r;
   char *err;
-
   char mke2fs[] = "mke2fs";
-  if (e2prog (mke2fs) == -1)
-    return -1;
 
   /* For ext2/3/4 run the mke2fs program directly.  This is because
    * the mkfs program "eats" some options, in particular the -F
    * option.
    */
   if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
-      STREQ (fstype, "ext4"))
+      STREQ (fstype, "ext4")) {
+    if (e2prog (mke2fs) == -1)
+      return -1;
     argv[i++] = mke2fs;
+  }
   else
     argv[i++] = "mkfs";
 
