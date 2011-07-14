@@ -96,6 +96,16 @@ Description: libguestfs filesystem interactive shell
  virtual machine filesystems.  It uses libguestfs and exposes all of the
  functionality of the guestfs API, see guestfs(3).
 
+Package: guestfsd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+  bsdmainutils, diff, grub-pc, iproute,
+  libaugeas0, udev, binutils, cpio, dosfstools,
+  file, lsof, module-init-tools, net-tools, parted,
+  procps, scrub, strace, zerofree
+Description: Daemon to access to guest virtual machine throuh virtio serial
+ Daemon to access to guest virtual machine throuh virtio serial
+
 Package: guestmount
 Section: devel
 Architecture: any
