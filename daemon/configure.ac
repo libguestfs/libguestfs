@@ -39,6 +39,16 @@ AC_ARG_ENABLE([packet-dump],
         [AC_DEFINE([ENABLE_PACKET_DUMP],[1],[Enable packet dumps in verbose mode.])],
         [])
 
+dnl Install the daemon (for libguestfs live service)
+AC_MSG_CHECKING([if we should install the daemon])
+AC_ARG_ENABLE([install-daemon],
+        [AS_HELP_STRING([--enable-install-daemon],
+          [enable installing the daemon under $sbindir @<:@default=no@:>@])],
+        [],
+        [enable_install_daemon=no])
+AM_CONDITIONAL([INSTALL_DAEMON],[test "x$enable_install_daemon" = "xyes"])
+AC_MSG_RESULT([$enable_install_daemon])
+
 dnl For strchrnul(3), asprintf(3), futimens(2) and getline(3).
 AC_GNU_SOURCE
 
