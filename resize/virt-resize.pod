@@ -257,13 +257,11 @@ Currently virt-resize can resize:
 
 =item *
 
-ext2, ext3 and ext4 filesystems when they are contained
-directly inside a partition.
+ext2, ext3 and ext4 filesystems.
 
 =item *
 
-NTFS filesystems contained directly in a partition, if libguestfs was
-compiled with support for NTFS.
+NTFS filesystems, if libguestfs was compiled with support for NTFS.
 
 The filesystem must have been shut down consistently last time it was
 used.  Additionally, L<ntfsresize(8)> marks the resized filesystem as
