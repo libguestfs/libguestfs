@@ -95,6 +95,7 @@ guestfsd_SOURCES = \
 	base64.c \
 	blkid.c \
 	blockdev.c \
+	btrfs.c \
 	checksum.c \
 	cmp.c \
 	command.c \

@@ -6043,6 +6043,29 @@ single filesystem without booting into Windows between each resize.
 
 See also L<ntfsresize(8)>.");
 
+  ("btrfs_filesystem_resize", (RErr, [Pathname "mountpoint"], [Int64 "size"]), 289, [Optional "btrfs"],
+   [],
+   "resize a btrfs filesystem",
+   "\
+This command resizes a btrfs filesystem.
+
+Note that unlike other resize calls, the filesystem has to be
+mounted and the parameter is the mountpoint not the device
+(this is a requirement of btrfs itself).
+
+The optional parameters are:
+
+=over 4
+
+=item C<size>
+
+The new size (in bytes) of the filesystem.  If omitted, the filesystem
+is resized to the maximum size.
+
+=back
+
+See also L<btrfs(8)>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

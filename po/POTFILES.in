@@ -7,6 +7,7 @@ daemon/available.c
 daemon/base64.c
 daemon/blkid.c
 daemon/blockdev.c
+daemon/btrfs.c
 daemon/checksum.c
 daemon/cmp.c
 daemon/command.c
