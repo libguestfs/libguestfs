@@ -5414,7 +5414,9 @@ to ensure the length of the file is exactly C<len> bytes.");
    "create a new file",
    "\
 This call creates a file called C<path>.  The content of the
-file is the string C<content> (which can contain any 8 bit data).");
+file is the string C<content> (which can contain any 8 bit data).
+
+See also C<guestfs_write_append>.");
 
   ("pwrite", (RInt "nbytes", [Pathname "path"; BufferIn "content"; Int64 "offset"], []), 247, [ProtocolLimitWarning],
    [InitScratchFS, Always, TestOutput (
@@ -6065,6 +6067,20 @@ is resized to the maximum size.
 =back
 
 See also L<btrfs(8)>.");
+
+  ("write_append", (RErr, [Pathname "path"; BufferIn "content"], []), 290, [ProtocolLimitWarning],
+   [InitScratchFS, Always, TestOutput (
+      [["write"; "/write_append"; "line1\n"];
+       ["write_append"; "/write_append"; "line2\n"];
+       ["write_append"; "/write_append"; "line3a"];
+       ["write_append"; "/write_append"; "line3b\n"];
+       ["cat"; "/write_append"]], "line1\nline2\nline3aline3b\n")],
+   "append content to end of file",
+   "\
+This call appends C<content> to the end of file C<path>.  If
+C<path> does not exist, then a new file is created.
+
+See also C<guestfs_write>.");
 
 ]
 

@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -328,6 +328,34 @@ do_write (const char *path, const char *content, size_t size)
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_TRUNC | O_CREAT | O_NOCTTY, 0666);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return -1;
+  }
+
+  if (xwrite (fd, content, size) == -1) {
+    reply_with_perror ("write");
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_write_append (const char *path, const char *content, size_t size)
+{
+  int fd;
+
+  CHROOT_IN;
+  fd = open (path, O_WRONLY | O_APPEND | O_CREAT | O_NOCTTY, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {
