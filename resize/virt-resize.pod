@@ -26,23 +26,47 @@ those manual pages first.
 
 =head1 EXAMPLES
 
+=over 4
+
+=item 1.
+
 Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions
 to fill the extra 5GB of space.
 
- truncate -r olddisk newdisk; truncate -s +5G newdisk
  virt-filesystems --long -h --all -a olddisk
+ 
+ truncate -r olddisk newdisk
+ truncate -s +5G newdisk
+ 
  # Note "/dev/sda2" is a partition inside the "olddisk" file.
  virt-resize --expand /dev/sda2 olddisk newdisk
+
+=item 2.
 
 As above, but make the /boot partition 200MB bigger, while giving the
 remaining space to /dev/sda2:
 
- virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 olddisk newdisk
+ virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \
+   olddisk newdisk
 
-As above, but the output format will be uncompressed qcow2:
+=item 3.
+
+As in the first example, but expand a logical volume as the final
+step.  This is what you would typically use for Linux guests that use
+LVM:
+
+ virt-resize --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root \
+   olddisk newdisk
+
+=item 4.
+
+As in the first example, but the output format will be qcow2 instead
+of a raw disk:
 
  qemu-img create -f qcow2 newdisk.qcow2 15G
  virt-resize --expand /dev/sda2 olddisk newdisk.qcow2
+
+=back
 
 =head1 DETAILED USAGE
 
