@@ -88,6 +88,7 @@ int inspector = 0;
 int utf8_mode = 0;
 int have_terminfo = 0;
 int progress_bars = 0;
+int is_interactive = 0;
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -384,6 +385,12 @@ main (int argc, char *argv[])
     }
   }
 
+  /* Decide here if this will be an interactive session.  We have to
+   * do this as soon as possible after processing the command line
+   * args.
+   */
+  is_interactive = !file && isatty (0);
+
   /* Old-style -i syntax?  Since -a/-d/-N and -i was disallowed
    * previously, if we have -i without any drives but with something
    * on the command line, it must be old-style syntax.
@@ -486,7 +493,7 @@ main (int argc, char *argv[])
   progress_bars =
     override_progress_bars >= 0
     ? override_progress_bars
-    : (optind >= argc && isatty (0));
+    : (optind >= argc && is_interactive);
 
   if (progress_bars)
     guestfs_set_event_callback (g, progress_callback,
@@ -494,7 +501,7 @@ main (int argc, char *argv[])
 
   /* Interactive, shell script, or command(s) on the command line? */
   if (optind >= argc) {
-    if (isatty (0))
+    if (is_interactive)
       interactive ();
     else
       shell_script ();
