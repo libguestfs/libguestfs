@@ -277,6 +277,12 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+user_cancel (g)
+      guestfs_h *g;
+ PPCODE:
+      guestfs_user_cancel (g);
+
 ";
 
   List.iter (
@@ -775,6 +781,11 @@ errnos:
  if ($h->last_errno() == Errno::EEXIST()) {
    # mkdir failed because the directory exists already.
  }
+
+=item $h->user_cancel ();
+
+Cancel current transfer.  This is safe to call from Perl signal
+handlers and threads.
 
 =cut
 
