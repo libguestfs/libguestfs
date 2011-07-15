@@ -20,7 +20,7 @@
 
 set -e
 
-rm -f test.output test.error
+rm -f test.output test.error test.error.old
 
 ../fish/guestfish <<'EOF' 2>test.error | od > test.output
 echo ""
@@ -46,6 +46,11 @@ echo "\100"
 -echo "
 -echo """
 EOF
+
+# Since trace and debug output also goes to stderr, we must
+# remove it before testing.
+mv test.error test.error.old
+grep -v '^libguestfs: ' < test.error.old > test.error
 
 if [ "$(cat test.error)" != "\
 guestfish: invalid escape sequence in string (starting at offset 0)
@@ -75,4 +80,4 @@ if [ "$(cat test.output)" != "\
     exit 1
 fi
 
-rm -f test.output test.error
+rm -f test.output test.error test.error.old
