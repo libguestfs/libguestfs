@@ -40,6 +40,9 @@ guestfs_blockdev_rereadpt 0.9.3
 guestfs_blockdev_setbsz 0.9.3
 guestfs_blockdev_setro 0.9.3
 guestfs_blockdev_setrw 0.9.3
+guestfs_btrfs_filesystem_resize 1.11.17
+guestfs_btrfs_filesystem_resize_argv 1.11.17
+guestfs_btrfs_filesystem_resize_va 1.11.17
 guestfs_case_sensitive_path 1.0.75
 guestfs_cat 0.4
 guestfs_checksum 1.0.2
