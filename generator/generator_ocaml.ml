@@ -94,6 +94,10 @@ val delete_event_callback : t -> event_handle -> unit
 (** [delete_event_callback g eh] removes a previously registered
     event callback.  See {!set_event_callback}. *)
 
+val user_cancel : t -> unit
+(** Cancel current transfer.  This is safe to call from OCaml signal
+    handlers and threads. *)
+
 ";
   generate_ocaml_structure_decls ();
 
@@ -129,6 +133,7 @@ class guestfs : unit -> object
   method close : unit -> unit
   method set_event_callback : event_callback -> event list -> event_handle
   method delete_event_callback : event_handle -> unit
+  method user_cancel : unit -> unit
   method ocaml_handle : t
 ";
 
@@ -188,6 +193,8 @@ external set_event_callback : t -> event_callback -> event list -> event_handle
 external delete_event_callback : t -> event_handle -> unit
   = \"ocaml_guestfs_delete_event_callback\"
 
+external user_cancel : t -> unit = \"ocaml_guestfs_user_cancel\" \"noalloc\"
+
 (* Give the exceptions names, so they can be raised from the C code. *)
 let () =
   Callback.register_exception \"ocaml_guestfs_error\" (Error \"\");
@@ -211,6 +218,7 @@ class guestfs () =
     method close () = close g
     method set_event_callback = set_event_callback g
     method delete_event_callback = delete_event_callback g
+    method user_cancel () = user_cancel g
     method ocaml_handle = g
 ";
 
