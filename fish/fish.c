@@ -53,6 +53,7 @@ struct parsed_command {
   char *argv[64];
 };
 
+static void user_cancel (int);
 static void set_up_terminal (void);
 static void prepare_drives (struct drv *drv);
 static int launch (void);
@@ -72,7 +73,7 @@ static void add_history_line (const char *);
 static int override_progress_bars = -1;
 
 /* Currently open libguestfs handle. */
-guestfs_h *g;
+guestfs_h *g = NULL;
 
 int read_only = 0;
 int live = 0;
@@ -392,6 +393,18 @@ main (int argc, char *argv[])
    */
   is_interactive = !file && isatty (0);
 
+  /* Register a ^C handler.  We have to do this before launch could
+   * possibly be called below.
+   */
+  if (is_interactive) {
+    memset (&sa, 0, sizeof sa);
+    sa.sa_handler = user_cancel;
+    sa.sa_flags = SA_RESTART;
+    sigaction (SIGINT, &sa, NULL);
+
+    guestfs_set_pgroup (g, 1);
+  }
+
   /* Old-style -i syntax?  Since -a/-d/-N and -i was disallowed
    * previously, if we have -i without any drives but with something
    * on the command line, it must be old-style syntax.
@@ -513,6 +526,13 @@ main (int argc, char *argv[])
   cleanup_readline ();
 
   exit (EXIT_SUCCESS);
+}
+
+static void
+user_cancel (int sig)
+{
+  if (g)
+    guestfs_user_cancel (g);
 }
 
 /* The <term.h> header file which defines this has "issues". */

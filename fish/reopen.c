@@ -66,6 +66,10 @@ run_reopen (const char *cmd, size_t argc, char *argv[])
   if (p)
     guestfs_set_path (g2, p);
 
+  r = guestfs_get_pgroup (g);
+  if (r >= 0)
+    guestfs_set_pgroup (g2, r);
+
   if (progress_bars)
     guestfs_set_event_callback (g2, progress_callback,
                                 GUESTFS_EVENT_PROGRESS, 0, NULL);
