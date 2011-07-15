@@ -801,6 +801,19 @@ guestfs__get_attach_method (guestfs_h *g)
   return ret;
 }
 
+int
+guestfs__set_pgroup (guestfs_h *g, int v)
+{
+  g->pgroup = !!v;
+  return 0;
+}
+
+int
+guestfs__get_pgroup (guestfs_h *g)
+{
+  return g->pgroup;
+}
+
 /* Note the private data area is allocated lazily, since the vast
  * majority of callers will never use it.  This means g->pda is
  * likely to be NULL.

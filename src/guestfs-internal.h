@@ -170,6 +170,8 @@ struct guestfs_h
 
   int selinux;                  /* selinux enabled? */
 
+  int pgroup;                   /* Create process group for children? */
+
   char *last_error;
   int last_errnum;              /* errno, or 0 if there was no errno */
 

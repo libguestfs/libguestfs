@@ -643,12 +643,9 @@ launch_appliance (guestfs_h *g)
       close (rfd[1]);
     }
 
-#if 0
-    /* Set up a new process group, so we can signal this process
-     * and all subprocesses (eg. if qemu is really a shell script).
-     */
-    setpgid (0, 0);
-#endif
+    /* Put qemu in a new process group. */
+    if (g->pgroup)
+      setpgid (0, 0);
 
     setenv ("LC_ALL", "C", 1);
 
@@ -676,6 +673,14 @@ launch_appliance (guestfs_h *g)
     if (r == 0) {
       pid_t qemu_pid = g->pid;
       pid_t parent_pid = getppid ();
+
+      /* It would be nice to be able to put this in the same process
+       * group as qemu (ie. setpgid (0, qemu_pid)).  However this is
+       * not possible because we don't have any guarantee here that
+       * the qemu process has started yet.
+       */
+      if (g->pgroup)
+        setpgid (0, 0);
 
       /* Writing to argv is hideously complicated and error prone.  See:
        * http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/utils/misc/ps_status.c?rev=1.33.2.1;content-type=text%2Fplain

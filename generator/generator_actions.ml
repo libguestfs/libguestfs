@@ -1526,6 +1526,25 @@ advice before using trademarks in applications.
 
 =back");
 
+  ("set_pgroup", (RErr, [Bool "pgroup"], []), -1, [FishAlias "pgroup"],
+   [],
+   "set process group flag",
+   "\
+If C<pgroup> is true, child processes are placed into
+their own process group.
+
+The practical upshot of this is that signals like C<SIGINT> (from
+users pressing C<^C>) won't be received by the child process.
+
+The default for this flag is false, because usually you want
+C<^C> to kill the subprocess.");
+
+  ("get_pgroup", (RBool "pgroup", [], []), -1, [],
+   [],
+   "get process group flag",
+   "\
+This returns the process group flag.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
