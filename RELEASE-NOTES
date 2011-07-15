@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.12.0
 -----------------------------------
 
-LAST UPDATED TO COMMIT f91c6f217facc88b60225769c61604a8b8c7169b
+LAST UPDATED TO COMMIT 1e9e351f178dcb425c4796c90fe7c8c5c250d100
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.10.0).  For detailed changelogs, please see
@@ -31,7 +31,16 @@ New features
    "-d UUID" option to specify a guest by UUID.  This makes them more
    robust to use from other programs.
 
+ - virt-resize can now handle btrfs.
+
+ - guestfish strings can use escapes, eg. ><fs> write /foo "line 1\nline 2\n"
+
+ - guestfish write-append command can be used to append to files.
+
  - guestfs_close now appears in trace messages.
+
+ - Long-running file uploads and downloads can be cancelled through the
+   API or by hitting ^C in guestfish.
 
  - Python binding adds explicit g.close() method.
 
@@ -69,6 +78,8 @@ Security
 
 New APIs
 
+  btrfs-filesystem-resize
+  get-pgroup
   inspect-get-icon
   is-zero
   is-zero-device
@@ -76,6 +87,8 @@ New APIs
   list-dm-devices
   mount-9p
   ntfsresize-opts
+  set-pgroup
+  write-append
 
 Internals
 
@@ -92,6 +105,8 @@ Internals
  - Perform safety checks on QEMU.
 
  - C API tests can now fully test calls that have optional arguments.
+
+ - Use ./configure --enable-install-daemon to install /usr/sbin/guestfsd.
 
 Bugs fixed
 
