@@ -20,6 +20,7 @@ capitests/test-debug-to-file
 capitests/test-just-header
 capitests/test-last-errno
 capitests/test-private-data
+capitests/test-user-cancel
 capitests/test*.img
 capitests/tests
 capitests/tests.c

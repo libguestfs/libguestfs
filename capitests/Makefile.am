@@ -32,6 +32,7 @@ check_PROGRAMS = \
 	test-add-drive-opts \
 	test-last-errno \
 	test-private-data \
+	test-user-cancel \
 	test-debug-to-file
 
 TESTS = \
@@ -42,6 +43,7 @@ TESTS = \
 	test-add-drive-opts \
 	test-last-errno \
 	test-private-data \
+	test-user-cancel \
 	test-debug-to-file
 
 # The API behind this test is not baked yet.
@@ -112,6 +114,14 @@ test_private_data_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_private_data_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+test_user_cancel_SOURCES = test-user-cancel.c
+test_user_cancel_CFLAGS = \
+	-pthread \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_user_cancel_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_debug_to_file_SOURCES = test-debug-to-file.c

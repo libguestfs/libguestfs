@@ -200,6 +200,11 @@ struct guestfs_h
   FILE *trace_fp;
   char *trace_buf;
   size_t trace_len;
+
+  /* User cancelled transfer.  Not signal-atomic, but it doesn't
+   * matter for this case because we only care if it is != 0.
+   */
+  int user_cancel;
 };
 
 /* Per-filesystem data stored for inspect_os. */

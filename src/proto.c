@@ -872,7 +872,6 @@ guestfs___send (guestfs_h *g, int proc_nr,
   return -1;
 }
 
-static int cancel = 0; /* XXX Implement file cancellation. */
 static int send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len);
 static int send_file_data (guestfs_h *g, const char *buf, size_t len);
 static int send_file_cancellation (guestfs_h *g);
@@ -888,7 +887,9 @@ int
 guestfs___send_file (guestfs_h *g, const char *filename)
 {
   char buf[GUESTFS_MAX_CHUNK_SIZE];
-  int fd, r, err;
+  int fd, r = 0, err;
+
+  g->user_cancel = 0;
 
   fd = open (filename, O_RDONLY);
   if (fd == -1) {
@@ -898,7 +899,7 @@ guestfs___send_file (guestfs_h *g, const char *filename)
   }
 
   /* Send file in chunked encoding. */
-  while (!cancel) {
+  while (!g->user_cancel) {
     r = read (fd, buf, sizeof buf);
     if (r == -1 && (errno == EINTR || errno == EAGAIN))
       continue;
@@ -911,13 +912,15 @@ guestfs___send_file (guestfs_h *g, const char *filename)
     }
   }
 
-  if (cancel) {			/* cancel from either end */
+  if (r == -1) {
+    perrorf (g, "read: %s", filename);
     send_file_cancellation (g);
     return -1;
   }
 
-  if (r == -1) {
-    perrorf (g, "read: %s", filename);
+  if (g->user_cancel) {
+    error (g, _("operation cancelled by user"));
+    g->last_errnum = EINTR;
     send_file_cancellation (g);
     return -1;
   }
@@ -1116,6 +1119,8 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
   void *buf;
   int fd, r;
 
+  g->user_cancel = 0;
+
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
@@ -1130,6 +1135,9 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
       goto cancel;
     }
     free (buf);
+
+    if (g->user_cancel)
+      goto cancel;
   }
 
   if (r == -1) {
@@ -1205,7 +1213,12 @@ receive_file_data (guestfs_h *g, void **buf_r)
   free (buf);
 
   if (chunk.cancel) {
-    error (g, _("file receive cancelled by daemon"));
+    if (g->user_cancel) {
+      error (g, _("operation cancelled by user"));
+      g->last_errnum = EINTR;
+    }
+    else
+      error (g, _("file receive cancelled by daemon"));
     free (chunk.data.data_val);
     return -1;
   }

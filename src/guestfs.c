@@ -578,6 +578,12 @@ guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
   return g->error_cb;
 }
 
+void
+guestfs_user_cancel (guestfs_h *g)
+{
+  g->user_cancel = 1;
+}
+
 int
 guestfs__set_verbose (guestfs_h *g, int v)
 {
