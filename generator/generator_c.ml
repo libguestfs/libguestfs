@@ -436,13 +436,13 @@ typedef void (*guestfs_event_callback) (
 #endif
 
 #define LIBGUESTFS_HAVE_SET_EVENT_CALLBACK 1
-int guestfs_set_event_callback (guestfs_h *g,
-                                guestfs_event_callback cb,
-                                uint64_t event_bitmask,
-                                int flags,
-                                void *opaque);
+extern int guestfs_set_event_callback (guestfs_h *g,
+                                       guestfs_event_callback cb,
+                                       uint64_t event_bitmask,
+                                       int flags,
+                                       void *opaque);
 #define LIBGUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
-void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
+extern void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
 
 /* Old-style event handling. */
 #ifndef GUESTFS_TYPEDEF_LOG_MESSAGE_CB
