@@ -92,7 +92,9 @@ so you would write:
 
 By default, no backup file is made.
 
-=item B<--connect URI> | B<-c URI>
+=item B<-c URI>
+
+=item B<--connect URI>
 
 If using libvirt, connect to the given I<URI>.  If omitted, then we
 connect to the default libvirt hypervisor.

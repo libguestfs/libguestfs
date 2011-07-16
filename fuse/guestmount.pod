@@ -84,20 +84,26 @@ C<allow_other> option when mounting:
 
 =over 4
 
-=item B<-a image> | B<--add image>
+=item B<-a image>
+
+=item B<--add image>
 
 Add a block device or virtual machine image.
 
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
-=item B<-c URI> | B<--connect URI>
+=item B<-c URI>
+
+=item B<--connect URI>
 
 When used in conjunction with the I<-d> option, this specifies
 the libvirt URI to use.  The default is to use the default libvirt
 connection.
 
-=item B<-d libvirt-domain> | B<--domain libvirt-domain>
+=item B<-d libvirt-domain>
+
+=item B<--domain libvirt-domain>
 
 Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
@@ -124,7 +130,9 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room
 you can specify this flag to see what you are typing.
 
-=item B<--format=raw|qcow2|..> | B<--format>
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
 
 The default for the I<-a> option is to auto-detect the format of the
 disk image.  Using this forces the disk format for I<-a> options which
@@ -144,7 +152,9 @@ Display help on special FUSE options (see I<-o> below).
 
 Display brief help and exit.
 
-=item B<-i> | B<--inspector>
+=item B<-i>
+
+=item B<--inspector>
 
 Using L<virt-inspector(1)> code, inspect the disks looking for
 an operating system and mount filesystems as they would be
@@ -180,14 +190,18 @@ filesystem can support them:
 
  -m /dev/sda1:/:acl,user_xattr
 
-=item B<-n> | B<--no-sync>
+=item B<-n>
+
+=item B<--no-sync>
 
 By default, we attempt to sync the guest disk when the FUSE mountpoint
 is unmounted.  If you specify this option, then we don't attempt to
 sync the disk.  See the discussion of autosync in the L<guestfs(3)>
 manpage.
 
-=item B<-o option> | B<--option option>
+=item B<-o option>
+
+=item B<--option option>
 
 Pass extra options to FUSE.
 
@@ -222,7 +236,9 @@ to the chosen values.
 
 =back
 
-=item B<-r> | B<--ro>
+=item B<-r>
+
+=item B<--ro>
 
 Add devices and mount everything read-only.  Also disallow writes and
 make the disk appear read-only to FUSE.
@@ -238,22 +254,30 @@ See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 Enable SELinux support for the guest.
 
-=item B<-v> | B<--verbose>
+=item B<-v>
+
+=item B<--verbose>
 
 Enable verbose messages from underlying libguestfs.
 
-=item B<-V> | B<--version>
+=item B<-V>
+
+=item B<--version>
 
 Display the program version and exit.
 
-=item B<-w> | B<--rw>
+=item B<-w>
+
+=item B<--rw>
 
 This changes the I<-a>, I<-d> and I<-m> options so that disks are
 added and mounts are done read-write.
 
 See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
-=item B<-x> | B<--trace>
+=item B<-x>
+
+=item B<--trace>
 
 Trace libguestfs calls and entry into each FUSE function.
 

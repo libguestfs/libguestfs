@@ -4843,7 +4843,9 @@ Possible values for C<parttype> are:
 
 =over 4
 
-=item B<efi> | B<gpt>
+=item B<efi>
+
+=item B<gpt>
 
 Intel EFI / GPT partition table.
 
@@ -4851,7 +4853,9 @@ This is recommended for >= 2 TB partitions that will be accessed
 from Linux and Intel-based Mac OS X.  It also has limited backwards
 compatibility with the C<mbr> format.
 
-=item B<mbr> | B<msdos>
+=item B<mbr>
+
+=item B<msdos>
 
 The standard PC \"Master Boot Record\" (MBR) format used
 by MS-DOS and Windows.  This partition type will B<only> work
@@ -4869,7 +4873,9 @@ supported include:
 
 AIX disk labels.
 
-=item B<amiga> | B<rdb>
+=item B<amiga>
+
+=item B<rdb>
 
 Amiga \"Rigid Disk Block\" format.
 

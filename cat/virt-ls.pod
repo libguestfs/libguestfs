@@ -363,9 +363,13 @@ L</RECURSIVE LONG LISTING> above.
 Read key or passphrase parameters from stdin.  The default is
 to try to read passphrases from the user by opening C</dev/tty>.
 
-=item B<-l> | B<--long>
+=item B<-l>
 
-=item B<-R> | B<--recursive>
+=item B<--long>
+
+=item B<-R>
+
+=item B<--recursive>
 
 Select the mode.  With neither of these options, C<virt-ls> produces a
 simple, flat list of the files in the named directory.  See

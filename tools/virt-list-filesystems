@@ -74,7 +74,9 @@ Display version number and exit.
 
 my $uri;
 
-=item B<--connect URI> | B<-c URI>
+=item B<-c URI>
+
+=item B<--connect URI>
 
 If using libvirt, connect to the given I<URI>.  If omitted, then we
 connect to the default libvirt hypervisor.
@@ -103,7 +105,9 @@ ensure the format is always specified.
 
 my $long;
 
-=item B<-l> | B<--long>
+=item B<-l>
+
+=item B<--long>
 
 With this option, C<virt-list-filesystems> displays the type of
 each filesystem too (where "type" means C<ext3>, C<xfs> etc.)
@@ -112,7 +116,9 @@ each filesystem too (where "type" means C<ext3>, C<xfs> etc.)
 
 my $all;
 
-=item B<-a> | B<--all>
+=item B<-a>
+
+=item B<--all>
 
 Normally we only show mountable filesystems.  If this option
 is given then swap devices are shown too.
