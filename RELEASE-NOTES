@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.12.0
 -----------------------------------
 
-LAST UPDATED TO COMMIT 1e9e351f178dcb425c4796c90fe7c8c5c250d100
+LAST UPDATED TO COMMIT 9f135be96e21d899b36ef2287a6ba8cea9beb4ff
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.10.0).  For detailed changelogs, please see
@@ -9,66 +9,77 @@ the git repository, or the ChangeLog file distributed in the tarball.
 
 New features
 
- - virt-ls -lR option allows complex file iteration and guest analysis.
+  guestfish:
 
- - virt-win-reg supports HKEY_USERS\<SID> and HKEY_USERS\<username>.
+   - guestfish strings can use escapes,
+     eg. ><fs> write /foo "line 1\nline 2\n"
 
- - virt-win-reg new option --unsafe-printable-strings allows printable
-   strings to be displayed in the output (unsafely: read the documentation
-   before using).
+   - guestfish write-append command can be used to append to files.
 
- - Inspection API can get an icon or logo for certain guests.
+   - Long-running file uploads and downloads can be cancelled through the
+     API or by hitting ^C in guestfish.
 
- - virt-inspector includes the logo and hostname for certain guests.
+   - New guestfish "display" command for displaying graphical files
+     inside guests.
 
- - virt-inspector can now get the version and release numbers for RPM
-   packages.
+   - In guestfish, tab completion now works on /dev/mapper devices.
 
- - virt-edit has been rewritten in C.
+  virt-inspector:
 
- - guestfish, guestmount, virt-cat, virt-df, virt-edit, virt-filesystems,
-   virt-inspector, virt-ls and virt-rescue now allow you to use
-   "-d UUID" option to specify a guest by UUID.  This makes them more
-   robust to use from other programs.
+   - Inspection API can get an icon or logo for certain guests.
 
- - virt-resize can now handle btrfs.
+   - virt-inspector includes the logo and hostname for certain guests.
 
- - guestfish strings can use escapes, eg. ><fs> write /foo "line 1\nline 2\n"
+   - virt-inspector can now get the version and release numbers for RPM
+     packages.
 
- - guestfish write-append command can be used to append to files.
+   - CentOS and Scientific Linux are now treated as separate distros by
+     the inspection API.
 
- - guestfs_close now appears in trace messages.
+  virt-resize:
 
- - Long-running file uploads and downloads can be cancelled through the
-   API or by hitting ^C in guestfish.
+   - virt-resize can now handle btrfs.
 
- - Python binding adds explicit g.close() method.
+   - New virt-resize --ntfsresize-force option allows Windows VMs to be
+     resized multiple times.
 
- - Python programs can now use the new event API.
+  other virt tools:
 
- - Python GIL is released during libguestfs calls, allowing multithreaded
-   Python programs to work properly.
+   - guestfish, guestmount, virt-cat, virt-df, virt-edit, virt-filesystems,
+     virt-inspector, virt-ls and virt-rescue now allow you to use
+     "-d UUID" option to specify a guest by UUID.  This makes them more
+     robust to use from other programs.
 
- - New guestfish "display" command for displaying graphical files
-   inside guests.
+   - virt-ls -lR option allows complex file iteration and guest analysis.
 
- - 9pfs (Plan 9 filesystems exported from the host) are now supported.
+   - virt-win-reg supports HKEY_USERS\<SID> and HKEY_USERS\<username>.
 
- - Add -DGUESTFS_WARN_DEPRECATED=1 to warn about use of deprecated API
-   functions in C programs.
+   - virt-win-reg new option --unsafe-printable-strings allows printable
+     strings to be displayed in the output (unsafely: read the documentation
+     before using).
 
- - New manual page guestfs-recipes(1) with recipes.
+   - virt-edit has been rewritten in C.
 
- - CentOS and Scientific Linux are now treated as separate distros by
-   the inspection API.
+  API and language bindings:
 
- - mkfs-opts can now set inode size and sector size on created filesystems
-   (thanks Nikita Menkovich).
+   - guestfs_close now appears in trace messages.
 
- - In guestfish, tab completion now works on /dev/mapper devices.
+   - Python binding adds explicit g.close() method.
 
- - New virt-resize --ntfsresize-force option allows Windows VMs to be
-   resized multiple times.
+   - Python programs can now use the new event API.
+
+   - Python GIL is released during libguestfs calls, allowing multithreaded
+     Python programs to work properly.
+
+   - 9pfs (Plan 9 filesystems exported from the host) are now supported.
+
+   - Add -DGUESTFS_WARN_DEPRECATED=1 to warn about use of deprecated API
+     functions in C programs.
+
+   - New manual page guestfs-recipes(1) with recipes.
+
+   - mkfs-opts can now set inode size and sector size on created filesystems
+     (thanks Nikita Menkovich).
 
 Security
 
@@ -118,6 +129,7 @@ Bugs fixed
  - 705200 guestmount attempt results in access denied
  - 714981 'list-filesystems' does not know about virtio 9p filesystems or detect existing mounts
  - 717786 libguestfs python bindings should have an explicit close call
+ - 721275 virt-resize in F16 should support btrfs
 
 
 Release notes for libguestfs 1.10.0
