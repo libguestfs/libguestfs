@@ -482,7 +482,7 @@ write.  To open a disk image read-only you have to do I<-a image --ro>.
 This matters: If you accidentally open a live VM disk image writable
 then you will cause irreversible disk corruption.
 
-By libguestfs 1.12 we intend to change the default the other way.
+In a future libguestfs we intend to change the default the other way.
 Disk images will be opened read-only.  You will have to either specify
 I<guestfish --rw>, I<guestmount --rw>, I<virt-rescue --rw>, or change
 the configuration file C</etc/libguestfs-tools.conf> in order to get
