@@ -94,6 +94,15 @@ val delete_event_callback : t -> event_handle -> unit
 (** [delete_event_callback g eh] removes a previously registered
     event callback.  See {!set_event_callback}. *)
 
+val last_errno : t -> int
+(** [last_errno g] returns the last errno that happened on the handle [g]
+    (or [0] if there was no errno).  Note that the returned integer is the
+    raw errno number, and it is {i not} related to the {!Unix.error} type.
+
+    [last_errno] can be overwritten by subsequent operations on a handle,
+    so if you want to capture the errno correctly, you must call this
+    in the {!Error} exception handler, before any other operation on [g]. *)
+
 val user_cancel : t -> unit
 (** Cancel current transfer.  This is safe to call from OCaml signal
     handlers and threads. *)
@@ -133,6 +142,7 @@ class guestfs : unit -> object
   method close : unit -> unit
   method set_event_callback : event_callback -> event list -> event_handle
   method delete_event_callback : event_handle -> unit
+  method last_errno : unit -> int
   method user_cancel : unit -> unit
   method ocaml_handle : t
 ";
@@ -193,6 +203,8 @@ external set_event_callback : t -> event_callback -> event list -> event_handle
 external delete_event_callback : t -> event_handle -> unit
   = \"ocaml_guestfs_delete_event_callback\"
 
+external last_errno : t -> int = \"ocaml_guestfs_last_errno\"
+
 external user_cancel : t -> unit = \"ocaml_guestfs_user_cancel\" \"noalloc\"
 
 (* Give the exceptions names, so they can be raised from the C code. *)
@@ -218,6 +230,7 @@ class guestfs () =
     method close () = close g
     method set_event_callback = set_event_callback g
     method delete_event_callback = delete_event_callback g
+    method last_errno () = last_errno g
     method user_cancel () = user_cancel g
     method ocaml_handle = g
 ";
