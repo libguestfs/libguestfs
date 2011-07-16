@@ -106,6 +106,7 @@ guestfs_get_memsize 1.0.55
 guestfs_get_network 1.5.4
 guestfs_get_out_of_memory_handler 0.3
 guestfs_get_path 0.3
+guestfs_get_pgroup 1.11.18
 guestfs_get_pid 1.0.56
 guestfs_get_private 1.5.7
 guestfs_get_qemu 1.0.6
@@ -355,6 +356,7 @@ guestfs_set_memsize 1.0.55
 guestfs_set_network 1.5.4
 guestfs_set_out_of_memory_handler 0.3
 guestfs_set_path 0.3
+guestfs_set_pgroup 1.11.18
 guestfs_set_private 1.5.7
 guestfs_set_qemu 1.0.6
 guestfs_set_recovery_proc 1.0.77
@@ -403,6 +405,7 @@ guestfs_umount 0.8
 guestfs_umount_all 0.8
 guestfs_upload 1.0.2
 guestfs_upload_offset 1.5.17
+guestfs_user_cancel 1.11.18
 guestfs_utimens 1.0.77
 guestfs_version 1.0.58
 guestfs_version_list 1.0.58
@@ -425,6 +428,7 @@ guestfs_wc_c 1.0.54
 guestfs_wc_l 1.0.54
 guestfs_wc_w 1.0.54
 guestfs_write 1.3.14
+guestfs_write_append 1.11.18
 guestfs_write_file 0.8
 guestfs_xattr 1.0.59
 guestfs_xattr_list 1.0.59
