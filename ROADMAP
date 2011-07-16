@@ -12,8 +12,16 @@ Before you read this:
 
 (4) For general "might be good to have" items, see 'TODO'.
 
-For next major stable release (1.12)
+For next major stable release (1.14)
 ------------------------------------
+
+Bugs assigned to 1.14 (put "1.14" in the Devel Whiteboard field in
+Bugzilla):
+
+https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.14&component=libguestfs&product=Virtualization%20Tools&classification=Other
+
+Beyond 1.14
+-----------
 
 * Make 'guestfish --ro' be the default, and get users to use
   'guestfish --rw' for write access (but allow the default to be
@@ -28,29 +36,11 @@ For next major stable release (1.12)
 * Deeper and wider support for progress messages.  Many long-running
   operations in guestfs-browser don't display progress messages, eg.
   "du", "tar-in/out", because it's hard to estimate the runtime of
-  these commands.  We should modify the protocol so that the library
-  can hint at when progress messages would be useful (there's no point
-  going to extra lengths to generate them if on the library side no
-  one is registered to listen to them), and modify the daemon to try
-  harder to generate them, even if they are only estimates.  Also
-  GtkProgressBar supports a "pulse mode" where it indicates activity
-  with no time estimate, and we should try to support that as well.
+  these commands.
 
 * Better handling of partitions, including MBR extended partitions.
   Write a new partition handling library to replace parted, and use it
-  instead of parted.  (RHBZ#593511, RHBZ#602997, RHBZ#642821).
-
-* List full details of applications in RPM-based guests.  At the
-  moment we can only list the names of applications, whereas for dpkg-
-  and Windows-based guests we offer much more complete output.
-
-Bugs assigned to 1.12 (put "1.12" in the Devel Whiteboard field in
-Bugzilla):
-
-https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.12&component=libguestfs&product=Virtualization%20Tools&classification=Other
-
-Beyond 1.12
------------
+  instead of parted.  (RHBZ#593511, RHBZ#642821).
 
 * Hot plugging of disks using QMP.  This would allow more efficient
   reuse of the appliance in some circumstances: multiple disks
