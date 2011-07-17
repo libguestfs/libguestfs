@@ -2807,6 +2807,56 @@ Language bindings.
 
 =back
 
+=head2 MAKING A STABLE RELEASE
+
+When we make a stable release, there are several steps documented
+here.  See L</LIBGUESTFS VERSION NUMBERS> for general information
+about the stable branch policy.
+
+=over 4
+
+=item *
+
+Finalize RELEASE-NOTES.
+
+=item *
+
+Update ROADMAP.
+
+=item *
+
+Run C<src/api-support/update-from-tarballs.sh>.
+
+=item *
+
+Push and pull from Transifex.
+
+Run:
+
+ tx push -s
+
+to push the latest POT files to Transifex.  Then run:
+
+ ./tx-pull.sh
+
+which is a wrapper to pull the latest translated C<*.po> files.
+
+=item *
+
+Create new stable and development directories under
+L<http://libguestfs.org/download>.
+
+=item *
+
+Create the branch in git:
+
+ git tag -a 1.XX.0 -m "Version 1.XX.0 (stable)"
+ git tag -a 1.YY.0 -m "Version 1.YY.0 (development)"
+ git branch stable-1.XX
+ git push origin tag 1.XX.0 1.YY.0 stable-1.XX
+
+=back
+
 =head1 LIMITS
 
 =head2 PROTOCOL LIMITS
