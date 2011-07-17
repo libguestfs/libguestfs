@@ -35,9 +35,21 @@ let rec generate_ocaml_mli () =
   generate_header OCamlStyle LGPLv2plus;
 
   pr "\
-(** For API documentation you should refer to the C API
-    in the guestfs(3) manual page.  The OCaml API uses almost
-    exactly the same calls. *)
+(** libguestfs bindings for OCaml.
+
+    For API documentation, the canonical reference is the
+    {{:http://libguestfs.org/guestfs.3.html}guestfs(3)} man page.
+    The OCaml API uses almost exactly the same calls.
+
+    For examples written in OCaml see the
+    {{:http://libguestfs.org/guestfs-ocaml.3.html}guestfs-ocaml(3)} man page.
+    *)
+
+(** {2 Module style API}
+
+    This is the module-style API.  There is also an object-oriented API
+    (see the end of this file and {!guestfs})
+    which is functionally completely equivalent, but is more compact. *)
 
 type t
 (** A [guestfs_h] handle. *)
@@ -46,15 +58,15 @@ exception Error of string
 (** This exception is raised when there is an error. *)
 
 exception Handle_closed of string
-(** This exception is raised if you use a {!Guestfs.t} handle
+(** This exception is raised if you use a {!t} handle
     after calling {!close} on it.  The string is the name of
     the function. *)
 
 val create : unit -> t
-(** Create a {!Guestfs.t} handle. *)
+(** Create a {!t} handle. *)
 
 val close : t -> unit
-(** Close the {!Guestfs.t} handle and free up all resources used
+(** Close the {!t} handle and free up all resources used
     by it immediately.
 
     Handles are closed by the garbage collector when they become
@@ -112,9 +124,24 @@ val user_cancel : t -> unit
 
   (* The actions. *)
   List.iter (
-    fun (name, style, _, _, _, shortdesc, _) ->
+    fun (name, style, _, flags, _, shortdesc, _) ->
+      let deprecated =
+        try Some (find_map (function DeprecatedBy fn -> Some fn | _ -> None)
+                    flags)
+        with Not_found -> None in
+      let in_docs = not (List.mem NotInDocs flags) in
+
       generate_ocaml_prototype name style;
-      pr "(** %s *)\n" shortdesc;
+
+      if in_docs then (
+        pr "(** %s" shortdesc;
+        (match deprecated with
+         | None -> ()
+         | Some replacement ->
+             pr "\n\n    @deprecated Use {!%s} instead\n" replacement
+        );
+        pr " *)\n";
+      );
       pr "\n"
   ) all_functions_sorted;
 
@@ -122,20 +149,23 @@ val user_cancel : t -> unit
 (** {2 Object-oriented API}
 
     This is an alternate way of calling the API using an object-oriented
-    style, so you can use [g#add_drive_opts filename] instead of
-    [Guestfs.add_drive_opts g filename].  Apart from the different style,
-    it offers exactly the same functionality.
+    style, so you can use
+    [g#]{{!guestfs.add_drive_opts}add_drive_opts} [filename]
+    instead of [Guestfs.add_drive_opts g filename].
+    Apart from the different style, it offers exactly the same functionality.
 
     Calling [new guestfs ()] creates both the object and the handle.
     The object and handle are closed either implicitly when the
-    object is garbage collected, or explicitly by calling the [g#close ()]
-    method.
+    object is garbage collected, or explicitly by calling the
+    [g#]{{!guestfs.close}close} [()] method.
 
-    You can get the {!Guestfs.t} handle by calling [g#ocaml_handle].
+    You can get the {!t} handle by calling
+    [g#]{{!guestfs.ocaml_handle}ocaml_handle}.
 
     Note that methods that take no parameters (except the implicit handle)
     get an extra unit [()] parameter.  This is so you can create a
-    closure from the method easily.  For example [g#get_verbose ()]
+    closure from the method easily.  For example
+    [g#]{{!guestfs.get_verbose}get_verbose} [()]
     calls the method, whereas [g#get_verbose] is a function. *)
 
 class guestfs : unit -> object

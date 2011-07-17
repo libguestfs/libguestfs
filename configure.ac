@@ -484,6 +484,8 @@ AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
 AM_CONDITIONAL([HAVE_OCAML_PCRE],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_pcre" != "xno"])
+AM_CONDITIONAL([HAVE_OCAMLDOC],
+               [test "x$OCAMLDOC" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings).
 PERL=no

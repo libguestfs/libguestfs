@@ -25,8 +25,10 @@ generator_built = \
 
 EXTRA_DIST = \
 	$(generator_built) \
+	.depend \
 	guestfs_c.c guestfs_c.h \
-	.depend META.in \
+	html/.gitignore \
+	META.in \
 	run-bindtests \
 	t/*.ml
 
@@ -55,6 +57,15 @@ guestfs_c.o: guestfs_c.c
 
 guestfs_c_actions.o: guestfs_c_actions.c
 	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $<
+
+if HAVE_OCAMLDOC
+
+noinst_DATA += html/index.html
+
+html/index.html: guestfs*.mli guestfs*.ml
+	mkdir -p html
+	-$(OCAMLDOC) -d html -html $^
+endif
 
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
