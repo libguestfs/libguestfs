@@ -34,20 +34,6 @@ CLEANFILES = po4a.conf
 # XXX Is there a better way?
 SUBDIRS = $(LINGUAS)
 
-# List of english POD sources which can be translated.
-# Perl files count as POD as far as po4a is concerned.
-PODFILES = \
-	../src/guestfs.pod \
-	../src/guestfs-actions.pod \
-	../src/guestfs-availability.pod \
-	../src/guestfs-structs.pod \
-	../fish/guestfish.pod \
-	../fish/guestfish-actions.pod \
-	../fish/guestfish-commands.pod \
-	../test-tool/libguestfs-test-tool.pod \
-	../fuse/guestmount.pod \
-	$(wildcard ../tools/virt-*.pl)
-
 update-po: libguestfs-docs.pot
 
 # Note: po4a leaves empty '=encoding' lines in POD files.  Also it
@@ -68,13 +54,22 @@ libguestfs-docs.pot: po4a.conf
 	  mv $$f.new $$f; \
 	done
 
-po4a.conf: $(PODFILES)
+po4a.conf: podfiles
 	rm -f $@-t
 	echo "[po_directory] ." >> $@-t
 	echo >> $@-t
-	for f in $(PODFILES); do \
+	for f in `cat podfiles`; do \
 	  b=`basename -- $$f`; \
 	  echo "[type: pod] $$f \$$lang:\$$lang/$$b" >> $@-t; \
 	  echo >> $@-t; \
 	done;
+	mv $@-t $@
+
+podfiles: Makefile
+	rm -f $@ $@-t
+	find $(top_srcdir) -name '*.pod' | \
+	  grep -v /stamp- | \
+	  grep -v /po-docs/ > $@-t
+	find $(top_srcdir)/tools -name 'virt-*.pl' >> $@-t
+	sort -o $@-t $@-t
 	mv $@-t $@

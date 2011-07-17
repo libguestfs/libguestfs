@@ -35,11 +35,7 @@ MANPAGES = \
 # size.
 EXTRA_DIST = \
 	$(MANPAGES) \
-	guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod \
-	guestfish.pod guestfish-actions.pod guestfish-commands.pod \
-	guestmount.pod \
-	libguestfs-test-tool.pod \
-	$(wildcard virt-*.pl)
+	$(cat ../podfiles)
 
 all-local: $(MANPAGES)
 
