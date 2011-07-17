@@ -1,22 +1,21 @@
-# Copyright (C) 2010 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Shankar Prasad <svenkate@redhat.com>, 2010.
+# 
+# rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.0.83\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-15 17:17+0100\n"
-"PO-Revision-Date: 2010-02-24 11:56+0530\n"
-"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
-"Language-Team: kn-IN <>\n"
-"Language: kn\n"
+"PO-Revision-Date: 2011-07-17 20:49+0000\n"
+"Last-Translator: rjones <rjones@redhat.com>\n"
+"Language-Team: Kannada (http://www.transifex.net/projects/p/fedora/team/kn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: kn\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
@@ -26,7 +25,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s -help' ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ .\n"
 
 #: cat/virt-cat.c:61
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -46,25 +45,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
 #: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
@@ -82,7 +62,7 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
 
 #: cat/virt-filesystems.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -119,33 +99,14 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: cat/virt-filesystems.c:318 cat/virt-ls.c:347 df/main.c:255
-#, fuzzy, c-format
+#, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
+msgstr ""
 
 #: cat/virt-ls.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
 "Copyright (C) 2010-2011 Red Hat Inc.\n"
@@ -176,25 +137,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: cat/virt-ls.c:338
 #, c-format
@@ -204,9 +146,9 @@ msgid ""
 msgstr ""
 
 #: cat/virt-ls.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr "hivexsh: %zu ನ ಮೂಲ ನೋಡ್ ಹೆಸರನ್ನು ಪಡೆದುಕೊಳ್ಳುವಲ್ಲಿ ದೋಷ\n"
+msgstr ""
 
 #: cat/virt-ls.c:583
 #, c-format
@@ -244,7 +186,7 @@ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
 
 #: df/main.c:74
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -267,25 +209,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: df/main.c:267
 #, c-format
@@ -297,9 +220,8 @@ msgid "VirtualMachine"
 msgstr ""
 
 #: df/output.c:51
-#, fuzzy
 msgid "Filesystem"
-msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: df/output.c:54
 msgid "1K-blocks"
@@ -338,7 +260,7 @@ msgid "IUse%"
 msgstr ""
 
 #: edit/virt-edit.c:77
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -360,25 +282,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: edit/virt-edit.c:175
 #, c-format
@@ -396,9 +299,9 @@ msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
 #: edit/virt-edit.c:599
-#, fuzzy, c-format
+#, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr "%s: %s: ಕೀಲಿಯು ಕಂಡುಬಂದಿಲ್ಲ\n"
+msgstr ""
 
 #: fish/alloc.c:37
 #, c-format
@@ -408,7 +311,8 @@ msgstr "ಒಂದು ಚಿತ್ರಿಕೆಯನ್ನು ರಚಿಸಲು 
 #: fish/alloc.c:51
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "ಒಂದು ಚದುರಿದ(ಸ್ಪಾರ್ಸ್) ಚಿತ್ರಿಕೆಯನ್ನು ರಚಿಸಲು 'sparse file size' ಅನ್ನು ಬಳಸಿ\n"
+msgstr ""
+"ಒಂದು ಚದುರಿದ(ಸ್ಪಾರ್ಸ್) ಚಿತ್ರಿಕೆಯನ್ನು ರಚಿಸಲು 'sparse file size' ಅನ್ನು ಬಳಸಿ\n"
 
 #: fish/alloc.c:75
 #, c-format
@@ -416,9 +320,9 @@ msgid "can't allocate or add disks after launching\n"
 msgstr "ಆರಂಭಿಸಿದ ನಂತರ ನಿಯೋಜಿಸಲು ಅಥವ ಡಿಸ್ಕುಗಳನ್ನು ಸೇರಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
 #: fish/alloc.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: ಅಮಾನ್ಯವಾದ ಪೂರ್ಣ ನಿಯತಾಂಕ (%s ಮರಳಿಸಲಾಗಿದೆ %d)\n"
+msgstr ""
 
 #: fish/cmds.c:2643
 msgid "Command"
@@ -447,23 +351,22 @@ msgstr "ಒಂದು ಡ್ರೈವನ್ನು ಸ್ನಾಪ್‌ಶಾಟ�
 #: fish/cmds.c:2650
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
-"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು ಮಾತ್ರ "
-"ಸೂಚಿಸು"
+"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು "
+"ಮಾತ್ರ ಸೂಚಿಸು"
 
 #: fish/cmds.c:2651
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr ""
-"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಸೂಚಿಸು"
+"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು "
+"ಸೂಚಿಸು"
 
 #: fish/cmds.c:2652
-#, fuzzy
 msgid "allocate and add a disk file"
-msgstr "ಚದುರಿದ ಚಿತ್ರಿಕಾ ಕಡತವನ್ನು ನಿಯೋಜಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2653
-#, fuzzy
 msgid "clear Augeas path"
-msgstr "ಒಂದು Augeas ಮಾರ್ಗವನ್ನು ತೆಗೆದುಹಾಕು"
+msgstr ""
 
 #: fish/cmds.c:2654
 msgid "close the current Augeas handle"
@@ -522,18 +425,16 @@ msgid "test availability of some parts of the API"
 msgstr "API ನ ಕೆಲವು ಭಾಗಗಳು ಲಭ್ಯವಿದೆಯೆ ಎಂದು ಪರಿಶೀಲಿಸು"
 
 #: fish/cmds.c:2668
-#, fuzzy
 msgid "return a list of all optional groups"
-msgstr "inotify ಘಟನೆಗಳ ಪಟ್ಟಿಯನ್ನು ಮರಳಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2669
 msgid "upload base64-encoded data to file"
 msgstr ""
 
 #: fish/cmds.c:2670
-#, fuzzy
 msgid "download file and encode as base64"
-msgstr "ಒಂದು ಕಡತವನ್ನು ಸ್ಥಳೀಯ ಗಣಕಕ್ಕೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡು"
+msgstr ""
 
 #: fish/cmds.c:2671
 msgid "flush device buffers"
@@ -576,9 +477,8 @@ msgid "set block device to read-write"
 msgstr "ಖಂಡ ಸಾಧನಗಳನ್ನು ಓದಲು-ಬರೆಯಲು ಹೊಂದಿಸು"
 
 #: fish/cmds.c:2681
-#, fuzzy
 msgid "resize a btrfs filesystem"
-msgstr "ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯ ಗಾತ್ರವನ್ನು  ಬದಲಾಯಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2682
 msgid "return true path on case-insensitive filesystem"
@@ -593,14 +493,12 @@ msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "ಒಂದು MD5, SHAx ಅಥವ CRC checksum ಅನ್ನು ಗಣಿಸು"
 
 #: fish/cmds.c:2685
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr "ಒಂದು MD5, SHAx ಅಥವ CRC checksum ಅನ್ನು ಗಣಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2686
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr "ಒಂದು MD5, SHAx ಅಥವ CRC checksum ಅನ್ನು ಗಣಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2687
 msgid "change file mode"
@@ -623,19 +521,16 @@ msgid "add qemu parameters"
 msgstr "qemu ನಿಯತಾಂಕಗಳನ್ನು ಸೇರಿಸು"
 
 #: fish/cmds.c:2692
-#, fuzzy
 msgid "copy local files or directories into an image"
-msgstr "ಕಡತಗಳನ್ನು ವೃಕ್ಷಕ್ಕೆ ಲೋಡ್ ಮಾಡು"
+msgstr ""
 
 #: fish/cmds.c:2693
-#, fuzzy
 msgid "copy remote files or directories out of an image"
-msgstr "ಕಡತಗಳನ್ನು ವೃಕ್ಷಕ್ಕೆ ಲೋಡ್ ಮಾಡು"
+msgstr ""
 
 #: fish/cmds.c:2694
-#, fuzzy
 msgid "copy size bytes from source to destination using dd"
-msgstr "dd ಅನ್ನು ಬಳಸಿಕೊಂಡು ಮೂಲದಿಂದ ಗುರಿಗೆ ಕಾಪಿ ಮಾಡು"
+msgstr ""
 
 #: fish/cmds.c:2695
 msgid "copy a file"
@@ -654,14 +549,12 @@ msgid "debugging and internals"
 msgstr "ದೋಷನಿವಾರಣೆ ಹಾಗು ಆಂತರಿಕಗಳು"
 
 #: fish/cmds.c:2699
-#, fuzzy
 msgid "debug the QEMU command line (internal use only)"
-msgstr "ಸ್ಥಳೀಯ ಗಣಕದಿಂದ ಕಡತವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
+msgstr ""
 
 #: fish/cmds.c:2700
-#, fuzzy
 msgid "upload a file to the appliance (internal use only)"
-msgstr "ಸ್ಥಳೀಯ ಗಣಕದಿಂದ ಕಡತವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
+msgstr ""
 
 #: fish/cmds.c:2701
 msgid "report file system disk space usage"
@@ -672,9 +565,8 @@ msgid "report file system disk space usage (human readable)"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆ ಡಿಸ್ಕ್ ಸ್ಥಳದ ಬಳಕೆಯನ್ನು ವರದಿ ಮಾಡು (ಮನುಷ್ಯರು ಓದುವ ರೂಪದಲ್ಲಿ)"
 
 #: fish/cmds.c:2703
-#, fuzzy
 msgid "display an image"
-msgstr "ಒಂದು ಚಿತ್ರವನ್ನು ನಿಯೋಜಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2704
 msgid "return kernel messages"
@@ -685,9 +577,8 @@ msgid "download a file to the local machine"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಸ್ಥಳೀಯ ಗಣಕಕ್ಕೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡು"
 
 #: fish/cmds.c:2706
-#, fuzzy
 msgid "download a file to the local machine with offset and size"
-msgstr "ಒಂದು ಕಡತವನ್ನು ಸ್ಥಳೀಯ ಗಣಕಕ್ಕೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡು"
+msgstr ""
 
 #: fish/cmds.c:2707
 msgid "drop kernel page cache, dentries and inodes"
@@ -710,9 +601,8 @@ msgid "echo arguments back to the client"
 msgstr "ಆರ್ಗುಮೆಂಟ್‌ಗಳನ್ನು ಕ್ಲೈಂಟ್‌ನತ್ತ ಮರಳಿ ಕಳುಹಿಸು"
 
 #: fish/cmds.c:2712
-#, fuzzy
 msgid "edit a file"
-msgstr "ಒಂದು ಕಡತವನ್ನು ಓದು"
+msgstr ""
 
 #: fish/cmds.c:2713 fish/cmds.c:2714 fish/cmds.c:2719 fish/cmds.c:2720
 #: fish/cmds.c:2754 fish/cmds.c:2755 fish/cmds.c:3008 fish/cmds.c:3009
@@ -749,9 +639,8 @@ msgid "fill a file with octets"
 msgstr "ಆಕ್ಟೆಟ್‌ಗಳೊಂದಿಗೆ ಒಂದು ಕಡತವನ್ನು ತುಂಬಿಸು"
 
 #: fish/cmds.c:2725
-#, fuzzy
 msgid "fill a file with a repeating pattern of bytes"
-msgstr "ಆಕ್ಟೆಟ್‌ಗಳೊಂದಿಗೆ ಒಂದು ಕಡತವನ್ನು ತುಂಬಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2726
 msgid "find all files and directories"
@@ -759,17 +648,16 @@ msgstr "ಎಲ್ಲಾ ಕಡತಗಳನ್ನು ಹಾಗು ಕೋಶಗಳ
 
 #: fish/cmds.c:2727
 msgid "find all files and directories, returning NUL-separated list"
-msgstr "ಎಲ್ಲಾ ಕಡತಗಳನ್ನು ಹಾಗು ಕೋಶಗಳನ್ನು, NUL- ಇಂದ ಬೇರ್ಪಡಿಸಲಾದ ಪಟ್ಟಿಯಲ್ಲಿ ಮರಳಿಸು"
+msgstr ""
+"ಎಲ್ಲಾ ಕಡತಗಳನ್ನು ಹಾಗು ಕೋಶಗಳನ್ನು, NUL- ಇಂದ ಬೇರ್ಪಡಿಸಲಾದ ಪಟ್ಟಿಯಲ್ಲಿ ಮರಳಿಸು"
 
 #: fish/cmds.c:2728
-#, fuzzy
 msgid "find a filesystem by label"
-msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ ಲೇಬಲ್ ಅನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2729
-#, fuzzy
 msgid "find a filesystem by UUID"
-msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ UUID ಅನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2730
 msgid "run the filesystem checker"
@@ -780,9 +668,8 @@ msgid "get the additional kernel options"
 msgstr "ಹೆಚ್ಚುವರಿ ಕರ್ನಲ್ ಆಯ್ಕೆಗಳನ್ನು ಪಡೆದುಕೊ"
 
 #: fish/cmds.c:2732
-#, fuzzy
 msgid "get the attach method"
-msgstr "ಹುಡುಕು ಮಾರ್ಗವನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2733
 msgid "get autosync mode"
@@ -805,18 +692,16 @@ msgid "get memory allocated to the qemu subprocess"
 msgstr "qemu ಉಪಪ್ರಕ್ರಿಯೆಗೆ ನಿಯೋಜಿಸಲಾದ ಮೆಮೊರಿಯನ್ನು ಪಡೆದುಕೊ"
 
 #: fish/cmds.c:2738
-#, fuzzy
 msgid "get enable network flag"
-msgstr "SELinux ಶಕ್ತಗೊಂಡ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2739
 msgid "get the search path"
 msgstr "ಹುಡುಕು ಮಾರ್ಗವನ್ನು ಪಡೆದುಕೊ"
 
 #: fish/cmds.c:2740
-#, fuzzy
 msgid "get process group flag"
-msgstr "ಪುನಶ್ಚೇತನ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಶಕ್ತಗೊಳಿಸಲಾದ ಗುರುತನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2741
 msgid "get PID of qemu subprocess"
@@ -843,9 +728,8 @@ msgid "get command trace enabled flag"
 msgstr "ಆಜ್ಞೆಯ ಜಾಡನ್ನು ಇರಿಸುವಂತೆ ಶಕ್ತಗೊಳಿಸಲಾದ ಫ್ಲಾಗನ್ನು ಪಡೆದುಕೊ"
 
 #: fish/cmds.c:2747
-#, fuzzy
 msgid "get the current umask"
-msgstr "ಪ್ರಸಕ್ತ ಸ್ಥಿತಿಯನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2748
 msgid "get verbose mode"
@@ -948,9 +832,8 @@ msgid "get hostname of the operating system"
 msgstr ""
 
 #: fish/cmds.c:2775
-#, fuzzy
 msgid "get the icon corresponding to this operating system"
-msgstr "ಆರೋಹಿಸಲಾದ ಸಾಧನಕ್ಕೆ ಸಂಬಂಧಿಸಿದ Linux VFS ಬಗೆಯನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2776
 msgid "get major version of inspected operating system"
@@ -1017,32 +900,28 @@ msgid "inspect disk and return list of operating systems found"
 msgstr ""
 
 #: fish/cmds.c:2792
-#, fuzzy
 msgid "test if block device"
-msgstr "ಖಂಡ ಸಾಧನಗಳ ಪಟ್ಟಿ"
+msgstr ""
 
 #: fish/cmds.c:2793
 msgid "is busy processing a command"
 msgstr "ಒಂದು ಆಜ್ಞೆಯನ್ನು ಸಂಸ್ಕರಿಸುವಲ್ಲಿ ಕಾರ್ಯನಿರತವಾಗಿದೆ"
 
 #: fish/cmds.c:2794
-#, fuzzy
 msgid "test if character device"
-msgstr "ಖಂಡ, ಚಿಹ್ನೆ ಅಥವ FIFO ಸಾಧನಗಳನ್ನು ನಿರ್ಮಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2795
 msgid "is in configuration state"
 msgstr "ಸಂರಚನೆಯ ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
 #: fish/cmds.c:2796
-#, fuzzy
 msgid "test if a directory"
-msgstr "ಒಂದು ಕೋಶವನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2797
-#, fuzzy
 msgid "test if FIFO (named pipe)"
-msgstr "FIFO ಅನ್ನು ನಿರ್ಮಿಸು (ನೇಮ್ಡ್ ಪೈಪ್)"
+msgstr ""
 
 #: fish/cmds.c:2798
 msgid "test if a regular file"
@@ -1053,33 +932,28 @@ msgid "is launching subprocess"
 msgstr "ಒಂದು ಉಪಪ್ರಕ್ರಿಯೆನ್ನು ಆರಂಭಿಸುತ್ತಿದೆ"
 
 #: fish/cmds.c:2800
-#, fuzzy
 msgid "test if device is a logical volume"
-msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2801
 msgid "is ready to accept commands"
 msgstr "ಆಜ್ಞೆಗಳನ್ನು ಸ್ವೀಕರಿಸಲು ತಯಾರಾಗಿದೆ"
 
 #: fish/cmds.c:2802
-#, fuzzy
 msgid "test if socket"
-msgstr "ಡೀಮನ್ ಸಾಕೆಟ್‌ಗೆ ಬರೆಯುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
+msgstr ""
 
 #: fish/cmds.c:2803
-#, fuzzy
 msgid "test if symbolic link"
-msgstr "ಸಾಂಕೇತಿಕ ಕೊಂಡಿಯನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2804
-#, fuzzy
 msgid "test if a file contains all zero bytes"
-msgstr "ಎರಡು ಕಡತಗಳು ಒಂದೇ ರೀತಿಯ ವಿಷಯಗಳನ್ನು ಹೊಂದಿವೆಯೆ ಎಂದು ಪರೀಕ್ಷಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2805
-#, fuzzy
 msgid "test if a device contains all zero bytes"
-msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2806
 msgid "kill the qemu subprocess"
@@ -1090,28 +964,24 @@ msgid "launch the qemu subprocess"
 msgstr "qemu ಉಪಪ್ರಕ್ರಿಯೆಗಳನ್ನು ಆರಂಭಿಸು"
 
 #: fish/cmds.c:2808
-#, fuzzy
 msgid "change working directory"
-msgstr "ಸ್ಥಳೀಯ ಬದಲಾವಣೆ ಕೋಶ"
+msgstr ""
 
 #: fish/cmds.c:2812
-#, fuzzy
 msgid "list 9p filesystems"
-msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2813
 msgid "list the block devices"
 msgstr "ಖಂಡ ಸಾಧನಗಳ ಪಟ್ಟಿ"
 
 #: fish/cmds.c:2814
-#, fuzzy
 msgid "list device mapper devices"
-msgstr "ಖಂಡ ಸಾಧನಗಳ ಪಟ್ಟಿ"
+msgstr ""
 
 #: fish/cmds.c:2815
-#, fuzzy
 msgid "list filesystems"
-msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2816
 msgid "list the partitions"
@@ -1150,14 +1020,12 @@ msgid "lstat on multiple files"
 msgstr "ಅನೇಕ ಕಡತಗಳ ಮೇಲೆ lstat ಮಾಡು"
 
 #: fish/cmds.c:2827
-#, fuzzy
 msgid "add a key on a LUKS encrypted device"
-msgstr "ಖಂಡ ಸಾಧನಗಳನ್ನು ಓದಲು-ಮಾತ್ರ ಹೊಂದಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2828
-#, fuzzy
 msgid "close a LUKS device"
-msgstr "ಸಾಧನದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಶಕ್ತಗೊಳಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2829 fish/cmds.c:2830
 msgid "format a block device as a LUKS encrypted device"
@@ -1172,14 +1040,12 @@ msgid "open a LUKS-encrypted block device"
 msgstr ""
 
 #: fish/cmds.c:2833
-#, fuzzy
 msgid "open a LUKS-encrypted block device read-only"
-msgstr "ಖಂಡ ಸಾಧನಗಳನ್ನು ಓದಲು-ಮಾತ್ರ ಹೊಂದಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2834
-#, fuzzy
 msgid "create an LVM logical volume"
-msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರನ್ನು ಬದಲಾಯಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2835
 msgid "get canonical name of an LV"
@@ -1218,9 +1084,8 @@ msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳ (LVಗಳು) ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
 
 #: fish/cmds.c:2845
-#, fuzzy
 msgid "get the UUID of a logical volume"
-msgstr "LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳ (LVಗಳು) ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2846
 msgid "lgetxattr on multiple files"
@@ -1311,18 +1176,16 @@ msgid "load a kernel module"
 msgstr "ಒಂದು ಕರ್ನಲ್ ಘಟಕವನ್ನು ಲೋಡ್ ಮಾಡು"
 
 #: fish/cmds.c:2871
-#, fuzzy
 msgid "view a file"
-msgstr "ಒಂದು ಕಡತವನ್ನು ಜರುಗಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2872
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯ ಒಂದು ಸ್ಥಳದಲ್ಲಿ ಒಂದು ಅತಿಥಿ ಡಿಸ್ಕನ್ನು ಆರೋಹಿಸು"
 
 #: fish/cmds.c:2873
-#, fuzzy
 msgid "mount 9p filesystem"
-msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಅವರೋಹಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2874
 msgid "mount a file using the loop device"
@@ -1357,32 +1220,28 @@ msgid "probe NTFS volume"
 msgstr "NTFS ಪರಿಮಾಣವನ್ನು ತನಿಖೆ ನಡೆಸು"
 
 #: fish/cmds.c:2882 fish/cmds.c:2883
-#, fuzzy
 msgid "resize an NTFS filesystem"
-msgstr "ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯ ಗಾತ್ರವನ್ನು  ಬದಲಾಯಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2884
-#, fuzzy
 msgid "resize an NTFS filesystem (with size)"
-msgstr "ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯ ಗಾತ್ರವನ್ನು  ಬದಲಾಯಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2885
 msgid "add a partition to the device"
 msgstr "ಸಾಧನಕ್ಕೆ ಒಂದು ವಿಭಾಗವನ್ನು ಸೇರಿಸು"
 
 #: fish/cmds.c:2886
-#, fuzzy
 msgid "delete a partition"
-msgstr "ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ನಿರ್ಮಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2887
 msgid "partition whole disk with a single primary partition"
 msgstr "ಸಂಪೂರ್ಣ ಡಿಸ್ಕನ್ನು ಒಂದೆ ಒಂದು ಪ್ರಾಥಮಿಕ ವಿಭಾಗವಾಗಿ ವಿಭಜಿಸು"
 
 #: fish/cmds.c:2888
-#, fuzzy
 msgid "return true if a partition is bootable"
-msgstr "ವಿಭಜನಾ ಕೋಷ್ಟಕವನ್ನು ಮರಳಿ ಓದು"
+msgstr ""
 
 #: fish/cmds.c:2889
 msgid "get the MBR type byte (ID byte) from a partition"
@@ -1413,9 +1272,8 @@ msgid "set partition name"
 msgstr "ವಿಭಾಗಕ್ಕೆ ಒಂದು ಹೆಸರನ್ನು ಸೂಚಿಸು"
 
 #: fish/cmds.c:2896
-#, fuzzy
 msgid "convert partition name to device name"
-msgstr "ಒಂದು ಖಂಡ ಸಾಧನದಲ್ಲಿ ವಿಭಾಗಗಳನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2897
 msgid "ping the guest daemon"
@@ -1426,9 +1284,8 @@ msgid "read part of a file"
 msgstr "ಒಂದು ಕಡತದ ಭಾಗವನ್ನು ಓದು"
 
 #: fish/cmds.c:2899
-#, fuzzy
 msgid "read part of a device"
-msgstr "ಒಂದು ಕಡತದ ಭಾಗವನ್ನು ಓದು"
+msgstr ""
 
 #: fish/cmds.c:2900
 msgid "create an LVM physical volume"
@@ -1443,28 +1300,24 @@ msgid "resize an LVM physical volume"
 msgstr "LVM ಭೌತಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
 
 #: fish/cmds.c:2903
-#, fuzzy
 msgid "resize an LVM physical volume (with size)"
-msgstr "LVM ಭೌತಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2904 fish/cmds.c:2905
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳ (PVಗಳು) ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
 
 #: fish/cmds.c:2906
-#, fuzzy
 msgid "get the UUID of a physical volume"
-msgstr "ಒಂದು LVM ಭೌತಿಕ ಪರಿಮಾಣವನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2907
-#, fuzzy
 msgid "write to part of a file"
-msgstr "ಒಂದು ಕಡತದ ಭಾಗವನ್ನು ಓದು"
+msgstr ""
 
 #: fish/cmds.c:2908
-#, fuzzy
 msgid "write to part of a device"
-msgstr "ಒಂದು ಕಡತದ ಭಾಗವನ್ನು ಓದು"
+msgstr ""
 
 #: fish/cmds.c:2909
 msgid "read a file"
@@ -1495,19 +1348,16 @@ msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು ಅಥವ ಮರಳಿ ತೆರೆ"
 
 #: fish/cmds.c:2917
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem"
-msgstr "ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯ ಗಾತ್ರವನ್ನು  ಬದಲಾಯಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2918
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr "ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯ ಗಾತ್ರವನ್ನು  ಬದಲಾಯಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2919
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr "ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯ ಗಾತ್ರವನ್ನು  ಬದಲಾಯಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:2920
 msgid "remove a file"
@@ -1542,9 +1392,8 @@ msgid "add options to kernel command line"
 msgstr "ಕರ್ನಲ್ ಆಜ್ಞಾ ಸಾಲಿಗೆ ಆಯ್ಕೆಗಳನ್ನು ಸೇರಿಸು"
 
 #: fish/cmds.c:2928
-#, fuzzy
 msgid "set the attach method"
-msgstr "ಹುಡುಕು ಮಾರ್ಗವನ್ನು ಹೊಂದಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2929
 msgid "set autosync mode"
@@ -1635,9 +1484,8 @@ msgid "sleep for some seconds"
 msgstr "ಕೆಲವು ಕ್ಷಣಗಳ ಕಾಲ ಜಡವಾಗಿರು"
 
 #: fish/cmds.c:2953
-#, fuzzy
 msgid "create a sparse disk image and add"
-msgstr "ಚದುರಿದ ಚಿತ್ರಿಕಾ ಕಡತವನ್ನು ನಿಯೋಜಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2954
 msgid "get file information"
@@ -1652,9 +1500,8 @@ msgid "print the printable strings in a file"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿ ಮುದ್ರಿಸಬಹುದಾದ ವಾಕ್ಯಗಳನ್ನು ಮುದ್ರಿಸು"
 
 #: fish/cmds.c:2958
-#, fuzzy
 msgid "list supported groups of commands"
-msgstr "ಆಜ್ಞೆಗಳನ್ನು ಸ್ವೀಕರಿಸಲು ತಯಾರಾಗಿದೆ"
+msgstr ""
 
 #: fish/cmds.c:2959
 msgid "disable swap on device"
@@ -1690,7 +1537,8 @@ msgstr "UUID ಮೂಲಕ ಸ್ವಾಪ್ ವಿಭಾಗದಲ್ಲಿ ಸ�
 
 #: fish/cmds.c:2967
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "ಸಿಂಕ್ ಡಿಸ್ಕುಗಳನ್ನು, ಬರೆಯವಿಕೆಗಳನ್ನು ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ ಮೂಲಕ ಹೊರತಳ್ಳಲಾಗುತ್ತದೆ"
+msgstr ""
+"ಸಿಂಕ್ ಡಿಸ್ಕುಗಳನ್ನು, ಬರೆಯವಿಕೆಗಳನ್ನು ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ ಮೂಲಕ ಹೊರತಳ್ಳಲಾಗುತ್ತದೆ"
 
 #: fish/cmds.c:2968
 msgid "return last 10 lines of a file"
@@ -1717,9 +1565,8 @@ msgid "pack directory into compressed tarball"
 msgstr "ಕೋಶದಲ್ಲಿರುವುದನ್ನು  ಸಂಕುಚನಗೊಳಿಸಲಾದ tarball ನಲ್ಲಿ ಸೇರಿಸು"
 
 #: fish/cmds.c:2974
-#, fuzzy
 msgid "print elapsed time taken to run a command"
-msgstr "ಒಂದು ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸಲು ತಗಲುವ ಸಮಯವನ್ನು ಲೆಕ್ಕ ಹಾಕು"
+msgstr ""
 
 #: fish/cmds.c:2975
 msgid "update file timestamps or create a new file"
@@ -1754,9 +1601,8 @@ msgid "upload a file from the local machine"
 msgstr "ಸ್ಥಳೀಯ ಗಣಕದಿಂದ ಕಡತವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
 
 #: fish/cmds.c:2985
-#, fuzzy
 msgid "upload a file from the local machine with offset"
-msgstr "ಸ್ಥಳೀಯ ಗಣಕದಿಂದ ಕಡತವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
+msgstr ""
 
 #: fish/cmds.c:2986
 msgid "set timestamp of a file with nanosecond precision"
@@ -1767,18 +1613,16 @@ msgid "get the library version number"
 msgstr "ಲೈಬ್ರರಿ ಆವೃತ್ತಿ ಸಂಖ್ಯೆಯನ್ನು ಪಡೆದುಕೊ"
 
 #: fish/cmds.c:2988
-#, fuzzy
 msgid "get the filesystem label"
-msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ ಲೇಬಲ್ ಅನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2989
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "ಆರೋಹಿಸಲಾದ ಸಾಧನಕ್ಕೆ ಸಂಬಂಧಿಸಿದ Linux VFS ಬಗೆಯನ್ನು ಪಡೆದುಕೊ"
 
 #: fish/cmds.c:2990
-#, fuzzy
 msgid "get the filesystem UUID"
-msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ UUID ಅನ್ನು ಪಡೆದುಕೊ"
+msgstr ""
 
 #: fish/cmds.c:2991
 msgid "activate or deactivate some volume groups"
@@ -1817,9 +1661,8 @@ msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
 #: fish/cmds.c:3001
-#, fuzzy
 msgid "get the UUID of a volume group"
-msgstr "ಒಂದು LVM ಪರಿಮಾಣ ಸಮೂಹವನ್ನು ರಚಿಸು"
+msgstr ""
 
 #: fish/cmds.c:3002
 msgid "count characters in a file"
@@ -1834,14 +1677,12 @@ msgid "count words in a file"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿನ ಪದಗಳನ್ನು ಎಣಿಸಿ"
 
 #: fish/cmds.c:3005
-#, fuzzy
 msgid "create a new file"
-msgstr "ಒಂದು ಕಡತವನ್ನು ನಿರ್ಮಿಸಿ"
+msgstr ""
 
 #: fish/cmds.c:3006
-#, fuzzy
 msgid "append content to end of file"
-msgstr "ಕಡತದಲ್ಲಿರುವ ವಿಷಯಗಳ ಪಟ್ಟಿ"
+msgstr ""
 
 #: fish/cmds.c:3007
 msgid "create a file"
@@ -1852,9 +1693,8 @@ msgid "write zeroes to the device"
 msgstr "ಸಾಧನಕ್ಕೆ ಶೂನ್ಯಗಳನ್ನು ಬರೆ"
 
 #: fish/cmds.c:3011
-#, fuzzy
 msgid "write zeroes to an entire device"
-msgstr "ಸಾಧನಕ್ಕೆ ಶೂನ್ಯಗಳನ್ನು ಬರೆ"
+msgstr ""
 
 #: fish/cmds.c:3012
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
@@ -2105,42 +1945,43 @@ msgstr "%s: %s: ಪೂರ್ಣಾಂಕವು ವ್ಯಾಪ್ತಿಯ ಹ�
 
 #: fish/cmds.c:4187 fish/cmds.c:4294 fish/cmds.c:4611 fish/cmds.c:11781
 #: fish/cmds.c:12027 fish/cmds.c:12088 fish/cmds.c:12148
-#, fuzzy, c-format
+#, c-format
 msgid "%s should have %d-%d parameter(s)\n"
-msgstr "%s ಎನ್ನುವುದು %d ನಿಯತಾಂಕವನ್ನು(ಗಳನ್ನು) ಹೊಂದಿರಬೇಕು\n"
+msgstr ""
 
 #: fish/cmds.c:4213 fish/cmds.c:4330 fish/cmds.c:4632 fish/cmds.c:11867
 #: fish/cmds.c:12044 fish/cmds.c:12121 fish/cmds.c:12177
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr "%s: ಅಗತ್ಯಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು   ಚರಪರಿಮಾಣಗಳು (ಆರ್ಗ್ಯೂಮೆಂಟ್)\n"
+msgstr ""
 
 #: fish/cmds.c:4219 fish/cmds.c:4336 fish/cmds.c:4638 fish/cmds.c:11873
 #: fish/cmds.c:12050 fish/cmds.c:12127 fish/cmds.c:12183
-#, fuzzy, c-format
+#, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr "%s: ಅಗತ್ಯಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು   ಚರಪರಿಮಾಣಗಳು (ಆರ್ಗ್ಯೂಮೆಂಟ್)\n"
+msgstr ""
 
 #: fish/cmds.c:12228
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown command\n"
-msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
+msgstr ""
 
 #: fish/config.c:74 fish/config.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr "%s: '%s' ನಲ್ಲಿ ವಾಕ್ಯವನ್ನು ಪಾರ್ಸ್ ಮಾಡುವಲ್ಲಿ ಆಂತರಿಕ ದೋಷ\n"
+msgstr ""
 
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "copy-in: target '%s' is not a directory\n"
-msgstr "ಕೋಶದಲ್ಲಿನ ಕಡತಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
+msgstr ""
 
 #: fish/copy.c:157
 #, c-format
@@ -2155,14 +1996,14 @@ msgid ""
 msgstr ""
 
 #: fish/copy.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: target '%s' is not a directory\n"
-msgstr "ಕೋಶದಲ್ಲಿನ ಕಡತಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
+msgstr ""
 
 #: fish/copy.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
-msgstr "ಕಡತ ಅಥವ ಕೋಶವನ್ನು ಪುನರಾವರ್ತಿತವಾಗಿ ಕಾಪಿ ಮಾಡು"
+msgstr ""
 
 #: fish/display.c:42
 #, c-format
@@ -2175,7 +2016,7 @@ msgid "use '%s filename' to edit a file\n"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಸಂಪಾದಿಸಲು '%s filename' ಅನ್ನು ಬಳಸಿ\n"
 
 #: fish/fish.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2220,37 +2061,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: ಅತಿಥಿ ಕಡತವ್ಯವಸ್ಥೆ ಶೆಲ್\n"
-"%s ಎನ್ನುವುದು ನಿಮಗೆ ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಗಳನ್ನು ಸಂಪಾದಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s -i libvirt-domain\n"
-"  %s -i disk-image(s)\n"
-"ಅಥವ ಒಂದು ಸಂವಾದಾತ್ಮಕ ಬಳಕೆಗಾಗಿ:\n"
-"  %s\n"
-"ಅಥವ ಒಂದು ಶೆಲ್‌ ಸ್ಕ್ರಿಪ್ಟಿನಿಂದ:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
-"Options:\n"
-"  -h|--cmd-help        List available commands\n"
-"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-"  -a|--add image       Add image\n"
-"  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
-"  -f|--file file       Read commands from file\n"
-"  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
-"  --listen             Listen for remote commands\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  --remote[=pid]       Send commands to remote %s\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  -v|--verbose         Verbose messages\n"
-"  -x                   Echo each command before executing it\n"
-"  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
 
 #: fish/fish.c:246
 #, c-format
@@ -2294,7 +2104,7 @@ msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
 #: fish/fish.c:647
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
@@ -2305,13 +2115,6 @@ msgid ""
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
-"\n"
-"guestfish ಗೆ ಸ್ವಾಗತ, libguestfs ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಗಳನ್ನು ಸಂಪಾದಿಸಲು\n"
-" ಬಳಸಲಾಗುವ ಒಂದು ಸಂವಾದಾತ್ಮಕವಾದಂತಹ ಶೆಲ್ ಆಗಿದೆ.\n"
-"\n"
-"ಸೂಚನೆ: ಆಜ್ಞೆಗಳ ಬಗೆಗಿನ ನೆರವಿಗಾಗಿ 'help' ಅನ್ನು ಬಳಸಿ\n"
-"      ಶೆಲ್‌ನಿಂದ ನಿರ್ಗಮಿಸಲು 'quit' ಅನ್ನು ಬಳಸಿ\n"
-"\n"
 
 #: fish/fish.c:796 fish/fish.c:812
 #, c-format
@@ -2429,8 +2232,7 @@ msgstr "glob: guestfs_glob_expand ಅನ್ನು ಕರೆಯಲು ವಿಫ�
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2475,9 +2277,9 @@ msgid "hexedit: invalid range\n"
 msgstr ""
 
 #: fish/inspect.c:77
-#, fuzzy, c-format
+#, c-format
 msgid "%s: don't use --live and -i options together\n"
-msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
+msgstr ""
 
 #: fish/inspect.c:89
 #, c-format
@@ -2500,9 +2302,9 @@ msgid "Operating system: %s\n"
 msgstr ""
 
 #: fish/inspect.c:159
-#, fuzzy, c-format
+#, c-format
 msgid "%s mounted on %s\n"
-msgstr "ಆರೋಹಣಾತಾಣವನ್ನು ತೋರಿಸು"
+msgstr ""
 
 #: fish/keys.c:53
 #, c-format
@@ -2520,9 +2322,9 @@ msgid "use 'man' without parameters to open the manual\n"
 msgstr ""
 
 #: fish/man.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "the external 'man' program failed\n"
-msgstr "ಬಾಹ್ಯ ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s"
+msgstr ""
 
 #: fish/more.c:40
 #, c-format
@@ -2530,9 +2332,9 @@ msgid "use '%s filename' to page a file\n"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಪುಟವಾಗಿ(ಪೇಜ್) ಮಾಡಲು '%s filename' ಅನ್ನು ಬಳಸಿ\n"
 
 #: fish/options.c:36
-#, fuzzy, c-format
+#, c-format
 msgid "%s: too many drives added on the command line\n"
-msgstr "%s: ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಯಾವುದೆ ಆಜ್ಞೆ ಇಲ್ಲ\n"
+msgstr ""
 
 #: fish/options.c:128
 #, c-format
@@ -2586,19 +2388,17 @@ msgstr ""
 
 #: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
 #: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
-#, fuzzy
 msgid "failed to allocate disk"
-msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
+msgstr ""
 
 #: fish/prep_boot.c:42 fish/prep_boot.c:97
-#, fuzzy
 msgid "could not parse boot size"
-msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
+msgstr ""
 
 #: fish/prep_boot.c:46 fish/prep_boot.c:101
-#, fuzzy, c-format
+#, c-format
 msgid "failed to get sector size of disk: %s"
-msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
+msgstr ""
 
 #: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
 #: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
@@ -2607,14 +2407,14 @@ msgid "failed to partition disk: %s"
 msgstr ""
 
 #: fish/prep_boot.c:55 fish/prep_boot.c:110
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add boot partition: %s"
-msgstr "ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ನಿರ್ಮಿಸು"
+msgstr ""
 
 #: fish/prep_boot.c:59 fish/prep_boot.c:114
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add root partition: %s"
-msgstr "ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ನಿರ್ಮಿಸು"
+msgstr ""
 
 #: fish/prep_boot.c:68 fish/prep_boot.c:128
 #, c-format
@@ -2632,14 +2432,14 @@ msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
 
 #: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create PV: %s: %s"
-msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
+msgstr ""
 
 #: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create VG: %s: %s"
-msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
+msgstr ""
 
 #: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
 #, c-format
@@ -2667,9 +2467,9 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: ಆವೃತ್ತಿ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ, '%s' ಎಂಬ ಪರಿಚಾರಕದ ಆವೃತ್ತಿಯು "
-"'%s' ಎಂಬ ಕ್ಲೈಂಟಿನ ಆವೃತ್ತಿಯೊಂದಿಗೆ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  ಎರಡೂ ಆವೃತ್ತಿಗಳು ಸರಿಯಾಗೆ "
-"ತಾಳೆಯಾಗಬೇಕು.\n"
+"guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: ಆವೃತ್ತಿ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ, '%s' ಎಂಬ ಪರಿಚಾರಕದ "
+"ಆವೃತ್ತಿಯು '%s' ಎಂಬ ಕ್ಲೈಂಟಿನ ಆವೃತ್ತಿಯೊಂದಿಗೆ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  ಎರಡೂ ಆವೃತ್ತಿಗಳು"
+" ಸರಿಯಾಗೆ ತಾಳೆಯಾಗಬೇಕು.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2687,7 +2487,8 @@ msgstr ""
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
-"guestfish: protocol error: ಪರಿಚಾರಕದಿಂದ ಬಂದ ಪ್ರತ್ಯುತ್ತರವನ್ನು ಬಿಡಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+"guestfish: protocol error: ಪರಿಚಾರಕದಿಂದ ಬಂದ ಪ್ರತ್ಯುತ್ತರವನ್ನು ಬಿಡಿಸಲು "
+"ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
 #: fish/reopen.c:36
 #, c-format
@@ -2713,7 +2514,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' ಅನ್ನು ಬಳಸು\n"
 
 #: fuse/guestmount.c:912
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -2742,30 +2543,11 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: fuse/guestmount.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr "%s: ಕನಿಷ್ಟ ಒಂದು -a ಹಾಗು ಕನಿಷ್ಟ ಒಂದು -m ಆಯ್ಕೆಯನ್ನು ಹೊಂದಿರಬೇಕು\n"
+msgstr ""
 
 #: fuse/guestmount.c:1138
 #, c-format
@@ -2773,7 +2555,7 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ಆತಿಥೇಯ ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿ ಒಂದು ಆರೋಹಣಾ ತಾಣವನ್ನು ನೀವು ಸೂಚಿಸಬೇಕು\n"
 
 #: inspector/virt-inspector.c:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2793,37 +2575,16 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: inspector/virt-inspector.c:263
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2841,9 +2602,9 @@ msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
 #: inspector/virt-inspector.c:308
-#, fuzzy, c-format
+#, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
-msgstr "xmlNewTextWriterFilename: XML ಬರಹಗಾರನನ್ನು ರಚಿಸಲು ವಿಫಲಗೊಂಡಿದೆ\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
 msgid "open_guest: first parameter must be a string or an arrayref"
@@ -2854,20 +2615,19 @@ msgid "open_guest: first argument contains undefined element"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "guest image {imagename} does not exist or is not readable"
-msgstr "ಬೈನರಿ '%s' ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ ಅಥವ ಅದನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
-#, fuzzy
 msgid "open_guest: too many domains listed on command line"
-msgstr "%s: ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಯಾವುದೆ ಆಜ್ಞೆ ಇಲ್ಲ\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:191
 msgid "open_guest: cannot connect to libvirt"
@@ -2892,8 +2652,7 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2911,9 +2670,9 @@ msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:939
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "unknown filesystem {fs}\n"
-msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಅವರೋಹಿಸಿ"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
@@ -2955,9 +2714,9 @@ msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1348
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
-msgstr "ಒಂದು ವಿನ್ಯಾಸಕ್ಕೆ ತಾಳೆಯಾಗುವ ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
@@ -2965,7 +2724,7 @@ msgid "{filename}: could not read initrd format"
 msgstr ""
 
 #: rescue/virt-rescue.c:63
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2010 Red Hat Inc.\n"
@@ -2989,35 +2748,16 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: libguestfs ಗಾಗಿನ FUSE ಘಟಕ\n"
-"%s ಎನ್ನುವುದು ವರ್ಚುವಲ್ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  %s [--options] [-- [--FUSE-options]] ಆರೋಹಣಾತಾಣ\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  -a|--add image       ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ\n"
-"  --dir-cache-timeout  readdir ಕ್ಯಾಶೆ ಕಾಲಾವಧಿಯನ್ನು ಹೊಂದಿಸಿ (ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ 5 "
-"ಸೆಕೆಂಡು)\n"
-"  --fuse-help          ಹೆಚ್ಚುವರಿ FUSE ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸು\n"
-"  --help               ನೆರವಿನ ಸಂದೇಶವನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
-"  -m|--mount dev[:mnt] dev ಅನ್ನು mnt ಯಲ್ಲಿ ಆರೋಹಿಸು (ಹಾಗೆಯೆ ಬಿಟ್ಟಲ್ಲಿ, /)\n"
-"  -n|--no-sync         ಸ್ವಯಂಮೇಳೈಕೆ ಮಾಡಬೇಡ\n"
-"  -o|--option opt      FUSE ಗೆ ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸು\n"
-"  -r|--ro              ಓದಲು ಮಾತ್ರವಾಗಿರುವಂತೆ ಆರೋಹಿಸು\n"
-"  --selinux            SELinux ಬೆಂಬಲವನ್ನು ಶಕ್ತಗೊಳಿಸು\n"
-"  --trace              guestfs API ಕರೆಗಳ ಜಾಡನ್ನು ಇರಿಸು (stderr ಗೆ)\n"
-"  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
-"  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
 #: rescue/virt-rescue.c:180
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse memory size '%s'\n"
-msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
+msgstr ""
 
 #: rescue/virt-rescue.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown child exit status (%d)\n"
-msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
+msgstr ""
 
 #: src/appliance.c:181
 #, c-format
@@ -3042,29 +2782,24 @@ msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
 #: src/appliance.c:659
-#, fuzzy
 msgid "external command failed, see earlier error messages"
-msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
+msgstr ""
 
 #: src/dbdump.c:87
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of header"
-msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
+msgstr ""
 
 #: src/dbdump.c:100 src/dbdump.c:112
-#, fuzzy
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
+msgstr ""
 
 #: src/dbdump.c:129
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of data"
-msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
+msgstr ""
 
 #: src/dbdump.c:210
-#, fuzzy
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
+msgstr ""
 
 #: src/filearch.c:153
 #, c-format
@@ -3130,9 +2865,9 @@ msgid ""
 msgstr ""
 
 #: src/inspect_fs.c:326 src/inspect_fs.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "could not parse integer in version number: %s"
-msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
+msgstr ""
 
 #: src/inspect_fs.c:483
 #, c-format
@@ -3140,9 +2875,8 @@ msgid "%s: file is empty"
 msgstr ""
 
 #: src/inspect_fs_unix.c:613
-#, fuzzy
 msgid "could not parse /etc/fstab or empty file"
-msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
+msgstr ""
 
 #: src/inspect_fs_windows.c:112
 #, c-format
@@ -3150,9 +2884,9 @@ msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
 #: src/inspect_icon.c:452
-#, fuzzy, c-format
+#, c-format
 msgid "read: %s: unexpected end of file"
-msgstr "hivexsh: setval: ಇನ್‌ಪುಟ್‌ಗೆ ಅನಿರೀಕ್ಷಿತವಾದ ಅಂತ್ಯ\n"
+msgstr ""
 
 #: src/launch.c:98
 msgid "command line cannot be altered after qemu subprocess launched"
@@ -3177,9 +2911,8 @@ msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
 #: src/launch.c:358
-#, fuzzy
 msgid "the libguestfs handle has already been launched"
-msgstr "qemu ಅನ್ನು ಈಗಾಗಲೆ ಆರಂಭಿಸಲಾಗಿದೆ"
+msgstr ""
 
 #: src/launch.c:367
 #, c-format
@@ -3196,17 +2929,16 @@ msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದ
 
 #: src/launch.c:777
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
+msgstr ""
+"qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
 #: src/launch.c:865
-#, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
+msgstr ""
 
 #: src/launch.c:873
-#, fuzzy
 msgid "contacted guestfsd, but state != READY"
-msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
+msgstr ""
 
 #: src/launch.c:1052
 #, c-format
@@ -3214,8 +2946,8 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, LIBGUESTFS_QEMU "
-"ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
+"%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, "
+"LIBGUESTFS_QEMU ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
 #: src/launch.c:1143
 msgid "qemu has not been launched yet"
@@ -3240,8 +2972,8 @@ msgstr "guestfs_end_busy: %d ಎಂಬ ಸ್ಥಿತಿಯಲ್ಲಿದ್�
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: ಡೀಮನ್‌ನಿಂದ 0x%x ಅನ್ನು ಓದಲಾಗಿದೆ, ಆದರೆ 0x%x "
-"ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗಿತ್ತು\n"
+"check_for_daemon_cancellation_or_eof: ಡೀಮನ್‌ನಿಂದ 0x%x ಅನ್ನು ಓದಲಾಗಿದೆ, ಆದರೆ "
+"0x%x ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗಿತ್ತು\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3251,9 +2983,8 @@ msgid ""
 msgstr ""
 
 #: src/proto.c:549
-#, fuzzy
 msgid "See earlier debug messages.\n"
-msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
+msgstr ""
 
 #: src/proto.c:639
 #, c-format
@@ -3279,9 +3010,8 @@ msgid "dispatch failed to marshal args"
 msgstr "ವಿಫಲಗೊಂಡವುಗಳನ್ನು ಮಾರ್ಶಲ್ ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳಿಗೆ ರವಾನಿಸು"
 
 #: src/proto.c:922 src/proto.c:1217
-#, fuzzy
 msgid "operation cancelled by user"
-msgstr "ಕಡತವನ್ನು ಸ್ವೀಕರಿಸುವುದನ್ನು ಡೆಮನ್ ರದ್ದುಗೊಳಿಸಿದೆ"
+msgstr ""
 
 #: src/proto.c:973
 #, c-format
@@ -3308,7 +3038,8 @@ msgstr "receive_file_data: ಪ್ರತ್ಯುತ್ತರ ಕಾಲ್‌ಬ�
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
+msgstr ""
+"receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
 
 #: src/proto.c:1207
 msgid "failed to parse file chunk"
@@ -3328,10 +3059,9 @@ msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
 #: src/virt.c:130
-#, fuzzy, c-format
+#, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
-"%s: -i ಗಾಗಿ libvirt ಡೊಮೈನ್ ಅಥವ ಮಾರ್ಗ(ಗಳ) ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ(ಗಳ) ಅಗತ್ಯವಿರುತ್ತದೆ\n"
 
 #: src/virt.c:185 src/virt.c:435
 #, c-format
@@ -3343,20 +3073,16 @@ msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
 #: src/virt.c:201 src/virt.c:449
-#, fuzzy
 msgid "unable to create new XPath context"
-msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
+msgstr ""
 
 #: src/virt.c:208 src/virt.c:464
-#, fuzzy
 msgid "unable to evaluate XPath expression"
-msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
+msgstr ""
 
 #: src/virt.c:305
-#, fuzzy
 msgid "libvirt domain has no disks"
 msgstr ""
-"%s: -i ಗಾಗಿ libvirt ಡೊಮೈನ್ ಅಥವ ಮಾರ್ಗ(ಗಳ) ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ(ಗಳ) ಅಗತ್ಯವಿರುತ್ತದೆ\n"
 
 #: src/virt.c:358
 #, c-format
@@ -3366,8 +3092,7 @@ msgstr ""
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3386,7 +3111,7 @@ msgid ""
 msgstr ""
 
 #: test-tool/test-tool.c:79
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -3399,19 +3124,6 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: ಸಂವಾದಾತ್ಮಕವಾದ ಪರೀಕ್ಷ ಉಪಕರಣ\n"
-"ಹಕ್ಕು (C) 2009 Red Hat Inc.\n"
-"ಬಳಕೆ:\n"
-"  libguestfs-test-tool [--options]\n"
-"ಆಯ್ಕೆಗಳು:\n"
-"  --help         ಬಳಕೆಯನ್ನು ತೋರಿಸು\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 ನೆರವಿನ ಪ್ರೊಗ್ರಾಮ್ (ಪೂರ್ವನಿಯೋಜಿತ: %s)\n"
-"  --qemudir dir  QEMU ಆಕರದ ಕೋಶವನ್ನು ಸೂಚಿಸು\n"
-"  --qemu qemu    QEMU ಬೈನರಿಯನ್ನು ಸೂಚಿಸು\n"
-"  --timeout n\n"
-"  -t n           ಆರಂಭದ ಕಾಲಾವಧಿ ತೀರಿಕೆಯನ್ನು ಹೊಂದಿಸು(ಪೂರ್ವನಿಯೋಜಿತ: %d "
-"ಸೆಕೆಂಡುಗಳು)\n"
 
 #: test-tool/test-tool.c:127
 #, c-format
@@ -3431,7 +3143,8 @@ msgstr "libguestfs-test-tool: ಅನಿರೀಕ್ಷಿತವಾದ ಆಜ್�
 #: test-tool/test-tool.c:170
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr "libguestfs-test-tool: libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ರಚಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
+msgstr ""
+"libguestfs-test-tool: libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ರಚಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
 #: test-tool/test-tool.c:177
 #, c-format
@@ -3449,9 +3162,9 @@ msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ಅಪ್ಲೈಯನ್ಸ್ ಅನ್ನು ಆರಂಭಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
 #: test-tool/test-tool.c:229
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr "libguestfs-test-tool: sfdisk ಅನ್ನು ಚಲಾಯಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
+msgstr ""
 
 #: test-tool/test-tool.c:235
 #, c-format
@@ -3464,9 +3177,9 @@ msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 ಅನ್ನು / ನಲ್ಲಿ ಆರೋಹಿಸಲಾಗಲಿಲ್ಲ\n"
 
 #: test-tool/test-tool.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr "libguestfs-test-tool: sfdisk ಅನ್ನು ಚಲಾಯಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
+msgstr ""
 
 #: test-tool/test-tool.c:279
 #, c-format
@@ -3515,24 +3228,21 @@ msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr ""
 
 #: tools/virt-make-fs.pl:406
-#, fuzzy
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
-msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
+msgstr ""
 
 #: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
 #: tools/virt-make-fs.pl:442
-#, fuzzy
 msgid "tar: failed, see earlier messages\n"
-msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
+msgstr ""
 
 #: tools/virt-make-fs.pl:464
-#, fuzzy
 msgid "uncompress command failed, see earlier messages\n"
-msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
+msgstr ""
 
 #: tools/virt-make-fs.pl:499
 msgid ""
@@ -3568,8 +3278,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3616,425 +3325,4 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 
-#, fuzzy
-#~ msgid "%s: temporary directory not found"
-#~ msgstr "%s: ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#~ msgid "unexpected end of file when reading from daemon"
-#~ msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
-
-#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-#~ msgstr "libguestfs-test-tool: /iso ಅನ್ನು mkdir ಮಾಡುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
-
-#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: /dev/sdb ಅನ್ನು /iso ನಲ್ಲಿ ಆರೋಹಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
-
-#~ msgid ""
-#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: ನೆರವಿನ ಪ್ರೊಗ್ರಾಮ್ ಅನ್ನು ಚಲಾಯಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ, ಅಥವ "
-#~ "ಸಹಾಯಕವು ವಿಫಲಗೊಂಡಿದೆ\n"
-
-#~ msgid ""
-#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-#~ "available.  Expected to find it in '%s'\n"
-#~ "\n"
-#~ "Use the --helper option to specify the location of this program.\n"
-#~ msgstr ""
-#~ "ಪರೀಕ್ಷ ಉಪಕರಣ ನೆರವಿನ ಪ್ರೊಗ್ರಾಮ 'libguestfs-test-tool-helper' \n"
-#~ "ಲಭ್ಯವಿಲ್ಲ.  '%s' ಯಲ್ಲಿ ಇದೆ ಎಂದು ನಿರೀಕ್ಷಿಸಲಾಗಿತ್ತು\n"
-#~ "\n"
-#~ "ಈ ಪ್ರೊಗ್ರಾಮ್‌ ಇರುವ ಸ್ಥಳವನ್ನು ಸೂಚಿಸಲು --helper ಆಯ್ಕೆಯನ್ನು ಬಳಸಿ.\n"
-
-#~ msgid "command failed: %s"
-#~ msgstr "ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s"
-
-#~ msgid ""
-#~ "Test tool helper program %s\n"
-#~ "is not statically linked.  This is a build error when this test tool\n"
-#~ "was built.\n"
-#~ msgstr ""
-#~ "ಪರೀಕ್ಷಾ ಉಪಕರಣದ ನೆರವಿನ ಪ್ರೊಗ್ರಾಮ್ %s\n"
-#~ "ಅನ್ನು ಸಮರ್ಪಕವಾಗಿ ಜೋಡಿಸಲಾಗಿಲ್ಲ.  ಈ ಉಪಕರಣವನ್ನು ನಿರ್ಮಿಸಿದಾಗ ಉಂಟಾದ ಒಂದು ನಿರ್ಮಾಣ\n"
-#~ "ದೋಷವಾಗಿದೆ.\n"
-
-#~ msgid "mkisofs command failed: %s\n"
-#~ msgstr "mkisofs ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s\n"
-
-#, fuzzy
-#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
-#~ msgstr "ಬೈನರಿ '%s' ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ ಅಥವ ಅದನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ\n"
-
-#, fuzzy
-#~ msgid "virt-resize: no logical volume called {n}\n"
-#~ msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
-
-#, fuzzy
-#~ msgid "failed to create temporary cache directory: %m"
-#~ msgstr "ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸು"
-
-#, fuzzy
-#~ msgid "error renaming temporary cache directory: %m"
-#~ msgstr "ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸು"
-
-#, fuzzy
-#~ msgid "virt-df: cannot use -h and --csv options together\n"
-#~ msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
-
-#, fuzzy
-#~ msgid "  Mountpoints:\n"
-#~ msgstr "ಆರೋಹಣಾತಾಣವನ್ನು ತೋರಿಸು"
-
-#, fuzzy
-#~ msgid "  Filesystems:\n"
-#~ msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸು"
-
-#~ msgid "edit a file in the image"
-#~ msgstr "ಚಿತ್ರದಲ್ಲಿನ ಒಂದು ಕಡತವನ್ನು ಸಂಪಾದಿಸಿ"
-
-#~ msgid "view a file in the pager"
-#~ msgstr "ಒಂದು ಕಡತವನ್ನು ಪೇಜರಿನಲ್ಲಿ ನೋಡು"
-
-#~ msgid ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-#~ msgstr ""
-#~ "echo - ಒಂದು ಪಠ್ಯದ ಸಾಲನ್ನು ತೋರಿಸುತ್ತದೆ\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    ಇದು ನಿಯತಾಂಕಗಳನ್ನು ಟರ್ಮಿನಲ್‌ಗೆ ಪ್ರತಿಧ್ವನಿಸುತ್ತದೆ(ಎಕೊ).\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "edit - ಚಿತ್ರಿಕೆಯಲ್ಲಿನ ಕಡತವನ್ನು ಸಂಪಾದಿಸುತ್ತದೆ\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    ಕಡತವನ್ನು ಸಂಪಾದಿಸಲು ಇದನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.\n"
-#~ "\n"
-#~ "    ಇದು \"cat\" ಅನ್ನು ಚಲಾಯಿಸಿ, ಸ್ಥಳೀಯವಾಗಿ ಬದಲಾಯಿಸಿ, ನಂತರ \"write-file\" "
-#~ "ಅನ್ನು \n"
-#~ "    ಚಲಾಯಿಸುವುದಕ್ಕೆ ಸಮನಾಗಿರುತ್ತದೆ (ಹಾಗು ಇದರಿಂದ ಅನ್ವಯಿಸಲಾಗುತ್ತದೆ).\n"
-#~ "\n"
-#~ "    ಸಾಮಾನ್ಯವಾಗಿ ಇದು $EDITOR ಅನ್ನು ಬಳಸುತ್ತದೆ ಆದರೆ, ಆದರೆ ನೀವು \"vi\"\n"
-#~ "    ಅಥವ \"emacs\" ಆಲಿಯಾಸ್‌ಗಳನ್ನು ಬಳಸಿದಲ್ಲಿ ಈ ಸಂಪಾದಕಗಳು ದೊರೆಯುತ್ತವೆ.\n"
-#~ "\n"
-#~ "    ಸೂಚನೆ: ಇದು ದೊಡ್ಡದಾದ ಕಡತಗಳಲ್ಲಿ (> 2 MB) ಅಥವ \\0 ಬೈಟ್‌ಗಳನ್ನು\n"
-#~ "    ಹೊಂದಿರುವ ಬೈನರಿ ಕಡತಗಳಲ್ಲಿ ಸಮರ್ಪಕವಾಗಿ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ.\n"
-
-#~ msgid ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-#~ msgstr ""
-#~ "lcd - ಕೋಶವನ್ನು ಸ್ಥಳೀಯವಾಗಿ ಬದಲಾಯಿಸುವಿಕೆ\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    guestfish ನ ಪ್ರಸಕ್ತ ಕೋಶವನ್ನು ಬದಲಾಯಿಸಿ. ಕಡತಗಳನ್ನು ನಿಶ್ಚಿತ ಸ್ಥಳಕ್ಕೆ \n"
-#~ "    ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ನೀವು ಬಯಸಿದಲ್ಲಿ ಇದು\n"
-#~ "    ಸಹಾಯಕವಾಗುತ್ತದೆ.\n"
-
-#~ msgid ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-#~ msgstr ""
-#~ "glob - ಆಜ್ಞೆಯಲ್ಲಿ ವೈಲ್ಡ್‌ಕಾರ್ಡನ್ನು ಹಿಗ್ಗಿಸು\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob ಯಾವುದೆ ಆಜ್ಞೆಯ ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳಲ್ಲಿ ಹಿಗ್ಗಿಸಲಾದ ವೈಲ್ಡ್‌ಕಾರ್ಡುಗಳೊಂದಿಗೆ \n"
-#~ "    <command> ಅನ್ನು ಚಲಾಯಿಸುತ್ತದೆ.  ಹಿಗ್ಗಿಸಲಾದ ಪ್ರತಿಯೊಂದು ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳೊಂದಿಗೆ\n"
-#~ "    ಆಜ್ಞೆಯನ್ನು ಮತ್ತೆ ಮತ್ತೆ ಚಲಾಯಿಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ನೆನಪಿಡಿ.\n"
-
-#~ msgid ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "more - ಕಡತವನ್ನು ಪೇಜರಿನಲ್ಲಿ ವೀಕ್ಷಿಸಿ\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    ಕಡತವನ್ನು ಪೇಜರಿನಲ್ಲಿ ವೀಕ್ಷಿಸಲು ಇದನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.\n"
-#~ "\n"
-#~ "    ಇದು \"cat\" ಅನ್ನು ಚಲಾಯಿಸಿ, ನಂತರ ಪೇಜರನ್ನು ಬಳಸುವುದಕ್ಕೆ \n"
-#~ "    ಸಮನಾಗಿರುತ್ತದೆ (ಹಾಗು ಇದರಿಂದ ಅನ್ವಯಿಸಲಾಗುತ್ತದೆ).\n"
-#~ "\n"
-#~ "    ಸಾಮಾನ್ಯವಾಗಿ ಇದು $PAGER ಅನ್ನು ಬಳಸುತ್ತದೆ ಆದರೆ, ಆದರೆ ನೀವು\n"
-#~ "    \"less\" ಆಲಿಯಾಸ್‌ಗಳನ್ನು ಬಳಸಿದಲ್ಲಿ ಯಾವಗಲೂ \"less\" ಅನ್ನೇ ಬಳಸುತ್ತದೆ.\n"
-#~ "\n"
-#~ "    ಸೂಚನೆ: ಇದು ದೊಡ್ಡದಾದ ಕಡತಗಳಲ್ಲಿ (> 2 MB) ಅಥವ \\0 ಬೈಟ್‌ಗಳನ್ನು\n"
-#~ "    ಹೊಂದಿರುವ ಬೈನರಿ ಕಡತಗಳಲ್ಲಿ ಸಮರ್ಪಕವಾಗಿ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ.\n"
-
-#~ msgid ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-#~ msgstr ""
-#~ "reopen - libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು ಅಥವ ಮರಳಿ ತೆರೆಯಿರಿ\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು ಅಥವ ಮರಳಿ ತೆರೆಯಿರಿ.  ಇದನ್ನು ಸಾಮಾನ್ಯವಾಗಿ ಬಳಸುವ\n"
-#~ "ಅಗತ್ಯವಿರುವುದಿಲ್ಲ, ಏಕೆಂದರೆ guestfish ನಿರ್ಗಮಿಸಿದಾಗ ಹ್ಯಾಂಡಲ್ ಸರಿಯಾಗಿ "
-#~ "ಮುಚ್ಚಲ್ಪಡುತ್ತದೆ.\n"
-#~ "ಆದರೆ ಇದು ಪರೀಕ್ಷಿಸುವ ಕಾರ್ಯದಲ್ಲಿ ಒಮ್ಮೊಮ್ಮೆ ಉಪಯೋಗಕ್ಕೆ ಬರುತ್ತದೆ.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "sparse - ಚದುರಿದ ಚಿತ್ರಿಕಾ ಕಡತವನ್ನು ನಿಯೋಜಿಸು\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    ಇದು ನಿಗದಿತ ಗಾತ್ರದ ಒಂದು ಖಾಲಿ ಚದುರಿದ ಕಡತವನ್ನು ರಚಿಸುತ್ತದೆ,\n"
-#~ "    ಹಾಗು ನಂತರ ಪರಿಶೀಲನೆಗಾಗಿ ಅದನ್ನು ಸೇರಿಸಲಾಗುತ್ತದೆ.\n"
-#~ "\n"
-#~ "    ಚಿತ್ರಿಕಾ ಕಡತವನ್ನು ವಿರಳವಾಗಿ ನಿಯೋಜಿಸಲಾಗುತ್ತದೆ ಎನ್ನುವುದನ್ನು ಹೊರತು ಪಡಿಸಿ\n"
-#~ "    ಇದು ಎಲ್ಲಾ ರೀತಿಯಲ್ಲೂ 'alloc' ಆಜ್ಞೆಯ ರೀತಿಯಲ್ಲಿಯೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ.\n"
-#~ "    ಇದರರ್ಥ ಡಿಸ್ಕ್ ಖಂಡಗಳ ಅಗತ್ಯವಿರದ ಹೊರತು ಅವುಗಳನ್ನು ಕಡತಗಳಿಗೆ ನಿಯೋಜಿಸಲಾಗುವುದಿಲ್ಲ\n"
-#~ "    ಎಂದರ್ಥ.  ಚದುರಿದ ಡಿಸ್ಕ್ ಕಡತಗಳನ್ನು ಬರೆದಾಗ ಜಾಗವನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತದೆ, ಆದರೆ ಈ\n"
-#~ "    ಪ್ರಕ್ರಿಯೆಯು ನಿಧಾನಗತಿಯಲ್ಲಿರುತ್ತದೆ ಹಾಗು ಬರೆಯುವ ಸಮಯದಲ್ಲಿ ನಿಮ್ಮ ಡಿಸ್ಕ್ ಜಾಗವು\n"
-#~ "    ತೀರಿನ ಹೋಗುವ ಅಪಾಯವಿರುತ್ತದೆ\n"
-#~ "\n"
-#~ "    ಹೆಚ್ಚಿನ ಸುಧಾರಿತ ಚಿತ್ರಿಕಾ ರಚನೆಯ ಬಗೆಗಿನ ಮಾಹಿತಿಗಾಗಿ qemu-img ಸವಲತ್ತನ್ನು "
-#~ "ನೋಡಿ.\n"
-#~ "    ಗಾತ್ರವನ್ನು ಹೀಗೆ ಸೂಚಿಸಬಹುದು (where <nn> means a number):\n"
-#~ "    <nn>             ಕಿಲೋಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "      ಉದಾ: 1440       ಶಿಷ್ಟ 3.5\" ಫ್ಲಾಪಿ\n"
-#~ "    <nn>K ಅಥವ <nn>KB  ಕಿಲೋಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>M ಅಥವ <nn>MB  ಮೆಗಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>G ಅಥವ <nn>GB  ಗಿಗಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>T ಅಥವ <nn>TB  ಟೆರಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>P ಅಥವ <nn>PB  ಪಿಟಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>E ಅಥವ <nn>EB  ಎಕ್ಸಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>sects        512 ಬೈಟ್‌ ವಿಭಾಗಗಳ ಸಂಖ್ಯೆ\n"
-
-#~ msgid ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-#~ msgstr ""
-#~ "time - ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸಲು ತಗಲುವ ಸಮಯವನ್ನು ಲೆಕ್ಕಹಾಕಿ\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    ಇದು <command> ಅನ್ನು ಸಾಮಾನ್ಯ ಕ್ರಮದಲ್ಲಿಯೆ ಚಲಾಯಿಸುತ್ತದೆ, ಹಾಗು\n"
-#~ "    ಕೊನೆಯಲ್ಲಿ ತಗುಲಿದ ಸಮಯವನ್ನು ತೋರಿಸುತ್ತದೆ.\n"
-
-#~ msgid "external command failed: %s"
-#~ msgstr "ಬಾಹ್ಯ ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s"
-
-#~ msgid "test if file exists"
-#~ msgstr "ಕಡತವು ಅಸ್ತಿತ್ವದಲ್ಲಿದ್ದರೆ ಪರೀಕ್ಷಿಸು"
-
-#~ msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-#~ msgstr "%s ಅಥವ %s ವು LIBGUESTFS_PATH ನಲ್ಲಿ ಕಂಡು ಬಂದಿಲ್ಲ (ಪ್ರಸಕ್ತ ಮಾರ್ಗ = %s)"
-
-#~ msgid "failed to connect to vmchannel socket"
-#~ msgstr "vmchannel ಸಾಕೆಟ್‌ನೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --"
-#~ "selinux\n"
-#~ msgstr ""
-#~ "%s: -a, -m, --listen, --remote ಅಥವ --selinux ದೊಂದಿಗೆ -i ಎಂಬ ಅಯ್ಕೆಯನ್ನು "
-#~ "ಬಳಸುವಂತಿಲ್ಲ\n"
-
-#, fuzzy
-#~ msgid "cpio command failed: {error}"
-#~ msgstr "ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-#~ msgstr ""
-#~ "alloc - ಒಂದು ಚಿತ್ರವನ್ನು ನಿಯೋಜಿಸು\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    ಇದು ಒಂದು ಒದಗಿಸಲಾದ ಗಾತ್ರವನ್ನು ಹೊಂದಿದ ಒಂದು ಖಾಲಿ(ಸೊನ್ನೆಗಳನ್ನು ಹೊಂದಿರುವ) "
-#~ "ಕಡತವನ್ನು ರಚಿಸುತ್ತದೆ,\n"
-#~ "    ನಂತರ ಹೆಚ್ಚಿನ ಪರಿಶೀಲನೆಗಾಗಿ ಸೇರಿಸಲಾಗುತ್ತದೆ.\n"
-#~ "\n"
-#~ "    ಹೆಚ್ಚಿನ ಸುಧಾರಿತ ಚಿತ್ರಿಕಾ ರಚನೆಯ ಬಗೆಗಿನ ಮಾಹಿತಿಗಾಗಿ qemu-img ಸವಲತ್ತನ್ನು "
-#~ "ನೋಡಿ.\n"
-#~ "\n"
-#~ "    ಗಾತ್ರವನ್ನು ಹೀಗೆ ಸೂಚಿಸಬಹುದು (where <nn> means a number):\n"
-#~ "    <nn>             ಕಿಲೋಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "      ಉದಾ: 1440       ಶಿಷ್ಟ 3.5\" ಫ್ಲಾಪಿ\n"
-#~ "    <nn>K ಅಥವ <nn>KB  ಕಿಲೋಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>M ಅಥವ <nn>MB  ಮೆಗಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>G ಅಥವ <nn>GB  ಗಿಗಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>T ಅಥವ <nn>TB  ಟೆರಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>P ಅಥವ <nn>PB  ಪಿಟಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>E ಅಥವ <nn>EB  ಎಕ್ಸಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
-#~ "    <nn>sects        512 ಬೈಟ್‌ ವಿಭಾಗಗಳ ಸಂಖ್ಯೆ\n"
-
-#~ msgid "%s: virt-inspector command too long for fixed-size buffer\n"
-#~ msgstr "%s: virt-inspector ಎನ್ನುವುದು ನಿಶ್ಚಿತ ಬಫರಿಗಾಗಿ ಬಹಳ ಉದ್ದವಾಗಿದೆ\n"
-
-#~ msgid "%s: failed to write XML document\n"
-#~ msgstr "%s: XML ದಸ್ತಾವೇಜನ್ನು ಬರೆಯುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
-
-#~ msgid "hivexml: missing name of input file\n"
-#~ msgstr "hivexml: ಇನ್‌ಪುಟ್ ಕಡತದ ಹೆಸರು ಕಾಣಿಸುತ್ತಿಲ್ಲ\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
-#~ "Windows Registry binary hive files.\n"
-#~ "\n"
-#~ "Type: 'help' for help summary\n"
-#~ "      'quit' to quit the shell\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "hivexsh ಗೆ ಸ್ವಾಗತ, hivex ಎನ್ನುವುದು Windows ರಿಜಿಸ್ಟ್ರಿ ಬೈನರಿ ಕಡತಗಳನ್ನು "
-#~ "ಪರಿಶೀಲಿಸುವ \n"
-#~ "ಒಂದು ಸಂವಾದಾತ್ಮಕವಾದ ಶೆಲ್ ಆಗಿದೆ.\n"
-#~ "\n"
-#~ "ಹೀಗೆ ನಮೂದಿಸಿ: ನೆರವಿನ ಸಾರಾಂಶಕ್ಕಾಗಿ 'help' ಎಂದು \n"
-#~ "      ನಿರ್ಗಮಿಸಲು 'quit ಎಂದು'\n"
-#~ "\n"
-
-#~ msgid "hivexsh: error getting parent of node %zu\n"
-#~ msgstr "hivexsh: %zu ನ ಮೂಲ ನೋಡ್ ಅನ್ನು ಪಡೆದುಕೊಳ್ಳುವಲ್ಲಿ ದೋಷ\n"
-
-#~ msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
-#~ msgstr ""
-#~ "hivexsh: ನೀವು ಮೊದಲಿಗೆ 'load hivefile' ಅನ್ನು ಬಳಸಿಕೊಂಡು ಒಂದು ಹೈವ್ ಕಡತವನ್ನು ಲೋಡ್ "
-#~ "ಮಾಡಬೇಕು\n"
-
-#~ msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
-#~ msgstr "hivexsh: ಗೊತ್ತಿಲ್ಲದ ಆಜ್ಞೆ '%s', ನೆರವಿನ ಸಾರಾಂಶಕ್ಕಾಗಿ 'help' ಅನ್ನು ಬಳಸಿ\n"
-
-#~ msgid "hivexsh: load: no hive file name given to load\n"
-#~ msgstr "hivexsh: load: ಲೋಡ್ ಮಾಡಲು ಯಾವುದೆ ಹೈವ್ ಕಡತದ ಹೆಸರನ್ನು ನೀಡಲಾಗಿಲ್ಲ\n"
-
-#~ msgid ""
-#~ "hivexsh: failed to open hive file: %s: %m\n"
-#~ "\n"
-#~ "If you think this file is a valid Windows binary hive file (_not_\n"
-#~ "a regedit *.reg file) then please run this command again using the\n"
-#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "hivexsh: ಹೈವ್ ಕಡತವನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ: %s: %m\n"
-#~ "\n"
-#~ "ಇದು ಒಂದು Windows ಬೈನರಿ ಹೈವ್ ಕಡತವಾಗಿದೆ ಎಂದು ನೀವು ಭಾವಿಸಿದಲ್ಲಿ (ಒಂದು \n"
-#~ "regedit *.reg _ಕಡತವಾಗಿಲ್ಲದೆ_ ಇದ್ದಲ್ಲಿ) hivexsh ಆಯ್ಕೆ '-d' ಅನ್ನು ಬಳಸಿಕೊಂಡು \n"
-#~ "ಈ ಆಜ್ಞೆಯನ್ನು ಪುನಃ ಚಲಾಯಿಸಿ ಹಾಗು https://bugzilla.redhat.com/ ನಲ್ಲಿ ಒಂದು "
-#~ "ದೋಷವನ್ನು\n"
-#~ "ವರದಿ ಮಾಡಿ ಮತ್ತು ಸಂಪೂರ್ಣ ಔಟ್‌ಪುಟ್ ಅನ್ನು  _ಹಾಗು_ ವಿಫಲಗೊಂಡಂತಹ ಹೈವ್ ಕಡತವನ್ನು ಅದಕ್ಕೆ "
-#~ "ಲಗತ್ತಿಸಿ\n"
-#~ "\n"
-
-#~ msgid "hivexsh: '%s' command should not be given arguments\n"
-#~ msgstr "hivexsh: '%s' ಎಂಬ ಆಜ್ಞೆಯೊಂದಿಗೆ ಆರ್ಗುಮೆಂಟ್‌ಗಳನ್ನು ಒದಗಿಸುವಂತಿಲ್ಲ\n"
-
-#~ msgid ""
-#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
-#~ "parameter correctly?\n"
-#~ msgstr ""
-#~ "%s: %s: \\ ಮಾರ್ಗದಲ್ಲಿರುವ ಅಕ್ಷರಗಳನ್ನು ಎರಡು ಬಾರಿ ನಮೂದಿಸಲಾಗಿದೆ - ನೀವು ಮಾರ್ಗದ "
-#~ "ನಿಯತಾಂಕಗಳನ್ನು ಸರಿಯಾಗಿ ತಪ್ಪಿಸುತ್ತಿದ್ದೀರೆ?\n"
-
-#~ msgid "hivexsh: cd: subkey '%s' not found\n"
-#~ msgstr "hivexsh: cd: ಉಪಕೀಲಿ '%s' ಕಂಡುಬಂದಿಲ್ಲ\n"
-
-#~ msgid ""
-#~ "Navigate through the hive's keys using the 'cd' command, as if it\n"
-#~ "contained a filesystem, and use 'ls' to list the subkeys of the\n"
-#~ "current key.  Full documentation is in the hivexsh(1) manual page.\n"
-#~ msgstr ""
-#~ "'cd' ಆಜ್ಞೆಯನ್ನು ಬಳಸಿಕೊಂಡು ಹೈವ್‌ನ ಕೀಲಿಗಳು ಒಂದು ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿರುವಂತೆ\n"
-#~ "ವೀಕ್ಷಿಸಿ ಪ್ರಸಕ್ತ ಕೀಲಿಯ ಉಪಕೀಲಿಗಳ ಪಟ್ಟಿಯನ್ನು ನೋಡಲು 'ls' ಅನ್ನು ಬಳಸಿ.\n"
-#~ "ಸಂಪೂರ್ಣ ದಸ್ತಾವೇಜು hivexsh(1) ಮಾರ್ಗದರ್ಶಿ ಪುಟದಲ್ಲಿದೆ.\n"
-
-#~ msgid ""
-#~ "hivexsh: string(utf16le): only 7 bit ASCII strings are supported for "
-#~ "input\n"
-#~ msgstr ""
-#~ "hivexsh: string(utf16le): ಇನ್‌ಪುಟ್‌ನಲ್ಲಿ ಕೇವಲ 7 ಬಿಟ್‌ ASCII ವಾಕ್ಯಗಳನ್ನು ಮಾತ್ರ "
-#~ "ಬೆಂಬಲಿಸಲಾಗುತ್ತದೆ\n"
-
-#~ msgid "hivexsh: setval: trailing garbage after hex string\n"
-#~ msgstr "hivexsh: setval: ಹೆಕ್ಸ್ ವಾಕ್ಯದ ನಂತರ ಹಿಂಬಾಲಿಸುವ ಗಾರ್ಬೇಜ್\n"
-
-#~ msgid ""
-#~ "hivexsh: setval: cannot parse value string, please refer to the man page "
-#~ "hivexsh(1) for help: %s\n"
-#~ msgstr ""
-#~ "hivexsh: setval: ಮೌಲ್ಯದ ವಾಕ್ಯವನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ, ದಯವಿಟ್ಟು ನೆರವಿಗಾಗಿ "
-#~ "hivexsh(1) ಅನ್ನು ನೋಡಿ: %s\n"
-
-#~ msgid "hivexsh: del: the root node cannot be deleted\n"
-#~ msgstr "hivexsh: del: ಮೂಲ ನೋಡ್ ಅನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ\n"

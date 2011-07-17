@@ -1,23 +1,22 @@
-# translation of mr.po to Marathi
-# Copyright (C) 2010 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Sandeep Shedmake <sshedmak@redhat.com>, 2010.
+# 
+# rjones <rjones@redhat.com>, 2011.
+# sandeeps <sshedmak@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: mr\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-15 17:17+0100\n"
-"PO-Revision-Date: 2010-02-03 19:10+0530\n"
-"Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
-"Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
-"Language: mr\n"
+"PO-Revision-Date: 2011-07-17 20:49+0000\n"
+"Last-Translator: rjones <rjones@redhat.com>\n"
+"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/mr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Language: mr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
@@ -27,7 +26,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
 
 #: cat/virt-cat.c:61
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -47,24 +46,23 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
+"%s: वर्च्युअल मशीनमध्ये फाइल्स् दाखवा\n"
+"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
+"वापर:\n"
+"  %s [--options] -d domname फाइल [फाइल ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] फाइल [फाइल ...]\n"
+"पर्याय:\n"
+"  -a|--add image       प्रतिमा समाविष्ट करा\n"
+"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
+"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
+"  --echo-keys          पासफ्रेजेसकरीता echo बंद करू नका\n"
+"  --format[=raw|..]    -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
+"  --help               मदत थोडक्यात दाखवा\n"
+"  --keys-from-stdin    stdin पासून पासफ्रेजेस् वाचा\n"
+"  -v|--verbose         वर्बोस् संदेश\n"
+"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
+"  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
+"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
 #: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
@@ -82,7 +80,7 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
 
 #: cat/virt-filesystems.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -119,32 +117,48 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
+"%s: फाइलप्रणाली, विभाजने, ब्लॉक साधणे, LVM यांस एका VM मध्ये सूचीत दाखवा\n"
+"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
+"वापर:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"पर्याय:\n"
+"  -a|--add image       प्रतिमा समाविष्ट करा\n"
+"  --all                सर्व दाखवा\n"
+"  --blkdevs|--block-devices\n"
+"                       ब्लॉक साधणे दाखवा\n"
+"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
+"  --csv                कॉमा-सेपरेटेड् वॅल्यूज प्रमाणे आऊटपुटमध्ये जमा करा\n"
+"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
+"  --echo-keys          पासफ्रेजेस् करीता echo बंद करू नका\n"
+"  --extra              स्वॅप व डाटा फाइलप्रणाली दाखवा\n"
+"  --filesystems        माऊंटजोगी फाइलप्रणाली दाखवा\n"
+"  --format[=raw|..]     -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
+"  -h|--human-readable   --long आऊटपुट स्वरूपातील वाचनजोगी आकार\n"
+"  --help               संक्षिप्त मदत दाखवा\n"
+"  --keys-from-stdin    stdin पासून पासफ्रेजेस् वाचा\n"
+"  -l|--long            लाँग आऊटपुट\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       LVM लॉजिकल वॉल्यूम्स् दाखवा\n"
+"  --no-title            --long आउटपुटमध्ये शिर्षक आढळले नाही\n"
+"  --parts|--partitions विभाजने दाखवा\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       LVM फिजिकल वॉल्यूम्स् दाखवा\n"
+"  --uuid|--uuids       --long आऊटपुटमध्ये UUIDs समाविष्ट करा\n"
+"  -v|--verbose         वर्बोस् संदेश\n"
+"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       LVM वॉल्यूम ग्रूप्स् दाखवा\n"
+"  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
+"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: cat/virt-filesystems.c:318 cat/virt-ls.c:347 df/main.c:255
-#, fuzzy, c-format
+#, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
+msgstr "%s: -h व --csv पर्यायचा एकत्रपणे वापर शक्य नाही.\n"
 
 #: cat/virt-ls.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
 "Copyright (C) 2010-2011 Red Hat Inc.\n"
@@ -175,24 +189,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: cat/virt-ls.c:338
 #, c-format
@@ -202,9 +198,9 @@ msgid ""
 msgstr ""
 
 #: cat/virt-ls.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr "hivexsh: नोड %zx चे नोड नाव प्राप्त करतेवेळी त्रुटी आढळली\n"
+msgstr ""
 
 #: cat/virt-ls.c:583
 #, c-format
@@ -214,35 +210,39 @@ msgstr ""
 #: df/domains.c:115
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "%s: libvirt शी जोडणी करतेवेळी त्रुटी (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:124
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
+"%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): "
+"%s"
 
 #: df/domains.c:134
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "%s: सुरू असलेल्या डोमेन्स्ची सूची (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:145
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
+"%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): "
+"%s"
 
 #: df/domains.c:155
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-msgstr ""
+msgstr "%s: सुरू नसलेल्या डोमेन्स्ची सूची दाखवणे अशक्य (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:281
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
-msgstr ""
+msgstr "%s: %s कडे दुर्लक्ष करत आहे, अनेक डिस्क्स् आढळले (%zu > %d)"
 
 #: df/main.c:74
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -265,77 +265,78 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
+"%s: वर्च्युअल फाइलप्रणालीवरील मोकळी जागा दाखवा\n"
+"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
+"वापर:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"पर्याय:\n"
+"  -a|--add image       प्रतिमा समाविष्ट करा\n"
+"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
+"  --csv                कॉमा-सेपरेटेड् वॅल्यूज प्रमाणे आऊटपुटमध्ये जमा करा\n"
+"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
+"  --format[=raw|..]    -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
+"  -h|--human-readable  --long आऊटपुट स्वरूपातील वाचनजोगी आकार\n"
+"  --help               संक्षिप्त मदत दाखवा\n"
+"  -i|--inodes          inodes दाखवा\n"
+"  --one-per-guest      प्रत्येक अतिथीकरीता वेगळे अप्लायंस्\n"
+"  --uuid               --long आऊटपुटमध्ये UUIDs समाविष्ट करा\n"
+"  -v|--verbose         वर्बोस संदेश\n"
+"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
+"  -x                   libguestfs API कॉल्स् ट्रेस् करा\n"
+"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: df/main.c:267
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
-msgstr ""
+msgstr "%s: libvirt करीता समर्थनविना कंपाईल केले.\n"
 
 #: df/output.c:50
 msgid "VirtualMachine"
-msgstr ""
+msgstr "वर्च्युअलमशीन"
 
 #: df/output.c:51
-#, fuzzy
 msgid "Filesystem"
-msgstr "फाइलप्रणाली निर्माण करा"
+msgstr "फाइलसिस्टम"
 
 #: df/output.c:54
 msgid "1K-blocks"
-msgstr ""
+msgstr "1K-ब्लॉक्स्"
 
 #: df/output.c:56
 msgid "Size"
-msgstr ""
+msgstr "आकार"
 
 #: df/output.c:57
 msgid "Used"
-msgstr ""
+msgstr "वापरलेले"
 
 #: df/output.c:58
 msgid "Available"
-msgstr ""
+msgstr "उपलब्ध"
 
 #: df/output.c:59
 msgid "Use%"
-msgstr ""
+msgstr "Use%"
 
 #: df/output.c:61
 msgid "Inodes"
-msgstr ""
+msgstr "आयनोड्स्"
 
 #: df/output.c:62
 msgid "IUsed"
-msgstr ""
+msgstr "IUsed"
 
 #: df/output.c:63
 msgid "IFree"
-msgstr ""
+msgstr "IFree"
 
 #: df/output.c:64
 msgid "IUse%"
-msgstr ""
+msgstr "IUse%"
 
 #: edit/virt-edit.c:77
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -357,24 +358,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: edit/virt-edit.c:175
 #, c-format
@@ -392,14 +375,14 @@ msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
 #: edit/virt-edit.c:599
-#, fuzzy, c-format
+#, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr "%s: %s: कि आढळली नाही\n"
+msgstr ""
 
 #: fish/alloc.c:37
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "प्रतिमा निर्माण करण्यासाठी 'alloc file size' चा वापर करा\n"
+msgstr "प्रतिमा निर्माण करण्यासाठी 'alloc file size' निर्माण करा\n"
 
 #: fish/alloc.c:51
 #, c-format
@@ -412,9 +395,9 @@ msgid "can't allocate or add disks after launching\n"
 msgstr "सुरू केल्यानंतर डिस्कस्चे वाटप किंवा समावेश अशक्य आहे\n"
 
 #: fish/alloc.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: अवैध इंटीजर घटक (%s ने %d पाठवले)\n"
+msgstr "%s: अवैध इंटिजर घटक (%s ने %d पुरवले)\n"
 
 #: fish/cmds.c:2643
 msgid "Command"
@@ -430,7 +413,7 @@ msgstr "विश्लेषणकरीता CD-ROM डिस्क प्र
 
 #: fish/cmds.c:2646
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "नामांकीत libvirt डोमेनपासून डिस्क्स् समाविष्ट करा"
 
 #: fish/cmds.c:2647 fish/cmds.c:2648
 msgid "add an image to examine or modify"
@@ -443,20 +426,21 @@ msgstr "ड्राइव्हला स्नॅपशॉट मोडमध�
 #: fish/cmds.c:2650
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
+"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे फक्त वाचनीय ड्राइव्ह "
+"समाविष्ट करा"
 
 #: fish/cmds.c:2651
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr ""
+"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
 
 #: fish/cmds.c:2652
-#, fuzzy
 msgid "allocate and add a disk file"
-msgstr "sparse प्रतिमा फाइलचे वाटप करा"
+msgstr "डिस्क फाइलचे वाटप करा व समाविष्ट करा"
 
 #: fish/cmds.c:2653
-#, fuzzy
 msgid "clear Augeas path"
-msgstr "Augeas मार्ग काढून टाका"
+msgstr "Augeas मार्ग नष्ट करा"
 
 #: fish/cmds.c:2654
 msgid "close the current Augeas handle"
@@ -515,18 +499,16 @@ msgid "test availability of some parts of the API"
 msgstr "API चे काहिक भागांच्या उपलब्धताची चाचणी करा"
 
 #: fish/cmds.c:2668
-#, fuzzy
 msgid "return a list of all optional groups"
-msgstr "inotify इव्हेंट्स्ची सूची पाठवा"
+msgstr "वैकल्पिक ग्रूप्स्ची सूची पुरवा"
 
 #: fish/cmds.c:2669
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "base64-एंकोडेड् डाटा फाइलवर अपलोड करा"
 
 #: fish/cmds.c:2670
-#, fuzzy
 msgid "download file and encode as base64"
-msgstr "स्थानीय मशीनकरीता फाइल डाऊनलोड करा"
+msgstr "फाइल डाऊनलोड करा व base64 म्हणून एंकोड करा"
 
 #: fish/cmds.c:2671
 msgid "flush device buffers"
@@ -569,9 +551,8 @@ msgid "set block device to read-write"
 msgstr "ब्लॉक उपकरण फक्त-वाचणीय असे सेट करा"
 
 #: fish/cmds.c:2681
-#, fuzzy
 msgid "resize a btrfs filesystem"
-msgstr "ext2/ext3 फाइलप्रणालीचे पुनः आकार करा"
+msgstr ""
 
 #: fish/cmds.c:2682
 msgid "return true path on case-insensitive filesystem"
@@ -586,14 +567,12 @@ msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "MD5, SHAx किंवा फाइलचे CRC चेकसम मोजा"
 
 #: fish/cmds.c:2685
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr "MD5, SHAx किंवा फाइलचे CRC चेकसम मोजा"
+msgstr "साधणमधील अंतर्भूतीत माहितीचे MD5, SHAx किंवा CRC चेकसम कम्प्यूट करा"
 
 #: fish/cmds.c:2686
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr "MD5, SHAx किंवा फाइलचे CRC चेकसम मोजा"
+msgstr "डिरेक्ट्रीमधील फाइल्स्चे MD5, SHAx किंवा CRC चेकसम कम्प्यूट करा"
 
 #: fish/cmds.c:2687
 msgid "change file mode"
@@ -601,7 +580,7 @@ msgstr "फाइल मोड बदला"
 
 #: fish/cmds.c:2688 fish/cmds.c:2809
 msgid "change file owner and group"
-msgstr "फालची मालकी व गट बदला"
+msgstr "फाइलची मालकी व गट बदला"
 
 #: fish/cmds.c:2689
 msgid "run a command from the guest filesystem"
@@ -616,23 +595,21 @@ msgid "add qemu parameters"
 msgstr "qemu घटके समावेश करा"
 
 #: fish/cmds.c:2692
-#, fuzzy
 msgid "copy local files or directories into an image"
-msgstr "ट्रिमध्ये फाइल्स् लोड करा"
+msgstr "स्थानीय फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेत निर्माण करा"
 
 #: fish/cmds.c:2693
-#, fuzzy
 msgid "copy remote files or directories out of an image"
-msgstr "ट्रिमध्ये फाइल्स् लोड करा"
+msgstr ""
+"दूरस्त फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेच्या बाहेर निर्माण करा"
 
 #: fish/cmds.c:2694
-#, fuzzy
 msgid "copy size bytes from source to destination using dd"
-msgstr "dd चा वापर करून स्रोत पासून लक्ष्यमध्ये प्रत बनवा"
+msgstr "dd चा वापर करून स्रोत ते लक्ष्यपर्यंत आकार बाईट्स्चे प्रत निर्माण करा"
 
 #: fish/cmds.c:2695
 msgid "copy a file"
-msgstr "फाइलची प्रत बनवा"
+msgstr "फाइलचे प्रत बनवा"
 
 #: fish/cmds.c:2696
 msgid "copy a file or directory recursively"
@@ -647,14 +624,12 @@ msgid "debugging and internals"
 msgstr "डिबगींग व इंटर्नल्स्"
 
 #: fish/cmds.c:2699
-#, fuzzy
 msgid "debug the QEMU command line (internal use only)"
-msgstr "स्थानीय मशीन पासून फाइल अपलोड करा"
+msgstr "QEMU आदेश ओळ डिबग करा (फक्त आंतरिक वापरसाठी)"
 
 #: fish/cmds.c:2700
-#, fuzzy
 msgid "upload a file to the appliance (internal use only)"
-msgstr "स्थानीय मशीन पासून फाइल अपलोड करा"
+msgstr "फाइलला अप्लायंसकरीता अपलोड करा (फक्त आंतरिक वापरसाठी)"
 
 #: fish/cmds.c:2701
 msgid "report file system disk space usage"
@@ -665,9 +640,8 @@ msgid "report file system disk space usage (human readable)"
 msgstr "फाइल प्रणाली डिस्क जागेची वापरणी (मानवा द्वारे वाचणीय) कळवा"
 
 #: fish/cmds.c:2703
-#, fuzzy
 msgid "display an image"
-msgstr "प्रतिमाचे वाटप करा"
+msgstr ""
 
 #: fish/cmds.c:2704
 msgid "return kernel messages"
@@ -678,9 +652,8 @@ msgid "download a file to the local machine"
 msgstr "स्थानीय मशीनकरीता फाइल डाऊनलोड करा"
 
 #: fish/cmds.c:2706
-#, fuzzy
 msgid "download a file to the local machine with offset and size"
-msgstr "स्थानीय मशीनकरीता फाइल डाऊनलोड करा"
+msgstr "ऑफसेट व आकारसह स्थानीय मशीनवर फाइल डाउनलोड करा"
 
 #: fish/cmds.c:2707
 msgid "drop kernel page cache, dentries and inodes"
@@ -703,9 +676,8 @@ msgid "echo arguments back to the client"
 msgstr "क्लाएंटकडे घटके पुन्हा पाठवा"
 
 #: fish/cmds.c:2712
-#, fuzzy
 msgid "edit a file"
-msgstr "फाइल वाचा"
+msgstr "फाइल संपादित करा"
 
 #: fish/cmds.c:2713 fish/cmds.c:2714 fish/cmds.c:2719 fish/cmds.c:2720
 #: fish/cmds.c:2754 fish/cmds.c:2755 fish/cmds.c:3008 fish/cmds.c:3009
@@ -731,7 +703,7 @@ msgstr "फाइल प्रकार ओळखा"
 
 #: fish/cmds.c:2722
 msgid "detect the architecture of a binary file"
-msgstr ""
+msgstr "बाइनरी फाइलचे आर्किटेक्चर ओळखा"
 
 #: fish/cmds.c:2723
 msgid "return the size of the file in bytes"
@@ -742,9 +714,8 @@ msgid "fill a file with octets"
 msgstr "ऑक्टेटसह फाइल भरा"
 
 #: fish/cmds.c:2725
-#, fuzzy
 msgid "fill a file with a repeating pattern of bytes"
-msgstr "ऑक्टेटसह फाइल भरा"
+msgstr "समान बाईट्स्ची रचनासह फाइल भरा"
 
 #: fish/cmds.c:2726
 msgid "find all files and directories"
@@ -755,14 +726,12 @@ msgid "find all files and directories, returning NUL-separated list"
 msgstr "सर्व फाइल्स् व डिरेक्ट्रीज् भरा, NUL-विभाजीत सूची पाठवा"
 
 #: fish/cmds.c:2728
-#, fuzzy
 msgid "find a filesystem by label"
-msgstr "ext2/3/4 फाइलप्रणाली लेबल प्राप्त करा"
+msgstr "लेबलप्रमाणे फाइलसिस्टम शोधा"
 
 #: fish/cmds.c:2729
-#, fuzzy
 msgid "find a filesystem by UUID"
-msgstr "ext2/3/4 फाइलप्रणाली UUID प्राप्त करा"
+msgstr "UUIDप्रमाणे फाइलसिस्टम शोधा"
 
 #: fish/cmds.c:2730
 msgid "run the filesystem checker"
@@ -773,9 +742,8 @@ msgid "get the additional kernel options"
 msgstr "अगाऊ कर्नल पर्याय प्राप्त करा"
 
 #: fish/cmds.c:2732
-#, fuzzy
 msgid "get the attach method"
-msgstr "शोध मार्ग प्राप्त करा"
+msgstr "अटॅच पद्धत प्राप्त करा"
 
 #: fish/cmds.c:2733
 msgid "get autosync mode"
@@ -798,18 +766,16 @@ msgid "get memory allocated to the qemu subprocess"
 msgstr "qemu उपकार्य करीता स्मृतीचे वाटप शक्य करा"
 
 #: fish/cmds.c:2738
-#, fuzzy
 msgid "get enable network flag"
-msgstr "SELinux सक्षम फ्लॅग प्राप्त करा"
+msgstr "नेटवर्क फ्लॅग सुरू करा प्राप्त करा"
 
 #: fish/cmds.c:2739
 msgid "get the search path"
 msgstr "शोध मार्ग प्राप्त करा"
 
 #: fish/cmds.c:2740
-#, fuzzy
 msgid "get process group flag"
-msgstr "रिकवरी कार्य सक्षम फ्लॅग प्राप्त करा"
+msgstr ""
 
 #: fish/cmds.c:2741
 msgid "get PID of qemu subprocess"
@@ -836,9 +802,8 @@ msgid "get command trace enabled flag"
 msgstr "कमांड ट्रेस सक्षम फ्लॅग प्राप्त करा"
 
 #: fish/cmds.c:2747
-#, fuzzy
 msgid "get the current umask"
-msgstr "सध्याचे स्तर प्राप्त करा"
+msgstr "सध्याचे unmask प्राप्त करा"
 
 #: fish/cmds.c:2748
 msgid "get verbose mode"
@@ -850,7 +815,7 @@ msgstr "SELinux सुरक्षा कंटेक्स्ट प्रा�
 
 #: fish/cmds.c:2750 fish/cmds.c:2810
 msgid "get a single extended attribute"
-msgstr ""
+msgstr "एक विस्तारित गुणधर्म प्राप्त करा"
 
 #: fish/cmds.c:2751 fish/cmds.c:2811
 msgid "list extended attributes of a file or directory"
@@ -882,12 +847,11 @@ msgstr "फाइलला हेक्जाडेसीमलमध्ये �
 
 #: fish/cmds.c:2760
 msgid "edit with a hex editor"
-msgstr ""
+msgstr "hex संपादकसह संपादन करा"
 
 #: fish/cmds.c:2761
-#, fuzzy
 msgid "list the contents of a single file in an initrd"
-msgstr "फाइलचे अनुक्रम सूची स्वरूपात दाखवा"
+msgstr "initrd मध्ये एकाच फाइलमधील अंतर्भूतीत माहिती सूचीत दाखवा"
 
 #: fish/cmds.c:2762
 msgid "list files in an initrd"
@@ -919,11 +883,11 @@ msgstr "inotify वॉच् काढून टाका"
 
 #: fish/cmds.c:2769
 msgid "get architecture of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीचे आर्किटेक्चर प्राप्त करा"
 
 #: fish/cmds.c:2770
 msgid "get distro of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीचे डिस्ट्रो प्राप्त करा"
 
 #: fish/cmds.c:2771
 msgid "get drive letter mappings"
@@ -931,44 +895,43 @@ msgstr ""
 
 #: fish/cmds.c:2772
 msgid "get filesystems associated with inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या ऑपरेटिंग सिस्टमशी संबंधित फाइलप्रणाली प्राप्त करा"
 
 #: fish/cmds.c:2773
 msgid "get format of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीचे रूपण प्राप्त करा"
 
 #: fish/cmds.c:2774
 msgid "get hostname of the operating system"
-msgstr ""
+msgstr "कार्यप्रणालीचे यजमाननाव प्राप्त करा"
 
 #: fish/cmds.c:2775
-#, fuzzy
 msgid "get the icon corresponding to this operating system"
-msgstr "माऊंट केलेल्या उपकरणसह परस्पर Linux VFS प्रकार प्राप्त करा"
+msgstr ""
 
 #: fish/cmds.c:2776
 msgid "get major version of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीची मुख्य आवृत्ती प्राप्त करा"
 
 #: fish/cmds.c:2777
 msgid "get minor version of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीची किर्कोळ आवृत्ती प्राप्त करा"
 
 #: fish/cmds.c:2778
 msgid "get mountpoints of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीचे माऊंटपॉईंट्स् प्राप्त करा"
 
 #: fish/cmds.c:2779
 msgid "get package format used by the operating system"
-msgstr ""
+msgstr "कार्यप्रणालीद्वारे वापरलेले संकुल रूपण प्राप्त करा"
 
 #: fish/cmds.c:2780
 msgid "get package management tool used by the operating system"
-msgstr ""
+msgstr "कार्यप्रणालीद्वारे वापरलेले संकुल व्यवस्थापन साधण प्राप्त करा"
 
 #: fish/cmds.c:2781
 msgid "get product name of inspected operating system"
-msgstr ""
+msgstr "तापसलेल्या कार्यप्रणालीचे उत्पादन नाव प्राप्त करा"
 
 #: fish/cmds.c:2782
 msgid "get product variant of inspected operating system"
@@ -976,11 +939,11 @@ msgstr ""
 
 #: fish/cmds.c:2783
 msgid "return list of operating systems found by last inspection"
-msgstr ""
+msgstr "शेटवच्या तपासवेळी आढळलेल्या कार्यप्रणालीची सूची पुरवा"
 
 #: fish/cmds.c:2784
 msgid "get type of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीचे प्रकार प्राप्त करा"
 
 #: fish/cmds.c:2785
 msgid "get Windows CurrentControlSet of inspected operating system"
@@ -988,92 +951,83 @@ msgstr ""
 
 #: fish/cmds.c:2786
 msgid "get Windows systemroot of inspected operating system"
-msgstr ""
+msgstr "तपासलेल्या कार्यप्रणालीचे विंडोज सिस्टमरूट प्राप्त करा"
 
 #: fish/cmds.c:2787
 msgid "get live flag for install disk"
-msgstr ""
+msgstr "प्रतिष्ठापन डिस्ककरीता लाइव्ह फ्लॅग प्राप्त करा"
 
 #: fish/cmds.c:2788
 msgid "get multipart flag for install disk"
-msgstr ""
+msgstr "प्रतिष्ठापन डिस्ककरीता मल्टिपार्ट फ्लॅग प्राप्त करा"
 
 #: fish/cmds.c:2789
 msgid "get netinst (network installer) flag for install disk"
-msgstr ""
+msgstr "प्रतिष्ठापन डिस्ककरीता netinst (नेटवर्क इंस्टॉलर) फ्लॅग प्राप्त करा"
 
 #: fish/cmds.c:2790
 msgid "get list of applications installed in the operating system"
-msgstr ""
+msgstr "कार्यप्रणालीमध्ये प्रतिष्ठापीत ॲप्लिकेशन्स्ची सूची प्राप्त करा"
 
 #: fish/cmds.c:2791
 msgid "inspect disk and return list of operating systems found"
-msgstr ""
+msgstr "डिस्कची तपासणी करा व आढळलेल्या कार्यप्रणालीची सूची पुरवा"
 
 #: fish/cmds.c:2792
-#, fuzzy
 msgid "test if block device"
-msgstr "ब्लॉक उपकरणाची सूची दाखवा"
+msgstr "ब्लॉक साधण आढळल्यास चाचणी करा"
 
 #: fish/cmds.c:2793
 msgid "is busy processing a command"
 msgstr "आदेश विश्लेषीत करण्यात व्यस्थ आहे"
 
 #: fish/cmds.c:2794
-#, fuzzy
 msgid "test if character device"
-msgstr "ब्लॉक, अक्षर किंवा FIFO उपकरणे निर्माण करा"
+msgstr "कॅरेकटर साधण असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2795
 msgid "is in configuration state"
 msgstr "संरचना स्तरात आहे"
 
 #: fish/cmds.c:2796
-#, fuzzy
 msgid "test if a directory"
-msgstr "डिरेक्ट्री निर्माण करा"
+msgstr "डिरेक्ट्री असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2797
-#, fuzzy
 msgid "test if FIFO (named pipe)"
-msgstr "FIFO (नामांकीत पाइप) निर्माण करा"
+msgstr "FIFO (नामांकीत पाइप) असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2798
 msgid "test if a regular file"
-msgstr ""
+msgstr "रेग्यूलर फाइल असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2799
 msgid "is launching subprocess"
 msgstr "उपकार्य सुरू करत आहे"
 
 #: fish/cmds.c:2800
-#, fuzzy
 msgid "test if device is a logical volume"
-msgstr "LVM लॉजीकल वॉल्यूमचे पुनःआकार करा"
+msgstr "साधण लॉजिकल वॉल्यूम असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2801
 msgid "is ready to accept commands"
 msgstr "आदेश स्वीकारण्यासाठी तयार आहे"
 
 #: fish/cmds.c:2802
-#, fuzzy
 msgid "test if socket"
-msgstr "डिमक सॉकट मध्ये लिहा"
+msgstr "सॉकेट असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2803
-#, fuzzy
 msgid "test if symbolic link"
-msgstr "सिम्बॉलिक लिंक निर्माण करा"
+msgstr "सिम्बॉलिक लिंक असल्यावर चाचणी करा"
 
 #: fish/cmds.c:2804
-#, fuzzy
 msgid "test if a file contains all zero bytes"
-msgstr "दोन फाइलींचे अनुक्रम एक समान आहे याची चाचणी करा"
+msgstr ""
 
 #: fish/cmds.c:2805
-#, fuzzy
 msgid "test if a device contains all zero bytes"
-msgstr "LVM लॉजीकल वॉल्यूमचे पुनःआकार करा"
+msgstr ""
 
 #: fish/cmds.c:2806
 msgid "kill the qemu subprocess"
@@ -1084,28 +1038,24 @@ msgid "launch the qemu subprocess"
 msgstr "qemu उपकार्य सुरू करा"
 
 #: fish/cmds.c:2808
-#, fuzzy
 msgid "change working directory"
-msgstr "स्थानीय बदल डिरेक्ट्री"
+msgstr "कार्यरत डिरेक्ट्री बदलवत आहे"
 
 #: fish/cmds.c:2812
-#, fuzzy
 msgid "list 9p filesystems"
-msgstr "फाइलप्रणाली निर्माण करा"
+msgstr ""
 
 #: fish/cmds.c:2813
 msgid "list the block devices"
 msgstr "ब्लॉक उपकरणाची सूची दाखवा"
 
 #: fish/cmds.c:2814
-#, fuzzy
 msgid "list device mapper devices"
-msgstr "ब्लॉक उपकरणाची सूची दाखवा"
+msgstr ""
 
 #: fish/cmds.c:2815
-#, fuzzy
 msgid "list filesystems"
-msgstr "फाइलप्रणाली निर्माण करा"
+msgstr "फाइलप्रणालीची सूची दाखवा"
 
 #: fish/cmds.c:2816
 msgid "list the partitions"
@@ -1144,44 +1094,40 @@ msgid "lstat on multiple files"
 msgstr "विविध फाइल्सचे lstat प्राप्त करा"
 
 #: fish/cmds.c:2827
-#, fuzzy
 msgid "add a key on a LUKS encrypted device"
-msgstr "ब्लॉक उपकरण फक्त-वाचणीय असे सेट करा"
+msgstr "LUKS एंक्रिप्टेड साधणावर कि समाविष्ट करा"
 
 #: fish/cmds.c:2828
-#, fuzzy
 msgid "close a LUKS device"
-msgstr "उपकरणावरील स्वॅप समर्थीत करा"
+msgstr "LUKS साधण बंद करा"
 
 #: fish/cmds.c:2829 fish/cmds.c:2830
 msgid "format a block device as a LUKS encrypted device"
-msgstr ""
+msgstr "ब्लॉक साधणाला LUKS एंक्रिप्टेड साधण म्हणून रूपण करा"
 
 #: fish/cmds.c:2831
 msgid "remove a key from a LUKS encrypted device"
-msgstr ""
+msgstr "LUKS एंक्रिप्टेड साधणपासून कि काढून टाका"
 
 #: fish/cmds.c:2832
 msgid "open a LUKS-encrypted block device"
-msgstr ""
+msgstr "LUKS-एंक्रिप्टेड ब्लॉक साधण उघडा"
 
 #: fish/cmds.c:2833
-#, fuzzy
 msgid "open a LUKS-encrypted block device read-only"
-msgstr "ब्लॉक उपकरण फक्त-वाचणीय असे सेट करा"
+msgstr "फक्त वाचणीय LUKS-एंक्रिप्टेड ब्लॉक साधण उघडा"
 
 #: fish/cmds.c:2834
-#, fuzzy
 msgid "create an LVM logical volume"
-msgstr "LVM लॉजीकल वॉल्यूमचे पुनःनामांकन करा"
+msgstr "LVM लॉजिकल वॉल्यूम निर्माण करा"
 
 #: fish/cmds.c:2835
 msgid "get canonical name of an LV"
-msgstr ""
+msgstr "LV चे कॅनॉनिकल नाव प्राप्त करा"
 
 #: fish/cmds.c:2836
 msgid "clear LVM device filter"
-msgstr ""
+msgstr "LVM साधण फिल्टर नष्ट करा"
 
 #: fish/cmds.c:2837
 msgid "remove all LVM LVs, VGs and PVs"
@@ -1189,7 +1135,7 @@ msgstr "सर्व LVM LVs, VGs व PVs काढून टाका"
 
 #: fish/cmds.c:2838
 msgid "set LVM device filter"
-msgstr ""
+msgstr "LVM साधण फिल्टर सेट करा"
 
 #: fish/cmds.c:2839
 msgid "remove an LVM logical volume"
@@ -1205,16 +1151,15 @@ msgstr "LVM लॉजीकल वॉल्यूमचे पुनःआका
 
 #: fish/cmds.c:2842
 msgid "expand an LV to fill free space"
-msgstr ""
+msgstr "मोकळी जागा भरून काढण्यासाठी LV विस्तारित करा"
 
 #: fish/cmds.c:2843 fish/cmds.c:2844
 msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM लॉजीकल वॉल्यूम्स् (LVs) सूचीत दाखवा"
 
 #: fish/cmds.c:2845
-#, fuzzy
 msgid "get the UUID of a logical volume"
-msgstr "LVM लॉजीकल वॉल्यूम्स् (LVs) सूचीत दाखवा"
+msgstr "लॉजिकल वॉल्यूमचे UUID प्राप्त करा"
 
 #: fish/cmds.c:2846
 msgid "lgetxattr on multiple files"
@@ -1222,7 +1167,7 @@ msgstr "विविध फाइल्सचे lgetxattr प्राप्त
 
 #: fish/cmds.c:2847
 msgid "open the manual"
-msgstr ""
+msgstr "मॅन्यूअल उघडा"
 
 #: fish/cmds.c:2848
 msgid "create a directory"
@@ -1305,18 +1250,16 @@ msgid "load a kernel module"
 msgstr "कर्नल घटक लोड करा"
 
 #: fish/cmds.c:2871
-#, fuzzy
 msgid "view a file"
-msgstr "फाइल हलवा"
+msgstr "फाइलचे दृश्य"
 
 #: fish/cmds.c:2872
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "फाइलप्रणालीतील स्थळावर अतिथी डिस्कला माऊंट करा"
 
 #: fish/cmds.c:2873
-#, fuzzy
 msgid "mount 9p filesystem"
-msgstr "फाइलप्रणालीचे माऊंट अशक्य करा"
+msgstr ""
 
 #: fish/cmds.c:2874
 msgid "mount a file using the loop device"
@@ -1351,36 +1294,32 @@ msgid "probe NTFS volume"
 msgstr "NTFS वॉल्यूम शोधा"
 
 #: fish/cmds.c:2882 fish/cmds.c:2883
-#, fuzzy
 msgid "resize an NTFS filesystem"
-msgstr "ext2/ext3 फाइलप्रणालीचे पुनः आकार करा"
+msgstr "NTFS फाइलप्रणालीला पुनःआकार द्या"
 
 #: fish/cmds.c:2884
-#, fuzzy
 msgid "resize an NTFS filesystem (with size)"
-msgstr "ext2/ext3 फाइलप्रणालीचे पुनः आकार करा"
+msgstr "NTFS फाइलप्रणालीला पुनःआकार द्या (आकारसह)"
 
 #: fish/cmds.c:2885
 msgid "add a partition to the device"
 msgstr "उपकरणात विभाजन समावेश करा"
 
 #: fish/cmds.c:2886
-#, fuzzy
 msgid "delete a partition"
-msgstr "स्वॅप विभाजन निर्माण करा"
+msgstr "विभाजन नष्ट करा"
 
 #: fish/cmds.c:2887
 msgid "partition whole disk with a single primary partition"
 msgstr "एकमेव प्राथमीक विभाजनसह संपूर्ण डिस्कचे विभाजन करा"
 
 #: fish/cmds.c:2888
-#, fuzzy
 msgid "return true if a partition is bootable"
-msgstr "विभाजन तक्ता पुन्हा वाचा"
+msgstr "विभाजन बूटजोगी असल्यावर true पुरवा"
 
 #: fish/cmds.c:2889
 msgid "get the MBR type byte (ID byte) from a partition"
-msgstr ""
+msgstr "विभाजन पासून MBR टाइप बाईट (ID बाईट) प्राप्त करा"
 
 #: fish/cmds.c:2890
 msgid "get the partition table type"
@@ -1400,16 +1339,15 @@ msgstr "विभाजन बूटजोगी करा"
 
 #: fish/cmds.c:2894
 msgid "set the MBR type byte (ID byte) of a partition"
-msgstr ""
+msgstr "विभाजनचे MBR टाइप बाईट (ID बाईट) सेट करा"
 
 #: fish/cmds.c:2895
 msgid "set partition name"
 msgstr "विभाजन नाव सेट करा"
 
 #: fish/cmds.c:2896
-#, fuzzy
 msgid "convert partition name to device name"
-msgstr "ब्लॉक उपकरणावरील विभाजने निर्माण करा"
+msgstr "विभाजननाव यांस साधणनावात रूपांतरीत करा"
 
 #: fish/cmds.c:2897
 msgid "ping the guest daemon"
@@ -1420,9 +1358,8 @@ msgid "read part of a file"
 msgstr "फाइलचे भाग वाचा"
 
 #: fish/cmds.c:2899
-#, fuzzy
 msgid "read part of a device"
-msgstr "फाइलचे भाग वाचा"
+msgstr "साधणाचे ठराविक भाग वाचा"
 
 #: fish/cmds.c:2900
 msgid "create an LVM physical volume"
@@ -1437,28 +1374,24 @@ msgid "resize an LVM physical volume"
 msgstr "LVM फिजीकल वॉल्यूमला पुनःआकार द्या"
 
 #: fish/cmds.c:2903
-#, fuzzy
 msgid "resize an LVM physical volume (with size)"
-msgstr "LVM फिजीकल वॉल्यूमला पुनःआकार द्या"
+msgstr "LVM फिजिकल वॉल्यूमला (आकारसह) पुनःआकार द्या"
 
 #: fish/cmds.c:2904 fish/cmds.c:2905
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM फिजीकल वॉल्यूम (PVs) सूचीत दाखवा"
 
 #: fish/cmds.c:2906
-#, fuzzy
 msgid "get the UUID of a physical volume"
-msgstr "LVM फिजीकल वॉल्यूम निर्माण करा"
+msgstr "फिजिकल वॉल्यूमचे UUID प्राप्त करा"
 
 #: fish/cmds.c:2907
-#, fuzzy
 msgid "write to part of a file"
-msgstr "फाइलचे भाग वाचा"
+msgstr "फाइलचे ठराविक भाग लिहा"
 
 #: fish/cmds.c:2908
-#, fuzzy
 msgid "write to part of a device"
-msgstr "फाइलचे भाग वाचा"
+msgstr "साधणाचे ठराविक भाग लिहा"
 
 #: fish/cmds.c:2909
 msgid "read a file"
@@ -1489,19 +1422,16 @@ msgid "close and reopen libguestfs handle"
 msgstr "libguestfs हँडल बंद करा व पुन्हा उघडा"
 
 #: fish/cmds.c:2917
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem"
-msgstr "ext2/ext3 फाइलप्रणालीचे पुनः आकार करा"
+msgstr "ext2, ext3 किंवा ext4 फाइलप्रणालीला पुनःआकार द्या"
 
 #: fish/cmds.c:2918
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr "ext2/ext3 फाइलप्रणालीचे पुनः आकार करा"
+msgstr "ext2, ext3 किंवा ext4 फाइलप्रणालीला किमान आकारकरीता पुनःआकार द्या"
 
 #: fish/cmds.c:2919
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr "ext2/ext3 फाइलप्रणालीचे पुनः आकार करा"
+msgstr "ext2, ext3 किंवा ext4 फाइलप्रणालीला (आकारसह) पुनःआकार द्या"
 
 #: fish/cmds.c:2920
 msgid "remove a file"
@@ -1536,9 +1466,8 @@ msgid "add options to kernel command line"
 msgstr "कर्नल आदेश ओळकरीता पर्याय समावेश करा"
 
 #: fish/cmds.c:2928
-#, fuzzy
 msgid "set the attach method"
-msgstr "शोध मार्ग सेट करा"
+msgstr "अटॅच मेथेड सेट करा"
 
 #: fish/cmds.c:2929
 msgid "set autosync mode"
@@ -1562,7 +1491,7 @@ msgstr "qemu उपकार्यकरीता स्मृतीचे व�
 
 #: fish/cmds.c:2934
 msgid "set enable network flag"
-msgstr ""
+msgstr "नेटवर्क फ्लॅग सुरू करणे सेट करा"
 
 #: fish/cmds.c:2935
 msgid "set the search path"
@@ -1629,9 +1558,8 @@ msgid "sleep for some seconds"
 msgstr "काहिक सेकंद"
 
 #: fish/cmds.c:2953
-#, fuzzy
 msgid "create a sparse disk image and add"
-msgstr "sparse प्रतिमा फाइलचे वाटप करा"
+msgstr "स्पार्स डिस्क प्रतिमा निर्माण करा व समाविष्ट करा"
 
 #: fish/cmds.c:2954
 msgid "get file information"
@@ -1646,9 +1574,8 @@ msgid "print the printable strings in a file"
 msgstr "फाइलमध्ये छपाईजोगी अक्षरमाळाची छपाई करा"
 
 #: fish/cmds.c:2958
-#, fuzzy
 msgid "list supported groups of commands"
-msgstr "आदेश स्वीकारण्यासाठी तयार आहे"
+msgstr "समर्थीत आदेशांचे गट सूचीत दाखवा"
 
 #: fish/cmds.c:2959
 msgid "disable swap on device"
@@ -1711,9 +1638,8 @@ msgid "pack directory into compressed tarball"
 msgstr "डिरेक्ट्रीला आंकुचीत टारबॉलमध्ये पैक करा"
 
 #: fish/cmds.c:2974
-#, fuzzy
 msgid "print elapsed time taken to run a command"
-msgstr "आदेश चालवण्यासाठी व्याप्त वेळ मोजा"
+msgstr "आदेश चालवण्यासाठी कालावधी पश्चात वेळेची छपाई करा"
 
 #: fish/cmds.c:2975
 msgid "update file timestamps or create a new file"
@@ -1748,9 +1674,8 @@ msgid "upload a file from the local machine"
 msgstr "स्थानीय मशीन पासून फाइल अपलोड करा"
 
 #: fish/cmds.c:2985
-#, fuzzy
 msgid "upload a file from the local machine with offset"
-msgstr "स्थानीय मशीन पासून फाइल अपलोड करा"
+msgstr "ऑफसेटसह स्थानीय मशीनपासून फाइल अपलोड करा"
 
 #: fish/cmds.c:2986
 msgid "set timestamp of a file with nanosecond precision"
@@ -1761,18 +1686,16 @@ msgid "get the library version number"
 msgstr "लाइब्ररी आवृत्ती क्रमांक प्राप्त करा"
 
 #: fish/cmds.c:2988
-#, fuzzy
 msgid "get the filesystem label"
-msgstr "ext2/3/4 फाइलप्रणाली लेबल प्राप्त करा"
+msgstr "फाइलप्राली लेबल प्राप्त करा"
 
 #: fish/cmds.c:2989
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "माऊंट केलेल्या उपकरणसह परस्पर Linux VFS प्रकार प्राप्त करा"
 
 #: fish/cmds.c:2990
-#, fuzzy
 msgid "get the filesystem UUID"
-msgstr "ext2/3/4 फाइलप्रणाली UUID प्राप्त करा"
+msgstr "फाइलप्रणाली UUID प्राप्त करा"
 
 #: fish/cmds.c:2991
 msgid "activate or deactivate some volume groups"
@@ -1788,11 +1711,11 @@ msgstr "LVM वॉल्यूम ग्रूप निर्माण कर�
 
 #: fish/cmds.c:2994
 msgid "get the LV UUIDs of all LVs in the volume group"
-msgstr ""
+msgstr "वॉल्यूम ग्रूपमध्ये सर्व LVs चे LV UUIDs प्राप्त करा"
 
 #: fish/cmds.c:2995
 msgid "get the PV UUIDs containing the volume group"
-msgstr ""
+msgstr "वॉल्यूम ग्रूप समाविष्टीत PV UUIDs प्राप्त करा"
 
 #: fish/cmds.c:2996
 msgid "remove an LVM volume group"
@@ -1809,11 +1732,12 @@ msgstr "LVM वॉल्यूम ग्रूप्स् (VGs) सूचीत
 #: fish/cmds.c:3000
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
+"LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता "
+"पुनःस्कॅन करा"
 
 #: fish/cmds.c:3001
-#, fuzzy
 msgid "get the UUID of a volume group"
-msgstr "LVM वॉल्यूम ग्रूप निर्माण करा"
+msgstr "वॉल्यूम ग्रूपचे UUID प्राप्त करा"
 
 #: fish/cmds.c:3002
 msgid "count characters in a file"
@@ -1828,14 +1752,12 @@ msgid "count words in a file"
 msgstr "फाइलमधील अक्षरे मोजा"
 
 #: fish/cmds.c:3005
-#, fuzzy
 msgid "create a new file"
-msgstr "फाइल निर्माण करा"
+msgstr "नवीन फाइल निर्माण करा"
 
 #: fish/cmds.c:3006
-#, fuzzy
 msgid "append content to end of file"
-msgstr "फाइलचे अनुक्रम सूची स्वरूपात दाखवा"
+msgstr ""
 
 #: fish/cmds.c:3007
 msgid "create a file"
@@ -1846,9 +1768,8 @@ msgid "write zeroes to the device"
 msgstr "उपकरणात शून्य लिहा"
 
 #: fish/cmds.c:3011
-#, fuzzy
 msgid "write zeroes to an entire device"
-msgstr "उपकरणात शून्य लिहा"
+msgstr "संपूर्ण साधणावर शून्य लिहा"
 
 #: fish/cmds.c:3012
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
@@ -1860,7 +1781,8 @@ msgstr "आंकुचीत फाइल अंतर्गत फाइल �
 
 #: fish/cmds.c:3018
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
+msgstr ""
+"आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
 
 #: fish/cmds.c:3336 fish/cmds.c:3350 fish/cmds.c:3366 fish/cmds.c:3383
 #: fish/cmds.c:3400 fish/cmds.c:3418 fish/cmds.c:3437 fish/cmds.c:3453
@@ -2098,21 +2020,21 @@ msgstr "%s: %s: इंटीजर व्याप्तीच्या बा�
 
 #: fish/cmds.c:4187 fish/cmds.c:4294 fish/cmds.c:4611 fish/cmds.c:11781
 #: fish/cmds.c:12027 fish/cmds.c:12088 fish/cmds.c:12148
-#, fuzzy, c-format
+#, c-format
 msgid "%s should have %d-%d parameter(s)\n"
-msgstr "%s कडे %d घटके असायला हवे\n"
+msgstr "%s कडे %d-%d घटके असायला हवे\n"
 
 #: fish/cmds.c:4213 fish/cmds.c:4330 fish/cmds.c:4632 fish/cmds.c:11867
 #: fish/cmds.c:12044 fish/cmds.c:12121 fish/cmds.c:12177
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr "%s: खूप जास्त घटके आढळले\n"
+msgstr "%s: अपरिचीत वैकल्पिक घटक \"%s\"\n"
 
 #: fish/cmds.c:4219 fish/cmds.c:4336 fish/cmds.c:4638 fish/cmds.c:11873
 #: fish/cmds.c:12050 fish/cmds.c:12127 fish/cmds.c:12183
-#, fuzzy, c-format
+#, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr "%s: खूप जास्त घटके आढळले\n"
+msgstr "%s: वैकल्पिक घटक \"%s\" दोनवेळा दिले\n"
 
 #: fish/cmds.c:12228
 #, c-format
@@ -2120,25 +2042,28 @@ msgid "%s: unknown command\n"
 msgstr "%s: अपरिचीत आदेश\n"
 
 #: fish/config.c:74 fish/config.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
+msgstr ""
 
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
+"प्रतिमामध्ये फाइल्स्चे प्रत बनवण्यासाठी 'copy-in <local> [<local>...] "
+"<remotedir>' याचा वापर करा\n"
 
 #: fish/copy.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "copy-in: target '%s' is not a directory\n"
-msgstr "डिरेक्ट्रीमधील फाइल्स् सूचीत दाखवा"
+msgstr "copy-in: लक्ष्य '%s' डिरेक्ट्री नाही\n"
 
 #: fish/copy.c:157
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
-msgstr ""
+msgstr "त्रुटी: घटक झिरो लेंग्थ् किंवा स्वीकार्य कमालपेक्षा जास्त आहे\n"
 
 #: fish/copy.c:202
 #, c-format
@@ -2146,16 +2071,18 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
+"प्रतिमेच्या बाहेर फाइल्चे प्रत निर्माण करण्यासाठी 'copy-out <remote> "
+"[<remote>...] <localdir>' वापर करा\n"
 
 #: fish/copy.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: target '%s' is not a directory\n"
-msgstr "डिरेक्ट्रीमधील फाइल्स् सूचीत दाखवा"
+msgstr "copy-out: लक्ष्य '%s' डिरेक्ट्री नाही\n"
 
 #: fish/copy.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
-msgstr "फाइल किंवा डिरेक्ट्रीचे वारंवार प्रत बनवा"
+msgstr "copy-out: '%s' फाइल किंवा डिरेक्ट्री नाही\n"
 
 #: fish/display.c:42
 #, c-format
@@ -2168,7 +2095,7 @@ msgid "use '%s filename' to edit a file\n"
 msgstr "फाइल संपादीत करण्यासाठी '%s filename' याचा वापर करा\n"
 
 #: fish/fish.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2213,37 +2140,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: guest filesystem shell\n"
-"%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s -i libvirt-domain\n"
-"  %s -i disk-image(s)\n"
-"or for interactive use:\n"
-"  %s\n"
-"or from a shell script:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
-"Options:\n"
-"  -h|--cmd-help        List available commands\n"
-"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-"  -a|--add image       Add image\n"
-"  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
-"  -f|--file file       Read commands from file\n"
-"  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
-"  --listen             Listen for remote commands\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  --remote[=pid]       Send commands to remote %s\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  -v|--verbose         Verbose messages\n"
-"  -x                   Echo each command before executing it\n"
-"  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
 
 #: fish/fish.c:246
 #, c-format
@@ -2254,7 +2150,8 @@ msgstr "%s: --listen=PID: PID क्रमांक प्रमाणे आढ
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr "%s: रिमोट: $GUESTFISH_PID यांस रिमोट कार्याच्या PID करीता सेट केले पाहिजे\n"
+msgstr ""
+"%s: रिमोट: $GUESTFISH_PID यांस रिमोट कार्याच्या PID करीता सेट केले पाहिजे\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2280,14 +2177,15 @@ msgstr "%s: --listen व --file पर्यायचा वापर एका�
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
+"guestfish: termcap किंवा terminfo डाटाबेसकरीता प्रवेश प्राप्त करणे अशक्य.\n"
 
 #: fish/fish.c:559
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
-msgstr ""
+msgstr "guestfish: टर्मिनल टाइप \"%s\" ठरवले नाही.\n"
 
 #: fish/fish.c:647
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
@@ -2299,11 +2197,12 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"guestfish येथे आपले स्वागत, वर्च्युअल मशीन फाइलप्रणाली संपादीत करण्यासाठी\n"
-"libguestfs फाइलप्रणालीचे परस्पर संवाद शेल.\n"
+"guestfish वर आपले स्वागत आहे, \n"
+"वर्च्युअल मशीन फाइलप्रणाल्या संपादित करण्यासाठी libguestfs फाइलप्रणाली परस्पर शेल.\n"
 "\n"
-"टाइप:आदेशांसह मदतकरीता 'help' लिहा\n"
-"      शेल पासून बाहेर पडण्यासाठी 'quit' करा\n"
+"टाइप: आदेशविषयी मदतकरीता 'help'\n"
+"      मॅन्यूअल वाचण्यासाठी 'man'\n"
+"      शेलपासून बाहेर पडण्यासाठी 'quit'\n"
 "\n"
 
 #: fish/fish.c:796 fish/fish.c:812
@@ -2381,6 +2280,9 @@ msgid ""
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
 msgstr ""
+"डिस्क प्रतिमा उघडायचे?  guestfish -a disk.img\n"
+"आदेशांच्या सूचीकरीता:             guestfish -h\n"
+"संपूर्ण दस्तऐवजीकरणकरीता:         man guestfish\n"
 
 #: fish/fish.c:1347
 #, c-format
@@ -2422,11 +2324,13 @@ msgstr "glob: guestfs_glob_expand कॉल अपयशी: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
+"-a किंवा -d पर्याय, किंवा 'add' आदेशचा वापर करून विश्लेषणकरीता डिस्क प्रतिमा समाविष्ट करा.\n"
+"किंवा -N, किंवा 'alloc' किंवा 'sparse' आदेशांचा वापर करून नवीन डिस्क प्रतिमा निर्माण करा.\n"
+"एकदाचे असे केल्यास, 'run' आदेशचा वापर करा.\n"
 
 #: fish/help.c:44
 #, c-format
@@ -2435,6 +2339,9 @@ msgid ""
 "mount them to examine or modify the contents using 'mount-ro' or\n"
 "'mount-options'.\n"
 msgstr ""
+"'list-filesystems' चा वापर करून कोणत्या फाइलप्रणाल्या उपलब्ध आहे हे शोधा व त्यानंतर\n"
+"विश्लेषणकरीता त्यांस माऊंट करा किंवा 'mount-ro' किंवा\n"
+"'mount-options' यांचा वापर करून अंतर्भूत माहिती संपादित करा.\n"
 
 #: fish/help.c:52
 #, c-format
@@ -2443,16 +2350,19 @@ msgid ""
 "\n"
 "To read the manual, type 'man'.\n"
 msgstr ""
+"आदेशविषयी अधिक माहितीकरीता, 'help cmd' याचा वापर करा.\n"
+"\n"
+"मॅन्यूअल वाचण्यासाठी, 'man' टाइप करा.\n"
 
 #: fish/hexedit.c:41
 #, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
-msgstr ""
+msgstr "hexedit (device|filename) [max | start max]\n"
 
 #: fish/hexedit.c:52
 #, c-format
 msgid "hexedit: %s is a zero length file or device\n"
-msgstr ""
+msgstr "hexedit: %s झिरो लेंग्थ फाइल किंवा साधण आहे\n"
 
 #: fish/hexedit.c:63
 #, c-format
@@ -2461,46 +2371,49 @@ msgid ""
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
+"hexedit: %s हे %s पेक्षा मोठे आहे. \n"
+"  'hexedit %s <max>' (उदा. 'hexedit %s 1M') याचा वापर करून लिमिट पुरवणे किंवा\n"
+"  'hexedit %s <start> <max>' याचा वापर करून व्याप्ति पुरवणे आवश्यक आहे.\n"
 
 #: fish/hexedit.c:92
 #, c-format
 msgid "hexedit: invalid range\n"
-msgstr ""
+msgstr "hexedit: अवैध व्याप्ती\n"
 
 #: fish/inspect.c:77
-#, fuzzy, c-format
+#, c-format
 msgid "%s: don't use --live and -i options together\n"
-msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
+msgstr "%s: --live व -i पर्यायचा एकत्र वाप करू नका\n"
 
 #: fish/inspect.c:89
 #, c-format
 msgid "%s: no operating system was found on this disk\n"
-msgstr ""
+msgstr "%s: या डिस्कवर कार्यप्रणाली आढळली नाही\n"
 
 #: fish/inspect.c:95
 #, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
-msgstr ""
+msgstr "%s: मल्टि-बूट कार्य प्रणाल्या -i पर्यायद्वारे समर्थीत नाही\n"
 
 #: fish/inspect.c:134
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: काहिक फाइलप्रणाली माऊंट करणे अशक्य (दुर्लक्ष केले)\n"
 
 #: fish/inspect.c:146
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "कार्यप्रणाली: %s\n"
 
 #: fish/inspect.c:159
-#, fuzzy, c-format
+#, c-format
 msgid "%s mounted on %s\n"
-msgstr "माऊंटपॉईंट्स् दाखवा"
+msgstr "%s ला %s वर माऊंट केले\n"
 
 #: fish/keys.c:53
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "कि किंवा पासफ्रेज द्या (\"%s\"): "
 
 #: fish/lcd.c:34
 #, c-format
@@ -2510,12 +2423,12 @@ msgstr "स्थानीय डिरेक्ट्री बदलण्य�
 #: fish/man.c:35
 #, c-format
 msgid "use 'man' without parameters to open the manual\n"
-msgstr ""
+msgstr "मॅन्यूअल उघडण्यासाठी घटकविना 'man' चा वापर करा\n"
 
 #: fish/man.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "the external 'man' program failed\n"
-msgstr "बाहेरील आदेश अपयशी: %s"
+msgstr "बाहेरिल 'man' कार्यक्रम अपयशी\n"
 
 #: fish/more.c:40
 #, c-format
@@ -2523,14 +2436,14 @@ msgid "use '%s filename' to page a file\n"
 msgstr "फाइल पेज करण्यासाठी '%s filename' याचा वापर करा\n"
 
 #: fish/options.c:36
-#, fuzzy, c-format
+#, c-format
 msgid "%s: too many drives added on the command line\n"
-msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
+msgstr "%s: एकापेक्षा जास्त ड्राइव्ह्स् आदेश ओळवर समाविष्ट केले\n"
 
 #: fish/options.c:128
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
-msgstr ""
+msgstr "%s: '%s' माऊंट करणे अशक्य.  यापैकी एक आहे?\n"
 
 #: fish/prep.c:37
 #, c-format
@@ -2538,6 +2451,8 @@ msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
+"उपलब्ध तयार डिस्क प्रतिमांची सूची:\n"
+"\n"
 
 #: fish/prep.c:40
 #, c-format
@@ -2546,16 +2461,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:48
 #, c-format
 msgid "  Optional parameters:\n"
-msgstr ""
+msgstr "  वैकल्पिक घटके:\n"
 
 #: fish/prep.c:55
 #, c-format
 msgid "<%s> %s (default: %s)\n"
-msgstr ""
+msgstr "<%s> %s (पूर्वनिर्धारीत: %s)\n"
 
 #: fish/prep.c:65
 #, c-format
@@ -2564,6 +2482,9 @@ msgid ""
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
+"स्थानीय डिरेक्ट्रीमध्ये तयारकेलेली डिस्क प्रतिमा फाइल \"test1.img\" लिहले जातात.\n"
+"  (\"test2.img\" इत्यादि जर -N पर्याय अनेकवेळा दिले जातात).\n"
+"अधिक माहितीकरीता guestfish(1) मॅन्यूअल पहा.\n"
 
 #: fish/prep.c:96
 #, c-format
@@ -2571,83 +2492,84 @@ msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
 msgstr ""
+"guestfish: -N घटक '%s': या प्रकारची तयार डिस्क प्रतिमा परिचीत नाही.\n"
+"N घटककरीता संभाव्य मूल्य सूचीत दाखवण्यासाठी 'guestfish -N help' याचा वापर करा.\n"
 
 #: fish/prep.c:158
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
+"guestfish: तयार डिस्क प्रतिमा '%s' यांस '%s' वर निर्माण करतेवेळी त्रुटी: "
 
 #: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
 #: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
-#, fuzzy
 msgid "failed to allocate disk"
-msgstr "फाइल खंड वाचण्यास अपयशी"
+msgstr "डिस्कचे वाटप करतेवेळी त्रुटी"
 
 #: fish/prep_boot.c:42 fish/prep_boot.c:97
-#, fuzzy
 msgid "could not parse boot size"
-msgstr "आकार संरचना '%s' वाचणे अशक्य\n"
+msgstr "बूट आकार वाचणे अशक्य"
 
 #: fish/prep_boot.c:46 fish/prep_boot.c:101
-#, fuzzy, c-format
+#, c-format
 msgid "failed to get sector size of disk: %s"
-msgstr "फाइल खंड वाचण्यास अपयशी"
+msgstr "डिस्कचे सेक्टर आकार प्राप्त करण्यास अपयशी: %s"
 
 #: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
 #: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
 #, c-format
 msgid "failed to partition disk: %s"
-msgstr ""
+msgstr "डिस्कचे विभाजन करण्यास अपयशी: %s"
 
 #: fish/prep_boot.c:55 fish/prep_boot.c:110
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add boot partition: %s"
-msgstr "स्वॅप विभाजन निर्माण करा"
+msgstr "बूट विभाजन समाविष्ट करण्यास अपयशी: %s"
 
 #: fish/prep_boot.c:59 fish/prep_boot.c:114
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add root partition: %s"
-msgstr "स्वॅप विभाजन निर्माण करा"
+msgstr "रूट विभाजन समाविष्ट करण्यास अपयशी: %s"
 
 #: fish/prep_boot.c:68 fish/prep_boot.c:128
 #, c-format
 msgid "failed to create boot filesystem: %s"
-msgstr ""
+msgstr "बूट फाइलप्रणाली निर्माण करण्यास अपयशी: %s"
 
 #: fish/prep_boot.c:77 fish/prep_boot.c:157
 #, c-format
 msgid "failed to create root filesystem: %s"
-msgstr ""
+msgstr "रूट फाइलप्रणाली निर्माण करण्यास अपयशी: %s"
 
 #: fish/prep_boot.c:86 fish/prep_boot.c:120 fish/prep_lv.c:66
 #: fish/prep_lv.c:82 fish/prep_lv.c:119 fish/prep_lv.c:135
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
-msgstr ""
+msgstr "LV नावकरीता अयोग्य स्वरूप, '/dev/VG/LV' याचा वापर करा"
 
 #: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create PV: %s: %s"
-msgstr "फाइल खंड वाचण्यास अपयशी"
+msgstr "PV निर्माण करण्यास अपयशी: %s: %s"
 
 #: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create VG: %s: %s"
-msgstr "फाइल खंड वाचण्यास अपयशी"
+msgstr "VG निर्माण करण्यास अपयशी: %s: %s"
 
 #: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
 #, c-format
 msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr ""
+msgstr "LV निर्माण करण्यास अपयशी: /dev/%s/%s: %s"
 
 #: fish/prep_boot.c:153 fish/prep_lv.c:107 fish/prep_lv.c:160
 #, c-format
 msgid "failed to resize LV to full size: %s: %s"
-msgstr ""
+msgstr "LV ला संपूर्ण आकारात पुनःआकार देण्यास अपयशी: %s: %s"
 
 #: fish/prep_fs.c:51 fish/prep_lv.c:165
 #, c-format
 msgid "failed to create filesystem (%s): %s"
-msgstr ""
+msgstr "फाइलप्रणाली निर्माण करण्यास अपयशी (%s): %s"
 
 #: fish/rc.c:255
 #, c-format
@@ -2660,8 +2582,8 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: प्रोटोकॉल त्रुटी: आवृत्ती जुळली नाही, सर्व्हर आवृत्ती '%s' क्लाएंट आवृत्ती '%s' "
-"सह जुळत नाही.  दोन्ही आवृत्ती बरोबर जुळायला हवे.\n"
+"guestfish: प्रोटोकॉल त्रुटी: आवृत्ती जुळली नाही, सर्व्हर आवृत्ती '%s' "
+"क्लाएंट आवृत्ती '%s' सह जुळत नाही.  दोन्ही आवृत्ती बरोबर जुळायला हवे.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2671,12 +2593,14 @@ msgstr "guestfish: रिमोट: सर्व्हर कार्यरत 
 #: fish/rc.c:361 fish/rc.c:375
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
+msgstr ""
+"guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
 
 #: fish/rc.c:386
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
+msgstr ""
+"guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
 
 #: fish/reopen.c:36
 #, c-format
@@ -2690,11 +2614,11 @@ msgstr "reopen: guestfs_create: हँडल निर्माण करण्�
 
 #: fish/supported.c:66
 msgid "yes"
-msgstr ""
+msgstr "होय"
 
 #: fish/supported.c:68
 msgid "no"
-msgstr ""
+msgstr "नाही"
 
 #: fish/time.c:36
 #, c-format
@@ -2702,7 +2626,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' याचा वापर करा\n"
 
 #: fuse/guestmount.c:912
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -2731,29 +2655,11 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: fuse/guestmount.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr "%s: किमान एक -a व किमान एक -m पर्याय असायला हवे\n"
+msgstr "%s: किमान एक -a/-d व किमान एक -m/-i पर्याय असायला हवे\n"
 
 #: fuse/guestmount.c:1138
 #, c-format
@@ -2761,7 +2667,7 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
 
 #: inspector/virt-inspector.c:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2781,178 +2687,193 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
+"%s: वर्च्युअल मशीनविषयी माहिती दाखवा\n"
+"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
+"वापर:\n"
+"  %s [--options] -d domname फाइल [फाइल ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] फाइल [फाइल ...]\n"
+"पर्याय:\n"
+"  -a|--add image       प्रतिमा समाविष्ट करा\n"
+"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
+"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
+"  --echo-keys          पासफ्रेजेस् करीता echo बंद करू नका\n"
+"  --format[=raw|..]    -a पर्यायकरीता डिस्क स्वरूप जबरनपणे लागू करा\n"
+"  --help               संक्षिप्त मदत दाखवा\n"
+"  --keys-from-stdin    stdin पासून पासफ्रेजेस् वाचा\n"
+"  -v|--verbose         वर्बोस संदेश\n"
+"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
+"  -x                   libguestfs API कॉल्स् तपासा\n"
+"\n"
+"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: inspector/virt-inspector.c:263
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
+"%s: या डिस्क प्रतिमा अंतर्गत कार्यप्रणाली आढळली नाही.\n"
+"\n"
+"हे सहसा फाइल डिस्क प्रतिमा, किंवा वर्च्युअल मशीन प्रतिमा नसल्यामुळे, \n"
+"किंवा libguestfs द्वारे OS प्रकार न कळल्यामुळे असू शकते.\n"
+"\n"
+"टिप Red Hat Enterprise Linux 6 वापरकर्त्यांसाठी: Windows अतिथी समर्थनकरीता तुम्ही\n"
+"वेगळे libguestfs-winsupport संकुल प्रतिष्ठापीत करायला हवे.\n"
+"\n"
+"ही त्रुटी आहे असे आढळल्यास, कृपया बग अहवाल सादर करा ज्यामध्ये \n"
+"डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्टीत असेल.\n"
 
 #: inspector/virt-inspector.c:288
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
-msgstr ""
+msgstr "%s: \"%s\" येथे XML लेखन त्रुटी आढळली: %m\n"
 
 #: inspector/virt-inspector.c:300
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
-msgstr ""
+msgstr "%s: xmlOutputBufferCreateFd: stdout उघडण्यास अपयशी\n"
 
 #: inspector/virt-inspector.c:308
-#, fuzzy, c-format
+#, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
-msgstr "xmlNewTextWriterFilename: XML राईटर निर्माण करण्यास अपयशी\n"
+msgstr "%s: xmlNewTextWriter: libxml2 राइटर निर्माण करण्यास अपयशी\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
 msgid "open_guest: first parameter must be a string or an arrayref"
-msgstr ""
+msgstr "open_guest: पहिले घटक string किंवा arrayref असायला हवे"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:164
 msgid "open_guest: first argument contains undefined element"
-msgstr ""
+msgstr "open_guest: पहिल्या घटकात अस्पष्ट घटक समाविष्टीत आहे"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "guest image {imagename} does not exist or is not readable"
-msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
+msgstr "guest image {imagename} अस्तित्वात नाही किंवा वाचनजोगी नाही"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
+"open_guest: libvirt समर्थन (Sys::Virt, XML::XPath व XML::XPath::XMLParser "
+"प्रतिष्ठापीत करा)"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
-#, fuzzy
 msgid "open_guest: too many domains listed on command line"
-msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
+msgstr "open_guest: आदेश ओळवर एकापेक्षा जास्त डोमेन्स् सूचीत दाखवले आहे"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:191
 msgid "open_guest: cannot connect to libvirt"
-msgstr ""
+msgstr "open_guest: libvirt शी जोडणी करण्यास अशक्य"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:210
 #, perl-brace-format
 msgid "{imagename} is not the name of an inactive libvirt domain\n"
-msgstr ""
+msgstr "{imagename} बंद असलेल्या libvirt डोमेनचे नाव नाही\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:213
 #, perl-brace-format
 msgid "{imagename} is not the name of a libvirt domain\n"
-msgstr ""
+msgstr "{imagename} हे libvirt डोमेनचे नाव नाही\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:242
 #, perl-brace-format
 msgid "{imagename} seems to have no disk devices\n"
-msgstr ""
+msgstr "{imagename} कडे डिस्क साधणे नाही असे आढळते\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:827
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
+"या डिस्क प्रतिमा अंतर्गत कार्यप्रणाली आढळली नाही.\n"
+"\n"
+"हे सहसा फाइल डिस्क प्रतिमा, किंवा वर्च्युअल मशीन प्रतिमा नसल्यामुळे, \n"
+"किंवा virt-inspector द्वारे OS प्रकार न कळल्यामुळे असू शकते.\n"
+"\n"
+"ही त्रुटी आहे असे आढळल्यास, \n"
+"कृपया डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्ट करून बग अहवाल सादर करा.\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:901
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
-msgstr ""
+msgstr "अपरिचीत फाइलसिस्टम लेबल {label}\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:911
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
-msgstr ""
+msgstr "अपरिचीत फाइलप्रणाली UUID {uuid}\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:939
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "unknown filesystem {fs}\n"
-msgstr "फाइलप्रणालीचे माऊंट अशक्य करा"
+msgstr "अपरिचीत फाइलप्रणाली {fs}\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
-msgstr ""
+msgstr "rpm -qa चालवतेवेळी त्रुटी: {error}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1043
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
-msgstr ""
+msgstr "dpkg-query चालवतेवेळी त्रुटी: {error}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1108
 msgid "Can't find grub on guest"
-msgstr ""
+msgstr "अतिथीवर ग्रब आढळले नाही"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1163
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
-msgstr ""
+msgstr "ग्रब नोंदणी {title} मध्ये कर्नल आढळले नाही"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1194
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
-msgstr ""
+msgstr "ग्रब {path} करीता निर्देशीत आहे, जे अस्तित्वात नाही\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1217
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
-msgstr ""
+msgstr "ग्रब नोंदणी {title} initrd निर्देशीत करत नाही"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1286
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
-msgstr ""
+msgstr "कर्नल {path} करीता मॉड्यूल्स् डिरेक्ट्री {modules} आढळले नाही"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
-msgstr ""
+msgstr "कर्नल {path} करीता मार्ग पासून कर्नल आवृत्ती क्रमांक तर्कणे अशक्य"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1348
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
-msgstr "साचा प्रमाणे जुळणारे ओळी पाठवा"
+msgstr "{path} augeas नमुनाशी जुळत नाही"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
-msgstr ""
+msgstr "{filename}: initrd स्वरूप वाचणे अशक्य"
 
 #: rescue/virt-rescue.c:63
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2010 Red Hat Inc.\n"
@@ -2976,34 +2897,16 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: rescue/virt-rescue.c:180
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse memory size '%s'\n"
-msgstr "आकार संरचना '%s' वाचणे अशक्य\n"
+msgstr "%s: मेमरी आकार '%s' वाचणे अशक्य\n"
 
 #: rescue/virt-rescue.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown child exit status (%d)\n"
-msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
+msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
 
 #: src/appliance.c:181
 #, c-format
@@ -3011,57 +2914,57 @@ msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
+"LIBGUESTFS_PATH वरील योग्य libguestfs supermin किंवा सर्वसाधारण अप्लायंस "
+"शोधणे अशक्य (शोध मार्ग: %s)"
 
 #: src/appliance.c:331
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
-msgstr ""
+msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s, UID %d च्या मालकिचे नाही"
 
 #: src/appliance.c:336
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
-msgstr ""
+msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s डिरेक्ट्री नाही (मोड %o)"
 
 #: src/appliance.c:341
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
+"सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
 #: src/appliance.c:659
-#, fuzzy
 msgid "external command failed, see earlier error messages"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+msgstr "बाहेरिल आदेश अपयशी, मागील त्रुटी संदेश पहा"
 
 #: src/dbdump.c:87
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of header"
-msgstr "डिमन पासून वाचतेवेळी फाइल अनपेक्षीतपणे समाप्त झाले"
+msgstr ""
 
 #: src/dbdump.c:100 src/dbdump.c:112
-#, fuzzy
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr "डिमन पासून वाचतेवेळी फाइल अनपेक्षीतपणे समाप्त झाले"
+msgstr ""
 
 #: src/dbdump.c:129
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of data"
-msgstr "डिमन पासून वाचतेवेळी फाइल अनपेक्षीतपणे समाप्त झाले"
+msgstr ""
 
 #: src/dbdump.c:210
-#, fuzzy
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "डिमन पासून वाचतेवेळी फाइल अनपेक्षीतपणे समाप्त झाले"
+msgstr ""
 
 #: src/filearch.c:153
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
-msgstr ""
+msgstr "%s चे आकार असमंजस आहे (%<PRIi64> बाईट्स्)"
 
 #: src/filearch.c:266
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without PCRE or libmagic libraries"
 msgstr ""
+"libguestfs ची हि आवृत्ती PCRE किंवा libmagic लाइब्ररिज् विना कंपाईल "
+"केल्यामुळे फाइल-आर्किटेक्चर API अनुपलब्ध आहे"
 
 #: src/guestfs.c:174
 #, c-format
@@ -3081,11 +2984,11 @@ msgstr "libguestfs: त्रुटी: %s\n"
 #: src/guestfs.c:965
 #, c-format
 msgid "<truncated, original size %zu bytes>"
-msgstr ""
+msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
 
 #: src/inspect.c:265
 msgid "not a Windows guest, or systemroot could not be determined"
-msgstr ""
+msgstr "विंडोज अतिथी नाही, किंवा systemroot शोधणे अशक्य"
 
 #: src/inspect.c:281
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
@@ -3096,11 +2999,11 @@ msgstr ""
 #: src/inspect_fs_unix.c:821
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
-msgstr ""
+msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
 
 #: src/inspect.c:577
 msgid "no inspection data: call guestfs_inspect_os first"
-msgstr ""
+msgstr "अधिकृत तपासणी डाटा आढळले नाही: पहिले guestfs_inspect_os कॉल करा"
 
 #: src/inspect.c:589
 #, c-format
@@ -3108,32 +3011,35 @@ msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
+"%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट "
+"साधणसह फंक्शनद्वारेच कॉल करा"
 
 #: src/inspect.c:599 src/inspect_apps.c:609
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
 msgstr ""
+"libguestfs ची ही आवृत्ती PCRE किंवा hivex लाइब्ररिज् विना कंपाईल केल्यामुळे "
+"इंस्पेकशन API अनुपलब्ध"
 
 #: src/inspect_fs.c:326 src/inspect_fs.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "could not parse integer in version number: %s"
-msgstr "आकार संरचना '%s' वाचणे अशक्य\n"
+msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
 
 #: src/inspect_fs.c:483
 #, c-format
 msgid "%s: file is empty"
-msgstr ""
+msgstr "%s: फाइल रिकामे नाही"
 
 #: src/inspect_fs_unix.c:613
-#, fuzzy
 msgid "could not parse /etc/fstab or empty file"
-msgstr "आकार संरचना '%s' वाचणे अशक्य\n"
+msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
 #: src/inspect_fs_windows.c:112
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
-msgstr ""
+msgstr "विंडोज %%SYSTEMROOT%% निश्चित करणे अशक्य"
 
 #: src/inspect_icon.c:452
 #, c-format
@@ -3160,12 +3066,11 @@ msgstr "फाइलनावात ',' (स्वल्पविराम) अ�
 #: src/launch.c:247 src/launch.c:252
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
+msgstr "%s घटक रिकामे आहे किंवा अस्वीकार्य अक्षरे समाविष्टीत आहे"
 
 #: src/launch.c:358
-#, fuzzy
 msgid "the libguestfs handle has already been launched"
-msgstr "qemu आधिपासूनच सुरू आहे"
+msgstr "libguestfs हँडल आधिपासूनच सुरू आहे"
 
 #: src/launch.c:367
 #, c-format
@@ -3185,14 +3090,12 @@ msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
 #: src/launch.c:865
-#, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
 #: src/launch.c:873
-#, fuzzy
 msgid "contacted guestfsd, but state != READY"
-msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
+msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
 #: src/launch.c:1052
 #, c-format
@@ -3200,8 +3103,8 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU एन्वार्यनमेंट "
-"वेरीयेबल सेट करण्याचा प्रयत्न करा."
+"%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU "
+"एन्वार्यनमेंट वेरीयेबल सेट करण्याचा प्रयत्न करा."
 
 #: src/launch.c:1143
 msgid "qemu has not been launched yet"
@@ -3236,9 +3139,8 @@ msgid ""
 msgstr ""
 
 #: src/proto.c:549
-#, fuzzy
 msgid "See earlier debug messages.\n"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+msgstr ""
 
 #: src/proto.c:639
 #, c-format
@@ -3264,9 +3166,8 @@ msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
 #: src/proto.c:922 src/proto.c:1217
-#, fuzzy
 msgid "operation cancelled by user"
-msgstr "डिमनने फाइल प्राप्यता रद्द केली"
+msgstr ""
 
 #: src/proto.c:973
 #, c-format
@@ -3305,71 +3206,76 @@ msgstr "डिमनने फाइल प्राप्यता रद्द
 
 #: src/virt.c:101 src/virt.c:347
 msgid "you cannot set both live and readonly flags"
-msgstr ""
+msgstr "दोंही लाइव्ह व फक्तवाचणीय फ्लॅग्स् सेट करणे शक्य नाही"
 
 #: src/virt.c:109
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "libvirt शी संपर्क करणे शक्य नाही (कोड %d, डोमेन %d): %s"
 
 #: src/virt.c:130
-#, fuzzy, c-format
+#, c-format
 msgid "no libvirt domain called '%s': %s"
-msgstr "%s: -i यांस libvirt क्षेत्र किंवा डिस्क प्रतिमाकरीता मार्ग देणे आवश्यक आहे\n"
+msgstr "'%s' नावाचे libvirt डोमेन आढळले नाही: %s"
 
 #: src/virt.c:185 src/virt.c:435
 #, c-format
 msgid "error reading libvirt XML information: %s"
-msgstr ""
+msgstr "libvirt XML माहिती वाचतेवेळी त्रुटी आढळली: %s"
 
 #: src/virt.c:195 src/virt.c:443
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
+msgstr "libvirt द्वारे पुरवलेली XML माहिती वाचण्यास अशक्य"
 
 #: src/virt.c:201 src/virt.c:449
-#, fuzzy
 msgid "unable to create new XPath context"
-msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
+msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
 
 #: src/virt.c:208 src/virt.c:464
-#, fuzzy
 msgid "unable to evaluate XPath expression"
-msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
+msgstr "XPath वाकप्रचार मुल्यमापन करणे अशक्य"
 
 #: src/virt.c:305
-#, fuzzy
 msgid "libvirt domain has no disks"
-msgstr "%s: -i यांस libvirt क्षेत्र किंवा डिस्क प्रतिमाकरीता मार्ग देणे आवश्यक आहे\n"
+msgstr "libvirt डोमेनमध्ये डिस्क्स् आढळले नाही"
 
 #: src/virt.c:358
 #, c-format
 msgid "error getting domain info: %s"
-msgstr ""
+msgstr "डोमेन माहिती प्राप्त करतेवेळी त्रुटी आढळली: %s"
 
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
+"त्रुटी: डोमैन लाईव्ह वर्च्युअल मशीन आहे.\n"
+"कार्यरत वर्च्युअल मशीनच्या डिस्कस्वर लिहल्यास डिस्क सदोषीत होऊ शकते.\n"
+"एकतर फक्त वाचणीय प्रवेशचा वापर करा, किंवा अतिथी guestfsd डिमन चालवत असल्यास\n"
+"live प्रवेश निर्देशीत करा.  बहुतांश libguestfs साधनांमध्ये हे पर्याय --ro किंवा\n"
+"--live असे असतात.  पुढील माहितीकरीता दस्तऐवजीकरणचा सल्ला घ्या."
 
 #: src/virt.c:492
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
+"या अतिथीकडे guestfsd करीता libvirt <channel> व्याख्या नाही\n"
+"पुढील माहितीसाठी guestfs(3) मध्ये सुरू डिमन्स्ला कसे जोडायचे पहा."
 
 #: src/virt.c:517
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
 msgstr ""
+"libguestfs ची ही आवृत्ती libvirt किंवा libxml2 विना कंपाईल केल्यामुळे add-"
+"domain API अनुपलब्ध आहे"
 
 #: test-tool/test-tool.c:79
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -3382,18 +3288,6 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  libguestfs-test-tool [--options]\n"
-"Options:\n"
-"  --help         Display usage\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Helper program (default: %s)\n"
-"  --qemudir dir  Specify QEMU source directory\n"
-"  --qemu qemu    Specify QEMU binary\n"
-"  --timeout n\n"
-"  -t n           Set launch timeout (default: %d seconds)\n"
 
 #: test-tool/test-tool.c:127
 #, c-format
@@ -3431,9 +3325,9 @@ msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: अप्लायंस सुरू करण्यास अपयशी\n"
 
 #: test-tool/test-tool.c:229
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr "libguestfs-test-tool: sfdisk चालवण्यास अपयशी\n"
+msgstr ""
 
 #: test-tool/test-tool.c:235
 #, c-format
@@ -3446,9 +3340,9 @@ msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 यांस / वर माऊंट करण्यास अपयशी\n"
 
 #: test-tool/test-tool.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr "libguestfs-test-tool: sfdisk चालवण्यास अपयशी\n"
+msgstr ""
 
 #: test-tool/test-tool.c:279
 #, c-format
@@ -3471,50 +3365,49 @@ msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमा�
 
 #: tools/virt-list-filesystems.pl:142
 msgid "virt-list-filesystems: no image or VM name given"
-msgstr ""
+msgstr "virt-list-filesystems: प्रतिमा किंवा VM नाव दिले नाही"
 
 #: tools/virt-list-partitions.pl:152
 msgid "virt-list-partitions: no image or VM name given"
-msgstr ""
+msgstr "virt-list-partitions: प्रतिमा किंवा VM नाव दिले नाही"
 
 #: tools/virt-make-fs.pl:291
 msgid "virt-make-fs input output\n"
-msgstr ""
+msgstr "virt-make-fs इंपुट आउटपुट\n"
 
 #: tools/virt-make-fs.pl:321
 msgid "unexpected output from 'du' command"
-msgstr ""
+msgstr "'du' आदेशसह अनपेक्षित आउटपुट आढळले"
 
 #: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
 #: tools/virt-make-fs.pl:458
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
-msgstr ""
+msgstr "{f}: अपरिचीत इंपुट स्वरूप: {fmt}\n"
 
 #: tools/virt-make-fs.pl:391
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
-msgstr ""
+msgstr "virt-make-fs: आकार घटक वाचणे अशक्य: {sz}\n"
 
 #: tools/virt-make-fs.pl:406
-#, fuzzy
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+msgstr ""
+"qemu-img create: डिस्क प्रतिमा निर्माण करण्यास अपयशी, मागील त्रुटी संदेश "
+"पहा\n"
 
 #: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
-msgstr ""
+msgstr "virt-make-fs: libguestfs कंपाइल केल्यावर NTFS समर्थन बंद केले\n"
 
 #: tools/virt-make-fs.pl:442
-#, fuzzy
 msgid "tar: failed, see earlier messages\n"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+msgstr "tar: अपयशी, मागील संदेश पहा\n"
 
 #: tools/virt-make-fs.pl:464
-#, fuzzy
 msgid "uncompress command failed, see earlier messages\n"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+msgstr "uncompress आदेश अपयशी, मागील संदेश पहा\n"
 
 #: tools/virt-make-fs.pl:499
 msgid ""
@@ -3522,56 +3415,67 @@ msgid ""
 "An error here usually means that the program did not estimate the\n"
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
+"virt-make-fs: फाइलप्रणाली अंतर्गत अंतर्भूत माहितीचे प्रत बनवतेवेळी त्रुटी\n"
+"येथील त्रुटी म्हणजे कार्यक्रमाने\n"
+"फाइलप्रणाली आकारचा योग्यरित्या अंदाज लावला नाही.  कृपया manpage मधील BUGS विभाग वाचा.\n"
 
 #: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-msgstr ""
+msgstr "virt-tar: आदेश ओळवर प्राप्त करा/अपलोड करा मोड दोनवेळा निर्देशीत केले\n"
 
 #: tools/virt-tar.pl:212
 msgid "virt-tar: no image, VM names, directory or filename given"
-msgstr ""
+msgstr "virt-tar: प्रतिमा, VM नावे, डिरेक्ट्री किंवा फाइलनाव दिले नाही"
 
 #: tools/virt-tar.pl:215
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
-msgstr ""
+msgstr "virt-tar: आदेश ओळवर एकतर -x किंवा -u निर्देशीत करायला हवे\n"
 
 #: tools/virt-tar.pl:226
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
-msgstr ""
+msgstr "virt-tar: {tarball}: फाइल आढळले नाही\n"
 
 #: tools/virt-tar.pl:229
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
-msgstr ""
+msgstr "virt-tar: {dir}: डिरेक्ट्रीचे नाव '/' अक्षरासह सुरू व्हायला हवे\n"
 
 #: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
+"{prog}: या डिस्क प्रतिमा अंतर्गत कार्यप्रणाली आढळली नाही.\n"
+"\n"
+"हे सहसा फाइल डिस्क प्रतिमा, किंवा वर्च्युअल मशीन प्रतिमा नसल्यामुळे, \n"
+"किंवा libguestfs द्वारे OS प्रकार न कळल्यामुळे असू शकते.\n"
+"\n"
+"ही त्रुटी आहे असे आढळल्यास, \n"
+"कृपया डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्ट करून बग अहवाल सादर करा.\n"
 
 #: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr ""
+msgstr "{prog}: मल्टिबूट कार्यप्रणाली समर्थीत नाही.\n"
 
 #: tools/virt-win-reg.pl:243
 msgid "no libvirt domain name or disk image given\n"
-msgstr ""
+msgstr "libvirt डोमेन नाव किंवा डिस्क प्रतिमा दिले नाही\n"
 
 #: tools/virt-win-reg.pl:285
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
+"आणखी 1 किंवा 2 घटके, सबकि पाथ तसेच वैकल्पिकरित्या एक्सपोर्ट करण्याजोगी मूल्य"
+" अपेक्षीत आहे\n"
 
 #: tools/virt-win-reg.pl:444
 #, perl-brace-format
@@ -3581,415 +3485,21 @@ msgstr ""
 #: tools/virt-win-reg.pl:449
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: समर्थीत विंडोज रेजिस्ट्री पाथ नाही\n"
 
 #: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: अतिथीमध्ये फाइल आढळली नाही: {err}\n"
 
 #: tools/virt-win-reg.pl:527
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउनलोड करणे शक्य नाही: {err}\n"
 
 #: tools/virt-win-reg.pl:549
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
 
-#, fuzzy
-#~ msgid "%s: temporary directory not found"
-#~ msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#~ msgid "unexpected end of file when reading from daemon"
-#~ msgstr "डिमन पासून वाचतेवेळी फाइल अनपेक्षीतपणे समाप्त झाले"
-
-#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-#~ msgstr "libguestfs-test-tool: mkdir /iso निर्माण करण्यास अपयशी\n"
-
-#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-#~ msgstr "libguestfs-test-tool: /dev/sdb यांस /iso येथे माऊंट करण्यास अपयशी\n"
-
-#~ msgid ""
-#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: हेल्पर कार्यक्रमला चालवण्यास अशक्य, किंवा हेल्पर अपयशी\n"
-
-#~ msgid ""
-#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-#~ "available.  Expected to find it in '%s'\n"
-#~ "\n"
-#~ "Use the --helper option to specify the location of this program.\n"
-#~ msgstr ""
-#~ "चाचणी उपकरण हेल्पर कार्यक्रम 'libguestfs-test-tool-helper' उपलब्ध नाही\n"
-#~ ".  '%s' मध्ये आढळणे अपेक्षीत आहे\n"
-#~ "\n"
-#~ "या कार्यक्रमाचे स्थळ निर्देशीत करण्यासाठी --helper पर्यायचा वापर करा.\n"
-
-#~ msgid "command failed: %s"
-#~ msgstr "आदेश अपयशी: %s"
-
-#~ msgid ""
-#~ "Test tool helper program %s\n"
-#~ "is not statically linked.  This is a build error when this test tool\n"
-#~ "was built.\n"
-#~ msgstr ""
-#~ "चाचणी उपकरण हेल्पर कार्यक्रम %s\n"
-#~ "तात्पुर्ते जुळले नाही.  चाचणी उपकरण बिल्ट झाले तेव्हा यांस बिल्ड त्रुटी\n"
-#~ "म्हणून ओळखले गेले.\n"
-
-#~ msgid "mkisofs command failed: %s\n"
-#~ msgstr "mkisofs आदेश अपयशी: %s\n"
-
-#, fuzzy
-#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
-#~ msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
-
-#, fuzzy
-#~ msgid "virt-resize: no logical volume called {n}\n"
-#~ msgstr "LVM लॉजीकल वॉल्यूमचे पुनःआकार करा"
-
-#, fuzzy
-#~ msgid "failed to create temporary cache directory: %m"
-#~ msgstr "तात्पूर्ती डिरेक्ट्री निर्माण करा"
-
-#, fuzzy
-#~ msgid "error renaming temporary cache directory: %m"
-#~ msgstr "तात्पूर्ती डिरेक्ट्री निर्माण करा"
-
-#, fuzzy
-#~ msgid "virt-df: cannot use -h and --csv options together\n"
-#~ msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
-
-#, fuzzy
-#~ msgid "  Mountpoints:\n"
-#~ msgstr "माऊंटपॉईंट्स् दाखवा"
-
-#, fuzzy
-#~ msgid "  Filesystems:\n"
-#~ msgstr "फाइलप्रणाली निर्माण करा"
-
-#~ msgid "edit a file in the image"
-#~ msgstr "प्रतिमामधील फाइल संपादीत करा"
-
-#~ msgid "view a file in the pager"
-#~ msgstr "पेजरमधील फाइलचे दृष्य"
-
-#~ msgid ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-#~ msgstr ""
-#~ "echo - मजकूर ओळीत दाखवतो\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    यामुळे घटके टर्मिनलवर दाखवले जातात.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "edit - प्रतिमामधील फाइल संपादीत करा\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    याचा वापर फाइल संपादनकरीता होतो.\n"
-#~ "\n"
-#~ "    हे (व खालील प्रमाणे लागू होते)\n"
-#~ "    \"cat\" चालवणे, स्थानीयरित्या संपादीत करणे, व त्यानंतर \"write-file\" प्रमाणेच "
-#~ "आहे.\n"
-#~ "\n"
-#~ "    सहसा $EDITOR चा वापर होतो, परंतु\n"
-#~ "    \"vi\" किंवा \"emacs\" असे अलायस वापरल्यास संपादक प्राप्त होतात.\n"
-#~ "\n"
-#~ "    लक्षात ठेवा: हे मोठ्या फाइल्स्\n"
-#~ "    (> 2 MB) किंवा \\0 बाईट्स् समाविष्टीत बाईनरी फाइल्स् करीता यशस्वीरित्या कार्य "
-#~ "करत नाही.\n"
-
-#~ msgid ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-#~ msgstr ""
-#~ "lcd - स्थानीय डिरेक्ट्री बदला\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    guestfish ची सध्याची डिरेक्ट्री बदलते. या आदेशचा वापर\n"
-#~ "    ठराविक स्थळावर फाइल्स् डाऊनलोड करण्यासाठी\n"
-#~ "    उपयोगी ठरतो.\n"
-
-#~ msgid ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-#~ msgstr ""
-#~ "glob - आदेशमधील वाईल्डकार्डस् विस्तारीत करा\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    कुठल्याही आदेश घटकांसह वाईल्डकार्डस् विस्तारनसह Glob <command>\n"
-#~ "    चालवतो.  लक्षात ठेवा आदेश दरवेळी प्रत्येक विस्तारीत घटकासाठी पुनः\n"
-#~ "    चालवले जाते.\n"
-
-#~ msgid ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "more - पृष्ठ स्वरूपात फाइल पहा\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    यामुळे फाइलचे दृष्य पृष्ठ स्वरूपाद दिसते.\n"
-#~ "\n"
-#~ "    हे (व खालील प्रमाणे लागू होते)\n"
-#~ "    \"cat\" प्रमाणेच चालते व पृष्ठ स्वरूप वापरते.\n"
-#~ "\n"
-#~ "    सहसा $PAGER चा वापर होतो, परंतु\n"
-#~ "    \"less\" हा अलायस आढळल्यास नेहमी \"less\" चा वापर केला जातो.\n"
-#~ "\n"
-#~ "    लक्षात ठेवा: हे मोठ्या फाइल्स\n"
-#~ "    (> 2 MB) किंवा \\0 बाईट्स् समाविष्टीत बाईनरी फाइल्स् करीता यशस्वीपणे कार्य करत "
-#~ "नाही.\n"
-
-#~ msgid ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-#~ msgstr ""
-#~ "reopen - libguestfs हँडल बंद करा व पुनः उघडा\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "libguestfs हँडल बंद करा व पुनः उघडा.  साधारणपणे यांस वापरण्याची आवश्यकता नाही\n"
-#~ ", परंतु guestfish बाहेर पडतेवेळी हँडल योग्यप्रकारे\n"
-#~ " बंद होते.  तरी याचा वापर औपचारीकपणे चाचणीवेळी होतो.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "sparse - प्रतिमाचे वाटप करते\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    यामुळे ठराविक आकाराचे रिकामे sparse फाइल निर्माण होते,\n"
-#~ "    व पुढील विश्लेषणकरीता समावेश केले जाते.\n"
-#~ "\n"
-#~ "    बऱ्यापैकी 'alloc'\n"
-#~ "    आदेश प्रमाणेच कार्य करते, एवढेच की प्रतिमा फाइल\n"
-#~ "    sparse पणे वाटप होते, म्हणजेच आवश्यकता असल्यावरच डिस्क ब्लॉक\n"
-#~ "    फाइलकरीता लागू केले जातात.  Sparse डिस्क फाइल्स्\n"
-#~ "    फक्ल लिहतेवेळीच डिस्कवरील जागेचा वापर करते, परंतु हे कार्य हळु व लिहतेवेळी\n"
-#~ "    अतिरीक्त जागा डिस्कवर न आढळल्यास\n"
-#~ "    गंभीर धोका निर्माण होऊ शकतो.\n"
-#~ "\n"
-#~ "    आकार निर्देशीत करणे शक्य आहे (जेथे <nn> म्हणजे क्रमांक):\n"
-#~ "    <nn>             किलोबाईट्सची संख्या\n"
-#~ "      उदा: 1440       मानक 3.5\" फ्लॉपी\n"
-#~ "    <nn>K किंवा <nn>KB  किलोबाईट्समधील प्रमाण\n"
-#~ "    <nn>M किंवा <nn>MB  मेगाबाईट्समधील प्रमाण\n"
-#~ "    <nn>G किंवा <nn>GB  गीगाबाईट्समधील प्रमाण\n"
-#~ "    <nn>T किंवा <nn>TB  टेराबाईट्समधील प्रमाण\n"
-#~ "    <nn>P किंवा <nn>PB  पेटाबाईट्समधील प्रमाण\n"
-#~ "    <nn>E किंवा <nn>EB  एक्जाबाईट्समधील प्रमाण\n"
-#~ "    <nn>sects        512 बाईट सेक्टरचे प्रमाण\n"
-
-#~ msgid ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-#~ msgstr ""
-#~ "time - आदेश चालवण्यासाठी व्याप्त वेळ मोजतो\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    यामुळे <command> साधारणपणे चालवले जाते, व व्याप्त वेळची\n"
-#~ "    नंतर छपाई केली जाते.\n"
-
-#~ msgid "external command failed: %s"
-#~ msgstr "बाहेरील आदेश अपयशी: %s"
-
-#~ msgid "test if file exists"
-#~ msgstr "फाइल अस्तित्वात आहे याची चाचणी करा"
-
-#~ msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-#~ msgstr "%s किंवा %s LIBGUESTFS_PATH (current path = %s) येथे आढळले नाही"
-
-#~ msgid "failed to connect to vmchannel socket"
-#~ msgstr "vmchannel सॉकेटसह जुळवणी करणे अशक्य"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --"
-#~ "selinux\n"
-#~ msgstr ""
-#~ "%s: -i पर्यायचा वापर -a, -m, --listen, --remote किंवा --selinux सह शक्य "
-#~ "नाही\n"
-
-#, fuzzy
-#~ msgid "cpio command failed: {error}"
-#~ msgstr "आदेश अपयशी: %s"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-#~ msgstr ""
-#~ "alloc - प्रतिमाचे वाटप करते\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    यामुळे ठराविक आकाराचे रिकामे (zeroed) फाइल निर्माण होते,\n"
-#~ "    व पुढील विश्लेषणकरीता समावेश केले जाते.\n"
-#~ "\n"
-#~ "    प्रगत प्रतिमा निर्माणकरीता, qemu-img युटिलीटी पहा.\n"
-#~ "\n"
-#~ "    आकार निर्देशीत करणे शक्य आहे (जेथे <nn> म्हणजे क्रमांक):\n"
-#~ "    <nn>             किलोबाईट्सची संख्या\n"
-#~ "      उदा: 1440       मानक 3.5\" फ्लॉपी\n"
-#~ "    <nn>K किंवा <nn>KB  किलोबाईट्समधील प्रमाण\n"
-#~ "    <nn>M किंवा <nn>MB  मेगाबाईट्समधील प्रमाण\n"
-#~ "    <nn>G किंवा <nn>GB  गीगाबाईट्समधील प्रमाण\n"
-#~ "    <nn>T किंवा <nn>TB  टेराबाईट्समधील प्रमाण\n"
-#~ "    <nn>P किंवा <nn>PB  पेटाबाईट्समधील प्रमाण\n"
-#~ "    <nn>E किंवा <nn>EB  एक्जाबाईट्समधील प्रमाण\n"
-#~ "    <nn>sects        512 बाईट सेक्टरचे प्रमाण\n"
-
-#~ msgid "%s: virt-inspector command too long for fixed-size buffer\n"
-#~ msgstr "%s: virt-inspector आदेश ठराविक-आकाराचे बफर करीता खूप लांब आहे\n"
-
-#~ msgid "%s: failed to write XML document\n"
-#~ msgstr "%s: XML दस्तऐवज लिहण्यास अपयशी\n"
-
-#~ msgid "hivexml: missing name of input file\n"
-#~ msgstr "hivexml: इंपुट फाइलचे नाव आढळले नाही\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
-#~ "Windows Registry binary hive files.\n"
-#~ "\n"
-#~ "Type: 'help' for help summary\n"
-#~ "      'quit' to quit the shell\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "hivexsh येथे आपले स्वागत, hivex हे \n"
-#~ "Windows Registry बाइनरी hive फाइल्सचे विश्लेषण करण्यासाठी परस्पर संवाद शेल आहे.\n"
-#~ "\n"
-#~ "टाइप: मदत सारांशकरीता 'help' टाइप करा \n"
-#~ "      शेल पासून बाहेर पडण्यासाठी 'quit'\n"
-#~ "\n"
-
-#~ msgid "hivexsh: error getting parent of node %zu\n"
-#~ msgstr "hivexsh: नोड %zu चे पॅरेंट प्राप्त करतेवेळी त्रुटी आढळली\n"
-
-#~ msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
-#~ msgstr ""
-#~ "hivexsh: 'load hivefile' चा वापर करून तुम्ही hive फाइल प्रथम लोड करायला हवे\n"
-
-#~ msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
-#~ msgstr "hivexsh: अपरिचीत आदेश '%s', मदत सारांशकरीता 'help' चा वापर करा\n"
-
-#~ msgid "hivexsh: load: no hive file name given to load\n"
-#~ msgstr "hivexsh: load: लोडकरीता hive फाइल नाव दिले नाही\n"
-
-#~ msgid ""
-#~ "hivexsh: failed to open hive file: %s: %m\n"
-#~ "\n"
-#~ "If you think this file is a valid Windows binary hive file (_not_\n"
-#~ "a regedit *.reg file) then please run this command again using the\n"
-#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "hivexsh: hive फाइल उघडण्यास अपयशी: %s: %m\n"
-#~ "\n"
-#~ "ही फाइल वैध Windows बाइनरी hive पाइल (_not_\n"
-#~ "a regedit *.reg file) असल्यास कृपया \n"
-#~ "hivexsh पर्याय '-d' चा वापर करून हे आदेश पुनः चालवा व संपूर्ण आऊटपुट _and_ अपयशी "
-#~ "hive फाइल\n"
-#~ " https://bugzilla.redhat.com/ येथील बग अहवालात जोडा\n"
-#~ "\n"
-
-#~ msgid "hivexsh: '%s' command should not be given arguments\n"
-#~ msgstr "hivexsh: '%s' आदेश यांस घटके देऊ नका\n"
-
-#~ msgid ""
-#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
-#~ "parameter correctly?\n"
-#~ msgstr ""
-#~ "%s: %s: \\ मार्गातील अक्षरे दुप्पट केले आहेत - तुम्ही मार्ग संबंधीत घटक योग्यप्रकारे एस्केप "
-#~ "करत आहात?\n"
-
-#~ msgid "hivexsh: cd: subkey '%s' not found\n"
-#~ msgstr "hivexsh: cd: सबकि '%s' आढळली नाही\n"
-
-#~ msgid ""
-#~ "Navigate through the hive's keys using the 'cd' command, as if it\n"
-#~ "contained a filesystem, and use 'ls' to list the subkeys of the\n"
-#~ "current key.  Full documentation is in the hivexsh(1) manual page.\n"
-#~ msgstr ""
-#~ "'cd' आदेशचा वापर करून हाइव्हच्या किज अंतर्गत, फाइलप्रणाली प्रमाणेच, संचारन करा, \n"
-#~ "व सध्याच्या कि मधील सबकिजच्या सूची करीता 'ls'\n"
-#~ "याचा वापर करा.  संपूर्ण दस्तऐवजीकरण hivexsh(1) मॅन्यूअल पृष्ठात आहे.\n"

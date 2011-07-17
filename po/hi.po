@@ -1,26 +1,22 @@
-# translation of libguestfs.master.libguestfs.po to Hindi
-# Copyright (C) 2010 Free Software Foundation, Inc.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Rajesh Ranjan <rranjan@redhat.com>, 2010.
+# 
+# rjones <rjones@redhat.com>, 2011.
+# Rajesh Ranjan <rranjan@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs.master.libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-15 17:17+0100\n"
-"PO-Revision-Date: 2010-02-16 12:57+0530\n"
-"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
-"Language-Team: Hindi <Red Hat>\n"
-"Language: hi\n"
+"PO-Revision-Date: 2011-07-17 20:49+0000\n"
+"Last-Translator: rjones <rjones@redhat.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
-"\n"
+"Language: hi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
@@ -30,7 +26,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक सूचना के लिए `%s --help' आजमाएँ.\n"
 
 #: cat/virt-cat.c:61
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -50,24 +46,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
 #: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
@@ -85,7 +63,7 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
 
 #: cat/virt-filesystems.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -122,32 +100,14 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: cat/virt-filesystems.c:318 cat/virt-ls.c:347 df/main.c:255
-#, fuzzy, c-format
+#, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr "%s: cannot use --listen and --file options at the same time\n"
+msgstr ""
 
 #: cat/virt-ls.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
 "Copyright (C) 2010-2011 Red Hat Inc.\n"
@@ -178,24 +138,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: cat/virt-ls.c:338
 #, c-format
@@ -205,9 +147,9 @@ msgid ""
 msgstr ""
 
 #: cat/virt-ls.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr "hivexsh: नोड %zx के नोड नाम को पाने में त्रुटि\n"
+msgstr ""
 
 #: cat/virt-ls.c:583
 #, c-format
@@ -245,7 +187,7 @@ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
 
 #: df/main.c:74
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -268,24 +210,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: df/main.c:267
 #, c-format
@@ -297,9 +221,8 @@ msgid "VirtualMachine"
 msgstr ""
 
 #: df/output.c:51
-#, fuzzy
 msgid "Filesystem"
-msgstr "फाइलसिस्टम बनाएँ"
+msgstr "फ़ाइलसिस्टम"
 
 #: df/output.c:54
 msgid "1K-blocks"
@@ -307,15 +230,15 @@ msgstr ""
 
 #: df/output.c:56
 msgid "Size"
-msgstr ""
+msgstr "आकार"
 
 #: df/output.c:57
 msgid "Used"
-msgstr ""
+msgstr "उपयोग में"
 
 #: df/output.c:58
 msgid "Available"
-msgstr ""
+msgstr "उपलब्ध"
 
 #: df/output.c:59
 msgid "Use%"
@@ -323,7 +246,7 @@ msgstr ""
 
 #: df/output.c:61
 msgid "Inodes"
-msgstr ""
+msgstr "आइनोड"
 
 #: df/output.c:62
 msgid "IUsed"
@@ -338,7 +261,7 @@ msgid "IUse%"
 msgstr ""
 
 #: edit/virt-edit.c:77
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -360,24 +283,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: edit/virt-edit.c:175
 #, c-format
@@ -395,9 +300,9 @@ msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
 #: edit/virt-edit.c:599
-#, fuzzy, c-format
+#, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr "%s: %s: कुंजी नहीं मिला\n"
+msgstr ""
 
 #: fish/alloc.c:37
 #, c-format
@@ -415,9 +320,9 @@ msgid "can't allocate or add disks after launching\n"
 msgstr "लॉन्चिंग के बाद डिस्क आबंटित या जोड़ नहीं सकता है\n"
 
 #: fish/alloc.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (%s ने %d लौटाया)\n"
+msgstr ""
 
 #: fish/cmds.c:2643
 msgid "Command"
@@ -445,21 +350,20 @@ msgstr "स्नैप शॉट मोड में ड्राइव जो�
 
 #: fish/cmds.c:2650
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr "केवल पठनीय ड्राइव जोड़ें जो QEMU खंड को एमुलेशन को उपयोग के लिए रोकता है"
+msgstr ""
+"केवल पठनीय ड्राइव जोड़ें जो QEMU खंड को एमुलेशन को उपयोग के लिए रोकता है"
 
 #: fish/cmds.c:2651
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr "QEMU खंड एमुलेशन को उपयोग के लिए निर्दिष्ट करने के लिए ड्राइव जोड़ें"
 
 #: fish/cmds.c:2652
-#, fuzzy
 msgid "allocate and add a disk file"
-msgstr "तनु छवि फाइल आबंटित करें"
+msgstr ""
 
 #: fish/cmds.c:2653
-#, fuzzy
 msgid "clear Augeas path"
-msgstr "Augeas पथ हटाएँ"
+msgstr ""
 
 #: fish/cmds.c:2654
 msgid "close the current Augeas handle"
@@ -518,18 +422,16 @@ msgid "test availability of some parts of the API"
 msgstr "API के कुछ हिस्से की उपलब्धता जाँचें"
 
 #: fish/cmds.c:2668
-#, fuzzy
 msgid "return a list of all optional groups"
-msgstr "inotify घटना की सूची वापस करता है"
+msgstr ""
 
 #: fish/cmds.c:2669
 msgid "upload base64-encoded data to file"
 msgstr ""
 
 #: fish/cmds.c:2670
-#, fuzzy
 msgid "download file and encode as base64"
-msgstr "किसी स्थानीय मशीन में कोई फाइल डाउनलोड करें"
+msgstr ""
 
 #: fish/cmds.c:2671
 msgid "flush device buffers"
@@ -572,9 +474,8 @@ msgid "set block device to read-write"
 msgstr "खंड युक्ति को पठनीय-लेखन योग्य सेट करें"
 
 #: fish/cmds.c:2681
-#, fuzzy
 msgid "resize a btrfs filesystem"
-msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2682
 msgid "return true path on case-insensitive filesystem"
@@ -589,14 +490,12 @@ msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "फाइल MD5, SHAx या CRC चेकसम गणना करें"
 
 #: fish/cmds.c:2685
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr "फाइल MD5, SHAx या CRC चेकसम गणना करें"
+msgstr ""
 
 #: fish/cmds.c:2686
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr "फाइल MD5, SHAx या CRC चेकसम गणना करें"
+msgstr ""
 
 #: fish/cmds.c:2687
 msgid "change file mode"
@@ -619,19 +518,16 @@ msgid "add qemu parameters"
 msgstr "qemu पैरामीटर जोड़ें"
 
 #: fish/cmds.c:2692
-#, fuzzy
 msgid "copy local files or directories into an image"
-msgstr "तरू में फाइल लोड करें"
+msgstr ""
 
 #: fish/cmds.c:2693
-#, fuzzy
 msgid "copy remote files or directories out of an image"
-msgstr "तरू में फाइल लोड करें"
+msgstr ""
 
 #: fish/cmds.c:2694
-#, fuzzy
 msgid "copy size bytes from source to destination using dd"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr ""
 
 #: fish/cmds.c:2695
 msgid "copy a file"
@@ -650,14 +546,12 @@ msgid "debugging and internals"
 msgstr "डिबगिंग और आंतरिक"
 
 #: fish/cmds.c:2699
-#, fuzzy
 msgid "debug the QEMU command line (internal use only)"
-msgstr "स्थानीय मशीन मसे फाइल अपलोड करें"
+msgstr ""
 
 #: fish/cmds.c:2700
-#, fuzzy
 msgid "upload a file to the appliance (internal use only)"
-msgstr "स्थानीय मशीन मसे फाइल अपलोड करें"
+msgstr ""
 
 #: fish/cmds.c:2701
 msgid "report file system disk space usage"
@@ -668,9 +562,8 @@ msgid "report file system disk space usage (human readable)"
 msgstr "फाइल सिस्टम डिस्क स्पेस प्रयोग का रिपोर्ट करें (मानव पठनीय)"
 
 #: fish/cmds.c:2703
-#, fuzzy
 msgid "display an image"
-msgstr "छवि आबंटित करें"
+msgstr ""
 
 #: fish/cmds.c:2704
 msgid "return kernel messages"
@@ -681,9 +574,8 @@ msgid "download a file to the local machine"
 msgstr "किसी स्थानीय मशीन में कोई फाइल डाउनलोड करें"
 
 #: fish/cmds.c:2706
-#, fuzzy
 msgid "download a file to the local machine with offset and size"
-msgstr "किसी स्थानीय मशीन में कोई फाइल डाउनलोड करें"
+msgstr ""
 
 #: fish/cmds.c:2707
 msgid "drop kernel page cache, dentries and inodes"
@@ -706,9 +598,8 @@ msgid "echo arguments back to the client"
 msgstr "इको तर्क क्लाइंट को वापस"
 
 #: fish/cmds.c:2712
-#, fuzzy
 msgid "edit a file"
-msgstr "फाइल पढ़ें"
+msgstr ""
 
 #: fish/cmds.c:2713 fish/cmds.c:2714 fish/cmds.c:2719 fish/cmds.c:2720
 #: fish/cmds.c:2754 fish/cmds.c:2755 fish/cmds.c:3008 fish/cmds.c:3009
@@ -745,9 +636,8 @@ msgid "fill a file with octets"
 msgstr "ऑक्टेट के साथ फाइल भरें"
 
 #: fish/cmds.c:2725
-#, fuzzy
 msgid "fill a file with a repeating pattern of bytes"
-msgstr "ऑक्टेट के साथ फाइल भरें"
+msgstr ""
 
 #: fish/cmds.c:2726
 msgid "find all files and directories"
@@ -758,14 +648,12 @@ msgid "find all files and directories, returning NUL-separated list"
 msgstr "सभी फाइलें और निर्देशिका ढूँढ़ें, NUL-अलग सूची वापस कर रहा है"
 
 #: fish/cmds.c:2728
-#, fuzzy
 msgid "find a filesystem by label"
-msgstr "ext2/3/4 फाइलसिस्टम लेबल पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2729
-#, fuzzy
 msgid "find a filesystem by UUID"
-msgstr "ext2/3/4 फाइलसिस्टम UUID पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2730
 msgid "run the filesystem checker"
@@ -776,9 +664,8 @@ msgid "get the additional kernel options"
 msgstr "अतिरिक्त कर्नेल विकल्प पाएँ"
 
 #: fish/cmds.c:2732
-#, fuzzy
 msgid "get the attach method"
-msgstr "खोज पथ पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2733
 msgid "get autosync mode"
@@ -801,18 +688,16 @@ msgid "get memory allocated to the qemu subprocess"
 msgstr "qemu उप प्रक्रिया में स्मृति आबंटित पाएँ"
 
 #: fish/cmds.c:2738
-#, fuzzy
 msgid "get enable network flag"
-msgstr "SELinux सक्रिय फ्लैग पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2739
 msgid "get the search path"
 msgstr "खोज पथ पाएँ"
 
 #: fish/cmds.c:2740
-#, fuzzy
 msgid "get process group flag"
-msgstr "पुनर्प्राप्ति प्रक्रिया सक्रिय फ्लैग पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2741
 msgid "get PID of qemu subprocess"
@@ -839,9 +724,8 @@ msgid "get command trace enabled flag"
 msgstr "कमांड ट्रैस सक्रिय फ्लैग पाएँ"
 
 #: fish/cmds.c:2747
-#, fuzzy
 msgid "get the current umask"
-msgstr "मौजूदा स्थिति पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2748
 msgid "get verbose mode"
@@ -944,9 +828,8 @@ msgid "get hostname of the operating system"
 msgstr ""
 
 #: fish/cmds.c:2775
-#, fuzzy
 msgid "get the icon corresponding to this operating system"
-msgstr "Linux VFS प्रकार किसी आरोहित युक्ति के अऩुरूप पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2776
 msgid "get major version of inspected operating system"
@@ -1013,32 +896,28 @@ msgid "inspect disk and return list of operating systems found"
 msgstr ""
 
 #: fish/cmds.c:2792
-#, fuzzy
 msgid "test if block device"
-msgstr "खंड युक्ति को सूचीबद्ध करता है"
+msgstr ""
 
 #: fish/cmds.c:2793
 msgid "is busy processing a command"
 msgstr "कमांड की प्रक्रिया में व्यस्त है"
 
 #: fish/cmds.c:2794
-#, fuzzy
 msgid "test if character device"
-msgstr "खंड, वर्ण FIFO युक्ति बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2795
 msgid "is in configuration state"
 msgstr "विन्यास स्थिति में है"
 
 #: fish/cmds.c:2796
-#, fuzzy
 msgid "test if a directory"
-msgstr "निर्देशिका बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2797
-#, fuzzy
 msgid "test if FIFO (named pipe)"
-msgstr "FIFO (named पाइप) बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2798
 msgid "test if a regular file"
@@ -1049,33 +928,28 @@ msgid "is launching subprocess"
 msgstr "उपपक्रिया को लॉन्च कर रहा है"
 
 #: fish/cmds.c:2800
-#, fuzzy
 msgid "test if device is a logical volume"
-msgstr "LVM लॉजिकल वाल्यूम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2801
 msgid "is ready to accept commands"
 msgstr "कमांड को स्वीकार करने के लिए तैयार है"
 
 #: fish/cmds.c:2802
-#, fuzzy
 msgid "test if socket"
-msgstr "डेमॉन सॉकेट में लिखें"
+msgstr ""
 
 #: fish/cmds.c:2803
-#, fuzzy
 msgid "test if symbolic link"
-msgstr "सांकेतिक लिंक बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2804
-#, fuzzy
 msgid "test if a file contains all zero bytes"
-msgstr "सूची बनाएँ यदि दो फाइल के पास बराबर सामग्री है"
+msgstr ""
 
 #: fish/cmds.c:2805
-#, fuzzy
 msgid "test if a device contains all zero bytes"
-msgstr "LVM लॉजिकल वाल्यूम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2806
 msgid "kill the qemu subprocess"
@@ -1086,28 +960,24 @@ msgid "launch the qemu subprocess"
 msgstr "qemu उपपक्रिया लॉन्च करें"
 
 #: fish/cmds.c:2808
-#, fuzzy
 msgid "change working directory"
-msgstr "स्थानीय परिवर्तन निर्देशिका"
+msgstr "कार्यशील निर्देशिका बदलें"
 
 #: fish/cmds.c:2812
-#, fuzzy
 msgid "list 9p filesystems"
-msgstr "फाइलसिस्टम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2813
 msgid "list the block devices"
 msgstr "खंड युक्ति को सूचीबद्ध करता है"
 
 #: fish/cmds.c:2814
-#, fuzzy
 msgid "list device mapper devices"
-msgstr "खंड युक्ति को सूचीबद्ध करता है"
+msgstr ""
 
 #: fish/cmds.c:2815
-#, fuzzy
 msgid "list filesystems"
-msgstr "फाइलसिस्टम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2816
 msgid "list the partitions"
@@ -1146,14 +1016,12 @@ msgid "lstat on multiple files"
 msgstr "lstat विविध फाइल पर"
 
 #: fish/cmds.c:2827
-#, fuzzy
 msgid "add a key on a LUKS encrypted device"
-msgstr "खंड युक्ति को केवल पठनीय सेट करें"
+msgstr ""
 
 #: fish/cmds.c:2828
-#, fuzzy
 msgid "close a LUKS device"
-msgstr "युक्ति पर स्वैप सक्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:2829 fish/cmds.c:2830
 msgid "format a block device as a LUKS encrypted device"
@@ -1168,14 +1036,12 @@ msgid "open a LUKS-encrypted block device"
 msgstr ""
 
 #: fish/cmds.c:2833
-#, fuzzy
 msgid "open a LUKS-encrypted block device read-only"
-msgstr "खंड युक्ति को केवल पठनीय सेट करें"
+msgstr ""
 
 #: fish/cmds.c:2834
-#, fuzzy
 msgid "create an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम का नाम बदलें"
+msgstr ""
 
 #: fish/cmds.c:2835
 msgid "get canonical name of an LV"
@@ -1214,9 +1080,8 @@ msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM लॉजिकल वाल्यूम (LVs) की सूची दें"
 
 #: fish/cmds.c:2845
-#, fuzzy
 msgid "get the UUID of a logical volume"
-msgstr "LVM लॉजिकल वाल्यूम (LVs) की सूची दें"
+msgstr ""
 
 #: fish/cmds.c:2846
 msgid "lgetxattr on multiple files"
@@ -1307,18 +1172,16 @@ msgid "load a kernel module"
 msgstr "कर्नेल मॉड्यूल लोड करें"
 
 #: fish/cmds.c:2871
-#, fuzzy
 msgid "view a file"
-msgstr "कोई फाइल खिसकाएँ"
+msgstr ""
 
 #: fish/cmds.c:2872
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "फाइलसिस्टम में स्थिति पर कोई गेस्ट अतिथि आरोहित करें"
 
 #: fish/cmds.c:2873
-#, fuzzy
 msgid "mount 9p filesystem"
-msgstr "किसी फाइल सिस्टम अनारोहित करें"
+msgstr ""
 
 #: fish/cmds.c:2874
 msgid "mount a file using the loop device"
@@ -1353,32 +1216,28 @@ msgid "probe NTFS volume"
 msgstr "NTFS वॉल्यूम जाँचें"
 
 #: fish/cmds.c:2882 fish/cmds.c:2883
-#, fuzzy
 msgid "resize an NTFS filesystem"
-msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2884
-#, fuzzy
 msgid "resize an NTFS filesystem (with size)"
-msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2885
 msgid "add a partition to the device"
 msgstr "युक्ति में कोई विभाजन जोड़ें"
 
 #: fish/cmds.c:2886
-#, fuzzy
 msgid "delete a partition"
-msgstr "कोई स्वैप विभाजन बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2887
 msgid "partition whole disk with a single primary partition"
 msgstr "एकल प्राथमिक विभाजन से पूरे जिस्क को विभाजित करें"
 
 #: fish/cmds.c:2888
-#, fuzzy
 msgid "return true if a partition is bootable"
-msgstr "विभाजन सारणी फिर पढ़ें"
+msgstr ""
 
 #: fish/cmds.c:2889
 msgid "get the MBR type byte (ID byte) from a partition"
@@ -1409,9 +1268,8 @@ msgid "set partition name"
 msgstr "विभाजन नाम सेट करें"
 
 #: fish/cmds.c:2896
-#, fuzzy
 msgid "convert partition name to device name"
-msgstr "खंड युक्ति पर विभाजन बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2897
 msgid "ping the guest daemon"
@@ -1422,9 +1280,8 @@ msgid "read part of a file"
 msgstr "किसी फाइल का हिस्सा पढ़ें"
 
 #: fish/cmds.c:2899
-#, fuzzy
 msgid "read part of a device"
-msgstr "किसी फाइल का हिस्सा पढ़ें"
+msgstr ""
 
 #: fish/cmds.c:2900
 msgid "create an LVM physical volume"
@@ -1439,28 +1296,24 @@ msgid "resize an LVM physical volume"
 msgstr "LVM भौतिक वाल्यूम का आकार बदलें"
 
 #: fish/cmds.c:2903
-#, fuzzy
 msgid "resize an LVM physical volume (with size)"
-msgstr "LVM भौतिक वाल्यूम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2904 fish/cmds.c:2905
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM भौतिक वाल्यूम (PVs) सूची दें"
 
 #: fish/cmds.c:2906
-#, fuzzy
 msgid "get the UUID of a physical volume"
-msgstr "कोई LVM भोतिक वॉल्यूम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2907
-#, fuzzy
 msgid "write to part of a file"
-msgstr "किसी फाइल का हिस्सा पढ़ें"
+msgstr ""
 
 #: fish/cmds.c:2908
-#, fuzzy
 msgid "write to part of a device"
-msgstr "किसी फाइल का हिस्सा पढ़ें"
+msgstr ""
 
 #: fish/cmds.c:2909
 msgid "read a file"
@@ -1491,19 +1344,16 @@ msgid "close and reopen libguestfs handle"
 msgstr "libguestfs नियंत्रण बंद करें और खोलें"
 
 #: fish/cmds.c:2917
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem"
-msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2918
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2919
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:2920
 msgid "remove a file"
@@ -1538,9 +1388,8 @@ msgid "add options to kernel command line"
 msgstr "कर्नेल कमांड लाइन में विकल्प जोड़ें"
 
 #: fish/cmds.c:2928
-#, fuzzy
 msgid "set the attach method"
-msgstr "खोज पथ सेट करें"
+msgstr ""
 
 #: fish/cmds.c:2929
 msgid "set autosync mode"
@@ -1631,9 +1480,8 @@ msgid "sleep for some seconds"
 msgstr "कुछ सेकेंड के लिए स्लीप करें"
 
 #: fish/cmds.c:2953
-#, fuzzy
 msgid "create a sparse disk image and add"
-msgstr "तनु छवि फाइल आबंटित करें"
+msgstr ""
 
 #: fish/cmds.c:2954
 msgid "get file information"
@@ -1648,9 +1496,8 @@ msgid "print the printable strings in a file"
 msgstr "फाइल में छपने योग्य स्ट्रिंग छापें"
 
 #: fish/cmds.c:2958
-#, fuzzy
 msgid "list supported groups of commands"
-msgstr "कमांड को स्वीकार करने के लिए तैयार है"
+msgstr ""
 
 #: fish/cmds.c:2959
 msgid "disable swap on device"
@@ -1713,9 +1560,8 @@ msgid "pack directory into compressed tarball"
 msgstr "निर्देशिका को संकुचित tarball में पैक करें"
 
 #: fish/cmds.c:2974
-#, fuzzy
 msgid "print elapsed time taken to run a command"
-msgstr "कमांड चलाने के लिए लिया गया समय"
+msgstr ""
 
 #: fish/cmds.c:2975
 msgid "update file timestamps or create a new file"
@@ -1750,9 +1596,8 @@ msgid "upload a file from the local machine"
 msgstr "स्थानीय मशीन मसे फाइल अपलोड करें"
 
 #: fish/cmds.c:2985
-#, fuzzy
 msgid "upload a file from the local machine with offset"
-msgstr "स्थानीय मशीन मसे फाइल अपलोड करें"
+msgstr ""
 
 #: fish/cmds.c:2986
 msgid "set timestamp of a file with nanosecond precision"
@@ -1763,18 +1608,16 @@ msgid "get the library version number"
 msgstr "लाइब्रेरी संस्करण संख्या पाएँ"
 
 #: fish/cmds.c:2988
-#, fuzzy
 msgid "get the filesystem label"
-msgstr "ext2/3/4 फाइलसिस्टम लेबल पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2989
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "Linux VFS प्रकार किसी आरोहित युक्ति के अऩुरूप पाएँ"
 
 #: fish/cmds.c:2990
-#, fuzzy
 msgid "get the filesystem UUID"
-msgstr "ext2/3/4 फाइलसिस्टम UUID पाएँ"
+msgstr ""
 
 #: fish/cmds.c:2991
 msgid "activate or deactivate some volume groups"
@@ -1813,9 +1656,8 @@ msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
 #: fish/cmds.c:3001
-#, fuzzy
 msgid "get the UUID of a volume group"
-msgstr "LVM वॉल्यूम समूह बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:3002
 msgid "count characters in a file"
@@ -1830,14 +1672,12 @@ msgid "count words in a file"
 msgstr "फाइल में शब्द गिनती करें"
 
 #: fish/cmds.c:3005
-#, fuzzy
 msgid "create a new file"
-msgstr "फाइल बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:3006
-#, fuzzy
 msgid "append content to end of file"
-msgstr "फाइल की सामग्री सूचीबद्ध करें"
+msgstr ""
 
 #: fish/cmds.c:3007
 msgid "create a file"
@@ -1848,9 +1688,8 @@ msgid "write zeroes to the device"
 msgstr "युक्ति में शून्य लिखें"
 
 #: fish/cmds.c:3011
-#, fuzzy
 msgid "write zeroes to an entire device"
-msgstr "युक्ति में शून्य लिखें"
+msgstr ""
 
 #: fish/cmds.c:3012
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
@@ -1862,7 +1701,8 @@ msgstr "संकुचित फाइल अंदर फाइल प्र�
 
 #: fish/cmds.c:3018
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "-h <cmd> / help <cmd> का उपयोग कमांड के लिए विस्तृत मदद दिखाने के लिए करें."
+msgstr ""
+"-h <cmd> / help <cmd> का उपयोग कमांड के लिए विस्तृत मदद दिखाने के लिए करें."
 
 #: fish/cmds.c:3336 fish/cmds.c:3350 fish/cmds.c:3366 fish/cmds.c:3383
 #: fish/cmds.c:3400 fish/cmds.c:3418 fish/cmds.c:3437 fish/cmds.c:3453
@@ -2100,21 +1940,21 @@ msgstr "%s: %s: परिसर के बाहर पूर्णांक\n"
 
 #: fish/cmds.c:4187 fish/cmds.c:4294 fish/cmds.c:4611 fish/cmds.c:11781
 #: fish/cmds.c:12027 fish/cmds.c:12088 fish/cmds.c:12148
-#, fuzzy, c-format
+#, c-format
 msgid "%s should have %d-%d parameter(s)\n"
-msgstr "%s के पास %d पैरामीटर होना चाहिए\n"
+msgstr ""
 
 #: fish/cmds.c:4213 fish/cmds.c:4330 fish/cmds.c:4632 fish/cmds.c:11867
 #: fish/cmds.c:12044 fish/cmds.c:12121 fish/cmds.c:12177
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr "%s: too many arguments\n"
+msgstr ""
 
 #: fish/cmds.c:4219 fish/cmds.c:4336 fish/cmds.c:4638 fish/cmds.c:11873
 #: fish/cmds.c:12050 fish/cmds.c:12127 fish/cmds.c:12183
-#, fuzzy, c-format
+#, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr "%s: too many arguments\n"
+msgstr ""
 
 #: fish/cmds.c:12228
 #, c-format
@@ -2122,20 +1962,21 @@ msgid "%s: unknown command\n"
 msgstr "%s: अज्ञात कमांड\n"
 
 #: fish/config.c:74 fish/config.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr "%s: internal error parsing string at '%s'\n"
+msgstr ""
 
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "copy-in: target '%s' is not a directory\n"
-msgstr "किसी निर्देशिका में फाइल सूचीबद्ध करें"
+msgstr ""
 
 #: fish/copy.c:157
 #, c-format
@@ -2150,14 +1991,14 @@ msgid ""
 msgstr ""
 
 #: fish/copy.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: target '%s' is not a directory\n"
-msgstr "किसी निर्देशिका में फाइल सूचीबद्ध करें"
+msgstr ""
 
 #: fish/copy.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
-msgstr "कोई फाइल कॉपी करें या कोई निर्देशिका को बारी बारी से"
+msgstr ""
 
 #: fish/display.c:42
 #, c-format
@@ -2170,7 +2011,7 @@ msgid "use '%s filename' to edit a file\n"
 msgstr "किसी फाइल के संपादन के लिए '%s filename' का प्रयोग करें\n"
 
 #: fish/fish.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2215,37 +2056,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: guest filesystem shell\n"
-"%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s -i libvirt-domain\n"
-"  %s -i disk-image(s)\n"
-"or for interactive use:\n"
-"  %s\n"
-"or from a shell script:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
-"Options:\n"
-"  -h|--cmd-help        List available commands\n"
-"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-"  -a|--add image       Add image\n"
-"  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
-"  -f|--file file       Read commands from file\n"
-"  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
-"  --listen             Listen for remote commands\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  --remote[=pid]       Send commands to remote %s\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  -v|--verbose         Verbose messages\n"
-"  -x                   Echo each command before executing it\n"
-"  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
 
 #: fish/fish.c:246
 #, c-format
@@ -2290,7 +2100,7 @@ msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
 #: fish/fish.c:647
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
@@ -2301,13 +2111,6 @@ msgid ""
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
-"\n"
-"guestfish में आपका स्वागत है, libguestfs फाइल सिस्टम अंतःक्रिया शेल \n"
-"वर्चुअल मशीन फाइल सिस्टम के संपादन के लिए.\n"
-"\n"
-"टाइप करें: 'help' को मदद के लिए कमांड से टाइप करें\n"
-"      'quit' को शेल को छोड़ने के लिए\n"
-"\n"
 
 #: fish/fish.c:796 fish/fish.c:812
 #, c-format
@@ -2425,8 +2228,7 @@ msgstr "glob: guestfs_glob_expand call failed: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2471,9 +2273,9 @@ msgid "hexedit: invalid range\n"
 msgstr ""
 
 #: fish/inspect.c:77
-#, fuzzy, c-format
+#, c-format
 msgid "%s: don't use --live and -i options together\n"
-msgstr "%s: cannot use --listen and --file options at the same time\n"
+msgstr ""
 
 #: fish/inspect.c:89
 #, c-format
@@ -2496,9 +2298,9 @@ msgid "Operating system: %s\n"
 msgstr ""
 
 #: fish/inspect.c:159
-#, fuzzy, c-format
+#, c-format
 msgid "%s mounted on %s\n"
-msgstr "आरोहबिंदु दिखाएँ"
+msgstr ""
 
 #: fish/keys.c:53
 #, c-format
@@ -2516,9 +2318,9 @@ msgid "use 'man' without parameters to open the manual\n"
 msgstr ""
 
 #: fish/man.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "the external 'man' program failed\n"
-msgstr "बाहरी कमांड विफल: %s"
+msgstr ""
 
 #: fish/more.c:40
 #, c-format
@@ -2526,9 +2328,9 @@ msgid "use '%s filename' to page a file\n"
 msgstr "फाइल पेज करने के लिए '%s filename' का उपयोग करें\n"
 
 #: fish/options.c:36
-#, fuzzy, c-format
+#, c-format
 msgid "%s: too many drives added on the command line\n"
-msgstr "%s: empty command on command line\n"
+msgstr ""
 
 #: fish/options.c:128
 #, c-format
@@ -2582,19 +2384,17 @@ msgstr ""
 
 #: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
 #: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
-#, fuzzy
 msgid "failed to allocate disk"
-msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
+msgstr ""
 
 #: fish/prep_boot.c:42 fish/prep_boot.c:97
-#, fuzzy
 msgid "could not parse boot size"
-msgstr "आकार विशिष्टता '%s' विश्लेषित नहीं कर सका\n"
+msgstr ""
 
 #: fish/prep_boot.c:46 fish/prep_boot.c:101
-#, fuzzy, c-format
+#, c-format
 msgid "failed to get sector size of disk: %s"
-msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
+msgstr ""
 
 #: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
 #: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
@@ -2603,14 +2403,14 @@ msgid "failed to partition disk: %s"
 msgstr ""
 
 #: fish/prep_boot.c:55 fish/prep_boot.c:110
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add boot partition: %s"
-msgstr "कोई स्वैप विभाजन बनाएँ"
+msgstr ""
 
 #: fish/prep_boot.c:59 fish/prep_boot.c:114
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add root partition: %s"
-msgstr "कोई स्वैप विभाजन बनाएँ"
+msgstr ""
 
 #: fish/prep_boot.c:68 fish/prep_boot.c:128
 #, c-format
@@ -2628,14 +2428,14 @@ msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
 
 #: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create PV: %s: %s"
-msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
+msgstr ""
 
 #: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create VG: %s: %s"
-msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
+msgstr ""
 
 #: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
 #, c-format
@@ -2693,11 +2493,11 @@ msgstr "reopen: guestfs_create: failed to create handle\n"
 
 #: fish/supported.c:66
 msgid "yes"
-msgstr ""
+msgstr "हाँ"
 
 #: fish/supported.c:68
 msgid "no"
-msgstr ""
+msgstr "नहीं"
 
 #: fish/time.c:36
 #, c-format
@@ -2705,7 +2505,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "use 'time command [args...]'\n"
 
 #: fuse/guestmount.c:912
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -2734,37 +2534,21 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: fuse/guestmount.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr "%s: must have at least one -a and at least one -m option\n"
+msgstr ""
 
 #: fuse/guestmount.c:1138
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr "%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना चाहिए\n"
+msgstr ""
+"%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना "
+"चाहिए\n"
 
 #: inspector/virt-inspector.c:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2784,36 +2568,16 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: inspector/virt-inspector.c:263
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2831,9 +2595,9 @@ msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
 #: inspector/virt-inspector.c:308
-#, fuzzy, c-format
+#, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
-msgstr "xmlNewTextWriterFilename: XML राइटर बनाने में विफल\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
 msgid "open_guest: first parameter must be a string or an arrayref"
@@ -2844,20 +2608,19 @@ msgid "open_guest: first argument contains undefined element"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "guest image {imagename} does not exist or is not readable"
-msgstr "द्विपदीय '%s' मौजूद नहीं है या निष्पादनीय नहीं है\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
-#, fuzzy
 msgid "open_guest: too many domains listed on command line"
-msgstr "%s: empty command on command line\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:191
 msgid "open_guest: cannot connect to libvirt"
@@ -2882,8 +2645,7 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2901,9 +2663,9 @@ msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:939
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "unknown filesystem {fs}\n"
-msgstr "किसी फाइल सिस्टम अनारोहित करें"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1017
 #, perl-brace-format
@@ -2945,9 +2707,9 @@ msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1348
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
-msgstr "किसी प्रारूप से मेल खाता पंक्ति"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1387
 #, perl-brace-format
@@ -2955,7 +2717,7 @@ msgid "{filename}: could not read initrd format"
 msgstr ""
 
 #: rescue/virt-rescue.c:63
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2010 Red Hat Inc.\n"
@@ -2979,34 +2741,16 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module for libguestfs\n"
-"%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-"  --fuse-help          Display extra FUSE options\n"
-"  --help               Display help message and exit\n"
-"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-"  -n|--no-sync         Don't autosync\n"
-"  -o|--option opt      Pass extra option to FUSE\n"
-"  -r|--ro              Mount read-only\n"
-"  --selinux            Enable SELinux support\n"
-"  --trace              Trace guestfs API calls (to stderr)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
 
 #: rescue/virt-rescue.c:180
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse memory size '%s'\n"
-msgstr "आकार विशिष्टता '%s' विश्लेषित नहीं कर सका\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown child exit status (%d)\n"
-msgstr "%s: unknown long option: %s (%d)\n"
+msgstr ""
 
 #: src/appliance.c:181
 #, c-format
@@ -3031,29 +2775,24 @@ msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
 #: src/appliance.c:659
-#, fuzzy
 msgid "external command failed, see earlier error messages"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: src/dbdump.c:87
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of header"
-msgstr "डेमॉन से पढ़ने के दौरान फाइल का अप्रत्याशित अंत"
+msgstr ""
 
 #: src/dbdump.c:100 src/dbdump.c:112
-#, fuzzy
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr "डेमॉन से पढ़ने के दौरान फाइल का अप्रत्याशित अंत"
+msgstr ""
 
 #: src/dbdump.c:129
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of data"
-msgstr "डेमॉन से पढ़ने के दौरान फाइल का अप्रत्याशित अंत"
+msgstr ""
 
 #: src/dbdump.c:210
-#, fuzzy
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "डेमॉन से पढ़ने के दौरान फाइल का अप्रत्याशित अंत"
+msgstr ""
 
 #: src/filearch.c:153
 #, c-format
@@ -3119,9 +2858,9 @@ msgid ""
 msgstr ""
 
 #: src/inspect_fs.c:326 src/inspect_fs.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "could not parse integer in version number: %s"
-msgstr "आकार विशिष्टता '%s' विश्लेषित नहीं कर सका\n"
+msgstr ""
 
 #: src/inspect_fs.c:483
 #, c-format
@@ -3129,9 +2868,8 @@ msgid "%s: file is empty"
 msgstr ""
 
 #: src/inspect_fs_unix.c:613
-#, fuzzy
 msgid "could not parse /etc/fstab or empty file"
-msgstr "आकार विशिष्टता '%s' विश्लेषित नहीं कर सका\n"
+msgstr ""
 
 #: src/inspect_fs_windows.c:112
 #, c-format
@@ -3139,9 +2877,9 @@ msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
 #: src/inspect_icon.c:452
-#, fuzzy, c-format
+#, c-format
 msgid "read: %s: unexpected end of file"
-msgstr "hivexsh: setval: इनपुट का अप्रत्याशित अंत\n"
+msgstr ""
 
 #: src/launch.c:98
 msgid "command line cannot be altered after qemu subprocess launched"
@@ -3166,9 +2904,8 @@ msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
 #: src/launch.c:358
-#, fuzzy
 msgid "the libguestfs handle has already been launched"
-msgstr "qemu को पहले ही लॉन्च कर दिया गया है"
+msgstr ""
 
 #: src/launch.c:367
 #, c-format
@@ -3188,14 +2925,12 @@ msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
 #: src/launch.c:865
-#, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: src/launch.c:873
-#, fuzzy
 msgid "contacted guestfsd, but state != READY"
-msgstr "qemu launched and contacted daemon, but state != READY"
+msgstr ""
 
 #: src/launch.c:1052
 #, c-format
@@ -3239,9 +2974,8 @@ msgid ""
 msgstr ""
 
 #: src/proto.c:549
-#, fuzzy
 msgid "See earlier debug messages.\n"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: src/proto.c:639
 #, c-format
@@ -3267,9 +3001,8 @@ msgid "dispatch failed to marshal args"
 msgstr "dispatch failed to marshal args"
 
 #: src/proto.c:922 src/proto.c:1217
-#, fuzzy
 msgid "operation cancelled by user"
-msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
+msgstr ""
 
 #: src/proto.c:973
 #, c-format
@@ -3316,9 +3049,9 @@ msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
 #: src/virt.c:130
-#, fuzzy, c-format
+#, c-format
 msgid "no libvirt domain called '%s': %s"
-msgstr "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
+msgstr ""
 
 #: src/virt.c:185 src/virt.c:435
 #, c-format
@@ -3330,19 +3063,16 @@ msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
 #: src/virt.c:201 src/virt.c:449
-#, fuzzy
 msgid "unable to create new XPath context"
-msgstr "guestfs_create: नियंत्रण बनाने में विफल\n"
+msgstr ""
 
 #: src/virt.c:208 src/virt.c:464
-#, fuzzy
 msgid "unable to evaluate XPath expression"
-msgstr "guestfs_create: नियंत्रण बनाने में विफल\n"
+msgstr ""
 
 #: src/virt.c:305
-#, fuzzy
 msgid "libvirt domain has no disks"
-msgstr "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
+msgstr ""
 
 #: src/virt.c:358
 #, c-format
@@ -3352,8 +3082,7 @@ msgstr ""
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3372,7 +3101,7 @@ msgid ""
 msgstr ""
 
 #: test-tool/test-tool.c:79
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -3385,18 +3114,6 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Usage:\n"
-"  libguestfs-test-tool [--options]\n"
-"Options:\n"
-"  --help         Display usage\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Helper program (default: %s)\n"
-"  --qemudir dir  Specify QEMU source directory\n"
-"  --qemu qemu    Specify QEMU binary\n"
-"  --timeout n\n"
-"  -t n           Set launch timeout (default: %d seconds)\n"
 
 #: test-tool/test-tool.c:127
 #, c-format
@@ -3434,9 +3151,9 @@ msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
 #: test-tool/test-tool.c:229
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr "libguestfs-test-tool: failed to run sfdisk\n"
+msgstr ""
 
 #: test-tool/test-tool.c:235
 #, c-format
@@ -3449,9 +3166,9 @@ msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 
 #: test-tool/test-tool.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr "libguestfs-test-tool: failed to run sfdisk\n"
+msgstr ""
 
 #: test-tool/test-tool.c:279
 #, c-format
@@ -3500,24 +3217,21 @@ msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr ""
 
 #: tools/virt-make-fs.pl:406
-#, fuzzy
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
 #: tools/virt-make-fs.pl:442
-#, fuzzy
 msgid "tar: failed, see earlier messages\n"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: tools/virt-make-fs.pl:464
-#, fuzzy
 msgid "uncompress command failed, see earlier messages\n"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: tools/virt-make-fs.pl:499
 msgid ""
@@ -3553,8 +3267,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3601,416 +3314,4 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 
-#, fuzzy
-#~ msgid "%s: temporary directory not found"
-#~ msgstr "%s: को अस्थायी निर्देशिका नहीं बना सकता है"
 
-#~ msgid "unexpected end of file when reading from daemon"
-#~ msgstr "डेमॉन से पढ़ने के दौरान फाइल का अप्रत्याशित अंत"
-
-#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-#~ msgstr "libguestfs-test-tool: failed to mkdir /iso\n"
-
-#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-#~ msgstr "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-
-#~ msgid ""
-#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
-
-#~ msgid ""
-#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-#~ "available.  Expected to find it in '%s'\n"
-#~ "\n"
-#~ "Use the --helper option to specify the location of this program.\n"
-#~ msgstr ""
-#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-#~ "available.  Expected to find it in '%s'\n"
-#~ "\n"
-#~ "Use the --helper option to specify the location of this program.\n"
-
-#~ msgid "command failed: %s"
-#~ msgstr "कमांड विफल: %s"
-
-#~ msgid ""
-#~ "Test tool helper program %s\n"
-#~ "is not statically linked.  This is a build error when this test tool\n"
-#~ "was built.\n"
-#~ msgstr ""
-#~ "टेस्ट टूल हेल्पर प्रोग्राम %s\n"
-#~ "स्थैतिक रूप से लिंक नहीं है.  यह एक बिल्ड त्रुटि है जब यह जाँच टूल\n"
-#~ "बनाया गया था.\n"
-
-#~ msgid "mkisofs command failed: %s\n"
-#~ msgstr "mkisofs कमांड विफल: %s\n"
-
-#, fuzzy
-#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
-#~ msgstr "द्विपदीय '%s' मौजूद नहीं है या निष्पादनीय नहीं है\n"
-
-#, fuzzy
-#~ msgid "virt-resize: no logical volume called {n}\n"
-#~ msgstr "LVM लॉजिकल वाल्यूम का आकार बदलें"
-
-#, fuzzy
-#~ msgid "failed to create temporary cache directory: %m"
-#~ msgstr "एक अस्थायी निर्देशिका बनाएँ"
-
-#, fuzzy
-#~ msgid "error renaming temporary cache directory: %m"
-#~ msgstr "एक अस्थायी निर्देशिका बनाएँ"
-
-#, fuzzy
-#~ msgid "virt-df: cannot use -h and --csv options together\n"
-#~ msgstr "%s: cannot use --listen and --file options at the same time\n"
-
-#, fuzzy
-#~ msgid "  Mountpoints:\n"
-#~ msgstr "आरोहबिंदु दिखाएँ"
-
-#, fuzzy
-#~ msgid "  Filesystems:\n"
-#~ msgstr "फाइलसिस्टम बनाएँ"
-
-#~ msgid "edit a file in the image"
-#~ msgstr "छवि में कोई फाइल संपादित करें"
-
-#~ msgid "view a file in the pager"
-#~ msgstr "पेजर में फाइल देखें"
-
-#~ msgid ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-#~ msgstr ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write-file\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-
-#~ msgid ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-#~ msgstr ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-
-#~ msgid ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-#~ msgstr ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-
-#~ msgid ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-
-#~ msgid ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-#~ msgstr ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-
-#~ msgid ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-#~ msgstr ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-
-#~ msgid "external command failed: %s"
-#~ msgstr "बाहरी कमांड विफल: %s"
-
-#~ msgid "test if file exists"
-#~ msgstr "जाँचें यदि फाइल मौजूद है"
-
-#~ msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-#~ msgstr "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-
-#~ msgid "failed to connect to vmchannel socket"
-#~ msgstr "vmchannel सॉकेट कनेक्ट होने में विफल"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --"
-#~ "selinux\n"
-#~ msgstr ""
-#~ "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
-
-#, fuzzy
-#~ msgid "cpio command failed: {error}"
-#~ msgstr "कमांड विफल: %s"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-#~ msgstr ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-
-#~ msgid "%s: virt-inspector command too long for fixed-size buffer\n"
-#~ msgstr "%s: virt-inspector command too long for fixed-size buffer\n"
-
-#~ msgid "%s: failed to write XML document\n"
-#~ msgstr "%s: XML दस्तावेजीकरण लिखने में विफल\n"
-
-#~ msgid "hivexml: missing name of input file\n"
-#~ msgstr "hivexml: इनपुट फाइल का अनुपस्थित नाम\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
-#~ "Windows Registry binary hive files.\n"
-#~ "\n"
-#~ "Type: 'help' for help summary\n"
-#~ "      'quit' to quit the shell\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
-#~ "Windows Registry binary hive files.\n"
-#~ "\n"
-#~ "Type: 'help' for help summary\n"
-#~ "      'quit' to quit the shell\n"
-#~ "\n"
-
-#~ msgid "hivexsh: error getting parent of node %zu\n"
-#~ msgstr "hivexsh: नोड %zu के जनक को पाने में त्रुटि\n"
-
-#~ msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
-#~ msgstr ""
-#~ "hivexsh: आपको जरूर एक पहले हाइव फाइल को 'load hivefile' के प्रयोग के पहले लोड "
-#~ "करना चाहिए\n"
-
-#~ msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
-#~ msgstr "hivexsh: अज्ञात कमांड '%s', 'help' को मदद सारांश के लिए उपयोग करें\n"
-
-#~ msgid "hivexsh: load: no hive file name given to load\n"
-#~ msgstr "hivexsh: load: किसी हाइव फाइल नाम लोड करने के लिए है\n"
-
-#~ msgid ""
-#~ "hivexsh: failed to open hive file: %s: %m\n"
-#~ "\n"
-#~ "If you think this file is a valid Windows binary hive file (_not_\n"
-#~ "a regedit *.reg file) then please run this command again using the\n"
-#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "hivexsh: failed to open hive file: %s: %m\n"
-#~ "\n"
-#~ "If you think this file is a valid Windows binary hive file (_not_\n"
-#~ "a regedit *.reg file) then please run this command again using the\n"
-#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
-#~ "\n"
-
-#~ msgid "hivexsh: '%s' command should not be given arguments\n"
-#~ msgstr "hivexsh: '%s' कमांड को दिए तर्क में नहीं देना चाहिए\n"
-
-#~ msgid ""
-#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
-#~ "parameter correctly?\n"
-#~ msgstr ""
-#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
-#~ "parameter correctly?\n"
-
-#~ msgid "hivexsh: cd: subkey '%s' not found\n"
-#~ msgstr "hivexsh: cd: subkey '%s' not found\n"
-
-#~ msgid ""
-#~ "Navigate through the hive's keys using the 'cd' command, as if it\n"
-#~ "contained a filesystem, and use 'ls' to list the subkeys of the\n"
-#~ "current key.  Full documentation is in the hivexsh(1) manual page.\n"
-#~ msgstr ""
-#~ "हाइव कुंजी से होकर संचरित करें 'cd' कमांड के उपयोग से, जैसे कि\n"
-#~ "यह एक फाइलसिस्टम समाहित करता है, और 'ls' का उपयोग मौजूदा कुंजी के\n"
-#~ "उपकुंजी की सूती के लिए करें.  hivexsh(1) मैनुअल पेज में पूर्ण दस्तावेजीकरण है.\n"
-
-#~ msgid ""
-#~ "hivexsh: string(utf16le): only 7 bit ASCII strings are supported for "
-#~ "input\n"
-#~ msgstr ""
-#~ "hivexsh: string(utf16le): केवल 7 bit ASCII स्ट्रिंग को इनपुट के लिए समर्थन दिया "
-#~ "गया है\n"
-
-#~ msgid "hivexsh: setval: trailing garbage after hex string\n"
-#~ msgstr "hivexsh: setval: हेक्स स्ट्रिंग के बाद पीछा करता कचड़ा\n"
-
-#~ msgid ""
-#~ "hivexsh: setval: cannot parse value string, please refer to the man page "
-#~ "hivexsh(1) for help: %s\n"
-#~ msgstr ""
-#~ "hivexsh: setval: मान स्ट्रिंग को विश्लेषित नहीं कर सका, कृपयाhivexsh(1) का मदद के "
-#~ "लिए संदर्भ लें: %s\n"
-
-#~ msgid "hivexsh: del: the root node cannot be deleted\n"
-#~ msgstr "hivexsh: del: रूट नोड को मिटाया नहीं जा सकता है\n"

@@ -1,24 +1,22 @@
-# Fedora Spanish Translation of libguestfs.master.libguestfs
-# This file is distributed under the same license as the libguestfs.master.libguestfs package.
-#
-# Domingo Becker <domingobecker@gmail.com>, 2010.
-# Héctor Daniel Cabrera <logan@fedoraproject.org>, 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# rjones <rjones@redhat.com>, 2011.
+# Héctor Daniel Cabrera <logan@fedoraproject.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs.master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-15 17:17+0100\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
-"Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
-"Language: es\n"
+"PO-Revision-Date: 2011-07-17 20:49+0000\n"
+"Last-Translator: rjones <rjones@redhat.com>\n"
+"Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Spanish\n"
-"X-Poedit-Country: ARGENTINA\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
@@ -28,7 +26,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
 
 #: cat/virt-cat.c:61
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -48,25 +46,23 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
+"%s: muestra archivos en una máquina virtual\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Uso:\n"
+"  %s [--opciones] -d domname archivo [archivo ...]\n"
+"  %s [--opciones] -a disk.img [-a disk.img ...] archivo [archivo ...]\n"
+"Opciones:\n"
 "  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
+"  -c|--connect uri     Indica el URI de libvirt para la opción -d\n"
+"  -d|--domain guest    Agrega discos del húesped libvirt\n"
+"  --echo-keys          Muestra las frases de acceso al tipearlas\n"
+"  --format[=raw|..]    Obliga al formateo del disco para la opción -a\n"
+"  --help               Muestra una pequeña asistencia\n"
+"  --keys-from-stdin    Lee las frases de acceso de stdin\n"
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
+"  -x                   Rastrea llamados API de libguestfs\n"
+"Para obtener mayor información, consulte la página man %s(1).\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
 #: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
@@ -84,7 +80,7 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
 
 #: cat/virt-filesystems.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -121,34 +117,48 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
+"%s: muestra los sistemas de arcivos, particiones, dispositivos de bloques y LVM en una MV\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Uso:\n"
+"  %s [--opciones] -d domname\n"
+"  %s [--opciones] -a disk.img [-a disk.img ...]\n"
+"Ociones:\n"
 "  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
-"  -v|--verbose         Mensajes detallados\n"
+"  --all                Muestra todo\n"
+"  --blkdevs|--block-devices\n"
+"                       Muestra los dispositivos de bloque\n"
+"  -c|--connect uri     Esecifica URI de libvirt para la opción -d\n"
+"  --csv                Ofrece los resultados como valores separados por comas\n"
+"  -d|--domain guest    Agrega discos de los huéspedes libvirt\n"
+"  --echo-keys          Muestra las frases de acceso a medida que se las tipea\n"
+"  --extra              Muestra sistemas de archivos con datos y swap\n"
+"  --filesystems        Muestra sistemas de archivos montables\n"
+"  --format[=raw|..]    Obliga al formateo de disco para la opción -a\n"
+"  -h|--human-readable  Muestra los resultados de --long en tamaños posibles de ser leídos por humanos\n"
+"  --help               Muestra una pequeña asistencia\n"
+"  --keys-from-stdin    Lee frases de acceso de stdin\n"
+"  -l|--long            Resultados extensos\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Muestra volúmenes lógicos LVM\n"
+"  --no-title           Sin título en resultados --long\n"
+"  --parts|--partitions Muestra las particiones\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Muestra volúmenes físicos LVM\n"
+"  --uuid|--uuids       Agrega UUIDs en resultados --long\n"
+"  -v|--verbose         Mensajes detalolados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Muestra grupos de volúmenes LVM\n"
+"  -x                   Rastrea llamadas API de libguestfs\n"
+"Para obtener mayor información, consulte la página man %s(1).\n"
 
 #: cat/virt-filesystems.c:318 cat/virt-ls.c:347 df/main.c:255
-#, fuzzy, c-format
+#, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr ""
-"virt-df: no es posible utilizar las opciones -h y --csv en forma simultánea\n"
+msgstr "%s: no puede utilizar al mismo tiempo las opciones -h y -cvs.\n"
 
 #: cat/virt-ls.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
 "Copyright (C) 2010-2011 Red Hat Inc.\n"
@@ -179,25 +189,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
-"  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
-"  -v|--verbose         Mensajes detallados\n"
-"  -V|--version         Muestra la versión y finaliza\n"
 
 #: cat/virt-ls.c:338
 #, c-format
@@ -207,11 +198,9 @@ msgid ""
 msgstr ""
 
 #: cat/virt-ls.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr ""
-"guestfish: error al intentar obtener información de dominio relacionada con "
-"'%s': %s\n"
 
 #: cat/virt-ls.c:583
 #, c-format
@@ -219,37 +208,43 @@ msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
 #: df/domains.c:115
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+msgstr "%s: no se pudo conectar con libvirt (código %d, dominio %d): %s"
 
 #: df/domains.c:124
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+msgstr ""
+"%s: no se pudo obtener la cantidad de dominios en ejecución (código %d, "
+"dominio %d): %s"
 
 #: df/domains.c:134
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s"
-msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+msgstr ""
+"%s: no se pudo listar los dominios en ejecución (código %d, dominio %d): %s"
 
 #: df/domains.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
-msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+msgstr ""
+"%s: no se pudo obtener la cantidad de dominios inactivos (código %d, dominio"
+" %d): %s"
 
 #: df/domains.c:155
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+msgstr ""
+"%s: no se pudo listar los dominios inactivos (código %d, dominio %d): %s"
 
 #: df/domains.c:281
-#, fuzzy, c-format
+#, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
-msgstr "virt-df: ignorando {name}, posee demasiados discos ({c} > {max})"
+msgstr "%s: ignorando %s, posee demasiados discos (%zu > %d)"
 
 #: df/main.c:74
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -272,35 +267,35 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
+"%s: muestra el espacio disponible en el sistema de archivos virtual\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--opciones] -d domname\n"
+"  %s [--opciones] -a disk.img [-a disk.img ...]\n"
+"Opciones:\n"
 "  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
+"  -c|--connect uri     Especifica URI de libvirt para la opción -d\n"
+"  --csv                Ofrece el resultado en valores separados por comas\n"
+"  -d|--domain guest    Agrega discos de huéspedes libvirt\n"
+"  --format[=raw|..]    Obliga al formateo de disco para la opción -a\n"
+"  -h|--human-readable  Ofrece el resultado de --long en un tamaño posible de ser leído por humanos\n"
+"  --help               Muestra una pequeña asistencia\n"
+"  -i|--inodes          Muestra los inodos\n"
+"  --one-per-guest      Distingue los dispositivos de cada huésped\n"
+"  --uuid               Agrega UUIDs a los resultados --long\n"
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
+"  -x                   Rastrea llamadas API de libguestfs\n"
+"Para obtener mayor información, consulte la página man %s(1).\n"
 
 #: df/main.c:267
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
-msgstr ""
+msgstr "%s: compilado sin soporte para libvirt.\n"
 
 #: df/output.c:50
-#, fuzzy
 msgid "VirtualMachine"
-msgstr "Máquina virtual"
+msgstr "MaquinaVirtual"
 
 #: df/output.c:51
 msgid "Filesystem"
@@ -343,7 +338,7 @@ msgid "IUse%"
 msgstr "UtilizaciónI%"
 
 #: edit/virt-edit.c:77
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -365,25 +360,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
-"  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
-"  -v|--verbose         Mensajes detallados\n"
-"  -V|--version         Muestra la versión y finaliza\n"
 
 #: edit/virt-edit.c:175
 #, c-format
@@ -401,9 +377,9 @@ msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
 #: edit/virt-edit.c:599
-#, fuzzy, c-format
+#, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr "virt-tar: {tarball}: archivo no encontrado\n"
+msgstr ""
 
 #: fish/alloc.c:37
 #, c-format
@@ -438,9 +414,8 @@ msgid "add a CD-ROM disk image to examine"
 msgstr "agrega una imagen CD-ROM para examinar"
 
 #: fish/cmds.c:2646
-#, fuzzy
 msgid "add the disk(s) from a named libvirt domain"
-msgstr "{name} no es el nombre de un dominio libvirt\n"
+msgstr "agrega el/los disco/s de un dominio libvirt determinado"
 
 #: fish/cmds.c:2647 fish/cmds.c:2648
 msgid "add an image to examine or modify"
@@ -576,12 +551,12 @@ msgstr "configura el dispositivo de bloques con modo de sólo lectura"
 
 #: fish/cmds.c:2680
 msgid "set block device to read-write"
-msgstr "configura el dispositivo de bloques con modo de lectura y de escritura"
+msgstr ""
+"configura el dispositivo de bloques con modo de lectura y de escritura"
 
 #: fish/cmds.c:2681
-#, fuzzy
 msgid "resize a btrfs filesystem"
-msgstr "modifica el tamaño de un sistema de archivos NTFS"
+msgstr ""
 
 #: fish/cmds.c:2682
 msgid "return true path on case-insensitive filesystem"
@@ -657,9 +632,8 @@ msgid "debugging and internals"
 msgstr "depuración e internos"
 
 #: fish/cmds.c:2699
-#, fuzzy
 msgid "debug the QEMU command line (internal use only)"
-msgstr "carga un archivo al dispositivo (solo para uso interno)"
+msgstr "depura la línea de comandos de QEMU (sólo para uso interno)"
 
 #: fish/cmds.c:2700
 msgid "upload a file to the appliance (internal use only)"
@@ -676,9 +650,8 @@ msgstr ""
 "manera que pueda ser leído por seres humanos)"
 
 #: fish/cmds.c:2703
-#, fuzzy
 msgid "display an image"
-msgstr "aloja una imagen"
+msgstr ""
 
 #: fish/cmds.c:2704
 msgid "return kernel messages"
@@ -695,7 +668,8 @@ msgstr "descarga un archivo en la máquina local con offset y tamaño"
 #: fish/cmds.c:2707
 msgid "drop kernel page cache, dentries and inodes"
 msgstr ""
-"abandona la página caché del kernel, los nodos i y entradas de datos (dentry)"
+"abandona la página caché del kernel, los nodos i y entradas de datos "
+"(dentry)"
 
 #: fish/cmds.c:2708
 msgid "estimate file space usage"
@@ -783,9 +757,8 @@ msgid "get the additional kernel options"
 msgstr "obtiene las opciones de kernel adicionales"
 
 #: fish/cmds.c:2732
-#, fuzzy
 msgid "get the attach method"
-msgstr "obtiene la ruta de búsqueda"
+msgstr "obtiene un método asociado"
 
 #: fish/cmds.c:2733
 msgid "get autosync mode"
@@ -816,9 +789,8 @@ msgid "get the search path"
 msgstr "obtiene la ruta de búsqueda"
 
 #: fish/cmds.c:2740
-#, fuzzy
 msgid "get process group flag"
-msgstr "obtiene marca de proceso de recuperación habilitado"
+msgstr ""
 
 #: fish/cmds.c:2741
 msgid "get PID of qemu subprocess"
@@ -858,7 +830,7 @@ msgstr "obtiene contexto de seguridad SELinux"
 
 #: fish/cmds.c:2750 fish/cmds.c:2810
 msgid "get a single extended attribute"
-msgstr ""
+msgstr "obtiene sólo un atributo extendido"
 
 #: fish/cmds.c:2751 fish/cmds.c:2811
 msgid "list extended attributes of a file or directory"
@@ -943,19 +915,16 @@ msgstr ""
 "inspeccionado"
 
 #: fish/cmds.c:2773
-#, fuzzy
 msgid "get format of inspected operating system"
-msgstr "obtiene el tipo de un sistema operativo inspeccionado"
+msgstr "obtiene el formato del sistema operativo inspeccionado"
 
 #: fish/cmds.c:2774
-#, fuzzy
 msgid "get hostname of the operating system"
-msgstr "obtiene el nombre del producto de un sistema operativo inspeccionado"
+msgstr "obtiene el nombre del equipo del sistema operativo"
 
 #: fish/cmds.c:2775
-#, fuzzy
 msgid "get the icon corresponding to this operating system"
-msgstr "obtiene la versión más baja de un sistema operativo inspeccionado"
+msgstr ""
 
 #: fish/cmds.c:2776
 msgid "get major version of inspected operating system"
@@ -970,61 +939,57 @@ msgid "get mountpoints of inspected operating system"
 msgstr "obtiene los puntos de montaje de un sistema operativo inspeccionado"
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "get package format used by the operating system"
-msgstr "obtiene el tipo de un sistema operativo inspeccionado"
+msgstr "obtiene el formato del paquete utilizado por el sistema operativo"
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "get package management tool used by the operating system"
-msgstr "obtiene el nombre del producto de un sistema operativo inspeccionado"
+msgstr ""
+"obtiene la herramienta de administración del paquete utilizada por el "
+"sistema operativo"
 
 #: fish/cmds.c:2781
 msgid "get product name of inspected operating system"
 msgstr "obtiene el nombre del producto de un sistema operativo inspeccionado"
 
 #: fish/cmds.c:2782
-#, fuzzy
 msgid "get product variant of inspected operating system"
-msgstr "obtiene el nombre del producto de un sistema operativo inspeccionado"
+msgstr ""
 
 #: fish/cmds.c:2783
-#, fuzzy
 msgid "return list of operating systems found by last inspection"
 msgstr ""
-"inspecciona el disco y devuelve una lista con los sistemas operativos "
-"hallados"
+"devuelve una lista de los sistemas operativos hallados en la última "
+"inspección"
 
 #: fish/cmds.c:2784
 msgid "get type of inspected operating system"
 msgstr "obtiene el tipo de un sistema operativo inspeccionado"
 
 #: fish/cmds.c:2785
-#, fuzzy
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr "obtiene la distribución de un sistema operativo determinado"
+msgstr ""
 
 #: fish/cmds.c:2786
-#, fuzzy
 msgid "get Windows systemroot of inspected operating system"
-msgstr "obtiene la distribución de un sistema operativo determinado"
+msgstr "obtiene el systemroot de Windows del sistema operativo inspeccionado "
 
 #: fish/cmds.c:2787
 msgid "get live flag for install disk"
-msgstr ""
+msgstr "obtiene la marca viva del disco de instalación"
 
 #: fish/cmds.c:2788
 msgid "get multipart flag for install disk"
-msgstr ""
+msgstr "obtiene la marca multipart del disco de instalación"
 
 #: fish/cmds.c:2789
 msgid "get netinst (network installer) flag for install disk"
-msgstr ""
+msgstr "obtiene la marca netinst (instalador de red) del disco de instalación"
 
 #: fish/cmds.c:2790
-#, fuzzy
 msgid "get list of applications installed in the operating system"
-msgstr "obtiene la distribución de un sistema operativo determinado"
+msgstr ""
+"obtiene la lista de las aplicaciones instaladas en el sistema operativo"
 
 #: fish/cmds.c:2791
 msgid "inspect disk and return list of operating systems found"
@@ -1081,14 +1046,12 @@ msgid "test if symbolic link"
 msgstr "verifica que sea un enlace simbólico"
 
 #: fish/cmds.c:2804
-#, fuzzy
 msgid "test if a file contains all zero bytes"
-msgstr "verifica si dos archivos tienen el mismo contenido"
+msgstr ""
 
 #: fish/cmds.c:2805
-#, fuzzy
 msgid "test if a device contains all zero bytes"
-msgstr "comprueba si el dispositivo es un volumen lógico"
+msgstr ""
 
 #: fish/cmds.c:2806
 msgid "kill the qemu subprocess"
@@ -1103,18 +1066,16 @@ msgid "change working directory"
 msgstr "modifica el directorio de trabajo"
 
 #: fish/cmds.c:2812
-#, fuzzy
 msgid "list 9p filesystems"
-msgstr "lista los sistemas de archivos"
+msgstr ""
 
 #: fish/cmds.c:2813
 msgid "list the block devices"
 msgstr "lista los dispositivos de bloque"
 
 #: fish/cmds.c:2814
-#, fuzzy
 msgid "list device mapper devices"
-msgstr "lista los dispositivos de bloque"
+msgstr ""
 
 #: fish/cmds.c:2815
 msgid "list filesystems"
@@ -1179,7 +1140,8 @@ msgstr "abre un dispositivo de bloques cifrado con LUKS"
 #: fish/cmds.c:2833
 msgid "open a LUKS-encrypted block device read-only"
 msgstr ""
-"abre un dispositivo de bloques cifrado mediante LUKS, en modo de sólo lectura"
+"abre un dispositivo de bloques cifrado mediante LUKS, en modo de sólo "
+"lectura"
 
 #: fish/cmds.c:2834
 msgid "create an LVM logical volume"
@@ -1187,7 +1149,7 @@ msgstr "genera un volumen lógico LVM"
 
 #: fish/cmds.c:2835
 msgid "get canonical name of an LV"
-msgstr ""
+msgstr "obtiene el nombre canónico de una MV"
 
 #: fish/cmds.c:2836
 msgid "clear LVM device filter"
@@ -1322,9 +1284,8 @@ msgid "mount a guest disk at a position in the filesystem"
 msgstr "monta un disco huésped en una posición del sistema de archivos"
 
 #: fish/cmds.c:2873
-#, fuzzy
 msgid "mount 9p filesystem"
-msgstr "desmonta un sistema de archivos"
+msgstr ""
 
 #: fish/cmds.c:2874
 msgid "mount a file using the loop device"
@@ -1423,9 +1384,8 @@ msgid "read part of a file"
 msgstr "lee parte de un archivo"
 
 #: fish/cmds.c:2899
-#, fuzzy
 msgid "read part of a device"
-msgstr "lee parte de un archivo"
+msgstr "lee parte de un dispositivo"
 
 #: fish/cmds.c:2900
 msgid "create an LVM physical volume"
@@ -1456,9 +1416,8 @@ msgid "write to part of a file"
 msgstr "escribe en parte de un archivo"
 
 #: fish/cmds.c:2908
-#, fuzzy
 msgid "write to part of a device"
-msgstr "escribe en parte de un archivo"
+msgstr "escribe sobre la parte de un dispositivo"
 
 #: fish/cmds.c:2909
 msgid "read a file"
@@ -1493,10 +1452,9 @@ msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "modifica el tamaño de un sistema de archivos ext2, ext3, o ext4"
 
 #: fish/cmds.c:2918
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
-"modifica el tamaño de un sistema de archivos ext2, ext3 o ext4 (con tamaño)"
+"redimensiona a su tamaño mínimo un sistema de archivos ext2, ext3 o ext4"
 
 #: fish/cmds.c:2919
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
@@ -1536,9 +1494,8 @@ msgid "add options to kernel command line"
 msgstr "agrega opciones a la línea de comando del kernel"
 
 #: fish/cmds.c:2928
-#, fuzzy
 msgid "set the attach method"
-msgstr "define el camino de búsqueda"
+msgstr "define un método de asociación"
 
 #: fish/cmds.c:2929
 msgid "set autosync mode"
@@ -1784,14 +1741,14 @@ msgstr "genera un grupo de volúmenes LVM"
 #: fish/cmds.c:2994
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
-"obtiene los UUIDs de todos los volúmenes lógicos (LV) existentes en el grupo "
-"de volúmenes"
+"obtiene los UUIDs de todos los volúmenes lógicos (LV) existentes en el grupo"
+" de volúmenes"
 
 #: fish/cmds.c:2995
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
-"obtiene los UUIDs de todos los volúmenes físicos (PV) existentes en el grupo "
-"de volúmenes"
+"obtiene los UUIDs de todos los volúmenes físicos (PV) existentes en el grupo"
+" de volúmenes"
 
 #: fish/cmds.c:2996
 msgid "remove an LVM volume group"
@@ -1832,9 +1789,8 @@ msgid "create a new file"
 msgstr "crea un nuevo archivo"
 
 #: fish/cmds.c:3006
-#, fuzzy
 msgid "append content to end of file"
-msgstr "lista los contenidos de un archivo"
+msgstr ""
 
 #: fish/cmds.c:3007
 msgid "create a file"
@@ -1856,7 +1812,8 @@ msgstr ""
 #: fish/cmds.c:3015
 msgid "determine file type inside a compressed file"
 msgstr ""
-"determina el tipo de archivo que se encuentra dentro de un archivo comprimido"
+"determina el tipo de archivo que se encuentra dentro de un archivo "
+"comprimido"
 
 #: fish/cmds.c:3018
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
@@ -2099,21 +2056,21 @@ msgstr "%s: %s: entero fuera de rango\n"
 
 #: fish/cmds.c:4187 fish/cmds.c:4294 fish/cmds.c:4611 fish/cmds.c:11781
 #: fish/cmds.c:12027 fish/cmds.c:12088 fish/cmds.c:12148
-#, fuzzy, c-format
+#, c-format
 msgid "%s should have %d-%d parameter(s)\n"
-msgstr "%s debería tener %d parámetro(s)\n"
+msgstr "%s debería poseer el/los parámetros  %d-%d\n"
 
 #: fish/cmds.c:4213 fish/cmds.c:4330 fish/cmds.c:4632 fish/cmds.c:11867
 #: fish/cmds.c:12044 fish/cmds.c:12121 fish/cmds.c:12177
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr "%s: demasiados argumentos\n"
+msgstr "%s: argumento optativo  \"%s\" desconocido\n"
 
 #: fish/cmds.c:4219 fish/cmds.c:4336 fish/cmds.c:4638 fish/cmds.c:11873
 #: fish/cmds.c:12050 fish/cmds.c:12127 fish/cmds.c:12183
-#, fuzzy, c-format
+#, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr "%s: demasiados argumentos\n"
+msgstr "%s: el argumento optativo \"%s\" ha sido ofrecido dos veces\n"
 
 #: fish/cmds.c:12228
 #, c-format
@@ -2121,14 +2078,15 @@ msgid "%s: unknown command\n"
 msgstr "%s: comando desconocido\n"
 
 #: fish/config.c:74 fish/config.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr "%s: error interno analizando cadena en '%s'\n"
+msgstr ""
 
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 "utilice el comando 'copy-in <local> [<local>...] <remotedir>' para copiar "
 "archivos dentro de la imagen\n"
@@ -2155,9 +2113,9 @@ msgstr ""
 "archivos fuera de la imagen\n"
 
 #: fish/copy.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: target '%s' is not a directory\n"
-msgstr "copy-in: el destino '%s' no es un directorio\n"
+msgstr "copy-out: el destino '%s' no es un directorio\n"
 
 #: fish/copy.c:258
 #, c-format
@@ -2175,7 +2133,7 @@ msgid "use '%s filename' to edit a file\n"
 msgstr "utilice '%s nombre de archivo' para editar un archivo\n"
 
 #: fish/fish.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2220,46 +2178,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: shell del sistema de archivos huésped\n"
-"%s le permite editar sistemas de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] cmd [: cmd : cmd ...]\n"
-"  %s -i libvirt-domain\n"
-"  %s -i disk-image(s)\n"
-"o para uso interactivo:\n"
-"  %s\n"
-"o desde un programa de shell:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
-"Opciones:\n"
-"  -h|--cmd-help        Lista los comandos disponibles\n"
-"  -h|--cmd-help cmd    Muestra asistencia detallada del 'cmd'\n"
-"  -a|--add image       Agrega una imagen\n"
-"  -c|--connect uri     Especifica el URI de libvirt para la opción -d\n"
-"  -d|--domain guest    Agrega discos desde el huésped libvirt\n"
-"  -D|--no-dest-paths   No tabula rutas completas desde el sistema de "
-"archivos huésped\n"
-"  --echo-keys          No deshabilita la visualización de frases de acceso\n"
-"  -f|--file file       Lee comandos desde el archivo\n"
-"  -i|--inspector       Monta automáticamente sistemas de archivos\n"
-"  --keys-from-stdin    Lee frases de acceso desde stdin\n"
-"  --listen             Escucha comandos remotos\n"
-"  -m|--mount dev[:mnt] Monta dev sobre mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -N|--new type        Crea disco preparado (test1.img, ...)\n"
-"  --progress-bars      Habilita barras de progreso aún cuando no sea "
-"interactivo\n"
-"  --no-progress-bars   Deshabilita barras de progreso\n"
-"  --remote[=pid]       Envía comandos a %s remoto\n"
-"  -r|--ro              Monta, sólo lectura\n"
-"  --selinux            Habilita soporte de SELinux\n"
-"  -v|--verbose         Mensajes con información detallada\n"
-"  -x                   Muestra cada comando antes de ejecutarlo\n"
-"  -V|--version         Muestra la versión y finaliza\n"
-"Para mayor información, vea la página man %s(1).\n"
 
 #: fish/fish.c:246
 #, c-format
@@ -2283,7 +2201,8 @@ msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
-"%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
+"%s: no es posible utilizar al mismo tiempo las opciones --listen y "
+"--remote\n"
 
 #: fish/fish.c:484
 #, c-format
@@ -2308,7 +2227,7 @@ msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr "guestfish: el tipo de terminal \"%s\" no ha sido definido.\n"
 
 #: fish/fish.c:647
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
@@ -2320,11 +2239,10 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Bienvenido a guestfish, la shell de sistema de archivos interactiva de "
-"libguestfs para\n"
+"Bienvenido a guestfish, la shell interactiva del sistema de archivos libguestfs para\n"
 "editar sistemas de archivos de máquinas virtuales.\n"
 "\n"
-"Ingrese: 'help' para obtener una lista de comandos\n"
+"Ingrese: 'help' para obtener los comandos de asistencia\n"
 "      'man' para leer el manual\n"
 "      'quit' para abandonar la shell\n"
 "\n"
@@ -2449,11 +2367,13 @@ msgstr "glob: falló la llamada guestfs_glob_expand: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
+"Agregue imágenes de disco a examinar utilizando las opciones -a, -d, o el comando 'add'.\n"
+"O genere una nueva imagen de disco utilizando -N, o los comandos 'alloc' o 'sparse'.\n"
+"Una vez que haya hecho esto, utilice el comando 'run'.\n"
 
 #: fish/help.c:44
 #, c-format
@@ -2462,6 +2382,9 @@ msgid ""
 "mount them to examine or modify the contents using 'mount-ro' or\n"
 "'mount-options'.\n"
 msgstr ""
+"Sepa cuáles son los sistemas de archivos disponibles utilizando 'list-filesystems' y luego\n"
+"móntelos para examinar o modificar sus contenidos mediante 'mount-ro'\n"
+" o 'mount-options'.\n"
 
 #: fish/help.c:52
 #, c-format
@@ -2470,6 +2393,9 @@ msgid ""
 "\n"
 "To read the manual, type 'man'.\n"
 msgstr ""
+"Para obtener mayor información acerca de algún comando, utilice 'help cmd'.\n"
+"\n"
+"Para leer el manual, ingrese 'man'.\n"
 
 #: fish/hexedit.c:41
 #, c-format
@@ -2498,27 +2424,28 @@ msgid "hexedit: invalid range\n"
 msgstr "hexedit: rango inválido\n"
 
 #: fish/inspect.c:77
-#, fuzzy, c-format
+#, c-format
 msgid "%s: don't use --live and -i options together\n"
-msgstr ""
-"virt-df: no es posible utilizar las opciones -h y --csv en forma simultánea\n"
+msgstr "%s: no utilice al mismo tiempo las opciones --live e -i\n"
 
 #: fish/inspect.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "%s: no operating system was found on this disk\n"
-msgstr "guestfish: no han sido hallados sistemas operativos en este disco\n"
+msgstr "%s: no se ha encontrado un sistema operativo en este disco\n"
 
 #: fish/inspect.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
-"guestfish: con la opción -i, no existe soporte para sistemas operativos "
-"multiarranque\n"
+"%s: los sistemas operativos de tipo multi arranque no tienen soporte con la "
+"opción -i\n"
 
 #: fish/inspect.c:134
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
+"%s: algunos sistemas de archivos no han podido ser montados (se han "
+"ignorado)\n"
 
 #: fish/inspect.c:146
 #, c-format
@@ -2556,16 +2483,14 @@ msgid "use '%s filename' to page a file\n"
 msgstr "utilice '%s nombre de archivo' para paginar un archivo\n"
 
 #: fish/options.c:36
-#, fuzzy, c-format
+#, c-format
 msgid "%s: too many drives added on the command line\n"
-msgstr ""
-"guestfish: han sido agregados demasiados dispositivos en la línea de "
-"comando\n"
+msgstr "%s: demasiados discos añadidos en la línea de comando\n"
 
 #: fish/options.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
-msgstr "guestfish: '%s' no pudo ser montado. ¿Se refería a alguno de estos?\n"
+msgstr "%s: no se ha podido montar '%s'. ¿Se refería a uno de estos?\n"
 
 #: fish/prep.c:37
 #, c-format
@@ -2604,10 +2529,8 @@ msgid ""
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
-"Las imágenes de disco preparadas son escritas en el archivo \"test1.img\" "
-"del\n"
-"directorio local.  (\"test2.img\" etc., si se ofrece la opción -N reiteradas "
-"veces).\n"
+"Las imágenes de disco preparadas son escritas en el archivo \"test1.img\" del\n"
+"directorio local.  (\"test2.img\" etc., si se ofrece la opción -N reiteradas veces).\n"
 "Para obtener mayor información, consulte el manual de guestfish(1).\n"
 
 #: fish/prep.c:96
@@ -2616,10 +2539,8 @@ msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
 msgstr ""
-"guestfish: parámetro '%s' de -N: no se conoce tal imagen de disco "
-"preparada.\n"
-"Utilice 'guestfish -N help' para obtener un listado con los valores posibles "
-"del parámetro -N.\n"
+"guestfish: parámetro '%s' de -N: no se conoce tal imagen de disco preparada.\n"
+"Utilice 'guestfish -N help' para obtener un listado con los valores posibles del parámetro -N.\n"
 
 #: fish/prep.c:158
 #, c-format
@@ -2720,8 +2641,8 @@ msgstr "guestfish: remoto: parece ser que el servidor no se está ejecutando\n"
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: error de protocolo: no es posible enviar salutación inicial hacia "
-"el servidor\n"
+"guestfish: error de protocolo: no es posible enviar salutación inicial hacia"
+" el servidor\n"
 
 #: fish/rc.c:386
 #, c-format
@@ -2754,7 +2675,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "utilice 'time comando [args...]'\n"
 
 #: fuse/guestmount.c:912
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -2783,30 +2704,11 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
-"  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
-"  -v|--verbose         Mensajes detallados\n"
-"  -V|--version         Muestra la versión y finaliza\n"
 
 #: fuse/guestmount.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr "%s: debe poseer al menos una opción -a, y al menos una opción -m\n"
+msgstr "%s: debe tener por lo menos -a/-d, y como mínimo una opción -m/-i\n"
 
 #: fuse/guestmount.c:1138
 #, c-format
@@ -2815,7 +2717,7 @@ msgstr ""
 "%s: debe indicar un punto de montaje en el sistema de archivos del equipo\n"
 
 #: inspector/virt-inspector.c:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2835,68 +2737,63 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
+"%s: muestra información relacionada con una máquina virtual\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Uso:\n"
+"  %s [--opciones] -d domname archivo [archivo ...]\n"
+"  %s [--opciones] -a disk.img [-a disk.img ...] archivo [archivo ...]\n"
+"Opciones:\n"
 "  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
+"  -c|--connect uri     Especifica URI de libvirt para la opción -d\n"
+"  -d|--domain guest    Agrega discos del huésped libvirt\n"
+"  --echo-keys          Muestra las frases de acceso a medida que se las ingresa\n"
+"  --format[=raw|..]    Obliga a formatear el disco con la opción -a\n"
+"  --help               Muestra una pequeña asistencia\n"
+"  --keys-from-stdin    Lee frases de acceso de stdin\n"
 "  -v|--verbose         Mensajes detallados\n"
 "  -V|--version         Muestra la versión y finaliza\n"
+"  -x                   Rastrea llamadas API de libguestfs\n"
+"Para obtener mayor información, consulte la página man %s(1).\n"
 
 #: inspector/virt-inspector.c:263
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"No se ha podido detectar ningún sistema operativo dentro de esta imagen de "
-"disco.\n"
+"%s: no se ha podido detectar un sistema operativo en la imagen de disco.\n"
 "\n"
-"Esto podría suceder debido a que el archivo no es un archivo de\n"
-"imagen de disco, o que no sea una imagen de máquina virtual, o\n"
-"debido a que el tipo de SO no es comprendido por virt-inspector.\n"
+"Esto puede ser debido a que el archivo no es una imagen de disco, o que no es una\n"
+" imagen de máquina virtual, o porque el tipo de SO no es comprendido por libguestfs.\n"
 "\n"
-"Si cree que esto es un error, por favor envíe un reporte de error ofreciendo "
-"la\n"
-"mayor cantidad de información acerca de la imagen de disco que le sea "
-"posible.\n"
+"NOTA para los usuarios de Linux para empresas de Red Hat 6: para obtener soporte con\n"
+"huéspedes Windows, debe instalar el paquete independiente libguestfs-winsupport.\n"
+"\n"
+"Si considera que esto podría ser un error, por favor envíe un reporte de error incluyendo la\n"
+" mayor cantidad de información relacionada con la imagen de disco que le sea posible.\n"
 
 #: inspector/virt-inspector.c:288
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
-msgstr ""
+msgstr "%s: error de escritura XML en \"%s\": %m\n"
 
 #: inspector/virt-inspector.c:300
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
-msgstr ""
+msgstr "%s: xmlOutputBufferCreateFd: falló al abrir stdout\n"
 
 #: inspector/virt-inspector.c:308
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
-msgstr ""
+msgstr "%s: xmlNewTextWriter: falló al crear escritor libxml2\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
 msgid "open_guest: first parameter must be a string or an arrayref"
@@ -2914,8 +2811,8 @@ msgstr "la imagen huésped {imagename} no existe es imposible de leer"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
 "open_guest: no existe soporte libvirt (install Sys::Virt, XML::XPath and "
 "XML::XPath::XMLParser)"
@@ -2947,24 +2844,20 @@ msgstr "{imagename} parece no tener dispositivos de disco\n"
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"No se ha podido detectar ningún sistema operativo dentro de esta imagen de "
-"disco.\n"
+"No se ha podido detectar ningún sistema operativo dentro de esta imagen de disco.\n"
 "\n"
 "Esto podría suceder debido a que el archivo no es un archivo de\n"
 "imagen de disco, o que no sea una imagen de máquina virtual, o\n"
 "debido a que el tipo de SO no es comprendido por virt-inspector.\n"
 "\n"
-"Si cree que esto es un error, por favor envíe un reporte de error ofreciendo "
-"la\n"
-"mayor cantidad de información acerca de la imagen de disco que le sea "
-"posible.\n"
+"Si cree que esto es un error, por favor envíe un reporte de error ofreciendo la\n"
+"mayor cantidad de información acerca de la imagen de disco que le sea posible.\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:901
 #, perl-brace-format
@@ -3014,8 +2907,8 @@ msgstr "La entrada del grub {title} no especifica ningún initrd"
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
-"No ha sido encontrados un directorio de módulos {modules} para la {path} del "
-"kernel"
+"No ha sido encontrados un directorio de módulos {modules} para la {path} del"
+" kernel"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1294
 #, perl-brace-format
@@ -3035,7 +2928,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: no es posible leer formato initrd"
 
 #: rescue/virt-rescue.c:63
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2010 Red Hat Inc.\n"
@@ -3059,35 +2952,16 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: módulo FUSE para libguestfs\n"
-"%s le permite montar un sistema de archivos de máquina virtual\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  %s [--opciones] [-- [--FUSE-opciones]] punto de montaje\n"
-"Options:\n"
-"  -a|--add image       Agrega una imagen\n"
-"  --dir-cache-timeout  Define tiempo de espera de readdir cache (por defecto "
-"5 sec)\n"
-"  --fuse-help          Muestra opciones FUSE adicionales\n"
-"  --help               Muestra el mensaje de ayuda y finaliza\n"
-"  -m|--mount dev[:mnt] Monta dev en mnt (si es omitido, /)\n"
-"  -n|--no-sync         No sincroniza automáticamente\n"
-"  -o|--option opt      Transmite opciones extra a FUSE\n"
-"  -r|--ro              Montaje de solo lectura\n"
-"  --selinux            Habilita soporte para SELinux\n"
-"  --trace              Rastrea llamadas API de guestfs API (hacia stderr)\n"
-"  -v|--verbose         Mensajes detallados\n"
-"  -V|--version         Muestra la versión y finaliza\n"
 
 #: rescue/virt-rescue.c:180
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse memory size '%s'\n"
-msgstr "no se pudo analizar el tamaño de arranque"
+msgstr "%s: no se pudo analizar el tamaño '%s' de la memoria\n"
 
 #: rescue/virt-rescue.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown child exit status (%d)\n"
-msgstr "%s: opción extensa desconocida: %s (%d)\n"
+msgstr "%s: estado de salida de proceso hijo desconocido (%d)\n"
 
 #: src/appliance.c:181
 #, c-format
@@ -3095,58 +2969,59 @@ msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
-"no es posible hallar un supermin de libguestfs adecuado, o algún dispositivo "
-"ordinario en LIBGUESTFS_PATH (ruta de búsqueda: %s)"
+"no es posible hallar un supermin de libguestfs adecuado, o algún dispositivo"
+" ordinario en LIBGUESTFS_PATH (ruta de búsqueda: %s)"
 
 #: src/appliance.c:331
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
-msgstr ""
+msgstr "seguridad: el dispositivo cacheado %s no es propiedad del UID %d"
 
 #: src/appliance.c:336
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
-msgstr ""
+msgstr "seguridad: el dispositivo cacheado %s no es un directorio (modo %o) "
 
 #: src/appliance.c:341
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
+"seguridad: el dispositivo cacheado %s es modificable por el grupo u otros "
+"(modo %o)"
 
 #: src/appliance.c:659
 msgid "external command failed, see earlier error messages"
 msgstr "falló el comando externo, vea mensajes de errores anteriores"
 
 #: src/dbdump.c:87
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of header"
-msgstr "salida inesperada del comando 'du'"
+msgstr ""
 
 #: src/dbdump.c:100 src/dbdump.c:112
-#, fuzzy
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr "salida inesperada del comando 'du'"
+msgstr ""
 
 #: src/dbdump.c:129
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of data"
-msgstr "salida inesperada del comando 'du'"
+msgstr ""
 
 #: src/dbdump.c:210
-#, fuzzy
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "salida inesperada del comando 'du'"
+msgstr ""
 
 #: src/filearch.c:153
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
-msgstr ""
+msgstr "el tamaño de %s es irracional (%<PRIi64> bytes)"
 
 #: src/filearch.c:266
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without PCRE or libmagic libraries"
 msgstr ""
+"No está disponible el API de la arquitectura del archivo, ya que esta "
+"versión de libguestfs ha sido compilada sin la utilización de bibliotecas "
+"PCRE o libmagic"
 
 #: src/guestfs.c:174
 #, c-format
@@ -3166,11 +3041,11 @@ msgstr "libguestfs: error: %s\n"
 #: src/guestfs.c:965
 #, c-format
 msgid "<truncated, original size %zu bytes>"
-msgstr ""
+msgstr "<truncado, tamaño original %zu bytes>"
 
 #: src/inspect.c:265
 msgid "not a Windows guest, or systemroot could not be determined"
-msgstr ""
+msgstr "no es un huésped Windows, o systemroot no pudo ser determinado"
 
 #: src/inspect.c:281
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
@@ -3181,7 +3056,7 @@ msgstr ""
 #: src/inspect_fs_unix.c:821
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
-msgstr ""
+msgstr "el tamaño de %s es irracionalmente largo (%<PRIi64> bytes)"
 
 #: src/inspect.c:577
 msgid "no inspection data: call guestfs_inspect_os first"
@@ -3201,21 +3076,22 @@ msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
 msgstr ""
+"no está disponible la inspección de API debido a que esta versión de "
+"libguestfs fue compilada sin bibliotecas PCRE o hivex"
 
 #: src/inspect_fs.c:326 src/inspect_fs.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "could not parse integer in version number: %s"
-msgstr "no se pudo analizar el tamaño de arranque"
+msgstr "no se pudo analizar el entero en el número de la versión: %s"
 
 #: src/inspect_fs.c:483
 #, c-format
 msgid "%s: file is empty"
-msgstr ""
+msgstr "%s: el archivo está vacío"
 
 #: src/inspect_fs_unix.c:613
-#, fuzzy
 msgid "could not parse /etc/fstab or empty file"
-msgstr "no se pudo analizar el tamaño de arranque"
+msgstr "no se pudo analizar /etc/fstab o vaciar el archivo"
 
 #: src/inspect_fs_windows.c:112
 #, c-format
@@ -3249,7 +3125,7 @@ msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
 #: src/launch.c:247 src/launch.c:252
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
+msgstr "el parámetro %s está vacío o contiene caracteres no permitidos"
 
 #: src/launch.c:358
 msgid "the libguestfs handle has already been launched"
@@ -3274,15 +3150,13 @@ msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
 #: src/launch.c:865
-#, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
+msgstr ""
+"falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
 #: src/launch.c:873
-#, fuzzy
 msgid "contacted guestfsd, but state != READY"
-msgstr ""
-"qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
+msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
 #: src/launch.c:1052
 #, c-format
@@ -3327,9 +3201,8 @@ msgid ""
 msgstr ""
 
 #: src/proto.c:549
-#, fuzzy
 msgid "See earlier debug messages.\n"
-msgstr "tar: falló, vea mensajes de errores anteriores\n"
+msgstr ""
 
 #: src/proto.c:639
 #, c-format
@@ -3356,9 +3229,8 @@ msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
 #: src/proto.c:922 src/proto.c:1217
-#, fuzzy
 msgid "operation cancelled by user"
-msgstr "el demonio ha cancelado la recepción del archivo"
+msgstr ""
 
 #: src/proto.c:973
 #, c-format
@@ -3382,7 +3254,8 @@ msgstr "escribe en el socket del demonio"
 #: src/proto.c:1194
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
-"receive_file_data: error de análisis en la respuesta de devolución de llamada"
+"receive_file_data: error de análisis en la respuesta de devolución de "
+"llamada"
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
@@ -3400,76 +3273,77 @@ msgstr "el demonio ha cancelado la recepción del archivo"
 
 #: src/virt.c:101 src/virt.c:347
 msgid "you cannot set both live and readonly flags"
-msgstr ""
+msgstr "no puede definir al mismo tiempo las marcas live y readonly"
 
 #: src/virt.c:109
-#, fuzzy, c-format
+#, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr "guestfish: no se pudo conectar a libvirt (código %d, dominio %d): %s\n"
+msgstr "no se pudo conectar con libvirt (código %d, dominio %d): %s"
 
 #: src/virt.c:130
-#, fuzzy, c-format
+#, c-format
 msgid "no libvirt domain called '%s': %s"
-msgstr "guestfish: no existe un dominio libvirt denominado '%s': %s\n"
+msgstr "no existe un dominio libvirt denominado '%s': %s"
 
 #: src/virt.c:185 src/virt.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "error reading libvirt XML information: %s"
-msgstr ""
-"guestfish: error leyendo información XML de libvirt acerca de '%s': %s\n"
+msgstr "error leyendo información XML de libvirt: %s"
 
 #: src/virt.c:195 src/virt.c:443
-#, fuzzy
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-"guestfish: no es posible analizar la información XML obtenida con libvirt\n"
+msgstr "no es posible analizar la información XML devuelta por libvirt"
 
 #: src/virt.c:201 src/virt.c:449
-#, fuzzy
 msgid "unable to create new XPath context"
-msgstr "guestfish: no es posible crear un nuevo contexto XPath\n"
+msgstr "no es posible crear un nuevo contexto XPath"
 
 #: src/virt.c:208 src/virt.c:464
-#, fuzzy
 msgid "unable to evaluate XPath expression"
-msgstr "guestfish: no es posible evaluar expresiones XPath\n"
+msgstr "no es posible evaluar la expression XPath"
 
 #: src/virt.c:305
-#, fuzzy
 msgid "libvirt domain has no disks"
-msgstr "guestfish: el dominio '%s' de libvirt no posee discos\n"
+msgstr "el dominio libvirt no posee discos"
 
 #: src/virt.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "error getting domain info: %s"
-msgstr ""
-"guestfish: error al intentar obtener información de dominio relacionada con "
-"'%s': %s\n"
+msgstr "error al obtener información de dominio: %s"
 
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
+"error: el dominio es una máquina virtual viva.\n"
+"Escribir sobre los discos de una máquina virtual viva puede corromperlos.\n"
+"O bien utilice un acceso de sólo lectura, o, si es que el huésped está ejecutando\n"
+"el demonio guestfsd, entonces especifique un tipo de acceso vivo. En la mayoría\n"
+"de las herramientas de libguestfs, estas opciones son respectivamente --ro o --live\n"
+"Consulte la documentación para obtener mayor información."
 
 #: src/virt.c:492
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
+"este huésped no posee una definición libvirt <channel> para guestfsd\n"
+"Para obtener mayor información, consulte ATTACHING TO RUNNING DAEMONS en guestfs(3)."
 
 #: src/virt.c:517
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
 msgstr ""
+"no está disponible API de add-domain ya que esta versión de libguestfs fue "
+"compilada sin libvirt or libxml2"
 
 #: test-tool/test-tool.c:79
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -3482,19 +3356,6 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: herramienta de prueba interactiva\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Utilización:\n"
-"  libguestfs-test-tool [--opciones]\n"
-"Opcionss:\n"
-"  --help         Muestra la utilización\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Programa de asistencia (por defecto: %s)\n"
-"  --qemudir dir  Especifica directorio QEMUfuente\n"
-"  --qemu qemu    Especifica binario QEMU\n"
-"  --timeout n\n"
-"  -t n           Define tiempo de espera de lanzamiento (por defecto: %d "
-"segundos)\n"
 
 #: test-tool/test-tool.c:127
 #, c-format
@@ -3532,9 +3393,9 @@ msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: falló al intentar lanzar dispositivo\n"
 
 #: test-tool/test-tool.c:229
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr "libguestfs-test-tool: falló al ejecutar sfdisk\n"
+msgstr ""
 
 #: test-tool/test-tool.c:235
 #, c-format
@@ -3547,9 +3408,9 @@ msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: falló al montar /dev/sda1 sobre /\n"
 
 #: test-tool/test-tool.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr "libguestfs-test-tool: falló al ejecutar sfdisk\n"
+msgstr ""
 
 #: test-tool/test-tool.c:279
 #, c-format
@@ -3616,8 +3477,7 @@ msgstr "tar: falló, vea mensajes de errores anteriores\n"
 
 #: tools/virt-make-fs.pl:464
 msgid "uncompress command failed, see earlier messages\n"
-msgstr ""
-"falló el comando de descompresión, vea mensajes de errores anteriores\n"
+msgstr "falló el comando de descompresión, vea mensajes de errores anteriores\n"
 
 #: tools/virt-make-fs.pl:499
 msgid ""
@@ -3658,33 +3518,28 @@ msgstr ""
 "virt-tar: {dir}: el nombre del directorio debe empezar con el caracter '/'\n"
 
 #: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"No se ha podido detectar ningún sistema operativo dentro de esta imagen de "
-"disco.\n"
+"{prog}: No pudo detectarse un sistema operativo dentro de esta imagen de disco.\n"
 "\n"
-"Esto podría suceder debido a que el archivo no es un archivo de\n"
-"imagen de disco, o que no sea una imagen de máquina virtual, o\n"
-"debido a que el tipo de SO no es comprendido por virt-inspector.\n"
+"Esto puede ser causado o bien porque el archivo no es una imagen de disco, o porque no\n"
+" es una imagen de máquina virtual, o porque el tipo de SO no es comprendido por libguestfs.\n"
 "\n"
-"Si cree que esto es un error, por favor envíe un reporte de error ofreciendo "
-"la\n"
-"mayor cantidad de información acerca de la imagen de disco que le sea "
-"posible.\n"
+"Si considera que esto es un error, por favor envíe un reporte de error incluyendo\n"
+" la mayor cantidad de información posible relacionada con la imagen de disco.\n"
 
 #: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr "virt-ls no tiene soporte para sistemas operativos multiarranque\n"
+msgstr "{prog}: no están soportados los sistemas operativos multiarranque.\n"
 
 #: tools/virt-win-reg.pl:243
 msgid "no libvirt domain name or disk image given\n"
@@ -3695,14 +3550,13 @@ msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
-"esperando 1, 2 o más parámetros, ruta de subllave y, opcionalmente, el valor "
-"a ser exportado\n"
+"esperando 1, 2 o más parámetros, ruta de subllave y, opcionalmente, el valor"
+" a ser exportado\n"
 
 #: tools/virt-win-reg.pl:444
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
-"virt-win-reg: {p}: el archivo no ha sido encontrado en el huésped: {err}\n"
 
 #: tools/virt-win-reg.pl:449
 #, perl-brace-format
@@ -3728,664 +3582,4 @@ msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
 
-#, fuzzy
-#~ msgid "%s: temporary directory not found"
-#~ msgstr "%s: no es posible crear directorio temporal"
 
-#~ msgid "unexpected end of file when reading from daemon"
-#~ msgstr "fin no esperado del archivo mientras se leía desde el demonio"
-
-#~ msgid "virt-edit: no image, VM names or filenames to edit given"
-#~ msgstr ""
-#~ "virt-edit: no han sido ofrecidas imágenes, nombres MV o nombres de "
-#~ "archivos para editar"
-
-#~ msgid "File not changed.\n"
-#~ msgstr "El archivo no ha sido modificado.\n"
-
-#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-#~ msgstr "libguestfs-test-tool: falló al crear el directorio /iso\n"
-
-#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-#~ msgstr "libguestfs-test-tool: falló al montar /dev/sdb sobre /iso\n"
-
-#~ msgid ""
-#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: no pudo ejecutarse el programa de asistencia, o la "
-#~ "asistencia ha fallado\n"
-
-#~ msgid ""
-#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-#~ "available.  Expected to find it in '%s'\n"
-#~ "\n"
-#~ "Use the --helper option to specify the location of this program.\n"
-#~ msgstr ""
-#~ "El programa de asistencia de herramientas de prueba 'libguestfs-test-tool-"
-#~ "helper'\n"
-#~ "no está disponible. Se esperaba encontrarlo en '%s'\n"
-#~ "\n"
-#~ "Utilice la opción --helper para especificar la ubicación de este "
-#~ "programa.\n"
-
-#~ msgid "command failed: %s"
-#~ msgstr "el comando ha fallado: %s"
-
-#~ msgid ""
-#~ "Test tool helper program %s\n"
-#~ "is not statically linked.  This is a build error when this test tool\n"
-#~ "was built.\n"
-#~ msgstr ""
-#~ "El programa de asistencia de herramientas de prueba %s\n"
-#~ "no se encuentra enlazado definitivamente. Este es un error de\n"
-#~ "compilación cuando esta herramienta de pruebas fue compilada.\n"
-
-#~ msgid "mkisofs command failed: %s\n"
-#~ msgstr "falló el comando mkisofs: %s\n"
-
-#~ msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-#~ msgstr ""
-#~ "virt-resize: lo sentimos, pero este programa no funciona en un equipo de "
-#~ "32 bits\n"
-
-#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
-#~ msgstr "virt-resize: {file}: no existe o es imposible de leer\n"
-
-#~ msgid ""
-#~ "virt-resize: {file}: does not exist or is not writable\n"
-#~ "You have to create the destination disk before running this program.\n"
-#~ "Please read the virt-resize(1) manpage for more information.\n"
-#~ msgstr ""
-#~ "virt-resize: {file}: no existe o no es posible escribir sobre él.\n"
-#~ "Tiene que crear el disco de destino antes de ejecutar este programa.\n"
-#~ "Por favor, lea la página man de virt-resize (1) para obtener mayor "
-#~ "información.\n"
-
-#~ msgid ""
-#~ "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
-#~ msgstr ""
-#~ "virt-resize: {file}: el archivo es demasiado pequeño para ser una imagen "
-#~ "de disco ({sz} bytes)\n"
-
-#~ msgid "virt-resize: no logical volume called {n}\n"
-#~ msgstr "virt-resize: no existe un volúmen lógico denominado {n}\n"
-
-#~ msgid ""
-#~ "{p}: partition not found in the source disk image, when using the '{opt}' "
-#~ "command line option\n"
-#~ msgstr ""
-#~ "{p}: al utilizar la opción de línea de comando '{opt}', no ha sido "
-#~ "encontrada la partición en la imagen de disco fuente\n"
-
-#~ msgid ""
-#~ "{p}: partition ignored, you cannot use it in another command line "
-#~ "argument\n"
-#~ msgstr ""
-#~ "{p}: partición ignorada, no puede utilizarla en ningún otro argumento de "
-#~ "línea de comando\n"
-
-#~ msgid ""
-#~ "{p}: partition deleted, you cannot use it in another command line "
-#~ "argument\n"
-#~ msgstr ""
-#~ "{p}: partición eliminada, no puede utilizarla en ningún otro argumento de "
-#~ "línea de comando\n"
-
-#~ msgid "{p}: this partition has already been marked for resizing\n"
-#~ msgstr "{p}: esta partición ya ha sido marcada para modificar su tamaño\n"
-
-#~ msgid "{p}: missing size field in {o} option\n"
-#~ msgstr "{p}: falta el campo de tamaño en la opción {o}\n"
-
-#~ msgid "{p}: {f}: cannot parse size field\n"
-#~ msgstr "{p}: {f}: no es posible analizar el tamaño del campo\n"
-
-#~ msgid "{p}: new size is zero or negative\n"
-#~ msgstr "{p}: el nuevo tamañoo es cero o negativo\n"
-
-#~ msgid ""
-#~ "{p}: cannot make this partition smaller because it contains a\n"
-#~ "filesystem, physical volume or other content that is larger than the new "
-#~ "size.\n"
-#~ "You have to resize the content first, see virt-resize(1).\n"
-#~ msgstr ""
-#~ "{p}: no es posible reducir el tamaño de esta partición ya que\n"
-#~ "contiene un sistema de archivos, un volumen físico, o algún otro\n"
-#~ "contenido que es mayor que el nuevo tamaño solicitado.\n"
-#~ "Primero tiene que reducir dicho contenido, vea virt-resize (1).\n"
-
-#~ msgid "virt-resize: you cannot use options --expand and --shrink together\n"
-#~ msgstr ""
-#~ "virt-resize: no puede utilizar al mismo tiempo las opciones --expand y --"
-#~ "shrink\n"
-
-#~ msgid ""
-#~ "virt-resize: error: cannot use --expand when there is no surplus space "
-#~ "to\n"
-#~ "expand into.  You need to make the target disk larger by at least {h}.\n"
-#~ msgstr ""
-#~ "virt-resize: error: no puede utilizar --expand cuando no hay espacio\n"
-#~ "excedente para poder expandirse. Necesita incrementar el tamaño\n"
-#~ "del disco de destino, por lo menos en {h}.\n"
-
-#~ msgid ""
-#~ "virt-resize: error: cannot use --shrink because there is no deficit\n"
-#~ "(see 'deficit' in the virt-resize(1) man page)\n"
-#~ msgstr ""
-#~ "virt-resize: error: no es posible utilizar --shrink debido a que no hay "
-#~ "déficit\n"
-#~ "(consulte 'deficit' en la página man de virt-resize (1)\n"
-
-#~ msgid "Summary of changes:\n"
-#~ msgstr "Resumen de modificaciones:\n"
-
-#~ msgid "{p}: partition will be ignored\n"
-#~ msgstr "{p}: la partición será ignorada\n"
-
-#~ msgid "{p}: partition will be deleted\n"
-#~ msgstr "{p}: la partición será eliminada\n"
-
-#~ msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-#~ msgstr ""
-#~ "{p}: el tamaño de la partición será modificado de {oldsize} a {newsize}\n"
-
-#~ msgid "{p}: content will be expanded using the '{meth}' method\n"
-#~ msgstr "{p}: el contenido será expandido utilizando el método '{meth}'\n"
-
-#~ msgid "{p}: partition will be left alone\n"
-#~ msgstr "{p}: la partición será dejada intacta\n"
-
-#~ msgid "{n}: LV will be expanded to maximum size\n"
-#~ msgstr "{n} VL será expandido a su tamaño máximo\n"
-
-#~ msgid "{n}: content will be expanded using the '{meth}' method\n"
-#~ msgstr "{n}: el contenido será expandido utilizando el método '{meth}'\n"
-
-#~ msgid "There is a surplus of {spl} bytes ({h}).\n"
-#~ msgstr "Existe un espacio excedente de {spl} bytes ({h}).\n"
-
-#~ msgid "An extra partition will be created for the surplus.\n"
-#~ msgstr "Una partición extra será creada para el espacio excedente.\n"
-
-#~ msgid ""
-#~ "The surplus space is not large enough for an extra partition to be "
-#~ "created\n"
-#~ "and so it will just be ignored.\n"
-#~ msgstr ""
-#~ "El espacio excedente no es lo suficientemente amplio para poder\n"
-#~ "crear una partición extra, y por lo tanto será ignorado.\n"
-
-#~ msgid ""
-#~ "The surplus space will be ignored.  Run a partitioning program in the "
-#~ "guest\n"
-#~ "to partition this extra space if you want.\n"
-#~ msgstr ""
-#~ "El espacio excedente sera ignorado. Si lo desea, ejecute un programa\n"
-#~ "de particionamiento en el huésped, para particionar este espacio extra.\n"
-
-#~ msgid ""
-#~ "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-#~ "You need to make the target disk larger by at least this amount,\n"
-#~ "or adjust your resizing requests.\n"
-#~ msgstr ""
-#~ "virt-resize: error:existe un déficir de {def} bytes ({h}).\n"
-#~ "Necesita incrementar el tamaño del disco de destino al menos\n"
-#~ "con esta cantidad, o modificar los parámetros de su petición.\n"
-
-#~ msgid "virt-resize: source disk does not have a first partition\n"
-#~ msgstr "virt-resize: el disco fuente no posee una partición primera\n"
-
-#~ msgid "Copying {p} ...\n"
-#~ msgstr "Copiando {p} ...\n"
-
-#~ msgid "Expanding {p} using the '{meth}' method\n"
-#~ msgstr "Expandiendo {p} utilizando el método '{meth}'\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "error: domain is a live virtual machine.\n"
-#~ "You must use readonly access because write access to a running virtual "
-#~ "machine\n"
-#~ "can cause disk corruption."
-#~ msgstr ""
-#~ "guestfish: error: '%s' es una máquina virtual viva.\n"
-#~ "Debe utilizar '--ro' ya que el acceso de escritura sobre una máquina\n"
-#~ "virtual en ejecución puede provocar la corrupción del disco.\n"
-
-#, fuzzy
-#~ msgid "failed to create temporary cache directory: %m"
-#~ msgstr "crea un directorio temporal"
-
-#, fuzzy
-#~ msgid "error renaming temporary cache directory: %m"
-#~ msgstr "crea un directorio temporal"
-
-#~ msgid "virt-rescue: no image or VM names rescue given"
-#~ msgstr ""
-#~ "virt-rescue: no han sido ofrecidas imágenes o nombres MV para rescate"
-
-#~ msgid "virt-df: cannot use -h and --csv options together\n"
-#~ msgstr ""
-#~ "virt-df: no es posible utilizar las opciones -h y --csv en forma "
-#~ "simultánea\n"
-
-#~ msgid "{name} is not the name of a libvirt domain\n"
-#~ msgstr "{name} no es el nombre de un dominio libvirt\n"
-
-#~ msgid "virt-ls: cannot combine -l and -R options\n"
-#~ msgstr "virt-ls: no es posible combinar las opciones -l y -R\n"
-
-#~ msgid "virt-ls: no image, VM names or directory to list given"
-#~ msgstr ""
-#~ "virt-ls: no han sido ofrecidas imágenes, nombres MV o directorio que "
-#~ "mostrar"
-
-#~ msgid "virt-inspector: no image or VM names given"
-#~ msgstr "virt-inspector: no han sido ofrecidas imágenes o nombres MV"
-
-#~ msgid "virt-cat: no image, VM names or filenames to cat given"
-#~ msgstr ""
-#~ "virt-cat: no han sido ofrecidadas imágenes, nombres MV o nombres de "
-#~ "archivos para cat"
-
-#~ msgid "--fish output is only possible with a single OS\n"
-#~ msgstr "la salida de --fish es posible solo con un SO\n"
-
-#~ msgid ""
-#~ "virt-inspector: no YAML support, try installing perl-YAML or libyaml-"
-#~ "perl\n"
-#~ msgstr ""
-#~ "virt-inspector: no existe soporte para YAML, intente instalando perl-YAML "
-#~ "o libyaml-perl\n"
-
-#~ msgid "  Mountpoints:\n"
-#~ msgstr "  Puntos de montaje:\n"
-
-#~ msgid "  Filesystems:\n"
-#~ msgstr "  Sistemas de archivos:\n"
-
-#~ msgid "  Modprobe aliases:\n"
-#~ msgstr "  Aliases de Modprobe:\n"
-
-#~ msgid "  Initrd modules:\n"
-#~ msgstr "  Módulos initrd:\n"
-
-#~ msgid "  Applications:\n"
-#~ msgstr "  Aplicaciones:\n"
-
-#~ msgid "  Kernels:\n"
-#~ msgstr "  Kernels:\n"
-
-#~ msgid "  Windows Registry entries:\n"
-#~ msgstr "  Entradas de registro de Windows:\n"
-
-#~ msgid "multiboot operating systems are not supported by virt-cat"
-#~ msgstr "virt-cat no tiene soporte para sistemas operativos multiarranque"
-
-#~ msgid "multiboot operating systems are not supported by virt-edit"
-#~ msgstr "virt-edit no tiene soporte para sistemas operativos multiarranque"
-
-#~ msgid "multiboot operating systems are not supported by virt-tar\n"
-#~ msgstr "virt-tar no tiene soporte para sistemas operativos multiarranque\n"
-
-#~ msgid "multiboot operating systems are not supported by virt-win-reg"
-#~ msgstr ""
-#~ "virt-win-reg no tiene soporte para sistemas operativos multiarranque"
-
-#~ msgid "edit a file in the image"
-#~ msgstr "edita un archivo en la imagen"
-
-#~ msgid "view a file in the pager"
-#~ msgstr "visualiza un archivo en el paginador"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "alloc - alojar una imagen\n"
-#~ "     alloc <nombre del archivo> <tamaño>\n"
-#~ "\n"
-#~ "    Esto genera un archivo vacío del tamaño indicado,\n"
-#~ "    y luego lo va completando de modo de poder luego ser examinado.\n"
-#~ "\n"
-#~ "    Para una creación de imagen más copleja, consulte la herramienta qemu-"
-#~ "img.\n"
-#~ "\n"
-#~ "    El tamaño puede indicarse utilizando sufijos estándar, p.ej. '1M'.\n"
-
-#~ msgid ""
-#~ "copy-in - copy files into an image\n"
-#~ "     copy-in <local> [<local> ...] <remotedir>\n"
-#~ "\n"
-#~ "    Copy local files or directories recursively into the\n"
-#~ "    image, placing them on a remote directory.\n"
-#~ msgstr ""
-#~ "copy-in - copia archivos dentro de una imagen\n"
-#~ "     copy-in <local> [<local> ...] <remotedir>\n"
-#~ "\n"
-#~ "    Copia archivos locales o directorios de manera recursiva\n"
-#~ "    dentro de la imagen, colocándolos en un directorio remoto.\n"
-
-#~ msgid ""
-#~ "copy-out - copy files out of an image\n"
-#~ "     copy-out <remote> [<remote> ...] <localdir>\n"
-#~ "\n"
-#~ "    Copy remote files or directories recursively out of the\n"
-#~ "    image, placing them in a local directory.\n"
-#~ msgstr ""
-#~ "copy-out - copia archivos fuera de una imagen\n"
-#~ "     copy-out <remote> [<remote> ...] <localdir>\n"
-#~ "\n"
-#~ "    Copia archivos remotos o directorios de manera recursiva\n"
-#~ "    fuera de la imagen, colocándolos en un directorio local.\n"
-
-#~ msgid ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-#~ msgstr ""
-#~ "echo - muestra una línea de texto\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    Esto muestra los parámetros en la terminal.\n"
-
-#~ msgid ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "edit - edita un archivo de la imagen\n"
-#~ "     edit <nombre del archivo>\n"
-#~ "\n"
-#~ "    Esto es utilizado para editar un archivo.\n"
-#~ "\n"
-#~ "    Es el equivalente de (y es implementado por)\n"
-#~ "    ejecutar \"cat\", editar localmente, y luego \"write\".\n"
-#~ "\n"
-#~ "    Generalmente utiliza $EDITOR, pero si usted utiliza los alias\n"
-#~ "    \"vi\" or \"emacs\" obtendrá esos editores.\n"
-#~ "\n"
-#~ "    NOTA: Esto no funcionará en forma confiable con archivos muy grandes\n"
-#~ "    (> 2 MB) o archivos binarios que tengan \\0 bytes.\n"
-
-#~ msgid ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-#~ msgstr ""
-#~ "lcd - modificar directorio local\n"
-#~ "    lcd <directorio>\n"
-#~ "\n"
-#~ "    Modificar el directorio actual de guestfish. Este comando\n"
-#~ "    es útil si desea descargar archivos hacia un lugar en particular.\n"
-
-#~ msgid ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-#~ msgstr ""
-#~ "glob - expandir comodines en un comando\n"
-#~ "    glob <comando> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob ejecuta <comando> con comodines expandidos en cualquier\n"
-#~ "    argumento del comando.  Fíjese que el comando es ejecutado "
-#~ "reiteradamente\n"
-#~ "    una vez por cada argumento expandido.\n"
-
-#~ msgid ""
-#~ "man - read the manual\n"
-#~ "    man\n"
-#~ "\n"
-#~ "    Opens the manual page for guestfish.\n"
-#~ msgstr ""
-#~ "man - read the manual\n"
-#~ "    man\n"
-#~ "\n"
-#~ "    Abre la página del manual de guestfish.\n"
-
-#~ msgid ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "more - muestra un archivo en el paginador\n"
-#~ "     more <nombre de archivo>\n"
-#~ "\n"
-#~ "    Esto es utilizado para ver un archivo en el paginador.\n"
-#~ "\n"
-#~ "    Es lo equivalente a (y es implementado por)\n"
-#~ "    ejecutar \"cat\" y utilizar el paginador.\n"
-#~ "\n"
-#~ "    Generalmente utiliza $PAGER, pero si utiliza el alias\n"
-#~ "    \"less\" entonces siempre utilizará \"less\".\n"
-#~ "\n"
-#~ "    NOTA: Esto no funcionará de manera confiable con archivos demasiado "
-#~ "grandes\n"
-#~ "    (> 2 MB) o binarios conteniendo \\0 bytes.\n"
-
-#~ msgid ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-#~ msgstr ""
-#~ "reopen - cierra y vuelve a abrir el manipulador libguestfs\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Cierra y vuelve a abrir el manipulador libguestfs. Generalmente no es "
-#~ "necesario\n"
-#~ "utilizarlo, ya que el manipulador es cerrado correctamente cada vez que "
-#~ "finaliza\n"
-#~ "guestfish. Sin embargo, esto es ocasionalmente útil para realizar "
-#~ "pruebas.\n"
-
-#~ msgid ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "sparse - aloja un archivo de imagen sparse\n"
-#~ "     sparse <nombre de archivo> <tamaño>\n"
-#~ "\n"
-#~ "    Esto genera un archivo vacío sparse del tamaño indicado,\n"
-#~ "    y luego se completa de modo de poder ser luego examinado.\n"
-#~ "\n"
-#~ "    En todos los aspectos funciona del mismo modo que el comando\n"
-#~ "    'alloc', sólo que el archivo de imagen es alojado de manera sparse,\n"
-#~ "    lo que significa que los bloques del disco no son asignados al "
-#~ "archivo\n"
-#~ "    hasta que no sean necesitados. Los archivos de disco sparse sólo\n"
-#~ "    utilizan espacio cuando son escritos, pero son más lentos y puede\n"
-#~ "    correrse el riesgo de quedarse sin espacio real en el disco durante\n"
-#~ "    el proceso de escritura.\n"
-#~ "\n"
-#~ "    Para una creación de imagen más avanzada, vea la herramienta qemu-"
-#~ "img.\n"
-#~ "\n"
-#~ "    El tamaño puede ser especificado utilizando sufijos estándar, p.ej. "
-#~ "'1M'.\n"
-
-#~ msgid ""
-#~ "supported - list supported groups of commands\n"
-#~ "     supported\n"
-#~ "\n"
-#~ "    This command returns a list of the optional groups\n"
-#~ "    known to the daemon, and indicates which ones are\n"
-#~ "    supported by this build of the libguestfs appliance.\n"
-#~ "\n"
-#~ "    See also guestfs(3) section AVAILABILITY.\n"
-#~ msgstr ""
-#~ "supported - lista con los grupos de comandos soportados\n"
-#~ "     supported\n"
-#~ "\n"
-#~ "    Este comando ofrece una lista de los grupos opcionales\n"
-#~ "    conocidos por el demonio, e indica cuáles tienen soporte\n"
-#~ "    en esta versión de la herramienta libguestfs.\n"
-#~ "\n"
-#~ "    Consulte también la sección AVAILABILITY de guestfs(3).\n"
-
-#~ msgid ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-#~ msgstr ""
-#~ "time - tiempo requerido para ejecutar un comando\n"
-#~ "    time <comando> [<args> ...]\n"
-#~ "\n"
-#~ "   Esto ejecuta <comando> como siempre, e imprime luego el\n"
-#~ "    tiempo transcurrido.\n"
-
-#~ msgid "external command failed: %s"
-#~ msgstr "falló el comando externo: %s"
-
-#~ msgid "test if file exists"
-#~ msgstr "verifica si existe el archivo"
-
-#~ msgid "done"
-#~ msgstr "listo"
-
-#~ msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-#~ msgstr ""
-#~ "no es posible encontrar %s o %s en LIBGUESTFS_PATH (ruta actual = %s)"
-
-#~ msgid "failed to connect to vmchannel socket"
-#~ msgstr "falló al conectarse con el socket vmchannel"
-
-#~ msgid ""
-#~ "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --"
-#~ "selinux\n"
-#~ msgstr ""
-#~ "%s: no es posible utilizar la opción -i con -a, -m, -N, --listen, --"
-#~ "remote o --selinux\n"
-
-#~ msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
-#~ msgstr ""
-#~ "%s: -i necesita un dominio libvirt, o ruta(s) hacia la(s) imagen(es) de "
-#~ "disco(s)\n"
-
-#~ msgid "returning non-canonical architecture type '{arch}'"
-#~ msgstr "obteniendo tipo de arquitectura no canonizada  '{arch}'"
-
-#~ msgid "cpio command failed: {error}"
-#~ msgstr "el comando cpio ha fallado: {error}"
-
-#~ msgid "file_architecture: no known binaries found in initrd image: {path}"
-#~ msgstr ""
-#~ "file_architecture: no han sido encontrados binarios conocidos en la "
-#~ "imagen initrd: {path}"
-
-#~ msgid "file_architecture: unknown architecture: {path}"
-#~ msgstr "file_architecture: arquitectura desconocida: {path}"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-#~ msgstr ""
-#~ "alloc - allojar una imagen\n"
-#~ "     alloc <nombre de archivo> <tamaño>\n"
-#~ "\n"
-#~ "    Este genera un archivo vacío (valor cero) del tamaño indicado,\n"
-#~ "    y luego se agrega de modo de poder ser examinado luego.\n"
-#~ "\n"
-#~ "    Para una creación de imágenes más avanzada, vea la herramienta qemu-"
-#~ "img utility.\n"
-#~ "\n"
-#~ "    El tamaño puede ser especificado (donde <nn> significa un número):\n"
-#~ "    <nn>             número de kilobytes\n"
-#~ "      ej: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K o <nn>KB  número de kilobytes\n"
-#~ "    <nn>M o <nn>MB  número de megabytes\n"
-#~ "    <nn>G o <nn>GB  número de gigabytes\n"
-#~ "    <nn>T o <nn>TB  número de terabytes\n"
-#~ "    <nn>P o <nn>PB  número de petabytes\n"
-#~ "    <nn>E o <nn>EB  número de exabytes\n"
-#~ "    <nn>sects        número de sectores de 512 bytes\n"
-
-#~ msgid "%s: virt-inspector command too long for fixed-size buffer\n"
-#~ msgstr ""
-#~ "%s: el comando virt-inspector es demasiado extenso para el búfer de "
-#~ "tamaño predeterminado\n"
-
-#~ msgid "no root device found in this operating system image"
-#~ msgstr ""
-#~ "no se ha encontrado ningpun dispositivo raíz en la imagen de este sistema "
-#~ "operativo"
-
-#~ msgid "no root device found in this operating system image\n"
-#~ msgstr ""
-#~ "no se ha encontrado un dispositivos raíz en la imagen de este sistema "
-#~ "operativo\n"
-
-#~ msgid ""
-#~ "guestfish: file '%s' exists and the '-N' option will not overwrite it\n"
-#~ msgstr ""
-#~ "guestfish: el archivo '%s' ya existe y la opción '-N' no lo "
-#~ "sobrescribirá\n"

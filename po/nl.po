@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# Geert Warrink <geert.warrink@onsnet.nu>, 2010.
+# 
+# Richard E. van der Luit <nippur@fedoraproject.org>, 2011.
+# rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.5.4\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-15 17:17+0100\n"
-"PO-Revision-Date: 2010-09-02 15:28+0200\n"
-"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
-"Language-Team: Fedora\n"
-"Language: nl\n"
+"PO-Revision-Date: 2011-07-17 20:49+0000\n"
+"Last-Translator: rjones <rjones@redhat.com>\n"
+"Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.6.1\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
@@ -26,7 +26,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
 
 #: cat/virt-cat.c:61
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -46,24 +46,23 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"%s: toont bestanden in een virtuele machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
 "Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
 "Opties:\n"
 "  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
+"  -c|--connect uri     Specifeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    Disks toevoegen van libvirt guest\n"
+"  --echo-keys          Echo voor wachtzinnen niet uitzetten\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Toon korte help\n"
+"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
+"  -v|--verbose         Laat berichten zien\n"
+"  -V|--version         Laat versie zien en sluit\n"
+"  -x                   Trace libguestfs API calls\n"
+"Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
 #: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
@@ -81,7 +80,7 @@ msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
 
 #: cat/virt-filesystems.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -118,32 +117,14 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: cat/virt-filesystems.c:318 cat/virt-ls.c:347 df/main.c:255
-#, fuzzy, c-format
+#, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"
+msgstr ""
 
 #: cat/virt-ls.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
 "Copyright (C) 2010-2011 Red Hat Inc.\n"
@@ -174,24 +155,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: cat/virt-ls.c:338
 #, c-format
@@ -201,9 +164,9 @@ msgid ""
 msgstr ""
 
 #: cat/virt-ls.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr "guestfish: fout bij verkrijgen van domein info over '%s': %s\n"
+msgstr ""
 
 #: cat/virt-ls.c:583
 #, c-format
@@ -211,29 +174,29 @@ msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
 #: df/domains.c:115
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+msgstr ""
 
 #: df/domains.c:124
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+msgstr ""
 
 #: df/domains.c:134
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s"
-msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+msgstr ""
 
 #: df/domains.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
-msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+msgstr ""
 
 #: df/domains.c:155
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+msgstr ""
 
 #: df/domains.c:281
 #, c-format
@@ -241,7 +204,7 @@ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
 
 #: df/main.c:74
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -264,24 +227,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: df/main.c:267
 #, c-format
@@ -289,9 +234,8 @@ msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
 #: df/output.c:50
-#, fuzzy
 msgid "VirtualMachine"
-msgstr "Virtuele machine"
+msgstr ""
 
 #: df/output.c:51
 msgid "Filesystem"
@@ -334,7 +278,7 @@ msgid "IUse%"
 msgstr "IUse%"
 
 #: edit/virt-edit.c:77
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -356,24 +300,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: edit/virt-edit.c:175
 #, c-format
@@ -391,9 +317,9 @@ msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
 #: edit/virt-edit.c:599
-#, fuzzy, c-format
+#, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr "virt-tar: {tarball}: bestand niet gevonden\n"
+msgstr ""
 
 #: fish/alloc.c:37
 #, c-format
@@ -428,9 +354,8 @@ msgid "add a CD-ROM disk image to examine"
 msgstr "voeg een CD-ROM schijf image toe voor onderzoek"
 
 #: fish/cmds.c:2646
-#, fuzzy
 msgid "add the disk(s) from a named libvirt domain"
-msgstr "{name} is niet de naam van een libvirt domein\n"
+msgstr ""
 
 #: fish/cmds.c:2647 fish/cmds.c:2648
 msgid "add an image to examine or modify"
@@ -453,9 +378,8 @@ msgstr ""
 "emulatie"
 
 #: fish/cmds.c:2652
-#, fuzzy
 msgid "allocate and add a disk file"
-msgstr "wijs een sparse image bestand toe"
+msgstr ""
 
 #: fish/cmds.c:2653
 msgid "clear Augeas path"
@@ -570,9 +494,8 @@ msgid "set block device to read-write"
 msgstr "blok apparaat instellen op lezen-schrijven"
 
 #: fish/cmds.c:2681
-#, fuzzy
 msgid "resize a btrfs filesystem"
-msgstr "verander grootte van een NTFS bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:2682
 msgid "return true path on case-insensitive filesystem"
@@ -615,14 +538,12 @@ msgid "add qemu parameters"
 msgstr "voeg qemu parameters toe"
 
 #: fish/cmds.c:2692
-#, fuzzy
 msgid "copy local files or directories into an image"
-msgstr "laad bestanden in de boom"
+msgstr ""
 
 #: fish/cmds.c:2693
-#, fuzzy
 msgid "copy remote files or directories out of an image"
-msgstr "laad bestanden in de boom"
+msgstr ""
 
 #: fish/cmds.c:2694
 msgid "copy size bytes from source to destination using dd"
@@ -645,9 +566,8 @@ msgid "debugging and internals"
 msgstr "debug en interne"
 
 #: fish/cmds.c:2699
-#, fuzzy
 msgid "debug the QEMU command line (internal use only)"
-msgstr "upload een bestand naar het toestel (alleen voor intern gebruik)"
+msgstr ""
 
 #: fish/cmds.c:2700
 msgid "upload a file to the appliance (internal use only)"
@@ -662,9 +582,8 @@ msgid "report file system disk space usage (human readable)"
 msgstr "rapporteer bestandssysteem schijfruimte gebruik (leesbaar)"
 
 #: fish/cmds.c:2703
-#, fuzzy
 msgid "display an image"
-msgstr "wijs een image toe"
+msgstr ""
 
 #: fish/cmds.c:2704
 msgid "return kernel messages"
@@ -675,9 +594,8 @@ msgid "download a file to the local machine"
 msgstr "download een bestand naar de lokale machine"
 
 #: fish/cmds.c:2706
-#, fuzzy
 msgid "download a file to the local machine with offset and size"
-msgstr "download een bestand naar de lokale machine"
+msgstr ""
 
 #: fish/cmds.c:2707
 msgid "drop kernel page cache, dentries and inodes"
@@ -700,9 +618,8 @@ msgid "echo arguments back to the client"
 msgstr "echo argumenten terug naar de cliënt"
 
 #: fish/cmds.c:2712
-#, fuzzy
 msgid "edit a file"
-msgstr "lees een bestand"
+msgstr ""
 
 #: fish/cmds.c:2713 fish/cmds.c:2714 fish/cmds.c:2719 fish/cmds.c:2720
 #: fish/cmds.c:2754 fish/cmds.c:2755 fish/cmds.c:3008 fish/cmds.c:3009
@@ -768,9 +685,8 @@ msgid "get the additional kernel options"
 msgstr "verkrijg de extra kernel opties"
 
 #: fish/cmds.c:2732
-#, fuzzy
 msgid "get the attach method"
-msgstr "verkrijg het zoek pad"
+msgstr ""
 
 #: fish/cmds.c:2733
 msgid "get autosync mode"
@@ -801,9 +717,8 @@ msgid "get the search path"
 msgstr "verkrijg het zoek pad"
 
 #: fish/cmds.c:2740
-#, fuzzy
 msgid "get process group flag"
-msgstr "verkrijg herstel proces aanzetten vlag"
+msgstr ""
 
 #: fish/cmds.c:2741
 msgid "get PID of qemu subprocess"
@@ -927,19 +842,16 @@ msgstr ""
 "verkrijg bestandssystemen geassocieerd met geïnspecteerd besturingssysteem"
 
 #: fish/cmds.c:2773
-#, fuzzy
 msgid "get format of inspected operating system"
-msgstr "verkrijg type van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2774
-#, fuzzy
 msgid "get hostname of the operating system"
-msgstr "verkrijg prouct naam van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2775
-#, fuzzy
 msgid "get the icon corresponding to this operating system"
-msgstr "verkrijg minor versie van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2776
 msgid "get major version of inspected operating system"
@@ -954,42 +866,36 @@ msgid "get mountpoints of inspected operating system"
 msgstr "verkrijg aankoppel punten van geïnspecteerd besturingssysteem"
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "get package format used by the operating system"
-msgstr "verkrijg type van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "get package management tool used by the operating system"
-msgstr "verkrijg prouct naam van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2781
 msgid "get product name of inspected operating system"
 msgstr "verkrijg prouct naam van geïnspecteerd besturingssysteem"
 
 #: fish/cmds.c:2782
-#, fuzzy
 msgid "get product variant of inspected operating system"
-msgstr "verkrijg prouct naam van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2783
-#, fuzzy
 msgid "return list of operating systems found by last inspection"
-msgstr "inspecteer schijf en geef lijst van gevonden besturingssystemen terug"
+msgstr ""
 
 #: fish/cmds.c:2784
 msgid "get type of inspected operating system"
 msgstr "verkrijg type van geïnspecteerd besturingssysteem"
 
 #: fish/cmds.c:2785
-#, fuzzy
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr "verkrijg distributie van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2786
-#, fuzzy
 msgid "get Windows systemroot of inspected operating system"
-msgstr "verkrijg distributie van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2787
 msgid "get live flag for install disk"
@@ -1004,41 +910,36 @@ msgid "get netinst (network installer) flag for install disk"
 msgstr ""
 
 #: fish/cmds.c:2790
-#, fuzzy
 msgid "get list of applications installed in the operating system"
-msgstr "verkrijg distributie van geïnspecteerd besturingssysteem"
+msgstr ""
 
 #: fish/cmds.c:2791
 msgid "inspect disk and return list of operating systems found"
 msgstr "inspecteer schijf en geef lijst van gevonden besturingssystemen terug"
 
 #: fish/cmds.c:2792
-#, fuzzy
 msgid "test if block device"
-msgstr "laat de blok apparaten zien"
+msgstr ""
 
 #: fish/cmds.c:2793
 msgid "is busy processing a command"
 msgstr "is bezig met het verwerken van een commando"
 
 #: fish/cmds.c:2794
-#, fuzzy
 msgid "test if character device"
-msgstr "maak blok, karakter, of FIFO apparaten"
+msgstr ""
 
 #: fish/cmds.c:2795
 msgid "is in configuration state"
 msgstr "is in de configuratie toestand"
 
 #: fish/cmds.c:2796
-#, fuzzy
 msgid "test if a directory"
-msgstr "maak een map aan"
+msgstr ""
 
 #: fish/cmds.c:2797
-#, fuzzy
 msgid "test if FIFO (named pipe)"
-msgstr "maak een FIFO (benoemde pipe)"
+msgstr ""
 
 #: fish/cmds.c:2798
 msgid "test if a regular file"
@@ -1057,24 +958,20 @@ msgid "is ready to accept commands"
 msgstr "is klaar om commando's te accepteren"
 
 #: fish/cmds.c:2802
-#, fuzzy
 msgid "test if socket"
-msgstr "schrijven naar daemon socket"
+msgstr ""
 
 #: fish/cmds.c:2803
-#, fuzzy
 msgid "test if symbolic link"
-msgstr "maak een symbolische link aan"
+msgstr ""
 
 #: fish/cmds.c:2804
-#, fuzzy
 msgid "test if a file contains all zero bytes"
-msgstr "test of twee bestanden dezelfde inhoud hebben"
+msgstr ""
 
 #: fish/cmds.c:2805
-#, fuzzy
 msgid "test if a device contains all zero bytes"
-msgstr "test of het apparaat een logische volume is"
+msgstr ""
 
 #: fish/cmds.c:2806
 msgid "kill the qemu subprocess"
@@ -1085,28 +982,24 @@ msgid "launch the qemu subprocess"
 msgstr "lanceer het qemu sub-proces"
 
 #: fish/cmds.c:2808
-#, fuzzy
 msgid "change working directory"
-msgstr "verander locale map"
+msgstr ""
 
 #: fish/cmds.c:2812
-#, fuzzy
 msgid "list 9p filesystems"
-msgstr "  Bestandssystemen:\n"
+msgstr ""
 
 #: fish/cmds.c:2813
 msgid "list the block devices"
 msgstr "laat de blok apparaten zien"
 
 #: fish/cmds.c:2814
-#, fuzzy
 msgid "list device mapper devices"
-msgstr "laat de blok apparaten zien"
+msgstr ""
 
 #: fish/cmds.c:2815
-#, fuzzy
 msgid "list filesystems"
-msgstr "  Bestandssystemen:\n"
+msgstr ""
 
 #: fish/cmds.c:2816
 msgid "list the partitions"
@@ -1217,9 +1110,8 @@ msgid "lgetxattr on multiple files"
 msgstr "lgetxattr op meerdere bestanden"
 
 #: fish/cmds.c:2847
-#, fuzzy
 msgid "open the manual"
-msgstr "lees de manual"
+msgstr ""
 
 #: fish/cmds.c:2848
 msgid "create a directory"
@@ -1302,18 +1194,16 @@ msgid "load a kernel module"
 msgstr "laad een kernel module"
 
 #: fish/cmds.c:2871
-#, fuzzy
 msgid "view a file"
-msgstr "verplaats een bestand"
+msgstr ""
 
 #: fish/cmds.c:2872
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "koppel een gast schijf aan op een plaats in het bestandssysteem"
 
 #: fish/cmds.c:2873
-#, fuzzy
 msgid "mount 9p filesystem"
-msgstr "koppel een bestandssysteem af"
+msgstr ""
 
 #: fish/cmds.c:2874
 msgid "mount a file using the loop device"
@@ -1400,9 +1290,8 @@ msgid "set partition name"
 msgstr "stel partitie naam in"
 
 #: fish/cmds.c:2896
-#, fuzzy
 msgid "convert partition name to device name"
-msgstr "maak partities aan op een blok apparaat"
+msgstr ""
 
 #: fish/cmds.c:2897
 msgid "ping the guest daemon"
@@ -1413,9 +1302,8 @@ msgid "read part of a file"
 msgstr "lees deel van een bestand"
 
 #: fish/cmds.c:2899
-#, fuzzy
 msgid "read part of a device"
-msgstr "lees deel van een bestand"
+msgstr ""
 
 #: fish/cmds.c:2900
 msgid "create an LVM physical volume"
@@ -1446,9 +1334,8 @@ msgid "write to part of a file"
 msgstr "schrijf naar deel van een bestand"
 
 #: fish/cmds.c:2908
-#, fuzzy
 msgid "write to part of a device"
-msgstr "schrijf naar deel van een bestand"
+msgstr ""
 
 #: fish/cmds.c:2909
 msgid "read a file"
@@ -1483,10 +1370,8 @@ msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "verander grootte van een ext2, ext3 of ext4 bestandssysteem"
 
 #: fish/cmds.c:2918
-#, fuzzy
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
-"verander grootte van een ext2, ext3 of ext4 bestandssysteem (met grootte)"
 
 #: fish/cmds.c:2919
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
@@ -1526,9 +1411,8 @@ msgid "add options to kernel command line"
 msgstr "voeg opties toe aan kernel commando regel"
 
 #: fish/cmds.c:2928
-#, fuzzy
 msgid "set the attach method"
-msgstr "stel het zoek pad in"
+msgstr ""
 
 #: fish/cmds.c:2929
 msgid "set autosync mode"
@@ -1619,9 +1503,8 @@ msgid "sleep for some seconds"
 msgstr "slaap gedurende een paar seconden"
 
 #: fish/cmds.c:2953
-#, fuzzy
 msgid "create a sparse disk image and add"
-msgstr "wijs een sparse image bestand toe"
+msgstr ""
 
 #: fish/cmds.c:2954
 msgid "get file information"
@@ -1701,9 +1584,8 @@ msgid "pack directory into compressed tarball"
 msgstr "map inpakken in gecomprimeerde tar bal"
 
 #: fish/cmds.c:2974
-#, fuzzy
 msgid "print elapsed time taken to run a command"
-msgstr "meet de tijd nodig voor uitvoeren van commando"
+msgstr ""
 
 #: fish/cmds.c:2975
 msgid "update file timestamps or create a new file"
@@ -1738,9 +1620,8 @@ msgid "upload a file from the local machine"
 msgstr "upload een bestand van de lokale machine"
 
 #: fish/cmds.c:2985
-#, fuzzy
 msgid "upload a file from the local machine with offset"
-msgstr "upload een bestand van de lokale machine"
+msgstr ""
 
 #: fish/cmds.c:2986
 msgid "set timestamp of a file with nanosecond precision"
@@ -1821,9 +1702,8 @@ msgid "create a new file"
 msgstr "maak een nieuw bestand aan"
 
 #: fish/cmds.c:3006
-#, fuzzy
 msgid "append content to end of file"
-msgstr "laat de inhoud van een bestand zien"
+msgstr ""
 
 #: fish/cmds.c:3007
 msgid "create a file"
@@ -2087,21 +1967,21 @@ msgstr "%s: %s: geheel getal ligt buiten de reeks\n"
 
 #: fish/cmds.c:4187 fish/cmds.c:4294 fish/cmds.c:4611 fish/cmds.c:11781
 #: fish/cmds.c:12027 fish/cmds.c:12088 fish/cmds.c:12148
-#, fuzzy, c-format
+#, c-format
 msgid "%s should have %d-%d parameter(s)\n"
-msgstr "%s moet %d parameter(s) hebben\n"
+msgstr ""
 
 #: fish/cmds.c:4213 fish/cmds.c:4330 fish/cmds.c:4632 fish/cmds.c:11867
 #: fish/cmds.c:12044 fish/cmds.c:12121 fish/cmds.c:12177
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr "%s: teveel argumenten\n"
+msgstr ""
 
 #: fish/cmds.c:4219 fish/cmds.c:4336 fish/cmds.c:4638 fish/cmds.c:11873
 #: fish/cmds.c:12050 fish/cmds.c:12127 fish/cmds.c:12183
-#, fuzzy, c-format
+#, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr "%s: teveel argumenten\n"
+msgstr ""
 
 #: fish/cmds.c:12228
 #, c-format
@@ -2109,20 +1989,21 @@ msgid "%s: unknown command\n"
 msgstr "%s: onbekend commando\n"
 
 #: fish/config.c:74 fish/config.c:113
-#, fuzzy, c-format
+#, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr "%s: interne fout bij ontleden van tekenreeks op '%s'\n"
+msgstr ""
 
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:62
-#, fuzzy, c-format
+#, c-format
 msgid "copy-in: target '%s' is not a directory\n"
-msgstr "laat de bestanden in een map zien"
+msgstr ""
 
 #: fish/copy.c:157
 #, c-format
@@ -2137,14 +2018,14 @@ msgid ""
 msgstr ""
 
 #: fish/copy.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: target '%s' is not a directory\n"
-msgstr "laat de bestanden in een map zien"
+msgstr ""
 
 #: fish/copy.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
-msgstr "kopieer een bestand of map recursief"
+msgstr ""
 
 #: fish/display.c:42
 #, c-format
@@ -2157,7 +2038,7 @@ msgid "use '%s filename' to edit a file\n"
 msgstr "gebruik '%s bestandsnaam' om een bestand te bewerken\n"
 
 #: fish/fish.c:103
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -2202,41 +2083,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: gast bestandssysteem shell\n"
-"%s laat je virtuele machine bestandssystemen bewerken\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--options] cmd [: cmd : cmd ...]\n"
-"  %s -i libvirt-domain\n"
-"  %s -i disk-image(s)\n"
-"of voor interactief gebruik:\n"
-"  %s\n"
-"of vanuit een shell script:\n"
-"  %s <<EOF\n"
-"  cmd\n"
-"  ...\n"
-"  EOF\n"
-"Opties:\n"
-"  -h|--cmd-help        Toon beschikbare commando's\n"
-"  -h|--cmd-help cmd    Toon gedetailleerde hulp over commando 'cmd'\n"
-"  -a|--add image       Voeg image image toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  -d|--domain guest    voeg schijven toe van libvirt gast\n"
-"  -D|--no-dest-paths   Maak paden van gast fs niet compleet met tab\n"
-"  -f|--file file       Lees commando's van bestand\n"
-"  -i|--inspector       Koppel bestandssystemen automatisch aan\n"
-"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-"  --listen             Luister naar commando's op afstand\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Doe geen autosync\n"
-"  -N|--new type        Maak voorgekookte schijf aan (test1.img, ...)\n"
-"  --remote[=pid]       Stuur commando's naar %s op afstand\n"
-"  -r|--ro              Koppel alleen-lezen aan\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -x                   Echo elk commando voor het uit te voeren\n"
-"  -V|--version         Laat versie zien en sluit af\n"
-"Voor meer informatie,  bekijk de man pagina %s(1).\n"
 
 #: fish/fish.c:246
 #, c-format
@@ -2248,8 +2094,8 @@ msgstr "%s: --listen=PID: PID was geen getal: %s\n"
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
-"%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op "
-"afstand\n"
+"%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op"
+" afstand\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2272,7 +2118,8 @@ msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
-"%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
+"%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt "
+"worden\n"
 
 #: fish/fish.c:555
 #, c-format
@@ -2285,7 +2132,7 @@ msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
 #: fish/fish.c:647
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
@@ -2296,15 +2143,6 @@ msgid ""
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
-"\n"
-"Welkom bij guestfish, de libguestfs bestandssysteem interactieve shell voor "
-"het\n"
-"bewerken van virtuele machine bestandssystemen.\n"
-"\n"
-"Type: 'help' voor een lijst van commando's\n"
-"      'man' om de manual te lezen\n"
-"      'quit' om de shell te verlaten\n"
-"\n"
 
 #: fish/fish.c:796 fish/fish.c:812
 #, c-format
@@ -2425,8 +2263,7 @@ msgstr "glob: guestfs_glob_expand aanroep mislukte: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2471,21 +2308,19 @@ msgid "hexedit: invalid range\n"
 msgstr ""
 
 #: fish/inspect.c:77
-#, fuzzy, c-format
+#, c-format
 msgid "%s: don't use --live and -i options together\n"
-msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"
+msgstr ""
 
 #: fish/inspect.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "%s: no operating system was found on this disk\n"
-msgstr "guestfish: er werd geen besturingssysteem op deze schijf gevonden\n"
+msgstr ""
 
 #: fish/inspect.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
-"guestfish: multi-opstart besturingssystemen worden niet ondersteund door de -"
-"i optie\n"
 
 #: fish/inspect.c:134
 #, c-format
@@ -2528,9 +2363,9 @@ msgid "use '%s filename' to page a file\n"
 msgstr "gebruik '%s bestandsnaam' voor het pagen van een bestand\n"
 
 #: fish/options.c:36
-#, fuzzy, c-format
+#, c-format
 msgid "%s: too many drives added on the command line\n"
-msgstr "guestfish: te veel schijven toegevoegd op de commando regel\n"
+msgstr ""
 
 #: fish/options.c:128
 #, c-format
@@ -2547,15 +2382,12 @@ msgstr ""
 "\n"
 
 #: fish/prep.c:40
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
 msgstr ""
-"guestfish -N %-16s %s\n"
-"\n"
-"%s\n"
 
 #: fish/prep.c:48
 #, c-format
@@ -2574,20 +2406,16 @@ msgid ""
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
-"Aangemaakte schijf images worden geschreven naar bestand \"test1.img\" in de "
-"locale\n"
+"Aangemaakte schijf images worden geschreven naar bestand \"test1.img\" in de locale\n"
 "map.  (\"test2.img\" enz. als -N optie meerdere keren werd gegeven).\n"
 "Voor meer informatie bekijk je de guestfish(1) manual.\n"
 
 #: fish/prep.c:96
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
 msgstr ""
-"guestfish: -N parameter '%s': zo'n aangemaakte schijf image is niet bekend.\n"
-"Gebruik 'guestfish -N list' om mogelijke waarden voor de -N parameter te "
-"tonen.\n"
 
 #: fish/prep.c:158
 #, c-format
@@ -2605,9 +2433,9 @@ msgid "could not parse boot size"
 msgstr ""
 
 #: fish/prep_boot.c:46 fish/prep_boot.c:101
-#, fuzzy, c-format
+#, c-format
 msgid "failed to get sector size of disk: %s"
-msgstr "schijf partitioneren mislukte:  %s"
+msgstr ""
 
 #: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
 #: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
@@ -2616,24 +2444,24 @@ msgid "failed to partition disk: %s"
 msgstr "schijf partitioneren mislukte:  %s"
 
 #: fish/prep_boot.c:55 fish/prep_boot.c:110
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add boot partition: %s"
-msgstr "schijf partitioneren mislukte:  %s"
+msgstr ""
 
 #: fish/prep_boot.c:59 fish/prep_boot.c:114
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add root partition: %s"
-msgstr "schijf partitioneren mislukte:  %s"
+msgstr ""
 
 #: fish/prep_boot.c:68 fish/prep_boot.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create boot filesystem: %s"
-msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+msgstr ""
 
 #: fish/prep_boot.c:77 fish/prep_boot.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create root filesystem: %s"
-msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+msgstr ""
 
 #: fish/prep_boot.c:86 fish/prep_boot.c:120 fish/prep_lv.c:66
 #: fish/prep_lv.c:82 fish/prep_lv.c:119 fish/prep_lv.c:135
@@ -2641,24 +2469,24 @@ msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
 
 #: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create PV: %s: %s"
-msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+msgstr ""
 
 #: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create VG: %s: %s"
-msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+msgstr ""
 
 #: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+msgstr ""
 
 #: fish/prep_boot.c:153 fish/prep_lv.c:107 fish/prep_lv.c:160
-#, fuzzy, c-format
+#, c-format
 msgid "failed to resize LV to full size: %s: %s"
-msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+msgstr ""
 
 #: fish/prep_fs.c:51 fish/prep_lv.c:165
 #, c-format
@@ -2720,7 +2548,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "gebruik 'time command [args...]'\n"
 
 #: fuse/guestmount.c:912
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -2749,29 +2577,11 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: fuse/guestmount.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr "%s: moet tenminste een -a en tenminste een -m optie hebben\n"
+msgstr ""
 
 #: fuse/guestmount.c:1138
 #, c-format
@@ -2780,7 +2590,7 @@ msgstr ""
 "%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
 
 #: inspector/virt-inspector.c:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2800,49 +2610,21 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: inspector/virt-inspector.c:263
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"Binnen deze schijf image kon geen besturingssysteem gedetecteerd worden.\n"
-"\n"
-"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele "
-"machine\n"
-"image, of omdat het OS type niet begrepen wordt door virt-inspector.\n"
-"\n"
-"Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
-"met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
 
 #: inspector/virt-inspector.c:288
 #, c-format
@@ -2874,8 +2656,8 @@ msgstr "gast image {imagename} bestaat niet of is niet leesbaar"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
 "open_guest: geen libvirt ondersteuning (installeer Sys::Virt, XML::XPath en "
 "XML::XPath::XMLParser)"
@@ -2907,8 +2689,7 @@ msgstr "{imagename} lijkt geen schijf apparaten te hebben\n"
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2916,8 +2697,7 @@ msgid ""
 msgstr ""
 "Binnen deze schijf image kon geen besturingssysteem gedetecteerd worden.\n"
 "\n"
-"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele "
-"machine\n"
+"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele machine\n"
 "image, of omdat het OS type niet begrepen wordt door virt-inspector.\n"
 "\n"
 "Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
@@ -2988,7 +2768,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
 
 #: rescue/virt-rescue.c:63
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2010 Red Hat Inc.\n"
@@ -3012,24 +2792,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  --fuse-help          Laat extra FUSE opties zien\n"
-"  --help               Laat hulp boodschap zien en sluit af\n"
-"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Geen autosync\n"
-"  -o|--option opt      Geeft optie door aan FUSE\n"
-"  -r|--ro              Alleez-lezen aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Laat versie zien en sluit af\n"
 
 #: rescue/virt-rescue.c:180
 #, c-format
@@ -3037,9 +2799,9 @@ msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
 #: rescue/virt-rescue.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown child exit status (%d)\n"
-msgstr "%s: onbekende lange optie: %s (%d)\n"
+msgstr ""
 
 #: src/appliance.c:181
 #, c-format
@@ -3066,29 +2828,24 @@ msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
 #: src/appliance.c:659
-#, fuzzy
 msgid "external command failed, see earlier error messages"
-msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
+msgstr ""
 
 #: src/dbdump.c:87
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of header"
-msgstr "onverwachte output  van 'du' commando"
+msgstr ""
 
 #: src/dbdump.c:100 src/dbdump.c:112
-#, fuzzy
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr "onverwachte output  van 'du' commando"
+msgstr ""
 
 #: src/dbdump.c:129
-#, fuzzy
 msgid "unexpected end of output from db_dump command before end of data"
-msgstr "onverwachte output  van 'du' commando"
+msgstr ""
 
 #: src/dbdump.c:210
-#, fuzzy
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "onverwachte output  van 'du' commando"
+msgstr ""
 
 #: src/filearch.c:153
 #, c-format
@@ -3226,15 +2983,12 @@ msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
 #: src/launch.c:865
-#, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
+msgstr ""
 
 #: src/launch.c:873
-#, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
-"qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
 #: src/launch.c:1052
 #, c-format
@@ -3268,8 +3022,8 @@ msgstr "guestfs_end_busy: aangeroepen in toestand %d"
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: 0x%x gelezen van daemon, verwachte 0x"
-"%x\n"
+"check_for_daemon_cancellation_or_eof: 0x%x gelezen van daemon, verwachte "
+"0x%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3279,9 +3033,8 @@ msgid ""
 msgstr ""
 
 #: src/proto.c:549
-#, fuzzy
 msgid "See earlier debug messages.\n"
-msgstr "tar: misluket, zie eerdere boodschappen\n"
+msgstr ""
 
 #: src/proto.c:639
 #, c-format
@@ -3307,9 +3060,8 @@ msgid "dispatch failed to marshal args"
 msgstr "verzending faalde om argumenten te rangschikken"
 
 #: src/proto.c:922 src/proto.c:1217
-#, fuzzy
 msgid "operation cancelled by user"
-msgstr "bestand ontvangen geannuleerd door daemon"
+msgstr ""
 
 #: src/proto.c:973
 #, c-format
@@ -3353,51 +3105,45 @@ msgid "you cannot set both live and readonly flags"
 msgstr ""
 
 #: src/virt.c:109
-#, fuzzy, c-format
+#, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+msgstr ""
 
 #: src/virt.c:130
-#, fuzzy, c-format
+#, c-format
 msgid "no libvirt domain called '%s': %s"
-msgstr "guestfish: geen libvirt domein aangeroepen '%s': %s\n"
+msgstr ""
 
 #: src/virt.c:185 src/virt.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "error reading libvirt XML information: %s"
-msgstr "guestfish: fout bij lezen van libvirt XML informatie over '%s': %s\n"
+msgstr ""
 
 #: src/virt.c:195 src/virt.c:443
-#, fuzzy
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
-"guestfish: kan XML informatie teruggegeven door libvirt niet ontleden\n"
 
 #: src/virt.c:201 src/virt.c:449
-#, fuzzy
 msgid "unable to create new XPath context"
-msgstr "guestfish: kan nieuwe XPath context niet aanmaken\n"
+msgstr ""
 
 #: src/virt.c:208 src/virt.c:464
-#, fuzzy
 msgid "unable to evaluate XPath expression"
-msgstr "guestfish: kan XPath expressie niet evalueren\n"
+msgstr ""
 
 #: src/virt.c:305
-#, fuzzy
 msgid "libvirt domain has no disks"
-msgstr "guestfish: libvirt domein '%s' heeft geen schijven\n"
+msgstr ""
 
 #: src/virt.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "error getting domain info: %s"
-msgstr "guestfish: fout bij verkrijgen van domein info over '%s': %s\n"
+msgstr ""
 
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3416,7 +3162,7 @@ msgid ""
 msgstr ""
 
 #: test-tool/test-tool.c:79
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
 "Copyright (C) 2009-2011 Red Hat Inc.\n"
@@ -3429,18 +3175,6 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: interactief test gereedschap\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Gebruik:\n"
-"  libguestfs-test-tool [--opties]\n"
-"Opties:\n"
-"  --help         Laat gebruik zien\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Hulp programma (standaard: %s)\n"
-"  --qemudir dir  Specificeer QEMU bron map\n"
-"  --qemu qemu    Specificeer QEMU binair prog\n"
-"  --timeout n\n"
-"  -t n           Stel lanceer time-out in (standaard: %d seconden)\n"
 
 #: test-tool/test-tool.c:127
 #, c-format
@@ -3478,9 +3212,9 @@ msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: toestel lanceren mislukte\n"
 
 #: test-tool/test-tool.c:229
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr "libguestfs-test-tool: draaien van sfdisk mislukte\n"
+msgstr ""
 
 #: test-tool/test-tool.c:235
 #, c-format
@@ -3493,9 +3227,9 @@ msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: aankoppelen van /dev/sda1 op / mislukte\n"
 
 #: test-tool/test-tool.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr "libguestfs-test-tool: draaien van sfdisk mislukte\n"
+msgstr ""
 
 #: test-tool/test-tool.c:279
 #, c-format
@@ -3572,8 +3306,7 @@ msgid ""
 msgstr ""
 "virt-make-fs: fout bij het kopiëren van inhoud naar het bestandssysteem\n"
 "Een fout hier betekent gewoonlijk dat het programma de grootte van het\n"
-"bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man "
-"pagina.\n"
+"bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man pagina.\n"
 
 #: tools/virt-tar.pl:183 tools/virt-tar.pl:190
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
@@ -3600,31 +3333,21 @@ msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
 
 #: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"Binnen deze schijf image kon geen besturingssysteem gedetecteerd worden.\n"
-"\n"
-"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele "
-"machine\n"
-"image, of omdat het OS type niet begrepen wordt door virt-inspector.\n"
-"\n"
-"Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
-"met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
 
 #: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
-"multi-opstart besturingssystemen worden niet ondersteund door virt-ls\n"
 
 #: tools/virt-win-reg.pl:243
 msgid "no libvirt domain name or disk image given\n"
@@ -3639,9 +3362,9 @@ msgstr ""
 "exporteren\n"
 
 #: tools/virt-win-reg.pl:444
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
-msgstr "virt-win-reg: {p}: bestand niet gevonden in gast: {err}\n"
+msgstr ""
 
 #: tools/virt-win-reg.pl:449
 #, perl-brace-format
@@ -3663,539 +3386,4 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
 
-#, fuzzy
-#~ msgid "%s: temporary directory not found"
-#~ msgstr "%s: kan geen tijdelijke map aanmaken"
 
-#~ msgid "unexpected end of file when reading from daemon"
-#~ msgstr "onverwacht einde van bestand bij het lezen van daemon"
-
-#~ msgid "virt-edit: no image, VM names or filenames to edit given"
-#~ msgstr ""
-#~ "virt-edit: geen afbeelding, VM namen of bestandsnamen gegeven om te "
-#~ "bewerken"
-
-#~ msgid "File not changed.\n"
-#~ msgstr "Bestand niet gewijzigd.\n"
-
-#~ msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-#~ msgstr "libguestfs-test-tool: mkdir /iso mislukte\n"
-
-#~ msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-#~ msgstr "libguestfs-test-tool: aankoppelen van /dev/sdb op /iso mislukte\n"
-
-#~ msgid ""
-#~ "libguestfs-test-tool: could not run helper program, or helper failed\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: kon hulp programma niet draaien, of hulp programma "
-#~ "mislukte\n"
-
-#~ msgid ""
-#~ "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
-#~ "available.  Expected to find it in '%s'\n"
-#~ "\n"
-#~ "Use the --helper option to specify the location of this program.\n"
-#~ msgstr ""
-#~ "Test hulp programma 'libguestfs-test-programma-helper' is niet\n"
-#~ "beschikbaar.  Verwacht het te vinden in '%s'\n"
-#~ "\n"
-#~ "Gebruik de --helper optie om de locatie van dit programma te "
-#~ "specificeren.\n"
-
-#~ msgid "command failed: %s"
-#~ msgstr "commando mislukte: %s"
-
-#~ msgid ""
-#~ "Test tool helper program %s\n"
-#~ "is not statically linked.  This is a build error when this test tool\n"
-#~ "was built.\n"
-#~ msgstr ""
-#~ "Test hulp programma %s\n"
-#~ "is niet statisch gelinkt.  Dit is een bouw fout toen dit test\n"
-#~ "programma werd gebouwd.\n"
-
-#~ msgid "mkisofs command failed: %s\n"
-#~ msgstr "mkisofs commando mislukte: %s\n"
-
-#~ msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-#~ msgstr "virt-resize: sorry, dit programma werkt niet op een 32-bit host\n"
-
-#~ msgid "virt-resize: {file}: does not exist or is not readable\n"
-#~ msgstr "virt-resize: {file}: bestaat niet of is niet leesbaar\n"
-
-#~ msgid ""
-#~ "virt-resize: {file}: does not exist or is not writable\n"
-#~ "You have to create the destination disk before running this program.\n"
-#~ "Please read the virt-resize(1) manpage for more information.\n"
-#~ msgstr ""
-#~ "virt-formaat: {file}: bestaat niet of is niet beschrijfbaar\n"
-#~ "Je moet de bestemming schijf aanmaken voordat je dit programma uitvoert.\n"
-#~ "Lees de virt-resize(1) man pagina voor meer informatie.\n"
-
-#~ msgid ""
-#~ "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
-#~ msgstr ""
-#~ "virt-resize: {file}: bestand is te klein om een schijf image te zijn "
-#~ "({sz} bytes)\n"
-
-#~ msgid "virt-resize: no logical volume called {n}\n"
-#~ msgstr "virt-resize: geen logische gevolume aangeroepen {n}\n"
-
-#~ msgid ""
-#~ "{p}: partition not found in the source disk image, when using the '{opt}' "
-#~ "command line option\n"
-#~ msgstr ""
-#~ "{p}: partitie niet gevonden on de bron schijf image bij gebruik van de "
-#~ "'{opt}' commando-regel optie\n"
-
-#~ msgid ""
-#~ "{p}: partition ignored, you cannot use it in another command line "
-#~ "argument\n"
-#~ msgstr ""
-#~ "{p}: partitie genegeerd, je kunt het niet in een ander commando-regel "
-#~ "argument gebruiken\n"
-
-#~ msgid ""
-#~ "{p}: partition deleted, you cannot use it in another command line "
-#~ "argument\n"
-#~ msgstr ""
-#~ "{p}: partitie verwijderd, je kunt het niet in een ander commando-regel "
-#~ "argument gebruiken\n"
-
-#~ msgid "{p}: this partition has already been marked for resizing\n"
-#~ msgstr ""
-#~ "{p}: deze partitie is al gemarkeerd voor het veranderen in grootte\n"
-
-#~ msgid "{p}: missing size field in {o} option\n"
-#~ msgstr "{p}: ontbrekende grootte veld in {o} optie\n"
-
-#~ msgid "{p}: {f}: cannot parse size field\n"
-#~ msgstr "{p}: {f}: kan size veld niet ontleden\n"
-
-#~ msgid "{p}: new size is zero or negative\n"
-#~ msgstr "{p}: nieuwe grootte is nul of negatief\n"
-
-#~ msgid ""
-#~ "{p}: cannot make this partition smaller because it contains a\n"
-#~ "filesystem, physical volume or other content that is larger than the new "
-#~ "size.\n"
-#~ "You have to resize the content first, see virt-resize(1).\n"
-#~ msgstr ""
-#~ "{p}: kan deze partitie niet kleiner maken omdat het een bestandssysteem,\n"
-#~ "fysieke volume, of andere inhoud bevat die groter is dan de nieuwe "
-#~ "grootte.\n"
-#~ "Je moet de inhoud eerst in grootte veranderen, bekijk virt-resize(1).\n"
-
-#~ msgid "virt-resize: you cannot use options --expand and --shrink together\n"
-#~ msgstr ""
-#~ "virt-resize: je kunt de opties --expand en --shrink niet tezamen "
-#~ "gebruiken\n"
-
-#~ msgid ""
-#~ "virt-resize: error: cannot use --expand when there is no surplus space "
-#~ "to\n"
-#~ "expand into.  You need to make the target disk larger by at least {h}.\n"
-#~ msgstr ""
-#~ "virt-resize: fout: je kunt --expand niet gebruiken als er geen extra "
-#~ "ruimte is\n"
-#~ "voor het expanderen.  Je moet de doel schijf tenminste {h} groter maken.\n"
-
-#~ msgid ""
-#~ "virt-resize: error: cannot use --shrink because there is no deficit\n"
-#~ "(see 'deficit' in the virt-resize(1) man page)\n"
-#~ msgstr ""
-#~ "virt-resize: fout: kan --shrink niet gebruiken omdat er geen deficit is\n"
-#~ "(zie 'deficit' in de virt-resize(1) man pagina)\n"
-
-#~ msgid "Summary of changes:\n"
-#~ msgstr "Samenvatting van de veranderingen:\n"
-
-#~ msgid "{p}: partition will be ignored\n"
-#~ msgstr "{p}: partitie zal genegeerd worden\n"
-
-#~ msgid "{p}: partition will be deleted\n"
-#~ msgstr "{p}: partitie zal verwijderd worden\n"
-
-#~ msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-#~ msgstr ""
-#~ "{p}: partitie zal in grootte veranderd worden van {oldsize} naar "
-#~ "{newsize}\n"
-
-#~ msgid "{p}: content will be expanded using the '{meth}' method\n"
-#~ msgstr "{p}: inhoud zal geëxpandeerd worden met de '{meth}' methode\n"
-
-#~ msgid "{p}: partition will be left alone\n"
-#~ msgstr "{p}: partitie zal met rust gelaten worden\n"
-
-#~ msgid "{n}: LV will be expanded to maximum size\n"
-#~ msgstr "{n}: LV zal geëxpandeerd worden tot de maximale grootte\n"
-
-#~ msgid "{n}: content will be expanded using the '{meth}' method\n"
-#~ msgstr "{n}: inhoud zal geëxpandeerd worden met de '{meth}' methode\n"
-
-#~ msgid "There is a surplus of {spl} bytes ({h}).\n"
-#~ msgstr "Er is een overschot van {spl} bytes ({h}).\n"
-
-#~ msgid "An extra partition will be created for the surplus.\n"
-#~ msgstr "Er zal een extra partitie aangemaakt worden voor het overschot.\n"
-
-#~ msgid ""
-#~ "The surplus space is not large enough for an extra partition to be "
-#~ "created\n"
-#~ "and so it will just be ignored.\n"
-#~ msgstr ""
-#~ "De overschot ruimte is niet groot genoeg om een extra partitie aan te "
-#~ "maken\n"
-#~ "en daarom genegeerd worden.\n"
-
-#~ msgid ""
-#~ "The surplus space will be ignored.  Run a partitioning program in the "
-#~ "guest\n"
-#~ "to partition this extra space if you want.\n"
-#~ msgstr ""
-#~ "De overtollige ruimte zal genegeerd worden.  Draai een schijf indeling "
-#~ "programma in de gast\n"
-#~ "om deze extra ruimte te partitioneren als je dat wilt.\n"
-
-#~ msgid ""
-#~ "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
-#~ "You need to make the target disk larger by at least this amount,\n"
-#~ "or adjust your resizing requests.\n"
-#~ msgstr ""
-#~ "virt-resize: fout: er is een tekort van {def} bytes ({h}).\n"
-#~ "Je moet de doel schijf tenminste deze hoeveelheid groter maken,\n"
-#~ "of jouw in grootte verander verzoek aanpassen.\n"
-
-#~ msgid "virt-resize: source disk does not have a first partition\n"
-#~ msgstr "virt-resize: bron schijf heeft geen eerste partitie\n"
-
-#, fuzzy
-#~ msgid "Copying {p} ...\n"
-#~ msgstr "{p} kopiëren ..."
-
-#~ msgid "Expanding {p} using the '{meth}' method\n"
-#~ msgstr "{p} expanderen met de '{meth}' methode\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "error: domain is a live virtual machine.\n"
-#~ "You must use readonly access because write access to a running virtual "
-#~ "machine\n"
-#~ "can cause disk corruption."
-#~ msgstr ""
-#~ "guestfish: error: '%s' is een live virtuele machine.\n"
-#~ "Je moet '--ro' gebruiken omdat schrijf toegang tot een draaiende "
-#~ "virtuele\n"
-#~ "machine schijf beschadiging kan veroorzaken.\n"
-
-#, fuzzy
-#~ msgid "failed to create temporary cache directory: %m"
-#~ msgstr "maak een tijdelijke map aan"
-
-#, fuzzy
-#~ msgid "error renaming temporary cache directory: %m"
-#~ msgstr "maak een tijdelijke map aan"
-
-#~ msgid "virt-rescue: no image or VM names rescue given"
-#~ msgstr "virt-rescue: geen image of VM namen redding opgegeven"
-
-#~ msgid "virt-df: cannot use -h and --csv options together\n"
-#~ msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"
-
-#~ msgid "{name} is not the name of a libvirt domain\n"
-#~ msgstr "{name} is niet de naam van een libvirt domein\n"
-
-#~ msgid "virt-ls: cannot combine -l and -R options\n"
-#~ msgstr "virt-ls: kan -l en -R opties niet combineren\n"
-
-#~ msgid "virt-ls: no image, VM names or directory to list given"
-#~ msgstr "virt-ls: geen image, VM namen of map opgegeven om te tonen"
-
-#~ msgid "virt-inspector: no image or VM names given"
-#~ msgstr "virt-inspector: geen image of VM namen opgegeven"
-
-#~ msgid "virt-cat: no image, VM names or filenames to cat given"
-#~ msgstr "virt-cat: geen image, VM namen of bestandsnamen aan cat gegeven"
-
-#~ msgid "--fish output is only possible with a single OS\n"
-#~ msgstr "--fish output is alleen mogelijk bij een enkel OS\n"
-
-#~ msgid ""
-#~ "virt-inspector: no YAML support, try installing perl-YAML or libyaml-"
-#~ "perl\n"
-#~ msgstr ""
-#~ "virt-inspector: geen YAML ondersteuning, probeer perl-YAML of libyaml-"
-#~ "perl te installeren\n"
-
-#~ msgid "  Mountpoints:\n"
-#~ msgstr "  Aankoppel punten:\n"
-
-#~ msgid "  Filesystems:\n"
-#~ msgstr "  Bestandssystemen:\n"
-
-#~ msgid "  Modprobe aliases:\n"
-#~ msgstr "  Modprobe aliassen:\n"
-
-#~ msgid "  Initrd modules:\n"
-#~ msgstr "  Initrd modules:\n"
-
-#~ msgid "  Applications:\n"
-#~ msgstr "  Toepassingen:\n"
-
-#~ msgid "  Kernels:\n"
-#~ msgstr "  Kernels:\n"
-
-#~ msgid "  Windows Registry entries:\n"
-#~ msgstr "  Windows Registry ingangen:\n"
-
-#~ msgid "multiboot operating systems are not supported by virt-cat"
-#~ msgstr ""
-#~ "multi-opstart besturingssystemen worden niet ondersteund door virt-cat"
-
-#~ msgid "multiboot operating systems are not supported by virt-edit"
-#~ msgstr ""
-#~ "multi-opstart besturingssystemen worden niet ondersteund door virt-edit"
-
-#~ msgid "multiboot operating systems are not supported by virt-tar\n"
-#~ msgstr ""
-#~ "multi-opstart besturingssystemen worden niet ondersteund door virt-tar\n"
-
-#~ msgid "multiboot operating systems are not supported by virt-win-reg"
-#~ msgstr ""
-#~ "multi-opstart besturingssystemen worden niet ondersteund door virt-win-reg"
-
-#~ msgid "edit a file in the image"
-#~ msgstr "bewerk een bestand in de image"
-
-#~ msgid "view a file in the pager"
-#~ msgstr "bekijk een bestand in de pager"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "alloc - wijs een image toe\n"
-#~ "     alloc <bestandsnaam> <grootte>\n"
-#~ "\n"
-#~ "    Dit creëert een leeg (gevuld met nullen) bestand van de gegeven "
-#~ "grootte,\n"
-#~ "    en voegt dan toe zodat het verder onderzocht kan worden.\n"
-#~ "\n"
-#~ "    Voor meer geavanceerd aanmaken van een image, bekijk je het qemu-img "
-#~ "programma.\n"
-#~ "\n"
-#~ "    Grootte kan gespecificeerd worden met de standaard suffix, b.v. "
-#~ "'1M'.\n"
-
-#~ msgid ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-#~ msgstr ""
-#~ "echo - laat een regel tekst zien\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    Dit echoot de parameters naar de terminal.\n"
-
-#~ msgid ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "edit - bewerk een bestand in de image\n"
-#~ "     edit <bestandsnaam>\n"
-#~ "\n"
-#~ "    Dit wordt gebruikt om een bestand te bewerken.\n"
-#~ "\n"
-#~ "    Het is het equivalent van (en wordt geïmplementeerd door)\n"
-#~ "    het draaien van \"cat\", lokaal bewerken, en daarna \"write\".\n"
-#~ "\n"
-#~ "    Normaal gebruikt het $EDITOR, maar je kunt de aliases\n"
-#~ "    \"vi\" of \"emacs\" gebruiken om deze te krijgen.\n"
-#~ "\n"
-#~ "    OPMERKING: Dit zal niet betrouwbaar werken voor grote bestanden\n"
-#~ "    (> 2 MB) of binaire bestanden met \\0 bytes.\n"
-
-#~ msgid ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-#~ msgstr ""
-#~ "lcd - verander locale map\n"
-#~ "    lcd <map>\n"
-#~ "\n"
-#~ "    Verander de huidoge map van guestfish. Dit commando is\n"
-#~ "    nuttig als je bestanden wilt downloaden naar een bepaalde\n"
-#~ "    plaats.\n"
-
-#~ msgid ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-#~ msgstr ""
-#~ "glob - expandeer wildcards in commando\n"
-#~ "    glob <commando> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob draait <commando> met geëxpandeerde wildcards voor alle\n"
-#~ "    commando args.  Merk op dat het commando herhaaldelijk wordt\n"
-#~ "    gedraaid, een keer voor ieder geëxpandeerd argument.\n"
-
-#~ msgid ""
-#~ "man - read the manual\n"
-#~ "    man\n"
-#~ "\n"
-#~ "    Opens the manual page for guestfish.\n"
-#~ msgstr ""
-#~ "man - lees de manual\n"
-#~ "    man\n"
-#~ "\n"
-#~ "    Opent de manual pagina voor guestfish.\n"
-
-#~ msgid ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "more - bekijk een bestand in de pager\n"
-#~ "     more <bestandsnaam>\n"
-#~ "\n"
-#~ "    Dit wordt gebruikt om een bestand te bekijken in de pager.\n"
-#~ "\n"
-#~ "    Het is het equivalent van (en wordt geïmplementeerd door)\n"
-#~ "    het draaien van \"cat\" en de pager gebruiken.\n"
-#~ "\n"
-#~ "    Normaal gebruikt het $PAGER, maar als je de alias\n"
-#~ "    \"less\" gebruikt, dan gebruikt het altijd \"less\".\n"
-#~ "\n"
-#~ "    OPMERKINK: Dit zal niet betrouwbaar werken voor grote bestanden\n"
-#~ "    (> 2 MB) of binaire bestanden met \\0 bytes.\n"
-
-#~ msgid ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-#~ msgstr ""
-#~ "reopen - sluit en open de libguestfs hendel opnieuw\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Sluit en open de libguestfs hendel opnieuw.  Het is niet nodig om dit "
-#~ "normaal\n"
-#~ "te gebruiken, omdat de hendel correct gesloten wordt als guestfish\n"
-#~ "afgesloten wordt.  Het is soms echter nuttig voor het testen.\n"
-
-#~ msgid ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "sparse - wijs een sparse image bestand toe\n"
-#~ "     sparse <bestandsnaam> <grootte>\n"
-#~ "\n"
-#~ "    dit creëert een leeg sparse bestand met de gegeven grootte,\n"
-#~ "    en voegt het dan toe zodat het verder onderzocht kan worden.\n"
-#~ "\n"
-#~ "    In alle opzichten werkt dit hetzelfde als het 'alloc'\n"
-#~ "    commando, behalve dat het image bestand sparse\n"
-#~ "    toegewezen wordt, wat betekent dat schijf blokken niet toegekend "
-#~ "worden\n"
-#~ "    aan het bestand totdat ze nodig zijn.  Sparse schijf bestanden\n"
-#~ "    gebruiken alleen ruimte als er naar geschreven wordt, maar ze zijn\n"
-#~ "    langzamer en er is een gevaar dat je te weinig echte schijf\n"
-#~ "    ruimte hebt tijdens een schrijf bewerking.\n"
-#~ "\n"
-#~ "    Voor meer geavanceerd image aanmaken, bekijk je het qemu-img "
-#~ "programma.\n"
-#~ "\n"
-#~ "    Groote kan gespecificeerd worden met standaard suffix, b.v. '1M'.\n"
-
-#~ msgid ""
-#~ "supported - list supported groups of commands\n"
-#~ "     supported\n"
-#~ "\n"
-#~ "    This command returns a list of the optional groups\n"
-#~ "    known to the daemon, and indicates which ones are\n"
-#~ "    supported by this build of the libguestfs appliance.\n"
-#~ "\n"
-#~ "    See also guestfs(3) section AVAILABILITY.\n"
-#~ msgstr ""
-#~ "supported - lijst van ondersteunde groepen commando's\n"
-#~ "     supported\n"
-#~ "\n"
-#~ "    Dit commando geeft een lijst van de optionele groepen\n"
-#~ "    bekend aan de daemon terug, and geeft aan welke\n"
-#~ "    ondersteund worden door deze versie van libguestfs.\n"
-#~ "\n"
-#~ "    Zie ook guestfs(3) sectie AVAILABILITY.\n"
-
-#~ msgid ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-#~ msgstr ""
-#~ "time - meet de tijd nodig voor draaien van command0\n"
-#~ "    time <commando> [<args> ...]\n"
-#~ "\n"
-#~ "    Dit draait <commando> zoals gewoonlijk, en geeft daarna\n"
-#~ "    de verstreken tijd terug.\n"
-
-#~ msgid "external command failed: %s"
-#~ msgstr "extern commando mislukte: %s"
-
-#~ msgid "test if file exists"
-#~ msgstr "test of het bestand bestaat"
-
-#~ msgid "done"
-#~ msgstr "voltooid"
