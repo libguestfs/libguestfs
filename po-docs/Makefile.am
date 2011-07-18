@@ -50,7 +50,8 @@ libguestfs-docs.pot: po4a.conf
 	  --copyright-holder "Red Hat Inc." \
 	  po4a.conf
 	for f in `find $(LINGUAS) -name '*.pod' -o -name '*.pl'`; do \
-	  awk 'FNR >= 14 { print }' < $$f > $$f.new; \
+	  echo '=encoding utf8' > $$f.new; \
+	  awk 'FNR >= 14 { print }' < $$f >> $$f.new; \
 	  mv $$f.new $$f; \
 	done
 
