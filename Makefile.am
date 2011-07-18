@@ -101,6 +101,8 @@ EXTRA_DIST = \
 	debian/docs \
 	debian/guestfish.dirs \
 	debian/guestfish.install \
+	debian/guestfsd.dirs \
+	debian/guestfsd.install \
 	debian/guestmount.dirs \
 	debian/guestmount.install \
 	debian/libguestfs-dev.dirs \
