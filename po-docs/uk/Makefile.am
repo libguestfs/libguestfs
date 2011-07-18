@@ -47,7 +47,7 @@ MANPAGES = \
 # size.
 EXTRA_DIST = \
 	$(MANPAGES) \
-	$(cat ../podfiles)
+	$(shell for f in `cat ../podfiles`; do basename $$f; done)
 
 all-local: $(MANPAGES)
 
