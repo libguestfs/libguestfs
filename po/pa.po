@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 # Jaswinder Singh <j.phulewala@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -421,9 +422,7 @@ msgstr "ਸਨੈਪਸ਼ਾਟ ਮੋਡ ਵਿੱਚ ਇੱਕ ਡਰਾਈਵ �
 
 #: fish/cmds.c:2650
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr ""
-"ਇੱਕ ਡਰਾਈਵ ਨੂੰ ਸਿਰਫ-ਪੜ੍ਹਨ ਲਈ ਜੋੜੋ ਜੋ QEMU ਬਲਾਕ ਇਮੂਲੇਟਰ ਵਰਤਣ ਲਈ ਨਿਰਧਾਰਤ ਕਰਦੀ "
-"ਹੈ"
+msgstr "ਇੱਕ ਡਰਾਈਵ ਨੂੰ ਸਿਰਫ-ਪੜ੍ਹਨ ਲਈ ਜੋੜੋ ਜੋ QEMU ਬਲਾਕ ਇਮੂਲੇਟਰ ਵਰਤਣ ਲਈ ਨਿਰਧਾਰਤ ਕਰਦੀ ਹੈ"
 
 #: fish/cmds.c:2651
 msgid "add a drive specifying the QEMU block emulation to use"
@@ -2040,11 +2039,9 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
-"ਫਾਇਲਾਂ ਨੂੰ ਈਮੇਜ਼ ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-in <local> [<local>...] <remotedir>' "
-"ਵਰਤੋ\n"
+"ਫਾਇਲਾਂ ਨੂੰ ਈਮੇਜ਼ ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-in <local> [<local>...] <remotedir>' ਵਰਤੋ\n"
 
 #: fish/copy.c:62
 #, c-format
@@ -2062,8 +2059,7 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
-"ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲਾਂ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-out <remote> [<remote>...] <localdir>' "
-"ਵਰਤੋ\n"
+"ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲਾਂ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-out <remote> [<remote>...] <localdir>' ਵਰਤੋ\n"
 
 #: fish/copy.c:213
 #, c-format
@@ -2314,7 +2310,8 @@ msgstr "glob: guestfs_glob_expand call failed: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2472,7 +2469,8 @@ msgid ""
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
-"ਤਿਆਰ ਕੀਤੇ ਡਿਸਕ ਈਮੇਜ਼ ਫਾਇਲ \"test1.img\" ਵਿੱਚ ਲੋਕਲ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਲਿਖੇ ਗਏ ਹਨ।  (\"test2.img\" ਆਦਿ ਜੇ -N ਚੋਣ ਬਹੁਤੀ ਵਾਰ ਦਿੱਤੀ ਗਈ ਹੈ)।\n"
+"ਤਿਆਰ ਕੀਤੇ ਡਿਸਕ ਈਮੇਜ਼ ਫਾਇਲ \"test1.img\" ਵਿੱਚ ਲੋਕਲ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਲਿਖੇ ਗਏ ਹਨ।  "
+"(\"test2.img\" ਆਦਿ ਜੇ -N ਚੋਣ ਬਹੁਤੀ ਵਾਰ ਦਿੱਤੀ ਗਈ ਹੈ)।\n"
 "ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ guestfish(1) ਦਸਤਾਵੇਜ ਵੇਖੋ\n"
 
 #: fish/prep.c:96
@@ -2645,8 +2643,7 @@ msgstr ""
 #: fuse/guestmount.c:1130
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr ""
-"%s: ਸਾਡੇ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਇੱਕ -a/-d ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ -m/-i ਚੋਣ ਹੋਣੀ ਜਰੂਰੀ ਹੈ\n"
+msgstr "%s: ਸਾਡੇ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਇੱਕ -a/-d ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ -m/-i ਚੋਣ ਹੋਣੀ ਜਰੂਰੀ ਹੈ\n"
 
 #: fuse/guestmount.c:1138
 #, c-format
@@ -2697,10 +2694,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2708,10 +2707,12 @@ msgid ""
 msgstr ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2747,11 +2748,11 @@ msgstr "ਗਿਸਟ ਈਮੇਜ਼ {imagename} ਮੌਜੂਦ ਨਹੀਂ ਹ�
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
 msgid "open_guest: too many domains listed on command line"
@@ -2780,7 +2781,8 @@ msgstr "{imagename} ਲੱਗਦਾ ਹੈ ਕੋਈ ਜਿਸਕ ਜੰਤਰ �
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2788,7 +2790,8 @@ msgid ""
 msgstr ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2900,8 +2903,8 @@ msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
-"ਕੋਈ ਵੀ ਅਨੁਕੂਲ libguestfs supermin ਜਾਂ ਸਧਾਰਤ ਜੰਤਰ LIBGUESTFS_PATH ਉੱਪਰ ਨਹੀਂ "
-"ਲੱਭਿਆ(ਖੋਜ ਮਾਰਗ: %s)"
+"ਕੋਈ ਵੀ ਅਨੁਕੂਲ libguestfs supermin ਜਾਂ ਸਧਾਰਤ ਜੰਤਰ LIBGUESTFS_PATH ਉੱਪਰ ਨਹੀਂ ਲੱਭਿਆ(ਖੋਜ "
+"ਮਾਰਗ: %s)"
 
 #: src/appliance.c:331
 #, c-format
@@ -2996,8 +2999,8 @@ msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
-"%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ "
-"ਪਹਿਲਾਂ guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
+"%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
+"guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 
 #: src/inspect.c:599 src/inspect_apps.c:609
 msgid ""
@@ -3232,13 +3235,15 @@ msgstr "ਡੋਮੇਨ ਜਾਣਕਾਰੀ ਲੈਣ ਸਮੇਂ ਗਲਤ�
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 "error: domain is a live virtual machine।\n"
-"Writing to the disks of a running virtual machine can cause disk corruption।\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption।\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access।  In most libguestfs tools these options are --ro or\n"
 "--live respectively।  Consult the documentation for further information।"
@@ -3256,8 +3261,8 @@ msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
 msgstr ""
-"add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 "
-"ਤੋਂ ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
+"add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 ਤੋਂ "
+"ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
 
 #: test-tool/test-tool.c:79
 #, c-format
@@ -3348,11 +3353,11 @@ msgstr "ਬਾਇਨਰੀ '%s' ਬੰਦ ਨਹੀਂ ਹੋਇਆ ਜਾਂ �
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ਇੱਕ qemu ਸਰੋਤ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਲੱਗਦੀ\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems:  VM ਨਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ"
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: ਕੋਈ ਈਮੇਜ਼ ਜਾਂ VM ਨਾਂ ਨਹੀਂ ਦਿੱਤਾ"
 
@@ -3383,8 +3388,7 @@ msgstr "qemu-img ਬਣਾਓ: ਡਿਸਕ ਈਮੇਜ਼ ਬਣਾਉਣ ਤੋ�
 #: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
-"virt-make-fs: NTFS ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਜਦੋਂ libguestfs ਕੰਪਾਈਲ ਕੀਤੀ "
-"ਜਾਂਦੀ ਸੀ\n"
+"virt-make-fs: NTFS ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਜਦੋਂ libguestfs ਕੰਪਾਈਲ ਕੀਤੀ ਜਾਂਦੀ ਸੀ\n"
 
 #: tools/virt-make-fs.pl:442
 msgid "tar: failed, see earlier messages\n"
@@ -3404,34 +3408,35 @@ msgstr ""
 "An error here usually means that the program did not estimate the\n"
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr "virt-tar: extract/upload ਮੋਡ ਕਮਾਂਡ ਲਾਈਨ ਵਿੱਚ ਦੋ-ਵਾਰ ਨਿਰਧਾਰਤ ਕੀਤਾ ਹੈ\n"
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr "virt-tar: ਕੋਈ ਈਮੇਜ਼, VM ਨਾਂ, ਡਾਇਰੈਕਟਰੀ ਜਾਂ ਫਾਇਲ-ਨਾਂ ਨਹੀਂ ਦਿੱਤਾ"
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: -x ਜਾਂ -u ਕਮਾਂਡ ਲਾਈਨ ਵਿੱਚ ਦੇਣੀ ਜਰੂਰੀ ਹੈ\n"
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: ਫਾਇਲ ਨਹੀਂ ਲੱਭੀ\n"
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: ਡਾਇਰੈਕਟਰੀ ਨਾਂ  '/' ਅੱਖਰ ਨਾਲ ਸ਼ੁਰੂ ਹੋਣਾ ਜਰੂਰੀ ਹੈ\n"
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3439,50 +3444,49 @@ msgid ""
 msgstr ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr "{prog}: ਮਲਟੀਬੂਟ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮਾਂ ਨੂੰ ਸਹਿਯੋਗ ਨਹੀਂ ਹੈ।\n"
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr "ਕੋਈ libvirt ਡੋਮੇਨ ਨਾਂ ਜਾਂ ਡਿਸਕ ਈਮੇਜ਼ ਨਹੀਂ ਦਿੱਤਾ\n"
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr "1 ਜਾਂ 2 ਹੋਰ ਪੈਰਾਮੀਟਰਾਂ ਦੀ ਉਮੀਦ ਹੈ, subkey ਮਾਰਗ ਅਤੇ ਨਿਰਯਾਤ ਕਰਨ ਲਈ ਮੁੱਲ\n"
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: ਇੱਕ ਸਹਿਯੋਗੀ Windows ਰਜਿਸਟਰੀ ਮਾਰਗ ਨਹੀਂ ਹੈ\n"
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr "virt-win-reg: {p}: ਗਿਸਟ ਵਿੱਚ ਫਾਇਲ ਨਹੀਂ ਲੱਭ: {err}\n"
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਡਾਊਂਲੋਡ ਨਹੀਂ ਕਰ ਸਕਿਆ: {err}\n"
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਨੂੰ ਅੱਪਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦਾ: {err}\n"
-
-

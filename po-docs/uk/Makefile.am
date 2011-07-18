@@ -70,6 +70,9 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 %.1: %.pod
 	$(top_srcdir)/podwrapper.sh --man $@ $<
 
+%.1: %.pl
+	$(top_srcdir)/podwrapper.sh --man $@ $<
+
 # XXX Can automake do this properly?
 install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man1

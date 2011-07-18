@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Richard E. van der Luit <nippur@fedoraproject.org>, 2011.
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -1996,8 +1997,7 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
 #: fish/copy.c:62
@@ -2094,8 +2094,8 @@ msgstr "%s: --listen=PID: PID was geen getal: %s\n"
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
-"%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op"
-" afstand\n"
+"%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op "
+"afstand\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2118,8 +2118,7 @@ msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
-"%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt "
-"worden\n"
+"%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
 
 #: fish/fish.c:555
 #, c-format
@@ -2263,7 +2262,8 @@ msgstr "glob: guestfs_glob_expand aanroep mislukte: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2406,7 +2406,8 @@ msgid ""
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
-"Aangemaakte schijf images worden geschreven naar bestand \"test1.img\" in de locale\n"
+"Aangemaakte schijf images worden geschreven naar bestand \"test1.img\" in de "
+"locale\n"
 "map.  (\"test2.img\" enz. als -N optie meerdere keren werd gegeven).\n"
 "Voor meer informatie bekijk je de guestfish(1) manual.\n"
 
@@ -2616,10 +2617,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2656,8 +2659,8 @@ msgstr "gast image {imagename} bestaat niet of is niet leesbaar"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 "open_guest: geen libvirt ondersteuning (installeer Sys::Virt, XML::XPath en "
 "XML::XPath::XMLParser)"
@@ -2689,7 +2692,8 @@ msgstr "{imagename} lijkt geen schijf apparaten te hebben\n"
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2697,7 +2701,8 @@ msgid ""
 msgstr ""
 "Binnen deze schijf image kon geen besturingssysteem gedetecteerd worden.\n"
 "\n"
-"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele machine\n"
+"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele "
+"machine\n"
 "image, of omdat het OS type niet begrepen wordt door virt-inspector.\n"
 "\n"
 "Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
@@ -3022,8 +3027,8 @@ msgstr "guestfs_end_busy: aangeroepen in toestand %d"
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: 0x%x gelezen van daemon, verwachte "
-"0x%x\n"
+"check_for_daemon_cancellation_or_eof: 0x%x gelezen van daemon, verwachte 0x"
+"%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3143,7 +3148,8 @@ msgstr ""
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3250,11 +3256,11 @@ msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ziet er niet uit als een qemu bron map\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 
@@ -3306,54 +3312,56 @@ msgid ""
 msgstr ""
 "virt-make-fs: fout bij het kopiëren van inhoud naar het bestandssysteem\n"
 "Een fout hier betekent gewoonlijk dat het programma de grootte van het\n"
-"bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man pagina.\n"
+"bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man "
+"pagina.\n"
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 "virt-tar: extraheer/upload mode twee keer gespecificeerd op de commando-"
 "regel\n"
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr "virt-tar: geen image, VM namen, map of bestandsnaam opgegeven"
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: -x of -u  moet opgegeven worden op de commando-regel\n"
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: bestand niet gevonden\n"
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr "geen libvirt domein naam of schijf image gegeven\n"
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -3361,29 +3369,27 @@ msgstr ""
 "verwacht 1 of 2 extra parameters, subkey pad en optioneel de waarde om te "
 "exporteren\n"
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: geen ondersteund Windows Registry pad\n"
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr "virt-win-reg: {p}: bestand niet gevonden in gast: {err}\n"
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
-
-

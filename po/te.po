@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/team/te/)\n"
+"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: te\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -557,8 +558,7 @@ msgstr "ఫైల్ సిస్టమ్ డిస్కు జాగా వ�
 
 #: fish/cmds.c:2702
 msgid "report file system disk space usage (human readable)"
-msgstr ""
-"ఫైలు సిస్టమ్ డిస్కు జాగా వినియోగమును నివేదించుము (మానవుడు చదువదగునట్లు)"
+msgstr "ఫైలు సిస్టమ్ డిస్కు జాగా వినియోగమును నివేదించుము (మానవుడు చదువదగునట్లు)"
 
 #: fish/cmds.c:2703
 msgid "display an image"
@@ -644,8 +644,7 @@ msgstr "అన్ని ఫైళ్ళను మరియు డైరెక్
 
 #: fish/cmds.c:2727
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"NUL-వేరుచేసిన జాబితాను యిచ్చు, అన్ని ఫైళ్ళను మరియు డైరెక్టరీలను కనుగొనుము"
+msgstr "NUL-వేరుచేసిన జాబితాను యిచ్చు, అన్ని ఫైళ్ళను మరియు డైరెక్టరీలను కనుగొనుము"
 
 #: fish/cmds.c:2728
 msgid "find a filesystem by label"
@@ -1693,8 +1692,7 @@ msgstr ""
 
 #: fish/cmds.c:3012
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr ""
-"ext2/3 ఫైలుసిస్టమ్ పైన వుపయోగించని ఐనోడ్లు మరియు డిస్కు బ్లాకులు సున్నా"
+msgstr "ext2/3 ఫైలుసిస్టమ్ పైన వుపయోగించని ఐనోడ్లు మరియు డిస్కు బ్లాకులు సున్నా"
 
 #: fish/cmds.c:3015
 msgid "determine file type inside a compressed file"
@@ -1702,8 +1700,7 @@ msgstr "కుదించిన ఫైలునందలి ఫైలు రక
 
 #: fish/cmds.c:3018
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"ఆదేశము కొరకు విశదీకృత సహాయమును చూపుటకు -h <cmd> / help <cmd> వుపయోగించుము"
+msgstr "ఆదేశము కొరకు విశదీకృత సహాయమును చూపుటకు -h <cmd> / help <cmd> వుపయోగించుము"
 
 #: fish/cmds.c:3336 fish/cmds.c:3350 fish/cmds.c:3366 fish/cmds.c:3383
 #: fish/cmds.c:3400 fish/cmds.c:3418 fish/cmds.c:3437 fish/cmds.c:3453
@@ -1970,8 +1967,7 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
 #: fish/copy.c:62
@@ -2067,8 +2063,7 @@ msgstr "%s: --listen=PID: PID సంఖ్య కాదు: %s\n"
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr ""
-"%s: remote: $GUESTFISH_PID అనునది రిమోట్ కార్యక్రమము యొక్క PIDకు అమర్చాలి\n"
+msgstr "%s: remote: $GUESTFISH_PID అనునది రిమోట్ కార్యక్రమము యొక్క PIDకు అమర్చాలి\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2229,7 +2224,8 @@ msgstr "glob: guestfs_glob_expand కాల్ విఫలమైంది: %s\n
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2464,8 +2460,8 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: నిభందన దోషము: వర్షన్ అసమానత, సేవిక వర్షన్ '%s' అనునది క్లైంట్ "
-"వర్షన్ '%s'తో సరిపోలుట లేదు.  రెండు వర్షన్లు తప్పక సరిగ్గా సరిపోలవలెను.\n"
+"guestfish: నిభందన దోషము: వర్షన్ అసమానత, సేవిక వర్షన్ '%s' అనునది క్లైంట్ వర్షన్ '%s'తో "
+"సరిపోలుట లేదు.  రెండు వర్షన్లు తప్పక సరిగ్గా సరిపోలవలెను.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2480,9 +2476,7 @@ msgstr "guestfish: protocol error: సేవికకు ప్రాధమి�
 #: fish/rc.c:386
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: protocol error: సేవిక నుండి ప్రత్యుత్తరమును డీకోడ్ చేయలేక "
-"పోయింది\n"
+msgstr "guestfish: protocol error: సేవిక నుండి ప్రత్యుత్తరమును డీకోడ్ చేయలేక పోయింది\n"
 
 #: fish/reopen.c:36
 #, c-format
@@ -2546,8 +2540,7 @@ msgstr ""
 #: fuse/guestmount.c:1138
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr ""
-"%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
+msgstr "%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
 
 #: inspector/virt-inspector.c:76
 #, c-format
@@ -2576,10 +2569,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2616,8 +2611,8 @@ msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
@@ -2647,7 +2642,8 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2924,8 +2920,7 @@ msgstr "guestfs_launch విఫలమైంది, ముందలి దోష
 
 #: src/launch.c:777
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr ""
-"qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
+msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
 #: src/launch.c:865
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
@@ -2941,8 +2936,8 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: ఆదేశము విఫలమైంది: ఒకవేళ qemu ప్రామాణికం-కాని పాత్‌పై వుంటే, "
-"LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ అమర్చుటకు ప్రయత్నించుము."
+"%s: ఆదేశము విఫలమైంది: ఒకవేళ qemu ప్రామాణికం-కాని పాత్‌పై వుంటే, LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ "
+"వేరియబుల్ అమర్చుటకు ప్రయత్నించుము."
 
 #: src/launch.c:1143
 msgid "qemu has not been launched yet"
@@ -2967,8 +2962,7 @@ msgstr "guestfs_end_busy: state %d నందు పిలువబడును"
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: డెమోన్‌నుండి 0x%x చదివెను, కావలసినది "
-"0x%x\n"
+"check_for_daemon_cancellation_or_eof: డెమోన్‌నుండి 0x%x చదివెను, కావలసినది 0x%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3033,8 +3027,7 @@ msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ 
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
+msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
 #: src/proto.c:1207
 msgid "failed to parse file chunk"
@@ -3087,7 +3080,8 @@ msgstr ""
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3194,11 +3188,11 @@ msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వ
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
@@ -3245,78 +3239,77 @@ msgid ""
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr ""
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
-
-

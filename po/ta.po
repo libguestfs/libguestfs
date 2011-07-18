@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -644,8 +645,7 @@ msgstr "அனைத்து கோப்புகள் மற்றும் 
 #: fish/cmds.c:2727
 msgid "find all files and directories, returning NUL-separated list"
 msgstr ""
-"அனைத்து கோப்புகள் மற்றும் அடைவுகளை தேடு, NUL-பிரிக்கப்பட்ட பட்டியலிருந்து "
-"திரும்புகிறது"
+"அனைத்து கோப்புகள் மற்றும் அடைவுகளை தேடு, NUL-பிரிக்கப்பட்ட பட்டியலிருந்து திரும்புகிறது"
 
 #: fish/cmds.c:2728
 msgid "find a filesystem by label"
@@ -789,9 +789,7 @@ msgstr "inotify ஹாண்டிலை மூடு"
 
 #: fish/cmds.c:2765
 msgid "return list of watched files that had events"
-msgstr ""
-"கவனிக்கப்பட்ட கோப்புகளிலிருந்து திரும்பிய பட்டியல்கள் நிகழ்வுகளைப் "
-"பெற்றிருந்தது"
+msgstr "கவனிக்கப்பட்ட கோப்புகளிலிருந்து திரும்பிய பட்டியல்கள் நிகழ்வுகளைப் பெற்றிருந்தது"
 
 #: fish/cmds.c:2766
 msgid "create an inotify handle"
@@ -1567,8 +1565,7 @@ msgstr ""
 
 #: fish/cmds.c:2975
 msgid "update file timestamps or create a new file"
-msgstr ""
-"கோப்பு நேரஸ்டேம்ப்புக்களை மேம்படுத்து அல்லது ஒரு புதிய கோப்பை உருவாக்கு"
+msgstr "கோப்பு நேரஸ்டேம்ப்புக்களை மேம்படுத்து அல்லது ஒரு புதிய கோப்பை உருவாக்கு"
 
 #: fish/cmds.c:2976
 msgid "truncate a file to zero size"
@@ -1971,8 +1968,7 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
 #: fish/copy.c:62
@@ -2088,9 +2084,7 @@ msgstr "%s: extra parameters on the command line with --listen flag\n"
 #: fish/fish.c:490
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr ""
-"%s:  --listen மற்றும் --file விருப்பங்களை அதே நேரத்தில் பயன்படுத்த "
-"முடியாது\n"
+msgstr "%s:  --listen மற்றும் --file விருப்பங்களை அதே நேரத்தில் பயன்படுத்த முடியாது\n"
 
 #: fish/fish.c:555
 #, c-format
@@ -2182,8 +2176,7 @@ msgstr ""
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
-"%s: கட்டளை என்னவென்று தெரியவில்லை, அனைத்து கட்டளைகளையும் பட்டியலிட  -hஐ "
-"பயன்படுத்து\n"
+"%s: கட்டளை என்னவென்று தெரியவில்லை, அனைத்து கட்டளைகளையும் பட்டியலிட  -hஐ பயன்படுத்து\n"
 
 #: fish/fish.c:1190
 #, c-format
@@ -2233,7 +2226,8 @@ msgstr "glob: guestfs_glob_expand அழைக்க முடியவில்
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2468,9 +2462,8 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: protocol error: பதிப்பு பொருந்தவில்லை, சேவையக பதிப்பு '%s' "
-"க்ளையன்ட் பதிப்பு '%s'உடன் பொருந்தவில்லை.  இந்த இரண்டு பதிப்புகளும் சரியாக "
-"பொருந்த வேண்டும்.\n"
+"guestfish: protocol error: பதிப்பு பொருந்தவில்லை, சேவையக பதிப்பு '%s' க்ளையன்ட் "
+"பதிப்பு '%s'உடன் பொருந்தவில்லை.  இந்த இரண்டு பதிப்புகளும் சரியாக பொருந்த வேண்டும்.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2481,8 +2474,7 @@ msgstr "guestfish: remote: சேவையகம் இயங்காதது 
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: protocol error: துவக்க அழைப்பை சேவையகத்திற்கு அனுப்ப "
-"முடியவில்லை\n"
+"guestfish: protocol error: துவக்க அழைப்பை சேவையகத்திற்கு அனுப்ப முடியவில்லை\n"
 
 #: fish/rc.c:386
 #, c-format
@@ -2551,8 +2543,7 @@ msgstr ""
 #: fuse/guestmount.c:1138
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr ""
-"%s: புரவல கோப்புமுறைமையில் ஒரு ஏறும்புள்ளியை நீங்கள் குறிப்பிட வேண்டும்\n"
+msgstr "%s: புரவல கோப்புமுறைமையில் ஒரு ஏறும்புள்ளியை நீங்கள் குறிப்பிட வேண்டும்\n"
 
 #: inspector/virt-inspector.c:76
 #, c-format
@@ -2581,10 +2572,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2621,8 +2614,8 @@ msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
@@ -2652,7 +2645,8 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2929,8 +2923,7 @@ msgstr "guestfs_launch தோல்வியுற்றது, முந்த�
 
 #: src/launch.c:777
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr ""
-"qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
+msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
 #: src/launch.c:865
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
@@ -3038,9 +3031,7 @@ msgstr "receive_file_data: பதில் பின்அழைப்பில�
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி "
-"பெறப்பட்டது"
+msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
 #: src/proto.c:1207
 msgid "failed to parse file chunk"
@@ -3093,7 +3084,8 @@ msgstr ""
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3200,11 +3192,11 @@ msgstr "Binary '%s' does not exist or is not executable\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ஒரு qemu மூல அடைவு போல் இல்லை\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
@@ -3251,78 +3243,77 @@ msgid ""
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr ""
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
-
-

@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
+"Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ml\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -311,14 +312,12 @@ msgstr "ഒരു ചിത്രം ഉണ്ടാക്കുന്നതി�
 #: fish/alloc.c:51
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr ""
-"ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
+msgstr "ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
 
 #: fish/alloc.c:75
 #, c-format
 msgid "can't allocate or add disks after launching\n"
-msgstr ""
-"ലഭ്യമാക്കിയ ശേഷം സ്ഥലം അനുവദിക്കുകയോ ഡിസ്കുകള്‍ ചേര്‍ക്കുകയോ സാധ്യമല്ല\n"
+msgstr "ലഭ്യമാക്കിയ ശേഷം സ്ഥലം അനുവദിക്കുകയോ ഡിസ്കുകള്‍ ചേര്‍ക്കുകയോ സാധ്യമല്ല\n"
 
 #: fish/alloc.c:156
 #, c-format
@@ -560,8 +559,8 @@ msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ�
 #: fish/cmds.c:2702
 msgid "report file system disk space usage (human readable)"
 msgstr ""
-"ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ്കിലുള്ള സ്ഥലത്തിന്റെ ഉപയോഗം രേഖപ്പെടുത്തുക "
-"(മനുഷ്യര്‍ക്കു് വായിക്കുവാന്‍ സാധിക്കുന്നതു്)"
+"ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ്കിലുള്ള സ്ഥലത്തിന്റെ ഉപയോഗം രേഖപ്പെടുത്തുക (മനുഷ്യര്‍ക്കു് വായിക്കുവാന്‍ "
+"സാധിക്കുന്നതു്)"
 
 #: fish/cmds.c:2703
 msgid "display an image"
@@ -581,9 +580,7 @@ msgstr ""
 
 #: fish/cmds.c:2707
 msgid "drop kernel page cache, dentries and inodes"
-msgstr ""
-"കേര്‍ണല്‍ താളിന്റെ കാഷ്, ഡിഎന്‍ട്രികള്‍ ഐനോഡുകള്‍ എന്നിവ വേണ്ടെന്നു് "
-"വയ്ക്കുക"
+msgstr "കേര്‍ണല്‍ താളിന്റെ കാഷ്, ഡിഎന്‍ട്രികള്‍ ഐനോഡുകള്‍ എന്നിവ വേണ്ടെന്നു് വയ്ക്കുക"
 
 #: fish/cmds.c:2708
 msgid "estimate file space usage"
@@ -649,9 +646,7 @@ msgstr "എല്ലാ ഫയലുകളും ഡയറക്ടറികള�
 
 #: fish/cmds.c:2727
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"എല്ലാ ഫയലുകളും ഡറക്ടറികളും കണ്ടുപിടിക്കുക, NUL-വേര്‍തിരിച്ച പട്ടിക തിരികെ "
-"ലഭ്യമാക്കുക"
+msgstr "എല്ലാ ഫയലുകളും ഡറക്ടറികളും കണ്ടുപിടിക്കുക, NUL-വേര്‍തിരിച്ച പട്ടിക തിരികെ ലഭ്യമാക്കുക"
 
 #: fish/cmds.c:2728
 msgid "find a filesystem by label"
@@ -715,8 +710,7 @@ msgstr "qemu ബൈനറി ലഭ്യമാക്കുക"
 
 #: fish/cmds.c:2743
 msgid "get recovery process enabled flag"
-msgstr ""
-"വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുന്നതിനുള്ള ഫ്ലാഗ് ലഭ്യമാക്കുക"
+msgstr "വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുന്നതിനുള്ള ഫ്ലാഗ് ലഭ്യമാക്കുക"
 
 #: fish/cmds.c:2744
 msgid "get SELinux enabled flag"
@@ -748,8 +742,7 @@ msgstr ""
 
 #: fish/cmds.c:2751 fish/cmds.c:2811
 msgid "list extended attributes of a file or directory"
-msgstr ""
-"ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയ്ക്കുള്ള അധികമായ വിശേഷതകള്‍ ലഭ്യമാക്കുക"
+msgstr "ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയ്ക്കുള്ള അധികമായ വിശേഷതകള്‍ ലഭ്യമാക്കുക"
 
 #: fish/cmds.c:2752
 msgid "expand wildcards in command"
@@ -1005,9 +998,7 @@ msgstr "ഒരു സിംബോളിക് ലിങ്ക് നിര്‍
 
 #: fish/cmds.c:2822 fish/cmds.c:2915
 msgid "remove extended attribute of a file or directory"
-msgstr ""
-"ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയ്ക്കുള്ള എക്സ്റ്റെന്‍ഡഡ് വിശേഷത നീക്കം "
-"ചെയ്യുക"
+msgstr "ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയ്ക്കുള്ള എക്സ്റ്റെന്‍ഡഡ് വിശേഷത നീക്കം ചെയ്യുക"
 
 #: fish/cmds.c:2823
 msgid "list the files in a directory"
@@ -1015,8 +1006,7 @@ msgstr "ഒരു ഡയറക്ടറിയിലുള്ള ഫയലുക�
 
 #: fish/cmds.c:2824 fish/cmds.c:2943
 msgid "set extended attribute of a file or directory"
-msgstr ""
-"ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയുടെ എക്സ്റ്റെന്‍ഡഡ് വിശേഷത സജ്ജമാക്കുക"
+msgstr "ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറിയുടെ എക്സ്റ്റെന്‍ഡഡ് വിശേഷത സജ്ജമാക്കുക"
 
 #: fish/cmds.c:2825
 msgid "get file information for a symbolic link"
@@ -1408,9 +1398,7 @@ msgstr "autosync മോഡ് സജ്ജമാക്കുക"
 
 #: fish/cmds.c:2930
 msgid "enable or disable direct appliance mode"
-msgstr ""
-"നേരിട്ടുള്ള അപ്ലയന്‍സ് മോഡ് പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന"
-" രഹിതമാക്കുക"
+msgstr "നേരിട്ടുള്ള അപ്ലയന്‍സ് മോഡ് പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:2931
 msgid "set the ext2/3/4 filesystem label"
@@ -1442,21 +1430,16 @@ msgstr "qemu ബൈനറി സജ്ജമാക്കുക"
 
 #: fish/cmds.c:2938
 msgid "enable or disable the recovery process"
-msgstr ""
-"വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന "
-"രഹിതമാക്കുക"
+msgstr "വീണ്ടെടുക്കുന്ന പ്രക്രിയ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:2939
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr ""
-"പ്രയോഗം ബൂട്ട് ചെയ്യുമ്പോള്‍ SELinux പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ "
-"പ്രവര്‍ത്തന രഹിതമാക്കുക"
+"പ്രയോഗം ബൂട്ട് ചെയ്യുമ്പോള്‍ SELinux പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:2940
 msgid "enable or disable command traces"
-msgstr ""
-"കമാന്‍ഡ് ട്രെയിസുകള്‍ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന "
-"രഹിതമാക്കുക"
+msgstr "കമാന്‍ഡ് ട്രെയിസുകള്‍ പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:2941
 msgid "set verbose mode"
@@ -1512,9 +1495,7 @@ msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ സ്ഥ�
 
 #: fish/cmds.c:2956 fish/cmds.c:2957
 msgid "print the printable strings in a file"
-msgstr ""
-"പ്രിന്റ് ചെയ്യുവാന്‍ സാധിക്കുന്ന സ്ട്രിങുകള്‍ ഒരു ഫയലിലേക്ക് പ്രിന്റ് "
-"ചെയ്യുക"
+msgstr "പ്രിന്റ് ചെയ്യുവാന്‍ സാധിക്കുന്ന സ്ട്രിങുകള്‍ ഒരു ഫയലിലേക്ക് പ്രിന്റ് ചെയ്യുക"
 
 #: fish/cmds.c:2958
 msgid "list supported groups of commands"
@@ -1530,13 +1511,11 @@ msgstr "ഫയലില്‍ സ്വാപ്പ് പ്രവര്‍ത�
 
 #: fish/cmds.c:2961
 msgid "disable swap on labeled swap partition"
-msgstr ""
-"ലേബല്‍ ചെയ്ത സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "ലേബല്‍ ചെയ്ത സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:2962
 msgid "disable swap on swap partition by UUID"
-msgstr ""
-"UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:2963
 msgid "enable swap on device"
@@ -1548,18 +1527,15 @@ msgstr "ഫയലില്‍ സ്വാപ്പ് പ്രവര്‍ത�
 
 #: fish/cmds.c:2965
 msgid "enable swap on labeled swap partition"
-msgstr ""
-"ലേബല്‍ ചെയ്ത സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
+msgstr "ലേബല്‍ ചെയ്ത സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
 
 #: fish/cmds.c:2966
 msgid "enable swap on swap partition by UUID"
-msgstr ""
-"UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
+msgstr "UUID ഉപയോഗിച്ചു് സ്വാപ്പ് പാര്‍ട്ടീഷനില്‍ സ്വാപ്പ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
 
 #: fish/cmds.c:2967
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr ""
-"സിന്‍ക് ഡിസ്കുകള്‍ റൈറ്റുകള്‍ എന്നിവ ഡിസ്ക് ഇമേജ് വഴി വെടിപ്പാക്കുന്നു"
+msgstr "സിന്‍ക് ഡിസ്കുകള്‍ റൈറ്റുകള്‍ എന്നിവ ഡിസ്ക് ഇമേജ് വഴി വെടിപ്പാക്കുന്നു"
 
 #: fish/cmds.c:2968
 msgid "return last 10 lines of a file"
@@ -1591,9 +1567,7 @@ msgstr ""
 
 #: fish/cmds.c:2975
 msgid "update file timestamps or create a new file"
-msgstr ""
-"ഫയല്‍ ടൈംസ്റ്റാംപുകള്‍ പരിഷ്കരിക്കുക അല്ലെങ്കില്‍ ഒരു പുതിയ ഫയല്‍ "
-"നിര്‍മ്മിക്കുക"
+msgstr "ഫയല്‍ ടൈംസ്റ്റാംപുകള്‍ പരിഷ്കരിക്കുക അല്ലെങ്കില്‍ ഒരു പുതിയ ഫയല്‍ നിര്‍മ്മിക്കുക"
 
 #: fish/cmds.c:2976
 msgid "truncate a file to zero size"
@@ -1729,8 +1703,7 @@ msgstr "ഒരു കംപ്രസ്സ്ഡ് ഫയലിലുള്ള 
 
 #: fish/cmds.c:3018
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"ഒരു കമാന്‍ഡിന്റെ വിശദവിവരങ്ങള്‍ക്കായി -h <cmd> / help <cmd> ഉപയോഗിക്കുക."
+msgstr "ഒരു കമാന്‍ഡിന്റെ വിശദവിവരങ്ങള്‍ക്കായി -h <cmd> / help <cmd> ഉപയോഗിക്കുക."
 
 #: fish/cmds.c:3336 fish/cmds.c:3350 fish/cmds.c:3366 fish/cmds.c:3383
 #: fish/cmds.c:3400 fish/cmds.c:3418 fish/cmds.c:3437 fish/cmds.c:3453
@@ -1943,8 +1916,7 @@ msgstr "%s-ലുള്ള ആവശ്യങ്ങള്‍ക്കായി '
 #: fish/cmds.c:12167
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
-msgstr ""
-"%s: %s: അസാധുവായ ഇന്റിജര്‍ പരാമീറ്റര്‍ (%s %d തിരികെ നല്‍കിയിരിക്കുന്നു)\n"
+msgstr "%s: %s: അസാധുവായ ഇന്റിജര്‍ പരാമീറ്റര്‍ (%s %d തിരികെ നല്‍കിയിരിക്കുന്നു)\n"
 
 #: fish/cmds.c:3701 fish/cmds.c:4993 fish/cmds.c:5351 fish/cmds.c:5391
 #: fish/cmds.c:5410 fish/cmds.c:5553 fish/cmds.c:5612 fish/cmds.c:5631
@@ -1998,8 +1970,7 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
 #: fish/copy.c:62
@@ -2095,8 +2066,7 @@ msgstr "%s: --listen=PID: PID ഒരു നംബറല്ല: %s\n"
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr ""
-"%s: remote: റിമോട്ട് പ്രക്രിയയുടെ PID-ലേക്ക് $GUESTFISH_PID സജ്ജമാക്കേണം\n"
+msgstr "%s: remote: റിമോട്ട് പ്രക്രിയയുടെ PID-ലേക്ക് $GUESTFISH_PID സജ്ജമാക്കേണം\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2106,9 +2076,7 @@ msgstr "%s: ഒരു -f പരാമീറ്റര്‍ മാത്രമേ
 #: fish/fish.c:476
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr ""
-"%s: ഒരേ സമയത്തു് --listen, --remote എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ "
-"സാധ്യമല്ല\n"
+msgstr "%s: ഒരേ സമയത്തു് --listen, --remote എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
 #: fish/fish.c:484
 #, c-format
@@ -2118,9 +2086,7 @@ msgstr "%s: --listen ഫ്ലാഗിനൊപ്പം കമാന്‍ഡ�
 #: fish/fish.c:490
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr ""
-"%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ "
-"സാധ്യമല്ല\n"
+msgstr "%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
 #: fish/fish.c:555
 #, c-format
@@ -2148,9 +2114,7 @@ msgstr ""
 #: fish/fish.c:796 fish/fish.c:812
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr ""
-"%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് "
-"വേര്‍തിരിച്ചിട്ടില്ല\n"
+msgstr "%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
 
 #: fish/fish.c:806
 #, c-format
@@ -2184,8 +2148,7 @@ msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ
 
 #: fish/fish.c:1148
 msgid "display a list of commands or help on a command"
-msgstr ""
-"കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുക"
+msgstr "കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുക"
 
 #: fish/fish.c:1150
 msgid "quit guestfish"
@@ -2214,9 +2177,7 @@ msgstr ""
 #: fish/fish.c:1174
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
-msgstr ""
-"%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h "
-"ഉപയോഗിക്കുക\n"
+msgstr "%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h ഉപയോഗിക്കുക\n"
 
 #: fish/fish.c:1190
 #, c-format
@@ -2266,7 +2227,8 @@ msgstr "glob: guestfs_glob_expand കോള്‍ പരാജയപ്പെട
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2501,9 +2463,8 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ "
-"പതിപ്പു് ക്ലയന്റ് പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ "
-"ആയിരിക്കണം.\n"
+"guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
+"പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2514,15 +2475,12 @@ msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്�
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ "
-"സാധ്യമായില്ല\n"
+"guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
 #: fish/rc.c:386
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ "
-"സാധ്യമല്ല\n"
+msgstr "guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"
 
 #: fish/reopen.c:36
 #, c-format
@@ -2615,10 +2573,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2655,8 +2615,8 @@ msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
@@ -2686,7 +2646,8 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2924,9 +2885,7 @@ msgstr ""
 
 #: src/launch.c:98
 msgid "command line cannot be altered after qemu subprocess launched"
-msgstr ""
-"qemu ഉപപ്രക്രിയ വിന്യസിച്ചശേഷം കമാന്‍ഡ് ലൈനില്‍ മാറ്റം വരുത്തുവാന്‍ "
-"സാധ്യമല്ല"
+msgstr "qemu ഉപപ്രക്രിയ വിന്യസിച്ചശേഷം കമാന്‍ഡ് ലൈനില്‍ മാറ്റം വരുത്തുവാന്‍ സാധ്യമല്ല"
 
 #: src/launch.c:155
 msgid "guestfs_config: parameter must begin with '-' character"
@@ -2981,8 +2940,8 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, "
-"LIBGUESTFS_QEMU എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
+"%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
+"എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
 #: src/launch.c:1143
 msgid "qemu has not been launched yet"
@@ -3072,9 +3031,7 @@ msgstr "receive_file_data: parse error in reply callback"
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് "
-"ലഭിച്ചിരിക്കുന്നു"
+msgstr "receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് ലഭിച്ചിരിക്കുന്നു"
 
 #: src/proto.c:1207
 msgid "failed to parse file chunk"
@@ -3127,7 +3084,8 @@ msgstr ""
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3178,9 +3136,7 @@ msgstr "libguestfs-test-tool: അപ്രതീക്ഷിതമായ കമ�
 #: test-tool/test-tool.c:170
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr ""
-"libguestfs-test-tool: libguestfs ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ "
-"പരാജയപ്പെട്ടു\n"
+msgstr "libguestfs-test-tool: libguestfs ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
 #: test-tool/test-tool.c:177
 #, c-format
@@ -3210,8 +3166,7 @@ msgstr "libguestfs-test-tool: mkfs.ext2 പരാജയപ്പെട്ടു\
 #: test-tool/test-tool.c:241
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
-msgstr ""
-"libguestfs-test-tool: /dev/sda1 /-ല്‍ മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു\n"
+msgstr "libguestfs-test-tool: /dev/sda1 /-ല്‍ മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
 #: test-tool/test-tool.c:248
 #, c-format
@@ -3237,11 +3192,11 @@ msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ�
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu ഉറവിട ഡയറക്ടറിയില്‍ നിന്നും വ്യത്യസ്ഥമാണു്\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
@@ -3288,78 +3243,77 @@ msgid ""
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr ""
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
-
-

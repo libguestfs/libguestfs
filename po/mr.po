@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 # sandeeps <sshedmak@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/mr/)\n"
+"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
+"mr/)\n"
+"Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mr\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -215,9 +217,7 @@ msgstr "%s: libvirt शी जोडणी करतेवेळी त्रु
 #: df/domains.c:124
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-msgstr ""
-"%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): "
-"%s"
+msgstr "%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:134
 #, c-format
@@ -227,9 +227,7 @@ msgstr "%s: सुरू असलेल्या डोमेन्स्ची
 #: df/domains.c:145
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
-msgstr ""
-"%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): "
-"%s"
+msgstr "%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:155
 #, c-format
@@ -426,13 +424,11 @@ msgstr "ड्राइव्हला स्नॅपशॉट मोडमध�
 #: fish/cmds.c:2650
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
-"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे फक्त वाचनीय ड्राइव्ह "
-"समाविष्ट करा"
+"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे फक्त वाचनीय ड्राइव्ह समाविष्ट करा"
 
 #: fish/cmds.c:2651
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
-"वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
+msgstr "वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
 
 #: fish/cmds.c:2652
 msgid "allocate and add a disk file"
@@ -600,8 +596,7 @@ msgstr "स्थानीय फाइल्स् किंवा डिरे
 
 #: fish/cmds.c:2693
 msgid "copy remote files or directories out of an image"
-msgstr ""
-"दूरस्त फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेच्या बाहेर निर्माण करा"
+msgstr "दूरस्त फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेच्या बाहेर निर्माण करा"
 
 #: fish/cmds.c:2694
 msgid "copy size bytes from source to destination using dd"
@@ -1731,9 +1726,7 @@ msgstr "LVM वॉल्यूम ग्रूप्स् (VGs) सूचीत
 
 #: fish/cmds.c:3000
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr ""
-"LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता "
-"पुनःस्कॅन करा"
+msgstr "LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता पुनःस्कॅन करा"
 
 #: fish/cmds.c:3001
 msgid "get the UUID of a volume group"
@@ -1781,8 +1774,7 @@ msgstr "आंकुचीत फाइल अंतर्गत फाइल �
 
 #: fish/cmds.c:3018
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
+msgstr "आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
 
 #: fish/cmds.c:3336 fish/cmds.c:3350 fish/cmds.c:3366 fish/cmds.c:3383
 #: fish/cmds.c:3400 fish/cmds.c:3418 fish/cmds.c:3437 fish/cmds.c:3453
@@ -2049,11 +2041,10 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
-"प्रतिमामध्ये फाइल्स्चे प्रत बनवण्यासाठी 'copy-in <local> [<local>...] "
-"<remotedir>' याचा वापर करा\n"
+"प्रतिमामध्ये फाइल्स्चे प्रत बनवण्यासाठी 'copy-in <local> [<local>...] <remotedir>' "
+"याचा वापर करा\n"
 
 #: fish/copy.c:62
 #, c-format
@@ -2071,8 +2062,8 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
-"प्रतिमेच्या बाहेर फाइल्चे प्रत निर्माण करण्यासाठी 'copy-out <remote> "
-"[<remote>...] <localdir>' वापर करा\n"
+"प्रतिमेच्या बाहेर फाइल्चे प्रत निर्माण करण्यासाठी 'copy-out <remote> [<remote>...] "
+"<localdir>' वापर करा\n"
 
 #: fish/copy.c:213
 #, c-format
@@ -2150,8 +2141,7 @@ msgstr "%s: --listen=PID: PID क्रमांक प्रमाणे आढ
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr ""
-"%s: रिमोट: $GUESTFISH_PID यांस रिमोट कार्याच्या PID करीता सेट केले पाहिजे\n"
+msgstr "%s: रिमोट: $GUESTFISH_PID यांस रिमोट कार्याच्या PID करीता सेट केले पाहिजे\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2176,8 +2166,7 @@ msgstr "%s: --listen व --file पर्यायचा वापर एका�
 #: fish/fish.c:555
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
-msgstr ""
-"guestfish: termcap किंवा terminfo डाटाबेसकरीता प्रवेश प्राप्त करणे अशक्य.\n"
+msgstr "guestfish: termcap किंवा terminfo डाटाबेसकरीता प्रवेश प्राप्त करणे अशक्य.\n"
 
 #: fish/fish.c:559
 #, c-format
@@ -2324,12 +2313,15 @@ msgstr "glob: guestfs_glob_expand कॉल अपयशी: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
-"-a किंवा -d पर्याय, किंवा 'add' आदेशचा वापर करून विश्लेषणकरीता डिस्क प्रतिमा समाविष्ट करा.\n"
-"किंवा -N, किंवा 'alloc' किंवा 'sparse' आदेशांचा वापर करून नवीन डिस्क प्रतिमा निर्माण करा.\n"
+"-a किंवा -d पर्याय, किंवा 'add' आदेशचा वापर करून विश्लेषणकरीता डिस्क प्रतिमा समाविष्ट "
+"करा.\n"
+"किंवा -N, किंवा 'alloc' किंवा 'sparse' आदेशांचा वापर करून नवीन डिस्क प्रतिमा निर्माण "
+"करा.\n"
 "एकदाचे असे केल्यास, 'run' आदेशचा वापर करा.\n"
 
 #: fish/help.c:44
@@ -2498,8 +2490,7 @@ msgstr ""
 #: fish/prep.c:158
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
-msgstr ""
-"guestfish: तयार डिस्क प्रतिमा '%s' यांस '%s' वर निर्माण करतेवेळी त्रुटी: "
+msgstr "guestfish: तयार डिस्क प्रतिमा '%s' यांस '%s' वर निर्माण करतेवेळी त्रुटी: "
 
 #: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
 #: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
@@ -2582,8 +2573,8 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: प्रोटोकॉल त्रुटी: आवृत्ती जुळली नाही, सर्व्हर आवृत्ती '%s' "
-"क्लाएंट आवृत्ती '%s' सह जुळत नाही.  दोन्ही आवृत्ती बरोबर जुळायला हवे.\n"
+"guestfish: प्रोटोकॉल त्रुटी: आवृत्ती जुळली नाही, सर्व्हर आवृत्ती '%s' क्लाएंट आवृत्ती '%s' "
+"सह जुळत नाही.  दोन्ही आवृत्ती बरोबर जुळायला हवे.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2593,14 +2584,12 @@ msgstr "guestfish: रिमोट: सर्व्हर कार्यरत 
 #: fish/rc.c:361 fish/rc.c:375
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
+msgstr "guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
 
 #: fish/rc.c:386
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
+msgstr "guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
 
 #: fish/reopen.c:36
 #, c-format
@@ -2711,10 +2700,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2761,8 +2752,8 @@ msgstr "guest image {imagename} अस्तित्वात नाही क�
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 "open_guest: libvirt समर्थन (Sys::Virt, XML::XPath व XML::XPath::XMLParser "
 "प्रतिष्ठापीत करा)"
@@ -2794,7 +2785,8 @@ msgstr "{imagename} कडे डिस्क साधणे नाही अ�
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2914,8 +2906,8 @@ msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
-"LIBGUESTFS_PATH वरील योग्य libguestfs supermin किंवा सर्वसाधारण अप्लायंस "
-"शोधणे अशक्य (शोध मार्ग: %s)"
+"LIBGUESTFS_PATH वरील योग्य libguestfs supermin किंवा सर्वसाधारण अप्लायंस शोधणे "
+"अशक्य (शोध मार्ग: %s)"
 
 #: src/appliance.c:331
 #, c-format
@@ -2930,8 +2922,7 @@ msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s
 #: src/appliance.c:341
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr ""
-"सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
+msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
 #: src/appliance.c:659
 msgid "external command failed, see earlier error messages"
@@ -2963,8 +2954,8 @@ msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without PCRE or libmagic libraries"
 msgstr ""
-"libguestfs ची हि आवृत्ती PCRE किंवा libmagic लाइब्ररिज् विना कंपाईल "
-"केल्यामुळे फाइल-आर्किटेक्चर API अनुपलब्ध आहे"
+"libguestfs ची हि आवृत्ती PCRE किंवा libmagic लाइब्ररिज् विना कंपाईल केल्यामुळे फाइल-"
+"आर्किटेक्चर API अनुपलब्ध आहे"
 
 #: src/guestfs.c:174
 #, c-format
@@ -3011,16 +3002,16 @@ msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
-"%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट "
-"साधणसह फंक्शनद्वारेच कॉल करा"
+"%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट साधणसह "
+"फंक्शनद्वारेच कॉल करा"
 
 #: src/inspect.c:599 src/inspect_apps.c:609
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without PCRE or hivex libraries"
 msgstr ""
-"libguestfs ची ही आवृत्ती PCRE किंवा hivex लाइब्ररिज् विना कंपाईल केल्यामुळे "
-"इंस्पेकशन API अनुपलब्ध"
+"libguestfs ची ही आवृत्ती PCRE किंवा hivex लाइब्ररिज् विना कंपाईल केल्यामुळे इंस्पेकशन API "
+"अनुपलब्ध"
 
 #: src/inspect_fs.c:326 src/inspect_fs.c:339
 #, c-format
@@ -3103,8 +3094,8 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU "
-"एन्वार्यनमेंट वेरीयेबल सेट करण्याचा प्रयत्न करा."
+"%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU एन्वार्यनमेंट "
+"वेरीयेबल सेट करण्याचा प्रयत्न करा."
 
 #: src/launch.c:1143
 msgid "qemu has not been launched yet"
@@ -3247,7 +3238,8 @@ msgstr "डोमेन माहिती प्राप्त करतेव
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3271,8 +3263,8 @@ msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
 msgstr ""
-"libguestfs ची ही आवृत्ती libvirt किंवा libxml2 विना कंपाईल केल्यामुळे add-"
-"domain API अनुपलब्ध आहे"
+"libguestfs ची ही आवृत्ती libvirt किंवा libxml2 विना कंपाईल केल्यामुळे add-domain API "
+"अनुपलब्ध आहे"
 
 #: test-tool/test-tool.c:79
 #, c-format
@@ -3363,11 +3355,11 @@ msgstr "बाइनरी '%s' अस्तित्वात नाही क�
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमाणे आढळले नाही\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: प्रतिमा किंवा VM नाव दिले नाही"
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: प्रतिमा किंवा VM नाव दिले नाही"
 
@@ -3393,9 +3385,7 @@ msgstr "virt-make-fs: आकार घटक वाचणे अशक्य: {s
 #: tools/virt-make-fs.pl:406
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
-msgstr ""
-"qemu-img create: डिस्क प्रतिमा निर्माण करण्यास अपयशी, मागील त्रुटी संदेश "
-"पहा\n"
+msgstr "qemu-img create: डिस्क प्रतिमा निर्माण करण्यास अपयशी, मागील त्रुटी संदेश पहा\n"
 
 #: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
@@ -3417,36 +3407,38 @@ msgid ""
 msgstr ""
 "virt-make-fs: फाइलप्रणाली अंतर्गत अंतर्भूत माहितीचे प्रत बनवतेवेळी त्रुटी\n"
 "येथील त्रुटी म्हणजे कार्यक्रमाने\n"
-"फाइलप्रणाली आकारचा योग्यरित्या अंदाज लावला नाही.  कृपया manpage मधील BUGS विभाग वाचा.\n"
+"फाइलप्रणाली आकारचा योग्यरित्या अंदाज लावला नाही.  कृपया manpage मधील BUGS विभाग "
+"वाचा.\n"
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr "virt-tar: आदेश ओळवर प्राप्त करा/अपलोड करा मोड दोनवेळा निर्देशीत केले\n"
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr "virt-tar: प्रतिमा, VM नावे, डिरेक्ट्री किंवा फाइलनाव दिले नाही"
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: आदेश ओळवर एकतर -x किंवा -u निर्देशीत करायला हवे\n"
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: फाइल आढळले नाही\n"
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: डिरेक्ट्रीचे नाव '/' अक्षरासह सुरू व्हायला हवे\n"
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3460,46 +3452,43 @@ msgstr ""
 "ही त्रुटी आहे असे आढळल्यास, \n"
 "कृपया डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्ट करून बग अहवाल सादर करा.\n"
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr "{prog}: मल्टिबूट कार्यप्रणाली समर्थीत नाही.\n"
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr "libvirt डोमेन नाव किंवा डिस्क प्रतिमा दिले नाही\n"
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
-"आणखी 1 किंवा 2 घटके, सबकि पाथ तसेच वैकल्पिकरित्या एक्सपोर्ट करण्याजोगी मूल्य"
-" अपेक्षीत आहे\n"
+"आणखी 1 किंवा 2 घटके, सबकि पाथ तसेच वैकल्पिकरित्या एक्सपोर्ट करण्याजोगी मूल्य अपेक्षीत आहे\n"
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: समर्थीत विंडोज रेजिस्ट्री पाथ नाही\n"
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr "virt-win-reg: {p}: अतिथीमध्ये फाइल आढळली नाही: {err}\n"
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउनलोड करणे शक्य नाही: {err}\n"
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
-
-

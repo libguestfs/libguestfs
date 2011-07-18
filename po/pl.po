@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 # Piotr Drąg <piotrdrag@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
 #: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
@@ -433,8 +435,7 @@ msgstr "dodaje napęd w trybie migawki (tylko do odczytu)"
 #: fish/cmds.c:2650
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
-"dodaje napęd w trybie tylko do odczytu określając używaną emulację bloku "
-"QEMU"
+"dodaje napęd w trybie tylko do odczytu określając używaną emulację bloku QEMU"
 
 #: fish/cmds.c:2651
 msgid "add a drive specifying the QEMU block emulation to use"
@@ -2069,8 +2070,7 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 "należy użyć \"copy-in <lokalny> [<lokalny>...] <zdalny_katalog>\", aby "
 "skopiować pliki do obrazu\n"
@@ -2347,12 +2347,15 @@ msgstr "glob: wywołanie guestfs_glob_expand nie powiodło się: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
-"Dodaje obrazy dysków do sprawdzenia używając opcji -a lub -d, albo polecenia \"add\".\n"
-"Tworzy nowy obraz dysku używając opcji -N albo poleceń \"alloc\" lub \"sparse\".\n"
+"Dodaje obrazy dysków do sprawdzenia używając opcji -a lub -d, albo polecenia "
+"\"add\".\n"
+"Tworzy nowy obraz dysku używając opcji -N albo poleceń \"alloc\" lub \"sparse"
+"\".\n"
 "Po wykonaniu tej czynności należy użyć polecenia \"run\".\n"
 
 #: fish/help.c:44
@@ -2417,7 +2420,8 @@ msgstr "%s: na tym dysku nie odnaleziono żadnych systemów operacyjnych\n"
 #: fish/inspect.c:95
 #, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
-msgstr "%s: systemy operacyjne \"multiboot\" nie są obsługiwane przez opcję -i\n"
+msgstr ""
+"%s: systemy operacyjne \"multiboot\" nie są obsługiwane przez opcję -i\n"
 
 #: fish/inspect.c:134
 #, c-format
@@ -2467,7 +2471,8 @@ msgstr "%s: dodano za dużo napędów w wierszu poleceń\n"
 #: fish/options.c:128
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
-msgstr "%s: nie można zamontować \"%s\". Być może chciano użyć jednej z tych?\n"
+msgstr ""
+"%s: nie można zamontować \"%s\". Być może chciano użyć jednej z tych?\n"
 
 #: fish/prep.c:37
 #, c-format
@@ -2524,8 +2529,8 @@ msgstr ""
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
-"guestfish: błąd podczas tworzenia przygotowanego obrazu dysku \"%s\" na "
-"\"%s\": "
+"guestfish: błąd podczas tworzenia przygotowanego obrazu dysku \"%s\" na \"%s"
+"\": "
 
 #: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
 #: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
@@ -2743,10 +2748,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2754,13 +2761,15 @@ msgid ""
 msgstr ""
 "%s: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku.\n"
 "\n"
-"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
+"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
+"maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
 "\n"
 "UWAGA dla użytkowników systemu Red Hat Enterprise Linux 6: należy\n"
 "zainstalować oddzielny pakiet libguestfs-winsupport, aby uzyskać obsługę\n"
 "gości systemu Windows.\n"
 "\n"
-"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
+"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
 #: inspector/virt-inspector.c:288
 #, c-format
@@ -2796,8 +2805,8 @@ msgstr "obraz gościa {imagename} nie istnieje lub nie jest odczytywalny"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 "open_guest: brak obsługi biblioteki libvirt (należy zainstalować Sys::Virt, "
 "XML::XPath i XML::XPath::XMLParser)"
@@ -2829,7 +2838,8 @@ msgstr "{imagename} nie posiada żadnych urządzeń dyskowych\n"
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2837,9 +2847,11 @@ msgid ""
 msgstr ""
 "Nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku.\n"
 "\n"
-"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest maszyną wirtualną lub program virt-inspector nie rozumie tego typu systemu.\n"
+"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
+"maszyną wirtualną lub program virt-inspector nie rozumie tego typu systemu.\n"
 "\n"
-"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
+"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:901
 #, perl-brace-format
@@ -2947,8 +2959,8 @@ msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
-"nie można odnaleźć żadnego przyrządu biblioteki libguestfs typu \"supermin\""
-" lub \"ordinary\" w LIBGUESTFS_PATH (ścieżka wyszukiwania: %s)"
+"nie można odnaleźć żadnego przyrządu biblioteki libguestfs typu \"supermin\" "
+"lub \"ordinary\" w LIBGUESTFS_PATH (ścieżka wyszukiwania: %s)"
 
 #: src/appliance.c:331
 #, c-format
@@ -3174,8 +3186,8 @@ msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano "
-"0x%x\n"
+"check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x"
+"%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3236,8 +3248,7 @@ msgstr "zapisuje do gniazda demona"
 
 #: src/proto.c:1194
 msgid "receive_file_data: parse error in reply callback"
-msgstr ""
-"receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
+msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
@@ -3297,7 +3308,8 @@ msgstr "błąd podczas uzyskiwania informacji o domenie: %s"
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3314,8 +3326,10 @@ msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
-"ten gość nie posiada określenia <channel> biblioteki libvirt dla demona guestfsd\n"
-"Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby dowiedzieć się więcej."
+"ten gość nie posiada określenia <channel> biblioteki libvirt dla demona "
+"guestfsd\n"
+"Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby "
+"dowiedzieć się więcej."
 
 #: src/virt.c:517
 msgid ""
@@ -3416,11 +3430,11 @@ msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: nie podano obrazu lub nazwy maszyny wirtualnej"
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: nie podano obrazu lub nazwy maszyny wirtualnej"
 
@@ -3458,7 +3472,8 @@ msgstr ""
 
 #: tools/virt-make-fs.pl:442
 msgid "tar: failed, see earlier messages\n"
-msgstr "tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
+msgstr ""
+"tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
 
 #: tools/virt-make-fs.pl:464
 msgid "uncompress command failed, see earlier messages\n"
@@ -3476,57 +3491,61 @@ msgstr ""
 "Błąd w tym miejscu zwykle oznacza, że program nie oszacował poprawnie\n"
 "rozmiar systemu plików. Proszę przeczytać sekcję BUGS strony podręcznika.\n"
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr "virt-tar: wydobywa/wysyła tryb podany dwukrotnie w wierszu poleceń\n"
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 "virt-tar: nie podano obrazu, nazw maszyn wirtualnych, katalogu lub nazwy "
 "pliku"
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: należy podać opcję -x lub -u w wierszu poleceń\n"
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: nie odnaleziono pliku\n"
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: nazwa katalogu musi zaczynać się od znaku \"/\"\n"
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
-"{prog}: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku.\n"
+"{prog}: nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu "
+"dysku.\n"
 "\n"
-"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
+"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
+"maszyną wirtualną lub biblioteka libguestfs nie rozumie tego typu systemu.\n"
 "\n"
-"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
+"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
+"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr "{prog}: systemy operacyjne \"multiboot\" nie są obsługiwane.\n"
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr "nie podano nazwy domeny libvirt lub obrazu dysku\n"
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -3534,30 +3553,28 @@ msgstr ""
 "oczekiwano jednego lub dwóch parametrów, ścieżki do podklucza i opcjonalnie "
 "wartości do wyeksportowania\n"
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 "virt-win-reg: {p}: nie jest obsługiwaną ścieżką rejestru systemu Windows\n"
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr "virt-win-reg: {p}: nie odnaleziono pliku w gościu: {err}\n"
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
-
-

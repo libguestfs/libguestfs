@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # rjones <rjones@redhat.com>, 2011.
 # sweta <swkothar@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-15 17:17+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2011-07-18 11:32+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
+"Language: gu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
@@ -478,9 +479,7 @@ msgstr ""
 
 #: fish/cmds.c:2682
 msgid "return true path on case-insensitive filesystem"
-msgstr ""
-"નાનામોટા અક્ષરો પ્રત્યે સંવેદનશીલ ન હોય તેવી ફાઇલ સિસ્ટમ પર સાચા પાથને પાછુ "
-"લાવો"
+msgstr "નાનામોટા અક્ષરો પ્રત્યે સંવેદનશીલ ન હોય તેવી ફાઇલ સિસ્ટમ પર સાચા પાથને પાછુ લાવો"
 
 #: fish/cmds.c:2683
 msgid "list the contents of a file"
@@ -560,8 +559,7 @@ msgstr "ફાઇલ સિસ્ટમ ડિસ્ક જગ્યાનાં
 
 #: fish/cmds.c:2702
 msgid "report file system disk space usage (human readable)"
-msgstr ""
-"ફાઇલ સિસ્ટમ ડિસ્ક જગ્યાનાં વપરાશનો અહેવાલ કરો (માણસને વાંચી શકાય તેવુ)"
+msgstr "ફાઇલ સિસ્ટમ ડિસ્ક જગ્યાનાં વપરાશનો અહેવાલ કરો (માણસને વાંચી શકાય તેવુ)"
 
 #: fish/cmds.c:2703
 msgid "display an image"
@@ -647,8 +645,7 @@ msgstr "બધી ફાઇલો અને ડિરેક્ટરીઓને
 
 #: fish/cmds.c:2727
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"બધી ફાઇલો અને ડિરેક્ટરીઓને શોધો, NUL-અગલ થયેલ યાદીને પાછી મેળવી રહ્યા છે"
+msgstr "બધી ફાઇલો અને ડિરેક્ટરીઓને શોધો, NUL-અગલ થયેલ યાદીને પાછી મેળવી રહ્યા છે"
 
 #: fish/cmds.c:2728
 msgid "find a filesystem by label"
@@ -1971,8 +1968,7 @@ msgstr ""
 #: fish/copy.c:41
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
 #: fish/copy.c:62
@@ -2068,9 +2064,7 @@ msgstr "%s: --listen=PID: PID એ નંબર ન હતો: %s\n"
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr ""
-"%s: દૂરસ્થ: $GUESTFISH_PID એ દૂરસ્થ પ્રક્રિયાનાં PID ને સુયોજિત કરવુ જ "
-"પડશે\n"
+msgstr "%s: દૂરસ્થ: $GUESTFISH_PID એ દૂરસ્થ પ્રક્રિયાનાં PID ને સુયોજિત કરવુ જ પડશે\n"
 
 #: fish/fish.c:303
 #, c-format
@@ -2231,7 +2225,8 @@ msgstr "glob: guestfs_glob_expand કોલ નિષ્ફળ: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2469,9 +2464,8 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ "
-"ક્લાઇન્ટ આવૃત્તિ '%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી "
-"હોવી જ જોઇએ.\n"
+"guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ "
+"'%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી હોવી જ જોઇએ.\n"
 
 #: fish/rc.c:335 fish/rc.c:349
 #, c-format
@@ -2579,10 +2573,12 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2619,8 +2615,8 @@ msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
@@ -2650,7 +2646,8 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -2943,8 +2940,8 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: આદેશ નિષ્ફળ: જો qemu એ બિન-મૂળભૂત પાથ પર સ્થિત થયેલ હોય તો, "
-"LIBGUESTFS_QEMU પર્યાવરણ ચલ સુયોજનોનો પ્રયત્ન કરો."
+"%s: આદેશ નિષ્ફળ: જો qemu એ બિન-મૂળભૂત પાથ પર સ્થિત થયેલ હોય તો, LIBGUESTFS_QEMU "
+"પર્યાવરણ ચલ સુયોજનોનો પ્રયત્ન કરો."
 
 #: src/launch.c:1143
 msgid "qemu has not been launched yet"
@@ -2969,8 +2966,7 @@ msgstr "guestfs_end_busy: બોલાવેલ છે જ્યારે state 
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: ડિમન માંથી 0x%x ને વાંચો, ઇચ્છિત "
-"0x%x\n"
+"check_for_daemon_cancellation_or_eof: ડિમન માંથી 0x%x ને વાંચો, ઇચ્છિત 0x%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3035,8 +3031,7 @@ msgstr "receive_file_data: કોલબેક જવાબમાં પદચ્
 
 #: src/proto.c:1199
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
+msgstr "receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
 
 #: src/proto.c:1207
 msgid "failed to parse file chunk"
@@ -3089,7 +3084,8 @@ msgstr "ડોમેઇન જાણકારીને મેળવી રહ્
 #: src/virt.c:372
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3196,11 +3192,11 @@ msgstr "બાઇનરી '%s' એ અસ્તિત્વ ધરાવતુ 
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu સ્ત્રોત ડિરેક્ટરીનાં જેવુ લાગતુ નથી\n"
 
-#: tools/virt-list-filesystems.pl:142
+#: tools/virt-list-filesystems.pl:148
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
 
-#: tools/virt-list-partitions.pl:152
+#: tools/virt-list-partitions.pl:160
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
@@ -3247,78 +3243,77 @@ msgid ""
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:183 tools/virt-tar.pl:190
+#: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:212
+#: tools/virt-tar.pl:222
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 
-#: tools/virt-tar.pl:215
+#: tools/virt-tar.pl:225
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr ""
 
-#: tools/virt-tar.pl:226
+#: tools/virt-tar.pl:236
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr ""
 
-#: tools/virt-tar.pl:229
+#: tools/virt-tar.pl:239
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-tar.pl:243 tools/virt-win-reg.pl:259
+#: tools/virt-tar.pl:253 tools/virt-win-reg.pl:261
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-tar.pl:247 tools/virt-win-reg.pl:263
+#: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:243
+#: tools/virt-win-reg.pl:245
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:285
+#: tools/virt-win-reg.pl:287
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:444
+#: tools/virt-win-reg.pl:446
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:449
+#: tools/virt-win-reg.pl:451
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:520 tools/virt-win-reg.pl:542
+#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:527
+#: tools/virt-win-reg.pl:529
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg.pl:551
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
-
-
