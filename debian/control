@@ -103,7 +103,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
   libaugeas0, udev, binutils, cpio, dosfstools,
   file, lsof, module-init-tools, net-tools, parted,
   procps, scrub, strace, zerofree
-Description: Daemon to access to guest virtual machine throuh virtio serial
+Description: Daemon to access to guest virtual machine through virtio serial
  Daemon to access to guest virtual machine throuh virtio serial
 
 Package: guestmount
