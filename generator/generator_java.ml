@@ -387,7 +387,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RStringList _
        | RHashtable _ ->
            pr "  jobjectArray jr;\n";
-           pr "  int r_len;\n";
+           pr "  size_t r_len;\n";
            pr "  jclass cl;\n";
            pr "  jstring jstr;\n";
            pr "  char **r;\n"
@@ -419,11 +419,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | Key n ->
             pr "  const char *%s;\n" n
         | BufferIn n ->
-            pr "  jbyte *%s;\n" n;
+            pr "  char *%s;\n" n;
             pr "  size_t %s_size;\n" n
         | StringList n | DeviceList n ->
-            pr "  int %s_len;\n" n;
-            pr "  const char **%s;\n" n
+            pr "  size_t %s_len;\n" n;
+            pr "  char **%s;\n" n
         | Bool n
         | Int n ->
             pr "  int %s;\n" n
@@ -464,7 +464,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
              *)
             pr "  %s = j%s ? (*env)->GetStringUTFChars (env, j%s, NULL) : NULL;\n" n n n
         | BufferIn n ->
-            pr "  %s = (*env)->GetByteArrayElements (env, j%s, NULL);\n" n n;
+            pr "  %s = (char *) (*env)->GetByteArrayElements (env, j%s, NULL);\n" n n;
             pr "  %s_size = (*env)->GetArrayLength (env, j%s);\n" n n
         | StringList n | DeviceList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
@@ -472,7 +472,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
-            pr "    %s[i] = (*env)->GetStringUTFChars (env, o, NULL);\n" n;
+            pr "    %s[i] = (char *) (*env)->GetStringUTFChars (env, o, NULL);\n" n;
             pr "  }\n";
             pr "  %s[%s_len] = NULL;\n" n n;
         | Bool n
@@ -512,7 +512,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  if (j%s)\n" n;
             pr "    (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
         | BufferIn n ->
-            pr "  (*env)->ReleaseByteArrayElements (env, j%s, %s, 0);\n" n n
+            pr "  (*env)->ReleaseByteArrayElements (env, j%s, (jbyte *) %s, 0);\n" n n
         | StringList n | DeviceList n ->
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
@@ -529,15 +529,27 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       (* Check for errors. *)
       (match errcode_of_ret ret with
        | `CannotReturnError -> ()
-       | `ErrorIsMinusOne ->
-           pr "  if (r == -1) {\n";
+       | (`ErrorIsMinusOne|`ErrorIsNULL) as errcode ->
+           (match errcode with
+            | `ErrorIsMinusOne ->
+                pr "  if (r == -1) {\n";
+            | `ErrorIsNULL ->
+                pr "  if (r == NULL) {\n";
+           );
            pr "    throw_exception (env, guestfs_last_error (g));\n";
-           pr "    return -1;\n";
-           pr "  }\n"
-       | `ErrorIsNULL ->
-           pr "  if (r == NULL) {\n";
-           pr "    throw_exception (env, guestfs_last_error (g));\n";
-           pr "    return NULL;\n";
+           (match ret with
+            | RErr ->
+                pr "    return;\n"
+            | RInt _
+            | RInt64 _
+            | RBool _ ->
+                pr "    return -1;\n"
+            | RConstString _ | RConstOptString _ | RString _
+            | RBufferOut _
+            | RStruct _ | RHashtable _
+            | RStringList _ | RStructList _ ->
+                pr "    return NULL;\n"
+           );
            pr "  }\n"
       );
 
