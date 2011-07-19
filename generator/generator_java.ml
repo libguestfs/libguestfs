@@ -390,7 +390,6 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       pr "JNICALL\n";
       pr "Java_com_redhat_et_libguestfs_GuestFS_";
       pr "%s" (replace_str ("_" ^ name) "_" "_1");
-      pr "\n";
       pr "  (JNIEnv *env, jobject obj, jlong jg";
       List.iter (
         function
@@ -486,6 +485,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  %s %s;\n" t n
       ) args;
 
+      if optargs <> [] then (
+        pr "  struct guestfs_%s_argv optargs_s;\n" name;
+        pr "  const struct guestfs_%s_argv *optargs = &optargs_s;\n" name
+      );
+
       let needs_i =
         (match ret with
          | RStringList _ | RStructList _ | RHashtable _ -> true
@@ -537,8 +541,6 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       ) args;
 
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv optargs_s;\n" name;
-        pr "  const struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
         pr "  optargs_s.bitmask = joptargs_bitmask;\n";
         List.iter (
           function
@@ -553,6 +555,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         ) optargs;
       );
 
+      pr "\n";
+
       (* Make the call. *)
       if optargs = [] then
         pr "  r = guestfs_%s " name
@@ -560,6 +564,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         pr "  r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+
+      pr "\n";
 
       (* Release the parameters. *)
       List.iter (
@@ -598,6 +604,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  (*env)->ReleaseStringUTFChars (env, j%s, optargs_s.%s);\n" n n
         | _ -> assert false
       ) optargs;
+
+      pr "\n";
 
       (* Check for errors. *)
       (match errcode_of_ret ret with
