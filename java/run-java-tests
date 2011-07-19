@@ -18,7 +18,7 @@
 
 set -e
 
-for f in t/*.class; do
+for f in $(ls -1 t/*.class | fgrep -v \$); do
   classname=$(basename $f .class)
   $JAVA -Djava.library.path=.libs -ea $classname
 done
