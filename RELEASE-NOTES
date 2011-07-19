@@ -1,8 +1,6 @@
 Release notes for libguestfs 1.12.0
 -----------------------------------
 
-LAST UPDATED TO COMMIT 9f135be96e21d899b36ef2287a6ba8cea9beb4ff
-
 These release notes only cover the differences from the previous
 stable/dev branch split (1.10.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
@@ -62,6 +60,11 @@ New features
 
   API and language bindings:
 
+   - Java is now completely supported.
+     See http://libguestfs.org/guestfs-java.3.html
+
+   - JRuby is supported via the Java bindings.
+
    - guestfs_close now appears in trace messages.
 
    - Python binding adds explicit g.close() method.
@@ -80,6 +83,8 @@ New features
 
    - mkfs-opts can now set inode size and sector size on created filesystems
      (thanks Nikita Menkovich).
+
+   - guestfs_last_errno is now accessible from OCaml (as g#last_errno ()).
 
 Security
 
@@ -119,9 +124,9 @@ Internals
 
  - Use ./configure --enable-install-daemon to install /usr/sbin/guestfsd.
 
-Bugs fixed
+ - po-docs directory now covers all man pages.
 
-  ./bugs-in-changelog.sh 1.10.0.. | sort -n
+Bugs fixed
 
  - 602997 part-get-bootable gives wrong result with an unordered part layout
  - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
