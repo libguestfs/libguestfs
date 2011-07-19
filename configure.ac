@@ -310,6 +310,19 @@ AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
 dnl Check that the chosen qemu has virtio-serial support.
 if test "x$vmchannel_test" != "xno"; then
+    AC_MSG_CHECKING([that $QEMU -help works])
+    if $QEMU -help > /dev/null 2>&1; then
+        AC_MSG_RESULT([yes])
+    else
+        AC_MSG_RESULT([no])
+        AC_MSG_FAILURE(
+[$QEMU -help: command failed.
+
+This could be a very old version of qemu, or qemu might not be
+working.
+])
+    fi
+
     AC_MSG_CHECKING([for virtio-serial support in $QEMU])
     if $QEMU -nographic -device \? 2>&1 | grep -sq virtio-serial; then
         AC_MSG_RESULT([yes])
