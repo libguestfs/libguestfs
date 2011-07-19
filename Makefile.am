@@ -52,7 +52,7 @@ if HAVE_RUBY
 SUBDIRS += ruby ruby/examples
 endif
 if HAVE_JAVA
-SUBDIRS += java
+SUBDIRS += java java/examples
 endif
 if HAVE_HASKELL
 SUBDIRS += haskell
@@ -131,6 +131,7 @@ EXTRA_DIST = \
 HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
+	html/guestfs-java.3.html \
 	html/guestfs-ocaml.3.html \
 	html/guestfs-perl.3.html \
 	html/guestfs-python.3.html \

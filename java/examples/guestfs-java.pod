@@ -2,31 +2,37 @@
 
 =head1 NAME
 
-guestfs-perl - How to use libguestfs from Perl
+guestfs-java - How to use libguestfs from Java
 
 =head1 SYNOPSIS
 
- use Sys::Guestfs;
+ import com.redhat.et.libguestfs.*;
  
- my $h = Sys::Guestfs->new ();
- $h->add_drive_opts ('guest.img', format => 'raw');
- $h->launch ();
- $h->mount_options ('', '/dev/sda1', '/');
- $h->touch ('/hello');
- $h->sync ();
+ GuestFS g = new GuestFS ();
+ g.add_drive_opts ("disk.img", null);
+ g.launch ();
 
 =head1 DESCRIPTION
 
-This manual page documents how to call libguestfs from the Perl
+This manual page documents how to call libguestfs from the Java
 programming language.  This page just documents the differences from
 the C API and gives some examples.  If you are not familiar with using
-libguestfs, you also need to read L<guestfs(3)>.  To read the
-full Perl API, see L<Sys::Guestfs(3)>.
+libguestfs, you also need to read L<guestfs(3)>.
 
-=head2 ERRORS
+=head2 CLOSING THE HANDLE
 
-Errors from libguestfs functions turn into calls to
-C<croak> (see L<Carp(3)>).
+The handle is closed when it is reaped by the garbage collector.
+Because libguestfs handles include a lot of state, it is also
+possible to close (and hence free) them explicitly by calling
+the C<close> method.
+
+=head2 EXCEPTIONS
+
+Errors from libguestfs functions are mapped into the
+C<LibGuestFSException> exception.  This has a single parameter which
+is the error message (a C<String>).
+
+Calling any method on a closed handle raises the same exception.
 
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
@@ -38,15 +44,15 @@ C<croak> (see L<Carp(3)>).
 
 =head1 SEE ALSO
 
-L<Sys::Guestfs(3)>,
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
-L<guestfs-java(3)>,
 L<guestfs-ocaml(3)>,
+L<guestfs-perl(3)>,
 L<guestfs-python(3)>,
 L<guestfs-recipes(1)>,
 L<guestfs-ruby(3)>,
-L<http://libguestfs.org/>.
+L<http://libguestfs.org/>,
+L<http://caml.inria.fr/>.
 
 =head1 AUTHORS
 

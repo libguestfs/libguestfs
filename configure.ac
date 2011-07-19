@@ -819,6 +819,7 @@ AC_CONFIG_FILES([Makefile
                  images/Makefile
                  inspector/Makefile
                  java/Makefile
+                 java/examples/Makefile
                  libguestfs.pc
                  ocaml/META
                  ocaml/Makefile

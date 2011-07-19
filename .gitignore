@@ -118,6 +118,7 @@ haskell/Guestfs.hs
 html/guestfish.1.html
 html/guestfs.3.html
 html/guestfs-examples.3.html
+html/guestfs-java.3.html
 html/guestfs-ocaml.3.html
 html/guestfs-perl.3.html
 html/guestfs-python.3.html
@@ -182,6 +183,8 @@ java/com/redhat/et/libguestfs/Version.java
 java/com/redhat/et/libguestfs/VG.java
 java/com/redhat/et/libguestfs/XAttr.java
 java/doc-stamp
+java/examples/guestfs-java.3
+java/examples/stamp-guestfs-java.pod
 *.la
 libguestfs.pc
 libguestfs.spec
