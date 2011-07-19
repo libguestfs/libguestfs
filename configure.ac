@@ -310,8 +310,31 @@ AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
 dnl Check that the chosen qemu has virtio-serial support.
 if test "x$vmchannel_test" != "xno"; then
+    AC_MSG_CHECKING([that $QEMU -help works])
+    if $QEMU -help > /dev/null 2>&1; then
+        AC_MSG_RESULT([yes])
+    else
+        AC_MSG_RESULT([no])
+        AC_MSG_FAILURE(
+[$QEMU -help: command failed.
+
+This could be a very old version of qemu, or qemu might not be
+working.
+])
+    fi
+
+    # qemu since 0.15 requires the -machine accel=tcg option, otherwise
+    # it won't start up.  QEMU DEVELOPERS, PLEASE ADD CAPABILITIES TESTING.
+    AC_MSG_CHECKING([if this qemu has the -machine accel=tcg option])
+    if $QEMU -help 2>&1 | grep -sq -- '-machine.*accel.*tcg'; then
+        qemu_machine_accel_tcg="-machine accel=tcg"
+        AC_MSG_RESULT([$qemu_machine_accel_tcg])
+    else
+        AC_MSG_RESULT([no])
+    fi
+
     AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-    if $QEMU -nographic -device \? 2>&1 | grep -sq virtio-serial; then
+    if $QEMU $qemu_machine_accel_tcg -nographic -device \? 2>&1 | grep -sq virtio-serial; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])
