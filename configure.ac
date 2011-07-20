@@ -107,6 +107,8 @@ if test "$gl_gcc_warnings" = yes; then
                                     # by Python, Ruby and xstrtoll.
   nw="$nw -Wstack-protector"        # Don't warn about stack-protector
                                     # failures (seen on Ubuntu).
+  nw="$nw -Wmissing-noreturn"       # Don't warn about missed noreturn funcs
+                                    # (seen on Ubuntu).
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
