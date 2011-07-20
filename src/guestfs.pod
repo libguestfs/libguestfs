@@ -2817,6 +2817,11 @@ about the stable branch policy.
 
 =item *
 
+Check C<make && make check> works on at least Fedora, Debian and
+Ubuntu.
+
+=item *
+
 Finalize RELEASE-NOTES.
 
 =item *
