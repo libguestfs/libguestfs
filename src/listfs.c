@@ -139,6 +139,10 @@ check_with_vfs_type (guestfs_h *g, const char *device,
 
   if (!vfs_type)
     v = safe_strdup (g, "unknown");
+  else if (STREQ (vfs_type, "")) {
+    free (vfs_type);
+    v = safe_strdup (g, "unknown");
+  }
   else {
     /* Ignore all "*_member" strings.  In libblkid these are returned
      * for things which are members of some RAID or LVM set, most
