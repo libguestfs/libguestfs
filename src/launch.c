@@ -602,7 +602,7 @@ launch_appliance (guestfs_h *g)
       guestfs___print_timestamped_argv (g, (const char **)g->cmdline);
 
     if (!g->direct) {
-      /* Set up stdin, stdout. */
+      /* Set up stdin, stdout, stderr. */
       close (0);
       close (1);
       close (wfd[1]);
@@ -615,6 +615,14 @@ launch_appliance (guestfs_h *g)
         _exit (EXIT_FAILURE);
       }
       /* Stdout. */
+      if (dup (rfd[1]) == -1)
+        goto dup_failed;
+
+      /* Particularly since qemu 0.15, qemu spews all sorts of debug
+       * information on stderr.  It is useful to both capture this and
+       * not confuse casual users, so send stderr to the pipe as well.
+       */
+      close (2);
       if (dup (rfd[1]) == -1)
         goto dup_failed;
 
