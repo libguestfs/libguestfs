@@ -23,8 +23,8 @@
 ../ruby/examples/guestfs-ruby.pod
 ../src/guestfs-actions.pod
 ../src/guestfs-availability.pod
-../src/guestfs.pod
 ../src/guestfs-structs.pod
+../src/guestfs.pod
 ../test-tool/libguestfs-test-tool.pod
 ../tools/virt-list-filesystems.pl
 ../tools/virt-list-partitions.pl
