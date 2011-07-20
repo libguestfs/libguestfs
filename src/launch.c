@@ -608,11 +608,13 @@ launch_appliance (guestfs_h *g)
       close (wfd[1]);
       close (rfd[0]);
 
+      /* Stdin. */
       if (dup (wfd[0]) == -1) {
       dup_failed:
         perror ("dup failed");
         _exit (EXIT_FAILURE);
       }
+      /* Stdout. */
       if (dup (rfd[1]) == -1)
         goto dup_failed;
 
