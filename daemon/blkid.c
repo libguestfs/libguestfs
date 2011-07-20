@@ -41,16 +41,27 @@ get_blkid_tag (const char *device, const char *tag)
   unlink ("/etc/blkid/blkid.tab"); /* Red Hat, Fedora */
   unlink ("/etc/blkid.tab"); /* Debian */
 
-  r = command (&out, &err,
-               "blkid", "-o", "value", "-s", tag, device, NULL);
-  if (r == -1) {
-    reply_with_error ("%s: %s", device, err);
+  r = commandr (&out, &err,
+                "blkid", "-o", "value", "-s", tag, device, NULL);
+  if (r != 0 && r != 2) {
+    if (r >= 0)
+      reply_with_error ("%s: %s (blkid returned %d)", device, err, r);
+    else
+      reply_with_error ("%s: %s", device, err);
     free (out);
     free (err);
     return NULL;
   }
 
   free (err);
+
+  if (r == 2) {                 /* means UUID etc not found */
+    free (out);
+    out = strdup ("");
+    if (out == NULL)
+      reply_with_perror ("strdup");
+    return out;
+  }
 
   /* Trim trailing \n if present. */
   size_t len = strlen (out);
