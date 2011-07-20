@@ -69,8 +69,11 @@ po4a.conf: podfiles
 podfiles: Makefile
 	rm -f $@ $@-t
 	find $(top_srcdir) -name '*.pod' | \
-	  grep -v /stamp- | \
-	  grep -v /po-docs/ > $@-t
+	  grep -v /debian/ | \
+	  grep -v /libguestfs-1 | \
+	  grep -v /po-docs/ | \
+	  grep -v /stamp- \
+	  > $@-t
 	find $(top_srcdir)/tools -name 'virt-*.pl' >> $@-t
 	sort -o $@-t $@-t
 	mv $@-t $@
