@@ -94,17 +94,9 @@ Security
 
 New APIs
 
-  btrfs-filesystem-resize
-  get-pgroup
-  inspect-get-icon
-  is-zero
-  is-zero-device
-  list-9p
-  list-dm-devices
-  mount-9p
-  ntfsresize-opts
-  set-pgroup
-  write-append
+  btrfs-filesystem-resize, get-pgroup, inspect-get-icon, is-zero,
+  is-zero-device, list-9p, list-dm-devices, mount-9p, ntfsresize-opts,
+  set-pgroup, write-append
 
 Internals
 
@@ -125,6 +117,8 @@ Internals
  - Use ./configure --enable-install-daemon to install /usr/sbin/guestfsd.
 
  - po-docs directory now covers all man pages.
+
+ - stderr from qemu process is now captured by the event subsystem.
 
 Bugs fixed
 
