@@ -231,7 +231,7 @@ CLEANFILES = \
 # is NOT a substitute for proper testing!
 
 quickcheck:
-	./run test-tool/libguestfs-test-tool
+	./run test-tool/libguestfs-test-tool $(QUICKCHECK_TEST_TOOL_ARGS)
 
 # Make binary distribution.
 
