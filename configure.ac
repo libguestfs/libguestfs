@@ -783,7 +783,7 @@ AS_IF([test "x$PERL" != "xno"],
         missing_perl_modules=no
         for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper Locale::TextDomain Win::Hivex Win::Hivex::Regedit String::ShellQuote; do
             AC_MSG_CHECKING([for $pm])
-            if ! $PERL -M$pm -e1 >/dev/null 2>&1; then
+            if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
                 AC_MSG_RESULT([no])
                 missing_perl_modules=yes
             else
