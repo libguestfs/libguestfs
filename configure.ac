@@ -189,7 +189,7 @@ if test "x$enable_appliance" = "xyes"; then
     test "x$FEBOOTSTRAP" = "xno" &&
         AC_MSG_ERROR([febootstrap must be installed])
     dnl febootstrap 2.x did not support the --version parameter
-    $FEBOOTSTRAP --version >/dev/null 2>&1 ||
+    $FEBOOTSTRAP --version >&AS_MESSAGE_LOG_FD 2>&1 ||
         AC_MSG_ERROR([febootstrap >= 3.0 must be installed, your version is too old])
 
     dnl Pass a febootstrap --yum-config option.
@@ -212,7 +212,7 @@ if test "x$enable_appliance" = "xyes"; then
     DISTRO=REDHAT
     if test -f /etc/debian_version; then
         DISTRO=DEBIAN
-	if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>/dev/null; then
+	if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>&AS_MESSAGE_LOG_FD; then
             DISTRO=UBUNTU
 	fi
     fi
@@ -253,7 +253,7 @@ test "x$POD2HTML" = "xno" &&
 
 dnl Check if pod2man, pod2text take --stderr and -u options (not in RHEL 5).
 AC_MSG_CHECKING([if pod2man takes --stderr option])
-if "$POD2MAN" --stderr >/dev/null 2>&1; then
+if "$POD2MAN" --stderr >&AS_MESSAGE_LOG_FD 2>&1; then
     AC_MSG_RESULT([yes])
     POD2_STDERR_OPTION="--stderr"
 else
@@ -263,7 +263,7 @@ fi
 AC_SUBST([POD2_STDERR_OPTION])
 
 AC_MSG_CHECKING([if pod2man takes -u option])
-if "$POD2MAN" -u >/dev/null 2>&1; then
+if "$POD2MAN" -u >&AS_MESSAGE_LOG_FD 2>&1; then
     AC_MSG_RESULT([yes])
     POD2_UTF8_OPTION="-u"
 else
@@ -313,7 +313,7 @@ AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 dnl Check that the chosen qemu has virtio-serial support.
 if test "x$vmchannel_test" != "xno"; then
     AC_MSG_CHECKING([that $QEMU -help works])
-    if $QEMU -help > /dev/null 2>&1; then
+    if $QEMU -help >&AS_MESSAGE_LOG_FD 2>&1; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])
@@ -518,7 +518,7 @@ AS_IF([test "x$enable_perl" != "xno"],
         missing_perl_modules=no
         for pm in Test::More ExtUtils::MakeMaker; do
             AC_MSG_CHECKING([for $pm])
-            if ! perl -M$pm -e1 >/dev/null 2>&1; then
+            if ! perl -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
                 AC_MSG_RESULT([no])
                 missing_perl_modules=yes
             else
