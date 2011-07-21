@@ -192,7 +192,7 @@ CLEANFILES = \
 # is NOT a substitute for proper testing!
 
 quickcheck:
-	test-tool/run-test-tool-locally
+	test-tool/run-test-tool-locally $(QUICKCHECK_TEST_TOOL_ARGS)
 
 # Make binary distribution.
 
