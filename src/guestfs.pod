@@ -2966,6 +2966,16 @@ be reached in practice.  See the source code for more information.
 
 =over 4
 
+=item FEBOOTSTRAP_KERNEL
+
+=item FEBOOTSTRAP_MODULES
+
+These two environment variables allow the kernel that libguestfs uses
+in the appliance to be selected.  If C<$FEBOOTSTRAP_KERNEL> is not
+set, then the most recent host kernel is chosen.  For more information
+about kernel selection, see L<febootstrap-supermin-helper(8)>.  This
+feature is only available in febootstrap E<ge> 3.8.
+
 =item LIBGUESTFS_APPEND
 
 Pass additional options to the guest kernel.
@@ -3041,6 +3051,7 @@ L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
 L<qemu(1)>,
 L<febootstrap(1)>,
+L<febootstrap-supermin-helper(8)>,
 L<hivex(3)>,
 L<http://libguestfs.org/>.
 
