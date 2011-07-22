@@ -1081,6 +1081,16 @@ guestfish returns 0 if the commands completed without error, or
 The C<edit> command uses C<$EDITOR> as the editor.  If not
 set, it uses C<vi>.
 
+=item FEBOOTSTRAP_KERNEL
+
+=item FEBOOTSTRAP_MODULES
+
+These two environment variables allow the kernel that libguestfs uses
+in the appliance to be selected.  If C<$FEBOOTSTRAP_KERNEL> is not
+set, then the most recent host kernel is chosen.  For more information
+about kernel selection, see L<febootstrap-supermin-helper(8)>.  This
+feature is only available in febootstrap E<ge> 3.8.
+
 =item GUESTFISH_DISPLAY_IMAGE
 
 The C<display> command uses C<$GUESTFISH_DISPLAY_IMAGE> to
@@ -1233,7 +1243,8 @@ L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
 L<display(1)>,
-L<hexedit(1)>.
+L<hexedit(1)>,
+L<febootstrap-supermin-helper(8)>.
 
 =head1 AUTHORS
 
