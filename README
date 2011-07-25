@@ -58,11 +58,11 @@ For basic functionality and the C tools:
 
 - gperf
 
+- pcre (Perl Compatible Regular Expressions C library)
+
 - genisoimage (NOT mkisofs any more)
 
 - hivex >= 1.2.7 (http://libguestfs.org/download) (optional)
-
-- pcre (Perl Compatible Regular Expressions C library) (optional)
 
 - libmagic (the library that corresponds to the 'file' command) (optional)
 

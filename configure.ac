@@ -411,6 +411,9 @@ AS_IF([test "x$with_readline" != xno],
 dnl For i18n.
 AM_GNU_GETTEXT([external])
 
+dnl Check for PCRE (required)
+PKG_CHECK_MODULES([PCRE], [libpcre])
+
 dnl libmagic (highly recommended)
 AC_CHECK_LIB([magic],[magic_file],
         [AC_CHECK_HEADER([magic.h],
@@ -419,14 +422,6 @@ AC_CHECK_LIB([magic],[magic_file],
                 ], [])
         ],
         [AC_MSG_WARN([libmagic not found, some core features will be disabled])])
-
-dnl Check for PCRE (highly recommended)
-PKG_CHECK_MODULES([PCRE], [libpcre],
-        [AC_SUBST([PCRE_CFLAGS])
-         AC_SUBST([PCRE_LIBS])
-         AC_DEFINE([HAVE_PCRE],[1],[PCRE found at compile time.])
-        ],
-        [AC_MSG_WARN([PCRE not found, some core features will be disabled])])
 
 dnl libvirt (highly recommended)
 PKG_CHECK_MODULES([LIBVIRT], [libvirt],

@@ -29,9 +29,7 @@
 #include <errno.h>
 #include <endian.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
 
 #ifdef HAVE_HIVEX
 #include <hivex.h>
@@ -46,7 +44,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+#if defined(HAVE_HIVEX)
 
 /* Debian/Ubuntu install disks are easy ...
  *
@@ -401,4 +399,4 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
-#endif /* defined(HAVE_PCRE) && defined(HAVE_HIVEX) */
+#endif /* defined(HAVE_HIVEX) */

@@ -26,9 +26,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
+
 #ifdef HAVE_LIBMAGIC
 #include <magic.h>
 #endif
@@ -40,7 +39,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_PCRE) && defined(HAVE_LIBMAGIC)
+#if defined(HAVE_LIBMAGIC)
 
 static pcre *re_file_elf;
 static pcre *re_elf_ppc64;
@@ -258,12 +257,12 @@ guestfs__file_architecture (guestfs_h *g, const char *path)
   return ret;                   /* caller frees */
 }
 
-#else /* no PCRE or libmagic at compile time */
+#else /* no libmagic at compile time */
 
 /* XXX Should be an optgroup. */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("file-architecture API not available since this version of libguestfs was compiled without PCRE or libmagic libraries")); \
+  error (g, _("file-architecture API not available since this version of libguestfs was compiled without the libmagic library")); \
   return r
 
 char *
@@ -272,4 +271,4 @@ guestfs__file_architecture (guestfs_h *g, const char *path)
   NOT_IMPL(NULL);
 }
 
-#endif /* no PCRE or libmagic at compile time */
+#endif /* no libmagic at compile time */
