@@ -162,6 +162,9 @@ main (int argc, char *argv[])
   for (i = 0; environ[i] != NULL; ++i)
     if (STREQLEN (environ[i], "LIBGUESTFS_", 11))
       printf ("%s\n", environ[i]);
+  for (i = 0; environ[i] != NULL; ++i)
+    if (STREQLEN (environ[i], "FEBOOTSTRAP_", 12))
+      printf ("%s\n", environ[i]);
 
   /* Create the handle and configure it. */
   g = guestfs_create ();
