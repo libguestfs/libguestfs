@@ -29,9 +29,7 @@
 #include <errno.h>
 #include <endian.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
 
 #ifdef HAVE_HIVEX
 #include <hivex.h>
@@ -46,7 +44,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+#if defined(HAVE_HIVEX)
 
 #ifdef DB_DUMP
 static struct guestfs_application_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
@@ -601,12 +599,12 @@ sort_applications (struct guestfs_application_list *apps)
            compare_applications);
 }
 
-#else /* no PCRE or hivex at compile time */
+#else /* no hivex at compile time */
 
 /* XXX These functions should be in an optgroup. */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("inspection API not available since this version of libguestfs was compiled without PCRE or hivex libraries")); \
+  error (g, _("inspection API not available since this version of libguestfs was compiled without the hivex library")); \
   return r
 
 struct guestfs_application_list *
@@ -615,4 +613,4 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
   NOT_IMPL(NULL);
 }
 
-#endif /* no PCRE or hivex at compile time */
+#endif /* no hivex at compile time */

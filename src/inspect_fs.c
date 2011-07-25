@@ -29,9 +29,7 @@
 #include <errno.h>
 #include <endian.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
 
 #ifdef HAVE_HIVEX
 #include <hivex.h>
@@ -46,7 +44,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+#if defined(HAVE_HIVEX)
 
 /* Compile all the regular expressions once when the shared library is
  * loaded.  PCRE is thread safe so we're supposedly OK here if
@@ -538,4 +536,4 @@ guestfs___first_egrep_of_file (guestfs_h *g, const char *filename,
   return 1;
 }
 
-#endif /* defined(HAVE_PCRE) && defined(HAVE_HIVEX) */
+#endif /* defined(HAVE_HIVEX) */

@@ -22,14 +22,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-
-#ifdef HAVE_PCRE
 
 /* Match a regular expression which contains no captures.  Returns
  * true if it matches or false if it doesn't.
@@ -124,5 +120,3 @@ guestfs___match3 (guestfs_h *g, const char *str, const pcre *re,
 
   return 1;
 }
-
-#endif /* HAVE_PCRE */

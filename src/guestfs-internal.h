@@ -22,9 +22,7 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
 
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
@@ -348,12 +346,10 @@ extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size);
-#ifdef HAVE_PCRE
 extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
 extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
 extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
 extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
-#endif
 extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern void guestfs___free_string_list (char **);
 extern size_t guestfs___checkpoint_cmdline (guestfs_h *g);
@@ -361,7 +357,7 @@ extern void guestfs___rollback_cmdline (guestfs_h *g, size_t pos);
 extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
 extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
-#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+#if defined(HAVE_HIVEX)
 extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, int64_t max_size);
 extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
@@ -391,11 +387,9 @@ extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 #define safe_strndup guestfs_safe_strndup
 #define safe_memdup guestfs_safe_memdup
 #define safe_asprintf guestfs_safe_asprintf
-#ifdef HAVE_PCRE
 #define match guestfs___match
 #define match1 guestfs___match1
 #define match2 guestfs___match2
 #define match3 guestfs___match3
-#endif
 
 #endif /* GUESTFS_INTERNAL_H_ */

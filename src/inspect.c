@@ -29,9 +29,7 @@
 #include <errno.h>
 #include <endian.h>
 
-#ifdef HAVE_PCRE
 #include <pcre.h>
-#endif
 
 #ifdef HAVE_HIVEX
 #include <hivex.h>
@@ -46,7 +44,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+#if defined(HAVE_HIVEX)
 
 /* The main inspection code. */
 char **
@@ -591,12 +589,12 @@ guestfs___search_for_root (guestfs_h *g, const char *root)
   return NULL;
 }
 
-#else /* no PCRE or hivex at compile time */
+#else /* no hivex at compile time */
 
 /* XXX These functions should be in an optgroup. */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("inspection API not available since this version of libguestfs was compiled without PCRE or hivex libraries")); \
+  error (g, _("inspection API not available since this version of libguestfs was compiled without the hivex library")); \
   return r
 
 char **
@@ -726,7 +724,7 @@ guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
   NOT_IMPL(-1);
 }
 
-#endif /* no PCRE or hivex at compile time */
+#endif /* no hivex at compile time */
 
 void
 guestfs___free_inspect_info (guestfs_h *g)
