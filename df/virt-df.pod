@@ -72,6 +72,12 @@ connect to the default libvirt hypervisor.
 If you specify guest block devices directly (I<-a>), then libvirt is
 not used at all.
 
+=item B<--csv>
+
+Write out the results in CSV format (comma-separated values).  This
+format can be imported easily into databases and spreadsheets, but
+read L</NOTE ABOUT CSV FORMAT> below.
+
 =item B<-d> guest
 
 =item B<--domain> guest
