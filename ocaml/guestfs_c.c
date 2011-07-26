@@ -327,13 +327,13 @@ event_bitmask_to_event (uint64_t event)
 }
 
 static void
-event_callback_wrapper (guestfs_h *g,
-                        void *data,
-                        uint64_t event,
-                        int event_handle,
-                        int flags,
-                        const char *buf, size_t buf_len,
-                        const uint64_t *array, size_t array_len)
+event_callback_wrapper_locked (guestfs_h *g,
+                               void *data,
+                               uint64_t event,
+                               int event_handle,
+                               int flags,
+                               const char *buf, size_t buf_len,
+                               const uint64_t *array, size_t array_len)
 {
   CAMLparam0 ();
   CAMLlocal5 (gv, evv, ehv, bufv, arrayv);
@@ -360,9 +360,7 @@ event_callback_wrapper (guestfs_h *g,
 
   value args[5] = { gv, evv, ehv, bufv, arrayv };
 
-  caml_leave_blocking_section ();
   rv = caml_callbackN_exn (*(value*)data, 5, args);
-  caml_enter_blocking_section ();
 
   /* Callbacks shouldn't throw exceptions.  There's not much we can do
    * except to print it.
@@ -373,6 +371,26 @@ event_callback_wrapper (guestfs_h *g,
              caml_format_exception (Extract_exception (rv)));
 
   CAMLreturn0;
+}
+
+static void
+event_callback_wrapper (guestfs_h *g,
+                        void *data,
+                        uint64_t event,
+                        int event_handle,
+                        int flags,
+                        const char *buf, size_t buf_len,
+                        const uint64_t *array, size_t array_len)
+{
+  /* Ensure we are holding the GC lock before any GC operations are
+   * possible. (RHBZ#725824)
+   */
+  caml_leave_blocking_section ();
+
+  event_callback_wrapper_locked (g, data, event, event_handle, flags,
+                                 buf, buf_len, array, array_len);
+
+  caml_enter_blocking_section ();
 }
 
 value
