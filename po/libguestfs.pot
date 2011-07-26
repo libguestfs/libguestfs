@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.12.0\n"
+"Project-Id-Version: libguestfs 1.13.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-20 17:27+0100\n"
+"POT-Creation-Date: 2011-07-26 14:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2769,31 +2769,31 @@ msgstr ""
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
-#: src/dbdump.c:87
+#: src/dbdump.c:85
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr ""
 
-#: src/dbdump.c:100 src/dbdump.c:112
+#: src/dbdump.c:98 src/dbdump.c:110
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 
-#: src/dbdump.c:129
+#: src/dbdump.c:127
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr ""
 
-#: src/dbdump.c:210
+#: src/dbdump.c:208
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
-#: src/filearch.c:153
+#: src/filearch.c:152
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/filearch.c:266
+#: src/filearch.c:265
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
-"compiled without PCRE or libmagic libraries"
+"compiled without the libmagic library"
 msgstr ""
 
 #: src/guestfs.c:174
@@ -2816,53 +2816,53 @@ msgstr ""
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:265
+#: src/inspect.c:263
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:281
+#: src/inspect.c:279
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:541 src/inspect_fs.c:474 src/inspect_fs.c:518
-#: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:579
-#: src/inspect_fs_unix.c:821
+#: src/inspect.c:539 src/inspect_fs.c:472 src/inspect_fs.c:516
+#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:577
+#: src/inspect_fs_unix.c:819
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:577
+#: src/inspect.c:575
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:589
+#: src/inspect.c:587
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:599 src/inspect_apps.c:609
+#: src/inspect.c:597 src/inspect_apps.c:607
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
-"without PCRE or hivex libraries"
+"without the hivex library"
 msgstr ""
 
-#: src/inspect_fs.c:326 src/inspect_fs.c:339
+#: src/inspect_fs.c:324 src/inspect_fs.c:337
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect_fs.c:483
+#: src/inspect_fs.c:481
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect_fs_unix.c:613
+#: src/inspect_fs_unix.c:611
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
-#: src/inspect_fs_windows.c:112
+#: src/inspect_fs_windows.c:110
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
@@ -2872,69 +2872,69 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:98
+#: src/launch.c:127
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 
-#: src/launch.c:155
+#: src/launch.c:184
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr ""
 
-#: src/launch.c:169
+#: src/launch.c:198
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:235 src/launch.c:339
+#: src/launch.c:264 src/launch.c:368
 msgid "filename cannot contain ',' (comma) character"
 msgstr ""
 
-#: src/launch.c:247 src/launch.c:252
+#: src/launch.c:276 src/launch.c:281
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:358
+#: src/launch.c:387
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:367
+#: src/launch.c:396
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/launch.c:404
+#: src/launch.c:433
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch.c:774
+#: src/launch.c:803
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/launch.c:787
+#: src/launch.c:816
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch.c:875
+#: src/launch.c:904
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:883
+#: src/launch.c:912
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1062
+#: src/launch.c:1091
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 
-#: src/launch.c:1153
+#: src/launch.c:1196
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:1164
+#: src/launch.c:1207
 msgid "no subprocess to kill"
 msgstr ""
 
@@ -3119,59 +3119,59 @@ msgstr ""
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr ""
 
-#: test-tool/test-tool.c:170
+#: test-tool/test-tool.c:173
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 
-#: test-tool/test-tool.c:177
+#: test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr ""
 
-#: test-tool/test-tool.c:185
+#: test-tool/test-tool.c:188
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:217
+#: test-tool/test-tool.c:221
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr ""
 
-#: test-tool/test-tool.c:229
+#: test-tool/test-tool.c:233
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:235
+#: test-tool/test-tool.c:239
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr ""
 
-#: test-tool/test-tool.c:241
+#: test-tool/test-tool.c:245
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr ""
 
-#: test-tool/test-tool.c:248
+#: test-tool/test-tool.c:252
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:279
+#: test-tool/test-tool.c:283
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:287
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr ""
 
-#: test-tool/test-tool.c:301
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""
