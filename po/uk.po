@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-20 17:27+0100\n"
+"POT-Creation-Date: 2011-07-26 16:20+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3014,31 +3014,32 @@ msgstr ""
 "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
 "попередніми повідомленнями"
 
-#: src/dbdump.c:87
+#: src/dbdump.c:85
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr ""
 
-#: src/dbdump.c:100 src/dbdump.c:112
+#: src/dbdump.c:98 src/dbdump.c:110
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 
-#: src/dbdump.c:129
+#: src/dbdump.c:127
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr ""
 
-#: src/dbdump.c:210
+#: src/dbdump.c:208
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
-#: src/filearch.c:153
+#: src/filearch.c:152
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:266
+#: src/filearch.c:265
+#, fuzzy
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
-"compiled without PCRE or libmagic libraries"
+"compiled without the libmagic library"
 msgstr ""
 "програмний інтерфейс file-architecture недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки PCRE або libmagic"
@@ -3063,26 +3064,26 @@ msgstr "libguestfs: помилка: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
 
-#: src/inspect.c:265
+#: src/inspect.c:263
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:281
+#: src/inspect.c:279
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:541 src/inspect_fs.c:474 src/inspect_fs.c:518
-#: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:579
-#: src/inspect_fs_unix.c:821
+#: src/inspect.c:539 src/inspect_fs.c:472 src/inspect_fs.c:516
+#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:577
+#: src/inspect_fs_unix.c:819
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect.c:577
+#: src/inspect.c:575
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:589
+#: src/inspect.c:587
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3092,29 +3093,30 @@ msgstr ""
 "кореневого пристрою, дані якого раніше було повернуто функцією "
 "guestfs_inspect_os"
 
-#: src/inspect.c:599 src/inspect_apps.c:609
+#: src/inspect.c:597 src/inspect_apps.c:607
+#, fuzzy
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
-"without PCRE or hivex libraries"
+"without the hivex library"
 msgstr ""
 "програмний інтерфейс вивчення (inspection) недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки PCRE або hivex"
 
-#: src/inspect_fs.c:326 src/inspect_fs.c:339
+#: src/inspect_fs.c:324 src/inspect_fs.c:337
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect_fs.c:483
+#: src/inspect_fs.c:481
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: файл порожній"
 
-#: src/inspect_fs_unix.c:613
+#: src/inspect_fs_unix.c:611
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
-#: src/inspect_fs_windows.c:112
+#: src/inspect_fs_windows.c:110
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
@@ -3124,62 +3126,62 @@ msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:98
+#: src/launch.c:127
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "не можна змінювати рядок команди після запуску підпроцесу qemu"
 
-#: src/launch.c:155
+#: src/launch.c:184
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: запис параметра має починатися з символу «-»"
 
-#: src/launch.c:169
+#: src/launch.c:198
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: не можна використовувати параметр «%s»"
 
-#: src/launch.c:235 src/launch.c:339
+#: src/launch.c:264 src/launch.c:368
 msgid "filename cannot contain ',' (comma) character"
 msgstr "у назві файла не може міститися символу коми («,»)"
 
-#: src/launch.c:247 src/launch.c:252
+#: src/launch.c:276 src/launch.c:281
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "параметр %s є порожнім або містить заборонені до використання символи"
 
-#: src/launch.c:358
+#: src/launch.c:387
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:367
+#: src/launch.c:396
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:404
+#: src/launch.c:433
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:774
+#: src/launch.c:803
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:787
+#: src/launch.c:816
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:875
+#: src/launch.c:904
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:883
+#: src/launch.c:912
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1062
+#: src/launch.c:1091
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3188,11 +3190,11 @@ msgstr ""
 "%s: помилка команди: якщо qemu зберігається у нестандартному каталозі, "
 "спробуйте встановити відповідне значення змінної середовища LIBGUESTFS_QEMU."
 
-#: src/launch.c:1153
+#: src/launch.c:1196
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1164
+#: src/launch.c:1207
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 
@@ -3396,48 +3398,48 @@ msgstr "libguestfs-test-tool: некоректне значення часу о�
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
-#: test-tool/test-tool.c:170
+#: test-tool/test-tool.c:173
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
 
-#: test-tool/test-tool.c:177
+#: test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
 
-#: test-tool/test-tool.c:185
+#: test-tool/test-tool.c:188
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: помилка guestfs_version\n"
 
-#: test-tool/test-tool.c:217
+#: test-tool/test-tool.c:221
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:229
+#: test-tool/test-tool.c:233
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:235
+#: test-tool/test-tool.c:239
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:241
+#: test-tool/test-tool.c:245
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:248
+#: test-tool/test-tool.c:252
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:279
+#: test-tool/test-tool.c:283
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3446,12 +3448,12 @@ msgstr ""
 "Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:287
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:301
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
