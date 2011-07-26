@@ -225,8 +225,8 @@ clear_progress_callback (guestfs_h *g)
 }
 
 static void
-progress_callback (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
-                   int proc_nr, int serial, uint64_t position, uint64_t total)
+progress_callback_locked (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
+                          int proc_nr, int serial, uint64_t position, uint64_t total)
 {
   CAMLparam0 ();
   CAMLlocal5 (proc_nrv, serialv, positionv, totalv, rv);
@@ -238,9 +238,7 @@ progress_callback (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
 
   value args[4] = { proc_nrv, serialv, positionv, totalv };
 
-  caml_leave_blocking_section ();
   rv = caml_callbackN_exn (*(value*)root, 4, args);
-  caml_enter_blocking_section ();
 
   /* Callbacks shouldn't throw exceptions.  There's not much we can do
    * except to print it.
@@ -250,4 +248,18 @@ progress_callback (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
              caml_format_exception (Extract_exception (rv)));
 
   CAMLreturn0;
+}
+
+static void
+progress_callback (guestfs_h *g ATTRIBUTE_UNUSED, void *root,
+                   int proc_nr, int serial, uint64_t position, uint64_t total)
+{
+  /* Ensure we are holding the GC lock before any GC operations are
+   * possible. (RHBZ#725824)
+   */
+  caml_leave_blocking_section ();
+
+  progress_callback_locked (g, root, proc_nr, serial, position, total);
+
+  caml_enter_blocking_section ();
 }
