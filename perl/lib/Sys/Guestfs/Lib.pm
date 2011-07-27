@@ -1339,10 +1339,10 @@ sub _find_modprobe_aliases
 
     my %modprobe_aliases;
 
-    for my $pattern qw(/files/etc/conf.modules/alias
-                       /files/etc/modules.conf/alias
-                       /files/etc/modprobe.conf/alias
-                       /files/etc/modprobe.d/*/alias) {
+    for my $pattern (qw(/files/etc/conf.modules/alias
+                        /files/etc/modules.conf/alias
+                        /files/etc/modprobe.conf/alias
+                        /files/etc/modprobe.d/*/alias)) {
         for my $path ( $g->aug_match($pattern) ) {
             $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
                 or die __x("{path} doesn't match augeas pattern",
