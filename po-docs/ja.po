@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-07-13 17:55+0200\n"
+"POT-Creation-Date: 2011-07-27 15:55+0200\n"
 "PO-Revision-Date: 2010-09-02 14:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -923,8 +923,8 @@ msgstr ""
 #: ../src/guestfs.pod:1772 ../src/guestfs.pod:2007 ../src/guestfs.pod:2012
 #: ../src/guestfs.pod:2018 ../src/guestfs.pod:2026 ../src/guestfs.pod:2380
 #: ../src/guestfs.pod:2386 ../src/guestfs.pod:2391 ../src/guestfs.pod:2397
-#: ../src/guestfs.pod:2967 ../src/guestfs.pod:2971 ../src/guestfs.pod:2975
-#: ../src/guestfs.pod:2979 ../src/guestfs-actions.pod:15
+#: ../src/guestfs.pod:2968 ../src/guestfs.pod:2972 ../src/guestfs.pod:2976
+#: ../src/guestfs.pod:2980 ../src/guestfs-actions.pod:15
 #: ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:577
 #: ../src/guestfs-actions.pod:585 ../src/guestfs-actions.pod:592
 #: ../src/guestfs-actions.pod:599 ../src/guestfs-actions.pod:1597
@@ -6196,18 +6196,19 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs.pod:2919
 msgid ""
-"L<guestfs-examples(3)>, L<guestfs-ocaml(3)>, L<guestfs-python(3)>, L<guestfs-"
-"ruby(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-cat(1)>, L<virt-copy-in"
-"(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit(1)>, L<virt-filesystems"
-"(1)>, L<virt-inspector(1)>, L<virt-list-filesystems(1)>, L<virt-list-"
-"partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-"
-"tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg(1)>, L<qemu(1)"
-">, L<febootstrap(1)>, L<hivex(3)>, L<http://libguestfs.org/>."
+"L<guestfs-examples(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
+"python(3)>, L<guestfs-ruby(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-cat"
+"(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit(1)"
+">, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-list-filesystems(1)"
+">, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-"
+"rescue(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-"
+"win-reg(1)>, L<qemu(1)>, L<febootstrap(1)>, L<hivex(3)>, L<http://libguestfs."
+"org/>."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2946
+#: ../src/guestfs.pod:2947
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
 "(8)>, L<disktype(1)>."
@@ -6215,20 +6216,20 @@ msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2953 ../tools/virt-win-reg.pl:587
+#: ../src/guestfs.pod:2954 ../tools/virt-win-reg.pl:587
 #: ../tools/virt-make-fs.pl:553
 msgid "BUGS"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2955
+#: ../src/guestfs.pod:2956
 msgid "To get a list of bugs against libguestfs use this link:"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2957
+#: ../src/guestfs.pod:2958
 msgid ""
 "L<https://bugzilla.redhat.com/buglist.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -6236,13 +6237,13 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2959
+#: ../src/guestfs.pod:2960
 msgid "To report a new bug against libguestfs use this link:"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2961
+#: ../src/guestfs.pod:2962
 msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -6250,31 +6251,31 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2963
+#: ../src/guestfs.pod:2964
 msgid "When reporting a bug, please check:"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2969
+#: ../src/guestfs.pod:2970
 msgid "That the bug hasn't been reported already."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2973
+#: ../src/guestfs.pod:2974
 msgid "That you are testing a recent version."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2977
+#: ../src/guestfs.pod:2978
 msgid "Describe the bug accurately, and give a way to reproduce it."
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2981
+#: ../src/guestfs.pod:2982
 msgid ""
 "Run libguestfs-test-tool and paste the B<complete, unedited> output into the "
 "bug report."
@@ -6282,21 +6283,21 @@ msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2986 ../fish/guestfish.pod:1172
+#: ../src/guestfs.pod:2987 ../fish/guestfish.pod:1172
 #: ../test-tool/libguestfs-test-tool.pod:93 ../fuse/guestmount.pod:288
 msgid "AUTHORS"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2988 ../fish/guestfish.pod:1174
+#: ../src/guestfs.pod:2989 ../fish/guestfish.pod:1174
 #: ../test-tool/libguestfs-test-tool.pod:95 ../fuse/guestmount.pod:290
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 # type: =head1
 #. type: =head1
-#: ../src/guestfs.pod:2990 ../fish/guestfish.pod:1176
+#: ../src/guestfs.pod:2991 ../fish/guestfish.pod:1176
 #: ../test-tool/libguestfs-test-tool.pod:97 ../fuse/guestmount.pod:292
 #: ../tools/virt-edit.pl:514 ../tools/virt-win-reg.pl:602
 #: ../tools/virt-list-filesystems.pl:206 ../tools/virt-tar.pl:305
@@ -6305,14 +6306,14 @@ msgid "COPYRIGHT"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2992 ../fish/guestfish.pod:1178
+#: ../src/guestfs.pod:2993 ../fish/guestfish.pod:1178
 #: ../test-tool/libguestfs-test-tool.pod:99
 msgid "Copyright (C) 2009-2011 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:2995
+#: ../src/guestfs.pod:2996
 msgid ""
 "This library is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU Lesser General Public License as published by the "
@@ -6322,7 +6323,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:3000
+#: ../src/guestfs.pod:3001
 msgid ""
 "This library is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -6332,7 +6333,7 @@ msgstr ""
 
 # type: textblock
 #. type: textblock
-#: ../src/guestfs.pod:3005
+#: ../src/guestfs.pod:3006
 msgid ""
 "You should have received a copy of the GNU Lesser General Public License "
 "along with this library; if not, write to the Free Software Foundation, "

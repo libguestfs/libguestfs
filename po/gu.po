@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-13 17:55+0100\n"
+"POT-Creation-Date: 2011-07-27 15:54+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:62 df/main.c:70
-#: fish/fish.c:96 fuse/guestmount.c:908 inspector/virt-inspector.c:72
+#: fish/fish.c:97 fuse/guestmount.c:908 inspector/virt-inspector.c:72
 #: rescue/virt-rescue.c:59
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -67,14 +67,14 @@ msgstr ""
 "  -V|--version     આવૃત્તિને દર્શાવોsઅને બહાર નીકળોexit\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:130
-#: df/domains.c:428 df/main.c:136 fish/fish.c:219 fuse/guestmount.c:1024
+#: df/domains.c:428 df/main.c:136 fish/fish.c:220 fuse/guestmount.c:1024
 #: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: હેન્ડલ ને બનાવવાનું નિષ્ફળ\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:152
-#: df/main.c:160 fish/fish.c:276 fuse/guestmount.c:1061
+#: df/main.c:160 fish/fish.c:277 fuse/guestmount.c:1061
 #: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2015,7 +2015,7 @@ msgstr "પુનરાવૃત્તિ થતી ફાઇલ અથવા �
 msgid "use '%s filename' to edit a file\n"
 msgstr "ફાઇલને સુધારવા માટે '%s filename' ને વાપરો\n"
 
-#: fish/fish.c:100
+#: fish/fish.c:101
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2093,48 +2093,48 @@ msgstr ""
 "  -V|--version         આવૃત્તિને દર્શાવો અને બહાર નીકળો\n"
 "વધારે જાણકારી માટે,  મુખ્યપાનું %s(1) ને જુઓ.\n"
 
-#: fish/fish.c:243
+#: fish/fish.c:244
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID એ નંબર ન હતો: %s\n"
 
-#: fish/fish.c:250
+#: fish/fish.c:251
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: દૂરસ્થ: $GUESTFISH_PID એ દૂરસ્થ પ્રક્રિયાનાં PID ને સુયોજિત કરવુ જ પડશે\n"
 
-#: fish/fish.c:300
+#: fish/fish.c:301
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ફક્ત એક -f પરિમાણને આપી શકાય છે\n"
 
-#: fish/fish.c:455
+#: fish/fish.c:462
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: સરખા સમયે --listen અને --remote વિકલ્પોને વાપરી શકાતા નથી\n"
 
-#: fish/fish.c:463
+#: fish/fish.c:470
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ફ્લેગ સાથે આદેશ વાક્ય પર વધારાનાં પરિમાણો\n"
 
-#: fish/fish.c:469
+#: fish/fish.c:476
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: સરખા સમયે --listen અને --file વિકલ્પોને વાપરી શકાતુ નથી\n"
 
-#: fish/fish.c:527
+#: fish/fish.c:534
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:531
+#: fish/fish.c:538
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:619
+#: fish/fish.c:626
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -2154,45 +2154,45 @@ msgstr ""
 "      શેલને બહાર નીકળવા માટે 'quit'\n"
 "\n"
 
-#: fish/fish.c:763
+#: fish/fish.c:770
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: અંત ન બમણા અવતરણચિહ્નો \n"
 
-#: fish/fish.c:769 fish/fish.c:786
+#: fish/fish.c:776 fish/fish.c:793
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: આદેશ દલીલો એ ખાલી જગ્યા દ્દારા અલગ થયેલ નથી\n"
 
-#: fish/fish.c:780
+#: fish/fish.c:787
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: અંત ન આવેલ એક અવતરણ ચિહ્ન\n"
 
-#: fish/fish.c:810
+#: fish/fish.c:817
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: આંતરિક ભૂલ '%s' પર શબ્દમાળાનું પદચ્છેદન કરી રહી છે\n"
 
-#: fish/fish.c:827
+#: fish/fish.c:834
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ઘણીબધી દલીલો છે\n"
 
-#: fish/fish.c:895
+#: fish/fish.c:902
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: આદેશ વાક્ય પર ખાલી આદેશ\n"
 
-#: fish/fish.c:1041
+#: fish/fish.c:1048
 msgid "display a list of commands or help on a command"
 msgstr "આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ "
 
-#: fish/fish.c:1043
+#: fish/fish.c:1050
 msgid "quit guestfish"
 msgstr "guestfish માંથી બહાર નીકળો"
 
-#: fish/fish.c:1054
+#: fish/fish.c:1061
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2203,7 +2203,7 @@ msgstr ""
 "     help cmd\n"
 "     મદદ\n"
 
-#: fish/fish.c:1062
+#: fish/fish.c:1069
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2212,12 +2212,12 @@ msgstr ""
 "quit - guestfish માંથી બહાર નીકળો\n"
 "     બહાર નીકળો\n"
 
-#: fish/fish.c:1067
+#: fish/fish.c:1074
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: આદેશ જાણીતો નથી, બધા આદેશોની યાદી માટે -h ને વાપરો\n"
 
-#: fish/fish.c:1083
+#: fish/fish.c:1090
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2225,31 +2225,31 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1240
+#: fish/fish.c:1247
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "શબ્દમાળા \"%s\" માં દૂર થતો અવતરણચિહ્ન\n"
 
-#: fish/fish.c:1438
+#: fish/fish.c:1445
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1444
+#: fish/fish.c:1451
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1458
+#: fish/fish.c:1465
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1477
+#: fish/fish.c:1484
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3019,25 +3019,25 @@ msgstr "%s: કામચલાઉ ડિરેક્ટરીને બનાવ
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
 
-#: src/launch.c:759
+#: src/launch.c:769
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch નિષ્ફળ, પહેલાનાં ભૂલ સંદેશાઓને જૂઓ"
 
-#: src/launch.c:772
+#: src/launch.c:782
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
-#: src/launch.c:860
+#: src/launch.c:870
 #, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch નિષ્ફળ, પહેલાનાં ભૂલ સંદેશાઓને જૂઓ"
 
-#: src/launch.c:868
+#: src/launch.c:878
 #, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
-#: src/launch.c:1047
+#: src/launch.c:1057
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3046,11 +3046,11 @@ msgstr ""
 "%s: આદેશ નિષ્ફળ: જો qemu એ બિન-મૂળભૂત પાથ પર સ્થિત થયેલ હોય તો, LIBGUESTFS_QEMU "
 "પર્યાવરણ ચલ સુયોજનોનો પ્રયત્ન કરો."
 
-#: src/launch.c:1138
+#: src/launch.c:1148
 msgid "qemu has not been launched yet"
 msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
 
-#: src/launch.c:1149
+#: src/launch.c:1159
 msgid "no subprocess to kill"
 msgstr "મારવા માટે ઉપપ્રક્રિયા નથી"
 
@@ -3248,47 +3248,47 @@ msgstr "libguestfs-test-tool: અયોગ્ય સમયસમાપ્તિ:
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: અનિચ્છનીય આદેશ વાક્ય વિકલ્પ 0x%x\n"
 
-#: test-tool/test-tool.c:170
+#: test-tool/test-tool.c:173
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs હેન્ડલને બનાવવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:177
+#: test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ડ્રાઇવ '%s' ને ઉમેરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:185
+#: test-tool/test-tool.c:188
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:217
+#: test-tool/test-tool.c:220
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: સાધનને શરૂ કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:229
+#: test-tool/test-tool.c:232
 #, fuzzy, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: sfdisk ને ચલાવવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:235
+#: test-tool/test-tool.c:238
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:241
+#: test-tool/test-tool.c:244
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: / પર mount /dev/sda1 કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:248
+#: test-tool/test-tool.c:251
 #, fuzzy, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: sfdisk ને ચલાવવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:279
+#: test-tool/test-tool.c:282
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3297,12 +3297,12 @@ msgstr ""
 "LIBGUESTFS_QEMU પર્યાવરણ ચલ એ પહેલેથી જ સુયોજિત છે, તેથી\n"
 "--qemu/--qemudir વિકલ્પોને વાપરી શકાતા નથી.\n"
 
-#: test-tool/test-tool.c:287
+#: test-tool/test-tool.c:290
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "બાઇનરી '%s' એ અસ્તિત્વ ધરાવતુ નથી અથવા એક્સિક્યૂટેબલ નથી\n"
 
-#: test-tool/test-tool.c:301
+#: test-tool/test-tool.c:304
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu સ્ત્રોત ડિરેક્ટરીનાં જેવુ લાગતુ નથી\n"
