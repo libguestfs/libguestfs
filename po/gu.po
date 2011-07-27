@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-16 10:13+0100\n"
+"POT-Creation-Date: 2011-07-27 15:46+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -2903,15 +2903,15 @@ msgstr "%s: કામચલાઉ ડિરેક્ટરીને બનાવ
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
 
-#: src/launch.c:736
+#: src/launch.c:746
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch નિષ્ફળ, પહેલાનાં ભૂલ સંદેશાઓને જૂઓ"
 
-#: src/launch.c:749
+#: src/launch.c:759
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
-#: src/launch.c:890
+#: src/launch.c:900
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2920,11 +2920,11 @@ msgstr ""
 "%s: આદેશ નિષ્ફળ: જો qemu એ બિન-મૂળભૂત પાથ પર સ્થિત થયેલ હોય તો, LIBGUESTFS_QEMU "
 "પર્યાવરણ ચલ સુયોજનોનો પ્રયત્ન કરો."
 
-#: src/launch.c:982
+#: src/launch.c:992
 msgid "qemu has not been launched yet"
 msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
 
-#: src/launch.c:993
+#: src/launch.c:1003
 msgid "no subprocess to kill"
 msgstr "મારવા માટે ઉપપ્રક્રિયા નથી"
 
@@ -3112,58 +3112,58 @@ msgstr "libguestfs-test-tool: અયોગ્ય સમયસમાપ્તિ:
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: અનિચ્છનીય આદેશ વાક્ય વિકલ્પ 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs હેન્ડલને બનાવવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:192 test-tool/test-tool.c:201
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ડ્રાઇવ '%s' ને ઉમેરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:209
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:231
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: સાધનને શરૂ કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:240
+#: test-tool/test-tool.c:243
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr "libguestfs-test-tool: sfdisk ને ચલાવવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:249
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:255
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: / પર mount /dev/sda1 કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:258
+#: test-tool/test-tool.c:261
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr "libguestfs-test-tool: mkdir /iso કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:264
+#: test-tool/test-tool.c:267
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr "libguestfs-test-tool: /iso પર mount /dev/sdb કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:272
+#: test-tool/test-tool.c:275
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr ""
 "libguestfs-test-tool: મદદકર્તા પ્રક્રિયા ને ચલાવી શક્યા નહિં, અથવા મદદકર્તા નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:306
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3172,17 +3172,17 @@ msgstr ""
 "LIBGUESTFS_QEMU પર્યાવરણ ચલ એ પહેલેથી જ સુયોજિત છે, તેથી\n"
 "--qemu/--qemudir વિકલ્પોને વાપરી શકાતા નથી.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:314
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "બાઇનરી '%s' એ અસ્તિત્વ ધરાવતુ નથી અથવા એક્સિક્યૂટેબલ નથી\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:328
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu સ્ત્રોત ડિરેક્ટરીનાં જેવુ લાગતુ નથી\n"
 
-#: test-tool/test-tool.c:374
+#: test-tool/test-tool.c:377
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -3195,12 +3195,12 @@ msgstr ""
 "\n"
 "આ પ્રક્રિયાનાં સ્થાનને સ્પષ્ટ કરવા માટે --helper વિકલ્પને વાપરો.\n"
 
-#: test-tool/test-tool.c:390
+#: test-tool/test-tool.c:393
 #, c-format
 msgid "command failed: %s"
 msgstr "આદેશ નિષ્ફળ: %s"
 
-#: test-tool/test-tool.c:398
+#: test-tool/test-tool.c:401
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -3210,7 +3210,7 @@ msgstr ""
 "ચકાસણી સાધન મદદકરર્તા પ્રક્રિયા %s\n"
 "એ સ્થિર રીતે કડી થયેલ નથી.  આ બિલ્ડ ભૂલ છે જ્યારે આ ચકાસણી સાધન એ બિલ્ટ થયેલ હતુ.\n"
 
-#: test-tool/test-tool.c:432
+#: test-tool/test-tool.c:435
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs આદેશ નિષ્ફળ: %s\n"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-16 10:13+0100\n"
+"POT-Creation-Date: 2011-07-27 15:46+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2983,16 +2983,16 @@ msgstr "%s: no es posible crear directorio temporal"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:736
+#: src/launch.c:746
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:749
+#: src/launch.c:759
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:890
+#: src/launch.c:900
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3001,11 +3001,11 @@ msgstr ""
 "%s: falló el comando: Si qemu se encuentra ubicado en una ruta no estándar, "
 "intente definir el entorno LIBGUESTFS_QEMU como variable"
 
-#: src/launch.c:982
+#: src/launch.c:992
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:993
+#: src/launch.c:1003
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 
@@ -3208,59 +3208,59 @@ msgstr "libguestfs-test-tool: tiempo de espera no válido: %s\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: opción de línea de comando no esperada 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "bguestfs-test-tool: falló al crear el manipulador libguestfs\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:192 test-tool/test-tool.c:201
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: falló al agregar dispositivo '%s'\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:209
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: falló guestfs_version\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:231
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: falló al intentar lanzar dispositivo\n"
 
-#: test-tool/test-tool.c:240
+#: test-tool/test-tool.c:243
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr "libguestfs-test-tool: falló al ejecutar sfdisk\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:249
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: falló al realizar mkfs.ext2\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:255
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: falló al montar /dev/sda1 sobre /\n"
 
-#: test-tool/test-tool.c:258
+#: test-tool/test-tool.c:261
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr "libguestfs-test-tool: falló al crear el directorio /iso\n"
 
-#: test-tool/test-tool.c:264
+#: test-tool/test-tool.c:267
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr "libguestfs-test-tool: falló al montar /dev/sdb sobre /iso\n"
 
-#: test-tool/test-tool.c:272
+#: test-tool/test-tool.c:275
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr ""
 "libguestfs-test-tool: no pudo ejecutarse el programa de asistencia, o la "
 "asistencia ha fallado\n"
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:306
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3269,17 +3269,17 @@ msgstr ""
 "la variable de entorno LIBGUESTFS_QEMU ya se encuentra definida,\n"
 "de modo que las opciones --qemu/--qemudir no pueden ser utilizadas.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:314
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "El binario '%s' no existe o no es un ejecutable\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:328
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: no parece un directorio fuente de qemu\n"
 
-#: test-tool/test-tool.c:374
+#: test-tool/test-tool.c:377
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -3293,12 +3293,12 @@ msgstr ""
 "\n"
 "Utilice la opción --helper para especificar la ubicación de este programa.\n"
 
-#: test-tool/test-tool.c:390
+#: test-tool/test-tool.c:393
 #, c-format
 msgid "command failed: %s"
 msgstr "el comando ha fallado: %s"
 
-#: test-tool/test-tool.c:398
+#: test-tool/test-tool.c:401
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -3309,7 +3309,7 @@ msgstr ""
 "no se encuentra enlazado definitivamente. Este es un error de\n"
 "compilación cuando esta herramienta de pruebas fue compilada.\n"
 
-#: test-tool/test-tool.c:432
+#: test-tool/test-tool.c:435
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "falló el comando mkisofs: %s\n"

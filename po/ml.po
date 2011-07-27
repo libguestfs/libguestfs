@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-16 10:13+0100\n"
+"POT-Creation-Date: 2011-07-27 15:46+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -2908,15 +2908,15 @@ msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
 
-#: src/launch.c:736
+#: src/launch.c:746
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/launch.c:749
+#: src/launch.c:759
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/launch.c:890
+#: src/launch.c:900
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2925,11 +2925,11 @@ msgstr ""
 "%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
 "എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
-#: src/launch.c:982
+#: src/launch.c:992
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/launch.c:993
+#: src/launch.c:1003
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 
@@ -3119,59 +3119,59 @@ msgstr "libguestfs-test-tool: invalid timeout: %s\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: അപ്രതീക്ഷിതമായ കമാന്‍ഡ് ലൈന്‍ ഉപാധി 0x%x\n"
 
-#: test-tool/test-tool.c:182
+#: test-tool/test-tool.c:185
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:189 test-tool/test-tool.c:198
+#: test-tool/test-tool.c:192 test-tool/test-tool.c:201
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ഡ്രൈവ് '%s' ചേര്‍ക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:209
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:228
+#: test-tool/test-tool.c:231
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: പ്രയോഗം ലഭ്യമാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:240
+#: test-tool/test-tool.c:243
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr "libguestfs-test-tool: sfdisk പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:249
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:255
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 /-ല്‍ മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:258
+#: test-tool/test-tool.c:261
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr "libguestfs-test-tool: mkdir /iso പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:264
+#: test-tool/test-tool.c:267
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr "libguestfs-test-tool: /dev/sdb /iso-ല്‍ മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയം\n"
 
-#: test-tool/test-tool.c:272
+#: test-tool/test-tool.c:275
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr ""
 "libguestfs-test-tool: സഹായത്തിനുള്ള പ്രോഗ്രാം പ്രവര്‍ത്തിക്കുവാന്‍ സാധ്യമായില്ല, അല്ലെങ്കില്‍ "
 "സഹായി പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:306
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3180,17 +3180,17 @@ msgstr ""
 "LIBGUESTFS_QEMU എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ നിലവില്‍ സജ്ജമാണു്, അതിനാല്‍\n"
 "--qemu/--qemudir ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:314
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ്കില്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:328
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu ഉറവിട ഡയറക്ടറിയില്‍ നിന്നും വ്യത്യസ്ഥമാണു്\n"
 
-#: test-tool/test-tool.c:374
+#: test-tool/test-tool.c:377
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -3203,12 +3203,12 @@ msgstr ""
 "\n"
 "ഈ പ്രോഗ്രാമിന്റെ സ്ഥാനം വ്യക്തമാകുന്നതിനായി --helper ഉപാധി ഉപയോഗിക്കുക.\n"
 
-#: test-tool/test-tool.c:390
+#: test-tool/test-tool.c:393
 #, c-format
 msgid "command failed: %s"
 msgstr "കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
-#: test-tool/test-tool.c:398
+#: test-tool/test-tool.c:401
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -3219,7 +3219,7 @@ msgstr ""
 "സ്റ്റാറ്റിക്കായി ലിങ്ക് ചെയ്തിട്ടില്ല. ഈ പരീക്ഷണ പ്രയോഗം സജ്ജമാക്കുമ്പോള്‍ ഉണ്ടായ\n"
 "പിശകാണിതു്.\n"
 
-#: test-tool/test-tool.c:432
+#: test-tool/test-tool.c:435
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s\n"
