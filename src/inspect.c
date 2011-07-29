@@ -757,11 +757,18 @@ check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs)
 {
   char *hostname;
 
+  /* Errors here are not fatal (RHBZ#726739), since it could be
+   * just missing HOSTNAME field in the file.
+   */
+  guestfs_error_handler_cb old_error_cb = g->error_cb;
+  g->error_cb = NULL;
   hostname = guestfs_aug_get (g, "/files/etc/sysconfig/network/HOSTNAME");
-  if (!hostname)
-    return -1;
+  g->error_cb = old_error_cb;
 
-  fs->hostname = hostname;  /* freed by guestfs___free_inspect_info */
+  /* This is freed by guestfs___free_inspect_info.  Note that hostname
+   * could be NULL because we ignored errors above.
+   */
+  fs->hostname = hostname;
   return 0;
 }
 
