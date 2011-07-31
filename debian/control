@@ -25,7 +25,9 @@ Build-Depends: debhelper (>= 7), dpkg-dev, devscripts, autotools-dev,
 # FUSE
   libfuse-dev, fuse-utils,
 # virt-resize
-  libpcre-ocaml-dev
+  libpcre-ocaml-dev,
+# Debian OCaml
+  dh-ocaml
 Homepage: http://libguestfs.org
 Standards-Version: 3.8.2
 
@@ -243,3 +245,51 @@ Description: library for accessing and modifying guest disk images
  the guest. Also you can upload and download files and directories.
  .
  This package contains the Perl bindings.
+
+Package: libguestfs-ocaml
+Architecture: any
+Depends: ${ocaml:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Provides: ${ocaml:Provides}
+Description: library for accessing and modifying guest disk images
+ libguestfs is a library for accessing and modifying guest disk images. Amongst
+ the things this is good for: making batch configuration changes to guests,
+ viewing and editing files inside guests, getting disk used/free statistics,
+ migrating between virtualization systems, performing partial backups,
+ performing partial guest clones, cloning guests and changing
+ registry/UUID/hostname info, and much else besides.
+ .
+ It uses Linux kernel and qemu code, and can access any type of guest
+ filesystem that Linux and qemu can, including but not limited to: ext2/3/4,
+ btrfs, FAT and NTFS, LVM, many different disk partition schemes, qcow, qcow2,
+ vmdk.
+ .
+ libguestfs provides ways to enumerate guest storage (eg. partitions, LVs, what
+ filesystem is in each LV, etc.). It can also run commands in the context of 
+ the guest. Also you can upload and download files and directories.
+ .
+ This package contains the OCaml bindings (runtime).
+
+Package: libguestfs-ocaml-dev
+Architecture: any
+Depends: libguestfs-ocaml, libguestfs-dev, ocaml-findlib,
+ ${ocaml:Depends},
+ ${misc:Depends}
+Provides: ${ocaml:Provides}
+Description: library for accessing and modifying guest disk images
+ libguestfs is a library for accessing and modifying guest disk images. Amongst
+ the things this is good for: making batch configuration changes to guests,
+ viewing and editing files inside guests, getting disk used/free statistics,
+ migrating between virtualization systems, performing partial backups,
+ performing partial guest clones, cloning guests and changing
+ registry/UUID/hostname info, and much else besides.
+ .
+ It uses Linux kernel and qemu code, and can access any type of guest
+ filesystem that Linux and qemu can, including but not limited to: ext2/3/4,
+ btrfs, FAT and NTFS, LVM, many different disk partition schemes, qcow, qcow2,
+ vmdk.
+ .
+ libguestfs provides ways to enumerate guest storage (eg. partitions, LVs, what
+ filesystem is in each LV, etc.). It can also run commands in the context of 
+ the guest. Also you can upload and download files and directories.
+ .
+ This package contains the OCaml bindings.

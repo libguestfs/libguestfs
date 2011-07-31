@@ -206,6 +206,7 @@ Makefile
 Makefile.in
 missing
 *.o
+ocamlinit-stamp
 ocaml/bindtests
 ocaml/bindtests.ml
 ocaml/dllmlguestfs.so
