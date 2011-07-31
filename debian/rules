@@ -12,6 +12,7 @@ DEB_BUILD_OPTIONS=nocheck
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
+include /usr/share/cdbs/1/rules/ocaml.mk
 
 DEB_CONFIGURE_EXTRA_FLAGS := \
 	--with-java-home=no \
@@ -19,7 +20,7 @@ DEB_CONFIGURE_EXTRA_FLAGS := \
 	--disable-haskell \
 	--disable-php \
 	--with-readline \
-    --enable-install-daemon \
+	--enable-install-daemon \
 	--with-python-installdir=/usr/share/pyshared
 
 DEB_DBG_PACKAGES = libguestfs0-dbg

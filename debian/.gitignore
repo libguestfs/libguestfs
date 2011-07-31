@@ -3,10 +3,15 @@
 *.substvars
 changelog
 files
+guestfsd/
 guestfish/
 guestmount/
 libguestfs-dev/
 libguestfs-doc/
+libguestfs-ocaml/
+libguestfs-ocaml.install
+libguestfs-ocaml-dev/
+libguestfs-ocaml-dev.install
 libguestfs-perl/
 libguestfs-tools/
 libguestfs0-dbg/
