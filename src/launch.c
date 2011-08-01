@@ -722,7 +722,7 @@ launch_appliance (guestfs_h *g)
         setpgid (0, 0);
 
       /* Writing to argv is hideously complicated and error prone.  See:
-       * http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/utils/misc/ps_status.c?rev=1.33.2.1;content-type=text%2Fplain
+       * http://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/backend/utils/misc/ps_status.c;hb=HEAD
        */
 
       /* Loop around waiting for one or both of the other processes to
