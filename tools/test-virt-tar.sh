@@ -6,7 +6,7 @@ set -e
 # Read out the test directory using virt-tar.
 ./virt-tar -x ../images/fedora.img /bin test.tar
 
-if [ "$(tar tf test.tar)" != "./
+if [ "$(tar tf test.tar | sort)" != "./
 ./ls
 ./test1
 ./test2
