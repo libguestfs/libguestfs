@@ -99,6 +99,7 @@ cpio
 dosfstools
 file
 findutils
+gawk
 grep
 gzip
 jfsutils
