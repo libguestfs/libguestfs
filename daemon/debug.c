@@ -51,9 +51,11 @@ struct cmd {
 };
 
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
+static char *debug_binaries (const char *subcmd, int argc, char *const *const argv);
 static char *debug_core_pattern (const char *subcmd, int argc, char *const *const argv);
 static char *debug_env (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
+static char *debug_ldd (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
 static char *debug_progress (const char *subcmd, int argc, char *const *const argv);
@@ -63,9 +65,11 @@ static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
+  { "binaries", debug_binaries },
   { "core_pattern", debug_core_pattern },
   { "env", debug_env },
   { "fds", debug_fds },
+  { "ldd", debug_ldd },
   { "ls", debug_ls },
   { "ll", debug_ll },
   { "progress", debug_progress },
@@ -274,6 +278,73 @@ debug_env (const char *subcmd, int argc, char *const *const argv)
   free (err);
 
   return out;
+}
+
+/* Return binaries in the appliance.  See regressions/rhbz727178.sh */
+static char *
+debug_binaries (const char *subcmd, int argc, char *const *const argv)
+{
+  int r;
+  char *out, *err;
+
+  const char cmd[] =
+    "find / -xdev -type f -executable "
+    "| xargs file -i "
+    "| grep application/x-executable "
+    "| gawk -F: '{print $1}'";
+
+  r = command (&out, &err, "sh", "-c", cmd, NULL);
+  if (r == -1) {
+    reply_with_error ("find: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return out;
+}
+
+/* Run 'ldd' on a file from the appliance.  See regressions/rhbz727178.sh */
+static char *
+debug_ldd (const char *subcmd, int argc, char *const *const argv)
+{
+  int r;
+  char *out, *err, *ret;
+
+  if (argc != 1) {
+    reply_with_error ("ldd: no file argument");
+    return NULL;
+  }
+
+  /* Note that 'ldd' doesn't fail if it finds errors.  We have to grep
+   * for errors in the regression test instead.  'ldd' only fails here
+   * if the binary is not a binary at all (eg. for shell scripts).
+   * Also 'ldd' randomly sends messages to stderr and errors to stdout
+   * depending on the phase of the moon.
+   */
+  r = command (&out, &err, "ldd", "-r", argv[0], NULL);
+  if (r == -1) {
+    reply_with_error ("ldd: %s: %s", argv[0], err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  /* Concatenate stdout and stderr in the result. */
+  ret = realloc (out, strlen (out) + strlen (err) + 1);
+  if (ret == NULL) {
+    reply_with_perror ("realloc");
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  strcat (ret, err);
+  free (err);
+
+  return ret;
 }
 
 /* List files in the appliance. */
