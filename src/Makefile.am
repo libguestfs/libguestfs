@@ -144,7 +144,8 @@ libguestfs_la_SOURCES = \
 libguestfs_la_LIBADD = \
 	$(HIVEX_LIBS) $(AUGEAS_LIBS) $(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
-	$(LTLIBTHREAD) ../gnulib/lib/libgnu.la
+	$(LTLIBTHREAD) $(LIB_CLOCK_GETTIME) \
+	../gnulib/lib/libgnu.la
 
 # Make libguestfs include the convenience libraries.
 noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
