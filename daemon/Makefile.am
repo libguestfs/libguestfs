@@ -1,5 +1,5 @@
 # libguestfs-daemon
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,23 +15,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-ACLOCAL_AMFLAGS = -I m4
+include $(top_srcdir)/subdir-rules.mk
 
-SUBDIRS = lib tests .
-
-libsrcdir = $(top_builddir)/../src
-generatorsrcdir = $(top_builddir)/../generator
+libsrcdir = $(top_builddir)/src
 
 generator_built = \
 	actions.h \
 	stubs.c \
 	names.c
-
-.PHONY: force
-
-$(generator_built): $(generatorsrcdir)/stamp-generator
-$(generatorsrcdir)/stamp-generator: force
-	$(MAKE) -C $(generatorsrcdir) stamp-generator
 
 BUILT_SOURCES = \
 	$(generator_built) \
@@ -172,7 +163,9 @@ guestfsd_SOURCES = \
 guestfsd_LDADD = \
 	liberrnostring.a \
 	libprotocol.a \
-	lib/libgnu.a \
+	$(SELINUX_LIB) \
+	$(AUGEAS_LIB) \
+	$(top_builddir)/gnulib/lib/.libs/libgnu.a \
 	$(GETADDRINFO_LIB) \
 	$(HOSTENT_LIB) \
 	$(INET_NTOP_LIB) \
@@ -181,5 +174,7 @@ guestfsd_LDADD = \
 	$(LIBINTL) \
 	$(SERVENT_LIB)
 
-AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
+guestfsd_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+.PHONY: force

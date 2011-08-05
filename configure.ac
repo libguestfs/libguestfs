@@ -153,14 +153,72 @@ AC_SYS_LARGEFILE
 dnl Check sizeof long.
 AC_CHECK_SIZEOF([long])
 
+dnl Check if dirent (readdir) supports d_type member.
+AC_STRUCT_DIRENT_D_TYPE
+
+dnl Check if stat has the required fields.
+AC_STRUCT_ST_BLOCKS
+AC_CHECK_MEMBER([struct stat.st_blksize],[
+        AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'])])
+
 dnl Define a C symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl Headers.
-AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h endian.h byteswap.h])
+AC_CHECK_HEADERS([\
+        attr/xattr.h \
+        byteswap.h \
+        endian.h \
+        errno.h \
+        printf.h \
+        sys/inotify.h \
+        sys/socket.h \
+        sys/statvfs.h \
+        sys/types.h \
+        sys/un.h \
+        sys/wait.h \
+        windows.h \
+        sys/xattr.h])
 
 dnl Functions.
-AC_CHECK_FUNCS([futimens posix_fallocate])
+AC_CHECK_FUNCS([\
+        futimens \
+        getxattr \
+        htonl \
+        htons \
+        inotify_init1 \
+        lgetxattr \
+        listxattr \
+        llistxattr \
+        lsetxattr \
+        lremovexattr \
+        mknod \
+        ntohl \
+        ntohs \
+        posix_fallocate \
+        realpath \
+        removexattr \
+        setitimer \
+        setxattr \
+        sigaction \
+        statvfs \
+        sync])
+
+dnl For modified printf in the daemon, we need glibc either (old-style)
+dnl register_printf_function or (new-style) register_printf_specifier.
+AC_CHECK_FUNC([register_printf_specifier],[
+        AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
+                [Define to 1 if you have new-style register_printf_specifier])
+        ],[
+        AC_CHECK_FUNC([register_printf_function],[
+                AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
+                        [Define to 1 if you have old-style register_printf_function])
+                ],[
+                AC_MSG_FAILURE(
+[No support for glibc-style extended printf formatters.
+
+This means you either have a very old glibc (pre-2.0) or you
+are using some other libc where this is not supported.])])])
 
 dnl Build the daemon?
 AC_MSG_CHECKING([if we should build the daemon])
@@ -171,6 +229,18 @@ AC_ARG_ENABLE([daemon],
         [enable_daemon=yes])
 AM_CONDITIONAL([ENABLE_DAEMON],[test "x$enable_daemon" = "xyes"])
 AC_MSG_RESULT([$enable_daemon])
+
+if test "x$enable_daemon" = "xyes"; then
+	dnl Install the daemon (for libguestfs live service)
+        AC_MSG_CHECKING([if we should install the daemon])
+        AC_ARG_ENABLE([install-daemon],
+                [AS_HELP_STRING([--enable-install-daemon],
+                  [enable installing the daemon under $sbindir @<:@default=no@:>@])],
+                [],
+                [enable_install_daemon=no])
+        AM_CONDITIONAL([INSTALL_DAEMON],[test "x$enable_install_daemon" = "xyes"])
+        AC_MSG_RESULT([$enable_install_daemon])
+fi
 
 dnl Build the appliance?
 AC_MSG_CHECKING([if we should build the appliance])
@@ -229,6 +299,40 @@ AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
         AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
         ])
+
+dnl Check for Augeas (now optional).
+AC_CHECK_LIB([augeas],[aug_match],[
+        have_augeas=yes
+        AUGEAS_LIB="-laugeas"
+
+        old_LIBS="$LIBS"
+        LIBS="$LIBS $AUGEAS_LIB"
+        dnl Check for functions not available in earlier versions of Augeas.
+        AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
+        LIBS="$old_LIBS"
+
+        ],[have_augeas=no])
+if test "x$have_augeas" = "xyes"; then
+        AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
+fi
+AC_SUBST([AUGEAS_LIB])
+
+dnl Check for libselinux (optional).
+AC_CHECK_HEADERS([selinux/selinux.h])
+AC_CHECK_LIB([selinux],[setexeccon],[
+        have_libselinux="$ac_cv_header_selinux_selinux_h"
+        SELINUX_LIB="-lselinux"
+
+        old_LIBS="$LIBS"
+        LIBS="$LIBS $SELINUX_LIB"
+        AC_CHECK_FUNCS([setcon getcon])
+        LIBS="$old_LIBS"
+
+        ],[have_libselinux=no])
+if test "x$have_libselinux" = "xyes"; then
+        AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux])
+fi
+AC_SUBST([SELINUX_LIB])
 
 dnl Check for cpio which isn't in the default Pardus install amazingly.
 AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
@@ -800,11 +904,6 @@ dnl http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
 LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
 AC_SUBST([LIBTOOL])
 
-dnl Run in subdirs.
-if test "x$enable_daemon" = "xyes"; then
-    AC_CONFIG_SUBDIRS([daemon])
-fi
-
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
@@ -816,6 +915,7 @@ AC_CONFIG_FILES([Makefile
                  cat/Makefile
                  caution/Makefile
                  csharp/Makefile
+                 daemon/Makefile
                  debian/changelog
                  df/Makefile
                  edit/Makefile

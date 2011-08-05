@@ -433,14 +433,8 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
 
   if (err < 0) return;
 
-#if !defined(_GNU_SOURCE) || defined(__APPLE__)
   char buf[256];
   strerror_r (errnum, buf, sizeof buf);
-#else
-  char _buf[256];
-  char *buf;
-  buf = strerror_r (errnum, _buf, sizeof _buf);
-#endif
 
   msg = safe_realloc (g, msg, strlen (msg) + 2 + strlen (buf) + 1);
   strcat (msg, ": ");
