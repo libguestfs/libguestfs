@@ -510,3 +510,25 @@ would be some sort of modified attach method (see link above).
 
 The complexity here is that we would no longer have access to
 stdin/stdout (or we'd have to direct that somewhere else).
+
+GObject Introspection
+---------------------
+
+We periodically get asked to implement gobject-introspection (it's a
+GNOME thing):
+
+http://live.gnome.org/GObjectIntrospection
+
+This would require a separate Gtk C API since the main guestfs handle
+would have to be encapsulated in a GObject.  However the main
+difficulty is that the annotations supported to define types are not
+very rich.  Notably missing are support for optional arguments
+(defined but not implemented), support for structs (unless mapped to
+other objects).
+
+Also note that the libguestfs API is not "object oriented".
+
+libosinfo mappings for virt-inspector
+-------------------------------------
+
+Return libosinfo mappings from inspection API.
