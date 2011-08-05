@@ -416,6 +416,8 @@ Guestfish will prompt for these separately."
             pr "  if (%s == NULL) return -1;\n" name
         | Key name ->
             pr "  %s = read_key (\"%s\");\n" name name;
+            pr "  if (keys_from_stdin)\n";
+            pr "    input_lineno++;\n";
             pr "  if (%s == NULL) return -1;\n" name
         | Bool name ->
             pr "  %s = is_true (argv[i++]) ? 1 : 0;\n" name

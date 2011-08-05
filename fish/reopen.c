@@ -31,6 +31,8 @@ run_reopen (const char *cmd, size_t argc, char *argv[])
   guestfs_h *g2;
   int r;
   const char *p;
+  guestfs_error_handler_cb cb;
+  void *cb_data;
 
   if (argc > 0) {
     fprintf (stderr, _("'reopen' command takes no parameters\n"));
@@ -50,6 +52,9 @@ run_reopen (const char *cmd, size_t argc, char *argv[])
   /* Now copy some of the settings from the old handle.  The settings
    * we copy are those which are set by guestfish itself.
    */
+  cb = guestfs_get_error_handler (g, &cb_data);
+  guestfs_set_error_handler (g2, cb, cb_data);
+
   r = guestfs_get_verbose (g);
   if (r >= 0)
     guestfs_set_verbose (g2, r);

@@ -64,6 +64,7 @@ static void cmdline (char *argv[], int optind, int argc);
 static struct parsed_command parse_command_line (char *buf, int *exit_on_error_rtn);
 static int parse_quoted_string (char *p);
 static int execute_and_inline (const char *cmd, int exit_on_error);
+static void error_cb (guestfs_h *g, void *data, const char *msg);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 #ifdef HAVE_LIBREADLINE
@@ -91,6 +92,8 @@ int utf8_mode = 0;
 int have_terminfo = 0;
 int progress_bars = 0;
 int is_interactive = 0;
+const char *input_file = NULL;
+int input_lineno = 0;
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -503,6 +506,18 @@ main (int argc, char *argv[])
     }
   }
 
+  /* Get the name of the input file, for error messages, and replace
+   * the default error handler.
+   */
+  if (!is_interactive) {
+    if (file)
+      input_file = file;
+    else
+      input_file = "*stdin*";
+    guestfs_set_error_handler (g, error_cb, NULL);
+  }
+  input_lineno = 0;
+
   /* Decide if we display progress bars. */
   progress_bars =
     override_progress_bars >= 0
@@ -667,6 +682,8 @@ script (int prompt)
       quit = 1;
       break;
     }
+
+    input_lineno++;
 
     pcmd = parse_command_line (buf, &exit_on_error);
     if (pcmd.status == -1 && exit_on_error)
@@ -1190,6 +1207,14 @@ extended_help_message (void)
            _("Did you mean to open a disk image?  guestfish -a disk.img\n"
              "For a list of commands:             guestfish -h\n"
              "For complete documentation:         man guestfish\n"));
+}
+
+/* Error callback.  This replaces the standard libguestfs error handler. */
+static void
+error_cb (guestfs_h *g, void *data, const char *msg)
+{
+  fprintf (stderr, _("%s:%d: libguestfs: error: %s\n"),
+	   input_file, input_lineno, msg);
 }
 
 void
