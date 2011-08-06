@@ -1392,8 +1392,8 @@ Returns the current error handler callback.
 =head2 guestfs_set_out_of_memory_handler
 
  typedef void (*guestfs_abort_cb) (void);
- int guestfs_set_out_of_memory_handler (guestfs_h *g,
-                                        guestfs_abort_cb);
+ void guestfs_set_out_of_memory_handler (guestfs_h *g,
+                                         guestfs_abort_cb);
 
 The callback C<cb> will be called if there is an out of memory
 situation.  I<Note this callback must not return>.
