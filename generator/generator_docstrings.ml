@@ -45,7 +45,7 @@ let deprecation_notice ?(prefix = "") flags =
     let alt =
       find_map (function DeprecatedBy str -> Some str | _ -> None) flags in
     let txt =
-      sprintf "This function is deprecated.
+      sprintf "I<This function is deprecated.>
 In new code, use the L</%s%s> call instead.
 
 Deprecated functions will not be removed from the API, but the
