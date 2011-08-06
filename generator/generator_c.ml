@@ -180,6 +180,11 @@ and generate_actions_pod () =
         generate_prototype ~extern:false ~indent:" " ~handle:"g" name style;
         pr "\n\n";
 
+        (match deprecation_notice ~prefix:"guestfs_" flags with
+         | None -> ()
+         | Some txt -> pr "%s\n\n" txt
+        );
+
         let uc_shortname = String.uppercase shortname in
         if optargs <> [] then (
           pr "You may supply a list of optional arguments to this call.\n";
@@ -255,10 +260,6 @@ I<The caller must free the returned buffer after use>.\n\n"
           pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
-        (match deprecation_notice ~prefix:"guestfs_" flags with
-         | None -> ()
-         | Some txt -> pr "%s\n\n" txt
-        );
         (match lookup_api_version name with
          | Some version -> pr "(Added in %s)\n\n" version
          | None -> ()
