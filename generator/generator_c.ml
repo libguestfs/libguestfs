@@ -255,7 +255,7 @@ I<The caller must free the returned buffer after use>.\n\n"
           pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
-        (match deprecation_notice flags with
+        (match deprecation_notice ~prefix:"guestfs_" flags with
          | None -> ()
          | Some txt -> pr "%s\n\n" txt
         );

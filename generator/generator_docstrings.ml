@@ -40,17 +40,17 @@ let danger_will_robinson =
   "B<This command is dangerous.  Without careful use you
 can easily destroy all your data>."
 
-let deprecation_notice flags =
+let deprecation_notice ?(prefix = "") flags =
   try
     let alt =
       find_map (function DeprecatedBy str -> Some str | _ -> None) flags in
     let txt =
       sprintf "This function is deprecated.
-In new code, use the C<%s> call instead.
+In new code, use the L</%s%s> call instead.
 
 Deprecated functions will not be removed from the API, but the
 fact that they are deprecated indicates that there are problems
-with correct use of these functions." alt in
+with correct use of these functions." prefix alt in
     Some txt
   with
     Not_found -> None
