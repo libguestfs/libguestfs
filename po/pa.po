@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-27 15:54+0100\n"
+"POT-Creation-Date: 2011-08-07 23:13+0100\n"
 "PO-Revision-Date: 2010-12-23 17:40+0530\n"
 "Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
 "Language-Team: PLTG\n"
@@ -2972,8 +2972,8 @@ msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr "ਇੱਕ Windows ਗਿਸਟ ਨਹੀਂ ਹੈ, ਜਾਂ systemroot ਦਾ ਪਤਾ ਨਹੀਂ ਲਾਇਆ ਜਾ ਸਕਦਾ"
 
 #: src/inspect.c:541 src/inspect_fs.c:474 src/inspect_fs.c:518
-#: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:579
-#: src/inspect_fs_unix.c:821
+#: src/inspect_fs_unix.c:194 src/inspect_fs_unix.c:586
+#: src/inspect_fs_unix.c:828
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s ਦਾ ਅਕਾਰ ਬੇਲੋੜਾ ਹੈ (%<PRIi64> ਬਾਈਟਾਂ)"
@@ -3009,7 +3009,7 @@ msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ �
 msgid "%s: file is empty"
 msgstr "%s: ਫਾਇਲ ਖਾਲੀ ਹੈ"
 
-#: src/inspect_fs_unix.c:613
+#: src/inspect_fs_unix.c:620
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab ਜਾਂ ਖਾਲੀ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ"
 
