@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.8.10\n"
+"Project-Id-Version: libguestfs 1.8.11\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-07-27 15:47+0200\n"
+"POT-Creation-Date: 2011-08-07 23:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2696,8 +2696,8 @@ msgstr ""
 #, no-wrap
 msgid ""
 " typedef void (*guestfs_abort_cb) (void);\n"
-" int guestfs_set_out_of_memory_handler (guestfs_h *g,\n"
-"                                        guestfs_abort_cb);\n"
+" void guestfs_set_out_of_memory_handler (guestfs_h *g,\n"
+"                                         guestfs_abort_cb);\n"
 "\n"
 msgstr ""
 
@@ -5026,10 +5026,10 @@ msgid "This function returns 0 on success or -1 on error."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:32 ../src/guestfs-actions.pod:240 ../src/guestfs-actions.pod:261 ../fish/guestfish-actions.pod:28 ../fish/guestfish-actions.pod:151 ../fish/guestfish-actions.pod:165
+#: ../src/guestfs-actions.pod:32 ../src/guestfs-actions.pod:240 ../src/guestfs-actions.pod:261
 msgid ""
-"This function is deprecated.  In new code, use the C<add_drive_opts> call "
-"instead."
+"This function is deprecated.  In new code, use the "
+"L</guestfs_add_drive_opts> call instead."
 msgstr ""
 
 #. type: textblock
@@ -7426,10 +7426,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:1432 ../fish/guestfish-actions.pod:946
+#: ../src/guestfs-actions.pod:1432
 msgid ""
-"This function is deprecated.  In new code, use the C<fallocate64> call "
-"instead."
+"This function is deprecated.  In new code, use the L</guestfs_fallocate64> "
+"call instead."
 msgstr ""
 
 #. type: =head2
@@ -8207,10 +8207,10 @@ msgid "This returns the ext2/3/4 filesystem label of the filesystem on C<device>
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:1915 ../fish/guestfish-actions.pod:1300
+#: ../src/guestfs-actions.pod:1915
 msgid ""
-"This function is deprecated.  In new code, use the C<vfs_label> call "
-"instead."
+"This function is deprecated.  In new code, use the L</guestfs_vfs_label> "
+"call instead."
 msgstr ""
 
 #. type: textblock
@@ -8239,8 +8239,10 @@ msgid "This returns the ext2/3/4 filesystem UUID of the filesystem on C<device>.
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:1936 ../fish/guestfish-actions.pod:1314
-msgid "This function is deprecated.  In new code, use the C<vfs_uuid> call instead."
+#: ../src/guestfs-actions.pod:1936
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_vfs_uuid> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -11908,10 +11910,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:4185 ../fish/guestfish-actions.pod:2814
+#: ../src/guestfs-actions.pod:4185
 msgid ""
-"This function is deprecated.  In new code, use the C<mkfs_opts> call "
-"instead."
+"This function is deprecated.  In new code, use the L</guestfs_mkfs_opts> "
+"call instead."
 msgstr ""
 
 #. type: =head2
@@ -16512,8 +16514,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:6978 ../fish/guestfish-actions.pod:4627
-msgid "This function is deprecated.  In new code, use the C<write> call instead."
+#: ../src/guestfs-actions.pod:6978
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_write> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -16729,8 +16733,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:7147 ../fish/guestfish-actions.pod:4724
-msgid "This function is deprecated.  In new code, use the C<file> call instead."
+#: ../src/guestfs-actions.pod:7147
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_file> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -19929,6 +19935,13 @@ msgid ""
 "L</add-drive-ro> instead."
 msgstr ""
 
+#. type: textblock
+#: ../fish/guestfish-actions.pod:28 ../fish/guestfish-actions.pod:151 ../fish/guestfish-actions.pod:165
+msgid ""
+"This function is deprecated.  In new code, use the L</add_drive_opts> call "
+"instead."
+msgstr ""
+
 #. type: =head2
 #: ../fish/guestfish-actions.pod:35
 msgid "add-domain"
@@ -21055,6 +21068,13 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../fish/guestfish-actions.pod:946
+msgid ""
+"This function is deprecated.  In new code, use the L</fallocate64> call "
+"instead."
+msgstr ""
+
 #. type: =head2
 #: ../fish/guestfish-actions.pod:953
 msgid "fallocate64"
@@ -21348,6 +21368,13 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../fish/guestfish-actions.pod:1300
+msgid ""
+"This function is deprecated.  In new code, use the L</vfs_label> call "
+"instead."
+msgstr ""
+
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1307
 msgid "get-e2uuid"
@@ -21359,6 +21386,13 @@ msgstr ""
 msgid ""
 " get-e2uuid device\n"
 "\n"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:1314
+msgid ""
+"This function is deprecated.  In new code, use the L</vfs_uuid> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -23174,6 +23208,13 @@ msgid ""
 "This call is similar to L</mkfs>, but it allows you to control the block "
 "size of the resulting filesystem.  Supported block sizes depend on the "
 "filesystem type, but typically they are C<1024>, C<2048> or C<4096> only."
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:2814
+msgid ""
+"This function is deprecated.  In new code, use the L</mkfs_opts> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -25565,6 +25606,11 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../fish/guestfish-actions.pod:4627
+msgid "This function is deprecated.  In new code, use the L</write> call instead."
+msgstr ""
+
 #. type: =head2
 #: ../fish/guestfish-actions.pod:4634
 msgid "zegrep"
@@ -25684,6 +25730,11 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4721
 msgid "Since 1.0.63, use L</file> instead which can now process compressed files."
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:4724
+msgid "This function is deprecated.  In new code, use the L</file> call instead."
 msgstr ""
 
 #. type: =head2
