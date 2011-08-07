@@ -21,6 +21,8 @@
 
 #include <guestfs.h>
 
+#include "fish-cmds.h"
+
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))
@@ -92,42 +94,12 @@ extern int complete_dest_paths;
 extern char *complete_dest_paths_generator (const char *text, int state);
 
 /* in alloc.c */
-extern int run_alloc (const char *cmd, size_t argc, char *argv[]);
-extern int run_sparse (const char *cmd, size_t argc, char *argv[]);
 extern int alloc_disk (const char *filename, const char *size,
                        int add, int sparse);
 extern int parse_size (const char *str, off_t *size_rtn);
 
-/* in copy.c */
-extern int run_copy_in (const char *cmd, size_t argc, char *argv[]);
-extern int run_copy_out (const char *cmd, size_t argc, char *argv[]);
-
-/* in display.c */
-extern int run_display (const char *cmd, size_t argc, char *argv[]);
-
-/* in echo.c */
-extern int run_echo (const char *cmd, size_t argc, char *argv[]);
-
-/* in edit.c */
-extern int run_edit (const char *cmd, size_t argc, char *argv[]);
-
 /* in help.c */
 extern void display_help (void);
-
-/* in hexedit.c */
-extern int run_hexedit (const char *cmd, size_t argc, char *argv[]);
-
-/* in lcd.c */
-extern int run_lcd (const char *cmd, size_t argc, char *argv[]);
-
-/* in glob.c */
-extern int run_glob (const char *cmd, size_t argc, char *argv[]);
-
-/* in man.c */
-extern int run_man (const char *cmd, size_t argc, char *argv[]);
-
-/* in more.c */
-extern int run_more (const char *cmd, size_t argc, char *argv[]);
 
 /* in prep.c */
 struct prep_data {
@@ -155,15 +127,6 @@ extern void progress_callback (guestfs_h *g, void *data, uint64_t event, int eve
 extern void rc_listen (void) __attribute__((noreturn));
 extern int rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
                       int exit_on_error);
-
-/* in reopen.c */
-extern int run_reopen (const char *cmd, size_t argc, char *argv[]);
-
-/* in supported.c */
-extern int run_supported (const char *cmd, size_t argc, char *argv[]);
-
-/* in time.c */
-extern int run_time (const char *cmd, size_t argc, char *argv[]);
 
 /* in tilde.c */
 extern char *try_tilde_expansion (char *path);

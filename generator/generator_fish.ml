@@ -56,11 +56,13 @@ let generate_fish_cmds () =
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
   pr "\n";
-  pr "#include <guestfs.h>\n";
   pr "#include \"c-ctype.h\"\n";
   pr "#include \"full-write.h\"\n";
   pr "#include \"xstrtol.h\"\n";
+  pr "\n";
+  pr "#include <guestfs.h>\n";
   pr "#include \"fish.h\"\n";
+  pr "#include \"fish-cmds.h\"\n";
   pr "#include \"options.h\"\n";
   pr "#include \"cmds_gperf.h\"\n";
   pr "\n";
@@ -618,6 +620,22 @@ Guestfish will prompt for these separately."
   pr "    return -1;\n";
   pr "  }\n";
   pr "}\n"
+
+and generate_fish_cmds_h () =
+  generate_header CStyle GPLv2plus;
+
+  pr "#ifndef FISH_CMDS_H\n";
+  pr "#define FISH_CMDS_H\n";
+  pr "\n";
+
+  List.iter (
+    fun (shortname, _, _, _, _, _, _) ->
+      pr "extern int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
+        shortname
+  ) fish_commands;
+
+  pr "\n";
+  pr "#endif /* FISH_CMDS_H */\n"
 
 (* gperf code to do fast lookups of commands. *)
 and generate_fish_cmds_gperf () =

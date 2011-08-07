@@ -84,6 +84,7 @@ fish/cmds.c
 fish/cmds_gperf.c
 fish/cmds_gperf.gperf
 fish/completion.c
+fish/fish-cmds.h
 fish/guestfish
 fish/guestfish.1
 fish/guestfish-actions.pod

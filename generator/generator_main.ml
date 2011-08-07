@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -98,6 +98,7 @@ Run it from the top source directory using the command
   output_to "fish/cmds_gperf.gperf" generate_fish_cmds_gperf;
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
+  output_to "fish/fish-cmds.h" generate_fish_cmds_h;
   output_to "fish/guestfish-commands.pod" generate_fish_commands_pod;
   output_to "fish/guestfish-actions.pod" generate_fish_actions_pod;
   output_to "fish/prepopts.c" generate_fish_prep_options_c;
