@@ -33,8 +33,7 @@ BUILT_SOURCES = \
 	errnostring.c \
 	errnostring.h
 
-EXTRA_DIST = $(BUILT_SOURCES) \
-	.gitignore
+EXTRA_DIST = $(BUILT_SOURCES)
 
 noinst_LIBRARIES = libprotocol.a
 
