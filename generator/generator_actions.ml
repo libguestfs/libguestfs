@@ -6295,6 +6295,17 @@ Close and reopen the libguestfs handle.  It is not necessary to use
 this normally, because the handle is closed properly when guestfish
 exits.  However this is occasionally useful for testing.");
 
+  ("setenv", (RErr,[], []), -1, [], [],
+   "set an environment variable",
+   "  setenv VAR value
+
+Set the environment variable C<VAR> to the string C<value>.
+
+To print the value of an environment variable use a shell command
+such as:
+
+ !echo $VAR");
+
   ("sparse", (RErr,[], []), -1, [], [],
    "create a sparse disk image and add",
    " sparse filename size
@@ -6328,5 +6339,11 @@ See also L<guestfs(3)/AVAILABILITY>.");
 
 Run the command as usual, but print the elapsed time afterwards.  This
 can be useful for benchmarking operations.");
+
+  ("unsetenv", (RErr,[], []), -1, [], [],
+   "unset an environment variable",
+   "  unsetenv VAR
+
+Remove C<VAR> from the environment.");
 
 ]

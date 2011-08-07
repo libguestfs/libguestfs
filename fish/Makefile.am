@@ -96,6 +96,7 @@ guestfish_SOURCES = \
 	rc.c \
 	reopen.c \
 	rmsd.h \
+	setenv.c \
 	supported.c \
 	tilde.c \
 	time.c

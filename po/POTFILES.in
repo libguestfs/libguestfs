@@ -111,6 +111,7 @@ fish/prepopts.c
 fish/progress.c
 fish/rc.c
 fish/reopen.c
+fish/setenv.c
 fish/supported.c
 fish/tilde.c
 fish/time.c
