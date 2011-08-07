@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-07-27 15:58+0100\n"
+"POT-Creation-Date: 2011-08-07 23:12+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.net/projects/p/"
@@ -2897,8 +2897,8 @@ msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
 #: src/inspect.c:539 src/inspect_fs.c:472 src/inspect_fs.c:516
-#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:577
-#: src/inspect_fs_unix.c:819
+#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
+#: src/inspect_fs_unix.c:826
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -2930,7 +2930,7 @@ msgstr ""
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect_fs_unix.c:611
+#: src/inspect_fs_unix.c:618
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 

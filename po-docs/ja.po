@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-07-26 16:21+0200\n"
+"POT-Creation-Date: 2011-08-07 23:14+0200\n"
 "PO-Revision-Date: 2011-07-17 20:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.net/projects/p/fedora/team/"
@@ -4099,10 +4099,9 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:28 ../fish/guestfish-actions.pod:163
-#: ../fish/guestfish-actions.pod:177 ../src/guestfs-actions.pod:32
-#: ../src/guestfs-actions.pod:254 ../src/guestfs-actions.pod:275
+#: ../fish/guestfish-actions.pod:177
 msgid ""
-"This function is deprecated.  In new code, use the C<add_drive_opts> call "
+"This function is deprecated.  In new code, use the L</add_drive_opts> call "
 "instead."
 msgstr ""
 
@@ -6238,9 +6237,9 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:983 ../src/guestfs-actions.pod:1510
+#: ../fish/guestfish-actions.pod:983
 msgid ""
-"This function is deprecated.  In new code, use the C<fallocate64> call "
+"This function is deprecated.  In new code, use the L</fallocate64> call "
 "instead."
 msgstr ""
 
@@ -6941,9 +6940,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:1343 ../src/guestfs-actions.pod:2005
+#: ../fish/guestfish-actions.pod:1343
 msgid ""
-"This function is deprecated.  In new code, use the C<vfs_label> call instead."
+"This function is deprecated.  In new code, use the L</vfs_label> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -6966,9 +6966,9 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:1357 ../src/guestfs-actions.pod:2026
+#: ../fish/guestfish-actions.pod:1357
 msgid ""
-"This function is deprecated.  In new code, use the C<vfs_uuid> call instead."
+"This function is deprecated.  In new code, use the L</vfs_uuid> call instead."
 msgstr ""
 
 #. type: =head2
@@ -10754,9 +10754,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:3082 ../src/guestfs-actions.pod:4625
+#: ../fish/guestfish-actions.pod:3082
 msgid ""
-"This function is deprecated.  In new code, use the C<mkfs_opts> call instead."
+"This function is deprecated.  In new code, use the L</mkfs_opts> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -11173,9 +11174,9 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:3289 ../src/guestfs-actions.pod:4944
+#: ../fish/guestfish-actions.pod:3289
 msgid ""
-"This function is deprecated.  In new code, use the C<mount_options> call "
+"This function is deprecated.  In new code, use the L</mount_options> call "
 "instead."
 msgstr ""
 
@@ -11442,9 +11443,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3403 ../fish/guestfish-actions.pod:3451
-#: ../src/guestfs-actions.pod:5162 ../src/guestfs-actions.pod:5252
 msgid ""
-"This function is deprecated.  In new code, use the C<ntfsresize_opts> call "
+"This function is deprecated.  In new code, use the L</ntfsresize_opts> call "
 "instead."
 msgstr ""
 
@@ -13536,10 +13536,9 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4352 ../fish/guestfish-actions.pod:4375
-#: ../fish/guestfish-actions.pod:4397 ../src/guestfs-actions.pod:6541
-#: ../src/guestfs-actions.pod:6571 ../src/guestfs-actions.pod:6604
+#: ../fish/guestfish-actions.pod:4397
 msgid ""
-"This function is deprecated.  In new code, use the C<part_add> call instead."
+"This function is deprecated.  In new code, use the L</part_add> call instead."
 msgstr ""
 
 #. type: =head2
@@ -13673,9 +13672,10 @@ msgid "See also: L</part-list>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:4435 ../src/guestfs-actions.pod:6663
+#: ../fish/guestfish-actions.pod:4435
 msgid ""
-"This function is deprecated.  In new code, use the C<part_list> call instead."
+"This function is deprecated.  In new code, use the L</part_list> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -15182,9 +15182,9 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5084 ../src/guestfs-actions.pod:7711
+#: ../fish/guestfish-actions.pod:5084
 msgid ""
-"This function is deprecated.  In new code, use the C<write> call instead."
+"This function is deprecated.  In new code, use the L</write> call instead."
 msgstr ""
 
 #. type: =head2
@@ -15378,9 +15378,9 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5182 ../src/guestfs-actions.pod:7881
+#: ../fish/guestfish-actions.pod:5182
 msgid ""
-"This function is deprecated.  In new code, use the C<file> call instead."
+"This function is deprecated.  In new code, use the L</file> call instead."
 msgstr ""
 
 #. type: =head2
@@ -21846,6 +21846,14 @@ msgid "This function returns 0 on success or -1 on error."
 msgstr ""
 
 #. type: textblock
+#: ../src/guestfs-actions.pod:32 ../src/guestfs-actions.pod:254
+#: ../src/guestfs-actions.pod:275
+msgid ""
+"This function is deprecated.  In new code, use the L</"
+"guestfs_add_drive_opts> call instead."
+msgstr ""
+
+#. type: textblock
 #: ../src/guestfs-actions.pod:39 ../src/guestfs-actions.pod:142
 #: ../src/guestfs-actions.pod:1165 ../src/guestfs-actions.pod:1980
 #: ../src/guestfs-actions.pod:2078 ../src/guestfs-actions.pod:2192
@@ -23612,6 +23620,13 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../src/guestfs-actions.pod:1510
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_fallocate64> "
+"call instead."
+msgstr ""
+
 #. type: =head2
 #: ../src/guestfs-actions.pod:1519
 msgid "guestfs_fallocate64"
@@ -24042,6 +24057,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
+#: ../src/guestfs-actions.pod:2005
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_vfs_label> "
+"call instead."
+msgstr ""
+
+#. type: textblock
 #: ../src/guestfs-actions.pod:2012 ../src/guestfs-actions.pod:2033
 #: ../src/guestfs-actions.pod:6258 ../src/guestfs-actions.pod:6277
 msgid "(Added in 1.0.15)"
@@ -24060,6 +24082,13 @@ msgid ""
 " guestfs_get_e2uuid (guestfs_h *g,\n"
 "                     const char *device);\n"
 "\n"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:2026
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_vfs_uuid> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -26699,6 +26728,13 @@ msgid ""
 "filesystem type, but typically they are C<1024>, C<2048> or C<4096> only."
 msgstr ""
 
+#. type: textblock
+#: ../src/guestfs-actions.pod:4625
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_mkfs_opts> "
+"call instead."
+msgstr ""
+
 #. type: =head2
 #: ../src/guestfs-actions.pod:4634
 msgid "guestfs_mkfs_opts"
@@ -27023,6 +27059,13 @@ msgid ""
 "(use an empty string for the first parameter if you don't want any options)."
 msgstr ""
 
+#. type: textblock
+#: ../src/guestfs-actions.pod:4944
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_mount_options> "
+"call instead."
+msgstr ""
+
 #. type: =head2
 #: ../src/guestfs-actions.pod:4953
 msgid "guestfs_mount_9p"
@@ -27278,6 +27321,13 @@ msgid ""
 " guestfs_ntfsresize (guestfs_h *g,\n"
 "                     const char *device);\n"
 "\n"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:5162 ../src/guestfs-actions.pod:5252
+msgid ""
+"This function is deprecated.  In new code, use the L</"
+"guestfs_ntfsresize_opts> call instead."
 msgstr ""
 
 #. type: =head2
@@ -28620,6 +28670,14 @@ msgid ""
 "See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>, C<guestfs_part_init>"
 msgstr ""
 
+#. type: textblock
+#: ../src/guestfs-actions.pod:6541 ../src/guestfs-actions.pod:6571
+#: ../src/guestfs-actions.pod:6604
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_part_add> call "
+"instead."
+msgstr ""
+
 #. type: =head2
 #: ../src/guestfs-actions.pod:6550
 msgid "guestfs_sfdiskM"
@@ -28741,6 +28799,13 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:6658
 msgid "See also: C<guestfs_part_list>"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:6663
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_part_list> "
+"call instead."
 msgstr ""
 
 #. type: =head2
@@ -29747,7 +29812,8 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:7599
 msgid ""
-"This function is deprecated.  In new code, use the C<launch> call instead."
+"This function is deprecated.  In new code, use the L</guestfs_launch> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -29854,6 +29920,13 @@ msgid ""
 "                     const char *content,\n"
 "                     int size);\n"
 "\n"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:7711
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_write> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -30005,6 +30078,13 @@ msgstr ""
 msgid ""
 "Since 1.0.63, use C<guestfs_file> instead which can now process compressed "
 "files."
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:7881
+msgid ""
+"This function is deprecated.  In new code, use the L</guestfs_file> call "
+"instead."
 msgstr ""
 
 #. type: =head2
@@ -33474,8 +33554,8 @@ msgstr ""
 #, no-wrap
 msgid ""
 " typedef void (*guestfs_abort_cb) (void);\n"
-" int guestfs_set_out_of_memory_handler (guestfs_h *g,\n"
-"                                        guestfs_abort_cb);\n"
+" void guestfs_set_out_of_memory_handler (guestfs_h *g,\n"
+"                                         guestfs_abort_cb);\n"
 "\n"
 msgstr ""
 
