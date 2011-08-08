@@ -33,6 +33,10 @@
 run=$(readlink -f "$0")
 b=$(dirname "$run")
 
+# Set TMPDIR so the appliance doesn't conflict with globally
+# installed libguestfs.
+export TMPDIR=$b
+
 # Set local environment relative to this script.
 export LD_LIBRARY_PATH="$b/src/.libs"
 export LIBGUESTFS_PATH="$b/appliance"

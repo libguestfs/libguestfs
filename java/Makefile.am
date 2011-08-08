@@ -106,7 +106,8 @@ TESTS = run-bindtests run-java-tests
 TESTS_ENVIRONMENT = \
 	JAVA=$(JAVA) \
 	CLASSPATH=.:t:libguestfs-$(VERSION).jar \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	TMPDIR=$(top_builddir)
 
 noinst_DATA = Bindtests.class $(java_tests:.java=.class)
 

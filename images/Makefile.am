@@ -173,8 +173,9 @@ $(builddir)/test-grep.txt.gz: test-grep.txt
 fedora.img: guest-aux/make-fedora-img.sh \
 		guest-aux/fedora-name.db \
 		guest-aux/fedora-packages.db
-	LIBGUESTFS_PATH=../appliance \
-	LD_LIBRARY_PATH=../src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	TMPDIR=$(top_builddir) \
 	bash $<
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
@@ -189,21 +190,24 @@ guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
 
 # Make a (dummy) Debian image.
 debian.img: guest-aux/make-debian-img.sh
-	LIBGUESTFS_PATH=../appliance \
-	LD_LIBRARY_PATH=../src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	TMPDIR=$(top_builddir) \
 	bash $<
 
 # Make a (dummy) Ubuntu image.
 ubuntu.img: guest-aux/make-ubuntu-img.sh
-	LIBGUESTFS_PATH=../appliance \
-	LD_LIBRARY_PATH=../src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	TMPDIR=$(top_builddir) \
 	bash $<
 
 # Make a (dummy) Windows image.
 windows.img: guest-aux/make-windows-img.sh \
 	     guest-aux/windows-software guest-aux/windows-system
-	LIBGUESTFS_PATH=../appliance \
-	LD_LIBRARY_PATH=../src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	TMPDIR=$(top_builddir) \
 	bash $<
 
 # Since users might not have the tools needed to create this, we
