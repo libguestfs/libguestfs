@@ -304,3 +304,4 @@ tools/virt-*.pl
 /build-aux
 /gnulib
 .git-module-status
+.guestfs-*

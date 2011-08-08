@@ -30,6 +30,7 @@ if HAVE_HASKELL
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	TMPDIR=$(top_builddir) \
 	$(VG)
 
 TESTS = run-bindtests Guestfs005Load Guestfs010Basic

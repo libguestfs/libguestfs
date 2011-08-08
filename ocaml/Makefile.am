@@ -59,6 +59,7 @@ guestfs_c_actions.o: guestfs_c_actions.c
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	TMPDIR=$(top_builddir) \
 	$(VG)
 
 TESTS = run-bindtests \
