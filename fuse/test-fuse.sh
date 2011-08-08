@@ -31,6 +31,10 @@ nr_stages=$(grep "^stage " $0 | wc -l)
 # and move to that directory for the initial phase of the script.
 top_builddir=$(cd "$top_builddir" > /dev/null; pwd)
 
+# Set TMPDIR so the appliance doesn't conflict with globally
+# installed libguestfs.
+export TMPDIR=$top_builddir
+
 # Set libguestfs up for running locally.
 export LIBGUESTFS_PATH="$top_builddir/appliance"
 
