@@ -87,8 +87,6 @@ static int check_filesystem (guestfs_h *g, const char *device, int is_block, int
 static void check_package_format (guestfs_h *g, struct inspect_fs *fs);
 static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
 static int extend_fses (guestfs_h *g);
-static int is_file_nocase (guestfs_h *g, const char *);
-static int is_dir_nocase (guestfs_h *g, const char *);
 
 /* Find out if 'device' contains a filesystem.  If it does, add
  * another entry in g->fses.
@@ -214,18 +212,8 @@ check_filesystem (guestfs_h *g, const char *device,
            guestfs_is_dir (g, "/run") > 0 &&
            guestfs_is_dir (g, "/spool") > 0)
     fs->content = FS_CONTENT_LINUX_VAR;
-  /* Windows root?
-   * Note that if a Windows guest has multiple disks and applications
-   * are installed on those other disks, then those other disks will
-   * contain "/Program Files" and "/System Volume Information".  Those
-   * would *not* be Windows root disks.  (RHBZ#674130)
-   */
-  else if (is_file_nocase (g, "/AUTOEXEC.BAT") > 0 ||
-           is_dir_nocase (g, "/WINDOWS/SYSTEM32") > 0 ||
-           is_dir_nocase (g, "/WIN32/SYSTEM32") > 0 ||
-           is_dir_nocase (g, "/WINNT/SYSTEM32") > 0 ||
-           is_file_nocase (g, "/boot.ini") > 0 ||
-           is_file_nocase (g, "/ntldr") > 0) {
+  /* Windows root? */
+  else if (guestfs___has_windows_systemroot (g) >= 0) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_WINDOWS_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
@@ -233,11 +221,11 @@ check_filesystem (guestfs_h *g, const char *device,
       return -1;
   }
   /* Windows volume with installed applications (but not root)? */
-  else if (is_dir_nocase (g, "/System Volume Information") > 0 &&
-           is_dir_nocase (g, "/Program Files") > 0)
+  else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0 &&
+           guestfs___is_dir_nocase (g, "/Program Files") > 0)
     fs->content = FS_CONTENT_WINDOWS_VOLUME_WITH_APPS;
   /* Windows volume (but not root)? */
-  else if (is_dir_nocase (g, "/System Volume Information") > 0)
+  else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0)
     fs->content = FS_CONTENT_WINDOWS_VOLUME;
   /* Install CD/disk?  Skip these checks if it's not a whole device
    * (eg. CD) or the first partition (eg. bootable USB key).
@@ -286,8 +274,8 @@ extend_fses (guestfs_h *g)
   return 0;
 }
 
-static int
-is_file_nocase (guestfs_h *g, const char *path)
+int
+guestfs___is_file_nocase (guestfs_h *g, const char *path)
 {
   char *p;
   int r;
@@ -300,8 +288,8 @@ is_file_nocase (guestfs_h *g, const char *path)
   return r > 0;
 }
 
-static int
-is_dir_nocase (guestfs_h *g, const char *path)
+int
+guestfs___is_dir_nocase (guestfs_h *g, const char *path)
 {
   char *p;
   int r;
