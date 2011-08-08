@@ -357,6 +357,8 @@ extern void guestfs___rollback_cmdline (guestfs_h *g, size_t pos);
 extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
 extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
+extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
+extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
 #if defined(HAVE_HIVEX)
 extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, int64_t max_size);
@@ -372,6 +374,7 @@ extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opa
 extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___has_windows_systemroot (guestfs_h *g);
 extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 #endif
 

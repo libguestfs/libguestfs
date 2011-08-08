@@ -89,23 +89,77 @@ static char *map_registry_disk_blob (guestfs_h *g, const char *blob);
  * essentially didn't do anything for modern Windows guests.
  * Therefore I've omitted all that code.
  */
+
+/* Try to find Windows systemroot using some common locations.
+ *
+ * Notes:
+ *
+ * (1) We check for some directories inside to see if it is a real
+ * systemroot, and not just a directory that happens to have the same
+ * name.
+ *
+ * (2) If a Windows guest has multiple disks and applications are
+ * installed on those other disks, then those other disks will contain
+ * "/Program Files" and "/System Volume Information".  Those would
+ * *not* be Windows root disks.  (RHBZ#674130)
+ */
+static const char *systemroots[] =
+  { "/windows", "/winnt", "/win32", "/win", NULL };
+
+int
+guestfs___has_windows_systemroot (guestfs_h *g)
+{
+  size_t i;
+  char *systemroot, *p;
+  char path[256];
+
+  for (i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
+    systemroot = guestfs___case_sensitive_path_silently (g, systemroots[i]);
+    if (!systemroot)
+      continue;
+
+    snprintf (path, sizeof path, "%s/system32", systemroot);
+    if (!guestfs___is_dir_nocase (g, path)) {
+      free (systemroot);
+      continue;
+    }
+
+    snprintf (path, sizeof path, "%s/system32/config", systemroot);
+    if (!guestfs___is_dir_nocase (g, path)) {
+      free (systemroot);
+      continue;
+    }
+
+    snprintf (path, sizeof path, "%s/system32/cmd.exe", systemroot);
+    if (!guestfs___is_file_nocase (g, path)) {
+      free (systemroot);
+      continue;
+    }
+
+    free (systemroot);
+
+    return (int)i;
+  }
+
+  return -1; /* not found */
+}
+
 int
 guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs)
 {
+  int i;
+  char *systemroot;
+
   fs->type = OS_TYPE_WINDOWS;
   fs->distro = OS_DISTRO_WINDOWS;
 
-  /* Try to find Windows systemroot using some common locations. */
-  const char *systemroots[] =
-    { "/windows", "/winnt", "/win32", "/win" };
-  size_t i;
-  char *systemroot = NULL;
-  for (i = 0;
-       systemroot == NULL && i < sizeof systemroots / sizeof systemroots[0];
-       ++i) {
-    systemroot = guestfs___case_sensitive_path_silently (g, systemroots[i]);
+  i = guestfs___has_windows_systemroot (g);
+  if (i == -1) {
+    error (g, "check_windows_root: has_windows_systemroot unexpectedly returned -1");
+    return -1;
   }
 
+  systemroot = guestfs___case_sensitive_path_silently (g, systemroots[i]);
   if (!systemroot) {
     error (g, _("cannot resolve Windows %%SYSTEMROOT%%"));
     return -1;
