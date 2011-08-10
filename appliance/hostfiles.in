@@ -10,4 +10,5 @@ dnl   DEBIAN=1     For Debian.
 dnl   UBUNTU=1     For Ubuntu.
 dnl   ARCHLINUX=1  For Archlinux.
 
+/lib/lsb/*
 /usr/share/augeas/lenses/*.aug
