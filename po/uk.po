@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-07 23:08+0100\n"
+"POT-Creation-Date: 2011-08-11 22:04+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2904,66 +2904,56 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:901
-#, perl-brace-format
-msgid "unknown filesystem label {label}\n"
-msgstr "невідома мітка файлової системи {label}\n"
-
-#: perl/lib/Sys/Guestfs/Lib.pm:911
-#, perl-brace-format
-msgid "unknown filesystem UUID {uuid}\n"
-msgstr "невідома файлова система UUID {uuid}\n"
-
-#: perl/lib/Sys/Guestfs/Lib.pm:939
+#: perl/lib/Sys/Guestfs/Lib.pm:945
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "невідома файлова система {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1017
+#: perl/lib/Sys/Guestfs/Lib.pm:1023
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "Помилка під час запуску rpm -qa: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1043
+#: perl/lib/Sys/Guestfs/Lib.pm:1049
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "Помилка під час запуску dpkg-query: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1108
+#: perl/lib/Sys/Guestfs/Lib.pm:1114
 msgid "Can't find grub on guest"
 msgstr "Не вдалося знайти grub у гостьовій системі"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1163
+#: perl/lib/Sys/Guestfs/Lib.pm:1169
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "На запису grub {title} немає ядра"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1194
+#: perl/lib/Sys/Guestfs/Lib.pm:1200
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "grub посилається на каталог {path}, якого не існує\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1217
+#: perl/lib/Sys/Guestfs/Lib.pm:1223
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "У записі grub {title} не визначено initrd"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1286
+#: perl/lib/Sys/Guestfs/Lib.pm:1292
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "Не вдалося знайти каталог модулів {modules} для ядра {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1294
+#: perl/lib/Sys/Guestfs/Lib.pm:1300
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "Не вдалося визначити номер версії ядра за шляхом до ядра {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1348
+#: perl/lib/Sys/Guestfs/Lib.pm:1354
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} не відповідає шаблону augeas"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1387
+#: perl/lib/Sys/Guestfs/Lib.pm:1393
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: не вдалося прочитати формат initrd"
@@ -3095,7 +3085,7 @@ msgstr "не є гостьовою системою Windows або не вдал
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:472 src/inspect_fs.c:516
+#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
 #: src/inspect_fs_unix.c:826
 #, c-format
@@ -3125,12 +3115,12 @@ msgstr ""
 "програмний інтерфейс вивчення (inspection) недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки PCRE або hivex"
 
-#: src/inspect_fs.c:324 src/inspect_fs.c:337
+#: src/inspect_fs.c:312 src/inspect_fs.c:325
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect_fs.c:481
+#: src/inspect_fs.c:469
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: файл порожній"
@@ -3139,7 +3129,7 @@ msgstr "%s: файл порожній"
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
-#: src/inspect_fs_windows.c:110
+#: src/inspect_fs_windows.c:164
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
@@ -3631,3 +3621,9 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "unknown filesystem label {label}\n"
+#~ msgstr "невідома мітка файлової системи {label}\n"
+
+#~ msgid "unknown filesystem UUID {uuid}\n"
+#~ msgstr "невідома файлова система UUID {uuid}\n"

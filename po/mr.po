@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-07 23:08+0100\n"
+"POT-Creation-Date: 2011-08-11 22:04+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -2823,66 +2823,56 @@ msgstr ""
 "ही त्रुटी आहे असे आढळल्यास, \n"
 "कृपया डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्ट करून बग अहवाल सादर करा.\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:901
-#, perl-brace-format
-msgid "unknown filesystem label {label}\n"
-msgstr "अपरिचीत फाइलसिस्टम लेबल {label}\n"
-
-#: perl/lib/Sys/Guestfs/Lib.pm:911
-#, perl-brace-format
-msgid "unknown filesystem UUID {uuid}\n"
-msgstr "अपरिचीत फाइलप्रणाली UUID {uuid}\n"
-
-#: perl/lib/Sys/Guestfs/Lib.pm:939
+#: perl/lib/Sys/Guestfs/Lib.pm:945
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "अपरिचीत फाइलप्रणाली {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1017
+#: perl/lib/Sys/Guestfs/Lib.pm:1023
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "rpm -qa चालवतेवेळी त्रुटी: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1043
+#: perl/lib/Sys/Guestfs/Lib.pm:1049
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "dpkg-query चालवतेवेळी त्रुटी: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1108
+#: perl/lib/Sys/Guestfs/Lib.pm:1114
 msgid "Can't find grub on guest"
 msgstr "अतिथीवर ग्रब आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1163
+#: perl/lib/Sys/Guestfs/Lib.pm:1169
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "ग्रब नोंदणी {title} मध्ये कर्नल आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1194
+#: perl/lib/Sys/Guestfs/Lib.pm:1200
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "ग्रब {path} करीता निर्देशीत आहे, जे अस्तित्वात नाही\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1217
+#: perl/lib/Sys/Guestfs/Lib.pm:1223
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "ग्रब नोंदणी {title} initrd निर्देशीत करत नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1286
+#: perl/lib/Sys/Guestfs/Lib.pm:1292
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "कर्नल {path} करीता मॉड्यूल्स् डिरेक्ट्री {modules} आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1294
+#: perl/lib/Sys/Guestfs/Lib.pm:1300
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "कर्नल {path} करीता मार्ग पासून कर्नल आवृत्ती क्रमांक तर्कणे अशक्य"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1348
+#: perl/lib/Sys/Guestfs/Lib.pm:1354
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} augeas नमुनाशी जुळत नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1387
+#: perl/lib/Sys/Guestfs/Lib.pm:1393
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: initrd स्वरूप वाचणे अशक्य"
@@ -3009,7 +2999,7 @@ msgstr "विंडोज अतिथी नाही, किंवा systemr
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:472 src/inspect_fs.c:516
+#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
 #: src/inspect_fs_unix.c:826
 #, c-format
@@ -3038,12 +3028,12 @@ msgstr ""
 "libguestfs ची ही आवृत्ती PCRE किंवा hivex लाइब्ररिज् विना कंपाईल केल्यामुळे इंस्पेकशन API "
 "अनुपलब्ध"
 
-#: src/inspect_fs.c:324 src/inspect_fs.c:337
+#: src/inspect_fs.c:312 src/inspect_fs.c:325
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
 
-#: src/inspect_fs.c:481
+#: src/inspect_fs.c:469
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: फाइल रिकामे नाही"
@@ -3052,7 +3042,7 @@ msgstr "%s: फाइल रिकामे नाही"
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
-#: src/inspect_fs_windows.c:110
+#: src/inspect_fs_windows.c:164
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "विंडोज %%SYSTEMROOT%% निश्चित करणे अशक्य"
@@ -3517,3 +3507,9 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
+
+#~ msgid "unknown filesystem label {label}\n"
+#~ msgstr "अपरिचीत फाइलसिस्टम लेबल {label}\n"
+
+#~ msgid "unknown filesystem UUID {uuid}\n"
+#~ msgstr "अपरिचीत फाइलप्रणाली UUID {uuid}\n"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-07 23:08+0100\n"
+"POT-Creation-Date: 2011-08-11 22:04+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.net/projects/p/"
@@ -2738,66 +2738,56 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:901
-#, perl-brace-format
-msgid "unknown filesystem label {label}\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:911
-#, perl-brace-format
-msgid "unknown filesystem UUID {uuid}\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:939
+#: perl/lib/Sys/Guestfs/Lib.pm:945
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1017
+#: perl/lib/Sys/Guestfs/Lib.pm:1023
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1043
+#: perl/lib/Sys/Guestfs/Lib.pm:1049
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1108
+#: perl/lib/Sys/Guestfs/Lib.pm:1114
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1163
+#: perl/lib/Sys/Guestfs/Lib.pm:1169
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1194
+#: perl/lib/Sys/Guestfs/Lib.pm:1200
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1217
+#: perl/lib/Sys/Guestfs/Lib.pm:1223
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1286
+#: perl/lib/Sys/Guestfs/Lib.pm:1292
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1294
+#: perl/lib/Sys/Guestfs/Lib.pm:1300
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1348
+#: perl/lib/Sys/Guestfs/Lib.pm:1354
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1387
+#: perl/lib/Sys/Guestfs/Lib.pm:1393
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -2919,7 +2909,7 @@ msgstr ""
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:472 src/inspect_fs.c:516
+#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
 #: src/inspect_fs_unix.c:826
 #, c-format
@@ -2943,12 +2933,12 @@ msgid ""
 "without the hivex library"
 msgstr ""
 
-#: src/inspect_fs.c:324 src/inspect_fs.c:337
+#: src/inspect_fs.c:312 src/inspect_fs.c:325
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect_fs.c:481
+#: src/inspect_fs.c:469
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
@@ -2957,7 +2947,7 @@ msgstr ""
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
-#: src/inspect_fs_windows.c:110
+#: src/inspect_fs_windows.c:164
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
