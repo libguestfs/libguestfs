@@ -892,23 +892,29 @@ sub _find_filesystem
 
     if (/^LABEL=(.*)/) {
         my $label = $1;
-        foreach (sort keys %$fses) {
-            if (exists $fses->{$_}->{label} &&
-                $fses->{$_}->{label} eq $label) {
-                return ($_, $fses->{$_});
-            }
-        }
-        warn __x("unknown filesystem label {label}\n", label => $label);
+        my $dev;
+        eval {
+            $dev = $g->findfs_label ($label);
+        };
+        warn "unknown filesystem LABEL=$label in /etc/fstab: $@\n" if $@;
+        return () if !defined $dev;
+        $dev = _canonical_dev ($dev);
+        return ($dev, $fses->{$dev}) if exists $fses->{$dev};
+        # Otherwise return nothing.  It's just a filesystem that we are
+        # ignoring, eg. swap.
         return ();
     } elsif (/^UUID=(.*)/) {
         my $uuid = $1;
-        foreach (sort keys %$fses) {
-            if (exists $fses->{$_}->{uuid} &&
-                $fses->{$_}->{uuid} eq $uuid) {
-                return ($_, $fses->{$_});
-            }
-        }
-        warn __x("unknown filesystem UUID {uuid}\n", uuid => $uuid);
+        my $dev;
+        eval {
+            $dev = $g->findfs_uuid ($uuid);
+        };
+        warn "unknown filesystem UUID=$uuid in /etc/fstab: $@\n" if $@;
+        return () if !defined $dev;
+        $dev = _canonical_dev ($dev);
+        return ($dev, $fses->{$dev}) if exists $fses->{$dev};
+        # Otherwise return nothing.  It's just a filesystem that we are
+        # ignoring, eg. swap.
         return ();
     } else {
         return ($_, $fses->{$_}) if exists $fses->{$_};
