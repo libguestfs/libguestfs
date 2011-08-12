@@ -1821,7 +1821,12 @@ do not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.
 
 =item C<AUG_TYPE_CHECK> = 4
 
-Typecheck lenses (can be expensive).
+Typecheck lenses.
+
+This option is only useful when debugging Augeas lenses.  Use
+of this option may require additional memory for the libguestfs
+appliance.  You may need to set the C<LIBGUESTFS_MEMSIZE>
+environment variable or call C<guestfs_set_memsize>.
 
 =item C<AUG_NO_STDINC> = 8
 
