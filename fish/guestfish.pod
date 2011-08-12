@@ -973,6 +973,17 @@ user ID of the process, and C<$PID> is the process ID of the server.
 
 Guestfish client and server versions must match exactly.
 
+=head2 REMOTE CONTROL RUN COMMAND HANGING
+
+Using the C<run> (or C<launch>) command remotely in a command
+substitution context hangs, ie. don't do (note the backquotes):
+
+ a=`guestfish --remote run`
+
+Since the C<run> command produces no output on stdout, this is not
+useful anyway.  For further information see
+L<https://bugzilla.redhat.com/show_bug.cgi?id=592910>.
+
 =head1 PREPARED DISK IMAGES
 
 Use the I<-N type> or I<--new type> parameter to select one of a set
