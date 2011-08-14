@@ -69,6 +69,7 @@ supermin.d/daemon.img: ../daemon/guestfsd
 	mv $@-t $@
 
 supermin.d/init.img: init
+	cmp -s $(srcdir)/init $(builddir)/init || cp $(srcdir)/init $(builddir)/init
 	mkdir -p supermin.d
 	rm -f $@ $@-t
 	echo "init" | cpio --quiet -o -H newc > $@-t
