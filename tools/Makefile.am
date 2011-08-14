@@ -44,12 +44,12 @@ man_MANS = virt-tar.1 $(patsubst %,virt-%.1,$(filter-out tar,$(tools)))
 noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
 
 virt-%.1: virt-%
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --man $@ \
 	  $<
 
 $(top_builddir)/html/virt-%.1.html: virt-%
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --html $@ \
 	  $<
 

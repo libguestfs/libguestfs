@@ -29,11 +29,11 @@ noinst_DATA = $(top_builddir)/html/guestfs-python.3.html
 guestfs-python.3 $(top_builddir)/html/guestfs-python.3.html: stamp-guestfs-python.pod
 
 stamp-guestfs-python.pod: guestfs-python.pod create_disk.py inspect_vm.py
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man guestfs-python.3 \
 	  --html $(top_builddir)/html/guestfs-python.3.html \
-	  --verbatim create_disk.py:@EXAMPLE1@ \
-	  --verbatim inspect_vm.py:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/create_disk.py:@EXAMPLE1@ \
+	  --verbatim $(srcdir)/inspect_vm.py:@EXAMPLE2@ \
 	  $<
 	touch $@

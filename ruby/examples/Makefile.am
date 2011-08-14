@@ -29,11 +29,11 @@ noinst_DATA = $(top_builddir)/html/guestfs-ruby.3.html
 guestfs-ruby.3 $(top_builddir)/html/guestfs-ruby.3.html: stamp-guestfs-ruby.pod
 
 stamp-guestfs-ruby.pod: guestfs-ruby.pod create_disk.rb inspect_vm.rb
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man guestfs-ruby.3 \
 	  --html $(top_builddir)/html/guestfs-ruby.3.html \
-	  --verbatim create_disk.rb:@EXAMPLE1@ \
-	  --verbatim inspect_vm.rb:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/create_disk.rb:@EXAMPLE1@ \
+	  --verbatim $(srcdir)/inspect_vm.rb:@EXAMPLE2@ \
 	  $<
 	touch $@

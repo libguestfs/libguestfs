@@ -52,26 +52,26 @@ EXTRA_DIST = \
 all-local: $(MANPAGES)
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man $@ \
-	  --insert guestfs-actions.pod:@ACTIONS@ \
-	  --insert guestfs-availability.pod:@AVAILABILITY@ \
-	  --insert guestfs-structs.pod:@STRUCTS@ \
+	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
+	  --insert $(srcdir)/guestfs-availability.pod:@AVAILABILITY@ \
+	  --insert $(srcdir)/guestfs-structs.pod:@STRUCTS@ \
 	  $<
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --man $@ \
-	  --insert guestfish-actions.pod:@ACTIONS@ \
-	  --insert guestfish-commands.pod:@FISH_COMMANDS@ \
+	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
+	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
 	  $<
 
 %.1: %.pod
-	$(top_srcdir)/podwrapper.sh --man $@ $<
+	$(top_builddir)/podwrapper.sh --man $@ $<
 
 %.1: %.pl
-	$(top_srcdir)/podwrapper.sh --man $@ $<
+	$(top_builddir)/podwrapper.sh --man $@ $<
 
 # XXX Can automake do this properly?
 install-data-hook:

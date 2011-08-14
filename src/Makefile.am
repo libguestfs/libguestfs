@@ -184,12 +184,12 @@ stamp-guestfs.pod: guestfs.pod \
 		guestfs-actions.pod \
 		guestfs-availability.pod \
 		guestfs-structs.pod
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man guestfs.3 \
 	  --html $(top_builddir)/html/guestfs.3.html \
-	  --insert guestfs-actions.pod:@ACTIONS@ \
-	  --insert guestfs-availability.pod:@AVAILABILITY@ \
-	  --insert guestfs-structs.pod:@STRUCTS@ \
+	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
+	  --insert $(srcdir)/guestfs-availability.pod:@AVAILABILITY@ \
+	  --insert $(srcdir)/guestfs-structs.pod:@STRUCTS@ \
 	  $<
 	touch $@

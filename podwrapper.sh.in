@@ -180,6 +180,7 @@ if [ -n "$text_output" ]; then
 fi
 
 if [ -n "$html_output" ]; then
+    mkdir -p "$abs_top_builddir/html"
     "$POD2HTML" \
         --css "pod.css" --htmldir "$abs_top_builddir/html" \
         < $tmpdir/full.pod > "$html_output".tmp

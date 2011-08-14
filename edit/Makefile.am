@@ -58,7 +58,7 @@ noinst_DATA = $(top_builddir)/html/virt-edit.1.html
 virt-edit.1 $(top_builddir)/html/virt-edit.1.html: stamp-virt-edit.pod
 
 stamp-virt-edit.pod: virt-edit.pod
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --man virt-edit.1 \
 	  --html $(top_builddir)/html/virt-edit.1.html \
 	  $<

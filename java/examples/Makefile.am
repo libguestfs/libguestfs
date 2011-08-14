@@ -31,12 +31,12 @@ noinst_DATA = $(top_builddir)/html/guestfs-java.3.html
 guestfs-java.3 $(top_builddir)/html/guestfs-java.3.html: stamp-guestfs-java.pod
 
 stamp-guestfs-java.pod: guestfs-java.pod CreateDisk.java InspectVM.java
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man guestfs-java.3 \
 	  --html $(top_builddir)/html/guestfs-java.3.html \
-	  --verbatim CreateDisk.java:@EXAMPLE1@ \
-	  --verbatim InspectVM.java:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/CreateDisk.java:@EXAMPLE1@ \
+	  --verbatim $(srcdir)/InspectVM.java:@EXAMPLE2@ \
 	  $<
 	touch $@
 
