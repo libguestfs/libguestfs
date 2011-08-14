@@ -62,14 +62,14 @@ noinst_PROGRAM = generator
 
 if HAVE_OCAML
 
-generator: $(OBJECTS)
-	$(OCAMLC) -o generator $(OCAMLCFLAGS) $(OCAMLCLIBS) $(OBJECTS)
+$(srcdir)/generator: $(OBJECTS)
+	$(OCAMLC) -I $(srcdir) -o $@ $(OCAMLCFLAGS) $(OCAMLCLIBS) $(OBJECTS)
 
 .ml.cmo:
-	$(OCAMLC) $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLC) -I $(srcdir) $(OCAMLCFLAGS) -c $< -o $@
 
 .mli.cmi:
-	$(OCAMLC) $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLC) -I $(srcdir) $(OCAMLCFLAGS) -c $< -o $@
 
 depend: .depend
 
