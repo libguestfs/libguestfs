@@ -31,12 +31,12 @@ noinst_DATA = $(top_builddir)/html/guestfs-ocaml.3.html
 guestfs-ocaml.3 $(top_builddir)/html/guestfs-ocaml.3.html: stamp-guestfs-ocaml.pod
 
 stamp-guestfs-ocaml.pod: guestfs-ocaml.pod create_disk.ml inspect_vm.ml
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man guestfs-ocaml.3 \
 	  --html $(top_builddir)/html/guestfs-ocaml.3.html \
-	  --verbatim create_disk.ml:@EXAMPLE1@ \
-	  --verbatim inspect_vm.ml:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/create_disk.ml:@EXAMPLE1@ \
+	  --verbatim $(srcdir)/inspect_vm.ml:@EXAMPLE2@ \
 	  $<
 	touch $@
 

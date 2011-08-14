@@ -29,11 +29,11 @@ noinst_DATA = $(top_builddir)/html/guestfs-perl.3.html
 guestfs-perl.3 $(top_builddir)/html/guestfs-perl.3.html: stamp-guestfs-perl.pod
 
 stamp-guestfs-perl.pod: guestfs-perl.pod create_disk.pl inspect_vm.pl
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --section 3 \
 	  --man guestfs-perl.3 \
 	  --html $(top_builddir)/html/guestfs-perl.3.html \
-	  --verbatim create_disk.pl:@EXAMPLE1@ \
-	  --verbatim inspect_vm.pl:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/create_disk.pl:@EXAMPLE1@ \
+	  --verbatim $(srcdir)/inspect_vm.pl:@EXAMPLE2@ \
 	  $<
 	touch $@

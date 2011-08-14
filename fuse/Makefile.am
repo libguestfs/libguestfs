@@ -66,7 +66,7 @@ noinst_DATA = $(top_builddir)/html/guestmount.1.html
 guestmount.1 $(top_builddir)/html/guestmount.1.html: stamp-guestmount.pod
 
 stamp-guestmount.pod: guestmount.pod
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --man guestmount.1 \
 	  --html $(top_builddir)/html/guestmount.1.html \
 	  $<

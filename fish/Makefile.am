@@ -170,7 +170,7 @@ noinst_DATA = \
 guestfish.1 $(top_builddir)/html/guestfish.1.html: stamp-guestfish.pod
 
 stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
-	$(top_srcdir)/podwrapper.sh \
+	$(top_builddir)/podwrapper.sh \
 	  --man guestfish.1 \
 	  --html $(top_builddir)/html/guestfish.1.html \
 	  --insert guestfish-actions.pod:@ACTIONS@ \
@@ -180,8 +180,8 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 
 virt-copy-in.1 $(top_builddir)/html/virt-copy-in.1.html: stamp-virt-copy-in.pod
 
-stamp-virt-copy-in.pod: virt-copy-in.pod
-	$(top_srcdir)/podwrapper.sh \
+stamp-virt-copy-in.pod: $(srcdir)/virt-copy-in.pod
+	$(top_builddir)/podwrapper.sh \
 	  --man virt-copy-in.1 \
 	  --html $(top_builddir)/html/virt-copy-in.1.html \
 	  $<
@@ -189,8 +189,8 @@ stamp-virt-copy-in.pod: virt-copy-in.pod
 
 virt-copy-out.1 $(top_builddir)/html/virt-copy-out.1.html: stamp-virt-copy-out.pod
 
-stamp-virt-copy-out.pod: virt-copy-out.pod
-	$(top_srcdir)/podwrapper.sh \
+stamp-virt-copy-out.pod: $(srcdir)/virt-copy-out.pod
+	$(top_builddir)/podwrapper.sh \
 	  --man virt-copy-out.1 \
 	  --html $(top_builddir)/html/virt-copy-out.1.html \
 	  $<
@@ -198,8 +198,8 @@ stamp-virt-copy-out.pod: virt-copy-out.pod
 
 virt-tar-in.1 $(top_builddir)/html/virt-tar-in.1.html: stamp-virt-tar-in.pod
 
-stamp-virt-tar-in.pod: virt-tar-in.pod
-	$(top_srcdir)/podwrapper.sh \
+stamp-virt-tar-in.pod: $(srcdir)/virt-tar-in.pod
+	$(top_builddir)/podwrapper.sh \
 	  --man virt-tar-in.1 \
 	  --html $(top_builddir)/html/virt-tar-in.1.html \
 	  $<
@@ -207,8 +207,8 @@ stamp-virt-tar-in.pod: virt-tar-in.pod
 
 virt-tar-out.1 $(top_builddir)/html/virt-tar-out.1.html: stamp-virt-tar-out.pod
 
-stamp-virt-tar-out.pod: virt-tar-out.pod
-	$(top_srcdir)/podwrapper.sh \
+stamp-virt-tar-out.pod: $(srcdir)/virt-tar-out.pod
+	$(top_builddir)/podwrapper.sh \
 	  --man virt-tar-out.1 \
 	  --html $(top_builddir)/html/virt-tar-out.1.html \
 	  $<
