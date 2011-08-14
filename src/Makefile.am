@@ -113,7 +113,7 @@ errnostring_gperf.c: errnostring_gperf.gperf
 # 'libguestfs.so.0.$(MAX_PROC_NR).0'.
 libguestfs_la_LDFLAGS = -version-info $(MAX_PROC_NR):0:$(MAX_PROC_NR)
 
-libguestfs_la_LDFLAGS += $(VERSION_SCRIPT_FLAGS)libguestfs.syms
+libguestfs_la_LDFLAGS += $(VERSION_SCRIPT_FLAGS)$(srcdir)/libguestfs.syms
 
 libguestfs_la_SOURCES = \
 	guestfs.c \
@@ -170,14 +170,14 @@ libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
 	rm -f $@-t $@-t2
-	$(RPCGEN) -c -o $@-t $<
+	$(RPCGEN) -c -o $@-t $(srcdir)/$<
 	sed 's,\.\./\.\./src/,,' < $@-t > $@-t2
 	rm $@-t
 	mv $@-t2 $@
 
 guestfs_protocol.h: guestfs_protocol.x
 	rm -f $@-t
-	$(RPCGEN) -h -o $@-t $<
+	$(RPCGEN) -h -o $@-t $(srcdir)/$<
 	mv $@-t $@
 endif
 
