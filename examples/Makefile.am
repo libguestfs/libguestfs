@@ -76,7 +76,7 @@ stamp-guestfs-examples.pod: $(srcdir)/guestfs-examples.pod $(srcdir)/create_disk
 
 guestfs-recipes.1 $(top_builddir)/html/guestfs-recipes.1.html: stamp-guestfs-recipes.pod
 
-stamp-guestfs-recipes.pod: $(builddir)/guestfs-recipes.pod create_disk.c inspect_vm.c
+stamp-guestfs-recipes.pod: $(builddir)/guestfs-recipes.pod
 	$(top_builddir)/podwrapper.sh \
 	  --section 1 \
 	  --man guestfs-recipes.1 \
