@@ -3006,6 +3006,10 @@ How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
 
+If blocks are already zero, then this command avoids writing
+zeroes.  This prevents the underlying device from becoming non-sparse
+or growing unnecessarily.
+
 See also: C<guestfs_zero_device>, C<guestfs_scrub_device>,
 C<guestfs_is_zero_device>");
 
@@ -5229,7 +5233,11 @@ is not large enough.");
    "\
 This command writes zeroes over the entire C<device>.  Compare
 with C<guestfs_zero> which just zeroes the first few blocks of
-a device.");
+a device.
+
+If blocks are already zero, then this command avoids writing
+zeroes.  This prevents the underlying device from becoming non-sparse
+or growing unnecessarily.");
 
   ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 229, [Optional "xz"],
    [InitScratchFS, Always, TestOutput (

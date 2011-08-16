@@ -28,26 +28,57 @@
 #include "daemon.h"
 #include "actions.h"
 
+/* Return true iff the buffer is all zero bytes.
+ *
+ * Note that gcc is smart enough to optimize this properly:
+ * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
+ */
+static int
+is_zero (const char *buffer, size_t size)
+{
+  size_t i;
+
+  for (i = 0; i < size; ++i) {
+    if (buffer[i] != 0)
+      return 0;
+  }
+
+  return 1;
+}
+
+static const char zero_buf[4096];
+
 int
 do_zero (const char *device)
 {
-  int fd, i;
-  char buf[4096];
+  char buf[sizeof zero_buf];
+  int fd;
+  size_t i, offset;
 
-  fd = open (device, O_WRONLY);
+  fd = open (device, O_RDWR);
   if (fd == -1) {
     reply_with_perror ("%s", device);
     return -1;
   }
 
-  memset (buf, 0, sizeof buf);
-
   for (i = 0; i < 32; ++i) {
-    if (write (fd, buf, sizeof buf) != sizeof buf) {
-      reply_with_perror ("write: %s", device);
+    offset = i * sizeof zero_buf;
+
+    /* Check if the block is already zero before overwriting it. */
+    if (pread (fd, buf, sizeof buf, offset) != sizeof buf) {
+      reply_with_perror ("pread: %s", device);
       close (fd);
       return -1;
     }
+
+    if (!is_zero (buf, sizeof buf)) {
+      if (pwrite (fd, zero_buf, sizeof zero_buf, offset) != sizeof zero_buf) {
+        reply_with_perror ("pwrite: %s", device);
+        close (fd);
+        return -1;
+      }
+    }
+
     notify_progress ((uint64_t) i, 32);
   }
 
@@ -67,14 +98,13 @@ do_zero_device (const char *device)
     return -1;
   uint64_t size = (uint64_t) ssize;
 
-  int fd = open (device, O_WRONLY);
+  int fd = open (device, O_RDWR);
   if (fd == -1) {
     reply_with_perror ("%s", device);
     return -1;
   }
 
-  char buf[1024*1024];
-  memset (buf, 0, sizeof buf);
+  char buf[sizeof zero_buf];
 
   uint64_t pos = 0;
 
@@ -86,15 +116,28 @@ do_zero_device (const char *device)
     else
       n = (size_t) n64; /* safe because of if condition */
 
-    ssize_t r = write (fd, buf, n);
+    /* Check if the block is already zero before overwriting it. */
+    ssize_t r;
+    r = pread (fd, buf, n, pos);
     if (r == -1) {
-      reply_with_perror ("write: %s (with %" PRId64 " bytes left to write)",
-                         device, size);
+      reply_with_perror ("pread: %s at offset %" PRIu64, device, pos);
       close (fd);
       return -1;
     }
 
-    pos += r;
+    if (!is_zero (buf, sizeof buf)) {
+      r = pwrite (fd, zero_buf, n, pos);
+      if (r == -1) {
+        reply_with_perror ("pwrite: %s (with %" PRId64 " bytes left to write)",
+                           device, size);
+        close (fd);
+        return -1;
+      }
+      pos += r;
+    }
+    else
+      pos += n;
+
     notify_progress (pos, size);
   }
 
@@ -106,13 +149,11 @@ do_zero_device (const char *device)
   return 0;
 }
 
-static char zero[BUFSIZ];
-
 int
 do_is_zero (const char *path)
 {
   int fd;
-  char buf[BUFSIZ];
+  char buf[1024*1024];
   ssize_t r;
 
   CHROOT_IN;
@@ -125,7 +166,7 @@ do_is_zero (const char *path)
   }
 
   while ((r = read (fd, buf, sizeof buf)) > 0) {
-    if (memcmp (buf, zero, r) != 0) {
+    if (!is_zero (buf, r)) {
       close (fd);
       return 0;
     }
@@ -149,7 +190,7 @@ int
 do_is_zero_device (const char *device)
 {
   int fd;
-  char buf[BUFSIZ];
+  char buf[1024*1024];
   ssize_t r;
 
   fd = open (device, O_RDONLY);
@@ -159,7 +200,7 @@ do_is_zero_device (const char *device)
   }
 
   while ((r = read (fd, buf, sizeof buf)) > 0) {
-    if (memcmp (buf, zero, r) != 0) {
+    if (!is_zero (buf, r)) {
       close (fd);
       return 0;
     }
