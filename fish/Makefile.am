@@ -173,8 +173,8 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	$(top_builddir)/podwrapper.sh \
 	  --man guestfish.1 \
 	  --html $(top_builddir)/html/guestfish.1.html \
-	  --insert guestfish-actions.pod:@ACTIONS@ \
-	  --insert guestfish-commands.pod:@FISH_COMMANDS@ \
+	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
+	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
 	  $<
 	touch $@
 
