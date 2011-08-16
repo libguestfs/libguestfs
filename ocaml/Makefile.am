@@ -53,7 +53,7 @@ mlguestfs.cmxa: $(XOBJS)
 	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
 
 guestfs_c.o: guestfs_c.c
-	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $(srcdir)/$<
+	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $<
 
 guestfs_c_actions.o: guestfs_c_actions.c
 	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $(srcdir)/$<
@@ -149,7 +149,7 @@ install-data-hook:
 	$(OCAMLFIND) install \
 	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
 	  guestfs \
-	  META *.so *.a *.cma *.cmx *.cmxa *.cmi *.mli
+	  META *.so *.a *.cma *.cmx *.cmxa *.cmi $(srcdir)/*.mli
 
 CLEANFILES += $(noinst_DATA)
 
