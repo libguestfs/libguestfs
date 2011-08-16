@@ -33,7 +33,7 @@ libguestfs_test_tool_CFLAGS = \
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
-libguestfs-test-tool.1: $(builddir)/libguestfs-test-tool.pod
+libguestfs-test-tool.1: libguestfs-test-tool.pod
 	$(top_builddir)/podwrapper.sh \
 	  --man $@ \
 	  $<
