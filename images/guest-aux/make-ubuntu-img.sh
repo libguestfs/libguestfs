@@ -36,7 +36,7 @@ DISTRIB_DESCRIPTION="Ubuntu 10.10 (Phony Pharaoh)"
 EOF
 
 # Create a disk image.
-../run ../fish/guestfish <<'EOF'
+../run ../fish/guestfish <<EOF
 sparse ubuntu.img.tmp 512M
 run
 
@@ -69,9 +69,9 @@ write /etc/debian_version "5.0.1"
 upload release.tmp /etc/lsb-release
 write /etc/hostname "ubuntu.invalid"
 
-upload guest-aux/debian-packages /var/lib/dpkg/status
+upload ${SRCDIR}/guest-aux/debian-packages /var/lib/dpkg/status
 
-upload bin-i586-dynamic /bin/ls
+upload ${SRCDIR}/bin-x86_64-dynamic /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf

@@ -305,6 +305,7 @@ ruby/ext/guestfs/_guestfs.c
 ruby/ext/guestfs/_guestfs.so
 ruby/ext/guestfs/mkmf.log
 ruby/Rakefile
+run
 src/actions.c
 src/bindtests.c
 src/errnostring_gperf.c

@@ -31,7 +31,7 @@ LABEL=BOOT /boot ext2 default 0 0
 EOF
 
 # Create a disk image.
-../run ../fish/guestfish <<'EOF'
+../run ../fish/guestfish <<EOF
 sparse debian.img.tmp 512M
 run
 
@@ -80,9 +80,9 @@ upload fstab.tmp /etc/fstab
 write /etc/debian_version "5.0.1"
 write /etc/hostname "debian.invalid"
 
-upload guest-aux/debian-packages /var/lib/dpkg/status
+upload ${SRCDIR}/guest-aux/debian-packages /var/lib/dpkg/status
 
-upload bin-x86_64-dynamic /bin/ls
+upload ${SRCDIR}/bin-x86_64-dynamic /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf

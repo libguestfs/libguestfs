@@ -810,6 +810,8 @@ AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([podwrapper.sh],
                 [chmod +x podwrapper.sh])
+AC_CONFIG_FILES([run],
+                [chmod +x run])
 AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  capitests/Makefile
