@@ -30,6 +30,7 @@ generator_built = \
 	cmds.c \
 	cmds_gperf.gperf \
 	completion.c \
+	fish-cmds.h \
 	guestfish-actions.pod \
 	guestfish-commands.pod \
 	prepopts.h \
