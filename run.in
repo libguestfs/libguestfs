@@ -30,12 +30,11 @@
 #----------------------------------------------------------------------
 
 # Find this script.
-run=$(readlink -f "$0")
-b=$(dirname "$run")
+b=@abs_builddir@
 
 # Set TMPDIR so the appliance doesn't conflict with globally
 # installed libguestfs.
-export TMPDIR=$b
+export TMPDIR="$b"
 
 # Set local environment relative to this script.
 export LD_LIBRARY_PATH="$b/src/.libs"

@@ -31,7 +31,7 @@ LABEL=ROOT / ext2 default 0 0
 EOF
 
 # Create a disk image.
-../run ../fish/guestfish <<'EOF'
+../run ../fish/guestfish <<EOF
 sparse fedora.img.tmp 512M
 run
 
@@ -75,7 +75,7 @@ write /etc/sysconfig/network "HOSTNAME=fedora.invalid"
 upload guest-aux/fedora-name.db /var/lib/rpm/Name
 upload guest-aux/fedora-packages.db /var/lib/rpm/Packages
 
-upload bin-x86_64-dynamic /bin/ls
+upload ${SRCDIR}/bin-x86_64-dynamic /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf
