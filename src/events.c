@@ -28,6 +28,7 @@
 #include <assert.h>
 #include <string.h>
 
+#include "c-ctype.h"
 #include "ignore-value.h"
 
 #include "guestfs.h"
@@ -116,9 +117,9 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
    * override print-on-stderr simply by registering a callback.
    */
   if (count == 0 && (g->verbose || event == GUESTFS_EVENT_TRACE)) {
-    const char *prefix = "libguestfs: ";
-    const char *trace = "trace: ";
-    const char *nl = "\n";
+    int from_appliance = event == GUESTFS_EVENT_APPLIANCE;
+    size_t i;
+    char c;
 
     /* APPLIANCE =>  <buf>
      * LIBRARY =>    libguestfs: <buf>\n
@@ -126,18 +127,47 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
      */
 
     if (event != GUESTFS_EVENT_APPLIANCE)
-      ignore_value (write (STDERR_FILENO, prefix, strlen (prefix)));
+      fputs ("libguestfs: ", stderr);
 
     if (event == GUESTFS_EVENT_TRACE)
-      ignore_value (write (STDERR_FILENO, trace, strlen (trace)));
+      fputs ("trace: ", stderr);
 
-    ignore_value (write (STDERR_FILENO, buf, buf_len));
-
-    /* Messages from the appliance already contain \n characters, others
-     * need this to be appended.
+    /* Special or non-printing characters in the buffer must be
+     * escaped (RHBZ#731744).  The buffer can contain any 8 bit
+     * character, even \0.
+     *
+     * Handling of \n and \r characters is complex:
+     *
+     * Case 1: Messages from the appliance: These messages already
+     * contain \n and \r characters at logical positions, so we just
+     * echo those out directly.
+     *
+     * Case 2: Messages from other sources: These messages should NOT
+     * contain \n or \r.  If they do, it is escaped.  However we also
+     * need to print a real end of line after these messages.
      */
-    if (event != GUESTFS_EVENT_APPLIANCE)
-      ignore_value (write (STDERR_FILENO, nl, strlen (nl)));
+    for (i = 0; i < buf_len; ++i) {
+      c = buf[i];
+      if (c_isprint (c) || (from_appliance && (c == '\n' || c == '\r')))
+        putc (c, stderr);
+      else {
+        switch (c) {
+        case '\0': fputs ("\\0", stderr); break;
+        case '\a': fputs ("\\a", stderr); break;
+        case '\b': fputs ("\\b", stderr); break;
+        case '\f': fputs ("\\f", stderr); break;
+        case '\n': fputs ("\\n", stderr); break;
+        case '\r': fputs ("\\r", stderr); break;
+        case '\t': fputs ("\\t", stderr); break;
+        case '\v': fputs ("\\v", stderr); break;
+        default:
+          fprintf (stderr, "\\x%x", (unsigned) c);
+        }
+      }
+    }
+
+    if (!from_appliance)
+      putc ('\n', stderr);
   }
 }
 
