@@ -328,7 +328,6 @@ extern void guestfs___debug (guestfs_h *g, const char *fs, ...)
 extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern const char *guestfs___persistent_tmpdir (void);
-extern void guestfs___print_timestamped_argv (guestfs_h *g, const char *argv[]);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern int guestfs___set_busy (guestfs_h *g);
