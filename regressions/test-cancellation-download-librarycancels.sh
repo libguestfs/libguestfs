@@ -18,22 +18,36 @@
 
 # Test download where the library cancels.
 #
-#
+# Download big and small files to /dev/full.  This should fail but not
+# kill the appliance.  We test various randomized file sizes because
+# there are many potential race conditions -- for example the daemon
+# may or may not send all of its data because the error condition is
+# detected.
 
 set -e
 
 rm -f test.img
 
-../fish/guestfish <<'EOF'
-add ../images/test.iso
+size=$(awk 'BEGIN{ srand(); print int(16*1024*rand()) }')
+echo "$0: test size $size (bytes)"
+
+../fish/guestfish <<EOF
+# We want the file to be fully allocated.
+alloc test.img 10M
 run
 
-mount-ro /dev/sda /
+part-disk /dev/sda mbr
+mkfs ext2 /dev/sda1
+mount-options "" /dev/sda1 /
 
-# Download a file to /dev/full.
--download /100krandom /dev/full
+fallocate64 /file $size
 
+# Download the file into /dev/full so it fails.
+-download /file /dev/full
+
+# The daemon should still be reachable after the failure.
 ping-daemon
+
 EOF
 
 rm -f test.img
