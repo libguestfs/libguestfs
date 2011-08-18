@@ -101,6 +101,12 @@ main_loop (int _sock)
 	       "guestfsd: main_loop: new request, len 0x%" PRIx32 "\n",
 	       len);
 
+    /* Cancellation sent from the library and received after the
+     * previous request has finished processing.  Just ignore it.
+     */
+    if (len == GUESTFS_CANCEL_FLAG)
+      continue;
+
     if (len > GUESTFS_MESSAGE_MAX) {
       fprintf (stderr, "guestfsd: incoming message is too long (%u bytes)\n",
                len);
