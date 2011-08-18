@@ -55,6 +55,7 @@ static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, 
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
 static int hard_link_to_cached_appliance (guestfs_h *g, const char *cachedir, char **kernel, char **initrd, char **appliance);
 static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir, size_t cdlen);
+static void print_febootstrap_command_line (guestfs_h *g, const char *argv[]);
 
 /* Locate or build the appliance.
  *
@@ -640,6 +641,9 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   argv[i++] = root;
   argv[i++] = NULL;
 
+  if (g->verbose)
+    print_febootstrap_command_line (g, argv);
+
   pid_t pid = fork ();
   if (pid == -1) {
     perrorf (g, "fork");
@@ -647,9 +651,6 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   }
 
   if (pid > 0) {                /* Parent. */
-    if (g->verbose)
-      guestfs___print_timestamped_argv (g, argv);
-
     int status;
     if (waitpid (pid, &status, 0) == -1) {
       perrorf (g, "waitpid");
@@ -672,6 +673,54 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   execvp ("febootstrap-supermin-helper", (char * const *) argv);
   perror ("execvp");
   _exit (EXIT_FAILURE);
+}
+
+static void
+print_febootstrap_command_line (guestfs_h *g, const char *argv[])
+{
+  int i;
+  int needs_quote;
+  char *buf;
+  size_t len;
+
+  /* Calculate length of the buffer needed.  This is an overestimate. */
+  len = 0;
+  for (i = 0; argv[i] != NULL; ++i)
+    len += strlen (argv[i]) + 32;
+
+  buf = malloc (len);
+  if (buf == NULL) {
+    warning (g, "malloc: %m");
+    return;
+  }
+
+  len = 0;
+  for (i = 0; argv[i] != NULL; ++i) {
+    if (i > 0) {
+      strcpy (&buf[len], " ");
+      len++;
+    }
+
+    /* Does it need shell quoting?  This only deals with simple cases. */
+    needs_quote = strcspn (argv[i], " ") != strlen (argv[i]);
+
+    if (needs_quote) {
+      strcpy (&buf[len], "'");
+      len++;
+    }
+
+    strcpy (&buf[len], argv[i]);
+    len += strlen (argv[i]);
+
+    if (needs_quote) {
+      strcpy (&buf[len], "'");
+      len++;
+    }
+  }
+
+  guestfs___print_timestamped_message (g, "%s", buf);
+
+  free (buf);
 }
 
 /* Search elements of g->path, returning the first path element which
