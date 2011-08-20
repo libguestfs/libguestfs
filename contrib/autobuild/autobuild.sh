@@ -60,16 +60,25 @@ cd "$directory"
 # This function is called if any step fails.
 failed ()
 {
-    mutt -s "$prefix libguestfs $version FAILED $1" "$mailto" -a ../build.log <<EOF
-Autobuild failed.  See the attached log file.
+    tail -100 ../build.log > ../build.log.tail
+    mutt -s "$prefix libguestfs $version FAILED $1" "$mailto" -a ../build.log.tail <<EOF
+Autobuild failed.  The last 100 lines of the build log are
+attached.
+
+For the full log see the build machine, in
+$tmpdir/build.log
 EOF
+    rm ../build.log.tail
 }
 
 # This function is called if the build is successful.
 ok ()
 {
-    mutt -s "$prefix libguestfs $version ok" "$mailto" -a ../build.log <<EOF
-Autobuild was successful.  The full log file is attached.
+    mutt -s "$prefix libguestfs $version ok" "$mailto" <<EOF
+Autobuild was successful.
+
+For the full log see the build machine, in
+$tmpdir/build.log
 EOF
 }
 
