@@ -1,6 +1,10 @@
 Random contributions and things which don't fit in anywhere else
 ----------------------------------------------------------------------
 
+autobuild/
+        The autobuild script that we use to build and test the
+        tarballs on Debian and elsewhere.
+
 centos5.3-libguestfs.spec
         [REMOVED]
         This used to be a centos5.3 specfile.  Please use the specfile
