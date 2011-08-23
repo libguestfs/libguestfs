@@ -241,7 +241,7 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
     return NULL;
   }
 
-  if (pclose (pp) == -1) {
+  if (pclose (pp) != 0) {
     warning (g, "pclose: %m");
     return NULL;
   }
