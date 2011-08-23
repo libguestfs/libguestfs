@@ -1058,6 +1058,7 @@ print_qemu_command_line (guestfs_h *g, char **argv)
   }
 }
 
+static int test_qemu_cmd (guestfs_h *g, const char *cmd, char **ret);
 static int read_all (guestfs_h *g, FILE *fp, char **ret);
 
 /* Test qemu binary (or wrapper) runs, and do 'qemu -help' and
@@ -1072,35 +1073,40 @@ test_qemu (guestfs_h *g)
 
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -help", g->qemu);
 
-  fp = popen (cmd, "r");
   /* qemu -help should always work (qemu -version OTOH wasn't
    * supported by qemu 0.9).  If this command doesn't work then it
    * probably indicates that the qemu binary is missing.
    */
-  if (!fp) {
-    /* XXX This error is never printed, even if the qemu binary
-     * doesn't exist.  Why?
-     */
-  error:
+  if (test_qemu_cmd (g, cmd, &g->qemu_help) == -1) {
     perrorf (g, _("%s: command failed: If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU environment variable."), cmd);
     return -1;
   }
 
-  if (read_all (g, fp, &g->qemu_help) == -1)
-    goto error;
-
-  if (pclose (fp) == -1)
-    goto error;
-
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -version 2>/dev/null",
             g->qemu);
 
+  /* Intentionally ignore errors from qemu -version. */
+  ignore_value (test_qemu_cmd (g, cmd, &g->qemu_version));
+
+  return 0;
+}
+
+static int
+test_qemu_cmd (guestfs_h *g, const char *cmd, char **ret)
+{
+  FILE *fp;
+
   fp = popen (cmd, "r");
-  if (fp) {
-    /* Intentionally ignore errors. */
-    read_all (g, fp, &g->qemu_version);
+  if (fp == NULL)
+    return -1;
+
+  if (read_all (g, fp, ret) == -1) {
     pclose (fp);
+    return -1;
   }
+
+  if (pclose (fp) == -1)
+    return -1;
 
   return 0;
 }
