@@ -1044,6 +1044,11 @@ test_qemu (guestfs_h *g)
   char cmd[1024];
   FILE *fp;
 
+  free (g->qemu_help);
+  g->qemu_help = NULL;
+  free (g->qemu_version);
+  g->qemu_version = NULL;
+
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -help", g->qemu);
 
   /* qemu -help should always work (qemu -version OTOH wasn't
