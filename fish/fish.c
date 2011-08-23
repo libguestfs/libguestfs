@@ -1245,9 +1245,8 @@ parse_string_list (const char *str)
     /* We've reached the end of a token. We shouldn't still be in quotes. */
     if (in_quote) {
       fprintf (stderr, _("Runaway quote in string \"%s\"\n"), str);
-
       free_n_strings (argv, argv_len);
-
+      free (tok);
       return NULL;
     }
 
