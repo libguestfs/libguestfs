@@ -878,7 +878,7 @@ execute_and_inline (const char *cmd, int global_exit_on_error)
 
   free (line);
 
-  if (pclose (pp) == -1) {
+  if (pclose (pp) != 0) {
     perror ("pclose");
     return -1;
   }

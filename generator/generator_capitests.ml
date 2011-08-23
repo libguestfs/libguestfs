@@ -106,7 +106,7 @@ md5sum (const char *filename, char *result)
     perror (\"md5sum: fread\");
     exit (EXIT_FAILURE);
   }
-  if (pclose (pp) == -1) {
+  if (pclose (pp) != 0) {
     perror (\"pclose\");
     exit (EXIT_FAILURE);
   }
