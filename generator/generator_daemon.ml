@@ -289,6 +289,7 @@ and generate_daemon_actions () =
         | RStruct (n, _) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = *r;\n" n;
+            pr "  free (r);\n";
             pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name;
             pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
@@ -296,6 +297,7 @@ and generate_daemon_actions () =
         | RStructList (n, _) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = *r;\n" n;
+            pr "  free (r);\n";
             pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name;
             pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
