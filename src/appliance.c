@@ -402,6 +402,12 @@ check_for_cached_appliance (guestfs_h *g,
   /* Releases the lock on checksum. */
   if (close (fd) == -1) {
     perrorf (g, "close");
+    /* Allocated in hard_link_to_cached_appliance above, must be
+     * freed along this error path.
+     */
+    free (*kernel);
+    free (*initrd);
+    free (*appliance);
     return -1;
   }
 
@@ -540,6 +546,12 @@ build_supermin_appliance (guestfs_h *g,
   /* Releases the lock on checksum. */
   if (close (fd) == -1) {
     perrorf (g, "close");
+    /* Allocated in hard_link_to_cached_appliance above, must be
+     * freed along this error path.
+     */
+    free (*kernel);
+    free (*initrd);
+    free (*appliance);
     return -1;
   }
 
