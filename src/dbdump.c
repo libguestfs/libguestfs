@@ -129,7 +129,7 @@ guestfs___read_db_dump (guestfs_h *g,
   }
 
   /* Catch errors from the db_dump command. */
-  if (pclose (pp) == -1) {
+  if (pclose (pp) != 0) {
     perrorf (g, "pclose: %s", cmd);
     goto out;
   }
