@@ -29,6 +29,7 @@
 #include <assert.h>
 #include <libintl.h>
 
+#include "ignore-value.h"
 #include "progname.h"
 #include "xvasprintf.h"
 
@@ -289,7 +290,9 @@ main (int argc, char *argv[])
    * appliance.
    */
   guestfs_set_error_handler (g, NULL, NULL);
-  guestfs_launch (g);
+
+  /* We expect launch to fail, so ignore the return value. */
+  ignore_value (guestfs_launch (g));
 
   /* launch() expects guestfsd to start. However, virt-rescue doesn't
    * run guestfsd, so this will always fail with ECHILD when the
