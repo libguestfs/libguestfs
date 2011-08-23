@@ -142,7 +142,7 @@ void
 print_inspect_prompt (void)
 {
   char *name = guestfs_inspect_get_product_name (g, root);
-  if (STRNEQ (name, "unknown"))
+  if (name && STRNEQ (name, "unknown"))
     printf (_("Operating system: %s\n"), name);
   free (name);
 
