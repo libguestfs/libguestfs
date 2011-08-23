@@ -23,8 +23,8 @@ fclose ($fp);
 if (! guestfs_add_drive ($g, $tmp) ||
     ! guestfs_launch ($g) ||
     ! guestfs_part_disk ($g, "/dev/sda", "mbr") ||
-    ! guestfs_pvcreate ($g, "/dev/sda") ||
-    ! guestfs_vgcreate ($g, "VG", array ("/dev/sda")) ||
+    ! guestfs_pvcreate ($g, "/dev/sda1") ||
+    ! guestfs_vgcreate ($g, "VG", array ("/dev/sda1")) ||
     ! guestfs_lvcreate ($g, "LV", "VG", 64) ||
     ! guestfs_mkfs ($g, "ext2", "/dev/VG/LV")) {
   die ("Error: ".guestfs_last_error ($g)."\n");
