@@ -1110,7 +1110,7 @@ test_qemu_cmd (guestfs_h *g, const char *cmd, char **ret)
     return -1;
   }
 
-  if (pclose (fp) == -1)
+  if (pclose (fp) != 0)
     return -1;
 
   return 0;
