@@ -71,6 +71,7 @@ receive_stdout (int s)
   }
 
   /* Don't specify a source */
+  memset (&msg, 0, sizeof msg);
   msg.msg_name = NULL;
   msg.msg_namelen = 0;
 
@@ -118,6 +119,7 @@ send_stdout (int s)
   char buf[1];
 
   /* Don't specify a destination */
+  memset (&msg, 0, sizeof msg);
   msg.msg_name    = NULL;
   msg.msg_namelen = 0;
 
