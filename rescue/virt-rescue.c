@@ -294,16 +294,6 @@ main (int argc, char *argv[])
   /* We expect launch to fail, so ignore the return value. */
   ignore_value (guestfs_launch (g));
 
-  /* launch() expects guestfsd to start. However, virt-rescue doesn't
-   * run guestfsd, so this will always fail with ECHILD when the
-   * appliance exits unexpectedly.
-   */
-  if (errno != ECHILD) {
-    fprintf (stderr, "%s: %s\n", program_name, guestfs_last_error (g));
-    guestfs_close (g);
-    exit (EXIT_FAILURE);
-  }
-
   guestfs_close (g);
 
   exit (EXIT_SUCCESS);
