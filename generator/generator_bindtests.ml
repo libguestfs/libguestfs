@@ -109,11 +109,17 @@ print_strings (char *const *argv)
              pr "  return 0;\n"
          | RInt _ ->
              pr "  int r;\n";
-             pr "  sscanf (val, \"%%d\", &r);\n";
+             pr "  if (sscanf (val, \"%%d\", &r) != 1) {\n";
+             pr "    error (g, \"%%s: expecting int argument\", \"%s\");\n" name;
+             pr "    return -1;\n";
+             pr "  }\n";
              pr "  return r;\n"
          | RInt64 _ ->
              pr "  int64_t r;\n";
-             pr "  sscanf (val, \"%%\" SCNi64, &r);\n";
+             pr "  if (sscanf (val, \"%%\" SCNi64, &r) != 1) {\n";
+             pr "    error (g, \"%%s: expecting int64 argument\", \"%s\");\n" name;
+             pr "    return -1;\n";
+             pr "  }\n";
              pr "  return r;\n"
          | RBool _ ->
              pr "  return STREQ (val, \"true\");\n"
@@ -129,7 +135,10 @@ print_strings (char *const *argv)
          | RStringList _ ->
              pr "  char **strs;\n";
              pr "  int n, i;\n";
-             pr "  sscanf (val, \"%%d\", &n);\n";
+             pr "  if (sscanf (val, \"%%d\", &n) != 1) {\n";
+             pr "    error (g, \"%%s: expecting int argument\", \"%s\");\n" name;
+             pr "    return NULL;\n";
+             pr "  }\n";
              pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
              pr "  for (i = 0; i < n; ++i) {\n";
              pr "    strs[i] = safe_malloc (g, 16);\n";
@@ -143,14 +152,22 @@ print_strings (char *const *argv)
              pr "  return r;\n"
          | RStructList (_, typ) ->
              pr "  struct guestfs_%s_list *r;\n" typ;
+             pr "  uint32_t len;\n";
+             pr "  if (sscanf (val, \"%%\" SCNu32, &len) != 1) {\n";
+             pr "    error (g, \"%%s: expecting uint32 argument\", \"%s\");\n" name;
+             pr "    return NULL;\n";
+             pr "  }\n";
              pr "  r = safe_calloc (g, sizeof *r, 1);\n";
-             pr "  sscanf (val, \"%%d\", &r->len);\n";
+             pr "  r->len = len;\n";
              pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
              pr "  return r;\n"
          | RHashtable _ ->
              pr "  char **strs;\n";
              pr "  int n, i;\n";
-             pr "  sscanf (val, \"%%d\", &n);\n";
+             pr "  if (sscanf (val, \"%%d\", &n) != -1) {\n";
+             pr "    error (g, \"%%s: expecting int argument\", \"%s\");\n" name;
+             pr "    return NULL;\n";
+             pr "  }\n";
              pr "  strs = safe_malloc (g, (n*2+1) * sizeof (*strs));\n";
              pr "  for (i = 0; i < n; ++i) {\n";
              pr "    strs[i*2] = safe_malloc (g, 16);\n";
