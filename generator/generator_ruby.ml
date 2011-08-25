@@ -246,13 +246,21 @@ ruby_event_callback_wrapper_wrapper (VALUE argvv)
   VALUE fn, eventv, event_handlev, bufv, arrayv;
 
   fn = argv[0];
-  eventv = argv[1];
-  event_handlev = argv[2];
-  bufv = argv[3];
-  arrayv = argv[4];
 
-  rb_funcall (fn, rb_intern (\"call\"), 4,
-              eventv, event_handlev, bufv, arrayv);
+  /* Check the Ruby callback still exists.  For reasons which are not
+   * fully understood, even though we registered this as a global root,
+   * it is still possible for the callback to go away (fn value remains
+   * but its type changes from T_DATA to T_NONE).  (RHBZ#733297)
+   */
+  if (rb_type (fn) != T_NONE) {
+    eventv = argv[1];
+    event_handlev = argv[2];
+    bufv = argv[3];
+    arrayv = argv[4];
+
+    rb_funcall (fn, rb_intern (\"call\"), 4,
+                eventv, event_handlev, bufv, arrayv);
+  }
 
   return Qnil;
 }
