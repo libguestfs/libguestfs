@@ -264,7 +264,7 @@ ruby_event_callback_handle_exception (VALUE not_used, VALUE exn)
   /* Callbacks aren't supposed to throw exceptions.  The best we
    * can do is to print the error.
    */
-  fprintf (stderr, \"libguestfs: exception in callback: %%s\",
+  fprintf (stderr, \"libguestfs: exception in callback: %%s\\n\",
            StringValueCStr (exn));
 
   return Qnil;
