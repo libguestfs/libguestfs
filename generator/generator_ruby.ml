@@ -214,7 +214,8 @@ ruby_event_callback_wrapper (guestfs_h *g,
                              const uint64_t *array, size_t array_len)
 {
   size_t i;
-  VALUE eventv, event_handlev, bufv, arrayv, argv;
+  VALUE eventv, event_handlev, bufv, arrayv;
+  VALUE argv[5];
 
   eventv = ULL2NUM (event);
   event_handlev = INT2NUM (event_handle);
@@ -225,32 +226,30 @@ ruby_event_callback_wrapper (guestfs_h *g,
   for (i = 0; i < array_len; ++i)
     rb_ary_push (arrayv, ULL2NUM (array[i]));
 
-  /* Wrap up the arguments in an array which will be unpacked
-   * and passed as multiple arguments.  This is a crap limitation
-   * of rb_rescue.
+  /* This is a crap limitation of rb_rescue.
    * http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/~poffice/mail/ruby-talk/65698
    */
-  argv = rb_ary_new2 (5);
-  rb_ary_store (argv, 0, * (VALUE *) data /* function */);
-  rb_ary_store (argv, 1, eventv);
-  rb_ary_store (argv, 2, event_handlev);
-  rb_ary_store (argv, 3, bufv);
-  rb_ary_store (argv, 4, arrayv);
+  argv[0] = * (VALUE *) data; /* function */
+  argv[1] = eventv;
+  argv[2] = event_handlev;
+  argv[3] = bufv;
+  argv[4] = arrayv;
 
-  rb_rescue (ruby_event_callback_wrapper_wrapper, argv,
+  rb_rescue (ruby_event_callback_wrapper_wrapper, (VALUE) argv,
              ruby_event_callback_handle_exception, Qnil);
 }
 
 static VALUE
-ruby_event_callback_wrapper_wrapper (VALUE argv)
+ruby_event_callback_wrapper_wrapper (VALUE argvv)
 {
+  VALUE *argv = (VALUE *) argvv;
   VALUE fn, eventv, event_handlev, bufv, arrayv;
 
-  fn = rb_ary_entry (argv, 0);
-  eventv = rb_ary_entry (argv, 1);
-  event_handlev = rb_ary_entry (argv, 2);
-  bufv = rb_ary_entry (argv, 3);
-  arrayv = rb_ary_entry (argv, 4);
+  fn = argv[0];
+  eventv = argv[1];
+  event_handlev = argv[2];
+  bufv = argv[3];
+  arrayv = argv[4];
 
   rb_funcall (fn, rb_intern (\"call\"), 4,
               eventv, event_handlev, bufv, arrayv);
