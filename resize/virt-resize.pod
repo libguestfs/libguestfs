@@ -349,6 +349,12 @@ You can give this option multiple times, I<but> it doesn't
 make sense to do this unless the logical volumes you specify
 are all in different volume groups.
 
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
 =item B<-n>
 
 =item B<--dryrun>
@@ -482,6 +488,58 @@ Note that you cannot use I<--expand> and I<--shrink> together.
 Display version number and exit.
 
 =back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-resize from other
+programs, GUIs etc.
+
+There are two ways to use this option.
+
+Firstly use the option on its own to query the capabilities of the
+virt-resize binary.  Typical output looks like this:
+
+ $ virt-resize --machine-readable
+ virt-resize
+ ntfsresize-force
+ 32bitok
+ ntfs
+ btrfs
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+Secondly use the option in conjunction with other options to make the
+regular program output more machine friendly.
+
+At the moment this means:
+
+=over 4
+
+=item 1.
+
+Progress bar messages can be parsed from stdout by looking for this
+regular expression:
+
+ ^[0-9]+/[0-9]+$
+
+=item 2.
+
+The calling program should treat messages sent to stdout (except for
+progress bar messages) as status messages.  They can be logged and/or
+displayed to the user.
+
+=item 3.
+
+The calling program should treat messages sent to stderr as error
+messages.  In addition, virt-resize exits with a non-zero status code
+if there was a fatal error.
+
+=back
+
+Versions of the program prior to 1.13.9 did not support the
+I<--machine-readable> option and will return an error.
 
 =head1 NOTES
 

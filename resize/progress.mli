@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val set_up_progress_bar : Guestfs.guestfs -> unit
+val set_up_progress_bar : ?machine_readable:bool -> Guestfs.guestfs -> unit

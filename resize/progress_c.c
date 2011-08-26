@@ -53,18 +53,22 @@ static struct custom_operations progress_bar_custom_operations = {
 };
 
 value
-virt_resize_progress_bar_init (value unitv)
+virt_resize_progress_bar_init (value machine_readablev)
 {
-  CAMLparam1 (unitv);
+  CAMLparam1 (machine_readablev);
   CAMLlocal1 (barv);
   struct progress_bar *bar;
+  int machine_readable = Bool_val (machine_readablev);
+  unsigned flags = 0;
 
   /* XXX Have to do this to get nl_langinfo to work properly.  However
    * we should really only call this from main.
    */
   setlocale (LC_ALL, "");
 
-  bar = progress_bar_init (0);
+  if (machine_readable)
+    flags |= PROGRESS_BAR_MACHINE_READABLE;
+  bar = progress_bar_init (flags);
   if (bar == NULL)
     caml_raise_out_of_memory ();
 

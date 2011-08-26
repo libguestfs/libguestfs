@@ -30,7 +30,7 @@ let prog = Filename.basename Sys.executable_name
 
 let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   expand, expand_content, extra_partition, format, ignores,
-  lv_expands, ntfsresize_force, output_format,
+  lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink =
   let display_version () =
     let g = new G.guestfs () in
@@ -57,6 +57,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   let format = ref "" in
   let ignores = ref [] in
   let lv_expands = ref [] in
+  let machine_readable = ref false in
   let ntfsresize_force = ref false in
   let output_format = ref "" in
   let quiet = ref false in
@@ -83,6 +84,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
     "--LV-expand", Arg.String (add lv_expands), "lv -\"-";
     "--lvexpand", Arg.String (add lv_expands), "lv -\"-";
     "--LVexpand", Arg.String (add lv_expands), "lv -\"-";
+    "--machine-readable", Arg.Set machine_readable, " Make output machine readable";
     "-n",        Arg.Set dryrun,            " Don't perform changes";
     "--dryrun",  Arg.Set dryrun,            " -\"-";
     "--dry-run", Arg.Set dryrun,            " -\"-";
@@ -125,12 +127,32 @@ read the man page virt-resize(1).
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
   let lv_expands = List.rev !lv_expands in
+  let machine_readable = !machine_readable in
   let ntfsresize_force = !ntfsresize_force in
   let output_format = match !output_format with "" -> None | str -> Some str in
   let quiet = !quiet in
   let resizes = List.rev !resizes in
   let resizes_force = List.rev !resizes_force in
   let shrink = match !shrink with "" -> None | str -> Some str in
+
+  (* No arguments and machine-readable mode?  Print out some facts
+   * about what this binary supports.  We only need to print out new
+   * things added since this option, or things which depend on features
+   * of the appliance.
+   *)
+  if !disks = [] && machine_readable then (
+    printf "virt-resize\n";
+    printf "ntfsresize-force\n";
+    printf "32bitok\n";
+    let g = new G.guestfs () in
+    g#add_drive_opts "/dev/null";
+    g#launch ();
+    if feature_available g [| "ntfsprogs"; "ntfs3g" |] then
+      printf "ntfs\n";
+    if feature_available g [| "btrfs" |] then
+      printf "btrfs\n";
+    exit 0
+  );
 
   (* Verify we got exactly 2 disks. *)
   let infile, outfile =
@@ -141,7 +163,7 @@ read the man page virt-resize(1).
 
   infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   expand, expand_content, extra_partition, format, ignores,
-  lv_expands, ntfsresize_force, output_format,
+  lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink
 
 (* Default to true, since NTFS and btrfs support are usually available. *)
@@ -154,7 +176,7 @@ let connect_both_disks () =
   if debug then g#set_trace true;
   g#add_drive_opts ?format ~readonly:true infile;
   g#add_drive_opts ?format:output_format ~readonly:false outfile;
-  if not quiet then Progress.set_up_progress_bar g;
+  if not quiet then Progress.set_up_progress_bar ~machine_readable g;
   g#launch ();
 
   (* Set the filter to /dev/sda, in case there are any rogue
@@ -910,7 +932,7 @@ let g =
     let g = new G.guestfs () in
     if debug then g#set_trace true;
     g#add_drive_opts ?format:output_format ~readonly:false outfile;
-    if not quiet then Progress.set_up_progress_bar g;
+    if not quiet then Progress.set_up_progress_bar ~machine_readable g;
     g#launch ();
 
     g (* Return new handle. *)

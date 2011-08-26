@@ -23,30 +23,32 @@ open Utils
 module G = Guestfs
 
 type progress_bar
-external progress_bar_init : unit -> progress_bar
+external progress_bar_init : machine_readable:bool -> progress_bar
   = "virt_resize_progress_bar_init"
 external progress_bar_reset : progress_bar -> unit
   = "virt_resize_progress_bar_reset"
 external progress_bar_set : progress_bar -> int64 -> int64 -> unit
   = "virt_resize_progress_bar_set"
 
-(* Initialize the C mini library. *)
-let bar = progress_bar_init ()
+let set_up_progress_bar ?(machine_readable = false) (g : Guestfs.guestfs) =
+  (* Initialize the C mini library. *)
+  let bar = progress_bar_init ~machine_readable in
 
-(* Reset the progress bar before every libguestfs function. *)
-let enter_callback g event evh buf array =
-  if event = G.EVENT_ENTER then
-    progress_bar_reset bar
+  (* Reset the progress bar before every libguestfs function. *)
+  let enter_callback g event evh buf array =
+    if event = G.EVENT_ENTER then
+      progress_bar_reset bar
+  in
 
-(* A progress event: move the progress bar. *)
-let progress_callback g event evh buf array =
-  if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
-    let position = array.(2)
-    and total = array.(3) in
+  (* A progress event: move the progress bar. *)
+  let progress_callback g event evh buf array =
+    if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
+      let position = array.(2)
+      and total = array.(3) in
 
-    progress_bar_set bar position total
-  )
+      progress_bar_set bar position total
+    )
+  in
 
-let set_up_progress_bar (g : Guestfs.guestfs) =
   ignore (g#set_event_callback enter_callback [G.EVENT_ENTER]);
   ignore (g#set_event_callback progress_callback [G.EVENT_PROGRESS])
