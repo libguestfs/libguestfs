@@ -57,8 +57,8 @@ EXTRA_DIST = \
 	virt-tar-in.pod \
 	virt-tar-out.pod
 
-# These source files (all related to option parsing) are shared
-# between guestfish, guestmount and some other C virt tools.  Keep a
+# These source files (mostly related to option parsing) are shared
+# between guestfish, guestmount and some other virt tools.  Keep a
 # convenient list here just so we know which ones are shared.  These
 # files must not include other guestfish files.
 SHARED_SOURCE_FILES = \
@@ -67,6 +67,8 @@ SHARED_SOURCE_FILES = \
 	keys.c \
 	options.h \
 	options.c \
+	progress.h \
+	progress.c \
 	virt.c
 
 guestfish_SOURCES = \
@@ -93,10 +95,8 @@ guestfish_SOURCES = \
 	prep_fs.c \
 	prep_lv.c \
 	prep_boot.c \
-	progress.c \
 	rc.c \
 	reopen.c \
-	rmsd.h \
 	setenv.c \
 	supported.c \
 	tilde.c \
