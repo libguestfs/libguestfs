@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-26 11:48+0100\n"
+"POT-Creation-Date: 2011-08-26 22:52+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
-#: edit/virt-edit.c:73 fish/fish.c:102 fuse/guestmount.c:908
+#: edit/virt-edit.c:73 fish/fish.c:101 fuse/guestmount.c:908
 #: inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -67,7 +67,7 @@ msgstr ""
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
-#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:225
+#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
 #: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
 #: rescue/virt-rescue.c:134
 #, c-format
@@ -75,7 +75,7 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:242
-#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:282 fuse/guestmount.c:1061
+#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279 fuse/guestmount.c:1061
 #: inspector/virt-inspector.c:154 rescue/virt-rescue.c:158
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -367,7 +367,7 @@ msgstr ""
 msgid "%s: -e option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:585 fish/fish.c:1575
+#: edit/virt-edit.c:585 fish/fish.c:1554
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2093,7 +2093,7 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr "फाइल संपादीत करण्यासाठी '%s filename' याचा वापर करा\n"
 
-#: fish/fish.c:106
+#: fish/fish.c:105
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2140,48 +2140,38 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:249
+#: fish/fish.c:246
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID क्रमांक प्रमाणे आढळले नाही: %s\n"
 
-#: fish/fish.c:256
+#: fish/fish.c:253
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: रिमोट: $GUESTFISH_PID यांस रिमोट कार्याच्या PID करीता सेट केले पाहिजे\n"
 
-#: fish/fish.c:306
+#: fish/fish.c:303
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: फक्त एकच -f घटक दिले जाऊ शकते\n"
 
-#: fish/fish.c:479
+#: fish/fish.c:476
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen व --remote पर्याय एकाच वेळी वापरणे अशक्य\n"
 
-#: fish/fish.c:487
+#: fish/fish.c:484
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen फ्लॅगसह आदेश ओळीवरील अगाऊ घटके\n"
 
-#: fish/fish.c:493
+#: fish/fish.c:490
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
-#: fish/fish.c:570
-#, c-format
-msgid "guestfish: could not access termcap or terminfo database.\n"
-msgstr "guestfish: termcap किंवा terminfo डाटाबेसकरीता प्रवेश प्राप्त करणे अशक्य.\n"
-
-#: fish/fish.c:574
-#, c-format
-msgid "guestfish: terminal type \"%s\" not defined.\n"
-msgstr "guestfish: टर्मिनल टाइप \"%s\" ठरवले नाही.\n"
-
-#: fish/fish.c:662
+#: fish/fish.c:640
 #, c-format
 msgid ""
 "\n"
@@ -2202,50 +2192,50 @@ msgstr ""
 "      शेलपासून बाहेर पडण्यासाठी 'quit'\n"
 "\n"
 
-#: fish/fish.c:813 fish/fish.c:829
+#: fish/fish.c:791 fish/fish.c:807
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: आदेश घटके वाईटस्पेस द्वारे विभाजीत नाही\n"
 
-#: fish/fish.c:823
+#: fish/fish.c:801
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: न ओळखलेले सींगल क्वोट\n"
 
-#: fish/fish.c:853
+#: fish/fish.c:831
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
 
-#: fish/fish.c:870
+#: fish/fish.c:848
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: खूप जास्त घटके आढळले\n"
 
-#: fish/fish.c:945
+#: fish/fish.c:923
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:954
+#: fish/fish.c:932
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: न ओळखलेले डबल क्वोट\n"
 
-#: fish/fish.c:1019
+#: fish/fish.c:997
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/fish.c:1165
+#: fish/fish.c:1144
 msgid "display a list of commands or help on a command"
 msgstr "आदेश सूची किंवा आदेशकरीता मदत दाखवा"
 
-#: fish/fish.c:1167
+#: fish/fish.c:1146
 msgid "quit guestfish"
 msgstr "guestfish पासून बाहेर पडा"
 
-#: fish/fish.c:1178
+#: fish/fish.c:1157
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2256,7 +2246,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1186
+#: fish/fish.c:1165
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2265,12 +2255,12 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1191
+#: fish/fish.c:1170
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1207
+#: fish/fish.c:1186
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2281,31 +2271,31 @@ msgstr ""
 "आदेशांच्या सूचीकरीता:             guestfish -h\n"
 "संपूर्ण दस्तऐवजीकरणकरीता:         man guestfish\n"
 
-#: fish/fish.c:1216
+#: fish/fish.c:1195
 #, fuzzy, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "libguestfs: त्रुटी: %s\n"
 
-#: fish/fish.c:1372
+#: fish/fish.c:1351
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
 
-#: fish/fish.c:1569
+#: fish/fish.c:1548
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1589
+#: fish/fish.c:1568
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1608
+#: fish/fish.c:1587
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3509,6 +3499,12 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
+
+#~ msgid "guestfish: could not access termcap or terminfo database.\n"
+#~ msgstr "guestfish: termcap किंवा terminfo डाटाबेसकरीता प्रवेश प्राप्त करणे अशक्य.\n"
+
+#~ msgid "guestfish: terminal type \"%s\" not defined.\n"
+#~ msgstr "guestfish: टर्मिनल टाइप \"%s\" ठरवले नाही.\n"
 
 #~ msgid "unknown filesystem label {label}\n"
 #~ msgstr "अपरिचीत फाइलसिस्टम लेबल {label}\n"
