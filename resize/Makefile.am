@@ -29,12 +29,16 @@ if HAVE_OCAML_PCRE
 
 # Alphabetical order.
 SOURCES = \
+	progress_c.c \
+	progress.mli \
 	progress.ml \
 	resize.ml \
 	utils.ml
 
 # Note this list must be in dependency order.
 OBJECTS = \
+	../fish/guestfish-progress.o \
+	progress_c.o \
 	utils.cmx \
 	progress.cmx \
 	resize.cmx
@@ -50,7 +54,8 @@ OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 virt-resize: $(OBJECTS)
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) mlguestfs.cmxa -linkpkg $^ -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
+	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
@@ -58,6 +63,14 @@ virt-resize: $(OBJECTS)
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLCFLAGS) -c $< -o $@
+
+# automake will decide we don't need C support in this file.  Really
+# we do, so we have to provide it ourselves.
+
+DEFAULT_INCLUDES = -I. -I$(top_builddir) -I$(shell $(OCAMLC) -where) -I../fish
+
+.c.o:
+	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 

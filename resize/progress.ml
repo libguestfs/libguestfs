@@ -22,28 +22,31 @@ open Utils
 
 module G = Guestfs
 
+type progress_bar
+external progress_bar_init : unit -> progress_bar
+  = "virt_resize_progress_bar_init"
+external progress_bar_reset : progress_bar -> unit
+  = "virt_resize_progress_bar_reset"
+external progress_bar_set : progress_bar -> int64 -> int64 -> unit
+  = "virt_resize_progress_bar_set"
+
+(* Initialize the C mini library. *)
+let bar = progress_bar_init ()
+
+(* Reset the progress bar before every libguestfs function. *)
+let enter_callback g event evh buf array =
+  if event = G.EVENT_ENTER then
+    progress_bar_reset bar
+
+(* A progress event: move the progress bar. *)
+let progress_callback g event evh buf array =
+  if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
+    let position = array.(2)
+    and total = array.(3) in
+
+    progress_bar_set bar position total
+  )
+
 let set_up_progress_bar (g : Guestfs.guestfs) =
-  let progress_callback g event evh buf array =
-    if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
-      (*let proc_nr = array.(0)
-      and serial = array.(1)*)
-      let position = array.(2)
-      and total = array.(3) in
-
-      let ratio =
-        if total <> 0L then Int64.to_float position /. Int64.to_float total
-        else 0. in
-      let ratio =
-        if ratio < 0. then 0. else if ratio > 1. then 1. else ratio in
-
-      let dots = int_of_float (ratio *. 72.) in
-
-      print_string "[";
-      for i = 0 to dots-1 do print_char '#' done;
-      for i = dots to 71 do print_char '-' done;
-      print_string "]\r";
-      if ratio = 1. then print_string "\n";
-      flush stdout
-    )
-  in
+  ignore (g#set_event_callback enter_callback [G.EVENT_ENTER]);
   ignore (g#set_event_callback progress_callback [G.EVENT_PROGRESS])
