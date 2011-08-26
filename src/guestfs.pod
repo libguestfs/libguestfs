@@ -1833,6 +1833,21 @@ If no callback is registered: the messages are sent to stderr.  You
 can override the printing of trace messages to stderr by setting up a
 callback.
 
+=item GUESTFS_EVENT_ENTER
+(payload type: function name)
+
+The callback function is called whenever a libguestfs function
+is entered.
+
+The payload is a string which contains the name of the function
+that we are entering (not including C<guestfs_> prefix).
+
+Note that libguestfs functions can call themselves, so you may
+see many events from a single call.  A few libguestfs functions
+do not generate this event.
+
+If no callback is registered: the event is ignored.
+
 =back
 
 =head3 guestfs_set_event_callback

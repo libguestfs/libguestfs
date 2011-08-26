@@ -111,12 +111,14 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
       count++;
     }
 
-  /* If nothing was registered and we're verbose or tracing, then we
-   * print the message on stderr.  This essentially emulates the
-   * behaviour of the old-style handlers, while allowing callers to
-   * override print-on-stderr simply by registering a callback.
+  /* Emulate the old-style handlers.  Callers can override
+   * print-on-stderr simply by registering a callback.
    */
-  if (count == 0 && (g->verbose || event == GUESTFS_EVENT_TRACE)) {
+  if (count == 0 &&
+      (event == GUESTFS_EVENT_APPLIANCE ||
+       event == GUESTFS_EVENT_LIBRARY ||
+       event == GUESTFS_EVENT_TRACE) &&
+      (g->verbose || event == GUESTFS_EVENT_TRACE)) {
     int from_appliance = event == GUESTFS_EVENT_APPLIANCE;
     size_t i;
     char c;

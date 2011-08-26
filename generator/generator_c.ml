@@ -758,6 +758,13 @@ trace_send_line (guestfs_h *g)
 
 ";
 
+  (* Generate code for enter events. *)
+  let enter_event shortname =
+    pr "  guestfs___call_callbacks_message (g, GUESTFS_EVENT_ENTER,\n";
+    pr "                                    \"%s\", %d);\n"
+      shortname (String.length shortname)
+  in
+
   (* Generate code to check String-like parameters are not passed in
    * as NULL (returning an error if they are).
    *)
@@ -1027,6 +1034,7 @@ trace_send_line (guestfs_h *g)
            pr "  struct guestfs_%s_list *r;\n" typ
       );
       pr "\n";
+      enter_event shortname;
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
       trace_call shortname style;
@@ -1119,6 +1127,7 @@ trace_send_line (guestfs_h *g)
         pr "  const uint64_t progress_hint = 0;\n";
 
       pr "\n";
+      enter_event shortname;
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;
       trace_call shortname style;

@@ -35,6 +35,8 @@ let events = [
                                            qemu / kernel / guestfsd / tools *)
   "library";                            (* log messages from library *)
   "trace";                              (* call trace messages *)
+
+  "enter";                              (* enter a function *)
 ]
 
 let events = mapi (fun i name -> name, 1 lsl i) events
