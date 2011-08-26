@@ -297,7 +297,7 @@ progress_bar_set (struct progress_bar *bar,
 
     if (bar->utf8_mode) {
       s_open = "\u27e6";
-      s_dot = "\u2589";
+      s_dot = "\u2593";
       s_dash = "\u2550";
       s_close = "\u27e7";
     } else {
