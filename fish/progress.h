@@ -27,6 +27,7 @@ struct progress_bar;
  *
  * Function returns a handle, or NULL if there was an error.
  */
+#define PROGRESS_BAR_MACHINE_READABLE 1
 extern struct progress_bar *progress_bar_init (unsigned flags);
 
 /* This should be called at the start of each command. */

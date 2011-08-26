@@ -92,6 +92,7 @@ struct progress_bar {
   struct rmsd rmsd;     /* running mean and standard deviation */
   int have_terminfo;
   int utf8_mode;
+  int machine_readable;
 };
 
 struct progress_bar *
@@ -104,14 +105,22 @@ progress_bar_init (unsigned flags)
   if (bar == NULL)
     return NULL;
 
-  bar->utf8_mode = STREQ (nl_langinfo (CODESET), "UTF-8");
+  if (flags & PROGRESS_BAR_MACHINE_READABLE) {
+    bar->machine_readable = 1;
+    bar->utf8_mode = 0;
+    bar->have_terminfo = 0;
+  } else {
+    bar->machine_readable = 0;
 
-  bar->have_terminfo = 0;
+    bar->utf8_mode = STREQ (nl_langinfo (CODESET), "UTF-8");
 
-  term = getenv ("TERM");
-  if (term) {
-    if (tgetent (NULL, term) == 1)
-      bar->have_terminfo = 1;
+    bar->have_terminfo = 0;
+
+    term = getenv ("TERM");
+    if (term) {
+      if (tgetent (NULL, term) == 1)
+        bar->have_terminfo = 1;
+    }
   }
 
   /* Call this to ensure the other fields are in a reasonable state.
@@ -257,13 +266,7 @@ progress_bar_set (struct progress_bar *bar,
   double ratio;
   const char *s_open, *s_dot, *s_dash, *s_close;
 
-  if (bar->utf8_mode) {
-    s_open = "\u27e6"; s_dot = "\u2589"; s_dash = "\u2550"; s_close = "\u27e7";
-  } else {
-    s_open = "["; s_dot = "#"; s_dash = "-"; s_close = "]";
-  }
-
-  if (bar->have_terminfo == 0) {
+  if (bar->machine_readable || bar->have_terminfo == 0) {
   dumb:
     printf ("%" PRIu64 "/%" PRIu64 "\n", position, total);
   } else {
@@ -290,6 +293,15 @@ progress_bar_set (struct progress_bar *bar,
     }
     else {
       fputs (" 100% ", stdout);
+    }
+
+    if (bar->utf8_mode) {
+      s_open = "\u27e6";
+      s_dot = "\u2589";
+      s_dash = "\u2550";
+      s_close = "\u27e7";
+    } else {
+      s_open = "["; s_dot = "#"; s_dash = "-"; s_close = "]";
     }
 
     fputs (s_open, stdout);
