@@ -58,9 +58,9 @@ EXTRA_DIST = \
 	virt-tar-out.pod
 
 # These source files (all related to option parsing) are shared
-# between guestfish and guestmount.  Keep a convenient list here just
-# so we know which ones are shared.  These files must not include
-# other guestfish files.
+# between guestfish, guestmount and some other C virt tools.  Keep a
+# convenient list here just so we know which ones are shared.  These
+# files must not include other guestfish files.
 SHARED_SOURCE_FILES = \
 	config.c \
 	inspect.c \
