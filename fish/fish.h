@@ -60,8 +60,6 @@ extern int read_only;
 extern int quit;
 extern int verbose;
 extern int command_num;
-extern int utf8_mode;
-extern int have_terminfo;
 extern int progress_bars;
 extern int remote_control_csh;
 extern const char *libvirt_uri;
@@ -80,6 +78,7 @@ extern char *file_in (const char *arg);
 extern void free_file_in (char *s);
 extern char *file_out (const char *arg);
 extern void extended_help_message (void);
+extern void progress_callback (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
@@ -118,10 +117,6 @@ extern void free_prep_data (void *data);
 
 /* in prep_lv.c */
 extern int vg_lv_parse (const char *device, char **vg, char **lv);
-
-/* in progress.c */
-extern void reset_progress_bar (void);
-extern void progress_callback (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
 /* in rc.c (remote control) */
 extern void rc_listen (void) __attribute__((noreturn));

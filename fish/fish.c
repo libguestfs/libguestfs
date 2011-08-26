@@ -40,6 +40,7 @@
 
 #include "fish.h"
 #include "options.h"
+#include "progress.h"
 
 #include "c-ctype.h"
 #include "closeout.h"
@@ -54,7 +55,6 @@ struct parsed_command {
 };
 
 static void user_cancel (int);
-static void set_up_terminal (void);
 static void prepare_drives (struct drv *drv);
 static int launch (void);
 static void interactive (void);
@@ -71,6 +71,7 @@ static void add_history_line (const char *);
 #endif
 
 static int override_progress_bars = -1;
+static struct progress_bar *bar = NULL;
 
 /* Currently open libguestfs handle. */
 guestfs_h *g = NULL;
@@ -87,8 +88,6 @@ int keys_from_stdin = 0;
 int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 0;
-int utf8_mode = 0;
-int have_terminfo = 0;
 int progress_bars = 0;
 int is_interactive = 0;
 
@@ -162,8 +161,6 @@ main (int argc, char *argv[])
   textdomain (PACKAGE);
 
   parse_config ();
-
-  set_up_terminal ();
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
@@ -509,9 +506,16 @@ main (int argc, char *argv[])
     ? override_progress_bars
     : (optind >= argc && is_interactive);
 
-  if (progress_bars)
+  if (progress_bars) {
+    bar = progress_bar_init (0);
+    if (!bar) {
+      perror ("progress_bar_init");
+      exit (EXIT_FAILURE);
+    }
+
     guestfs_set_event_callback (g, progress_callback,
                                 GUESTFS_EVENT_PROGRESS, 0, NULL);
+  }
 
   /* Interactive, shell script, or command(s) on the command line? */
   if (optind >= argc) {
@@ -525,6 +529,9 @@ main (int argc, char *argv[])
 
   cleanup_readline ();
 
+  if (progress_bars)
+    progress_bar_free (bar);
+
   exit (EXIT_SUCCESS);
 }
 
@@ -533,35 +540,6 @@ user_cancel (int sig)
 {
   if (g)
     guestfs_user_cancel (g);
-}
-
-/* The <term.h> header file which defines this has "issues". */
-extern int tgetent (char *, const char *);
-
-static void
-set_up_terminal (void)
-{
-  /* http://www.cl.cam.ac.uk/~mgk25/unicode.html#activate */
-  utf8_mode = STREQ (nl_langinfo (CODESET), "UTF-8");
-
-  char *term = getenv ("TERM");
-  if (term == NULL) {
-    //fprintf (stderr, _("guestfish: TERM (terminal type) not defined.\n"));
-    return;
-  }
-
-  int r = tgetent (NULL, term);
-  if (r == -1) {
-    fprintf (stderr, _("guestfish: could not access termcap or terminfo database.\n"));
-    return;
-  }
-  if (r == 0) {
-    fprintf (stderr, _("guestfish: terminal type \"%s\" not defined.\n"),
-             term);
-    return;
-  }
-
-  have_terminfo = 1;
 }
 
 static void
@@ -1041,7 +1019,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd,
   int pid = 0;
   int r;
 
-  reset_progress_bar ();
+  if (progress_bars)
+    progress_bar_reset (bar);
 
   /* This counts the commands issued, starting at 1. */
   command_num++;
@@ -1742,4 +1721,22 @@ file_out (const char *arg)
     return NULL;
   }
   return ret;
+}
+
+/* Callback which displays a progress bar. */
+void
+progress_callback (guestfs_h *g, void *data,
+                   uint64_t event, int event_handle, int flags,
+                   const char *buf, size_t buf_len,
+                   const uint64_t *array, size_t array_len)
+{
+  if (array_len < 4)
+    return;
+
+  /*uint64_t proc_nr = array[0];*/
+  /*uint64_t serial = array[1];*/
+  uint64_t position = array[2];
+  uint64_t total = array[3];
+
+  progress_bar_set (bar, position, total);
 }

@@ -1,4 +1,4 @@
-/* guestfish - the filesystem interactive shell
+/* libguestfs - mini library for progress bars.
  * Copyright (C) 2010-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,14 +20,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <inttypes.h>
 #include <math.h>
 #include <sys/time.h>
+#include <langinfo.h>
 
-#include <guestfs.h>
-
-#include "fish.h"
-#include "rmsd.h"
+#include "progress.h"
 
 /* Include these last since they redefine symbols such as 'lines'
  * which seriously breaks other headers.
@@ -40,8 +39,113 @@
  */
 extern const char *UP;
 
+#define STREQ(a,b) (strcmp((a),(b)) == 0)
+
+/* Compute the running mean and standard deviation from the
+ * series of estimated values.
+ *
+ * Method:
+ * http://en.wikipedia.org/wiki/Standard_deviation#Rapid_calculation_methods
+ * Checked in a test program against answers given by Wolfram Alpha.
+ */
+struct rmsd {
+  double a;                     /* mean */
+  double i;                     /* number of samples */
+  double q;
+};
+
+static void
+rmsd_init (struct rmsd *r)
+{
+  r->a = 0;
+  r->i = 1;
+  r->q = 0;
+}
+
+static void
+rmsd_add_sample (struct rmsd *r, double x)
+{
+  double a_next, q_next;
+
+  a_next = r->a + (x - r->a) / r->i;
+  q_next = r->q + (x - r->a) * (x - a_next);
+  r->a = a_next;
+  r->q = q_next;
+  r->i += 1.0;
+}
+
+static double
+rmsd_get_mean (const struct rmsd *r)
+{
+  return r->a;
+}
+
+static double
+rmsd_get_standard_deviation (const struct rmsd *r)
+{
+  return sqrt (r->q / (r->i - 1.0));
+}
+
+struct progress_bar {
+  double start;         /* start time of command */
+  int count;            /* number of progress notifications per cmd */
+  struct rmsd rmsd;     /* running mean and standard deviation */
+  int have_terminfo;
+  int utf8_mode;
+};
+
+struct progress_bar *
+progress_bar_init (unsigned flags)
+{
+  struct progress_bar *bar;
+  char *term;
+
+  bar = malloc (sizeof *bar);
+  if (bar == NULL)
+    return NULL;
+
+  bar->utf8_mode = STREQ (nl_langinfo (CODESET), "UTF-8");
+
+  bar->have_terminfo = 0;
+
+  term = getenv ("TERM");
+  if (term) {
+    if (tgetent (NULL, term) == 1)
+      bar->have_terminfo = 1;
+  }
+
+  /* Call this to ensure the other fields are in a reasonable state.
+   * It is still the caller's responsibility to reset the progress bar
+   * before each command.
+   */
+  progress_bar_reset (bar);
+
+  return bar;
+}
+
+void
+progress_bar_free (struct progress_bar *bar)
+{
+  free (bar);
+}
+
+/* This function is called just before we issue any command. */
+void
+progress_bar_reset (struct progress_bar *bar)
+{
+  /* The time at which this command was issued. */
+  struct timeval start_t;
+  gettimeofday (&start_t, NULL);
+
+  bar->start = start_t.tv_sec + start_t.tv_usec / 1000000.;
+
+  bar->count = 0;
+
+  rmsd_init (&bar->rmsd);
+}
+
 static const char *
-spinner (int count)
+spinner (struct progress_bar *bar, int count)
 {
   /* Choice of unicode spinners.
    *
@@ -76,7 +180,7 @@ spinner (int count)
   const char **s;
   size_t n;
 
-  if (utf8_mode) {
+  if (bar->utf8_mode) {
     s = us;
     n = sizeof us / sizeof us[0];
   }
@@ -88,25 +192,6 @@ spinner (int count)
   return s[count % n];
 }
 
-static double start;         /* start time of command */
-static int count;            /* number of progress notifications per cmd */
-static struct rmsd rmsd;     /* running mean and standard deviation */
-
-/* This function is called just before we issue any command. */
-void
-reset_progress_bar (void)
-{
-  /* The time at which this command was issued. */
-  struct timeval start_t;
-  gettimeofday (&start_t, NULL);
-
-  start = start_t.tv_sec + start_t.tv_usec / 1000000.;
-
-  count = 0;
-
-  rmsd_init (&rmsd);
-}
-
 /* Return remaining time estimate (in seconds) for current call.
  *
  * This returns the running mean estimate of remaining time, but if
@@ -116,7 +201,7 @@ reset_progress_bar (void)
  * when nothing should be printed).
  */
 static double
-estimate_remaining_time (double ratio)
+estimate_remaining_time (struct progress_bar *bar, double ratio)
 {
   if (ratio <= 0.)
     return -1.0;
@@ -126,17 +211,17 @@ estimate_remaining_time (double ratio)
 
   double now = now_t.tv_sec + now_t.tv_usec / 1000000.;
   /* We've done 'ratio' of the work in 'now - start' seconds. */
-  double time_passed = now - start;
+  double time_passed = now - bar->start;
 
   double total_time = time_passed / ratio;
 
   /* Add total_time to running mean and s.d. and then see if our
    * estimate of total time is meaningful.
    */
-  rmsd_add_sample (&rmsd, total_time);
+  rmsd_add_sample (&bar->rmsd, total_time);
 
-  double mean = rmsd_get_mean (&rmsd);
-  double sd = rmsd_get_standard_deviation (&rmsd);
+  double mean = rmsd_get_mean (&bar->rmsd);
+  double sd = rmsd_get_standard_deviation (&bar->rmsd);
   if (fabs (total_time - mean) >= 2.0*sd)
     return -1.0;
 
@@ -164,32 +249,21 @@ estimate_remaining_time (double ratio)
  */
 #define COLS_OVERHEAD 15
 
-/* Callback which displays a progress bar. */
 void
-progress_callback (guestfs_h *g, void *data,
-                   uint64_t event, int event_handle, int flags,
-                   const char *buf, size_t buf_len,
-                   const uint64_t *array, size_t array_len)
+progress_bar_set (struct progress_bar *bar,
+                  uint64_t position, uint64_t total)
 {
   int i, cols, pulse_mode;
   double ratio;
   const char *s_open, *s_dot, *s_dash, *s_close;
 
-  if (utf8_mode) {
+  if (bar->utf8_mode) {
     s_open = "\u27e6"; s_dot = "\u2589"; s_dash = "\u2550"; s_close = "\u27e7";
   } else {
     s_open = "["; s_dot = "#"; s_dash = "-"; s_close = "]";
   }
 
-  if (array_len < 4)
-    return;
-
-  /*uint64_t proc_nr = array[0];*/
-  /*uint64_t serial = array[1];*/
-  uint64_t position = array[2];
-  uint64_t total = array[3];
-
-  if (have_terminfo == 0) {
+  if (bar->have_terminfo == 0) {
   dumb:
     printf ("%" PRIu64 "/%" PRIu64 "\n", position, total);
   } else {
@@ -197,9 +271,9 @@ progress_callback (guestfs_h *g, void *data,
     if (cols < 32) goto dumb;
 
     /* Update an existing progress bar just printed? */
-    if (count > 0)
+    if (bar->count > 0)
       tputs (UP, 2, putchar);
-    count++;
+    bar->count++;
 
     /* Find out if we're in "pulse mode". */
     pulse_mode = position == 0 && total == 1;
@@ -208,11 +282,11 @@ progress_callback (guestfs_h *g, void *data,
     if (ratio < 0) ratio = 0; else if (ratio > 1) ratio = 1;
 
     if (pulse_mode) {
-      printf ("%s --- ", spinner (count));
+      printf ("%s --- ", spinner (bar, bar->count));
     }
     else if (ratio < 1) {
       int percent = 100.0 * ratio;
-      printf ("%s%3d%% ", spinner (count), percent);
+      printf ("%s%3d%% ", spinner (bar, bar->count), percent);
     }
     else {
       fputs (" 100% ", stdout);
@@ -230,7 +304,7 @@ progress_callback (guestfs_h *g, void *data,
     }
     else {           /* "Pulse mode": the progress bar just pulses. */
       for (i = 0; i < cols - COLS_OVERHEAD; ++i) {
-        int cc = (count * 3 - i) % (cols - COLS_OVERHEAD);
+        int cc = (bar->count * 3 - i) % (cols - COLS_OVERHEAD);
         if (cc >= 0 && cc <= 3)
           fputs (s_dot, stdout);
         else
@@ -242,7 +316,7 @@ progress_callback (guestfs_h *g, void *data,
     fputc (' ', stdout);
 
     /* Time estimate. */
-    double estimate = estimate_remaining_time (ratio);
+    double estimate = estimate_remaining_time (bar, ratio);
     if (estimate >= 100.0 * 60.0 * 60.0 /* >= 100 hours */) {
       /* Display hours<h> */
       estimate /= 60. * 60.;
