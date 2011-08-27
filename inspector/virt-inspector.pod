@@ -369,6 +369,11 @@ versions of virt-inspector with different names:
  virt-inspector     Old Perl version.
  virt-inspector2    New C version.
 
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
