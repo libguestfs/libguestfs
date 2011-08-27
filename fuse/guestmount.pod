@@ -300,6 +300,11 @@ See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 =back
 
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
 =head1 SEE ALSO
 
 L<guestfish(1)>,

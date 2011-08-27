@@ -74,7 +74,7 @@ to write a qemu wrapper script (see section I<QEMU WRAPPERS> in
 L<guestfs(3)>).  libguestfs-test-tool writes a temporary qemu wrapper
 script when you use either of the I<--qemudir> or I<--qemu> options.
 
-=head1 EXIT CODE
+=head1 EXIT STATUS
 
 libguestfs-test-tool returns I<0> if the tests completed without
 error, or I<1> if there was an error.

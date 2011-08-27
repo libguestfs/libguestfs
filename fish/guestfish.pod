@@ -1078,7 +1078,7 @@ This exits guestfish.  You can also use C<^D> key.
 
 @ACTIONS@
 
-=head1 EXIT CODE
+=head1 EXIT STATUS
 
 guestfish returns 0 if the commands completed without error, or
 1 if there was an error.
