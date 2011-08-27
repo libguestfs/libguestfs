@@ -329,22 +329,25 @@ installer, or one part of a multipart CD.  For example:
 
 =head1 USING XPATH
 
-You can use the XPath query language, and/or the xpath tool, in order
-to select parts of the XML.
+You can use the XPath query language to select parts of the XML.  We
+recommend using C<xmlstarlet> to perform XPath queries from the
+command line.
 
 For example:
 
- $ virt-inspector -d Guest | xpath //filesystems
- Found 1 nodes:
- -- NODE --
+ $ virt-inspector -d Guest | xmlstarlet sel -t -c '//filesystems'
  <filesystems>
       <filesystem dev="/dev/vg_f13x64/lv_root">
         <type>ext4</type>
- [etc]
+ [...]
 
  $ virt-inspector -d Guest | \
-     xpath "string(//filesystem[@dev='/dev/sda1']/type)"
- Query didn't return a nodeset. Value: ext4
+     xmlstarlet sel -t -c "string(//filesystem[@dev='/dev/sda1']/type)"
+ ext4
+
+ $ virt-inspector -d Guest | \
+    xmlstarlet sel -t -v '//icon' | base64 -i -d | display -
+ [displays the guest icon, if there is one]
 
 =head1 SHELL QUOTING
 
@@ -380,6 +383,7 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<http://www.w3.org/TR/xpath/>,
 L<base64(1)>,
+L<xmlstarlet(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
