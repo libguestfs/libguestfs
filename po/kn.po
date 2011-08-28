@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:51+0100\n"
+"POT-Creation-Date: 2011-08-28 10:14+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.net/projects/p/fedora/team/"
@@ -20,8 +20,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
-#: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
-#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:59
+#: edit/virt-edit.c:73 fish/fish.c:98 fuse/guestmount.c:908
+#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s -help' ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ .\n"
@@ -49,16 +49,16 @@ msgid ""
 msgstr ""
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
-#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
+#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:219
 #: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
-#: rescue/virt-rescue.c:133
+#: rescue/virt-rescue.c:134
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:242
-#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279 fuse/guestmount.c:1061
-#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
+#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:276 fuse/guestmount.c:1061
+#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:158
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
@@ -295,7 +295,7 @@ msgstr ""
 msgid "%s: -e option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:585 fish/fish.c:1551
+#: edit/virt-edit.c:585 fish/fish.c:1529
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2012,7 +2012,7 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಸಂಪಾದಿಸಲು '%s filename' ಅನ್ನು ಬಳಸಿ\n"
 
-#: fish/fish.c:103
+#: fish/fish.c:102
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2059,48 +2059,38 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:246
+#: fish/fish.c:243
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ಒಂದು ಸಂಖ್ಯೆಯಾಗಿಲ್ಲ: %s\n"
 
-#: fish/fish.c:253
+#: fish/fish.c:250
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID ಅನ್ನು ದೂರಸ್ಥ ಪ್ರಕ್ರಿಯೆಯ PID ಗೆ ಹೊಂದಿಸಬೇಕು\n"
 
-#: fish/fish.c:303
+#: fish/fish.c:300
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ಕೇವಲ ಒಂದು -f ನಿಯತಾಂಕವನ್ನು ಒದಗಿಸಬಹುದು\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:473
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ಹಾಗು --remote ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:481
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ಫ್ಲಾಗ್‌ಗಾಗಿ ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಹೆಚ್ಚುವರಿ ನಿಯತಾಂಕಗಳು\n"
 
-#: fish/fish.c:490
+#: fish/fish.c:487
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:555
-#, c-format
-msgid "guestfish: could not access termcap or terminfo database.\n"
-msgstr ""
-
-#: fish/fish.c:559
-#, c-format
-msgid "guestfish: terminal type \"%s\" not defined.\n"
-msgstr ""
-
-#: fish/fish.c:647
+#: fish/fish.c:625
 #, c-format
 msgid ""
 "\n"
@@ -2113,50 +2103,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:796 fish/fish.c:812
+#: fish/fish.c:774 fish/fish.c:790
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ಆಜ್ಞೆಯ ಆರ್ಗುಮೆಂಟ್‌ಗಳ ನಡುವೆ ಖಾಲಿ ಜಾಗಗಳು ಇರುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:806
+#: fish/fish.c:784
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಒಂದೆ ಒಂದು ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:836
+#: fish/fish.c:814
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ನಲ್ಲಿ ವಾಕ್ಯವನ್ನು ಪಾರ್ಸ್ ಮಾಡುವಲ್ಲಿ ಆಂತರಿಕ ದೋಷ\n"
 
-#: fish/fish.c:853
+#: fish/fish.c:831
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ಅಗತ್ಯಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು   ಚರಪರಿಮಾಣಗಳು (ಆರ್ಗ್ಯೂಮೆಂಟ್)\n"
 
-#: fish/fish.c:928
+#: fish/fish.c:906
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:937
+#: fish/fish.c:915
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಜೋಡಿ ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:1002
+#: fish/fish.c:980
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಯಾವುದೆ ಆಜ್ಞೆ ಇಲ್ಲ\n"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1127
 msgid "display a list of commands or help on a command"
 msgstr "ಆಜ್ಞೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಅಥವ ಒಂದು ಆಜ್ಞೆಯ ನೆರವನ್ನು ತೋರಿಸು"
 
-#: fish/fish.c:1150
+#: fish/fish.c:1129
 msgid "quit guestfish"
 msgstr "guestfish ಇಂದ ನಿರ್ಗಮಿಸು"
 
-#: fish/fish.c:1161
+#: fish/fish.c:1140
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2167,7 +2157,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1169
+#: fish/fish.c:1148
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2176,12 +2166,12 @@ msgstr ""
 "quit - guestfish ಇಂದ ನಿರ್ಗಮಿಸು \n"
 "     quit\n"
 
-#: fish/fish.c:1174
+#: fish/fish.c:1153
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: ಆಜ್ಞೆಯು ತಿಳಿದಿಲ್ಲ, ಎಲ್ಲಾ ಆಜ್ಞೆಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸಲು -h ಉಪಯೋಗಿಸಿ\n"
 
-#: fish/fish.c:1190
+#: fish/fish.c:1169
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2189,26 +2179,26 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1347
+#: fish/fish.c:1326
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" ಎಂಬ ವಾಕ್ಯದಲ್ಲಿ ರನ್‌ಅವೆ ಕೋಟ್\n"
 
-#: fish/fish.c:1545
+#: fish/fish.c:1523
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1565
+#: fish/fish.c:1543
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1584
+#: fish/fish.c:1562
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2454,12 +2444,12 @@ msgstr ""
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/rc.c:255
+#: fish/rc.c:257
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: 'hello' ಸಂದೇಶವನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
-#: fish/rc.c:260
+#: fish/rc.c:262
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2469,19 +2459,19 @@ msgstr ""
 "'%s' ಎಂಬ ಕ್ಲೈಂಟಿನ ಆವೃತ್ತಿಯೊಂದಿಗೆ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  ಎರಡೂ ಆವೃತ್ತಿಗಳು ಸರಿಯಾಗೆ "
 "ತಾಳೆಯಾಗಬೇಕು.\n"
 
-#: fish/rc.c:335 fish/rc.c:349
+#: fish/rc.c:337 fish/rc.c:351
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: ದೂರಸ್ಥ: ಪರಿಚಾರಕವು ಚಾಲನೆಯಲ್ಲಿ ಇಲ್ಲ ತೋರುತ್ತಿದೆ\n"
 
-#: fish/rc.c:361 fish/rc.c:375
+#: fish/rc.c:363 fish/rc.c:377
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: ಪರಿಚಾರಕಕ್ಕೆ ಆರಂಭಿಕ ಸ್ವಾಗತ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು "
 "ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
-#: fish/rc.c:386
+#: fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -2713,7 +2703,7 @@ msgstr ""
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:63
+#: rescue/virt-rescue.c:64
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2739,39 +2729,39 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:180
+#: rescue/virt-rescue.c:181
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:419
+#: rescue/virt-rescue.c:412
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 
-#: src/appliance.c:181
+#: src/appliance.c:182
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:331
+#: src/appliance.c:332
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:336
+#: src/appliance.c:337
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:341
+#: src/appliance.c:342
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:659
+#: src/appliance.c:672
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
@@ -2878,71 +2868,73 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:127
+#: src/launch.c:128
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ಉಪಪ್ರಕ್ರಿಯೆಯನ್ನು ಆರಂಭಿಸಿದ ನಂತರ ಆಜ್ಞಾ ಸಾಲನ್ನು ಬದಲಾಯಿಸುವಂತಿಲ್ಲ"
 
-#: src/launch.c:184
+#: src/launch.c:185
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: ನಿಯತಾಂಕವು '-' ಚಿಹ್ನೆಯಿಂದ ಆರಂಭಗೊಳ್ಳಬೇಕು"
 
-#: src/launch.c:198
+#: src/launch.c:199
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: '%s' ಎಂಬ ನಿಯತಾಂಕಕ್ಕೆ ಅನುಮತಿ ಇಲ್ಲ"
 
-#: src/launch.c:264 src/launch.c:368
+#: src/launch.c:265 src/launch.c:369
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ಕಡತದ ಹೆಸರು ',' (ವಿರಾಮ) ಚಿಹ್ನೆಯನ್ನು ಹೊಂದಿರುವಂತಿಲ್ಲ"
 
-#: src/launch.c:276 src/launch.c:281
+#: src/launch.c:277 src/launch.c:282
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:387
+#: src/launch.c:388
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:396
+#: src/launch.c:397
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/launch.c:433
+#: src/launch.c:434
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: src/launch.c:803
+#: src/launch.c:805
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/launch.c:816
+#: src/launch.c:818
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/launch.c:904
+#: src/launch.c:906
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:912
+#: src/launch.c:914
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1091
-#, c-format
+#: src/launch.c:1086
+#, fuzzy, c-format
 msgid ""
-"%s: command failed: If qemu is located on a non-standard path, try setting "
-"the LIBGUESTFS_QEMU environment variable."
+"command failed: %s\n"
+"\n"
+"If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
+"environment variable.  There may also be errors printed above."
 msgstr ""
 "%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, LIBGUESTFS_QEMU "
 "ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
-#: src/launch.c:1196
+#: src/launch.c:1202
 msgid "qemu has not been launched yet"
 msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗಿಲ್ಲ"
 
-#: src/launch.c:1207
+#: src/launch.c:1213
 msgid "no subprocess to kill"
 msgstr "ಅಂತ್ಯಗೊಳಿಸಲು ಯಾವುದೆ ಉಪಪ್ರಕ್ರಿಯೆಯು ಇಲ್ಲ"
 

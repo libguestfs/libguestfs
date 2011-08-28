@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:51+0100\n"
+"POT-Creation-Date: 2011-08-28 10:14+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
-#: edit/virt-edit.c:73 fish/fish.c:99 fuse/guestmount.c:908
-#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:59
+#: edit/virt-edit.c:73 fish/fish.c:98 fuse/guestmount.c:908
+#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
@@ -66,16 +66,16 @@ msgstr ""
 "Para obtener mayor información, consulte la página man %s(1).\n"
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
-#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
+#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:219
 #: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
-#: rescue/virt-rescue.c:133
+#: rescue/virt-rescue.c:134
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:242
-#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279 fuse/guestmount.c:1061
-#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
+#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:276 fuse/guestmount.c:1061
+#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:158
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
@@ -377,7 +377,7 @@ msgstr ""
 msgid "%s: -e option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:585 fish/fish.c:1551
+#: edit/virt-edit.c:585 fish/fish.c:1529
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2133,7 +2133,7 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr "utilice '%s nombre de archivo' para editar un archivo\n"
 
-#: fish/fish.c:103
+#: fish/fish.c:102
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2180,12 +2180,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:246
+#: fish/fish.c:243
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID no era un número: %s\n"
 
-#: fish/fish.c:253
+#: fish/fish.c:250
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
@@ -2193,40 +2193,29 @@ msgstr ""
 "%s: remote: $GUESTFISH_PID debe estar definido con el PID del proceso "
 "remoto\n"
 
-#: fish/fish.c:303
+#: fish/fish.c:300
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:473
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:481
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:490
+#: fish/fish.c:487
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:555
-#, c-format
-msgid "guestfish: could not access termcap or terminfo database.\n"
-msgstr ""
-"guestfish: no es posible acceder a la base de datos termcap o terminfo.\n"
-
-#: fish/fish.c:559
-#, c-format
-msgid "guestfish: terminal type \"%s\" not defined.\n"
-msgstr "guestfish: el tipo de terminal \"%s\" no ha sido definido.\n"
-
-#: fish/fish.c:647
+#: fish/fish.c:625
 #, c-format
 msgid ""
 "\n"
@@ -2248,51 +2237,51 @@ msgstr ""
 "      'quit' para abandonar la shell\n"
 "\n"
 
-#: fish/fish.c:796 fish/fish.c:812
+#: fish/fish.c:774 fish/fish.c:790
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:806
+#: fish/fish.c:784
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:836
+#: fish/fish.c:814
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:853
+#: fish/fish.c:831
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:928
+#: fish/fish.c:906
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:937
+#: fish/fish.c:915
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:1002
+#: fish/fish.c:980
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1127
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:1150
+#: fish/fish.c:1129
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:1161
+#: fish/fish.c:1140
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2303,7 +2292,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1169
+#: fish/fish.c:1148
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2312,12 +2301,12 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1174
+#: fish/fish.c:1153
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1190
+#: fish/fish.c:1169
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2328,26 +2317,26 @@ msgstr ""
 "Para obtener una lista de comandos:             guestfish -h\n"
 "Para obtener la documentación completa:         man guestfish\n"
 
-#: fish/fish.c:1347
+#: fish/fish.c:1326
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1545
+#: fish/fish.c:1523
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1565
+#: fish/fish.c:1543
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1584
+#: fish/fish.c:1562
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2626,12 +2615,12 @@ msgstr "falló al redimensionar LV a su tamaño máximo %s: %s"
 msgid "failed to create filesystem (%s): %s"
 msgstr "falló al crear el sistema de archivos (%s): %s"
 
-#: fish/rc.c:255
+#: fish/rc.c:257
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: error de protocolo: no se pudo leer el mensaje 'hello'\n"
 
-#: fish/rc.c:260
+#: fish/rc.c:262
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2641,19 +2630,19 @@ msgstr ""
 "servidor '%s' no concuerda con la versión del cliente '%s'. Ambas versiones "
 "deber coincidir de manera exacta.\n"
 
-#: fish/rc.c:335 fish/rc.c:349
+#: fish/rc.c:337 fish/rc.c:351
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remoto: parece ser que el servidor no se está ejecutando\n"
 
-#: fish/rc.c:361 fish/rc.c:375
+#: fish/rc.c:363 fish/rc.c:377
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: error de protocolo: no es posible enviar salutación inicial hacia "
 "el servidor\n"
 
-#: fish/rc.c:386
+#: fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -2939,7 +2928,7 @@ msgstr "{path} no coincide con el patrón augeas"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: no es posible leer formato initrd"
 
-#: rescue/virt-rescue.c:63
+#: rescue/virt-rescue.c:64
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2965,17 +2954,17 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:180
+#: rescue/virt-rescue.c:181
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: no se pudo analizar el tamaño '%s' de la memoria\n"
 
-#: rescue/virt-rescue.c:419
+#: rescue/virt-rescue.c:412
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: estado de salida de proceso hijo desconocido (%d)\n"
 
-#: src/appliance.c:181
+#: src/appliance.c:182
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
@@ -2984,24 +2973,24 @@ msgstr ""
 "no es posible hallar un supermin de libguestfs adecuado, o algún dispositivo "
 "ordinario en LIBGUESTFS_PATH (ruta de búsqueda: %s)"
 
-#: src/appliance.c:331
+#: src/appliance.c:332
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "seguridad: el dispositivo cacheado %s no es propiedad del UID %d"
 
-#: src/appliance.c:336
+#: src/appliance.c:337
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "seguridad: el dispositivo cacheado %s no es un directorio (modo %o) "
 
-#: src/appliance.c:341
+#: src/appliance.c:342
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 "seguridad: el dispositivo cacheado %s es modificable por el grupo u otros "
 "(modo %o)"
 
-#: src/appliance.c:659
+#: src/appliance.c:672
 msgid "external command failed, see earlier error messages"
 msgstr "falló el comando externo, vea mensajes de errores anteriores"
 
@@ -3117,75 +3106,77 @@ msgstr "no es posible resolver  %%SYSTEMROOT%% de Windows"
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:127
+#: src/launch.c:128
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "la línea de comando no puede ser modificada luego de haber sido lanzado el "
 "subproceso qemu"
 
-#: src/launch.c:184
+#: src/launch.c:185
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: el parámetro debe comenzar con el carácter '-'"
 
-#: src/launch.c:198
+#: src/launch.c:199
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: no está permitido el parámetro '%s'"
 
-#: src/launch.c:264 src/launch.c:368
+#: src/launch.c:265 src/launch.c:369
 msgid "filename cannot contain ',' (comma) character"
 msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
 
-#: src/launch.c:276 src/launch.c:281
+#: src/launch.c:277 src/launch.c:282
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "el parámetro %s está vacío o contiene caracteres no permitidos"
 
-#: src/launch.c:387
+#: src/launch.c:388
 msgid "the libguestfs handle has already been launched"
 msgstr "el manipulador libguestfs ya ha sido iniciado"
 
-#: src/launch.c:396
+#: src/launch.c:397
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/launch.c:433
+#: src/launch.c:434
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:803
+#: src/launch.c:805
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:816
+#: src/launch.c:818
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:904
+#: src/launch.c:906
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
-#: src/launch.c:912
+#: src/launch.c:914
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: src/launch.c:1091
-#, c-format
+#: src/launch.c:1086
+#, fuzzy, c-format
 msgid ""
-"%s: command failed: If qemu is located on a non-standard path, try setting "
-"the LIBGUESTFS_QEMU environment variable."
+"command failed: %s\n"
+"\n"
+"If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
+"environment variable.  There may also be errors printed above."
 msgstr ""
 "%s: falló el comando: Si qemu se encuentra ubicado en una ruta no estándar, "
 "intente definir el entorno LIBGUESTFS_QEMU como variable"
 
-#: src/launch.c:1196
+#: src/launch.c:1202
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1207
+#: src/launch.c:1213
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 
@@ -3606,6 +3597,13 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
+
+#~ msgid "guestfish: could not access termcap or terminfo database.\n"
+#~ msgstr ""
+#~ "guestfish: no es posible acceder a la base de datos termcap o terminfo.\n"
+
+#~ msgid "guestfish: terminal type \"%s\" not defined.\n"
+#~ msgstr "guestfish: el tipo de terminal \"%s\" no ha sido definido.\n"
 
 #~ msgid "unknown filesystem label {label}\n"
 #~ msgstr "etiqueta de sistema de archivos {label} desconocida\n"
