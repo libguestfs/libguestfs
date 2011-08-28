@@ -186,8 +186,7 @@ file from a disk image directly, use:
  guestfish --ro -a disk.img -m /dev/sda1 download file -
 
 where C<disk.img> is the disk image, C</dev/sda1> is the filesystem
-within the disk image to edit, and C<file> is the full path to the
-file.
+within the disk image, and C<file> is the full path to the file.
 
 =head1 SHELL QUOTING
 
