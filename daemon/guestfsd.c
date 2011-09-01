@@ -111,6 +111,9 @@ int autosync_umount = 1;
 /* Not used explicitly, but required by the gnulib 'error' module. */
 const char *program_name = "guestfsd";
 
+/* Name of the virtio-serial channel. */
+#define VIRTIO_SERIAL_CHANNEL "/dev/virtio-ports/org.libguestfs.channel.0"
+
 static void
 usage (void)
 {
@@ -237,8 +240,7 @@ main (int argc, char *argv[])
 #endif
 
   /* Connect to virtio-serial channel. */
-  int sock = open ("/dev/virtio-ports/org.libguestfs.channel.0",
-                   O_RDWR | O_CLOEXEC);
+  int sock = open (VIRTIO_SERIAL_CHANNEL, O_RDWR | O_CLOEXEC);
   if (sock == -1) {
     fprintf (stderr,
              "\n"
@@ -253,7 +255,7 @@ main (int argc, char *argv[])
              "output to the libguestfs developers, either in a bug report\n"
              "or on the libguestfs redhat com mailing list.\n"
              "\n");
-    perror ("/dev/virtio-ports/org.libguestfs.channel.0");
+    perror (VIRTIO_SERIAL_CHANNEL);
     exit (EXIT_FAILURE);
   }
 
