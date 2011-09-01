@@ -27,7 +27,9 @@ Build-Depends: debhelper (>= 7), dpkg-dev, devscripts, autotools-dev,
 # virt-resize
   libpcre-ocaml-dev,
 # Debian OCaml
-  dh-ocaml
+  dh-ocaml,
+# to create images in the test suite
+  db4.8-util
 Homepage: http://libguestfs.org
 Standards-Version: 3.8.2
 
