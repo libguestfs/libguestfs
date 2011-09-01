@@ -26,7 +26,6 @@ include $(top_srcdir)/subdir-rules.mk
 TESTS = \
 	tell-user-to-ignore-errors.sh \
 	rhbz501893 \
-	rhbz503169c10.sh \
 	rhbz503169c13.sh \
 	rhbz557655.sh \
 	rhbz576879.sh \
