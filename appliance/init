@@ -14,6 +14,7 @@ mkdir -p /sysroot
 
 rm -f /proc; mkdir /proc
 mount -t proc /proc /proc
+rm -f /sys; mkdir /sys
 mount -t sysfs /sys /sys
 
 if [ ! -L /etc/init.d/udev -a -x /etc/init.d/udev ]; then
