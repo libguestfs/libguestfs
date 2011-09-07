@@ -2227,6 +2227,99 @@ callback to receive these messages.
 
 =head1 INTERNALS
 
+=head2 APPLIANCE BOOT PROCESS
+
+This process has evolved and continues to evolve.  The description
+here corresponds only to the current version of libguestfs and is
+provided for information only.
+
+In order to follow the stages involved below, enable libguestfs
+debugging (set the environment variable C<LIBGUESTFS_DEBUG=1>).
+
+=over 4
+
+=item Create the appliance
+
+C<febootstrap-supermin-helper> is invoked to create the kernel, a
+small initrd and the appliance.
+
+The appliance is cached in C</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in
+another directory if C<TMPDIR> is set).
+
+For a complete description of how the appliance is created and cached,
+read the L<febootstrap(8)> and L<febootstrap-supermin-helper(8)> man
+pages.
+
+=item Start qemu and boot the kernel
+
+qemu is invoked to boot the kernel.
+
+=item Run the initrd
+
+C<febootstrap-supermin-helper> builds a small initrd.  The initrd is
+not the appliance.  The purpose of the initrd is to load enough kernel
+modules in order that the appliance itself can be mounted and started.
+
+The initrd is a cpio archive called
+C</var/tmp/.guestfs-E<lt>UIDE<gt>/initrd>.
+
+When the initrd has started you will see messages showing that kernel
+modules are being loaded, similar to this:
+
+ febootstrap: ext2 mini initrd starting up
+ febootstrap: mounting /sys
+ febootstrap: internal insmod libcrc32c.ko
+ febootstrap: internal insmod crc32c-intel.ko
+
+=item Find and mount the appliance device
+
+The appliance is a sparse file containing an ext2 filesystem which
+contains a familiar (although reduced in size) Linux operating system.
+It would normally be called C</var/tmp/.guestfs-E<lt>UIDE<gt>/root>.
+
+The regular disks being inspected by libguestfs are the first
+devices exposed by qemu (eg. as C</dev/vda>).
+
+The last disk added to qemu is the appliance itself (eg. C</dev/vdb>
+if there was only one regular disk).
+
+Thus the final job of the initrd is to locate the appliance disk,
+mount it, and switch root into the appliance, and run C</init> from
+the appliance.
+
+If this works successfully you will see messages such as:
+
+ febootstrap: picked /sys/block/vdb/dev as root device
+ febootstrap: creating /dev/root as block special 252:16
+ febootstrap: mounting new root on /root
+ febootstrap: chroot
+ Starting /init script ...
+
+Note that C<Starting /init script ...> indicates that the appliance's
+init script is now running.
+
+=item Initialize the appliance
+
+The appliance itself now initializes itself.  This involves starting
+certain processes like C<udev>, possibly printing some debug
+information, and finally running the daemon (C<guestfsd>).
+
+=item The daemon
+
+Finally the daemon (C<guestfsd>) runs inside the appliance.  If it
+runs you should see:
+
+ verbose daemon enabled
+
+The daemon expects to see a named virtio-serial port exposed by qemu
+and connected on the other end to the library.
+
+The daemon connects to this port (and hence to the library) and sends
+a four byte message C<GUESTFS_LAUNCH_FLAG>, which initiates the
+communication protocol (see below).
+
+=back
+
 =head2 COMMUNICATION PROTOCOL
 
 Don't rely on using this protocol directly.  This section documents
