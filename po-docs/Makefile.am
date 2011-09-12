@@ -75,5 +75,5 @@ podfiles: Makefile
 	  grep -v /stamp- \
 	  > $@-t
 	find $(top_srcdir)/tools -name 'virt-*.pl' >> $@-t
-	sort -o $@-t $@-t
+	LC_ALL=C sort -o $@-t $@-t
 	mv $@-t $@
