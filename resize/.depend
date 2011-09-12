@@ -1,6 +1,7 @@
-progress.cmo: utils.cmo ../ocaml/guestfs.cmi
-progress.cmx: utils.cmx ../ocaml/guestfs.cmx
-resize.cmo: utils.cmo progress.cmo ../ocaml/guestfs.cmi
-resize.cmx: utils.cmx progress.cmx ../ocaml/guestfs.cmx
-utils.cmo: ../ocaml/guestfs.cmi
-utils.cmx: ../ocaml/guestfs.cmx
+progress.cmi:
+progress.cmo: utils.cmo progress.cmi
+progress.cmx: utils.cmx progress.cmi
+resize.cmo: utils.cmo progress.cmi
+resize.cmx: utils.cmx progress.cmx
+utils.cmo:
+utils.cmx:
