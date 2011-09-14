@@ -52,6 +52,8 @@ full path of the binary to try it.
 If you have compiled qemu from source, point this option at the source
 directory to try it.
 
+=item B<-t N>
+
 =item B<--timeout N>
 
 Set the launch timeout to C<N> seconds.  The default is 120 seconds
