@@ -64,7 +64,7 @@
 #define P_tmpdir "/tmp"
 #endif
 
-#define DEFAULT_TIMEOUT 120
+#define DEFAULT_TIMEOUT 600
 
 static int timeout = DEFAULT_TIMEOUT;
 static char tmpf[] = P_tmpdir "/libguestfs-test-tool-sda-XXXXXX";

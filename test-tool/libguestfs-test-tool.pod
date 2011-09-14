@@ -56,9 +56,8 @@ directory to try it.
 
 =item B<--timeout N>
 
-Set the launch timeout to C<N> seconds.  The default is 120 seconds
-which does not usually need to be adjusted unless your machine is very
-slow.
+Set the launch timeout to C<N> seconds.  The default is 600 seconds
+(10 minutes) which does not usually need to be adjusted.
 
 =back
 
