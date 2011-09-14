@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-libguestfs-test-tool - End user tests for libguestfs
+libguestfs-test-tool - Diagnostics for libguestfs
 
 =head1 SYNOPSIS
 
@@ -10,12 +10,11 @@ libguestfs-test-tool - End user tests for libguestfs
 
 =head1 DESCRIPTION
 
-libguestfs-test-tool is a test program shipped with libguestfs to end
-users and developers, to allow them to check basic libguestfs
-functionality is working.  This is needed because libguestfs
-occasionally breaks for reasons beyond our control: usually because of
-changes in the underlying qemu or kernel packages, or the host
-environment.
+libguestfs-test-tool is a test program shipped with libguestfs to
+allow you to check basic libguestfs functionality is working.  This is
+needed because libguestfs occasionally breaks for reasons beyond our
+control: usually because of changes in the underlying qemu or kernel
+packages, or the host environment.
 
 If you suspect a problem in libguestfs, then just run:
 
@@ -30,7 +29,7 @@ If it runs to completion successfully, you will see this near the end:
 and the test tool will exit with code 0.
 
 If it fails (and/or exits with non-zero error code), please paste the
-B<complete, unedited> output of the test tool into a bug report.  More
+I<complete, unedited> output of the test tool into a bug report.  More
 information about reporting bugs can be found on the
 L<http://libguestfs.org/> website.
 
@@ -70,10 +69,23 @@ the qemu source directory.
 If you have downloaded a qemu binary from somewhere, use the I<--qemu>
 option to point to the binary.
 
-When using an alternate qemu with libguestfs, usually you would need
-to write a qemu wrapper script (see section I<QEMU WRAPPERS> in
-L<guestfs(3)>).  libguestfs-test-tool writes a temporary qemu wrapper
-script when you use either of the I<--qemudir> or I<--qemu> options.
+Note when using these options, you can ignore the business of qemu
+wrapper scripts (L<guestfs(3)/QEMU WRAPPERS>), since
+libguestfs-test-tool writes a wrapper script for you if one is needed.
+
+=head1 TRYING OUT A DIFFERENT KERNEL
+
+If you are using febootstrap E<ge> 3.8 then you can select which
+kernel libguestfs tries.  You do this by setting the environment
+variables C<FEBOOTSTRAP_KERNEL> and/or C<FEBOOTSTRAP_MODULES>.
+
+Refer to L<febootstrap-supermin-helper(8)/ENVIRONMENT VARIABLES>
+for further information.
+
+=head1 SELF-DIAGNOSIS
+
+Refer to L<guestfs(3)/APPLIANCE BOOT PROCESS> to understand the
+messages produced by libguestfs-test-tool and/or possible errors.
 
 =head1 EXIT STATUS
 
