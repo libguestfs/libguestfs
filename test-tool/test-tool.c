@@ -165,6 +165,7 @@ main (int argc, char *argv[])
   for (i = 0; environ[i] != NULL; ++i)
     if (STREQLEN (environ[i], "FEBOOTSTRAP_", 12))
       printf ("%s\n", environ[i]);
+  printf ("TMPDIR=%s\n", getenv ("TMPDIR") ? : "(not set)");
 
   /* Create the handle and configure it. */
   g = guestfs_create ();
