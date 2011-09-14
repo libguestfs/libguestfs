@@ -38,21 +38,21 @@ L<http://libguestfs.org/> website.
 
 =over 4
 
-=item I<--help>
+=item B<--help>
 
 Display short usage information and exit.
 
-=item I<--qemu qemu_binary>
+=item B<--qemu qemu_binary>
 
 If you have downloaded another qemu binary, point this option at the
 full path of the binary to try it.
 
-=item I<--qemudir qemu_source_dir>
+=item B<--qemudir qemu_source_dir>
 
 If you have compiled qemu from source, point this option at the source
 directory to try it.
 
-=item I<--timeout N>
+=item B<--timeout N>
 
 Set the launch timeout to C<N> seconds.  The default is 120 seconds
 which does not usually need to be adjusted unless your machine is very
