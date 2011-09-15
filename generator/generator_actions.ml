@@ -3013,7 +3013,7 @@ or growing unnecessarily.
 See also: C<guestfs_zero_device>, C<guestfs_scrub_device>,
 C<guestfs_is_zero_device>");
 
-  ("grub_install", (RErr, [Pathname "root"; Device "device"], []), 86, [],
+  ("grub_install", (RErr, [Pathname "root"; Device "device"], []), 86, [Optional "grub"],
    (* See:
     * https://bugzilla.redhat.com/show_bug.cgi?id=484986
     * https://bugzilla.redhat.com/show_bug.cgi?id=479760
@@ -3023,12 +3023,32 @@ C<guestfs_is_zero_device>");
        ["write"; "/boot/grub/device.map"; "(hd0) /dev/vda"];
        ["grub_install"; "/"; "/dev/vda"];
        ["is_dir"; "/boot"]])],
-   "install GRUB",
+   "install GRUB 1",
    "\
-This command installs GRUB (the Grand Unified Bootloader) on
+This command installs GRUB 1 (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.
 
-Note: If grub-install reports the error
+Notes:
+
+=over 4
+
+=item *
+
+There is currently no way in the API to install grub2, which
+is used by most modern Linux guests.  It is possible to run
+the grub2 command from the guest, although see the
+caveats in L<guestfs(3)/RUNNING COMMANDS>.
+
+=item *
+
+This uses C<grub-install> from the host.  Unfortunately grub is
+not always compatible with itself, so this only works in rather
+narrow circumstances.  Careful testing with each guest version
+is advisable.
+
+=item *
+
+If grub-install reports the error
 \"No suitable drive was found in the generated device map.\"
 it may be that you need to create a C</boot/grub/device.map>
 file first that contains the mapping between grub device names
@@ -3037,7 +3057,9 @@ a file containing:
 
  (hd0) /dev/vda
 
-replacing C</dev/vda> with the name of the installation device.");
+replacing C</dev/vda> with the name of the installation device.
+
+=back");
 
   ("cp", (RErr, [Pathname "src"; Pathname "dest"], []), 87, [],
    [InitScratchFS, Always, TestOutput (
