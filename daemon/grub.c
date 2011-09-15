@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,13 @@
 
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+int
+optgroup_grub_available (void)
+{
+  return prog_exists ("grub-install");
+}
 
 int
 do_grub_install (const char *root, const char *device)
