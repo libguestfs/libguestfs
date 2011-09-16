@@ -830,6 +830,10 @@ Scientific Linux.
 
 Slackware.
 
+=item \"ttylinux\"
+
+ttylinux.
+
 =item \"ubuntu\"
 
 Ubuntu.

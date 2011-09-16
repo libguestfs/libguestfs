@@ -384,6 +384,7 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
     break;
 
   case OS_DISTRO_SLACKWARE:
+  case OS_DISTRO_TTYLINUX:
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_UNKNOWN:
   default:
@@ -431,6 +432,7 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
     break;
 
   case OS_DISTRO_SLACKWARE:
+  case OS_DISTRO_TTYLINUX:
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_UNKNOWN:
   default:

@@ -251,6 +251,7 @@ enum inspect_os_distro {
   OS_DISTRO_SLACKWARE,
   OS_DISTRO_CENTOS,
   OS_DISTRO_SCIENTIFIC_LINUX,
+  OS_DISTRO_TTYLINUX,
 };
 
 enum inspect_os_package_format {
