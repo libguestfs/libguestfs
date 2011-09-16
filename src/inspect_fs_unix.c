@@ -694,6 +694,9 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   else if (STRPREFIX (spec, "LABEL="))
     device = guestfs_findfs_label (g, &spec[6]);
   /* Ignore "/.swap" (Pardus) and pseudo-devices like "tmpfs". */
+  else if (STREQ (spec, "/dev/root"))
+    /* Resolve /dev/root to the current device. */
+    device = safe_strdup (g, fs->device);
   else if (STRPREFIX (spec, "/dev/"))
     /* Resolve guest block device names. */
     device = resolve_fstab_device (g, spec);
