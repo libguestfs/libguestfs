@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-01 18:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:31+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -839,7 +839,8 @@ msgid "expand a wildcard path"
 msgstr "rozwija wieloznaczniki w ścieżkach"
 
 #: fish/cmds.c:2758
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "instaluje program GRUB"
 
 #: fish/cmds.c:2759
@@ -3027,7 +3028,7 @@ msgstr ""
 
 #: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
-#: src/inspect_fs_unix.c:826
+#: src/inspect_fs_unix.c:829
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
@@ -3352,49 +3353,49 @@ msgstr "libguestfs-test-tool: nieprawidłowy czas oczekiwania: %s\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: nieoczekiwana opcja wiersza poleceń 0x%x\n"
 
-#: test-tool/test-tool.c:173
+#: test-tool/test-tool.c:174
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: utworzenie programu obsługi libguestfs nie powiodło "
 "się\n"
 
-#: test-tool/test-tool.c:180
+#: test-tool/test-tool.c:181
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: dodanie napędu \"%s\" nie powiodło się\n"
 
-#: test-tool/test-tool.c:188
+#: test-tool/test-tool.c:189
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version nie powiodło się\n"
 
-#: test-tool/test-tool.c:221
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: uruchomienie przyrządu nie powiodło się\n"
 
-#: test-tool/test-tool.c:233
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:239
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 nie powiodło się\n"
 
-#: test-tool/test-tool.c:245
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: zamontowanie /dev/sda1 w / nie powiodło się\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:283
+#: test-tool/test-tool.c:284
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3403,12 +3404,12 @@ msgstr ""
 "Zmienna środowiskowa LIBGUESTFS_QEMU jest już ustawiona, więc nie można\n"
 "użyć opcji --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:291
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 
-#: test-tool/test-tool.c:305
+#: test-tool/test-tool.c:306
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"

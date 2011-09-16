@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-01 18:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:31+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -825,7 +825,8 @@ msgid "expand a wildcard path"
 msgstr "वाईल्डकार्ड मार्ग विस्तारीत करा"
 
 #: fish/cmds.c:2758
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "GRUB प्रतिष्ठापीत करा"
 
 #: fish/cmds.c:2759
@@ -2968,7 +2969,7 @@ msgstr ""
 
 #: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
-#: src/inspect_fs_unix.c:826
+#: src/inspect_fs_unix.c:829
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
@@ -3280,47 +3281,47 @@ msgstr "libguestfs-test-tool: अवैध वेळसमाप्ती: %s\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: अनपेक्षीत आदेश ओळ पर्याय 0x%x\n"
 
-#: test-tool/test-tool.c:173
+#: test-tool/test-tool.c:174
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs हँडल निर्माण करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:180
+#: test-tool/test-tool.c:181
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ड्राइव्ह '%s' समावेश करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:188
+#: test-tool/test-tool.c:189
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version अपयशी\n"
 
-#: test-tool/test-tool.c:221
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: अप्लायंस सुरू करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:233
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:239
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 अपयशी\n"
 
-#: test-tool/test-tool.c:245
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 यांस / वर माऊंट करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:283
+#: test-tool/test-tool.c:284
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3329,12 +3330,12 @@ msgstr ""
 "LIBGUESTFS_QEMU एन्वार्यनमेंट वेरियेबल आधिपासून सेट आहे, म्हणून\n"
 "--qemu/--qemudir पर्याय याचा वापर करणे अशक्य आहे.\n"
 
-#: test-tool/test-tool.c:291
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
 
-#: test-tool/test-tool.c:305
+#: test-tool/test-tool.c:306
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमाणे आढळले नाही\n"
