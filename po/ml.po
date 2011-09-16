@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:54+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:62 df/main.c:70
 #: fish/fish.c:97 fuse/guestmount.c:908 inspector/virt-inspector.c:72
-#: rescue/virt-rescue.c:59
+#: rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി `%s --help' ശ്രമിക്കുക.\n"
@@ -67,14 +67,14 @@ msgstr ""
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:130
 #: df/domains.c:428 df/main.c:136 fish/fish.c:220 fuse/guestmount.c:1024
-#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
+#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:134
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:152
 #: df/main.c:160 fish/fish.c:277 fuse/guestmount.c:1061
-#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
+#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:158
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
@@ -767,7 +767,8 @@ msgid "expand a wildcard path"
 msgstr "ഒരു വൈള്‍ജ്കാര്‍ഡ് പാഥ് വികസിപ്പിക്കുക"
 
 #: fish/cmds.c:2669
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "GRUB ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
 #: fish/cmds.c:2670
@@ -2234,26 +2235,26 @@ msgstr ""
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
 
-#: fish/fish.c:1445
+#: fish/fish.c:1444
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1451
+#: fish/fish.c:1450
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1465
+#: fish/fish.c:1464
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1484
+#: fish/fish.c:1483
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2501,12 +2502,12 @@ msgstr ""
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/rc.c:255
+#: fish/rc.c:257
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: protocol error: 'hello' സന്ദേശം വായിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/rc.c:260
+#: fish/rc.c:262
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2515,18 +2516,18 @@ msgstr ""
 "guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
 "പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
-#: fish/rc.c:335 fish/rc.c:349
+#: fish/rc.c:337 fish/rc.c:351
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: fish/rc.c:361 fish/rc.c:375
+#: fish/rc.c:363 fish/rc.c:377
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
-#: fish/rc.c:386
+#: fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"
@@ -2794,7 +2795,7 @@ msgstr "ഒരു മാതൃകയ്ക്കു് ചേരുന്ന വ
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:63
+#: rescue/virt-rescue.c:64
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2838,12 +2839,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: rescue/virt-rescue.c:180
+#: rescue/virt-rescue.c:181
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
 
-#: rescue/virt-rescue.c:419
+#: rescue/virt-rescue.c:412
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
@@ -2870,7 +2871,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:659
+#: src/appliance.c:671
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
@@ -2978,61 +2979,61 @@ msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ�
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/launch.c:98
+#: src/launch.c:99
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ഉപപ്രക്രിയ വിന്യസിച്ചശേഷം കമാന്‍ഡ് ലൈനില്‍ മാറ്റം വരുത്തുവാന്‍ സാധ്യമല്ല"
 
-#: src/launch.c:155
+#: src/launch.c:156
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '-' ഉപയോഗിച്ചു് ആരംഭിക്കണം"
 
-#: src/launch.c:169
+#: src/launch.c:170
 #, fuzzy, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '%s' അനുവദിച്ചിട്ടില്ല"
 
-#: src/launch.c:235 src/launch.c:339
+#: src/launch.c:236 src/launch.c:340
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ഫയല്‍നാമത്തില്‍ ',' (കോമാ) അടങ്ങുന്നു"
 
-#: src/launch.c:247 src/launch.c:252
+#: src/launch.c:248 src/launch.c:253
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:358
+#: src/launch.c:359
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu നിലവില്‍ വിന്യസിച്ചിരിക്കുന്നു"
 
-#: src/launch.c:367
+#: src/launch.c:368
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
 
-#: src/launch.c:404
+#: src/launch.c:405
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
 
-#: src/launch.c:769
+#: src/launch.c:770
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/launch.c:782
+#: src/launch.c:783
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/launch.c:870
+#: src/launch.c:871
 #, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/launch.c:878
+#: src/launch.c:879
 #, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/launch.c:1057
+#: src/launch.c:1059
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3041,11 +3042,11 @@ msgstr ""
 "%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
 "എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
-#: src/launch.c:1148
+#: src/launch.c:1160
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/launch.c:1159
+#: src/launch.c:1171
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:54+0100\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:62 df/main.c:70
 #: fish/fish.c:97 fuse/guestmount.c:908 inspector/virt-inspector.c:72
-#: rescue/virt-rescue.c:59
+#: rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
@@ -67,14 +67,14 @@ msgstr ""
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:130
 #: df/domains.c:428 df/main.c:136 fish/fish.c:220 fuse/guestmount.c:1024
-#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
+#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:134
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:152
 #: df/main.c:160 fish/fish.c:277 fuse/guestmount.c:1061
-#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
+#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:158
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
@@ -759,7 +759,8 @@ msgid "expand a wildcard path"
 msgstr "expandeer een wildcard pad"
 
 #: fish/cmds.c:2669
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "installeer GRUB"
 
 #: fish/cmds.c:2670
@@ -2233,26 +2234,26 @@ msgstr ""
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Los aanhalingsteken in tekenreeks \"%s\"\n"
 
-#: fish/fish.c:1445
+#: fish/fish.c:1444
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1451
+#: fish/fish.c:1450
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1465
+#: fish/fish.c:1464
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1484
+#: fish/fish.c:1483
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2513,12 +2514,12 @@ msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
 msgid "failed to create filesystem (%s): %s"
 msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
 
-#: fish/rc.c:255
+#: fish/rc.c:257
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: protocol fout: kon 'hello' boodschap niet lezen\n"
 
-#: fish/rc.c:260
+#: fish/rc.c:262
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2528,18 +2529,18 @@ msgstr ""
 "niet overeen met cliënt versie '%s'. De twee versies moeten exact "
 "overeenkomen.\n"
 
-#: fish/rc.c:335 fish/rc.c:349
+#: fish/rc.c:337 fish/rc.c:351
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: het lijkt erop dat de server niet draait\n"
 
-#: fish/rc.c:361 fish/rc.c:375
+#: fish/rc.c:363 fish/rc.c:377
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol fout: kon initiële groeten niet naar de server sturen\n"
 
-#: fish/rc.c:386
+#: fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: protocol fout: kon antwoord van de server niet decoderen\n"
@@ -2825,7 +2826,7 @@ msgstr "{path} komt niet overeen met augeas patroon"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
 
-#: rescue/virt-rescue.c:63
+#: rescue/virt-rescue.c:64
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2869,12 +2870,12 @@ msgstr ""
 "  -v|--verbose         Breedsprakige boodschappen\n"
 "  -V|--version         Laat versie zien en sluit af\n"
 
-#: rescue/virt-rescue.c:180
+#: rescue/virt-rescue.c:181
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:419
+#: rescue/virt-rescue.c:412
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
@@ -2903,7 +2904,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:659
+#: src/appliance.c:671
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
@@ -3012,64 +3013,64 @@ msgstr ""
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
 
-#: src/launch.c:98
+#: src/launch.c:99
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "commando regel kan niet gewijzigd worden nadat een qemu sub-proces "
 "gelanceerd is"
 
-#: src/launch.c:155
+#: src/launch.c:156
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: parameter moet met '-' beginnen"
 
-#: src/launch.c:169
+#: src/launch.c:170
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' is niet toegestaan"
 
-#: src/launch.c:235 src/launch.c:339
+#: src/launch.c:236 src/launch.c:340
 msgid "filename cannot contain ',' (comma) character"
 msgstr "bestandsnaam kan geen ',' (komma) bevatten"
 
-#: src/launch.c:247 src/launch.c:252
+#: src/launch.c:248 src/launch.c:253
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:358
+#: src/launch.c:359
 msgid "the libguestfs handle has already been launched"
 msgstr "de libguestfs hendel is al gelanceerd"
 
-#: src/launch.c:367
+#: src/launch.c:368
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: kan geen tijdelijke map aanmaken"
 
-#: src/launch.c:404
+#: src/launch.c:405
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch.c:769
+#: src/launch.c:770
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:782
+#: src/launch.c:783
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:870
+#: src/launch.c:871
 #, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:878
+#: src/launch.c:879
 #, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:1057
+#: src/launch.c:1059
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3078,11 +3079,11 @@ msgstr ""
 "%s: commando mislukte: Als qemu zich op een niet standaard pad bevindt, "
 "probeer je het instellen van de LIBGUESTFS_QEMU omgevingsvariabele."
 
-#: src/launch.c:1148
+#: src/launch.c:1160
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:1159
+#: src/launch.c:1171
 msgid "no subprocess to kill"
 msgstr "geen sub-proces om af te schieten"
 

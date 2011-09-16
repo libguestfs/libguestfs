@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:54+0100\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:62 df/main.c:70
 #: fish/fish.c:97 fuse/guestmount.c:908 inspector/virt-inspector.c:72
-#: rescue/virt-rescue.c:59
+#: rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s -help' ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ .\n"
@@ -68,14 +68,14 @@ msgstr ""
 
 #: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:130
 #: df/domains.c:428 df/main.c:136 fish/fish.c:220 fuse/guestmount.c:1024
-#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:133
+#: inspector/virt-inspector.c:132 rescue/virt-rescue.c:134
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
 #: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:152
 #: df/main.c:160 fish/fish.c:277 fuse/guestmount.c:1061
-#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:157
+#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:158
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
@@ -772,7 +772,8 @@ msgid "expand a wildcard path"
 msgstr "ವೈಲ್ಡ್‌ಕಾರ್ಡ್ ಮಾರ್ಗವನ್ನು ಹಿಗ್ಗಿಸು"
 
 #: fish/cmds.c:2669
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "GRUB ಅನ್ನು ಅನುಸ್ಥಾಪಿಸು"
 
 #: fish/cmds.c:2670
@@ -2236,26 +2237,26 @@ msgstr ""
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" ಎಂಬ ವಾಕ್ಯದಲ್ಲಿ ರನ್‌ಅವೆ ಕೋಟ್\n"
 
-#: fish/fish.c:1445
+#: fish/fish.c:1444
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1451
+#: fish/fish.c:1450
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1465
+#: fish/fish.c:1464
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1484
+#: fish/fish.c:1483
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2503,12 +2504,12 @@ msgstr ""
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/rc.c:255
+#: fish/rc.c:257
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: 'hello' ಸಂದೇಶವನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
-#: fish/rc.c:260
+#: fish/rc.c:262
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2518,19 +2519,19 @@ msgstr ""
 "'%s' ಎಂಬ ಕ್ಲೈಂಟಿನ ಆವೃತ್ತಿಯೊಂದಿಗೆ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  ಎರಡೂ ಆವೃತ್ತಿಗಳು ಸರಿಯಾಗೆ "
 "ತಾಳೆಯಾಗಬೇಕು.\n"
 
-#: fish/rc.c:335 fish/rc.c:349
+#: fish/rc.c:337 fish/rc.c:351
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: ದೂರಸ್ಥ: ಪರಿಚಾರಕವು ಚಾಲನೆಯಲ್ಲಿ ಇಲ್ಲ ತೋರುತ್ತಿದೆ\n"
 
-#: fish/rc.c:361 fish/rc.c:375
+#: fish/rc.c:363 fish/rc.c:377
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: ಪರಿಚಾರಕಕ್ಕೆ ಆರಂಭಿಕ ಸ್ವಾಗತ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು "
 "ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
-#: fish/rc.c:386
+#: fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -2801,7 +2802,7 @@ msgstr "ಒಂದು ವಿನ್ಯಾಸಕ್ಕೆ ತಾಳೆಯಾಗು�
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:63
+#: rescue/virt-rescue.c:64
 #, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2846,12 +2847,12 @@ msgstr ""
 "  -v|--verbose         ವರ್ಬೋಸ್ ಸಂದೇಶಗಳು\n"
 "  -V|--version         ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು\n"
 
-#: rescue/virt-rescue.c:180
+#: rescue/virt-rescue.c:181
 #, fuzzy, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ \n"
 
-#: rescue/virt-rescue.c:419
+#: rescue/virt-rescue.c:412
 #, fuzzy, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
@@ -2878,7 +2879,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:659
+#: src/appliance.c:671
 #, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
@@ -2986,61 +2987,61 @@ msgstr "ಗಾತ್ರದ ವಿಶಿಷ್ಟತೆ '%s' ಅನ್ನು ಪ�
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/launch.c:98
+#: src/launch.c:99
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ಉಪಪ್ರಕ್ರಿಯೆಯನ್ನು ಆರಂಭಿಸಿದ ನಂತರ ಆಜ್ಞಾ ಸಾಲನ್ನು ಬದಲಾಯಿಸುವಂತಿಲ್ಲ"
 
-#: src/launch.c:155
+#: src/launch.c:156
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: ನಿಯತಾಂಕವು '-' ಚಿಹ್ನೆಯಿಂದ ಆರಂಭಗೊಳ್ಳಬೇಕು"
 
-#: src/launch.c:169
+#: src/launch.c:170
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: '%s' ಎಂಬ ನಿಯತಾಂಕಕ್ಕೆ ಅನುಮತಿ ಇಲ್ಲ"
 
-#: src/launch.c:235 src/launch.c:339
+#: src/launch.c:236 src/launch.c:340
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ಕಡತದ ಹೆಸರು ',' (ವಿರಾಮ) ಚಿಹ್ನೆಯನ್ನು ಹೊಂದಿರುವಂತಿಲ್ಲ"
 
-#: src/launch.c:247 src/launch.c:252
+#: src/launch.c:248 src/launch.c:253
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:358
+#: src/launch.c:359
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ಅನ್ನು ಈಗಾಗಲೆ ಆರಂಭಿಸಲಾಗಿದೆ"
 
-#: src/launch.c:367
+#: src/launch.c:368
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/launch.c:404
+#: src/launch.c:405
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: src/launch.c:769
+#: src/launch.c:770
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/launch.c:782
+#: src/launch.c:783
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/launch.c:870
+#: src/launch.c:871
 #, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/launch.c:878
+#: src/launch.c:879
 #, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/launch.c:1057
+#: src/launch.c:1059
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3049,11 +3050,11 @@ msgstr ""
 "%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, LIBGUESTFS_QEMU "
 "ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
-#: src/launch.c:1148
+#: src/launch.c:1160
 msgid "qemu has not been launched yet"
 msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗಿಲ್ಲ"
 
-#: src/launch.c:1159
+#: src/launch.c:1171
 msgid "no subprocess to kill"
 msgstr "ಅಂತ್ಯಗೊಳಿಸಲು ಯಾವುದೆ ಉಪಪ್ರಕ್ರಿಯೆಯು ಇಲ್ಲ"
 
