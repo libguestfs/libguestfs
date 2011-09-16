@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:37+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -756,7 +756,8 @@ msgid "expand a wildcard path"
 msgstr "વાઇલ્ડકાર્ડ પાથને વિસ્તારો"
 
 #: fish/cmds.c:2598
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "GRUB ને સ્થાપિત કરો"
 
 #: fish/cmds.c:2599

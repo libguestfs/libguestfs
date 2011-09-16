@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-08-17 13:54+0100\n"
+"POT-Creation-Date: 2011-09-16 16:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -761,7 +761,8 @@ msgid "expand a wildcard path"
 msgstr "expande un camino comodín"
 
 #: fish/cmds.c:2598
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "instala el GRUB"
 
 #: fish/cmds.c:2599
