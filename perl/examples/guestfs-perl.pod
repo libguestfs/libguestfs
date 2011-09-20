@@ -41,6 +41,7 @@ C<croak> (see L<Carp(3)>).
 L<Sys::Guestfs(3)>,
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
+L<guestfs-erlang(3)>,
 L<guestfs-java(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-python(3)>,

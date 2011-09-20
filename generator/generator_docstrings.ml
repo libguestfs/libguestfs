@@ -62,6 +62,7 @@ let copyright_years =
 (* Generate a header block in a number of standard styles. *)
 type comment_style =
     CStyle | CPlusPlusStyle | HashStyle | OCamlStyle | HaskellStyle
+  | ErlangStyle
 type license = GPLv2plus | LGPLv2plus
 
 let generate_header ?(extra_inputs = []) comment license =
@@ -71,7 +72,8 @@ let generate_header ?(extra_inputs = []) comment license =
     | CPlusPlusStyle -> pr "// "; "//"
     | HashStyle ->      pr "# ";  "#"
     | OCamlStyle ->     pr "(* "; " *"
-    | HaskellStyle ->   pr "{- "; "  " in
+    | HaskellStyle ->   pr "{- "; "  "
+    | ErlangStyle ->    pr "%% "; "% " in
   pr "libguestfs generated file\n";
   pr "%s WARNING: THIS FILE IS GENERATED FROM:\n" c;
   List.iter (pr "%s   %s\n" c) inputs;
@@ -113,6 +115,7 @@ let generate_header ?(extra_inputs = []) comment license =
   (match comment with
    | CStyle -> pr " */\n"
    | CPlusPlusStyle
+   | ErlangStyle
    | HashStyle -> ()
    | OCamlStyle -> pr " *)\n"
    | HaskellStyle -> pr "-}\n"

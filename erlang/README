@@ -1,0 +1,53 @@
+REAMDE for the Erlang bindings to libguestfs
+----------------------------------------------------------------------
+
+To get started, take a look at the man page guestfs-erlang(3) and the
+example programs.
+
+Note that to run the examples, the "erl-guestfs" binary must be on the
+path.  To run the examples without installing, do:
+
+ cd erlang
+ PATH=.:$PATH ../run ./examples/create_disk.erl
+ PATH=.:$PATH ../run ./examples/inspect_vm.erl /path/to/vm_disk.img
+
+To simplify the implementation we currently don't support events or
+user cancellation.  However it would be pretty simple to add both of
+these.  Patches welcome!
+
+Implementation notes
+----------------------------------------------------------------------
+
+These bindings are done using a port that launches an external
+program, following this example:
+http://www.erlang.org/doc/tutorial/erl_interface.html
+
+The reason for this is that the libguestfs API is synchronous and
+calls may take a long time.  If we used a linked-in driver then that
+would require us to start a POSIX thread in the Erlang interpreter and
+manage concurrency issues.  Using an external process per handle
+simplifies the implementation and makes it much less likely to break
+the Erlang interpreter.
+
+The external C program is called "erl-guestfs".  It is normally
+installed in $(bindir), eg. /usr/bin/erl-guestfs.
+
+You need to make sure that the Erlang code and erl-guestfs are the
+same version.  The protocol used between the Erlang code (guestfs.erl)
+and erl-guestfs might change in future versions.
+
+There is not really any type checking done in the erl-guestfs binary,
+which means you can get undefined behaviour if you send incorrect
+argument types.  Patches welcome to improve this situation.
+
+Licensing
+----------------------------------------------------------------------
+
+Because the C program runs in a separate process, it is licensed as
+GPLv2+.  The Erlang part which "links" into the Erlang interpreter is
+licensed as LGPLv2+.  We believe this means there is no impediment to
+using libguestfs from closed source Erlang programs.
+
+The example programs are under a separate, very permissive license,
+which basically allows you to do what you want with them.  See
+erlang/examples/LICENSE.

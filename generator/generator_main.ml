@@ -38,6 +38,7 @@ open Generator_java
 open Generator_haskell
 open Generator_csharp
 open Generator_php
+open Generator_erlang
 open Generator_bindtests
 open Generator_errnostring
 
@@ -132,6 +133,8 @@ Run it from the top source directory using the command
   output_to "csharp/Libguestfs.cs" generate_csharp;
   output_to "php/extension/php_guestfs_php.h" generate_php_h;
   output_to "php/extension/guestfs_php.c" generate_php_c;
+  output_to "erlang/guestfs.erl" generate_erlang_erl;
+  output_to "erlang/erl-guestfs.c" generate_erlang_c;
 
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());

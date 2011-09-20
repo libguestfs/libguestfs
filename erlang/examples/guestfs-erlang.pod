@@ -1,0 +1,133 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-erlang - How to use libguestfs from Erlang
+
+=head1 SYNOPSIS
+
+ {ok, G} = guestfs:create(),
+ ok = guestfs:add_drive_opts(G, Disk,
+                             [{format, "raw"}, {readonly, true}]),
+ ok = guestfs:launch(G),
+ [Device] = guestfs:list_devices(G),
+ ok = guestfs:close(G).
+
+=head1 DESCRIPTION
+
+This manual page documents how to call libguestfs from the Erlang
+programming language.  This page just documents the differences from
+the C API and gives some examples.  If you are not familiar with using
+libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 OPENING AND CLOSING THE HANDLE
+
+The Erlang bindings are implemented using an external program called
+C<erl-guestfs>.  This program must be on the current PATH, or else you
+should specify the full path to the program:
+
+ {ok, G} = guestfs:create().
+
+ {ok, G} = guestfs:create("/path/to/erl-guestfs").
+
+C<G> is the libguestfs handle which you should pass to other
+functions.
+
+To close the handle:
+
+ ok = guestfs:close(G).
+
+=head2 FUNCTIONS WITH OPTIONAL ARGUMENTS
+
+For functions that take optional arguments, the first arguments are
+the non-optional ones.  The last argument is a list of tuples
+supplying the remaining optional arguments.
+
+ ok = guestfs:add_drive_opts(G, Disk,
+                             [{format, "raw"}, {readonly, true}]).
+
+If the last argument would be an empty list, you can also omit it:
+
+ ok = guestfs:add_drive_opts(G, Disk).
+
+=head2 RETURN VALUES AND ERRORS
+
+On success, most functions return a C<Result> term (which could be a
+list, string, tuple etc.).  If there is nothing for the function to
+return, then the atom C<ok> is returned.
+
+On error, you would see one of the following tuples:
+
+=over 4
+
+=item C<{error, Msg, Errno}>
+
+This indicates an ordinary error from the function.
+
+C<Msg> is the error message (string) and C<Errno> is the Unix error
+(integer).
+
+C<Errno> can be zero.  See L<guestfs(3)/guestfs_last_errno>.
+
+=item C<{unknown, Function}>
+
+This indicates that the function you called is not known.  Generally
+this means you are mixing C<erl-guestfs> from another version of
+libguestfs, which you should not do.
+
+C<Function> is the name of the unknown function.
+
+=item C<{unknownarg, Arg}>
+
+This indicates that you called a function with optional arguments,
+with an unknown argument name.
+
+C<Arg> is the name of the unknown argument.
+
+=back
+
+=head1 EXAMPLE 1: CREATE A DISK IMAGE
+
+@EXAMPLE1@
+
+=head1 EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE
+
+@EXAMPLE2@
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<guestfs-java(3)>,
+L<guestfs-ocaml(3)>,
+L<guestfs-perl(3)>,
+L<guestfs-python(3)>,
+L<guestfs-recipes(1)>,
+L<guestfs-ruby(3)>,
+L<http://www.erlang.org/>.
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc. L<http://libguestfs.org/>
+
+The examples in this manual page may be freely copied, modified and
+distributed without any restrictions.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA

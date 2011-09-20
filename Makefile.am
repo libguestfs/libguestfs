@@ -60,6 +60,9 @@ endif
 if HAVE_PHP
 SUBDIRS += php
 endif
+if HAVE_ERLANG
+SUBDIRS += erlang erlang/examples
+endif
 
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
@@ -131,6 +134,7 @@ EXTRA_DIST = \
 HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
+	html/guestfs-erlang.3.html \
 	html/guestfs-java.3.html \
 	html/guestfs-ocaml.3.html \
 	html/guestfs-perl.3.html \

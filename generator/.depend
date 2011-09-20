@@ -124,6 +124,14 @@ generator_php.cmo: generator_utils.cmi generator_types.cmo \
 generator_php.cmx: generator_utils.cmx generator_types.cmx \
     generator_structs.cmx generator_pr.cmx generator_optgroups.cmx \
     generator_docstrings.cmx generator_c.cmx generator_actions.cmx
+generator_erlang.cmo: generator_utils.cmi generator_types.cmo \
+    generator_structs.cmi generator_pr.cmi generator_optgroups.cmo \
+    generator_events.cmo generator_docstrings.cmo generator_c.cmo \
+    generator_actions.cmi
+generator_erlang.cmx: generator_utils.cmx generator_types.cmx \
+    generator_structs.cmx generator_pr.cmx generator_optgroups.cmx \
+    generator_events.cmx generator_docstrings.cmx generator_c.cmx \
+    generator_actions.cmx
 generator_bindtests.cmo: generator_utils.cmi generator_types.cmo \
     generator_structs.cmi generator_pr.cmi generator_optgroups.cmo \
     generator_docstrings.cmo generator_c.cmo generator_actions.cmi
@@ -138,13 +146,13 @@ generator_main.cmo: generator_xdr.cmo generator_structs.cmi \
     generator_ruby.cmo generator_python.cmo generator_pr.cmi \
     generator_php.cmo generator_perl.cmo generator_ocaml.cmo \
     generator_java.cmo generator_haskell.cmo generator_fish.cmo \
-    generator_errnostring.cmo generator_daemon.cmo generator_csharp.cmo \
-    generator_capitests.cmo generator_c.cmo generator_bindtests.cmo \
-    generator_api_versions.cmi
+    generator_errnostring.cmo generator_erlang.cmo generator_daemon.cmo \
+    generator_csharp.cmo generator_capitests.cmo generator_c.cmo \
+    generator_bindtests.cmo generator_api_versions.cmi
 generator_main.cmx: generator_xdr.cmx generator_structs.cmx \
     generator_ruby.cmx generator_python.cmx generator_pr.cmx \
     generator_php.cmx generator_perl.cmx generator_ocaml.cmx \
     generator_java.cmx generator_haskell.cmx generator_fish.cmx \
-    generator_errnostring.cmx generator_daemon.cmx generator_csharp.cmx \
-    generator_capitests.cmx generator_c.cmx generator_bindtests.cmx \
-    generator_api_versions.cmx
+    generator_errnostring.cmx generator_erlang.cmx generator_daemon.cmx \
+    generator_csharp.cmx generator_capitests.cmx generator_c.cmx \
+    generator_bindtests.cmx generator_api_versions.cmx

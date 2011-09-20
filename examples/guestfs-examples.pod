@@ -33,6 +33,7 @@ libguestfs, you also need to read L<guestfs(3)>.
 =head1 SEE ALSO
 
 L<guestfs(3)>,
+L<guestfs-erlang(3)>,
 L<guestfs-java(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,

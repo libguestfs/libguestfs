@@ -886,6 +886,44 @@ AS_IF([test "x$enable_php" != "xno"],
         ])
 AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
+dnl Erlang
+ERLC=no
+ERL_INTERFACEDIR=no
+AC_ARG_ENABLE([erlang],
+        AS_HELP_STRING([--disable-erlang], [Disable Erlang language bindings]),
+        [],
+        [enable_erlang=yes])
+AS_IF([test "x$enable_erlang" != "xno"],
+        [
+        ERLC=
+        AC_CHECK_PROG([ERLC],[erlc],[erlc],[no])
+
+        if test "x$ERLC" != "xno"; then
+            dnl Look for erl_interface directory in various places.
+            AC_MSG_CHECKING([for erl_interface])
+
+            for d in \
+                $libdir /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64
+            do
+                dir=`ls -1d $d/erlang/lib/erl_interface-* 2>/dev/null`
+                if test "x$dir" != "x" && test -d "$dir"; then
+                    AC_MSG_RESULT([$dir])
+                    ERL_INTERFACEDIR=$dir
+                    break
+                fi
+            done
+
+            if test "x$ERL_INTERFACEDIR" = "xno"; then
+                AC_MSG_RESULT([not found])
+            fi
+        fi
+
+        AC_SUBST([ERLC])
+        AC_SUBST([ERL_INTERFACEDIR])
+        ])
+AM_CONDITIONAL([HAVE_ERLANG],
+        [test "x$ERLC" != "xno" && test "x$ERL_INTERFACEDIR" != "xno"])
+
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],
         [
@@ -933,6 +971,8 @@ AC_CONFIG_FILES([Makefile
                  debian/changelog
                  df/Makefile
                  edit/Makefile
+                 erlang/Makefile
+                 erlang/examples/Makefile
                  examples/Makefile
                  fish/Makefile
                  fuse/Makefile
@@ -994,6 +1034,8 @@ echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "PHP bindings ........................ "
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "Erlang bindings ..................... "
+if test "x$HAVE_ERLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo    "guestfish and C virt tools .......... yes"
 echo -n "Perl virt tools ..................... "
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi

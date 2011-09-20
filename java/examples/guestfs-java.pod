@@ -46,6 +46,7 @@ Calling any method on a closed handle raises the same exception.
 
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
+L<guestfs-erlang(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,
 L<guestfs-python(3)>,
