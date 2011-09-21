@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-14 18:20+0100\n"
+"POT-Creation-Date: 2011-09-21 15:11+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -839,7 +839,8 @@ msgid "expand a wildcard path"
 msgstr "rozwija wieloznaczniki w ścieżkach"
 
 #: fish/cmds.c:2770
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "instaluje program GRUB"
 
 #: fish/cmds.c:2771
@@ -3040,26 +3041,26 @@ msgstr "libguestfs: błąd: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
 
-#: src/inspect.c:263
+#: src/inspect.c:264
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "nie jest gościem systemu Windows lub nie można określić systemroot"
 
-#: src/inspect.c:279
+#: src/inspect.c:280
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
-#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
-#: src/inspect_fs_unix.c:826
+#: src/inspect.c:540 src/inspect_fs.c:462 src/inspect_fs.c:506
+#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:594
+#: src/inspect_fs_unix.c:839
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
 
-#: src/inspect.c:575
+#: src/inspect.c:576
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "brak danych badania: najpierw należy wywołać guestfs_inspect_os"
 
-#: src/inspect.c:587
+#: src/inspect.c:588
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3068,7 +3069,7 @@ msgstr ""
 "%s: nie odnaleziono urządzenia root: należy wywoływać tę funkcję tylko z "
 "urządzeniem root poprzednio zwróconym przez guestfs_inspect_os"
 
-#: src/inspect.c:597 src/inspect_apps.c:607
+#: src/inspect.c:598 src/inspect_apps.c:607
 #, fuzzy
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
@@ -3082,12 +3083,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "nie można przetworzyć liczby całkowitej w numerze wersji: %s"
 
-#: src/inspect_fs.c:469
+#: src/inspect_fs.c:471
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: plik jest pusty"
 
-#: src/inspect_fs_unix.c:618
+#: src/inspect_fs_unix.c:628
 msgid "could not parse /etc/fstab or empty file"
 msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 
@@ -3096,7 +3097,7 @@ msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
 
-#: src/inspect_icon.c:452
+#: src/inspect_icon.c:453
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""

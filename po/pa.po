@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-14 18:20+0100\n"
+"POT-Creation-Date: 2011-09-21 15:11+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -823,7 +823,8 @@ msgid "expand a wildcard path"
 msgstr "ਵਾਈਲਡਕਾਰਡ ਮਾਰਗ ਫੈਲਾਓ"
 
 #: fish/cmds.c:2770
-msgid "install GRUB"
+#, fuzzy
+msgid "install GRUB 1"
 msgstr "GRUB ਇੰਸਟਾਲ ਕਰੋ"
 
 #: fish/cmds.c:2771
@@ -2978,26 +2979,26 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<ਘਟਾਇਆ, ਅਸਲੀ ਅਕਾਰ %zu ਬਾਈਟ>"
 
-#: src/inspect.c:263
+#: src/inspect.c:264
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "ਇੱਕ Windows ਗਿਸਟ ਨਹੀਂ ਹੈ, ਜਾਂ systemroot ਦਾ ਪਤਾ ਨਹੀਂ ਲਾਇਆ ਜਾ ਸਕਦਾ"
 
-#: src/inspect.c:279
+#: src/inspect.c:280
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
-#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
-#: src/inspect_fs_unix.c:826
+#: src/inspect.c:540 src/inspect_fs.c:462 src/inspect_fs.c:506
+#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:594
+#: src/inspect_fs_unix.c:839
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s ਦਾ ਅਕਾਰ ਬੇਲੋੜਾ ਹੈ (%<PRIi64> ਬਾਈਟਾਂ)"
 
-#: src/inspect.c:575
+#: src/inspect.c:576
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "ਕੋਈ ਪੜਤਾਲ ਡਾਟਾ ਨਹੀਂ ਹੈ: ਪਹਿਲਾਂ guestfs_inspect_os ਨੂੰ ਕਾਲ ਕਰੋ"
 
-#: src/inspect.c:587
+#: src/inspect.c:588
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3006,7 +3007,7 @@ msgstr ""
 "%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
 "guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 
-#: src/inspect.c:597 src/inspect_apps.c:607
+#: src/inspect.c:598 src/inspect_apps.c:607
 #, fuzzy
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
@@ -3020,12 +3021,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
 
-#: src/inspect_fs.c:469
+#: src/inspect_fs.c:471
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: ਫਾਇਲ ਖਾਲੀ ਹੈ"
 
-#: src/inspect_fs_unix.c:618
+#: src/inspect_fs_unix.c:628
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab ਜਾਂ ਖਾਲੀ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ"
 
@@ -3034,7 +3035,7 @@ msgstr "/etc/fstab ਜਾਂ ਖਾਲੀ ਫਾਇਲ ਨੂੰ ਪਾਰਸ �
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "Windows %%SYSTEMROOT%% ਨੂੰ ਰਿਜ਼ੌਲਵ ਨਹੀਂ ਕਰ ਸਕਦਾ"
 
-#: src/inspect_icon.c:452
+#: src/inspect_icon.c:453
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""

@@ -3,6 +3,7 @@
 ../cat/virt-ls.pod
 ../df/virt-df.pod
 ../edit/virt-edit.pod
+../erlang/examples/guestfs-erlang.pod
 ../examples/guestfs-examples.pod
 ../examples/guestfs-recipes.pod
 ../fish/guestfish-actions.pod
