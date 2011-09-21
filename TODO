@@ -532,3 +532,9 @@ libosinfo mappings for virt-inspector
 -------------------------------------
 
 Return libosinfo mappings from inspection API.
+
+Erlang bindings
+---------------
+
+Use the AC_ERLANG_* autoconf macros.  See:
+https://github.com/ndim/erlusb/blob/master/configure.ac
