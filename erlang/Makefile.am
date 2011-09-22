@@ -41,12 +41,12 @@ erl_guestfs_SOURCES = erl-guestfs.c erl-guestfs-proto.c
 erl_guestfs_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	-I$(ERL_INTERFACEDIR)/include \
+	-I$(ERLANG_LIB_DIR_erl_interface)/include \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 erl_guestfs_LDADD = \
-	$(ERL_INTERFACEDIR)/lib/liberl_interface.a \
-	$(ERL_INTERFACEDIR)/lib/libei.a \
+	$(ERLANG_LIB_DIR_erl_interface)/lib/liberl_interface.a \
+	$(ERLANG_LIB_DIR_erl_interface)/lib/libei.a \
 	-lpthread \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la

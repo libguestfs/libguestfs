@@ -887,42 +887,21 @@ AS_IF([test "x$enable_php" != "xno"],
 AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
 dnl Erlang
-ERLC=no
-ERL_INTERFACEDIR=no
 AC_ARG_ENABLE([erlang],
         AS_HELP_STRING([--disable-erlang], [Disable Erlang language bindings]),
         [],
         [enable_erlang=yes])
 AS_IF([test "x$enable_erlang" != "xno"],
         [
-        ERLC=
-        AC_CHECK_PROG([ERLC],[erlc],[erlc],[no])
+        AC_ERLANG_PATH_ERLC([no])
 
         if test "x$ERLC" != "xno"; then
-            dnl Look for erl_interface directory in various places.
-            AC_MSG_CHECKING([for erl_interface])
-
-            for d in \
-                $libdir /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64
-            do
-                dir=`ls -1d $d/erlang/lib/erl_interface-* 2>/dev/null`
-                if test "x$dir" != "x" && test -d "$dir"; then
-                    AC_MSG_RESULT([$dir])
-                    ERL_INTERFACEDIR=$dir
-                    break
-                fi
-            done
-
-            if test "x$ERL_INTERFACEDIR" = "xno"; then
-                AC_MSG_RESULT([not found])
-            fi
+            AC_ERLANG_CHECK_LIB([erl_interface], [],
+                                [AC_MSG_FAILURE([Erlang erl_interface library not installed.  Use --disable-erlang to disable.])])
+            AC_ERLANG_SUBST_LIB_DIR
         fi
-
-        AC_SUBST([ERLC])
-        AC_SUBST([ERL_INTERFACEDIR])
         ])
-AM_CONDITIONAL([HAVE_ERLANG],
-        [test "x$ERLC" != "xno" && test "x$ERL_INTERFACEDIR" != "xno"])
+AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLC" != "xno"])
 
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],
