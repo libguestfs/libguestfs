@@ -948,6 +948,29 @@ For example:
 Note that libguestfs also calls qemu with the -help and -version
 options in order to determine features.
 
+Wrappers can also be used to edit the options passed to qemu.  In the
+following example, the C<-machine ...> option (C<-machine> and the
+following argument) are removed from the command line and replaced
+with C<-machine pc,accel=tcg>.  The while loop iterates over the
+options until it finds the right one to remove, putting the remaining
+options into the C<args> array.
+
+ #!/bin/bash -
+ 
+ i=0
+ while [ $# -gt 0 ]; do
+     case "$1" in
+     -machine)
+         shift 2;;
+     *)
+         args[i]="$1"
+         (( i++ ))
+         shift ;;
+     esac
+ done
+ 
+ exec qemu-kvm -machine pc,accel=tcg "${args[@]}"
+
 =head2 ATTACHING TO RUNNING DAEMONS
 
 I<Note (1):> This is B<highly experimental> and has a tendency to eat
