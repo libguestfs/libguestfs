@@ -607,6 +607,7 @@ launch_appliance (guestfs_h *g)
     "console=ttyS0 "   /* serial console */				\
     "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
     "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
+    "no_timer_check "  /* fix for RHBZ#502058 */                        \
     "acpi=off "        /* we don't need ACPI, turn it off */		\
     "printk.time=1 "   /* display timestamp before kernel messages */   \
     "cgroup_disable=memory " /* saves us about 5 MB of RAM */
