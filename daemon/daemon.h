@@ -191,6 +191,24 @@ extern void pulse_mode_start (void);
 extern void pulse_mode_end (void);
 extern void pulse_mode_cancel (void);
 
+/* Return true iff the buffer is all zero bytes.
+ *
+ * Note that gcc is smart enough to optimize this properly:
+ * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
+ */
+static inline int
+is_zero (const char *buffer, size_t size)
+{
+  size_t i;
+
+  for (i = 0; i < size; ++i) {
+    if (buffer[i] != 0)
+      return 0;
+  }
+
+  return 1;
+}
+
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.
  */

@@ -28,24 +28,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-/* Return true iff the buffer is all zero bytes.
- *
- * Note that gcc is smart enough to optimize this properly:
- * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
- */
-static int
-is_zero (const char *buffer, size_t size)
-{
-  size_t i;
-
-  for (i = 0; i < size; ++i) {
-    if (buffer[i] != 0)
-      return 0;
-  }
-
-  return 1;
-}
-
 static const char zero_buf[4096];
 
 int
