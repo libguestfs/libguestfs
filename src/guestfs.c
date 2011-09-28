@@ -144,6 +144,9 @@ guestfs_create (void)
    */
   g->msg_next_serial = 0x00123400;
 
+  /* Default is uniprocessor appliance. */
+  g->smp = 1;
+
   /* Link the handles onto a global list. */
   gl_lock_lock (handles_lock);
   g->next = handles;
@@ -812,6 +815,24 @@ int
 guestfs__get_pgroup (guestfs_h *g)
 {
   return g->pgroup;
+}
+
+int
+guestfs__set_smp (guestfs_h *g, int v)
+{
+  if (v >= 1) {
+    g->smp = v;
+    return 0;
+  } else {
+    error (g, "invalid smp parameter: %d", v);
+    return -1;
+  }
+}
+
+int
+guestfs__get_smp (guestfs_h *g)
+{
+  return g->smp;
 }
 
 /* Note the private data area is allocated lazily, since the vast

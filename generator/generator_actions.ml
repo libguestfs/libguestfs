@@ -1549,6 +1549,22 @@ C<^C> to kill the subprocess.");
    "\
 This returns the process group flag.");
 
+  ("set_smp", (RErr, [Int "smp"], []), -1, [FishAlias "smp"],
+   [],
+   "set number of virtual CPUs in appliance",
+   "\
+Change the number of virtual CPUs assigned to the appliance.  The
+default is C<1>.  Increasing this may improve performance, though
+often it has no effect.
+
+This function must be called before C<guestfs_launch>.");
+
+  ("get_smp", (RInt "smp", [], []), -1, [],
+   [],
+   "get number of virtual CPUs in appliance",
+   "\
+This returns the number of virtual CPUs assigned to the appliance.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

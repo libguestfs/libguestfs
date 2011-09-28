@@ -206,6 +206,7 @@ main (int argc, char *argv[])
   printf ("guestfs_get_recovery_proc: %d\n",
           guestfs_get_recovery_proc (g));
   printf ("guestfs_get_selinux: %d\n", guestfs_get_selinux (g));
+  printf ("guestfs_get_smp: %d\n", guestfs_get_smp (g));
   printf ("guestfs_get_trace: %d\n", guestfs_get_trace (g));
   printf ("guestfs_get_verbose: %d\n", guestfs_get_verbose (g));
 

@@ -555,6 +555,12 @@ launch_appliance (guestfs_h *g)
 
     add_cmdline (g, "-nographic");
 
+    if (g->smp > 1) {
+      snprintf (buf, sizeof buf, "%d", g->smp);
+      add_cmdline (g, "-smp");
+      add_cmdline (g, buf);
+    }
+
     snprintf (buf, sizeof buf, "%d", g->memsize);
     add_cmdline (g, "-m");
     add_cmdline (g, buf);

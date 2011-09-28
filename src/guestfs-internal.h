@@ -170,6 +170,8 @@ struct guestfs_h
 
   int pgroup;                   /* Create process group for children? */
 
+  int smp;                      /* If > 1, -smp flag passed to qemu. */
+
   char *last_error;
   int last_errnum;              /* errno, or 0 if there was no errno */
 

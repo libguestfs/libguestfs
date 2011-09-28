@@ -77,6 +77,7 @@ usage (int status)
              "  --network            Enable network\n"
              "  -r|--ro              Access read-only\n"
              "  --selinux            Enable SELinux\n"
+             "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
              "  -w|--rw              Mount read-write\n"
@@ -115,6 +116,7 @@ main (int argc, char *argv[])
     { "ro", 0, 0, 'r' },
     { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
+    { "smp", 1, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -128,6 +130,7 @@ main (int argc, char *argv[])
   const char *append = NULL;
   char *append_full;
   int memsize = 0;
+  int smp = 0;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -154,6 +157,17 @@ main (int argc, char *argv[])
           format = NULL;
         else
           format = optarg;
+      } else if (STREQ (long_options[option_index].name, "smp")) {
+        if (sscanf (optarg, "%u", &smp) != 1) {
+          fprintf (stderr, _("%s: could not parse --smp parameter '%s'\n"),
+                   program_name, optarg);
+          exit (EXIT_FAILURE);
+        }
+        if (smp < 1) {
+          fprintf (stderr, _("%s: --smp parameter '%s' should be >= 1\n"),
+                   program_name, optarg);
+          exit (EXIT_FAILURE);
+        }
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -270,6 +284,8 @@ main (int argc, char *argv[])
     guestfs_set_memsize (g, memsize);
   if (network)
     guestfs_set_network (g, 1);
+  if (smp >= 1)
+    guestfs_set_smp (g, smp);
 
   /* Kernel command line must include guestfs_rescue=1 (see
    * appliance/init) as well as other options.

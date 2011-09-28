@@ -175,6 +175,10 @@ See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 Enable SELinux in the rescue appliance.  You should read
 L<guestfs(3)/SELINUX> before using this option.
 
+=item B<--smp> N
+
+Enable N E<ge> 2 virtual CPUs in the rescue appliance.
+
 =item B<-v>
 
 =item B<--verbose>
