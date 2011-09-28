@@ -6146,6 +6146,33 @@ C<path> does not exist, then a new file is created.
 
 See also C<guestfs_write>.");
 
+  ("compress_out", (RErr, [String "ctype"; Pathname "file"; FileOut "zfile"], [Int "level"]), 291, [],
+   [],
+   "output compressed file",
+   "\
+This command compresses C<file> and writes it out to the local
+file C<zfile>.
+
+The compression program used is controlled by the C<ctype> parameter.
+Currently this includes: C<compress>, C<gzip>, C<bzip2>, C<xz> or C<lzop>.
+Some compression types may not be supported by particular builds of
+libguestfs, in which case you will get an error containing the
+substring \"not supported\".
+
+The optional C<level> parameter controls compression level.  The
+meaning and default for this parameter depends on the compression
+program being used.");
+
+  ("compress_device_out", (RErr, [String "ctype"; Device "device"; FileOut "zdevice"], [Int "level"]), 292, [],
+   [],
+   "output compressed device",
+   "\
+This command compresses C<device> and writes it out to the local
+file C<zdevice>.
+
+The C<ctype> and optional C<level> parameters have the same meaning
+as in C<guestfs_compress_out>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

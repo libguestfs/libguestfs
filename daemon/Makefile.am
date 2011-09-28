@@ -94,6 +94,7 @@ guestfsd_SOURCES = \
 	checksum.c \
 	cmp.c \
 	command.c \
+	compress.c \
 	cpmv.c \
 	daemon.h \
 	dd.c \

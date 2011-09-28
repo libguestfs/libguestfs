@@ -106,6 +106,7 @@ gzip
 jfsutils
 lsof
 lvm2
+lzop
 module-init-tools
 net-tools
 /*
