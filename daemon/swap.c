@@ -43,8 +43,13 @@ optgroup_linuxfsuuid_available (void)
   char *err;
   int av;
 
-  /* Ignore return code - mkswap --help *will* fail. */
-  ignore_value (command (NULL, &err, "mkswap", "--help", NULL));
+  /* Upstream util-linux have been gradually changing '--help' to go
+   * from stderr to stdout, and changing the return code from 1 to 0.
+   * Thus we need to fold stdout and stderr together, and ignore the
+   * return code.
+   */
+  ignore_value (commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                          "mkswap", "--help", NULL));
 
   av = strstr (err, "-U") != NULL;
   free (err);
