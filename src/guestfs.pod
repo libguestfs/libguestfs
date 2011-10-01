@@ -802,6 +802,9 @@ can make this very puzzling if you are trying to debug a problem.
 
 =item Mount option C<-o sync> should not be the default.
 
+I<Update:> L</guestfs_mount> no longer adds any options starting
+from libguestfs 1.13.16.  This section only applies to older versions.
+
 If you use L</guestfs_mount>, then C<-o sync,noatime> are added
 implicitly.  However C<-o sync> does not add any reliability benefit,
 but does have a very large performance impact.

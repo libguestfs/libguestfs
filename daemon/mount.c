@@ -123,7 +123,7 @@ do_mount_vfs (const char *options, const char *vfstype,
 int
 do_mount (const char *device, const char *mountpoint)
 {
-  return do_mount_vfs ("sync,noatime", NULL, device, mountpoint);
+  return do_mount_vfs ("", NULL, device, mountpoint);
 }
 
 int

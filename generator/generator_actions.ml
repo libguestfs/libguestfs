@@ -1595,15 +1595,12 @@ exist.
 The mounted filesystem is writable, if we have sufficient permissions
 on the underlying device.
 
-B<Important note:>
-When you use this call, the filesystem options C<sync> and C<noatime>
-are set implicitly.  This was originally done because we thought it
-would improve reliability, but it turns out that I<-o sync> has a
-very large negative performance impact and negligible effect on
-reliability.  Therefore we recommend that you avoid using
-C<guestfs_mount> in any code that needs performance, and instead
-use C<guestfs_mount_options> (use an empty string for the first
-parameter if you don't want any options).");
+Before libguestfs 1.13.16, this call implicitly added the options
+C<sync> and C<noatime>.  The C<sync> option greatly slowed
+writes and caused many problems for users.  If your program
+might need to work with older versions of libguestfs, use
+C<guestfs_mount_options> instead (using an empty string for the
+first parameter if you don't want any options).");
 
   ("sync", (RErr, [], []), 2, [],
    [ InitEmpty, Always, TestRun [["sync"]]],
