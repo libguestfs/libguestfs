@@ -1572,7 +1572,7 @@ This returns the number of virtual CPUs assigned to the appliance.");
  *)
 
 let daemon_functions = [
-  ("mount", (RErr, [Device "device"; String "mountpoint"], []), 1, [DeprecatedBy "mount_options"],
+  ("mount", (RErr, [Device "device"; String "mountpoint"], []), 1, [],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
