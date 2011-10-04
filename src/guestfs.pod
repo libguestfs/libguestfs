@@ -2896,7 +2896,7 @@ Source code to the C library.
 
 =item C<tools>
 
-Command line tools written in Perl (L<virt-resize(1)> and many others).
+Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 
 =item C<test-tool>
 
