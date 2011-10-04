@@ -53,6 +53,12 @@ guestfs_chown 0.8
 guestfs_close 0.3
 guestfs_command 0.9.1
 guestfs_command_lines 0.9.1
+guestfs_compress_device_out 1.13.15
+guestfs_compress_device_out_argv 1.13.15
+guestfs_compress_device_out_va 1.13.15
+guestfs_compress_out 1.13.15
+guestfs_compress_out_argv 1.13.15
+guestfs_compress_out_va 1.13.15
 guestfs_config 0.3
 guestfs_copy_size 1.0.87
 guestfs_cp 1.0.18
@@ -112,6 +118,7 @@ guestfs_get_private 1.5.7
 guestfs_get_qemu 1.0.6
 guestfs_get_recovery_proc 1.0.77
 guestfs_get_selinux 1.0.67
+guestfs_get_smp 1.13.15
 guestfs_get_state 1.0.2
 guestfs_get_trace 1.0.69
 guestfs_get_umask 1.3.4
@@ -361,6 +368,7 @@ guestfs_set_private 1.5.7
 guestfs_set_qemu 1.0.6
 guestfs_set_recovery_proc 1.0.77
 guestfs_set_selinux 1.0.67
+guestfs_set_smp 1.13.15
 guestfs_set_trace 1.0.69
 guestfs_set_verbose 0.3
 guestfs_setxattr 1.0.59
