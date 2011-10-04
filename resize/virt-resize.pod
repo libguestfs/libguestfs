@@ -629,6 +629,7 @@ L<fallocate(1)>,
 L<grub(8)>,
 L<grub-install(8)>,
 L<virt-rescue(1)>,
+L<virt-sparsify(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR

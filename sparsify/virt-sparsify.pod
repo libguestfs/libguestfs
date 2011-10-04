@@ -1,0 +1,284 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-sparsify - Make a virtual machine disk sparse
+
+=head1 SYNOPSIS
+
+ virt-sparsify [--options] indisk outdisk
+
+=head1 DESCRIPTION
+
+Virt-sparsify is a tool which can make a virtual machine disk (or any
+disk image) sparse a.k.a. thin-provisioned.  This means that free
+space within the disk image can be converted back to free space on the
+host.
+
+Virt-sparsify can locate and sparsify free space in most filesystems
+(eg. ext2/3/4, btrfs, NTFS, etc.), and also in LVM physical volumes.
+
+Virt-sparsify can also convert between some disk formats, for example
+converting a raw disk image to a thin-provisioned qcow2 image.
+
+Virt-sparsify can operate on any disk image, not just ones from
+virtual machines.  If a virtual machine has multiple disk images, then
+you must sparsify each one separately.
+
+=head2 IMPORTANT LIMITATIONS
+
+=over 4
+
+=item *
+
+Virt-sparsify does not do in-place modifications.  It copies from a
+source image to a destination image, leaving the source unchanged.
+I<Check that the sparsification was successful before deleting the
+source image>.
+
+=item *
+
+The virtual machine I<must be shut down> before using this tool.
+
+=item *
+
+Virt-sparsify may require up to 2x the virtual size of the source disk
+image (1 temporary copy + 1 destination image).  This is in the worst
+case and usually much less space is required.
+
+=item *
+
+Virt-sparsify cannot resize disk images.  To do that, use
+L<virt-resize(1)>.
+
+=item *
+
+Virt-sparsify cannot handle encrypted disks.
+
+=item *
+
+Virt-sparsify cannot yet sparsify the space between partitions.  Note
+that this space is often used for critical items like bootloaders so
+it's not really unused.
+
+=item *
+
+Virt-sparsify does not yet know how to sparsify swapspace.  It is not
+safe to do this unless we can be sure there is no hibernation data, so
+at the moment swap partitions are ignored.
+
+=back
+
+You may also want to read the manual pages for the associated tools
+L<virt-filesystems(1)> and L<virt-df(1)> before starting.
+
+=head1 EXAMPLES
+
+Typical usage is:
+
+ virt-sparsify indisk outdisk
+
+which copies C<indisk> to C<outdisk>, making the output sparse.
+C<outdisk> is created, or overwritten if it already exists.  The
+format of the input disk is detected (eg. qcow2) and the same format
+is used for the output disk.
+
+To convert between formats, use the I<--convert> option:
+
+ virt-sparsify disk.raw --convert qcow2 disk.qcow2
+
+Virt-sparsify tries to zero and sparsify free space on every
+filesystem it can find within the source disk image.  You can get it
+to ignore (don't zero free space on) certain filesystems by doing:
+
+ virt-sparsify --ignore /dev/sda1 indisk outdisk
+
+See L<virt-filesystems(1)> to get a list of filesystems within a disk
+image.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<--convert> raw
+
+=item B<--convert> qcow2
+
+=item B<--convert> [other formats]
+
+Use C<output-format> as the format for the destination image.  If this
+is not specified, then the input format is used.
+
+Supported and known-working output formats are: C<raw>, C<qcow2>.
+
+You can also use any format supported by the L<qemu-img(1)> program,
+eg. C<vdi> or C<vmdk>, but support for other formats is reliant on
+qemu.
+
+Specifying the I<--convert> option is usually a good idea, because
+then virt-sparsify doesn't need to try to guess the input format.
+
+=item B<--format> raw
+
+=item B<--format> qcow2
+
+Specify the format of the input disk image.  If this flag is not
+given then it is auto-detected from the image itself.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=item B<--ignore> filesystem
+
+=item B<--ignore> volgroup
+
+Ignore the named filesystem.  Free space on the filesystem will not be
+zeroed, but existing blocks of zeroes will still be sparsified.
+
+In the second form, this ignores the named volume group.  Use the
+volume group name without the C</dev/> prefix, eg. I<--ignore vg_foo>
+
+You can give this option multiple times.
+
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
+=item B<-q>
+
+=item B<--quiet>
+
+This disables progress bars and other unnecessary output.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-sparsify from
+other programs, GUIs etc.
+
+There are two ways to use this option.
+
+Firstly use the option on its own to query the capabilities of the
+virt-sparsify binary.  Typical output looks like this:
+
+ $ virt-sparsify --machine-readable
+ virt-sparsify
+ ntfs
+ btrfs
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+Secondly use the option in conjunction with other options to make the
+regular program output more machine friendly.
+
+At the moment this means:
+
+=over 4
+
+=item 1.
+
+Progress bar messages can be parsed from stdout by looking for this
+regular expression:
+
+ ^[0-9]+/[0-9]+$
+
+=item 2.
+
+The calling program should treat messages sent to stdout (except for
+progress bar messages) as status messages.  They can be logged and/or
+displayed to the user.
+
+=item 3.
+
+The calling program should treat messages sent to stderr as error
+messages.  In addition, virt-sparsify exits with a non-zero status
+code if there was a fatal error.
+
+=back
+
+All versions of virt-sparsify have supported the I<--machine-readable>
+option.
+
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item TMPDIR
+
+Location of the temporary directory used for the potentially large
+temporary overlay file.
+
+You should ensure there is enough free space in the worst case for a
+full copy of the source disk (I<virtual> size), or else set C<$TMPDIR>
+to point to another directory that has enough space.
+
+This defaults to C</tmp>.
+
+=back
+
+For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
+=head1 SEE ALSO
+
+L<virt-filesystems(1)>,
+L<virt-df(1)>,
+L<virt-resize(1)>,
+L<virt-rescue(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<truncate(1)>,
+L<fallocate(1)>,
+L<qemu-img(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

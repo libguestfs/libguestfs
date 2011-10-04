@@ -983,6 +983,7 @@ AC_CONFIG_FILES([Makefile
                  ruby/Makefile
                  ruby/Rakefile
                  ruby/examples/Makefile
+                 sparsify/Makefile
                  src/Makefile
                  test-tool/Makefile
                  tools/Makefile])

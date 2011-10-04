@@ -67,11 +67,12 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
-# virt-resize 2.0 is written in OCaml.
+# virt-resize (new version) and virt-sparsify are written in OCaml.
 if HAVE_OCAML
 if HAVE_OCAML_PCRE
 SUBDIRS += resize
 endif
+SUBDIRS += sparsify
 endif
 
 # Perl tools and guestmount.
@@ -156,6 +157,7 @@ HTMLFILES = \
 	html/virt-make-fs.1.html \
 	html/virt-rescue.1.html \
 	html/virt-resize.1.html \
+	html/virt-sparsify.1.html \
 	html/virt-tar.1.html \
 	html/virt-tar-in.1.html \
 	html/virt-tar-out.1.html \

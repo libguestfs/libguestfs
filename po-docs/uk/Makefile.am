@@ -40,7 +40,8 @@ MANPAGES = \
 	virt-inspector.1 \
 	virt-ls.1 \
 	virt-rescue.1 \
-	virt-resize.1
+	virt-resize.1 \
+	virt-sparsify.1
 
 # Ship the POD files and the translated manpages in the tarball.  This
 # just simplifies building from the tarball, at a small cost in extra
