@@ -177,10 +177,15 @@ let () =
   let filesystems = g#list_filesystems () in
   let filesystems = List.map fst filesystems in
   let filesystems = List.sort compare filesystems in
+
+  let is_ignored fs =
+    let fs = canonicalize fs in
+    List.exists (fun fs' -> fs = canonicalize fs') ignores
+  in
+
   List.iter (
     fun fs ->
-      if not (List.mem fs ignores) then (
-
+      if not (is_ignored fs) then (
         let mounted =
           try g#mount_options "" fs "/"; true
           with _ -> false in
