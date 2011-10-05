@@ -2913,6 +2913,14 @@ Regression tests.
 
 L<virt-rescue(1)> command and documentation.
 
+=item C<resize>
+
+L<virt-resize(1)> command and documentation.
+
+=item C<sparsify>
+
+L<virt-sparsify(1)> command and documentation.
+
 =item C<src>
 
 Source code to the C library.
