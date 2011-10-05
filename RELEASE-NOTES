@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.14.0
 -----------------------------------
 
-UPDATED TO COMMIT b0605f265be3f501930516ff95deab2910ced3ac
+UPDATED TO COMMIT e59e35708b4ad66c99f908c5226cb232931e1791
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.12.0).  For detailed changelogs, please see
@@ -12,6 +12,9 @@ New features
   Erlang bindings.
 
   virt-sparsify: A new tool to make virtual machine disk images sparse.
+
+  virt-alignment-scan: A new tool to check the alignment of partitions
+  within virtual machines or disk images.
 
   inspection:
 
