@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-04 19:22+0100\n"
+"POT-Creation-Date: 2011-10-05 18:09+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -20,12 +20,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: cat/virt-cat.c:57 cat/virt-filesystems.c:99 cat/virt-ls.c:99 df/main.c:70
-#: edit/virt-edit.c:73 fish/fish.c:101 fuse/guestmount.c:908
-#: inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
+#: align/scan.c:68 cat/virt-cat.c:57 cat/virt-filesystems.c:99
+#: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:73 fish/fish.c:101
+#: fuse/guestmount.c:908 inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
+
+#: align/scan.c:72
+#, fuzzy, c-format
+msgid ""
+"%s: check alignment of virtual machine partitions\n"
+"Copyright (C) 2011 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -q|--quiet           No output, just exit code\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: वर्च्युअल मशीनमध्ये फाइल्स् दाखवा\n"
+"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
+"वापर:\n"
+"  %s [--options] -d domname फाइल [फाइल ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] फाइल [फाइल ...]\n"
+"पर्याय:\n"
+"  -a|--add image       प्रतिमा समाविष्ट करा\n"
+"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
+"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
+"  --echo-keys          पासफ्रेजेसकरीता echo बंद करू नका\n"
+"  --format[=raw|..]    -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
+"  --help               मदत थोडक्यात दाखवा\n"
+"  --keys-from-stdin    stdin पासून पासफ्रेजेस् वाचा\n"
+"  -v|--verbose         वर्बोस् संदेश\n"
+"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
+"  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
+"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
+
+#: align/scan.c:127 cat/virt-cat.c:117 cat/virt-filesystems.c:202
+#: cat/virt-ls.c:192 df/domains.c:428 df/main.c:136 edit/virt-edit.c:141
+#: fish/fish.c:222 fuse/guestmount.c:1024 inspector/virt-inspector.c:132
+#: rescue/virt-rescue.c:137
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
+
+#: align/scan.c:145 cat/virt-cat.c:139 cat/virt-filesystems.c:256
+#: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279
+#: fuse/guestmount.c:1061 inspector/virt-inspector.c:154
+#: rescue/virt-rescue.c:172
+#, c-format
+msgid "%s: unknown long option: %s (%d)\n"
+msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
+
+#: align/scan.c:269
+msgid "alignment < 4K"
+msgstr ""
+
+#: align/scan.c:274
+msgid "alignment < 64K"
+msgstr ""
 
 #: cat/virt-cat.c:61
 #, c-format
@@ -65,21 +127,6 @@ msgstr ""
 "  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
 "  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
-
-#: cat/virt-cat.c:117 cat/virt-filesystems.c:202 cat/virt-ls.c:192
-#: df/domains.c:428 df/main.c:136 edit/virt-edit.c:141 fish/fish.c:222
-#: fuse/guestmount.c:1024 inspector/virt-inspector.c:132
-#: rescue/virt-rescue.c:137
-#, c-format
-msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
-
-#: cat/virt-cat.c:139 cat/virt-filesystems.c:256 cat/virt-ls.c:242
-#: df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279 fuse/guestmount.c:1061
-#: inspector/virt-inspector.c:154 rescue/virt-rescue.c:172
-#, c-format
-msgid "%s: unknown long option: %s (%d)\n"
-msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
 
 #: cat/virt-filesystems.c:103
 #, c-format
