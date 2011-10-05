@@ -2823,6 +2823,10 @@ the programmers.
 
 =over 4
 
+=item C<align>
+
+L<virt-alignment-scan(1)> command and documentation.
+
 =item C<appliance>
 
 The libguestfs appliance, build scripts and so on.
@@ -3183,6 +3187,7 @@ L<guestfs-python(3)>,
 L<guestfs-ruby(3)>,
 L<guestfish(1)>,
 L<guestmount(1)>,
+L<virt-alignment-scan(1)>,
 L<virt-cat(1)>,
 L<virt-copy-in(1)>,
 L<virt-copy-out(1)>,

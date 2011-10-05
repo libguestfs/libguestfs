@@ -941,6 +941,7 @@ AC_CONFIG_FILES([podwrapper.sh],
 AC_CONFIG_FILES([run],
                 [chmod +x run])
 AC_CONFIG_FILES([Makefile
+                 align/Makefile
                  appliance/Makefile
                  capitests/Makefile
                  cat/Makefile

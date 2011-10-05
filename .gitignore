@@ -2,6 +2,9 @@
 *.a
 ABOUT-NLS
 aclocal.m4
+align/stamp-virt-alignment-scan.pod
+align/virt-alignment-scan
+align/virt-alignment-scan.1
 appliance/excludelist
 appliance/make.sh
 appliance/packagelist
@@ -133,6 +136,7 @@ html/guestfs-python.3.html
 html/guestfs-recipes.1.html
 html/guestfs-ruby.3.html
 html/guestmount.1.html
+html/virt-alignment-scan.1.html
 html/virt-cat.1.html
 html/virt-copy-in.1.html
 html/virt-copy-out.1.html

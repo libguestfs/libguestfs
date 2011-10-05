@@ -26,6 +26,7 @@ CLEANFILES = *.1 *.3
 MANPAGES = \
 	guestfs.3 \
 	guestfish.1 \
+	virt-alignment-scan.1 \
 	virt-copy-in.1 \
 	virt-copy-out.1 \
 	virt-tar-in.1 \

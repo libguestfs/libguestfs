@@ -36,7 +36,7 @@ SUBDIRS += gnulib/tests capitests caution regressions test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += cat df edit inspector rescue
+SUBDIRS += align cat df edit inspector rescue
 
 # Language bindings.
 if HAVE_PERL
@@ -144,6 +144,7 @@ HTMLFILES = \
 	html/guestfs-ruby.3.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
+	html/virt-alignment-scan.1.html \
 	html/virt-cat.1.html \
 	html/virt-copy-in.1.html \
 	html/virt-copy-out.1.html \

@@ -1,0 +1,234 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-alignment-scan - Check alignment of virtual machine partitions
+
+=head1 SYNOPSIS
+
+ virt-alignment-scan [--options]
+
+ virt-alignment-scan [--options] -d domname
+
+ virt-alignment-scan [--options] -a disk.img [-a disk.img ...]
+
+=head1 DESCRIPTION
+
+When older operating systems install themselves, the partitioning
+tools place partitions at a sector misaligned with the underlying
+storage (commonly the first partition starts on sector C<63>).
+Misaligned partitions can result in an operating system issuing more
+I/O than should be necessary.
+
+The virt-alignment-scan tool checks the alignment of partitions in
+virtual machines and disk images and warns you if there are alignment
+problems.
+
+Currently there is no virt tool for fixing alignment problems, except
+to reinstall the operating system.  The following NetApp document
+summarises the problem and possible solutions:
+L<http://media.netapp.com/documents/tr-3747.pdf>
+
+=head1 OUTPUT
+
+To run this tool on a disk image directly, use the I<-a> option:
+
+ $ virt-alignment-scan -a winxp.img
+ /dev/sda1        32256          512    bad (alignment < 4K)
+
+ $ virt-alignment-scan -a fedora16.img
+ /dev/sda1      1048576         1024K   ok
+ /dev/sda2      2097152         2048K   ok
+ /dev/sda3    526385152         2048K   ok
+
+To run the tool on a guest known to libvirt, use the I<-d> option and
+possibly the I<-c> option:
+
+ # virt-alignment-scan -d RHEL5
+ /dev/sda1        32256          512    bad (alignment < 4K)
+ /dev/sda2    106928640          512    bad (alignment < 4K)
+
+ $ virt-alignment-scan -c qemu:///system -d Win7TwoDisks
+ /dev/sda1      1048576         1024K   ok
+ /dev/sda2    105906176         1024K   ok
+ /dev/sdb1        65536           64K   ok
+
+The output consists of 4 or more whitespace-separated columns.  Only
+the first 4 columns are signficant if you want to parse this from a
+program.  The columns are:
+
+=over 4
+
+=item col 1
+
+the device and partition name (eg. C</dev/sda1> meaning the
+first partition on the first block device)
+
+=item col 2
+
+the start of the partition in bytes
+
+=item col 3
+
+the alignment in bytes or Kbytes (eg. C<512> or C<4K>)
+
+=item col 4
+
+C<ok> if the alignment is best for performance, or C<bad> if the
+alignment can cause performance problems
+
+=item cols 5+
+
+optional free-text explanation.
+
+=back
+
+The exit code from the program changes depending on whether poorly
+aligned partitions were found.  See L</EXIT STATUS> below.
+
+If you just want the exit code with no output, use the I<-q> option.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.  Domain UUIDs can be
+used instead of names.
+
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-alignment-scan --format=raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-alignment-scan --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).
+
+=item B<-q>
+
+=item B<--quiet>
+
+Don't produce any output.  Just set the exit code
+(see L</EXIT STATUS> below).
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 SHELL QUOTING
+
+Libvirt guest names can contain arbitrary characters, some of which
+have meaning to the shell such as C<#> and space.  You may need to
+quote or escape these characters on the command line.  See the shell
+manual page L<sh(1)> for details.
+
+=head1 EXIT STATUS
+
+This program returns:
+
+=over 4
+
+=item code 0
+
+successful exit, all partitions are aligned E<ge> 64K for best performance
+
+=item code 1
+
+an error scanning the disk image or guest
+
+=item code 2
+
+successful exit, some partitions have alignment E<lt> 64K which can result
+in poor performance on high end network storage
+
+=item code 3
+
+successful exit, some partitions have alignment E<lt> 4K which can result
+in poor performance on most hypervisors
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-filesystems(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
