@@ -257,6 +257,9 @@ The NetApp allows 512 byte accesses (but they will be very
 inefficient), prefers a minimum 4K I/O size, but the optimal I/O size
 is 64K.
 
+For detailed information about what these numbers mean, see
+L<http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/newstorage-iolimits.html>
+
 [Thanks to Mike Snitzer for providing NetApp data and additional
 information.]
 
