@@ -72,7 +72,7 @@
 #endif /* DEBIAN */
 
 #ifdef ARCHLINUX
-  kernel26
+  linux
   vim
   btrfs-progs-unstable
   cryptsetup
