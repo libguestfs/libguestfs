@@ -144,6 +144,7 @@ read the man page virt-resize(1).
     printf "virt-resize\n";
     printf "ntfsresize-force\n";
     printf "32bitok\n";
+    printf "128-sector-alignment\n";
     let g = new G.guestfs () in
     g#add_drive_opts "/dev/null";
     g#launch ();
@@ -563,7 +564,7 @@ let calculate_surplus () =
   let nr_partitions = List.length partitions in
   let overhead = (Int64.of_int sectsize) *^ (
     2L *^ 64L +^                                 (* GPT start and end *)
-    (64L *^ (Int64.of_int (nr_partitions + 1)))  (* Maximum alignment *)
+    (128L *^ (Int64.of_int (nr_partitions + 1))) (* Maximum alignment *)
   ) +^
   (Int64.of_int (max_bootloader - 64 * 512)) in  (* Bootloader *)
 
@@ -852,7 +853,7 @@ let () =
         if !nextpart = 4 then (
           g#part_add "/dev/sdb" "extended" !start (-1L);
           incr nextpart;
-          start := !start +^ 64L
+          start := !start +^ 128L
         );
         let target_partnum = !nextpart in
         let end_ = !start +^ size -^ 1L in
@@ -861,8 +862,8 @@ let () =
         target_partnum, end_
       ) in
 
-    (* Start of next partition + alignment to 64 sectors. *)
-    start := ((end_ +^ 1L) +^ 63L) &^ (~^ 63L);
+    (* Start of next partition + alignment to 128 sectors. *)
+    start := ((end_ +^ 1L) +^ 127L) &^ (~^ 127L);
 
     target_partnum
   in
