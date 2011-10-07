@@ -973,6 +973,38 @@ user ID of the process, and C<$PID> is the process ID of the server.
 
 Guestfish client and server versions must match exactly.
 
+=head2 USING REMOTE CONTROL ROBUSTLY FROM SHELL SCRIPTS
+
+From Bash, you can use the following code which creates a guestfish
+instance, correctly quotes the command line, handles failure to start,
+and cleans up guestfish when the script exits:
+
+ #!/bin/bash -
+ 
+ set -e
+ 
+ guestfish[0]="guestfish"
+ guestfish[1]="--listen"
+ guestfish[2]="--ro"
+ guestfish[3]="-a"
+ guestfish[4]="disk.img"
+ 
+ GUESTFISH_PID=
+ eval $("${guestfish[@]}")
+ if [ -z "$GUESTFISH_PID" ]; then
+     echo "error: guestfish didn't start up, see error messages above"
+     exit 1
+ fi
+ 
+ kill_guestfish ()
+ {
+     kill $GUESTFISH_PID >/dev/null 2>&1 ||:
+ }
+ trap kill_guestfish EXIT
+ 
+ guestfish --remote run
+ # etc.
+
 =head2 REMOTE CONTROL RUN COMMAND HANGING
 
 Using the C<run> (or C<launch>) command remotely in a command
