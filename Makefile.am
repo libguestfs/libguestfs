@@ -71,11 +71,12 @@ SUBDIRS += resize
 endif
 endif
 
-# Perl tools and guestmount.
+# Perl tools.
 if HAVE_TOOLS
 SUBDIRS += tools
 endif
 
+# guestmount
 if HAVE_FUSE
 SUBDIRS += fuse
 endif
