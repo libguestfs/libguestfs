@@ -936,6 +936,8 @@ AC_SUBST([LIBTOOL])
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
+AC_CONFIG_FILES([clone/virt-sysprep],
+                [chmod +x clone/virt-sysprep])
 AC_CONFIG_FILES([podwrapper.sh],
                 [chmod +x podwrapper.sh])
 AC_CONFIG_FILES([run],
@@ -946,6 +948,7 @@ AC_CONFIG_FILES([Makefile
                  capitests/Makefile
                  cat/Makefile
                  caution/Makefile
+                 clone/Makefile
                  csharp/Makefile
                  daemon/Makefile
                  debian/changelog

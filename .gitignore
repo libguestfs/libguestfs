@@ -37,6 +37,9 @@ cat/virt-ls
 cat/virt-ls.1
 ChangeLog
 *.class
+clone/stamp-virt-sysprep.pod
+clone/virt-sysprep
+clone/virt-sysprep.1
 *.cma
 *.cmi
 *.cmo
@@ -151,6 +154,7 @@ html/virt-make-fs.1.html
 html/virt-rescue.1.html
 html/virt-resize.1.html
 html/virt-sparsify.1.html
+html/virt-sysprep.1.html
 html/virt-tar.1.html
 html/virt-tar-in.1.html
 html/virt-tar-out.1.html

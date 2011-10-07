@@ -2845,6 +2845,11 @@ and documentation.
 Safety and liveness tests of components that libguestfs depends upon
 (not of libguestfs itself).  Mainly this is for qemu and the kernel.
 
+=item C<clone>
+
+Tools for cloning virtual machines.  Currently contains
+L<virt-sysprep(1)> command and documentation.
+
 =item C<contrib>
 
 Outside contributions, experimental parts.
@@ -3202,6 +3207,7 @@ L<virt-make-fs(1)>,
 L<virt-rescue(1)>,
 L<virt-resize(1)>,
 L<virt-sparsify(1)>,
+L<virt-sysprep(1)>,
 L<virt-tar(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,

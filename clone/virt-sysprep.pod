@@ -1,0 +1,404 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-sysprep - Reset or unconfigure a virtual machine so clones can be made
+
+=head1 SYNOPSIS
+
+ virt-sysprep [--options] -d domname
+
+ virt-sysprep [--options] -a disk.img [-a disk.img ...]
+
+=head1 DESCRIPTION
+
+Virt-sysprep "resets" or "unconfigures" a virtual machine so that
+clones can be made from it.  Steps in this process include removing
+SSH host keys, removing persistent network MAC configuration, and
+removing user accounts.  Each step can be enabled or disabled as
+required.
+
+Virt-sysprep is a simple shell script, allowing easy inspection or
+customization by the system administrator.
+
+Virt-sysprep modifies the guest or disk image I<in place>.  The guest
+must be shut down.  If you want to preserve the existing contents of
+the guest, you I<must copy or clone the disk first>.
+See L</COPYING AND CLONING> below.
+
+"Sysprep" stands for "system preparation" tool.  The name comes from
+the Microsoft program C<sysprep.exe> which is used to unconfigure
+Windows machines in preparation for cloning them.  Having said that,
+virt-sysprep does I<not> currently work on Microsoft Windows guests.
+We plan to support Windows sysprepping in a future version, and we
+already have code to do it.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.  Domain UUIDs can be
+used instead of names.
+
+=item B<--enable=...>
+
+Choose which sysprep operations to perform.  Give a comma-separated
+list of operations, for example:
+
+ --enable=ssh-hostkeys,udev-persistent-net
+
+would enable ONLY C<ssh-hostkeys> and C<udev-persistent-net> operations.
+
+If the I<--enable> option is not given, then we default to trying all
+possible sysprep operations.  But some sysprep operations are skipped
+for some guest types.
+
+Use I<--list-operations> to list operations supported by a particular
+version of virt-sysprep.
+
+See L</OPERATIONS> below for a list and an explanation of each
+operation.
+
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-sysprep --format=raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-sysprep --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).
+
+=item B<--hostname> newhostname
+
+Change the hostname.  See the L</hostname> operation below.
+If not given, defaults to C<localhost.localdomain>.
+
+=item B<--list-operations>
+
+List the operations supported by the virt-sysprep program.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 OPERATIONS
+
+If the I<--enable> option is I<not> given, then all sysprep operations
+in the list below are enabled, although some are skipped depending on
+the type of guest.
+
+Operations can be individually enabled using the I<--enable> option.
+Use a comma-separated list, for example:
+
+ virt-sysprep --enable=ssh-hostkeys,udev-persistent-net [etc..]
+
+To list the operations supported by the current version of
+virt-sysprep, use I<--list-operations>.
+
+=head2 hostname
+
+This changes the hostname of the guest to the value given in the
+I<--hostname> parameter.
+
+If the I<--hostname> parameter is not given, then the hostname is
+changed to C<localhost.localdomain>.
+
+=head2 net-hwaddr
+
+Remove HWADDR (hard-coded MAC address) configuration.  For Fedora and
+Red Hat Enterprise Linux, this is removed from C<ifcfg-*> files.
+
+=head2 ssh-hostkeys
+
+This erases the SSH host keys in the guest.
+
+The SSH host keys are regenerated (differently) next time the guest is
+booted.
+
+If, after cloning, the guest gets the same IP address, ssh will give
+you a stark warning about the host key changing:
+
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+
+=head2 udev-persistent-net
+
+This erases udev persistent net rules which map the guest's existing
+MAC address to a fixed ethernet device (eg. eth0).
+
+After a guest is cloned, the MAC address usually changes.  Since the
+old MAC address occupies the old name (eg. eth0), this means the fresh
+MAC address is assigned to a new name (eg. eth1) and this is usually
+undesirable.  Erasing the udev persistent net rules avoids this.
+
+=head1 COPYING AND CLONING
+
+Virt-sysprep can be used as part of a process of cloning guests, or to
+prepare a template from which guests can be cloned.  There are many
+different ways to achieve this using the virt tools, and this section
+is just an introduction.
+
+A virtual machine (when switched off) consists of two parts:
+
+=over 4
+
+=item I<configuration>
+
+The configuration or description of the guest.  eg. The libvirt
+XML (see C<virsh dumpxml>), the running configuration of the guest,
+or another external format like OVF.
+
+Some configuration items that might need to be changed:
+
+=over 4
+
+=item *
+
+name
+
+=item *
+
+UUID
+
+=item *
+
+path to block device(s)
+
+=item *
+
+network card MAC address
+
+=back
+
+=item I<block device(s)>
+
+One or more hard disk images, themselves containing files,
+directories, applications, kernels, configuration, etc.
+
+Some things inside the block devices that might need to be changed:
+
+=over 4
+
+=item *
+
+hostname and other net configuration
+
+=item *
+
+UUID
+
+=item *
+
+SSH host keys
+
+=item *
+
+Windows unique security ID (SID)
+
+=item *
+
+Puppet registration
+
+=back
+
+=back
+
+=head2 COPYING THE BLOCK DEVICE
+
+Starting with an original guest, you probably wish to copy the guest
+block device and its configuration to make a template.  Then once you
+are happy with the template, you will want to make many clones from
+it.
+
+                        virt-sysprep
+                             |
+                             v
+ original guest --------> template ---------->
+                                      \------> cloned
+                                       \-----> guests
+                                        \---->
+
+You can, of course, just copy the block device on the host using
+L<cp(1)> or L<dd(1)>.
+
+                   dd                 dd
+ original guest --------> template ---------->
+                                      \------> cloned
+                                       \-----> guests
+                                        \---->
+
+There are some smarter (and faster) ways too:
+
+=over 4
+
+=item *
+
+                          snapshot
+                template ---------->
+                            \------> cloned
+                             \-----> guests
+                              \---->
+
+Use the block device as a backing file and create a snapshot on top
+for each guest.  The advantage is that you don't need to copy the
+block device (very fast) and only changes are stored (less storage
+required).
+
+Note that writing to the backing file once you have created guests on
+top of it is not possible: you will corrupt the guests.
+
+Tools that can do this include:
+L<qemu-img(1)> (with the I<create -f qcow2 -o backing_file> option),
+L<lvcreate(8)> (I<--snapshot> option).  Some filesystems (such as
+btrfs) and most Network Attached Storage devices can also create cheap
+snapshots from files or LUNs.
+
+=item *
+
+Get your NAS to snapshot and/or duplicate the LUN.
+
+=item *
+
+Prepare your template using L<virt-sparsify(1)>.  See below.
+
+=back
+
+=head2 VIRT-CLONE
+
+A separate tool, L<virt-clone(1)>, can be used to duplicate the block
+device and/or modify the external libvirt configuration of a guest.
+It will reset the name, UUID and MAC address of the guest in the
+libvirt XML.
+
+L<virt-clone(1)> does not use libguestfs and cannot look inside the
+disk image.  This was the original motivation to write virt-sysprep.
+
+=head2 SPARSIFY
+
+              virt-sparsify
+ original guest --------> template
+
+L<virt-sparsify(1)> can be used to make the cloning template smaller,
+making it easier to compress and/or faster to copy.
+
+Notice that since virt-sparsify also copies the image, you can use it
+to make the initial copy (instead of C<dd>).
+
+=head2 RESIZE
+
+                         virt-resize
+                template ---------->
+                            \------> cloned
+                             \-----> guests
+                              \---->
+
+If you want to give people cloned guests, but let them pick the size
+of the guest themselves (eg. depending on how much they are prepared
+to pay for disk space), then instead of copying the template, you can
+run L<virt-resize(1)>.  Virt-resize performs a copy and resize, and
+thus is ideal for cloning guests from a template.
+
+=head1 SHELL QUOTING
+
+Libvirt guest names can contain arbitrary characters, some of which
+have meaning to the shell such as C<#> and space.  You may need to
+quote or escape these characters on the command line.  See the shell
+manual page L<sh(1)> for details.
+
+=head1 EXIT STATUS
+
+This program returns 0 on success, or 1 if there was an error.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-clone(1)>,
+L<virt-rescue(1)>,
+L<virt-resize(1)>,
+L<virt-sparsify(1)>,
+L<virsh(1)>,
+L<qemu-img(1)>,
+L<lvcreate(8)>,
+L<http://libguestfs.org/>,
+L<http://libvirt.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

@@ -1,0 +1,289 @@
+#!/bin/bash -
+# @configure_input@
+# libguestfs virt-sysprep tool
+# Copyright (C) 2011 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+unset CDPATH
+program="virt-sysprep"
+version="@PACKAGE_VERSION@"
+
+TEMP=`getopt \
+        -o a:c:d:vVx \
+        --long help,add:,connect:,domain:,enable:,format::,hostname:,list-operations,verbose,version \
+        -n $program -- "$@"`
+if [ $? != 0 ]; then
+    echo "$program: problem parsing the command line arguments"
+    exit 1
+fi
+eval set -- "$TEMP"
+
+# This array accumulates the arguments we pass through to guestfish.
+declare -a guestfish
+guestfish[0]="guestfish"
+guestfish[1]="--rw"
+guestfish[2]="--listen"
+guestfish[3]="-i"
+i=4
+
+verbose=
+add_params=0
+enable=
+hostname_param=localhost.localdomain
+
+usage ()
+{
+    echo "Usage:"
+    echo "  $program [--options] -d domname"
+    echo "  $program [--options] -a disk.img [-a disk.img ...]"
+    echo
+    echo "Read $program(1) man page for more information."
+    echo
+    echo "NOTE: $program modifies the guest or disk image *in place*."
+    exit $1
+}
+
+while true; do
+    case "$1" in
+        -a|--add)
+            guestfish[i++]="-a"
+            guestfish[i++]="$2"
+            ((add_params++))
+            shift 2;;
+        -c|--connect)
+            guestfish[i++]="-c"
+            guestfish[i++]="$2"
+            shift 2;;
+        -d|--domain)
+            guestfish[i++]="-d"
+            guestfish[i++]="$2"
+            ((add_params++))
+            shift 2;;
+        --enable)
+            if [ -n "$enable" ]; then
+                echo "error: --enable option can only be given once"
+                exit 1
+            fi
+            enable="$2"
+            shift 2;;
+        --format)
+            if [ -n "$2" ]; then
+                guestfish[i++]="--format=$2"
+            else
+                guestfish[i++]="--format"
+            fi
+            shift 2;;
+        --help)
+            usage 0;;
+        --hostname)
+            hostname_param="$2"
+            shift 2;;
+        --list-operations)
+            enable=list
+            shift;;
+        -v|--verbose)
+            guestfish[i++]="-v"
+            verbose=yes
+            shift;;
+        -V|--version)
+            echo "$program $version"
+            exit 0;;
+        -x)
+            guestfish[i++]="-x"
+            shift;;
+        --)
+            shift
+            break;;
+        *)
+            echo "Internal error!"
+            exit 1;;
+    esac
+done
+
+# Different sysprep operations that can be enabled.  Default is to
+# enable all of these, although some of them are only done on certain
+# guest types (see details below).
+if [ -z "$enable" ]; then
+    hostname=yes
+    net_hwaddr=yes
+    ssh_hostkeys=yes
+    udev_persistent_net=yes
+elif [ "$enable" = "list" ]; then
+    echo "hostname"
+    echo "net-hwaddr"
+    echo "ssh-hostkeys"
+    echo "udev-persistent-net"
+    exit 0
+else
+    for opt in $(echo "$enable" | sed 's/,/ /g'); do
+        case "$opt" in
+            hostname)              hostname=yes ;;
+            net-hwaddr)            net_hwaddr=yes ;;
+            ssh-hostkeys)          ssh_hostkeys=yes ;;
+            udev-persistent-net)   udev_persistent_net=yes ;;
+            *)
+                echo "error: unknown --enable feature: $opt"
+                exit 1
+        esac
+    done
+fi
+
+# Make sure there were no extra parameters on the command line.
+if [ $# -gt 0 ]; then
+    echo "error: $program: extra parameters on the command line"
+    echo
+    usage 1
+fi
+
+# Did the user specify at least one -a or -d option?
+if [ $add_params -eq 0 ]; then
+    echo "error: $program: you need at least one -a or -d option"
+    echo
+    usage 1
+fi
+
+# end of command line parsing
+#----------------------------------------------------------------------
+
+set -e
+
+if [ "$verbose" = "yes" ]; then
+    echo command: "${guestfish[@]}"
+fi
+
+# Create a temporary directory for general purpose use during operations.
+tmpdir="$(mktemp -d)"
+
+# Call guestfish.
+GUESTFISH_PID=
+eval $("${guestfish[@]}")
+if [ -z "$GUESTFISH_PID" ]; then
+    echo "$program: guestfish didn't start up, see error messages above"
+    exit 1
+fi
+
+cleanup ()
+{
+    kill $GUESTFISH_PID >/dev/null 2>&1 ||:
+    rm -rf "$tmpdir" ||:
+}
+trap cleanup EXIT
+
+# Launch back-end, inspect for operating systems, and get the guest
+# root disk.
+root=$(guestfish --remote inspect-get-roots)
+
+if [ "$root" = "" ]; then
+    echo "$program: no operating system was found on this disk"
+    exit 1
+fi
+
+if [ "$verbose" = "yes" ]; then
+    echo root: "$root"
+fi
+
+# Get the guest type.
+type="$(guestfish --remote -- -inspect-get-type $root)"
+
+if [ "$type" = "linux" ]; then
+    distro="$(guestfish --remote -- -inspect-get-distro $root)"
+fi
+
+if [ "$type" = "windows" ]; then
+    systemroot="$(guestfish --remote -- -inspect-get-windows-systemroot $root)"
+fi
+
+#----------------------------------------------------------------------
+# Useful functions.
+
+# erase_line filename regex
+#
+# Erase line(s) in a file that match the given regex.
+erase_line ()
+{
+    guestfish --remote -- download "$1" "$tmpdir/file"
+    sed "/$2/d" < "$tmpdir/file" > "$tmpdir/file.1"
+    guestfish --remote -- upload "$tmpdir/file.1" "$1"
+}
+
+# rm_files wildcard
+#
+# Remove files.  Doesn't fail if no files exist.  Note the wildcard
+# parameter cannot contain spaces or characters that need special
+# quoting.
+rm_files ()
+{
+    files=$(guestfish --remote -- glob-expand "$1")
+    for f in $files; do
+        guestfish --remote -- rm "$f"
+    done
+}
+
+# rm_file filename
+#
+# Remove a single file.  No error if the file doesn't exist or is not
+# a file.
+rm_file ()
+{
+    t=$(guestfish --remote -- is-file "$1")
+    if [ "$t" = "true" ]; then
+        guestfish --remote -- rm "$1"
+    fi
+}
+
+#----------------------------------------------------------------------
+# The sysprep operations.
+
+if [ "$hostname" = "yes" ]; then
+    case "$type/$distro" in
+        linux/fedora)
+            guestfish --remote -- \
+                download /etc/sysconfig/network "$tmpdir/network"
+            echo "HOSTNAME=$hostname_param" > "$tmpdir/network.1"
+            sed '/^HOSTNAME=/d' < "$tmpdir/network" >> "$tmpdir/network.1"
+            guestfish --remote -- \
+                upload "$tmpdir/network.1" /etc/sysconfig/network ;;
+        linux/debian|linux/ubuntu)
+            guestfish --remote -- write /etc/hostname "$hostname_param"
+    esac
+fi
+
+if [ "$net_hwaddr" = "yes" ]; then
+    case "$type/$distro" in
+        linux/fedora)
+            # XXX these filenames can have spaces and untrusted chars in them!
+            files=$(guestfish --remote -- glob-expand '/etc/sysconfig/network-scripts/ifcfg-*')
+            for f in $files; do
+                erase_line "$f" "^HWADDR="
+            done
+    esac
+fi
+
+if [ "$ssh_hostkeys" = "yes" -a "$type" != "windows" ]; then
+    rm_files "/etc/ssh/*_host_*"
+fi
+
+if [ "$udev_persistent_net" = "yes" -a "$type" = "linux" ]; then
+    rm_file /etc/udev/rules.d/70-persistent-net.rules
+fi
+
+# Clean up and close down.
+
+guestfish --remote umount-all
+guestfish --remote sync
+guestfish --remote exit
+
+exit 0

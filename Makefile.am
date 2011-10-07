@@ -38,6 +38,9 @@ SUBDIRS += fish
 # virt-tools in C.
 SUBDIRS += align cat df edit inspector rescue
 
+# virt-tools in shell.
+SUBDIRS += clone
+
 # Language bindings.
 if HAVE_PERL
 SUBDIRS += perl perl/examples
@@ -160,6 +163,7 @@ HTMLFILES = \
 	html/virt-rescue.1.html \
 	html/virt-resize.1.html \
 	html/virt-sparsify.1.html \
+	html/virt-sysprep.1.html \
 	html/virt-tar.1.html \
 	html/virt-tar-in.1.html \
 	html/virt-tar-out.1.html \
