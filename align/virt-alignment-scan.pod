@@ -6,8 +6,6 @@ virt-alignment-scan - Check alignment of virtual machine partitions
 
 =head1 SYNOPSIS
 
- virt-alignment-scan [--options]
-
  virt-alignment-scan [--options] -d domname
 
  virt-alignment-scan [--options] -a disk.img [-a disk.img ...]
