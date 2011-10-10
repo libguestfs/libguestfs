@@ -346,6 +346,11 @@ if test "x$have_libselinux" = "xyes"; then
 fi
 AC_SUBST([SELINUX_LIB])
 
+dnl Check for systemtap/DTrace userspace probes (optional).
+dnl http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
+AC_CHECK_HEADERS([sys/sdt.h])
+dnl AC_CHECK_PROG([DTRACE],[dtrace],[dtrace],[no])
+
 dnl Check for cpio which isn't in the default Pardus install amazingly.
 AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
 test "x$CPIO" = "xno" &&

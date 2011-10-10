@@ -43,6 +43,26 @@
 #define N_(str) str
 #endif
 
+#ifdef HAVE_SYS_SDT_H
+#include <sys/sdt.h>
+/* NB: The 'name' parameter is a literal identifier, NOT a string! */
+#define TRACE0(name) DTRACE_PROBE(guestfs, name)
+#define TRACE1(name, arg1) \
+  DTRACE_PROBE(guestfs, name, (arg1))
+#define TRACE2(name, arg1, arg2) \
+  DTRACE_PROBE(guestfs, name, (arg1), (arg2))
+#define TRACE3(name, arg1, arg2, arg3) \
+  DTRACE_PROBE(guestfs, name, (arg1), (arg2), (arg3))
+#define TRACE4(name, arg1, arg2, arg3, arg4) \
+  DTRACE_PROBE(guestfs, name, (arg1), (arg2), (arg3), (arg4))
+#else
+#define TRACE0(name)
+#define TRACE1(name, arg1)
+#define TRACE2(name, arg1, arg2)
+#define TRACE3(name, arg1, arg2, arg3)
+#define TRACE4(name, arg1, arg2, arg3, arg4)
+#endif
+
 #define TMP_TEMPLATE_ON_STACK(var)                        \
   const char *ttos_tmpdir = guestfs_tmpdir ();            \
   char var[strlen (ttos_tmpdir) + 32];                    \

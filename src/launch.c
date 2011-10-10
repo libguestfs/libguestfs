@@ -389,6 +389,8 @@ guestfs__launch (guestfs_h *g)
     return -1;
   }
 
+  TRACE0 (launch_start);
+
   /* Make the temporary directory. */
   if (!g->tmpdir) {
     TMP_TEMPLATE_ON_STACK (dir_template);
@@ -439,10 +441,14 @@ launch_appliance (guestfs_h *g)
   gettimeofday (&g->launch_t, NULL);
   guestfs___launch_send_progress (g, 0);
 
+  TRACE0 (launch_build_appliance_start);
+
   /* Locate and/or build the appliance. */
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
+
+  TRACE0 (launch_build_appliance_end);
 
   guestfs___launch_send_progress (g, 3);
 
@@ -696,6 +702,8 @@ launch_appliance (guestfs_h *g)
 
     setenv ("LC_ALL", "C", 1);
 
+    TRACE0 (launch_run_qemu);
+
     execv (g->qemu, g->cmdline); /* Run qemu. */
     perror (g->qemu);
     _exit (EXIT_FAILURE);
@@ -824,6 +832,8 @@ launch_appliance (guestfs_h *g)
     error (g, _("qemu launched and contacted daemon, but state != READY"));
     goto cleanup1;
   }
+
+  TRACE0 (launch_end);
 
   guestfs___launch_send_progress (g, 12);
 
