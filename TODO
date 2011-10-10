@@ -545,3 +545,7 @@ virt-sysprep ideas
  - Windows sysprep
    (see: https://github.com/clalancette/oz/blob/e74ce83283d468fd987583d6837b441608e5f8f0/oz/Windows.py )
  - blue skies: change the background image
+ - (librarian suggests ...)
+   . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
+   . run an external shell script
+   . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
