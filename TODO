@@ -564,3 +564,5 @@ virt-sysprep ideas
    that you would want to look into.
  - secure erase of inodes etc using scrub (Steve Grubb)
  - touch /.autorelabel if we create any new files (thanks Dan Berrange)
+ - should we use guestmount instead of guestfish
+   and would that make it easier to run the tool inside VMs?
