@@ -549,3 +549,18 @@ virt-sysprep ideas
    . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
    . run an external shell script
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
+ - log files (thanks Steve Grubb)
+   . as well as the obvious log files, also
+     utmp/wtmp/btmp/tallylog and pam_faillock's data files
+ - RNG seed (Steve Grubb)
+ - homedirs/.ssh directory, especially /root/.ssh (Steve Grubb)
+ - if drives are encrypted, then dm-crypt key should be changed
+   and drives all re-encrypted
+ - /etc/pki
+   (Steve says ...)
+   Rpm uses nss. Nss sets up its crypto database in
+   /etc/pki. Depending on how long the machine ran before cloning, you
+   may have picked up some certificates or things. This is an area
+   that you would want to look into.
+ - secure erase of inodes etc using scrub (Steve Grubb)
+ - touch /.autorelabel if we create any new files (thanks Dan Berrange)
