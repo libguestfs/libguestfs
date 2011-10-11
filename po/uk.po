@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-08 13:55+0100\n"
+"POT-Creation-Date: 2011-10-11 20:58+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3256,36 +3256,36 @@ msgstr "параметр %s є порожнім або містить забор
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:397
+#: src/launch.c:399
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:434
+#: src/launch.c:436
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:811
+#: src/launch.c:819
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:824
+#: src/launch.c:832
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:912
+#: src/launch.c:922
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:920
+#: src/launch.c:930
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1092
+#: src/launch.c:1102
 #, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
@@ -3296,11 +3296,11 @@ msgstr ""
 "%s: помилка команди: якщо qemu зберігається у нестандартному каталозі, "
 "спробуйте встановити відповідне значення змінної середовища LIBGUESTFS_QEMU."
 
-#: src/launch.c:1208
+#: src/launch.c:1218
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1219
+#: src/launch.c:1229
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 

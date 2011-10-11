@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.13.19\n"
+"Project-Id-Version: libguestfs 1.13.20\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-08 13:55+0100\n"
+"POT-Creation-Date: 2011-10-11 20:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2964,32 +2964,32 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:397
+#: src/launch.c:399
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/launch.c:434
+#: src/launch.c:436
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch.c:811
+#: src/launch.c:819
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/launch.c:824
+#: src/launch.c:832
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch.c:912
+#: src/launch.c:922
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:920
+#: src/launch.c:930
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1092
+#: src/launch.c:1102
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -2998,11 +2998,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1208
+#: src/launch.c:1218
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:1219
+#: src/launch.c:1229
 msgid "no subprocess to kill"
 msgstr ""
 
