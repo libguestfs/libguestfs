@@ -456,6 +456,7 @@ guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
   case OS_PACKAGE_FORMAT_PACMAN: ret = safe_strdup (g, "pacman"); break;
   case OS_PACKAGE_FORMAT_EBUILD: ret = safe_strdup (g, "ebuild"); break;
   case OS_PACKAGE_FORMAT_PISI: ret = safe_strdup (g, "pisi"); break;
+  case OS_PACKAGE_FORMAT_PKGSRC: ret = safe_strdup (g, "pkgsrc"); break;
   case OS_PACKAGE_FORMAT_UNKNOWN:
   default:
     ret = safe_strdup (g, "unknown");

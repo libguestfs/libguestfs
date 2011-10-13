@@ -284,7 +284,8 @@ enum inspect_os_package_format {
   OS_PACKAGE_FORMAT_DEB,
   OS_PACKAGE_FORMAT_PACMAN,
   OS_PACKAGE_FORMAT_EBUILD,
-  OS_PACKAGE_FORMAT_PISI
+  OS_PACKAGE_FORMAT_PISI,
+  OS_PACKAGE_FORMAT_PKGSRC,
 };
 
 enum inspect_os_package_management {

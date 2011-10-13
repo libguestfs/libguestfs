@@ -90,6 +90,7 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
       case OS_PACKAGE_FORMAT_PACMAN:
       case OS_PACKAGE_FORMAT_EBUILD:
       case OS_PACKAGE_FORMAT_PISI:
+      case OS_PACKAGE_FORMAT_PKGSRC:
       case OS_PACKAGE_FORMAT_UNKNOWN:
       default:
         /* nothing - keep GCC happy */;
