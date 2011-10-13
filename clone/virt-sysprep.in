@@ -180,7 +180,7 @@ cleanup ()
     kill $GUESTFISH_PID >/dev/null 2>&1 ||:
     rm -rf "$tmpdir" ||:
 }
-trap cleanup EXIT
+trap cleanup EXIT ERR
 
 # Helper.
 gf="guestfish --remote --"
