@@ -532,6 +532,8 @@ main (int argc, char *argv[])
   if (progress_bars)
     progress_bar_free (bar);
 
+  guestfs_close (g);
+
   exit (EXIT_SUCCESS);
 }
 
