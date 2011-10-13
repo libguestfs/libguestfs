@@ -566,3 +566,18 @@ virt-sysprep ideas
  - touch /.autorelabel if we create any new files (thanks Dan Berrange)
  - should we use guestmount instead of guestfish
    and would that make it easier to run the tool inside VMs?
+ - other directories that could require cleaning include:
+    /var/lib/dhcpd/*
+    /var/lib/dhclient/*
+    /var/cache/gdm/*
+    /var/lib/fprint/*
+    /var/run/*
+    /var/spool/mail/*
+    /var/spool/cron/*
+    /var/lib/AccountService/users/*
+    /var/cache/yum/*
+    /var/lib/yum/*   (only /var/lib/yum/uuid)
+    /var/lib/sss/db/*
+    /var/lib/samba/*
+    /var/lib/samba/*/*
+  (thanks Marko Myllynen, James Antill)
