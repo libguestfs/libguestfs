@@ -322,7 +322,7 @@ if [ "$random_seed" = "yes" -a "$type" = "linux" ]; then
         f=$mnt/var/lib/urandom/random-seed
     fi
     if [ -n "$f" ]; then
-        dd if=/dev/random of="$f" bs=8 count=1 conv=nocreat,notrunc 2>/dev/null
+        dd if=/dev/urandom of="$f" bs=8 count=1 conv=nocreat,notrunc 2>/dev/null
     fi
 fi
 
