@@ -155,9 +155,9 @@ Enable tracing of libguestfs API calls.
 
 =head1 OPERATIONS
 
-If the I<--enable> option is I<not> given, then all sysprep operations
-in the list below are enabled, although some are skipped depending on
-the type of guest.
+If the I<--enable> option is I<not> given, then
+I<all sysprep operations are enabled>, although some are skipped
+depending on the type of guest.
 
 Operations can be individually enabled using the I<--enable> option.
 Use a comma-separated list, for example:
@@ -166,6 +166,10 @@ Use a comma-separated list, for example:
 
 To list the operations supported by the current version of
 virt-sysprep, use I<--list-operations>.
+
+Future versions of virt-sysprep may add more operations.  If you are
+using virt-sysprep and want predictable behaviour, specify only the
+operations that you want to have enabled.
 
 =head2 dhcp-client-state
 
