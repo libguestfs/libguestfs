@@ -182,9 +182,12 @@ cleanup ()
 }
 trap cleanup EXIT
 
+# Helper.
+gf="guestfish --remote --"
+
 # Launch back-end, inspect for operating systems, and get the guest
 # root disk.
-root=$(guestfish --remote inspect-get-roots)
+root=$($gf inspect-get-roots)
 
 if [ "$root" = "" ]; then
     echo "$program: no operating system was found on this disk"
@@ -196,14 +199,14 @@ if [ "$verbose" = "yes" ]; then
 fi
 
 # Get the guest type.
-type="$(guestfish --remote -- -inspect-get-type $root)"
+type="$($gf -inspect-get-type $root)"
 
 if [ "$type" = "linux" ]; then
-    distro="$(guestfish --remote -- -inspect-get-distro $root)"
+    distro="$($gf -inspect-get-distro $root)"
 fi
 
 if [ "$type" = "windows" ]; then
-    systemroot="$(guestfish --remote -- -inspect-get-windows-systemroot $root)"
+    systemroot="$($gf -inspect-get-windows-systemroot $root)"
 fi
 
 #----------------------------------------------------------------------
@@ -214,9 +217,9 @@ fi
 # Erase line(s) in a file that match the given regex.
 erase_line ()
 {
-    guestfish --remote -- download "$1" "$tmpdir/file"
+    $gf download "$1" "$tmpdir/file"
     sed "/$2/d" < "$tmpdir/file" > "$tmpdir/file.1"
-    guestfish --remote -- upload "$tmpdir/file.1" "$1"
+    $gf upload "$tmpdir/file.1" "$1"
 }
 
 # rm_files wildcard
@@ -226,9 +229,9 @@ erase_line ()
 # quoting.
 rm_files ()
 {
-    files=$(guestfish --remote -- glob-expand "$1")
+    files=$($gf glob-expand "$1")
     for f in $files; do
-        guestfish --remote -- rm "$f"
+        $gf rm "$f"
     done
 }
 
@@ -238,9 +241,9 @@ rm_files ()
 # a file.
 rm_file ()
 {
-    t=$(guestfish --remote -- is-file "$1")
+    t=$($gf is-file "$1")
     if [ "$t" = "true" ]; then
-        guestfish --remote -- rm "$1"
+        $gf rm "$1"
     fi
 }
 
@@ -250,14 +253,12 @@ rm_file ()
 if [ "$hostname" = "yes" ]; then
     case "$type/$distro" in
         linux/fedora)
-            guestfish --remote -- \
-                download /etc/sysconfig/network "$tmpdir/network"
+            $gf download /etc/sysconfig/network "$tmpdir/network"
             echo "HOSTNAME=$hostname_param" > "$tmpdir/network.1"
             sed '/^HOSTNAME=/d' < "$tmpdir/network" >> "$tmpdir/network.1"
-            guestfish --remote -- \
-                upload "$tmpdir/network.1" /etc/sysconfig/network ;;
+            $gf upload "$tmpdir/network.1" /etc/sysconfig/network ;;
         linux/debian|linux/ubuntu)
-            guestfish --remote -- write /etc/hostname "$hostname_param"
+            $gf write /etc/hostname "$hostname_param"
     esac
 fi
 
@@ -265,7 +266,7 @@ if [ "$net_hwaddr" = "yes" ]; then
     case "$type/$distro" in
         linux/fedora)
             # XXX these filenames can have spaces and untrusted chars in them!
-            files=$(guestfish --remote -- glob-expand '/etc/sysconfig/network-scripts/ifcfg-*')
+            files=$($gf glob-expand '/etc/sysconfig/network-scripts/ifcfg-*')
             for f in $files; do
                 erase_line "$f" "^HWADDR="
             done
@@ -282,8 +283,8 @@ fi
 
 # Clean up and close down.
 
-guestfish --remote umount-all
-guestfish --remote sync
-guestfish --remote exit
+$gf umount-all
+$gf sync
+$gf exit
 
 exit 0
