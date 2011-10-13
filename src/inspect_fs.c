@@ -190,6 +190,23 @@ check_filesystem (guestfs_h *g, const char *device,
     if (guestfs___check_freebsd_root (g, fs) == -1)
       return -1;
   }
+  else if (is_dir_etc &&
+           is_dir_bin &&
+           guestfs_is_file (g, "/etc/fstab") > 0 &&
+           guestfs_is_file (g, "/etc/release") > 0) {
+    /* Ignore /dev/sda1 which is a shadow of the real root filesystem
+     * that is probably /dev/sda5 (see:
+     * http://www.freebsd.org/doc/handbook/disk-organization.html)
+     */
+    if (match (g, device, re_first_partition))
+      return 0;
+
+    fs->is_root = 1;
+    fs->content = FS_CONTENT_NETBSD_ROOT;
+    fs->format = OS_FORMAT_INSTALLED;
+    if (guestfs___check_netbsd_root (g, fs) == -1)
+      return -1;
+  }
   /* Linux root? */
   else if (is_dir_etc &&
            is_dir_bin &&

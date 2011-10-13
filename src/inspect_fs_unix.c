@@ -66,6 +66,7 @@ static pcre *re_aug_seq;
 static pcre *re_xdev;
 static pcre *re_first_partition;
 static pcre *re_freebsd;
+static pcre *re_netbsd;
 
 static void compile_regexps (void) __attribute__((constructor));
 static void free_regexps (void) __attribute__((destructor));
@@ -108,6 +109,7 @@ compile_regexps (void)
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
+  COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
 }
 
 static void
@@ -127,6 +129,7 @@ free_regexps (void)
   pcre_free (re_aug_seq);
   pcre_free (re_xdev);
   pcre_free (re_freebsd);
+  pcre_free (re_netbsd);
 }
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
@@ -483,6 +486,48 @@ guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+/* The currently mounted device is maybe to be a *BSD root. */
+int
+guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
+{
+
+  if (guestfs_exists (g, "/etc/release") > 0) {
+    char *major, *minor;
+    if (parse_release_file (g, fs, "/etc/release") == -1)
+      return -1;
+
+    if (match2 (g, fs->product_name, re_netbsd, &major, &minor)) {
+      fs->type = OS_TYPE_NETBSD;
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    }
+  } else {
+    return -1;
+  }
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* We already know /etc/fstab exists because it's part of the test above. */
+  if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
+    return -1;
+
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
+
 static void
 check_architecture (guestfs_h *g, struct inspect_fs *fs)
 {
@@ -542,6 +587,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
     break;
 
   case OS_TYPE_FREEBSD:
+  case OS_TYPE_NETBSD:
     /* /etc/rc.conf contains the hostname, but there is no Augeas lens
      * for this file.
      */

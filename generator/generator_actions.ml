@@ -743,6 +743,10 @@ Any Microsoft Windows operating system.
 
 FreeBSD.
 
+=item \"netbsd\"
+
+NetBSD.
+
 =item \"unknown\"
 
 The operating system type could not be determined.

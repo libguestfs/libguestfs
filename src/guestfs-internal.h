@@ -239,6 +239,7 @@ enum inspect_fs_content {
   FS_CONTENT_LINUX_USR_LOCAL,
   FS_CONTENT_LINUX_VAR,
   FS_CONTENT_FREEBSD_ROOT,
+  FS_CONTENT_NETBSD_ROOT,
   FS_CONTENT_INSTALLER,
 };
 
@@ -254,6 +255,7 @@ enum inspect_os_type {
   OS_TYPE_LINUX,
   OS_TYPE_WINDOWS,
   OS_TYPE_FREEBSD,
+  OS_TYPE_NETBSD,
 };
 
 enum inspect_os_distro {
@@ -400,6 +402,7 @@ extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opa
 extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___has_windows_systemroot (guestfs_h *g);
 extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 #endif

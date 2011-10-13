@@ -165,6 +165,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     break;
 
   case OS_TYPE_FREEBSD:
+  case OS_TYPE_NETBSD:
   case OS_TYPE_UNKNOWN:
   default: ;
   }
