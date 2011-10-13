@@ -167,6 +167,11 @@ fi
 # Create a temporary directory for general purpose use during operations.
 tmpdir="$(mktemp -d)"
 
+# Increase the amount of memory allocated to the appliance because
+# we're using augeas.  The user can override this by setting
+# $LIBGUESTFS_MEMSIZE before running the script.
+export LIBGUESTFS_MEMSIZE=${LIBGUESTFS_MEMSIZE:-2048}
+
 # Call guestfish.
 GUESTFISH_PID=
 eval $("${guestfish[@]}")
@@ -207,6 +212,12 @@ fi
 
 if [ "$type" = "windows" ]; then
     systemroot="$($gf -inspect-get-windows-systemroot $root)"
+fi
+
+# Start Augeas if it's a Linux guest.
+if [ "$type" = "linux" ]; then
+    $gf aug-init / 0
+    using_augeas=yes
 fi
 
 #----------------------------------------------------------------------
@@ -265,8 +276,8 @@ rm_file ()
 if [ "$hostname" = "yes" ]; then
     case "$type/$distro" in
         linux/fedora)
-            erase_line /etc/sysconfig/network "^HOSTNAME="
-            prepend_line /etc/sysconfig/network "HOSTNAME=$hostname_param"
+            $gf aug-set /files/etc/sysconfig/network/HOSTNAME "$hostname_param"
+            augeas_save_needed=yes
             ;;
         linux/debian|linux/ubuntu)
             $gf write /etc/hostname "$hostname_param"
@@ -278,9 +289,11 @@ if [ "$net_hwaddr" = "yes" ]; then
     case "$type/$distro" in
         linux/fedora)
             # XXX these filenames can have spaces and untrusted chars in them!
-            files=$($gf glob-expand '/etc/sysconfig/network-scripts/ifcfg-*')
-            for f in $files; do
-                erase_line "$f" "^HWADDR="
+            nodes=$( $gf aug-ls /files/etc/sysconfig/network-scripts |
+                     grep /files/etc/sysconfig/network-scripts/ifcfg- )
+            for node in $nodes; do
+                $gf -aug-rm "$node/HWADDR" >/dev/null
+                augeas_save_needed=yes
             done
             ;;
     esac
@@ -294,7 +307,13 @@ if [ "$udev_persistent_net" = "yes" -a "$type" = "linux" ]; then
     rm_file /etc/udev/rules.d/70-persistent-net.rules
 fi
 
+#----------------------------------------------------------------------
 # Clean up and close down.
+
+if [ "$using_augeas" = "yes" -a "$augeas_save_needed" = "yes" ]; then
+    $gf aug-save
+    $gf aug-close
+fi
 
 $gf umount-all
 $gf sync
