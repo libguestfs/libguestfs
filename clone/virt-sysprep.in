@@ -137,6 +137,7 @@ if [ -z "$enable" ]; then
     logfiles=yes
     net_hwaddr=yes
     random_seed=yes
+    rhn_systemid=yes
     smolt_uuid=yes
     ssh_hostkeys=yes
     udev_persistent_net=yes
@@ -148,6 +149,7 @@ elif [ "$enable" = "list" ]; then
     echo "logfiles"
     echo "net-hwaddr"
     echo "random-seed"
+    echo "rhn-systemid"
     echo "smolt-uuid"
     echo "ssh-hostkeys"
     echo "udev-persistent-net"
@@ -162,6 +164,7 @@ else
             logfiles)              logfiles=yes ;;
             net-hwaddr)            net_hwaddr=yes ;;
             random-seed)           random_seed=yes ;;
+            rhn-systemid)          rhn_systemid=yes ;;
             smolt-uuid)            smolt_uuid=yes ;;
             ssh-hostkeys)          ssh_hostkeys=yes ;;
             udev-persistent-net)   udev_persistent_net=yes ;;
@@ -321,6 +324,10 @@ if [ "$random_seed" = "yes" -a "$type" = "linux" ]; then
     if [ -n "$f" ]; then
         dd if=/dev/random of="$f" bs=8 count=1 conv=nocreat,notrunc 2>/dev/null
     fi
+fi
+
+if [ "$rhn_systemid" = "yes" -a "$type/$distro" = "linux/rhel" ]; then
+    rm -f $mnt/etc/sysconfig/rhn/systemid
 fi
 
 if [ "$smolt_uuid" = "yes" -a "$type" = "linux" ]; then

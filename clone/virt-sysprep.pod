@@ -199,6 +199,10 @@ the guest.
 
 See C</RANDOM SEED> below.
 
+=head2 rhn-systemid
+
+Remove the RHN system ID.
+
 =head2 smolt-uuid
 
 Remove the Smolt hardware UUID.

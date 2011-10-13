@@ -537,7 +537,7 @@ virt-sysprep ideas
 ------------------
 
  - touch /.unconfigured ?
- - Spacewalk / RHN ID
+ - other Spacewalk / RHN IDs (?)
  - Kerberos keys
  - Puppet registration
  - user accounts
