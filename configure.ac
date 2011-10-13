@@ -892,12 +892,14 @@ AS_IF([test "x$enable_php" != "xno"],
 AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
 dnl Erlang
+ERLANG=no
 AC_ARG_ENABLE([erlang],
-        AS_HELP_STRING([--disable-erlang], [Disable Erlang language bindings]),
-        [],
-        [enable_erlang=yes])
+    AS_HELP_STRING([--disable-erlang], [Disable Erlang language bindings]),
+         [],
+         [enable_erlang=yes])
 AS_IF([test "x$enable_erlang" != "xno"],
         [
+        ERLANG=
         AC_ERLANG_PATH_ERLC([no])
 
         if test "x$ERLC" != "xno"; then
@@ -906,7 +908,7 @@ AS_IF([test "x$enable_erlang" != "xno"],
             AC_ERLANG_SUBST_LIB_DIR
         fi
         ])
-AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLC" != "xno"])
+AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLANG" != "xno" && test "x$ERLC" != "xno"])
 
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],
