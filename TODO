@@ -549,6 +549,7 @@ virt-sysprep ideas
    . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
    . run an external shell script
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
+   . rm /var/cache/apt/archives/*deb
  - log files (thanks Steve Grubb)
    . as well as the obvious log files, also
      utmp/wtmp/btmp/tallylog and pam_faillock's data files
