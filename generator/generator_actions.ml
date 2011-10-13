@@ -814,6 +814,10 @@ Mandriva.
 
 MeeGo.
 
+=item \"opensuse\"
+
+OpenSUSE.
+
 =item \"pardus\"
 
 Pardus.
@@ -1190,7 +1194,7 @@ a real packaging system (eg. Windows).
 
 Possible strings include: C<yum>, C<up2date>,
 C<apt> (for all Debian derivatives),
-C<portage>, C<pisi>, C<pacman>, C<urpmi>.
+C<portage>, C<pisi>, C<pacman>, C<urpmi>, C<zypper>.
 Future versions of libguestfs may return other strings.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");

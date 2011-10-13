@@ -200,6 +200,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_MAGEIA: ret = safe_strdup (g, "mageia"); break;
   case OS_DISTRO_MANDRIVA: ret = safe_strdup (g, "mandriva"); break;
   case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
+  case OS_DISTRO_OPENSUSE: ret = safe_strdup (g, "opensuse"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
@@ -480,6 +481,7 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
   case OS_PACKAGE_MANAGEMENT_PORTAGE: ret = safe_strdup (g, "portage"); break;
   case OS_PACKAGE_MANAGEMENT_PISI: ret = safe_strdup (g, "pisi"); break;
   case OS_PACKAGE_MANAGEMENT_URPMI: ret = safe_strdup (g, "urpmi"); break;
+  case OS_PACKAGE_MANAGEMENT_ZYPPER: ret = safe_strdup (g, "zypper"); break;
   case OS_PACKAGE_MANAGEMENT_UNKNOWN:
   default:
     ret = safe_strdup (g, "unknown");

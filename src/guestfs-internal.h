@@ -275,6 +275,7 @@ enum inspect_os_distro {
   OS_DISTRO_SCIENTIFIC_LINUX,
   OS_DISTRO_TTYLINUX,
   OS_DISTRO_MAGEIA,
+  OS_DISTRO_OPENSUSE,
 };
 
 enum inspect_os_package_format {
@@ -295,6 +296,7 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_PORTAGE,
   OS_PACKAGE_MANAGEMENT_PISI,
   OS_PACKAGE_MANAGEMENT_URPMI,
+  OS_PACKAGE_MANAGEMENT_ZYPPER,
 };
 
 struct inspect_fs {

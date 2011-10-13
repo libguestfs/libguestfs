@@ -419,6 +419,16 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
+  else if (guestfs_exists (g, "/etc/SuSE-release") > 0) {
+    fs->distro = OS_DISTRO_OPENSUSE;
+
+    if (parse_release_file (g, fs, "/etc/SuSE-release") == -1)
+      return -1;
+
+    if (guestfs___parse_major_minor (g, fs) == -1)
+      return -1;
+  }
+
 
  skip_release_checks:;
 
