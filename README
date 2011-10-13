@@ -134,6 +134,12 @@ To build the Perl tools:
 
 - perl-libintl for translating perl code (optional)
 
+To run virt-sysprep:
+
+- xmlstarlet (optional)
+
+- virt-sysprep also requires FUSE support since it uses guestmount
+
 
 Building
 ----------------------------------------------------------------------

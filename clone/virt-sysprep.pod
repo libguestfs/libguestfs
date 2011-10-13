@@ -26,6 +26,12 @@ must be shut down.  If you want to preserve the existing contents of
 the guest, you I<must copy or clone the disk first>.
 See L</COPYING AND CLONING> below.
 
+You do I<not> need to run virt-sysprep as root.  In fact we'd
+generally recommend that you don't.  The time you might want to run it
+as root is when you need root in order to access the disk image, but
+even in this case it would be better to change the permissions on the
+disk image to be writable as the non-root user running virt-sysprep.
+
 "Sysprep" stands for "system preparation" tool.  The name comes from
 the Microsoft program C<sysprep.exe> which is used to unconfigure
 Windows machines in preparation for cloning them.  Having said that,
@@ -119,6 +125,16 @@ If not given, defaults to C<localhost.localdomain>.
 
 List the operations supported by the virt-sysprep program.
 
+=item B<--selinux-relabel>
+
+=item B<--no-selinux-relabel>
+
+I<--selinux-relabel> forces SELinux relabelling next time the guest
+boots.  I<--no-selinux-relabel> disables relabelling.
+
+The default is to try to detect if SELinux relabelling is required.
+See L</SELINUX RELABELLING> below for more details.
+
 =item B<-v>
 
 =item B<--verbose>
@@ -151,22 +167,45 @@ Use a comma-separated list, for example:
 To list the operations supported by the current version of
 virt-sysprep, use I<--list-operations>.
 
+=head2 dhcp-client-state
+
+Remove DHCP client leases.
+
+=head2 dhcp-server-state
+
+Remove DHCP server leases.
+
 =head2 hostname
 
-This changes the hostname of the guest to the value given in the
+Changes the hostname of the guest to the value given in the
 I<--hostname> parameter.
 
 If the I<--hostname> parameter is not given, then the hostname is
 changed to C<localhost.localdomain>.
+
+=head2 logfiles
+
+Remove many log files.
 
 =head2 net-hwaddr
 
 Remove HWADDR (hard-coded MAC address) configuration.  For Fedora and
 Red Hat Enterprise Linux, this is removed from C<ifcfg-*> files.
 
+=head2 random-seed
+
+Write some random bytes from the host into the random seed file of
+the guest.
+
+See C</RANDOM SEED> below.
+
+=head2 smolt-uuid
+
+Remove the Smolt hardware UUID.
+
 =head2 ssh-hostkeys
 
-This erases the SSH host keys in the guest.
+Remove the SSH host keys in the guest.
 
 The SSH host keys are regenerated (differently) next time the guest is
 booted.
@@ -181,13 +220,20 @@ you a stark warning about the host key changing:
 
 =head2 udev-persistent-net
 
-This erases udev persistent net rules which map the guest's existing
-MAC address to a fixed ethernet device (eg. eth0).
+Remove udev persistent net rules which map the guest's existing MAC
+address to a fixed ethernet device (eg. eth0).
 
 After a guest is cloned, the MAC address usually changes.  Since the
 old MAC address occupies the old name (eg. eth0), this means the fresh
 MAC address is assigned to a new name (eg. eth1) and this is usually
 undesirable.  Erasing the udev persistent net rules avoids this.
+
+=head2 yum-uuid
+
+Remove the yum UUID.
+
+yum creates a fresh UUID the next time it runs when it notices that
+the original UUID has been erased.
 
 =head1 COPYING AND CLONING
 
@@ -356,6 +402,54 @@ to pay for disk space), then instead of copying the template, you can
 run L<virt-resize(1)>.  Virt-resize performs a copy and resize, and
 thus is ideal for cloning guests from a template.
 
+=head1 SECURITY
+
+Although virt-sysprep removes some sensitive information from
+the guest, it does not pretend to remove all of it.  You should
+examine the L</OPERATIONS> above, and the implementation of
+the operations in the shell script.
+
+You should also examine the guest afterwards.
+
+Sensitive files are simply removed.  The data they contained may still
+exist on the disk, easily recovered with a hex editor or undelete
+tool.  Use L<virt-sparsify(1)> as one way to remove this content.  See
+also the L<scrub(1)> command to get rid of deleted content in
+directory entries and inodes.
+
+=head2 RANDOM SEED
+
+I<(This section applies to Linux guests only)>
+
+The virt-sysprep C<random-seed> operation writes a few bytes of
+randomness from the host into the guest's random seed file.
+
+If this is just done once and the guest is cloned from the same
+template, then each guest will start with the same entropy, and things
+like SSH host keys and TCP sequence numbers may be predictable.
+
+Therefore you should arrange to add more randomness I<after> cloning
+from a template too, which can be done by just enabling the
+C<random-seed> operation:
+
+ cp template.img newguest.img
+ virt-sysprep --enable=random-seed -a newguest.img
+
+=head2 SELINUX RELABELLING
+
+I<(This section applies to Linux guests using SELinux only)>
+
+If any new files are created by virt-sysprep, then virt-sysprep
+touches C</.autorelabel> so that these will be correctly labelled by
+SELinux the next time the guest is booted.  This process interrupts
+boot and can take some time.
+
+You can force relabelling for all guests by supplying the
+I<--selinux-relabel> option.
+
+You can disable relabelling entirely by supplying the
+I<--no-selinux-relabel> option.
+
 =head1 SHELL QUOTING
 
 Libvirt guest names can contain arbitrary characters, some of which
@@ -376,8 +470,9 @@ L<virt-rescue(1)>,
 L<virt-resize(1)>,
 L<virt-sparsify(1)>,
 L<virsh(1)>,
-L<qemu-img(1)>,
 L<lvcreate(8)>,
+L<qemu-img(1)>,
+L<scrub(1)>,
 L<http://libguestfs.org/>,
 L<http://libvirt.org/>.
 

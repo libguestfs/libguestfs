@@ -537,7 +537,6 @@ virt-sysprep ideas
 ------------------
 
  - touch /.unconfigured ?
- - smolt ID
  - Spacewalk / RHN ID
  - Kerberos keys
  - Puppet registration
@@ -549,11 +548,8 @@ virt-sysprep ideas
    . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
    . run an external shell script
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
-   . rm /var/cache/apt/archives/*deb
- - log files (thanks Steve Grubb)
-   . as well as the obvious log files, also
-     utmp/wtmp/btmp/tallylog and pam_faillock's data files
- - RNG seed (Steve Grubb)
+   . rm /var/cache/apt/archives/*
+ - /var/run/* and pam_faillock's data files
  - homedirs/.ssh directory, especially /root/.ssh (Steve Grubb)
  - if drives are encrypted, then dm-crypt key should be changed
    and drives all re-encrypted
@@ -564,20 +560,13 @@ virt-sysprep ideas
    may have picked up some certificates or things. This is an area
    that you would want to look into.
  - secure erase of inodes etc using scrub (Steve Grubb)
- - touch /.autorelabel if we create any new files (thanks Dan Berrange)
- - should we use guestmount instead of guestfish
-   and would that make it easier to run the tool inside VMs?
  - other directories that could require cleaning include:
-    /var/lib/dhcpd/*
-    /var/lib/dhclient/*
     /var/cache/gdm/*
     /var/lib/fprint/*
     /var/run/*
     /var/spool/mail/*
     /var/spool/cron/*
     /var/lib/AccountService/users/*
-    /var/cache/yum/*
-    /var/lib/yum/*   (only /var/lib/yum/uuid)
     /var/lib/sss/db/*
     /var/lib/samba/*
     /var/lib/samba/*/*

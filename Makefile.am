@@ -38,9 +38,6 @@ SUBDIRS += fish
 # virt-tools in C.
 SUBDIRS += align cat df edit inspector rescue
 
-# virt-tools in shell.
-SUBDIRS += clone
-
 # Language bindings.
 if HAVE_PERL
 SUBDIRS += perl perl/examples
@@ -86,6 +83,11 @@ endif
 # guestmount
 if HAVE_FUSE
 SUBDIRS += fuse
+endif
+
+# virt-tools in shell.  This uses guestmount.
+if HAVE_FUSE
+SUBDIRS += clone
 endif
 
 # po-docs must come after tools, inspector.
