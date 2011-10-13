@@ -996,14 +996,15 @@ and cleans up guestfish when the script exits:
      exit 1
  fi
  
- kill_guestfish ()
+ cleanup_guestfish ()
  {
-     kill $GUESTFISH_PID >/dev/null 2>&1 ||:
+     guestfish --remote -- exit >/dev/null 2>&1 ||:
  }
- trap kill_guestfish EXIT
+ trap cleanup_guestfish EXIT ERR
  
- guestfish --remote run
- # etc.
+ guestfish --remote -- run
+ 
+ # ...
 
 =head2 REMOTE CONTROL RUN COMMAND HANGING
 
