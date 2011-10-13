@@ -80,6 +80,15 @@ C<allow_other> option when mounting:
 
  sudo guestmount [...] -o allow_other /mnt
 
+=head2 Enabling FUSE
+
+On some distros, you may need to add yourself to a special group
+(eg. C<fuse>) before you can use any FUSE filesystem.  This is
+necessary on Debian and derivatives.
+
+On other distros, no special group is required.  It is not necessary
+on Fedora or Red Hat Enterprise Linux.
+
 =head1 OPTIONS
 
 =over 4
