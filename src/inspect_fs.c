@@ -120,9 +120,16 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
 
   /* Try mounting the device.  As above, ignore errors. */
   g->error_cb = NULL;
-  int r = guestfs_mount_ro (g, device, "/");
-  if (r == -1 && vfs_type && STREQ (vfs_type, "ufs")) /* Hack for the *BSDs. */
+  int r;
+  if (vfs_type && STREQ (vfs_type, "ufs")) { /* Hack for the *BSDs. */
+    /* FreeBSD fs is a variant of ufs called ufs2 ... */
     r = guestfs_mount_vfs (g, "ro,ufstype=ufs2", "ufs", device, "/");
+    if (r == -1)
+      /* while NetBSD and OpenBSD use another variant labeled 44bsd */
+      r = guestfs_mount_vfs (g, "ro,ufstype=44bsd", "ufs", device, "/");
+  } else {
+    r = guestfs_mount_ro (g, device, "/");
+  }
   free (vfs_type);
   g->error_cb = old_error_cb;
   if (r == -1)
