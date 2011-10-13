@@ -240,7 +240,7 @@ undesirable.  Erasing the udev persistent net rules avoids this.
 
 Remove the yum UUID.
 
-yum creates a fresh UUID the next time it runs when it notices that
+Yum creates a fresh UUID the next time it runs when it notices that
 the original UUID has been erased.
 
 =head1 COPYING AND CLONING
@@ -412,12 +412,10 @@ thus is ideal for cloning guests from a template.
 
 =head1 SECURITY
 
-Although virt-sysprep removes some sensitive information from
-the guest, it does not pretend to remove all of it.  You should
-examine the L</OPERATIONS> above, and the implementation of
-the operations in the shell script.
-
-You should also examine the guest afterwards.
+Although virt-sysprep removes some sensitive information from the
+guest, it does not pretend to remove all of it.  You should examine
+the L</OPERATIONS> above, and the implementation of the operations in
+the shell script.  You should also examine the guest afterwards.
 
 Sensitive files are simply removed.  The data they contained may still
 exist on the disk, easily recovered with a hex editor or undelete
