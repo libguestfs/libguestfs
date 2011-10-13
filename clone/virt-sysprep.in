@@ -175,15 +175,15 @@ if [ -z "$GUESTFISH_PID" ]; then
     exit 1
 fi
 
+# Helper.
+gf="guestfish --remote --"
+
 cleanup ()
 {
-    kill $GUESTFISH_PID >/dev/null 2>&1 ||:
+    $gf exit >/dev/null 2>&1 ||:
     rm -rf "$tmpdir" ||:
 }
 trap cleanup EXIT ERR
-
-# Helper.
-gf="guestfish --remote --"
 
 # Launch back-end, inspect for operating systems, and get the guest
 # root disk.
