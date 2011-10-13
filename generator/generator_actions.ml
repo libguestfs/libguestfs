@@ -802,6 +802,10 @@ Gentoo.
 
 Linux Mint.
 
+=item \"mageia\"
+
+Mageia.
+
 =item \"mandriva\"
 
 Mandriva.

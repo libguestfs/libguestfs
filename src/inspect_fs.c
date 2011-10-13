@@ -361,6 +361,7 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_MEEGO:
   case OS_DISTRO_REDHAT_BASED:
   case OS_DISTRO_RHEL:
+  case OS_DISTRO_MAGEIA:
   case OS_DISTRO_MANDRIVA:
   case OS_DISTRO_CENTOS:
   case OS_DISTRO_SCIENTIFIC_LINUX:
@@ -427,6 +428,7 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_PARDUS:
     fs->package_management = OS_PACKAGE_MANAGEMENT_PISI;
     break;
+  case OS_DISTRO_MAGEIA:
   case OS_DISTRO_MANDRIVA:
     fs->package_management = OS_PACKAGE_MANAGEMENT_URPMI;
     break;

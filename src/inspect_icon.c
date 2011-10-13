@@ -53,6 +53,7 @@ static char *icon_favicon (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_fedora (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_rhel (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_debian (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+static char *icon_mageia (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 
 /* Dummy static object. */
@@ -124,6 +125,10 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
 
     case OS_DISTRO_DEBIAN:
       r = icon_debian (g, fs, &size);
+      break;
+
+    case OS_DISTRO_MAGEIA:
+      r = icon_mageia (g, fs, &size);
       break;
 
       /* These are just to keep gcc warnings happy. */
@@ -286,6 +291,13 @@ icon_debian (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   return get_png (g, fs, DEBIAN_ICON, size_r, 2048);
 }
 
+#define MAGEIA_ICON "/usr/share/icons/mageia.png"
+
+static char *
+icon_mageia (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+{
+  return get_png (g, fs, MAGEIA_ICON, size_r, 2048);
+}
 /* Windows, as usual, has to be much more complicated and stupid than
  * anything else.
  *

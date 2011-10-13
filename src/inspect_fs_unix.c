@@ -214,6 +214,11 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
       fs->distro = OS_DISTRO_MANDRIVA;
       r = 1;
     }
+    else if (fs->distro == 0 &&
+             STREQ (lines[i], "DISTRIB_ID=\"Mageia\"")) {
+      fs->distro = OS_DISTRO_MAGEIA;
+      r = 1;
+    }
     else if (STRPREFIX (lines[i], "DISTRIB_RELEASE=")) {
       char *major, *minor;
       if (match2 (g, &lines[i][16], re_major_minor, &major, &minor)) {

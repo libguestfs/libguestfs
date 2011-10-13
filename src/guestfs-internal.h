@@ -274,6 +274,7 @@ enum inspect_os_distro {
   OS_DISTRO_CENTOS,
   OS_DISTRO_SCIENTIFIC_LINUX,
   OS_DISTRO_TTYLINUX,
+  OS_DISTRO_MAGEIA,
 };
 
 enum inspect_os_package_format {

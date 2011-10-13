@@ -197,6 +197,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;
   case OS_DISTRO_LINUX_MINT: ret = safe_strdup (g, "linuxmint"); break;
+  case OS_DISTRO_MAGEIA: ret = safe_strdup (g, "mageia"); break;
   case OS_DISTRO_MANDRIVA: ret = safe_strdup (g, "mandriva"); break;
   case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
