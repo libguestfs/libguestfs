@@ -222,6 +222,18 @@ erase_line ()
     $gf upload "$tmpdir/file.1" "$1"
 }
 
+# prepend_line filename line
+#
+# Prepend a line to a file (this is better than appending, because it
+# works even when the original file isn't terminated with a newline).
+prepend_line ()
+{
+    $gf download "$1" "$tmpdir/file"
+    echo "$2" > "$tmpdir/file.1"
+    cat "$tmpdir/file.1" "$tmpdir/file" >> "$tmpdir/file.2"
+    $gf upload "$tmpdir/file.2" "$1"
+}
+
 # rm_files wildcard
 #
 # Remove files.  Doesn't fail if no files exist.  Note the wildcard
@@ -253,12 +265,12 @@ rm_file ()
 if [ "$hostname" = "yes" ]; then
     case "$type/$distro" in
         linux/fedora)
-            $gf download /etc/sysconfig/network "$tmpdir/network"
-            echo "HOSTNAME=$hostname_param" > "$tmpdir/network.1"
-            sed '/^HOSTNAME=/d' < "$tmpdir/network" >> "$tmpdir/network.1"
-            $gf upload "$tmpdir/network.1" /etc/sysconfig/network ;;
+            erase_line /etc/sysconfig/network "^HOSTNAME="
+            prepend_line /etc/sysconfig/network "HOSTNAME=$hostname_param"
+            ;;
         linux/debian|linux/ubuntu)
             $gf write /etc/hostname "$hostname_param"
+            ;;
     esac
 fi
 
@@ -270,6 +282,7 @@ if [ "$net_hwaddr" = "yes" ]; then
             for f in $files; do
                 erase_line "$f" "^HWADDR="
             done
+            ;;
     esac
 fi
 
