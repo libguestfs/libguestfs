@@ -18,7 +18,7 @@ For next major stable release (1.14)
 Bugs assigned to 1.14 (put "1.14" in the Devel Whiteboard field in
 Bugzilla):
 
-https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.14&component=libguestfs&product=Virtualization%20Tools&classification=Other
+https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.14&component=libguestfs&product=Virtualization%20Tools
 
 Beyond 1.14
 -----------
