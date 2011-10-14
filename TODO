@@ -564,8 +564,6 @@ virt-sysprep ideas
     /var/cache/gdm/*
     /var/lib/fprint/*
     /var/run/*
-    /var/spool/mail/*
-    /var/spool/cron/*
     /var/lib/AccountService/users/*
     /var/lib/sss/db/*
     /var/lib/samba/*

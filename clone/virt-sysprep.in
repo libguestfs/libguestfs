@@ -131,43 +131,52 @@ done
 # enable all of these, although some of them are only done on certain
 # guest types (see details below).
 if [ -z "$enable" ]; then
+    cron_spool=yes
     dhcp_client_state=yes
     dhcp_server_state=yes
     hostname=yes
     logfiles=yes
+    mail_spool=yes
     net_hwaddr=yes
     random_seed=yes
     rhn_systemid=yes
     smolt_uuid=yes
     ssh_hostkeys=yes
     udev_persistent_net=yes
+    utmp=yes
     yum_uuid=yes
 elif [ "$enable" = "list" ]; then
+    echo "cron-spool"
     echo "dhcp-client-state"
     echo "dhcp-server-state"
     echo "hostname"
     echo "logfiles"
+    echo "mail-spool"
     echo "net-hwaddr"
     echo "random-seed"
     echo "rhn-systemid"
     echo "smolt-uuid"
     echo "ssh-hostkeys"
     echo "udev-persistent-net"
+    echo "utmp"
     echo "yum-uuid"
     exit 0
 else
     for opt in $(echo "$enable" | sed 's/,/ /g'); do
         case "$opt" in
+            cron-spool)            cron_spool=yes ;;
             dhcp-client-state)     dhcp_client_state=yes ;;
             dhcp-server-state)     dhcp_server_state=yes ;;
             hostname)              hostname=yes ;;
             logfiles)              logfiles=yes ;;
+            mail-spool)            mail_spool=yes ;;
             net-hwaddr)            net_hwaddr=yes ;;
             random-seed)           random_seed=yes ;;
             rhn-systemid)          rhn_systemid=yes ;;
             smolt-uuid)            smolt_uuid=yes ;;
             ssh-hostkeys)          ssh_hostkeys=yes ;;
             udev-persistent-net)   udev_persistent_net=yes ;;
+            utmp)                  utmp=yes ;;
             yum-uuid)              yum_uuid=yes ;;
             *)
                 echo "error: unknown --enable feature: $opt"
@@ -240,6 +249,10 @@ mnt="$tmpdir/mnt"
 #----------------------------------------------------------------------
 # The sysprep operations.
 
+if [ "$cron_spool" = "yes" ]; then
+    rm -rf $mnt/var/spool/cron/*
+fi
+
 if [ "$dhcp_client_state" = "yes" ]; then
     case "$type" in
         linux)
@@ -293,6 +306,11 @@ if [ "$logfiles" = "yes" ]; then
     esac
 fi
 
+if [ "$mail_spool" = "yes" ]; then
+    rm -rf $mnt/var/spool/mail/*
+    rm -rf $mnt/var/mail/*
+fi
+
 if [ "$net_hwaddr" = "yes" ]; then
     case "$type/$distro" in
         linux/fedora)
@@ -342,6 +360,10 @@ fi
 
 if [ "$udev_persistent_net" = "yes" -a "$type" = "linux" ]; then
     rm -f $mnt/etc/udev/rules.d/70-persistent-net.rules
+fi
+
+if [ "$utmp" = "yes" -a "$type" != "windows" ]; then
+    rm -f $mnt/var/run/utmp
 fi
 
 if [ "$yum_uuid" = "yes" -a "$package_management" = "yum" ]; then

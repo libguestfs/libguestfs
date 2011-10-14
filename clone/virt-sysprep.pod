@@ -171,6 +171,10 @@ Future versions of virt-sysprep may add more operations.  If you are
 using virt-sysprep and want predictable behaviour, specify only the
 operations that you want to have enabled.
 
+=head2 cron-spool
+
+Remove user at-jobs and cron-jobs.
+
 =head2 dhcp-client-state
 
 Remove DHCP client leases.
@@ -190,6 +194,10 @@ changed to C<localhost.localdomain>.
 =head2 logfiles
 
 Remove many log files.
+
+=head2 mail-spool
+
+Remove email from the local mail spool directory.
 
 =head2 net-hwaddr
 
@@ -235,6 +243,14 @@ After a guest is cloned, the MAC address usually changes.  Since the
 old MAC address occupies the old name (eg. eth0), this means the fresh
 MAC address is assigned to a new name (eg. eth1) and this is usually
 undesirable.  Erasing the udev persistent net rules avoids this.
+
+=head2 utmp
+
+Remove the utmp file.
+
+This records who is currently logged in on a machine.  In modern Linux
+distros it is stored in a ramdisk and hence not part of the virtual
+machine's disk, but it was stored on disk in older distros.
 
 =head2 yum-uuid
 
