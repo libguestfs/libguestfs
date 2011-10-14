@@ -569,3 +569,34 @@ virt-sysprep ideas
     /var/lib/samba/*
     /var/lib/samba/*/*
   (thanks Marko Myllynen, James Antill)
+
+Launch remote sessions over ssh
+-------------------------------
+
+We had an idea you could add a launch method that uses ssh, ie.  all
+febootstrap and qemu commands happen the same as now, but prefixed by
+ssh so it happens on a remote machine.
+
+Note that proper remote support and integration with libvirt is
+different from this, and people are working on that.  ssh would just
+be "remote-lite".
+
+virt-make-fs and virt-win-reg need to not be in Perl
+----------------------------------------------------
+
+Probably they should be in C or OCaml.
+
+Integrate snap-type functionality in inspection tools
+-----------------------------------------------------
+
+Mo Morsi's "snap" program lets you describe a guest as the list of
+packages (eg. RPMs) installed + changes made to those RPMs + files
+added.
+
+http://projects.morsi.org/wiki/Snap
+
+This results in a compact description of the guest.  He even managed
+to do a kind of migration of guests by simply recreating the guest
+from the description on the target machine.
+
+It would be ideal to integrate this and/or use inspection to do this.
