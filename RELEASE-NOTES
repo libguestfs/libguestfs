@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.14.0
 -----------------------------------
 
-UPDATED TO COMMIT e59e35708b4ad66c99f908c5226cb232931e1791
+UPDATED TO COMMIT 782a2e0299b0c22155f0c115f94903c519040247
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.12.0).  For detailed changelogs, please see
@@ -11,16 +11,25 @@ New features
 
   Erlang bindings.
 
-  virt-sparsify: A new tool to make virtual machine disk images sparse.
+  virt-alignment-scan is a new tool to check the alignment of
+  partitions within virtual machines or disk images.
 
-  virt-alignment-scan: A new tool to check the alignment of partitions
-  within virtual machines or disk images.
+  virt-sparsify is a new tool to make virtual machine disk images
+  sparse.
+
+  virt-sysprep is a new tool to make cloning guests from a template
+  simpler.
 
   inspection:
 
    - Improve detection of Windows disks.
 
-   - Add support for ttylinux (a minimal Linux).
+   - Adds support for:
+         ttylinux - a minimal Linux
+         Mageia (thanks Michael Scherer)
+         OpenSUSE and zypper (thanks Michael Scherer, Vincent Untz)
+         Ubuntu logos (thanks Michael Scherer)
+         NetBSD and pkgsrc (thanks Michael Scherer)
 
    - Handle some guest types that use /dev/root in /etc/fstab.
 
@@ -43,6 +52,9 @@ New features
    - The virt-resize --machine-readable flag makes it possible to use
      virt-resize from other programs.
 
+   - Partitions are now aligned to 128 sectors (usually 64K) by
+     default.  This improves efficiency on high-end storage.
+
   library:
 
    - non-printing characters are escaped correctly in debug output.
@@ -50,7 +62,11 @@ New features
    - GUESTFS_EVENT_ENTER is a new event type generated whenever a
      libguestfs function is called.
 
+   - the library contains systemtap/DTrace probes.
+
   misc:
+
+   - ArchLinux support now working with Linux 3.0 (thanks Erik Nolte)
 
 Security
 
