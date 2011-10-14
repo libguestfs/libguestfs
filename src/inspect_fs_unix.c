@@ -107,7 +107,7 @@ compile_regexps (void)
            "Scientific Linux.*release (\\d+)", 0);
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
-  COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
+  COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]+)(\\d*)$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
 }
@@ -816,9 +816,8 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
 static char *
 resolve_fstab_device (guestfs_h *g, const char *spec)
 {
-  char *a1;
   char *device = NULL;
-  char *bsddisk, *bsdslice, *bsdpart;
+  char *slice, *disk, *part;
 
   if (STRPREFIX (spec, "/dev/mapper/")) {
     /* LVM2 does some strange munging on /dev/mapper paths for VGs and
@@ -833,45 +832,57 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
      */
     device = guestfs_lvm_canonical_lv_name (g, spec);
   }
-  else if ((a1 = match1 (g, spec, re_xdev)) != NULL) {
+  else if (match2 (g, spec, re_xdev, &disk, &part)) {
+    /* disk: ([a-z]+)
+     * part: (\d*) */
     char **devices = guestfs_list_devices (g);
     if (devices == NULL)
       return NULL;
 
+    /* Count how many disks the libguestfs appliance has */
     size_t count;
     for (count = 0; devices[count] != NULL; count++)
       ;
 
-    size_t i = a1[0] - 'a'; /* a1[0] is always [a-z] because of regex. */
-    if (i < count) {
-      size_t len = strlen (devices[i]) + strlen (a1) + 16;
-      device = safe_malloc (g, len);
-      snprintf (device, len, "%s%s", devices[i], &a1[1]);
+    /* Calculate the numerical index of the disk */
+    size_t i = disk[0] - 'a';
+    for (char *p = disk + 1; *p != '\0'; p++) {
+      i += 1; i *= 26;
+      i += *p - 'a';
     }
 
-    free (a1);
+    /* Check the index makes sense wrt the number of disks the appliance has.
+     * If it does, map it to an appliance disk. */
+    if (i < count) {
+      size_t len = strlen (devices[i]) + strlen (part) + 1;
+      device = safe_malloc (g, len);
+      snprintf (device, len, "%s%s", devices[i], part);
+    }
+
+    free (disk);
+    free (part);
     guestfs___free_string_list (devices);
   }
-  else if (match3 (g, spec, re_freebsd, &bsddisk, &bsdslice, &bsdpart)) {
+  else if (match3 (g, spec, re_freebsd, &disk, &slice, &part)) {
     /* FreeBSD disks are organized quite differently.  See:
      * http://www.freebsd.org/doc/handbook/disk-organization.html
      * FreeBSD "partitions" are exposed as quasi-extended partitions
      * numbered from 5 in Linux.  I have no idea what happens when you
      * have multiple "slices" (the FreeBSD term for MBR partitions).
      */
-    int disk = guestfs___parse_unsigned_int (g, bsddisk);
-    int slice = guestfs___parse_unsigned_int (g, bsdslice);
-    int part = bsdpart[0] - 'a' /* counting from 0 */;
-    free (bsddisk);
-    free (bsdslice);
-    free (bsdpart);
+    int disk_i = guestfs___parse_unsigned_int (g, disk);
+    int slice_i = guestfs___parse_unsigned_int (g, slice);
+    int part_i = part[0] - 'a' /* counting from 0 */;
+    free (disk);
+    free (slice);
+    free (part);
 
-    if (disk == -1 || disk > 26 ||
-        slice <= 0 || slice > 1 /* > 4 .. see comment above */ ||
-        part < 0 || part >= 26)
+    if (disk_i == -1 || disk_i > 26 ||
+        slice_i <= 0 || slice_i > 1 /* > 4 .. see comment above */ ||
+        part_i < 0 || part_i >= 26)
       goto out;
 
-    device = safe_asprintf (g, "/dev/sd%c%d", disk + 'a', part + 5);
+    device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
   }
 
  out:
