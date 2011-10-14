@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-11 20:58+0100\n"
+"POT-Creation-Date: 2011-10-14 15:06+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -414,7 +414,7 @@ msgstr ""
 msgid "%s: -e option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:585 fish/fish.c:1554
+#: edit/virt-edit.c:585 fish/fish.c:1556
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2241,7 +2241,7 @@ msgstr "%s: --listen फ्लॅगसह आदेश ओळीवरील �
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
-#: fish/fish.c:640
+#: fish/fish.c:642
 #, c-format
 msgid ""
 "\n"
@@ -2262,50 +2262,50 @@ msgstr ""
 "      शेलपासून बाहेर पडण्यासाठी 'quit'\n"
 "\n"
 
-#: fish/fish.c:791 fish/fish.c:807
+#: fish/fish.c:793 fish/fish.c:809
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: आदेश घटके वाईटस्पेस द्वारे विभाजीत नाही\n"
 
-#: fish/fish.c:801
+#: fish/fish.c:803
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: न ओळखलेले सींगल क्वोट\n"
 
-#: fish/fish.c:831
+#: fish/fish.c:833
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
 
-#: fish/fish.c:848
+#: fish/fish.c:850
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: खूप जास्त घटके आढळले\n"
 
-#: fish/fish.c:923
+#: fish/fish.c:925
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:932
+#: fish/fish.c:934
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: न ओळखलेले डबल क्वोट\n"
 
-#: fish/fish.c:997
+#: fish/fish.c:999
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/fish.c:1144
+#: fish/fish.c:1146
 msgid "display a list of commands or help on a command"
 msgstr "आदेश सूची किंवा आदेशकरीता मदत दाखवा"
 
-#: fish/fish.c:1146
+#: fish/fish.c:1148
 msgid "quit guestfish"
 msgstr "guestfish पासून बाहेर पडा"
 
-#: fish/fish.c:1157
+#: fish/fish.c:1159
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2316,7 +2316,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1165
+#: fish/fish.c:1167
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2325,12 +2325,12 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1170
+#: fish/fish.c:1172
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1186
+#: fish/fish.c:1188
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2341,31 +2341,31 @@ msgstr ""
 "आदेशांच्या सूचीकरीता:             guestfish -h\n"
 "संपूर्ण दस्तऐवजीकरणकरीता:         man guestfish\n"
 
-#: fish/fish.c:1195
+#: fish/fish.c:1197
 #, fuzzy, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "libguestfs: त्रुटी: %s\n"
 
-#: fish/fish.c:1351
+#: fish/fish.c:1353
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
 
-#: fish/fish.c:1548
+#: fish/fish.c:1550
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1568
+#: fish/fish.c:1570
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1587
+#: fish/fish.c:1589
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3082,26 +3082,26 @@ msgstr "libguestfs: त्रुटी: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
 
-#: src/inspect.c:264
+#: src/inspect.c:267
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "विंडोज अतिथी नाही, किंवा systemroot शोधणे अशक्य"
 
-#: src/inspect.c:280
+#: src/inspect.c:283
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:540 src/inspect_fs.c:462 src/inspect_fs.c:506
-#: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:594
-#: src/inspect_fs_unix.c:839
+#: src/inspect.c:545 src/inspect_fs.c:493 src/inspect_fs.c:537
+#: src/inspect_fs_unix.c:195 src/inspect_fs_unix.c:655
+#: src/inspect_fs_unix.c:900
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
 
-#: src/inspect.c:576
+#: src/inspect.c:581
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "अधिकृत तपासणी डाटा आढळले नाही: पहिले guestfs_inspect_os कॉल करा"
 
-#: src/inspect.c:588
+#: src/inspect.c:593
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3110,7 +3110,7 @@ msgstr ""
 "%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट साधणसह "
 "फंक्शनद्वारेच कॉल करा"
 
-#: src/inspect.c:598 src/inspect_apps.c:607
+#: src/inspect.c:603 src/inspect_apps.c:609
 #, fuzzy
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
@@ -3119,17 +3119,17 @@ msgstr ""
 "libguestfs ची ही आवृत्ती PCRE किंवा hivex लाइब्ररिज् विना कंपाईल केल्यामुळे इंस्पेकशन API "
 "अनुपलब्ध"
 
-#: src/inspect_fs.c:312 src/inspect_fs.c:325
+#: src/inspect_fs.c:336 src/inspect_fs.c:349
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
 
-#: src/inspect_fs.c:471
+#: src/inspect_fs.c:502
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: फाइल रिकामे नाही"
 
-#: src/inspect_fs_unix.c:628
+#: src/inspect_fs_unix.c:689
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
@@ -3138,7 +3138,7 @@ msgstr "/etc/fstab किंवा रिकामी फाइल वाचण�
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "विंडोज %%SYSTEMROOT%% निश्चित करणे अशक्य"
 
-#: src/inspect_icon.c:453
+#: src/inspect_icon.c:491
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
