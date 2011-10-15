@@ -23,13 +23,22 @@ rm -f test.img guestfish
 
 qemu-img create -f qcow2 -o backing_file=../images/fedora.img test.img
 
-cat <<'EOF' > guestfish
+# Provide alternate 'virt-inspector' and 'guestmount' binaries
+# that run the just-built programs.
+
+cat <<'EOF' > virt-inspector
 #!/bin/sh -
-../run ../fish/guestfish "$@"
+../run ../inspector/virt-inspector "$@"
 EOF
-chmod +x guestfish
+chmod +x virt-inspector
+cat <<'EOF' > guestmount
+#!/bin/sh -
+../run ../fuse/guestmount "$@"
+EOF
+chmod +x guestmount
+
 PATH=.:$PATH
 
 ./virt-sysprep -a test.img
 
-rm -f test.img guestfish
+rm -f test.img virt-inspector guestmount

@@ -85,7 +85,7 @@ if HAVE_FUSE
 SUBDIRS += fuse
 endif
 
-# virt-tools in shell.  This uses guestmount.
+# virt-tools in shell.  This uses guestmount and virt-inspector.
 if HAVE_FUSE
 SUBDIRS += clone
 endif
