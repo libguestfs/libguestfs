@@ -19,6 +19,11 @@
 export LANG=C
 set -e
 
+if [ ! -w /dev/fuse ]; then
+    echo "SKIPPING virt-sysprep test, because there is no /dev/fuse."
+    exit 0
+fi
+
 rm -f test.img guestfish
 
 qemu-img create -f qcow2 -o backing_file=../images/fedora.img test.img
