@@ -20,6 +20,11 @@ unset CDPATH
 set -e
 #set -v
 
+if [ ! -w /dev/fuse ]; then
+    echo "SKIPPING guestmount test, because there is no /dev/fuse."
+    exit 0
+fi
+
 if [ -z "$top_builddir" ]; then
     echo "$0: error: environment variable \$top_builddir must be set"
     exit 1
