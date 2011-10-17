@@ -795,15 +795,13 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
     free (bsdslice);
     free (bsdpart);
 
-    if (disk == -1 || disk > 26 ||
-        slice <= 0 || slice > 1 /* > 4 .. see comment above */ ||
-        part < 0 || part >= 26)
-      goto out;
-
-    device = safe_asprintf (g, "/dev/sd%c%d", disk + 'a', part + 5);
+    if (disk != -1 && disk <= 26 &&
+        slice > 0 && slice <= 1 /* > 4 .. see comment above */ &&
+        part >= 0 && part < 26) {
+      device = safe_asprintf (g, "/dev/sd%c%d", disk + 'a', part + 5);
+    }
   }
 
- out:
   /* Didn't match device pattern, return original spec unchanged. */
   if (device == NULL)
     device = safe_strdup (g, spec);
