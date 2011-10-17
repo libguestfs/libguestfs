@@ -58,7 +58,7 @@ EOF
 
 ../fish/guestfish >test.out <<EOF
   domain guest libvirturi:test://$cwd/test.xml readonly:true
-  debug-cmdline
+  debug-drives
 EOF
 grep -sq "test1.img.*snapshot=on" test.out
 ! grep -sq "test1.img.*format" test.out
@@ -70,7 +70,7 @@ rm test3.img
 
 ../fish/guestfish >test.out <<EOF
   -domain guest libvirturi:test://$cwd/test.xml readonly:true
-  debug-cmdline
+  debug-drives
 EOF
 ! grep -sq "test1.img" test.out
 ! grep -sq "test2.img" test.out

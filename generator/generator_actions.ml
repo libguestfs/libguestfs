@@ -1085,6 +1085,13 @@ Please read L<guestfs(3)/INSPECTION> for more details.");
 This returns the internal QEMU command line.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
+  ("debug_drives", (RStringList "cmdline", [], []), -1, [NotInDocs],
+   [],
+   "debug the drives (internal use only)",
+   "\
+This returns the internal list of drives.  'debug' commands are
+not part of the formal API and can be removed or changed at any time.");
+
   ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"; Bool "allowuuid"]), -1, [FishAlias "domain"],
    [],
    "add the disk(s) from a named libvirt domain",

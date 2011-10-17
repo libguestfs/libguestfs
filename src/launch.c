@@ -139,23 +139,18 @@ add_cmdline (guestfs_h *g, const char *str)
   return 0;
 }
 
-size_t
-guestfs___checkpoint_cmdline (guestfs_h *g)
+struct drive **
+guestfs___checkpoint_drives (guestfs_h *g)
 {
-  return g->cmdline_size;
+  struct drive **i = &g->drives;
+  while (*i != NULL) i = &((*i)->next);
+  return i;
 }
 
 void
-guestfs___rollback_cmdline (guestfs_h *g, size_t pos)
+guestfs___rollback_drives (guestfs_h *g, struct drive **i)
 {
-  size_t i;
-
-  assert (g->cmdline_size >= pos);
-
-  for (i = pos; i < g->cmdline_size; ++i)
-    free (g->cmdline[i]);
-
-  g->cmdline_size = pos;
+  guestfs___free_drives(i);
 }
 
 /* Internal command to return the command line. */
@@ -176,6 +171,39 @@ guestfs__debug_cmdline (guestfs_h *g)
   r[g->cmdline_size] = NULL;
 
   return r;                     /* caller frees */
+}
+
+/* Internal command to return the list of drives. */
+char **
+guestfs__debug_drives (guestfs_h *g)
+{
+  size_t i, count;
+  char **ret;
+  struct drive *drv;
+
+  for (count = 0, drv = g->drives; drv; count++, drv = drv->next)
+    ;
+
+  ret = safe_malloc (g, sizeof (char *) * (count + 1));
+
+  for (i = 0, drv = g->drives; drv; i++, drv = drv->next) {
+    size_t len = 64 + strlen (drv->path) + strlen (drv->iface);
+    if (drv->format) len += strlen (drv->format);
+
+    ret[i] = safe_malloc (g, len);
+
+    snprintf (ret[i], len, "file=%s%s%s%s%s,if=%s",
+              drv->path,
+              drv->readonly ? ",snapshot=on" : "",
+              drv->use_cache_off ? ",cache=off" : "",
+              drv->format ? ",format=" : "",
+              drv->format ? drv->format : "",
+              drv->iface);
+  }
+
+  ret[count] = NULL;
+
+  return ret;                   /* caller frees */
 }
 
 int
@@ -259,8 +287,9 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
 {
   int readonly;
-  const char *format;
-  const char *iface;
+  char *format;
+  char *iface;
+  int use_cache_off;
 
   if (strchr (filename, ',') != NULL) {
     error (g, _("filename cannot contain ',' (comma) character"));
@@ -270,18 +299,22 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
              ? optargs->readonly : 0;
   format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
-           ? optargs->format : NULL;
+           ? safe_strdup (g, optargs->format) : NULL;
   iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
-          ? optargs->iface : DRIVE_IF;
+          ? safe_strdup (g, optargs->iface) : safe_strdup (g, DRIVE_IF);
 
   if (format && !valid_format_iface (format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "format");
+    free (format);
+    free (iface);
     return -1;
   }
   if (!valid_format_iface (iface)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "iface");
+    free (format);
+    free (iface);
     return -1;
   }
 
@@ -289,31 +322,34 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
    * checks for the existence of the file.  For readonly we have
    * to do the check explicitly.
    */
-  int use_cache_off = readonly ? 0 : test_cache_off (g, filename);
-  if (use_cache_off == -1)
+  use_cache_off = readonly ? 0 : test_cache_off (g, filename);
+  if (use_cache_off == -1) {
+    free (format);
+    free (iface);
     return -1;
+  }
 
   if (readonly) {
     if (access (filename, F_OK) == -1) {
       perrorf (g, "%s", filename);
+      free (format);
+      free (iface);
       return -1;
     }
   }
 
-  /* Construct the final -drive parameter. */
-  size_t len = 64 + strlen (filename) + strlen (iface);
-  if (format) len += strlen (format);
-  char buf[len];
+  struct drive **i = &(g->drives);
+  while (*i != NULL) i = &((*i)->next);
 
-  snprintf (buf, len, "file=%s%s%s%s%s,if=%s",
-            filename,
-            readonly ? ",snapshot=on" : "",
-            use_cache_off ? ",cache=off" : "",
-            format ? ",format=" : "",
-            format ? format : "",
-            iface);
+  *i = safe_malloc (g, sizeof (struct drive));
+  (*i)->next = NULL;
+  (*i)->path = safe_strdup (g, filename);
+  (*i)->readonly = readonly;
+  (*i)->format = format;
+  (*i)->iface = iface;
+  (*i)->use_cache_off = use_cache_off;
 
-  return guestfs__config (g, "-drive", buf);
+  return 0;
 }
 
 int
@@ -433,7 +469,7 @@ launch_appliance (guestfs_h *g)
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
    */
-  if (!g->cmdline) {
+  if (!g->drives) {
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
     return -1;
   }
@@ -526,6 +562,28 @@ launch_appliance (guestfs_h *g)
      */
     alloc_cmdline (g);
     g->cmdline[0] = g->qemu;
+
+    /* Add drives */
+    struct drive *i = g->drives;
+    while (i != NULL) {
+      /* Construct the final -drive parameter. */
+      size_t len = 64 + strlen (i->path) + strlen (i->iface);
+      if (i->format) len += strlen (i->format);
+      char buf[len];
+
+      snprintf (buf, len, "file=%s%s%s%s%s,if=%s",
+                i->path,
+                i->readonly ? ",snapshot=on" : "",
+                i->use_cache_off ? ",cache=off" : "",
+                i->format ? ",format=" : "",
+                i->format ? i->format : "",
+                i->iface);
+
+      add_cmdline (g, "-drive");
+      add_cmdline (g, buf);
+
+      i = i->next;
+    }
 
     if (qemu_supports (g, "-nodefconfig"))
       add_cmdline (g, "-nodefconfig");

@@ -57,7 +57,7 @@ cat > test.xml <<EOF
 EOF
 
 ../fish/guestfish -c "test://$cwd/test.xml" --ro -d guest \
-  debug-cmdline </dev/null >test.out
+  debug-drives </dev/null >test.out
 grep -sq "test1.img.*snapshot=on" test.out
 ! grep -sq "test1.img.*format" test.out
 grep -sq "test2.img.*snapshot=on.*format=raw" test.out

@@ -392,10 +392,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   /* Checkpoint the command line around the operation so that either
    * all disks are added or none are added.
    */
-  cmdline_pos = guestfs___checkpoint_cmdline (g);
+  struct drive **cp = guestfs___checkpoint_drives (g);
   r = guestfs___for_each_disk (g, dom, add_disk, &optargs2);
   if (r == -1)
-    guestfs___rollback_cmdline (g, cmdline_pos);
+    guestfs___rollback_drives (g, cp);
 
   return r;
 }

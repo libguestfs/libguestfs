@@ -206,6 +206,7 @@ guestfs_close (guestfs_h *g)
   g->events = NULL;
 
   guestfs___free_inspect_info (g);
+  guestfs___free_drives (&g->drives);
 
   /* Close sockets. */
   if (g->fd[0] >= 0)
@@ -993,4 +994,22 @@ guestfs___free_string_list (char **argv)
   for (i = 0; argv[i] != NULL; ++i)
     free (argv[i]);
   free (argv);
+}
+
+void
+guestfs___free_drives (struct drive **drives)
+{
+  struct drive *i = *drives;
+  *drives = NULL;
+
+  while (i != NULL) {
+    struct drive *next = i->next;
+
+    free (i->path);
+    free (i->format);
+    free (i->iface);
+    free (i);
+
+    i = next;
+  }
 }

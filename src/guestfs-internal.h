@@ -149,12 +149,26 @@ struct event {
   void *opaque2;
 };
 
+/* Linked list of drives added to the handle. */
+struct drive {
+  struct drive *next;
+
+  char *path;
+
+  int readonly;
+  char *format;
+  char *iface;
+  int use_cache_off;
+};
+
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
 
   /* State: see the state machine diagram in the man page guestfs(3). */
   enum state state;
+
+  struct drive *drives;         /* Drives added by add-drive* APIs. */
 
   int fd[2];			/* Stdin/stdout of qemu. */
   int sock;			/* Daemon communications socket. */
@@ -359,6 +373,7 @@ extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
 extern const char *guestfs___persistent_tmpdir (void);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern void guestfs___free_inspect_info (guestfs_h *g);
+extern void guestfs___free_drives (struct drive **drives);
 extern int guestfs___set_busy (guestfs_h *g);
 extern int guestfs___end_busy (guestfs_h *g);
 extern int guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint, uint64_t optargs_bitmask, xdrproc_t xdrp, char *args);
@@ -380,8 +395,8 @@ extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char
 extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
 extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern void guestfs___free_string_list (char **);
-extern size_t guestfs___checkpoint_cmdline (guestfs_h *g);
-extern void guestfs___rollback_cmdline (guestfs_h *g, size_t pos);
+extern struct drive ** guestfs___checkpoint_drives (guestfs_h *g);
+extern void guestfs___rollback_drives (guestfs_h *g, struct drive **i);
 extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
 extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
