@@ -209,7 +209,7 @@ Red Hat Enterprise Linux, this is removed from C<ifcfg-*> files.
 Write some random bytes from the host into the random seed file of
 the guest.
 
-See C</RANDOM SEED> below.
+See L</RANDOM SEED> below.
 
 =head2 rhn-systemid
 
