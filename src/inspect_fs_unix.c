@@ -877,15 +877,13 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
     free (slice);
     free (part);
 
-    if (disk_i == -1 || disk_i > 26 ||
-        slice_i <= 0 || slice_i > 1 /* > 4 .. see comment above */ ||
-        part_i < 0 || part_i >= 26)
-      goto out;
-
-    device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
+    if (disk_i != -1 && disk_i <= 26 &&
+        slice_i > 0 && slice_i <= 1 /* > 4 .. see comment above */ &&
+        part_i >= 0 && part_i < 26) {
+      device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
+    }
   }
 
- out:
   /* Didn't match device pattern, return original spec unchanged. */
   if (device == NULL)
     device = safe_strdup (g, spec);
