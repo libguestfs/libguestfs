@@ -16,6 +16,7 @@ rm -f /proc; mkdir /proc
 mount -t proc /proc /proc
 rm -f /sys; mkdir /sys
 mount -t sysfs /sys /sys
+mkdir -p /run/lock
 
 if [ ! -L /etc/init.d/udev -a -x /etc/init.d/udev ]; then
   if type service >/dev/null 2>&1; then
