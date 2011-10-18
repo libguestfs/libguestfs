@@ -93,6 +93,38 @@ if [ "$(cat test.output)" != "/dev/VG/Root
     exit 1
 fi
 
+cat <<'EOF' > test.fstab
+/dev/VG/Root / ext2 default 0 0
+
+# cciss device which requires a hint
+/dev/cciss/c1d3p1 /boot ext2 default 0 0
+
+# cciss device, whole disk
+/dev/cciss/c1d3 /var ext2 default 0 0
+EOF
+
+$guestfish -a test1.img <<'EOF'
+  run
+  mount-options "" /dev/VG/Root /
+  upload test.fstab /etc/fstab
+EOF
+
+$guestfish <<'EOF' > test.output
+  add-drive-opts test1.img readonly:true name:cciss/c1d3
+  run
+  inspect-os
+  inspect-get-mountpoints /dev/VG/Root
+EOF
+
+if [ "$(cat test.output)" != "/dev/VG/Root
+/: /dev/VG/Root
+/boot: /dev/vda1
+/var: /dev/vda" ]; then
+    echo "$0: error: unexpected output from inspect-get-mountpoints command"
+    cat test.output
+    exit 1
+fi
+
 rm test.fstab
 rm test1.img
 rm test.output

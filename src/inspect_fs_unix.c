@@ -64,6 +64,7 @@ static pcre *re_scientific_linux_no_minor;
 static pcre *re_major_minor;
 static pcre *re_aug_seq;
 static pcre *re_xdev;
+static pcre *re_cciss;
 static pcre *re_first_partition;
 static pcre *re_freebsd;
 static pcre *re_netbsd;
@@ -108,6 +109,7 @@ compile_regexps (void)
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
+  COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
 }
@@ -128,6 +130,7 @@ free_regexps (void)
   pcre_free (re_major_minor);
   pcre_free (re_aug_seq);
   pcre_free (re_xdev);
+  pcre_free (re_cciss);
   pcre_free (re_freebsd);
   pcre_free (re_netbsd);
 }
@@ -876,6 +879,35 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
     }
 
     free (type);
+    free (disk);
+    free (part);
+    guestfs___free_string_list (devices);
+  }
+  else if (match2 (g, spec, re_cciss, &disk, &part)) {
+    /* disk: (cciss/c\d+d\d+)
+     * part: (\d+)? */
+    char **devices = guestfs_list_devices (g);
+    if (devices == NULL)
+      return NULL;
+
+    /* Check any hints we were passed for a non-heuristic mapping */
+    size_t i = 0;
+    struct drive *drive = g->drives;
+    while (drive) {
+      if (drive->name && STREQ(drive->name, disk)) {
+        if (part) {
+          device = safe_asprintf (g, "%s%s", devices[i], part);
+        } else {
+          device = safe_strdup (g, devices[i]);
+        }
+        break;
+      }
+
+      i++; drive = drive->next;
+    }
+
+    /* We don't try to guess mappings for cciss devices */
+
     free (disk);
     free (part);
     guestfs___free_string_list (devices);
