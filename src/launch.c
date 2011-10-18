@@ -289,6 +289,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   int readonly;
   char *format;
   char *iface;
+  char *name;
   int use_cache_off;
 
   if (strchr (filename, ',') != NULL) {
@@ -302,12 +303,15 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
            ? safe_strdup (g, optargs->format) : NULL;
   iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
           ? safe_strdup (g, optargs->iface) : safe_strdup (g, DRIVE_IF);
+  name = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK
+          ? safe_strdup (g, optargs->name) : NULL;
 
   if (format && !valid_format_iface (format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "format");
     free (format);
     free (iface);
+    free (name);
     return -1;
   }
   if (!valid_format_iface (iface)) {
@@ -315,6 +319,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
            "iface");
     free (format);
     free (iface);
+    free (name);
     return -1;
   }
 
@@ -326,6 +331,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   if (use_cache_off == -1) {
     free (format);
     free (iface);
+    free (name);
     return -1;
   }
 
@@ -334,6 +340,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
       perrorf (g, "%s", filename);
       free (format);
       free (iface);
+      free (name);
       return -1;
     }
   }
@@ -347,6 +354,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   (*i)->readonly = readonly;
   (*i)->format = format;
   (*i)->iface = iface;
+  (*i)->name = name;
   (*i)->use_cache_off = use_cache_off;
 
   return 0;

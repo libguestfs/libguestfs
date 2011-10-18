@@ -158,6 +158,7 @@ struct drive {
   int readonly;
   char *format;
   char *iface;
+  char *name;
   int use_cache_off;
 };
 

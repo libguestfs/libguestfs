@@ -1008,6 +1008,7 @@ guestfs___free_drives (struct drive **drives)
     free (i->path);
     free (i->format);
     free (i->iface);
+    free (i->name);
     free (i);
 
     i = next;

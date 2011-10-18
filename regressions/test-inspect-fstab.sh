@@ -49,14 +49,10 @@ $guestfish -a test1.img <<'EOF'
   upload test.fstab /etc/fstab
 EOF
 
-rm test.fstab
-
 # This will give a warning, but should not fail.
 $guestfish -a test1.img -i <<'EOF' | sort > test.output
   inspect-get-mountpoints /dev/VG/Root
 EOF
-
-rm test1.img
 
 if [ "$(cat test.output)" != "/: /dev/VG/Root
 /boot: /dev/vda1
@@ -67,4 +63,36 @@ if [ "$(cat test.output)" != "/: /dev/VG/Root
     exit 1
 fi
 
+# Test device name hints
+
+cat <<'EOF' > test.fstab
+/dev/VG/Root / ext2 default 0 0
+
+# Device name which requires a hint
+/dev/xvdg1 /boot ext2 default 0 0
+EOF
+
+$guestfish -a test1.img <<'EOF'
+  run
+  mount-options "" /dev/VG/Root /
+  upload test.fstab /etc/fstab
+EOF
+
+$guestfish <<'EOF' > test.output
+  add-drive-opts test1.img readonly:true name:xvdg
+  run
+  inspect-os
+  inspect-get-mountpoints /dev/VG/Root
+EOF
+
+if [ "$(cat test.output)" != "/dev/VG/Root
+/: /dev/VG/Root
+/boot: /dev/vda1" ]; then
+    echo "$0: error: unexpected output from inspect-get-mountpoints command"
+    cat test.output
+    exit 1
+fi
+
+rm test.fstab
+rm test1.img
 rm test.output

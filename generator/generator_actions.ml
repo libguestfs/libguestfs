@@ -1007,7 +1007,7 @@ be mountable but require special options.  Filesystems may
 not all belong to a single logical operating system
 (use C<guestfs_inspect_os> to look for OSes).");
 
-  ("add_drive_opts", (RErr, [String "filename"], [Bool "readonly"; String "format"; String "iface"]), -1, [FishAlias "add"],
+  ("add_drive_opts", (RErr, [String "filename"], [Bool "readonly"; String "format"; String "iface"; String "name"]), -1, [FishAlias "add"],
    [],
    "add an image to examine or modify",
    "\
@@ -1049,6 +1049,11 @@ this security hole.
 
 This rarely-used option lets you emulate the behaviour of the
 deprecated C<guestfs_add_drive_with_if> call (q.v.)
+
+=item C<name>
+
+The name the drive had in the original guest, e.g. /dev/sdb. This is used as a
+hint to the guest inspection process if it is available.
 
 =back");
 

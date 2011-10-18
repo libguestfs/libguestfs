@@ -107,7 +107,7 @@ compile_regexps (void)
            "Scientific Linux.*release (\\d+)", 0);
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
-  COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]+)(\\d*)$", 0);
+  COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
 }
@@ -817,7 +817,7 @@ static char *
 resolve_fstab_device (guestfs_h *g, const char *spec)
 {
   char *device = NULL;
-  char *slice, *disk, *part;
+  char *type, *slice, *disk, *part;
 
   if (STRPREFIX (spec, "/dev/mapper/")) {
     /* LVM2 does some strange munging on /dev/mapper paths for VGs and
@@ -832,33 +832,50 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
      */
     device = guestfs_lvm_canonical_lv_name (g, spec);
   }
-  else if (match2 (g, spec, re_xdev, &disk, &part)) {
-    /* disk: ([a-z]+)
+  else if (match3 (g, spec, re_xdev, &type, &disk, &part)) {
+    /* type: (h|s|v|xv)
+     * disk: ([a-z]+)
      * part: (\d*) */
     char **devices = guestfs_list_devices (g);
     if (devices == NULL)
       return NULL;
 
-    /* Count how many disks the libguestfs appliance has */
-    size_t count;
-    for (count = 0; devices[count] != NULL; count++)
-      ;
+    /* Check any hints we were passed for a non-heuristic mapping */
+    char *name = safe_asprintf (g, "%sd%s", type, disk);
+    size_t i = 0;
+    struct drive *drive = g->drives;
+    while (drive) {
+      if (drive->name && STREQ(drive->name, name)) {
+        device = safe_asprintf (g, "%s%s", devices[i], part);
+        break;
+      }
 
-    /* Calculate the numerical index of the disk */
-    size_t i = disk[0] - 'a';
-    for (char *p = disk + 1; *p != '\0'; p++) {
-      i += 1; i *= 26;
-      i += *p - 'a';
+      i++; drive = drive->next;
+    }
+    free (name);
+
+    /* Guess the appliance device name if we didn't find a matching hint */
+    if (!device) {
+      /* Count how many disks the libguestfs appliance has */
+      size_t count;
+      for (count = 0; devices[count] != NULL; count++)
+        ;
+
+      /* Calculate the numerical index of the disk */
+      i = disk[0] - 'a';
+      for (char *p = disk + 1; *p != '\0'; p++) {
+        i += 1; i *= 26;
+        i += *p - 'a';
+      }
+
+      /* Check the index makes sense wrt the number of disks the appliance has.
+       * If it does, map it to an appliance disk. */
+      if (i < count) {
+        device = safe_asprintf (g, "%s%s", devices[i], part);
+      }
     }
 
-    /* Check the index makes sense wrt the number of disks the appliance has.
-     * If it does, map it to an appliance disk. */
-    if (i < count) {
-      size_t len = strlen (devices[i]) + strlen (part) + 1;
-      device = safe_malloc (g, len);
-      snprintf (device, len, "%s%s", devices[i], part);
-    }
-
+    free (type);
     free (disk);
     free (part);
     guestfs___free_string_list (devices);
