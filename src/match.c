@@ -39,12 +39,6 @@ guestfs___match (guestfs_h *g, const char *str, const pcre *re)
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
   if (r == PCRE_ERROR_NOMATCH)
     return 0;
-  if (r != 1) {
-    /* Internal error -- should not happen. */
-    warning (g, "%s: %s: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
-             __FILE__, __func__, r, str);
-    return 0;
-  }
 
   return 1;
 }
@@ -62,14 +56,8 @@ guestfs___match1 (guestfs_h *g, const char *str, const pcre *re)
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
   if (r == PCRE_ERROR_NOMATCH)
     return NULL;
-  if (r != 2) {
-    /* Internal error -- should not happen. */
-    warning (g, "%s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"",
-             __FILE__, __func__, r, str);
-    return NULL;
-  }
 
-  return safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  return r == 2 ? safe_strndup (g, &str[vec[2]], vec[3]-vec[2]) : NULL;
 }
 
 /* Match a regular expression which contains exactly two captures. */
@@ -83,15 +71,12 @@ guestfs___match2 (guestfs_h *g, const char *str, const pcre *re,
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
   if (r == PCRE_ERROR_NOMATCH)
     return 0;
-  if (r != 3) {
-    /* Internal error -- should not happen. */
-    warning (g, "%s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"",
-             __FILE__, __func__, r, str);
-    return 0;
-  }
 
-  *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
-  *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
+  *ret1 = NULL;
+  *ret2 = NULL;
+
+  if (r > 1) *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  if (r > 2) *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
 
   return 1;
 }
@@ -107,16 +92,14 @@ guestfs___match3 (guestfs_h *g, const char *str, const pcre *re,
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
   if (r == PCRE_ERROR_NOMATCH)
     return 0;
-  if (r != 4) {
-    /* Internal error -- should not happen. */
-    warning (g, "%s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"",
-             __FILE__, __func__, r, str);
-    return 0;
-  }
 
-  *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
-  *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
-  *ret3 = safe_strndup (g, &str[vec[6]], vec[7]-vec[6]);
+  *ret1 = NULL;
+  *ret2 = NULL;
+  *ret3 = NULL;
+
+  if (r > 1) *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  if (r > 2) *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
+  if (r > 3) *ret3 = safe_strndup (g, &str[vec[6]], vec[7]-vec[6]);
 
   return 1;
 }
