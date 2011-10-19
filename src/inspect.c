@@ -123,6 +123,15 @@ guestfs__inspect_os (guestfs_h *g)
   return ret;
 }
 
+static int
+compare_strings (const void *vp1, const void *vp2)
+{
+  const char *s1 = * (char * const *) vp1;
+  const char *s2 = * (char * const *) vp2;
+
+  return strcmp (s1, s2);
+}
+
 char **
 guestfs__inspect_get_roots (guestfs_h *g)
 {
@@ -150,6 +159,8 @@ guestfs__inspect_get_roots (guestfs_h *g)
     }
   }
   ret[count] = NULL;
+
+  qsort (ret, count, sizeof (char *), compare_strings);
 
   return ret;
 }
