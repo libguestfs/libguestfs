@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-16 16:31+0100\n"
+"POT-Creation-Date: 2011-10-19 19:10+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -294,7 +294,7 @@ msgstr ""
 msgid "%s: -e option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:585 fish/fish.c:1529
+#: edit/virt-edit.c:585 fish/fish.c:1531
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2087,7 +2087,7 @@ msgstr "%s: extra parameters on the command line with --listen flag\n"
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s:  --listen மற்றும் --file விருப்பங்களை அதே நேரத்தில் பயன்படுத்த முடியாது\n"
 
-#: fish/fish.c:625
+#: fish/fish.c:627
 #, c-format
 msgid ""
 "\n"
@@ -2100,50 +2100,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:774 fish/fish.c:790
+#: fish/fish.c:776 fish/fish.c:792
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: கட்டளை விவாதங்கள் வொயிட்ஸ்பேஸ்ஸால் பிரிக்கப்படவில்லை\n"
 
-#: fish/fish.c:784
+#: fish/fish.c:786
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:814
+#: fish/fish.c:816
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: அகப்பிழையை '%s' சரத்தில் பகுக்கிறது\n"
 
-#: fish/fish.c:831
+#: fish/fish.c:833
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: அதிக விவாதங்கள்\n"
 
-#: fish/fish.c:906
+#: fish/fish.c:908
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:915
+#: fish/fish.c:917
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:980
+#: fish/fish.c:982
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: கட்டளை வரியில் காலியான கட்டளை\n"
 
-#: fish/fish.c:1127
+#: fish/fish.c:1129
 msgid "display a list of commands or help on a command"
 msgstr "கட்டளைகளின் ஒரு பட்டியலைக் காட்டு அல்லது ஒரு கட்டளையில் உதவு"
 
-#: fish/fish.c:1129
+#: fish/fish.c:1131
 msgid "quit guestfish"
 msgstr "guestfishஐ நிறுத்து"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1142
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2154,7 +2154,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1150
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2163,13 +2163,13 @@ msgstr ""
 "quit - guestfishஐ நிறுத்து\n"
 "     quit\n"
 
-#: fish/fish.c:1153
+#: fish/fish.c:1155
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: கட்டளை என்னவென்று தெரியவில்லை, அனைத்து கட்டளைகளையும் பட்டியலிட  -hஐ பயன்படுத்து\n"
 
-#: fish/fish.c:1169
+#: fish/fish.c:1171
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2177,26 +2177,26 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1326
+#: fish/fish.c:1328
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
 
-#: fish/fish.c:1523
+#: fish/fish.c:1525
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1543
+#: fish/fish.c:1545
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1562
+#: fish/fish.c:1564
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2272,22 +2272,22 @@ msgstr ""
 msgid "%s: no operating system was found on this disk\n"
 msgstr ""
 
-#: fish/inspect.c:95
+#: fish/inspect.c:96
 #, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr ""
 
-#: fish/inspect.c:134
+#: fish/inspect.c:136
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 
-#: fish/inspect.c:146
+#: fish/inspect.c:148
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:159
+#: fish/inspect.c:161
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -2807,33 +2807,33 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:263
+#: src/inspect.c:274
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:279
+#: src/inspect.c:290
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
+#: src/inspect.c:550 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
-#: src/inspect_fs_unix.c:829
+#: src/inspect_fs_unix.c:827
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:575
+#: src/inspect.c:586
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:587
+#: src/inspect.c:598
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:597 src/inspect_apps.c:607
+#: src/inspect.c:608 src/inspect_apps.c:607
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -2863,58 +2863,58 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:128
+#: src/launch.c:133
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "command line cannot be altered after qemu subprocess launched"
 
-#: src/launch.c:185
+#: src/launch.c:186
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: அளவுரு '-' எழுத்தில் துவக்க வேண்டும்"
 
-#: src/launch.c:199
+#: src/launch.c:200
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: அளவுரு '%s' அனுமதிக்கப்படுவதில்லை"
 
-#: src/launch.c:265 src/launch.c:369
+#: src/launch.c:266 src/launch.c:370
 msgid "filename cannot contain ',' (comma) character"
 msgstr "கோப்புபெயர் ',' (கம்மா) எழுத்தை கொண்டிருக்கவில்லை"
 
-#: src/launch.c:277 src/launch.c:282
+#: src/launch.c:278 src/launch.c:283
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:388
+#: src/launch.c:389
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:397
+#: src/launch.c:398
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/launch.c:434
+#: src/launch.c:435
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch.c:805
+#: src/launch.c:813
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch தோல்வியுற்றது, முந்தைய பிழைச் செய்தியைப் பார்"
 
-#: src/launch.c:818
+#: src/launch.c:826
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/launch.c:906
+#: src/launch.c:914
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:914
+#: src/launch.c:922
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1086
+#: src/launch.c:1094
 #, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
@@ -2925,11 +2925,11 @@ msgstr ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 
-#: src/launch.c:1202
+#: src/launch.c:1210
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
 
-#: src/launch.c:1213
+#: src/launch.c:1221
 msgid "no subprocess to kill"
 msgstr "அழிப்பதற்கு துணைசெயல்பாடுகள் இல்லை"
 

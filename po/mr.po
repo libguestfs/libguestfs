@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-16 16:31+0100\n"
+"POT-Creation-Date: 2011-10-19 19:10+0100\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -367,7 +367,7 @@ msgstr ""
 msgid "%s: -e option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:585 fish/fish.c:1529
+#: edit/virt-edit.c:585 fish/fish.c:1531
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2164,7 +2164,7 @@ msgstr "%s: --listen फ्लॅगसह आदेश ओळीवरील �
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
-#: fish/fish.c:625
+#: fish/fish.c:627
 #, c-format
 msgid ""
 "\n"
@@ -2185,50 +2185,50 @@ msgstr ""
 "      शेलपासून बाहेर पडण्यासाठी 'quit'\n"
 "\n"
 
-#: fish/fish.c:774 fish/fish.c:790
+#: fish/fish.c:776 fish/fish.c:792
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: आदेश घटके वाईटस्पेस द्वारे विभाजीत नाही\n"
 
-#: fish/fish.c:784
+#: fish/fish.c:786
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: न ओळखलेले सींगल क्वोट\n"
 
-#: fish/fish.c:814
+#: fish/fish.c:816
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
 
-#: fish/fish.c:831
+#: fish/fish.c:833
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: खूप जास्त घटके आढळले\n"
 
-#: fish/fish.c:906
+#: fish/fish.c:908
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:915
+#: fish/fish.c:917
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: न ओळखलेले डबल क्वोट\n"
 
-#: fish/fish.c:980
+#: fish/fish.c:982
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/fish.c:1127
+#: fish/fish.c:1129
 msgid "display a list of commands or help on a command"
 msgstr "आदेश सूची किंवा आदेशकरीता मदत दाखवा"
 
-#: fish/fish.c:1129
+#: fish/fish.c:1131
 msgid "quit guestfish"
 msgstr "guestfish पासून बाहेर पडा"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1142
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2239,7 +2239,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1150
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2248,12 +2248,12 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1153
+#: fish/fish.c:1155
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1169
+#: fish/fish.c:1171
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2264,26 +2264,26 @@ msgstr ""
 "आदेशांच्या सूचीकरीता:             guestfish -h\n"
 "संपूर्ण दस्तऐवजीकरणकरीता:         man guestfish\n"
 
-#: fish/fish.c:1326
+#: fish/fish.c:1328
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
 
-#: fish/fish.c:1523
+#: fish/fish.c:1525
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1543
+#: fish/fish.c:1545
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1562
+#: fish/fish.c:1564
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2373,22 +2373,22 @@ msgstr "%s: --live व -i पर्यायचा एकत्र वाप क
 msgid "%s: no operating system was found on this disk\n"
 msgstr "%s: या डिस्कवर कार्यप्रणाली आढळली नाही\n"
 
-#: fish/inspect.c:95
+#: fish/inspect.c:96
 #, c-format
 msgid "%s: multi-boot operating systems are not supported by the -i option\n"
 msgstr "%s: मल्टि-बूट कार्य प्रणाल्या -i पर्यायद्वारे समर्थीत नाही\n"
 
-#: fish/inspect.c:134
+#: fish/inspect.c:136
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: काहिक फाइलप्रणाली माऊंट करणे अशक्य (दुर्लक्ष केले)\n"
 
-#: fish/inspect.c:146
+#: fish/inspect.c:148
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "कार्यप्रणाली: %s\n"
 
-#: fish/inspect.c:159
+#: fish/inspect.c:161
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s ला %s वर माऊंट केले\n"
@@ -2959,26 +2959,26 @@ msgstr "libguestfs: त्रुटी: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
 
-#: src/inspect.c:263
+#: src/inspect.c:274
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "विंडोज अतिथी नाही, किंवा systemroot शोधणे अशक्य"
 
-#: src/inspect.c:279
+#: src/inspect.c:290
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:539 src/inspect_fs.c:460 src/inspect_fs.c:504
+#: src/inspect.c:550 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
-#: src/inspect_fs_unix.c:829
+#: src/inspect_fs_unix.c:827
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
 
-#: src/inspect.c:575
+#: src/inspect.c:586
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "अधिकृत तपासणी डाटा आढळले नाही: पहिले guestfs_inspect_os कॉल करा"
 
-#: src/inspect.c:587
+#: src/inspect.c:598
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2987,7 +2987,7 @@ msgstr ""
 "%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट साधणसह "
 "फंक्शनद्वारेच कॉल करा"
 
-#: src/inspect.c:597 src/inspect_apps.c:607
+#: src/inspect.c:608 src/inspect_apps.c:607
 #, fuzzy
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
@@ -3020,58 +3020,58 @@ msgstr "विंडोज %%SYSTEMROOT%% निश्चित करणे अ
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:128
+#: src/launch.c:133
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu उपकार्य सुरू केल्यावर आदेश ओळ बदलणे अशक्य आहे"
 
-#: src/launch.c:185
+#: src/launch.c:186
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: घटक '-' अक्षराने सुरू व्हायला हवे"
 
-#: src/launch.c:199
+#: src/launch.c:200
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: घटक '%s' स्वीकारले जात नाही"
 
-#: src/launch.c:265 src/launch.c:369
+#: src/launch.c:266 src/launch.c:370
 msgid "filename cannot contain ',' (comma) character"
 msgstr "फाइलनावात ',' (स्वल्पविराम) अक्षर समाविष्टीत असणे अशक्य"
 
-#: src/launch.c:277 src/launch.c:282
+#: src/launch.c:278 src/launch.c:283
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s घटक रिकामे आहे किंवा अस्वीकार्य अक्षरे समाविष्टीत आहे"
 
-#: src/launch.c:388
+#: src/launch.c:389
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs हँडल आधिपासूनच सुरू आहे"
 
-#: src/launch.c:397
+#: src/launch.c:398
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:434
+#: src/launch.c:435
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:805
+#: src/launch.c:813
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:818
+#: src/launch.c:826
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:906
+#: src/launch.c:914
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch.c:914
+#: src/launch.c:922
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1086
+#: src/launch.c:1094
 #, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
@@ -3082,11 +3082,11 @@ msgstr ""
 "%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU एन्वार्यनमेंट "
 "वेरीयेबल सेट करण्याचा प्रयत्न करा."
 
-#: src/launch.c:1202
+#: src/launch.c:1210
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1213
+#: src/launch.c:1221
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
