@@ -88,12 +88,14 @@ inspect_mount (void)
   if (roots[0] == NULL) {
     fprintf (stderr, _("%s: no operating system was found on this disk\n"),
              program_name);
+    free_strings (roots);
     exit (EXIT_FAILURE);
   }
 
   if (roots[1] != NULL) {
     fprintf (stderr, _("%s: multi-boot operating systems are not supported by the -i option\n"),
              program_name);
+    free_strings (roots);
     exit (EXIT_FAILURE);
   }
 
