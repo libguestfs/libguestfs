@@ -105,9 +105,9 @@ free_regexps (void)
 }
 #endif
 
-/* Add a string to the current command line. */
+/* Functions to add a string to the current command line. */
 static void
-incr_cmdline_size (guestfs_h *g)
+alloc_cmdline (guestfs_h *g)
 {
   if (g->cmdline == NULL) {
     /* g->cmdline[0] is reserved for argv[0], set in guestfs_launch. */
@@ -115,7 +115,12 @@ incr_cmdline_size (guestfs_h *g)
     g->cmdline = safe_malloc (g, sizeof (char *));
     g->cmdline[0] = NULL;
   }
+}
 
+static void
+incr_cmdline_size (guestfs_h *g)
+{
+  alloc_cmdline (g);
   g->cmdline_size++;
   g->cmdline = safe_realloc (g, g->cmdline, sizeof (char *) * g->cmdline_size);
 }
@@ -160,11 +165,7 @@ guestfs__debug_cmdline (guestfs_h *g)
   size_t i;
   char **r;
 
-  if (g->cmdline == NULL) {
-    r = safe_malloc (g, sizeof (char *) * 1);
-    r[0] = NULL;
-    return r;
-  }
+  alloc_cmdline (g);
 
   r = safe_malloc (g, sizeof (char *) * (g->cmdline_size + 1));
   r[0] = safe_strdup (g, g->qemu); /* g->cmdline[0] is always NULL */
@@ -518,6 +519,12 @@ launch_appliance (guestfs_h *g)
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
+
+    /* Set g->cmdline[0] to the name of the qemu process.  However
+     * it is possible that no g->cmdline has been allocated yet so
+     * we must do that first.
+     */
+    alloc_cmdline (g);
     g->cmdline[0] = g->qemu;
 
     if (qemu_supports (g, "-nodefconfig"))
