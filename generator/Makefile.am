@@ -86,7 +86,7 @@ else
 # No OCaml compiler.  Just replace the generator with a script that
 # touches stamp-generator and prints a warning.
 
-generator: $(SOURCES)
+$(srcdir)/generator: $(SOURCES)
 	rm -f $@ $@-t
 	echo 'echo Warning: Install OCaml compiler in order to rebuild the generated files.' >> $@-t
 	echo 'touch generator/stamp-generator' >> $@-t
