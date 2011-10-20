@@ -28,7 +28,7 @@ let min_extra_partition = 10L *^ 1024L *^ 1024L
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
+let infile, outfile, alignment, copy_boot_loader, debug, deletes, dryrun,
   expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink =
@@ -42,6 +42,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
 
   let add xs s = xs := s :: !xs in
 
+  let alignment = ref 128 in
   let copy_boot_loader = ref true in
   let debug = ref false in
   let deletes = ref [] in
@@ -71,6 +72,7 @@ let infile, outfile, copy_boot_loader, debug, deletes, dryrun,
   in
 
   let argspec = Arg.align [
+    "--alignment", Arg.Set_int alignment,   "sectors Set partition alignment (default: 128 sectors)";
     "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " Don't copy boot loader";
     "-d",        Arg.Set debug,             " Enable debugging messages";
     "--debug",   Arg.Set debug,             " -\"-";
@@ -118,6 +120,7 @@ read the man page virt-resize(1).
   );
 
   (* Dereference the rest of the args. *)
+  let alignment = !alignment in
   let copy_boot_loader = !copy_boot_loader in
   let deletes = List.rev !deletes in
   let dryrun = !dryrun in
@@ -135,6 +138,10 @@ read the man page virt-resize(1).
   let resizes_force = List.rev !resizes_force in
   let shrink = match !shrink with "" -> None | str -> Some str in
 
+  if alignment < 1 then
+    error "alignment cannot be < 1";
+  let alignment = Int64.of_int alignment in
+
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.  We only need to print out new
    * things added since this option, or things which depend on features
@@ -145,6 +152,7 @@ read the man page virt-resize(1).
     printf "ntfsresize-force\n";
     printf "32bitok\n";
     printf "128-sector-alignment\n";
+    printf "alignment\n";
     let g = new G.guestfs () in
     g#add_drive_opts "/dev/null";
     g#launch ();
@@ -162,7 +170,7 @@ read the man page virt-resize(1).
     | _ ->
         error "usage is: %s [--options] indisk outdisk" prog in
 
-  infile, outfile, copy_boot_loader, debug, deletes, dryrun,
+  infile, outfile, alignment, copy_boot_loader, debug, deletes, dryrun,
   expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink
@@ -570,7 +578,7 @@ let calculate_surplus () =
   let nr_partitions = List.length partitions in
   let overhead = (Int64.of_int sectsize) *^ (
     2L *^ 64L +^                                 (* GPT start and end *)
-    (128L *^ (Int64.of_int (nr_partitions + 1))) (* Maximum alignment *)
+    (alignment *^ (Int64.of_int (nr_partitions + 1))) (* Maximum alignment *)
   ) +^
   (Int64.of_int (max_bootloader - 64 * 512)) in  (* Bootloader *)
 
@@ -809,6 +817,9 @@ let () =
 let partitions =
   let sectsize = Int64.of_int sectsize in
 
+  (* Return 'i' rounded up to the next multiple of 'a'. *)
+  let roundup64 i a = let a = a -^ 1L in (i +^ a) &^ (~^ a) in
+
   let rec loop partnum start = function
     | p :: ps ->
       (match p.p_operation with
@@ -819,7 +830,7 @@ let partitions =
          let size = (p.p_part.G.part_size +^ sectsize -^ 1L) /^ sectsize in
          (* Start of next partition + alignment. *)
          let end_ = start +^ size in
-         let next = (end_ +^ 127L) &^ (~^ 127L) in
+         let next = roundup64 end_ alignment in
 
          { p with p_target_start = start; p_target_end = end_ -^ 1L;
            p_target_partnum = partnum } :: loop (partnum+1) next ps
@@ -829,7 +840,7 @@ let partitions =
          let size = (newsize +^ sectsize -^ 1L) /^ sectsize in
          (* Start of next partition + alignment. *)
          let next = start +^ size in
-         let next = (next +^ 127L) &^ (~^ 127L) in
+         let next = roundup64 next alignment in
 
          { p with p_target_start = start; p_target_end = next -^ 1L;
            p_target_partnum = partnum } :: loop (partnum+1) next ps

@@ -246,6 +246,40 @@ C<dd if=/dev/zero of=outdisk bs=1M count=..>)
 
 Display help.
 
+=item B<--alignment N>
+
+Set the alignment of partitions to C<N> sectors.  The default in
+virt-resize E<lt> 1.13.19 was 64 sectors, and after that is 128
+sectors.
+
+Assuming 512 byte sector size inside the guest, here are some
+suitable values for this:
+
+=over 4
+
+=item I<--alignment 1> (512 bytes)
+
+The partitions would be packed together as closely as possible, but
+would be completely unaligned.  In some cases this can cause very poor
+performance.  See L<virt-alignment-scan(1)> for further details.
+
+=item I<--alignment 8> (4K)
+
+This would be the minimum acceptable alignment for reasonable
+performance on modern hosts.
+
+=item I<--alignment 128> (64K)
+
+This alignment provides good performance when the host is using high
+end network storage.
+
+=item I<--alignment 2048> (1M)
+
+This is the standard alignment used by all newly installed guests
+since around 2008.
+
+=back
+
 =item B<-d>
 
 =item B<--debug>
@@ -545,12 +579,12 @@ I<--machine-readable> option and will return an error.
 
 =head2 "Partition 1 does not end on cylinder boundary."
 
-Virt-resize aligns partitions to multiples of 64 sectors.  Usually
-this means the partitions will not be aligned to the ancient CHS
-geometry.  However CHS geometry is meaningless for disks manufactured
-since the early 1990s, and doubly so for virtual hard drives.
-Alignment of partitions to cylinders is not required by any modern
-operating system.
+Virt-resize aligns partitions to multiples of 128 sectors (see the
+I<--alignment> parameter).  Usually this means the partitions will not
+be aligned to the ancient CHS geometry.  However CHS geometry is
+meaningless for disks manufactured since the early 1990s, and doubly
+so for virtual hard drives.  Alignment of partitions to cylinders is
+not required by any modern operating system.
 
 =head2 RESIZING WINDOWS VIRTUAL MACHINES
 
@@ -630,6 +664,7 @@ L<grub(8)>,
 L<grub-install(8)>,
 L<virt-rescue(1)>,
 L<virt-sparsify(1)>,
+L<virt-alignment-scan(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR
