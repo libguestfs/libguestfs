@@ -19,4 +19,4 @@
 set -e
 
 ruby -Ilib -Iext/guestfs bindtests.rb > bindtests.tmp
-diff -u ../bindtests bindtests.tmp
+diff -u ${srcdir}/../bindtests bindtests.tmp

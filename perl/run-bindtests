@@ -20,4 +20,4 @@ set -e
 
 export PERL5LIB=$(pwd)/blib/lib:$(pwd)/blib/arch
 perl bindtests.pl > bindtests.tmp
-diff -u ../bindtests bindtests.tmp
+diff -u ${srcdir}/../bindtests bindtests.tmp

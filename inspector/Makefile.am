@@ -90,7 +90,7 @@ stamp-virt-inspector.pod: virt-inspector.pod
 if HAVE_XMLLINT
 
 TESTS = $(EXAMPLE_XML)
-TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng virt-inspector.rng
+TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng $(srcdir)/virt-inspector.rng
 
 endif
 
