@@ -31,6 +31,11 @@ elif [ -x /sbin/udevd ]; then
   /sbin/udevd --daemon
   /sbin/udevadm trigger
   /sbin/udevadm settle
+elif [ -x /lib/udev/udevd ]; then
+  echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
+  /lib/udev/udevd --daemon
+  /sbin/udevadm trigger
+  /sbin/udevadm settle
 else
   echo No udev, creating /dev manually
   mount -t tmpfs none /dev
