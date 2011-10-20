@@ -240,7 +240,6 @@ let () =
 (* Build a data structure describing the source disk's partition layout. *)
 type partition = {
   p_name : string;               (* Device name, like /dev/sda1. *)
-  p_size : int64;                (* Current size of this partition. *)
   p_part : G.partition;          (* Partition data from libguestfs. *)
   p_bootable : bool;             (* Is it bootable? *)
   p_mbr_id : int option;         (* MBR ID, if it has one. *)
@@ -321,7 +320,7 @@ let partitions : partition list =
           with G.Error _ -> None in
         let typ = get_partition_content name in
 
-        { p_name = name; p_size = part.G.part_size; p_part = part;
+        { p_name = name; p_part = part;
           p_bootable = bootable; p_mbr_id = mbr_id; p_type = typ;
           p_operation = OpCopy; p_target_partnum = 0 }
     ) parts in
@@ -337,11 +336,13 @@ let partitions : partition list =
    *)
   List.iter (
     function
-    | { p_name = name; p_size = size; p_type = ContentPV pv_size }
+    | { p_name = name; p_part = { G.part_size = size };
+        p_type = ContentPV pv_size }
         when size < pv_size ->
         error "%s: partition size %Ld < physical volume size %Ld"
           name size pv_size
-    | { p_name = name; p_size = size; p_type = ContentFS (_, fs_size) }
+    | { p_name = name; p_part = { G.part_size = size };
+        p_type = ContentFS (_, fs_size) }
         when size < fs_size ->
         error "%s: partition size %Ld < filesystem size %Ld"
           name size fs_size
@@ -486,7 +487,7 @@ let () =
  *)
 let mark_partition_for_resize ~option ?(force = false) p newsize =
   let name = p.p_name in
-  let oldsize = p.p_size in
+  let oldsize = p.p_part.G.part_size in
 
   (match p.p_operation with
    | OpResize _ ->
@@ -540,7 +541,7 @@ let () =
     let p = find_partition ~option dev in
 
     (* Parse the size field. *)
-    let oldsize = p.p_size in
+    let oldsize = p.p_part.G.part_size in
     let newsize = parse_size oldsize sizefield in
 
     if newsize <= 0L then
@@ -572,7 +573,7 @@ let calculate_surplus () =
     fun total p ->
       let newsize =
         match p.p_operation with
-        | OpCopy | OpIgnore -> p.p_size
+        | OpCopy | OpIgnore -> p.p_part.G.part_size
         | OpDelete -> 0L
         | OpResize newsize -> newsize in
       total +^ newsize
@@ -600,7 +601,7 @@ let () =
 
          let option = "--expand" in
          let p = find_partition ~option dev in
-         let oldsize = p.p_size in
+         let oldsize = p.p_part.G.part_size in
          mark_partition_for_resize ~option p (oldsize +^ surplus)
     );
     (match shrink with
@@ -611,7 +612,7 @@ let () =
 
          let option = "--shrink" in
          let p = find_partition ~option dev in
-         let oldsize = p.p_size in
+         let oldsize = p.p_part.G.part_size in
          mark_partition_for_resize ~option p (oldsize +^ surplus)
     )
   )
@@ -654,7 +655,7 @@ let () =
     printf "Summary of changes:\n\n";
 
     List.iter (
-      fun ({ p_name = name; p_size = oldsize } as p) ->
+      fun ({ p_name = name; p_part = { G.part_size = oldsize }} as p) ->
         let text =
           match p.p_operation with
           | OpCopy ->
@@ -814,7 +815,7 @@ let () =
           | OpDelete -> None            (* do nothing *)
           | OpIgnore | OpCopy ->        (* new partition, same size *)
               (* Size in sectors. *)
-              let size = (p.p_size +^ sectsize -^ 1L) /^ sectsize in
+              let size = (p.p_part.G.part_size +^ sectsize -^ 1L) /^ sectsize in
               Some (add_partition size)
           | OpResize newsize ->         (* new partition, resized *)
               (* Size in sectors. *)
@@ -884,7 +885,7 @@ let () =
     | ({ p_name = source; p_target_partnum = target_partnum;
          p_operation = (OpCopy | OpResize _) } as p) :: ps
         when target_partnum > 0 ->
-        let oldsize = p.p_size in
+        let oldsize = p.p_part.G.part_size in
         let newsize =
           match p.p_operation with OpResize s -> s | _ -> oldsize in
 
