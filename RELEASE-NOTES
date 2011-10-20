@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.14.0
 -----------------------------------
 
-UPDATED TO COMMIT 782a2e0299b0c22155f0c115f94903c519040247
+UPDATED TO COMMIT 41260de67f9fa852eab168a6d36276c5deb02bf7
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.12.0).  For detailed changelogs, please see
@@ -32,6 +32,10 @@ New features
          NetBSD and pkgsrc (thanks Michael Scherer)
 
    - Handle some guest types that use /dev/root in /etc/fstab.
+
+   - Fix handling of guests with > 26 disks (thanks Matthew Booth)
+
+   - Add support for guests with HP Smart Array disks (thanks Matthew Booth)
 
   guestfish:
 
@@ -107,6 +111,7 @@ Bugs fixed
  - 733297 ruby event handlers fail with "exception in callback: wrong argument type Proc (expected Data)"
  - 731744 libguestfs should escape special/non-printing characters in debug output
  - 729887 appliance crashes running aug_init with flags=4
+ - 729075 libguestfs confuses Hp_recovery partition with Windows root filesystem
  - 727178 error: luks_open: cryptsetup: error while loading shared libraries: libfipscheck.so.1: cannot open shared object file: No such file or directory
  - 726739 libguestfs: error: aug_get: no matching node, trying to find hostname
  - 678231 virt-inspector reports unknown filesystem UUID
