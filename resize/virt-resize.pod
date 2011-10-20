@@ -246,6 +246,28 @@ C<dd if=/dev/zero of=outdisk bs=1M count=..>)
 
 Display help.
 
+=item B<--align-first auto>
+
+=item B<--align-first never>
+
+=item B<--align-first always>
+
+Align the first partition for improved performance (see also the
+I<--alignment> option).
+
+The default is I<--align-first auto> which only aligns the first
+partition if it is safe to do so.  That is, only when we know how to
+fix the bootloader automatically, and at the moment that can only be
+done for Windows guests.
+
+I<--align-first never> means we never move the first partition.
+This is the safest option.  Try this if the guest does not boot
+after resizing.
+
+I<--align-first always> means we always align the first partition (if
+it needs to be aligned).  For some guests this will break the
+bootloader, making the guest unbootable.
+
 =item B<--alignment N>
 
 Set the alignment of partitions to C<N> sectors.  The default in
@@ -590,10 +612,10 @@ not required by any modern operating system.
 
 In Windows Vista and later versions, Microsoft switched to using a
 separate boot partition.  In these VMs, typically C</dev/sda1> is the
-boot partition and C</dev/sda2> is the main (C:) drive.  We have not
-had any luck resizing the boot partition.  Doing so seems to break the
-guest completely.  However expanding the second partition (ie. C:
-drive) should work.
+boot partition and C</dev/sda2> is the main (C:) drive.  Resizing the
+first (boot) partition causes the bootloader to fail with
+C<0xC0000225> error.  Resizing the second partition (ie. C: drive)
+should work.
 
 Windows may initiate a lengthy "chkdsk" on first boot after a resize,
 if NTFS partitions have been expanded.  This is just a safety check
@@ -602,9 +624,7 @@ and (unless it find errors) is nothing to worry about.
 =head2 GUEST BOOT STUCK AT "GRUB"
 
 If a Linux guest does not boot after resizing, and the boot is stuck
-after printing C<GRUB> on the console, try reinstalling grub.  This
-sometimes happens on older (RHEL 5-era) guests, for reasons we don't
-fully understand, although we think is to do with partition alignment.
+after printing C<GRUB> on the console, try reinstalling grub.
 
  guestfish -i -a newdisk
  ><fs> cat /boot/grub/device.map

@@ -28,8 +28,10 @@ let min_extra_partition = 10L *^ 1024L *^ 1024L
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let infile, outfile, alignment, copy_boot_loader, debug, deletes, dryrun,
-  expand, expand_content, extra_partition, format, ignores,
+type align_first_t = [ `Never | `Always | `Auto ]
+
+let infile, outfile, align_first, alignment, copy_boot_loader, debug, deletes,
+  dryrun, expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink =
   let display_version () =
@@ -42,6 +44,7 @@ let infile, outfile, alignment, copy_boot_loader, debug, deletes, dryrun,
 
   let add xs s = xs := s :: !xs in
 
+  let align_first = ref "auto" in
   let alignment = ref 128 in
   let copy_boot_loader = ref true in
   let debug = ref false in
@@ -72,6 +75,7 @@ let infile, outfile, alignment, copy_boot_loader, debug, deletes, dryrun,
   in
 
   let argspec = Arg.align [
+    "--align-first", Arg.Set_string align_first, "never|always|auto Align first partition (default: auto)";
     "--alignment", Arg.Set_int alignment,   "sectors Set partition alignment (default: 128 sectors)";
     "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " Don't copy boot loader";
     "-d",        Arg.Set debug,             " Enable debugging messages";
@@ -142,6 +146,14 @@ read the man page virt-resize(1).
     error "alignment cannot be < 1";
   let alignment = Int64.of_int alignment in
 
+  let align_first =
+    match !align_first with
+    | "never" -> `Never
+    | "always" -> `Always
+    | "auto" -> `Auto
+    | _ ->
+      error "unknown --align-first option: use never|always|auto" in
+
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.  We only need to print out new
    * things added since this option, or things which depend on features
@@ -153,6 +165,7 @@ read the man page virt-resize(1).
     printf "32bitok\n";
     printf "128-sector-alignment\n";
     printf "alignment\n";
+    printf "align-first\n";
     let g = new G.guestfs () in
     g#add_drive_opts "/dev/null";
     g#launch ();
@@ -170,8 +183,8 @@ read the man page virt-resize(1).
     | _ ->
         error "usage is: %s [--options] indisk outdisk" prog in
 
-  infile, outfile, alignment, copy_boot_loader, debug, deletes, dryrun,
-  expand, expand_content, extra_partition, format, ignores,
+  infile, outfile, align_first, alignment, copy_boot_loader, debug, deletes,
+  dryrun, expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink
 
@@ -807,6 +820,22 @@ let () =
     ignore (g#pwrite_device "/dev/sdb" loader start)
   )
 
+(* Are we going to align the first partition and fix the bootloader? *)
+let align_first_partition_and_fix_bootloader =
+  (* Bootloaders that we know how to fix. *)
+  let can_fix_boot_loader =
+    match partitions with
+    | { p_type = ContentFS ("ntfs", _); p_bootable = true;
+        p_operation = OpCopy | OpIgnore | OpResize _ } :: _ -> true
+    | _ -> false
+  in
+
+  match align_first, can_fix_boot_loader with
+  | `Never, _
+  | `Auto, false -> false
+  | `Always, _
+  | `Auto, true -> true
+
 (* Repartition the target disk. *)
 
 (* Calculate the location of the partitions on the target disk.  This
@@ -869,12 +898,18 @@ let partitions =
         []
   in
 
-  (* The first partition must start at the same position as the old
-   * first partition.  Old virt-resize used to align this to 64
-   * sectors, but I suspect this is the cause of boot failures, so
-   * let's not do this.
+  (* Choose the alignment of the first partition based on the
+   * '--align-first' option.  Old virt-resize used to always align this
+   * to 64 sectors, but this causes boot failures unless we are able to
+   * adjust the bootloader accordingly.
    *)
-  let start = (List.hd partitions).p_part.G.part_start /^ sectsize in
+  let start =
+    if align_first_partition_and_fix_bootloader then
+      alignment
+    else
+      (* Preserve the existing start, but convert to sectors. *)
+      (List.hd partitions).p_part.G.part_start /^ sectsize in
+
   loop 1 start partitions
 
 (* Now partition the target disk. *)
@@ -921,6 +956,41 @@ let () =
 
       | _ -> ()
   ) partitions
+
+(* Fix the bootloader if we aligned the first partition. *)
+let () =
+  if align_first_partition_and_fix_bootloader then (
+    (* See can_fix_boot_loader above. *)
+    match partitions with
+    | { p_type = ContentFS ("ntfs", _); p_bootable = true;
+        p_target_partnum = partnum; p_target_start = start } :: _ ->
+      (* If the first partition is NTFS and bootable, set the "Number of
+       * Hidden Sectors" field in the NTFS Boot Record so that the
+       * filesystem is still bootable.
+       *)
+
+      (* Should always be /dev/sdb1? *)
+      let target = sprintf "/dev/sdb%d" partnum in
+
+      (* Sanity check: it contains the NTFS magic. *)
+      let magic = g#pread_device target 8 3L in
+      if magic <> "NTFS    " then
+        eprintf "warning: first partition is NTFS but does not contain NTFS boot loader magic\n%!"
+      else (
+        if not quiet then
+          printf "Fixing first NTFS partition boot record ...\n%!";
+
+        if debug then (
+          let old_hidden = int_of_le32 (g#pread_device target 4 0x1c_L) in
+          eprintf "old hidden sectors value: 0x%Lx\n%!" old_hidden
+        );
+
+        let new_hidden = le32_of_int start in
+        ignore (g#pwrite_device target new_hidden 0x1c_L)
+      )
+
+    | _ -> ()
+  )
 
 (* After copying the data over we must shut down and restart the
  * appliance in order to expand the content.  The reason for this may

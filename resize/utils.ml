@@ -27,6 +27,29 @@ let ( /^ ) = Int64.div
 let ( &^ ) = Int64.logand
 let ( ~^ ) = Int64.lognot
 
+let int_of_le32 str =
+  assert (String.length str = 4);
+  let c0 = Char.code (String.unsafe_get str 0) in
+  let c1 = Char.code (String.unsafe_get str 1) in
+  let c2 = Char.code (String.unsafe_get str 2) in
+  let c3 = Char.code (String.unsafe_get str 3) in
+  Int64.of_int c0 +^
+    (Int64.shift_left (Int64.of_int c1) 8) +^
+    (Int64.shift_left (Int64.of_int c2) 16) +^
+    (Int64.shift_left (Int64.of_int c3) 24)
+
+let le32_of_int i =
+  let c0 = i &^ 0xffL in
+  let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
+  let c2 = Int64.shift_right (i &^ 0xff0000L) 16 in
+  let c3 = Int64.shift_right (i &^ 0xff000000L) 24 in
+  let s = String.create 4 in
+  String.unsafe_set s 0 (Char.unsafe_chr (Int64.to_int c0));
+  String.unsafe_set s 1 (Char.unsafe_chr (Int64.to_int c1));
+  String.unsafe_set s 2 (Char.unsafe_chr (Int64.to_int c2));
+  String.unsafe_set s 3 (Char.unsafe_chr (Int64.to_int c3));
+  s
+
 let output_spaces chan n = for i = 0 to n-1 do output_char chan ' ' done
 
 let wrap ?(chan = stdout) ?(hanging = 0) str =
