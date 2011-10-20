@@ -240,12 +240,16 @@ let () =
 (* Build a data structure describing the source disk's partition layout. *)
 type partition = {
   p_name : string;               (* Device name, like /dev/sda1. *)
-  p_part : G.partition;          (* Partition data from libguestfs. *)
+  p_part : G.partition;          (* SOURCE partition data from libguestfs. *)
   p_bootable : bool;             (* Is it bootable? *)
   p_mbr_id : int option;         (* MBR ID, if it has one. *)
   p_type : partition_content;    (* Content type and content size. *)
-  mutable p_operation : partition_operation; (* What we're going to do. *)
-  mutable p_target_partnum : int; (* Partition number on target. *)
+
+  (* What we're going to do: *)
+  mutable p_operation : partition_operation;
+  p_target_partnum : int;        (* TARGET partition number. *)
+  p_target_start : int64;        (* TARGET partition start (sector num). *)
+  p_target_end : int64;          (* TARGET partition end (sector num). *)
 }
 and partition_content =
   | ContentUnknown               (* undetermined *)
@@ -322,7 +326,8 @@ let partitions : partition list =
 
         { p_name = name; p_part = part;
           p_bootable = bootable; p_mbr_id = mbr_id; p_type = typ;
-          p_operation = OpCopy; p_target_partnum = 0 }
+          p_operation = OpCopy; p_target_partnum = 0;
+          p_target_start = 0L; p_target_end = 0L }
     ) parts in
 
   if debug then (
@@ -795,116 +800,116 @@ let () =
   )
 
 (* Repartition the target disk. *)
-let () =
+
+(* Calculate the location of the partitions on the target disk.  This
+ * also removes from the list any partitions that will be deleted, so
+ * the final list just contains partitions that need to be created
+ * on the target.
+ *)
+let partitions =
+  let sectsize = Int64.of_int sectsize in
+
+  let rec loop partnum start = function
+    | p :: ps ->
+      (match p.p_operation with
+       | OpDelete -> loop partnum start ps      (* skip p *)
+
+       | OpIgnore | OpCopy ->           (* same size *)
+         (* Size in sectors. *)
+         let size = (p.p_part.G.part_size +^ sectsize -^ 1L) /^ sectsize in
+         (* Start of next partition + alignment. *)
+         let end_ = start +^ size in
+         let next = (end_ +^ 127L) &^ (~^ 127L) in
+
+         { p with p_target_start = start; p_target_end = end_ -^ 1L;
+           p_target_partnum = partnum } :: loop (partnum+1) next ps
+
+       | OpResize newsize ->            (* resized partition *)
+         (* New size in sectors. *)
+         let size = (newsize +^ sectsize -^ 1L) /^ sectsize in
+         (* Start of next partition + alignment. *)
+         let next = start +^ size in
+         let next = (next +^ 127L) &^ (~^ 127L) in
+
+         { p with p_target_start = start; p_target_end = next -^ 1L;
+           p_target_partnum = partnum } :: loop (partnum+1) next ps
+      )
+
+    | [] ->
+      (* Create the surplus partition if there is room for it. *)
+      if extra_partition && surplus >= min_extra_partition then (
+        [ {
+          (* Since this partition has no source, this data is
+           * meaningless and not used since the operation is
+           * OpIgnore.
+           *)
+          p_name = "";
+          p_part = { G.part_num = 0l; part_start = 0L; part_end = 0L;
+                     part_size = 0L };
+          p_bootable = false; p_mbr_id = None; p_type = ContentUnknown;
+
+          (* Target information is meaningful. *)
+          p_operation = OpIgnore;
+          p_target_partnum = partnum;
+          p_target_start = start; p_target_end = ~^ 64L
+        } ]
+      )
+      else
+        []
+  in
+
   (* The first partition must start at the same position as the old
    * first partition.  Old virt-resize used to align this to 64
    * sectors, but I suspect this is the cause of boot failures, so
    * let's not do this.
    *)
-  let sectsize = Int64.of_int sectsize in
-  let start = ref ((List.hd partitions).p_part.G.part_start /^ sectsize) in
+  let start = (List.hd partitions).p_part.G.part_start /^ sectsize in
+  loop 1 start partitions
 
-  (* This counts the partition numbers on the target disk. *)
-  let nextpart = ref 1 in
+(* Now partition the target disk. *)
+let () =
+  List.iter (
+    fun p ->
+      g#part_add "/dev/sdb" "primary" p.p_target_start p.p_target_end;
 
-  let rec repartition = function
-    | [] -> ()
-    | p :: ps ->
-        let target_partnum =
-          match p.p_operation with
-          | OpDelete -> None            (* do nothing *)
-          | OpIgnore | OpCopy ->        (* new partition, same size *)
-              (* Size in sectors. *)
-              let size = (p.p_part.G.part_size +^ sectsize -^ 1L) /^ sectsize in
-              Some (add_partition size)
-          | OpResize newsize ->         (* new partition, resized *)
-              (* Size in sectors. *)
-              let size = (newsize +^ sectsize -^ 1L) /^ sectsize in
-              Some (add_partition size) in
+      (* Set bootable and MBR IDs *)
+      if p.p_bootable then
+        g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
 
-        (match target_partnum with
-         | None ->                      (* OpDelete *)
-             ()
-         | Some target_partnum ->       (* not OpDelete *)
-             p.p_target_partnum <- target_partnum;
-
-             (* Set bootable and MBR IDs *)
-             if p.p_bootable then
-               g#part_set_bootable "/dev/sdb" target_partnum true;
-
-             (match p.p_mbr_id with
-              | None -> ()
-              | Some mbr_id ->
-                  g#part_set_mbr_id "/dev/sdb" target_partnum mbr_id
-             );
-        );
-
-        repartition ps
-
-  (* Add a partition, returns the partition number on the target. *)
-  and add_partition size (* in SECTORS *) =
-    let target_partnum, end_ =
-      if !nextpart <= 3 || parttype <> "msdos" then (
-        let target_partnum = !nextpart in
-        let end_ = !start +^ size -^ 1L in
-        g#part_add "/dev/sdb" "primary" !start end_;
-        incr nextpart;
-        target_partnum, end_
-      ) else (
-        if !nextpart = 4 then (
-          g#part_add "/dev/sdb" "extended" !start (-1L);
-          incr nextpart;
-          start := !start +^ 128L
-        );
-        let target_partnum = !nextpart in
-        let end_ = !start +^ size -^ 1L in
-        g#part_add "/dev/sdb" "logical" !start end_;
-        incr nextpart;
-        target_partnum, end_
-      ) in
-
-    (* Start of next partition + alignment to 128 sectors. *)
-    start := ((end_ +^ 1L) +^ 127L) &^ (~^ 127L);
-
-    target_partnum
-  in
-
-  repartition partitions;
-
-  (* Create the surplus partition. *)
-  if extra_partition && surplus >= min_extra_partition then (
-    let size = outsize /^ sectsize -^ 64L -^ !start in
-    ignore (add_partition size)
-  )
+      (match p.p_mbr_id with
+      | None -> ()
+      | Some mbr_id ->
+        g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
+      );
+  ) partitions
 
 (* Copy over the data. *)
 let () =
-  let rec copy_data = function
-    | [] -> ()
+  List.iter (
+    fun p ->
+      match p.p_operation with
+      | OpCopy | OpResize _ ->
+        (* XXX Old code had 'when target_partnum > 0', but it appears
+         * to have served no purpose since the field could never be 0
+         * at this point.
+         *)
 
-    | ({ p_name = source; p_target_partnum = target_partnum;
-         p_operation = (OpCopy | OpResize _) } as p) :: ps
-        when target_partnum > 0 ->
         let oldsize = p.p_part.G.part_size in
         let newsize =
           match p.p_operation with OpResize s -> s | _ -> oldsize in
 
         let copysize = if newsize < oldsize then newsize else oldsize in
 
-        let target = sprintf "/dev/sdb%d" target_partnum in
+        let source = p.p_name in
+        let target = sprintf "/dev/sdb%d" p.p_target_partnum in
 
         if not quiet then
           printf "Copying %s ...\n%!" source;
 
         g#copy_size source target copysize;
 
-        copy_data ps
-
-    | _ :: ps ->
-        copy_data ps
-  in
-
-  copy_data partitions
+      | _ -> ()
+  ) partitions
 
 (* After copying the data over we must shut down and restart the
  * appliance in order to expand the content.  The reason for this may
