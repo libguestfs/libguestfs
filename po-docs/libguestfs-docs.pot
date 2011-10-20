@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.13.22\n"
+"Project-Id-Version: libguestfs 1.13.23\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-10-19 17:23+0200\n"
+"POT-Creation-Date: 2011-10-20 22:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,12 +350,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:147 ../resize/virt-resize.pod:414 ../sparsify/virt-sparsify.pod:153
+#: ../align/virt-alignment-scan.pod:147 ../resize/virt-resize.pod:470 ../sparsify/virt-sparsify.pod:153
 msgid "B<-q>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:149 ../resize/virt-resize.pod:416 ../sparsify/virt-sparsify.pod:155
+#: ../align/virt-alignment-scan.pod:149 ../resize/virt-resize.pod:472 ../sparsify/virt-sparsify.pod:155
 msgid "B<--quiet>"
 msgstr ""
 
@@ -382,17 +382,17 @@ msgid "Enable verbose messages for debugging."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:160 ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:431 ../clone/virt-sysprep.pod:144 ../df/virt-df.pod:179 ../edit/virt-edit.pod:167 ../fish/guestfish.pod:397 ../fuse/guestmount.pod:272 ../inspector/virt-inspector.pod:125 ../rescue/virt-rescue.pod:188 ../resize/virt-resize.pod:484 ../sparsify/virt-sparsify.pod:165
+#: ../align/virt-alignment-scan.pod:160 ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:431 ../clone/virt-sysprep.pod:144 ../df/virt-df.pod:179 ../edit/virt-edit.pod:167 ../fish/guestfish.pod:397 ../fuse/guestmount.pod:272 ../inspector/virt-inspector.pod:125 ../rescue/virt-rescue.pod:188 ../resize/virt-resize.pod:540 ../sparsify/virt-sparsify.pod:165
 msgid "B<-V>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:162 ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:433 ../clone/virt-sysprep.pod:146 ../df/virt-df.pod:181 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:399 ../fuse/guestmount.pod:274 ../inspector/virt-inspector.pod:127 ../rescue/virt-rescue.pod:190 ../resize/virt-resize.pod:486 ../sparsify/virt-sparsify.pod:167 ../tools/virt-list-filesystems.pl:69 ../tools/virt-list-partitions.pl:70 ../tools/virt-make-fs.pl:169 ../tools/virt-tar.pl:119 ../tools/virt-win-reg.pl:112
+#: ../align/virt-alignment-scan.pod:162 ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:433 ../clone/virt-sysprep.pod:146 ../df/virt-df.pod:181 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:399 ../fuse/guestmount.pod:274 ../inspector/virt-inspector.pod:127 ../rescue/virt-rescue.pod:190 ../resize/virt-resize.pod:542 ../sparsify/virt-sparsify.pod:167 ../tools/virt-list-filesystems.pl:69 ../tools/virt-list-partitions.pl:70 ../tools/virt-make-fs.pl:169 ../tools/virt-tar.pl:119 ../tools/virt-win-reg.pl:112
 msgid "B<--version>"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:164 ../cat/virt-cat.pod:144 ../cat/virt-filesystems.pod:271 ../cat/virt-ls.pod:435 ../clone/virt-sysprep.pod:148 ../df/virt-df.pod:183 ../edit/virt-edit.pod:171 ../inspector/virt-inspector.pod:129 ../rescue/virt-rescue.pod:192 ../resize/virt-resize.pod:488 ../sparsify/virt-sparsify.pod:169 ../tools/virt-list-filesystems.pl:71 ../tools/virt-list-partitions.pl:72 ../tools/virt-make-fs.pl:171 ../tools/virt-tar.pl:121 ../tools/virt-win-reg.pl:114
+#: ../align/virt-alignment-scan.pod:164 ../cat/virt-cat.pod:144 ../cat/virt-filesystems.pod:271 ../cat/virt-ls.pod:435 ../clone/virt-sysprep.pod:148 ../df/virt-df.pod:183 ../edit/virt-edit.pod:171 ../inspector/virt-inspector.pod:129 ../rescue/virt-rescue.pod:192 ../resize/virt-resize.pod:544 ../sparsify/virt-sparsify.pod:169 ../tools/virt-list-filesystems.pl:71 ../tools/virt-list-partitions.pl:72 ../tools/virt-make-fs.pl:171 ../tools/virt-tar.pl:121 ../tools/virt-win-reg.pl:114
 msgid "Display version number and exit."
 msgstr ""
 
@@ -617,40 +617,30 @@ msgstr ""
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:278
 msgid ""
-"Currently there is no virt tool for fixing alignment problems in guests.  "
-"This is a difficult problem to fix because simply moving partitions around "
-"breaks the bootloader, necessitating either manual reinstallation of the "
-"bootloader using a rescue disk, or complex and error-prone hacks."
+"L<virt-resize(1)> can change the alignment of the partitions of some "
+"guests.  Currently it can fully align all the partitions of all Windows "
+"guests, and it will fix the bootloader where necessary.  For Linux guests, "
+"it can align the second and subsequent partitions, so the majority of OS "
+"accesses except at boot will be aligned."
 msgstr ""
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:284
 msgid ""
-"L<virt-resize(1)> does not change the alignment of the first partition, but "
-"it does align the second and subsequent partitions to a multiple of 64 or "
-"128 sectors (depending on the version of virt-resize, 128 in virt-resize "
-"E<ge> 1.13.19).  For operating systems that have a separate boot partition, "
-"virt-resize could be used to align the main OS partition, so that the "
-"majority of OS accesses except at boot will be aligned."
-msgstr ""
-
-#. type: textblock
-#: ../align/virt-alignment-scan.pod:292
-msgid ""
-"The easiest way to correct partition alignment problems is to reinstall your "
+"Another way to correct partition alignment problems is to reinstall your "
 "guest operating systems.  If you install operating systems from templates, "
 "ensure these have correct partition alignment too."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:297
+#: ../align/virt-alignment-scan.pod:288
 msgid ""
 "For older versions of Windows, the following NetApp document contains useful "
 "information: L<http://media.netapp.com/documents/tr-3747.pdf>"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:300
+#: ../align/virt-alignment-scan.pod:291
 msgid ""
 "For Red Hat Enterprise Linux E<le> 5, use a Kickstart script that contains "
 "an explicit C<%pre> section that creates aligned partitions using "
@@ -659,12 +649,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:305 ../cat/virt-cat.pod:191 ../cat/virt-filesystems.pod:365 ../cat/virt-ls.pod:483 ../clone/virt-sysprep.pod:475 ../df/virt-df.pod:215 ../edit/virt-edit.pod:342 ../inspector/virt-inspector.pod:352 ../rescue/virt-rescue.pod:266 ../resize/virt-resize.pod:601 ../tools/virt-list-filesystems.pl:188 ../tools/virt-list-partitions.pl:258 ../tools/virt-make-fs.pl:532 ../tools/virt-tar.pl:289 ../tools/virt-win-reg.pl:733
+#: ../align/virt-alignment-scan.pod:296 ../cat/virt-cat.pod:191 ../cat/virt-filesystems.pod:365 ../cat/virt-ls.pod:483 ../clone/virt-sysprep.pod:475 ../df/virt-df.pod:215 ../edit/virt-edit.pod:342 ../inspector/virt-inspector.pod:352 ../rescue/virt-rescue.pod:266 ../resize/virt-resize.pod:655 ../tools/virt-list-filesystems.pl:188 ../tools/virt-list-partitions.pl:258 ../tools/virt-make-fs.pl:532 ../tools/virt-tar.pl:289 ../tools/virt-win-reg.pl:733
 msgid "SHELL QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:307 ../cat/virt-cat.pod:193 ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:485 ../clone/virt-sysprep.pod:477 ../df/virt-df.pod:217 ../edit/virt-edit.pod:344 ../inspector/virt-inspector.pod:354 ../rescue/virt-rescue.pod:268 ../resize/virt-resize.pod:603 ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260 ../tools/virt-make-fs.pl:534 ../tools/virt-tar.pl:291 ../tools/virt-win-reg.pl:741
+#: ../align/virt-alignment-scan.pod:298 ../cat/virt-cat.pod:193 ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:485 ../clone/virt-sysprep.pod:477 ../df/virt-df.pod:217 ../edit/virt-edit.pod:344 ../inspector/virt-inspector.pod:354 ../rescue/virt-rescue.pod:268 ../resize/virt-resize.pod:657 ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260 ../tools/virt-make-fs.pl:534 ../tools/virt-tar.pl:291 ../tools/virt-win-reg.pl:741
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -673,98 +663,98 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:312 ../cat/virt-cat.pod:198 ../cat/virt-filesystems.pod:372 ../cat/virt-ls.pod:490 ../clone/virt-sysprep.pod:482 ../df/virt-df.pod:222 ../edit/virt-edit.pod:349 ../fish/guestfish.pod:1114 ../fuse/guestmount.pod:312 ../inspector/virt-inspector.pod:375 ../resize/virt-resize.pod:608 ../sparsify/virt-sparsify.pod:227 ../test-tool/libguestfs-test-tool.pod:90
+#: ../align/virt-alignment-scan.pod:303 ../cat/virt-cat.pod:198 ../cat/virt-filesystems.pod:372 ../cat/virt-ls.pod:490 ../clone/virt-sysprep.pod:482 ../df/virt-df.pod:222 ../edit/virt-edit.pod:349 ../fish/guestfish.pod:1114 ../fuse/guestmount.pod:312 ../inspector/virt-inspector.pod:375 ../resize/virt-resize.pod:662 ../sparsify/virt-sparsify.pod:227 ../test-tool/libguestfs-test-tool.pod:90
 msgid "EXIT STATUS"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:314
+#: ../align/virt-alignment-scan.pod:305
 msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:318 ../align/virt-alignment-scan.pod:324 ../align/virt-alignment-scan.pod:330 ../align/virt-alignment-scan.pod:337 ../clone/virt-sysprep.pod:283 ../clone/virt-sysprep.pod:287 ../clone/virt-sysprep.pod:291 ../clone/virt-sysprep.pod:295 ../clone/virt-sysprep.pod:310 ../clone/virt-sysprep.pod:314 ../clone/virt-sysprep.pod:318 ../clone/virt-sysprep.pod:322 ../clone/virt-sysprep.pod:326 ../clone/virt-sysprep.pod:362 ../clone/virt-sysprep.pod:384 ../clone/virt-sysprep.pod:388 ../df/virt-df.pod:148 ../df/virt-df.pod:154 ../edit/virt-edit.pod:266 ../edit/virt-edit.pod:271 ../edit/virt-edit.pod:276 ../edit/virt-edit.pod:287 ../edit/virt-edit.pod:291 ../examples/guestfs-recipes.pod:98 ../examples/guestfs-recipes.pod:102 ../examples/guestfs-recipes.pod:106 ../examples/guestfs-recipes.pod:132 ../examples/guestfs-recipes.pod:137 ../examples/guestfs-recipes.pod:227 ../examples/guestfs-recipes.pod:231 ../examples/guestfs-recipes.pod:235 ../examples/guestfs-recipes.pod:239 ../examples/guestfs-recipes.pod:243 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:395 ../fish/guestfish-actions.pod:403 ../fish/guestfish-actions.pod:410 ../fish/guestfish-actions.pod:417 ../fish/guestfish-actions.pod:1144 ../fish/guestfish-actions.pod:1148 ../fish/guestfish-actions.pod:1152 ../fish/guestfish-actions.pod:1156 ../fish/guestfish-actions.pod:1164 ../fish/guestfish-actions.pod:1168 ../fish/guestfish-actions.pod:1172 ../fish/guestfish-actions.pod:1182 ../fish/guestfish-actions.pod:1186 ../fish/guestfish-actions.pod:1190 ../fish/guestfish-actions.pod:1280 ../fish/guestfish-actions.pod:1284 ../fish/guestfish-actions.pod:1289 ../fish/guestfish-actions.pod:1294 ../fish/guestfish-actions.pod:1336 ../fish/guestfish-actions.pod:1340 ../fish/guestfish-actions.pod:1345 ../fish/guestfish-actions.pod:1601 ../fish/guestfish-actions.pod:1608 ../fish/guestfish-actions.pod:1615 ../fish/guestfish-actions.pod:2018 ../fish/guestfish-actions.pod:2024 ../fish/guestfish-actions.pod:2032 ../fish/guestfish-actions.pod:2039 ../fish/guestfish-actions.pod:2046 ../fish/guestfish.pod:445 ../fish/guestfish.pod:449 ../fish/guestfish.pod:453 ../fish/guestfish.pod:457 ../inspector/virt-inspector.pod:393 ../inspector/virt-inspector.pod:397 ../resize/virt-resize.pod:282 ../resize/virt-resize.pod:286 ../resize/virt-resize.pod:295 ../resize/virt-resize.pod:301 ../sparsify/virt-sparsify.pod:32 ../sparsify/virt-sparsify.pod:39 ../sparsify/virt-sparsify.pod:43 ../sparsify/virt-sparsify.pod:49 ../sparsify/virt-sparsify.pod:54 ../sparsify/virt-sparsify.pod:58 ../sparsify/virt-sparsify.pod:64 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:29 ../src/guestfs-actions.pod:594 ../src/guestfs-actions.pod:602 ../src/guestfs-actions.pod:609 ../src/guestfs-actions.pod:616 ../src/guestfs-actions.pod:1784 ../src/guestfs-actions.pod:1788 ../src/guestfs-actions.pod:1792 ../src/guestfs-actions.pod:1796 ../src/guestfs-actions.pod:1804 ../src/guestfs-actions.pod:1808 ../src/guestfs-actions.pod:1812 ../src/guestfs-actions.pod:1822 ../src/guestfs-actions.pod:1826 ../src/guestfs-actions.pod:1830 ../src/guestfs-actions.pod:1968 ../src/guestfs-actions.pod:1972 ../src/guestfs-actions.pod:1977 ../src/guestfs-actions.pod:1982 ../src/guestfs-actions.pod:2043 ../src/guestfs-actions.pod:2047 ../src/guestfs-actions.pod:2052 ../src/guestfs-actions.pod:2467 ../src/guestfs-actions.pod:2474 ../src/guestfs-actions.pod:2481 ../src/guestfs-actions.pod:3026 ../src/guestfs-actions.pod:3032 ../src/guestfs-actions.pod:3040 ../src/guestfs-actions.pod:3047 ../src/guestfs-actions.pod:3054 ../src/guestfs.pod:388 ../src/guestfs.pod:393 ../src/guestfs.pod:398 ../src/guestfs.pod:402 ../src/guestfs.pod:407 ../src/guestfs.pod:411 ../src/guestfs.pod:416 ../src/guestfs.pod:421 ../src/guestfs.pod:1094 ../src/guestfs.pod:1098 ../src/guestfs.pod:1102 ../src/guestfs.pod:1107 ../src/guestfs.pod:1115 ../src/guestfs.pod:1134 ../src/guestfs.pod:1142 ../src/guestfs.pod:1164 ../src/guestfs.pod:1168 ../src/guestfs.pod:1172 ../src/guestfs.pod:1176 ../src/guestfs.pod:1180 ../src/guestfs.pod:1184 ../src/guestfs.pod:1674 ../src/guestfs.pod:1679 ../src/guestfs.pod:1683 ../src/guestfs.pod:1785 ../src/guestfs.pod:1790 ../src/guestfs.pod:1794 ../src/guestfs.pod:1804 ../src/guestfs.pod:2093 ../src/guestfs.pod:2098 ../src/guestfs.pod:2104 ../src/guestfs.pod:2112 ../src/guestfs.pod:2630 ../src/guestfs.pod:2636 ../src/guestfs.pod:2641 ../src/guestfs.pod:2647 ../src/guestfs.pod:3047 ../src/guestfs.pod:3052 ../src/guestfs.pod:3056 ../src/guestfs.pod:3060 ../src/guestfs.pod:3064 ../src/guestfs.pod:3078 ../src/guestfs.pod:3083 ../src/guestfs.pod:3314 ../src/guestfs.pod:3318 ../src/guestfs.pod:3322 ../src/guestfs.pod:3326 ../tools/virt-win-reg.pl:197 ../tools/virt-win-reg.pl:202 ../tools/virt-win-reg.pl:208 ../tools/virt-win-reg.pl:710 ../tools/virt-win-reg.pl:716 ../tools/virt-win-reg.pl:722
+#: ../align/virt-alignment-scan.pod:309 ../align/virt-alignment-scan.pod:315 ../align/virt-alignment-scan.pod:321 ../align/virt-alignment-scan.pod:328 ../clone/virt-sysprep.pod:283 ../clone/virt-sysprep.pod:287 ../clone/virt-sysprep.pod:291 ../clone/virt-sysprep.pod:295 ../clone/virt-sysprep.pod:310 ../clone/virt-sysprep.pod:314 ../clone/virt-sysprep.pod:318 ../clone/virt-sysprep.pod:322 ../clone/virt-sysprep.pod:326 ../clone/virt-sysprep.pod:362 ../clone/virt-sysprep.pod:384 ../clone/virt-sysprep.pod:388 ../df/virt-df.pod:148 ../df/virt-df.pod:154 ../edit/virt-edit.pod:266 ../edit/virt-edit.pod:271 ../edit/virt-edit.pod:276 ../edit/virt-edit.pod:287 ../edit/virt-edit.pod:291 ../examples/guestfs-recipes.pod:98 ../examples/guestfs-recipes.pod:102 ../examples/guestfs-recipes.pod:106 ../examples/guestfs-recipes.pod:132 ../examples/guestfs-recipes.pod:137 ../examples/guestfs-recipes.pod:227 ../examples/guestfs-recipes.pod:231 ../examples/guestfs-recipes.pod:235 ../examples/guestfs-recipes.pod:239 ../examples/guestfs-recipes.pod:243 ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20 ../fish/guestfish-actions.pod:395 ../fish/guestfish-actions.pod:403 ../fish/guestfish-actions.pod:410 ../fish/guestfish-actions.pod:417 ../fish/guestfish-actions.pod:1144 ../fish/guestfish-actions.pod:1148 ../fish/guestfish-actions.pod:1152 ../fish/guestfish-actions.pod:1156 ../fish/guestfish-actions.pod:1164 ../fish/guestfish-actions.pod:1168 ../fish/guestfish-actions.pod:1172 ../fish/guestfish-actions.pod:1182 ../fish/guestfish-actions.pod:1186 ../fish/guestfish-actions.pod:1190 ../fish/guestfish-actions.pod:1280 ../fish/guestfish-actions.pod:1284 ../fish/guestfish-actions.pod:1289 ../fish/guestfish-actions.pod:1294 ../fish/guestfish-actions.pod:1336 ../fish/guestfish-actions.pod:1340 ../fish/guestfish-actions.pod:1345 ../fish/guestfish-actions.pod:1601 ../fish/guestfish-actions.pod:1608 ../fish/guestfish-actions.pod:1615 ../fish/guestfish-actions.pod:2018 ../fish/guestfish-actions.pod:2024 ../fish/guestfish-actions.pod:2032 ../fish/guestfish-actions.pod:2039 ../fish/guestfish-actions.pod:2046 ../fish/guestfish.pod:445 ../fish/guestfish.pod:449 ../fish/guestfish.pod:453 ../fish/guestfish.pod:457 ../inspector/virt-inspector.pod:393 ../inspector/virt-inspector.pod:397 ../resize/virt-resize.pod:338 ../resize/virt-resize.pod:342 ../resize/virt-resize.pod:351 ../resize/virt-resize.pod:357 ../sparsify/virt-sparsify.pod:32 ../sparsify/virt-sparsify.pod:39 ../sparsify/virt-sparsify.pod:43 ../sparsify/virt-sparsify.pod:49 ../sparsify/virt-sparsify.pod:54 ../sparsify/virt-sparsify.pod:58 ../sparsify/virt-sparsify.pod:64 ../src/guestfs-actions.pod:22 ../src/guestfs-actions.pod:29 ../src/guestfs-actions.pod:594 ../src/guestfs-actions.pod:602 ../src/guestfs-actions.pod:609 ../src/guestfs-actions.pod:616 ../src/guestfs-actions.pod:1784 ../src/guestfs-actions.pod:1788 ../src/guestfs-actions.pod:1792 ../src/guestfs-actions.pod:1796 ../src/guestfs-actions.pod:1804 ../src/guestfs-actions.pod:1808 ../src/guestfs-actions.pod:1812 ../src/guestfs-actions.pod:1822 ../src/guestfs-actions.pod:1826 ../src/guestfs-actions.pod:1830 ../src/guestfs-actions.pod:1968 ../src/guestfs-actions.pod:1972 ../src/guestfs-actions.pod:1977 ../src/guestfs-actions.pod:1982 ../src/guestfs-actions.pod:2043 ../src/guestfs-actions.pod:2047 ../src/guestfs-actions.pod:2052 ../src/guestfs-actions.pod:2467 ../src/guestfs-actions.pod:2474 ../src/guestfs-actions.pod:2481 ../src/guestfs-actions.pod:3026 ../src/guestfs-actions.pod:3032 ../src/guestfs-actions.pod:3040 ../src/guestfs-actions.pod:3047 ../src/guestfs-actions.pod:3054 ../src/guestfs.pod:388 ../src/guestfs.pod:393 ../src/guestfs.pod:398 ../src/guestfs.pod:402 ../src/guestfs.pod:407 ../src/guestfs.pod:411 ../src/guestfs.pod:416 ../src/guestfs.pod:421 ../src/guestfs.pod:1094 ../src/guestfs.pod:1098 ../src/guestfs.pod:1102 ../src/guestfs.pod:1107 ../src/guestfs.pod:1115 ../src/guestfs.pod:1134 ../src/guestfs.pod:1142 ../src/guestfs.pod:1164 ../src/guestfs.pod:1168 ../src/guestfs.pod:1172 ../src/guestfs.pod:1176 ../src/guestfs.pod:1180 ../src/guestfs.pod:1184 ../src/guestfs.pod:1674 ../src/guestfs.pod:1679 ../src/guestfs.pod:1683 ../src/guestfs.pod:1785 ../src/guestfs.pod:1790 ../src/guestfs.pod:1794 ../src/guestfs.pod:1804 ../src/guestfs.pod:2093 ../src/guestfs.pod:2098 ../src/guestfs.pod:2104 ../src/guestfs.pod:2112 ../src/guestfs.pod:2630 ../src/guestfs.pod:2636 ../src/guestfs.pod:2641 ../src/guestfs.pod:2647 ../src/guestfs.pod:3047 ../src/guestfs.pod:3052 ../src/guestfs.pod:3056 ../src/guestfs.pod:3060 ../src/guestfs.pod:3064 ../src/guestfs.pod:3078 ../src/guestfs.pod:3083 ../src/guestfs.pod:3314 ../src/guestfs.pod:3318 ../src/guestfs.pod:3322 ../src/guestfs.pod:3326 ../tools/virt-win-reg.pl:197 ../tools/virt-win-reg.pl:202 ../tools/virt-win-reg.pl:208 ../tools/virt-win-reg.pl:710 ../tools/virt-win-reg.pl:716 ../tools/virt-win-reg.pl:722
 msgid "*"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:320
+#: ../align/virt-alignment-scan.pod:311
 msgid "0"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:322
+#: ../align/virt-alignment-scan.pod:313
 msgid "successful exit, all partitions are aligned E<ge> 64K for best performance"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:326
+#: ../align/virt-alignment-scan.pod:317
 msgid "1"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:328
+#: ../align/virt-alignment-scan.pod:319
 msgid "an error scanning the disk image or guest"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:332
+#: ../align/virt-alignment-scan.pod:323
 msgid "2"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:334
+#: ../align/virt-alignment-scan.pod:325
 msgid ""
 "successful exit, some partitions have alignment E<lt> 64K which can result "
 "in poor performance on high end network storage"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:339
+#: ../align/virt-alignment-scan.pod:330
 msgid "3"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:341
+#: ../align/virt-alignment-scan.pod:332
 msgid ""
 "successful exit, some partitions have alignment E<lt> 4K which can result in "
 "poor performance on most hypervisors"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:346 ../cat/virt-cat.pod:203 ../cat/virt-filesystems.pod:377 ../cat/virt-ls.pod:495 ../clone/virt-sysprep.pod:486 ../df/virt-df.pod:227 ../edit/virt-edit.pod:354 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:33 ../examples/guestfs-recipes.pod:384 ../fish/guestfish.pod:1268 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../fuse/guestmount.pod:317 ../inspector/virt-inspector.pod:380 ../java/examples/guestfs-java.pod:45 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:288 ../resize/virt-resize.pod:613 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:251 ../src/guestfs.pod:3255 ../test-tool/libguestfs-test-tool.pod:100 ../tools/virt-list-filesystems.pl:195 ../tools/virt-list-partitions.pl:265 ../tools/virt-make-fs.pl:539 ../tools/virt-tar.pl:296 ../tools/virt-win-reg.pl:746
+#: ../align/virt-alignment-scan.pod:337 ../cat/virt-cat.pod:203 ../cat/virt-filesystems.pod:377 ../cat/virt-ls.pod:495 ../clone/virt-sysprep.pod:486 ../df/virt-df.pod:227 ../edit/virt-edit.pod:354 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:33 ../examples/guestfs-recipes.pod:384 ../fish/guestfish.pod:1268 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../fuse/guestmount.pod:317 ../inspector/virt-inspector.pod:380 ../java/examples/guestfs-java.pod:45 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:288 ../resize/virt-resize.pod:667 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:251 ../src/guestfs.pod:3255 ../test-tool/libguestfs-test-tool.pod:100 ../tools/virt-list-filesystems.pl:195 ../tools/virt-list-partitions.pl:265 ../tools/virt-make-fs.pl:539 ../tools/virt-tar.pl:296 ../tools/virt-win-reg.pl:746
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:348
+#: ../align/virt-alignment-scan.pod:339
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-rescue(1)>, "
 "L<virt-resize(1)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:355 ../cat/virt-cat.pod:212 ../cat/virt-filesystems.pod:388 ../cat/virt-ls.pod:507 ../clone/virt-sysprep.pod:501 ../df/virt-df.pod:235 ../edit/virt-edit.pod:368 ../rescue/virt-rescue.pod:296 ../resize/virt-resize.pod:635 ../sparsify/virt-sparsify.pod:264 ../tools/virt-list-filesystems.pl:208 ../tools/virt-list-partitions.pl:277 ../tools/virt-make-fs.pl:564 ../tools/virt-tar.pl:311 ../tools/virt-win-reg.pl:772
+#: ../align/virt-alignment-scan.pod:346 ../cat/virt-cat.pod:212 ../cat/virt-filesystems.pod:388 ../cat/virt-ls.pod:507 ../clone/virt-sysprep.pod:501 ../df/virt-df.pod:235 ../edit/virt-edit.pod:368 ../rescue/virt-rescue.pod:296 ../resize/virt-resize.pod:690 ../sparsify/virt-sparsify.pod:264 ../tools/virt-list-filesystems.pl:208 ../tools/virt-list-partitions.pl:277 ../tools/virt-make-fs.pl:564 ../tools/virt-tar.pl:311 ../tools/virt-win-reg.pl:772
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:357 ../cat/virt-cat.pod:214 ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:509 ../clone/virt-sysprep.pod:503 ../df/virt-df.pod:237 ../edit/virt-edit.pod:370 ../inspector/virt-inspector.pod:395 ../rescue/virt-rescue.pod:298 ../resize/virt-resize.pod:637 ../sparsify/virt-sparsify.pod:266 ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:566 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:774
+#: ../align/virt-alignment-scan.pod:348 ../cat/virt-cat.pod:214 ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:509 ../clone/virt-sysprep.pod:503 ../df/virt-df.pod:237 ../edit/virt-edit.pod:370 ../inspector/virt-inspector.pod:395 ../rescue/virt-rescue.pod:298 ../resize/virt-resize.pod:692 ../sparsify/virt-sparsify.pod:266 ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:566 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:774
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:359 ../cat/virt-cat.pod:216 ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:511 ../clone/virt-sysprep.pod:505 ../df/virt-df.pod:239 ../edit/virt-edit.pod:372 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:49 ../examples/guestfs-recipes.pod:401 ../fish/guestfish.pod:1300 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../fuse/guestmount.pod:332 ../inspector/virt-inspector.pod:403 ../java/examples/guestfs-java.pod:62 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:300 ../resize/virt-resize.pod:639 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:268 ../src/guestfs.pod:3337 ../test-tool/libguestfs-test-tool.pod:110 ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281 ../tools/virt-make-fs.pl:568 ../tools/virt-tar.pl:315 ../tools/virt-win-reg.pl:776
+#: ../align/virt-alignment-scan.pod:350 ../cat/virt-cat.pod:216 ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:511 ../clone/virt-sysprep.pod:505 ../df/virt-df.pod:239 ../edit/virt-edit.pod:372 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:49 ../examples/guestfs-recipes.pod:401 ../fish/guestfish.pod:1300 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../fuse/guestmount.pod:332 ../inspector/virt-inspector.pod:403 ../java/examples/guestfs-java.pod:62 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:300 ../resize/virt-resize.pod:694 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:268 ../src/guestfs.pod:3337 ../test-tool/libguestfs-test-tool.pod:110 ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281 ../tools/virt-make-fs.pl:568 ../tools/virt-tar.pl:315 ../tools/virt-win-reg.pl:776
 msgid "COPYRIGHT"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:361 ../clone/virt-sysprep.pod:507 ../sparsify/virt-sparsify.pod:270
+#: ../align/virt-alignment-scan.pod:352 ../clone/virt-sysprep.pod:507 ../sparsify/virt-sparsify.pod:270
 msgid "Copyright (C) 2011 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:363 ../cat/virt-cat.pod:220 ../cat/virt-filesystems.pod:396 ../cat/virt-ls.pod:515 ../clone/virt-sysprep.pod:509 ../df/virt-df.pod:243 ../edit/virt-edit.pod:376 ../fish/guestfish.pod:1305 ../fish/virt-copy-in.pod:69 ../fish/virt-copy-out.pod:58 ../fish/virt-tar-in.pod:67 ../fish/virt-tar-out.pod:60 ../fuse/guestmount.pod:337 ../inspector/virt-inspector.pod:407 ../rescue/virt-rescue.pod:304 ../resize/virt-resize.pod:643 ../sparsify/virt-sparsify.pod:272 ../test-tool/libguestfs-test-tool.pod:115 ../tools/virt-list-filesystems.pl:216 ../tools/virt-list-partitions.pl:285 ../tools/virt-make-fs.pl:572 ../tools/virt-tar.pl:319 ../tools/virt-win-reg.pl:780
+#: ../align/virt-alignment-scan.pod:354 ../cat/virt-cat.pod:220 ../cat/virt-filesystems.pod:396 ../cat/virt-ls.pod:515 ../clone/virt-sysprep.pod:509 ../df/virt-df.pod:243 ../edit/virt-edit.pod:376 ../fish/guestfish.pod:1305 ../fish/virt-copy-in.pod:69 ../fish/virt-copy-out.pod:58 ../fish/virt-tar-in.pod:67 ../fish/virt-tar-out.pod:60 ../fuse/guestmount.pod:337 ../inspector/virt-inspector.pod:407 ../rescue/virt-rescue.pod:304 ../resize/virt-resize.pod:698 ../sparsify/virt-sparsify.pod:272 ../test-tool/libguestfs-test-tool.pod:115 ../tools/virt-list-filesystems.pl:216 ../tools/virt-list-partitions.pl:285 ../tools/virt-make-fs.pl:572 ../tools/virt-tar.pl:319 ../tools/virt-win-reg.pl:780
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -773,7 +763,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:368 ../cat/virt-cat.pod:225 ../cat/virt-filesystems.pod:401 ../cat/virt-ls.pod:520 ../clone/virt-sysprep.pod:514 ../df/virt-df.pod:248 ../edit/virt-edit.pod:381 ../fish/guestfish.pod:1310 ../fish/virt-copy-in.pod:74 ../fish/virt-copy-out.pod:63 ../fish/virt-tar-in.pod:72 ../fish/virt-tar-out.pod:65 ../fuse/guestmount.pod:342 ../inspector/virt-inspector.pod:412 ../rescue/virt-rescue.pod:309 ../resize/virt-resize.pod:648 ../sparsify/virt-sparsify.pod:277 ../test-tool/libguestfs-test-tool.pod:120 ../tools/virt-list-filesystems.pl:221 ../tools/virt-list-partitions.pl:290 ../tools/virt-make-fs.pl:577 ../tools/virt-tar.pl:324 ../tools/virt-win-reg.pl:785
+#: ../align/virt-alignment-scan.pod:359 ../cat/virt-cat.pod:225 ../cat/virt-filesystems.pod:401 ../cat/virt-ls.pod:520 ../clone/virt-sysprep.pod:514 ../df/virt-df.pod:248 ../edit/virt-edit.pod:381 ../fish/guestfish.pod:1310 ../fish/virt-copy-in.pod:74 ../fish/virt-copy-out.pod:63 ../fish/virt-tar-in.pod:72 ../fish/virt-tar-out.pod:65 ../fuse/guestmount.pod:342 ../inspector/virt-inspector.pod:412 ../rescue/virt-rescue.pod:309 ../resize/virt-resize.pod:703 ../sparsify/virt-sparsify.pod:277 ../test-tool/libguestfs-test-tool.pod:120 ../tools/virt-list-filesystems.pl:221 ../tools/virt-list-partitions.pl:290 ../tools/virt-make-fs.pl:577 ../tools/virt-tar.pl:324 ../tools/virt-win-reg.pl:785
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -782,7 +772,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:373 ../cat/virt-cat.pod:230 ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:525 ../clone/virt-sysprep.pod:519 ../df/virt-df.pod:253 ../edit/virt-edit.pod:386 ../fish/guestfish.pod:1315 ../fish/virt-copy-in.pod:79 ../fish/virt-copy-out.pod:68 ../fish/virt-tar-in.pod:77 ../fish/virt-tar-out.pod:70 ../fuse/guestmount.pod:347 ../inspector/virt-inspector.pod:417 ../rescue/virt-rescue.pod:314 ../resize/virt-resize.pod:653 ../sparsify/virt-sparsify.pod:282 ../test-tool/libguestfs-test-tool.pod:125 ../tools/virt-list-filesystems.pl:226 ../tools/virt-list-partitions.pl:295 ../tools/virt-make-fs.pl:582 ../tools/virt-tar.pl:329 ../tools/virt-win-reg.pl:790
+#: ../align/virt-alignment-scan.pod:364 ../cat/virt-cat.pod:230 ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:525 ../clone/virt-sysprep.pod:519 ../df/virt-df.pod:253 ../edit/virt-edit.pod:386 ../fish/guestfish.pod:1315 ../fish/virt-copy-in.pod:79 ../fish/virt-copy-out.pod:68 ../fish/virt-tar-in.pod:77 ../fish/virt-tar-out.pod:70 ../fuse/guestmount.pod:347 ../inspector/virt-inspector.pod:417 ../rescue/virt-rescue.pod:314 ../resize/virt-resize.pod:708 ../sparsify/virt-sparsify.pod:282 ../test-tool/libguestfs-test-tool.pod:125 ../tools/virt-list-filesystems.pl:226 ../tools/virt-list-partitions.pl:295 ../tools/virt-make-fs.pl:582 ../tools/virt-tar.pl:329 ../tools/virt-win-reg.pl:790
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -1090,7 +1080,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:200 ../cat/virt-filesystems.pod:374 ../cat/virt-ls.pod:492 ../df/virt-df.pod:224 ../edit/virt-edit.pod:351 ../fuse/guestmount.pod:314 ../inspector/virt-inspector.pod:377 ../resize/virt-resize.pod:610 ../sparsify/virt-sparsify.pod:229
+#: ../cat/virt-cat.pod:200 ../cat/virt-filesystems.pod:374 ../cat/virt-ls.pod:492 ../df/virt-df.pod:224 ../edit/virt-edit.pod:351 ../fuse/guestmount.pod:314 ../inspector/virt-inspector.pod:377 ../resize/virt-resize.pod:664 ../sparsify/virt-sparsify.pod:229
 msgid "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
 
@@ -1102,7 +1092,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:218 ../inspector/virt-inspector.pod:405 ../resize/virt-resize.pod:641
+#: ../cat/virt-cat.pod:218 ../inspector/virt-inspector.pod:405 ../resize/virt-resize.pod:696
 msgid "Copyright (C) 2010-2011 Red Hat Inc."
 msgstr ""
 
@@ -17841,7 +17831,7 @@ msgid "Using this flag is equivalent to using the C<mount-options> command."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:335 ../fuse/guestmount.pod:202 ../resize/virt-resize.pod:358
+#: ../fish/guestfish.pod:335 ../fuse/guestmount.pod:202 ../resize/virt-resize.pod:414
 msgid "B<-n>"
 msgstr ""
 
@@ -20385,7 +20375,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fuse/guestmount.pod:73 ../rescue/virt-rescue.pod:68 ../resize/virt-resize.pod:544
+#: ../fuse/guestmount.pod:73 ../rescue/virt-rescue.pod:68 ../resize/virt-resize.pod:600
 msgid "NOTES"
 msgstr ""
 
@@ -20788,7 +20778,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../inspector/virt-inspector.pod:111 ../resize/virt-resize.pod:314 ../resize/virt-resize.pod:406 ../sparsify/virt-sparsify.pod:132 ../tools/virt-list-filesystems.pl:101 ../tools/virt-list-partitions.pl:102 ../tools/virt-tar.pl:151 ../tools/virt-win-reg.pl:152
+#: ../inspector/virt-inspector.pod:111 ../resize/virt-resize.pod:370 ../resize/virt-resize.pod:462 ../sparsify/virt-sparsify.pod:132 ../tools/virt-list-filesystems.pl:101 ../tools/virt-list-partitions.pl:102 ../tools/virt-tar.pl:151 ../tools/virt-win-reg.pl:152
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
 "the format is always specified."
@@ -21950,7 +21940,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:31 ../resize/virt-resize.pod:520 ../sparsify/virt-sparsify.pod:203 ../src/guestfs.pod:469 ../src/guestfs.pod:1287 ../src/guestfs.pod:1426 ../src/guestfs.pod:2675
+#: ../resize/virt-resize.pod:31 ../resize/virt-resize.pod:576 ../sparsify/virt-sparsify.pod:203 ../src/guestfs.pod:469 ../src/guestfs.pod:1287 ../src/guestfs.pod:1426 ../src/guestfs.pod:2675
 msgid "1."
 msgstr ""
 
@@ -21988,7 +21978,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:44 ../resize/virt-resize.pod:527 ../sparsify/virt-sparsify.pod:210 ../src/guestfs.pod:475 ../src/guestfs.pod:1291 ../src/guestfs.pod:1430 ../src/guestfs.pod:2700
+#: ../resize/virt-resize.pod:44 ../resize/virt-resize.pod:583 ../sparsify/virt-sparsify.pod:210 ../src/guestfs.pod:475 ../src/guestfs.pod:1291 ../src/guestfs.pod:1430 ../src/guestfs.pod:2700
 msgid "2."
 msgstr ""
 
@@ -22009,7 +21999,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:52 ../resize/virt-resize.pod:533 ../sparsify/virt-sparsify.pod:216 ../src/guestfs.pod:486 ../src/guestfs.pod:1436
+#: ../resize/virt-resize.pod:52 ../resize/virt-resize.pod:589 ../sparsify/virt-sparsify.pod:216 ../src/guestfs.pod:486 ../src/guestfs.pod:1436
 msgid "3."
 msgstr ""
 
@@ -22442,26 +22432,140 @@ msgstr ""
 
 #. type: =item
 #: ../resize/virt-resize.pod:249
+msgid "B<--align-first auto>"
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:251
+msgid "B<--align-first never>"
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:253
+msgid "B<--align-first always>"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:255
+msgid ""
+"Align the first partition for improved performance (see also the "
+"I<--alignment> option)."
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:258
+msgid ""
+"The default is I<--align-first auto> which only aligns the first partition "
+"if it is safe to do so.  That is, only when we know how to fix the "
+"bootloader automatically, and at the moment that can only be done for "
+"Windows guests."
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:263
+msgid ""
+"I<--align-first never> means we never move the first partition.  This is the "
+"safest option.  Try this if the guest does not boot after resizing."
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:267
+msgid ""
+"I<--align-first always> means we always align the first partition (if it "
+"needs to be aligned).  For some guests this will break the bootloader, "
+"making the guest unbootable."
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:271
+msgid "B<--alignment N>"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:273
+msgid ""
+"Set the alignment of partitions to C<N> sectors.  The default in virt-resize "
+"E<lt> 1.13.19 was 64 sectors, and after that is 128 sectors."
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:277
+msgid ""
+"Assuming 512 byte sector size inside the guest, here are some suitable "
+"values for this:"
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:282
+msgid "I<--alignment 1> (512 bytes)"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:284
+msgid ""
+"The partitions would be packed together as closely as possible, but would be "
+"completely unaligned.  In some cases this can cause very poor performance.  "
+"See L<virt-alignment-scan(1)> for further details."
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:288
+msgid "I<--alignment 8> (4K)"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:290
+msgid ""
+"This would be the minimum acceptable alignment for reasonable performance on "
+"modern hosts."
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:293
+msgid "I<--alignment 128> (64K)"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:295
+msgid ""
+"This alignment provides good performance when the host is using high end "
+"network storage."
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:298
+msgid "I<--alignment 2048> (1M)"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:300
+msgid ""
+"This is the standard alignment used by all newly installed guests since "
+"around 2008."
+msgstr ""
+
+#. type: =item
+#: ../resize/virt-resize.pod:305
 msgid "B<-d>"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:251 ../tools/virt-make-fs.pl:177 ../tools/virt-win-reg.pl:120
+#: ../resize/virt-resize.pod:307 ../tools/virt-make-fs.pl:177 ../tools/virt-win-reg.pl:120
 msgid "B<--debug>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:253 ../tools/virt-win-reg.pl:122
+#: ../resize/virt-resize.pod:309 ../tools/virt-win-reg.pl:122
 msgid "Enable debugging messages."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:255
+#: ../resize/virt-resize.pod:311
 msgid "B<--delete part>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:257
+#: ../resize/virt-resize.pod:313
 msgid ""
 "Delete the named partition.  It would be more accurate to describe this as "
 "\"don't copy it over\", since virt-resize doesn't do in-place changes and "
@@ -22469,7 +22573,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:261
+#: ../resize/virt-resize.pod:317
 msgid ""
 "Note that when you delete a partition, then anything contained in the "
 "partition is also deleted.  Furthermore, this causes any partitions that "
@@ -22477,24 +22581,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:266 ../resize/virt-resize.pod:327 ../resize/virt-resize.pod:454 ../sparsify/virt-sparsify.pod:145
+#: ../resize/virt-resize.pod:322 ../resize/virt-resize.pod:383 ../resize/virt-resize.pod:510 ../sparsify/virt-sparsify.pod:145
 msgid "You can give this option multiple times."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:268
+#: ../resize/virt-resize.pod:324
 msgid "B<--expand part>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:270
+#: ../resize/virt-resize.pod:326
 msgid ""
 "Expand the named partition so it uses up all extra space (space left over "
 "after any other resize changes that you request have been done)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:273
+#: ../resize/virt-resize.pod:329
 msgid ""
 "If virt-resize knows how, it will expand the direct content of the "
 "partition.  For example, if the partition is an LVM PV, it will expand the "
@@ -22503,22 +22607,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:278
+#: ../resize/virt-resize.pod:334
 msgid "Currently virt-resize can resize:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:284
+#: ../resize/virt-resize.pod:340
 msgid "ext2, ext3 and ext4 filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:288
+#: ../resize/virt-resize.pod:344
 msgid "NTFS filesystems, if libguestfs was compiled with support for NTFS."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:290
+#: ../resize/virt-resize.pod:346
 msgid ""
 "The filesystem must have been shut down consistently last time it was used.  "
 "Additionally, L<ntfsresize(8)> marks the resized filesystem as requiring a "
@@ -22527,7 +22631,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:297
+#: ../resize/virt-resize.pod:353
 msgid ""
 "LVM PVs (physical volumes).  virt-resize does not usually resize anything "
 "inside the PV, but see the I<--LV-expand> option.  The user could also "
@@ -22535,41 +22639,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:303
+#: ../resize/virt-resize.pod:359
 msgid "Btrfs filesystems, if libguestfs was compiled with support for btrfs."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:307 ../resize/virt-resize.pod:482
+#: ../resize/virt-resize.pod:363 ../resize/virt-resize.pod:538
 msgid "Note that you cannot use I<--expand> and I<--shrink> together."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:309 ../sparsify/virt-sparsify.pod:125 ../tools/virt-list-filesystems.pl:91 ../tools/virt-list-partitions.pl:92 ../tools/virt-tar.pl:141 ../tools/virt-win-reg.pl:142
+#: ../resize/virt-resize.pod:365 ../sparsify/virt-sparsify.pod:125 ../tools/virt-list-filesystems.pl:91 ../tools/virt-list-partitions.pl:92 ../tools/virt-tar.pl:141 ../tools/virt-win-reg.pl:142
 msgid "B<--format> raw"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:311 ../sparsify/virt-sparsify.pod:129
+#: ../resize/virt-resize.pod:367 ../sparsify/virt-sparsify.pod:129
 msgid ""
 "Specify the format of the input disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:317
+#: ../resize/virt-resize.pod:373
 msgid ""
 "Note that this option I<does not> affect the output format.  See L</QCOW2 "
 "AND NON-SPARSE RAW FORMATS>."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:320
+#: ../resize/virt-resize.pod:376
 msgid "B<--ignore part>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:322
+#: ../resize/virt-resize.pod:378
 msgid ""
 "Ignore the named partition.  Effectively this means the partition is "
 "allocated on the destination disk, but the content is not copied across from "
@@ -22578,12 +22682,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:329
+#: ../resize/virt-resize.pod:385
 msgid "B<--LV-expand logvol>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:331
+#: ../resize/virt-resize.pod:387
 msgid ""
 "This takes the logical volume and, as a final step, expands it to fill all "
 "the space available in its volume group.  A typical usage, assuming a Linux "
@@ -22592,7 +22696,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:336
+#: ../resize/virt-resize.pod:392
 #, no-wrap
 msgid ""
 " virt-resize indisk outdisk \\\n"
@@ -22601,14 +22705,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:339
+#: ../resize/virt-resize.pod:395
 msgid ""
 "This would first expand the partition (and PV), and then expand the root "
 "device to fill the extra space in the PV."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:342
+#: ../resize/virt-resize.pod:398
 msgid ""
 "The contents of the LV are also resized if virt-resize knows how to do "
 "that.  You can stop virt-resize from trying to expand the content by using "
@@ -22616,12 +22720,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:346
+#: ../resize/virt-resize.pod:402
 msgid "Use L<virt-filesystems(1)> to list the filesystems in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:348
+#: ../resize/virt-resize.pod:404
 msgid ""
 "You can give this option multiple times, I<but> it doesn't make sense to do "
 "this unless the logical volumes you specify are all in different volume "
@@ -22629,34 +22733,34 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:352 ../sparsify/virt-sparsify.pod:147
+#: ../resize/virt-resize.pod:408 ../sparsify/virt-sparsify.pod:147
 msgid "B<--machine-readable>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:354 ../sparsify/virt-sparsify.pod:149
+#: ../resize/virt-resize.pod:410 ../sparsify/virt-sparsify.pod:149
 msgid ""
 "This option is used to make the output more machine friendly when being "
 "parsed by other programs.  See L</MACHINE READABLE OUTPUT> below."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:360
+#: ../resize/virt-resize.pod:416
 msgid "B<--dryrun>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:362
+#: ../resize/virt-resize.pod:418
 msgid "Print a summary of what would be done, but don't do anything."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:364
+#: ../resize/virt-resize.pod:420
 msgid "B<--no-copy-boot-loader>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:366
+#: ../resize/virt-resize.pod:422
 msgid ""
 "By default, virt-resize copies over some sectors at the start of the disk "
 "(up to the beginning of the first partition).  Commonly these sectors "
@@ -22665,19 +22769,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:371
+#: ../resize/virt-resize.pod:427
 msgid ""
 "If you specify this flag, then this initial copy is not done.  You may need "
 "to reinstall the boot loader in this case."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:374
+#: ../resize/virt-resize.pod:430
 msgid "B<--no-extra-partition>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:376
+#: ../resize/virt-resize.pod:432
 msgid ""
 "By default, virt-resize creates an extra partition if there is any extra, "
 "unused space after all resizing has happened.  Use this option to prevent "
@@ -22687,38 +22791,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:382
+#: ../resize/virt-resize.pod:438
 msgid ""
 "Note that if the surplus space is smaller than 10 MB, no extra partition "
 "will be created."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:385
+#: ../resize/virt-resize.pod:441
 msgid "B<--no-expand-content>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:387
+#: ../resize/virt-resize.pod:443
 msgid ""
 "By default, virt-resize will try to expand the direct contents of "
 "partitions, if it knows how (see I<--expand> option above)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:390
+#: ../resize/virt-resize.pod:446
 msgid ""
 "If you give the I<--no-expand-content> option then virt-resize will not "
 "attempt this."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:393
+#: ../resize/virt-resize.pod:449
 msgid "B<--ntfsresize-force>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:395
+#: ../resize/virt-resize.pod:451
 msgid ""
 "Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing even if "
 "the NTFS disk is marked as needing a consistency check.  You have to use "
@@ -22727,19 +22831,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:401
+#: ../resize/virt-resize.pod:457
 msgid "B<--output-format> raw"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:403
+#: ../resize/virt-resize.pod:459
 msgid ""
 "Specify the format of the output disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:409
+#: ../resize/virt-resize.pod:465
 msgid ""
 "Note that this option I<does not create> the output format.  This option "
 "just tells libguestfs what it is so it doesn't try to guess it.  You still "
@@ -22748,24 +22852,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:418
+#: ../resize/virt-resize.pod:474
 msgid "Don't print the summary."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:420
+#: ../resize/virt-resize.pod:476
 msgid "B<--resize part=size>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:422
+#: ../resize/virt-resize.pod:478
 msgid ""
 "Resize the named partition (expanding or shrinking it) so that it has the "
 "given size."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:425
+#: ../resize/virt-resize.pod:481
 msgid ""
 "C<size> can be expressed as an absolute number followed by b/K/M/G to mean "
 "bytes, Kilobytes, Megabytes, or Gigabytes; or as a percentage of the current "
@@ -22773,7 +22877,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:431
+#: ../resize/virt-resize.pod:487
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=10G\n"
@@ -22781,7 +22885,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:433
+#: ../resize/virt-resize.pod:489
 #, no-wrap
 msgid ""
 " --resize /dev/sda4=90%\n"
@@ -22789,7 +22893,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:435
+#: ../resize/virt-resize.pod:491
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=+1G\n"
@@ -22797,7 +22901,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:437
+#: ../resize/virt-resize.pod:493
 #, no-wrap
 msgid ""
 " --resize /dev/sda2=-200M\n"
@@ -22805,7 +22909,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:439
+#: ../resize/virt-resize.pod:495
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+128K\n"
@@ -22813,7 +22917,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:441
+#: ../resize/virt-resize.pod:497
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+10%\n"
@@ -22821,7 +22925,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:443
+#: ../resize/virt-resize.pod:499
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=-10%\n"
@@ -22829,14 +22933,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:445
+#: ../resize/virt-resize.pod:501
 msgid ""
 "You can increase the size of any partition.  Virt-resize will expand the "
 "direct content of the partition if it knows how (see I<--expand> below)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:449
+#: ../resize/virt-resize.pod:505
 msgid ""
 "You can only I<decrease> the size of partitions that contain filesystems or "
 "PVs which have already been shrunk.  Virt-resize will check this has been "
@@ -22845,12 +22949,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:456
+#: ../resize/virt-resize.pod:512
 msgid "B<--resize-force part=size>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:458
+#: ../resize/virt-resize.pod:514
 msgid ""
 "This is the same as I<--resize> except that it will let you decrease the "
 "size of any partition.  Generally this means you will lose any data which "
@@ -22860,17 +22964,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:464
+#: ../resize/virt-resize.pod:520
 msgid "See also the I<--ignore> option."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:466
+#: ../resize/virt-resize.pod:522
 msgid "B<--shrink part>"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:468
+#: ../resize/virt-resize.pod:524
 msgid ""
 "Shrink the named partition until the overall disk image fits in the "
 "destination.  The named partition B<must> contain a filesystem or PV which "
@@ -22880,7 +22984,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:474
+#: ../resize/virt-resize.pod:530
 msgid ""
 "The amount by which the overall disk must be shrunk (after carrying out all "
 "other operations requested by the user) is called the \"deficit\".  For "
@@ -22891,12 +22995,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:492 ../sparsify/virt-sparsify.pod:177
+#: ../resize/virt-resize.pod:548 ../sparsify/virt-sparsify.pod:177
 msgid "MACHINE READABLE OUTPUT"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:494
+#: ../resize/virt-resize.pod:550
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-resize from other programs, GUIs "
@@ -22904,19 +23008,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:498 ../sparsify/virt-sparsify.pod:183
+#: ../resize/virt-resize.pod:554 ../sparsify/virt-sparsify.pod:183
 msgid "There are two ways to use this option."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:500
+#: ../resize/virt-resize.pod:556
 msgid ""
 "Firstly use the option on its own to query the capabilities of the "
 "virt-resize binary.  Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:503
+#: ../resize/virt-resize.pod:559
 #, no-wrap
 msgid ""
 " $ virt-resize --machine-readable\n"
@@ -22929,33 +23033,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:510 ../sparsify/virt-sparsify.pod:193
+#: ../resize/virt-resize.pod:566 ../sparsify/virt-sparsify.pod:193
 msgid ""
 "A list of features is printed, one per line, and the program exits with "
 "status 0."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:513 ../sparsify/virt-sparsify.pod:196
+#: ../resize/virt-resize.pod:569 ../sparsify/virt-sparsify.pod:196
 msgid ""
 "Secondly use the option in conjunction with other options to make the "
 "regular program output more machine friendly."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:516 ../sparsify/virt-sparsify.pod:199
+#: ../resize/virt-resize.pod:572 ../sparsify/virt-sparsify.pod:199
 msgid "At the moment this means:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:522 ../sparsify/virt-sparsify.pod:205
+#: ../resize/virt-resize.pod:578 ../sparsify/virt-sparsify.pod:205
 msgid ""
 "Progress bar messages can be parsed from stdout by looking for this regular "
 "expression:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:525 ../sparsify/virt-sparsify.pod:208
+#: ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:208
 #, no-wrap
 msgid ""
 " ^[0-9]+/[0-9]+$\n"
@@ -22963,7 +23067,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:529 ../sparsify/virt-sparsify.pod:212
+#: ../resize/virt-resize.pod:585 ../sparsify/virt-sparsify.pod:212
 msgid ""
 "The calling program should treat messages sent to stdout (except for "
 "progress bar messages) as status messages.  They can be logged and/or "
@@ -22971,7 +23075,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:535
+#: ../resize/virt-resize.pod:591
 msgid ""
 "The calling program should treat messages sent to stderr as error messages.  "
 "In addition, virt-resize exits with a non-zero status code if there was a "
@@ -22979,44 +23083,45 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:541
+#: ../resize/virt-resize.pod:597
 msgid ""
 "Versions of the program prior to 1.13.9 did not support the "
 "I<--machine-readable> option and will return an error."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:546
+#: ../resize/virt-resize.pod:602
 msgid "\"Partition 1 does not end on cylinder boundary.\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:548
+#: ../resize/virt-resize.pod:604
 msgid ""
-"Virt-resize aligns partitions to multiples of 64 sectors.  Usually this "
-"means the partitions will not be aligned to the ancient CHS geometry.  "
-"However CHS geometry is meaningless for disks manufactured since the early "
-"1990s, and doubly so for virtual hard drives.  Alignment of partitions to "
-"cylinders is not required by any modern operating system."
+"Virt-resize aligns partitions to multiples of 128 sectors (see the "
+"I<--alignment> parameter).  Usually this means the partitions will not be "
+"aligned to the ancient CHS geometry.  However CHS geometry is meaningless "
+"for disks manufactured since the early 1990s, and doubly so for virtual hard "
+"drives.  Alignment of partitions to cylinders is not required by any modern "
+"operating system."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:555
+#: ../resize/virt-resize.pod:611
 msgid "RESIZING WINDOWS VIRTUAL MACHINES"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:557
+#: ../resize/virt-resize.pod:613
 msgid ""
 "In Windows Vista and later versions, Microsoft switched to using a separate "
 "boot partition.  In these VMs, typically C</dev/sda1> is the boot partition "
-"and C</dev/sda2> is the main (C:) drive.  We have not had any luck resizing "
-"the boot partition.  Doing so seems to break the guest completely.  However "
-"expanding the second partition (ie. C: drive) should work."
+"and C</dev/sda2> is the main (C:) drive.  Resizing the first (boot) "
+"partition causes the bootloader to fail with C<0xC0000225> error.  Resizing "
+"the second partition (ie. C: drive)  should work."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:564
+#: ../resize/virt-resize.pod:620
 msgid ""
 "Windows may initiate a lengthy \"chkdsk\" on first boot after a resize, if "
 "NTFS partitions have been expanded.  This is just a safety check and (unless "
@@ -23024,21 +23129,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:568
+#: ../resize/virt-resize.pod:624
 msgid "GUEST BOOT STUCK AT \"GRUB\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:570
+#: ../resize/virt-resize.pod:626
 msgid ""
 "If a Linux guest does not boot after resizing, and the boot is stuck after "
-"printing C<GRUB> on the console, try reinstalling grub.  This sometimes "
-"happens on older (RHEL 5-era) guests, for reasons we don't fully understand, "
-"although we think is to do with partition alignment."
+"printing C<GRUB> on the console, try reinstalling grub."
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:575
+#: ../resize/virt-resize.pod:629
 #, no-wrap
 msgid ""
 " guestfish -i -a newdisk\n"
@@ -23051,26 +23154,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:582
+#: ../resize/virt-resize.pod:636
 msgid ""
 "For more flexible guest reconfiguration, including if you need to specify "
 "other parameters to grub-install, use L<virt-rescue(1)>."
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:585
+#: ../resize/virt-resize.pod:639
 msgid "ALTERNATIVE TOOLS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:587
+#: ../resize/virt-resize.pod:641
 msgid ""
 "There are several proprietary tools for resizing partitions.  We won't "
 "mention any here."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:590
+#: ../resize/virt-resize.pod:644
 msgid ""
 "L<parted(8)> and its graphical shell gparted can do some types of resizing "
 "operations on disk images.  They can resize and move partitions, but I don't "
@@ -23079,7 +23182,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:595
+#: ../resize/virt-resize.pod:649
 msgid ""
 "L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
 "but at a much lower level.  You will probably end up hand-calculating sector "
@@ -23089,13 +23192,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:615
+#: ../resize/virt-resize.pod:669
 msgid ""
 "L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, "
 "L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, "
 "L<ntfsresize(8)>, L<btrfs(8)>, L<virsh(1)>, L<parted(8)>, L<truncate(1)>, "
 "L<fallocate(1)>, L<grub(8)>, L<grub-install(8)>, L<virt-rescue(1)>, "
-"L<virt-sparsify(1)>, L<http://libguestfs.org/>."
+"L<virt-sparsify(1)>, L<virt-alignment-scan(1)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
