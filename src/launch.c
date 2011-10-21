@@ -76,6 +76,7 @@ static int64_t timeval_diff (const struct timeval *x, const struct timeval *y);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
 static int connect_unix_socket (guestfs_h *g, const char *sock);
 static int qemu_supports (guestfs_h *g, const char *option);
+static char *qemu_drive_param (guestfs_h *g, const struct drive *drv);
 
 #if 0
 static int qemu_supports_re (guestfs_h *g, const pcre *option_regex);
@@ -186,20 +187,8 @@ guestfs__debug_drives (guestfs_h *g)
 
   ret = safe_malloc (g, sizeof (char *) * (count + 1));
 
-  for (i = 0, drv = g->drives; drv; i++, drv = drv->next) {
-    size_t len = 64 + strlen (drv->path) + strlen (drv->iface);
-    if (drv->format) len += strlen (drv->format);
-
-    ret[i] = safe_malloc (g, len);
-
-    snprintf (ret[i], len, "file=%s%s%s%s%s,if=%s",
-              drv->path,
-              drv->readonly ? ",snapshot=on" : "",
-              drv->use_cache_off ? ",cache=off" : "",
-              drv->format ? ",format=" : "",
-              drv->format ? drv->format : "",
-              drv->iface);
-  }
+  for (i = 0, drv = g->drives; drv; i++, drv = drv->next)
+    ret[i] = qemu_drive_param (g, drv);
 
   ret[count] = NULL;
 
@@ -572,25 +561,16 @@ launch_appliance (guestfs_h *g)
     g->cmdline[0] = g->qemu;
 
     /* Add drives */
-    struct drive *i = g->drives;
-    while (i != NULL) {
+    struct drive *drv = g->drives;
+    while (drv != NULL) {
       /* Construct the final -drive parameter. */
-      size_t len = 64 + strlen (i->path) + strlen (i->iface);
-      if (i->format) len += strlen (i->format);
-      char buf[len];
-
-      snprintf (buf, len, "file=%s%s%s%s%s,if=%s",
-                i->path,
-                i->readonly ? ",snapshot=on" : "",
-                i->use_cache_off ? ",cache=off" : "",
-                i->format ? ",format=" : "",
-                i->format ? i->format : "",
-                i->iface);
+      char *buf = qemu_drive_param (g, drv);
 
       add_cmdline (g, "-drive");
       add_cmdline (g, buf);
+      free (buf);
 
-      i = i->next;
+      drv = drv->next;
     }
 
     if (qemu_supports (g, "-nodefconfig"))
@@ -1279,6 +1259,30 @@ is_openable (guestfs_h *g, const char *path, int flags)
   }
   close (fd);
   return 1;
+}
+
+static char *
+qemu_drive_param (guestfs_h *g, const struct drive *drv)
+{
+  size_t len = 64;
+  char *r;
+
+  len += strlen (drv->path);
+  len += strlen (drv->iface);
+  if (drv->format)
+    len += strlen (drv->format);
+
+  r = safe_malloc (g, len);
+
+  snprintf (r, len, "file=%s%s%s%s%s,if=%s",
+            drv->path,
+            drv->readonly ? ",snapshot=on" : "",
+            drv->use_cache_off ? ",cache=off" : "",
+            drv->format ? ",format=" : "",
+            drv->format ? drv->format : "",
+            drv->iface);
+
+  return r;                     /* caller frees */
 }
 
 /* You had to call this function after launch in versions <= 1.0.70,
