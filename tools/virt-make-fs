@@ -423,6 +423,22 @@ eval {
         $partition = "mbr" if $partition eq "";
         $g->part_disk ($dev, $partition);
         $dev = "/dev/sda1";
+
+        # Set the partition type byte if it's MBR and the filesystem
+        # type is one that we know about.
+        my $mbr_id;
+        if ($partition eq "mbr") {
+            if ($type =~ /^v?fat$/) {
+                $mbr_id = 0xb;
+            } elsif ($type eq "ntfs") {
+                $mbr_id = 0x7;
+            } elsif ($type =~ /^ext\d$/) {
+                $mbr_id = 0x83;
+            } elsif ($type eq "minix") {
+                $mbr_id = 0x81;
+            }
+        }
+        $g->part_set_mbr_id ("/dev/sda", 1, $mbr_id) if defined $mbr_id;
     }
 
     print STDERR "creating $type filesystem on $dev ...\n" if $debug;
