@@ -76,6 +76,11 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 %.1: %.pl
 	$(top_builddir)/podwrapper.sh --man $@ $<
 
+# Ensure that the first time we build from git, since guestfs.pod
+# hasn't been built yet, build it.
+guestfs.pod:
+	if [ ! -f guestfs.pod ]; then make -C .. update-po; fi
+
 # XXX Can automake do this properly?
 install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man1
