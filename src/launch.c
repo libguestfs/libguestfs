@@ -233,17 +233,21 @@ guestfs__config (guestfs_h *g,
  * O_DIRECT.  This fails on some filesystem types (notably tmpfs).
  * So we check if we can open the file with or without O_DIRECT,
  * and use cache=off (or not) accordingly.
+ *
+ * NB: This function is only called on the !readonly path.  We must
+ * try to open with O_RDWR to test that the file is readable and
+ * writable here.
  */
 static int
 test_cache_off (guestfs_h *g, const char *filename)
 {
-  int fd = open (filename, O_RDONLY|O_DIRECT);
+  int fd = open (filename, O_RDWR|O_DIRECT);
   if (fd >= 0) {
     close (fd);
     return 1;
   }
 
-  fd = open (filename, O_RDONLY);
+  fd = open (filename, O_RDWR);
   if (fd >= 0) {
     close (fd);
     return 0;
@@ -325,7 +329,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   if (readonly) {
-    if (access (filename, F_OK) == -1) {
+    if (access (filename, R_OK) == -1) {
       perrorf (g, "%s", filename);
       free (format);
       free (iface);
@@ -852,6 +856,13 @@ launch_appliance (guestfs_h *g)
   r = guestfs___accept_from_daemon (g);
   if (r == -1)
     goto cleanup1;
+
+  /* NB: We reach here just because qemu has opened the socket.  It
+   * does not mean the daemon is up until we read the
+   * GUESTFS_LAUNCH_FLAG below.  Failures in qemu startup can still
+   * happen even if we reach here, even early failures like not being
+   * able to open a drive.
+   */
 
   close (g->sock); /* Close the listening socket. */
   g->sock = r; /* This is the accepted data socket. */
