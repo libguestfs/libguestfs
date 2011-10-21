@@ -897,8 +897,8 @@ AC_ARG_ENABLE([erlang],
     AS_HELP_STRING([--disable-erlang], [Disable Erlang language bindings]),
          [],
          [enable_erlang=yes])
-AS_IF([test "x$enable_erlang" != "xno"],
-        [
+# NB: Don't use AS_IF here: it doesn't work.
+if test "x$enable_erlang" != "xno"; then
         ERLANG=
         AC_ERLANG_PATH_ERLC([no])
 
@@ -907,7 +907,7 @@ AS_IF([test "x$enable_erlang" != "xno"],
                                 [AC_MSG_FAILURE([Erlang erl_interface library not installed.  Use --disable-erlang to disable.])])
             AC_ERLANG_SUBST_LIB_DIR
         fi
-        ])
+fi
 AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLANG" != "xno" && test "x$ERLC" != "xno"])
 
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
