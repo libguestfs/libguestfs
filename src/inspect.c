@@ -508,98 +508,6 @@ guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
   return safe_strdup (g, fs->hostname ? : "unknown");
 }
 
-/* Download a guest file to a local temporary file.  The file is
- * cached in the temporary directory, and is not downloaded again.
- *
- * The name of the temporary (downloaded) file is returned.  The
- * caller must free the pointer, but does *not* need to delete the
- * temporary file.  It will be deleted when the handle is closed.
- *
- * Refuse to download the guest file if it is larger than max_size.
- * On this and other errors, NULL is returned.
- *
- * There is actually one cache per 'struct inspect_fs *' in order
- * to handle the case of multiple roots.
- */
-char *
-guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
-                           const char *filename,
-                           const char *basename, int64_t max_size)
-{
-  char *r;
-  int fd;
-  char devfd[32];
-  int64_t size;
-
-  /* Make the basename unique by prefixing it with the fs number. */
-  if (asprintf (&r, "%s/%ld-%s", g->tmpdir, fs - g->fses, basename) == -1) {
-    perrorf (g, "asprintf");
-    return NULL;
-  }
-
-  /* If the file has already been downloaded, return. */
-  if (access (r, R_OK) == 0)
-    return r;
-
-  /* Check size of remote file. */
-  size = guestfs_filesize (g, filename);
-  if (size == -1)
-    /* guestfs_filesize failed and has already set error in handle */
-    goto error;
-  if (size > max_size) {
-    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
-           filename, size);
-    goto error;
-  }
-
-  fd = open (r, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0600);
-  if (fd == -1) {
-    perrorf (g, "open: %s", r);
-    goto error;
-  }
-
-  snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
-
-  if (guestfs_download (g, filename, devfd) == -1) {
-    unlink (r);
-    close (fd);
-    goto error;
-  }
-
-  if (close (fd) == -1) {
-    perrorf (g, "close: %s", r);
-    unlink (r);
-    goto error;
-  }
-
-  return r;
-
- error:
-  free (r);
-  return NULL;
-}
-
-struct inspect_fs *
-guestfs___search_for_root (guestfs_h *g, const char *root)
-{
-  if (g->nr_fses == 0) {
-    error (g, _("no inspection data: call guestfs_inspect_os first"));
-    return NULL;
-  }
-
-  size_t i;
-  struct inspect_fs *fs;
-  for (i = 0; i < g->nr_fses; ++i) {
-    fs = &g->fses[i];
-    if (fs->is_root && STREQ (root, fs->device))
-      return fs;
-  }
-
-  error (g, _("%s: root device not found: only call this function with a root device previously returned by guestfs_inspect_os"),
-         root);
-  return NULL;
-}
-
 #else /* no hivex at compile time */
 
 /* XXX These functions should be in an optgroup. */
@@ -779,4 +687,96 @@ guestfs___feature_available (guestfs_h *g, const char *feature)
   g->error_cb = old_error_cb;
 
   return r == 0 ? 1 : 0;
+}
+
+/* Download a guest file to a local temporary file.  The file is
+ * cached in the temporary directory, and is not downloaded again.
+ *
+ * The name of the temporary (downloaded) file is returned.  The
+ * caller must free the pointer, but does *not* need to delete the
+ * temporary file.  It will be deleted when the handle is closed.
+ *
+ * Refuse to download the guest file if it is larger than max_size.
+ * On this and other errors, NULL is returned.
+ *
+ * There is actually one cache per 'struct inspect_fs *' in order
+ * to handle the case of multiple roots.
+ */
+char *
+guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
+                           const char *filename,
+                           const char *basename, int64_t max_size)
+{
+  char *r;
+  int fd;
+  char devfd[32];
+  int64_t size;
+
+  /* Make the basename unique by prefixing it with the fs number. */
+  if (asprintf (&r, "%s/%ld-%s", g->tmpdir, fs - g->fses, basename) == -1) {
+    perrorf (g, "asprintf");
+    return NULL;
+  }
+
+  /* If the file has already been downloaded, return. */
+  if (access (r, R_OK) == 0)
+    return r;
+
+  /* Check size of remote file. */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    goto error;
+  if (size > max_size) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    goto error;
+  }
+
+  fd = open (r, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0600);
+  if (fd == -1) {
+    perrorf (g, "open: %s", r);
+    goto error;
+  }
+
+  snprintf (devfd, sizeof devfd, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, filename, devfd) == -1) {
+    unlink (r);
+    close (fd);
+    goto error;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", r);
+    unlink (r);
+    goto error;
+  }
+
+  return r;
+
+ error:
+  free (r);
+  return NULL;
+}
+
+struct inspect_fs *
+guestfs___search_for_root (guestfs_h *g, const char *root)
+{
+  if (g->nr_fses == 0) {
+    error (g, _("no inspection data: call guestfs_inspect_os first"));
+    return NULL;
+  }
+
+  size_t i;
+  struct inspect_fs *fs;
+  for (i = 0; i < g->nr_fses; ++i) {
+    fs = &g->fses[i];
+    if (fs->is_root && STREQ (root, fs->device))
+      return fs;
+  }
+
+  error (g, _("%s: root device not found: only call this function with a root device previously returned by guestfs_inspect_os"),
+         root);
+  return NULL;
 }

@@ -571,6 +571,8 @@ map_registry_disk_blob (guestfs_h *g, const char *blob)
   return ret;
 }
 
+#endif /* defined(HAVE_HIVEX) */
+
 char *
 guestfs___case_sensitive_path_silently (guestfs_h *g, const char *path)
 {
@@ -580,5 +582,3 @@ guestfs___case_sensitive_path_silently (guestfs_h *g, const char *path)
   g->error_cb = old_error_cb;
   return ret;
 }
-
-#endif /* defined(HAVE_HIVEX) */
