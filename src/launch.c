@@ -494,7 +494,19 @@ launch_appliance (guestfs_h *g)
      */
     if (qemu_supports (g, "-machine")) {
       add_cmdline (g, "-machine");
+#if QEMU_MACHINE_TYPE_IS_BROKEN
+      /* Workaround for qemu 0.15: We have to add the '[type=]pc'
+       * since there is no default.  This is not a permanent solution
+       * because this only works on PC-like hardware.  Other platforms
+       * like ppc would need a different machine type.
+       *
+       * This bug is fixed in qemu commit 2645c6dcaf6ea2a51a, and was
+       * not a problem in qemu < 0.15.
+       */
+      add_cmdline (g, "pc,accel=kvm:tcg");
+#else
       add_cmdline (g, "accel=kvm:tcg");
+#endif
     } else {
       /* qemu sometimes needs this option to enable hardware
        * virtualization, but some versions of 'qemu-kvm' will use KVM
