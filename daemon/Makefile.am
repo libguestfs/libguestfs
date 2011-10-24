@@ -42,10 +42,10 @@ noinst_LIBRARIES = libprotocol.a
 libprotocol_a_SOURCES = guestfs_protocol.c guestfs_protocol.h
 libprotocol_a_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 
-guestfs_protocol.c: $(srcdir)/guestfs_protocol.c
+guestfs_protocol.c: $(libsrcdir)/guestfs_protocol.c
 	rm -f $@
 	ln $< $@
-guestfs_protocol.h: $(srcdir)/guestfs_protocol.h
+guestfs_protocol.h: $(libsrcdir)/guestfs_protocol.h
 	rm -f $@
 	ln $< $@
 $(libsrcdir)/guestfs_protocol.c: force
