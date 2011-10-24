@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-20 22:17+0100\n"
+"POT-Creation-Date: 2011-10-24 17:16+0100\n"
 "PO-Revision-Date: 2011-10-19 15:44+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -2906,28 +2906,28 @@ msgstr ""
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:556 src/inspect_fs.c:493 src/inspect_fs.c:537
+#: src/inspect.c:522 src/inspect_apps.c:609
+msgid ""
+"inspection API not available since this version of libguestfs was compiled "
+"without the hivex library"
+msgstr ""
+
+#: src/inspect.c:737 src/inspect_fs.c:493 src/inspect_fs.c:537
 #: src/inspect_fs_unix.c:198 src/inspect_fs_unix.c:658
 #: src/inspect_fs_unix.c:958
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:592
+#: src/inspect.c:773
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:604
+#: src/inspect.c:785
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
-msgstr ""
-
-#: src/inspect.c:614 src/inspect_apps.c:609
-msgid ""
-"inspection API not available since this version of libguestfs was compiled "
-"without the hivex library"
 msgstr ""
 
 #: src/inspect_fs.c:336 src/inspect_fs.c:349
@@ -2954,58 +2954,58 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:133
+#: src/launch.c:134
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ઉપપ્રક્રિયા શરૂ થાય પછી આદેશ વાક્યને બદલી શકાતુ નથી"
 
-#: src/launch.c:214
+#: src/launch.c:203
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: પરિમાણ એ '-' અક્ષર સાથે જ શરૂ થવુ જોઇએ"
 
-#: src/launch.c:228
+#: src/launch.c:217
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: પરિમાણ '%s' ની પરવાનગી આપેલ નથી"
 
-#: src/launch.c:296 src/launch.c:414
+#: src/launch.c:289 src/launch.c:407
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ફાઇલનામ એ ',' (અલ્પવિરામ) અક્ષરને સમાવી શકાતુ નથી"
 
-#: src/launch.c:310 src/launch.c:318
+#: src/launch.c:303 src/launch.c:311
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:433
+#: src/launch.c:426
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:444
+#: src/launch.c:437
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: કામચલાઉ ડિરેક્ટરીને બનાવી શકાતી નથી"
 
-#: src/launch.c:481
+#: src/launch.c:474
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
 
-#: src/launch.c:892
+#: src/launch.c:895
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch નિષ્ફળ, પહેલાનાં ભૂલ સંદેશાઓને જૂઓ"
 
-#: src/launch.c:905
+#: src/launch.c:908
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
-#: src/launch.c:995
+#: src/launch.c:998
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1003
+#: src/launch.c:1006
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1175
+#: src/launch.c:1178
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3014,11 +3014,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1291
+#: src/launch.c:1318
 msgid "qemu has not been launched yet"
 msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
 
-#: src/launch.c:1302
+#: src/launch.c:1329
 msgid "no subprocess to kill"
 msgstr "મારવા માટે ઉપપ્રક્રિયા નથી"
 
@@ -3271,43 +3271,43 @@ msgstr ""
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
-#: tools/virt-make-fs.pl:291
+#: tools/virt-make-fs.pl:293
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs ઇનપુટ આઉટપુટ\n"
 
-#: tools/virt-make-fs.pl:321
+#: tools/virt-make-fs.pl:323
 msgid "unexpected output from 'du' command"
 msgstr ""
 
-#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
-#: tools/virt-make-fs.pl:458
+#: tools/virt-make-fs.pl:335 tools/virt-make-fs.pl:349
+#: tools/virt-make-fs.pl:476
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: અજ્ઞાત ઇનપુટ બંધારણ: {fmt}\n"
 
-#: tools/virt-make-fs.pl:391
+#: tools/virt-make-fs.pl:393
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:406
+#: tools/virt-make-fs.pl:408
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:419
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:442
+#: tools/virt-make-fs.pl:460
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:464
+#: tools/virt-make-fs.pl:482
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:499
+#: tools/virt-make-fs.pl:517
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
