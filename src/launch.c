@@ -473,21 +473,38 @@ launch_appliance (guestfs_h *g)
     if (qemu_supports (g, "-nodefconfig"))
       add_cmdline (g, "-nodefconfig");
 
-    /* qemu sometimes needs this option to enable hardware
-     * virtualization, but some versions of 'qemu-kvm' will use KVM
-     * regardless (even where this option appears in the help text).
-     * It is rumoured that there are versions of qemu where supplying
-     * this option when hardware virtualization is not available will
-     * cause qemu to fail, so we we have to check at least that
-     * /dev/kvm is openable.  That's not reliable, since /dev/kvm
-     * might be openable by qemu but not by us (think: SELinux) in
-     * which case the user would not get hardware virtualization,
-     * although at least shouldn't fail.  A giant clusterfuck with the
-     * qemu command line, again.
-     */
-    if (qemu_supports (g, "-enable-kvm") &&
-        is_openable (g, "/dev/kvm", O_RDWR))
-      add_cmdline (g, "-enable-kvm");
+    if (qemu_supports (g, "-machine")) {
+      add_cmdline (g, "-machine");
+#if QEMU_MACHINE_TYPE_IS_BROKEN
+      /* Workaround for qemu 0.15: We have to add the '[type=]pc'
+       * since there is no default.  This is not a permanent solution
+       * because this only works on PC-like hardware.  Other platforms
+       * like ppc would need a different machine type.
+       *
+       * This bug is fixed in qemu commit 2645c6dcaf6ea2a51a, and was
+       * not a problem in qemu < 0.15.
+       */
+      add_cmdline (g, "pc,accel=kvm:tcg");
+#else
+      add_cmdline (g, "accel=kvm:tcg");
+#endif
+    } else {
+      /* qemu sometimes needs this option to enable hardware
+       * virtualization, but some versions of 'qemu-kvm' will use KVM
+       * regardless (even where this option appears in the help text).
+       * It is rumoured that there are versions of qemu where supplying
+       * this option when hardware virtualization is not available will
+       * cause qemu to fail, so we we have to check at least that
+       * /dev/kvm is openable.  That's not reliable, since /dev/kvm
+       * might be openable by qemu but not by us (think: SELinux) in
+       * which case the user would not get hardware virtualization,
+       * although at least shouldn't fail.  A giant clusterfuck with the
+       * qemu command line, again.
+       */
+      if (qemu_supports (g, "-enable-kvm") &&
+          is_openable (g, "/dev/kvm", O_RDWR))
+        add_cmdline (g, "-enable-kvm");
+    }
 
     /* Newer versions of qemu (from around 2009/12) changed the
      * behaviour of monitors so that an implicit '-monitor stdio' is
