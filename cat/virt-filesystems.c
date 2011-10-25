@@ -75,10 +75,11 @@ static int output = 0;
 #define COLUMN_TYPE               2
 #define COLUMN_VFS_TYPE           4 /* if --filesystems */
 #define COLUMN_VFS_LABEL          8 /* if --filesystems */
-#define COLUMN_SIZE              16 /* bytes, or human-readable if -h */
-#define COLUMN_PARENT_NAME       32 /* only for partitions, LVs */
-#define COLUMN_UUID              64 /* if --uuid */
-#define NR_COLUMNS                7
+#define COLUMN_MBR               16
+#define COLUMN_SIZE              32 /* bytes, or human-readable if -h */
+#define COLUMN_PARENT_NAME       64 /* only for partitions, LVs */
+#define COLUMN_UUID             128 /* if --uuid */
+#define NR_COLUMNS                8
 static int columns;
 
 static char *canonical_device (const char *dev);
@@ -335,6 +336,8 @@ main (int argc, char *argv[])
     }
     if ((output & (OUTPUT_PARTITIONS|OUTPUT_LVS)))
       columns |= COLUMN_PARENT_NAME;
+    if ((output & OUTPUT_PARTITIONS))
+      columns |= COLUMN_MBR;
     if (uuid)
       columns |= COLUMN_UUID;
   }
@@ -373,7 +376,7 @@ static void do_output_vgs (void);
 static void do_output_pvs (void);
 static void do_output_partitions (void);
 static void do_output_blockdevs (void);
-static void write_row (const char *name, const char *type, const char *vfs_type, const char *vfs_label, int64_t size, const char *parent_name, const char *uuid);
+static void write_row (const char *name, const char *type, const char *vfs_type, const char *vfs_label, int mbr_id, int64_t size, const char *parent_name, const char *uuid);
 static void write_row_strings (char **strings, size_t len);
 
 static void
@@ -391,6 +394,8 @@ do_output_title (void)
     headings[len++] = "VFS";
   if ((columns & COLUMN_VFS_LABEL))
     headings[len++] = "Label";
+  if ((columns & COLUMN_MBR))
+    headings[len++] = "MBR";
   if ((columns & COLUMN_SIZE))
     headings[len++] = "Size";
   if ((columns & COLUMN_PARENT_NAME))
@@ -482,7 +487,7 @@ do_output_filesystems (void)
     }
 
     write_row (dev, "filesystem",
-               fses[i+1], vfs_label, size, NULL, vfs_uuid);
+               fses[i+1], vfs_label, -1, size, NULL, vfs_uuid);
 
     free (dev);
     free (vfs_label);
@@ -530,7 +535,7 @@ do_output_lvs (void)
     }
 
     write_row (lvs[i], "lv",
-               NULL, NULL, size, parent_name, uuid);
+               NULL, NULL, -1, size, parent_name, uuid);
 
     free (uuid);
     free (parent_name);
@@ -559,7 +564,7 @@ do_output_vgs (void)
     memcpy (uuid, vgs->val[i].vg_uuid, 32);
     uuid[32] = '\0';
     write_row (name, "vg",
-               NULL, NULL, (int64_t) vgs->val[i].vg_size, NULL, uuid);
+               NULL, NULL, -1, (int64_t) vgs->val[i].vg_size, NULL, uuid);
 
   }
 
@@ -585,12 +590,38 @@ do_output_pvs (void)
     memcpy (uuid, pvs->val[i].pv_uuid, 32);
     uuid[32] = '\0';
     write_row (dev, "pv",
-               NULL, NULL, (int64_t) pvs->val[i].pv_size, NULL, uuid);
+               NULL, NULL, -1, (int64_t) pvs->val[i].pv_size, NULL, uuid);
 
     free (dev);
   }
 
   guestfs_free_lvm_pv_list (pvs);
+}
+
+static int
+get_mbr_id (const char *dev, const char *parent_name)
+{
+  char *parttype = NULL;
+  int mbr_id = -1, partnum;
+
+  DISABLE_GUESTFS_ERRORS_FOR (
+    parttype = guestfs_part_get_parttype (g, parent_name);
+  );
+
+  if (parttype && STREQ (parttype, "msdos")) {
+    DISABLE_GUESTFS_ERRORS_FOR (
+      partnum = guestfs_part_to_partnum (g, dev);
+    );
+    if (partnum >= 0) {
+      DISABLE_GUESTFS_ERRORS_FOR (
+        mbr_id = guestfs_part_get_mbr_id (g, parent_name, partnum);
+      );
+    }
+  }
+
+  free (parttype);
+
+  return mbr_id;
 }
 
 static void
@@ -606,6 +637,7 @@ do_output_partitions (void)
   for (i = 0; parts[i] != NULL; ++i) {
     char *dev, *parent_name = NULL;
     int64_t size = -1;
+    int mbr_id = -1;
 
     dev = canonical_device (parts[i]);
 
@@ -618,13 +650,17 @@ do_output_partitions (void)
       parent_name = guestfs_part_to_dev (g, parts[i]);
       if (parent_name == NULL)
         exit (EXIT_FAILURE);
+
+      if ((columns & COLUMN_MBR))
+        mbr_id = get_mbr_id (parts[i], parent_name);
+
       char *p = canonical_device (parent_name);
       free (parent_name);
       parent_name = p;
     }
 
     write_row (dev, "partition",
-               NULL, NULL, size, parent_name, NULL);
+               NULL, NULL, mbr_id, size, parent_name, NULL);
 
     free (dev);
     free (parent_name);
@@ -657,7 +693,7 @@ do_output_blockdevs (void)
     }
 
     write_row (dev, "device",
-               NULL, NULL, size, NULL, NULL);
+               NULL, NULL, -1, size, NULL, NULL);
 
     free (dev);
     free (devices[i]);
@@ -688,13 +724,14 @@ canonical_device (const char *dev)
 
 static void
 write_row (const char *name, const char *type,
-           const char *vfs_type, const char *vfs_label,
+           const char *vfs_type, const char *vfs_label, int mbr_id,
            int64_t size, const char *parent_name, const char *uuid)
 {
   const char *strings[NR_COLUMNS];
   size_t len = 0;
   char hum[LONGEST_HUMAN_READABLE];
   char num[256];
+  char mbr_id_str[3];
 
   if ((columns & COLUMN_NAME))
     strings[len++] = name;
@@ -704,6 +741,13 @@ write_row (const char *name, const char *type,
     strings[len++] = vfs_type;
   if ((columns & COLUMN_VFS_LABEL))
     strings[len++] = vfs_label;
+  if ((columns & COLUMN_MBR)) {
+    if (mbr_id >= 0) {
+      snprintf (mbr_id_str, sizeof mbr_id_str, "%02x", mbr_id);
+      strings[len++] = mbr_id_str;
+    } else
+      strings[len++] = NULL;
+  }
   if ((columns & COLUMN_SIZE)) {
     if (size >= 0) {
       if (human) {

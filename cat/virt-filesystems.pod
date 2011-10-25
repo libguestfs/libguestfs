@@ -316,6 +316,14 @@ type if one could be detected, eg. C<ext4>.
 If the object has a label (used for identifying and mounting
 filesystems) then this column contains the label.
 
+=item B<MBR>
+
+The partition type byte, displayed as a two digit hexadecimal number.
+A comprehensive list of partition types can be found here:
+L<http://www.win.tue.nl/~aeb/partitions/partition_types-1.html>
+
+This is only applicable for DOS (MBR) partitions.
+
 =item B<Size>
 
 The size of the object in bytes.  If the I<--human> option is used
