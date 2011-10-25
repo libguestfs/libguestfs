@@ -105,7 +105,7 @@ depend: .depend
 
 .depend: $(wildcard *.mli) $(wildcard *.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  sort > $@-t
