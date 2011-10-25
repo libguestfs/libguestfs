@@ -271,7 +271,13 @@ let parttype, parttype_string =
   | _ ->
     error "%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables." infile
 
-(* Build a data structure describing the source disk's partition layout. *)
+(* Build a data structure describing the source disk's partition layout.
+ *
+ * NOTE: For MBR, only primary/extended partitions are tracked here.
+ * Logical partitions are contained within an extended partition, and
+ * we don't track them (they are just copied within the extended
+ * partition).  For the same reason we cannot resize logical partitions.
+ *)
 type partition = {
   p_name : string;               (* Device name, like /dev/sda1. *)
   p_part : G.partition;          (* SOURCE partition data from libguestfs. *)
@@ -289,6 +295,7 @@ and partition_content =
   | ContentUnknown               (* undetermined *)
   | ContentPV of int64           (* physical volume (size of PV) *)
   | ContentFS of string * int64  (* mountable filesystem (FS type, FS size) *)
+  | ContentExtendedPartition     (* MBR extended partition *)
 and partition_operation =
   | OpCopy                       (* copy it as-is, no resizing *)
   | OpIgnore                     (* ignore it (create on target, but don't
@@ -309,10 +316,12 @@ and string_of_partition_content = function
   | ContentUnknown -> "unknown data"
   | ContentPV sz -> sprintf "LVM PV (%Ld bytes)" sz
   | ContentFS (fs, sz) -> sprintf "filesystem %s (%Ld bytes)" fs sz
+  | ContentExtendedPartition -> "extended partition"
 and string_of_partition_content_no_size = function
   | ContentUnknown -> "unknown data"
   | ContentPV _ -> sprintf "LVM PV"
   | ContentFS (fs, _) -> sprintf "filesystem %s" fs
+  | ContentExtendedPartition -> "extended partition"
 
 let get_partition_content =
   let pvs_full = Array.to_list (g#pvs_full ()) in
@@ -341,11 +350,25 @@ let get_partition_content =
     with
       G.Error _ -> ContentUnknown
 
+let is_extended_partition = function
+  | Some (0x05|0x0f) -> true
+  | _ -> false
+
 let partitions : partition list =
   let parts = Array.to_list (g#part_list "/dev/sda") in
 
   if List.length parts = 0 then
     error "the source disk has no partitions";
+
+  (* Filter out logical partitions.  See note above. *)
+  let parts =
+    match parttype with
+    | GPT -> parts
+    | MBR ->
+      List.filter (function
+      | { G.part_num = part_num } when part_num >= 5_l -> false
+      | _ -> true
+      ) parts in
 
   let partitions =
     List.map (
@@ -356,7 +379,9 @@ let partitions : partition list =
         let mbr_id =
           try Some (g#part_get_mbr_id "/dev/sda" part_num)
           with G.Error _ -> None in
-        let typ = get_partition_content name in
+        let typ =
+          if is_extended_partition mbr_id then ContentExtendedPartition
+          else get_partition_content name in
 
         { p_name = name; p_part = part;
           p_bootable = bootable; p_mbr_id = mbr_id; p_type = typ;
@@ -408,7 +433,8 @@ type logvol = {
   lv_type : logvol_content;
   mutable lv_operation : logvol_operation
 }
-and logvol_content = partition_content (* except ContentPV cannot occur *)
+                     (* ContentPV, ContentExtendedPartition cannot occur here *)
+and logvol_content = partition_content
 and logvol_operation =
   | LVOpNone                     (* nothing *)
   | LVOpExpand                   (* expand it *)
@@ -423,7 +449,10 @@ let lvs =
   let lvs = List.map (
     fun name ->
       let typ = get_partition_content name in
-      assert (match typ with ContentPV _ -> false | _ -> true);
+      assert (
+        match typ with ContentPV _ | ContentExtendedPartition -> false
+        | _ -> true
+      );
 
       { lv_name = name; lv_type = typ; lv_operation = LVOpNone }
   ) lvs in
@@ -456,6 +485,7 @@ let can_expand_content =
     | ContentFS (("ntfs"), _) when !ntfs_available -> true
     | ContentFS (("btrfs"), _) when !btrfs_available -> true
     | ContentFS (_, _) -> false
+    | ContentExtendedPartition -> false
   else
     fun _ -> false
 
@@ -468,6 +498,7 @@ let expand_content_method =
     | ContentFS (("ntfs"), _) when !ntfs_available -> NTFSResize
     | ContentFS (("btrfs"), _) when !btrfs_available -> BtrfsFilesystemResize
     | ContentFS (_, _) -> assert false
+    | ContentExtendedPartition -> assert false
   else
     fun _ -> assert false
 
@@ -559,6 +590,9 @@ let mark_partition_for_resize ~option ?(force = false) p newsize =
           error "%s: This partition has contains a %s filesystem which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)"
             name fstype size newsize option
       | ContentFS _ -> ()
+      | ContentExtendedPartition ->
+          error "%s: This extended partition contains logical partitions which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy logical partitions within this partition.  (This error came from '%s' option on the command line.)"
+            name option
     );
 
     p.p_operation <- OpResize newsize
@@ -926,17 +960,7 @@ let partitions =
 let () =
   List.iter (
     fun p ->
-      g#part_add "/dev/sdb" "primary" p.p_target_start p.p_target_end;
-
-      (* Set bootable and MBR IDs *)
-      if p.p_bootable then
-        g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
-
-      (match p.p_mbr_id with
-      | None -> ()
-      | Some mbr_id ->
-        g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
-      );
+      g#part_add "/dev/sdb" "primary" p.p_target_start p.p_target_end
   ) partitions
 
 (* Copy over the data. *)
@@ -962,9 +986,37 @@ let () =
         if not quiet then
           printf "Copying %s ...\n%!" source;
 
-        g#copy_size source target copysize;
+        (match p.p_type with
+         | ContentUnknown | ContentPV _ | ContentFS _ ->
+           g#copy_device_to_device ~size:copysize source target
 
+         | ContentExtendedPartition ->
+           (* You can't just copy an extended partition by name, eg.
+            * source = "/dev/sda2", because the device name only covers
+            * the first 1K of the partition.  Instead, copy the
+            * source bytes from the parent disk (/dev/sda).
+            *)
+           let srcoffset = p.p_part.G.part_start in
+           g#copy_device_to_device ~srcoffset ~size:copysize "/dev/sda" target
+        )
       | _ -> ()
+  ) partitions
+
+(* Set bootable and MBR IDs.  Do this *after* copying over the data,
+ * so that we can magically change the primary partition to an extended
+ * partition if necessary.
+ *)
+let () =
+  List.iter (
+    fun p ->
+      if p.p_bootable then
+        g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
+
+      (match p.p_mbr_id with
+      | None -> ()
+      | Some mbr_id ->
+        g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
+      );
   ) partitions
 
 (* Fix the bootloader if we aligned the first partition. *)

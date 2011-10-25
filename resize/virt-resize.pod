@@ -238,6 +238,27 @@ Similarly, to get non-sparse raw output use:
 (on older systems that don't have the L<fallocate(1)> command use
 C<dd if=/dev/zero of=outdisk bs=1M count=..>)
 
+=head2 LOGICAL PARTITIONS
+
+Logical partitions (a.k.a. C</dev/sda5+> on disks using DOS partition
+tables) cannot be resized.
+
+To understand what is going on, firstly one of the four partitions
+C</dev/sda1-4> will have MBR partition type C<05> or C<0f>.  This is
+called the B<extended partition>.  Use L<virt-filesystems(1)> to see
+the MBR partition type.
+
+Logical partitions live inside the extended partition.
+
+The extended partition can be expanded, but not shrunk (unless you
+force it, which is not advisable).  When the extended partition is
+copied across, all the logical partitions contained inside are copied
+over implicitly.  Virt-resize does not look inside the extended
+partition, so it copies the logical partitions blindly.
+
+You cannot specify a logical partition (C</dev/sda5+>) at all on the
+command line.  Doing so will give an error.
+
 =head1 OPTIONS
 
 =over 4
