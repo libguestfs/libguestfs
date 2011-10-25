@@ -258,6 +258,19 @@ let () =
     error "%s: file is too small to be a disk image (%Ld bytes)"
       outfile outsize
 
+(* Get the source partition type. *)
+type parttype = MBR | GPT        (* Only these are supported by virt-resize. *)
+
+let parttype, parttype_string =
+  let pt = g#part_get_parttype "/dev/sda" in
+  if debug then eprintf "partition table type: %s\n%!" pt;
+
+  match pt with
+  | "msdos" -> MBR, "msdos"
+  | "gpt" -> GPT, "gpt"
+  | _ ->
+    error "%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables." infile
+
 (* Build a data structure describing the source disk's partition layout. *)
 type partition = {
   p_name : string;               (* Device name, like /dev/sda1. *)
@@ -761,10 +774,7 @@ let () =
  * carefully move the backup GPT (and rewrite those references) or
  * recreate the whole partition table from scratch.
  *)
-let g, parttype =
-  let parttype = g#part_get_parttype "/dev/sda" in
-  if debug then eprintf "partition table type: %s\n%!" parttype;
-
+let g =
   (* Try hard to initialize the partition table.  This might involve
    * relaunching another handle.
    *)
@@ -774,7 +784,7 @@ let g, parttype =
   let last_error = ref "" in
   let rec initialize_partition_table g attempts =
     let ok =
-      try g#part_init "/dev/sdb" parttype; true
+      try g#part_init "/dev/sdb" parttype_string; true
       with G.Error error -> last_error := error; false in
     if ok then g, true
     else if attempts > 0 then (
@@ -792,7 +802,7 @@ let g, parttype =
   if not ok then
     error "Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n\nThe underlying error was: %s" !last_error;
 
-  g, parttype
+  g
 
 (* Copy the bootloader across.
  * Don't disturb the partition table that we just wrote.
@@ -807,7 +817,7 @@ let () =
     ignore (g#pwrite_device "/dev/sdb" bootsect 0L);
 
     let start =
-      if parttype <> "gpt" then 512L
+      if parttype <> GPT then 512L
       else
         (* XXX With 4K sectors does GPT just fit more entries in a
          * sector, or does it always use 34 sectors?
