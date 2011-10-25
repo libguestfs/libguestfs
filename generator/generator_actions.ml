@@ -5850,7 +5850,9 @@ removes the partition number, returning the device name
 (eg. \"/dev/sdb\").
 
 The named partition must exist, for example as a string returned
-from C<guestfs_list_partitions>.");
+from C<guestfs_list_partitions>.
+
+See also C<guestfs_part_to_partnum>.");
 
   ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273, [Progress],
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
@@ -6211,6 +6213,20 @@ file C<zdevice>.
 The C<ctype> and optional C<level> parameters have the same meaning
 as in C<guestfs_compress_out>.");
 
+  ("part_to_partnum", (RInt "partnum", [Device "partition"], []), 293, [],
+   [InitPartition, Always, TestOutputInt (
+      [["part_to_partnum"; "/dev/sda1"]], 1);
+    InitEmpty, Always, TestLastFail (
+      [["part_to_partnum"; "/dev/sda"]])],
+   "convert partition name to partition number",
+   "\
+This function takes a partition name (eg. \"/dev/sdb1\") and
+returns the partition number (eg. C<1>).
+
+The named partition must exist, for example as a string returned
+from C<guestfs_list_partitions>.
+
+See also C<guestfs_part_to_dev>.");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

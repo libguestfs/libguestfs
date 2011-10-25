@@ -220,3 +220,28 @@ do_part_to_dev (const char *part)
 
   return r;
 }
+
+int
+do_part_to_partnum (const char *part)
+{
+  int err = 1;
+  size_t n = strlen (part);
+
+  while (n >= 1 && c_isdigit (part[n-1])) {
+    err = 0;
+    n--;
+  }
+
+  if (err) {
+    reply_with_error ("device name is not a partition");
+    return -1;
+  }
+
+  int r;
+  if (sscanf (&part[n], "%d", &r) != 1) {
+    reply_with_error ("could not parse number");
+    return -1;
+  }
+
+  return r;
+}
