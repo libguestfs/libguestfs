@@ -95,6 +95,7 @@ guestfsd_SOURCES = \
 	cmp.c \
 	command.c \
 	compress.c \
+	copy.c \
 	cpmv.c \
 	daemon.h \
 	dd.c \

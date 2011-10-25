@@ -5168,7 +5168,7 @@ See also C<guestfs_version>.
 
 =back");
 
-  ("dd", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"], []), 217, [],
+  ("dd", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"], []), 217, [DeprecatedBy "copy_device_to_device"],
    [InitScratchFS, Always, TestOutputBuffer (
       [["mkdir"; "/dd"];
        ["write"; "/dd/src"; "hello, world"];
@@ -5183,7 +5183,8 @@ example to duplicate a filesystem.
 
 If the destination is a device, it must be as large or larger
 than the source file or device, otherwise the copy will fail.
-This command cannot do partial copies (see C<guestfs_copy_size>).");
+This command cannot do partial copies
+(see C<guestfs_copy_device_to_device>).");
 
   ("filesize", (RInt64 "size", [Pathname "file"], []), 218, [],
    [InitScratchFS, Always, TestOutputInt (
@@ -5276,7 +5277,7 @@ calls to associate logical volumes and volume groups.
 
 See also C<guestfs_vgpvuuids>.");
 
-  ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"], []), 227, [Progress],
+  ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"], []), 227, [Progress; DeprecatedBy "copy_device_to_device"],
    [InitScratchFS, Always, TestOutputBuffer (
       [["mkdir"; "/copy_size"];
        ["write"; "/copy_size/src"; "hello, world"];
@@ -6227,6 +6228,60 @@ The named partition must exist, for example as a string returned
 from C<guestfs_list_partitions>.
 
 See also C<guestfs_part_to_dev>.");
+
+  ("copy_device_to_device", (RErr, [Device "src"; Device "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 294, [Progress],
+   [],
+   "copy from source device to destination device",
+   "\
+The four calls C<guestfs_copy_device_to_device>,
+C<guestfs_copy_device_to_file>,
+C<guestfs_copy_file_to_device>, and
+C<guestfs_copy_file_to_file>
+let you copy from a source (device|file) to a destination
+(device|file).
+
+Partial copies can be made since you can specify optionally
+the source offset, destination offset and size to copy.  These
+values are all specified in bytes.  If not given, the offsets
+both default to zero, and the size defaults to copying as much
+as possible until we hit the end of the source.
+
+The source and destination may be the same object.  However
+overlapping regions may not be copied correctly.
+
+If the destination is a file, it is created if required.  If
+the destination file is not large enough, it is extended.");
+
+  ("copy_device_to_file", (RErr, [Device "src"; Pathname "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 295, [Progress],
+   [],
+   "copy from source device to destination file",
+   "\
+See C<guestfs_copy_device_to_device> for a general overview
+of this call.");
+
+  ("copy_file_to_device", (RErr, [Pathname "src"; Device "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 296, [Progress],
+   [],
+   "copy from source file to destination device",
+   "\
+See C<guestfs_copy_device_to_device> for a general overview
+of this call.");
+
+  ("copy_file_to_file", (RErr, [Pathname "src"; Pathname "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 297, [Progress],
+   [InitScratchFS, Always, TestOutputBuffer (
+      [["mkdir"; "/copyff"];
+       ["write"; "/copyff/src"; "hello, world"];
+       ["copy_file_to_file"; "/copyff/src"; "/copyff/dest"; ""; ""; ""];
+       ["read_file"; "/copyff/dest"]], "hello, world")],
+   "copy from source file to destination file",
+   "\
+See C<guestfs_copy_device_to_device> for a general overview
+of this call.
+
+This is B<not> the function you want for copying files.  This
+is for copying blocks within existing files.  See C<guestfs_cp>,
+C<guestfs_cp_a> and C<guestfs_mv> for general file copying and
+moving functions.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -13,6 +13,7 @@ daemon/checksum.c
 daemon/cmp.c
 daemon/command.c
 daemon/compress.c
+daemon/copy.c
 daemon/cpmv.c
 daemon/dd.c
 daemon/debug.c

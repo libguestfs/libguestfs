@@ -313,21 +313,36 @@ in the table below.
 
 =item B<file> to B<file>
 
-Use L</guestfs_cp> to copy a single file, or
-L</guestfs_cp_a> to copy directories recursively.
+Use L</guestfs_cp> to copy a single file, or L</guestfs_cp_a> to copy
+directories recursively.
 
-=item B<file or device> to B<file or device>
+To copy part of a file (offset and size) use
+L</guestfs_copy_file_to_file>.
 
-Use L</guestfs_dd> which efficiently uses L<dd(1)>
-to copy between files and devices in the guest.
+=item B<file> to B<device>
+
+=item B<device> to B<file>
+
+=item B<device> to B<device>
+
+Use L</guestfs_copy_file_to_device>, L</guestfs_copy_device_to_file>,
+or L</guestfs_copy_device_to_device>.
 
 Example: duplicate the contents of an LV:
 
- guestfs_dd (g, "/dev/VG/Original", "/dev/VG/Copy");
+ guestfs_copy_device_to_device (g,
+         "/dev/VG/Original", "/dev/VG/Copy",
+         /* -1 marks the end of the list of optional parameters */
+         -1);
 
 The destination (C</dev/VG/Copy>) must be at least as large as the
-source (C</dev/VG/Original>).  To copy less than the whole
-source device, use L</guestfs_copy_size>.
+source (C</dev/VG/Original>).  To copy less than the whole source
+device, use the optional C<size> parameter:
+
+ guestfs_copy_device_to_device (g,
+         "/dev/VG/Original", "/dev/VG/Copy",
+         GUESTFS_COPY_DEVICE_TO_DEVICE_SIZE, 10000,
+         -1);
 
 =item B<file on the host> to B<file or device>
 
