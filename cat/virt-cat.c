@@ -29,6 +29,7 @@
 #include <libintl.h>
 
 #include "progname.h"
+#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "options.h"
@@ -43,6 +44,9 @@ int keys_from_stdin = 0;
 int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 1;
+
+static int is_windows (guestfs_h *g, const char *root);
+static char *windows_path (guestfs_h *g, const char *root, const char *filename);
 
 static inline char *
 bad_cast (char const *s)
@@ -241,14 +245,147 @@ main (int argc, char *argv[])
   free_drives (drvs);
 
   unsigned errors = 0;
+  int windows;
+  char *root, **roots;
 
-  while (optind < argc) {
-    if (guestfs_download (g, argv[optind], "/dev/stdout") == -1)
+  /* Get root mountpoint.  See: fish/inspect.c:inspect_mount */
+  roots = guestfs_inspect_get_roots (g);
+  assert (roots);
+  assert (roots[0] != NULL);
+  assert (roots[1] == NULL);
+  root = roots[0];
+  free (roots);
+
+  /* Windows?  Special handling is required. */
+  windows = is_windows (g, root);
+
+  for (; optind < argc; optind++) {
+    char *filename_to_free = NULL;
+    const char *filename = argv[optind];
+
+    if (windows) {
+      filename = filename_to_free = windows_path (g, root, filename);
+      if (filename == NULL) {
+        errors++;
+        continue;
+      }
+    }
+
+    if (guestfs_download (g, filename, "/dev/stdout") == -1)
       errors++;
-    optind++;
+
+    free (filename_to_free);
   }
+
+  free (root);
 
   guestfs_close (g);
 
   exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+}
+
+static int
+is_windows (guestfs_h *g, const char *root)
+{
+  char *type;
+  int w;
+
+  type = guestfs_inspect_get_type (g, root);
+  if (!type)
+    return 0;
+
+  w = STREQ (type, "windows");
+  free (type);
+  return w;
+}
+
+static void mount_drive_letter_ro (char drive_letter, const char *root);
+
+static char *
+windows_path (guestfs_h *g, const char *root, const char *path)
+{
+  char *ret;
+  size_t i;
+
+  /* If there is a drive letter, rewrite the path. */
+  if (c_isalpha (path[0]) && path[1] == ':') {
+    char drive_letter = c_tolower (path[0]);
+    /* This returns the newly allocated string. */
+    mount_drive_letter_ro (drive_letter, root);
+    ret = strdup (path + 2);
+    if (ret == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+  else if (!*path) {
+    ret = strdup ("/");
+    if (ret == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+  else {
+    ret = strdup (path);
+    if (ret == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  /* Blindly convert any backslashes into forward slashes.  Is this good? */
+  for (i = 0; i < strlen (ret); ++i)
+    if (ret[i] == '\\')
+      ret[i] = '/';
+
+  /* If this fails, we want to return NULL. */
+  char *t = guestfs_case_sensitive_path (g, ret);
+  free (ret);
+  ret = t;
+
+  return ret;
+}
+
+static void
+mount_drive_letter_ro (char drive_letter, const char *root)
+{
+  char **drives;
+  char *device;
+  size_t i;
+
+  /* Resolve the drive letter using the drive mappings table. */
+  drives = guestfs_inspect_get_drive_mappings (g, root);
+  if (drives == NULL || drives[0] == NULL) {
+    fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
+
+  device = NULL;
+  for (i = 0; drives[i] != NULL; i += 2) {
+    if (c_tolower (drives[i][0]) == drive_letter && drives[i][1] == '\0') {
+      device = drives[i+1];
+      break;
+    }
+  }
+
+  if (device == NULL) {
+    fprintf (stderr, _("%s: drive '%c:' not found.\n"),
+             program_name, drive_letter);
+    exit (EXIT_FAILURE);
+  }
+
+  /* Unmount current disk and remount device. */
+  if (guestfs_umount_all (g) == -1)
+    exit (EXIT_FAILURE);
+
+  if (guestfs_mount_ro (g, device, "/") == -1)
+    exit (EXIT_FAILURE);
+
+  for (i = 0; drives[i] != NULL; ++i)
+    free (drives[i]);
+  free (drives);
+  /* Don't need to free (device) because that string was in the
+   * drives array.
+   */
 }

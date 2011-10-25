@@ -165,6 +165,46 @@ name as a guest.
 
 For compatibility the old style is still supported.
 
+=head1 WINDOWS PATHS
+
+C<virt-cat> has a limited ability to understand Windows drive letters
+and paths (eg. C<E:\foo\bar.txt>).
+
+If and only if the guest is running Windows then:
+
+=over 4
+
+=item *
+
+Drive letter prefixes like C<C:> are resolved against the
+Windows Registry to the correct filesystem.
+
+=item *
+
+Any backslash (C<\>) characters in the path are replaced
+with forward slashes so that libguestfs can process it.
+
+=item *
+
+The path is resolved case insensitively to locate the file
+that should be displayed.
+
+=back
+
+There are some known shortcomings:
+
+=over 4
+
+=item *
+
+Some NTFS symbolic links may not be followed correctly.
+
+=item *
+
+NTFS junction points that cross filesystems are not followed.
+
+=back
+
 =head1 USING GUESTFISH
 
 L<guestfish(1)> is a more powerful, lower level tool which you can use
