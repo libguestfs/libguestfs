@@ -60,6 +60,18 @@ guestfs_compress_out 1.13.15
 guestfs_compress_out_argv 1.13.15
 guestfs_compress_out_va 1.13.15
 guestfs_config 0.3
+guestfs_copy_device_to_device 1.13.25
+guestfs_copy_device_to_device_argv 1.13.25
+guestfs_copy_device_to_device_va 1.13.25
+guestfs_copy_device_to_file 1.13.25
+guestfs_copy_device_to_file_argv 1.13.25
+guestfs_copy_device_to_file_va 1.13.25
+guestfs_copy_file_to_device 1.13.25
+guestfs_copy_file_to_device_argv 1.13.25
+guestfs_copy_file_to_device_va 1.13.25
+guestfs_copy_file_to_file 1.13.25
+guestfs_copy_file_to_file_argv 1.13.25
+guestfs_copy_file_to_file_va 1.13.25
 guestfs_copy_size 1.0.87
 guestfs_cp 1.0.18
 guestfs_cp_a 1.0.18
@@ -67,6 +79,7 @@ guestfs_create 0.3
 guestfs_dd 1.0.80
 guestfs_debug 1.0.11
 guestfs_debug_cmdline 1.7.4
+guestfs_debug_drives 1.13.22
 guestfs_debug_upload 1.3.5
 guestfs_df 1.0.54
 guestfs_df_h 1.0.54
@@ -313,6 +326,7 @@ guestfs_part_set_bootable 1.0.78
 guestfs_part_set_mbr_id 1.3.2
 guestfs_part_set_name 1.0.78
 guestfs_part_to_dev 1.5.15
+guestfs_part_to_partnum 1.13.25
 guestfs_perrorf 1.0.2
 guestfs_ping_daemon 1.0.18
 guestfs_pread 1.0.77
