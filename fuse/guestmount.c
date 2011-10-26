@@ -1125,11 +1125,52 @@ main (int argc, char *argv[])
   }
 
   /* Check we have the right options. */
-  if (!drvs || !(mps || inspector)) {
-    fprintf (stderr,
-             _("%s: must have at least one -a/-d and at least one -m/-i option\n"),
-             program_name);
-    exit (EXIT_FAILURE);
+  if (!live) {
+    if (!drvs || !(mps || inspector)) {
+      fprintf (stderr,
+               _("%s: must have at least one -a/-d and at least one -m/-i option\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+  } else {
+    size_t count_d = 0, count_other = 0;
+    struct drv *drv;
+
+    if (read_only) {
+      fprintf (stderr,
+               _("%s: --live is not compatible with --ro option\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    if (inspector) {
+      fprintf (stderr,
+               _("%s: --live is not compatible with -i option\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    /* --live: make sure there was one -d option and no -a options */
+    for (drv = drvs; drv; drv = drv->next) {
+      if (drv->type == drv_d)
+        count_d++;
+      else
+        count_other++;
+    }
+
+    if (count_d != 1) {
+      fprintf (stderr,
+               _("%s: with --live, you must use exactly one -d option\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    if (count_other != 0) {
+      fprintf (stderr,
+               _("%s: --live is not compatible with -a option\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
   }
 
   /* We'd better have a mountpoint. */

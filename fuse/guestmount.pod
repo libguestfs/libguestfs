@@ -26,9 +26,9 @@ userspace") to make it appear as a mountable device.
 
 Along with other options, you have to give at least one device (I<-a>
 option) or libvirt domain (I<-d> option), and at least one mountpoint
-(I<-m> option) or use the I<-i> inspection option.  How this works is
-better explained in the L<guestfish(1)> manual page, or by looking at
-the examples below.
+(I<-m> option) or use the I<-i> inspection option or the I<--live>
+option.  How this works is better explained in the L<guestfish(1)>
+manual page, or by looking at the examples below.
 
 FUSE lets you mount filesystems as non-root.  The mountpoint must be
 owned by you, and the filesystem will not be visible to any other
