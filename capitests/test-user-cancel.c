@@ -40,6 +40,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/time.h>
+#include <math.h>
 
 #include <pthread.h>
 
@@ -50,6 +51,7 @@ static const off_t filesize = 1024*1024*1024;
 
 static void remove_test_img (void);
 static void *start_test_thread (void *);
+static off_t random_cancel_posn (void);
 
 struct test_thread_data {
   guestfs_h *g;                /* handle */
@@ -72,7 +74,7 @@ main (int argc, char *argv[])
   int fds[2], r, op_error, op_errno, errors = 0;
   char dev_fd[64];
 
-  srandom (time (NULL));
+  srand48 (time (NULL));
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -136,7 +138,7 @@ main (int argc, char *argv[])
   data.fd = fds[1];
   snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fds[0]);
 
-  data.cancel_posn = random () % (filesize/4);
+  data.cancel_posn = random_cancel_posn ();
 
   /* Create the test thread. */
   r = pthread_create (&test_thread, NULL, start_test_thread, &data);
@@ -197,7 +199,7 @@ main (int argc, char *argv[])
   data.fd = fds[0];
   snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fds[1]);
 
-  data.cancel_posn = random () % (filesize/4);
+  data.cancel_posn = random_cancel_posn ();
 
   /* Create the test thread. */
   r = pthread_create (&test_thread, NULL, start_test_thread, &data);
@@ -273,13 +275,16 @@ start_test_thread (void *datav)
       data->transfer_size += r;
     }
 
-    /* Do user cancellation. */
-    guestfs_user_cancel (data->g);
-
     /* Keep feeding data after the cancellation point for as long as
      * the main thread wants it.
      */
     while (1) {
+      /* Repeatedly assert the cancel flag.  We have to do this because
+       * the guestfs_upload command in the main thread may not have
+       * started yet.
+       */
+      guestfs_user_cancel (data->g);
+
       r = write (data->fd, buffer, sizeof buffer);
       if (r == -1) {
         perror ("test thread: write to pipe after user cancel");
@@ -324,4 +329,43 @@ start_test_thread (void *datav)
   }
 
   return NULL;
+}
+
+static double random_gauss (double mu, double sd);
+
+/* Generate a random cancellation position, but skew it towards
+ * smaller numbers.
+ */
+static off_t
+random_cancel_posn (void)
+{
+  const double mu = 65536;
+  const double sd = 65536 * 4;
+  double r;
+
+  do {
+    r = random_gauss (mu, sd);
+  } while (r <= 0);
+
+  return (off_t) r;
+}
+
+/* Generate a random Gaussian distributed number using the Box-Muller
+ * transformation.  (http://www.taygeta.com/random/gaussian.html)
+ */
+static double
+random_gauss (double mu, double sd)
+{
+  double x1, x2, w, y1;
+
+  do {
+    x1 = 2. * drand48 () - 1.;
+    x2 = 2. * drand48 () - 1.;
+    w = x1 * x1 + x2 * x2;
+  } while (w >= 1.);
+
+  w = sqrt ((-2. * log (w)) / w);
+  y1 = x1 * w;
+  //y2 = x2 * w;
+  return mu + y1 * sd;
 }
