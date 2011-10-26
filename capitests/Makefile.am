@@ -123,7 +123,7 @@ test_user_cancel_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_user_cancel_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/src/libguestfs.la -lm
 
 test_debug_to_file_SOURCES = test-debug-to-file.c
 test_debug_to_file_CFLAGS = \
