@@ -53,17 +53,11 @@ Bugs in NEW or ASSIGNED state are open and waiting for someone to fix.
 737261 NEW https://bugzilla.redhat.com/show_bug.cgi?id=737261
   libguestfs grub-install API needs grub1
 
-744795 NEW https://bugzilla.redhat.com/show_bug.cgi?id=744795
-  guestmount --live is not usable
-
 745576 NEW https://bugzilla.redhat.com/show_bug.cgi?id=745576
   libguestfs (or qemu?) hangs if sparse file runs out of disk space
 
 745606 NEW https://bugzilla.redhat.com/show_bug.cgi?id=745606
   libguestfs: error: part_list: could not parse row from output of parted print command
-
-747290 NEW https://bugzilla.redhat.com/show_bug.cgi?id=747290
-  libguestfs ignores <readonly/> in libvirt XML
 
 563450 NEW https://bugzilla.redhat.com/show_bug.cgi?id=563450
   list-devices returns devices of different types out of order
