@@ -866,19 +866,40 @@ let () =
 
 (* Are we going to align the first partition and fix the bootloader? *)
 let align_first_partition_and_fix_bootloader =
-  (* Bootloaders that we know how to fix. *)
-  let can_fix_boot_loader =
+  (* Bootloaders that we know how to fix:
+   *  - first partition is NTFS, and
+   *  - first partition is bootable, and
+   *  - only one partition (ie. not Win Vista and later), and
+   *  - it's not already aligned to some small value (no point
+   *      moving it around unnecessarily)
+   *)
+  let rec can_fix_boot_loader () =
     match partitions with
-    | { p_type = ContentFS ("ntfs", _); p_bootable = true;
-        p_operation = OpCopy | OpIgnore | OpResize _ } :: _ -> true
+    | [ { p_part = { G.part_start = start };
+          p_type = ContentFS ("ntfs", _);
+          p_bootable = true;
+          p_operation = OpCopy | OpIgnore | OpResize _ } ]
+        when not_aligned_enough start -> true
     | _ -> false
+  and not_aligned_enough start =
+    let alignment = alignment_of start in
+    alignment < 12                      (* < 4K alignment *)
+  and alignment_of = function
+    | 0L -> 64
+    | n when n &^ 1L = 1L -> 0
+    | n -> 1 + alignment_of (n /^ 2L)
   in
 
-  match align_first, can_fix_boot_loader with
+  match align_first, can_fix_boot_loader () with
   | `Never, _
   | `Auto, false -> false
   | `Always, _
   | `Auto, true -> true
+
+let () =
+  if debug then
+    eprintf "align_first_partition_and_fix_bootloader = %b\n%!"
+      align_first_partition_and_fix_bootloader
 
 (* Repartition the target disk. *)
 
