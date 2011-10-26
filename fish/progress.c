@@ -354,4 +354,5 @@ progress_bar_set (struct progress_bar *bar,
 
     fputc ('\n', stdout);
   }
+  fflush (stdout);
 }
