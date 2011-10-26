@@ -167,6 +167,7 @@ guestfs___for_each_disk (guestfs_h *g,
                          virDomainPtr dom,
                          int (*f) (guestfs_h *g,
                                    const char *filename, const char *format,
+                                   int readonly,
                                    void *data),
                          void *data)
 {
@@ -284,9 +285,20 @@ guestfs___for_each_disk (guestfs_h *g,
       format = (char *) xmlNodeListGetString (doc, attr->children, 1);
     }
 
+    /* Get the <readonly/> flag. */
+    xmlXPathObjectPtr xpreadonly;
+
+    xpathCtx->node = nodes->nodeTab[i];
+    xpreadonly = xmlXPathEvalExpression (BAD_CAST "./readonly", xpathCtx);
+    int readonly = 0;
+    if (xpreadonly != NULL &&
+        xpreadonly->nodesetval &&
+        xpreadonly->nodesetval->nodeNr > 0)
+      readonly = 1;
+
     int t;
     if (f)
-      t = f (g, filename, format, data);
+      t = f (g, filename, format, readonly, data);
     else
       t = 0;
 
@@ -294,6 +306,7 @@ guestfs___for_each_disk (guestfs_h *g,
     xmlFree (format);
     xmlXPathFreeObject (xpfilename);
     xmlXPathFreeObject (xpformat);
+    xmlXPathFreeObject (xpreadonly);
 
     if (t == -1)
       goto cleanup;
@@ -320,7 +333,7 @@ guestfs___for_each_disk (guestfs_h *g,
 
 /* This was proposed as an external API, but it's not quite baked yet. */
 
-static int add_disk (guestfs_h *g, const char *filename, const char *format, void *optargs_vp);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *optargs_vp);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
 
 static int
@@ -401,7 +414,8 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
 }
 
 static int
-add_disk (guestfs_h *g, const char *filename, const char *format,
+add_disk (guestfs_h *g,
+          const char *filename, const char *format, int readonly,
           void *optargs_vp)
 {
   struct guestfs_add_drive_opts_argv *optargs = optargs_vp;

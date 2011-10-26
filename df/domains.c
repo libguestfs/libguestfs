@@ -93,7 +93,7 @@ free_domain (struct domain *domain)
 static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n);
 static void add_domains_by_name (virConnectPtr conn, char **names, size_t n);
 static void add_domain (virDomainPtr dom);
-static int add_disk (guestfs_h *g, const char *filename, const char *format, void *domain_vp);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *domain_vp);
 static void multi_df (struct domain *, size_t n);
 
 void
@@ -287,7 +287,8 @@ add_domain (virDomainPtr dom)
 }
 
 static int
-add_disk (guestfs_h *g, const char *filename, const char *format,
+add_disk (guestfs_h *g,
+          const char *filename, const char *format, int readonly,
           void *domain_vp)
 {
   struct domain *domain = domain_vp;
