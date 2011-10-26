@@ -67,6 +67,8 @@ struct guestfs___add_libvirt_dom_argv {
   const char *iface;
 #define GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK (UINT64_C(1)<<2)
   int live;
+#define GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK (UINT64_C(1)<<3)
+  const char *readonlydisk;
 };
 
 static int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
@@ -83,6 +85,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   int readonly;
   int live;
   int allowuuid;
+  const char *readonlydisk;
   const char *iface;
   struct guestfs___add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
@@ -96,6 +99,8 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
          ? optargs->live : 0;
   allowuuid = optargs->bitmask & GUESTFS_ADD_DOMAIN_ALLOWUUID_BITMASK
             ? optargs->allowuuid : 0;
+  readonlydisk = optargs->bitmask & GUESTFS_ADD_DOMAIN_READONLYDISK_BITMASK
+               ? optargs->readonlydisk : NULL;
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -143,6 +148,10 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   if (live) {
     optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK;
     optargs2.live = live;
+  }
+  if (readonlydisk) {
+    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
+    optargs2.readonlydisk = readonlydisk;
   }
 
   r = guestfs___add_libvirt_dom (g, dom, &optargs2);
@@ -333,8 +342,22 @@ guestfs___for_each_disk (guestfs_h *g,
 
 /* This was proposed as an external API, but it's not quite baked yet. */
 
-static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *optargs_vp);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *data);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
+
+enum readonlydisk {
+  readonlydisk_error,
+  readonlydisk_read,
+  readonlydisk_write,
+  readonlydisk_ignore,
+};
+
+struct add_disk_data {
+  int readonly;
+  enum readonlydisk readonlydisk;
+  /* Other args to pass through to add_drive_opts. */
+  struct guestfs_add_drive_opts_argv optargs;
+};
 
 static int
 guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
@@ -345,6 +368,8 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   int readonly;
   const char *iface;
   int live;
+  /* Default for back-compat reasons: */
+  enum readonlydisk readonlydisk = readonlydisk_write;
 
   readonly =
     optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
@@ -355,6 +380,21 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   live =
     optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK
     ? optargs->live : 0;
+
+  if ((optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK)) {
+    if (STREQ (optargs->readonlydisk, "error"))
+      readonlydisk = readonlydisk_error;
+    else if (STREQ (optargs->readonlydisk, "read"))
+      readonlydisk = readonlydisk_read;
+    else if (STREQ (optargs->readonlydisk, "write"))
+      readonlydisk = readonlydisk_write;
+    else if (STREQ (optargs->readonlydisk, "ignore"))
+      readonlydisk = readonlydisk_ignore;
+    else {
+      error (g, _("unknown readonlydisk parameter"));
+      return -1;
+    }
+  }
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -392,21 +432,20 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   }
 
   /* Add the disks. */
-  struct guestfs_add_drive_opts_argv optargs2 = { .bitmask = 0 };
-  if (readonly) {
-    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
-    optargs2.readonly = readonly;
-  }
+  struct add_disk_data data;
+  data.optargs.bitmask = 0;
+  data.readonly = readonly;
+  data.readonlydisk = readonlydisk;
   if (iface) {
-    optargs2.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
-    optargs2.iface = iface;
+    data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
+    data.optargs.iface = iface;
   }
 
   /* Checkpoint the command line around the operation so that either
    * all disks are added or none are added.
    */
   struct drive **cp = guestfs___checkpoint_drives (g);
-  r = guestfs___for_each_disk (g, dom, add_disk, &optargs2);
+  r = guestfs___for_each_disk (g, dom, add_disk, &data);
   if (r == -1)
     guestfs___rollback_drives (g, cp);
 
@@ -415,18 +454,53 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
 
 static int
 add_disk (guestfs_h *g,
-          const char *filename, const char *format, int readonly,
-          void *optargs_vp)
+          const char *filename, const char *format, int readonly_in_xml,
+          void *datavp)
 {
-  struct guestfs_add_drive_opts_argv *optargs = optargs_vp;
+  struct add_disk_data *data = datavp;
+  /* Copy whole struct so we can make local changes: */
+  struct guestfs_add_drive_opts_argv optargs = data->optargs;
+  int readonly, error = 0, skip = 0;
+
+  if (readonly_in_xml) {        /* <readonly/> appears in the XML */
+    if (data->readonly) {       /* asked to add disk read-only */
+      switch (data->readonlydisk) {
+      case readonlydisk_error: readonly = 1; break;
+      case readonlydisk_read: readonly = 1; break;
+      case readonlydisk_write: readonly = 1; break;
+      case readonlydisk_ignore: skip = 1; break;
+      default: abort ();
+      }
+    } else {                    /* asked to add disk for read/write */
+      switch (data->readonlydisk) {
+      case readonlydisk_error: error = 1; break;
+      case readonlydisk_read: readonly = 1; break;
+      case readonlydisk_write: readonly = 0; break;
+      case readonlydisk_ignore: skip = 1; break;
+      default: abort ();
+      }
+    }
+  } else                        /* no <readonly/> in XML */
+    readonly = data->readonly;
+
+  if (skip)
+    return 0;
+
+  if (error) {
+    error (g, _("%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to \"error\""),
+           filename);
+    return -1;
+  }
+
+  optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+  optargs.readonly = readonly;
 
   if (format) {
-    optargs->bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
-    optargs->format = format;
-  } else
-    optargs->bitmask &= ~GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+    optargs.format = format;
+  }
 
-  return guestfs__add_drive_opts (g, filename, optargs);
+  return guestfs__add_drive_opts (g, filename, &optargs);
 }
 
 static int

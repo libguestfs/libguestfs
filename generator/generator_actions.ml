@@ -1097,7 +1097,7 @@ not part of the formal API and can be removed or changed at any time.");
 This returns the internal list of drives.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
-  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"; Bool "allowuuid"]), -1, [FishAlias "domain"],
+  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"; Bool "allowuuid"; String "readonlydisk"]), -1, [FishAlias "domain"],
    [],
    "add the disk(s) from a named libvirt domain",
    "\
@@ -1136,12 +1136,58 @@ I<may> be passed instead of the domain name.  The C<dom> string is
 treated as a UUID first and looked up, and if that lookup fails
 then we treat C<dom> as a name as usual.
 
+The optional C<readonlydisk> parameter controls what we do for
+disks which are marked E<lt>readonly/E<gt> in the libvirt XML.
+Possible values are:
+
+=over 4
+
+=item readonlydisk = \"error\"
+
+If C<readonly> is false:
+
+The whole call is aborted with an error if any disk with
+the E<lt>readonly/E<gt> flag is found.
+
+If C<readonly> is true:
+
+Disks with the E<lt>readonly/E<gt> flag are added read-only.
+
+=item readonlydisk = \"read\"
+
+If C<readonly> is false:
+
+Disks with the E<lt>readonly/E<gt> flag are added read-only.
+Other disks are added read/write.
+
+If C<readonly> is true:
+
+Disks with the E<lt>readonly/E<gt> flag are added read-only.
+
+=item readonlydisk = \"write\" (default)
+
+If C<readonly> is false:
+
+Disks with the E<lt>readonly/E<gt> flag are added read/write.
+
+If C<readonly> is true:
+
+Disks with the E<lt>readonly/E<gt> flag are added read-only.
+
+=item readonlydisk = \"ignore\"
+
+If C<readonly> is true or false:
+
+Disks with the E<lt>readonly/E<gt> flag are skipped.
+
+=back
+
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
 
 (*
 This interface is not quite baked yet. -- RWMJ 2010-11-11
-  ("add_libvirt_dom", (RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"]), -1, [NotInFish],
+  ("add_libvirt_dom", (RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"; String "readonlydisk"]), -1, [NotInFish],
    [],
    "add the disk(s) from a libvirt domain",
    "\
@@ -1170,6 +1216,10 @@ it sees a suitable E<lt>channelE<gt> element in the libvirt
 XML definition.  The default (if the flag is omitted) is never
 to try.  See L<guestfs(3)/ATTACHING TO RUNNING DAEMONS> for more
 information.
+
+The optional C<readonlydisk> parameter controls what we do for
+disks which are marked E<lt>readonly/E<gt> in the libvirt XML.
+See C<guestfs_add_domain> for possible values.
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>.");
