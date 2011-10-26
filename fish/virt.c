@@ -51,5 +51,8 @@ add_libvirt_drives (const char *guest)
   optargs.bitmask |= GUESTFS_ADD_DOMAIN_ALLOWUUID_BITMASK;
   optargs.allowuuid = 1;
 
+  optargs.bitmask |= GUESTFS_ADD_DOMAIN_READONLYDISK_BITMASK;
+  optargs.readonlydisk = "read";
+
   return guestfs_add_domain_argv (g, guest, &optargs);
 }
