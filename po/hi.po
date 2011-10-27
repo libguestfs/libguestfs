@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2011-10-26 21:10+0100\n"
-"PO-Revision-Date: 2011-10-19 15:44+0000\n"
+"PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -557,24 +557,20 @@ msgid "add qemu parameters"
 msgstr "qemu पैरामीटर जोड़ें"
 
 #: fish/cmds.c:2778
-#, fuzzy
 msgid "copy from source device to destination device"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr ""
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "copy from source device to destination file"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr ""
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "copy from source file to destination device"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr ""
 
 #: fish/cmds.c:2781
-#, fuzzy
 msgid "copy from source file to destination file"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr ""
 
 #: fish/cmds.c:2782
 msgid "copy local files or directories into an image"
@@ -1339,9 +1335,8 @@ msgid "convert partition name to device name"
 msgstr ""
 
 #: fish/cmds.c:2989
-#, fuzzy
 msgid "convert partition name to partition number"
-msgstr "कोई रिक्त विभाजन सारणी बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:2990
 msgid "ping the guest daemon"

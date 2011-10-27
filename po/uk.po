@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2011-10-26 21:10+0100\n"
-"PO-Revision-Date: 2011-10-19 15:44+0000\n"
+"PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -47,6 +47,22 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: перевірка вирівнювання розділів віртуальної машини\n"
+"© Red Hat Inc., 2011\n"
+"Використання:\n"
+"  %s [--параметри] -d назва_домену\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+"Параметри:\n"
+"  -a|--add образ       Додати образ\n"
+"  -c|--connect uri     Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати коротку довідку\n"
+"  -q|--quiet           Не виводити повідомлень, лише код виходу\n"
+"  -v|--verbose         Режим докладних повідомлень\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -x                   Трасувати виклики API libguestfs\n"
+"З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
 #: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:141
@@ -66,11 +82,11 @@ msgstr "%s: невідомий довгий запис параметра: %s (%
 
 #: align/scan.c:269
 msgid "alignment < 4K"
-msgstr ""
+msgstr "вирівнювання < 4кБ"
 
 #: align/scan.c:274
 msgid "alignment < 64K"
-msgstr ""
+msgstr "вирівнювання < 64кБ"
 
 #: cat/virt-cat.c:65
 #, c-format
@@ -686,35 +702,31 @@ msgstr "виконати команду, повернути виведені р�
 
 #: fish/cmds.c:2775
 msgid "output compressed device"
-msgstr ""
+msgstr "вивести на пристрій зі стисканням"
 
 #: fish/cmds.c:2776
 msgid "output compressed file"
-msgstr ""
+msgstr "вивести до файла зі стисканням"
 
 #: fish/cmds.c:2777
 msgid "add qemu parameters"
 msgstr "додати параметри qemu"
 
 #: fish/cmds.c:2778
-#, fuzzy
 msgid "copy from source device to destination device"
-msgstr "копіювати з джерела до призначення за допомогою dd"
+msgstr ""
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "copy from source device to destination file"
-msgstr "копіювати з джерела до призначення за допомогою dd"
+msgstr ""
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "copy from source file to destination device"
-msgstr "копіювати з джерела до призначення за допомогою dd"
+msgstr ""
 
 #: fish/cmds.c:2781
-#, fuzzy
 msgid "copy from source file to destination file"
-msgstr "копіювати з джерела до призначення за допомогою dd"
+msgstr ""
 
 #: fish/cmds.c:2782
 msgid "copy local files or directories into an image"
@@ -752,11 +764,8 @@ msgstr ""
 "використання)"
 
 #: fish/cmds.c:2790
-#, fuzzy
 msgid "debug the drives (internal use only)"
-msgstr ""
-"виконати діагностичну перевірку командного рядка QEMU (лише для внутрішнього "
-"використання)"
+msgstr "діагностика дисків (лише для внутрішнього використання)"
 
 #: fish/cmds.c:2791
 msgid "upload a file to the appliance (internal use only)"
@@ -928,7 +937,7 @@ msgstr "отримати значення прапорця вмикання SELi
 
 #: fish/cmds.c:2836
 msgid "get number of virtual CPUs in appliance"
-msgstr ""
+msgstr "отримати дані щодо кількості віртуальних процесорів на пристрої"
 
 #: fish/cmds.c:2837
 msgid "get the current state"
@@ -968,7 +977,7 @@ msgstr "розгорнути адресу каталогу з шаблонами
 
 #: fish/cmds.c:2848
 msgid "install GRUB 1"
-msgstr ""
+msgstr "встановити GRUB 1"
 
 #: fish/cmds.c:2849
 msgid "return first 10 lines of a file"
@@ -1508,9 +1517,8 @@ msgid "convert partition name to device name"
 msgstr "перетворити назву розділу на назву пристрою"
 
 #: fish/cmds.c:2989
-#, fuzzy
 msgid "convert partition name to partition number"
-msgstr "перетворити назву розділу на назву пристрою"
+msgstr ""
 
 #: fish/cmds.c:2990
 msgid "ping the guest daemon"
@@ -1681,7 +1689,7 @@ msgstr ""
 
 #: fish/cmds.c:3033
 msgid "set number of virtual CPUs in appliance"
-msgstr ""
+msgstr "встановити кількість віртуальних процесорів на пристрої"
 
 #: fish/cmds.c:3034
 msgid "enable or disable command traces"
@@ -1697,7 +1705,7 @@ msgstr "встановити значення контексту захисту 
 
 #: fish/cmds.c:3037
 msgid "set an environment variable"
-msgstr ""
+msgstr "встановити змінну середовища"
 
 #: fish/cmds.c:3039 fish/cmds.c:3040
 msgid "create partitions on a block device"
@@ -1849,7 +1857,7 @@ msgstr "демонтувати всі файлові системи"
 
 #: fish/cmds.c:3079
 msgid "unset an environment variable"
-msgstr ""
+msgstr "скасувати визначення змінної середовища"
 
 #: fish/cmds.c:3080
 msgid "upload a file from the local machine"
@@ -2527,7 +2535,7 @@ msgstr ""
 #: fish/fish.c:1197
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
-msgstr ""
+msgstr "%s:%d: libguestfs: помилка: %s\n"
 
 #: fish/fish.c:1353
 #, c-format
@@ -2889,11 +2897,15 @@ msgstr "reopen: guestfs_create: не вдалося створити елеме�
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
 msgstr ""
+"скористайтеся командою «%s ЗМІННА значення» для встановлення змінної "
+"середовища\n"
 
 #: fish/setenv.c:56
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
 msgstr ""
+"скористайтеся командою «%s ЗМІННА», щоб скасувати визначення змінної "
+"середовища\n"
 
 #: fish/supported.c:66
 msgid "yes"
@@ -3228,16 +3240,38 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: запуск оболонки відновлення на віртуальній машині\n"
+"© Red Hat Inc., 2009–2010\n"
+"Використання:\n"
+"  %s [--параметри] -d назва-домену\n"
+"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+"Параметри:\n"
+"  -a|--add образ       Додати образ\n"
+"  --append пар_ядра    Додати параметри запуску ядра\n"
+"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+"  --help               Показати коротку довідку\n"
+"  -m|--memsize МБ      Вказати розмір пам’яті у мегабайтах\n"
+"  --network            Увімкнути мережу\n"
+"  -r|--ro              Доступ у режимі лише читання\n"
+"  --selinux            Увімкнути SELinux\n"
+"  --smp N              Увімкнути SMP з N >= 2 віртуальних процесорів\n"
+"  -v|--verbose         Докладні повідомлення\n"
+"  -V|--version         Показати дані щодо версії і завершити роботу\n"
+"  -w|--rw              Змонтувати у режимі читання-запису\n"
+"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
+"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
 #: rescue/virt-rescue.c:162
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
-msgstr ""
+msgstr "%s: не вдалося обробити параметр --smp «%s»\n"
 
 #: rescue/virt-rescue.c:167
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
-msgstr ""
+msgstr "%s: значенням параметра --smp «%s» має бути число >= 1\n"
 
 #: rescue/virt-rescue.c:195
 #, c-format
@@ -3460,6 +3494,11 @@ msgid ""
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
+"помилка команди: %s\n"
+"\n"
+"Якщо qemu зберігається у нестандартному каталозі, спробуйте\n"
+"встановити відповідне значення змінної середовища LIBGUESTFS_QEMU.\n"
+"Крім того, вище можна знайти повідомлення про помилки."
 
 #: src/launch.c:1318
 msgid "qemu has not been launched yet"

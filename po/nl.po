@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2011-10-26 21:10+0100\n"
-"PO-Revision-Date: 2011-10-19 15:44+0000\n"
+"PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
 "Language: nl\n"
@@ -48,6 +48,22 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: check uitlijning van virtuele machine partities\n"
+"Copyright (C) 2011 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] -d domnaam\n"
+"  %s [--opties] -a disk.img [-a disk.img ...]\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    Voegen schijven van libvirt gast toe\n"
+"  --format[=raw|..]    Forceer schijfformaat voor -a optie\n"
+"  --help               Toon korte hulp\n"
+"  -q|--quiet           Geen output, alleen exit code\n"
+"  -v|--verbose         Breedsprakige boodschapen\n"
+"  -V|--version         Toon versie en sluit af\n"
+"  -x                   Traceer libguestfs API aanroepen\n"
+"Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
 #: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:141
@@ -67,11 +83,11 @@ msgstr "%s: onbekende lange optie: %s (%d)\n"
 
 #: align/scan.c:269
 msgid "alignment < 4K"
-msgstr ""
+msgstr "uitlijning < 4K"
 
 #: align/scan.c:274
 msgid "alignment < 64K"
-msgstr ""
+msgstr "uitlijning < 64K"
 
 #: cat/virt-cat.c:65
 #, c-format
@@ -674,35 +690,31 @@ msgstr "voer een opdracht uit, regels worden teruggegeven"
 
 #: fish/cmds.c:2775
 msgid "output compressed device"
-msgstr ""
+msgstr "output gecomprimeerd apparaat"
 
 #: fish/cmds.c:2776
 msgid "output compressed file"
-msgstr ""
+msgstr "output gecomprimeerd bestand"
 
 #: fish/cmds.c:2777
 msgid "add qemu parameters"
 msgstr "voeg qemu parameters toe"
 
 #: fish/cmds.c:2778
-#, fuzzy
 msgid "copy from source device to destination device"
-msgstr "kopieer van bron naar bestemming met dd"
+msgstr ""
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "copy from source device to destination file"
-msgstr "kopieer van bron naar bestemming met dd"
+msgstr ""
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "copy from source file to destination device"
-msgstr "kopieer van bron naar bestemming met dd"
+msgstr ""
 
 #: fish/cmds.c:2781
-#, fuzzy
 msgid "copy from source file to destination file"
-msgstr "kopieer van bron naar bestemming met dd"
+msgstr ""
 
 #: fish/cmds.c:2782
 msgid "copy local files or directories into an image"
@@ -737,9 +749,8 @@ msgid "debug the QEMU command line (internal use only)"
 msgstr "debug de QEMU commando-regel (alleen voor intern gebruik)"
 
 #: fish/cmds.c:2790
-#, fuzzy
 msgid "debug the drives (internal use only)"
-msgstr "debug de QEMU commando-regel (alleen voor intern gebruik)"
+msgstr "debug de stations (alleen voor intern gebruik)"
 
 #: fish/cmds.c:2791
 msgid "upload a file to the appliance (internal use only)"
@@ -910,7 +921,7 @@ msgstr "verkrijg SELinux aanzetten vlag"
 
 #: fish/cmds.c:2836
 msgid "get number of virtual CPUs in appliance"
-msgstr ""
+msgstr "verkrijg aantal virtuele CPU's in toepassing"
 
 #: fish/cmds.c:2837
 msgid "get the current state"
@@ -950,7 +961,7 @@ msgstr "expandeer een wildcard pad"
 
 #: fish/cmds.c:2848
 msgid "install GRUB 1"
-msgstr ""
+msgstr "installeer GRUB 1"
 
 #: fish/cmds.c:2849
 msgid "return first 10 lines of a file"
@@ -1473,9 +1484,8 @@ msgid "convert partition name to device name"
 msgstr "converteer partitie naam naar apparaat naam"
 
 #: fish/cmds.c:2989
-#, fuzzy
 msgid "convert partition name to partition number"
-msgstr "converteer partitie naam naar apparaat naam"
+msgstr ""
 
 #: fish/cmds.c:2990
 msgid "ping the guest daemon"
@@ -1645,7 +1655,7 @@ msgstr "zet SELinux aan of uit bij opstarten van het toestel"
 
 #: fish/cmds.c:3033
 msgid "set number of virtual CPUs in appliance"
-msgstr ""
+msgstr "stel aantal virtuele CPU's in toepassing in"
 
 #: fish/cmds.c:3034
 msgid "enable or disable command traces"
@@ -1661,7 +1671,7 @@ msgstr "stel SELinux beveiliging context in"
 
 #: fish/cmds.c:3037
 msgid "set an environment variable"
-msgstr ""
+msgstr "stel een omgevingsvariabele in"
 
 #: fish/cmds.c:3039 fish/cmds.c:3040
 msgid "create partitions on a block device"
@@ -1810,7 +1820,7 @@ msgstr "koppel alle bestandssystemen af"
 
 #: fish/cmds.c:3079
 msgid "unset an environment variable"
-msgstr ""
+msgstr "verwijdereen omgevingsvariabele"
 
 #: fish/cmds.c:3080
 msgid "upload a file from the local machine"
@@ -2481,7 +2491,7 @@ msgstr ""
 #: fish/fish.c:1197
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
-msgstr ""
+msgstr "%s:%d: libguestfs: fout: %s\n"
 
 #: fish/fish.c:1353
 #, c-format
@@ -2831,12 +2841,12 @@ msgstr "reopen: guestfs_create: hendel aanmaken mislukte\n"
 #: fish/setenv.c:34
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
-msgstr ""
+msgstr "gebruik '%s VAR waarde' om een omgevingsvariabele in te stellen\n"
 
 #: fish/setenv.c:56
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
-msgstr ""
+msgstr "gebruik '%s VAR' om een omgevingsvariabele te verwijderen\n"
 
 #: fish/supported.c:66
 msgid "yes"
@@ -3167,16 +3177,38 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: Draai een redding shell op een virtuele machine\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] -d domnaam\n"
+"  %s [--opties] -a disk.img [-a disk.img ...]\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --append kernelopts  Voeg kernel opties toe\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    Voeg schijven van libvirt gast toe\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Toon korte hulp\n"
+"  -m|--memsize MB      Stel geheugengrootte in in megabytes\n"
+"  --network            Zet netwerk aan\n"
+"  -r|--ro              Alleen-lezen toegang\n"
+"  --selinux            Zet SELinux aan\n"
+"  --smp N              Zet SMP aan met N >= 2 virtuele CPU's\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Toon versie en sluit af\n"
+"  -w|--rw              Koppel alleen-lezen aan\n"
+"  -x                   Traceer libguestfs API aanroepen\n"
+"Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: rescue/virt-rescue.c:162
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
-msgstr ""
+msgstr "%s: kon --smp parameter '%s' niet ontleden\n"
 
 #: rescue/virt-rescue.c:167
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
-msgstr ""
+msgstr "%s: --smp parameter '%s' moet >= 1 zijn\n"
 
 #: rescue/virt-rescue.c:195
 #, c-format
@@ -3390,6 +3422,12 @@ msgid ""
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
+"commando mislukte: %s\n"
+"\n"
+"Als qemu zich op een niet standaard pad bevindt, probeer dan de "
+"LIBGUESTFS_QEMU\n"
+"omgevingsvariabele in te stellen.  Er kunnen hierboven ook fouten afgedrukt "
+"worden."
 
 #: src/launch.c:1318
 msgid "qemu has not been launched yet"

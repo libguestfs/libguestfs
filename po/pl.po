@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2011-10-26 21:10+0100\n"
-"PO-Revision-Date: 2011-10-19 15:44+0000\n"
+"PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
 "Language: pl\n"
@@ -48,6 +48,22 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: sprawdza wyrównanie partycji maszyny wirtualnej\n"
+"Copyright (C) 2011 Red Hat Inc.\n"
+"Użycie:\n"
+"  %s [--opcje] -d nazwa_dom\n"
+"  %s [--opcje] -a dysk.img [-a dysk.img...]\n"
+"Opcje:\n"
+"  -a|--add image       Dodaje obraz\n"
+"  -c|--connect uri     Określa adres URI biblioteki libvirt dla opcji -d\n"
+"  -d|--domain gość     Dodaje dyski z gościa libvirt\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+"  --help               Wyświetla krótką pomoc\n"
+"  -q|--quiet           Bez wyświetlania, tylko kod wyjścia\n"
+"  -v|--verbose         Więcej komunikatów\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
+"  -x                   Śledzi wywołania API biblioteki libguestfs\n"
+"Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
 #: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:141
@@ -67,11 +83,11 @@ msgstr "%s: nieznana długa opcja: %s (%d)\n"
 
 #: align/scan.c:269
 msgid "alignment < 4K"
-msgstr ""
+msgstr "wyrównanie < 4K"
 
 #: align/scan.c:274
 msgid "alignment < 64K"
-msgstr ""
+msgstr "wyrównanie < 64K"
 
 #: cat/virt-cat.c:65
 #, c-format
@@ -679,35 +695,31 @@ msgstr "wykonuje polecenie, zwracając wiersze"
 
 #: fish/cmds.c:2775
 msgid "output compressed device"
-msgstr ""
+msgstr "wyświetla skompresowane urządzenie"
 
 #: fish/cmds.c:2776
 msgid "output compressed file"
-msgstr ""
+msgstr "wyświetla skompresowany plik"
 
 #: fish/cmds.c:2777
 msgid "add qemu parameters"
 msgstr "dodaje parametry QEMU"
 
 #: fish/cmds.c:2778
-#, fuzzy
 msgid "copy from source device to destination device"
-msgstr "kopiuje ze źródła do celu używając dd"
+msgstr ""
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "copy from source device to destination file"
-msgstr "kopiuje ze źródła do celu używając dd"
+msgstr ""
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "copy from source file to destination device"
-msgstr "kopiuje ze źródła do celu używając dd"
+msgstr ""
 
 #: fish/cmds.c:2781
-#, fuzzy
 msgid "copy from source file to destination file"
-msgstr "kopiuje ze źródła do celu używając dd"
+msgstr ""
 
 #: fish/cmds.c:2782
 msgid "copy local files or directories into an image"
@@ -742,9 +754,8 @@ msgid "debug the QEMU command line (internal use only)"
 msgstr "debuguje wiersz poleceń QEMU (tylko do użytku wewnętrznego)"
 
 #: fish/cmds.c:2790
-#, fuzzy
 msgid "debug the drives (internal use only)"
-msgstr "debuguje wiersz poleceń QEMU (tylko do użytku wewnętrznego)"
+msgstr "debuguje napędy (tylko do użytku wewnętrznego)"
 
 #: fish/cmds.c:2791
 msgid "upload a file to the appliance (internal use only)"
@@ -916,7 +927,7 @@ msgstr "uzyskuje flagę włączenia SELinuksa"
 
 #: fish/cmds.c:2836
 msgid "get number of virtual CPUs in appliance"
-msgstr ""
+msgstr "uzyskuje liczbę wirtualnych procesorów w przyrządzie"
 
 #: fish/cmds.c:2837
 msgid "get the current state"
@@ -956,7 +967,7 @@ msgstr "rozwija wieloznaczniki w ścieżkach"
 
 #: fish/cmds.c:2848
 msgid "install GRUB 1"
-msgstr ""
+msgstr "instaluje program GRUB 1"
 
 #: fish/cmds.c:2849
 msgid "return first 10 lines of a file"
@@ -1483,9 +1494,8 @@ msgid "convert partition name to device name"
 msgstr "konwertuje nazwę partycji na nazwę urządzenia"
 
 #: fish/cmds.c:2989
-#, fuzzy
 msgid "convert partition name to partition number"
-msgstr "konwertuje nazwę partycji na nazwę urządzenia"
+msgstr ""
 
 #: fish/cmds.c:2990
 msgid "ping the guest daemon"
@@ -1655,7 +1665,7 @@ msgstr ""
 
 #: fish/cmds.c:3033
 msgid "set number of virtual CPUs in appliance"
-msgstr ""
+msgstr "ustawia liczbę wirtualnych procesorów w przyrządzie"
 
 #: fish/cmds.c:3034
 msgid "enable or disable command traces"
@@ -1671,7 +1681,7 @@ msgstr "ustawia kontekst bezpieczeństwa SELinuksa"
 
 #: fish/cmds.c:3037
 msgid "set an environment variable"
-msgstr ""
+msgstr "ustawia zmienną środowiskową"
 
 #: fish/cmds.c:3039 fish/cmds.c:3040
 msgid "create partitions on a block device"
@@ -1819,7 +1829,7 @@ msgstr "odmontowuje wszystkie systemy plików"
 
 #: fish/cmds.c:3079
 msgid "unset an environment variable"
-msgstr ""
+msgstr "usuwa ustawienie zmiennej środowiskowej"
 
 #: fish/cmds.c:3080
 msgid "upload a file from the local machine"
@@ -2493,7 +2503,7 @@ msgstr ""
 #: fish/fish.c:1197
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
-msgstr ""
+msgstr "%s:%d: libguestfs: błąd: %s\n"
 
 #: fish/fish.c:1353
 #, c-format
@@ -2848,12 +2858,12 @@ msgstr "reopen: guestfs_create: utworzenie programu obsługi nie powiodło się\
 #: fish/setenv.c:34
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
-msgstr ""
+msgstr "używa \"%s VAR wartość\", aby ustawić zmienną środowiskową\n"
 
 #: fish/setenv.c:56
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
-msgstr ""
+msgstr "używa \"%s VAR\", aby usunąć ustawienie zmiennej środowiskowej\n"
 
 #: fish/supported.c:66
 msgid "yes"
@@ -3186,16 +3196,38 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: uruchamia powłokę ratunkową w maszynie wirtualnej\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
+"Użycie:\n"
+"  %s [--opcje] -d nazwa_domeny\n"
+"  %s [--opcje] -a dysk.img [-a dysk.img...]\n"
+"Opcje:\n"
+"  -a|--add obraz       Dodaje obraz\n"
+"  --append opcje_jądra Dołącza opcje jądra\n"
+"  -c|--connect uri     Określa adres URI biblioteki libvirt dla opcji -d\n"
+"  -d|--domain gość     Dodaje dysku z gościa biblioteki libvirt\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+"  --help               Wyświetla krótką pomoc\n"
+"  -m|--memsize MB      Ustawia rozmiar pamięci w megabajtach\n"
+"  --network            Włącza sieć\n"
+"  -r|--ro              Dostęp tylko do odczytu\n"
+"  --selinux            Włącza SELinuksa\n"
+"  --smp N              Włącza SMP za pomocą N >= 2 wirtualnych procesorów\n"
+"  -v|--verbose         Więcej komunikatów\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
+"  -w|--rw              Montuje do odczytu i zapisu\n"
+"  -x                   Śledzi wywołania API biblioteki libguestfs\n"
+"Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #: rescue/virt-rescue.c:162
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
-msgstr ""
+msgstr "%s: nie można przetworzyć parametru \"%s\" opcji --smp\n"
 
 #: rescue/virt-rescue.c:167
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
-msgstr ""
+msgstr "%s: parametr \"%s\" opcji --smp powinien wynosić >= 1\n"
 
 #: rescue/virt-rescue.c:195
 #, c-format
@@ -3419,6 +3451,11 @@ msgid ""
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
+"polecenie nie powiodło się: %s\n"
+"\n"
+"Jeśli qemu jest położone w niestandardowej ścieżce, to należy spróbować\n"
+"ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU. Powyżej mogą zostać\n"
+"wyświetlone błędy."
 
 #: src/launch.c:1318
 msgid "qemu has not been launched yet"

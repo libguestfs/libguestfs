@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2011-10-26 21:10+0100\n"
-"PO-Revision-Date: 2011-10-19 15:44+0000\n"
+"PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
 "mr/)\n"
@@ -630,24 +630,20 @@ msgid "add qemu parameters"
 msgstr "qemu घटके समावेश करा"
 
 #: fish/cmds.c:2778
-#, fuzzy
 msgid "copy from source device to destination device"
-msgstr "dd चा वापर करून स्रोत पासून लक्ष्यमध्ये प्रत बनवा"
+msgstr ""
 
 #: fish/cmds.c:2779
-#, fuzzy
 msgid "copy from source device to destination file"
-msgstr "dd चा वापर करून स्रोत पासून लक्ष्यमध्ये प्रत बनवा"
+msgstr ""
 
 #: fish/cmds.c:2780
-#, fuzzy
 msgid "copy from source file to destination device"
-msgstr "dd चा वापर करून स्रोत पासून लक्ष्यमध्ये प्रत बनवा"
+msgstr ""
 
 #: fish/cmds.c:2781
-#, fuzzy
 msgid "copy from source file to destination file"
-msgstr "dd चा वापर करून स्रोत पासून लक्ष्यमध्ये प्रत बनवा"
+msgstr ""
 
 #: fish/cmds.c:2782
 msgid "copy local files or directories into an image"
@@ -682,9 +678,8 @@ msgid "debug the QEMU command line (internal use only)"
 msgstr "QEMU आदेश ओळ डिबग करा (फक्त आंतरिक वापरसाठी)"
 
 #: fish/cmds.c:2790
-#, fuzzy
 msgid "debug the drives (internal use only)"
-msgstr "QEMU आदेश ओळ डिबग करा (फक्त आंतरिक वापरसाठी)"
+msgstr ""
 
 #: fish/cmds.c:2791
 msgid "upload a file to the appliance (internal use only)"
@@ -1413,9 +1408,8 @@ msgid "convert partition name to device name"
 msgstr "विभाजननाव यांस साधणनावात रूपांतरीत करा"
 
 #: fish/cmds.c:2989
-#, fuzzy
 msgid "convert partition name to partition number"
-msgstr "विभाजननाव यांस साधणनावात रूपांतरीत करा"
+msgstr ""
 
 #: fish/cmds.c:2990
 msgid "ping the guest daemon"
