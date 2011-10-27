@@ -7,20 +7,20 @@ Before you read this:
 
 (2) To see the list of bugs, read 'BUGS'.
 
-(3) To understand libguestfs versioning, read section
-    'LIBGUESTFS VERSION NUMBERS' of guestfs(3) man page.
+(3) To understand libguestfs versioning, read this:
+    http://libguestfs.org/guestfs.3.html#libguestfs_version_numbers
 
 (4) For general "might be good to have" items, see 'TODO'.
 
-For next major stable release (1.14)
+For next major stable release (1.16)
 ------------------------------------
 
-Bugs assigned to 1.14 (put "1.14" in the Devel Whiteboard field in
+Bugs assigned to 1.16 (put "1.16" in the Devel Whiteboard field in
 Bugzilla):
 
-https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.14&component=libguestfs&product=Virtualization%20Tools
+https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.16&component=libguestfs&product=Virtualization%20Tools
 
-Beyond 1.14
+Beyond 1.16
 -----------
 
 * Make 'guestfish --ro' be the default, and get users to use
@@ -30,16 +30,11 @@ Beyond 1.14
   'guestfish --rw' option out there to do this yet.
 
 * Allow alternate methods to start the appliance, including through
-  libvirt and by connecting to an existing appliance.  This was
-  originally planned for 1.10 but we didn't get patches in time.
+  libvirt, by connecting to an existing appliance, and remotely over
+  ssh.  Libvirt integration was originally planned for 1.10 but we
+  didn't get patches in time.
 
-* Deeper and wider support for progress messages.  Many long-running
-  operations in guestfs-browser don't display progress messages, eg.
-  "du", "tar-in/out", because it's hard to estimate the runtime of
-  these commands.
-
-* Better handling of partitions, including MBR extended partitions.
-  Write a new partition handling library to replace parted, and use it
+* Write a new partition handling library to replace parted, and use it
   instead of parted.  (RHBZ#593511, RHBZ#642821).
 
 * Hot plugging of disks using QMP.  This would allow more efficient
