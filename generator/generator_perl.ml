@@ -810,10 +810,71 @@ handlers and threads.
       )
   ) all_functions_sorted;
 
+  pr "=cut\n\n";
+
+  (* Introspection hash. *)
+  pr "use vars qw(%%guestfs_introspection);\n";
+  pr "%%guestfs_introspection = (\n";
+  List.iter (
+    fun (name, (ret, args, optargs), _, _, _, shortdesc, _) ->
+      pr "  \"%s\" => {\n" name;
+      pr "    ret => ";
+      (match ret with
+       | RErr -> pr "'void'"
+       | RInt _ -> pr "'int'"
+       | RBool _ -> pr "'bool'"
+       | RInt64 _ -> pr "'int64'"
+       | RConstString _ -> pr "'const string'"
+       | RConstOptString _ -> pr "'const nullable string'"
+       | RString _ -> pr "'string'"
+       | RStringList _ -> pr "'string list'"
+       | RHashtable _ -> pr "'hash'"
+       | RStruct (_, typ) -> pr "'struct %s'" typ
+       | RStructList (_, typ) -> pr "'struct %s list'" typ
+       | RBufferOut _ -> pr "'buffer'"
+      );
+      pr ",\n";
+      let pr_type i = function
+        | Pathname n -> pr "[ '%s', 'string(path)', %d ]" n i
+        | Device n -> pr "[ '%s', 'string(device)', %d ]" n i
+        | Dev_or_Path n -> pr "[ '%s', 'string(dev_or_path)', %d ]" n i
+        | String n -> pr "[ '%s', 'string', %d ]" n i
+        | FileIn n -> pr "[ '%s', 'string(filename)', %d ]" n i
+        | FileOut n -> pr "[ '%s', 'string(filename)', %d ]" n i
+        | Key n -> pr "[ '%s', 'string(key)', %d ]" n i
+        | BufferIn n -> pr "[ '%s', 'buffer', %d ]" n i
+        | OptString n -> pr "[ '%s', 'nullable string', %d ]" n i
+        | StringList n -> pr "[ '%s', 'string list', %d ]" n i
+        | DeviceList n -> pr "[ '%s', 'string(device) list', %d ]" n i
+        | Bool n -> pr "[ '%s', 'bool', %d ]" n i
+        | Int n -> pr "[ '%s', 'int', %d ]" n i
+        | Int64 n -> pr "[ '%s', 'int64', %d ]" n i
+        | Pointer (t, n) -> pr "[ '%s', 'pointer(%s)', %d ]" n t i
+      in
+      pr "    args => [\n";
+      iteri (fun i arg ->
+        pr "      ";
+        pr_type i arg;
+        pr ",\n"
+      ) args;
+      pr "    ],\n";
+      if optargs <> [] then (
+        pr "    optargs => {\n";
+        iteri (fun i arg ->
+          pr "      %s => " (name_of_argt arg);
+          pr_type i arg;
+          pr ",\n"
+        ) optargs;
+        pr "    },\n";
+      );
+      pr "    name => \"%s\",\n" name;
+      pr "    description => %S,\n" shortdesc;
+      pr "  },\n";
+  ) all_functions_sorted;
+  pr ");\n\n";
+
   (* End of file. *)
   pr "\
-=cut
-
 1;
 
 =back
@@ -834,6 +895,33 @@ class, use the ordinary Perl UNIVERSAL method C<can(METHOD)>
  if (defined (Sys::Guestfs->can (\"set_verbose\"))) {
    print \"\\$h->set_verbose is available\\n\";
  }
+
+Perl does not offer a way to list the arguments of a method, and
+from time to time we may add extra arguments to calls that take
+optional arguments.  For this reason, we provide a global hash
+variable C<%%guestfs_introspection> which contains the arguments
+and their types for each libguestfs method.  The keys of this
+hash are the method names, and the values are an hashref
+containing useful introspection information about the method
+(further fields may be added to this in future).
+
+ use Sys::Guestfs;
+ $Sys::Guestfs::guestfs_introspection{mkfs_opts}
+ => {
+    ret => 'void',                    # return type
+    args => [                         # required arguments
+      [ 'fstype', 'string', 0 ],
+      [ 'device', 'string(device)', 1 ],
+    ],
+    optargs => {                      # optional arguments
+      blocksize => [ 'blocksize', 'int', 0 ],
+      features => [ 'features', 'string', 1 ],
+      inode => [ 'inode', 'int', 2 ],
+      sectorsize => [ 'sectorsize', 'int', 3 ],
+    },
+    name => \"mkfs_opts\",
+    description => \"make a filesystem\",
+  }
 
 To test if particular features are supported by the current
 build, use the L</available> method like the example below.  Note
