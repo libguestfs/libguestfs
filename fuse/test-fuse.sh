@@ -25,6 +25,11 @@ if [ ! -w /dev/fuse ]; then
     exit 0
 fi
 
+if ! setfacl --help >/dev/null 2>&1; then
+    echo "SKIPPING guestmount test, because setfacl is not installed."
+    exit 0
+fi
+
 if [ -z "$top_builddir" ]; then
     echo "$0: error: environment variable \$top_builddir must be set"
     exit 1
