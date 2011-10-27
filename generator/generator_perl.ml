@@ -804,8 +804,6 @@ handlers and threads.
         pr "%s\n\n" longdesc;
         if List.mem ProtocolLimitWarning flags then
           pr "%s\n\n" protocol_limit_warning;
-        if List.mem DangerWillRobinson flags then
-          pr "%s\n\n" danger_will_robinson;
         match deprecation_notice flags with
         | None -> ()
         | Some txt -> pr "%s\n\n" txt

@@ -36,10 +36,6 @@ let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
 
-let danger_will_robinson =
-  "B<This command is dangerous.  Without careful use you
-can easily destroy all your data>."
-
 let deprecation_notice ?(prefix = "") flags =
   try
     let alt =

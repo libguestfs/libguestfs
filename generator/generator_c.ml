@@ -254,8 +254,6 @@ I<The caller must free the returned buffer after use>.\n\n"
           pr "%s\n\n" progress_message;
         if List.mem ProtocolLimitWarning flags then
           pr "%s\n\n" protocol_limit_warning;
-        if List.mem DangerWillRobinson flags then
-          pr "%s\n\n" danger_will_robinson;
         if List.exists (function Key _ -> true | _ -> false) (args@optargs) then
           pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section

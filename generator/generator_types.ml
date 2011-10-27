@@ -207,7 +207,6 @@ type errcode = [ `CannotReturnError | `ErrorIsMinusOne | `ErrorIsNULL ]
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
-  | DangerWillRobinson	  (* flags particularly dangerous commands *)
   | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
   | FishOutput of fish_output_t (* how to display output in guestfish *)
   | NotInFish		  (* do not export via guestfish *)

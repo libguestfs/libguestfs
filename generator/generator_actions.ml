@@ -2257,7 +2257,7 @@ example C<ext3>.");
 
   ("sfdisk", (RErr, [Device "device";
                      Int "cyls"; Int "heads"; Int "sectors";
-                     StringList "lines"], []), 43, [DangerWillRobinson; DeprecatedBy "part_add"],
+                     StringList "lines"], []), 43, [DeprecatedBy "part_add"],
    [],
    "create partitions on a block device",
    "\
@@ -2358,7 +2358,7 @@ This unmounts all mounted filesystems.
 
 Some internal mounts are not unmounted by this call.");
 
-  ("lvm_remove_all", (RErr, [], []), 48, [DangerWillRobinson; Optional "lvm2"],
+  ("lvm_remove_all", (RErr, [], []), 48, [Optional "lvm2"],
    [],
    "remove all LVM LVs, VGs and PVs",
    "\
@@ -3371,7 +3371,7 @@ volume to match the new size of the underlying device.");
 
   ("sfdisk_N", (RErr, [Device "device"; Int "partnum";
                        Int "cyls"; Int "heads"; Int "sectors";
-                       String "line"], []), 99, [DangerWillRobinson; DeprecatedBy "part_add"],
+                       String "line"], []), 99, [DeprecatedBy "part_add"],
    [],
    "modify a single partition on a block device",
    "\
@@ -3617,7 +3617,7 @@ It is just a wrapper around the C L<glob(3)> function
 with flags C<GLOB_MARK|GLOB_BRACE>.
 See that manual page for more details.");
 
-  ("scrub_device", (RErr, [Device "device"], []), 114, [DangerWillRobinson; Optional "scrub"],
+  ("scrub_device", (RErr, [Device "device"], []), 114, [Optional "scrub"],
    [InitNone, Always, TestRun (	(* use /dev/sdc because it's smaller *)
       [["scrub_device"; "/dev/sdc"]])],
    "scrub (securely wipe) a device",
@@ -3996,7 +3996,7 @@ This function is primarily intended for use by programs.  To
 get a simple list of names, use C<guestfs_ls>.  To get a printable
 directory for human consumption, use C<guestfs_ll>.");
 
-  ("sfdiskM", (RErr, [Device "device"; StringList "lines"], []), 139, [DangerWillRobinson; DeprecatedBy "part_add"],
+  ("sfdiskM", (RErr, [Device "device"; StringList "lines"], []), 139, [DeprecatedBy "part_add"],
    [],
    "create partitions on a block device",
    "\
@@ -5059,7 +5059,7 @@ backwards from the end of the disk (C<-1> is the last sector).
 Creating a partition which covers the whole disk is not so easy.
 Use C<guestfs_part_disk> to do that.");
 
-  ("part_disk", (RErr, [Device "device"; String "parttype"], []), 210, [DangerWillRobinson],
+  ("part_disk", (RErr, [Device "device"; String "parttype"], []), 210, [],
    [InitEmpty, Always, TestRun (
       [["part_disk"; "/dev/sda"; "mbr"]]);
     InitEmpty, Always, TestRun (
@@ -5341,7 +5341,7 @@ or file C<src> to another destination device or file C<dest>.
 Note this will fail if the source is too short or if the destination
 is not large enough.");
 
-  ("zero_device", (RErr, [Device "device"], []), 228, [DangerWillRobinson; Progress],
+  ("zero_device", (RErr, [Device "device"], []), 228, [Progress],
    [InitBasicFSonLVM, Always, TestRun (
       [["zero_device"; "/dev/VG/LV"]])],
    "write zeroes to an entire device",
@@ -5760,7 +5760,7 @@ C<device> parameter must be the name of the LUKS mapping
 device (ie. C</dev/mapper/mapname>) and I<not> the name
 of the underlying block device.");
 
-  ("luks_format", (RErr, [Device "device"; Key "key"; Int "keyslot"], []), 260, [Optional "luks"; DangerWillRobinson],
+  ("luks_format", (RErr, [Device "device"; Key "key"; Int "keyslot"], []), 260, [Optional "luks"],
    [],
    "format a block device as a LUKS encrypted device",
    "\
@@ -5769,7 +5769,7 @@ the device as a LUKS encrypted device.  C<key> is the
 initial key, which is added to key slot C<slot>.  (LUKS
 supports 8 key slots, numbered 0-7).");
 
-  ("luks_format_cipher", (RErr, [Device "device"; Key "key"; Int "keyslot"; String "cipher"], []), 261, [Optional "luks"; DangerWillRobinson],
+  ("luks_format_cipher", (RErr, [Device "device"; Key "key"; Int "keyslot"; String "cipher"], []), 261, [Optional "luks"],
    [],
    "format a block device as a LUKS encrypted device",
    "\

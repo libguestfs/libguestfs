@@ -642,10 +642,6 @@ class GuestFS:
             doc ^ "\n\n" ^ protocol_limit_warning
           else doc in
         let doc =
-          if List.mem DangerWillRobinson flags then
-            doc ^ "\n\n" ^ danger_will_robinson
-          else doc in
-        let doc =
           match deprecation_notice flags with
           | None -> doc
           | Some txt -> doc ^ "\n\n" ^ txt in

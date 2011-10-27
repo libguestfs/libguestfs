@@ -194,7 +194,6 @@ let () =
       List.iter (
         function
         | ProtocolLimitWarning
-        | DangerWillRobinson
         | FishOutput _
         | NotInFish
         | NotInDocs
