@@ -49,7 +49,7 @@ if [ $size_before -lt 310000 ]; then
     exit 1
 fi
 
-if [ $size_after -gt 5000 ]; then
+if [ $size_after -gt 15000 ]; then
     echo "test virt-sparsify: size_after ($size_after) too large"
     echo "sparsification failed"
     exit 1
