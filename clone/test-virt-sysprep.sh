@@ -24,6 +24,11 @@ if [ ! -w /dev/fuse ]; then
     exit 0
 fi
 
+if ! xmlstarlet --help >/dev/null 2>&1; then
+    echo "SKIPPING virt-sysprep test, because xmlstarlet is not installed."
+    exit 0
+fi
+
 rm -f test.img guestfish
 
 qemu-img create -f qcow2 -o backing_file=../images/fedora.img test.img
