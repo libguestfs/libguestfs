@@ -229,14 +229,29 @@ data combined, and the two blocks written back (4x I/O).
 New versions of the Linux kernel expose the physical and logical block
 size, and minimum and recommended I/O size.
 
-For a typical hard drive with 512 byte sectors:
+For a typical consumer hard drive with 512 byte sectors:
 
+ $ cat /sys/block/sda/queue/hw_sector_size
+ 512
  $ cat /sys/block/sda/queue/physical_block_size
  512
  $ cat /sys/block/sda/queue/logical_block_size
  512
  $ cat /sys/block/sda/queue/minimum_io_size
  512
+ $ cat /sys/block/sda/queue/optimal_io_size
+ 0
+
+For a new consumer hard drive with 4Kbyte sectors:
+
+ $ cat /sys/block/sda/queue/hw_sector_size
+ 4096
+ $ cat /sys/block/sda/queue/physical_block_size
+ 4096
+ $ cat /sys/block/sda/queue/logical_block_size
+ 4096
+ $ cat /sys/block/sda/queue/minimum_io_size
+ 4096
  $ cat /sys/block/sda/queue/optimal_io_size
  0
 
@@ -258,8 +273,8 @@ is 64K.
 For detailed information about what these numbers mean, see
 L<http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/newstorage-iolimits.html>
 
-[Thanks to Mike Snitzer for providing NetApp data and additional
-information.]
+[Thanks to Matt Booth for providing 4K drive data.  Thanks to Mike
+Snitzer for providing NetApp data and additional information.]
 
 =head2 1 MB PARTITION ALIGNMENT
 
