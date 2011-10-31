@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-19 19:10+0100\n"
+"POT-Creation-Date: 2011-10-31 09:45+0000\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/team/or/)\n"
@@ -2814,28 +2814,28 @@ msgstr ""
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:550 src/inspect_fs.c:460 src/inspect_fs.c:504
+#: src/inspect.c:516 src/inspect_apps.c:607
+msgid ""
+"inspection API not available since this version of libguestfs was compiled "
+"without the hivex library"
+msgstr ""
+
+#: src/inspect.c:731 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
 #: src/inspect_fs_unix.c:827
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:586
+#: src/inspect.c:767
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:598
+#: src/inspect.c:779
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
-msgstr ""
-
-#: src/inspect.c:608 src/inspect_apps.c:607
-msgid ""
-"inspection API not available since this version of libguestfs was compiled "
-"without the hivex library"
 msgstr ""
 
 #: src/inspect_fs.c:312 src/inspect_fs.c:325
@@ -2897,23 +2897,23 @@ msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମ
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:813
+#: src/launch.c:825
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:826
+#: src/launch.c:838
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:914
+#: src/launch.c:926
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:922
+#: src/launch.c:934
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1094
+#: src/launch.c:1106
 #, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
@@ -2924,11 +2924,11 @@ msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: ଯଦି qemu ମାନ୍ୟତା ପ୍ରାପ୍ତ ହୋଇନଥିବା ପଥରେ ଅବସ୍ଥିତ, ତେବେ "
 "LIBGUESTFS_QEMU ପରିବେଶ ପ୍ରାଚଳକୁ ସେଟ କରିବା ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: src/launch.c:1210
+#: src/launch.c:1222
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:1221
+#: src/launch.c:1233
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 
@@ -3180,43 +3180,43 @@ msgstr ""
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
-#: tools/virt-make-fs.pl:291
+#: tools/virt-make-fs.pl:293
 msgid "virt-make-fs input output\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:321
+#: tools/virt-make-fs.pl:323
 msgid "unexpected output from 'du' command"
 msgstr ""
 
-#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
-#: tools/virt-make-fs.pl:458
+#: tools/virt-make-fs.pl:335 tools/virt-make-fs.pl:349
+#: tools/virt-make-fs.pl:476
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:391
+#: tools/virt-make-fs.pl:393
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:406
+#: tools/virt-make-fs.pl:408
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:419
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:442
+#: tools/virt-make-fs.pl:460
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:464
+#: tools/virt-make-fs.pl:482
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:499
+#: tools/virt-make-fs.pl:517
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"

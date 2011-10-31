@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-19 19:10+0100\n"
+"POT-Creation-Date: 2011-10-31 09:45+0000\n"
 "PO-Revision-Date: 2011-07-17 20:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3052,18 +3052,27 @@ msgstr "не є гостьовою системою Windows або не вдал
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:550 src/inspect_fs.c:460 src/inspect_fs.c:504
+#: src/inspect.c:516 src/inspect_apps.c:607
+#, fuzzy
+msgid ""
+"inspection API not available since this version of libguestfs was compiled "
+"without the hivex library"
+msgstr ""
+"програмний інтерфейс вивчення (inspection) недоступний, оскільки цю версію "
+"libguestfs було зібрано без підтримки бібліотеки PCRE або hivex"
+
+#: src/inspect.c:731 src/inspect_fs.c:460 src/inspect_fs.c:504
 #: src/inspect_fs_unix.c:192 src/inspect_fs_unix.c:584
 #: src/inspect_fs_unix.c:827
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect.c:586
+#: src/inspect.c:767
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:598
+#: src/inspect.c:779
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3072,15 +3081,6 @@ msgstr ""
 "%s: не знайдено кореневого пристрою, цю функцію можна викликати лише для "
 "кореневого пристрою, дані якого раніше було повернуто функцією "
 "guestfs_inspect_os"
-
-#: src/inspect.c:608 src/inspect_apps.c:607
-#, fuzzy
-msgid ""
-"inspection API not available since this version of libguestfs was compiled "
-"without the hivex library"
-msgstr ""
-"програмний інтерфейс вивчення (inspection) недоступний, оскільки цю версію "
-"libguestfs було зібрано без підтримки бібліотеки PCRE або hivex"
 
 #: src/inspect_fs.c:312 src/inspect_fs.c:325
 #, c-format
@@ -3141,27 +3141,27 @@ msgstr "%s: не вдалося створити тимчасовий катал
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:813
+#: src/launch.c:825
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:826
+#: src/launch.c:838
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:914
+#: src/launch.c:926
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:922
+#: src/launch.c:934
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1094
+#: src/launch.c:1106
 #, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
@@ -3172,11 +3172,11 @@ msgstr ""
 "%s: помилка команди: якщо qemu зберігається у нестандартному каталозі, "
 "спробуйте встановити відповідне значення змінної середовища LIBGUESTFS_QEMU."
 
-#: src/launch.c:1210
+#: src/launch.c:1222
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1221
+#: src/launch.c:1233
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 
@@ -3448,47 +3448,47 @@ msgstr "virt-list-filesystems: не вказано образу або назв�
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-make-fs.pl:291
+#: tools/virt-make-fs.pl:293
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs вхідні_дані вихідні_дані\n"
 
-#: tools/virt-make-fs.pl:321
+#: tools/virt-make-fs.pl:323
 msgid "unexpected output from 'du' command"
 msgstr "несподівані вихідні дані від команди «du»"
 
-#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
-#: tools/virt-make-fs.pl:458
+#: tools/virt-make-fs.pl:335 tools/virt-make-fs.pl:349
+#: tools/virt-make-fs.pl:476
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: невідомий формат вхідних даних: {fmt}\n"
 
-#: tools/virt-make-fs.pl:391
+#: tools/virt-make-fs.pl:393
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: не вдалося обробити параметр розміру: {sz}\n"
 
-#: tools/virt-make-fs.pl:406
+#: tools/virt-make-fs.pl:408
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: не вдалося створити образ диска, ознайомтеся з попередніми "
 "повідомленнями\n"
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:419
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: підтримку NTFS було вимкнено під час збирання libguestfs\n"
 
-#: tools/virt-make-fs.pl:442
+#: tools/virt-make-fs.pl:460
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: помилка, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:464
+#: tools/virt-make-fs.pl:482
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "помилка команди розпакування, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:499
+#: tools/virt-make-fs.pl:517
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
