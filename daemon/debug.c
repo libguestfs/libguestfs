@@ -88,7 +88,7 @@ do_debug (const char *subcmd, char *const *argv)
       return cmds[i].f (subcmd, argc, argv);
   }
 
-  reply_with_error ("use 'debug help' to list the supported commands");
+  reply_with_error ("use 'debug help 0' to list the supported commands");
   return NULL;
 }
 
