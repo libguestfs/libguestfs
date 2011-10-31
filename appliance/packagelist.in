@@ -108,6 +108,7 @@ jfsutils
 lsof
 lvm2
 lzop
+mdadm
 module-init-tools
 net-tools
 /*
