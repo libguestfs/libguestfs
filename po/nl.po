@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-16 16:54+0100\n"
+"POT-Creation-Date: 2011-10-31 11:21+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -3050,27 +3050,27 @@ msgstr "%s: kan geen tijdelijke map aanmaken"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch.c:770
+#: src/launch.c:782
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:783
+#: src/launch.c:795
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:871
+#: src/launch.c:883
 #, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:879
+#: src/launch.c:891
 #, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:1059
+#: src/launch.c:1071
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3079,11 +3079,11 @@ msgstr ""
 "%s: commando mislukte: Als qemu zich op een niet standaard pad bevindt, "
 "probeer je het instellen van de LIBGUESTFS_QEMU omgevingsvariabele."
 
-#: src/launch.c:1160
+#: src/launch.c:1172
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:1171
+#: src/launch.c:1183
 msgid "no subprocess to kill"
 msgstr "geen sub-proces om af te schieten"
 

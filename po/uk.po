@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-16 16:54+0100\n"
+"POT-Creation-Date: 2011-10-31 11:21+0000\n"
 "PO-Revision-Date: 2011-03-22 15:28+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3139,27 +3139,27 @@ msgstr "%s: не вдалося створити тимчасовий катал
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:770
+#: src/launch.c:782
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:783
+#: src/launch.c:795
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:871
+#: src/launch.c:883
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:879
+#: src/launch.c:891
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1059
+#: src/launch.c:1071
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3168,11 +3168,11 @@ msgstr ""
 "%s: помилка команди: якщо qemu зберігається у нестандартному каталозі, "
 "спробуйте встановити відповідне значення змінної середовища LIBGUESTFS_QEMU."
 
-#: src/launch.c:1160
+#: src/launch.c:1172
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1171
+#: src/launch.c:1183
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 

@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.10.9\n"
+"Project-Id-Version: libguestfs 1.10.10\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-16 16:54+0100\n"
+"POT-Creation-Date: 2011-10-31 11:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2768,34 +2768,34 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch.c:770
+#: src/launch.c:782
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/launch.c:783
+#: src/launch.c:795
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch.c:871
+#: src/launch.c:883
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:879
+#: src/launch.c:891
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1059
+#: src/launch.c:1071
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 
-#: src/launch.c:1160
+#: src/launch.c:1172
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:1171
+#: src/launch.c:1183
 msgid "no subprocess to kill"
 msgstr ""
 

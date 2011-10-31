@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-09-16 16:54+0100\n"
+"POT-Creation-Date: 2011-10-31 11:21+0000\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -3023,25 +3023,25 @@ msgstr "%s: ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು �
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: src/launch.c:770
+#: src/launch.c:782
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/launch.c:783
+#: src/launch.c:795
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/launch.c:871
+#: src/launch.c:883
 #, fuzzy
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/launch.c:879
+#: src/launch.c:891
 #, fuzzy
 msgid "contacted guestfsd, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/launch.c:1059
+#: src/launch.c:1071
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -3050,11 +3050,11 @@ msgstr ""
 "%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, LIBGUESTFS_QEMU "
 "ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
-#: src/launch.c:1160
+#: src/launch.c:1172
 msgid "qemu has not been launched yet"
 msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗಿಲ್ಲ"
 
-#: src/launch.c:1171
+#: src/launch.c:1183
 msgid "no subprocess to kill"
 msgstr "ಅಂತ್ಯಗೊಳಿಸಲು ಯಾವುದೆ ಉಪಪ್ರಕ್ರಿಯೆಯು ಇಲ್ಲ"
 
