@@ -43,14 +43,14 @@ free_strings (char **argv)
   free (argv);
 }
 
-static int
+static size_t
 count_strings (char *const *argv)
 {
-  int c;
+  size_t i;
 
-  for (c = 0; argv[c]; ++c)
+  for (i = 0; argv[i]; ++i)
     ;
-  return c;
+  return i;
 }
 
 static int
