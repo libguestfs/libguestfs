@@ -102,7 +102,23 @@ EXTRA_DIST = \
 	bugs-in-changelog.sh \
 	autogen.sh \
 	bindtests \
+	contrib/autobuild/autobuild.sh \
+	contrib/guestfsd-in-wine.sh \
+	contrib/intro/libguestfs-intro.html \
+	contrib/intro/overview.svg \
+	contrib/intro/talk.txt \
+	contrib/intro/tools.svg \
 	contrib/README \
+	contrib/visualize-alignment/.gitignore \
+	contrib/visualize-alignment/guestfish-add-mount.qtr \
+	contrib/visualize-alignment/guestfish-lv-ext4-4k.qtr \
+	contrib/visualize-alignment/guestfish-lv-ext4-4k-write-hello.qtr \
+	contrib/visualize-alignment/guestfish-N-fs-10M-aligned-part-disk.qtr \
+	contrib/visualize-alignment/guestfish-N-fs-10M.qtr \
+	contrib/visualize-alignment/guestfish-write-hello.qtr \
+	contrib/visualize-alignment/qemu-0.13-trace-block-device-access.patch \
+	contrib/visualize-alignment/README \
+	contrib/visualize-alignment/tracetops.ml \
 	debian/.gitignore \
 	debian/changelog \
 	debian/compat \
