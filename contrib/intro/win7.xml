@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/sda2</root>
+    <name>windows</name>
+    <arch>i386</arch>
+    <distro>windows</distro>
+    <product_name>Windows 7 Enterprise</product_name>
+    <product_variant>Client</product_variant>
+    <major_version>6</major_version>
+    <minor_version>1</minor_version>
+    <windows_systemroot>/Windows</windows_systemroot>
+    <windows_current_control_set>ControlSet001</windows_current_control_set>
+    <hostname>win7x32</hostname>
+    <format>installed</format>
+    <mountpoints>
+      <mountpoint dev="/dev/sda2">/</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/sda2">
+        <type>ntfs</type>
+        <uuid>F2E8996AE8992E3B</uuid>
+      </filesystem>
+    </filesystems>
+    <drive_mappings>
+      <drive_mapping name="C">/dev/sda2</drive_mapping>
+    </drive_mappings>
+    <applications>
+      <application>
+        <name>Microsoft .NET Framework 4 Client Profile</name>
+        <display_name>Microsoft .NET Framework 4 Client Profile</display_name>
+        <version>4.0.30319</version>
+        <install_path>C:\Windows\Microsoft.NET\Framework\v4.0.30319\SetupCache\Client</install_path>
+        <publisher>Microsoft Corporation</publisher>
+        <url>http://go.microsoft.com/fwlink/?LinkId=164164</url>
+      </application>
+      <application>
+        <name>Mozilla Firefox (3.6.12)</name>
+        <display_name>Mozilla Firefox (3.6.12)</display_name>
+        <version>3.6.12 (en-GB)</version>
+        <install_path>C:\Program Files\Mozilla Firefox</install_path>
+        <publisher>Mozilla</publisher>
+        <url>http://www.mozilla.com/en-GB/</url>
+        <description>Mozilla Firefox</description>
+      </application>
+      <application>
+        <name>VLC media player</name>
+        <display_name>VLC media player 1.1.5</display_name>
+        <version>1.1.5</version>
+        <install_path>C:\Program Files\VideoLAN\VLC</install_path>
+        <publisher>VideoLAN</publisher>
+        <url>http://www.videolan.org/</url>
+      </application>
+      <application>
+        <name>{3C3901C5-3455-3E0A-A214-0B093A5070A6}</name>
+        <display_name>Microsoft .NET Framework 4 Client Profile</display_name>
+        <version>4.0.30319</version>
+        <publisher>Microsoft Corporation</publisher>
+        <url>http://go.microsoft.com/fwlink/?LinkId=164164</url>
+      </application>
+      <application>
+        <name>{3C3901C5-3455-3E0A-A214-0B093A5070A6}.KB2468871</name>
+        <display_name>Update for Microsoft .NET Framework 4 Client Profile (KB2468871)</display_name>
+        <version>1</version>
+        <publisher>Microsoft Corporation</publisher>
+        <url>http://support.microsoft.com</url>
+        <description>This update is for Microsoft .NET Framework 4 Client Profile.&#13;
+If you later install a more recent service pack, this update will be uninstalled automatically.&#13;
+For more information, visit http://support.microsoft.com/kb/2468871.</description>
+      </application>
+      <application>
+        <name>{3C3901C5-3455-3E0A-A214-0B093A5070A6}.KB2518870</name>
+        <display_name>Security Update for Microsoft .NET Framework 4 Client Profile (KB2518870)</display_name>
+        <version>1</version>
+        <publisher>Microsoft Corporation</publisher>
+        <url>http://support.microsoft.com</url>
+        <description>This security update is for Microsoft .NET Framework 4 Client Profile.&#13;
+If you later install a more recent service pack, this security update will be uninstalled automatically.&#13;
+For more information, visit http://support.microsoft.com/kb/2518870.</description>
+      </application>
+      <application>
+        <name>{3C3901C5-3455-3E0A-A214-0B093A5070A6}.KB2533523</name>
+        <display_name>Update for Microsoft .NET Framework 4 Client Profile (KB2533523)</display_name>
+        <version>1</version>
+        <publisher>Microsoft Corporation</publisher>
+        <url>http://support.microsoft.com</url>
+        <description>This update is for Microsoft .NET Framework 4 Client Profile.&#13;
+If you later install a more recent service pack, this update will be uninstalled automatically.&#13;
+For more information, visit http://support.microsoft.com/kb/2533523.</description>
+      </application>
+      <application>
+        <name>{3C3901C5-3455-3E0A-A214-0B093A5070A6}.KB2539636</name>
+        <display_name>Security Update for Microsoft .NET Framework 4 Client Profile (KB2539636)</display_name>
+        <version>1</version>
+        <publisher>Microsoft Corporation</publisher>
+        <url>http://support.microsoft.com</url>
+        <description>This security update is for Microsoft .NET Framework 4 Client Profile.&#13;
+If you later install a more recent service pack, this security update will be uninstalled automatically.&#13;
+For more information, visit http://support.microsoft.com/kb/2539636.</description>
+      </application>
+    </applications>
+    <icon>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</icon>
+  </operatingsystem>
+</operatingsystems>

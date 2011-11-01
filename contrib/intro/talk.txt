@@ -5,3 +5,133 @@ distributed before the talk.
 
 ----------------------------------------------------------------------
 
+[1 The Idea]
+
+The "big idea" behind libguestfs is to read and write disk
+images by reusing all the qemu, Linux kernel and userspace
+code.
+
+This gives us tremendous power in a relatively small
+library: we can handle all Linux filesystems, all Windows
+filesystems, LVM, BSD, containers like raw and qcow, CD ISOs,
+USB keys, regular hard disks, and lots more.
+
+If you give us a btrfs filesystem in a BSD partition wrapped
+in a qcow2 file -- that is something we can handle.
+
+libguestfs -- as the name suggests -- is a plain, ordinary
+shared library written in C that you can link to C programs.
+You're all very smart people and you will have guessed
+already that we don't in fact run qemu as a library inside
+libguestfs as this diagram suggests.  Instead we fork
+qemu or KVM, running a small "appliance" which has
+the usual kernel, a small Linux distribution with tools
+like mkfs, lvcreate and parted, and a libguestfs daemon.
+The library and the daemon talk to each other over a
+virtio-serial connection.
+
+The qemu instance is connected to the disks we are
+examining using the ordinary qemu -drive option.
+
+[2 The Stable API]
+
+Consider how you might send commands to the daemon.
+Example: Create a filesystem (mkfs).
+
+One thing you might do is to send shell commands over
+the virtio-serial connection.  It would send "mkfs -t ..."
+
+This is something that is possible using the libguestfs
+API, but we don't encourage it.  There are three reasons
+why we don't encourage and support this: one is that
+because we're calling this from a C program, it's hard
+to construct shell commands and deal with quoting issues.
+Secondly it's hard to parse the result from commands
+(think about parted or lvs which are two commands that
+produce quite complex output that is hard to parse).
+Thirdly the command line isn't very long-term stable,
+with some commands appearing and changing over time.
+
+I'd emphasize again that we do let you send shell
+commands over to the daemon if that's what you want to do.
+
+What we support, though, is a long-term stable API and ABI.
+It's slightly (but not very much) higher level than shell
+commands.
+
+I've got an example on the page.  This is the guestfs_vfs_type
+API which returns the name of the filesystem on a device.
+
+Like libvirt, we are serious about the long term stability
+of the API and ABI, and if you write your program against
+this API, you'll never have to change the program or even
+recompile it.
+
+Because there are 100s of commands that you might want to
+run, we made it exceptionally simple to add new APIs.
+Shown below is the actual code used to implement "vfs-type".
+
+On the right is the code fragment that runs in the daemon.
+This is a short C function which handles constructing the
+command line and parsing out the result.  Although there
+is parsing code here, the good thing is that it only exists
+in one place, and we can update it from time to time if
+the underlying shell commands change.
+
+On the left is the metadata for this API function.  It
+has a description of the parameters and return value,
+some tests (not shown), and a fragment of documentation.
+
+That's ALL you have to write.  From that, we generate
+header files, bindings in all the different languages,
+RPC for the virtio-serial connection, documentation, etc.
+Currently we generate about a quarter of a million lines
+of code and documentation.
+
+[3 Tools written around the API]
+
+Around this stable API, myself and the libguestfs team
+have written a number of tools.  There are also people
+in the community writing other tools.
+
+A few of them are shown on this diagram, in fact there
+are many more than are shown here.
+
+Starting at the top, "guestfish" is a shell for the API,
+letting you write simple shell scripts.  If you look at
+the code examples below, you can see a small guestfish
+script that creates a new raw format partitioned filesystem
+with some content.
+
+Going round clockwise:
+
+The libguestfs API is a mix of high-level calls like
+mkfs, lvremove, vfs-type; and also low level POSIX calls
+like mkdir and writing to files.
+"guestmount" lets you mount an existing filesystem from
+a guest and access it as a regular mountpoint on the host.
+guestmount intelligently caches and prefetches data so it's
+quite usable and fast from the command line or graphical
+programs like the GNOME Nautilus file browser.
+
+"virt-rescue" lets you use the appliance directly, and
+it's a useful way to rescue guests by hand.
+You just want to hammer out some shell commands manually.
+
+"virt-win-reg" lets you read and write Windows Registry
+entries.  There is a rather complex example below right.
+
+Now we come round to the "inspection" tools, and these
+three tools let you inspect an unknown guest to find out
+what operating system it contains, what applications are
+installed, what filesystems, how the filesystems are used
+and much more.  I cover that in the next section, but if
+you look below you'll see an example of running "virt-df".
+
+Finally there are now tools to resize guests, make them
+sparse, align them, and check their alignment.  These
+last tools are ones that we eventually hope will become
+obsolete.
+
+[4 Inspection]
+

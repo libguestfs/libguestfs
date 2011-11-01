@@ -7,7 +7,7 @@
         counter-reset: chapter;
       }
 
-      body p {
+      body > p, body > img, body > pre, body > table {
         margin-left: 2em;
       }
 
@@ -26,8 +26,7 @@
       }
 
       h2 {
-        background-color: #f3f3f3;
-        margin-top: 2em;
+        margin-top: 4em;
         color: rgb(204,0,0);
         counter-increment: chapter;
         counter-reset: section;
@@ -35,20 +34,20 @@
       h2:before {
         font-size: 80%;
         color: #666;
-        content: counter(chapter) " — ";
+        content: counter(chapter) " ... ";
       }
 
       pre {
         background-color: #fcfcfc;
-        border-top: 1px dotted #888;
-        border-bottom: 1px dotted #888;
-        border-left: 6px solid rgb(204,0,0);
+        border-top: 1px dotted #eee;
+        border-bottom: 1px dotted #eee;
+        border-left: 2px solid rgb(204,0,0);
         padding: 5px;
         margin-left: 1em;
       }
 
       p.sourcelnk {
-        text-align: right;
+        text-align: left;
         font-size: 70%;
       }
     </style>
@@ -89,7 +88,7 @@ free (fstype);
     <table width="100%">
       <tr><td valign="top">
 
-<pre style="font-size: 80%;">
+<pre>
   ("<b>vfs_type</b>",
    (RString "fstype",
         [Device "device"], []),
@@ -110,7 +109,7 @@ For example a string such as C&lt;ext3&gt; or C&lt;ntfs&gt;.");
         </td>
         <td valign="top">
 
-<pre style="font-size: 80%;">
+<pre>
 char *
 <b>do_vfs_type</b> (const char *device)
 {
@@ -175,7 +174,7 @@ get_blkid_tag (const char *device, const char *tag)
     <img src="tools.svg" />
 
     <table>
-      <tr><td valign="top">
+      <tr><td valign="top" style="padding-bottom: 1.5em;">
 <pre>
 <b>guestfish -N fs -m /dev/sda1 &lt;&lt;EOF</b>
   <font style="color: green;">mkdir /etc
@@ -211,6 +210,80 @@ F15x32:/dev/vg_f15x32/lv_root 5.5G  3.4G      1.8G  63%
     </table>
 
     <h2>Inspection</h2>
+
+<pre>
+$ <b>virt-inspector -c qemu:///system -d Win7x32</b>
+
+<font style="color: #888;">&lt;?xml version="1.0"?&gt;</font>
+<font style="color: #888;">&lt;operatingsystems&gt;</font>
+  <font style="color: #888;">&lt;operatingsystem&gt;</font>
+    <font style="color: #888;">&lt;root&gt;</font>/dev/sda2<font style="color: #888;">&lt;/root&gt;</font>
+    <font style="color: #888;">&lt;name&gt;</font>windows<font style="color: #888;">&lt;/name&gt;</font>
+    <font style="color: #888;">&lt;arch&gt;</font>i386<font style="color: #888;">&lt;/arch&gt;</font>
+    <font style="color: #888;">&lt;distro&gt;</font>windows<font style="color: #888;">&lt;/distro&gt;</font>
+    <font style="color: #888;">&lt;product_name&gt;</font>Windows 7 Enterprise<font style="color: #888;">&lt;/product_name&gt;</font>
+    <font style="color: #888;">&lt;product_variant&gt;</font>Client<font style="color: #888;">&lt;/product_variant&gt;</font>
+    <font style="color: #888;">&lt;major_version&gt;</font>6<font style="color: #888;">&lt;/major_version&gt;</font>
+    <font style="color: #888;">&lt;minor_version&gt;</font>1<font style="color: #888;">&lt;/minor_version&gt;</font>
+    <font style="color: #888;">&lt;windows_systemroot&gt;</font>/Windows<font style="color: #888;">&lt;/windows_systemroot&gt;</font>
+    <font style="color: #888;">&lt;windows_current_control_set&gt;</font>ControlSet001<font style="color: #888;">&lt;/windows_current_control_set&gt;</font>
+    <font style="color: #888;">&lt;hostname&gt;</font>win7x32<font style="color: #888;">&lt;/hostname&gt;</font>
+<i>... etc ...</i>
+</pre>
+<p class="sourcelnk"><a href="win7.xml">full&nbsp;XML&nbsp;...</a></p>
+
+    <table>
+      <tr><td colspan="2" align="middle">
+          <small><i>Click to enlarge the images</i></small>
+      </td></tr>
+      <tr><td width="50%">
+          <a href="virt-manager.png"><img src="virt-manager-t.png"></a>
+        </td><td width="50%" align="middle" valign="top">
+          <a href="vmm-icons.png"><img src="vmm-icons-t.png"></a>
+      </td></tr>
+    </table>
+
+<pre>
+  char **roots;
+  size_t i;
+  char *type, *distro, *product_name;
+  int major, minor;
+
+  roots = <b>guestfs_inspect_os</b> (g);
+
+  if (roots == NULL)
+    exit (EXIT_FAILURE);
+
+  if (roots[0] == NULL) {
+    fprintf (stderr, "no operating systems found\n");
+    exit (EXIT_FAILURE);
+  }
+
+  for (i = 0; roots[i] != NULL; ++i) {
+    type = <b>guestfs_inspect_get_type</b> (g, roots[i]);
+    distro = <b>guestfs_inspect_get_distro</b> (g, roots[i]);
+    product_name = <b>guestfs_inspect_get_product_name</b> (g, roots[i]);
+    major = <b>guestfs_inspect_get_major_version</b> (g, roots[i]);
+    minor = <b>guestfs_inspect_get_minor_version</b> (g, roots[i]);
+
+    printf ("Root: %s\n"
+            "  Type: %s\n"
+            "  Distro: %s\n"
+            "  Version: %d.%d\n"
+            "  Product name: %s\n\n");
+            roots[i],
+            type ? : "unknown", distro ? : "unknown", major, minor,
+            product_name ? : "");
+
+    free (type);
+    free (distro);
+    free (product_name);
+    free (roots[i]);
+  }
+
+  free (roots);
+</pre>
+<p class="sourcelnk"><a href="http://git.annexia.org/?p=libguestfs.git;a=blob;f=rescue/virt-rescue.c;h=0c0036460434f1365d9591d6b2b805d999b07056;hb=HEAD#l351">full&nbsp;source&nbsp;...</a></p>
 
 
 
