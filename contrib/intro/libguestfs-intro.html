@@ -1,0 +1,253 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <title>Short introduction to libguestfs</title>
+    <style>
+      body {
+        counter-reset: chapter;
+      }
+
+      body p {
+        margin-left: 2em;
+      }
+
+      h1 {
+        color: rgb(204,0,0);
+        font-size: 130%;
+        border-bottom: 1px solid rgb(204,0,0);
+      }
+      author {
+        display: block;
+        position: absolute;
+        right: 2em;
+        top: 1em;
+        font-size: 80%;
+        text-align: right;
+      }
+
+      h2 {
+        background-color: #f3f3f3;
+        margin-top: 2em;
+        color: rgb(204,0,0);
+        counter-increment: chapter;
+        counter-reset: section;
+      }
+      h2:before {
+        font-size: 80%;
+        color: #666;
+        content: counter(chapter) " — ";
+      }
+
+      pre {
+        background-color: #fcfcfc;
+        border-top: 1px dotted #888;
+        border-bottom: 1px dotted #888;
+        border-left: 6px solid rgb(204,0,0);
+        padding: 5px;
+        margin-left: 1em;
+      }
+
+      p.sourcelnk {
+        text-align: right;
+        font-size: 70%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Short introduction to libguestfs</h1>
+    <author>by Richard W.M. Jones &lt;rjones@redhat.com&gt;</author>
+
+    <h2>The Idea</h2>
+
+    <p><b>Reuse qemu, Linux kernel and userspace tools</b> to read and
+    write disk images.</p>
+
+    <img src="overview.svg"/>
+
+    <h2>The Stable API</h2>
+
+<pre>
+  /* get the Linux VFS type corresponding to a mounted device */
+extern char *<b>guestfs_vfs_type</b> (guestfs_h *g, const char *device);
+</pre>
+
+<table style="margin-bottom: 4em;" width="100%">
+  <tr><td valign="top">Example using this API:</td><td>
+<pre>
+#include &lt;guestfs.h&gt;
+
+char *fstype = <b>guestfs_vfs_type (g, "/dev/vda1")</b>;
+printf ("%s\n", fstype);
+free (fstype);
+&rarr; <b>ntfs</b>
+</pre>
+<p class="sourcelnk"><a href="http://git.annexia.org/?p=libguestfs.git;a=blob;f=fish/inspect.c;h=2ca54d2296fce5370504c1085cbcd7ac1b51ad3a;hb=HEAD#l208">click&nbsp;to&nbsp;see&nbsp;a&nbsp;real&nbsp;example&nbsp;...</a></p>
+    </td>
+  </tr>
+</table>
+
+    <table width="100%">
+      <tr><td valign="top">
+
+<pre style="font-size: 80%;">
+  ("<b>vfs_type</b>",
+   (RString "fstype",
+        [Device "device"], []),
+   198, [],
+   [ (* tests *) ],
+   "get the Linux VFS type corresponding to a mounted device",
+   "\
+This command gets the filesystem type corresponding to
+the filesystem on C&lt;device&gt;.
+
+For most filesystems, the result is the name of the Linux
+VFS module which would be used to mount this filesystem
+if you mounted it without specifying the filesystem type.
+For example a string such as C&lt;ext3&gt; or C&lt;ntfs&gt;.");
+</pre>
+<p class="sourcelnk"><a href="http://git.annexia.org/?p=libguestfs.git;a=blob;f=generator/generator_actions.ml;h=d3fa3e0b939eb047a5ff103a68f09c6898807748;hb=HEAD#l4775">full&nbsp;source&nbsp;...</a></p>
+
+        </td>
+        <td valign="top">
+
+<pre style="font-size: 80%;">
+char *
+<b>do_vfs_type</b> (const char *device)
+{
+  return get_blkid_tag (device, "TYPE");
+}
+
+static char *
+get_blkid_tag (const char *device, const char *tag)
+{
+  char *out, *err;
+  int r;
+
+  r = commandr (&amp;out, &amp;err,
+                "blkid",
+                "-c", "/dev/null",
+                "-o", "value", "-s", tag, device, NULL);
+  if (r != 0 &amp;&amp; r != 2) {
+    if (r &gt;= 0)
+      reply_with_error ("%s: %s (blkid returned %d)",
+                        device, err, r);
+    else
+      reply_with_error ("%s: %s", device, err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  /* ... */
+
+  return out;             /* caller frees */
+}
+</pre>
+<p class="sourcelnk"><a href="http://git.annexia.org/?p=libguestfs.git;a=blob;f=daemon/blkid.c;hb=HEAD">full&nbsp;source&nbsp;...</a></p>
+
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      Just these two fragments generate:
+    </p>
+
+    <ul>
+      <li> bindings in <a href="http://libguestfs.org/guestfs.3.html#api_overview">C</a>,
+        <a href="http://libguestfs.org/guestfs-perl.3.html">Perl</a>,
+        <a href="http://libguestfs.org/guestfs-python.3.html">Python</a>,
+        <a href="http://libguestfs.org/guestfs-ruby.3.html">Ruby</a>,
+        <a href="http://libguestfs.org/guestfs-java.3.html">Java</a>,
+        <a href="http://libguestfs.org/guestfs-ocaml.3.html">OCaml</a>,
+        PHP,
+        Haskell,
+        <a href="http://libguestfs.org/guestfs-erlang.3.html">Erlang</a>
+        and C# </li>
+      <li> <a href="http://libguestfs.org/guestfish.1.html">guestfish</a>
+        (shell script) </li>
+      <li> documentation in man pages and HTML </li>
+      <li> internal RPC code </li>
+    </ul>
+
+    <h2>Tools written around the API</h2>
+
+    <img src="tools.svg" />
+
+    <table>
+      <tr><td valign="top">
+<pre>
+<b>guestfish -N fs -m /dev/sda1 &lt;&lt;EOF</b>
+  <font style="color: green;">mkdir /etc
+  upload /etc/resolv.conf /etc/resolv.conf
+  write /etc/hostname "test01.redhat.com"</font>
+<b>EOF</b>
+</pre>
+<p class="sourcelnk"><a href="http://libguestfs.org/guestfish.1.html">manual&nbsp;...</a></p>
+        </td><td valign="top">
+<pre>
+<b>virt-df -a /dev/vg/F15x32 -h</b>
+Filesystem                    Size  Used Available Use%
+F15x32:/dev/sda1              484M   31M      428M   7%
+F15x32:/dev/vg_f15x32/lv_root 5.5G  3.4G      1.8G  63%
+</pre>
+<p class="sourcelnk"><a href="http://libguestfs.org/virt-df.1.html">manual&nbsp;...</a></p>
+      </td></tr>
+      <tr><td valign="top">
+<pre>
+<b>virt-edit -c qemu:///system -d F15x32 /etc/passwd</b>
+<i>(launches editor)</i>
+</pre>
+<p class="sourcelnk"><a href="http://libguestfs.org/virt-edit.1.html">manual&nbsp;...</a></p>
+        </td><td valign="top">
+<pre>
+<b>virt-win-reg -c qemu:///system --unsafe-printable-strings \
+  Win7x32 'HKLM\SYSTEM\ControlSet001\Services\Tcpip\Parameters' \
+  | grep DhcpIPAddress</b>
+"DhcpIPAddress"=str(1):"192.168.122.178"
+</pre>
+<p class="sourcelnk"><a href="http://libguestfs.org/virt-win-reg.1.html">manual&nbsp;...</a></p>
+      </td></tr>
+    </table>
+
+    <h2>Inspection</h2>
+
+
+
+
+    <h2>V2V &amp; P2V</h2>
+
+
+
+
+    <h2>Read more ...</h2>
+
+    <p>
+      <a href="http://libguestfs.org/">libguestfs.org</a> is the
+      main website.
+    </p>
+
+    <p>
+      <a href="http://libguestfs.org/guestfs.3.html">guestfs(3)</a>
+      is the manual page documenting the C API and the internals.
+    </p>
+
+    <p>
+      There are manual pages
+      documenting <a href="http://libguestfs.org/guestfish.1.html">guestfish</a>, <a href="http://libguestfs.org/guestmount.1.html">guestmount</a>
+      and each virt tool.  See
+      the <a href="http://libguestfs.org/">main website</a> or your
+      local man command.
+    </p>
+
+    <hr/>
+
+    <p style="font-size: 70%;">
+      This page &copy; 2011 Red Hat Inc. and distributed
+      under the terms of the GNU General Public License as published by
+      the Free Software Foundation; either version 2 of the License, or
+      (at your option) any later version.
+    </p>
+
+  </body>
+</html>

@@ -28,6 +28,12 @@ guestfsd-in-wine.sh
         Run a Windows-compiled guestfsd under Wine.  Read the
         instructions at the top of this file carefully.
 
+intro/ "Slides" for an intro to libguestfs.  This is a short (10-15
+        min) talk that I give to introduce the main features of
+        libguestfs.  The slides are in the form of a complete
+        self-contained HTML page with a handful images that can be
+        easily distributed before the talk.
+
 visualize-alignment/
         Tests for visualizing block device reads and writes and
         alignment using a patched qemu.  See the README file in that

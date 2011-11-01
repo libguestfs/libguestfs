@@ -1,0 +1,7 @@
+This is a short (10-15 min) talk that I give to introduce the main
+features of libguestfs.  The "slides" are in the form of a complete
+self-contained HTML page with a handful images that can be easily
+distributed before the talk.
+
+----------------------------------------------------------------------
+
