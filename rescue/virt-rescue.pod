@@ -10,6 +10,8 @@ virt-rescue - Run a rescue shell on a virtual machine
 
  virt-rescue [--options] -a disk.img [-a disk.img ...]
 
+ virt-rescue --suggest (-d domname | -a disk.img ...)
+
 Old style:
 
  virt-rescue [--options] domname
@@ -51,19 +53,45 @@ rescue appliance.  You must mount the virtual machine's filesystems by
 hand.  There is an empty directory called C</sysroot> where you can
 mount filesystems.
 
-In the example below, we list logical volumes, then choose one to
-mount under C</sysroot>:
+You can get virt-rescue to suggest mount commands for you by using the
+I<--suggest> option (in another terminal):
+
+ $ virt-rescue --suggest -d Fedora15
+ Inspecting the virtual machine or disk image ...
+ 
+ This disk contains one or more operating systems.  You can use these
+ mount commands in virt-rescue (at the ><rescue> prompt) to mount the
+ filesystems.
+ 
+ # /dev/vg_f15x32/lv_root is the root of a linux operating system
+ # type: linux, distro: fedora, version: 15.0
+ # Fedora release 15 (Lovelock)
+ 
+ mount /dev/vg_f15x32/lv_root /sysroot/
+ mount /dev/vda1 /sysroot/boot
+ mount --bind /dev /sysroot/dev
+ mount --bind /dev/pts /sysroot/dev/pts
+ mount --bind /proc /sysroot/proc
+ mount --bind /sys /sysroot/sys
+
+Another way is to list the logical volumes (with L<lvs(8)>) and
+partitions (with L<parted(8)>) and mount them by hand:
 
  ><rescue> lvs
  LV      VG        Attr   LSize   Origin Snap%  Move Log Copy%  Convert
- lv_root vg_f11x64 -wi-a-   8.83G
- lv_swap vg_f11x64 -wi-a- 992.00M
- ><rescue> mount /dev/vg_f11x64/lv_root /sysroot
+ lv_root vg_f15x32 -wi-a-   8.83G
+ lv_swap vg_f15x32 -wi-a- 992.00M
+ ><rescue> mount /dev/vg_f15x32/lv_root /sysroot
+ ><rescue> mount /dev/vda1 /sysroot/boot
  ><rescue> ls /sysroot
 
-If you don't know what filesystems are available on the virtual
-machine then you can use commands such as L<parted(8)> and L<lvs(8)>
-to find out.
+Another command to list available filesystems is
+L<virt-filesystems(1)>.
+
+To run commands in a Linux guest (for example, grub), you should
+chroot into the /sysroot directory first:
+
+ ><rescue> chroot /sysroot
 
 =head2 NOTES
 
@@ -179,6 +207,15 @@ L<guestfs(3)/SELINUX> before using this option.
 
 Enable N E<ge> 2 virtual CPUs in the rescue appliance.
 
+=item B<--suggest>
+
+Inspect the disk image and suggest what mount commands should be used
+to mount the disks.  You should use the I<--suggest> option in a
+second terminal, then paste the commands into another virt-rescue.
+
+This option implies I<--ro> and is safe to use even if the guest is up
+or if another virt-rescue is running.
+
 =item B<-v>
 
 =item B<--verbose>
@@ -291,6 +328,7 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-cat(1)>,
 L<virt-edit(1)>,
+L<virt-filesystems(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR

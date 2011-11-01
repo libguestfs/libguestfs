@@ -36,6 +36,8 @@
 #include "guestfs.h"
 #include "options.h"
 
+static void do_suggestion (struct drv *drvs);
+
 /* Currently open libguestfs handle. */
 guestfs_h *g;
 
@@ -78,6 +80,7 @@ usage (int status)
              "  -r|--ro              Access read-only\n"
              "  --selinux            Enable SELinux\n"
              "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
+             "  --suggest            Suggest mount commands for this guest\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
              "  -w|--rw              Mount read-write\n"
@@ -117,6 +120,7 @@ main (int argc, char *argv[])
     { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
     { "smp", 1, 0, 0 },
+    { "suggest", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -131,6 +135,7 @@ main (int argc, char *argv[])
   char *append_full;
   int memsize = 0;
   int smp = 0;
+  int suggest = 0;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -168,6 +173,8 @@ main (int argc, char *argv[])
                    program_name, optarg);
           exit (EXIT_FAILURE);
         }
+      } else if (STREQ (long_options[option_index].name, "suggest")) {
+        suggest = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -259,6 +266,12 @@ main (int argc, char *argv[])
     }
   }
 
+  /* --suggest flag */
+  if (suggest) {
+    do_suggestion (drvs);
+    exit (EXIT_SUCCESS);
+  }
+
   /* These are really constants, but they have to be variables for the
    * options parsing code.  Assert here that they have known-good
    * values.
@@ -314,6 +327,159 @@ main (int argc, char *argv[])
 
   exit (EXIT_SUCCESS);
 }
+
+static void suggest_filesystems (void);
+
+static int
+compare_keys_len (const void *p1, const void *p2)
+{
+  const char *key1 = * (char * const *) p1;
+  const char *key2 = * (char * const *) p2;
+  return strlen (key1) - strlen (key2);
+}
+
+static size_t
+count_strings (char *const *argv)
+{
+  size_t i;
+
+  for (i = 0; argv[i]; ++i)
+    ;
+  return i;
+}
+
+/* virt-rescue --suggest flag does a kind of inspection on the
+ * drives and suggests mount commands that you should use.
+ */
+static void
+do_suggestion (struct drv *drvs)
+{
+  char **roots;
+  size_t i, j;
+  char *type, *distro, *product_name;
+  int major, minor;
+  char **mps;
+
+  /* For inspection, force add_drives to add the drives read-only. */
+  read_only = 1;
+
+  /* Add drives. */
+  add_drives (drvs, 'a');
+
+  /* Free up data structures, no longer needed after this point. */
+  free_drives (drvs);
+
+  printf (_("Inspecting the virtual machine or disk image ...\n\n"));
+  fflush (stdout);
+
+  if (guestfs_launch (g) == -1)
+    exit (EXIT_FAILURE);
+
+  /* Don't use inspect_mount, since for virt-rescue we should allow
+   * arbitrary disks and disks with more than one OS on them.  Let's
+   * do this using the basic API instead.
+   */
+  roots = guestfs_inspect_os (g);
+  if (roots == NULL)
+    exit (EXIT_FAILURE);
+
+  if (roots[0] == NULL) {
+    suggest_filesystems ();
+    return;
+  }
+
+  printf (_("This disk contains one or more operating systems.  You can use these mount\n"
+            "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n\n"));
+
+  for (i = 0; roots[i] != NULL; ++i) {
+    type = guestfs_inspect_get_type (g, roots[i]);
+    distro = guestfs_inspect_get_distro (g, roots[i]);
+    product_name = guestfs_inspect_get_product_name (g, roots[i]);
+    major = guestfs_inspect_get_major_version (g, roots[i]);
+    minor = guestfs_inspect_get_minor_version (g, roots[i]);
+
+    printf (_("# %s is the root of a %s operating system\n"
+              "# type: %s, distro: %s, version: %d.%d\n"
+              "# %s\n\n"),
+            roots[i], type ? : "unknown",
+            type ? : "unknown", distro ? : "unknown", major, minor,
+            product_name ? : "");
+
+    mps = guestfs_inspect_get_mountpoints (g, roots[i]);
+    if (mps == NULL)
+      exit (EXIT_FAILURE);
+
+    /* Sort by key length, shortest key first, so that we end up
+     * mounting the filesystems in the correct order.
+     */
+    qsort (mps, count_strings (mps) / 2, 2 * sizeof (char *),
+           compare_keys_len);
+
+    for (j = 0; mps[j] != NULL; j += 2) {
+      printf ("mount %s /sysroot%s\n", mps[j+1], mps[j]);
+      free (mps[j]);
+      free (mps[j+1]);
+    }
+
+    /* If it's Linux, print the bind-mounts. */
+    if (type && STREQ (type, "linux")) {
+      printf ("mount --bind /dev /sysroot/dev\n");
+      printf ("mount --bind /dev/pts /sysroot/dev/pts\n");
+      printf ("mount --bind /proc /sysroot/proc\n");
+      printf ("mount --bind /sys /sysroot/sys\n");
+    }
+
+    printf ("\n");
+
+    free (type);
+    free (distro);
+    free (product_name);
+    free (roots[i]);
+  }
+
+  free (roots);
+}
+
+/* Inspection failed, so it doesn't contain any OS that we recognise.
+ * However there might still be filesystems so print some suggestions
+ * for those.
+ */
+static void
+suggest_filesystems (void)
+{
+  char **fses;
+  size_t i;
+
+  fses = guestfs_list_filesystems (g);
+  if (fses == NULL)
+    exit (EXIT_FAILURE);
+
+  if (fses[0] == NULL) {
+    printf (_("This disk contains no filesystems that we recognize.\n\n"
+              "However you can still use virt-rescue on the disk image, to try to mount\n"
+              "filesystems that are not recognized by libguestfs, or to create partitions,\n"
+              "logical volumes and filesystems on a blank disk.\n"));
+    return;
+  }
+
+  printf (_("This disk contains one or more filesystems, but we don't recognize any\n"
+            "operating system.  You can use these mount commands in virt-rescue (at the\n"
+            "><rescue> prompt) to mount these filesystems.\n\n"));
+
+  for (i = 0; fses[i] != NULL; i += 2) {
+    printf (_("# %s has type '%s'\n"), fses[i], fses[i+1]);
+
+    if (STRNEQ (fses[i+1], "swap") && STRNEQ (fses[i+1], "unknown"))
+      printf ("mount %s /sysroot\n", fses[i]);
+
+    printf ("\n");
+
+    free (fses[i]);
+    free (fses[i+1]);
+  }
+  free (fses);
+}
+
 
 /* The following was a nice idea, but in fact it doesn't work.  This is
  * because qemu has some (broken) pty emulation itself.
