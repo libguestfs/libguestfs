@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-27 16:05+0100\n"
+"POT-Creation-Date: 2011-11-01 14:19+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:100
 #: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:73 fish/fish.c:101
-#: fuse/guestmount.c:908 inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
+#: fuse/guestmount.c:908 inspector/virt-inspector.c:72 rescue/virt-rescue.c:62
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "`%s --help' க்கான கூடுதல் தகவலுக்கு முயற்சிக்கவும்.\n"
@@ -50,7 +50,7 @@ msgstr ""
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
 #: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:141
 #: fish/fish.c:222 fuse/guestmount.c:1024 inspector/virt-inspector.c:132
-#: rescue/virt-rescue.c:137
+#: rescue/virt-rescue.c:142
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
@@ -58,7 +58,7 @@ msgstr "guestfs_create: ஹாண்டிலை உருவாக்க மு
 #: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:257
 #: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279
 #: fuse/guestmount.c:1061 inspector/virt-inspector.c:154
-#: rescue/virt-rescue.c:172
+#: rescue/virt-rescue.c:179
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
@@ -2824,7 +2824,7 @@ msgstr ""
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:64
+#: rescue/virt-rescue.c:66
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -2844,6 +2844,7 @@ msgid ""
 "  -r|--ro              Access read-only\n"
 "  --selinux            Enable SELinux\n"
 "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
+"  --suggest            Suggest mount commands for this guest\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -w|--rw              Mount read-write\n"
@@ -2851,22 +2852,70 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:162
+#: rescue/virt-rescue.c:167
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:167
+#: rescue/virt-rescue.c:172
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:195
+#: rescue/virt-rescue.c:202
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:428
+#: rescue/virt-rescue.c:372
+#, c-format
+msgid ""
+"Inspecting the virtual machine or disk image ...\n"
+"\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:391
+#, c-format
+msgid ""
+"This disk contains one or more operating systems.  You can use these mount\n"
+"commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
+"\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:401
+#, c-format
+msgid ""
+"# %s is the root of a %s operating system\n"
+"# type: %s, distro: %s, version: %d.%d\n"
+"# %s\n"
+"\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:458
+#, c-format
+msgid ""
+"This disk contains no filesystems that we recognize.\n"
+"\n"
+"However you can still use virt-rescue on the disk image, to try to mount\n"
+"filesystems that are not recognized by libguestfs, or to create partitions,\n"
+"logical volumes and filesystems on a blank disk.\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:465
+#, c-format
+msgid ""
+"This disk contains one or more filesystems, but we don't recognize any\n"
+"operating system.  You can use these mount commands in virt-rescue (at the\n"
+"><rescue> prompt) to mount these filesystems.\n"
+"\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:470
+#, c-format
+msgid "# %s has type '%s'\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:594
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-10-27 16:05+0200\n"
+"POT-Creation-Date: 2011-11-01 14:20+0000\n"
 "PO-Revision-Date: 2011-10-27 09:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -91,7 +91,7 @@ msgstr ""
 #: ../fish/virt-tar-out.pod:15 ../fuse/guestmount.pod:20
 #: ../inspector/virt-inspector.pod:19 ../java/examples/guestfs-java.pod:15
 #: ../ocaml/examples/guestfs-ocaml.pod:25 ../perl/examples/guestfs-perl.pod:18
-#: ../python/examples/guestfs-python.pod:14 ../rescue/virt-rescue.pod:29
+#: ../python/examples/guestfs-python.pod:14 ../rescue/virt-rescue.pod:31
 #: ../resize/virt-resize.pod:13 ../ruby/examples/guestfs-ruby.pod:15
 #: ../sparsify/virt-sparsify.pod:11 ../src/guestfs.pod:23
 #: ../test-tool/libguestfs-test-tool.pod:11
@@ -266,7 +266,7 @@ msgstr ""
 #: ../fish/guestfish.pod:148 ../fish/virt-copy-in.pod:45
 #: ../fish/virt-copy-out.pod:34 ../fish/virt-tar-in.pod:42
 #: ../fish/virt-tar-out.pod:36 ../fuse/guestmount.pod:92
-#: ../inspector/virt-inspector.pod:55 ../rescue/virt-rescue.pod:84
+#: ../inspector/virt-inspector.pod:55 ../rescue/virt-rescue.pod:112
 #: ../resize/virt-resize.pod:262 ../sparsify/virt-sparsify.pod:99
 #: ../test-tool/libguestfs-test-tool.pod:36
 #: ../tools/virt-list-filesystems.pl:53 ../tools/virt-list-partitions.pl:54
@@ -280,7 +280,7 @@ msgstr "ПАРАМЕТРИ"
 #: ../cat/virt-filesystems.pod:95 ../cat/virt-ls.pod:265
 #: ../clone/virt-sysprep.pod:46 ../df/virt-df.pod:63 ../edit/virt-edit.pod:66
 #: ../fish/guestfish.pod:152 ../fuse/guestmount.pod:160
-#: ../inspector/virt-inspector.pod:59 ../rescue/virt-rescue.pod:88
+#: ../inspector/virt-inspector.pod:59 ../rescue/virt-rescue.pod:116
 #: ../resize/virt-resize.pod:266 ../sparsify/virt-sparsify.pod:103
 #: ../test-tool/libguestfs-test-tool.pod:40
 #: ../tools/virt-list-filesystems.pl:61 ../tools/virt-list-partitions.pl:62
@@ -293,7 +293,7 @@ msgstr "B<--help>"
 #: ../align/virt-alignment-scan.pod:95 ../cat/virt-cat.pod:68
 #: ../cat/virt-filesystems.pod:97 ../cat/virt-ls.pod:267
 #: ../clone/virt-sysprep.pod:48 ../df/virt-df.pod:65 ../edit/virt-edit.pod:68
-#: ../inspector/virt-inspector.pod:61 ../rescue/virt-rescue.pod:90
+#: ../inspector/virt-inspector.pod:61 ../rescue/virt-rescue.pod:118
 #: ../tools/virt-list-filesystems.pl:63 ../tools/virt-list-partitions.pl:64
 #: ../tools/virt-make-fs.pl:163 ../tools/virt-tar.pl:113
 #: ../tools/virt-win-reg.pl:106
@@ -304,7 +304,7 @@ msgstr "Показати коротку довідку."
 #: ../align/virt-alignment-scan.pod:97 ../cat/virt-cat.pod:70
 #: ../cat/virt-filesystems.pod:99 ../cat/virt-ls.pod:269
 #: ../clone/virt-sysprep.pod:50 ../df/virt-df.pod:67 ../edit/virt-edit.pod:70
-#: ../inspector/virt-inspector.pod:63 ../rescue/virt-rescue.pod:92
+#: ../inspector/virt-inspector.pod:63 ../rescue/virt-rescue.pod:120
 msgid "B<-a> file"
 msgstr "B<-a> файл"
 
@@ -312,7 +312,7 @@ msgstr "B<-a> файл"
 #: ../align/virt-alignment-scan.pod:99 ../cat/virt-cat.pod:72
 #: ../cat/virt-filesystems.pod:101 ../cat/virt-ls.pod:271
 #: ../clone/virt-sysprep.pod:52 ../df/virt-df.pod:69 ../edit/virt-edit.pod:72
-#: ../inspector/virt-inspector.pod:65 ../rescue/virt-rescue.pod:94
+#: ../inspector/virt-inspector.pod:65 ../rescue/virt-rescue.pod:122
 msgid "B<--add> file"
 msgstr "B<--add> файл"
 
@@ -326,7 +326,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:107 ../cat/virt-ls.pod:277
 #: ../clone/virt-sysprep.pod:56 ../df/virt-df.pod:75 ../edit/virt-edit.pod:78
 #: ../fish/guestfish.pod:174 ../fuse/guestmount.pod:102
-#: ../inspector/virt-inspector.pod:71 ../rescue/virt-rescue.pod:100
+#: ../inspector/virt-inspector.pod:71 ../rescue/virt-rescue.pod:128
 msgid ""
 "The format of the disk image is auto-detected.  To override this and force a "
 "particular format use the I<--format=..> option."
@@ -336,7 +336,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:106 ../cat/virt-cat.pod:81
 #: ../cat/virt-filesystems.pod:125 ../cat/virt-ls.pod:291
 #: ../clone/virt-sysprep.pod:59 ../df/virt-df.pod:78
-#: ../rescue/virt-rescue.pod:107
+#: ../rescue/virt-rescue.pod:135
 msgid "B<-c> URI"
 msgstr "B<-c> адреса"
 
@@ -344,7 +344,7 @@ msgstr "B<-c> адреса"
 #: ../align/virt-alignment-scan.pod:108 ../cat/virt-cat.pod:83
 #: ../cat/virt-filesystems.pod:127 ../cat/virt-ls.pod:293
 #: ../clone/virt-sysprep.pod:61 ../df/virt-df.pod:80
-#: ../rescue/virt-rescue.pod:109
+#: ../rescue/virt-rescue.pod:137
 msgid "B<--connect> URI"
 msgstr "B<--connect> адреса"
 
@@ -352,7 +352,7 @@ msgstr "B<--connect> адреса"
 #: ../align/virt-alignment-scan.pod:110 ../cat/virt-cat.pod:85
 #: ../cat/virt-filesystems.pod:129 ../cat/virt-ls.pod:295
 #: ../clone/virt-sysprep.pod:63 ../df/virt-df.pod:82 ../edit/virt-edit.pod:99
-#: ../inspector/virt-inspector.pod:78 ../rescue/virt-rescue.pod:111
+#: ../inspector/virt-inspector.pod:78 ../rescue/virt-rescue.pod:139
 #: ../tools/virt-list-filesystems.pl:81 ../tools/virt-list-partitions.pl:82
 #: ../tools/virt-tar.pl:131 ../tools/virt-win-reg.pl:132
 msgid ""
@@ -364,7 +364,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:113 ../cat/virt-cat.pod:88
 #: ../cat/virt-filesystems.pod:132 ../cat/virt-ls.pod:298
 #: ../clone/virt-sysprep.pod:66 ../df/virt-df.pod:85
-#: ../rescue/virt-rescue.pod:114
+#: ../rescue/virt-rescue.pod:142
 msgid ""
 "If you specify guest block devices directly (I<-a>), then libvirt is not "
 "used at all."
@@ -374,7 +374,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:116 ../cat/virt-cat.pod:91
 #: ../cat/virt-filesystems.pod:141 ../cat/virt-ls.pod:307
 #: ../clone/virt-sysprep.pod:69 ../df/virt-df.pod:94 ../edit/virt-edit.pod:105
-#: ../inspector/virt-inspector.pod:85 ../rescue/virt-rescue.pod:117
+#: ../inspector/virt-inspector.pod:85 ../rescue/virt-rescue.pod:145
 msgid "B<-d> guest"
 msgstr "B<-d> гість"
 
@@ -382,7 +382,7 @@ msgstr "B<-d> гість"
 #: ../align/virt-alignment-scan.pod:118 ../cat/virt-cat.pod:93
 #: ../cat/virt-filesystems.pod:143 ../cat/virt-ls.pod:309
 #: ../clone/virt-sysprep.pod:71 ../df/virt-df.pod:96 ../edit/virt-edit.pod:107
-#: ../inspector/virt-inspector.pod:87 ../rescue/virt-rescue.pod:119
+#: ../inspector/virt-inspector.pod:87 ../rescue/virt-rescue.pod:147
 msgid "B<--domain> guest"
 msgstr "B<--domain> гість"
 
@@ -390,7 +390,7 @@ msgstr "B<--domain> гість"
 #: ../align/virt-alignment-scan.pod:120 ../cat/virt-cat.pod:95
 #: ../cat/virt-filesystems.pod:145 ../cat/virt-ls.pod:311
 #: ../clone/virt-sysprep.pod:73 ../df/virt-df.pod:98 ../edit/virt-edit.pod:109
-#: ../inspector/virt-inspector.pod:89 ../rescue/virt-rescue.pod:121
+#: ../inspector/virt-inspector.pod:89 ../rescue/virt-rescue.pod:149
 msgid ""
 "Add all the disks from the named libvirt guest.  Domain UUIDs can be used "
 "instead of names."
@@ -401,7 +401,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:170 ../cat/virt-ls.pod:328
 #: ../clone/virt-sysprep.pod:95 ../df/virt-df.pod:101
 #: ../fish/guestfish.pod:233 ../fuse/guestmount.pod:142
-#: ../inspector/virt-inspector.pod:99 ../rescue/virt-rescue.pod:124
+#: ../inspector/virt-inspector.pod:99 ../rescue/virt-rescue.pod:152
 msgid "B<--format=raw|qcow2|..>"
 msgstr "B<--format=raw|qcow2|..>"
 
@@ -411,7 +411,7 @@ msgstr "B<--format=raw|qcow2|..>"
 #: ../clone/virt-sysprep.pod:97 ../df/virt-df.pod:103
 #: ../edit/virt-edit.pod:134 ../fish/guestfish.pod:235
 #: ../fuse/guestmount.pod:144 ../inspector/virt-inspector.pod:101
-#: ../rescue/virt-rescue.pod:126
+#: ../rescue/virt-rescue.pod:154
 msgid "B<--format>"
 msgstr "B<--format>"
 
@@ -420,7 +420,7 @@ msgstr "B<--format>"
 #: ../cat/virt-filesystems.pod:174 ../cat/virt-ls.pod:332
 #: ../clone/virt-sysprep.pod:99 ../df/virt-df.pod:105
 #: ../edit/virt-edit.pod:136 ../fish/guestfish.pod:237
-#: ../fuse/guestmount.pod:146 ../rescue/virt-rescue.pod:128
+#: ../fuse/guestmount.pod:146 ../rescue/virt-rescue.pod:156
 msgid ""
 "The default for the I<-a> option is to auto-detect the format of the disk "
 "image.  Using this forces the disk format for I<-a> options which follow on "
@@ -434,7 +434,7 @@ msgstr ""
 #: ../clone/virt-sysprep.pod:104 ../df/virt-df.pod:110
 #: ../edit/virt-edit.pod:141 ../fish/guestfish.pod:242
 #: ../fish/guestfish.pod:673 ../inspector/virt-inspector.pod:336
-#: ../rescue/virt-rescue.pod:133 ../src/guestfs.pod:2877
+#: ../rescue/virt-rescue.pod:161 ../src/guestfs.pod:2877
 msgid "For example:"
 msgstr "Приклад:"
 
@@ -451,7 +451,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:183 ../cat/virt-ls.pod:341
 #: ../clone/virt-sysprep.pod:108 ../df/virt-df.pod:114
 #: ../edit/virt-edit.pod:145 ../fish/guestfish.pod:246
-#: ../rescue/virt-rescue.pod:137
+#: ../rescue/virt-rescue.pod:165
 msgid "forces raw format (no auto-detection) for C<disk.img>."
 msgstr ""
 
@@ -468,7 +468,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:187 ../cat/virt-ls.pod:345
 #: ../clone/virt-sysprep.pod:112 ../df/virt-df.pod:118
 #: ../edit/virt-edit.pod:149 ../fish/guestfish.pod:250
-#: ../rescue/virt-rescue.pod:141
+#: ../rescue/virt-rescue.pod:169
 msgid ""
 "forces raw format (no auto-detection) for C<disk.img> and reverts to auto-"
 "detection for C<another.img>."
@@ -478,7 +478,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:143 ../cat/virt-cat.pod:125
 #: ../cat/virt-filesystems.pod:190 ../cat/virt-ls.pod:348
 #: ../clone/virt-sysprep.pod:115 ../df/virt-df.pod:121
-#: ../edit/virt-edit.pod:152 ../rescue/virt-rescue.pod:144
+#: ../edit/virt-edit.pod:152 ../rescue/virt-rescue.pod:172
 msgid ""
 "If you have untrusted raw-format guest disk images, you should use this "
 "option to specify the disk format.  This avoids a possible security problem "
@@ -510,7 +510,7 @@ msgstr ""
 #: ../clone/virt-sysprep.pod:138 ../df/virt-df.pod:173
 #: ../edit/virt-edit.pod:161 ../fish/guestfish.pod:390
 #: ../fuse/guestmount.pod:266 ../inspector/virt-inspector.pod:119
-#: ../rescue/virt-rescue.pod:182 ../sparsify/virt-sparsify.pod:159
+#: ../rescue/virt-rescue.pod:219 ../sparsify/virt-sparsify.pod:159
 msgid "B<-v>"
 msgstr "B<-v>"
 
@@ -520,7 +520,7 @@ msgstr "B<-v>"
 #: ../clone/virt-sysprep.pod:140 ../df/virt-df.pod:175
 #: ../edit/virt-edit.pod:163 ../fish/guestfish.pod:392
 #: ../fuse/guestmount.pod:268 ../inspector/virt-inspector.pod:121
-#: ../rescue/virt-rescue.pod:184 ../sparsify/virt-sparsify.pod:161
+#: ../rescue/virt-rescue.pod:221 ../sparsify/virt-sparsify.pod:161
 msgid "B<--verbose>"
 msgstr "B<--verbose>"
 
@@ -529,7 +529,7 @@ msgstr "B<--verbose>"
 #: ../cat/virt-filesystems.pod:265 ../cat/virt-ls.pod:429
 #: ../clone/virt-sysprep.pod:142 ../df/virt-df.pod:177
 #: ../edit/virt-edit.pod:165 ../inspector/virt-inspector.pod:123
-#: ../rescue/virt-rescue.pod:186 ../sparsify/virt-sparsify.pod:163
+#: ../rescue/virt-rescue.pod:223 ../sparsify/virt-sparsify.pod:163
 msgid "Enable verbose messages for debugging."
 msgstr ""
 
@@ -539,7 +539,7 @@ msgstr ""
 #: ../clone/virt-sysprep.pod:144 ../df/virt-df.pod:179
 #: ../edit/virt-edit.pod:167 ../fish/guestfish.pod:397
 #: ../fuse/guestmount.pod:272 ../inspector/virt-inspector.pod:125
-#: ../rescue/virt-rescue.pod:188 ../resize/virt-resize.pod:561
+#: ../rescue/virt-rescue.pod:225 ../resize/virt-resize.pod:561
 #: ../sparsify/virt-sparsify.pod:165
 msgid "B<-V>"
 msgstr "B<-V>"
@@ -550,7 +550,7 @@ msgstr "B<-V>"
 #: ../clone/virt-sysprep.pod:146 ../df/virt-df.pod:181
 #: ../edit/virt-edit.pod:169 ../fish/guestfish.pod:399
 #: ../fuse/guestmount.pod:274 ../inspector/virt-inspector.pod:127
-#: ../rescue/virt-rescue.pod:190 ../resize/virt-resize.pod:563
+#: ../rescue/virt-rescue.pod:227 ../resize/virt-resize.pod:563
 #: ../sparsify/virt-sparsify.pod:167 ../tools/virt-list-filesystems.pl:69
 #: ../tools/virt-list-partitions.pl:70 ../tools/virt-make-fs.pl:169
 #: ../tools/virt-tar.pl:119 ../tools/virt-win-reg.pl:112
@@ -562,7 +562,7 @@ msgstr "B<--version>"
 #: ../cat/virt-filesystems.pod:271 ../cat/virt-ls.pod:435
 #: ../clone/virt-sysprep.pod:148 ../df/virt-df.pod:183
 #: ../edit/virt-edit.pod:171 ../inspector/virt-inspector.pod:129
-#: ../rescue/virt-rescue.pod:192 ../resize/virt-resize.pod:565
+#: ../rescue/virt-rescue.pod:229 ../resize/virt-resize.pod:565
 #: ../sparsify/virt-sparsify.pod:169 ../tools/virt-list-filesystems.pl:71
 #: ../tools/virt-list-partitions.pl:72 ../tools/virt-make-fs.pl:171
 #: ../tools/virt-tar.pl:121 ../tools/virt-win-reg.pl:114
@@ -575,7 +575,7 @@ msgstr "Показати дані щодо версії і завершити р
 #: ../clone/virt-sysprep.pod:150 ../df/virt-df.pod:185
 #: ../edit/virt-edit.pod:173 ../fish/guestfish.pod:412
 #: ../fuse/guestmount.pod:287 ../inspector/virt-inspector.pod:131
-#: ../rescue/virt-rescue.pod:203 ../sparsify/virt-sparsify.pod:171
+#: ../rescue/virt-rescue.pod:240 ../sparsify/virt-sparsify.pod:171
 #: ../tools/virt-tar.pl:158
 msgid "B<-x>"
 msgstr "B<-x>"
@@ -585,7 +585,7 @@ msgstr "B<-x>"
 #: ../cat/virt-filesystems.pod:283 ../cat/virt-ls.pod:439
 #: ../clone/virt-sysprep.pod:152 ../df/virt-df.pod:187
 #: ../edit/virt-edit.pod:175 ../inspector/virt-inspector.pod:133
-#: ../rescue/virt-rescue.pod:205 ../sparsify/virt-sparsify.pod:173
+#: ../rescue/virt-rescue.pod:242 ../sparsify/virt-sparsify.pod:173
 msgid "Enable tracing of libguestfs API calls."
 msgstr ""
 
@@ -861,7 +861,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:373 ../cat/virt-ls.pod:483
 #: ../clone/virt-sysprep.pod:475 ../df/virt-df.pod:215
 #: ../edit/virt-edit.pod:342 ../inspector/virt-inspector.pod:352
-#: ../rescue/virt-rescue.pod:266 ../resize/virt-resize.pod:676
+#: ../rescue/virt-rescue.pod:303 ../resize/virt-resize.pod:676
 #: ../tools/virt-list-filesystems.pl:188 ../tools/virt-list-partitions.pl:258
 #: ../tools/virt-make-fs.pl:550 ../tools/virt-tar.pl:289
 #: ../tools/virt-win-reg.pl:744
@@ -873,7 +873,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:375 ../cat/virt-ls.pod:485
 #: ../clone/virt-sysprep.pod:477 ../df/virt-df.pod:217
 #: ../edit/virt-edit.pod:344 ../inspector/virt-inspector.pod:354
-#: ../rescue/virt-rescue.pod:268 ../resize/virt-resize.pod:678
+#: ../rescue/virt-rescue.pod:305 ../resize/virt-resize.pod:678
 #: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260
 #: ../tools/virt-make-fs.pl:552 ../tools/virt-tar.pl:291
 #: ../tools/virt-win-reg.pl:752
@@ -1037,7 +1037,7 @@ msgstr ""
 #: ../fish/virt-tar-out.pod:41 ../fuse/guestmount.pod:317
 #: ../inspector/virt-inspector.pod:380 ../java/examples/guestfs-java.pod:45
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39
-#: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:288
+#: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:325
 #: ../resize/virt-resize.pod:688 ../ruby/examples/guestfs-ruby.pod:36
 #: ../sparsify/virt-sparsify.pod:251 ../src/guestfs.pod:3270
 #: ../test-tool/libguestfs-test-tool.pod:100
@@ -1058,7 +1058,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:361 ../cat/virt-cat.pod:252
 #: ../cat/virt-filesystems.pod:396 ../cat/virt-ls.pod:507
 #: ../clone/virt-sysprep.pod:501 ../df/virt-df.pod:235
-#: ../edit/virt-edit.pod:368 ../rescue/virt-rescue.pod:296
+#: ../edit/virt-edit.pod:368 ../rescue/virt-rescue.pod:334
 #: ../resize/virt-resize.pod:711 ../sparsify/virt-sparsify.pod:264
 #: ../tools/virt-list-filesystems.pl:208 ../tools/virt-list-partitions.pl:277
 #: ../tools/virt-make-fs.pl:582 ../tools/virt-tar.pl:311
@@ -1071,7 +1071,7 @@ msgstr "АВТОР"
 #: ../cat/virt-filesystems.pod:398 ../cat/virt-ls.pod:509
 #: ../clone/virt-sysprep.pod:503 ../df/virt-df.pod:237
 #: ../edit/virt-edit.pod:370 ../inspector/virt-inspector.pod:395
-#: ../rescue/virt-rescue.pod:298 ../resize/virt-resize.pod:713
+#: ../rescue/virt-rescue.pod:336 ../resize/virt-resize.pod:713
 #: ../sparsify/virt-sparsify.pod:266 ../tools/virt-list-filesystems.pl:210
 #: ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:584
 #: ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:785
@@ -1089,7 +1089,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../fish/virt-tar-out.pod:55 ../fuse/guestmount.pod:332
 #: ../inspector/virt-inspector.pod:403 ../java/examples/guestfs-java.pod:62
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56
-#: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:300
+#: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:338
 #: ../resize/virt-resize.pod:715 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:268 ../src/guestfs.pod:3352
 #: ../test-tool/libguestfs-test-tool.pod:110
@@ -1113,7 +1113,7 @@ msgstr ""
 #: ../fish/virt-copy-in.pod:69 ../fish/virt-copy-out.pod:58
 #: ../fish/virt-tar-in.pod:67 ../fish/virt-tar-out.pod:60
 #: ../fuse/guestmount.pod:337 ../inspector/virt-inspector.pod:407
-#: ../rescue/virt-rescue.pod:304 ../resize/virt-resize.pod:719
+#: ../rescue/virt-rescue.pod:342 ../resize/virt-resize.pod:719
 #: ../sparsify/virt-sparsify.pod:272 ../test-tool/libguestfs-test-tool.pod:115
 #: ../tools/virt-list-filesystems.pl:216 ../tools/virt-list-partitions.pl:285
 #: ../tools/virt-make-fs.pl:590 ../tools/virt-tar.pl:319
@@ -1133,7 +1133,7 @@ msgstr ""
 #: ../fish/virt-copy-in.pod:74 ../fish/virt-copy-out.pod:63
 #: ../fish/virt-tar-in.pod:72 ../fish/virt-tar-out.pod:65
 #: ../fuse/guestmount.pod:342 ../inspector/virt-inspector.pod:412
-#: ../rescue/virt-rescue.pod:309 ../resize/virt-resize.pod:724
+#: ../rescue/virt-rescue.pod:347 ../resize/virt-resize.pod:724
 #: ../sparsify/virt-sparsify.pod:277 ../test-tool/libguestfs-test-tool.pod:120
 #: ../tools/virt-list-filesystems.pl:221 ../tools/virt-list-partitions.pl:290
 #: ../tools/virt-make-fs.pl:595 ../tools/virt-tar.pl:324
@@ -1157,7 +1157,7 @@ msgstr ""
 #: ../fish/virt-copy-in.pod:79 ../fish/virt-copy-out.pod:68
 #: ../fish/virt-tar-in.pod:77 ../fish/virt-tar-out.pod:70
 #: ../fuse/guestmount.pod:347 ../inspector/virt-inspector.pod:417
-#: ../rescue/virt-rescue.pod:314 ../resize/virt-resize.pod:729
+#: ../rescue/virt-rescue.pod:352 ../resize/virt-resize.pod:729
 #: ../sparsify/virt-sparsify.pod:282 ../test-tool/libguestfs-test-tool.pod:125
 #: ../tools/virt-list-filesystems.pl:226 ../tools/virt-list-partitions.pl:295
 #: ../tools/virt-make-fs.pl:600 ../tools/virt-tar.pl:329
@@ -1367,7 +1367,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-cat.pod:74 ../cat/virt-filesystems.pod:103
 #: ../cat/virt-ls.pod:273 ../df/virt-df.pod:71 ../edit/virt-edit.pod:74
-#: ../inspector/virt-inspector.pod:67 ../rescue/virt-rescue.pod:96
+#: ../inspector/virt-inspector.pod:67 ../rescue/virt-rescue.pod:124
 msgid ""
 "Add I<file> which should be a disk image from a virtual machine.  If the "
 "virtual machine has multiple block devices, you must supply all of them with "
@@ -1428,7 +1428,7 @@ msgstr ""
 
 #. type: =head1
 #: ../cat/virt-cat.pod:152 ../cat/virt-ls.pod:443 ../edit/virt-edit.pod:179
-#: ../inspector/virt-inspector.pod:137 ../rescue/virt-rescue.pod:209
+#: ../inspector/virt-inspector.pod:137 ../rescue/virt-rescue.pod:246
 msgid "OLD-STYLE COMMAND LINE ARGUMENTS"
 msgstr ""
 
@@ -1447,7 +1447,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:158 ../cat/virt-ls.pod:449 ../edit/virt-edit.pod:185
-#: ../inspector/virt-inspector.pod:143 ../rescue/virt-rescue.pod:215
+#: ../inspector/virt-inspector.pod:143 ../rescue/virt-rescue.pod:252
 msgid "or"
 msgstr "або"
 
@@ -1461,7 +1461,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:162 ../cat/virt-ls.pod:453 ../edit/virt-edit.pod:189
-#: ../inspector/virt-inspector.pod:147 ../rescue/virt-rescue.pod:219
+#: ../inspector/virt-inspector.pod:147 ../rescue/virt-rescue.pod:256
 msgid ""
 "whereas in this version you should use I<-a> or I<-d> respectively to avoid "
 "the confusing case where a disk image might have the same name as a guest."
@@ -1469,7 +1469,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:166 ../cat/virt-ls.pod:457 ../edit/virt-edit.pod:193
-#: ../inspector/virt-inspector.pod:151 ../rescue/virt-rescue.pod:223
+#: ../inspector/virt-inspector.pod:151 ../rescue/virt-rescue.pod:260
 msgid "For compatibility the old style is still supported."
 msgstr ""
 
@@ -2328,7 +2328,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:13 ../df/virt-df.pod:15 ../rescue/virt-rescue.pod:13
+#: ../cat/virt-ls.pod:13 ../df/virt-df.pod:15 ../rescue/virt-rescue.pod:15
 msgid "Old style:"
 msgstr "Старий стиль:"
 
@@ -3084,7 +3084,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-ls.pod:513 ../df/virt-df.pod:241 ../edit/virt-edit.pod:374
-#: ../rescue/virt-rescue.pod:302
+#: ../rescue/virt-rescue.pod:340
 msgid "Copyright (C) 2009-2011 Red Hat Inc."
 msgstr "©Red Hat Inc., 2009–2011"
 
@@ -4150,7 +4150,7 @@ msgstr ""
 #. type: =head1
 #: ../edit/virt-edit.pod:21 ../fish/guestfish.pod:23
 #: ../fish/virt-copy-in.pod:13 ../fish/virt-tar-in.pod:15
-#: ../fuse/guestmount.pod:15 ../rescue/virt-rescue.pod:19
+#: ../fuse/guestmount.pod:15 ../rescue/virt-rescue.pod:21
 #: ../tools/virt-tar.pl:64 ../tools/virt-win-reg.pl:51
 msgid "WARNING"
 msgstr "ПОПЕРЕДЖЕННЯ"
@@ -4626,7 +4626,7 @@ msgstr ""
 
 #. type: =head1
 #: ../edit/virt-edit.pod:329 ../fish/guestfish.pod:1119
-#: ../rescue/virt-rescue.pod:261 ../sparsify/virt-sparsify.pod:232
+#: ../rescue/virt-rescue.pod:298 ../sparsify/virt-sparsify.pod:232
 #: ../src/guestfs.pod:3209 ../test-tool/libguestfs-test-tool.pod:95
 msgid "ENVIRONMENT VARIABLES"
 msgstr "ЗМІННІ СЕРЕДОВИЩА"
@@ -19440,13 +19440,13 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:369 ../fuse/guestmount.pod:248
-#: ../rescue/virt-rescue.pod:161
+#: ../rescue/virt-rescue.pod:189
 msgid "B<-r>"
 msgstr "B<-r>"
 
 #. type: =item
 #: ../fish/guestfish.pod:371 ../fuse/guestmount.pod:250
-#: ../rescue/virt-rescue.pod:163
+#: ../rescue/virt-rescue.pod:191
 msgid "B<--ro>"
 msgstr "B<--ro>"
 
@@ -19458,7 +19458,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:376 ../rescue/virt-rescue.pod:167
+#: ../fish/guestfish.pod:376 ../rescue/virt-rescue.pod:195
 msgid ""
 "The option must always be used if the disk image or virtual machine might be "
 "running, and is generally recommended in cases where you don't need write "
@@ -19480,7 +19480,7 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:386 ../fuse/guestmount.pod:262
-#: ../rescue/virt-rescue.pod:173
+#: ../rescue/virt-rescue.pod:201
 msgid "B<--selinux>"
 msgstr "B<--selinux>"
 
@@ -19502,13 +19502,13 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:403 ../fuse/guestmount.pod:278
-#: ../rescue/virt-rescue.pod:194
+#: ../rescue/virt-rescue.pod:231
 msgid "B<-w>"
 msgstr "B<-w>"
 
 #. type: =item
 #: ../fish/guestfish.pod:405 ../fuse/guestmount.pod:280
-#: ../rescue/virt-rescue.pod:196
+#: ../rescue/virt-rescue.pod:233
 msgid "B<--rw>"
 msgstr "B<--rw>"
 
@@ -21304,25 +21304,25 @@ msgstr ""
 
 #. type: =head1
 #: ../fish/guestfish.pod:1209 ../fuse/guestmount.pod:297
-#: ../rescue/virt-rescue.pod:273
+#: ../rescue/virt-rescue.pod:310
 msgid "FILES"
 msgstr "ФАЙЛИ"
 
 #. type: =item
 #: ../fish/guestfish.pod:1213 ../fuse/guestmount.pod:301
-#: ../rescue/virt-rescue.pod:277
+#: ../rescue/virt-rescue.pod:314
 msgid "$HOME/.libguestfs-tools.rc"
 msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:1215 ../fuse/guestmount.pod:303
-#: ../rescue/virt-rescue.pod:279
+#: ../rescue/virt-rescue.pod:316
 msgid "/etc/libguestfs-tools.conf"
 msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1217 ../fuse/guestmount.pod:305
-#: ../rescue/virt-rescue.pod:281
+#: ../rescue/virt-rescue.pod:318
 msgid ""
 "This configuration file controls the default read-only or read-write mode "
 "(I<--ro> or I<--rw>)."
@@ -21928,7 +21928,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fuse/guestmount.pod:73 ../rescue/virt-rescue.pod:68
+#: ../fuse/guestmount.pod:73 ../rescue/virt-rescue.pod:96
 #: ../resize/virt-resize.pod:621
 msgid "NOTES"
 msgstr "ПРИМІТКИ"
@@ -22146,7 +22146,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:260 ../rescue/virt-rescue.pod:171
+#: ../fuse/guestmount.pod:260 ../rescue/virt-rescue.pod:199
 msgid "See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>."
 msgstr "Див. також L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>."
 
@@ -22167,7 +22167,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fuse/guestmount.pod:285 ../fuse/guestmount.pod:308
-#: ../rescue/virt-rescue.pod:201 ../rescue/virt-rescue.pod:284
+#: ../rescue/virt-rescue.pod:238 ../rescue/virt-rescue.pod:321
 msgid "See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>."
 msgstr "Див. L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>."
 
@@ -23137,7 +23137,20 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:15
+#: ../rescue/virt-rescue.pod:13
+#, fuzzy, no-wrap
+#| msgid ""
+#| " virt-filesystems --format=raw -a disk.img\n"
+#| "\n"
+msgid ""
+" virt-rescue --suggest (-d domname | -a disk.img ...)\n"
+"\n"
+msgstr ""
+" virt-filesystems --format=raw -a диск.img\n"
+"\n"
+
+#. type: verbatim
+#: ../rescue/virt-rescue.pod:17
 #, no-wrap
 msgid ""
 " virt-rescue [--options] domname\n"
@@ -23145,7 +23158,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:17
+#: ../rescue/virt-rescue.pod:19
 #, no-wrap
 msgid ""
 " virt-rescue [--options] disk.img [disk.img ...]\n"
@@ -23153,7 +23166,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:21
+#: ../rescue/virt-rescue.pod:23
 msgid ""
 "You must I<not> use C<virt-rescue> on live virtual machines.  Doing so will "
 "probably result in disk corruption in the VM.  C<virt-rescue> tries to stop "
@@ -23161,7 +23174,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:25
+#: ../rescue/virt-rescue.pod:27
 msgid ""
 "However if you use the I<--ro> (read only) option, then you can attach a "
 "shell to a live virtual machine.  The results might be strange or "
@@ -23169,7 +23182,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:31
+#: ../rescue/virt-rescue.pod:33
 msgid ""
 "virt-rescue is like a Rescue CD, but for virtual machines, and without the "
 "need for a CD.  virt-rescue gives you a rescue shell and some simple "
@@ -23178,14 +23191,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:36
+#: ../rescue/virt-rescue.pod:38
 msgid ""
 "You can run virt-rescue on any virtual machine known to libvirt, or directly "
 "on disk image(s):"
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:39
+#: ../rescue/virt-rescue.pod:41
 #, no-wrap
 msgid ""
 " virt-rescue -d GuestName\n"
@@ -23193,7 +23206,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:41
+#: ../rescue/virt-rescue.pod:43
 #, no-wrap
 msgid ""
 " virt-rescue --ro -a /path/to/disk.img\n"
@@ -23201,7 +23214,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:43
+#: ../rescue/virt-rescue.pod:45
 #, no-wrap
 msgid ""
 " virt-rescue -a /dev/sdc\n"
@@ -23209,12 +23222,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:45
+#: ../rescue/virt-rescue.pod:47
 msgid "For live VMs you I<must> use the --ro option."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:47
+#: ../rescue/virt-rescue.pod:49
 msgid ""
 "When you run virt-rescue on a virtual machine or disk image, you are placed "
 "in an interactive bash shell where you can use many ordinary Linux "
@@ -23224,34 +23237,98 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:54
+#: ../rescue/virt-rescue.pod:56
 msgid ""
-"In the example below, we list logical volumes, then choose one to mount "
-"under C</sysroot>:"
+"You can get virt-rescue to suggest mount commands for you by using the I<--"
+"suggest> option (in another terminal):"
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:57
+#: ../rescue/virt-rescue.pod:59
+#, no-wrap
+msgid ""
+" $ virt-rescue --suggest -d Fedora15\n"
+" Inspecting the virtual machine or disk image ...\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../rescue/virt-rescue.pod:62
+#, no-wrap
+msgid ""
+" This disk contains one or more operating systems.  You can use these\n"
+" mount commands in virt-rescue (at the ><rescue> prompt) to mount the\n"
+" filesystems.\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../rescue/virt-rescue.pod:66
+#, no-wrap
+msgid ""
+" # /dev/vg_f15x32/lv_root is the root of a linux operating system\n"
+" # type: linux, distro: fedora, version: 15.0\n"
+" # Fedora release 15 (Lovelock)\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../rescue/virt-rescue.pod:70
+#, no-wrap
+msgid ""
+" mount /dev/vg_f15x32/lv_root /sysroot/\n"
+" mount /dev/vda1 /sysroot/boot\n"
+" mount --bind /dev /sysroot/dev\n"
+" mount --bind /dev/pts /sysroot/dev/pts\n"
+" mount --bind /proc /sysroot/proc\n"
+" mount --bind /sys /sysroot/sys\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../rescue/virt-rescue.pod:77
+msgid ""
+"Another way is to list the logical volumes (with L<lvs(8)>) and partitions "
+"(with L<parted(8)>) and mount them by hand:"
+msgstr ""
+
+#. type: verbatim
+#: ../rescue/virt-rescue.pod:80
 #, no-wrap
 msgid ""
 " ><rescue> lvs\n"
 " LV      VG        Attr   LSize   Origin Snap%  Move Log Copy%  Convert\n"
-" lv_root vg_f11x64 -wi-a-   8.83G\n"
-" lv_swap vg_f11x64 -wi-a- 992.00M\n"
-" ><rescue> mount /dev/vg_f11x64/lv_root /sysroot\n"
+" lv_root vg_f15x32 -wi-a-   8.83G\n"
+" lv_swap vg_f15x32 -wi-a- 992.00M\n"
+" ><rescue> mount /dev/vg_f15x32/lv_root /sysroot\n"
+" ><rescue> mount /dev/vda1 /sysroot/boot\n"
 " ><rescue> ls /sysroot\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:64
+#: ../rescue/virt-rescue.pod:88
 msgid ""
-"If you don't know what filesystems are available on the virtual machine then "
-"you can use commands such as L<parted(8)> and L<lvs(8)> to find out."
+"Another command to list available filesystems is L<virt-filesystems(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:70
+#: ../rescue/virt-rescue.pod:91
+msgid ""
+"To run commands in a Linux guest (for example, grub), you should chroot into "
+"the /sysroot directory first:"
+msgstr ""
+
+#. type: verbatim
+#: ../rescue/virt-rescue.pod:94
+#, no-wrap
+msgid ""
+" ><rescue> chroot /sysroot\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../rescue/virt-rescue.pod:98
 msgid ""
 "Virt-rescue can be used on I<any> disk image file or device, not just a "
 "virtual machine.  For example you can use it on a blank file if you want to "
@@ -23261,14 +23338,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:76
+#: ../rescue/virt-rescue.pod:104
 msgid ""
 "Virt-rescue does not require root.  You only need to run it as root if you "
 "need root to open the disk image."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:79
+#: ../rescue/virt-rescue.pod:107
 msgid ""
 "This tool is just designed for quick interactive hacking on a virtual "
 "machine.  For more structured access to a virtual machine disk image, you "
@@ -23277,17 +23354,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:103
+#: ../rescue/virt-rescue.pod:131
 msgid "B<--append kernelopts>"
 msgstr "B<--append параметри_ядра>"
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:105
+#: ../rescue/virt-rescue.pod:133
 msgid "Pass additional options to the rescue kernel."
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:135
+#: ../rescue/virt-rescue.pod:163
 #, no-wrap
 msgid ""
 " virt-rescue --format=raw -a disk.img\n"
@@ -23295,7 +23372,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:139
+#: ../rescue/virt-rescue.pod:167
 #, no-wrap
 msgid ""
 " virt-rescue --format=raw -a disk.img --format -a another.img\n"
@@ -23303,17 +23380,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:148
+#: ../rescue/virt-rescue.pod:176
 msgid "B<-m MB>"
 msgstr "B<-m МБ>"
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:150
+#: ../rescue/virt-rescue.pod:178
 msgid "B<--memsize MB>"
 msgstr "B<--memsize МБ>"
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:152
+#: ../rescue/virt-rescue.pod:180
 msgid ""
 "Change the amount of memory allocated to the rescue system.  The default is "
 "set by libguestfs and is small but adequate for running system tools.  The "
@@ -23322,51 +23399,73 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:157
+#: ../rescue/virt-rescue.pod:185
 msgid "B<--network>"
 msgstr "B<--network>"
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:159
+#: ../rescue/virt-rescue.pod:187
 msgid "Enable QEMU user networking in the guest.  See L</NETWORK>."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:165
+#: ../rescue/virt-rescue.pod:193
 msgid "Open the image read-only."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:175
+#: ../rescue/virt-rescue.pod:203
 msgid ""
 "Enable SELinux in the rescue appliance.  You should read L<guestfs(3)/"
 "SELINUX> before using this option."
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:178
+#: ../rescue/virt-rescue.pod:206
 msgid "B<--smp> N"
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:180
+#: ../rescue/virt-rescue.pod:208
 msgid "Enable N E<ge> 2 virtual CPUs in the rescue appliance."
 msgstr ""
 
+#. type: =item
+#: ../rescue/virt-rescue.pod:210
+#, fuzzy
+#| msgid "B<--quiet>"
+msgid "B<--suggest>"
+msgstr "B<--quiet>"
+
 #. type: textblock
-#: ../rescue/virt-rescue.pod:198
+#: ../rescue/virt-rescue.pod:212
+msgid ""
+"Inspect the disk image and suggest what mount commands should be used to "
+"mount the disks.  You should use the I<--suggest> option in a second "
+"terminal, then paste the commands into another virt-rescue."
+msgstr ""
+
+#. type: textblock
+#: ../rescue/virt-rescue.pod:216
+msgid ""
+"This option implies I<--ro> and is safe to use even if the guest is up or if "
+"another virt-rescue is running."
+msgstr ""
+
+#. type: textblock
+#: ../rescue/virt-rescue.pod:235
 msgid ""
 "This changes the I<-a> and I<-d> options so that disks are added and mounts "
 "are done read-write."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:211
+#: ../rescue/virt-rescue.pod:248
 msgid "Previous versions of virt-rescue allowed you to write either:"
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:213
+#: ../rescue/virt-rescue.pod:250
 #, no-wrap
 msgid ""
 " virt-rescue disk.img [disk.img ...]\n"
@@ -23374,7 +23473,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:217
+#: ../rescue/virt-rescue.pod:254
 #, no-wrap
 msgid ""
 " virt-rescue guestname\n"
@@ -23382,12 +23481,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../rescue/virt-rescue.pod:225
+#: ../rescue/virt-rescue.pod:262
 msgid "NETWORK"
 msgstr "МЕРЕЖА"
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:227
+#: ../rescue/virt-rescue.pod:264
 msgid ""
 "Adding the I<--network> option enables QEMU user networking in the rescue "
 "appliance.  There are some differences between user networking and ordinary "
@@ -23395,12 +23494,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:233
+#: ../rescue/virt-rescue.pod:270
 msgid "ping does not work"
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:235
+#: ../rescue/virt-rescue.pod:272
 msgid ""
 "Because the ICMP ECHO_REQUEST protocol generally requires root in order to "
 "send the ping packets, and because virt-rescue must be able to run as non-"
@@ -23411,22 +23510,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:242
+#: ../rescue/virt-rescue.pod:279
 msgid "cannot receive connections"
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:244
+#: ../rescue/virt-rescue.pod:281
 msgid "QEMU user networking cannot receive incoming connections."
 msgstr ""
 
 #. type: =item
-#: ../rescue/virt-rescue.pod:246
+#: ../rescue/virt-rescue.pod:283
 msgid "making TCP connections"
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:248
+#: ../rescue/virt-rescue.pod:285
 msgid ""
 "The virt-rescue appliance needs to be small and so does not include many "
 "network tools.  In particular there is no L<telnet(1)> command.  You can "
@@ -23435,7 +23534,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../rescue/virt-rescue.pod:253
+#: ../rescue/virt-rescue.pod:290
 #, no-wrap
 msgid ""
 " exec 3<>/dev/tcp/redhat.com/80\n"
@@ -23445,23 +23544,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:257
+#: ../rescue/virt-rescue.pod:294
 msgid "See L<bash(1)> for more details."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:263
+#: ../rescue/virt-rescue.pod:300
 msgid ""
 "Several environment variables affect virt-rescue.  See L<guestfs(3)/"
 "ENVIRONMENT VARIABLES> for the complete list."
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:290
+#: ../rescue/virt-rescue.pod:327
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<guestfish(1)>, L<virt-copy-out(1)>, L<virt-edit(1)>, "
+#| "L<virt-tar-out(1)>, L<http://libguestfs.org/>."
 msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, L<http://"
-"libguestfs.org/>."
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, L<virt-"
+"filesystems(1)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-copy-out(1)>, L<virt-edit(1)>, L<virt-"
+"tar-out(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: ../resize/virt-resize.pod:5
