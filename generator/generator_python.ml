@@ -35,6 +35,8 @@ let rec generate_python_c () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
