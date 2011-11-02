@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <title>Short introduction to libguestfs</title>
@@ -61,7 +62,9 @@
     <p><b>Reuse qemu, Linux kernel and userspace tools</b> to read and
     write disk images.</p>
 
-    <img src="overview.svg"/>
+    <object type="image/svg+xml" data="overview.svg">
+      <img src="overview.png"/> <!-- fallback for lame IE -->
+    </object>
 
     <h2>The Stable API</h2>
 
@@ -171,7 +174,9 @@ get_blkid_tag (const char *device, const char *tag)
 
     <h2>Tools written around the API</h2>
 
-    <img src="tools.svg" />
+    <object type="image/svg+xml" data="tools.svg">
+      <img src="tools.png"/> <!-- fallback for lame IE -->
+    </object>
 
     <table>
       <tr><td valign="top" style="padding-bottom: 1.5em;">
