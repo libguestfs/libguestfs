@@ -604,7 +604,9 @@ AS_IF([test "x$enable_python" != "xno"],
 	    AC_MSG_RESULT([$PYTHON_PREFIX])
 
 	    AC_MSG_CHECKING([Python version])
-            PYTHON_VERSION=`$PYTHON -c "import sys; print (sys.version[[0:3]])"`
+            PYTHON_VERSION_MAJOR=`$PYTHON -c "import sys; print (sys.version_info.major)"`
+            PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info.minor)"`
+            PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
 	    AC_MSG_RESULT([$PYTHON_VERSION])
 
             AC_MSG_CHECKING([for Python include path])
