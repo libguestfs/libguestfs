@@ -168,7 +168,7 @@ py_guestfs_set_event_callback (PyObject *self, PyObject *args)
   snprintf (key, sizeof key, "_python_event_%d", eh);
   guestfs_set_private (g, key, py_callback);
 
-  py_eh = PyInt_FromLong ((long) eh);
+  py_eh = PyLong_FromLong ((long) eh);
   return py_eh;
 }
 
