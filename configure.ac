@@ -743,9 +743,19 @@ AS_IF([test "x$enable_python" != "xno"],
                 AC_MSG_RESULT([$PYTHON_INSTALLDIR])
             fi
 
+            dnl Look for libpython and some optional symbols in it.
             old_LIBS="$LIBS"
-            LIBS="$LIBS -lpython$PYTHON_VERSION"
-            AC_CHECK_FUNCS([PyCapsule_New])
+            if test "x$PYTHON_VERSION_MAJOR" = "x3"; then
+                dnl libpython3 is called "libpython3.Xmu.so"
+                LIBPYTHON="python${PYTHON_VERSION}mu"
+            else
+                LIBPYTHON="python$PYTHON_VERSION"
+            fi
+            AC_CHECK_LIB([$LIBPYTHON], [PyList_Size], [],
+                         [AC_MSG_FAILURE([$LIBPYTHON is not installed])])
+
+            AC_CHECK_FUNCS([PyCapsule_New \
+                            PyString_AsString])
             LIBS="$old_LIBS"
         fi
 

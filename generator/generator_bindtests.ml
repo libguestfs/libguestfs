@@ -301,7 +301,7 @@ g = guestfs.GuestFS ()
     fun f args -> pr "g.%s (%s)\n" f (mkargs args)
   );
 
-  pr "print \"EOF\"\n"
+  pr "print (\"EOF\")\n"
 
 and generate_ruby_bindtests () =
   generate_header HashStyle GPLv2plus;

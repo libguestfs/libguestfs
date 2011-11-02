@@ -295,6 +295,7 @@ po-docs/*/*.pod
 po-docs/*/*.1
 po-docs/*/*.3
 podwrapper.sh
+python/__pycache__
 python/bindtests.py
 python/examples/guestfs-python.3
 python/examples/stamp-guestfs-python.pod

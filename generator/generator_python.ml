@@ -49,6 +49,9 @@ get_string_list (PyObject *obj)
 {
   size_t i, len;
   char **r;
+#ifndef HAVE_PYSTRING_ASSTRING
+  PyObject *bytes;
+#endif
 
   assert (obj);
 
@@ -69,8 +72,14 @@ get_string_list (PyObject *obj)
     return NULL;
   }
 
-  for (i = 0; i < len; ++i)
+  for (i = 0; i < len; ++i) {
+#ifdef HAVE_PYSTRING_ASSTRING
     r[i] = PyString_AsString (PyList_GetItem (obj, i));
+#else
+    bytes = PyUnicode_AsUTF8String (PyList_GetItem (obj, i));
+    r[i] = PyBytes_AS_STRING (bytes);
+#endif
+  }
   r[len] = NULL;
 
   return r;
@@ -86,8 +95,13 @@ put_string_list (char * const * const argv)
     ;
 
   list = PyList_New (argc);
-  for (i = 0; i < argc; ++i)
+  for (i = 0; i < argc; ++i) {
+#ifdef HAVE_PYSTRING_ASSTRING
     PyList_SetItem (list, i, PyString_FromString (argv[i]));
+#else
+    PyList_SetItem (list, i, PyUnicode_FromString (argv[i]));
+#endif
+  }
 
   return list;
 }
@@ -104,8 +118,13 @@ put_table (char * const * const argv)
   list = PyList_New (argc >> 1);
   for (i = 0; i < argc; i += 2) {
     item = PyTuple_New (2);
+#ifdef HAVE_PYSTRING_ASSTRING
     PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
     PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
+#else
+    PyTuple_SetItem (item, 0, PyUnicode_FromString (argv[i]));
+    PyTuple_SetItem (item, 1, PyUnicode_FromString (argv[i+1]));
+#endif
     PyList_SetItem (list, i >> 1, item);
   }
 
@@ -152,16 +171,31 @@ free_strings (char **argv)
         function
         | name, FString ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
             pr "                        PyString_FromString (%s->%s));\n"
-              typ name
+              typ name;
+            pr "#else\n";
+            pr "                        PyUnicode_FromString (%s->%s));\n"
+              typ name;
+            pr "#endif\n"
         | name, FBuffer ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
             pr "                        PyString_FromStringAndSize (%s->%s, %s->%s_len));\n"
-              typ name typ name
+              typ name typ name;
+            pr "#else\n";
+            pr "                        PyBytes_FromStringAndSize (%s->%s, %s->%s_len));\n"
+              typ name typ name;
+            pr "#endif\n"
         | name, FUUID ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
             pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
-              typ name
+              typ name;
+            pr "#else\n";
+            pr "                        PyBytes_FromStringAndSize (%s->%s, 32));\n"
+              typ name;
+            pr "#endif\n"
         | name, (FBytes|FUInt64) ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
             pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
@@ -188,8 +222,13 @@ free_strings (char **argv)
             pr "    PyDict_SetItemString (dict, \"%s\", Py_None);\n" name;
             pr "  }\n"
         | name, FChar ->
+            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
+            pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name;
+            pr "#else\n";
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyUnicode_FromStringAndSize (&dirent->%s, 1));\n" name;
+            pr "#endif\n"
       ) cols;
       pr "  return dict;\n";
       pr "};\n";
@@ -419,18 +458,31 @@ free_strings (char **argv)
            pr "  Py_INCREF (Py_None);\n";
            pr "  py_r = Py_None;\n"
        | RInt _
-       | RBool _ -> pr "  py_r = PyInt_FromLong ((long) r);\n"
+       | RBool _ -> pr "  py_r = PyLong_FromLong ((long) r);\n"
        | RInt64 _ -> pr "  py_r = PyLong_FromLongLong (r);\n"
-       | RConstString _ -> pr "  py_r = PyString_FromString (r);\n"
+       | RConstString _ ->
+           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
+           pr "  py_r = PyString_FromString (r);\n";
+           pr "#else\n";
+           pr "  py_r = PyUnicode_FromString (r);\n";
+           pr "#endif\n"
        | RConstOptString _ ->
-           pr "  if (r)\n";
+           pr "  if (r) {\n";
+           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
            pr "    py_r = PyString_FromString (r);\n";
-           pr "  else {\n";
+           pr "#else\n";
+           pr "    py_r = PyUnicode_FromString (r);\n";
+           pr "#endif\n";
+           pr "  } else {\n";
            pr "    Py_INCREF (Py_None);\n";
            pr "    py_r = Py_None;\n";
            pr "  }\n"
        | RString _ ->
+           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
            pr "  py_r = PyString_FromString (r);\n";
+           pr "#else\n";
+           pr "  py_r = PyUnicode_FromString (r);\n";
+           pr "#endif\n";
            pr "  free (r);\n"
        | RStringList _ ->
            pr "  py_r = put_string_list (r);\n";
@@ -445,7 +497,11 @@ free_strings (char **argv)
            pr "  py_r = put_table (r);\n";
            pr "  free_strings (r);\n"
        | RBufferOut _ ->
+           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
            pr "  py_r = PyString_FromStringAndSize (r, size);\n";
+           pr "#else\n";
+           pr "  py_r = PyBytes_FromStringAndSize (r, size);\n";
+           pr "#endif\n";
            pr "  free (r);\n"
       );
 
@@ -473,15 +529,47 @@ free_strings (char **argv)
 
   (* Init function. *)
   pr "\
+#if PY_MAJOR_VERSION >= 3
+static struct PyModuleDef moduledef = {
+  PyModuleDef_HEAD_INIT,
+  \"libguestfsmod\",     /* m_name */
+  \"libguestfs module\",   /* m_doc */
+  -1,                    /* m_size */
+  methods,               /* m_methods */
+  NULL,                  /* m_reload */
+  NULL,                  /* m_traverse */
+  NULL,                  /* m_clear */
+  NULL,                  /* m_free */
+};
+#endif
+
+static PyObject *
+moduleinit (void)
+{
+  PyObject *m;
+
+#if PY_MAJOR_VERSION >= 3
+  m = PyModule_Create (&moduledef);
+#else
+  m = Py_InitModule ((char *) \"libguestfsmod\", methods);
+#endif
+
+  return m; /* m might be NULL if module init failed */
+}
+
+#if PY_MAJOR_VERSION >= 3
+PyMODINIT_FUNC
+PyInit_libguestfsmod (void)
+{
+  return moduleinit ();
+}
+#else
 void
 initlibguestfsmod (void)
 {
-  static int initialized = 0;
-
-  if (initialized) return;
-  Py_InitModule ((char *) \"libguestfsmod\", methods);
-  initialized = 1;
+  (void) moduleinit ();
 }
+#endif
 "
 
 (* Generate Python module. *)
@@ -489,7 +577,7 @@ and generate_python_py () =
   generate_header HashStyle LGPLv2plus;
 
   pr "\
-u\"\"\"Python bindings for libguestfs
+\"\"\"Python bindings for libguestfs
 
 import guestfs
 g = guestfs.GuestFS ()
@@ -566,7 +654,7 @@ class GuestFS:
             raise ClosedHandle (\"GuestFS: method called on closed handle\")
 
     def close (self):
-        u\"\"\"Explicitly close the guestfs handle.
+        \"\"\"Explicitly close the guestfs handle.
 
         The handle is closed implicitly when its reference count goes
         to zero (eg. when it goes out of scope or the program ends).
@@ -581,7 +669,7 @@ class GuestFS:
         self._o = None
 
     def set_event_callback (self, cb, event_bitmask):
-        u\"\"\"Register an event callback.
+        \"\"\"Register an event callback.
 
         Register \"cb\" as a callback function for all of the
         events in \"event_bitmask\".  \"event_bitmask\" should be
@@ -606,7 +694,7 @@ class GuestFS:
         return libguestfsmod.set_event_callback (self._o, cb, event_bitmask)
 
     def delete_event_callback (self, event_handle):
-        u\"\"\"Delete an event callback.\"\"\"
+        \"\"\"Delete an event callback.\"\"\"
         self._check_not_closed ()
         libguestfsmod.delete_event_callback (self._o, event_handle)
 
@@ -650,7 +738,7 @@ class GuestFS:
         let doc = pod2text ~width:60 name doc in
         let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
         let doc = String.concat "\n        " doc in
-        pr "        u\"\"\"%s\"\"\"\n" doc;
+        pr "        \"\"\"%s\"\"\"\n" doc;
       );
       (* Callers might pass in iterables instead of plain lists;
        * convert those to plain lists because the C side of things
