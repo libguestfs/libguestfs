@@ -132,9 +132,7 @@ To build the Perl tools:
 
 To run virt-sysprep:
 
-- xmlstarlet (optional)
-
-- virt-sysprep also requires FUSE support since it uses guestmount
+- virt-sysprep requires FUSE support since it uses guestmount
 
 
 Building
