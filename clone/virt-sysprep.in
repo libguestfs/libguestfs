@@ -222,18 +222,18 @@ trap cleanup EXIT ERR
 
 # Run virt-inspector and grab inspection information about this guest.
 virt-inspector "${params[@]}" > $tmpdir/xml
-xmlstarlet sel -t -c \
+virt-inspector --xpath \
     "string(/operatingsystems/operatingsystem[position()=1]/name)" \
-    $tmpdir/xml > $tmpdir/type
-xmlstarlet sel -t -c \
+    < $tmpdir/xml > $tmpdir/type
+virt-inspector --xpath \
     "string(/operatingsystems/operatingsystem[position()=1]/distro)" \
-    $tmpdir/xml > $tmpdir/distro ||:
-xmlstarlet sel -t -c \
+    < $tmpdir/xml > $tmpdir/distro ||:
+virt-inspector --xpath \
     "string(/operatingsystems/operatingsystem[position()=1]/package_format)" \
-    $tmpdir/xml > $tmpdir/package_format ||:
-xmlstarlet sel -t -c \
+    < $tmpdir/xml > $tmpdir/package_format ||:
+virt-inspector --xpath \
     "string(/operatingsystems/operatingsystem[position()=1]/package_management)" \
-    $tmpdir/xml > $tmpdir/package_management ||:
+    < $tmpdir/xml > $tmpdir/package_management ||:
 
 type="$(cat $tmpdir/type)"
 distro="$(cat $tmpdir/distro)"
