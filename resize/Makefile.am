@@ -31,7 +31,8 @@ if HAVE_OCAML_PCRE
 SOURCES = \
 	progress.ml \
 	resize.ml \
-	utils.ml
+	utils.ml \
+	utils_tests.ml
 
 # Note this list must be in dependency order.
 OBJECTS = \
@@ -78,6 +79,12 @@ CLEANFILES += stamp-virt-resize.pod
 
 # Tests.
 
+check_SCRIPTS = utils_tests
+
+utils_tests: utils.cmx utils_tests.cmx
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
+	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
+
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
 TESTS_ENVIRONMENT = \
@@ -86,7 +93,7 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	TMPDIR=$(top_builddir)
 
-TESTS = test-virt-resize.sh
+TESTS = test-virt-resize.sh utils_tests
 
 # Dependencies.
 depend: .depend

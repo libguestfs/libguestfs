@@ -5,3 +5,5 @@ resize.cmo: utils.cmo progress.cmi ../ocaml/guestfs.cmi
 resize.cmx: utils.cmx progress.cmx ../ocaml/guestfs.cmx
 utils.cmo: ../ocaml/guestfs.cmi
 utils.cmx: ../ocaml/guestfs.cmx
+utils_tests.cmo: utils.cmo
+utils_tests.cmx: utils.cmx
