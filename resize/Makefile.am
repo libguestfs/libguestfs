@@ -25,7 +25,6 @@ EXTRA_DIST = \
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize test.img
 
 if HAVE_OCAML
-if HAVE_OCAML_PCRE
 
 # Alphabetical order.
 SOURCES = \
@@ -49,7 +48,7 @@ bin_SCRIPTS = virt-resize
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
-OCAMLPACKAGES = -package pcre -I $(top_builddir)/src/.libs -I ../ocaml
+OCAMLPACKAGES = -package str -I $(top_builddir)/src/.libs -I ../ocaml
 
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
@@ -123,7 +122,6 @@ include .depend
 
 .PHONY: depend docs
 
-endif
 endif
 
 # Parallel builds don't obey dependencies for some reason we

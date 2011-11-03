@@ -102,23 +102,16 @@ let feature_available (g : Guestfs.guestfs) names =
 
 (* Parse the size field from --resize and --resize-force options. *)
 let parse_size =
-  let const_re = Pcre.regexp "^([.\\d]+)([bKMG])$"
-  and plus_const_re = Pcre.regexp "^\\+([.\\d]+)([bKMG])$"
-  and minus_const_re = Pcre.regexp "^-([.\\d]+)([bKMG])$"
-  and percent_re = Pcre.regexp "^([.\\d]+)%$"
-  and plus_percent_re = Pcre.regexp "^\\+([.\\d]+)%$"
-  and minus_percent_re = Pcre.regexp "^-([.\\d]+)%$"
+  let const_re = Str.regexp "^\\([.0-9]+\\)\\([bKMG]\\)$"
+  and plus_const_re = Str.regexp "^\\+\\([.0-9]+\\)\\([bKMG]\\)$"
+  and minus_const_re = Str.regexp "^-\\([.0-9]+\\)\\([bKMG]\\)$"
+  and percent_re = Str.regexp "^\\([.0-9]+\\)%$"
+  and plus_percent_re = Str.regexp "^\\+\\([.0-9]+\\)%$"
+  and minus_percent_re = Str.regexp "^-\\([.0-9]+\\)%$"
   in
   fun oldsize field ->
-    let subs = ref None in
-    let matches rex =
-      try subs := Some (Pcre.exec ~rex field); true
-      with Not_found -> false
-    in
-    let sub i =
-      match !subs with None -> assert false
-      | Some subs -> Pcre.get_substring subs i
-    in
+    let matches rex = Str.string_match rex field 0 in
+    let sub i = Str.matched_group i field in
     let size_scaled f = function
       | "b" -> Int64.of_float f
       | "K" -> Int64.of_float (f *. 1024.)

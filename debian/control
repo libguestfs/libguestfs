@@ -24,8 +24,6 @@ Build-Depends: debhelper (>= 7), dpkg-dev, devscripts, autotools-dev,
   libsys-virt-perl, libwin-hivex-perl,
 # FUSE
   libfuse-dev, fuse-utils,
-# virt-resize
-  libpcre-ocaml-dev,
 # Debian OCaml
   dh-ocaml,
 # to create images in the test suite
