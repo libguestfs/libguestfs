@@ -30,6 +30,10 @@
 
 #include <libxml/xmlIO.h>
 #include <libxml/xmlwriter.h>
+#include <libxml/xpath.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlsave.h>
 
 #include "progname.h"
 #include "c-ctype.h"
@@ -47,6 +51,7 @@ int keys_from_stdin = 0;
 int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 1;
+static const char *xpath = NULL;
 
 static void output (char **roots);
 static void output_roots (xmlTextWriterPtr xo, char **roots);
@@ -58,6 +63,7 @@ static void output_applications (xmlTextWriterPtr xo, char *root);
 static void canonicalize (char *dev);
 static void free_strings (char **argv);
 static int count_strings (char *const*argv);
+static void do_xpath (const char *query);
 
 static inline char *
 bad_cast (char const *s)
@@ -89,6 +95,7 @@ usage (int status)
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
+             "  --xpath query        Perform an XPath query\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
              program_name);
@@ -119,6 +126,7 @@ main (int argc, char *argv[])
     { "keys-from-stdin", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
+    { "xpath", 1, 0, 0 },
     { 0, 0, 0, 0 }
   };
   struct drv *drvs = NULL;
@@ -150,6 +158,8 @@ main (int argc, char *argv[])
           format = NULL;
         else
           format = optarg;
+      } else if (STREQ (long_options[option_index].name, "xpath")) {
+        xpath = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -236,6 +246,21 @@ main (int argc, char *argv[])
   /* Must be no extra arguments on the command line. */
   if (optind != argc)
     usage (EXIT_FAILURE);
+
+  /* XPath is modal: no drives should be specified.  There must be
+   * one extra parameter on the command line.
+   */
+  if (xpath) {
+    if (drvs != NULL) {
+      fprintf (stderr, _("%s: cannot use --xpath together with other options.\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    do_xpath (xpath);
+
+    exit (EXIT_SUCCESS);
+  }
 
   /* User must have specified some drives. */
   if (drvs == NULL)
@@ -781,4 +806,103 @@ count_strings (char *const *argv)
   for (c = 0; argv[c]; ++c)
     ;
   return c;
+}
+
+/* Run an XPath query on XML on stdin, print results to stdout. */
+static void
+do_xpath (const char *query)
+{
+  xmlDocPtr doc;
+  xmlXPathContextPtr xpathCtx;
+  xmlXPathObjectPtr xpathObj;
+  xmlNodeSetPtr nodes;
+  char *r;
+  size_t i;
+  xmlSaveCtxtPtr saveCtx;
+  xmlDocPtr wrdoc;
+  xmlNodePtr wrnode;
+
+  doc = xmlReadFd (STDIN_FILENO, NULL, "utf8", 0);
+  if (doc == NULL) {
+    fprintf (stderr, _("%s: unable to parse XML from stdin\n"), program_name);
+    exit (EXIT_FAILURE);
+  }
+
+  xpathCtx = xmlXPathNewContext (doc);
+  if (xpathCtx == NULL) {
+    fprintf (stderr, _("%s: unable to create new XPath context\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
+
+  xpathObj = xmlXPathEvalExpression (BAD_CAST query, xpathCtx);
+  if (xpathObj == NULL) {
+    fprintf (stderr, _("%s: unable to evaluate XPath expression\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
+
+  switch (xpathObj->type) {
+  case XPATH_NODESET:
+    nodes = xpathObj->nodesetval;
+
+    saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL, XML_SAVE_NO_DECL);
+    if (saveCtx == NULL) {
+      fprintf (stderr, _("%s: xmlSaveToFd failed\n"), program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
+      wrdoc = xmlNewDoc (BAD_CAST "1.0");
+      if (wrdoc == NULL) {
+        fprintf (stderr, _("%s: xmlNewDoc failed\n"), program_name);
+        exit (EXIT_FAILURE);
+      }
+      wrnode = xmlCopyNode (nodes->nodeTab[i], 1);
+      if (wrnode == NULL) {
+        fprintf (stderr, _("%s: xmlCopyNode failed\n"), program_name);
+        exit (EXIT_FAILURE);
+      }
+
+      xmlDocSetRootElement (wrdoc, wrnode);
+
+      if (xmlSaveDoc (saveCtx, wrdoc) == -1) {
+        fprintf (stderr, _("%s: xmlSaveDoc failed\n"), program_name);
+        exit (EXIT_FAILURE);
+      }
+
+      xmlFreeDoc (wrdoc);
+    }
+
+    xmlSaveClose (saveCtx);
+
+    break;
+
+  case XPATH_STRING:
+    r = (char *) xpathObj->stringval;
+    printf ("%s", r);
+    i = strlen (r);
+    if (i > 0 && r[i-1] != '\n')
+      printf ("\n");
+    break;
+
+  case XPATH_UNDEFINED: /* grrrrr ... switch-enum is a useless warning */
+  case XPATH_BOOLEAN:
+  case XPATH_NUMBER:
+  case XPATH_POINT:
+  case XPATH_RANGE:
+  case XPATH_LOCATIONSET:
+  case XPATH_USERS:
+  case XPATH_XSLT_TREE:
+  default:
+    r = (char *) xmlXPathCastToString (xpathObj);
+    printf ("%s\n", r);
+    free (r);
+  }
+
+  xmlXPathFreeObject (xpathObj);
+  xmlXPathFreeContext (xpathCtx);
+  xmlFreeDoc (doc);
+
+  exit (EXIT_SUCCESS);
 }

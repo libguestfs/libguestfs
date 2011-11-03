@@ -132,6 +132,13 @@ Display version number and exit.
 
 Enable tracing of libguestfs API calls.
 
+=item B<--xpath> query
+
+Perform an XPath query on the XML on stdin, and print the result on
+stdout.  In this mode virt-inspector simply runs an XPath query; all
+other inspection functions are disabled.  See L</XPATH QUERIES> below
+for some examples.
+
 =back
 
 =head1 OLD-STYLE COMMAND LINE ARGUMENTS
@@ -327,26 +334,34 @@ installer, or one part of a multipart CD.  For example:
      <format>installer</format>
      <live/>
 
-=head1 USING XPATH
+=head1 XPATH QUERIES
 
-You can use the XPath query language to select parts of the XML.  We
-recommend using C<xmlstarlet> to perform XPath queries from the
-command line.
+Virt-inspector includes built in support for running XPath queries.
+The reason for including XPath support directly in virt-inspector is
+simply that there are no good and widely available command line
+programs that can do XPath queries.  The only good one is
+L<xmlstarlet(1)> and that is not available on Red Hat Enterprise
+Linux.
+
+To perform an XPath query, use the I<--xpath> option.  Note that in
+this mode, virt-inspector simply reads XML from stdin and outputs the
+query result on stdout.  All other inspection features are disabled in
+this mode.
 
 For example:
 
- $ virt-inspector -d Guest | xmlstarlet sel -t -c '//filesystems'
+ $ virt-inspector -d Guest | virt-inspector --xpath '//filesystems'
  <filesystems>
       <filesystem dev="/dev/vg_f13x64/lv_root">
         <type>ext4</type>
  [...]
 
  $ virt-inspector -d Guest | \
-     xmlstarlet sel -t -c "string(//filesystem[@dev='/dev/sda1']/type)"
+     virt-inspector --xpath "string(//filesystem[@dev='/dev/sda1']/type)"
  ext4
 
  $ virt-inspector -d Guest | \
-    xmlstarlet sel -t -v '//icon' | base64 -i -d | display -
+     virt-inspector --xpath 'string(//icon)' | base64 -i -d | display -
  [displays the guest icon, if there is one]
 
 =head1 SHELL QUOTING
