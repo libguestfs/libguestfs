@@ -101,10 +101,6 @@ To build FUSE support (guestmount):
 
 - FUSE libraries and kernel module (optional)
 
-To build virt-resize:
-
-- OCaml PCRE bindings (ocaml-pcre) (optional)
-
 To build language bindings:
 
 - Perl if you want to build the perl bindings (optional)

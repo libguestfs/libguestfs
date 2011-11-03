@@ -69,10 +69,7 @@ SUBDIRS += csharp
 
 # virt-resize (new version) and virt-sparsify are written in OCaml.
 if HAVE_OCAML
-if HAVE_OCAML_PCRE
-SUBDIRS += resize
-endif
-SUBDIRS += sparsify
+SUBDIRS += resize sparsify
 endif
 
 # Perl tools.

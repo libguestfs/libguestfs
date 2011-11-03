@@ -652,14 +652,9 @@ AS_IF([test "x$enable_ocaml" != "xno"],
          OCAMLFIND=
          AC_PROG_OCAML
          AC_PROG_FINDLIB
-
-         AS_IF([test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"],
-         	[AC_CHECK_OCAML_PKG([pcre])])
         ])
 AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
-AM_CONDITIONAL([HAVE_OCAML_PCRE],
-               [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_pcre" != "xno"])
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
@@ -1088,7 +1083,7 @@ echo    "guestfish and C virt tools .......... yes"
 echo -n "Perl virt tools ..................... "
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-resize ......................... "
-if test "x$HAVE_OCAML_TRUE" = "x" && test "x$HAVE_OCAML_PCRE_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "FUSE filesystem ..................... $enable_fuse"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
