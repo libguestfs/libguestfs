@@ -239,6 +239,11 @@ main (int argc, char *argv[])
   _umask (0);
 #endif
 
+  /* Make a private copy of /etc/lvm so we can change the config (see
+   * daemon/lvm-filter.c).
+   */
+  copy_lvm ();
+
   /* Connect to virtio-serial channel. */
   int sock = open (VIRTIO_SERIAL_CHANNEL, O_RDWR | O_CLOEXEC);
   if (sock == -1) {
