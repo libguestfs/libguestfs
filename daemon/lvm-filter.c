@@ -23,10 +23,78 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
+
+#include "c-ctype.h"
+#include "ignore-value.h"
 
 #include "daemon.h"
-#include "c-ctype.h"
 #include "actions.h"
+
+/* This runs during daemon start up and creates a complete copy of
+ * /etc/lvm so that we can modify it as we desire.  We set
+ * LVM_SYSTEM_DIR to point to the copy.
+ */
+static char lvm_system_dir[] = "/tmp/lvmXXXXXX";
+
+static void rm_lvm_system_dir (void);
+
+void
+copy_lvm (void)
+{
+  struct stat statbuf;
+  char cmd[64];
+  int r;
+
+  /* If /etc/lvm directory doesn't exist (or isn't a directory) assume
+   * that this system doesn't support LVM and do nothing.
+   */
+  r = stat ("/etc/lvm", &statbuf);
+  if (r == -1) {
+    perror ("copy_lvm: stat: /etc/lvm");
+    return;
+  }
+  if (! S_ISDIR (statbuf.st_mode)) {
+    fprintf (stderr, "copy_lvm: warning: /etc/lvm is not a directory\n");
+    return;
+  }
+
+  if (mkdtemp (lvm_system_dir) == NULL) {
+    perror (lvm_system_dir);
+    exit (EXIT_FAILURE);
+  }
+
+  /* Hopefully no dotfiles in there ... XXX */
+  snprintf (cmd, sizeof cmd, "cp -a /etc/lvm/* %s", lvm_system_dir);
+  r = system (cmd);
+  if (r == -1) {
+    perror (cmd);
+    rmdir (lvm_system_dir);
+    exit (EXIT_FAILURE);
+  }
+
+  if (WEXITSTATUS (r) != 0) {
+    fprintf (stderr, "cp command failed with return code %d\n",
+             WEXITSTATUS (r));
+    rmdir (lvm_system_dir);
+    exit (EXIT_FAILURE);
+  }
+
+  /* Set environment variable so we use the copy. */
+  setenv ("LVM_SYSTEM_DIR", lvm_system_dir, 1);
+
+  /* Set a handler to remove the temporary directory at exit. */
+  atexit (rm_lvm_system_dir);
+}
+
+static void
+rm_lvm_system_dir (void)
+{
+  char cmd[64];
+
+  snprintf (cmd, sizeof cmd, "rm -rf %s", lvm_system_dir);
+  ignore_value (system (cmd));
+}
 
 /* Does the current line match the regexp /^\s*filter\s*=/ */
 static int
@@ -52,18 +120,24 @@ is_filter_line (const char *line)
   return 1;
 }
 
-/* Rewrite the 'filter = [ ... ]' line in /etc/lvm/lvm.conf. */
+/* Rewrite the 'filter = [ ... ]' line in lvm.conf. */
 static int
 set_filter (const char *filter)
 {
-  FILE *ifp = fopen ("/etc/lvm/lvm.conf", "r");
+  char lvm_conf[64];
+  snprintf (lvm_conf, sizeof lvm_conf, "%s/lvm.conf", lvm_system_dir);
+
+  char lvm_conf_new[64];
+  snprintf (lvm_conf_new, sizeof lvm_conf, "%s/lvm.conf.new", lvm_system_dir);
+
+  FILE *ifp = fopen (lvm_conf, "r");
   if (ifp == NULL) {
-    reply_with_perror ("open: /etc/lvm/lvm.conf");
+    reply_with_perror ("open: %s", lvm_conf);
     return -1;
   }
-  FILE *ofp = fopen ("/etc/lvm/lvm.conf.new", "w");
+  FILE *ofp = fopen (lvm_conf_new, "w");
   if (ofp == NULL) {
-    reply_with_perror ("open: /etc/lvm/lvm.conf.new");
+    reply_with_perror ("open: %s", lvm_conf_new);
     fclose (ifp);
     return -1;
   }
@@ -79,11 +153,11 @@ set_filter (const char *filter)
     }
     if (r < 0) {
       /* NB. fprintf doesn't set errno on error. */
-      reply_with_error ("/etc/lvm/lvm.conf.new: write failed");
+      reply_with_error ("%s: write failed", lvm_conf_new);
       fclose (ifp);
       fclose (ofp);
       free (line);
-      unlink ("/etc/lvm/lvm.conf.new");
+      unlink (lvm_conf_new);
       return -1;
     }
   }
@@ -91,20 +165,20 @@ set_filter (const char *filter)
   free (line);
 
   if (fclose (ifp) == EOF) {
-    reply_with_perror ("/etc/lvm/lvm.conf.new");
-    unlink ("/etc/lvm/lvm.conf.new");
+    reply_with_perror ("close: %s", lvm_conf);
+    unlink (lvm_conf_new);
     fclose (ofp);
     return -1;
   }
   if (fclose (ofp) == EOF) {
-    reply_with_perror ("/etc/lvm/lvm.conf.new");
-    unlink ("/etc/lvm/lvm.conf.new");
+    reply_with_perror ("close: %s", lvm_conf_new);
+    unlink (lvm_conf_new);
     return -1;
   }
 
-  if (rename ("/etc/lvm/lvm.conf.new", "/etc/lvm/lvm.conf") == -1) {
-    reply_with_perror ("rename: /etc/lvm/lvm.conf");
-    unlink ("/etc/lvm/lvm.conf.new");
+  if (rename (lvm_conf_new, lvm_conf) == -1) {
+    reply_with_perror ("rename: %s", lvm_conf);
+    unlink (lvm_conf_new);
     return -1;
   }
 
@@ -144,7 +218,10 @@ reactivate (void)
 static int
 rescan (void)
 {
-  unlink ("/etc/lvm/cache/.cache");
+  char lvm_cache[64];
+  snprintf (lvm_cache, sizeof lvm_cache, "%s/cache/.cache", lvm_system_dir);
+
+  unlink (lvm_cache);
 
   char *err;
   int r = command (NULL, &err, "lvm", "vgscan", NULL);

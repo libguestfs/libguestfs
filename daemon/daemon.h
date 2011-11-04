@@ -134,6 +134,9 @@ extern int e2prog (char *name); /* Massive hack for RHEL 5. */
 /*-- in lvm.c --*/
 extern int lv_canonical (const char *device, char **ret);
 
+/*-- in lvm-filter.c --*/
+extern void copy_lvm (void);
+
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
