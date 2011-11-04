@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -317,10 +317,21 @@ do_inotify_files (void)
   FILE *fp = NULL;
   guestfs_int_inotify_event_list *events;
   char buf[PATH_MAX];
+  char tempfile[] = "/tmp/inotifyXXXXXX";
+  int fd;
+  char cmd[64];
 
   NEED_INOTIFY (NULL);
 
-  fp = popen ("sort -u > /tmp/inotify", "w");
+  fd = mkstemp (tempfile);
+  if (fd == -1) {
+    reply_with_perror ("mkstemp");
+    return NULL;
+  }
+
+  snprintf (cmd, sizeof cmd, "sort -u > %s", tempfile);
+
+  fp = popen (cmd, "w");
   if (fp == NULL) {
     reply_with_perror ("sort");
     return NULL;
@@ -349,9 +360,11 @@ do_inotify_files (void)
 
   pclose (fp);
 
-  fp = fopen ("/tmp/inotify", "r");
+  fp = fdopen (fd, "r");
   if (fp == NULL) {
-    reply_with_perror ("/tmp/inotify");
+    reply_with_perror ("%s", tempfile);
+    unlink (tempfile);
+    close (fd);
     return NULL;
   }
 
@@ -365,20 +378,20 @@ do_inotify_files (void)
       goto error;
   }
 
-  fclose (fp);
+  fclose (fp); /* implicitly closes fd */
   fp = NULL;
 
   if (add_string (&ret, &size, &alloc, NULL) == -1)
     goto error;
 
-  unlink ("/tmp/inotify");
+  unlink (tempfile);
   return ret;
 
  error:
   if (fp != NULL)
     fclose (fp);
 
-  unlink ("/tmp/inotify");
+  unlink (tempfile);
   return NULL;
 #else
   NOT_AVAILABLE (NULL);

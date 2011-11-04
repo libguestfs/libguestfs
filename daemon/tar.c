@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (C) 2009-2011 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,18 +36,14 @@ optgroup_xz_available (void)
   return prog_exists ("xz");
 }
 
-/* Redirect errors from the tar command to the error file, then
- * provide functions for reading it in.  We overwrite the file each
- * time, and since it's small and stored on the appliance we don't
- * bother to delete it.
- */
-static const char *error_file = "/tmp/error";
-
+/* Read the error file.  Returns a string that the caller must free. */
 static char *
-read_error_file (void)
+read_error_file (char *error_file)
 {
   size_t len;
-  char *str = read_file (error_file, &len);
+  char *str;
+
+  str = read_file (error_file, &len);
   if (str == NULL) {
     str = strdup ("(no error)");
     if (str == NULL) {
@@ -78,6 +74,16 @@ do_tXz_in (const char *dir, const char *filter)
   int err, r;
   FILE *fp;
   char *cmd;
+  char error_file[] = "/tmp/tarXXXXXX";
+  int fd;
+
+  fd = mkstemp (error_file);
+  if (fd == -1) {
+    reply_with_perror ("mkstemp");
+    return -1;
+  }
+
+  close (fd);
 
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -%sxf - 2> %s",
@@ -86,6 +92,7 @@ do_tXz_in (const char *dir, const char *filter)
     r = cancel_receive ();
     errno = err;
     reply_with_perror ("asprintf");
+    unlink (error_file);
     return -1;
   }
 
@@ -98,6 +105,7 @@ do_tXz_in (const char *dir, const char *filter)
     r = cancel_receive ();
     errno = err;
     reply_with_perror ("%s", cmd);
+    unlink (error_file);
     free (cmd);
     return -1;
   }
@@ -106,14 +114,15 @@ do_tXz_in (const char *dir, const char *filter)
   /* The semantics of fwrite are too undefined, so write to the
    * file descriptor directly instead.
    */
-  int fd = fileno (fp);
+  fd = fileno (fp);
 
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
     cancel_receive ();
-    char *errstr = read_error_file ();
+    char *errstr = read_error_file (error_file);
     reply_with_error ("write error on directory: %s: %s", dir, errstr);
     free (errstr);
+    unlink (error_file);
     pclose (fp);
     return -1;
   }
@@ -123,16 +132,20 @@ do_tXz_in (const char *dir, const char *filter)
      */
     reply_with_error ("file upload cancelled");
     pclose (fp);
+    unlink (error_file);
     return -1;
   }
 
   if (pclose (fp) != 0) {
-    char *errstr = read_error_file ();
+    char *errstr = read_error_file (error_file);
     reply_with_error ("tar subcommand failed on directory: %s: %s",
                       dir, errstr);
     free (errstr);
+    unlink (error_file);
     return -1;
   }
+
+  unlink (error_file);
 
   return 0;
 }
