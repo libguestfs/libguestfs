@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # Test guestfish tilde expansion.
 # RHBZ#617440 guestfish: fails to tilde expand '~' when the $HOME env is unset

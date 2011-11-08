@@ -1164,12 +1164,12 @@ msgstr ""
 #: ../tools/virt-win-reg.pl:801
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
-"Ave, Cambridge, MA 02139, USA."
+"this program; if not, write to the Free Software Foundation, Inc., "
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."
 msgstr ""
 "Ви маєте отримати копію GNU General Public License разом з цією програмою; "
-"якщо це не так, повідомте про факт за адресою Free Software Foundation, "
-"Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+"якщо це не так, повідомте про факт за адресою Free Software Foundation, Inc., "
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."
 
 #. type: textblock
 #: ../cat/virt-cat.pod:5
