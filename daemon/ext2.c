@@ -32,6 +32,8 @@
 /* Confirmed this is true up to ext4 from the Linux sources. */
 #define EXT2_LABEL_MAX 16
 
+#define MAX_ARGS 64
+
 /* Choose which tools like mke2fs to use.  For RHEL 5 (only) there
  * is a special set of tools which support ext2/3/4.  eg. On RHEL 5,
  * mke2fs only supports ext2/3, but mke4fs supports ext2/3/4.
@@ -491,6 +493,153 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_tune2fs (const char *device, /* only required parameter */
+            int force,
+            int maxmountcount,
+            int mountcount,
+            const char *errorbehavior,
+            int64_t group,
+            int intervalbetweenchecks,
+            int reservedblockspercentage,
+            const char *lastmounteddirectory,
+            int64_t reservedblockscount,
+            int64_t user)
+{
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  int r;
+  char *err;
+  char prog[] = "tune2fs";
+  char maxmountcount_s[64];
+  char mountcount_s[64];
+  char group_s[64];
+  char intervalbetweenchecks_s[64];
+  char reservedblockspercentage_s[64];
+  char reservedblockscount_s[64];
+  char user_s[64];
+
+  if (e2prog (prog) == -1)
+    return -1;
+
+  ADD_ARG (argv, i, prog);
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_FORCE_BITMASK) {
+    if (force)
+      ADD_ARG (argv, i, "-f");
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_MAXMOUNTCOUNT_BITMASK) {
+    if (maxmountcount < 0) {
+      reply_with_error ("maxmountcount cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-c");
+    snprintf (maxmountcount_s, sizeof maxmountcount_s, "%d", maxmountcount);
+    ADD_ARG (argv, i, maxmountcount_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_MOUNTCOUNT_BITMASK) {
+    if (mountcount < 0) {
+      reply_with_error ("mountcount cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-C");
+    snprintf (mountcount_s, sizeof mountcount_s, "%d", mountcount);
+    ADD_ARG (argv, i, mountcount_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_ERRORBEHAVIOR_BITMASK) {
+    if (STRNEQ (errorbehavior, "continue") &&
+        STRNEQ (errorbehavior, "remount-ro") &&
+        STRNEQ (errorbehavior, "panic")) {
+      reply_with_error ("invalid errorbehavior parameter: %s", errorbehavior);
+      return -1;
+    }
+    ADD_ARG (argv, i, "-e");
+    ADD_ARG (argv, i, errorbehavior);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_GROUP_BITMASK) {
+    if (group < 0) {
+      reply_with_error ("group cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-g");
+    snprintf (group_s, sizeof group_s, "%" PRIi64, group);
+    ADD_ARG (argv, i, group_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_INTERVALBETWEENCHECKS_BITMASK) {
+    if (intervalbetweenchecks < 0) {
+      reply_with_error ("intervalbetweenchecks cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-i");
+    if (intervalbetweenchecks > 0) {
+      /* -i <NN>s is not documented in the man page, but has been
+       * supported in tune2fs for several years.
+       */
+      snprintf (intervalbetweenchecks_s, sizeof intervalbetweenchecks_s,
+                "%ds", intervalbetweenchecks);
+      ADD_ARG (argv, i, intervalbetweenchecks_s);
+    }
+    else
+      ADD_ARG (argv, i, "0");
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_RESERVEDBLOCKSPERCENTAGE_BITMASK) {
+    if (reservedblockspercentage < 0) {
+      reply_with_error ("reservedblockspercentage cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-m");
+    snprintf (reservedblockspercentage_s, sizeof reservedblockspercentage_s,
+              "%d", reservedblockspercentage);
+    ADD_ARG (argv, i, reservedblockspercentage_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_LASTMOUNTEDDIRECTORY_BITMASK) {
+    ADD_ARG (argv, i, "-M");
+    ADD_ARG (argv, i, lastmounteddirectory);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_RESERVEDBLOCKSCOUNT_BITMASK) {
+    if (reservedblockscount < 0) {
+      reply_with_error ("reservedblockscount cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-r");
+    snprintf (reservedblockscount_s, sizeof reservedblockscount_s,
+              "%" PRIi64, reservedblockscount);
+    ADD_ARG (argv, i, reservedblockscount_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_TUNE2FS_USER_BITMASK) {
+    if (user < 0) {
+      reply_with_error ("user cannot be negative");
+      return -1;
+    }
+    ADD_ARG (argv, i, "-u");
+    snprintf (user_s, sizeof user_s, "%" PRIi64, user);
+    ADD_ARG (argv, i, user_s);
+  }
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s: %s", prog, device, err);
     free (err);
     return -1;
   }

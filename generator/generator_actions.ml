@@ -6335,6 +6335,103 @@ is for copying blocks within existing files.  See C<guestfs_cp>,
 C<guestfs_cp_a> and C<guestfs_mv> for general file copying and
 moving functions.");
 
+  ("tune2fs", (RErr, [Device "device"], [Bool "force"; Int "maxmountcount"; Int "mountcount"; String "errorbehavior"; Int64 "group"; Int "intervalbetweenchecks"; Int "reservedblockspercentage"; String "lastmounteddirectory"; Int64 "reservedblockscount"; Int64 "user"]), 298, [],
+   [InitScratchFS, Always, TestOutputHashtable (
+     [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "0"; ""; "NOARG"; ""; ""];
+      ["tune2fs_l"; "/dev/sdb1"]],
+     ["Check interval", "0 (<none>)";
+      "Maximum mount count", "-1"]);
+    InitScratchFS, Always, TestOutputHashtable (
+      [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "86400"; ""; "NOARG"; ""; ""];
+       ["tune2fs_l"; "/dev/sdb1"]],
+      ["Check interval", "86400 (1 day)";
+       "Maximum mount count", "-1"]);
+    InitScratchFS, Always, TestOutputHashtable (
+      [["tune2fs"; "/dev/sdb1"; "false"; ""; ""; "NOARG"; "1"; ""; ""; "NOARG"; ""; "1"];
+       ["tune2fs_l"; "/dev/sdb1"]],
+      ["Reserved blocks uid", "1 (user bin)";
+       "Reserved blocks gid", "1 (group bin)"]);
+    InitScratchFS, Always, TestOutputHashtable (
+      [["tune2fs"; "/dev/sdb1"; "false"; ""; ""; "NOARG"; "0"; ""; ""; "NOARG"; ""; "0"];
+       ["tune2fs_l"; "/dev/sdb1"]],
+      ["Reserved blocks uid", "0 (user root)";
+       "Reserved blocks gid", "0 (group root)"])
+   ],
+   "adjust ext2/ext3/ext4 filesystem parameters",
+   "\
+This call allows you to adjust various filesystem parameters of
+an ext2/ext3/ext4 filesystem called C<device>.
+
+The optional parameters are:
+
+=over 4
+
+=item C<force>
+
+Force tune2fs to complete the operation even in the face of errors.
+This is the same as the tune2fs C<-f> option.
+
+=item C<maxmountcount>
+
+Set the number of mounts after which the filesystem is checked
+by L<e2fsck(8)>.  If this is C<0> then the number of mounts is
+disregarded.  This is the same as the tune2fs C<-c> option.
+
+=item C<mountcount>
+
+Set the number of times the filesystem has been mounted.
+This is the same as the tune2fs C<-C> option.
+
+=item C<errorbehavior>
+
+Change the behavior of the kernel code when errors are detected.
+Possible values currently are: C<continue>, C<remount-ro>, C<panic>.
+In practice these options don't really make any difference,
+particularly for write errors.
+
+This is the same as the tune2fs C<-e> option.
+
+=item C<group>
+
+Set the group which can use reserved filesystem blocks.
+This is the same as the tune2fs C<-g> option except that it
+can only be specified as a number.
+
+=item C<intervalbetweenchecks>
+
+Adjust the maximal time between two filesystem checks
+(in seconds).  If the option is passed as C<0> then
+time-dependent checking is disabled.
+
+This is the same as the tune2fs C<-i> option.
+
+=item C<reservedblockspercentage>
+
+Set the percentage of the filesystem which may only be allocated
+by privileged processes.
+This is the same as the tune2fs C<-m> option.
+
+=item C<lastmounteddirectory>
+
+Set the last mounted directory.
+This is the same as the tune2fs C<-M> option.
+
+=item C<reservedblockscount>
+Set the number of reserved filesystem blocks.
+This is the same as the tune2fs C<-r> option.
+
+=item C<user>
+
+Set the user who can use the reserved filesystem blocks.
+This is the same as the tune2fs C<-u> option except that it
+can only be specified as a number.
+
+=back
+
+To get the current values of filesystem parameters, see
+C<guestfs_tune2fs_l>.  For precise details of how tune2fs
+works, see the L<tune2fs(8)> man page.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
