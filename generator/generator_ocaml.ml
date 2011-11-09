@@ -440,13 +440,23 @@ copy_table (char * const * argv)
       pr ")\n";
       pr "{\n";
 
+      (* CAMLparam<N> can only take up to 5 parameters.  Further parameters
+       * have to be passed in groups of 5 to CAMLxparam<N> calls.
+       *)
       (match params with
-       | [p1; p2; p3; p4; p5] ->
-           pr "  CAMLparam5 (%s);\n" (String.concat ", " params)
        | p1 :: p2 :: p3 :: p4 :: p5 :: rest ->
            pr "  CAMLparam5 (%s);\n" (String.concat ", " [p1; p2; p3; p4; p5]);
-           pr "  CAMLxparam%d (%s);\n"
-             (List.length rest) (String.concat ", " rest)
+           let rec loop = function
+             | [] -> ()
+             | p1 :: p2 :: p3 :: p4 :: p5 :: rest ->
+               pr "  CAMLxparam5 (%s);\n"
+                 (String.concat ", " [p1; p2; p3; p4; p5]);
+               loop rest
+             | rest ->
+               pr "  CAMLxparam%d (%s);\n"
+                 (List.length rest) (String.concat ", " rest)
+           in
+           loop rest
        | ps ->
            pr "  CAMLparam%d (%s);\n" (List.length ps) (String.concat ", " ps)
       );
