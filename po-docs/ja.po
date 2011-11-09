@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-11-03 14:10+0000\n"
+"POT-Creation-Date: 2011-11-09 22:24+0000\n"
 "PO-Revision-Date: 2011-10-27 09:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1160,8 +1160,8 @@ msgstr ""
 #: ../tools/virt-win-reg.pl:801
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
-"Ave, Cambridge, MA 02139, USA."
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."
 msgstr ""
 
 #. type: textblock
@@ -5850,7 +5850,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:39
 #, no-wrap
 msgid ""
-" add-domain dom [libvirturi:..] [readonly:..] [iface:..] [live:..] [allowuuid:..] [readonlydisk:..]\n"
+" add-domain dom [libvirturi:..] [readonly:true|false] [iface:..] [live:true|false] [allowuuid:true|false] [readonlydisk:..]\n"
 "\n"
 msgstr ""
 
@@ -6054,7 +6054,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:146
 #, no-wrap
 msgid ""
-" add-drive-opts filename [readonly:..] [format:..] [iface:..] [name:..]\n"
+" add-drive-opts filename [readonly:true|false] [format:..] [iface:..] [name:..]\n"
 "\n"
 msgstr ""
 
@@ -7047,7 +7047,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:603
 #, no-wrap
 msgid ""
-" btrfs-filesystem-resize mountpoint [size:..]\n"
+" btrfs-filesystem-resize mountpoint [size:N]\n"
 "\n"
 msgstr ""
 
@@ -7546,7 +7546,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:825
 #, no-wrap
 msgid ""
-" compress-device-out ctype device (zdevice|-) [level:..]\n"
+" compress-device-out ctype device (zdevice|-) [level:N]\n"
 "\n"
 msgstr ""
 
@@ -7573,7 +7573,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:839
 #, no-wrap
 msgid ""
-" compress-out ctype file (zfile|-) [level:..]\n"
+" compress-out ctype file (zfile|-) [level:N]\n"
 "\n"
 msgstr ""
 
@@ -7640,7 +7640,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:873
 #, no-wrap
 msgid ""
-" copy-device-to-device src dest [srcoffset:..] [destoffset:..] [size:..]\n"
+" copy-device-to-device src dest [srcoffset:N] [destoffset:N] [size:N]\n"
 "\n"
 msgstr ""
 
@@ -7684,7 +7684,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:898
 #, no-wrap
 msgid ""
-" copy-device-to-file src dest [srcoffset:..] [destoffset:..] [size:..]\n"
+" copy-device-to-file src dest [srcoffset:N] [destoffset:N] [size:N]\n"
 "\n"
 msgstr ""
 
@@ -7703,7 +7703,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:907
 #, no-wrap
 msgid ""
-" copy-file-to-device src dest [srcoffset:..] [destoffset:..] [size:..]\n"
+" copy-file-to-device src dest [srcoffset:N] [destoffset:N] [size:N]\n"
 "\n"
 msgstr ""
 
@@ -7716,7 +7716,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:916
 #, no-wrap
 msgid ""
-" copy-file-to-file src dest [srcoffset:..] [destoffset:..] [size:..]\n"
+" copy-file-to-file src dest [srcoffset:N] [destoffset:N] [size:N]\n"
 "\n"
 msgstr ""
 
@@ -10273,7 +10273,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2109
 #, no-wrap
 msgid ""
-" inspect-get-icon root [favicon:..] [highquality:..]\n"
+" inspect-get-icon root [favicon:true|false] [highquality:true|false]\n"
 "\n"
 msgstr ""
 
@@ -12804,7 +12804,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3290
 #, no-wrap
 msgid ""
-" mkfs-opts fstype device [blocksize:..] [features:..] [inode:..] [sectorsize:..]\n"
+" mkfs-opts fstype device [blocksize:N] [features:..] [inode:N] [sectorsize:N]\n"
 "\n"
 msgstr ""
 
@@ -13483,7 +13483,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3601
 #, no-wrap
 msgid ""
-" ntfsresize-opts device [size:..] [force:..]\n"
+" ntfsresize-opts device [size:N] [force:true|false]\n"
 "\n"
 msgstr ""
 
