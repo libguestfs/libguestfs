@@ -776,8 +776,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 
       if optargs <> [] then (
         pr "    struct guestfs_%s_argv optargs;\n" name;
-        let bitmask = List.fold_left (
-          fun bitmask optarg ->
+        let _, bitmask = List.fold_left (
+          fun (shift, bitmask) optarg ->
             let is_set =
               match optarg with
               | Bool n, "" -> false
@@ -803,10 +803,11 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
               | String n, arg ->
                   pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true
               | _ -> assert false in
-            let bitmask = Int64.shift_left bitmask 1 in
-            let bitmask = if is_set then Int64.succ bitmask else bitmask in
-            bitmask
-        ) 0L optargs in
+            let bit = if is_set then Int64.shift_left 1L shift else 0L in
+            let bitmask = Int64.logor bitmask bit in
+            let shift = shift + 1 in
+            (shift, bitmask)
+        ) (0, 0L) optargs in
         pr "    optargs.bitmask = UINT64_C(0x%Lx);\n" bitmask;
       );
 
