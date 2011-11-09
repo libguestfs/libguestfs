@@ -30,6 +30,13 @@ open Generator_structs
 open Generator_prepopts
 open Generator_c
 
+let doc_opttype_of = function
+  | Bool n -> "true|false"
+  | Int n
+  | Int64 n -> "N"
+  | String n -> ".."
+  | _ -> assert false
+
 (* Generate a lot of different functions for guestfish. *)
 let generate_fish_cmds () =
   generate_header CStyle GPLv2plus;
@@ -122,7 +129,9 @@ let generate_fish_cmds () =
               (String.concat ""
                  (List.map (fun arg -> " " ^ name_of_argt arg) args))
               (String.concat ""
-                 (List.map (fun arg -> sprintf " [%s:..]" (name_of_argt arg)) optargs)) in
+                 (List.map (fun arg ->
+                   sprintf " [%s:%s]" (name_of_argt arg) (doc_opttype_of arg)
+                  ) optargs)) in
 
       let warnings =
         if List.exists (function Key _ -> true | _ -> false) args then
@@ -834,7 +843,8 @@ and generate_fish_actions_pod () =
       ) args;
       List.iter (
         function
-        | Bool n | Int n | Int64 n | String n -> pr " [%s:..]" n
+        | (Bool n | Int n | Int64 n | String n) as arg ->
+          pr " [%s:%s]" n (doc_opttype_of arg)
         | _ -> assert false
       ) optargs;
       pr "\n";
