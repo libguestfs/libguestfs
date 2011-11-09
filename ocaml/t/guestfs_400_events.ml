@@ -27,7 +27,8 @@ let log g ev eh buf array =
     | Guestfs.EVENT_PROGRESS -> "progress"
     | Guestfs.EVENT_APPLIANCE -> "appliance"
     | Guestfs.EVENT_LIBRARY -> "library"
-    | Guestfs.EVENT_TRACE -> "trace" in
+    | Guestfs.EVENT_TRACE -> "trace"
+    | Guestfs.EVENT_ENTER -> "enter" in
 
   let eh : int = Obj.magic eh in
 
