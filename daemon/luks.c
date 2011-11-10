@@ -26,6 +26,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#define MAX_ARGS 64
+
 int
 optgroup_luks_available (void)
 {
@@ -95,17 +97,17 @@ luks_open (const char *device, const char *key, const char *mapname,
   if (!tempfile)
     return -1;
 
-  const char *argv[16];
+  const char *argv[MAX_ARGS];
   size_t i = 0;
 
-  argv[i++] = "cryptsetup";
-  argv[i++] = "-d";
-  argv[i++] = tempfile;
-  if (readonly) argv[i++] = "--readonly";
-  argv[i++] = "luksOpen";
-  argv[i++] = device;
-  argv[i++] = mapname;
-  argv[i++] = NULL;
+  ADD_ARG (argv, i, "cryptsetup");
+  ADD_ARG (argv, i, "-d");
+  ADD_ARG (argv, i, tempfile);
+  if (readonly) ADD_ARG (argv, i, "--readonly");
+  ADD_ARG (argv, i, "luksOpen");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, mapname);
+  ADD_ARG (argv, i, NULL);
 
   char *err;
   int r = commandv (NULL, &err, (const char * const *) argv);
@@ -170,23 +172,23 @@ luks_format (const char *device, const char *key, int keyslot,
   if (!tempfile)
     return -1;
 
-  const char *argv[16];
+  const char *argv[MAX_ARGS];
   char keyslot_s[16];
   size_t i = 0;
 
-  argv[i++] = "cryptsetup";
-  argv[i++] = "-q";
+  ADD_ARG (argv, i, "cryptsetup");
+  ADD_ARG (argv, i, "-q");
   if (cipher) {
-    argv[i++] = "--cipher";
-    argv[i++] = cipher;
+    ADD_ARG (argv, i, "--cipher");
+    ADD_ARG (argv, i, cipher);
   }
-  argv[i++] = "--key-slot";
+  ADD_ARG (argv, i, "--key-slot");
   snprintf (keyslot_s, sizeof keyslot_s, "%d", keyslot);
-  argv[i++] = keyslot_s;
-  argv[i++] = "luksFormat";
-  argv[i++] = device;
-  argv[i++] = tempfile;
-  argv[i++] = NULL;
+  ADD_ARG (argv, i, keyslot_s);
+  ADD_ARG (argv, i, "luksFormat");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, tempfile);
+  ADD_ARG (argv, i, NULL);
 
   char *err;
   int r = commandv (NULL, &err, (const char * const *) argv);
@@ -232,21 +234,21 @@ do_luks_add_key (const char *device, const char *key, const char *newkey,
     return -1;
   }
 
-  const char *argv[16];
+  const char *argv[MAX_ARGS];
   char keyslot_s[16];
   size_t i = 0;
 
-  argv[i++] = "cryptsetup";
-  argv[i++] = "-q";
-  argv[i++] = "-d";
-  argv[i++] = keyfile;
-  argv[i++] = "--key-slot";
+  ADD_ARG (argv, i, "cryptsetup");
+  ADD_ARG (argv, i, "-q");
+  ADD_ARG (argv, i, "-d");
+  ADD_ARG (argv, i, keyfile);
+  ADD_ARG (argv, i, "--key-slot");
   snprintf (keyslot_s, sizeof keyslot_s, "%d", keyslot);
-  argv[i++] = keyslot_s;
-  argv[i++] = "luksAddKey";
-  argv[i++] = device;
-  argv[i++] = newkeyfile;
-  argv[i++] = NULL;
+  ADD_ARG (argv, i, keyslot_s);
+  ADD_ARG (argv, i, "luksAddKey");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, newkeyfile);
+  ADD_ARG (argv, i, NULL);
 
   char *err;
   int r = commandv (NULL, &err, (const char * const *) argv);
@@ -271,19 +273,19 @@ do_luks_kill_slot (const char *device, const char *key, int keyslot)
   if (!tempfile)
     return -1;
 
-  const char *argv[16];
+  const char *argv[MAX_ARGS];
   char keyslot_s[16];
   size_t i = 0;
 
-  argv[i++] = "cryptsetup";
-  argv[i++] = "-q";
-  argv[i++] = "-d";
-  argv[i++] = tempfile;
-  argv[i++] = "luksKillSlot";
-  argv[i++] = device;
+  ADD_ARG (argv, i, "cryptsetup");
+  ADD_ARG (argv, i, "-q");
+  ADD_ARG (argv, i, "-d");
+  ADD_ARG (argv, i, tempfile);
+  ADD_ARG (argv, i, "luksKillSlot");
+  ADD_ARG (argv, i, device);
   snprintf (keyslot_s, sizeof keyslot_s, "%d", keyslot);
-  argv[i++] = keyslot_s;
-  argv[i++] = NULL;
+  ADD_ARG (argv, i, keyslot_s);
+  ADD_ARG (argv, i, NULL);
 
   char *err;
   int r = commandv (NULL, &err, (const char * const *) argv);

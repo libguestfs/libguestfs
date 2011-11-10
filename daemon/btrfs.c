@@ -28,6 +28,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#define MAX_ARGS 64
+
 int
 optgroup_btrfs_available (void)
 {
@@ -41,13 +43,13 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
   char *buf;
   char *err;
   int r;
-  const char *argv[16];
+  const char *argv[MAX_ARGS];
   size_t i = 0;
   char size_str[32];
 
-  argv[i++] = "btrfs";
-  argv[i++] = "filesystem";
-  argv[i++] = "resize";
+  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, "filesystem");
+  ADD_ARG (argv, i, "resize");
 
   if (optargs_bitmask & GUESTFS_BTRFS_FILESYSTEM_RESIZE_SIZE_BITMASK) {
     if (size <= 0) {
@@ -56,10 +58,10 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
     }
 
     snprintf (size_str, sizeof size_str, "%" PRIi64, size);
-    argv[i++] = size_str;
+    ADD_ARG (argv, i, size_str);
   }
   else
-    argv[i++] = "max";
+    ADD_ARG (argv, i, "max");
 
   buf = sysroot_path (filesystem);
   if (!buf) {
@@ -67,8 +69,8 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
     return -1;
   }
 
-  argv[i++] = buf;
-  argv[i++] = NULL;
+  ADD_ARG (argv, i, buf);
+  ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
   free (buf);
