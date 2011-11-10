@@ -45,12 +45,13 @@ char **
 guestfs__list_filesystems (guestfs_h *g)
 {
   size_t i;
-  char **ret;
-  size_t ret_size;
+  char **ret = NULL;
+  size_t ret_size = 0;
 
-  ret = safe_malloc (g, sizeof (char *));
-  ret[0] = NULL;
-  ret_size = 0;
+  char **devices = NULL;
+  char **partitions = NULL;
+  char **mds = NULL;
+  char **lvs = NULL;
 
   /* Look to see if any devices directly contain filesystems
    * (RHBZ#590167).  However vfs-type will fail to tell us anything
@@ -58,19 +59,12 @@ guestfs__list_filesystems (guestfs_h *g)
    * get the list of partitions and exclude the corresponding devices
    * by using part-to-dev.
    */
-  char **devices;
   devices = guestfs_list_devices (g);
-  if (devices == NULL) {
-    guestfs___free_string_list (ret);
-    return NULL;
-  }
-  char **partitions;
+  if (devices == NULL) goto error;
   partitions = guestfs_list_partitions (g);
-  if (partitions == NULL) {
-    guestfs___free_string_list (devices);
-    guestfs___free_string_list (ret);
-    return NULL;
-  }
+  if (partitions == NULL) goto error;
+  mds = guestfs_list_md_devices (g);
+  if (mds == NULL) goto error;
 
   for (i = 0; partitions[i] != NULL; ++i) {
     char *dev = guestfs_part_to_dev (g, partitions[i]);
@@ -82,28 +76,37 @@ guestfs__list_filesystems (guestfs_h *g)
   /* Use vfs-type to check for filesystems on devices. */
   for (i = 0; devices[i] != NULL; ++i)
     check_with_vfs_type (g, devices[i], &ret, &ret_size);
-  guestfs___free_string_list (devices);
 
   /* Use vfs-type to check for filesystems on partitions. */
   for (i = 0; partitions[i] != NULL; ++i)
     check_with_vfs_type (g, partitions[i], &ret, &ret_size);
-  guestfs___free_string_list (partitions);
+
+  /* Use vfs-type to check for filesystems on md devices. */
+  for (i = 0; mds[i] != NULL; ++i)
+    check_with_vfs_type (g, mds[i], &ret, &ret_size);
 
   if (guestfs___feature_available (g, "lvm2")) {
     /* Use vfs-type to check for filesystems on LVs. */
-    char **lvs;
     lvs = guestfs_lvs (g);
-    if (lvs == NULL) {
-      guestfs___free_string_list (ret);
-      return NULL;
-    }
+    if (lvs == NULL) goto error;
 
     for (i = 0; lvs[i] != NULL; ++i)
       check_with_vfs_type (g, lvs[i], &ret, &ret_size);
-    guestfs___free_string_list (lvs);
   }
 
+  guestfs___free_string_list (devices);
+  guestfs___free_string_list (partitions);
+  guestfs___free_string_list (mds);
+  if (lvs) guestfs___free_string_list (lvs);
   return ret;
+
+ error:
+  if (devices) guestfs___free_string_list (devices);
+  if (partitions) guestfs___free_string_list (partitions);
+  if (mds) guestfs___free_string_list (mds);
+  if (lvs) guestfs___free_string_list (lvs);
+  if (ret) guestfs___free_string_list (ret);
+  return NULL;
 }
 
 /* If 'item' occurs in 'list', remove and free it. */

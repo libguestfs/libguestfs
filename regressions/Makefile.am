@@ -45,6 +45,7 @@ TESTS = \
 	test-guestfish-tilde.sh \
 	test-inspect-fstab.sh \
 	test-launch-race.pl \
+	test-list-filesystems.sh \
 	test-list-md-devices.sh \
 	test-luks.sh \
 	test-luks-list.sh \
