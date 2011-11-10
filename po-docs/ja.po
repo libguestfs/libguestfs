@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-10-31 09:45+0000\n"
+"POT-Creation-Date: 2011-11-09 22:42+0000\n"
 "PO-Revision-Date: 2011-07-17 20:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.net/projects/p/fedora/team/"
@@ -4165,7 +4165,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:39
 #, no-wrap
 msgid ""
-" add-domain dom [libvirturi:..] [readonly:..] [iface:..] [live:..] [allowuuid:..]\n"
+" add-domain dom [libvirturi:..] [readonly:true|false] [iface:..] [live:true|false] [allowuuid:true|false]\n"
 "\n"
 msgstr ""
 
@@ -4289,7 +4289,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:100
 #, no-wrap
 msgid ""
-" add-drive-opts filename [readonly:..] [format:..] [iface:..]\n"
+" add-drive-opts filename [readonly:true|false] [format:..] [iface:..]\n"
 "\n"
 msgstr ""
 
@@ -5269,7 +5269,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:552
 #, no-wrap
 msgid ""
-" btrfs-filesystem-resize mountpoint [size:..]\n"
+" btrfs-filesystem-resize mountpoint [size:N]\n"
 "\n"
 msgstr ""
 
@@ -8279,7 +8279,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1933
 #, no-wrap
 msgid ""
-" inspect-get-icon root [favicon:..] [highquality:..]\n"
+" inspect-get-icon root [favicon:true|false] [highquality:true|false]\n"
 "\n"
 msgstr ""
 
@@ -10815,7 +10815,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3118
 #, no-wrap
 msgid ""
-" mkfs-opts fstype device [blocksize:..] [features:..] [inode:..] [sectorsize:..]\n"
+" mkfs-opts fstype device [blocksize:N] [features:..] [inode:N] [sectorsize:N]\n"
 "\n"
 msgstr ""
 
@@ -11503,7 +11503,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3439
 #, no-wrap
 msgid ""
-" ntfsresize-opts device [size:..] [force:..]\n"
+" ntfsresize-opts device [size:N] [force:true|false]\n"
 "\n"
 msgstr ""
 
