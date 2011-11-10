@@ -2585,7 +2585,10 @@ C<path> should be a file or directory in the mounted file system
 This is the same as the C<statvfs(2)> system call.");
 
   ("tune2fs_l", (RHashtable "superblock", [Device "device"], []), 55, [],
-   [], (* XXX test *)
+   [InitScratchFS, Always, TestOutputHashtable (
+      [["tune2fs_l"; "/dev/sdb1"]],
+      ["Filesystem magic number", "0xEF53";
+       "Filesystem OS type", "Linux"])],
    "get ext2/ext3/ext4 superblock details",
    "\
 This returns the contents of the ext2, ext3 or ext4 filesystem
