@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-10-31 09:00+0000\n"
+"POT-Creation-Date: 2011-11-09 22:24+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:100
 #: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:73 fish/fish.c:101
-#: fuse/guestmount.c:908 inspector/virt-inspector.c:72 rescue/virt-rescue.c:60
+#: fuse/guestmount.c:908 inspector/virt-inspector.c:78 rescue/virt-rescue.c:60
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
@@ -67,7 +67,7 @@ msgstr ""
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
 #: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:141
-#: fish/fish.c:222 fuse/guestmount.c:1024 inspector/virt-inspector.c:132
+#: fish/fish.c:222 fuse/guestmount.c:1024 inspector/virt-inspector.c:140
 #: rescue/virt-rescue.c:137
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -75,7 +75,7 @@ msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:257
 #: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:163 fish/fish.c:279
-#: fuse/guestmount.c:1061 inspector/virt-inspector.c:154
+#: fuse/guestmount.c:1061 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:172
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2949,8 +2949,8 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 "%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
 
-#: inspector/virt-inspector.c:76
-#, c-format
+#: inspector/virt-inspector.c:82
+#, fuzzy, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2968,6 +2968,7 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
+"  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: toon informatie over een virtuele machine\n"
@@ -2988,7 +2989,12 @@ msgstr ""
 "  -x                   Traceer libguestfs API aanroepen\n"
 "Voor meer informatie, zie de man pagina %s(1).\n"
 
-#: inspector/virt-inspector.c:263
+#: inspector/virt-inspector.c:255
+#, c-format
+msgid "%s: cannot use --xpath together with other options.\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:288
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3018,20 +3024,55 @@ msgstr ""
 "Als je vindt dat dit een fout is, dien dan een bug rapport in met\n"
 "zo veel mogelijk informatie over de schijf image.\n"
 
-#: inspector/virt-inspector.c:288
+#: inspector/virt-inspector.c:313
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: XML schrijf fout bij \"%s\": %m\n"
 
-#: inspector/virt-inspector.c:300
+#: inspector/virt-inspector.c:325
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: stdout openen mislukte\n"
 
-#: inspector/virt-inspector.c:308
+#: inspector/virt-inspector.c:333
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: libxml2 schrijver aanmaken mislukte\n"
+
+#: inspector/virt-inspector.c:827
+#, fuzzy, c-format
+msgid "%s: unable to parse XML from stdin\n"
+msgstr "kan XML informatie teruggegeven door libvirt niet ontleden"
+
+#: inspector/virt-inspector.c:833
+#, fuzzy, c-format
+msgid "%s: unable to create new XPath context\n"
+msgstr "kan nieuwe XPath context niet aanmaken"
+
+#: inspector/virt-inspector.c:840
+#, fuzzy, c-format
+msgid "%s: unable to evaluate XPath expression\n"
+msgstr "kan XPath expressie niet evalueren"
+
+#: inspector/virt-inspector.c:851
+#, c-format
+msgid "%s: xmlSaveToFd failed\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:858
+#, c-format
+msgid "%s: xmlNewDoc failed\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:863
+#, c-format
+msgid "%s: xmlCopyNode failed\n"
+msgstr ""
+
+#: inspector/virt-inspector.c:870
+#, c-format
+msgid "%s: xmlSaveDoc failed\n"
+msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:158
 msgid "open_guest: first parameter must be a string or an arrayref"
