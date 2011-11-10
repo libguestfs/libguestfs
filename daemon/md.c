@@ -168,3 +168,65 @@ do_mdadm_create (const char *name, char *const *devices,
 
   return 0;
 }
+
+static int
+glob_errfunc (const char *epath, int eerrno)
+{
+  fprintf (stderr, "glob: failure reading %s: %s\n", epath, strerror (eerrno));
+  return 1;
+}
+
+char **
+do_list_md_devices (void)
+{
+  char **r = NULL;
+  int size = 0, alloc = 0;
+  glob_t mds;
+
+  memset(&mds, 0, sizeof(mds));
+
+#define PREFIX "/sys/block/md"
+#define SUFFIX "/md"
+
+  /* Look for directories under /sys/block matching md[0-9]*
+   * As an additional check, we also make sure they have a md subdirectory.
+   */
+  int err = glob (PREFIX "[0-9]*" SUFFIX, GLOB_ERR, glob_errfunc, &mds);
+  if (err == GLOB_NOSPACE) {
+    reply_with_error ("glob: returned GLOB_NOSPACE: "
+                      "rerun with LIBGUESTFS_DEBUG=1");
+    goto error;
+  } else if (err == GLOB_ABORTED) {
+    reply_with_error ("glob: returned GLOB_ABORTED: "
+                      "rerun with LIBGUESTFS_DEBUG=1");
+    goto error;
+  }
+
+  for (size_t i = 0; i < mds.gl_pathc; i++) {
+    size_t len = strlen (mds.gl_pathv[i]) - strlen (PREFIX) - strlen (SUFFIX);
+
+#define DEV "/dev/md"
+    char *dev = malloc (strlen(DEV) + len  + 1);
+    if (NULL == dev) {
+      reply_with_perror("malloc");
+      goto error;
+    }
+
+    char *n = dev;
+    n = mempcpy(n, DEV, strlen(DEV));
+    n = mempcpy(n, &mds.gl_pathv[i][strlen(PREFIX)], len);
+    *n = '\0';
+
+    if (add_string_nodup (&r, &size, &alloc, dev) == -1) goto error;
+  }
+
+  if (add_string_nodup (&r, &size, &alloc, NULL) == -1) goto error;
+  globfree (&mds);
+
+  return r;
+
+error:
+  globfree (&mds);
+  if (r != NULL) free_strings (r);
+  return NULL;
+}

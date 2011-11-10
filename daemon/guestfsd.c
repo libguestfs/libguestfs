@@ -415,10 +415,9 @@ xread (int sock, void *v_buf, size_t len)
 }
 
 int
-add_string (char ***argv, int *size, int *alloc, const char *str)
+add_string_nodup (char ***argv, int *size, int *alloc, char *str)
 {
   char **new_argv;
-  char *new_str;
 
   if (*size >= *alloc) {
     *alloc += 64;
@@ -426,25 +425,36 @@ add_string (char ***argv, int *size, int *alloc, const char *str)
     if (new_argv == NULL) {
       reply_with_perror ("realloc");
       free_strings (*argv);
+      *argv = NULL;
       return -1;
     }
     *argv = new_argv;
   }
+
+  (*argv)[*size] = str;
+
+  (*size)++;
+  return 0;
+}
+
+int
+add_string (char ***argv, int *size, int *alloc, const char *str)
+{
+  char *new_str;
 
   if (str) {
     new_str = strdup (str);
     if (new_str == NULL) {
       reply_with_perror ("strdup");
       free_strings (*argv);
+      *argv = NULL;
       return -1;
     }
-  } else
+  } else {
     new_str = NULL;
+  }
 
-  (*argv)[*size] = new_str;
-
-  (*size)++;
-  return 0;
+  return add_string_nodup (argv, size, alloc, new_str);
 }
 
 size_t

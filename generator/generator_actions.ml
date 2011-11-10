@@ -6490,6 +6490,12 @@ If not set, this defaults to C<raid1>.
 
 =back");
 
+  ("list_md_devices", (RStringList "devices", [], []), 300, [],
+   [],
+   "list Linux md (RAID) devices",
+   "\
+List all Linux md devices.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

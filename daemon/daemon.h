@@ -47,6 +47,7 @@ extern int xwrite (int sock, const void *buf, size_t len)
 extern int xread (int sock, void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 
+extern int add_string_nodup (char ***argv, int *size, int *alloc, char *str);
 extern int add_string (char ***argv, int *size, int *alloc, const char *str);
 extern size_t count_strings (char *const *argv);
 extern void sort_strings (char **argv, int len);

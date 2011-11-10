@@ -70,6 +70,9 @@ ifconfig lo 127.0.0.1
 ifconfig eth0 169.254.2.10
 route add default gw 169.254.2.2
 
+# Scan for MDs.
+mdadm -As --auto=yes --run
+
 # Scan for LVM.
 modprobe dm_mod ||:
 
