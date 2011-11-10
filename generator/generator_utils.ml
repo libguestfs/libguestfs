@@ -264,6 +264,7 @@ let seq_of_test = function
   | TestOutputStruct (s, _)
   | TestOutputFileMD5 (s, _)
   | TestOutputDevice (s, _)
+  | TestOutputHashtable (s, _)
   | TestLastFail s -> s
 
 let c_quote str =

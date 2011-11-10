@@ -290,6 +290,12 @@ and test =
      *)
   | TestOutputDevice of seq * string
 
+    (* Run the command sequence and expect a hashtable.  Check
+     * one of more fields in the hashtable against known good
+     * strings.
+     *)
+  | TestOutputHashtable of seq * (string * string) list
+
   (* Run the command sequence and expect the final command (only)
    * to fail.
    *)

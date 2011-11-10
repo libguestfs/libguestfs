@@ -113,6 +113,24 @@ md5sum (const char *filename, char *result)
   result[32] = '\\0';
 }
 
+#if 0 /* <- Remove this if we add RHashtable tests in 1.14 branch. */
+/* Return the value for a key in a hashtable.
+ * Note: the return value is part of the hash and should not be freed.
+ */
+static const char *
+get_key (char **hash, const char *key)
+{
+  size_t i;
+
+  for (i = 0; hash[i] != NULL; i += 2) {
+    if (STREQ (hash[i], key))
+      return hash[i+1];
+  }
+
+  return NULL; /* key not found */
+}
+#endif
+
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
@@ -692,6 +710,28 @@ and generate_one_test_body name i test_name init test =
         pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputHashtable (seq, fields) ->
+      pr "  /* TestOutputHashtable for %s (%d) */\n" name i;
+      pr "  const char *key, *expected, *value;\n";
+      let seq, last = get_seq_last seq in
+      let test () =
+        List.iter (
+          fun (key, value) ->
+            pr "    key = \"%s\";\n" (c_quote key);
+            pr "    expected = \"%s\";\n" (c_quote value);
+            pr "    value = get_key (r, key);\n";
+            pr "    if (value == NULL) {\n";
+            pr "      fprintf (stderr, \"%s: key \\\"%%s\\\" not found in hash: expecting \\\"%%s\\\"\\n\", key, expected);\n" test_name;
+            pr "      return -1;\n";
+            pr "    }\n";
+            pr "    if (STRNEQ (value, expected)) {\n";
+            pr "      fprintf (stderr, \"%s: key \\\"%%s\\\": expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", key, expected, value);\n" test_name;
+            pr "      return -1;\n";
+            pr "    }\n";
+        ) fields
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
