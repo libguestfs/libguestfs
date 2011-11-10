@@ -212,6 +212,18 @@ is_zero (const char *buffer, size_t size)
   return 1;
 }
 
+/* Helper for building up short lists of arguments.  Your code has to
+ * define MAX_ARGS to a suitable value.
+ */
+#define ADD_ARG(argv,i,v)                                               \
+  do {                                                                  \
+    if ((i) >= MAX_ARGS) {                                              \
+      fprintf (stderr, "%s: %d: internal error: exceeded MAX_ARGS (%zu) when constructing the command line\n", __FILE__, __LINE__, (size_t) MAX_ARGS); \
+      abort ();                                                         \
+    }                                                                   \
+    (argv)[(i)++] = (v);                                                \
+  } while (0)
+
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.
  */

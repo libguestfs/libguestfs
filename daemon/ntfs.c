@@ -28,6 +28,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#define MAX_ARGS 64
+
 int
 optgroup_ntfs3g_available (void)
 {
@@ -66,12 +68,12 @@ do_ntfsresize_opts (const char *device, int64_t size, int force)
 {
   char *err;
   int r;
-  const char *argv[16];
+  const char *argv[MAX_ARGS];
   size_t i = 0;
   char size_str[32];
 
-  argv[i++] = "ntfsresize";
-  argv[i++] = "-P";
+  ADD_ARG (argv, i, "ntfsresize");
+  ADD_ARG (argv, i, "-P");
 
   if (optargs_bitmask & GUESTFS_NTFSRESIZE_OPTS_SIZE_BITMASK) {
     if (size <= 0) {
@@ -80,15 +82,15 @@ do_ntfsresize_opts (const char *device, int64_t size, int force)
     }
 
     snprintf (size_str, sizeof size_str, "%" PRIi64, size);
-    argv[i++] = "--size";
-    argv[i++] = size_str;
+    ADD_ARG (argv, i, "--size");
+    ADD_ARG (argv, i, size_str);
   }
 
   if (optargs_bitmask & GUESTFS_NTFSRESIZE_OPTS_FORCE_BITMASK && force)
-    argv[i++] = "--force";
+    ADD_ARG (argv, i, "--force");
 
-  argv[i++] = device;
-  argv[i++] = NULL;
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
   if (r == -1) {

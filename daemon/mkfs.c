@@ -29,7 +29,7 @@
 #include "daemon.h"
 #include "actions.h"
 
-#define MAX_ARGS 16
+#define MAX_ARGS 64
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
@@ -53,47 +53,47 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
       STREQ (fstype, "ext4")) {
     if (e2prog (mke2fs) == -1)
       return -1;
-    argv[i++] = mke2fs;
+    ADD_ARG (argv, i, mke2fs);
   }
   else
-    argv[i++] = "mkfs";
+    ADD_ARG (argv, i, "mkfs");
 
-  argv[i++] = "-t";
-  argv[i++] = fstype;
+  ADD_ARG (argv, i, "-t");
+  ADD_ARG (argv, i, fstype);
 
   /* Force mke2fs to create a filesystem, even if it thinks it
    * shouldn't (RHBZ#690819).
    */
   if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
       STREQ (fstype, "ext4"))
-    argv[i++] = "-F";
+    ADD_ARG (argv, i, "-F");
 
   /* mkfs.ntfs requires the -Q argument otherwise it writes zeroes
    * to every block and does bad block detection, neither of which
    * are useful behaviour for virtual devices.
    */
   if (STREQ (fstype, "ntfs"))
-    argv[i++] = "-Q";
+    ADD_ARG (argv, i, "-Q");
 
   /* mkfs.reiserfs produces annoying interactive prompts unless you
    * tell it to be quiet.
    */
   if (STREQ (fstype, "reiserfs"))
-    argv[i++] = "-f";
+    ADD_ARG (argv, i, "-f");
 
   /* Same for JFS. */
   if (STREQ (fstype, "jfs"))
-    argv[i++] = "-f";
+    ADD_ARG (argv, i, "-f");
 
   /* For GFS, GFS2, assume a single node. */
   if (STREQ (fstype, "gfs") || STREQ (fstype, "gfs2")) {
-    argv[i++] = "-p";
-    argv[i++] = "lock_nolock";
+    ADD_ARG (argv, i, "-p");
+    ADD_ARG (argv, i, "lock_nolock");
     /* The man page says this is default, but it doesn't seem to be: */
-    argv[i++] = "-j";
-    argv[i++] = "1";
+    ADD_ARG (argv, i, "-j");
+    ADD_ARG (argv, i, "1");
     /* Don't ask questions: */
-    argv[i++] = "-O";
+    ADD_ARG (argv, i, "-O");
   }
 
   /* Process blocksize parameter if set. */
@@ -121,26 +121,26 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
       }
 
       snprintf (blocksize_str, sizeof blocksize_str, "%d", sectors_per_cluster);
-      argv[i++] = "-s";
-      argv[i++] = blocksize_str;
+      ADD_ARG (argv, i, "-s");
+      ADD_ARG (argv, i, blocksize_str);
     }
     else if (STREQ (fstype, "ntfs")) {
       /* For NTFS map the blocksize into a cluster size. */
       snprintf (blocksize_str, sizeof blocksize_str, "%d", blocksize);
-      argv[i++] = "-c";
-      argv[i++] = blocksize_str;
+      ADD_ARG (argv, i, "-c");
+      ADD_ARG (argv, i, blocksize_str);
     }
     else {
       /* For all other filesystem types, try the -b option. */
       snprintf (blocksize_str, sizeof blocksize_str, "%d", blocksize);
-      argv[i++] = "-b";
-      argv[i++] = blocksize_str;
+      ADD_ARG (argv, i, "-b");
+      ADD_ARG (argv, i, blocksize_str);
     }
   }
 
   if (optargs_bitmask & GUESTFS_MKFS_OPTS_FEATURES_BITMASK) {
-     argv[i++] = "-O";
-     argv[i++] = features;
+    ADD_ARG (argv, i, "-O");
+    ADD_ARG (argv, i, features);
   }
 
   if (optargs_bitmask & GUESTFS_MKFS_OPTS_INODE_BITMASK) {
@@ -156,8 +156,8 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
     }
 
     snprintf (inode_str, sizeof inode_str, "%d", inode);
-    argv[i++] = "-I";
-    argv[i++] = inode_str;
+    ADD_ARG (argv, i, "-I");
+    ADD_ARG (argv, i, inode_str);
   }
 
   if (optargs_bitmask & GUESTFS_MKFS_OPTS_SECTORSIZE_BITMASK) {
@@ -172,15 +172,12 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
     }
 
     snprintf (sectorsize_str, sizeof sectorsize_str, "%d", sectorsize);
-    argv[i++] = "-S";
-    argv[i++] = sectorsize_str;
+    ADD_ARG (argv, i, "-S");
+    ADD_ARG (argv, i, sectorsize_str);
   }
 
-  argv[i++] = device;
-  argv[i++] = NULL;
-
-  if (i > MAX_ARGS)
-    abort ();
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
   if (r == -1) {
