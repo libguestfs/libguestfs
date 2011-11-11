@@ -49,6 +49,7 @@ TESTS = \
 	test-luks-list.sh \
 	test-lvm-filtering.sh \
 	test-lvm-mapping.pl \
+	test-mdadm.sh \
 	test-noexec-stack.pl \
 	test-qemudie-killsub.sh \
 	test-qemudie-midcommand.sh \

@@ -6432,6 +6432,64 @@ To get the current values of filesystem parameters, see
 C<guestfs_tune2fs_l>.  For precise details of how tune2fs
 works, see the L<tune2fs(8)> man page.");
 
+  ("mdadm_create", (RErr, [String "name"; DeviceList "devices"], [Int64 "missingbitmap"; Int "nrdevices"; Int "spare"; Int64 "chunk"; String "level"]), 299, [Optional "mdadm"],
+   [],
+   "create a Linux md (RAID) device",
+   "\
+Create a Linux md (RAID) device named C<name> on the devices
+in the list C<devices>.
+
+The optional parameters are:
+
+=over 4
+
+=item C<missingbitmap>
+
+A bitmap of missing devices.  If a bit is set it means that a
+missing device is added to the array.  The least significant bit
+corresponds to the first device in the array.
+
+As examples:
+
+If C<devices = [\"/dev/sda\"]> and C<missingbitmap = 0x1> then
+the resulting array would be C<[E<lt>missingE<gt>, \"/dev/sda\"]>.
+
+If C<devices = [\"/dev/sda\"]> and C<missingbitmap = 0x2> then
+the resulting array would be C<[\"/dev/sda\", E<lt>missingE<gt>]>.
+
+This defaults to C<0> (no missing devices).
+
+The length of C<devices> + the number of bits set in
+C<missingbitmap> must equal C<nrdevices> + C<spare>.
+
+=item C<nrdevices>
+
+The number of active RAID devices.
+
+If not set, this defaults to the length of C<devices> plus
+the number of bits set in C<missingbitmap>.
+
+=item C<spare>
+
+The number of spare devices.
+
+If not set, this defaults to C<0>.
+
+=item C<chunk>
+
+The chunk size in bytes.
+
+=item C<level>
+
+The RAID level, which can be one of:
+I<linear>, I<raid0>, I<0>, I<stripe>, I<raid1>, I<1>, I<mirror>,
+I<raid4>, I<4>, I<raid5>, I<5>, I<raid6>, I<6>, I<raid10>, I<10>.
+Some of these are synonymous, and more levels may be added in future.
+
+If not set, this defaults to C<raid1>.
+
+=back");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

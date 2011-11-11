@@ -129,6 +129,7 @@ guestfsd_SOURCES = \
 	luks.c \
 	lvm.c \
 	lvm-filter.c \
+	md.c \
 	mkfs.c \
 	mknod.c \
 	modprobe.c \

@@ -48,6 +48,7 @@ daemon/ls.c
 daemon/luks.c
 daemon/lvm-filter.c
 daemon/lvm.c
+daemon/md.c
 daemon/mkfs.c
 daemon/mknod.c
 daemon/modprobe.c
