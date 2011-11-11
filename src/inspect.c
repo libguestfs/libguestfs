@@ -719,7 +719,7 @@ guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
   int64_t size;
 
   /* Make the basename unique by prefixing it with the fs number. */
-  if (asprintf (&r, "%s/%ld-%s", g->tmpdir, fs - g->fses, basename) == -1) {
+  if (asprintf (&r, "%s/%td-%s", g->tmpdir, fs - g->fses, basename) == -1) {
     perrorf (g, "asprintf");
     return NULL;
   }
