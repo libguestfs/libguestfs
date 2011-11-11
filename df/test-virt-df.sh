@@ -61,12 +61,14 @@ fi
 # /dev/dm-2                31729       395     29696   2% /sysroot/lv2
 # /dev/dm-3                63472       144     60052   1% /sysroot/lv3
 #
-# Only test plain 'df' output at the moment (XXX).
+# This test is disabled (XXX).  See:
+# https://www.redhat.com/archives/libguestfs/2011-November/msg00051.html
 
-if [ "$(echo "$output" | sort | awk '/VG.LV[123]/ { print $2 " " $3 " " $4 " " $5 }')" != \
-"31728 28 30064 1%
-31729 395 29696 2%
-63472 144 60052 1%" ]; then
-    echo "$0: error: output of virt-df did not match expected (df) output"
-    exit 1
-fi
+#if [ "$(echo "$output" | sort | awk '/VG.LV[123]/ { print $2 " " $3 " " $4 " " $5 }')" != \
+#"31728 28 30064 1%
+#31729 395 29696 2%
+#63472 144 60052 1%" ]; then
+#    echo "$0: error: output of virt-df did not match expected (df) output"
+#    echo "$output"
+#    exit 1
+#fi
