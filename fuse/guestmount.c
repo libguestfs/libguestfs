@@ -595,7 +595,7 @@ static int
 fg_read (const char *path, char *buf, size_t size, off_t offset,
          struct fuse_file_info *fi)
 {
-  TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, offset);
+  TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, (long) offset);
              
   char *r;
   size_t rsize;
@@ -632,7 +632,7 @@ static int
 fg_write (const char *path, const char *buf, size_t size,
           off_t offset, struct fuse_file_info *fi)
 {
-  TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, offset);
+  TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, (long) offset);
 
   if (read_only) return -EROFS;
 
