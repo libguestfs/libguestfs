@@ -73,7 +73,7 @@ libguestfs_jni_la_SOURCES = \
 	com_redhat_et_libguestfs_GuestFS.c
 
 libguestfs_jni_la_LIBADD = $(top_builddir)/src/libguestfs.la
-libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO)
+libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO) -shared
 libguestfs_jni_la_CFLAGS = \
   $(WARN_CFLAGS) $(WERROR_CFLAGS) \
   -I$(top_srcdir)/src -I$(top_builddir)/src \
@@ -112,10 +112,11 @@ TESTS_ENVIRONMENT = \
 noinst_DATA = Bindtests.class $(java_tests:.java=.class)
 
 t/%.class: t/%.java
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar $<
+	mkdir -p t
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir)/t $<
 
 Bindtests.class: Bindtests.java
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar $<
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir) $<
 
 endif
 
