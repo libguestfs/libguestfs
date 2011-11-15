@@ -37,23 +37,23 @@ TESTS = run-bindtests Guestfs005Load Guestfs010Basic
 
 check_DATA = Bindtests
 
-GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs
+GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs -i$(srcdir)
 
 all_targets = Bindtests Guestfs005Load Guestfs010Basic
 $(all_targets): $(top_builddir)/src/libguestfs.la
 
 all: $(all_targets)
 
-Guestfs.o: Guestfs.hs
-	$(GHC)  $(GHCFLAGS) -c $<
+Guestfs.o: $(srcdir)/Guestfs.hs
+	$(GHC)  $(GHCFLAGS) -c $< -o $@
 
-Bindtests: Bindtests.hs Guestfs.o
+Bindtests: $(srcdir)/Bindtests.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs005Load: Guestfs005Load.hs Guestfs.o
+Guestfs005Load: $(srcdir)/Guestfs005Load.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs010Basic: Guestfs010Basic.hs Guestfs.o
+Guestfs010Basic: $(srcdir)/Guestfs010Basic.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
 CLEANFILES = $(all_targets) *~ *.hi *.o
