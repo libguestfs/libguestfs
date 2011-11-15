@@ -32,7 +32,7 @@ erlang_bindir = $(libdir)/erlang/lib/$(PACKAGE_NAME)-$(PACKAGE_VERSION)/ebin
 erlang_bin_DATA = guestfs.beam
 
 guestfs.beam: guestfs.erl
-	$(ERLC) +debug_info guestfs.erl
+	$(ERLC) +debug_info $^
 
 bin_PROGRAMS = erl-guestfs
 
