@@ -1,0 +1,9 @@
+" Custom libguestfs indentation configuration for vim
+"
+" This configuration file requires localrc.vim to be installed. You can obtain
+" localrc.vim from http://www.vim.org/scripts/script.php?script_id=1408
+
+set sw=2
+set ts=2
+set tw=80
+set expandtab
