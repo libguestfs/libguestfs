@@ -6496,6 +6496,37 @@ If not set, this defaults to C<raid1>.
    "\
 List all Linux md devices.");
 
+  ("mdadm_detail", (RHashtable "info", [Device "md"], []), 301,  [Optional "mdadm"],
+   [],
+   "obtain metadata for an MD device",
+   "\
+This command exposes the output of 'mdadm -DY <md>'. The following fields are
+usually present in the returned hash. Other fields may also be present.
+
+=over
+
+=item C<level>
+
+The raid level of the MD device.
+
+=item C<devices>
+
+The number of underlying devices in the MD device.
+
+=item C<metadata>
+
+The metadata version used.
+
+=item C<uuid>
+
+The UUID of the MD device.
+
+=item C<name>
+
+The name of the MD device.
+
+=back");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

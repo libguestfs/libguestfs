@@ -92,4 +92,62 @@ write /r5t3/baz "testing"
 
 EOF
 
-rm -f md-test1.img md-test2.img md-test3.img md-test4.img
+eval `../fish/guestfish --listen`
+../fish/guestfish --remote add-ro md-test1.img
+../fish/guestfish --remote add-ro md-test2.img
+../fish/guestfish --remote add-ro md-test3.img
+../fish/guestfish --remote add-ro md-test4.img
+../fish/guestfish --remote run
+
+for md in `../fish/guestfish --remote list-md-devices`; do
+  ../fish/guestfish --remote mdadm-detail "${md}" > mdadm-detail.out
+
+  sed 's/:\s*/=/' mdadm-detail.out > mdadm-detail.out.sh
+  . mdadm-detail.out.sh
+  rm -f mdadm-detail.out.sh
+
+  error=0
+  case "$name" in
+    *:r1t1)
+      [ "$level" == "raid1" ] || error=1
+      [ "$devices" == "2" ] || error=1
+      ;;
+
+    *:r1t2)
+      [ "$level" == "raid1" ] || error=1
+      [ "$devices" == "2" ] || error=1
+      ;;
+
+    *:r5t1)
+      [ "$level" == "raid5" ] || error=1
+      [ "$devices" == "4" ] || error=1
+      ;;
+
+    *:r5t2)
+      [ "$level" == "raid5" ] || error=1
+      [ "$devices" == "3" ] || error=1
+      ;;
+
+    *:r5t3)
+      [ "$level" == "raid5" ] || error=1
+      [ "$devices" == "2" ] || error=1
+      ;;
+
+    *)
+      error=1
+  esac
+
+  [[ "$uuid" =~ ([0-9a-f]{8}:){3}[0-9a-f]{8} ]] || error=1
+  [ ! -z "$metadata" ] || error=1
+
+  if [ "$error" == "1" ]; then
+    echo "$0: Unexpected output from mdadm-detail for device $md"
+    cat mdadm-detail.out
+    ../fish/guestfish --remote exit
+    exit 1
+  fi
+done
+
+../fish/guestfish --remote exit
+
+rm -f mdadm-detail.out md-test1.img md-test2.img md-test3.img md-test4.img
