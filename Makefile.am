@@ -145,6 +145,7 @@ HTMLFILES = \
 	html/guestfs-python.3.html \
 	html/guestfs-recipes.1.html \
 	html/guestfs-ruby.3.html \
+	html/guestfs-testing.1.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
 	html/virt-alignment-scan.1.html \
