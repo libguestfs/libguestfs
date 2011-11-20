@@ -1,0 +1,291 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-testing - manual testing of libguestfs, you can help!
+
+=head1 DESCRIPTION
+
+This page has manual tests you can try on libguestfs.  Everyone has a
+slightly different combination of platform, hardware and guests, so
+this testing is very valuable.  Thanks for helping out!
+
+These tests require libguestfs E<ge> 1.14.
+
+Tests marked with a B<*> (asterisk) can B<destroy data> if you're not
+careful.  The others are safe and won't modify anything.
+
+You can report bugs you find through this link:
+
+https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools
+
+or post on the mailing list (registration is B<not> required, but if
+you're not registered then you'll have to wait for a moderator to
+manually approve your message):
+
+https://www.redhat.com/mailman/listinfo/libguestfs
+
+=head1 TESTS
+
+=head2 Check KVM acceleration is being used.
+
+If your host has hardware virt acceleration, then with a hot cache
+libguestfs should be able to start up in a few seconds.  Run the
+following command a few times:
+
+ time guestfish -a /dev/null run
+
+After a few runs, the time should settle down to a few seconds (under
+5 seconds on fast 64 bit hardware).
+
+http://virt-tools.org/learning/check-hardware-virt/
+
+=head2 Run virt-alignment-scan on all your guests.
+
+Run L<virt-alignment-scan(1)> on guests or disk images:
+
+ virt-alignment-scan -a /path/to/disk.img
+
+or:
+
+ virt-alignment-scan -d Guest
+
+Does the alignment report match how the guest partitions are aligned?
+
+=head2 Run virt-cat on some files in guests.
+
+L<virt-cat(1)> can display files from guests.  For a Linux guest, try:
+
+ virt-cat LinuxGuest /etc/passwd
+
+A recent feature is support for Windows paths, for example:
+
+ virt-cat WindowsGuest 'c:\windows\win.ini'
+
+An even better test is if you have a Windows guest with multiple
+drives.  Do C<D:>, C<E:> etc paths work correctly?
+
+=head2 B<*> Copy some files into a B<shut off> guest.
+
+L<virt-copy-in(1)> can recursively copy files and directories
+into a guest or disk image.
+
+ virt-copy-in -d Guest /etc /tmp
+
+This should copy local directory C</etc> to C</tmp/etc> in the guest
+(recursively).  If you boot the guest, can you see all of the copied
+files and directories?
+
+Shut the guest down and try copying multiple files and directories:
+
+ virt-copy-in -d Guest /home /etc/issue /tmp
+
+=head2 Copy some files out of a guest.
+
+L<virt-copy-out(1)> can recursively copy files and directories
+out of a guest or disk image.
+
+ virt-copy-out -d Guest /home .
+
+Note the final space and period in the command is not a typo.
+
+This should copy C</home> from the guest into the current directory.
+
+=head2 Run virt-df.
+
+L<virt-df(1)> lists disk space.  Run:
+
+ virt-df
+
+Do the results match what's reported inside the guests?
+
+=head2 Try importing virt-df CSV output into a spreadsheet or database.
+
+Run:
+
+ virt-df --csv > /tmp/report.csv
+
+Now try to load this into your favorite spreadsheet or database.  Are
+the results reproduced faithfully in the spreadsheet/database?
+
+http://www.postgresql.org/docs/8.1/static/sql-copy.html
+http://dev.mysql.com/doc/refman/5.1/en/load-data.html
+
+=head2 B<*> Edit a file in a B<shut off> guest.
+
+L<virt-edit(1)> can edit files in guests.  Try this command on
+a RHEL or Fedora guest:
+
+ virt-edit LinuxGuest /etc/sysconfig/network
+
+On other Linux guests try editing other files such as:
+
+ virt-edit LinuxGuest /etc/motd
+
+Are the changes seen inside the guest when it is booted?
+
+=head2 Display the filesystems / partitions / LVs in a guest.
+
+L<virt-filesystems(1)> can be used to display filesystems in
+a guest.  Try this command on any disk image or guest:
+
+ virt-filesystems -a /path/to/disk.img --all --long -h
+
+or:
+
+ virt-filesystems -d Guest --all --long -h
+
+Do the results match what is seen in the guest?
+
+=head2 Run virt-inspector on all your guests.
+
+Use L<virt-inspector(1)> to get a report on all of your guests or disk
+images:
+
+ virt-inspector -a /path/to/disk.img | less
+
+or:
+
+ virt-inspector -d Guest | less
+
+Do the results match what is actually in the guest?
+
+=head2 Try the auditing features of virt-ls on all your guests.
+
+List all setuid or setgid programs in a Linux virtual machine:
+
+ virt-ls -lR -d Guest / | grep '^- [42]'
+
+List all public-writable directories in a Linux virtual machine:
+
+ virt-ls -lR -d Guest / | grep '^d ...7'
+
+List all Unix domain sockets in a Linux virtual machine:
+
+ virt-ls -lR -d Guest / | grep '^s'
+
+List all regular files with filenames ending in '.png':
+
+ virt-ls -lR -d Guest / | grep -i '^-.*\.png$'
+
+Display files larger than 10MB in home directories:
+
+ virt-ls -lR -d Guest /home | awk '$3 > 10*1024*1024'
+
+Find everything modified in the last 7 days:
+
+ virt-ls -lR -d Guest --time-days / | awk '$6 <= 7'
+
+Find regular files modified in the last 24 hours:
+
+ virt-ls -lR -d Guest --time-days / | grep '^-' | awk '$6 < 1'
+
+Do the results match what is in the guest?
+
+=head2 Create a disk image from a tarball.
+
+Use L<virt-make-fs(1)> to create a disk image from any tarball
+that you happen to have:
+
+ virt-make-fs --partition=mbr --type=vfat /any/tarball.tar.gz output.img
+
+Add 'output.img' as a raw disk to an existing guest.  Check the guest
+can see the files.  This test is particularly useful if you try it
+with a Windows guest.
+
+Try other partitioning schemes, eg. I<--partition=gpt>.
+
+Try other filesystem formats, eg. I<--type=ntfs>, I<--type=ext2>.
+
+=head2 B<*> Run virt-rescue on a B<shut off> disk image or guest.
+
+Use L<virt-rescue(1)> to examine, rescue or repair a B<shut off> guest
+or disk image:
+
+ virt-rescue -a /path/to/disk.img
+
+or:
+
+ virt-rescue -d Guest
+
+Can you use ordinary shell commands to examine the guest?
+
+=head2 B<*> Resize your guests.
+
+Use L<virt-resize(1)> to give a guest some more disk space.  For
+example, if you have a disk image that is smaller than 30G, increase
+it to 30G by doing:
+
+ truncate -s 30G newdisk.img
+ virt-filesystems -a /path/to/olddisk.img --all --long -h
+ virt-resize /path/to/olddisk.img newdisk.img --expand /dev/sda1
+ qemu-kvm -m 1024 -hda newdisk.img
+
+Does the guest still boot?  Try expanding other partitions.
+
+=head2 B<*> Sparsify a guest disk.
+
+Using L<virt-sparsify(1)>, make a disk image more sparse:
+
+ virt-sparsify /path/to/olddisk.img newdisk.img
+
+Is C<newdisk.img> still bootable after sparsifying?  Is the resulting
+disk image smaller (use C<du> to check)?
+
+=head2 B<*> "sysprep" a B<shut off> Linux guest.
+
+Note that this really will mess up an existing guest, so it's better
+to clone the guest before trying this.
+
+ virt-sysprep --hostname newhost.example.com -a /path/to/disk.img
+
+Was the sysprep successful?  After booting, what changes were made and
+were they successful?
+
+=head2 Dump the Windows Registry from your Windows guests.
+
+Use L<virt-win-reg(1)> to dump out the Windows Registry from
+any Windows guests that you have.
+
+ virt-win-reg --unsafe-printable-strings WindowsGuest 'HKLM\Software' |
+   less
+
+ virt-win-reg --unsafe-printable-strings WindowsGuest 'HKLM\System' |
+   less
+
+Does the output match running C<regedit> inside the guest?
+
+A recent feature is the ability to dump user registries, so try this,
+replacing I<username> with the name of a local user in the guest:
+
+ virt-win-reg --unsafe-printable-strings WindowsGuest 'HKEY_USERS\username' |
+   less
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<guestfs-examples(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011 Red Hat Inc. L<http://libguestfs.org/>
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA

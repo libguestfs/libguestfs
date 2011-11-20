@@ -88,9 +88,11 @@ erlang/guestfs.erl
 examples/create_disk
 examples/guestfs-examples.3
 examples/guestfs-recipes.1
+examples/guestfs-testing.1
 examples/inspect_vm
 examples/stamp-guestfs-examples.pod
 examples/stamp-guestfs-recipes.pod
+examples/stamp-guestfs-testing.pod
 examples/virt-dhcp-address
 fish/cmds.c
 fish/cmds_gperf.c
@@ -138,6 +140,7 @@ html/guestfs-perl.3.html
 html/guestfs-python.3.html
 html/guestfs-recipes.1.html
 html/guestfs-ruby.3.html
+html/guestfs-testing.1.html
 html/guestmount.1.html
 html/virt-alignment-scan.1.html
 html/virt-cat.1.html
