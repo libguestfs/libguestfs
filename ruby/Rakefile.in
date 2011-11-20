@@ -24,7 +24,7 @@ require 'rake/gempackagetask'
 PKG_NAME='@PACKAGE_NAME@'
 PKG_VERSION='@PACKAGE_VERSION@'
 
-EXT_CONF='@srcdir@/ext/guestfs/extconf.rb'
+EXT_CONF='@abs_srcdir@/ext/guestfs/extconf.rb'
 MAKEFILE='@builddir@/ext/guestfs/Makefile'
 GUESTFS_MODULE='@builddir@/ext/guestfs/_guestfs.so'
 GUESTFS_SRC='@srcdir@/ext/guestfs/_guestfs.c'
@@ -38,13 +38,13 @@ CLOBBER.include [ "@builddir@/config.save", "@builddir@/ext/**/mkmf.log",
 # Build locally
 
 file MAKEFILE => EXT_CONF do |t|
-     unless sh "top_srcdir=$(pwd)/@top_srcdir@; top_builddir=$(pwd)/@top_builddir@; export ARCHFLAGS=\"-arch $(uname -m)\"; cd #{File::dirname(EXT_CONF)}; ruby #{File::basename(EXT_CONF)} --with-_guestfs-include=$top_srcdir/src --with-_guestfs-lib=$top_builddir/src/.libs"
+     unless sh "top_srcdir=$(pwd)/@top_srcdir@; top_builddir=$(pwd)/@top_builddir@; export ARCHFLAGS=\"-arch $(uname -m)\"; mkdir -p @builddir@/ext/guestfs; cd @builddir@/ext/guestfs; ruby #{EXT_CONF} --with-_guestfs-include=$top_srcdir/src --with-_guestfs-lib=$top_builddir/src/.libs"
          $stderr.puts "Failed to run extconf"
          break
      end
 end
 file GUESTFS_MODULE => [ MAKEFILE, GUESTFS_SRC ] do |t|
-    Dir::chdir(File::dirname(EXT_CONF)) do
+    Dir::chdir("@builddir@/ext/guestfs") do
          unless sh "make"
              $stderr.puts "make failed"
              break
@@ -61,19 +61,19 @@ end
 task :test => :build
 
 RDOC_FILES = FileList[
-    "README.rdoc",
-    "lib/**/*.rb",
-    "ext/**/*.[ch]"
+    "@srcdir@/README.rdoc",
+    "@srcdir@/lib/**/*.rb",
+    "@srcdir@/ext/**/*.[ch]"
 ]
 
 Rake::RDocTask.new do |rd|
-    rd.main = "README.rdoc"
+    rd.main = "@srcdir@/README.rdoc"
     rd.rdoc_dir = "doc/site/api"
     rd.rdoc_files.include(RDOC_FILES)
 end
 
 Rake::RDocTask.new(:ri) do |rd|
-    rd.main = "README.rdoc"
+    rd.main = "@srcdir@/README.rdoc"
     rd.rdoc_dir = "doc/ri"
     rd.options << "--ri-system"
     rd.rdoc_files.include(RDOC_FILES)
@@ -82,7 +82,7 @@ end
 # Package tasks
 
 PKG_FILES = FileList[
-  "Rakefile", "COPYING", "README", "NEWS", "README.rdoc",
+  "Rakefile", "COPYING", "README", "NEWS", "@srcdir@/README.rdoc",
   "lib/**/*.rb",
   "ext/**/*.[ch]", "ext/**/MANIFEST", "ext/**/extconf.rb",
   "tests/**/*",
