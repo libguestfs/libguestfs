@@ -45,7 +45,7 @@ This is something that is possible using the libguestfs
 API, but we don't encourage it.  There are three reasons
 why we don't encourage and support this: one is that
 because we're calling this from a C program, it's hard
-to construct shell commands and deal with quoting issues.
+to construct shell commands.
 Secondly it's hard to parse the result from commands
 (think about parted or lvs which are two commands that
 produce quite complex output that is hard to parse).
@@ -100,8 +100,8 @@ are many more than are shown here.
 Starting at the top, "guestfish" is a shell for the API,
 letting you write simple shell scripts.  If you look at
 the code examples below, you can see a small guestfish
-script that creates a new raw format partitioned filesystem
-with some content.
+script that creates a complete guest.  Then we mount it on
+the host using guestmount (FUSE) and browse around.
 
 Going round clockwise:
 
@@ -116,7 +116,6 @@ programs like the GNOME Nautilus file browser.
 
 "virt-rescue" lets you use the appliance directly, and
 it's a useful way to rescue guests by hand.
-You just want to hammer out some shell commands manually.
 
 "virt-win-reg" lets you read and write Windows Registry
 entries.  There is a rather complex example below right.
@@ -134,4 +133,30 @@ last tools are ones that we eventually hope will become
 obsolete.
 
 [4 Inspection]
+
+Next I want to look at another aspect of the API which is
+called "inspection".
+
+Inspection means taking arbitrary disk images and finding
+out what they contain, from just what partitions and filesystems
+are in a disk image, to whether and what operating system(s)
+it contains, to what applications are installed.
+
+The two main command-line tools are virt-filesystems and
+virt-inspector, and you can see the output from these tools.
+However this information is also available through the
+API.  The example there shows getting operating system
+inspection data from a C program.  Programs can also get
+inspection information, as you can see in the screenshots
+from the latest virt-manager.
+
+[5 Graphical browsers]
+
+I've concentrated a lot on command line tools, but you can
+also use libguestfs from graphical programs.  I wrote an
+experimental program called guestfs-browser, and there are
+screenshots shown.  But many people will simply want to mount
+a filesystem on the host using guestmount, and then use
+ordinary tools.  At the bottom is a screenshot of GNOME
+Nautilus browsing into a guest filesystem.
 

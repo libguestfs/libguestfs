@@ -179,16 +179,28 @@ get_blkid_tag (const char *device, const char *tag)
     </object>
 
     <table>
-      <tr><td valign="top" style="padding-bottom: 1.5em;">
+      <tr><td valign="top" style="padding-bottom: 1.5em;" colspan="2">
 <pre>
-<b>guestfish -N fs -m /dev/sda1 &lt;&lt;EOF</b>
-  <font style="color: green;">mkdir /etc
-  upload /etc/resolv.conf /etc/resolv.conf
-  write /etc/hostname "test01.redhat.com"</font>
+<b>guestfish -N bootrootlv:/dev/VG/LV:ext4:ext4:10G:256M &lt;&lt;EOF</b>
+  <font style="color: green;">mount-options "" /dev/VG/LV /
+  mkdir /boot
+  mount-options "" /dev/sda1 /boot
+  txz-in filesystem.tar.xz /
+  write /etc/HOSTNAME "test01.example.com\n"
+  upload /etc/resolv.conf /etc/resolv.conf</font>
 <b>EOF</b>
+<b>guestmount -a test1.img -i mnt/</b>
+<b>ls mnt</b>
+bin   dev  home        lib         mnt       proc  sbin  tmp  var
+boot  etc  initrd.img  lost+found  old-root  root  sys   usr  vmlinuz
+<b>cat mnt/etc/HOSTNAME</b>
+test01.example.com
+<b>fusermount -u mnt</b>
 </pre>
-<p class="sourcelnk"><a href="http://libguestfs.org/guestfish.1.html">manual&nbsp;...</a></p>
-        </td><td valign="top">
+<p class="sourcelnk"><a href="http://libguestfs.org/guestfish.1.html">manual&nbsp;for&nbsp;guestfish&nbsp;...</a> <br/>
+<a href="http://libguestfs.org/guestmount.1.html">manual&nbsp;for&nbsp;guestmount&nbsp;...</a></p>
+      </td></tr>
+      <tr><td valign="top" style="padding-bottom: 1.5em;">
 <pre>
 <b>virt-df -a /dev/vg/F15x32 -h</b>
 Filesystem                    Size  Used Available Use%
@@ -196,14 +208,30 @@ F15x32:/dev/sda1              484M   31M      428M   7%
 F15x32:/dev/vg_f15x32/lv_root 5.5G  3.4G      1.8G  63%
 </pre>
 <p class="sourcelnk"><a href="http://libguestfs.org/virt-df.1.html">manual&nbsp;...</a></p>
+        </td>
+        <td valign="top" style="padding-bottom: 1.5em;">
+<pre>
+<b>virt-cat -c qemu:///system -d WinXP 'c:\boot.ini'</b>
+[boot loader]
+timeout=30
+default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS
+[operating systems]
+multi(0)disk(0)rdisk(0)partition(1)\WINDOWS=
+"Microsoft Windows XP Professional" /noexecute=optin
+/fastdetect
+</pre>
+<p class="sourcelnk"><a href="http://libguestfs.org/virt-cat.1.html">manual&nbsp;...</a></p>
       </td></tr>
-      <tr><td valign="top">
+      <tr><td valign="top" style="padding-bottom: 1.5em;">
 <pre>
 <b>virt-edit -c qemu:///system -d F15x32 /etc/passwd</b>
-<i>(launches editor)</i>
+<i>(launches text editor to edit guest /etc/passwd)</i>
+
+<b>virt-edit -c qemu:///system -d F15x32 /etc/passwd \
+  -e 's/^root:.*?:/root::/'</b>
 </pre>
 <p class="sourcelnk"><a href="http://libguestfs.org/virt-edit.1.html">manual&nbsp;...</a></p>
-        </td><td valign="top">
+        </td><td valign="top" style="padding-bottom: 1.5em;">
 <pre>
 <b>virt-win-reg -c qemu:///system --unsafe-printable-strings \
   Win7x32 'HKLM\SYSTEM\ControlSet001\Services\Tcpip\Parameters' \
@@ -217,8 +245,20 @@ F15x32:/dev/vg_f15x32/lv_root 5.5G  3.4G      1.8G  63%
     <h2>Inspection</h2>
 
 <pre>
-$ <b>virt-inspector -c qemu:///system -d Win7x32</b>
+$ <b>virt-filesystems -c qemu:///system -d Win7x32 --all --long -h --uuid</b>
+Name      Type       VFS  Label           MBR Size Parent   UUID
+/dev/sda1 filesystem ntfs System Reserved -   100M -        F81C92571C92112C
+/dev/sda2 filesystem ntfs -               -   20G  -        F2E8996AE8992E3B
+/dev/sda1 partition  -    -               07  100M /dev/sda -
+/dev/sda2 partition  -    -               07  20G  /dev/sda -
+/dev/sda  device     -    -               -   20G  -        -
+</pre>
+<p class="sourcelnk">
+<a href="http://libguestfs.org/virt-filesystems.1.html">manual&nbsp;...</a>
+</p>
 
+<pre>
+$ <b>virt-inspector -c qemu:///system -d Win7x32</b>
 <font style="color: #888;">&lt;?xml version="1.0"?&gt;</font>
 <font style="color: #888;">&lt;operatingsystems&gt;</font>
   <font style="color: #888;">&lt;operatingsystem&gt;</font>
@@ -235,18 +275,10 @@ $ <b>virt-inspector -c qemu:///system -d Win7x32</b>
     <font style="color: #888;">&lt;hostname&gt;</font>win7x32<font style="color: #888;">&lt;/hostname&gt;</font>
 <i>... etc ...</i>
 </pre>
-<p class="sourcelnk"><a href="win7.xml">full&nbsp;XML&nbsp;...</a></p>
-
-    <table>
-      <tr><td colspan="2" align="middle">
-          <small><i>Click to enlarge the images</i></small>
-      </td></tr>
-      <tr><td width="50%">
-          <a href="virt-manager.png"><img src="virt-manager-t.png"></a>
-        </td><td width="50%" align="middle" valign="top">
-          <a href="vmm-icons.png"><img src="vmm-icons-t.png"></a>
-      </td></tr>
-    </table>
+<p class="sourcelnk">
+<a href="win7.xml">full&nbsp;XML&nbsp;...</a> <br/>
+<a href="http://libguestfs.org/virt-inspector.1.html">manual&nbsp;...</a>
+</p>
 
 <pre>
   char **roots;
@@ -290,15 +322,47 @@ $ <b>virt-inspector -c qemu:///system -d Win7x32</b>
 </pre>
 <p class="sourcelnk"><a href="http://git.annexia.org/?p=libguestfs.git;a=blob;f=rescue/virt-rescue.c;h=0c0036460434f1365d9591d6b2b805d999b07056;hb=HEAD#l351">full&nbsp;source&nbsp;...</a></p>
 
+    <table>
+      <tr><td colspan="2" align="middle">
+          <small><i>Click to enlarge the images</i></small>
+      </td></tr>
+      <tr><td width="50%">
+          <a href="virt-manager.png"><img src="virt-manager-t.png"></a>
+        </td><td width="50%" align="middle" valign="top">
+          <a href="vmm-icons.png"><img src="vmm-icons-t.png"></a>
+      </td></tr>
+    </table>
 
 
 
-    <h2>V2V &amp; P2V</h2>
+
+    <h2>Graphical browsers</h2>
+
+    <p>
+    <img src="https://rwmj.files.wordpress.com/2011/07/guestfs-browser1.png?w=438&h=450"/>
+    </p>
+
+    <p>
+    <img src="https://rwmj.files.wordpress.com/2011/07/guestfs-browser2.png?w=438&h=450"/>
+    </p>
+
+    <p>
+    <img src="https://rwmj.files.wordpress.com/2011/07/guestfs-browser3.png?w=366&h=450"/>
+    </p>
+
+    <p>
+    <img src="https://rwmj.files.wordpress.com/2011/07/guestfs-browser4.png?w=366&h=450"/>
+    </p>
+    <p class="sourcelnk"><a href="https://rwmj.wordpress.com/2011/07/29/some-screenshots-from-the-new-guest-filesystem-browser/">source&nbsp;...</a></p>
+
+    <p>
+    <img src="https://rwmj.files.wordpress.com/2009/11/file-browser.png?w=500"/>
+    </p>
+    <p class="sourcelnk"><a href="https://rwmj.wordpress.com/2009/11/03/browsing-guests-using-fuse/">source&nbsp;...</a></p>
 
 
 
-
-    <h2>Read more ...</h2>
+    <h2>Find out more ...</h2>
 
     <p>
       <a href="http://libguestfs.org/">libguestfs.org</a> is the
@@ -316,6 +380,11 @@ $ <b>virt-inspector -c qemu:///system -d Win7x32</b>
       and each virt tool.  See
       the <a href="http://libguestfs.org/">main website</a> or your
       local man command.
+    </p>
+
+    <p>
+      For information about virt-v2v and virt-p2v, see
+      <a href="http://libguestfs.org/virt-v2v/">http://libguestfs.org/virt-v2v/</a>
     </p>
 
     <hr/>
