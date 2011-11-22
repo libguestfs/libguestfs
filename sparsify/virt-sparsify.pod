@@ -113,11 +113,10 @@ Display help.
 Use C<output-format> as the format for the destination image.  If this
 is not specified, then the input format is used.
 
-Supported and known-working output formats are: C<raw>, C<qcow2>.
+Supported and known-working output formats are: C<raw>, C<qcow2>, C<vdi>.
 
 You can also use any format supported by the L<qemu-img(1)> program,
-eg. C<vdi> or C<vmdk>, but support for other formats is reliant on
-qemu.
+eg. C<vmdk>, but support for other formats is reliant on qemu.
 
 Specifying the I<--convert> option is usually a good idea, because
 then virt-sparsify doesn't need to try to guess the input format.
