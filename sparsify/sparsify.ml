@@ -274,6 +274,8 @@ let output_format =
       );
       if string_prefix line "QEMU QCOW Image (v2)" then
         "qcow2"
+      else if string_find line "VirtualBox" >= 0 then
+        "vdi"
       else
         "raw" (* XXX guess *)
 

@@ -57,6 +57,25 @@ let string_prefix str prefix =
   let n = String.length prefix in
   String.length str >= n && String.sub str 0 n = prefix
 
+let rec string_find s sub =
+  let len = String.length s in
+  let sublen = String.length sub in
+  let rec loop i =
+    if i <= len-sublen then (
+      let rec loop2 j =
+        if j < sublen then (
+          if s.[i+j] = sub.[j] then loop2 (j+1)
+          else -1
+        ) else
+          i (* found *)
+      in
+      let r = loop2 0 in
+      if r = -1 then loop (i+1) else r
+    ) else
+      -1 (* not found *)
+  in
+  loop 0
+
 let string_random8 =
   let chars = "abcdefghijklmnopqrstuvwxyz0123456789" in
   fun () ->
