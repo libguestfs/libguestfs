@@ -121,6 +121,9 @@ if test "$gl_gcc_warnings" = yes; then
                                     # failures (seen on Ubuntu).
   nw="$nw -Wmissing-noreturn"       # Don't warn about missed noreturn funcs
                                     # (seen on Ubuntu).
+  nw="$nw -Wsuggest-attribute=pure" # Don't suggest pure functions.
+  nw="$nw -Wsuggest-attribute=const" # Don't suggest const functions.
+  nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
