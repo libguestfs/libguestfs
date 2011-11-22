@@ -267,9 +267,11 @@ Guestfish will prompt for these separately."
             pr "  printf (\"%%s%s: %%c\\n\", indent, %s->%s);\n"
               name typ name
         | name, FOptPercent ->
-            pr "  if (%s->%s >= 0) printf (\"%%s%s: %%g %%%%\\n\", indent, %s->%s);\n"
-              typ name name typ name;
-            pr "  else printf (\"%%s%s: \\n\", indent);\n" name
+            pr "  if (%s->%s >= 0)\n" typ name;
+            pr "    printf (\"%%s%s: %%g %%%%\\n\", indent, (double) %s->%s);\n"
+              name typ name;
+            pr "  else\n";
+            pr "    printf (\"%%s%s: \\n\", indent);\n" name
       ) cols;
       pr "}\n";
       pr "\n";
