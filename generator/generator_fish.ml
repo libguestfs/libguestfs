@@ -173,7 +173,8 @@ Guestfish will prompt for these separately."
   ) all_functions;
 
   (* list_commands function, which implements guestfish -h *)
-  pr "void list_commands (void)\n";
+  pr "void\n";
+  pr "list_commands (void)\n";
   pr "{\n";
   pr "  printf (\"    %%-16s     %%s\\n\", _(\"Command\"), _(\"Description\"));\n";
   pr "  list_builtin_commands ();\n";
@@ -189,7 +190,8 @@ Guestfish will prompt for these separately."
   pr "\n";
 
   (* display_command function, which implements guestfish -h cmd *)
-  pr "int display_command (const char *cmd)\n";
+  pr "int\n";
+  pr "display_command (const char *cmd)\n";
   pr "{\n";
   pr "  const struct command_table *ct;\n";
   pr "\n";
@@ -204,7 +206,8 @@ Guestfish will prompt for these separately."
   pr "\n";
 
   let emit_print_list_function typ =
-    pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
+    pr "static void\n";
+    pr "print_%s_list (struct guestfs_%s_list *%ss)\n"
       typ typ typ;
     pr "{\n";
     pr "  unsigned int i;\n";
@@ -224,7 +227,8 @@ Guestfish will prompt for these separately."
       let needs_i =
         List.exists (function (_, (FUUID|FBuffer)) -> true | _ -> false) cols in
 
-      pr "static void print_%s_indent (struct guestfs_%s *%s, const char *indent)\n" typ typ typ;
+      pr "static void\n";
+      pr "print_%s_indent (struct guestfs_%s *%s, const char *indent)\n" typ typ typ;
       pr "{\n";
       if needs_i then (
         pr "  unsigned int i;\n";
@@ -284,7 +288,8 @@ Guestfish will prompt for these separately."
   List.iter (
     function
     | typ, (RStructOnly | RStructAndList) ->
-        pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
+        pr "static void\n";
+        pr "print_%s (struct guestfs_%s *%s)\n" typ typ typ;
         pr "{\n";
         pr "  print_%s_indent (%s, \"\");\n" typ typ;
         pr "}\n";
