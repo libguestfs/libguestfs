@@ -32,6 +32,7 @@
 /errno_h.m4
 /error.m4
 /exitfail.m4
+/exponentd.m4
 /extensions.m4
 /fchdir.m4
 /fclose.m4
@@ -50,6 +51,7 @@
 /fpurge.m4
 /freading.m4
 /fseeko.m4
+/fstat.m4
 /fsusage.m4
 /ftell.m4
 /ftello.m4
@@ -119,6 +121,7 @@
 /malloca.m4
 /malloc.m4
 /manywarnings.m4
+/math_h.m4
 /mbrtowc.m4
 /mbsinit.m4
 /mbsrtowcs.m4
@@ -182,6 +185,7 @@
 /ssize_t.m4
 /stat.m4
 /stat-time.m4
+/stdalign.m4
 /stdarg.m4
 /stdbool.m4
 /stddef_h.m4
