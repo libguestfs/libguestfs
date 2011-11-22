@@ -157,7 +157,7 @@ print_stat (const char *name, const char *uuid_param,
     /* Use 'ceil' on the percentage in order to emulate what df itself does. */
     snprintf (buf[3], MAX_LEN, "%3.0f%%", ceil (percent));
   else
-    snprintf (buf[3], MAX_LEN, "%.1f", percent);
+    snprintf (buf[3], MAX_LEN, "%.1f", (double) percent);
   cols[3] = buf[3];
 
 #undef MAX_LEN
