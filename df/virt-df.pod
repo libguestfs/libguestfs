@@ -188,6 +188,32 @@ Enable tracing of libguestfs API calls.
 
 =back
 
+=head1 STATVFS NUMBERS
+
+C<virt-df> (and L<df(1)>) get information by issuing a L<statvfs(3)>
+system call.  You can get the same information directly, either from
+the host (using libguestfs) or inside the guest:
+
+=over 4
+
+=item From the host
+
+Run this command:
+
+ guestfish --ro -d GuestName -i statvfs /
+
+(change C</> to see stats for other filesystems).
+
+=item From inside the guest
+
+Run this command:
+
+ python -c 'import os; s = os.statvfs ("/"); print s'
+
+(change C</> to see stats for other filesystems).
+
+=back
+
 =head1 NOTE ABOUT CSV FORMAT
 
 Comma-separated values (CSV) is a deceptive format.  It I<seems> like

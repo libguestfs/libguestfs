@@ -102,7 +102,29 @@ L<virt-df(1)> lists disk space.  Run:
 
  virt-df
 
-Do the results match what's reported inside the guests?
+You can try comparing this to the results from L<df(1)> inside the
+guest, but there are some provisos:
+
+=over 4
+
+=item *
+
+The guest must be idle.
+
+=item *
+
+The guest disks must be synched using L<sync(1)>.
+
+=item *
+
+Any action such as booting the guest will write log files causing the
+numbers to change.
+
+=back
+
+We don't guarantee that the numbers will be identical even under these
+circumstances.  They should be similar.  It would indicate a bug if
+you saw greatly differing numbers.
 
 =head2 Try importing virt-df CSV output into a spreadsheet or database.
 
