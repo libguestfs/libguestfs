@@ -104,6 +104,11 @@ image.
 
 Display help.
 
+=item B<--compress>
+
+Compress the output file.  This I<only> works if the output format is
+C<qcow2>.
+
 =item B<--convert> raw
 
 =item B<--convert> qcow2
@@ -120,6 +125,8 @@ eg. C<vmdk>, but support for other formats is reliant on qemu.
 
 Specifying the I<--convert> option is usually a good idea, because
 then virt-sparsify doesn't need to try to guess the input format.
+
+For fine-tuning the output format, see: I<--compress>.
 
 =item B<--format> raw
 

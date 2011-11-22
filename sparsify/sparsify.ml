@@ -28,8 +28,8 @@ let () = Random.self_init ()
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let indisk, outdisk, convert, format, ignores, machine_readable, quiet,
-  verbose, trace =
+let indisk, outdisk, compress, convert, format, ignores, machine_readable,
+  quiet, verbose, trace =
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
@@ -40,6 +40,7 @@ let indisk, outdisk, convert, format, ignores, machine_readable, quiet,
 
   let add xs s = xs := s :: !xs in
 
+  let compress = ref false in
   let convert = ref "" in
   let format = ref "" in
   let ignores = ref [] in
@@ -49,6 +50,7 @@ let indisk, outdisk, convert, format, ignores, machine_readable, quiet,
   let trace = ref false in
 
   let argspec = Arg.align [
+    "--compress", Arg.Set compress,         " Compressed output format";
     "--convert", Arg.Set_string convert,    "format Format of output disk (default: same as input)";
     "--format",  Arg.Set_string format,     "format Format of input disk";
     "--ignore",  Arg.String (add ignores),  "fs Ignore filesystem";
@@ -76,6 +78,7 @@ read the man page virt-sparsify(1).
   Arg.parse argspec anon_fun usage_msg;
 
   (* Dereference the rest of the args. *)
+  let compress = !compress in
   let convert = match !convert with "" -> None | str -> Some str in
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
@@ -122,8 +125,8 @@ read the man page virt-sparsify(1).
   if contains_comma then
     error "input filename '%s' contains a comma; qemu-img command line syntax prevents us from using such an image" indisk;
 
-  indisk, outdisk, convert, format, ignores, machine_readable, quiet,
-  verbose, trace
+  indisk, outdisk, compress, convert, format, ignores, machine_readable,
+  quiet, verbose, trace
 
 let () =
   if not quiet then
@@ -287,8 +290,9 @@ let () =
     printf "Copy to destination and make sparse ...\n%!";
 
   let cmd =
-    sprintf "qemu-img convert -f qcow2 -O %s %s %s"
+    sprintf "qemu-img convert -f qcow2 -O %s%s %s %s"
       (Filename.quote output_format)
+      (if compress then " -c" else "")
       (Filename.quote overlaydisk) (Filename.quote outdisk) in
   if verbose then
     printf "%s\n%!" cmd;
