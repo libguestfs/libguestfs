@@ -91,6 +91,22 @@ guestfs__inspect_os (guestfs_h *g)
   }
   guestfs___free_string_list (partitions);
 
+  /* Look at MD devices. */
+  char **mds = guestfs_list_md_devices (g);
+  if (mds == NULL) {
+    guestfs___free_inspect_info (g);
+    return NULL;
+  }
+
+  for (i = 0; mds[i] != NULL; ++i) {
+    if (guestfs___check_for_filesystem_on (g, mds[i], 0, i+1) == -1) {
+      guestfs___free_string_list (mds);
+      guestfs___free_inspect_info (g);
+      return NULL;
+    }
+  }
+  guestfs___free_string_list (mds);
+
   /* Look at all LVs. */
   if (guestfs___feature_available (g, "lvm2")) {
     char **lvs;
