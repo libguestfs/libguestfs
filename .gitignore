@@ -170,6 +170,8 @@ images/10klines
 images/abssymlink
 images/debian.img
 images/fedora.img
+images/fedora-md1.img
+images/fedora-md2.img
 images/guest-aux/fedora-name.db
 images/guest-aux/fedora-packages.db
 images/hello.b64
