@@ -143,7 +143,7 @@ static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
                             const char *spec, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec);
-static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename, int (*f) (guestfs_h *, struct inspect_fs *));
+static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
 
 /* Set fs->product_name to the first line of the release file. */
 static int
@@ -446,7 +446,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
    * which filesystems are used by the operating system and how they
    * are mounted.
    */
-  if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
+  const char *configfiles[] = { "/etc/fstab", NULL };
+  if (inspect_with_augeas (g, fs, configfiles, check_fstab) == -1)
     return -1;
 
   /* Determine hostname. */
@@ -479,7 +480,8 @@ guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
   check_architecture (g, fs);
 
   /* We already know /etc/fstab exists because it's part of the test above. */
-  if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
+  const char *configfiles[] = { "/etc/fstab", NULL };
+  if (inspect_with_augeas (g, fs, configfiles, check_fstab) == -1)
     return -1;
 
   /* Determine hostname. */
@@ -520,7 +522,8 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
   check_architecture (g, fs);
 
   /* We already know /etc/fstab exists because it's part of the test above. */
-  if (inspect_with_augeas (g, fs, "/etc/fstab", check_fstab) == -1)
+  const char *configfiles[] = { "/etc/fstab", NULL };
+  if (inspect_with_augeas (g, fs, configfiles, check_fstab) == -1)
     return -1;
 
   /* Determine hostname. */
@@ -583,7 +586,8 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
         return -1;
     }
     else if (guestfs_is_file (g, "/etc/sysconfig/network")) {
-      if (inspect_with_augeas (g, fs, "/etc/sysconfig/network",
+      const char *configfiles[] = { "/etc/sysconfig/network", NULL };
+      if (inspect_with_augeas (g, fs, configfiles,
                                check_hostname_redhat) == -1)
         return -1;
     }
@@ -941,18 +945,23 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
  * Augeas is closed.
  */
 static int
-inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename,
+inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
+                     const char **configfiles,
                      int (*f) (guestfs_h *, struct inspect_fs *))
 {
-  /* Security: Refuse to do this if filename is too large. */
-  int64_t size = guestfs_filesize (g, filename);
-  if (size == -1)
-    /* guestfs_filesize failed and has already set error in handle */
-    return -1;
-  if (size > MAX_AUGEAS_FILE_SIZE) {
-    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
-           filename, size);
-    return -1;
+  /* Security: Refuse to do this if a config file is too large. */
+  for (const char **i = configfiles; *i != NULL; i++) {
+    if (guestfs_exists(g, *i) == 0) continue;
+
+    int64_t size = guestfs_filesize (g, *i);
+    if (size == -1)
+      /* guestfs_filesize failed and has already set error in handle */
+      return -1;
+    if (size > MAX_AUGEAS_FILE_SIZE) {
+      error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+             *i, size);
+      return -1;
+    }
   }
 
   /* If !feature_available (g, "augeas") then the next call will fail.
@@ -965,11 +974,42 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   int r = -1;
 
   /* Tell Augeas to only load one file (thanks Raphaël Pinson). */
-  char buf[strlen (filename) + 64];
-  snprintf (buf, strlen (filename) + 64, "/augeas/load//incl[. != \"%s\"]",
-            filename);
-  if (guestfs_aug_rm (g, buf) == -1)
+#define AUGEAS_LOAD "/augeas/load//incl[. != \""
+#define AUGEAS_LOAD_LEN (strlen(AUGEAS_LOAD))
+  size_t conflen = strlen(configfiles[0]);
+  size_t buflen = AUGEAS_LOAD_LEN + conflen + 1 /* Closing " */;
+  char *buf = safe_malloc(g, buflen + 2 /* Closing ] + null terminator */);
+
+  memcpy(buf, AUGEAS_LOAD, AUGEAS_LOAD_LEN);
+  memcpy(buf + AUGEAS_LOAD_LEN, configfiles[0], conflen);
+  buf[buflen - 1] = '"';
+#undef AUGEAS_LOAD_LEN
+#undef AUGEAS_LOAD
+
+#define EXCL " and . != \""
+#define EXCL_LEN (strlen(EXCL))
+  for (const char **i = &configfiles[1]; *i != NULL; i++) {
+    size_t orig_buflen = buflen;
+    conflen = strlen(*i);
+    buflen += EXCL_LEN + conflen + 1 /* Closing " */;
+    buf = safe_realloc(g, buf, buflen + 2 /* Closing ] + null terminator */);
+    char *s = buf + orig_buflen;
+
+    memcpy(s, EXCL, EXCL_LEN);
+    memcpy(s + EXCL_LEN, *i, conflen);
+    buf[buflen - 1] = '"';
+  }
+#undef EXCL_LEN
+#undef EXCL
+
+  buf[buflen] = ']';
+  buf[buflen + 1] = '\0';
+
+  if (guestfs_aug_rm (g, buf) == -1) {
+    free(buf);
     goto out;
+  }
+  free(buf);
 
   if (guestfs_aug_load (g) == -1)
     goto out;
