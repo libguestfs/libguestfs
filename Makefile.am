@@ -212,6 +212,7 @@ all-local:
 	grep -v '/rc_protocol.c' | \
 	grep -v 'appliance/debian/root' | \
 	grep -v '^po-docs/' | \
+	grep -v '^images/' | \
 	LC_ALL=C sort | \
 	sed 's,^\./,,' > po/POTFILES.in
 
