@@ -61,8 +61,7 @@ guestfs__inspect_os (guestfs_h *g)
    * information to the handle.
    */
   /* Look to see if any devices directly contain filesystems (RHBZ#590167). */
-  char **devices;
-  devices = guestfs_list_devices (g);
+  char **devices = guestfs_list_devices (g);
   if (devices == NULL)
     return NULL;
 
@@ -77,8 +76,7 @@ guestfs__inspect_os (guestfs_h *g)
   guestfs___free_string_list (devices);
 
   /* Look at all partitions. */
-  char **partitions;
-  partitions = guestfs_list_partitions (g);
+  char **partitions = guestfs_list_partitions (g);
   if (partitions == NULL) {
     guestfs___free_inspect_info (g);
     return NULL;
