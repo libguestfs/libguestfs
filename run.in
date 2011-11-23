@@ -37,9 +37,19 @@ b=@abs_builddir@
 export TMPDIR="$b"
 
 # Set local environment relative to this script.
-export LD_LIBRARY_PATH="$b/src/.libs"
-export LIBGUESTFS_PATH="$b/appliance"
-export PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
+if [ -z "$LD_LIBRARY_PATH" ]; then
+  LD_LIBRARY_PATH="$b/src/.libs"
+else
+  LD_LIBRARY_PATH="$b/src/.libs:$LD_LIBRARY_PATH"
+fi
+if [ -z "$PERL5LIB" ]; then
+  PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
+else
+  PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
+fi
+LIBGUESTFS_PATH="$b/appliance"
+
+export LD_LIBRARY_PATH PERL5LIB LIBGUESTFS_PATH
 
 # Do we have libtool?  If we have it then we can use it to make
 # running valgrind simpler.  However don't depend on it.
