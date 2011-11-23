@@ -685,13 +685,11 @@ static int
 check_fstab (guestfs_h *g, struct inspect_fs *fs)
 {
   char **lines = guestfs_aug_ls (g, "/files/etc/fstab");
-  if (lines == NULL)
-    return -1;
+  if (lines == NULL) goto error;
 
   if (lines[0] == NULL) {
     error (g, _("could not parse /etc/fstab or empty file"));
-    guestfs___free_string_list (lines);
-    return -1;
+    goto error;
   }
 
   size_t i;
@@ -703,32 +701,29 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
     if (match (g, lines[i], re_aug_seq)) {
       snprintf (augpath, sizeof augpath, "%s/spec", lines[i]);
       char *spec = guestfs_aug_get (g, augpath);
-      if (spec == NULL) {
-        guestfs___free_string_list (lines);
-        return -1;
-      }
+      if (spec == NULL) goto error;
 
       snprintf (augpath, sizeof augpath, "%s/file", lines[i]);
       char *mp = guestfs_aug_get (g, augpath);
       if (mp == NULL) {
-        guestfs___free_string_list (lines);
         free (spec);
-        return -1;
+        goto error;
       }
 
       int r = add_fstab_entry (g, fs, spec, mp);
       free (spec);
       free (mp);
 
-      if (r == -1) {
-        guestfs___free_string_list (lines);
-        return -1;
-      }
+      if (r == -1) goto error;
     }
   }
 
   guestfs___free_string_list (lines);
   return 0;
+
+error:
+  if (lines) guestfs___free_string_list (lines);
+  return -1;
 }
 
 /* Add a filesystem and possibly a mountpoint entry for
