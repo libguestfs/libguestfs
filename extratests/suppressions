@@ -1,0 +1,46 @@
+{
+   libnuma_numa_node_size64_cond
+   Memcheck:Cond
+   fun:*
+   fun:numa_node_size64
+   fun:numa_init
+}
+{
+   libnuma_numa_node_size64_cond_2
+   Memcheck:Cond
+   fun:numa_node_size64
+   fun:numa_init
+}
+{
+   libnuma_numa_node_size64_value8
+   Memcheck:Value8
+   fun:numa_node_size64
+   fun:numa_init
+}
+
+{
+   libnl_add_routing_table_name_leak
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   fun:add_routing_table_name
+}
+{
+   libnl_add_routing_table_name_leak_2
+   Memcheck:Leak
+   fun:calloc
+   fun:add_routing_table_name
+}
+{
+   libnl_add_proto_name_leak
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   fun:add_proto_name
+}
+{
+   libnl_add_proto_name_leak_2
+   Memcheck:Leak
+   fun:calloc
+   fun:add_proto_name
+}
