@@ -44,3 +44,17 @@
    fun:calloc
    fun:add_proto_name
 }
+
+{
+   libnl1_malloc_leak
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/libnl.so.1.1
+}
+{
+   libnl1_calloc_leak
+   Memcheck:Leak
+   fun:calloc
+   obj:/usr/lib/libnl.so.1.1
+}
