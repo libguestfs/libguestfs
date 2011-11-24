@@ -184,15 +184,16 @@ do_part_disk (const char *device, const char *parttype)
     return -1;
   }
 
-  /* Align all partitions created this way to 64 sectors, and leave
-   * the last 64 sectors at the end of the disk free.  This wastes
-   * 32K+32K = 64K on 512-byte sector disks.  The rationale is:
+  /* Align all partitions created this way to 128 sectors, and leave
+   * the last 128 sectors at the end of the disk free.  This wastes
+   * 64K+64K = 128K on 512-byte sector disks.  The rationale is:
    *
    * - aligned operations are faster
+   * - absolute minimum recommended alignment is 64K (1M would be better)
    * - GPT requires at least 34 sectors at the end of the disk.
    */
-  const char *startstr = "64s";
-  const char *endstr = "-64s";
+  const char *startstr = "128s";
+  const char *endstr = "-128s";
 
   RUN_PARTED (return -1,
               device,
