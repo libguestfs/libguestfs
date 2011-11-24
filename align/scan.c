@@ -228,9 +228,13 @@ scan (void)
   struct guestfs_partition_list *parts;
 
   devices = guestfs_list_devices (g);
+  if (devices == NULL)
+    exit (EXIT_FAILURE);
 
   for (i = 0; devices[i] != NULL; ++i) {
     parts = guestfs_part_list (g, devices[i]);
+    if (parts == NULL)
+      exit (EXIT_FAILURE);
 
     /* Canonicalize the name of the device for printing. */
     if (STRPREFIX (devices[i], "/dev/") &&
