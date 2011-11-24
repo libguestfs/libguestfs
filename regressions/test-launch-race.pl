@@ -25,6 +25,9 @@ use POSIX;
 
 use Sys::Guestfs;
 
+# Allow this test to be skipped.
+exit 0 if $ENV{SKIP_TEST_LAUNCH_RACE_PL};
+
 # Use a temporary TMPDIR to ensure it's clean
 my $tmpdir = tempdir (CLEANUP => 1);
 $ENV{TMPDIR} = $tmpdir;
