@@ -449,7 +449,7 @@ do_output_filesystems (void)
     /* Skip swap and unknown, unless --extra flag was given. */
     if (!(output & OUTPUT_FILESYSTEMS_EXTRA) &&
         (STREQ (fses[i+1], "swap") || STREQ (fses[i+1], "unknown")))
-      continue;
+      goto next;
 
     dev = canonical_device (fses[i]);
 
@@ -492,6 +492,8 @@ do_output_filesystems (void)
     free (dev);
     free (vfs_label);
     free (vfs_uuid);
+
+  next:
     free (fses[i]);
     free (fses[i+1]);
   }
