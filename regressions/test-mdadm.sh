@@ -150,4 +150,17 @@ done
 
 ../fish/guestfish --remote exit
 
+eval `../fish/guestfish --listen`
+../fish/guestfish --remote add-ro md-test1.img
+../fish/guestfish --remote add-ro md-test2.img
+../fish/guestfish --remote add-ro md-test3.img
+../fish/guestfish --remote add-ro md-test4.img
+../fish/guestfish --remote run
+
+for md in `../fish/guestfish --remote list-md-devices`; do
+  ../fish/guestfish --remote md-stop "${md}"
+done
+
+../fish/guestfish --remote exit
+
 rm -f md-detail.out md-test1.img md-test2.img md-test3.img md-test4.img

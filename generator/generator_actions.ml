@@ -6527,6 +6527,23 @@ The name of the MD device.
 
 =back");
 
+  ("md_stop", (RErr, [Device "md"], []), 302, [Optional "mdadm"],
+   [],
+   "stop a Linux md (RAID) device",
+   "\
+This command deactivates the MD array named C<md>.  The
+device is stopped, but it is not destroyed or zeroed.
+
+The parameter is:
+
+=over 4
+
+=item C<md>
+
+The md (RAID) device which to be deactivated.
+
+=back");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

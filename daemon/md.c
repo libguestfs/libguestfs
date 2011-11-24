@@ -310,3 +310,19 @@ error:
 
   return NULL;
 }
+
+int
+do_md_stop(const char *md)
+{
+  int r;
+  char *err = NULL;
+
+  const char *mdadm[] = { "mdadm", "--stop", md, NULL};
+  r = commandv(NULL, &err, mdadm);
+  if (r == -1) {
+    reply_with_error("%s", err);
+    free(err);
+    return -1;
+  }
+  return 0;
+}
