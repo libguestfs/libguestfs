@@ -373,6 +373,8 @@ guestfs___debug (guestfs_h *g, const char *fs, ...)
   if (len < 0) return;
 
   guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg, len);
+
+  free (msg);
 }
 
 /* Call trace messages.  These are enabled by setting g->trace, and
