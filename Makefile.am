@@ -30,7 +30,7 @@ SUBDIRS += appliance
 endif
 
 # Tests and the test-tool.
-SUBDIRS += gnulib/tests capitests caution regressions test-tool
+SUBDIRS += gnulib/tests capitests caution regressions extratests test-tool
 
 # Guestfish.
 SUBDIRS += fish
@@ -249,6 +249,11 @@ CLEANFILES = \
 
 quickcheck:
 	./run test-tool/libguestfs-test-tool $(QUICKCHECK_TEST_TOOL_ARGS)
+
+# Run extra-tests in extratests/ subdirectory.
+
+extra-tests:
+	make -C extratests $@
 
 # Make binary distribution.
 

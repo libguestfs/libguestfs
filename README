@@ -147,6 +147,14 @@ Finally run the tests:
 
   make check
 
+There are some extra tests, but these require that you have some
+libvirt guests installed, that these guests' disks are accessible by
+the current user, and these tests may fail for other reasons which are
+not necessarily because of real problems.  If you want to run these
+extra tests do:
+
+  make extra-tests
+
 If everything works, you can install the library and tools by running
 this command as root:
 
