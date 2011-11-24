@@ -243,7 +243,7 @@ do_md_detail(const char *md)
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  const char *mdadm[] = { "mdadm", "-DY", md, NULL };
+  const char *mdadm[] = { "mdadm", "-D", "--export", md, NULL };
   r = commandv(&out, &err, mdadm);
   if (r == -1) {
     reply_with_error("%s", err);
@@ -257,7 +257,7 @@ do_md_detail(const char *md)
     goto error;
   }
 
-  /* Parse the output of mdadm -DY:
+  /* Parse the output of mdadm -D --export:
    * MD_LEVEL=raid1
    * MD_DEVICES=2
    * MD_METADATA=1.0
