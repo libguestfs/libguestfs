@@ -111,6 +111,7 @@ main (int argc, char *argv[])
   int option_index;
   int i;
   struct guestfs_version *vers;
+  char *p;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -194,8 +195,9 @@ main (int argc, char *argv[])
   guestfs_free_version (vers);
 
   printf ("guestfs_get_append: %s\n", guestfs_get_append (g) ? : "(null)");
-  printf ("guestfs_get_attach_method: %s\n",
-          guestfs_get_attach_method (g) ? : "(null)");
+  p = guestfs_get_attach_method (g);
+  printf ("guestfs_get_attach_method: %s\n", p ? : "(null)");
+  free (p);
   printf ("guestfs_get_autosync: %d\n", guestfs_get_autosync (g));
   printf ("guestfs_get_direct: %d\n", guestfs_get_direct (g));
   printf ("guestfs_get_memsize: %d\n", guestfs_get_memsize (g));
@@ -203,8 +205,7 @@ main (int argc, char *argv[])
   printf ("guestfs_get_path: %s\n", guestfs_get_path (g));
   printf ("guestfs_get_pgroup: %d\n", guestfs_get_pgroup (g));
   printf ("guestfs_get_qemu: %s\n", guestfs_get_qemu (g));
-  printf ("guestfs_get_recovery_proc: %d\n",
-          guestfs_get_recovery_proc (g));
+  printf ("guestfs_get_recovery_proc: %d\n", guestfs_get_recovery_proc (g));
   printf ("guestfs_get_selinux: %d\n", guestfs_get_selinux (g));
   printf ("guestfs_get_smp: %d\n", guestfs_get_smp (g));
   printf ("guestfs_get_trace: %d\n", guestfs_get_trace (g));
@@ -254,6 +255,9 @@ main (int argc, char *argv[])
              _("libguestfs-test-tool: failed to touch file\n"));
     exit (EXIT_FAILURE);
   }
+
+  /* Close the handle. */
+  guestfs_close (g);
 
   /* Booted and performed some simple operations -- success! */
   printf ("===== TEST FINISHED OK =====\n");
