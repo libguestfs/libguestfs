@@ -50,9 +50,9 @@ count_bits (uint64_t bitmap)
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_mdadm_create (const char *name, char *const *devices,
-                 int64_t missingbitmap, int nrdevices, int spare,
-                 int64_t chunk, const char *level)
+do_md_create (const char *name, char *const *devices,
+              int64_t missingbitmap, int nrdevices, int spare,
+              int64_t chunk, const char *level)
 {
   char nrdevices_s[32];
   char spare_s[32];
@@ -63,10 +63,10 @@ do_mdadm_create (const char *name, char *const *devices,
   uint64_t umissingbitmap = (uint64_t) missingbitmap;
 
   /* Check the optional parameters and set defaults where appropriate. */
-  if (!(optargs_bitmask & GUESTFS_MDADM_CREATE_MISSINGBITMAP_BITMASK))
+  if (!(optargs_bitmask & GUESTFS_MD_CREATE_MISSINGBITMAP_BITMASK))
     umissingbitmap = 0;
 
-  if (optargs_bitmask & GUESTFS_MDADM_CREATE_SPARE_BITMASK) {
+  if (optargs_bitmask & GUESTFS_MD_CREATE_SPARE_BITMASK) {
     if (spare < 0) {
       reply_with_error ("spare must not be negative");
       return -1;
@@ -75,7 +75,7 @@ do_mdadm_create (const char *name, char *const *devices,
   else
     spare = 0;
 
-  if (optargs_bitmask & GUESTFS_MDADM_CREATE_NRDEVICES_BITMASK) {
+  if (optargs_bitmask & GUESTFS_MD_CREATE_NRDEVICES_BITMASK) {
     if (nrdevices < 2) {
       reply_with_error ("nrdevices is less than 2");
       return -1;
@@ -84,7 +84,7 @@ do_mdadm_create (const char *name, char *const *devices,
   else
     nrdevices = count_strings (devices) + count_bits (umissingbitmap);
 
-  if (optargs_bitmask & GUESTFS_MDADM_CREATE_LEVEL_BITMASK) {
+  if (optargs_bitmask & GUESTFS_MD_CREATE_LEVEL_BITMASK) {
     if (STRNEQ (level, "linear") && STRNEQ (level, "raid0") &&
         STRNEQ (level, "0") && STRNEQ (level, "stripe") &&
         STRNEQ (level, "raid1") && STRNEQ (level, "1") &&
@@ -100,7 +100,7 @@ do_mdadm_create (const char *name, char *const *devices,
   else
     level = "raid1";
 
-  if (optargs_bitmask & GUESTFS_MDADM_CREATE_CHUNK_BITMASK) {
+  if (optargs_bitmask & GUESTFS_MD_CREATE_CHUNK_BITMASK) {
     /* chunk is bytes in the libguestfs API, but K when we pass it to mdadm */
     if ((chunk & 1023) != 0) {
       reply_with_error ("chunk size must be a multiple of 1024 bytes");
@@ -131,12 +131,12 @@ do_mdadm_create (const char *name, char *const *devices,
   ADD_ARG (argv, i, "--raid-devices");
   snprintf (nrdevices_s, sizeof nrdevices_s, "%d", nrdevices);
   ADD_ARG (argv, i, nrdevices_s);
-  if (optargs_bitmask & GUESTFS_MDADM_CREATE_SPARE_BITMASK) {
+  if (optargs_bitmask & GUESTFS_MD_CREATE_SPARE_BITMASK) {
     ADD_ARG (argv, i, "--spare-devices");
     snprintf (spare_s, sizeof spare_s, "%d", spare);
     ADD_ARG (argv, i, spare_s);
   }
-  if (optargs_bitmask & GUESTFS_MDADM_CREATE_CHUNK_BITMASK) {
+  if (optargs_bitmask & GUESTFS_MD_CREATE_CHUNK_BITMASK) {
     ADD_ARG (argv, i, "--chunk");
     snprintf (chunk_s, sizeof chunk_s, "%" PRIi64, chunk / 1024);
     ADD_ARG (argv, i, chunk_s);
@@ -233,7 +233,7 @@ error:
 }
 
 char **
-do_mdadm_detail(const char *md)
+do_md_detail(const char *md)
 {
   int r;
 
@@ -290,7 +290,7 @@ do_mdadm_detail(const char *md)
     } else {
       /* Ignore lines with no equals sign (shouldn't happen). Log to stderr so
        * it will show up in LIBGUESTFS_DEBUG. */
-      fprintf(stderr, "mdadm-detail: unexpected output ignored: %s", line);
+      fprintf(stderr, "md-detail: unexpected mdadm output ignored: %s", line);
     }
   }
 

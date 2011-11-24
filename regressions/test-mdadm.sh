@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test guestfish mdadm-create command.
+# Test guestfish md-create and md-detail commands.
 
 set -e
 
@@ -53,16 +53,16 @@ part-add /dev/sdd p 12288 16383
 part-add /dev/sdd p 16384 20479
 
 # RAID 1.
-mdadm-create r1t1 "/dev/sda1 /dev/sdb1"
-mdadm-create r1t2 "/dev/sdc1 /dev/sdd1" chunk:65536
+md-create r1t1 "/dev/sda1 /dev/sdb1"
+md-create r1t2 "/dev/sdc1 /dev/sdd1" chunk:65536
 
 # RAID 5.
-mdadm-create r5t1 "/dev/sda2 /dev/sdb2 /dev/sdc2 /dev/sdd2" \
+md-create r5t1 "/dev/sda2 /dev/sdb2 /dev/sdc2 /dev/sdd2" \
   missingbitmap:0x10 nrdevices:4 spare:1 level:5
 
-mdadm-create r5t2 "/dev/sda3 /dev/sdb3" missingbitmap:0x1 level:5
+md-create r5t2 "/dev/sda3 /dev/sdb3" missingbitmap:0x1 level:5
 
-mdadm-create r5t3 "/dev/sdc3 /dev/sdd3" \
+md-create r5t3 "/dev/sdc3 /dev/sdd3" \
   missingbitmap:0x6 nrdevices:2 spare:2 level:5
 
 # Make some filesystems and put some content on the
@@ -100,11 +100,11 @@ eval `../fish/guestfish --listen`
 ../fish/guestfish --remote run
 
 for md in `../fish/guestfish --remote list-md-devices`; do
-  ../fish/guestfish --remote mdadm-detail "${md}" > mdadm-detail.out
+  ../fish/guestfish --remote md-detail "${md}" > md-detail.out
 
-  sed 's/:\s*/=/' mdadm-detail.out > mdadm-detail.out.sh
-  . mdadm-detail.out.sh
-  rm -f mdadm-detail.out.sh
+  sed 's/:\s*/=/' md-detail.out > md-detail.out.sh
+  . md-detail.out.sh
+  rm -f md-detail.out.sh
 
   error=0
   case "$name" in
@@ -141,8 +141,8 @@ for md in `../fish/guestfish --remote list-md-devices`; do
   [ ! -z "$metadata" ] || error=1
 
   if [ "$error" == "1" ]; then
-    echo "$0: Unexpected output from mdadm-detail for device $md"
-    cat mdadm-detail.out
+    echo "$0: Unexpected output from md-detail for device $md"
+    cat md-detail.out
     ../fish/guestfish --remote exit
     exit 1
   fi
@@ -150,4 +150,4 @@ done
 
 ../fish/guestfish --remote exit
 
-rm -f mdadm-detail.out md-test1.img md-test2.img md-test3.img md-test4.img
+rm -f md-detail.out md-test1.img md-test2.img md-test3.img md-test4.img

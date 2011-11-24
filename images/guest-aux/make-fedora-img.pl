@@ -92,8 +92,8 @@ EOF
     $g->part_add("/dev/sd$_", 'p', 524288, -64);
   }
 
-  $g->mdadm_create('boot', ['/dev/sda1', '/dev/sdb1']);
-  $g->mdadm_create('root', ['/dev/sda2', '/dev/sdb2']);
+  $g->md_create('boot', ['/dev/sda1', '/dev/sdb1']);
+  $g->md_create('root', ['/dev/sda2', '/dev/sdb2']);
 
   open(my $mdadm, '>', 'mdadm.tmp') or die;
   print $mdadm <<EOF;
@@ -103,7 +103,7 @@ EOF
 
   my $i = 0;
   foreach ('boot', 'root') {
-    my %detail = $g->mdadm_detail("/dev/md/$_");
+    my %detail = $g->md_detail("/dev/md/$_");
     print $mdadm "ARRAY /dev/md$i level=raid1 num-devices=2 UUID=",
                  $detail{uuid}, "\n";
     $i++;

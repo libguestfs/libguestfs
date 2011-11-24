@@ -6432,7 +6432,7 @@ To get the current values of filesystem parameters, see
 C<guestfs_tune2fs_l>.  For precise details of how tune2fs
 works, see the L<tune2fs(8)> man page.");
 
-  ("mdadm_create", (RErr, [String "name"; DeviceList "devices"], [Int64 "missingbitmap"; Int "nrdevices"; Int "spare"; Int64 "chunk"; String "level"]), 299, [Optional "mdadm"],
+  ("md_create", (RErr, [String "name"; DeviceList "devices"], [Int64 "missingbitmap"; Int "nrdevices"; Int "spare"; Int64 "chunk"; String "level"]), 299, [Optional "mdadm"],
    [],
    "create a Linux md (RAID) device",
    "\
@@ -6496,7 +6496,7 @@ If not set, this defaults to C<raid1>.
    "\
 List all Linux md devices.");
 
-  ("mdadm_detail", (RHashtable "info", [Device "md"], []), 301,  [Optional "mdadm"],
+  ("md_detail", (RHashtable "info", [Device "md"], []), 301,  [Optional "mdadm"],
    [],
    "obtain metadata for an MD device",
    "\

@@ -50,7 +50,7 @@ vgcreate vg0 /dev/sdb1
 lvcreate lv0 vg0 16
 
 # Create an md device from sda2 and sdb2
-mdadm-create test "/dev/sda2 /dev/sdb2" level:raid1
+md-create test "/dev/sda2 /dev/sdb2" level:raid1
 
 # Create filesystems
 mkfs ext3 /dev/sda1

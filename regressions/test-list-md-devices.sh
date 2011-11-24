@@ -31,7 +31,7 @@ run
 list-md-devices
 
 # Create a raid1 based on the 2 disks
-mdadm-create test "/dev/sda /dev/sdb" level:raid1
+md-create test "/dev/sda /dev/sdb" level:raid1
 EOF
 )
 
