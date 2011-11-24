@@ -2957,6 +2957,11 @@ L<virt-edit(1)> command and documentation.
 
 C API example code.
 
+=item C<extratests>
+
+Extra tests.  These are not run by default because they require
+special tools or configuration.
+
 =item C<fish>
 
 L<guestfish(1)>, the command-line shell, and various shell scripts
