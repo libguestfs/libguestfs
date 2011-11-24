@@ -25,6 +25,8 @@
 #
 # These tests may fail for reasons which aren't necessarily real problems.
 
+EXTRA_DIST = suppressions
+
 VG = ../run \
 	valgrind \
 	--log-file=valgrind.log \
