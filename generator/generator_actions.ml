@@ -6532,17 +6532,7 @@ The name of the MD device.
    "stop a Linux md (RAID) device",
    "\
 This command deactivates the MD array named C<md>.  The
-device is stopped, but it is not destroyed or zeroed.
-
-The parameter is:
-
-=over 4
-
-=item C<md>
-
-The md (RAID) device which to be deactivated.
-
-=back");
+device is stopped, but it is not destroyed or zeroed.");
 
 ]
 
