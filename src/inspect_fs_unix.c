@@ -107,7 +107,6 @@ compile_regexps (void)
   COMPILE (re_scientific_linux_no_minor,
            "Scientific Linux.*release (\\d+)", 0);
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
-  COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
   COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
@@ -128,7 +127,6 @@ free_regexps (void)
   pcre_free (re_scientific_linux);
   pcre_free (re_scientific_linux_no_minor);
   pcre_free (re_major_minor);
-  pcre_free (re_aug_seq);
   pcre_free (re_xdev);
   pcre_free (re_cciss);
   pcre_free (re_freebsd);
@@ -724,45 +722,43 @@ check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_fstab (guestfs_h *g, struct inspect_fs *fs)
 {
-  char **lines = guestfs_aug_ls (g, "/files/etc/fstab");
-  if (lines == NULL) goto error;
+  char **entries, **entry;
+  char augpath[256];
+  char *spec, *mp;
+  int r;
 
-  if (lines[0] == NULL) {
+  entries = guestfs_aug_match (g, "/files/etc/fstab/*[label() != '#comment']");
+  if (entries == NULL) goto error;
+
+  if (entries[0] == NULL) {
     error (g, _("could not parse /etc/fstab or empty file"));
     goto error;
   }
 
-  size_t i;
-  char augpath[256];
-  for (i = 0; lines[i] != NULL; ++i) {
-    /* Ignore comments.  Only care about sequence lines which
-     * match m{/\d+$}.
-     */
-    if (match (g, lines[i], re_aug_seq)) {
-      snprintf (augpath, sizeof augpath, "%s/spec", lines[i]);
-      char *spec = guestfs_aug_get (g, augpath);
-      if (spec == NULL) goto error;
+  for (entry = entries; *entry != NULL; entry++) {
+    snprintf (augpath, sizeof augpath, "%s/spec", *entry);
+    spec = guestfs_aug_get (g, augpath);
+    if (spec == NULL) goto error;
 
-      snprintf (augpath, sizeof augpath, "%s/file", lines[i]);
-      char *mp = guestfs_aug_get (g, augpath);
-      if (mp == NULL) {
-        free (spec);
-        goto error;
-      }
-
-      int r = add_fstab_entry (g, fs, spec, mp);
+    snprintf (augpath, sizeof augpath, "%s/file", *entry);
+    mp = guestfs_aug_get (g, augpath);
+    if (mp == NULL) {
       free (spec);
-      free (mp);
-
-      if (r == -1) goto error;
+      goto error;
     }
+
+    r = add_fstab_entry (g, fs, spec, mp);
+    free (spec);
+    free (mp);
+
+    if (r == -1) goto error;
   }
 
-  guestfs___free_string_list (lines);
+  guestfs___free_string_list (entries);
   return 0;
 
 error:
-  if (lines) guestfs___free_string_list (lines);
+  if (entries) guestfs___free_string_list (entries);
   return -1;
 }
 
