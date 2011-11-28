@@ -207,6 +207,16 @@ check_filesystem (guestfs_h *g, const char *device,
     if (guestfs___check_netbsd_root (g, fs) == -1)
       return -1;
   }
+  /* Hurd root? */
+  else if (guestfs_is_file (g, "/hurd/console") > 0 &&
+           guestfs_is_file (g, "/hurd/hello") > 0 &&
+           guestfs_is_file (g, "/hurd/null") > 0) {
+    fs->is_root = 1;
+    fs->content = FS_CONTENT_HURD_ROOT;
+    fs->format = OS_FORMAT_INSTALLED; /* XXX could be more specific */
+    if (guestfs___check_hurd_root (g, fs) == -1)
+      return -1;
+  }
   /* Linux root? */
   else if (is_dir_etc &&
            is_dir_bin &&

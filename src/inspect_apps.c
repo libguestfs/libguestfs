@@ -72,6 +72,7 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
   if (fs->format == OS_FORMAT_INSTALLED) {
     switch (fs->type) {
     case OS_TYPE_LINUX:
+    case OS_TYPE_HURD:
       switch (fs->package_format) {
       case OS_PACKAGE_FORMAT_RPM:
 #ifdef DB_DUMP

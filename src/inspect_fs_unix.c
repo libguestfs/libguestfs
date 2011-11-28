@@ -533,6 +533,41 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+/* The currently mounted device may be a Hurd root.  Hurd has distros
+ * just like Linux.
+ */
+int
+guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+
+  fs->type = OS_TYPE_HURD;
+
+  if (guestfs_exists (g, "/etc/debian_version") > 0) {
+    fs->distro = OS_DISTRO_DEBIAN;
+
+    if (parse_release_file (g, fs, "/etc/debian_version") == -1)
+      return -1;
+
+    if (guestfs___parse_major_minor (g, fs) == -1)
+      return -1;
+  }
+
+  /* Arch Hurd also exists, but inconveniently it doesn't have
+   * the normal /etc/arch-release file.  XXX
+   */
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* XXX Check for /etc/fstab. */
+
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
 
 static void
 check_architecture (guestfs_h *g, struct inspect_fs *fs)
@@ -569,6 +604,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
 {
   switch (fs->type) {
   case OS_TYPE_LINUX:
+  case OS_TYPE_HURD:
     /* Red Hat-derived would be in /etc/sysconfig/network, and
      * Debian-derived in the file /etc/hostname.  Very old Debian and
      * SUSE use /etc/HOSTNAME.  It's best to just look for each of

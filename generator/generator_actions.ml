@@ -747,6 +747,10 @@ FreeBSD.
 
 NetBSD.
 
+=item \"hurd\"
+
+GNU/Hurd.
+
 =item \"unknown\"
 
 The operating system type could not be determined.

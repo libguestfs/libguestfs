@@ -113,6 +113,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
    */
   switch (fs->type) {
   case OS_TYPE_LINUX:
+  case OS_TYPE_HURD:
     switch (fs->distro) {
     case OS_DISTRO_FEDORA:
       r = icon_fedora (g, fs, &size);
