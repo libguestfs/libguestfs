@@ -43,13 +43,15 @@ GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
 		 awk '{print $$2}')
 
 extra-tests: \
+	test-capitests \
 	test-tools-null \
 	test-tools-internal \
-	test-tools-real \
+	test-df-real \
+	test-filesystems-real \
+	test-inspector-real \
+	test-ocaml \
 	test-resize \
-	test-sparsify \
-	test-capitests \
-	test-ocaml
+	test-sparsify
 
 # Null invocations of the basic tools shouldn't leak memory.
 test-tools-null:
@@ -82,18 +84,22 @@ test-tools-internal:
 	$(RUN_VG) ../inspector/virt-inspector -a ../images/windows.img >/dev/null
 
 # Invocations of tools on real images shouldn't leak memory.
-test-tools-real:
+test-df-real:
 	$(RUN_VG) virt-df >/dev/null
 	$(RUN_VG) virt-df -h >/dev/null
-	@for g in $(GUESTS); do \
-	  echo $(RUN_VG) ../inspector/virt-inspector -d $$g; \
-	  $(RUN_VG) ../inspector/virt-inspector -d $$g > /dev/null; \
-	  r=$$?; \
-	  if [ $$r -ne 0 ]; then exit $$r; fi; \
-	done
+
+test-filesystems-real:
 	@for g in $(GUESTS); do \
 	  echo $(RUN_VG) ../cat/virt-filesystems -d $$g --all --long -h --uuid; \
 	  $(RUN_VG) ../cat/virt-filesystems -d $$g --all --long -h --uuid > /dev/null; \
+	  r=$$?; \
+	  if [ $$r -ne 0 ]; then exit $$r; fi; \
+	done
+
+test-inspector-real:
+	@for g in $(GUESTS); do \
+	  echo $(RUN_VG) ../inspector/virt-inspector -d $$g; \
+	  $(RUN_VG) ../inspector/virt-inspector -d $$g > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
