@@ -28,7 +28,8 @@ let () = Random.self_init ()
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let indisk, outdisk, compress, convert, format, ignores, machine_readable,
+let indisk, outdisk, compress, convert, debug_gc,
+  format, ignores, machine_readable,
   option, quiet, verbose, trace =
   let display_version () =
     let g = new G.guestfs () in
@@ -42,6 +43,7 @@ let indisk, outdisk, compress, convert, format, ignores, machine_readable,
 
   let compress = ref false in
   let convert = ref "" in
+  let debug_gc = ref false in
   let format = ref "" in
   let ignores = ref [] in
   let machine_readable = ref false in
@@ -53,6 +55,7 @@ let indisk, outdisk, compress, convert, format, ignores, machine_readable,
   let argspec = Arg.align [
     "--compress", Arg.Set compress,         " Compressed output format";
     "--convert", Arg.Set_string convert,    "format Format of output disk (default: same as input)";
+    "--debug-gc", Arg.Set debug_gc,         " Debug GC and memory allocations";
     "--format",  Arg.Set_string format,     "format Format of input disk";
     "--ignore",  Arg.String (add ignores),  "fs Ignore filesystem";
     "--machine-readable", Arg.Set machine_readable, " Make output machine readable";
@@ -82,6 +85,7 @@ read the man page virt-sparsify(1).
   (* Dereference the rest of the args. *)
   let compress = !compress in
   let convert = match !convert with "" -> None | str -> Some str in
+  let debug_gc = !debug_gc in
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
   let machine_readable = !machine_readable in
@@ -128,8 +132,9 @@ read the man page virt-sparsify(1).
   if contains_comma then
     error "input filename '%s' contains a comma; qemu-img command line syntax prevents us from using such an image" indisk;
 
-  indisk, outdisk, compress, convert, format, ignores, machine_readable,
-  option, quiet, verbose, trace
+  indisk, outdisk, compress, convert,
+    debug_gc, format, ignores, machine_readable,
+    option, quiet, verbose, trace
 
 let () =
   if not quiet then
@@ -311,5 +316,8 @@ let () =
     print_newline ();
     wrap "Sparsify operation completed with no errors.  Before deleting the old disk, carefully check that the target disk boots and works correctly.\n";
   );
+
+  if debug_gc then
+    Gc.compact ();
 
   exit 0
