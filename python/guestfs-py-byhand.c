@@ -76,6 +76,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
   for (i = 0; i < len; ++i)
     Py_XDECREF (callbacks[i]);
+  free (callbacks);
 
   Py_INCREF (Py_None);
   return Py_None;
