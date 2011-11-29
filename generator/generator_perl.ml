@@ -181,6 +181,7 @@ _close_handle (guestfs_h *g)
 
   for (i = 0; i < len; ++i)
     SvREFCNT_dec (cbs[i]);
+  free (cbs);
 }
 
 MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
