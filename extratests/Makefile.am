@@ -46,6 +46,7 @@ extra-tests: \
 	test-tools-null \
 	test-tools-internal \
 	test-tools-real \
+	test-capitests \
 	test-ocaml
 
 # Null invocations of the basic tools shouldn't leak memory.
@@ -105,6 +106,10 @@ test-tools-real:
 # ../sparsify/virt-sparsify (OCaml)
 # ../tools/virt-win-reg (Perl)
 # ../tools/virt-make-fs (Perl)
+
+# Run capitests under valgrind.
+test-capitests:
+	$(MAKE) -C ../capitests VG="$(RUN_VG)" check
 
 # Test OCaml bindings under valgrind.
 test-ocaml:
