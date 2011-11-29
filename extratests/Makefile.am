@@ -47,6 +47,7 @@ extra-tests: \
 	test-tools-internal \
 	test-tools-real \
 	test-resize \
+	test-sparsify \
 	test-capitests \
 	test-ocaml
 
@@ -101,12 +102,15 @@ test-tools-real:
 test-resize:
 	$(MAKE) -C ../resize VG="$(VG)" check
 
+# Run virt-sparsify tests under valgrind.
+test-sparsify:
+	$(MAKE) -C ../sparsify VG="$(VG)" check
+
 # XXX Not tested:
 # ../clone/virt-sysprep
 # ../edit/virt-edit
 # ../edit/virt-edit -e
 # ../fuse/guestmount
-# ../sparsify/virt-sparsify (OCaml)
 # ../tools/virt-win-reg (Perl)
 # ../tools/virt-make-fs (Perl)
 

@@ -121,6 +121,12 @@ eg. C<vmdk>, but support for other formats is reliant on qemu.
 Specifying the I<--convert> option is usually a good idea, because
 then virt-sparsify doesn't need to try to guess the input format.
 
+=item B<--debug-gc>
+
+Debug garbage collection and memory allocation.  This is only useful
+when debugging memory problems in virt-sparsify or the OCaml libguestfs
+bindings.
+
 =item B<--format> raw
 
 =item B<--format> qcow2
