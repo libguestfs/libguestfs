@@ -32,7 +32,7 @@ VG = valgrind \
 	--leak-check=full \
 	--error-exitcode=119 \
 	--suppressions=$(abs_srcdir)/suppressions
-RUN_VG = ../run $(VG)
+RUN_VG = $(abs_top_builddir)/run $(VG)
 
 export LIBVIRT_DEFAULT_URI = \
 	qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
