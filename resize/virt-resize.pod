@@ -329,6 +329,12 @@ since around 2008.
 
 Enable debugging messages.
 
+=item B<--debug-gc>
+
+Debug garbage collection and memory allocation.  This is only useful
+when debugging memory problems in virt-resize or the OCaml libguestfs
+bindings.
+
 =item B<--delete part>
 
 Delete the named partition.  It would be more accurate to describe
