@@ -1090,6 +1090,7 @@ guestfs___recv_discard (guestfs_h *g, const char *fn)
 
  again:
   r = guestfs___recv_from_daemon (g, &size, &buf);
+  free (buf);
   if (r == -1)
     return -1;
 
