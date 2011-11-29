@@ -24,6 +24,31 @@
 #   - valgrind
 #
 # These tests may fail for reasons which aren't necessarily real problems.
+#
+# XXX Not tested:
+#
+# ../clone/virt-sysprep
+#   - hard to test because it's a shell script
+#
+# ../edit/virt-edit
+#
+# Perl bindings
+# ../edit/virt-edit -e
+# ../tools/virt-win-reg (Perl)
+# ../tools/virt-make-fs (Perl)
+#   - hard because Perl doesn't cooperate by freeing memory
+#
+# Python bindings
+#   - as for Perl
+#
+# Ruby bindings
+#   - these look feasible to test using valgrind
+#
+# Java bindings
+#
+# ../fuse/guestmount
+#   - hard to test because guestmount forks into the background, and
+#     if valgrind reports errors it doesn't stop the test shell script
 
 EXTRA_DIST = suppressions
 
@@ -111,14 +136,6 @@ test-resize:
 # Run virt-sparsify tests under valgrind.
 test-sparsify:
 	$(MAKE) -C ../sparsify VG="$(VG)" check
-
-# XXX Not tested:
-# ../clone/virt-sysprep
-# ../edit/virt-edit
-# ../edit/virt-edit -e
-# ../fuse/guestmount
-# ../tools/virt-win-reg (Perl)
-# ../tools/virt-make-fs (Perl)
 
 # Run capitests under valgrind.
 test-capitests:
