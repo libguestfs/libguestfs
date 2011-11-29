@@ -42,7 +42,11 @@ GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
 		 tail -n +3 | \
 		 awk '{print $$2}')
 
-extra-tests: test-tools-null test-tools-internal test-tools-real
+extra-tests: \
+	test-tools-null \
+	test-tools-internal \
+	test-tools-real \
+	test-ocaml
 
 # Null invocations of the basic tools shouldn't leak memory.
 test-tools-null:
@@ -92,7 +96,6 @@ test-tools-real:
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
 
-
 # XXX Not tested:
 # ../clone/virt-sysprep
 # ../edit/virt-edit
@@ -102,3 +105,7 @@ test-tools-real:
 # ../sparsify/virt-sparsify (OCaml)
 # ../tools/virt-win-reg (Perl)
 # ../tools/virt-make-fs (Perl)
+
+# Test OCaml bindings under valgrind.
+test-ocaml:
+	$(MAKE) -C ../ocaml VG="$(VG)" check
