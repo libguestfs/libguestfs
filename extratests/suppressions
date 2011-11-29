@@ -58,3 +58,35 @@
    fun:calloc
    obj:/usr/lib/libnl.so.1.1
 }
+
+# OCaml, by design, doesn't bother to free the major heap before
+# calling exit.  Ignore that leak.
+{
+   ocaml_heap_leak
+   Memcheck:Leak
+   ...
+   fun:caml_alloc_for_heap
+}
+# On the other hand, these seem to be a real bugs in OCaml:
+{
+   ocaml_heap_leak_2
+   Memcheck:Leak
+   fun:malloc
+   fun:caml_thread_new_descriptor
+   fun:caml_thread_new
+}
+{
+   ocaml_heap_leak_3
+   Memcheck:Leak
+   fun:malloc
+   fun:caml_thread_new_descriptor
+   fun:caml_thread_initialize
+}
+{
+   ocaml_heap_leak_4
+   Memcheck:Leak
+   ...
+   fun:pthread_create*
+   ...
+   fun:caml_thread_new
+}
