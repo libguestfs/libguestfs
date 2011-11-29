@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 20:18+0000\n"
+"POT-Creation-Date: 2011-11-29 14:22+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -2442,12 +2442,12 @@ msgstr ""
 msgid "use '%s filename' to page a file\n"
 msgstr "'%s கோப்புபெயரை' ஒரு கோப்பில் பக்கத்திற்குப் பயன்படுத்து\n"
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr ""
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -3063,49 +3063,49 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:292
+#: src/inspect.c:293
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:308
+#: src/inspect.c:309
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:536 src/inspect_apps.c:609
+#: src/inspect.c:537 src/inspect_apps.c:610
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
 msgstr ""
 
-#: src/inspect.c:751 src/inspect_fs.c:493 src/inspect_fs.c:537
-#: src/inspect_fs_unix.c:198 src/inspect_fs_unix.c:662
-#: src/inspect_fs_unix.c:961
+#: src/inspect.c:752 src/inspect_fs.c:503 src/inspect_fs.c:547
+#: src/inspect_fs_unix.c:196 src/inspect_fs_unix.c:696
+#: src/inspect_fs_unix.c:993
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect.c:787
+#: src/inspect.c:788
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:799
+#: src/inspect.c:800
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect_fs.c:336 src/inspect_fs.c:349
+#: src/inspect_fs.c:346 src/inspect_fs.c:359
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect_fs.c:502
+#: src/inspect_fs.c:512
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect_fs_unix.c:695
+#: src/inspect_fs_unix.c:734
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
@@ -3114,7 +3114,7 @@ msgstr ""
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect_icon.c:491
+#: src/inspect_icon.c:492
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
@@ -3239,7 +3239,7 @@ msgstr "xdr_guestfs_message_header தோல்வியுற்றது"
 msgid "dispatch failed to marshal args"
 msgstr "marshal args ஐ அனுப்ப முடியவில்லை"
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -3253,28 +3253,28 @@ msgstr "send_file_chunk: நிலை %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk தோல்வியுற்றது (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr "டொமைன் சாக்கெட்டிற்கு எழுது"
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: பதில் பின்அழைப்பில் உள்ள பிழையை பகுக்கவும்"
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr "கோப்பு சங்க்கை பகுக்க முடியவில்லை"
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr "கோப்பினை பெறுதல் டொமைனால் ரத்து செய்யப்பட்டது"
 
