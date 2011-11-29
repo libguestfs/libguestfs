@@ -46,6 +46,7 @@ extra-tests: \
 	test-tools-null \
 	test-tools-internal \
 	test-tools-real \
+	test-resize \
 	test-capitests \
 	test-ocaml
 
@@ -96,12 +97,15 @@ test-tools-real:
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
 
+# Run virt-resize tests under valgrind.
+test-resize:
+	$(MAKE) -C ../resize VG="$(VG)" check
+
 # XXX Not tested:
 # ../clone/virt-sysprep
 # ../edit/virt-edit
 # ../edit/virt-edit -e
 # ../fuse/guestmount
-# ../resize/virt-resize (OCaml)
 # ../sparsify/virt-sparsify (OCaml)
 # ../tools/virt-win-reg (Perl)
 # ../tools/virt-make-fs (Perl)

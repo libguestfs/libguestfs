@@ -30,7 +30,8 @@ let prog = Filename.basename Sys.executable_name
 
 type align_first_t = [ `Never | `Always | `Auto ]
 
-let infile, outfile, align_first, alignment, copy_boot_loader, debug, deletes,
+let infile, outfile, align_first, alignment, copy_boot_loader,
+  debug, debug_gc, deletes,
   dryrun, expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink =
@@ -48,6 +49,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader, debug, deletes,
   let alignment = ref 128 in
   let copy_boot_loader = ref true in
   let debug = ref false in
+  let debug_gc = ref false in
   let deletes = ref [] in
   let dryrun = ref false in
   let expand = ref "" in
@@ -80,6 +82,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader, debug, deletes,
     "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " Don't copy boot loader";
     "-d",        Arg.Set debug,             " Enable debugging messages";
     "--debug",   Arg.Set debug,             " -\"-";
+    "--debug-gc",Arg.Set debug_gc,          " Debug GC and memory allocations";
     "--delete",  Arg.String (add deletes),  "part Delete partition";
     "--expand",  Arg.String set_expand,     "part Expand partition";
     "--no-expand-content", Arg.Clear expand_content, " Don't expand content";
@@ -126,6 +129,7 @@ read the man page virt-resize(1).
   (* Dereference the rest of the args. *)
   let alignment = !alignment in
   let copy_boot_loader = !copy_boot_loader in
+  let debug_gc = !debug_gc in
   let deletes = List.rev !deletes in
   let dryrun = !dryrun in
   let expand = match !expand with "" -> None | str -> Some str in
@@ -183,7 +187,8 @@ read the man page virt-resize(1).
     | _ ->
         error "usage is: %s [--options] indisk outdisk" prog in
 
-  infile, outfile, align_first, alignment, copy_boot_loader, debug, deletes,
+  infile, outfile, align_first, alignment, copy_boot_loader,
+  debug, debug_gc, deletes,
   dryrun, expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink
@@ -1178,5 +1183,8 @@ let () =
     print_newline ();
     wrap "Resize operation completed with no errors.  Before deleting the old disk, carefully check that the resized disk boots and works correctly.\n";
   );
+
+  if debug_gc then
+    Gc.compact ();
 
   exit 0
