@@ -82,6 +82,7 @@ guestfs_finalize (value gv)
       caml_remove_global_root (roots[i]);
       free (roots[i]);
     }
+    free (roots);
 
     caml_remove_global_root (v);
     free (v);
