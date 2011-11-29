@@ -625,6 +625,7 @@ copy_table (char * const * argv)
        | RBufferOut _ ->
            pr "  rv = caml_alloc_string (size);\n";
            pr "  memcpy (String_val (rv), r, size);\n";
+           pr "  free (r);\n"
       );
 
       pr "  CAMLreturn (rv);\n";
