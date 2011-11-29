@@ -22,3 +22,5 @@ let _ = Guestfs.create
 let _ =
   let g = new Guestfs.guestfs () in
   g#get_verbose ()
+
+let () = Gc.compact ()
