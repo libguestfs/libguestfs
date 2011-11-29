@@ -84,6 +84,7 @@ ruby_guestfs_free (void *gvp)
       rb_gc_unregister_address (roots[i]);
       free (roots[i]);
     }
+    free (roots);
   }
 }
 
