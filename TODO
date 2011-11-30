@@ -568,7 +568,9 @@ virt-sysprep ideas
     /var/lib/sss/db/*
     /var/lib/samba/*
     /var/lib/samba/*/*
-  (thanks Marko Myllynen, James Antill)
+   (thanks Marko Myllynen, James Antill)
+ - remove or modify UUIDs in /etc/fstab (eg. on Ubuntu)
+   (thanks Joshua Daniel Franklin)
 
 Launch remote sessions over ssh
 -------------------------------
