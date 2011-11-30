@@ -139,9 +139,9 @@ depend: .depend
 .depend: $(wildcard *.mli) $(wildcard *.ml)
 	rm -f $@ $@-t
 	$(OCAMLFIND) ocamldep $^ | \
-	  $(SED) 's/ *$$//' | \
+	  $(SED) -e 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
-	  sort > $@-t
+	  LANG=C sort > $@-t
 	mv $@-t $@
 
 include .depend
