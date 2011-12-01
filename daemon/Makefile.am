@@ -175,7 +175,7 @@ guestfsd_LDADD = \
 	$(LIBINTL) \
 	$(SERVENT_LIB)
 
-guestfsd_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
+guestfsd_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 .PHONY: force
