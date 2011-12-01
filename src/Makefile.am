@@ -165,7 +165,7 @@ libguestfs_la_CFLAGS = \
   $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
-libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
+libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 
 if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
