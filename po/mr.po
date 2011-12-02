@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 22:09+0000\n"
+"POT-Creation-Date: 2011-12-02 09:28+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -2514,12 +2514,12 @@ msgstr "बाहेरिल 'man' कार्यक्रम अपयशी\
 msgid "use '%s filename' to page a file\n"
 msgstr "फाइल पेज करण्यासाठी '%s filename' याचा वापर करा\n"
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: एकापेक्षा जास्त ड्राइव्ह्स् आदेश ओळवर समाविष्ट केले\n"
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr "%s: '%s' माऊंट करणे अशक्य.  यापैकी एक आहे?\n"
@@ -3311,7 +3311,7 @@ msgstr "xdr_guestfs_message_header अपयशी"
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -3325,28 +3325,28 @@ msgstr "send_file_chunk: state %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 

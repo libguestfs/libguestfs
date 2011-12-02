@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 22:09+0000\n"
+"POT-Creation-Date: 2011-12-02 09:28+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.net/projects/p/"
@@ -2478,12 +2478,12 @@ msgstr ""
 msgid "use '%s filename' to page a file\n"
 msgstr ""
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr ""
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -3238,7 +3238,7 @@ msgstr ""
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -3252,28 +3252,28 @@ msgstr ""
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr ""
 

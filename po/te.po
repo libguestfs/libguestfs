@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 22:09+0000\n"
+"POT-Creation-Date: 2011-12-02 09:28+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/team/te/)\n"
@@ -2411,12 +2411,12 @@ msgstr ""
 msgid "use '%s filename' to page a file\n"
 msgstr "ఒక ఫైలును పేజ్ చేయుటకు '%s filename' వుపయోగించుము\n"
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr ""
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -3157,7 +3157,7 @@ msgstr "xdr_guestfs_message_header విఫలమైంది"
 msgid "dispatch failed to marshal args"
 msgstr "మార్షల్ argsకు చేరవేత విఫలమైంది"
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -3171,28 +3171,28 @@ msgstr "send_file_chunk: state %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: చంకడ్ ఎన్కోడింగ్ నందు దోషము"
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ నందు పార్శ్ దోషము"
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 

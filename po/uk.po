@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 22:09+0000\n"
+"POT-Creation-Date: 2011-12-02 09:28+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2708,12 +2708,12 @@ msgstr ""
 "скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
 "перегляду на сторінки\n"
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -3607,7 +3607,7 @@ msgstr "помилка xdr_guestfs_message_header"
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
@@ -3621,30 +3621,30 @@ msgstr "send_file_chunk: стан %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "помилка xdr_guestfs_chunk (буфер = %p, довжина буфера = %zu)"
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: помилка у кодуванні фрагмента"
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 

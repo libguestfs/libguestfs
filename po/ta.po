@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 22:09+0000\n"
+"POT-Creation-Date: 2011-12-02 09:28+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -2413,12 +2413,12 @@ msgstr ""
 msgid "use '%s filename' to page a file\n"
 msgstr "'%s கோப்புபெயரை' ஒரு கோப்பில் பக்கத்திற்குப் பயன்படுத்து\n"
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr ""
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -3161,7 +3161,7 @@ msgstr "xdr_guestfs_message_header தோல்வியுற்றது"
 msgid "dispatch failed to marshal args"
 msgstr "marshal args ஐ அனுப்ப முடியவில்லை"
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -3175,28 +3175,28 @@ msgstr "send_file_chunk: நிலை %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk தோல்வியுற்றது (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr "டொமைன் சாக்கெட்டிற்கு எழுது"
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: பதில் பின்அழைப்பில் உள்ள பிழையை பகுக்கவும்"
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr "கோப்பு சங்க்கை பகுக்க முடியவில்லை"
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr "கோப்பினை பெறுதல் டொமைனால் ரத்து செய்யப்பட்டது"
 

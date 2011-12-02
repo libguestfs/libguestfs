@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-11-24 22:09+0000\n"
+"POT-Creation-Date: 2011-12-02 09:28+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -2670,12 +2670,12 @@ msgstr "zewnętrzny program \"man\" nie powiódł się\n"
 msgid "use '%s filename' to page a file\n"
 msgstr "należy użyć \"%s nazwa_pliku\", aby wyświetlić plik\n"
 
-#: fish/options.c:36
+#: fish/options.c:38
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: dodano za dużo napędów w wierszu poleceń\n"
 
-#: fish/options.c:128
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
@@ -3563,7 +3563,7 @@ msgstr "xdr_guestfs_message_header nie powiodło się"
 msgid "dispatch failed to marshal args"
 msgstr "rozdzielenie parametrów marszałka nie powiodło się"
 
-#: src/proto.c:922 src/proto.c:1217
+#: src/proto.c:922 src/proto.c:1218
 msgid "operation cancelled by user"
 msgstr "działanie zostało anulowane przez użytkownika"
 
@@ -3577,30 +3577,30 @@ msgstr "send_file_chunk: stan %d != GOTOWY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk nie powiodło się (bufor = %p, długość bufora = %zu)"
 
-#: src/proto.c:1144
+#: src/proto.c:1145
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: błąd w kodowaniu fragmentu"
 
-#: src/proto.c:1171
+#: src/proto.c:1172
 msgid "write to daemon socket"
 msgstr "zapisuje do gniazda demona"
 
-#: src/proto.c:1194
+#: src/proto.c:1195
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
 
-#: src/proto.c:1199
+#: src/proto.c:1200
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: otrzymano nieoczekiwaną flagę podczas odczytywania "
 "fragmentów pliku"
 
-#: src/proto.c:1207
+#: src/proto.c:1208
 msgid "failed to parse file chunk"
 msgstr "przetworzenie fragmentu pliku nie powiodło się"
 
-#: src/proto.c:1221
+#: src/proto.c:1222
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
 
