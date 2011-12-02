@@ -38,6 +38,8 @@
 #include "c-ctype.h"
 #include "ignore-value.h"
 #include "xstrtol.h"
+#include "hash.h"
+#include "hash-pjw.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -65,6 +67,7 @@ static pcre *re_major_minor;
 static pcre *re_aug_seq;
 static pcre *re_xdev;
 static pcre *re_cciss;
+static pcre *re_mdN;
 static pcre *re_first_partition;
 static pcre *re_freebsd;
 static pcre *re_netbsd;
@@ -109,6 +112,7 @@ compile_regexps (void)
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
   COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
+  COMPILE (re_mdN, "^(/dev/md\\d+)$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
 }
@@ -129,6 +133,7 @@ free_regexps (void)
   pcre_free (re_major_minor);
   pcre_free (re_xdev);
   pcre_free (re_cciss);
+  pcre_free (re_mdN);
   pcre_free (re_freebsd);
   pcre_free (re_netbsd);
 }
@@ -139,9 +144,36 @@ static int check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
-                            const char *spec, const char *mp);
-static char *resolve_fstab_device (guestfs_h *g, const char *spec);
+                            const char *spec, const char *mp,
+                            Hash_table *md_map);
+static char *resolve_fstab_device (guestfs_h *g, const char *spec,
+                                   Hash_table *md_map);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
+
+/* Hash structure for uuid->path lookups */
+typedef struct md_uuid {
+  uint32_t uuid[4];
+  char *path;
+} md_uuid;
+
+static size_t uuid_hash(const void *x, size_t table_size);
+static bool uuid_cmp(const void *x, const void *y);
+static void md_uuid_free(void *x);
+
+static int parse_uuid(const char *str, uint32_t *uuid);
+
+/* Hash structure for path(mdadm)->path(appliance) lookup */
+typedef struct {
+  char *mdadm;
+  char *app;
+} mdadm_app;
+
+static size_t mdadm_app_hash(const void *x, size_t table_size);
+static bool mdadm_app_cmp(const void *x, const void *y);
+static void mdadm_app_free(void *x);
+
+static int map_app_md_devices (guestfs_h *g, Hash_table **map);
+static int map_md_devices(guestfs_h *g, Hash_table **map);
 
 /* Set fs->product_name to the first line of the release file. */
 static int
@@ -444,7 +476,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
    * which filesystems are used by the operating system and how they
    * are mounted.
    */
-  const char *configfiles[] = { "/etc/fstab", NULL };
+  const char *configfiles[] = { "/etc/fstab", "/etc/mdadm.conf", NULL };
   if (inspect_with_augeas (g, fs, configfiles, check_fstab) == -1)
     return -1;
 
@@ -727,6 +759,11 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
   char *spec, *mp;
   int r;
 
+  /* Generate a map of MD device paths listed in /etc/mdadm.conf to MD device
+   * paths in the guestfs appliance */
+  Hash_table *md_map;
+  if (map_md_devices (g, &md_map) == -1) return -1;
+
   entries = guestfs_aug_match (g, "/files/etc/fstab/*[label() != '#comment']");
   if (entries == NULL) goto error;
 
@@ -747,17 +784,19 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       goto error;
     }
 
-    r = add_fstab_entry (g, fs, spec, mp);
+    r = add_fstab_entry (g, fs, spec, mp, md_map);
     free (spec);
     free (mp);
 
     if (r == -1) goto error;
   }
 
+  if (md_map) hash_free (md_map);
   guestfs___free_string_list (entries);
   return 0;
 
 error:
+  if (md_map) hash_free (md_map);
   if (entries) guestfs___free_string_list (entries);
   return -1;
 }
@@ -772,7 +811,7 @@ error:
  */
 static int
 add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
-                 const char *spec, const char *mp)
+                 const char *spec, const char *mp, Hash_table *md_map)
 {
   /* Ignore certain mountpoints. */
   if (STRPREFIX (mp, "/dev/") ||
@@ -804,7 +843,7 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
     device = safe_strdup (g, fs->device);
   else if (STRPREFIX (spec, "/dev/"))
     /* Resolve guest block device names. */
-    device = resolve_fstab_device (g, spec);
+    device = resolve_fstab_device (g, spec, md_map);
 
   /* If we haven't resolved the device successfully by this point,
    * we don't care, just ignore it.
@@ -841,6 +880,274 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   return 0;
 }
 
+/* Compute a uuid hash as a simple xor of of its 4 32bit components */
+static size_t
+uuid_hash(const void *x, size_t table_size)
+{
+  const md_uuid *a = x;
+
+  size_t h = a->uuid[0];
+  for (size_t i = 1; i < 4; i++) {
+    h ^= a->uuid[i];
+  }
+
+  return h % table_size;
+}
+
+static bool
+uuid_cmp(const void *x, const void *y)
+{
+  const md_uuid *a = x;
+  const md_uuid *b = y;
+
+  for (size_t i = 0; i < 1; i++) {
+    if (a->uuid[i] != b->uuid[i]) return false;
+  }
+
+  return true;
+}
+
+static void
+md_uuid_free(void *x)
+{
+  md_uuid *a = x;
+  free(a->path);
+  free(a);
+}
+
+/* Taken from parse_uuid in mdadm */
+static int
+parse_uuid(const char *str, uint32_t *uuid)
+{
+  for (size_t i = 0; i < 4; i++) uuid[i] = 0;
+
+  int hit = 0; /* number of Hex digIT */
+  char c;
+  while ((c = *str++)) {
+    int n;
+    if (c >= '0' && c <= '9')
+      n = c - '0';
+    else if (c >= 'a' && c <= 'f')
+      n = 10 + c - 'a';
+    else if (c >= 'A' && c <= 'F')
+      n = 10 + c - 'A';
+    else if (strchr(":. -", c))
+      continue;
+    else return false;
+
+    if (hit < 32) {
+      uuid[hit / 8] <<= 4;
+      uuid[hit / 8] += n;
+    }
+    hit++;
+  }
+  if (hit == 32) return 0;
+
+  return -1;
+}
+
+/* Create a mapping of uuids to appliance md device names */
+static int
+map_app_md_devices (guestfs_h *g, Hash_table **map)
+{
+  char **mds = NULL;
+  int n = 0;
+
+  /* A hash mapping uuids to md device names */
+  *map = hash_initialize(16, NULL, uuid_hash, uuid_cmp, md_uuid_free);
+  if (*map == NULL) g->abort_cb();
+
+  mds = guestfs_list_md_devices(g);
+  if (mds == NULL) goto error;
+
+  for (char **md = mds; *md != NULL; md++) {
+    char **detail = guestfs_md_detail(g, *md);
+    if (detail == NULL) goto error;
+
+    /* Iterate over keys until we find uuid */
+    char **i;
+    for (i = detail; *i != NULL; i += 2) {
+      if (STREQ(*i, "uuid")) break;
+    }
+
+    /* We found it */
+    if (*i) {
+      /* Next item is the uuid value */
+      i++;
+
+      md_uuid *entry = safe_malloc(g, sizeof(md_uuid));
+      entry->path = safe_strdup(g, *md);
+
+      if (parse_uuid(*i, entry->uuid) == -1) {
+        /* Invalid UUID is weird, but not fatal. */
+        debug(g, "inspect-os: guestfs_md_detail returned invalid "
+                 "uuid for %s: %s", *md, *i);
+        guestfs___free_string_list(detail);
+        md_uuid_free(entry);
+        continue;
+      }
+
+      const void *matched = NULL;
+      switch (hash_insert_if_absent(*map, entry, &matched)) {
+        case -1:
+          g->abort_cb();
+
+        case 0:
+          /* Duplicate uuid in for md device is weird, but not fatal. */
+          debug(g, "inspect-os: md devices %s and %s have the same uuid",
+                ((md_uuid *)matched)->path, entry->path);
+          md_uuid_free(entry);
+          break;
+
+        default:
+          n++;
+      }
+    }
+
+    guestfs___free_string_list(detail);
+  }
+
+  guestfs___free_string_list(mds);
+
+  return n;
+
+error:
+  hash_free(*map); *map = NULL;
+  guestfs___free_string_list(mds);
+
+  return -1;
+}
+
+static size_t
+mdadm_app_hash(const void *x, size_t table_size)
+{
+  const mdadm_app *a = x;
+  return hash_pjw(a->mdadm, table_size);
+}
+
+static bool
+mdadm_app_cmp(const void *x, const void *y)
+{
+  const mdadm_app *a = x;
+  const mdadm_app *b = y;
+
+  return strcmp(a->mdadm, b->mdadm) == 0;
+}
+
+static void
+mdadm_app_free(void *x)
+{
+  mdadm_app *a = x;
+  free(a->mdadm);
+  free(a->app);
+  free(a);
+}
+
+/* Get a map of md device names in mdadm.conf to their device names in the
+ * appliance */
+static int
+map_md_devices(guestfs_h *g, Hash_table **map)
+{
+  Hash_table *app_map = NULL;
+  char **matches = NULL;
+  *map = NULL;
+
+  /* Get a map of md device uuids to their device names in the appliance */
+  int n_app_md_devices = map_app_md_devices(g, &app_map);
+  if (n_app_md_devices == -1) goto error;
+
+  /* Nothing to do if there are no md devices */
+  if (n_app_md_devices == 0) {
+    hash_free(app_map);
+    return 0;
+  }
+
+  /* Get all arrays listed in mdadm.conf */
+  matches = guestfs_aug_match(g, "/files/etc/mdadm.conf/array");
+  if (!matches) goto error;
+
+  /* Log a debug message if we've got md devices, but nothing in mdadm.conf */
+  if (matches[0] == NULL) {
+    debug(g, "Appliance has MD devices, but augeas returned no array matches "
+             "in mdadm.conf");
+    guestfs___free_string_list(matches);
+    hash_free(app_map);
+    return 0;
+  }
+
+  *map = hash_initialize(16, NULL, mdadm_app_hash, mdadm_app_cmp,
+                                   mdadm_app_free);
+  if (!*map) g->abort_cb();
+
+  for (char **match = matches; *match != NULL; match++) {
+    /* Get device name and uuid for each array */
+    char *dev_path = safe_asprintf(g, "%s/devicename", *match);
+    char *dev = guestfs_aug_get(g, dev_path);
+    free(dev_path);
+    if (!dev) goto error;
+
+    char *uuid_path = safe_asprintf(g, "%s/uuid", *match);
+    char *uuid = guestfs_aug_get(g, uuid_path);
+    free(uuid_path);
+    if (!uuid) {
+      free(dev);
+      goto error;
+    }
+
+    /* Parse the uuid into an md_uuid structure so we can look it up in the
+     * uuid->appliance device map */
+    md_uuid mdadm;
+    mdadm.path = dev;
+    if (parse_uuid(uuid, mdadm.uuid) == -1) {
+      /* Invalid uuid. Weird, but not fatal. */
+      debug(g, "inspect-os: mdadm.conf contains invalid uuid for %s: %s",
+            dev, uuid);
+      free(dev);
+      free(uuid);
+      continue;
+    }
+    free(uuid);
+
+    /* If there's a corresponding uuid in the appliance, create a new
+     * entry in the transitive map */
+    md_uuid *app = hash_lookup(app_map, &mdadm);
+    if (app) {
+      mdadm_app *entry = safe_malloc(g, sizeof(mdadm_app));
+      entry->mdadm = dev;
+      entry->app = safe_strdup(g, app->path);
+
+      switch (hash_insert_if_absent(*map, entry, NULL)) {
+        case -1:
+          g->abort_cb();
+
+        case 0:
+          /* Duplicate uuid in for md device is weird, but not fatal. */
+          debug(g, "inspect-os: mdadm.conf contains multiple entries for %s",
+                app->path);
+          mdadm_app_free(entry);
+          continue;
+
+        default:
+          ;;
+      }
+    } else {
+      free(dev);
+    }
+  }
+
+  hash_free(app_map);
+  guestfs___free_string_list(matches);
+
+  return 0;
+
+error:
+  if (app_map) hash_free(app_map);
+  if (matches) guestfs___free_string_list(matches);
+  if (*map) hash_free(*map);
+
+  return -1;
+}
+
 /* Resolve block device name to the libguestfs device name, eg.
  * /dev/xvdb1 => /dev/vdb1; and /dev/mapper/VG-LV => /dev/VG/LV.  This
  * assumes that disks were added in the same order as they appear to
@@ -848,7 +1155,7 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
  * anything we don't recognize unchanged.
  */
 static char *
-resolve_fstab_device (guestfs_h *g, const char *spec)
+resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
 {
   char *device = NULL;
   char *type, *slice, *disk, *part;
@@ -942,6 +1249,15 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
     free (disk);
     free (part);
     guestfs___free_string_list (devices);
+  }
+  else if (md_map && (disk = match1 (g, spec, re_mdN)) != NULL) {
+    mdadm_app entry;
+    entry.mdadm = disk;
+
+    mdadm_app *app = hash_lookup (md_map, &entry);
+    if (app) device = safe_strdup (g, app->app);
+
+    free(disk);
   }
   else if (match3 (g, spec, re_freebsd, &disk, &slice, &part)) {
     /* FreeBSD disks are organized quite differently.  See:
