@@ -22,6 +22,7 @@
 #   - the disks of these guests are accessible by the current user
 #     (tip: add yourself to the 'disk' group)
 #   - valgrind
+#   - libtool
 #
 # These tests may fail for reasons which aren't necessarily real problems.
 #
@@ -68,6 +69,7 @@ GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
 		 awk '{print $$2}')
 
 extra-tests: \
+	test-prerequisites \
 	test-capitests \
 	test-tools-null \
 	test-tools-internal \
@@ -77,6 +79,16 @@ extra-tests: \
 	test-ocaml \
 	test-resize \
 	test-sparsify
+
+test-prerequisites:
+	@libtool --help >/dev/null 2>&1 || { \
+	  echo "extra-tests: libtool is not installed"; \
+	  exit 1; \
+	}
+	@valgrind --help >/dev/null 2>&1 || { \
+	  echo "extra-tests: valgrind is not installed"; \
+	  exit 1; \
+	}
 
 # Null invocations of the basic tools shouldn't leak memory.
 test-tools-null:
