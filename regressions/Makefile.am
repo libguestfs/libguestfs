@@ -44,6 +44,7 @@ TESTS = \
 	test-guestfish-escapes.sh \
 	test-guestfish-tilde.sh \
 	test-inspect-fstab.sh \
+	test-inspect-fstab-md.sh \
 	test-launch-race.pl \
 	test-list-filesystems.sh \
 	test-list-md-devices.sh \
