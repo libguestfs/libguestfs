@@ -1,3 +1,4 @@
+# libnuma
 {
    libnuma_numa_node_size64_cond
    Memcheck:Cond
@@ -12,12 +13,32 @@
    fun:numa_init
 }
 {
+   libnuma_numa_node_size64_cond_3
+   Memcheck:Cond
+   fun:*
+   fun:numa_node_size64
+   obj:/usr/lib64/libnuma.so.1
+}
+{
+   libnuma_numa_node_size64_cond_4
+   Memcheck:Cond
+   fun:numa_node_size64
+   obj:/usr/lib64/libnuma.so.1
+}
+{
    libnuma_numa_node_size64_value8
    Memcheck:Value8
    fun:numa_node_size64
    fun:numa_init
 }
+{
+   libnuma_numa_node_size64_value8_2
+   Memcheck:Value8
+   fun:numa_node_size64
+   obj:/usr/lib64/libnuma.so.1
+}
 
+# libnl
 {
    libnl_add_routing_table_name_leak
    Memcheck:Leak
@@ -44,7 +65,6 @@
    fun:calloc
    fun:add_proto_name
 }
-
 {
    libnl1_malloc_leak
    Memcheck:Leak
@@ -53,10 +73,23 @@
    obj:/usr/lib/libnl.so.1.1
 }
 {
+   libnl1_malloc_leak_2
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   obj:/lib64/libnl.so.1.1
+}
+{
    libnl1_calloc_leak
    Memcheck:Leak
    fun:calloc
    obj:/usr/lib/libnl.so.1.1
+}
+{
+   libnl1_calloc_leak_2
+   Memcheck:Leak
+   fun:calloc
+   obj:/lib64/libnl.so.1.1
 }
 
 # OCaml, by design, doesn't bother to free the major heap before
