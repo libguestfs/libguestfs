@@ -85,6 +85,9 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
   if (STREQ (fstype, "jfs"))
     ADD_ARG (argv, i, "-f");
 
+  if (STREQ (fstype, "xfs"))
+    ADD_ARG (argv, i, "-f");
+
   /* For GFS, GFS2, assume a single node. */
   if (STREQ (fstype, "gfs") || STREQ (fstype, "gfs2")) {
     ADD_ARG (argv, i, "-p");
