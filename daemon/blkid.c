@@ -94,8 +94,11 @@ do_blkid(const char *device)
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  const char *blkid[] = {"blkid", "-p", "-i", "-o", "export", device, NULL};
-  r = commandv(&out, &err, blkid);
+  r = command (&out, &err,
+               "blkid",
+               /* Adding -c option kills all caching, even on RHEL 5. */
+               "-c", "/dev/null",
+               "-p", "-i", "-o", "export", device, NULL);
   if (r == -1) {
     reply_with_error("%s", err);
     goto error;
