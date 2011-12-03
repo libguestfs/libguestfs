@@ -6538,6 +6538,44 @@ The name of the MD device.
 This command deactivates the MD array named C<md>.  The
 device is stopped, but it is not destroyed or zeroed.");
 
+  ("blkid", (RHashtable "info", [Device "device"], []), 303, [],
+   [InitScratchFS, Always, TestOutputHashtable (
+      [["blkid"; "/dev/sdb1"]],
+      ["TYPE", "ext2";
+       "USAGE", "filesystem";
+       "PART_ENTRY_NUMBER", "1";
+       "PART_ENTRY_TYPE", "0x83";
+       "PART_ENTRY_OFFSET", "128";
+       "PART_ENTRY_SIZE", "102145"])],
+   "print block device attributes",
+   "\
+This command returns block device attributes for C<device>. The following fields are
+usually present in the returned hash. Other fields may also be present.
+
+=over
+
+=item C<UUID>
+
+The uuid of this device.
+
+=item C<LABEL>
+
+The label of this device.
+
+=item C<VERSION>
+
+The version of blkid command.
+
+=item C<TYPE>
+
+The filesystem type or RAID of this device.
+
+=item C<USAGE>
+
+The usage of this device, for example C<filesystem> or C<raid>.
+
+=back");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
