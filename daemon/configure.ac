@@ -154,16 +154,19 @@ AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
 test "x$GPERF" = "xno" &&
      AC_MSG_ERROR([gperf must be installed])
 
-dnl Check for Augeas (now optional).
-AC_CHECK_LIB([augeas],[aug_match],[
-        LIBS="-laugeas $LIBS"
-        have_augeas=yes
-        dnl Check for functions not available in earlier versions of Augeas.
-        AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
-        ],[have_augeas=no])
-if test "x$have_augeas" = "xyes"; then
-        AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
-fi
+dnl Check for Augeas (optional).
+PKG_CHECK_MODULES([AUGEAS], [augeas],
+        [AC_SUBST([AUGEAS_CFLAGS])
+         AC_SUBST([AUGEAS_LIBS])
+         AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
+
+         old_LIBS="$LIBS"
+         LIBS="$LIBS $AUGEAS_LIBS"
+         dnl Check for functions not available in earlier versions of Augeas.
+         AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
+         LIBS="$old_LIBS"
+        ],
+        [AC_MSG_WARN([augeas not found, some core features will be disabled])])
 
 dnl Check for libselinux (optional).
 AC_CHECK_HEADERS([selinux/selinux.h])
