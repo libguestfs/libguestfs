@@ -165,6 +165,7 @@ guestfsd_SOURCES = \
 guestfsd_LDADD = \
 	liberrnostring.a \
 	libprotocol.a \
+	$(AUGEAS_LIBS) \
 	lib/libgnu.a \
 	$(GETADDRINFO_LIB) \
 	$(HOSTENT_LIB) \
@@ -175,4 +176,4 @@ guestfsd_LDADD = \
 	$(SERVENT_LIB)
 
 AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
-guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(AUGEAS_CFLAGS)
