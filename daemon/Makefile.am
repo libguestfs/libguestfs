@@ -166,7 +166,7 @@ guestfsd_LDADD = \
 	liberrnostring.a \
 	libprotocol.a \
 	$(SELINUX_LIB) \
-	$(AUGEAS_LIB) \
+	$(AUGEAS_LIBS) \
 	$(top_builddir)/gnulib/lib/.libs/libgnu.a \
 	$(GETADDRINFO_LIB) \
 	$(HOSTENT_LIB) \
@@ -177,6 +177,6 @@ guestfsd_LDADD = \
 	$(SERVENT_LIB)
 
 guestfsd_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
-guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(AUGEAS_CFLAGS)
 
 .PHONY: force
