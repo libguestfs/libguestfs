@@ -105,6 +105,7 @@ gawk
 grep
 gzip
 jfsutils
+libxml2
 lsof
 lvm2
 lzop
