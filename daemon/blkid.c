@@ -98,7 +98,7 @@ do_blkid(const char *device)
                "blkid",
                /* Adding -c option kills all caching, even on RHEL 5. */
                "-c", "/dev/null",
-               "-i", "-o", "export", device, NULL);
+               "-p", "-i", "-o", "export", device, NULL);
   if (r == -1) {
     reply_with_error("%s", err);
     goto error;
