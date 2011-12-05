@@ -94,7 +94,6 @@ Ideas for extra commands
     chattr
     lsattr
     badblocks
-    blkid
     debugfs
     dumpe2fs
     e2image
