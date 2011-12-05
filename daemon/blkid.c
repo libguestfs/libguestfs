@@ -84,18 +84,42 @@ do_vfs_uuid (const char *device)
   return get_blkid_tag (device, "UUID");
 }
 
-char **
-do_blkid(const char *device)
+/* RHEL5 blkid doesn't have the -p(partition info) option and the
+ * -i(I/O limits) option so we must test for these options the first
+ * time the function is called.
+ */
+static int
+test_blkid_p_opt(void)
+{
+  static int result;
+  char *err = NULL;
+
+  int r = commandr(NULL, &err, "blkid", "-p", "/dev/null", NULL);
+  if (r == -1) {
+    reply_with_error("could not run 'blkid' command: %s", err);
+    free(err);
+    return -1;
+  }
+
+  if (strstr(err, "invalid option --"))
+    result = 0;
+  else
+    result = 1;
+  free(err);
+  return result;
+}
+
+static char **
+blkid_with_p_opt(const char *device)
 {
   int r;
   char *out = NULL, *err = NULL;
   char **lines = NULL;
-
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  const char *blkid[] = {"blkid", "-p", "-i", "-o", "export", device, NULL};
-  r = commandv(&out, &err, blkid);
+  r = command(&out, &err, "blkid", "-c", "/dev/null",
+               "-p", "-i", "-o", "export", device, NULL);
   if (r == -1) {
     reply_with_error("%s", err);
     goto error;
@@ -142,11 +166,11 @@ do_blkid(const char *device)
     }
   }
 
+  if (add_string(&ret, &size, &alloc, NULL) == -1) goto error;
+
   free(out);
   free(err);
   free(lines);
-
-  if (add_string(&ret, &size, &alloc, NULL) == -1) return NULL;
 
   return ret;
 
@@ -157,4 +181,46 @@ error:
   if (ret) free_strings(ret);
 
   return NULL;
+}
+
+static char **
+blkid_without_p_opt(const char *device)
+{
+  char **ret = NULL;
+  int size = 0, alloc = 0;
+
+  if (add_string(&ret, &size, &alloc, "TYPE") == -1) goto error;
+  if (add_string(&ret, &size, &alloc, get_blkid_tag(device, "TYPE")) == -1)
+    goto error;
+  if (add_string(&ret, &size, &alloc, "LABEL") == -1) goto error;
+  if (add_string(&ret, &size, &alloc, get_blkid_tag(device, "LABEL")) == -1)
+    goto error;
+  if (add_string(&ret, &size, &alloc, "UUID") == -1) goto error;
+  if (add_string(&ret, &size, &alloc, get_blkid_tag(device, "UUID")) == -1)
+    goto error;
+  if (add_string_nodup(&ret, &size, &alloc, NULL) == -1) goto error;
+
+  return ret;
+error:
+  if (ret) free_strings(ret);
+  return NULL;
+}
+
+char **
+do_blkid(const char *device)
+{
+  int r;
+  char *out = NULL, *err = NULL;
+  char **lines = NULL;
+
+  char **ret = NULL;
+  int size = 0, alloc = 0;
+  int blkid_has_p_opt;
+
+  if ((blkid_has_p_opt = test_blkid_p_opt()) == -1)
+    return NULL;
+  else if (blkid_has_p_opt)
+    return blkid_with_p_opt(device);
+  else
+    return blkid_without_p_opt(device);
 }
