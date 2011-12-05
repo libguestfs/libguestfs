@@ -50,6 +50,15 @@ let rec generate_ruby_c () =
 #define RARRAY_LEN(r) (RARRAY((r))->len)
 #endif
 
+/* For Ruby < 1.8 */
+#ifndef RSTRING_LEN
+#define RSTRING_LEN(r) (RSTRING((r))->len)
+#endif
+
+#ifndef RSTRING_PTR
+#define RSTRING_PTR(r) (RSTRING((r))->ptr)
+#endif
+
 static VALUE m_guestfs;			/* guestfs module */
 static VALUE c_guestfs;			/* guestfs_h handle */
 static VALUE e_Error;			/* used for all errors */
@@ -417,11 +426,11 @@ ruby_user_cancel (VALUE gv)
             pr "  const char *%s = StringValueCStr (%sv);\n" n n;
         | BufferIn n ->
             pr "  Check_Type (%sv, T_STRING);\n" n;
-            pr "  const char *%s = RSTRING (%sv)->ptr;\n" n n;
+            pr "  const char *%s = RSTRING_PTR (%sv);\n" n n;
             pr "  if (!%s)\n" n;
             pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
             pr "              \"%s\", \"%s\");\n" n name;
-            pr "  size_t %s_size = RSTRING (%sv)->len;\n" n n
+            pr "  size_t %s_size = RSTRING_LEN (%sv);\n" n n
         | OptString n ->
             pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
         | StringList n | DeviceList n ->
