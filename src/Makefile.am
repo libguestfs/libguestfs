@@ -171,7 +171,7 @@ if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
 	rm -f $@-t $@-t2
 	$(RPCGEN) -c -o $@-t $(srcdir)/$<
-	sed 's,\.\./\.\./src/,,' < $@-t > $@-t2
+	sed 's,\.\./\(\.\./\)*src,.,' < $@-t > $@-t2
 	rm $@-t
 	mv $@-t2 $@
 

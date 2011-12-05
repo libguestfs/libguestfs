@@ -139,7 +139,7 @@ if HAVE_RPCGEN
 rc_protocol.c: rc_protocol.x
 	rm -f $@-t $@-t2
 	$(RPCGEN) -c -o $@-t $<
-	sed 's,\.\./\.\./fish/,,' < $@-t > $@-t2
+	sed 's,\.\./\(\.\./\)*fish,.,' < $@-t > $@-t2
 	rm $@-t
 	mv $@-t2 $@
 
