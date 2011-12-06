@@ -49,14 +49,15 @@ TESTS = run-bindtests run-ruby-tests
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	TMPDIR=$(top_builddir)
+	TMPDIR=$(top_builddir) \
+	RUBY=$(RUBY)
 
 all: $(generator_built)
-	rake build
-	rake rdoc
+	$(RAKE) build
+	$(RAKE) rdoc
 
-RUBY_SITELIB := $(shell ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-RUBY_SITEARCH := $(shell ruby -rrbconfig -e "puts Config::CONFIG['sitearchdir']")
+RUBY_SITELIB := $(shell $(RUBY) -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
+RUBY_SITEARCH := $(shell $(RUBY) -rrbconfig -e "puts Config::CONFIG['sitearchdir']")
 
 install:
 	$(MKDIR_P) $(DESTDIR)$(RUBY_SITELIB)

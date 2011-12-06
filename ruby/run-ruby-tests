@@ -22,6 +22,6 @@ set -e
 # is bound to fail because they all use a single test image file).
 
 for f in tests/tc_*.rb; do
-    echo rake test "$@" TEST="$f"
-    rake test "$@" TEST="$f"
+    echo $RAKE test "$@" TEST="$f"
+    $RAKE test "$@" TEST="$f"
 done
