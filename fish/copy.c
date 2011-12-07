@@ -29,8 +29,13 @@
 
 #include "fish.h"
 
-static int make_tar_from_local (const char *local);
-static int make_tar_output (const char *local, const char *basename);
+struct fd_pid {
+  int fd;                       /* -1 == error */
+  pid_t pid;
+};
+
+static struct fd_pid make_tar_from_local (const char *local);
+static struct fd_pid make_tar_output (const char *local, const char *basename);
 static int split_path (char *buf, size_t buf_size, const char *path, const char **dirname, const char **basename);
 
 int
@@ -67,24 +72,24 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
   /* Upload each local one at a time using tar-in. */
   int i;
   for (i = 0; i < nr_locals; ++i) {
-    int fd = make_tar_from_local (argv[i]);
-    if (fd == -1) {
+    struct fd_pid fdpid = make_tar_from_local (argv[i]);
+    if (fdpid.fd == -1) {
       free (remote);
       return -1;
     }
 
     char fdbuf[64];
-    snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fd);
+    snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fdpid.fd);
 
     int r = guestfs_tar_in (g, fdbuf, remote);
 
-    if (close (fd) == -1) {
+    if (close (fdpid.fd) == -1) {
       perror ("close (tar-from-local subprocess)");
       r = -1;
     }
 
     int status;
-    if (wait (&status) == -1) {
+    if (waitpid (fdpid.pid, &status, 0) == -1) {
       perror ("wait (tar-from-local subprocess)");
       free (remote);
       return -1;
@@ -110,25 +115,27 @@ static void tar_create (const char *dir, const char *path) __attribute__((noretu
 /* This creates a subprocess which feeds a tar file back to the
  * main guestfish process.
  */
-static int
+static struct fd_pid
 make_tar_from_local (const char *local)
 {
   int fd[2];
+  struct fd_pid r = { .fd = -1 };
 
   if (pipe (fd) == -1) {
     perror ("pipe");
-    return -1;
+    return r;
   }
 
-  pid_t pid = fork ();
-  if (pid == -1) {
+  r.pid = fork ();
+  if (r.pid == -1) {
     perror ("fork");
-    return -1;
+    return r;
   }
 
-  if (pid > 0) {                /* Parent */
+  if (r.pid > 0) {              /* Parent */
     close (fd[1]);
-    return fd[0];
+    r.fd = fd[0];
+    return r;
   }
 
   /* Child. */
@@ -268,25 +275,25 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
         return -1;
       }
 
-      int fd = make_tar_output (local, basename);
-      if (fd == -1) {
+      struct fd_pid fdpid = make_tar_output (local, basename);
+      if (fdpid.fd == -1) {
         free (remote);
         return -1;
       }
 
       char fdbuf[64];
-      snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fd);
+      snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fdpid.fd);
 
       int r = guestfs_tar_out (g, remote, fdbuf);
 
-      if (close (fd) == -1) {
+      if (close (fdpid.fd) == -1) {
         perror ("close (tar-output subprocess)");
         free (remote);
         r = -1;
       }
 
       int status;
-      if (wait (&status) == -1) {
+      if (waitpid (fdpid.pid, &status, 0) == -1) {
         perror ("wait (tar-output subprocess)");
         free (remote);
         return -1;
@@ -312,25 +319,27 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
  * guestfish process and unpacks it into the 'local/basename'
  * directory.
  */
-static int
+static struct fd_pid
 make_tar_output (const char *local, const char *basename)
 {
   int fd[2];
+  struct fd_pid r = { .fd = -1 };
 
   if (pipe (fd) == -1) {
     perror ("pipe");
-    return -1;
+    return r;
   }
 
-  pid_t pid = fork ();
-  if (pid == -1) {
+  r.pid = fork ();
+  if (r.pid == -1) {
     perror ("fork");
-    return -1;
+    return r;
   }
 
-  if (pid > 0) {                /* Parent */
+  if (r.pid > 0) {              /* Parent */
     close (fd[0]);
-    return fd[1];
+    r.fd = fd[1];
+    return r;
   }
 
   /* Child. */
