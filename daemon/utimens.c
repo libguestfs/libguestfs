@@ -33,17 +33,7 @@ do_utimens (const char *path,
             int64_t atsecs, int64_t atnsecs,
             int64_t mtsecs, int64_t mtnsecs)
 {
-  int fd;
   int r;
-
-  CHROOT_IN;
-  fd = open (path, O_RDONLY | O_NOCTTY);
-  CHROOT_OUT;
-
-  if (fd == -1) {
-    reply_with_perror ("open: %s", path);
-    return -1;
-  }
 
   if (atnsecs == -1)
     atnsecs = UTIME_NOW;
@@ -60,15 +50,12 @@ do_utimens (const char *path,
   times[1].tv_sec = mtsecs;
   times[1].tv_nsec = mtnsecs;
 
-  r = futimens (fd, times);
-  if (r == -1) {
-    reply_with_perror ("futimens: %s", path);
-    close (fd);
-    return -1;
-  }
+  CHROOT_IN;
+  r = utimensat (-1, path, times, AT_SYMLINK_NOFOLLOW);
+  CHROOT_OUT;
 
-  if (close (fd) == -1) {
-    reply_with_perror ("close: %s", path);
+  if (r == -1) {
+    reply_with_perror ("utimensat: %s", path);
     return -1;
   }
 
