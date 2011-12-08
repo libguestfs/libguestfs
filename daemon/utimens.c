@@ -37,7 +37,7 @@ do_utimens (const char *path,
   int r;
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_NOCTTY);
+  fd = open (path, O_RDONLY | O_NOCTTY);
   CHROOT_OUT;
 
   if (fd == -1) {
