@@ -4812,10 +4812,31 @@ for the file until you write to it).  To create a non-sparse
 file of zeroes, use C<guestfs_fallocate64> instead.");
 
   ("utimens", (RErr, [Pathname "path"; Int64 "atsecs"; Int64 "atnsecs"; Int64 "mtsecs"; Int64 "mtnsecs"], []), 201, [],
+   (* Test directories, named pipes etc (RHBZ#761451, RHBZ#761460) *)
    [InitScratchFS, Always, TestOutputStruct (
-      [["touch"; "/utimens"];
-       ["utimens"; "/utimens"; "12345"; "67890"; "9876"; "5432"];
-       ["stat"; "/utimens"]], [CompareWithInt ("mtime", 9876)])],
+      [["touch"; "/utimens-file"];
+       ["utimens"; "/utimens-file"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens-file"]], [CompareWithInt ("mtime", 9876)]);
+    InitScratchFS, Always, TestOutputStruct (
+      [["mkdir"; "/utimens-dir"];
+       ["utimens"; "/utimens-dir"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens-dir"]], [CompareWithInt ("mtime", 9876)]);
+    InitScratchFS, Always, TestOutputStruct (
+      [["mkfifo"; "0o644"; "/utimens-fifo"];
+       ["utimens"; "/utimens-fifo"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens-fifo"]], [CompareWithInt ("mtime", 9876)]);
+    InitScratchFS, Always, TestOutputStruct (
+      [["ln_sf"; "/utimens-file"; "/utimens-link"];
+       ["utimens"; "/utimens-link"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens-link"]], [CompareWithInt ("mtime", 9876)]);
+    InitScratchFS, Always, TestOutputStruct (
+      [["mknod_b"; "0o644"; "8"; "0"; "/utimens-block"];
+       ["utimens"; "/utimens-block"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens-block"]], [CompareWithInt ("mtime", 9876)]);
+    InitScratchFS, Always, TestOutputStruct (
+      [["mknod_c"; "0o644"; "1"; "3"; "/utimens-char"];
+       ["utimens"; "/utimens-char"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/utimens-char"]], [CompareWithInt ("mtime", 9876)])],
    "set timestamp of a file with nanosecond precision",
    "\
 This command sets the timestamps of a file with nanosecond
