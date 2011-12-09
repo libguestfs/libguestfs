@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-06 16:12+0000\n"
+"POT-Creation-Date: 2011-12-09 17:32+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
@@ -2213,7 +2213,7 @@ msgstr "%s: onbekend commando\n"
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr "%s: %s:regel %d: fout bij ontleden van configuratie bestand: %s\n"
 
-#: fish/copy.c:41
+#: fish/copy.c:46
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
@@ -2221,17 +2221,17 @@ msgstr ""
 "gebruik 'copy-in <local> [<local>...] <remotedir>' om bestanden naar de "
 "image te kopieren\n"
 
-#: fish/copy.c:62
+#: fish/copy.c:67
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: doel '%s' is geen map\n"
 
-#: fish/copy.c:157
+#: fish/copy.c:164
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr "fout: argument heeft lengte nul of is langer dan toegestaan\n"
 
-#: fish/copy.c:202
+#: fish/copy.c:209
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2240,12 +2240,12 @@ msgstr ""
 "gebruik 'copy-out <remote> [<remote>...] <localdir>' om bestanden uit de "
 "image te kopieren\n"
 
-#: fish/copy.c:213
+#: fish/copy.c:220
 #, c-format
 msgid "copy-out: target '%s' is not a directory\n"
 msgstr "copy-out: doel '%s' is geen map\n"
 
-#: fish/copy.c:258
+#: fish/copy.c:265
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "copy-out: '%s' is geen bestand of map\n"
@@ -2606,29 +2606,56 @@ msgstr "hexedit: ongeldige reeks\n"
 msgid "%s: don't use --live and -i options together\n"
 msgstr "%s: gebruik --live en -i opties niet tezamen\n"
 
-#: fish/inspect.c:89
+#: fish/inspect.c:90
 #, c-format
-msgid "%s: no operating system was found on this disk\n"
-msgstr "%s: op deze schijf werd geen besturingssysteem gevonden\n"
-
-#: fish/inspect.c:96
-#, c-format
-msgid "%s: multi-boot operating systems are not supported by the -i option\n"
+msgid ""
+"%s: no operating system was found on this disk\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, this disk image won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
 msgstr ""
-"%s: multi-boot besturingssystemen vorden niet ondersteund door de -i optie\n"
 
-#: fish/inspect.c:136
+#: fish/inspect.c:111
+#, c-format
+msgid ""
+"%s: multi-boot operating systems are not supported\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
+
+#: fish/inspect.c:170
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 "%s: sommige bestandssystemen konden niet aangekoppeld worden (genegeerd)\n"
 
-#: fish/inspect.c:148
+#: fish/inspect.c:182
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Besturingssysteem: %s\n"
 
-#: fish/inspect.c:161
+#: fish/inspect.c:195
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s aangekoppeld op %s\n"
@@ -3905,3 +3932,12 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
+
+#~ msgid "%s: no operating system was found on this disk\n"
+#~ msgstr "%s: op deze schijf werd geen besturingssysteem gevonden\n"
+
+#~ msgid ""
+#~ "%s: multi-boot operating systems are not supported by the -i option\n"
+#~ msgstr ""
+#~ "%s: multi-boot besturingssystemen vorden niet ondersteund door de -i "
+#~ "optie\n"

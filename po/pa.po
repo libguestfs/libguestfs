@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-06 16:12+0000\n"
+"POT-Creation-Date: 2011-12-09 17:32+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -2128,24 +2128,24 @@ msgstr "%s: ਅਣਜਾਣ ਕਮਾਂਡ\n"
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr ""
 
-#: fish/copy.c:41
+#: fish/copy.c:46
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 "ਫਾਇਲਾਂ ਨੂੰ ਈਮੇਜ਼ ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-in <local> [<local>...] <remotedir>' ਵਰਤੋ\n"
 
-#: fish/copy.c:62
+#: fish/copy.c:67
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: ਟਾਰਗਿਟ '%s' ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਹੈ\n"
 
-#: fish/copy.c:157
+#: fish/copy.c:164
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr "ਗਲਤੀ: ਆਰਗੂਮੈਂਟ ਦੀ ਜ਼ੀਰੋ ਲੰਬਾਈ ਹੈ ਜਾਂ ਅਧਿਕਤਮ ਮਨਜੂਰ ਤੋਂ ਜਿਆਦਾ ਹੈ\n"
 
-#: fish/copy.c:202
+#: fish/copy.c:209
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2153,12 +2153,12 @@ msgid ""
 msgstr ""
 "ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲਾਂ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-out <remote> [<remote>...] <localdir>' ਵਰਤੋ\n"
 
-#: fish/copy.c:213
+#: fish/copy.c:220
 #, c-format
 msgid "copy-out: target '%s' is not a directory\n"
 msgstr "ਕਾਪੀ-ਆਊਟ: ਟਾਰਗਿਟ '%s' ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਹੈ\n"
 
-#: fish/copy.c:258
+#: fish/copy.c:265
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "copy-out: '%s' ਇੱਕ ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਹੈ\n"
@@ -2459,27 +2459,55 @@ msgstr "hexedit: ਯੋਗ ਰੇਂਜ\n"
 msgid "%s: don't use --live and -i options together\n"
 msgstr "%s: --live ਅਤੇ -i ਚੋਣਾਂ ਇਕੱਠੀਆਂ ਨਾ ਵਰਤੋ\n"
 
-#: fish/inspect.c:89
+#: fish/inspect.c:90
 #, c-format
-msgid "%s: no operating system was found on this disk\n"
-msgstr "%s: ਕੋਈ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਇਸ ਡਿਸਕ ਤੇ ਨਹੀਂ ਲੱਭਿਆ\n"
+msgid ""
+"%s: no operating system was found on this disk\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, this disk image won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
 
-#: fish/inspect.c:96
+#: fish/inspect.c:111
 #, c-format
-msgid "%s: multi-boot operating systems are not supported by the -i option\n"
-msgstr "%s: ਮਲਟੀ-ਬੂਟ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ -i ਚੋਣ ਦੁਆਰਾ ਸਹਿਯੋਗ ਨਹੀਂ ਹੈ\n"
+msgid ""
+"%s: multi-boot operating systems are not supported\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
 
-#: fish/inspect.c:136
+#: fish/inspect.c:170
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: ਕੁਝ ਫਾਇਲ ਸਿਸਟਮ ਮਾਊਂਟ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ (ਰੱਦ ਕੀਤੇ ਗਏ ਹਨ)\n"
 
-#: fish/inspect.c:148
+#: fish/inspect.c:182
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ: %s\n"
 
-#: fish/inspect.c:161
+#: fish/inspect.c:195
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s ਨੂੰ %s ਉੱਪਰ ਮਾਊਂਟ ਕੀਤਾ ਗਿਆ ਹੈ\n"
@@ -3656,3 +3684,10 @@ msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਡਾਊਂਲੋ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਨੂੰ ਅੱਪਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦਾ: {err}\n"
+
+#~ msgid "%s: no operating system was found on this disk\n"
+#~ msgstr "%s: ਕੋਈ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਇਸ ਡਿਸਕ ਤੇ ਨਹੀਂ ਲੱਭਿਆ\n"
+
+#~ msgid ""
+#~ "%s: multi-boot operating systems are not supported by the -i option\n"
+#~ msgstr "%s: ਮਲਟੀ-ਬੂਟ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ -i ਚੋਣ ਦੁਆਰਾ ਸਹਿਯੋਗ ਨਹੀਂ ਹੈ\n"

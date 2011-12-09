@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-06 16:12+0000\n"
+"POT-Creation-Date: 2011-12-09 17:32+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2253,7 +2253,7 @@ msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr ""
 "%s: %s: рядок %d: помилка під час спроби обробки файла налаштувань: %s\n"
 
-#: fish/copy.c:41
+#: fish/copy.c:46
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
@@ -2261,18 +2261,18 @@ msgstr ""
 "скористайтеся командою «copy-in <локальний файл> [<локальний файл>...] "
 "<віддалений каталог>» для копіювання файлів на образ\n"
 
-#: fish/copy.c:62
+#: fish/copy.c:67
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: призначення «%s» не є каталогом\n"
 
-#: fish/copy.c:157
+#: fish/copy.c:164
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
 "помилка: аргумент нульової або вищої за максимальну дозволену довжини\n"
 
-#: fish/copy.c:202
+#: fish/copy.c:209
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2281,12 +2281,12 @@ msgstr ""
 "скористайтеся командою «copy-out <віддалений файл> [<віддалений файл>...] "
 "<локальний каталог>» для копіювання файлів з образу\n"
 
-#: fish/copy.c:213
+#: fish/copy.c:220
 #, c-format
 msgid "copy-out: target '%s' is not a directory\n"
 msgstr "copy-out: призначення «%s» не є каталогом\n"
 
-#: fish/copy.c:258
+#: fish/copy.c:265
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "copy-out: «%s» не є файлом або каталогом\n"
@@ -2654,29 +2654,55 @@ msgstr "hexedit: некоректний діапазон\n"
 msgid "%s: don't use --live and -i options together\n"
 msgstr "%s: не використовуйте одразу параметри --live і -i\n"
 
-#: fish/inspect.c:89
+#: fish/inspect.c:90
 #, c-format
-msgid "%s: no operating system was found on this disk\n"
-msgstr "%s: на цьому диску не виявлено операційної системи\n"
-
-#: fish/inspect.c:96
-#, c-format
-msgid "%s: multi-boot operating systems are not supported by the -i option\n"
+msgid ""
+"%s: no operating system was found on this disk\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, this disk image won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
 msgstr ""
-"%s: для параметра -i не передбачено підтримки операційних систем з "
-"варіантами завантаження\n"
 
-#: fish/inspect.c:136
+#: fish/inspect.c:111
+#, c-format
+msgid ""
+"%s: multi-boot operating systems are not supported\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
+
+#: fish/inspect.c:170
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: деякі з файлових систем не вдалося змонтувати (проігноровано)\n"
 
-#: fish/inspect.c:148
+#: fish/inspect.c:182
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Операційна система: %s\n"
 
-#: fish/inspect.c:161
+#: fish/inspect.c:195
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s змонтовано до %s\n"
@@ -3986,3 +4012,12 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "%s: no operating system was found on this disk\n"
+#~ msgstr "%s: на цьому диску не виявлено операційної системи\n"
+
+#~ msgid ""
+#~ "%s: multi-boot operating systems are not supported by the -i option\n"
+#~ msgstr ""
+#~ "%s: для параметра -i не передбачено підтримки операційних систем з "
+#~ "варіантами завантаження\n"
