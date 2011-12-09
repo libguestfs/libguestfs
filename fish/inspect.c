@@ -154,8 +154,14 @@ inspect_mount_root (const char *root)
       r = guestfs_mount_options (g, "", mountpoints[i+1], mountpoints[i]);
     else
       r = guestfs_mount_ro (g, mountpoints[i+1], mountpoints[i]);
-    if (r == -1)
+    if (r == -1) {
+      /* If the "/" filesystem could not be mounted, give up, else
+       * just count the errors and print a warning.
+       */
+      if (STREQ (mountpoints[i], "/"))
+        exit (EXIT_FAILURE);
       mount_errors++;
+    }
   }
 
   free_strings (mountpoints);
