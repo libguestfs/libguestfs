@@ -1227,5 +1227,5 @@ main (int argc, char *argv[])
   guestfs_close (g);
   free_dir_caches ();
 
-  exit (r == -1 ? 1 : 0);
+  exit (r == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }
