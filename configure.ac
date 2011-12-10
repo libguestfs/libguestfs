@@ -738,19 +738,20 @@ AS_IF([test "x$enable_python" != "xno"],
                 AC_MSG_RESULT([$PYTHON_INSTALLDIR])
             fi
 
-            dnl Look for libpython and some optional symbols in it.
+            dnl Look for some optional symbols in libpython.
             old_LIBS="$LIBS"
-            if test "x$PYTHON_VERSION_MAJOR" = "x3"; then
-                dnl libpython3 is called "libpython3.Xmu.so"
-                LIBPYTHON="python${PYTHON_VERSION}mu"
-            else
-                LIBPYTHON="python$PYTHON_VERSION"
-            fi
-            AC_CHECK_LIB([$LIBPYTHON], [PyList_Size], [],
-                         [AC_MSG_FAILURE([$LIBPYTHON is not installed])])
 
-            AC_CHECK_FUNCS([PyCapsule_New \
-                            PyString_AsString])
+            PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
+                                           print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
+            AC_CHECK_LIB([c],[PyCapsule_New],
+                         [AC_DEFINE([HAVE_PYCAPSULE_NEW],1,
+                                    [Found PyCapsule_New in libpython])],
+                         [],[$PYTHON_BLDLIBRARY])
+            AC_CHECK_LIB([c],[PyString_AsString],
+                         [AC_DEFINE([HAVE_PYSTRING_ASSTRING],1,
+                                    [Found PyString_AsString in libpython])],
+                         [],[$PYTHON_BLDLIBRARY])
+
             LIBS="$old_LIBS"
         fi
 
