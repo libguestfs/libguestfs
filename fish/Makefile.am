@@ -30,6 +30,7 @@ generator_built = \
 	cmds.c \
 	cmds_gperf.gperf \
 	completion.c \
+	event-names.c \
 	fish-cmds.h \
 	guestfish-actions.pod \
 	guestfish-commands.pod \
@@ -81,6 +82,7 @@ guestfish_SOURCES = \
 	display.c \
 	echo.c \
 	edit.c \
+	events.c \
 	fish.c \
 	fish.h \
 	glob.c \

@@ -208,6 +208,7 @@ main (int argc, char *argv[])
   int next_prepared_drive = 1;
 
   initialize_readline ();
+  init_event_handlers ();
 
   memset (&sa, 0, sizeof sa);
   sa.sa_handler = SIG_IGN;
@@ -548,6 +549,7 @@ main (int argc, char *argv[])
     progress_bar_free (bar);
 
   guestfs_close (g);
+  free_event_handlers ();
 
   exit (EXIT_SUCCESS);
 }

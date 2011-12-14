@@ -83,5 +83,12 @@ run_reopen (const char *cmd, size_t argc, char *argv[])
   guestfs_close (g);
   g = g2;
 
+  /* We don't bother copying event handlers over to the new handle,
+   * but we have to reset the list because they were registered
+   * against the old handle.
+   */
+  free_event_handlers ();
+  init_event_handlers ();
+
   return 0;
 }

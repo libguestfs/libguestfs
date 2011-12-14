@@ -42,6 +42,7 @@ TESTS = \
 	test-guestfish-a.sh \
 	test-guestfish-d.sh \
 	test-guestfish-escapes.sh \
+	test-guestfish-events.sh \
 	test-guestfish-tilde.sh \
 	test-inspect-fstab.sh \
 	test-inspect-fstab-md.sh \

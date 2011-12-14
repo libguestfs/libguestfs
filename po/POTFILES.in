@@ -97,6 +97,8 @@ fish/destpaths.c
 fish/display.c
 fish/echo.c
 fish/edit.c
+fish/event-names.c
+fish/events.c
 fish/fish.c
 fish/glob.c
 fish/help.c

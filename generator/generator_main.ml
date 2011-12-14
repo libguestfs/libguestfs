@@ -99,6 +99,7 @@ Run it from the top source directory using the command
   output_to "fish/cmds_gperf.gperf" generate_fish_cmds_gperf;
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
+  output_to "fish/event-names.c" generate_fish_event_names;
   output_to "fish/fish-cmds.h" generate_fish_cmds_h;
   output_to "fish/guestfish-commands.pod" generate_fish_commands_pod;
   output_to "fish/guestfish-actions.pod" generate_fish_actions_pod;

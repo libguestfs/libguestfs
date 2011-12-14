@@ -6675,6 +6675,16 @@ them with the help of L</glob> like this:
 
  glob copy-out /home/* .");
 
+  ("delete_event", (RErr,[], []), -1, [], [],
+   "delete a previously registered event handler",
+   " delete-event name
+
+Delete the event handler which was previously registered as C<name>.
+If multiple event handlers were registered with the same name, they
+are all deleted.
+
+See also the guestfish commands C<event> and C<list-events>.");
+
   ("display", (RErr,[], []), -1, [], [],
    "display an image",
    " display filename
@@ -6705,6 +6715,39 @@ locally using your editor, then uploads the result.
 The editor is C<$EDITOR>.  However if you use the alternate
 commands C<vi> or C<emacs> you will get those corresponding
 editors.");
+
+  ("event", (RErr,[], []), -1, [], [],
+   "register a handler for an event or events",
+   " event name eventset \"shell script ...\"
+
+Register a shell script fragment which is executed when an
+event is raised.  See L<guestfs(3)/guestfs_set_event_callback>
+for a discussion of the event API in libguestfs.
+
+The C<name> parameter is a name that you give to this event
+handler.  It can be any string (even the empty string) and is
+simply there so you can delete the handler using the guestfish
+C<delete-event> command.
+
+The C<eventset> parameter is a comma-separated list of one
+or more events, for example C<close> or C<close,trace>.  The
+special value C<*> means all events.
+
+The third and final parameter is the shell script fragment
+(or any external command) that is executed when any of the
+events in the eventset occurs.  It is executed using
+C<$SHELL -c>, or if C<$SHELL> is not set then C</bin/sh -c>.
+
+The shell script fragment receives callback parameters as
+arguments C<$1>, C<$2> etc.  The actual event that was
+called is available in the environment variable C<$EVENT>.
+
+ event \"\" close \"echo closed\"
+ event messages appliance,library,trace \"echo $@\"
+ event \"\" progress \"echo progress: $3/$4\"
+ event \"\" * \"echo $EVENT $@\"
+
+See also the guestfish commands C<delete-event> and C<list-events>.");
 
   ("glob", (RErr,[], []), -1, [], [],
    "expand wildcards in command",
@@ -6759,6 +6802,13 @@ Change the local directory, ie. the current directory of guestfish
 itself.
 
 Note that C<!cd> won't do what you might expect.");
+
+  ("list_events", (RErr,[], []), -1, [], [],
+   "list event handlers",
+   " list-events
+
+List the event handlers registered using the guestfish
+C<event> command.");
 
   ("man", (RErr,[], []), -1, [FishAlias "manual"], [],
    "open the manual",

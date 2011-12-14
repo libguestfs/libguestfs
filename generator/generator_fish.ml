@@ -29,6 +29,7 @@ open Generator_actions
 open Generator_structs
 open Generator_prepopts
 open Generator_c
+open Generator_events
 
 let doc_opttype_of = function
   | Bool n -> "true|false"
@@ -971,3 +972,93 @@ and generate_fish_prep_options_c () =
         name name;
   ) prepopts;
   pr "};\n"
+
+and generate_fish_event_names () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include \"fish.h\"
+
+const char *
+event_name_of_event_bitmask (uint64_t ev)
+{
+  switch (ev) {
+";
+
+  List.iter (
+    fun (name, _) ->
+      pr "  case GUESTFS_EVENT_%s:\n" (String.uppercase name);
+      pr "    return \"%s\";\n" name
+  ) events;
+
+  pr "  default:
+    abort (); /* should not happen */
+  }
+}
+
+void
+print_event_set (uint64_t event_bitmask, FILE *fp)
+{
+  int comma = 0;
+
+  if (event_bitmask == GUESTFS_EVENT_ALL) {
+    fputs (\"*\", fp);
+    return;
+  }
+
+";
+
+  List.iter (
+    fun (name, _) ->
+      pr "  if (event_bitmask & GUESTFS_EVENT_%s) {\n" (String.uppercase name);
+      pr "    if (comma) fputc (',', fp);\n";
+      pr "    comma = 1;\n";
+      pr "    fputs (\"%s\", fp);\n" name;
+      pr "  }\n"
+  ) events;
+
+  pr "\
+}
+
+int
+event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
+{
+  size_t n;
+
+  if (STREQ (arg, \"*\")) {
+    *eventset_r = GUESTFS_EVENT_ALL;
+    return 0;
+  }
+
+  *eventset_r = 0;
+
+  while (*arg) {
+    n = strcspn (arg, \",\");
+
+    ";
+
+  List.iter (
+    fun (name, _) ->
+      pr "if (STREQLEN (arg, \"%s\", n))\n" name;
+      pr "      *eventset_r |= GUESTFS_EVENT_%s;\n" (String.uppercase name);
+      pr "    else ";
+  ) events;
+
+  pr "\
+{
+      fprintf (stderr, _(\"unknown event name: %%s\\n\"), arg);
+      return -1;
+    }
+
+    arg += n;
+    if (*arg == ',')
+      arg++;
+  }
+
+  return 0;
+}
+"
