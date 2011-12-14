@@ -696,9 +696,14 @@ AC_ARG_ENABLE([fuse],
         [],
         [enable_fuse=yes])
 AS_IF([test "x$enable_fuse" != "xno"],
-        [PKG_CHECK_MODULES([FUSE],[fuse],,[
-                enable_fuse=no
-                AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])])
+        [PKG_CHECK_MODULES([FUSE],[fuse],
+            [AC_SUBST([FUSE_CFLAGS])
+             AC_SUBST([FUSE_LIBS])
+             AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE])],
+            [enable_fuse=no
+             AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])
+            ])
+        ])
 AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
 dnl Check for C++ (optional, we just use this to test the header works).

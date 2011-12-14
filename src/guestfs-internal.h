@@ -24,6 +24,8 @@
 
 #include <pcre.h>
 
+#include "hash.h"
+
 #ifndef O_CLOEXEC
 #define O_CLOEXEC 0
 #endif
@@ -248,6 +250,16 @@ struct guestfs_h
    * matter for this case because we only care if it is != 0.
    */
   int user_cancel;
+
+#if HAVE_FUSE
+  /* These fields are used by guestfs_mount_local. */
+  const char *localmountpoint;
+  struct fuse *fuse;                    /* FUSE handle. */
+  int ml_dir_cache_timeout;             /* Directory cache timeout. */
+  Hash_table *lsc_ht, *xac_ht, *rlc_ht; /* Directory cache. */
+  int ml_read_only;                     /* If mounted read-only. */
+  int ml_debug_calls;        /* Extra debug info on each FUSE call. */
+#endif
 };
 
 /* Per-filesystem data stored for inspect_os. */
@@ -389,6 +401,9 @@ extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
 extern const char *guestfs___persistent_tmpdir (void);
 extern void guestfs___remove_tmpdir (const char *dir);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
+#if HAVE_FUSE
+extern void guestfs___free_fuse (guestfs_h *g);
+#endif
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern void guestfs___free_drives (struct drive **drives);
 extern int guestfs___set_busy (guestfs_h *g);

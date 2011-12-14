@@ -50,6 +50,4 @@ bad_cast (char const *s)
   return (char *) s;
 }
 
-extern int verbose;
-
 #endif /* GUESTMOUNT_H_ */

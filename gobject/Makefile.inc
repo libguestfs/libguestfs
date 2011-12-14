@@ -41,6 +41,8 @@ guestfs_gobject_headers=\
   guestfs-gobject-optargs-add_drive_opts.h \
   guestfs-gobject-optargs-add_domain.h \
   guestfs-gobject-optargs-inspect_get_icon.h \
+  guestfs-gobject-optargs-mount_local.h \
+  guestfs-gobject-optargs-umount_local.h \
   guestfs-gobject-optargs-mkfs_opts.h \
   guestfs-gobject-optargs-mount_9p.h \
   guestfs-gobject-optargs-ntfsresize_opts.h \
@@ -78,6 +80,8 @@ guestfs_gobject_sources=\
   guestfs-gobject-optargs-add_drive_opts.c \
   guestfs-gobject-optargs-add_domain.c \
   guestfs-gobject-optargs-inspect_get_icon.c \
+  guestfs-gobject-optargs-mount_local.c \
+  guestfs-gobject-optargs-umount_local.c \
   guestfs-gobject-optargs-mkfs_opts.c \
   guestfs-gobject-optargs-mount_9p.c \
   guestfs-gobject-optargs-ntfsresize_opts.c \

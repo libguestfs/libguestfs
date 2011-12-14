@@ -37,8 +37,6 @@ SHARED_SOURCE_FILES = \
 
 guestmount_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	dircache.c \
-	dircache.h \
 	guestmount.c \
 	guestmount.h
 

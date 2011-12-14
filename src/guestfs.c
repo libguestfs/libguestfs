@@ -258,6 +258,10 @@ guestfs_close (guestfs_h *g)
   }
   gl_lock_unlock (handles_lock);
 
+#if HAVE_FUSE
+  guestfs___free_fuse (g);
+#endif
+
   if (g->pda)
     hash_free (g->pda);
   free (g->last_error);

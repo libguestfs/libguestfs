@@ -129,7 +129,6 @@ fish/tilde.c
 fish/time.c
 fish/virt.c
 format/format.c
-fuse/dircache.c
 fuse/guestmount.c
 gobject/guestfs-gobject-optargs-add_domain.c
 gobject/guestfs-gobject-optargs-add_drive_opts.c
@@ -145,11 +144,13 @@ gobject/guestfs-gobject-optargs-inspect_get_icon.c
 gobject/guestfs-gobject-optargs-md_create.c
 gobject/guestfs-gobject-optargs-mkfs_opts.c
 gobject/guestfs-gobject-optargs-mount_9p.c
+gobject/guestfs-gobject-optargs-mount_local.c
 gobject/guestfs-gobject-optargs-ntfsclone_out.c
 gobject/guestfs-gobject-optargs-ntfsfix.c
 gobject/guestfs-gobject-optargs-ntfsresize_opts.c
 gobject/guestfs-gobject-optargs-test0.c
 gobject/guestfs-gobject-optargs-tune2fs.c
+gobject/guestfs-gobject-optargs-umount_local.c
 gobject/guestfs-gobject-session.c
 gobject/guestfs-gobject-struct-application.c
 gobject/guestfs-gobject-struct-dirent.c
@@ -190,6 +191,7 @@ src/errnostring.c
 src/errnostring_gperf.c
 src/events.c
 src/filearch.c
+src/fuse.c
 src/guestfs.c
 src/inspect.c
 src/inspect_apps.c

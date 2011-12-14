@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -139,6 +139,7 @@ libguestfs_la_SOURCES = \
 	listfs.c \
 	match.c \
 	proto.c \
+	fuse.c \
 	virt.c \
 	libguestfs.syms
 
@@ -168,6 +169,12 @@ libguestfs_la_CFLAGS = \
   $(GCC_VISIBILITY_HIDDEN)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
+
+if HAVE_FUSE
+# XXX Unfortunately FUSE_CFLAGS defines _FILE_OFFSET_BITS=64.
+libguestfs_la_CFLAGS += $(FUSE_CFLAGS)
+libguestfs_la_LIBADD += $(FUSE_LIBS) -lulockmgr
+endif
 
 if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x

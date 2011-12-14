@@ -1663,6 +1663,65 @@ This function must be called before C<guestfs_launch>.");
    "\
 This returns the number of virtual CPUs assigned to the appliance.");
 
+  ("mount_local", (RErr, [String "localmountpoint"], [OBool "readonly"; OString "options"; OInt "cachetimeout"; OBool "debugcalls"]), -1, [],
+   [], (* tests in fuse subdirectory *)
+   "mount on the local filesystem",
+   "\
+This call exports the libguestfs-accessible filesystem to
+a local mountpoint (directory) called C<localmountpoint>.
+Ordinary reads and writes to files and directories under
+C<localmountpoint> are redirected through libguestfs.
+
+If the optional C<readonly> flag is set to true, then
+writes to the filesystem return error C<EROFS>.
+
+C<options> is a comma-separated list of mount options.
+See L<guestmount(1)> for some useful options.
+
+C<cachetimeout> sets the timeout (in seconds) for cached directory
+entries.  The default is 60 seconds.  See L<guestmount(1)>
+for further information.
+
+If C<debugcalls> is set to true, then additional debugging
+information is generated for every FUSE call.
+
+When C<guestfs_mount_local> returns, the filesystem is ready,
+but is not processing requests (access to it will block).  You
+have to call C<guestfs_mount_local_run> to run the main loop.
+
+See L<guestfs(3)/MOUNT LOCAL> for full documentation.");
+
+  ("mount_local_run", (RErr, [], []), -1, [Cancellable (* in a future version *)],
+   [],
+   "run main loop of mount on the local filesystem",
+   "\
+Run the main loop which translates kernel calls to libguestfs
+calls.
+
+This should only be called after C<guestfs_mount_local>
+returns successfully.  The call will not return until the
+filesystem is unmounted.
+
+B<Note> you must I<not> make concurrent libguestfs calls
+on the same handle from another thread,
+with the exception of C<guestfs_umount_local>.
+
+You may call this from a different thread than the one which
+called C<guestfs_mount_local>, subject to the usual rules
+for threads and libguestfs (see
+L<guestfs(3)/MULTIPLE HANDLES AND MULTIPLE THREADS>).
+
+See L<guestfs(3)/MOUNT LOCAL> for full documentation.");
+
+  ("umount_local", (RErr, [], [OBool "retry"]), -1, [],
+   [], (* tests in fuse subdirectory *)
+   "unmount a locally mounted filesystem",
+   "\
+If libguestfs is exporting the filesystem on a local
+mountpoint, then this unmounts it.
+
+See L<guestfs(3)/MOUNT LOCAL> for full documentation.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
