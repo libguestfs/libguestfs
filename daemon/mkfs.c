@@ -44,13 +44,17 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
   int r;
   char *err;
   char mke2fs[] = "mke2fs";
+  int extfs = 0;
+
+  if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
+      STREQ (fstype, "ext4"))
+    extfs = 1;
 
   /* For ext2/3/4 run the mke2fs program directly.  This is because
    * the mkfs program "eats" some options, in particular the -F
    * option.
    */
-  if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
-      STREQ (fstype, "ext4")) {
+  if (extfs) {
     if (e2prog (mke2fs) == -1)
       return -1;
     ADD_ARG (argv, i, mke2fs);
@@ -64,8 +68,7 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
   /* Force mke2fs to create a filesystem, even if it thinks it
    * shouldn't (RHBZ#690819).
    */
-  if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
-      STREQ (fstype, "ext4"))
+  if (extfs)
     ADD_ARG (argv, i, "-F");
 
   /* mkfs.ntfs requires the -Q argument otherwise it writes zeroes
@@ -77,16 +80,13 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
 
   /* mkfs.reiserfs produces annoying interactive prompts unless you
    * tell it to be quiet.
+   * mkfs.jfs is the same
+   * mkfs.xfs must force to make xfs filesystem when the device already
+   * has a filesystem on it
    */
-  if (STREQ (fstype, "reiserfs"))
-    ADD_ARG (argv, i, "-f");
-
-  /* Same for JFS. */
-  if (STREQ (fstype, "jfs"))
-    ADD_ARG (argv, i, "-f");
-
-  if (STREQ (fstype, "xfs"))
-    ADD_ARG (argv, i, "-f");
+  if (STREQ (fstype, "reiserfs") || STREQ (fstype, "jfs") ||
+      STREQ (fstype, "xfs"))
+    ADD_ARG(argv, i, "-f");
 
   /* For GFS, GFS2, assume a single node. */
   if (STREQ (fstype, "gfs") || STREQ (fstype, "gfs2")) {
@@ -147,8 +147,7 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
   }
 
   if (optargs_bitmask & GUESTFS_MKFS_OPTS_INODE_BITMASK) {
-    if (!STREQ (fstype, "ext2") && !STREQ (fstype, "ext3") &&
-        !STREQ (fstype, "ext4")) {
+    if (!extfs) {
       reply_with_error ("inode size (-I) can only be set on ext2/3/4 filesystems");
       return -1;
     }
