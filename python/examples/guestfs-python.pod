@@ -9,7 +9,7 @@ guestfs-python - How to use libguestfs from Python
  import guestfs
  g = guestfs.GuestFS ()
  g.add_drive_opts ("disk.img", format="raw", readonly=1)
- g.launch
+ g.launch ()
 
 =head1 DESCRIPTION
 
