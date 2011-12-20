@@ -123,3 +123,10 @@
    ...
    fun:caml_thread_new
 }
+{
+   ocaml_heap_leak_5
+   Memcheck:Leak
+   fun:malloc
+   fun:caml_stat_alloc
+   fun:caml_threadstatus_new
+}
