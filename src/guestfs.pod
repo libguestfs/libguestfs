@@ -3030,6 +3030,10 @@ Source code to the C library.
 Test tool for end users to test if their qemu/kernel combination
 will work with libguestfs.
 
+=item C<tests>
+
+Tests.
+
 =item C<tools>
 
 Command line tools written in Perl (L<virt-win-reg(1)> and many others).
