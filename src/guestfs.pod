@@ -2737,8 +2737,9 @@ the OCaml description.
 You can supply zero or as many tests as you want per API call.  The
 tests can either be added as part of the API description
 (C<generator/generator_actions.ml>), or in some rarer cases you may
-want to drop a script into C<regressions/>.  Note that adding a script
-to C<regressions/> is slower, so if possible use the first method.
+want to drop a script into C<tests/*/>.  Note that adding
+a script to C<tests/*/> is slower, so if possible use the
+first method.
 
 The following describes the test environment used when you add an API
 test in C<generator_actions.ml>.
@@ -2995,10 +2996,6 @@ Translations of simple gettext strings.
 The build infrastructure and PO files for translations of manpages and
 POD files.  Eventually this will be combined with the C<po> directory,
 but that is rather complicated.
-
-=item C<regressions>
-
-Regression tests.
 
 =item C<rescue>
 

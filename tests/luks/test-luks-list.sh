@@ -27,7 +27,7 @@ set -e
 
 rm -f test1.img test.output
 
-../fish/guestfish --keys-from-stdin > test.output <<'EOF'
+../../fish/guestfish --keys-from-stdin > test.output <<'EOF'
 sparse test1.img 1G
 run
 part-init /dev/sda mbr

@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,22 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test if we can handle qemu failure during launch.
+# https://bugzilla.redhat.com/show_bug.cgi?id=690819
+# mkfs fails creating a filesytem on a disk device when using a disk
+# with 'ide' interface
 
 set -e
+export LANG=C
 
 rm -f test.img
 
-../fish/guestfish <<'EOF'
-alloc test.img 10M
+truncate -s 100M test.img
 
-append "root=/dev/null"
--run
-
-# We should now be able to rerun the subprocess.
-append ""
+../../fish/guestfish <<EOF
+add-drive-with-if test.img ide
 run
-ping-daemon
+mkfs ext3 /dev/sda
+mount /dev/sda /
 EOF
 
 rm -f test.img

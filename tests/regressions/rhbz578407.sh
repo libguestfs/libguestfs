@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010-2011 Red Hat Inc.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,17 +17,27 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # Regression test for:
-# https://bugzilla.redhat.com/show_bug.cgi?id=576879#c0
-# upload loses synchronization if the disk is not mounted
+# https://bugzilla.redhat.com/show_bug.cgi?id=578407
+# prefix '-' in sub-command isn't handled by guestfish in remote control mode
+# Reported by Qixiang Wan.
 
 set -e
 
-rm -f test1.img
+guestfish=../../fish/guestfish
 
-../fish/guestfish -N disk <<EOF
--upload $srcdir/rhbz576879.sh /test.sh
-# Shouldn't lose synchronization, so next command should work:
-ping-daemon
-EOF
+# Start remote guestfish.
+eval `$guestfish --listen 2>/dev/null`
 
-rm -f test1.img
+# This should succeed.
+$guestfish --remote version > /dev/null
+
+# This command will fail (because appliance not launched), but
+# prefixing with '-' should make remote guestfish ignore the failure.
+$guestfish --remote -- -lvs
+
+# Remote guestfish should still be running.
+$guestfish --remote version > /dev/null
+$guestfish --remote exit
+
+# Try some other command line argument tests which are related the fix.
+$guestfish -- version : -lvs : version > /dev/null 2>&1

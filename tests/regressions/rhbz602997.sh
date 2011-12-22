@@ -22,7 +22,7 @@
 set -e
 export LANG=C
 
-guestfish=../fish/guestfish
+guestfish=../../fish/guestfish
 
 rm -f test.img test.output
 

@@ -21,7 +21,7 @@
 set -e
 
 output=$(
-../fish/guestfish <<EOF
+../../fish/guestfish <<EOF
 # Add 2 empty disks
 sparse md-test1.img 100M
 sparse md-test2.img 100M
@@ -44,7 +44,7 @@ fi
 
 # Ensure list-md-devices now returns the newly created md device
 output=$(
-../fish/guestfish -a md-test1.img -a md-test2.img <<EOF
+../../fish/guestfish -a md-test1.img -a md-test2.img <<EOF
 run
 list-md-devices
 EOF

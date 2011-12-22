@@ -16,38 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test download where the library cancels.
-#
-# Download big and small files to /dev/full.  This should fail but not
-# kill the appliance.  We test various randomized file sizes because
-# there are many potential race conditions -- for example the daemon
-# may or may not send all of its data because the error condition is
-# detected.
+# Test if we can handle qemu failure during launch.
 
 set -e
 
 rm -f test.img
 
-size=$(awk 'BEGIN{ srand(); print int(16*1024*rand()) }')
-echo "$0: test size $size (bytes)"
-
-../fish/guestfish <<EOF
-# We want the file to be fully allocated.
+../../fish/guestfish <<'EOF'
 alloc test.img 10M
+
+append "root=/dev/null"
+-run
+
+# We should now be able to rerun the subprocess.
+append ""
 run
-
-part-disk /dev/sda mbr
-mkfs ext2 /dev/sda1
-mount-options "" /dev/sda1 /
-
-fallocate64 /file $size
-
-# Download the file into /dev/full so it fails.
--download /file /dev/full
-
-# The daemon should still be reachable after the failure.
 ping-daemon
-
 EOF
 
 rm -f test.img

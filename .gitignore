@@ -1,5 +1,9 @@
 *~
 *.a
+test1.img
+test2.img
+test.err
+test.out
 ABOUT-NLS
 aclocal.m4
 align/stamp-virt-alignment-scan.pod
@@ -294,11 +298,6 @@ python/examples/stamp-guestfs-python.pod
 python/guestfs.py
 python/guestfs-py.c
 python/guestfs.pyc
-regressions/rhbz501893
-regressions/test1.img
-regressions/test2.img
-regressions/test.err
-regressions/test.out
 rescue/stamp-virt-rescue.pod
 rescue/virt-rescue
 rescue/virt-rescue.1
@@ -340,7 +339,6 @@ src/libguestfs.syms
 src/stamp-guestfs.pod
 *.swp
 stamp-h1
-test1.img
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool-helper
@@ -359,6 +357,7 @@ tests/c-api/test*.img
 tests/c-api/tests
 tests/c-api/tests.c
 tests/c-api/test*.tmp
+tests/regressions/rhbz501893
 tools/test.img
 tools/virt-*.1
 tools/virt-*.pl

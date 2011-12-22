@@ -31,7 +31,7 @@ set -e
 # vg0 : 16M LV (lv0)
 # lv0 : 16M vfat
 output=$(
-../fish/guestfish <<EOF
+../../fish/guestfish <<EOF
 # Add 2 empty disks
 sparse fs-test1.img 50M
 sparse fs-test2.img 50M

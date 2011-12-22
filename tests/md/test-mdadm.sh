@@ -22,7 +22,7 @@ set -e
 
 rm -f md-test1.img md-test2.img md-test3.img md-test4.img
 
-../fish/guestfish <<EOF
+../../fish/guestfish <<EOF
 # Add four empty disks
 sparse md-test1.img 100M
 sparse md-test2.img 100M
@@ -92,15 +92,15 @@ write /r5t3/baz "testing"
 
 EOF
 
-eval `../fish/guestfish --listen`
-../fish/guestfish --remote add-ro md-test1.img
-../fish/guestfish --remote add-ro md-test2.img
-../fish/guestfish --remote add-ro md-test3.img
-../fish/guestfish --remote add-ro md-test4.img
-../fish/guestfish --remote run
+eval `../../fish/guestfish --listen`
+../../fish/guestfish --remote add-ro md-test1.img
+../../fish/guestfish --remote add-ro md-test2.img
+../../fish/guestfish --remote add-ro md-test3.img
+../../fish/guestfish --remote add-ro md-test4.img
+../../fish/guestfish --remote run
 
-for md in `../fish/guestfish --remote list-md-devices`; do
-  ../fish/guestfish --remote md-detail "${md}" > md-detail.out
+for md in `../../fish/guestfish --remote list-md-devices`; do
+  ../../fish/guestfish --remote md-detail "${md}" > md-detail.out
 
   sed 's/:\s*/=/' md-detail.out > md-detail.out.sh
   . md-detail.out.sh
@@ -143,24 +143,24 @@ for md in `../fish/guestfish --remote list-md-devices`; do
   if [ "$error" == "1" ]; then
     echo "$0: Unexpected output from md-detail for device $md"
     cat md-detail.out
-    ../fish/guestfish --remote exit
+    ../../fish/guestfish --remote exit
     exit 1
   fi
 done
 
-../fish/guestfish --remote exit
+../../fish/guestfish --remote exit
 
-eval `../fish/guestfish --listen`
-../fish/guestfish --remote add-ro md-test1.img
-../fish/guestfish --remote add-ro md-test2.img
-../fish/guestfish --remote add-ro md-test3.img
-../fish/guestfish --remote add-ro md-test4.img
-../fish/guestfish --remote run
+eval `../../fish/guestfish --listen`
+../../fish/guestfish --remote add-ro md-test1.img
+../../fish/guestfish --remote add-ro md-test2.img
+../../fish/guestfish --remote add-ro md-test3.img
+../../fish/guestfish --remote add-ro md-test4.img
+../../fish/guestfish --remote run
 
-for md in `../fish/guestfish --remote list-md-devices`; do
-  ../fish/guestfish --remote md-stop "${md}"
+for md in `../../fish/guestfish --remote list-md-devices`; do
+  ../../fish/guestfish --remote md-stop "${md}"
 done
 
-../fish/guestfish --remote exit
+../../fish/guestfish --remote exit
 
 rm -f md-detail.out md-test1.img md-test2.img md-test3.img md-test4.img

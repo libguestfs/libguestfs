@@ -33,7 +33,7 @@ test3_md5sum="$(md5sum test3.img | awk '{print $1}')"
 
 # The vitally important calls are 'add-drive-ro' and
 # 'add-drive-opts ... readonly:true'.
-../fish/guestfish <<'EOF'
+../../fish/guestfish <<'EOF'
 add-drive-ro test1.img
 add-drive-opts test2.img format:raw readonly:true
 add-drive-opts test3.img format:qcow2 readonly:true

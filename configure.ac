@@ -1041,7 +1041,6 @@ AC_CONFIG_FILES([Makefile
                  po/Makefile.in
                  python/Makefile
                  python/examples/Makefile
-                 regressions/Makefile
                  rescue/Makefile
                  resize/Makefile
                  ruby/Makefile
@@ -1051,7 +1050,12 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  test-tool/Makefile
                  tests/c-api/Makefile
+                 tests/luks/Makefile
+                 tests/lvm/Makefile
+                 tests/md/Makefile
+                 tests/protocol/Makefile
                  tests/qemu/Makefile
+                 tests/regressions/Makefile
                  tools/Makefile])
 AC_OUTPUT
 

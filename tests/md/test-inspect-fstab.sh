@@ -22,13 +22,13 @@
 set -e
 export LANG=C
 
-guestfish=../fish/guestfish
+guestfish=../../fish/guestfish
 
 rm -f test1.img test.fstab test.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-cp ../images/fedora.img test1.img
+cp ../../images/fedora.img test1.img
 
 cat <<'EOF' > test.fstab
 /dev/VG/Root / ext2 default 0 0

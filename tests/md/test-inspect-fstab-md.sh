@@ -24,19 +24,19 @@ export LANG=C
 # The first test requires a new Augeas lens for parsing mdadm.conf.
 # If this is not present in the appliance or on the host, skip the
 # test.
-f=$(grep mdadm_conf.aug ../appliance/supermin.d/hostfiles | head -1)
+f=$(grep mdadm_conf.aug ../../appliance/supermin.d/hostfiles | head -1)
 if [ -z "$f" -o ! -f "$f" ]; then
     echo "$0: test skipped because Augeas mdadm.conf lens is not available."
     exit 0
 fi
 
-guestfish=../fish/guestfish
+guestfish=../../fish/guestfish
 
 rm -f test1.img test.fstab test.output
 
 # First, test the regular fedora image, which specifies /boot as /dev/md0
-cp ../images/fedora-md1.img test1.img
-cp ../images/fedora-md2.img test2.img
+cp ../../images/fedora-md1.img test1.img
+cp ../../images/fedora-md2.img test2.img
 
 $guestfish -i test[12].img <<'EOF' | sort > test.output
   exists /boot/grub/grub.conf

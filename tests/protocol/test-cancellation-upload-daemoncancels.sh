@@ -16,23 +16,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test if we can handle qemu death synchronously.
+# Test upload where the daemon cancels.
+#
+# This is pretty easy - we just upload a too-large source file.
 
 set -e
 
-rm -f test.pid test1.img
+rm -f test1.img
 
-../fish/guestfish -N disk <<'EOF'
-# Kill subprocess.
-pid | cat > test.pid
-! kill $(cat test.pid) ; sleep 2
+../../fish/guestfish -N fs -m /dev/sda1 <<'EOF'
+# Upload image, daemon should cancel because the image is too large
+# to upload into itself.
+-upload test.img /test
 
-# XXX The following sleep should NOT be necessary.
--sleep 1
-
-# We should now be able to rerun the subprocess.
-run
 ping-daemon
 EOF
 
-rm -f test.pid test1.img
+rm -f test1.img

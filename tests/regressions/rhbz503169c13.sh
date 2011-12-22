@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,22 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=690819
-# mkfs fails creating a filesytem on a disk device when using a disk
-# with 'ide' interface
+# Regression test for:
+# https://bugzilla.redhat.com/show_bug.cgi?id=503169#c13
+#
+# The unmount-all command will give this error:
+# libguestfs: error: umount: /sysroot/dev: umount: /sysroot/dev: device is busy.
+#         (In some cases useful info about processes that use
+#          the device is found by lsof(8) or fuser(1))
 
 set -e
-export LANG=C
 
-rm -f test.img
+rm -f test1.img
 
-truncate -s 100M test.img
-
-../fish/guestfish <<EOF
-add-drive-with-if test.img ide
-run
-mkfs ext3 /dev/sda
-mount /dev/sda /
+../../fish/guestfish -N fs -m /dev/sda1 <<EOF
+mkdir /dev
+-command /ignore-this-error
+unmount-all
 EOF
 
-rm -f test.img
+rm test1.img

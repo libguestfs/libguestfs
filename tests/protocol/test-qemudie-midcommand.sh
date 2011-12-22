@@ -16,22 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test if we can handle qemu death from the kill-subprocess command.
+# Test if we can handle qemu death in the middle of a command.
 
 set -e
 
-rm -f test1.img
+rm -f test.pid test1.img
 
-../fish/guestfish -N disk <<'EOF'
-# Kill the subprocess.
-kill-subprocess
+../../fish/guestfish -N disk <<'EOF'
+# Kill the subprocess after a short wait.
+pid | cat > test.pid
+! sleep 2 ; kill $(cat test.pid) &
 
-# XXX The following sleep should NOT be necessary.
--sleep 1
+-sleep 1000
 
 # We should now be able to rerun the subprocess.
 run
 ping-daemon
 EOF
 
-rm -f test1.img
+rm -f test.pid test1.img

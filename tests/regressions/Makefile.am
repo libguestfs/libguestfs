@@ -15,14 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Regression tests and other important tests which are not
-# specific to the C API.  We can write these more easily in
-# higher level languages than C.
-
 include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
-	tell-user-to-ignore-errors.sh \
 	rhbz501893 \
 	rhbz503169c13.sh \
 	rhbz557655.sh \
@@ -31,42 +26,7 @@ TESTS = \
 	rhbz580246.sh \
 	rhbz602997.sh \
 	rhbz690819.sh \
-	test-add-domain.sh \
-	test-both-ends-cancel.sh \
-	test-cancellation-download-librarycancels.sh \
-	test-cancellation-upload-daemoncancels.sh \
-	test-copy.sh \
-	test-find0.sh \
-	test-guestfish-a.sh \
-	test-guestfish-d.sh \
-	test-guestfish-escapes.sh \
-	test-guestfish-events.sh \
-	test-guestfish-tilde.sh \
-	test-inspect-fstab.sh \
-	test-inspect-fstab-md.sh \
-	test-launch-race.pl \
-	test-list-filesystems.sh \
-	test-list-md-devices.sh \
-	test-luks.sh \
-	test-luks-list.sh \
-	test-lvm-filtering.sh \
-	test-lvm-mapping.pl \
-	test-mdadm.sh \
-	test-noexec-stack.pl \
-	test-qemudie-killsub.sh \
-	test-qemudie-midcommand.sh \
-	test-qemudie-synch.sh \
-	test-read_file.sh \
-	test-remote.sh \
-	test-reopen.sh \
-	test-stringlist.sh \
-	test-upload-to-dir.sh
-
-SKIPPED_TESTS = \
-	test-bootbootboot.sh
-
-FAILING_TESTS = \
-	test-qemudie-launchfail.sh
+	test-noexec-stack.pl
 
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
@@ -89,8 +49,6 @@ rhbz501893_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 EXTRA_DIST = \
-	$(FAILING_TESTS) \
-	$(SKIPPED_TESTS) \
 	$(TESTS) \
 	rhbz557655-expected.stdout \
 	rhbz557655-expected.stderr

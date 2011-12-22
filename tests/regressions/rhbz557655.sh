@@ -24,7 +24,7 @@ set -e
 rm -f test.out test.err
 export LANG=C
 
-../fish/guestfish >> test.out 2>> test.err <<EOF
+../../fish/guestfish >> test.out 2>> test.err <<EOF
 # set-memsize is just a convenient non-daemon function that
 # takes a single integer argument.
 set-memsize 0
@@ -48,7 +48,7 @@ get-memsize
 -set-memsize 123L
 EOF
 
-../fish/guestfish -N fs -m /dev/sda1 >> test.out 2>> test.err <<EOF
+../../fish/guestfish -N fs -m /dev/sda1 >> test.out 2>> test.err <<EOF
 touch /test
 
 # truncate-size takes an Int64 argument

@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,32 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test tar_in call when we upload something which is larger than
-# available space.
-# https://bugzilla.redhat.com/show_bug.cgi?id=580246
+# Test if we can handle qemu death from the kill-subprocess command.
 
 set -e
-export LANG=C
 
-rm -f test.img test.tar
+rm -f test1.img
 
-dd if=/dev/zero of=test.img bs=1M count=2
-tar cf test.tar test.img
+../../fish/guestfish -N disk <<'EOF'
+# Kill the subprocess.
+kill-subprocess
 
-output=$(
-../fish/guestfish 2>&1 <<'EOF'
-add test.img
+# XXX The following sleep should NOT be necessary.
+-sleep 1
+
+# We should now be able to rerun the subprocess.
 run
-mkfs ext2 /dev/sda
-mount /dev/sda /
--tar-in test.tar /
+ping-daemon
 EOF
-)
 
-rm -f test.img test.tar
-
-# Check for error message in the output.
-if [[ ! $output =~ libguestfs:.error:.tar_in ]]; then
-    echo "Missing error message from tar-in (expecting an error message)"
-    exit 1
-fi
+rm -f test1.img

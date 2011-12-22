@@ -16,22 +16,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test if we can handle qemu death in the middle of a command.
+# Test download where the library cancels.
+#
+# Download big and small files to /dev/full.  This should fail but not
+# kill the appliance.  We test various randomized file sizes because
+# there are many potential race conditions -- for example the daemon
+# may or may not send all of its data because the error condition is
+# detected.
 
 set -e
 
-rm -f test.pid test1.img
+rm -f test.img
 
-../fish/guestfish -N disk <<'EOF'
-# Kill the subprocess after a short wait.
-pid | cat > test.pid
-! sleep 2 ; kill $(cat test.pid) &
+size=$(awk 'BEGIN{ srand(); print int(16*1024*rand()) }')
+echo "$0: test size $size (bytes)"
 
--sleep 1000
-
-# We should now be able to rerun the subprocess.
+../../fish/guestfish <<EOF
+# We want the file to be fully allocated.
+alloc test.img 10M
 run
+
+part-disk /dev/sda mbr
+mkfs ext2 /dev/sda1
+mount-options "" /dev/sda1 /
+
+fallocate64 /file $size
+
+# Download the file into /dev/full so it fails.
+-download /file /dev/full
+
+# The daemon should still be reachable after the failure.
 ping-daemon
+
 EOF
 
-rm -f test.pid test1.img
+rm -f test.img

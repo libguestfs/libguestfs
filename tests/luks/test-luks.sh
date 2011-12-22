@@ -27,7 +27,7 @@ set -e
 
 rm -f test1.img
 
-../fish/guestfish --keys-from-stdin <<EOF
+../../fish/guestfish --keys-from-stdin <<EOF
 sparse test1.img 1G
 run
 part-disk /dev/sda mbr

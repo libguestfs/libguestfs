@@ -1,6 +1,5 @@
-#!/bin/bash -
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,25 +15,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Some versions of qemu can be flakey and can hang occasionally
-# during boot (particularly KVM if the BIOS is the qemu version
-# which doesn't have the required KVM patches).  Test repeatedly
-# booting.
+include $(top_srcdir)/subdir-rules.mk
 
-set -e
+TESTS = \
+	test-lvm-filtering.sh \
+	test-lvm-mapping.pl
 
-rm -f test1.img
+random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
-n=10
-if [ -n "$1" ]; then n=$1; fi
+TESTS_ENVIRONMENT = \
+	MALLOC_PERTURB_=$(random_val) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	TMPDIR=$(top_builddir)
 
-export LIBGUESTFS_DEBUG=1
-
-for i in $(seq 1 $n); do
-  echo Test boot $i of $n ...
-  ../fish/guestfish -N disk </dev/null
-done
-
-rm test1.img
-
-echo Test boot completed after $n iterations.
+EXTRA_DIST = \
+	$(TESTS)

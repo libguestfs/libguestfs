@@ -1,6 +1,5 @@
-#!/bin/bash -
 # libguestfs
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +15,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-echo
-echo '*****'
-echo
-echo 'Some of these tests print error messages.  You can ignore'
-echo 'these error messages as long as the tests print "PASS".'
-echo
-echo '*****'
-echo
+include $(top_srcdir)/subdir-rules.mk
+
+TESTS = \
+	test-luks.sh \
+	test-luks-list.sh
+
+random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
+
+TESTS_ENVIRONMENT = \
+	MALLOC_PERTURB_=$(random_val) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	TMPDIR=$(top_builddir)
+
+EXTRA_DIST = \
+	$(TESTS)

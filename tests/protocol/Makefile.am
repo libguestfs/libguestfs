@@ -1,6 +1,5 @@
-#!/bin/bash -
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2011 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,20 +15,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test upload where the daemon cancels.
-#
-# This is pretty easy - we just upload a too-large source file.
+include $(top_srcdir)/subdir-rules.mk
 
-set -e
+TESTS = \
+	test-both-ends-cancel.sh \
+	test-cancellation-download-librarycancels.sh \
+	test-cancellation-upload-daemoncancels.sh \
+	test-launch-race.pl \
+	test-qemudie-killsub.sh \
+	test-qemudie-midcommand.sh \
+	test-qemudie-synch.sh
 
-rm -f test1.img
+random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
-../fish/guestfish -N fs -m /dev/sda1 <<'EOF'
-# Upload image, daemon should cancel because the image is too large
-# to upload into itself.
--upload test.img /test
+TESTS_ENVIRONMENT = \
+	MALLOC_PERTURB_=$(random_val) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	TMPDIR=$(top_builddir)
 
-ping-daemon
-EOF
-
-rm -f test1.img
+EXTRA_DIST = \
+	$(TESTS)

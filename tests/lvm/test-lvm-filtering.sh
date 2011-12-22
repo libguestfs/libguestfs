@@ -22,7 +22,7 @@ set -e
 
 rm -f test1.img test2.img
 
-actual=$(../fish/guestfish <<'EOF'
+actual=$(../../fish/guestfish <<'EOF'
 sparse test1.img 1G
 sparse test2.img 1G
 

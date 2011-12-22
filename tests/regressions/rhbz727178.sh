@@ -23,7 +23,7 @@
 set -e
 export LANG=C
 
-guestfish=../fish/guestfish
+guestfish=../../fish/guestfish
 output=rhbz727178.output
 
 rm -f binaries.tmp $output
