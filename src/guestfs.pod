@@ -2799,7 +2799,7 @@ Packagers can run only certain tests by setting for example:
 
  TEST_ONLY="vfs_type zerofree"
 
-See C<capitests/tests.c> for more details of how these environment
+See C<tests/c-api/tests.c> for more details of how these environment
 variables work.
 
 =head2 DEBUGGING NEW API ACTIONS
@@ -2916,10 +2916,6 @@ L<virt-alignment-scan(1)> command and documentation.
 =item C<appliance>
 
 The libguestfs appliance, build scripts and so on.
-
-=item C<capitests>
-
-Automated tests of the C API.
 
 =item C<cat>
 

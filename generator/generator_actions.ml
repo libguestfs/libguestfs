@@ -2718,7 +2718,7 @@ This uses the L<blockdev(8)> command.");
    [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["mkdir"; "/upload"];
-       ["upload"; "../COPYING.LIB"; "/upload/COPYING.LIB"];
+       ["upload"; "../../COPYING.LIB"; "/upload/COPYING.LIB"];
        ["checksum"; "md5"; "/upload/COPYING.LIB"]],
       Digest.to_hex (Digest.file "COPYING.LIB"))],
    "upload a file from the local machine",
@@ -2734,7 +2734,7 @@ See also C<guestfs_download>.");
    [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["mkdir"; "/download"];
-       ["upload"; "../COPYING.LIB"; "/download/COPYING.LIB"];
+       ["upload"; "../../COPYING.LIB"; "/download/COPYING.LIB"];
        ["download"; "/download/COPYING.LIB"; "testdownload.tmp"];
        ["upload"; "testdownload.tmp"; "/download/upload"];
        ["checksum"; "md5"; "/download/upload"]],
@@ -5936,7 +5936,7 @@ See also C<guestfs_part_to_partnum>.");
   ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273, [Progress],
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
     [InitScratchFS, Always, TestOutput (
-       [["upload_offset"; "../COPYING.LIB"; "/upload_offset"; "0"];
+       [["upload_offset"; "../../COPYING.LIB"; "/upload_offset"; "0"];
         ["checksum"; "md5"; "/upload_offset"]], md5)]),
    "upload a file from the local machine with offset",
    "\
@@ -5964,7 +5964,7 @@ See also C<guestfs_upload>, C<guestfs_pwrite>.");
     [InitScratchFS, Always, TestOutput (
        (* Pick a file from cwd which isn't likely to change. *)
        [["mkdir"; "/download_offset"];
-        ["upload"; "../COPYING.LIB"; "/download_offset/COPYING.LIB"];
+        ["upload"; "../../COPYING.LIB"; "/download_offset/COPYING.LIB"];
         ["download_offset"; "/download_offset/COPYING.LIB"; "testdownload.tmp"; offset; size];
         ["upload_offset"; "testdownload.tmp"; "/download_offset/COPYING.LIB"; offset];
         ["checksum"; "md5"; "/download_offset/COPYING.LIB"]], md5)]),

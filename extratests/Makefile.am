@@ -70,7 +70,7 @@ GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
 
 extra-tests: \
 	test-prerequisites \
-	test-capitests \
+	test-c-api \
 	test-tools-null \
 	test-tools-internal \
 	test-df-real \
@@ -150,9 +150,9 @@ test-resize:
 test-sparsify:
 	$(MAKE) -C ../sparsify VG="$(VG)" check
 
-# Run capitests under valgrind.
-test-capitests:
-	$(MAKE) -C ../capitests VG="$(RUN_VG)" check
+# Run c-api tests under valgrind.
+test-c-api:
+	$(MAKE) -C ../tests/c-api VG="$(RUN_VG)" check
 
 # Test OCaml bindings under valgrind.
 test-ocaml:

@@ -133,7 +133,7 @@ test_debug_to_file_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_debug_to_file_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
-	../gnulib/lib/libgnu.la
+	$(top_builddir)/gnulib/lib/libgnu.la
 
 #if HAVE_LIBVIRT
 #test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
@@ -143,7 +143,7 @@ test_debug_to_file_LDADD = \
 #	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 #test_add_libvirt_dom_LDADD = \
 #	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
-#	$(LTLIBTHREAD) ../gnulib/lib/libgnu.la
+#	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
 #endif
 
 # Run the tests under valgrind.

@@ -30,7 +30,7 @@ SUBDIRS += appliance
 endif
 
 # Tests and the test-tool.
-SUBDIRS += gnulib/tests capitests tests/qemu regressions extratests test-tool
+SUBDIRS += gnulib/tests tests/c-api tests/qemu regressions extratests test-tool
 
 # Guestfish.
 SUBDIRS += fish
@@ -218,7 +218,7 @@ all-local:
 	find $(DIST_SUBDIRS) \
 	    -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
 	grep -v '^perl/blib/' | \
-	grep -v '^capitests/' | \
+	grep -v '^tests/' | \
 	grep -v '^daemon/lib/' | \
 	grep -v '^daemon/tests/' | \
 	grep -v '^examples/' | \

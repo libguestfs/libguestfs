@@ -36,7 +36,7 @@ SOURCES = \
 	generator_c.ml \
 	generator_xdr.ml \
 	generator_daemon.ml \
-	generator_capitests.ml \
+	generator_tests_c_api.ml \
 	generator_fish.ml \
 	generator_ocaml.ml \
 	generator_perl.ml \

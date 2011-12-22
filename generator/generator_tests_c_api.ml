@@ -257,8 +257,8 @@ int main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_add_drive_ro (g, \"../images/test.iso\") == -1) {
-    printf (\"guestfs_add_drive_ro ../images/test.iso FAILED\\n\");
+  if (guestfs_add_drive_ro (g, \"../../images/test.iso\") == -1) {
+    printf (\"guestfs_add_drive_ro ../../images/test.iso FAILED\\n\");
     exit (EXIT_FAILURE);
   }
 

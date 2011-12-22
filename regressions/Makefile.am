@@ -18,8 +18,6 @@
 # Regression tests and other important tests which are not
 # specific to the C API.  We can write these more easily in
 # higher level languages than C.
-#
-# See also capitests/
 
 include $(top_srcdir)/subdir-rules.mk
 
