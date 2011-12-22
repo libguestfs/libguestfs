@@ -1008,7 +1008,6 @@ AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  capitests/Makefile
                  cat/Makefile
-                 caution/Makefile
                  clone/Makefile
                  csharp/Makefile
                  daemon/Makefile
@@ -1052,6 +1051,7 @@ AC_CONFIG_FILES([Makefile
                  sparsify/Makefile
                  src/Makefile
                  test-tool/Makefile
+                 tests/qemu/Makefile
                  tools/Makefile])
 AC_OUTPUT
 

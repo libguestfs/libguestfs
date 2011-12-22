@@ -30,7 +30,7 @@ SUBDIRS += appliance
 endif
 
 # Tests and the test-tool.
-SUBDIRS += gnulib/tests capitests caution regressions extratests test-tool
+SUBDIRS += gnulib/tests capitests tests/qemu regressions extratests test-tool
 
 # Guestfish.
 SUBDIRS += fish
