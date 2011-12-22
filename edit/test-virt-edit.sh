@@ -5,7 +5,7 @@ set -e
 
 # Make a copy of the Fedora image so we can write to it then
 # discard it.
-cp ../images/fedora.img test.img
+cp ../tests/guests/fedora.img test.img
 
 # Edit interactively.  We have to simulate this by setting $EDITOR.
 # The command will be: echo newline >> /tmp/file

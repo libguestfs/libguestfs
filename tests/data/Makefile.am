@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 # Old RHEL 5 autoconf doesn't have builddir.
-builddir ?= $(top_builddir)/images
+builddir ?= $(top_builddir)/tests/data
 
 EXTRA_DIST = \
 	helloworld.tar \
@@ -36,32 +36,14 @@ EXTRA_DIST = \
 	lib-win32.dll \
 	lib-win64.dll \
 	lib-x86_64.so \
-	test-grep.txt \
-	guest-aux/make-debian-img.sh \
-	guest-aux/debian-packages \
-	guest-aux/make-fedora-img.pl \
-	guest-aux/fedora-name.db.txt \
-	guest-aux/fedora-name.db \
-	guest-aux/fedora-packages.db.txt \
-	guest-aux/fedora-packages.db \
-	guest-aux/make-ubuntu-img.sh \
-	guest-aux/make-windows-img.sh \
-	guest-aux/windows-software \
-	guest-aux/windows-software.reg \
-	guest-aux/windows-system \
-	guest-aux/windows-system.reg \
-	guest-aux/minimal-hive
+	test-grep.txt
 
 noinst_DATA = test.iso
-
-# This is 'check_DATA' because we don't need it until 'make check'
-# time and we need the tools we have built in order to make it.
-check_DATA = debian.img fedora.img fedora-md1.img fedora-md2.img ubuntu.img windows.img
 
 CLEANFILES = \
 	test.iso test.sqsh \
 	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
-	initrd $(check_DATA)
+	initrd
 
 images_files_src = \
 	$(srcdir)/helloworld.tar \
@@ -167,67 +149,4 @@ $(builddir)/initrd-x86_64.img.gz: initrd-x86_64.img
 $(builddir)/test-grep.txt.gz: test-grep.txt
 	rm -f $@ $@-t
 	gzip --best -c $< > $@-t
-	mv $@-t $@
-
-# Make a (dummy) Fedora image.
-fedora.img: guest-aux/make-fedora-img.pl \
-		guest-aux/fedora-name.db \
-		guest-aux/fedora-packages.db
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	LAYOUT=partitions \
-	../run $<
-
-# Make a (dummy) Fedora image using md devices
-fedora-md1.img fedora-md2.img: guest-aux/make-fedora-img.pl \
-		guest-aux/fedora-name.db \
-		guest-aux/fedora-packages.db
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	LAYOUT=partitions-md \
-	../run $<
-
-guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
-	rm -f $@ $@-t
-	mkdir -p guest-aux
-	$(DB_LOAD) $@-t < $<
-	mv $@-t $@
-
-guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
-	rm -f $@ $@-t
-	mkdir -p guest-aux
-	$(DB_LOAD) $@-t < $<
-	mv $@-t $@
-
-# Make a (dummy) Debian image.
-debian.img: guest-aux/make-debian-img.sh
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	bash $<
-
-# Make a (dummy) Ubuntu image.
-ubuntu.img: guest-aux/make-ubuntu-img.sh
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	bash $<
-
-# Make a (dummy) Windows image.
-windows.img: guest-aux/make-windows-img.sh \
-	     guest-aux/windows-software guest-aux/windows-system
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	bash $<
-
-# Since users might not have the tools needed to create this, we
-# also distribute these files.
-guest-aux/windows-software: guest-aux/windows-software.reg
-	rm -f $@ $@-t
-	cp guest-aux/minimal-hive $@-t
-	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SOFTWARE' $<
-	mv $@-t $@
-
-guest-aux/windows-system: guest-aux/windows-system.reg
-	rm -f $@ $@-t
-	cp guest-aux/minimal-hive $@-t
-	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
 	mv $@-t $@

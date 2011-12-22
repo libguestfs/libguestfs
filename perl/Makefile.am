@@ -46,7 +46,7 @@ src_deps: $(top_builddir)/src/libguestfs.la $(generator_built)
 # Images used by tests
 .PHONY: test_images
 test_images:
-	$(MAKE) -C $(top_builddir)/images
+	$(MAKE) -C $(top_builddir)/tests/data
 
 TESTS = run-bindtests run-perl-tests
 

@@ -2818,7 +2818,7 @@ To get the checksums for many files, use C<guestfs_checksums_out>.");
   ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"], []), 69, [],
    [InitScratchFS, Always, TestOutput (
       [["mkdir"; "/tar_in"];
-       ["tar_in"; "../images/helloworld.tar"; "/tar_in"];
+       ["tar_in"; "../data/helloworld.tar"; "/tar_in"];
        ["cat"; "/tar_in/hello"]], "hello\n")],
    "unpack tarfile to directory",
    "\
@@ -2841,7 +2841,7 @@ or C<guestfs_txz_out>.");
   ("tgz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 71, [],
    [InitScratchFS, Always, TestOutput (
       [["mkdir"; "/tgz_in"];
-       ["tgz_in"; "../images/helloworld.tar.gz"; "/tgz_in"];
+       ["tgz_in"; "../data/helloworld.tar.gz"; "/tgz_in"];
        ["cat"; "/tgz_in/hello"]], "hello\n")],
    "unpack compressed tarball to directory",
    "\
@@ -5385,7 +5385,7 @@ or growing unnecessarily.");
   ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 229, [Optional "xz"],
    [InitScratchFS, Always, TestOutput (
       [["mkdir"; "/txz_in"];
-       ["txz_in"; "../images/helloworld.tar.xz"; "/txz_in"];
+       ["txz_in"; "../data/helloworld.tar.xz"; "/txz_in"];
        ["cat"; "/txz_in/hello"]], "hello\n")],
    "unpack compressed tarball to directory",
    "\
@@ -5482,7 +5482,7 @@ types (see C<guestfs_part_get_parttype>).");
   ("checksum_device", (RString "checksum", [String "csumtype"; Device "device"], []), 237, [],
    [InitISOFS, Always, TestOutputFileMD5 (
       [["checksum_device"; "md5"; "/dev/sdd"]],
-      "../images/test.iso")],
+      "../data/test.iso")],
    "compute MD5, SHAx or CRC checksum of the contents of a device",
    "\
 This call computes the MD5, SHAx or CRC checksum of the
@@ -5532,7 +5532,7 @@ to find out what it is for.");
 
   ("base64_in", (RErr, [FileIn "base64file"; Pathname "filename"], []), 242, [],
    [InitScratchFS, Always, TestOutput (
-      [["base64_in"; "../images/hello.b64"; "/base64_in"];
+      [["base64_in"; "../data/hello.b64"; "/base64_in"];
        ["cat"; "/base64_in"]], "hello\n")],
    "upload base64-encoded data to file",
    "\

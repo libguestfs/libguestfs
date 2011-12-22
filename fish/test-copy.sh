@@ -32,13 +32,13 @@ rm -f test1.img
 rm -rf original copy
 
 mkdir original
-cp $srcdir/../images/known* original
-cp -P $srcdir/../images/abssymlink* original
+cp $srcdir/../tests/data/known* original
+cp -P $srcdir/../tests/data/abssymlink* original
 
 output=$(
 ../fish/guestfish -N fs -m /dev/sda1 <<EOF
 mkdir /data
-# This creates a directory /data/images/
+# This creates a directory /data/data/
 copy-in original /data
 is-file /data/original/known-1
 is-file /data/original/known-3

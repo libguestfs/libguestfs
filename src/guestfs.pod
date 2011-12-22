@@ -2964,12 +2964,6 @@ L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
 The crucially important generator, used to automatically generate
 large amounts of boilerplate C code for things like RPC and bindings.
 
-=item C<images>
-
-Files used by the test suite.
-
-Some "phony" guest images which we test against.
-
 =item C<inspector>
 
 L<virt-inspector(1)>, the virtual machine image inspector.

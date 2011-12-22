@@ -5,7 +5,7 @@ set -e
 
 # Run virt-list-filesystems.
 # Only columns 1 & 2 are guaranteed, we may add more in future.
-if [ "$(./virt-list-filesystems -l ../images/fedora.img |
+if [ "$(./virt-list-filesystems -l ../tests/guests/fedora.img |
         sort | awk '{print $1 $2}')" \
     != \
 "/dev/VG/LV1ext2

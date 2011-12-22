@@ -25,7 +25,7 @@ set -e
 # ntfs-3g/ntfsprogs then we cannot create a Windows phony image.
 # Nothing actually uses windows.img in the standard build so we can
 # just 'touch' it and emit a warning.
-if ! ../run ../fish/guestfish -a /dev/null run : available "ntfs3g ntfsprogs"; then
+if ! ../../run ../../fish/guestfish -a /dev/null run : available "ntfs3g ntfsprogs"; then
   echo "***"
   echo "Warning: cannot create windows.img because there is no NTFS"
   echo "support in this build of libguestfs.  Just touching the output"
@@ -36,7 +36,7 @@ if ! ../run ../fish/guestfish -a /dev/null run : available "ntfs3g ntfsprogs"; t
 fi
 
 # Create a disk image.
-../run ../fish/guestfish <<EOF
+../../run ../../fish/guestfish <<EOF
 sparse windows.img.tmp 512M
 run
 
@@ -61,7 +61,7 @@ mkdir-p /Windows/System32/Config
 upload ${SRCDIR}/guest-aux/windows-software /Windows/System32/Config/SOFTWARE
 upload ${SRCDIR}/guest-aux/windows-system /Windows/System32/Config/SYSTEM
 
-upload ${SRCDIR}/bin-win32.exe /Windows/System32/cmd.exe
+upload ${SRCDIR}/../data/bin-win32.exe /Windows/System32/cmd.exe
 
 mkdir "/Program Files"
 touch /autoexec.bat

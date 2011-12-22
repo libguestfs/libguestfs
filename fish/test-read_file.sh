@@ -23,12 +23,12 @@ set -e
 rm -f test.out
 
 ../fish/guestfish <<'EOF' > test.out
-add-ro ../images/test.iso
+add-ro ../tests/data/test.iso
 run
 mount-ro /dev/sda /
 read-file /helloworld.tar
 EOF
 
-cmp ../images/helloworld.tar test.out
+cmp ../tests/data/helloworld.tar test.out
 
 rm -f test.out

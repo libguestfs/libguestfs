@@ -26,7 +26,7 @@ fi
 
 rm -f test.img guestfish
 
-qemu-img create -f qcow2 -o backing_file=../images/fedora.img test.img
+qemu-img create -f qcow2 -o backing_file=../tests/guests/fedora.img test.img
 
 # Provide alternate 'virt-inspector' and 'guestmount' binaries
 # that run the just-built programs.

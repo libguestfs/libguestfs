@@ -157,7 +157,7 @@ if (-f 'mdadm.tmp') {
 $g->upload('guest-aux/fedora-name.db', '/var/lib/rpm/Name');
 $g->upload('guest-aux/fedora-packages.db', '/var/lib/rpm/Packages');
 
-$g->upload($ENV{SRCDIR}.'/bin-x86_64-dynamic', '/bin/ls');
+$g->upload($ENV{SRCDIR}.'/../data/bin-x86_64-dynamic', '/bin/ls');
 
 $g->mkdir('/boot/grub');
 $g->touch('/boot/grub/grub.conf');

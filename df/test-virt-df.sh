@@ -4,7 +4,7 @@ export LANG=C
 set -e
 
 # Run virt-df.
-output=$(./virt-df ../images/fedora.img)
+output=$(./virt-df ../tests/guests/fedora.img)
 
 # Check title is the first line.
 if [[ ! $output =~ ^Filesystem.* ]]; then

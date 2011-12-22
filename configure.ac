@@ -1022,7 +1022,6 @@ AC_CONFIG_FILES([Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
                  haskell/Makefile
-                 images/Makefile
                  inspector/Makefile
                  java/Makefile
                  java/examples/Makefile
@@ -1049,7 +1048,9 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  test-tool/Makefile
                  tests/c-api/Makefile
+                 tests/data/Makefile
                  tests/extra/Makefile
+                 tests/guests/Makefile
                  tests/luks/Makefile
                  tests/lvm/Makefile
                  tests/md/Makefile

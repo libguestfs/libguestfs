@@ -3,7 +3,7 @@
 export LANG=C
 set -e
 
-output="$(./virt-filesystems -a ../images/fedora.img | sort)"
+output="$(./virt-filesystems -a ../tests/guests/fedora.img | sort)"
 expected="/dev/VG/LV1
 /dev/VG/LV2
 /dev/VG/LV3
@@ -16,7 +16,7 @@ if [ "$output" != "$expected" ]; then
     exit 1
 fi
 
-output="$(./virt-filesystems -a ../images/fedora.img --all --long --uuid -h --no-title | awk '{print $1}' | sort -u)"
+output="$(./virt-filesystems -a ../tests/guests/fedora.img --all --long --uuid -h --no-title | awk '{print $1}' | sort -u)"
 expected="/dev/VG
 /dev/VG/LV1
 /dev/VG/LV2

@@ -35,8 +35,8 @@ guestfish=../../fish/guestfish
 rm -f test1.img test.fstab test.output
 
 # First, test the regular fedora image, which specifies /boot as /dev/md0
-cp ../../images/fedora-md1.img test1.img
-cp ../../images/fedora-md2.img test2.img
+cp ../guests/fedora-md1.img test1.img
+cp ../guests/fedora-md2.img test2.img
 
 $guestfish -i test[12].img <<'EOF' | sort > test.output
   exists /boot/grub/grub.conf

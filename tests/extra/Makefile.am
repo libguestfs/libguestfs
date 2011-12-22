@@ -104,22 +104,22 @@ test-tools-null:
 
 # Invocations of tools on internal images shouldn't leak memory.
 test-tools-internal:
-	$(RUN_VG) ../../cat/virt-cat -a ../images/fedora.img /etc/fstab >/dev/null
-	$(RUN_VG) ../../cat/virt-filesystems -a ../images/fedora.img >/dev/null
-	$(RUN_VG) ../../cat/virt-filesystems -a ../images/fedora.img --all --long -h --uuid >/dev/null
-	$(RUN_VG) ../../cat/virt-ls -a ../images/fedora.img / >/dev/null
-	$(RUN_VG) ../../cat/virt-ls -a ../images/fedora.img -l / >/dev/null
-	$(RUN_VG) ../../cat/virt-ls -a ../images/fedora.img -R / >/dev/null
-	$(RUN_VG) ../../cat/virt-ls -a ../images/fedora.img -lR / >/dev/null
-	$(RUN_VG) ../../df/virt-df -a ../images/fedora.img >/dev/null
-	$(RUN_VG) ../../df/virt-df -a ../images/fedora.img -h >/dev/null
-	$(RUN_VG) ../../fish/guestfish -a ../images/fedora.img run
-	$(RUN_VG) ../../fish/guestfish -a ../images/fedora.img -i exit
-	$(RUN_VG) ../../inspector/virt-inspector -a ../images/debian.img >/dev/null
-	$(RUN_VG) ../../inspector/virt-inspector -a ../images/fedora.img >/dev/null
-	$(RUN_VG) ../../inspector/virt-inspector -a ../images/fedora-md1.img -a ../images/fedora-md2.img >/dev/null
-	$(RUN_VG) ../../inspector/virt-inspector -a ../images/ubuntu.img >/dev/null
-	$(RUN_VG) ../../inspector/virt-inspector -a ../images/windows.img >/dev/null
+	$(RUN_VG) ../../cat/virt-cat -a ../guests/fedora.img /etc/fstab >/dev/null
+	$(RUN_VG) ../../cat/virt-filesystems -a ../guests/fedora.img >/dev/null
+	$(RUN_VG) ../../cat/virt-filesystems -a ../guests/fedora.img --all --long -h --uuid >/dev/null
+	$(RUN_VG) ../../cat/virt-ls -a ../guests/fedora.img / >/dev/null
+	$(RUN_VG) ../../cat/virt-ls -a ../guests/fedora.img -l / >/dev/null
+	$(RUN_VG) ../../cat/virt-ls -a ../guests/fedora.img -R / >/dev/null
+	$(RUN_VG) ../../cat/virt-ls -a ../guests/fedora.img -lR / >/dev/null
+	$(RUN_VG) ../../df/virt-df -a ../guests/fedora.img >/dev/null
+	$(RUN_VG) ../../df/virt-df -a ../guests/fedora.img -h >/dev/null
+	$(RUN_VG) ../../fish/guestfish -a ../guests/fedora.img run
+	$(RUN_VG) ../../fish/guestfish -a ../guests/fedora.img -i exit
+	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/debian.img >/dev/null
+	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/fedora.img >/dev/null
+	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/fedora-md1.img -a ../guests/fedora-md2.img >/dev/null
+	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/ubuntu.img >/dev/null
+	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/windows.img >/dev/null
 
 # Invocations of tools on real images shouldn't leak memory.
 test-df-real:

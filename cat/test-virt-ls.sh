@@ -4,7 +4,7 @@ export LANG=C
 set -e
 
 # Read out the test directory using virt-ls.
-if [ "$(./virt-ls ../images/fedora.img /bin)" != "ls
+if [ "$(./virt-ls ../tests/guests/fedora.img /bin)" != "ls
 test1
 test2
 test3
@@ -17,7 +17,7 @@ test7" ]; then
 fi
 
 # Try the -lR option.
-output="$(./virt-ls -lR ../images/fedora.img /boot | awk '{print $1 $2 $4}')"
+output="$(./virt-ls -lR ../tests/guests/fedora.img /boot | awk '{print $1 $2 $4}')"
 expected="d0755/boot
 d0755/boot/grub
 -0644/boot/grub/grub.conf

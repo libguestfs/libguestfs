@@ -1,5 +1,5 @@
 ^appliance/debian/modules/
-^images/
+^tests/data/
 ^COPYING(.LIB)?$
 ^\.gitmodules$
 (^|\/)ChangeLog[^/]*$
