@@ -33,7 +33,7 @@ endif
 SUBDIRS += gnulib/tests tests/c-api tests/qemu
 SUBDIRS += tests/protocol tests/lvm tests/luks tests/md
 SUBDIRS += tests/regressions
-SUBDIRS += extratests test-tool
+SUBDIRS += tests/extra test-tool
 
 # Guestfish.
 SUBDIRS += fish
@@ -253,10 +253,10 @@ CLEANFILES = \
 quickcheck:
 	./run test-tool/libguestfs-test-tool $(QUICKCHECK_TEST_TOOL_ARGS)
 
-# Run extra-tests in extratests/ subdirectory.
+# Run extra-tests in tests/extra/ subdirectory.
 
 extra-tests:
-	make -C extratests $@
+	make -C tests/extra $@
 
 # Make binary distribution.
 

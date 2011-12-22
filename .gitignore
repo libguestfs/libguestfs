@@ -83,7 +83,6 @@ examples/stamp-guestfs-examples.pod
 examples/stamp-guestfs-recipes.pod
 examples/stamp-guestfs-testing.pod
 examples/virt-dhcp-address
-extratests/valgrind.log
 fish/cmds.c
 fish/cmds_gperf.c
 fish/cmds_gperf.gperf
@@ -357,6 +356,7 @@ tests/c-api/test*.img
 tests/c-api/tests
 tests/c-api/tests.c
 tests/c-api/test*.tmp
+tests/extra/valgrind.log
 tests/regressions/rhbz501893
 tools/test.img
 tools/virt-*.1
