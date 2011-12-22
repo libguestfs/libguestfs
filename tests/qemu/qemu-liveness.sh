@@ -1,3 +1,4 @@
+#!/bin/bash -
 # libguestfs
 # Copyright (C) 2011 Red Hat Inc.
 #
@@ -15,23 +16,37 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Safety and liveness tests of components that libguestfs depends upon
-# (not of libguestfs itself).  Mainly this is for qemu and the kernel.
-# This test is the first to run.
+# Boot and check that writes work.
+# Note this is the first boot test that we run, so it's looking for
+# all sorts of qemu/kernel/febootstrap problems.
 
-include $(top_srcdir)/subdir-rules.mk
+set -e
 
-TESTS = \
-	qemu-liveness.sh \
-	qemu-snapshot-isolation.sh
+rm -f test1.img
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
+truncate -s 100M test1.img
+test1_md5sum="$(md5sum test1.img | awk '{print $1}')"
 
-TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	TMPDIR=$(top_builddir)
+../../fish/guestfish <<'EOF'
+add-drive-opts test1.img format:raw
+run
 
-EXTRA_DIST = \
-	$(TESTS)
+part-disk /dev/sda mbr
+
+mkfs ext2 /dev/sda1
+mount /dev/sda1 /
+
+write /test "This is a test"
+
+EOF
+
+# Verify that the disk has changed.
+if [ "$(md5sum test1.img | awk '{print $1}')" = "$test1_md5sum" ]; then
+    echo "***** ERROR *****"
+    echo "Write operations are not modifying an attached disk."
+    echo
+    echo "Check to see if any errors or warnings are printed above."
+    exit 1
+fi
+
+rm test1.img
