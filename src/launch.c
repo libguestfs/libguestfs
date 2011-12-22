@@ -564,6 +564,16 @@ launch_appliance (guestfs_h *g)
     alloc_cmdline (g);
     g->cmdline[0] = g->qemu;
 
+    /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
+     * devices.  The -global option must exist, but you can pass any
+     * strings to it so we don't need to check for the specific virtio
+     * feature.
+     */
+    if (qemu_supports (g, "-global")) {
+      add_cmdline (g, "-global");
+      add_cmdline (g, "virtio-blk-pci.scsi=off");
+    }
+
     /* Add drives */
     struct drive *drv = g->drives;
     while (drv != NULL) {
