@@ -17,6 +17,7 @@
 
 # Safety and liveness tests of components that libguestfs depends upon
 # (not of libguestfs itself).  Mainly this is for qemu and the kernel.
+# This test is the first to run.
 
 include $(top_srcdir)/subdir-rules.mk
 

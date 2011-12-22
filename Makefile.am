@@ -19,8 +19,11 @@ include $(top_srcdir)/subdir-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
+# Gnulib - must be built and tested before the library.
+SUBDIRS = gnulib/lib gnulib/tests
+
 # Basic source for the library.
-SUBDIRS = gnulib/lib tests/data tests/guests generator src examples po
+SUBDIRS += tests/data generator src examples po
 
 if ENABLE_DAEMON
 SUBDIRS += daemon
@@ -29,10 +32,17 @@ if ENABLE_APPLIANCE
 SUBDIRS += appliance
 endif
 
-# Tests.
-SUBDIRS += gnulib/tests tests/c-api tests/qemu
-SUBDIRS += tests/protocol tests/lvm tests/luks tests/md
+# Tests - order is important.
+SUBDIRS += tests/qemu
+SUBDIRS += tests/guests
+SUBDIRS += tests/c-api
+SUBDIRS += tests/protocol
+SUBDIRS += tests/lvm
+SUBDIRS += tests/luks
+SUBDIRS += tests/md
 SUBDIRS += tests/regressions
+
+# Extra tests don't run by default.  You have to do 'make extra-tests'.
 SUBDIRS += tests/extra
 
 # libguestfs-test-tool
