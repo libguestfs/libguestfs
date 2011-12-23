@@ -367,3 +367,4 @@ tools/virt-*.pl
 /gnulib
 .git-module-status
 .guestfs-*
+guestfs.*
