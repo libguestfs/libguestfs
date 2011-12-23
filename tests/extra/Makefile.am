@@ -69,6 +69,7 @@ GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
 		 awk '{print $$2}')
 
 extra-tests: \
+	test-guests \
 	test-prerequisites \
 	test-c-api \
 	test-tools-null \
@@ -79,6 +80,9 @@ extra-tests: \
 	test-ocaml \
 	test-resize \
 	test-sparsify
+
+test-guests:
+	$(MAKE) -C ../guests check
 
 test-prerequisites:
 	@libtool --help >/dev/null 2>&1 || { \
