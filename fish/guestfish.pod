@@ -203,7 +203,7 @@ Domain UUIDs can be used instead of names.
 
 Using this flag is mostly equivalent to using the C<add-domain> command,
 with C<readonly:true> if the I<--ro> flag was given, and
-with C<format:...> if the I<--format:...> flag was given.
+with C<format:...> if the I<--format=...> flag was given.
 
 =item B<-D>
 
