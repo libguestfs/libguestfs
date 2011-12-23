@@ -43,7 +43,7 @@ display_help (void)
     printf (_(
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount-options'.\n"
+"'mount'.\n"
               ));
 
   printf ("\n");
