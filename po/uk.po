@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-22 18:31+0000\n"
+"POT-Creation-Date: 2011-12-23 12:44+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3499,7 +3499,7 @@ msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/appliance.c:672
+#: src/appliance.c:682
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
@@ -3530,7 +3530,7 @@ msgstr "неочікувані не шістнадцяткові цифри у �
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:265
+#: src/filearch.c:260
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3538,22 +3538,22 @@ msgstr ""
 "файлово-архітектурний програмний інтерфейс недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки libmagic"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/guestfs.c:344
+#: src/guestfs.c:307
 #, c-format
 msgid "warning: %s"
 msgstr "попередження: %s"
 
-#: src/guestfs.c:405
+#: src/guestfs.c:368
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/guestfs.c:983
+#: src/guestfs.c:946
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
@@ -3620,62 +3620,62 @@ msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/launch.c:134
+#: src/launch.c:136
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "не можна змінювати рядок команди після запуску підпроцесу qemu"
 
-#: src/launch.c:203
+#: src/launch.c:205
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: запис параметра має починатися з символу «-»"
 
-#: src/launch.c:217
+#: src/launch.c:219
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: не можна використовувати параметр «%s»"
 
-#: src/launch.c:289 src/launch.c:407
+#: src/launch.c:291 src/launch.c:409
 msgid "filename cannot contain ',' (comma) character"
 msgstr "у назві файла не може міститися символу коми («,»)"
 
-#: src/launch.c:303 src/launch.c:311
+#: src/launch.c:305 src/launch.c:313
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "параметр %s є порожнім або містить заборонені до використання символи"
 
-#: src/launch.c:426
+#: src/launch.c:428
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:437
+#: src/launch.c:439
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:474
+#: src/launch.c:476
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:905
+#: src/launch.c:907
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:918
+#: src/launch.c:920
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:1008
+#: src/launch.c:1010
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:1016
+#: src/launch.c:1018
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1188
+#: src/launch.c:1218
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3689,11 +3689,11 @@ msgstr ""
 "встановити відповідне значення змінної середовища LIBGUESTFS_QEMU.\n"
 "Крім того, вище можна знайти повідомлення про помилки."
 
-#: src/launch.c:1328
+#: src/launch.c:1358
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1339
+#: src/launch.c:1369
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-22 18:31+0000\n"
+"POT-Creation-Date: 2011-12-23 12:44+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -3459,7 +3459,7 @@ msgstr ""
 "bezpieczeństwo: przyrząd %s w pamięci podręcznej jest zapisywalny przez "
 "grupę lub innych (tryb %o)"
 
-#: src/appliance.c:672
+#: src/appliance.c:682
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "zewnętrzne polecenie nie powiodło się, proszę zobaczyć wcześniejsze "
@@ -3487,7 +3487,7 @@ msgstr "nieoczekiwane nieszesnastkowe cyfry w wyjściu polecenia db_dump "
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądny (%<PRIi64> bajtów)"
 
-#: src/filearch.c:265
+#: src/filearch.c:260
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3495,22 +3495,22 @@ msgstr ""
 "API architektury plików jest niedostępne, ponieważ ta wersja biblioteki "
 "libguestfs została skompilowana bez biblioteki libmagic"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n"
 
-#: src/guestfs.c:344
+#: src/guestfs.c:307
 #, c-format
 msgid "warning: %s"
 msgstr "ostrzeżenie: %s"
 
-#: src/guestfs.c:405
+#: src/guestfs.c:368
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: błąd: %s\n"
 
-#: src/guestfs.c:983
+#: src/guestfs.c:946
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
@@ -3577,64 +3577,64 @@ msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
 msgid "read: %s: unexpected end of file"
 msgstr "odczyt: %s: nieoczekiwany koniec pliku"
 
-#: src/launch.c:134
+#: src/launch.c:136
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "wiersz poleceń nie może zostać zmieniony po uruchomieniu podprocesu QEMU"
 
-#: src/launch.c:203
+#: src/launch.c:205
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: parametr musi zaczynać się od znaku \"-\""
 
-#: src/launch.c:217
+#: src/launch.c:219
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parametr \"%s\" nie jest dozwolony"
 
-#: src/launch.c:289 src/launch.c:407
+#: src/launch.c:291 src/launch.c:409
 msgid "filename cannot contain ',' (comma) character"
 msgstr "nazwa pliku nie może zawierać znaku \",\" (przecinka)"
 
-#: src/launch.c:303 src/launch.c:311
+#: src/launch.c:305 src/launch.c:313
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "parametr %s jest pusty lub zawiera niedozwolone znaki"
 
-#: src/launch.c:426
+#: src/launch.c:428
 msgid "the libguestfs handle has already been launched"
 msgstr "program obsługi libguestfs został już uruchomiony"
 
-#: src/launch.c:437
+#: src/launch.c:439
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: nie można utworzyć katalogu tymczasowego"
 
-#: src/launch.c:474
+#: src/launch.c:476
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch.c:905
+#: src/launch.c:907
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:918
+#: src/launch.c:920
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:1008
+#: src/launch.c:1010
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "guestfs_launch nie powiodło się, nieoczekiwany komunikat początkowy od "
 "demona guestfsd"
 
-#: src/launch.c:1016
+#: src/launch.c:1018
 msgid "contacted guestfsd, but state != READY"
 msgstr "skontaktowano się z guestfsd, ale stan != GOTOWY"
 
-#: src/launch.c:1188
+#: src/launch.c:1218
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3648,11 +3648,11 @@ msgstr ""
 "ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU. Powyżej mogą zostać\n"
 "wyświetlone błędy."
 
-#: src/launch.c:1328
+#: src/launch.c:1358
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
 
-#: src/launch.c:1339
+#: src/launch.c:1369
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 

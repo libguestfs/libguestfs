@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-22 18:31+0000\n"
+"POT-Creation-Date: 2011-12-23 12:44+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
@@ -3436,7 +3436,7 @@ msgstr ""
 "beveiliging: toepassing %s in cache is beschrijfbaar door groep of anderen "
 "(mode %o)"
 
-#: src/appliance.c:672
+#: src/appliance.c:682
 msgid "external command failed, see earlier error messages"
 msgstr "extern commando mislukte, zie eerdere fout boodschappen"
 
@@ -3462,7 +3462,7 @@ msgstr "onverwachte niet-hex tekens in output van db_dump commando"
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "grootte van %s buitensporig (%<PRIi64> bytes)"
 
-#: src/filearch.c:265
+#: src/filearch.c:260
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3470,22 +3470,22 @@ msgstr ""
 "bestand-architectuur API is niet beschikbaar omdat deze versie van "
 "libguestfs gecompileerd werd zonder de libmagic bibliotheek"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: twee keer dezelfde hendel aangeroepen\n"
 
-#: src/guestfs.c:344
+#: src/guestfs.c:307
 #, c-format
 msgid "warning: %s"
 msgstr "waarschuwing: %s"
 
-#: src/guestfs.c:405
+#: src/guestfs.c:368
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: fout: %s\n"
 
-#: src/guestfs.c:983
+#: src/guestfs.c:946
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<afgekort, originele grootte %zu bytes>"
@@ -3550,61 +3550,61 @@ msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
 msgid "read: %s: unexpected end of file"
 msgstr "lezen: %s: onverwacht einde van bestand"
 
-#: src/launch.c:134
+#: src/launch.c:136
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "commando regel kan niet gewijzigd worden nadat een qemu sub-proces "
 "gelanceerd is"
 
-#: src/launch.c:203
+#: src/launch.c:205
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: parameter moet met '-' beginnen"
 
-#: src/launch.c:217
+#: src/launch.c:219
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' is niet toegestaan"
 
-#: src/launch.c:289 src/launch.c:407
+#: src/launch.c:291 src/launch.c:409
 msgid "filename cannot contain ',' (comma) character"
 msgstr "bestandsnaam kan geen ',' (komma) bevatten"
 
-#: src/launch.c:303 src/launch.c:311
+#: src/launch.c:305 src/launch.c:313
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s parameter is leeg of bevat niet geoorloofde karakters"
 
-#: src/launch.c:426
+#: src/launch.c:428
 msgid "the libguestfs handle has already been launched"
 msgstr "de libguestfs hendel is al gelanceerd"
 
-#: src/launch.c:437
+#: src/launch.c:439
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: kan geen tijdelijke map aanmaken"
 
-#: src/launch.c:474
+#: src/launch.c:476
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch.c:905
+#: src/launch.c:907
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:918
+#: src/launch.c:920
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:1008
+#: src/launch.c:1010
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch mislukte, onverwachte initiele boodschap van guestfsd"
 
-#: src/launch.c:1016
+#: src/launch.c:1018
 msgid "contacted guestfsd, but state != READY"
 msgstr "contact gemaakt met guestfsd, maar toestand != READY"
 
-#: src/launch.c:1188
+#: src/launch.c:1218
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3619,11 +3619,11 @@ msgstr ""
 "omgevingsvariabele in te stellen.  Er kunnen hierboven ook fouten afgedrukt "
 "worden."
 
-#: src/launch.c:1328
+#: src/launch.c:1358
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:1339
+#: src/launch.c:1369
 msgid "no subprocess to kill"
 msgstr "geen sub-proces om af te schieten"
 
