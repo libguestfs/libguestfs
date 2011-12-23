@@ -22,7 +22,7 @@ set -e
 
 rm -f test.out
 
-../fish/guestfish -a /dev/null <<'EOF' > test.out
+../fish/guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' > test.out
 trace true
 
 event ev1 * "echo $EVENT $@"
@@ -53,12 +53,6 @@ if [ "$(cat test.out)" != '"ev1" (0): *: echo $EVENT $@
 "ev1" (1): *: echo $EVENT $@
 "ev2" (2): *: echo $EVENT $@
 "ev2" (2): *: echo $EVENT $@
-enter get_verbose
-trace get_verbose
-trace get_verbose = 0
-enter get_trace
-trace get_trace
-trace get_trace = 1
 enter get_autosync
 trace get_autosync
 trace get_autosync = 1
