@@ -534,7 +534,7 @@ build_supermin_appliance (guestfs_h *g,
     return -1;
   }
 
-  rmdir (tmpcd);
+  guestfs___remove_tmpdir (tmpcd);
 
   /* Now finish off by linking to the cached appliance and returning it. */
   if (hard_link_to_cached_appliance (g, cachedir,

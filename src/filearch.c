@@ -213,12 +213,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   error (g, "file_architecture: could not determine architecture of cpio archive");
 
  out:
-  /* Free up the temporary directory.  Note the directory name cannot
-   * contain shell meta-characters because of the way it was
-   * constructed above.
-   */
-  snprintf (cmd, cmd_len, "rm -rf %s", dir);
-  ignore_value (system (cmd));
+  guestfs___remove_tmpdir (dir);
 
   return ret;
 #undef dir_len
