@@ -32,6 +32,8 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <dirent.h>
 #include <signal.h>
 #include <assert.h>
@@ -1090,6 +1092,34 @@ guestfs___persistent_tmpdir (void)
   if (t) tmpdir = t;
 
   return tmpdir;
+}
+
+/* Recursively remove a temporary directory.  If removal fails, just
+ * return (it's a temporary directory so it'll eventually be cleaned
+ * up by a temp cleaner).  This is done using "rm -rf" because that's
+ * simpler and safer, but we have to exec to ensure that paths don't
+ * need to be quoted.
+ */
+void
+guestfs___remove_tmpdir (const char *dir)
+{
+  pid_t pid = fork ();
+
+  if (pid == -1) {
+    perror ("remove tmpdir: fork");
+    return;
+  }
+  if (pid == 0) {
+    execlp ("rm", "rm", "-rf", dir, NULL);
+    perror ("remove tmpdir: exec: rm");
+    _exit (EXIT_FAILURE);
+  }
+
+  /* Parent. */
+  if (waitpid (pid, NULL, 0) == -1) {
+    perror ("remove tmpdir: waitpid");
+    return;
+  }
 }
 
 /* Compute Y - X and return the result in milliseconds.
