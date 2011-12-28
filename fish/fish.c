@@ -401,6 +401,7 @@ main (int argc, char *argv[])
     sa.sa_handler = user_cancel;
     sa.sa_flags = SA_RESTART;
     sigaction (SIGINT, &sa, NULL);
+    sigaction (SIGQUIT, &sa, NULL);
 
     guestfs_set_pgroup (g, 1);
   }
