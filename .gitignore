@@ -368,3 +368,10 @@ tools/virt-*.pl
 .git-module-status
 .guestfs-*
 guestfs.*
+
+*.eml
+*.patch
+*.rej
+*.orig
+*.diff
+.gitattributes
