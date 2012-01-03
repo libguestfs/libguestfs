@@ -189,7 +189,7 @@ dist-hook:
 	$(top_srcdir)/update-bugs.sh > BUGS-t
 	mv BUGS-t BUGS
 	cp BUGS $(distdir)/BUGS
-	git log --pretty="format:%an" | sort -u | \
+	git log --pretty="format:%an <%ae>" | sort -u | uniq -w 10 | \
 		grep -v rjones | \
 		grep -v "Richard Jones" \
 		> AUTHORS-t
