@@ -127,6 +127,7 @@ fish/virt.c
 format/format.c
 fuse/dircache.c
 fuse/guestmount.c
+gobject/guestfs-gobject.c
 inspector/virt-inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 ocaml/guestfs_c.c

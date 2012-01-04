@@ -996,6 +996,38 @@ AS_IF([test "x$PERL" != "xno"],
 AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
+dnl gobject library
+AC_ARG_ENABLE([gobject],
+    AS_HELP_STRING([--disable-gobject], [Disable GObject bindings]),
+    [],
+    [enable_gobject=yes])
+AS_IF(
+  [test "x$enable_gobject" != "xno"],
+  [
+    PKG_CHECK_MODULES([GOBJECT], [gobject-2.0],
+      [
+        AC_SUBST([GOBJECT_CFLAGS])
+        AC_SUBST([GOBJECT_LIBS])
+        AC_DEFINE([HAVE_GOBJECT],[1],
+                  [gobject library found at compile time.])
+      ],
+      [AC_MSG_WARN([gobject library not found, gobject binding will be disabled])]
+    )
+  ]
+)
+AM_CONDITIONAL([HAVE_GOBJECT],[test "x$GOBJECT_LIBS" != "x"])
+
+dnl gobject introspection
+GOBJECT_INTROSPECTION_CHECK([1.30.0])
+
+dnl The above check automatically sets HAVE_INTROSPECTION, but we want this to
+dnl be conditional on gobject also being available. We can't move the above
+dnl check inside the gobject if block above or HAVE_INTROSPECTION ends up
+dnl undefined, so we recheck it here.
+AM_CONDITIONAL([HAVE_INTROSPECTION],
+               [test "x$HAVE_INTROSPECTION_TRUE" = "x" &&
+                test "x$HAVE_GOBJECT_TRUE" = "x"])
+
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
@@ -1033,6 +1065,7 @@ AC_CONFIG_FILES([Makefile
                  generator/Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
+                 gobject/Makefile
                  haskell/Makefile
                  inspector/Makefile
                  java/Makefile
@@ -1105,6 +1138,10 @@ if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-resize ......................... "
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "FUSE filesystem ..................... $enable_fuse"
+echo -n "gobject bindings .................... "
+if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "gobject introspection ............... "
+if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."

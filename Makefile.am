@@ -79,6 +79,9 @@ endif
 if HAVE_ERLANG
 SUBDIRS += erlang erlang/examples
 endif
+if HAVE_GOBJECT
+SUBDIRS += gobject
+endif
 
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp

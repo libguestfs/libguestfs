@@ -47,6 +47,7 @@ SOURCES = \
 	generator_csharp.ml \
 	generator_php.ml \
 	generator_erlang.ml \
+	generator_gobject.ml \
 	generator_bindtests.ml \
 	generator_errnostring.ml \
 	generator_main.ml
