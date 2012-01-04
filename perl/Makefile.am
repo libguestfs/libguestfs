@@ -40,11 +40,9 @@ if HAVE_PERL
 # a nightmare, news at 11.
 
 # src/ dependencies
-.PHONY: src_deps
 src_deps: $(top_builddir)/src/libguestfs.la $(generator_built)
 
 # Images used by tests
-.PHONY: test_images
 test_images:
 	$(MAKE) -C $(top_builddir)/images
 
@@ -76,3 +74,5 @@ install-data-hook:
 	$(MAKE) -f Makefile-pl DESTDIR=$(DESTDIR) install
 
 endif
+
+.PHONY: src_deps test_images

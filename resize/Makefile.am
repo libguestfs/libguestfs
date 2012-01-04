@@ -17,6 +17,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+SOURCES =
+
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-resize.pod \
@@ -27,7 +29,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize test.img
 if HAVE_OCAML
 
 # Alphabetical order.
-SOURCES = \
+SOURCES += \
 	progress_c.c \
 	progress.mli \
 	progress.ml \
@@ -120,9 +122,9 @@ depend: .depend
 
 include .depend
 
-.PHONY: depend docs
-
 endif
+
+.PHONY: depend docs
 
 # Parallel builds don't obey dependencies for some reason we
 # don't understand.
