@@ -26,6 +26,8 @@ Build-Depends: debhelper (>= 7), dpkg-dev, devscripts, autotools-dev,
   libfuse-dev, fuse-utils,
 # Debian OCaml
   dh-ocaml,
+# Erlang
+  erlang-dev,
 # to create images in the test suite
   db4.8-util
 Homepage: http://libguestfs.org
