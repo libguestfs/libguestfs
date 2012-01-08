@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.15.14\n"
+"Project-Id-Version: libguestfs 1.15.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-23 12:44+0000\n"
+"POT-Creation-Date: 2012-01-08 19:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1558
+#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1559
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2230,22 +2230,22 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:477
+#: fish/fish.c:478
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:485
+#: fish/fish.c:486
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr ""
 
-#: fish/fish.c:491
+#: fish/fish.c:492
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:644
+#: fish/fish.c:645
 #, c-format
 msgid ""
 "\n"
@@ -2258,50 +2258,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:795 fish/fish.c:811
+#: fish/fish.c:796 fish/fish.c:812
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:805
+#: fish/fish.c:806
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:835
+#: fish/fish.c:836
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:852
+#: fish/fish.c:853
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:927
+#: fish/fish.c:928
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:936
+#: fish/fish.c:937
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:1001
+#: fish/fish.c:1002
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:1148
+#: fish/fish.c:1149
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:1150
+#: fish/fish.c:1151
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:1161
+#: fish/fish.c:1162
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2309,19 +2309,19 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1169
+#: fish/fish.c:1170
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1174
+#: fish/fish.c:1175
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1190
+#: fish/fish.c:1191
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2329,31 +2329,31 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1199
+#: fish/fish.c:1200
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1355
+#: fish/fish.c:1356
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
 
-#: fish/fish.c:1552
+#: fish/fish.c:1553
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1572
+#: fish/fish.c:1573
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1591
+#: fish/fish.c:1592
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2385,7 +2385,7 @@ msgstr ""
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount-options'.\n"
+"'mount'.\n"
 msgstr ""
 
 #: fish/help.c:52
