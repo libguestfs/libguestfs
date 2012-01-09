@@ -255,6 +255,9 @@ let name_of_argt = function
   | StringList n | DeviceList n | Bool n | Int n | Int64 n
   | FileIn n | FileOut n | BufferIn n | Key n | Pointer (_, n) -> n
 
+let name_of_optargt = function
+  | OBool n | OInt n | OInt64 n | OString n -> n
+
 let seq_of_test = function
   | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
   | TestOutputListOfDevices (s, _)
@@ -345,3 +348,12 @@ let chars c n =
   str
 
 let spaces n = chars ' ' n
+
+let args_of_optargs optargs =
+  List.map (
+    function
+    | OBool n -> Bool n
+    | OInt n -> Int n
+    | OInt64 n -> Int64 n
+    | OString n -> String n
+  ) optargs;

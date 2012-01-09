@@ -31,11 +31,10 @@ open Generator_prepopts
 open Generator_c
 
 let doc_opttype_of = function
-  | Bool n -> "true|false"
-  | Int n
-  | Int64 n -> "N"
-  | String n -> ".."
-  | _ -> assert false
+  | OBool n -> "true|false"
+  | OInt n
+  | OInt64 n -> "N"
+  | OString n -> ".."
 
 (* Generate a lot of different functions for guestfish. *)
 let generate_fish_cmds () =
@@ -130,7 +129,7 @@ let generate_fish_cmds () =
                  (List.map (fun arg -> " " ^ name_of_argt arg) args))
               (String.concat ""
                  (List.map (fun arg ->
-                   sprintf " [%s:%s]" (name_of_argt arg) (doc_opttype_of arg)
+                   sprintf " [%s:%s]" (name_of_optargt arg) (doc_opttype_of arg)
                   ) optargs)) in
 
       let warnings =
@@ -456,15 +455,15 @@ Guestfish will prompt for these separately."
         pr "    ";
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             let len = String.length n in
             pr "if (STRPREFIX (argv[i], \"%s:\")) {\n" n;
             (match argt with
-             | Bool n ->
+             | OBool n ->
                  pr "      optargs_s.%s = is_true (&argv[i][%d]) ? 1 : 0;\n"
                    n (len+1);
-             | Int n ->
+             | OInt n ->
                  let range =
                    let min = "(-(2LL<<30))"
                    and max = "((2LL<<30)-1)"
@@ -474,13 +473,12 @@ Guestfish will prompt for these separately."
                  let expr = sprintf "&argv[i][%d]" (len+1) in
                  parse_integer expr "xstrtoll" "long long" "int" range
                    (sprintf "optargs_s.%s" n)
-             | Int64 n ->
+             | OInt64 n ->
                  let expr = sprintf "&argv[i][%d]" (len+1) in
                  parse_integer expr "xstrtoll" "long long" "int64_t" None
                    (sprintf "optargs_s.%s" n)
-             | String n ->
+             | OString n ->
                  pr "      optargs_s.%s = &argv[i][%d];\n" n (len+1);
-             | _ -> assert false
             );
             pr "      this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
             pr "      this_arg = \"%s\";\n" n;
@@ -850,9 +848,8 @@ and generate_fish_actions_pod () =
       ) args;
       List.iter (
         function
-        | (Bool n | Int n | Int64 n | String n) as arg ->
+        | (OBool n | OInt n | OInt64 n | OString n) as arg ->
           pr " [%s:%s]" n (doc_opttype_of arg)
-        | _ -> assert false
       ) optargs;
       pr "\n";
       pr "\n";

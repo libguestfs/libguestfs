@@ -820,29 +820,28 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
           fun (shift, bitmask) optarg ->
             let is_set =
               match optarg with
-              | Bool n, "" -> false
-              | Bool n, "true" ->
+              | OBool n, "" -> false
+              | OBool n, "true" ->
                   pr "    optargs.%s = 1;\n" n; true
-              | Bool n, "false" ->
+              | OBool n, "false" ->
                   pr "    optargs.%s = 0;\n" n; true
-              | Bool n, arg ->
+              | OBool n, arg ->
                   failwithf "boolean optional arg '%s' should be empty string or \"true\" or \"false\"" n
-              | Int n, "" -> false
-              | Int n, i ->
+              | OInt n, "" -> false
+              | OInt n, i ->
                   let i =
                     try int_of_string i
                     with Failure _ -> failwithf "integer optional arg '%s' should be empty string or number" n in
                   pr "    optargs.%s = %d;\n" n i; true
-              | Int64 n, "" -> false
-              | Int64 n, i ->
+              | OInt64 n, "" -> false
+              | OInt64 n, i ->
                   let i =
                     try Int64.of_string i
                     with Failure _ -> failwithf "int64 optional arg '%s' should be empty string or number" n in
                   pr "    optargs.%s = %Ld;\n" n i; true
-              | String n, "NOARG" -> false
-              | String n, arg ->
-                  pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true
-              | _ -> assert false in
+              | OString n, "NOARG" -> false
+              | OString n, arg ->
+                  pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true in
             let bit = if is_set then Int64.shift_left 1L shift else 0L in
             let bitmask = Int64.logor bitmask bit in
             let shift = shift + 1 in

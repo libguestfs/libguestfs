@@ -112,26 +112,19 @@ let () =
            check_arg_ret_name n
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) args;
-      List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) optargs;
+      List.iter (fun arg -> check_arg_ret_name (name_of_optargt arg)) optargs;
   ) all_functions;
 
-  (* Check only certain types allowed in optargs. *)
+  (* Maximum of 63 optargs permitted. *)
   List.iter (
     fun (name, (_, _, optargs), _, _, _, _, _) ->
-      if List.length optargs > 64 then
-        failwithf "maximum of 64 optional args allowed for %s" name;
-
-      List.iter (
-        function
-        | Bool _ | Int _ | Int64 _ | String _ -> ()
-        | _ ->
-            failwithf "optional args of %s can only have type Bool|Int|Int64|String" name
-      ) optargs
+      if List.length optargs > 63 then
+        failwithf "maximum of 63 optional args allowed for %s" name;
   ) all_functions;
 
   (* Some parameter types not supported for daemon functions. *)
   List.iter (
-    fun (name, (_, args, optargs), _, _, _, _, _) ->
+    fun (name, (_, args, _), _, _, _, _, _) ->
       let check_arg_type = function
         | Pointer _ ->
             failwithf "Pointer is not supported for daemon function %s."
@@ -139,7 +132,6 @@ let () =
         | _ -> ()
       in
       List.iter check_arg_type args;
-      List.iter check_arg_type optargs;
   ) daemon_functions;
 
   (* Check short descriptions. *)

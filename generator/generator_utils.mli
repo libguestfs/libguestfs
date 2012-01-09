@@ -96,6 +96,9 @@ val map_chars : (char -> 'a) -> string -> 'a list
 val name_of_argt : Generator_types.argt -> string
 (** Extract argument name. *)
 
+val name_of_optargt : Generator_types.optargt -> string
+(** Extract optional argument name. *)
+
 val seq_of_test : Generator_types.test -> Generator_types.seq
 (** Extract test sequence from a test. *)
 
@@ -125,3 +128,6 @@ val chars : char -> int -> string
 
 val spaces : int -> string
 (** [spaces n] creates a string of n spaces. *)
+
+val args_of_optargs : Generator_types.optargs -> Generator_types.args
+(** Convert a list of optargs into an equivalent list of args *)

@@ -467,20 +467,19 @@ ruby_user_cancel (VALUE gv)
         pr "  VALUE v;\n";
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "  v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"%s\")));\n" n;
             pr "  if (v != Qnil) {\n";
             (match argt with
-             | Bool n ->
+             | OBool n ->
                  pr "    optargs_s.%s = RTEST (v);\n" n;
-             | Int n ->
+             | OInt n ->
                  pr "    optargs_s.%s = NUM2INT (v);\n" n;
-             | Int64 n ->
+             | OInt64 n ->
                  pr "    optargs_s.%s = NUM2LL (v);\n" n;
-             | String _ ->
+             | OString _ ->
                  pr "    optargs_s.%s = StringValueCStr (v);\n" n
-             | _ -> assert false
             );
             pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
             pr "  }\n";

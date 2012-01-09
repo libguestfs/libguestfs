@@ -193,15 +193,14 @@ and generate_actions_pod () =
           pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
           List.iter (
             fun argt ->
-              let n = name_of_argt argt in
+              let n = name_of_optargt argt in
               let uc_n = String.uppercase n in
               pr " GUESTFS_%s_%s, " uc_shortname uc_n;
               match argt with
-              | Bool n -> pr "int %s,\n" n
-              | Int n -> pr "int %s,\n" n
-              | Int64 n -> pr "int64_t %s,\n" n
-              | String n -> pr "const char *%s,\n" n
-              | _ -> assert false
+              | OBool n -> pr "int %s,\n" n
+              | OInt n -> pr "int %s,\n" n
+              | OInt64 n -> pr "int64_t %s,\n" n
+              | OString n -> pr "const char *%s,\n" n
           ) optargs;
           pr "\n";
         );
@@ -254,7 +253,7 @@ I<The caller must free the returned buffer after use>.\n\n"
           pr "%s\n\n" progress_message;
         if List.mem ProtocolLimitWarning flags then
           pr "%s\n\n" protocol_limit_warning;
-        if List.exists (function Key _ -> true | _ -> false) (args@optargs) then
+        if List.exists (function Key _ -> true | _ -> false) args then
           pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
@@ -564,7 +563,7 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
         iteri (
           fun i argt ->
             let uc_shortname = String.uppercase shortname in
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "#define GUESTFS_%s_%s %d\n" uc_shortname uc_n i;
         ) optargs;
@@ -589,13 +588,12 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
           fun i argt ->
             let c_type =
               match argt with
-              | Bool n -> "int "
-              | Int n -> "int "
-              | Int64 n -> "int64_t "
-              | String n -> "const char *"
-              | _ -> assert false (* checked in generator_checks *) in
+              | OBool n -> "int "
+              | OInt n -> "int "
+              | OInt64 n -> "int64_t "
+              | OString n -> "const char *" in
             let uc_shortname = String.uppercase shortname in
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "\n";
             pr "# define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n" uc_shortname uc_n i;
@@ -811,7 +809,7 @@ trace_send_line (guestfs_h *g)
     (* For optional arguments. *)
     List.iter (
       function
-      | String n ->
+      | OString n ->
           pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK) &&\n"
             (String.uppercase shortname) (String.uppercase n);
           pr "      optargs->%s == NULL) {\n" n;
@@ -826,9 +824,7 @@ trace_send_line (guestfs_h *g)
           pr_newline := true
 
       (* not applicable *)
-      | Bool _ | Int _ | Int64 _ -> ()
-
-      | _ -> assert false
+      | OBool _ | OInt _ | OInt64 _ -> ()
     ) optargs;
 
     if !pr_newline then pr "\n";
@@ -911,21 +907,20 @@ trace_send_line (guestfs_h *g)
     (* Optional arguments. *)
     List.iter (
       fun argt ->
-        let n = name_of_argt argt in
+        let n = name_of_optargt argt in
         let uc_shortname = String.uppercase shortname in
         let uc_n = String.uppercase n in
         pr "    if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
           uc_shortname uc_n;
         (match argt with
-         | String n ->
+         | OString n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s);\n" n n
-         | Bool n ->
+         | OBool n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s ? \"true\" : \"false\");\n" n n
-         | Int n ->
+         | OInt n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%d\\\"\", \"%s\", optargs->%s);\n" n n
-         | Int64 n ->
+         | OInt64 n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%\" PRIi64 \"\\\"\", \"%s\", optargs->%s);\n" n n
-         | _ -> assert false
         );
     ) optargs;
 
@@ -1189,23 +1184,22 @@ trace_send_line (guestfs_h *g)
 
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_shortname = String.uppercase shortname in
             let uc_n = String.uppercase n in
             pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK))\n"
               uc_shortname uc_n;
             (match argt with
-             | Bool n
-             | Int n
-             | Int64 n ->
+             | OBool n
+             | OInt n
+             | OInt64 n ->
                  pr "    args.%s = optargs->%s;\n" n n;
                  pr "  else\n";
                  pr "    args.%s = 0;\n" n
-             | String n ->
+             | OString n ->
                  pr "    args.%s = (char *) optargs->%s;\n" n n;
                  pr "  else\n";
                  pr "    args.%s = (char *) \"\";\n" n
-             | _ -> assert false
             )
         ) optargs;
 
@@ -1432,15 +1426,14 @@ trace_send_line (guestfs_h *g)
 
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "    case GUESTFS_%s_%s:\n" uc_shortname uc_n;
             pr "      optargs_s.%s = va_arg (args, " n;
             (match argt with
-             | Bool _ | Int _ -> pr "int"
-             | Int64 _ -> pr "int64_t"
-             | String _ -> pr "const char *"
-             | _ -> assert false
+             | OBool _ | OInt _ -> pr "int"
+             | OInt64 _ -> pr "int64_t"
+             | OString _ -> pr "const char *"
             );
             pr ");\n";
             pr "      break;\n";

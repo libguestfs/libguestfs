@@ -216,12 +216,11 @@ PHP_FUNCTION (guestfs_last_error)
          *)
         List.iter (
           function
-          | Bool n -> pr "  zend_bool optargs_t_%s = -1;\n" n
-          | Int n | Int64 n -> pr "  long optargs_t_%s = -1;\n" n
-          | String n ->
+          | OBool n -> pr "  zend_bool optargs_t_%s = -1;\n" n
+          | OInt n | OInt64 n -> pr "  long optargs_t_%s = -1;\n" n
+          | OString n ->
               pr "  char *optargs_t_%s = NULL;\n" n;
               pr "  int optargs_t_%s_size = -1;\n" n
-          | _ -> assert false
         ) optargs
       );
 
@@ -246,10 +245,9 @@ PHP_FUNCTION (guestfs_last_error)
             String.concat "" (
               List.map (
                 function
-                | Bool _ -> "b"
-                | Int _ | Int64 _ -> "l"
-                | String _ -> "s"
-                | _ -> assert false
+                | OBool _ -> "b"
+                | OInt _ | OInt64 _ -> "l"
+                | OString _ -> "s"
               ) optargs
             )
         else param_string in
@@ -272,11 +270,10 @@ PHP_FUNCTION (guestfs_last_error)
       ) args;
       List.iter (
         function
-        | Bool n | Int n | Int64 n ->
+        | OBool n | OInt n | OInt64 n ->
             pr ", &optargs_t_%s" n
-        | String n ->
+        | OString n ->
             pr ", &optargs_t_%s, &optargs_t_%s_size" n n
-        | _ -> assert false
       ) optargs;
       pr ") == FAILURE) {\n";
       pr "    RETURN_FALSE;\n";
@@ -338,14 +335,13 @@ PHP_FUNCTION (guestfs_last_error)
         let uc_shortname = String.uppercase shortname in
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "  if (optargs_t_%s != " n;
             (match argt with
-             | Bool _ -> pr "((zend_bool)-1)"
-             | Int _ | Int64 _ -> pr "-1"
-             | String _ -> pr "NULL"
-             | _ -> assert false
+             | OBool _ -> pr "((zend_bool)-1)"
+             | OInt _ | OInt64 _ -> pr "-1"
+             | OString _ -> pr "NULL"
             );
             pr ") {\n";
             pr "    optargs_s.%s = optargs_t_%s;\n" n n;

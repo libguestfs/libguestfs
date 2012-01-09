@@ -147,11 +147,10 @@ public class GuestFS {
           fun i argt ->
             let t, boxed_t, convert, n, default =
               match argt with
-              | Bool n -> "boolean", "Boolean", ".booleanValue()", n, "false"
-              | Int n -> "int", "Integer", ".intValue()", n, "0"
-              | Int64 n -> "long", "Long", ".longValue()", n, "0"
-              | String n -> "String", "String", "", n, "\"\""
-              | _ -> assert false in
+              | OBool n -> "boolean", "Boolean", ".booleanValue()", n, "false"
+              | OInt n -> "int", "Integer", ".intValue()", n, "0"
+              | OInt64 n -> "long", "Long", ".longValue()", n, "0"
+              | OString n -> "String", "String", "", n, "\"\"" in
             pr "    %s %s = %s;\n" t n default;
             pr "    _optobj = null;\n";
             pr "    if (optargs != null)\n";
@@ -199,7 +198,7 @@ and generate_java_call_args ~handle (_, args, optargs) =
   List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
   if optargs <> [] then (
     pr ", _optargs_bitmask";
-    List.iter (fun arg -> pr ", %s" (name_of_argt arg)) optargs
+    List.iter (fun arg -> pr ", %s" (name_of_optargt arg)) optargs
   );
   pr ")"
 
@@ -277,11 +276,10 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
       List.iter (
         fun argt ->
           match argt with
-          | Bool n -> pr ", boolean %s" n
-          | Int n -> pr ", int %s" n
-          | Int64 n -> pr ", long %s" n
-          | String n -> pr ", String %s" n
-          | _ -> assert false
+          | OBool n -> pr ", boolean %s" n
+          | OInt n -> pr ", int %s" n
+          | OInt64 n -> pr ", long %s" n
+          | OString n -> pr ", String %s" n
       ) optargs
     )
   );
@@ -412,11 +410,10 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         pr ", jlong joptargs_bitmask";
         List.iter (
           function
-          | Bool n -> pr ", jboolean j%s" n
-          | Int n -> pr ", jint j%s" n
-          | Int64 n -> pr ", jlong j%s" n
-          | String n -> pr ", jstring j%s" n
-          | _ -> assert false
+          | OBool n -> pr ", jboolean j%s" n
+          | OInt n -> pr ", jint j%s" n
+          | OInt64 n -> pr ", jlong j%s" n
+          | OString n -> pr ", jstring j%s" n
         ) optargs
       );
       pr ")\n";
@@ -540,14 +537,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         pr "  optargs_s.bitmask = joptargs_bitmask;\n";
         List.iter (
           function
-          | Bool n
-          | Int n
-          | Int64 n ->
+          | OBool n | OInt n | OInt64 n ->
               pr "  optargs_s.%s = j%s;\n" n n
-          | String n ->
+          | OString n ->
               pr "  optargs_s.%s = (*env)->GetStringUTFChars (env, j%s, NULL);\n"
                 n n
-          | _ -> assert false
         ) optargs;
       );
 
@@ -593,12 +587,9 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       List.iter (
         function
-        | Bool n
-        | Int n
-        | Int64 n -> ()
-        | String n ->
+        | OBool n | OInt n | OInt64 n -> ()
+        | OString n ->
             pr "  (*env)->ReleaseStringUTFChars (env, j%s, optargs_s.%s);\n" n n
-        | _ -> assert false
       ) optargs;
 
       pr "\n";

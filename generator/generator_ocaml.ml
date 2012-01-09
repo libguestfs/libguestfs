@@ -424,7 +424,8 @@ copy_table (char * const * argv)
 
       let params =
         "gv" ::
-          List.map (fun arg -> name_of_argt arg ^ "v") (optargs @ args) in
+          List.map (fun arg -> name_of_argt arg ^ "v")
+            (args_of_optargs optargs @ args) in
 
       let needs_extra_vs =
         match ret with RConstOptString _ -> true | _ -> false in
@@ -507,18 +508,17 @@ copy_table (char * const * argv)
         let uc_name = String.uppercase name in
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "  if (%sv != Val_int (0)) {\n" n;
             pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
             pr "    optargs_s.%s = " n;
             (match argt with
-             | Bool _ -> pr "Bool_val (Field (%sv, 0))" n
-             | Int _ -> pr "Int_val (Field (%sv, 0))" n
-             | Int64 _ -> pr "Int64_val (Field (%sv, 0))" n
-             | String _ ->
+             | OBool _ -> pr "Bool_val (Field (%sv, 0))" n
+             | OInt _ -> pr "Int_val (Field (%sv, 0))" n
+             | OInt64 _ -> pr "Int64_val (Field (%sv, 0))" n
+             | OString _ ->
                  pr "guestfs_safe_strdup (g, String_val (Field (%sv, 0)))" n
-             | _ -> assert false
             );
             pr ";\n";
             pr "  }\n";
@@ -570,13 +570,10 @@ copy_table (char * const * argv)
       ) args;
       List.iter (
         function
-        | String n ->
+        | OBool _ | OInt _ | OInt64 _ -> ()
+        | OString n ->
             pr "  if (%sv != Val_int (0))\n" n;
             pr "    free ((char *) optargs_s.%s);\n" n
-        | Bool _ | Int _ | Int64 _
-        | Pathname _ | Device _ | Dev_or_Path _ | OptString _
-        | FileIn _ | FileOut _ | BufferIn _ | Key _
-        | StringList _ | DeviceList _ | Pointer _ -> ()
       ) optargs;
 
       (match errcode_of_ret ret with
@@ -682,11 +679,10 @@ and generate_ocaml_prototype ?(is_external = false) name style =
 and generate_ocaml_function_type (ret, args, optargs) =
   List.iter (
     function
-    | Bool n -> pr "?%s:bool -> " n
-    | Int n -> pr "?%s:int -> " n
-    | Int64 n -> pr "?%s:int64 -> " n
-    | String n -> pr "?%s:string -> " n
-    | _ -> assert false
+    | OBool n -> pr "?%s:bool -> " n
+    | OInt n -> pr "?%s:int -> " n
+    | OInt64 n -> pr "?%s:int64 -> " n
+    | OString n -> pr "?%s:string -> " n
   ) optargs;
   List.iter (
     function

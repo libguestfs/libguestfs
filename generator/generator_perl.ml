@@ -412,16 +412,15 @@ user_cancel (g)
         pr "        ";
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "if (strcmp (this_arg, \"%s\") == 0) {\n" n;
             pr "          optargs_s.%s = " n;
             (match argt with
-             | Bool _
-             | Int _
-             | Int64 _ -> pr "SvIV (ST (items_i+1))"
-             | String _ -> pr "SvPV_nolen (ST (items_i+1))"
-             | _ -> assert false
+             | OBool _
+             | OInt _
+             | OInt64 _ -> pr "SvIV (ST (items_i+1))"
+             | OString _ -> pr "SvPV_nolen (ST (items_i+1))"
             );
             pr ";\n";
             pr "          this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
@@ -865,7 +864,7 @@ handlers and threads.
           pr "      %s => " (name_of_argt arg);
           pr_type i arg;
           pr ",\n"
-        ) optargs;
+        ) (args_of_optargs optargs);
         pr "    },\n";
       );
       pr "    name => \"%s\",\n" name;
@@ -1007,7 +1006,7 @@ and generate_perl_prototype name (ret, args, optargs) =
     fun arg ->
       if !comma then pr " [, " else pr "[";
       comma := true;
-      let n = name_of_argt arg in
+      let n = name_of_optargt arg in
       pr "%s => $%s]" n n
   ) optargs;
   pr ");"

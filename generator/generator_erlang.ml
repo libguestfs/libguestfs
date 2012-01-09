@@ -284,17 +284,16 @@ extern void free_strings (char **r);
         pr "\n";
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "    if (atom_equals (hd_name, \"%s\")) {\n" n;
             pr "      optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
             pr "      optargs_s.%s = " n;
             (match argt with
-             | Bool _ -> pr "get_bool (hd_value)"
-             | Int _ -> pr "ERL_INT_VALUE (hd_value)"
-             | Int64 _ -> pr "ERL_LL_VALUE (hd_value)"
-             | String _ -> pr "erl_iolist_to_string (hd_value)"
-             | _ -> assert false
+             | OBool _ -> pr "get_bool (hd_value)"
+             | OInt _ -> pr "ERL_INT_VALUE (hd_value)"
+             | OInt64 _ -> pr "ERL_LL_VALUE (hd_value)"
+             | OString _ -> pr "erl_iolist_to_string (hd_value)"
             );
             pr ";\n";
             pr "    }\n";
@@ -349,15 +348,12 @@ extern void free_strings (char **r);
       ) args;
       List.iter (
         function
-        | String n ->
+        | OBool _ | OInt _ | OInt64 _ -> ()
+        | OString n ->
             let uc_n = String.uppercase n in
             pr "  if ((optargs_s.bitmask & GUESTFS_%s_%s_BITMASK))\n"
               uc_name uc_n;
             pr "    free ((char *) optargs_s.%s);\n" n
-        | Bool _ | Int _ | Int64 _
-        | Pathname _ | Device _ | Dev_or_Path _ | OptString _
-        | FileIn _ | FileOut _ | BufferIn _ | Key _
-        | StringList _ | DeviceList _ | Pointer _ -> ()
       ) optargs;
 
       (match errcode_of_ret ret with

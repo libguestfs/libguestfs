@@ -306,11 +306,10 @@ free_strings (char **argv)
          *)
         List.iter (
           function
-          | Bool n
-          | Int n -> pr "  int optargs_t_%s = -1;\n" n
-          | Int64 n -> pr "  long long optargs_t_%s = -1;\n" n
-          | String n -> pr "  const char *optargs_t_%s = NULL;\n" n
-          | _ -> assert false
+          | OBool n
+          | OInt n -> pr "  int optargs_t_%s = -1;\n" n
+          | OInt64 n -> pr "  long long optargs_t_%s = -1;\n" n
+          | OString n -> pr "  const char *optargs_t_%s = NULL;\n" n
         ) optargs
       );
 
@@ -343,10 +342,9 @@ free_strings (char **argv)
       if optargs <> [] then (
         List.iter (
           function
-          | Bool _ | Int _ -> pr "i"
-          | Int64 _ -> pr "L"
-          | String _ -> pr "z" (* because we use None to mean not set *)
-          | _ -> assert false
+          | OBool _ | OInt _ -> pr "i"
+          | OInt64 _ -> pr "L"
+          | OString _ -> pr "z" (* because we use None to mean not set *)
         ) optargs;
       );
 
@@ -367,8 +365,7 @@ free_strings (char **argv)
 
       List.iter (
         function
-        | Bool n | Int n | Int64 n | String n -> pr ", &optargs_t_%s" n
-        | _ -> assert false
+        | OBool n | OInt n | OInt64 n | OString n -> pr ", &optargs_t_%s" n
       ) optargs;
 
       pr "))\n";
@@ -393,13 +390,12 @@ free_strings (char **argv)
         let uc_name = String.uppercase name in
         List.iter (
           fun argt ->
-            let n = name_of_argt argt in
+            let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "  if (optargs_t_%s != " n;
             (match argt with
-             | Bool _ | Int _ | Int64 _ -> pr "-1"
-             | String _ -> pr "NULL"
-             | _ -> assert false
+             | OBool _ | OInt _ | OInt64 _ -> pr "-1"
+             | OString _ -> pr "NULL"
             );
             pr ") {\n";
             pr "    optargs_s.%s = optargs_t_%s;\n" n n;
@@ -706,9 +702,8 @@ class GuestFS:
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
       List.iter (
         function
-        | Bool n | Int n | Int64 n -> pr ", %s=-1" n
-        | String n -> pr ", %s=None" n
-        | _ -> assert false
+        | OBool n | OInt n | OInt64 n -> pr ", %s=-1" n
+        | OString n -> pr ", %s=None" n
       ) optargs;
       pr "):\n";
 
@@ -754,6 +749,7 @@ class GuestFS:
       ) args;
       pr "        self._check_not_closed ()\n";
       pr "        return libguestfsmod.%s (self._o" name;
-      List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (args@optargs);
+      List.iter (fun arg -> pr ", %s" (name_of_argt arg))
+        (args @ args_of_optargs optargs);
       pr ")\n\n";
   ) all_functions
