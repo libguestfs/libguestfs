@@ -42,7 +42,7 @@ let generate_daemon_actions_h () =
         iteri (
           fun i arg ->
             let uc_shortname = String.uppercase shortname in
-            let n = name_of_argt arg in
+            let n = name_of_optargt arg in
             let uc_n = String.uppercase n in
             pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n"
               uc_shortname uc_n i
@@ -52,7 +52,7 @@ let generate_daemon_actions_h () =
 
   List.iter (
     fun (name, (ret, args, optargs), _, _, _, _, _) ->
-      let style = ret, args @ optargs, [] in
+      let style = ret, args @ args_of_optargs optargs, [] in
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
         name style;
@@ -115,7 +115,7 @@ and generate_daemon_actions () =
               pr "  const char *%s;\n" n;
               pr "  size_t %s_size;\n" n
           | Pointer _ -> assert false
-        ) (args @ optargs)
+        ) (args @ args_of_optargs optargs)
       );
       pr "\n";
 
@@ -208,7 +208,7 @@ and generate_daemon_actions () =
               pr "  %s = args.%s.%s_val;\n" n n n;
               pr "  %s_size = args.%s.%s_len;\n" n n n
           | Pointer _ -> assert false
-        ) (args @ optargs);
+        ) (args @ args_of_optargs optargs);
         pr "\n"
       );
 
@@ -227,7 +227,7 @@ and generate_daemon_actions () =
         let args' =
           List.filter
             (function FileIn _ | FileOut _ -> false | _ -> true) args in
-        let style = ret, args' @ optargs, [] in
+        let style = ret, args' @ args_of_optargs optargs, [] in
         pr "  r = do_%s " name;
         generate_c_call_args style;
         pr ";\n" in

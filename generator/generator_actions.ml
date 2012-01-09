@@ -1011,7 +1011,7 @@ be mountable but require special options.  Filesystems may
 not all belong to a single logical operating system
 (use C<guestfs_inspect_os> to look for OSes).");
 
-  ("add_drive_opts", (RErr, [String "filename"], [Bool "readonly"; String "format"; String "iface"; String "name"]), -1, [FishAlias "add"],
+  ("add_drive_opts", (RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"]), -1, [FishAlias "add"],
    [],
    "add an image to examine or modify",
    "\
@@ -1101,7 +1101,7 @@ not part of the formal API and can be removed or changed at any time.");
 This returns the internal list of drives.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
-  ("add_domain", (RInt "nrdisks", [String "dom"], [String "libvirturi"; Bool "readonly"; String "iface"; Bool "live"; Bool "allowuuid"; String "readonlydisk"]), -1, [FishAlias "domain"],
+  ("add_domain", (RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"]), -1, [FishAlias "domain"],
    [],
    "add the disk(s) from a named libvirt domain",
    "\
@@ -1545,7 +1545,7 @@ Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>,
 C<guestfs_inspect_get_filesystems>.");
 
-  ("inspect_get_icon", (RBufferOut "icon", [Device "root"],  [Bool "favicon"; Bool "highquality"]), -1, [],
+  ("inspect_get_icon", (RBufferOut "icon", [Device "root"],  [OBool "favicon"; OBool "highquality"]), -1, [],
    [],
    "get the icon corresponding to this operating system",
    "\
@@ -6029,7 +6029,7 @@ not refer to a logical volume.
 
 See also C<guestfs_is_lv>.");
 
-  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [Int "blocksize"; String "features"; Int "inode"; Int "sectorsize"]), 278, [],
+  ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [OInt "blocksize"; OString "features"; OInt "inode"; OInt "sectorsize"]), 278, [],
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs_opts"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
@@ -6172,7 +6172,7 @@ Note that for large devices this can take a long time to run.");
 List all 9p filesystems attached to the guest.  A list of
 mount tags is returned.");
 
-  ("mount_9p", (RErr, [String "mounttag"; String "mountpoint"], [String "options"]), 286, [],
+  ("mount_9p", (RErr, [String "mounttag"; String "mountpoint"], [OString "options"]), 286, [],
    [],
    "mount 9p filesystem",
    "\
@@ -6196,7 +6196,7 @@ Device mapper devices which correspond to logical volumes are I<not>
 returned in this list.  Call C<guestfs_lvs> if you want to list logical
 volumes.");
 
-  ("ntfsresize_opts", (RErr, [Device "device"], [Int64 "size"; Bool "force"]), 288, [Optional "ntfsprogs"],
+  ("ntfsresize_opts", (RErr, [Device "device"], [OInt64 "size"; OBool "force"]), 288, [Optional "ntfsprogs"],
    [],
    "resize an NTFS filesystem",
    "\
@@ -6228,7 +6228,7 @@ single filesystem without booting into Windows between each resize.
 
 See also L<ntfsresize(8)>.");
 
-  ("btrfs_filesystem_resize", (RErr, [Pathname "mountpoint"], [Int64 "size"]), 289, [Optional "btrfs"],
+  ("btrfs_filesystem_resize", (RErr, [Pathname "mountpoint"], [OInt64 "size"]), 289, [Optional "btrfs"],
    [],
    "resize a btrfs filesystem",
    "\
@@ -6265,7 +6265,7 @@ C<path> does not exist, then a new file is created.
 
 See also C<guestfs_write>.");
 
-  ("compress_out", (RErr, [String "ctype"; Pathname "file"; FileOut "zfile"], [Int "level"]), 291, [],
+  ("compress_out", (RErr, [String "ctype"; Pathname "file"; FileOut "zfile"], [OInt "level"]), 291, [],
    [],
    "output compressed file",
    "\
@@ -6282,7 +6282,7 @@ The optional C<level> parameter controls compression level.  The
 meaning and default for this parameter depends on the compression
 program being used.");
 
-  ("compress_device_out", (RErr, [String "ctype"; Device "device"; FileOut "zdevice"], [Int "level"]), 292, [],
+  ("compress_device_out", (RErr, [String "ctype"; Device "device"; FileOut "zdevice"], [OInt "level"]), 292, [],
    [],
    "output compressed device",
    "\
@@ -6307,7 +6307,7 @@ from C<guestfs_list_partitions>.
 
 See also C<guestfs_part_to_dev>.");
 
-  ("copy_device_to_device", (RErr, [Device "src"; Device "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 294, [Progress],
+  ("copy_device_to_device", (RErr, [Device "src"; Device "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"]), 294, [Progress],
    [],
    "copy from source device to destination device",
    "\
@@ -6330,21 +6330,21 @@ overlapping regions may not be copied correctly.
 If the destination is a file, it is created if required.  If
 the destination file is not large enough, it is extended.");
 
-  ("copy_device_to_file", (RErr, [Device "src"; Pathname "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 295, [Progress],
+  ("copy_device_to_file", (RErr, [Device "src"; Pathname "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"]), 295, [Progress],
    [],
    "copy from source device to destination file",
    "\
 See C<guestfs_copy_device_to_device> for a general overview
 of this call.");
 
-  ("copy_file_to_device", (RErr, [Pathname "src"; Device "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 296, [Progress],
+  ("copy_file_to_device", (RErr, [Pathname "src"; Device "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"]), 296, [Progress],
    [],
    "copy from source file to destination device",
    "\
 See C<guestfs_copy_device_to_device> for a general overview
 of this call.");
 
-  ("copy_file_to_file", (RErr, [Pathname "src"; Pathname "dest"], [Int64 "srcoffset"; Int64 "destoffset"; Int64 "size"]), 297, [Progress],
+  ("copy_file_to_file", (RErr, [Pathname "src"; Pathname "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"]), 297, [Progress],
    [InitScratchFS, Always, TestOutputBuffer (
       [["mkdir"; "/copyff"];
        ["write"; "/copyff/src"; "hello, world"];
@@ -6360,7 +6360,7 @@ is for copying blocks within existing files.  See C<guestfs_cp>,
 C<guestfs_cp_a> and C<guestfs_mv> for general file copying and
 moving functions.");
 
-  ("tune2fs", (RErr, [Device "device"], [Bool "force"; Int "maxmountcount"; Int "mountcount"; String "errorbehavior"; Int64 "group"; Int "intervalbetweenchecks"; Int "reservedblockspercentage"; String "lastmounteddirectory"; Int64 "reservedblockscount"; Int64 "user"]), 298, [],
+  ("tune2fs", (RErr, [Device "device"], [OBool "force"; OInt "maxmountcount"; OInt "mountcount"; OString "errorbehavior"; OInt64 "group"; OInt "intervalbetweenchecks"; OInt "reservedblockspercentage"; OString "lastmounteddirectory"; OInt64 "reservedblockscount"; OInt64 "user"]), 298, [],
    [InitScratchFS, Always, TestOutputHashtable (
      [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "0"; ""; "NOARG"; ""; ""];
       ["tune2fs_l"; "/dev/sdb1"]],
@@ -6457,7 +6457,7 @@ To get the current values of filesystem parameters, see
 C<guestfs_tune2fs_l>.  For precise details of how tune2fs
 works, see the L<tune2fs(8)> man page.");
 
-  ("md_create", (RErr, [String "name"; DeviceList "devices"], [Int64 "missingbitmap"; Int "nrdevices"; Int "spare"; Int64 "chunk"; String "level"]), 299, [Optional "mdadm"],
+  ("md_create", (RErr, [String "name"; DeviceList "devices"], [OInt64 "missingbitmap"; OInt "nrdevices"; OInt "spare"; OInt64 "chunk"; OString "level"]), 299, [Optional "mdadm"],
    [],
    "create a Linux md (RAID) device",
    "\

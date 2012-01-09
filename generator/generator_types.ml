@@ -20,7 +20,7 @@
 
 (* Types used to describe the API. *)
 
-type style = ret * args * args
+type style = ret * args * optargs
     (* The [style] is a tuple which describes the return value and
      * arguments of a function.
      * 
@@ -202,6 +202,14 @@ and argt =
      * tests, although we should fix this in future.
      *)
   | Pointer of (string * string)
+
+and optargs = optargt list
+
+and optargt =
+  | OBool of string	(* boolean *)
+  | OInt of string	(* int (smallish ints, signed, <= 31 bits) *)
+  | OInt64 of string	(* any 64 bit int *)
+  | OString of string	(* const char *name, cannot be NULL *)
 
 type errcode = [ `CannotReturnError | `ErrorIsMinusOne | `ErrorIsNULL ]
 

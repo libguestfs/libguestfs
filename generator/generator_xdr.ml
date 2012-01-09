@@ -72,7 +72,7 @@ let generate_xdr () =
        * in the header controls which optional arguments are
        * meaningful.
        *)
-      (match args @ optargs with
+      (match args @ args_of_optargs optargs with
        | [] -> ()
        | args ->
            pr "struct %s_args {\n" name;
