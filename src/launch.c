@@ -304,18 +304,12 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   if (format && !valid_format_iface (format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "format");
-    free (format);
-    free (iface);
-    free (name);
-    return -1;
+    goto err_out;
   }
   if (!valid_format_iface (iface)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "iface");
-    free (format);
-    free (iface);
-    free (name);
-    return -1;
+    goto err_out;
   }
 
   /* For writable files, see if we can use cache=off.  This also
@@ -323,20 +317,13 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
    * to do the check explicitly.
    */
   use_cache_off = readonly ? 0 : test_cache_off (g, filename);
-  if (use_cache_off == -1) {
-    free (format);
-    free (iface);
-    free (name);
-    return -1;
-  }
+  if (use_cache_off == -1)
+    goto err_out;
 
   if (readonly) {
     if (access (filename, R_OK) == -1) {
       perrorf (g, "%s", filename);
-      free (format);
-      free (iface);
-      free (name);
-      return -1;
+      goto err_out;
     }
   }
 
@@ -353,6 +340,12 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   (*i)->use_cache_off = use_cache_off;
 
   return 0;
+
+err_out:
+  free (format);
+  free (iface);
+  free (name);
+  return -1;
 }
 
 int
