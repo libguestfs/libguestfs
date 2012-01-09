@@ -193,10 +193,8 @@ let structs = [
   ];
 ] (* end of structs *)
 
-(* Ugh, Java has to be different ..
- * These names are also used by the Haskell bindings.
- *)
-let java_structs = [
+(* For bindings which want camel case *)
+let camel_structs = [
   "int_bool", "IntBool";
   "lvm_pv", "PV";
   "lvm_vg", "VG";
@@ -211,11 +209,11 @@ let java_structs = [
   "application", "Application";
 ]
 
-let java_name_of_struct typ =
-  try List.assoc typ java_structs
+let camel_name_of_struct typ =
+  try List.assoc typ camel_structs
   with Not_found ->
     failwithf
-      "java_name_of_struct: no java_structs entry corresponding to %s" typ
+      "camel_name_of_struct: no camel_structs entry corresponding to %s" typ
 
 let cols_of_struct typ =
   try List.assoc typ structs
