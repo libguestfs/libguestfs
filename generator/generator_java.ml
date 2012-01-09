@@ -219,10 +219,10 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RBufferOut _ -> pr "String ";
    | RStringList _ -> pr "String[] ";
    | RStruct (_, typ) ->
-       let name = java_name_of_struct typ in
+       let name = camel_name_of_struct typ in
        pr "%s " name;
    | RStructList (_, typ) ->
-       let name = java_name_of_struct typ in
+       let name = camel_name_of_struct typ in
        pr "%s[] " name;
    | RHashtable _ ->
        if not native then
@@ -657,11 +657,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
            pr "  free (r);\n";
            pr "  return jr;\n"
        | RStruct (_, typ) ->
-           let jtyp = java_name_of_struct typ in
+           let jtyp = camel_name_of_struct typ in
            let cols = cols_of_struct typ in
            generate_java_struct_return typ jtyp cols
        | RStructList (_, typ) ->
-           let jtyp = java_name_of_struct typ in
+           let jtyp = camel_name_of_struct typ in
            let cols = cols_of_struct typ in
            generate_java_struct_list_return typ jtyp cols
        | RBufferOut _ ->
@@ -767,5 +767,5 @@ and generate_java_makefile_inc () =
   List.iter (
     fun (typ, jtyp) ->
         pr "\tcom/redhat/et/libguestfs/%s.java \\\n" jtyp;
-  ) java_structs;
+  ) camel_structs;
   pr "\tcom/redhat/et/libguestfs/GuestFS.java\n"

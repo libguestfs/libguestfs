@@ -239,10 +239,10 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
    | RString _ -> pr "%s" string
    | RStringList _ -> pr "[%s]" string
    | RStruct (_, typ) ->
-       let name = java_name_of_struct typ in
+       let name = camel_name_of_struct typ in
        pr "%s" name
    | RStructList (_, typ) ->
-       let name = java_name_of_struct typ in
+       let name = camel_name_of_struct typ in
        pr "[%s]" name
    | RHashtable _ -> pr "Hashtable"
    | RBufferOut _ -> pr "%s" string

@@ -123,7 +123,7 @@ Run it from the top source directory using the command
       let cols = cols_of_struct typ in
       let filename = sprintf "java/com/redhat/et/libguestfs/%s.java" jtyp in
       output_to filename (generate_java_struct jtyp cols);
-  ) java_structs;
+  ) camel_structs;
 
   output_to "java/Makefile.inc" generate_java_makefile_inc;
   output_to "java/com_redhat_et_libguestfs_GuestFS.c" generate_java_c;

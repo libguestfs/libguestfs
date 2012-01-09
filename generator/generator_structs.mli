@@ -26,8 +26,8 @@ type cols = (string * Generator_types.field) list
 val structs : (string * cols) list
 (** List of structures. *)
 
-val java_structs : (string * string) list
-(** Of course, Java has to be different from everyone else. *)
+val camel_structs : (string * string) list
+(** For bindings which want camel case struct names *)
 
 val lvm_pv_cols : cols
 val lvm_vg_cols : cols
@@ -36,8 +36,8 @@ val lvm_lv_cols : cols
     used to generate code for parsing the output of commands like
     [lvs].  One day replace this with liblvm API calls. *)
 
-val java_name_of_struct : string -> string
-(** Extract Java name of struct. *)
+val camel_name_of_struct : string -> string
+(** Camel case name of struct. *)
 
 val cols_of_struct : string -> cols
 (** Extract columns of a struct. *)
