@@ -285,6 +285,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   char *format;
   char *iface;
   char *name;
+  char *abs_path = NULL;
   int use_cache_off;
 
   if (strchr (filename, ',') != NULL) {
@@ -327,24 +328,33 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     }
   }
 
+  abs_path = realpath (filename, NULL);
   struct drive **i = &(g->drives);
-  while (*i != NULL) i = &((*i)->next);
+  while (*i != NULL) {
+    if (STREQ((*i)->path, abs_path)) {
+      error (g, _("drive %s can't be added twice"), abs_path);
+      goto err_out;
+    }
+    i = &((*i)->next);
+  }
 
   *i = safe_malloc (g, sizeof (struct drive));
   (*i)->next = NULL;
-  (*i)->path = safe_strdup (g, filename);
+  (*i)->path = safe_strdup (g, abs_path);
   (*i)->readonly = readonly;
   (*i)->format = format;
   (*i)->iface = iface;
   (*i)->name = name;
   (*i)->use_cache_off = use_cache_off;
 
+  free (abs_path);
   return 0;
 
 err_out:
   free (format);
   free (iface);
   free (name);
+  free (abs_path);
   return -1;
 }
 
