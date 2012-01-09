@@ -198,7 +198,13 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
 static char *
 debug_segv (const char *subcmd, int argc, char *const *const argv)
 {
-  *(int*)0 = 0;
+  /* http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html
+   * "Dereferencing a NULL Pointer: contrary to popular belief,
+   * dereferencing a null pointer in C is undefined. It is not defined
+   * to trap [...]"
+   */
+  volatile int *ptr = NULL;
+  *ptr = 1;
   return NULL;
 }
 
