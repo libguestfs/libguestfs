@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-08 19:11+0000\n"
+"POT-Creation-Date: 2012-01-10 17:49+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3372,45 +3372,50 @@ msgstr "guestfs_config: parameter must begin with '-' character"
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' isn't allowed"
 
-#: src/launch.c:291 src/launch.c:409
+#: src/launch.c:284
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ਫਾਇਲ-ਨਾਂ ਵਿੱਚ ',' (comma) ਅੱਖਰ ਸ਼ਾਮਿਲ ਨਹੀਂ ਹੈ"
 
-#: src/launch.c:305 src/launch.c:313
+#: src/launch.c:315 src/launch.c:320
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s ਪੈਰਾਮੀਟਰ ਖਾਲੀ ਹੈ ਜਾਂ ਇਸ ਵਿੱਚ ਨਾ-ਮਨਜੂਰ ਅੱਖਰ ਹਨ"
 
-#: src/launch.c:428
+#: src/launch.c:350
+#, c-format
+msgid "drive %s can't be added twice"
+msgstr ""
+
+#: src/launch.c:444
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs ਹੈਂਡਲ ਪਹਿਲਾਂ ਹੀ ਚਾਲੂ ਕੀਤਾ ਹੈ"
 
-#: src/launch.c:439
+#: src/launch.c:455
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
-#: src/launch.c:476
+#: src/launch.c:492
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch.c:907
+#: src/launch.c:923
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
-#: src/launch.c:920
+#: src/launch.c:936
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:1010
+#: src/launch.c:1026
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਅਚਾਨਕ ਸ਼ੁਰੂਆਤੀ ਸੁਨੇਹੇ guestfsd ਤੋਂ"
 
-#: src/launch.c:1018
+#: src/launch.c:1034
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != READY"
 
-#: src/launch.c:1218
+#: src/launch.c:1234
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3419,11 +3424,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1358
+#: src/launch.c:1374
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
 
-#: src/launch.c:1369
+#: src/launch.c:1385
 msgid "no subprocess to kill"
 msgstr "ਖਤਮ ਕਰਨ ਲਈ ਕੋਈ ਅਧੀਨ-ਕਾਰਜ ਨਹੀਂ"
 
