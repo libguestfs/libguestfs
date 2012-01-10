@@ -297,6 +297,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   char *name;
   char *abs_path = NULL;
   int use_cache_off;
+  int check_duplicate;
 
   if (check_path(g, filename) == -1)
     return -1;
@@ -336,10 +337,16 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     }
   }
 
+  /* Make the path canonical, so we can check if the user is trying to
+   * add the same path twice.  Allow /dev/null to be added multiple
+   * times, in accordance with traditional usage.
+   */
   abs_path = realpath (filename, NULL);
+  check_duplicate = STRNEQ (abs_path, "/dev/null");
+
   struct drive **i = &(g->drives);
   while (*i != NULL) {
-    if (STREQ((*i)->path, abs_path)) {
+    if (check_duplicate && STREQ((*i)->path, abs_path)) {
       error (g, _("drive %s can't be added twice"), abs_path);
       goto err_out;
     }

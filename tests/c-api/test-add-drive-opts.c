@@ -30,28 +30,6 @@ main (int argc, char *argv[])
 {
   guestfs_h *g;
   int r;
-  FILE *fp;
-
-  fp = fopen ("test1.img", "w");
-  if (fp == NULL) {
-    perror ("test1.img");
-    exit (EXIT_FAILURE);
-  }
-  fclose (fp);
-
-  fp = fopen ("test2.img", "w");
-  if (fp == NULL) {
-    perror ("test2.img");
-    exit (EXIT_FAILURE);
-  }
-  fclose (fp);
-
-  fp = fopen ("test3.img", "w");
-  if (fp == NULL) {
-    perror ("test3.img");
-    exit (EXIT_FAILURE);
-  }
-  fclose (fp);
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -59,15 +37,15 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  r = guestfs_add_drive_opts (g, "test1.img", -1);
+  r = guestfs_add_drive_opts (g, "/dev/null", -1);
   if (r == -1)
     exit (EXIT_FAILURE);
-  r = guestfs_add_drive_opts (g, "test2.img",
+  r = guestfs_add_drive_opts (g, "/dev/null",
                               GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
                               -1);
   if (r == -1)
     exit (EXIT_FAILURE);
-  r = guestfs_add_drive_opts (g, "test3.img",
+  r = guestfs_add_drive_opts (g, "/dev/null",
                               GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
                               GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                               -1);
@@ -75,10 +53,6 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   guestfs_close (g);
-
-  unlink ("test1.img");
-  unlink ("test2.img");
-  unlink ("test3.img");
 
   exit (EXIT_SUCCESS);
 }
