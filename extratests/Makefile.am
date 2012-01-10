@@ -63,10 +63,14 @@ RUN_VG = $(abs_top_builddir)/run $(VG)
 export LIBVIRT_DEFAULT_URI = \
 	qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
 
-GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
-		 head -n -1 | \
-		 tail -n +3 | \
-		 awk '{print $$2}')
+# Choose 5 guests at random on each run.
+RANDOM_GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
+			head -n -1 | \
+			tail -n +3 | \
+			awk '{print $$2}' | \
+			sort -R | \
+			head -5 | \
+			sort)
 
 extra-tests: \
 	test-prerequisites \
@@ -126,7 +130,7 @@ test-df-real:
 	$(RUN_VG) virt-df -h >/dev/null
 
 test-filesystems-real:
-	@for g in $(GUESTS); do \
+	@for g in $(RANDOM_GUESTS); do \
 	  echo $(RUN_VG) ../cat/virt-filesystems -d $$g --all --long -h --uuid; \
 	  $(RUN_VG) ../cat/virt-filesystems -d $$g --all --long -h --uuid > /dev/null; \
 	  r=$$?; \
@@ -134,7 +138,7 @@ test-filesystems-real:
 	done
 
 test-inspector-real:
-	@for g in $(GUESTS); do \
+	@for g in $(RANDOM_GUESTS); do \
 	  echo $(RUN_VG) ../inspector/virt-inspector -d $$g; \
 	  $(RUN_VG) ../inspector/virt-inspector -d $$g > /dev/null; \
 	  r=$$?; \
