@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-22 19:22+0000\n"
+"POT-Creation-Date: 2012-01-10 17:42+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -111,7 +111,7 @@ msgstr ""
 "  -x                   Rastrea llamados API de libguestfs\n"
 "Para obtener mayor información, consulte la página man %s(1).\n"
 
-#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1556
+#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1557
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2392,24 +2392,24 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:477
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:485
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:490
+#: fish/fish.c:491
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:642
+#: fish/fish.c:643
 #, c-format
 msgid ""
 "\n"
@@ -2431,51 +2431,51 @@ msgstr ""
 "      'quit' para abandonar la shell\n"
 "\n"
 
-#: fish/fish.c:793 fish/fish.c:809
+#: fish/fish.c:794 fish/fish.c:810
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:803
+#: fish/fish.c:804
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:833
+#: fish/fish.c:834
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:850
+#: fish/fish.c:851
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:925
+#: fish/fish.c:926
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr "%s: secuencia no válida en la cadena (empezando en el offset %d)\n"
 
-#: fish/fish.c:934
+#: fish/fish.c:935
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:999
+#: fish/fish.c:1000
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:1146
+#: fish/fish.c:1147
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1149
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:1159
+#: fish/fish.c:1160
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2486,7 +2486,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1167
+#: fish/fish.c:1168
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2495,12 +2495,12 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1172
+#: fish/fish.c:1173
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1188
+#: fish/fish.c:1189
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2511,17 +2511,17 @@ msgstr ""
 "Para obtener una lista de comandos:             guestfish -h\n"
 "Para obtener la documentación completa:         man guestfish\n"
 
-#: fish/fish.c:1197
+#: fish/fish.c:1198
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1353
+#: fish/fish.c:1354
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1550
+#: fish/fish.c:1551
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -2530,7 +2530,7 @@ msgstr ""
 "%s: para utilizar letras de unidad Windows, debe inspeccionar el huésped  "
 "(opción \"-i\"o ejecute el comando \"inspect-os\")\n"
 
-#: fish/fish.c:1570
+#: fish/fish.c:1571
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -2540,7 +2540,7 @@ msgstr ""
 "disponibles ejecute:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1589
+#: fish/fish.c:1590
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2576,11 +2576,11 @@ msgstr ""
 "Una vez que haya hecho esto, utilice el comando 'run'.\n"
 
 #: fish/help.c:44
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount-options'.\n"
+"'mount'.\n"
 msgstr ""
 "Sepa cuáles son los sistemas de archivos disponibles utilizando 'list-"
 "filesystems' y luego\n"
@@ -3332,7 +3332,7 @@ msgstr ""
 "seguridad: el dispositivo cacheado %s es modificable por el grupo u otros "
 "(modo %o)"
 
-#: src/appliance.c:672
+#: src/appliance.c:682
 msgid "external command failed, see earlier error messages"
 msgstr "falló el comando externo, vea mensajes de errores anteriores"
 
@@ -3361,7 +3361,7 @@ msgstr "dígitos no-hex inesperados en el resultado del comando db_dump"
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "el tamaño de %s es irracional (%<PRIi64> bytes)"
 
-#: src/filearch.c:265
+#: src/filearch.c:260
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3369,22 +3369,22 @@ msgstr ""
 "no está disponible la arquitectura del archivo API debido a que esta versión "
 "de libguestfs ha sido compilada sin la biblioteca libmagic"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 
-#: src/guestfs.c:344
+#: src/guestfs.c:307
 #, c-format
 msgid "warning: %s"
 msgstr "advertencia: %s"
 
-#: src/guestfs.c:405
+#: src/guestfs.c:368
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:983
+#: src/guestfs.c:946
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<truncado, tamaño original %zu bytes>"
@@ -3449,62 +3449,62 @@ msgstr "no es posible resolver  %%SYSTEMROOT%% de Windows"
 msgid "read: %s: unexpected end of file"
 msgstr "read: %s: fin de archivo no esperado"
 
-#: src/launch.c:134
+#: src/launch.c:136
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "la línea de comando no puede ser modificada luego de haber sido lanzado el "
 "subproceso qemu"
 
-#: src/launch.c:203
+#: src/launch.c:205
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: el parámetro debe comenzar con el carácter '-'"
 
-#: src/launch.c:217
+#: src/launch.c:219
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: no está permitido el parámetro '%s'"
 
-#: src/launch.c:289 src/launch.c:407
+#: src/launch.c:284
 msgid "filename cannot contain ',' (comma) character"
 msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
 
-#: src/launch.c:303 src/launch.c:311
+#: src/launch.c:313 src/launch.c:318
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "el parámetro %s está vacío o contiene caracteres no permitidos"
 
-#: src/launch.c:426
+#: src/launch.c:427
 msgid "the libguestfs handle has already been launched"
 msgstr "el manipulador libguestfs ya ha sido iniciado"
 
-#: src/launch.c:437
+#: src/launch.c:438
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/launch.c:474
+#: src/launch.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:905
+#: src/launch.c:906
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:918
+#: src/launch.c:919
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:1008
+#: src/launch.c:1009
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
-#: src/launch.c:1016
+#: src/launch.c:1017
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: src/launch.c:1188
+#: src/launch.c:1217
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3513,11 +3513,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1328
+#: src/launch.c:1357
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1339
+#: src/launch.c:1368
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 

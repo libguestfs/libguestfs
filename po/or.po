@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-22 19:22+0000\n"
+"POT-Creation-Date: 2012-01-10 17:42+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/team/or/)\n"
@@ -93,7 +93,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1556
+#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1557
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2163,22 +2163,22 @@ msgstr "%s: ସୁଦୂର: $GUESTFISH_PID ନିଶ୍ଚିତ ଭାବର�
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: କେବଳ ଗୋଟିଏ -f ପ୍ରାଚଳ ଦିଆହୋଇଛି\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:477
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ଏବଂ --remote ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକ ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:485
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ ସହିତ ଅତିରିକ୍ତ ପ୍ରଚଳଗୁଡ଼ିକ\n"
 
-#: fish/fish.c:490
+#: fish/fish.c:491
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:642
+#: fish/fish.c:643
 #, c-format
 msgid ""
 "\n"
@@ -2191,50 +2191,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:793 fish/fish.c:809
+#: fish/fish.c:794 fish/fish.c:810
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:803
+#: fish/fish.c:804
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:833
+#: fish/fish.c:834
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:850
+#: fish/fish.c:851
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:925
+#: fish/fish.c:926
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:934
+#: fish/fish.c:935
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:999
+#: fish/fish.c:1000
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:1146
+#: fish/fish.c:1147
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1149
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:1159
+#: fish/fish.c:1160
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2245,7 +2245,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:1167
+#: fish/fish.c:1168
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2254,13 +2254,13 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:1172
+#: fish/fish.c:1173
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1188
+#: fish/fish.c:1189
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2268,31 +2268,31 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1197
+#: fish/fish.c:1198
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1353
+#: fish/fish.c:1354
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
 
-#: fish/fish.c:1550
+#: fish/fish.c:1551
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1570
+#: fish/fish.c:1571
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1589
+#: fish/fish.c:1590
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2324,7 +2324,7 @@ msgstr ""
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount-options'.\n"
+"'mount'.\n"
 msgstr ""
 
 #: fish/help.c:52
@@ -2961,7 +2961,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:672
+#: src/appliance.c:682
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
@@ -2986,28 +2986,28 @@ msgstr ""
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/filearch.c:265
+#: src/filearch.c:260
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/guestfs.c:177
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ସମାନ ନିୟନ୍ତ୍ରଣରେ ଦୁଇଥର ଡ଼ାକିଥିଲା\n"
 
-#: src/guestfs.c:344
+#: src/guestfs.c:307
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:405
+#: src/guestfs.c:368
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: ତ୍ରୁଟି: %s\n"
 
-#: src/guestfs.c:983
+#: src/guestfs.c:946
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
@@ -3068,58 +3068,58 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/launch.c:134
+#: src/launch.c:136
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ଉପପଦ୍ଧତି ଆରମ୍ଭ ହେବା ପରେ ନିର୍ଦ୍ଦେଶନାମାକୁ ପରିବର୍ତ୍ତନ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:203
+#: src/launch.c:205
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: ପ୍ରାଚଳ ନିଶ୍ଚିତ ଭାବରେ '-' ବର୍ଣ୍ଣ ସହିତ ଆରମ୍ଭ ହେବା ଉଚିତ"
 
-#: src/launch.c:217
+#: src/launch.c:219
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: ପ୍ରାଚଳ '%s' ଟି ଅନୁମତିପ୍ରାପ୍ତ ନୁହଁ"
 
-#: src/launch.c:289 src/launch.c:407
+#: src/launch.c:284
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ଫାଇଲନାମରେ ',' (କମା) ବର୍ଣ୍ଣ ଧାରଣ ହୋଇନଥାଏ"
 
-#: src/launch.c:303 src/launch.c:311
+#: src/launch.c:313 src/launch.c:318
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:426
+#: src/launch.c:427
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:437
+#: src/launch.c:438
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମାଣ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:474
+#: src/launch.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:905
+#: src/launch.c:906
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:918
+#: src/launch.c:919
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:1008
+#: src/launch.c:1009
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1016
+#: src/launch.c:1017
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1188
+#: src/launch.c:1217
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3128,11 +3128,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1328
+#: src/launch.c:1357
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:1339
+#: src/launch.c:1368
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 

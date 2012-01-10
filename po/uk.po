@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2011-12-22 19:22+0000\n"
+"POT-Creation-Date: 2012-01-10 17:42+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1556
+#: cat/virt-cat.c:359 edit/virt-edit.c:585 fish/fish.c:1557
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2414,22 +2414,22 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: можна вказувати лише один параметр -f\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:477
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --remote\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:485
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: зайві параметри у командному рядку з прапорцем --listen\n"
 
-#: fish/fish.c:490
+#: fish/fish.c:491
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
 
-#: fish/fish.c:642
+#: fish/fish.c:643
 #, c-format
 msgid ""
 "\n"
@@ -2451,51 +2451,51 @@ msgstr ""
 "      «quit», щоб вийти з оболонки\n"
 "\n"
 
-#: fish/fish.c:793 fish/fish.c:809
+#: fish/fish.c:794 fish/fish.c:810
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:803
+#: fish/fish.c:804
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:833
+#: fish/fish.c:834
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:850
+#: fish/fish.c:851
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:925
+#: fish/fish.c:926
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:934
+#: fish/fish.c:935
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:999
+#: fish/fish.c:1000
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: порожня команда або командний рядок\n"
 
-#: fish/fish.c:1146
+#: fish/fish.c:1147
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1148
+#: fish/fish.c:1149
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1159
+#: fish/fish.c:1160
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2506,7 +2506,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1167
+#: fish/fish.c:1168
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2515,13 +2515,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1172
+#: fish/fish.c:1173
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1188
+#: fish/fish.c:1189
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2532,17 +2532,17 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1197
+#: fish/fish.c:1198
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1353
+#: fish/fish.c:1354
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1550
+#: fish/fish.c:1551
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -2552,7 +2552,7 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1570
+#: fish/fish.c:1571
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -2562,7 +2562,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1589
+#: fish/fish.c:1590
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2599,11 +2599,11 @@ msgstr ""
 "Після додавання або створення образів скористайтеся командою «run».\n"
 
 #: fish/help.c:44
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount-options'.\n"
+"'mount'.\n"
 msgstr ""
 "Ознайомтеся зі списком доступних файлових систем за допомогою команди «list-"
 "filesystems», а потім\n"
@@ -3377,7 +3377,7 @@ msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/appliance.c:672
+#: src/appliance.c:682
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
@@ -3408,7 +3408,7 @@ msgstr "неочікувані не шістнадцяткові цифри у �
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:265
+#: src/filearch.c:260
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3416,22 +3416,22 @@ msgstr ""
 "файлово-архітектурний програмний інтерфейс недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки libmagic"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/guestfs.c:344
+#: src/guestfs.c:307
 #, c-format
 msgid "warning: %s"
 msgstr "попередження: %s"
 
-#: src/guestfs.c:405
+#: src/guestfs.c:368
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/guestfs.c:983
+#: src/guestfs.c:946
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
@@ -3498,62 +3498,62 @@ msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/launch.c:134
+#: src/launch.c:136
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "не можна змінювати рядок команди після запуску підпроцесу qemu"
 
-#: src/launch.c:203
+#: src/launch.c:205
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: запис параметра має починатися з символу «-»"
 
-#: src/launch.c:217
+#: src/launch.c:219
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: не можна використовувати параметр «%s»"
 
-#: src/launch.c:289 src/launch.c:407
+#: src/launch.c:284
 msgid "filename cannot contain ',' (comma) character"
 msgstr "у назві файла не може міститися символу коми («,»)"
 
-#: src/launch.c:303 src/launch.c:311
+#: src/launch.c:313 src/launch.c:318
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "параметр %s є порожнім або містить заборонені до використання символи"
 
-#: src/launch.c:426
+#: src/launch.c:427
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:437
+#: src/launch.c:438
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:474
+#: src/launch.c:475
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:905
+#: src/launch.c:906
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:918
+#: src/launch.c:919
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:1008
+#: src/launch.c:1009
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:1016
+#: src/launch.c:1017
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1188
+#: src/launch.c:1217
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3567,11 +3567,11 @@ msgstr ""
 "встановити відповідне значення змінної середовища LIBGUESTFS_QEMU.\n"
 "Крім того, вище можна знайти повідомлення про помилки."
 
-#: src/launch.c:1328
+#: src/launch.c:1357
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1339
+#: src/launch.c:1368
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 

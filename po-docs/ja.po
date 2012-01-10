@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2011-12-02 09:28+0000\n"
+"POT-Creation-Date: 2012-01-10 17:42+0000\n"
 "PO-Revision-Date: 2011-10-27 09:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -19274,7 +19274,7 @@ msgstr ""
 msgid ""
 "Using this flag is mostly equivalent to using the C<add-domain> command, "
 "with C<readonly:true> if the I<--ro> flag was given, and with C<format:...> "
-"if the I<--format:...> flag was given."
+"if the I<--format=...> flag was given."
 msgstr ""
 
 #. type: =item
@@ -23249,7 +23249,7 @@ msgid ""
 " import guestfs\n"
 " g = guestfs.GuestFS ()\n"
 " g.add_drive_opts (\"disk.img\", format=\"raw\", readonly=1)\n"
-" g.launch\n"
+" g.launch ()\n"
 "\n"
 msgstr ""
 
@@ -40788,25 +40788,25 @@ msgstr ""
 
 #. type: =item
 #: ../src/guestfs.pod:3028
-msgid "C<tools>"
+msgid "C<test-tool>"
 msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:3030
 msgid ""
-"Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
+"Test tool for end users to test if their qemu/kernel combination will work "
+"with libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3032
-msgid "C<test-tool>"
+#: ../src/guestfs.pod:3033
+msgid "C<tools>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3034
+#: ../src/guestfs.pod:3035
 msgid ""
-"Test tool for end users to test if their qemu/kernel combination will work "
-"with libguestfs."
+"Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
 
 #. type: =item
