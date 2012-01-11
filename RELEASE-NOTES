@@ -1,3 +1,130 @@
+Release notes for libguestfs 1.16.0
+-----------------------------------
+
+  NOT FINAL, COVERS UP TO COMMIT 54a7982dc3a6d3cc903c8d6e73be30c46fdf90d4
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.14.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+New features
+
+  libguestfs:
+
+   - allow XFS filesystems to be created over an existing filesystem
+     (Wanlong Gao)
+
+   - the (unspecified) default alignment for part-disk has been
+     changed to 64K for better support of high-end network-attached
+     storage
+
+   - new guestfs-testing(1) man page
+
+   - list-filesystems returns MD devices containing filesystems
+     (Matthew Booth)
+
+   - support for GCC >= 4.7 (Jim Meyering)
+
+   - check user does not add the same drive twice (Wanlong Gao).
+
+  language bindings:
+
+   - support for Ruby >= 1.9
+
+   - Ruby bindings can be disabled individually (Hilko Bengen)
+
+   - support for Python 2.5, 2.6 (Hilko Bengen)
+
+   - support for Python 3
+
+   - new %guestfs_introspection hash is available in Perl bindings so
+     you can query which optional arguments are available
+
+  inspection:
+
+   - guests with MD devices can be inspected (Matthew Booth)
+
+   - support for GNU/Hurd guests
+
+  guestfish:
+
+   - libguestfs events (such as progress bar events and log messages) can
+     be trapped and processed by user-defined shell scripts.
+
+   - MD devices are tab-completed (Matthew Booth)
+
+  virt tools:
+
+   - virt-sparsify new --compress and -o options to allow for compressed
+     and different format output
+
+   - virt-sparsify can now detect and sparsify .vdi files
+
+   - virt-sysprep no longer requires xmlstarlet; a new virt-inspector --xpath
+     option has been added to replace this functionality
+
+   - virt-rescue has a new --suggest option which suggests mount commands
+     for the guest
+
+   - virt-resize no longer requires OCaml pcre library
+
+  libguestfs live:
+
+   - daemon will no longer try to edit your live /etc/lvm configuration
+
+   - fix a potential security problem with predictable /tmp names (Steve Kemp)
+
+Security
+
+  CVE-2011-4127, RHBZ#757071
+  Mitigate possible privilege escalation via SG_IO ioctl
+  For more information, see: https://github.com/libguestfs/libguestfs/commit/9a5f784d511a8f00a8386f316eab41fe660430db
+
+New APIs
+
+  blkid: print all attributes of a device known to blkid (Wanlong Gao)
+  list-md-devices: list of Linux MD devices (Matthew Booth)
+  md-create: create an MD device
+  md-detail: returns metadata for an MD device (Matthew Booth)
+  md-stop: stop an MD device (Wanlong Gao)
+  tune2fs: allow ext2/3/4 filesystems to be tuned
+
+Internals
+
+  Git hosting has moved to http://github.com/libguestfs
+
+  The various test directories have been rearranged logically, and now
+  all appear under 'tests/'.
+
+  There is a 'make extra-tests' rule which runs ordinary tests and
+  additional tests, using valgrind to check for memory problems.
+
+  Multiple memory leaks and other problems found by valgrind and fixed.
+
+  Support for optional arguments in the generator has been rewritten
+  to provide more features and safety (Matthew Booth).
+
+  RHashtable functions can be tested in the generator.
+
+  ADD_ARG macro in daemon allows arg lists to be constructed without
+  risk of stack smashing.
+
+  Fix generation of OCaml functions that have more than 10 arguments.
+
+Bugs fixed
+
+  [./bugs-in-changelog.sh 1.14.0..]
+
+ - 769680 temporary directories created during appliance builds are not cleaned up on error
+ - 761460 guestfs_utimens hangs on named pipes
+ - 761451 guestfs_utimens cannot set times on a directory
+ - 760775 "guestfish: multi-boot operating systems are not supported by the -i option" should be more explanatory
+ - 760669 guestfish copy-in and <! (inline execution) don't mix well: pclose: No child processes
+ - 760000 libguestfs fails to compile with Ruby >= 1.9
+ - 750889 Python code incompatible with Python v3.
+ - 596761 Ctrl-\ causes guestfish to abort
+
+
 Release notes for libguestfs 1.14.0
 -----------------------------------
 
