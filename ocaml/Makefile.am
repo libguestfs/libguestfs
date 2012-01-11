@@ -144,7 +144,7 @@ depend: .depend
 	  LANG=C sort > $@-t
 	mv $@-t $@
 
-include .depend
+-include .depend
 
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
 

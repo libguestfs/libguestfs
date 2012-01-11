@@ -108,6 +108,7 @@ fish/virt-tar-out.1
 fuse/guestmount
 fuse/guestmount.1
 fuse/stamp-guestmount.pod
+generator/.depend
 generator/files-generated.txt
 generator/generator
 generator/.pod2text.data*
@@ -205,6 +206,7 @@ missing
 *.o
 ocaml/bindtests
 ocaml/bindtests.ml
+ocaml/.depend
 ocaml/dllmlguestfs.so
 ocaml/examples/create_disk
 ocaml/examples/guestfs-ocaml.3
@@ -289,6 +291,7 @@ python/__pycache__
 rescue/stamp-virt-rescue.pod
 rescue/virt-rescue
 rescue/virt-rescue.1
+resize/.depend
 resize/stamp-virt-resize.pod
 resize/utils_tests
 resize/virt-resize
@@ -304,6 +307,7 @@ ruby/ext/guestfs/_guestfs.so
 ruby/ext/guestfs/mkmf.log
 ruby/Rakefile
 run
+sparsify/.depend
 sparsify/stamp-virt-sparsify.pod
 sparsify/virt-sparsify
 sparsify/virt-sparsify.1
