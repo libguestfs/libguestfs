@@ -113,7 +113,7 @@ depend: .depend
 	  sort > $@-t
 	mv $@-t $@
 
-include .depend
+-include .depend
 
 endif
 
