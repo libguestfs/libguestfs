@@ -1,7 +1,0 @@
-progress.cmi: ../ocaml/guestfs.cmi
-progress.cmo: utils.cmo ../ocaml/guestfs.cmi progress.cmi
-progress.cmx: utils.cmx ../ocaml/guestfs.cmx progress.cmi
-sparsify.cmo: utils.cmo progress.cmi ../ocaml/guestfs.cmi
-sparsify.cmx: utils.cmx progress.cmx ../ocaml/guestfs.cmx
-utils.cmo: ../ocaml/guestfs.cmi
-utils.cmx: ../ocaml/guestfs.cmx

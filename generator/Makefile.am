@@ -79,7 +79,7 @@ depend: .depend
 	$(OCAMLDEP) $^ | sed 's/  *$$//' > $@-t
 	mv $@-t $@
 
-include .depend
+-include .depend
 
 else
 
