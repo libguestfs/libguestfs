@@ -332,6 +332,13 @@ do_e2fsck (const char *device,
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
+  /* 0 = no errors, 1 = errors corrected.
+   *
+   * >= 4 means uncorrected or other errors.
+   *
+   * 2, 3 means errors were corrected and we require a reboot.  This is
+   * a difficult corner case.
+   */
   if (r == -1 || r >= 2) {
     reply_with_error ("%s", err);
     free (err);
@@ -345,29 +352,8 @@ do_e2fsck (const char *device,
 int
 do_e2fsck_f (const char *device)
 {
-  char *err;
-  int r;
-
-  char prog[] = "e2fsck";
-  if (e2prog (prog) == -1)
-    return -1;
-
-  /* 0 = no errors, 1 = errors corrected.
-   *
-   * >= 4 means uncorrected or other errors.
-   *
-   * 2, 3 means errors were corrected and we require a reboot.  This is
-   * a difficult corner case.
-   */
-  r = commandr (NULL, &err, prog, "-p", "-f", device, NULL);
-  if (r == -1 || r >= 2) {
-    reply_with_error ("%s", err);
-    free (err);
-    return -1;
-  }
-
-  free (err);
-  return 0;
+  optargs_bitmask = GUESTFS_E2FSCK_CORRECT_BITMASK;
+  return do_e2fsck (device, 1, 0);
 }
 
 int
