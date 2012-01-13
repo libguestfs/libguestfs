@@ -222,6 +222,9 @@ type flags =
   | DeprecatedBy of string (* function is deprecated, use .. instead *)
   | Optional of string	  (* function is part of an optional group *)
   | Progress              (* function can generate progress messages *)
+  | CamelName of string   (* Pretty camel case name of function. Only specify
+                             this if the generator doesn't make a good job of
+                             it, for example if it contains an abbreviation *)
 
 and fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)

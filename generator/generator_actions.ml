@@ -6174,7 +6174,7 @@ Note that for large devices this can take a long time to run.");
 List all 9p filesystems attached to the guest.  A list of
 mount tags is returned.");
 
-  ("mount_9p", (RErr, [String "mounttag"; String "mountpoint"], [OString "options"]), 286, [],
+  ("mount_9p", (RErr, [String "mounttag"; String "mountpoint"], [OString "options"]), 286, [CamelName "Mount9P"],
    [],
    "mount 9p filesystem",
    "\
@@ -6198,7 +6198,7 @@ Device mapper devices which correspond to logical volumes are I<not>
 returned in this list.  Call C<guestfs_lvs> if you want to list logical
 volumes.");
 
-  ("ntfsresize_opts", (RErr, [Device "device"], [OInt64 "size"; OBool "force"]), 288, [Optional "ntfsprogs"],
+  ("ntfsresize_opts", (RErr, [Device "device"], [OInt64 "size"; OBool "force"]), 288, [Optional "ntfsprogs"; CamelName "NTFSResizeOpts"],
    [],
    "resize an NTFS filesystem",
    "\
@@ -6230,7 +6230,7 @@ single filesystem without booting into Windows between each resize.
 
 See also L<ntfsresize(8)>.");
 
-  ("btrfs_filesystem_resize", (RErr, [Pathname "mountpoint"], [OInt64 "size"]), 289, [Optional "btrfs"],
+  ("btrfs_filesystem_resize", (RErr, [Pathname "mountpoint"], [OInt64 "size"]), 289, [Optional "btrfs"; CamelName "BTRFSFilesystemResize"],
    [],
    "resize a btrfs filesystem",
    "\
@@ -6362,7 +6362,7 @@ is for copying blocks within existing files.  See C<guestfs_cp>,
 C<guestfs_cp_a> and C<guestfs_mv> for general file copying and
 moving functions.");
 
-  ("tune2fs", (RErr, [Device "device"], [OBool "force"; OInt "maxmountcount"; OInt "mountcount"; OString "errorbehavior"; OInt64 "group"; OInt "intervalbetweenchecks"; OInt "reservedblockspercentage"; OString "lastmounteddirectory"; OInt64 "reservedblockscount"; OInt64 "user"]), 298, [],
+  ("tune2fs", (RErr, [Device "device"], [OBool "force"; OInt "maxmountcount"; OInt "mountcount"; OString "errorbehavior"; OInt64 "group"; OInt "intervalbetweenchecks"; OInt "reservedblockspercentage"; OString "lastmounteddirectory"; OInt64 "reservedblockscount"; OInt64 "user"]), 298, [CamelName "Tune2FS"],
    [InitScratchFS, Always, TestOutputHashtable (
      [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "0"; ""; "NOARG"; ""; ""];
       ["tune2fs_l"; "/dev/sdb1"]],
@@ -6459,7 +6459,7 @@ To get the current values of filesystem parameters, see
 C<guestfs_tune2fs_l>.  For precise details of how tune2fs
 works, see the L<tune2fs(8)> man page.");
 
-  ("md_create", (RErr, [String "name"; DeviceList "devices"], [OInt64 "missingbitmap"; OInt "nrdevices"; OInt "spare"; OInt64 "chunk"; OString "level"]), 299, [Optional "mdadm"],
+  ("md_create", (RErr, [String "name"; DeviceList "devices"], [OInt64 "missingbitmap"; OInt "nrdevices"; OInt "spare"; OInt64 "chunk"; OString "level"]), 299, [Optional "mdadm"; CamelName "MDCreate"],
    [],
    "create a Linux md (RAID) device",
    "\
