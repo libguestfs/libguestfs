@@ -277,9 +277,14 @@ do_resize2fs_M (const char *device)
   if (e2prog (prog) == -1)
     return -1;
 
-  r = command (NULL, &err, prog, "-M" , device, NULL);
+  r = command (NULL, &err, prog, "-M", device, NULL);
   if (r == -1) {
-    reply_with_error ("%s", err);
+    if (strstr (err, "e2fsck -f")) {
+      free (err);
+      reply_with_error ("you need to run e2fsck with the correct and/or forceall options first");
+    } else {
+      reply_with_error ("%s", err);
+    }
     free (err);
     return -1;
   }
