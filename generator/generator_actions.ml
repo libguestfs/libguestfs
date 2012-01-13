@@ -3454,6 +3454,8 @@ are activated or deactivated.");
        ["umount"; "/"];
        ["lvresize"; "/dev/VG/LV"; "20"];
        ["e2fsck_f"; "/dev/VG/LV"];
+       ["e2fsck"; "/dev/VG/LV"; "true"; "false"];
+       ["e2fsck"; "/dev/VG/LV"; "false"; "true"];
        ["resize2fs"; "/dev/VG/LV"];
        ["mount_options"; ""; "/dev/VG/LV"; "/"];
        ["cat"; "/new"]], "test content");
@@ -6594,6 +6596,28 @@ The filesystem type or RAID of this device.
 =item C<USAGE>
 
 The usage of this device, for example C<filesystem> or C<raid>.
+
+=back");
+
+  ("e2fsck", (RErr, [Device "device"], [OBool "correct"; OBool "forceall"]), 304, [],
+   [], (* lvresize tests this *)
+   "check an ext2/ext3 filesystem",
+   "\
+This runs the ext2/ext3 filesystem checker on C<device>.
+Force to check the filesystem even if it appears to be clean.
+
+=over 4
+
+=item C<correct>
+
+Automatically repair the file system. This option will cause e2fsck to automatically
+fix any filesystem problems that can be safely fixed without human intervention.
+This option may not be specified at the same time as the C<forceall> option.
+
+=item C<forceall>
+
+Assume an answer of 'yes' to all questions; allows e2fsck to be used non-interactively.
+This option may not be specified at the same time as the C<correct> option.
 
 =back");
 

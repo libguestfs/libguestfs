@@ -294,6 +294,55 @@ do_resize2fs_M (const char *device)
 }
 
 int
+do_e2fsck (const char *device,
+           int correct,
+           int forceall)
+{
+  const char *argv[MAX_ARGS];
+  char *err;
+  size_t i = 0;
+  int r;
+  char prog[] = "e2fsck";
+
+  if (e2prog (prog) == -1)
+    return -1;
+
+  /* Default if not selected. */
+  if (!(optargs_bitmask & GUESTFS_E2FSCK_CORRECT_BITMASK))
+    correct = 0;
+  if (!(optargs_bitmask & GUESTFS_E2FSCK_FORCEALL_BITMASK))
+    forceall = 0;
+
+  if (correct && forceall) {
+    reply_with_error("Only one of the options may be specified");
+    return -1;
+  }
+
+
+  ADD_ARG (argv, i, prog);
+  ADD_ARG (argv, i, "-f");
+
+  if (correct)
+    ADD_ARG (argv, i, "-p");
+
+  if (forceall)
+    ADD_ARG (argv, i, "-y");
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1 || r >= 2) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
 do_e2fsck_f (const char *device)
 {
   char *err;
