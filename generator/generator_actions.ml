@@ -6604,19 +6604,23 @@ The usage of this device, for example C<filesystem> or C<raid>.
    "check an ext2/ext3 filesystem",
    "\
 This runs the ext2/ext3 filesystem checker on C<device>.
-Force to check the filesystem even if it appears to be clean.
+It can take the following optional arguments:
 
 =over 4
 
 =item C<correct>
 
-Automatically repair the file system. This option will cause e2fsck to automatically
-fix any filesystem problems that can be safely fixed without human intervention.
+Automatically repair the file system. This option will cause e2fsck
+to automatically fix any filesystem problems that can be safely
+fixed without human intervention.
+
 This option may not be specified at the same time as the C<forceall> option.
 
 =item C<forceall>
 
-Assume an answer of 'yes' to all questions; allows e2fsck to be used non-interactively.
+Assume an answer of 'yes' to all questions; allows e2fsck to be used
+non-interactively.
+
 This option may not be specified at the same time as the C<correct> option.
 
 =back");
