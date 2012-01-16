@@ -182,7 +182,7 @@ let () =
 
   (* Check flags. *)
   List.iter (
-    fun (name, _, _, flags, _, _, _) ->
+    fun (name, (ret, _, _), _, flags, _, _, _) ->
       List.iter (
         function
         | ProtocolLimitWarning
@@ -213,6 +213,12 @@ let () =
               failwithf "%s: camel case name must contains uppercase characters" name n;
             if String.contains n '_' then
               failwithf "%s: camel case name must not contain '_'" name n;
+        | Cancellable ->
+          (match ret with
+          | RConstOptString n ->
+            failwithf "%s: Cancellable function cannot return RConstOptString"
+                      name
+          | _ -> ())
       ) flags
   ) (all_functions @ fish_commands);
 

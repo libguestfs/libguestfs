@@ -225,6 +225,7 @@ type flags =
   | CamelName of string   (* Pretty camel case name of function. Only specify
                              this if the generator doesn't make a good job of
                              it, for example if it contains an abbreviation *)
+  | Cancellable           (* The user can cancel this long-running function *)
 
 and fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)

@@ -58,7 +58,7 @@ let test_all_rets = [
 ]
 
 let test_functions = [
-  ("test0", (RErr, test_all_args, []), -1, [NotInFish; NotInDocs],
+  ("test0", (RErr, test_all_args, []), -1, [NotInFish; NotInDocs; Cancellable],
    [],
    "internal test function - do not use",
    "\
@@ -2714,7 +2714,8 @@ Reread the partition table on C<device>.
 
 This uses the L<blockdev(8)> command.");
 
-  ("upload", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"], []), 66, [Progress],
+  ("upload", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"], []), 66,
+   [Progress; Cancellable],
    [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["mkdir"; "/upload"];
@@ -2730,7 +2731,8 @@ C<filename> can also be a named pipe.
 
 See also C<guestfs_download>.");
 
-  ("download", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"], []), 67, [Progress],
+  ("download", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"], []), 67,
+   [Progress; Cancellable],
    [InitScratchFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["mkdir"; "/download"];
@@ -2815,7 +2817,8 @@ To get the checksum for a device, use C<guestfs_checksum_device>.
 
 To get the checksums for many files, use C<guestfs_checksums_out>.");
 
-  ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"], []), 69, [],
+  ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"], []), 69,
+   [Cancellable],
    [InitScratchFS, Always, TestOutput (
       [["mkdir"; "/tar_in"];
        ["tar_in"; "../data/helloworld.tar"; "/tar_in"];
@@ -2828,7 +2831,8 @@ I<uncompressed> tar file) into C<directory>.
 To upload a compressed tarball, use C<guestfs_tgz_in>
 or C<guestfs_txz_in>.");
 
-  ("tar_out", (RErr, [String "directory"; FileOut "tarfile"], []), 70, [],
+  ("tar_out", (RErr, [String "directory"; FileOut "tarfile"], []), 70,
+   [Cancellable],
    [],
    "pack directory into tarfile",
    "\
@@ -2838,7 +2842,8 @@ it to local file C<tarfile>.
 To download a compressed tarball, use C<guestfs_tgz_out>
 or C<guestfs_txz_out>.");
 
-  ("tgz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 71, [],
+  ("tgz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 71,
+   [Cancellable],
    [InitScratchFS, Always, TestOutput (
       [["mkdir"; "/tgz_in"];
        ["tgz_in"; "../data/helloworld.tar.gz"; "/tgz_in"];
@@ -2850,7 +2855,8 @@ I<gzip compressed> tar file) into C<directory>.
 
 To upload an uncompressed tarball, use C<guestfs_tar_in>.");
 
-  ("tgz_out", (RErr, [Pathname "directory"; FileOut "tarball"], []), 72, [],
+  ("tgz_out", (RErr, [Pathname "directory"; FileOut "tarball"], []), 72,
+   [Cancellable],
    [],
    "pack directory into compressed tarball",
    "\
@@ -4690,7 +4696,8 @@ You can use this command to test the connection through to the daemon.
 
 See also C<guestfs_ping_daemon>.");
 
-  ("find0", (RErr, [Pathname "directory"; FileOut "files"], []), 196, [],
+  ("find0", (RErr, [Pathname "directory"; FileOut "files"], []), 196,
+   [Cancellable],
    [], (* There is a regression test for this. *)
    "find all files and directories, returning NUL-separated list",
    "\
@@ -5384,7 +5391,8 @@ If blocks are already zero, then this command avoids writing
 zeroes.  This prevents the underlying device from becoming non-sparse
 or growing unnecessarily.");
 
-  ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 229, [Optional "xz"],
+  ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"], []), 229,
+   [Optional "xz"; Cancellable],
    [InitScratchFS, Always, TestOutput (
       [["mkdir"; "/txz_in"];
        ["txz_in"; "../data/helloworld.tar.xz"; "/txz_in"];
@@ -5394,7 +5402,8 @@ or growing unnecessarily.");
 This command uploads and unpacks local file C<tarball> (an
 I<xz compressed> tar file) into C<directory>.");
 
-  ("txz_out", (RErr, [Pathname "directory"; FileOut "tarball"], []), 230, [Optional "xz"],
+  ("txz_out", (RErr, [Pathname "directory"; FileOut "tarball"], []), 230,
+   [Optional "xz"; Cancellable],
    [],
    "pack directory into compressed tarball",
    "\
@@ -5521,7 +5530,8 @@ is the same as the L<augtool(1)> C<clear> command.");
 Return the current umask.  By default the umask is C<022>
 unless it has been set by calling C<guestfs_umask>.");
 
-  ("debug_upload", (RErr, [FileIn "filename"; String "tmpname"; Int "mode"], []), 241, [NotInDocs],
+  ("debug_upload", (RErr, [FileIn "filename"; String "tmpname"; Int "mode"], []), 241,
+   [NotInDocs; Cancellable],
    [],
    "upload a file to the appliance (internal use only)",
    "\
@@ -5532,7 +5542,8 @@ There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what it is for.");
 
-  ("base64_in", (RErr, [FileIn "base64file"; Pathname "filename"], []), 242, [],
+  ("base64_in", (RErr, [FileIn "base64file"; Pathname "filename"], []), 242,
+   [Cancellable],
    [InitScratchFS, Always, TestOutput (
       [["base64_in"; "../data/hello.b64"; "/base64_in"];
        ["cat"; "/base64_in"]], "hello\n")],
@@ -5541,14 +5552,16 @@ to find out what it is for.");
 This command uploads base64-encoded data from C<base64file>
 to C<filename>.");
 
-  ("base64_out", (RErr, [Pathname "filename"; FileOut "base64file"], []), 243, [],
+  ("base64_out", (RErr, [Pathname "filename"; FileOut "base64file"], []), 243,
+   [Cancellable],
    [],
    "download file and encode as base64",
    "\
 This command downloads the contents of C<filename>, writing
 it out to local file C<base64file> encoded as base64.");
 
-  ("checksums_out", (RErr, [String "csumtype"; Pathname "directory"; FileOut "sumsfile"], []), 244, [],
+  ("checksums_out", (RErr, [String "csumtype"; Pathname "directory"; FileOut "sumsfile"], []), 244,
+  [Cancellable],
    [],
    "compute MD5, SHAx or CRC checksum of files in a directory",
    "\
@@ -5935,7 +5948,8 @@ from C<guestfs_list_partitions>.
 
 See also C<guestfs_part_to_partnum>.");
 
-  ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273, [Progress],
+  ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273,
+   [Progress; Cancellable],
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
     [InitScratchFS, Always, TestOutput (
        [["upload_offset"; "../../COPYING.LIB"; "/upload_offset"; "0"];
@@ -5959,7 +5973,8 @@ error occurs.
 
 See also C<guestfs_upload>, C<guestfs_pwrite>.");
 
-  ("download_offset", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"; Int64 "offset"; Int64 "size"], []), 274, [Progress],
+  ("download_offset", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"; Int64 "offset"; Int64 "size"], []), 274,
+   [Progress; Cancellable],
    (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
     let offset = string_of_int 100 in
     let size = string_of_int ((Unix.stat "COPYING.LIB").Unix.st_size - 100) in
@@ -6267,7 +6282,8 @@ C<path> does not exist, then a new file is created.
 
 See also C<guestfs_write>.");
 
-  ("compress_out", (RErr, [String "ctype"; Pathname "file"; FileOut "zfile"], [OInt "level"]), 291, [],
+  ("compress_out", (RErr, [String "ctype"; Pathname "file"; FileOut "zfile"], [OInt "level"]), 291,
+   [Cancellable],
    [],
    "output compressed file",
    "\
@@ -6284,7 +6300,8 @@ The optional C<level> parameter controls compression level.  The
 meaning and default for this parameter depends on the compression
 program being used.");
 
-  ("compress_device_out", (RErr, [String "ctype"; Device "device"; FileOut "zdevice"], [OInt "level"]), 292, [],
+  ("compress_device_out", (RErr, [String "ctype"; Device "device"; FileOut "zdevice"], [OInt "level"]), 292,
+   [Cancellable],
    [],
    "output compressed device",
    "\
