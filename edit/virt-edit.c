@@ -227,18 +227,17 @@ main (int argc, char *argv[])
     while (optind < argc - 1) {
       if (strchr (argv[optind], '/') ||
           access (argv[optind], F_OK) == 0) { /* simulate -a option */
-        drv = malloc (sizeof (struct drv));
+        drv = calloc (1, sizeof (struct drv));
         if (!drv) {
           perror ("malloc");
           exit (EXIT_FAILURE);
         }
         drv->type = drv_a;
         drv->a.filename = argv[optind];
-        drv->a.format = NULL;
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */
-        drv = malloc (sizeof (struct drv));
+        drv = calloc (1, sizeof (struct drv));
         if (!drv) {
           perror ("malloc");
           exit (EXIT_FAILURE);

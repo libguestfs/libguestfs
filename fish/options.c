@@ -43,6 +43,9 @@ add_drives (struct drv *drv, char next_drive)
   if (drv) {
     next_drive = add_drives (drv->next, next_drive);
 
+    free (drv->device);
+    drv->device = NULL;
+
     if (asprintf (&drv->device, "/dev/sd%c", next_drive) == -1) {
       perror ("asprintf");
       exit (EXIT_FAILURE);
