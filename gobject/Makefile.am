@@ -15,8 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-BUILT_SOURCES = guestfs-gobject.h guestfs-gobject.c
-EXTRA_DIST = $(BUILT_SOURCES)
+BUILT_SOURCES = guestfs-gobject.h guestfs-gobject.c bindtests.js
+EXTRA_DIST = \
+  $(BUILT_SOURCES) \
+  run-bindtests
 
 libname = libguestfs-gobject-1.0.la
 
@@ -53,6 +55,11 @@ gir_DATA = $(INTROSPECTION_GIRS)
 
 typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+
+TESTS = run-bindtests
+TESTS_ENVIRONMENT = GJS=$(GJS)
+
+$(TESTS): $(typelib_DATA)
 
 CLEANFILES = $(gir_DATA) $(typelib_DATA)
 endif

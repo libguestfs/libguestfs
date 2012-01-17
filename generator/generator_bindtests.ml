@@ -425,6 +425,40 @@ main = do
 
   pr "  putStrLn \"EOF\"\n"
 
+and generate_gobject_js_bindtests () =
+  generate_header CPlusPlusStyle GPLv2plus;
+
+  pr "\
+const Guestfs = imports.gi.Guestfs;
+
+var g = new Guestfs.Session();
+
+";
+
+    let mkargs args =
+      String.concat ", " (
+        (List.map (
+          function
+          | CallString s -> "\"" ^ s ^ "\""
+          | CallOptString None -> "null"
+          | CallOptString (Some s) -> "\"" ^ s ^ "\""
+          | CallStringList xs ->
+              "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+          | CallInt i -> string_of_int i
+          | CallInt64 i -> Int64.to_string i
+          | CallBool true -> "true"
+          | CallBool false -> "false"
+          | CallBuffer s -> "\"" ^ c_quote s ^ "\""
+        ) args)
+        @ ["null"]
+      )
+    in
+    generate_lang_bindtests (
+      fun f args -> pr "g.%s(%s);\n" f (mkargs args)
+    );
+
+    pr "\nprint(\"EOF\");\n"
+
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
  *)

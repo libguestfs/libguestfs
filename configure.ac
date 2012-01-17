@@ -1017,6 +1017,12 @@ AS_IF(
 )
 AM_CONDITIONAL([HAVE_GOBJECT],[test "x$GOBJECT_LIBS" != "x"])
 
+AC_CHECK_PROG([GJS],[gjs],[gjs])
+AS_IF(
+  [test "x$GJS" = "x"],
+  [AC_MSG_WARN([gjs not found, gobject bindtests will not run])]
+)
+
 dnl gobject introspection
 GOBJECT_INTROSPECTION_CHECK([1.30.0])
 
