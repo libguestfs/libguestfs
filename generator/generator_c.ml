@@ -1187,7 +1187,7 @@ trace_send_line (guestfs_h *g)
             let n = name_of_optargt argt in
             let uc_shortname = String.uppercase shortname in
             let uc_n = String.uppercase n in
-            pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK))\n"
+            pr "  if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
               uc_shortname uc_n;
             (match argt with
              | OBool n
