@@ -994,6 +994,16 @@ trace_send_line (guestfs_h *g)
       indent shortname (string_of_errcode errcode)
   in
 
+  let handle_null_optargs optargs shortname =
+    if optargs <> [] then (
+      pr "  struct guestfs_%s_argv optargs_null;\n" shortname;
+      pr "  if (!optargs) {\n";
+      pr "    optargs_null.bitmask = 0;\n";
+      pr "    optargs = &optargs_null;\n";
+      pr "  }\n\n";
+    )
+  in
+
   (* For non-daemon functions, generate a wrapper around each function. *)
   List.iter (
     fun (shortname, (ret, _, optargs as style), _, _, _, _, _) ->
@@ -1006,6 +1016,9 @@ trace_send_line (guestfs_h *g)
           ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
           shortname style;
       pr "{\n";
+
+      handle_null_optargs optargs shortname;
+
       pr "  int trace_flag = g->trace;\n";
       pr "  FILE *trace_fp;\n";
       (match ret with
@@ -1070,6 +1083,8 @@ trace_send_line (guestfs_h *g)
           ~optarg_proto:Argv shortname style;
 
       pr "{\n";
+
+      handle_null_optargs optargs shortname;
 
       (match args with
        | [] -> ()
