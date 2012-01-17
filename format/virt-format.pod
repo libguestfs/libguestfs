@@ -1,0 +1,207 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-format - Erase and make a blank disk
+
+=head1 SYNOPSIS
+
+ virt-format [--options] -a disk.img [-a disk.img ...]
+
+=head1 DESCRIPTION
+
+Virt-format takes an existing disk file (or it can be a host
+partition, LV etc), B<erases all data on it>, and formats it as a
+blank disk.  It can optionally create partition tables, empty
+filesystems, logical volumes and more.
+
+To create a disk containing data, you may be better to use
+L<virt-make-fs(1)>.  If you are creating a blank disk to use in
+L<guestfish(1)>, you should instead use the guestfish I<-N> option.
+
+Normal usage would be something like this:
+
+ virt-format -a disk.qcow
+
+or this:
+
+ virt-format -a /dev/VG/LV
+
+C<disk.qcow> or C</dev/VG/LV> must exist already.  B<Any data on these
+disks will be erased by these commands>.  These commands will create a
+single empty partition covering the whole disk, with no filesystem
+inside it.
+
+Additional parameters can be used to control the creation of
+partitions, filesystems, etc.  The most commonly used options are:
+
+=over 4
+
+=item I<--filesystem=[ext3|ntfs|vfat|...]>
+
+Create an empty filesystem (C<ext3>, C<ntfs> etc) inside the partition.
+
+=item I<--lvm[=/dev/VG/LV]>
+
+Create a Linux LVM2 logical volume on the disk.  When used with
+I<--filesystem>, the filesystem is created inside the LV.
+
+=back
+
+For more information about these and other options, see
+L</OPTIONS> below.
+
+The format of the disk is normally auto-detected, but you can also
+force it by using the I<--format> option (q.v.).  In situations where
+you do not trust the existing content of the disk, then it is
+advisable to use this option to avoid possible exploits.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file>, a disk image, host partition, LV, external USB disk, etc.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
+B<Any existing data on the disk is erased.>
+
+=item B<--filesystem=ext3|ntfs|vfat|...>
+
+Create an empty filesystem of the specified type.  Many filesystem
+types are supported by libguestfs.
+
+=item B<--filesystem=none>
+
+Create no filesystem.  This is the default.
+
+=item B<--format=raw|qcow2|..>
+
+=item B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-format --format=raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-format --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).
+
+=item B<--lvm=/dev/I<VG>/I<LV>>
+
+Create a Linux LVM2 logical volume called C</dev/I<VG>/I<LV>>.  You
+can change the name of the volume group and logical volume.
+
+=item B<--lvm>
+
+Create a Linux LVM2 logical volume with the default name
+(C</dev/VG/LV>).
+
+=item B<--lvm=none>
+
+Create no logical volume.  This is the default.
+
+=item B<--partition>
+
+Create either an MBR or GPT partition covering the whole disk.  MBR is
+chosen if the disk size is E<lt> 2 TB, GPT if E<ge> 2 TB.
+
+This is the default.
+
+=item B<--partition=gpt>
+
+Create a GPT partition.
+
+=item B<--partition=mbr>
+
+Create an MBR partition.
+
+=item B<--partition=none>
+
+Create no partition table.  Note that Windows may not be able to see
+these disks.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<--wipe>
+
+Normally virt-format does not wipe data from the disk (because that
+takes a long time).  Thus if there is data on the disk, it is only
+hidden and partially overwritten by virt-format, and it might be
+recovered by disk editing tools.
+
+If you use this option, virt-format writes zeroes over the whole disk
+so that previous data is not recoverable.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 EXIT STATUS
+
+This program returns C<0> on success, or C<1> on failure.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-filesystems(1)>,
+L<virt-make-fs(1)>,
+L<virt-rescue(1)>,
+L<virt-resize(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.

@@ -105,6 +105,9 @@ fish/virt-copy-in.1
 fish/virt-copy-out.1
 fish/virt-tar-in.1
 fish/virt-tar-out.1
+format/stamp-virt-format.pod
+format/virt-format
+format/virt-format.1
 fuse/guestmount
 fuse/guestmount.1
 fuse/stamp-guestmount.pod
@@ -145,6 +148,7 @@ html/virt-copy-out.1.html
 html/virt-df.1.html
 html/virt-edit.1.html
 html/virt-filesystems.1.html
+html/virt-format.1.html
 html/virt-inspector.1.html
 html/virt-list-filesystems.1.html
 html/virt-list-partitions.1.html

@@ -124,6 +124,7 @@ fish/supported.c
 fish/tilde.c
 fish/time.c
 fish/virt.c
+format/format.c
 fuse/dircache.c
 fuse/guestmount.c
 inspector/virt-inspector.c

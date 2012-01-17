@@ -102,6 +102,7 @@ test-prerequisites:
 test-tools-null:
 	$(RUN_VG) ../../fish/guestfish -N part exit
 	$(RUN_VG) ../../align/virt-alignment-scan -a test1.img >/dev/null
+	$(RUN_VG) ../../format/virt-format -a test1.img >/dev/null
 	rm test1.img
 	$(RUN_VG) ../../cat/virt-filesystems -a /dev/null >/dev/null
 	$(RUN_VG) ../../cat/virt-filesystems -a /dev/null --all --long -h --uuid >/dev/null

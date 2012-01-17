@@ -2955,6 +2955,10 @@ L<guestfish(1)>, the command-line shell, and various shell scripts
 built on top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>,
 L<virt-tar-in(1)>, L<virt-tar-out(1)>.
 
+=item C<format>
+
+L<virt-format(1)> command and documentation.
+
 =item C<fuse>
 
 L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
@@ -3271,6 +3275,7 @@ L<virt-copy-out(1)>,
 L<virt-df(1)>,
 L<virt-edit(1)>,
 L<virt-filesystems(1)>,
+L<virt-format(1)>,
 L<virt-inspector(1)>,
 L<virt-list-filesystems(1)>,
 L<virt-list-partitions(1)>,

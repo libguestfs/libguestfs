@@ -52,7 +52,7 @@ SUBDIRS += test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += align cat df edit inspector rescue
+SUBDIRS += align cat df edit format inspector rescue
 
 # Language bindings.
 if HAVE_PERL
@@ -187,6 +187,7 @@ HTMLFILES = \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
 	html/virt-filesystems.1.html \
+	html/virt-format.1.html \
 	html/virt-inspector.1.html \
 	html/virt-list-filesystems.1.html \
 	html/virt-list-partitions.1.html \

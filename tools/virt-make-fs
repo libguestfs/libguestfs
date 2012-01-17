@@ -54,6 +54,8 @@ which can be useful if you want to attach these filesystems to
 existing virtual machines (eg. to import large amounts of read-only
 data to a VM).
 
+To create blank disks, use L<virt-format(1)>.
+
 Basic usage is:
 
  virt-make-fs input output.img
@@ -557,6 +559,7 @@ manual page L<sh(1)> for details.
 =head1 SEE ALSO
 
 L<guestfish(1)>,
+L<virt-format(1)>,
 L<virt-resize(1)>,
 L<virt-tar-in(1)>,
 L<mkisofs(1)>,
