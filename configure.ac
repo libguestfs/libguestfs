@@ -141,6 +141,10 @@ if test "$gl_gcc_warnings" = yes; then
   # Work around warning in src/inspect.c.  This seems to be a bug in gcc 4.5.1.
   gl_WARN_ADD([-Wno-strict-overflow])
 
+  # Missing field initializers is not a bug in C.  Adding this to $nw above
+  # did not work, so force it here instead.
+  gl_WARN_ADD([-Wno-missing-field-initializers])
+
   gl_WARN_ADD([-fdiagnostics-show-option])
 
   AC_SUBST([WARN_CFLAGS])
