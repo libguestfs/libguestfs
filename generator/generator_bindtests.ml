@@ -181,6 +181,7 @@ print_strings (char *const *argv)
              pr "  strs[n*2] = NULL;\n";
              pr "  return strs;\n"
          | RBufferOut _ ->
+             pr "  *size_r = strlen (val);\n";
              pr "  return strdup (val);\n"
         );
         pr "}\n";

@@ -55,6 +55,7 @@ let test_all_rets = [
   "test0rstruct",      RStruct ("valout", "lvm_pv");
   "test0rstructlist",  RStructList ("valout", "lvm_pv");
   "test0rhashtable",   RHashtable "valout";
+  "test0rbufferout",   RBufferOut "valout";
 ]
 
 let test_functions = [
