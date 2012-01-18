@@ -400,7 +400,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2011 Red Hat Inc. L<http://libguestfs.org/>
+Copyright (C) 2009-2012 Red Hat Inc. L<http://libguestfs.org/>
 
 The examples in this manual page may be freely copied, modified and
 distributed without any restrictions.

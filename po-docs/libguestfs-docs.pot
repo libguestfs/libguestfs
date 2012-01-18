@@ -1170,7 +1170,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:258 ../inspector/virt-inspector.pod:420 ../resize/virt-resize.pod:723 ../tools/virt-make-fs.pl:591
-msgid "Copyright (C) 2010-2011 Red Hat Inc."
+msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -2579,7 +2579,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-ls.pod:513 ../df/virt-df.pod:267 ../edit/virt-edit.pod:374 ../rescue/virt-rescue.pod:340
-msgid "Copyright (C) 2009-2011 Red Hat Inc."
+msgid "Copyright (C) 2009-2012 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -5302,7 +5302,7 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-recipes.pod:403
-msgid "Copyright (C) 2009-2011 Red Hat Inc. L<http://libguestfs.org/>"
+msgid "Copyright (C) 2009-2012 Red Hat Inc. L<http://libguestfs.org/>"
 msgstr ""
 
 #. type: textblock
@@ -21529,7 +21529,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1302 ../src/guestfs.pod:3346 ../test-tool/libguestfs-test-tool.pod:112
-msgid "Copyright (C) 2009-2011 Red Hat Inc.  L<http://libguestfs.org/>"
+msgid "Copyright (C) 2009-2012 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 #. type: textblock
@@ -22546,7 +22546,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fuse/guestmount.pod:334
-msgid "Copyright (C) 2009-2010 Red Hat Inc.  L<http://libguestfs.org/>"
+msgid "Copyright (C) 2009-2012 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
 #. type: textblock
@@ -41830,7 +41830,7 @@ msgstr ""
 
 #. type: textblock
 #: ../tools/virt-list-partitions.pl:283
-msgid "Copyright (C) 2009-2010 Red Hat Inc."
+msgid "Copyright (C) 2009-2012 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

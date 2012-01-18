@@ -1,5 +1,5 @@
 /* guestmount - mount guests using libguestfs and FUSE
- * Copyright (C) 2009-2011 Red Hat Inc.
+ * Copyright (C) 2009-2012 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -911,7 +911,7 @@ usage (int status)
     fprintf (stdout,
            _("%s: FUSE module for libguestfs\n"
              "%s lets you mount a virtual machine filesystem\n"
-             "Copyright (C) 2009-2010 Red Hat Inc.\n"
+             "Copyright (C) 2009-2012 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] [-- [--FUSE-options]] mountpoint\n"
              "Options:\n"

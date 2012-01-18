@@ -1,6 +1,6 @@
 #!/bin/bash -
 # bugs-in-changelog.sh
-# Copyright (C) 2009-2010 Red Hat Inc.
+# Copyright (C) 2009-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -1,5 +1,5 @@
 /* virt-ls
- * Copyright (C) 2010-2011 Red Hat Inc.
+ * Copyright (C) 2010-2012 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ usage (int status)
   else {
     fprintf (stdout,
            _("%s: list files in a virtual machine\n"
-             "Copyright (C) 2010-2011 Red Hat Inc.\n"
+             "Copyright (C) 2010-2012 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] -d domname dir [dir ...]\n"
              "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"

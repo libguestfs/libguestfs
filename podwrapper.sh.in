@@ -1,6 +1,6 @@
 #!/bin/bash -
 # podwrapper.sh
-# Copyright (C) 2010-2011 Red Hat Inc.
+# Copyright (C) 2010-2012 Red Hat Inc.
 # @configure_input@
 #
 # This program is free software; you can redistribute it and/or modify
