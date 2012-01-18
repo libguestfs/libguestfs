@@ -35,10 +35,6 @@ EXTRA_DIST = \
 CLEANFILES = *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
 CLEANFILES += t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
-AM_CPPFLAGS = -I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
-  -I$(top_srcdir)/src -I$(top_builddir)/src \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS)
-
 if HAVE_OCAML
 
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX
@@ -46,20 +42,27 @@ OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
 
-OBJS = guestfs_c.o guestfs_c_actions.o guestfs.cmo
-XOBJS = $(OBJS:.cmo=.cmx)
+# Build the C part into a library, so that automake handles the C
+# compilation step for us.  Note that we don't directly use this
+# library; we link with the object files that it generates.
+noinst_LIBRARIES = libguestfsocaml.a
 
-mlguestfs.cma: $(OBJS)
-	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
+mlguestfs.cma: libguestfsocaml.a guestfs.cmo
+	$(OCAMLMKLIB) -o mlguestfs \
+	  $(am_libguestfsocaml_a_OBJECTS) guestfs.cmo \
+	  -L$(top_builddir)/src/.libs -lguestfs
 
-mlguestfs.cmxa: $(XOBJS)
-	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
+mlguestfs.cmxa: libguestfsocaml.a guestfs.cmx
+	$(OCAMLMKLIB) -o mlguestfs \
+	  $(am_libguestfsocaml_a_OBJECTS) guestfs.cmx \
+	  -L$(top_builddir)/src/.libs -lguestfs
 
-guestfs_c.o: guestfs_c.c
-	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $<
-
-guestfs_c_actions.o: guestfs_c_actions.c
-	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $(srcdir)/$<
+libguestfsocaml_a_CFLAGS = \
+	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-fPIC
+libguestfsocaml_a_SOURCES = guestfs_c.c guestfs_c_actions.c
 
 if HAVE_OCAMLDOC
 
