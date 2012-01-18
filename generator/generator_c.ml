@@ -1404,7 +1404,13 @@ trace_send_line (guestfs_h *g)
           | _ ->
               match args with
               | [] -> "g"
-              | args -> name_of_argt (List.hd (List.rev args)) in
+              | args ->
+                let last = List.hd (List.rev args) in
+                let name = name_of_argt last in
+                match last with
+                | BufferIn n -> name ^ "_size"
+                | _ -> name
+        in
 
         let rtype =
           match ret with
