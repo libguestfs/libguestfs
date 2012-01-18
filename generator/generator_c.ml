@@ -625,6 +625,8 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
 extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
 extern void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
 extern const char *guestfs_tmpdir (void);
+extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
+extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 #ifdef GUESTFS_PRIVATE_FOR_EACH_DISK
 extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
 #endif
