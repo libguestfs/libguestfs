@@ -167,7 +167,7 @@ print_strings (char *const *argv)
          | RHashtable _ ->
              pr "  char **strs;\n";
              pr "  int n, i;\n";
-             pr "  if (sscanf (val, \"%%d\", &n) != -1) {\n";
+             pr "  if (sscanf (val, \"%%d\", &n) != 1) {\n";
              pr "    error (g, \"%%s: expecting int argument\", \"%s\");\n" name;
              pr "    return NULL;\n";
              pr "  }\n";
