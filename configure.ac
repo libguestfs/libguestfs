@@ -166,6 +166,12 @@ VERSION_SCRIPT_FLAGS=-Wl,--version-script=
     VERSION_SCRIPT_FLAGS="-Wl,-M -Wl,"
 AC_SUBST(VERSION_SCRIPT_FLAGS)
 
+dnl Use -fvisibility=hidden by default in the library.
+dnl http://gcc.gnu.org/wiki/Visibility
+AS_IF([test -n "$GCC"],
+    [AC_SUBST([GCC_VISIBILITY_HIDDEN], [-fvisibility=hidden])],
+    [AC_SUBST([GCC_VISIBILITY_HIDDEN], [:])])
+
 dnl Check support for 64 bit file offsets.
 AC_SYS_LARGEFILE
 

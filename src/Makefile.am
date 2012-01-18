@@ -55,7 +55,8 @@ lib_LTLIBRARIES = libguestfs.la
 # This convenience library is solely to compile its generated sources with
 # custom flags.
 libprotocol_la_SOURCES = guestfs_protocol.c  guestfs_protocol.h
-libprotocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
+libprotocol_la_CFLAGS = \
+	-Wall -Wno-unused -fno-strict-aliasing $(GCC_VISIBILITY_HIDDEN)
 
 # Build the errnostring perfect hash code.  The generated code has lots
 # of warnings so we must compile it in a separate mini-library.
@@ -63,7 +64,7 @@ liberrnostring_la_SOURCES = \
 	errnostring_gperf.c \
 	errnostring.h \
 	errnostring.c
-liberrnostring_la_CFLAGS =
+liberrnostring_la_CFLAGS = $(GCC_VISIBILITY_HIDDEN)
 
 errnostring_gperf.c: errnostring_gperf.gperf
 	rm -f $@
@@ -163,7 +164,8 @@ libguestfs_la_CFLAGS = \
   -DGUESTFS_WARN_DEPRECATED=1 \
   $(HIVEX_CFLAGS) $(AUGEAS_CFLAGS) $(PCRE_CFLAGS) \
   $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS)
+  $(WARN_CFLAGS) $(WERROR_CFLAGS) \
+  $(GCC_VISIBILITY_HIDDEN)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 

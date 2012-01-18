@@ -39,12 +39,14 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     ?(semicolon = true)
     ?(single_line = false) ?(indent = "") ?(newline = false)
     ?(in_daemon = false)
+    ?(dll_public = false)
     ?(prefix = "") ?(suffix = "")
     ?handle
     ?(optarg_proto = Dots)
     name (ret, args, optargs) =
   pr "%s" indent;
   if extern then pr "extern ";
+  if dll_public then pr "GUESTFS_DLL_PUBLIC ";
   if static then pr "static ";
   (match ret with
    | RErr
@@ -378,6 +380,10 @@ extern \"C\" {
 #  endif
 #endif /* GUESTFS_WARN_DEPRECATED */
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40000 /* gcc >= 4.0 */
+# define GUESTFS_DLL_PUBLIC __attribute__((visibility (\"default\")))
+#endif
+
 /* The handle. */
 #ifndef GUESTFS_TYPEDEF_H
 #define GUESTFS_TYPEDEF_H 1
@@ -385,13 +391,13 @@ typedef struct guestfs_h guestfs_h;
 #endif
 
 /* Connection management. */
-extern guestfs_h *guestfs_create (void);
-extern void guestfs_close (guestfs_h *g);
+extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create (void);
+extern GUESTFS_DLL_PUBLIC void guestfs_close (guestfs_h *g);
 
 /* Error handling. */
-extern const char *guestfs_last_error (guestfs_h *g);
+extern GUESTFS_DLL_PUBLIC const char *guestfs_last_error (guestfs_h *g);
 #define LIBGUESTFS_HAVE_LAST_ERRNO 1
-extern int guestfs_last_errno (guestfs_h *g);
+extern GUESTFS_DLL_PUBLIC int guestfs_last_errno (guestfs_h *g);
 
 #ifndef GUESTFS_TYPEDEF_ERROR_HANDLER_CB
 #define GUESTFS_TYPEDEF_ERROR_HANDLER_CB 1
@@ -403,11 +409,11 @@ typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *opaque, const char
 typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));
 #endif
 
-extern void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
-extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **opaque_rtn);
+extern GUESTFS_DLL_PUBLIC void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
+extern GUESTFS_DLL_PUBLIC guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **opaque_rtn);
 
-extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
-extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
+extern GUESTFS_DLL_PUBLIC void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
+extern GUESTFS_DLL_PUBLIC guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 /* Events. */
 ";
@@ -434,13 +440,9 @@ typedef void (*guestfs_event_callback) (
 #endif
 
 #define LIBGUESTFS_HAVE_SET_EVENT_CALLBACK 1
-extern int guestfs_set_event_callback (guestfs_h *g,
-                                       guestfs_event_callback cb,
-                                       uint64_t event_bitmask,
-                                       int flags,
-                                       void *opaque);
+extern GUESTFS_DLL_PUBLIC int guestfs_set_event_callback (guestfs_h *g, guestfs_event_callback cb, uint64_t event_bitmask, int flags, void *opaque);
 #define LIBGUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
-extern void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
+extern GUESTFS_DLL_PUBLIC void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
 
 /* Old-style event handling. */
 #ifndef GUESTFS_TYPEDEF_LOG_MESSAGE_CB
@@ -468,32 +470,32 @@ typedef void (*guestfs_close_cb) (guestfs_h *g, void *opaque);
 typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque, int proc_nr, int serial, uint64_t position, uint64_t total);
 #endif
 
-extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque)
+extern GUESTFS_DLL_PUBLIC void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
-extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque)
+extern GUESTFS_DLL_PUBLIC void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
-extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque)
+extern GUESTFS_DLL_PUBLIC void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
 #define LIBGUESTFS_HAVE_SET_CLOSE_CALLBACK 1
-extern void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque)
+extern GUESTFS_DLL_PUBLIC void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
 #define LIBGUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
-extern void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
+extern GUESTFS_DLL_PUBLIC void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
 
 /* User cancellation. */
 #define LIBGUESTFS_HAVE_USER_CANCEL 1
-extern void guestfs_user_cancel (guestfs_h *g);
+extern GUESTFS_DLL_PUBLIC void guestfs_user_cancel (guestfs_h *g);
 
 /* Private data area. */
 #define LIBGUESTFS_HAVE_SET_PRIVATE 1
-extern void guestfs_set_private (guestfs_h *g, const char *key, void *data);
+extern GUESTFS_DLL_PUBLIC void guestfs_set_private (guestfs_h *g, const char *key, void *data);
 #define LIBGUESTFS_HAVE_GET_PRIVATE 1
-extern void *guestfs_get_private (guestfs_h *g, const char *key);
+extern GUESTFS_DLL_PUBLIC void *guestfs_get_private (guestfs_h *g, const char *key);
 #define LIBGUESTFS_HAVE_FIRST_PRIVATE 1
-extern void *guestfs_first_private (guestfs_h *g, const char **key_rtn);
+extern GUESTFS_DLL_PUBLIC void *guestfs_first_private (guestfs_h *g, const char **key_rtn);
 #define LIBGUESTFS_HAVE_NEXT_PRIVATE 1
-extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
+extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
 
 /* Structures. */
 ";
@@ -536,8 +538,8 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
       pr "  struct guestfs_%s *val;\n" typ;
       pr "};\n";
       pr "\n";
-      pr "extern void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
-      pr "extern void guestfs_free_%s_list (struct guestfs_%s_list *);\n" typ typ;
+      pr "extern GUESTFS_DLL_PUBLIC void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
+      pr "extern GUESTFS_DLL_PUBLIC void guestfs_free_%s_list (struct guestfs_%s_list *);\n" typ typ;
       pr "\n"
   ) structs;
 
@@ -569,7 +571,7 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
         ) optargs;
       );
 
-      generate_prototype ~single_line:true ~semicolon:false
+      generate_prototype ~single_line:true ~semicolon:false ~dll_public:true
         ~handle:"g" ~prefix:"guestfs_" shortname style;
       (match deprecated with
        | Some fn -> pr "\n  GUESTFS_DEPRECATED_BY (%S);\n" fn
@@ -579,6 +581,7 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
       if optargs <> [] then (
         generate_prototype ~single_line:true ~newline:true ~handle:"g"
           ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
+          ~dll_public:true
           shortname style;
 
         pr "\n";
@@ -608,6 +611,7 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
 
         generate_prototype ~single_line:true ~newline:true ~handle:"g"
           ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
+          ~dll_public:true
           shortname style;
       );
 
@@ -622,13 +626,13 @@ extern void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
  * time!  We export them because they are used by some of the language
  * bindings.
  */
-extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
-extern void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
-extern const char *guestfs_tmpdir (void);
-extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
-extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+extern GUESTFS_DLL_PUBLIC void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
+extern GUESTFS_DLL_PUBLIC void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
+extern GUESTFS_DLL_PUBLIC char *guestfs_safe_strdup (guestfs_h *g, const char *str);
+extern GUESTFS_DLL_PUBLIC void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+extern GUESTFS_DLL_PUBLIC const char *guestfs_tmpdir (void);
 #ifdef GUESTFS_PRIVATE_FOR_EACH_DISK
-extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
 #endif
 /* End of private functions. */
 
