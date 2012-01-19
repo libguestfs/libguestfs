@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.16.0
 -----------------------------------
 
-  NOT FINAL, COVERS UP TO COMMIT 54a7982dc3a6d3cc903c8d6e73be30c46fdf90d4
+  NOT FINAL, COVERS UP TO COMMIT a9c8123c72db47bcab8dd738e8d5256a9ae87f11
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.14.0).  For detailed changelogs, please see
@@ -55,6 +55,8 @@ New features
 
   virt tools:
 
+   - New tool virt-format for erasing and making blank disks
+
    - virt-sparsify new --compress and -o options to allow for compressed
      and different format output
 
@@ -83,6 +85,7 @@ Security
 New APIs
 
   blkid: print all attributes of a device known to blkid (Wanlong Gao)
+  e2fsck: access to more features of e2fsck (Wanlong Gao)
   list-md-devices: list of Linux MD devices (Matthew Booth)
   md-create: create an MD device
   md-detail: returns metadata for an MD device (Matthew Booth)
@@ -104,6 +107,9 @@ Internals
   Support for optional arguments in the generator has been rewritten
   to provide more features and safety (Matthew Booth).
 
+  With gcc -fvisibility=hidden is used for internal symbols, avoiding
+  call indirection via the PLT.
+
   RHashtable functions can be tested in the generator.
 
   ADD_ARG macro in daemon allows arg lists to be constructed without
@@ -111,7 +117,12 @@ Internals
 
   Fix generation of OCaml functions that have more than 10 arguments.
 
+  psmisc has been added to the appliance, allowing use of 'fuser',
+  'killall' and 'pstree' for debugging.
+
 Bugs fixed
+
+ - 755729 Error message for resize2fs-M needs tweaking
 
   [./bugs-in-changelog.sh 1.14.0..]
 
