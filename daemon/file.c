@@ -483,7 +483,6 @@ pread_fd (int fd, int count, int64_t offset, size_t *size_r,
 
   if (close (fd) == -1) {
     reply_with_perror ("close: %s", display_path);
-    close (fd);
     free (buf);
     return NULL;
   }
@@ -539,7 +538,6 @@ pwrite_fd (int fd, const char *content, size_t size, int64_t offset,
 
   if (close (fd) == -1) {
     reply_with_perror ("close: %s", display_path);
-    close (fd);
     return -1;
   }
 
