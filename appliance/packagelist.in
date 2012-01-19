@@ -119,6 +119,7 @@ ocfs2-tools
 */
 parted
 procps
+psmisc
 scrub
 strace
 tar
