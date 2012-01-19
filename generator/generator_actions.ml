@@ -43,6 +43,13 @@ let test_all_args = [
   BufferIn "bufferin";
 ]
 
+let test_all_optargs = [
+  OBool   "obool";
+  OInt    "oint";
+  OInt64  "oint64";
+  OString "ostring"
+]
+
 let test_all_rets = [
   (* except for RErr, which is tested thoroughly elsewhere *)
   "test0rint",         RInt "valout";
@@ -59,7 +66,8 @@ let test_all_rets = [
 ]
 
 let test_functions = [
-  ("test0", (RErr, test_all_args, []), -1, [NotInFish; NotInDocs; Cancellable],
+  ("test0", (RErr, test_all_args, test_all_optargs), -1,
+   [NotInFish; NotInDocs; Cancellable],
    [],
    "internal test function - do not use",
    "\

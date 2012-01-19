@@ -7,6 +7,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: true
+oint: 1
+oint64: unset
+ostring: unset
 abc
 null
 []
@@ -16,6 +20,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: 1
+ostring: string
 
 def
 []
@@ -25,6 +33,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: false
+oint: unset
+oint64: unset
+ostring: unset
 
 
 []
@@ -34,6 +46,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -43,6 +59,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1", "2"]
@@ -52,6 +72,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -61,6 +85,10 @@ true
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -70,6 +98,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -79,6 +111,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -88,6 +124,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -97,6 +137,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -106,6 +150,10 @@ false
 123
 456
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 abc
 def
 ["1"]
@@ -115,4 +163,8 @@ false
 
 
 <61><62><63><00><61><62><63>
+obool: unset
+oint: unset
+oint64: unset
+ostring: unset
 EOF

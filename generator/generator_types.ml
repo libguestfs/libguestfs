@@ -422,3 +422,9 @@ type callt =
   | CallInt64 of int64
   | CallBool of bool
   | CallBuffer of string
+
+type call_optargt =
+  | CallOBool of string * bool
+  | CallOInt of string * int
+  | CallOInt64 of string * int64
+  | CallOString of string * string

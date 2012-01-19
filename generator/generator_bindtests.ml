@@ -65,9 +65,9 @@ print_strings (char *const *argv)
     | test0 :: tests -> test0, tests in
 
   let () =
-    let (name, (ret, args, _ as style), _, _, _, _, _) = test0 in
+    let (name, (ret, args, optargs as style), _, _, _, _, _) = test0 in
     generate_prototype ~extern:false ~semicolon:false ~newline:true
-      ~handle:"g" ~prefix:"guestfs__" name style;
+      ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
     pr "{\n";
     List.iter (
       function
@@ -91,6 +91,31 @@ print_strings (char *const *argv)
       | Int64 n -> pr "  printf (\"%%\" PRIi64 \"\\n\", %s);\n" n
       | Pointer _ -> assert false
     ) args;
+    let check_optarg n printf_args =
+      pr "  printf (\"%s: \");\n" n;
+      pr "  if (optargs->bitmask & GUESTFS_TEST0_%s_BITMASK) {\n"
+        (String.uppercase n);
+      pr "    printf(%s);\n" printf_args;
+      pr "  } else {\n";
+      pr "    printf (\"unset\\n\");\n";
+      pr "  }\n";
+    in
+    List.iter (
+      function
+      | OBool n ->
+        let printf_args =
+          sprintf "\"%%s\\n\", optargs->%s ? \"true\" : \"false\"" n in
+        check_optarg n printf_args;
+      | OInt n ->
+        let printf_args = sprintf "\"%%i\\n\", optargs->%s" n in
+        check_optarg n printf_args;
+      | OInt64 n ->
+        let printf_args = sprintf "\"%%\" PRIi64 \"\\n\", optargs->%s" n in
+        check_optarg n printf_args;
+      | OString n ->
+        let printf_args = sprintf "\"%%s\\n\", optargs->%s" n in
+        check_optarg n printf_args;
+    ) optargs;
     pr "  /* Java changes stdout line buffering so we need this: */\n";
     pr "  fflush (stdout);\n";
     pr "  return 0;\n";
@@ -215,7 +240,12 @@ let () =
   let g = Guestfs.create () in
 ";
 
-  let mkargs args =
+  let mkargs args optargs =
+    let optargs =
+      match optargs with
+      | Some n -> n
+      | None -> []
+    in
     String.concat " " (
       List.map (
         function
@@ -231,11 +261,19 @@ let () =
         | CallBool b -> string_of_bool b
         | CallBuffer s -> sprintf "%S" s
       ) args
+      @
+      List.map (
+        function
+        | CallOBool (n, v)    -> "~" ^ n ^ ":" ^ string_of_bool v
+        | CallOInt (n, v)     -> "~" ^ n ^ ":" ^ string_of_int v
+        | CallOInt64 (n, v)   -> "~" ^ n ^ ":" ^ Int64.to_string v ^ "L"
+        | CallOString (n, v)  -> "~" ^ n ^ ":\"" ^ v ^ "\""
+      ) optargs
     )
   in
 
   generate_lang_bindtests (
-    fun f args -> pr "  Guestfs.%s g %s;\n" f (mkargs args)
+    fun f args optargs -> pr "  Guestfs.%s g %s;\n" f (mkargs args optargs)
   );
 
   pr "print_endline \"EOF\"\n"
@@ -252,7 +290,12 @@ use Sys::Guestfs;
 my $g = Sys::Guestfs->new ();
 ";
 
-  let mkargs args =
+  let mkargs args optargs =
+    let optargs =
+      match optargs with
+      | Some n -> n
+      | None -> []
+    in
     String.concat ", " (
       List.map (
         function
@@ -266,11 +309,19 @@ my $g = Sys::Guestfs->new ();
         | CallBool b -> if b then "1" else "0"
         | CallBuffer s -> "\"" ^ c_quote s ^ "\""
       ) args
+      @
+      List.map (
+        function
+        | CallOBool (n, v)    -> "'" ^ n ^ "' => " ^ if v then "1" else "0"
+        | CallOInt (n, v)     -> "'" ^ n ^ "' => " ^ string_of_int v
+        | CallOInt64 (n, v)   -> "'" ^ n ^ "' => " ^ Int64.to_string v
+        | CallOString (n, v)  -> "'" ^ n ^ "' => '" ^ v ^ "'"
+      ) optargs
     )
   in
 
   generate_lang_bindtests (
-    fun f args -> pr "$g->%s (%s);\n" f (mkargs args)
+    fun f args optargs -> pr "$g->%s (%s);\n" f (mkargs args optargs)
   );
 
   pr "print \"EOF\\n\"\n"
@@ -284,7 +335,12 @@ import guestfs
 g = guestfs.GuestFS ()
 ";
 
-  let mkargs args =
+  let mkargs args optargs =
+    let optargs =
+      match optargs with
+      | Some n -> n
+      | None -> []
+    in
     String.concat ", " (
       List.map (
         function
@@ -298,11 +354,19 @@ g = guestfs.GuestFS ()
         | CallBool b -> if b then "1" else "0"
         | CallBuffer s -> "\"" ^ c_quote s ^ "\""
       ) args
+      @
+      List.map (
+        function
+        | CallOBool (n, v)    -> n ^ "=" ^ if v then "True" else "False"
+        | CallOInt (n, v)     -> n ^ "=" ^ string_of_int v
+        | CallOInt64 (n, v)   -> n ^ "=" ^ Int64.to_string v
+        | CallOString (n, v)  -> n ^ "=\"" ^ v ^ "\""
+      ) optargs
     )
   in
 
   generate_lang_bindtests (
-    fun f args -> pr "g.%s (%s)\n" f (mkargs args)
+    fun f args optargs -> pr "g.%s (%s)\n" f (mkargs args optargs)
   );
 
   pr "print (\"EOF\")\n"
@@ -316,7 +380,12 @@ require 'guestfs'
 g = Guestfs::create()
 ";
 
-  let mkargs args =
+  let mkargs args optargs =
+    let optargs =
+      match optargs with
+      | Some n -> n
+      | None -> []
+    in
     String.concat ", " (
       List.map (
         function
@@ -330,11 +399,22 @@ g = Guestfs::create()
         | CallBool b -> string_of_bool b
         | CallBuffer s -> "\"" ^ c_quote s ^ "\""
       ) args
-    )
+    ) ^
+    ", {" ^
+    String.concat ", " (
+      List.map (
+        function
+        | CallOBool (n, v)    -> ":" ^ n ^ " => " ^ string_of_bool v
+        | CallOInt (n, v)     -> ":" ^ n ^ " => " ^ string_of_int v
+        | CallOInt64 (n, v)   -> ":" ^ n ^ " => " ^ Int64.to_string v
+        | CallOString (n, v)  -> ":" ^ n ^ " => \"" ^ v ^ "\""
+      ) optargs
+    ) ^
+    "}"
   in
 
   generate_lang_bindtests (
-    fun f args -> pr "g.%s(%s)\n" f (mkargs args)
+    fun f args optargs -> pr "g.%s(%s)\n" f (mkargs args optargs)
   );
 
   pr "print \"EOF\\n\"\n"
@@ -343,6 +423,8 @@ and generate_java_bindtests () =
   generate_header CStyle GPLv2plus;
 
   pr "\
+import java.util.Map;
+import java.util.HashMap;
 import com.redhat.et.libguestfs.*;
 
 public class Bindtests {
@@ -350,7 +432,29 @@ public class Bindtests {
     {
         try {
             GuestFS g = new GuestFS ();
+            Map<String, Object> o;
+
 ";
+
+  let mkoptargs =
+    function
+    | Some optargs ->
+      "o = new HashMap<String, Object>() {{" ::
+      List.map (
+        function
+        | CallOBool (n, v)    ->
+          "  put(\"" ^ n ^ "\", Boolean." ^ (if v then "TRUE" else "FALSE") ^ ");"
+        | CallOInt (n, v)     ->
+          "  put(\"" ^ n ^ "\", " ^ string_of_int v ^ ");"
+        | CallOInt64 (n, v)   ->
+          "  put(\"" ^ n ^ "\", " ^ Int64.to_string v ^ "l);"
+        | CallOString (n, v)  ->
+          "  put(\"" ^ n ^ "\", \"" ^ v ^ "\");"
+      ) optargs @
+      [ "}};\n" ]
+    | None ->
+      [ "o = null;" ]
+  in
 
   let mkargs args =
     String.concat ", " (
@@ -373,8 +477,14 @@ public class Bindtests {
     )
   in
 
+  let pr_indent indent strings =
+    List.iter ( fun s -> pr "%s%s\n" indent s) strings
+  in
+
   generate_lang_bindtests (
-    fun f args -> pr "            g.%s (%s);\n" f (mkargs args)
+    fun f args optargs ->
+      pr_indent "            " (mkoptargs optargs);
+      pr "            g.%s (%s, o);\n" f (mkargs args)
   );
 
   pr "
@@ -420,7 +530,7 @@ main = do
   in
 
   generate_lang_bindtests (
-    fun f args -> pr "  Guestfs.%s g %s\n" f (mkargs args)
+    fun f args optargs -> pr "  Guestfs.%s g %s\n" f (mkargs args)
   );
 
   pr "  putStrLn \"EOF\"\n"
@@ -432,8 +542,28 @@ and generate_gobject_js_bindtests () =
 const Guestfs = imports.gi.Guestfs;
 
 var g = new Guestfs.Session();
+var o;
 
 ";
+
+    let mkoptargs = function
+    | Some optargs ->
+      "o = new Guestfs.Test0({" ^
+      (
+        String.concat ", " (
+          List.map (
+            function
+            | CallOBool (n, v)    -> n ^ ": " ^ (if v then "true" else "false")
+            | CallOInt (n, v)     -> n ^ ": " ^ (string_of_int v)
+            | CallOInt64 (n, v)   -> n ^ ": " ^ Int64.to_string v
+            | CallOString (n, v)  -> n ^ ": \"" ^ v ^ "\""
+          ) optargs
+        )
+      ) ^
+      "});"
+    | None ->
+      "o = null;"
+    in
 
     let mkargs args =
       String.concat ", " (
@@ -450,11 +580,12 @@ var g = new Guestfs.Session();
           | CallBool false -> "false"
           | CallBuffer s -> "\"" ^ c_quote s ^ "\""
         ) args)
-        @ ["null"]
+        @ ["o"; "null"]
       )
     in
     generate_lang_bindtests (
-      fun f args -> pr "g.%s(%s);\n" f (mkargs args)
+      fun f args optargs ->
+        pr "%s\ng.%s(%s);\n" (mkoptargs optargs) f (mkargs args)
     );
 
     pr "\nprint(\"EOF\");\n"
@@ -466,54 +597,59 @@ and generate_lang_bindtests call =
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList []; CallBool false;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"]
+               (Some [CallOBool ("obool", true); CallOInt ("oint", 1)]);
   call "test0" [CallString "abc"; CallOptString None;
                 CallStringList []; CallBool false;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"]
+               (Some [CallOInt64 ("oint64", 1L);
+                      CallOString ("ostring", "string")]);
   call "test0" [CallString ""; CallOptString (Some "def");
                 CallStringList []; CallBool false;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"]
+               (Some [CallOBool ("obool", false)]);
   call "test0" [CallString ""; CallOptString (Some "");
                 CallStringList []; CallBool false;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"]
+                (Some []);
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"; "2"]; CallBool false;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool true;
                 CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
                 CallInt (-1); CallInt64 (-1L); CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt (-2); CallInt64 (-2L); CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallInt (-2); CallInt64 (-2L); CallString "123";CallString "456";
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
                 CallInt 1; CallInt64 1L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
                 CallInt 2; CallInt64 2L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
                 CallInt 4095; CallInt64 4095L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"];
+                CallBuffer "abc\000abc"] None;
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
                 CallInt 0; CallInt64 0L; CallString ""; CallString "";
-                CallBuffer "abc\000abc"]
+                CallBuffer "abc\000abc"] None;
 
 (* XXX Add here tests of the return and error functions. *)
