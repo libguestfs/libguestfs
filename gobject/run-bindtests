@@ -25,3 +25,4 @@ fi
 
 ../run $GJS bindtests.js > bindtests.tmp
 diff -u ${srcdir}/../bindtests bindtests.tmp
+../run $GJS bindtests-manual.js 2>/dev/null
