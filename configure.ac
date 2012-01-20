@@ -277,46 +277,47 @@ AC_ARG_ENABLE([appliance],
 AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
 AC_MSG_RESULT([$enable_appliance])
 
+dnl Check for febootstrap >= 3.0
+AC_CHECK_PROG([FEBOOTSTRAP],
+              [febootstrap],[febootstrap],[no])
+
+dnl Pass a febootstrap --yum-config option.
+AC_MSG_CHECKING([if user requested febootstrap --yum-config option])
+AC_ARG_WITH([febootstrap-yum-config],
+    [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
+      [pass febootstrap --yum-config option @<:@default=no@:>@])],
+    [FEBOOTSTRAP_YUM_CONFIG="$withval"],
+    [FEBOOTSTRAP_YUM_CONFIG=no])
+AC_MSG_RESULT([$FEBOOTSTRAP_YUM_CONFIG])
+AC_SUBST([FEBOOTSTRAP_YUM_CONFIG])
+
 if test "x$enable_appliance" = "xyes"; then
-    dnl Check for febootstrap >= 3.0
-    AC_CHECK_PROG([FEBOOTSTRAP],
-                  [febootstrap],[febootstrap],[no])
     test "x$FEBOOTSTRAP" = "xno" &&
         AC_MSG_ERROR([febootstrap must be installed])
     dnl febootstrap 2.x did not support the --version parameter
     $FEBOOTSTRAP --version >&AS_MESSAGE_LOG_FD 2>&1 ||
         AC_MSG_ERROR([febootstrap >= 3.0 must be installed, your version is too old])
-
-    dnl Pass a febootstrap --yum-config option.
-    AC_MSG_CHECKING([if user requested febootstrap --yum-config option])
-    AC_ARG_WITH([febootstrap-yum-config],
-        [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
-          [pass febootstrap --yum-config option @<:@default=no@:>@])],
-        [FEBOOTSTRAP_YUM_CONFIG="$withval"],
-        [FEBOOTSTRAP_YUM_CONFIG=no])
-    AC_MSG_RESULT([$FEBOOTSTRAP_YUM_CONFIG])
-    AC_SUBST([FEBOOTSTRAP_YUM_CONFIG])
-
-    dnl Which distro?
-    dnl
-    dnl This used to be Very Important but is now just used to select
-    dnl which packages to install in the appliance, since the package
-    dnl names vary slightly across distros.  (See
-    dnl appliance/packagelist.in and appliance/excludelist.in)
-    AC_MSG_CHECKING([which Linux distro for package names])
-    DISTRO=REDHAT
-    if test -f /etc/debian_version; then
-        DISTRO=DEBIAN
-	if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>&AS_MESSAGE_LOG_FD; then
-            DISTRO=UBUNTU
-	fi
-    fi
-    if test -f /etc/arch-release; then
-        DISTRO=ARCHLINUX
-    fi
-    AC_MSG_RESULT([$DISTRO])
-    AC_SUBST([DISTRO])
 fi
+
+dnl Which distro?
+dnl
+dnl This used to be Very Important but is now just used to select
+dnl which packages to install in the appliance, since the package
+dnl names vary slightly across distros.  (See
+dnl appliance/packagelist.in and appliance/excludelist.in)
+AC_MSG_CHECKING([which Linux distro for package names])
+DISTRO=REDHAT
+if test -f /etc/debian_version; then
+    DISTRO=DEBIAN
+    if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>&AS_MESSAGE_LOG_FD; then
+        DISTRO=UBUNTU
+    fi
+fi
+if test -f /etc/arch-release; then
+    DISTRO=ARCHLINUX
+fi
+AC_MSG_RESULT([$DISTRO])
+AC_SUBST([DISTRO])
 
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
