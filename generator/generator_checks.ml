@@ -208,6 +208,11 @@ let () =
               failwithf "%s: Optional group name %s should not contain uppercase chars" name n;
             if String.contains n '-' || String.contains n '_' then
               failwithf "%s: Optional group name %s should not contain '-' or '_'" name n
+        | CamelName n ->
+            if not (contains_uppercase n) then
+              failwithf "%s: camel case name must contains uppercase characters" name n;
+            if String.contains n '_' then
+              failwithf "%s: camel case name must not contain '_'" name n;
         | Cancellable ->
           (match ret with
           | RConstOptString n ->
