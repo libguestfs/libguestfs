@@ -33,9 +33,7 @@ New features
 
    - Ruby bindings can be disabled individually (Hilko Bengen)
 
-   - support for Python 2.5, 2.6 (Hilko Bengen)
-
-   - support for Python 3
+   - support for Python 2.6, 3.x (Richard Jones, Hilko Bengen)
 
    - new %guestfs_introspection hash is available in Perl bindings so
      you can query which optional arguments are available
