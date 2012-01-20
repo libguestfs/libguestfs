@@ -58,7 +58,7 @@ trace get_autosync
 trace get_autosync = 1
 enter get_path
 trace get_path
-trace get_path = "../appliance"
+trace get_path = "'$LIBGUESTFS_PATH'"
 enter get_pgroup
 trace get_pgroup
 trace get_pgroup = 0
