@@ -42,6 +42,7 @@ daemon/hexdump.c
 daemon/htonl.c
 daemon/initrd.c
 daemon/inotify.c
+daemon/internal.c
 daemon/is.c
 daemon/link.c
 daemon/ls.c
