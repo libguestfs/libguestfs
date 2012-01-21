@@ -96,9 +96,7 @@ random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
 TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	TMPDIR=$(top_builddir)
+	$(top_builddir)/run
 
 TESTS = test-virt-sparsify.sh
 

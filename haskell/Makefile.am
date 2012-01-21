@@ -28,9 +28,7 @@ EXTRA_DIST = $(generator_built) *.hs run-bindtests
 if HAVE_HASKELL
 
 TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	TMPDIR=$(top_builddir) \
+	$(top_builddir)/run \
 	$(VG)
 
 # Don't run the bindtests: they don't build since the addition of optargs.

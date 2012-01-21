@@ -47,10 +47,8 @@ if HAVE_RUBY
 TESTS = run-bindtests run-ruby-tests
 
 TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	TMPDIR=$(top_builddir) \
-	RUBY=$(RUBY)
+	RUBY=$(RUBY) \
+	$(top_builddir)/run
 
 all: $(generator_built)
 	$(RAKE) build
