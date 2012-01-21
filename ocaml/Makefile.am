@@ -79,11 +79,15 @@ TESTS_ENVIRONMENT = \
 
 TESTS = run-bindtests \
 	t/guestfs_005_load \
-	t/guestfs_010_basic \
-	t/guestfs_070_threads \
 	t/guestfs_080_optargs \
-	t/guestfs_400_events \
+	t/guestfs_400_events
+
+if ENABLE_APPLIANCE
+TESTS += t/guestfs_010_basic \
+	t/guestfs_070_threads \
 	t/guestfs_400_progress
+endif
+
 noinst_DATA += bindtests \
 	t/guestfs_005_load \
 	t/guestfs_010_basic \

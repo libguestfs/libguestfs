@@ -98,7 +98,9 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run
 
+if ENABLE_APPLIANCE
 TESTS = test-virt-sparsify.sh
+endif ENABLE_APPLIANCE
 
 # Dependencies.
 depend: .depend

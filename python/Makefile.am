@@ -51,6 +51,10 @@ TESTS_ENVIRONMENT = \
 	TMPDIR=$(top_builddir) \
 	PYTHON=$(PYTHON)
 
-TESTS = run-bindtests run-python-tests
+TESTS = run-bindtests
 
-endif
+if ENABLE_APPLIANCE
+TESTS += run-python-tests
+endif ENABLE_APPLIANCE
+
+endif HAVE_PYTHON

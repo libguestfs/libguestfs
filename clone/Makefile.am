@@ -46,4 +46,6 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run
 
+if ENABLE_APPLIANCE
 TESTS = test-virt-sysprep.sh
+endif ENABLE_APPLIANCE

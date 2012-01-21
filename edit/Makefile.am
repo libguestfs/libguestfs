@@ -72,4 +72,6 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run
 
+if ENABLE_APPLIANCE
 TESTS = test-virt-edit.sh
+endif ENABLE_APPLIANCE

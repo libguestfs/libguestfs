@@ -33,7 +33,9 @@ TESTS_ENVIRONMENT = \
 
 # Don't run the bindtests: they don't build since the addition of optargs.
 # Haskell bindings are incomplete.
+if ENABLE_APPLIANCE
 TESTS = Guestfs005Load Guestfs010Basic
+endif ENABLE_APPLIANCE
 
 #check_DATA = Bindtests
 

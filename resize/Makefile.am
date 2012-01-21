@@ -105,7 +105,10 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run
 
-TESTS = test-virt-resize.sh utils_tests
+TESTS = utils_tests
+if ENABLE_APPLIANCE
+TESTS += test-virt-resize.sh
+endif
 
 # Dependencies.
 depend: .depend

@@ -46,9 +46,15 @@ src_deps: $(top_builddir)/src/libguestfs.la $(generator_built)
 test_images:
 	$(MAKE) -C $(top_builddir)/tests/data
 
-TESTS = run-bindtests run-perl-tests
+TESTS = run-bindtests
+test_prereq = src_deps all test_images
 
-$(TESTS): src_deps all appliance test_images
+if ENABLE_APPLIANCE
+test_prereq += appliance
+TESTS += run-perl-tests
+endif
+
+$(TESTS): $(test_prereq)
 
 TESTS_ENVIRONMENT = \
 	$(top_builddir)/run

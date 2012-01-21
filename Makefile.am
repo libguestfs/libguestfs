@@ -33,6 +33,7 @@ SUBDIRS += appliance
 endif
 
 # Tests - order is important.
+if ENABLE_APPLIANCE
 SUBDIRS += tests/qemu
 SUBDIRS += tests/guests
 SUBDIRS += tests/c-api
@@ -41,6 +42,7 @@ SUBDIRS += tests/lvm
 SUBDIRS += tests/luks
 SUBDIRS += tests/md
 SUBDIRS += tests/regressions
+endif
 
 # Extra tests don't run by default.  You have to do 'make extra-tests'.
 SUBDIRS += tests/extra

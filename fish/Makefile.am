@@ -238,15 +238,19 @@ TESTS_ENVIRONMENT = \
 
 TESTS = \
 	test-add-domain.sh \
-	test-copy.sh \
-	test-find0.sh \
 	test-guestfish-a.sh \
 	test-guestfish-d.sh \
 	test-guestfish-escapes.sh \
 	test-guestfish-events.sh \
-	test-guestfish-tilde.sh \
+	test-guestfish-tilde.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
+	test-copy.sh \
+	test-find0.sh \
 	test-read_file.sh \
 	test-remote.sh \
 	test-reopen.sh \
 	test-stringlist.sh \
 	test-upload-to-dir.sh
+endif

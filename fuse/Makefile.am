@@ -74,8 +74,10 @@ stamp-guestmount.pod: guestmount.pod
 
 # Tests.
 
+if ENABLE_APPLIANCE
 TESTS = test-fuse.sh
+endif ENABLE_APPLIANCE
 TESTS_ENVIRONMENT = \
 	top_builddir=..
 
-endif
+endif HAVE_FUSE

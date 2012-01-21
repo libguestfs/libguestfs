@@ -102,7 +102,11 @@ install-data-hook:
 
 # Tests (not comprehensive).
 
-TESTS = run-bindtests run-java-tests
+TESTS = run-bindtests
+if ENABLE_APPLIANCE
+TESTS += run-java-tests
+endif ENABLE_APPLIANCE
+
 TESTS_ENVIRONMENT = \
 	JAVA=$(JAVA) \
 	CLASSPATH=.:t:libguestfs-$(VERSION).jar \

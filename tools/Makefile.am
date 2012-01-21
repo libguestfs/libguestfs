@@ -61,9 +61,11 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run
 
+if ENABLE_APPLIANCE
 TESTS = test-virt-list-filesystems.sh \
 	test-virt-make-fs.sh \
 	test-virt-tar.sh
+endif ENABLE_APPLIANCE
 
 endif
 
