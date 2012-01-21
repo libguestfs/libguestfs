@@ -50,7 +50,7 @@ EOF
 # Since trace and debug output also goes to stderr, we must
 # remove it before testing.
 mv test.error test.error.old
-grep -v '^libguestfs: ' < test.error.old > test.error
+< test.error.old grep -v '^libguestfs: ' | grep -vF "$HOME/.guestfish:" > test.error
 
 if [ "$(cat test.error)" != "\
 guestfish: invalid escape sequence in string (starting at offset 0)
