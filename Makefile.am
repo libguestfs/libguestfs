@@ -170,6 +170,7 @@ EXTRA_DIST = \
 	run \
 	update-bugs.sh
 
+# The website.
 HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
@@ -209,7 +210,11 @@ TEXTFILES = BUGS README RELEASE-NOTES ROADMAP TODO
 
 WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
+# For reasons not fully understood, we need to rebuild all the
+# man pages and HTMLFILES from scratch here.
 website: $(HTMLFILES) $(TEXTFILES)
+	find -name 'stamp-*.pod' -delete
+	$(MAKE)
 	cp $(HTMLFILES) $(WEBSITEDIR)
 	for f in $(TEXTFILES); do cp $$f $(WEBSITEDIR)/$$f.txt; done
 	cd $(WEBSITEDIR) && \
