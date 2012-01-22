@@ -738,6 +738,11 @@ at the top of C<csharp/Libguestfs.cs>.
 
 See L<guestfs-erlang(3)>.
 
+=item B<GObject>
+
+Experimental GObject bindings (with GObject Introspection support) are
+available.  See the C<gobject> directory in the source.
+
 =item B<Haskell>
 
 This is the only language binding that is working but incomplete.
@@ -3022,6 +3027,8 @@ Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 =item C<csharp>
 
 =item C<erlang>
+
+=item C<gobject>
 
 =item C<haskell>
 
