@@ -106,7 +106,7 @@ PHP_MINIT_FUNCTION (guestfs_php)
     NULL, PHP_GUESTFS_HANDLE_RES_NAME, module_number);
 }
 
-static function_entry guestfs_php_functions[] = {
+static zend_function_entry guestfs_php_functions[] = {
   PHP_FE (guestfs_create, NULL)
   PHP_FE (guestfs_last_error, NULL)
 ";
