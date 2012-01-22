@@ -15,10 +15,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-BUILT_SOURCES = guestfs-gobject.h guestfs-gobject.c bindtests.js
+BUILT_SOURCES = \
+	guestfs-gobject.h \
+	guestfs-gobject.c \
+	bindtests.js
 EXTRA_DIST = \
-  $(BUILT_SOURCES) \
-  run-bindtests
+	$(BUILT_SOURCES) \
+	bindtests-manual.js \
+	run-bindtests
 
 libname = libguestfs-gobject-1.0.la
 
