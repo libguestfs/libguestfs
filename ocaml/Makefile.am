@@ -49,12 +49,12 @@ noinst_LIBRARIES = libguestfsocaml.a
 
 mlguestfs.cma: libguestfsocaml.a guestfs.cmo
 	$(OCAMLMKLIB) -o mlguestfs \
-	  $(am_libguestfsocaml_a_OBJECTS) guestfs.cmo \
+	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  -L$(top_builddir)/src/.libs -lguestfs
 
 mlguestfs.cmxa: libguestfsocaml.a guestfs.cmx
 	$(OCAMLMKLIB) -o mlguestfs \
-	  $(am_libguestfsocaml_a_OBJECTS) guestfs.cmx \
+	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  -L$(top_builddir)/src/.libs -lguestfs
 
 libguestfsocaml_a_CFLAGS = \
