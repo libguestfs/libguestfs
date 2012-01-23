@@ -263,9 +263,9 @@ if test "x$enable_daemon" = "xyes"; then
                   [enable installing the daemon under $sbindir @<:@default=no@:>@])],
                 [],
                 [enable_install_daemon=no])
-        AM_CONDITIONAL([INSTALL_DAEMON],[test "x$enable_install_daemon" = "xyes"])
         AC_MSG_RESULT([$enable_install_daemon])
 fi
+AM_CONDITIONAL([INSTALL_DAEMON],[test "x$enable_install_daemon" = "xyes"])
 
 dnl Build the appliance?
 AC_MSG_CHECKING([if we should build the appliance])
