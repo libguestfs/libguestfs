@@ -84,33 +84,50 @@ do_vfs_uuid (const char *device)
   return get_blkid_tag (device, "UUID");
 }
 
-/* RHEL5 blkid doesn't have the -p(partition info) option and the
+/* RHEL5 blkid doesn't have the -p (low-level probing) option and the
  * -i(I/O limits) option so we must test for these options the first
  * time the function is called.
+ *
+ * Debian 6 has -p but not -i.
  */
 static int
-test_blkid_p_opt(void)
+test_blkid_p_i_opt (void)
 {
-  static int result;
-  char *err = NULL;
+  int r;
+  int result;
+  char *err;
 
-  int r = commandr(NULL, &err, "blkid", "-p", "/dev/null", NULL);
+  r = commandr (NULL, &err, "blkid", "-p", "/dev/null", NULL);
   if (r == -1) {
-    reply_with_error("could not run 'blkid' command: %s", err);
-    free(err);
+    /* This means we couldn't run the blkid command at all. */
+  command_failed:
+    reply_with_error ("could not run 'blkid' command: %s", err);
+    free (err);
     return -1;
   }
 
-  if (strstr(err, "invalid option --"))
-    result = 0;
-  else
-    result = 1;
-  free(err);
-  return result;
+  if (strstr (err, "invalid option --")) {
+    free (err);
+    return 0;
+  }
+  free (err);
+
+  r = commandr (NULL, &err, "blkid", "-i", NULL);
+  if (r == -1)
+    goto command_failed;
+
+  if (strstr (err, "invalid option --")) {
+    free (err);
+    return 0;
+  }
+  free (err);
+
+  /* We have both options. */
+  return 1;
 }
 
 static char **
-blkid_with_p_opt(const char *device)
+blkid_with_p_i_opt (const char *device)
 {
   int r;
   char *out = NULL, *err = NULL;
@@ -184,43 +201,58 @@ error:
 }
 
 static char **
-blkid_without_p_opt(const char *device)
+blkid_without_p_i_opt(const char *device)
 {
+  char *s;
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  if (add_string(&ret, &size, &alloc, "TYPE") == -1) goto error;
-  if (add_string(&ret, &size, &alloc, get_blkid_tag(device, "TYPE")) == -1)
+  if (add_string (&ret, &size, &alloc, "TYPE") == -1) goto error;
+  s = get_blkid_tag (device, "TYPE");
+  if (s == NULL) goto error;
+  if (add_string (&ret, &size, &alloc, s) == -1)
     goto error;
-  if (add_string(&ret, &size, &alloc, "LABEL") == -1) goto error;
-  if (add_string(&ret, &size, &alloc, get_blkid_tag(device, "LABEL")) == -1)
+
+  if (add_string (&ret, &size, &alloc, "LABEL") == -1) goto error;
+  s = get_blkid_tag (device, "LABEL");
+  if (s == NULL) goto error;
+  if (add_string (&ret, &size, &alloc, s) == -1)
     goto error;
-  if (add_string(&ret, &size, &alloc, "UUID") == -1) goto error;
-  if (add_string(&ret, &size, &alloc, get_blkid_tag(device, "UUID")) == -1)
+
+  if (add_string (&ret, &size, &alloc, "UUID") == -1) goto error;
+  s = get_blkid_tag (device, "UUID");
+  if (s == NULL) goto error;
+  if (add_string (&ret, &size, &alloc, s) == -1)
     goto error;
-  if (add_string_nodup(&ret, &size, &alloc, NULL) == -1) goto error;
+
+  if (add_string (&ret, &size, &alloc, NULL) == -1) goto error;
 
   return ret;
 error:
-  if (ret) free_strings(ret);
+  if (ret)
+    free_strings (ret);
   return NULL;
 }
 
 char **
-do_blkid(const char *device)
+do_blkid (const char *device)
 {
+  static int blkid_has_p_i_opt = -1;
   int r;
   char *out = NULL, *err = NULL;
   char **lines = NULL;
 
   char **ret = NULL;
   int size = 0, alloc = 0;
-  int blkid_has_p_opt;
 
-  if ((blkid_has_p_opt = test_blkid_p_opt()) == -1)
-    return NULL;
-  else if (blkid_has_p_opt)
-    return blkid_with_p_opt(device);
+  if (blkid_has_p_i_opt == -1) {
+    blkid_has_p_i_opt = test_blkid_p_i_opt ();
+    if (blkid_has_p_i_opt == -1)
+      return NULL;
+  }
+
+  if (blkid_has_p_i_opt)
+    return blkid_with_p_i_opt (device);
   else
-    return blkid_without_p_opt(device);
+    return blkid_without_p_i_opt (device);
 }
