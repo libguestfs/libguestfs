@@ -38,7 +38,7 @@ SOURCES += \
 
 # Note this list must be in dependency order.
 OBJECTS = \
-	../fish/guestfish-progress.o \
+	$(top_builddir)/fish/guestfish-progress.o \
 	progress_c.o \
 	utils.cmx \
 	progress.cmx \
@@ -49,7 +49,7 @@ bin_SCRIPTS = virt-sparsify
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
-OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I ../ocaml
+OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml
 
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)

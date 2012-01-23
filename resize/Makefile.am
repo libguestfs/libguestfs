@@ -39,7 +39,7 @@ SOURCES += \
 
 # Note this list must be in dependency order.
 OBJECTS = \
-	../fish/guestfish-progress.o \
+	$(top_builddir)/fish/guestfish-progress.o \
 	progress_c.o \
 	utils.cmx \
 	progress.cmx \
