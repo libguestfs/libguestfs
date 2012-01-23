@@ -1005,7 +1005,7 @@ AC_ARG_ENABLE([gobject],
 AS_IF(
   [test "x$enable_gobject" != "xno"],
   [
-    PKG_CHECK_MODULES([GOBJECT], [gobject-2.0],
+    PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.26.0],
       [
         AC_SUBST([GOBJECT_CFLAGS])
         AC_SUBST([GOBJECT_LIBS])
