@@ -1,8 +1,6 @@
 Release notes for libguestfs 1.16.0
 -----------------------------------
 
-  NOT FINAL, COVERS UP TO COMMIT a9c8123c72db47bcab8dd738e8d5256a9ae87f11
-
 These release notes only cover the differences from the previous
 stable/dev branch split (1.14.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
@@ -29,11 +27,18 @@ New features
 
   language bindings:
 
+   - Experimental GObject bindings, with support for GObject
+     Introspection.  You can now use libguestfs from Javascript.
+     Please note these are not stable and final in this release.
+     (Matthew Booth).
+
    - support for Ruby >= 1.9
 
    - Ruby bindings can be disabled individually (Hilko Bengen)
 
    - support for Python 2.6, 3.x (Richard Jones, Hilko Bengen)
+
+   - support for PHP >= 5.4
 
    - new %guestfs_introspection hash is available in Perl bindings so
      you can query which optional arguments are available
@@ -118,11 +123,9 @@ Internals
   psmisc has been added to the appliance, allowing use of 'fuser',
   'killall' and 'pstree' for debugging.
 
+  bindtests now cover RBufferOut and optional arguments (Matthew Booth).
+
 Bugs fixed
-
- - 755729 Error message for resize2fs-M needs tweaking
-
-  [./bugs-in-changelog.sh 1.14.0..]
 
  - 769680 temporary directories created during appliance builds are not cleaned up on error
  - 761460 guestfs_utimens hangs on named pipes
@@ -130,6 +133,7 @@ Bugs fixed
  - 760775 "guestfish: multi-boot operating systems are not supported by the -i option" should be more explanatory
  - 760669 guestfish copy-in and <! (inline execution) don't mix well: pclose: No child processes
  - 760000 libguestfs fails to compile with Ruby >= 1.9
+ - 755729 Error message for resize2fs-M needs tweaking
  - 750889 Python code incompatible with Python v3.
  - 596761 Ctrl-\ causes guestfish to abort
 
