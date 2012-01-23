@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2012-01-21 10:14+0000\n"
-"PO-Revision-Date: 2011-10-27 09:11+0000\n"
+"PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.net/projects/p/"
 "fedora/team/en_GB/)\n"
@@ -525,11 +525,11 @@ msgstr ""
 
 #: fish/cmds.c:2820
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "return a list of all optional groups"
 
 #: fish/cmds.c:2821
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "upload base64-encoded data to file"
 
 #: fish/cmds.c:2822
 msgid "download file and encode as base64"
@@ -2765,14 +2765,14 @@ msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
 #: format/format.c:71
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "Try `%s --help' for more information.\n"
+msgstr ""
 
 #: format/format.c:75
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
 "Copyright (C) 2012 Red Hat Inc.\n"
@@ -2797,23 +2797,6 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"%s: display files in a virtual machine\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] -d domname file [file ...]\n"
-"  %s [--options] -a disc.img [-a disc.img ...] file [file ...]\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  -d|--domain guest    Add disks from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  --format[=raw|..]    Force disc format for -a option\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
-"For more information, see the manpage %s(1).\n"
 
 #: format/format.c:157
 #, c-format
@@ -2835,9 +2818,9 @@ msgid ""
 msgstr ""
 
 #: format/format.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr "%s: unknown long option: %s (%d)\n"
+msgstr ""
 
 #: fuse/guestmount.c:912
 #, c-format
@@ -2901,7 +2884,7 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 
 #: inspector/virt-inspector.c:82
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2922,23 +2905,6 @@ msgid ""
 "  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: display files in a virtual machine\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] -d domname file [file ...]\n"
-"  %s [--options] -a disc.img [-a disc.img ...] file [file ...]\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  -d|--domain guest    Add disks from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  --format[=raw|..]    Force disc format for -a option\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
-"For more information, see the manpage %s(1).\n"
 
 #: inspector/virt-inspector.c:254
 #, c-format
@@ -3121,7 +3087,7 @@ msgid "{filename}: could not read initrd format"
 msgstr ""
 
 #: rescue/virt-rescue.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3147,26 +3113,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: display free space on virtual filesystems\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] -d domname\n"
-"  %s [--options] -a disc.img [-a disc.img ...]\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  --csv                Output as Comma-Separated Values\n"
-"  -d|--domain guest    Add discs from libvirt guest\n"
-"  --format[=raw|..]    Force disc format for -a option\n"
-"  -h|--human-readable  Human-readable sizes in --long output\n"
-"  --help               Display brief help\n"
-"  -i|--inodes          Display inodes\n"
-"  --one-per-guest      Separate appliance per guest\n"
-"  --uuid               Add UUIDs to --long output\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
-"For more information, see the manpage %s(1).\n"
 
 #: rescue/virt-rescue.c:167
 #, c-format

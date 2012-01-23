@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2012-01-21 10:14+0000\n"
-"PO-Revision-Date: 2011-10-27 09:11+0000\n"
+"PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/team/or/)\n"
 "Language: or\n"
@@ -464,9 +464,8 @@ msgid "download file and encode as base64"
 msgstr ""
 
 #: fish/cmds.c:2823
-#, fuzzy
 msgid "print block device attributes"
-msgstr "ବ୍ଲକ ଉପକରଣକୁ ପଠନୀୟ-ଲିଖନୀୟ ଆକରରେ ସେଟ କରନ୍ତୁ"
+msgstr ""
 
 #: fish/cmds.c:2824
 msgid "flush device buffers"
@@ -1051,9 +1050,8 @@ msgid "list device mapper devices"
 msgstr ""
 
 #: fish/cmds.c:2979
-#, fuzzy
 msgid "list event handlers"
-msgstr "inotify ନିୟନ୍ତ୍ରଣକୁ ବନ୍ଦ କରନ୍ତୁ"
+msgstr ""
 
 #: fish/cmds.c:2980
 msgid "list filesystems"
@@ -1684,9 +1682,8 @@ msgid "truncate a file to a particular size"
 msgstr "ଗୋଟିଏ ଫାଇଲକୁ ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ଆକାରରେ ଯୋଡ଼ନ୍ତୁ"
 
 #: fish/cmds.c:3150
-#, fuzzy
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr "ext2/3/4 ଫାଇଲତନ୍ତ୍ର ନାମପଟିକୁ ସେଟ କରନ୍ତୁ"
+msgstr ""
 
 #: fish/cmds.c:3151
 msgid "get ext2/ext3/ext4 superblock details"
@@ -2705,11 +2702,11 @@ msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
 #: format/format.c:71
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "ଅଧିକ ସୂଚନା ପାଇଁ `%s --help' କୁ ଚେଷ୍ଟା କରନ୍ତୁ।\n"
+msgstr ""
 
 #: format/format.c:75
 #, c-format
@@ -2758,9 +2755,9 @@ msgid ""
 msgstr ""
 
 #: format/format.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
+msgstr ""
 
 #: fuse/guestmount.c:912
 #, c-format

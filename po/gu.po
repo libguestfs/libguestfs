@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2012-01-21 10:14+0000\n"
-"PO-Revision-Date: 2011-10-27 09:11+0000\n"
+"PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
 "Language: gu\n"
@@ -465,9 +465,8 @@ msgid "download file and encode as base64"
 msgstr ""
 
 #: fish/cmds.c:2823
-#, fuzzy
 msgid "print block device attributes"
-msgstr "વાંચી શકાય અને લખી શકાય તે રીતે બ્લોક ઉપકરણને સુયોજિત કરો"
+msgstr ""
 
 #: fish/cmds.c:2824
 msgid "flush device buffers"
@@ -1052,9 +1051,8 @@ msgid "list device mapper devices"
 msgstr ""
 
 #: fish/cmds.c:2979
-#, fuzzy
 msgid "list event handlers"
-msgstr "inotify હેન્ડલને બંધ કરો"
+msgstr ""
 
 #: fish/cmds.c:2980
 msgid "list filesystems"
@@ -1181,9 +1179,8 @@ msgid "create a Linux md (RAID) device"
 msgstr ""
 
 #: fish/cmds.c:3015
-#, fuzzy
 msgid "obtain metadata for an MD device"
-msgstr "ઉપકરણનાં ભાગને વાંચો"
+msgstr ""
 
 #: fish/cmds.c:3016
 msgid "stop a Linux md (RAID) device"
@@ -1686,9 +1683,8 @@ msgid "truncate a file to a particular size"
 msgstr "ચોક્કસ માપમાં ફાઇલને કાઢી નાંખો"
 
 #: fish/cmds.c:3150
-#, fuzzy
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr "ext2/3/4 ફાઇલસિસ્ટમ લેબલને સુયોજિત કરો"
+msgstr ""
 
 #: fish/cmds.c:3151
 msgid "get ext2/ext3/ext4 superblock details"
@@ -2708,11 +2704,11 @@ msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
 #: format/format.c:71
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "વધારે જાણકારી માટે `%s --help' નો પ્રયત્ન કરો.\n"
+msgstr ""
 
 #: format/format.c:75
 #, c-format
@@ -2761,9 +2757,9 @@ msgid ""
 msgstr ""
 
 #: format/format.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr "%s: અજ્ઞાત લાંબો વિકલ્પ: %s (%d)\n"
+msgstr ""
 
 #: fuse/guestmount.c:912
 #, c-format
@@ -3704,6 +3700,3 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
-
-#~ msgid "%s: no operating system was found on this disk\n"
-#~ msgstr "%s: ઓપરેટીંગ સિસ્ટમ આ ડિસ્ક પર મળી ન હતી\n"

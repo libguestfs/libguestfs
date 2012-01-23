@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2012-01-21 10:14+0000\n"
-"PO-Revision-Date: 2011-10-27 09:11+0000\n"
+"PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.net/projects/p/fedora/team/"
 "kn/)\n"
@@ -468,9 +468,8 @@ msgid "download file and encode as base64"
 msgstr ""
 
 #: fish/cmds.c:2823
-#, fuzzy
 msgid "print block device attributes"
-msgstr "ಖಂಡ ಸಾಧನಗಳನ್ನು ಓದಲು-ಬರೆಯಲು ಹೊಂದಿಸು"
+msgstr ""
 
 #: fish/cmds.c:2824
 msgid "flush device buffers"
@@ -1055,9 +1054,8 @@ msgid "list device mapper devices"
 msgstr ""
 
 #: fish/cmds.c:2979
-#, fuzzy
 msgid "list event handlers"
-msgstr "inotify ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು"
+msgstr ""
 
 #: fish/cmds.c:2980
 msgid "list filesystems"
@@ -1688,9 +1686,8 @@ msgid "truncate a file to a particular size"
 msgstr "ಒಂದು ಕಡತದ ಗಾತ್ರವನ್ನು ನಿಶ್ಚಿತ ಗಾತ್ರಕ್ಕೆ ಕಡಿತಗೊಳಿಸು"
 
 #: fish/cmds.c:3150
-#, fuzzy
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆ ಲೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸು"
+msgstr ""
 
 #: fish/cmds.c:3151
 msgid "get ext2/ext3/ext4 superblock details"
@@ -2712,11 +2709,11 @@ msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
 #: format/format.c:71
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s -help' ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ .\n"
+msgstr ""
 
 #: format/format.c:75
 #, c-format
@@ -2765,9 +2762,9 @@ msgid ""
 msgstr ""
 
 #: format/format.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
+msgstr ""
 
 #: fuse/guestmount.c:912
 #, c-format

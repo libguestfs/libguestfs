@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2012-01-21 10:14+0000\n"
-"PO-Revision-Date: 2011-10-27 09:11+0000\n"
+"PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
 "mr/)\n"
@@ -538,9 +538,8 @@ msgid "download file and encode as base64"
 msgstr "फाइल डाऊनलोड करा व base64 म्हणून एंकोड करा"
 
 #: fish/cmds.c:2823
-#, fuzzy
 msgid "print block device attributes"
-msgstr "ब्लॉक उपकरण फक्त-वाचणीय असे सेट करा"
+msgstr ""
 
 #: fish/cmds.c:2824
 msgid "flush device buffers"
@@ -1125,9 +1124,8 @@ msgid "list device mapper devices"
 msgstr ""
 
 #: fish/cmds.c:2979
-#, fuzzy
 msgid "list event handlers"
-msgstr "inotify हँडल बंद करा"
+msgstr ""
 
 #: fish/cmds.c:2980
 msgid "list filesystems"
@@ -1254,9 +1252,8 @@ msgid "create a Linux md (RAID) device"
 msgstr ""
 
 #: fish/cmds.c:3015
-#, fuzzy
 msgid "obtain metadata for an MD device"
-msgstr "साधणाचे ठराविक भाग वाचा"
+msgstr ""
 
 #: fish/cmds.c:3016
 msgid "stop a Linux md (RAID) device"
@@ -1759,9 +1756,8 @@ msgid "truncate a file to a particular size"
 msgstr "ठराविक आकारकरीता फाइल ट्रंकेट करा"
 
 #: fish/cmds.c:3150
-#, fuzzy
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr "ext2/3/4 फाइलप्रणालीचे लेबल सेट करा"
+msgstr ""
 
 #: fish/cmds.c:3151
 msgid "get ext2/ext3/ext4 superblock details"
@@ -2485,15 +2481,12 @@ msgstr ""
 "एकदाचे असे केल्यास, 'run' आदेशचा वापर करा.\n"
 
 #: fish/help.c:44
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
 "'mount'.\n"
 msgstr ""
-"'list-filesystems' चा वापर करून कोणत्या फाइलप्रणाल्या उपलब्ध आहे हे शोधा व त्यानंतर\n"
-"विश्लेषणकरीता त्यांस माऊंट करा किंवा 'mount-ro' किंवा\n"
-"'mount-options' यांचा वापर करून अंतर्भूत माहिती संपादित करा.\n"
 
 #: fish/help.c:52
 #, c-format
@@ -2817,14 +2810,14 @@ msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
 #: format/format.c:71
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
+msgstr ""
 
 #: format/format.c:75
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
 "Copyright (C) 2012 Red Hat Inc.\n"
@@ -2849,23 +2842,6 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"%s: वर्च्युअल मशीनमध्ये फाइल्स् दाखवा\n"
-"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
-"वापर:\n"
-"  %s [--options] -d domname फाइल [फाइल ...]\n"
-"  %s [--options] -a disk.img [-a disk.img ...] फाइल [फाइल ...]\n"
-"पर्याय:\n"
-"  -a|--add image       प्रतिमा समाविष्ट करा\n"
-"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
-"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
-"  --echo-keys          पासफ्रेजेसकरीता echo बंद करू नका\n"
-"  --format[=raw|..]    -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
-"  --help               मदत थोडक्यात दाखवा\n"
-"  --keys-from-stdin    stdin पासून पासफ्रेजेस् वाचा\n"
-"  -v|--verbose         वर्बोस् संदेश\n"
-"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
-"  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
-"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: format/format.c:157
 #, c-format
@@ -2887,9 +2863,9 @@ msgid ""
 msgstr ""
 
 #: format/format.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
+msgstr ""
 
 #: fuse/guestmount.c:912
 #, c-format
@@ -2953,7 +2929,7 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
 
 #: inspector/virt-inspector.c:82
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -2974,24 +2950,6 @@ msgid ""
 "  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: वर्च्युअल मशीनविषयी माहिती दाखवा\n"
-"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
-"वापर:\n"
-"  %s [--options] -d domname फाइल [फाइल ...]\n"
-"  %s [--options] -a disk.img [-a disk.img ...] फाइल [फाइल ...]\n"
-"पर्याय:\n"
-"  -a|--add image       प्रतिमा समाविष्ट करा\n"
-"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
-"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
-"  --echo-keys          पासफ्रेजेस् करीता echo बंद करू नका\n"
-"  --format[=raw|..]    -a पर्यायकरीता डिस्क स्वरूप जबरनपणे लागू करा\n"
-"  --help               संक्षिप्त मदत दाखवा\n"
-"  --keys-from-stdin    stdin पासून पासफ्रेजेस् वाचा\n"
-"  -v|--verbose         वर्बोस संदेश\n"
-"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
-"  -x                   libguestfs API कॉल्स् तपासा\n"
-"\n"
-"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: inspector/virt-inspector.c:254
 #, c-format
@@ -3041,19 +2999,19 @@ msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: libxml2 राइटर निर्माण करण्यास अपयशी\n"
 
 #: inspector/virt-inspector.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unable to parse XML from stdin\n"
-msgstr "libvirt द्वारे पुरवलेली XML माहिती वाचण्यास अशक्य"
+msgstr ""
 
 #: inspector/virt-inspector.c:832
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unable to create new XPath context\n"
-msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
+msgstr ""
 
 #: inspector/virt-inspector.c:839
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unable to evaluate XPath expression\n"
-msgstr "XPath वाकप्रचार मुल्यमापन करणे अशक्य"
+msgstr ""
 
 #: inspector/virt-inspector.c:850
 #, c-format
@@ -3193,7 +3151,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: initrd स्वरूप वाचणे अशक्य"
 
 #: rescue/virt-rescue.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3219,26 +3177,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: वर्च्युअल फाइलप्रणालीवरील मोकळी जागा दाखवा\n"
-"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
-"वापर:\n"
-"  %s [--options] -d domname\n"
-"  %s [--options] -a disk.img [-a disk.img ...]\n"
-"पर्याय:\n"
-"  -a|--add image       प्रतिमा समाविष्ट करा\n"
-"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
-"  --csv                कॉमा-सेपरेटेड् वॅल्यूज प्रमाणे आऊटपुटमध्ये जमा करा\n"
-"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
-"  --format[=raw|..]    -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
-"  -h|--human-readable  --long आऊटपुट स्वरूपातील वाचनजोगी आकार\n"
-"  --help               संक्षिप्त मदत दाखवा\n"
-"  -i|--inodes          inodes दाखवा\n"
-"  --one-per-guest      प्रत्येक अतिथीकरीता वेगळे अप्लायंस्\n"
-"  --uuid               --long आऊटपुटमध्ये UUIDs समाविष्ट करा\n"
-"  -v|--verbose         वर्बोस संदेश\n"
-"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
-"  -x                   libguestfs API कॉल्स् ट्रेस् करा\n"
-"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
 #: rescue/virt-rescue.c:167
 #, c-format
@@ -3256,11 +3194,11 @@ msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: मेमरी आकार '%s' वाचणे अशक्य\n"
 
 #: rescue/virt-rescue.c:371
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
-msgstr "libvirt डोमेन नाव किंवा डिस्क प्रतिमा दिले नाही\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:390
 #, c-format
@@ -3912,10 +3850,3 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
-
-#~ msgid "%s: no operating system was found on this disk\n"
-#~ msgstr "%s: या डिस्कवर कार्यप्रणाली आढळली नाही\n"
-
-#~ msgid ""
-#~ "%s: multi-boot operating systems are not supported by the -i option\n"
-#~ msgstr "%s: मल्टि-बूट कार्य प्रणाल्या -i पर्यायद्वारे समर्थीत नाही\n"

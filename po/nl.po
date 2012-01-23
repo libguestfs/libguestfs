@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2012-01-21 10:14+0000\n"
-"PO-Revision-Date: 2011-10-27 09:11+0000\n"
+"PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
 "Language: nl\n"
@@ -249,34 +249,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: toon bestanden in een virtuele machine\n"
-"Copyright (C) 2010-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domname dir [dir ...]\n"
-"  %s [--opties] -a disk.img [-a disk.img ...] dir [dir ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --checksum[=...]     Toon bestand checksums\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  --csv                Door komma's gescheiden waarde output\n"
-"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
-"  --extra-stats        Toon extra statistieken\n"
-"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-"  --help               Toon korte hulp\n"
-"  -h|--human-readable  Leesbare groottes in output\n"
-"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-"  -l|--long            Lange output lijst\n"
-"  -R|--recursive       Recursieve output lijst\n"
-"  --times              Toon bestand tijden\n"
-"  --time-days          Toon bestand tijden als dagen voor nu\n"
-"  --time-relative      Toon bestand tijden als seconden voor nu\n"
-"  --time-t             Toon bestand tijden als time_t's\n"
-"  --uids               Toon UID, GID\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de man pagina %s(1).\n"
 
 #: cat/virt-ls.c:337
 #, c-format
@@ -446,25 +418,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: Bewerk een bestand in een virtuele machine\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domname bestand [bestand ...]\n"
-"  %s [--opties] -a disk.img [-a disk.img ...] bestand [bestand ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  -b|--backup .ext     Backup origineel als original.ext\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
-"  -e|--expr expr       Niet-interactief bewerken met Perl expr\n"
-"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-"  --help               Toon korte hulp\n"
-"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de man pagina %s(1).\n"
 
 #: edit/virt-edit.c:175
 #, c-format
@@ -609,9 +562,8 @@ msgid "download file and encode as base64"
 msgstr "download bestand en codeer deze als base64"
 
 #: fish/cmds.c:2823
-#, fuzzy
 msgid "print block device attributes"
-msgstr "blok apparaat instellen op lezen-schrijven"
+msgstr ""
 
 #: fish/cmds.c:2824
 msgid "flush device buffers"
@@ -707,19 +659,19 @@ msgstr "voeg qemu parameters toe"
 
 #: fish/cmds.c:2847
 msgid "copy from source device to destination device"
-msgstr ""
+msgstr "kopieer van bron apparaat naar doel apparaat"
 
 #: fish/cmds.c:2848
 msgid "copy from source device to destination file"
-msgstr ""
+msgstr "kopieer van bron apparaat naar doel bestand"
 
 #: fish/cmds.c:2849
 msgid "copy from source file to destination device"
-msgstr ""
+msgstr "kopieer van bron bestand naar doel apparaat"
 
 #: fish/cmds.c:2850
 msgid "copy from source file to destination file"
-msgstr ""
+msgstr "kopieer van bron bestand naar doel bestand"
 
 #: fish/cmds.c:2851
 msgid "copy local files or directories into an image"
@@ -1201,9 +1153,8 @@ msgid "list device mapper devices"
 msgstr "toon apparaat mapper apparaten"
 
 #: fish/cmds.c:2979
-#, fuzzy
 msgid "list event handlers"
-msgstr "sluit de inotify hendel"
+msgstr ""
 
 #: fish/cmds.c:2980
 msgid "list filesystems"
@@ -1330,9 +1281,8 @@ msgid "create a Linux md (RAID) device"
 msgstr ""
 
 #: fish/cmds.c:3015
-#, fuzzy
 msgid "obtain metadata for an MD device"
-msgstr "lees deel van een apparaat"
+msgstr ""
 
 #: fish/cmds.c:3016
 msgid "stop a Linux md (RAID) device"
@@ -1520,7 +1470,7 @@ msgstr "converteer partitie naam naar apparaat naam"
 
 #: fish/cmds.c:3066
 msgid "convert partition name to partition number"
-msgstr ""
+msgstr "converteer partitie naam naar partitie nummer"
 
 #: fish/cmds.c:3067
 msgid "ping the guest daemon"
@@ -1838,9 +1788,8 @@ msgid "truncate a file to a particular size"
 msgstr "kap een bestand af op een bepaalde grootte"
 
 #: fish/cmds.c:3150
-#, fuzzy
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr "stel het ext2/3/4 bestandssysteem label in"
+msgstr ""
 
 #: fish/cmds.c:3151
 msgid "get ext2/ext3/ext4 superblock details"
@@ -2379,51 +2328,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: gast bestandssysteem shell\n"
-"%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] cmd [: cmd : cmd ...]\n"
-"Opties:\n"
-"  -h|--cmd-help        Toon beschikbare commando's\n"
-"  -h|--cmd-help cmd    Toon gedetailleerde hulp over 'cmd'\n"
-"  -a|--add image       Voegimage toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  --csh                Maak --listen csh-compatibel\n"
-"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-"  -D|--no-dest-paths   Maak geen paden van gast fs af met tab\n"
-"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
-"  -f|--file bestand    Lees commando's uit bestand\n"
-"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-"  -i|--inspector       Koppel bestandssystemen automatisch aan\n"
-"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-"  --listen             Luister naar commando's op afgstand\n"
-"  --live               Verbind met een live virtuele machine\n"
-"  -m|--mount dev[:mnt[:opts]] Koppen dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Gebruik autosync niet\n"
-"  -N|--new type        Maak aangemaakt schijf aan (test1.img, ...)\n"
-"  --progress-bars      Zet progressie balken aan zelfs bij niet interactief\n"
-"  --no-progress-bars   Zet progressie balken uit\n"
-"  --remote[=pid]       Stuur commando's naar %s op afstand\n"
-"  -r|--ro              Koppel read-only aan\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -w|--rw              Koppel read-write aan\n"
-"  -x                   Echo elk commando voor het uitvoeren\n"
-"\n"
-"Voor het bekijken van een schijf image, ISO, harde schijf, bestandssysteem "
-"enz.:\n"
-"  %s [--ro|--rw] -i -a /pad/naar/schijf.img\n"
-"or\n"
-"  %s [--ro|--rw] -i -d naam-van-libvirt-domein\n"
-"\n"
-"--ro wordt aanbevolen om elk schrijven naar de schijf image te voorkomen.  "
-"Als -i optie faalt\n"
-"voer opnieuw uit zonder -i en gebruik 'run' + 'list-filesystems' + 'mount' "
-"cmds.\n"
-"\n"
-"Voor meer informatie, zie de man pagina %s(1).\n"
 
 #: fish/fish.c:247
 #, c-format
@@ -2626,16 +2530,12 @@ msgstr ""
 "Zodra je dit gedaan hebt, gebruik je het 'run' commando.\n"
 
 #: fish/help.c:44
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
 "'mount'.\n"
 msgstr ""
-"Bepaal welke bestandssystemen beschikbaar zijn met 'list-filesystems' en "
-"koppel ze dan aan om de inhoud te bekijken of te veranderen met 'mount-ro' "
-"of\n"
-"'mount-options'.\n"
 
 #: fish/help.c:52
 #, c-format
@@ -2966,14 +2866,14 @@ msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
 #: format/format.c:71
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "Probeer `%s --help' voor meer informatie\n"
+msgstr ""
 
 #: format/format.c:75
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
 "Copyright (C) 2012 Red Hat Inc.\n"
@@ -2998,22 +2898,6 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"%s: check uitlijning van virtuele machine partities\n"
-"Copyright (C) 2011 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domnaam\n"
-"  %s [--opties] -a disk.img [-a disk.img ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  -d|--domain guest    Voegen schijven van libvirt gast toe\n"
-"  --format[=raw|..]    Forceer schijfformaat voor -a optie\n"
-"  --help               Toon korte hulp\n"
-"  -q|--quiet           Geen output, alleen exit code\n"
-"  -v|--verbose         Breedsprakige boodschapen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: format/format.c:157
 #, c-format
@@ -3021,9 +2905,9 @@ msgid "%s: no filesystem was specified\n"
 msgstr ""
 
 #: format/format.c:165
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
-msgstr "%s: -b optie meerdere keren opgegeven\n"
+msgstr ""
 
 #: format/format.c:264
 #, c-format
@@ -3035,9 +2919,9 @@ msgid ""
 msgstr ""
 
 #: format/format.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr "%s: kon --smp parameter '%s' niet ontleden\n"
+msgstr ""
 
 #: fuse/guestmount.c:912
 #, c-format
@@ -3069,32 +2953,6 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: FUSE module voor libguestfs\n"
-"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] [-- [--FUSE-opties]] aankoppelpunt\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
-"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
-"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-"  --fuse-help          Toon extra FUSE opties\n"
-"  -i|--inspector       Koppel bestandssystemen automatisch aan\n"
-"  --help               Toon hulp boodschap en sluit af\n"
-"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-"  --live               Verbind met een live virtuele machine\n"
-"  -m|--mount dev[:mnt[:opts]] Koppel dev aan op mnt (indien weggelaten, /)\n"
-"  -n|--no-sync         Voer geen autosync uit\n"
-"  -o|--option opt      Geef extra optie dor aan FUSE\n"
-"  -r|--ro              Read-only aankoppelen\n"
-"  --selinux            Zet SELinux ondersteuning aan\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -w|--rw              Koppel read-write aan\n"
-"  -x|--trace           Traceer guestfs API aanroepen\n"
 
 #: fuse/guestmount.c:1131
 #, c-format
@@ -3104,22 +2962,22 @@ msgstr "%s: moet tenminste een -a/-d en tenminste een -m/-i optie hebben\n"
 #: fuse/guestmount.c:1141
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
-msgstr ""
+msgstr "%s: --live is niet compatibel met --ro optie\n"
 
 #: fuse/guestmount.c:1148
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
-msgstr ""
+msgstr "%s: --live is niet compatibel met -i optie\n"
 
 #: fuse/guestmount.c:1163
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
-msgstr ""
+msgstr "%s: met --live moet je exact een -d optie gebruiken\n"
 
 #: fuse/guestmount.c:1170
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
-msgstr ""
+msgstr "%s: --live is niet compatibel met -a optie\n"
 
 #: fuse/guestmount.c:1179
 #, c-format
@@ -3128,7 +2986,7 @@ msgstr ""
 "%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
 
 #: inspector/virt-inspector.c:82
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
 "Copyright (C) 2010 Red Hat Inc.\n"
@@ -3149,23 +3007,6 @@ msgid ""
 "  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: toon informatie over een virtuele machine\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domname file [file ...]\n"
-"  %s [--opties] -a disk.img [-a disk.img ...] file [file ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  -c|--connect uri     Specifiveer libvirt URI voor -d optie\n"
-"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
-"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-"  --help               Toon korte hulp\n"
-"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de man pagina %s(1).\n"
 
 #: inspector/virt-inspector.c:254
 #, c-format
@@ -3218,19 +3059,19 @@ msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: libxml2 schrijver aanmaken mislukte\n"
 
 #: inspector/virt-inspector.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unable to parse XML from stdin\n"
-msgstr "kan XML informatie teruggegeven door libvirt niet ontleden"
+msgstr ""
 
 #: inspector/virt-inspector.c:832
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unable to create new XPath context\n"
-msgstr "kan nieuwe XPath context niet aanmaken"
+msgstr ""
 
 #: inspector/virt-inspector.c:839
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unable to evaluate XPath expression\n"
-msgstr "kan XPath expressie niet evalueren"
+msgstr ""
 
 #: inspector/virt-inspector.c:850
 #, c-format
@@ -3371,7 +3212,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
 
 #: rescue/virt-rescue.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3397,28 +3238,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: Draai een redding shell op een virtuele machine\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domnaam\n"
-"  %s [--opties] -a disk.img [-a disk.img ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --append kernelopts  Voeg kernel opties toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  -d|--domain guest    Voeg schijven van libvirt gast toe\n"
-"  --format[=raw|..]    Force disk format for -a option\n"
-"  --help               Toon korte hulp\n"
-"  -m|--memsize MB      Stel geheugengrootte in in megabytes\n"
-"  --network            Zet netwerk aan\n"
-"  -r|--ro              Alleen-lezen toegang\n"
-"  --selinux            Zet SELinux aan\n"
-"  --smp N              Zet SMP aan met N >= 2 virtuele CPU's\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -w|--rw              Koppel alleen-lezen aan\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: rescue/virt-rescue.c:167
 #, c-format
@@ -3436,11 +3255,11 @@ msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s:kon geheugen grootte niet ontleden '%s'\n"
 
 #: rescue/virt-rescue.c:371
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
-msgstr "geen libvirt domein naam of schijf image gegeven\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:390
 #, c-format
@@ -3845,7 +3664,7 @@ msgstr "libvirt domein heeft geen schijven"
 
 #: src/virt.c:394
 msgid "unknown readonlydisk parameter"
-msgstr ""
+msgstr "onbekende readonlydisk parameter"
 
 #: src/virt.c:411
 #, c-format
@@ -3875,6 +3694,8 @@ msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
+"%s: schijf is in libvirt XML  <readonly/> gemarkeerd, en readonlydisk was "
+"ingesteld op \"error\""
 
 #: src/virt.c:580
 msgid ""
@@ -3906,16 +3727,6 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: interactief test gereedschap\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  libguestfs-test-tool [--opties]\n"
-"Opties:\n"
-"  --help         Toon gebruik\n"
-"  --qemudir dir  Specificeer QEMU bron map\n"
-"  --qemu qemu    Specificeer QEMU binaire programma\n"
-"  --timeout n\n"
-"  -t n           Stel opstart time-out in (standaard: %d seconden)\n"
 
 #: test-tool/test-tool.c:128
 #, c-format
@@ -4137,12 +3948,3 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
-
-#~ msgid "%s: no operating system was found on this disk\n"
-#~ msgstr "%s: op deze schijf werd geen besturingssysteem gevonden\n"
-
-#~ msgid ""
-#~ "%s: multi-boot operating systems are not supported by the -i option\n"
-#~ msgstr ""
-#~ "%s: multi-boot besturingssystemen vorden niet ondersteund door de -i "
-#~ "optie\n"
