@@ -18,5 +18,5 @@
 
 set -e
 
-$RUBY -I${srcdir}/lib -Iext/guestfs ${srcdir}/bindtests.rb > bindtests.tmp
-diff -u ${srcdir}/../bindtests bindtests.tmp
+$RUBY -I$srcdir/lib -Iext/guestfs $srcdir/bindtests.rb > bindtests.tmp
+diff -u $srcdir/../bindtests bindtests.tmp

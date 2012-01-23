@@ -100,7 +100,7 @@ eval `../../fish/guestfish --listen`
 ../../fish/guestfish --remote run
 
 for md in `../../fish/guestfish --remote list-md-devices`; do
-  ../../fish/guestfish --remote md-detail "${md}" > md-detail.out
+  ../../fish/guestfish --remote md-detail "$md" > md-detail.out
 
   sed 's/:\s*/=/' md-detail.out > md-detail.out.sh
   . md-detail.out.sh
@@ -158,7 +158,7 @@ eval `../../fish/guestfish --listen`
 ../../fish/guestfish --remote run
 
 for md in `../../fish/guestfish --remote list-md-devices`; do
-  ../../fish/guestfish --remote md-stop "${md}"
+  ../../fish/guestfish --remote md-stop "$md"
 done
 
 ../../fish/guestfish --remote exit

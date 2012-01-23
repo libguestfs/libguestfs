@@ -58,10 +58,10 @@ mkfs ntfs /dev/sda2
 mount-options "" /dev/sda2 /
 mkdir-p /Windows/System32/Config
 
-upload ${SRCDIR}/guest-aux/windows-software /Windows/System32/Config/SOFTWARE
-upload ${SRCDIR}/guest-aux/windows-system /Windows/System32/Config/SYSTEM
+upload $SRCDIR/guest-aux/windows-software /Windows/System32/Config/SOFTWARE
+upload $SRCDIR/guest-aux/windows-system /Windows/System32/Config/SYSTEM
 
-upload ${SRCDIR}/../data/bin-win32.exe /Windows/System32/cmd.exe
+upload $SRCDIR/../data/bin-win32.exe /Windows/System32/cmd.exe
 
 mkdir "/Program Files"
 touch /autoexec.bat

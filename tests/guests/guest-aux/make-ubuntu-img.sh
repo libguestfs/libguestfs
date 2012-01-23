@@ -69,9 +69,9 @@ write /etc/debian_version "5.0.1"
 upload release.tmp /etc/lsb-release
 write /etc/hostname "ubuntu.invalid"
 
-upload ${SRCDIR}/guest-aux/debian-packages /var/lib/dpkg/status
+upload $SRCDIR/guest-aux/debian-packages /var/lib/dpkg/status
 
-upload ${SRCDIR}/../data/bin-x86_64-dynamic /bin/ls
+upload $SRCDIR/../data/bin-x86_64-dynamic /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf

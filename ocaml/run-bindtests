@@ -19,4 +19,4 @@
 set -e
 
 ./bindtests > bindtests.tmp
-diff -u ${srcdir}/../bindtests bindtests.tmp
+diff -u $srcdir/../bindtests bindtests.tmp

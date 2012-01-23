@@ -19,4 +19,4 @@
 set -e
 
 $JAVA -Djava.library.path=.libs Bindtests > bindtests.tmp
-diff -u ${srcdir}/../bindtests bindtests.tmp
+diff -u $srcdir/../bindtests bindtests.tmp
