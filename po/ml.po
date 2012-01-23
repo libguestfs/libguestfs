@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-10 17:42+0000\n"
+"POT-Creation-Date: 2012-01-23 18:14+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -3390,11 +3390,11 @@ msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ�
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu ഉറവിട ഡയറക്ടറിയില്‍ നിന്നും വ്യത്യസ്ഥമാണു്\n"
 
-#: tools/virt-list-filesystems.pl:148
+#: tools/virt-list-filesystems.pl:150
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
 
-#: tools/virt-list-partitions.pl:160
+#: tools/virt-list-partitions.pl:162
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 

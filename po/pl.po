@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-10 17:42+0000\n"
+"POT-Creation-Date: 2012-01-23 18:14+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -3820,11 +3820,11 @@ msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
 
-#: tools/virt-list-filesystems.pl:148
+#: tools/virt-list-filesystems.pl:150
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: nie podano obrazu lub nazwy maszyny wirtualnej"
 
-#: tools/virt-list-partitions.pl:160
+#: tools/virt-list-partitions.pl:162
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: nie podano obrazu lub nazwy maszyny wirtualnej"
 

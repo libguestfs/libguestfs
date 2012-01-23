@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.14.9\n"
+"Project-Id-Version: libguestfs 1.14.10\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-10 17:42+0000\n"
+"POT-Creation-Date: 2012-01-23 18:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3375,11 +3375,11 @@ msgstr ""
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""
 
-#: tools/virt-list-filesystems.pl:148
+#: tools/virt-list-filesystems.pl:150
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr ""
 
-#: tools/virt-list-partitions.pl:160
+#: tools/virt-list-partitions.pl:162
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 

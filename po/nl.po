@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-10 17:42+0000\n"
+"POT-Creation-Date: 2012-01-23 18:14+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
@@ -3786,11 +3786,11 @@ msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ziet er niet uit als een qemu bron map\n"
 
-#: tools/virt-list-filesystems.pl:148
+#: tools/virt-list-filesystems.pl:150
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 
-#: tools/virt-list-partitions.pl:160
+#: tools/virt-list-partitions.pl:162
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 

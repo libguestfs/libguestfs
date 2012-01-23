@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-10 17:42+0000\n"
+"POT-Creation-Date: 2012-01-23 18:14+0000\n"
 "PO-Revision-Date: 2011-10-27 09:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3862,11 +3862,11 @@ msgstr "Виконуваного файла «%s» не існує або вка
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
 
-#: tools/virt-list-filesystems.pl:148
+#: tools/virt-list-filesystems.pl:150
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-list-partitions.pl:160
+#: tools/virt-list-partitions.pl:162
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
 
