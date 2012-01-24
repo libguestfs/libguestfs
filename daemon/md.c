@@ -327,5 +327,6 @@ do_md_stop(const char *md)
     free(err);
     return -1;
   }
+  free (err);
   return 0;
 }
