@@ -235,6 +235,7 @@ error:
 char **
 do_md_detail(const char *md)
 {
+  size_t i;
   int r;
 
   char *out = NULL, *err = NULL;
@@ -244,16 +245,16 @@ do_md_detail(const char *md)
   int size = 0, alloc = 0;
 
   const char *mdadm[] = { "mdadm", "-D", "--export", md, NULL };
-  r = commandv(&out, &err, mdadm);
+  r = commandv (&out, &err, mdadm);
   if (r == -1) {
-    reply_with_error("%s", err);
+    reply_with_error ("%s", err);
     goto error;
   }
 
   /* Split the command output into lines */
-  lines = split_lines(out);
+  lines = split_lines (out);
   if (lines == NULL) {
-    reply_with_perror("malloc");
+    reply_with_perror ("malloc");
     goto error;
   }
 
@@ -264,49 +265,51 @@ do_md_detail(const char *md)
    * MD_UUID=cfa81b59:b6cfbd53:3f02085b:58f4a2e1
    * MD_NAME=localhost.localdomain:0
    */
-  for (char **i = lines; *i != NULL; i++) {
-    char *line = *i;
+  for (i = 0; lines[i] != NULL; ++i) {
+    char *line = lines[i];
 
     /* Skip blank lines (shouldn't happen) */
     if (line[0] == '\0') continue;
 
     /* Split the line in 2 at the equals sign */
-    char *eq = strchr(line, '=');
+    char *eq = strchr (line, '=');
     if (eq) {
       *eq = '\0'; eq++;
 
       /* Remove the MD_ prefix from the key and translate the remainder to lower
        * case */
-      if (STRPREFIX(line, "MD_")) {
+      if (STRPREFIX (line, "MD_")) {
         line += 3;
         for (char *j = line; *j != '\0'; j++) {
-          *j = c_tolower(*j);
+          *j = c_tolower (*j);
         }
       }
 
       /* Add the key/value pair to the output */
-      if (add_string(&ret, &size, &alloc, line) == -1 ||
-          add_string(&ret, &size, &alloc, eq) == -1) goto error;
+      if (add_string (&ret, &size, &alloc, line) == -1 ||
+          add_string (&ret, &size, &alloc, eq) == -1) goto error;
     } else {
       /* Ignore lines with no equals sign (shouldn't happen). Log to stderr so
        * it will show up in LIBGUESTFS_DEBUG. */
-      fprintf(stderr, "md-detail: unexpected mdadm output ignored: %s", line);
+      fprintf (stderr, "md-detail: unexpected mdadm output ignored: %s", line);
     }
   }
 
-  free(out);
-  free(err);
-  free(lines); /* We freed the contained strings when we freed out */
+  free (out);
+  free (err);
+  free (lines); /* We freed the contained strings when we freed out */
 
-  if (add_string(&ret, &size, &alloc, NULL) == -1) return NULL;
+  if (add_string (&ret, &size, &alloc, NULL) == -1) return NULL;
 
   return ret;
 
 error:
-  free(out);
-  free(err);
-  if (lines) free(lines);
-  if (ret) free_strings(ret);
+  free (out);
+  free (err);
+  if (lines)
+    free (lines);
+  if (ret)
+    free_strings (ret);
 
   return NULL;
 }
