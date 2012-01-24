@@ -377,7 +377,7 @@ sysroot_path (const char *path)
 int
 xwrite (int sock, const void *v_buf, size_t len)
 {
-  int r;
+  ssize_t r;
   const char *buf = v_buf;
 
   while (len > 0) {
