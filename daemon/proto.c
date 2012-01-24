@@ -263,6 +263,7 @@ send_error (int errnum, const char *msg)
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
 
+  memset (&hdr, 0, sizeof hdr);
   hdr.prog = GUESTFS_PROGRAM;
   hdr.vers = GUESTFS_PROTOCOL_VERSION;
   hdr.direction = GUESTFS_DIRECTION_REPLY;
@@ -315,6 +316,7 @@ reply (xdrproc_t xdrp, char *ret)
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
 
+  memset (&hdr, 0, sizeof hdr);
   hdr.prog = GUESTFS_PROGRAM;
   hdr.vers = GUESTFS_PROTOCOL_VERSION;
   hdr.direction = GUESTFS_DIRECTION_REPLY;
