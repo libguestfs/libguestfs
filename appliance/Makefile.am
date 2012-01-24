@@ -42,13 +42,18 @@ make.sh: make.sh.in
 	chmod +x $@-t
 	mv $@-t $@
 
+PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1
+if VALGRIND_DAEMON
+PACKAGELIST_CPP_FLAGS += -DVALGRIND_DAEMON=1
+endif
+
 packagelist: packagelist.in
-	cpp -undef -D$(DISTRO)=1 < $< | \
+	cpp -undef $(PACKAGELIST_CPP_FLAGS) < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	mv $@-t $@
 
 excludelist: excludelist.in
-	cpp -undef -D$(DISTRO)=1 < $< | \
+	cpp -undef $(PACKAGELIST_CPP_FLAGS) < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	mv $@-t $@
 
