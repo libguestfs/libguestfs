@@ -108,9 +108,11 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
   int r = system (cmd);
   if (r == -1) {
     reply_with_perror ("command failed: %s", cmd);
+    free (cmd);
     rmdir (tmpdir);
     return NULL;
   }
+  free (cmd);
   if (WEXITSTATUS (r) != 0) {
     reply_with_perror ("command failed with return code %d",
                        WEXITSTATUS (r));
