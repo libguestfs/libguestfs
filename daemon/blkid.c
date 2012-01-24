@@ -188,7 +188,7 @@ blkid_with_p_i_opt (const char *device)
 
   free (out);
   free (err);
-  free (lines);
+  free_strings (lines);
 
   return ret;
 
@@ -196,7 +196,7 @@ error:
   free (out);
   free (err);
   if (lines)
-    free (lines);
+    free_strings (lines);
   if (ret)
     free_strings (ret);
 
