@@ -38,6 +38,17 @@
  */
 static augeas *aug = NULL;
 
+/* Clean up the augeas handle on daemon exit. */
+static void aug_finalize (void) __attribute__((destructor));
+static void
+aug_finalize (void)
+{
+  if (aug) {
+    aug_close (aug);
+    aug = NULL;
+  }
+}
+
 #define NEED_AUG(errcode)						\
   do {									\
     if (!aug) {								\
