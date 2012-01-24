@@ -297,7 +297,7 @@ do_md_detail(const char *md)
 
   free (out);
   free (err);
-  free (lines); /* We freed the contained strings when we freed out */
+  free_strings (lines);
 
   if (add_string (&ret, &size, &alloc, NULL) == -1) return NULL;
 
@@ -307,7 +307,7 @@ error:
   free (out);
   free (err);
   if (lines)
-    free (lines);
+    free_strings (lines);
   if (ret)
     free_strings (ret);
 
