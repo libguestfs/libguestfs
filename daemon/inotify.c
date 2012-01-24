@@ -40,6 +40,17 @@ static int inotify_fd = -1;
 static char inotify_buf[64*1024*1024];	/* Event buffer, [0..posn-1] is valid */
 static size_t inotify_posn = 0;
 
+/* Clean up the inotify handle on daemon exit. */
+static void inotify_finalize (void) __attribute__((destructor));
+static void
+inotify_finalize (void)
+{
+  if (inotify_fd >= 0) {
+    close (inotify_fd);
+    inotify_fd = -1;
+  }
+}
+
 int
 optgroup_inotify_available (void)
 {
