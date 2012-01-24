@@ -203,6 +203,8 @@ main (int argc, char *argv[])
       printf ("could not read linux command line\n");
   }
 
+  free (cmdline);
+
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */
   struct sigaction sa;
