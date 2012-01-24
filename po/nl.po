@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-23 16:06+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
@@ -3372,17 +3372,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: twee keer dezelfde hendel aangeroepen\n"
 
-#: src/guestfs.c:307
+#: src/guestfs.c:315
 #, c-format
 msgid "warning: %s"
 msgstr "waarschuwing: %s"
 
-#: src/guestfs.c:368
+#: src/guestfs.c:376
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: fout: %s\n"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:954
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<afgekort, originele grootte %zu bytes>"
@@ -3489,24 +3489,24 @@ msgstr "%s: kan geen tijdelijke map aanmaken"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch.c:923
+#: src/launch.c:933
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:936
+#: src/launch.c:946
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:1026
+#: src/launch.c:1036
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch mislukte, onverwachte initiele boodschap van guestfsd"
 
-#: src/launch.c:1034
+#: src/launch.c:1044
 msgid "contacted guestfsd, but state != READY"
 msgstr "contact gemaakt met guestfsd, maar toestand != READY"
 
-#: src/launch.c:1234
+#: src/launch.c:1244
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3521,11 +3521,11 @@ msgstr ""
 "omgevingsvariabele in te stellen.  Er kunnen hierboven ook fouten afgedrukt "
 "worden."
 
-#: src/launch.c:1374
+#: src/launch.c:1384
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:1385
+#: src/launch.c:1395
 msgid "no subprocess to kill"
 msgstr "geen sub-proces om af te schieten"
 

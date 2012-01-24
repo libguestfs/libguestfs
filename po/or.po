@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-23 16:06+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/team/or/)\n"
@@ -3177,17 +3177,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ସମାନ ନିୟନ୍ତ୍ରଣରେ ଦୁଇଥର ଡ଼ାକିଥିଲା\n"
 
-#: src/guestfs.c:307
+#: src/guestfs.c:315
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:368
+#: src/guestfs.c:376
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: ତ୍ରୁଟି: %s\n"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:954
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
@@ -3288,23 +3288,23 @@ msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମ
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:923
+#: src/launch.c:933
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:936
+#: src/launch.c:946
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:1026
+#: src/launch.c:1036
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1034
+#: src/launch.c:1044
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1234
+#: src/launch.c:1244
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3313,11 +3313,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1374
+#: src/launch.c:1384
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:1385
+#: src/launch.c:1395
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 

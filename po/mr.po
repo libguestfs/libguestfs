@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-23 16:06+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -3306,17 +3306,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: एकाच हँडलवर दोनवेळा कॉल केले\n"
 
-#: src/guestfs.c:307
+#: src/guestfs.c:315
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:368
+#: src/guestfs.c:376
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: त्रुटी: %s\n"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:954
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
@@ -3419,23 +3419,23 @@ msgstr "%s: तात्पुर्ती डिरेक्ट्री नि
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:923
+#: src/launch.c:933
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:936
+#: src/launch.c:946
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:1026
+#: src/launch.c:1036
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch.c:1034
+#: src/launch.c:1044
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1234
+#: src/launch.c:1244
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3444,11 +3444,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1374
+#: src/launch.c:1384
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1385
+#: src/launch.c:1395
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 

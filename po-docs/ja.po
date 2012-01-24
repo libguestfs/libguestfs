@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-01-23 16:07+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:10+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -26577,7 +26577,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7072 ../src/guestfs-actions.pod:7221
 #: ../src/guestfs-actions.pod:7703 ../src/guestfs-actions.pod:7828
 #: ../src/guestfs-actions.pod:8473
-msgid "(Added in 0.3~)"
+msgid "(Added in 0.3)"
 msgstr ""
 
 #. type: =head2
@@ -26660,7 +26660,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:146
-msgid "(Added in 1.7.4~)"
+msgid "(Added in 1.7.4)"
 msgstr ""
 
 #. type: =head2
@@ -26802,7 +26802,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:256
-msgid "(Added in 1.5.23~)"
+msgid "(Added in 1.5.23)"
 msgstr ""
 
 #. type: =head2
@@ -26872,7 +26872,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:293
-msgid "(Added in 1.0.38~)"
+msgid "(Added in 1.0.38)"
 msgstr ""
 
 #. type: =head2
@@ -26901,7 +26901,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:314 ../src/guestfs-actions.pod:335
 #: ../src/guestfs-actions.pod:2985
-msgid "(Added in 1.0.84~)"
+msgid "(Added in 1.0.84)"
 msgstr ""
 
 #. type: =head2
@@ -26944,7 +26944,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:348 ../src/guestfs-actions.pod:2713
-msgid "(Added in 1.3.4~)"
+msgid "(Added in 1.3.4)"
 msgstr ""
 
 #. type: =head2
@@ -26977,7 +26977,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:561 ../src/guestfs-actions.pod:575
 #: ../src/guestfs-actions.pod:589 ../src/guestfs-actions.pod:607
 #: ../src/guestfs-actions.pod:6587
-msgid "(Added in 0.7~)"
+msgid "(Added in 0.7)"
 msgstr ""
 
 #. type: =head2
@@ -27207,7 +27207,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7299 ../src/guestfs-actions.pod:8074
 #: ../src/guestfs-actions.pod:8087 ../src/guestfs-actions.pod:8320
 #: ../src/guestfs-actions.pod:8585
-msgid "(Added in 0.8~)"
+msgid "(Added in 0.8)"
 msgstr ""
 
 #. type: =head2
@@ -27339,7 +27339,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:674 ../src/guestfs-actions.pod:1694
-msgid "(Added in 1.0.80~)"
+msgid "(Added in 1.0.80)"
 msgstr ""
 
 #. type: =head2
@@ -27372,7 +27372,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:693
-msgid "(Added in 1.3.15~)"
+msgid "(Added in 1.3.15)"
 msgstr ""
 
 #. type: =head2
@@ -27393,7 +27393,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:707 ../src/guestfs-actions.pod:721
-msgid "(Added in 1.3.5~)"
+msgid "(Added in 1.3.5)"
 msgstr ""
 
 #. type: =head2
@@ -27465,7 +27465,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:843 ../src/guestfs-actions.pod:862
 #: ../src/guestfs-actions.pod:876 ../src/guestfs-actions.pod:894
 #: ../src/guestfs-actions.pod:908 ../src/guestfs-actions.pod:922
-msgid "(Added in 0.9.3~)"
+msgid "(Added in 0.9.3)"
 msgstr ""
 
 #. type: =head2
@@ -27668,7 +27668,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:959
-msgid "(Added in 1.11.17~)"
+msgid "(Added in 1.11.17)"
 msgstr ""
 
 #. type: =head2
@@ -27743,7 +27743,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1024 ../src/guestfs-actions.pod:8254
-msgid "(Added in 1.0.75~)"
+msgid "(Added in 1.0.75)"
 msgstr ""
 
 #. type: =head2
@@ -27777,7 +27777,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:4928 ../src/guestfs-actions.pod:6461
 #: ../src/guestfs-actions.pod:6475 ../src/guestfs-actions.pod:8407
 #: ../src/guestfs-actions.pod:8421
-msgid "(Added in 0.4~)"
+msgid "(Added in 0.4)"
 msgstr ""
 
 #. type: =head2
@@ -27811,7 +27811,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2690 ../src/guestfs-actions.pod:4013
 #: ../src/guestfs-actions.pod:4042 ../src/guestfs-actions.pod:4103
 #: ../src/guestfs-actions.pod:4130 ../src/guestfs-actions.pod:8110
-msgid "(Added in 1.0.2~)"
+msgid "(Added in 1.0.2)"
 msgstr ""
 
 #. type: =head2
@@ -27844,7 +27844,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6080 ../src/guestfs-actions.pod:6262
 #: ../src/guestfs-actions.pod:8019 ../src/guestfs-actions.pod:8033
 #: ../src/guestfs-actions.pod:8433
-msgid "(Added in 1.3.2~)"
+msgid "(Added in 1.3.2)"
 msgstr ""
 
 #. type: =head2
@@ -27866,7 +27866,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1142
-msgid "(Added in 1.3.7~)"
+msgid "(Added in 1.3.7)"
 msgstr ""
 
 #. type: =head2
@@ -27930,7 +27930,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1224 ../src/guestfs-actions.pod:1244
 #: ../src/guestfs-actions.pod:2131
-msgid "(Added in 0.9.1~)"
+msgid "(Added in 0.9.1)"
 msgstr ""
 
 #. type: =head2
@@ -27996,7 +27996,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1270 ../src/guestfs-actions.pod:1329
 #: ../src/guestfs-actions.pod:2676 ../src/guestfs-actions.pod:7178
-msgid "(Added in 1.13.15~)"
+msgid "(Added in 1.13.15)"
 msgstr ""
 
 #. type: =head2
@@ -28189,7 +28189,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1420 ../src/guestfs-actions.pod:1473
 #: ../src/guestfs-actions.pod:1526 ../src/guestfs-actions.pod:1584
 #: ../src/guestfs-actions.pod:6318
-msgid "(Added in 1.13.25~)"
+msgid "(Added in 1.13.25)"
 msgstr ""
 
 #. type: =head2
@@ -28492,7 +28492,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1638 ../src/guestfs-actions.pod:4941
 #: ../src/guestfs-actions.pod:6488 ../src/guestfs-actions.pod:8340
 #: ../src/guestfs-actions.pod:8360 ../src/guestfs-actions.pod:8446
-msgid "(Added in 1.0.87~)"
+msgid "(Added in 1.0.87)"
 msgstr ""
 
 #. type: =head2
@@ -28516,7 +28516,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1746 ../src/guestfs-actions.pod:1820
 #: ../src/guestfs-actions.pod:1997 ../src/guestfs-actions.pod:5840
 #: ../src/guestfs-actions.pod:6332
-msgid "(Added in 1.0.18~)"
+msgid "(Added in 1.0.18)"
 msgstr ""
 
 #. type: =head2
@@ -28589,7 +28589,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7721 ../src/guestfs-actions.pod:7745
 #: ../src/guestfs-actions.pod:8486 ../src/guestfs-actions.pod:8499
 #: ../src/guestfs-actions.pod:8512
-msgid "(Added in 1.0.54~)"
+msgid "(Added in 1.0.54)"
 msgstr ""
 
 #. type: =head2
@@ -28682,7 +28682,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1800 ../src/guestfs-actions.pod:8144
-msgid "(Added in 1.5.17~)"
+msgid "(Added in 1.5.17)"
 msgstr ""
 
 #. type: =head2
@@ -28811,7 +28811,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1925
-msgid "(Added in 1.0.29~)"
+msgid "(Added in 1.0.29)"
 msgstr ""
 
 #. type: =head2
@@ -28837,7 +28837,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1943 ../src/guestfs-actions.pod:2701
 #: ../src/guestfs-actions.pod:7202
-msgid "(Added in 1.0.69~)"
+msgid "(Added in 1.0.69)"
 msgstr ""
 
 #. type: =head2
@@ -28874,7 +28874,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8604 ../src/guestfs-actions.pod:8623
 #: ../src/guestfs-actions.pod:8714 ../src/guestfs-actions.pod:8733
 #: ../src/guestfs-actions.pod:8779 ../src/guestfs-actions.pod:8798
-msgid "(Added in 1.0.66~)"
+msgid "(Added in 1.0.66)"
 msgstr ""
 
 #. type: =head2
@@ -28985,7 +28985,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2065
-msgid "(Added in 1.3.17~)"
+msgid "(Added in 1.3.17)"
 msgstr ""
 
 #. type: =head2
@@ -29065,7 +29065,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3570 ../src/guestfs-actions.pod:3646
 #: ../src/guestfs-actions.pod:3747 ../src/guestfs-actions.pod:3984
 #: ../src/guestfs-actions.pod:4116
-msgid "(Added in 1.5.3~)"
+msgid "(Added in 1.5.3)"
 msgstr ""
 
 #. type: =head2
@@ -29093,7 +29093,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2259
-msgid "(Added in 1.0.82~)"
+msgid "(Added in 1.0.82)"
 msgstr ""
 
 #. type: =head2
@@ -29123,7 +29123,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2285
-msgid "(Added in 1.0.79~)"
+msgid "(Added in 1.0.79)"
 msgstr ""
 
 #. type: =head2
@@ -29154,7 +29154,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2307
-msgid "(Added in 1.3.12~)"
+msgid "(Added in 1.3.12)"
 msgstr ""
 
 #. type: =head2
@@ -29186,7 +29186,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2349 ../src/guestfs-actions.pod:4878
 #: ../src/guestfs-actions.pod:6750
-msgid "(Added in 1.0.27~)"
+msgid "(Added in 1.0.27)"
 msgstr ""
 
 #. type: =head2
@@ -29214,7 +29214,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2389
-msgid "(Added in 1.0.74~)"
+msgid "(Added in 1.0.74)"
 msgstr ""
 
 #. type: =head2
@@ -29275,7 +29275,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2462 ../src/guestfs-actions.pod:8651
-msgid "(Added in 1.0.16~)"
+msgid "(Added in 1.0.16)"
 msgstr ""
 
 #. type: =head2
@@ -29306,7 +29306,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7375 ../src/guestfs-actions.pod:7391
 #: ../src/guestfs-actions.pod:7415 ../src/guestfs-actions.pod:8291
 #: ../src/guestfs-actions.pod:8306 ../src/guestfs-actions.pod:8695
-msgid "(Added in 1.0.26~)"
+msgid "(Added in 1.0.26)"
 msgstr ""
 
 #. type: =head2
@@ -29330,7 +29330,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2490 ../src/guestfs-actions.pod:6937
-msgid "(Added in 1.9.8~)"
+msgid "(Added in 1.9.8)"
 msgstr ""
 
 #. type: =head2
@@ -29363,7 +29363,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2512 ../src/guestfs-actions.pod:6978
-msgid "(Added in 1.0.72~)"
+msgid "(Added in 1.0.72)"
 msgstr ""
 
 #. type: =head2
@@ -29391,7 +29391,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2533 ../src/guestfs-actions.pod:2554
 #: ../src/guestfs-actions.pod:6996 ../src/guestfs-actions.pod:7015
-msgid "(Added in 1.0.15~)"
+msgid "(Added in 1.0.15)"
 msgstr ""
 
 #. type: =head2
@@ -29445,7 +29445,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:5600 ../src/guestfs-actions.pod:5613
 #: ../src/guestfs-actions.pod:6653 ../src/guestfs-actions.pod:7036
 #: ../src/guestfs-actions.pod:7326 ../src/guestfs-actions.pod:8060
-msgid "(Added in 1.0.55~)"
+msgid "(Added in 1.0.55)"
 msgstr ""
 
 #. type: =head2
@@ -29464,7 +29464,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2584 ../src/guestfs-actions.pod:7055
-msgid "(Added in 1.5.4~)"
+msgid "(Added in 1.5.4)"
 msgstr ""
 
 #. type: =head2
@@ -29505,7 +29505,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2610 ../src/guestfs-actions.pod:7091
 #: ../src/guestfs-actions.pod:8552
-msgid "(Added in 1.11.18~)"
+msgid "(Added in 1.11.18)"
 msgstr ""
 
 #. type: =head2
@@ -29524,7 +29524,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2624
-msgid "(Added in 1.0.56~)"
+msgid "(Added in 1.0.56)"
 msgstr ""
 
 #. type: =head2
@@ -29543,7 +29543,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2639 ../src/guestfs-actions.pod:7119
-msgid "(Added in 1.0.6~)"
+msgid "(Added in 1.0.6)"
 msgstr ""
 
 #. type: =head2
@@ -29567,7 +29567,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6701 ../src/guestfs-actions.pod:7143
 #: ../src/guestfs-actions.pod:7841 ../src/guestfs-actions.pod:7861
 #: ../src/guestfs-actions.pod:8175
-msgid "(Added in 1.0.77~)"
+msgid "(Added in 1.0.77)"
 msgstr ""
 
 #. type: =head2
@@ -29594,7 +29594,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2665 ../src/guestfs-actions.pod:2739
 #: ../src/guestfs-actions.pod:7162 ../src/guestfs-actions.pod:7236
-msgid "(Added in 1.0.67~)"
+msgid "(Added in 1.0.67)"
 msgstr ""
 
 #. type: =head2
@@ -29747,7 +29747,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2769 ../src/guestfs-actions.pod:4268
-msgid "(Added in 1.7.24~)"
+msgid "(Added in 1.7.24)"
 msgstr ""
 
 #. type: =head2
@@ -29783,7 +29783,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:4496 ../src/guestfs-actions.pod:4532
 #: ../src/guestfs-actions.pod:6731 ../src/guestfs-actions.pod:7255
 #: ../src/guestfs-actions.pod:8760
-msgid "(Added in 1.0.59~)"
+msgid "(Added in 1.0.59)"
 msgstr ""
 
 #. type: =head2
@@ -29804,7 +29804,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2812 ../src/guestfs-actions.pod:7439
 #: ../src/guestfs-actions.pod:7456
-msgid "(Added in 1.0.50~)"
+msgid "(Added in 1.0.50)"
 msgstr ""
 
 #. type: =head2
@@ -29857,7 +29857,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2897
-msgid "(Added in 1.0.17~)"
+msgid "(Added in 1.0.17)"
 msgstr ""
 
 #. type: =head2
@@ -29909,7 +29909,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2956 ../src/guestfs-actions.pod:7520
 #: ../src/guestfs-actions.pod:7575
-msgid "(Added in 1.0.22~)"
+msgid "(Added in 1.0.22)"
 msgstr ""
 
 #. type: =head2
@@ -30156,7 +30156,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3302 ../src/guestfs-actions.pod:3767
-msgid "(Added in 1.9.17~)"
+msgid "(Added in 1.9.17)"
 msgstr ""
 
 #. type: =head2
@@ -30200,7 +30200,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3363 ../src/guestfs-actions.pod:3803
 #: ../src/guestfs-actions.pod:3819 ../src/guestfs-actions.pod:3837
 #: ../src/guestfs-actions.pod:6769
-msgid "(Added in 1.9.4~)"
+msgid "(Added in 1.9.4)"
 msgstr ""
 
 #. type: =head2
@@ -30220,7 +30220,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3382
-msgid "(Added in 1.7.9~)"
+msgid "(Added in 1.7.9)"
 msgstr ""
 
 #. type: =head2
@@ -30252,7 +30252,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:3464 ../src/guestfs-actions.pod:4298
 #: ../src/guestfs-actions.pod:5701
-msgid "(Added in 1.11.12~)"
+msgid "(Added in 1.11.12)"
 msgstr ""
 
 #. type: =head2
@@ -30393,7 +30393,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3597 ../src/guestfs-actions.pod:3625
-msgid "(Added in 1.7.5~)"
+msgid "(Added in 1.7.5)"
 msgstr ""
 
 #. type: =head2
@@ -30459,7 +30459,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3680
-msgid "(Added in 1.9.13~)"
+msgid "(Added in 1.9.13)"
 msgstr ""
 
 #. type: =head2
@@ -30493,7 +30493,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3700
-msgid "(Added in 1.7.3~)"
+msgid "(Added in 1.7.3)"
 msgstr ""
 
 #. type: =head2
@@ -30543,7 +30543,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3787
-msgid "(Added in 1.5.25~)"
+msgid "(Added in 1.5.25)"
 msgstr ""
 
 #. type: =head2
@@ -30652,7 +30652,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3941
-msgid "(Added in 1.7.8~)"
+msgid "(Added in 1.7.8)"
 msgstr ""
 
 #. type: =head2
@@ -30719,7 +30719,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3999 ../src/guestfs-actions.pod:4028
 #: ../src/guestfs-actions.pod:4073 ../src/guestfs-actions.pod:4145
 #: ../src/guestfs-actions.pod:4160
-msgid "(Added in 1.5.10~)"
+msgid "(Added in 1.5.10)"
 msgstr ""
 
 #. type: =head2
@@ -30900,7 +30900,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4173 ../src/guestfs-actions.pod:4187
-msgid "(Added in 1.11.8~)"
+msgid "(Added in 1.11.8)"
 msgstr ""
 
 #. type: =head2
@@ -31074,7 +31074,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4335 ../src/guestfs-actions.pod:5940
-msgid "(Added in 1.11.15~)"
+msgid "(Added in 1.11.15)"
 msgstr ""
 
 #. type: =head2
@@ -31111,7 +31111,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4377 ../src/guestfs-actions.pod:6300
-msgid "(Added in 1.5.15~)"
+msgid "(Added in 1.5.15)"
 msgstr ""
 
 #. type: =head2
@@ -31130,7 +31130,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4390 ../src/guestfs-actions.pod:7961
-msgid "(Added in 1.15.4~)"
+msgid "(Added in 1.15.4)"
 msgstr ""
 
 #. type: =head2
@@ -31335,7 +31335,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:4552 ../src/guestfs-actions.pod:7484
 #: ../src/guestfs-actions.pod:7502 ../src/guestfs-actions.pod:8005
-msgid "(Added in 0.9.2~)"
+msgid "(Added in 0.9.2)"
 msgstr ""
 
 #. type: =head2
@@ -31418,7 +31418,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:4608 ../src/guestfs-actions.pod:4645
 #: ../src/guestfs-actions.pod:4665 ../src/guestfs-actions.pod:4685
-msgid "(Added in 1.5.2~)"
+msgid "(Added in 1.5.2)"
 msgstr ""
 
 #. type: =head2
@@ -31449,7 +31449,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:4624 ../src/guestfs-actions.pod:4720
 #: ../src/guestfs-actions.pod:4739 ../src/guestfs-actions.pod:4789
 #: ../src/guestfs-actions.pod:4834
-msgid "(Added in 1.5.1~)"
+msgid "(Added in 1.5.1)"
 msgstr ""
 
 #. type: =head2
@@ -31604,7 +31604,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4774
-msgid "(Added in 1.5.24~)"
+msgid "(Added in 1.5.24)"
 msgstr ""
 
 #. type: =head2
@@ -31675,7 +31675,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:4850 ../src/guestfs-actions.pod:6415
 #: ../src/guestfs-actions.pod:8375
-msgid "(Added in 1.0.13~)"
+msgid "(Added in 1.0.13)"
 msgstr ""
 
 #. type: =head2
@@ -31696,7 +31696,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4863 ../src/guestfs-actions.pod:8388
-msgid "(Added in 1.0.83~)"
+msgid "(Added in 1.0.83)"
 msgstr ""
 
 #. type: =head2
@@ -31733,7 +31733,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4895
-msgid "(Added in 1.3.3~)"
+msgid "(Added in 1.3.3)"
 msgstr ""
 
 #. type: =head2
@@ -32021,7 +32021,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:5263 ../src/guestfs-actions.pod:5279
 #: ../src/guestfs-actions.pod:5293 ../src/guestfs-actions.pod:5307
 #: ../src/guestfs-actions.pod:5366 ../src/guestfs-actions.pod:5643
-msgid "(Added in 1.0.68~)"
+msgid "(Added in 1.0.68)"
 msgstr ""
 
 #. type: =head2
@@ -32221,7 +32221,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5429
-msgid "(Added in 1.7.19~)"
+msgid "(Added in 1.7.19)"
 msgstr ""
 
 #. type: =head2
@@ -32319,7 +32319,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:5502 ../src/guestfs-actions.pod:5808
 #: ../src/guestfs-actions.pod:6835
-msgid "(Added in 1.0.62~)"
+msgid "(Added in 1.0.62)"
 msgstr ""
 
 #. type: =head2
@@ -32625,7 +32625,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:5760 ../src/guestfs-actions.pod:5774
 #: ../src/guestfs-actions.pod:5791
-msgid "(Added in 1.0.10~)"
+msgid "(Added in 1.0.10)"
 msgstr ""
 
 #. type: =head2
@@ -32752,7 +32752,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5863
-msgid "(Added in 1.0.43~)"
+msgid "(Added in 1.0.43)"
 msgstr ""
 
 #. type: =head2
@@ -32882,7 +32882,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:5983 ../src/guestfs-actions.pod:6442
 #: ../src/guestfs-actions.pod:6515 ../src/guestfs-actions.pod:6783
 #: ../src/guestfs-actions.pod:8532
-msgid "(Added in 1.3.14~)"
+msgid "(Added in 1.3.14)"
 msgstr ""
 
 #. type: =head2
@@ -32922,7 +32922,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6099 ../src/guestfs-actions.pod:6183
 #: ../src/guestfs-actions.pod:6221 ../src/guestfs-actions.pod:6240
 #: ../src/guestfs-actions.pod:6280
-msgid "(Added in 1.0.78~)"
+msgid "(Added in 1.0.78)"
 msgstr ""
 
 #. type: =head2
@@ -33253,7 +33253,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6384
-msgid "(Added in 1.5.21~)"
+msgid "(Added in 1.5.21)"
 msgstr ""
 
 #. type: =head2
@@ -33427,7 +33427,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6541
-msgid "(Added in 1.5.20~)"
+msgid "(Added in 1.5.20)"
 msgstr ""
 
 #. type: =head2
@@ -33456,7 +33456,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6565
-msgid "(Added in 1.0.63~)"
+msgid "(Added in 1.0.63)"
 msgstr ""
 
 #. type: =head2
@@ -33744,7 +33744,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:6851 ../src/guestfs-actions.pod:6869
 #: ../src/guestfs-actions.pod:6888
-msgid "(Added in 1.0.52~)"
+msgid "(Added in 1.0.52)"
 msgstr ""
 
 #. type: =head2
@@ -34369,7 +34369,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7468
-msgid "(Added in 1.0.41~)"
+msgid "(Added in 1.0.41)"
 msgstr ""
 
 #. type: =head2
@@ -34680,7 +34680,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:7762 ../src/guestfs-actions.pod:7779
 #: ../src/guestfs-actions.pod:7795 ../src/guestfs-actions.pod:7811
-msgid "(Added in 1.0.3~)"
+msgid "(Added in 1.0.3)"
 msgstr ""
 
 #. type: =head2
@@ -35086,7 +35086,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:8217
-msgid "(Added in 1.0.58~)"
+msgid "(Added in 1.0.58)"
 msgstr ""
 
 #. type: =head2
@@ -35111,7 +35111,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:8235 ../src/guestfs-actions.pod:8272
-msgid "(Added in 1.3.18~)"
+msgid "(Added in 1.3.18)"
 msgstr ""
 
 #. type: =head2
@@ -35582,7 +35582,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:8674
-msgid "(Added in 1.3.1~)"
+msgid "(Added in 1.3.1)"
 msgstr ""
 
 #. type: =head2

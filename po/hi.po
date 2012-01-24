@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-23 16:06+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -3177,17 +3177,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: called twice on the same handle\n"
 
-#: src/guestfs.c:307
+#: src/guestfs.c:315
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:368
+#: src/guestfs.c:376
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:954
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
@@ -3288,23 +3288,23 @@ msgstr "%s: को अस्थायी निर्देशिका नह�
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch.c:923
+#: src/launch.c:933
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
 
-#: src/launch.c:936
+#: src/launch.c:946
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:1026
+#: src/launch.c:1036
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1034
+#: src/launch.c:1044
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1234
+#: src/launch.c:1244
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3313,11 +3313,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1374
+#: src/launch.c:1384
 msgid "qemu has not been launched yet"
 msgstr "qemu को अबतक लॉन्च नहीं किया गया है"
 
-#: src/launch.c:1385
+#: src/launch.c:1395
 msgid "no subprocess to kill"
 msgstr "किल करने के लिए कोई उपप्रक्रिया नहीं"
 

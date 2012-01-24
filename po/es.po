@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-23 16:06+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -3425,17 +3425,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 
-#: src/guestfs.c:307
+#: src/guestfs.c:315
 #, c-format
 msgid "warning: %s"
 msgstr "advertencia: %s"
 
-#: src/guestfs.c:368
+#: src/guestfs.c:376
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:954
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<truncado, tamaño original %zu bytes>"
@@ -3542,25 +3542,25 @@ msgstr "%s: no es posible crear directorio temporal"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:923
+#: src/launch.c:933
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:936
+#: src/launch.c:946
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:1026
+#: src/launch.c:1036
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
-#: src/launch.c:1034
+#: src/launch.c:1044
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: src/launch.c:1234
+#: src/launch.c:1244
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3574,11 +3574,11 @@ msgstr ""
 "de entorno LIBGUESTFS_QEMU. Puede que se hayan mostrado también errores "
 "arriba."
 
-#: src/launch.c:1374
+#: src/launch.c:1384
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1385
+#: src/launch.c:1395
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 

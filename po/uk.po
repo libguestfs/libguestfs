@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-01-23 16:06+0000\n"
+"POT-Creation-Date: 2012-01-24 19:27+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3434,17 +3434,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/guestfs.c:307
+#: src/guestfs.c:315
 #, c-format
 msgid "warning: %s"
 msgstr "попередження: %s"
 
-#: src/guestfs.c:368
+#: src/guestfs.c:376
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:954
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
@@ -3551,27 +3551,27 @@ msgstr "%s: не вдалося створити тимчасовий катал
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:923
+#: src/launch.c:933
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:936
+#: src/launch.c:946
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:1026
+#: src/launch.c:1036
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:1034
+#: src/launch.c:1044
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1234
+#: src/launch.c:1244
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3585,11 +3585,11 @@ msgstr ""
 "встановити відповідне значення змінної середовища LIBGUESTFS_QEMU.\n"
 "Крім того, вище можна знайти повідомлення про помилки."
 
-#: src/launch.c:1374
+#: src/launch.c:1384
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1385
+#: src/launch.c:1395
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 
