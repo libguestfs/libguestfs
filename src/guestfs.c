@@ -190,9 +190,17 @@ guestfs_close (guestfs_h *g)
   if (g->autosync && g->state == READY)
     guestfs_internal_autosync (g);
 
+  /* If we are valgrinding the daemon, then we *don't* want to kill
+   * the subprocess because we want the final valgrind messages sent
+   * when we close sockets below.  However for normal production use,
+   * killing the subprocess is the right thing to do (in case the
+   * daemon or qemu is not responding).
+   */
+#ifndef VALGRIND_DAEMON
   /* Kill the qemu subprocess. */
   if (g->state != CONFIG)
     guestfs_kill_subprocess (g);
+#endif
 
   /* Run user close callbacks. */
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);

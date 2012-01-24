@@ -703,6 +703,16 @@ launch_appliance (guestfs_h *g)
     add_cmdline (g, "-device");
     add_cmdline (g, "virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
 
+#ifdef VALGRIND_DAEMON
+    /* Set up virtio-serial channel for valgrind messages. */
+    add_cmdline (g, "-chardev");
+    snprintf (buf, sizeof buf, "file,path=%s/valgrind.log.%d,id=valgrind",
+              VALGRIND_LOG_PATH, getpid ());
+    add_cmdline (g, buf);
+    add_cmdline (g, "-device");
+    add_cmdline (g, "virtserialport,chardev=valgrind,name=org.libguestfs.valgrind");
+#endif
+
     /* Enable user networking. */
     if (g->enable_network) {
       add_cmdline (g, "-netdev");

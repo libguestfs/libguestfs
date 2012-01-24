@@ -130,3 +130,7 @@ tar
 xfsprogs
 #endif
 zerofree
+
+#ifdef VALGRIND_DAEMON
+valgrind
+#endif

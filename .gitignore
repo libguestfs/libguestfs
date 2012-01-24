@@ -387,3 +387,4 @@ test-tool/libguestfs-test-tool-helper
 tools/test.img
 tools/virt-*.1
 tools/virt-*.pl
+/valgrind.log.*
