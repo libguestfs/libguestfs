@@ -129,23 +129,24 @@ test_blkid_p_i_opt (void)
 static char **
 blkid_with_p_i_opt (const char *device)
 {
+  size_t i;
   int r;
   char *out = NULL, *err = NULL;
   char **lines = NULL;
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  r = command(&out, &err, "blkid", "-c", "/dev/null",
+  r = command (&out, &err, "blkid", "-c", "/dev/null",
                "-p", "-i", "-o", "export", device, NULL);
   if (r == -1) {
-    reply_with_error("%s", err);
+    reply_with_error ("%s", err);
     goto error;
   }
 
   /* Split the command output into lines */
-  lines = split_lines(out);
+  lines = split_lines (out);
   if (lines == NULL) {
-    reply_with_perror("malloc");
+    reply_with_perror ("malloc");
     goto error;
   }
 
@@ -164,38 +165,40 @@ blkid_with_p_i_opt (const char *device)
    * PART_ENTRY_SIZE=104857600
    * PART_ENTRY_DISK=8:0
    */
-  for (char **i = lines; *i != NULL; i++) {
-    char *line = *i;
+  for (i = 0; lines[i] != NULL; ++i) {
+    char *line = lines[i];
 
     /* Skip blank lines (shouldn't happen) */
     if (line[0] == '\0') continue;
 
     /* Split the line in 2 at the equals sign */
-    char *eq = strchr(line, '=');
+    char *eq = strchr (line, '=');
     if (eq) {
       *eq = '\0'; eq++;
 
       /* Add the key/value pair to the output */
-      if (add_string(&ret, &size, &alloc, line) == -1 ||
-          add_string(&ret, &size, &alloc, eq) == -1) goto error;
+      if (add_string (&ret, &size, &alloc, line) == -1 ||
+          add_string (&ret, &size, &alloc, eq) == -1) goto error;
     } else {
-      fprintf(stderr, "blkid: unexpected blkid output ignored: %s", line);
+      fprintf (stderr, "blkid: unexpected blkid output ignored: %s", line);
     }
   }
 
-  if (add_string(&ret, &size, &alloc, NULL) == -1) goto error;
+  if (add_string (&ret, &size, &alloc, NULL) == -1) goto error;
 
-  free(out);
-  free(err);
-  free(lines);
+  free (out);
+  free (err);
+  free (lines);
 
   return ret;
 
 error:
-  free(out);
-  free(err);
-  if (lines) free(lines);
-  if (ret) free_strings(ret);
+  free (out);
+  free (err);
+  if (lines)
+    free (lines);
+  if (ret)
+    free_strings (ret);
 
   return NULL;
 }
