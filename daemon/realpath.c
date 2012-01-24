@@ -66,6 +66,8 @@ do_realpath (const char *path)
 #endif
 }
 
+static int find_path_element (int fd_cwd, char *name, size_t *name_len_ret);
+
 char *
 do_case_sensitive_path (const char *path)
 {
@@ -110,57 +112,26 @@ do_case_sensitive_path (const char *path)
     path += i;
 
     /* Read the current directory looking (case insensitively) for
-     * this element of the path.
+     * this element of the path.  This replaces 'name' with the
+     * correct case version.
      */
-    int fd2 = dup (fd_cwd); /* because closedir will close it */
-    if (fd2 == -1) {
-      reply_with_perror ("dup");
+    if (find_path_element (fd_cwd, name, &i) == -1)
       goto error;
-    }
-    DIR *dir = fdopendir (fd2);
-    if (dir == NULL) {
-      reply_with_perror ("opendir");
-      goto error;
-    }
-
-    struct dirent *d = NULL;
-
-    errno = 0;
-    while ((d = readdir (dir)) != NULL) {
-      if (STRCASEEQ (d->d_name, name))
-        break;
-    }
-
-    if (d == NULL && errno != 0) {
-      reply_with_perror ("readdir");
-      goto error;
-    }
-
-    if (closedir (dir) == -1) {
-      reply_with_perror ("closedir");
-      goto error;
-    }
-
-    if (d == NULL) {
-      reply_with_error ("%s: no file or directory found with this name", name);
-      goto error;
-    }
 
     /* Add the real name of this path element to the return value. */
     if (next > 1)
       ret[next++] = '/';
 
-    i = strlen (d->d_name);
     if (next + i >= PATH_MAX) {
       reply_with_error ("final path too long");
       goto error;
     }
 
-    strcpy (&ret[next], d->d_name);
+    strcpy (&ret[next], name);
     next += i;
 
     /* Is it a directory?  Try going into it. */
-    fd2 = openat (fd_cwd, d->d_name, O_RDONLY | O_DIRECTORY);
+    int fd2 = openat (fd_cwd, name, O_RDONLY | O_DIRECTORY);
     int err = errno;
     close (fd_cwd);
     fd_cwd = fd2;
@@ -168,12 +139,12 @@ do_case_sensitive_path (const char *path)
     if (fd_cwd == -1) {
       /* ENOTDIR is OK provided we've reached the end of the path. */
       if (errno != ENOTDIR) {
-        reply_with_perror ("openat: %s", d->d_name);
+        reply_with_perror ("openat: %s", name);
         goto error;
       }
 
       if (*path) {
-        reply_with_error ("%s: non-directory element in path", d->d_name);
+        reply_with_error ("%s: non-directory element in path", name);
         goto error;
       }
     }
@@ -195,4 +166,76 @@ do_case_sensitive_path (const char *path)
     close (fd_cwd);
 
   return NULL;
+}
+
+/* 'fd_cwd' is a file descriptor pointing to an open directory.
+ * 'name' is a buffer of NAME_MAX+1 characters in size which initially
+ * contains the path element to search for.
+ *
+ * We search the directory looking for a path element that case
+ * insensitively matches 'name' and update the 'name' buffer.
+ *
+ * If this is successful, return 0.  If it fails, reply with an error
+ * and return -1.
+ */
+static int
+find_path_element (int fd_cwd, char *name, size_t *name_len_ret)
+{
+  int fd2;
+  DIR *dir;
+  struct dirent *d;
+
+  fd2 = dup (fd_cwd); /* because closedir will close it */
+  if (fd2 == -1) {
+    reply_with_perror ("dup");
+    return -1;
+  }
+  dir = fdopendir (fd2);
+  if (dir == NULL) {
+    reply_with_perror ("opendir");
+    close (fd2);
+    return -1;
+  }
+
+  for (;;) {
+    errno = 0;
+    d = readdir (dir);
+    if (d == NULL)
+      break;
+    if (STRCASEEQ (d->d_name, name))
+      break;
+  }
+
+  if (d == NULL && errno != 0) {
+    reply_with_perror ("readdir");
+    closedir (dir);
+    return -1;
+  }
+
+  if (d == NULL) {
+    reply_with_error ("%s: no file or directory found with this name", name);
+    closedir (dir);
+    return -1;
+  }
+
+  *name_len_ret = strlen (d->d_name);
+  if (*name_len_ret > NAME_MAX) {
+    /* Should never happen? */
+    reply_with_error ("path element longer than NAME_MAX");
+    closedir (dir);
+    return -1;
+  }
+
+  /* Safe because name is a buffer of NAME_MAX+1 characters. */
+  strcpy (name, d->d_name);
+
+  /* NB: closedir frees the structure associated with 'd', so we must
+   * do this last.
+   */
+  if (closedir (dir) == -1) {
+    reply_with_perror ("closedir");
+    return -1;
+  }
+
+  return 0;
 }
