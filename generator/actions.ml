@@ -9000,11 +9000,7 @@ device is stopped, but it is not destroyed or zeroed." };
       InitScratchFS, Always, TestOutputHashtable (
         [["blkid"; "/dev/sdb1"]],
         ["TYPE", "ext2";
-         "USAGE", "filesystem";
-         "PART_ENTRY_NUMBER", "1";
-         "PART_ENTRY_TYPE", "0x83";
-         "PART_ENTRY_OFFSET", "128";
-         "PART_ENTRY_SIZE", "102145"])
+         "USAGE", "filesystem"])
     ];
     shortdesc = "print block device attributes";
     longdesc = "\
