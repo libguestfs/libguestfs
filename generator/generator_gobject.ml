@@ -37,10 +37,6 @@ let camel_of_name flags name =
         a ^ String.uppercase (Str.first_chars b 1) ^ Str.string_after b 1
     ) "" (Str.split (regexp "_") name)
 
-let returns_error = function
-  | RConstOptString _ -> false
-  | _ -> true
-
 let generate_gobject_proto name ?(single_line = true)
                                 (ret, args, optargs) flags =
   let spacer = if single_line then " " else "\n" in
@@ -109,7 +105,7 @@ let generate_gobject_proto name ?(single_line = true)
   | _ -> ());
   if List.exists (function Cancellable -> true | _ -> false) flags then
     pr ", GCancellable *cancellable";
-  if returns_error ret then pr ", GError **err";
+  pr ", GError **err";
   pr ")"
 
 let generate_gobject_header_static () =
@@ -602,7 +598,7 @@ let generate_gobject_c_methods () =
       let doc = String.concat "\n * " doc in
       let camel_name = camel_of_name flags name in
       let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
-      let error_return = match ret with
+      let gobject_error_return = match ret with
       | RErr ->
         "FALSE"
       | RInt _ | RInt64 _ | RBool _ ->
@@ -688,7 +684,7 @@ let generate_gobject_c_methods () =
       if cancellable then (
         pr "  /* Check we haven't already been cancelled */\n";
         pr "  if (g_cancellable_set_error_if_cancelled (cancellable, err))\n";
-        pr "    return %s;\n\n" error_return;
+        pr "    return %s;\n\n" gobject_error_return;
       );
 
       pr "  guestfs_h *g = session->priv->g;\n";
@@ -780,19 +776,16 @@ let generate_gobject_c_methods () =
 
       (* Check return, throw error if necessary, marshall return value *)
 
-      if returns_error ret then (
+      (match errcode_of_ret ret with
+      | `CannotReturnError -> ()
+      | _ ->
         pr "  if (ret == %s) {\n"
-          (match ret with
-          | RErr | RInt _ | RInt64 _ | RBool _ ->
-            "-1"
-          | RConstString _ | RString _ | RStringList _ | RHashtable _
-          | RBufferOut _ | RStruct _ | RStructList _ ->
-            "NULL"
-          | RConstOptString _ ->
-            assert false;
-          );
+          (match errcode_of_ret ret with
+          | `CannotReturnError -> assert false
+          | `ErrorIsMinusOne -> "-1"
+          | `ErrorIsNULL -> "NULL");
         pr "    g_set_error_literal(err, GUESTFS_ERROR, 0, guestfs_last_error(g));\n";
-        pr "    return %s;\n" error_return;
+        pr "    return %s;\n" gobject_error_return;
         pr "  }\n";
       );
       pr "\n";
