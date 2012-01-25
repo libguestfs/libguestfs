@@ -66,9 +66,13 @@ fi
 hwclock -u -s
 
 # Set up the network.
-ifconfig lo 127.0.0.1
-ifconfig eth0 169.254.2.10
-route add default gw 169.254.2.2
+ip addr add 127.0.0.1/8 brd + dev lo scope host
+ip link set dev lo up
+
+ip addr add 169.254.2.10/16 brd + dev eth0 scope global
+ip link set dev eth0 up
+
+ip route add default via 169.254.2.2
 
 # Scan for MDs.
 mdadm -As --auto=yes --run
@@ -94,8 +98,8 @@ if grep -sq guestfs_verbose=1 /proc/cmdline; then
     lvm pvs
     lvm vgs
     lvm lvs
-    ifconfig
-    netstat -rn
+    ip a
+    ip r
     lsmod
     #hwclock -r
     date

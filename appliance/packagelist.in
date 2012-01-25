@@ -104,6 +104,7 @@ findutils
 gawk
 grep
 gzip
+iproute
 jfsutils
 libxml2
 lsof
@@ -111,7 +112,6 @@ lvm2
 lzop
 mdadm
 module-init-tools
-net-tools
 /*
 Enabling this pulls out 140 extra packages
 into the appliance:
