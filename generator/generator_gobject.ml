@@ -156,6 +156,7 @@ struct _GuestfsSessionClass
 
 GType guestfs_session_get_type(void);
 GuestfsSession *guestfs_session_new(void);
+gboolean guestfs_session_close(GuestfsSession *session, GError **err);
 
 /* Guestfs::Tristate */
 typedef enum
@@ -304,6 +305,16 @@ let generate_gobject_c_static () =
  * images.
  */
 
+/* Error quark */
+
+#define GUESTFS_ERROR guestfs_error_quark()
+
+static GQuark
+guestfs_error_quark(void)
+{
+  return g_quark_from_static_string(\"guestfs\");
+}
+
 #define GUESTFS_SESSION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ( \
                                             (obj), \
                                             GUESTFS_TYPE_SESSION, \
@@ -357,6 +368,29 @@ guestfs_session_new(void)
   return GUESTFS_SESSION(g_object_new(GUESTFS_TYPE_SESSION, NULL));
 }
 
+/**
+ * guestfs_session_close:
+ *
+ * Close a libguestfs session.
+ *
+ * Returns: true on success, false on error
+ */
+gboolean
+guestfs_session_close(GuestfsSession *session, GError **err)
+{
+  guestfs_h *g = session->priv->g;
+
+  if (g == NULL) {
+    g_set_error_literal(err, GUESTFS_ERROR, 0, \"session is already closed\");
+    return FALSE;
+  }
+
+  guestfs_close(g);
+  session->priv->g = NULL;
+
+  return TRUE;
+}
+
 /* Guestfs::Tristate */
 GType
 guestfs_tristate_get_type(void)
@@ -372,16 +406,6 @@ guestfs_tristate_get_type(void)
     etype = g_enum_register_static(\"GuestfsTristate\", values);
   }
   return etype;
-}
-
-/* Error quark */
-
-#define GUESTFS_ERROR guestfs_error_quark()
-
-static GQuark
-guestfs_error_quark(void)
-{
-  return g_quark_from_static_string(\"guestfs\");
 }
 
 /* Cancellation handler */
@@ -606,7 +630,9 @@ let generate_gobject_c_methods () =
       | RConstString _ | RString _ | RStringList _ | RHashtable _
       | RBufferOut _ | RStruct _ | RStructList _ ->
         "NULL"
-      | RConstOptString _ -> ""
+      | RConstOptString _ ->
+        "NULL" (* NULL is a valid return for RConstOptString. Error is
+                  indicated by also setting *err to a non-NULL value *)
       in
 
       (* The comment header, including GI annotations for arguments and the
@@ -687,7 +713,15 @@ let generate_gobject_c_methods () =
         pr "    return %s;\n\n" gobject_error_return;
       );
 
+      (* Get the guestfs handle, and ensure it isn't closed *)
+
       pr "  guestfs_h *g = session->priv->g;\n";
+      pr "  if (g == NULL) {\n";
+      pr "    g_set_error(err, GUESTFS_ERROR, 0,\n";
+      pr "                \"attempt to call %%s after the session has been closed\",\n";
+      pr "                \"%s\");\n" name;
+      pr "    return %s;\n" gobject_error_return;
+      pr "  }\n\n";
 
       (* Optargs *)
 
