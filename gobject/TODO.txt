@@ -1,0 +1,9 @@
+Tasks required before the GObject bindings can be considered complete:
+
+* Fix the problem of inspect_get_type
+* Build the gtkdoc and make it available to the developer
+* Bind the libguestfs events API
+
+Tasks which would improve the usability of the GObject bindings:
+
+* Implement _async versions of all apis
