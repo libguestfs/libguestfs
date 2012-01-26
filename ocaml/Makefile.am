@@ -162,6 +162,7 @@ install-data-hook:
 	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
 	  guestfs \
 	  META *.so *.a *.cma *.cmx *.cmxa *.cmi $(srcdir)/*.mli
+	rm $(DESTDIR)$(OCAMLLIB)/guestfs/libguestfsocaml.a
 
 CLEANFILES += $(noinst_DATA)
 
