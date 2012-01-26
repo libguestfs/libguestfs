@@ -50,20 +50,24 @@ EOF
 # Since trace and debug output also goes to stderr, we must
 # remove it before testing.
 mv test.error test.error.old
-< test.error.old grep -v '^libguestfs: ' | grep -vF "$HOME/.guestfish:" > test.error
+< test.error.old \
+    grep -v '^libguestfs: ' | \
+    grep -vF "$HOME/.guestfish:" | \
+    sed 's/.*guestfish: //' \
+    > test.error
 
 if [ "$(cat test.error)" != "\
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: invalid escape sequence in string (starting at offset 0)
-guestfish: unterminated double quote
-guestfish: unterminated double quote
-guestfish: unterminated double quote
-guestfish: command arguments not separated by whitespace" ]; then
+invalid escape sequence in string (starting at offset 0)
+invalid escape sequence in string (starting at offset 0)
+invalid escape sequence in string (starting at offset 0)
+invalid escape sequence in string (starting at offset 0)
+invalid escape sequence in string (starting at offset 0)
+invalid escape sequence in string (starting at offset 0)
+invalid escape sequence in string (starting at offset 0)
+unterminated double quote
+unterminated double quote
+unterminated double quote
+command arguments not separated by whitespace" ]; then
     echo "unexpected stderr from guestfish:"
     cat test.error
     echo "[end of stderr]"
