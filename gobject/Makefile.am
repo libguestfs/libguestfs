@@ -21,8 +21,9 @@ BUILT_SOURCES = \
 	bindtests.js
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
+	TODO.txt \
 	bindtests-manual.js \
-  tests-misc.js \
+	tests-misc.js \
 	run-tests
 
 libname = libguestfs-gobject-1.0.la
