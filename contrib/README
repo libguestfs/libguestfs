@@ -34,6 +34,13 @@ intro/ "Slides" for an intro to libguestfs.  This is a short (10-15
         self-contained HTML page with a handful images that can be
         easily distributed before the talk.
 
+make-check-on-installed.pl
+        This Perl script allows you to run the test suite (ie.  'make
+        check', 'make extra-tests' etc) on an installed RPM.  This is
+        useful for adding another layer of testing to packages before
+        we release them.  Note that a checked out copy of the source
+        from git is required.  Read the top of the file before using.
+
 visualize-alignment/
         Tests for visualizing block device reads and writes and
         alignment using a patched qemu.  See the README file in that
