@@ -5,25 +5,6 @@ autobuild/
         The autobuild script that we use to build and test the
         tarballs on Debian and elsewhere.
 
-centos5.3-libguestfs.spec
-        [REMOVED]
-        This used to be a centos5.3 specfile.  Please use the specfile
-        from EL-5 here:
-        http://pkgs.fedoraproject.org/gitweb/?p=libguestfs.git;a=shortlog;h=refs/heads/el5/master
-        or the RHEL 5 source RPMs here:
-        http://libguestfs.org/download/binaries/rhel5-packages/
-
-febootstrap/
-        [REMOVED]
-        An experimental, non-working attempt to use febootstrap
-        to install operating systems.
-
-fedora-libguestfs.spec
-        [REMOVED]
-        This used to be a Fedora 10+ specfile.  Please use the specfile
-        from Fedora instead:
-        http://pkgs.fedoraproject.org/gitweb/?p=libguestfs.git
-
 guestfsd-in-wine.sh
         Run a Windows-compiled guestfsd under Wine.  Read the
         instructions at the top of this file carefully.
