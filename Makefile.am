@@ -126,6 +126,7 @@ EXTRA_DIST = \
 	contrib/intro/overview.svg \
 	contrib/intro/talk.txt \
 	contrib/intro/tools.svg \
+	contrib/make-check-on-installed.pl \
 	contrib/README \
 	contrib/visualize-alignment/.gitignore \
 	contrib/visualize-alignment/guestfish-add-mount.qtr \
