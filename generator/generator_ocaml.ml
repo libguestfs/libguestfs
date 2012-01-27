@@ -638,7 +638,7 @@ copy_table (char * const * argv)
           name;
         pr "{\n";
         pr "  return ocaml_guestfs_%s (argv[0]" name;
-        iteri (fun i _ -> pr ", argv[%d]" i) (List.tl params);
+        iteri (fun i _ -> pr ", argv[%d]" (i+1)) (List.tl params);
         pr ");\n";
         pr "}\n";
         pr "\n"
