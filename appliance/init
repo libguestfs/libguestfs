@@ -18,6 +18,9 @@ rm -f /sys; mkdir /sys
 mount -t sysfs /sys /sys
 mkdir -p /run/lock
 
+# devtmpfs is required since udev 176
+mount -t devtmpfs /dev /dev
+
 if [ ! -L /etc/init.d/udev -a -x /etc/init.d/udev ]; then
   if type service >/dev/null 2>&1; then
      service udev start
