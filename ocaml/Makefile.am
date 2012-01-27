@@ -74,58 +74,92 @@ html/index.html: $(srcdir)/guestfs*.mli $(srcdir)/guestfs*.ml
 endif
 
 TESTS_ENVIRONMENT = \
+	CAML_LD_LIBRARY_PATH=. \
 	$(top_builddir)/run \
 	$(VG)
 
-TESTS = run-bindtests \
+test_progs = \
 	t/guestfs_005_load \
 	t/guestfs_080_optargs \
 	t/guestfs_400_events
 
 if ENABLE_APPLIANCE
-TESTS += t/guestfs_010_basic \
+test_progs += \
+	t/guestfs_010_basic \
 	t/guestfs_070_threads \
 	t/guestfs_400_progress
 endif
 
-noinst_DATA += bindtests \
-	t/guestfs_005_load \
-	t/guestfs_010_basic \
-	t/guestfs_070_threads \
-	t/guestfs_080_optargs \
-	t/guestfs_400_events \
-	t/guestfs_400_progress
+TESTS = run-bindtests \
+	$(patsubst %,%.bc,$(test_progs)) \
+	$(patsubst %,%.opt,$(test_progs))
 
-bindtests: bindtests.cmx mlguestfs.cmxa
+noinst_DATA += \
+	bindtests.bc bindtests.opt \
+	$(test_progs:%=%.bc) \
+	$(test_progs:%=%.opt)
+
+bindtests.bc: bindtests.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+
+bindtests.opt: bindtests.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_005_load: t/guestfs_005_load.cmx mlguestfs.cmxa
+t/guestfs_005_load.bc: t/guestfs_005_load.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+
+t/guestfs_005_load.opt: t/guestfs_005_load.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_010_basic: t/guestfs_010_basic.cmx mlguestfs.cmxa
+t/guestfs_010_basic.bc: t/guestfs_010_basic.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+
+t/guestfs_010_basic.opt: t/guestfs_010_basic.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_070_threads: t/guestfs_070_threads.cmx mlguestfs.cmxa
+t/guestfs_070_threads.bc: t/guestfs_070_threads.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix,threads -thread -linkpkg mlguestfs.cma $< -o $@
+
+t/guestfs_070_threads.opt: t/guestfs_070_threads.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix,threads -thread -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_080_optargs: t/guestfs_080_optargs.cmx mlguestfs.cmxa
+t/guestfs_080_optargs.bc: t/guestfs_080_optargs.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+
+t/guestfs_080_optargs.opt: t/guestfs_080_optargs.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_400_events: t/guestfs_400_events.cmx mlguestfs.cmxa
+t/guestfs_400_events.bc: t/guestfs_400_events.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+
+t/guestfs_400_events.opt: t/guestfs_400_events.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-t/guestfs_400_progress: t/guestfs_400_progress.cmx mlguestfs.cmxa
+t/guestfs_400_progress.bc: t/guestfs_400_progress.cmo mlguestfs.cma
+	mkdir -p t
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cma $< -o $@
+
+t/guestfs_400_progress.opt: t/guestfs_400_progress.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
 # Need to rebuild the tests from source if the main library has
 # changed at all, otherwise we get inconsistent assumptions.
+t/guestfs_070_threads.cmo: t/guestfs_070_threads.ml mlguestfs.cma
+	$(OCAMLFIND) ocamlc $(OCAMLOPTFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
+
 t/guestfs_070_threads.cmx: t/guestfs_070_threads.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
 

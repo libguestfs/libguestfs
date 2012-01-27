@@ -18,5 +18,8 @@
 
 set -e
 
-./bindtests > bindtests.tmp
+./bindtests.bc > bindtests.tmp
+diff -u $srcdir/../bindtests bindtests.tmp
+
+./bindtests.opt > bindtests.tmp
 diff -u $srcdir/../bindtests bindtests.tmp
