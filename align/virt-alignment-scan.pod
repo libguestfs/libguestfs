@@ -52,7 +52,7 @@ possibly the I<-c> option:
  /dev/sdb1        65536           64K   ok
 
 The output consists of 4 or more whitespace-separated columns.  Only
-the first 4 columns are signficant if you want to parse this from a
+the first 4 columns are significant if you want to parse this from a
 program.  The columns are:
 
 =over 4
