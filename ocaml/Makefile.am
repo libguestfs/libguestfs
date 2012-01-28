@@ -91,8 +91,9 @@ test_progs += \
 endif
 
 TESTS = run-bindtests \
-	$(patsubst %,%.bc,$(test_progs)) \
-	$(patsubst %,%.opt,$(test_progs))
+	$(sort \
+		$(patsubst %,%.bc,$(test_progs)) \
+		$(patsubst %,%.opt,$(test_progs)))
 
 noinst_DATA += \
 	bindtests.bc bindtests.opt \
