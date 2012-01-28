@@ -130,3 +130,17 @@
    fun:caml_stat_alloc
    fun:caml_threadstatus_new
 }
+{
+   ocaml_heap_leak_6
+   Memcheck:Leak
+   fun:malloc
+   fun:caml_stat_alloc
+   fun:caml_search_in_path
+}
+{
+   ocaml_heap_leak_7
+   Memcheck:Leak
+   fun:malloc
+   ...
+   fun:caml_build_primitive_table
+}
