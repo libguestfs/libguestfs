@@ -583,7 +583,7 @@ fg_open (const char *path, struct fuse_file_info *fi)
 {
   TRACE_CALL ("%s, 0%o", path, fi->flags);
 
-  int flags = fi->flags & 3;
+  int flags = fi->flags & O_ACCMODE;
 
   if (read_only && flags != O_RDONLY)
     return -EROFS;
