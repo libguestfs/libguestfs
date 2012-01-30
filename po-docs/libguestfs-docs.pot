@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.16.1\n"
+"Project-Id-Version: libguestfs 1.16.2\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-01-24 19:27+0000\n"
+"POT-Creation-Date: 2012-01-30 12:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:54
 msgid ""
 "The output consists of 4 or more whitespace-separated columns.  Only the "
-"first 4 columns are signficant if you want to parse this from a program.  "
+"first 4 columns are significant if you want to parse this from a program.  "
 "The columns are:"
 msgstr ""
 
