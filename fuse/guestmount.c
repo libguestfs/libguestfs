@@ -582,7 +582,7 @@ static int
 fg_open (const char *path, struct fuse_file_info *fi)
 {
   TRACE_CALL ("%s, 0%o", path, fi->flags);
-             
+
   int flags = fi->flags & 3;
 
   if (read_only && flags != O_RDONLY)
@@ -596,7 +596,7 @@ fg_read (const char *path, char *buf, size_t size, off_t offset,
          struct fuse_file_info *fi)
 {
   TRACE_CALL ("%s, %p, %zu, %ld", path, buf, size, (long) offset);
-             
+
   char *r;
   size_t rsize;
 
