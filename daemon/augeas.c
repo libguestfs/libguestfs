@@ -141,18 +141,27 @@ guestfs_int_int_bool *
 do_aug_defnode (const char *name, const char *expr, const char *val)
 {
 #ifdef HAVE_AUG_DEFNODE
-  static guestfs_int_int_bool r;
-  int created;
+  guestfs_int_int_bool *r;
+  int i, created;
 
   NEED_AUG (NULL);
 
-  r.i = aug_defnode (aug, name, expr, val, &created);
-  if (r.i == -1) {
+  i = aug_defnode (aug, name, expr, val, &created);
+  if (i == -1) {
     reply_with_error ("Augeas defnode failed");
     return NULL;
   }
-  r.b = created;
-  return &r;
+
+  r = malloc (sizeof *r);
+  if (r == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  r->i = i;
+  r->b = created;
+
+  return r;
 #else
   NOT_AVAILABLE (NULL);
 #endif
