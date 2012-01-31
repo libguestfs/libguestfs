@@ -21,7 +21,7 @@ count_strings (char *const *argv)
   return c;
 }
 
-int                                                                            
+int
 main (int argc, char *argv[])
 {
   guestfs_h *g;

@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <guestfs.h>
 
-int                                                                            
+int
 main (int argc, char *argv[])
 {
   guestfs_h *g;
