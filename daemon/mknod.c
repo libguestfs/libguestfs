@@ -37,18 +37,10 @@ optgroup_mknod_available (void)
 {
   return 1;
 }
-#else
-int
-optgroup_mknod_available (void)
-{
-  return 0;
-}
-#endif
 
 int
 do_mknod (int mode, int devmajor, int devminor, const char *path)
 {
-#ifdef HAVE_MKNOD
   int r;
 
   if (mode < 0) {
@@ -66,9 +58,6 @@ do_mknod (int mode, int devmajor, int devminor, const char *path)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
@@ -88,3 +77,37 @@ do_mknod_c (int mode, int devmajor, int devminor, const char *path)
 {
   return do_mknod (mode | S_IFCHR, devmajor, devminor, path);
 }
+
+#else
+
+int
+optgroup_mknod_available (void)
+{
+  return 0;
+}
+
+int
+do_mknod (int mode, int devmajor, int devminor, const char *path)
+{
+  abort ();
+}
+
+int
+do_mkfifo (int mode, const char *path)
+{
+  abort ();
+}
+
+int
+do_mknod_b (int mode, int devmajor, int devminor, const char *path)
+{
+  abort ();
+}
+
+int
+do_mknod_c (int mode, int devmajor, int devminor, const char *path)
+{
+  abort ();
+}
+
+#endif

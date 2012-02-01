@@ -56,13 +56,6 @@ optgroup_inotify_available (void)
 {
   return 1;
 }
-#else /* !HAVE_SYS_INOTIFY_H */
-int
-optgroup_inotify_available (void)
-{
-  return 0;
-}
-#endif
 
 /* Because inotify_init does NEED_ROOT, NEED_INOTIFY implies NEED_ROOT. */
 #define NEED_INOTIFY(errcode)						\
@@ -78,7 +71,6 @@ optgroup_inotify_available (void)
 int
 do_inotify_init (int max_events)
 {
-#ifdef HAVE_SYS_INOTIFY_H
   FILE *fp;
 
   NEED_ROOT (, return -1);
@@ -129,15 +121,11 @@ do_inotify_init (int max_events)
 #endif
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_inotify_close (void)
 {
-#ifdef HAVE_SYS_INOTIFY_H
   NEED_INOTIFY (-1);
 
   if (inotify_fd == -1) {
@@ -154,15 +142,11 @@ do_inotify_close (void)
   inotify_posn = 0;
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int64_t
 do_inotify_add_watch (const char *path, int mask)
 {
-#ifdef HAVE_SYS_INOTIFY_H
   int64_t r;
   char *buf;
 
@@ -182,15 +166,11 @@ do_inotify_add_watch (const char *path, int mask)
   }
 
   return r;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_inotify_rm_watch (int wd)
 {
-#ifdef HAVE_SYS_INOTIFY_H
   NEED_INOTIFY (-1);
 
   if (inotify_rm_watch (inotify_fd, wd) == -1) {
@@ -199,15 +179,11 @@ do_inotify_rm_watch (int wd)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 guestfs_int_inotify_event_list *
 do_inotify_read (void)
 {
-#ifdef HAVE_SYS_INOTIFY_H
   int space;
   guestfs_int_inotify_event_list *ret;
 
@@ -313,15 +289,11 @@ do_inotify_read (void)
   xdr_free ((xdrproc_t) xdr_guestfs_int_inotify_event_list, (char *) ret);
   free (ret);
   return NULL;
-#else
-  NOT_AVAILABLE (NULL);
-#endif
 }
 
 char **
 do_inotify_files (void)
 {
-#ifdef HAVE_SYS_INOTIFY_H
   char **ret = NULL;
   int size = 0, alloc = 0;
   unsigned int i;
@@ -404,7 +376,54 @@ do_inotify_files (void)
 
   unlink (tempfile);
   return NULL;
-#else
-  NOT_AVAILABLE (NULL);
-#endif
 }
+
+#else /* !HAVE_SYS_INOTIFY_H */
+
+/* Note that the wrapper code (daemon/stubs.c) ensures that the
+ * functions below are never called because optgroup_inotify_available
+ * returns false.
+ */
+int
+optgroup_inotify_available (void)
+{
+  return 0;
+}
+
+int
+do_inotify_init (int max_events)
+{
+  abort ();
+}
+
+int
+do_inotify_close (void)
+{
+  abort ();
+}
+
+int64_t
+do_inotify_add_watch (const char *path, int mask)
+{
+  abort ();
+}
+
+int
+do_inotify_rm_watch (int wd)
+{
+  abort ();
+}
+
+guestfs_int_inotify_event_list *
+do_inotify_read (void)
+{
+  abort ();
+}
+
+char **
+do_inotify_files (void)
+{
+  abort ();
+}
+
+#endif

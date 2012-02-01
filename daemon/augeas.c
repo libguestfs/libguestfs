@@ -63,19 +63,11 @@ optgroup_augeas_available (void)
 {
   return 1;
 }
-#else /* !HAVE_AUGEAS */
-int
-optgroup_augeas_available (void)
-{
-  return 0;
-}
-#endif
 
 /* We need to rewrite the root path so it is based at /sysroot. */
 int
 do_aug_init (const char *root, int flags)
 {
-#ifdef HAVE_AUGEAS
   char *buf;
 
   if (aug) {
@@ -98,24 +90,17 @@ do_aug_init (const char *root, int flags)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_aug_close (void)
 {
-#ifdef HAVE_AUGEAS
   NEED_AUG(-1);
 
   aug_close (aug);
   aug = NULL;
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
@@ -133,7 +118,8 @@ do_aug_defvar (const char *name, const char *expr)
   }
   return r;
 #else
-  NOT_AVAILABLE (-1);
+  reply_with_error ("function not available");
+  return -1;
 #endif
 }
 
@@ -163,14 +149,14 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
 
   return r;
 #else
-  NOT_AVAILABLE (NULL);
+  reply_with_error ("function not available");
+  return NULL;
 #endif
 }
 
 char *
 do_aug_get (const char *path)
 {
-#ifdef HAVE_AUGEAS
   const char *value = NULL;
   char *v;
   int r;
@@ -204,15 +190,11 @@ do_aug_get (const char *path)
   }
 
   return v;			/* Caller frees. */
-#else
-  NOT_AVAILABLE (NULL);
-#endif
 }
 
 int
 do_aug_set (const char *path, const char *val)
 {
-#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -224,15 +206,11 @@ do_aug_set (const char *path, const char *val)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_aug_clear (const char *path)
 {
-#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -244,15 +222,11 @@ do_aug_clear (const char *path)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_aug_insert (const char *path, const char *label, int before)
 {
-#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -264,15 +238,11 @@ do_aug_insert (const char *path, const char *label, int before)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_aug_rm (const char *path)
 {
-#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -284,15 +254,11 @@ do_aug_rm (const char *path)
   }
 
   return r;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
 do_aug_mv (const char *src, const char *dest)
 {
-#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -304,15 +270,11 @@ do_aug_mv (const char *src, const char *dest)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 char **
 do_aug_match (const char *path)
 {
-#ifdef HAVE_AUGEAS
   char **matches = NULL;
   void *vp;
   int r;
@@ -338,15 +300,11 @@ do_aug_match (const char *path)
   matches[r] = NULL;
 
   return matches;		/* Caller frees. */
-#else
-  NOT_AVAILABLE (NULL);
-#endif
 }
 
 int
 do_aug_save (void)
 {
-#ifdef HAVE_AUGEAS
   NEED_AUG (-1);
 
   if (aug_save (aug) == -1) {
@@ -355,9 +313,6 @@ do_aug_save (void)
   }
 
   return 0;
-#else
-  NOT_AVAILABLE (-1);
-#endif
 }
 
 int
@@ -373,7 +328,8 @@ do_aug_load (void)
 
   return 0;
 #else
-  NOT_AVAILABLE (-1);
+  reply_with_error ("function not available");
+  return -1;
 #endif
 }
 
@@ -381,7 +337,6 @@ do_aug_load (void)
 char **
 do_aug_ls (const char *path)
 {
-#ifdef HAVE_AUGEAS
   char **matches;
   char *buf;
   int len;
@@ -420,7 +375,102 @@ do_aug_ls (const char *path)
 
   sort_strings (matches, count_strings ((void *) matches));
   return matches;		/* Caller frees. */
-#else
-  NOT_AVAILABLE (NULL);
-#endif
 }
+
+#else /* !HAVE_AUGEAS */
+
+/* Note that the wrapper code (daemon/stubs.c) ensures that the
+ * functions below are never called because optgroup_augeas_available
+ * returns false.
+ */
+int
+optgroup_augeas_available (void)
+{
+  return 0;
+}
+
+int
+do_aug_init (const char *root, int flags)
+{
+  abort ();
+}
+
+int
+do_aug_close (void)
+{
+  abort ();
+}
+
+int
+do_aug_defvar (const char *name, const char *expr)
+{
+  abort ();
+}
+
+guestfs_int_int_bool *
+do_aug_defnode (const char *name, const char *expr, const char *val)
+{
+  abort ();
+}
+
+char *
+do_aug_get (const char *path)
+{
+  abort ();
+}
+
+int
+do_aug_set (const char *path, const char *val)
+{
+  abort ();
+}
+
+int
+do_aug_clear (const char *path)
+{
+  abort ();
+}
+
+int
+do_aug_insert (const char *path, const char *label, int before)
+{
+  abort ();
+}
+
+int
+do_aug_rm (const char *path)
+{
+  abort ();
+}
+
+int
+do_aug_mv (const char *src, const char *dest)
+{
+  abort ();
+}
+
+char **
+do_aug_match (const char *path)
+{
+  abort ();
+}
+
+int
+do_aug_save (void)
+{
+  abort ();
+}
+
+int
+do_aug_load (void)
+{
+  abort ();
+}
+
+char **
+do_aug_ls (const char *path)
+{
+  abort ();
+}
+
+#endif

@@ -32,18 +32,12 @@
 #include "optgroups.h"
 
 #if defined(HAVE_LIBSELINUX)
+
 int
 optgroup_selinux_available (void)
 {
   return 1;
 }
-#else /* !HAVE_LIBSELINUX */
-int
-optgroup_selinux_available (void)
-{
-  return 0;
-}
-#endif /* !HAVE_LIBSELINUX */
 
 /* setcon is only valid under the following circumstances:
  * - single threaded
@@ -52,7 +46,7 @@ optgroup_selinux_available (void)
 int
 do_setcon (const char *context)
 {
-#if defined(HAVE_LIBSELINUX) && defined(HAVE_SETCON)
+#if defined(HAVE_SETCON)
   if (setcon ((char *) context) == -1) {
     reply_with_perror ("setcon");
     return -1;
@@ -60,14 +54,15 @@ do_setcon (const char *context)
 
   return 0;
 #else
-  NOT_AVAILABLE (-1);
+  reply_with_error ("function not available");
+  return -1;
 #endif
 }
 
 char *
 do_getcon (void)
 {
-#if defined(HAVE_LIBSELINUX) && defined(HAVE_GETCON)
+#if defined(HAVE_GETCON)
   security_context_t context;
   char *r;
 
@@ -85,6 +80,29 @@ do_getcon (void)
 
   return r;                     /* caller frees */
 #else
-  NOT_AVAILABLE (NULL);
+  reply_with_error ("function not available");
+  return NULL;
 #endif
 }
+
+#else /* !HAVE_LIBSELINUX */
+
+int
+optgroup_selinux_available (void)
+{
+  return 0;
+}
+
+int
+do_setcon (const char *context)
+{
+  abort ();
+}
+
+char *
+do_getcon (void)
+{
+  abort ();
+}
+
+#endif /* !HAVE_LIBSELINUX */

@@ -331,16 +331,6 @@ is_zero (const char *buffer, size_t size)
   }									\
   while (0)
 
-/* Marks functions which are not available.
- * NB. Cannot be used for FileIn functions.
- */
-#define NOT_AVAILABLE(errcode)                                          \
-  do {									\
-    reply_with_error ("%s: function not available", __func__);          \
-    return (errcode);							\
-  }									\
-  while (0)
-
 #ifndef __attribute__
 # if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
 #  define __attribute__(x) /* empty */

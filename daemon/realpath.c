@@ -36,20 +36,17 @@
 #define NAME_MAX FILENAME_MAX
 #endif
 
+#ifdef HAVE_REALPATH
+
 int
 optgroup_realpath_available (void)
 {
-#ifdef HAVE_REALPATH
   return 1;
-#else
-  return 0;
-#endif
 }
 
 char *
 do_realpath (const char *path)
 {
-#ifdef HAVE_REALPATH
   char *ret;
 
   CHROOT_IN;
@@ -61,10 +58,23 @@ do_realpath (const char *path)
   }
 
   return ret;			/* caller frees */
-#else
-  NOT_AVAILABLE (NULL);
-#endif
 }
+
+#else /* !HAVE_REALPATH */
+
+int
+optgroup_realpath_available (void)
+{
+  return 0;
+}
+
+char *
+do_realpath (const char *path)
+{
+  abort ();
+}
+
+#endif /* !HAVE_REALPATH */
 
 static int find_path_element (int fd_cwd, char *name, size_t *name_len_ret);
 

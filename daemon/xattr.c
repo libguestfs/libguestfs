@@ -511,6 +511,11 @@ do_lgetxattr (const char *path, const char *name, size_t *size_r)
 }
 
 #else /* no xattr.h */
+
+/* Note that the wrapper code (daemon/stubs.c) ensures that the
+ * functions below are never called because
+ * optgroup_linuxxattrs_available returns false.
+ */
 int
 optgroup_linuxxattrs_available (void)
 {
@@ -520,55 +525,55 @@ optgroup_linuxxattrs_available (void)
 guestfs_int_xattr_list *
 do_getxattrs (const char *path)
 {
-  NOT_AVAILABLE (NULL);
+  abort ();
 }
 
 guestfs_int_xattr_list *
 do_lgetxattrs (const char *path)
 {
-  NOT_AVAILABLE (NULL);
+  abort ();
 }
 
 int
 do_setxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
-  NOT_AVAILABLE (-1);
+  abort ();
 }
 
 int
 do_lsetxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
-  NOT_AVAILABLE (-1);
+  abort ();
 }
 
 int
 do_removexattr (const char *xattr, const char *path)
 {
-  NOT_AVAILABLE (-1);
+  abort ();
 }
 
 int
 do_lremovexattr (const char *xattr, const char *path)
 {
-  NOT_AVAILABLE (-1);
+  abort ();
 }
 
 guestfs_int_xattr_list *
 do_lxattrlist (const char *path, char *const *names)
 {
-  NOT_AVAILABLE (NULL);
+  abort ();
 }
 
 char *
 do_getxattr (const char *path, const char *name, size_t *size_r)
 {
-  NOT_AVAILABLE (NULL);
+  abort ();
 }
 
 char *
 do_lgetxattr (const char *path, const char *name, size_t *size_r)
 {
-  NOT_AVAILABLE (NULL);
+  abort ();
 }
 
 #endif /* no xattr.h */
