@@ -75,12 +75,14 @@ and generate_daemon_actions () =
   pr "#include \"c-ctype.h\"\n";
   pr "#include \"guestfs_protocol.h\"\n";
   pr "#include \"actions.h\"\n";
+  pr "#include \"optgroups.h\"\n";
   pr "\n";
 
   List.iter (
-    fun (name, (ret, args, optargs), _, _, _, _, _) ->
+    fun (name, (ret, args, optargs), _, flags, _, _, _) ->
       (* Generate server-side stubs. *)
-      pr "static void %s_stub (XDR *xdr_in)\n" name;
+      pr "static void\n";
+      pr "%s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
       (match ret with
        | RErr | RInt _ -> pr "  int r;\n"
@@ -121,6 +123,24 @@ and generate_daemon_actions () =
 
       let is_filein =
         List.exists (function FileIn _ -> true | _ -> false) args in
+
+      (* Reject Optional functions that are not available (RHBZ#679737). *)
+      List.iter (
+        function
+        | Optional group ->
+          pr "  /* The caller should have checked before calling this. */\n";
+          pr "  if (! optgroup_%s_available ()) {\n" group;
+          if is_filein then
+            pr "    cancel_receive ();\n";
+          pr "    reply_with_error (\"feature '%%s' is not available in this\\n\"\n";
+          pr "                      \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
+          pr "                      \"how to check for the availability of features.\",\n";
+          pr "                      \"%s\");\n" group;
+          pr "    goto done;\n";
+          pr "  }\n";
+          pr "\n"
+        | _ -> ()
+      ) flags;
 
       (* Reject unknown optional arguments.
        * Note this code is included even for calls with no optional
