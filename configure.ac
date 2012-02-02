@@ -939,10 +939,13 @@ if test "x$with_java_home" != "xno"; then
         esac
         AC_MSG_RESULT([$JAVAC_FLAGS])
 
-        dnl Where to install jarfiles.
-        dnl XXX How to make it configurable?
-        JAR_INSTALL_DIR=\${prefix}/share/java
-        JNI_INSTALL_DIR=\${libdir}
+        dnl Where to install jarfiles, jnifiles
+        if test -z $JAR_INSTALL_DIR; then
+            JAR_INSTALL_DIR=\${prefix}/share/java
+        fi
+        if test -z $JNI_INSTALL_DIR; then
+            JNI_INSTALL_DIR=\${libdir}
+        fi
 
         dnl JNI version.
         jni_major_version=`echo "$VERSION" | awk -F. '{print $1}'`

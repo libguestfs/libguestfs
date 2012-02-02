@@ -67,7 +67,8 @@ libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 
 # JNI source.
 
-lib_LTLIBRARIES = libguestfs_jni.la
+jnilib_LTLIBRARIES = libguestfs_jni.la
+jnilibdir = $(JNI_INSTALL_DIR)
 libguestfs_jni_la_SOURCES = \
 	com_redhat_et_libguestfs_GuestFS.h \
 	com_redhat_et_libguestfs_GuestFS.c
