@@ -170,7 +170,6 @@ EXTRA_DIST = \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
 	m4/.gitignore \
-	run \
 	update-bugs.sh
 
 # The website.
