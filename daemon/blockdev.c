@@ -46,6 +46,20 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
   };
   char buf[64];
 
+  /* When you call close on any block device, udev kicks off a rule
+   * which runs blkid to reexamine the device.  We need to wait for
+   * this rule to finish running (from a previous operation) since it
+   * holds the device open and can cause other operations to fail,
+   * notably BLKRRPART.
+   *
+   * This is particularly a problem where we have just written to a
+   * device (eg. zeroing it) and immediately call blockdev --rereadpt.
+   *
+   * Therefore, wait for udev to finish all outstanding events before
+   * performing any blockdev command.
+   */
+  udev_settle ();
+
   if (extraarg > 0) {
     snprintf (buf, sizeof buf, "%d", extraarg);
     argv[2] = buf;

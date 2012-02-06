@@ -33,45 +33,14 @@
  * Parted 1.9 sends error messages to stdout, hence use of the
  * COMMAND_FLAG_FOLD_STDOUT_ON_STDERR flag.
  *
- * parted occasionally fails to do ioctl(BLKRRPART) on the device,
- * apparently because of some internal race in the code.  We attempt
- * to detect and recover from this error if we can.
+ * There is a reason why we call udev_settle both before and after
+ * each command.  When you call close on any block device, udev kicks
+ * off a rule which runs blkid to reexamine the device.  We need to
+ * wait for this rule to finish running (from a previous operation)
+ * since it holds the device open.  Since parted also closes the block
+ * device, it can cause udev to run again, hence the call to
+ * udev_settle afterwards.
  */
-static int
-recover_blkrrpart (const char *device, const char *err)
-{
-  int r;
-
-  if (!strstr (err,
-               "Error informing the kernel about modifications to partition"))
-    return -1;
-
-  r = command (NULL, NULL, "blockdev", "--rereadpt", device, NULL);
-  if (r == -1)
-    return -1;
-
-  udev_settle ();
-
-  return 0;
-}
-
-#define RUN_PARTED(error,device,...)                                    \
-  do {                                                                  \
-    int r;                                                              \
-    char *err;                                                          \
-                                                                        \
-    r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,       \
-                  "parted", "-s", "--", (device), __VA_ARGS__);   \
-    if (r == -1) {                                                      \
-      if (recover_blkrrpart ((device), err) == -1) {                    \
-        reply_with_error ("%s: parted: %s: %s", __func__, (device), err); \
-        free (err);                                                     \
-        error;                                                          \
-      }                                                                 \
-    }                                                                   \
-                                                                        \
-    free (err);                                                         \
-  } while (0)
 
 static const char *
 check_parttype (const char *parttype)
@@ -101,13 +70,25 @@ check_parttype (const char *parttype)
 int
 do_part_init (const char *device, const char *parttype)
 {
+  int r;
+  char *err;
+
   parttype = check_parttype (parttype);
   if (!parttype) {
     reply_with_error ("unknown partition type: common choices are \"gpt\" and \"msdos\"");
     return -1;
   }
 
-  RUN_PARTED (return -1, device, "mklabel", parttype, NULL);
+  udev_settle ();
+
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--", device, "mklabel", parttype, NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+  free (err);
 
   udev_settle ();
 
@@ -118,6 +99,8 @@ int
 do_part_add (const char *device, const char *prlogex,
              int64_t startsect, int64_t endsect)
 {
+  int r;
+  char *err;
   char startstr[32];
   char endstr[32];
 
@@ -146,12 +129,22 @@ do_part_add (const char *device, const char *prlogex,
   snprintf (startstr, sizeof startstr, "%" PRIi64 "s", startsect);
   snprintf (endstr, sizeof endstr, "%" PRIi64 "s", endsect);
 
+  udev_settle ();
+
   /* XXX Bug: If the partition table type (which we don't know in this
    * function) is GPT, then this parted command sets the _partition
    * name_ to prlogex, eg. "primary".  I would essentially describe
    * this as a bug in the parted mkpart command.
    */
-  RUN_PARTED (return -1, device, "mkpart", prlogex, startstr, endstr, NULL);
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--",
+                device, "mkpart", prlogex, startstr, endstr, NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+  free (err);
 
   udev_settle ();
 
@@ -161,6 +154,9 @@ do_part_add (const char *device, const char *prlogex,
 int
 do_part_del (const char *device, int partnum)
 {
+  int r;
+  char *err;
+
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
     return -1;
@@ -169,15 +165,28 @@ do_part_del (const char *device, int partnum)
   char partnum_str[16];
   snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
 
-  RUN_PARTED (return -1, device, "rm", partnum_str, NULL);
+  udev_settle ();
+
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--", device, "rm", partnum_str, NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+  free (err);
 
   udev_settle ();
+
   return 0;
 }
 
 int
 do_part_disk (const char *device, const char *parttype)
 {
+  int r;
+  char *err;
+
   parttype = check_parttype (parttype);
   if (!parttype) {
     reply_with_error ("unknown partition type: common choices are \"gpt\" and \"msdos\"");
@@ -195,12 +204,21 @@ do_part_disk (const char *device, const char *parttype)
   const char *startstr = "128s";
   const char *endstr = "-128s";
 
-  RUN_PARTED (return -1,
-              device,
-              "mklabel", parttype,
-              /* See comment about about the parted mkpart command. */
-              "mkpart", STREQ (parttype, "gpt") ? "p1" : "primary",
-              startstr, endstr, NULL);
+  udev_settle ();
+
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--",
+                device,
+                "mklabel", parttype,
+                /* See comment about about the parted mkpart command. */
+                "mkpart", STREQ (parttype, "gpt") ? "p1" : "primary",
+                startstr, endstr, NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+  free (err);
 
   udev_settle ();
 
@@ -210,6 +228,9 @@ do_part_disk (const char *device, const char *parttype)
 int
 do_part_set_bootable (const char *device, int partnum, int bootable)
 {
+  int r;
+  char *err;
+
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
     return -1;
@@ -219,8 +240,17 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
 
   snprintf (partstr, sizeof partstr, "%d", partnum);
 
-  RUN_PARTED (return -1,
-              device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
+  udev_settle ();
+
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--",
+                device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+  free (err);
 
   udev_settle ();
 
@@ -230,6 +260,9 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
 int
 do_part_set_name (const char *device, int partnum, const char *name)
 {
+  int r;
+  char *err;
+
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
     return -1;
@@ -239,7 +272,16 @@ do_part_set_name (const char *device, int partnum, const char *name)
 
   snprintf (partstr, sizeof partstr, "%d", partnum);
 
-  RUN_PARTED (return -1, device, "name", partstr, name, NULL);
+  udev_settle ();
+
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--", device, "name", partstr, name, NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+  free (err);
 
   udev_settle ();
 
@@ -686,6 +728,8 @@ do_part_get_mbr_id (const char *device, int partnum)
   char *out, *err;
   int r;
 
+  udev_settle ();
+
   r = command (&out, &err, "sfdisk", "--print-id", device, partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk --print-id: %s", err);
@@ -693,8 +737,9 @@ do_part_get_mbr_id (const char *device, int partnum)
     free (err);
     return -1;
   }
-
   free (err);
+
+  udev_settle ();
 
   /* It's printed in hex ... */
   int id;
@@ -725,6 +770,8 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
   char *err;
   int r;
 
+  udev_settle ();
+
   r = command (NULL, &err, "sfdisk",
                "--change-id", device, partnum_str, idbyte_str, NULL);
   if (r == -1) {
@@ -732,7 +779,9 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
     free (err);
     return -1;
   }
-
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
