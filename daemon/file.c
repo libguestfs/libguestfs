@@ -525,7 +525,7 @@ do_pread_device (const char *device, int count, int64_t offset, size_t *size_r)
 
 static int
 pwrite_fd (int fd, const char *content, size_t size, int64_t offset,
-           const char *display_path, int settle)
+           const char *display_path)
 {
   ssize_t r;
 
@@ -540,18 +540,6 @@ pwrite_fd (int fd, const char *content, size_t size, int64_t offset,
     reply_with_perror ("close: %s", display_path);
     return -1;
   }
-
-  /* When you call close on any block device, udev kicks off a rule
-   * which runs blkid to reexamine the device.  We need to wait for
-   * this rule to finish running since it holds the device open and
-   * can cause other operations to fail, notably BLKRRPART.  'settle'
-   * flag is only set on block devices.
-   *
-   * XXX We should be smarter about when we do this or should get rid
-   * of the udev rules since we don't use blkid in cached mode.
-   */
-  if (settle)
-    udev_settle ();
 
   return r;
 }
@@ -575,7 +563,7 @@ do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
     return -1;
   }
 
-  return pwrite_fd (fd, content, size, offset, path, 0);
+  return pwrite_fd (fd, content, size, offset, path);
 }
 
 int
@@ -593,7 +581,7 @@ do_pwrite_device (const char *device, const char *content, size_t size,
     return -1;
   }
 
-  return pwrite_fd (fd, content, size, offset, device, 1);
+  return pwrite_fd (fd, content, size, offset, device);
 }
 
 /* This runs the 'file' command. */
