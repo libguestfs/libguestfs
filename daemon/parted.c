@@ -34,8 +34,7 @@
  * COMMAND_FLAG_FOLD_STDOUT_ON_STDERR flag.
  *
  * parted occasionally fails to do ioctl(BLKRRPART) on the device,
- * probably because udev monitors all 'close' on block devices
- * and runs 'blkid' which opens and examines the device.  We attempt
+ * apparently because of some internal race in the code.  We attempt
  * to detect and recover from this error if we can.
  */
 static int
