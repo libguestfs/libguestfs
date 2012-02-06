@@ -67,10 +67,11 @@ stamp-supermin: make.sh packagelist excludelist
 supermin.d/daemon.img: ../daemon/guestfsd
 	mkdir -p supermin.d
 	rm -f $@ $@-t
-	mkdir sbin
-	cd sbin && ln ../../daemon/guestfsd
-	echo -e "sbin\nsbin/guestfsd" | cpio --quiet -o -H newc > $@-t
-	rm -r sbin
+	rm -rf tmp
+	mkdir -p tmp$(DAEMON_SUPERMIN_DIR)
+	ln ../daemon/guestfsd tmp$(DAEMON_SUPERMIN_DIR)/guestfsd
+	( cd tmp && find | cpio --quiet -o -H newc ) > $@-t
+	rm -rf tmp
 	mv $@-t $@
 
 supermin.d/init.img: init

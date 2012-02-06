@@ -278,6 +278,28 @@ if test "x$enable_daemon" = "xyes"; then
             AC_DEFINE([VALGRIND_DAEMON],[1],[Define to 1 to run the daemon under valgrind])
             AC_DEFINE_UNQUOTED([VALGRIND_LOG_PATH],["$(pwd)"],[Path to save valgrind log files])
         fi
+
+        dnl Which directory should we put the daemon in?  NOTE: This
+        dnl is the "virtual" directory inside the appliance, not the
+        dnl install directory for libguestfs live.  Since Fedora 17
+        dnl /sbin is a symlink to /usr/sbin.  We have to put the
+        dnl daemon into a real (non-symlink) directory.
+        dirs="/sbin /usr/sbin /bin /usr/bin"
+        AC_MSG_CHECKING([which of $dirs is a real directory])
+        for dir in $dirs; do
+            parent=`dirname $dir`
+            if test ! -L $parent && test -d $parent \
+            && test ! -L $dir && test -d $dir
+            then
+                DAEMON_SUPERMIN_DIR=$dir
+                break
+            fi
+        done
+        if test "x$DAEMON_SUPERMIN_DIR" = "x"; then
+            AC_MSG_ERROR([non-symlink binary directory not found])
+        fi
+        AC_MSG_RESULT([$DAEMON_SUPERMIN_DIR])
+        AC_SUBST([DAEMON_SUPERMIN_DIR])
 fi
 AM_CONDITIONAL([INSTALL_DAEMON],[test "x$enable_install_daemon" = "xyes"])
 AM_CONDITIONAL([VALGRIND_DAEMON],[test "x$enable_valgrind_daemon" = "xyes"])
