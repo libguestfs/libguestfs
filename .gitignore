@@ -254,6 +254,7 @@ perl/lib/Sys/Guestfs.pm
 perl/Makefile-pl
 perl/Makefile.PL
 perl/Makefile-pl.old
+perl/MYMETA.json
 perl/MYMETA.yml
 perl/pm_to_blib
 php/extension/acinclude.m4
