@@ -55,6 +55,8 @@ static const char *perl_expr = NULL;
 static void edit (const char *filename, const char *root);
 static char *edit_interactively (const char *tmpfile);
 static char *edit_non_interactively (const char *tmpfile);
+static int copy_attributes (const char *src, const char *dest);
+static int feature_available (guestfs_h *g, const char *feature);
 static int is_windows (guestfs_h *g, const char *root);
 static char *windows_path (guestfs_h *g, const char *root, const char *filename);
 static char *generate_random_name (const char *filename);
@@ -357,6 +359,12 @@ edit (const char *filename, const char *root)
     if (guestfs_upload (g, upload_from, newname) == -1)
       goto error;
 
+    /* Set the permissions, UID, GID and SELinux context of the new
+     * file to match the old file (RHBZ#788641).
+     */
+    if (copy_attributes (filename, newname) == -1)
+      goto error;
+
     /* Backup or overwrite the file. */
     if (backup_extension) {
       backupname = generate_backup_name (filename);
@@ -508,6 +516,80 @@ edit_non_interactively (const char *tmpfile)
   }
 
   return ret; /* caller will free */
+}
+
+static int
+copy_attributes (const char *src, const char *dest)
+{
+  struct guestfs_stat *stat;
+  int has_linuxxattrs;
+  char *selinux_context = NULL;
+  size_t selinux_context_size;
+
+  has_linuxxattrs = feature_available (g, "linuxxattrs");
+
+  /* Get the mode. */
+  stat = guestfs_stat (g, src);
+  if (stat == NULL)
+    return -1;
+
+  /* Get the SELinux context.  XXX Should we copy over other extended
+   * attributes too?
+   */
+  if (has_linuxxattrs) {
+    guestfs_error_handler_cb old_error_cb;
+    void *old_error_data;
+    old_error_cb = guestfs_get_error_handler (g, &old_error_data);
+    guestfs_set_error_handler (g, NULL, NULL);
+
+    selinux_context = guestfs_getxattr (g, src, "security.selinux",
+                                        &selinux_context_size);
+    /* selinux_context could be NULL.  This isn't an error. */
+
+    guestfs_set_error_handler (g, old_error_cb, old_error_data);
+  }
+
+  /* Set the permissions (inc. sticky and set*id bits), UID, GID. */
+  if (guestfs_chmod (g, stat->mode & 07777, dest) == -1) {
+    guestfs_free_stat (stat);
+    return -1;
+  }
+  if (guestfs_chown (g, stat->uid, stat->gid, dest) == -1) {
+    guestfs_free_stat (stat);
+    return -1;
+  }
+  guestfs_free_stat (stat);
+
+  /* Set the SELinux context. */
+  if (has_linuxxattrs && selinux_context) {
+    if (guestfs_setxattr (g, "security.selinux", selinux_context,
+                          (int) selinux_context_size, dest) == -1) {
+      free (selinux_context);
+      return -1;
+    }
+  }
+  free (selinux_context);
+
+  return 0;
+}
+
+static int
+feature_available (guestfs_h *g, const char *feature)
+{
+  /* If there's an error we should ignore it, so to do that we have to
+   * temporarily replace the error handler with a null one.
+   */
+  guestfs_error_handler_cb old_error_cb;
+  void *old_error_data;
+  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
+  guestfs_set_error_handler (g, NULL, NULL);
+
+  const char *groups[] = { feature, NULL };
+  int r = guestfs_available (g, (char * const *) groups);
+
+  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+
+  return r == 0 ? 1 : 0;
 }
 
 static int

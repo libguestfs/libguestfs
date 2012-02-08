@@ -173,6 +173,8 @@ d
 e
 f
 ');
+$g->chown(10, 11, '/etc/test3');
+$g->chmod(0600, '/etc/test3');
 $g->write('/bin/test1', 'abcdefg');
 $g->write('/bin/test2', 'zxcvbnm');
 $g->write('/bin/test3', '1234567');
