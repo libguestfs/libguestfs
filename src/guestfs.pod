@@ -777,6 +777,8 @@ See L<guestfs-python(3)>.
 
 See L<guestfs-ruby(3)>.
 
+For JRuby, use the Java bindings.
+
 =item B<shell scripts>
 
 See L<guestfish(1)>.
