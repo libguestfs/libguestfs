@@ -157,3 +157,11 @@
    ...
    fun:caml_build_primitive_table
 }
+
+# glibc
+{
+   glibc_cond
+   Memcheck:Cond
+   fun:index
+   fun:expand_dynamic_string_token
+}
