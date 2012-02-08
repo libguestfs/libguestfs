@@ -6651,6 +6651,15 @@ This option may not be specified at the same time as the C<correct> option.
 
 =back");
 
+  ("llz", (RString "listing", [Pathname "directory"], []), 305, [],
+   [],
+   "list the files in a directory (long format with SELinux contexts)",
+   "\
+List the files in C<directory> in the format of 'ls -laZ'.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

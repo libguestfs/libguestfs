@@ -102,3 +102,29 @@ do_ll (const char *path)
   free (err);
   return out;			/* caller frees */
 }
+
+char *
+do_llz (const char *path)
+{
+  int r;
+  char *out, *err;
+  char *spath;
+
+  spath = sysroot_path (path);
+  if (!spath) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  r = command (&out, &err, "ls", "-laZ", spath, NULL);
+  free (spath);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+  return out;			/* caller frees */
+}
