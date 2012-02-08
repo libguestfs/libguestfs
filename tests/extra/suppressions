@@ -80,6 +80,13 @@
    obj:/lib64/libnl.so.1.1
 }
 {
+   libnl1_malloc_leak_3
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib64/libnl.so.1.1
+}
+{
    libnl1_calloc_leak
    Memcheck:Leak
    fun:calloc
@@ -90,6 +97,12 @@
    Memcheck:Leak
    fun:calloc
    obj:/lib64/libnl.so.1.1
+}
+{
+   libnl1_calloc_leak_3
+   Memcheck:Leak
+   fun:calloc
+   obj:/usr/lib64/libnl.so.1.1
 }
 
 # OCaml, by design, doesn't bother to free the major heap before
