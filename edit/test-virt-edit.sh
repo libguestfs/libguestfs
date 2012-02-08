@@ -38,5 +38,14 @@ newline" ]; then
     fi
 fi
 
+# Verify the mode of /etc/test3 is still 0600 and the UID:GID is 10:11.
+# See tests/guests/guest-aux/make-fedora-img.pl and RHBZ#788641.
+if [ "$(../fish/guestfish -i -a test.img --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
+mode: 33152
+uid: 10" ]; then
+    echo "$0: error: editing /etc/test3 did not preserve permissions or ownership"
+    exit 1
+fi
+
 # Discard test image.
 rm test.img
