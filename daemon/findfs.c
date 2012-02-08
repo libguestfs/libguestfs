@@ -35,6 +35,7 @@ findfs (const char *tag, const char *label_or_uuid)
    * is not supported in RHEL 5.
    */
   unlink ("/etc/blkid/blkid.tab");
+  unlink ("/run/blkid/blkid.tab");
 
   size_t len = strlen (tag) + strlen (label_or_uuid) + 2;
   char arg[len];
