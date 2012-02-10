@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-06 14:05+0000\n"
+"POT-Creation-Date: 2012-02-10 17:00+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:100
-#: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:73 fish/fish.c:101
+#: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
 #: fuse/guestmount.c:908 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -65,15 +65,15 @@ msgstr ""
 "З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
-#: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:141
-#: fish/fish.c:223 format/format.c:136 fuse/guestmount.c:1024
+#: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
+#: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:1024
 #: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
 #: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:257
-#: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:163 fish/fish.c:280
+#: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
 #: format/format.c:188 fuse/guestmount.c:1061 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:179
 #, c-format
@@ -127,14 +127,14 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:584 fish/fish.c:1557
+#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1560
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: cat/virt-cat.c:372 edit/virt-edit.c:598
+#: cat/virt-cat.c:372 edit/virt-edit.c:680
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr "%s: диск '%c:' не знайдено.\n"
@@ -403,7 +403,7 @@ msgstr "IВільно"
 msgid "IUse%"
 msgstr "% IВикористання"
 
-#: edit/virt-edit.c:77
+#: edit/virt-edit.c:79
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
@@ -427,12 +427,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/virt-edit.c:175
+#: edit/virt-edit.c:177
 #, c-format
 msgid "%s: -b option given multiple times\n"
 msgstr "%s: параметр -b вказано декілька разів\n"
 
-#: edit/virt-edit.c:192
+#: edit/virt-edit.c:194
 #, c-format
 msgid "%s: -e option given multiple times\n"
 msgstr "%s: параметр -e вказано декілька разів\n"
@@ -2291,7 +2291,7 @@ msgstr "copy-out: «%s» не є файлом або каталогом\n"
 msgid "display filename\n"
 msgstr "показати назву файла\n"
 
-#: fish/edit.c:45
+#: fish/edit.c:50
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "скористайтеся командою «%s назва_файла» для редагування файла\n"
@@ -2368,39 +2368,39 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:247
+#: fish/fish.c:250
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID не був числом: %s\n"
 
-#: fish/fish.c:254
+#: fish/fish.c:257
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: remote: для ідентифікатора віддаленого процесу має $GUESTFISH_PID\n"
 
-#: fish/fish.c:304
+#: fish/fish.c:307
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: можна вказувати лише один параметр -f\n"
 
-#: fish/fish.c:476
+#: fish/fish.c:479
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --remote\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:487
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: зайві параметри у командному рядку з прапорцем --listen\n"
 
-#: fish/fish.c:490
+#: fish/fish.c:493
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
 
-#: fish/fish.c:643
+#: fish/fish.c:646
 #, c-format
 msgid ""
 "\n"
@@ -2422,51 +2422,51 @@ msgstr ""
 "      «quit», щоб вийти з оболонки\n"
 "\n"
 
-#: fish/fish.c:794 fish/fish.c:810
+#: fish/fish.c:797 fish/fish.c:813
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:804
+#: fish/fish.c:807
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:834
+#: fish/fish.c:837
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:851
+#: fish/fish.c:854
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:926
+#: fish/fish.c:929
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:935
+#: fish/fish.c:938
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1000
+#: fish/fish.c:1003
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: порожня команда або командний рядок\n"
 
-#: fish/fish.c:1147
+#: fish/fish.c:1150
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1149
+#: fish/fish.c:1152
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1160
+#: fish/fish.c:1163
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2477,7 +2477,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1168
+#: fish/fish.c:1171
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2486,13 +2486,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1173
+#: fish/fish.c:1176
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1189
+#: fish/fish.c:1192
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2503,17 +2503,17 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1198
+#: fish/fish.c:1201
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1354
+#: fish/fish.c:1357
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1551
+#: fish/fish.c:1554
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -2523,7 +2523,7 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1571
+#: fish/fish.c:1574
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -2533,7 +2533,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1590
+#: fish/fish.c:1593
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
