@@ -247,6 +247,7 @@ TESTS = \
 if ENABLE_APPLIANCE
 TESTS += \
 	test-copy.sh \
+	test-edit.sh \
 	test-find0.sh \
 	test-read_file.sh \
 	test-remote.sh \

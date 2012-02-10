@@ -26,8 +26,11 @@
 #include <inttypes.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <assert.h>
 
 #include "fish.h"
+
+static char *generate_random_name (const char *filename);
 
 /* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
@@ -37,7 +40,7 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   TMP_TEMPLATE_ON_STACK (filename);
   char buf[256];
   const char *editor;
-  char *remotefilename;
+  char *remotefilename, *newname;
   struct stat oldstat, newstat;
   int r, fd;
 
@@ -111,18 +114,67 @@ run_edit (const char *cmd, size_t argc, char *argv[])
     return 0;
   }
 
-  /* Write new content. */
-  if (guestfs_upload (g, filename, remotefilename) == -1)
+  /* Upload to a new file in the same directory, so if it fails we
+   * don't end up with a partially written file.  Give the new file
+   * a completely random name so we have only a tiny chance of
+   * overwriting some existing file.
+   */
+  newname = generate_random_name (remotefilename);
+  if (!newname)
     goto error2;
 
+  /* Write new content. */
+  if (guestfs_upload (g, filename, newname) == -1)
+    goto error3;
+
+  if (guestfs_mv (g, newname, remotefilename) == -1)
+    goto error3;
+
+  free (newname);
   unlink (filename);
   free (remotefilename);
   return 0;
 
+ error3:
+  free (newname);
  error2:
   unlink (filename);
  error1:
   free (remotefilename);
  error0:
   return -1;
+}
+
+static char
+random_char (void)
+{
+  char c[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  return c[random () % (sizeof c - 1)];
+}
+
+static char *
+generate_random_name (const char *filename)
+{
+  char *ret, *p;
+  size_t i;
+
+  ret = malloc (strlen (filename) + 16);
+  if (!ret) {
+    perror ("malloc");
+    return NULL;
+  }
+  strcpy (ret, filename);
+
+  p = strrchr (ret, '/');
+  assert (p);
+  p++;
+
+  /* Because of "+ 16" above, there should be enough space in the
+   * output buffer to write 8 random characters here.
+   */
+  for (i = 0; i < 8; ++i)
+    *p++ = random_char ();
+  *p++ = '\0';
+
+  return ret; /* caller will free */
 }
