@@ -6672,9 +6672,7 @@ This does not erase the filesystem itself nor any other data from the
 C<device>.
 
 Compare with C<guestfs_zero> which zeroes the first few blocks of a
-device.
-
-=back");
+device.");
 
 ]
 
