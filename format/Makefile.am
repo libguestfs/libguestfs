@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	$(TESTS) \
 	virt-format.pod
 
 CLEANFILES = stamp-virt-format.pod
@@ -67,12 +68,10 @@ stamp-virt-format.pod: virt-format.pod
 
 # Tests.
 
-# random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
+random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
-# TESTS_ENVIRONMENT = \
-# 	MALLOC_PERTURB_=$(random_val) \
-# 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-# 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-# 	TMPDIR=$(top_builddir)
+TESTS_ENVIRONMENT = \
+	MALLOC_PERTURB_=$(random_val) \
+	$(top_builddir)/run
 
-# TESTS = test-virt-format.sh
+TESTS = test-virt-format.sh
