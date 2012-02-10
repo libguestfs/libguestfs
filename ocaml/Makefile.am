@@ -163,22 +163,18 @@ t/guestfs_400_progress.opt: t/guestfs_400_progress.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-# Need to rebuild the tests from source if the main library has
-# changed at all, otherwise we get inconsistent assumptions.
+# Explicit rules for this test which requires 'threads' package.
 t/guestfs_070_threads.cmo: t/guestfs_070_threads.ml mlguestfs.cma
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
 
 t/guestfs_070_threads.cmx: t/guestfs_070_threads.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
 
-t/%.cmx: t/%.ml mlguestfs.cmxa
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -linkpkg -c $< -o $(builddir)/$@
-
 %.cmi: %.mli
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $(builddir)/$@
-%.cmo: %.ml
+%.cmo: %.ml mlguestfs.cma
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $(builddir)/$@
-%.cmx: %.ml
+%.cmx: %.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $(builddir)/$@
 
 depend: .depend
