@@ -6660,6 +6660,22 @@ List the files in C<directory> in the format of 'ls -laZ'.
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
+  ("wipefs", (RErr, [Device "device"], []), 306, [Optional "wipefs"],
+   [InitBasicFSonLVM, Always, TestRun (
+      [["wipefs"; "/dev/VG/LV"]])],
+   "wipe a filesystem signature from a device",
+   "\
+This command erases filesystem or RAID signatures from
+the specified C<device> to make the filesystem invisible to libblkid.
+
+This does not erase the filesystem itself nor any other data from the
+C<device>.
+
+Compare with C<guestfs_zero> which zeroes the first few blocks of a
+device.
+
+=back");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

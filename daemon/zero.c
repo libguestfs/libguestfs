@@ -73,6 +73,30 @@ do_zero (const char *device)
 }
 
 int
+optgroup_wipefs_available (void)
+{
+  return prog_exists ("wipefs");
+}
+
+int
+do_wipefs (const char *device)
+{
+  int r;
+  char *err = NULL;
+
+  const char *wipefs[] = {"wipefs", "-a", device, NULL};
+  r = commandv (NULL, &err, wipefs);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
 do_zero_device (const char *device)
 {
   int64_t ssize = do_blockdev_getsize64 (device);
