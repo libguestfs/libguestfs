@@ -323,22 +323,11 @@ do_format (void)
 
   /* Erase the disks. */
   if (!wipe) {
-    char **parts;
-
-    /* No wipe, but get rid of LVM metadata by erasing each partition. */
-    parts = guestfs_list_partitions (g);
-    if (parts == NULL)
-      exit (EXIT_FAILURE);
-
-    for (i = 0; parts[i] != NULL; ++i) {
-      if (guestfs_zero (g, parts[i]) == -1)
-        exit (EXIT_FAILURE);
-      free (parts[i]);
-    }
-    free (parts);
-
-    /* Then erase the partition table on each device. */
     for (i = 0; devices[i] != NULL; ++i) {
+      /* erase the filesystem signatures on each device */
+      if (guestfs_wipefs (g, devices[i]) == -1)
+        exit (EXIT_FAILURE);
+      /* Then erase the partition table on each device. */
       if (guestfs_zero (g, devices[i]) == -1)
         exit (EXIT_FAILURE);
     }
