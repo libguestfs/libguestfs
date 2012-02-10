@@ -43,7 +43,7 @@ run_edit (const char *cmd, size_t argc, char *argv[])
 
   if (argc != 1) {
     fprintf (stderr, _("use '%s filename' to edit a file\n"), cmd);
-    return -1;
+    goto error0;
   }
 
   /* Choose an editor. */
@@ -60,38 +60,31 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   /* Handle 'win:...' prefix. */
   remotefilename = win_prefix (argv[0]);
   if (remotefilename == NULL)
-    return -1;
+    goto error0;
 
   /* Download the file and write it to a temporary. */
   fd = mkstemp (filename);
   if (fd == -1) {
     perror ("mkstemp");
-    free (remotefilename);
-    return -1;
+    goto error1;
   }
 
   snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
 
   if (guestfs_download (g, remotefilename, buf) == -1) {
     close (fd);
-    unlink (filename);
-    free (remotefilename);
-    return -1;
+    goto error2;
   }
 
   if (close (fd) == -1) {
     perror (filename);
-    unlink (filename);
-    free (remotefilename);
-    return -1;
+    goto error2;
   }
 
   /* Get the old stat. */
   if (stat (filename, &oldstat) == -1) {
     perror (filename);
-    unlink (filename);
-    free (remotefilename);
-    return -1;
+    goto error2;
   }
 
   /* Edit it. */
@@ -101,17 +94,13 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   r = system (buf);
   if (r != 0) {
     perror (buf);
-    unlink (filename);
-    free (remotefilename);
-    return -1;
+    goto error2;
   }
 
   /* Get the new stat. */
   if (stat (filename, &newstat) == -1) {
     perror (filename);
-    unlink (filename);
-    free (remotefilename);
-    return -1;
+    goto error2;
   }
 
   /* Changed? */
@@ -123,13 +112,17 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   }
 
   /* Write new content. */
-  if (guestfs_upload (g, filename, remotefilename) == -1) {
-    unlink (filename);
-    free (remotefilename);
-    return -1;
-  }
+  if (guestfs_upload (g, filename, remotefilename) == -1)
+    goto error2;
 
   unlink (filename);
   free (remotefilename);
   return 0;
+
+ error2:
+  unlink (filename);
+ error1:
+  free (remotefilename);
+ error0:
+  return -1;
 }
