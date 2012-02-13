@@ -136,7 +136,7 @@ and generate_daemon_actions () =
           pr "                      \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
           pr "                      \"how to check for the availability of features.\",\n";
           pr "                      \"%s\");\n" group;
-          pr "    goto done;\n";
+          pr "    goto done_no_free;\n";
           pr "  }\n";
           pr "\n"
         | _ -> ()
@@ -154,14 +154,14 @@ and generate_daemon_actions () =
         if is_filein then
           pr "    cancel_receive ();\n";
         pr "    reply_with_error (\"unknown option in optional arguments bitmask (this can happen if a program is compiled against a newer version of libguestfs, then run against an older version of the daemon)\");\n";
-        pr "    goto done;\n";
+        pr "    goto done_no_free;\n";
         pr "  }\n";
       ) else (
         pr "  if (optargs_bitmask != 0) {\n";
         if is_filein then
           pr "    cancel_receive ();\n";
         pr "    reply_with_error (\"header optargs_bitmask field must be passed as 0 for calls that don't take optional arguments\");\n";
-        pr "    goto done;\n";
+        pr "    goto done_no_free;\n";
         pr "  }\n";
       );
       pr "\n";
@@ -339,6 +339,7 @@ and generate_daemon_actions () =
            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
              name
       );
+      pr "done_no_free:\n";
       pr "  return;\n";
       pr "}\n\n";
   ) daemon_functions;
