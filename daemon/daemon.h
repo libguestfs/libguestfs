@@ -264,8 +264,11 @@ is_zero (const char *buffer, size_t size)
       reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       fail_stmt;							\
     }									\
-    if (is_root_device (path))                                          \
+    if (is_root_device (path)) {                                        \
+      cancel_stmt;                                                      \
       reply_with_error ("%s: %s: device not found", __func__, path);    \
+      fail_stmt;                                                        \
+    }                                                                   \
     if (device_name_translation ((path)) == -1) {                       \
       int err = errno;                                                  \
       cancel_stmt;                                                      \
