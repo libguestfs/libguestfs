@@ -28,6 +28,9 @@ TESTS = \
 	rhbz690819.sh \
 	test-noexec-stack.pl
 
+tests_not_run = \
+	rhbz727178.sh
+
 random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
 TESTS_ENVIRONMENT = \
@@ -47,5 +50,6 @@ rhbz501893_LDADD = \
 
 EXTRA_DIST = \
 	$(TESTS) \
+	$(tests_not_run) \
 	rhbz557655-expected.stdout \
 	rhbz557655-expected.stderr
