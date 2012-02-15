@@ -389,6 +389,7 @@ tests/guests/guest-aux/fedora-packages.db
 tests/guests/ubuntu.img
 tests/guests/windows.img
 tests/regressions/rhbz501893
+tests/regressions/rhbz790721
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool-helper
