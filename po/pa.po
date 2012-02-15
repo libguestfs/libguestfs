@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-13 14:41+0000\n"
+"POT-Creation-Date: 2012-02-15 20:49+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3438,27 +3438,27 @@ msgstr "libguestfs ਹੈਂਡਲ ਪਹਿਲਾਂ ਹੀ ਚਾਲੂ ਕੀ
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
-#: src/launch.c:492
+#: src/launch.c:499
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch.c:933
+#: src/launch.c:944
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
-#: src/launch.c:946
+#: src/launch.c:957
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:1036
+#: src/launch.c:1047
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਅਚਾਨਕ ਸ਼ੁਰੂਆਤੀ ਸੁਨੇਹੇ guestfsd ਤੋਂ"
 
-#: src/launch.c:1044
+#: src/launch.c:1055
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != READY"
 
-#: src/launch.c:1244
+#: src/launch.c:1255
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3467,11 +3467,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1384
+#: src/launch.c:1395
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
 
-#: src/launch.c:1395
+#: src/launch.c:1406
 msgid "no subprocess to kill"
 msgstr "ਖਤਮ ਕਰਨ ਲਈ ਕੋਈ ਅਧੀਨ-ਕਾਰਜ ਨਹੀਂ"
 

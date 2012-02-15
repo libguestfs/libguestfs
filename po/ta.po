@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-13 14:41+0000\n"
+"POT-Creation-Date: 2012-02-15 20:49+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -3296,27 +3296,27 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/launch.c:492
+#: src/launch.c:499
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch.c:933
+#: src/launch.c:944
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch தோல்வியுற்றது, முந்தைய பிழைச் செய்தியைப் பார்"
 
-#: src/launch.c:946
+#: src/launch.c:957
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/launch.c:1036
+#: src/launch.c:1047
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1044
+#: src/launch.c:1055
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1244
+#: src/launch.c:1255
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3325,11 +3325,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1384
+#: src/launch.c:1395
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
 
-#: src/launch.c:1395
+#: src/launch.c:1406
 msgid "no subprocess to kill"
 msgstr "அழிப்பதற்கு துணைசெயல்பாடுகள் இல்லை"
 
