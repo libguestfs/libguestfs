@@ -477,6 +477,13 @@ guestfs__launch (guestfs_h *g)
   }
 }
 
+/* RHBZ#790721: It makes no sense to have multiple threads racing to
+ * build the appliance from within a single process, and the code
+ * isn't safe for that anyway.  Therefore put a thread lock around
+ * appliance building.
+ */
+gl_lock_define_initialized (static, building_lock);
+
 static int
 launch_appliance (guestfs_h *g)
 {
@@ -501,8 +508,12 @@ launch_appliance (guestfs_h *g)
 
   /* Locate and/or build the appliance. */
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
-  if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
+  gl_lock_lock (building_lock);
+  if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1) {
+    gl_lock_unlock (building_lock);
     return -1;
+  }
+  gl_lock_unlock (building_lock);
 
   TRACE0 (launch_build_appliance_end);
 
