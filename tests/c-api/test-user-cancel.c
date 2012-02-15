@@ -143,7 +143,7 @@ main (int argc, char *argv[])
   /* Create the test thread. */
   r = pthread_create (&test_thread, NULL, start_test_thread, &data);
   if (r != 0) {
-    fprintf (stderr, "pthread_create: %s", strerror (r));
+    fprintf (stderr, "pthread_create: %s\n", strerror (r));
     exit (EXIT_FAILURE);
   }
 
@@ -154,12 +154,12 @@ main (int argc, char *argv[])
   /* Kill the test thread and clean up. */
   r = pthread_cancel (test_thread);
   if (r != 0) {
-    fprintf (stderr, "pthread_cancel: %s", strerror (r));
+    fprintf (stderr, "pthread_cancel: %s\n", strerror (r));
     exit (EXIT_FAILURE);
   }
   r = pthread_join (test_thread, NULL);
   if (r != 0) {
-    fprintf (stderr, "pthread_join: %s", strerror (r));
+    fprintf (stderr, "pthread_join: %s\n", strerror (r));
     exit (EXIT_FAILURE);
   }
 
@@ -204,7 +204,7 @@ main (int argc, char *argv[])
   /* Create the test thread. */
   r = pthread_create (&test_thread, NULL, start_test_thread, &data);
   if (r != 0) {
-    fprintf (stderr, "pthread_create: %s", strerror (r));
+    fprintf (stderr, "pthread_create: %s\n", strerror (r));
     exit (EXIT_FAILURE);
   }
 
@@ -215,12 +215,12 @@ main (int argc, char *argv[])
   /* Kill the test thread and clean up. */
   r = pthread_cancel (test_thread);
   if (r != 0) {
-    fprintf (stderr, "pthread_cancel: %s", strerror (r));
+    fprintf (stderr, "pthread_cancel: %s\n", strerror (r));
     exit (EXIT_FAILURE);
   }
   r = pthread_join (test_thread, NULL);
   if (r != 0) {
-    fprintf (stderr, "pthread_join: %s", strerror (r));
+    fprintf (stderr, "pthread_join: %s\n", strerror (r));
     exit (EXIT_FAILURE);
   }
 
