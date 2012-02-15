@@ -390,7 +390,17 @@ esac
 
 sync
 
-fusermount -u $tmpdir/mnt
+# Unfortunately various unwanted processes jump into mountpoints.
+# tracker-miner-fs is the latest, previously it was something called
+# gvfs-gdu-volume-monitor.  Therefore if the mountpoint is busy, try
+# to unmount it a few times.  XXX
+count=10
+while ! fusermount -u $tmpdir/mnt && [ $count -gt 0 ]; do
+    sleep 1
+    ((count--))
+done
+if [ $count -eq 0 ]; then exit 1; fi
+
 rm -rf $tmpdir
 
 trap - EXIT ERR
