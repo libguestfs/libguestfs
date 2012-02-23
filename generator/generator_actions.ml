@@ -112,7 +112,7 @@ You probably don't want to call this function.")]
  *)
 
 let non_daemon_functions = test_functions @ [
-  ("launch", (RErr, [], []), -1, [FishAlias "run"; Progress],
+  ("launch", (RErr, [], []), -1, [FishAlias "run"; Progress; ConfigOnly],
    [],
    "launch the qemu subprocess",
    "\
@@ -143,7 +143,7 @@ versions of the API.");
    "\
 This kills the qemu subprocess.  You should never need to call this.");
 
-  ("add_drive", (RErr, [String "filename"], []), -1, [],
+  ("add_drive", (RErr, [String "filename"], []), -1, [ConfigOnly],
    [],
    "add an image to examine or modify",
    "\
@@ -158,7 +158,7 @@ this security hole.  Therefore you should think about replacing
 calls to this function with calls to C<guestfs_add_drive_opts>,
 and specifying the format.");
 
-  ("add_cdrom", (RErr, [String "filename"], []), -1, [DeprecatedBy "add_drive_opts"],
+  ("add_cdrom", (RErr, [String "filename"], []), -1, [DeprecatedBy "add_drive_opts"; ConfigOnly],
    [],
    "add a CD-ROM disk image to examine",
    "\
@@ -185,7 +185,7 @@ should probably use C<guestfs_add_drive_ro> instead.
 
 =back");
 
-  ("add_drive_ro", (RErr, [String "filename"], []), -1, [FishAlias "add-ro"],
+  ("add_drive_ro", (RErr, [String "filename"], []), -1, [FishAlias "add-ro"; ConfigOnly],
    [],
    "add a drive in snapshot mode (read-only)",
    "\
@@ -194,7 +194,7 @@ with the optional parameter C<GUESTFS_ADD_DRIVE_OPTS_READONLY> set to 1,
 so the disk is added read-only, with the format being detected
 automatically.");
 
-  ("config", (RErr, [String "qemuparam"; OptString "qemuvalue"], []), -1, [],
+  ("config", (RErr, [String "qemuparam"; OptString "qemuvalue"], []), -1, [ConfigOnly],
    [],
    "add qemu parameters",
    "\
@@ -207,7 +207,7 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.");
 
-  ("set_qemu", (RErr, [OptString "qemu"], []), -1, [FishAlias "qemu"],
+  ("set_qemu", (RErr, [OptString "qemu"], []), -1, [FishAlias "qemu"; ConfigOnly],
    [],
    "set the qemu binary",
    "\
@@ -239,7 +239,7 @@ Return the current qemu binary.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default qemu binary name.");
 
-  ("set_path", (RErr, [OptString "searchpath"], []), -1, [FishAlias "path"],
+  ("set_path", (RErr, [OptString "searchpath"], []), -1, [FishAlias "path"; ConfigOnly],
    [],
    "set the search path",
    "\
@@ -260,7 +260,7 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.");
 
-  ("set_append", (RErr, [OptString "append"], []), -1, [FishAlias "append"],
+  ("set_append", (RErr, [OptString "append"], []), -1, [FishAlias "append"; ConfigOnly],
    [],
    "add options to kernel command line",
    "\
@@ -286,7 +286,7 @@ guest kernel command line.
 
 If C<NULL> then no options are added.");
 
-  ("set_autosync", (RErr, [Bool "autosync"], []), -1, [FishAlias "autosync"],
+  ("set_autosync", (RErr, [Bool "autosync"], []), -1, [FishAlias "autosync"; ConfigOnly],
    [],
    "set autosync mode",
    "\
@@ -373,10 +373,8 @@ only useful for printing debug and internal error messages.
 
 For more information on states, see L<guestfs(3)>.");
 
-  ("set_memsize", (RErr, [Int "memsize"], []), -1, [FishAlias "memsize"],
-   [InitNone, Always, TestOutputInt (
-      [["set_memsize"; "500"];
-       ["get_memsize"]], 500)],
+  ("set_memsize", (RErr, [Int "memsize"], []), -1, [FishAlias "memsize"; ConfigOnly],
+   [],
    "set memory allocated to the qemu subprocess",
    "\
 This sets the memory size in megabytes allocated to the
@@ -451,10 +449,8 @@ features from later versions into earlier versions,
 making this an unreliable way to test for features.
 Use C<guestfs_available> instead.");
 
-  ("set_selinux", (RErr, [Bool "selinux"], []), -1, [FishAlias "selinux"],
-   [InitNone, Always, TestOutputTrue (
-      [["set_selinux"; "true"];
-       ["get_selinux"]])],
+  ("set_selinux", (RErr, [Bool "selinux"], []), -1, [FishAlias "selinux"; ConfigOnly],
+   [],
    "set SELinux enabled or disabled at appliance boot",
    "\
 This sets the selinux flag that is passed to the appliance
@@ -502,10 +498,8 @@ C<guestfs_set_event_callback>).");
    "\
 Return the command trace flag.");
 
-  ("set_direct", (RErr, [Bool "direct"], []), -1, [FishAlias "direct"],
-   [InitNone, Always, TestOutputFalse (
-      [["set_direct"; "false"];
-       ["get_direct"]])],
+  ("set_direct", (RErr, [Bool "direct"], []), -1, [FishAlias "direct"; ConfigOnly],
+   [],
    "enable or disable direct appliance mode",
    "\
 If the direct appliance mode flag is enabled, then stdin and
@@ -527,10 +521,8 @@ The default is disabled.");
    "\
 Return the direct appliance mode flag.");
 
-  ("set_recovery_proc", (RErr, [Bool "recoveryproc"], []), -1, [FishAlias "recovery-proc"],
-   [InitNone, Always, TestOutputTrue (
-      [["set_recovery_proc"; "true"];
-       ["get_recovery_proc"]])],
+  ("set_recovery_proc", (RErr, [Bool "recoveryproc"], []), -1, [FishAlias "recovery-proc"; ConfigOnly],
+   [],
    "enable or disable the recovery process",
    "\
 If this is called with the parameter C<false> then
@@ -553,14 +545,14 @@ qemu, which is not very helpful.");
    "\
 Return the recovery process enabled flag.");
 
-  ("add_drive_with_if", (RErr, [String "filename"; String "iface"], []), -1, [DeprecatedBy "add_drive_opts"],
+  ("add_drive_with_if", (RErr, [String "filename"; String "iface"], []), -1, [DeprecatedBy "add_drive_opts"; ConfigOnly],
    [],
    "add a drive specifying the QEMU block emulation to use",
    "\
 This is the same as C<guestfs_add_drive> but it allows you
 to specify the QEMU interface emulation to use at run time.");
 
-  ("add_drive_ro_with_if", (RErr, [String "filename"; String "iface"], []), -1, [DeprecatedBy "add_drive_opts"],
+  ("add_drive_ro_with_if", (RErr, [String "filename"; String "iface"], []), -1, [DeprecatedBy "add_drive_opts"; ConfigOnly],
    [],
    "add a drive read-only specifying the QEMU block emulation to use",
    "\
@@ -968,7 +960,7 @@ for a filesystem to be shared between operating systems.
 Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>.");
 
-  ("set_network", (RErr, [Bool "network"], []), -1, [FishAlias "network"],
+  ("set_network", (RErr, [Bool "network"], []), -1, [FishAlias "network"; ConfigOnly],
    [],
    "set enable network flag",
    "\
@@ -1020,7 +1012,7 @@ be mountable but require special options.  Filesystems may
 not all belong to a single logical operating system
 (use C<guestfs_inspect_os> to look for OSes).");
 
-  ("add_drive_opts", (RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"]), -1, [FishAlias "add"],
+  ("add_drive_opts", (RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"]), -1, [FishAlias "add"; ConfigOnly],
    [],
    "add an image to examine or modify",
    "\
@@ -1110,7 +1102,7 @@ not part of the formal API and can be removed or changed at any time.");
 This returns the internal list of drives.  'debug' commands are
 not part of the formal API and can be removed or changed at any time.");
 
-  ("add_domain", (RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"]), -1, [FishAlias "domain"],
+  ("add_domain", (RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"]), -1, [FishAlias "domain"; ConfigOnly],
    [],
    "add the disk(s) from a named libvirt domain",
    "\
@@ -1450,7 +1442,7 @@ part of a set.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
 
-  ("set_attach_method", (RErr, [String "attachmethod"], []), -1, [FishAlias "attach-method"],
+  ("set_attach_method", (RErr, [String "attachmethod"], []), -1, [FishAlias "attach-method"; ConfigOnly],
    [],
    "set the attach method",
    "\
@@ -1618,7 +1610,7 @@ advice before using trademarks in applications.
 
 =back");
 
-  ("set_pgroup", (RErr, [Bool "pgroup"], []), -1, [FishAlias "pgroup"],
+  ("set_pgroup", (RErr, [Bool "pgroup"], []), -1, [FishAlias "pgroup"; ConfigOnly],
    [],
    "set process group flag",
    "\
@@ -1637,7 +1629,7 @@ C<^C> to kill the subprocess.");
    "\
 This returns the process group flag.");
 
-  ("set_smp", (RErr, [Int "smp"], []), -1, [FishAlias "smp"],
+  ("set_smp", (RErr, [Int "smp"], []), -1, [FishAlias "smp"; ConfigOnly],
    [],
    "set number of virtual CPUs in appliance",
    "\

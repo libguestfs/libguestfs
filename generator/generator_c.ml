@@ -1012,7 +1012,7 @@ trace_send_line (guestfs_h *g)
 
   (* For non-daemon functions, generate a wrapper around each function. *)
   List.iter (
-    fun (shortname, (ret, _, optargs as style), _, _, _, _, _) ->
+    fun (shortname, (ret, _, optargs as style), _, flags, _, _, _) ->
       if optargs = [] then
         generate_prototype ~extern:false ~semicolon:false ~newline:true
           ~handle:"g" ~prefix:"guestfs_"
@@ -1046,6 +1046,13 @@ trace_send_line (guestfs_h *g)
            pr "  struct guestfs_%s_list *r;\n" typ
       );
       pr "\n";
+      if List.mem ConfigOnly flags then (
+        pr "  if (g->state != CONFIG) {\n";
+        pr "    error (g, \"%%s: this function can only be called in the config state\",\n";
+        pr "              \"%s\");\n" shortname;
+        pr "    return -1;\n";
+        pr "  }\n";
+      );
       enter_event shortname;
       check_null_strings shortname style;
       reject_unknown_optargs shortname style;

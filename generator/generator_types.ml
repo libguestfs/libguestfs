@@ -228,6 +228,8 @@ type flags =
                              This flag is currently only used by the GObject
                              bindings. *)
   | Cancellable           (* The user can cancel this long-running function *)
+  | ConfigOnly            (* The non-daemon-function which only used at CONFIG
+                             state. *)
 
 and fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)

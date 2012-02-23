@@ -189,6 +189,7 @@ let () =
         | FishOutput _
         | NotInFish
         | NotInDocs
+        | ConfigOnly
         | Progress -> ()
         | FishAlias n ->
             if contains_uppercase n then
@@ -221,6 +222,13 @@ let () =
           | _ -> ())
       ) flags
   ) (all_functions @ fish_commands);
+
+  (* ConfigOnly should only be specified on non_daemon_functions. *)
+  List.iter (
+    fun (name, (_, _, _), _, flags, _, _, _) ->
+      if List.mem ConfigOnly flags then
+        failwithf "%s cannot have ConfigOnly flag" name
+  ) (daemon_functions @ fish_commands);
 
   (* Check tests. *)
   List.iter (
