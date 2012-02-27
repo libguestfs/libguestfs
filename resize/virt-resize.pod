@@ -663,6 +663,14 @@ after printing C<GRUB> on the console, try reinstalling grub.
 For more flexible guest reconfiguration, including if you need to
 specify other parameters to grub-install, use L<virt-rescue(1)>.
 
+=head2 WINDOWS UNMOUNTABLE_BOOT_VOLUME BSOD
+
+After sysprepping a Windows guest and then resizing it with
+virt-resize, you may see the guest fail to boot with an
+C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  This error is caused by having
+C<ExtendOemPartition=1> in the sysprep.inf file.  Removing this line
+before sysprepping should fix the problem.
+
 =head1 ALTERNATIVE TOOLS
 
 There are several proprietary tools for resizing partitions.  We
