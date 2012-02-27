@@ -41,6 +41,7 @@ SUBDIRS += tests/protocol
 SUBDIRS += tests/lvm
 SUBDIRS += tests/luks
 SUBDIRS += tests/md
+SUBDIRS += tests/ntfsclone
 SUBDIRS += tests/regressions
 endif
 

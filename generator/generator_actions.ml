@@ -6682,6 +6682,33 @@ scan the filesystem for inconsistencies.
 The optional C<clearbadsectors> flag clears the list of bad sectors.
 This is useful after cloning a disk with bad sectors to a new disk.");
 
+  ("ntfsclone_out", (RErr, [Device "device"; FileOut "backupfile"], [OBool "metadataonly"; OBool "rescue"; OBool "ignorefscheck"; OBool "preservetimestamps"; OBool "force"]), 308, [Optional "ntfs3g"; Cancellable],
+   [], (* tested in tests/ntfsclone *)
+   "save NTFS to backup file",
+   "\
+Stream the NTFS filesystem C<device> to the local file
+C<backupfile>.  The format used for the backup file is a
+special format used by the L<ntfsclone(8)> tool.
+
+If the optional C<metadataonly> flag is true, then I<only> the
+metadata is saved, losing all the user data (this is useful
+for diagnosing some filesystem problems).
+
+The optional C<rescue>, C<ignorefscheck>, C<preservetimestamps>
+and C<force> flags have precise meanings detailed in the
+L<ntfsclone(8)> man page.
+
+Use C<guestfs_ntfsclone_in> to restore the file back to a
+libguestfs device.");
+
+  ("ntfsclone_in", (RErr, [FileIn "backupfile"; Device "device"], []), 309, [Optional "ntfs3g"; Cancellable],
+   [], (* tested in tests/ntfsclone *)
+   "restore NTFS from backup file",
+   "\
+Restore the C<backupfile> (from a previous call to
+C<guestfs_ntfsclone_out>) to C<device>, overwriting
+any existing contents of this device.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

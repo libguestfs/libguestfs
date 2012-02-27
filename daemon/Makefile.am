@@ -137,6 +137,7 @@ guestfsd_SOURCES = \
 	mount.c \
 	names.c \
 	ntfs.c \
+	ntfsclone.c \
 	optgroups.c \
 	optgroups.h \
 	parted.c \
