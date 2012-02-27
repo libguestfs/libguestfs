@@ -44,6 +44,7 @@ daemon/initrd.c
 daemon/inotify.c
 daemon/internal.c
 daemon/is.c
+daemon/labels.c
 daemon/link.c
 daemon/ls.c
 daemon/luks.c

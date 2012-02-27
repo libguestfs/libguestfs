@@ -47,7 +47,7 @@ part-add /dev/sda p 524288    -64
 
 # Phony /boot filesystem.
 mkfs-opts ext2 /dev/sda1 blocksize:4096
-set-e2label /dev/sda1 BOOT
+set-label /dev/sda1 BOOT
 set-e2uuid /dev/sda1 01234567-0123-0123-0123-012345678901
 
 # Phony root filesystem (Ubuntu doesn't use LVM by default).

@@ -3007,7 +3007,7 @@ The implementation uses the C<pvremove> command which refuses to
 wipe physical volumes that contain any volume groups, so you have
 to remove those first.");
 
-  ("set_e2label", (RErr, [Device "device"; String "label"], []), 80, [],
+  ("set_e2label", (RErr, [Device "device"; String "label"], []), 80, [DeprecatedBy "set_label"],
    [InitBasicFS, Always, TestOutput (
       [["set_e2label"; "/dev/sda1"; "testlabel"];
        ["get_e2label"; "/dev/sda1"]], "testlabel")],
@@ -5698,7 +5698,7 @@ a file in the host and attach it as a device.");
 
   ("vfs_label", (RString "label", [Device "device"], []), 253, [],
    [InitBasicFS, Always, TestOutput (
-       [["set_e2label"; "/dev/sda1"; "LTEST"];
+       [["set_label"; "/dev/sda1"; "LTEST"];
         ["vfs_label"; "/dev/sda1"]], "LTEST")],
    "get the filesystem label",
    "\
@@ -6708,6 +6708,30 @@ libguestfs device.");
 Restore the C<backupfile> (from a previous call to
 C<guestfs_ntfsclone_out>) to C<device>, overwriting
 any existing contents of this device.");
+
+  ("set_label", (RErr, [Device "device"; String "label"], []), 310, [],
+   [InitBasicFS, Always, TestOutput (
+     [["set_label"; "/dev/sda1"; "testlabel"];
+      ["vfs_label"; "/dev/sda1"]], "testlabel");
+    InitPartition, IfAvailable "ntfs3g", TestOutput (
+     [["mkfs"; "ntfs"; "/dev/sda1"];
+      ["set_label"; "/dev/sda1"; "testlabel2"];
+      ["vfs_label"; "/dev/sda1"]], "testlabel2");
+    InitPartition, Always, TestLastFail (
+     [["zero"; "/dev/sda1"];
+      ["set_label"; "/dev/sda1"; "testlabel2"]])],
+   "set filesystem label",
+   "\
+Set the filesystem label on C<device> to C<label>.
+
+Only some filesystem types support labels, and libguestfs supports
+setting labels on only a subset of these.
+
+On ext2/3/4 filesystems, labels are limited to 16 bytes.
+
+On NTFS filesystems, labels are limited to 128 unicode characters.
+
+To read the label on a filesystem, call C<guestfs_vfs_label>.");
 
 ]
 

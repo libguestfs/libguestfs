@@ -126,12 +126,12 @@ $g->lvcreate('LV3', 'VG', 64);
 
 # Phony /boot filesystem
 $g->mkfs_opts('ext2', $bootdev, blocksize => 4096);
-$g->set_e2label($bootdev, 'BOOT');
+$g->set_label($bootdev, 'BOOT');
 $g->set_e2uuid($bootdev, '01234567-0123-0123-0123-012345678901');
 
 # Phony root filesystem.
 $g->mkfs_opts('ext2', '/dev/VG/Root', blocksize => 4096);
-$g->set_e2label('/dev/VG/Root', 'ROOT');
+$g->set_label('/dev/VG/Root', 'ROOT');
 $g->set_e2uuid('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
 
 # Enough to fool inspection API.

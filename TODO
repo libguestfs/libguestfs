@@ -381,10 +381,6 @@ More ntfs tools
 ntfsprogs actually has a lot more useful tools than we currently
 use.  Interesting ones are:
 
-ntfslabel: display or change filesystem label (we should unify all
-  set*label APIs into a single set_vfs_label which can deal with any
-  filesystem)
-
 ntfscluster: display file(s) that occupy a cluster or sector
 
 ntfsinfo: print various information about NTFS volume and files

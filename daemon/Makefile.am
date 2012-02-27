@@ -125,6 +125,7 @@ guestfsd_SOURCES = \
 	inotify.c \
 	internal.c \
 	is.c \
+	labels.c \
 	link.c \
 	ls.c \
 	luks.c \
