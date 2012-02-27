@@ -387,6 +387,8 @@ ntfslabel: display or change filesystem label (we should unify all
 
 ntfsclone: clone, image, restore, rescue NTFS
 
+ntfscluster: display file(s) that occupy a cluster or sector
+
 ntfsinfo: print various information about NTFS volume and files
 
 ntfs streams: extract alternate streams from NTFS files
