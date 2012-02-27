@@ -115,3 +115,32 @@ do_ntfsresize_size (const char *device, int64_t size)
   optargs_bitmask = GUESTFS_NTFSRESIZE_OPTS_SIZE_BITMASK;
   return do_ntfsresize_opts (device, size, 0);
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_ntfsfix (const char *device, int clearbadsectors)
+{
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  int r;
+  char *err;
+
+  ADD_ARG (argv, i, "ntfsfix");
+
+  if ((optargs_bitmask & GUESTFS_NTFSFIX_CLEARBADSECTORS_BITMASK) &&
+      clearbadsectors)
+    ADD_ARG (argv, i, "-b");
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}

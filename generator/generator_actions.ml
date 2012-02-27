@@ -6666,6 +6666,22 @@ C<device>.
 Compare with C<guestfs_zero> which zeroes the first few blocks of a
 device.");
 
+  ("ntfsfix", (RErr, [Device "device"], [OBool "clearbadsectors"]), 307, [Optional "ntfs3g"],
+   [InitPartition, IfAvailable "ntfs3g", TestRun (
+     [["mkfs"; "ntfs"; "/dev/sda1"];
+      ["ntfsfix"; "/dev/sda1"; "false"]])],
+   "fix common errors and force Windows to check NTFS",
+   "\
+This command repairs some fundamental NTFS inconsistencies,
+resets the NTFS journal file, and schedules an NTFS consistency
+check for the first boot into Windows.
+
+This is I<not> an equivalent of Windows C<chkdsk>.  It does I<not>
+scan the filesystem for inconsistencies.
+
+The optional C<clearbadsectors> flag clears the list of bad sectors.
+This is useful after cloning a disk with bad sectors to a new disk.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
