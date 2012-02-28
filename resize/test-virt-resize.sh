@@ -27,7 +27,11 @@ set -e
 ../fish/guestfish -N bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
 
 qemu-img create -f qcow2 test2.img 500M
-$VG ./virt-resize -d --debug-gc --expand /dev/sda2 --lv-expand /dev/VG/LV test1.img test2.img
+$VG ./virt-resize -d --debug-gc \
+    --expand /dev/sda2 \
+    --lv-expand /dev/VG/LV \
+    --format raw --output-format qcow2 \
+    test1.img test2.img
 
 # Test shrinking in a semi-realistic scenario.  Although the disk
 # image created above contains no data, we will nevertheless use
@@ -42,6 +46,9 @@ fsck ext4 /dev/VG/LV
 EOF
 
 rm -f test2.img; truncate -s 300M test2.img
-$VG ./virt-resize -d --debug-gc --shrink /dev/sda2 test1.img test2.img
+$VG ./virt-resize -d --debug-gc \
+    --shrink /dev/sda2 \
+    --format raw --output-format raw \
+    test1.img test2.img
 
 rm -f test1.img test2.img
