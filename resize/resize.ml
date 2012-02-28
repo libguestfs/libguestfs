@@ -98,7 +98,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     "--dryrun",  Arg.Set dryrun,            " -\"-";
     "--dry-run", Arg.Set dryrun,            " -\"-";
     "--ntfsresize-force", Arg.Set ntfsresize_force, " Force ntfsresize";
-    "--output-format", Arg.Set_string format, "format Format of output disk";
+    "--output-format", Arg.Set_string output_format, "format Format of output disk";
     "-q",        Arg.Set quiet,             " Don't print the summary";
     "--quiet",   Arg.Set quiet,             " -\"-";
     "--resize",  Arg.String (add resizes),  "part=size Resize partition";
