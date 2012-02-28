@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-15 20:49+0000\n"
+"POT-Creation-Date: 2012-02-28 10:32+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -428,1754 +428,1775 @@ msgstr "सुरू केल्यानंतर डिस्कस्चे 
 msgid "%s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: अवैध इंटिजर घटक (%s ने %d पुरवले)\n"
 
-#: fish/cmds.c:2809
+#: fish/cmds.c:2837
 msgid "Command"
 msgstr "आदेश"
 
-#: fish/cmds.c:2809
+#: fish/cmds.c:2837
 msgid "Description"
 msgstr "वर्णन"
 
-#: fish/cmds.c:2811
+#: fish/cmds.c:2839
 msgid "add a CD-ROM disk image to examine"
 msgstr "विश्लेषणकरीता CD-ROM डिस्क प्रतिमा समावेश करा"
 
-#: fish/cmds.c:2812
+#: fish/cmds.c:2840
 msgid "add the disk(s) from a named libvirt domain"
 msgstr "नामांकीत libvirt डोमेनपासून डिस्क्स् समाविष्ट करा"
 
-#: fish/cmds.c:2813 fish/cmds.c:2814
+#: fish/cmds.c:2841 fish/cmds.c:2842
 msgid "add an image to examine or modify"
 msgstr "विश्लेषण किंवा संपादनकरीता प्रतिमा समावेश करा"
 
-#: fish/cmds.c:2815
+#: fish/cmds.c:2843
 msgid "add a drive in snapshot mode (read-only)"
 msgstr "ड्राइव्हला स्नॅपशॉट मोडमध्ये समावेश करा (फक्त-वाचणीय)"
 
-#: fish/cmds.c:2816
+#: fish/cmds.c:2844
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
 "वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे फक्त वाचनीय ड्राइव्ह समाविष्ट करा"
 
-#: fish/cmds.c:2817
+#: fish/cmds.c:2845
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr "वापरण्याजोगी QEMU ब्लॉक एम्यूलेशन निर्देशीत करणारे ड्राइव्ह समाविष्ट करा"
 
-#: fish/cmds.c:2818
+#: fish/cmds.c:2846
 msgid "allocate and add a disk file"
 msgstr "डिस्क फाइलचे वाटप करा व समाविष्ट करा"
 
-#: fish/cmds.c:2819
+#: fish/cmds.c:2847
 msgid "clear Augeas path"
 msgstr "Augeas मार्ग नष्ट करा"
 
-#: fish/cmds.c:2820
+#: fish/cmds.c:2848
 msgid "close the current Augeas handle"
 msgstr "सध्याचे Augeas हँडल बंद करा"
 
-#: fish/cmds.c:2821
+#: fish/cmds.c:2849
 msgid "define an Augeas node"
 msgstr "Augeas नोडचे वर्णन करा"
 
-#: fish/cmds.c:2822
+#: fish/cmds.c:2850
 msgid "define an Augeas variable"
 msgstr "Augeas वेरियेबलचे वर्णन करा"
 
-#: fish/cmds.c:2823
+#: fish/cmds.c:2851
 msgid "look up the value of an Augeas path"
 msgstr "Augeas मार्गाचे मूल्यकरीता पहा"
 
-#: fish/cmds.c:2824
+#: fish/cmds.c:2852
 msgid "create a new Augeas handle"
 msgstr "नवीन Augeas हँडल निर्माण करा"
 
-#: fish/cmds.c:2825
+#: fish/cmds.c:2853
 msgid "insert a sibling Augeas node"
 msgstr "सिब्लिंग Augeas नोड अंतर्भूत करा"
 
-#: fish/cmds.c:2826
+#: fish/cmds.c:2854
 msgid "load files into the tree"
 msgstr "ट्रिमध्ये फाइल्स् लोड करा"
 
-#: fish/cmds.c:2827
+#: fish/cmds.c:2855
 msgid "list Augeas nodes under augpath"
 msgstr "augpath अंतर्गत Augeas नोड्स् दाखवा"
 
-#: fish/cmds.c:2828
+#: fish/cmds.c:2856
 msgid "return Augeas nodes which match augpath"
 msgstr "augpath सह जुळवणी शक्य असणारे Augeas नोड्स् रिटर्न करा"
 
-#: fish/cmds.c:2829
+#: fish/cmds.c:2857
 msgid "move Augeas node"
 msgstr "Augeas नोड हलवा"
 
-#: fish/cmds.c:2830
+#: fish/cmds.c:2858
 msgid "remove an Augeas path"
 msgstr "Augeas मार्ग काढून टाका"
 
-#: fish/cmds.c:2831
+#: fish/cmds.c:2859
 msgid "write all pending Augeas changes to disk"
 msgstr "सर्व उर्वरीत Augeas बदल डिस्कवर लिहा"
 
-#: fish/cmds.c:2832
+#: fish/cmds.c:2860
 msgid "set Augeas path to value"
 msgstr "Augeas मार्ग यांस मूल्यकरीता सेट करा"
 
-#: fish/cmds.c:2833
+#: fish/cmds.c:2861
 msgid "test availability of some parts of the API"
 msgstr "API चे काहिक भागांच्या उपलब्धताची चाचणी करा"
 
-#: fish/cmds.c:2834
+#: fish/cmds.c:2862
 msgid "return a list of all optional groups"
 msgstr "वैकल्पिक ग्रूप्स्ची सूची पुरवा"
 
-#: fish/cmds.c:2835
+#: fish/cmds.c:2863
 msgid "upload base64-encoded data to file"
 msgstr "base64-एंकोडेड् डाटा फाइलवर अपलोड करा"
 
-#: fish/cmds.c:2836
+#: fish/cmds.c:2864
 msgid "download file and encode as base64"
 msgstr "फाइल डाऊनलोड करा व base64 म्हणून एंकोड करा"
 
-#: fish/cmds.c:2837
+#: fish/cmds.c:2865
 msgid "print block device attributes"
 msgstr ""
 
-#: fish/cmds.c:2838
+#: fish/cmds.c:2866
 msgid "flush device buffers"
 msgstr "उपकरण बफर्स् रिकामे करा"
 
-#: fish/cmds.c:2839
+#: fish/cmds.c:2867
 msgid "get blocksize of block device"
 msgstr "ब्लॉक उपरणाचे ब्लॉकआकार प्राप्त करा"
 
-#: fish/cmds.c:2840
+#: fish/cmds.c:2868
 msgid "is block device set to read-only"
 msgstr "ब्लॉक उपरकरण फक्त-वाचणीय म्हणून सेट करायचे"
 
-#: fish/cmds.c:2841
+#: fish/cmds.c:2869
 msgid "get total size of device in bytes"
 msgstr "उपकरणाचे एकूण आकार बाईट्स् मध्ये प्राप्त करा"
 
-#: fish/cmds.c:2842
+#: fish/cmds.c:2870
 msgid "get sectorsize of block device"
 msgstr "ब्लॉक उपकरणाचे सेक्टर आकार प्राप्त करा"
 
-#: fish/cmds.c:2843
+#: fish/cmds.c:2871
 msgid "get total size of device in 512-byte sectors"
 msgstr "उपकरणाचे एकूण आकार 512-बाईट सेक्टर्स् मध्ये प्राप्त करा"
 
-#: fish/cmds.c:2844
+#: fish/cmds.c:2872
 msgid "reread partition table"
 msgstr "विभाजन तक्ता पुन्हा वाचा"
 
-#: fish/cmds.c:2845
+#: fish/cmds.c:2873
 msgid "set blocksize of block device"
 msgstr "ब्लॉक उपकरणाचे ब्लॉक उपकरण सेट करा"
 
-#: fish/cmds.c:2846
+#: fish/cmds.c:2874
 msgid "set block device to read-only"
 msgstr "ब्लॉक उपकरण फक्त-वाचणीय असे सेट करा"
 
-#: fish/cmds.c:2847
+#: fish/cmds.c:2875
 msgid "set block device to read-write"
 msgstr "ब्लॉक उपकरण फक्त-वाचणीय असे सेट करा"
 
-#: fish/cmds.c:2848
+#: fish/cmds.c:2876
 msgid "resize a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:2849
+#: fish/cmds.c:2877
 msgid "return true path on case-insensitive filesystem"
 msgstr "केस-असंवेदनशील फाइलप्रणालीकरीता खरे मार्ग पाठवा"
 
-#: fish/cmds.c:2850
+#: fish/cmds.c:2878
 msgid "list the contents of a file"
 msgstr "फाइलचे अनुक्रम सूची स्वरूपात दाखवा"
 
-#: fish/cmds.c:2851
+#: fish/cmds.c:2879
 msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "MD5, SHAx किंवा फाइलचे CRC चेकसम मोजा"
 
-#: fish/cmds.c:2852
+#: fish/cmds.c:2880
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
 msgstr "साधणमधील अंतर्भूतीत माहितीचे MD5, SHAx किंवा CRC चेकसम कम्प्यूट करा"
 
-#: fish/cmds.c:2853
+#: fish/cmds.c:2881
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
 msgstr "डिरेक्ट्रीमधील फाइल्स्चे MD5, SHAx किंवा CRC चेकसम कम्प्यूट करा"
 
-#: fish/cmds.c:2854
+#: fish/cmds.c:2882
 msgid "change file mode"
 msgstr "फाइल मोड बदला"
 
-#: fish/cmds.c:2855 fish/cmds.c:2987
+#: fish/cmds.c:2883 fish/cmds.c:3015
 msgid "change file owner and group"
 msgstr "फाइलची मालकी व गट बदला"
 
-#: fish/cmds.c:2856
+#: fish/cmds.c:2884
 msgid "run a command from the guest filesystem"
 msgstr "अतिथी फाइलप्रणाली पासून आदेश चालवा"
 
-#: fish/cmds.c:2857
+#: fish/cmds.c:2885
 msgid "run a command, returning lines"
 msgstr "आदेश चालवा, ओळी पाठवा"
 
-#: fish/cmds.c:2858
+#: fish/cmds.c:2886
 msgid "output compressed device"
 msgstr ""
 
-#: fish/cmds.c:2859
+#: fish/cmds.c:2887
 msgid "output compressed file"
 msgstr ""
 
-#: fish/cmds.c:2860
+#: fish/cmds.c:2888
 msgid "add qemu parameters"
 msgstr "qemu घटके समावेश करा"
 
-#: fish/cmds.c:2861
+#: fish/cmds.c:2889
 msgid "copy from source device to destination device"
 msgstr ""
 
-#: fish/cmds.c:2862
+#: fish/cmds.c:2890
 msgid "copy from source device to destination file"
 msgstr ""
 
-#: fish/cmds.c:2863
+#: fish/cmds.c:2891
 msgid "copy from source file to destination device"
 msgstr ""
 
-#: fish/cmds.c:2864
+#: fish/cmds.c:2892
 msgid "copy from source file to destination file"
 msgstr ""
 
-#: fish/cmds.c:2865
+#: fish/cmds.c:2893
 msgid "copy local files or directories into an image"
 msgstr "स्थानीय फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेत निर्माण करा"
 
-#: fish/cmds.c:2866
+#: fish/cmds.c:2894
 msgid "copy remote files or directories out of an image"
 msgstr "दूरस्त फाइल्स् किंवा डिरेक्ट्रीज्चे प्रत प्रतिमेच्या बाहेर निर्माण करा"
 
-#: fish/cmds.c:2867
+#: fish/cmds.c:2895
 msgid "copy size bytes from source to destination using dd"
 msgstr "dd चा वापर करून स्रोत ते लक्ष्यपर्यंत आकार बाईट्स्चे प्रत निर्माण करा"
 
-#: fish/cmds.c:2868
+#: fish/cmds.c:2896
 msgid "copy a file"
 msgstr "फाइलचे प्रत बनवा"
 
-#: fish/cmds.c:2869
+#: fish/cmds.c:2897
 msgid "copy a file or directory recursively"
 msgstr "फाइल किंवा डिरेक्ट्रीचे वारंवार प्रत बनवा"
 
-#: fish/cmds.c:2870
+#: fish/cmds.c:2898
 msgid "copy from source to destination using dd"
 msgstr "dd चा वापर करून स्रोत पासून लक्ष्यमध्ये प्रत बनवा"
 
-#: fish/cmds.c:2871
+#: fish/cmds.c:2899
 msgid "debugging and internals"
 msgstr "डिबगींग व इंटर्नल्स्"
 
-#: fish/cmds.c:2872
+#: fish/cmds.c:2900
 msgid "debug the QEMU command line (internal use only)"
 msgstr "QEMU आदेश ओळ डिबग करा (फक्त आंतरिक वापरसाठी)"
 
-#: fish/cmds.c:2873
+#: fish/cmds.c:2901
 msgid "debug the drives (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:2874
+#: fish/cmds.c:2902
 msgid "upload a file to the appliance (internal use only)"
 msgstr "फाइलला अप्लायंसकरीता अपलोड करा (फक्त आंतरिक वापरसाठी)"
 
-#: fish/cmds.c:2875
+#: fish/cmds.c:2903
 msgid "delete a previously registered event handler"
 msgstr ""
 
-#: fish/cmds.c:2876
+#: fish/cmds.c:2904
 msgid "report file system disk space usage"
 msgstr "फाइल प्रणाली डिस्क जागेची वापरणी कळवा"
 
-#: fish/cmds.c:2877
+#: fish/cmds.c:2905
 msgid "report file system disk space usage (human readable)"
 msgstr "फाइल प्रणाली डिस्क जागेची वापरणी (मानवा द्वारे वाचणीय) कळवा"
 
-#: fish/cmds.c:2878
+#: fish/cmds.c:2906
 msgid "display an image"
 msgstr ""
 
-#: fish/cmds.c:2879
+#: fish/cmds.c:2907
 msgid "return kernel messages"
 msgstr "कर्नल संदेश पाठवा"
 
-#: fish/cmds.c:2880
+#: fish/cmds.c:2908
 msgid "download a file to the local machine"
 msgstr "स्थानीय मशीनकरीता फाइल डाऊनलोड करा"
 
-#: fish/cmds.c:2881
+#: fish/cmds.c:2909
 msgid "download a file to the local machine with offset and size"
 msgstr "ऑफसेट व आकारसह स्थानीय मशीनवर फाइल डाउनलोड करा"
 
-#: fish/cmds.c:2882
+#: fish/cmds.c:2910
 msgid "drop kernel page cache, dentries and inodes"
 msgstr "कर्नल पेज कॅशे, डिएंट्रीज् व आयनोड्स् वगळा"
 
-#: fish/cmds.c:2883
+#: fish/cmds.c:2911
 msgid "estimate file space usage"
 msgstr "फाइल स्पेस वापरणीचा अंदाज द्या"
 
-#: fish/cmds.c:2884 fish/cmds.c:2885
+#: fish/cmds.c:2912 fish/cmds.c:2913
 msgid "check an ext2/ext3 filesystem"
 msgstr "ext2/ext3 फाइलप्रणाली तपासा"
 
-#: fish/cmds.c:2886
+#: fish/cmds.c:2914
 msgid "display a line of text"
 msgstr "मजकूर ओळ दाखवा"
 
-#: fish/cmds.c:2887
+#: fish/cmds.c:2915
 msgid "echo arguments back to the client"
 msgstr "क्लाएंटकडे घटके पुन्हा पाठवा"
 
-#: fish/cmds.c:2888
+#: fish/cmds.c:2916
 msgid "edit a file"
 msgstr "फाइल संपादित करा"
 
-#: fish/cmds.c:2889 fish/cmds.c:2890 fish/cmds.c:2896 fish/cmds.c:2897
-#: fish/cmds.c:2932 fish/cmds.c:2933 fish/cmds.c:3198 fish/cmds.c:3199
-#: fish/cmds.c:3203 fish/cmds.c:3204 fish/cmds.c:3206 fish/cmds.c:3207
+#: fish/cmds.c:2917 fish/cmds.c:2918 fish/cmds.c:2924 fish/cmds.c:2925
+#: fish/cmds.c:2960 fish/cmds.c:2961 fish/cmds.c:3230 fish/cmds.c:3231
+#: fish/cmds.c:3235 fish/cmds.c:3236 fish/cmds.c:3238 fish/cmds.c:3239
 msgid "return lines matching a pattern"
 msgstr "साचा प्रमाणे जुळणारे ओळी पाठवा"
 
-#: fish/cmds.c:2891
+#: fish/cmds.c:2919
 msgid "test if two files have equal contents"
 msgstr "दोन फाइलींचे अनुक्रम एक समान आहे याची चाचणी करा"
 
-#: fish/cmds.c:2892
+#: fish/cmds.c:2920
 msgid "register a handler for an event or events"
 msgstr ""
 
-#: fish/cmds.c:2893
+#: fish/cmds.c:2921
 msgid "test if file or directory exists"
 msgstr "फाइल किंवा डिरेक्ट्री अस्तित्वात आहे याची चाचणी करा"
 
-#: fish/cmds.c:2894 fish/cmds.c:2895
+#: fish/cmds.c:2922 fish/cmds.c:2923
 msgid "preallocate a file in the guest filesystem"
 msgstr "अतिथी फाइलप्रणालीत फाइलचे पूर्ववाटप करा"
 
-#: fish/cmds.c:2898
+#: fish/cmds.c:2926
 msgid "determine file type"
 msgstr "फाइल प्रकार ओळखा"
 
-#: fish/cmds.c:2899
+#: fish/cmds.c:2927
 msgid "detect the architecture of a binary file"
 msgstr "बाइनरी फाइलचे आर्किटेक्चर ओळखा"
 
-#: fish/cmds.c:2900
+#: fish/cmds.c:2928
 msgid "return the size of the file in bytes"
 msgstr "बाईटस् मध्ये फाइलचा आकार पाठवा"
 
-#: fish/cmds.c:2901
+#: fish/cmds.c:2929
 msgid "fill a file with octets"
 msgstr "ऑक्टेटसह फाइल भरा"
 
-#: fish/cmds.c:2902
+#: fish/cmds.c:2930
 msgid "fill a file with a repeating pattern of bytes"
 msgstr "समान बाईट्स्ची रचनासह फाइल भरा"
 
-#: fish/cmds.c:2903
+#: fish/cmds.c:2931
 msgid "find all files and directories"
 msgstr "सर्व फाइल्स् व डिरेक्ट्रीज् भरा"
 
-#: fish/cmds.c:2904
+#: fish/cmds.c:2932
 msgid "find all files and directories, returning NUL-separated list"
 msgstr "सर्व फाइल्स् व डिरेक्ट्रीज् भरा, NUL-विभाजीत सूची पाठवा"
 
-#: fish/cmds.c:2905
+#: fish/cmds.c:2933
 msgid "find a filesystem by label"
 msgstr "लेबलप्रमाणे फाइलसिस्टम शोधा"
 
-#: fish/cmds.c:2906
+#: fish/cmds.c:2934
 msgid "find a filesystem by UUID"
 msgstr "UUIDप्रमाणे फाइलसिस्टम शोधा"
 
-#: fish/cmds.c:2907
+#: fish/cmds.c:2935
 msgid "run the filesystem checker"
 msgstr "फाइलप्रणाली तपासक चालवा"
 
-#: fish/cmds.c:2908
+#: fish/cmds.c:2936
 msgid "get the additional kernel options"
 msgstr "अगाऊ कर्नल पर्याय प्राप्त करा"
 
-#: fish/cmds.c:2909
+#: fish/cmds.c:2937
 msgid "get the attach method"
 msgstr "अटॅच पद्धत प्राप्त करा"
 
-#: fish/cmds.c:2910
+#: fish/cmds.c:2938
 msgid "get autosync mode"
 msgstr "autosync मोड प्राप्त करा"
 
-#: fish/cmds.c:2911
+#: fish/cmds.c:2939
 msgid "get direct appliance mode flag"
 msgstr "डाइरेक्ट अप्लायंस् मोड फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2912
+#: fish/cmds.c:2940
 msgid "get the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 फाइलप्रणाली लेबल प्राप्त करा"
 
-#: fish/cmds.c:2913
+#: fish/cmds.c:2941
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 फाइलप्रणाली UUID प्राप्त करा"
 
-#: fish/cmds.c:2914
+#: fish/cmds.c:2942
 msgid "get memory allocated to the qemu subprocess"
 msgstr "qemu उपकार्य करीता स्मृतीचे वाटप शक्य करा"
 
-#: fish/cmds.c:2915
+#: fish/cmds.c:2943
 msgid "get enable network flag"
 msgstr "नेटवर्क फ्लॅग सुरू करा प्राप्त करा"
 
-#: fish/cmds.c:2916
+#: fish/cmds.c:2944
 msgid "get the search path"
 msgstr "शोध मार्ग प्राप्त करा"
 
-#: fish/cmds.c:2917
+#: fish/cmds.c:2945
 msgid "get process group flag"
 msgstr ""
 
-#: fish/cmds.c:2918
+#: fish/cmds.c:2946
 msgid "get PID of qemu subprocess"
 msgstr "qemu उपकार्यचे PID प्राप्त करा"
 
-#: fish/cmds.c:2919
+#: fish/cmds.c:2947
 msgid "get the qemu binary"
 msgstr "qemu बाइनरी प्राप्त करा"
 
-#: fish/cmds.c:2920
+#: fish/cmds.c:2948
 msgid "get recovery process enabled flag"
 msgstr "रिकवरी कार्य सक्षम फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2921
+#: fish/cmds.c:2949
 msgid "get SELinux enabled flag"
 msgstr "SELinux सक्षम फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2922
+#: fish/cmds.c:2950
 msgid "get number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:2923
+#: fish/cmds.c:2951
 msgid "get the current state"
 msgstr "सध्याचे स्तर प्राप्त करा"
 
-#: fish/cmds.c:2924
+#: fish/cmds.c:2952
 msgid "get command trace enabled flag"
 msgstr "कमांड ट्रेस सक्षम फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2925
+#: fish/cmds.c:2953
 msgid "get the current umask"
 msgstr "सध्याचे unmask प्राप्त करा"
 
-#: fish/cmds.c:2926
+#: fish/cmds.c:2954
 msgid "get verbose mode"
 msgstr "वर्बोस मोड प्राप्त करा"
 
-#: fish/cmds.c:2927
+#: fish/cmds.c:2955
 msgid "get SELinux security context"
 msgstr "SELinux सुरक्षा कंटेक्स्ट प्राप्त करा"
 
-#: fish/cmds.c:2928 fish/cmds.c:2988
+#: fish/cmds.c:2956 fish/cmds.c:3016
 msgid "get a single extended attribute"
 msgstr "एक विस्तारित गुणधर्म प्राप्त करा"
 
-#: fish/cmds.c:2929 fish/cmds.c:2989
+#: fish/cmds.c:2957 fish/cmds.c:3017
 msgid "list extended attributes of a file or directory"
 msgstr "फाइल किंवा डिरेक्ट्रीचे विस्तारीत गुणधर्म सूचीत दाखवा"
 
-#: fish/cmds.c:2930
+#: fish/cmds.c:2958
 msgid "expand wildcards in command"
 msgstr "आदेशमधील वाईल्डकार्डस् विस्तारीत करा"
 
-#: fish/cmds.c:2931
+#: fish/cmds.c:2959
 msgid "expand a wildcard path"
 msgstr "वाईल्डकार्ड मार्ग विस्तारीत करा"
 
-#: fish/cmds.c:2934
+#: fish/cmds.c:2962
 msgid "install GRUB 1"
 msgstr ""
 
-#: fish/cmds.c:2935
+#: fish/cmds.c:2963
 msgid "return first 10 lines of a file"
 msgstr "फाइलचे पहिले 10 ओळी पाठवा"
 
-#: fish/cmds.c:2936
+#: fish/cmds.c:2964
 msgid "return first N lines of a file"
 msgstr "फाइलचे पहिल्या N ओळी पाठवा"
 
-#: fish/cmds.c:2937
+#: fish/cmds.c:2965
 msgid "dump a file in hexadecimal"
 msgstr "फाइलला हेक्जाडेसीमलमध्ये डंप करा"
 
-#: fish/cmds.c:2938
+#: fish/cmds.c:2966
 msgid "edit with a hex editor"
 msgstr "hex संपादकसह संपादन करा"
 
-#: fish/cmds.c:2939
+#: fish/cmds.c:2967
 msgid "list the contents of a single file in an initrd"
 msgstr "initrd मध्ये एकाच फाइलमधील अंतर्भूतीत माहिती सूचीत दाखवा"
 
-#: fish/cmds.c:2940
+#: fish/cmds.c:2968
 msgid "list files in an initrd"
 msgstr "initrd मधील फाइल्स् सूचीत दाखवा"
 
-#: fish/cmds.c:2941
+#: fish/cmds.c:2969
 msgid "add an inotify watch"
 msgstr "inotify वॉच् समावेश करा"
 
-#: fish/cmds.c:2942
+#: fish/cmds.c:2970
 msgid "close the inotify handle"
 msgstr "inotify हँडल बंद करा"
 
-#: fish/cmds.c:2943
+#: fish/cmds.c:2971
 msgid "return list of watched files that had events"
 msgstr "इव्हेंट्स् समाविष्टीत वॉच्ड् फाइल्स्ची सूची पाठवा"
 
-#: fish/cmds.c:2944
+#: fish/cmds.c:2972
 msgid "create an inotify handle"
 msgstr "inotify हँडल निर्माण करा"
 
-#: fish/cmds.c:2945
+#: fish/cmds.c:2973
 msgid "return list of inotify events"
 msgstr "inotify इव्हेंट्स्ची सूची पाठवा"
 
-#: fish/cmds.c:2946
+#: fish/cmds.c:2974
 msgid "remove an inotify watch"
 msgstr "inotify वॉच् काढून टाका"
 
-#: fish/cmds.c:2947
+#: fish/cmds.c:2975
 msgid "get architecture of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीचे आर्किटेक्चर प्राप्त करा"
 
-#: fish/cmds.c:2948
+#: fish/cmds.c:2976
 msgid "get distro of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीचे डिस्ट्रो प्राप्त करा"
 
-#: fish/cmds.c:2949
+#: fish/cmds.c:2977
 msgid "get drive letter mappings"
 msgstr ""
 
-#: fish/cmds.c:2950
+#: fish/cmds.c:2978
 msgid "get filesystems associated with inspected operating system"
 msgstr "तपासलेल्या ऑपरेटिंग सिस्टमशी संबंधित फाइलप्रणाली प्राप्त करा"
 
-#: fish/cmds.c:2951
+#: fish/cmds.c:2979
 msgid "get format of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीचे रूपण प्राप्त करा"
 
-#: fish/cmds.c:2952
+#: fish/cmds.c:2980
 msgid "get hostname of the operating system"
 msgstr "कार्यप्रणालीचे यजमाननाव प्राप्त करा"
 
-#: fish/cmds.c:2953
+#: fish/cmds.c:2981
 msgid "get the icon corresponding to this operating system"
 msgstr ""
 
-#: fish/cmds.c:2954
+#: fish/cmds.c:2982
 msgid "get major version of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीची मुख्य आवृत्ती प्राप्त करा"
 
-#: fish/cmds.c:2955
+#: fish/cmds.c:2983
 msgid "get minor version of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीची किर्कोळ आवृत्ती प्राप्त करा"
 
-#: fish/cmds.c:2956
+#: fish/cmds.c:2984
 msgid "get mountpoints of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीचे माऊंटपॉईंट्स् प्राप्त करा"
 
-#: fish/cmds.c:2957
+#: fish/cmds.c:2985
 msgid "get package format used by the operating system"
 msgstr "कार्यप्रणालीद्वारे वापरलेले संकुल रूपण प्राप्त करा"
 
-#: fish/cmds.c:2958
+#: fish/cmds.c:2986
 msgid "get package management tool used by the operating system"
 msgstr "कार्यप्रणालीद्वारे वापरलेले संकुल व्यवस्थापन साधण प्राप्त करा"
 
-#: fish/cmds.c:2959
+#: fish/cmds.c:2987
 msgid "get product name of inspected operating system"
 msgstr "तापसलेल्या कार्यप्रणालीचे उत्पादन नाव प्राप्त करा"
 
-#: fish/cmds.c:2960
+#: fish/cmds.c:2988
 msgid "get product variant of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:2961
+#: fish/cmds.c:2989
 msgid "return list of operating systems found by last inspection"
 msgstr "शेटवच्या तपासवेळी आढळलेल्या कार्यप्रणालीची सूची पुरवा"
 
-#: fish/cmds.c:2962
+#: fish/cmds.c:2990
 msgid "get type of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीचे प्रकार प्राप्त करा"
 
-#: fish/cmds.c:2963
+#: fish/cmds.c:2991
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:2964
+#: fish/cmds.c:2992
 msgid "get Windows systemroot of inspected operating system"
 msgstr "तपासलेल्या कार्यप्रणालीचे विंडोज सिस्टमरूट प्राप्त करा"
 
-#: fish/cmds.c:2965
+#: fish/cmds.c:2993
 msgid "get live flag for install disk"
 msgstr "प्रतिष्ठापन डिस्ककरीता लाइव्ह फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2966
+#: fish/cmds.c:2994
 msgid "get multipart flag for install disk"
 msgstr "प्रतिष्ठापन डिस्ककरीता मल्टिपार्ट फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2967
+#: fish/cmds.c:2995
 msgid "get netinst (network installer) flag for install disk"
 msgstr "प्रतिष्ठापन डिस्ककरीता netinst (नेटवर्क इंस्टॉलर) फ्लॅग प्राप्त करा"
 
-#: fish/cmds.c:2968
+#: fish/cmds.c:2996
 msgid "get list of applications installed in the operating system"
 msgstr "कार्यप्रणालीमध्ये प्रतिष्ठापीत ॲप्लिकेशन्स्ची सूची प्राप्त करा"
 
-#: fish/cmds.c:2969
+#: fish/cmds.c:2997
 msgid "inspect disk and return list of operating systems found"
 msgstr "डिस्कची तपासणी करा व आढळलेल्या कार्यप्रणालीची सूची पुरवा"
 
-#: fish/cmds.c:2970
+#: fish/cmds.c:2998
 msgid "test if block device"
 msgstr "ब्लॉक साधण आढळल्यास चाचणी करा"
 
-#: fish/cmds.c:2971
+#: fish/cmds.c:2999
 msgid "is busy processing a command"
 msgstr "आदेश विश्लेषीत करण्यात व्यस्थ आहे"
 
-#: fish/cmds.c:2972
+#: fish/cmds.c:3000
 msgid "test if character device"
 msgstr "कॅरेकटर साधण असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2973
+#: fish/cmds.c:3001
 msgid "is in configuration state"
 msgstr "संरचना स्तरात आहे"
 
-#: fish/cmds.c:2974
+#: fish/cmds.c:3002
 msgid "test if a directory"
 msgstr "डिरेक्ट्री असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2975
+#: fish/cmds.c:3003
 msgid "test if FIFO (named pipe)"
 msgstr "FIFO (नामांकीत पाइप) असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2976
+#: fish/cmds.c:3004
 msgid "test if a regular file"
 msgstr "रेग्यूलर फाइल असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2977
+#: fish/cmds.c:3005
 msgid "is launching subprocess"
 msgstr "उपकार्य सुरू करत आहे"
 
-#: fish/cmds.c:2978
+#: fish/cmds.c:3006
 msgid "test if device is a logical volume"
 msgstr "साधण लॉजिकल वॉल्यूम असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2979
+#: fish/cmds.c:3007
 msgid "is ready to accept commands"
 msgstr "आदेश स्वीकारण्यासाठी तयार आहे"
 
-#: fish/cmds.c:2980
+#: fish/cmds.c:3008
 msgid "test if socket"
 msgstr "सॉकेट असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2981
+#: fish/cmds.c:3009
 msgid "test if symbolic link"
 msgstr "सिम्बॉलिक लिंक असल्यावर चाचणी करा"
 
-#: fish/cmds.c:2982
+#: fish/cmds.c:3010
 msgid "test if a file contains all zero bytes"
 msgstr ""
 
-#: fish/cmds.c:2983
+#: fish/cmds.c:3011
 msgid "test if a device contains all zero bytes"
 msgstr ""
 
-#: fish/cmds.c:2984
+#: fish/cmds.c:3012
 msgid "kill the qemu subprocess"
 msgstr "qemu उपकार्य नष्ट करा"
 
-#: fish/cmds.c:2985
+#: fish/cmds.c:3013
 msgid "launch the qemu subprocess"
 msgstr "qemu उपकार्य सुरू करा"
 
-#: fish/cmds.c:2986
+#: fish/cmds.c:3014
 msgid "change working directory"
 msgstr "कार्यरत डिरेक्ट्री बदलवत आहे"
 
-#: fish/cmds.c:2990
+#: fish/cmds.c:3018
 msgid "list 9p filesystems"
 msgstr ""
 
-#: fish/cmds.c:2991
+#: fish/cmds.c:3019
 msgid "list the block devices"
 msgstr "ब्लॉक उपकरणाची सूची दाखवा"
 
-#: fish/cmds.c:2992
+#: fish/cmds.c:3020
 msgid "list device mapper devices"
 msgstr ""
 
-#: fish/cmds.c:2993
+#: fish/cmds.c:3021
 msgid "list event handlers"
 msgstr ""
 
-#: fish/cmds.c:2994
+#: fish/cmds.c:3022
 msgid "list filesystems"
 msgstr "फाइलप्रणालीची सूची दाखवा"
 
-#: fish/cmds.c:2995
+#: fish/cmds.c:3023
 msgid "list Linux md (RAID) devices"
 msgstr ""
 
-#: fish/cmds.c:2996
+#: fish/cmds.c:3024
 msgid "list the partitions"
 msgstr "विभाजने सूचीत दाखवा"
 
-#: fish/cmds.c:2997
+#: fish/cmds.c:3025
 msgid "list the files in a directory (long format)"
 msgstr "डिरेक्ट्रीत फाइल्स् दाखवा (लाँग फॉर्मट)"
 
-#: fish/cmds.c:2998
+#: fish/cmds.c:3026
 #, fuzzy
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr "डिरेक्ट्रीत फाइल्स् दाखवा (लाँग फॉर्मट)"
 
-#: fish/cmds.c:2999 fish/cmds.c:3000
+#: fish/cmds.c:3027 fish/cmds.c:3028
 msgid "create a hard link"
 msgstr "हार्ड लिंक निर्माण करा"
 
-#: fish/cmds.c:3001 fish/cmds.c:3002
+#: fish/cmds.c:3029 fish/cmds.c:3030
 msgid "create a symbolic link"
 msgstr "सिम्बॉलिक लिंक निर्माण करा"
 
-#: fish/cmds.c:3003 fish/cmds.c:3100
+#: fish/cmds.c:3031 fish/cmds.c:3131
 msgid "remove extended attribute of a file or directory"
 msgstr "फाइल किंवा डिरेक्ट्रीचे विस्तारीत गुणधर्म काढून टाका"
 
-#: fish/cmds.c:3004
+#: fish/cmds.c:3032
 msgid "list the files in a directory"
 msgstr "डिरेक्ट्रीमधील फाइल्स् सूचीत दाखवा"
 
-#: fish/cmds.c:3005 fish/cmds.c:3130
+#: fish/cmds.c:3033 fish/cmds.c:3162
 msgid "set extended attribute of a file or directory"
 msgstr "फाइल किंवा डिरेक्ट्रीचे विस्तारीत गुणधर्म सेट करा"
 
-#: fish/cmds.c:3006
+#: fish/cmds.c:3034
 msgid "get file information for a symbolic link"
 msgstr "सिम्बॉलिक लिंककरीता फाइलविषयी माहिती प्राप्त करा"
 
-#: fish/cmds.c:3007
+#: fish/cmds.c:3035
 msgid "lstat on multiple files"
 msgstr "विविध फाइल्सचे lstat प्राप्त करा"
 
-#: fish/cmds.c:3008
+#: fish/cmds.c:3036
 msgid "add a key on a LUKS encrypted device"
 msgstr "LUKS एंक्रिप्टेड साधणावर कि समाविष्ट करा"
 
-#: fish/cmds.c:3009
+#: fish/cmds.c:3037
 msgid "close a LUKS device"
 msgstr "LUKS साधण बंद करा"
 
-#: fish/cmds.c:3010 fish/cmds.c:3011
+#: fish/cmds.c:3038 fish/cmds.c:3039
 msgid "format a block device as a LUKS encrypted device"
 msgstr "ब्लॉक साधणाला LUKS एंक्रिप्टेड साधण म्हणून रूपण करा"
 
-#: fish/cmds.c:3012
+#: fish/cmds.c:3040
 msgid "remove a key from a LUKS encrypted device"
 msgstr "LUKS एंक्रिप्टेड साधणपासून कि काढून टाका"
 
-#: fish/cmds.c:3013
+#: fish/cmds.c:3041
 msgid "open a LUKS-encrypted block device"
 msgstr "LUKS-एंक्रिप्टेड ब्लॉक साधण उघडा"
 
-#: fish/cmds.c:3014
+#: fish/cmds.c:3042
 msgid "open a LUKS-encrypted block device read-only"
 msgstr "फक्त वाचणीय LUKS-एंक्रिप्टेड ब्लॉक साधण उघडा"
 
-#: fish/cmds.c:3015
+#: fish/cmds.c:3043
 msgid "create an LVM logical volume"
 msgstr "LVM लॉजिकल वॉल्यूम निर्माण करा"
 
-#: fish/cmds.c:3016
+#: fish/cmds.c:3044
 msgid "get canonical name of an LV"
 msgstr "LV चे कॅनॉनिकल नाव प्राप्त करा"
 
-#: fish/cmds.c:3017
+#: fish/cmds.c:3045
 msgid "clear LVM device filter"
 msgstr "LVM साधण फिल्टर नष्ट करा"
 
-#: fish/cmds.c:3018
+#: fish/cmds.c:3046
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "सर्व LVM LVs, VGs व PVs काढून टाका"
 
-#: fish/cmds.c:3019
+#: fish/cmds.c:3047
 msgid "set LVM device filter"
 msgstr "LVM साधण फिल्टर सेट करा"
 
-#: fish/cmds.c:3020
+#: fish/cmds.c:3048
 msgid "remove an LVM logical volume"
 msgstr "LVM लॉजीकल वॉल्यूम काढून टाका"
 
-#: fish/cmds.c:3021
+#: fish/cmds.c:3049
 msgid "rename an LVM logical volume"
 msgstr "LVM लॉजीकल वॉल्यूमचे पुनःनामांकन करा"
 
-#: fish/cmds.c:3022
+#: fish/cmds.c:3050
 msgid "resize an LVM logical volume"
 msgstr "LVM लॉजीकल वॉल्यूमचे पुनःआकार करा"
 
-#: fish/cmds.c:3023
+#: fish/cmds.c:3051
 msgid "expand an LV to fill free space"
 msgstr "मोकळी जागा भरून काढण्यासाठी LV विस्तारित करा"
 
-#: fish/cmds.c:3024 fish/cmds.c:3025
+#: fish/cmds.c:3052 fish/cmds.c:3053
 msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM लॉजीकल वॉल्यूम्स् (LVs) सूचीत दाखवा"
 
-#: fish/cmds.c:3026
+#: fish/cmds.c:3054
 msgid "get the UUID of a logical volume"
 msgstr "लॉजिकल वॉल्यूमचे UUID प्राप्त करा"
 
-#: fish/cmds.c:3027
+#: fish/cmds.c:3055
 msgid "lgetxattr on multiple files"
 msgstr "विविध फाइल्सचे lgetxattr प्राप्त करा"
 
-#: fish/cmds.c:3028
+#: fish/cmds.c:3056
 msgid "open the manual"
 msgstr "मॅन्यूअल उघडा"
 
-#: fish/cmds.c:3029
+#: fish/cmds.c:3057
 msgid "create a Linux md (RAID) device"
 msgstr ""
 
-#: fish/cmds.c:3030
+#: fish/cmds.c:3058
 msgid "obtain metadata for an MD device"
 msgstr ""
 
-#: fish/cmds.c:3031
+#: fish/cmds.c:3059
 msgid "stop a Linux md (RAID) device"
 msgstr ""
 
-#: fish/cmds.c:3032
+#: fish/cmds.c:3060
 msgid "create a directory"
 msgstr "डिरेक्ट्री निर्माण करा"
 
-#: fish/cmds.c:3033
+#: fish/cmds.c:3061
 msgid "create a directory with a particular mode"
 msgstr "ठराविक मोडसह डिरेक्ट्री निर्माण करा"
 
-#: fish/cmds.c:3034
+#: fish/cmds.c:3062
 msgid "create a directory and parents"
 msgstr "डिरेक्ट्री व पॅरेंट्स् निर्माण करा"
 
-#: fish/cmds.c:3035
+#: fish/cmds.c:3063
 msgid "create a temporary directory"
 msgstr "तात्पूर्ती डिरेक्ट्री निर्माण करा"
 
-#: fish/cmds.c:3036 fish/cmds.c:3037 fish/cmds.c:3038
+#: fish/cmds.c:3064 fish/cmds.c:3065 fish/cmds.c:3066
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "बाहेरील जर्नलसह ext2/3/4 फाइलप्रणाली निर्माण करा"
 
-#: fish/cmds.c:3039
+#: fish/cmds.c:3067
 msgid "make ext2/3/4 external journal"
 msgstr "ext2/3/4 बाहेरील जर्नल निर्माण करा"
 
-#: fish/cmds.c:3040
+#: fish/cmds.c:3068
 msgid "make ext2/3/4 external journal with label"
 msgstr "लेबलसह ext2/3/4 बाहेरील जर्नल निर्माण करा"
 
-#: fish/cmds.c:3041
+#: fish/cmds.c:3069
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "UUID सह ext2/3/4 बाहेरील जर्नल निर्माण करा"
 
-#: fish/cmds.c:3042
+#: fish/cmds.c:3070
 msgid "make FIFO (named pipe)"
 msgstr "FIFO (नामांकीत पाइप) निर्माण करा"
 
-#: fish/cmds.c:3043 fish/cmds.c:3045
+#: fish/cmds.c:3071 fish/cmds.c:3073
 msgid "make a filesystem"
 msgstr "फाइलप्रणाली निर्माण करा"
 
-#: fish/cmds.c:3044
+#: fish/cmds.c:3072
 msgid "make a filesystem with block size"
 msgstr "ब्लॉक आकारसह फाइलप्रणाली निर्माण करा"
 
-#: fish/cmds.c:3046
+#: fish/cmds.c:3074
 msgid "create a mountpoint"
 msgstr "माऊंटपॉईंट निर्माण करा"
 
-#: fish/cmds.c:3047
+#: fish/cmds.c:3075
 msgid "make block, character or FIFO devices"
 msgstr "ब्लॉक, अक्षर किंवा FIFO उपकरणे निर्माण करा"
 
-#: fish/cmds.c:3048
+#: fish/cmds.c:3076
 msgid "make block device node"
 msgstr "ब्लॉक उपकरण नोड निर्माण करा"
 
-#: fish/cmds.c:3049
+#: fish/cmds.c:3077
 msgid "make char device node"
 msgstr "char उपकरण नोड निर्माण करा"
 
-#: fish/cmds.c:3050
+#: fish/cmds.c:3078
 msgid "create a swap partition"
 msgstr "स्वॅप विभाजन निर्माण करा"
 
-#: fish/cmds.c:3051
+#: fish/cmds.c:3079
 msgid "create a swap partition with a label"
 msgstr "लेबलसह स्वॅप विभाजन निर्माण करा"
 
-#: fish/cmds.c:3052
+#: fish/cmds.c:3080
 msgid "create a swap partition with an explicit UUID"
 msgstr "ठराविक UUID सह स्वॅप विभाजन निर्माण करा"
 
-#: fish/cmds.c:3053
+#: fish/cmds.c:3081
 msgid "create a swap file"
 msgstr "स्वॅप फाइल निर्माण करा"
 
-#: fish/cmds.c:3054
+#: fish/cmds.c:3082
 msgid "load a kernel module"
 msgstr "कर्नल घटक लोड करा"
 
-#: fish/cmds.c:3055
+#: fish/cmds.c:3083
 msgid "view a file"
 msgstr "फाइलचे दृश्य"
 
-#: fish/cmds.c:3056
+#: fish/cmds.c:3084
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "फाइलप्रणालीतील स्थळावर अतिथी डिस्कला माऊंट करा"
 
-#: fish/cmds.c:3057
+#: fish/cmds.c:3085
 msgid "mount 9p filesystem"
 msgstr ""
 
-#: fish/cmds.c:3058
+#: fish/cmds.c:3086
 msgid "mount a file using the loop device"
 msgstr "लूप उपकरणाचा वापर करून फाइल माऊंट करा"
 
-#: fish/cmds.c:3059
+#: fish/cmds.c:3087
 msgid "mount a guest disk with mount options"
 msgstr "माऊंट पर्यायांसह अतिथी डिस्क माऊंट करा"
 
-#: fish/cmds.c:3060
+#: fish/cmds.c:3088
 msgid "mount a guest disk, read-only"
 msgstr "अतिथी डिस्क माऊंट करा, फक्त-वाचणीय"
 
-#: fish/cmds.c:3061
+#: fish/cmds.c:3089
 msgid "mount a guest disk with mount options and vfstype"
 msgstr "माऊंट पर्याय व vfstype सह अतिथी डिस्क माऊंट करा"
 
-#: fish/cmds.c:3062
+#: fish/cmds.c:3090
 msgid "show mountpoints"
 msgstr "माऊंटपॉईंट्स् दाखवा"
 
-#: fish/cmds.c:3063
+#: fish/cmds.c:3091
 msgid "show mounted filesystems"
 msgstr "माऊंट केलेली फाइलप्रणाली दाखवा"
 
-#: fish/cmds.c:3064
+#: fish/cmds.c:3092
 msgid "move a file"
 msgstr "फाइल हलवा"
 
-#: fish/cmds.c:3065
+#: fish/cmds.c:3093
 msgid "probe NTFS volume"
 msgstr "NTFS वॉल्यूम शोधा"
 
-#: fish/cmds.c:3066 fish/cmds.c:3067
+#: fish/cmds.c:3094
+msgid "restore NTFS from backup file"
+msgstr ""
+
+#: fish/cmds.c:3095
+msgid "save NTFS to backup file"
+msgstr ""
+
+#: fish/cmds.c:3096
+msgid "fix common errors and force Windows to check NTFS"
+msgstr ""
+
+#: fish/cmds.c:3097 fish/cmds.c:3098
 msgid "resize an NTFS filesystem"
 msgstr "NTFS फाइलप्रणालीला पुनःआकार द्या"
 
-#: fish/cmds.c:3068
+#: fish/cmds.c:3099
 msgid "resize an NTFS filesystem (with size)"
 msgstr "NTFS फाइलप्रणालीला पुनःआकार द्या (आकारसह)"
 
-#: fish/cmds.c:3069
+#: fish/cmds.c:3100
 msgid "add a partition to the device"
 msgstr "उपकरणात विभाजन समावेश करा"
 
-#: fish/cmds.c:3070
+#: fish/cmds.c:3101
 msgid "delete a partition"
 msgstr "विभाजन नष्ट करा"
 
-#: fish/cmds.c:3071
+#: fish/cmds.c:3102
 msgid "partition whole disk with a single primary partition"
 msgstr "एकमेव प्राथमीक विभाजनसह संपूर्ण डिस्कचे विभाजन करा"
 
-#: fish/cmds.c:3072
+#: fish/cmds.c:3103
 msgid "return true if a partition is bootable"
 msgstr "विभाजन बूटजोगी असल्यावर true पुरवा"
 
-#: fish/cmds.c:3073
+#: fish/cmds.c:3104
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr "विभाजन पासून MBR टाइप बाईट (ID बाईट) प्राप्त करा"
 
-#: fish/cmds.c:3074
+#: fish/cmds.c:3105
 msgid "get the partition table type"
 msgstr "विभाजन तक्ता प्रकार प्राप्त करा"
 
-#: fish/cmds.c:3075
+#: fish/cmds.c:3106
 msgid "create an empty partition table"
 msgstr "रिकामे विभाजन तक्ता निर्माण करा"
 
-#: fish/cmds.c:3076
+#: fish/cmds.c:3107
 msgid "list partitions on a device"
 msgstr "उपकरणावर विभाजने सूचीत दाखवा"
 
-#: fish/cmds.c:3077
+#: fish/cmds.c:3108
 msgid "make a partition bootable"
 msgstr "विभाजन बूटजोगी करा"
 
-#: fish/cmds.c:3078
+#: fish/cmds.c:3109
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr "विभाजनचे MBR टाइप बाईट (ID बाईट) सेट करा"
 
-#: fish/cmds.c:3079
+#: fish/cmds.c:3110
 msgid "set partition name"
 msgstr "विभाजन नाव सेट करा"
 
-#: fish/cmds.c:3080
+#: fish/cmds.c:3111
 msgid "convert partition name to device name"
 msgstr "विभाजननाव यांस साधणनावात रूपांतरीत करा"
 
-#: fish/cmds.c:3081
+#: fish/cmds.c:3112
 msgid "convert partition name to partition number"
 msgstr ""
 
-#: fish/cmds.c:3082
+#: fish/cmds.c:3113
 msgid "ping the guest daemon"
 msgstr "अतिथी डिमनला पिंग करा"
 
-#: fish/cmds.c:3083
+#: fish/cmds.c:3114
 msgid "read part of a file"
 msgstr "फाइलचे भाग वाचा"
 
-#: fish/cmds.c:3084
+#: fish/cmds.c:3115
 msgid "read part of a device"
 msgstr "साधणाचे ठराविक भाग वाचा"
 
-#: fish/cmds.c:3085
+#: fish/cmds.c:3116
 msgid "create an LVM physical volume"
 msgstr "LVM फिजीकल वॉल्यूम निर्माण करा"
 
-#: fish/cmds.c:3086
+#: fish/cmds.c:3117
 msgid "remove an LVM physical volume"
 msgstr "LVM फिजीकल वॉल्यूम काढून टाका"
 
-#: fish/cmds.c:3087
+#: fish/cmds.c:3118
 msgid "resize an LVM physical volume"
 msgstr "LVM फिजीकल वॉल्यूमला पुनःआकार द्या"
 
-#: fish/cmds.c:3088
+#: fish/cmds.c:3119
 msgid "resize an LVM physical volume (with size)"
 msgstr "LVM फिजिकल वॉल्यूमला (आकारसह) पुनःआकार द्या"
 
-#: fish/cmds.c:3089 fish/cmds.c:3090
+#: fish/cmds.c:3120 fish/cmds.c:3121
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM फिजीकल वॉल्यूम (PVs) सूचीत दाखवा"
 
-#: fish/cmds.c:3091
+#: fish/cmds.c:3122
 msgid "get the UUID of a physical volume"
 msgstr "फिजिकल वॉल्यूमचे UUID प्राप्त करा"
 
-#: fish/cmds.c:3092
+#: fish/cmds.c:3123
 msgid "write to part of a file"
 msgstr "फाइलचे ठराविक भाग लिहा"
 
-#: fish/cmds.c:3093
+#: fish/cmds.c:3124
 msgid "write to part of a device"
 msgstr "साधणाचे ठराविक भाग लिहा"
 
-#: fish/cmds.c:3094
+#: fish/cmds.c:3125
 msgid "read a file"
 msgstr "फाइल वाचा"
 
-#: fish/cmds.c:3095
+#: fish/cmds.c:3126
 msgid "read file as lines"
 msgstr "फाइलला ओळप्रमाणे वाचा"
 
-#: fish/cmds.c:3096
+#: fish/cmds.c:3127
 msgid "read directories entries"
 msgstr "डिरेक्ट्रीजमधील नोंद वाचा"
 
-#: fish/cmds.c:3097
+#: fish/cmds.c:3128
 msgid "read the target of a symbolic link"
 msgstr "सिम्बॉलिक लिंकचे लक्ष्य वाचा"
 
-#: fish/cmds.c:3098
+#: fish/cmds.c:3129
 msgid "readlink on multiple files"
 msgstr "विविध फाइल्सकरीता लिंक वाचा"
 
-#: fish/cmds.c:3099
+#: fish/cmds.c:3130
 msgid "canonicalized absolute pathname"
 msgstr "ऍबसोल्यूट मार्गाचेनाव कॅनॉनीकलाइजड् करा"
 
-#: fish/cmds.c:3101
+#: fish/cmds.c:3132
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs हँडल बंद करा व पुन्हा उघडा"
 
-#: fish/cmds.c:3102
+#: fish/cmds.c:3133
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "ext2, ext3 किंवा ext4 फाइलप्रणालीला पुनःआकार द्या"
 
-#: fish/cmds.c:3103
+#: fish/cmds.c:3134
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr "ext2, ext3 किंवा ext4 फाइलप्रणालीला किमान आकारकरीता पुनःआकार द्या"
 
-#: fish/cmds.c:3104
+#: fish/cmds.c:3135
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr "ext2, ext3 किंवा ext4 फाइलप्रणालीला (आकारसह) पुनःआकार द्या"
 
-#: fish/cmds.c:3105
+#: fish/cmds.c:3136
 msgid "remove a file"
 msgstr "फाइल काढून टाका"
 
-#: fish/cmds.c:3106
+#: fish/cmds.c:3137
 msgid "remove a file or directory recursively"
 msgstr "फाइल किंवा डिरेक्ट्री वारंवार काढून टाका"
 
-#: fish/cmds.c:3107
+#: fish/cmds.c:3138
 msgid "remove a directory"
 msgstr "डिरेक्ट्री काढून टाकतो"
 
-#: fish/cmds.c:3108
+#: fish/cmds.c:3139
 msgid "remove a mountpoint"
 msgstr "माऊंटपॉईंट काढून टाका"
 
-#: fish/cmds.c:3109
+#: fish/cmds.c:3140
 msgid "scrub (securely wipe) a device"
 msgstr "उपकरण घासा (सुरक्षीतपणे घासा)"
 
-#: fish/cmds.c:3110
+#: fish/cmds.c:3141
 msgid "scrub (securely wipe) a file"
 msgstr "फाइल घासा (सुरक्षीतपणे घासा)"
 
-#: fish/cmds.c:3111
+#: fish/cmds.c:3142
 msgid "scrub (securely wipe) free space"
 msgstr "मोकळी जागा बनवा (सुरक्षीतपणे नष्ट करा)"
 
-#: fish/cmds.c:3112
+#: fish/cmds.c:3143
 msgid "add options to kernel command line"
 msgstr "कर्नल आदेश ओळकरीता पर्याय समावेश करा"
 
-#: fish/cmds.c:3113
+#: fish/cmds.c:3144
 msgid "set the attach method"
 msgstr "अटॅच मेथेड सेट करा"
 
-#: fish/cmds.c:3114
+#: fish/cmds.c:3145
 msgid "set autosync mode"
 msgstr "autosync मोड सेट करा"
 
-#: fish/cmds.c:3115
+#: fish/cmds.c:3146
 msgid "enable or disable direct appliance mode"
 msgstr "डाइरेक्ट अप्लायंस् मोड समर्थीत किंवा असमर्थीत करा"
 
-#: fish/cmds.c:3116
+#: fish/cmds.c:3147
 msgid "set the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 फाइलप्रणालीचे लेबल सेट करा"
 
-#: fish/cmds.c:3117
+#: fish/cmds.c:3148
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 फाइलप्रणाली UUID सेट करा"
 
-#: fish/cmds.c:3118
+#: fish/cmds.c:3149
+#, fuzzy
+msgid "set filesystem label"
+msgstr "फाइलप्राली लेबल प्राप्त करा"
+
+#: fish/cmds.c:3150
 msgid "set memory allocated to the qemu subprocess"
 msgstr "qemu उपकार्यकरीता स्मृतीचे वाटप करा"
 
-#: fish/cmds.c:3119
+#: fish/cmds.c:3151
 msgid "set enable network flag"
 msgstr "नेटवर्क फ्लॅग सुरू करणे सेट करा"
 
-#: fish/cmds.c:3120
+#: fish/cmds.c:3152
 msgid "set the search path"
 msgstr "शोध मार्ग सेट करा"
 
-#: fish/cmds.c:3121
+#: fish/cmds.c:3153
 msgid "set process group flag"
 msgstr ""
 
-#: fish/cmds.c:3122
+#: fish/cmds.c:3154
 msgid "set the qemu binary"
 msgstr "qemu बाइनरी सेट करा"
 
-#: fish/cmds.c:3123
+#: fish/cmds.c:3155
 msgid "enable or disable the recovery process"
 msgstr "रिकवरी कार्य समर्थीत किंवा असमर्थीत करा"
 
-#: fish/cmds.c:3124
+#: fish/cmds.c:3156
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr "अप्लायंस बूटवेळी SELinux समर्थीत किंवा असमर्थीत असे सेट करा"
 
-#: fish/cmds.c:3125
+#: fish/cmds.c:3157
 msgid "set number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:3126
+#: fish/cmds.c:3158
 msgid "enable or disable command traces"
 msgstr "कमांड ट्रेसेस् समर्थीत किंवा असमर्थीत करा"
 
-#: fish/cmds.c:3127
+#: fish/cmds.c:3159
 msgid "set verbose mode"
 msgstr "वर्बोस् मोड सेट करा"
 
-#: fish/cmds.c:3128
+#: fish/cmds.c:3160
 msgid "set SELinux security context"
 msgstr "SELinux सुरक्षा संदर्भ सेट करा"
 
-#: fish/cmds.c:3129
+#: fish/cmds.c:3161
 msgid "set an environment variable"
 msgstr ""
 
-#: fish/cmds.c:3131 fish/cmds.c:3132
+#: fish/cmds.c:3163 fish/cmds.c:3164
 msgid "create partitions on a block device"
 msgstr "ब्लॉक उपकरणावरील विभाजने निर्माण करा"
 
-#: fish/cmds.c:3133
+#: fish/cmds.c:3165
 msgid "modify a single partition on a block device"
 msgstr "ब्लॉक उपकरणावरील एकच विभाजन संपादीत करा"
 
-#: fish/cmds.c:3134
+#: fish/cmds.c:3166
 msgid "display the disk geometry from the partition table"
 msgstr "विभाजन तक्ता पासून डिस्कची भूमिती दाखवा"
 
-#: fish/cmds.c:3135
+#: fish/cmds.c:3167
 msgid "display the kernel geometry"
 msgstr "कर्नल भूमिती दाखवा"
 
-#: fish/cmds.c:3136
+#: fish/cmds.c:3168
 msgid "display the partition table"
 msgstr "विभाजन तक्ता दाखवा"
 
-#: fish/cmds.c:3137
+#: fish/cmds.c:3169
 msgid "run a command via the shell"
 msgstr "शेल पासून आदेश चालवा"
 
-#: fish/cmds.c:3138
+#: fish/cmds.c:3170
 msgid "run a command via the shell returning lines"
 msgstr "शेल ओळी पाठवतेवेळी आदेश चालवा"
 
-#: fish/cmds.c:3139
+#: fish/cmds.c:3171
 msgid "sleep for some seconds"
 msgstr "काहिक सेकंद"
 
-#: fish/cmds.c:3140
+#: fish/cmds.c:3172
 msgid "create a sparse disk image and add"
 msgstr "स्पार्स डिस्क प्रतिमा निर्माण करा व समाविष्ट करा"
 
-#: fish/cmds.c:3141
+#: fish/cmds.c:3173
 msgid "get file information"
 msgstr "फाइल माहिती प्राप्त करा"
 
-#: fish/cmds.c:3142
+#: fish/cmds.c:3174
 msgid "get file system statistics"
 msgstr "फाइल प्रणाली आकडेवारी प्राप्त करा"
 
-#: fish/cmds.c:3143 fish/cmds.c:3144
+#: fish/cmds.c:3175 fish/cmds.c:3176
 msgid "print the printable strings in a file"
 msgstr "फाइलमध्ये छपाईजोगी अक्षरमाळाची छपाई करा"
 
-#: fish/cmds.c:3145
+#: fish/cmds.c:3177
 msgid "list supported groups of commands"
 msgstr "समर्थीत आदेशांचे गट सूचीत दाखवा"
 
-#: fish/cmds.c:3146
+#: fish/cmds.c:3178
 msgid "disable swap on device"
 msgstr "उपकरणावरील स्वॅप असमर्थीत करा"
 
-#: fish/cmds.c:3147
+#: fish/cmds.c:3179
 msgid "disable swap on file"
 msgstr "फाइलवरील स्वॅप असमर्थीत करा"
 
-#: fish/cmds.c:3148
+#: fish/cmds.c:3180
 msgid "disable swap on labeled swap partition"
 msgstr "लेबल केलेले स्वॅप विभाजनावरील स्वॅप असमर्थीत करा"
 
-#: fish/cmds.c:3149
+#: fish/cmds.c:3181
 msgid "disable swap on swap partition by UUID"
 msgstr "UUID द्वारे स्वॅप विभाजनवरील स्वॅप विभाजन असमर्थीत करा"
 
-#: fish/cmds.c:3150
+#: fish/cmds.c:3182
 msgid "enable swap on device"
 msgstr "उपकरणावरील स्वॅप समर्थीत करा"
 
-#: fish/cmds.c:3151
+#: fish/cmds.c:3183
 msgid "enable swap on file"
 msgstr "फाइलवरील स्वॅप समर्थीत करा"
 
-#: fish/cmds.c:3152
+#: fish/cmds.c:3184
 msgid "enable swap on labeled swap partition"
 msgstr "लेबल केले स्वॅप विभाजनावरील स्वॅप समर्थीत करा"
 
-#: fish/cmds.c:3153
+#: fish/cmds.c:3185
 msgid "enable swap on swap partition by UUID"
 msgstr "UUID द्वारे स्वॅप विभाजनवरील स्वॅप विभाजन समर्थीत करा"
 
-#: fish/cmds.c:3154
+#: fish/cmds.c:3186
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "डिस्क्सची ताळमेळ करा, राईट्स् डिस्क प्रतिमाकरीता लिहीले जातात"
 
-#: fish/cmds.c:3155
+#: fish/cmds.c:3187
 msgid "return last 10 lines of a file"
 msgstr "फाइलचे शेवटचे 10 ओळी पाठवा"
 
-#: fish/cmds.c:3156
+#: fish/cmds.c:3188
 msgid "return last N lines of a file"
 msgstr "पाइलचे शेवटचे N ओळी पाठवा"
 
-#: fish/cmds.c:3157
+#: fish/cmds.c:3189
 msgid "unpack tarfile to directory"
 msgstr "डिरेक्ट्रीमध्ये tar फाइल उघडा"
 
-#: fish/cmds.c:3158
+#: fish/cmds.c:3190
 msgid "pack directory into tarfile"
 msgstr "डिरेक्ट्रीला tar फाइलमध्ये पैक करा"
 
-#: fish/cmds.c:3159 fish/cmds.c:3167
+#: fish/cmds.c:3191 fish/cmds.c:3199
 msgid "unpack compressed tarball to directory"
 msgstr "आंकुचीत टारबॉलला डिरेक्ट्रीमध्ये उघडा"
 
-#: fish/cmds.c:3160 fish/cmds.c:3168
+#: fish/cmds.c:3192 fish/cmds.c:3200
 msgid "pack directory into compressed tarball"
 msgstr "डिरेक्ट्रीला आंकुचीत टारबॉलमध्ये पैक करा"
 
-#: fish/cmds.c:3161
+#: fish/cmds.c:3193
 msgid "print elapsed time taken to run a command"
 msgstr "आदेश चालवण्यासाठी कालावधी पश्चात वेळेची छपाई करा"
 
-#: fish/cmds.c:3162
+#: fish/cmds.c:3194
 msgid "update file timestamps or create a new file"
 msgstr "फाइल टाइमस्टॅम्प्स् सुधारीत करा किंवा नवीन फाइल निर्माण करा"
 
-#: fish/cmds.c:3163
+#: fish/cmds.c:3195
 msgid "truncate a file to zero size"
 msgstr "शून्य आकारकरीता फाइल ट्रंकेट करा"
 
-#: fish/cmds.c:3164
+#: fish/cmds.c:3196
 msgid "truncate a file to a particular size"
 msgstr "ठराविक आकारकरीता फाइल ट्रंकेट करा"
 
-#: fish/cmds.c:3165
+#: fish/cmds.c:3197
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr ""
 
-#: fish/cmds.c:3166
+#: fish/cmds.c:3198
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "ext2/ext3/ext4 सूपरब्लॉक तपशील प्राप्त करा"
 
-#: fish/cmds.c:3169
+#: fish/cmds.c:3201
 msgid "set file mode creation mask (umask)"
 msgstr "फाइल मोड निर्माण मास्क (umask) सेट करा"
 
-#: fish/cmds.c:3170
+#: fish/cmds.c:3202
 msgid "unmount a filesystem"
 msgstr "फाइलप्रणालीचे माऊंट अशक्य करा"
 
-#: fish/cmds.c:3171
+#: fish/cmds.c:3203
 msgid "unmount all filesystems"
 msgstr "सर्व फाइलप्रणालींचे माऊंट अशक्य करा"
 
-#: fish/cmds.c:3172
+#: fish/cmds.c:3204
 msgid "unset an environment variable"
 msgstr ""
 
-#: fish/cmds.c:3173
+#: fish/cmds.c:3205
 msgid "upload a file from the local machine"
 msgstr "स्थानीय मशीन पासून फाइल अपलोड करा"
 
-#: fish/cmds.c:3174
+#: fish/cmds.c:3206
 msgid "upload a file from the local machine with offset"
 msgstr "ऑफसेटसह स्थानीय मशीनपासून फाइल अपलोड करा"
 
-#: fish/cmds.c:3175
+#: fish/cmds.c:3207
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "नॅनोसेकंद अचूकपणासह फाइलचे टाइमस्टॅम्प सेट करा"
 
-#: fish/cmds.c:3176
+#: fish/cmds.c:3208
 msgid "get the library version number"
 msgstr "लाइब्ररी आवृत्ती क्रमांक प्राप्त करा"
 
-#: fish/cmds.c:3177
+#: fish/cmds.c:3209
 msgid "get the filesystem label"
 msgstr "फाइलप्राली लेबल प्राप्त करा"
 
-#: fish/cmds.c:3178
+#: fish/cmds.c:3210
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "माऊंट केलेल्या उपकरणसह परस्पर Linux VFS प्रकार प्राप्त करा"
 
-#: fish/cmds.c:3179
+#: fish/cmds.c:3211
 msgid "get the filesystem UUID"
 msgstr "फाइलप्रणाली UUID प्राप्त करा"
 
-#: fish/cmds.c:3180
+#: fish/cmds.c:3212
 msgid "activate or deactivate some volume groups"
 msgstr "काहिक वॉल्यूम गट सक्रीय किंवा निष्क्रीय करा"
 
-#: fish/cmds.c:3181
+#: fish/cmds.c:3213
 msgid "activate or deactivate all volume groups"
 msgstr "सर्व वॉल्यूम ग्रूप सक्रीय किंवा निष्क्रीय करा"
 
-#: fish/cmds.c:3182
+#: fish/cmds.c:3214
 msgid "create an LVM volume group"
 msgstr "LVM वॉल्यूम ग्रूप निर्माण करा"
 
-#: fish/cmds.c:3183
+#: fish/cmds.c:3215
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr "वॉल्यूम ग्रूपमध्ये सर्व LVs चे LV UUIDs प्राप्त करा"
 
-#: fish/cmds.c:3184
+#: fish/cmds.c:3216
 msgid "get the PV UUIDs containing the volume group"
 msgstr "वॉल्यूम ग्रूप समाविष्टीत PV UUIDs प्राप्त करा"
 
-#: fish/cmds.c:3185
+#: fish/cmds.c:3217
 msgid "remove an LVM volume group"
 msgstr "LVM वॉल्यूम ग्रूप काढून टाका"
 
-#: fish/cmds.c:3186
+#: fish/cmds.c:3218
 msgid "rename an LVM volume group"
 msgstr "LVM वॉल्यूम ग्रूप पुनःनामांकीत करा"
 
-#: fish/cmds.c:3187 fish/cmds.c:3188
+#: fish/cmds.c:3219 fish/cmds.c:3220
 msgid "list the LVM volume groups (VGs)"
 msgstr "LVM वॉल्यूम ग्रूप्स् (VGs) सूचीत दाखवा"
 
-#: fish/cmds.c:3189
+#: fish/cmds.c:3221
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr "LVM फिजिकल वॉल्यूम्स्, वॉल्यून ग्रूप्स् व लॉजिकल वॉल्यूम्स् करीता  करीता पुनःस्कॅन करा"
 
-#: fish/cmds.c:3190
+#: fish/cmds.c:3222
 msgid "get the UUID of a volume group"
 msgstr "वॉल्यूम ग्रूपचे UUID प्राप्त करा"
 
-#: fish/cmds.c:3191
+#: fish/cmds.c:3223
 msgid "count characters in a file"
 msgstr "फाइलमधील अक्षरे मोजा"
 
-#: fish/cmds.c:3192
+#: fish/cmds.c:3224
 msgid "count lines in a file"
 msgstr "फाइलमधील ओळी मोजा"
 
-#: fish/cmds.c:3193
+#: fish/cmds.c:3225
 msgid "count words in a file"
 msgstr "फाइलमधील अक्षरे मोजा"
 
-#: fish/cmds.c:3194
+#: fish/cmds.c:3226
 msgid "wipe a filesystem signature from a device"
 msgstr ""
 
-#: fish/cmds.c:3195
+#: fish/cmds.c:3227
 msgid "create a new file"
 msgstr "नवीन फाइल निर्माण करा"
 
-#: fish/cmds.c:3196
+#: fish/cmds.c:3228
 msgid "append content to end of file"
 msgstr ""
 
-#: fish/cmds.c:3197
+#: fish/cmds.c:3229
 msgid "create a file"
 msgstr "फाइल निर्माण करा"
 
-#: fish/cmds.c:3200
+#: fish/cmds.c:3232
 msgid "write zeroes to the device"
 msgstr "उपकरणात शून्य लिहा"
 
-#: fish/cmds.c:3201
+#: fish/cmds.c:3233
 msgid "write zeroes to an entire device"
 msgstr "संपूर्ण साधणावर शून्य लिहा"
 
-#: fish/cmds.c:3202
+#: fish/cmds.c:3234
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "ext2/3 फाइलप्रणालीवरील शून्य न वापरलेले inodes व डिस्क ब्लॉक्स्"
 
-#: fish/cmds.c:3205
+#: fish/cmds.c:3237
 msgid "determine file type inside a compressed file"
 msgstr "आंकुचीत फाइल अंतर्गत फाइल प्रकार ओळखा"
 
-#: fish/cmds.c:3208
+#: fish/cmds.c:3240
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr "आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
 
-#: fish/cmds.c:3556 fish/cmds.c:3570 fish/cmds.c:3586 fish/cmds.c:3603
-#: fish/cmds.c:3620 fish/cmds.c:3638 fish/cmds.c:3657 fish/cmds.c:3673
-#: fish/cmds.c:3691 fish/cmds.c:3707 fish/cmds.c:3725 fish/cmds.c:3741
-#: fish/cmds.c:3758 fish/cmds.c:3773 fish/cmds.c:3791 fish/cmds.c:3806
-#: fish/cmds.c:3822 fish/cmds.c:3838 fish/cmds.c:3854 fish/cmds.c:3870
-#: fish/cmds.c:3886 fish/cmds.c:3904 fish/cmds.c:3937 fish/cmds.c:3953
-#: fish/cmds.c:3969 fish/cmds.c:3988 fish/cmds.c:4003 fish/cmds.c:4021
-#: fish/cmds.c:4036 fish/cmds.c:4054 fish/cmds.c:4069 fish/cmds.c:4087
-#: fish/cmds.c:4102 fish/cmds.c:4121 fish/cmds.c:4140 fish/cmds.c:4158
-#: fish/cmds.c:4178 fish/cmds.c:4197 fish/cmds.c:4217 fish/cmds.c:4237
-#: fish/cmds.c:4257 fish/cmds.c:4276 fish/cmds.c:4295 fish/cmds.c:4315
-#: fish/cmds.c:4335 fish/cmds.c:4355 fish/cmds.c:4370 fish/cmds.c:4386
-#: fish/cmds.c:4463 fish/cmds.c:4481 fish/cmds.c:4498 fish/cmds.c:4515
-#: fish/cmds.c:4604 fish/cmds.c:4624 fish/cmds.c:4644 fish/cmds.c:4664
-#: fish/cmds.c:4684 fish/cmds.c:4704 fish/cmds.c:4723 fish/cmds.c:4742
-#: fish/cmds.c:4761 fish/cmds.c:4776 fish/cmds.c:4795 fish/cmds.c:4815
-#: fish/cmds.c:4835 fish/cmds.c:4911 fish/cmds.c:4926 fish/cmds.c:4944
-#: fish/cmds.c:4977 fish/cmds.c:4996 fish/cmds.c:5012 fish/cmds.c:5028
-#: fish/cmds.c:5047 fish/cmds.c:5069 fish/cmds.c:5091 fish/cmds.c:5111
-#: fish/cmds.c:5128 fish/cmds.c:5145 fish/cmds.c:5162 fish/cmds.c:5179
-#: fish/cmds.c:5196 fish/cmds.c:5213 fish/cmds.c:5230 fish/cmds.c:5249
-#: fish/cmds.c:5272 fish/cmds.c:5308 fish/cmds.c:5325 fish/cmds.c:5348
-#: fish/cmds.c:5370 fish/cmds.c:5391 fish/cmds.c:5411 fish/cmds.c:5430
-#: fish/cmds.c:5450 fish/cmds.c:5468 fish/cmds.c:5486 fish/cmds.c:5500
-#: fish/cmds.c:5516 fish/cmds.c:5536 fish/cmds.c:5555 fish/cmds.c:5574
-#: fish/cmds.c:5593 fish/cmds.c:5612 fish/cmds.c:5632 fish/cmds.c:5672
-#: fish/cmds.c:5729 fish/cmds.c:5750 fish/cmds.c:5771 fish/cmds.c:5792
-#: fish/cmds.c:5810 fish/cmds.c:5832 fish/cmds.c:5870 fish/cmds.c:5892
-#: fish/cmds.c:5971 fish/cmds.c:6010 fish/cmds.c:6025 fish/cmds.c:6042
-#: fish/cmds.c:6056 fish/cmds.c:6072 fish/cmds.c:6094 fish/cmds.c:6116
-#: fish/cmds.c:6138 fish/cmds.c:6160 fish/cmds.c:6182 fish/cmds.c:6204
-#: fish/cmds.c:6224 fish/cmds.c:6241 fish/cmds.c:6258 fish/cmds.c:6277
-#: fish/cmds.c:6296 fish/cmds.c:6316 fish/cmds.c:6352 fish/cmds.c:6371
-#: fish/cmds.c:6390 fish/cmds.c:6407 fish/cmds.c:6425 fish/cmds.c:6448
-#: fish/cmds.c:6471 fish/cmds.c:6495 fish/cmds.c:6518 fish/cmds.c:6539
-#: fish/cmds.c:6562 fish/cmds.c:6585 fish/cmds.c:6605 fish/cmds.c:6627
-#: fish/cmds.c:6648 fish/cmds.c:6671 fish/cmds.c:6688 fish/cmds.c:6705
-#: fish/cmds.c:6723 fish/cmds.c:6741 fish/cmds.c:6762 fish/cmds.c:6780
-#: fish/cmds.c:6801 fish/cmds.c:6821 fish/cmds.c:6839 fish/cmds.c:6860
-#: fish/cmds.c:6883 fish/cmds.c:6906 fish/cmds.c:6928 fish/cmds.c:6961
-#: fish/cmds.c:6978 fish/cmds.c:6995 fish/cmds.c:7019 fish/cmds.c:7042
-#: fish/cmds.c:7065 fish/cmds.c:7087 fish/cmds.c:7104 fish/cmds.c:7126
-#: fish/cmds.c:7220 fish/cmds.c:7240 fish/cmds.c:7260 fish/cmds.c:7280
-#: fish/cmds.c:7298 fish/cmds.c:7319 fish/cmds.c:7355 fish/cmds.c:7372
-#: fish/cmds.c:7394 fish/cmds.c:7411 fish/cmds.c:7447 fish/cmds.c:7467
-#: fish/cmds.c:7487 fish/cmds.c:7507 fish/cmds.c:7529 fish/cmds.c:7546
-#: fish/cmds.c:7565 fish/cmds.c:7584 fish/cmds.c:7606 fish/cmds.c:7627
-#: fish/cmds.c:7648 fish/cmds.c:7669 fish/cmds.c:7692 fish/cmds.c:7733
-#: fish/cmds.c:7756 fish/cmds.c:7795 fish/cmds.c:7812 fish/cmds.c:7831
-#: fish/cmds.c:7852 fish/cmds.c:7875 fish/cmds.c:7897 fish/cmds.c:7915
-#: fish/cmds.c:7934 fish/cmds.c:7955 fish/cmds.c:8032 fish/cmds.c:8073
-#: fish/cmds.c:8152 fish/cmds.c:8228 fish/cmds.c:8265 fish/cmds.c:8288
-#: fish/cmds.c:8309 fish/cmds.c:8332 fish/cmds.c:8354 fish/cmds.c:8379
-#: fish/cmds.c:8422 fish/cmds.c:8463 fish/cmds.c:8484 fish/cmds.c:8502
-#: fish/cmds.c:8521 fish/cmds.c:8538 fish/cmds.c:8556 fish/cmds.c:8583
-#: fish/cmds.c:8607 fish/cmds.c:8631 fish/cmds.c:8655 fish/cmds.c:8679
-#: fish/cmds.c:8703 fish/cmds.c:8727 fish/cmds.c:8751 fish/cmds.c:8775
-#: fish/cmds.c:8799 fish/cmds.c:8823 fish/cmds.c:8847 fish/cmds.c:8870
-#: fish/cmds.c:8893 fish/cmds.c:8914 fish/cmds.c:8935 fish/cmds.c:8956
-#: fish/cmds.c:8976 fish/cmds.c:8999 fish/cmds.c:9037 fish/cmds.c:9054
-#: fish/cmds.c:9071 fish/cmds.c:9090 fish/cmds.c:9109 fish/cmds.c:9126
-#: fish/cmds.c:9143 fish/cmds.c:9160 fish/cmds.c:9177 fish/cmds.c:9196
-#: fish/cmds.c:9232 fish/cmds.c:9272 fish/cmds.c:9305 fish/cmds.c:9322
-#: fish/cmds.c:9339 fish/cmds.c:9355 fish/cmds.c:9370 fish/cmds.c:9391
-#: fish/cmds.c:9429 fish/cmds.c:9467 fish/cmds.c:9506 fish/cmds.c:9546
-#: fish/cmds.c:9587 fish/cmds.c:9628 fish/cmds.c:9666 fish/cmds.c:9683
-#: fish/cmds.c:9706 fish/cmds.c:9728 fish/cmds.c:9750 fish/cmds.c:9770
-#: fish/cmds.c:9790 fish/cmds.c:9826 fish/cmds.c:9898 fish/cmds.c:9938
-#: fish/cmds.c:9996 fish/cmds.c:10022 fish/cmds.c:10048 fish/cmds.c:10076
-#: fish/cmds.c:10135 fish/cmds.c:10156 fish/cmds.c:10201 fish/cmds.c:10221
-#: fish/cmds.c:10260 fish/cmds.c:10297 fish/cmds.c:10317 fish/cmds.c:10339
-#: fish/cmds.c:10396 fish/cmds.c:10416 fish/cmds.c:10438 fish/cmds.c:10460
-#: fish/cmds.c:10479 fish/cmds.c:10499 fish/cmds.c:10526 fish/cmds.c:10546
-#: fish/cmds.c:10566 fish/cmds.c:10586 fish/cmds.c:10606 fish/cmds.c:10628
-#: fish/cmds.c:10663 fish/cmds.c:10681 fish/cmds.c:10704 fish/cmds.c:10726
-#: fish/cmds.c:10741 fish/cmds.c:10758 fish/cmds.c:10795 fish/cmds.c:10834
-#: fish/cmds.c:10874 fish/cmds.c:10930 fish/cmds.c:10952 fish/cmds.c:10988
-#: fish/cmds.c:11003 fish/cmds.c:11023 fish/cmds.c:11063 fish/cmds.c:11086
-#: fish/cmds.c:11110 fish/cmds.c:11135 fish/cmds.c:11176 fish/cmds.c:11201
-#: fish/cmds.c:11239 fish/cmds.c:11270 fish/cmds.c:11301 fish/cmds.c:11329
-#: fish/cmds.c:11349 fish/cmds.c:11381 fish/cmds.c:11401 fish/cmds.c:11421
-#: fish/cmds.c:11438 fish/cmds.c:11456 fish/cmds.c:11481 fish/cmds.c:11504
-#: fish/cmds.c:11523 fish/cmds.c:11567 fish/cmds.c:11612 fish/cmds.c:11660
-#: fish/cmds.c:11701 fish/cmds.c:11720 fish/cmds.c:11740 fish/cmds.c:11760
-#: fish/cmds.c:11781 fish/cmds.c:11802 fish/cmds.c:11823 fish/cmds.c:11844
-#: fish/cmds.c:11865 fish/cmds.c:11887 fish/cmds.c:11925 fish/cmds.c:11976
-#: fish/cmds.c:12014 fish/cmds.c:12070 fish/cmds.c:12206 fish/cmds.c:12235
-#: fish/cmds.c:12262 fish/cmds.c:12279 fish/cmds.c:12300 fish/cmds.c:12317
-#: fish/cmds.c:12379 fish/cmds.c:12517 fish/cmds.c:12675 fish/cmds.c:13387
-#: fish/cmds.c:13406 fish/cmds.c:13426 fish/cmds.c:13443 fish/cmds.c:13511
-#: fish/cmds.c:13533
+#: fish/cmds.c:3588 fish/cmds.c:3602 fish/cmds.c:3618 fish/cmds.c:3635
+#: fish/cmds.c:3652 fish/cmds.c:3670 fish/cmds.c:3689 fish/cmds.c:3705
+#: fish/cmds.c:3723 fish/cmds.c:3739 fish/cmds.c:3757 fish/cmds.c:3773
+#: fish/cmds.c:3790 fish/cmds.c:3805 fish/cmds.c:3823 fish/cmds.c:3838
+#: fish/cmds.c:3854 fish/cmds.c:3870 fish/cmds.c:3886 fish/cmds.c:3902
+#: fish/cmds.c:3918 fish/cmds.c:3936 fish/cmds.c:3969 fish/cmds.c:3985
+#: fish/cmds.c:4001 fish/cmds.c:4020 fish/cmds.c:4035 fish/cmds.c:4053
+#: fish/cmds.c:4068 fish/cmds.c:4086 fish/cmds.c:4101 fish/cmds.c:4119
+#: fish/cmds.c:4134 fish/cmds.c:4153 fish/cmds.c:4172 fish/cmds.c:4190
+#: fish/cmds.c:4210 fish/cmds.c:4229 fish/cmds.c:4249 fish/cmds.c:4269
+#: fish/cmds.c:4289 fish/cmds.c:4308 fish/cmds.c:4327 fish/cmds.c:4347
+#: fish/cmds.c:4367 fish/cmds.c:4387 fish/cmds.c:4402 fish/cmds.c:4418
+#: fish/cmds.c:4495 fish/cmds.c:4513 fish/cmds.c:4530 fish/cmds.c:4547
+#: fish/cmds.c:4636 fish/cmds.c:4656 fish/cmds.c:4676 fish/cmds.c:4696
+#: fish/cmds.c:4716 fish/cmds.c:4736 fish/cmds.c:4755 fish/cmds.c:4774
+#: fish/cmds.c:4793 fish/cmds.c:4808 fish/cmds.c:4827 fish/cmds.c:4847
+#: fish/cmds.c:4867 fish/cmds.c:4943 fish/cmds.c:4958 fish/cmds.c:4976
+#: fish/cmds.c:5009 fish/cmds.c:5028 fish/cmds.c:5044 fish/cmds.c:5060
+#: fish/cmds.c:5079 fish/cmds.c:5101 fish/cmds.c:5123 fish/cmds.c:5143
+#: fish/cmds.c:5160 fish/cmds.c:5177 fish/cmds.c:5194 fish/cmds.c:5211
+#: fish/cmds.c:5228 fish/cmds.c:5245 fish/cmds.c:5262 fish/cmds.c:5281
+#: fish/cmds.c:5304 fish/cmds.c:5340 fish/cmds.c:5357 fish/cmds.c:5380
+#: fish/cmds.c:5402 fish/cmds.c:5423 fish/cmds.c:5443 fish/cmds.c:5462
+#: fish/cmds.c:5482 fish/cmds.c:5500 fish/cmds.c:5518 fish/cmds.c:5532
+#: fish/cmds.c:5548 fish/cmds.c:5568 fish/cmds.c:5587 fish/cmds.c:5606
+#: fish/cmds.c:5625 fish/cmds.c:5644 fish/cmds.c:5664 fish/cmds.c:5704
+#: fish/cmds.c:5761 fish/cmds.c:5782 fish/cmds.c:5803 fish/cmds.c:5824
+#: fish/cmds.c:5842 fish/cmds.c:5864 fish/cmds.c:5902 fish/cmds.c:5924
+#: fish/cmds.c:6003 fish/cmds.c:6042 fish/cmds.c:6057 fish/cmds.c:6074
+#: fish/cmds.c:6088 fish/cmds.c:6104 fish/cmds.c:6126 fish/cmds.c:6148
+#: fish/cmds.c:6170 fish/cmds.c:6192 fish/cmds.c:6214 fish/cmds.c:6236
+#: fish/cmds.c:6256 fish/cmds.c:6273 fish/cmds.c:6290 fish/cmds.c:6309
+#: fish/cmds.c:6328 fish/cmds.c:6348 fish/cmds.c:6384 fish/cmds.c:6403
+#: fish/cmds.c:6422 fish/cmds.c:6439 fish/cmds.c:6457 fish/cmds.c:6480
+#: fish/cmds.c:6503 fish/cmds.c:6527 fish/cmds.c:6550 fish/cmds.c:6571
+#: fish/cmds.c:6594 fish/cmds.c:6617 fish/cmds.c:6637 fish/cmds.c:6659
+#: fish/cmds.c:6680 fish/cmds.c:6703 fish/cmds.c:6720 fish/cmds.c:6737
+#: fish/cmds.c:6755 fish/cmds.c:6773 fish/cmds.c:6794 fish/cmds.c:6812
+#: fish/cmds.c:6833 fish/cmds.c:6853 fish/cmds.c:6871 fish/cmds.c:6892
+#: fish/cmds.c:6915 fish/cmds.c:6938 fish/cmds.c:6960 fish/cmds.c:6993
+#: fish/cmds.c:7010 fish/cmds.c:7027 fish/cmds.c:7051 fish/cmds.c:7074
+#: fish/cmds.c:7097 fish/cmds.c:7119 fish/cmds.c:7136 fish/cmds.c:7158
+#: fish/cmds.c:7252 fish/cmds.c:7272 fish/cmds.c:7292 fish/cmds.c:7312
+#: fish/cmds.c:7330 fish/cmds.c:7351 fish/cmds.c:7387 fish/cmds.c:7404
+#: fish/cmds.c:7426 fish/cmds.c:7443 fish/cmds.c:7479 fish/cmds.c:7499
+#: fish/cmds.c:7519 fish/cmds.c:7539 fish/cmds.c:7561 fish/cmds.c:7578
+#: fish/cmds.c:7597 fish/cmds.c:7616 fish/cmds.c:7638 fish/cmds.c:7659
+#: fish/cmds.c:7680 fish/cmds.c:7701 fish/cmds.c:7724 fish/cmds.c:7765
+#: fish/cmds.c:7788 fish/cmds.c:7827 fish/cmds.c:7844 fish/cmds.c:7863
+#: fish/cmds.c:7884 fish/cmds.c:7907 fish/cmds.c:7929 fish/cmds.c:7947
+#: fish/cmds.c:7966 fish/cmds.c:7987 fish/cmds.c:8064 fish/cmds.c:8105
+#: fish/cmds.c:8184 fish/cmds.c:8260 fish/cmds.c:8297 fish/cmds.c:8320
+#: fish/cmds.c:8341 fish/cmds.c:8364 fish/cmds.c:8386 fish/cmds.c:8411
+#: fish/cmds.c:8454 fish/cmds.c:8495 fish/cmds.c:8516 fish/cmds.c:8534
+#: fish/cmds.c:8553 fish/cmds.c:8570 fish/cmds.c:8588 fish/cmds.c:8615
+#: fish/cmds.c:8639 fish/cmds.c:8663 fish/cmds.c:8687 fish/cmds.c:8711
+#: fish/cmds.c:8735 fish/cmds.c:8759 fish/cmds.c:8783 fish/cmds.c:8807
+#: fish/cmds.c:8831 fish/cmds.c:8855 fish/cmds.c:8879 fish/cmds.c:8902
+#: fish/cmds.c:8925 fish/cmds.c:8946 fish/cmds.c:8967 fish/cmds.c:8988
+#: fish/cmds.c:9008 fish/cmds.c:9031 fish/cmds.c:9069 fish/cmds.c:9086
+#: fish/cmds.c:9103 fish/cmds.c:9122 fish/cmds.c:9141 fish/cmds.c:9158
+#: fish/cmds.c:9175 fish/cmds.c:9192 fish/cmds.c:9209 fish/cmds.c:9228
+#: fish/cmds.c:9264 fish/cmds.c:9304 fish/cmds.c:9337 fish/cmds.c:9354
+#: fish/cmds.c:9371 fish/cmds.c:9387 fish/cmds.c:9402 fish/cmds.c:9423
+#: fish/cmds.c:9461 fish/cmds.c:9499 fish/cmds.c:9538 fish/cmds.c:9578
+#: fish/cmds.c:9619 fish/cmds.c:9660 fish/cmds.c:9698 fish/cmds.c:9715
+#: fish/cmds.c:9738 fish/cmds.c:9760 fish/cmds.c:9782 fish/cmds.c:9802
+#: fish/cmds.c:9822 fish/cmds.c:9858 fish/cmds.c:9930 fish/cmds.c:9970
+#: fish/cmds.c:10028 fish/cmds.c:10054 fish/cmds.c:10080 fish/cmds.c:10108
+#: fish/cmds.c:10167 fish/cmds.c:10188 fish/cmds.c:10233 fish/cmds.c:10253
+#: fish/cmds.c:10292 fish/cmds.c:10329 fish/cmds.c:10349 fish/cmds.c:10371
+#: fish/cmds.c:10428 fish/cmds.c:10448 fish/cmds.c:10470 fish/cmds.c:10492
+#: fish/cmds.c:10511 fish/cmds.c:10531 fish/cmds.c:10558 fish/cmds.c:10578
+#: fish/cmds.c:10598 fish/cmds.c:10618 fish/cmds.c:10638 fish/cmds.c:10660
+#: fish/cmds.c:10695 fish/cmds.c:10713 fish/cmds.c:10736 fish/cmds.c:10758
+#: fish/cmds.c:10773 fish/cmds.c:10790 fish/cmds.c:10827 fish/cmds.c:10866
+#: fish/cmds.c:10906 fish/cmds.c:10962 fish/cmds.c:10984 fish/cmds.c:11020
+#: fish/cmds.c:11035 fish/cmds.c:11055 fish/cmds.c:11095 fish/cmds.c:11118
+#: fish/cmds.c:11142 fish/cmds.c:11167 fish/cmds.c:11208 fish/cmds.c:11233
+#: fish/cmds.c:11271 fish/cmds.c:11302 fish/cmds.c:11333 fish/cmds.c:11361
+#: fish/cmds.c:11381 fish/cmds.c:11413 fish/cmds.c:11433 fish/cmds.c:11453
+#: fish/cmds.c:11470 fish/cmds.c:11488 fish/cmds.c:11513 fish/cmds.c:11536
+#: fish/cmds.c:11555 fish/cmds.c:11599 fish/cmds.c:11644 fish/cmds.c:11692
+#: fish/cmds.c:11733 fish/cmds.c:11752 fish/cmds.c:11772 fish/cmds.c:11792
+#: fish/cmds.c:11813 fish/cmds.c:11834 fish/cmds.c:11855 fish/cmds.c:11876
+#: fish/cmds.c:11897 fish/cmds.c:11919 fish/cmds.c:11957 fish/cmds.c:12008
+#: fish/cmds.c:12046 fish/cmds.c:12102 fish/cmds.c:12238 fish/cmds.c:12267
+#: fish/cmds.c:12294 fish/cmds.c:12311 fish/cmds.c:12332 fish/cmds.c:12349
+#: fish/cmds.c:12411 fish/cmds.c:12549 fish/cmds.c:12707 fish/cmds.c:13419
+#: fish/cmds.c:13438 fish/cmds.c:13458 fish/cmds.c:13475 fish/cmds.c:13543
+#: fish/cmds.c:13565 fish/cmds.c:13693 fish/cmds.c:13714
 #, c-format
 msgid "%s should have %d parameter(s)\n"
 msgstr "%s कडे %d घटके असायला हवे\n"
 
-#: fish/cmds.c:3557 fish/cmds.c:3571 fish/cmds.c:3587 fish/cmds.c:3604
-#: fish/cmds.c:3621 fish/cmds.c:3639 fish/cmds.c:3658 fish/cmds.c:3674
-#: fish/cmds.c:3692 fish/cmds.c:3708 fish/cmds.c:3726 fish/cmds.c:3742
-#: fish/cmds.c:3759 fish/cmds.c:3774 fish/cmds.c:3792 fish/cmds.c:3807
-#: fish/cmds.c:3823 fish/cmds.c:3839 fish/cmds.c:3855 fish/cmds.c:3871
-#: fish/cmds.c:3887 fish/cmds.c:3905 fish/cmds.c:3938 fish/cmds.c:3954
-#: fish/cmds.c:3970 fish/cmds.c:3989 fish/cmds.c:4004 fish/cmds.c:4022
-#: fish/cmds.c:4037 fish/cmds.c:4055 fish/cmds.c:4070 fish/cmds.c:4088
-#: fish/cmds.c:4103 fish/cmds.c:4122 fish/cmds.c:4141 fish/cmds.c:4159
-#: fish/cmds.c:4179 fish/cmds.c:4198 fish/cmds.c:4218 fish/cmds.c:4238
-#: fish/cmds.c:4258 fish/cmds.c:4277 fish/cmds.c:4296 fish/cmds.c:4316
-#: fish/cmds.c:4336 fish/cmds.c:4356 fish/cmds.c:4371 fish/cmds.c:4387
-#: fish/cmds.c:4408 fish/cmds.c:4464 fish/cmds.c:4482 fish/cmds.c:4499
-#: fish/cmds.c:4516 fish/cmds.c:4537 fish/cmds.c:4605 fish/cmds.c:4625
-#: fish/cmds.c:4645 fish/cmds.c:4665 fish/cmds.c:4685 fish/cmds.c:4705
-#: fish/cmds.c:4724 fish/cmds.c:4743 fish/cmds.c:4762 fish/cmds.c:4777
-#: fish/cmds.c:4796 fish/cmds.c:4816 fish/cmds.c:4836 fish/cmds.c:4859
-#: fish/cmds.c:4912 fish/cmds.c:4927 fish/cmds.c:4945 fish/cmds.c:4978
-#: fish/cmds.c:4997 fish/cmds.c:5013 fish/cmds.c:5029 fish/cmds.c:5048
-#: fish/cmds.c:5070 fish/cmds.c:5092 fish/cmds.c:5112 fish/cmds.c:5129
-#: fish/cmds.c:5146 fish/cmds.c:5163 fish/cmds.c:5180 fish/cmds.c:5197
-#: fish/cmds.c:5214 fish/cmds.c:5231 fish/cmds.c:5250 fish/cmds.c:5273
-#: fish/cmds.c:5309 fish/cmds.c:5326 fish/cmds.c:5349 fish/cmds.c:5371
-#: fish/cmds.c:5392 fish/cmds.c:5412 fish/cmds.c:5431 fish/cmds.c:5451
-#: fish/cmds.c:5469 fish/cmds.c:5487 fish/cmds.c:5501 fish/cmds.c:5517
-#: fish/cmds.c:5537 fish/cmds.c:5556 fish/cmds.c:5575 fish/cmds.c:5594
-#: fish/cmds.c:5613 fish/cmds.c:5633 fish/cmds.c:5673 fish/cmds.c:5730
-#: fish/cmds.c:5751 fish/cmds.c:5772 fish/cmds.c:5793 fish/cmds.c:5811
-#: fish/cmds.c:5833 fish/cmds.c:5871 fish/cmds.c:5893 fish/cmds.c:5972
-#: fish/cmds.c:6011 fish/cmds.c:6026 fish/cmds.c:6043 fish/cmds.c:6057
-#: fish/cmds.c:6073 fish/cmds.c:6095 fish/cmds.c:6117 fish/cmds.c:6139
-#: fish/cmds.c:6161 fish/cmds.c:6183 fish/cmds.c:6205 fish/cmds.c:6225
-#: fish/cmds.c:6242 fish/cmds.c:6259 fish/cmds.c:6278 fish/cmds.c:6297
-#: fish/cmds.c:6317 fish/cmds.c:6353 fish/cmds.c:6372 fish/cmds.c:6391
-#: fish/cmds.c:6408 fish/cmds.c:6426 fish/cmds.c:6449 fish/cmds.c:6472
-#: fish/cmds.c:6496 fish/cmds.c:6519 fish/cmds.c:6540 fish/cmds.c:6563
-#: fish/cmds.c:6586 fish/cmds.c:6606 fish/cmds.c:6628 fish/cmds.c:6649
-#: fish/cmds.c:6672 fish/cmds.c:6689 fish/cmds.c:6706 fish/cmds.c:6724
-#: fish/cmds.c:6742 fish/cmds.c:6763 fish/cmds.c:6781 fish/cmds.c:6802
-#: fish/cmds.c:6822 fish/cmds.c:6840 fish/cmds.c:6861 fish/cmds.c:6884
-#: fish/cmds.c:6907 fish/cmds.c:6929 fish/cmds.c:6962 fish/cmds.c:6979
-#: fish/cmds.c:6996 fish/cmds.c:7020 fish/cmds.c:7043 fish/cmds.c:7066
-#: fish/cmds.c:7088 fish/cmds.c:7105 fish/cmds.c:7127 fish/cmds.c:7221
-#: fish/cmds.c:7241 fish/cmds.c:7261 fish/cmds.c:7281 fish/cmds.c:7299
-#: fish/cmds.c:7320 fish/cmds.c:7356 fish/cmds.c:7373 fish/cmds.c:7395
-#: fish/cmds.c:7412 fish/cmds.c:7448 fish/cmds.c:7468 fish/cmds.c:7488
-#: fish/cmds.c:7508 fish/cmds.c:7530 fish/cmds.c:7547 fish/cmds.c:7566
-#: fish/cmds.c:7585 fish/cmds.c:7607 fish/cmds.c:7628 fish/cmds.c:7649
-#: fish/cmds.c:7670 fish/cmds.c:7693 fish/cmds.c:7734 fish/cmds.c:7757
-#: fish/cmds.c:7796 fish/cmds.c:7813 fish/cmds.c:7832 fish/cmds.c:7853
-#: fish/cmds.c:7876 fish/cmds.c:7898 fish/cmds.c:7916 fish/cmds.c:7935
-#: fish/cmds.c:7956 fish/cmds.c:8033 fish/cmds.c:8074 fish/cmds.c:8153
-#: fish/cmds.c:8229 fish/cmds.c:8266 fish/cmds.c:8289 fish/cmds.c:8310
-#: fish/cmds.c:8333 fish/cmds.c:8355 fish/cmds.c:8380 fish/cmds.c:8423
-#: fish/cmds.c:8464 fish/cmds.c:8485 fish/cmds.c:8503 fish/cmds.c:8522
-#: fish/cmds.c:8539 fish/cmds.c:8557 fish/cmds.c:8584 fish/cmds.c:8608
-#: fish/cmds.c:8632 fish/cmds.c:8656 fish/cmds.c:8680 fish/cmds.c:8704
-#: fish/cmds.c:8728 fish/cmds.c:8752 fish/cmds.c:8776 fish/cmds.c:8800
-#: fish/cmds.c:8824 fish/cmds.c:8848 fish/cmds.c:8871 fish/cmds.c:8894
-#: fish/cmds.c:8915 fish/cmds.c:8936 fish/cmds.c:8957 fish/cmds.c:8977
-#: fish/cmds.c:9000 fish/cmds.c:9038 fish/cmds.c:9055 fish/cmds.c:9072
-#: fish/cmds.c:9091 fish/cmds.c:9110 fish/cmds.c:9127 fish/cmds.c:9144
-#: fish/cmds.c:9161 fish/cmds.c:9178 fish/cmds.c:9197 fish/cmds.c:9233
-#: fish/cmds.c:9273 fish/cmds.c:9306 fish/cmds.c:9323 fish/cmds.c:9340
-#: fish/cmds.c:9356 fish/cmds.c:9371 fish/cmds.c:9392 fish/cmds.c:9430
-#: fish/cmds.c:9468 fish/cmds.c:9507 fish/cmds.c:9547 fish/cmds.c:9588
-#: fish/cmds.c:9629 fish/cmds.c:9667 fish/cmds.c:9684 fish/cmds.c:9707
-#: fish/cmds.c:9729 fish/cmds.c:9751 fish/cmds.c:9771 fish/cmds.c:9791
-#: fish/cmds.c:9827 fish/cmds.c:9899 fish/cmds.c:9939 fish/cmds.c:9997
-#: fish/cmds.c:10023 fish/cmds.c:10049 fish/cmds.c:10077 fish/cmds.c:10136
-#: fish/cmds.c:10157 fish/cmds.c:10202 fish/cmds.c:10222 fish/cmds.c:10261
-#: fish/cmds.c:10298 fish/cmds.c:10318 fish/cmds.c:10340 fish/cmds.c:10397
-#: fish/cmds.c:10417 fish/cmds.c:10439 fish/cmds.c:10461 fish/cmds.c:10480
-#: fish/cmds.c:10500 fish/cmds.c:10527 fish/cmds.c:10547 fish/cmds.c:10567
-#: fish/cmds.c:10587 fish/cmds.c:10607 fish/cmds.c:10629 fish/cmds.c:10664
-#: fish/cmds.c:10682 fish/cmds.c:10705 fish/cmds.c:10727 fish/cmds.c:10742
-#: fish/cmds.c:10759 fish/cmds.c:10796 fish/cmds.c:10835 fish/cmds.c:10875
-#: fish/cmds.c:10931 fish/cmds.c:10953 fish/cmds.c:10989 fish/cmds.c:11004
-#: fish/cmds.c:11024 fish/cmds.c:11064 fish/cmds.c:11087 fish/cmds.c:11111
-#: fish/cmds.c:11136 fish/cmds.c:11177 fish/cmds.c:11202 fish/cmds.c:11240
-#: fish/cmds.c:11271 fish/cmds.c:11302 fish/cmds.c:11330 fish/cmds.c:11350
-#: fish/cmds.c:11382 fish/cmds.c:11402 fish/cmds.c:11422 fish/cmds.c:11439
-#: fish/cmds.c:11457 fish/cmds.c:11482 fish/cmds.c:11505 fish/cmds.c:11524
-#: fish/cmds.c:11568 fish/cmds.c:11613 fish/cmds.c:11661 fish/cmds.c:11702
-#: fish/cmds.c:11721 fish/cmds.c:11741 fish/cmds.c:11761 fish/cmds.c:11782
-#: fish/cmds.c:11803 fish/cmds.c:11824 fish/cmds.c:11845 fish/cmds.c:11866
-#: fish/cmds.c:11888 fish/cmds.c:11926 fish/cmds.c:11977 fish/cmds.c:12015
-#: fish/cmds.c:12071 fish/cmds.c:12094 fish/cmds.c:12207 fish/cmds.c:12236
-#: fish/cmds.c:12263 fish/cmds.c:12280 fish/cmds.c:12301 fish/cmds.c:12318
-#: fish/cmds.c:12340 fish/cmds.c:12380 fish/cmds.c:12401 fish/cmds.c:12461
-#: fish/cmds.c:12518 fish/cmds.c:12544 fish/cmds.c:12613 fish/cmds.c:12676
-#: fish/cmds.c:12698 fish/cmds.c:12789 fish/cmds.c:12882 fish/cmds.c:12975
-#: fish/cmds.c:13069 fish/cmds.c:13266 fish/cmds.c:13388 fish/cmds.c:13407
-#: fish/cmds.c:13427 fish/cmds.c:13444 fish/cmds.c:13466 fish/cmds.c:13512
-#: fish/cmds.c:13534
+#: fish/cmds.c:3589 fish/cmds.c:3603 fish/cmds.c:3619 fish/cmds.c:3636
+#: fish/cmds.c:3653 fish/cmds.c:3671 fish/cmds.c:3690 fish/cmds.c:3706
+#: fish/cmds.c:3724 fish/cmds.c:3740 fish/cmds.c:3758 fish/cmds.c:3774
+#: fish/cmds.c:3791 fish/cmds.c:3806 fish/cmds.c:3824 fish/cmds.c:3839
+#: fish/cmds.c:3855 fish/cmds.c:3871 fish/cmds.c:3887 fish/cmds.c:3903
+#: fish/cmds.c:3919 fish/cmds.c:3937 fish/cmds.c:3970 fish/cmds.c:3986
+#: fish/cmds.c:4002 fish/cmds.c:4021 fish/cmds.c:4036 fish/cmds.c:4054
+#: fish/cmds.c:4069 fish/cmds.c:4087 fish/cmds.c:4102 fish/cmds.c:4120
+#: fish/cmds.c:4135 fish/cmds.c:4154 fish/cmds.c:4173 fish/cmds.c:4191
+#: fish/cmds.c:4211 fish/cmds.c:4230 fish/cmds.c:4250 fish/cmds.c:4270
+#: fish/cmds.c:4290 fish/cmds.c:4309 fish/cmds.c:4328 fish/cmds.c:4348
+#: fish/cmds.c:4368 fish/cmds.c:4388 fish/cmds.c:4403 fish/cmds.c:4419
+#: fish/cmds.c:4440 fish/cmds.c:4496 fish/cmds.c:4514 fish/cmds.c:4531
+#: fish/cmds.c:4548 fish/cmds.c:4569 fish/cmds.c:4637 fish/cmds.c:4657
+#: fish/cmds.c:4677 fish/cmds.c:4697 fish/cmds.c:4717 fish/cmds.c:4737
+#: fish/cmds.c:4756 fish/cmds.c:4775 fish/cmds.c:4794 fish/cmds.c:4809
+#: fish/cmds.c:4828 fish/cmds.c:4848 fish/cmds.c:4868 fish/cmds.c:4891
+#: fish/cmds.c:4944 fish/cmds.c:4959 fish/cmds.c:4977 fish/cmds.c:5010
+#: fish/cmds.c:5029 fish/cmds.c:5045 fish/cmds.c:5061 fish/cmds.c:5080
+#: fish/cmds.c:5102 fish/cmds.c:5124 fish/cmds.c:5144 fish/cmds.c:5161
+#: fish/cmds.c:5178 fish/cmds.c:5195 fish/cmds.c:5212 fish/cmds.c:5229
+#: fish/cmds.c:5246 fish/cmds.c:5263 fish/cmds.c:5282 fish/cmds.c:5305
+#: fish/cmds.c:5341 fish/cmds.c:5358 fish/cmds.c:5381 fish/cmds.c:5403
+#: fish/cmds.c:5424 fish/cmds.c:5444 fish/cmds.c:5463 fish/cmds.c:5483
+#: fish/cmds.c:5501 fish/cmds.c:5519 fish/cmds.c:5533 fish/cmds.c:5549
+#: fish/cmds.c:5569 fish/cmds.c:5588 fish/cmds.c:5607 fish/cmds.c:5626
+#: fish/cmds.c:5645 fish/cmds.c:5665 fish/cmds.c:5705 fish/cmds.c:5762
+#: fish/cmds.c:5783 fish/cmds.c:5804 fish/cmds.c:5825 fish/cmds.c:5843
+#: fish/cmds.c:5865 fish/cmds.c:5903 fish/cmds.c:5925 fish/cmds.c:6004
+#: fish/cmds.c:6043 fish/cmds.c:6058 fish/cmds.c:6075 fish/cmds.c:6089
+#: fish/cmds.c:6105 fish/cmds.c:6127 fish/cmds.c:6149 fish/cmds.c:6171
+#: fish/cmds.c:6193 fish/cmds.c:6215 fish/cmds.c:6237 fish/cmds.c:6257
+#: fish/cmds.c:6274 fish/cmds.c:6291 fish/cmds.c:6310 fish/cmds.c:6329
+#: fish/cmds.c:6349 fish/cmds.c:6385 fish/cmds.c:6404 fish/cmds.c:6423
+#: fish/cmds.c:6440 fish/cmds.c:6458 fish/cmds.c:6481 fish/cmds.c:6504
+#: fish/cmds.c:6528 fish/cmds.c:6551 fish/cmds.c:6572 fish/cmds.c:6595
+#: fish/cmds.c:6618 fish/cmds.c:6638 fish/cmds.c:6660 fish/cmds.c:6681
+#: fish/cmds.c:6704 fish/cmds.c:6721 fish/cmds.c:6738 fish/cmds.c:6756
+#: fish/cmds.c:6774 fish/cmds.c:6795 fish/cmds.c:6813 fish/cmds.c:6834
+#: fish/cmds.c:6854 fish/cmds.c:6872 fish/cmds.c:6893 fish/cmds.c:6916
+#: fish/cmds.c:6939 fish/cmds.c:6961 fish/cmds.c:6994 fish/cmds.c:7011
+#: fish/cmds.c:7028 fish/cmds.c:7052 fish/cmds.c:7075 fish/cmds.c:7098
+#: fish/cmds.c:7120 fish/cmds.c:7137 fish/cmds.c:7159 fish/cmds.c:7253
+#: fish/cmds.c:7273 fish/cmds.c:7293 fish/cmds.c:7313 fish/cmds.c:7331
+#: fish/cmds.c:7352 fish/cmds.c:7388 fish/cmds.c:7405 fish/cmds.c:7427
+#: fish/cmds.c:7444 fish/cmds.c:7480 fish/cmds.c:7500 fish/cmds.c:7520
+#: fish/cmds.c:7540 fish/cmds.c:7562 fish/cmds.c:7579 fish/cmds.c:7598
+#: fish/cmds.c:7617 fish/cmds.c:7639 fish/cmds.c:7660 fish/cmds.c:7681
+#: fish/cmds.c:7702 fish/cmds.c:7725 fish/cmds.c:7766 fish/cmds.c:7789
+#: fish/cmds.c:7828 fish/cmds.c:7845 fish/cmds.c:7864 fish/cmds.c:7885
+#: fish/cmds.c:7908 fish/cmds.c:7930 fish/cmds.c:7948 fish/cmds.c:7967
+#: fish/cmds.c:7988 fish/cmds.c:8065 fish/cmds.c:8106 fish/cmds.c:8185
+#: fish/cmds.c:8261 fish/cmds.c:8298 fish/cmds.c:8321 fish/cmds.c:8342
+#: fish/cmds.c:8365 fish/cmds.c:8387 fish/cmds.c:8412 fish/cmds.c:8455
+#: fish/cmds.c:8496 fish/cmds.c:8517 fish/cmds.c:8535 fish/cmds.c:8554
+#: fish/cmds.c:8571 fish/cmds.c:8589 fish/cmds.c:8616 fish/cmds.c:8640
+#: fish/cmds.c:8664 fish/cmds.c:8688 fish/cmds.c:8712 fish/cmds.c:8736
+#: fish/cmds.c:8760 fish/cmds.c:8784 fish/cmds.c:8808 fish/cmds.c:8832
+#: fish/cmds.c:8856 fish/cmds.c:8880 fish/cmds.c:8903 fish/cmds.c:8926
+#: fish/cmds.c:8947 fish/cmds.c:8968 fish/cmds.c:8989 fish/cmds.c:9009
+#: fish/cmds.c:9032 fish/cmds.c:9070 fish/cmds.c:9087 fish/cmds.c:9104
+#: fish/cmds.c:9123 fish/cmds.c:9142 fish/cmds.c:9159 fish/cmds.c:9176
+#: fish/cmds.c:9193 fish/cmds.c:9210 fish/cmds.c:9229 fish/cmds.c:9265
+#: fish/cmds.c:9305 fish/cmds.c:9338 fish/cmds.c:9355 fish/cmds.c:9372
+#: fish/cmds.c:9388 fish/cmds.c:9403 fish/cmds.c:9424 fish/cmds.c:9462
+#: fish/cmds.c:9500 fish/cmds.c:9539 fish/cmds.c:9579 fish/cmds.c:9620
+#: fish/cmds.c:9661 fish/cmds.c:9699 fish/cmds.c:9716 fish/cmds.c:9739
+#: fish/cmds.c:9761 fish/cmds.c:9783 fish/cmds.c:9803 fish/cmds.c:9823
+#: fish/cmds.c:9859 fish/cmds.c:9931 fish/cmds.c:9971 fish/cmds.c:10029
+#: fish/cmds.c:10055 fish/cmds.c:10081 fish/cmds.c:10109 fish/cmds.c:10168
+#: fish/cmds.c:10189 fish/cmds.c:10234 fish/cmds.c:10254 fish/cmds.c:10293
+#: fish/cmds.c:10330 fish/cmds.c:10350 fish/cmds.c:10372 fish/cmds.c:10429
+#: fish/cmds.c:10449 fish/cmds.c:10471 fish/cmds.c:10493 fish/cmds.c:10512
+#: fish/cmds.c:10532 fish/cmds.c:10559 fish/cmds.c:10579 fish/cmds.c:10599
+#: fish/cmds.c:10619 fish/cmds.c:10639 fish/cmds.c:10661 fish/cmds.c:10696
+#: fish/cmds.c:10714 fish/cmds.c:10737 fish/cmds.c:10759 fish/cmds.c:10774
+#: fish/cmds.c:10791 fish/cmds.c:10828 fish/cmds.c:10867 fish/cmds.c:10907
+#: fish/cmds.c:10963 fish/cmds.c:10985 fish/cmds.c:11021 fish/cmds.c:11036
+#: fish/cmds.c:11056 fish/cmds.c:11096 fish/cmds.c:11119 fish/cmds.c:11143
+#: fish/cmds.c:11168 fish/cmds.c:11209 fish/cmds.c:11234 fish/cmds.c:11272
+#: fish/cmds.c:11303 fish/cmds.c:11334 fish/cmds.c:11362 fish/cmds.c:11382
+#: fish/cmds.c:11414 fish/cmds.c:11434 fish/cmds.c:11454 fish/cmds.c:11471
+#: fish/cmds.c:11489 fish/cmds.c:11514 fish/cmds.c:11537 fish/cmds.c:11556
+#: fish/cmds.c:11600 fish/cmds.c:11645 fish/cmds.c:11693 fish/cmds.c:11734
+#: fish/cmds.c:11753 fish/cmds.c:11773 fish/cmds.c:11793 fish/cmds.c:11814
+#: fish/cmds.c:11835 fish/cmds.c:11856 fish/cmds.c:11877 fish/cmds.c:11898
+#: fish/cmds.c:11920 fish/cmds.c:11958 fish/cmds.c:12009 fish/cmds.c:12047
+#: fish/cmds.c:12103 fish/cmds.c:12126 fish/cmds.c:12239 fish/cmds.c:12268
+#: fish/cmds.c:12295 fish/cmds.c:12312 fish/cmds.c:12333 fish/cmds.c:12350
+#: fish/cmds.c:12372 fish/cmds.c:12412 fish/cmds.c:12433 fish/cmds.c:12493
+#: fish/cmds.c:12550 fish/cmds.c:12576 fish/cmds.c:12645 fish/cmds.c:12708
+#: fish/cmds.c:12730 fish/cmds.c:12821 fish/cmds.c:12914 fish/cmds.c:13007
+#: fish/cmds.c:13101 fish/cmds.c:13298 fish/cmds.c:13420 fish/cmds.c:13439
+#: fish/cmds.c:13459 fish/cmds.c:13476 fish/cmds.c:13498 fish/cmds.c:13544
+#: fish/cmds.c:13566 fish/cmds.c:13585 fish/cmds.c:13629 fish/cmds.c:13694
+#: fish/cmds.c:13715
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr "'help %s' टाइप करा व %s बाबत मदत पहा\n"
 
-#: fish/cmds.c:3915 fish/cmds.c:4955 fish/cmds.c:5285 fish/cmds.c:5643
-#: fish/cmds.c:5683 fish/cmds.c:5702 fish/cmds.c:5845 fish/cmds.c:5904
-#: fish/cmds.c:5923 fish/cmds.c:5942 fish/cmds.c:5985 fish/cmds.c:6328
-#: fish/cmds.c:6939 fish/cmds.c:7138 fish/cmds.c:7157 fish/cmds.c:7176
-#: fish/cmds.c:7195 fish/cmds.c:7331 fish/cmds.c:7422 fish/cmds.c:7703
-#: fish/cmds.c:7767 fish/cmds.c:7966 fish/cmds.c:7985 fish/cmds.c:8004
-#: fish/cmds.c:8043 fish/cmds.c:8084 fish/cmds.c:8103 fish/cmds.c:8122
-#: fish/cmds.c:8163 fish/cmds.c:8182 fish/cmds.c:8201 fish/cmds.c:8239
-#: fish/cmds.c:8392 fish/cmds.c:8435 fish/cmds.c:9012 fish/cmds.c:9207
-#: fish/cmds.c:9245 fish/cmds.c:9283 fish/cmds.c:9403 fish/cmds.c:9440
-#: fish/cmds.c:9478 fish/cmds.c:9517 fish/cmds.c:9558 fish/cmds.c:9599
-#: fish/cmds.c:9640 fish/cmds.c:9803 fish/cmds.c:9839 fish/cmds.c:9852
-#: fish/cmds.c:9865 fish/cmds.c:9878 fish/cmds.c:9911 fish/cmds.c:9949
-#: fish/cmds.c:9968 fish/cmds.c:10089 fish/cmds.c:10108 fish/cmds.c:10169
-#: fish/cmds.c:10182 fish/cmds.c:10233 fish/cmds.c:10272 fish/cmds.c:10350
-#: fish/cmds.c:10369 fish/cmds.c:10643 fish/cmds.c:10770 fish/cmds.c:10807
-#: fish/cmds.c:10846 fish/cmds.c:10886 fish/cmds.c:10905 fish/cmds.c:10964
-#: fish/cmds.c:11037 fish/cmds.c:11147 fish/cmds.c:11217 fish/cmds.c:11251
-#: fish/cmds.c:11282 fish/cmds.c:11313 fish/cmds.c:11362 fish/cmds.c:11539
-#: fish/cmds.c:11583 fish/cmds.c:11632 fish/cmds.c:11676 fish/cmds.c:11902
-#: fish/cmds.c:11940 fish/cmds.c:11953 fish/cmds.c:11991 fish/cmds.c:12026
-#: fish/cmds.c:12045 fish/cmds.c:12112 fish/cmds.c:12140 fish/cmds.c:12163
-#: fish/cmds.c:12418 fish/cmds.c:12479 fish/cmds.c:12565 fish/cmds.c:12633
-#: fish/cmds.c:12716 fish/cmds.c:12733 fish/cmds.c:12750 fish/cmds.c:12808
-#: fish/cmds.c:12825 fish/cmds.c:12842 fish/cmds.c:12901 fish/cmds.c:12918
-#: fish/cmds.c:12935 fish/cmds.c:12995 fish/cmds.c:13012 fish/cmds.c:13029
-#: fish/cmds.c:13091 fish/cmds.c:13114 fish/cmds.c:13142 fish/cmds.c:13159
-#: fish/cmds.c:13182 fish/cmds.c:13210 fish/cmds.c:13227 fish/cmds.c:13285
-#: fish/cmds.c:13302 fish/cmds.c:13325 fish/cmds.c:13348
+#: fish/cmds.c:3947 fish/cmds.c:4987 fish/cmds.c:5317 fish/cmds.c:5675
+#: fish/cmds.c:5715 fish/cmds.c:5734 fish/cmds.c:5877 fish/cmds.c:5936
+#: fish/cmds.c:5955 fish/cmds.c:5974 fish/cmds.c:6017 fish/cmds.c:6360
+#: fish/cmds.c:6971 fish/cmds.c:7170 fish/cmds.c:7189 fish/cmds.c:7208
+#: fish/cmds.c:7227 fish/cmds.c:7363 fish/cmds.c:7454 fish/cmds.c:7735
+#: fish/cmds.c:7799 fish/cmds.c:7998 fish/cmds.c:8017 fish/cmds.c:8036
+#: fish/cmds.c:8075 fish/cmds.c:8116 fish/cmds.c:8135 fish/cmds.c:8154
+#: fish/cmds.c:8195 fish/cmds.c:8214 fish/cmds.c:8233 fish/cmds.c:8271
+#: fish/cmds.c:8424 fish/cmds.c:8467 fish/cmds.c:9044 fish/cmds.c:9239
+#: fish/cmds.c:9277 fish/cmds.c:9315 fish/cmds.c:9435 fish/cmds.c:9472
+#: fish/cmds.c:9510 fish/cmds.c:9549 fish/cmds.c:9590 fish/cmds.c:9631
+#: fish/cmds.c:9672 fish/cmds.c:9835 fish/cmds.c:9871 fish/cmds.c:9884
+#: fish/cmds.c:9897 fish/cmds.c:9910 fish/cmds.c:9943 fish/cmds.c:9981
+#: fish/cmds.c:10000 fish/cmds.c:10121 fish/cmds.c:10140 fish/cmds.c:10201
+#: fish/cmds.c:10214 fish/cmds.c:10265 fish/cmds.c:10304 fish/cmds.c:10382
+#: fish/cmds.c:10401 fish/cmds.c:10675 fish/cmds.c:10802 fish/cmds.c:10839
+#: fish/cmds.c:10878 fish/cmds.c:10918 fish/cmds.c:10937 fish/cmds.c:10996
+#: fish/cmds.c:11069 fish/cmds.c:11179 fish/cmds.c:11249 fish/cmds.c:11283
+#: fish/cmds.c:11314 fish/cmds.c:11345 fish/cmds.c:11394 fish/cmds.c:11571
+#: fish/cmds.c:11615 fish/cmds.c:11664 fish/cmds.c:11708 fish/cmds.c:11934
+#: fish/cmds.c:11972 fish/cmds.c:11985 fish/cmds.c:12023 fish/cmds.c:12058
+#: fish/cmds.c:12077 fish/cmds.c:12144 fish/cmds.c:12172 fish/cmds.c:12195
+#: fish/cmds.c:12450 fish/cmds.c:12511 fish/cmds.c:12597 fish/cmds.c:12665
+#: fish/cmds.c:12748 fish/cmds.c:12765 fish/cmds.c:12782 fish/cmds.c:12840
+#: fish/cmds.c:12857 fish/cmds.c:12874 fish/cmds.c:12933 fish/cmds.c:12950
+#: fish/cmds.c:12967 fish/cmds.c:13027 fish/cmds.c:13044 fish/cmds.c:13061
+#: fish/cmds.c:13123 fish/cmds.c:13146 fish/cmds.c:13174 fish/cmds.c:13191
+#: fish/cmds.c:13214 fish/cmds.c:13242 fish/cmds.c:13259 fish/cmds.c:13317
+#: fish/cmds.c:13334 fish/cmds.c:13357 fish/cmds.c:13380
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: अवैध इंटीजर घटक (%s ने %d पाठवले)\n"
 
-#: fish/cmds.c:3921 fish/cmds.c:4961 fish/cmds.c:5291 fish/cmds.c:5649
-#: fish/cmds.c:5689 fish/cmds.c:5708 fish/cmds.c:5851 fish/cmds.c:5910
-#: fish/cmds.c:5929 fish/cmds.c:5948 fish/cmds.c:5991 fish/cmds.c:6334
-#: fish/cmds.c:6945 fish/cmds.c:7144 fish/cmds.c:7163 fish/cmds.c:7182
-#: fish/cmds.c:7201 fish/cmds.c:7337 fish/cmds.c:7428 fish/cmds.c:7709
-#: fish/cmds.c:7773 fish/cmds.c:7972 fish/cmds.c:7991 fish/cmds.c:8010
-#: fish/cmds.c:8049 fish/cmds.c:8090 fish/cmds.c:8109 fish/cmds.c:8128
-#: fish/cmds.c:8169 fish/cmds.c:8188 fish/cmds.c:8207 fish/cmds.c:8245
-#: fish/cmds.c:8398 fish/cmds.c:8441 fish/cmds.c:9018 fish/cmds.c:9213
-#: fish/cmds.c:9251 fish/cmds.c:9289 fish/cmds.c:9409 fish/cmds.c:9446
-#: fish/cmds.c:9484 fish/cmds.c:9523 fish/cmds.c:9564 fish/cmds.c:9605
-#: fish/cmds.c:9646 fish/cmds.c:9917 fish/cmds.c:9955 fish/cmds.c:9974
-#: fish/cmds.c:10095 fish/cmds.c:10239 fish/cmds.c:10278 fish/cmds.c:10356
-#: fish/cmds.c:10375 fish/cmds.c:10776 fish/cmds.c:10813 fish/cmds.c:10852
-#: fish/cmds.c:10892 fish/cmds.c:10911 fish/cmds.c:10970 fish/cmds.c:11043
-#: fish/cmds.c:11153 fish/cmds.c:11545 fish/cmds.c:11589 fish/cmds.c:11638
-#: fish/cmds.c:11682 fish/cmds.c:12032 fish/cmds.c:12118 fish/cmds.c:12146
-#: fish/cmds.c:12169 fish/cmds.c:12571 fish/cmds.c:12639 fish/cmds.c:13097
-#: fish/cmds.c:13120 fish/cmds.c:13165 fish/cmds.c:13188 fish/cmds.c:13308
-#: fish/cmds.c:13331
+#: fish/cmds.c:3953 fish/cmds.c:4993 fish/cmds.c:5323 fish/cmds.c:5681
+#: fish/cmds.c:5721 fish/cmds.c:5740 fish/cmds.c:5883 fish/cmds.c:5942
+#: fish/cmds.c:5961 fish/cmds.c:5980 fish/cmds.c:6023 fish/cmds.c:6366
+#: fish/cmds.c:6977 fish/cmds.c:7176 fish/cmds.c:7195 fish/cmds.c:7214
+#: fish/cmds.c:7233 fish/cmds.c:7369 fish/cmds.c:7460 fish/cmds.c:7741
+#: fish/cmds.c:7805 fish/cmds.c:8004 fish/cmds.c:8023 fish/cmds.c:8042
+#: fish/cmds.c:8081 fish/cmds.c:8122 fish/cmds.c:8141 fish/cmds.c:8160
+#: fish/cmds.c:8201 fish/cmds.c:8220 fish/cmds.c:8239 fish/cmds.c:8277
+#: fish/cmds.c:8430 fish/cmds.c:8473 fish/cmds.c:9050 fish/cmds.c:9245
+#: fish/cmds.c:9283 fish/cmds.c:9321 fish/cmds.c:9441 fish/cmds.c:9478
+#: fish/cmds.c:9516 fish/cmds.c:9555 fish/cmds.c:9596 fish/cmds.c:9637
+#: fish/cmds.c:9678 fish/cmds.c:9949 fish/cmds.c:9987 fish/cmds.c:10006
+#: fish/cmds.c:10127 fish/cmds.c:10271 fish/cmds.c:10310 fish/cmds.c:10388
+#: fish/cmds.c:10407 fish/cmds.c:10808 fish/cmds.c:10845 fish/cmds.c:10884
+#: fish/cmds.c:10924 fish/cmds.c:10943 fish/cmds.c:11002 fish/cmds.c:11075
+#: fish/cmds.c:11185 fish/cmds.c:11577 fish/cmds.c:11621 fish/cmds.c:11670
+#: fish/cmds.c:11714 fish/cmds.c:12064 fish/cmds.c:12150 fish/cmds.c:12178
+#: fish/cmds.c:12201 fish/cmds.c:12603 fish/cmds.c:12671 fish/cmds.c:13129
+#: fish/cmds.c:13152 fish/cmds.c:13197 fish/cmds.c:13220 fish/cmds.c:13340
+#: fish/cmds.c:13363
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: इंटीजर व्याप्तीच्या बाहेर आहे\n"
 
-#: fish/cmds.c:4407 fish/cmds.c:4536 fish/cmds.c:4858 fish/cmds.c:12093
-#: fish/cmds.c:12339 fish/cmds.c:12400 fish/cmds.c:12460 fish/cmds.c:12543
-#: fish/cmds.c:12612 fish/cmds.c:12697 fish/cmds.c:12788 fish/cmds.c:12881
-#: fish/cmds.c:12974 fish/cmds.c:13068 fish/cmds.c:13265 fish/cmds.c:13465
+#: fish/cmds.c:4439 fish/cmds.c:4568 fish/cmds.c:4890 fish/cmds.c:12125
+#: fish/cmds.c:12371 fish/cmds.c:12432 fish/cmds.c:12492 fish/cmds.c:12575
+#: fish/cmds.c:12644 fish/cmds.c:12729 fish/cmds.c:12820 fish/cmds.c:12913
+#: fish/cmds.c:13006 fish/cmds.c:13100 fish/cmds.c:13297 fish/cmds.c:13497
+#: fish/cmds.c:13584 fish/cmds.c:13628
 #, c-format
 msgid "%s should have %d-%d parameter(s)\n"
 msgstr "%s कडे %d-%d घटके असायला हवे\n"
 
-#: fish/cmds.c:4438 fish/cmds.c:4577 fish/cmds.c:4879 fish/cmds.c:12179
-#: fish/cmds.c:12356 fish/cmds.c:12433 fish/cmds.c:12489 fish/cmds.c:12581
-#: fish/cmds.c:12649 fish/cmds.c:12760 fish/cmds.c:12852 fish/cmds.c:12945
-#: fish/cmds.c:13039 fish/cmds.c:13237 fish/cmds.c:13363 fish/cmds.c:13486
+#: fish/cmds.c:4470 fish/cmds.c:4609 fish/cmds.c:4911 fish/cmds.c:12211
+#: fish/cmds.c:12388 fish/cmds.c:12465 fish/cmds.c:12521 fish/cmds.c:12613
+#: fish/cmds.c:12681 fish/cmds.c:12792 fish/cmds.c:12884 fish/cmds.c:12977
+#: fish/cmds.c:13071 fish/cmds.c:13269 fish/cmds.c:13395 fish/cmds.c:13518
+#: fish/cmds.c:13600 fish/cmds.c:13666
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: अपरिचीत वैकल्पिक घटक \"%s\"\n"
 
-#: fish/cmds.c:4444 fish/cmds.c:4583 fish/cmds.c:4885 fish/cmds.c:12185
-#: fish/cmds.c:12362 fish/cmds.c:12439 fish/cmds.c:12495 fish/cmds.c:12587
-#: fish/cmds.c:12655 fish/cmds.c:12766 fish/cmds.c:12858 fish/cmds.c:12951
-#: fish/cmds.c:13045 fish/cmds.c:13243 fish/cmds.c:13369 fish/cmds.c:13492
+#: fish/cmds.c:4476 fish/cmds.c:4615 fish/cmds.c:4917 fish/cmds.c:12217
+#: fish/cmds.c:12394 fish/cmds.c:12471 fish/cmds.c:12527 fish/cmds.c:12619
+#: fish/cmds.c:12687 fish/cmds.c:12798 fish/cmds.c:12890 fish/cmds.c:12983
+#: fish/cmds.c:13077 fish/cmds.c:13275 fish/cmds.c:13401 fish/cmds.c:13524
+#: fish/cmds.c:13606 fish/cmds.c:13672
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: वैकल्पिक घटक \"%s\" दोनवेळा दिले\n"
 
-#: fish/cmds.c:13551
+#: fish/cmds.c:13733
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: अपरिचीत आदेश\n"
@@ -3327,7 +3348,7 @@ msgstr ""
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: त्रुटी: %s\n"
 
-#: src/guestfs.c:954
+#: src/guestfs.c:957
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
