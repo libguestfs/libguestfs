@@ -30,6 +30,16 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+/* In RHEL 6, libguestfs live is not supported. */
+static int
+launch_unix (guestfs_h *g, const char *sockpath)
+{
+  error (g,
+        "launch: In RHEL 6, \"libguestfs live\" is not supported.");
+  return -1;
+}
+
+#if 0
 /* Alternate attach method: instead of launching the appliance,
  * connect to an existing unix socket.
  */
@@ -101,6 +111,7 @@ launch_unix (guestfs_h *g, const char *sockpath)
   close (g->sock);
   return -1;
 }
+#endif
 
 static int
 shutdown_unix (guestfs_h *g, int check_for_errors)
