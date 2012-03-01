@@ -32,13 +32,13 @@ elif [ -x /sbin/start_udev ] && /sbin/start_udev; then
 elif [ -x /sbin/udevd ]; then
   echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
   /sbin/udevd --daemon
-  /sbin/udevadm trigger
-  /sbin/udevadm settle
+  udevadm trigger
+  udevadm settle
 elif [ -x /lib/udev/udevd ]; then
   echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
   /lib/udev/udevd --daemon
-  /sbin/udevadm trigger
-  /sbin/udevadm settle
+  udevadm trigger
+  udevadm settle
 else
   echo No udev, creating /dev manually
   mount -t tmpfs none /dev
@@ -143,4 +143,4 @@ else
 fi
 
 sync
-/sbin/reboot -f
+reboot -f
