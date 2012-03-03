@@ -1063,7 +1063,7 @@ connect_unix_socket (guestfs_h *g, const char *sockpath)
   return -1;
 }
 
-/* launch (of the ordinary appliance) generates approximate progress
+/* launch (of the appliance) generates approximate progress
  * messages.  Currently these are defined as follows:
  *
  *    0 / 12: launch clock starts
