@@ -49,6 +49,7 @@ static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem
 static int dir_contains_file (const char *dir, const char *file);
 static int dir_contains_files (const char *dir, ...);
 static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
+static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static char *calculate_supermin_checksum (guestfs_h *g, const char *supermin_path);
 static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
@@ -61,7 +62,7 @@ static void print_febootstrap_command_line (guestfs_h *g, const char *argv[]);
  *
  * This function locates or builds the appliance as necessary,
  * handling the supermin appliance, caching of supermin-built
- * appliances, or using an old-style appliance.
+ * appliances, or using either a fixed or old-style appliance.
  *
  * The return value is 0 = good, -1 = error.  Returned in '*kernel'
  * will be the name of the kernel to use, '*initrd' the name of the
@@ -86,7 +87,10 @@ static void print_febootstrap_command_line (guestfs_h *g, const char *argv[]);
  * (4) Try to build the supermin appliance.  If this is successful,
  * return it.
  *
- * (5) Check each element of g->path, looking for an old-style appliance.
+ * (5) Check each element of g->path, looking for a fixed appliance.
+ * If one is found, return it.
+ *
+ * (6) Check each element of g->path, looking for an old-style appliance.
  * If one is found, return it.
  *
  * The supermin appliance cache directory lives in
@@ -163,6 +167,24 @@ guestfs___build_appliance (guestfs_h *g,
 
   /* Step (5). */
   char *path;
+  r = find_path (g, contains_fixed_appliance, NULL, &path);
+  if (r == -1)
+    return -1;
+
+  if (r == 1) {
+    size_t len = strlen (path);
+    *kernel = safe_malloc (g, len + 6 /* "kernel" */ + 2);
+    *initrd = safe_malloc (g, len + 6 /* "initrd" */ + 2);
+    *appliance = safe_malloc (g, len + 4 /* "root" */ + 2);
+    sprintf (*kernel, "%s/kernel", path);
+    sprintf (*initrd, "%s/initrd", path);
+    sprintf (*appliance, "%s/root", path);
+
+    free (path);
+    return 0;
+  }
+
+  /* Step (6). */
   r = find_path (g, contains_old_style_appliance, NULL, &path);
   if (r == -1)
     return -1;
@@ -179,7 +201,7 @@ guestfs___build_appliance (guestfs_h *g,
     return 0;
   }
 
-  error (g, _("cannot find any suitable libguestfs supermin or old-style appliance on LIBGUESTFS_PATH (search path: %s)"),
+  error (g, _("cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH (search path: %s)"),
          g->path);
   return -1;
 }
@@ -188,6 +210,14 @@ static int
 contains_old_style_appliance (guestfs_h *g, const char *path, void *data)
 {
   return dir_contains_files (path, kernel_name, initrd_name, NULL);
+}
+
+static int
+contains_fixed_appliance (guestfs_h *g, const char *path, void *data)
+{
+  return dir_contains_files (path,
+                             "README.fixed",
+                             "kernel", "initrd", "root", NULL);
 }
 
 static int
