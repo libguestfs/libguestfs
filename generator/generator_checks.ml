@@ -70,7 +70,7 @@ let () =
         if n = "argv" || n = "args" then
           failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name;
 
-        (* List Haskell, OCaml and C keywords here.
+        (* List Haskell, OCaml, C++ and C keywords here.
          * http://www.haskell.org/haskellwiki/Keywords
          * http://caml.inria.fr/pub/docs/manual-ocaml/lex.html#operator-char
          * http://en.wikipedia.org/wiki/C_syntax#Reserved_keywords
@@ -94,7 +94,7 @@ let () =
           "newtype"; "object"; "of"; "open"; "or"; "private"; "qualified";
           "rec"; "register"; "restrict"; "return"; "short"; "sig"; "signed";
           "sizeof"; "static"; "struct"; "switch"; "then"; "to"; "true"; "try";
-          "type"; "typedef"; "union"; "unsigned"; "virtual"; "void";
+          "template"; "type"; "typedef"; "union"; "unsigned"; "virtual"; "void";
           "volatile"; "when"; "where"; "while";
           ] in
         if List.mem n reserved then

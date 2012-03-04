@@ -3679,14 +3679,14 @@ containing C<dir>.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("mkdtemp", (RString "dir", [Pathname "template"], []), 117, [],
+  ("mkdtemp", (RString "dir", [Pathname "tmpl"], []), 117, [],
    [InitScratchFS, Always, TestRun (
       [["mkdir"; "/mkdtemp"];
        ["mkdtemp"; "/mkdtemp/tmpXXXXXX"]])],
    "create a temporary directory",
    "\
 This command creates a temporary directory.  The
-C<template> parameter should be a full pathname for the
+C<tmpl> parameter should be a full pathname for the
 temporary directory name with the final six characters being
 \"XXXXXX\".
 
