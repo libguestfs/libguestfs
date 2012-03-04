@@ -360,6 +360,7 @@ tests/c-api/test-create-handle
 tests/c-api/test-debug-to-file
 tests/c-api/test*.img
 tests/c-api/test-just-header
+tests/c-api/test-just-header-cxx
 tests/c-api/test-last-errno
 tests/c-api/test.log
 tests/c-api/test-private-data

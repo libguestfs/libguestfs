@@ -46,6 +46,11 @@ TESTS = \
 	test-user-cancel \
 	test-debug-to-file
 
+if HAVE_CXX
+check_PROGRAMS += test-just-header-cxx
+TESTS += test-just-header-cxx
+endif
+
 # The API behind this test is not baked yet.
 #if HAVE_LIBVIRT
 #check_PROGRAMS += test-add-libvirt-dom
@@ -81,6 +86,15 @@ test_just_header_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_just_header_LDADD = \
 	$(top_builddir)/src/libguestfs.la
+
+if HAVE_CXX
+test_just_header_cxx_SOURCES = test-just-header-cxx.cpp
+test_just_header_cxx_CXXFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_just_header_cxx_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+endif
 
 test_create_handle_SOURCES = test-create-handle.c
 test_create_handle_CFLAGS = \

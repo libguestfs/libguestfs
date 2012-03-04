@@ -686,6 +686,13 @@ AS_IF([test "x$enable_fuse" != "xno"],
                 AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])])
 AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
+dnl Check for C++ (optional, we just use this to test the header works).
+AC_PROG_CXX
+
+dnl The C++ compiler test is pretty useless because even if it fails
+dnl it sets CXX=g++.  So test the compiler actually works.
+AM_CONDITIONAL([HAVE_CXX], [$CXX --version])
+
 dnl Check for OCaml (optional, for OCaml bindings).
 OCAMLC=no
 OCAMLFIND=no
