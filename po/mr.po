@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-13 16:41+0000\n"
+"POT-Creation-Date: 2012-03-05 10:09+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -3246,31 +3246,31 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
 
-#: src/appliance.c:182
-#, c-format
+#: src/appliance.c:204
+#, fuzzy, c-format
 msgid ""
-"cannot find any suitable libguestfs supermin or ordinary appliance on "
-"LIBGUESTFS_PATH (search path: %s)"
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 "LIBGUESTFS_PATH वरील योग्य libguestfs supermin किंवा सर्वसाधारण अप्लायंस शोधणे "
 "अशक्य (शोध मार्ग: %s)"
 
-#: src/appliance.c:332
+#: src/appliance.c:362
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s, UID %d च्या मालकिचे नाही"
 
-#: src/appliance.c:337
+#: src/appliance.c:367
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s डिरेक्ट्री नाही (मोड %o)"
 
-#: src/appliance.c:342
+#: src/appliance.c:372
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
-#: src/appliance.c:682
+#: src/appliance.c:712
 msgid "external command failed, see earlier error messages"
 msgstr "बाहेरिल आदेश अपयशी, मागील त्रुटी संदेश पहा"
 
@@ -3415,27 +3415,27 @@ msgstr "libguestfs हँडल आधिपासूनच सुरू आह�
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:492
+#: src/launch.c:499
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:933
+#: src/launch.c:944
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:946
+#: src/launch.c:957
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:1036
+#: src/launch.c:1047
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch.c:1044
+#: src/launch.c:1055
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1244
+#: src/launch.c:1255
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3444,11 +3444,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1384
+#: src/launch.c:1395
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1395
+#: src/launch.c:1406
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-13 16:41+0000\n"
+"POT-Creation-Date: 2012-03-05 10:09+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -3357,33 +3357,33 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: estado de salida de proceso hijo desconocido (%d)\n"
 
-#: src/appliance.c:182
-#, c-format
+#: src/appliance.c:204
+#, fuzzy, c-format
 msgid ""
-"cannot find any suitable libguestfs supermin or ordinary appliance on "
-"LIBGUESTFS_PATH (search path: %s)"
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 "no es posible hallar un supermin de libguestfs adecuado, o algún dispositivo "
 "ordinario en LIBGUESTFS_PATH (ruta de búsqueda: %s)"
 
-#: src/appliance.c:332
+#: src/appliance.c:362
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "seguridad: el dispositivo cacheado %s no es propiedad del UID %d"
 
-#: src/appliance.c:337
+#: src/appliance.c:367
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "seguridad: el dispositivo cacheado %s no es un directorio (modo %o) "
 
-#: src/appliance.c:342
+#: src/appliance.c:372
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 "seguridad: el dispositivo cacheado %s es modificable por el grupo u otros "
 "(modo %o)"
 
-#: src/appliance.c:682
+#: src/appliance.c:712
 msgid "external command failed, see earlier error messages"
 msgstr "falló el comando externo, vea mensajes de errores anteriores"
 
@@ -3538,29 +3538,29 @@ msgstr "el manipulador libguestfs ya ha sido iniciado"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/launch.c:492
+#: src/launch.c:499
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:933
+#: src/launch.c:944
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:946
+#: src/launch.c:957
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:1036
+#: src/launch.c:1047
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
-#: src/launch.c:1044
+#: src/launch.c:1055
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: src/launch.c:1244
+#: src/launch.c:1255
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3574,11 +3574,11 @@ msgstr ""
 "de entorno LIBGUESTFS_QEMU. Puede que se hayan mostrado también errores "
 "arriba."
 
-#: src/launch.c:1384
+#: src/launch.c:1395
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1395
+#: src/launch.c:1406
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 

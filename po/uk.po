@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-13 16:41+0000\n"
+"POT-Creation-Date: 2012-03-05 10:09+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3364,33 +3364,33 @@ msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 "%s: невідоме повідомлення про стан завершення дочірнього процесу (%d)\n"
 
-#: src/appliance.c:182
-#, c-format
+#: src/appliance.c:204
+#, fuzzy, c-format
 msgid ""
-"cannot find any suitable libguestfs supermin or ordinary appliance on "
-"LIBGUESTFS_PATH (search path: %s)"
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 "не вдалося знайти відповідного supermin libguestfs або звичайного пристрою "
 "за адресою LIBGUESTFS_PATH (каталог пошуку: %s)"
 
-#: src/appliance.c:332
+#: src/appliance.c:362
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "безпека: кешований пристрій %s не належить UID %d"
 
-#: src/appliance.c:337
+#: src/appliance.c:367
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
 
-#: src/appliance.c:342
+#: src/appliance.c:372
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/appliance.c:682
+#: src/appliance.c:712
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
@@ -3547,31 +3547,31 @@ msgstr "елемент керування libguestfs вже запущено"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:492
+#: src/launch.c:499
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:933
+#: src/launch.c:944
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:946
+#: src/launch.c:957
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:1036
+#: src/launch.c:1047
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:1044
+#: src/launch.c:1055
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1244
+#: src/launch.c:1255
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3585,11 +3585,11 @@ msgstr ""
 "встановити відповідне значення змінної середовища LIBGUESTFS_QEMU.\n"
 "Крім того, вище можна знайти повідомлення про помилки."
 
-#: src/launch.c:1384
+#: src/launch.c:1395
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1395
+#: src/launch.c:1406
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 

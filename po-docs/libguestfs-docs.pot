@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.16.5\n"
+"Project-Id-Version: libguestfs 1.16.8\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-02-13 16:42+0000\n"
+"POT-Creation-Date: 2012-03-05 10:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -673,12 +673,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:311 ../cat/virt-cat.pod:231 ../cat/virt-filesystems.pod:373 ../cat/virt-ls.pod:483 ../clone/virt-sysprep.pod:475 ../df/virt-df.pod:241 ../edit/virt-edit.pod:342 ../inspector/virt-inspector.pod:367 ../rescue/virt-rescue.pod:303 ../resize/virt-resize.pod:682 ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260 ../tools/virt-make-fs.pl:552 ../tools/virt-tar.pl:289 ../tools/virt-win-reg.pl:744
+#: ../align/virt-alignment-scan.pod:311 ../cat/virt-cat.pod:231 ../cat/virt-filesystems.pod:373 ../cat/virt-ls.pod:483 ../clone/virt-sysprep.pod:475 ../df/virt-df.pod:241 ../edit/virt-edit.pod:342 ../inspector/virt-inspector.pod:367 ../rescue/virt-rescue.pod:303 ../resize/virt-resize.pod:690 ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260 ../tools/virt-make-fs.pl:552 ../tools/virt-tar.pl:289 ../tools/virt-win-reg.pl:744
 msgid "SHELL QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:313 ../cat/virt-cat.pod:233 ../cat/virt-filesystems.pod:375 ../cat/virt-ls.pod:485 ../clone/virt-sysprep.pod:477 ../df/virt-df.pod:243 ../edit/virt-edit.pod:344 ../inspector/virt-inspector.pod:369 ../rescue/virt-rescue.pod:305 ../resize/virt-resize.pod:684 ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262 ../tools/virt-make-fs.pl:554 ../tools/virt-tar.pl:291 ../tools/virt-win-reg.pl:752
+#: ../align/virt-alignment-scan.pod:313 ../cat/virt-cat.pod:233 ../cat/virt-filesystems.pod:375 ../cat/virt-ls.pod:485 ../clone/virt-sysprep.pod:477 ../df/virt-df.pod:243 ../edit/virt-edit.pod:344 ../inspector/virt-inspector.pod:369 ../rescue/virt-rescue.pod:305 ../resize/virt-resize.pod:692 ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262 ../tools/virt-make-fs.pl:554 ../tools/virt-tar.pl:291 ../tools/virt-win-reg.pl:752
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -687,7 +687,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:318 ../cat/virt-cat.pod:238 ../cat/virt-filesystems.pod:380 ../cat/virt-ls.pod:490 ../clone/virt-sysprep.pod:482 ../df/virt-df.pod:248 ../edit/virt-edit.pod:349 ../fish/guestfish.pod:1114 ../format/virt-format.pod:173 ../fuse/guestmount.pod:312 ../inspector/virt-inspector.pod:390 ../resize/virt-resize.pod:689 ../sparsify/virt-sparsify.pod:251 ../test-tool/libguestfs-test-tool.pod:90
+#: ../align/virt-alignment-scan.pod:318 ../cat/virt-cat.pod:238 ../cat/virt-filesystems.pod:380 ../cat/virt-ls.pod:490 ../clone/virt-sysprep.pod:482 ../df/virt-df.pod:248 ../edit/virt-edit.pod:349 ../fish/guestfish.pod:1114 ../format/virt-format.pod:173 ../fuse/guestmount.pod:312 ../inspector/virt-inspector.pod:390 ../resize/virt-resize.pod:697 ../sparsify/virt-sparsify.pod:251 ../test-tool/libguestfs-test-tool.pod:90
 msgid "EXIT STATUS"
 msgstr ""
 
@@ -746,7 +746,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:495 ../clone/virt-sysprep.pod:486 ../df/virt-df.pod:253 ../edit/virt-edit.pod:354 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:33 ../examples/guestfs-recipes.pod:384 ../examples/guestfs-testing.pod:291 ../fish/guestfish.pod:1268 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177 ../fuse/guestmount.pod:317 ../inspector/virt-inspector.pod:395 ../java/examples/guestfs-java.pod:45 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:325 ../resize/virt-resize.pod:694 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:275 ../src/guestfs.pod:3269 ../test-tool/libguestfs-test-tool.pod:100 ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267 ../tools/virt-make-fs.pl:559 ../tools/virt-tar.pl:296 ../tools/virt-win-reg.pl:757
+#: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:495 ../clone/virt-sysprep.pod:486 ../df/virt-df.pod:253 ../edit/virt-edit.pod:354 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:33 ../examples/guestfs-recipes.pod:384 ../examples/guestfs-testing.pod:291 ../fish/guestfish.pod:1268 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177 ../fuse/guestmount.pod:317 ../inspector/virt-inspector.pod:395 ../java/examples/guestfs-java.pod:45 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:325 ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:275 ../src/guestfs.pod:3269 ../test-tool/libguestfs-test-tool.pod:100 ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267 ../tools/virt-make-fs.pl:559 ../tools/virt-tar.pl:296 ../tools/virt-win-reg.pl:757
 msgid "SEE ALSO"
 msgstr ""
 
@@ -758,17 +758,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:361 ../cat/virt-cat.pod:252 ../cat/virt-filesystems.pod:396 ../cat/virt-ls.pod:507 ../clone/virt-sysprep.pod:501 ../df/virt-df.pod:261 ../edit/virt-edit.pod:368 ../format/virt-format.pod:187 ../rescue/virt-rescue.pod:334 ../resize/virt-resize.pod:717 ../sparsify/virt-sparsify.pod:288 ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:585 ../tools/virt-tar.pl:311 ../tools/virt-win-reg.pl:783
+#: ../align/virt-alignment-scan.pod:361 ../cat/virt-cat.pod:252 ../cat/virt-filesystems.pod:396 ../cat/virt-ls.pod:507 ../clone/virt-sysprep.pod:501 ../df/virt-df.pod:261 ../edit/virt-edit.pod:368 ../format/virt-format.pod:187 ../rescue/virt-rescue.pod:334 ../resize/virt-resize.pod:725 ../sparsify/virt-sparsify.pod:288 ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:585 ../tools/virt-tar.pl:311 ../tools/virt-win-reg.pl:783
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:363 ../cat/virt-cat.pod:254 ../cat/virt-filesystems.pod:398 ../cat/virt-ls.pod:509 ../clone/virt-sysprep.pod:503 ../df/virt-df.pod:263 ../edit/virt-edit.pod:370 ../format/virt-format.pod:189 ../inspector/virt-inspector.pod:410 ../rescue/virt-rescue.pod:336 ../resize/virt-resize.pod:719 ../sparsify/virt-sparsify.pod:290 ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281 ../tools/virt-make-fs.pl:587 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:785
+#: ../align/virt-alignment-scan.pod:363 ../cat/virt-cat.pod:254 ../cat/virt-filesystems.pod:398 ../cat/virt-ls.pod:509 ../clone/virt-sysprep.pod:503 ../df/virt-df.pod:263 ../edit/virt-edit.pod:370 ../format/virt-format.pod:189 ../inspector/virt-inspector.pod:410 ../rescue/virt-rescue.pod:336 ../resize/virt-resize.pod:727 ../sparsify/virt-sparsify.pod:290 ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281 ../tools/virt-make-fs.pl:587 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:785
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:365 ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:400 ../cat/virt-ls.pod:511 ../clone/virt-sysprep.pod:505 ../df/virt-df.pod:265 ../edit/virt-edit.pod:372 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:49 ../examples/guestfs-recipes.pod:401 ../examples/guestfs-testing.pod:302 ../fish/guestfish.pod:1300 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191 ../fuse/guestmount.pod:332 ../inspector/virt-inspector.pod:418 ../java/examples/guestfs-java.pod:62 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:338 ../resize/virt-resize.pod:721 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:292 ../src/guestfs.pod:3353 ../test-tool/libguestfs-test-tool.pod:110 ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:589 ../tools/virt-tar.pl:315 ../tools/virt-win-reg.pl:787
+#: ../align/virt-alignment-scan.pod:365 ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:400 ../cat/virt-ls.pod:511 ../clone/virt-sysprep.pod:505 ../df/virt-df.pod:265 ../edit/virt-edit.pod:372 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:49 ../examples/guestfs-recipes.pod:401 ../examples/guestfs-testing.pod:302 ../fish/guestfish.pod:1300 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191 ../fuse/guestmount.pod:332 ../inspector/virt-inspector.pod:418 ../java/examples/guestfs-java.pod:62 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:338 ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:292 ../src/guestfs.pod:3353 ../test-tool/libguestfs-test-tool.pod:110 ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:589 ../tools/virt-tar.pl:315 ../tools/virt-win-reg.pl:787
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -778,7 +778,7 @@ msgid "Copyright (C) 2011 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:369 ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:404 ../cat/virt-ls.pod:515 ../clone/virt-sysprep.pod:509 ../df/virt-df.pod:269 ../edit/virt-edit.pod:376 ../fish/guestfish.pod:1305 ../fish/virt-copy-in.pod:69 ../fish/virt-copy-out.pod:58 ../fish/virt-tar-in.pod:67 ../fish/virt-tar-out.pod:60 ../format/virt-format.pod:195 ../fuse/guestmount.pod:337 ../inspector/virt-inspector.pod:422 ../rescue/virt-rescue.pod:342 ../resize/virt-resize.pod:725 ../sparsify/virt-sparsify.pod:296 ../test-tool/libguestfs-test-tool.pod:115 ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287 ../tools/virt-make-fs.pl:593 ../tools/virt-tar.pl:319 ../tools/virt-win-reg.pl:791
+#: ../align/virt-alignment-scan.pod:369 ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:404 ../cat/virt-ls.pod:515 ../clone/virt-sysprep.pod:509 ../df/virt-df.pod:269 ../edit/virt-edit.pod:376 ../fish/guestfish.pod:1305 ../fish/virt-copy-in.pod:69 ../fish/virt-copy-out.pod:58 ../fish/virt-tar-in.pod:67 ../fish/virt-tar-out.pod:60 ../format/virt-format.pod:195 ../fuse/guestmount.pod:337 ../inspector/virt-inspector.pod:422 ../rescue/virt-rescue.pod:342 ../resize/virt-resize.pod:733 ../sparsify/virt-sparsify.pod:296 ../test-tool/libguestfs-test-tool.pod:115 ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287 ../tools/virt-make-fs.pl:593 ../tools/virt-tar.pl:319 ../tools/virt-win-reg.pl:791
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -787,7 +787,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:374 ../cat/virt-cat.pod:265 ../cat/virt-filesystems.pod:409 ../cat/virt-ls.pod:520 ../clone/virt-sysprep.pod:514 ../df/virt-df.pod:274 ../edit/virt-edit.pod:381 ../fish/guestfish.pod:1310 ../fish/virt-copy-in.pod:74 ../fish/virt-copy-out.pod:63 ../fish/virt-tar-in.pod:72 ../fish/virt-tar-out.pod:65 ../format/virt-format.pod:200 ../fuse/guestmount.pod:342 ../inspector/virt-inspector.pod:427 ../rescue/virt-rescue.pod:347 ../resize/virt-resize.pod:730 ../sparsify/virt-sparsify.pod:301 ../test-tool/libguestfs-test-tool.pod:120 ../tools/virt-list-filesystems.pl:223 ../tools/virt-list-partitions.pl:292 ../tools/virt-make-fs.pl:598 ../tools/virt-tar.pl:324 ../tools/virt-win-reg.pl:796
+#: ../align/virt-alignment-scan.pod:374 ../cat/virt-cat.pod:265 ../cat/virt-filesystems.pod:409 ../cat/virt-ls.pod:520 ../clone/virt-sysprep.pod:514 ../df/virt-df.pod:274 ../edit/virt-edit.pod:381 ../fish/guestfish.pod:1310 ../fish/virt-copy-in.pod:74 ../fish/virt-copy-out.pod:63 ../fish/virt-tar-in.pod:72 ../fish/virt-tar-out.pod:65 ../format/virt-format.pod:200 ../fuse/guestmount.pod:342 ../inspector/virt-inspector.pod:427 ../rescue/virt-rescue.pod:347 ../resize/virt-resize.pod:738 ../sparsify/virt-sparsify.pod:301 ../test-tool/libguestfs-test-tool.pod:120 ../tools/virt-list-filesystems.pl:223 ../tools/virt-list-partitions.pl:292 ../tools/virt-make-fs.pl:598 ../tools/virt-tar.pl:324 ../tools/virt-win-reg.pl:796
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -796,7 +796,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:379 ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:414 ../cat/virt-ls.pod:525 ../clone/virt-sysprep.pod:519 ../df/virt-df.pod:279 ../edit/virt-edit.pod:386 ../fish/guestfish.pod:1315 ../fish/virt-copy-in.pod:79 ../fish/virt-copy-out.pod:68 ../fish/virt-tar-in.pod:77 ../fish/virt-tar-out.pod:70 ../format/virt-format.pod:205 ../fuse/guestmount.pod:347 ../inspector/virt-inspector.pod:432 ../rescue/virt-rescue.pod:352 ../resize/virt-resize.pod:735 ../sparsify/virt-sparsify.pod:306 ../test-tool/libguestfs-test-tool.pod:125 ../tools/virt-list-filesystems.pl:228 ../tools/virt-list-partitions.pl:297 ../tools/virt-make-fs.pl:603 ../tools/virt-tar.pl:329 ../tools/virt-win-reg.pl:801
+#: ../align/virt-alignment-scan.pod:379 ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:414 ../cat/virt-ls.pod:525 ../clone/virt-sysprep.pod:519 ../df/virt-df.pod:279 ../edit/virt-edit.pod:386 ../fish/guestfish.pod:1315 ../fish/virt-copy-in.pod:79 ../fish/virt-copy-out.pod:68 ../fish/virt-tar-in.pod:77 ../fish/virt-tar-out.pod:70 ../format/virt-format.pod:205 ../fuse/guestmount.pod:347 ../inspector/virt-inspector.pod:432 ../rescue/virt-rescue.pod:352 ../resize/virt-resize.pod:743 ../sparsify/virt-sparsify.pod:306 ../test-tool/libguestfs-test-tool.pod:125 ../tools/virt-list-filesystems.pl:228 ../tools/virt-list-partitions.pl:297 ../tools/virt-make-fs.pl:603 ../tools/virt-tar.pl:329 ../tools/virt-win-reg.pl:801
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
@@ -1157,7 +1157,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:240 ../cat/virt-filesystems.pod:382 ../cat/virt-ls.pod:492 ../df/virt-df.pod:250 ../edit/virt-edit.pod:351 ../fuse/guestmount.pod:314 ../inspector/virt-inspector.pod:392 ../resize/virt-resize.pod:691 ../sparsify/virt-sparsify.pod:253
+#: ../cat/virt-cat.pod:240 ../cat/virt-filesystems.pod:382 ../cat/virt-ls.pod:492 ../df/virt-df.pod:250 ../edit/virt-edit.pod:351 ../fuse/guestmount.pod:314 ../inspector/virt-inspector.pod:392 ../resize/virt-resize.pod:699 ../sparsify/virt-sparsify.pod:253
 msgid "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
 
@@ -1169,7 +1169,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:258 ../inspector/virt-inspector.pod:420 ../resize/virt-resize.pod:723 ../tools/virt-make-fs.pl:591
+#: ../cat/virt-cat.pod:258 ../inspector/virt-inspector.pod:420 ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:591
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr ""
 
@@ -12988,16 +12988,16 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3346
 #, no-wrap
 msgid ""
-" mkdtemp template\n"
+" mkdtemp tmpl\n"
 "\n"
 msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3348 ../src/guestfs-actions.pod:5184
 msgid ""
-"This command creates a temporary directory.  The C<template> parameter "
-"should be a full pathname for the temporary directory name with the final "
-"six characters being \"XXXXXX\"."
+"This command creates a temporary directory.  The C<tmpl> parameter should be "
+"a full pathname for the temporary directory name with the final six "
+"characters being \"XXXXXX\"."
 msgstr ""
 
 #. type: textblock
@@ -25230,20 +25230,34 @@ msgid ""
 "other parameters to grub-install, use L<virt-rescue(1)>."
 msgstr ""
 
-#. type: =head1
+#. type: =head2
 #: ../resize/virt-resize.pod:666
-msgid "ALTERNATIVE TOOLS"
+msgid "WINDOWS UNMOUNTABLE_BOOT_VOLUME BSOD"
 msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:668
+msgid ""
+"After sysprepping a Windows guest and then resizing it with virt-resize, you "
+"may see the guest fail to boot with an C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  "
+"This error is caused by having C<ExtendOemPartition=1> in the sysprep.inf "
+"file.  Removing this line before sysprepping should fix the problem."
+msgstr ""
+
+#. type: =head1
+#: ../resize/virt-resize.pod:674
+msgid "ALTERNATIVE TOOLS"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:676
 msgid ""
 "There are several proprietary tools for resizing partitions.  We won't "
 "mention any here."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:671
+#: ../resize/virt-resize.pod:679
 msgid ""
 "L<parted(8)> and its graphical shell gparted can do some types of resizing "
 "operations on disk images.  They can resize and move partitions, but I don't "
@@ -25252,7 +25266,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:676
+#: ../resize/virt-resize.pod:684
 msgid ""
 "L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
 "but at a much lower level.  You will probably end up hand-calculating sector "
@@ -25262,7 +25276,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:696
+#: ../resize/virt-resize.pod:704
 msgid ""
 "L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, "
 "L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, "
@@ -30920,7 +30934,7 @@ msgstr ""
 msgid ""
 " char *\n"
 " guestfs_mkdtemp (guestfs_h *g,\n"
-"                  const char *template);\n"
+"                  const char *tmpl);\n"
 "\n"
 msgstr ""
 
