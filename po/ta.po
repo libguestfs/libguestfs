@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-28 10:32+0000\n"
+"POT-Creation-Date: 2012-03-05 09:17+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -3152,29 +3152,29 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 
-#: src/appliance.c:182
+#: src/appliance.c:204
 #, c-format
 msgid ""
-"cannot find any suitable libguestfs supermin or ordinary appliance on "
-"LIBGUESTFS_PATH (search path: %s)"
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:332
+#: src/appliance.c:362
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:337
+#: src/appliance.c:367
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:342
+#: src/appliance.c:372
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:682
+#: src/appliance.c:712
 msgid "external command failed, see earlier error messages"
 msgstr ""
 

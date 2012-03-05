@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-02-28 10:32+0000\n"
+"POT-Creation-Date: 2012-03-05 09:17+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -3278,31 +3278,31 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
 
-#: src/appliance.c:182
-#, c-format
+#: src/appliance.c:204
+#, fuzzy, c-format
 msgid ""
-"cannot find any suitable libguestfs supermin or ordinary appliance on "
-"LIBGUESTFS_PATH (search path: %s)"
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 "LIBGUESTFS_PATH वरील योग्य libguestfs supermin किंवा सर्वसाधारण अप्लायंस शोधणे "
 "अशक्य (शोध मार्ग: %s)"
 
-#: src/appliance.c:332
+#: src/appliance.c:362
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s, UID %d च्या मालकिचे नाही"
 
-#: src/appliance.c:337
+#: src/appliance.c:367
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s डिरेक्ट्री नाही (मोड %o)"
 
-#: src/appliance.c:342
+#: src/appliance.c:372
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
-#: src/appliance.c:682
+#: src/appliance.c:712
 msgid "external command failed, see earlier error messages"
 msgstr "बाहेरिल आदेश अपयशी, मागील त्रुटी संदेश पहा"
 
