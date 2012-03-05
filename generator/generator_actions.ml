@@ -286,7 +286,7 @@ guest kernel command line.
 
 If C<NULL> then no options are added.");
 
-  ("set_autosync", (RErr, [Bool "autosync"], []), -1, [FishAlias "autosync"; ConfigOnly],
+  ("set_autosync", (RErr, [Bool "autosync"], []), -1, [FishAlias "autosync"],
    [],
    "set autosync mode",
    "\
