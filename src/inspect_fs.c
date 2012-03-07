@@ -284,7 +284,8 @@ check_filesystem (guestfs_h *g, const char *device,
             guestfs_is_dir (g, "/.disk") > 0 ||
             guestfs_is_file (g, "/.discinfo") > 0 ||
             guestfs_is_file (g, "/i386/txtsetup.sif") > 0 ||
-            guestfs_is_file (g, "/amd64/txtsetup.sif")) > 0) {
+            guestfs_is_file (g, "/amd64/txtsetup.sif") > 0 ||
+            guestfs_is_file (g, "/freedos/freedos.ico") > 0)) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_INSTALLER;
     fs->format = OS_FORMAT_INSTALLER;

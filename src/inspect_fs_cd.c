@@ -376,7 +376,17 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
   }
 
-  /* Linux with /isolinux/isolinux.cfg. */
+  /* FreeDOS install CD. */
+  else if (guestfs_is_file (g, "/freedos/freedos.ico") > 0 &&
+           guestfs_is_file (g, "/setup.bat") > 0) {
+    fs->type = OS_TYPE_DOS;
+    fs->distro = OS_DISTRO_FREEDOS;
+    fs->arch = safe_strdup (g, "i386");
+  }
+
+  /* Linux with /isolinux/isolinux.cfg (note that non-Linux can use
+   * ISOLINUX too, eg. FreeDOS).
+   */
   else if (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0) {
     if (check_isolinux_installer_root (g, fs) == -1)
       return -1;
