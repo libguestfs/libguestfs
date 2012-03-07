@@ -74,6 +74,7 @@ erlang/examples/stamp-guestfs-erlang.pod
 erlang/guestfs.beam
 erlang/guestfs.erl
 examples/create_disk
+examples/display_icon
 examples/guestfs-examples.3
 examples/guestfs-recipes.1
 examples/guestfs-testing.1

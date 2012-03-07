@@ -26,7 +26,7 @@ CLEANFILES = \
 	stamp-guestfs-recipes.pod \
 	stamp-guestfs-testing.pod
 
-noinst_PROGRAMS = create_disk inspect_vm
+noinst_PROGRAMS = create_disk display_icon inspect_vm
 if HAVE_HIVEX
 noinst_PROGRAMS += virt-dhcp-address
 endif
@@ -37,6 +37,14 @@ create_disk_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 create_disk_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+display_icon_SOURCES = display_icon.c
+display_icon_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+display_icon_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 inspect_vm_SOURCES = inspect_vm.c
