@@ -139,7 +139,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
       break;
 
     case OS_DISTRO_OPENSUSE:
-      r = icon_opensuse(g, fs, &size);
+      r = icon_opensuse (g, fs, &size);
       break;
 
       /* These are just to keep gcc warnings happy. */
