@@ -33,6 +33,15 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+/* External tools are required for some icon types.  Check we have them. */
+#if defined(PBMTEXT) && defined (PNMTOPNG)
+#define CAN_DO_CIRROS 1
+#endif
+#if defined(WRESTOOL) && defined(BMPTOPNM) && defined(PNMTOPNG) && \
+    defined(PAMCUT)
+#define CAN_DO_WINDOWS 1
+#endif
+
 static int read_whole_file (guestfs_h *g, const char *filename, char **data_r, size_t *size_r);
 
 /* All these icon_*() functions return the same way.  One of:
@@ -56,8 +65,12 @@ static char *icon_debian (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_ubuntu (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_mageia (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 static char *icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+#if CAN_DO_CIRROS
 static char *icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+#endif
+#if CAN_DO_WINDOWS
 static char *icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+#endif
 
 /* Dummy static object. */
 static char *NOT_FOUND = (char *) "not_found";
@@ -144,7 +157,9 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
       break;
 
     case OS_DISTRO_CIRROS:
+#if CAN_DO_CIRROS
       r = icon_cirros (g, fs, &size);
+#endif
       break;
 
       /* These are just to keep gcc warnings happy. */
@@ -164,11 +179,13 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     break;
 
   case OS_TYPE_WINDOWS:
+#if CAN_DO_WINDOWS
     /* We don't know how to get high quality icons from a Windows guest,
      * so disable this if high quality was specified.
      */
     if (!highquality)
       r = icon_windows (g, fs, &size);
+#endif
     break;
 
   case OS_TYPE_FREEBSD:
@@ -331,6 +348,8 @@ icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   return get_png (g, fs, OPENSUSE_ICON, size_r, 2048);
 }
 
+#if CAN_DO_CIRROS
+
 /* Cirros's logo is a text file! */
 #define CIRROS_LOGO "/usr/share/cirros/logo"
 
@@ -363,7 +382,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   /* Use pbmtext to render it. */
   pngfile = safe_asprintf (g, "%s/cirros.png", g->tmpdir);
 
-  cmd = safe_asprintf (g, "pbmtext < %s | pnmtopng > %s",
+  cmd = safe_asprintf (g, PBMTEXT " < %s | " PNMTOPNG " > %s",
                        local, pngfile);
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
@@ -385,6 +404,10 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   return ret;
 }
+
+#endif /* CAN_DO_CIRROS */
+
+#if CAN_DO_WINDOWS
 
 /* Windows, as usual, has to be much more complicated and stupid than
  * anything else.
@@ -413,8 +436,8 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
 
   cmd = safe_asprintf (g,
-                       "wrestool -x --type=2 --name=143 %s | "
-                       "bmptopnm | pnmtopng > %s",
+                       WRESTOOL " -x --type=2 --name=143 %s | "
+                       BMPTOPNM " | " PNMTOPNG " > %s",
           explorer, pngfile);
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
@@ -448,8 +471,8 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
 
   cmd = safe_asprintf (g,
-                       "wrestool -x --type=2 --name=6801 %s | "
-                       "bmptopnm | pamcut -bottom 54 | pnmtopng > %s",
+                       WRESTOOL " -x --type=2 --name=6801 %s | "
+                       BMPTOPNM " | " PAMCUT " -bottom 54 | " PNMTOPNG " > %s",
           explorer, pngfile);
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
@@ -510,6 +533,8 @@ icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   free (filename3);
   return ret;
 }
+
+#endif /* CAN_DO_WINDOWS */
 
 /* Read the whole file into a memory buffer and return it.  The file
  * should be a regular, local, trusted file.
