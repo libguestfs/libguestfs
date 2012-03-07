@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(TESTS) \
 	virt-format.pod
 
 CLEANFILES = stamp-virt-format.pod
@@ -77,3 +76,5 @@ TESTS_ENVIRONMENT = \
 if ENABLE_APPLIANCE
 TESTS = test-virt-format.sh
 endif ENABLE_APPLIANCE
+
+EXTRA_DIST += test-virt-format.sh
