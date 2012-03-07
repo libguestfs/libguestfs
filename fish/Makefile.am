@@ -45,7 +45,6 @@ BUILT_SOURCES = \
 
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
-	$(TESTS) \
 	rc_protocol.x \
 	guestfish.pod \
 	guestfish-bash-completion.sh \
@@ -255,3 +254,19 @@ TESTS += \
 	test-stringlist.sh \
 	test-upload-to-dir.sh
 endif
+
+EXTRA_DIST += \
+	test-add-domain.sh \
+	test-copy.sh \
+	test-edit.sh \
+	test-find0.sh \
+	test-guestfish-a.sh \
+	test-guestfish-d.sh \
+	test-guestfish-escapes.sh \
+	test-guestfish-events.sh \
+	test-guestfish-tilde.sh \
+	test-read_file.sh \
+	test-remote.sh \
+	test-reopen.sh \
+	test-stringlist.sh \
+	test-upload-to-dir.sh
