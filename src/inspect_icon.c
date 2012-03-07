@@ -365,7 +365,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
 
   cmd = safe_asprintf (g,
                        WRESTOOL " -x --type=2 --name=143 %s | "
-                       BMPTOPNM " | " PNMTOPNG " > %s",
+                       BMPTOPNM " 2>/dev/null | " PNMTOPNG " > %s",
           explorer, pngfile);
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
@@ -400,7 +400,8 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
 
   cmd = safe_asprintf (g,
                        WRESTOOL " -x --type=2 --name=6801 %s | "
-                       BMPTOPNM " | " PAMCUT " -bottom 54 | " PNMTOPNG " > %s",
+                       BMPTOPNM " 2>/dev/null | " PAMCUT " -bottom 54 | "
+                       PNMTOPNG " > %s",
           explorer, pngfile);
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
