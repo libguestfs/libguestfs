@@ -435,7 +435,7 @@ icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (fs->major_version == 5 && fs->minor_version == 1)
     fn = icon_windows_xp;
 
-  /* Windows 7 */
+  /* Windows 7. */
   else if (fs->major_version == 6 && fs->minor_version == 1)
     fn = icon_windows_7;
 
