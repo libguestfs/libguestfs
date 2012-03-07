@@ -466,6 +466,30 @@ if test "x$DB_LOAD" != "xno"; then
     AC_DEFINE_UNQUOTED([DB_LOAD],["$DB_LOAD"],[Name of db_load program.])
 fi
 
+dnl Check for netpbm programs (optional).
+AC_CHECK_PROGS([PBMTEXT],[pbmtext],[no])
+AC_CHECK_PROGS([PNMTOPNG],[pnmtopng],[no])
+AC_CHECK_PROGS([BMPTOPNM],[bmptopnm],[no])
+AC_CHECK_PROGS([PAMCUT],[pamcut],[no])
+if test "x$PBMTEXT" != "xno"; then
+    AC_DEFINE_UNQUOTED([PBMTEXT],["$PBMTEXT"],[Name of pbmtext program.])
+fi
+if test "x$PNMTOPNG" != "xno"; then
+    AC_DEFINE_UNQUOTED([PNMTOPNG],["$PNMTOPNG"],[Name of pnmtopng program.])
+fi
+if test "x$BMPTOPNM" != "xno"; then
+    AC_DEFINE_UNQUOTED([BMPTOPNM],["$BMPTOPNM"],[Name of bmptopnm program.])
+fi
+if test "x$PAMCUT" != "xno"; then
+    AC_DEFINE_UNQUOTED([PAMCUT],["$PAMCUT"],[Name of pamcut program.])
+fi
+
+dnl Check for icoutils (optional).
+AC_CHECK_PROGS([WRESTOOL],[wrestool],[no])
+if test "x$WRESTOOL" != "xno"; then
+    AC_DEFINE_UNQUOTED([WRESTOOL],["$WRESTOOL"],[Name of wrestool program.])
+fi
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 default_qemu="qemu-kvm kvm qemu-system-$host_cpu qemu"

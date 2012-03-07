@@ -97,6 +97,9 @@ For basic functionality and the C tools:
 
 - getfacl, getfattr libraries and programs (optional)
 
+- netpbm, icoutils (optional)
+  These programs are used to render icons from guests.
+
 To build FUSE support (guestmount):
 
 - FUSE libraries and kernel module (optional)
