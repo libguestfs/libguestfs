@@ -752,6 +752,10 @@ NetBSD.
 
 GNU/Hurd.
 
+=item \"dos\"
+
+MS-DOS, FreeDOS and others.
+
 =item \"unknown\"
 
 The operating system type could not be determined.
@@ -810,6 +814,10 @@ Debian.
 =item \"fedora\"
 
 Fedora.
+
+=item \"freedos\"
+
+FreeDOS.
 
 =item \"gentoo\"
 

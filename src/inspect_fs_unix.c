@@ -686,6 +686,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
     break;
 
   case OS_TYPE_WINDOWS: /* not here, see check_windows_system_registry */
+  case OS_TYPE_DOS:
   case OS_TYPE_UNKNOWN:
   default:
     /* nothing, keep GCC warnings happy */;

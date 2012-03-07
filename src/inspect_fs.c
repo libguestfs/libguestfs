@@ -261,6 +261,19 @@ check_filesystem (guestfs_h *g, const char *device,
   /* Windows volume (but not root)? */
   else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0)
     fs->content = FS_CONTENT_WINDOWS_VOLUME;
+  /* FreeDOS? */
+  else if (guestfs___is_dir_nocase (g, "/FDOS") > 0 &&
+           guestfs___is_file_nocase (g, "/FDOS/FREEDOS.BSS") > 0) {
+    fs->is_root = 1;
+    fs->content = FS_CONTENT_FREEBSD_ROOT;
+    fs->format = OS_FORMAT_INSTALLED;
+    fs->type = OS_TYPE_DOS;
+    fs->distro = OS_DISTRO_FREEDOS;
+    /* FreeDOS is a mix of 16 and 32 bit, but assume it requires a
+     * 32 bit i386 processor.
+     */
+    fs->arch = safe_strdup (g, "i386");
+  }
   /* Install CD/disk?  Skip these checks if it's not a whole device
    * (eg. CD) or the first partition (eg. bootable USB key).
    */
@@ -424,6 +437,7 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_BUILDROOT:
   case OS_DISTRO_CIRROS:
+  case OS_DISTRO_FREEDOS:
   case OS_DISTRO_UNKNOWN:
   default:
     fs->package_format = OS_PACKAGE_FORMAT_UNKNOWN;
@@ -479,6 +493,7 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_BUILDROOT:
   case OS_DISTRO_CIRROS:
+  case OS_DISTRO_FREEDOS:
   case OS_DISTRO_UNKNOWN:
   default:
     fs->package_management = OS_PACKAGE_MANAGEMENT_UNKNOWN;

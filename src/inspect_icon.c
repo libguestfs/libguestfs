@@ -165,6 +165,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
       /* These are just to keep gcc warnings happy. */
     case OS_DISTRO_ARCHLINUX:
     case OS_DISTRO_BUILDROOT:
+    case OS_DISTRO_FREEDOS:
     case OS_DISTRO_GENTOO:
     case OS_DISTRO_LINUX_MINT:
     case OS_DISTRO_MANDRIVA:
@@ -190,6 +191,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
 
   case OS_TYPE_FREEBSD:
   case OS_TYPE_NETBSD:
+  case OS_TYPE_DOS:
   case OS_TYPE_UNKNOWN:
   default: ;
   }

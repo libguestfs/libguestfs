@@ -257,6 +257,7 @@ enum inspect_fs_content {
   FS_CONTENT_NETBSD_ROOT,
   FS_CONTENT_INSTALLER,
   FS_CONTENT_HURD_ROOT,
+  FS_CONTENT_FREEDOS_ROOT,
 };
 
 enum inspect_os_format {
@@ -273,6 +274,7 @@ enum inspect_os_type {
   OS_TYPE_FREEBSD,
   OS_TYPE_NETBSD,
   OS_TYPE_HURD,
+  OS_TYPE_DOS,
 };
 
 enum inspect_os_distro {
@@ -297,6 +299,7 @@ enum inspect_os_distro {
   OS_DISTRO_OPENSUSE,
   OS_DISTRO_BUILDROOT,
   OS_DISTRO_CIRROS,
+  OS_DISTRO_FREEDOS,
 };
 
 enum inspect_os_package_format {

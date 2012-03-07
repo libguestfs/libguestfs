@@ -188,6 +188,7 @@ guestfs__inspect_get_type (guestfs_h *g, const char *root)
 
   char *ret;
   switch (fs->type) {
+  case OS_TYPE_DOS: ret = safe_strdup (g, "dos"); break;
   case OS_TYPE_FREEBSD: ret = safe_strdup (g, "freebsd"); break;
   case OS_TYPE_HURD: ret = safe_strdup (g, "hurd"); break;
   case OS_TYPE_LINUX: ret = safe_strdup (g, "linux"); break;
@@ -224,6 +225,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_CIRROS: ret = safe_strdup (g, "cirros"); break;
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
+  case OS_DISTRO_FREEDOS: ret = safe_strdup (g, "freedos"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;
   case OS_DISTRO_LINUX_MINT: ret = safe_strdup (g, "linuxmint"); break;
   case OS_DISTRO_MAGEIA: ret = safe_strdup (g, "mageia"); break;

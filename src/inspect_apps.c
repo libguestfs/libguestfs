@@ -106,6 +106,7 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 
     case OS_TYPE_FREEBSD:
     case OS_TYPE_NETBSD:
+    case OS_TYPE_DOS:
     case OS_TYPE_UNKNOWN:
     default:
       /* nothing - keep GCC happy */;
