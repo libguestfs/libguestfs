@@ -791,9 +791,17 @@ Currently defined distros are:
 
 Arch Linux.
 
+=item \"buildroot\"
+
+Buildroot-derived distro, but not one we specifically recognize.
+
 =item \"centos\"
 
 CentOS.
+
+=item \"cirros\"
+
+Cirros.
 
 =item \"debian\"
 

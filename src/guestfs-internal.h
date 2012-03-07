@@ -295,6 +295,8 @@ enum inspect_os_distro {
   OS_DISTRO_TTYLINUX,
   OS_DISTRO_MAGEIA,
   OS_DISTRO_OPENSUSE,
+  OS_DISTRO_BUILDROOT,
+  OS_DISTRO_CIRROS,
 };
 
 enum inspect_os_package_format {

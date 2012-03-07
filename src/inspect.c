@@ -219,7 +219,9 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   char *ret;
   switch (fs->distro) {
   case OS_DISTRO_ARCHLINUX: ret = safe_strdup (g, "archlinux"); break;
+  case OS_DISTRO_BUILDROOT: ret = safe_strdup (g, "buildroot"); break;
   case OS_DISTRO_CENTOS: ret = safe_strdup (g, "centos"); break;
+  case OS_DISTRO_CIRROS: ret = safe_strdup (g, "cirros"); break;
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;

@@ -464,7 +464,22 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
+  /* Buildroot (http://buildroot.net) is an embedded Linux distro
+   * toolkit.  It is used by specific distros such as Cirros.
+   */
+  else if (guestfs_exists (g, "/etc/br-version") > 0) {
+    if (guestfs_exists (g, "/usr/share/cirros/logo") > 0)
+      fs->distro = OS_DISTRO_CIRROS;
+    else
+      fs->distro = OS_DISTRO_BUILDROOT;
 
+    /* /etc/br-version has the format YYYY.MM[-git/hg/svn release] */
+    if (parse_release_file (g, fs, "/etc/br-version") == -1)
+      return -1;
+
+    if (guestfs___parse_major_minor (g, fs) == -1)
+      return -1;
+  }
 
  skip_release_checks:;
 
