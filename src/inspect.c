@@ -367,22 +367,19 @@ guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
   if (!fs)
     return NULL;
 
+#define CRITERION(fs, i) fs->fstab[i].mountpoint[0] == '/'
+
   char **ret;
+  size_t i, count, nr = fs->nr_fstab;
 
-  /* If no fstab information (Windows) return just the root. */
-  if (fs->nr_fstab == 0) {
-    ret = calloc (3, sizeof (char *));
-    ret[0] = safe_strdup (g, "/");
-    ret[1] = safe_strdup (g, root);
-    ret[2] = NULL;
-    return ret;
+  if (nr == 0)
+    count = 1;
+  else {
+    count = 0;
+    for (i = 0; i < nr; ++i)
+      if (CRITERION (fs, i))
+        count++;
   }
-
-#define CRITERION fs->fstab[i].mountpoint[0] == '/'
-  size_t i, count = 0;
-  for (i = 0; i < fs->nr_fstab; ++i)
-    if (CRITERION)
-      count++;
 
   /* Hashtables have 2N+1 entries. */
   ret = calloc (2*count+1, sizeof (char *));
@@ -391,9 +388,17 @@ guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
     return NULL;
   }
 
+  /* If no fstab information (Windows) return just the root. */
+  if (nr == 0) {
+    ret[0] = safe_strdup (g, "/");
+    ret[1] = safe_strdup (g, root);
+    ret[2] = NULL;
+    return ret;
+  }
+
   count = 0;
-  for (i = 0; i < fs->nr_fstab; ++i)
-    if (CRITERION) {
+  for (i = 0; i < nr; ++i)
+    if (CRITERION (fs, i)) {
       ret[2*count] = safe_strdup (g, fs->fstab[i].mountpoint);
       ret[2*count+1] = safe_strdup (g, fs->fstab[i].device);
       count++;
@@ -411,23 +416,22 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
     return NULL;
 
   char **ret;
+  size_t i, nr = fs->nr_fstab;
 
-  /* If no fstab information (Windows) return just the root. */
-  if (fs->nr_fstab == 0) {
-    ret = calloc (2, sizeof (char *));
-    ret[0] = safe_strdup (g, root);
-    ret[1] = NULL;
-    return ret;
-  }
-
-  ret = calloc (fs->nr_fstab + 1, sizeof (char *));
+  ret = calloc (nr == 0 ? 2 : nr+1, sizeof (char *));
   if (ret == NULL) {
     perrorf (g, "calloc");
     return NULL;
   }
 
-  size_t i;
-  for (i = 0; i < fs->nr_fstab; ++i)
+  /* If no fstab information (Windows) return just the root. */
+  if (nr == 0) {
+    ret[0] = safe_strdup (g, root);
+    ret[1] = NULL;
+    return ret;
+  }
+
+  for (i = 0; i < nr; ++i)
     ret[i] = safe_strdup (g, fs->fstab[i].device);
 
   return ret;
