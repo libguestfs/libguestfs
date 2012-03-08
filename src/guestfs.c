@@ -65,6 +65,7 @@
 #include "glthread/lock.h"
 #include "hash.h"
 #include "hash-pjw.h"
+#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -188,7 +189,7 @@ guestfs_close (guestfs_h *g)
 
   /* Try to sync if autosync flag is set. */
   if (g->autosync && g->state == READY)
-    guestfs_internal_autosync (g);
+    ignore_value (guestfs_internal_autosync (g));
 
   /* If we are valgrinding the daemon, then we *don't* want to kill
    * the subprocess because we want the final valgrind messages sent
@@ -199,7 +200,7 @@ guestfs_close (guestfs_h *g)
 #ifndef VALGRIND_DAEMON
   /* Kill the qemu subprocess. */
   if (g->state != CONFIG)
-    guestfs_kill_subprocess (g);
+    ignore_value (guestfs_kill_subprocess (g));
 #endif
 
   /* Run user close callbacks. */
