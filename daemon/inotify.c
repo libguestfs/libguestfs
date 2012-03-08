@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -239,6 +240,12 @@ do_inotify_read (void)
 #else
 #error "this code needs fixing so it works on non-GCC compilers"
 #endif
+
+      /* Check event->len is reasonable (note the field is uint32_t). */
+      if (event->len > PATH_MAX) {
+        reply_with_error ("event->len = %" PRIu32 " > PATH_MAX", event->len);
+        goto error;
+      }
 
       np = realloc (ret->guestfs_int_inotify_event_list_val,
                     (ret->guestfs_int_inotify_event_list_len + 1) *
