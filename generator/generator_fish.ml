@@ -1009,10 +1009,11 @@ print_event_set (uint64_t event_bitmask, FILE *fp)
 
 ";
 
-  List.iter (
-    fun (name, _) ->
+  iteri (
+    fun i (name, _) ->
       pr "  if (event_bitmask & GUESTFS_EVENT_%s) {\n" (String.uppercase name);
-      pr "    if (comma) fputc (',', fp);\n";
+      if i > 0 then
+        pr "    if (comma) fputc (',', fp);\n";
       pr "    comma = 1;\n";
       pr "    fputs (\"%s\", fp);\n" name;
       pr "  }\n"
