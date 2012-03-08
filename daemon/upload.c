@@ -232,6 +232,7 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   if (offset) {
     if (lseek (fd, offset, SEEK_SET) == -1) {
       reply_with_perror ("lseek: %s", filename);
+      close (fd);
       return -1;
     }
   }
