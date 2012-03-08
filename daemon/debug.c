@@ -473,6 +473,7 @@ debug_core_pattern (const char *subcmd, int argc, char *const *const argv)
   }
   if (write (fd, pattern, pattern_len) < (ssize_t) pattern_len) {
     reply_with_perror ("write: " CORE_PATTERN);
+    close (fd);
     return NULL;
   }
   if (close (fd) == -1) {
