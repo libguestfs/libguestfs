@@ -1133,16 +1133,20 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
     if (xwrite (fd, buf, r) == -1) {
       perrorf (g, "%s: write", filename);
       free (buf);
+      close (fd);
       goto cancel;
     }
     free (buf);
 
-    if (g->user_cancel)
+    if (g->user_cancel) {
+      close (fd);
       goto cancel;
+    }
   }
 
   if (r == -1) {
     error (g, _("%s: error in chunked encoding"), filename);
+    close (fd);
     return -1;
   }
 
