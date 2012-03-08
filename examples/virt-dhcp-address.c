@@ -124,9 +124,13 @@ print_dhcp_address (guestfs_h *g, char *root)
 
   /* Depending on the guest type, try to get the DHCP address. */
   guest_type = guestfs_inspect_get_type (g, root);
+  if (guest_type == NULL)
+    exit (EXIT_FAILURE);
 
   if (strcmp (guest_type, "linux") == 0) {
     guest_distro = guestfs_inspect_get_distro (g, root);
+    if (guest_distro == NULL)
+      exit (EXIT_FAILURE);
 
     if (strcmp (guest_distro, "fedora") == 0 ||
         strcmp (guest_distro, "rhel") == 0 ||
