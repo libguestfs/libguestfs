@@ -51,7 +51,7 @@
 #   - hard to test because guestmount forks into the background, and
 #     if valgrind reports errors it doesn't stop the test shell script
 
-EXTRA_DIST = suppressions
+EXTRA_DIST = pick-guests.pl suppressions
 
 VG = valgrind \
 	--log-file=$(abs_builddir)/valgrind.log \
@@ -63,14 +63,9 @@ RUN_VG = $(abs_top_builddir)/run $(VG)
 export LIBVIRT_DEFAULT_URI = \
 	qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
 
-# Choose 5 guests at random on each run.
-RANDOM_GUESTS = $(shell virsh -c $(LIBVIRT_DEFAULT_URI) list --all | \
-			head -n -1 | \
-			tail -n +3 | \
-			awk '{print $$2}' | \
-			sort -R | \
-			head -5 | \
-			sort)
+# Choose guests at random on each run.
+random_guests := \
+	$(shell $(abs_top_builddir)/run $(srcdir)/pick-guests.pl 5)
 
 extra-tests: \
 	test-guests \
@@ -136,7 +131,7 @@ test-df-real:
 	$(RUN_VG) ../../df/virt-df -h >/dev/null
 
 test-filesystems-real:
-	@for g in $(RANDOM_GUESTS); do \
+	@for g in $(random_guests); do \
 	  echo $(RUN_VG) ../../cat/virt-filesystems -d $$g --all --long -h --uuid; \
 	  $(RUN_VG) ../../cat/virt-filesystems -d $$g --all --long -h --uuid > /dev/null; \
 	  r=$$?; \
@@ -144,7 +139,7 @@ test-filesystems-real:
 	done
 
 test-inspector-real:
-	@for g in $(RANDOM_GUESTS); do \
+	@for g in $(random_guests); do \
 	  echo $(RUN_VG) ../../inspector/virt-inspector -d $$g; \
 	  $(RUN_VG) ../../inspector/virt-inspector -d $$g > /dev/null; \
 	  r=$$?; \
