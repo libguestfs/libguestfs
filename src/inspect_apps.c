@@ -391,6 +391,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 
   if (fclose (fp) == -1) {
     perrorf (g, "fclose: %s", status);
+    fp = NULL;
     goto out;
   }
   fp = NULL;
