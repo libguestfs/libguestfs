@@ -104,7 +104,7 @@ guestfs__list_filesystems (guestfs_h *g)
   if (devices) guestfs___free_string_list (devices);
   if (partitions) guestfs___free_string_list (partitions);
   if (mds) guestfs___free_string_list (mds);
-  if (lvs) guestfs___free_string_list (lvs);
+  //if (lvs) guestfs___free_string_list (lvs);
   if (ret) guestfs___free_string_list (ret);
   return NULL;
 }
