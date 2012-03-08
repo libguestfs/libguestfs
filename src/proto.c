@@ -908,6 +908,7 @@ guestfs___send_file (guestfs_h *g, const char *filename)
     if (err < 0) {
       if (err == -2)		/* daemon sent cancellation */
         send_file_cancellation (g);
+      close (fd);
       return err;
     }
   }
@@ -915,6 +916,7 @@ guestfs___send_file (guestfs_h *g, const char *filename)
   if (r == -1) {
     perrorf (g, "read: %s", filename);
     send_file_cancellation (g);
+    close (fd);
     return -1;
   }
 
@@ -922,6 +924,7 @@ guestfs___send_file (guestfs_h *g, const char *filename)
     error (g, _("operation cancelled by user"));
     g->last_errnum = EINTR;
     send_file_cancellation (g);
+    close (fd);
     return -1;
   }
 
