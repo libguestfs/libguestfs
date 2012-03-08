@@ -29,7 +29,7 @@ char **
 do_glob_expand (const char *pattern)
 {
   int r;
-  glob_t buf;
+  glob_t buf = { .gl_pathc = 0, .gl_pathv = NULL, .gl_offs = 0 };
 
   /* glob(3) in glibc never calls chdir, so this seems to be safe: */
   CHROOT_IN;
