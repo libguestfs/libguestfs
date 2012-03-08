@@ -38,6 +38,12 @@ do_touch (const char *path)
 
   /* RHBZ#582484: Restrict touch to regular files.  It's also OK
    * here if the file does not exist, since we will create it.
+   *
+   * XXX Coverity flags this as a time-of-check to time-of-use race
+   * condition, particularly in the libguestfs live case.  Not clear
+   * how to fix this yet, since unconditionally opening the file can
+   * cause a hang, so you have to somehow check it first before you
+   * open it.
    */
   CHROOT_IN;
   r = lstat (path, &buf);
