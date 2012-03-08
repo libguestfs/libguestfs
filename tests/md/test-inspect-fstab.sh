@@ -58,7 +58,7 @@ if [ "$(cat test.output)" != "/: /dev/VG/Root
 /boot: /dev/vda1
 /nosuchfile: /dev/VG/LV1
 /var: /dev/sdb3" ]; then
-    echo "$0: error: unexpected output from inspect-get-mountpoints command"
+    echo "$0: error #1: unexpected output from inspect-get-mountpoints command"
     cat test.output
     exit 1
 fi
@@ -88,7 +88,7 @@ EOF
 if [ "$(cat test.output)" != "/dev/VG/Root
 /: /dev/VG/Root
 /boot: /dev/vda1" ]; then
-    echo "$0: error: unexpected output from inspect-get-mountpoints command"
+    echo "$0: error #2: unexpected output from inspect-get-mountpoints command"
     cat test.output
     exit 1
 fi
@@ -120,7 +120,7 @@ if [ "$(cat test.output)" != "/dev/VG/Root
 /: /dev/VG/Root
 /boot: /dev/vda1
 /var: /dev/vda" ]; then
-    echo "$0: error: unexpected output from inspect-get-mountpoints command"
+    echo "$0: error #3: unexpected output from inspect-get-mountpoints command"
     cat test.output
     exit 1
 fi
