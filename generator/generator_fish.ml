@@ -305,6 +305,7 @@ Guestfish will prompt for these separately."
       pr "static int\n";
       pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
+      pr "  int ret = -1;\n";
       (match ret with
        | RErr
        | RInt _
@@ -367,34 +368,35 @@ Guestfish will prompt for these separately."
           argc_minimum argc_maximum;
       );
       pr "    fprintf (stderr, _(\"type 'help %%s' for help on %%s\\n\"), cmd, cmd);\n";
-      pr "    return -1;\n";
+      pr "    goto out_noargs;\n";
       pr "  }\n";
 
-      let parse_integer expr fn fntyp rtyp range name =
-        pr "  {\n";
-        pr "    strtol_error xerr;\n";
-        pr "    %s r;\n" fntyp;
+      let parse_integer ?(indent = "  ") expr fn fntyp rtyp range name out =
+        pr "%s{\n" indent;
+        pr "%s  strtol_error xerr;\n" indent;
+        pr "%s  %s r;\n" indent fntyp;
         pr "\n";
-        pr "    xerr = %s (%s, NULL, 0, &r, xstrtol_suffixes);\n" fn expr;
-        pr "    if (xerr != LONGINT_OK) {\n";
-        pr "      fprintf (stderr,\n";
-        pr "               _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n";
-        pr "               cmd, \"%s\", \"%s\", xerr);\n" name fn;
-        pr "      return -1;\n";
-        pr "    }\n";
+        pr "%s  xerr = %s (%s, NULL, 0, &r, xstrtol_suffixes);\n"
+          indent fn expr;
+        pr "%s  if (xerr != LONGINT_OK) {\n" indent;
+        pr "%s    fprintf (stderr,\n" indent;
+        pr "%s             _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n" indent;
+        pr "%s             cmd, \"%s\", \"%s\", xerr);\n" indent name fn;
+        pr "%s    goto %s;\n" indent out;
+        pr "%s  }\n" indent;
         (match range with
          | None -> ()
          | Some (min, max, comment) ->
-             pr "    /* %s */\n" comment;
-             pr "    if (r < %s || r > %s) {\n" min max;
-             pr "      fprintf (stderr, _(\"%%s: %%s: integer out of range\\n\"), cmd, \"%s\");\n"
-               name;
-             pr "      return -1;\n";
-             pr "    }\n";
-             pr "    /* The check above should ensure this assignment does not overflow. */\n";
+             pr "%s  /* %s */\n" indent comment;
+             pr "%s  if (r < %s || r > %s) {\n" indent min max;
+             pr "%s    fprintf (stderr, _(\"%%s: %%s: integer out of range\\n\"), cmd, \"%s\");\n"
+               indent name;
+             pr "%s    goto %s;\n" indent out;
+             pr "%s  }\n" indent;
+             pr "%s  /* The check above should ensure this assignment does not overflow. */\n" indent;
         );
-        pr "    %s = r;\n" name;
-        pr "  }\n";
+        pr "%s  %s = r;\n" indent name;
+        pr "%s}\n" indent;
       in
 
       List.iter (
@@ -405,7 +407,7 @@ Guestfish will prompt for these separately."
         | Pathname name
         | Dev_or_Path name ->
             pr "  %s = win_prefix (argv[i++]); /* process \"win:\" prefix */\n" name;
-            pr "  if (%s == NULL) return -1;\n" name
+            pr "  if (%s == NULL) goto out_%s;\n" name name
         | OptString name ->
             pr "  %s = STRNEQ (argv[i], \"\") ? argv[i] : NULL;\n" name;
             pr "  i++;\n"
@@ -415,18 +417,18 @@ Guestfish will prompt for these separately."
             pr "  i++;\n"
         | FileIn name ->
             pr "  %s = file_in (argv[i++]);\n" name;
-            pr "  if (%s == NULL) return -1;\n" name
+            pr "  if (%s == NULL) goto out_%s;\n" name name
         | FileOut name ->
             pr "  %s = file_out (argv[i++]);\n" name;
-            pr "  if (%s == NULL) return -1;\n" name
+            pr "  if (%s == NULL) goto out_%s;\n" name name
         | StringList name | DeviceList name ->
             pr "  %s = parse_string_list (argv[i++]);\n" name;
-            pr "  if (%s == NULL) return -1;\n" name
+            pr "  if (%s == NULL) goto out_%s;\n" name name
         | Key name ->
             pr "  %s = read_key (\"%s\");\n" name name;
             pr "  if (keys_from_stdin)\n";
             pr "    input_lineno++;\n";
-            pr "  if (%s == NULL) return -1;\n" name
+            pr "  if (%s == NULL) goto out_%s;\n" name name
         | Bool name ->
             pr "  %s = is_true (argv[i++]) ? 1 : 0;\n" name
         | Int name ->
@@ -436,9 +438,11 @@ Guestfish will prompt for these separately."
               and comment =
                 "The Int type in the generator is a signed 31 bit int." in
               Some (min, max, comment) in
-            parse_integer "argv[i++]" "xstrtoll" "long long" "int" range name
+            parse_integer "argv[i++]" "xstrtoll" "long long" "int" range
+              name (sprintf "out_%s" name)
         | Int64 name ->
-            parse_integer "argv[i++]" "xstrtoll" "long long" "int64_t" None name
+            parse_integer "argv[i++]" "xstrtoll" "long long" "int64_t" None
+              name (sprintf "out_%s" name)
         | Pointer _ -> assert false
       ) args;
 
@@ -472,12 +476,14 @@ Guestfish will prompt for these separately."
                      "The Int type in the generator is a signed 31 bit int." in
                    Some (min, max, comment) in
                  let expr = sprintf "&argv[i][%d]" (len+1) in
-                 parse_integer expr "xstrtoll" "long long" "int" range
-                   (sprintf "optargs_s.%s" n)
+                 parse_integer ~indent:"      "
+                   expr "xstrtoll" "long long" "int" range
+                   (sprintf "optargs_s.%s" n) "out"
              | OInt64 n ->
                  let expr = sprintf "&argv[i][%d]" (len+1) in
-                 parse_integer expr "xstrtoll" "long long" "int64_t" None
-                   (sprintf "optargs_s.%s" n)
+                 parse_integer ~indent:"      "
+                   expr "xstrtoll" "long long" "int64_t" None
+                   (sprintf "optargs_s.%s" n) "out"
              | OString n ->
                  pr "      optargs_s.%s = &argv[i][%d];\n" n (len+1);
             );
@@ -490,13 +496,13 @@ Guestfish will prompt for these separately."
         pr "{\n";
         pr "      fprintf (stderr, _(\"%%s: unknown optional argument \\\"%%s\\\"\\n\"),\n";
         pr "               cmd, argv[i]);\n";
-        pr "      return -1;\n";
+        pr "      goto out;\n";
         pr "    }\n";
         pr "\n";
         pr "    if (optargs_s.bitmask & this_mask) {\n";
         pr "      fprintf (stderr, _(\"%%s: optional argument \\\"%%s\\\" given twice\\n\"),\n";
         pr "               cmd, this_arg);\n";
-        pr "      return -1;\n";
+        pr "      goto out;\n";
         pr "    }\n";
         pr "    optargs_s.bitmask |= this_mask;\n";
         pr "  }\n";
@@ -511,22 +517,6 @@ Guestfish will prompt for these separately."
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
-      List.iter (
-        function
-        | Device _ | String _
-        | OptString _ | Bool _
-        | Int _ | Int64 _
-        | BufferIn _ -> ()
-        | Pathname name | Dev_or_Path name | FileOut name
-        | Key name ->
-            pr "  free (%s);\n" name
-        | FileIn name ->
-            pr "  free_file_in (%s);\n" name
-        | StringList name | DeviceList name ->
-            pr "  free_strings (%s);\n" name
-        | Pointer _ -> assert false
-      ) args;
-
       (* Any output flags? *)
       let fish_output =
         let flags = filter_map (
@@ -540,73 +530,105 @@ Guestfish will prompt for these separately."
 
       (* Check return value for errors and display command results. *)
       (match ret with
-       | RErr -> pr "  return r;\n"
+       | RErr ->
+           pr "  if (r == -1) goto out;\n";
+           pr "  ret = 0;\n"
        | RInt _ ->
-           pr "  if (r == -1) return -1;\n";
+           pr "  if (r == -1) goto out;\n";
+           pr "  ret = 0;\n";
            (match fish_output with
             | None ->
                 pr "  printf (\"%%d\\n\", r);\n";
             | Some FishOutputOctal ->
                 pr "  printf (\"%%s%%o\\n\", r != 0 ? \"0\" : \"\", r);\n";
             | Some FishOutputHexadecimal ->
-                pr "  printf (\"%%s%%x\\n\", r != 0 ? \"0x\" : \"\", r);\n");
-           pr "  return 0;\n"
+                pr "  printf (\"%%s%%x\\n\", r != 0 ? \"0x\" : \"\", r);\n"
+           )
        | RInt64 _ ->
-           pr "  if (r == -1) return -1;\n";
+           pr "  if (r == -1) goto out;\n";
+           pr "  ret = 0;\n";
            (match fish_output with
             | None ->
                 pr "  printf (\"%%\" PRIi64 \"\\n\", r);\n";
             | Some FishOutputOctal ->
                 pr "  printf (\"%%s%%\" PRIo64 \"\\n\", r != 0 ? \"0\" : \"\", r);\n";
             | Some FishOutputHexadecimal ->
-                pr "  printf (\"%%s%%\" PRIx64 \"\\n\", r != 0 ? \"0x\" : \"\", r);\n");
-           pr "  return 0;\n"
+                pr "  printf (\"%%s%%\" PRIx64 \"\\n\", r != 0 ? \"0x\" : \"\", r);\n"
+           )
        | RBool _ ->
-           pr "  if (r == -1) return -1;\n";
-           pr "  if (r) printf (\"true\\n\"); else printf (\"false\\n\");\n";
-           pr "  return 0;\n"
+           pr "  if (r == -1) goto out;\n";
+           pr "  ret = 0;\n";
+           pr "  if (r) printf (\"true\\n\"); else printf (\"false\\n\");\n"
        | RConstString _ ->
-           pr "  if (r == NULL) return -1;\n";
-           pr "  printf (\"%%s\\n\", r);\n";
-           pr "  return 0;\n"
+           pr "  if (r == NULL) goto out;\n";
+           pr "  ret = 0;\n";
+           pr "  printf (\"%%s\\n\", r);\n"
        | RConstOptString _ ->
-           pr "  printf (\"%%s\\n\", r ? : \"(null)\");\n";
-           pr "  return 0;\n"
+           pr "  ret = 0;\n";
+           pr "  printf (\"%%s\\n\", r ? : \"(null)\");\n"
        | RString _ ->
-           pr "  if (r == NULL) return -1;\n";
+           pr "  if (r == NULL) goto out;\n";
+           pr "  ret = 0;\n";
            pr "  printf (\"%%s\\n\", r);\n";
-           pr "  free (r);\n";
-           pr "  return 0;\n"
+           pr "  free (r);\n"
        | RStringList _ ->
-           pr "  if (r == NULL) return -1;\n";
+           pr "  if (r == NULL) goto out;\n";
+           pr "  ret = 0;\n";
            pr "  print_strings (r);\n";
-           pr "  free_strings (r);\n";
-           pr "  return 0;\n"
+           pr "  free_strings (r);\n"
        | RStruct (_, typ) ->
-           pr "  if (r == NULL) return -1;\n";
+           pr "  if (r == NULL) goto out;\n";
+           pr "  ret = 0;\n";
            pr "  print_%s (r);\n" typ;
-           pr "  guestfs_free_%s (r);\n" typ;
-           pr "  return 0;\n"
+           pr "  guestfs_free_%s (r);\n" typ
        | RStructList (_, typ) ->
-           pr "  if (r == NULL) return -1;\n";
+           pr "  if (r == NULL) goto out;\n";
+           pr "  ret = 0;\n";
            pr "  print_%s_list (r);\n" typ;
-           pr "  guestfs_free_%s_list (r);\n" typ;
-           pr "  return 0;\n"
+           pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable _ ->
-           pr "  if (r == NULL) return -1;\n";
+           pr "  if (r == NULL) goto out;\n";
+           pr "  ret = 0;\n";
            pr "  print_table (r);\n";
-           pr "  free_strings (r);\n";
-           pr "  return 0;\n"
+           pr "  free_strings (r);\n"
        | RBufferOut _ ->
-           pr "  if (r == NULL) return -1;\n";
+           pr "  if (r == NULL) goto out;\n";
            pr "  if (full_write (1, r, size) != size) {\n";
            pr "    perror (\"write\");\n";
            pr "    free (r);\n";
-           pr "    return -1;\n";
+           pr "    goto out;\n";
            pr "  }\n";
-           pr "  free (r);\n";
-           pr "  return 0;\n"
+           pr "  ret = 0;\n";
+           pr "  free (r);\n"
       );
+
+      (* Free arguments in reverse order. *)
+      (match ret with
+      | RConstOptString _ -> ()
+      | _ -> pr " out:\n");
+      List.iter (
+        function
+        | Device _ | String _
+        | OptString _ | Bool _
+        | BufferIn _ -> ()
+        | Int name | Int64 name ->
+            pr " out_%s:\n" name
+        | Pathname name | Dev_or_Path name | FileOut name
+        | Key name ->
+            pr "  free (%s);\n" name;
+            pr " out_%s:\n" name
+        | FileIn name ->
+            pr "  free_file_in (%s);\n" name;
+            pr " out_%s:\n" name
+        | StringList name | DeviceList name ->
+            pr "  free_strings (%s);\n" name;
+            pr " out_%s:\n" name
+        | Pointer _ -> assert false
+      ) (List.rev args);
+
+      (* Return. *)
+      pr " out_noargs:\n";
+      pr "  return ret;\n";
       pr "}\n";
       pr "\n"
   ) all_functions;
