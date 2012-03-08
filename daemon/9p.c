@@ -139,6 +139,7 @@ read_whole_file (const char *filename)
     if (r2 == NULL) {
       perror ("realloc");
       free (r);
+      close (fd);
       return NULL;
     }
     r = r2;
@@ -150,6 +151,7 @@ read_whole_file (const char *filename)
     if (n == -1) {
       perror (filename);
       free (r);
+      close (fd);
       return NULL;
     }
     if (n == 0)
