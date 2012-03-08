@@ -64,8 +64,13 @@ export LIBVIRT_DEFAULT_URI = \
 	qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
 
 # Choose guests at random on each run.
+#
+# 'export LIBVIRT_DEFAULT_URI' above doesn't appear to have an effect
+# for $(shell ...) commands, so we have to redefine LIBVIRT_DEFAULT_URI here.
 random_guests := \
-	$(shell $(abs_top_builddir)/run $(srcdir)/pick-guests.pl 5)
+	$(shell \
+	  LIBVIRT_DEFAULT_URI='qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro' \
+	    $(abs_top_builddir)/run $(srcdir)/pick-guests.pl 5)
 
 extra-tests: \
 	test-guests \
