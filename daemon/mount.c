@@ -65,6 +65,49 @@ is_root_mounted (void)
   return 0;
 }
 
+/* Return true iff 'device' is mounted under /sysroot.
+ *   1  : true, device is mounted
+ *   0  : false, device is not mounted
+ *   -1 : error, reply_with_* has been called
+ */
+int
+is_device_mounted (const char *device)
+{
+  FILE *fp;
+  struct mntent *m;
+  struct stat stat1, stat2;
+
+  if (stat (device, &stat1) == -1) {
+    reply_with_perror ("stat: %s", device);
+    return -1;
+  }
+
+  /* NB: Eventually we should aim to parse /proc/self/mountinfo, but
+   * that requires custom parsing code.
+   */
+  fp = setmntent ("/proc/mounts", "r");
+  if (fp == NULL) {
+    perror ("/proc/mounts");
+    exit (EXIT_FAILURE);
+  }
+
+  while ((m = getmntent (fp)) != NULL) {
+    if ((sysroot_len > 0 && STREQ (m->mnt_dir, sysroot)) ||
+        (STRPREFIX (m->mnt_dir, sysroot) && m->mnt_dir[sysroot_len] == '/')) {
+      if (stat (m->mnt_fsname, &stat2) == 0) {
+        if (stat1.st_rdev == stat2.st_rdev) {
+          /* found it */
+          endmntent (fp);
+          return 1;
+        }
+      }
+    }
+  }
+
+  endmntent (fp);
+  return 0;
+}
+
 /* The "simple mount" call offers no complex options, you can just
  * mount a device on a mountpoint.  The variations like mount_ro,
  * mount_options and mount_vfs let you set progressively more things.

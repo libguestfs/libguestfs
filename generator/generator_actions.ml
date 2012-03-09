@@ -3502,13 +3502,7 @@ is lost.");
    "resize an ext2, ext3 or ext4 filesystem",
    "\
 This resizes an ext2, ext3 or ext4 filesystem to match the size of
-the underlying device.
-
-I<Note:> It is sometimes required that you run C<guestfs_e2fsck_f>
-on the C<device> before calling this command.  For unknown reasons
-C<resize2fs> sometimes gives an error about this and sometimes not.
-In any case, it is always safe to call C<guestfs_e2fsck_f> before
-calling this function.");
+the underlying device.");
 
   ("find", (RStringList "names", [Pathname "directory"], []), 107, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutputList (
@@ -3557,10 +3551,7 @@ See also C<guestfs_find0>.");
    "\
 This runs C<e2fsck -p -f device>, ie. runs the ext2/ext3
 filesystem checker on C<device>, noninteractively (I<-p>),
-even if the filesystem appears to be clean (I<-f>).
-
-This command is only needed because of C<guestfs_resize2fs>
-(q.v.).  Normally you should use C<guestfs_fsck>.");
+even if the filesystem appears to be clean (I<-f>).");
 
   ("sleep", (RErr, [Int "secs"], []), 109, [],
    [InitNone, Always, TestRun (

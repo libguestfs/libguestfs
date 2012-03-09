@@ -111,6 +111,7 @@ extern uint64_t optargs_bitmask;
 
 /*-- in mount.c --*/
 extern int is_root_mounted (void);
+extern int is_device_mounted (const char *device);
 
 /*-- in stubs.c (auto-generated) --*/
 extern void dispatch_incoming_message (XDR *);

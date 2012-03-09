@@ -1120,9 +1120,7 @@ let () =
     (* Helper function to expand partition or LV content. *)
     let do_expand_content target = function
       | PVResize -> g#pvresize target
-      | Resize2fs ->
-          g#e2fsck_f target;
-          g#resize2fs target
+      | Resize2fs -> g#resize2fs target
       | NTFSResize -> g#ntfsresize_opts ~force:ntfsresize_force target
       | BtrfsFilesystemResize ->
           (* Complicated ...  Btrfs forces us to mount the filesystem

@@ -187,6 +187,34 @@ do_get_e2uuid (const char *device)
   return do_vfs_uuid (device);
 }
 
+/* If the filesystem is not mounted, run e2fsck -f on it unconditionally. */
+static int
+if_not_mounted_run_e2fsck (const char *device)
+{
+  char *err;
+  int r, mounted;
+  char prog[] = "e2fsck";
+
+  if (e2prog (prog) == -1)
+    return -1;
+
+  mounted = is_device_mounted (device);
+  if (mounted == -1)
+    return -1;
+
+  if (!mounted) {
+    r = command (NULL, &err, prog, "-fy", device, NULL);
+    if (r == -1) {
+      reply_with_error ("%s", err);
+      free (err);
+      return -1;
+    }
+    free (err);
+  }
+
+  return 0;
+}
+
 int
 do_resize2fs (const char *device)
 {
@@ -195,6 +223,9 @@ do_resize2fs (const char *device)
 
   char prog[] = "resize2fs";
   if (e2prog (prog) == -1)
+    return -1;
+
+  if (if_not_mounted_run_e2fsck (device) == -1)
     return -1;
 
   r = command (NULL, &err, prog, device, NULL);
@@ -229,6 +260,9 @@ do_resize2fs_size (const char *device, int64_t size)
   }
   size /= 1024;
 
+  if (if_not_mounted_run_e2fsck (device) == -1)
+    return -1;
+
   char buf[32];
   snprintf (buf, sizeof buf, "%" PRIi64 "K", size);
 
@@ -251,6 +285,9 @@ do_resize2fs_M (const char *device)
 
   char prog[] = "resize2fs";
   if (e2prog (prog) == -1)
+    return -1;
+
+  if (if_not_mounted_run_e2fsck (device) == -1)
     return -1;
 
   r = command (NULL, &err, prog, "-M", device, NULL);
