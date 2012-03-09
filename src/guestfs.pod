@@ -703,6 +703,32 @@ ntfs-3g filesystems (using L</guestfs_getxattr>).  See:
 
 L<http://www.tuxera.com/community/ntfs-3g-advanced/extended-attributes/>
 
+=head2 RESIZE2FS ERRORS
+
+The L</guestfs_resize2fs>, L</guestfs_resize2fs_size> and
+L</guestfs_resize2fs_M> calls are used to resize ext2/3/4 filesystems.
+
+The underlying program (L<resize2fs(8)>) requires that the filesystem
+is clean and recently fsck'd before you can resize it.  Also, if the
+resize operation fails for some reason, then you had to call fsck the
+filesystem again to fix it.
+
+In libguestfs C<lt> 1.17.14, you usually had to call
+L</guestfs_e2fsck_f> before the resize.  However, in C<ge> 1.17.14,
+L<e2fsck(8)> is called automatically before the resize, so you no
+longer need to do this.
+
+The L<resize2fs(8)> program can still fail, in which case it prints an
+error message similar to:
+
+ Please run 'e2fsck -fy <device>' to fix the filesystem
+ after the aborted resize operation.
+
+You can do this by calling L</guestfs_e2fsck> with the C<forceall>
+option.  However in the context of disk images, it is usually better
+to avoid this situation, eg. by rolling back to an earlier snapshot,
+or by copying and resizing and on failure going back to the original.
+
 =head2 USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES
 
 Although we don't want to discourage you from using the C API, we will

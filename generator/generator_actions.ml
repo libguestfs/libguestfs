@@ -3502,7 +3502,9 @@ is lost.");
    "resize an ext2, ext3 or ext4 filesystem",
    "\
 This resizes an ext2, ext3 or ext4 filesystem to match the size of
-the underlying device.");
+the underlying device.
+
+See also L<guestfs(3)/RESIZE2FS ERRORS>.");
 
   ("find", (RStringList "names", [Pathname "directory"], []), 107, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutputList (
@@ -5655,7 +5657,9 @@ See also C<guestfs_pread>, C<guestfs_pwrite_device>.");
    "resize an ext2, ext3 or ext4 filesystem (with size)",
    "\
 This command is the same as C<guestfs_resize2fs> except that it
-allows you to specify the new size (in bytes) explicitly.");
+allows you to specify the new size (in bytes) explicitly.
+
+See also L<guestfs(3)/RESIZE2FS ERRORS>.");
 
   ("pvresize_size", (RErr, [Device "device"; Int64 "size"], []), 249, [Optional "lvm2"],
    [],
@@ -6157,7 +6161,9 @@ to the C<resize2fs> command.
 To get the resulting size of the filesystem you should call
 C<guestfs_tune2fs_l> and read the C<Block size> and C<Block count>
 values.  These two numbers, multiplied together, give the
-resulting size of the minimal filesystem in bytes.");
+resulting size of the minimal filesystem in bytes.
+
+See also L<guestfs(3)/RESIZE2FS ERRORS>.");
 
   ("internal_autosync", (RErr, [], []), 282, [NotInFish; NotInDocs],
    [],
