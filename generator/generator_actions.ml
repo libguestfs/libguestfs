@@ -3551,7 +3551,7 @@ The returned list is sorted.
 
 See also C<guestfs_find0>.");
 
-  ("e2fsck_f", (RErr, [Device "device"], []), 108, [],
+  ("e2fsck_f", (RErr, [Device "device"], []), 108, [DeprecatedBy "e2fsck"],
    [], (* lvresize tests this *)
    "check an ext2/ext3 filesystem",
    "\
