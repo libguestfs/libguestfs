@@ -844,8 +844,33 @@ launch_appliance (guestfs_h *g)
   if (g->recovery_proc) {
     r = fork ();
     if (r == 0) {
+      int i, fd, max_fd;
+      struct sigaction sa;
       pid_t qemu_pid = g->pid;
       pid_t parent_pid = getppid ();
+
+      /* Remove all signal handlers.  See the justification here:
+       * https://www.redhat.com/archives/libvir-list/2008-August/msg00303.html
+       * We don't mask signal handlers yet, so this isn't completely
+       * race-free, but better than not doing it at all.
+       */
+      memset (&sa, 0, sizeof sa);
+      sa.sa_handler = SIG_DFL;
+      sa.sa_flags = 0;
+      sigemptyset (&sa.sa_mask);
+      for (i = 1; i < NSIG; ++i)
+        sigaction (i, &sa, NULL);
+
+      /* Close all other file descriptors.  This ensures that we don't
+       * hold open (eg) pipes from the parent process.
+       */
+      max_fd = sysconf (_SC_OPEN_MAX);
+      if (max_fd == -1)
+        max_fd = 1024;
+      if (max_fd > 65536)
+        max_fd = 65536; /* bound the amount of work we do here */
+      for (fd = 0; fd < max_fd; ++fd)
+        close (fd);
 
       /* It would be nice to be able to put this in the same process
        * group as qemu (ie. setpgid (0, qemu_pid)).  However this is
