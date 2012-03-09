@@ -291,6 +291,7 @@ do_resize2fs_M (const char *device)
   return 0;
 }
 
+/* Takes optional arguments, consult optargs_bitmask. */
 int
 do_e2fsck (const char *device,
            int correct,
@@ -312,10 +313,9 @@ do_e2fsck (const char *device,
     forceall = 0;
 
   if (correct && forceall) {
-    reply_with_error("Only one of the options may be specified");
+    reply_with_error ("only one of the options 'correct', 'forceall' may be specified");
     return -1;
   }
-
 
   ADD_ARG (argv, i, prog);
   ADD_ARG (argv, i, "-f");
