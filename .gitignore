@@ -73,6 +73,7 @@ erlang/examples/guestfs-erlang.3
 erlang/examples/stamp-guestfs-erlang.pod
 erlang/guestfs.beam
 erlang/guestfs.erl
+examples/copy_over
 examples/create_disk
 examples/display_icon
 examples/guestfs-examples.3

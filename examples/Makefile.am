@@ -27,8 +27,24 @@ CLEANFILES = \
 	stamp-guestfs-testing.pod
 
 noinst_PROGRAMS = create_disk display_icon inspect_vm
+if HAVE_LIBVIRT
+noinst_PROGRAMS += copy_over
+endif
 if HAVE_HIVEX
 noinst_PROGRAMS += virt-dhcp-address
+endif
+
+if HAVE_LIBVIRT
+copy_over_SOURCES = copy_over.c
+copy_over_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(LIBVIRT_CFLAGS) \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+copy_over_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBVIRT_LIBS)
 endif
 
 create_disk_SOURCES = create_disk.c
