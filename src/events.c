@@ -120,8 +120,7 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
        event == GUESTFS_EVENT_TRACE) &&
       (g->verbose || event == GUESTFS_EVENT_TRACE)) {
     int from_appliance = event == GUESTFS_EVENT_APPLIANCE;
-    size_t i;
-    char c;
+    size_t i, i0;
 
     /* APPLIANCE =>  <buf>
      * LIBRARY =>    libguestfs: <buf>\n
@@ -147,13 +146,23 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
      * Case 2: Messages from other sources: These messages should NOT
      * contain \n or \r.  If they do, it is escaped.  However we also
      * need to print a real end of line after these messages.
+     *
+     * RHBZ#802109: Because stderr is usually not buffered, avoid
+     * single 'putc' calls (which translate to a 1 byte write), and
+     * try to send longest possible strings in single fwrite calls
+     * (thanks to Jim Meyering for the basic approach).
      */
+#define NO_ESCAPING(c) \
+      (c_isprint ((c)) || (from_appliance && ((c) == '\n' || (c) == '\r')))
+
     for (i = 0; i < buf_len; ++i) {
-      c = buf[i];
-      if (c_isprint (c) || (from_appliance && (c == '\n' || c == '\r')))
-        putc (c, stderr);
-      else {
-        switch (c) {
+      if (NO_ESCAPING (buf[i])) {
+        i0 = i;
+        while (i < buf_len && NO_ESCAPING (buf[i]))
+          ++i;
+        fwrite (&buf[i0], 1, i-i0, stderr);
+      } else {
+        switch (buf[i]) {
         case '\0': fputs ("\\0", stderr); break;
         case '\a': fputs ("\\a", stderr); break;
         case '\b': fputs ("\\b", stderr); break;
@@ -163,7 +172,7 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
         case '\t': fputs ("\\t", stderr); break;
         case '\v': fputs ("\\v", stderr); break;
         default:
-          fprintf (stderr, "\\x%x", (unsigned) c);
+          fprintf (stderr, "\\x%x", (unsigned) buf[i]);
         }
       }
     }
