@@ -44,7 +44,6 @@ do_list_9p (void)
   int size = 0, alloc = 0;
 
   DIR *dir;
-  int err = 0;
 
   dir = opendir (BUS_PATH);
   if (!dir) {

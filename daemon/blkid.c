@@ -94,7 +94,6 @@ static int
 test_blkid_p_i_opt (void)
 {
   int r;
-  int result;
   char *err;
 
   r = commandr (NULL, &err, "blkid", "-p", "/dev/null", NULL);
@@ -241,12 +240,6 @@ char **
 do_blkid (const char *device)
 {
   static int blkid_has_p_i_opt = -1;
-  int r;
-  char *out = NULL, *err = NULL;
-  char **lines = NULL;
-
-  char **ret = NULL;
-  int size = 0, alloc = 0;
 
   if (blkid_has_p_i_opt == -1) {
     blkid_has_p_i_opt = test_blkid_p_i_opt ();
