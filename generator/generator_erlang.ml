@@ -314,14 +314,12 @@ extern void free_strings (char **r);
            pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ ->
-           pr "  size_t i;\n";
            pr "  char **r;\n"
        | RStruct (_, typ) ->
            pr "  struct guestfs_%s *r;\n" typ
        | RStructList (_, typ) ->
            pr "  struct guestfs_%s_list *r;\n" typ
        | RHashtable _ ->
-           pr "  size_t i;\n";
            pr "  char **r;\n"
        | RBufferOut _ ->
            pr "  char *r;\n";
