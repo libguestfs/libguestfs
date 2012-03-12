@@ -237,13 +237,14 @@ rc_listen (void)
     exit (EXIT_FAILURE);
   }
 
-  /* Now close stdout and substitute /dev/null.  This is necessary
-   * so that eval `guestfish --listen` doesn't block forever.
-   */
-  close_stdout();
-
   /* Read commands and execute them. */
   while (!quit) {
+    /* Before waiting, close stdout and substitute /dev/null.  This is
+     * necessary so that eval `guestfish --listen` doesn't block
+     * forever.
+     */
+    close_stdout ();
+
     s = accept (sock, NULL, NULL);
     if (s == -1)
       perror ("accept");
@@ -305,7 +306,6 @@ rc_listen (void)
     error:
       xdr_destroy (&xdr);	/* NB. This doesn't close 'fp'. */
       fclose (fp);		/* Closes the underlying socket 's'. */
-      close_stdout(); /* Re-close stdout */
     }
   }
 
