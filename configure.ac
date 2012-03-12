@@ -135,11 +135,6 @@ if test "$gl_gcc_warnings" = yes; then
   # Missing field initializers is not a bug in C.
   gl_WARN_ADD([-Wno-missing-field-initializers])
 
-  # We think this is a bug in gcc:
-  # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=52560
-  # Reenable this warning as soon as we have a resolution.
-  gl_WARN_ADD([-Wno-strict-overflow])
-
   # Display the name of the warning option with the warning.
   gl_WARN_ADD([-fdiagnostics-show-option])
 

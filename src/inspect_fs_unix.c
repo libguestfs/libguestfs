@@ -170,7 +170,7 @@ static size_t mdadm_app_hash(const void *x, size_t table_size);
 static bool mdadm_app_cmp(const void *x, const void *y);
 static void mdadm_app_free(void *x);
 
-static int map_app_md_devices (guestfs_h *g, Hash_table **map);
+static ssize_t map_app_md_devices (guestfs_h *g, Hash_table **map);
 static int map_md_devices(guestfs_h *g, Hash_table **map);
 
 /* Set fs->product_name to the first line of the release file. */
@@ -963,11 +963,11 @@ parse_uuid (const char *str, uint32_t *uuid)
 }
 
 /* Create a mapping of uuids to appliance md device names */
-static int
+static ssize_t
 map_app_md_devices (guestfs_h *g, Hash_table **map)
 {
   char **mds = NULL;
-  int n = 0;
+  ssize_t n = 0;
 
   /* A hash mapping uuids to md device names */
   *map = hash_initialize(16, NULL, uuid_hash, uuid_cmp, md_uuid_free);
