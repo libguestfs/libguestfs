@@ -1066,10 +1066,12 @@ map_md_devices(guestfs_h *g, Hash_table **map)
 {
   Hash_table *app_map = NULL;
   char **matches = NULL;
+  int n_app_md_devices;
+
   *map = NULL;
 
   /* Get a map of md device uuids to their device names in the appliance */
-  int n_app_md_devices = map_app_md_devices(g, &app_map);
+  n_app_md_devices = map_app_md_devices (g, &app_map);
   if (n_app_md_devices == -1) goto error;
 
   /* Nothing to do if there are no md devices */
