@@ -101,9 +101,8 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wcast-qual"              # Too many warnings for now
   nw="$nw -Wconversion"             # Too many warnings for now
   nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
-  nw="$nw -Wsign-conversion"        # Too many warnings for now
-  nw="$nw -Wtraditional-conversion" # Too many warnings for now
-  nw="$nw -Wunreachable-code"       # Too many warnings for now
+  nw="$nw -Wsign-conversion"        # Not an error
+  nw="$nw -Wtraditional-conversion" # Don't care about pre-ANSI compilers
   nw="$nw -Wpadded"                 # Our structs are not padded
   nw="$nw -Wredundant-decls"        # openat.h declares e.g., mkdirat
   nw="$nw -Wlogical-op"             # any use of fwrite provokes this
@@ -117,10 +116,6 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wpacked"                 # Allow attribute((packed)) on structs
   nw="$nw -Wlong-long"              # Allow long long since it's required
                                     # by Python, Ruby and xstrtoll.
-  nw="$nw -Wstack-protector"        # Don't warn about stack-protector
-                                    # failures (seen on Ubuntu).
-  nw="$nw -Wmissing-noreturn"       # Don't warn about missed noreturn funcs
-                                    # (seen on Ubuntu).
   nw="$nw -Wsuggest-attribute=pure" # Don't suggest pure functions.
   nw="$nw -Wsuggest-attribute=const" # Don't suggest const functions.
   nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
@@ -130,21 +125,22 @@ if test "$gl_gcc_warnings" = yes; then
   for w in $ws; do
     gl_WARN_ADD([$w])
   done
-  gl_WARN_ADD([-Wno-unused-parameter]) # stubs.c
-  gl_WARN_ADD([-Wno-jump-misses-init]) # stubs.c
-  gl_WARN_ADD([-Wno-unused-variable]) # FIXME: only temporary, for guestfs_protocol.c, etc
 
-  # In spite of excluding -Wlogical-op above, it is enabled, as of
-  # gcc 4.5.0 20090517, and it provokes warnings in cat.c, dd.c, truncate.c
-  gl_WARN_ADD([-Wno-logical-op])
+  # Normally we disable warnings in $nw above.  However for some
+  # unknown reason that doesn't always work, and we need to explicitly
+  # list a few disabled warnings below.
 
-  # Work around warning in src/inspect.c.  This seems to be a bug in gcc 4.5.1.
-  gl_WARN_ADD([-Wno-strict-overflow])
+  gl_WARN_ADD([-Wno-unused-parameter]) # Unused parameters are not a bug.
 
-  # Missing field initializers is not a bug in C.  Adding this to $nw above
-  # did not work, so force it here instead.
+  # Missing field initializers is not a bug in C.
   gl_WARN_ADD([-Wno-missing-field-initializers])
 
+  # We think this is a bug in gcc:
+  # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=52560
+  # Reenable this warning as soon as we have a resolution.
+  gl_WARN_ADD([-Wno-strict-overflow])
+
+  # Display the name of the warning option with the warning.
   gl_WARN_ADD([-fdiagnostics-show-option])
 
   AC_SUBST([WARN_CFLAGS])
