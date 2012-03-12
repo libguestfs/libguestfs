@@ -22,7 +22,7 @@ set -e
 
 rm -f test.out
 
-../fish/guestfish <<'EOF'
+./guestfish <<'EOF'
 add-ro ../tests/data/test.iso
 run
 mount-ro /dev/sda /
