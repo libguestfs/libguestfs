@@ -730,7 +730,7 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
 static void
 print_febootstrap_command_line (guestfs_h *g, const char *argv[])
 {
-  int i;
+  size_t i;
   int needs_quote;
   char *buf;
   size_t len;
