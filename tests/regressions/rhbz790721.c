@@ -94,7 +94,6 @@ main (int argc, char *argv[])
 static void *
 start_thread (void *vi)
 {
-  int thread_num = *(int *)vi;
   guestfs_h *g;
   int r;
   guestfs_error_handler_cb old_error_cb;
