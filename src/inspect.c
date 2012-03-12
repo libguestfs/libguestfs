@@ -734,7 +734,7 @@ guestfs___feature_available (guestfs_h *g, const char *feature)
 char *
 guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
                            const char *filename,
-                           const char *basename, int64_t max_size)
+                           const char *basename, uint64_t max_size)
 {
   char *r;
   int fd;
@@ -756,7 +756,7 @@ guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
   if (size == -1)
     /* guestfs_filesize failed and has already set error in handle */
     goto error;
-  if (size > max_size) {
+  if ((uint64_t) size > max_size) {
     error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
            filename, size);
     goto error;
