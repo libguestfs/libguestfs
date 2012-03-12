@@ -1263,7 +1263,6 @@ static int
 test_qemu (guestfs_h *g)
 {
   char cmd[1024];
-  FILE *fp;
 
   free (g->qemu_help);
   g->qemu_help = NULL;

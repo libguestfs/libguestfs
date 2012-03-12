@@ -64,11 +64,9 @@ static pcre *re_scientific_linux_old;
 static pcre *re_scientific_linux;
 static pcre *re_scientific_linux_no_minor;
 static pcre *re_major_minor;
-static pcre *re_aug_seq;
 static pcre *re_xdev;
 static pcre *re_cciss;
 static pcre *re_mdN;
-static pcre *re_first_partition;
 static pcre *re_freebsd;
 static pcre *re_netbsd;
 
@@ -584,8 +582,6 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
 int
 guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
 {
-  int r;
-
   fs->type = OS_TYPE_HURD;
 
   if (guestfs_exists (g, "/etc/debian_version") > 0) {
