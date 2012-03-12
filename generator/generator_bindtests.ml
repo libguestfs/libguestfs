@@ -159,15 +159,15 @@ print_strings (char *const *argv)
              pr "  return strdup (val);\n"
          | RStringList _ ->
              pr "  char **strs;\n";
-             pr "  int n, i;\n";
-             pr "  if (sscanf (val, \"%%d\", &n) != 1) {\n";
+             pr "  size_t n, i;\n";
+             pr "  if (sscanf (val, \"%%zu\", &n) != 1) {\n";
              pr "    error (g, \"%%s: expecting int argument\", \"%s\");\n" name;
              pr "    return NULL;\n";
              pr "  }\n";
              pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
              pr "  for (i = 0; i < n; ++i) {\n";
              pr "    strs[i] = safe_malloc (g, 16);\n";
-             pr "    snprintf (strs[i], 16, \"%%d\", i);\n";
+             pr "    snprintf (strs[i], 16, \"%%zu\", i);\n";
              pr "  }\n";
              pr "  strs[n] = NULL;\n";
              pr "  return strs;\n"
@@ -191,8 +191,8 @@ print_strings (char *const *argv)
              pr "  return r;\n"
          | RHashtable _ ->
              pr "  char **strs;\n";
-             pr "  int n, i;\n";
-             pr "  if (sscanf (val, \"%%d\", &n) != 1) {\n";
+             pr "  size_t n, i;\n";
+             pr "  if (sscanf (val, \"%%zu\", &n) != 1) {\n";
              pr "    error (g, \"%%s: expecting int argument\", \"%s\");\n" name;
              pr "    return NULL;\n";
              pr "  }\n";
@@ -200,8 +200,8 @@ print_strings (char *const *argv)
              pr "  for (i = 0; i < n; ++i) {\n";
              pr "    strs[i*2] = safe_malloc (g, 16);\n";
              pr "    strs[i*2+1] = safe_malloc (g, 16);\n";
-             pr "    snprintf (strs[i*2], 16, \"%%d\", i);\n";
-             pr "    snprintf (strs[i*2+1], 16, \"%%d\", i);\n";
+             pr "    snprintf (strs[i*2], 16, \"%%zu\", i);\n";
+             pr "    snprintf (strs[i*2+1], 16, \"%%zu\", i);\n";
              pr "  }\n";
              pr "  strs[n*2] = NULL;\n";
              pr "  return strs;\n"
