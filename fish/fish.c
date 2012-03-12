@@ -495,7 +495,7 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
     rc_listen ();
-    goto out;
+    goto out_after_handle_close;
   }
 
   /* -f (file) parameter? */
@@ -546,13 +546,14 @@ main (int argc, char *argv[])
   else
     cmdline (argv, optind, argc);
 
- out:
+  guestfs_close (g);
+
+ out_after_handle_close:
   cleanup_readline ();
 
   if (progress_bars)
     progress_bar_free (bar);
 
-  guestfs_close (g);
   free_event_handlers ();
 
   exit (EXIT_SUCCESS);

@@ -291,6 +291,15 @@ rc_listen (void)
 
         xdr_free ((xdrproc_t) xdr_guestfish_call, (char *) &call);
 
+        /* RHBZ#802389: If the command is quit, close the handle right
+         * away.  Note that the main while loop will exit preventing
+         * 'g' from being reused.
+         */
+        if (quit) {
+          guestfs_close (g);
+          g = NULL;
+        }
+
         /* Send the reply. */
         xdrstdio_create (&xdr2, fp, XDR_ENCODE);
         (void) xdr_guestfish_reply (&xdr2, &reply);
