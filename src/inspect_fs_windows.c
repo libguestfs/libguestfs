@@ -110,7 +110,7 @@ int
 guestfs___has_windows_systemroot (guestfs_h *g)
 {
   size_t i;
-  char *systemroot, *p;
+  char *systemroot;
   char path[256];
 
   for (i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
