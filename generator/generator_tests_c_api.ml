@@ -173,7 +173,6 @@ get_key (char **hash, const char *key)
   pr "\
 int main (int argc, char *argv[])
 {
-  char c = 0;
   unsigned long int n_failed = 0;
   const char *filename;
   int fd;
