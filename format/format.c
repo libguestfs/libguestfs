@@ -314,7 +314,7 @@ static int
 do_format (void)
 {
   char **devices;
-  size_t i, pass;
+  size_t i;
   int ret;
 
   devices = guestfs_list_devices (g);
