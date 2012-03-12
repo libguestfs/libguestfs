@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-09 15:44+0000\n"
+"POT-Creation-Date: 2012-03-12 12:17+0000\n"
 "PO-Revision-Date: 2012-03-07 22:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/language/"
@@ -3236,8 +3236,8 @@ msgid ""
 msgstr ""
 
 #: src/inspect.c:760 src/inspect_fs.c:523 src/inspect_fs.c:567
-#: src/inspect_fs_unix.c:228 src/inspect_fs_unix.c:744
-#: src/inspect_fs_unix.c:1325
+#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:740
+#: src/inspect_fs_unix.c:1327
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3263,7 +3263,7 @@ msgstr ""
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect_fs_unix.c:787
+#: src/inspect_fs_unix.c:783
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
@@ -3333,7 +3333,7 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1280
+#: src/launch.c:1279
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3342,11 +3342,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1420
+#: src/launch.c:1419
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
-#: src/launch.c:1431
+#: src/launch.c:1430
 msgid "no subprocess to kill"
 msgstr "అంతంచేయుటకు యే వుపకార్యక్రమము లేదు"
 
@@ -3440,7 +3440,7 @@ msgstr "ఫైలు ముక్కను పార్శ్ చేయుటల
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
-#: src/virt.c:106 src/virt.c:400
+#: src/virt.c:106 src/virt.c:399
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
@@ -3454,20 +3454,20 @@ msgstr ""
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/virt.c:195 src/virt.c:523
+#: src/virt.c:195 src/virt.c:522
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/virt.c:205 src/virt.c:531
+#: src/virt.c:205 src/virt.c:530
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/virt.c:211 src/virt.c:537
+#: src/virt.c:211 src/virt.c:536
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/virt.c:218 src/virt.c:552
+#: src/virt.c:218 src/virt.c:551
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
@@ -3475,16 +3475,16 @@ msgstr ""
 msgid "libvirt domain has no disks"
 msgstr ""
 
-#: src/virt.c:394
+#: src/virt.c:393
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/virt.c:411
+#: src/virt.c:410
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: src/virt.c:425
+#: src/virt.c:424
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -3494,20 +3494,20 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/virt.c:490
+#: src/virt.c:489
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/virt.c:580
+#: src/virt.c:579
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/virt.c:605
+#: src/virt.c:604
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
