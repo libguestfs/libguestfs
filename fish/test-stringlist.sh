@@ -22,7 +22,7 @@ set -e
 
 rm -f test.img
 
-eval `../fish/guestfish --listen`
+eval `./guestfish --listen`
 
 error=0
 
@@ -32,15 +32,15 @@ function check_echo {
 
     local echo
 
-    echo=$(../fish/guestfish --remote echo_daemon "$test")
+    echo=$(./guestfish --remote echo_daemon "$test")
     if [ "$echo" != "$expected" ]; then
         echo "Expected \"$expected\", got \"$echo\""
         error=1
     fi
 }
 
-../fish/guestfish --remote alloc test.img 10M
-../fish/guestfish --remote run
+./guestfish --remote alloc test.img 10M
+./guestfish --remote run
 
 check_echo "' '"            " "
 check_echo "\'"             "'"
@@ -53,7 +53,7 @@ check_echo "'foo' 'bar'"    "foo bar"
 check_echo "'foo' "         "foo"
 check_echo " 'foo'"         "foo"
 
-../fish/guestfish --remote exit
+./guestfish --remote exit
 
 rm -f test.img
 

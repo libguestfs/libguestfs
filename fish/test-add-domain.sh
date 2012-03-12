@@ -62,7 +62,7 @@ cat > test.xml <<EOF
 </node>
 EOF
 
-../fish/guestfish >test.out <<EOF
+./guestfish >test.out <<EOF
   domain guest libvirturi:test://$cwd/test.xml readonly:true
   debug-drives
 EOF
@@ -72,7 +72,7 @@ grep -sq "test2.img.*snapshot=on.*format=raw" test.out
 grep -sq "test3.img.*snapshot=on.*format=qcow2" test.out
 
 # Test readonlydisk = "ignore".
-../fish/guestfish >test.out <<EOF
+./guestfish >test.out <<EOF
   -domain guest libvirturi:test://$cwd/test.xml readonly:true readonlydisk:ignore
   debug-drives
 EOF
@@ -84,7 +84,7 @@ grep -sq "test3.img" test.out
 # Test atomicity.
 rm test3.img
 
-../fish/guestfish >test.out <<EOF
+./guestfish >test.out <<EOF
   -domain guest libvirturi:test://$cwd/test.xml readonly:true
   debug-drives
 EOF

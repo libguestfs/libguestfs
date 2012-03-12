@@ -36,7 +36,7 @@ cp $srcdir/../tests/data/known* original
 cp -P $srcdir/../tests/data/abssymlink* original
 
 output=$(
-../fish/guestfish -N fs -m /dev/sda1 <<EOF
+./guestfish -N fs -m /dev/sda1 <<EOF
 mkdir /data
 # This creates a directory /data/data/
 copy-in original /data
@@ -63,7 +63,7 @@ fi
 
 mkdir copy
 
-../fish/guestfish --ro -a test1.img -m /dev/sda1 <<EOF
+./guestfish --ro -a test1.img -m /dev/sda1 <<EOF
 copy-out /data/original copy
 EOF
 

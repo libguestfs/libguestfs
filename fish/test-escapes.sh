@@ -22,7 +22,7 @@ set -e
 
 rm -f test.output test.error test.error.old
 
-../fish/guestfish <<'EOF' 2>test.error | od > test.output
+./guestfish <<'EOF' 2>test.error | od > test.output
 echo ""
 echo " "
 echo "  "

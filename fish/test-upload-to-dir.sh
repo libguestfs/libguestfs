@@ -24,7 +24,7 @@ set -e
 
 rm -f test1.img test.out
 
-if ../fish/guestfish -N fs -m /dev/sda1 upload ../tests/data/test.iso / 2>test.out
+if ./guestfish -N fs -m /dev/sda1 upload ../tests/data/test.iso / 2>test.out
 then
   echo "$0: expecting guestfish to return an error"
   exit 1

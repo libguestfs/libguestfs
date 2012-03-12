@@ -34,7 +34,7 @@ rm -f test1.img
 export EDITOR="echo second line of text >>"
 
 output=$(
-../fish/guestfish -N fs -m /dev/sda1 <<EOF
+./guestfish -N fs -m /dev/sda1 <<EOF
 write /file.txt "this is a test\n"
 chmod 0600 /file.txt
 chown 10 11 /file.txt

@@ -22,23 +22,23 @@ set -e
 
 rm -f test.out
 
-../fish/guestfish -x -a /dev/null </dev/null >test.out 2>&1
+./guestfish -x -a /dev/null </dev/null >test.out 2>&1
 
 ! grep -sq 'add_drive.*format' test.out
 
-../fish/guestfish -x --format=qcow2 -a /dev/null </dev/null >test.out 2>&1
+./guestfish -x --format=qcow2 -a /dev/null </dev/null >test.out 2>&1
 
 grep -sq 'add_drive.*format:qcow2' test.out
 
-../fish/guestfish -x --ro --format=qcow2 -a /dev/null </dev/null >test.out 2>&1
+./guestfish -x --ro --format=qcow2 -a /dev/null </dev/null >test.out 2>&1
 
 grep -sq 'add_drive.*readonly:true.*format:qcow2' test.out
 
-../fish/guestfish -x --format -a /dev/null </dev/null >test.out 2>&1
+./guestfish -x --format -a /dev/null </dev/null >test.out 2>&1
 
 ! grep -sq 'add_drive.*format' test.out
 
-../fish/guestfish -x -a /dev/null --format=qcow2 </dev/null >test.out 2>&1
+./guestfish -x -a /dev/null --format=qcow2 </dev/null >test.out 2>&1
 
 ! grep -sq 'add_drive.*format' test.out
 

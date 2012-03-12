@@ -236,12 +236,12 @@ TESTS_ENVIRONMENT = \
 	$(top_builddir)/run
 
 TESTS = \
+	test-a.sh \
 	test-add-domain.sh \
-	test-guestfish-a.sh \
-	test-guestfish-d.sh \
-	test-guestfish-escapes.sh \
-	test-guestfish-events.sh \
-	test-guestfish-tilde.sh
+	test-d.sh \
+	test-escapes.sh \
+	test-events.sh \
+	test-tilde.sh
 
 if ENABLE_APPLIANCE
 TESTS += \
@@ -256,17 +256,17 @@ TESTS += \
 endif
 
 EXTRA_DIST += \
+	test-a.sh \
 	test-add-domain.sh \
 	test-copy.sh \
+	test-d.sh \
 	test-edit.sh \
+	test-escapes.sh \
+	test-events.sh \
 	test-find0.sh \
-	test-guestfish-a.sh \
-	test-guestfish-d.sh \
-	test-guestfish-escapes.sh \
-	test-guestfish-events.sh \
-	test-guestfish-tilde.sh \
 	test-read_file.sh \
 	test-remote.sh \
 	test-reopen.sh \
 	test-stringlist.sh \
+	test-tilde.sh \
 	test-upload-to-dir.sh

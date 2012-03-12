@@ -23,7 +23,7 @@ set -e
 
 rm -f test.img
 
-../fish/guestfish <<'EOF'
+./guestfish <<'EOF'
 reopen
 reopen
 reopen

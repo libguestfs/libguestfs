@@ -62,7 +62,7 @@ cat > test.xml <<EOF
 </node>
 EOF
 
-../fish/guestfish -c "test://$cwd/test.xml" --ro -d guest \
+./guestfish -c "test://$cwd/test.xml" --ro -d guest \
   debug-drives </dev/null >test.out
 grep -sq "test1.img.*snapshot=on" test.out
 ! grep -sq "test1.img.*format" test.out
