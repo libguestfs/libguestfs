@@ -310,7 +310,8 @@ rc_listen (void)
   }
 
   unlink (sockpath);
-  exit (EXIT_SUCCESS);
+
+  /* This returns to 'fish.c', where it jumps to global cleanups and exits. */
 }
 
 /* Remote control client. */

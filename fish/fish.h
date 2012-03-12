@@ -130,7 +130,7 @@ extern void free_prep_data (void *data);
 extern int vg_lv_parse (const char *device, char **vg, char **lv);
 
 /* in rc.c (remote control) */
-extern void rc_listen (void) __attribute__((noreturn));
+extern void rc_listen (void);
 extern int rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
                       int exit_on_error);
 

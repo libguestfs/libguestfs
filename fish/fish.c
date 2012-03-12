@@ -495,6 +495,7 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
     rc_listen ();
+    goto out;
   }
 
   /* -f (file) parameter? */
@@ -545,6 +546,7 @@ main (int argc, char *argv[])
   else
     cmdline (argv, optind, argc);
 
+ out:
   cleanup_readline ();
 
   if (progress_bars)
