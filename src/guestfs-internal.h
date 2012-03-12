@@ -361,7 +361,7 @@ extern void guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
   __attribute__((format (printf,3,4)));
 extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
-extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
+extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);

@@ -476,7 +476,7 @@ guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s)
 }
 
 void *
-guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes)
+guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes)
 {
   void *p = realloc (ptr, nbytes);
   if (nbytes > 0 && !p) g->abort_cb ();
