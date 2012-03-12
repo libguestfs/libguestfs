@@ -913,10 +913,10 @@ uuid_cmp(const void *x, const void *y)
   const md_uuid *b = y;
 
   for (size_t i = 0; i < 1; i++) {
-    if (a->uuid[i] != b->uuid[i]) return false;
+    if (a->uuid[i] != b->uuid[i]) return 0;
   }
 
-  return true;
+  return 1;
 }
 
 static void
@@ -929,23 +929,27 @@ md_uuid_free(void *x)
 
 /* Taken from parse_uuid in mdadm */
 static int
-parse_uuid(const char *str, uint32_t *uuid)
+parse_uuid (const char *str, uint32_t *uuid)
 {
-  for (size_t i = 0; i < 4; i++) uuid[i] = 0;
-
-  int hit = 0; /* number of Hex digIT */
+  size_t hit = 0; /* number of Hex digIT */
   char c;
+  size_t i;
+  int n;
+
+  for (i = 0; i < 4; i++)
+    uuid[i] = 0;
+
   while ((c = *str++)) {
-    int n;
     if (c >= '0' && c <= '9')
       n = c - '0';
     else if (c >= 'a' && c <= 'f')
       n = 10 + c - 'a';
     else if (c >= 'A' && c <= 'F')
       n = 10 + c - 'A';
-    else if (strchr(":. -", c))
+    else if (strchr (":. -", c))
       continue;
-    else return false;
+    else
+      return -1;
 
     if (hit < 32) {
       uuid[hit / 8] <<= 4;
