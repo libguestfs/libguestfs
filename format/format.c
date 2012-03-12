@@ -435,7 +435,7 @@ static int
 do_rescan (char **devices)
 {
   size_t i;
-  int errors = 0;
+  size_t errors = 0;
   guestfs_error_handler_cb old_error_cb;
   void *old_error_data;
 
