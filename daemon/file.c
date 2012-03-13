@@ -89,7 +89,8 @@ char *
 do_cat (const char *path)
 {
   int fd;
-  int alloc, size, r, max;
+  size_t alloc, size, max;
+  ssize_t r;
   char *buf, *buf2;
 
   CHROOT_IN;
@@ -671,7 +672,7 @@ do_file (const char *path)
 char *
 do_zfile (const char *method, const char *path)
 {
-  int len;
+  size_t len;
   const char *zcat;
   char *cmd;
   FILE *fp;

@@ -990,7 +990,7 @@ main (int argc, char *argv[])
   int option_index;
   struct sigaction sa;
 
-  int fuse_argc = 0;
+  size_t fuse_argc = 0;
   const char **fuse_argv = NULL;
 
 #define ADD_FUSE_ARG(str)                                               \

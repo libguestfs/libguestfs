@@ -89,7 +89,7 @@ static PyObject *
 put_string_list (char * const * const argv)
 {
   PyObject *list;
-  int argc, i;
+  size_t argc, i;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
@@ -110,7 +110,7 @@ static PyObject *
 put_table (char * const * const argv)
 {
   PyObject *list, *item;
-  int argc, i;
+  size_t argc, i;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
@@ -134,7 +134,7 @@ put_table (char * const * const argv)
 static void
 free_strings (char **argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);

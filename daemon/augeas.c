@@ -339,7 +339,7 @@ do_aug_ls (const char *path)
 {
   char **matches;
   char *buf;
-  int len;
+  size_t len;
 
   NEED_AUG (NULL);
 

@@ -241,7 +241,7 @@ static int
 read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
 {
   char buf[BUFSIZ];
-  int n;
+  ssize_t n;
 
 #if 0
   debug (g, "read_log_message_or_eof: %p g->state = %d, fd = %d",

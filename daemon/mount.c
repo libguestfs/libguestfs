@@ -327,7 +327,8 @@ do_umount_all (void)
   struct mntent *m;
   DECLARE_STRINGSBUF (mounts);
   char *err;
-  int i, r;
+  size_t i;
+  int r;
 
   /* NB: Eventually we should aim to parse /proc/self/mountinfo, but
    * that requires custom parsing code.

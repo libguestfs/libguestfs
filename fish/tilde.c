@@ -78,7 +78,7 @@ static char *
 expand_home (char *orig, const char *append)
 {
   const char *home;
-  int len;
+  size_t len;
   char *str;
 
   home = getenv ("HOME");

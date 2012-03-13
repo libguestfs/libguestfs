@@ -191,7 +191,7 @@ extern int cancel_receive (void);
  * reply, then send_file_* for each FileOut parameter.
  * Note max write size if GUESTFS_MAX_CHUNK_SIZE.
  */
-extern int send_file_write (const void *buf, int len);
+extern int send_file_write (const void *buf, size_t len);
 extern int send_file_end (int cancel);
 
 /* only call this if there is a FileOut parameter */

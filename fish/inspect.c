@@ -36,7 +36,7 @@ static char *root = NULL;
 static void
 free_strings (char **argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);

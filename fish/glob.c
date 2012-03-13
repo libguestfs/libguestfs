@@ -28,7 +28,7 @@
 /* A bit tricky because in the case where there are multiple
  * paths we have to perform a Cartesian product.
  */
-static void glob_issue (char *cmd, size_t argc, char ***globs, int *posn, int *count, int *r);
+static void glob_issue (char *cmd, size_t argc, char ***globs, size_t *posn, size_t *count, int *r);
 
 int
 run_glob (const char *cmd, size_t argc, char *argv[])
@@ -44,8 +44,8 @@ run_glob (const char *cmd, size_t argc, char *argv[])
    * argv[1-].
    */
   char **globs[argc];
-  int posn[argc];
-  int count[argc];
+  size_t posn[argc];
+  size_t count[argc];
   size_t i;
   int r = 0;
 
@@ -131,7 +131,7 @@ run_glob (const char *cmd, size_t argc, char *argv[])
 
 static void
 glob_issue (char *cmd, size_t argc,
-            char ***globs, int *posn, int *count,
+            char ***globs, size_t *posn, size_t *count,
             int *r)
 {
   size_t i;

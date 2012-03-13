@@ -463,7 +463,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
-  int len = strlen (journal);
+  size_t len = strlen (journal);
   char jdev[len+32];
   snprintf (jdev, len+32, "device=%s", journal);
 
@@ -500,7 +500,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
-  int len = strlen (label);
+  size_t len = strlen (label);
   char jdev[len+32];
   snprintf (jdev, len+32, "device=LABEL=%s", label);
 
@@ -531,7 +531,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
-  int len = strlen (uuid);
+  size_t len = strlen (uuid);
   char jdev[len+32];
   snprintf (jdev, len+32, "device=UUID=%s", uuid);
 

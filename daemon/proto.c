@@ -71,7 +71,7 @@ static struct timeval start_t;
 static struct timeval last_progress_t;
 
 /* Counts the number of progress notifications sent during this call. */
-static int count_progress;
+static size_t count_progress;
 
 /* The daemon communications socket. */
 static int sock;
@@ -477,13 +477,13 @@ static int send_chunk (const guestfs_chunk *);
 
 /* Also check if the library sends us a cancellation message. */
 int
-send_file_write (const void *buf, int len)
+send_file_write (const void *buf, size_t len)
 {
   guestfs_chunk chunk;
   int cancel;
 
   if (len > GUESTFS_MAX_CHUNK_SIZE) {
-    fprintf (stderr, "guestfsd: send_file_write: len (%d) > GUESTFS_MAX_CHUNK_SIZE (%d)\n",
+    fprintf (stderr, "guestfsd: send_file_write: len (%zu) > GUESTFS_MAX_CHUNK_SIZE (%d)\n",
              len, GUESTFS_MAX_CHUNK_SIZE);
     return -1;
   }

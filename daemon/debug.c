@@ -47,21 +47,21 @@
 
 struct cmd {
   const char *cmd;
-  char * (*f) (const char *subcmd, int argc, char *const *const argv);
+  char * (*f) (const char *subcmd, size_t argc, char *const *const argv);
 };
 
-static char *debug_help (const char *subcmd, int argc, char *const *const argv);
-static char *debug_binaries (const char *subcmd, int argc, char *const *const argv);
-static char *debug_core_pattern (const char *subcmd, int argc, char *const *const argv);
-static char *debug_env (const char *subcmd, int argc, char *const *const argv);
-static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
-static char *debug_ldd (const char *subcmd, int argc, char *const *const argv);
-static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
-static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
-static char *debug_progress (const char *subcmd, int argc, char *const *const argv);
-static char *debug_qtrace (const char *subcmd, int argc, char *const *const argv);
-static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
-static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
+static char *debug_help (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_binaries (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_env (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_fds (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_ldd (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_ls (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_ll (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_progress (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_qtrace (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_segv (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_sh (const char *subcmd, size_t argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
@@ -82,7 +82,7 @@ static struct cmd cmds[] = {
 char *
 do_debug (const char *subcmd, char *const *argv)
 {
-  int argc, i;
+  size_t argc, i;
 
   for (i = argc = 0; argv[i] != NULL; ++i)
     argc++;
@@ -97,9 +97,9 @@ do_debug (const char *subcmd, char *const *argv)
 }
 
 static char *
-debug_help (const char *subcmd, int argc, char *const *const argv)
+debug_help (const char *subcmd, size_t argc, char *const *const argv)
 {
-  int len, i;
+  size_t len, i;
   char *r, *p;
 
   r = strdup ("Commands supported:");
@@ -128,7 +128,7 @@ debug_help (const char *subcmd, int argc, char *const *const argv)
 
 /* Show open FDs. */
 static char *
-debug_fds (const char *subcmd, int argc, char *const *const argv)
+debug_fds (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
   char *out;
@@ -196,7 +196,7 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
 
 /* Force a segfault in the daemon. */
 static char *
-debug_segv (const char *subcmd, int argc, char *const *const argv)
+debug_segv (const char *subcmd, size_t argc, char *const *const argv)
 {
   /* http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html
    * "Dereferencing a NULL Pointer: contrary to popular belief,
@@ -214,15 +214,15 @@ debug_segv (const char *subcmd, int argc, char *const *const argv)
  * because it's not using the guest shell, and is not chrooted.
  */
 static char *
-debug_sh (const char *subcmd, int argc, char *const *const argv)
+debug_sh (const char *subcmd, size_t argc, char *const *const argv)
 {
+  char *cmd;
+  size_t len, i, j;
+
   if (argc < 1) {
     reply_with_error ("sh: expecting a command to run");
     return NULL;
   }
-
-  char *cmd;
-  int len, i, j;
 
   /* guestfish splits the parameter(s) into a list of strings,
    * and we have to reassemble them here.  Not ideal. XXX
@@ -268,7 +268,7 @@ debug_sh (const char *subcmd, int argc, char *const *const argv)
 
 /* Print the environment that commands get (by running external printenv). */
 static char *
-debug_env (const char *subcmd, int argc, char *const *const argv)
+debug_env (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
   char *out, *err;
@@ -290,7 +290,7 @@ debug_env (const char *subcmd, int argc, char *const *const argv)
  * See tests/regressions/rhbz727178.sh
  */
 static char *
-debug_binaries (const char *subcmd, int argc, char *const *const argv)
+debug_binaries (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
   char *out, *err;
@@ -318,7 +318,7 @@ debug_binaries (const char *subcmd, int argc, char *const *const argv)
  * See tests/regressions/rhbz727178.sh
  */
 static char *
-debug_ldd (const char *subcmd, int argc, char *const *const argv)
+debug_ldd (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
   char *out, *err, *ret;
@@ -359,11 +359,11 @@ debug_ldd (const char *subcmd, int argc, char *const *const argv)
 
 /* List files in the appliance. */
 static char *
-debug_ls (const char *subcmd, int argc, char *const *const argv)
+debug_ls (const char *subcmd, size_t argc, char *const *const argv)
 {
-  int len = count_strings (argv);
+  size_t len = count_strings (argv);
   const char *cargv[len+3];
-  int i;
+  size_t i;
 
   cargv[0] = "ls";
   cargv[1] = "-a";
@@ -389,11 +389,11 @@ debug_ls (const char *subcmd, int argc, char *const *const argv)
 
 /* List files in the appliance. */
 static char *
-debug_ll (const char *subcmd, int argc, char *const *const argv)
+debug_ll (const char *subcmd, size_t argc, char *const *const argv)
 {
-  int len = count_strings (argv);
+  size_t len = count_strings (argv);
   const char *cargv[len+3];
-  int i;
+  size_t i;
 
   cargv[0] = "ls";
   cargv[1] = "-la";
@@ -419,7 +419,7 @@ debug_ll (const char *subcmd, int argc, char *const *const argv)
 
 /* Generate progress notification messages in order to test progress bars. */
 static char *
-debug_progress (const char *subcmd, int argc, char *const *const argv)
+debug_progress (const char *subcmd, size_t argc, char *const *const argv)
 {
   if (argc < 1) {
   error:
@@ -455,7 +455,7 @@ debug_progress (const char *subcmd, int argc, char *const *const argv)
  * crashes doesn't chroot.
  */
 static char *
-debug_core_pattern (const char *subcmd, int argc, char *const *const argv)
+debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv)
 {
   if (argc < 1) {
     reply_with_error ("core_pattern: expecting a core pattern");
@@ -510,7 +510,7 @@ write_cb (void *fd_ptr, const void *buf, size_t len)
  * directory in the libguestfs source tree.
  */
 static char *
-debug_qtrace (const char *subcmd, int argc, char *const *const argv)
+debug_qtrace (const char *subcmd, size_t argc, char *const *const argv)
 {
   int enable;
 

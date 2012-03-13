@@ -88,7 +88,7 @@ rmsd_get_standard_deviation (const struct rmsd *r)
 
 struct progress_bar {
   double start;         /* start time of command */
-  int count;            /* number of progress notifications per cmd */
+  size_t count;         /* number of progress notifications per cmd */
   struct rmsd rmsd;     /* running mean and standard deviation */
   int have_terminfo;
   int utf8_mode;
@@ -154,7 +154,7 @@ progress_bar_reset (struct progress_bar *bar)
 }
 
 static const char *
-spinner (struct progress_bar *bar, int count)
+spinner (struct progress_bar *bar, size_t count)
 {
   /* Choice of unicode spinners.
    *
@@ -262,7 +262,8 @@ void
 progress_bar_set (struct progress_bar *bar,
                   uint64_t position, uint64_t total)
 {
-  int i, cols, pulse_mode;
+  size_t i, cols;
+  int pulse_mode;
   double ratio;
   const char *s_open, *s_dot, *s_dash, *s_close;
 
@@ -307,7 +308,7 @@ progress_bar_set (struct progress_bar *bar,
     fputs (s_open, stdout);
 
     if (!pulse_mode) {
-      int dots = ratio * (double) (cols - COLS_OVERHEAD);
+      size_t dots = ratio * (double) (cols - COLS_OVERHEAD);
 
       for (i = 0; i < dots; ++i)
         fputs (s_dot, stdout);

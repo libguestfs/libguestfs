@@ -36,7 +36,8 @@
 #include "rc_protocol.h"
 
 static void
-create_sockpath (pid_t pid, char *sockpath, int len, struct sockaddr_un *addr)
+create_sockpath (pid_t pid, char *sockpath, size_t len,
+                 struct sockaddr_un *addr)
 {
   char dir[128];
   uid_t euid = geteuid ();

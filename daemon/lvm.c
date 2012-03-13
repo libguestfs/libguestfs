@@ -45,8 +45,8 @@ static char **
 convert_lvm_output (char *out, const char *prefix)
 {
   char *p, *pend;
-  int len;
   DECLARE_STRINGSBUF (ret);
+  size_t len;
   char buf[256];
   char *str;
 
@@ -317,7 +317,8 @@ int
 do_lvm_remove_all (void)
 {
   char **xs;
-  int i, r;
+  size_t i;
+  int r;
   char *err;
 
   /* Remove LVs. */

@@ -364,7 +364,7 @@ char *
 sysroot_path (const char *path)
 {
   char *r;
-  int len = strlen (path) + sysroot_len + 1;
+  size_t len = strlen (path) + sysroot_len + 1;
 
   r = malloc (len);
   if (r == NULL)
@@ -497,7 +497,7 @@ sort_strings (char **argv, size_t len)
 void
 free_strings (char **argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
@@ -523,7 +523,8 @@ commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
   va_list args;
   const char **argv;
   char *s;
-  int i, r;
+  size_t i;
+  int r;
 
   /* Collect the command line arguments into an array. */
   i = 2;
@@ -655,7 +656,7 @@ int
 commandrvf (char **stdoutput, char **stderror, int flags,
             char const* const *argv)
 {
-  int so_size = 0, se_size = 0;
+  size_t so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
   int flag_copy_stdin = flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
   int stdin_fd[2] = { -1, -1 };
@@ -894,9 +895,10 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     *stderror = q;
     if (*stderror) {
       (*stderror)[se_size] = '\0';
-      se_size--;
-      while (se_size >= 0 && (*stderror)[se_size] == '\n')
-        (*stderror)[se_size--] = '\0';
+      while (se_size > 0 && (*stderror)[se_size-1] == '\n') {
+        se_size--;
+        (*stderror)[se_size] = '\0';
+      }
     }
   }
 

@@ -60,9 +60,9 @@ static int launch (void);
 static void interactive (void);
 static void shell_script (void);
 static void script (int prompt);
-static void cmdline (char *argv[], int optind, int argc);
+static void cmdline (char *argv[], size_t optind, size_t argc);
 static struct parsed_command parse_command_line (char *buf, int *exit_on_error_rtn);
-static int parse_quoted_string (char *p);
+static ssize_t parse_quoted_string (char *p);
 static int execute_and_inline (const char *cmd, int exit_on_error);
 static void error_cb (guestfs_h *g, void *data, const char *msg);
 static void initialize_readline (void);
@@ -624,7 +624,7 @@ rl_gets (int prompt)
 #endif /* HAVE_LIBREADLINE */
 
   static char buf[8192];
-  int len;
+  size_t len;
 
   if (prompt) printf (FISH);
   line_read = fgets (buf, sizeof buf, stdin);
@@ -701,7 +701,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
 {
   struct parsed_command pcmd;
   char *p, *pend;
-  int len;
+  ssize_t len;
   int tilde_candidate;
   int r;
   const size_t argv_len = sizeof pcmd.argv / sizeof pcmd.argv[0];
@@ -880,7 +880,7 @@ hexdigit (char d)
  * with the true character.  Since the string is returned in place,
  * the escapes must make the string shorter.
  */
-static int
+static ssize_t
 parse_quoted_string (char *p)
 {
   char *start = p;
@@ -991,7 +991,7 @@ execute_and_inline (const char *cmd, int global_exit_on_error)
 }
 
 static void
-cmdline (char *argv[], int optind, int argc)
+cmdline (char *argv[], size_t optind, size_t argc)
 {
   const char *cmd;
   char **params;
@@ -1040,7 +1040,7 @@ int
 issue_command (const char *cmd, char *argv[], const char *pipecmd,
                int rc_exit_on_error_flag)
 {
-  int argc;
+  size_t argc;
   int stdout_saved_fd = -1;
   int pid = 0;
   int r;
@@ -1208,17 +1208,17 @@ error_cb (guestfs_h *g, void *data, const char *msg)
 void
 free_strings (char **argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
   free (argv);
 }
 
-int
+size_t
 count_strings (char *const *argv)
 {
-  int c;
+  size_t c;
 
   for (c = 0; argv[c]; ++c)
     ;
@@ -1228,7 +1228,7 @@ count_strings (char *const *argv)
 void
 print_strings (char *const *argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     printf ("%s\n", argv[argc]);
@@ -1237,7 +1237,7 @@ print_strings (char *const *argv)
 void
 print_table (char *const *argv)
 {
-  int i;
+  size_t i;
 
   for (i = 0; argv[i] != NULL; i += 2)
     printf ("%s: %s\n", argv[i], argv[i+1]);

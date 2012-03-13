@@ -58,7 +58,7 @@ checksum (const char *csumtype, int fd)
   const char *program;
   char *out, *err;
   int flags, r;
-  int len;
+  size_t len;
 
   program = program_of_csum (csumtype);
   if (program == NULL) {

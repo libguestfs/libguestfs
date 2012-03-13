@@ -62,7 +62,7 @@ static void output_drive_mappings (xmlTextWriterPtr xo, char *root);
 static void output_applications (xmlTextWriterPtr xo, char *root);
 static void canonicalize (char *dev);
 static void free_strings (char **argv);
-static int count_strings (char *const*argv);
+static size_t count_strings (char *const*argv);
 static void do_xpath (const char *query);
 
 static inline char *
@@ -790,17 +790,17 @@ canonicalize (char *dev)
 static void
 free_strings (char **argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
   free (argv);
 }
 
-static int
+static size_t
 count_strings (char *const *argv)
 {
-  int c;
+  size_t c;
 
   for (c = 0; argv[c]; ++c)
     ;

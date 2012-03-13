@@ -683,7 +683,7 @@ and generate_java_struct_return typ jtyp cols =
         pr "  }\n";
     | name, FBuffer ->
         pr "  {\n";
-        pr "    int len = r->%s_len;\n" name;
+        pr "    size_t len = r->%s_len;\n" name;
         pr "    char s[len+1];\n";
         pr "    memcpy (s, r->%s, len);\n" name;
         pr "    s[len] = 0;\n";
@@ -726,7 +726,7 @@ and generate_java_struct_list_return typ jtyp cols =
         pr "    }\n";
     | name, FBuffer ->
         pr "    {\n";
-        pr "      int len = r->val[i].%s_len;\n" name;
+        pr "      size_t len = r->val[i].%s_len;\n" name;
         pr "      char s[len+1];\n";
         pr "      memcpy (s, r->val[i].%s, len);\n" name;
         pr "      s[len] = 0;\n";

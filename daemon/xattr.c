@@ -120,7 +120,7 @@ getxattrs (const char *path,
 {
   ssize_t len, vlen;
   char *buf = NULL;
-  int i, j;
+  size_t i, j;
   guestfs_int_xattr_list *r = NULL;
 
   CHROOT_IN;
@@ -155,7 +155,7 @@ getxattrs (const char *path,
    * len.  First count the strings.
    */
   r->guestfs_int_xattr_list_len = 0;
-  for (i = 0; i < len; i += strlen (&buf[i]) + 1)
+  for (i = 0; i < (size_t) len; i += strlen (&buf[i]) + 1)
     r->guestfs_int_xattr_list_len++;
 
   r->guestfs_int_xattr_list_val =
@@ -165,7 +165,7 @@ getxattrs (const char *path,
     goto error;
   }
 
-  for (i = 0, j = 0; i < len; i += strlen (&buf[i]) + 1, ++j) {
+  for (i = 0, j = 0; i < (size_t) len; i += strlen (&buf[i]) + 1, ++j) {
     CHROOT_IN;
     vlen = getxattr (path, &buf[i], NULL, 0);
     CHROOT_OUT;
@@ -203,7 +203,7 @@ getxattrs (const char *path,
   free (buf);
   if (r) {
     if (r->guestfs_int_xattr_list_val) {
-      unsigned int k;
+      size_t k;
       for (k = 0; k < r->guestfs_int_xattr_list_len; ++k) {
         free (r->guestfs_int_xattr_list_val[k].attrname);
         free (r->guestfs_int_xattr_list_val[k].attrval.attrval_val);
@@ -260,7 +260,7 @@ do_lxattrlist (const char *path, char *const *names)
   char pathname[PATH_MAX];
   size_t path_len = strlen (path);
   guestfs_int_xattr_list *ret = NULL;
-  int i, j;
+  size_t i, j;
   size_t k, m, nr_attrs;
   ssize_t len, vlen;
   char *buf = NULL;
@@ -339,7 +339,7 @@ do_lxattrlist (const char *path, char *const *names)
      * len.  First count the strings.
      */
     nr_attrs = 0;
-    for (i = 0; i < len; i += strlen (&buf[i]) + 1)
+    for (i = 0; i < (size_t) len; i += strlen (&buf[i]) + 1)
       nr_attrs++;
 
     newptr =
@@ -363,7 +363,7 @@ do_lxattrlist (const char *path, char *const *names)
       entry[m].attrval.attrval_val = NULL;
     }
 
-    for (i = 0, j = 0; i < len; i += strlen (&buf[i]) + 1, ++j) {
+    for (i = 0, j = 0; i < (size_t) len; i += strlen (&buf[i]) + 1, ++j) {
       CHROOT_IN;
       vlen = lgetxattr (pathname, &buf[i], NULL, 0);
       CHROOT_OUT;

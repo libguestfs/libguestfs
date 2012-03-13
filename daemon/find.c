@@ -31,9 +31,10 @@
 #include "actions.h"
 
 static int
-input_to_nul (FILE *fp, char *buf, int maxlen)
+input_to_nul (FILE *fp, char *buf, size_t maxlen)
 {
-  int i = 0, c;
+  size_t i = 0;
+  int c;
 
   while (i < maxlen) {
     c = fgetc (fp);
@@ -52,7 +53,9 @@ char **
 do_find (const char *dir)
 {
   struct stat statbuf;
-  int r, len, sysrootdirlen;
+  int r;
+  size_t sysrootdirlen;
+  size_t len;
   char *cmd;
   FILE *fp;
   DECLARE_STRINGSBUF (ret);

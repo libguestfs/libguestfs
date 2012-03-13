@@ -34,7 +34,7 @@ do_readdir (const char *path)
   guestfs_int_dirent v;
   DIR *dir;
   struct dirent *d;
-  int i;
+  size_t i;
 
   ret = malloc (sizeof *ret);
   if (ret == NULL) {
