@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-12 12:17+0000\n"
+"POT-Creation-Date: 2012-03-13 08:43+0000\n"
 "PO-Revision-Date: 2012-03-07 22:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -112,7 +112,7 @@ msgstr ""
 "  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1560
+#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1563
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2354,7 +2354,7 @@ msgstr "%s: --listen फ्लॅगसह आदेश ओळीवरील �
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
-#: fish/fish.c:646
+#: fish/fish.c:649
 #, c-format
 msgid ""
 "\n"
@@ -2375,50 +2375,50 @@ msgstr ""
 "      शेलपासून बाहेर पडण्यासाठी 'quit'\n"
 "\n"
 
-#: fish/fish.c:797 fish/fish.c:813
+#: fish/fish.c:800 fish/fish.c:816
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: आदेश घटके वाईटस्पेस द्वारे विभाजीत नाही\n"
 
-#: fish/fish.c:807
+#: fish/fish.c:810
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: न ओळखलेले सींगल क्वोट\n"
 
-#: fish/fish.c:837
+#: fish/fish.c:840
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
 
-#: fish/fish.c:854
+#: fish/fish.c:857
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: खूप जास्त घटके आढळले\n"
 
-#: fish/fish.c:929
+#: fish/fish.c:932
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:938
+#: fish/fish.c:941
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: न ओळखलेले डबल क्वोट\n"
 
-#: fish/fish.c:1003
+#: fish/fish.c:1006
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/fish.c:1150
+#: fish/fish.c:1153
 msgid "display a list of commands or help on a command"
 msgstr "आदेश सूची किंवा आदेशकरीता मदत दाखवा"
 
-#: fish/fish.c:1152
+#: fish/fish.c:1155
 msgid "quit guestfish"
 msgstr "guestfish पासून बाहेर पडा"
 
-#: fish/fish.c:1163
+#: fish/fish.c:1166
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2429,7 +2429,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1171
+#: fish/fish.c:1174
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2438,12 +2438,12 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1176
+#: fish/fish.c:1179
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1192
+#: fish/fish.c:1195
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2454,31 +2454,31 @@ msgstr ""
 "आदेशांच्या सूचीकरीता:             guestfish -h\n"
 "संपूर्ण दस्तऐवजीकरणकरीता:         man guestfish\n"
 
-#: fish/fish.c:1201
+#: fish/fish.c:1204
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1357
+#: fish/fish.c:1360
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
 
-#: fish/fish.c:1554
+#: fish/fish.c:1557
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1574
+#: fish/fish.c:1577
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1593
+#: fish/fish.c:1596
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2773,12 +2773,12 @@ msgstr "LV ला संपूर्ण आकारात पुनःआका
 msgid "failed to create filesystem (%s): %s"
 msgstr "फाइलप्रणाली निर्माण करण्यास अपयशी (%s): %s"
 
-#: fish/rc.c:257
+#: fish/rc.c:259
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: प्रोटोकॉल त्रुटी: 'hello' संदेश वाचणे अशक्य\n"
 
-#: fish/rc.c:262
+#: fish/rc.c:264
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2787,17 +2787,17 @@ msgstr ""
 "guestfish: प्रोटोकॉल त्रुटी: आवृत्ती जुळली नाही, सर्व्हर आवृत्ती '%s' क्लाएंट आवृत्ती '%s' "
 "सह जुळत नाही.  दोन्ही आवृत्ती बरोबर जुळायला हवे.\n"
 
-#: fish/rc.c:337 fish/rc.c:351
+#: fish/rc.c:348 fish/rc.c:362
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: रिमोट: सर्व्हर कार्यरत नाही असे आढळते\n"
 
-#: fish/rc.c:363 fish/rc.c:377
+#: fish/rc.c:374 fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr "guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
 
-#: fish/rc.c:388
+#: fish/rc.c:399
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"

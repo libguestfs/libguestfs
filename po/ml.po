@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-12 12:17+0000\n"
+"POT-Creation-Date: 2012-03-13 08:43+0000\n"
 "PO-Revision-Date: 2012-03-07 22:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -93,7 +93,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1560
+#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1563
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2279,7 +2279,7 @@ msgstr "%s: --listen ഫ്ലാഗിനൊപ്പം കമാന്‍ഡ�
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/fish.c:646
+#: fish/fish.c:649
 #, c-format
 msgid ""
 "\n"
@@ -2292,50 +2292,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:797 fish/fish.c:813
+#: fish/fish.c:800 fish/fish.c:816
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
 
-#: fish/fish.c:807
+#: fish/fish.c:810
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ സിംഗിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:837
+#: fish/fish.c:840
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'-ല്‍ സ്ട്രിങ് പാഴ്സ് ചെയ്യുമ്പോള്‍ ഇന്റേര്‍ണല്‍ പിശക്\n"
 
-#: fish/fish.c:854
+#: fish/fish.c:857
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: അനവധി ആര്‍ഗ്യുമെന്റുകള്‍\n"
 
-#: fish/fish.c:929
+#: fish/fish.c:932
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:938
+#: fish/fish.c:941
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ ഡബിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:1003
+#: fish/fish.c:1006
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ കമാന്‍ഡ്\n"
 
-#: fish/fish.c:1150
+#: fish/fish.c:1153
 msgid "display a list of commands or help on a command"
 msgstr "കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുക"
 
-#: fish/fish.c:1152
+#: fish/fish.c:1155
 msgid "quit guestfish"
 msgstr "guestfish-ല്‍ നിന്നും പുറത്തു് കടക്കുക"
 
-#: fish/fish.c:1163
+#: fish/fish.c:1166
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2346,7 +2346,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1171
+#: fish/fish.c:1174
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2355,12 +2355,12 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1176
+#: fish/fish.c:1179
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:1192
+#: fish/fish.c:1195
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2368,31 +2368,31 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1201
+#: fish/fish.c:1204
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1357
+#: fish/fish.c:1360
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
 
-#: fish/fish.c:1554
+#: fish/fish.c:1557
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1574
+#: fish/fish.c:1577
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1593
+#: fish/fish.c:1596
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2666,12 +2666,12 @@ msgstr ""
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/rc.c:257
+#: fish/rc.c:259
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: protocol error: 'hello' സന്ദേശം വായിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/rc.c:262
+#: fish/rc.c:264
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2680,18 +2680,18 @@ msgstr ""
 "guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
 "പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
-#: fish/rc.c:337 fish/rc.c:351
+#: fish/rc.c:348 fish/rc.c:362
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: fish/rc.c:363 fish/rc.c:377
+#: fish/rc.c:374 fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
-#: fish/rc.c:388
+#: fish/rc.c:399
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"

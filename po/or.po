@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-12 12:17+0000\n"
+"POT-Creation-Date: 2012-03-13 08:43+0000\n"
 "PO-Revision-Date: 2012-03-07 22:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/language/"
@@ -94,7 +94,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1560
+#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1563
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2278,7 +2278,7 @@ msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:646
+#: fish/fish.c:649
 #, c-format
 msgid ""
 "\n"
@@ -2291,50 +2291,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:797 fish/fish.c:813
+#: fish/fish.c:800 fish/fish.c:816
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:807
+#: fish/fish.c:810
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:837
+#: fish/fish.c:840
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:854
+#: fish/fish.c:857
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:929
+#: fish/fish.c:932
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:938
+#: fish/fish.c:941
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:1003
+#: fish/fish.c:1006
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:1150
+#: fish/fish.c:1153
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:1152
+#: fish/fish.c:1155
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:1163
+#: fish/fish.c:1166
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2345,7 +2345,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:1171
+#: fish/fish.c:1174
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2354,13 +2354,13 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:1176
+#: fish/fish.c:1179
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1192
+#: fish/fish.c:1195
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2368,31 +2368,31 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1201
+#: fish/fish.c:1204
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1357
+#: fish/fish.c:1360
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
 
-#: fish/fish.c:1554
+#: fish/fish.c:1557
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1574
+#: fish/fish.c:1577
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1593
+#: fish/fish.c:1596
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2666,12 +2666,12 @@ msgstr ""
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/rc.c:257
+#: fish/rc.c:259
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: 'hello' ସନ୍ଦେଶ ପଢ଼ିପାରିଲା ନାହିଁ\n"
 
-#: fish/rc.c:262
+#: fish/rc.c:264
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -2680,17 +2680,17 @@ msgstr ""
 "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସଂସ୍କରଣ ଅମେଳ, ସର୍ଭର ସଂସ୍କରଣ '%s' କ୍ଲାଏଣ୍ଟ ସଂସ୍କରଣ '%s' ସହିତ "
 "ମେଳଖାଉନାହିଁ।  ଦୁଇଟି ସଂସ୍କରଣ ମେଳଖାଉଥିବା ଉଚିତ।\n"
 
-#: fish/rc.c:337 fish/rc.c:351
+#: fish/rc.c:348 fish/rc.c:362
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: ସର୍ଭର ଚାଲୁନଥିବା ପରି ଲାଗୁଅଛି\n"
 
-#: fish/rc.c:363 fish/rc.c:377
+#: fish/rc.c:374 fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରକୁ ପ୍ରାରମ୍ଭିକ ଆମନ୍ତ୍ରଣ ପଠାଇପାରିଲା ନାହିଁ\n"
 
-#: fish/rc.c:388
+#: fish/rc.c:399
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରରୁ ଉତ୍ତରକୁ ସଙ୍କେତହୀନ କରିପାରିଲା ନାହିଁ\n"
