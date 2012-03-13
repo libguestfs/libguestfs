@@ -417,46 +417,50 @@ xread (int sock, void *v_buf, size_t len)
 }
 
 int
-add_string_nodup (char ***argv, int *size, int *alloc, char *str)
+add_string_nodup (struct stringsbuf *sb, char *str)
 {
   char **new_argv;
 
-  if (*size >= *alloc) {
-    *alloc += 64;
-    new_argv = realloc (*argv, *alloc * sizeof (char *));
+  if (sb->size >= sb->alloc) {
+    sb->alloc += 64;
+    new_argv = realloc (sb->argv, sb->alloc * sizeof (char *));
     if (new_argv == NULL) {
       reply_with_perror ("realloc");
-      free_strings (*argv);
-      *argv = NULL;
+      free_stringslen (sb->argv, sb->size);
+      sb->argv = NULL;
       return -1;
     }
-    *argv = new_argv;
+    sb->argv = new_argv;
   }
 
-  (*argv)[*size] = str;
+  sb->argv[sb->size] = str;
+  sb->size++;
 
-  (*size)++;
   return 0;
 }
 
 int
-add_string (char ***argv, int *size, int *alloc, const char *str)
+add_string (struct stringsbuf *sb, const char *str)
 {
-  char *new_str;
+  char *new_str = NULL;
 
   if (str) {
     new_str = strdup (str);
     if (new_str == NULL) {
       reply_with_perror ("strdup");
-      free_strings (*argv);
-      *argv = NULL;
+      free_stringslen (sb->argv, sb->size);
+      sb->argv = NULL;
       return -1;
     }
-  } else {
-    new_str = NULL;
   }
 
-  return add_string_nodup (argv, size, alloc, new_str);
+  return add_string_nodup (sb, new_str);
+}
+
+int
+end_stringsbuf (struct stringsbuf *sb)
+{
+  return add_string_nodup (sb, NULL);
 }
 
 size_t
@@ -485,7 +489,7 @@ compare (const void *vp1, const void *vp2)
 }
 
 void
-sort_strings (char **argv, int len)
+sort_strings (char **argv, size_t len)
 {
   qsort (argv, len, sizeof (char *), compare);
 }
@@ -501,9 +505,9 @@ free_strings (char **argv)
 }
 
 void
-free_stringslen (char **argv, int len)
+free_stringslen (char **argv, size_t len)
 {
-  int i;
+  size_t i;
 
   for (i = 0; i < len; ++i)
     free (argv[i]);
@@ -946,8 +950,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
 char **
 split_lines (char *str)
 {
-  char **lines = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (lines);
   char *p, *pend;
 
   if (STREQ (str, ""))
@@ -965,7 +968,7 @@ split_lines (char *str)
       pend++;
     }
 
-    if (add_string (&lines, &size, &alloc, p) == -1) {
+    if (add_string (&lines, p) == -1) {
       return NULL;
     }
 
@@ -973,10 +976,10 @@ split_lines (char *str)
   }
 
  empty_list:
-  if (add_string (&lines, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&lines) == -1)
     return NULL;
 
-  return lines;
+  return lines.argv;
 }
 
 /* Skip leading and trailing whitespace, updating the original string

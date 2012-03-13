@@ -58,16 +58,15 @@ char **
 do_available_all_groups (void)
 {
   size_t i;
-  char **groups = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (groups);
 
   for (i = 0; optgroups[i].group != NULL; ++i) {
-    if (add_string (&groups, &size, &alloc, optgroups[i].group) == -1)
+    if (add_string (&groups, optgroups[i].group) == -1)
       return NULL;
   }
 
-  if (add_string (&groups, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&groups) == -1)
     return NULL;
 
-  return groups;                /* caller frees */
+  return groups.argv;           /* caller frees */
 }

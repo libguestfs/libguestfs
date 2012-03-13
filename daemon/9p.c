@@ -40,8 +40,7 @@ static char *read_whole_file (const char *filename);
 char **
 do_list_9p (void)
 {
-  char **r = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (r);
 
   DIR *dir;
 
@@ -55,10 +54,10 @@ do_list_9p (void)
      * the virtio driver isn't loaded.  Don't return an error
      * in this case, but return an empty list.
      */
-    if (add_string (&r, &size, &alloc, NULL) == -1)
+    if (end_stringsbuf (&r) == -1)
       return NULL;
 
-    return r;
+    return r.argv;
   }
 
   while (1) {
@@ -79,7 +78,7 @@ do_list_9p (void)
       if (mount_tag == 0)
         continue;
 
-      if (add_string (&r, &size, &alloc, mount_tag) == -1) {
+      if (add_string (&r, mount_tag) == -1) {
         free (mount_tag);
         closedir (dir);
         return NULL;
@@ -92,7 +91,7 @@ do_list_9p (void)
   /* Check readdir didn't fail */
   if (errno != 0) {
     reply_with_perror ("readdir: /sys/block");
-    free_stringslen (r, size);
+    free_stringslen (r.argv, r.size);
     closedir (dir);
     return NULL;
   }
@@ -100,19 +99,19 @@ do_list_9p (void)
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /sys/block");
-    free_stringslen (r, size);
+    free_stringslen (r.argv, r.size);
     return NULL;
   }
 
-  /* Sort the tags.  Note that r might be NULL if there are no tags. */
-  if (r != NULL)
-    sort_strings (r, size);
+  /* Sort the tags. */
+  if (r.size > 0)
+    sort_strings (r.argv, r.size);
 
   /* NULL terminate the list */
-  if (add_string (&r, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&r) == -1)
     return NULL;
 
-  return r;
+  return r.argv;
 }
 
 /* Read whole file into dynamically allocated array.  If there is an

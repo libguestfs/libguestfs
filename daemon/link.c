@@ -60,8 +60,7 @@ do_readlinklist (const char *path, char *const *names)
   ssize_t r;
   char link[PATH_MAX];
   const char *str;
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
 
   CHROOT_IN;
   fd_cwd = open (path, O_RDONLY | O_DIRECTORY);
@@ -87,7 +86,7 @@ do_readlinklist (const char *path, char *const *names)
       str = link;
     } else
       str = "";
-    if (add_string (&ret, &size, &alloc, str) == -1) {
+    if (add_string (&ret, str) == -1) {
       close (fd_cwd);
       return NULL;
     }
@@ -95,10 +94,10 @@ do_readlinklist (const char *path, char *const *names)
 
   close (fd_cwd);
 
-  if (add_string (&ret, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  return ret;
+  return ret.argv;
 }
 
 static int

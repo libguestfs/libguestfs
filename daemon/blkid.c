@@ -132,8 +132,7 @@ blkid_with_p_i_opt (const char *device)
   int r;
   char *out = NULL, *err = NULL;
   char **lines = NULL;
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
 
   r = command (&out, &err, "blkid", "-c", "/dev/null",
                "-p", "-i", "-o", "export", device, NULL);
@@ -176,28 +175,28 @@ blkid_with_p_i_opt (const char *device)
       *eq = '\0'; eq++;
 
       /* Add the key/value pair to the output */
-      if (add_string (&ret, &size, &alloc, line) == -1 ||
-          add_string (&ret, &size, &alloc, eq) == -1) goto error;
+      if (add_string (&ret, line) == -1 ||
+          add_string (&ret, eq) == -1) goto error;
     } else {
       fprintf (stderr, "blkid: unexpected blkid output ignored: %s", line);
     }
   }
 
-  if (add_string (&ret, &size, &alloc, NULL) == -1) goto error;
+  if (end_stringsbuf (&ret) == -1) goto error;
 
   free (out);
   free (err);
   free_strings (lines);
 
-  return ret;
+  return ret.argv;
 
 error:
   free (out);
   free (err);
   if (lines)
     free_strings (lines);
-  if (ret)
-    free_strings (ret);
+  if (ret.argv)
+    free_strings (ret.argv);
 
   return NULL;
 }
@@ -206,33 +205,32 @@ static char **
 blkid_without_p_i_opt(const char *device)
 {
   char *s;
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
 
-  if (add_string (&ret, &size, &alloc, "TYPE") == -1) goto error;
+  if (add_string (&ret, "TYPE") == -1) goto error;
   s = get_blkid_tag (device, "TYPE");
   if (s == NULL) goto error;
-  if (add_string (&ret, &size, &alloc, s) == -1)
+  if (add_string (&ret, s) == -1)
     goto error;
 
-  if (add_string (&ret, &size, &alloc, "LABEL") == -1) goto error;
+  if (add_string (&ret, "LABEL") == -1) goto error;
   s = get_blkid_tag (device, "LABEL");
   if (s == NULL) goto error;
-  if (add_string (&ret, &size, &alloc, s) == -1)
+  if (add_string (&ret, s) == -1)
     goto error;
 
-  if (add_string (&ret, &size, &alloc, "UUID") == -1) goto error;
+  if (add_string (&ret, "UUID") == -1) goto error;
   s = get_blkid_tag (device, "UUID");
   if (s == NULL) goto error;
-  if (add_string (&ret, &size, &alloc, s) == -1)
+  if (add_string (&ret, s) == -1)
     goto error;
 
-  if (add_string (&ret, &size, &alloc, NULL) == -1) goto error;
+  if (end_stringsbuf (&ret) == -1) goto error;
 
-  return ret;
+  return ret.argv;
 error:
-  if (ret)
-    free_strings (ret);
+  if (ret.argv)
+    free_strings (ret.argv);
   return NULL;
 }
 

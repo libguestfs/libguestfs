@@ -63,8 +63,7 @@ do_tune2fs_l (const char *device)
   int r;
   char *out, *err;
   char *p, *pend, *colon;
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
 
   char prog[] = "tune2fs";
   if (e2prog (prog) == -1)
@@ -108,30 +107,30 @@ do_tune2fs_l (const char *device)
 
       do { colon++; } while (*colon && c_isspace (*colon));
 
-      if (add_string (&ret, &size, &alloc, p) == -1) {
+      if (add_string (&ret, p) == -1) {
         free (out);
         return NULL;
       }
       if (STREQ (colon, "<none>") ||
           STREQ (colon, "<not available>") ||
           STREQ (colon, "(none)")) {
-        if (add_string (&ret, &size, &alloc, "") == -1) {
+        if (add_string (&ret, "") == -1) {
           free (out);
           return NULL;
         }
       } else {
-        if (add_string (&ret, &size, &alloc, colon) == -1) {
+        if (add_string (&ret, colon) == -1) {
           free (out);
           return NULL;
         }
       }
     }
     else {
-      if (add_string (&ret, &size, &alloc, p) == -1) {
+      if (add_string (&ret, p) == -1) {
         free (out);
         return NULL;
       }
-      if (add_string (&ret, &size, &alloc, "") == -1) {
+      if (add_string (&ret, "") == -1) {
         free (out);
         return NULL;
       }
@@ -142,10 +141,10 @@ do_tune2fs_l (const char *device)
 
   free (out);
 
-  if (add_string (&ret, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  return ret;
+  return ret.argv;
 }
 
 int

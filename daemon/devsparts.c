@@ -31,15 +31,13 @@
 #include "daemon.h"
 #include "actions.h"
 
-typedef int (*block_dev_func_t)(const char *dev,
-                                char ***r, int *size, int *alloc);
+typedef int (*block_dev_func_t) (const char *dev, struct stringsbuf *r);
 
 /* Execute a given function for each discovered block device */
-static char**
+static char **
 foreach_block_device (block_dev_func_t func)
 {
-  char **r = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (r);
 
   DIR *dir;
   int err = 0;
@@ -78,7 +76,7 @@ foreach_block_device (block_dev_func_t func)
       close (fd);
 
       /* Call the map function for this device */
-      if((*func)(d->d_name, &r, &size, &alloc) != 0) {
+      if((*func)(d->d_name, &r) != 0) {
         err = 1;
         break;
       }
@@ -88,7 +86,7 @@ foreach_block_device (block_dev_func_t func)
   /* Check readdir didn't fail */
   if(0 != errno) {
     reply_with_perror ("readdir: /sys/block");
-    free_stringslen(r, size);
+    free_stringslen (r.argv, r.size);
     closedir (dir);
     return NULL;
   }
@@ -96,37 +94,36 @@ foreach_block_device (block_dev_func_t func)
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /sys/block");
-    free_stringslen(r, size);
+    free_stringslen (r.argv, r.size);
     return NULL;
   }
 
   /* Free the result list on error */
-  if(err) {
-    free_stringslen(r, size);
+  if (err) {
+    free_stringslen (r.argv, r.size);
     return NULL;
   }
 
-  /* Sort the devices.  Note that r might be NULL if there are no devices. */
-  if (r != NULL)
-    sort_strings (r, size);
+  /* Sort the devices. */
+  if (r.size > 0)
+    sort_strings (r.argv, r.size);
 
   /* NULL terminate the list */
-  if (add_string (&r, &size, &alloc, NULL) == -1) {
+  if (end_stringsbuf (&r) == -1) {
     return NULL;
   }
 
-  return r;
+  return r.argv;
 }
 
 /* Add a device to the list of devices */
 static int
-add_device(const char *device,
-           char ***const r, int *const size, int *const alloc)
+add_device (const char *device, struct stringsbuf *r)
 {
   char dev_path[256];
   snprintf (dev_path, sizeof dev_path, "/dev/%s", device);
 
-  if (add_string (r, size, alloc, dev_path) == -1) {
+  if (add_string (r, dev_path) == -1) {
     return -1;
   }
 
@@ -136,12 +133,11 @@ add_device(const char *device,
 char **
 do_list_devices (void)
 {
-  return foreach_block_device(add_device);
+  return foreach_block_device (add_device);
 }
 
 static int
-add_partitions(const char *device,
-               char ***const r, int *const size, int *const alloc)
+add_partitions (const char *device, struct stringsbuf *r)
 {
   char devdir[256];
 
@@ -151,7 +147,7 @@ add_partitions(const char *device,
   DIR *dir = opendir (devdir);
   if (!dir) {
     reply_with_perror ("opendir: %s", devdir);
-    free_stringslen (*r, *size);
+    free_stringslen (r->argv, r->size);
     return -1;
   }
 
@@ -165,7 +161,7 @@ add_partitions(const char *device,
       char part[256];
       snprintf (part, sizeof part, "/dev/%s", d->d_name);
 
-      if (add_string (r, size, alloc, part) == -1) {
+      if (add_string (r, part) == -1) {
         closedir (dir);
         return -1;
       }
@@ -173,9 +169,9 @@ add_partitions(const char *device,
   }
 
   /* Check if readdir failed */
-  if(0 != errno) {
+  if (0 != errno) {
       reply_with_perror ("readdir: %s", devdir);
-      free_stringslen(*r, *size);
+      free_stringslen (r->argv, r->size);
       closedir (dir);
       return -1;
   }
@@ -183,7 +179,7 @@ add_partitions(const char *device,
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /sys/block/%s", device);
-    free_stringslen (*r, *size);
+    free_stringslen (r->argv, r->size);
     return -1;
   }
 
@@ -193,7 +189,7 @@ add_partitions(const char *device,
 char **
 do_list_partitions (void)
 {
-  return foreach_block_device(add_partitions);
+  return foreach_block_device (add_partitions);
 }
 
 char *

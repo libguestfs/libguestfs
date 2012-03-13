@@ -32,8 +32,7 @@
 char **
 do_ls (const char *path)
 {
-  char **r = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
   DIR *dir;
   struct dirent *d;
 
@@ -50,25 +49,27 @@ do_ls (const char *path)
     if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
       continue;
 
-    if (add_string (&r, &size, &alloc, d->d_name) == -1) {
+    if (add_string (&ret, d->d_name) == -1) {
       closedir (dir);
       return NULL;
     }
   }
 
-  if (add_string (&r, &size, &alloc, NULL) == -1) {
+  if (ret.size > 0)
+    sort_strings (ret.argv, ret.size);
+
+  if (end_stringsbuf (&ret) == -1) {
     closedir (dir);
     return NULL;
   }
 
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: %s", path);
-    free_strings (r);
+    free_stringslen (ret.argv, ret.size);
     return NULL;
   }
 
-  sort_strings (r, size-1);
-  return r;
+  return ret.argv;
 }
 
 /* Because we can't chroot and run the ls command (since 'ls' won't

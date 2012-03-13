@@ -301,8 +301,7 @@ do_inotify_read (void)
 char **
 do_inotify_files (void)
 {
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
   unsigned int i;
   FILE *fp = NULL;
   guestfs_int_inotify_event_list *events;
@@ -359,23 +358,23 @@ do_inotify_files (void)
   }
 
   while (fgets (buf, sizeof buf, fp) != NULL) {
-    int len = strlen (buf);
+    size_t len = strlen (buf);
 
     if (len > 0 && buf[len-1] == '\n')
       buf[len-1] = '\0';
 
-    if (add_string (&ret, &size, &alloc, buf) == -1)
+    if (add_string (&ret, buf) == -1)
       goto error;
   }
 
   fclose (fp); /* implicitly closes fd */
   fp = NULL;
 
-  if (add_string (&ret, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&ret) == -1)
     goto error;
 
   unlink (tempfile);
-  return ret;
+  return ret.argv;
 
  error:
   if (fp != NULL)

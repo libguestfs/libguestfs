@@ -45,9 +45,8 @@ static char **
 convert_lvm_output (char *out, const char *prefix)
 {
   char *p, *pend;
-  char **r = NULL;
-  int size = 0, alloc = 0;
   int len;
+  DECLARE_STRINGSBUF (ret);
   char buf[256];
   char *str;
 
@@ -79,7 +78,7 @@ convert_lvm_output (char *out, const char *prefix)
     } else
       str = p;
 
-    if (add_string (&r, &size, &alloc, str) == -1) {
+    if (add_string (&ret, str) == -1) {
       free (out);
       return NULL;
     }
@@ -89,11 +88,13 @@ convert_lvm_output (char *out, const char *prefix)
 
   free (out);
 
-  if (add_string (&r, &size, &alloc, NULL) == -1)
+  if (ret.size > 0)
+    sort_strings (ret.argv, ret.size);
+
+  if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  sort_strings (r, size-1);
-  return r;
+  return ret.argv;
 }
 
 char **
@@ -769,8 +770,7 @@ do_lvm_canonical_lv_name (const char *device)
 char **
 do_list_dm_devices (void)
 {
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
   struct dirent *d;
   DIR *dir;
   int r;
@@ -802,7 +802,7 @@ do_list_dm_devices (void)
     /* Ignore dm devices which are LVs. */
     r = lv_canonical (devname, NULL);
     if (r == -1) {
-      free_stringslen (ret, size);
+      free_stringslen (ret.argv, ret.size);
       closedir (dir);
       return NULL;
     }
@@ -810,7 +810,7 @@ do_list_dm_devices (void)
       continue;
 
     /* Not an LV, so add it. */
-    if (add_string (&ret, &size, &alloc, devname) == -1) {
+    if (add_string (&ret, devname) == -1) {
       closedir (dir);
       return NULL;
     }
@@ -819,7 +819,7 @@ do_list_dm_devices (void)
   /* Did readdir fail? */
   if (errno != 0) {
     reply_with_perror ("readdir: /dev/mapper");
-    free_stringslen (ret, size);
+    free_stringslen (ret.argv, ret.size);
     closedir (dir);
     return NULL;
   }
@@ -827,17 +827,17 @@ do_list_dm_devices (void)
   /* Close the directory handle. */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /dev/mapper");
-    free_stringslen (ret, size);
+    free_stringslen (ret.argv, ret.size);
     return NULL;
   }
 
   /* Sort the output (may be empty). */
-  if (ret != NULL)
-    sort_strings (ret, size);
+  if (ret.size > 0)
+    sort_strings (ret.argv, ret.size);
 
   /* NULL-terminate the list. */
-  if (add_string (&ret, &size, &alloc, NULL) == -1)
+  if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  return ret;
+  return ret.argv;
 }

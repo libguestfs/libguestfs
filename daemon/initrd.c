@@ -36,8 +36,7 @@ do_initrd_list (const char *path)
   FILE *fp;
   char *cmd;
   char filename[PATH_MAX];
-  char **filenames = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (filenames);
   size_t len;
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
@@ -62,24 +61,24 @@ do_initrd_list (const char *path)
     if (len > 0 && filename[len-1] == '\n')
       filename[len-1] = '\0';
 
-    if (add_string (&filenames, &size, &alloc, filename) == -1) {
+    if (add_string (&filenames, filename) == -1) {
       pclose (fp);
       return NULL;
     }
   }
 
-  if (add_string (&filenames, &size, &alloc, NULL) == -1) {
+  if (end_stringsbuf (&filenames) == -1) {
     pclose (fp);
     return NULL;
   }
 
   if (pclose (fp) != 0) {
     reply_with_perror ("pclose");
-    free_strings (filenames);
+    free_stringslen (filenames.argv, filenames.size);
     return NULL;
   }
 
-  return filenames;
+  return filenames.argv;
 }
 
 char *

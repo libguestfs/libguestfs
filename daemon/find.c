@@ -55,8 +55,7 @@ do_find (const char *dir)
   int r, len, sysrootdirlen;
   char *cmd;
   FILE *fp;
-  char **res = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
   char *sysrootdir;
   char str[PATH_MAX];
 
@@ -105,28 +104,29 @@ do_find (const char *dir)
       continue;
 
     /* Remove the directory part of the path when adding it. */
-    if (add_string (&res, &size, &alloc, str + sysrootdirlen) == -1) {
+    if (add_string (&ret, str + sysrootdirlen) == -1) {
       pclose (fp);
       return NULL;
     }
   }
   if (pclose (fp) != 0) {
     reply_with_perror ("pclose");
-    free_stringslen (res, size);
+    free_stringslen (ret.argv, ret.size);
     return NULL;
   }
 
   if (r == -1) {
-    free_stringslen (res, size);
+    free_stringslen (ret.argv, ret.size);
     return NULL;
   }
 
-  if (add_string (&res, &size, &alloc, NULL) == -1)
+  if (ret.size > 0)
+    sort_strings (ret.argv, ret.size);
+
+  if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  sort_strings (res, size-1);
-
-  return res;                        /* caller frees */
+  return ret.argv;              /* caller frees */
 }
 
 /* The code below assumes each path returned can fit into a protocol

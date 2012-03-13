@@ -156,8 +156,7 @@ do_cat (const char *path)
 char **
 do_read_lines (const char *path)
 {
-  char **r = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (r);
   FILE *fp;
   char *line = NULL;
   size_t len = 0;
@@ -179,7 +178,7 @@ do_read_lines (const char *path)
     else if (n >= 1 && line[n-1] == '\n')
       line[n-1] = '\0';
 
-    if (add_string (&r, &size, &alloc, line) == -1) {
+    if (add_string (&r, line) == -1) {
       free (line);
       fclose (fp);
       return NULL;
@@ -188,18 +187,18 @@ do_read_lines (const char *path)
 
   free (line);
 
-  if (add_string (&r, &size, &alloc, NULL) == -1) {
+  if (end_stringsbuf (&r) == -1) {
     fclose (fp);
     return NULL;
   }
 
   if (fclose (fp) == EOF) {
     reply_with_perror ("fclose: %s", path);
-    free_strings (r);
+    free_stringslen (r.argv, r.size);
     return NULL;
   }
 
-  return r;
+  return r.argv;
 }
 
 int

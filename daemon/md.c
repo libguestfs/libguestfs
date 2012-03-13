@@ -180,8 +180,7 @@ glob_errfunc (const char *epath, int eerrno)
 char **
 do_list_md_devices (void)
 {
-  char **r = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
   glob_t mds;
 
   memset(&mds, 0, sizeof(mds));
@@ -218,17 +217,19 @@ do_list_md_devices (void)
     n = mempcpy(n, &mds.gl_pathv[i][strlen(PREFIX)], len);
     *n = '\0';
 
-    if (add_string_nodup (&r, &size, &alloc, dev) == -1) goto error;
+    if (add_string_nodup (&ret, dev) == -1) goto error;
   }
 
-  if (add_string_nodup (&r, &size, &alloc, NULL) == -1) goto error;
+  if (end_stringsbuf (&ret) == -1) goto error;
   globfree (&mds);
 
-  return r;
+  return ret.argv;
 
 error:
   globfree (&mds);
-  if (r != NULL) free_strings (r);
+  if (ret.argv != NULL)
+    free_stringslen (ret.argv, ret.size);
+
   return NULL;
 }
 
@@ -241,8 +242,7 @@ do_md_detail(const char *md)
   char *out = NULL, *err = NULL;
   char **lines = NULL;
 
-  char **ret = NULL;
-  int size = 0, alloc = 0;
+  DECLARE_STRINGSBUF (ret);
 
   const char *mdadm[] = { "mdadm", "-D", "--export", md, NULL };
   r = commandv (&out, &err, mdadm);
@@ -286,8 +286,8 @@ do_md_detail(const char *md)
       }
 
       /* Add the key/value pair to the output */
-      if (add_string (&ret, &size, &alloc, line) == -1 ||
-          add_string (&ret, &size, &alloc, eq) == -1) goto error;
+      if (add_string (&ret, line) == -1 ||
+          add_string (&ret, eq) == -1) goto error;
     } else {
       /* Ignore lines with no equals sign (shouldn't happen). Log to stderr so
        * it will show up in LIBGUESTFS_DEBUG. */
@@ -299,17 +299,18 @@ do_md_detail(const char *md)
   free (err);
   free_strings (lines);
 
-  if (add_string (&ret, &size, &alloc, NULL) == -1) return NULL;
+  if (end_stringsbuf (&ret) == -1)
+    return NULL;
 
-  return ret;
+  return ret.argv;
 
 error:
   free (out);
   free (err);
   if (lines)
     free_strings (lines);
-  if (ret)
-    free_strings (ret);
+  if (ret.argv != NULL)
+    free_stringslen (ret.argv, ret.size);
 
   return NULL;
 }
