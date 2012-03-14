@@ -1,0 +1,19 @@
+# This file is only used when libguestfs is configured with
+#
+#   ./configure --enable-valgrind-daemon
+#
+# (only used for development, and only used in the regular supermin
+# appliance, not libguestfs live).
+#
+# If there are any valgrind errors in the base libraries such as
+# glibc, then we can suppress them here, so we only see errors in
+# libguestfs daemon code.
+
+# libdl
+{
+  libdl_index_cond
+  Memcheck:Cond
+  fun:index
+  fun:expand_dynamic_string_token
+  fun:_dl_map_object
+}
