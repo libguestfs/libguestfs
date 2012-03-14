@@ -49,8 +49,7 @@ All of the information available from virt-inspector is also available
 through the core libguestfs inspection API (see
 L<guestfs(3)/INSPECTION>).  The same information can also be fetched
 using guestfish or via libguestfs bindings in many programming
-languages
-(see L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES>).
+languages (see L</GETTING INSPECTION DATA FROM THE LIBGUESTFS API>).
 
 =head1 OPTIONS
 
@@ -371,12 +370,119 @@ have meaning to the shell such as C<#> and space.  You may need to
 quote or escape these characters on the command line.  See the shell
 manual page L<sh(1)> for details.
 
+=head1 GETTING INSPECTION DATA FROM THE LIBGUESTFS API
+
+In early versions of libguestfs, virt-inspector was a large Perl
+script that contained many heuristics for inspecting guests.  This had
+several problems: in order to do inspection from other tools (like
+guestfish) we had to call out to this Perl script; and it privileged
+Perl over other languages that libguestfs supports.
+
+By libguestfs 1.8 we had rewritten the Perl code in C, and
+incorporated it all into the core libguestfs API (L<guestfs(3)>).  Now
+virt-inspector is simply a thin C program over the core C API.  All of
+the inspection information is available from all programming languages
+that libguestfs supports, and from guestfish.
+
+For a description of the C inspection API, read
+L<guestfs(3)/INSPECTION>.
+
+For example code using the C inspection API, look for C<inspect_vm.c>
+which ships with libguestfs.
+
+C<inspect_vm.c> has also been translated into other languages.  For
+example, C<inspect_vm.pl> is the Perl translation, and there are other
+translations for OCaml, Python, etc.  See
+L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> for a
+list of man pages which contain this example code.
+
+=head2 GETTING INSPECTION DATA FROM GUESTFISH
+
+If you use the guestfish I<-i> option, then the main C inspection API
+L<guestfs(3)/guestfs_inspect_os> is called.  This is equivalent to the
+guestfish command C<inspect-os>.  You can also call this guestfish
+command by hand.
+
+C<inspect-os> performs inspection on the current disk image, returning
+the list of operating systems found.  Each OS is represented by its
+root filesystem device.  In the majority of cases, this command prints
+nothing (no OSes found), or a single root device, but beware that it
+can print multiple lines if there are multiple OSes or if there is an
+install CD attached to the guest.
+
+ $ guestfish --ro -a F15x32.img
+ ><fs> run
+ ><fs> inspect-os
+ /dev/vg_f15x32/lv_root
+
+Using the root device, you can fetch further information about the
+guest:
+
+ ><fs> inspect-get-type /dev/vg_f15x32/lv_root
+ linux
+ ><fs> inspect-get-distro /dev/vg_f15x32/lv_root
+ fedora
+ ><fs> inspect-get-major-version /dev/vg_f15x32/lv_root
+ 15
+ ><fs> inspect-get-product-name /dev/vg_f15x32/lv_root
+ Fedora release 15 (Lovelock)
+
+Limitations of guestfish make it hard to assign the root device to a
+variable (since guestfish doesn't have variables), so if you want to
+do this reproducibly you are better off writing a script using one of
+the other languages that the libguestfs API supports.
+
+To list applications, you have to first mount up the disks:
+
+ ><fs> inspect-get-mountpoints /dev/vg_f15x32/lv_root
+ /: /dev/vg_f15x32/lv_root
+ /boot: /dev/vda1
+ ><fs> mount-ro /dev/vg_f15x32/lv_root /
+ ><fs> mount-ro /dev/vda1 /boot
+
+and then call the inspect-list-applications API:
+
+ ><fs> inspect-list-applications /dev/vg_f15x32/lv_root | head -28
+ [0] = {
+   app_name: ConsoleKit
+   app_display_name:
+   app_epoch: 0
+   app_version: 0.4.5
+   app_release: 1.fc15
+   app_install_path:
+   app_trans_path:
+   app_publisher:
+   app_url:
+   app_source_package:
+   app_summary:
+   app_description:
+ }
+ [1] = {
+   app_name: ConsoleKit-libs
+   app_display_name:
+   app_epoch: 0
+   app_version: 0.4.5
+   app_release: 1.fc15
+   app_install_path:
+   app_trans_path:
+   app_publisher:
+   app_url:
+   app_source_package:
+   app_summary:
+   app_description:
+ }
+
+To display an icon for the guest, note that filesystems must also be
+mounted as above.  You can then do:
+
+ ><fs> inspect-get-icon /dev/vg_f15x32/lv_root | display -
+
 =head1 OLD VERSIONS OF VIRT-INSPECTOR
 
-Early versions of libguestfs shipped with a different virt-inspector
-program written in Perl (the current version is written in C).  The
-XML output of the Perl virt-inspector was different and it could also
-output in other formats like text.
+As described above, early versions of libguestfs shipped with a
+different virt-inspector program written in Perl (the current version
+is written in C).  The XML output of the Perl virt-inspector was
+different and it could also output in other formats like text.
 
 The old virt-inspector is no longer supported or shipped with
 libguestfs.
