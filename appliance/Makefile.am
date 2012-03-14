@@ -18,10 +18,11 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	packagelist.in \
 	excludelist.in \
+	guestfsd.suppressions \
 	init \
-	make.sh.in
+	make.sh.in \
+	packagelist.in
 
 fsdir = $(libdir)/guestfs
 superminfsdir = $(libdir)/guestfs/supermin.d
