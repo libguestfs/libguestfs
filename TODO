@@ -609,5 +609,5 @@ opened with O_CLOEXEC.  Therefore we need to examine every call to:
  - pipe (see also: pipe2)
  - dup, dup2 (see also: dup3)
  - socket, socketpair
- - accept
+ - accept (see also: accept4)
  - signalfd, timerfd, epoll_create
