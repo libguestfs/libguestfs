@@ -595,3 +595,19 @@ to do a kind of migration of guests by simply recreating the guest
 from the description on the target machine.
 
 It would be ideal to integrate this and/or use inspection to do this.
+
+Ongoing code cleanups
+---------------------
+
+Examine every use of 'int' in C code for signed overflow problems.
+
+All file descriptors in the library and daemon should normally be
+opened with O_CLOEXEC.  Therefore we need to examine every call to:
+
+ - open, openat
+ - creat
+ - pipe (see also: pipe2)
+ - dup, dup2 (see also: dup3)
+ - socket, socketpair
+ - accept
+ - signalfd, timerfd, epoll_create
