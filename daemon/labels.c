@@ -79,6 +79,7 @@ int
 do_set_label (const char *device, const char *label)
 {
   char *vfs_type;
+  int r;
 
   /* How we set the label depends on the filesystem type. */
   vfs_type = do_vfs_type (device);
@@ -87,14 +88,17 @@ do_set_label (const char *device, const char *label)
 
   if (STREQ (vfs_type, "ext2") || STREQ (vfs_type, "ext3")
       || STREQ (vfs_type, "ext4"))
-    return e2label (device, label);
+    r = e2label (device, label);
 
   else if (STREQ (vfs_type, "ntfs"))
-    return ntfslabel (device, label);
+    r = ntfslabel (device, label);
 
   else {
     reply_with_error ("don't know how to set the label for '%s' filesystems",
                       vfs_type);
-    return -1;
+    r = -1;
   }
+
+  free (vfs_type);
+  return r;
 }
