@@ -27,6 +27,8 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+#include "cloexec.h"
+
 #include "daemon.h"
 #include "optgroups.h"
 #include "actions.h"
@@ -88,7 +90,7 @@ do_case_sensitive_path (const char *path)
   /* 'fd_cwd' here is a surrogate for the current working directory, so
    * that we don't have to actually call chdir(2).
    */
-  fd_cwd = open (sysroot, O_RDONLY | O_DIRECTORY);
+  fd_cwd = open (sysroot, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
   if (fd_cwd == -1) {
     reply_with_perror ("%s", sysroot);
     return NULL;
@@ -141,7 +143,7 @@ do_case_sensitive_path (const char *path)
     next += i;
 
     /* Is it a directory?  Try going into it. */
-    int fd2 = openat (fd_cwd, name, O_RDONLY | O_DIRECTORY);
+    int fd2 = openat (fd_cwd, name, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
     int err = errno;
     close (fd_cwd);
     fd_cwd = fd2;
@@ -195,7 +197,7 @@ find_path_element (int fd_cwd, char *name, size_t *name_len_ret)
   DIR *dir;
   struct dirent *d;
 
-  fd2 = dup (fd_cwd); /* because closedir will close it */
+  fd2 = dup_cloexec (fd_cwd); /* because closedir will close it */
   if (fd2 == -1) {
     reply_with_perror ("dup");
     return -1;

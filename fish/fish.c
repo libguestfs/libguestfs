@@ -501,7 +501,7 @@ main (int argc, char *argv[])
   /* -f (file) parameter? */
   if (file) {
     close (0);
-    if (open (file, O_RDONLY) == -1) {
+    if (open (file, O_RDONLY|O_CLOEXEC) == -1) {
       perror (file);
       exit (EXIT_FAILURE);
     }
@@ -1436,7 +1436,7 @@ cleanup_readline (void)
   int fd;
 
   if (histfile[0] != '\0') {
-    fd = open (histfile, O_WRONLY|O_CREAT, 0644);
+    fd = open (histfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0644);
     if (fd == -1) {
       perror (histfile);
       return;

@@ -532,7 +532,7 @@ launch_appliance (guestfs_h *g)
   snprintf (guestfsd_sock, sizeof guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
   unlink (guestfsd_sock);
 
-  g->sock = socket (AF_UNIX, SOCK_STREAM, 0);
+  g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (g->sock == -1) {
     perrorf (g, "socket");
     goto cleanup0;
@@ -652,7 +652,7 @@ launch_appliance (guestfs_h *g)
        * qemu command line, again.
        */
       if (qemu_supports (g, "-enable-kvm") &&
-          is_openable (g, "/dev/kvm", O_RDWR))
+          is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC))
         add_cmdline (g, "-enable-kvm");
     }
 
@@ -921,7 +921,7 @@ launch_appliance (guestfs_h *g)
     g->fd[0] = wfd[1];		/* stdin of child */
     g->fd[1] = rfd[0];		/* stdout of child */
   } else {
-    g->fd[0] = open ("/dev/null", O_RDWR);
+    g->fd[0] = open ("/dev/null", O_RDWR|O_CLOEXEC);
     if (g->fd[0] == -1) {
       perrorf (g, "open /dev/null");
       goto cleanup1;
@@ -1039,7 +1039,7 @@ connect_unix_socket (guestfs_h *g, const char *sockpath)
   if (g->verbose)
     guestfs___print_timestamped_message (g, "connecting to %s", sockpath);
 
-  g->sock = socket (AF_UNIX, SOCK_STREAM, 0);
+  g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (g->sock == -1) {
     perrorf (g, "socket");
     return -1;

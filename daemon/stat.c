@@ -147,7 +147,7 @@ do_lstatlist (const char *path, char *const *names)
   }
 
   CHROOT_IN;
-  path_fd = open (path, O_RDONLY | O_DIRECTORY);
+  path_fd = open (path, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (path_fd == -1) {

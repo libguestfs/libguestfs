@@ -247,7 +247,7 @@ main (int argc, char *argv[])
   copy_lvm ();
 
   /* Connect to virtio-serial channel. */
-  int sock = open (VIRTIO_SERIAL_CHANNEL, O_RDWR | O_CLOEXEC);
+  int sock = open (VIRTIO_SERIAL_CHANNEL, O_RDWR|O_CLOEXEC);
   if (sock == -1) {
     fprintf (stderr,
              "\n"
@@ -292,7 +292,7 @@ main (int argc, char *argv[])
 static char *
 read_cmdline (void)
 {
-  int fd = open ("/proc/cmdline", O_RDONLY);
+  int fd = open ("/proc/cmdline", O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     perror ("/proc/cmdline");
     return NULL;
@@ -713,7 +713,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       close (stdin_fd[1]);
     } else {
       /* Set stdin to /dev/null (ignore failure) */
-      ignore_value (open ("/dev/null", O_RDONLY));
+      ignore_value (open ("/dev/null", O_RDONLY|O_CLOEXEC));
     }
     close (so_fd[0]);
     close (se_fd[0]);
@@ -1079,7 +1079,7 @@ device_name_translation (char *device)
 {
   int fd;
 
-  fd = open (device, O_RDONLY);
+  fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd >= 0) {
   close_ok:
     close (fd);
@@ -1094,12 +1094,12 @@ device_name_translation (char *device)
     return -1;
 
   device[5] = 'h';		/* /dev/hd (old IDE driver) */
-  fd = open (device, O_RDONLY);
+  fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd >= 0)
     goto close_ok;
 
   device[5] = 'v';		/* /dev/vd (for virtio devices) */
-  fd = open (device, O_RDONLY);
+  fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd >= 0)
     goto close_ok;
 

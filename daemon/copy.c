@@ -29,8 +29,8 @@
 #include "daemon.h"
 #include "actions.h"
 
-#define DEST_FILE_FLAGS O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666
-#define DEST_DEVICE_FLAGS O_WRONLY, 0
+#define DEST_FILE_FLAGS O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666
+#define DEST_DEVICE_FLAGS O_WRONLY|O_CLOEXEC, 0
 
 /* NB: We cheat slightly by assuming that optargs_bitmask is
  * compatible for all four of the calls.  This is true provided they
@@ -78,7 +78,7 @@ copy (const char *src, const char *src_display,
     size = -1;
 
   /* Open source and destination. */
-  src_fd = open (src, O_RDONLY);
+  src_fd = open (src, O_RDONLY|O_CLOEXEC);
   if (src_fd == -1) {
     reply_with_perror ("%s", src_display);
     return -1;

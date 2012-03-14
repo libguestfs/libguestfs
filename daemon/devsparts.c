@@ -68,7 +68,7 @@ foreach_block_device (block_dev_func_t func)
        * CD-ROM device even though we didn't request it.  Try to
        * detect this by seeing if the device contains media.
        */
-      int fd = open (dev_path, O_RDONLY);
+      int fd = open (dev_path, O_RDONLY|O_CLOEXEC);
       if (fd == -1) {
         perror (dev_path);
         continue;

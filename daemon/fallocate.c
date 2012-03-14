@@ -45,7 +45,7 @@ do_fallocate64 (const char *path, int64_t len)
   int fd;
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_CREAT | O_TRUNC | O_NOCTTY, 0666);
+  fd = open (path, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
   CHROOT_OUT;
   if (fd == -1) {
     reply_with_perror ("open: %s", path);

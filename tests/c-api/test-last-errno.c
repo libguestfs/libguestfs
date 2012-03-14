@@ -31,6 +31,10 @@
 
 #include "guestfs.h"
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC
+#endif
+
 int
 main (int argc, char *argv[])
 {
@@ -45,7 +49,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);

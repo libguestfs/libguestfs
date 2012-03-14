@@ -43,6 +43,10 @@ let rec generate_tests () =
 #include \"guestfs.h\"
 #include \"guestfs-internal.h\"
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
 static guestfs_h *g;
 static int suppress_error = 0;
 
@@ -191,7 +195,7 @@ int main (int argc, char *argv[])
   guestfs_set_error_handler (g, print_error, NULL);
 
   filename = \"test1.img\";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);
@@ -213,7 +217,7 @@ int main (int argc, char *argv[])
   }
 
   filename = \"test2.img\";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);
@@ -235,7 +239,7 @@ int main (int argc, char *argv[])
   }
 
   filename = \"test3.img\";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);

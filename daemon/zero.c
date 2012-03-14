@@ -38,7 +38,7 @@ do_zero (const char *device)
   int fd;
   size_t i, offset;
 
-  fd = open (device, O_RDWR);
+  fd = open (device, O_RDWR|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("%s", device);
     return -1;
@@ -105,7 +105,7 @@ do_zero_device (const char *device)
     return -1;
   uint64_t size = (uint64_t) ssize;
 
-  int fd = open (device, O_RDWR);
+  int fd = open (device, O_RDWR|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("%s", device);
     return -1;
@@ -164,7 +164,7 @@ do_is_zero (const char *path)
   ssize_t r;
 
   CHROOT_IN;
-  fd = open (path, O_RDONLY);
+  fd = open (path, O_RDONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -200,7 +200,7 @@ do_is_zero_device (const char *device)
   char buf[1024*1024];
   ssize_t r;
 
-  fd = open (device, O_RDONLY);
+  fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("open: %s", device);
     return -1;

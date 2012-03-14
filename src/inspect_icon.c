@@ -553,7 +553,7 @@ read_whole_file (guestfs_h *g, const char *filename,
   ssize_t r;
   struct stat statbuf;
 
-  fd = open (filename, O_RDONLY);
+  fd = open (filename, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
     return -1;

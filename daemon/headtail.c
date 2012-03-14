@@ -36,7 +36,7 @@ headtail (const char *prog, const char *flag, const char *n, const char *path)
   char **lines;
 
   CHROOT_IN;
-  fd = open (path, O_RDONLY);
+  fd = open (path, O_RDONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {

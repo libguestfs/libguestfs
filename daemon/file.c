@@ -62,7 +62,7 @@ do_touch (const char *path)
   }
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY, 0666);
+  fd = open (path, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -94,7 +94,7 @@ do_cat (const char *path)
   char *buf, *buf2;
 
   CHROOT_IN;
-  fd = open (path, O_RDONLY);
+  fd = open (path, O_RDONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -305,7 +305,7 @@ do_write_file (const char *path, const char *content, int size)
   }
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_TRUNC | O_CREAT | O_NOCTTY, 0666);
+  fd = open (path, O_WRONLY|O_TRUNC|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -333,7 +333,7 @@ do_write (const char *path, const char *content, size_t size)
   int fd;
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_TRUNC | O_CREAT | O_NOCTTY, 0666);
+  fd = open (path, O_WRONLY|O_TRUNC|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -361,7 +361,7 @@ do_write_append (const char *path, const char *content, size_t size)
   int fd;
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_APPEND | O_CREAT | O_NOCTTY, 0666);
+  fd = open (path, O_WRONLY|O_APPEND|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -391,7 +391,7 @@ do_read_file (const char *path, size_t *size_r)
   char *r;
 
   CHROOT_IN;
-  fd = open (path, O_RDONLY);
+  fd = open (path, O_RDONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -506,7 +506,7 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
   int fd;
 
   CHROOT_IN;
-  fd = open (path, O_RDONLY);
+  fd = open (path, O_RDONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -520,7 +520,7 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
 char *
 do_pread_device (const char *device, int count, int64_t offset, size_t *size_r)
 {
-  int fd = open (device, O_RDONLY);
+  int fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("open: %s", device);
     return NULL;
@@ -561,7 +561,7 @@ do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
   }
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY);
+  fd = open (path, O_WRONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -581,7 +581,7 @@ do_pwrite_device (const char *device, const char *content, size_t size,
     return -1;
   }
 
-  int fd = open (device, O_WRONLY);
+  int fd = open (device, O_WRONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("open: %s", device);
     return -1;

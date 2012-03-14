@@ -223,7 +223,7 @@ rc_listen (void)
   pid = getpid ();
   create_sockpath (pid, sockpath, sizeof sockpath, &addr);
 
-  sock = socket (AF_UNIX, SOCK_STREAM, 0);
+  sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (sock == -1) {
     perror ("socket");
     exit (EXIT_FAILURE);
@@ -246,7 +246,7 @@ rc_listen (void)
      */
     close_stdout ();
 
-    s = accept (sock, NULL, NULL);
+    s = accept4 (sock, NULL, NULL, SOCK_CLOEXEC);
     if (s == -1)
       perror ("accept");
     else {
@@ -351,7 +351,7 @@ rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
 
   create_sockpath (pid, sockpath, sizeof sockpath, &addr);
 
-  sock = socket (AF_UNIX, SOCK_STREAM, 0);
+  sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (sock == -1) {
     perror ("socket");
     return -1;

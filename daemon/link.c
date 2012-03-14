@@ -63,7 +63,7 @@ do_readlinklist (const char *path, char *const *names)
   DECLARE_STRINGSBUF (ret);
 
   CHROOT_IN;
-  fd_cwd = open (path, O_RDONLY | O_DIRECTORY);
+  fd_cwd = open (path, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd_cwd == -1) {

@@ -23,6 +23,14 @@
 
 #include "fish-cmds.h"
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
+#ifndef SOCK_CLOEXEC
+#define SOCK_CLOEXEC 0
+#endif
+
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))

@@ -76,7 +76,7 @@ alloc_disk (const char *filename, const char *size_str, int add, int sparse)
     return -1;
   }
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);
     return -1;

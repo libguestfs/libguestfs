@@ -36,6 +36,10 @@
 #include "guestfs.h"
 #include "options.h"
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
 /* Currently open libguestfs handle. */
 guestfs_h *g;
 
@@ -468,7 +472,7 @@ do_ls_R (const char *dir)
   /* The output of find0 is a \0-separated file.  Turn each \0 into
    * a \n character.
    */
-  fd = open (tmpfile, O_RDONLY);
+  fd = open (tmpfile, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     perror (tmpfile);
     exit (EXIT_FAILURE);

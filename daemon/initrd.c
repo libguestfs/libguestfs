@@ -126,7 +126,7 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
   struct stat statbuf;
   int fd;
 
-  fd = open (fullpath, O_RDONLY);
+  fd = open (fullpath, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("open: %s:%s", path, filename);
     rmdir (tmpdir);

@@ -466,7 +466,7 @@ debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv)
   const size_t pattern_len = strlen(pattern);
 
 #define CORE_PATTERN "/proc/sys/kernel/core_pattern"
-  int fd = open (CORE_PATTERN, O_WRONLY);
+  int fd = open (CORE_PATTERN, O_WRONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("open: " CORE_PATTERN);
     return NULL;
@@ -532,7 +532,7 @@ debug_qtrace (const char *subcmd, size_t argc, char *const *const argv)
     return NULL;
 
   /* Note this doesn't do device name translation or check this is a device. */
-  int fd = open (argv[0], O_RDONLY | O_DIRECT);
+  int fd = open (argv[0], O_RDONLY|O_DIRECT|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("qtrace: %s: open", argv[0]);
     return NULL;
@@ -602,7 +602,7 @@ do_debug_upload (const char *filename, int mode)
   /* Not chrooted - this command lets you upload a file to anywhere
    * in the appliance.
    */
-  int fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, mode);
+  int fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, mode);
 
   if (fd == -1) {
     int err = errno;

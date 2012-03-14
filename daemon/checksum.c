@@ -95,7 +95,7 @@ do_checksum (const char *csumtype, const char *path)
   int fd;
 
   CHROOT_IN;
-  fd = open (path, O_RDONLY);
+  fd = open (path, O_RDONLY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -111,7 +111,7 @@ do_checksum_device (const char *csumtype, const char *device)
 {
   int fd;
 
-  fd = open (device, O_RDONLY);
+  fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("%s", device);
     return NULL;

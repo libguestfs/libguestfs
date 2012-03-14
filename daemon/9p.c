@@ -125,7 +125,7 @@ read_whole_file (const char *filename)
   size_t alloc = 0, size = 0;
   int fd;
 
-  fd = open (filename, O_RDONLY);
+  fd = open (filename, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     perror (filename);
     return NULL;

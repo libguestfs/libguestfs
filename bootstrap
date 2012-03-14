@@ -44,11 +44,14 @@ gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 (cd daemon && mkdir -p tests lib && ../$gnulib_tool --update)
 
 modules='
+accept4
 arpa_inet
 byteswap
 c-ctype
+cloexec
 closeout
 connect
+dup3
 error
 filevercmp
 fsusage

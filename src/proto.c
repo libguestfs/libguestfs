@@ -780,7 +780,7 @@ guestfs___accept_from_daemon (guestfs_h *g)
         return -1;
     }
     if (FD_ISSET (g->sock, &rset2)) {
-      sock = accept (g->sock, NULL, NULL);
+      sock = accept4 (g->sock, NULL, NULL, SOCK_CLOEXEC);
       if (sock == -1) {
         if (errno == EINTR || errno == EAGAIN)
           continue;
@@ -891,7 +891,7 @@ guestfs___send_file (guestfs_h *g, const char *filename)
 
   g->user_cancel = 0;
 
-  fd = open (filename, O_RDONLY);
+  fd = open (filename, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
     send_file_cancellation (g);
@@ -1125,7 +1125,7 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
 
   g->user_cancel = 0;
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
     goto cancel;

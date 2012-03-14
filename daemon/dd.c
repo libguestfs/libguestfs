@@ -79,14 +79,14 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
   int src_fd, dest_fd;
 
   if (STRPREFIX (src, "/dev/"))
-    src_fd = open (src, O_RDONLY);
+    src_fd = open (src, O_RDONLY | O_CLOEXEC);
   else {
     buf = sysroot_path (src);
     if (!buf) {
       reply_with_perror ("malloc");
       return -1;
     }
-    src_fd = open (buf, O_RDONLY);
+    src_fd = open (buf, O_RDONLY | O_CLOEXEC);
     free (buf);
   }
   if (src_fd == -1) {
@@ -95,7 +95,7 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
   }
 
   if (STRPREFIX (dest, "/dev/"))
-    dest_fd = open (dest, O_WRONLY);
+    dest_fd = open (dest, O_WRONLY | O_CLOEXEC);
   else {
     buf = sysroot_path (dest);
     if (!buf) {
@@ -103,7 +103,7 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
       close (src_fd);
       return -1;
     }
-    dest_fd = open (buf, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+    dest_fd = open (buf, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
     free (buf);
   }
   if (dest_fd == -1) {

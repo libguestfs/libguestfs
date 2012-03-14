@@ -114,7 +114,7 @@ upload (const char *filename, int flags, int64_t offset)
 int
 do_upload (const char *filename)
 {
-  return upload (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0);
+  return upload (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0);
 }
 
 /* Has one FileIn parameter. */
@@ -126,7 +126,7 @@ do_upload_offset (const char *filename, int64_t offset)
     return -1;
   }
 
-  return upload (filename, O_WRONLY|O_CREAT|O_NOCTTY, offset);
+  return upload (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, offset);
 }
 
 /* Has one FileOut parameter. */
@@ -139,7 +139,7 @@ do_download (const char *filename)
   is_dev = STRPREFIX (filename, "/dev/");
 
   if (!is_dev) CHROOT_IN;
-  fd = open (filename, O_RDONLY);
+  fd = open (filename, O_RDONLY|O_CLOEXEC);
   if (!is_dev) CHROOT_OUT;
   if (fd == -1) {
     reply_with_perror ("%s", filename);
@@ -222,7 +222,7 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   is_dev = STRPREFIX (filename, "/dev/");
 
   if (!is_dev) CHROOT_IN;
-  fd = open (filename, O_RDONLY);
+  fd = open (filename, O_RDONLY|O_CLOEXEC);
   if (!is_dev) CHROOT_OUT;
   if (fd == -1) {
     reply_with_perror ("%s", filename);

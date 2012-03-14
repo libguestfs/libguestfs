@@ -35,7 +35,7 @@ do_truncate_size (const char *path, int64_t size)
   int r;
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_NOCTTY);
+  fd = open (path, O_WRONLY|O_NOCTTY|O_CLOEXEC);
   CHROOT_OUT;
 
   if (fd == -1) {

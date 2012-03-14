@@ -46,6 +46,10 @@
 
 #include "guestfs.h"
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC
+#endif
+
 static const char *filename = "test.img";
 static const off_t filesize = 1024*1024*1024;
 
@@ -83,7 +87,7 @@ main (int argc, char *argv[])
   }
 
   /* Create a test image and test data. */
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);
@@ -132,6 +136,13 @@ main (int argc, char *argv[])
 
   if (pipe (fds) == -1) {
     perror ("pipe");
+    exit (EXIT_FAILURE);
+  }
+
+  /* We don't want the pipe to be passed to subprocesses. */
+  if (fcntl (fds[0], F_SETFD, FD_CLOEXEC) == -1 ||
+      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1) {
+    perror ("fcntl");
     exit (EXIT_FAILURE);
   }
 
@@ -193,6 +204,13 @@ main (int argc, char *argv[])
 
   if (pipe (fds) == -1) {
     perror ("pipe");
+    exit (EXIT_FAILURE);
+  }
+
+  /* We don't want the pipe to be passed to subprocesses. */
+  if (fcntl (fds[0], F_SETFD, FD_CLOEXEC) == -1 ||
+      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1) {
+    perror ("fcntl");
     exit (EXIT_FAILURE);
   }
 
