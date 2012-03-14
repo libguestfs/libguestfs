@@ -112,8 +112,11 @@ if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
   # Run the daemon under valgrind if ./configure --enable-valgrind-daemon
   vg_channel=/dev/virtio-ports/org.libguestfs.valgrind
   if [ -w $vg_channel ]; then
+    if [ -r /etc/guestfsd.suppressions ]; then
+      suppressions="--suppressions=/etc/guestfsd.suppressions"
+    fi
     exec 3>$vg_channel
-    vg="valgrind --leak-check=full --log-fd=3 --error-exitcode=119 --max-stackframe=8388608 --child-silent-after-fork=yes"
+    vg="valgrind --leak-check=full --log-fd=3 --error-exitcode=119 --max-stackframe=8388608 --child-silent-after-fork=yes $suppressions"
     echo "enabling valgrind: $vg"
   fi
 

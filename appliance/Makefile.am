@@ -64,12 +64,13 @@ stamp-supermin: make.sh packagelist excludelist
 	./make.sh
 	touch $@
 
-supermin.d/daemon.img: ../daemon/guestfsd
+supermin.d/daemon.img: ../daemon/guestfsd guestfsd.suppressions
 	mkdir -p supermin.d
 	rm -f $@ $@-t
 	rm -rf tmp
-	mkdir -p tmp$(DAEMON_SUPERMIN_DIR)
+	mkdir -p tmp$(DAEMON_SUPERMIN_DIR) tmp/etc
 	ln ../daemon/guestfsd tmp$(DAEMON_SUPERMIN_DIR)/guestfsd
+	ln guestfsd.suppressions tmp/etc/guestfsd.suppressions
 	( cd tmp && find | cpio --quiet -o -H newc ) > $@-t
 	rm -rf tmp
 	mv $@-t $@
