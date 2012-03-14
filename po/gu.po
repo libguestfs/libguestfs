@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-13 08:43+0000\n"
+"POT-Creation-Date: 2012-03-14 19:56+0000\n"
 "PO-Revision-Date: 2012-03-07 22:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:100
-#: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
+#: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
 #: fuse/guestmount.c:908 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -49,7 +49,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
-#: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
+#: cat/virt-ls.c:196 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
 #: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:1024
 #: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
 #, c-format
@@ -57,7 +57,7 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: હેન્ડલ ને બનાવવાનું નિષ્ફળ\n"
 
 #: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:257
-#: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
+#: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
 #: format/format.c:188 fuse/guestmount.c:1061 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:179
 #, c-format
@@ -143,12 +143,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-filesystems.c:319 cat/virt-ls.c:346 df/main.c:254
+#: cat/virt-filesystems.c:319 cat/virt-ls.c:350 df/main.c:254
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: તમે -h અને --csv વિકલ્પોને ભેગાં વાપરી શકતા નથી.\n"
 
-#: cat/virt-ls.c:103
+#: cat/virt-ls.c:107
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -181,19 +181,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-ls.c:337
+#: cat/virt-ls.c:341
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page.\n"
 msgstr ""
 
-#: cat/virt-ls.c:576
+#: cat/virt-ls.c:580
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr ""
 
-#: cat/virt-ls.c:582
+#: cat/virt-ls.c:586
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
