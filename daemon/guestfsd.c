@@ -906,7 +906,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     }
 
     if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-      fprintf (stderr, "failed copying from input file, see earlier messages\n");
+      fprintf (stderr, "failed copying from input file, see earlier messages (r = %d)\n", r);
       kill (pid, 9);
       waitpid (pid, NULL, 0);
       return -1;
