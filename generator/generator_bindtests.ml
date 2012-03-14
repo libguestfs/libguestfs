@@ -427,6 +427,7 @@ import java.util.Map;
 import java.util.HashMap;
 import com.redhat.et.libguestfs.*;
 
+@SuppressWarnings(\"serial\")
 public class Bindtests {
     public static void main (String[] argv)
     {

@@ -173,7 +173,7 @@ public class GuestFS {
            generate_java_call_args ~handle:"g" style;
            pr ";\n";
            pr "\n";
-           pr "    HashMap rhash = new HashMap ();\n";
+           pr "    HashMap<String, String> rhash = new HashMap<String, String> ();\n";
            pr "    for (int i = 0; i < r.length; i += 2)\n";
            pr "      rhash.put (r[i], r[i+1]);\n";
            pr "    return rhash;\n"

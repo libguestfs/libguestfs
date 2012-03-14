@@ -961,6 +961,16 @@ if test "x$with_java_home" != "xno"; then
         esac
         AC_MSG_RESULT([$JAVAC_FLAGS])
 
+        dnl Extra lint flags?
+        AC_MSG_CHECKING([extra javac lint flags])
+        if $JAVAC -X >/dev/null 2>&1 && \
+           $JAVAC -X 2>&1 | grep -q -- '-Xlint:.*all'; then
+            AC_MSG_RESULT([-Xlint:all])
+            JAVAC_FLAGS="$JAVAC_FLAGS -Xlint:all"
+        else
+            AC_MSG_RESULT([no])
+        fi
+
         dnl Where to install jarfiles, jnifiles
         if test -z $JAR_INSTALL_DIR; then
             JAR_INSTALL_DIR=\${prefix}/share/java
