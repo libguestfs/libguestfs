@@ -395,10 +395,11 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   errno = 0;
   node = hivex_node_get_child (h, root, "MountedDevices");
   if (node == 0) {
-    if (errno != 0)
-      perrorf (g, "hivex_node_get_child");
-    else
-      error (g, "hivex: could not locate HKLM\\SYSTEM\\MountedDevices");
+    if (errno == 0)
+      /* Not found: skip getting drive letter mappings (RHBZ#803664). */
+      goto skip_drive_letter_mappings;
+    /* errno != 0, so it's some other error from hivex */
+    perrorf (g, "hivex_node_get_child");
     goto out;
   }
 
@@ -453,6 +454,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     free (key);
   }
 
+ skip_drive_letter_mappings:;
   /* Get the hostname. */
   const char *hivepath[] =
     { fs->windows_current_control_set, "Services", "Tcpip", "Parameters" };
