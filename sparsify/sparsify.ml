@@ -231,11 +231,9 @@ let () =
           if not quiet then
             printf "Fill free space in volgroup %s with zero ...\n%!" vg;
 
-          (* This command is expected to fail. *)
-          (try g#dd "/dev/zero" lvdev with _ -> ());
-
-           g#sync ();
-           g#lvremove lvdev
+          g#zero_device lvdev;
+          g#sync ();
+          g#lvremove lvdev
         )
       )
   ) vgs
