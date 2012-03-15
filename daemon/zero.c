@@ -24,6 +24,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/statvfs.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -225,4 +226,107 @@ do_is_zero_device (const char *device)
   }
 
   return 1;
+}
+
+static int
+random_name (char *p)
+{
+  int fd;
+  unsigned char c;
+
+  fd = open ("/dev/urandom", O_RDONLY|O_CLOEXEC);
+  if (fd == -1) {
+    reply_with_perror ("/dev/urandom");
+    return -1;
+  }
+
+  while (*p) {
+    if (*p == 'X') {
+      if (read (fd, &c, 1) != 1) {
+        reply_with_perror ("read: /dev/urandom");
+        close (fd);
+        return -1;
+      }
+      *p = "0123456789abcdefghijklmnopqrstuvwxyz"[c % 36];
+    }
+
+    p++;
+  }
+
+  close (fd);
+  return 0;
+}
+
+/* Current implementation is to create a file of all zeroes, then
+ * delete it.  The description of this function is left open in order
+ * to allow better implementations in future, including
+ * sparsification.
+ */
+int
+do_zero_free_space (const char *dir)
+{
+  size_t len = strlen (dir);
+  char filename[sysroot_len+len+14]; /* sysroot + dir + "/" + 8.3 + "\0" */
+  int fd;
+  unsigned skip = 0;
+  struct statvfs statbuf;
+  fsblkcnt_t bfree_initial;
+
+  /* Choose a randomly named 8.3 file.  Because of the random name,
+   * this won't conflict with existing files, and it should be
+   * compatible with any filesystem type inc. FAT.
+   */
+  snprintf (filename, sysroot_len+len+14, "%s%s/XXXXXXXX.XXX", sysroot, dir);
+  if (random_name (&filename[sysroot_len+len]) == -1)
+    return -1;
+
+  if (verbose)
+    printf ("random filename: %s\n", filename);
+
+  /* Open file and fill with zeroes until we run out of space. */
+  fd = open (filename, O_WRONLY|O_CREAT|O_EXCL|O_NOCTTY|O_CLOEXEC, 0600);
+  if (fd == -1) {
+    reply_with_perror ("open: %s", filename);
+    return -1;
+  }
+
+  /* To estimate progress in this operation, we're going to track
+   * free blocks in this filesystem down to zero.
+   */
+  if (fstatvfs (fd, &statbuf) == -1) {
+    reply_with_perror ("fstatvfs");
+    close (fd);
+    return -1;
+  }
+  bfree_initial = statbuf.f_bfree;
+
+  for (;;) {
+    if (write (fd, zero_buf, sizeof zero_buf) == -1) {
+      if (errno == ENOSPC)      /* expected error */
+        break;
+      reply_with_perror ("write: %s", filename);
+      close (fd);
+      unlink (filename);
+      return -1;
+    }
+
+    skip++;
+    if ((skip & 256) == 0 && fstatvfs (fd, &statbuf) == 0)
+      notify_progress (bfree_initial - statbuf.f_bfree, bfree_initial);
+  }
+
+  /* Make sure the file is completely written to disk. */
+  close (fd); /* expect this to give an error, don't check it */
+
+  sync_disks ();
+
+  notify_progress (bfree_initial, bfree_initial);
+
+  /* Remove the file. */
+  if (unlink (filename) == -1) {
+    reply_with_perror ("unlink: %s", filename);
+    return -1;
+  }
+
+  return 0;
 }

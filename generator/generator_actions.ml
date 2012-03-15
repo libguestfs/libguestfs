@@ -6748,6 +6748,20 @@ On NTFS filesystems, labels are limited to 128 unicode characters.
 
 To read the label on a filesystem, call C<guestfs_vfs_label>.");
 
+  ("zero_free_space", (RErr, [Pathname "directory"], []), 311, [Progress],
+   [InitScratchFS, Always, TestRun (
+     [["zero_free_space"; "/"]])],
+   "zero free space in a filesystem",
+   "\
+Zero the free space in the filesystem mounted on C<directory>.
+The filesystem must be mounted read-write.
+
+The filesystem contents are not affected, but any free space
+in the filesystem is freed.
+
+In future (but not currently) these zeroed blocks will be
+\"sparsified\" - that is, given back to the host.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
