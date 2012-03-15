@@ -6762,6 +6762,24 @@ in the filesystem is freed.
 In future (but not currently) these zeroed blocks will be
 \"sparsified\" - that is, given back to the host.");
 
+  ("lvcreate_free", (RErr, [String "logvol"; String "volgroup"; Int "percent"], []), 312, [Optional "lvm2"],
+   [InitEmpty, Always, TestOutputList (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
+       ["lvcreate_free"; "LV1"; "VG"; "50"];
+       ["lvcreate_free"; "LV2"; "VG"; "50"];
+       ["lvcreate_free"; "LV3"; "VG"; "50"];
+       ["lvcreate_free"; "LV4"; "VG"; "100"];
+       ["lvs"]],
+      ["/dev/VG/LV1"; "/dev/VG/LV2"; "/dev/VG/LV3"; "/dev/VG/LV4"])],
+   "create an LVM logical volume in % remaining free space",
+   "\
+Create an LVM logical volume called C</dev/volgroup/logvol>,
+using approximately C<percent> % of the free space remaining
+in the volume group.  Most usefully, when C<percent> is C<100>
+this will create the largest possible LV.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

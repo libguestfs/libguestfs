@@ -263,6 +263,36 @@ do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
 }
 
 int
+do_lvcreate_free (const char *logvol, const char *volgroup, int percent)
+{
+  char *err;
+  int r;
+
+  if (percent < 0 || percent > 100) {
+    reply_with_error ("percentage must be [0..100] (was %d)", percent);
+    return -1;
+  }
+
+  char size[64];
+  snprintf (size, sizeof size, "%d%%FREE", percent);
+
+  r = command (NULL, &err,
+               "lvm", "lvcreate",
+               "-L", size, "-n", logvol, volgroup, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  udev_settle ();
+
+  return 0;
+}
+
+int
 do_lvresize (const char *logvol, int mbytes)
 {
   char *err;
