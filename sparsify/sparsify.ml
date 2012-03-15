@@ -1,5 +1,5 @@
 (* virt-sparsify
- * Copyright (C) 2011 Red Hat Inc.
+ * Copyright (C) 2011-2012 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -205,19 +205,7 @@ let () =
           if not quiet then
             printf "Fill free space in %s with zero ...\n%!" fs;
 
-          (* Choose a random filename, just letters and numbers, in
-           * 8.3 format.  This ought to be compatible with any
-           * filesystem and not clash with existing files.
-           *)
-          let filename = "/" ^ string_random8 () ^ ".tmp" in
-
-          (* This command is expected to fail. *)
-          (try g#dd "/dev/zero" filename with _ -> ());
-
-          (* Make sure the last part of the file is written to disk. *)
-          g#sync ();
-
-          g#rm filename
+          g#zero_free_space "/"
         );
 
         g#umount_all ()
