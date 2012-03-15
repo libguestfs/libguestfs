@@ -53,7 +53,8 @@ L<virt-resize(1)>.
 
 =item *
 
-Virt-sparsify cannot handle encrypted disks.
+Virt-sparsify cannot handle encrypted disks.  Libguestfs supports
+encrypted disks, but encrypted disks themselves cannot be sparsified.
 
 =item *
 
