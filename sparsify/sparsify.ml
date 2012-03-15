@@ -305,7 +305,7 @@ let () =
       | None -> ""
       | Some option -> " -o " ^ Filename.quote option)
       (Filename.quote overlaydisk) (Filename.quote outdisk) in
-(*  if verbose then*)
+  if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
     error "external command failed: %s" cmd
