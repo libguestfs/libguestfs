@@ -246,11 +246,9 @@ let () =
           (* XXX Don't have lvcreate -l 100%FREE.  Fake it. *)
           g#lvresize_free lvdev 100;
 
-          (* This command is expected to fail. *)
-          (try g#dd "/dev/zero" lvdev with _ -> ());
-
-           g#sync ();
-           g#lvremove lvdev
+          g#zero_device lvdev;
+          g#sync ();
+          g#lvremove lvdev
         )
       )
   ) vgs
