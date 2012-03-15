@@ -143,9 +143,13 @@ let () =
 (* Create the temporary overlay file. *)
 let overlaydisk =
   let tmp = Filename.temp_file "sparsify" ".qcow2" in
+  let unlink_tmp () = try unlink tmp with _ -> () in
 
   (* Unlink on exit. *)
-  at_exit (fun () -> try unlink tmp with _ -> ());
+  at_exit unlink_tmp;
+
+  (* Unlink on sigint. *)
+  Sys.set_signal Sys.sigint (Sys.Signal_handle (fun _ -> unlink_tmp ()));
 
   (* Create it with the indisk as the backing file. *)
   let cmd =
