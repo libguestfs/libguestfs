@@ -61,12 +61,6 @@ Virt-sparsify cannot yet sparsify the space between partitions.  Note
 that this space is often used for critical items like bootloaders so
 it's not really unused.
 
-=item *
-
-Virt-sparsify does not yet know how to sparsify swapspace.  It is not
-safe to do this unless we can be sure there is no hibernation data, so
-at the moment swap partitions are ignored.
-
 =back
 
 You may also want to read the manual pages for the associated tools

@@ -99,6 +99,7 @@ read the man page virt-sparsify(1).
    *)
   if !disks = [] && machine_readable then (
     printf "virt-sparsify\n";
+    printf "linux-swap\n";
     let g = new G.guestfs () in
     g#add_drive_opts "/dev/null";
     g#launch ();
@@ -183,7 +184,9 @@ let g =
 (* Get the size in bytes of the input disk. *)
 let insize = g#blockdev_getsize64 "/dev/sda"
 
-(* Write zeroes for non-ignored filesystems that we are able to mount. *)
+(* Write zeroes for non-ignored filesystems that we are able to mount,
+ * and selected swap partitions.
+ *)
 let () =
   let filesystems = g#list_filesystems () in
   let filesystems = List.map fst filesystems in
@@ -206,6 +209,30 @@ let () =
             printf "Fill free space in %s with zero ...\n%!" fs;
 
           g#zero_free_space "/"
+        ) else (
+          let is_linux_x86_swap =
+            (* Look for the signature for Linux swap on i386.
+             * Location depends on page size, so it definitely won't
+             * work on non-x86 architectures (eg. on PPC, page size is
+             * 64K).  Also this avoids hibernated swap space: in those,
+             * the signature is moved to a different location.
+             *)
+            try g#pread_device fs 10 4086L = "SWAPSPACE2"
+            with _ -> false in
+
+          if is_linux_x86_swap then (
+            if not quiet then
+              printf "Clearing Linux swap on %s ...\n%!" fs;
+
+            (* Don't use mkswap.  Just preserve the header containing
+             * the label, UUID and swap format version (libguestfs
+             * mkswap may differ from guest's own).
+             *)
+            let header = g#pread_device fs 4096 0L in
+            g#zero_device fs;
+            if g#pwrite_device fs header 0L <> 4096 then
+              error "pwrite: short write restoring swap partition header"
+          )
         );
 
         g#umount_all ()
