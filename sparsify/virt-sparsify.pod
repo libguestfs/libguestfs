@@ -191,6 +191,14 @@ Display version number and exit.
 
 Enable tracing of libguestfs API calls.
 
+=item B<--zero> partition
+
+=item B<--zero> logvol
+
+Zero the contents of the named partition or logical volume in the
+guest.  All data on the device is lost, but sparsification is
+excellent!  You can give this option multiple times.
+
 =back
 
 =head1 MACHINE READABLE OUTPUT

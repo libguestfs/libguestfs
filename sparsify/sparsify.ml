@@ -30,7 +30,7 @@ let prog = Filename.basename Sys.executable_name
 
 let indisk, outdisk, compress, convert, debug_gc,
   format, ignores, machine_readable,
-  option, quiet, verbose, trace =
+  option, quiet, verbose, trace, zeroes =
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
@@ -51,6 +51,7 @@ let indisk, outdisk, compress, convert, debug_gc,
   let quiet = ref false in
   let verbose = ref false in
   let trace = ref false in
+  let zeroes = ref [] in
 
   let argspec = Arg.align [
     "--compress", Arg.Set compress,         " Compressed output format";
@@ -67,6 +68,7 @@ let indisk, outdisk, compress, convert, debug_gc,
     "-V",        Arg.Unit display_version,  " Display version and exit";
     "--version", Arg.Unit display_version,  " -\"-";
     "-x",        Arg.Set trace,             " Enable tracing of libguestfs calls";
+    "--zero",    Arg.String (add zeroes),   "fs Zero filesystem";
   ] in
   let disks = ref [] in
   let anon_fun s = disks := s :: !disks in
@@ -93,6 +95,7 @@ read the man page virt-sparsify(1).
   let quiet = !quiet in
   let verbose = !verbose in
   let trace = !trace in
+  let zeroes = List.rev !zeroes in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -100,6 +103,7 @@ read the man page virt-sparsify(1).
   if !disks = [] && machine_readable then (
     printf "virt-sparsify\n";
     printf "linux-swap\n";
+    printf "zero\n";
     let g = new G.guestfs () in
     g#add_drive_opts "/dev/null";
     g#launch ();
@@ -135,7 +139,7 @@ read the man page virt-sparsify(1).
 
   indisk, outdisk, compress, convert,
     debug_gc, format, ignores, machine_readable,
-    option, quiet, verbose, trace
+    option, quiet, verbose, trace, zeroes
 
 let () =
   if not quiet then
@@ -204,38 +208,45 @@ let () =
   List.iter (
     fun fs ->
       if not (is_ignored fs) then (
-        let mounted =
-          try g#mount_options "" fs "/"; true
-          with _ -> false in
-
-        if mounted then (
+        if List.mem fs zeroes then (
           if not quiet then
-            printf "Fill free space in %s with zero ...\n%!" fs;
+            printf "Zeroing %s ...\n%!" fs;
 
-          g#zero_free_space "/"
+          g#zero_device fs
         ) else (
-          let is_linux_x86_swap =
-            (* Look for the signature for Linux swap on i386.
-             * Location depends on page size, so it definitely won't
-             * work on non-x86 architectures (eg. on PPC, page size is
-             * 64K).  Also this avoids hibernated swap space: in those,
-             * the signature is moved to a different location.
-             *)
-            try g#pread_device fs 10 4086L = "SWAPSPACE2"
+          let mounted =
+            try g#mount_options "" fs "/"; true
             with _ -> false in
 
-          if is_linux_x86_swap then (
+          if mounted then (
             if not quiet then
-              printf "Clearing Linux swap on %s ...\n%!" fs;
+              printf "Fill free space in %s with zero ...\n%!" fs;
 
-            (* Don't use mkswap.  Just preserve the header containing
-             * the label, UUID and swap format version (libguestfs
-             * mkswap may differ from guest's own).
-             *)
-            let header = g#pread_device fs 4096 0L in
-            g#zero_device fs;
-            if g#pwrite_device fs header 0L <> 4096 then
-              error "pwrite: short write restoring swap partition header"
+            g#zero_free_space "/"
+          ) else (
+            let is_linux_x86_swap =
+              (* Look for the signature for Linux swap on i386.
+               * Location depends on page size, so it definitely won't
+               * work on non-x86 architectures (eg. on PPC, page size is
+               * 64K).  Also this avoids hibernated swap space: in those,
+               * the signature is moved to a different location.
+               *)
+              try g#pread_device fs 10 4086L = "SWAPSPACE2"
+              with _ -> false in
+
+            if is_linux_x86_swap then (
+              if not quiet then
+                printf "Clearing Linux swap on %s ...\n%!" fs;
+
+              (* Don't use mkswap.  Just preserve the header containing
+               * the label, UUID and swap format version (libguestfs
+               * mkswap may differ from guest's own).
+               *)
+              let header = g#pread_device fs 4096 0L in
+              g#zero_device fs;
+              if g#pwrite_device fs header 0L <> 4096 then
+                error "pwrite: short write restoring swap partition header"
+            )
           )
         );
 
