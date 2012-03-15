@@ -96,16 +96,10 @@ prep_postlaunch_lv (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("failed to create VG: %s: %s"),
                 vg, guestfs_last_error (g));
 
-  /* Create the smallest possible LV, then resize it to fill
-   * all available space.
-   */
-  if (guestfs_lvcreate (g, lv, vg, 1) == -1)
+  /* Create the largest possible LV. */
+  if (guestfs_lvcreate_free (g, lv, vg, 100) == -1)
     prep_error (data, filename, _("failed to create LV: /dev/%s/%s: %s"),
                 vg, lv, guestfs_last_error (g));
-  if (guestfs_lvresize_free (g, data->params[0], 100) == -1)
-    prep_error (data, filename,
-                _("failed to resize LV to full size: %s: %s"),
-                data->params[0], guestfs_last_error (g));
 
   free (part);
   free (vg);
@@ -149,16 +143,10 @@ prep_postlaunch_lvfs (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("failed to create VG: %s: %s"),
                 vg, guestfs_last_error (g));
 
-  /* Create the smallest possible LV, then resize it to fill
-   * all available space.
-   */
-  if (guestfs_lvcreate (g, lv, vg, 1) == -1)
+  /* Create the largest possible LV. */
+  if (guestfs_lvcreate_free (g, lv, vg, 100) == -1)
     prep_error (data, filename, _("failed to create LV: /dev/%s/%s: %s"),
                 vg, lv, guestfs_last_error (g));
-  if (guestfs_lvresize_free (g, data->params[0], 100) == -1)
-    prep_error (data, filename,
-                _("failed to resize LV to full size: %s: %s"),
-                data->params[0], guestfs_last_error (g));
 
   /* Create the filesystem. */
   if (guestfs_mkfs (g, data->params[1], data->params[0]) == -1)

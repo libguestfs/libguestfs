@@ -224,15 +224,12 @@ let () =
         let lvdev = "/dev/" ^ vg ^ "/" ^ lvname in
 
         let created =
-          try g#lvcreate lvname vg 32; true
+          try g#lvcreate_free lvname vg 100; true
           with _ -> false in
 
         if created then (
           if not quiet then
             printf "Fill free space in volgroup %s with zero ...\n%!" vg;
-
-          (* XXX Don't have lvcreate -l 100%FREE.  Fake it. *)
-          g#lvresize_free lvdev 100;
 
           (* This command is expected to fail. *)
           (try g#dd "/dev/zero" lvdev with _ -> ());

@@ -379,7 +379,7 @@ do_format (void)
       if (guestfs_vgcreate (g, vg, devs) == -1)
         exit (EXIT_FAILURE);
 
-      if (guestfs_lvcreate (g, lv, vg, 32) == -1) /* 32 MB is smallest LV */
+      if (guestfs_lvcreate_free (g, lv, vg, 100) == -1)
         exit (EXIT_FAILURE);
 
       if (free_dev)
@@ -389,9 +389,6 @@ do_format (void)
         exit (EXIT_FAILURE);
       }
       free_dev = 1;
-
-      if (guestfs_lvresize_free (g, dev, 100) == -1)
-        exit (EXIT_FAILURE);
     }
 
     if (filesystem) {
