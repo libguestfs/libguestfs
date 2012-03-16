@@ -6780,6 +6780,38 @@ using approximately C<percent> % of the free space remaining
 in the volume group.  Most usefully, when C<percent> is C<100>
 this will create the largest possible LV.");
 
+  ("isoinfo_device", (RStruct ("isodata", "isoinfo"), [Device "device"], []), 313, [],
+   [InitNone, Always, TestOutputStruct (
+     [["isoinfo_device"; "/dev/sdd"]],
+     [CompareWithString ("iso_system_id", "LINUX");
+      CompareWithString ("iso_volume_id", "CDROM");
+      CompareWithString ("iso_volume_set_id", "");
+      CompareWithInt ("iso_volume_set_size", 1);
+      CompareWithInt ("iso_volume_sequence_number", 1);
+      CompareWithInt ("iso_logical_block_size", 2048)])],
+   "get ISO information from primary volume descriptor of device",
+   "\
+C<device> is an ISO device.  This returns a struct of information
+read from the primary volume descriptor (the ISO equivalent of the
+superblock) of the device.
+
+Usually it is more efficient to use the L<isoinfo(1)> command
+with the I<-d> option on the host to analyze ISO files,
+instead of going through libguestfs.
+
+For information on the primary volume descriptor fields, see
+L<http://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor>");
+
+  ("isoinfo", (RStruct ("isodata", "isoinfo"), [Pathname "isofile"], []), 314, [],
+   [],
+   "get ISO information from primary volume descriptor of ISO file",
+   "\
+This is the same as C<guestfs_isoinfo_device> except that it
+works for an ISO file located inside some other mounted filesystem.
+Note that in the common case where you have added an ISO file
+as a libguestfs device, you would I<not> call this.  Instead
+you would call C<guestfs_isoinfo_device>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

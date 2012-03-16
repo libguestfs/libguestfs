@@ -32,4 +32,5 @@ java_built_sources = \
 	com/redhat/et/libguestfs/INotifyEvent.java \
 	com/redhat/et/libguestfs/Partition.java \
 	com/redhat/et/libguestfs/Application.java \
+	com/redhat/et/libguestfs/ISOInfo.java \
 	com/redhat/et/libguestfs/GuestFS.java

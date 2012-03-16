@@ -183,6 +183,7 @@ java/com_redhat_et_libguestfs_GuestFS.h
 java/com/redhat/et/libguestfs/GuestFS.java
 java/com/redhat/et/libguestfs/INotifyEvent.java
 java/com/redhat/et/libguestfs/IntBool.java
+java/com/redhat/et/libguestfs/ISOInfo.java
 java/com/redhat/et/libguestfs/LV.java
 java/com/redhat/et/libguestfs/Partition.java
 java/com/redhat/et/libguestfs/PV.java
