@@ -661,7 +661,7 @@ and generate_one_test_body name i test_name init test =
               pr "    }\n"
           | CompareWithString (field, expected) ->
               pr "    if (STRNEQ (r->%s, \"%s\")) {\n" field expected;
-              pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
+              pr "      fprintf (stderr, \"%s: %s was \\\"%%s\\\", expected \\\"%s\\\"\\n\",\n"
                 test_name field expected;
               pr "               r->%s);\n" field;
               pr "      return -1;\n";
