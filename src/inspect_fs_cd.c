@@ -263,7 +263,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
   }
 
-  fs->is_multipart_disk = totaldiscs > 0;
+  fs->is_multipart_disk = totaldiscs > 1;
   /* and what about discnum? */
 
   return 0;
