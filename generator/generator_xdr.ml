@@ -53,8 +53,10 @@ let generate_xdr () =
                    | name, FString -> pr "  string %s<>;\n" name
                    | name, FBuffer -> pr "  opaque %s<>;\n" name
                    | name, FUUID -> pr "  opaque %s[32];\n" name
-                   | name, (FInt32|FUInt32) -> pr "  int %s;\n" name
-                   | name, (FInt64|FUInt64|FBytes) -> pr "  hyper %s;\n" name
+                   | name, FInt32 -> pr "  int %s;\n" name
+                   | name, FUInt32 -> pr "  unsigned int %s;\n" name
+                   | name, (FInt64|FBytes) -> pr "  hyper %s;\n" name
+                   | name, FUInt64 -> pr "  unsigned hyper %s;\n" name
                    | name, FOptPercent -> pr "  float %s;\n" name
                   ) cols;
         pr "};\n";
