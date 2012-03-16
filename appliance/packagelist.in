@@ -102,6 +102,7 @@ dosfstools
 file
 findutils
 gawk
+genisoimage
 grep
 gzip
 iproute
