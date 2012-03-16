@@ -230,6 +230,7 @@ let camel_structs = [
   "application", "Application";
   "isoinfo", "ISOInfo";
 ]
+let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
 
 let camel_name_of_struct typ =
   try List.assoc typ camel_structs
