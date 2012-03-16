@@ -144,10 +144,8 @@ blkid_with_p_i_opt (const char *device)
 
   /* Split the command output into lines */
   lines = split_lines (out);
-  if (lines == NULL) {
-    reply_with_perror ("malloc");
+  if (lines == NULL)
     goto error;
-  }
 
   /* Parse the output of blkid -p -i -o export:
    * UUID=b6d83437-c6b4-4bf0-8381-ef3fc3578590

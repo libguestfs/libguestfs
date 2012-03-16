@@ -253,10 +253,8 @@ do_md_detail(const char *md)
 
   /* Split the command output into lines */
   lines = split_lines (out);
-  if (lines == NULL) {
-    reply_with_perror ("malloc");
+  if (lines == NULL)
     goto error;
-  }
 
   /* Parse the output of mdadm -D --export:
    * MD_LEVEL=raid1
