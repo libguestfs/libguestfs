@@ -119,6 +119,63 @@ find_value (const char *kv)
   return p;
 }
 
+/* RHEL 5 has a DVD.iso and several CD-sized -discX-ftp.iso alternatives.
+ *
+ * The DVD.iso contains:
+ *   /.treeinfo:
+ *     [general]
+ *     family = Red Hat Enterprise Linux Server
+ *     timestamp = 1328200566.61
+ *     totaldiscs = 1
+ *     version = 5.8
+ *     discnum = 1
+ *     packagedir = Server
+ *     arch = x86_64
+ *     [...]
+ *
+ *   /.discinfo:
+ *     1328205744.315196
+ *     Red Hat Enterprise Linux Server 5.8  # product name
+ *     x86_64                               # arch
+ *     1                                    # disk number
+ *     Server/base
+ *     Server/RPMS
+ *     Server/pixmaps
+ *
+ * The alternative CD-sized ISOs contain:
+ *
+ * disc1:
+ *   /.treeinfo:
+ *     [general]
+ *     family = Red Hat Enterprise Linux Server
+ *     timestamp = 1328200566.61
+ *     totaldiscs = 1
+ *     version = 5.8
+ *     discnum = 1
+ *     packagedir = Server
+ *     arch = x86_64
+ *     [...]
+ *
+ *   /.discinfo:
+ *     1328205744.315196
+ *     Red Hat Enterprise Linux Server 5.8  # product name
+ *     x86_64                               # arch
+ *     1                                    # disk number
+ *     Server/base
+ *     Server/RPMS
+ *     Server/pixmaps
+ *
+ * discN (N > 1):
+ *   /.discinfo:
+ *     1328205744.315196
+ *     Red Hat Enterprise Linux Server 5.8  # product name
+ *     x86_64                               # arch
+ *     2                                    # disk number
+ *     Server/base
+ *     Server/RPMS
+ *     Server/pixmaps
+ */
+
 /* Fedora CDs and DVD (not netinst).  The /.treeinfo file contains
  * an initial section somewhat like this:
  *
@@ -218,6 +275,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
  * Look for the "menu title" line which contains:
  *   menu title Welcome to Fedora 14!   # since at least Fedora 10
  *   menu title Welcome to Red Hat Enterprise Linux 6.0!
+ *   menu title Welcome to RHEL6.2-20111117.0-Workstation-x!
  */
 static int
 check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
