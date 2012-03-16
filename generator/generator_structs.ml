@@ -208,6 +208,7 @@ let camel_structs = [
   "partition", "Partition";
   "application", "Application";
 ]
+let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
 
 let camel_name_of_struct typ =
   try List.assoc typ camel_structs

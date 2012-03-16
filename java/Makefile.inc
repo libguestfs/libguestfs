@@ -20,16 +20,16 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 java_built_sources = \
+	com/redhat/et/libguestfs/Application.java \
+	com/redhat/et/libguestfs/Dirent.java \
+	com/redhat/et/libguestfs/INotifyEvent.java \
 	com/redhat/et/libguestfs/IntBool.java \
-	com/redhat/et/libguestfs/PV.java \
-	com/redhat/et/libguestfs/VG.java \
 	com/redhat/et/libguestfs/LV.java \
+	com/redhat/et/libguestfs/PV.java \
+	com/redhat/et/libguestfs/Partition.java \
 	com/redhat/et/libguestfs/Stat.java \
 	com/redhat/et/libguestfs/StatVFS.java \
-	com/redhat/et/libguestfs/Dirent.java \
+	com/redhat/et/libguestfs/VG.java \
 	com/redhat/et/libguestfs/Version.java \
 	com/redhat/et/libguestfs/XAttr.java \
-	com/redhat/et/libguestfs/INotifyEvent.java \
-	com/redhat/et/libguestfs/Partition.java \
-	com/redhat/et/libguestfs/Application.java \
 	com/redhat/et/libguestfs/GuestFS.java
