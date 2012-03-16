@@ -314,6 +314,21 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
   }
 
+  /* XXX parse major.minor */
+  r = guestfs___first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+                                     "^menu title Welcome to RHEL[[:digit:]]+",
+                           0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_RHEL;
+    fs->major_version =
+      guestfs___parse_unsigned_int_ignore_trailing (g, &str[26]);
+    free (str);
+    if (fs->major_version == -1)
+      return -1;
+  }
+
   return 0;
 }
 
