@@ -187,6 +187,7 @@ HTMLFILES = \
 	html/guestfs-testing.1.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
+	html/libguestfs-make-fixed-appliance.1.html \
 	html/virt-alignment-scan.1.html \
 	html/virt-cat.1.html \
 	html/virt-copy-in.1.html \

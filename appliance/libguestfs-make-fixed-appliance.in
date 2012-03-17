@@ -1,0 +1,161 @@
+#!/bin/bash -
+# @configure_input@
+# libguestfs-make-fixed-appliance tool
+# Copyright (C) 2012 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+unset CDPATH
+
+program="libguestfs-make-fixed-appliance"
+version="@PACKAGE_VERSION@"
+
+TEMP=`getopt \
+        -o V \
+        --long help,version,xz \
+        -n $program -- "$@"`
+if [ $? != 0 ]; then
+    echo "$program: problem parsing the command line arguments"
+    exit 1
+fi
+eval set -- "$TEMP"
+
+usage ()
+{
+    echo "Usage:"
+    echo "  $program [--options] OUTPUTDIR"
+    echo "  $program [--options] --xz"
+    echo
+    echo "Read $program(1) man page for more information."
+    exit $1
+}
+
+while true; do
+    case "$1" in
+        -V|--version)
+            echo "$program $version"
+            exit 0;;
+        --xz)
+            xz_mode=1
+            shift;;
+        --)
+            shift
+            break;;
+        *)
+            echo "Internal error!"
+            exit 1;;
+    esac
+done
+
+# Either xz_mode or we expect one extra parameter (output directory).
+if [ -n "$xz_mode" ]; then
+    if [ $# -gt 0 ]; then
+        echo "error: $program: extra parameters on the command line"
+        echo
+        usage 1
+    fi
+else
+    if [ $# -ne 1 ]; then
+        echo "error: $program: missing output directory"
+        echo
+        usage 1
+    fi
+    outputdir="$1"
+fi
+
+# end of command line parsing
+#----------------------------------------------------------------------
+
+set -e
+
+# The two ways to build the appliance are roughly the same, except for
+# --xz we build into a temporary directory and tar it up at the end.
+
+if [ -n "$xz_mode" ]; then
+    tmpdir="$(mktemp -d)"
+    outputdir="$tmpdir/appliance"
+
+    cleanup ()
+    {
+        rm -rf $tmpdir ||:
+    }
+    trap cleanup EXIT ERR
+fi
+
+# Create the output directory.
+mkdir -p "$outputdir"
+
+# Build the supermin appliance, if not already.
+guestfish -a /dev/null run
+
+# Find the location of the appliance.
+if [ -n "$TMPDIR" ]; then
+    appliancedir="$TMPDIR/.guestfs-$(id -u)"
+else
+    appliancedir="/var/tmp/.guestfs-$(id -u)"
+fi
+
+cp "$appliancedir/kernel" "$outputdir/kernel"
+cp "$appliancedir/initrd" "$outputdir/initrd"
+cp --sparse=always "$appliancedir/root" "$outputdir/root"
+
+cat <<EOF >"$outputdir/README.fixed"
+This is the "fixed appliance", a pre-built binary appliance for
+libguestfs.  This was built using $program.
+
+Unpack the appliance directory:
+
+  tar -Jxvf appliance-<VERSION>.tar.xz
+
+Then copy all four files:
+
+ * kernel
+ * initrd
+ * root
+ * README.fixed
+
+into a directory somewhere, eg. /usr/local/lib/guestfs/appliance/
+
+Then build libguestfs (>= 1.16.7 or >= 1.17.10) from source, disabling
+the normal appliance and daemon:
+
+  ./configure --disable-appliance --disable-daemon
+  make
+  sudo make install
+
+Set LIBGUESTFS_PATH to the path where you unpacked these files, eg:
+
+  export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance/
+
+and run the libguestfs programs and virt tools in the normal way.
+
+
+LICENSE
+-------
+
+This appliance contains software under a variety of open source
+licenses.  The software is from Fedora (https://fedoraproject.org/),
+and to rebuild it you need to download Fedora 17+ and
+libguestfs >= 1.17.10, and build libguestfs from source in the usual
+way.
+
+EOF
+
+# If --xz, compress the result.  Note -S option to preserve sparseness.
+if [ -n "$xz_mode" ]; then
+    tar -C "$tmpdir" -S -cf - appliance | xz --best > "appliance-$version.tar.xz"
+    rm -rf "$tmpdir" ||:
+    trap - EXIT ERR
+fi

@@ -1,0 +1,174 @@
+=encoding utf8
+
+=head1 NAME
+
+libguestfs-make-fixed-appliance - Make a "fixed appliance" for libguestfs
+
+=head1 SYNOPSIS
+
+ libguestfs-make-fixed-appliance [--options] OUTPUTDIR
+
+ libguestfs-make-fixed-appliance [--options] --xz
+
+=head1 DESCRIPTION
+
+libguestfs-make-fixed-appliance lets you make a pre-built binary
+appliance for libguestfs.
+
+B<Note that ordinary users should not need to run this tool>.  The
+only reason to use it is if you want to make a self-contained
+libguestfs appliance that can be copied to another machine or platform
+that doesn't support L<febootstrap(8)>.  To understand why you might
+need to use this tool, read the section L</FIXED APPLIANCE> below.
+
+Instead of running this tool, you can download fixed appliances from
+L<http://libguestfs.org/download/binaries/appliance/>.  These
+appliances were made using this tool.
+
+There are two ways to use this tool.
+
+=over 4
+
+=item *
+
+Specify an output directory, for example:
+
+ libguestfs-make-fixed-appliance /usr/local/lib/guestfs/appliance
+
+The output directory is created if it does not exist.  Four files are
+created in this directory:
+
+ <OUTPUTDIR>/kernel
+ <OUTPUTDIR>/initrd
+ <OUTPUTDIR>/root
+ <OUTPUTDIR>/README.fixed
+
+Note that C<I<OUTPUTDIR>/root> is a sparse file, so take care when
+copying it.
+
+You can then run libguestfs (possibly after copying this directory to
+another machine) by setting the environment variable LIBGUESTFS_PATH
+to C<OUTPUTDIR>.
+
+=item *
+
+The alternative method is to use the I<--xz> option to create a
+compressed tarball:
+
+ libguestfs-make-fixed-appliance --xz
+
+This creates a tarball in the I<current> directory called:
+
+ appliance-<VERSION>.tar.xz
+
+(where C<VERSION> is the version of libguestfs).  The tarball contains
+the four files:
+
+ appliance/kernel
+ appliance/initrd
+ appliance/root
+ appliance/README.fixed
+
+Note that C<appliance/root> is a sparse file, so take care when
+copying it.
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display short usage information and exit.
+
+=item B<-V>
+
+=item B<--version>
+
+Display the version number and exit.
+
+=item B<--xz>
+
+Instead of creating the appliance in an output directory, create a
+compressed tarball of the appliance in the current directory called
+C<appliance-I<VERSION>.tar.xz> where C<VERSION> is the version of
+libguestfs.
+
+Using I<--xz> can take some time.  If working normally, the tool is
+completely silent when it is running.
+
+=back
+
+=head1 FIXED APPLIANCE
+
+When libguestfs (or libguestfs tools) are run, they search a path
+looking for an appliance.  The path is built into libguestfs, or can
+be set using the C<LIBGUESTFS_PATH> environment variable.
+
+Normally a supermin appliance is located on this path (see
+L<febootstrap(8)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
+into a full appliance by running L<febootstrap-supermin-helper(8)>.
+
+However, a simpler "fixed appliance" can also be used.  libguestfs
+detects this by looking for a directory on the path containing four
+files called C<kernel>, C<initrd>, C<root> and C<README.fixed> (note
+the C<README.fixed> file must be present as well).
+
+If the fixed appliance is found, libguestfs skips febootstrap entirely
+and just runs qemu with the kernel, initrd and root disk from the
+fixed appliance.
+
+Thus the fixed appliance can be used when a platform or Linux distro
+does not support febootstrap.  You build the fixed appliance on a
+platform that does support febootstrap, and copy it over, and use that
+to run libguestfs.
+
+=head1 LICENSING
+
+The fixed appliance is a complete Linux binary distro.  If you
+distribute it, you may need to distribute corresponding source files
+to remain in legal compliance with the licenses of the software in the
+appliance (such as the GNU General Public License).
+
+=head1 EXIT STATUS
+
+libguestfs-make-fixed-appliance returns I<0> if the appliance was
+built without errors.
+
+=head1 ENVIRONMENT VARIABLES
+
+For the full list of environment variables which may affect
+libguestfs, please see the L<guestfs(3)> manual page.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<febootstrap(8)>,
+L<febootstrap-supermin-helper(8)>,
+L<xz(1)>,
+L<http://libguestfs.org/>,
+L<http://qemu.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2012 Red Hat Inc.
+L<http://libguestfs.org/>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.

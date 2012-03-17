@@ -1119,6 +1119,8 @@ AC_SUBST([LIBTOOL])
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
+AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
+                [chmod +x appliance/libguestfs-make-fixed-appliance])
 AC_CONFIG_FILES([clone/virt-sysprep],
                 [chmod +x clone/virt-sysprep])
 AC_CONFIG_FILES([podwrapper.sh],

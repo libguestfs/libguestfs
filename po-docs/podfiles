@@ -1,4 +1,5 @@
 ../align/virt-alignment-scan.pod
+../appliance/libguestfs-make-fixed-appliance.pod
 ../cat/virt-cat.pod
 ../cat/virt-filesystems.pod
 ../cat/virt-ls.pod

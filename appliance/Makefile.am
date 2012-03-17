@@ -21,6 +21,8 @@ EXTRA_DIST = \
 	excludelist.in \
 	guestfsd.suppressions \
 	init \
+	libguestfs-make-fixed-appliance.in \
+	libguestfs-make-fixed-appliance.pod \
 	make.sh.in \
 	packagelist.in
 
@@ -83,9 +85,26 @@ supermin.d/init.img: init
 	echo "init" | cpio --quiet -o -H newc > $@-t
 	mv $@-t $@
 
+# libguestfs-make-fixed-appliance script and man page.
+
+sbin_SCRIPTS = libguestfs-make-fixed-appliance
+
+man_MANS = libguestfs-make-fixed-appliance.1
+
+libguestfs-make-fixed-appliance.1 $(top_builddir)/html/libguestfs-make-fixed-appliance.1.html: stamp-libguestfs-make-fixed-appliance.pod
+
+stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
+	$(top_builddir)/podwrapper.sh \
+	  --man libguestfs-make-fixed-appliance.1 \
+	  --html $(top_builddir)/html/libguestfs-make-fixed-appliance.1.html \
+	  $<
+	touch $@
+
 # Make clean.
 
-CLEANFILES = packagelist excludelist
+CLEANFILES = packagelist excludelist \
+	libguestfs-make-fixed-appliance.1 \
+	stamp-libguestfs-make-fixed-appliance.pod
 
 clean-local:
 	rm -rf supermin.d

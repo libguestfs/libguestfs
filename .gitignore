@@ -6,8 +6,11 @@ align/stamp-virt-alignment-scan.pod
 align/virt-alignment-scan
 align/virt-alignment-scan.1
 appliance/excludelist
+appliance/libguestfs-make-fixed-appliance
+appliance/libguestfs-make-fixed-appliance.1
 appliance/make.sh
 appliance/packagelist
+appliance/stamp-libguestfs-make-fixed-appliance.pod
 appliance/stamp-supermin
 appliance/supermin.d
 autom4te.cache
@@ -148,6 +151,7 @@ html/guestfs-recipes.1.html
 html/guestfs-ruby.3.html
 html/guestfs-testing.1.html
 html/guestmount.1.html
+html/libguestfs-make-fixed-appliance.1.html
 html/virt-alignment-scan.1.html
 html/virt-cat.1.html
 html/virt-copy-in.1.html
