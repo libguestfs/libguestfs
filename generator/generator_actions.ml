@@ -6812,6 +6812,16 @@ Note that in the common case where you have added an ISO file
 as a libguestfs device, you would I<not> call this.  Instead
 you would call C<guestfs_isoinfo_device>.");
 
+  ("vgmeta", (RBufferOut "metadata", [String "vgname"], []), 315, [Optional "lvm2"],
+   [],
+   "get volume group metadata",
+   "\
+C<vgname> is an LVM volume group.  This command examines the
+volume group and returns its metadata.
+
+Note that the metadata is an internal structure used by LVM,
+subject to change at any time, and is provided for information only.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -23,6 +23,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <dirent.h>
 
@@ -871,4 +872,91 @@ do_list_dm_devices (void)
     return NULL;
 
   return ret.argv;
+}
+
+char *
+do_vgmeta (const char *vg, size_t *size_r)
+{
+  char *err;
+  int fd, r;
+  char tmp[] = "/tmp/vgmetaXXXXXX";
+  size_t alloc, size, max;
+  ssize_t rs;
+  char *buf, *buf2;
+
+  /* Make a temporary file. */
+  fd = mkstemp (tmp);
+  if (fd == -1) {
+    reply_with_perror ("mkstemp");
+    return NULL;
+  }
+
+  close (fd);
+
+  r = command (NULL, &err, "lvm", "vgcfgbackup", "-f", tmp, vg, NULL);
+  if (r == -1) {
+    reply_with_error ("vgcfgbackup: %s", err);
+    free (err);
+    return NULL;
+  }
+  free (err);
+
+  /* Now read back the temporary file. */
+  fd = open (tmp, O_RDONLY|O_CLOEXEC);
+  if (fd == -1) {
+    reply_with_error ("%s", tmp);
+    return NULL;
+  }
+
+  /* Read up to GUESTFS_MESSAGE_MAX - <overhead> bytes.  If it's
+   * larger than that, we need to return an error instead (for
+   * correctness).
+   */
+  max = GUESTFS_MESSAGE_MAX - 1000;
+  buf = NULL;
+  size = alloc = 0;
+
+  for (;;) {
+    if (size >= alloc) {
+      alloc += 8192;
+      if (alloc > max) {
+        reply_with_error ("metadata is too large for message buffer");
+        free (buf);
+        close (fd);
+        return NULL;
+      }
+      buf2 = realloc (buf, alloc);
+      if (buf2 == NULL) {
+        reply_with_perror ("realloc");
+        free (buf);
+        close (fd);
+        return NULL;
+      }
+      buf = buf2;
+    }
+
+    rs = read (fd, buf + size, alloc - size);
+    if (rs == -1) {
+      reply_with_perror ("read: %s", tmp);
+      free (buf);
+      close (fd);
+      return NULL;
+    }
+    if (rs == 0)
+      break;
+    if (rs > 0)
+      size += rs;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", tmp);
+    free (buf);
+    return NULL;
+  }
+
+  unlink (tmp);
+
+  *size_r = size;
+
+  return buf;			/* caller will free */
 }
