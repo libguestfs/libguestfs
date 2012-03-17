@@ -152,6 +152,7 @@ html/guestfs-ruby.3.html
 html/guestfs-testing.1.html
 html/guestmount.1.html
 html/libguestfs-make-fixed-appliance.1.html
+html/libguestfs-test-tool.1.html
 html/virt-alignment-scan.1.html
 html/virt-cat.1.html
 html/virt-copy-in.1.html
@@ -401,6 +402,7 @@ tests/regressions/rhbz790721
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool-helper
+test-tool/stamp-libguestfs-test-tool.pod
 tools/test.img
 tools/virt-*.1
 tools/virt-*.pl

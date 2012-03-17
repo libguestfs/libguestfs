@@ -19,7 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = libguestfs-test-tool.pod
 
-CLEANFILES =
+CLEANFILES = libguestfs-test-tool.1 stamp-libguestfs-test-tool.pod
 
 bin_PROGRAMS = libguestfs-test-tool
 man_MANS = libguestfs-test-tool.1
@@ -33,7 +33,11 @@ libguestfs_test_tool_CFLAGS = \
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
-libguestfs-test-tool.1: libguestfs-test-tool.pod
+libguestfs-test-tool.1 $(top_builddir)/html/libguestfs-test-tool.1.html: stamp-libguestfs-test-tool.pod
+
+stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
 	$(top_builddir)/podwrapper.sh \
-	  --man $@ \
+	  --man libguestfs-test-tool.1 \
+	  --html $(top_builddir)/html/libguestfs-test-tool.1.html \
 	  $<
+	touch $@
