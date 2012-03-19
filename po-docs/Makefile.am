@@ -20,11 +20,12 @@
 # libguestfs.pot file.
 
 # Languages.
-LINGUAS = ja uk
+# Don't use LINGUAS (uppercase) as Gentoo defines it (RHBZ#804464).
+linguas = ja uk
 
 EXTRA_DIST = \
 	libguestfs-docs.pot \
-	$(LINGUAS:%=%.po)
+	$(linguas:%=%.po)
 
 CLEANFILES = po4a.conf
 
@@ -32,7 +33,7 @@ CLEANFILES = po4a.conf
 # language directory contains a Makefile.am that we need to keep up to
 # date (note each $lang/Makefile.am should be identical).
 # XXX Is there a better way?
-SUBDIRS = $(LINGUAS)
+SUBDIRS = $(linguas)
 
 update-po: libguestfs-docs.pot
 
@@ -49,7 +50,7 @@ libguestfs-docs.pot: po4a.conf
 	  --msgid-bugs-address libguestfs@redhat.com \
 	  --copyright-holder "Red Hat Inc." \
 	  po4a.conf
-	for f in `find $(LINGUAS) -name '*.pod' -o -name '*.pl'`; do \
+	for f in `find $(linguas) -name '*.pod' -o -name '*.pl'`; do \
 	  echo '=encoding utf8' > $$f.new; \
 	  awk 'FNR >= 14 { print }' < $$f >> $$f.new; \
 	  mv $$f.new $$f; \
