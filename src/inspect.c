@@ -538,7 +538,7 @@ guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
 /* XXX These functions should be in an optgroup. */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("inspection API not available since this version of libguestfs was compiled without the hivex library")); \
+  guestfs_error_errno (g, ENOTSUP, _("inspection API not available since this version of libguestfs was compiled without the hivex library")); \
   return r
 
 char **
