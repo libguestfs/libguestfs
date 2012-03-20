@@ -760,3 +760,6 @@ and generate_java_makefile_inc () =
         pr "\tcom/redhat/et/libguestfs/%s.java \\\n" jtyp;
   ) camel_structs;
   pr "\tcom/redhat/et/libguestfs/GuestFS.java\n"
+
+and generate_java_gitignore () =
+  List.iter (fun (_, jtyp) -> pr "%s.java\n" jtyp) camel_structs
