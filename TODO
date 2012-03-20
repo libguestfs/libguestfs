@@ -620,3 +620,23 @@ TMPDIR should be checked to ensure that we won't run out of space
 during the conversion, since current behaviour is very bad when this
 happens (it usually causes virt-sparsify to hang).  This requires
 writing a small C binding to statvfs for OCaml.
+
+Passing file descriptors using attach-method fd:N
+-------------------------------------------------
+
+The idea is that you can pass a file descriptor to the appliance to
+another process, which can then attach to it by setting
+'attach-method' to 'fd:N' (where N = file descriptor).
+
+The process(es) cooperating like this would have to arrange for mutual
+exclusion on the file descriptor, since the protocol itself does not
+and cannot support this.
+
+One issue with this is whether just passing the fd is sufficient, or
+if other fields in the guestfs_h struct need to be passed too.
+Another issue is that the parent process still has to handle
+verbose/debug messages, and has to remain around to regain and kill
+off the appliance at the end.  Thus the parent cannot do much more
+than wait(2) and at the same time select(2) on g->fd.
+
+Virt tools would have to have a new --attach-fd=N option.
