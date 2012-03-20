@@ -68,6 +68,7 @@ and generate_daemon_actions () =
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
+  pr "#include <errno.h>\n";
   pr "#include <rpc/types.h>\n";
   pr "#include <rpc/xdr.h>\n";
   pr "\n";
@@ -132,10 +133,11 @@ and generate_daemon_actions () =
           pr "  if (! optgroup_%s_available ()) {\n" group;
           if is_filein then
             pr "    cancel_receive ();\n";
-          pr "    reply_with_error (\"feature '%%s' is not available in this\\n\"\n";
-          pr "                      \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
-          pr "                      \"how to check for the availability of features.\",\n";
-          pr "                      \"%s\");\n" group;
+          pr "    reply_with_error_errno (ENOTSUP,\n";
+          pr "       \"feature '%%s' is not available in this\\n\"\n";
+          pr "       \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
+          pr "       \"how to check for the availability of features.\",\n";
+          pr "       \"%s\");\n" group;
           pr "    goto done_no_free;\n";
           pr "  }\n";
           pr "\n"
