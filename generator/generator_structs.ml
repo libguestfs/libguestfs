@@ -212,6 +212,13 @@ let structs = [
     "iso_volume_expiration_t", FInt64;
     "iso_volume_effective_t", FInt64;
   ];
+
+  (* /proc/mdstat information.  See linux.git/drivers/md/md.c *)
+  "mdstat", [
+    "mdstat_device", FString;
+    "mdstat_index", FInt32;
+    "mdstat_flags", FString;
+  ];
 ] (* end of structs *)
 
 (* For bindings which want camel case *)
@@ -229,6 +236,7 @@ let camel_structs = [
   "partition", "Partition";
   "application", "Application";
   "isoinfo", "ISOInfo";
+  "mdstat", "MDStat";
 ]
 let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
 

@@ -6822,6 +6822,55 @@ volume group and returns its metadata.
 Note that the metadata is an internal structure used by LVM,
 subject to change at any time, and is provided for information only.");
 
+  ("md_stat", (RStructList ("devices", "mdstat"), [Device "md"], []), 316, [Optional "mdadm"],
+   [],
+   "get underlying devices from an MD device",
+   "\
+This call returns a list of the underlying devices which make
+up the single software RAID array device C<md>.
+
+To get a list of software RAID devices, call C<guestfs_list_md_devices>.
+
+Each structure returned corresponds to one device along with
+additional status information:
+
+=over 4
+
+=item C<mdstat_device>
+
+The name of the underlying device.
+
+=item C<mdstat_index>
+
+The index of this device within the array.
+
+=item C<mdstat_flags>
+
+Flags associated with this device.  This is a string containing
+(in no specific order) zero or more of the following flags:
+
+=over 4
+
+=item C<W>
+
+write-mostly
+
+=item C<F>
+
+device is faulty
+
+=item C<S>
+
+device is a RAID spare
+
+=item C<R>
+
+replacement
+
+=back
+
+=back");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
