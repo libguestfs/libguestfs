@@ -221,16 +221,16 @@ main_loop (int _sock)
 static void send_error (int errnum, const char *msg);
 
 void
-reply_with_error (const char *fs, ...)
+reply_with_error_errno (int err, const char *fs, ...)
 {
-  char err[GUESTFS_ERROR_LEN];
+  char buf[GUESTFS_ERROR_LEN];
   va_list args;
 
   va_start (args, fs);
-  vsnprintf (err, sizeof err, fs, args);
+  vsnprintf (buf, sizeof buf, fs, args);
   va_end (args);
 
-  send_error (0, err);
+  send_error (err, buf);
 }
 
 void
