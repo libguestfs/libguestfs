@@ -145,10 +145,11 @@ extern void main_loop (int sock) __attribute__((noreturn));
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.
  */
-extern void reply_with_error (const char *fs, ...)
-  __attribute__((format (printf,1,2)));
+extern void reply_with_error_errno (int err, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
 extern void reply_with_perror_errno (int err, const char *fs, ...)
   __attribute__((format (printf,2,3)));
+#define reply_with_error(...) reply_with_error_errno(0, __VA_ARGS__)
 #define reply_with_perror(...) reply_with_perror_errno(errno, __VA_ARGS__)
 
 /* daemon functions that receive files (FileIn) should call
