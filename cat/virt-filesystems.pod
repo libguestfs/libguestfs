@@ -332,9 +332,13 @@ then the size is displayed in a human-readable form.
 =item B<Parent>
 
 The parent column records the parent relationship between objects.
+
 For example, if the object is a partition, then this column contains
 the name of the containing device.  If the object is a logical volume,
 then this column is the name of the volume group.
+
+If there is more than one parent, then this column is (internal to the
+column) a comma-separated list, eg. C</dev/sda,/dev/sdb>.
 
 =item B<UUID>
 

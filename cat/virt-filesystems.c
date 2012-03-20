@@ -77,7 +77,7 @@ static int output = 0;
 #define COLUMN_VFS_LABEL          8 /* if --filesystems */
 #define COLUMN_MBR               16
 #define COLUMN_SIZE              32 /* bytes, or human-readable if -h */
-#define COLUMN_PARENT_NAME       64 /* only for partitions, LVs */
+#define COLUMN_PARENTS           64
 #define COLUMN_UUID             128 /* if --uuid */
 #define NR_COLUMNS                8
 static int columns;
@@ -334,8 +334,7 @@ main (int argc, char *argv[])
       columns |= COLUMN_VFS_TYPE;
       columns |= COLUMN_VFS_LABEL;
     }
-    if ((output & (OUTPUT_PARTITIONS|OUTPUT_LVS)))
-      columns |= COLUMN_PARENT_NAME;
+    columns |= COLUMN_PARENTS;
     if ((output & OUTPUT_PARTITIONS))
       columns |= COLUMN_MBR;
     if (uuid)
@@ -376,7 +375,7 @@ static void do_output_vgs (void);
 static void do_output_pvs (void);
 static void do_output_partitions (void);
 static void do_output_blockdevs (void);
-static void write_row (const char *name, const char *type, const char *vfs_type, const char *vfs_label, int mbr_id, int64_t size, const char *parent_name, const char *uuid);
+static void write_row (const char *name, const char *type, const char *vfs_type, const char *vfs_label, int mbr_id, int64_t size, const char **parents, const char *uuid);
 static void write_row_strings (char **strings, size_t len);
 
 static void
@@ -398,7 +397,7 @@ do_output_title (void)
     headings[len++] = "MBR";
   if ((columns & COLUMN_SIZE))
     headings[len++] = "Size";
-  if ((columns & COLUMN_PARENT_NAME))
+  if ((columns & COLUMN_PARENTS))
     headings[len++] = "Parent";
   if ((columns & COLUMN_UUID))
     headings[len++] = "UUID";
@@ -444,6 +443,7 @@ do_output_filesystems (void)
 
   for (i = 0; fses[i] != NULL; i += 2) {
     char *dev, *vfs_label = NULL, *vfs_uuid = NULL;
+    const char *parents[1] = { NULL };
     int64_t size = -1;
 
     /* Skip swap and unknown, unless --extra flag was given. */
@@ -487,7 +487,7 @@ do_output_filesystems (void)
     }
 
     write_row (dev, "filesystem",
-               fses[i+1], vfs_label, -1, size, NULL, vfs_uuid);
+               fses[i+1], vfs_label, -1, size, parents, vfs_uuid);
 
     free (dev);
     free (vfs_label);
@@ -513,6 +513,7 @@ do_output_lvs (void)
 
   for (i = 0; lvs[i] != NULL; ++i) {
     char *uuid = NULL, *parent_name = NULL;
+    const char *parents[2];
     int64_t size = -1;
 
     if ((columns & COLUMN_SIZE)) {
@@ -525,7 +526,7 @@ do_output_lvs (void)
       if (uuid == NULL)
         exit (EXIT_FAILURE);
     }
-    if ((columns & COLUMN_PARENT_NAME)) {
+    if ((columns & COLUMN_PARENTS)) {
       parent_name = strdup (lvs[i]);
       if (parent_name == NULL) {
         perror ("strdup");
@@ -534,10 +535,12 @@ do_output_lvs (void)
       char *p = strrchr (parent_name, '/');
       if (p)
         *p = '\0';
+      parents[0] = parent_name;
+      parents[1] = NULL;
     }
 
     write_row (lvs[i], "lv",
-               NULL, NULL, -1, size, parent_name, uuid);
+               NULL, NULL, -1, size, parents, uuid);
 
     free (uuid);
     free (parent_name);
@@ -560,13 +563,14 @@ do_output_vgs (void)
   for (i = 0; i < vgs->len; ++i) {
     char name[PATH_MAX];
     char uuid[33];
+    const char *parents[1] = { NULL };
 
     strcpy (name, "/dev/");
     strcpy (&name[5], vgs->val[i].vg_name);
     memcpy (uuid, vgs->val[i].vg_uuid, 32);
     uuid[32] = '\0';
     write_row (name, "vg",
-               NULL, NULL, -1, (int64_t) vgs->val[i].vg_size, NULL, uuid);
+               NULL, NULL, -1, (int64_t) vgs->val[i].vg_size, parents, uuid);
 
   }
 
@@ -586,13 +590,14 @@ do_output_pvs (void)
   for (i = 0; i < pvs->len; ++i) {
     char *dev;
     char uuid[33];
+    const char *parents[1] = { NULL };
 
     dev = canonical_device (pvs->val[i].pv_name);
 
     memcpy (uuid, pvs->val[i].pv_uuid, 32);
     uuid[32] = '\0';
     write_row (dev, "pv",
-               NULL, NULL, -1, (int64_t) pvs->val[i].pv_size, NULL, uuid);
+               NULL, NULL, -1, (int64_t) pvs->val[i].pv_size, parents, uuid);
 
     free (dev);
   }
@@ -638,6 +643,7 @@ do_output_partitions (void)
 
   for (i = 0; parts[i] != NULL; ++i) {
     char *dev, *parent_name = NULL;
+    const char *parents[2];
     int64_t size = -1;
     int mbr_id = -1;
 
@@ -648,7 +654,7 @@ do_output_partitions (void)
       if (size == -1)
         exit (EXIT_FAILURE);
     }
-    if ((columns & COLUMN_PARENT_NAME)) {
+    if ((columns & COLUMN_PARENTS)) {
       parent_name = guestfs_part_to_dev (g, parts[i]);
       if (parent_name == NULL)
         exit (EXIT_FAILURE);
@@ -659,10 +665,13 @@ do_output_partitions (void)
       char *p = canonical_device (parent_name);
       free (parent_name);
       parent_name = p;
+
+      parents[0] = parent_name;
+      parents[1] = NULL;
     }
 
     write_row (dev, "partition",
-               NULL, NULL, mbr_id, size, parent_name, NULL);
+               NULL, NULL, mbr_id, size, parents, NULL);
 
     free (dev);
     free (parent_name);
@@ -685,6 +694,7 @@ do_output_blockdevs (void)
   for (i = 0; devices[i] != NULL; ++i) {
     int64_t size = -1;
     char *dev;
+    const char *parents[1] = { NULL };
 
     dev = canonical_device (devices[i]);
 
@@ -695,7 +705,7 @@ do_output_blockdevs (void)
     }
 
     write_row (dev, "device",
-               NULL, NULL, -1, size, NULL, NULL);
+               NULL, NULL, -1, size, parents, NULL);
 
     free (dev);
     free (devices[i]);
@@ -724,12 +734,42 @@ canonical_device (const char *dev)
   return ret;
 }
 
+static char *
+join_comma (const char **strings)
+{
+  size_t i, count;
+  char *ret;
+
+  for (count = i = 0; strings[i] != NULL; ++i) {
+    if (i > 0)
+      count++;
+    count += strlen (strings[i]);
+  }
+
+  ret = malloc (count + 1);
+  if (ret == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  for (count = i = 0; strings[i] != NULL; ++i) {
+    if (i > 0)
+      ret[count++] = ',';
+    strcpy (&ret[count], strings[i]);
+    count += strlen (strings[i]);
+  }
+  ret[count] = 0;
+
+  return ret;
+}
+
 static void
 write_row (const char *name, const char *type,
            const char *vfs_type, const char *vfs_label, int mbr_id,
-           int64_t size, const char *parent_name, const char *uuid)
+           int64_t size, const char **parents, const char *uuid)
 {
   const char *strings[NR_COLUMNS];
+  char *parents_str = NULL;
   size_t len = 0;
   char hum[LONGEST_HUMAN_READABLE];
   char num[256];
@@ -767,13 +807,18 @@ write_row (const char *name, const char *type,
     else
       strings[len++] = NULL;
   }
-  if ((columns & COLUMN_PARENT_NAME))
-    strings[len++] = parent_name;
+  if ((columns & COLUMN_PARENTS)) {
+    /* Internally comma-separated field. */
+    parents_str = join_comma (parents);
+    strings[len++] = parents_str;
+  }
   if ((columns & COLUMN_UUID))
     strings[len++] = uuid;
   assert (len <= NR_COLUMNS);
 
   write_row_strings ((char **) strings, len);
+
+  free (parents_str);
 }
 
 static void add_row (char **strings, size_t len);
