@@ -1,4 +1,3 @@
-^appliance/debian/modules/
 ^tests/data/
 ^COPYING(.LIB)?$
 ^\.gitmodules$
