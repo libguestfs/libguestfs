@@ -1134,7 +1134,6 @@ AC_CONFIG_FILES([Makefile
                  clone/Makefile
                  csharp/Makefile
                  daemon/Makefile
-                 debian/changelog
                  df/Makefile
                  edit/Makefile
                  erlang/Makefile

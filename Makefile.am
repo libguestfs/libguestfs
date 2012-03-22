@@ -139,33 +139,6 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/qemu-0.13-trace-block-device-access.patch \
 	contrib/visualize-alignment/README \
 	contrib/visualize-alignment/tracetops.ml \
-	debian/.gitignore \
-	debian/changelog \
-	debian/compat \
-	debian/control \
-	debian/copyright \
-	debian/docs \
-	debian/guestfish.dirs \
-	debian/guestfish.install \
-	debian/guestfsd.dirs \
-	debian/guestfsd.install \
-	debian/guestmount.dirs \
-	debian/guestmount.install \
-	debian/libguestfs-dev.dirs \
-	debian/libguestfs-dev.install \
-	debian/libguestfs-doc.docs \
-	debian/libguestfs-perl.examples \
-	debian/libguestfs-perl.install \
-	debian/libguestfs-tools.dirs \
-	debian/libguestfs-tools.install \
-	debian/libguestfs0.dirs \
-	debian/libguestfs0.install \
-	debian/patches/series \
-	debian/python-guestfs.install \
-	debian/pyversions \
-	debian/rules \
-	debian/shlibs.local \
-	debian/watch \
 	html/pod.css \
 	libguestfs.pc libguestfs.pc.in \
 	libtool-kill-dependency_libs.sh \

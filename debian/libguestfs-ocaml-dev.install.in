@@ -1,4 +1,0 @@
-@OCamlStdlibDir@/guestfs/META
-@OCamlStdlibDir@/guestfs/*.a
-@OCamlStdlibDir@/guestfs/*.cm*
-@OCamlStdlibDir@/guestfs/*.ml*
