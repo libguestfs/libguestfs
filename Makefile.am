@@ -253,7 +253,6 @@ all-local:
 	grep -v '^perl/examples/' | \
 	grep -v '/guestfs_protocol.c' | \
 	grep -v '/rc_protocol.c' | \
-	grep -v 'appliance/debian/root' | \
 	grep -v '^po-docs/' | \
 	grep -v '^images/' | \
 	LC_ALL=C sort | \
