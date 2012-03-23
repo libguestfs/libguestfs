@@ -1086,9 +1086,20 @@ AS_IF(
       ],
       [AC_MSG_WARN([gobject library not found, gobject binding will be disabled])]
     )
+
+    PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.26.0],
+      [
+        AC_SUBST([GIO_CFLAGS])
+        AC_SUBST([GIO_LIBS])
+        AC_DEFINE([HAVE_GIO],[1],
+                  [gio library found at compile time.])
+      ],
+      [AC_MSG_WARN([gio library not found, gobject binding will be disabled])]
+    )
   ]
 )
-AM_CONDITIONAL([HAVE_GOBJECT],[test "x$GOBJECT_LIBS" != "x"])
+AM_CONDITIONAL([HAVE_GOBJECT],
+               [test "x$GOBJECT_LIBS" != "x" -a "x$GIO_LIBS" != "x"])
 
 AC_CHECK_PROG([GJS],[gjs],[gjs])
 AS_IF(
@@ -1110,6 +1121,13 @@ m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
                     test "x$HAVE_GOBJECT_TRUE" = "x"])
 ],[
     AM_CONDITIONAL([HAVE_INTROSPECTION], [false])
+])
+
+# check for gtk-doc
+m4_ifdef([GTK_DOC_CHECK], [
+GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
+],[
+AM_CONDITIONAL([ENABLE_GTK_DOC], false)
 ])
 
 dnl Library versioning.
@@ -1151,6 +1169,8 @@ AC_CONFIG_FILES([Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
                  gobject/Makefile
+                 gobject/docs/Makefile
+                 gobject/docs/guestfs-docs.sgml
                  haskell/Makefile
                  inspector/Makefile
                  java/Makefile
