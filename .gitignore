@@ -126,7 +126,7 @@ gobject/Guestfs-1.0.typelib
 gobject/guestfs-gobject.c
 gobject/guestfs-gobject.h
 .guestfs-*
-guestfs.*
+/guestfs.*
 guestfsd-in-wine.log
 haskell/Bindtests
 haskell/Bindtests.hs
