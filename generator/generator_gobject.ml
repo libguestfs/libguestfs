@@ -645,7 +645,12 @@ let generate_gobject_c_methods () =
         fun argt ->
           pr " * @%s:" (name_of_argt argt);
           (match argt with
-          | Bool _ | Int _ | Int64 _ -> ()
+          | Bool _ ->
+            pr " (type gboolean):"
+          | Int _ ->
+            pr " (type gint32):"
+          | Int64 _ ->
+            pr " (type gint64):"
           | String _ | Key _ ->
             pr " (transfer none) (type utf8):"
           | OptString _ ->
