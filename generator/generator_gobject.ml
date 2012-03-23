@@ -627,9 +627,53 @@ let generate_gobject_c_optargs () =
 let generate_gobject_c_methods () =
   pr "/* Generated methods */\n\n";
 
+  let urls = Str.regexp "L<\\(https?\\)://\\([^>]*\\)>" in
+  let bz = Str.regexp "RHBZ#\\([0-9]+\\)" in
+  let cve = Str.regexp "\\(CVE-[0-9]+-[0-9]+\\)" in
+  let api_crossref = Str.regexp "C<guestfs_\\([-_0-9a-zA-Z]+\\)>" in
+  let nonapi_crossref = Str.regexp "C<\\([-_0-9a-zA-Z]+\\)>" in
+  let escaped = Str.regexp "E<\\([0-9a-zA-Z]+\\)>" in
+
   List.iter (
     fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
-      let doc = pod2text ~width:60 name longdesc in
+      let longdesc = Str.global_substitute urls (
+          fun s ->
+            let scheme = Str.matched_group 1 s in
+            let url = Str.matched_group 2 s in
+            (* The spaces below are deliberate: they give pod2text somewhere to
+               split that isn't the middle of a URL. *)
+            "<ulink url='" ^ scheme ^ "://" ^ url ^
+              "'> http://" ^ url ^ " </ulink>"
+        ) longdesc in
+      let longdesc = Str.global_substitute bz (
+          fun s ->
+            let bz = Str.matched_group 1 s in
+            (* The spaces below are deliberate: they give pod2text somewhere to
+               split that isn't the middle of a URL. *)
+            "<ulink url='https://bugzilla.redhat.com/show_bug.cgi?id=" ^
+              bz ^ "'> RHBZ&num;" ^ bz ^ " </ulink>"
+        ) longdesc in
+      let longdesc = Str.global_substitute cve (
+          fun s ->
+            let cve = Str.matched_group 1 s in
+            (* The spaces below are deliberate: they give pod2text somewhere to
+               split that isn't the middle of a URL. *)
+            "<ulink url='https://cve.mitre.org/cgi-bin/cvename.cgi?name=" ^
+              cve ^ "'> " ^ cve ^ " </ulink>"
+        ) longdesc in
+      let longdesc = Str.global_substitute api_crossref (
+          fun s ->
+            "guestfs_session_" ^ Str.matched_group 1 s ^ "()"
+        ) longdesc in
+      let longdesc = Str.global_substitute nonapi_crossref (
+          fun s ->
+            "@" ^ Str.matched_group 1 s
+        ) longdesc in
+      let longdesc = Str.global_substitute escaped (
+          fun s ->
+            "&" ^ Str.matched_group 1 s ^ ";"
+        ) longdesc in
+      let doc = pod2text ~width:76 name longdesc in
       let doc = String.concat "\n * " doc in
       let camel_name = camel_of_name flags name in
       let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
