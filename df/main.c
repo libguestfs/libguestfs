@@ -260,10 +260,10 @@ main (int argc, char *argv[])
    * the full list of guests and drives, which we add in batches.
    */
   if (drvs == NULL) {
-#ifdef HAVE_LIBVIRT
+#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
     get_domains_from_libvirt ();
 #else
-    fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
+    fprintf (stderr, _("%s: compiled without support for libvirt and/or libxml2.\n"),
              program_name);
     exit (EXIT_FAILURE);
 #endif
