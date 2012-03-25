@@ -31,7 +31,7 @@ extern int uuid;                /* --uuid */
 extern int df_on_handle (const char *name, const char *uuid, char **devices, int offset);
 
 /* domains.c */
-#ifdef HAVE_LIBVIRT
+#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 extern void get_domains_from_libvirt (void);
 #endif
 

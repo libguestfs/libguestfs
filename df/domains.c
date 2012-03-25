@@ -36,7 +36,7 @@
 #include "options.h"
 #include "virt-df.h"
 
-#ifdef HAVE_LIBVIRT
+#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 
 /* Limit the number of devices we will ever add to the appliance.  The
  * overall limit in current libguestfs is 25: 26 = number of letters
