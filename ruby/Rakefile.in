@@ -17,9 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require 'rake/clean'
-require 'rdoc/task'
+require 'rake/rdoctask'
 require 'rake/testtask'
-require 'rubygems/package_task'
+require 'rake/gempackagetask'
 
 PKG_NAME='@PACKAGE_NAME@'
 PKG_VERSION='@PACKAGE_VERSION@'
@@ -108,7 +108,7 @@ Ruby bindings for libguestfs.
 EOF
 end
 
-Gem::PackageTask.new(SPEC) do |pkg|
+Rake::GemPackageTask.new(SPEC) do |pkg|
     pkg.need_tar = true
     pkg.need_zip = true
 end
