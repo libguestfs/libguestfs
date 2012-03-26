@@ -297,7 +297,7 @@ let generate_gobject_c_static () =
 #include \"guestfs-gobject.h\"
 
 /**
- * SECTION: guestfs-session
+ * SECTION:guestfs-gobject
  * @short_description: Libguestfs session
  * @include: guestfs-gobject.h
  *
