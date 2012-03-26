@@ -370,6 +370,8 @@ guestfs_session_new(void)
 
 /**
  * guestfs_session_close:
+ * @session: (transfer none): A GuestfsSession object
+ * @err: A GError object to receive any generated errors
  *
  * Close a libguestfs session.
  *
@@ -643,12 +645,16 @@ let generate_gobject_c_methods () =
         "NULL" (* NULL is a valid return for RConstOptString. Error is
                   indicated by also setting *err to a non-NULL value *)
       in
+      let cancellable =
+        List.exists (function Cancellable -> true | _ -> false) flags
+      in
 
       (* The comment header, including GI annotations for arguments and the
       return value *)
 
       pr "/**\n";
       pr " * guestfs_session_%s:\n" name;
+      pr " * @session: (transfer none): A GuestfsSession object\n";
 
       List.iter (
         fun argt ->
@@ -671,7 +677,8 @@ let generate_gobject_c_methods () =
           | DeviceList _ ->
             pr " (transfer none) (array zero-terminated=1) (element-type filename): an array of strings"
           | BufferIn n ->
-            pr " (transfer none) (array length=%s_size) (element-type guint8): an array of binary data" n
+            pr " (transfer none) (array length=%s_size) (element-type guint8): an array of binary data\n" n;
+            pr " * @%s_size: The size of %s, in bytes" n n;
           | Pointer _ ->
             failwith "gobject bindings do not support Pointer arguments"
           );
@@ -679,6 +686,14 @@ let generate_gobject_c_methods () =
       ) args;
       if optargs <> [] then
         pr " * @optargs: (transfer none) (allow-none): a %s containing optional arguments\n" camel_name;
+      (match ret with
+      | RBufferOut _ ->
+        pr " * @size_r: The size of the returned buffer, in bytes\n";
+      | _ -> ());
+      if cancellable then (
+        pr " * @cancellable: A GCancellable object\n";
+      );
+      pr " * @err: A GError object to receive any generated errors\n";
       pr " *\n";
 
       pr " * %s\n" shortdesc;
@@ -718,9 +733,6 @@ let generate_gobject_c_methods () =
       generate_gobject_proto ~single_line:false name style flags;
       pr "\n{\n";
 
-      let cancellable =
-        List.exists (function Cancellable -> true | _ -> false) flags
-      in
       if cancellable then (
         pr "  /* Check we haven't already been cancelled */\n";
         pr "  if (g_cancellable_set_error_if_cancelled (cancellable, err))\n";
