@@ -118,7 +118,7 @@ let generate_gobject_header_static () =
 
 G_BEGIN_DECLS
 
-/* Guestfs::Session object definition */
+/* GuestfsSession object definition */
 #define GUESTFS_TYPE_SESSION             (guestfs_session_get_type())
 #define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( \
                                           (obj), \
@@ -158,7 +158,7 @@ GType guestfs_session_get_type(void);
 GuestfsSession *guestfs_session_new(void);
 gboolean guestfs_session_close(GuestfsSession *session, GError **err);
 
-/* Guestfs::Tristate */
+/* GuestfsTristate */
 typedef enum
 {
   GUESTFS_TRISTATE_FALSE,
@@ -278,7 +278,7 @@ let generate_gobject_header_optargs () =
   ) all_functions
 
 let generate_gobject_header_methods () =
-  pr "/* Generated methods */\n";
+  pr "/* GuestfsSession */\n";
   List.iter (
     fun (name, style, _, flags, _, _, _) ->
       generate_gobject_proto name style flags;
@@ -393,7 +393,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
   return TRUE;
 }
 
-/* Guestfs::Tristate */
+/* GuestfsTristate */
 GType
 guestfs_tristate_get_type(void)
 {
