@@ -158,7 +158,17 @@ GType guestfs_session_get_type(void);
 GuestfsSession *guestfs_session_new(void);
 gboolean guestfs_session_close(GuestfsSession *session, GError **err);
 
-/* GuestfsTristate */
+/**
+ * GuestfsTristate:
+ * @GUESTFS_TRISTATE_FALSE: False
+ * @GUESTFS_TRISTATE_TRUE: True
+ * @GUESTFS_TRISTATE_NONE: Unset
+ *
+ * An object representing a tristate: i.e. true, false, or unset. If a language
+ * binding has a native concept of true and false which also correspond to the
+ * integer values 1 and 0 respectively, these will also correspond to
+ * GUESTFS_TRISTATE_TRUE and GUESTFS_TRISTATE_FALSE.
+ */
 typedef enum
 {
   GUESTFS_TRISTATE_FALSE,
@@ -247,20 +257,27 @@ let generate_gobject_header_optarg name optargs flags =
   pr "(G_TYPE_INSTANCE_GET_CLASS((obj), %s, %sClass))\n" type_define camel_name;
 
   pr "\n";
-
-  List.iter (
-    fun suffix ->
-      let name = camel_name ^ suffix in
-      pr "typedef struct _%s %s;\n" name name;
-  ) [ ""; "Private"; "Class" ];
-
+  pr "typedef struct _%sPrivate %sPrivate;\n" camel_name camel_name;
   pr "\n";
 
+  pr "/**\n";
+  pr " * %s:\n" camel_name;
+  pr " *\n";
+  pr " * An object encapsulating optional arguments for guestfs_session_%s.\n" name;
+  pr " */\n";
+  pr "typedef struct _%s %s;\n" camel_name camel_name;
   pr "struct _%s {\n" camel_name;
   pr "  GObject parent;\n";
   pr "  %sPrivate *priv;\n" camel_name;
   pr "};\n\n";
 
+  pr "/**\n";
+  pr " * %sClass:\n" camel_name;
+  pr " * @parent_class: The superclass of %sClass\n" camel_name;
+  pr " *\n";
+  pr " * A class metadata object for %s.\n" camel_name;
+  pr " */\n";
+  pr "typedef struct _%sClass %sClass;\n" camel_name camel_name;
   pr "struct _%sClass {\n" camel_name;
   pr "  GObjectClass parent_class;\n";
   pr "};\n\n";
