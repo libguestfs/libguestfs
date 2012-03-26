@@ -553,7 +553,6 @@ let generate_gobject_c_optarg name optargs flags =
   pr "static void\nguestfs_%s_class_init(%sClass *klass)\n" name camel_name;
   pr "{\n";
   pr "  GObjectClass *object_class = G_OBJECT_CLASS(klass);\n";
-  pr "  GParamSpec *pspec;\n\n";
 
   pr "  object_class->set_property = guestfs_%s_set_property;\n" name;
   pr "  object_class->get_property = guestfs_%s_get_property;\n\n" name;
@@ -561,24 +560,34 @@ let generate_gobject_c_optarg name optargs flags =
   List.iter (
     fun optargt ->
       let optname = name_of_optargt optargt in
-      let uc_optname = String.uppercase optname in
-      pr "  pspec = ";
-      (match optargt with
-      | OBool n ->
-        pr "g_param_spec_enum(\"%s\", \"%s\", NULL, " optname optname;
-        pr "GUESTFS_TYPE_TRISTATE, GUESTFS_TRISTATE_NONE, ";
-      | OInt n ->
-        pr "g_param_spec_int(\"%s\", \"%s\", NULL, " optname optname;
-        pr "G_MININT32, G_MAXINT32, -1, ";
-      | OInt64 n ->
-        pr "g_param_spec_int64(\"%s\", \"%s\", NULL, " optname optname;
-        pr "G_MININT64, G_MAXINT64, -1, ";
-      | OString n ->
-        pr "g_param_spec_string(\"%s\", \"%s\", NULL, " optname optname;
-        pr "NULL, ");
-      pr "G_PARAM_CONSTRUCT | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);\n";
-      pr "  g_object_class_install_property(object_class, ";
-      pr "PROP_GUESTFS_%s_%s, pspec);\n\n" uc_name uc_optname;
+      let type_spec, type_init, type_desc =
+        match optargt with
+        | OBool n ->
+          "enum", "GUESTFS_TYPE_TRISTATE, GUESTFS_TRISTATE_NONE", "A boolean."
+        | OInt n ->
+          "int", "G_MININT32, G_MAXINT32, -1", "A 32-bit integer."
+        | OInt64 n ->
+          "int64", "G_MININT64, G_MAXINT64, -1", "A 64-bit integer."
+        | OString n ->
+          "string", "NULL", "A string."
+      in
+      pr "  /**\n";
+      pr "   * %s:%s:\n" camel_name optname;
+      pr "   *\n";
+      pr "   * %s\n" type_desc;
+      pr "   */\n";
+      pr "  g_object_class_install_property(\n";
+      pr "    object_class,\n";
+      pr "    PROP_GUESTFS_%s_%s,\n" uc_name (String.uppercase optname);
+      pr "    g_param_spec_%s(\n" type_spec;
+      pr "      \"%s\",\n" optname;
+      pr "      \"%s\",\n" optname;
+      pr "      \"%s\",\n" type_desc;
+      pr "      %s,\n" type_init;
+      pr "      G_PARAM_CONSTRUCT | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS\n";
+      pr "    )\n";
+      pr "  );\n\n";
+
   ) optargs;
 
   pr "  object_class->finalize = guestfs_%s_finalize;\n" name;
