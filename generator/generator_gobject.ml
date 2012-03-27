@@ -19,6 +19,7 @@
 (* Please read generator/README first. *)
 
 open Str
+open Printf
 
 open Generator_actions
 open Generator_docstrings
@@ -108,171 +109,212 @@ let generate_gobject_proto name ?(single_line = true)
   pr ", GError **err";
   pr ")"
 
-let generate_gobject_header_static () =
-  pr "
-#ifndef GUESTFS_GOBJECT_H__
-#define GUESTFS_GOBJECT_H__
+let output_filenames =
+  "session" :: "tristate" ::
 
+  (* structs *)
+  List.map (function typ, cols -> "struct-" ^ typ) structs @
+
+  (* optargs *)
+  List.map (function name, _, _, _, _, _, _ -> "optargs-" ^ name) (
+    List.filter (
+      function
+      | _, (_, _, (_::_)), _, _, _, _, _ -> true
+      | _ -> false
+    ) all_functions
+  )
+
+let output_header filename f =
+  let header = sprintf "gobject/guestfs-gobject-%s.h" filename in
+  let guard = Str.global_replace (Str.regexp "-") "_" filename in
+  let guard = "GUESTFS_GOBJECT_" ^ String.uppercase guard ^ "_H__" in
+  output_to header (fun () ->
+    generate_header CStyle GPLv2plus;
+    pr "#ifndef %s\n" guard;
+    pr "#define %s\n" guard;
+    pr "
 #include <glib-object.h>
 #include <gio/gio.h>
 
+#include <guestfs-gobject.h>
+
 G_BEGIN_DECLS
+";
 
-/* GuestfsSession object definition */
-#define GUESTFS_TYPE_SESSION             (guestfs_session_get_type())
-#define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( \
-                                          (obj), \
-                                          GUESTFS_TYPE_SESSION, \
-                                          GuestfsSession))
-#define GUESTFS_SESSION_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ( \
-                                          (klass), \
-                                          GUESTFS_TYPE_SESSION, \
-                                          GuestfsSessionClass))
-#define GUESTFS_IS_SESSION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ( \
-                                          (obj), \
-                                          GUESTFS_TYPE_SESSION))
-#define GUESTFS_IS_SESSION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ( \
-                                          (klass), \
-                                          GUESTFS_TYPE_SESSION))
-#define GUESTFS_SESSION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ( \
-                                          (obj), \
-                                          GUESTFS_TYPE_SESSION, \
-                                          GuestfsSessionClass))
+    f ();
 
-typedef struct _GuestfsSessionPrivate GuestfsSessionPrivate;
-
-/**
- * GuestfsSession:
- *
- * A libguestfs session, encapsulating a single libguestfs handle.
- */
-typedef struct _GuestfsSession GuestfsSession;
-struct _GuestfsSession
-{
-  GObject parent;
-  GuestfsSessionPrivate *priv;
-};
-
-/**
- * GuestfsSessionClass:
- * @parent_class: The superclass of GuestfsSession
- *
- * A class metadata object for GuestfsSession.
- */
-typedef struct _GuestfsSessionClass GuestfsSessionClass;
-struct _GuestfsSessionClass
-{
-  GObjectClass parent_class;
-};
-
-GType guestfs_session_get_type(void);
-GuestfsSession *guestfs_session_new(void);
-gboolean guestfs_session_close(GuestfsSession *session, GError **err);
-
-/**
- * GuestfsTristate:
- * @GUESTFS_TRISTATE_FALSE: False
- * @GUESTFS_TRISTATE_TRUE: True
- * @GUESTFS_TRISTATE_NONE: Unset
- *
- * An object representing a tristate: i.e. true, false, or unset. If a language
- * binding has a native concept of true and false which also correspond to the
- * integer values 1 and 0 respectively, these will also correspond to
- * GUESTFS_TRISTATE_TRUE and GUESTFS_TRISTATE_FALSE.
- */
-typedef enum
-{
-  GUESTFS_TRISTATE_FALSE,
-  GUESTFS_TRISTATE_TRUE,
-  GUESTFS_TRISTATE_NONE
-} GuestfsTristate;
-
-GType guestfs_tristate_get_type(void);
-#define GUESTFS_TYPE_TRISTATE (guestfs_tristate_get_type())
-
-"
-
-let generate_gobject_header_static_footer () =
-  pr "
-
+    pr "
 G_END_DECLS
 
-#endif /* GUESTFS_GOBJECT_H__ */
-"
-
-let generate_gobject_header_structs () =
-  pr "/* Structs */\n";
-  List.iter (
-    fun (typ, cols) ->
-      let camel = camel_name_of_struct typ in
-      pr "/**\n";
-      pr " * Guestfs%s:\n" camel;
-      List.iter (
-        function
-        | n, FChar ->
-          pr " * @%s: A character\n" n
-        | n, FUInt32 ->
-          pr " * @%s: An unsigned 32-bit integer\n" n
-        | n, FInt32 ->
-          pr " * @%s: A signed 32-bit integer\n" n
-        | n, (FUInt64|FBytes) ->
-          pr " * @%s: An unsigned 64-bit integer\n" n
-        | n, FInt64 ->
-          pr " * @%s: A signed 64-bit integer\n" n
-        | n, FString ->
-          pr " * @%s: A NULL-terminated string\n" n
-        | n, FBuffer ->
-          pr " * @%s: A GByteArray\n" n
-        | n, FUUID ->
-          pr " * @%s: A 32 byte UUID. Note that this is not NULL-terminated\n" n
-        | n, FOptPercent ->
-          pr " * @%s: A floating point number. A value between 0 and 100 " n;
-          pr "represents a percentage. A value of -1 represents 'not present'\n"
-      ) cols;
-      pr " */\n";
-      pr "typedef struct _Guestfs%s Guestfs%s;\n" camel camel;
-      pr "struct _Guestfs%s {\n" camel;
-      List.iter (
-        function
-        | n, FChar ->
-          pr "  gchar %s;\n" n
-        | n, FUInt32 ->
-          pr "  guint32 %s;\n" n
-        | n, FInt32 ->
-          pr "  gint32 %s;\n" n
-        | n, (FUInt64|FBytes) ->
-          pr "  guint64 %s;\n" n
-        | n, FInt64 ->
-          pr "  gint64 %s;\n" n
-        | n, FString ->
-          pr "  gchar *%s;\n" n
-        | n, FBuffer ->
-          pr "  GByteArray *%s;\n" n
-        | n, FUUID ->
-          pr "  /* The next field is NOT nul-terminated, be careful when printing it: */\n";
-          pr "  gchar %s[32];\n" n
-        | n, FOptPercent ->
-          pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
-          pr "  gfloat %s;\n" n
-      ) cols;
-      pr "};\n";
-      pr "GType guestfs_%s_get_type(void);\n\n" typ;
-  ) structs
-
-let iter_optargs f =
-  List.iter (
-    function
-    | name, (_, _, (_::_ as optargs)), _, flags,_, _, _ ->
-      f name optargs flags
-    | _ -> ()
+#endif /* %s */
+" guard;
   )
 
-let generate_gobject_header_optarg name optargs flags =
+let output_source filename ?(title=None) ?(shortdesc=None) ?(longdesc=None) f =
+  let file = sprintf "guestfs-gobject-%s" filename in
+  let source = sprintf "gobject/%s.c" file in
+  output_to source (fun () ->
+    generate_header CStyle GPLv2plus;
+
+    pr "#include \"guestfs-gobject.h\"\n\n";
+
+    pr "/**\n";
+    pr " * SECTION:%s\n" file;
+
+    (match title with
+    | Some title ->
+      pr " * @title: %s\n" title
+    | _ -> ());
+
+    (match shortdesc with
+    | Some desc ->
+      pr " * @short_description: %s\n" desc;
+    | _ -> ());
+
+    pr " * @include: guestfs-gobject.h\n";
+
+    (match longdesc with
+    | Some desc ->
+      pr " *\n";
+      pr " %s\n" desc
+    | _ -> ());
+
+    pr " */\n";
+
+    f ();
+  )
+
+let generate_gobject_makefile () =
+  generate_header HashStyle GPLv2plus;
+  let headers =
+    List.map (function n -> sprintf "guestfs-gobject-%s.h" n) output_filenames
+  in
+  let sources =
+    List.map (function n -> sprintf "guestfs-gobject-%s.c" n) output_filenames
+  in
+  pr "guestfs_gobject_headers=\\\n  guestfs-gobject.h \\\n  %s\n\n"
+    (String.concat " \\\n  " headers);
+  pr "guestfs_gobject_sources=\\\n  %s\n" (String.concat " \\\n  " sources)
+
+let generate_gobject_header () =
+  generate_header CStyle GPLv2plus;
+  List.iter
+    (function f -> pr "#include <guestfs-gobject-%s.h>\n" f)
+    output_filenames
+
+let generate_gobject_doc_title () =
+  pr
+"<?xml version=\"1.0\"?>
+<!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.3//EN\"
+               \"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd\"
+[
+  <!ENTITY %% local.common.attrib \"xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'\">
+]>
+<chapter>
+  <title>Libguestfs GObject Bindings</title>
+";
+
+  List.iter (
+    function n -> pr "  <xi:include href=\"xml/guestfs-gobject-%s.xml\"/>\n" n
+  ) output_filenames;
+
+  pr "</chapter>\n"
+
+let generate_gobject_struct_header typ cols () =
+  let camel = camel_name_of_struct typ in
+
+  pr "\n";
+
+  pr "/**\n";
+  pr " * Guestfs%s:\n" camel;
+  List.iter (
+    function
+    | n, FChar ->
+      pr " * @%s: A character\n" n
+    | n, FUInt32 ->
+      pr " * @%s: An unsigned 32-bit integer\n" n
+    | n, FInt32 ->
+      pr " * @%s: A signed 32-bit integer\n" n
+    | n, (FUInt64|FBytes) ->
+      pr " * @%s: An unsigned 64-bit integer\n" n
+    | n, FInt64 ->
+      pr " * @%s: A signed 64-bit integer\n" n
+    | n, FString ->
+      pr " * @%s: A NULL-terminated string\n" n
+    | n, FBuffer ->
+      pr " * @%s: A GByteArray\n" n
+    | n, FUUID ->
+      pr " * @%s: A 32 byte UUID. Note that this is not NULL-terminated\n" n
+    | n, FOptPercent ->
+      pr " * @%s: A floating point number. A value between 0 and 100 " n;
+      pr "represents a percentage. A value of -1 represents 'not present'\n"
+  ) cols;
+  pr " */\n";
+  pr "typedef struct _Guestfs%s Guestfs%s;\n" camel camel;
+  pr "struct _Guestfs%s {\n" camel;
+  List.iter (
+    function
+    | n, FChar ->
+      pr "  gchar %s;\n" n
+    | n, FUInt32 ->
+      pr "  guint32 %s;\n" n
+    | n, FInt32 ->
+      pr "  gint32 %s;\n" n
+    | n, (FUInt64|FBytes) ->
+      pr "  guint64 %s;\n" n
+    | n, FInt64 ->
+      pr "  gint64 %s;\n" n
+    | n, FString ->
+      pr "  gchar *%s;\n" n
+    | n, FBuffer ->
+      pr "  GByteArray *%s;\n" n
+    | n, FUUID ->
+      pr "  /* The next field is NOT nul-terminated, be careful when printing it: */\n";
+      pr "  gchar %s[32];\n" n
+    | n, FOptPercent ->
+      pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
+      pr "  gfloat %s;\n" n
+  ) cols;
+  pr "};\n";
+  pr "GType guestfs_%s_get_type(void);\n" typ
+
+let generate_gobject_struct_source typ cols () =
+  let name = "guestfs_" ^ typ in
+  let camel_name = "Guestfs" ^ camel_name_of_struct typ in
+
+  pr "\n";
+
+  pr "static %s *\n" camel_name;
+  pr "%s_copy(%s *src)\n" name camel_name;
+  pr "{\n";
+  pr "  return g_slice_dup(%s, src);\n" camel_name;
+  pr "}\n\n";
+
+  pr "static void\n";
+  pr "%s_free(%s *src)\n" name camel_name;
+  pr "{\n";
+  pr "  g_slice_free(%s, src);\n" camel_name;
+  pr "}\n\n";
+
+  pr "G_DEFINE_BOXED_TYPE(%s, %s, %s_copy, %s_free)\n"
+     camel_name name name name
+
+let generate_gobject_structs =
+  List.iter (
+    fun (typ, cols) ->
+      let filename = "struct-" ^ typ in
+      output_header filename (generate_gobject_struct_header typ cols);
+      output_source ~title:(Some ("Guestfs" ^ camel_name_of_struct typ))
+        filename
+        (generate_gobject_struct_source typ cols)
+  ) structs
+
+let generate_gobject_optargs_header name optargs flags () =
   let uc_name = String.uppercase name in
   let camel_name = camel_of_name flags name in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
 
-  pr "/* %s */\n" camel_name;
+  pr "\n";
 
   pr "#define %s " type_define;
   pr "(guestfs_%s_get_type())\n" name;
@@ -319,190 +361,16 @@ let generate_gobject_header_optarg name optargs flags =
   pr "};\n\n";
 
   pr "GType guestfs_%s_get_type(void);\n" name;
-  pr "%s *guestfs_%s_new(void);\n" camel_name name;
+  pr "%s *guestfs_%s_new(void);\n" camel_name name
 
-  pr "\n"
-
-let generate_gobject_header_optargs () =
-  pr "/* Optional arguments */\n\n";
-  iter_optargs (
-    fun name optargs flags ->
-      generate_gobject_header_optarg name optargs flags
-  ) all_functions
-
-let generate_gobject_header_methods () =
-  pr "/* GuestfsSession */\n";
-  List.iter (
-    fun (name, style, _, flags, _, _, _) ->
-      generate_gobject_proto name style flags;
-      pr ";\n";
-  ) all_functions
-
-let generate_gobject_c_static () =
-  pr "
-#include <glib.h>
-#include <glib-object.h>
-#include <guestfs.h>
-#include <string.h>
-
-#include <stdio.h>
-
-#include \"guestfs-gobject.h\"
-
-/**
- * SECTION:guestfs-gobject
- * @short_description: Libguestfs session
- * @include: guestfs-gobject.h
- *
- * A libguestfs session which can be used to inspect and modify virtual disk
- * images.
- */
-
-/* Error quark */
-
-#define GUESTFS_ERROR guestfs_error_quark()
-
-static GQuark
-guestfs_error_quark(void)
-{
-  return g_quark_from_static_string(\"guestfs\");
-}
-
-#define GUESTFS_SESSION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ( \
-                                            (obj), \
-                                            GUESTFS_TYPE_SESSION, \
-                                            GuestfsSessionPrivate))
-
-struct _GuestfsSessionPrivate
-{
-  guestfs_h *g;
-};
-
-G_DEFINE_TYPE(GuestfsSession, guestfs_session, G_TYPE_OBJECT);
-
-static void
-guestfs_session_finalize(GObject *object)
-{
-  GuestfsSession *session = GUESTFS_SESSION(object);
-  GuestfsSessionPrivate *priv = session->priv;
-
-  if (priv->g) guestfs_close(priv->g);
-
-  G_OBJECT_CLASS(guestfs_session_parent_class)->finalize(object);
-}
-
-static void
-guestfs_session_class_init(GuestfsSessionClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS(klass);
-
-  object_class->finalize = guestfs_session_finalize;
-
-  g_type_class_add_private(klass, sizeof(GuestfsSessionPrivate));
-}
-
-static void
-guestfs_session_init(GuestfsSession *session)
-{
-  session->priv = GUESTFS_SESSION_GET_PRIVATE(session);
-  session->priv->g = guestfs_create();
-}
-
-/**
- * guestfs_session_new:
- *
- * Create a new libguestfs session.
- *
- * Returns: (transfer full): a new guestfs session object
- */
-GuestfsSession *
-guestfs_session_new(void)
-{
-  return GUESTFS_SESSION(g_object_new(GUESTFS_TYPE_SESSION, NULL));
-}
-
-/**
- * guestfs_session_close:
- * @session: (transfer none): A GuestfsSession object
- * @err: A GError object to receive any generated errors
- *
- * Close a libguestfs session.
- *
- * Returns: true on success, false on error
- */
-gboolean
-guestfs_session_close(GuestfsSession *session, GError **err)
-{
-  guestfs_h *g = session->priv->g;
-
-  if (g == NULL) {
-    g_set_error_literal(err, GUESTFS_ERROR, 0, \"session is already closed\");
-    return FALSE;
-  }
-
-  guestfs_close(g);
-  session->priv->g = NULL;
-
-  return TRUE;
-}
-
-/* GuestfsTristate */
-GType
-guestfs_tristate_get_type(void)
-{
-  static GType etype = 0;
-  if (etype == 0) {
-    static const GEnumValue values[] = {
-      { GUESTFS_TRISTATE_FALSE, \"GUESTFS_TRISTATE_FALSE\", \"false\" },
-      { GUESTFS_TRISTATE_TRUE,  \"GUESTFS_TRISTATE_TRUE\",  \"true\" },
-      { GUESTFS_TRISTATE_NONE,  \"GUESTFS_TRISTATE_NONE\",  \"none\" },
-      { 0, NULL, NULL }
-    };
-    etype = g_enum_register_static(\"GuestfsTristate\", values);
-  }
-  return etype;
-}
-
-/* Cancellation handler */
-static void
-cancelled_handler(gpointer data)
-{
-  guestfs_h *g = (guestfs_h *)data;
-  guestfs_user_cancel(g);
-}
-
-"
-
-let generate_gobject_c_structs () =
-  pr "/* Structs */\n\n";
-  List.iter (
-    fun (typ, cols) ->
-      let name = "guestfs_" ^ typ in
-      let camel_name = "Guestfs" ^ camel_name_of_struct typ in
-      pr "/* %s */\n" camel_name;
-
-      pr "static %s *\n" camel_name;
-      pr "%s_copy(%s *src)\n" name camel_name;
-      pr "{\n";
-      pr "  return g_slice_dup(%s, src);\n" camel_name;
-      pr "}\n\n";
-
-      pr "static void\n";
-      pr "%s_free(%s *src)\n" name camel_name;
-      pr "{\n";
-      pr "  g_slice_free(%s, src);\n" camel_name;
-      pr "}\n\n";
-
-      pr "G_DEFINE_BOXED_TYPE(%s, %s, %s_copy, %s_free)\n\n"
-         camel_name name name name;
-  ) structs
-
-let generate_gobject_c_optarg name optargs flags =
+let generate_gobject_optargs_source name optargs flags () =
   let uc_name = String.uppercase name in
   let camel_name = camel_of_name flags name in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
 
-  pr "/* %s */\n" camel_name;
+  pr "\n";
+  pr "#include <string.h>\n\n";
+
   pr "#define GUESTFS_%s_GET_PRIVATE(obj) " uc_name;
   pr "(G_TYPE_INSTANCE_GET_PRIVATE((obj), %s, %sPrivate))\n\n"
     type_define camel_name;
@@ -667,18 +535,229 @@ let generate_gobject_c_optarg name optargs flags =
   pr "guestfs_%s_new(void)\n" name;
   pr "{\n";
   pr "  return GUESTFS_%s(g_object_new(%s, NULL));\n" uc_name type_define;
-  pr "}\n\n"
+  pr "}\n"
 
-let generate_gobject_c_optargs () =
-  pr "/* Optarg objects */\n\n";
-
-  iter_optargs (
-    fun name optargs flags ->
-      generate_gobject_c_optarg name optargs flags
+let generate_gobject_optargs =
+  List.iter (
+    function
+    | name, (_, _, (_::_ as optargs)), _, flags,_, _, _ ->
+      let filename = "optargs-" ^ name in
+      output_header
+        filename
+        (generate_gobject_optargs_header name optargs flags);
+      let desc = "An object encapsulating optional arguments for guestfs_session_" ^ name in
+      output_source ~shortdesc:(Some desc) ~longdesc:(Some desc)
+        filename
+        (generate_gobject_optargs_source name optargs flags)
+    | _ -> ()
   ) all_functions
 
-let generate_gobject_c_methods () =
-  pr "/* Generated methods */\n\n";
+let generate_gobject_tristate_header () =
+  pr "
+/**
+ * GuestfsTristate:
+ * @GUESTFS_TRISTATE_FALSE: False
+ * @GUESTFS_TRISTATE_TRUE: True
+ * @GUESTFS_TRISTATE_NONE: Unset
+ *
+ * An object representing a tristate: i.e. true, false, or unset. If a language
+ * binding has a native concept of true and false which also correspond to the
+ * integer values 1 and 0 respectively, these will also correspond to
+ * GUESTFS_TRISTATE_TRUE and GUESTFS_TRISTATE_FALSE.
+ */
+typedef enum
+{
+  GUESTFS_TRISTATE_FALSE,
+  GUESTFS_TRISTATE_TRUE,
+  GUESTFS_TRISTATE_NONE
+} GuestfsTristate;
+
+GType guestfs_tristate_get_type(void);
+#define GUESTFS_TYPE_TRISTATE (guestfs_tristate_get_type())
+"
+
+let generate_gobject_tristate_source () =
+  pr "
+GType
+guestfs_tristate_get_type(void)
+{
+  static GType etype = 0;
+  if (etype == 0) {
+    static const GEnumValue values[] = {
+      { GUESTFS_TRISTATE_FALSE, \"GUESTFS_TRISTATE_FALSE\", \"false\" },
+      { GUESTFS_TRISTATE_TRUE,  \"GUESTFS_TRISTATE_TRUE\",  \"true\" },
+      { GUESTFS_TRISTATE_NONE,  \"GUESTFS_TRISTATE_NONE\",  \"none\" },
+      { 0, NULL, NULL }
+    };
+    etype = g_enum_register_static(\"GuestfsTristate\", values);
+  }
+  return etype;
+}
+"
+
+let generate_gobject_session_header () =
+  pr "
+/* GuestfsSession object definition */
+#define GUESTFS_TYPE_SESSION             (guestfs_session_get_type())
+#define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( \
+                                          (obj), \
+                                          GUESTFS_TYPE_SESSION, \
+                                          GuestfsSession))
+#define GUESTFS_SESSION_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ( \
+                                          (klass), \
+                                          GUESTFS_TYPE_SESSION, \
+                                          GuestfsSessionClass))
+#define GUESTFS_IS_SESSION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ( \
+                                          (obj), \
+                                          GUESTFS_TYPE_SESSION))
+#define GUESTFS_IS_SESSION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ( \
+                                          (klass), \
+                                          GUESTFS_TYPE_SESSION))
+#define GUESTFS_SESSION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ( \
+                                          (obj), \
+                                          GUESTFS_TYPE_SESSION, \
+                                          GuestfsSessionClass))
+
+typedef struct _GuestfsSessionPrivate GuestfsSessionPrivate;
+
+/**
+ * GuestfsSession:
+ *
+ * A libguestfs session, encapsulating a single libguestfs handle.
+ */
+typedef struct _GuestfsSession GuestfsSession;
+struct _GuestfsSession
+{
+  GObject parent;
+  GuestfsSessionPrivate *priv;
+};
+
+/**
+ * GuestfsSessionClass:
+ * @parent_class: The superclass of GuestfsSession
+ *
+ * A class metadata object for GuestfsSession.
+ */
+typedef struct _GuestfsSessionClass GuestfsSessionClass;
+struct _GuestfsSessionClass
+{
+  GObjectClass parent_class;
+};
+
+GType guestfs_session_get_type(void);
+GuestfsSession *guestfs_session_new(void);
+gboolean guestfs_session_close(GuestfsSession *session, GError **err);
+
+";
+
+  List.iter (
+    fun (name, style, _, flags, _, _, _) ->
+      generate_gobject_proto name style flags;
+      pr ";\n";
+  ) all_functions
+
+let generate_gobject_session_source () =
+  pr "
+  #include <glib.h>
+  #include <glib-object.h>
+  #include <guestfs.h>
+  #include <string.h>
+
+/* Error quark */
+
+#define GUESTFS_ERROR guestfs_error_quark()
+
+static GQuark
+guestfs_error_quark(void)
+{
+  return g_quark_from_static_string(\"guestfs\");
+}
+
+/* Cancellation handler */
+static void
+cancelled_handler(gpointer data)
+{
+  guestfs_h *g = (guestfs_h *)data;
+  guestfs_user_cancel(g);
+}
+
+#define GUESTFS_SESSION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ( \
+                                            (obj), \
+                                            GUESTFS_TYPE_SESSION, \
+                                            GuestfsSessionPrivate))
+
+struct _GuestfsSessionPrivate
+{
+  guestfs_h *g;
+};
+
+G_DEFINE_TYPE(GuestfsSession, guestfs_session, G_TYPE_OBJECT);
+
+static void
+guestfs_session_finalize(GObject *object)
+{
+  GuestfsSession *session = GUESTFS_SESSION(object);
+  GuestfsSessionPrivate *priv = session->priv;
+
+  if (priv->g) guestfs_close(priv->g);
+
+  G_OBJECT_CLASS(guestfs_session_parent_class)->finalize(object);
+}
+
+static void
+guestfs_session_class_init(GuestfsSessionClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS(klass);
+
+  object_class->finalize = guestfs_session_finalize;
+
+  g_type_class_add_private(klass, sizeof(GuestfsSessionPrivate));
+}
+
+static void
+guestfs_session_init(GuestfsSession *session)
+{
+  session->priv = GUESTFS_SESSION_GET_PRIVATE(session);
+  session->priv->g = guestfs_create();
+}
+
+/**
+ * guestfs_session_new:
+ *
+ * Create a new libguestfs session.
+ *
+ * Returns: (transfer full): a new guestfs session object
+ */
+GuestfsSession *
+guestfs_session_new(void)
+{
+  return GUESTFS_SESSION(g_object_new(GUESTFS_TYPE_SESSION, NULL));
+}
+
+/**
+ * guestfs_session_close:
+ * @session: (transfer none): A GuestfsSession object
+ * @err: A GError object to receive any generated errors
+ *
+ * Close a libguestfs session.
+ *
+ * Returns: true on success, false on error
+ */
+gboolean
+guestfs_session_close(GuestfsSession *session, GError **err)
+{
+  guestfs_h *g = session->priv->g;
+
+  if (g == NULL) {
+    g_set_error_literal(err, GUESTFS_ERROR, 0, \"session is already closed\");
+    return FALSE;
+  }
+
+  guestfs_close(g);
+  session->priv->g = NULL;
+
+  return TRUE;
+}";
 
   let urls = Str.regexp "L<\\(https?\\)://\\([^>]*\\)>" in
   let bz = Str.regexp "RHBZ#\\([0-9]+\\)" in
@@ -689,6 +768,8 @@ let generate_gobject_c_methods () =
 
   List.iter (
     fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
+      pr "\n";
+
       let longdesc = Str.global_substitute urls (
           fun s ->
             let scheme = Str.matched_group 1 s in
@@ -1009,20 +1090,25 @@ let generate_gobject_c_methods () =
         pr "  return l;\n";
       );
 
-      pr "}\n\n";
+      pr "}\n";
   ) all_functions
 
-let generate_gobject_header () =
-  generate_header CStyle GPLv2plus;
-  generate_gobject_header_static ();
-  generate_gobject_header_structs ();
-  generate_gobject_header_optargs ();
-  generate_gobject_header_methods ();
-  generate_gobject_header_static_footer ()
+let generate_gobject () =
+  output_to "gobject/Makefile.inc" generate_gobject_makefile;
+  output_to "gobject/guestfs-gobject.h" generate_gobject_header;
+  output_to "gobject/docs/guestfs-title.sgml" generate_gobject_doc_title;
 
-let generate_gobject_c () =
-  generate_header CStyle GPLv2plus;
-  generate_gobject_c_static ();
-  generate_gobject_c_structs ();
-  generate_gobject_c_optargs ();
-  generate_gobject_c_methods ();
+  generate_gobject_structs;
+  generate_gobject_optargs;
+
+  output_header "tristate" generate_gobject_tristate_header;
+  output_source
+    ~title:(Some "GuestfsTristate")
+    ~shortdesc:(Some "An object representing a tristate value")
+    "tristate"
+    generate_gobject_tristate_source;
+
+  output_header "session" generate_gobject_session_header;
+  output_source ~shortdesc:(Some "A libguestfs session")
+    "session"
+    generate_gobject_session_source

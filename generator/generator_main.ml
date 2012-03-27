@@ -139,8 +139,7 @@ Run it from the top source directory using the command
   output_to "erlang/guestfs.erl" generate_erlang_erl;
   output_to "erlang/erl-guestfs.c" generate_erlang_c;
   output_to "gobject/bindtests.js" generate_gobject_js_bindtests;
-  output_to "gobject/guestfs-gobject.h" generate_gobject_header;
-  output_to "gobject/guestfs-gobject.c" generate_gobject_c;
+  generate_gobject();
 
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());

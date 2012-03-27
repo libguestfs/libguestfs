@@ -17,10 +17,13 @@
 
 SUBDIRS = . docs
 
+include $(srcdir)/Makefile.inc
+
 BUILT_SOURCES = \
-	guestfs-gobject.h \
-	guestfs-gobject.c \
-	bindtests.js
+  $(guestfs_gobject_headers) \
+  $(guestfs_gobject_sources) \
+  bindtests.js
+
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	TODO.txt \
@@ -34,8 +37,8 @@ lib_LTLIBRARIES = $(libname)
 
 libguestfs_gobject_1_0_ladir = $(includedir)
 
-libguestfs_gobject_1_0_la_HEADERS = guestfs-gobject.h
-libguestfs_gobject_1_0_la_SOURCES = guestfs-gobject.c
+libguestfs_gobject_1_0_la_HEADERS = $(guestfs_gobject_headers)
+libguestfs_gobject_1_0_la_SOURCES = $(guestfs_gobject_sources)
 libguestfs_gobject_1_0_la_CFLAGS = -I$(top_srcdir)/src $(GOBJECT_CFLAGS)
 libguestfs_gobject_1_0_la_LIBS = $(GOBJECT_LIBS)
 libguestfs_gobject_1_0_la_LDFLAGS = $(LDFLAGS) -L$(top_builddir)/src

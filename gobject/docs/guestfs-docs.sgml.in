@@ -16,11 +16,7 @@
     </releaseinfo>
   </bookinfo>
 
-  <chapter>
-    <title>Libguestfs GObject Bindings</title>
-        <xi:include href="xml/guestfs-gobject.xml"/>
-
-  </chapter>
+  <xi:include href="guestfs-title.sgml"/>
   <chapter id="object-tree">
     <title>Object Hierarchy</title>
      <xi:include href="xml/tree_index.sgml"/>

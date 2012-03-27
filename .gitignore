@@ -128,8 +128,8 @@ generator/stamp-generator
 gobject/bindtests.js
 gobject/Guestfs-1.0.gir
 gobject/Guestfs-1.0.typelib
-gobject/guestfs-gobject.c
-gobject/guestfs-gobject.h
+gobject/guestfs-gobject*.c
+gobject/guestfs-gobject*.h
 .guestfs-*
 /guestfs.*
 guestfsd-in-wine.log
