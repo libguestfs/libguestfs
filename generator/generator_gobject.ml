@@ -139,16 +139,27 @@ G_BEGIN_DECLS
                                           GUESTFS_TYPE_SESSION, \
                                           GuestfsSessionClass))
 
-typedef struct _GuestfsSession GuestfsSession;
-typedef struct _GuestfsSessionClass GuestfsSessionClass;
 typedef struct _GuestfsSessionPrivate GuestfsSessionPrivate;
 
+/**
+ * GuestfsSession:
+ *
+ * A libguestfs session, encapsulating a single libguestfs handle.
+ */
+typedef struct _GuestfsSession GuestfsSession;
 struct _GuestfsSession
 {
   GObject parent;
   GuestfsSessionPrivate *priv;
 };
 
+/**
+ * GuestfsSessionClass:
+ * @parent_class: The superclass of GuestfsSession
+ *
+ * A class metadata object for GuestfsSession.
+ */
+typedef struct _GuestfsSessionClass GuestfsSessionClass;
 struct _GuestfsSessionClass
 {
   GObjectClass parent_class;
