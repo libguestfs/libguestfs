@@ -172,6 +172,7 @@ inspector/virt-inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 ocaml/guestfs_c.c
 ocaml/guestfs_c_actions.c
+ocaml/t/exit.c
 perl/Guestfs.c
 perl/bindtests.pl
 perl/lib/Sys/Guestfs.pm

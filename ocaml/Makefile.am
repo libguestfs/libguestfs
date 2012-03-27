@@ -30,6 +30,7 @@ EXTRA_DIST = \
 	html/.gitignore \
 	META.in \
 	run-bindtests \
+	t/exit.c \
 	t/*.ml
 
 CLEANFILES = *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
@@ -87,7 +88,8 @@ if ENABLE_APPLIANCE
 test_progs += \
 	t/guestfs_010_basic \
 	t/guestfs_070_threads \
-	t/guestfs_400_progress
+	t/guestfs_400_progress \
+	t/guestfs_500_parallel_mount_local
 endif
 
 TESTS = run-bindtests \
@@ -163,12 +165,31 @@ t/guestfs_400_progress.opt: t/guestfs_400_progress.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 
-# Explicit rules for this test which requires 'threads' package.
+t/guestfs_500_parallel_mount_local.bc: t/guestfs_500_parallel_mount_local.cmo mlguestfs.cma libocamltestlib.a
+	mkdir -p t
+	LD_LIBRARY_PATH=../src/.libs \
+	$(OCAMLFIND) ocamlc -custom $(OCAMLCFLAGS) -I . -package unix,threads -thread -linkpkg mlguestfs.cma libocamltestlib.a $< -o $@
+
+t/guestfs_500_parallel_mount_local.opt: t/guestfs_500_parallel_mount_local.cmx mlguestfs.cmxa libocamltestlib.a
+	mkdir -p t
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix,threads -thread -linkpkg mlguestfs.cmxa libocamltestlib.a $< -o $@
+
+# Explicit rules for these tests which require 'threads' package.
 t/guestfs_070_threads.cmo: t/guestfs_070_threads.ml mlguestfs.cma
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
 
 t/guestfs_070_threads.cmx: t/guestfs_070_threads.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
+
+t/guestfs_500_parallel_mount_local.cmo: t/guestfs_500_parallel_mount_local.ml mlguestfs.cma
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
+
+t/guestfs_500_parallel_mount_local.cmx: t/guestfs_500_parallel_mount_local.ml mlguestfs.cmxa
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix,threads -thread -linkpkg -c $< -o $@
+
+noinst_LIBRARIES += libocamltestlib.a
+libocamltestlib_a_SOURCES = t/exit.c
+libocamltestlib_a_CFLAGS = $(libguestfsocaml_a_CFLAGS)
 
 %.cmi: %.mli
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $(builddir)/$@

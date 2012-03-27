@@ -236,6 +236,8 @@ ocaml/t/guestfs_400_events.bc
 ocaml/t/guestfs_400_events.opt
 ocaml/t/guestfs_400_progress.bc
 ocaml/t/guestfs_400_progress.opt
+ocaml/t/guestfs_500_parallel_mount_local.bc
+ocaml/t/guestfs_500_parallel_mount_local.opt
 *.orig
 *.patch
 perl/bindtests.pl
