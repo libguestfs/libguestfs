@@ -194,6 +194,31 @@ let generate_gobject_header_structs () =
   List.iter (
     fun (typ, cols) ->
       let camel = camel_name_of_struct typ in
+      pr "/**\n";
+      pr " * Guestfs%s:\n" camel;
+      List.iter (
+        function
+        | n, FChar ->
+          pr " * @%s: A character\n" n
+        | n, FUInt32 ->
+          pr " * @%s: An unsigned 32-bit integer\n" n
+        | n, FInt32 ->
+          pr " * @%s: A signed 32-bit integer\n" n
+        | n, (FUInt64|FBytes) ->
+          pr " * @%s: An unsigned 64-bit integer\n" n
+        | n, FInt64 ->
+          pr " * @%s: A signed 64-bit integer\n" n
+        | n, FString ->
+          pr " * @%s: A NULL-terminated string\n" n
+        | n, FBuffer ->
+          pr " * @%s: A GByteArray\n" n
+        | n, FUUID ->
+          pr " * @%s: A 32 byte UUID. Note that this is not NULL-terminated\n" n
+        | n, FOptPercent ->
+          pr " * @%s: A floating point number. A value between 0 and 100 " n;
+          pr "represents a percentage. A value of -1 represents 'not present'\n"
+      ) cols;
+      pr " */\n";
       pr "typedef struct _Guestfs%s Guestfs%s;\n" camel camel;
       pr "struct _Guestfs%s {\n" camel;
       List.iter (
