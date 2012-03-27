@@ -4483,10 +4483,8 @@ C<IN_Q_OVERFLOW> in the returned structure list (see
 C<guestfs_inotify_read>).
 
 Before any events are generated, you have to add some
-watches to the internal watch list.  See:
-C<guestfs_inotify_add_watch>,
-C<guestfs_inotify_rm_watch> and
-C<guestfs_inotify_watch_all>.
+watches to the internal watch list.  See: C<guestfs_inotify_add_watch> and
+C<guestfs_inotify_rm_watch>.
 
 Queued up events should be read periodically by calling
 C<guestfs_inotify_read>
