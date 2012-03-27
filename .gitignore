@@ -298,6 +298,7 @@ python/examples/stamp-guestfs-python.pod
 python/guestfs.py
 python/guestfs-py.c
 python/guestfs.pyc
+python/guestfs.pyo
 python/__pycache__
 *.rej
 rescue/stamp-virt-rescue.pod
