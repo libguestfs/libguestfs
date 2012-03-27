@@ -162,10 +162,10 @@ val user_cancel : t -> unit
     You can get the {!t} handle by calling
     [g#]{{!guestfs.ocaml_handle}ocaml_handle}.
 
-    Note that methods that take no parameters (except the implicit handle)
-    get an extra unit [()] parameter.  This is so you can create a
-    closure from the method easily.  For example
-    [g#]{{!guestfs.get_verbose}get_verbose} [()]
+    Note that methods that take no required parameters
+    (except the implicit handle) get an extra unit [()] parameter.
+    This is so you can create a closure from the method easily.
+    For example [g#]{{!guestfs.get_verbose}get_verbose} [()]
     calls the method, whereas [g#get_verbose] is a function. *)
 
 class guestfs : unit -> object
@@ -179,9 +179,9 @@ class guestfs : unit -> object
 
   List.iter (
     function
-    | name, ((_, [], []) as style), _, _, _, _, _ ->
-        pr "  method %s : unit -> " name;
-        generate_ocaml_function_type style;
+    | name, ((_, [], _) as style), _, _, _, _, _ ->
+        pr "  method %s : " name;
+        generate_ocaml_function_type ~extra_unit:true style;
         pr "\n"
     | name, style, _, _, _, _, _ ->
         pr "  method %s : " name;
@@ -267,8 +267,12 @@ class guestfs () =
 
   List.iter (
     function
-    | name, (_, [], []), _, _, _, _, _ -> (* no params?  add explicit unit *)
-        pr "    method %s () = %s g\n" name name
+    | name, (_, [], optargs), _, _, _, _, _ ->
+        (* No required params?  Add explicit unit. *)
+        let optargs =
+          String.concat ""
+            (List.map (fun arg -> " ?" ^ name_of_optargt arg) optargs) in
+        pr "    method %s%s () = %s g%s\n" name optargs name optargs
     | name, _, _, _, _, _, _ ->
         pr "    method %s = %s g\n" name name
   ) all_functions_sorted;
@@ -415,12 +419,6 @@ copy_table (char * const * argv)
       generate_ocaml_prototype name style;
       pr " */\n";
       pr "\n";
-
-      (* If we run into this situation, we'll need to change the
-       * bindings a little.
-       *)
-      if args = [] && optargs <> [] then
-        failwithf "ocaml bindings don't support args = [], optargs <> []";
 
       let params =
         "gv" ::
@@ -676,7 +674,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   );
   pr "\n"
 
-and generate_ocaml_function_type (ret, args, optargs) =
+and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
   List.iter (
     function
     | OBool n -> pr "?%s:bool -> " n
@@ -694,6 +692,7 @@ and generate_ocaml_function_type (ret, args, optargs) =
     | Int _ -> pr "int -> "
     | Int64 _ | Pointer _ -> pr "int64 -> "
   ) args;
+  if extra_unit then pr "unit -> ";
   (match ret with
    | RErr -> pr "unit" (* all errors are turned into exceptions *)
    | RInt _ -> pr "int"

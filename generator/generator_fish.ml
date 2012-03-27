@@ -362,6 +362,10 @@ Guestfish will prompt for these separately."
         pr "  if (argc != %d) {\n" argc_minimum;
         pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
           argc_minimum;
+      ) else if argc_minimum = 0 then (
+        pr "  if (argc > %d) {\n" argc_maximum;
+        pr "    fprintf (stderr, _(\"%%s should have %%d-%%d parameter(s)\\n\"), cmd, %d, %d);\n"
+          argc_minimum argc_maximum;
       ) else (
         pr "  if (argc < %d || argc > %d) {\n" argc_minimum argc_maximum;
         pr "    fprintf (stderr, _(\"%%s should have %%d-%%d parameter(s)\\n\"), cmd, %d, %d);\n"
