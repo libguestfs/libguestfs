@@ -1,4 +1,5 @@
 /00gnulib.m4
+/accept4.m4
 /alloca.m4
 /argmatch.m4
 /arpa_inet_h.m4
@@ -26,6 +27,7 @@
 /double-slash-root.m4
 /d-type.m4
 /dup2.m4
+/dup3.m4
 /dup.m4
 /eealloc.m4
 /environ.m4
