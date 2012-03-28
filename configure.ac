@@ -1089,15 +1089,20 @@ AS_IF(
 )
 
 dnl gobject introspection
-GOBJECT_INTROSPECTION_CHECK([1.30.0])
+m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
+    GOBJECT_INTROSPECTION_CHECK([1.30.0])
 
-dnl The above check automatically sets HAVE_INTROSPECTION, but we want this to
-dnl be conditional on gobject also being available. We can't move the above
-dnl check inside the gobject if block above or HAVE_INTROSPECTION ends up
-dnl undefined, so we recheck it here.
-AM_CONDITIONAL([HAVE_INTROSPECTION],
-               [test "x$HAVE_INTROSPECTION_TRUE" = "x" &&
-                test "x$HAVE_GOBJECT_TRUE" = "x"])
+    dnl The above check automatically sets HAVE_INTROSPECTION, but we
+    dnl want this to be conditional on gobject also being
+    dnl available. We can't move the above check inside the gobject if
+    dnl block above or HAVE_INTROSPECTION ends up undefined, so we
+    dnl recheck it here.
+    AM_CONDITIONAL([HAVE_INTROSPECTION],
+                   [test "x$HAVE_INTROSPECTION_TRUE" = "x" &&
+                    test "x$HAVE_GOBJECT_TRUE" = "x"])
+],[
+    AM_CONDITIONAL([HAVE_INTROSPECTION], [false])
+])
 
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
