@@ -81,6 +81,7 @@ libguestfs_jni_la_CFLAGS = \
 BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 
 com_redhat_et_libguestfs_GuestFS.h: $(java_prefix)/GuestFS.class
+	rm -f $@
 	$(JAVAH) -classpath @srcdir@:$(builddir) com.redhat.et.libguestfs.GuestFS
 
 # Documentation.
