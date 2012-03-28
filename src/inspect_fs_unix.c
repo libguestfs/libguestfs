@@ -971,7 +971,7 @@ static ssize_t
 map_app_md_devices (guestfs_h *g, Hash_table **map)
 {
   char **mds = NULL;
-  ssize_t n = 0;
+  size_t n = 0;
 
   /* A hash mapping uuids to md device names */
   *map = hash_initialize(16, NULL, uuid_hash, uuid_cmp, md_uuid_free);
@@ -1070,7 +1070,7 @@ map_md_devices(guestfs_h *g, Hash_table **map)
 {
   Hash_table *app_map = NULL;
   char **matches = NULL;
-  int n_app_md_devices;
+  ssize_t n_app_md_devices;
 
   *map = NULL;
 
