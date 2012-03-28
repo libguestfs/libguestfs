@@ -51,7 +51,7 @@ introspection_sources = \
 
 Guestfs-1.0.gir: $(libname)
 Guestfs_1_0_gir_INCLUDES = GObject-2.0 Gio-2.0
-Guestfs_1_0_gir_CFLAGS = $(INCLUDES)
+Guestfs_1_0_gir_CFLAGS = $(INCLUDES) -I$(srcdir)
 Guestfs_1_0_gir_LIBS = $(libname)
 Guestfs_1_0_gir_FILES = $(introspection_sources)
 INTROSPECTION_GIRS += Guestfs-1.0.gir
