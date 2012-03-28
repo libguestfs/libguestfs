@@ -287,7 +287,11 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
   }
 
   guestfs___free_string_list (lines);
-  return r;
+
+  /* The unnecessary construct in the next line is required to
+   * workaround -Wstrict-overflow warning in gcc 4.5.1.
+   */
+  return r ? 1 : 0;
 }
 
 /* The currently mounted device is known to be a Linux root.  Try to
