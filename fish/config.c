@@ -30,10 +30,10 @@
 
 #include "options.h"
 
+#ifdef HAVE_LIBCONFIG
+
 static const char *home_filename = /* $HOME/ */ ".libguestfs-tools.rc";
 static const char *etc_filename = "/etc/libguestfs-tools.conf";
-
-#ifdef HAVE_LIBCONFIG
 
 /* Note that parse_config is called very early, before command line
  * parsing and before the verbose flag has been set.
