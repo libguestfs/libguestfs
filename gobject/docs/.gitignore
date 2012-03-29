@@ -6,6 +6,7 @@
 /guestfs.interfaces
 /guestfs-overrides.txt
 /guestfs.prerequisites
+/guestfs-sections.txt
 /guestfs.signals
 /guestfs-title.sgml
 /guestfs.types
