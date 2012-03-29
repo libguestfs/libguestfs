@@ -4661,7 +4661,7 @@ This creates an ext2/3/4 filesystem on C<device> with
 an external journal on C<journal>.  It is equivalent
 to the command:
 
- mke2fs -t fstype -b blocksize -J device=E<lt>journalE<gt> E<lt>deviceE<gt>
+ mke2fs -t fstype -b blocksize -J device=<journal> <device>
 
 See also C<guestfs_mke2journal>.");
 
@@ -5327,7 +5327,7 @@ For example, in guestfish you could use the following command
 to examine the boot script (usually called C</init>)
 contained in a Linux initrd or initramfs image:
 
- initrd-cat /boot/initrd-E<lt>versionE<gt>.img init
+ initrd-cat /boot/initrd-<version>.img init
 
 See also C<guestfs_initrd_list>.");
 
@@ -6553,9 +6553,9 @@ List all Linux md devices.");
    [],
    "obtain metadata for an MD device",
    "\
-This command exposes the output of 'mdadm -DY E<lt>mdE<gt>'. The following
-fields are usually present in the returned hash. Other fields may also be
-present.
+This command exposes the output of 'mdadm -DY E<lt>mdE<gt>'.
+The following fields are usually present in the returned hash.
+Other fields may also be present.
 
 =over
 
