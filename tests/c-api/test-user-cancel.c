@@ -50,7 +50,7 @@ static const char *filename = "test.img";
 static const off_t filesize = 1024*1024*1024;
 
 static void remove_test_img (void);
-static void *start_test_thread (void *);
+static void *start_test_thread (void *) __attribute__((noreturn));
 static off_t random_cancel_posn (void);
 
 struct test_thread_data {
@@ -327,8 +327,6 @@ start_test_thread (void *datav)
     while (1)
       pause ();
   }
-
-  return NULL;
 }
 
 static double random_gauss (double mu, double sd);
