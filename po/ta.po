@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-03-29 17:47+0100\n"
-"PO-Revision-Date: 2012-03-07 22:32+0000\n"
+"PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
-"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:104
@@ -715,8 +714,7 @@ msgstr "அனைத்து கோப்புகள் மற்றும் 
 
 #: fish/cmds.c:2995
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"அனைத்து கோப்புகள் மற்றும் அடைவுகளை தேடு, NUL-பிரிக்கப்பட்ட பட்டியலிருந்து திரும்புகிறது"
+msgstr "அனைத்து கோப்புகள் மற்றும் அடைவுகளை தேடு, NUL-பிரிக்கப்பட்ட பட்டியலிருந்து திரும்புகிறது"
 
 #: fish/cmds.c:2996
 msgid "find a filesystem by label"
@@ -1139,9 +1137,8 @@ msgid "create an LVM logical volume"
 msgstr ""
 
 #: fish/cmds.c:3109
-#, fuzzy
 msgid "create an LVM logical volume in % remaining free space"
-msgstr "ஒரு LVM வரைகலை தொகுதியை நீக்கு"
+msgstr ""
 
 #: fish/cmds.c:3110
 msgid "get canonical name of an LV"
@@ -1300,14 +1297,12 @@ msgid "mount 9p filesystem"
 msgstr ""
 
 #: fish/cmds.c:3153
-#, fuzzy
 msgid "mount on the local filesystem"
-msgstr "ஏற முடியாத ஒரு கோப்புமுறைமை"
+msgstr ""
 
 #: fish/cmds.c:3154
-#, fuzzy
 msgid "run main loop of mount on the local filesystem"
-msgstr "விருந்தினர் கோப்புமுறைமையிலிருந்து ஒரு கட்டளையை இயக்கு"
+msgstr ""
 
 #: fish/cmds.c:3155
 msgid "mount a file using the loop device"
@@ -1750,9 +1745,8 @@ msgid "unmount all filesystems"
 msgstr "ஏறாத அனைத்து கோப்புமுறைமை"
 
 #: fish/cmds.c:3273
-#, fuzzy
 msgid "unmount a locally mounted filesystem"
-msgstr "ஏறாத அனைத்து கோப்புமுறைமை"
+msgstr ""
 
 #: fish/cmds.c:3274
 msgid "unset an environment variable"
@@ -1867,9 +1861,8 @@ msgid "write zeroes to an entire device"
 msgstr ""
 
 #: fish/cmds.c:3305
-#, fuzzy
 msgid "zero free space in a filesystem"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3306
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
@@ -2180,7 +2173,8 @@ msgstr ""
 #: fish/copy.c:46
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:67
@@ -2385,25 +2379,19 @@ msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr ""
-"help - display a list of commands or help on a command\n"
-"     help cmd\n"
-"     help\n"
+msgstr "help - display a list of commands or help on a command\n     help cmd\n     help\n"
 
 #: fish/fish.c:1174
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr ""
-"quit - guestfishஐ நிறுத்து\n"
-"     quit\n"
+msgstr "quit - guestfishஐ நிறுத்து\n     quit\n"
 
 #: fish/fish.c:1179
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
-msgstr ""
-"%s: கட்டளை என்னவென்று தெரியவில்லை, அனைத்து கட்டளைகளையும் பட்டியலிட  -hஐ பயன்படுத்து\n"
+msgstr "%s: கட்டளை என்னவென்று தெரியவில்லை, அனைத்து கட்டளைகளையும் பட்டியலிட  -hஐ பயன்படுத்து\n"
 
 #: fish/fish.c:1195
 #, c-format
@@ -2458,8 +2446,7 @@ msgstr "glob: guestfs_glob_expand அழைக்க முடியவில்
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2716,9 +2703,7 @@ msgstr "guestfish: protocol error: 'hello' செய்தியை வாசி
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr ""
-"guestfish: protocol error: பதிப்பு பொருந்தவில்லை, சேவையக பதிப்பு '%s' க்ளையன்ட் "
-"பதிப்பு '%s'உடன் பொருந்தவில்லை.  இந்த இரண்டு பதிப்புகளும் சரியாக பொருந்த வேண்டும்.\n"
+msgstr "guestfish: protocol error: பதிப்பு பொருந்தவில்லை, சேவையக பதிப்பு '%s' க்ளையன்ட் பதிப்பு '%s'உடன் பொருந்தவில்லை.  இந்த இரண்டு பதிப்புகளும் சரியாக பொருந்த வேண்டும்.\n"
 
 #: fish/rc.c:348 fish/rc.c:362
 #, c-format
@@ -2728,8 +2713,7 @@ msgstr "guestfish: remote: சேவையகம் இயங்காதது 
 #: fish/rc.c:374 fish/rc.c:388
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: protocol error: துவக்க அழைப்பை சேவையகத்திற்கு அனுப்ப முடியவில்லை\n"
+msgstr "guestfish: protocol error: துவக்க அழைப்பை சேவையகத்திற்கு அனுப்ப முடியவில்லை\n"
 
 #: fish/rc.c:399
 #, c-format
@@ -2925,12 +2909,10 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3002,8 +2984,8 @@ msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
@@ -3033,8 +3015,7 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3264,9 +3245,8 @@ msgid "fuse_new: %s"
 msgstr ""
 
 #: src/fuse.c:1011
-#, fuzzy
 msgid "you must call guestfs_mount_local first"
-msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
+msgstr ""
 
 #: src/fuse.c:1018
 #, c-format
@@ -3274,9 +3254,8 @@ msgid "fuse_loop: %s"
 msgstr ""
 
 #: src/fuse.c:1069
-#, fuzzy
 msgid "no filesystem is mounted"
-msgstr "கோப்புமுறைமை வட்டு இடப் பயன்பாட்டை அறிக்கையிடு"
+msgstr ""
 
 #: src/fuse.c:1082
 #, c-format
@@ -3459,9 +3438,7 @@ msgstr "guestfs_end_busy: நிலை %dல் உள்ள போது அழ
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
-msgstr ""
-"check_for_daemon_cancellation_or_eof: டொமைனிலிருந்து 0x%x ஐ வாசி, "
-"எதிர்பார்க்கப்பட்ட 0x%x\n"
+msgstr "check_for_daemon_cancellation_or_eof: டொமைனிலிருந்து 0x%x ஐ வாசி, எதிர்பார்க்கப்பட்ட 0x%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3583,8 +3560,7 @@ msgstr ""
 #: src/virt.c:424
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3684,9 +3660,7 @@ msgstr ""
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
-msgstr ""
-"LIBGUESTFS_QEMU சூழல் மாறிலி ஏற்கனவே அமைக்கப்பட்டது , ஆகையால்\n"
-"--qemu/--qemudir விருப்பங்கள் பயன்படுத்தப்படவில்லை.\n"
+msgstr "LIBGUESTFS_QEMU சூழல் மாறிலி ஏற்கனவே அமைக்கப்பட்டது , ஆகையால்\n--qemu/--qemudir விருப்பங்கள் பயன்படுத்தப்படவில்லை.\n"
 
 #: test-tool/test-tool.c:297
 #, c-format
@@ -3776,8 +3750,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
