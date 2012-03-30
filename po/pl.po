@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-23 13:43+0000\n"
+"POT-Creation-Date: 2012-03-30 16:18+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -353,8 +353,8 @@ msgstr ""
 "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #: df/main.c:266
-#, c-format
-msgid "%s: compiled without support for libvirt.\n"
+#, fuzzy, c-format
+msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr "%s: skompilowano bez obsługi biblioteki libvirt.\n"
 
 #: df/output.c:50
@@ -3428,8 +3428,8 @@ msgstr ""
 "została skompilowana bez biblioteki hivex"
 
 #: src/inspect.c:756 src/inspect_fs.c:503 src/inspect_fs.c:547
-#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:724
-#: src/inspect_fs_unix.c:1307
+#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:728
+#: src/inspect_fs_unix.c:1311
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
@@ -3457,7 +3457,7 @@ msgstr "nie można przetworzyć liczby całkowitej w numerze wersji: %s"
 msgid "%s: file is empty"
 msgstr "%s: plik jest pusty"
 
-#: src/inspect_fs_unix.c:767
+#: src/inspect_fs_unix.c:771
 msgid "could not parse /etc/fstab or empty file"
 msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 

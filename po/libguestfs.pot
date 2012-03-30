@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.16.12\n"
+"Project-Id-Version: libguestfs 1.16.13\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-03-23 13:43+0000\n"
+"POT-Creation-Date: 2012-03-30 16:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,7 +253,7 @@ msgstr ""
 
 #: df/main.c:266
 #, c-format
-msgid "%s: compiled without support for libvirt.\n"
+msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr ""
 
 #: df/output.c:50
@@ -3197,8 +3197,8 @@ msgid ""
 msgstr ""
 
 #: src/inspect.c:756 src/inspect_fs.c:503 src/inspect_fs.c:547
-#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:724
-#: src/inspect_fs_unix.c:1307
+#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:728
+#: src/inspect_fs_unix.c:1311
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3224,7 +3224,7 @@ msgstr ""
 msgid "%s: file is empty"
 msgstr ""
 
-#: src/inspect_fs_unix.c:767
+#: src/inspect_fs_unix.c:771
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
