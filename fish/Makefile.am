@@ -248,6 +248,7 @@ TESTS += \
 	test-copy.sh \
 	test-edit.sh \
 	test-find0.sh \
+	test-mount-local.sh \
 	test-read_file.sh \
 	test-remote.sh \
 	test-reopen.sh \
@@ -264,6 +265,7 @@ EXTRA_DIST += \
 	test-escapes.sh \
 	test-events.sh \
 	test-find0.sh \
+	test-mount-local.sh \
 	test-read_file.sh \
 	test-remote.sh \
 	test-reopen.sh \
