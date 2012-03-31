@@ -70,6 +70,15 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
 	  $<
 
+virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
+	$(top_builddir)/podwrapper.sh \
+	  --man virt-sysprep.1 \
+          --insert sysprep-extra-options.pod:@EXTRA_OPTIONS@ \
+          --insert sysprep-operations.pod:@OPERATIONS@ \
+	  --html $(top_builddir)/html/virt-sysprep.1.html \
+	  $<
+	touch $@
+
 %.1: %.pod
 	$(top_builddir)/podwrapper.sh --man $@ $<
 

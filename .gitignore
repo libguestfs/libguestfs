@@ -26,9 +26,6 @@ cat/virt-ls
 cat/virt-ls.1
 ChangeLog
 *.class
-clone/stamp-virt-sysprep.pod
-clone/virt-sysprep
-clone/virt-sysprep.1
 *.cma
 *.cmi
 *.cmo
@@ -345,6 +342,12 @@ src/libguestfs.syms
 src/.libs/libguestfs.so
 src/stamp-guestfs.pod
 stamp-h1
+sysprep/.depend
+sysprep/stamp-virt-sysprep.pod
+sysprep/sysprep-extra-options.pod
+sysprep/sysprep-operations.pod
+sysprep/virt-sysprep
+sysprep/virt-sysprep.1
 *.swp
 test1.img
 test2.img

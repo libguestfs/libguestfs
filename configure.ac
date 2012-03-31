@@ -1149,8 +1149,6 @@ AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x appliance/libguestfs-make-fixed-appliance])
-AC_CONFIG_FILES([clone/virt-sysprep],
-                [chmod +x clone/virt-sysprep])
 AC_CONFIG_FILES([podwrapper.sh],
                 [chmod +x podwrapper.sh])
 AC_CONFIG_FILES([run],
@@ -1159,7 +1157,6 @@ AC_CONFIG_FILES([Makefile
                  align/Makefile
                  appliance/Makefile
                  cat/Makefile
-                 clone/Makefile
                  csharp/Makefile
                  daemon/Makefile
                  df/Makefile
@@ -1201,6 +1198,7 @@ AC_CONFIG_FILES([Makefile
                  ruby/examples/Makefile
                  sparsify/Makefile
                  src/Makefile
+                 sysprep/Makefile
                  test-tool/Makefile
                  tests/c-api/Makefile
                  tests/data/Makefile

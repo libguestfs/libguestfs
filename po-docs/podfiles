@@ -3,7 +3,6 @@
 ../cat/virt-cat.pod
 ../cat/virt-filesystems.pod
 ../cat/virt-ls.pod
-../clone/virt-sysprep.pod
 ../df/virt-df.pod
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod
@@ -32,6 +31,9 @@
 ../src/guestfs-availability.pod
 ../src/guestfs-structs.pod
 ../src/guestfs.pod
+../sysprep/sysprep-extra-options.pod
+../sysprep/sysprep-operations.pod
+../sysprep/virt-sysprep.pod
 ../test-tool/libguestfs-test-tool.pod
 ../tools/virt-list-filesystems.pl
 ../tools/virt-list-partitions.pl

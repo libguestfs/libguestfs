@@ -3008,11 +3008,6 @@ The libguestfs appliance, build scripts and so on.
 The L<virt-cat(1)>, L<virt-filesystems(1)> and L<virt-ls(1)> commands
 and documentation.
 
-=item C<clone>
-
-Tools for cloning virtual machines.  Currently contains
-L<virt-sysprep(1)> command and documentation.
-
 =item C<contrib>
 
 Outside contributions, experimental parts.
@@ -3090,6 +3085,10 @@ L<virt-sparsify(1)> command and documentation.
 =item C<src>
 
 Source code to the C library.
+
+=item C<sysprep>
+
+L<virt-sysprep(1)> command and documentation.
 
 =item C<test-tool>
 

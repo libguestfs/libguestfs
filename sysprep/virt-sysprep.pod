@@ -18,9 +18,6 @@ SSH host keys, removing persistent network MAC configuration, and
 removing user accounts.  Each step can be enabled or disabled as
 required.
 
-Virt-sysprep is a simple shell script, allowing easy inspection or
-customization by the system administrator.
-
 Virt-sysprep modifies the guest or disk image I<in place>.  The guest
 must be shut down.  If you want to preserve the existing contents of
 the guest, you I<must copy or clone the disk first>.
@@ -54,7 +51,7 @@ Display brief help.
 Add I<file> which should be a disk image from a virtual machine.
 
 The format of the disk image is auto-detected.  To override this and
-force a particular format use the I<--format=..> option.
+force a particular format use the I<--format> option.
 
 =item B<-c> URI
 
@@ -73,12 +70,19 @@ not used at all.
 Add all the disks from the named libvirt guest.  Domain UUIDs can be
 used instead of names.
 
-=item B<--enable=...>
+=item B<-n>
+
+=item B<--dry-run>
+
+Perform a read-only "dry run" on the guest.  This runs the sysprep
+operation, but throws away any changes to the disk at the end.
+
+=item B<--enable> operations
 
 Choose which sysprep operations to perform.  Give a comma-separated
 list of operations, for example:
 
- --enable=ssh-hostkeys,udev-persistent-net
+ --enable ssh-hostkeys,udev-persistent-net
 
 would enable ONLY C<ssh-hostkeys> and C<udev-persistent-net> operations.
 
@@ -92,22 +96,22 @@ version of virt-sysprep.
 See L</OPERATIONS> below for a list and an explanation of each
 operation.
 
-=item B<--format=raw|qcow2|..>
+=item B<--format> raw|qcow2|..
 
-=item B<--format>
+=item B<--format> auto
 
 The default for the I<-a> option is to auto-detect the format of the
 disk image.  Using this forces the disk format for I<-a> options which
-follow on the command line.  Using I<--format> with no argument
-switches back to auto-detection for subsequent I<-a> options.
+follow on the command line.  Using I<--format auto> switches back to
+auto-detection for subsequent I<-a> options.
 
 For example:
 
- virt-sysprep --format=raw -a disk.img
+ virt-sysprep --format raw -a disk.img
 
 forces raw format (no auto-detection) for C<disk.img>.
 
- virt-sysprep --format=raw -a disk.img --format -a another.img
+ virt-sysprep --format raw -a disk.img --format auto -a another.img
 
 forces raw format (no auto-detection) for C<disk.img> and reverts to
 auto-detection for C<another.img>.
@@ -115,11 +119,6 @@ auto-detection for C<another.img>.
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
-
-=item B<--hostname> newhostname
-
-Change the hostname.  See the L</hostname> operation below.
-If not given, defaults to C<localhost.localdomain>.
 
 =item B<--list-operations>
 
@@ -151,6 +150,8 @@ Display version number and exit.
 
 Enable tracing of libguestfs API calls.
 
+@EXTRA_OPTIONS@
+
 =back
 
 =head1 OPERATIONS
@@ -171,93 +172,7 @@ Future versions of virt-sysprep may add more operations.  If you are
 using virt-sysprep and want predictable behaviour, specify only the
 operations that you want to have enabled.
 
-=head2 cron-spool
-
-Remove user at-jobs and cron-jobs.
-
-=head2 dhcp-client-state
-
-Remove DHCP client leases.
-
-=head2 dhcp-server-state
-
-Remove DHCP server leases.
-
-=head2 hostname
-
-Changes the hostname of the guest to the value given in the
-I<--hostname> parameter.
-
-If the I<--hostname> parameter is not given, then the hostname is
-changed to C<localhost.localdomain>.
-
-=head2 logfiles
-
-Remove many log files.
-
-=head2 mail-spool
-
-Remove email from the local mail spool directory.
-
-=head2 net-hwaddr
-
-Remove HWADDR (hard-coded MAC address) configuration.  For Fedora and
-Red Hat Enterprise Linux, this is removed from C<ifcfg-*> files.
-
-=head2 random-seed
-
-Write some random bytes from the host into the random seed file of
-the guest.
-
-See L</RANDOM SEED> below.
-
-=head2 rhn-systemid
-
-Remove the RHN system ID.
-
-=head2 smolt-uuid
-
-Remove the Smolt hardware UUID.
-
-=head2 ssh-hostkeys
-
-Remove the SSH host keys in the guest.
-
-The SSH host keys are regenerated (differently) next time the guest is
-booted.
-
-If, after cloning, the guest gets the same IP address, ssh will give
-you a stark warning about the host key changing:
-
- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
-
-=head2 udev-persistent-net
-
-Remove udev persistent net rules which map the guest's existing MAC
-address to a fixed ethernet device (eg. eth0).
-
-After a guest is cloned, the MAC address usually changes.  Since the
-old MAC address occupies the old name (eg. eth0), this means the fresh
-MAC address is assigned to a new name (eg. eth1) and this is usually
-undesirable.  Erasing the udev persistent net rules avoids this.
-
-=head2 utmp
-
-Remove the utmp file.
-
-This records who is currently logged in on a machine.  In modern Linux
-distros it is stored in a ramdisk and hence not part of the virtual
-machine's disk, but it was stored on disk in older distros.
-
-=head2 yum-uuid
-
-Remove the yum UUID.
-
-Yum creates a fresh UUID the next time it runs when it notices that
-the original UUID has been erased.
+@OPERATIONS@
 
 =head1 COPYING AND CLONING
 
@@ -430,8 +345,7 @@ thus is ideal for cloning guests from a template.
 
 Although virt-sysprep removes some sensitive information from the
 guest, it does not pretend to remove all of it.  You should examine
-the L</OPERATIONS> above, and the implementation of the operations in
-the shell script.  You should also examine the guest afterwards.
+the L</OPERATIONS> above and the guest afterwards.
 
 Sensitive files are simply removed.  The data they contained may still
 exist on the disk, easily recovered with a hex editor or undelete
@@ -455,7 +369,7 @@ from a template too, which can be done by just enabling the
 C<random-seed> operation:
 
  cp template.img newguest.img
- virt-sysprep --enable=random-seed -a newguest.img
+ virt-sysprep --enable random-seed -a newguest.img
 
 =head2 SELINUX RELABELLING
 
@@ -504,7 +418,7 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 Red Hat Inc.
+Copyright (C) 2011-2012 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -24,26 +24,10 @@ if [ ! -w /dev/fuse ]; then
     exit 0
 fi
 
-rm -f test.img guestfish
+rm -f test.img
 
 qemu-img create -f qcow2 -o backing_file=../tests/guests/fedora.img test.img
 
-# Provide alternate 'virt-inspector' and 'guestmount' binaries
-# that run the just-built programs.
-
-cat <<'EOF' > virt-inspector
-#!/bin/sh -
-../run ../inspector/virt-inspector "$@"
-EOF
-chmod +x virt-inspector
-cat <<'EOF' > guestmount
-#!/bin/sh -
-../run ../fuse/guestmount "$@"
-EOF
-chmod +x guestmount
-
-PATH=.:$PATH
-
 ./virt-sysprep -a test.img
 
-rm -f test.img virt-inspector guestmount
+rm -f test.img

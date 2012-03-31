@@ -91,7 +91,7 @@ SUBDIRS += csharp
 
 # virt-resize (new version) and virt-sparsify are written in OCaml.
 if HAVE_OCAML
-SUBDIRS += resize sparsify
+SUBDIRS += resize sparsify sysprep
 endif
 
 # Perl tools.
@@ -102,11 +102,6 @@ endif
 # guestmount
 if HAVE_FUSE
 SUBDIRS += fuse
-endif
-
-# virt-tools in shell.  This uses guestmount and virt-inspector.
-if HAVE_FUSE
-SUBDIRS += clone
 endif
 
 # po-docs must come after tools, inspector.

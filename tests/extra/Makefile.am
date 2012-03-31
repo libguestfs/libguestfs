@@ -28,10 +28,8 @@
 #
 # XXX Not tested:
 #
-# ../clone/virt-sysprep
-#   - hard to test because it's a shell script
-#
 # ../edit/virt-edit
+# ../sysprep/virt-sysprep
 #
 # Perl bindings
 # ../edit/virt-edit -e
