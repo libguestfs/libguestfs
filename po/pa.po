@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jaswinder Singh <j.phulewala@gmail.com>, 2011.
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2012-03-29 17:47+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2012-03-31 23:11+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:104
@@ -45,7 +46,23 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: check alignment of virtual machine partitions\nCopyright (C) 2011 Red Hat Inc.\nUsage:\n  %s [--options] -d domname\n  %s [--options] -a disk.img [-a disk.img ...]\nOptions:\n  -a|--add image       Add image\n  -c|--connect uri     Specify libvirt URI for -d option\n  -d|--domain guest    Add disks from libvirt guest\n  --format[=raw|..]    Force disk format for -a option\n  --help               Display brief help\n  -q|--quiet           No output, just exit code\n  -v|--verbose         Verbose messages\n  -V|--version         Display version and exit\n  -x                   Trace libguestfs API calls\nFor more information, see the manpage %s(1).\n"
+msgstr ""
+"%s: check alignment of virtual machine partitions\n"
+"Copyright (C) 2011 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  -q|--quiet           No output, just exit code\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:207
 #: cat/virt-ls.c:196 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
@@ -91,7 +108,24 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: display files in a virtual machine\nCopyright (C) 2010 Red Hat Inc।\nUsage:\n  %s [--options] -d domname file [file ...]\n  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\nOptions:\n  -a|--add image       Add image\n  -c|--connect uri     Specify libvirt URI for -d option\n  -d|--domain guest    Add disks from libvirt guest\n  --echo-keys          Don't turn off echo for passphrases\n  --format[=raw|..]    Force disk format for -a option\n  --help               Display brief help\n  --keys-from-stdin    Read passphrases from stdin\n  -v|--verbose         Verbose messages\n  -V|--version         Display version and exit\n  -x                   Trace libguestfs API calls\nFor more information, see the manpage %s(1)।\n"
+msgstr ""
+"%s: display files in a virtual machine\n"
+"Copyright (C) 2010 Red Hat Inc।\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1)।\n"
 
 #: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1563
 #, c-format
@@ -140,7 +174,41 @@ msgid ""
 "                       Display LVM volume groups\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: list filesystems, partitions, block devices, LVM in a VM\nCopyright (C) 2010 Red Hat Inc।\nUsage:\n  %s [--options] -d domname\n  %s [--options] -a disk.img [-a disk.img ...]\nOptions:\n  -a|--add image       Add image\n  --all                Display everything\n  --blkdevs|--block-devices\n                       Display block devices\n  -c|--connect uri     Specify libvirt URI for -d option\n  --csv                Output as Comma-Separated Values\n  -d|--domain guest    Add disks from libvirt guest\n  --echo-keys          Don't turn off echo for passphrases\n  --extra              Display swap and data filesystems\n  --filesystems        Display mountable filesystems\n  --format[=raw|..]    Force disk format for -a option\n  -h|--human-readable  Human-readable sizes in --long output\n  --help               Display brief help\n  --keys-from-stdin    Read passphrases from stdin\n  -l|--long            Long output\n  --lvs|--logvols|--logical-volumes\n                       Display LVM logical volumes\n  --no-title           No title in --long output\n  --parts|--partitions Display partitions\n  --pvs|--physvols|--physical-volumes\n                       Display LVM physical volumes\n  --uuid|--uuids       Add UUIDs to --long output\n  -v|--verbose         Verbose messages\n  -V|--version         Display version and exit\n  --vgs|--volgroups|--volume-groups\n                       Display LVM volume groups\n  -x                   Trace libguestfs API calls\nFor more information, see the manpage %s(1)।\n"
+msgstr ""
+"%s: list filesystems, partitions, block devices, LVM in a VM\n"
+"Copyright (C) 2010 Red Hat Inc।\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --all                Display everything\n"
+"  --blkdevs|--block-devices\n"
+"                       Display block devices\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  --extra              Display swap and data filesystems\n"
+"  --filesystems        Display mountable filesystems\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -l|--long            Long output\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Display LVM logical volumes\n"
+"  --no-title           No title in --long output\n"
+"  --parts|--partitions Display partitions\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Display LVM physical volumes\n"
+"  --uuid|--uuids       Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Display LVM volume groups\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1)।\n"
 
 #: cat/virt-filesystems.c:323 cat/virt-ls.c:350 df/main.c:254
 #, c-format
@@ -250,7 +318,27 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: display free space on virtual filesystems\nCopyright (C) 2010 Red Hat Inc।\nUsage:\n  %s [--options] -d domname\n  %s [--options] -a disk.img [-a disk.img ...]\nOptions:\n  -a|--add image       Add image\n  -c|--connect uri     Specify libvirt URI for -d option\n  --csv                Output as Comma-Separated Values\n  -d|--domain guest    Add disks from libvirt guest\n  --format[=raw|..]    Force disk format for -a option\n  -h|--human-readable  Human-readable sizes in --long output\n  --help               Display brief help\n  -i|--inodes          Display inodes\n  --one-per-guest      Separate appliance per guest\n  --uuid               Add UUIDs to --long output\n  -v|--verbose         Verbose messages\n  -V|--version         Display version and exit\n  -x                   Trace libguestfs API calls\nFor more information, see the manpage %s(1)।\n"
+msgstr ""
+"%s: display free space on virtual filesystems\n"
+"Copyright (C) 2010 Red Hat Inc।\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  -i|--inodes          Display inodes\n"
+"  --one-per-guest      Separate appliance per guest\n"
+"  --uuid               Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1)।\n"
 
 #: df/main.c:266
 #, c-format
@@ -2174,9 +2262,9 @@ msgstr ""
 #: fish/copy.c:46
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
-msgstr "ਫਾਇਲਾਂ ਨੂੰ ਈਮੇਜ਼ ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-in <local> [<local>...] <remotedir>' ਵਰਤੋ\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+msgstr ""
+"ਫਾਇਲਾਂ ਨੂੰ ਈਮੇਜ਼ ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-in <local> [<local>...] <remotedir>' ਵਰਤੋ\n"
 
 #: fish/copy.c:67
 #, c-format
@@ -2193,7 +2281,8 @@ msgstr "ਗਲਤੀ: ਆਰਗੂਮੈਂਟ ਦੀ ਜ਼ੀਰੋ ਲੰਬਾ�
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
-msgstr "ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲਾਂ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-out <remote> [<remote>...] <localdir>' ਵਰਤੋ\n"
+msgstr ""
+"ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲਾਂ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-out <remote> [<remote>...] <localdir>' ਵਰਤੋ\n"
 
 #: fish/copy.c:220
 #, c-format
@@ -2329,7 +2418,15 @@ msgid ""
 "      'man' to read the manual\n"
 "      'quit' to quit the shell\n"
 "\n"
-msgstr "\nguestfish ਵੱਲੋਂ ਜੀ ਆਇਆ ਨੂੰ, ਵਰਚੁਅਲ ਮਸ਼ੀਨ ਫਾਇਲ-ਸਿਸਟਮ ਨੂੰ ਸੋਧਣ ਲਈ\nlibguestfs ਫਾਇਲ-ਸਿਸਟਮ ਦਿਲਖਿਚਵਾਂ ਸ਼ੈੱਲ।\n\nType: 'help' for help with commands\n      'man' to read the manual\n      'quit' to quit the shell\n\n"
+msgstr ""
+"\n"
+"guestfish ਵੱਲੋਂ ਜੀ ਆਇਆ ਨੂੰ, ਵਰਚੁਅਲ ਮਸ਼ੀਨ ਫਾਇਲ-ਸਿਸਟਮ ਨੂੰ ਸੋਧਣ ਲਈ\n"
+"libguestfs ਫਾਇਲ-ਸਿਸਟਮ ਦਿਲਖਿਚਵਾਂ ਸ਼ੈੱਲ।\n"
+"\n"
+"Type: 'help' for help with commands\n"
+"      'man' to read the manual\n"
+"      'quit' to quit the shell\n"
+"\n"
 
 #: fish/fish.c:800 fish/fish.c:816
 #, c-format
@@ -2380,14 +2477,19 @@ msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr "help - display a list of commands or help on a command\n     help cmd\n     help\n"
+msgstr ""
+"help - display a list of commands or help on a command\n"
+"     help cmd\n"
+"     help\n"
 
 #: fish/fish.c:1174
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr "quit - quit guestfish\n     quit\n"
+msgstr ""
+"quit - quit guestfish\n"
+"     quit\n"
 
 #: fish/fish.c:1179
 #, c-format
@@ -2400,7 +2502,10 @@ msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
-msgstr "ਕੀ ਤੁਹਾਡਾ ਭਾਵ ਡਿਸਕ ਈਮੇਜ਼ ਖੋਲਣ ਤੋਂ ਹੈ?  guestfish -a disk.img\nਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਲਈ:             guestfish -h\nਮੁਕੰਮਲ ਦਸਤਾਵੇਜੀ ਲਈ:         man guestfish\n"
+msgstr ""
+"ਕੀ ਤੁਹਾਡਾ ਭਾਵ ਡਿਸਕ ਈਮੇਜ਼ ਖੋਲਣ ਤੋਂ ਹੈ?  guestfish -a disk.img\n"
+"ਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਲਈ:             guestfish -h\n"
+"ਮੁਕੰਮਲ ਦਸਤਾਵੇਜੀ ਲਈ:         man guestfish\n"
 
 #: fish/fish.c:1204
 #, c-format
@@ -2447,10 +2552,14 @@ msgstr "glob: guestfs_glob_expand call failed: %s\n"
 #: fish/help.c:38
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
-msgstr "ਜਾਂਚ ਕਰਨ ਲਈ ਡਿਸਕ ਈਮੇਜ਼ ਜੋੜੋ -a ਜਾਂ -d ਚੋਣਾਂ ਵਰਤ ਕੇ, ਜਾਂ 'add' ਕਮਾਂਡ ਵਰਤ ਕੇ।\nਜਾਂ -N, ਜਾਂ 'alloc' ਜਾਂ 'sparse' ਕਮਾਂਡ ਵਰਤ ਕੇ ਨਵਾਂ ਡਿਸਕ ਈਮੇਜ਼ ਬਣਾਓ।\nਇੱਕ ਵਾਰ ਇਹ ਕਰਨ ਤੇ, 'run' ਕਮਾਂਡ ਵਰਤੋ।\n"
+msgstr ""
+"ਜਾਂਚ ਕਰਨ ਲਈ ਡਿਸਕ ਈਮੇਜ਼ ਜੋੜੋ -a ਜਾਂ -d ਚੋਣਾਂ ਵਰਤ ਕੇ, ਜਾਂ 'add' ਕਮਾਂਡ ਵਰਤ ਕੇ।\n"
+"ਜਾਂ -N, ਜਾਂ 'alloc' ਜਾਂ 'sparse' ਕਮਾਂਡ ਵਰਤ ਕੇ ਨਵਾਂ ਡਿਸਕ ਈਮੇਜ਼ ਬਣਾਓ।\n"
+"ਇੱਕ ਵਾਰ ਇਹ ਕਰਨ ਤੇ, 'run' ਕਮਾਂਡ ਵਰਤੋ।\n"
 
 #: fish/help.c:44
 #, c-format
@@ -2466,7 +2575,10 @@ msgid ""
 "For more information about a command, use 'help cmd'.\n"
 "\n"
 "To read the manual, type 'man'.\n"
-msgstr "ਇੱਕ ਕਮਾਂਡ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, 'help cmd' ਵਰਤੋ।\n\nਦਸਤਾਵੇਜ ਪੜ੍ਹਨ ਲਈ, 'man' ਟਾਈਪ ਕਰੋ।\n"
+msgstr ""
+"ਇੱਕ ਕਮਾਂਡ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, 'help cmd' ਵਰਤੋ।\n"
+"\n"
+"ਦਸਤਾਵੇਜ ਪੜ੍ਹਨ ਲਈ, 'man' ਟਾਈਪ ਕਰੋ।\n"
 
 #: fish/hexedit.c:41
 #, c-format
@@ -2484,7 +2596,10 @@ msgid ""
 "hexedit: %s is larger than %s. You must supply a limit using\n"
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
-msgstr "hexedit: %s ਵੱਡਾ ਹੈ %s ਤੋਂ। ਤੁਹਾਨੂੰ \n  'hexedit %s <max>' ਵਰਤ ਕੇ ਸੀਮਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ (ਜਿਵੇਂ 'hexedit %s 1M') ਜਾਂ\n  'hexedit %s <start> <max>' ਵਰਤ ਕੇ ਰੇਂਜ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ।\n"
+msgstr ""
+"hexedit: %s ਵੱਡਾ ਹੈ %s ਤੋਂ। ਤੁਹਾਨੂੰ \n"
+"  'hexedit %s <max>' ਵਰਤ ਕੇ ਸੀਮਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ (ਜਿਵੇਂ 'hexedit %s 1M') ਜਾਂ\n"
+"  'hexedit %s <start> <max>' ਵਰਤ ਕੇ ਰੇਂਜ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ।\n"
 
 #: fish/hexedit.c:92
 #, c-format
@@ -2589,7 +2704,9 @@ msgstr "%s: '%s' ਮਾਊਂਟ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ�
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
-msgstr "ਉਪਲੱਬਧ ਤਿਆਰ ਡਿਸਕ ਈਮੇਜਾਂ ਦੀ ਸੂਚੀ:\n\n"
+msgstr ""
+"ਉਪਲੱਬਧ ਤਿਆਰ ਡਿਸਕ ਈਮੇਜਾਂ ਦੀ ਸੂਚੀ:\n"
+"\n"
 
 #: fish/prep.c:40
 #, c-format
@@ -2597,7 +2714,10 @@ msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
-msgstr "guestfish -N %-8s - %s\n\n%s\n"
+msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:48
 #, c-format
@@ -2615,14 +2735,19 @@ msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
-msgstr "ਤਿਆਰ ਕੀਤੇ ਡਿਸਕ ਈਮੇਜ਼ ਫਾਇਲ \"test1.img\" ਵਿੱਚ ਲੋਕਲ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਲਿਖੇ ਗਏ ਹਨ।  (\"test2.img\" ਆਦਿ ਜੇ -N ਚੋਣ ਬਹੁਤੀ ਵਾਰ ਦਿੱਤੀ ਗਈ ਹੈ)।\nਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ guestfish(1) ਦਸਤਾਵੇਜ ਵੇਖੋ\n"
+msgstr ""
+"ਤਿਆਰ ਕੀਤੇ ਡਿਸਕ ਈਮੇਜ਼ ਫਾਇਲ \"test1.img\" ਵਿੱਚ ਲੋਕਲ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਲਿਖੇ ਗਏ ਹਨ।  "
+"(\"test2.img\" ਆਦਿ ਜੇ -N ਚੋਣ ਬਹੁਤੀ ਵਾਰ ਦਿੱਤੀ ਗਈ ਹੈ)।\n"
+"ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ guestfish(1) ਦਸਤਾਵੇਜ ਵੇਖੋ\n"
 
 #: fish/prep.c:96
 #, c-format
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
-msgstr "guestfish: -N ਪੈਰਾਮੀਟਰ '%s': ਕੋਈ ਅਜਿਹਾ ਤਿਆਰ ਕੀਤਾ ਡਿਸਕ ਈਮੇਜ਼ ਨਹੀਂ ਹੈ।\n'guestfish -N help' ਵਰਤੋਂ ਤਾਂ ਜੋ -N ਪੈਰਾਮੀਟਰ ਲਈ ਸੰਭਵ ਮੁੱਲ ਵੇਖੇ ਜਾ ਸਕਣ।\n"
+msgstr ""
+"guestfish: -N ਪੈਰਾਮੀਟਰ '%s': ਕੋਈ ਅਜਿਹਾ ਤਿਆਰ ਕੀਤਾ ਡਿਸਕ ਈਮੇਜ਼ ਨਹੀਂ ਹੈ।\n"
+"'guestfish -N help' ਵਰਤੋਂ ਤਾਂ ਜੋ -N ਪੈਰਾਮੀਟਰ ਲਈ ਸੰਭਵ ਮੁੱਲ ਵੇਖੇ ਜਾ ਸਕਣ।\n"
 
 #: fish/prep.c:158
 #, c-format
@@ -2704,7 +2829,9 @@ msgstr "guestfish: protocol error: could not read 'hello' message\n"
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr "guestfish: protocol error: version mismatch, server version '%s' does not match client version '%s'.  The two versions must match exactly.\n"
+msgstr ""
+"guestfish: protocol error: version mismatch, server version '%s' does not "
+"match client version '%s'.  The two versions must match exactly.\n"
 
 #: fish/rc.c:348 fish/rc.c:362
 #, c-format
@@ -2910,15 +3037,29 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
-msgstr "%s: no operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by libguestfs.\n\nNOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\ninstall the separate libguestfs-winsupport package.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n"
+msgstr ""
+"%s: no operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
+"install the separate libguestfs-winsupport package.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
 
 #: inspector/virt-inspector.c:312
 #, c-format
@@ -2985,9 +3126,11 @@ msgstr "ਗਿਸਟ ਈਮੇਜ਼ {imagename} ਮੌਜੂਦ ਨਹੀਂ ਹ�
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
-"XML::XPath::XMLParser)"
-msgstr "open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
+msgstr ""
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
 msgid "open_guest: too many domains listed on command line"
@@ -3016,12 +3159,20 @@ msgstr "{imagename} ਲੱਗਦਾ ਹੈ ਕੋਈ ਜਿਸਕ ਜੰਤਰ �
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
-msgstr "ਇਸ ਡਿਸਕ ਈਮੇਜ਼ ਵਿੱਚ ਕੋਈ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਨਹੀਂ ਲੱਭਿਆ।\n\nਇਸਦਾ ਕਾਰਨ ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਫਾਇਲ ਇੱਕ ਡਿਸਕ ਈਮੇਜ਼ ਨਹੀਂ ਹੈ, ਜਾਂ ਇੱਕ ਵਰਚੁਅਲ ਮਸ਼ੀਨ\nਈਮੇਜ਼ ਨਹੀਂ ਹੈ, ਜਾਂ OS ਕਿਸਮ virt-inspector ਦੁਆਰਾ ਸਮਝੀ ਨਹੀਂ ਗਈ।\n\nਜੇ ਤੁਹਾਨੂੰ ਇਹ ਗਲਤੀ ਲੱਗਦੀ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਡਿਸਕ ਈਮੇਜ਼ ਬਾਰੇ ਸੰਭ ਜਾਣਕਾਰੀ ਸਮੇਤ\nਬੱਗ ਫਾਈਲ ਕਰੋ।\n"
+msgstr ""
+"ਇਸ ਡਿਸਕ ਈਮੇਜ਼ ਵਿੱਚ ਕੋਈ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਨਹੀਂ ਲੱਭਿਆ।\n"
+"\n"
+"ਇਸਦਾ ਕਾਰਨ ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਫਾਇਲ ਇੱਕ ਡਿਸਕ ਈਮੇਜ਼ ਨਹੀਂ ਹੈ, ਜਾਂ ਇੱਕ ਵਰਚੁਅਲ ਮਸ਼ੀਨ\n"
+"ਈਮੇਜ਼ ਨਹੀਂ ਹੈ, ਜਾਂ OS ਕਿਸਮ virt-inspector ਦੁਆਰਾ ਸਮਝੀ ਨਹੀਂ ਗਈ।\n"
+"\n"
+"ਜੇ ਤੁਹਾਨੂੰ ਇਹ ਗਲਤੀ ਲੱਗਦੀ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਡਿਸਕ ਈਮੇਜ਼ ਬਾਰੇ ਸੰਭ ਜਾਣਕਾਰੀ ਸਮੇਤ\n"
+"ਬੱਗ ਫਾਈਲ ਕਰੋ।\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:945
 #, perl-brace-format
@@ -3326,7 +3477,9 @@ msgstr "ਕੋਈ ਪੜਤਾਲ ਡਾਟਾ ਨਹੀਂ ਹੈ: ਪਹਿਲ
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
-msgstr "%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
+msgstr ""
+"%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
+"guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 
 #: src/inspect_fs.c:360 src/inspect_fs.c:373
 #, c-format
@@ -3439,7 +3592,8 @@ msgstr "guestfs_end_busy: called when in state %d"
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
-msgstr "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgstr ""
+"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
 #: src/proto.c:543
 msgid ""
@@ -3561,11 +3715,18 @@ msgstr "ਡੋਮੇਨ ਜਾਣਕਾਰੀ ਲੈਣ ਸਮੇਂ ਗਲਤ�
 #: src/virt.c:424
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
-msgstr "error: domain is a live virtual machine।\nWriting to the disks of a running virtual machine can cause disk corruption।\nEither use read-only access, or if the guest is running the guestfsd daemon\nspecify live access।  In most libguestfs tools these options are --ro or\n--live respectively।  Consult the documentation for further information।"
+msgstr ""
+"error: domain is a live virtual machine।\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption।\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access।  In most libguestfs tools these options are --ro or\n"
+"--live respectively।  Consult the documentation for further information।"
 
 #: src/virt.c:489
 #, c-format
@@ -3578,13 +3739,17 @@ msgstr ""
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr "ਇਸ ਗਿਸਟ ਉੱਪਰ guestfsd ਲਈ ਕੋਈ libvirt <channel> ਪਰਿਭਾਸ਼ਾ ਨਹੀਂ ਹੈ\nਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ATTACHING TO RUNNING DAEMONS ਨੂੰ guestfs(3) ਵਿੱਚ ਵੇਖੋ।"
+msgstr ""
+"ਇਸ ਗਿਸਟ ਉੱਪਰ guestfsd ਲਈ ਕੋਈ libvirt <channel> ਪਰਿਭਾਸ਼ਾ ਨਹੀਂ ਹੈ\n"
+"ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ATTACHING TO RUNNING DAEMONS ਨੂੰ guestfs(3) ਵਿੱਚ ਵੇਖੋ।"
 
 #: src/virt.c:604
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
-msgstr "add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 ਤੋਂ ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
+msgstr ""
+"add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 ਤੋਂ "
+"ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
 
 #: test-tool/test-tool.c:79
 #, c-format
@@ -3661,7 +3826,9 @@ msgstr ""
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
-msgstr "LIBGUESTFS_QEMU environment variable is already set, so\n--qemu/--qemudir options cannot be used.\n"
+msgstr ""
+"LIBGUESTFS_QEMU environment variable is already set, so\n"
+"--qemu/--qemudir options cannot be used.\n"
 
 #: test-tool/test-tool.c:297
 #, c-format
@@ -3707,7 +3874,8 @@ msgstr "qemu-img ਬਣਾਓ: ਡਿਸਕ ਈਮੇਜ਼ ਬਣਾਉਣ ਤੋ�
 
 #: tools/virt-make-fs.pl:421
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
-msgstr "virt-make-fs: NTFS ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਜਦੋਂ libguestfs ਕੰਪਾਈਲ ਕੀਤੀ ਜਾਂਦੀ ਸੀ\n"
+msgstr ""
+"virt-make-fs: NTFS ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਜਦੋਂ libguestfs ਕੰਪਾਈਲ ਕੀਤੀ ਜਾਂਦੀ ਸੀ\n"
 
 #: tools/virt-make-fs.pl:462
 msgid "tar: failed, see earlier messages\n"
@@ -3722,7 +3890,10 @@ msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
-msgstr "virt-make-fs: ਸੰਖੇਪਾਂ ਨੂੰ ਫਾਇਲ-ਸਿਸਟਮ ਵਿੱਚ ਕਾਪੀ ਕਰਦੇ ਸਮੇਂ ਗਲਤੀ ਆਈ ਹੈ\nਏਥੇ ਗਲਤੀ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਪਰੋਗਰਾਮ ਨੂੰ ਫਾਇਲ-ਸਿਸਟਮ ਦੇ ਅਕਾਰ ਦਾ ਸਹੀ ਤਰਾਂ ਪਤਾ ਨਹੀਂ\nਲੱਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ manpage ਦਾ BUGS ਭਾਗ ਪੜ੍ਹੋ।\n"
+msgstr ""
+"virt-make-fs: ਸੰਖੇਪਾਂ ਨੂੰ ਫਾਇਲ-ਸਿਸਟਮ ਵਿੱਚ ਕਾਪੀ ਕਰਦੇ ਸਮੇਂ ਗਲਤੀ ਆਈ ਹੈ\n"
+"ਏਥੇ ਗਲਤੀ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਪਰੋਗਰਾਮ ਨੂੰ ਫਾਇਲ-ਸਿਸਟਮ ਦੇ ਅਕਾਰ ਦਾ ਸਹੀ ਤਰਾਂ ਪਤਾ ਨਹੀਂ\n"
+"ਲੱਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ manpage ਦਾ BUGS ਭਾਗ ਪੜ੍ਹੋ।\n"
 
 #: tools/virt-tar.pl:193 tools/virt-tar.pl:200
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
@@ -3751,12 +3922,21 @@ msgstr "virt-tar: {dir}: ਡਾਇਰੈਕਟਰੀ ਨਾਂ  '/' ਅੱਖਰ
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
-msgstr "{prog}: No operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by libguestfs.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n"
+msgstr ""
+"{prog}: No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by libguestfs.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
 
 #: tools/virt-tar.pl:257 tools/virt-win-reg.pl:265
 #, perl-brace-format
