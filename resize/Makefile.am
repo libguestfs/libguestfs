@@ -17,8 +17,6 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-SOURCES =
-
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-resize.pod \
@@ -26,16 +24,16 @@ EXTRA_DIST = \
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize test.img
 
-if HAVE_OCAML
-
 # Alphabetical order.
-SOURCES += \
+SOURCES = \
 	progress_c.c \
 	progress.mli \
 	progress.ml \
 	resize.ml \
 	utils.ml \
 	utils_tests.ml
+
+if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \

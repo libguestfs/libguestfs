@@ -17,8 +17,6 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-SOURCES =
-
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-sparsify.pod \
@@ -26,15 +24,15 @@ EXTRA_DIST = \
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify test.img
 
-if HAVE_OCAML
-
 # Alphabetical order.
-SOURCES += \
+SOURCES = \
 	progress_c.c \
 	progress.mli \
 	progress.ml \
 	sparsify.ml \
 	utils.ml
+
+if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \

@@ -17,8 +17,6 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-SOURCES =
-
 EXTRA_DIST = \
 	$(SOURCES) \
 	test-virt-sysprep.sh \
@@ -26,10 +24,8 @@ EXTRA_DIST = \
 
 CLEANFILES = stamp-virt-sysprep.pod
 
-if HAVE_OCAML
-
 # Alphabetical order.
-SOURCES += \
+SOURCES = \
 	main.ml \
 	sysprep_operation.ml \
 	sysprep_operation.mli \
@@ -49,6 +45,8 @@ SOURCES += \
 	sysprep_operation_utmp.ml \
 	sysprep_operation_yum_uuid.ml \
 	utils.ml
+
+if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
