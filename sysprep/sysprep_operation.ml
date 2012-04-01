@@ -178,6 +178,11 @@ let perform_operations ?operations g root =
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 
-  let flags = List.map (fun op -> op.perform g root) ops in
+  let flags =
+    List.map (
+      fun op ->
+        (* eprintf "calling %S.perform g %S\n" op.name root; *)
+        op.perform g root
+    ) ops in
 
   List.flatten flags
