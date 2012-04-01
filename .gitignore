@@ -281,7 +281,6 @@ po/Makevars.template
 po/POTFILES
 po/quot.sed
 po/remove-potcdate.sed
-po/remove-potcdate.sin
 po/Rules-quot
 po/stamp-it
 po/stamp-po
