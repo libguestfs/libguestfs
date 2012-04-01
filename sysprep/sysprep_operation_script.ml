@@ -33,14 +33,7 @@ let set_scriptdir dir =
   scriptdir := Some dir
 
 let scripts = ref []
-let add_script script =
-  (* Sanity check that the script is executable. *)
-  let statbuf = stat script in
-  if statbuf.st_perm land 0o555 = 0 then (
-    eprintf "virt-sysprep: script: %s: script is not executable\n" script;
-    exit 1
-  );
-  scripts := script :: !scripts
+let add_script script = scripts := script :: !scripts
 
 let rec script_perform (g : Guestfs.guestfs) root =
   let scripts = List.rev !scripts in
@@ -132,7 +125,10 @@ will be created.";
     "\
 Run the named C<script> (a shell script or program) against the
 guest.  The script can be any program on the host.  The script's
-current directory will be the guest's root directory.";
+current directory will be the guest's root directory.
+
+B<Note:> If the script is not on the $PATH, then you must give
+the full absolute path to the script.";
   ];
   perform = script_perform;
 }
