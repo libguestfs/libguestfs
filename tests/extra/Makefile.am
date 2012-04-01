@@ -29,7 +29,6 @@
 # XXX Not tested:
 #
 # ../edit/virt-edit
-# ../sysprep/virt-sysprep
 #
 # Perl bindings
 # ../edit/virt-edit -e
@@ -79,6 +78,7 @@ extra-tests: \
 	test-df-real \
 	test-filesystems-real \
 	test-inspector-real \
+	test-sysprep-real \
 	test-ocaml \
 	test-resize \
 	test-sparsify
@@ -127,6 +127,11 @@ test-tools-internal:
 	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/fedora-md1.img -a ../guests/fedora-md2.img >/dev/null
 	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/ubuntu.img >/dev/null
 	$(RUN_VG) ../../inspector/virt-inspector -a ../guests/windows.img >/dev/null
+	$(RUN_VG) ../../sysprep/virt-sysprep -n -a ../guests/debian.img
+	$(RUN_VG) ../../sysprep/virt-sysprep -n -a ../guests/fedora.img
+	$(RUN_VG) ../../sysprep/virt-sysprep -n -a ../guests/fedora-md1.img -a ../guests/fedora-md2.img
+	$(RUN_VG) ../../sysprep/virt-sysprep -n -a ../guests/ubuntu.img
+	$(RUN_VG) ../../sysprep/virt-sysprep -n -a ../guests/windows.img
 
 # Invocations of tools on real images shouldn't leak memory.
 test-df-real:
@@ -145,6 +150,14 @@ test-inspector-real:
 	@for g in $(random_guests); do \
 	  echo $(RUN_VG) ../../inspector/virt-inspector -d $$g; \
 	  $(RUN_VG) ../../inspector/virt-inspector -d $$g > /dev/null; \
+	  r=$$?; \
+	  if [ $$r -ne 0 ]; then exit $$r; fi; \
+	done
+
+test-sysprep-real:
+	@for g in $(random_guests); do \
+	  echo $(RUN_VG) ../../sysprep/virt-sysprep -n -d $$g; \
+	  $(RUN_VG) ../../sysprep/virt-sysprep -n -d $$g > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
