@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES) \
 	test-virt-sysprep.sh \
+	test-virt-sysprep-script.sh script1.sh script2.sh script3.sh \
 	virt-sysprep.pod
 
 CLEANFILES = \
@@ -124,10 +125,14 @@ random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 
 TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
+	abs_builddir=$(abs_builddir) \
+	abs_srcdir=$(abs_srcdir) \
 	$(top_builddir)/run
 
 if ENABLE_APPLIANCE
-TESTS = test-virt-sysprep.sh
+TESTS = \
+	test-virt-sysprep.sh \
+	test-virt-sysprep-script.sh
 endif ENABLE_APPLIANCE
 
 # Dependencies.

@@ -342,6 +342,8 @@ src/.libs/libguestfs.so
 src/stamp-guestfs.pod
 stamp-h1
 sysprep/.depend
+sysprep/stamp-script1.sh
+sysprep/stamp-script2.sh
 sysprep/stamp-virt-sysprep.pod
 sysprep/sysprep-extra-options.pod
 sysprep/sysprep-operations.pod
