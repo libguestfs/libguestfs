@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs virt-sysprep test script
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,14 +20,13 @@ export LANG=C
 set -e
 
 if [ ! -w /dev/fuse ]; then
-    echo "SKIPPING virt-sysprep test, because there is no /dev/fuse."
+    echo "$0: SKIPPING test, because there is no /dev/fuse."
     exit 0
 fi
 
-rm -f test.img
+# virt-sysprep with the -n option doesn't modify the guest.  It ought
+# to be able to sysprep any of our test guests.
 
-qemu-img create -f qcow2 -o backing_file=../tests/guests/fedora.img test.img
-
-./virt-sysprep -a test.img
-
-rm -f test.img
+for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
+    ./virt-sysprep -n -a $f
+done
