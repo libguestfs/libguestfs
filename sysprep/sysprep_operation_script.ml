@@ -139,7 +139,7 @@ The mount point (an empty directory on the host) used when
 the C<script> operation is enabled and one or more scripts
 are specified using I<--script> parameter(s).
 
-Note that C<scriptdir> B<must> be an absolute path.
+B<Note:> C<scriptdir> B<must> be an absolute path.
 
 If I<--scriptdir> is not specified then a temporary mountpoint
 will be created.";
