@@ -52,13 +52,26 @@ let rec script_perform (g : Guestfs.guestfs) root =
     g#mount_local scriptdir;
 
     (* Run the script(s)/program(s). *)
-    run_scripts scriptdir scripts;
+    let pid = run_scripts scriptdir scripts in
 
     (* Run FUSE. *)
     g#mount_local_run ();
 
+    let ok =
+      match snd (waitpid [] pid) with
+      | WEXITED 0 -> true
+      | WEXITED i ->
+        eprintf "virt-sysprep: script: failed (code %d)\n" i;
+        false
+      | WSIGNALED i
+      | WSTOPPED i ->
+        eprintf "virt-sysprep: script: killed by signal (%d)\n" i;
+        false in
+
     (* Remote temporary directory / mountpoint. *)
-    if cleanup then rmdir scriptdir
+    if cleanup then rmdir scriptdir;
+
+    if not ok then failwith "script failed"
   );
   []
 
@@ -87,7 +100,8 @@ trap sysprep_unmount INT TERM QUIT EXIT ERR\n" (Filename.quote mp) ^
   if pid = 0 then ( (* child *)
     chdir mp;
     execv sh args
-  )
+  );
+  pid
 
 let script_op = {
   name = "script";
