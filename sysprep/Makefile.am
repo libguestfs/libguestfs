@@ -22,7 +22,10 @@ EXTRA_DIST = \
 	test-virt-sysprep.sh \
 	virt-sysprep.pod
 
-CLEANFILES = stamp-virt-sysprep.pod
+CLEANFILES = \
+	*~ *.cmi *.cmo *.cmx *.cmxa *.o \
+	virt-sysprep virt-sysprep.1 \
+	stamp-virt-sysprep.pod
 
 # Alphabetical order.
 SOURCES = \
