@@ -133,6 +133,11 @@ do_mkfs_opts (const char *fstype, const char *device, int blocksize,
       ADD_ARG (argv, i, "-c");
       ADD_ARG (argv, i, blocksize_str);
     }
+    else if (STREQ (fstype, "btrfs")) {
+      /* For btrfs, blocksize cannot be specified (RHBZ#807905). */
+      reply_with_error ("blocksize cannot be set on btrfs filesystems");
+      return -1;
+    }
     else {
       /* For all other filesystem types, try the -b option. */
       snprintf (blocksize_str, sizeof blocksize_str, "%d", blocksize);
