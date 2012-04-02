@@ -84,3 +84,112 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
   free (err);
   return 0;
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_mkfs_btrfs (const char *device,
+               int64_t allocstart, int64_t bytecount, const char *datatype,
+               int leafsize, const char *label, const char *metadata,
+               int nodesize, int sectorsize)
+{
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  int r;
+  char *err;
+  char allocstart_s[64];
+  char bytecount_s[64];
+  char leafsize_s[64];
+  char nodesize_s[64];
+  char sectorsize_s[64];
+
+  ADD_ARG (argv, i, "mkfs.btrfs");
+
+  /* Optional arguments. */
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_ALLOCSTART_BITMASK) {
+    if (allocstart < 0) {
+      reply_with_error ("allocstart must be >= 0");
+      return -1;
+    }
+    snprintf (allocstart_s, sizeof allocstart_s, "%" PRIi64, allocstart);
+    ADD_ARG (argv, i, "--alloc-start");
+    ADD_ARG (argv, i, allocstart_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_BYTECOUNT_BITMASK) {
+    if (bytecount <= 0) { /* actually the minimum is 256MB */
+      reply_with_error ("bytecount must be > 0");
+      return -1;
+    }
+    snprintf (bytecount_s, sizeof bytecount_s, "%" PRIi64, bytecount);
+    ADD_ARG (argv, i, "--byte-count");
+    ADD_ARG (argv, i, bytecount_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_DATATYPE_BITMASK) {
+    if (STRNEQ (datatype, "raid0") && STRNEQ (datatype, "raid1") &&
+        STRNEQ (datatype, "raid10") && STRNEQ (datatype, "single")) {
+      reply_with_error ("datatype not one of the allowed values");
+      return -1;
+    }
+    ADD_ARG (argv, i, "--data");
+    ADD_ARG (argv, i, datatype);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_LEAFSIZE_BITMASK) {
+    if (!is_power_of_2 (leafsize) || leafsize <= 0) {
+      reply_with_error ("leafsize must be > 0 and a power of two");
+      return -1;
+    }
+    snprintf (leafsize_s, sizeof leafsize_s, "%d", leafsize);
+    ADD_ARG (argv, i, "--leafsize");
+    ADD_ARG (argv, i, leafsize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_LABEL_BITMASK) {
+    ADD_ARG (argv, i, "--label");
+    ADD_ARG (argv, i, label);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_METADATA_BITMASK) {
+    if (STRNEQ (metadata, "raid0") && STRNEQ (metadata, "raid1") &&
+        STRNEQ (metadata, "raid10") && STRNEQ (metadata, "single")) {
+      reply_with_error ("metadata not one of the allowed values");
+      return -1;
+    }
+    ADD_ARG (argv, i, "--metadata");
+    ADD_ARG (argv, i, metadata);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_NODESIZE_BITMASK) {
+    if (!is_power_of_2 (nodesize) || nodesize <= 0) {
+      reply_with_error ("nodesize must be > 0 and a power of two");
+      return -1;
+    }
+    snprintf (nodesize_s, sizeof nodesize_s, "%d", nodesize);
+    ADD_ARG (argv, i, "--nodesize");
+    ADD_ARG (argv, i, nodesize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKFS_BTRFS_SECTORSIZE_BITMASK) {
+    if (!is_power_of_2 (sectorsize) || sectorsize <= 0) {
+      reply_with_error ("sectorsize must be > 0 and a power of two");
+      return -1;
+    }
+    snprintf (sectorsize_s, sizeof sectorsize_s, "%d", sectorsize);
+    ADD_ARG (argv, i, "--sectorsize");
+    ADD_ARG (argv, i, sectorsize_s);
+  }
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}

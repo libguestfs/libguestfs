@@ -142,6 +142,7 @@ gobject/guestfs-gobject-optargs-copy_file_to_file.c
 gobject/guestfs-gobject-optargs-e2fsck.c
 gobject/guestfs-gobject-optargs-inspect_get_icon.c
 gobject/guestfs-gobject-optargs-md_create.c
+gobject/guestfs-gobject-optargs-mkfs_btrfs.c
 gobject/guestfs-gobject-optargs-mkfs_opts.c
 gobject/guestfs-gobject-optargs-mount_9p.c
 gobject/guestfs-gobject-optargs-mount_local.c

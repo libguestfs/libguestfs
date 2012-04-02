@@ -6929,6 +6929,17 @@ replacement
 
 =back");
 
+  ("mkfs_btrfs", (RErr, [Device "device"], [OInt64 "allocstart"; OInt64 "bytecount"; OString "datatype"; OInt "leafsize"; OString "label"; OString "metadata"; OInt "nodesize"; OInt "sectorsize"]), 317, [Optional "btrfs"],
+   [InitEmpty, Always, TestRun (
+     [["part_disk"; "/dev/sda"; "mbr"];
+      ["mkfs_btrfs"; "/dev/sda1"; "0"; "268435456"; "single"; "4096"; "test"; "single"; "4096"; "512"]])],
+   "create a btrfs filesystem",
+   "\
+Create a btrfs filesystem, allowing all configurables to be set.
+For more information on the optional arguments, see L<mkfs.btrfs(8)>.
+
+To create general filesystems, use C<guestfs_mkfs_opts>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
