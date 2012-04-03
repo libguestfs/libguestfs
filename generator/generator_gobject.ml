@@ -391,7 +391,7 @@ let generate_gobject_optargs_source name optargs flags () =
   pr "G_DEFINE_TYPE(%s, guestfs_%s, G_TYPE_OBJECT);\n\n" camel_name name;
 
   pr "enum {\n";
-  pr "PROP_GUESTFS_%s_PROP0" uc_name;
+  pr "  PROP_GUESTFS_%s_PROP0" uc_name;
   List.iter (
     fun optargt ->
       let uc_optname = String.uppercase (name_of_optargt optargt) in
