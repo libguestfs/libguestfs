@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-02 13:55+0100\n"
+"POT-Creation-Date: 2012-04-03 13:54+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -3456,7 +3456,7 @@ msgstr ""
 "no está disponible la inspección API debido a que esta versión de libguestfs "
 "ha sido compilada sin la biblioteca bivex"
 
-#: src/inspect.c:756 src/inspect_fs.c:503 src/inspect_fs.c:547
+#: src/inspect.c:756 src/inspect_fs.c:506 src/inspect_fs.c:550
 #: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:728
 #: src/inspect_fs_unix.c:1311
 #, c-format
@@ -3476,12 +3476,12 @@ msgstr ""
 "%s: no se ha encontrado un dispositivo raíz: sólo invoque esta función con "
 "un dispositivo raíz previamente obtenido mediante  guestfs_inspect_os"
 
-#: src/inspect_fs.c:346 src/inspect_fs.c:359
+#: src/inspect_fs.c:349 src/inspect_fs.c:362
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "no se pudo analizar el entero en el número de la versión: %s"
 
-#: src/inspect_fs.c:512
+#: src/inspect_fs.c:515
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: el archivo está vacío"

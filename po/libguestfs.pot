@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.16.14\n"
+"Project-Id-Version: libguestfs 1.16.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-02 13:55+0100\n"
+"POT-Creation-Date: 2012-04-03 13:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3196,7 +3196,7 @@ msgid ""
 "without the hivex library"
 msgstr ""
 
-#: src/inspect.c:756 src/inspect_fs.c:503 src/inspect_fs.c:547
+#: src/inspect.c:756 src/inspect_fs.c:506 src/inspect_fs.c:550
 #: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:728
 #: src/inspect_fs_unix.c:1311
 #, c-format
@@ -3214,12 +3214,12 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect_fs.c:346 src/inspect_fs.c:359
+#: src/inspect_fs.c:349 src/inspect_fs.c:362
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect_fs.c:512
+#: src/inspect_fs.c:515
 #, c-format
 msgid "%s: file is empty"
 msgstr ""
