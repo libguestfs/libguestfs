@@ -554,10 +554,7 @@ virt-sysprep ideas
    that you would want to look into.
  - secure erase of inodes etc using scrub (Steve Grubb)
  - other directories that could require cleaning include:
-    /var/cache/gdm/*
-    /var/lib/fprint/*
     /var/run/*
-    /var/lib/AccountService/users/*
     /var/lib/sss/db/*
     /var/lib/samba/*
     /var/lib/samba/*/*

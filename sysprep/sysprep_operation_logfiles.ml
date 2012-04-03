@@ -42,6 +42,11 @@ let globs = List.sort compare [
   "/root/install.log";
   "/root/install.log.syslog";
   "/root/anaconda-ks.cfg";
+
+  (* GDM and session preferences. *)
+  "/var/cache/gdm/*";
+  "/var/lib/AccountService/users/*";
+  "/var/lib/fprint/*";                  (* Fingerprint service files *)
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
