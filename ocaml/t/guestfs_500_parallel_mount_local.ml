@@ -33,7 +33,10 @@ external _exit : int -> 'a = "ocaml_guestfs__exit"
 let total_time = 60.                 (* seconds, excluding launch *)
 let debug = true                     (* overview debugging messages *)
 let min_threads = 2
+let max_threads = 12
 let mbytes_per_thread = 900
+
+let clip low high v = min high (max low v)
 
 let rec main () =
   Random.self_init ();
@@ -49,7 +52,8 @@ let rec main () =
       | _ -> None in
     match mbytes with
     | None -> min_threads (* default *)
-    | Some mbytes -> max min_threads (mbytes / mbytes_per_thread) in
+    | Some mbytes ->
+      clip min_threads max_threads (mbytes / mbytes_per_thread) in
 
   let threads = ref [] in
   for i = 1 to nr_threads do
