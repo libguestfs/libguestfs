@@ -170,7 +170,8 @@ check_filesystem (guestfs_h *g, const char *device,
 
   /* Grub /boot? */
   if (guestfs_is_file (g, "/grub/menu.lst") > 0 ||
-      guestfs_is_file (g, "/grub/grub.conf") > 0)
+      guestfs_is_file (g, "/grub/grub.conf") > 0 ||
+      guestfs_is_file (g, "/grub2/grub.cfg") > 0)
     fs->content = FS_CONTENT_LINUX_BOOT;
   /* FreeBSD root? */
   else if (is_dir_etc &&
@@ -219,7 +220,9 @@ check_filesystem (guestfs_h *g, const char *device,
   }
   /* Linux root? */
   else if (is_dir_etc &&
-           is_dir_bin &&
+           (is_dir_bin ||
+            (guestfs_is_symlink (g, "/bin") > 0 &&
+             guestfs_is_dir (g, "/usr/bin") > 0)) &&
            guestfs_is_file (g, "/etc/fstab") > 0) {
     fs->is_root = 1;
     fs->content = FS_CONTENT_LINUX_ROOT;
