@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-04-02 18:42+0200\n"
+"POT-Creation-Date: 2012-04-03 12:57+0200\n"
 "PO-Revision-Date: 2012-03-30 17:30+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -49886,81 +49886,107 @@ msgstr "logfiles"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:23
-msgid "Remove many log files."
-msgstr "ほとんどのログファイルを削除します。"
+msgid "Remove many log files.  On Linux the following files are removed:"
+msgstr ""
+
+#. type: verbatim
+#: ../sysprep/sysprep-operations.pod:25
+#, no-wrap
+msgid ""
+" /root/anaconda-ks.cfg\n"
+" /root/install.log\n"
+" /root/install.log.syslog\n"
+" /var/cache/gdm/*\n"
+" /var/lib/AccountService/users/*\n"
+" /var/lib/fprint/*\n"
+" /var/log/*.log*\n"
+" /var/log/audit/*\n"
+" /var/log/btmp*\n"
+" /var/log/cron*\n"
+" /var/log/dmesg*\n"
+" /var/log/lastlog*\n"
+" /var/log/mail/*\n"
+" /var/log/maillog*\n"
+" /var/log/messages*\n"
+" /var/log/secure*\n"
+" /var/log/spooler*\n"
+" /var/log/tallylog*\n"
+" /var/log/wtmp*\n"
+"\n"
+msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:25
+#: ../sysprep/sysprep-operations.pod:45
 #, fuzzy
 #| msgid "mail-spool"
 msgid "B<mail-spool>"
 msgstr "mail-spool"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:27
+#: ../sysprep/sysprep-operations.pod:47
 msgid "Remove email from the local mail spool directory."
 msgstr "ローカルのメールスプールのディレクトリから電子メールを削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:29
+#: ../sysprep/sysprep-operations.pod:49
 #, fuzzy
 #| msgid "net-hwaddr"
 msgid "B<net-hwaddr>"
 msgstr "net-hwaddr"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:31
+#: ../sysprep/sysprep-operations.pod:51
 msgid ""
 "Remove HWADDR (hard-coded MAC address) configuration.  For Fedora and Red "
 "Hat Enterprise Linux, this is removed from C<ifcfg-*> files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:34
+#: ../sysprep/sysprep-operations.pod:54
 #, fuzzy
 #| msgid "random-seed"
 msgid "B<random-seed>"
 msgstr "random-seed"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:36
+#: ../sysprep/sysprep-operations.pod:56
 msgid ""
 "Write some random bytes from the host into the random seed file of the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:39
+#: ../sysprep/sysprep-operations.pod:59
 msgid "See L</RANDOM SEED> below."
 msgstr "以下の L</RANDOM SEED> を参照してください。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:41
+#: ../sysprep/sysprep-operations.pod:61
 #, fuzzy
 #| msgid "rhn-systemid"
 msgid "B<rhn-systemid>"
 msgstr "rhn-systemid"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:43
+#: ../sysprep/sysprep-operations.pod:63
 msgid "Remove the RHN system ID."
 msgstr "RHN システム ID を削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:45
+#: ../sysprep/sysprep-operations.pod:65
 #, fuzzy
 #| msgid "B<shell scripts>"
 msgid "B<script>"
 msgstr "B<シェルスクリプト>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:47
+#: ../sysprep/sysprep-operations.pod:67
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:50
+#: ../sysprep/sysprep-operations.pod:70
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -49968,14 +49994,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:54
+#: ../sysprep/sysprep-operations.pod:74
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:57
+#: ../sysprep/sysprep-operations.pod:77
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm etc/"
@@ -49984,45 +50010,45 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:63
+#: ../sysprep/sysprep-operations.pod:83
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:66
+#: ../sysprep/sysprep-operations.pod:86
 #, fuzzy
 #| msgid "smolt-uuid"
 msgid "B<smolt-uuid>"
 msgstr "smolt-uuid"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:68
+#: ../sysprep/sysprep-operations.pod:88
 msgid "Remove the Smolt hardware UUID."
 msgstr "Smolt ハードウェア UUID を削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:70
+#: ../sysprep/sysprep-operations.pod:90
 #, fuzzy
 #| msgid "ssh-hostkeys"
 msgid "B<ssh-hostkeys>"
 msgstr "ssh-hostkeys"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:72
+#: ../sysprep/sysprep-operations.pod:92
 msgid "Remove the SSH host keys in the guest."
 msgstr "仮想マシンの SSH ホストキーを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:74
+#: ../sysprep/sysprep-operations.pod:94
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
 msgstr "仮想マシンの次回起動時に（異なる） SSH ホストキーが再生成されます。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:77
+#: ../sysprep/sysprep-operations.pod:97
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
@@ -50031,7 +50057,7 @@ msgstr ""
 "という警告が ssh により表示されます:"
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:80
+#: ../sysprep/sysprep-operations.pod:100
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -50047,21 +50073,21 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:85
+#: ../sysprep/sysprep-operations.pod:105
 #, fuzzy
 #| msgid "udev-persistent-net"
 msgid "B<udev-persistent-net>"
 msgstr "udev-persistent-net"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:87
+#: ../sysprep/sysprep-operations.pod:107
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:90
+#: ../sysprep/sysprep-operations.pod:110
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -50075,19 +50101,19 @@ msgstr ""
 "ます。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:95
+#: ../sysprep/sysprep-operations.pod:115
 #, fuzzy
 #| msgid "utmp"
 msgid "B<utmp>"
 msgstr "utmp"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:97
+#: ../sysprep/sysprep-operations.pod:117
 msgid "Remove the utmp file."
 msgstr "utmp ファイルを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:99
+#: ../sysprep/sysprep-operations.pod:119
 #, fuzzy
 #| msgid ""
 #| "This records who is currently logged in on a machine.  In modern Linux "
@@ -50103,19 +50129,19 @@ msgstr ""
 "ませんが、古いディストリビューションではディスクに保存されていました。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:103
+#: ../sysprep/sysprep-operations.pod:123
 #, fuzzy
 #| msgid "yum-uuid"
 msgid "B<yum-uuid>"
 msgstr "yum-uuid"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:105
+#: ../sysprep/sysprep-operations.pod:125
 msgid "Remove the yum UUID."
 msgstr "yum UUID を削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:107
+#: ../sysprep/sysprep-operations.pod:127
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
@@ -52688,6 +52714,9 @@ msgid ""
 msgstr ""
 "L<https://bugzilla.redhat.com/> の新規バグ報告に /tmp/virt-win-reg.log を添付"
 "してください"
+
+#~ msgid "Remove many log files."
+#~ msgstr "ほとんどのログファイルを削除します。"
 
 #~ msgid ""
 #~ "Virt-sysprep is a simple shell script, allowing easy inspection or "

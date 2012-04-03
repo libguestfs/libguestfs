@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-02 18:42+0100\n"
+"POT-Creation-Date: 2012-04-03 12:57+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3471,7 +3471,7 @@ msgid ""
 "without the hivex library"
 msgstr ""
 
-#: src/inspect.c:760 src/inspect_fs.c:523 src/inspect_fs.c:567
+#: src/inspect.c:760 src/inspect_fs.c:526 src/inspect_fs.c:570
 #: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:744
 #: src/inspect_fs_unix.c:1331
 #, c-format
@@ -3491,12 +3491,12 @@ msgstr ""
 "%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
 "guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 
-#: src/inspect_fs.c:360 src/inspect_fs.c:373
+#: src/inspect_fs.c:363 src/inspect_fs.c:376
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
 
-#: src/inspect_fs.c:532
+#: src/inspect_fs.c:535
 #, c-format
 msgid "%s: file is empty"
 msgstr "%s: ਫਾਇਲ ਖਾਲੀ ਹੈ"
