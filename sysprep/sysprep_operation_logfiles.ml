@@ -22,7 +22,8 @@ open Sysprep_operation
 
 module G = Guestfs
 
-let globs = [
+let globs = List.sort compare [
+  (* log files *)
   "/var/log/*.log*";
   "/var/log/audit/*";
   "/var/log/btmp*";
@@ -36,6 +37,11 @@ let globs = [
   "/var/log/spooler*";
   "/var/log/tallylog*";
   "/var/log/wtmp*";
+
+  (* yum installation files *)
+  "/root/install.log";
+  "/root/install.log.syslog";
+  "/root/anaconda-ks.cfg";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 

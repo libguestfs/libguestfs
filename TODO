@@ -564,7 +564,6 @@ virt-sysprep ideas
    (thanks Marko Myllynen, James Antill)
  - remove or modify UUIDs in /etc/fstab (eg. on Ubuntu)
    (thanks Joshua Daniel Franklin)
- - delete installation logfiles under /root
 
 Launch remote sessions over ssh
 -------------------------------
