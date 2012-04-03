@@ -1,3 +1,151 @@
+Release notes for libguestfs 1.18.0
+-----------------------------------
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.16.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+New features
+
+  virt tools:
+
+   - virt-sysprep has been rewritten and expanded
+
+   - virt-filesystems now displays the parents of MD and VG devices
+
+   - virt-sparsify --zero is a new option that zeroes the named
+     partition or filesystem
+
+   - virt-sparsify can now safely sparsify Linux swap partitions
+
+   - virt-sparsify now handles ^C cleanly
+
+   - virt-edit now preserves permissions, UID, GID and SELinux context
+     when editing files
+
+   - a new tool 'libguestfs-make-fixed-appliance' is provided to build
+     fixed appliances that can be copied to other machines that don't
+     have febootstrap support
+
+  guestfish:
+
+   - the close event is passed over stdout and remote correctly
+
+   - guestfish --listen now calls cleanups properly
+
+  inspection:
+
+   - added support for Fedora 17+
+
+   - added support for FreeDOS
+
+   - added support for Buildroot and Cirros
+
+   - inspection is now compatible with Windows guests that have been
+     sysprepped (thanks Grant Williamson).
+
+  API:
+
+   - ENOTSUP (from guestfs_last_errno) is now returned for APIs that
+     are not supported
+
+  examples:
+
+   - 'copy_over' example showing how to copy between two handles
+
+   - 'display_icon' program displays the icon associated with a guest
+
+Security
+
+New APIs
+
+  isoinfo, isoinfo-device: 
+  llz: 
+  lvcreate-free: 
+  md-stat: 
+  mkfs-brtfs: 
+  mount-local, mount-local-run, umount-local: 
+  ntfsclone-in, ntfsclone-out: 
+  ntfsfix: 
+  set-label: 
+  vgmeta: 
+  wipefs: 
+  zero-free-space: 
+
+Internals
+
+ - The debian/ subdirectory has been removed.  We recommend you use
+   the official Debian packages made by Hilko Bengen.
+
+ - O_CLOEXEC / SOCK_CLOEXEC is now used for almost all file
+   descriptors that the library opens.
+
+ - Close all file descriptors and remove all signal handles in the
+   recovery process.
+
+ - Multiple gcc warnings and Coverity bugs have been fixed.  Many
+   strict-overflow bugs have also been fixed.
+
+ - Use ./configure --enable-valgrind-daemon to use valgrind on the
+   daemon.  Many errors have been fixed.
+
+ - The daemon now has a growable strings buffer type
+   (DECLARE_STRINGSBUF).
+
+ - The <guestfs.h> header file works with C++ and we have a regression
+   test for this.
+
+ - Multiple APIs which should only be called in the CONFIG state now
+   give an error if they are not.
+
+ - .gitignore fixed to use absolute paths
+
+ - gobject bindings have been expanded (thanks Matt Booth)
+
+ - gobject documentation is generated properly (thanks Matt Booth)
+
+ - CompareWithString test in the generator now works
+
+ - FUInt32, FUInt64 struct field types now use the correct XDR type
+
+ - OCaml tests are now run on bytecode and native code.
+
+ - java -Xlint:all is used, and all warnings have been fixed
+
+ - bmptopng, wrestool (etc) missing or failure no longer prints
+   warning messages
+
+ - ruby: Use RbConfig instead of Config.
+
+ - Appliance building is now thread-safe.
+
+ - Appliance now uses 'ip' instead of 'ifconfig' and 'netstat'
+   commands.
+
+Bugs fixed
+
+  [./bugs-in-changelog.sh 1.16.0..]
+
+ - 809361 inspection doesn't recognize Fedora 18 (grub2 + GPT)
+ - 807905 mkfs blocksize option breaks when creating btrfs
+ - 805070 virt-filesystems should show 'parents' of LV and RAID devices
+ - 804464 libguestfs cannot be built when LINGUAS is different then ja or uk
+ - 803664 libguestfs inspection fails on Windows XP: libguestfs: error: hivex: could not locate HKLM\SYSTEM\MountedDevices
+ - 802109 libguestfs uses putc on stderr, results in many individual 1 byte writes of debug messages
+ - 801273 Document for set-pgroup need to be updated
+ - 798196 virt-resize confuses format and output_format variables; using --output-format sets the input format
+ - 797986 virt-resize on Windows XP in sysprep state causes "UNMOUNTABLE_BOOT_VOLUME" BSOD
+ - 796520 [RFE] Prevent user from running some appliance configure commands after appliance boot up
+ - 790721 multiprovider build error: RuntimeError: link: /tmp/.guestfs-0/kernel /tmp/.guestfs-0/kernel.10139: File exists
+ - 789960 guestfsd crash when try to mount non-exist disk
+ - 788641 virt-edit doesn't preserve file permissions
+ - 786215 libguestfs inspection does not recognize FreeDOS operating system
+ - 786188 libguestfs inspection does not recognize FreeDOS install CD
+ - 785668 aug-defnode: daemon crash
+ - 784647 Libguestfs uses deprecated net-tools
+ - 769304 virt-resize on RHEL 6 kernel fails to re-read the partition table
+ - 679737 libguestfs: improve error message when zerofree is not available in the appliance
+
 Release notes for libguestfs 1.16.0
 -----------------------------------
 
