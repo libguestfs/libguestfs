@@ -16,36 +16,42 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Printf
+
 open Sysprep_operation
 
 module G = Guestfs
 
+let globs = [
+  "/var/log/*.log*";
+  "/var/log/audit/*";
+  "/var/log/btmp*";
+  "/var/log/cron*";
+  "/var/log/dmesg*";
+  "/var/log/lastlog*";
+  "/var/log/maillog*";
+  "/var/log/mail/*";
+  "/var/log/messages*";
+  "/var/log/secure*";
+  "/var/log/spooler*";
+  "/var/log/tallylog*";
+  "/var/log/wtmp*";
+]
+let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
+
 let logfiles_perform g root =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
-    List.iter (
-      fun glob -> Array.iter g#rm_rf (g#glob_expand glob)
-    ) [
-      "/var/log/*.log*";
-      "/var/log/audit/*";
-      "/var/log/btmp*";
-      "/var/log/cron*";
-      "/var/log/dmesg*";
-      "/var/log/lastlog*";
-      "/var/log/maillog*";
-      "/var/log/mail/*";
-      "/var/log/messages*";
-      "/var/log/secure*";
-      "/var/log/spooler*";
-      "/var/log/tallylog*";
-      "/var/log/wtmp*";
-    ]
+    List.iter (fun glob -> Array.iter g#rm_rf (g#glob_expand glob)) globs
   );
   []
 
 let logfiles_op = {
   name = "logfiles";
-  pod_description = "Remove many log files.";
+  pod_description = sprintf "\
+Remove many log files.  On Linux the following files are removed:
+
+%s" globs_as_pod;
   extra_args = [];
   perform = logfiles_perform;
 }
