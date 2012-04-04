@@ -26,9 +26,16 @@ Fedora/RHEL users:
 
 Debian/Ubuntu users:
 
-  Take a look at the debian/control file and install everything listed
-  in "Build-Depends".  If that is successful, you don't need to bother
-  with the rest of this section.
+  Use:
+
+    apt-get build-dep libguestfs
+
+  to install all build dependencies.  If that doesn't work, take a
+  look at the debian/control file and install everything listed
+  in "Build-Depends".
+
+  If either of those techniques is successful, you don't need to
+  bother with the rest of this section.
 
 The full requirements are described below.
 
