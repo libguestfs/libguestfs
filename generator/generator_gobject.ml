@@ -765,6 +765,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
   let api_crossref = Str.regexp "C<guestfs_\\([-_0-9a-zA-Z]+\\)>" in
   let nonapi_crossref = Str.regexp "C<\\([-_0-9a-zA-Z]+\\)>" in
   let escaped = Str.regexp "E<\\([0-9a-zA-Z]+\\)>" in
+  let literal = Str.regexp "\\(^\\|\n\\)[ \t]+\\([^\n]*\\)\\(\n\\|$\\)" in
 
   List.iter (
     fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
@@ -806,6 +807,10 @@ guestfs_session_close(GuestfsSession *session, GError **err)
       let longdesc = Str.global_substitute escaped (
           fun s ->
             "&" ^ Str.matched_group 1 s ^ ";"
+        ) longdesc in
+      let longdesc = Str.global_substitute literal (
+          fun s ->
+            "\n <![CDATA[" ^ Str.matched_group 2 s ^ "]]>\n"
         ) longdesc in
       let doc = pod2text ~width:76 name longdesc in
       let doc = String.concat "\n * " doc in
