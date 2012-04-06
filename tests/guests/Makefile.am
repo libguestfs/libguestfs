@@ -40,7 +40,7 @@ EXTRA_DIST = \
 # time and we need the tools we have built in order to make it.
 check_DATA = debian.img fedora.img fedora-md1.img fedora-md2.img ubuntu.img windows.img
 
-CLEANFILES = $(check_DATA)
+CLEANFILES = $(check_DATA) stamp-fedora-md.img
 
 # Make a (dummy) Fedora image.
 fedora.img: guest-aux/make-fedora-img.pl \
@@ -52,13 +52,17 @@ fedora.img: guest-aux/make-fedora-img.pl \
 	../../run $<
 
 # Make a (dummy) Fedora image using md devices
-fedora-md1.img fedora-md2.img: guest-aux/make-fedora-img.pl \
+fedora-md1.img fedora-md2.img: stamp-fedora-md.img
+
+stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-name.db \
 		guest-aux/fedora-packages.db
+	rm -f $@
 	TMPDIR=$(top_builddir) \
 	SRCDIR=$(srcdir) \
 	LAYOUT=partitions-md \
 	../../run $<
+	touch $@
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
 	rm -f $@ $@-t

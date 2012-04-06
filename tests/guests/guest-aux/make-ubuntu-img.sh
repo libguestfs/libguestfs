@@ -22,13 +22,13 @@ export LANG=C
 set -e
 
 # fstab file.
-cat > fstab.tmp <<EOF
+cat > fstab.tmp.$$ <<EOF
 LABEL=BOOT /boot ext2 default 0 0
 /dev/sda2 / ext2 default 1 2
 EOF
 
 # lsb-release file.
-cat > release.tmp <<'EOF'
+cat > release.tmp.$$ <<'EOF'
 DISTRIB_ID=Ubuntu
 DISTRIB_RELEASE=10.10
 DISTRIB_CODENAME=maverick
@@ -37,7 +37,7 @@ EOF
 
 # Create a disk image.
 ../../run ../../fish/guestfish <<EOF
-sparse ubuntu.img.tmp 512M
+sparse ubuntu.img.tmp.$$ 512M
 run
 
 # Format the disk.
@@ -64,9 +64,9 @@ mkdir /home
 mkdir /usr
 mkdir-p /var/lib/dpkg
 
-upload fstab.tmp /etc/fstab
+upload fstab.tmp.$$ /etc/fstab
 write /etc/debian_version "5.0.1"
-upload release.tmp /etc/lsb-release
+upload release.tmp.$$ /etc/lsb-release
 write /etc/hostname "ubuntu.invalid"
 
 upload $SRCDIR/guest-aux/debian-packages /var/lib/dpkg/status
@@ -77,5 +77,5 @@ mkdir /boot/grub
 touch /boot/grub/grub.conf
 EOF
 
-rm fstab.tmp release.tmp
-mv ubuntu.img.tmp ubuntu.img
+rm fstab.tmp.$$ release.tmp.$$
+mv ubuntu.img.tmp.$$ ubuntu.img

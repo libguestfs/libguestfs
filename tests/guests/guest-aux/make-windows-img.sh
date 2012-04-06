@@ -37,7 +37,7 @@ fi
 
 # Create a disk image.
 ../../run ../../fish/guestfish <<EOF
-sparse windows.img.tmp 512M
+sparse windows.img.tmp.$$ 512M
 run
 
 # Format the disk.
@@ -68,4 +68,4 @@ touch /autoexec.bat
 
 EOF
 
-mv windows.img.tmp windows.img
+mv windows.img.tmp.$$ windows.img
