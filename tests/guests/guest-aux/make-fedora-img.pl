@@ -38,9 +38,9 @@ foreach ('LAYOUT', 'SRCDIR') {
 }
 
 if ($ENV{LAYOUT} eq 'partitions') {
-  push (@images, 'fedora.img.tmp');
+  push (@images, "fedora.img.tmp.$$");
 
-  open(my $fstab, '>', 'fstab.tmp') or die;
+  open(my $fstab, '>', "fstab.tmp.$$") or die;
   print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
@@ -50,11 +50,11 @@ EOF
   $bootdev = '/dev/sda1';
   $rootdev = '/dev/sda2';
 
-  open(my $img, '>', 'fedora.img.tmp') or die;
+  open(my $img, '>', "fedora.img.tmp.$$") or die;
   truncate($img, 512*1024*1024) or die;
   close($img) or die;
 
-  $g->add_drive('fedora.img.tmp');
+  $g->add_drive("fedora.img.tmp.$$");
   $g->launch();
 
   $g->part_init('/dev/sda', 'mbr');
@@ -63,9 +63,9 @@ EOF
 }
 
 elsif ($ENV{LAYOUT} eq 'partitions-md') {
-  push(@images, 'fedora-md1.img.tmp', 'fedora-md2.img.tmp');
+  push(@images, "fedora-md1.img.tmp.$$", "fedora-md2.img.tmp.$$");
 
-  open(my $fstab, '>', 'fstab.tmp') or die;
+  open(my $fstab, '>', "fstab.tmp.$$") or die;
   print $fstab <<EOF;
 /dev/md0 /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
@@ -95,7 +95,7 @@ EOF
   $g->md_create('boot', ['/dev/sda1', '/dev/sdb1']);
   $g->md_create('root', ['/dev/sda2', '/dev/sdb2']);
 
-  open(my $mdadm, '>', 'mdadm.tmp') or die;
+  open(my $mdadm, '>', "mdadm.tmp.$$") or die;
   print $mdadm <<EOF;
 MAILADDR root
 AUTO +imsm +1.x -all
@@ -144,14 +144,14 @@ $g->mkdir('/etc/sysconfig');
 $g->mkdir('/usr');
 $g->mkdir_p('/var/lib/rpm');
 
-$g->upload('fstab.tmp', '/etc/fstab');
+$g->upload("fstab.tmp.$$", '/etc/fstab');
 $g->write('/etc/redhat-release', 'Fedora release 14 (Phony)');
 $g->write('/etc/fedora-release', 'Fedora release 14 (Phony)');
 $g->write('/etc/sysconfig/network', 'HOSTNAME=fedora.invalid');
 
-if (-f 'mdadm.tmp') {
-  $g->upload('mdadm.tmp', '/etc/mdadm.conf');
-  unlink('mdadm.tmp') or die;
+if (-f "mdadm.tmp.$$") {
+  $g->upload("mdadm.tmp.$$", '/etc/mdadm.conf');
+  unlink("mdadm.tmp.$$") or die;
 }
 
 $g->upload('guest-aux/fedora-name.db', '/var/lib/rpm/Name');
@@ -190,8 +190,8 @@ $g->mkfs_opts('ext2', '/dev/VG/LV2', blocksize => 1024);
 $g->mkfs_opts('ext2', '/dev/VG/LV3', blocksize => 2048);
 
 # Cleanup
-unlink('fstab.tmp') or die;
+unlink("fstab.tmp.$$") or die;
 foreach my $img (@images) {
-  $img =~ /^(.*)\.tmp$/ or die;
+  $img =~ /^(.*)\.tmp\.\d+$/ or die;
   rename($img, $1) or die;
 }

@@ -374,6 +374,7 @@ tests/guests/fedora-md1.img
 tests/guests/fedora-md2.img
 tests/guests/guest-aux/fedora-name.db
 tests/guests/guest-aux/fedora-packages.db
+tests/guests/stamp-fedora-md.img
 tests/guests/ubuntu.img
 tests/guests/windows.img
 tests/regressions/rhbz501893
