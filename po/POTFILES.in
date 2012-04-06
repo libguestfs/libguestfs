@@ -168,7 +168,6 @@ gobject/guestfs-gobject-struct-statvfs.c
 gobject/guestfs-gobject-struct-version.c
 gobject/guestfs-gobject-struct-xattr.c
 gobject/guestfs-gobject-tristate.c
-gobject/guestfs-gobject.c
 inspector/virt-inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 ocaml/guestfs_c.c
