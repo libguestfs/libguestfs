@@ -149,6 +149,7 @@ HTMLFILES = \
 	html/guestfs-erlang.3.html \
 	html/guestfs-java.3.html \
 	html/guestfs-ocaml.3.html \
+	html/guestfs-performance.3.html \
 	html/guestfs-perl.3.html \
 	html/guestfs-python.3.html \
 	html/guestfs-recipes.1.html \

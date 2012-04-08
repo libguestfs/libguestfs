@@ -7,6 +7,7 @@
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod
 ../examples/guestfs-examples.pod
+../examples/guestfs-performance.pod
 ../examples/guestfs-recipes.pod
 ../examples/guestfs-testing.pod
 ../fish/guestfish-actions.pod

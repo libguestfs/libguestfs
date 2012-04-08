@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-04-03 12:57+0200\n"
+"POT-Creation-Date: 2012-04-10 20:06+0200\n"
 "PO-Revision-Date: 2012-03-30 17:30+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -24,17 +24,18 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:3 ../cat/virt-cat.pod:3
 #: ../cat/virt-filesystems.pod:3 ../cat/virt-ls.pod:3 ../df/virt-df.pod:3
 #: ../edit/virt-edit.pod:3 ../erlang/examples/guestfs-erlang.pod:3
-#: ../examples/guestfs-examples.pod:3 ../examples/guestfs-recipes.pod:14
-#: ../examples/guestfs-testing.pod:3 ../fish/guestfish.pod:3
-#: ../fish/virt-copy-in.pod:3 ../fish/virt-copy-out.pod:3
-#: ../fish/virt-tar-in.pod:3 ../fish/virt-tar-out.pod:3
-#: ../format/virt-format.pod:3 ../fuse/guestmount.pod:3
-#: ../inspector/virt-inspector.pod:3 ../java/examples/guestfs-java.pod:3
-#: ../ocaml/examples/guestfs-ocaml.pod:3 ../perl/examples/guestfs-perl.pod:3
-#: ../python/examples/guestfs-python.pod:3 ../rescue/virt-rescue.pod:3
-#: ../resize/virt-resize.pod:3 ../ruby/examples/guestfs-ruby.pod:3
-#: ../sparsify/virt-sparsify.pod:3 ../src/guestfs.pod:3
-#: ../sysprep/virt-sysprep.pod:3 ../test-tool/libguestfs-test-tool.pod:3
+#: ../examples/guestfs-examples.pod:3 ../examples/guestfs-performance.pod:3
+#: ../examples/guestfs-recipes.pod:14 ../examples/guestfs-testing.pod:3
+#: ../fish/guestfish.pod:3 ../fish/virt-copy-in.pod:3
+#: ../fish/virt-copy-out.pod:3 ../fish/virt-tar-in.pod:3
+#: ../fish/virt-tar-out.pod:3 ../format/virt-format.pod:3
+#: ../fuse/guestmount.pod:3 ../inspector/virt-inspector.pod:3
+#: ../java/examples/guestfs-java.pod:3 ../ocaml/examples/guestfs-ocaml.pod:3
+#: ../perl/examples/guestfs-perl.pod:3 ../python/examples/guestfs-python.pod:3
+#: ../rescue/virt-rescue.pod:3 ../resize/virt-resize.pod:3
+#: ../ruby/examples/guestfs-ruby.pod:3 ../sparsify/virt-sparsify.pod:3
+#: ../src/guestfs.pod:3 ../sysprep/virt-sysprep.pod:3
+#: ../test-tool/libguestfs-test-tool.pod:3
 #: ../tools/virt-list-filesystems.pl:30 ../tools/virt-list-partitions.pl:30
 #: ../tools/virt-make-fs.pl:35 ../tools/virt-tar.pl:31
 #: ../tools/virt-win-reg.pl:35
@@ -93,13 +94,14 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:13 ../cat/virt-cat.pod:19
 #: ../cat/virt-filesystems.pod:13 ../cat/virt-ls.pod:19 ../df/virt-df.pod:21
 #: ../edit/virt-edit.pod:27 ../erlang/examples/guestfs-erlang.pod:16
-#: ../examples/guestfs-examples.pod:19 ../examples/guestfs-recipes.pod:18
-#: ../examples/guestfs-testing.pod:7 ../fish/guestfish.pod:30
-#: ../fish/virt-copy-in.pod:19 ../fish/virt-copy-out.pod:13
-#: ../fish/virt-tar-in.pod:21 ../fish/virt-tar-out.pod:15
-#: ../format/virt-format.pod:11 ../fuse/guestmount.pod:20
-#: ../inspector/virt-inspector.pod:19 ../java/examples/guestfs-java.pod:15
-#: ../ocaml/examples/guestfs-ocaml.pod:25 ../perl/examples/guestfs-perl.pod:18
+#: ../examples/guestfs-examples.pod:19 ../examples/guestfs-performance.pod:7
+#: ../examples/guestfs-recipes.pod:18 ../examples/guestfs-testing.pod:7
+#: ../fish/guestfish.pod:30 ../fish/virt-copy-in.pod:19
+#: ../fish/virt-copy-out.pod:13 ../fish/virt-tar-in.pod:21
+#: ../fish/virt-tar-out.pod:15 ../format/virt-format.pod:11
+#: ../fuse/guestmount.pod:20 ../inspector/virt-inspector.pod:19
+#: ../java/examples/guestfs-java.pod:15 ../ocaml/examples/guestfs-ocaml.pod:25
+#: ../perl/examples/guestfs-perl.pod:18
 #: ../python/examples/guestfs-python.pod:14 ../rescue/virt-rescue.pod:31
 #: ../resize/virt-resize.pod:13 ../ruby/examples/guestfs-ruby.pod:15
 #: ../sparsify/virt-sparsify.pod:11 ../src/guestfs.pod:23
@@ -1129,13 +1131,14 @@ msgstr ""
 #: ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389
 #: ../cat/virt-ls.pod:495 ../df/virt-df.pod:253 ../edit/virt-edit.pod:354
 #: ../erlang/examples/guestfs-erlang.pod:97
-#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-recipes.pod:384
-#: ../examples/guestfs-testing.pod:291 ../fish/guestfish.pod:1268
-#: ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39
-#: ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41
-#: ../format/virt-format.pod:177 ../fuse/guestmount.pod:317
-#: ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:45
-#: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39
+#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-performance.pod:102
+#: ../examples/guestfs-recipes.pod:384 ../examples/guestfs-testing.pod:291
+#: ../fish/guestfish.pod:1268 ../fish/virt-copy-in.pod:50
+#: ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47
+#: ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177
+#: ../fuse/guestmount.pod:317 ../inspector/virt-inspector.pod:501
+#: ../java/examples/guestfs-java.pod:45 ../ocaml/examples/guestfs-ocaml.pod:78
+#: ../perl/examples/guestfs-perl.pod:39
 #: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:325
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
 #: ../sparsify/virt-sparsify.pod:278 ../src/guestfs.pod:3346
@@ -1186,13 +1189,14 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404
 #: ../cat/virt-ls.pod:511 ../df/virt-df.pod:265 ../edit/virt-edit.pod:372
 #: ../erlang/examples/guestfs-erlang.pod:114
-#: ../examples/guestfs-examples.pod:49 ../examples/guestfs-recipes.pod:401
-#: ../examples/guestfs-testing.pod:302 ../fish/guestfish.pod:1300
-#: ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53
-#: ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55
-#: ../format/virt-format.pod:191 ../fuse/guestmount.pod:332
-#: ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:62
-#: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56
+#: ../examples/guestfs-examples.pod:49 ../examples/guestfs-performance.pod:114
+#: ../examples/guestfs-recipes.pod:401 ../examples/guestfs-testing.pod:302
+#: ../fish/guestfish.pod:1300 ../fish/virt-copy-in.pod:64
+#: ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62
+#: ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191
+#: ../fuse/guestmount.pod:332 ../inspector/virt-inspector.pod:524
+#: ../java/examples/guestfs-java.pod:62 ../ocaml/examples/guestfs-ocaml.pod:95
+#: ../perl/examples/guestfs-perl.pod:56
 #: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:338
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:295 ../src/guestfs.pod:3430
@@ -1554,13 +1558,13 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:153
 #: ../erlang/examples/guestfs-erlang.pod:110
-#: ../examples/guestfs-examples.pod:45 ../examples/guestfs-recipes.pod:397
-#: ../examples/guestfs-testing.pod:298 ../fish/guestfish.pod:1296
-#: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
-#: ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51
-#: ../fuse/guestmount.pod:328 ../inspector/virt-inspector.pod:510
-#: ../java/examples/guestfs-java.pod:58 ../ocaml/examples/guestfs-ocaml.pod:91
-#: ../perl/examples/guestfs-perl.pod:52
+#: ../examples/guestfs-examples.pod:45 ../examples/guestfs-performance.pod:110
+#: ../examples/guestfs-recipes.pod:397 ../examples/guestfs-testing.pod:298
+#: ../fish/guestfish.pod:1296 ../fish/virt-copy-in.pod:60
+#: ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58
+#: ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:328
+#: ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:58
+#: ../ocaml/examples/guestfs-ocaml.pod:91 ../perl/examples/guestfs-perl.pod:52
 #: ../python/examples/guestfs-python.pod:54
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3426
 #: ../test-tool/libguestfs-test-tool.pod:106
@@ -1570,12 +1574,13 @@ msgstr "АВТОРИ"
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:155
 #: ../erlang/examples/guestfs-erlang.pod:112
-#: ../examples/guestfs-examples.pod:47 ../examples/guestfs-recipes.pod:399
-#: ../examples/guestfs-testing.pod:300 ../fish/guestfish.pod:1298
-#: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
-#: ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53
-#: ../fuse/guestmount.pod:330 ../java/examples/guestfs-java.pod:60
-#: ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:54
+#: ../examples/guestfs-examples.pod:47 ../examples/guestfs-performance.pod:112
+#: ../examples/guestfs-recipes.pod:399 ../examples/guestfs-testing.pod:300
+#: ../fish/guestfish.pod:1298 ../fish/virt-copy-in.pod:62
+#: ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60
+#: ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:330
+#: ../java/examples/guestfs-java.pod:60 ../ocaml/examples/guestfs-ocaml.pod:93
+#: ../perl/examples/guestfs-perl.pod:54
 #: ../python/examples/guestfs-python.pod:56
 #: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:3428
 #: ../test-tool/libguestfs-test-tool.pod:108
@@ -4620,8 +4625,9 @@ msgstr ""
 
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:121
-#: ../examples/guestfs-examples.pod:56 ../examples/guestfs-recipes.pod:408
-#: ../examples/guestfs-testing.pod:306 ../java/examples/guestfs-java.pod:69
+#: ../examples/guestfs-examples.pod:56 ../examples/guestfs-performance.pod:118
+#: ../examples/guestfs-recipes.pod:408 ../examples/guestfs-testing.pod:306
+#: ../java/examples/guestfs-java.pod:69
 #: ../ocaml/examples/guestfs-ocaml.pod:102
 #: ../perl/examples/guestfs-perl.pod:63
 #: ../python/examples/guestfs-python.pod:65
@@ -4635,8 +4641,9 @@ msgstr ""
 
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:126
-#: ../examples/guestfs-examples.pod:61 ../examples/guestfs-recipes.pod:413
-#: ../examples/guestfs-testing.pod:311 ../java/examples/guestfs-java.pod:74
+#: ../examples/guestfs-examples.pod:61 ../examples/guestfs-performance.pod:123
+#: ../examples/guestfs-recipes.pod:413 ../examples/guestfs-testing.pod:311
+#: ../java/examples/guestfs-java.pod:74
 #: ../ocaml/examples/guestfs-ocaml.pod:107
 #: ../perl/examples/guestfs-perl.pod:68
 #: ../python/examples/guestfs-python.pod:70
@@ -4654,8 +4661,9 @@ msgstr ""
 
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:131
-#: ../examples/guestfs-examples.pod:66 ../examples/guestfs-recipes.pod:418
-#: ../examples/guestfs-testing.pod:316 ../java/examples/guestfs-java.pod:79
+#: ../examples/guestfs-examples.pod:66 ../examples/guestfs-performance.pod:128
+#: ../examples/guestfs-recipes.pod:418 ../examples/guestfs-testing.pod:316
+#: ../java/examples/guestfs-java.pod:79
 #: ../ocaml/examples/guestfs-ocaml.pod:112
 #: ../perl/examples/guestfs-perl.pod:73
 #: ../python/examples/guestfs-python.pod:75
@@ -4737,6 +4745,208 @@ msgstr ""
 #: ../ruby/examples/guestfs-ruby.pod:54
 msgid "Copyright (C) 2010 Red Hat Inc. L<http://libguestfs.org/>"
 msgstr "© Red Hat Inc. L<http://libguestfs.org/>, 2010"
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:5
+msgid "guestfs-performance - engineering libguestfs for greatest performance"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:9
+msgid ""
+"This page documents how to get the greatest performance out of libguestfs, "
+"especially when you expect to use libguestfs to manipulate thousands of "
+"virtual machines or disk images."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:13
+msgid ""
+"Three main areas are covered. Libguestfs runs an appliance (a small Linux "
+"distribution) inside qemu/KVM.  The first two areas are: minimizing the time "
+"taken to start this appliance, and the number of times the appliance has to "
+"be started.  The third area is shortening the time taken for inspection of "
+"VMs."
+msgstr ""
+
+#. type: =head1
+#: ../examples/guestfs-performance.pod:19
+msgid "BASELINE MEASUREMENTS"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:21
+msgid ""
+"Before making changes to how you use libguestfs, take baseline measurements."
+msgstr ""
+
+#. type: =head2
+#: ../examples/guestfs-performance.pod:24
+msgid "BASELINE: STARTING THE APPLIANCE"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:26
+msgid ""
+"On an unloaded machine, time how long it takes to start up the appliance:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-performance.pod:29 ../examples/guestfs-testing.pod:36
+#, no-wrap
+msgid ""
+" time guestfish -a /dev/null run\n"
+"\n"
+msgstr ""
+" time guestfish -a /dev/null run\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:31
+msgid ""
+"Run this command several times in a row and discard the first few runs, so "
+"that you are measuring a typical \"hot cache\" case."
+msgstr ""
+
+#. type: =head3
+#: ../examples/guestfs-performance.pod:34
+#: ../examples/guestfs-performance.pod:67
+msgid "Explanation"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:36
+msgid ""
+"This command starts up the libguestfs appliance on a null disk, and then "
+"immediately shuts it down.  The first time you run the command, it will "
+"create an appliance and cache it (usually under C</var/tmp/.guestfs-*>).  "
+"Subsequent runs should reuse the cached appliance."
+msgstr ""
+
+#. type: =head3
+#: ../examples/guestfs-performance.pod:42
+#: ../examples/guestfs-performance.pod:78
+msgid "Expected results"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:44
+msgid ""
+"You should expect to be getting times under 6 seconds.  If the times you see "
+"on an unloaded machine are above this, then see the section L</"
+"TROUBLESHOOTING POOR PERFORMANCE> below."
+msgstr ""
+
+#. type: =head2
+#: ../examples/guestfs-performance.pod:48
+msgid "BASELINE: PERFORMING INSPECTION OF A GUEST"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:50
+msgid ""
+"For this test you will need an unloaded machine and at least one real guest "
+"or disk image.  If you are planning to use libguestfs against only X guests "
+"(eg. X = Windows), then using an X guest here would be most appropriate.  If "
+"you are planning to run libguestfs against a mix of guests, then use a mix "
+"of guests for testing here."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:56
+msgid ""
+"Time how long it takes to perform inspection and mount the disks of the "
+"guest.  Use the first command if you will be using disk images, and the "
+"second command if you will be using libvirt."
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-performance.pod:60
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish [--ro] -i disk.img\n"
+#| "\n"
+msgid ""
+" time guestfish --ro -a disk.img -i exit\n"
+"\n"
+msgstr ""
+" guestfish [--ro] -i disk.img\n"
+"\n"
+
+#. type: verbatim
+#: ../examples/guestfs-performance.pod:62
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish --ro -d myguest -i\n"
+#| "\n"
+msgid ""
+" time guestfish --ro -d GuestName -i exit\n"
+"\n"
+msgstr ""
+" guestfish --ro -d myguest -i\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:64
+msgid ""
+"Run the command several times in a row and discard the first few runs, so "
+"that you are measuring a typical \"hot cache\" case."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:69
+msgid ""
+"This command starts up the libguestfs appliance on the named disk image or "
+"libvirt guest, performs libguestfs inspection on it (see L<guestfs(3)/"
+"INSPECTION>), mounts the guest's disks, then discards all these results and "
+"shuts down."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:74
+msgid ""
+"The first time you run the command, it will create an appliance and cache it "
+"(usually under C</var/tmp/.guestfs-*>).  Subsequent runs should reuse the "
+"cached appliance."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:80
+msgid ""
+"You should expect times which are E<le> 5 seconds greater than measured in "
+"the first baseline test above.  (For example, if the first baseline test ran "
+"in 5 seconds, then this test should run in E<le> 10 seconds)."
+msgstr ""
+
+#. type: =head1
+#: ../examples/guestfs-performance.pod:92
+msgid "TROUBLESHOOTING POOR PERFORMANCE"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:94
+msgid "** KVM ** Geode ** etc."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:104
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-rescue(1)"
+#| ">, L<virt-resize(1)>, L<http://libguestfs.org/>."
+msgid ""
+"L<guestfish(1)>, L<guestfs(3)>, L<guestfs-examples(3)>, L<libguestfs-make-"
+"fixed-appliance(1)>, L<http://libguestfs.org/>."
+msgstr ""
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-rescue(1)>, "
+"L<virt-resize(1)>, L<http://libguestfs.org/>."
+
+#. type: textblock
+#: ../examples/guestfs-performance.pod:116
+#, fuzzy
+#| msgid "Copyright (C) 2011 Red Hat Inc. L<http://libguestfs.org/>"
+msgid "Copyright (C) 2012 Red Hat Inc. L<http://libguestfs.org/>"
+msgstr "© Red Hat Inc. L<http://libguestfs.org/>, 2011"
 
 #. type: =end
 #: ../examples/guestfs-recipes.pod:3 ../examples/guestfs-recipes.pod:12
@@ -5765,16 +5975,6 @@ msgid ""
 "libguestfs should be able to start up in a few seconds.  Run the following "
 "command a few times:"
 msgstr ""
-
-#. type: verbatim
-#: ../examples/guestfs-testing.pod:36
-#, no-wrap
-msgid ""
-" time guestfish -a /dev/null run\n"
-"\n"
-msgstr ""
-" time guestfish -a /dev/null run\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-testing.pod:38

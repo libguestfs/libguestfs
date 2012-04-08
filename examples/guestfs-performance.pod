@@ -1,0 +1,395 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-performance - engineering libguestfs for greatest performance
+
+=head1 DESCRIPTION
+
+This page documents how to get the greatest performance out of
+libguestfs, especially when you expect to use libguestfs to manipulate
+thousands of virtual machines or disk images.
+
+Three main areas are covered. Libguestfs runs an appliance (a small
+Linux distribution) inside qemu/KVM.  The first two areas are:
+minimizing the time taken to start this appliance, and the number of
+times the appliance has to be started.  The third area is shortening
+the time taken for inspection of VMs.
+
+=head1 BASELINE MEASUREMENTS
+
+Before making changes to how you use libguestfs, take baseline
+measurements.
+
+=head2 BASELINE: STARTING THE APPLIANCE
+
+On an unloaded machine, time how long it takes to start up the
+appliance:
+
+ time guestfish -a /dev/null run
+
+Run this command several times in a row and discard the first few
+runs, so that you are measuring a typical "hot cache" case.
+
+=head3 Explanation
+
+This command starts up the libguestfs appliance on a null disk, and
+then immediately shuts it down.  The first time you run the command,
+it will create an appliance and cache it (usually under
+C</var/tmp/.guestfs-*>).  Subsequent runs should reuse the cached
+appliance.
+
+=head3 Expected results
+
+You should expect to be getting times under 6 seconds.  If the times
+you see on an unloaded machine are above this, then see the section
+L</TROUBLESHOOTING POOR PERFORMANCE> below.
+
+=head2 BASELINE: PERFORMING INSPECTION OF A GUEST
+
+For this test you will need an unloaded machine and at least one real
+guest or disk image.  If you are planning to use libguestfs against
+only X guests (eg. X = Windows), then using an X guest here would be
+most appropriate.  If you are planning to run libguestfs against a mix
+of guests, then use a mix of guests for testing here.
+
+Time how long it takes to perform inspection and mount the disks of
+the guest.  Use the first command if you will be using disk images,
+and the second command if you will be using libvirt.
+
+ time guestfish --ro -a disk.img -i exit
+
+ time guestfish --ro -d GuestName -i exit
+
+Run the command several times in a row and discard the first few runs,
+so that you are measuring a typical "hot cache" case.
+
+=head3 Explanation
+
+This command starts up the libguestfs appliance on the named disk
+image or libvirt guest, performs libguestfs inspection on it (see
+L<guestfs(3)/INSPECTION>), mounts the guest's disks, then discards all
+these results and shuts down.
+
+The first time you run the command, it will create an appliance and
+cache it (usually under C</var/tmp/.guestfs-*>).  Subsequent runs
+should reuse the cached appliance.
+
+=head3 Expected results
+
+You should expect times which are E<le> 5 seconds greater than
+measured in the first baseline test above.  (For example, if the first
+baseline test ran in 5 seconds, then this test should run in E<le> 10
+seconds).
+
+=head1 UNDERSTANDING THE APPLIANCE AND WHEN IT IS BUILT/CACHED
+
+The first time you use libguestfs, it will build and cache an
+appliance.  This is usually in C</var/tmp/.guestfs-*>, unless you have
+set C<$TMPDIR> in which case it will be under that temporary
+directory.
+
+For more information about how the appliance is constructed, see
+L<febootstrap(8)/SUPERMIN APPLIANCES>.
+
+Every time libguestfs runs it will check that no host files used by
+the appliance have changed.  If any have, then the appliance is
+rebuilt.  This usually happens when a package is installed or updated
+on the host (eg. using programs like C<yum> or C<apt-get>).  The
+reason for reconstructing the appliance is security: the new program
+that has been installed might contain a security fix, and so we want
+to include the fixed program in the appliance automatically.
+
+These are the performance implications:
+
+=over 4
+
+=item *
+
+The process of building (or rebuilding) the cached appliance is slow,
+and you can avoid this happening by using a fixed appliance (see
+below).
+
+=item *
+
+If not using a fixed appliance, be aware that updating software on the
+host will cause a one time rebuild of the appliance.
+
+=item *
+
+C</var/tmp> (or C<$TMPDIR>) should be on a fast disk, and have plenty
+of space for the appliance.
+
+=back
+
+=head1 USING A FIXED APPLIANCE
+
+To fully control when the appliance is built, you can build a fixed
+appliance.  This appliance can and should be stored on a fast, local
+disk.
+
+To build the appliance, run the command:
+
+ libguestfs-make-fixed-appliance <directory>
+
+replacing C<E<lt>directoryE<gt>> with the name of a directory where
+the appliance will be stored (normally you would name a subdirectory,
+for example: C</usr/local/lib/guestfs/appliance> or
+C</dev/shm/appliance>).
+
+Then set C<$LIBGUESTFS_PATH> (and ensure this environment variable is
+set in your libguestfs program), or modify your program so it calls
+C<guestfs_set_path>.  For example:
+
+ export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance
+
+Now you can run libguestfs programs, virt tools, guestfish etc. as
+normal.  The programs will use your fixed appliance, and will not ever
+build, rebuild, or cache their own appliance.
+
+(For detailed information on this subject, see:
+L<libguestfs-make-fixed-appliance(1)>).
+
+=head2 PERFORMANCE OF THE FIXED APPLIANCE
+
+In our testing we did not find that using a fixed appliance gave any
+measurable performance benefit, even when the appliance was located in
+memory (ie. on C</dev/shm>).  However there are three points to
+consider:
+
+=over 4
+
+=item 1.
+
+Using a fixed appliance stops libguestfs from ever rebuilding the
+appliance, meaning that libguestfs will have more predictable start-up
+times.
+
+=item 2.
+
+By default libguestfs (or rather, L<febootstrap-supermin-helper(8)>)
+searches over the root filesystem to find out if any host files have
+changed and if it needs to rebuild the appliance.  If these files are
+not cached and the root filesystem is on an HDD, then this generates
+lots of seeks.  Using a fixed appliance avoids all this.
+
+=item 3.
+
+The appliance is loaded on demand.  A simple test such as:
+
+ time guestfish -a /dev/null run
+
+does not load very much of the appliance.  A real libguestfs program
+using complicated API calls would demand-load a lot more of the
+appliance.  Being able to store the appliance in a specified location
+makes the performance more predictable.
+
+=back
+
+=head1 REDUCING THE NUMBER OF TIMES THE APPLIANCE IS LAUNCHED
+
+By far the most effective, though not always the simplest way to get
+good performance is to ensure that the appliance is launched the
+minimum number of times.  This will probably involve changing your
+libguestfs application.
+
+Try to call C<guestfs_launch> at most once per virtual machine.
+
+Instead of using a separate instance of L<guestfish(1)> to make a
+series of changes to the same guest, use a single instance of
+guestfish and/or use the guestfish I<--listen> option.
+
+Consider writing your program as a daemon which holds a guest open
+while making a series of changes.  Or marshal all the operations you
+want to perform before opening the guest.
+
+You can also try adding disks from multiple guests to a single
+appliance.  Before trying this, note the following points:
+
+=over 4
+
+=item 1.
+
+Adding multiple guests to one appliance is a security problem because
+it may allow one guest to interfere with the disks of another guest.
+Only do it if you trust all the guests, or if you can group guests by
+trust.
+
+=item 2.
+
+In current qemu, there is a limit of around 26 disks that can be added
+to the appliance.  In future versions of qemu (and hence libguestfs)
+we hope to lift this limit.
+
+=item 3.
+
+Using libguestfs this way is complicated.  Disks can have unexpected
+interactions: for example, if two guests use the same UUID for a
+filesystem (because they were cloned), or have volume groups with the
+same name (but see C<guestfs_lvm_set_filter>).
+
+=back
+
+L<virt-df(1)> adds multiple disks by default, so the source code for
+this program would be a good place to start.
+
+=head1 SHORTENING THE TIME TAKEN FOR INSPECTION OF VMs
+
+The main advice is obvious: Do not perform inspection (which is
+expensive) unless you need the results.
+
+If you previously performed inspection on the guest, then it may be
+safe to cache and reuse the results from last time.
+
+Some disks don't need to be inspected at all: for example, if you are
+creating a disk image, or if the disk image is not a VM, or if the
+disk image has a known layout.
+
+Even when basic inspection (C<guestfs_inspect_os>) is required,
+auxiliary inspection operations may be avoided:
+
+=over 4
+
+=item *
+
+Mounting disks is only necessary to get further filesystem
+information.
+
+=item *
+
+Listing applications (C<guestfs_inspect_list_applications>) is an
+expensive operation on Linux, but almost free on Windows.
+
+=item *
+
+Generating a guest icon (C<guestfs_inspect_get_icon>) is cheap on
+Linux but expensive on Windows.
+
+=back
+
+=head1 TROUBLESHOOTING POOR PERFORMANCE
+
+=head2 ENSURE HARDWARE VIRTUALIZATION IS AVAILABLE
+
+Use C</proc/cpuinfo> and this page:
+
+http://virt-tools.org/learning/check-hardware-virt/
+
+to ensure that hardware virtualization is available.  Note that you
+may need to enable it in your BIOS.
+
+Hardware virt is not usually available inside VMs, and libguestfs will
+run slowly inside another virtual machine whatever you do.  Nested
+virtualization does not work well in our experience, and is certainly
+no substitute for running libguestfs on baremetal.
+
+=head2 ENSURE KVM IS AVAILABLE
+
+Ensure that KVM is enabled and available to the user that will run
+libguestfs.  It should be safe to set 0666 permissions on C</dev/kvm>
+and most distributions now do this.
+
+=head2 PROCESSORS TO AVOID
+
+Avoid processors that don't have hardware virtualization, and some
+processors which are simply very slow (AMD Geode being a great
+example).
+
+=head1 DETAILED TIMINGS USING SYSTEMTAP
+
+You can use SystemTap (L<stap(1)>) to get detailed timings from
+libguestfs programs.
+
+Save the following script as C<time.stap>:
+
+ global last;
+ 
+ function display_time () {
+       now = gettimeofday_us ();
+       delta = 0;
+       if (last > 0)
+             delta = now - last;
+       last = now;
+ 
+       printf ("%d (+%d):", now, delta);
+ }
+ 
+ probe begin {
+       last = 0;
+       printf ("ready\n");
+ }
+ 
+ /* Display all calls to static markers. */
+ probe process("/usr/lib*/libguestfs.so.0")
+           .provider("guestfs").mark("*") ? {
+       display_time();
+       printf ("\t%s %s\n", $$name, $$parms);
+ }
+ 
+ /* Display all calls to guestfs_* functions. */
+ probe process("/usr/lib*/libguestfs.so.0")
+           .function("guestfs_[a-z]*") ? {
+       display_time();
+       printf ("\t%s %s\n", probefunc(), $$parms);
+ }
+
+Run it as root in one window:
+
+ # stap time.stap
+ ready
+
+It prints "ready" when SystemTap has loaded the program.  Run your
+libguestfs program, guestfish or a virt tool in another window.  For
+example:
+
+ $ guestfish -a /dev/null run
+
+In the stap window you will see a large amount of output, with the
+time taken for each step shown (microseconds in parenthesis).  For
+example:
+
+ xxxx (+0):	guestfs_create 
+ xxxx (+29):	guestfs_set_pgroup g=0x17a9de0 pgroup=0x1
+ xxxx (+9):	guestfs_add_drive_opts_argv g=0x17a9de0 [...]
+ xxxx (+8):	guestfs_safe_strdup g=0x17a9de0 str=0x7f8a153bed5d
+ xxxx (+19):	guestfs_safe_malloc g=0x17a9de0 nbytes=0x38
+ xxxx (+5):	guestfs_safe_strdup g=0x17a9de0 str=0x17a9f60
+ xxxx (+10):	guestfs_launch g=0x17a9de0
+ xxxx (+4):	launch_start 
+ [etc]
+
+You will need to consult, and even modify, the source to libguestfs to
+fully understand the output.
+
+=head1 SEE ALSO
+
+L<febootstrap(8)>,
+L<febootstrap-supermin-helper(8)>,
+L<guestfish(1)>,
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<libguestfs-make-fixed-appliance(1)>,
+L<stap(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 Red Hat Inc. L<http://libguestfs.org/>
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
