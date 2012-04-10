@@ -20,7 +20,7 @@
 # freeform string.
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [16])
-m4_define([libguestfs_release], [15])
+m4_define([libguestfs_release], [16])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 AC_CONFIG_AUX_DIR([build-aux])
