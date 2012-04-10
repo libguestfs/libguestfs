@@ -273,7 +273,7 @@ fi
 
 if [ "$hostname" = "yes" ]; then
     case "$type/$distro" in
-        linux/fedora)
+        linux/fedora|linux/rhel|linux/centos|linux/scientificlinux|linux/redhat-based)
             echo "HOSTNAME=$hostname_param" > $mnt/etc/sysconfig/network.new
             sed '/^HOSTNAME=/d' < $mnt/etc/sysconfig/network >> $mnt/etc/sysconfig/network.new
             mv -f $mnt/etc/sysconfig/network.new $mnt/etc/sysconfig/network
@@ -313,7 +313,7 @@ fi
 
 if [ "$net_hwaddr" = "yes" ]; then
     case "$type/$distro" in
-        linux/fedora)
+        linux/fedora|linux/rhel|linux/centos|linux/scientificlinux|linux/redhat-based)
             if [ -d $mnt/etc/sysconfig/network-scripts ]; then
                 rm_hwaddr ()
                 {
