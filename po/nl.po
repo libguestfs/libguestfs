@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-03 12:57+0100\n"
+"POT-Creation-Date: 2012-04-10 15:42+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/language/"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:104
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
-#: fuse/guestmount.c:65 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
+#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:207
 #: cat/virt-ls.c:196 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
-#: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:170
+#: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:171
 #: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -76,7 +76,7 @@ msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
-#: format/format.c:188 fuse/guestmount.c:198 inspector/virt-inspector.c:164
+#: format/format.c:188 fuse/guestmount.c:199 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:179
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3159,7 +3159,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr "%s: kan --lvm optie (%s) niet parsen\n"
 
-#: fuse/guestmount.c:69
+#: fuse/guestmount.c:70
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3216,32 +3216,32 @@ msgstr ""
 "  -w|--rw              Koppel read-write aan\n"
 "  -x|--trace           Traceer guestfs API aanroepen\n"
 
-#: fuse/guestmount.c:266
+#: fuse/guestmount.c:267
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: moet tenminste een -a/-d en tenminste een -m/-i optie hebben\n"
 
-#: fuse/guestmount.c:276
+#: fuse/guestmount.c:277
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr "%s: --live is niet compatibel met --ro optie\n"
 
-#: fuse/guestmount.c:283
+#: fuse/guestmount.c:284
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr "%s: --live is niet compatibel met -i optie\n"
 
-#: fuse/guestmount.c:298
+#: fuse/guestmount.c:299
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr "%s: met --live moet je exact een -d optie gebruiken\n"
 
-#: fuse/guestmount.c:305
+#: fuse/guestmount.c:306
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr "%s: --live is niet compatibel met -a optie\n"
 
-#: fuse/guestmount.c:314
+#: fuse/guestmount.c:315
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
@@ -3961,44 +3961,44 @@ msgstr "xdr_guestfs_message_header mislukte"
 msgid "dispatch failed to marshal args"
 msgstr "verzending faalde om argumenten te rangschikken"
 
-#: src/proto.c:924 src/proto.c:1225
+#: src/proto.c:939 src/proto.c:1242
 msgid "operation cancelled by user"
 msgstr "bewerking afgebroken door gebruiker"
 
-#: src/proto.c:976
+#: src/proto.c:991
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: toestand %d != READY"
 
-#: src/proto.c:992
+#: src/proto.c:1007
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk mislukted (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1151
+#: src/proto.c:1168
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: fout in chunk codering"
 
-#: src/proto.c:1179
+#: src/proto.c:1196
 msgid "write to daemon socket"
 msgstr "schrijven naar daemon socket"
 
-#: src/proto.c:1202
+#: src/proto.c:1219
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ontleed fout in antwoord callback"
 
-#: src/proto.c:1207
+#: src/proto.c:1224
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: onverwachte vlag ontvangen bij het lezen van bestand "
 "chunks"
 
-#: src/proto.c:1215
+#: src/proto.c:1232
 msgid "failed to parse file chunk"
 msgstr "bestand chunk ontleden mislukte"
 
-#: src/proto.c:1229
+#: src/proto.c:1246
 msgid "file receive cancelled by daemon"
 msgstr "bestand ontvangen geannuleerd door daemon"
 
