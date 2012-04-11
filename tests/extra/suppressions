@@ -165,3 +165,14 @@
    fun:index
    fun:expand_dynamic_string_token
 }
+
+# libvirt calls gnutls_global_init but doesn't call the
+# corresponding gnutls_global_deinit function because of
+# thread-safety issues (in GnuTLS).
+{
+   libvirt_leak
+   Memcheck:Leak
+   ...
+   fun:gnutls_global_init
+   fun:virInitialize
+}
