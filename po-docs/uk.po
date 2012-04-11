@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-03-30 16:18+0200\n"
+"POT-Creation-Date: 2012-04-11 23:19+0200\n"
 "PO-Revision-Date: 2012-01-23 13:10+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1024,8 +1024,8 @@ msgstr "Ця програма повертає:"
 #: ../src/guestfs.pod:2658 ../src/guestfs.pod:2663 ../src/guestfs.pod:2669
 #: ../src/guestfs.pod:3061 ../src/guestfs.pod:3066 ../src/guestfs.pod:3070
 #: ../src/guestfs.pod:3074 ../src/guestfs.pod:3078 ../src/guestfs.pod:3092
-#: ../src/guestfs.pod:3097 ../src/guestfs.pod:3330 ../src/guestfs.pod:3334
-#: ../src/guestfs.pod:3338 ../src/guestfs.pod:3342
+#: ../src/guestfs.pod:3097 ../src/guestfs.pod:3331 ../src/guestfs.pod:3335
+#: ../src/guestfs.pod:3339 ../src/guestfs.pod:3343
 #: ../tools/virt-win-reg.pl:197 ../tools/virt-win-reg.pl:202
 #: ../tools/virt-win-reg.pl:208 ../tools/virt-win-reg.pl:721
 #: ../tools/virt-win-reg.pl:727 ../tools/virt-win-reg.pl:733
@@ -1147,7 +1147,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56
 #: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:338
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:52
-#: ../sparsify/virt-sparsify.pod:293 ../src/guestfs.pod:3353
+#: ../sparsify/virt-sparsify.pod:293 ../src/guestfs.pod:3354
 #: ../test-tool/libguestfs-test-tool.pod:110
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
 #: ../tools/virt-make-fs.pl:589 ../tools/virt-tar.pl:315
@@ -5027,7 +5027,7 @@ msgstr ""
 #: ../java/examples/guestfs-java.pod:58 ../ocaml/examples/guestfs-ocaml.pod:91
 #: ../perl/examples/guestfs-perl.pod:52
 #: ../python/examples/guestfs-python.pod:54
-#: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3349
+#: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3350
 #: ../test-tool/libguestfs-test-tool.pod:106
 msgid "AUTHORS"
 msgstr "АВТОРИ"
@@ -5041,7 +5041,7 @@ msgstr "АВТОРИ"
 #: ../fuse/guestmount.pod:330 ../java/examples/guestfs-java.pod:60
 #: ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:54
 #: ../python/examples/guestfs-python.pod:56
-#: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:3351
+#: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:3352
 #: ../test-tool/libguestfs-test-tool.pod:108
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
@@ -5072,7 +5072,7 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:102
 #: ../perl/examples/guestfs-perl.pod:63
 #: ../python/examples/guestfs-python.pod:65
-#: ../ruby/examples/guestfs-ruby.pod:59 ../src/guestfs.pod:3358
+#: ../ruby/examples/guestfs-ruby.pod:59 ../src/guestfs.pod:3359
 msgid ""
 "This library is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU Lesser General Public License as published by the "
@@ -5087,7 +5087,7 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:107
 #: ../perl/examples/guestfs-perl.pod:68
 #: ../python/examples/guestfs-python.pod:70
-#: ../ruby/examples/guestfs-ruby.pod:64 ../src/guestfs.pod:3363
+#: ../ruby/examples/guestfs-ruby.pod:64 ../src/guestfs.pod:3364
 msgid ""
 "This library is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -5102,7 +5102,7 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:112
 #: ../perl/examples/guestfs-perl.pod:73
 #: ../python/examples/guestfs-python.pod:75
-#: ../ruby/examples/guestfs-ruby.pod:69 ../src/guestfs.pod:3368
+#: ../ruby/examples/guestfs-ruby.pod:69 ../src/guestfs.pod:3369
 msgid ""
 "You should have received a copy of the GNU Lesser General Public License "
 "along with this library; if not, write to the Free Software Foundation, "
@@ -22929,7 +22929,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish.pod:1302 ../fuse/guestmount.pod:334
-#: ../src/guestfs.pod:3355 ../test-tool/libguestfs-test-tool.pod:112
+#: ../src/guestfs.pod:3356 ../test-tool/libguestfs-test-tool.pod:112
 msgid "Copyright (C) 2009-2012 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
@@ -44240,32 +44240,33 @@ msgid ""
 "filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)"
 ">, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep"
 "(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg"
-"(1)>, L<guestfs-testing(1)>, L<qemu(1)>, L<febootstrap(1)>, L<febootstrap-"
-"supermin-helper(8)>, L<hivex(3)>, L<stap(1)>, L<http://libguestfs.org/>."
+"(1)>, L<guestfs-testing(1)>, L<libguestfs-test-tool(1)>, L<febootstrap(1)>, "
+"L<febootstrap-supermin-helper(8)>, L<qemu(1)>, L<hivex(3)>, L<stap(1)>, "
+"L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3309
+#: ../src/guestfs.pod:3310
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
 "(8)>, L<disktype(1)>."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3316 ../tools/virt-make-fs.pl:574
+#: ../src/guestfs.pod:3317 ../tools/virt-make-fs.pl:574
 #: ../tools/virt-win-reg.pl:772
 msgid "BUGS"
 msgstr "ВАДИ"
 
 #. type: textblock
-#: ../src/guestfs.pod:3318
+#: ../src/guestfs.pod:3319
 msgid "To get a list of bugs against libguestfs use this link:"
 msgstr ""
 "Щоб переглянути список відомих вад у libguestfs, скористайтеся таким "
 "посиланням:"
 
 #. type: textblock
-#: ../src/guestfs.pod:3320
+#: ../src/guestfs.pod:3321
 msgid ""
 "L<https://bugzilla.redhat.com/buglist.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -44274,12 +44275,12 @@ msgstr ""
 "component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3322
+#: ../src/guestfs.pod:3323
 msgid "To report a new bug against libguestfs use this link:"
 msgstr "Для звітування щодо вад у libguestfs скористайтеся цим посиланням:"
 
 #. type: textblock
-#: ../src/guestfs.pod:3324
+#: ../src/guestfs.pod:3325
 msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -44288,27 +44289,27 @@ msgstr ""
 "component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3326
+#: ../src/guestfs.pod:3327
 msgid "When reporting a bug, please check:"
 msgstr "Під час створення повідомлення щодо вади вам слід переконатися:"
 
 #. type: textblock
-#: ../src/guestfs.pod:3332
+#: ../src/guestfs.pod:3333
 msgid "That the bug hasn't been reported already."
 msgstr "Що про ваду вже не повідомлено кимось іншим."
 
 #. type: textblock
-#: ../src/guestfs.pod:3336
+#: ../src/guestfs.pod:3337
 msgid "That you are testing a recent version."
 msgstr "Що ви користуєтеся найсвіжішою версією."
 
 #. type: textblock
-#: ../src/guestfs.pod:3340
+#: ../src/guestfs.pod:3341
 msgid "Describe the bug accurately, and give a way to reproduce it."
 msgstr "Що ви точно описали ваду та способи її відтворення."
 
 #. type: textblock
-#: ../src/guestfs.pod:3344
+#: ../src/guestfs.pod:3345
 msgid ""
 "Run libguestfs-test-tool and paste the B<complete, unedited> output into the "
 "bug report."
