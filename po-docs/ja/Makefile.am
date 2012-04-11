@@ -21,7 +21,7 @@
 
 LINGUA = $(shell basename -- `pwd`)
 
-CLEANFILES = *.1 *.3
+CLEANFILES = *.1 *.3 stamp-update-po
 
 MANPAGES = \
 	guestfs.3 \
@@ -45,12 +45,14 @@ MANPAGES = \
 	virt-sparsify.1 \
 	virt-sysprep.1
 
+podfiles := $(shell for f in `cat ../podfiles`; do basename $$f; done)
+
 # Ship the POD files and the translated manpages in the tarball.  This
 # just simplifies building from the tarball, at a small cost in extra
 # size.
 EXTRA_DIST = \
 	$(MANPAGES) \
-	$(shell for f in `cat ../podfiles`; do basename $$f; done)
+	$(podfiles)
 
 all-local: $(MANPAGES)
 
@@ -78,8 +80,11 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 
 # Ensure that the first time we build from git, since guestfs.pod
 # hasn't been built yet, build it.
-guestfs.pod:
+$(podfiles): stamp-update-po
+
+stamp-update-po:
 	if [ ! -f guestfs.pod ]; then make -C .. update-po; fi
+	touch $@
 
 # XXX Can automake do this properly?
 install-data-hook:
