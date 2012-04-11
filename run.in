@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs 'run' programs locally script
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,19 +43,30 @@ if [ -z "$LD_LIBRARY_PATH" ]; then
 else
   LD_LIBRARY_PATH="$library_path:$LD_LIBRARY_PATH"
 fi
+export LD_LIBRARY_PATH
+
 if [ -z "$PERL5LIB" ]; then
   PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
 else
   PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
 fi
+export PERL5LIB
+
+if [ -z "$PYTHONPATH" ]; then
+  PYTHONPATH="$b/python:$b/python/.libs"
+else
+  PYTHONPATH="$b/python:$b/python/.libs:$PYTHONPATH"
+fi
+export PYTHONPATH
+
 if [ -z "$GI_TYPELIB_PATH" ]; then
   GI_TYPELIB_PATH="$b/gobject"
 else
   GI_TYPELIB_PATH="$b/gobject:$GI_TYPELIB_PATH"
 fi
-LIBGUESTFS_PATH="$b/appliance"
+export GI_TYPELIB_PATH
 
-export LD_LIBRARY_PATH PERL5LIB GI_TYPELIB_PATH LIBGUESTFS_PATH
+export LIBGUESTFS_PATH="$b/appliance"
 
 # Do we have libtool?  If we have it then we can use it to make
 # running valgrind simpler.  However don't depend on it.
