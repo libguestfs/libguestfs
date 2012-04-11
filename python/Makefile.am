@@ -46,10 +46,8 @@ libguestfsmod_la_LIBADD = $(top_builddir)/src/libguestfs.la
 libguestfsmod_la_LDFLAGS = -avoid-version -shared
 
 TESTS_ENVIRONMENT = \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	PYTHONPATH=$(builddir):$(builddir)/.libs \
-	TMPDIR=$(top_builddir) \
-	PYTHON=$(PYTHON)
+	PYTHON=$(PYTHON) \
+	$(top_builddir)/run
 
 TESTS = run-bindtests
 
