@@ -77,7 +77,6 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
           --insert sysprep-operations.pod:@OPERATIONS@ \
 	  --html $(top_builddir)/html/virt-sysprep.1.html \
 	  $<
-	touch $@
 
 %.1: %.pod
 	$(top_builddir)/podwrapper.sh --man $@ $<
