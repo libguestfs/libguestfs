@@ -963,7 +963,10 @@ launch_appliance (guestfs_h *g)
   r = guestfs___recv_from_daemon (g, &size, &buf);
   free (buf);
 
-  if (r == -1) return -1;
+  if (r == -1) {
+    error (g, _("guestfs_launch failed, see earlier error messages"));
+    goto cleanup1;
+  }
 
   if (size != GUESTFS_LAUNCH_FLAG) {
     error (g, _("guestfs_launch failed, see earlier error messages"));
