@@ -295,6 +295,7 @@ pod2htm?.tmp
 /po-docs/*/*.pl
 /po-docs/po4a.conf
 /po-docs/*/*.pod
+/po-docs/*/stamp-update-po
 /podwrapper.sh
 /po/en@boldquot.header
 /po/en@quot.header
