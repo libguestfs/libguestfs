@@ -44,3 +44,8 @@ val skip_dashes : string -> string
 
     If the string contains only dash characters, this raises
     [Invalid_argument "skip_dashes"]. *)
+
+val compare_command_line_args : string -> string -> int
+(** Compare two command line arguments (eg. ["-a"] and ["--V"]),
+    ignoring leading dashes and case.  Note this assumes the
+    strings are 7 bit ASCII. *)

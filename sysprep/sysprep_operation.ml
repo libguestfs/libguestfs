@@ -138,10 +138,8 @@ let dump_pod_options () =
       | Arg.Rest _ -> assert false (* XXX not implemented *)
   ) args in
 
-  let args = List.sort (
-    fun (a, _) (b, _) ->
-      compare (skip_dashes a) (skip_dashes b)
-  ) args in
+  let args =
+    List.sort (fun (a, _) (b, _) -> compare_command_line_args a b) args in
 
   List.iter (
     fun (arg_name, (op_name, heading, pod)) ->

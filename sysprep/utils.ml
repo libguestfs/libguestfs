@@ -81,3 +81,6 @@ let skip_dashes str =
   let i = loop 0 in
   if i = 0 then str
   else String.sub str i (n-i)
+
+let compare_command_line_args a b =
+  compare (String.lowercase (skip_dashes a)) (String.lowercase (skip_dashes b))
