@@ -29,12 +29,13 @@ let () = Sysprep_operation.bake ()
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let debug_gc, operations, g, selinux_relabel =
+let debug_gc, operations, g, selinux_relabel, quiet =
   let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
   let files = ref [] in
   let format = ref "auto" in
+  let quiet = ref false in
   let libvirturi = ref "" in
   let operations = ref None in
   let selinux_relabel = ref `Auto in
@@ -105,6 +106,8 @@ let debug_gc, operations, g, selinux_relabel =
     "--enable",  Arg.String set_enable,     "operations Enable specific operations";
     "--format",  Arg.Set_string format,     "format Set format (default: auto)";
     "--list-operations", Arg.Unit list_operations, " List supported operations";
+    "-q",        Arg.Set quiet,             " Don't print log messages";
+    "--quiet",   Arg.Set quiet,             " Don't print log messages";
     "--selinux-relabel", Arg.Unit force_selinux_relabel, " Force SELinux relabel";
     "--no-selinux-relabel", Arg.Unit no_force_selinux_relabel, " Never do SELinux relabel";
     "-v",        Arg.Set verbose,           " Enable debugging messages";
@@ -159,9 +162,13 @@ read the man page virt-sysprep(1).
   let debug_gc = !debug_gc in
   let dryrun = !dryrun in
   let operations = !operations in
+  let quiet = !quiet in
   let selinux_relabel = !selinux_relabel in
   let trace = !trace in
   let verbose = !verbose in
+
+  if not quiet then
+    printf "Examining the guest ...\n%!";
 
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
@@ -170,7 +177,7 @@ read the man page virt-sysprep(1).
   add g dryrun;
   g#launch ();
 
-  debug_gc, operations, g, selinux_relabel
+  debug_gc, operations, g, selinux_relabel, quiet
 
 let () =
   (* Inspection. *)
@@ -194,7 +201,8 @@ let () =
         ) mps;
 
         (* Perform the operations. *)
-        let flags = Sysprep_operation.perform_operations ?operations g root in
+        let flags =
+          Sysprep_operation.perform_operations ?operations ~quiet g root in
 
         (* Parse flags. *)
         let relabel = ref false in

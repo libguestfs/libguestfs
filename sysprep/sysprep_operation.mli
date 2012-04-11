@@ -95,5 +95,5 @@ val add_to_set : string -> set -> set
     Note that this will raise [Not_found] if [name] is not
     a valid operation name. *)
 
-val perform_operations : ?operations:set -> Guestfs.guestfs -> string -> flag list
+val perform_operations : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
 (** Perform all operations, or the subset listed in the [operations] set. *)

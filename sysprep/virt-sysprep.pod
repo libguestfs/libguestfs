@@ -124,6 +124,14 @@ security problem with malicious guests (CVE-2010-3851).
 
 List the operations supported by the virt-sysprep program.
 
+=item B<-q>
+
+=item B<--quiet>
+
+Don't print log messages.
+
+To enable detailed logging of individual file operations, use I<-x>.
+
 =item B<--selinux-relabel>
 
 =item B<--no-selinux-relabel>

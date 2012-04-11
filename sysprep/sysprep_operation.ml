@@ -169,7 +169,7 @@ let list_operations () =
    *)
   List.iter (fun op -> print_endline op.name ) !ops
 
-let perform_operations ?operations g root =
+let perform_operations ?operations ?(quiet = false) g root =
   assert !baked;
 
   let ops =
@@ -181,7 +181,8 @@ let perform_operations ?operations g root =
   let flags =
     List.map (
       fun op ->
-        (* eprintf "calling %S.perform g %S\n" op.name root; *)
+        if not quiet then
+          printf "Performing %S ...\n%!" op.name;
         op.perform g root
     ) ops in
 
