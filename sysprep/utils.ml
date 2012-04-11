@@ -69,3 +69,15 @@ let string_random8 =
           String.make 1 c
       ) [1;2;3;4;5;6;7;8]
     )
+
+(* Skip any leading '-' characters when comparing command line args. *)
+let skip_dashes str =
+  let n = String.length str in
+  let rec loop i =
+    if i >= n then invalid_arg "skip_dashes"
+    else if String.unsafe_get str i = '-' then loop (i+1)
+    else i
+  in
+  let i = loop 0 in
+  if i = 0 then str
+  else String.sub str i (n-i)

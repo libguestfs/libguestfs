@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Utils
+
 open Printf
 
 type flag = [ `Created_files ]
@@ -105,18 +107,6 @@ let dump_pod () =
       printf "\n";
       printf "%s\n\n" op.pod_description
   ) !ops
-
-(* Skip any leading '-' characters when comparing command line args. *)
-let skip_dashes str =
-  let n = String.length str in
-  let rec loop i =
-    if i >= n then assert false
-    else if str.[i] = '-' then loop (i+1)
-    else i
-  in
-  let i = loop 0 in
-  if i = 0 then str
-  else String.sub str i (n-i)
 
 let dump_pod_options () =
   assert !baked;

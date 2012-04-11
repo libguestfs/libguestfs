@@ -37,3 +37,10 @@ val string_random8 : unit -> string
 (** Return a random 8 character string, suitable as a temporary
     filename since every filesystem supports at least 8 character
     filenames. *)
+
+val skip_dashes : string -> string
+(** Take a string like ["--str"] and return ["str"], that is, skip
+    any leading dash characters.
+
+    If the string contains only dash characters, this raises
+    [Invalid_argument "skip_dashes"]. *)
