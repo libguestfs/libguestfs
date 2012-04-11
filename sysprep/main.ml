@@ -90,7 +90,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     exit 0
   in
 
-  let argspec = Arg.align [
+  let basic_args = [
     "-a",        Arg.String add_file,       "file Add disk image file";
     "--add",     Arg.String add_file,       "file Add disk image file";
     "-c",        Arg.Set_string libvirturi, "uri Set libvirt URI";
@@ -111,11 +111,15 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     "--selinux-relabel", Arg.Unit force_selinux_relabel, " Force SELinux relabel";
     "--no-selinux-relabel", Arg.Unit no_force_selinux_relabel, " Never do SELinux relabel";
     "-v",        Arg.Set verbose,           " Enable debugging messages";
-    "--verbose", Arg.Set verbose,           " -\"-";
+    "--verbose", Arg.Set verbose,           " Enable debugging messages";
     "-V",        Arg.Unit display_version,  " Display version and exit";
-    "--version", Arg.Unit display_version,  " -\"-";
+    "--version", Arg.Unit display_version,  " Display version and exit";
     "-x",        Arg.Set trace,             " Enable tracing of libguestfs calls";
-  ] @ Sysprep_operation.extra_args () in
+  ] in
+  let args = basic_args @ Sysprep_operation.extra_args () in
+  let args =
+    List.sort (fun (a,_,_) (b,_,_) -> compare_command_line_args a b) args in
+  let argspec = Arg.align args in
   let anon_fun _ = raise (Arg.Bad "extra parameter on the command line") in
   let usage_msg =
     sprintf "\
