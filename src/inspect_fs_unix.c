@@ -1162,7 +1162,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
   char *device = NULL;
   char *type, *slice, *disk, *part;
 
-  if (STRPREFIX (spec, "/dev/mapper/")) {
+  if (STRPREFIX (spec, "/dev/mapper/") && guestfs_exists (g, spec) > 0) {
     /* LVM2 does some strange munging on /dev/mapper paths for VGs and
      * LVs which contain '-' character:
      *
