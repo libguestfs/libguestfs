@@ -3,7 +3,7 @@
   <operatingsystem>
     <root>/dev/sda2</root>
     <name>linux</name>
-    <arch>i386</arch>
+    <arch>x86_64</arch>
     <distro>ubuntu</distro>
     <product_name>Ubuntu 10.10 (Phony Pharaoh)</product_name>
     <major_version>10</major_version>
