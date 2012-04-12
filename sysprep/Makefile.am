@@ -33,6 +33,7 @@ SOURCES = \
 	main.ml \
 	sysprep_operation.ml \
 	sysprep_operation.mli \
+	sysprep_operation_bash_history.ml \
 	sysprep_operation_cron_spool.ml \
 	sysprep_operation_dhcp_client_state.ml \
 	sysprep_operation_dhcp_server_state.ml \
@@ -56,6 +57,7 @@ if HAVE_OCAML
 OBJECTS = \
 	utils.cmx \
 	sysprep_operation.cmx \
+	sysprep_operation_bash_history.cmx \
 	sysprep_operation_cron_spool.cmx \
 	sysprep_operation_dhcp_client_state.cmx \
 	sysprep_operation_dhcp_server_state.cmx \
