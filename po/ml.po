@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-11 22:59+0100\n"
+"POT-Creation-Date: 2012-04-12 20:18+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -3389,50 +3389,47 @@ msgstr "guestfs_config: പരാമീറ്റര്‍ '-' ഉപയോഗി
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:284
-msgid "filename cannot contain ',' (comma) character"
+#: src/launch.c:291 src/launch.c:403
+#, fuzzy
+msgid ""
+"filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr "ഫയല്‍നാമത്തില്‍ ',' (കോമാ) അടങ്ങുന്നു"
 
-#: src/launch.c:315 src/launch.c:320
+#: src/launch.c:306 src/launch.c:311
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:350
-#, c-format
-msgid "drive %s can't be added twice"
-msgstr ""
-
-#: src/launch.c:444
+#: src/launch.c:423
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:455
+#: src/launch.c:434
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
 
-#: src/launch.c:499
+#: src/launch.c:478
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
 
-#: src/launch.c:967 src/launch.c:972
+#: src/launch.c:946 src/launch.c:951
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/launch.c:985
+#: src/launch.c:964
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/launch.c:1075
+#: src/launch.c:1054
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1083
+#: src/launch.c:1062
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1282
+#: src/launch.c:1261
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3441,11 +3438,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1422
+#: src/launch.c:1414
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/launch.c:1433
+#: src/launch.c:1425
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-11 22:59+0100\n"
+"POT-Creation-Date: 2012-04-12 20:18+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3919,54 +3919,51 @@ msgstr "guestfs_config: запис параметра має починатис�
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: не можна використовувати параметр «%s»"
 
-#: src/launch.c:284
-msgid "filename cannot contain ',' (comma) character"
+#: src/launch.c:291 src/launch.c:403
+#, fuzzy
+msgid ""
+"filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr "у назві файла не може міститися символу коми («,»)"
 
-#: src/launch.c:315 src/launch.c:320
+#: src/launch.c:306 src/launch.c:311
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "параметр %s є порожнім або містить заборонені до використання символи"
 
-#: src/launch.c:350
-#, c-format
-msgid "drive %s can't be added twice"
-msgstr "диск %s не можна додавати двічі"
-
-#: src/launch.c:444
+#: src/launch.c:423
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:455
+#: src/launch.c:434
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:499
+#: src/launch.c:478
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:967 src/launch.c:972
+#: src/launch.c:946 src/launch.c:951
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:985
+#: src/launch.c:964
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:1075
+#: src/launch.c:1054
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:1083
+#: src/launch.c:1062
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1282
+#: src/launch.c:1261
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3980,11 +3977,11 @@ msgstr ""
 "встановити відповідне значення змінної середовища LIBGUESTFS_QEMU.\n"
 "Крім того, вище можна знайти повідомлення про помилки."
 
-#: src/launch.c:1422
+#: src/launch.c:1414
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:1433
+#: src/launch.c:1425
 msgid "no subprocess to kill"
 msgstr "немає підпроцесів для завершення"
 
@@ -4427,3 +4424,6 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "drive %s can't be added twice"
+#~ msgstr "диск %s не можна додавати двічі"
