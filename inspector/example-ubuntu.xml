@@ -17,6 +17,7 @@
       <mountpoint dev="/dev/sda1">/boot</mountpoint>
     </mountpoints>
     <filesystems>
+      <filesystem dev="/dev/mapper/cryptswap1"/>
       <filesystem dev="/dev/sda1">
         <type>ext2</type>
         <label>BOOT</label>
