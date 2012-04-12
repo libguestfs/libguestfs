@@ -277,16 +277,6 @@ valid_format_iface (const char *str)
   return 1;
 }
 
-static int
-check_path (guestfs_h *g, const char *filename)
-{
-  if (strchr (filename, ',') != NULL) {
-    error (g, _("filename cannot contain ',' (comma) character"));
-    return -1;
-  }
-  return 0;
-}
-
 int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
@@ -297,8 +287,11 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   char *name;
   int use_cache_off;
 
-  if (check_path(g, filename) == -1)
+  if (strchr (filename, ':') != NULL) {
+    error (g, _("filename cannot contain ':' (colon) character. "
+                "This is a limitation of qemu."));
     return -1;
+  }
 
   readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
              ? optargs->readonly : 0;
@@ -406,8 +399,11 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
 int
 guestfs__add_cdrom (guestfs_h *g, const char *filename)
 {
-  if (check_path(g, filename) == -1)
+  if (strchr (filename, ':') != NULL) {
+    error (g, _("filename cannot contain ':' (colon) character. "
+                "This is a limitation of qemu."));
     return -1;
+  }
 
   if (access (filename, F_OK) == -1) {
     perrorf (g, "%s", filename);
