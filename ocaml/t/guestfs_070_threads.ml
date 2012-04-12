@@ -25,7 +25,8 @@ let thread = Thread.create (
   fun () ->
     while true do
       Gc.compact ();
-      ignore (Array.init 1000 (fun i -> Thread.yield (); String.create (8*i)))
+      ignore (Array.init 1000 (fun i -> String.create (8*i)));
+      Thread.delay 0.001
     done
 ) ()
 
