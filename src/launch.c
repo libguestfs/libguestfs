@@ -1370,18 +1370,31 @@ is_openable (guestfs_h *g, const char *path, int flags)
 static char *
 qemu_drive_param (guestfs_h *g, const struct drive *drv)
 {
+  size_t i;
   size_t len = 64;
+  const char *p;
   char *r;
 
-  len += strlen (drv->path);
+  len += strlen (drv->path) * 2; /* every "," could become ",," */
   len += strlen (drv->iface);
   if (drv->format)
     len += strlen (drv->format);
 
   r = safe_malloc (g, len);
 
-  snprintf (r, len, "file=%s%s%s%s%s,if=%s",
-            drv->path,
+  strcpy (r, "file=");
+  i = 5;
+
+  /* Copy the path in, escaping any "," as ",,". */
+  for (p = drv->path; *p; p++) {
+    if (*p == ',') {
+      r[i++] = ',';
+      r[i++] = ',';
+    } else
+      r[i++] = *p;
+  }
+
+  snprintf (&r[i], len-i, "%s%s%s%s,if=%s",
             drv->readonly ? ",snapshot=on" : "",
             drv->use_cache_off ? ",cache=off" : "",
             drv->format ? ",format=" : "",
