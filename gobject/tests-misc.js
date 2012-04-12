@@ -21,6 +21,39 @@ var fail = false;
 
 var g = new Guestfs.Session();
 
+var progress_detected = false;
+var trace_detected = false;
+
+// Test events
+g.connect('progress', function(session, params) {
+  if (params.array_len == 4) {
+    // Look for the final progress notification where position = total
+    if (params.array[2] == params.array[3] && params.array[2] != 0) {
+      progress_detected = true;
+    }
+  }
+});
+g.connect('trace', function(session, params) {
+  if (params.buf == 'launch') {
+    trace_detected = true;
+  }
+});
+
+g.add_drive('../tests/guests/fedora.img');
+g.set_trace(true);
+g.launch();
+// Fake progress messages for a 5 second event. We do this as launch() will not
+// generate any progress messages unless it takes at least 5 seconds.
+g.debug('progress', ['5']);
+if (!trace_detected) {
+  print("failed to detect trace message for launch");
+  fail = true;
+}
+if (!progress_detected) {
+  print("failed to detect progress message for launch");
+  fail = true;
+}
+
 // Test close()
 g.close();
 var threw = false;

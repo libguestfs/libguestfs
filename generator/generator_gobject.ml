@@ -23,6 +23,7 @@ open Printf
 
 open Generator_actions
 open Generator_docstrings
+open Generator_events
 open Generator_pr
 open Generator_structs
 open Generator_types
@@ -597,6 +598,60 @@ guestfs_tristate_get_type(void)
 
 let generate_gobject_session_header () =
   pr "
+/* GuestfsSessionEvent */
+
+/**
+ * GuestfsSessionEvent:
+";
+
+  List.iter (
+    fun (name, _) ->
+      pr " * @GUESTFS_SESSION_EVENT_%s: The %s event\n"
+        (String.uppercase name) name;
+  ) events;
+
+  pr " *
+ * For more detail on libguestfs events, see \"SETTING CALLBACKS TO HANDLE
+ * EVENTS\" in guestfs(3).
+ */
+typedef enum {";
+
+  List.iter (
+    fun (name, _) ->
+      pr "\n  GUESTFS_SESSION_EVENT_%s," (String.uppercase name);
+  ) events;
+
+  pr "
+} GuestfsSessionEvent;
+GType guestfs_session_event_get_type(void);
+#define GUESTFS_TYPE_SESSION_EVENT (guestfs_session_event_get_type())
+
+/* GuestfsSessionEventParams */
+
+/**
+ * GuestfsSessionEventParams:
+ * @event: The event
+ * @flags: Unused
+ * @buf: A message buffer. This buffer can contain arbitrary 8 bit data,
+ *       including NUL bytes
+ * @array: An array of 64-bit unsigned integers
+ * @array_len: The length of @array
+ */
+typedef struct _GuestfsSessionEventParams GuestfsSessionEventParams;
+struct _GuestfsSessionEventParams {
+  GuestfsSessionEvent event;
+  guint flags;
+  GByteArray *buf;
+  /* The libguestfs array has no fixed length, although it is currently only
+   * ever empty or length 4. We fix the length of the array here as there is
+   * currently no way for an arbitrary length array to be introspected in a
+   * boxed object.
+   */
+  guint64 array[16];
+  size_t array_len;
+};
+GType guestfs_session_event_params_get_type(void);
+
 /* GuestfsSession object definition */
 #define GUESTFS_TYPE_SESSION             (guestfs_session_get_type())
 #define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( \
@@ -661,6 +716,8 @@ let generate_gobject_session_source () =
   #include <glib.h>
   #include <glib-object.h>
   #include <guestfs.h>
+  #include <stdint.h>
+  #include <stdio.h>
   #include <string.h>
 
 /* Error quark */
@@ -681,6 +738,104 @@ cancelled_handler(gpointer data)
   guestfs_user_cancel(g);
 }
 
+/* GuestfsSessionEventParams */
+static GuestfsSessionEventParams *
+guestfs_session_event_params_copy(GuestfsSessionEventParams *src)
+{
+  return g_slice_dup(GuestfsSessionEventParams, src);
+}
+
+static void
+guestfs_session_event_params_free(GuestfsSessionEventParams *src)
+{
+  g_slice_free(GuestfsSessionEventParams, src);
+}
+
+G_DEFINE_BOXED_TYPE(GuestfsSessionEventParams,
+                    guestfs_session_event_params,
+                    guestfs_session_event_params_copy,
+                    guestfs_session_event_params_free)
+
+/* Event callback */
+";
+
+  pr "static guint signals[%i] = { 0 };\n" (List.length events);
+
+pr "
+static GuestfsSessionEvent
+guestfs_session_event_from_guestfs_event(uint64_t event)
+{
+  switch(event) {";
+
+  List.iter (
+    fun (name, _) ->
+      let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase name in
+      let guestfs_name = "GUESTFS_EVENT_" ^ String.uppercase name in
+      pr "\n    case %s: return %s;" guestfs_name enum_name;
+  ) events;
+
+pr "
+  }
+
+  g_warning(\"guestfs_session_event_from_guestfs_event: invalid event %%lu\",
+            event);
+  return UINT32_MAX;
+}
+
+static void
+event_callback(guestfs_h *g, void *opaque,
+               uint64_t event, int event_handle,
+               int flags,
+               const char *buf, size_t buf_len,
+               const uint64_t *array, size_t array_len)
+{
+  GuestfsSessionEventParams *params = g_slice_new0(GuestfsSessionEventParams);
+
+  params->event = guestfs_session_event_from_guestfs_event(event);
+  params->flags = flags;
+
+  params->buf = g_byte_array_sized_new(buf_len);
+  g_byte_array_append(params->buf, buf, buf_len);
+
+  for(size_t i = 0; i < array_len && i < 4; i++) {
+    if(array_len > 4) {
+      array_len = 4;
+    }
+    memcpy(params->array, array, sizeof(array[0]) * array_len);
+  }
+  params->array_len = array_len;
+
+  GuestfsSession *session = (GuestfsSession *) opaque;
+
+  g_signal_emit(session, signals[params->event], 0, params);
+
+  guestfs_session_event_params_free(params);
+}
+
+/* GuestfsSessionEvent */
+
+GType
+guestfs_session_event_get_type(void)
+{
+  static GType etype = 0;
+  if (etype == 0) {
+    static const GEnumValue values[] = {";
+  
+  List.iter (
+    fun (name, _) ->
+      let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase name in
+      pr "\n      { %s, \"%s\", \"%s\" }," enum_name enum_name name
+  ) events;
+
+  pr "
+    };
+    etype = g_enum_register_static(\"GuestfsSessionEvent\", values);
+  }
+  return etype;
+}
+
+/* GuestfsSession */
+
 #define GUESTFS_SESSION_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ( \
                                             (obj), \
                                             GUESTFS_TYPE_SESSION, \
@@ -689,6 +844,7 @@ cancelled_handler(gpointer data)
 struct _GuestfsSessionPrivate
 {
   guestfs_h *g;
+  int event_handle;
 };
 
 G_DEFINE_TYPE(GuestfsSession, guestfs_session, G_TYPE_OBJECT);
@@ -711,7 +867,31 @@ guestfs_session_class_init(GuestfsSessionClass *klass)
 
   object_class->finalize = guestfs_session_finalize;
 
-  g_type_class_add_private(klass, sizeof(GuestfsSessionPrivate));
+  g_type_class_add_private(klass, sizeof(GuestfsSessionPrivate));";
+
+  List.iter (
+    fun (name, _) ->
+      pr "\n\n";
+      pr "  /**\n";
+      pr "   * GuestfsSession::%s:\n" name;
+      pr "   * @session: The session which emitted the signal\n";
+      pr "   * @params: An object containing event parameters\n";
+      pr "   *\n";
+      pr "   * See \"SETTING CALLBACKS TO HANDLE EVENTS\" in guestfs(3) for\n";
+      pr "   * more details about this event.\n";
+      pr "   */\n";
+      pr "  signals[GUESTFS_SESSION_EVENT_%s] =\n" (String.uppercase name);
+      pr "    g_signal_new(g_intern_static_string(\"%s\"),\n" name;
+      pr "                 G_OBJECT_CLASS_TYPE(object_class),\n";
+      pr "                 G_SIGNAL_RUN_LAST,\n";
+      pr "                 0,\n";
+      pr "                 NULL, NULL,\n";
+      pr "                 NULL,\n";
+      pr "                 G_TYPE_NONE,\n";
+      pr "                 1, guestfs_session_event_params_get_type());";
+  ) events;
+
+  pr "
 }
 
 static void
@@ -719,6 +899,12 @@ guestfs_session_init(GuestfsSession *session)
 {
   session->priv = GUESTFS_SESSION_GET_PRIVATE(session);
   session->priv->g = guestfs_create();
+
+  guestfs_h *g = session->priv->g;
+
+  session->priv->event_handle =
+    guestfs_set_event_callback(g, event_callback, GUESTFS_EVENT_ALL,
+                               0, session);
 }
 
 /**
