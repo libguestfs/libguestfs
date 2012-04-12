@@ -25,6 +25,9 @@ set -e
 cat > fstab.tmp.$$ <<EOF
 LABEL=BOOT /boot ext2 default 0 0
 /dev/sda2 / ext2 default 1 2
+
+# RHBZ#811872: dummy encrypted swap device
+/dev/mapper/cryptswap1 none swap sw 0 0
 EOF
 
 # lsb-release file.
