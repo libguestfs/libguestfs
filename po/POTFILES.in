@@ -149,6 +149,7 @@ gobject/guestfs-gobject-optargs-mount_local.c
 gobject/guestfs-gobject-optargs-ntfsclone_out.c
 gobject/guestfs-gobject-optargs-ntfsfix.c
 gobject/guestfs-gobject-optargs-ntfsresize_opts.c
+gobject/guestfs-gobject-optargs-set_e2attrs.c
 gobject/guestfs-gobject-optargs-test0.c
 gobject/guestfs-gobject-optargs-tune2fs.c
 gobject/guestfs-gobject-optargs-umount_local.c

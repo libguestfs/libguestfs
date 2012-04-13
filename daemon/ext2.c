@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2012 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -692,5 +692,197 @@ do_tune2fs (const char *device, /* only required parameter */
   }
 
   free (err);
+  return 0;
+}
+
+static int
+compare_chars (const void *vc1, const void *vc2)
+{
+  char c1 = * (char *) vc1;
+  char c2 = * (char *) vc2;
+  return c1 - c2;
+}
+
+char *
+do_get_e2attrs (const char *filename)
+{
+  int r;
+  char *buf;
+  char *out, *err;
+  size_t i, j;
+
+  buf = sysroot_path (filename);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  r = command (&out, &err, "lsattr", "-d", "--", buf, NULL);
+  free (buf);
+  if (r == -1) {
+    reply_with_error ("%s: %s: %s", "lsattr", filename, err);
+    free (err);
+    free (out);
+    return NULL;
+  }
+  free (err);
+
+  /* Output looks like:
+   * -------------e- filename
+   * Remove the dashes and return everything up to the space.
+   */
+  for (i = j = 0; out[j] != ' '; j++) {
+    if (out[j] != '-')
+      out[i++] = out[j];
+  }
+
+  out[i] = '\0';
+
+  /* Sort the output, mainly to make testing simpler. */
+  qsort (out, i, sizeof (char), compare_chars);
+
+  return out;
+}
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_set_e2attrs (const char *filename, const char *attrs, int clear)
+{
+  int r;
+  char *buf;
+  char *err;
+  size_t i, j;
+  int lowers[26], uppers[26];
+  char attr_arg[26*2+1+1]; /* '+'/'-' + attrs + trailing '\0' */
+
+  if (!(optargs_bitmask & GUESTFS_SET_E2ATTRS_CLEAR_BITMASK))
+    attr_arg[0] = '+';
+  else if (!clear)
+    attr_arg[0] = '+';
+  else
+    attr_arg[0] = '-';
+  j = 1;
+
+  /* You can't write "chattr - file", so we have to just return if
+   * the string is empty.
+   */
+  if (STREQ (attrs, ""))
+    return 0;
+
+  /* Valid attrs are all lower or upper case ASCII letters.  Check
+   * this and that there are no duplicates.
+   */
+  memset (lowers, 0, sizeof lowers);
+  memset (uppers, 0, sizeof uppers);
+  for (; *attrs; attrs++) {
+    /* These are reserved by the chattr program for command line flags. */
+    if (*attrs == 'R' || *attrs == 'V' || *attrs == 'f' || *attrs == 'v') {
+      reply_with_error ("bad file attribute '%c'", *attrs);
+      return -1;
+    }
+    else if (*attrs >= 'a' && *attrs <= 'z') {
+      i = *attrs - 'a';
+      if (lowers[i] > 0)
+        goto error_duplicate;
+      lowers[i]++;
+      attr_arg[j++] = *attrs;
+    }
+    else if (*attrs >= 'A' && *attrs <= 'Z') {
+      i = *attrs - 'A';
+      if (uppers[i] > 0) {
+      error_duplicate:
+        reply_with_error ("duplicate file attribute '%c'", *attrs);
+        return -1;
+      }
+      uppers[i]++;
+      attr_arg[j++] = *attrs;
+    }
+    else {
+      reply_with_error ("unknown file attribute '%c'", *attrs);
+      return -1;
+    }
+  }
+
+  attr_arg[j] = '\0';
+
+  buf = sysroot_path (filename);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  r = command (NULL, &err, "chattr", attr_arg, "--", buf, NULL);
+  free (buf);
+  if (r == -1) {
+    reply_with_error ("%s: %s: %s", "chattr", filename, err);
+    free (err);
+    return -1;
+  }
+  free (err);
+
+  return 0;
+}
+
+int64_t
+do_get_e2generation (const char *filename)
+{
+  int r;
+  char *buf;
+  char *out, *err;
+  int64_t ret;
+
+  buf = sysroot_path (filename);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  r = command (&out, &err, "lsattr", "-dv", "--", buf, NULL);
+  free (buf);
+  if (r == -1) {
+    reply_with_error ("%s: %s: %s", "lsattr", filename, err);
+    free (err);
+    free (out);
+    return -1;
+  }
+  free (err);
+
+  if (sscanf (out, "%" SCNu64, &ret) != 1) {
+    reply_with_error ("cannot parse output from '%s' command: %s",
+                      "lsattr", out);
+    free (out);
+    return -1;
+  }
+  free (out);
+
+  return ret;
+}
+
+int
+do_set_e2generation (const char *filename, int64_t generation)
+{
+  int r;
+  char *buf;
+  char *err;
+  char generation_str[64];
+
+  buf = sysroot_path (filename);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  snprintf (generation_str, sizeof generation_str,
+            "%" PRIu64, (uint64_t) generation);
+
+  r = command (NULL, &err, "chattr", "-v", generation_str, "--", buf, NULL);
+  free (buf);
+  if (r == -1) {
+    reply_with_error ("%s: %s: %s", "chattr", filename, err);
+    free (err);
+    return -1;
+  }
+  free (err);
+
   return 0;
 }

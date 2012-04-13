@@ -51,8 +51,6 @@ Ideas for extra commands
     more mk*temp calls
 
   ext2 properties:
-    chattr
-    lsattr
     badblocks
     debugfs
     dumpe2fs

@@ -6940,6 +6940,199 @@ For more information on the optional arguments, see L<mkfs.btrfs(8)>.
 
 To create general filesystems, use C<guestfs_mkfs_opts>.");
 
+  ("get_e2attrs", (RString "attrs", [Pathname "file"], []), 318, [],
+   [InitScratchFS, Always, TestOutput (
+     [["touch"; "/e2attrs1"];
+      ["get_e2attrs"; "/e2attrs1"]], "");
+    InitScratchFS, Always, TestOutput (
+     [["touch"; "/e2attrs2"];
+      ["set_e2attrs"; "/e2attrs2"; "is"; "false"];
+      ["get_e2attrs"; "/e2attrs2"]], "is");
+    InitScratchFS, Always, TestOutput (
+     [["touch"; "/e2attrs3"];
+      ["set_e2attrs"; "/e2attrs3"; "is"; "false"];
+      ["set_e2attrs"; "/e2attrs3"; "i"; "true"];
+      ["get_e2attrs"; "/e2attrs3"]], "s");
+    InitScratchFS, Always, TestOutput (
+     [["touch"; "/e2attrs4"];
+      ["set_e2attrs"; "/e2attrs4"; "adst"; "false"];
+      ["set_e2attrs"; "/e2attrs4"; "iS"; "false"];
+      ["set_e2attrs"; "/e2attrs4"; "i"; "true"];
+      ["set_e2attrs"; "/e2attrs4"; "ad"; "true"];
+      ["set_e2attrs"; "/e2attrs4"; ""; "false"];
+      ["set_e2attrs"; "/e2attrs4"; ""; "true"];
+      ["get_e2attrs"; "/e2attrs4"]], "Sst");
+    InitScratchFS, Always, TestLastFail (
+     [["touch"; "/e2attrs5"];
+      ["set_e2attrs"; "/e2attrs5"; "R"; "false"]]);
+    InitScratchFS, Always, TestLastFail (
+     [["touch"; "/e2attrs6"];
+      ["set_e2attrs"; "/e2attrs6"; "v"; "false"]]);
+    InitScratchFS, Always, TestLastFail (
+     [["touch"; "/e2attrs7"];
+      ["set_e2attrs"; "/e2attrs7"; "aa"; "false"]]);
+    InitScratchFS, Always, TestLastFail (
+     [["touch"; "/e2attrs8"];
+      ["set_e2attrs"; "/e2attrs8"; "BabcdB"; "false"]])],
+   "get ext2 file attributes of a file",
+   "\
+This returns the file attributes associated with C<file>.
+
+The attributes are a set of bits associated with each
+inode which affect the behaviour of the file.  The attributes
+are returned as a string of letters (described below).  The
+string may be empty, indicating that no file attributes are
+set for this file.
+
+These attributes are only present when the file is located on
+an ext2/3/4 filesystem.  Using this call on other filesystem
+types will result in an error.
+
+The characters (file attributes) in the returned string are
+currently:
+
+=over 4
+
+=item 'A'
+
+When the file is accessed, its atime is not modified.
+
+=item 'a'
+
+The file is append-only.
+
+=item 'c'
+
+The file is compressed on-disk.
+
+=item 'D'
+
+(Directories only.)  Changes to this directory are written
+synchronously to disk.
+
+=item 'd'
+
+The file is not a candidate for backup (see L<dump(8)>).
+
+=item 'E'
+
+The file has compression errors.
+
+=item 'e'
+
+The file is using extents.
+
+=item 'h'
+
+The file is storing its blocks in units of the filesystem blocksize
+instead of sectors.
+
+=item 'I'
+
+(Directories only.)  The directory is using hashed trees.
+
+=item 'i'
+
+The file is immutable.  It cannot be modified, deleted or renamed.
+No link can be created to this file.
+
+=item 'j'
+
+The file is data-journaled.
+
+=item 's'
+
+When the file is deleted, all its blocks will be zeroed.
+
+=item 'S'
+
+Changes to this file are written synchronously to disk.
+
+=item 'T'
+
+(Directories only.)  This is a hint to the block allocator
+that subdirectories contained in this directory should be
+spread across blocks.  If not present, the block allocator
+will try to group subdirectories together.
+
+=item 't'
+
+For a file, this disables tail-merging.
+(Not used by upstream implementations of ext2.)
+
+=item 'u'
+
+When the file is deleted, its blocks will be saved, allowing
+the file to be undeleted.
+
+=item 'X'
+
+The raw contents of the compressed file may be accessed.
+
+=item 'Z'
+
+The compressed file is dirty.
+
+=back
+
+More file attributes may be added to this list later.  Not all
+file attributes may be set for all kinds of files.  For
+detailed information, consult the L<chattr(1)> man page.
+
+See also C<guestfs_set_e2attrs>.
+
+Don't confuse these attributes with extended attributes
+(see C<guestfs_getxattr>).");
+
+  ("set_e2attrs", (RErr, [Pathname "file"; String "attrs"], [OBool "clear"]), 319, [],
+   [] (* tested by get_e2attrs *),
+   "set ext2 file attributes of a file",
+   "\
+This sets or clears the file attributes C<attrs>
+associated with the inode C<file>.
+
+C<attrs> is a string of characters representing
+file attributes.  See C<guestfs_get_e2attrs> for a list of
+possible attributes.  Not all attributes can be changed.
+
+If optional boolean C<clear> is not present or false, then
+the C<attrs> listed are set in the inode.
+
+If C<clear> is true, then the C<attrs> listed are cleared
+in the inode.
+
+In both cases, other attributes not present in the C<attrs>
+string are left unchanged.
+
+These attributes are only present when the file is located on
+an ext2/3/4 filesystem.  Using this call on other filesystem
+types will result in an error.");
+
+  ("get_e2generation", (RInt64 "generation", [Pathname "file"], []), 320, [],
+   [InitScratchFS, Always, TestOutputInt (
+     [["touch"; "/e2generation"];
+      ["set_e2generation"; "/e2generation"; "123456"];
+      ["get_e2generation"; "/e2generation"]], 123456)],
+   "get ext2 file generation of a file",
+   "\
+This returns the ext2 file generation of a file.  The generation
+(which used to be called the \"version\") is a number associated
+with an inode.  This is most commonly used by NFS servers.
+
+The generation is only present when the file is located on
+an ext2/3/4 filesystem.  Using this call on other filesystem
+types will result in an error.
+
+See C<guestfs_set_e2generation>.");
+
+  ("set_e2generation", (RErr, [Pathname "file"; Int64 "generation"], []), 321, [],
+   [], (* tested by get_e2generation *)
+   "set ext2 file generation of a file",
+   "\
+This sets the ext2 file generation of a file.
+
+See C<guestfs_get_e2generation>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
