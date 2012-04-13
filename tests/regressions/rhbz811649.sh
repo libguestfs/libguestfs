@@ -40,7 +40,7 @@ truncate -s 10M test1.img
 
 for f in "${filenames[@]}"; do
     ln -- test1.img "$f"
-    guestfish <<EOF
+    ../../fish/guestfish <<EOF
 add "$f"
 run
 EOF
