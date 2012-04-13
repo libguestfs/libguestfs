@@ -28,5 +28,5 @@ fi
 # to be able to sysprep any of our test guests.
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
-    ./virt-sysprep -n -a $f
+    ./virt-sysprep -q -n -a $f
 done

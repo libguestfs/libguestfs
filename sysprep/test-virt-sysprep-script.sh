@@ -27,7 +27,7 @@ fi
 
 # Check that multiple scripts can run.
 rm -f stamp-script1.sh stamp-script2.sh
-if ! ./virt-sysprep -n -a ../tests/guests/fedora.img --enable script \
+if ! ./virt-sysprep -q -n -a ../tests/guests/fedora.img --enable script \
         --script $abs_srcdir/script1.sh --script $abs_srcdir/script2.sh; then
     echo "$0: virt-sysprep wasn't expected to exit with error."
     exit 1
@@ -38,7 +38,7 @@ if [ ! -f stamp-script1.sh -o ! -f stamp-script2.sh ]; then
 fi
 
 # Check that if a script fails, virt-sysprep exits with an error.
-if ./virt-sysprep -n -a ../tests/guests/fedora.img --enable script \
+if ./virt-sysprep -q -n -a ../tests/guests/fedora.img --enable script \
         --script $abs_srcdir/script3.sh; then
     echo "$0: virt-sysprep didn't exit with an error."
     exit 1
