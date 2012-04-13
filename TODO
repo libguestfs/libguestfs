@@ -543,7 +543,6 @@ virt-sysprep ideas
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
    . rm /var/cache/apt/archives/*
  - /var/run/* and pam_faillock's data files
- - homedirs/.ssh directory, especially /root/.ssh (Steve Grubb)
  - if drives are encrypted, then dm-crypt key should be changed
    and drives all re-encrypted
  - /etc/pki
