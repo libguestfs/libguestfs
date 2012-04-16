@@ -18,6 +18,7 @@
 *.patch
 *.rej
 *.swp
+cscope.out
 
 bindtests.tmp
 .deps
@@ -57,7 +58,6 @@ pod2htm?.tmp
 /config.status
 /config.sub
 /configure
-/cscope.out
 /csharp/Libguestfs.cs
 /daemon/actions.h
 /daemon/errnostring.c
