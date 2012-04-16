@@ -610,9 +610,6 @@ mount_local_read (const char *path, char *buf, size_t size, off_t offset,
   char *r;
   size_t rsize;
 
-  debug (g,
-         "mount_local_read: %s: size %zu offset %ju\n", path, size, offset);
-
   /* The guestfs protocol limits size to somewhere over 2MB.  We just
    * reduce the requested size here accordingly and push the problem
    * up to every user.  http://www.jwz.org/doc/worse-is-better.html
@@ -962,6 +959,8 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
       goto arg_error;
   }
 
+  debug (g, "%s: fuse_mount %s", __func__, localmountpoint);
+
   /* Create the FUSE mountpoint. */
   ch = fuse_mount (localmountpoint, &args);
   if (ch == NULL) {
@@ -976,6 +975,8 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
   if (fd >= 0)
     set_cloexec_flag (fd, 1);
 
+  debug (g, "%s: fuse_new", __func__);
+
   /* Create the FUSE handle. */
   g->fuse = fuse_new (ch, &args,
                       &mount_local_operations, sizeof mount_local_operations,
@@ -989,6 +990,8 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
   }
 
   fuse_opt_free_args (&args);
+
+  debug (g, "%s: leaving fuse_mount_local", __func__);
 
   /* Set g->localmountpoint in the handle. */
   gl_lock_lock (mount_local_lock);
@@ -1012,10 +1015,14 @@ guestfs__mount_local_run (guestfs_h *g)
     return -1;
   }
 
+  debug (g, "%s: entering fuse_loop", __func__);
+
   /* Enter the main loop. */
   r = fuse_loop (g->fuse);
   if (r != 0)
     perrorf (g, _("fuse_loop: %s"), g->localmountpoint);
+
+  debug (g, "%s: leaving fuse_loop", __func__);
 
   guestfs___free_fuse (g);
   gl_lock_lock (mount_local_lock);
