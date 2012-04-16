@@ -18,9 +18,9 @@
 *.patch
 *.rej
 *.swp
-cscope.out
 
 bindtests.tmp
+cscope.out
 .deps
 .libs
 Makefile
