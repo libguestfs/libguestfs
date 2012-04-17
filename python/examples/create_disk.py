@@ -58,4 +58,4 @@ g.upload ("/etc/resolv.conf", "/foo/resolv.conf")
 # Because 'autosync' was set (above) we can just close the handle
 # and the disk contents will be synchronized.  You can also do
 # this manually by calling g.umount_all and g.sync.
-del g
+g.close ()

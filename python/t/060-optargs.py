@@ -22,4 +22,4 @@ g = guestfs.GuestFS()
 g.add_drive_opts ("/dev/null")
 g.add_drive_opts ("/dev/null", readonly = 1)
 g.add_drive_opts ("/dev/null", iface = "virtio", format = "qcow2")
-del g
+g.close ()
