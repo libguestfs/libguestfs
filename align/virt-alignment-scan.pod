@@ -10,6 +10,8 @@ virt-alignment-scan - Check alignment of virtual machine partitions
 
  virt-alignment-scan [--options] -a disk.img [-a disk.img ...]
 
+ virt-alignment-scan [--options]
+
 =head1 DESCRIPTION
 
 When older operating systems install themselves, the partitioning
@@ -51,6 +53,14 @@ possibly the I<-c> option:
  /dev/sda2    105906176         1024K   ok
  /dev/sdb1        65536           64K   ok
 
+Run virt-alignment-scan without any I<-a> or I<-d> options to scan all
+libvirt domains.
+
+ # virt-alignment-scan
+ F16x64:/dev/sda1      1048576         1024K   ok
+ F16x64:/dev/sda2      2097152         2048K   ok
+ F16x64:/dev/sda3    526385152         2048K   ok
+
 The output consists of 4 or more whitespace-separated columns.  Only
 the first 4 columns are significant if you want to parse this from a
 program.  The columns are:
@@ -59,8 +69,12 @@ program.  The columns are:
 
 =item col 1
 
-the device and partition name (eg. C</dev/sda1> meaning the
-first partition on the first block device)
+The device and partition name (eg. C</dev/sda1> meaning the
+first partition on the first block device).
+
+When listing all libvirt domains (no I<-a> or I<-d> option given) this
+column is prefixed by the libvirt name or UUID (if I<--uuid> is
+given).  eg: C<WinXP:/dev/sda1>
 
 =item col 2
 
@@ -150,6 +164,15 @@ security problem with malicious guests (CVE-2010-3851).
 
 Don't produce any output.  Just set the exit code
 (see L</EXIT STATUS> below).
+
+=item B<--uuid>
+
+Print UUIDs instead of names.  This is useful for following a guest
+even when the guest is migrated or renamed, or when two guests happen
+to have the same name.
+
+This option only applies when listing all libvirt domains (when no
+I<-a> or I<-d> options are specified).
 
 =item B<-v>
 

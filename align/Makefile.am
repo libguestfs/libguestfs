@@ -34,7 +34,9 @@ SHARED_SOURCE_FILES = \
 
 virt_alignment_scan_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	scan.c
+	domains.c \
+	scan.c \
+	scan.h
 
 virt_alignment_scan_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
