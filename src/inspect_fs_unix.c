@@ -1093,7 +1093,7 @@ map_md_devices(guestfs_h *g, Hash_table **map)
     free(uuid_path);
     if (!uuid) {
       free(dev);
-      goto error;
+      continue;
     }
 
     /* Parse the uuid into an md_uuid structure so we can look it up in the
