@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-15 21:52+0100\n"
+"POT-Creation-Date: 2012-04-17 18:31+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -21,14 +21,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:104
+#: align/domains.c:109 df/domains.c:115
+#, c-format
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgstr "%s: libvirt शी जोडणी करतेवेळी त्रुटी (कोड %d, डोमेन %d): %s"
+
+#: align/domains.c:118 df/domains.c:124
+#, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgstr "%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
+
+#: align/domains.c:128 df/domains.c:134
+#, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgstr "%s: सुरू असलेल्या डोमेन्स्ची सूची (कोड %d, डोमेन %d): %s"
+
+#: align/domains.c:139 df/domains.c:145
+#, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgstr "%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
+
+#: align/domains.c:149 df/domains.c:155
+#, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgstr "%s: सुरू नसलेल्या डोमेन्स्ची सूची दाखवणे अशक्य (कोड %d, डोमेन %d): %s"
+
+#: align/domains.c:331 align/scan.c:130 cat/virt-cat.c:121
+#: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:429 df/main.c:136
+#: edit/virt-edit.c:143 fish/fish.c:226 format/format.c:136
+#: fuse/guestmount.c:171 inspector/virt-inspector.c:140
+#: rescue/virt-rescue.c:142
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
+
+#: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
 #: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
 
-#: align/scan.c:72
+#: align/scan.c:71
 #, c-format
 msgid ""
 "%s: check alignment of virtual machine partitions\n"
@@ -49,15 +83,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:207
-#: cat/virt-ls.c:196 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
-#: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:171
-#: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
-#, c-format
-msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
-
-#: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:261
+#: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
 #: format/format.c:188 fuse/guestmount.c:199 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:179
@@ -65,11 +91,21 @@ msgstr "guestfs_create: हँडल निर्माण करण्यास
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
 
-#: align/scan.c:273
+#: align/scan.c:209 df/main.c:266
+#, c-format
+msgid "%s: compiled without support for libvirt and/or libxml2.\n"
+msgstr ""
+
+#: align/scan.c:215
+#, c-format
+msgid "%s: --uuid option cannot be used with -a or -d\n"
+msgstr ""
+
+#: align/scan.c:304
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:278
+#: align/scan.c:307
 msgid "alignment < 64K"
 msgstr ""
 
@@ -250,31 +286,6 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:115
-#, c-format
-msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-msgstr "%s: libvirt शी जोडणी करतेवेळी त्रुटी (कोड %d, डोमेन %d): %s"
-
-#: df/domains.c:124
-#, c-format
-msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-msgstr "%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
-
-#: df/domains.c:134
-#, c-format
-msgid "%s: could not list running domains (code %d, domain %d): %s"
-msgstr "%s: सुरू असलेल्या डोमेन्स्ची सूची (कोड %d, डोमेन %d): %s"
-
-#: df/domains.c:145
-#, c-format
-msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
-msgstr "%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
-
-#: df/domains.c:155
-#, c-format
-msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-msgstr "%s: सुरू नसलेल्या डोमेन्स्ची सूची दाखवणे अशक्य (कोड %d, डोमेन %d): %s"
-
 #: df/domains.c:281
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
@@ -324,11 +335,6 @@ msgstr ""
 "  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
 "  -x                   libguestfs API कॉल्स् ट्रेस् करा\n"
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
-
-#: df/main.c:266
-#, c-format
-msgid "%s: compiled without support for libvirt and/or libxml2.\n"
-msgstr ""
 
 #: df/output.c:50
 msgid "VirtualMachine"
@@ -3397,53 +3403,53 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/fuse.c:928
+#: src/fuse.c:925
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: src/fuse.c:953
+#: src/fuse.c:950
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: src/fuse.c:968
+#: src/fuse.c:967
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: src/fuse.c:984
+#: src/fuse.c:985
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: src/fuse.c:1011
+#: src/fuse.c:1014
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: src/fuse.c:1018
+#: src/fuse.c:1023
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: src/fuse.c:1069
+#: src/fuse.c:1076
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: src/fuse.c:1082
+#: src/fuse.c:1089
 #, c-format
 msgid "open: %s"
 msgstr ""
 
-#: src/fuse.c:1118
+#: src/fuse.c:1125
 #, c-format
 msgid "fusermount failed: %s: %s"
 msgstr ""
 
-#: src/fuse.c:1263
+#: src/fuse.c:1270
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1517 src/fuse.c:1524 src/fuse.c:1532
+#: src/fuse.c:1524 src/fuse.c:1531 src/fuse.c:1539
 msgid "FUSE not supported"
 msgstr ""
 

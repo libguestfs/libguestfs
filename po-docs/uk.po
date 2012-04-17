@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-04-15 21:52+0200\n"
+"POT-Creation-Date: 2012-04-17 18:31+0200\n"
 "PO-Revision-Date: 2012-03-30 17:30+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -89,8 +89,21 @@ msgstr ""
 " virt-alignment-scan [--параметри] -a диск.img [-a диск.img ...]\n"
 "\n"
 
-#. type: =head1
+#. type: verbatim
 #: ../align/virt-alignment-scan.pod:13
+#, fuzzy, no-wrap
+#| msgid ""
+#| " virt-alignment-scan [--options] -d domname\n"
+#| "\n"
+msgid ""
+" virt-alignment-scan [--options]\n"
+"\n"
+msgstr ""
+" virt-alignment-scan [--параметри] -d назва_домену\n"
+"\n"
+
+#. type: =head1
+#: ../align/virt-alignment-scan.pod:15
 #: ../appliance/libguestfs-make-fixed-appliance.pod:13 ../cat/virt-cat.pod:19
 #: ../cat/virt-filesystems.pod:13 ../cat/virt-ls.pod:19 ../df/virt-df.pod:21
 #: ../edit/virt-edit.pod:27 ../erlang/examples/guestfs-erlang.pod:16
@@ -113,7 +126,7 @@ msgid "DESCRIPTION"
 msgstr "ОПИС"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:15
+#: ../align/virt-alignment-scan.pod:17
 msgid ""
 "When older operating systems install themselves, the partitioning tools "
 "place partitions at a sector misaligned with the underlying storage "
@@ -128,7 +141,7 @@ msgstr ""
 "кількості запитів щодо виведення та введення даних від операційної системи."
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:21
+#: ../align/virt-alignment-scan.pod:23
 msgid ""
 "The virt-alignment-scan tool checks the alignment of partitions in virtual "
 "machines and disk images and warns you if there are alignment problems."
@@ -138,7 +151,7 @@ msgstr ""
 "помилки вирівнювання."
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:25
+#: ../align/virt-alignment-scan.pod:27
 msgid ""
 "Currently there is no virt tool for fixing alignment problems.  You can only "
 "reinstall the guest operating system.  The following NetApp document "
@@ -152,19 +165,19 @@ msgstr ""
 "tr-3747.pdf>"
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:30
+#: ../align/virt-alignment-scan.pod:32
 msgid "OUTPUT"
 msgstr "ВИВЕДЕННЯ"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:32
+#: ../align/virt-alignment-scan.pod:34
 msgid "To run this tool on a disk image directly, use the I<-a> option:"
 msgstr ""
 "Щоб запустити цю програму безпосередньо для образу диска, скористайтеся "
 "параметром I<-a>:"
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:34
+#: ../align/virt-alignment-scan.pod:36
 #, no-wrap
 msgid ""
 " $ virt-alignment-scan -a winxp.img\n"
@@ -176,7 +189,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:37
+#: ../align/virt-alignment-scan.pod:39
 #, no-wrap
 msgid ""
 " $ virt-alignment-scan -a fedora16.img\n"
@@ -192,7 +205,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:42
+#: ../align/virt-alignment-scan.pod:44
 msgid ""
 "To run the tool on a guest known to libvirt, use the I<-d> option and "
 "possibly the I<-c> option:"
@@ -201,7 +214,7 @@ msgstr ""
 "параметром I<-d> і, можливо, параметром I<-c>:"
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:45
+#: ../align/virt-alignment-scan.pod:47
 #, no-wrap
 msgid ""
 " # virt-alignment-scan -d RHEL5\n"
@@ -215,7 +228,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:49
+#: ../align/virt-alignment-scan.pod:51
 #, no-wrap
 msgid ""
 " $ virt-alignment-scan -c qemu:///system -d Win7TwoDisks\n"
@@ -231,7 +244,36 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:54
+#: ../align/virt-alignment-scan.pod:56
+msgid ""
+"Run virt-alignment-scan without any I<-a> or I<-d> options to scan all "
+"libvirt domains."
+msgstr ""
+
+#. type: verbatim
+#: ../align/virt-alignment-scan.pod:59
+#, fuzzy, no-wrap
+#| msgid ""
+#| " $ virt-alignment-scan -a fedora16.img\n"
+#| " /dev/sda1      1048576         1024K   ok\n"
+#| " /dev/sda2      2097152         2048K   ok\n"
+#| " /dev/sda3    526385152         2048K   ok\n"
+#| "\n"
+msgid ""
+" # virt-alignment-scan\n"
+" F16x64:/dev/sda1      1048576         1024K   ok\n"
+" F16x64:/dev/sda2      2097152         2048K   ok\n"
+" F16x64:/dev/sda3    526385152         2048K   ok\n"
+"\n"
+msgstr ""
+" $ virt-alignment-scan -a fedora16.img\n"
+" /dev/sda1      1048576         1024K   ok\n"
+" /dev/sda2      2097152         2048K   ok\n"
+" /dev/sda3    526385152         2048K   ok\n"
+"\n"
+
+#. type: textblock
+#: ../align/virt-alignment-scan.pod:64
 msgid ""
 "The output consists of 4 or more whitespace-separated columns.  Only the "
 "first 4 columns are significant if you want to parse this from a program.  "
@@ -239,46 +281,58 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:60
+#: ../align/virt-alignment-scan.pod:70
 msgid "col 1"
 msgstr "стовпчик 1"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:62
+#: ../align/virt-alignment-scan.pod:72
+#, fuzzy
+#| msgid ""
+#| "the device and partition name (eg. C</dev/sda1> meaning the first "
+#| "partition on the first block device)"
 msgid ""
-"the device and partition name (eg. C</dev/sda1> meaning the first partition "
-"on the first block device)"
+"The device and partition name (eg. C</dev/sda1> meaning the first partition "
+"on the first block device)."
 msgstr ""
 "назва пристрою і розділу (наприклад, C</dev/sda1> означає перший розділ на "
 "першому блоковому пристрої)"
 
+#. type: textblock
+#: ../align/virt-alignment-scan.pod:75
+msgid ""
+"When listing all libvirt domains (no I<-a> or I<-d> option given) this "
+"column is prefixed by the libvirt name or UUID (if I<--uuid> is given).  eg: "
+"C<WinXP:/dev/sda1>"
+msgstr ""
+
 #. type: =item
-#: ../align/virt-alignment-scan.pod:65
+#: ../align/virt-alignment-scan.pod:79
 msgid "col 2"
 msgstr "стовпчик 2"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:67
+#: ../align/virt-alignment-scan.pod:81
 msgid "the start of the partition in bytes"
 msgstr "позиція початку розділу у байтах"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:69
+#: ../align/virt-alignment-scan.pod:83
 msgid "col 3"
 msgstr "стовпчик 3"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:71
+#: ../align/virt-alignment-scan.pod:85
 msgid "the alignment in bytes or Kbytes (eg. C<512> or C<4K>)"
 msgstr "вирівнювання у байтах або кілобайтах (наприклад C<512> або C<4K>)"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:73
+#: ../align/virt-alignment-scan.pod:87
 msgid "col 4"
 msgstr "стовпчик 4"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:75
+#: ../align/virt-alignment-scan.pod:89
 msgid ""
 "C<ok> if the alignment is best for performance, or C<bad> if the alignment "
 "can cause performance problems"
@@ -287,17 +341,17 @@ msgstr ""
 "якщо вирівнювання може призвести до проблем зі швидкодією"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:78
+#: ../align/virt-alignment-scan.pod:92
 msgid "cols 5+"
 msgstr "стовпчик 5 і далі"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:80
+#: ../align/virt-alignment-scan.pod:94
 msgid "optional free-text explanation."
 msgstr "додаткові пояснення у довільному форматі."
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:84
+#: ../align/virt-alignment-scan.pod:98
 msgid ""
 "The exit code from the program changes depending on whether poorly aligned "
 "partitions were found.  See L</EXIT STATUS> below."
@@ -306,14 +360,14 @@ msgstr ""
 "вирівнюванням.  Див. розділ L</EXIT STATUS> нижче."
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:87
+#: ../align/virt-alignment-scan.pod:101
 msgid "If you just want the exit code with no output, use the I<-q> option."
 msgstr ""
 "Якщо вам потрібен лише код виходу без виведення даних, скористайтеся "
 "параметром I<-q>."
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:89
+#: ../align/virt-alignment-scan.pod:103
 #: ../appliance/libguestfs-make-fixed-appliance.pod:77 ../cat/virt-cat.pod:62
 #: ../cat/virt-filesystems.pod:91 ../cat/virt-ls.pod:261 ../df/virt-df.pod:59
 #: ../edit/virt-edit.pod:62 ../fish/guestfish.pod:148
@@ -330,7 +384,7 @@ msgid "OPTIONS"
 msgstr "ПАРАМЕТРИ"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:93
+#: ../align/virt-alignment-scan.pod:107
 #: ../appliance/libguestfs-make-fixed-appliance.pod:81 ../cat/virt-cat.pod:66
 #: ../cat/virt-filesystems.pod:95 ../cat/virt-ls.pod:265 ../df/virt-df.pod:63
 #: ../edit/virt-edit.pod:66 ../fish/guestfish.pod:152
@@ -345,7 +399,7 @@ msgid "B<--help>"
 msgstr "B<--help>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:95 ../cat/virt-cat.pod:68
+#: ../align/virt-alignment-scan.pod:109 ../cat/virt-cat.pod:68
 #: ../cat/virt-filesystems.pod:97 ../cat/virt-ls.pod:267 ../df/virt-df.pod:65
 #: ../edit/virt-edit.pod:68 ../format/virt-format.pod:65
 #: ../inspector/virt-inspector.pod:60 ../rescue/virt-rescue.pod:118
@@ -356,7 +410,7 @@ msgid "Display brief help."
 msgstr "Показати коротку довідку."
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:97 ../cat/virt-cat.pod:70
+#: ../align/virt-alignment-scan.pod:111 ../cat/virt-cat.pod:70
 #: ../cat/virt-filesystems.pod:99 ../cat/virt-ls.pod:269 ../df/virt-df.pod:67
 #: ../edit/virt-edit.pod:70 ../format/virt-format.pod:67
 #: ../inspector/virt-inspector.pod:62 ../rescue/virt-rescue.pod:120
@@ -365,7 +419,7 @@ msgid "B<-a> file"
 msgstr "B<-a> файл"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:99 ../cat/virt-cat.pod:72
+#: ../align/virt-alignment-scan.pod:113 ../cat/virt-cat.pod:72
 #: ../cat/virt-filesystems.pod:101 ../cat/virt-ls.pod:271 ../df/virt-df.pod:69
 #: ../edit/virt-edit.pod:72 ../format/virt-format.pod:69
 #: ../inspector/virt-inspector.pod:64 ../rescue/virt-rescue.pod:122
@@ -374,12 +428,12 @@ msgid "B<--add> file"
 msgstr "B<--add> файл"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:101 ../sysprep/virt-sysprep.pod:51
+#: ../align/virt-alignment-scan.pod:115 ../sysprep/virt-sysprep.pod:51
 msgid "Add I<file> which should be a disk image from a virtual machine."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:103 ../cat/virt-cat.pod:78
+#: ../align/virt-alignment-scan.pod:117 ../cat/virt-cat.pod:78
 #: ../cat/virt-filesystems.pod:107 ../cat/virt-ls.pod:277 ../df/virt-df.pod:75
 #: ../edit/virt-edit.pod:78 ../fish/guestfish.pod:174
 #: ../format/virt-format.pod:73 ../fuse/guestmount.pod:102
@@ -390,21 +444,21 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:106 ../cat/virt-cat.pod:81
+#: ../align/virt-alignment-scan.pod:120 ../cat/virt-cat.pod:81
 #: ../cat/virt-filesystems.pod:125 ../cat/virt-ls.pod:291 ../df/virt-df.pod:78
 #: ../rescue/virt-rescue.pod:135 ../sysprep/virt-sysprep.pod:56
 msgid "B<-c> URI"
 msgstr "B<-c> адреса"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:108 ../cat/virt-cat.pod:83
+#: ../align/virt-alignment-scan.pod:122 ../cat/virt-cat.pod:83
 #: ../cat/virt-filesystems.pod:127 ../cat/virt-ls.pod:293 ../df/virt-df.pod:80
 #: ../rescue/virt-rescue.pod:137 ../sysprep/virt-sysprep.pod:58
 msgid "B<--connect> URI"
 msgstr "B<--connect> адреса"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:110 ../cat/virt-cat.pod:85
+#: ../align/virt-alignment-scan.pod:124 ../cat/virt-cat.pod:85
 #: ../cat/virt-filesystems.pod:129 ../cat/virt-ls.pod:295 ../df/virt-df.pod:82
 #: ../edit/virt-edit.pod:99 ../inspector/virt-inspector.pod:77
 #: ../rescue/virt-rescue.pod:139 ../sysprep/virt-sysprep.pod:60
@@ -416,7 +470,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:113 ../cat/virt-cat.pod:88
+#: ../align/virt-alignment-scan.pod:127 ../cat/virt-cat.pod:88
 #: ../cat/virt-filesystems.pod:132 ../cat/virt-ls.pod:298 ../df/virt-df.pod:85
 #: ../rescue/virt-rescue.pod:142 ../sysprep/virt-sysprep.pod:63
 msgid ""
@@ -425,7 +479,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:116 ../cat/virt-cat.pod:91
+#: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:91
 #: ../cat/virt-filesystems.pod:141 ../cat/virt-ls.pod:307 ../df/virt-df.pod:94
 #: ../edit/virt-edit.pod:105 ../inspector/virt-inspector.pod:84
 #: ../rescue/virt-rescue.pod:145 ../sysprep/virt-sysprep.pod:66
@@ -433,7 +487,7 @@ msgid "B<-d> guest"
 msgstr "B<-d> гість"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:118 ../cat/virt-cat.pod:93
+#: ../align/virt-alignment-scan.pod:132 ../cat/virt-cat.pod:93
 #: ../cat/virt-filesystems.pod:143 ../cat/virt-ls.pod:309 ../df/virt-df.pod:96
 #: ../edit/virt-edit.pod:107 ../inspector/virt-inspector.pod:86
 #: ../rescue/virt-rescue.pod:147 ../sysprep/virt-sysprep.pod:68
@@ -441,7 +495,7 @@ msgid "B<--domain> guest"
 msgstr "B<--domain> гість"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:120 ../cat/virt-cat.pod:95
+#: ../align/virt-alignment-scan.pod:134 ../cat/virt-cat.pod:95
 #: ../cat/virt-filesystems.pod:145 ../cat/virt-ls.pod:311 ../df/virt-df.pod:98
 #: ../edit/virt-edit.pod:109 ../inspector/virt-inspector.pod:88
 #: ../rescue/virt-rescue.pod:149 ../sysprep/virt-sysprep.pod:70
@@ -451,7 +505,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:123 ../cat/virt-cat.pod:105
+#: ../align/virt-alignment-scan.pod:137 ../cat/virt-cat.pod:105
 #: ../cat/virt-filesystems.pod:170 ../cat/virt-ls.pod:328
 #: ../df/virt-df.pod:101 ../fish/guestfish.pod:233
 #: ../format/virt-format.pod:87 ../fuse/guestmount.pod:142
@@ -460,7 +514,7 @@ msgid "B<--format=raw|qcow2|..>"
 msgstr "B<--format=raw|qcow2|..>"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:125 ../cat/virt-cat.pod:107
+#: ../align/virt-alignment-scan.pod:139 ../cat/virt-cat.pod:107
 #: ../cat/virt-filesystems.pod:172 ../cat/virt-ls.pod:330
 #: ../df/virt-df.pod:103 ../edit/virt-edit.pod:134 ../fish/guestfish.pod:235
 #: ../format/virt-format.pod:89 ../fuse/guestmount.pod:144
@@ -469,7 +523,7 @@ msgid "B<--format>"
 msgstr "B<--format>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:127 ../cat/virt-cat.pod:109
+#: ../align/virt-alignment-scan.pod:141 ../cat/virt-cat.pod:109
 #: ../cat/virt-filesystems.pod:174 ../cat/virt-ls.pod:332
 #: ../df/virt-df.pod:105 ../edit/virt-edit.pod:136 ../fish/guestfish.pod:237
 #: ../format/virt-format.pod:91 ../fuse/guestmount.pod:146
@@ -482,7 +536,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:132 ../cat/virt-cat.pod:114
+#: ../align/virt-alignment-scan.pod:146 ../cat/virt-cat.pod:114
 #: ../cat/virt-filesystems.pod:179 ../cat/virt-ls.pod:337
 #: ../df/virt-df.pod:110 ../edit/virt-edit.pod:141 ../fish/guestfish.pod:242
 #: ../fish/guestfish.pod:673 ../format/virt-format.pod:96
@@ -492,7 +546,7 @@ msgid "For example:"
 msgstr "Приклад:"
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:134
+#: ../align/virt-alignment-scan.pod:148
 #, no-wrap
 msgid ""
 " virt-alignment-scan --format=raw -a disk.img\n"
@@ -502,7 +556,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:136 ../cat/virt-cat.pod:118
+#: ../align/virt-alignment-scan.pod:150 ../cat/virt-cat.pod:118
 #: ../cat/virt-filesystems.pod:183 ../cat/virt-ls.pod:341
 #: ../df/virt-df.pod:114 ../edit/virt-edit.pod:145 ../fish/guestfish.pod:246
 #: ../format/virt-format.pod:100 ../rescue/virt-rescue.pod:165
@@ -511,7 +565,7 @@ msgid "forces raw format (no auto-detection) for C<disk.img>."
 msgstr ""
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:138
+#: ../align/virt-alignment-scan.pod:152
 #, no-wrap
 msgid ""
 " virt-alignment-scan --format=raw -a disk.img --format -a another.img\n"
@@ -521,7 +575,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:140 ../cat/virt-cat.pod:122
+#: ../align/virt-alignment-scan.pod:154 ../cat/virt-cat.pod:122
 #: ../cat/virt-filesystems.pod:187 ../cat/virt-ls.pod:345
 #: ../df/virt-df.pod:118 ../edit/virt-edit.pod:149 ../fish/guestfish.pod:250
 #: ../format/virt-format.pod:104 ../rescue/virt-rescue.pod:169
@@ -532,7 +586,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:143 ../cat/virt-cat.pod:125
+#: ../align/virt-alignment-scan.pod:157 ../cat/virt-cat.pod:125
 #: ../cat/virt-filesystems.pod:190 ../cat/virt-ls.pod:348
 #: ../df/virt-df.pod:121 ../edit/virt-edit.pod:152
 #: ../format/virt-format.pod:107 ../rescue/virt-rescue.pod:172
@@ -544,26 +598,47 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:147 ../resize/virt-resize.pod:497
+#: ../align/virt-alignment-scan.pod:161 ../resize/virt-resize.pod:497
 #: ../sparsify/virt-sparsify.pod:172 ../sysprep/virt-sysprep.pod:127
 msgid "B<-q>"
 msgstr "B<-q>"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:149 ../resize/virt-resize.pod:499
+#: ../align/virt-alignment-scan.pod:163 ../resize/virt-resize.pod:499
 #: ../sparsify/virt-sparsify.pod:174 ../sysprep/virt-sysprep.pod:129
 msgid "B<--quiet>"
 msgstr "B<--quiet>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:151
+#: ../align/virt-alignment-scan.pod:165
 msgid ""
 "Don't produce any output.  Just set the exit code (see L</EXIT STATUS> "
 "below)."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:154 ../cat/virt-cat.pod:134
+#: ../align/virt-alignment-scan.pod:168 ../cat/virt-filesystems.pod:255
+#: ../df/virt-df.pod:163
+msgid "B<--uuid>"
+msgstr "B<--uuid>"
+
+#. type: textblock
+#: ../align/virt-alignment-scan.pod:170 ../df/virt-df.pod:165
+msgid ""
+"Print UUIDs instead of names.  This is useful for following a guest even "
+"when the guest is migrated or renamed, or when two guests happen to have the "
+"same name."
+msgstr ""
+
+#. type: textblock
+#: ../align/virt-alignment-scan.pod:174
+msgid ""
+"This option only applies when listing all libvirt domains (when no I<-a> or "
+"I<-d> options are specified)."
+msgstr ""
+
+#. type: =item
+#: ../align/virt-alignment-scan.pod:177 ../cat/virt-cat.pod:134
 #: ../cat/virt-filesystems.pod:261 ../cat/virt-ls.pod:425
 #: ../df/virt-df.pod:173 ../edit/virt-edit.pod:161 ../fish/guestfish.pod:390
 #: ../format/virt-format.pod:145 ../fuse/guestmount.pod:266
@@ -573,7 +648,7 @@ msgid "B<-v>"
 msgstr "B<-v>"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:156 ../cat/virt-cat.pod:136
+#: ../align/virt-alignment-scan.pod:179 ../cat/virt-cat.pod:136
 #: ../cat/virt-filesystems.pod:263 ../cat/virt-ls.pod:427
 #: ../df/virt-df.pod:175 ../edit/virt-edit.pod:163 ../fish/guestfish.pod:392
 #: ../format/virt-format.pod:147 ../fuse/guestmount.pod:268
@@ -583,7 +658,7 @@ msgid "B<--verbose>"
 msgstr "B<--verbose>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:158 ../cat/virt-cat.pod:138
+#: ../align/virt-alignment-scan.pod:181 ../cat/virt-cat.pod:138
 #: ../cat/virt-filesystems.pod:265 ../cat/virt-ls.pod:429
 #: ../df/virt-df.pod:177 ../edit/virt-edit.pod:165
 #: ../format/virt-format.pod:149 ../inspector/virt-inspector.pod:122
@@ -593,7 +668,7 @@ msgid "Enable verbose messages for debugging."
 msgstr "Увімкнути докладний показ повідомлень з метою діагностики."
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:160
+#: ../align/virt-alignment-scan.pod:183
 #: ../appliance/libguestfs-make-fixed-appliance.pod:85 ../cat/virt-cat.pod:140
 #: ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:431
 #: ../df/virt-df.pod:179 ../edit/virt-edit.pod:167 ../fish/guestfish.pod:397
@@ -605,7 +680,7 @@ msgid "B<-V>"
 msgstr "B<-V>"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:162
+#: ../align/virt-alignment-scan.pod:185
 #: ../appliance/libguestfs-make-fixed-appliance.pod:87 ../cat/virt-cat.pod:142
 #: ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:433
 #: ../df/virt-df.pod:181 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:399
@@ -619,7 +694,7 @@ msgid "B<--version>"
 msgstr "B<--version>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:164 ../cat/virt-cat.pod:144
+#: ../align/virt-alignment-scan.pod:187 ../cat/virt-cat.pod:144
 #: ../cat/virt-filesystems.pod:271 ../cat/virt-ls.pod:435
 #: ../df/virt-df.pod:183 ../edit/virt-edit.pod:171
 #: ../format/virt-format.pod:155 ../inspector/virt-inspector.pod:128
@@ -632,7 +707,7 @@ msgid "Display version number and exit."
 msgstr "Показати дані щодо версії і завершити роботу."
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:166 ../cat/virt-cat.pod:146
+#: ../align/virt-alignment-scan.pod:189 ../cat/virt-cat.pod:146
 #: ../cat/virt-filesystems.pod:281 ../cat/virt-ls.pod:437
 #: ../df/virt-df.pod:185 ../edit/virt-edit.pod:173 ../fish/guestfish.pod:412
 #: ../format/virt-format.pod:167 ../fuse/guestmount.pod:287
@@ -643,7 +718,7 @@ msgid "B<-x>"
 msgstr "B<-x>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:168 ../cat/virt-cat.pod:148
+#: ../align/virt-alignment-scan.pod:191 ../cat/virt-cat.pod:148
 #: ../cat/virt-filesystems.pod:283 ../cat/virt-ls.pod:439
 #: ../df/virt-df.pod:187 ../edit/virt-edit.pod:175
 #: ../format/virt-format.pod:169 ../inspector/virt-inspector.pod:132
@@ -653,12 +728,12 @@ msgid "Enable tracing of libguestfs API calls."
 msgstr "Увімкнути трасування викликів програмного інтерфейсу libguestfs."
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:172
+#: ../align/virt-alignment-scan.pod:195
 msgid "RECOMMENDED ALIGNMENT"
 msgstr "РЕКОМЕНДОВАНЕ ВИРІВНЮВАННЯ"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:174
+#: ../align/virt-alignment-scan.pod:197
 msgid ""
 "Operating systems older than Windows 2008 and Linux before ca.2010 place the "
 "first sector of the first partition at sector 63, with a 512 byte sector "
@@ -671,31 +746,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:183
+#: ../align/virt-alignment-scan.pod:206
 msgid ""
 "When the guest OS is virtualized, the host operating system and hypervisor "
 "may prefer accesses aligned to one of:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:188
+#: ../align/virt-alignment-scan.pod:211
 msgid "* 512 bytes"
 msgstr "* 512 байти"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:190
+#: ../align/virt-alignment-scan.pod:213
 msgid ""
 "if the host OS uses local storage directly on hard drive partitions, and the "
 "hard drive has 512 byte physical sectors."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:193
+#: ../align/virt-alignment-scan.pod:216
 msgid "* 4 Kbytes"
 msgstr "* 4 кілобайтів"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:195
+#: ../align/virt-alignment-scan.pod:218
 msgid ""
 "for local storage on new hard drives with 4Kbyte physical sectors; for file-"
 "backed storage on filesystems with 4Kbyte block size; or for some types of "
@@ -703,36 +778,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:199
+#: ../align/virt-alignment-scan.pod:222
 msgid "* 64 Kbytes"
 msgstr "* 64 кілобайтів"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:201
+#: ../align/virt-alignment-scan.pod:224
 msgid ""
 "for high-end network-attached storage.  This is the optimal block size for "
 "some NetApp hardware."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:204
+#: ../align/virt-alignment-scan.pod:227
 msgid "* 1 Mbyte"
 msgstr "* 1 мегабайт"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:206
+#: ../align/virt-alignment-scan.pod:229
 msgid "see L</1 MB PARTITION ALIGNMENT> below."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:210
+#: ../align/virt-alignment-scan.pod:233
 msgid ""
 "Partitions which are not aligned correctly to the underlying storage cause "
 "extra I/O.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:213
+#: ../align/virt-alignment-scan.pod:236
 #, no-wrap
 msgid ""
 "                       sect#63\n"
@@ -747,7 +822,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:222
+#: ../align/virt-alignment-scan.pod:245
 msgid ""
 "In this example, each time a 4K guest block is read, two blocks on the host "
 "must be accessed (so twice as much I/O is done).  When a 4K guest block is "
@@ -756,24 +831,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../align/virt-alignment-scan.pod:227
+#: ../align/virt-alignment-scan.pod:250
 msgid "LINUX HOST BLOCK AND I/O SIZE"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:229
+#: ../align/virt-alignment-scan.pod:252
 msgid ""
 "New versions of the Linux kernel expose the physical and logical block size, "
 "and minimum and recommended I/O size."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:232
+#: ../align/virt-alignment-scan.pod:255
 msgid "For a typical consumer hard drive with 512 byte sectors:"
 msgstr ""
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:234
+#: ../align/virt-alignment-scan.pod:257
 #, no-wrap
 msgid ""
 " $ cat /sys/block/sda/queue/hw_sector_size\n"
@@ -801,12 +876,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:245
+#: ../align/virt-alignment-scan.pod:268
 msgid "For a new consumer hard drive with 4Kbyte sectors:"
 msgstr ""
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:247
+#: ../align/virt-alignment-scan.pod:270
 #, no-wrap
 msgid ""
 " $ cat /sys/block/sda/queue/hw_sector_size\n"
@@ -834,12 +909,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:258
+#: ../align/virt-alignment-scan.pod:281
 msgid "For a NetApp LUN:"
 msgstr ""
 
 #. type: verbatim
-#: ../align/virt-alignment-scan.pod:260
+#: ../align/virt-alignment-scan.pod:283
 #, no-wrap
 msgid ""
 " $ cat /sys/block/sdc/queue/logical_block_size\n"
@@ -863,14 +938,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:269
+#: ../align/virt-alignment-scan.pod:292
 msgid ""
 "The NetApp allows 512 byte accesses (but they will be very inefficient), "
 "prefers a minimum 4K I/O size, but the optimal I/O size is 64K."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:273
+#: ../align/virt-alignment-scan.pod:296
 msgid ""
 "For detailed information about what these numbers mean, see L<http://docs."
 "redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/"
@@ -878,26 +953,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:276
+#: ../align/virt-alignment-scan.pod:299
 msgid ""
 "[Thanks to Matt Booth for providing 4K drive data.  Thanks to Mike Snitzer "
 "for providing NetApp data and additional information.]"
 msgstr ""
 
 #. type: =head2
-#: ../align/virt-alignment-scan.pod:279
+#: ../align/virt-alignment-scan.pod:302
 msgid "1 MB PARTITION ALIGNMENT"
 msgstr "ВИРІВНЮВАННЯ РОЗДІЛІВ НА ПОЗНАЧКИ 1 МБ"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:281
+#: ../align/virt-alignment-scan.pod:304
 msgid ""
 "Microsoft picked 1 MB as the default alignment for all partitions starting "
 "with Windows 2008 Server, and Linux has followed this."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:284
+#: ../align/virt-alignment-scan.pod:307
 msgid ""
 "Assuming 512 byte sectors in the guest, you will now see the first partition "
 "starting at sector 2048, and subsequent partitions (if any)  will start at a "
@@ -905,19 +980,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:288
+#: ../align/virt-alignment-scan.pod:311
 msgid ""
 "1 MB alignment is compatible with all current alignment requirements (4K, "
 "64K) and provides room for future growth in physical block sizes."
 msgstr ""
 
 #. type: =head2
-#: ../align/virt-alignment-scan.pod:291
+#: ../align/virt-alignment-scan.pod:314
 msgid "SETTING ALIGNMENT"
 msgstr "ВСТАНОВЛЕННЯ ВИРІВНЮВАННЯ"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:293
+#: ../align/virt-alignment-scan.pod:316
 msgid ""
 "L<virt-resize(1)> can change the alignment of the partitions of some "
 "guests.  Currently it can fully align all the partitions of all Windows "
@@ -927,7 +1002,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:299
+#: ../align/virt-alignment-scan.pod:322
 msgid ""
 "Another way to correct partition alignment problems is to reinstall your "
 "guest operating systems.  If you install operating systems from templates, "
@@ -935,14 +1010,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:303
+#: ../align/virt-alignment-scan.pod:326
 msgid ""
 "For older versions of Windows, the following NetApp document contains useful "
 "information: L<http://media.netapp.com/documents/tr-3747.pdf>"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:306
+#: ../align/virt-alignment-scan.pod:329
 msgid ""
 "For Red Hat Enterprise Linux E<le> 5, use a Kickstart script that contains "
 "an explicit C<%pre> section that creates aligned partitions using L<parted(8)"
@@ -951,7 +1026,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:311 ../cat/virt-cat.pod:231
+#: ../align/virt-alignment-scan.pod:334 ../cat/virt-cat.pod:231
 #: ../cat/virt-filesystems.pod:377 ../cat/virt-ls.pod:483
 #: ../df/virt-df.pod:241 ../edit/virt-edit.pod:342
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:303
@@ -963,7 +1038,7 @@ msgid "SHELL QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:313 ../cat/virt-cat.pod:233
+#: ../align/virt-alignment-scan.pod:336 ../cat/virt-cat.pod:233
 #: ../cat/virt-filesystems.pod:379 ../cat/virt-ls.pod:485
 #: ../df/virt-df.pod:243 ../edit/virt-edit.pod:344
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:305
@@ -979,7 +1054,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:318
+#: ../align/virt-alignment-scan.pod:341
 #: ../appliance/libguestfs-make-fixed-appliance.pod:134
 #: ../cat/virt-cat.pod:238 ../cat/virt-filesystems.pod:384
 #: ../cat/virt-ls.pod:490 ../df/virt-df.pod:248 ../edit/virt-edit.pod:349
@@ -991,13 +1066,13 @@ msgid "EXIT STATUS"
 msgstr "СТАН ВИХОДУ"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:320
+#: ../align/virt-alignment-scan.pod:343
 msgid "This program returns:"
 msgstr "Ця програма повертає:"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:324 ../align/virt-alignment-scan.pod:330
-#: ../align/virt-alignment-scan.pod:336 ../align/virt-alignment-scan.pod:343
+#: ../align/virt-alignment-scan.pod:347 ../align/virt-alignment-scan.pod:353
+#: ../align/virt-alignment-scan.pod:359 ../align/virt-alignment-scan.pod:366
 #: ../appliance/libguestfs-make-fixed-appliance.pod:32
 #: ../appliance/libguestfs-make-fixed-appliance.pod:53 ../cat/virt-cat.pod:177
 #: ../cat/virt-cat.pod:182 ../cat/virt-cat.pod:187 ../cat/virt-cat.pod:198
@@ -1084,12 +1159,12 @@ msgid "*"
 msgstr "*"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:326
+#: ../align/virt-alignment-scan.pod:349
 msgid "0"
 msgstr "0"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:328
+#: ../align/virt-alignment-scan.pod:351
 msgid ""
 "successful exit, all partitions are aligned E<ge> 64K for best performance"
 msgstr ""
@@ -1097,41 +1172,41 @@ msgstr ""
 "найкращої швидкодії"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:332
+#: ../align/virt-alignment-scan.pod:355
 msgid "1"
 msgstr "1"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:334
+#: ../align/virt-alignment-scan.pod:357
 msgid "an error scanning the disk image or guest"
 msgstr "під час сканування образу диска або гостьової системи сталася помилка"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:338
+#: ../align/virt-alignment-scan.pod:361
 msgid "2"
 msgstr "2"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:340
+#: ../align/virt-alignment-scan.pod:363
 msgid ""
 "successful exit, some partitions have alignment E<lt> 64K which can result "
 "in poor performance on high end network storage"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:345
+#: ../align/virt-alignment-scan.pod:368
 msgid "3"
 msgstr "3"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:347
+#: ../align/virt-alignment-scan.pod:370
 msgid ""
 "successful exit, some partitions have alignment E<lt> 4K which can result in "
 "poor performance on most hypervisors"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:352
+#: ../align/virt-alignment-scan.pod:375
 #: ../appliance/libguestfs-make-fixed-appliance.pod:144
 #: ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389
 #: ../cat/virt-ls.pod:495 ../df/virt-df.pod:253 ../edit/virt-edit.pod:354
@@ -1155,7 +1230,7 @@ msgid "SEE ALSO"
 msgstr "ТАКОЖ ПЕРЕГЛЯНЬТЕ"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:354
+#: ../align/virt-alignment-scan.pod:377
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-rescue(1)>, "
 "L<virt-resize(1)>, L<http://libguestfs.org/>."
@@ -1164,7 +1239,7 @@ msgstr ""
 "L<virt-resize(1)>, L<http://libguestfs.org/>."
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:361 ../cat/virt-cat.pod:252
+#: ../align/virt-alignment-scan.pod:384 ../cat/virt-cat.pod:252
 #: ../cat/virt-filesystems.pod:400 ../cat/virt-ls.pod:507
 #: ../df/virt-df.pod:261 ../edit/virt-edit.pod:368
 #: ../format/virt-format.pod:187 ../rescue/virt-rescue.pod:334
@@ -1176,7 +1251,7 @@ msgid "AUTHOR"
 msgstr "АВТОР"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:363 ../cat/virt-cat.pod:254
+#: ../align/virt-alignment-scan.pod:386 ../cat/virt-cat.pod:254
 #: ../cat/virt-filesystems.pod:402 ../cat/virt-ls.pod:509
 #: ../df/virt-df.pod:263 ../edit/virt-edit.pod:370
 #: ../format/virt-format.pod:189 ../inspector/virt-inspector.pod:516
@@ -1189,7 +1264,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:365
+#: ../align/virt-alignment-scan.pod:388
 #: ../appliance/libguestfs-make-fixed-appliance.pod:157
 #: ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404
 #: ../cat/virt-ls.pod:511 ../df/virt-df.pod:265 ../edit/virt-edit.pod:372
@@ -1213,12 +1288,12 @@ msgid "COPYRIGHT"
 msgstr "АВТОРСЬКІ ПРАВА"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:367 ../sparsify/virt-sparsify.pod:297
+#: ../align/virt-alignment-scan.pod:390 ../sparsify/virt-sparsify.pod:297
 msgid "Copyright (C) 2011 Red Hat Inc."
 msgstr "© Red Hat Inc., 2011"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:369
+#: ../align/virt-alignment-scan.pod:392
 #: ../appliance/libguestfs-make-fixed-appliance.pod:162
 #: ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408
 #: ../cat/virt-ls.pod:515 ../df/virt-df.pod:269 ../edit/virt-edit.pod:376
@@ -1240,7 +1315,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:374
+#: ../align/virt-alignment-scan.pod:397
 #: ../appliance/libguestfs-make-fixed-appliance.pod:167
 #: ../cat/virt-cat.pod:265 ../cat/virt-filesystems.pod:413
 #: ../cat/virt-ls.pod:520 ../df/virt-df.pod:274 ../edit/virt-edit.pod:381
@@ -1266,7 +1341,7 @@ msgstr ""
 "дізнатися з GNU General Public License."
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:379
+#: ../align/virt-alignment-scan.pod:402
 #: ../appliance/libguestfs-make-fixed-appliance.pod:172
 #: ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:418
 #: ../cat/virt-ls.pod:525 ../df/virt-df.pod:279 ../edit/virt-edit.pod:386
@@ -2495,11 +2570,6 @@ msgstr "B<--physical-volumes>"
 #: ../cat/virt-filesystems.pod:253
 msgid "Display LVM physical volumes."
 msgstr "Показати фізичні томи LVM."
-
-#. type: =item
-#: ../cat/virt-filesystems.pod:255 ../df/virt-df.pod:163
-msgid "B<--uuid>"
-msgstr "B<--uuid>"
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:257
@@ -3754,14 +3824,6 @@ msgid ""
 "If the kernel has a bug which stops it from accessing a filesystem in one "
 "guest (see for example RHBZ#635373) then this allows libguestfs to continue "
 "and report stats for further guests."
-msgstr ""
-
-#. type: textblock
-#: ../df/virt-df.pod:165
-msgid ""
-"Print UUIDs instead of names.  This is useful for following a guest even "
-"when the guest is migrated or renamed, or when two guests happen to have the "
-"same name."
 msgstr ""
 
 #. type: textblock
