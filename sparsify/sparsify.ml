@@ -121,6 +121,12 @@ read the man page virt-sparsify(1).
     | _ ->
         error "usage is: %s [--options] indisk outdisk" prog in
 
+  (* Simple-minded check that the user isn't trying to use the
+   * same disk for input and output.
+   *)
+  if indisk = outdisk then
+    error "you cannot use the same disk image for input and output";
+
   (* The input disk must be an absolute path, so we can store the name
    * in the overlay disk.
    *)

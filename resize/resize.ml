@@ -187,6 +187,12 @@ read the man page virt-resize(1).
     | _ ->
         error "usage is: %s [--options] indisk outdisk" prog in
 
+  (* Simple-minded check that the user isn't trying to use the
+   * same disk for input and output.
+   *)
+  if infile = outfile then
+    error "you cannot use the same disk image for input and output";
+
   infile, outfile, align_first, alignment, copy_boot_loader,
   debug, debug_gc, deletes,
   dryrun, expand, expand_content, extra_partition, format, ignores,
