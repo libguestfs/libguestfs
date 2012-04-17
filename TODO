@@ -459,3 +459,8 @@ TMPDIR should be checked to ensure that we won't run out of space
 during the conversion, since current behaviour is very bad when this
 happens (it usually causes virt-sparsify to hang).  This requires
 writing a small C binding to statvfs for OCaml.
+
+Optimize the appliance
+----------------------
+
+Pass -cpu host.  Anything else?
