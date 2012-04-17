@@ -233,9 +233,9 @@ main (int argc, char *argv[])
   }
 
   /* Decide on an appropriate exit code. */
-  if (worst_alignment < 4096)
+  if (worst_alignment < 10) /* 2^10 = 4096 */
     exit_code = 3;
-  else if (worst_alignment < 65536)
+  else if (worst_alignment < 16) /* 2^16 = 65536 */
     exit_code = 2;
   else
     exit_code = 0;
