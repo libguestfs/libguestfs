@@ -53,6 +53,6 @@ g.set_autosync (1)
 # Close the handle.  The close callback should be invoked.
 if close_invoked != 0:
     raise "Error: close_invoked should be 0"
-del g
+g.close ()
 if close_invoked != 1:
     raise "Error: close_invoked should be 1"
