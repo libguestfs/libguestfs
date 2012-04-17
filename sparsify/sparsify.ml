@@ -125,12 +125,15 @@ read the man page virt-sparsify(1).
     else
       Sys.getcwd () // indisk in
 
-  (* Check indisk filename doesn't contain a comma (limitation of qemu-img). *)
-  let contains_comma =
-    try ignore (String.index indisk ','); true
-    with Not_found -> false in
-  if contains_comma then
-    error "input filename '%s' contains a comma; qemu-img command line syntax prevents us from using such an image" indisk;
+  let contains_colon filename =
+    try ignore (String.index filename ':'); true with Not_found -> false in
+
+  (* Check filenames don't contain a colon (limitation of qemu-img). *)
+  if contains_colon indisk then
+    error "input filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image" indisk;
+
+  if contains_colon outdisk then
+    error "output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image" outdisk;
 
   indisk, outdisk, compress, convert,
     debug_gc, format, ignores, machine_readable,
@@ -153,12 +156,14 @@ let overlaydisk =
 
   (* Create it with the indisk as the backing file. *)
   let cmd =
-    sprintf "qemu-img create -f qcow2 -o backing_file=%s%s %s > /dev/null"
-      (Filename.quote indisk)
-      (match format with
-      | None -> ""
-      | Some fmt -> sprintf ",backing_fmt=%s" (Filename.quote fmt))
-      (Filename.quote tmp) in
+    let backing_file_option =
+      sprintf "backing_file=%s%s"
+        (replace_str indisk "," ",,")
+        (match format with
+        | None -> ""
+        | Some fmt -> sprintf ",backing_fmt=%s" fmt) in
+    sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
+      (Filename.quote backing_file_option) (Filename.quote tmp) in
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then

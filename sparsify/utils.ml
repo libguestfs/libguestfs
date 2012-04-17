@@ -76,6 +76,16 @@ let rec string_find s sub =
   in
   loop 0
 
+let rec replace_str s s1 s2 =
+  let len = String.length s in
+  let sublen = String.length s1 in
+  let i = string_find s s1 in
+  if i = -1 then s
+  else (
+    let s' = String.sub s 0 i in
+    let s'' = String.sub s (i+sublen) (len-i-sublen) in
+    s' ^ s2 ^ replace_str s'' s1 s2
+  )
 let string_random8 =
   let chars = "abcdefghijklmnopqrstuvwxyz0123456789" in
   fun () ->
