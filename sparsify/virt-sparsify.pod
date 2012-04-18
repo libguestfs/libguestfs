@@ -269,6 +269,14 @@ to point to another directory that has enough space.
 
 This defaults to C</tmp>.
 
+Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if
+you use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of
+I<half> of physical RAM.  If virt-sparsify exceeds this, it will hang.
+The solution is either to use a real disk, or to increase the maximum
+size of the tmpfs mountpoint, eg:
+
+ mount -o remount,size=10G /tmp
+
 =back
 
 For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
