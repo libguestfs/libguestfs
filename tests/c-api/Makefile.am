@@ -145,8 +145,3 @@ test_debug_to_file_LDADD = \
 #	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
 #	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
 #endif
-
-# Run the tests under valgrind.
-
-valgrind:
-	$(MAKE) check VG="valgrind --quiet --leak-check=full"
