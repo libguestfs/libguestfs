@@ -698,7 +698,7 @@ the Unix L<chmod(1)> program):
 
 Commands that return numbers usually print them in decimal, but
 some commands print numbers in other radices (eg. C<umask> prints
-the mode in octal, preceeded by C<0>).
+the mode in octal, preceded by C<0>).
 
 =head1 WILDCARDS AND GLOBBING
 
@@ -730,7 +730,7 @@ will perform a Cartesian product.
 =head1 COMMENTS
 
 Any line which starts with a I<#> character is treated as a comment
-and ignored.  The I<#> can optionally be preceeded by whitespace,
+and ignored.  The I<#> can optionally be preceded by whitespace,
 but B<not> by a command.  For example:
 
  # this is a comment
@@ -904,7 +904,7 @@ some arbitrary end marker:
  END
 
 Any string of characters can be used instead of C<END>.  The end
-marker must appear on a line of its own, without any preceeding or
+marker must appear on a line of its own, without any preceding or
 following characters (not even spaces).
 
 Note that the C<-E<lt>E<lt>> syntax only applies to parameters used to

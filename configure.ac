@@ -1234,7 +1234,7 @@ echo -n "gobject introspection ............... "
 if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
-echo "then you should check the preceeding messages."
+echo "then you should check the preceding messages."
 echo
 echo "Please report bugs back to the mailing list:"
 echo "http://www.redhat.com/mailman/listinfo/libguestfs"

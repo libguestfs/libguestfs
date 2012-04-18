@@ -47,7 +47,7 @@ on the class C<Guestfs.guestfs>:
  method set_verbose : bool -> unit
 
 The object-oriented style is usually briefer, and the minor performance
-penalty isn't noticable in the general overhead of performing
+penalty isn't noticeable in the general overhead of performing
 libguestfs functions.
 
 =head2 CLOSING THE HANDLE
