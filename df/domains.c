@@ -30,7 +30,9 @@
 
 #include "progname.h"
 
+#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 #define GUESTFS_PRIVATE_FOR_EACH_DISK 1
+#endif
 
 #include "guestfs.h"
 #include "options.h"
