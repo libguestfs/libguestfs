@@ -33,7 +33,9 @@
 #include <libxml/tree.h>
 #endif
 
+#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 #define GUESTFS_PRIVATE_FOR_EACH_DISK 1
+#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
