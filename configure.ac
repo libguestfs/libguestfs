@@ -710,6 +710,20 @@ AS_IF([test "x$enable_fuse" != "xno"],
                 AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])])
 AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
+dnl If valgrind is present (it's not required), check whether or not
+dnl it supports the new 'valgrind --vgdb' option.
+AC_CHECK_PROG([VALGRIND],[valgrind],[valgrind],[no])
+AS_IF([test "x$valgrind" != "xno"],[
+    AC_MSG_CHECKING([if $VALGRIND supports the --vgdb option])
+    if $VALGRIND --help | grep -sq -- --vgdb; then
+        AC_MSG_RESULT([yes])
+        AC_SUBST([VALGRIND_NO_VGDB],[--vgdb=no])
+    else
+        AC_MSG_RESULT([no])
+        AC_SUBST([VALGRIND_NO_VGDB],[])
+    fi
+])
+
 dnl Check for OCaml (optional, for OCaml bindings).
 OCAMLC=no
 OCAMLFIND=no

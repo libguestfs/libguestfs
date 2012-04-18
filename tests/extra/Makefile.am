@@ -53,12 +53,12 @@
 
 EXTRA_DIST = pick-guests.pl suppressions
 
-VG = valgrind \
+VG = $(VALGRIND) \
+	$(VALGRIND_NO_VGDB) \
 	--log-file=$(abs_builddir)/valgrind.log \
 	--leak-check=full \
 	--error-exitcode=119 \
-	--suppressions=$(abs_srcdir)/suppressions \
-	--vgdb=no
+	--suppressions=$(abs_srcdir)/suppressions
 RUN_VG = $(abs_top_builddir)/run $(VG)
 
 export LIBVIRT_DEFAULT_URI = \
