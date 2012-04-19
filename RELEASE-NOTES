@@ -1,6 +1,8 @@
 Release notes for libguestfs 1.18.0
 -----------------------------------
 
+UPDATED TO COMMIT 36f1eb922530b254631781bd6475ff6348f511af
+
 These release notes only cover the differences from the previous
 stable/dev branch split (1.16.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
@@ -9,29 +11,32 @@ New features
 
   virt tools:
 
-   - virt-sysprep has been rewritten and expanded
+   - virt-sysprep has been rewritten and expanded (thanks Wanlong Gao)
 
-   - virt-filesystems now displays the parents of MD and VG devices
+   - virt-edit preserves permissions, UID, GID and SELinux context
+     when editing files
 
    - virt-sparsify --zero is a new option that zeroes the named
      partition or filesystem
 
    - virt-sparsify can now safely sparsify Linux swap partitions
 
-   - virt-sparsify now handles ^C cleanly
-
-   - virt-edit now preserves permissions, UID, GID and SELinux context
-     when editing files
+   - virt-sparsify fixed so it cleans up after ^C
 
    - a new tool 'libguestfs-make-fixed-appliance' is provided to build
      fixed appliances that can be copied to other machines that don't
      have febootstrap support
 
-  guestfish:
+   - virt-filesystems now displays the parents (containers) of MD
+     devices and volume groups
 
-   - the close event is passed over stdout and remote correctly
+   - virt-alignment-scan, run with no args, displays alignment information
+     for all libvirt domains
 
-   - guestfish --listen now calls cleanups properly
+   - comma and colon characters in filenames now handled correctly by
+     all virt tools
+
+   - guestfish passes the close event over stdout and remote correctly
 
   inspection:
 
@@ -46,6 +51,9 @@ New features
 
   API:
 
+   - new man page: guestfs-performance(1), which contains performance
+     tuning tips.
+
    - ENOTSUP (from guestfs_last_errno) is now returned for APIs that
      are not supported
 
@@ -57,20 +65,26 @@ New features
 
 Security
 
+  (no security problems were found or fixed in this release)
+
 New APIs
 
-  isoinfo, isoinfo-device: 
-  llz: 
-  lvcreate-free: 
-  md-stat: 
-  mkfs-brtfs: 
-  mount-local, mount-local-run, umount-local: 
-  ntfsclone-in, ntfsclone-out: 
-  ntfsfix: 
-  set-label: 
-  vgmeta: 
-  wipefs: 
-  zero-free-space: 
+  get-e2attrs: List ext2 file attributes of a file.
+  get-e2generation: Get ext2 file generation of a file.
+  isoinfo, isoinfo-device: Get information from the header of ISO files.
+  llz: List files with SELinux information.
+  lvcreate-free: Create an LVM logical volume in % remaining free space.
+  md-stat: Return underlying devices from an MD device.
+  mkfs-brtfs: Make btrfs filesystem, with all tunables.
+  mount-local, mount-local-run, umount-local: FUSE support in the API.
+  ntfsclone-in, ntfsclone-out: Save, restore NTFS from backup.
+  ntfsfix: Fix common errors and force Windows to check NTFS.
+  set-e2attrs: Set or clear ext2 file attributes of a file.
+  set-e2generation: Set ext2 file generation of a file.
+  set-label: Unified interface for setting filesystem label.
+  vgmeta: Get volume group metadata.
+  wipefs: Wipe filesystem signatures from a device.
+  zero-free-space: Zero free space in a filesystem.
 
 Internals
 
@@ -80,23 +94,25 @@ Internals
  - O_CLOEXEC / SOCK_CLOEXEC is now used for almost all file
    descriptors that the library opens.
 
- - Close all file descriptors and remove all signal handles in the
-   recovery process.
+ - posix_fadvise is called when sequentially reading or writing large
+   files.
 
- - Multiple gcc warnings and Coverity bugs have been fixed.  Many
-   strict-overflow bugs have also been fixed.
+ - close all file descriptors and remove all signal handlers in the
+   recovery process
 
- - Use ./configure --enable-valgrind-daemon to use valgrind on the
-   daemon.  Many errors have been fixed.
+ - multiple gcc warnings and Coverity bugs have been fixed;  many
+   strict-overflow bugs have also been fixed
 
- - The daemon now has a growable strings buffer type
-   (DECLARE_STRINGSBUF).
+ - use ./configure --enable-valgrind-daemon to use valgrind on the
+   daemon;  many errors have been fixed
 
- - The <guestfs.h> header file works with C++ and we have a regression
-   test for this.
+ - the daemon now has a growable strings buffer type (DECLARE_STRINGSBUF)
 
- - Multiple APIs which should only be called in the CONFIG state now
-   give an error if they are not.
+ - the <guestfs.h> header file works with C++ and we have a regression
+   test for this
+
+ - multiple APIs which should only be called in the CONFIG state now
+   give an error if they are not
 
  - .gitignore fixed to use absolute paths
 
@@ -117,15 +133,26 @@ Internals
 
  - ruby: Use RbConfig instead of Config.
 
- - Appliance building is now thread-safe.
+ - PYTHONPATH is set by the ./run script.
 
- - Appliance now uses 'ip' instead of 'ifconfig' and 'netstat'
-   commands.
+ - appliance building is now thread-safe.
+
+ - appliance now uses 'ip' instead of 'ifconfig' and 'netstat'
+   commands
+
+ - several fixes to make parallel builds work properly
+
+ - guestfish --listen now cleans up properly
 
 Bugs fixed
 
   [./bugs-in-changelog.sh 1.16.0..]
 
+ - 811872 inspection fails on ubuntu 10.04 guest with encrypted swap
+ - 811650 guestfs_last_error not set when qemu fails early during launch
+ - 811649 libguestfs cannot open disk images which are symlinks to files that contain ':' (colon) character
+ - 811117 [RFE][virt-sysprep] net-hwaddr not removed from "ifcfg-*" files on rhel
+ - 811112 [RFE][virt-sysprep] hostname can not be changed on rhel system
  - 809361 inspection doesn't recognize Fedora 18 (grub2 + GPT)
  - 807905 mkfs blocksize option breaks when creating btrfs
  - 805070 virt-filesystems should show 'parents' of LV and RAID devices
