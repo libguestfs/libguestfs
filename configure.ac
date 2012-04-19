@@ -221,6 +221,20 @@ AC_CHECK_FUNCS([\
         statvfs \
         sync])
 
+dnl tgetent, tputs and UP [sic] are all required.  They come from libtinfo
+dnl which is pulled in as a dependency of libncurses.
+old_LIBS="$LIBS"
+AC_CHECK_LIB([ncurses], [tgetent], [], [
+    AC_MSG_ERROR(['ncurses' library not found, or it doesn't contain 'tgetent'])
+])
+AC_CHECK_LIB([ncurses], [tputs], [], [
+    AC_MSG_ERROR(['ncurses' library not found, or it doesn't contain 'tputs'])
+])
+AC_CHECK_LIB([ncurses], [UP], [], [
+    AC_MSG_ERROR(['ncurses' library not found, or it doesn't contain 'UP'])
+])
+LIBS="$old_LIBS"
+
 dnl For modified printf in the daemon, we need glibc either (old-style)
 dnl register_printf_function or (new-style) register_printf_specifier.
 AC_CHECK_FUNC([register_printf_specifier],[
