@@ -88,7 +88,7 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
-# virt-resize (new version) and virt-sparsify are written in OCaml.
+# OCaml tools.
 if HAVE_OCAML
 SUBDIRS += resize sparsify
 endif
