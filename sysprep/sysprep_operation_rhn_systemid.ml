@@ -32,7 +32,9 @@ let rhn_systemid_perform g root =
 
 let rhn_systemid_op = {
   name = "rhn-systemid";
-  pod_description = "Remove the RHN system ID.";
+  enabled_by_default = true;
+  heading = "Remove the RHN system ID";
+  pod_description = None;
   extra_args = [];
   perform = rhn_systemid_perform;
 }

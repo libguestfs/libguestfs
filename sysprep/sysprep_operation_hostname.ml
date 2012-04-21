@@ -52,9 +52,11 @@ let hostname_perform g root =
 
 let hostname_op = {
   name = "hostname";
-  pod_description = "\
-Changes the hostname of the guest to the value given in the I<--hostname>
-parameter.
+  enabled_by_default = true;
+  heading = "Change the hostname of the guest";
+  pod_description = Some "\
+This operation changes the hostname of the guest to the value
+given in the I<--hostname> parameter.
 
 If the I<--hostname> parameter is not given, then the hostname is changed
 to C<localhost.localdomain>.";

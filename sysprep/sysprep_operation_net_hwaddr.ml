@@ -44,9 +44,11 @@ let net_hwaddr_perform g root =
 
 let net_hwaddr_op = {
   name = "net-hwaddr";
-  pod_description = "\
-Remove HWADDR (hard-coded MAC address) configuration.  For Fedora and
-Red Hat Enterprise Linux, this is removed from C<ifcfg-*> files.";
+  enabled_by_default = true;
+  heading = "Remove HWADDR (hard-coded MAC address) configuration";
+  pod_description = Some "\
+For Fedora and Red Hat Enterprise Linux,
+this is removed from C<ifcfg-*> files.";
   extra_args = [];
   perform = net_hwaddr_perform;
 }

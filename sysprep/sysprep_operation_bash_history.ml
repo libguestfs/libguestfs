@@ -34,9 +34,9 @@ let bash_history_perform g root =
 
 let bash_history_op = {
   name = "bash-history";
-  pod_description = "\
-Remove the bash history in the guest.
-
+  enabled_by_default = true;
+  heading = "Remove the bash history in the guest";
+  pod_description = Some "\
 Remove the bash history of user \"root\" and any other users
 who have a C<.bash_history> file in their home directory.";
   extra_args = [];

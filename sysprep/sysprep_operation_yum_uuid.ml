@@ -30,9 +30,9 @@ let yum_uuid_perform g root =
 
 let yum_uuid_op = {
   name = "yum-uuid";
-  pod_description = "\
-Remove the yum UUID.
-
+  enabled_by_default = true;
+  heading = "Remove the yum UUID";
+  pod_description = Some "\
 Yum creates a fresh UUID the next time it runs when it notices that the
 original UUID has been erased.";
   extra_args = [];

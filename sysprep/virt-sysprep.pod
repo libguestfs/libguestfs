@@ -86,8 +86,11 @@ list of operations, for example:
 
 would enable ONLY C<ssh-hostkeys> and C<udev-persistent-net> operations.
 
-If the I<--enable> option is not given, then we default to trying all
-possible sysprep operations.  But some sysprep operations are skipped
+If the I<--enable> option is not given, then we default to trying most
+sysprep operations (see I<--list-operations> to show which are
+enabled).
+
+Regardless of the I<--enable> option, sysprep operations are skipped
 for some guest types.
 
 Use I<--list-operations> to list operations supported by a particular
@@ -123,6 +126,24 @@ security problem with malicious guests (CVE-2010-3851).
 =item B<--list-operations>
 
 List the operations supported by the virt-sysprep program.
+
+These are listed one per line, with one or more single-space-separated
+fields, eg:
+
+ $ virt-sysprep --list-operations
+ bash-history * Remove the bash history in the guest
+ cron-spool * Remove user at-jobs and cron-jobs
+ dhcp-client-state * Remove DHCP client leases
+ dhcp-server-state * Remove DHCP server leases
+ [etc]
+
+The first field is the operation name, which can be supplied
+to I<--enable>.  The second field is a C<*> character if the
+operation is enabled by default or blank if not.  Subsequent
+fields on the same line are the description of the operation.
+
+Before libguestfs 1.17.33 only the first (operation name) field was
+shown and all operations were enabled by default.
 
 =item B<-q>
 
@@ -164,21 +185,24 @@ Enable tracing of libguestfs API calls.
 
 =head1 OPERATIONS
 
-If the I<--enable> option is I<not> given, then
-I<all sysprep operations are enabled>, although some are skipped
-depending on the type of guest.
+If the I<--enable> option is I<not> given, then most sysprep
+operations are enabled.
+
+Use C<virt-sysprep --list-operations> to list all operations for your
+virt-sysprep binary.  The ones which are enabled by default are marked
+with a C<*> character.  Regardless of the I<--enable> option, sysprep
+operations are skipped for some guest types.
 
 Operations can be individually enabled using the I<--enable> option.
 Use a comma-separated list, for example:
 
  virt-sysprep --enable=ssh-hostkeys,udev-persistent-net [etc..]
 
-To list the operations supported by the current version of
-virt-sysprep, use I<--list-operations>.
-
 Future versions of virt-sysprep may add more operations.  If you are
 using virt-sysprep and want predictable behaviour, specify only the
 operations that you want to have enabled.
+
+C<*> = enabled by default when no I<--enable> option is given.
 
 @OPERATIONS@
 

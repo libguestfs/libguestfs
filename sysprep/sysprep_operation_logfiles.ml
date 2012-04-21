@@ -59,10 +59,13 @@ let logfiles_perform g root =
 
 let logfiles_op = {
   name = "logfiles";
-  pod_description = sprintf "\
-Remove many log files.  On Linux the following files are removed:
+  enabled_by_default = true;
+  heading = "Remove many log files from the guest";
+  pod_description = Some (
+    sprintf "\
+On Linux the following files are removed:
 
-%s" globs_as_pod;
+%s" globs_as_pod);
   extra_args = [];
   perform = logfiles_perform;
 }

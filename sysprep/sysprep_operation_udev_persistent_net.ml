@@ -31,7 +31,9 @@ let udev_persistent_net_perform g root =
 
 let udev_persistent_net_op = {
   name = "udev-persistent-net";
-  pod_description = "\
+  enabled_by_default = true;
+  heading = "Remove udev persistent net rules";
+  pod_description = Some "\
 Remove udev persistent net rules which map the guest's existing MAC
 address to a fixed ethernet device (eg. eth0).
 

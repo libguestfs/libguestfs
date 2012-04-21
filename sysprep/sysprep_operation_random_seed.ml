@@ -45,7 +45,9 @@ let random_seed_perform g root =
 
 let random_seed_op = {
   name = "random-seed";
-  pod_description = "\
+  enabled_by_default = true;
+  heading = "Generate random seed for guest";
+  pod_description = Some "\
 Write some random bytes from the host into the random seed file of the
 guest.
 

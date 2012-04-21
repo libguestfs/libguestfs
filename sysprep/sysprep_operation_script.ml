@@ -113,7 +113,9 @@ trap cleanup INT TERM QUIT EXIT ERR\n"
 
 let script_op = {
   name = "script";
-  pod_description = "\
+  enabled_by_default = true;
+  heading = "Run arbitrary scripts against the guest";
+  pod_description = Some "\
 The C<script> module lets you run arbitrary shell scripts or programs
 against the guest.
 

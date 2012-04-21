@@ -26,7 +26,9 @@ let cron_spool_perform g root =
 
 let cron_spool_op = {
   name = "cron-spool";
-  pod_description = "Remove user at-jobs and cron-jobs.";
+  enabled_by_default = true;
+  heading = "Remove user at-jobs and cron-jobs";
+  pod_description = None;
   extra_args = [];
   perform = cron_spool_perform;
 }

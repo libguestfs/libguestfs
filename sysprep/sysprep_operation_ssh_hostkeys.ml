@@ -31,9 +31,9 @@ let ssh_hostkeys_perform g root =
 
 let ssh_hostkeys_op = {
   name = "ssh-hostkeys";
-  pod_description = "\
-Remove the SSH host keys in the guest.
-
+  enabled_by_default = true;
+  heading = "Remove the SSH host keys in the guest";
+  pod_description = Some "\
 The SSH host keys are regenerated (differently) next time the guest is
 booted.
 

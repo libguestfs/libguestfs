@@ -24,12 +24,15 @@ type flag = [ `Created_files ]
 
 type operation = {
   name : string;
-  pod_description : string;
+  enabled_by_default : bool;
+  heading : string;
+  pod_description : string option;
   extra_args : ((Arg.key * Arg.spec * Arg.doc) * string) list;
   perform : Guestfs.guestfs -> string -> flag list;
 }
 
-let ops = ref []
+let all_operations = ref []
+let enabled_by_default_operations = ref []
 
 module OperationSet = Set.Make (
   struct
@@ -42,17 +45,21 @@ type set = OperationSet.t
 let empty_set = OperationSet.empty
 
 let add_to_set name set =
-  let op = List.find (fun { name = n } -> name = n) !ops in
+  let op = List.find (fun { name = n } -> name = n) !all_operations in
   OperationSet.add op set
 
-let register_operation op = ops := op :: !ops
+let register_operation op =
+  all_operations := op :: !all_operations;
+  if op.enabled_by_default then
+    enabled_by_default_operations := op :: !enabled_by_default_operations
 
 let baked = ref false
 let rec bake () =
-  let ops' = List.sort (fun { name = a } { name = b } -> compare a b) !ops in
-  check_no_dupes ops';
-  List.iter check ops';
-  ops := ops';
+  let ops =
+    List.sort (fun { name = a } { name = b } -> compare a b) !all_operations in
+  check_no_dupes ops;
+  List.iter check ops;
+  all_operations := ops;
   baked := true
 and check_no_dupes ops =
   ignore (
@@ -78,14 +85,28 @@ and check op =
       eprintf "virt-sysprep: disallowed character (%c) in operation name\n" c;
       exit 1
   done;
-  let n = String.length op.pod_description in
+  let n = String.length op.heading in
   if n = 0 then (
-    eprintf "virt-sysprep: operation %s has no POD\n" op.name;
+    eprintf "virt-sysprep: operation %s has no heading\n" op.name;
     exit 1
   );
-  if op.pod_description.[n-1] = '\n' then (
-    eprintf "virt-sysprep: POD for %s must not end with newline\n" op.name;
+  if op.heading.[n-1] = '\n' || op.heading.[n-1] = '.' then (
+    eprintf "virt-sysprep: heading for %s must not end with newline or period\n"
+      op.name;
     exit 1
+  );
+  (match op.pod_description with
+  | None -> ()
+  | Some description ->
+    let n = String.length description in
+    if n = 0 then (
+      eprintf "virt-sysprep: operation %s has no POD\n" op.name;
+      exit 1
+    );
+    if description.[n-1] = '\n' then (
+      eprintf "virt-sysprep: POD for %s must not end with newline\n" op.name;
+      exit 1
+    )
   )
 
 let extra_args () =
@@ -94,7 +115,7 @@ let extra_args () =
   List.flatten (
     List.map (fun { extra_args = extra_args } ->
       List.map fst extra_args
-    ) !ops
+    ) !all_operations
   )
 
 (* These internal functions are used to generate the man page. *)
@@ -104,9 +125,14 @@ let dump_pod () =
   List.iter (
     fun op ->
       printf "=head2 B<%s>\n" op.name;
+      if op.enabled_by_default then printf "*\n";
       printf "\n";
-      printf "%s\n\n" op.pod_description
-  ) !ops
+      printf "%s.\n\n" op.heading;
+      (match op.pod_description with
+      | None -> ()
+      | Some description -> printf "%s\n\n" description
+      )
+  ) !all_operations
 
 let dump_pod_options () =
   assert !baked;
@@ -114,7 +140,7 @@ let dump_pod_options () =
   let args = List.map (
     fun { name = op_name; extra_args = extra_args } ->
       List.map (fun ea -> op_name, ea) extra_args
-  ) !ops in
+  ) !all_operations in
   let args = List.flatten args in
   let args = List.map (
     fun (op_name, ((arg_name, spec, _), pod)) ->
@@ -152,17 +178,19 @@ let dump_pod_options () =
 let list_operations () =
   assert !baked;
 
-  (* For compatibility with old shell version, list just the operation
-   * names, sorted.
-   *)
-  List.iter (fun op -> print_endline op.name ) !ops
+  List.iter (
+    fun op ->
+      printf "%s %s %s\n" op.name
+        (if op.enabled_by_default then "*" else " ")
+        op.heading
+  ) !all_operations
 
 let perform_operations ?operations ?(quiet = false) g root =
   assert !baked;
 
   let ops =
     match operations with
-    | None -> !ops (* all operations *)
+    | None -> !enabled_by_default_operations
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 

@@ -26,7 +26,9 @@ let dhcp_server_state_perform g root =
 
 let dhcp_server_state_op = {
   name = "dhcp-server-state";
-  pod_description = "Remove DHCP server leases.";
+  enabled_by_default = true;
+  heading = "Remove DHCP server leases";
+  pod_description = None;
   extra_args = [];
   perform = dhcp_server_state_perform;
 }

@@ -36,7 +36,9 @@ let smolt_uuid_perform g root =
 
 let smolt_uuid_op = {
   name = "smolt-uuid";
-  pod_description = "Remove the Smolt hardware UUID.";
+  enabled_by_default = true;
+  heading = "Remove the Smolt hardware UUID";
+  pod_description = None;
   extra_args = [];
   perform = smolt_uuid_perform;
 }

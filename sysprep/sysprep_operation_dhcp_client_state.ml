@@ -31,7 +31,9 @@ let dhcp_client_state_perform g root =
 
 let dhcp_client_state_op = {
   name = "dhcp-client-state";
-  pod_description = "Remove DHCP client leases.";
+  enabled_by_default = true;
+  heading = "Remove DHCP client leases";
+  pod_description = None;
   extra_args = [];
   perform = dhcp_client_state_perform;
 }

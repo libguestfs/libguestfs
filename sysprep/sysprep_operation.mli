@@ -26,8 +26,15 @@ type operation = {
       line.  Must contain only alphanumeric and '-' (dash)
       character. *)
 
-  pod_description : string;
-  (** POD-format description, used for the man page. *)
+  enabled_by_default : bool;
+  (** If true, then enabled by default when no [--enable] option is
+      given on the command line. *)
+
+  heading : string;
+  (** One-line description, NO trailing period. *)
+
+  pod_description : string option;
+  (** POD-format long description, used for the man page. *)
 
   extra_args : ((Arg.key * Arg.spec * Arg.doc) * string) list;
   (** Extra command-line arguments, if any.  eg. The [hostname]
