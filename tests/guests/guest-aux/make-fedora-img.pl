@@ -144,6 +144,11 @@ $g->mkdir ('/etc/sysconfig');
 $g->mkdir ('/usr');
 $g->mkdir_p ('/var/lib/rpm');
 
+$g->write ('/etc/shadow', "root::15440:0:99999:7:::\n");
+$g->chmod (0, '/etc/shadow');
+$g->lsetxattr ('security.selinux', "system_u:object_r:shadow_t:s0\0", 30,
+               '/etc/shadow');
+
 $g->upload ("fstab.tmp.$$", '/etc/fstab');
 $g->write ('/etc/redhat-release', 'Fedora release 14 (Phony)');
 $g->write ('/etc/fedora-release', 'Fedora release 14 (Phony)');
