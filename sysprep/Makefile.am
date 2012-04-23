@@ -48,6 +48,7 @@ SOURCES = \
 	sysprep_operation_ssh_hostkeys.ml \
 	sysprep_operation_ssh_userdir.ml \
 	sysprep_operation_udev_persistent_net.ml \
+	sysprep_operation_user_account.ml \
 	sysprep_operation_utmp.ml \
 	sysprep_operation_yum_uuid.ml \
 	utils.ml
@@ -73,6 +74,7 @@ OBJECTS = \
 	sysprep_operation_ssh_hostkeys.cmx \
 	sysprep_operation_ssh_userdir.cmx \
 	sysprep_operation_udev_persistent_net.cmx \
+	sysprep_operation_user_account.ml \
 	sysprep_operation_utmp.cmx \
 	sysprep_operation_yum_uuid.cmx \
 	main.cmx
