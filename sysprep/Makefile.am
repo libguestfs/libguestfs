@@ -37,6 +37,7 @@ SOURCES = \
 	sysprep_operation_cron_spool.ml \
 	sysprep_operation_dhcp_client_state.ml \
 	sysprep_operation_dhcp_server_state.ml \
+	sysprep_operation_flag_reconfiguration.ml \
 	sysprep_operation_hostname.ml \
 	sysprep_operation_logfiles.ml \
 	sysprep_operation_mail_spool.ml \
@@ -63,6 +64,7 @@ OBJECTS = \
 	sysprep_operation_cron_spool.cmx \
 	sysprep_operation_dhcp_client_state.cmx \
 	sysprep_operation_dhcp_server_state.cmx \
+	sysprep_operation_flag_reconfiguration.ml \
 	sysprep_operation_hostname.cmx \
 	sysprep_operation_logfiles.cmx \
 	sysprep_operation_mail_spool.cmx \

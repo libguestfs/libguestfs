@@ -373,11 +373,9 @@ Return libosinfo mappings from inspection API.
 virt-sysprep ideas
 ------------------
 
- - touch /.unconfigured ?
  - other Spacewalk / RHN IDs (?)
  - Kerberos keys
  - Puppet registration
- - user accounts
  - Windows sysprep
    (see: https://github.com/clalancette/oz/blob/e74ce83283d468fd987583d6837b441608e5f8f0/oz/Windows.py )
  - blue skies: change the background image
