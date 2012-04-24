@@ -42,6 +42,7 @@ SOURCES = \
 	sysprep_operation_logfiles.ml \
 	sysprep_operation_mail_spool.ml \
 	sysprep_operation_net_hwaddr.ml \
+	sysprep_operation_package_manager_cache.ml \
 	sysprep_operation_random_seed.ml \
 	sysprep_operation_rhn_systemid.ml \
 	sysprep_operation_script.ml \
@@ -69,6 +70,7 @@ OBJECTS = \
 	sysprep_operation_logfiles.cmx \
 	sysprep_operation_mail_spool.cmx \
 	sysprep_operation_net_hwaddr.cmx \
+	sysprep_operation_package_manager_cache.ml \
 	sysprep_operation_random_seed.cmx \
 	sysprep_operation_rhn_systemid.cmx \
 	sysprep_operation_script.cmx \
