@@ -280,8 +280,12 @@ let c_quote str =
   str
 
 (* Used to memoize the result of pod2text. *)
+type memo_key = int option * bool * bool * string * string
+                (* width,    trim, discard, name,   longdesc *)
+type memo_value = string list (* list of lines of POD file *)
+
 let pod2text_memo_filename = "generator/.pod2text.data.version.2"
-let pod2text_memo : ((int option * bool * bool * string * string), string list) Hashtbl.t =
+let pod2text_memo : (memo_key, memo_value) Hashtbl.t =
   try
     let chan = open_in pod2text_memo_filename in
     let v = input_value chan in
@@ -301,7 +305,7 @@ let pod2text_memo_updated () =
  * we memoize the results.
  *)
 let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
-  let key = width, trim, discard, name, longdesc in
+  let key : memo_key = width, trim, discard, name, longdesc in
   try Hashtbl.find pod2text_memo key
   with Not_found ->
     let filename, chan = Filename.open_temp_file "gen" ".tmp" in
@@ -324,7 +328,7 @@ let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
         lines := line :: !lines;
         loop (i+1)
       ) in
-    let lines = try loop 1 with End_of_file -> List.rev !lines in
+    let lines : memo_value = try loop 1 with End_of_file -> List.rev !lines in
     unlink filename;
     (match close_process_in chan with
      | WEXITED 0 -> ()
