@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.17.33\n"
+"Project-Id-Version: libguestfs 1.17.34\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-04-22 23:30+0200\n"
+"POT-Creation-Date: 2012-04-24 17:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43959,45 +43959,60 @@ msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:24
+msgid "B<flag-reconfiguration>"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:26
+msgid "Flag the system for reconfiguration."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:28
+msgid "Note that this may require user intervention when the guest is booted."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:31
 msgid "B<hostname> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:27
+#: ../sysprep/sysprep-operations.pod:34
 msgid "Change the hostname of the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:29
+#: ../sysprep/sysprep-operations.pod:36
 msgid ""
 "This operation changes the hostname of the guest to the value given in the "
 "I<--hostname> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:32
+#: ../sysprep/sysprep-operations.pod:39
 msgid ""
 "If the I<--hostname> parameter is not given, then the hostname is changed to "
 "C<localhost.localdomain>."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:35
+#: ../sysprep/sysprep-operations.pod:42
 msgid "B<logfiles> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:38
+#: ../sysprep/sysprep-operations.pod:45
 msgid "Remove many log files from the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:40
+#: ../sysprep/sysprep-operations.pod:47
 msgid "On Linux the following files are removed:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:42
+#: ../sysprep/sysprep-operations.pod:49
 #, no-wrap
 msgid ""
 " /root/anaconda-ks.cfg\n"
@@ -44023,83 +44038,93 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:62
+#: ../sysprep/sysprep-operations.pod:69
 msgid "B<mail-spool> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:65
+#: ../sysprep/sysprep-operations.pod:72
 msgid "Remove email from the local mail spool directory."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:67
+#: ../sysprep/sysprep-operations.pod:74
 msgid "B<net-hwaddr> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:70
+#: ../sysprep/sysprep-operations.pod:77
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:72
+#: ../sysprep/sysprep-operations.pod:79
 msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:75
+#: ../sysprep/sysprep-operations.pod:82
+msgid "B<package-manager-cache> *"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:85
+msgid "Remove package manager cache."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:87
 msgid "B<random-seed> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:78
+#: ../sysprep/sysprep-operations.pod:90
 msgid "Generate random seed for guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:80
+#: ../sysprep/sysprep-operations.pod:92
 msgid ""
 "Write some random bytes from the host into the random seed file of the "
 "guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:83
+#: ../sysprep/sysprep-operations.pod:95
 msgid "See L</RANDOM SEED> below."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:85
+#: ../sysprep/sysprep-operations.pod:97
 msgid "B<rhn-systemid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:88
+#: ../sysprep/sysprep-operations.pod:100
 msgid "Remove the RHN system ID."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:90
+#: ../sysprep/sysprep-operations.pod:102
 msgid "B<script> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:93
+#: ../sysprep/sysprep-operations.pod:105
 msgid "Run arbitrary scripts against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:95
+#: ../sysprep/sysprep-operations.pod:107
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:98
+#: ../sysprep/sysprep-operations.pod:110
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -44107,14 +44132,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:102
+#: ../sysprep/sysprep-operations.pod:114
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:105
+#: ../sysprep/sysprep-operations.pod:117
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm "
@@ -44124,48 +44149,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:111
+#: ../sysprep/sysprep-operations.pod:123
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:114
+#: ../sysprep/sysprep-operations.pod:126
 msgid "B<smolt-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:117
+#: ../sysprep/sysprep-operations.pod:129
 msgid "Remove the Smolt hardware UUID."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:119
+#: ../sysprep/sysprep-operations.pod:131
 msgid "B<ssh-hostkeys> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:122
+#: ../sysprep/sysprep-operations.pod:134
 msgid "Remove the SSH host keys in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:124
+#: ../sysprep/sysprep-operations.pod:136
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:127
+#: ../sysprep/sysprep-operations.pod:139
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:130
+#: ../sysprep/sysprep-operations.pod:142
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -44176,41 +44201,41 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:135
+#: ../sysprep/sysprep-operations.pod:147
 msgid "B<ssh-userdir> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:138
+#: ../sysprep/sysprep-operations.pod:150
 msgid "Remove \".ssh\" directories in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:140
+#: ../sysprep/sysprep-operations.pod:152
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:143
+#: ../sysprep/sysprep-operations.pod:155
 msgid "B<udev-persistent-net> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:146
+#: ../sysprep/sysprep-operations.pod:158
 msgid "Remove udev persistent net rules."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:148
+#: ../sysprep/sysprep-operations.pod:160
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:151
+#: ../sysprep/sysprep-operations.pod:163
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -44219,17 +44244,34 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:156
+#: ../sysprep/sysprep-operations.pod:168
+msgid "B<user-account>"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:170
+msgid "Remove the user accounts in the guest."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:172
+msgid ""
+"Remove all the user accounts and their home directories.  The \"root\" "
+"account is not removed."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:175
 msgid "B<utmp> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:159
+#: ../sysprep/sysprep-operations.pod:178
 msgid "Remove the utmp file."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:161
+#: ../sysprep/sysprep-operations.pod:180
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -44237,17 +44279,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:165
+#: ../sysprep/sysprep-operations.pod:184
 msgid "B<yum-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:168
+#: ../sysprep/sysprep-operations.pod:187
 msgid "Remove the yum UUID."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:170
+#: ../sysprep/sysprep-operations.pod:189
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
