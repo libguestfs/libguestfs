@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-17 23:33+0100\n"
+"POT-Creation-Date: 2012-04-24 11:26+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -49,7 +49,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
-#: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
+#: cat/virt-ls.c:192 df/domains.c:431 df/main.c:136 edit/virt-edit.c:143
 #: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:1024
 #: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
 #, c-format
@@ -198,32 +198,32 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:115
+#: df/domains.c:117
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:124
+#: df/domains.c:126
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:134
+#: df/domains.c:136
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:145
+#: df/domains.c:147
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:155
+#: df/domains.c:157
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:281
+#: df/domains.c:283
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr ""
@@ -3413,51 +3413,51 @@ msgstr "ફાઇલનાં ટૂકડાને પદચ્છેદન ક
 msgid "file receive cancelled by daemon"
 msgstr "ડિમન દ્દારા રદ થયેલ ફાઇલ મેળવી"
 
-#: src/virt.c:106 src/virt.c:399
+#: src/virt.c:108 src/virt.c:401
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
-#: src/virt.c:114
+#: src/virt.c:116
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: src/virt.c:135
+#: src/virt.c:137
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/virt.c:195 src/virt.c:522
+#: src/virt.c:197 src/virt.c:524
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/virt.c:205 src/virt.c:530
+#: src/virt.c:207 src/virt.c:532
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/virt.c:211 src/virt.c:536
+#: src/virt.c:213 src/virt.c:538
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/virt.c:218 src/virt.c:551
+#: src/virt.c:220 src/virt.c:553
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: src/virt.c:327
+#: src/virt.c:329
 msgid "libvirt domain has no disks"
 msgstr "libvirt ડોમેઇન પાસે ડિસ્કો નથી"
 
-#: src/virt.c:393
+#: src/virt.c:395
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/virt.c:410
+#: src/virt.c:412
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "ડોમેઇન જાણકારીને મેળવી રહ્યા હોય ત્યારે ભૂલ: %s"
 
-#: src/virt.c:424
+#: src/virt.c:426
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -3467,20 +3467,20 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/virt.c:489
+#: src/virt.c:491
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/virt.c:579
+#: src/virt.c:581
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/virt.c:604
+#: src/virt.c:606
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"

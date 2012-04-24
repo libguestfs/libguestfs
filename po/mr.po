@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-17 23:33+0100\n"
+"POT-Creation-Date: 2012-04-24 11:26+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -50,7 +50,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
-#: cat/virt-ls.c:192 df/domains.c:429 df/main.c:136 edit/virt-edit.c:143
+#: cat/virt-ls.c:192 df/domains.c:431 df/main.c:136 edit/virt-edit.c:143
 #: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:1024
 #: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
 #, c-format
@@ -250,32 +250,32 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:115
+#: df/domains.c:117
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
 msgstr "%s: libvirt शी जोडणी करतेवेळी त्रुटी (कोड %d, डोमेन %d): %s"
 
-#: df/domains.c:124
+#: df/domains.c:126
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s"
 msgstr "%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
 
-#: df/domains.c:134
+#: df/domains.c:136
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s"
 msgstr "%s: सुरू असलेल्या डोमेन्स्ची सूची (कोड %d, डोमेन %d): %s"
 
-#: df/domains.c:145
+#: df/domains.c:147
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
 msgstr "%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
 
-#: df/domains.c:155
+#: df/domains.c:157
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s"
 msgstr "%s: सुरू नसलेल्या डोमेन्स्ची सूची दाखवणे अशक्य (कोड %d, डोमेन %d): %s"
 
-#: df/domains.c:281
+#: df/domains.c:283
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
 msgstr "%s: %s कडे दुर्लक्ष करत आहे, अनेक डिस्क्स् आढळले (%zu > %d)"
@@ -3542,51 +3542,51 @@ msgstr "फाइल खंड वाचण्यास अपयशी"
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
-#: src/virt.c:106 src/virt.c:399
+#: src/virt.c:108 src/virt.c:401
 msgid "you cannot set both live and readonly flags"
 msgstr "दोंही लाइव्ह व फक्तवाचणीय फ्लॅग्स् सेट करणे शक्य नाही"
 
-#: src/virt.c:114
+#: src/virt.c:116
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "libvirt शी संपर्क करणे शक्य नाही (कोड %d, डोमेन %d): %s"
 
-#: src/virt.c:135
+#: src/virt.c:137
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr "'%s' नावाचे libvirt डोमेन आढळले नाही: %s"
 
-#: src/virt.c:195 src/virt.c:522
+#: src/virt.c:197 src/virt.c:524
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr "libvirt XML माहिती वाचतेवेळी त्रुटी आढळली: %s"
 
-#: src/virt.c:205 src/virt.c:530
+#: src/virt.c:207 src/virt.c:532
 msgid "unable to parse XML information returned by libvirt"
 msgstr "libvirt द्वारे पुरवलेली XML माहिती वाचण्यास अशक्य"
 
-#: src/virt.c:211 src/virt.c:536
+#: src/virt.c:213 src/virt.c:538
 msgid "unable to create new XPath context"
 msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
 
-#: src/virt.c:218 src/virt.c:551
+#: src/virt.c:220 src/virt.c:553
 msgid "unable to evaluate XPath expression"
 msgstr "XPath वाकप्रचार मुल्यमापन करणे अशक्य"
 
-#: src/virt.c:327
+#: src/virt.c:329
 msgid "libvirt domain has no disks"
 msgstr "libvirt डोमेनमध्ये डिस्क्स् आढळले नाही"
 
-#: src/virt.c:393
+#: src/virt.c:395
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/virt.c:410
+#: src/virt.c:412
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "डोमेन माहिती प्राप्त करतेवेळी त्रुटी आढळली: %s"
 
-#: src/virt.c:424
+#: src/virt.c:426
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -3601,14 +3601,14 @@ msgstr ""
 "live प्रवेश निर्देशीत करा.  बहुतांश libguestfs साधनांमध्ये हे पर्याय --ro किंवा\n"
 "--live असे असतात.  पुढील माहितीकरीता दस्तऐवजीकरणचा सल्ला घ्या."
 
-#: src/virt.c:489
+#: src/virt.c:491
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/virt.c:579
+#: src/virt.c:581
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -3616,7 +3616,7 @@ msgstr ""
 "या अतिथीकडे guestfsd करीता libvirt <channel> व्याख्या नाही\n"
 "पुढील माहितीसाठी guestfs(3) मध्ये सुरू डिमन्स्ला कसे जोडायचे पहा."
 
-#: src/virt.c:604
+#: src/virt.c:606
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"

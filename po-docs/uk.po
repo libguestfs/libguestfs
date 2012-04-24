@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-04-11 23:19+0200\n"
+"POT-Creation-Date: 2012-04-24 11:27+0200\n"
 "PO-Revision-Date: 2012-01-23 13:10+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1091,7 +1091,7 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39
 #: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:325
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
-#: ../sparsify/virt-sparsify.pod:276 ../src/guestfs.pod:3269
+#: ../sparsify/virt-sparsify.pod:284 ../src/guestfs.pod:3269
 #: ../test-tool/libguestfs-test-tool.pod:100
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
 #: ../tools/virt-make-fs.pl:559 ../tools/virt-tar.pl:296
@@ -1114,7 +1114,7 @@ msgstr ""
 #: ../clone/virt-sysprep.pod:501 ../df/virt-df.pod:261
 #: ../edit/virt-edit.pod:368 ../format/virt-format.pod:187
 #: ../rescue/virt-rescue.pod:334 ../resize/virt-resize.pod:725
-#: ../sparsify/virt-sparsify.pod:289 ../tools/virt-list-filesystems.pl:210
+#: ../sparsify/virt-sparsify.pod:297 ../tools/virt-list-filesystems.pl:210
 #: ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:585
 #: ../tools/virt-tar.pl:311 ../tools/virt-win-reg.pl:783
 msgid "AUTHOR"
@@ -1126,7 +1126,7 @@ msgstr "АВТОР"
 #: ../clone/virt-sysprep.pod:503 ../df/virt-df.pod:263
 #: ../edit/virt-edit.pod:370 ../format/virt-format.pod:189
 #: ../inspector/virt-inspector.pod:516 ../rescue/virt-rescue.pod:336
-#: ../resize/virt-resize.pod:727 ../sparsify/virt-sparsify.pod:291
+#: ../resize/virt-resize.pod:727 ../sparsify/virt-sparsify.pod:299
 #: ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281
 #: ../tools/virt-make-fs.pl:587 ../tools/virt-tar.pl:313
 #: ../tools/virt-win-reg.pl:785
@@ -1147,7 +1147,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56
 #: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:338
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:52
-#: ../sparsify/virt-sparsify.pod:293 ../src/guestfs.pod:3354
+#: ../sparsify/virt-sparsify.pod:301 ../src/guestfs.pod:3354
 #: ../test-tool/libguestfs-test-tool.pod:110
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
 #: ../tools/virt-make-fs.pl:589 ../tools/virt-tar.pl:315
@@ -1157,7 +1157,7 @@ msgstr "АВТОРСЬКІ ПРАВА"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:367 ../clone/virt-sysprep.pod:507
-#: ../sparsify/virt-sparsify.pod:295
+#: ../sparsify/virt-sparsify.pod:303
 msgid "Copyright (C) 2011 Red Hat Inc."
 msgstr "© Red Hat Inc., 2011"
 
@@ -1170,7 +1170,7 @@ msgstr "© Red Hat Inc., 2011"
 #: ../fish/virt-tar-in.pod:67 ../fish/virt-tar-out.pod:60
 #: ../format/virt-format.pod:195 ../fuse/guestmount.pod:337
 #: ../inspector/virt-inspector.pod:528 ../rescue/virt-rescue.pod:342
-#: ../resize/virt-resize.pod:733 ../sparsify/virt-sparsify.pod:297
+#: ../resize/virt-resize.pod:733 ../sparsify/virt-sparsify.pod:305
 #: ../test-tool/libguestfs-test-tool.pod:115
 #: ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287
 #: ../tools/virt-make-fs.pl:593 ../tools/virt-tar.pl:319
@@ -1191,7 +1191,7 @@ msgstr ""
 #: ../fish/virt-tar-in.pod:72 ../fish/virt-tar-out.pod:65
 #: ../format/virt-format.pod:200 ../fuse/guestmount.pod:342
 #: ../inspector/virt-inspector.pod:533 ../rescue/virt-rescue.pod:347
-#: ../resize/virt-resize.pod:738 ../sparsify/virt-sparsify.pod:302
+#: ../resize/virt-resize.pod:738 ../sparsify/virt-sparsify.pod:310
 #: ../test-tool/libguestfs-test-tool.pod:120
 #: ../tools/virt-list-filesystems.pl:223 ../tools/virt-list-partitions.pl:292
 #: ../tools/virt-make-fs.pl:598 ../tools/virt-tar.pl:324
@@ -1216,7 +1216,7 @@ msgstr ""
 #: ../fish/virt-tar-in.pod:77 ../fish/virt-tar-out.pod:70
 #: ../format/virt-format.pod:205 ../fuse/guestmount.pod:347
 #: ../inspector/virt-inspector.pod:538 ../rescue/virt-rescue.pod:352
-#: ../resize/virt-resize.pod:743 ../sparsify/virt-sparsify.pod:307
+#: ../resize/virt-resize.pod:743 ../sparsify/virt-sparsify.pod:315
 #: ../test-tool/libguestfs-test-tool.pod:125
 #: ../tools/virt-list-filesystems.pl:228 ../tools/virt-list-partitions.pl:297
 #: ../tools/virt-make-fs.pl:603 ../tools/virt-tar.pl:329
@@ -21635,7 +21635,7 @@ msgstr ""
 msgid ""
 "Commands that return numbers usually print them in decimal, but some "
 "commands print numbers in other radices (eg. C<umask> prints the mode in "
-"octal, preceeded by C<0>)."
+"octal, preceded by C<0>)."
 msgstr ""
 
 #. type: =head1
@@ -21717,8 +21717,8 @@ msgstr "КОМЕНТАРІ"
 #: ../fish/guestfish.pod:732
 msgid ""
 "Any line which starts with a I<#> character is treated as a comment and "
-"ignored.  The I<#> can optionally be preceeded by whitespace, but B<not> by "
-"a command.  For example:"
+"ignored.  The I<#> can optionally be preceded by whitespace, but B<not> by a "
+"command.  For example:"
 msgstr ""
 
 #. type: verbatim
@@ -22132,7 +22132,7 @@ msgstr ""
 #: ../fish/guestfish.pod:906
 msgid ""
 "Any string of characters can be used instead of C<END>.  The end marker must "
-"appear on a line of its own, without any preceeding or following characters "
+"appear on a line of its own, without any preceding or following characters "
 "(not even spaces)."
 msgstr ""
 
@@ -24938,7 +24938,7 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:49
 msgid ""
 "The object-oriented style is usually briefer, and the minor performance "
-"penalty isn't noticable in the general overhead of performing libguestfs "
+"penalty isn't noticeable in the general overhead of performing libguestfs "
 "functions."
 msgstr ""
 
@@ -27305,13 +27305,36 @@ msgid "This defaults to C</tmp>."
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:274
+#: ../sparsify/virt-sparsify.pod:272
+msgid ""
+"Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if you "
+"use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of I<half> of "
+"physical RAM.  If virt-sparsify exceeds this, it will hang.  The solution is "
+"either to use a real disk, or to increase the maximum size of the tmpfs "
+"mountpoint, eg:"
+msgstr ""
+
+#. type: verbatim
+#: ../sparsify/virt-sparsify.pod:278
+#, fuzzy, no-wrap
+#| msgid ""
+#| " mount-ro device mountpoint\n"
+#| "\n"
+msgid ""
+" mount -o remount,size=10G /tmp\n"
+"\n"
+msgstr ""
+" mount-ro пристрій точка_монтування\n"
+"\n"
+
+#. type: textblock
+#: ../sparsify/virt-sparsify.pod:282
 msgid ""
 "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:278
+#: ../sparsify/virt-sparsify.pod:286
 msgid ""
 "L<virt-filesystems(1)>, L<virt-df(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
 "L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-img"
