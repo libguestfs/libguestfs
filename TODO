@@ -378,7 +378,6 @@ virt-sysprep ideas
  - Puppet registration
  - Windows sysprep
    (see: https://github.com/clalancette/oz/blob/e74ce83283d468fd987583d6837b441608e5f8f0/oz/Windows.py )
- - blue skies: change the background image
  - (librarian suggests ...)
    . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
    . run an external shell script
@@ -401,6 +400,16 @@ virt-sysprep ideas
    (thanks Marko Myllynen, James Antill)
  - remove or modify UUIDs in /etc/fstab (eg. on Ubuntu)
    (thanks Joshua Daniel Franklin)
+
+As well as 'virt-sysprep' there is a case for a 'virt-customize' tool
+which can customize templated guests.  This would be useful within
+companies/organizations that want to offer multiple guests, but all
+customized with the organization logo etc.  Some ideas:
+
+ - change the background image to some custom desktop
+ - change the sign-on messages (/etc/issue.net etc)
+ - firstboot script (as suggested by librarian above)
+ - Windows login script/service
 
 Launch remote sessions over ssh
 -------------------------------
