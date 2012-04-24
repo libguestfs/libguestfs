@@ -50,6 +50,7 @@ When reporting a new bug, please check:
 '
 
 lastclass=X
+count=0
 while read bugno status summary; do
     # Ignore CLOSED bugs in this list.
     if [ "$status" = "CLOSED" ]; then continue; fi
@@ -66,6 +67,11 @@ while read bugno status summary; do
     # MODIFIED, ..., CLOSED.  Therefore start a new section when the
     # status field changes.
     if [ "$bugclass" != "$lastclass" ]; then
+        if [ $count -ge 1 ]; then
+            echo "($count bugs)"
+            echo
+        fi
+        count=0
         echo '--------------------------------------------------'
         case "$bugclass" in
             NEW)
@@ -81,6 +87,7 @@ while read bugno status summary; do
         esac
         echo
     fi
+    ((count++)) ||:
     lastclass=$bugclass
 
     # Display the bug.
@@ -89,6 +96,10 @@ while read bugno status summary; do
     echo
 done < .bugs.tmp
 
+if [ $count -ge 1 ]; then
+    echo "($count bugs)"
+    echo
+fi
 echo "End of BUGS file."
 
 # Clean up temporary file.
