@@ -383,7 +383,6 @@ virt-sysprep ideas
    . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
    . run an external shell script
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
-   . rm /var/cache/apt/archives/*
  - /var/run/* and pam_faillock's data files
  - if drives are encrypted, then dm-crypt key should be changed
    and drives all re-encrypted
