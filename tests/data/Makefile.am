@@ -21,6 +21,8 @@ include $(top_srcdir)/subdir-rules.mk
 builddir ?= $(top_builddir)/tests/data
 
 EXTRA_DIST = \
+	filesanddirs-10M.tar.xz \
+	filesanddirs-100M.tar.xz \
 	helloworld.tar \
 	helloworld.tar.gz \
 	helloworld.tar.xz \
