@@ -1229,6 +1229,7 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  sysprep/Makefile
                  test-tool/Makefile
+                 tests/btrfs/Makefile
                  tests/c-api/Makefile
                  tests/data/Makefile
                  tests/extra/Makefile

@@ -7136,6 +7136,89 @@ This sets the ext2 file generation of a file.
 
 See C<guestfs_get_e2generation>.");
 
+  ("btrfs_subvolume_snapshot", (RErr, [Pathname "source"; Pathname "dest"], []), 322, [Optional "btrfs"; CamelName "BTRFSSubvolumeSnapshot"],
+   [InitPartition, IfAvailable "btrfs", TestRun (
+     [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+      ["mount"; "/dev/sda1"; "/"];
+      ["mkdir"; "/dir"];
+      ["btrfs_subvolume_create"; "/test1"];
+      ["btrfs_subvolume_create"; "/test2"];
+      ["btrfs_subvolume_create"; "/dir/test3"];
+      ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test4"]])],
+   "create a writable btrfs snapshot",
+   "\
+Create a writable snapshot of the btrfs subvolume C<source>.
+The C<dest> argument is the destination directory and the name
+of the snapshot, in the form C</path/to/dest/name>.");
+
+  ("btrfs_subvolume_delete", (RErr, [Pathname "subvolume"], []), 323, [Optional "btrfs"; CamelName "BTRFSSubvolumeDelete"],
+   [InitPartition, IfAvailable "btrfs", TestRun (
+     [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+      ["mount"; "/dev/sda1"; "/"];
+      ["btrfs_subvolume_create"; "/test1"];
+      ["btrfs_subvolume_delete"; "/test1"]])],
+   "delete a btrfs snapshot",
+   "\
+Delete the named btrfs subvolume.");
+
+  ("btrfs_subvolume_create", (RErr, [Pathname "dest"], []), 324, [Optional "btrfs"; CamelName "BTRFSSubvolumeCreate"],
+   [], (* tested above *)
+   "create a btrfs snapshot",
+   "\
+Create a btrfs subvolume.  The C<dest> argument is the destination
+directory and the name of the snapshot, in the form C</path/to/dest/name>.");
+
+  ("btrfs_subvolume_list", (RStructList ("subvolumes", "btrfssubvolume"), [Pathname "fs"], []), 325, [Optional "btrfs"; CamelName "BTRFSSubvolumeList"],
+   [], (* tested in tests/btrfs *)
+   "list btrfs snapshots and subvolumes",
+   "\
+List the btrfs snapshots and subvolumes of the btrfs filesystem
+which is mounted at C<fs>.");
+
+  ("btrfs_subvolume_set_default", (RErr, [Int64 "id"; Pathname "fs"], []), 326, [Optional "btrfs"; CamelName "BTRFSSubvolumeSetDefault"],
+   [], (* tested in tests/btrfs *)
+   "set default btrfs subvolume",
+   "\
+Set the subvolume of the btrfs filesystem C<fs> which will
+be mounted by default.  See <guestfs_btrfs_subvolume_list> to
+get a list of subvolumes.");
+
+  ("btrfs_filesystem_sync", (RErr, [Pathname "fs"], []), 327, [Optional "btrfs"; CamelName "BTRFSFilesystemSync"],
+   [InitPartition, IfAvailable "btrfs", TestRun (
+     [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+      ["mount"; "/dev/sda1"; "/"];
+      ["btrfs_subvolume_create"; "/test1"];
+      ["btrfs_filesystem_sync"; "/test1"];
+      ["btrfs_filesystem_balance"; "/test1"]])],
+   "sync a btrfs filesystem",
+   "\
+Force sync on the btrfs filesystem mounted at C<fs>.");
+
+  ("btrfs_filesystem_balance", (RErr, [Pathname "fs"], []), 328, [Optional "btrfs"; CamelName "BTRFSFilesystemBalance"],
+   [], (* tested above *)
+   "balance a btrfs filesystem",
+   "\
+Balance the chunks in the btrfs filesystem mounted at C<fs>
+across the underlying devices.");
+
+  ("btrfs_device_add", (RErr, [DeviceList "devices"; Pathname "fs"], []), 329, [Optional "btrfs"; CamelName "BTRFSDeviceAdd"],
+   [], (* test disk isn't large enough to test this thoroughly, so there
+        * is an external test in 'tests/btrfs' directory.
+        *)
+   "add devices to a btrfs filesystem",
+   "\
+Add the list of device(s) in C<devices> to the btrfs filesystem
+mounted at C<fs>.  If C<devices> is an empty list, this does nothing.");
+
+  ("btrfs_device_delete", (RErr, [DeviceList "devices"; Pathname "fs"], []), 330, [Optional "btrfs"; CamelName "BTRFSDeviceDelete"],
+   [], (* test disk isn't large enough to test this thoroughly, so there
+        * is an external test in 'tests/btrfs' directory.
+        *)
+   "remove devices from a btrfs filesystem",
+   "\
+Remove the C<devices> from the btrfs filesystem mounted at C<fs>.
+If C<devices> is an empty list, this does nothing.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

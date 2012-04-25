@@ -37,6 +37,7 @@ guestfs_gobject_headers=\
   guestfs-gobject-struct-application.h \
   guestfs-gobject-struct-isoinfo.h \
   guestfs-gobject-struct-mdstat.h \
+  guestfs-gobject-struct-btrfssubvolume.h \
   guestfs-gobject-optargs-test0.h \
   guestfs-gobject-optargs-add_drive_opts.h \
   guestfs-gobject-optargs-add_domain.h \
@@ -78,6 +79,7 @@ guestfs_gobject_sources=\
   guestfs-gobject-struct-application.c \
   guestfs-gobject-struct-isoinfo.c \
   guestfs-gobject-struct-mdstat.c \
+  guestfs-gobject-struct-btrfssubvolume.c \
   guestfs-gobject-optargs-test0.c \
   guestfs-gobject-optargs-add_drive_opts.c \
   guestfs-gobject-optargs-add_domain.c \

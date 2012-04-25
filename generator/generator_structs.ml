@@ -219,6 +219,13 @@ let structs = [
     "mdstat_index", FInt32;
     "mdstat_flags", FString;
   ];
+
+  (* btrfs subvolume list output *)
+  "btrfssubvolume", [
+    "btrfssubvolume_id", FUInt64;
+    "btrfssubvolume_top_level_id", FUInt64;
+    "btrfssubvolume_path", FString;
+  ];
 ] (* end of structs *)
 
 (* For bindings which want camel case *)
@@ -237,6 +244,7 @@ let camel_structs = [
   "application", "Application";
   "isoinfo", "ISOInfo";
   "mdstat", "MDStat";
+  "btrfssubvolume", "BTRFSSubvolume";
 ]
 let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
 

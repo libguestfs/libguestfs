@@ -156,6 +156,7 @@ gobject/guestfs-gobject-optargs-tune2fs.c
 gobject/guestfs-gobject-optargs-umount_local.c
 gobject/guestfs-gobject-session.c
 gobject/guestfs-gobject-struct-application.c
+gobject/guestfs-gobject-struct-btrfssubvolume.c
 gobject/guestfs-gobject-struct-dirent.c
 gobject/guestfs-gobject-struct-inotify_event.c
 gobject/guestfs-gobject-struct-int_bool.c
