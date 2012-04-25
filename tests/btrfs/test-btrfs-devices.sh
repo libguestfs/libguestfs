@@ -17,6 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # Test btrfs adding/removing devices.
+#
+# This test is intended to try and abuse btrfs by writing lots of data
+# to the disk, then instructing btrfs to move the data between
+# devices.
 
 set -e
 
@@ -44,11 +48,42 @@ part-disk /dev/sdd mbr
 mkfs-btrfs "/dev/sda1 /dev/sdb1"
 mount /dev/sda1 /
 
-mkdir /foo
-touch /foo/bar
+mkdir /data1
+txz-in ../data/filesanddirs-10M.tar.xz /data1
+
+# Uncommenting the next two lines shows filesystem errors.
+# Reported upstream as RHBZ#816304.
+#btrfs-filesystem-sync /
+#dmesg
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sda1 /dev/sdb1" /
+btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
+
+mkdir /data2
+txz-in ../data/filesanddirs-10M.tar.xz /data2
+
+btrfs-device-add "/dev/sdc1 /dev/sdd1" /
+btrfs-device-delete "/dev/sda1 /dev/sdb1" /
+btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
+
+mkdir /data3
+txz-in ../data/filesanddirs-10M.tar.xz /data3
+
+btrfs-device-add "/dev/sdc1 /dev/sdd1" /
+btrfs-device-delete "/dev/sda1 /dev/sdb1" /
+btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
+
+mkdir /data4
+txz-in ../data/filesanddirs-10M.tar.xz /data4
+
+btrfs-device-add "/dev/sdc1 /dev/sdd1" /
+btrfs-device-delete "/dev/sda1 /dev/sdb1" /
+btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 EOF
 
