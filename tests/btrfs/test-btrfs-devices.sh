@@ -48,9 +48,7 @@ mkdir /foo
 touch /foo/bar
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
-
-# I cannot get this to work, seems to be a btrfs bug:
-#btrfs-device-delete "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sda1 /dev/sdb1" /
 
 EOF
 

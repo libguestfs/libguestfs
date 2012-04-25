@@ -582,9 +582,11 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
   ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "device");
   ADD_ARG (argv, i, "delete");
+
   for (j = 0; j < nr_devices; ++j)
     ADD_ARG (argv, i, devices[j]);
-  ADD_ARG (argv, i, fs);
+
+  ADD_ARG (argv, i, fs_buf);
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
