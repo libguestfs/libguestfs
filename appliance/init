@@ -12,9 +12,11 @@ export RUNLEVEL PREVLEVEL
 
 mkdir -p /sysroot
 
-rm -f /proc; mkdir /proc
+if [ ! -d /proc ]; then rm -f /proc; fi
+mkdir -p /proc
 mount -t proc /proc /proc
-rm -f /sys; mkdir /sys
+if [ ! -d /sys ]; then rm -f /sys; fi
+mkdir -p /sys
 mount -t sysfs /sys /sys
 mkdir -p /run/lock
 
