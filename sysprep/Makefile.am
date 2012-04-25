@@ -67,12 +67,12 @@ OBJECTS = \
 	sysprep_operation_cron_spool.cmx \
 	sysprep_operation_dhcp_client_state.cmx \
 	sysprep_operation_dhcp_server_state.cmx \
-	sysprep_operation_flag_reconfiguration.ml \
+	sysprep_operation_flag_reconfiguration.cmx \
 	sysprep_operation_hostname.cmx \
 	sysprep_operation_logfiles.cmx \
 	sysprep_operation_mail_spool.cmx \
 	sysprep_operation_net_hwaddr.cmx \
-	sysprep_operation_package_manager_cache.ml \
+	sysprep_operation_package_manager_cache.cmx \
 	sysprep_operation_random_seed.cmx \
 	sysprep_operation_rhn_systemid.cmx \
 	sysprep_operation_samba_db_log.cmx \
@@ -82,7 +82,7 @@ OBJECTS = \
 	sysprep_operation_ssh_userdir.cmx \
 	sysprep_operation_sssd_db_log.cmx \
 	sysprep_operation_udev_persistent_net.cmx \
-	sysprep_operation_user_account.ml \
+	sysprep_operation_user_account.cmx \
 	sysprep_operation_utmp.cmx \
 	sysprep_operation_yum_uuid.cmx \
 	main.cmx
