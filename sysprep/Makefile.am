@@ -45,6 +45,7 @@ SOURCES = \
 	sysprep_operation_package_manager_cache.ml \
 	sysprep_operation_random_seed.ml \
 	sysprep_operation_rhn_systemid.ml \
+	sysprep_operation_samba_db_log.ml \
 	sysprep_operation_script.ml \
 	sysprep_operation_smolt_uuid.ml \
 	sysprep_operation_ssh_hostkeys.ml \
@@ -74,6 +75,7 @@ OBJECTS = \
 	sysprep_operation_package_manager_cache.ml \
 	sysprep_operation_random_seed.cmx \
 	sysprep_operation_rhn_systemid.cmx \
+	sysprep_operation_samba_db_log.cmx \
 	sysprep_operation_script.cmx \
 	sysprep_operation_smolt_uuid.cmx \
 	sysprep_operation_ssh_hostkeys.cmx \
