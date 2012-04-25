@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2011 Red Hat Inc.
+ * Copyright (C) 2011-2012 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,8 +28,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-#define MAX_ARGS 64
-
 int
 optgroup_btrfs_available (void)
 {
@@ -40,6 +38,7 @@ optgroup_btrfs_available (void)
 int
 do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
 {
+  const size_t MAX_ARGS = 64;
   char *buf;
   char *err;
   int r;
@@ -87,13 +86,21 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_mkfs_btrfs (const char *device,
+do_mkfs_btrfs (char *const *devices,
                int64_t allocstart, int64_t bytecount, const char *datatype,
                int leafsize, const char *label, const char *metadata,
                int nodesize, int sectorsize)
 {
+  size_t nr_devices = count_strings (devices);
+
+  if (nr_devices == 0) {
+    reply_with_error ("list of devices must be non-empty");
+    return -1;
+  }
+
+  size_t MAX_ARGS = nr_devices + 64;
   const char *argv[MAX_ARGS];
-  size_t i = 0;
+  size_t i = 0, j;
   int r;
   char *err;
   char allocstart_s[64];
@@ -180,12 +187,14 @@ do_mkfs_btrfs (const char *device,
     ADD_ARG (argv, i, sectorsize_s);
   }
 
-  ADD_ARG (argv, i, device);
+  for (j = 0; j < nr_devices; ++j)
+    ADD_ARG (argv, i, devices[j]);
+
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
   if (r == -1) {
-    reply_with_error ("%s: %s", device, err);
+    reply_with_error ("%s: %s", devices[0], err);
     free (err);
     return -1;
   }
