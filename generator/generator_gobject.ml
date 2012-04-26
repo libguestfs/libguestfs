@@ -126,7 +126,7 @@ let output_filenames =
   )
 
 let output_header filename f =
-  let header = sprintf "gobject/guestfs-gobject-%s.h" filename in
+  let header = sprintf "gobject/include/guestfs-gobject/%s.h" filename in
   let guard = Str.global_replace (Str.regexp "-") "_" filename in
   let guard = "GUESTFS_GOBJECT_" ^ String.uppercase guard ^ "_H__" in
   output_to header (fun () ->
@@ -152,15 +152,14 @@ G_END_DECLS
   )
 
 let output_source filename ?(title=None) ?(shortdesc=None) ?(longdesc=None) f =
-  let file = sprintf "guestfs-gobject-%s" filename in
-  let source = sprintf "gobject/%s.c" file in
+  let source = sprintf "gobject/src/%s.c" filename in
   output_to source (fun () ->
     generate_header CStyle GPLv2plus;
 
     pr "#include \"guestfs-gobject.h\"\n\n";
 
     pr "/**\n";
-    pr " * SECTION:%s\n" file;
+    pr " * SECTION:%s\n" filename;
 
     (match title with
     | Some title ->
@@ -188,19 +187,20 @@ let output_source filename ?(title=None) ?(shortdesc=None) ?(longdesc=None) f =
 let generate_gobject_makefile () =
   generate_header HashStyle GPLv2plus;
   let headers =
-    List.map (function n -> sprintf "guestfs-gobject-%s.h" n) output_filenames
+    List.map
+      (function n -> sprintf "include/guestfs-gobject/%s.h" n) output_filenames
   in
   let sources =
-    List.map (function n -> sprintf "guestfs-gobject-%s.c" n) output_filenames
+    List.map (function n -> sprintf "src/%s.c" n) output_filenames
   in
-  pr "guestfs_gobject_headers=\\\n  guestfs-gobject.h \\\n  %s\n\n"
+  pr "guestfs_gobject_headers=\\\n  include/guestfs-gobject.h \\\n  %s\n\n"
     (String.concat " \\\n  " headers);
   pr "guestfs_gobject_sources=\\\n  %s\n" (String.concat " \\\n  " sources)
 
 let generate_gobject_header () =
   generate_header CStyle GPLv2plus;
   List.iter
-    (function f -> pr "#include <guestfs-gobject-%s.h>\n" f)
+    (function f -> pr "#include <guestfs-gobject/%s.h>\n" f)
     output_filenames
 
 let generate_gobject_doc_title () =
@@ -216,7 +216,7 @@ let generate_gobject_doc_title () =
 ";
 
   List.iter (
-    function n -> pr "  <xi:include href=\"xml/guestfs-gobject-%s.xml\"/>\n" n
+    function n -> pr "  <xi:include href=\"xml/%s.xml\"/>\n" n
   ) output_filenames;
 
   pr "</chapter>\n"
@@ -1286,7 +1286,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
 
 let generate_gobject () =
   output_to "gobject/Makefile.inc" generate_gobject_makefile;
-  output_to "gobject/guestfs-gobject.h" generate_gobject_header;
+  output_to "gobject/include/guestfs-gobject.h" generate_gobject_header;
   output_to "gobject/docs/guestfs-title.sgml" generate_gobject_doc_title;
 
   generate_gobject_structs;

@@ -107,6 +107,9 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/ruby/ext/guestfs
 	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
 	mkdir -p $(top_srcdir)/csharp
+	mkdir -p $(top_srcdir)/gobject/src
+	mkdir -p $(top_srcdir)/gobject/include
+	mkdir -p $(top_srcdir)/gobject/include/guestfs-gobject
 	cd $(top_srcdir) && generator/generator
 
 CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
