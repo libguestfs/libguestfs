@@ -7180,7 +7180,7 @@ which is mounted at C<fs>.");
    "set default btrfs subvolume",
    "\
 Set the subvolume of the btrfs filesystem C<fs> which will
-be mounted by default.  See <guestfs_btrfs_subvolume_list> to
+be mounted by default.  See C<guestfs_btrfs_subvolume_list> to
 get a list of subvolumes.");
 
   ("btrfs_filesystem_sync", (RErr, [Pathname "fs"], []), 327, [Optional "btrfs"; CamelName "BTRFSFilesystemSync"],
