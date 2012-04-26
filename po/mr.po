@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-25 23:06+0100\n"
+"POT-Creation-Date: 2012-04-26 18:02+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -50,14 +50,14 @@ msgstr "%s: सुरू नसलेल्या डोमेन्स्ची
 #: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:431 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:226 format/format.c:136
 #: fuse/guestmount.c:171 inspector/virt-inspector.c:140
-#: rescue/virt-rescue.c:142
+#: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
-#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
+#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
@@ -86,7 +86,7 @@ msgstr ""
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
 #: format/format.c:188 fuse/guestmount.c:199 inspector/virt-inspector.c:164
-#: rescue/virt-rescue.c:179
+#: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
@@ -3301,8 +3301,8 @@ msgstr "{path} augeas नमुनाशी जुळत नाही"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: initrd स्वरूप वाचणे अशक्य"
 
-#: rescue/virt-rescue.c:66
-#, c-format
+#: rescue/virt-rescue.c:67
+#, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3319,6 +3319,7 @@ msgid ""
 "  -m|--memsize MB      Set memory size in megabytes\n"
 "  --network            Enable network\n"
 "  -r|--ro              Access read-only\n"
+"  --scratch[=N]        Add scratch disk(s)\n"
 "  --selinux            Enable SELinux\n"
 "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
 "  --suggest            Suggest mount commands for this guest\n"
@@ -3328,30 +3329,60 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: वर्च्युअल फाइलप्रणालीवरील मोकळी जागा दाखवा\n"
+"सर्वहक्कस्वाधीन (C) 2010 Red Hat Inc.\n"
+"वापर:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"पर्याय:\n"
+"  -a|--add image       प्रतिमा समाविष्ट करा\n"
+"  -c|--connect uri     -d पर्यायकरीता libvirt URI निर्देशीत करा\n"
+"  --csv                कॉमा-सेपरेटेड् वॅल्यूज प्रमाणे आऊटपुटमध्ये जमा करा\n"
+"  -d|--domain guest    libvirt अतिथीपासून डिस्क्स् समाविष्ट करा\n"
+"  --format[=raw|..]    -a पर्यायकरीता डिस्क रूपण जबरनरित्या लागू करा\n"
+"  -h|--human-readable  --long आऊटपुट स्वरूपातील वाचनजोगी आकार\n"
+"  --help               संक्षिप्त मदत दाखवा\n"
+"  -i|--inodes          inodes दाखवा\n"
+"  --one-per-guest      प्रत्येक अतिथीकरीता वेगळे अप्लायंस्\n"
+"  --uuid               --long आऊटपुटमध्ये UUIDs समाविष्ट करा\n"
+"  -v|--verbose         वर्बोस संदेश\n"
+"  -V|--version         आवृत्ती दाखवा व बाहेर पडा\n"
+"  -x                   libguestfs API कॉल्स् ट्रेस् करा\n"
+"अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
-#: rescue/virt-rescue.c:167
+#: rescue/virt-rescue.c:170
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:172
+#: rescue/virt-rescue.c:175
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:202
+#: rescue/virt-rescue.c:188
+#, fuzzy, c-format
+msgid "%s: could not parse --scratch parameter '%s'\n"
+msgstr "%s: मेमरी आकार '%s' वाचणे अशक्य\n"
+
+#: rescue/virt-rescue.c:194
+#, c-format
+msgid "%s: --scratch parameter '%s' should be >= 1\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:224
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: मेमरी आकार '%s' वाचणे अशक्य\n"
 
-#: rescue/virt-rescue.c:371
+#: rescue/virt-rescue.c:393
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:390
+#: rescue/virt-rescue.c:412
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3359,7 +3390,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:400
+#: rescue/virt-rescue.c:422
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3368,7 +3399,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:457
+#: rescue/virt-rescue.c:479
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3378,7 +3409,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:464
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3387,12 +3418,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:469
+#: rescue/virt-rescue.c:491
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:593
+#: rescue/virt-rescue.c:699
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
@@ -3648,93 +3679,73 @@ msgstr "qemu अजूनही सुरू केले नाही"
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
-#: src/proto.c:188
-#, c-format
-msgid "guestfs_set_busy: called when in state %d != READY"
-msgstr "guestfs_set_busy: state %d != READY स्थितीत असताना कॉल केले"
-
-#: src/proto.c:211
-#, c-format
-msgid "guestfs_end_busy: called when in state %d"
-msgstr "guestfs_end_busy: स्तर %d मध्ये असतेवेळी कॉल केले"
-
-#: src/proto.c:421
+#: src/proto.c:379
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: डिमन पासून 0x%x वाचा, 0x%x अपेक्षीत\n"
 
-#: src/proto.c:543
+#: src/proto.c:501
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
 "the debug messages output prior to this error.\n"
 msgstr ""
 
-#: src/proto.c:549
+#: src/proto.c:507
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:639
+#: src/proto.c:597
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd पासून मॅजीक स्वाक्षरी प्राप्त, परंतु स्तर %d असे आढळले"
 
-#: src/proto.c:658
+#: src/proto.c:616
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "संदेश लांबी (%u) > कमाल शक्य आकार (%d)"
 
-#: src/proto.c:810
-#, c-format
-msgid "guestfs___send: state %d != BUSY"
-msgstr "guestfs___send: state %d != BUSY"
-
-#: src/proto.c:834
+#: src/proto.c:786
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header अपयशी"
 
-#: src/proto.c:843
+#: src/proto.c:795
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:939 src/proto.c:1242
+#: src/proto.c:891 src/proto.c:1189
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:991
-#, c-format
-msgid "send_file_chunk: state %d != READY"
-msgstr "send_file_chunk: state %d != READY"
-
-#: src/proto.c:1007
+#: src/proto.c:954
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1168
+#: src/proto.c:1115
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:1196
+#: src/proto.c:1143
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:1219
+#: src/proto.c:1166
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:1224
+#: src/proto.c:1171
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:1232
+#: src/proto.c:1179
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:1246
+#: src/proto.c:1193
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
@@ -4046,3 +4057,15 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
+
+#~ msgid "guestfs_set_busy: called when in state %d != READY"
+#~ msgstr "guestfs_set_busy: state %d != READY स्थितीत असताना कॉल केले"
+
+#~ msgid "guestfs_end_busy: called when in state %d"
+#~ msgstr "guestfs_end_busy: स्तर %d मध्ये असतेवेळी कॉल केले"
+
+#~ msgid "guestfs___send: state %d != BUSY"
+#~ msgstr "guestfs___send: state %d != BUSY"
+
+#~ msgid "send_file_chunk: state %d != READY"
+#~ msgstr "send_file_chunk: state %d != READY"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-25 23:06+0100\n"
+"POT-Creation-Date: 2012-04-26 18:02+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/language/"
@@ -56,14 +56,14 @@ msgstr ""
 #: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:431 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:226 format/format.c:136
 #: fuse/guestmount.c:171 inspector/virt-inspector.c:140
-#: rescue/virt-rescue.c:142
+#: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi się nie powiodło\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
-#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
+#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
@@ -108,7 +108,7 @@ msgstr ""
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
 #: format/format.c:188 fuse/guestmount.c:199 inspector/virt-inspector.c:164
-#: rescue/virt-rescue.c:179
+#: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -3586,8 +3586,8 @@ msgstr "{path} nie zgadza się ze wzorem Augeas"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
 
-#: rescue/virt-rescue.c:66
-#, c-format
+#: rescue/virt-rescue.c:67
+#, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3604,6 +3604,7 @@ msgid ""
 "  -m|--memsize MB      Set memory size in megabytes\n"
 "  --network            Enable network\n"
 "  -r|--ro              Access read-only\n"
+"  --scratch[=N]        Add scratch disk(s)\n"
 "  --selinux            Enable SELinux\n"
 "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
 "  --suggest            Suggest mount commands for this guest\n"
@@ -3638,22 +3639,32 @@ msgstr ""
 "  -x                   Śledzi wywołania API biblioteki libguestfs\n"
 "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
-#: rescue/virt-rescue.c:167
+#: rescue/virt-rescue.c:170
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr "%s: nie można przetworzyć parametru \"%s\" opcji --smp\n"
 
-#: rescue/virt-rescue.c:172
+#: rescue/virt-rescue.c:175
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr "%s: parametr \"%s\" opcji --smp powinien wynosić >= 1\n"
 
-#: rescue/virt-rescue.c:202
+#: rescue/virt-rescue.c:188
+#, fuzzy, c-format
+msgid "%s: could not parse --scratch parameter '%s'\n"
+msgstr "%s: nie można przetworzyć parametru \"%s\" opcji --smp\n"
+
+#: rescue/virt-rescue.c:194
+#, fuzzy, c-format
+msgid "%s: --scratch parameter '%s' should be >= 1\n"
+msgstr "%s: parametr \"%s\" opcji --smp powinien wynosić >= 1\n"
+
+#: rescue/virt-rescue.c:224
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: nie można przetworzyć rozmiaru pamięci \"%s\"\n"
 
-#: rescue/virt-rescue.c:371
+#: rescue/virt-rescue.c:393
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -3662,7 +3673,7 @@ msgstr ""
 "Badanie maszyny wirtualnej lub obrazu dysku...\n"
 "\n"
 
-#: rescue/virt-rescue.c:390
+#: rescue/virt-rescue.c:412
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3674,7 +3685,7 @@ msgstr ""
 "plików.\n"
 "\n"
 
-#: rescue/virt-rescue.c:400
+#: rescue/virt-rescue.c:422
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3687,7 +3698,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/virt-rescue.c:457
+#: rescue/virt-rescue.c:479
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3702,7 +3713,7 @@ msgstr ""
 "systemy plików nierozpoznawane przez bibliotekę libguestfs, albo utworzyć\n"
 "partycje, woluminy logiczne i systemy plików na pustym dysku.\n"
 
-#: rescue/virt-rescue.c:464
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3715,12 +3726,12 @@ msgstr ""
 "znaku zachęty ><rescue>), aby zamontować te systemy plików.\n"
 "\n"
 
-#: rescue/virt-rescue.c:469
+#: rescue/virt-rescue.c:491
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s posiada typ \"%s\"\n"
 
-#: rescue/virt-rescue.c:593
+#: rescue/virt-rescue.c:699
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: nieznany stan wyjścia potomka (%d)\n"
@@ -4004,17 +4015,7 @@ msgstr "QEMU nie zostało jeszcze uruchomione"
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 
-#: src/proto.c:188
-#, c-format
-msgid "guestfs_set_busy: called when in state %d != READY"
-msgstr "guestfs_set_busy: wywołano, kiedy w stanie %d != GOTOWY"
-
-#: src/proto.c:211
-#, c-format
-msgid "guestfs_end_busy: called when in state %d"
-msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
-
-#: src/proto.c:421
+#: src/proto.c:379
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -4022,7 +4023,7 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x"
 "%x\n"
 
-#: src/proto.c:543
+#: src/proto.c:501
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
@@ -4033,71 +4034,61 @@ msgstr ""
 "wykonać polecenie, a następnie spojrzeć na wyjście komunikatów debugowania\n"
 "przed wystąpieniem tego błędu.\n"
 
-#: src/proto.c:549
+#: src/proto.c:507
 msgid "See earlier debug messages.\n"
 msgstr "Proszę zobaczyć wcześniejsze komunikaty debugowania.\n"
 
-#: src/proto.c:639
+#: src/proto.c:597
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "otrzymano podpis magic z guestfsd, ale w stanie %d"
 
-#: src/proto.c:658
+#: src/proto.c:616
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "długość komunikatu (%u) > maksymalny możliwy rozmiar (%d)"
 
-#: src/proto.c:810
-#, c-format
-msgid "guestfs___send: state %d != BUSY"
-msgstr "guestfs___send: stan %d != ZAJĘTY"
-
-#: src/proto.c:834
+#: src/proto.c:786
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header się nie powiodło"
 
-#: src/proto.c:843
+#: src/proto.c:795
 msgid "dispatch failed to marshal args"
 msgstr "rozdzielenie parametrów marszałka się nie powiodło"
 
-#: src/proto.c:939 src/proto.c:1242
+#: src/proto.c:891 src/proto.c:1189
 msgid "operation cancelled by user"
 msgstr "działanie zostało anulowane przez użytkownika"
 
-#: src/proto.c:991
-#, c-format
-msgid "send_file_chunk: state %d != READY"
-msgstr "send_file_chunk: stan %d != GOTOWY"
-
-#: src/proto.c:1007
+#: src/proto.c:954
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk się nie powiodło (bufor = %p, długość bufora = %zu)"
 
-#: src/proto.c:1168
+#: src/proto.c:1115
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: błąd w kodowaniu fragmentu"
 
-#: src/proto.c:1196
+#: src/proto.c:1143
 msgid "write to daemon socket"
 msgstr "zapisuje do gniazda demona"
 
-#: src/proto.c:1219
+#: src/proto.c:1166
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
 
-#: src/proto.c:1224
+#: src/proto.c:1171
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: otrzymano nieoczekiwaną flagę podczas odczytywania "
 "fragmentów pliku"
 
-#: src/proto.c:1232
+#: src/proto.c:1179
 msgid "failed to parse file chunk"
 msgstr "przetworzenie fragmentu pliku się nie powiodło"
 
-#: src/proto.c:1246
+#: src/proto.c:1193
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
 
@@ -4440,6 +4431,18 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
+
+#~ msgid "guestfs_set_busy: called when in state %d != READY"
+#~ msgstr "guestfs_set_busy: wywołano, kiedy w stanie %d != GOTOWY"
+
+#~ msgid "guestfs_end_busy: called when in state %d"
+#~ msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
+
+#~ msgid "guestfs___send: state %d != BUSY"
+#~ msgstr "guestfs___send: stan %d != ZAJĘTY"
+
+#~ msgid "send_file_chunk: state %d != READY"
+#~ msgstr "send_file_chunk: stan %d != GOTOWY"
 
 #~ msgid "drive %s can't be added twice"
 #~ msgstr "napęd %s nie może zostać dodany dwa razy"

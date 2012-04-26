@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-04-25 23:06+0100\n"
+"POT-Creation-Date: 2012-04-26 18:02+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.net/projects/p/"
@@ -49,14 +49,14 @@ msgstr "%s: could not list inactive domains (code %d, domain %d): %s"
 #: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:431 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:226 format/format.c:136
 #: fuse/guestmount.c:171 inspector/virt-inspector.c:140
-#: rescue/virt-rescue.c:142
+#: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: failed to create handle\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
-#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
+#: fuse/guestmount.c:66 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Try `%s --help' for more information.\n"
@@ -85,7 +85,7 @@ msgstr ""
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
 #: format/format.c:188 fuse/guestmount.c:199 inspector/virt-inspector.c:164
-#: rescue/virt-rescue.c:179
+#: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
@@ -3225,8 +3225,8 @@ msgstr ""
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: rescue/virt-rescue.c:66
-#, c-format
+#: rescue/virt-rescue.c:67
+#, fuzzy, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3243,6 +3243,7 @@ msgid ""
 "  -m|--memsize MB      Set memory size in megabytes\n"
 "  --network            Enable network\n"
 "  -r|--ro              Access read-only\n"
+"  --scratch[=N]        Add scratch disk(s)\n"
 "  --selinux            Enable SELinux\n"
 "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
 "  --suggest            Suggest mount commands for this guest\n"
@@ -3252,30 +3253,60 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: display free space on virtual filesystems\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disc.img [-a disc.img ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  --csv                Output as Comma-Separated Values\n"
+"  -d|--domain guest    Add discs from libvirt guest\n"
+"  --format[=raw|..]    Force disc format for -a option\n"
+"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  --help               Display brief help\n"
+"  -i|--inodes          Display inodes\n"
+"  --one-per-guest      Separate appliance per guest\n"
+"  --uuid               Add UUIDs to --long output\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
 
-#: rescue/virt-rescue.c:167
+#: rescue/virt-rescue.c:170
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:172
+#: rescue/virt-rescue.c:175
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:202
+#: rescue/virt-rescue.c:188
+#, c-format
+msgid "%s: could not parse --scratch parameter '%s'\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:194
+#, c-format
+msgid "%s: --scratch parameter '%s' should be >= 1\n"
+msgstr ""
+
+#: rescue/virt-rescue.c:224
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:371
+#: rescue/virt-rescue.c:393
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:390
+#: rescue/virt-rescue.c:412
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3283,7 +3314,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:400
+#: rescue/virt-rescue.c:422
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3292,7 +3323,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:457
+#: rescue/virt-rescue.c:479
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3302,7 +3333,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:464
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3311,12 +3342,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:469
+#: rescue/virt-rescue.c:491
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:593
+#: rescue/virt-rescue.c:699
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
@@ -3569,92 +3600,72 @@ msgstr ""
 msgid "no subprocess to kill"
 msgstr ""
 
-#: src/proto.c:188
-#, c-format
-msgid "guestfs_set_busy: called when in state %d != READY"
-msgstr ""
-
-#: src/proto.c:211
-#, c-format
-msgid "guestfs_end_busy: called when in state %d"
-msgstr ""
-
-#: src/proto.c:421
+#: src/proto.c:379
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/proto.c:543
+#: src/proto.c:501
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
 "the debug messages output prior to this error.\n"
 msgstr ""
 
-#: src/proto.c:549
+#: src/proto.c:507
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:639
+#: src/proto.c:597
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/proto.c:658
+#: src/proto.c:616
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/proto.c:810
-#, c-format
-msgid "guestfs___send: state %d != BUSY"
-msgstr ""
-
-#: src/proto.c:834
+#: src/proto.c:786
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/proto.c:843
+#: src/proto.c:795
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/proto.c:939 src/proto.c:1242
+#: src/proto.c:891 src/proto.c:1189
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:991
-#, c-format
-msgid "send_file_chunk: state %d != READY"
-msgstr ""
-
-#: src/proto.c:1007
+#: src/proto.c:954
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/proto.c:1168
+#: src/proto.c:1115
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/proto.c:1196
+#: src/proto.c:1143
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/proto.c:1219
+#: src/proto.c:1166
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 
-#: src/proto.c:1224
+#: src/proto.c:1171
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/proto.c:1232
+#: src/proto.c:1179
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/proto.c:1246
+#: src/proto.c:1193
 msgid "file receive cancelled by daemon"
 msgstr ""
 
