@@ -105,6 +105,11 @@ struct drv {
       void (*data_free)(void*); /* function to free 'data' */
     } N;
   };
+
+  /* Opaque pointer.  Not used by the options-parsing code, and so
+   * available for the program to use for any purpose.
+   */
+  void *opaque;
 };
 
 struct mp {
