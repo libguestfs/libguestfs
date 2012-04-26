@@ -354,13 +354,12 @@ This returns true iff this handle is launching the subprocess
 
 For more information on states, see L<guestfs(3)>.");
 
-  ("is_busy", (RBool "busy", [], []), -1, [],
+  ("is_busy", (RBool "busy", [], []), -1, [NotInDocs],
    [InitNone, Always, TestOutputFalse (
       [["is_busy"]])],
    "is busy processing a command",
    "\
-This returns true iff this handle is busy processing a command
-(in the C<BUSY> state).
+This always returns false.  Do not use this function.
 
 For more information on states, see L<guestfs(3)>.");
 

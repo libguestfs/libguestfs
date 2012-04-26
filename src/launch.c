@@ -1456,7 +1456,8 @@ guestfs__is_ready (guestfs_h *g)
 int
 guestfs__is_busy (guestfs_h *g)
 {
-  return g->state == BUSY;
+  /* There used to be a BUSY state but it was removed in 1.17.36. */
+  return 0;
 }
 
 int

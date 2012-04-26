@@ -706,17 +706,13 @@ check_reply_header (guestfs_h *g,
   return 0;
 }
 
-/* Check we are in the right state to run a high-level action. */
+/* Check the appliance is up when running a daemon_function. */
 static int
-check_state (guestfs_h *g, const char *caller)
+check_appliance_up (guestfs_h *g, const char *caller)
 {
-  if (!guestfs__is_ready (g)) {
-    if (guestfs__is_config (g) || guestfs__is_launching (g))
-      error (g, \"%%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)\",
-        caller);
-    else
-      error (g, \"%%s called from the wrong state, %%d != READY\",
-        caller, guestfs__get_state (g));
+  if (guestfs__is_config (g) || guestfs__is_launching (g)) {
+    error (g, \"%%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)\",
+           caller);
     return -1;
   }
   return 0;
@@ -1166,12 +1162,11 @@ trace_send_line (guestfs_h *g)
         | _ -> ()
       ) args;
 
-      (* Check we are in the right state for sending a request. *)
-      pr "  if (check_state (g, \"%s\") == -1) {\n" shortname;
+      (* This is a daemon_function so check the appliance is up. *)
+      pr "  if (check_appliance_up (g, \"%s\") == -1) {\n" shortname;
       trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
-      pr "  guestfs___set_busy (g);\n";
       pr "\n";
 
       (* Send the main header and arguments. *)
@@ -1202,7 +1197,6 @@ trace_send_line (guestfs_h *g)
               trace_return_error ~indent:4 shortname style errcode;
               pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
                 shortname;
-              pr "    guestfs___end_busy (g);\n";
               pr "    return %s;\n" (string_of_errcode errcode);
               pr "  }\n";
               pr "  args.%s.%s_val = (char *) %s;\n" n n n;
@@ -1239,7 +1233,6 @@ trace_send_line (guestfs_h *g)
           name;
       );
       pr "  if (serial == -1) {\n";
-      pr "    guestfs___end_busy (g);\n";
       trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
@@ -1252,7 +1245,6 @@ trace_send_line (guestfs_h *g)
         | FileIn n ->
             pr "  r = guestfs___send_file (g, %s);\n" n;
             pr "  if (r == -1) {\n";
-            pr "    guestfs___end_busy (g);\n";
             trace_return_error ~indent:4 shortname style errcode;
             pr "    /* daemon will send an error reply which we discard */\n";
             pr "    guestfs___recv_discard (g, \"%s\");\n" shortname;
@@ -1279,7 +1271,6 @@ trace_send_line (guestfs_h *g)
       pr ");\n";
 
       pr "  if (r == -1) {\n";
-      pr "    guestfs___end_busy (g);\n";
       trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
@@ -1287,7 +1278,6 @@ trace_send_line (guestfs_h *g)
 
       pr "  if (check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
         (String.uppercase shortname);
-      pr "    guestfs___end_busy (g);\n";
       trace_return_error ~indent:4 shortname style errcode;
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
@@ -1307,7 +1297,6 @@ trace_send_line (guestfs_h *g)
       pr "                           err.error_message);\n";
       pr "    free (err.error_message);\n";
       pr "    free (err.errno_string);\n";
-      pr "    guestfs___end_busy (g);\n";
       pr "    return %s;\n" (string_of_errcode errcode);
       pr "  }\n";
       pr "\n";
@@ -1317,15 +1306,12 @@ trace_send_line (guestfs_h *g)
         function
         | FileOut n ->
             pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
-            pr "    guestfs___end_busy (g);\n";
             trace_return_error ~indent:4 shortname style errcode;
             pr "    return %s;\n" (string_of_errcode errcode);
             pr "  }\n";
             pr "\n";
         | _ -> ()
       ) args;
-
-      pr "  guestfs___end_busy (g);\n";
 
       (match ret with
        | RErr ->

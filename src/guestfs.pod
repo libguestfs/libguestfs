@@ -2400,23 +2400,23 @@ libguestfs uses a state machine to model the child process:
                     /          \
                     |  CONFIG  |
                     \__________/
-                     ^ ^   ^  \
-                    /  |    \  \ guestfs_launch
-                   /   |    _\__V______
-                  /    |   /           \
-                 /     |   | LAUNCHING |
-                /      |   \___________/
-               /       |       /
-              /        |  guestfs_launch
-             /         |     /
-    ______  /        __|____V
-   /      \ ------> /        \
-   | BUSY |         | READY  |
-   \______/ <------ \________/
+                       ^   ^  \
+                       |    \  \ guestfs_launch
+                       |    _\__V______
+                       |   /           \
+                       |   | LAUNCHING |
+                       |   \___________/
+                       |       /
+                       |  guestfs_launch
+                       |     /
+                     __|____V
+                    /        \
+                    | READY  |
+                    \________/
 
 The normal transitions are (1) CONFIG (when the handle is created, but
 there is no child process), (2) LAUNCHING (when the child process is
-booting up), (3) alternating between READY and BUSY as commands are
+booting up), (3) READY meaning the appliance is up, actions can be
 issued to, and carried out by, the child process.
 
 The guest may be killed by L</guestfs_kill_subprocess>, or may die
@@ -2434,9 +2434,8 @@ while it is running.
 
 API actions such as L</guestfs_mount> can only be issued when in the
 READY state.  These API calls block waiting for the command to be
-carried out (ie. the state to transition to BUSY and then back to
-READY).  There are no non-blocking versions, and no way to issue more
-than one command per handle at the same time.
+carried out.  There are no non-blocking versions, and no way to issue
+more than one command per handle at the same time.
 
 Finally, the child process sends asynchronous messages back to the
 main program, such as kernel log messages.  You can register a

@@ -142,7 +142,7 @@
 #define ROUTER "169.254.2.2"
 
 /* GuestFS handle and connection. */
-enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
+enum state { CONFIG, LAUNCHING, READY, NO_HANDLE };
 
 /* Attach method. */
 enum attach_method { ATTACH_METHOD_APPLIANCE = 0, ATTACH_METHOD_UNIX };
@@ -406,8 +406,6 @@ extern void guestfs___free_fuse (guestfs_h *g);
 #endif
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern void guestfs___free_drives (struct drive **drives);
-extern int guestfs___set_busy (guestfs_h *g);
-extern int guestfs___end_busy (guestfs_h *g);
 extern int guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint, uint64_t optargs_bitmask, xdrproc_t xdrp, char *args);
 extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
 extern int guestfs___recv_discard (guestfs_h *g, const char *fn);

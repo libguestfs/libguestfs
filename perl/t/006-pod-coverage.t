@@ -22,7 +22,10 @@ use warnings;
 eval "use Test::Pod::Coverage 1.00";
 plan skip_all => "Test::Pod::Coverage 1.00 required for testing POD" if $@;
 all_pod_coverage_ok ({
-    also_private => [ qr/^test0.*/,
-                      qr/^debug.*/,
-                      qr/^internal.*/ ]
+    also_private => [
+        qr/^debug.*/,
+        qr/^is_busy$/,
+        qr/^internal.*/,
+        qr/^test0.*/,
+        ]
 });

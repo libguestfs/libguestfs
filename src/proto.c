@@ -84,30 +84,24 @@
  * (2) A simple RPC (eg. "mount").  We write the request, then read
  * the reply.  The sequence of calls is:
  *
- *   guestfs___set_busy
  *   guestfs___send
  *   guestfs___recv
- *   guestfs___end_busy
  *
  * (3) An RPC with FileOut parameters (eg. "upload").  We write the
  * request, then write the file(s), then read the reply.  The sequence
  * of calls is:
  *
- *   guestfs___set_busy
  *   guestfs___send
  *   guestfs___send_file  (possibly multiple times)
  *   guestfs___recv
- *   guestfs___end_busy
  *
  * (4) An RPC with FileIn parameters (eg. "download").  We write the
  * request, then read the reply, then read the file(s).  The sequence
  * of calls is:
  *
- *   guestfs___set_busy
  *   guestfs___send
  *   guestfs___recv
  *   guestfs___recv_file  (possibly multiple times)
- *   guestfs___end_busy
  *
  * (5) Both FileOut and FileIn parameters.  There are no calls like
  * this in the current API, but they would be implemented as a
@@ -179,39 +173,6 @@ message_summary (const void *buf, size_t n, char *workspace)
     strcpy (p, "...");
 
   return workspace;
-}
-
-int
-guestfs___set_busy (guestfs_h *g)
-{
-  if (g->state != READY) {
-    error (g, _("guestfs_set_busy: called when in state %d != READY"),
-           g->state);
-    return -1;
-  }
-  g->state = BUSY;
-  return 0;
-}
-
-int
-guestfs___end_busy (guestfs_h *g)
-{
-  switch (g->state)
-    {
-    case BUSY:
-      g->state = READY;
-      break;
-    case CONFIG:
-    case READY:
-      break;
-
-    case LAUNCHING:
-    case NO_HANDLE:
-    default:
-      error (g, _("guestfs_end_busy: called when in state %d"), g->state);
-      return -1;
-    }
-  return 0;
 }
 
 /* This is called if we detect EOF, ie. qemu died. */
@@ -395,6 +356,7 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
   /* Read and process progress messages that happen during FileIn. */
   if (flag == GUESTFS_PROGRESS_FLAG) {
     char buf[PROGRESS_MESSAGE_SIZE];
+    guestfs_progress message;
 
     n = really_read_from_socket (g, fd, buf, PROGRESS_MESSAGE_SIZE);
     if (n == -1)
@@ -404,15 +366,11 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
       return -1;
     }
 
-    if (g->state == BUSY) {
-      guestfs_progress message;
+    xdrmem_create (&xdr, buf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
+    xdr_guestfs_progress (&xdr, &message);
+    xdr_destroy (&xdr);
 
-      xdrmem_create (&xdr, buf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-      xdr_guestfs_progress (&xdr, &message);
-      xdr_destroy (&xdr);
-
-      guestfs___progress_message_callback (g, &message);
-    }
+    guestfs___progress_message_callback (g, &message);
 
     return 0;
   }
@@ -713,15 +671,14 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 #endif
 
   if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
-    if (g->state == BUSY) {
-      guestfs_progress message;
-      XDR xdr;
-      xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-      xdr_guestfs_progress (&xdr, &message);
-      xdr_destroy (&xdr);
+    guestfs_progress message;
+    XDR xdr;
 
-      guestfs___progress_message_callback (g, &message);
-    }
+    xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
+    xdr_guestfs_progress (&xdr, &message);
+    xdr_destroy (&xdr);
+
+    guestfs___progress_message_callback (g, &message);
 
     free (*buf_rtn);
     *buf_rtn = NULL;
@@ -805,11 +762,6 @@ guestfs___send (guestfs_h *g, int proc_nr,
   int r;
   char *msg_out;
   size_t msg_out_size;
-
-  if (g->state != BUSY) {
-    error (g, _("guestfs___send: state %d != BUSY"), g->state);
-    return -1;
-  }
 
   /* We have to allocate this message buffer on the heap because
    * it is quite large (although will be mostly unused).  We
@@ -986,11 +938,6 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   XDR xdr;
   char *msg_out;
   size_t msg_out_size;
-
-  if (g->state != BUSY) {
-    error (g, _("send_file_chunk: state %d != READY"), g->state);
-    return -1;
-  }
 
   /* Allocate the chunk buffer.  Don't use the stack to avoid
    * excessive stack usage and unnecessary copies.
