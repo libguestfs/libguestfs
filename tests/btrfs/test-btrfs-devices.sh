@@ -51,38 +51,38 @@ mount /dev/sda1 /
 mkdir /data1
 txz-in ../data/filesanddirs-10M.tar.xz /data1
 
-# Uncommenting the next two lines shows filesystem errors.
-# Reported upstream as RHBZ#816304.
-#btrfs-filesystem-sync /
-#dmesg
+# In btrfs-progs 0.19, a test was added which prevents us from
+# deleting the mount device (/dev/sda1) although that restriction
+# isn't necessary.  RHBZ#816346.  If/when this is fixed, we could
+# delete and re-add /dev/sda1 below.
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
-btrfs-device-delete "/dev/sda1 /dev/sdb1" /
-btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdb1" /
+btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data2
 txz-in ../data/filesanddirs-10M.tar.xz /data2
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
-btrfs-device-delete "/dev/sda1 /dev/sdb1" /
-btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdb1" /
+btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data3
 txz-in ../data/filesanddirs-10M.tar.xz /data3
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
-btrfs-device-delete "/dev/sda1 /dev/sdb1" /
-btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdb1" /
+btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data4
 txz-in ../data/filesanddirs-10M.tar.xz /data4
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
-btrfs-device-delete "/dev/sda1 /dev/sdb1" /
-btrfs-device-add "/dev/sda1 /dev/sdb1" /
+btrfs-device-delete "/dev/sdb1" /
+btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 EOF
