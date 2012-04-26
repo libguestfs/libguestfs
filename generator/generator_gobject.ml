@@ -193,9 +193,9 @@ let generate_gobject_makefile () =
   let sources =
     List.map (function n -> sprintf "src/%s.c" n) output_filenames
   in
-  pr "guestfs_gobject_headers=\\\n  include/guestfs-gobject.h \\\n  %s\n\n"
+  pr "guestfs_gobject_headers= \\\n  include/guestfs-gobject.h \\\n  %s\n\n"
     (String.concat " \\\n  " headers);
-  pr "guestfs_gobject_sources=\\\n  %s\n" (String.concat " \\\n  " sources)
+  pr "guestfs_gobject_sources= \\\n  %s\n" (String.concat " \\\n  " sources)
 
 let generate_gobject_header () =
   generate_header CStyle GPLv2plus;

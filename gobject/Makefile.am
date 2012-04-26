@@ -17,15 +17,19 @@
 
 SUBDIRS = . docs
 
+include $(top_srcdir)/subdir-rules.mk
+
 include $(srcdir)/Makefile.inc
 
-BUILT_SOURCES = \
-  $(guestfs_gobject_headers) \
-  $(guestfs_gobject_sources) \
-  bindtests.js
+generator_built = \
+	$(guestfs_gobject_headers) \
+	$(guestfs_gobject_sources) \
+	bindtests.js
+
+BUILT_SOURCES = $(generator_built)
 
 EXTRA_DIST = \
-	$(BUILT_SOURCES) \
+	$(generator_built) \
 	TODO.txt \
 	bindtests-manual.js \
 	tests-misc.js \

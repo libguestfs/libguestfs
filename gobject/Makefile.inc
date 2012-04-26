@@ -19,7 +19,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-guestfs_gobject_headers=\
+guestfs_gobject_headers= \
   include/guestfs-gobject.h \
   include/guestfs-gobject/session.h \
   include/guestfs-gobject/tristate.h \
@@ -62,7 +62,7 @@ guestfs_gobject_headers=\
   include/guestfs-gobject/optargs-mkfs_btrfs.h \
   include/guestfs-gobject/optargs-set_e2attrs.h
 
-guestfs_gobject_sources=\
+guestfs_gobject_sources= \
   src/session.c \
   src/tristate.c \
   src/struct-int_bool.c \
