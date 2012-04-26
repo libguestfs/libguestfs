@@ -36,6 +36,7 @@
 #include "guestfs.h"
 #include "options.h"
 
+static void add_scratch_disks (int n, struct drv **drvs);
 static void do_suggestion (struct drv *drvs);
 
 /* Currently open libguestfs handle. */
@@ -78,6 +79,7 @@ usage (int status)
              "  -m|--memsize MB      Set memory size in megabytes\n"
              "  --network            Enable network\n"
              "  -r|--ro              Access read-only\n"
+             "  --scratch[=N]        Add scratch disk(s)\n"
              "  --selinux            Enable SELinux\n"
              "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
              "  --suggest            Suggest mount commands for this guest\n"
@@ -118,6 +120,7 @@ main (int argc, char *argv[])
     { "network", 0, 0, 0 },
     { "ro", 0, 0, 'r' },
     { "rw", 0, 0, 'w' },
+    { "scratch", 2, 0, 0 },
     { "selinux", 0, 0, 0 },
     { "smp", 1, 0, 0 },
     { "suggest", 0, 0, 0 },
@@ -175,6 +178,25 @@ main (int argc, char *argv[])
         }
       } else if (STREQ (long_options[option_index].name, "suggest")) {
         suggest = 1;
+      } else if (STREQ (long_options[option_index].name, "scratch")) {
+        if (!optarg || STREQ (optarg, ""))
+          add_scratch_disks (1, &drvs);
+        else {
+          int n;
+          if (sscanf (optarg, "%d", &n) != 1) {
+            fprintf (stderr,
+                     _("%s: could not parse --scratch parameter '%s'\n"),
+                     program_name, optarg);
+            exit (EXIT_FAILURE);
+          }
+          if (n < 1) {
+            fprintf (stderr,
+                     _("%s: --scratch parameter '%s' should be >= 1\n"),
+                     program_name, optarg);
+            exit (EXIT_FAILURE);
+          }
+          add_scratch_disks (n, &drvs);
+        }
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -479,6 +501,90 @@ suggest_filesystems (void)
   free (fses);
 }
 
+struct scratch_disk {
+  struct scratch_disk *next;
+  char *filename;
+};
+static struct scratch_disk *scratch_disks = NULL;
+
+static void unlink_scratch_disks (void);
+static void add_scratch_disk (struct drv **drvs);
+
+static void
+add_scratch_disks (int n, struct drv **drvs)
+{
+  while (n > 0) {
+    add_scratch_disk (drvs);
+    n--;
+  }
+}
+
+static void
+add_scratch_disk (struct drv **drvs)
+{
+  char filename_s[] = "/var/tmp/rescueXXXXXX";
+  int fd;
+  char *filename;
+  struct scratch_disk *sd;
+  struct drv *drv;
+
+  /* Create a temporary file, raw sparse format. */
+  fd = mkstemp (filename_s);
+  if (fd == -1) {
+    perror ("mkstemp: scratch disk");
+    exit (EXIT_FAILURE);
+  }
+  if (ftruncate (fd, 10737418240ULL) == -1) {
+    perror ("ftruncate: scratch disk");
+    exit (EXIT_FAILURE);
+  }
+  if (close (fd) == -1) {
+    perror ("close: scratch disk");
+    exit (EXIT_FAILURE);
+  }
+
+  filename = strdup (filename_s);
+  if (filename == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Remember this scratch disk, so we can clean it up at exit. */
+  if (scratch_disks == NULL)
+    atexit (unlink_scratch_disks);
+  sd = malloc (sizeof (struct scratch_disk));
+  if (!sd) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+  sd->filename = filename;
+  sd->next = scratch_disks;
+  scratch_disks = sd;
+
+  /* Add the scratch disk to the drives list. */
+  drv = calloc (1, sizeof (struct drv));
+  if (!drv) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+  drv->type = drv_a;
+  drv->nr_drives = -1;
+  drv->a.filename = filename;
+  drv->a.format = "raw";
+  drv->next = *drvs;
+  *drvs = drv;
+}
+
+/* Called atexit to unlink the scratch disks. */
+static void
+unlink_scratch_disks (void)
+{
+  while (scratch_disks) {
+    unlink (scratch_disks->filename);
+    free (scratch_disks->filename);
+    scratch_disks = scratch_disks->next;
+  }
+}
 
 /* The following was a nice idea, but in fact it doesn't work.  This is
  * because qemu has some (broken) pty emulation itself.

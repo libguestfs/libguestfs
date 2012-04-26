@@ -101,6 +101,9 @@ want to partition that file (although we would recommend using
 L<guestfish(1)> instead as it is more suitable for this purpose).  You
 can even use virt-rescue on things like SD cards.
 
+You can get virt-rescue to give you scratch disk(s) to play with.
+This is useful for testing out Linux utilities (see I<--scratch>).
+
 Virt-rescue does not require root.  You only need to run it as root if
 you need root to open the disk image.
 
@@ -197,6 +200,18 @@ might be running, and is generally recommended in cases where you
 don't need write access to the disk.
 
 See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
+
+=item B<--scratch>
+
+=item B<--scratch=N>
+
+The I<--scratch> option adds a large scratch disk to the rescue
+appliance.  I<--scratch=N> adds C<N> scratch disks.  The scratch
+disk(s) are deleted automatically when virt-rescue exits.
+
+You can also mix I<-a>, I<-d> and I<--scratch> options.  The scratch
+disk(s) are added to the appliance in the order they appear on the
+command line.
 
 =item B<--selinux>
 
