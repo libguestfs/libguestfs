@@ -46,8 +46,8 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
 introspection_sources = \
-  $(libguestfs_gobject_1_0_la_HEADERS) \
-  $(libguestfs_gobject_1_0_la_SOURCES)
+	$(libguestfs_gobject_1_0_la_HEADERS) \
+	$(libguestfs_gobject_1_0_la_SOURCES)
 
 Guestfs-1.0.gir: $(libname)
 Guestfs_1_0_gir_INCLUDES = GObject-2.0 Gio-2.0
