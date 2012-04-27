@@ -429,8 +429,12 @@ debug_progress (const char *subcmd, int argc, char *const *const argv)
 
   char *secs_str = argv[0];
   unsigned secs;
-  if (sscanf (secs_str, "%u", &secs) != 1 || secs == 0)
+  if (sscanf (secs_str, "%u", &secs) != 1)
     goto error;
+  if (secs == 0 || secs > 1000000) { /* RHBZ#816839 */
+    reply_with_error ("progress: argument is 0, less than 0, or too large");
+    return NULL;
+  }
 
   unsigned i;
   unsigned tsecs = secs * 10;   /* 1/10ths of seconds */
