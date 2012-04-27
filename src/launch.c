@@ -662,8 +662,16 @@ launch_appliance (guestfs_h *g)
     add_cmdline (g, "-no-reboot");
 
     /* These options recommended by KVM developers to improve reliability. */
+#ifndef __arm__
+    /* qemu-system-arm advertises the -no-hpet option but if you try
+     * to use it, it usefully says:
+     *   "Option no-hpet not supported for this target".
+     * Cheers qemu developers.  How many years have we been asking for
+     * capabilities?  Could be 3 or 4 years, I forget.
+     */
     if (qemu_supports (g, "-no-hpet"))
       add_cmdline (g, "-no-hpet");
+#endif
 
     if (qemu_supports (g, "-rtc-td-hack"))
       add_cmdline (g, "-rtc-td-hack");
