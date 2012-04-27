@@ -38,6 +38,27 @@ let globs = List.sort compare [
   "/var/log/tallylog*";
   "/var/log/wtmp*";
 
+  (* logfiles configured by /etc/logrotate.d/* *)
+  "/var/log/BackupPC/LOG";
+  "/var/log/ceph/*.log";
+  "/var/log/chrony/*.log";
+  "/var/log/cups/*_log";
+  "/var/log/glusterfs/*glusterd.vol.log";
+  "/var/log/glusterfs/glusterfs.log";
+  "/var/log/httpd/*log";
+  "/var/log/jetty/jetty-console.log";
+  "/var/log/libvirt/libvirtd.log";
+  "/var/log/libvirt/lxc/*.log";
+  "/var/log/libvirt/qemu/*.log";
+  "/var/log/libvirt/uml/*.log";
+  "/var/named/data/named.run";
+  "/var/log/ppp/connect-errors";
+  "/var/account/pacct";
+  "/var/log/setroubleshoot/*.log";
+  "/var/log/squid/*.log";
+  (* And the status file of logrotate *)
+  "/var/lib/logrotate.status";
+
   (* yum installation files *)
   "/root/install.log";
   "/root/install.log.syslog";
