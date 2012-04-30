@@ -463,6 +463,13 @@ during the conversion, since current behaviour is very bad when this
 happens (it usually causes virt-sparsify to hang).  This requires
 writing a small C binding to statvfs for OCaml.
 
+'virt-sparsify --whitelist' option to generate skeletons (for
+debugging, bug forensics, diagnosis).  The whilelist option would
+specify a list of files to be *preserved*.  All other files in the
+image would be replaced by equivalent files of zeroes, thus minimizing
+the size of the debug image that needs to be shipped to us by the
+customer.
+
 Optimize the appliance
 ----------------------
 
