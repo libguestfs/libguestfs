@@ -166,7 +166,6 @@ EXTRA_DIST = \
 	debian/shlibs.local \
 	debian/watch \
 	html/pod.css \
-	libguestfs.pc libguestfs.pc.in \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
 	m4/.gitignore \
@@ -258,11 +257,6 @@ all-local:
 	grep -v '^images/' | \
 	LC_ALL=C sort | \
 	sed 's,^\./,,' > po/POTFILES.in
-
-# Pkgconfig.
-
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libguestfs.pc
 
 # Make clean.
 

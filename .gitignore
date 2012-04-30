@@ -181,7 +181,6 @@ java/doc-stamp
 java/examples/guestfs-java.3
 java/examples/stamp-guestfs-java.pod
 *.la
-libguestfs.pc
 libguestfs.spec
 libguestfs-*.tar.gz
 .libs
@@ -332,6 +331,7 @@ src/guestfs_protocol.c
 src/guestfs_protocol.h
 src/guestfs_protocol.x
 src/guestfs-structs.pod
+src/libguestfs.pc
 src/libguestfs.syms
 src/.libs/libguestfs.so
 src/stamp-guestfs.pod

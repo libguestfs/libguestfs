@@ -43,6 +43,7 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
 	libguestfs.3 \
+	libguestfs.pc libguestfs.pc.in \
 	guestfs.pod \
 	api-support/added \
 	api-support/README \
@@ -182,6 +183,11 @@ guestfs_protocol.h: guestfs_protocol.x
 	$(RPCGEN) -h -o $@-t $(srcdir)/$<
 	mv $@-t $@
 endif
+
+# Pkgconfig.
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libguestfs.pc
 
 # Manual page.
 
