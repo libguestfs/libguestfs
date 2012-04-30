@@ -29,6 +29,7 @@
 #include <getopt.h>
 #include <signal.h>
 #include <locale.h>
+#include <libintl.h>
 
 /* We're still using some of FUSE to handle command line options. */
 #include <fuse.h>

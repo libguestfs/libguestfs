@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <string.h>
+#include <libintl.h>
 #include <sys/wait.h>
 
 #include "fish.h"

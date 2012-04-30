@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <inttypes.h>
+#include <libintl.h>
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/wait.h>

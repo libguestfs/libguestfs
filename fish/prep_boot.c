@@ -23,6 +23,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <libintl.h>
 
 #include "fish.h"
 #include "prepopts.h"

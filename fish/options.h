@@ -19,21 +19,11 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-#ifdef HAVE_GETTEXT
-#include "gettext.h"
 #ifndef _
 #define _(str) dgettext(PACKAGE, (str))
 #endif
 #ifndef N_
 #define N_(str) dgettext(PACKAGE, (str))
-#endif
-#else
-#ifndef _
-#define _(str) str
-#endif
-#ifndef _
-#define N_(str) str
-#endif
 #endif
 
 #ifndef STREQ

@@ -62,6 +62,7 @@ let generate_fish_cmds () =
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
+  pr "#include <libintl.h>\n";
   pr "\n";
   pr "#include \"c-ctype.h\"\n";
   pr "#include \"full-write.h\"\n";
@@ -1000,9 +1001,12 @@ and generate_fish_event_names () =
   generate_header CStyle GPLv2plus;
 
   pr "\
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libintl.h>
 
 #include \"fish.h\"
 

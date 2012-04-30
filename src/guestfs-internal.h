@@ -19,6 +19,8 @@
 #ifndef GUESTFS_INTERNAL_H_
 #define GUESTFS_INTERNAL_H_
 
+#include <libintl.h>
+
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
@@ -44,14 +46,8 @@
 #define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
-#ifdef HAVE_GETTEXT
-#include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))
 #define N_(str) dgettext(PACKAGE, (str))
-#else
-#define _(str) str
-#define N_(str) str
-#endif
 
 #ifdef HAVE_SYS_SDT_H
 #include <sys/sdt.h>

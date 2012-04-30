@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 #include <locale.h>
 #include <langinfo.h>
+#include <libintl.h>
 
 #ifdef HAVE_LIBREADLINE
 #include <readline/readline.h>

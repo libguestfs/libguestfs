@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <inttypes.h>
+#include <libintl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

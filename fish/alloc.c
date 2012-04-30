@@ -25,6 +25,7 @@
 #include <fcntl.h>
 #include <inttypes.h>
 #include <errno.h>
+#include <libintl.h>
 
 #include "xstrtol.h"
 

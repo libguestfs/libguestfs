@@ -31,21 +31,8 @@
 #define SOCK_CLOEXEC 0
 #endif
 
-#ifdef HAVE_GETTEXT
-#include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))
 #define N_(str) dgettext(PACKAGE, (str))
-#else
-#define _(str) str
-#define N_(str) str
-#endif
-
-#if !ENABLE_NLS
-#undef textdomain
-#define textdomain(Domainname) /* empty */
-#undef bindtextdomain
-#define bindtextdomain(Domainname, Dirname) /* empty */
-#endif
 
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)

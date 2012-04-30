@@ -24,6 +24,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <xvasprintf.h>
+#include <libintl.h>
 #include <math.h>
 #include <assert.h>
 

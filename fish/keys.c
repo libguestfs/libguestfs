@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include <string.h>
+#include <libintl.h>
 
 #include "guestfs.h"
 

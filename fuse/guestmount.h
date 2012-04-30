@@ -25,14 +25,8 @@
 #ifndef GUESTMOUNT_H_
 #define GUESTMOUNT_H_
 
-#ifdef HAVE_GETTEXT
-#include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))
-//#define N_(str) dgettext(PACKAGE, (str))
-#else
-#define _(str) str
-//#define N_(str) str
-#endif
+#define N_(str) dgettext(PACKAGE, (str))
 
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
