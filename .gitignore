@@ -199,7 +199,6 @@ pod2htm?.tmp
 /java/doc-stamp
 /java/examples/guestfs-java.3
 /java/examples/stamp-guestfs-java.pod
-/libguestfs.pc
 /libguestfs.spec
 /libguestfs-*.tar.gz
 /libtool
@@ -358,6 +357,7 @@ pod2htm?.tmp
 /src/guestfs_protocol.h
 /src/guestfs_protocol.x
 /src/guestfs-structs.pod
+/src/libguestfs.pc
 /src/libguestfs.syms
 /src/.libs/libguestfs.so
 /src/stamp-guestfs.pod

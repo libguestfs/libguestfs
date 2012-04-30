@@ -1206,7 +1206,6 @@ AC_CONFIG_FILES([Makefile
                  inspector/Makefile
                  java/Makefile
                  java/examples/Makefile
-                 libguestfs.pc
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile
@@ -1227,6 +1226,7 @@ AC_CONFIG_FILES([Makefile
                  ruby/examples/Makefile
                  sparsify/Makefile
                  src/Makefile
+                 src/libguestfs.pc
                  sysprep/Makefile
                  test-tool/Makefile
                  tests/btrfs/Makefile
