@@ -742,7 +742,7 @@ AS_IF([test "x$valgrind" != "xno"],[
     fi
 ])
 
-dnl Check for OCaml (optional, for OCaml bindings).
+dnl Check for OCaml (optional, for OCaml bindings and OCaml tools).
 OCAMLC=no
 OCAMLFIND=no
 AC_ARG_ENABLE([ocaml],
@@ -762,7 +762,7 @@ AM_CONDITIONAL([HAVE_OCAML],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
-dnl Check for Perl (optional, for Perl bindings).
+dnl Check for Perl (optional, for Perl bindings and Perl tools).
 PERL=no
 AC_ARG_ENABLE([perl],
         AS_HELP_STRING([--disable-perl], [Disable Perl language bindings]),
