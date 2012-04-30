@@ -18,8 +18,10 @@
 
 open Printf
 
-open Sysprep_operation
 open Utils
+
+open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -59,10 +61,10 @@ let user_account_perform g root =
 let user_account_op = {
   name = "user-account";
   enabled_by_default = false;
-  heading = "Remove the user accounts in the guest";
-  pod_description = Some "\
+  heading = s_"Remove the user accounts in the guest";
+  pod_description = Some (s_"\
 Remove all the user accounts and their home directories.
-The \"root\" account is not removed.";
+The \"root\" account is not removed.");
   extra_args = [];
   perform = user_account_perform;
 }

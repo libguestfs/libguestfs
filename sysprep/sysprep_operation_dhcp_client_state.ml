@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -32,7 +33,7 @@ let dhcp_client_state_perform g root =
 let dhcp_client_state_op = {
   name = "dhcp-client-state";
   enabled_by_default = true;
-  heading = "Remove DHCP client leases";
+  heading = s_"Remove DHCP client leases";
   pod_description = None;
   extra_args = [];
   perform = dhcp_client_state_perform;

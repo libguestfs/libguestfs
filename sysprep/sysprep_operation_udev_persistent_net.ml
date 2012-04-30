@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -32,15 +33,15 @@ let udev_persistent_net_perform g root =
 let udev_persistent_net_op = {
   name = "udev-persistent-net";
   enabled_by_default = true;
-  heading = "Remove udev persistent net rules";
-  pod_description = Some "\
+  heading = s_"Remove udev persistent net rules";
+  pod_description = Some (s_"\
 Remove udev persistent net rules which map the guest's existing MAC
 address to a fixed ethernet device (eg. eth0).
 
 After a guest is cloned, the MAC address usually changes.  Since the
 old MAC address occupies the old name (eg. eth0), this means the fresh
 MAC address is assigned to a new name (eg. eth1) and this is usually
-undesirable.  Erasing the udev persistent net rules avoids this.";
+undesirable.  Erasing the udev persistent net rules avoids this.");
   extra_args = [];
   perform = udev_persistent_net_perform;
 }

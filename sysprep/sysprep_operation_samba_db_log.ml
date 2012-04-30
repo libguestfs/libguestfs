@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -43,7 +44,7 @@ let samba_db_log_perform g root =
 let samba_db_log_op = {
   name = "samba-db-log";
   enabled_by_default = true;
-  heading = "Remove the database and log files of Samba";
+  heading = s_"Remove the database and log files of Samba";
   pod_description = None;
   extra_args = [];
   perform = samba_db_log_perform;

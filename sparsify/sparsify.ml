@@ -19,6 +19,8 @@
 open Unix
 open Printf
 
+open Sparsify_gettext.Gettext
+
 module G = Guestfs
 
 open Utils
@@ -54,33 +56,33 @@ let indisk, outdisk, compress, convert, debug_gc,
   let zeroes = ref [] in
 
   let argspec = Arg.align [
-    "--compress", Arg.Set compress,         " Compressed output format";
-    "--convert", Arg.Set_string convert,    "format Format of output disk (default: same as input)";
-    "--debug-gc", Arg.Set debug_gc,         " Debug GC and memory allocations";
-    "--format",  Arg.Set_string format,     "format Format of input disk";
-    "--ignore",  Arg.String (add ignores),  "fs Ignore filesystem";
-    "--machine-readable", Arg.Set machine_readable, " Make output machine readable";
-    "-o",        Arg.Set_string option,     "option Add qemu-img options";
-    "-q",        Arg.Set quiet,             " Quiet output";
+    "--compress", Arg.Set compress,         " " ^ s_"Compressed output format";
+    "--convert", Arg.Set_string convert,    s_"format" ^ " " ^ s_"Format of output disk (default: same as input)";
+    "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations";
+    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
+    "--ignore",  Arg.String (add ignores),  s_"fs" ^ " " ^ s_"Ignore filesystem";
+    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
+    "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
+    "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             " -\"-";
-    "-v",        Arg.Set verbose,           " Enable debugging messages";
+    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " -\"-";
-    "-V",        Arg.Unit display_version,  " Display version and exit";
+    "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  " -\"-";
-    "-x",        Arg.Set trace,             " Enable tracing of libguestfs calls";
-    "--zero",    Arg.String (add zeroes),   "fs Zero filesystem";
+    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
+    "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in
   let disks = ref [] in
   let anon_fun s = disks := s :: !disks in
   let usage_msg =
-    sprintf "\
+    sprintf (f_"\
 %s: sparsify a virtual machine disk
 
  virt-sparsify [--options] indisk outdisk
 
 A short summary of the options is given below.  For detailed help please
 read the man page virt-sparsify(1).
-"
+")
       prog in
   Arg.parse argspec anon_fun usage_msg;
 
@@ -125,7 +127,7 @@ read the man page virt-sparsify(1).
    * same disk for input and output.
    *)
   if indisk = outdisk then
-    error "you cannot use the same disk image for input and output";
+    error (f_"you cannot use the same disk image for input and output");
 
   (* The input disk must be an absolute path, so we can store the name
    * in the overlay disk.
@@ -141,10 +143,10 @@ read the man page virt-sparsify(1).
 
   (* Check filenames don't contain a colon (limitation of qemu-img). *)
   if contains_colon indisk then
-    error "input filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image" indisk;
+    error (f_"input filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") indisk;
 
   if contains_colon outdisk then
-    error "output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image" outdisk;
+    error (f_"output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") outdisk;
 
   indisk, outdisk, compress, convert,
     debug_gc, format, ignores, machine_readable,
@@ -152,7 +154,7 @@ read the man page virt-sparsify(1).
 
 let () =
   if not quiet then
-    printf "Create overlay file to protect source disk ...\n%!"
+    printf (f_"Create overlay file to protect source disk ...\n%!")
 
 (* Create the temporary overlay file. *)
 let overlaydisk =
@@ -178,13 +180,13 @@ let overlaydisk =
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
-    error "external command failed: %s" cmd;
+    error (f_"external command failed: %s") cmd;
 
   tmp
 
 let () =
   if not quiet then
-    printf "Examine source disk ...\n%!"
+    printf (f_"Examine source disk ...\n%!")
 
 (* Connect to libguestfs. *)
 let g =
@@ -221,7 +223,7 @@ let () =
       if not (is_ignored fs) then (
         if List.mem fs zeroes then (
           if not quiet then
-            printf "Zeroing %s ...\n%!" fs;
+            printf (f_"Zeroing %s ...\n%!") fs;
 
           g#zero_device fs
         ) else (
@@ -231,7 +233,7 @@ let () =
 
           if mounted then (
             if not quiet then
-              printf "Fill free space in %s with zero ...\n%!" fs;
+              printf (f_"Fill free space in %s with zero ...\n%!") fs;
 
             g#zero_free_space "/"
           ) else (
@@ -247,7 +249,7 @@ let () =
 
             if is_linux_x86_swap then (
               if not quiet then
-                printf "Clearing Linux swap on %s ...\n%!" fs;
+                printf (f_"Clearing Linux swap on %s ...\n%!") fs;
 
               (* Don't use mkswap.  Just preserve the header containing
                * the label, UUID and swap format version (libguestfs
@@ -256,7 +258,7 @@ let () =
               let header = g#pread_device fs 4096 0L in
               g#zero_device fs;
               if g#pwrite_device fs header 0L <> 4096 then
-                error "pwrite: short write restoring swap partition header"
+                error (f_"pwrite: short write restoring swap partition header")
             )
           )
         );
@@ -282,7 +284,7 @@ let () =
 
         if created then (
           if not quiet then
-            printf "Fill free space in volgroup %s with zero ...\n%!" vg;
+            printf (f_"Fill free space in volgroup %s with zero ...\n%!") vg;
 
           g#zero_device lvdev;
           g#sync ();
@@ -313,11 +315,11 @@ let output_format =
       (match stat with
       | WEXITED 0 -> ()
       | WEXITED _ ->
-        error "external command failed: %s" cmd
+        error (f_"external command failed: %s") cmd
       | WSIGNALED i ->
-        error "external command '%s' killed by signal %d" cmd i
+        error (f_"external command '%s' killed by signal %d") cmd i
       | WSTOPPED i ->
-        error "external command '%s' stopped by signal %d" cmd i
+        error (f_"external command '%s' stopped by signal %d") cmd i
       );
       if string_prefix line "QEMU QCOW Image (v2)" then
         "qcow2"
@@ -331,7 +333,7 @@ let output_format =
  *)
 let () =
   if not quiet then
-    printf "Copy to destination and make sparse ...\n%!";
+    printf (f_"Copy to destination and make sparse ...\n%!");
 
   let cmd =
     sprintf "qemu-img convert -f qcow2 -O %s%s%s %s %s"
@@ -344,13 +346,13 @@ let () =
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
-    error "external command failed: %s" cmd
+    error (f_"external command failed: %s") cmd
 
 (* Finished. *)
 let () =
   if not quiet then (
     print_newline ();
-    wrap "Sparsify operation completed with no errors.  Before deleting the old disk, carefully check that the target disk boots and works correctly.\n";
+    wrap (s_"Sparsify operation completed with no errors.  Before deleting the old disk, carefully check that the target disk boots and works correctly.\n");
   );
 
   if debug_gc then

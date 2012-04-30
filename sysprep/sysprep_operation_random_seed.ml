@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -46,12 +47,12 @@ let random_seed_perform g root =
 let random_seed_op = {
   name = "random-seed";
   enabled_by_default = true;
-  heading = "Generate random seed for guest";
-  pod_description = Some "\
+  heading = s_"Generate random seed for guest";
+  pod_description = Some (s_"\
 Write some random bytes from the host into the random seed file of the
 guest.
 
-See L</RANDOM SEED> below.";
+See L</RANDOM SEED> below.");
   extra_args = [];
   perform = random_seed_perform;
 }

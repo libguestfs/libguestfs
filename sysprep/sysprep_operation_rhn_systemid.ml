@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -33,7 +34,7 @@ let rhn_systemid_perform g root =
 let rhn_systemid_op = {
   name = "rhn-systemid";
   enabled_by_default = true;
-  heading = "Remove the RHN system ID";
+  heading = s_"Remove the RHN system ID";
   pod_description = None;
   extra_args = [];
   perform = rhn_systemid_perform;

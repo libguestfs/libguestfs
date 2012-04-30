@@ -31,6 +31,7 @@ CLEANFILES = \
 # Alphabetical order.
 SOURCES = \
 	main.ml \
+	sysprep_gettext.ml \
 	sysprep_operation.ml \
 	sysprep_operation.mli \
 	sysprep_operation_bash_history.ml \
@@ -62,6 +63,7 @@ if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
+	sysprep_gettext.cmx \
 	utils.cmx \
 	sysprep_operation.cmx \
 	sysprep_operation_bash_history.cmx \
@@ -95,6 +97,9 @@ bin_SCRIPTS = virt-sysprep
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
 OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml
+if HAVE_OCAML_PKG_GETTEXT
+OCAMLPACKAGES += -package gettext-stub
+endif
 
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)

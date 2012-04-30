@@ -21,13 +21,14 @@ open Unix
 
 open Utils
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
 let scriptdir = ref None
 let set_scriptdir dir =
   if !scriptdir <> None then (
-    eprintf "virt-sysprep: --scriptdir cannot be used more than once\n";
+    eprintf (f_"virt-sysprep: --scriptdir cannot be used more than once\n");
     exit 1
   );
   scriptdir := Some dir
@@ -61,17 +62,17 @@ let rec script_perform (g : Guestfs.guestfs) root =
       match snd (waitpid [] pid) with
       | WEXITED 0 -> true
       | WEXITED i ->
-        eprintf "virt-sysprep: script: failed (code %d)\n" i;
+        eprintf (f_"virt-sysprep: script: failed (code %d)\n") i;
         false
       | WSIGNALED i
       | WSTOPPED i ->
-        eprintf "virt-sysprep: script: killed by signal (%d)\n" i;
+        eprintf (f_"virt-sysprep: script: killed by signal (%d)\n") i;
         false in
 
     (* Remote temporary directory / mountpoint. *)
     if cleanup then rmdir scriptdir;
 
-    if not ok then failwith "script failed"
+    if not ok then failwith (s_"script failed")
   );
   []
 
@@ -114,8 +115,8 @@ trap cleanup INT TERM QUIT EXIT ERR\n"
 let script_op = {
   name = "script";
   enabled_by_default = true;
-  heading = "Run arbitrary scripts against the guest";
-  pod_description = Some "\
+  heading = s_"Run arbitrary scripts against the guest";
+  pod_description = Some (s_"\
 The C<script> module lets you run arbitrary shell scripts or programs
 against the guest.
 
@@ -133,10 +134,10 @@ guest's DNS configuration file, but C<rm /etc/resolv.conf> would
 (try to) remove the host's file.
 
 Normally a temporary mount point for the guest is used, but you
-can choose a specific one by using the I<--scriptdir> parameter.";
+can choose a specific one by using the I<--scriptdir> parameter.");
   extra_args = [
-    ("--scriptdir", Arg.String set_scriptdir, "dir Mount point on host"),
-    "\
+    ("--scriptdir", Arg.String set_scriptdir, s_"dir" ^ " " ^ s_"Mount point on host"),
+    s_"\
 The mount point (an empty directory on the host) used when
 the C<script> operation is enabled and one or more scripts
 are specified using I<--script> parameter(s).
@@ -145,8 +146,8 @@ B<Note:> C<scriptdir> B<must> be an absolute path.
 
 If I<--scriptdir> is not specified then a temporary mountpoint
 will be created.";
-    ("--script", Arg.String add_script, "script Script or program to run on guest"),
-    "\
+    ("--script", Arg.String add_script, s_"script" ^ " " ^ s_"Script or program to run on guest"),
+    s_"\
 Run the named C<script> (a shell script or program) against the
 guest.  The script can be any program on the host.  The script's
 current directory will be the guest's root directory.

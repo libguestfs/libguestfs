@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -35,10 +36,10 @@ let ssh_userdir_perform g root =
 let ssh_userdir_op = {
   name = "ssh-userdir";
   enabled_by_default = true;
-  heading = "Remove \".ssh\" directories in the guest";
-  pod_description = Some "\
+  heading = s_"Remove \".ssh\" directories in the guest";
+  pod_description = Some (s_"\
 Remove the C<.ssh> directory of user \"root\" and any other
-users who have a C<.ssh> directory in their home directory.";
+users who have a C<.ssh> directory in their home directory.");
   extra_args = [];
   perform = ssh_userdir_perform;
 }

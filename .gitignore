@@ -310,6 +310,7 @@ pod2htm?.tmp
 /rescue/virt-rescue
 /rescue/virt-rescue.1
 /resize/.depend
+/resize/resize_gettext.ml
 /resize/stamp-virt-resize.pod
 /resize/utils_tests
 /resize/virt-resize
@@ -326,6 +327,7 @@ pod2htm?.tmp
 /ruby/Rakefile
 /run
 /sparsify/.depend
+/sparsify/sparsify_gettext.ml
 /sparsify/stamp-virt-sparsify.pod
 /sparsify/virt-sparsify
 /sparsify/virt-sparsify.1
@@ -354,6 +356,7 @@ pod2htm?.tmp
 /sysprep/stamp-script2.sh
 /sysprep/stamp-virt-sysprep.pod
 /sysprep/sysprep-extra-options.pod
+/sysprep/sysprep_gettext.ml
 /sysprep/sysprep-operations.pod
 /sysprep/virt-sysprep
 /sysprep/virt-sysprep.1

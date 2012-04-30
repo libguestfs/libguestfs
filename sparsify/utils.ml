@@ -22,6 +22,8 @@
 
 open Printf
 
+open Sparsify_gettext.Gettext
+
 module G = Guestfs
 
 let (//) = Filename.concat
@@ -104,7 +106,7 @@ let error fs =
     prerr_newline ();
     prerr_newline ();
     wrap ~chan:stderr
-      "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and include the complete output.";
+      (s_"If reporting bugs, run virt-sparsify with the '-v' and '-x' options and include the complete output.");
     prerr_newline ();
     exit 1
   in

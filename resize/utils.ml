@@ -18,6 +18,8 @@
 
 open Printf
 
+open Resize_gettext.Gettext
+
 module G = Guestfs
 
 let ( +^ ) = Int64.add
@@ -72,11 +74,11 @@ let wrap ?(chan = stdout) ?(hanging = 0) str =
 
 let error fs =
   let display str =
-    wrap ~chan:stderr ("virt-resize: error: " ^ str);
+    wrap ~chan:stderr (s_"virt-resize: error: " ^ str);
     prerr_newline ();
     prerr_newline ();
     wrap ~chan:stderr
-      "If reporting bugs, run virt-resize with the '-d' option and include the complete output.";
+      (s_"If reporting bugs, run virt-resize with the '-d' option and include the complete output.");
     prerr_newline ();
     exit 1
   in

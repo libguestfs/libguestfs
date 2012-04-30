@@ -18,6 +18,7 @@
 
 open Utils
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -45,10 +46,10 @@ let net_hwaddr_perform g root =
 let net_hwaddr_op = {
   name = "net-hwaddr";
   enabled_by_default = true;
-  heading = "Remove HWADDR (hard-coded MAC address) configuration";
-  pod_description = Some "\
+  heading = s_"Remove HWADDR (hard-coded MAC address) configuration";
+  pod_description = Some (s_"\
 For Fedora and Red Hat Enterprise Linux,
-this is removed from C<ifcfg-*> files.";
+this is removed from C<ifcfg-*> files.");
   extra_args = [];
   perform = net_hwaddr_perform;
 }

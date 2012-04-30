@@ -30,6 +30,7 @@ SOURCES = \
 	progress.mli \
 	progress.ml \
 	sparsify.ml \
+	sparsify_gettext.ml \
 	utils.ml
 
 if HAVE_OCAML
@@ -38,6 +39,7 @@ if HAVE_OCAML
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	progress_c.o \
+	sparsify_gettext.cmx \
 	utils.cmx \
 	progress.cmx \
 	sparsify.cmx
@@ -48,6 +50,9 @@ bin_SCRIPTS = virt-sparsify
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
 OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml
+if HAVE_OCAML_PKG_GETTEXT
+OCAMLPACKAGES += -package gettext-stub
+endif
 
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)

@@ -19,6 +19,8 @@
 open Unix
 open Printf
 
+open Sysprep_gettext.Gettext
+
 open Utils
 
 module G = Guestfs
@@ -53,7 +55,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     files := (file, format) :: !files
   and set_domain dom =
     if !domain <> None then (
-      eprintf "%s: --domain option can only be given once\n" prog;
+      eprintf (f_"%s: --domain option can only be given once\n") prog;
       exit 1
     );
     domain := Some dom
@@ -65,11 +67,11 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     exit 0
   and set_enable ops =
     if !operations <> None then (
-      eprintf "%s: --enable option can only be given once\n" prog;
+      eprintf (f_"%s: --enable option can only be given once\n") prog;
       exit 1
     );
     if ops = "" then (
-      eprintf "%s: you cannot pass an empty argument to --enable\n" prog;
+      eprintf (f_"%s: you cannot pass an empty argument to --enable\n") prog;
       exit 1
     );
     let ops = string_split "," ops in
@@ -77,7 +79,8 @@ let debug_gc, operations, g, selinux_relabel, quiet =
       fun opset op_name ->
         try Sysprep_operation.add_to_set op_name opset
         with Not_found ->
-          eprintf "%s: --enable: '%s' is not a known operation\n" prog op_name;
+          eprintf (f_"%s: --enable: '%s' is not a known operation\n")
+            prog op_name;
           exit 1
     ) Sysprep_operation.empty_set ops in
     operations := Some opset
@@ -91,38 +94,38 @@ let debug_gc, operations, g, selinux_relabel, quiet =
   in
 
   let basic_args = [
-    "-a",        Arg.String add_file,       "file Add disk image file";
-    "--add",     Arg.String add_file,       "file Add disk image file";
-    "-c",        Arg.Set_string libvirturi, "uri Set libvirt URI";
-    "--connect", Arg.Set_string libvirturi, "uri Set libvirt URI";
-    "--debug-gc", Arg.Set debug_gc,         " Debug GC and memory allocations (internal)";
-    "-d",        Arg.String set_domain,     "domain Set libvirt guest name";
-    "--domain",  Arg.String set_domain,     "domain Set libvirt guest name";
-    "-n",        Arg.Set dryrun,            " Perform a dry run";
-    "--dryrun",  Arg.Set dryrun,            " Perform a dry run";
-    "--dry-run", Arg.Set dryrun,            " Perform a dry run";
-    "--dump-pod", Arg.Unit dump_pod,        " Dump POD (internal)";
-    "--dump-pod-options", Arg.Unit dump_pod_options, " Dump POD for options (internal)";
-    "--enable",  Arg.String set_enable,     "operations Enable specific operations";
-    "--format",  Arg.Set_string format,     "format Set format (default: auto)";
-    "--list-operations", Arg.Unit list_operations, " List supported operations";
-    "-q",        Arg.Set quiet,             " Don't print log messages";
-    "--quiet",   Arg.Set quiet,             " Don't print log messages";
-    "--selinux-relabel", Arg.Unit force_selinux_relabel, " Force SELinux relabel";
-    "--no-selinux-relabel", Arg.Unit no_force_selinux_relabel, " Never do SELinux relabel";
-    "-v",        Arg.Set verbose,           " Enable debugging messages";
-    "--verbose", Arg.Set verbose,           " Enable debugging messages";
-    "-V",        Arg.Unit display_version,  " Display version and exit";
-    "--version", Arg.Unit display_version,  " Display version and exit";
-    "-x",        Arg.Set trace,             " Enable tracing of libguestfs calls";
+    "-a",        Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
+    "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
+    "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
+    "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
+    "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations (internal)";
+    "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
+    "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
+    "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
+    "--dryrun",  Arg.Set dryrun,            " " ^ s_"Perform a dry run";
+    "--dry-run", Arg.Set dryrun,            " " ^ s_"Perform a dry run";
+    "--dump-pod", Arg.Unit dump_pod,        " " ^ s_"Dump POD (internal)";
+    "--dump-pod-options", Arg.Unit dump_pod_options, " " ^ s_"Dump POD for options (internal)";
+    "--enable",  Arg.String set_enable,     s_"operations" ^ " " ^ s_"Enable specific operations";
+    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
+    "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
+    "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
+    "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
+    "--selinux-relabel", Arg.Unit force_selinux_relabel, " " ^ s_"Force SELinux relabel";
+    "--no-selinux-relabel", Arg.Unit no_force_selinux_relabel, " " ^ s_"Never do SELinux relabel";
+    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+    "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
+    "--version", Arg.Unit display_version,  " " ^ s_"Display version and exit";
+    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let args = basic_args @ Sysprep_operation.extra_args () in
   let args =
     List.sort (fun (a,_,_) (b,_,_) -> compare_command_line_args a b) args in
   let argspec = Arg.align args in
-  let anon_fun _ = raise (Arg.Bad "extra parameter on the command line") in
+  let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
   let usage_msg =
-    sprintf "\
+    sprintf (f_"\
 %s: reset or unconfigure a virtual machine so clones can be made
 
  virt-sysprep [--options] -d domname
@@ -131,7 +134,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
 
 A short summary of the options is given below.  For detailed help please
 read the man page virt-sysprep(1).
-"
+")
       prog in
   Arg.parse argspec anon_fun usage_msg;
 
@@ -142,8 +145,8 @@ read the man page virt-sysprep(1).
   let add =
     match files, domain with
     | [], None ->
-      eprintf "%s: you must give either -a or -d options\n" prog;
-      eprintf "Read virt-sysprep(1) man page for further information.\n";
+      eprintf (f_"%s: you must give either -a or -d options\n") prog;
+      eprintf (f_"Read virt-sysprep(1) man page for further information.\n");
       exit 1
     | [], Some dom ->
       fun (g : Guestfs.guestfs) readonly ->
@@ -151,8 +154,8 @@ read the man page virt-sysprep(1).
         let readonlydisk = "ignore" (* ignore CDs, data drives *) in
         ignore (g#add_domain ~readonly ?libvirturi ~allowuuid ~readonlydisk dom)
     | _, Some _ ->
-      eprintf "%s: you cannot give -a and -d options together\n" prog;
-      eprintf "Read virt-sysprep(1) man page for further information.\n";
+      eprintf (f_"%s: you cannot give -a and -d options together\n") prog;
+      eprintf (f_"Read virt-sysprep(1) man page for further information.\n");
       exit 1
     | files, None ->
       fun g readonly ->
@@ -172,7 +175,7 @@ read the man page virt-sysprep(1).
   let verbose = !verbose in
 
   if not quiet then
-    printf "Examining the guest ...\n%!";
+    printf (f_"Examining the guest ...\n%!");
 
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
@@ -187,7 +190,7 @@ let () =
   (* Inspection. *)
   match Array.to_list (g#inspect_os ()) with
   | [] ->
-    eprintf "%s: no operating systems were found in the guest image\n" prog;
+    eprintf (f_"%s: no operating systems were found in the guest image\n") prog;
     exit 1
   | roots ->
     List.iter (
@@ -201,7 +204,7 @@ let () =
         List.iter (
           fun (mp, dev) ->
             try g#mount dev mp
-            with Guestfs.Error msg -> eprintf "%s (ignored)\n" msg
+            with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
         ) mps;
 
         (* Perform the operations. *)

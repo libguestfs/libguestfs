@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -34,7 +35,7 @@ let dovecot_data_perform g root =
 let dovecot_data_op = {
   name = "dovecot-data";
   enabled_by_default = true;
-  heading = "Remove Dovecot (mail server) data";
+  heading = s_"Remove Dovecot (mail server) data";
   pod_description = None;
   extra_args = [];
   perform = dovecot_data_perform;

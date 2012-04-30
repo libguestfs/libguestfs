@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -37,7 +38,7 @@ let smolt_uuid_perform g root =
 let smolt_uuid_op = {
   name = "smolt-uuid";
   enabled_by_default = true;
-  heading = "Remove the Smolt hardware UUID";
+  heading = s_"Remove the Smolt hardware UUID";
   pod_description = None;
   extra_args = [];
   perform = smolt_uuid_perform;

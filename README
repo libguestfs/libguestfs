@@ -100,6 +100,8 @@ For basic functionality and the C tools:
 - OCaml if you want to rebuild the generated files, and
   also to build the OCaml bindings (optional)
 
+- ocaml-gettext if you want to translate OCaml tools (optional)
+
 - po4a for translating manpages and POD files.
   This is optional when compiling from the tarball, but mandatory
   if you compile from git.

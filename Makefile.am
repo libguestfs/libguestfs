@@ -211,8 +211,9 @@ dist-hook:
 	mv AUTHORS-t AUTHORS
 	cp AUTHORS $(distdir)/AUTHORS
 
-# Update the list of translatable files (po/POTFILES).  This has to be
-# in the top-level Makefile.am so that we have access to DIST_SUBDIRS.
+# Update the list of translatable files (po/POTFILES po/POTFILES-ml).
+# This has to be in the top-level Makefile.am so that we have access
+# to DIST_SUBDIRS.
 all-local:
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) \
@@ -230,6 +231,9 @@ all-local:
 	grep -v '^images/' | \
 	LC_ALL=C sort | \
 	sed 's,^\./,,' > po/POTFILES
+	cd $(srcdir); \
+	find resize sparsify sysprep -name '*.ml' | \
+	LC_ALL=C sort > po/POTFILES-ml
 
 # Make clean.
 

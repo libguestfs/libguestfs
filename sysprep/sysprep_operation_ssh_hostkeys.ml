@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -32,8 +33,8 @@ let ssh_hostkeys_perform g root =
 let ssh_hostkeys_op = {
   name = "ssh-hostkeys";
   enabled_by_default = true;
-  heading = "Remove the SSH host keys in the guest";
-  pod_description = Some "\
+  heading = s_"Remove the SSH host keys in the guest";
+  pod_description = Some (s_"\
 The SSH host keys are regenerated (differently) next time the guest is
 booted.
 
@@ -43,7 +44,7 @@ you a stark warning about the host key changing:
  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!";
+ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!");
   extra_args = [];
   perform = ssh_hostkeys_perform;
 }

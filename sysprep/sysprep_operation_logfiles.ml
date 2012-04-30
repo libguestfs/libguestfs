@@ -19,6 +19,7 @@
 open Printf
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -81,12 +82,12 @@ let logfiles_perform g root =
 let logfiles_op = {
   name = "logfiles";
   enabled_by_default = true;
-  heading = "Remove many log files from the guest";
+  heading = s_"Remove many log files from the guest";
   pod_description = Some (
-    sprintf "\
+    sprintf (f_"\
 On Linux the following files are removed:
 
-%s" globs_as_pod);
+%s") globs_as_pod);
   extra_args = [];
   perform = logfiles_perform;
 }

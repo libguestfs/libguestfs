@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -31,11 +32,11 @@ let utmp_perform g root =
 let utmp_op = {
   name = "utmp";
   enabled_by_default = true;
-  heading = "Remove the utmp file";
-  pod_description = Some "\
+  heading = s_"Remove the utmp file";
+  pod_description = Some (s_"\
 This file records who is currently logged in on a machine.  In modern
 Linux distros it is stored in a ramdisk and hence not part of the
-virtual machine's disk, but it was stored on disk in older distros.";
+virtual machine's disk, but it was stored on disk in older distros.");
   extra_args = [];
   perform = utmp_perform;
 }

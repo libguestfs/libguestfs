@@ -776,6 +776,95 @@ AM_CONDITIONAL([HAVE_OCAML],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
+OCAML_PKG_gettext=no
+AS_IF([test "x$OCAMLC" != "xno"],[
+    dnl Check for ocaml-gettext package to translate OCaml tools.
+    AC_CHECK_OCAML_PKG(gettext)
+
+    dnl Write gettext modules for each OCaml tool.  If OCaml gettext
+    dnl is not available then we write dummy functions.
+    for program in resize sparsify sysprep; do
+        output=$program/${program}_gettext.ml
+        AC_MSG_NOTICE([creating $output])
+        rm -f $output
+
+        cat <<EOF > $output
+(* This file is generated automatically by ./configure. *)
+
+(** Gettext functions for virt-$program.
+
+    The ${program}_gettext module provides gettext functions for
+    $program, or dummy functions if ocaml-gettext was not available
+    at configure time.
+
+    {b Note}: Don't translate debug strings, or strings which are
+    meant to be read/written only by machine.
+
+    There are two ways to translate constant strings in OCaml programs.
+
+    For ordinary strings, replace [["string"]] with [[s_"string"]].  Since
+    this is a function call to a function called [[s_]], you may have
+    to put parentheses around the expression.
+
+    For format strings, use:
+
+{v
+  printf (f_"zeroing filesystem %s") filename;
+v}
+
+    Note for format strings, the parentheses are almost always required,
+    and they just go around the [[(f_"string")]], {i not} around the other
+    arguments of the printf function.
+
+    At build time, a program parses the OCaml code into an abstract
+    syntax tree and statically determines all calls to the special
+    [[s_]] and [[f_]] functions, which means: (a) You can be very loose
+    with syntax, unlike ordinary xgettext, but (b) you cannot rename
+    these functions.
+*)
+
+EOF
+
+        if test "x$OCAML_PKG_gettext" != "xno"; then
+            # ocaml-gettext available: real module.
+            cat <<EOF >>$output
+module Gettext = Gettext.Program (
+  struct
+    let textdomain = "$PACKAGE_NAME"
+    let codeset = None
+    let dir = None
+    let dependencies = [[]]
+  end
+) (GettextStub.Native)
+EOF
+        else
+            # No gettext: module containing dummy gettext functions.
+            cat <<EOF >>$output
+module Gettext = struct
+  external s_ : string -> string = "%identity"
+  external f_ : ('a, 'b, 'c, 'd, 'e, 'f) format6
+    -> ('a, 'b, 'c, 'd, 'e, 'f) format6
+    = "%identity"
+  let sn_ : string -> string -> int -> string
+    = fun s p n -> if n = 1 then s else p
+  let fn_ : ('a, 'b, 'c, 'd, 'e, 'f) format6
+    -> ('a, 'b, 'c, 'd, 'e, 'f) format6
+    -> int -> ('a, 'b, 'c, 'd, 'e, 'f) format6
+    = fun s p n -> if n = 1 then s else p
+end
+EOF
+        fi
+
+        chmod -w $output
+    done
+])
+AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
+        [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
+
+AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
+AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
+        [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
+
 dnl Check for Perl (optional, for Perl bindings and Perl tools).
 PERL=no
 AC_ARG_ENABLE([perl],

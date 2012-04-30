@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -31,10 +32,10 @@ let flag_reconfiguration g root =
 let flag_reconfiguration_op = {
   name = "flag-reconfiguration";
   enabled_by_default = false;
-  heading = "Flag the system for reconfiguration";
-  pod_description = Some "\
+  heading = s_"Flag the system for reconfiguration";
+  pod_description = Some (s_"\
 Note that this may require user intervention when the
-guest is booted.";
+guest is booted.");
   extra_args = [];
   perform = flag_reconfiguration;
 }

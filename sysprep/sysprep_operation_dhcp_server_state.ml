@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -27,7 +28,7 @@ let dhcp_server_state_perform g root =
 let dhcp_server_state_op = {
   name = "dhcp-server-state";
   enabled_by_default = true;
-  heading = "Remove DHCP server leases";
+  heading = s_"Remove DHCP server leases";
   pod_description = None;
   extra_args = [];
   perform = dhcp_server_state_perform;

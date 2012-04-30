@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -27,7 +28,7 @@ let cron_spool_perform g root =
 let cron_spool_op = {
   name = "cron-spool";
   enabled_by_default = true;
-  heading = "Remove user at-jobs and cron-jobs";
+  heading = s_"Remove user at-jobs and cron-jobs";
   pod_description = None;
   extra_args = [];
   perform = cron_spool_perform;

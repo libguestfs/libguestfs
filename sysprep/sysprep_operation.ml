@@ -20,6 +20,8 @@ open Utils
 
 open Printf
 
+open Sysprep_gettext.Gettext
+
 type flag = [ `Created_files ]
 
 type operation = {
@@ -66,7 +68,7 @@ and check_no_dupes ops =
     List.fold_left (
       fun opset op ->
         if OperationSet.mem op opset then (
-          eprintf "virt-sysprep: duplicate operation name (%s)\n" op.name;
+          eprintf (f_"virt-sysprep: duplicate operation name (%s)\n") op.name;
           exit 1
         );
         add_to_set op.name opset
@@ -75,23 +77,24 @@ and check_no_dupes ops =
 and check op =
   let n = String.length op.name in
   if n = 0 then (
-    eprintf "virt-sysprep: operation name is an empty string\n";
+    eprintf (f_"virt-sysprep: operation name is an empty string\n");
     exit 1;
   );
   for i = 0 to n-1 do
     match String.unsafe_get op.name i with
     | 'a'..'z' | 'A'..'Z' | '0'..'9' | '-' -> ()
     | c ->
-      eprintf "virt-sysprep: disallowed character (%c) in operation name\n" c;
+      eprintf (f_"virt-sysprep: disallowed character (%c) in operation name\n")
+        c;
       exit 1
   done;
   let n = String.length op.heading in
   if n = 0 then (
-    eprintf "virt-sysprep: operation %s has no heading\n" op.name;
+    eprintf (f_"virt-sysprep: operation %s has no heading\n") op.name;
     exit 1
   );
   if op.heading.[n-1] = '\n' || op.heading.[n-1] = '.' then (
-    eprintf "virt-sysprep: heading for %s must not end with newline or period\n"
+    eprintf (f_"virt-sysprep: heading for %s must not end with newline or period\n")
       op.name;
     exit 1
   );
@@ -100,11 +103,12 @@ and check op =
   | Some description ->
     let n = String.length description in
     if n = 0 then (
-      eprintf "virt-sysprep: operation %s has no POD\n" op.name;
+      eprintf (f_"virt-sysprep: operation %s has no POD\n") op.name;
       exit 1
     );
     if description.[n-1] = '\n' then (
-      eprintf "virt-sysprep: POD for %s must not end with newline\n" op.name;
+      eprintf (f_"virt-sysprep: POD for %s must not end with newline\n")
+        op.name;
       exit 1
     )
   )

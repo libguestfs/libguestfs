@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -41,7 +42,7 @@ let sssd_db_log_perform g root =
 let sssd_db_log_op = {
   name = "sssd-db-log";
   enabled_by_default = true;
-  heading = "Remove the database and log files of sssd";
+  heading = s_"Remove the database and log files of sssd";
   pod_description = None;
   extra_args = [];
   perform = sssd_db_log_perform;

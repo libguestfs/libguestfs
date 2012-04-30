@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -32,7 +33,7 @@ let mail_spool_perform g root =
 let mail_spool_op = {
   name = "mail-spool";
   enabled_by_default = true;
-  heading = "Remove email from the local mail spool directory";
+  heading = s_"Remove email from the local mail spool directory";
   pod_description = None;
   extra_args = [];
   perform = mail_spool_perform;

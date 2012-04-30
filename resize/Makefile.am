@@ -30,6 +30,7 @@ SOURCES = \
 	progress.mli \
 	progress.ml \
 	resize.ml \
+	resize_gettext.ml \
 	utils.ml \
 	utils_tests.ml
 
@@ -39,6 +40,7 @@ if HAVE_OCAML
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	progress_c.o \
+	resize_gettext.cmx \
 	utils.cmx \
 	progress.cmx \
 	resize.cmx
@@ -49,6 +51,9 @@ bin_SCRIPTS = virt-resize
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
 OCAMLPACKAGES = -package str -I $(top_builddir)/src/.libs -I ../ocaml
+if HAVE_OCAML_PKG_GETTEXT
+OCAMLPACKAGES += -package gettext-stub
+endif
 
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
@@ -93,7 +98,7 @@ CLEANFILES += stamp-virt-resize.pod
 
 check_SCRIPTS = utils_tests
 
-utils_tests: utils.cmx utils_tests.cmx
+utils_tests: resize_gettext.cmx utils.cmx utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 

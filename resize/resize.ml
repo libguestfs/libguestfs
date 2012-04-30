@@ -18,6 +18,8 @@
 
 open Printf
 
+open Resize_gettext.Gettext
+
 module G = Guestfs
 
 open Utils
@@ -38,7 +40,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
-    printf "virt-resize %Ld.%Ld.%Ld%s\n"
+    printf (f_"virt-resize %Ld.%Ld.%Ld%s\n")
       version.G.major version.G.minor version.G.release version.G.extra;
     exit 0
   in
@@ -54,8 +56,8 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
   let dryrun = ref false in
   let expand = ref "" in
   let set_expand s =
-    if s = "" then error "%s: empty --expand option" prog
-    else if !expand <> "" then error "--expand option given twice"
+    if s = "" then error (f_"%s: empty --expand option") prog
+    else if !expand <> "" then error (f_"--expand option given twice")
     else expand := s
   in
   let expand_content = ref true in
@@ -71,51 +73,51 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
   let resizes_force = ref [] in
   let shrink = ref "" in
   let set_shrink s =
-    if s = "" then error "empty --shrink option"
-    else if !shrink <> "" then error "--shrink option given twice"
+    if s = "" then error (f_"empty --shrink option")
+    else if !shrink <> "" then error (f_"--shrink option given twice")
     else shrink := s
   in
 
   let argspec = Arg.align [
-    "--align-first", Arg.Set_string align_first, "never|always|auto Align first partition (default: auto)";
-    "--alignment", Arg.Set_int alignment,   "sectors Set partition alignment (default: 128 sectors)";
-    "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " Don't copy boot loader";
-    "-d",        Arg.Set debug,             " Enable debugging messages";
+    "--align-first", Arg.Set_string align_first, s_"never|always|auto" ^ " " ^ s_"Align first partition (default: auto)";
+    "--alignment", Arg.Set_int alignment,   s_"sectors" ^ " " ^ s_"Set partition alignment (default: 128 sectors)";
+    "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " " ^ s_"Don't copy boot loader";
+    "-d",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
     "--debug",   Arg.Set debug,             " -\"-";
-    "--debug-gc",Arg.Set debug_gc,          " Debug GC and memory allocations";
-    "--delete",  Arg.String (add deletes),  "part Delete partition";
-    "--expand",  Arg.String set_expand,     "part Expand partition";
-    "--no-expand-content", Arg.Clear expand_content, " Don't expand content";
-    "--no-extra-partition", Arg.Clear extra_partition, " Don't create extra partition";
-    "--format",  Arg.Set_string format,     "format Format of input disk";
-    "--ignore",  Arg.String (add ignores),  "part Ignore partition";
-    "--lv-expand", Arg.String (add lv_expands), "lv Expand logical volume";
-    "--LV-expand", Arg.String (add lv_expands), "lv -\"-";
-    "--lvexpand", Arg.String (add lv_expands), "lv -\"-";
-    "--LVexpand", Arg.String (add lv_expands), "lv -\"-";
-    "--machine-readable", Arg.Set machine_readable, " Make output machine readable";
-    "-n",        Arg.Set dryrun,            " Don't perform changes";
+    "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
+    "--delete",  Arg.String (add deletes),  s_"part" ^ " " ^ s_"Delete partition";
+    "--expand",  Arg.String set_expand,     s_"part" ^ " " ^ s_"Expand partition";
+    "--no-expand-content", Arg.Clear expand_content, " " ^ s_"Don't expand content";
+    "--no-extra-partition", Arg.Clear extra_partition, " " ^ s_"Don't create extra partition";
+    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
+    "--ignore",  Arg.String (add ignores),  s_"part" ^ " " ^ s_"Ignore partition";
+    "--lv-expand", Arg.String (add lv_expands), s_"lv" ^ " " ^ s_"Expand logical volume";
+    "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
+    "--lvexpand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
+    "--LVexpand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
+    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
+    "-n",        Arg.Set dryrun,            " " ^ s_"Don't perform changes";
     "--dryrun",  Arg.Set dryrun,            " -\"-";
     "--dry-run", Arg.Set dryrun,            " -\"-";
-    "--ntfsresize-force", Arg.Set ntfsresize_force, " Force ntfsresize";
-    "--output-format", Arg.Set_string output_format, "format Format of output disk";
-    "-q",        Arg.Set quiet,             " Don't print the summary";
+    "--ntfsresize-force", Arg.Set ntfsresize_force, " " ^ s_"Force ntfsresize";
+    "--output-format", Arg.Set_string output_format, s_"format" ^ " " ^ s_"Format of output disk";
+    "-q",        Arg.Set quiet,             " " ^ s_"Don't print the summary";
     "--quiet",   Arg.Set quiet,             " -\"-";
-    "--resize",  Arg.String (add resizes),  "part=size Resize partition";
-    "--resize-force", Arg.String (add resizes_force), "part=size Forcefully resize partition";
-    "--shrink",  Arg.String set_shrink,     "part Shrink partition";
-    "-V",        Arg.Unit display_version,  " Display version and exit";
+    "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
+    "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
+    "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
+    "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  " -\"-";
   ] in
   let disks = ref [] in
   let anon_fun s = disks := s :: !disks in
   let usage_msg =
-    sprintf "\
+    sprintf (f_"\
 %s: resize a virtual machine disk
 
 A short summary of the options is given below.  For detailed help please
 read the man page virt-resize(1).
-"
+")
       prog in
   Arg.parse argspec anon_fun usage_msg;
 
@@ -147,7 +149,7 @@ read the man page virt-resize(1).
   let shrink = match !shrink with "" -> None | str -> Some str in
 
   if alignment < 1 then
-    error "alignment cannot be < 1";
+    error (f_"alignment cannot be < 1");
   let alignment = Int64.of_int alignment in
 
   let align_first =
@@ -156,7 +158,7 @@ read the man page virt-resize(1).
     | "always" -> `Always
     | "auto" -> `Auto
     | _ ->
-      error "unknown --align-first option: use never|always|auto" in
+      error (f_"unknown --align-first option: use never|always|auto") in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.  We only need to print out new
@@ -185,13 +187,13 @@ read the man page virt-resize(1).
     match List.rev !disks with
     | [infile; outfile] -> infile, outfile
     | _ ->
-        error "usage is: %s [--options] indisk outdisk" prog in
+        error (f_"usage is: %s [--options] indisk outdisk") prog in
 
   (* Simple-minded check that the user isn't trying to use the
    * same disk for input and output.
    *)
   if infile = outfile then
-    error "you cannot use the same disk image for input and output";
+    error (f_"you cannot use the same disk image for input and output");
 
   infile, outfile, align_first, alignment, copy_boot_loader,
   debug, debug_gc, deletes,
@@ -225,7 +227,7 @@ let connect_both_disks () =
 
 let g =
   if not quiet then
-    printf "Examining %s ...\n%!" infile;
+    printf (f_"Examining %s ...\n%!") infile;
 
   let g = connect_both_disks () in
 
@@ -263,10 +265,10 @@ let max_bootloader =
 (* Check the disks are at least as big as the bootloader. *)
 let () =
   if insize < Int64.of_int max_bootloader then
-    error "%s: file is too small to be a disk image (%Ld bytes)"
+    error (f_"%s: file is too small to be a disk image (%Ld bytes)")
       infile insize;
   if outsize < Int64.of_int max_bootloader then
-    error "%s: file is too small to be a disk image (%Ld bytes)"
+    error (f_"%s: file is too small to be a disk image (%Ld bytes)")
       outfile outsize
 
 (* Get the source partition type. *)
@@ -280,7 +282,7 @@ let parttype, parttype_string =
   | "msdos" -> MBR, "msdos"
   | "gpt" -> GPT, "gpt"
   | _ ->
-    error "%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables." infile
+    error (f_"%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables.") infile
 
 (* Build a data structure describing the source disk's partition layout.
  *
@@ -330,7 +332,7 @@ and string_of_partition_content = function
   | ContentExtendedPartition -> "extended partition"
 and string_of_partition_content_no_size = function
   | ContentUnknown -> "unknown data"
-  | ContentPV _ -> sprintf "LVM PV"
+  | ContentPV _ -> "LVM PV"
   | ContentFS (fs, _) -> sprintf "filesystem %s" fs
   | ContentExtendedPartition -> "extended partition"
 
@@ -344,7 +346,7 @@ let get_partition_content =
       else if fs = "LVM2_member" then (
         let rec loop = function
           | [] ->
-              error "%s: physical volume not returned by pvs_full"
+              error (f_"%s: physical volume not returned by pvs_full")
                 dev
           | pv :: _ when canonicalize pv.G.pv_name = dev ->
               ContentPV pv.G.pv_size
@@ -369,7 +371,7 @@ let partitions : partition list =
   let parts = Array.to_list (g#part_list "/dev/sda") in
 
   if List.length parts = 0 then
-    error "the source disk has no partitions";
+    error (f_"the source disk has no partitions");
 
   (* Filter out logical partitions.  See note above. *)
   let parts =
@@ -414,12 +416,12 @@ let partitions : partition list =
     | { p_name = name; p_part = { G.part_size = size };
         p_type = ContentPV pv_size }
         when size < pv_size ->
-        error "%s: partition size %Ld < physical volume size %Ld"
+        error (f_"%s: partition size %Ld < physical volume size %Ld")
           name size pv_size
     | { p_name = name; p_part = { G.part_size = size };
         p_type = ContentFS (_, fs_size) }
         when size < fs_size ->
-        error "%s: partition size %Ld < filesystem size %Ld"
+        error (f_"%s: partition size %Ld < filesystem size %Ld")
           name size fs_size
     | _ -> ()
   ) partitions;
@@ -429,7 +431,7 @@ let partitions : partition list =
     | [] -> ()
     | { p_name = name; p_part = { G.part_start = part_start } } :: _
         when end_of_prev > part_start ->
-        error "%s: this partition overlaps the previous one" name
+        error (f_"%s: this partition overlaps the previous one") name
     | { p_part = { G.part_end = part_end } } :: parts -> loop part_end parts
   in
   loop 0L partitions;
@@ -482,10 +484,10 @@ type expand_content_method =
   | PVResize | Resize2fs | NTFSResize | BtrfsFilesystemResize
 
 let string_of_expand_content_method = function
-  | PVResize -> "pvresize"
-  | Resize2fs -> "resize2fs"
-  | NTFSResize -> "ntfsresize"
-  | BtrfsFilesystemResize -> "btrfs-filesystem-resize"
+  | PVResize -> s_"pvresize"
+  | Resize2fs -> s_"resize2fs"
+  | NTFSResize -> s_"ntfsresize"
+  | BtrfsFilesystemResize -> s_"btrfs-filesystem-resize"
 
 let can_expand_content =
   if expand_content then
@@ -532,15 +534,15 @@ let find_partition =
     let partition =
       try Hashtbl.find hash name
       with Not_found ->
-        error "%s: partition not found in the source disk image (this error came from '%s' option on the command line).  Try running this command: virt-filesystems --partitions --long -a %s"
+        error (f_"%s: partition not found in the source disk image (this error came from '%s' option on the command line).  Try running this command: virt-filesystems --partitions --long -a %s")
           name option infile in
 
     if partition.p_operation = OpIgnore then
-      error "%s: partition already ignored, you cannot use it in '%s' option"
+      error (f_"%s: partition already ignored, you cannot use it in '%s' option")
         name option;
 
     if partition.p_operation = OpDelete then
-      error "%s: partition already deleted, you cannot use it in '%s' option"
+      error (f_"%s: partition already deleted, you cannot use it in '%s' option")
         name option;
 
     partition
@@ -572,11 +574,11 @@ let mark_partition_for_resize ~option ?(force = false) p newsize =
 
   (match p.p_operation with
    | OpResize _ ->
-       error "%s: this partition has already been marked for resizing"
+       error (f_"%s: this partition has already been marked for resizing")
          name
    | OpIgnore | OpDelete ->
        (* This error should have been caught already by find_partition ... *)
-       error "%s: this partition has already been ignored or deleted"
+       error (f_"%s: this partition has already been ignored or deleted")
          name
    | OpCopy -> ()
   );
@@ -591,18 +593,18 @@ let mark_partition_for_resize ~option ?(force = false) p newsize =
        *)
       match p.p_type with
       | ContentUnknown ->
-          error "%s: This partition has unknown content which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)"
+          error (f_"%s: This partition has unknown content which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)")
             name option
       | ContentPV size when size > newsize ->
-          error "%s: This partition has contains an LVM physical volume which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)"
+          error (f_"%s: This partition has contains an LVM physical volume which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)")
             name size newsize option
       | ContentPV _ -> ()
       | ContentFS (fstype, size) when size > newsize ->
-          error "%s: This partition has contains a %s filesystem which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)"
+          error (f_"%s: This partition has contains a %s filesystem which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)")
             name fstype size newsize option
       | ContentFS _ -> ()
       | ContentExtendedPartition ->
-          error "%s: This extended partition contains logical partitions which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy logical partitions within this partition.  (This error came from '%s' option on the command line.)"
+          error (f_"%s: This extended partition contains logical partitions which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy logical partitions within this partition.  (This error came from '%s' option on the command line.)")
             name option
     );
 
@@ -620,7 +622,7 @@ let () =
         if n == 0 then raise Not_found;
         String.sub arg 0 i, String.sub arg (i+1) n
       with Not_found ->
-        error "%s: missing size field in '%s' option" arg option in
+        error (f_"%s: missing size field in '%s' option") arg option in
 
     let p = find_partition ~option dev in
 
@@ -629,7 +631,7 @@ let () =
     let newsize = parse_size oldsize sizefield in
 
     if newsize <= 0L then
-      error "%s: new partition size is zero or negative" dev;
+      error (f_"%s: new partition size is zero or negative") dev;
 
     mark_partition_for_resize ~option ~force p newsize
   in
@@ -668,7 +670,7 @@ let calculate_surplus () =
 (* Handle --expand and --shrink options. *)
 let () =
   if expand <> None && shrink <> None then
-    error "you cannot use options --expand and --shrink together";
+    error (f_"you cannot use options --expand and --shrink together");
 
   if expand <> None || shrink <> None then (
     let surplus = calculate_surplus () in
@@ -680,7 +682,7 @@ let () =
      | None -> ()
      | Some dev ->
          if surplus < 0L then
-           error "You cannot use --expand when there is no surplus space to expand into.  You need to make the target disk larger by at least %s."
+           error (f_"You cannot use --expand when there is no surplus space to expand into.  You need to make the target disk larger by at least %s.")
              (human_size (Int64.neg surplus));
 
          let option = "--expand" in
@@ -692,7 +694,7 @@ let () =
      | None -> ()
      | Some dev ->
          if surplus > 0L then
-           error "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-resize(1) man page).";
+           error (f_"You cannot use --shrink when there is no deficit (see 'deficit' in the virt-resize(1) man page).");
 
          let option = "--shrink" in
          let p = find_partition ~option dev in
@@ -709,7 +711,7 @@ let surplus =
 
   if surplus < 0L then (
     let deficit = Int64.neg surplus in
-    error "There is a deficit of %Ld bytes (%s).  You need to make the target disk larger by at least this amount or adjust your resizing requests."
+    error (f_"There is a deficit of %Ld bytes (%s).  You need to make the target disk larger by at least this amount or adjust your resizing requests.")
       deficit (human_size deficit)
   );
 
@@ -725,7 +727,7 @@ let () =
       let lv =
         try Hashtbl.find hash name
         with Not_found ->
-          error "%s: logical volume not found in the source disk image (this error came from '--lv-expand' option on the command line).  Try running this command: virt-filesystems --logical-volumes --long -a %s"
+          error (f_"%s: logical volume not found in the source disk image (this error came from '--lv-expand' option on the command line).  Try running this command: virt-filesystems --logical-volumes --long -a %s")
             name infile in
       lv.lv_operation <- LVOpExpand
   ) lv_expands
@@ -743,16 +745,16 @@ let () =
         let text =
           match p.p_operation with
           | OpCopy ->
-              sprintf "%s: This partition will be left alone." name
+              sprintf (f_"%s: This partition will be left alone.") name
           | OpIgnore ->
-              sprintf "%s: This partition will be created, but the contents will be ignored (ie. not copied to the target)." name
+              sprintf (f_"%s: This partition will be created, but the contents will be ignored (ie. not copied to the target).") name
           | OpDelete ->
-              sprintf "%s: This partition will be deleted." name
+              sprintf (f_"%s: This partition will be deleted.") name
           | OpResize newsize ->
-              sprintf "%s: This partition will be resized from %s to %s."
+              sprintf (f_"%s: This partition will be resized from %s to %s.")
                 name (human_size oldsize) (human_size newsize) ^
               if can_expand_content p.p_type then (
-                sprintf "  The %s on %s will be expanded using the '%s' method."
+                sprintf (f_"  The %s on %s will be expanded using the '%s' method.")
                   (string_of_partition_content_no_size p.p_type)
                   name
                   (string_of_expand_content_method
@@ -768,10 +770,10 @@ let () =
         | LVOpNone -> ()
         | LVOpExpand ->
             let text =
-              sprintf "%s: This logical volume will be expanded to maximum size."
+              sprintf (f_"%s: This logical volume will be expanded to maximum size.")
                 name ^
               if can_expand_content lv.lv_type then (
-                sprintf "  The %s on %s will be expanded using the '%s' method."
+                sprintf (f_"  The %s on %s will be expanded using the '%s' method.")
                   (string_of_partition_content_no_size lv.lv_type)
                   name
                   (string_of_expand_content_method
@@ -783,14 +785,14 @@ let () =
 
     if surplus > 0L then (
       let text =
-        sprintf "There is a surplus of %s." (human_size surplus) ^
+        sprintf (f_"There is a surplus of %s.") (human_size surplus) ^
         if extra_partition then (
           if surplus >= min_extra_partition then
-            sprintf "  An extra partition will be created for the surplus."
+            s_"  An extra partition will be created for the surplus."
           else
-            sprintf "  The surplus space is not large enough for an extra partition to be created and so it will just be ignored."
+            s_"  The surplus space is not large enough for an extra partition to be created and so it will just be ignored."
         ) else
-          sprintf "  The surplus space will be ignored.  Run a partitioning program in the guest to partition this extra space if you want." in
+          s_"  The surplus space will be ignored.  Run a partitioning program in the guest to partition this extra space if you want." in
 
       wrap (text ^ "\n\n")
     );
@@ -824,7 +826,7 @@ let g =
    * relaunching another handle.
    *)
   if not quiet then
-    printf "Setting up initial partition table on %s ...\n%!" outfile;
+    printf (f_"Setting up initial partition table on %s ...\n%!") outfile;
 
   let last_error = ref "" in
   let rec initialize_partition_table g attempts =
@@ -845,7 +847,7 @@ let g =
 
   let g, ok = initialize_partition_table g 5 in
   if not ok then
-    error "Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n\nThe underlying error was: %s" !last_error;
+    error (f_"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n\nThe underlying error was: %s") !last_error;
 
   g
 
@@ -858,7 +860,7 @@ let () =
   if copy_boot_loader then (
     let bootsect = g#pread_device "/dev/sda" 446 0L in
     if String.length bootsect < 446 then
-      error "pread-device: short read";
+      error (f_"pread-device: short read");
     ignore (g#pwrite_device "/dev/sdb" bootsect 0L);
 
     let start =
@@ -871,7 +873,7 @@ let () =
 
     let loader = g#pread_device "/dev/sda" max_bootloader start in
     if String.length loader < max_bootloader then
-      error "pread-device: short read";
+      error (f_"pread-device: short read");
     ignore (g#pwrite_device "/dev/sdb" loader start)
   )
 
@@ -1016,7 +1018,7 @@ let () =
         let target = sprintf "/dev/sdb%d" p.p_target_partnum in
 
         if not quiet then
-          printf "Copying %s ...\n%!" source;
+          printf (f_"Copying %s ...\n%!") source;
 
         (match p.p_type with
          | ContentUnknown | ContentPV _ | ContentFS _ ->
@@ -1069,10 +1071,10 @@ let () =
       (* Sanity check: it contains the NTFS magic. *)
       let magic = g#pread_device target 8 3L in
       if magic <> "NTFS    " then
-        eprintf "warning: first partition is NTFS but does not contain NTFS boot loader magic\n%!"
+        eprintf (f_"warning: first partition is NTFS but does not contain NTFS boot loader magic\n%!")
       else (
         if not quiet then
-          printf "Fixing first NTFS partition boot record ...\n%!";
+          printf (f_"Fixing first NTFS partition boot record ...\n%!");
 
         if debug then (
           let old_hidden = int_of_le32 (g#pread_device target 4 0x1c_L) in
@@ -1147,7 +1149,7 @@ let () =
           let meth = expand_content_method p.p_type in
 
           if not quiet then
-            printf "Expanding %s%s using the '%s' method ...\n%!"
+            printf (f_"Expanding %s%s using the '%s' method ...\n%!")
               source
               (if source <> target then sprintf " (now %s)" target else "")
               (string_of_expand_content_method meth);
@@ -1164,7 +1166,7 @@ let () =
           let meth = expand_content_method lv.lv_type in
 
           if not quiet then
-            printf "Expanding %s using the '%s' method ...\n%!"
+            printf (f_"Expanding %s using the '%s' method ...\n%!")
               name
               (string_of_expand_content_method meth);
 
@@ -1185,7 +1187,7 @@ let () =
 
   if not quiet then (
     print_newline ();
-    wrap "Resize operation completed with no errors.  Before deleting the old disk, carefully check that the resized disk boots and works correctly.\n";
+    wrap (s_"Resize operation completed with no errors.  Before deleting the old disk, carefully check that the resized disk boots and works correctly.\n");
   );
 
   if debug_gc then

@@ -25,12 +25,13 @@ MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libgues
 # Don't use LINGUAS (uppercase) as Gentoo defines it (RHBZ#804464).
 linguas     := en_GB es gu hi kn ml mr nl or pa pl ta te uk
 
-POTFILES := $(shell $(SED) 's,^,$(top_srcdir)/,' POTFILES)
-POFILES  := $(linguas:%=%.po)
-GMOFILES := $(linguas:%=%.gmo)
+POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' POTFILES)
+POTFILES_ML := $(shell $(SED) 's,^,$(top_srcdir)/,' POTFILES-ml)
+POFILES     := $(linguas:%=%.po)
+GMOFILES    := $(linguas:%=%.gmo)
 
 EXTRA_DIST = \
-	POTFILES \
+	POTFILES POTFILES-ml \
 	$(DOMAIN).pot \
 	$(POFILES) \
 	$(GMOFILES)
@@ -48,8 +49,8 @@ update-po:
 
 update-gmo: Makefile $(GMOFILES)
 
-$(DOMAIN).pot: Makefile $(POTFILES)
-	rm -f $@ $@-t
+$(DOMAIN).pot: Makefile $(POTFILES) $(POTFILES-ml)
+	rm -f $@-t $@-ml
 	$(XGETTEXT) \
 	  -o $@-t \
 	  --default-domain=$(DOMAIN) \
@@ -66,6 +67,16 @@ $(DOMAIN).pot: Makefile $(POTFILES)
 	  --msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 	  --directory=$(top_srcdir) \
 	  --files-from=$(abs_srcdir)/POTFILES
+if HAVE_OCAML_GETTEXT
+	cd $(top_srcdir) && \
+	$(OCAML_GETTEXT) --action extract --extract-pot po/$@-ml \
+	  $$(cat $(abs_srcdir)/POTFILES-ml)
+# Don't trust msgcat since it will definitely screw up.  Instead, chop
+# the head from the second file and append it to the first.
+	echo >> $@-t
+	awk '/^#:/{i++}i{print}' < $@-ml >> $@-t
+	rm $@-ml
+endif
 	mv $@-t $@
 
 %.po: $(DOMAIN).pot

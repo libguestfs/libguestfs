@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -36,7 +37,7 @@ let package_manager_cache_perform g root =
 let package_manager_cache_op = {
   name = "package-manager-cache";
   enabled_by_default = true;
-  heading = "Remove package manager cache";
+  heading = s_"Remove package manager cache";
   pod_description = None;
   extra_args = [];
   perform = package_manager_cache_perform;

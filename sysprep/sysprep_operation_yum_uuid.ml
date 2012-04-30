@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -31,10 +32,10 @@ let yum_uuid_perform g root =
 let yum_uuid_op = {
   name = "yum-uuid";
   enabled_by_default = true;
-  heading = "Remove the yum UUID";
-  pod_description = Some "\
+  heading = s_"Remove the yum UUID";
+  pod_description = Some (s_"\
 Yum creates a fresh UUID the next time it runs when it notices that the
-original UUID has been erased.";
+original UUID has been erased.");
   extra_args = [];
   perform = yum_uuid_perform;
 }

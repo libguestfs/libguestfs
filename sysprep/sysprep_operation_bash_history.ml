@@ -17,6 +17,7 @@
  *)
 
 open Sysprep_operation
+open Sysprep_gettext.Gettext
 
 module G = Guestfs
 
@@ -35,10 +36,10 @@ let bash_history_perform g root =
 let bash_history_op = {
   name = "bash-history";
   enabled_by_default = true;
-  heading = "Remove the bash history in the guest";
-  pod_description = Some "\
+  heading = s_"Remove the bash history in the guest";
+  pod_description = Some (s_"\
 Remove the bash history of user \"root\" and any other users
-who have a C<.bash_history> file in their home directory.";
+who have a C<.bash_history> file in their home directory.");
   extra_args = [];
   perform = bash_history_perform;
 }
