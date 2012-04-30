@@ -1274,7 +1274,7 @@ if test "x$HAVE_ERLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo    "guestfish and C virt tools .......... yes"
 echo -n "Perl virt tools ..................... "
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "virt-resize ......................... "
+echo -n "OCaml virt tools .................... "
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "FUSE filesystem ..................... $enable_fuse"
 echo -n "gobject bindings .................... "
