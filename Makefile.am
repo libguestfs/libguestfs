@@ -139,7 +139,6 @@ EXTRA_DIST = \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
 	m4/.gitignore \
-	po/remove-potcdate.sin \
 	update-bugs.sh
 
 # The website.
@@ -212,7 +211,8 @@ dist-hook:
 	mv AUTHORS-t AUTHORS
 	cp AUTHORS $(distdir)/AUTHORS
 
-# Update the list of translatable files in po/POTFILES.in.
+# Update the list of translatable files (po/POTFILES).  This has to be
+# in the top-level Makefile.am so that we have access to DIST_SUBDIRS.
 all-local:
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) \
@@ -229,7 +229,7 @@ all-local:
 	grep -v '^po-docs/' | \
 	grep -v '^images/' | \
 	LC_ALL=C sort | \
-	sed 's,^\./,,' > po/POTFILES.in
+	sed 's,^\./,,' > po/POTFILES
 
 # Make clean.
 

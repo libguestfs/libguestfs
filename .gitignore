@@ -290,8 +290,6 @@ pod2htm?.tmp
 /php/extension/php_guestfs_php.h
 /php/extension/run-tests.php
 /php/extension/tmp-php.ini
-/po/boldquot.sed
-/po/ChangeLog
 /po-docs/*/*.1
 /po-docs/*/*.3
 /po-docs/*/*.pl
@@ -299,18 +297,7 @@ pod2htm?.tmp
 /po-docs/*/*.pod
 /po-docs/*/stamp-update-po
 /podwrapper.sh
-/po/en@boldquot.header
-/po/en@quot.header
 /po/*.gmo
-/po/insert-header.sin
-/po/LINGUAS
-/po/Makevars.template
-/po/POTFILES
-/po/quot.sed
-/po/remove-potcdate.sed
-/po/Rules-quot
-/po/stamp-it
-/po/stamp-po
 /python/bindtests.py
 /python/examples/guestfs-python.3
 /python/examples/stamp-guestfs-python.pod

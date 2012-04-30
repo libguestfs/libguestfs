@@ -251,6 +251,23 @@ AC_CHECK_FUNC([register_printf_specifier],[
 This means you either have a very old glibc (pre-2.0) or you
 are using some other libc where this is not supported.])])])
 
+dnl GNU gettext tools (optional).
+AC_CHECK_PROG([XGETTEXT],[xgettext],[xgettext],[no])
+AC_CHECK_PROG([MSGCAT],[msgcat],[msgcat],[no])
+AC_CHECK_PROG([MSGFMT],[msgfmt],[msgfmt],[no])
+AC_CHECK_PROG([MSGMERGE],[msgmerge],[msgmerge],[no])
+
+dnl Check they are the GNU gettext tools.
+AC_MSG_CHECKING([msgfmt is GNU tool])
+if $MSGFMT --version >/dev/null 2>&1 && $MSGFMT --version | grep -q 'GNU gettext'; then
+    msgfmt_is_gnu=yes
+else
+    msgfmt_is_gnu=no
+fi
+AC_MSG_RESULT([$msgfmt_is_gnu])
+AM_CONDITIONAL([HAVE_GNU_GETTEXT],
+        [test "x$XGETTEXT" != "xno" && test "x$MSGCAT" != "xno" && test "x$MSGFMT" != "xno" && test "x$MSGMERGE" != "xno" && test "x$msgfmt_is_gnu" != "xno"])
+
 dnl Build the daemon?
 AC_MSG_CHECKING([if we should build the daemon])
 AC_ARG_ENABLE([daemon],
@@ -651,9 +668,6 @@ AS_IF([test "x$with_readline" != xno],
      AC_CHECK_FUNCS([append_history completion_matches rl_completion_matches])
      LIBS="$old_LIBS"
     ])
-
-dnl For i18n.
-AM_GNU_GETTEXT([external])
 
 dnl Check for PCRE (required)
 PKG_CHECK_MODULES([PCRE], [libpcre])
@@ -1216,7 +1230,7 @@ AC_CONFIG_FILES([Makefile
                  po-docs/Makefile
                  po-docs/ja/Makefile
                  po-docs/uk/Makefile
-                 po/Makefile.in
+                 po/Makefile
                  python/Makefile
                  python/examples/Makefile
                  rescue/Makefile
@@ -1281,6 +1295,8 @@ echo -n "gobject bindings .................... "
 if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "gobject introspection ............... "
 if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "GNU gettext for i18n ................ "
+if test "x$HAVE_GNU_GETTEXT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceding messages."
