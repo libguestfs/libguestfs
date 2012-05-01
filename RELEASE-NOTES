@@ -1,7 +1,7 @@
 Release notes for libguestfs 1.18.0
 -----------------------------------
 
-UPDATED TO COMMIT 36f1eb922530b254631781bd6475ff6348f511af
+UPDATED TO COMMIT 500cc67f29b43ebb970f6f276967ee5e9959b140
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.16.0).  For detailed changelogs, please see
@@ -33,6 +33,8 @@ New features
    - virt-alignment-scan, run with no args, displays alignment information
      for all libvirt domains
 
+   - virt-rescue new --scratch option to make scratch disks
+
    - comma and colon characters in filenames now handled correctly by
      all virt tools
 
@@ -54,6 +56,8 @@ New features
    - new man page: guestfs-performance(1), which contains performance
      tuning tips.
 
+   - new man page: guestfs-faq(1), Frequently Asked Questions
+
    - ENOTSUP (from guestfs_last_errno) is now returned for APIs that
      are not supported
 
@@ -69,6 +73,15 @@ Security
 
 New APIs
 
+  btrfs-device-add: Add devices to a btrfs filesystem.
+  btrfs-device-delete: Remove devices from a btrfs filesystem.
+  btrfs-filesystem-sync: Sync a btrfs filesystem.
+  btrfs-filesystem-balance: Balance a btrfs filesystem.
+  btrfs-subvolume-create: Create a btrfs snapshot.
+  btrfs-subvolume-delete: Delete a btrfs snapshot.
+  btrfs-subvolume-list: List btrfs snapshots and subvolumes.
+  btrfs-subvolume-set-default: Set default btrfs subvolume.
+  btrfs-subvolume-snapshot: Create a writable btrfs snapshot.
   get-e2attrs: List ext2 file attributes of a file.
   get-e2generation: Get ext2 file generation of a file.
   isoinfo, isoinfo-device: Get information from the header of ISO files.
@@ -116,9 +129,12 @@ Internals
 
  - .gitignore fixed to use absolute paths
 
- - gobject bindings have been expanded (thanks Matt Booth)
+ - gobject bindings have been expanded, including mapping libguestfs
+   events to gobject signals (thanks Matt Booth)
 
  - gobject documentation is generated properly (thanks Matt Booth)
+
+ - gobject header files now live in a subdirectory
 
  - CompareWithString test in the generator now works
 
@@ -143,6 +159,12 @@ Internals
  - several fixes to make parallel builds work properly
 
  - guestfish --listen now cleans up properly
+
+ - the BUSY state has been removed
+
+ - gettextize has been removed, replaced by a simple Makefile.am
+
+ - gettext support now covers virt-resize, virt-sparsify and virt-sysprep
 
 Bugs fixed
 
@@ -172,6 +194,7 @@ Bugs fixed
  - 784647 Libguestfs uses deprecated net-tools
  - 769304 virt-resize on RHEL 6 kernel fails to re-read the partition table
  - 679737 libguestfs: improve error message when zerofree is not available in the appliance
+
 
 Release notes for libguestfs 1.16.0
 -----------------------------------
