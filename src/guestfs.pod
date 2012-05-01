@@ -31,6 +31,8 @@ site: L<http://libguestfs.org/>
 Each virt tool has its own man page (for a full list, go to
 L</SEE ALSO> at the end of this file).
 
+The libguestfs FAQ contains many useful answers: L<guestfs-faq(1)>.
+
 For examples of using the API from C, see L<guestfs-examples(3)>.  For
 examples in other languages, see
 L</USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> below.
@@ -3355,6 +3357,7 @@ L<virt-tar(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
+L<guestfs-faq(1)>,
 L<guestfs-performance(1)>,
 L<guestfs-testing(1)>,
 L<libguestfs-test-tool(1)>,

@@ -1,0 +1,556 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-faq - libguestfs Frequently Asked Questions (FAQ)
+
+=head1 ABOUT LIBGUESTFS
+
+=head2 What is libguestfs?
+
+libguestfs is a way to create, access and modify disk images.  You can
+look inside disk images, modify the files they contain, create them
+from scratch, resize them, and much more.  It's especially useful from
+scripts and programs and from the command line.
+
+libguestfs is a C library (hence "lib-"), and a set of tools built on
+this library, and a set of bindings in many different programming
+languages.
+
+For more information about what libguestfs can do read the
+introduction on the home page (L<http://libguestfs.org>).
+
+=head2 What are the virt tools?
+
+Virt tools (website: L<http://virt-tools.org>) are a whole set of
+virtualization management tools aimed at system administrators.  Some
+of them come from libguestfs, some from libvirt and many others from
+other open source projects.  So virt tools is a superset of
+libguestfs.  However libguestfs comes with many important tools.  See
+L<http://libguestfs.org> for a full list.
+
+=head2 Does libguestfs need { libvirt / KVM / Red Hat / Fedora }?
+
+No!
+
+libvirt is not a requirement for libguestfs.
+
+libguestfs works with any disk image, including ones created in
+VMware, KVM, qemu, VirtualBox, Xen, and many other hypervisors, and
+ones which you have created from scratch.
+
+Red Hat sponsors (ie. pays for) development of libguestfs and a huge
+number of other open source projects.  But you can run libguestfs and
+the virt tools on many different Linux distros and Mac OS X.  Some
+virt tools have been ported to Windows.
+
+=head2 How does libguestfs compare to other tools?
+
+=over 4
+
+=item I<vs. kpartx>
+
+Libguestfs takes a different approach from kpartx.  kpartx needs root,
+and mounts filesystems on the host kernel (which can be insecure - see
+L<guestfs(3)/SECURITY>).  Libguestfs isolates your host kernel from
+guests, is more flexible, scriptable, supports LVM, doesn't require
+root, is isolated from other processes, and cleans up after itself.
+Libguestfs is more than just file access because you can use it to
+create images from scratch.
+
+=item I<vs. vdfuse>
+
+vdfuse is like kpartx but for VirtualBox images.  See the kpartx
+comparison above.  You can use libguestfs on the partition files
+exposed by vdfuse, although it's not necessary since libguestfs can
+access VirtualBox images directly.
+
+=item I<vs. qemu-nbd>
+
+nbd is like kpartx but for qcow2 images.  See the kpartx comparison
+above.  You can use libguestfs and qemu-nbd together for access to
+block devices over the network.
+
+=item I<vs. mounting filesystems in the host>
+
+Mounting guest filesystems in the host is insecure and should be
+avoided completely for untrusted guests.  Use libguestfs to provide a
+layer of protection against filesystem exploits.  See also
+L<guestmount(1)>.
+
+=item I<vs. parted>
+
+Libguestfs supports LVM.  Libguestfs uses parted and provides most
+parted features through the libguestfs API.
+
+=back
+
+=head1 GETTING HELP AND REPORTING BUGS
+
+=head2 How do I know what version I'm using?
+
+The simplest method is:
+
+ guestfish --version
+
+Libguestfs development happens along an unstable branch and we
+periodically create a stable branch which we backport stable patches
+to.  To find out more, read L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>.
+
+=head2 How can I get help?
+What mailing lists or chat rooms are available?
+
+If you are a Red Hat customer using Red Hat Enterprise Linux, please
+contact Red Hat Support: L<http://redhat.com/support>
+
+There is a mailing list, mainly for development, but users are also
+welcome to ask questions about libguestfs and the virt tools:
+L<https://www.redhat.com/mailman/listinfo/libguestfs>
+
+You can also talk to us on IRC channel C<#libguestfs> on FreeNode.
+We're not always around, so please stay in the channel after asking
+your question and someone will get back to you.
+
+For other virt tools (not ones supplied with libguestfs) there is a
+general virt tools mailing list:
+L<https://www.redhat.com/mailman/listinfo/virt-tools-list>
+
+=head2 How do I report bugs?
+
+Please use the following link to enter a bug in Bugzilla:
+
+ https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools
+
+Include as much detail as you can and a way to reproduce the problem.
+
+Include the full output of L<libguestfs-test-tool(1)>.
+
+=head1 DOWNLOADING, INSTALLING, COMPILING LIBGUESTFS
+
+=begin html
+
+<!-- old anchor for the next section -->
+<a name="binaries"/>
+
+=end html
+
+=head2 Where can I get the latest binaries for ...?
+
+=over 4
+
+=item Fedora E<ge> 11, RHEL E<ge> 5.3, EPEL 5
+
+Use:
+
+ yum install '*guestf*'
+
+For the latest builds, see:
+L<http://koji.fedoraproject.org/koji/packageinfo?packageID=8391>
+
+=item Red Hat Enterprise Linux 6
+
+It is part of the default install.  On RHEL 6 (only) you have to
+install C<libguestfs-winsupport> to get Windows guest support.
+
+=item RHEL 6.3
+
+Preview packages are available here:
+L<http://people.redhat.com/~rjones/libguestfs-RHEL-6.3-preview/>
+
+=item Debian Squeeze (6)
+
+Use Hilko Bengen's backport repository:
+L<http://people.debian.org/~bengen/libguestfs/>
+
+=item Debian Wheezy and later (7+)
+
+Official Debian packages are available:
+L<http://packages.debian.org/search?keywords=libguestfs>
+(thanks Hilko Bengen).
+
+=item Ubuntu
+
+We don't have an Ubuntu maintainer, and the packages supplied by
+Canonical (which are outside our control) are broken.  Try compiling
+from source (next section).
+
+=item Ubuntu 10.04
+
+See:
+L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>
+
+=item Ubuntu 12.04
+
+The packages supplied by Canonical are broken.  See:
+L<https://www.redhat.com/archives/libguestfs/2012-April/thread.html#00028>
+
+=item Other Linux distro
+
+Compile from source (next section).
+
+=item Other non-Linux distro
+
+You'll have to compile from source, and port it.
+
+=back
+
+=head2 How can I compile and install libguestfs from source?
+
+If your Linux distro has a working port of febootstrap (that is,
+Fedora, Red Hat Enterprise Linux >= 6.3, Debian, Ubuntu and ArchLinux)
+then you should just be able to compile from source in the usual way.
+Download the latest tarball from L<http://libguestfs/download>, unpack
+it, and start by reading the README file.
+
+If you I<don't> have febootstrap, you will need to use the "fixed
+appliance method".  See:
+L<http://libguestfs.org/download/binaries/appliance/>
+
+Patches to port febootstrap to more Linux distros are welcome.
+
+=head2 Why do I get an error when I try to rebuild from the source
+RPMs supplied by Red Hat / Fedora?
+
+Because of the complexity of building the libguestfs appliance, the
+source RPMs provided cannot be rebuilt directly using C<rpmbuild> or
+C<mock>.
+
+If you use Koji (which is open source software and may be installed
+locally), then the SRPMs can be rebuilt in Koji.
+L<https://fedoraproject.org/wiki/Koji>
+
+If you don't have or want to use Koji, then you have to give
+libguestfs access to the network so it can download the RPMs for
+building the appliance.  You also need to set an RPM macro to tell
+libguestfs to use the network.  Put the following line into a file
+called C<$HOME/.rpmmacros>:
+
+ %libguestfs_buildnet   1
+
+If you are using mock, do:
+
+ mock -D '%libguestfs_buildnet 1' [etc]
+
+=head2 Libguestfs has a really long list of dependencies!
+
+That's because it does a lot of things.
+
+=head2 How can I speed up libguestfs builds?
+
+By far the most important thing you can do is to install and properly
+configure Squid.  Note that the default configuration that ships with
+Squid is rubbish, so configuring it is not optional.
+
+A very good place to start with Squid configuration is here:
+L<https://fedoraproject.org/wiki/Extras/MockTricks#Using_Squid_to_Speed_Up_Mock_package_downloads>
+
+Make sure Squid is running, and that the environment variables
+C<$http_proxy> and C<$ftp_proxy> are pointing to it.
+
+With Squid running and correctly configured, appliance builds should
+be reduced to a few minutes.
+
+=head1 SPEED, DISK SPACE USED BY LIBGUESTFS
+
+Note: Most of the information in this section has moved:
+L<guestfs-performance(1)>.
+
+=head2 Upload or write seem very slow.
+
+In libguestfs E<lt> 1.13.16, the mount command
+(L<guestfs(3)/guestfs_mount>) enabled option C<-o sync> implicitly.
+This causes very poor write performance, and was one of the main
+gotchas for new libguestfs users.
+
+For libguestfs E<lt> 1.13.16, replace mount with C<mount-options>,
+leaving the first parameter as an empty string.
+
+You can also do this with more recent versions of libguestfs, but if
+you know that you are using libguestfs ≥ 1.13.16 then it's safe to use
+plain mount.
+
+If the underlying disk is not fully allocated (eg. sparse raw or
+qcow2) then writes can be slow because the host operating system has
+to do costly disk allocations while you are writing. The solution is
+to use a fully allocated format instead, ie. non-sparse raw, or qcow2
+with the C<preallocation=metadata> option.
+
+=head2 Libguestfs uses too much disk space!
+
+libguestfs caches a large-ish appliance in:
+
+ /var/tmp/.guestfs-<UID>
+
+If the environment variable C<TMPDIR> is defined, then
+C<$TMPDIR/.guestfs-E<lt>UIDE<gt>> is used instead.
+
+It is safe to delete this directory when you are not using libguestfs.
+
+=head1 USING LIBGUESTFS IN YOUR OWN PROGRAMS
+
+=head2 The API has hundreds of methods, where do I start?
+
+We recommend you start by reading the API overview:
+L<guestfs(3)/API OVERVIEW>.
+
+Although the API overview covers the C API, it is still worth reading
+even if you are going to use another programming language, because the
+API is the same, just with simple logical changes to the names of the
+calls:
+
+                  C  guestfs_ln_sf (g, target, linkname);
+             Python  g.ln_sf (target, linkname);
+              OCaml  g#ln_sf target linkname;
+               Perl  $g->ln_sf (target, linkname);
+  Shell (guestfish)  ln-sf target linkname
+                PHP  guestfs_ln_sf ($g, $target, $linkname);
+
+Once you're familiar with the API overview, you should look at this
+list of starting points for other language bindings:
+L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES>.
+
+=begin html
+
+<!-- old anchor for the next section -->
+<a name="debug"/>
+
+=end html
+
+=head1 DEBUGGING LIBGUESTFS
+
+=head2 How do I debug when using any libguestfs program or tool
+(eg. virt-v2v or virt-df)?
+
+There are two C<LIBGUESTFS_*> environment variables you can set in
+order to get more information from libguestfs.
+
+=over 4
+
+=item C<LIBGUESTFS_TRACE>
+
+Set this to 1 and libguestfs will print out each command / API call in
+a format which is similar to guestfish commands.
+
+=item C<LIBGUESTFS_DEBUG>
+
+Set this to 1 in order to enable massive amounts of debug messages.
+If you think there is some problem inside the libguestfs appliance,
+then you should use this option.
+
+=back
+
+To set these from the shell, do this before running the program:
+
+ export LIBGUESTFS_TRACE=1
+ export LIBGUESTFS_DEBUG=1
+
+For csh/tcsh the equivalent commands would be:
+
+ setenv LIBGUESTFS_TRACE 1
+ setenv LIBGUESTFS_DEBUG 1
+
+For further information, see: L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
+=head2 How do I debug when using guestfish?
+
+You can use the same environment variables above.  Alternatively use
+the guestfish options -x (to trace commands) or -v (to get the full
+debug output), or both.
+
+For further information, see: L<guestfish(1)>.
+
+=head2 How do I debug when using the API?
+
+Call L<guestfs(3)/guestfs_set_trace> to enable command traces, and/or
+L<guestfs(3)/guestfs_set_verbose> to enable debug messages.
+
+For best results, call these functions as early as possible, just
+after creating the guestfs handle if you can, and definitely before
+calling launch.
+
+=head2 How do I capture debug output and put it into my logging system?
+
+Use the event API.  For examples, see:
+L<guestfs(3)/SETTING CALLBACKS TO HANDLE EVENTS>.
+
+=head2 Digging deeper into the appliance boot process.
+
+Enable debugging and then read this documentation on the appliance
+boot process: L<guestfs(3)/INTERNALS>.
+
+=head2 libguestfs hangs or fails during run/launch.
+
+Enable debugging and look at the full output.  If you cannot work out
+what is going on, file a bug report, including the I<complete> output
+of L<libguestfs-test-tool(1)>.
+
+=head1 DESIGN/INTERNALS OF LIBGUESTFS
+
+=head2 Why don't you do everything through the FUSE / filesystem
+interface?
+
+We offer a command called L<guestmount(1)> which lets you mount guest
+filesystems on the host.  This is implemented as a FUSE module.  Why
+don't we just implement the whole of libguestfs using this mechanism,
+instead of having the large and rather complicated API?
+
+The reasons are twofold.  Firstly, libguestfs offers API calls for
+doing things like creating and deleting partitions and logical
+volumes, which don't fit into a filesystem model very easily.  Or
+rather, you could fit them in: for example, creating a partition could
+be mapped to C<mkdir /fs/hda1> but then you'd have to specify some
+method to choose the size of the partition (maybe C<echo 100M E<gt>
+/fs/hda1/.size>), and the partition type, start and end sectors etc.,
+but once you've done that the filesystem-based API starts to look more
+complicated than the call-based API we currently have.
+
+The second reason is for efficiency.  FUSE itself is reasonably
+efficient, but it does make lots of small, independent calls into the
+FUSE module.  In guestmount these have to be translated into messages
+to the libguestfs appliance which has a big overhead (in time and
+round trips).  For example, reading a file in 64 KB chunks is
+inefficient because each chunk would turn into a single round trip.
+In the libguestfs API it is much more efficient to download an entire
+file or directory through one of the streaming calls like
+C<guestfs_download> or C<guestfs_tar_out>.
+
+=head2 Why don't you do everything through GVFS?
+
+The problems are similar to the problems with FUSE.
+
+GVFS is a better abstraction than POSIX/FUSE.  There is an FTP backend
+for GVFS, which is encouraging because FTP is conceptually similar to
+the libguestfs API.  However the GVFS FTP backend makes multiple
+simultaneous connections in order to keep interactivity, which we
+can't easily do with libguestfs.
+
+=head2 Can I use C<guestfish --ro> as a way to backup my virtual machines?
+
+Usually this is not a good idea.  The question is answered in more
+detail in this mailing list posting:
+L<https://www.redhat.com/archives/libguestfs/2010-August/msg00024.html>
+
+=head2 What's the difference between guestfish and virt-rescue?
+
+A lot of people are confused by the two superficially similar tools we
+provide:
+
+ $ guestfish --ro -a guest.img
+ ><fs> run
+ ><fs> fsck /dev/sda1
+
+ $ virt-rescue --ro guest.img
+ ><rescue> /sbin/fsck /dev/sda1
+
+And the related question which then arises is why you can't type in
+full shell commands with all the --options in guestfish (but you can
+in L<virt-rescue(1)>).
+
+L<guestfish(1)> is a program providing structured access to the
+L<guestfs(3)> API.  It happens to be a nice interactive shell too, but
+its primary purpose is structured access from shell scripts.  Think of
+it more like a language binding, like Python and other bindings, but
+for shell.  The key differentiating factor of guestfish (and the
+libguestfs API in general) is the ability to automate changes.
+
+L<virt-rescue(1)> is a free-for-all freeform way to boot the
+libguestfs appliance and make arbitrary changes to your VM. It's not
+structured, you can't automate it, but for making quick ad-hoc fixes
+to your guests, it can be quite useful.
+
+But, libguestfs also has a "backdoor" into the appliance allowing you
+to send arbitrary shell commands.  It's not as flexible as
+virt-rescue, because you can't interact with the shell commands, but
+here it is anyway:
+
+ ><fs> debug sh "cmd arg1 arg2 ..."
+
+Note that you should B<not> rely on this.  It could be removed or
+changed in future. If your program needs some operation, please add it
+to the libguestfs API instead.
+
+=head2 What's the deal with C<guestfish -i>?
+Why does virt-cat only work on a real VM image, but virt-df works on
+any disk image?
+What does "no root device found in this operating system image" mean?
+
+These questions are all related at a fundamental level which may not
+be immediately obvious.
+
+At the L<guestfs(3)> API level, a "disk image" is just a pile of
+partitions and filesystems.
+
+In contrast, when the virtual machine boots, it mounts those
+filesystems into a consistent hierarchy such as:
+
+ /          (/dev/sda2)
+ |
+ +-- /boot  (/dev/sda1)
+ |
+ +-- /home  (/dev/vg_external/Homes)
+ |
+ +-- /usr   (/dev/vg_os/lv_usr)
+ |
+ +-- /var   (/dev/vg_os/lv_var)
+
+(or drive letters on Windows).
+
+The API first of all sees the disk image at the "pile of filesystems"
+level.  But it also has a way to inspect the disk image to see if it
+contains an operating system, and how the disks are mounted when the
+operating system boots: L<guestfs(3)/INSPECTION>.
+
+Users expect some tools (like L<virt-cat(1)>) to work with VM paths:
+
+ virt-cat fedora.img /var/log/messages
+
+How does virt-cat know that C</var> is a separate partition?  The
+trick is that virt-cat performs inspection on the disk image, and uses
+that to translate the path correctly.
+
+Some tools (including L<virt-cat(1)>, L<virt-edit(1)>, L<virt-ls(1)>)
+use inspection to map VM paths.  Other tools, such as L<virt-df(1)>
+and L<virt-filesystems(1)> operate entirely at the raw "big pile of
+filesystems" level of the libguestfs API, and don't use inspection.
+
+L<guestfish(1)> is in an interesting middle ground.  If you use the
+I<-a> and I<-m> command line options, then you have to tell guestfish
+exactly how to add disk images and where to mount partitions. This is
+the raw API level.
+
+If you use the I<-i> option, libguestfs performs inspection and mounts
+the filesystems for you.
+
+The error C<no root device found in this operating system image> is
+related to this.  It means inspection was unable to locate an
+operating system within the disk image you gave it.  You might see
+this from programs like virt-cat if you try to run them on something
+which is just a disk image, not a virtual machine disk image.
+
+=head1 SEE ALSO
+
+L<guestfish(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 Red Hat Inc. L<http://libguestfs.org/>
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
