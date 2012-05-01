@@ -22,37 +22,18 @@ or:
 
 =head1 DESCRIPTION
 
-Libguestfs is a library for accessing and modifying guest disk images.
-Amongst the things this is good for: making batch configuration
-changes to guests, getting disk used/free statistics (see also:
-virt-df), migrating between virtualization systems (see also:
-virt-p2v), performing partial backups, performing partial guest
-clones, cloning guests and changing registry/UUID/hostname info, and
-much else besides.
+Libguestfs is a library for accessing and modifying disk images and
+virtual machines.  This manual page documents the C API.
 
-Libguestfs uses Linux kernel and qemu code, and can access any type of
-guest filesystem that Linux and qemu can, including but not limited
-to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
-schemes, qcow, qcow2, vmdk.
+If you are looking for an introduction to libguestfs, see the web
+site: L<http://libguestfs.org/>
 
-Libguestfs provides ways to enumerate guest storage (eg. partitions,
-LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can access filesystems over
-FUSE.
+Each virt tool has its own man page (for a full list, go to
+L</SEE ALSO> at the end of this file).
 
-Libguestfs is a library that can be linked with C and C++ management
-programs (or management programs written in OCaml, Perl, Python, Ruby,
-Java, PHP, Erlang, Haskell or C#).  You can also use it from shell
-scripts or the command line.
-
-You don't need to be root to use libguestfs, although obviously you do
-need enough permissions to access the disk images.
-
-Libguestfs is a large API because it can do many things.  For a gentle
-introduction, please read the L</API OVERVIEW> section next.
-
-There are also some example programs in the L<guestfs-examples(3)>
-manual page.
+For examples of using the API from C, see L<guestfs-examples(3)>.  For
+examples in other languages, see
+L</USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> below.
 
 =head1 API OVERVIEW
 
