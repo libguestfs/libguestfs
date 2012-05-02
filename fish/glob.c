@@ -29,6 +29,9 @@
 /* A bit tricky because in the case where there are multiple
  * paths we have to perform a Cartesian product.
  */
+
+static char **expand_pathname (guestfs_h *g, const char *path);
+static char **single_element_list (const char *element);
 static void glob_issue (char *cmd, size_t argc, char ***globs, size_t *posn, size_t *count, int *r);
 
 int
@@ -69,50 +72,19 @@ run_glob (const char *cmd, size_t argc, char *argv[])
 
     /* Only if it begins with '/' can it possibly be a globbable path. */
     if (argv[i][0] == '/') {
-      pp = guestfs_glob_expand (g, argv[i]);
-      if (pp == NULL) {		/* real error in glob_expand */
-        fprintf (stderr, _("glob: guestfs_glob_expand call failed: %s\n"),
-                 argv[i]);
-        goto error0;
-      }
-
-      /* If there were no matches, then we add a single element list
-       * containing just the original argv[i] string.
-       */
-      if (pp[0] == NULL) {
-        char **pp2;
-
-        pp2 = realloc (pp, sizeof (char *) * 2);
-        if (pp2 == NULL) {
-          perror ("realloc");
-          free (pp);
-          goto error0;
-        }
-        pp = pp2;
-
-        pp[0] = strdup (argv[i]);
-        if (pp[0] == NULL) {
-          perror ("strdup");
-          free (pp);
-          goto error0;
-        }
-        pp[1] = NULL;
+      pp = expand_pathname (g, argv[i]);
+      if (pp == NULL) {
+        r = -1;
+        goto error;
       }
     }
     /* Doesn't begin with '/' */
     else {
-      pp = malloc (sizeof (char *) * 2);
+      pp = single_element_list (argv[i]);
       if (pp == NULL) {
-        perror ("malloc");
-        goto error0;
+        r = -1;
+        goto error;
       }
-      pp[0] = strdup (argv[i]);
-      if (pp[0] == NULL) {
-        perror ("strdup");
-        free (pp);
-        goto error0;
-      }
-      pp[1] = NULL;
     }
 
     globs[i] = pp;
@@ -123,11 +95,54 @@ run_glob (const char *cmd, size_t argc, char *argv[])
   glob_issue (argv[0], argc, globs, posn, count, &r);
 
   /* Free resources. */
- error0:
+ error:
   for (i = 1; i < argc; ++i)
     if (globs[i])
       free_strings (globs[i]);
   return r;
+}
+
+static char **
+expand_pathname (guestfs_h *g, const char *path)
+{
+  char **pp;
+
+  pp = guestfs_glob_expand (g, path);
+  if (pp == NULL) {		/* real error in glob_expand */
+    fprintf (stderr, _("glob: guestfs_glob_expand call failed: %s\n"), path);
+    return NULL;
+  }
+
+  if (pp[0] != NULL)
+    return pp; /* Return the non-empty list of matches. */
+
+  /* If there were no matches, then we add a single element list
+   * containing just the original string.
+   */
+  free (pp);
+  return single_element_list (path);
+}
+
+/* Return a single element list containing 'element'. */
+static char **
+single_element_list (const char *element)
+{
+  char **pp;
+
+  pp = malloc (sizeof (char *) * 2);
+  if (pp == NULL) {
+    perror ("malloc");
+    return NULL;
+  }
+  pp[0] = strdup (element);
+  if (pp[0] == NULL) {
+    perror ("strdup");
+    free (pp);
+    return NULL;
+  }
+  pp[1] = NULL;
+
+  return pp;
 }
 
 static void
