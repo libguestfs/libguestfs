@@ -74,6 +74,7 @@ static void add_history_line (const char *);
 
 static int override_progress_bars = -1;
 static struct progress_bar *bar = NULL;
+static int pipe_error = 0;
 
 /* Currently open libguestfs handle. */
 guestfs_h *g = NULL;
@@ -126,6 +127,7 @@ usage (int status)
              "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+             "  --pipe-error         Pipe commands can detect write errors\n"
              "  --progress-bars      Enable progress bars even when not interactive\n"
              "  --no-progress-bars   Disable progress bars\n"
              "  --remote[=pid]       Send commands to remote %s\n"
@@ -158,6 +160,7 @@ main (int argc, char *argv[])
   /* Set global program name that is not polluted with libtool artifacts.  */
   set_program_name (argv[0]);
 
+  /* Initialize gnulib closeout module. */
   atexit (close_stdout);
 
   setlocale (LC_ALL, "");
@@ -190,6 +193,7 @@ main (int argc, char *argv[])
     { "new", 1, 0, 'N' },
     { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
+    { "pipe-error", 0, 0, 0 },
     { "progress-bars", 0, 0, 0 },
     { "no-progress-bars", 0, 0, 0 },
     { "remote", 2, 0, 0 },
@@ -280,6 +284,8 @@ main (int argc, char *argv[])
         remote_control_csh = 1;
       } else if (STREQ (long_options[option_index].name, "live")) {
         live = 1;
+      } else if (STREQ (long_options[option_index].name, "pipe-error")) {
+        pipe_error = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -1128,6 +1134,15 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd,
   if (fflush (stdout) == EOF) {
     perror ("failed to flush standard output");
     return -1;
+  }
+  if (ferror (stdout)) {
+    if (!pipecmd || pipe_error) {
+      fprintf (stderr, "%s: write error%s\n", program_name,
+               pipecmd ? " on pipe" : "");
+      r = -1;
+    }
+    /* We've dealt with this error, so clear the flag. */
+    clearerr (stdout);
   }
 
   if (pipecmd) {

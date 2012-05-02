@@ -350,6 +350,18 @@ alternative to the I<-a> option: whereas I<-a> adds an existing disk,
 I<-N> creates a preformatted disk with a filesystem and adds it.
 See L</PREPARED DISK IMAGES> below.
 
+=item B<--pipe-error>
+
+If writes fail to pipe commands (see L</PIPES> below), then the
+command returns an error.
+
+The default (also for historical reasons) is to ignore such errors so
+that:
+
+ ><fs> command_with_lots_of_output | head
+
+doesn't give an error.
+
 =item B<--progress-bars>
 
 Enable progress bars, even when guestfish is used non-interactively.
