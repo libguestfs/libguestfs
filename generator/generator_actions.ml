@@ -3700,7 +3700,11 @@ If no paths match, then this returns an empty list
 
 It is just a wrapper around the C L<glob(3)> function
 with flags C<GLOB_MARK|GLOB_BRACE>.
-See that manual page for more details.");
+See that manual page for more details.
+
+Notice that there is no equivalent command for expanding a device
+name (eg. C</dev/sd*>).  Use C<guestfs_list_devices>,
+C<guestfs_list_partitions> etc functions instead.");
 
   ("scrub_device", (RErr, [Device "device"], []), 114, [Optional "scrub"],
    [InitNone, Always, TestRun (	(* use /dev/sdc because it's smaller *)
