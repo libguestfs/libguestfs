@@ -81,6 +81,7 @@ extern void free_file_in (char *s);
 extern char *file_out (const char *arg);
 extern void extended_help_message (void);
 extern void progress_callback (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
+extern int feature_available (guestfs_h *g, const char *feature);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
