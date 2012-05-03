@@ -89,7 +89,7 @@ static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n);
 static void add_domains_by_name (virConnectPtr conn, char **names, size_t n);
 static void add_domain (virDomainPtr dom);
 static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *domain_vp);
-static void add_disks_to_handle_reverse (struct disk *disk);
+static size_t add_disks_to_handle_reverse (struct disk *disk, size_t *errors_r);
 static void reset_guestfs_handle (void);
 
 void
@@ -98,7 +98,7 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   virErrorPtr err;
   virConnectPtr conn;
   int n;
-  size_t i;
+  size_t i, count, errors;
   const char *prefix;
 
   nr_domains = 0;
@@ -171,8 +171,14 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   /* Sort the domains alphabetically by name for display. */
   qsort (domains, nr_domains, sizeof (struct domain), compare_domain_names);
 
+  errors = 0;
   for (i = 0; i < nr_domains; ++i) {
-    add_disks_to_handle_reverse (domains[i].disks);
+    if (domains[i].disks == NULL)
+      continue;
+
+    count = add_disks_to_handle_reverse (domains[i].disks, &errors);
+    if (count == 0)
+      continue;
 
     if (guestfs_launch (g) == -1)
       exit (EXIT_FAILURE);
@@ -190,6 +196,12 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   for (i = 0; i < nr_domains; ++i)
     free_domain (&domains[i]);
   free (domains);
+
+  if (errors > 0) {
+    fprintf (stderr, _("%s: failed to analyze a disk, see error(s) above\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
 }
 
 static void
@@ -297,13 +309,15 @@ add_disk (guestfs_h *g,
   return 0;
 }
 
-static void
-add_disks_to_handle_reverse (struct disk *disk)
+static size_t
+add_disks_to_handle_reverse (struct disk *disk, size_t *errors_r)
 {
-  if (disk == NULL)
-    return;
+  size_t nr_disks_added;
 
-  add_disks_to_handle_reverse (disk->next);
+  if (disk == NULL)
+    return 0;
+
+  nr_disks_added = add_disks_to_handle_reverse (disk->next, errors_r);
 
   struct guestfs_add_drive_opts_argv optargs = { .bitmask = 0 };
 
@@ -315,8 +329,12 @@ add_disks_to_handle_reverse (struct disk *disk)
     optargs.format = disk->format;
   }
 
-  if (guestfs_add_drive_opts_argv (g, disk->filename, &optargs) == -1)
-    exit (EXIT_FAILURE);
+  if (guestfs_add_drive_opts_argv (g, disk->filename, &optargs) == -1) {
+    (*errors_r)++;
+    return nr_disks_added;
+  }
+
+  return nr_disks_added+1;
 }
 
 /* Close and reopen the libguestfs handle. */
