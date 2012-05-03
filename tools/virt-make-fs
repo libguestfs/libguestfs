@@ -380,6 +380,13 @@ if ($type eq "ntfs") {
     $estimate += 4 * 1024 * 1024; # NTFS journal.
 }
 
+if ($type eq "btrfs") {
+    # For BTRFS, the minimum metadata allocation is 256MB, with data
+    # additional to that.  Note that we disable data and metadata
+    # duplication below.
+    $estimate += 256 * 1024 * 1024;
+}
+
 $estimate *= 1.10;              # Add 10%, see above.
 
 # Calculate the output size.
@@ -448,7 +455,11 @@ eval {
     print STDERR "creating $type filesystem on $dev ...\n" if $debug;
 
     # Create the filesystem.
-    $g->mkfs ($type, $dev);
+    if ($type ne "btrfs") {
+        $g->mkfs ($type, $dev);
+    } else {
+        $g->mkfs_btrfs ([$dev], datatype => "single", metadata => "single");
+    }
     $g->mount ($dev, "/");
 
     # Copy the data in.
