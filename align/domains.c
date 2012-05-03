@@ -109,7 +109,7 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   if (!conn) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not connect to libvirt (code %d, domain %d): %s"),
+             _("%s: could not connect to libvirt (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -118,7 +118,7 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not get number of running domains (code %d, domain %d): %s"),
+             _("%s: could not get number of running domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -128,7 +128,7 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not list running domains (code %d, domain %d): %s"),
+             _("%s: could not list running domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -139,7 +139,7 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not get number of inactive domains (code %d, domain %d): %s"),
+             _("%s: could not get number of inactive domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -149,7 +149,7 @@ get_domains_from_libvirt (int uuid, size_t *worst_alignment_ptr)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not list inactive domains (code %d, domain %d): %s"),
+             _("%s: could not list inactive domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }

@@ -115,7 +115,7 @@ get_domains_from_libvirt (void)
   if (!conn) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not connect to libvirt (code %d, domain %d): %s"),
+             _("%s: could not connect to libvirt (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -124,7 +124,7 @@ get_domains_from_libvirt (void)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not get number of running domains (code %d, domain %d): %s"),
+             _("%s: could not get number of running domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -134,7 +134,7 @@ get_domains_from_libvirt (void)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not list running domains (code %d, domain %d): %s"),
+             _("%s: could not list running domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -145,7 +145,7 @@ get_domains_from_libvirt (void)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not get number of inactive domains (code %d, domain %d): %s"),
+             _("%s: could not get number of inactive domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -155,7 +155,7 @@ get_domains_from_libvirt (void)
   if (n == -1) {
     err = virGetLastError ();
     fprintf (stderr,
-             _("%s: could not list inactive domains (code %d, domain %d): %s"),
+             _("%s: could not list inactive domains (code %d, domain %d): %s\n"),
              program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
@@ -281,7 +281,7 @@ add_domain (virDomainPtr dom)
 
   if (domain->nr_disks > MAX_DISKS) {
     fprintf (stderr,
-             _("%s: ignoring %s, it has too many disks (%zu > %d)"),
+             _("%s: ignoring %s, it has too many disks (%zu > %d)\n"),
              program_name, domain->name, domain->nr_disks, MAX_DISKS);
     free_domain (domain);
     nr_domains--;
