@@ -29,6 +29,7 @@ perl -MSys::Guestfs '-MSys::Guestfs::Lib qw(feature_available)' -e '
   $g->launch ();
   feature_available ($g, "ntfs3g") and print "ntfs3g_available=yes\n";
   feature_available ($g, "ntfsprogs") and print "ntfsprogs_available=yes\n";
+  feature_available ($g, "btrfs") and print "btrfs_available=yes\n";
 ')
 
 declare -a choices
@@ -46,6 +47,9 @@ function random_choice
 choices=(--type=ext2 --type=ext3 --type=ext4)
 if [ "$ntfs3g_available" = "yes" -a "$ntfsprogs_available" = "yes" ]; then
     choices[${#choices[*]}]="--type=ntfs"
+fi
+if [ "$btrfs_available" = "yes" ]; then
+    choices[${#choices[*]}]="--type=btrfs"
 fi
 type=`random_choice`
 
