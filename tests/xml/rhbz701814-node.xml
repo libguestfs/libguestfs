@@ -1,0 +1,19 @@
+<!-- This is dummy XML needed by the libvirt test:// driver.  It will
+     be overridden by the fake libvirt XML preload module. -->
+<node>
+<domain type='test'>
+  <name>winxppro</name>
+  <memory>1048576</memory>
+  <os>
+    <type>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <devices>
+    <disk type='file' device='disk'>
+      <driver name='qemu'/>
+      <source file='/dev/null'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+  </devices>
+</domain>
+</node>

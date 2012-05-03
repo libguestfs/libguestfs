@@ -1344,6 +1344,7 @@ AC_CONFIG_FILES([Makefile
                  tests/protocol/Makefile
                  tests/qemu/Makefile
                  tests/regressions/Makefile
+                 tests/xml/Makefile
                  tools/Makefile])
 AC_OUTPUT
 
