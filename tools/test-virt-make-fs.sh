@@ -16,53 +16,47 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# Engage in some montecarlo testing of virt-make-fs.
+
 export LANG=C
 set -e
 
-# Is NTFS supported?
-if ../fish/guestfish -a /dev/null run : available "ntfs3g ntfsprogs"; then
-  ntfs_supported=yes
-else
-  ntfs_supported=no
+# Check which filesystems are supported by the appliance.
+eval $(
+perl -MSys::Guestfs '-MSys::Guestfs::Lib qw(feature_available)' -e '
+  $g = Sys::Guestfs->new();
+  $g->add_drive ("/dev/null");
+  $g->launch ();
+  feature_available ($g, "ntfs3g") and print "ntfs3g_available=yes\n";
+  feature_available ($g, "ntfsprogs") and print "ntfsprogs_available=yes\n";
+')
+
+declare -a choices
+
+# Return a random element from the array 'choices'.
+function random_choice
+{
+    echo "${choices[$((RANDOM % ${#choices[*]}))]}"
+}
+
+# Can't test vfat because we cannot create a tar archive
+# where files are owned by UID:GID 0:0.  As a result, tar
+# in the appliance fails when trying to change the UID of
+# the files to some non-zero value (not supported by FAT).
+choices=(--type=ext2 --type=ext3 --type=ext4)
+if [ "$ntfs3g_available" = "yes" -a "$ntfsprogs_available" = "yes" ]; then
+    choices[${#choices[*]}]="--type=ntfs"
 fi
+type=`random_choice`
 
-# Engage in some montecarlo testing of virt-make-fs.
+choices=(--format=raw --format=qcow2)
+format=`random_choice`
 
-if [ "$ntfs_supported" = "yes" ]; then
-  case $((RANDOM % 4)) in
-      0) type="--type=ext2" ;;
-      1) type="--type=ext3" ;;
-      2) type="--type=ext4" ;;
-      3) type="--type=ntfs" ;;
-      # Can't test vfat because we cannot create a tar archive
-      # where files are owned by UID:GID 0:0.  As a result, tar
-      # in the appliance fails when trying to change the UID of
-      # the files to some non-zero value (not supported by FAT).
-      # 4) type="--type=vfat" ;;
-  esac
-else
-  case $((RANDOM % 3)) in
-      0) type="--type=ext2" ;;
-      1) type="--type=ext3" ;;
-      2) type="--type=ext4" ;;
-  esac
-fi
+choices=(--partition --partition=gpt)
+partition=`random_choice`
 
-case $((RANDOM % 2)) in
-    0) format="--format=raw" ;;
-    1) format="--format=qcow2" ;;
-esac
-
-case $((RANDOM % 3)) in
-    0) partition="--partition" ;;
-    1) partition="--partition=gpt" ;;
-    2) ;;
-esac
-
-case $((RANDOM % 2)) in
-    0) ;;
-    1) size="--size=+1M" ;;
-esac
+choices=("" --size=+1M)
+size=`random_choice`
 
 if [ -n "$LIBGUESTFS_DEBUG" ]; then debug=--debug; fi
 
