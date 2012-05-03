@@ -376,7 +376,7 @@ if ($type =~ /^ext[3-9]/) {
     $estimate += 1024 * 1024;   # For ext3/4, add some more for the journal.
 }
 
-if ($type =~ /^ntfs/) {
+if ($type eq "ntfs") {
     $estimate += 4 * 1024 * 1024; # NTFS journal.
 }
 
