@@ -55,7 +55,8 @@
 struct disk {
   struct disk *next;
   char *filename;
-  char *format; /* could be NULL */
+  char *format;                 /* could be NULL */
+  int failed;                   /* flag if disk failed when adding */
 };
 
 struct domain {
@@ -97,7 +98,7 @@ static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n);
 static void add_domains_by_name (virConnectPtr conn, char **names, size_t n);
 static void add_domain (virDomainPtr dom);
 static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *domain_vp);
-static void multi_df (struct domain *, size_t n);
+static void multi_df (struct domain *, size_t n, size_t *errors);
 
 void
 get_domains_from_libvirt (void)
@@ -105,7 +106,7 @@ get_domains_from_libvirt (void)
   virErrorPtr err;
   virConnectPtr conn;
   int n;
-  size_t i, j, nr_disks_added;
+  size_t i, j, nr_disks_added, errors;
 
   nr_domains = 0;
   domains = NULL;
@@ -185,9 +186,10 @@ get_domains_from_libvirt (void)
    * request disks from a single guest each time.
    * Interesting application for NP-complete knapsack problem here.
    */
+  errors = 0;
   if (one_per_guest) {
     for (i = 0; i < nr_domains; ++i)
-      multi_df (&domains[i], 1);
+      multi_df (&domains[i], 1, &errors);
   } else {
     for (i = 0; i < nr_domains; /**/) {
       nr_disks_added = 0;
@@ -198,7 +200,7 @@ get_domains_from_libvirt (void)
           break;
         nr_disks_added += domains[j].nr_disks;
       }
-      multi_df (&domains[i], j-i);
+      multi_df (&domains[i], j-i, &errors);
 
       i = j;
     }
@@ -208,6 +210,12 @@ get_domains_from_libvirt (void)
   for (i = 0; i < nr_domains; ++i)
     free_domain (&domains[i]);
   free (domains);
+
+  if (errors > 0) {
+    fprintf (stderr, _("%s: failed to analyze a disk, see error(s) above\n"),
+             program_name);
+    exit (EXIT_FAILURE);
+  }
 }
 
 static void
@@ -297,7 +305,7 @@ add_disk (guestfs_h *g,
   struct domain *domain = domain_vp;
   struct disk *disk;
 
-  disk = malloc (sizeof *disk);
+  disk = calloc (1, sizeof *disk);
   if (disk == NULL) {
     perror ("malloc");
     return -1;
@@ -324,33 +332,29 @@ add_disk (guestfs_h *g,
   return 0;
 }
 
-static size_t
-count_strings (char **argv)
-{
-  size_t i;
-
-  for (i = 0; argv[i] != NULL; ++i)
-    ;
-  return i;
-}
-
 static void reset_guestfs_handle (void);
-static void add_disks_to_handle_reverse (struct disk *disk);
+static size_t add_disks_to_handle_reverse (struct disk *disk, size_t *errors_r);
+static size_t count_non_failed_disks (struct disk *disk);
+static char **duplicate_first_n (char **, size_t n);
 
 /* Perform 'df' operation on the domain(s) given in the list. */
 static void
-multi_df (struct domain *domains, size_t n)
+multi_df (struct domain *domains, size_t n, size_t *errors_r)
 {
   size_t i;
   size_t nd;
+  size_t count;
   int r;
   char **devices;
+  char **domain_devices;
 
   /* Add all the disks to the handle (since they were added in reverse
    * order, we must add them here in reverse too).
    */
-  for (i = 0; i < n; ++i)
-    add_disks_to_handle_reverse (domains[i].disks);
+  for (i = 0, count = 0; i < n; ++i)
+    count += add_disks_to_handle_reverse (domains[i].disks, errors_r);
+  if (count == 0)
+    return;
 
   /* Launch the handle. */
   if (guestfs_launch (g) == -1)
@@ -360,31 +364,28 @@ multi_df (struct domain *domains, size_t n)
   if (devices == NULL)
     exit (EXIT_FAILURE);
 
-  /* Check the number of disks we think we added is the same as the
-   * number of devices returned by libguestfs.
-   */
-  nd = 0;
-  for (i = 0; i < n; ++i)
-    nd += domains[i].nr_disks;
-  assert (nd == count_strings (devices));
+  for (i = 0, nd = 0; i < n; ++i) {
+    /* Find out how many non-failed disks this domain has. */
+    count = count_non_failed_disks (domains[i].disks);
+    if (count == 0)
+      continue;
 
-  nd = 0;
-  for (i = 0; i < n; ++i) {
-    /* So that &devices[nd] is a NULL-terminated list of strings. */
-    char *p = devices[nd + domains[i].nr_disks];
-    devices[nd + domains[i].nr_disks] = NULL;
+    /* Duplicate the devices into a separate list for convenience.
+     * Note this doesn't duplicate the strings themselves.
+     */
+    domain_devices = duplicate_first_n (&devices[nd], count);
 
-    r = df_on_handle (domains[i].name, domains[i].uuid, &devices[nd], nd);
-
-    /* Restore devices to original. */
-    devices[nd + domains[i].nr_disks] = p;
-    nd += domains[i].nr_disks;
+    r = df_on_handle (domains[i].name, domains[i].uuid, domain_devices, nd);
+    nd += count;
+    free (domain_devices);
 
     /* Something broke in df_on_handle.  Give up on the remaining
      * devices for this handle, but keep going on the next handle.
      */
-    if (r == -1)
+    if (r == -1) {
+      (*errors_r)++;
       break;
+    }
   }
 
   for (i = 0; devices[i] != NULL; ++i)
@@ -395,13 +396,15 @@ multi_df (struct domain *domains, size_t n)
   reset_guestfs_handle ();
 }
 
-static void
-add_disks_to_handle_reverse (struct disk *disk)
+static size_t
+add_disks_to_handle_reverse (struct disk *disk, size_t *errors_r)
 {
-  if (disk == NULL)
-    return;
+  size_t nr_disks_added;
 
-  add_disks_to_handle_reverse (disk->next);
+  if (disk == NULL)
+    return 0;
+
+  nr_disks_added = add_disks_to_handle_reverse (disk->next, errors_r);
 
   struct guestfs_add_drive_opts_argv optargs = { .bitmask = 0 };
 
@@ -413,8 +416,13 @@ add_disks_to_handle_reverse (struct disk *disk)
     optargs.format = disk->format;
   }
 
-  if (guestfs_add_drive_opts_argv (g, disk->filename, &optargs) == -1)
-    exit (EXIT_FAILURE);
+  if (guestfs_add_drive_opts_argv (g, disk->filename, &optargs) == -1) {
+    (*errors_r)++;
+    disk->failed = 1;
+    return nr_disks_added;
+  }
+
+  return nr_disks_added+1;
 }
 
 /* Close and reopen the libguestfs handle. */
@@ -435,6 +443,34 @@ reset_guestfs_handle (void)
 
   guestfs_set_verbose (g, verbose);
   guestfs_set_trace (g, trace);
+}
+
+static size_t
+count_non_failed_disks (struct disk *disk)
+{
+  if (disk == NULL)
+    return 0;
+  else if (disk->failed)
+    return count_non_failed_disks (disk->next);
+  else
+    return 1 + count_non_failed_disks (disk->next);
+}
+
+static char **
+duplicate_first_n (char **strs, size_t n)
+{
+  char **ret;
+
+  ret = malloc ((n+1) * sizeof (char *));
+  if (ret == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  memcpy (ret, strs, n * sizeof (char *));
+  ret[n] = NULL;
+
+  return ret;
 }
 
 #endif
