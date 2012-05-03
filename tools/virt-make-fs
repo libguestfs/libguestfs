@@ -449,7 +449,7 @@ eval {
 
     # Create the filesystem.
     $g->mkfs ($type, $dev);
-    $g->mount_options ("", $dev, "/");
+    $g->mount ($dev, "/");
 
     # Copy the data in.
     my $ifile;
