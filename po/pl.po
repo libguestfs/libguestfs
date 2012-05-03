@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-01 09:42+0100\n"
+"POT-Creation-Date: 2012-05-03 16:46+0100\n"
 "PO-Revision-Date: 2012-03-30 17:27+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/language/"
@@ -22,39 +22,39 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2)\n"
 
-#: align/domains.c:112 df/domains.c:118
+#: align/domains.c:112 df/domains.c:119
 #, c-format
-msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr ""
-"%s: nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
 
-#: align/domains.c:121 df/domains.c:127
+#: align/domains.c:121 df/domains.c:128
 #, c-format
-msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
-"%s: nie można uzyskać liczby uruchomionych domen (kod %d, domena %d): %s"
 
-#: align/domains.c:131 df/domains.c:137
+#: align/domains.c:131 df/domains.c:138
 #, c-format
-msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr ""
-"%s: nie można wyświetlić listy uruchomionych domen (kod %d, domena %d): %s"
 
-#: align/domains.c:142 df/domains.c:148
+#: align/domains.c:142 df/domains.c:149
 #, c-format
-msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
-"%s: nie można uzyskać liczby nieaktywnych domen (kod %d, domena %d): %s"
 
-#: align/domains.c:152 df/domains.c:158
+#: align/domains.c:152 df/domains.c:159
 #, c-format
-msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
-"%s: nie można wyświetlić listy nieaktywnych domen (kod %d, domena %d): %s"
 
-#: align/domains.c:334 align/scan.c:130 cat/virt-cat.c:121
-#: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:432 df/main.c:136
-#: edit/virt-edit.c:143 fish/fish.c:227 format/format.c:136
+#: align/domains.c:201 df/domains.c:215
+#, c-format
+msgid "%s: failed to analyze a disk, see error(s) above\n"
+msgstr ""
+
+#: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
+#: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:440 df/main.c:136
+#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:136
 #: fuse/guestmount.c:172 inspector/virt-inspector.c:140
 #: rescue/virt-rescue.c:145
 #, c-format
@@ -62,7 +62,7 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi się nie powiodło\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
-#: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:102
+#: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
 #: fuse/guestmount.c:67 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -106,7 +106,7 @@ msgstr ""
 "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
-#: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:284
+#: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
 #: format/format.c:188 fuse/guestmount.c:200 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:201
 #, c-format
@@ -170,7 +170,7 @@ msgstr ""
 "  -x                   Śledzi wywołania API biblioteki libguestfs\n"
 "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1564
+#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1579
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -341,10 +341,10 @@ msgstr "%s: błąd podczas uzyskiwania rozszerzonych atrybutów dla %s %s\n"
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: błąd: nie można przetworzyć licznika xattr dla %s %s\n"
 
-#: df/domains.c:284
+#: df/domains.c:292
 #, c-format
-msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
-msgstr "%s: ignorowanie %s, posiada za dużo dysków (%zu > %d)"
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)\n"
+msgstr ""
 
 #: df/main.c:74
 #, c-format
@@ -2469,7 +2469,7 @@ msgstr "copy-out: \"%s\" nie jest plikiem lub katalogiem\n"
 msgid "display filename\n"
 msgstr "wyświetla nazwę pliku\n"
 
-#: fish/edit.c:51
+#: fish/edit.c:50
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "należy użyć \"%s nazwa_pliku\", aby zmodyfikować plik\n"
@@ -2503,7 +2503,7 @@ msgid "use 'list-events' to list event handlers\n"
 msgstr ""
 "należy użyć \"list-events\", aby wyświetlić listę programów obsługi zdarzeń\n"
 
-#: fish/fish.c:106
+#: fish/fish.c:107
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -2529,6 +2529,7 @@ msgid ""
 "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
 "  -n|--no-sync         Don't autosync\n"
 "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+"  --pipe-error         Pipe commands can detect write errors\n"
 "  --progress-bars      Enable progress bars even when not interactive\n"
 "  --no-progress-bars   Disable progress bars\n"
 "  --remote[=pid]       Send commands to remote %s\n"
@@ -2549,86 +2550,40 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: powłoka systemu plików gościa\n"
-"%s umożliwia modyfikowanie systemów plików maszyn wirtualnych\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Użycie:\n"
-"  %s [--opcje] polecenie [: polecenie : polecenie...]\n"
-"Opcje:\n"
-"  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
-"  -h|--cmd-help polecenie Wyświetla szczegółową pomoc o \"poleceniu\"\n"
-"  -a|--add image       Dodaje obraz\n"
-"  -c|--connect uri     Określa adres URI biblioteki libvirt dla opcji -d\n"
-"  --csh                Sprawia, że --listen jest zgodne z formatem csh\n"
-"  -d|--domain gość     Dodaje dyski z gościa biblioteki libvirt\n"
-"  -D|--no-dest-paths   Bez uzupełniania ścieżek z systemu plików gościa\n"
-"                       tabulacją\n"
-"  --echo-keys          Bez wyłączania echa dla haseł\n"
-"  -f|--file plik       Odczytuje polecenia z pliku\n"
-"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
-"  -i|--inspector       Automatycznie montuje systemy plików\n"
-"  --keys-from-stdin    Odczytuje hasła ze standardowego wejścia\n"
-"  --listen             Nasłuchuje zdalnych poleceń\n"
-"  --live               Łączy z maszyną wirtualną live\n"
-"  -m|--mount dev[:mnt[:opcje]] Montuje urządzenie w mnt (jeśli pominięto,\n"
-"                       to w /)\n"
-"  -n|--no-sync         Bez automatycznego synchronizowania\n"
-"  -N|--new typ         Tworzy przygotowany dysk (test1.img, ...)\n"
-"  --progress-bars      Włącza paski postępu nawet, jeśli nie jest w trybie\n"
-"                       interaktywnym\n"
-"  --no-progress-bars   Wyłącza paski postępu\n"
-"  --remote[=pid]       Wysyła polecenia do zdalnego %s\n"
-"  -r|--ro              Montuje tylko do odczytu\n"
-"  --selinux            Włącza obsługę SELinuksa\n"
-"  -v|--verbose         Więcej komunikatów\n"
-"  -V|--version         Wyświetla wersję i kończy działanie\n"
-"  -w|--rw              Montuje do odczytu i zapisu\n"
-"  -x                   Powtarza każde polecenie przed jego wykonaniem\n"
-"\n"
-"Aby sprawdzić obraz dysku, plik ISO, dysk twardy, system plików itd.:\n"
-"  %s [--ro|--rw] -i -a /ścieżka/do/dysku.img\n"
-"lub\n"
-"  %s [--ro|--rw] -i -d nazwa-domeny-biblioteki-libvirt\n"
-"\n"
-"Opcja --ro jest zalecana, aby uniknąć zapisu do obrazu dysku. Jeśli opcja\n"
-"-i się nie powiedzie, to należy wykonać ponownie bez niej i użyć poleceń\n"
-"\"run\" + \"list-filesystems\" + \"mount\".\n"
-"\n"
-"Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
-#: fish/fish.c:251
+#: fish/fish.c:255
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID nie był liczbą: %s\n"
 
-#: fish/fish.c:258
+#: fish/fish.c:262
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego procesu\n"
 
-#: fish/fish.c:308
+#: fish/fish.c:314
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: można podać tylko jeden parametr -f\n"
 
-#: fish/fish.c:480
+#: fish/fish.c:486
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --remote w tym samym czasie\n"
 
-#: fish/fish.c:488
+#: fish/fish.c:494
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: dodatkowe parametry wiersza poleceń za pomocą flagi --listen\n"
 
-#: fish/fish.c:494
+#: fish/fish.c:500
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
 
-#: fish/fish.c:650
+#: fish/fish.c:656
 #, c-format
 msgid ""
 "\n"
@@ -2649,51 +2604,51 @@ msgstr ""
 "              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
-#: fish/fish.c:801 fish/fish.c:817
+#: fish/fish.c:807 fish/fish.c:823
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: parametry poleceń nie są oddzielone spacjami\n"
 
-#: fish/fish.c:811
+#: fish/fish.c:817
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niezakończony pojedynczy cudzysłów\n"
 
-#: fish/fish.c:841
+#: fish/fish.c:847
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: wewnętrzny błąd przetwarzania ciągu \"%s\"\n"
 
-#: fish/fish.c:858
+#: fish/fish.c:864
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: za dużo parametrów\n"
 
-#: fish/fish.c:933
+#: fish/fish.c:939
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: nieprawidłowa sekwencja sterująca w ciągu (zaczyna się od offsetu %d)\n"
 
-#: fish/fish.c:942
+#: fish/fish.c:948
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niezakończony podwójny cudzysłów\n"
 
-#: fish/fish.c:1007
+#: fish/fish.c:1013
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:1154
+#: fish/fish.c:1169
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:1156
+#: fish/fish.c:1171
 msgid "quit guestfish"
 msgstr "kończy działanie programu guestfish"
 
-#: fish/fish.c:1167
+#: fish/fish.c:1182
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2704,7 +2659,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:1175
+#: fish/fish.c:1190
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2713,14 +2668,14 @@ msgstr ""
 "quit - kończy działanie programu guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1180
+#: fish/fish.c:1195
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
 "poleceń\n"
 
-#: fish/fish.c:1196
+#: fish/fish.c:1211
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2731,17 +2686,17 @@ msgstr ""
 "Lista poleceń:                        guestfish -h\n"
 "Pełna dokumentacja:                   man guestfish\n"
 
-#: fish/fish.c:1205
+#: fish/fish.c:1220
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: błąd: %s\n"
 
-#: fish/fish.c:1361
+#: fish/fish.c:1376
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cytat ucieczki w ciągu \"%s\"\n"
 
-#: fish/fish.c:1558
+#: fish/fish.c:1573
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -2750,7 +2705,7 @@ msgstr ""
 "%s: należy zbadać gościa (opcja \"-i\" lub polecenie \"inspect-os\"), aby "
 "użyć liter napędów systemu Windows\n"
 
-#: fish/fish.c:1578
+#: fish/fish.c:1593
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -2760,7 +2715,7 @@ msgstr ""
 "wykonać:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1597
+#: fish/fish.c:1612
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2772,12 +2727,12 @@ msgstr ""
 "  umount-all\n"
 "  mount %s /\n"
 
-#: fish/glob.c:54
+#: fish/glob.c:62
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "należy użyć \"glob polecenie [parametry...]\"\n"
 
-#: fish/glob.c:74
+#: fish/glob.c:127
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: wywołanie guestfs_glob_expand się nie powiodło: %s\n"
@@ -3508,12 +3463,12 @@ msgstr "{imagename} nie jest nazwą nieaktywnej domeny biblioteki libvirt\n"
 msgid "{imagename} is not the name of a libvirt domain\n"
 msgstr "{imagename} nie jest nazwą domeny biblioteki libvirt\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:242
+#: perl/lib/Sys/Guestfs/Lib.pm:246
 #, perl-brace-format
 msgid "{imagename} seems to have no disk devices\n"
 msgstr "{imagename} nie posiada żadnych urządzeń dyskowych\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:827
+#: perl/lib/Sys/Guestfs/Lib.pm:831
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
@@ -3532,56 +3487,56 @@ msgstr ""
 "Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
 "informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:945
+#: perl/lib/Sys/Guestfs/Lib.pm:949
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "nieznany system plików {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1023
+#: perl/lib/Sys/Guestfs/Lib.pm:1027
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "Błąd podczas wykonywania polecenia rpm -qa: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1049
+#: perl/lib/Sys/Guestfs/Lib.pm:1053
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "Błąd podczas wykonywania polecenia dpkg-query: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1114
+#: perl/lib/Sys/Guestfs/Lib.pm:1118
 msgid "Can't find grub on guest"
 msgstr "Nie można odnaleźć programu GRUB w gościu"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1169
+#: perl/lib/Sys/Guestfs/Lib.pm:1173
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "Wpis programu GRUB {title} nie posiada jądra"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1200
+#: perl/lib/Sys/Guestfs/Lib.pm:1204
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "program GRUB odnosi się do {path}, który nie istnieje\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1223
+#: perl/lib/Sys/Guestfs/Lib.pm:1227
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "Wpis programu GRUB {title} nie określa initrd"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1292
+#: perl/lib/Sys/Guestfs/Lib.pm:1296
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "Nie odnaleziono katalogu modułów {modules} dla jądra {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1300
+#: perl/lib/Sys/Guestfs/Lib.pm:1304
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "Nie można odgadnąć numeru wersji jądra ze ścieżki jądra {path}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1354
+#: perl/lib/Sys/Guestfs/Lib.pm:1358
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} nie zgadza się ze wzorem Augeas"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1393
+#: perl/lib/Sys/Guestfs/Lib.pm:1397
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
@@ -4300,41 +4255,41 @@ msgid "unexpected output from 'du' command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
 #: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
-#: tools/virt-make-fs.pl:478
+#: tools/virt-make-fs.pl:489
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: nieznany format wyjścia: {fmt}\n"
 
-#: tools/virt-make-fs.pl:395
+#: tools/virt-make-fs.pl:402
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: nie można przetworzyć parametru rozmiaru: {sz}\n"
 
-#: tools/virt-make-fs.pl:410
+#: tools/virt-make-fs.pl:417
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: utworzenie obrazu dysku się nie powiodło, proszę zobaczyć "
 "wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:421
+#: tools/virt-make-fs.pl:428
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: obsługa systemu plików NTFS została wyłączona podczas "
 "komplikacji biblioteki libguestfs\n"
 
-#: tools/virt-make-fs.pl:462
+#: tools/virt-make-fs.pl:473
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
 "tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:484
+#: tools/virt-make-fs.pl:495
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "polecenie uncompress się nie powiodło, proszę zobaczyć wcześniejsze "
 "komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:519
+#: tools/virt-make-fs.pl:530
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -5402,6 +5357,125 @@ msgstr ""
 #: sparsify/sparsify.ml:130 resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
+
+#~ msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+#~ msgstr ""
+#~ "%s: nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
+
+#~ msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+#~ msgstr ""
+#~ "%s: nie można uzyskać liczby uruchomionych domen (kod %d, domena %d): %s"
+
+#~ msgid "%s: could not list running domains (code %d, domain %d): %s"
+#~ msgstr ""
+#~ "%s: nie można wyświetlić listy uruchomionych domen (kod %d, domena %d): %s"
+
+#~ msgid ""
+#~ "%s: could not get number of inactive domains (code %d, domain %d): %s"
+#~ msgstr ""
+#~ "%s: nie można uzyskać liczby nieaktywnych domen (kod %d, domena %d): %s"
+
+#~ msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+#~ msgstr ""
+#~ "%s: nie można wyświetlić listy nieaktywnych domen (kod %d, domena %d): %s"
+
+#~ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+#~ msgstr "%s: ignorowanie %s, posiada za dużo dysków (%zu > %d)"
+
+#~ msgid ""
+#~ "%s: guest filesystem shell\n"
+#~ "%s lets you edit virtual machine filesystems\n"
+#~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] cmd [: cmd : cmd ...]\n"
+#~ "Options:\n"
+#~ "  -h|--cmd-help        List available commands\n"
+#~ "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --csh                Make --listen csh-compatible\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  -f|--file file       Read commands from file\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  -i|--inspector       Automatically mount filesystems\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  --listen             Listen for remote commands\n"
+#~ "  --live               Connect to a live virtual machine\n"
+#~ "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
+#~ "  -n|--no-sync         Don't autosync\n"
+#~ "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+#~ "  --progress-bars      Enable progress bars even when not interactive\n"
+#~ "  --no-progress-bars   Disable progress bars\n"
+#~ "  --remote[=pid]       Send commands to remote %s\n"
+#~ "  -r|--ro              Mount read-only\n"
+#~ "  --selinux            Enable SELinux support\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -w|--rw              Mount read-write\n"
+#~ "  -x                   Echo each command before executing it\n"
+#~ "\n"
+#~ "To examine a disk image, ISO, hard disk, filesystem etc:\n"
+#~ "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+#~ "or\n"
+#~ "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+#~ "\n"
+#~ "--ro recommended to avoid any writes to the disk image.  If -i option "
+#~ "fails\n"
+#~ "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+#~ "\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: powłoka systemu plików gościa\n"
+#~ "%s umożliwia modyfikowanie systemów plików maszyn wirtualnych\n"
+#~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
+#~ "Użycie:\n"
+#~ "  %s [--opcje] polecenie [: polecenie : polecenie...]\n"
+#~ "Opcje:\n"
+#~ "  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
+#~ "  -h|--cmd-help polecenie Wyświetla szczegółową pomoc o \"poleceniu\"\n"
+#~ "  -a|--add image       Dodaje obraz\n"
+#~ "  -c|--connect uri     Określa adres URI biblioteki libvirt dla opcji -d\n"
+#~ "  --csh                Sprawia, że --listen jest zgodne z formatem csh\n"
+#~ "  -d|--domain gość     Dodaje dyski z gościa biblioteki libvirt\n"
+#~ "  -D|--no-dest-paths   Bez uzupełniania ścieżek z systemu plików gościa\n"
+#~ "                       tabulacją\n"
+#~ "  --echo-keys          Bez wyłączania echa dla haseł\n"
+#~ "  -f|--file plik       Odczytuje polecenia z pliku\n"
+#~ "  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
+#~ "  -i|--inspector       Automatycznie montuje systemy plików\n"
+#~ "  --keys-from-stdin    Odczytuje hasła ze standardowego wejścia\n"
+#~ "  --listen             Nasłuchuje zdalnych poleceń\n"
+#~ "  --live               Łączy z maszyną wirtualną live\n"
+#~ "  -m|--mount dev[:mnt[:opcje]] Montuje urządzenie w mnt (jeśli "
+#~ "pominięto,\n"
+#~ "                       to w /)\n"
+#~ "  -n|--no-sync         Bez automatycznego synchronizowania\n"
+#~ "  -N|--new typ         Tworzy przygotowany dysk (test1.img, ...)\n"
+#~ "  --progress-bars      Włącza paski postępu nawet, jeśli nie jest w "
+#~ "trybie\n"
+#~ "                       interaktywnym\n"
+#~ "  --no-progress-bars   Wyłącza paski postępu\n"
+#~ "  --remote[=pid]       Wysyła polecenia do zdalnego %s\n"
+#~ "  -r|--ro              Montuje tylko do odczytu\n"
+#~ "  --selinux            Włącza obsługę SELinuksa\n"
+#~ "  -v|--verbose         Więcej komunikatów\n"
+#~ "  -V|--version         Wyświetla wersję i kończy działanie\n"
+#~ "  -w|--rw              Montuje do odczytu i zapisu\n"
+#~ "  -x                   Powtarza każde polecenie przed jego wykonaniem\n"
+#~ "\n"
+#~ "Aby sprawdzić obraz dysku, plik ISO, dysk twardy, system plików itd.:\n"
+#~ "  %s [--ro|--rw] -i -a /ścieżka/do/dysku.img\n"
+#~ "lub\n"
+#~ "  %s [--ro|--rw] -i -d nazwa-domeny-biblioteki-libvirt\n"
+#~ "\n"
+#~ "Opcja --ro jest zalecana, aby uniknąć zapisu do obrazu dysku. Jeśli "
+#~ "opcja\n"
+#~ "-i się nie powiedzie, to należy wykonać ponownie bez niej i użyć poleceń\n"
+#~ "\"run\" + \"list-filesystems\" + \"mount\".\n"
+#~ "\n"
+#~ "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #~ msgid "guestfs_set_busy: called when in state %d != READY"
 #~ msgstr "guestfs_set_busy: wywołano, kiedy w stanie %d != GOTOWY"
