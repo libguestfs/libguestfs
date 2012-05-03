@@ -234,7 +234,11 @@ sub open_guest
 
             # Get the disk format (may not be set).
             my $format = $p->find ('./driver/@type', $node);
-            $format = $format->to_literal if $format;
+            if ($format) {
+                $format = $format->to_literal;
+            } else {
+                undef $format; # RHBZ#701814.
+            }
 
             push @disks, [ $filename, $format ];
         }
