@@ -58,6 +58,12 @@ directory to try it.
 Set the launch timeout to C<N> seconds.  The default is 600 seconds
 (10 minutes) which does not usually need to be adjusted.
 
+=item B<-V>
+
+=item B<--version>
+
+Display the libguestfs version number and exit.
+
 =back
 
 =head1 TRYING OUT A DIFFERENT VERSION OF QEMU

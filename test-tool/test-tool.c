@@ -74,6 +74,8 @@ usage (void)
             "  --qemu qemu    Specify QEMU binary\n"
             "  --timeout n\n"
             "  -t n           Set launch timeout (default: %d seconds)\n"
+            "  --version\n"
+            "  -V             Display libguestfs version and exit\n"
             ),
           DEFAULT_TIMEOUT);
 }
@@ -87,12 +89,13 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
 
-  static const char *options = "t:?";
+  static const char *options = "t:V?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
     { "qemu", 1, 0, 0 },
     { "qemudir", 1, 0, 0 },
     { "timeout", 1, 0, 't' },
+    { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
   };
   int c;
@@ -100,6 +103,20 @@ main (int argc, char *argv[])
   int i;
   struct guestfs_version *vers;
   char *p;
+
+  /* Create the handle. */
+  g = guestfs_create ();
+  if (g == NULL) {
+    fprintf (stderr,
+             _("libguestfs-test-tool: failed to create libguestfs handle\n"));
+    exit (EXIT_FAILURE);
+  }
+  guestfs_set_verbose (g, 1);
+  vers = guestfs_version (g);
+  if (vers == NULL) {
+    fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
+    exit (EXIT_FAILURE);
+  }
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -128,6 +145,13 @@ main (int argc, char *argv[])
       }
       break;
 
+    case 'V':
+      printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
+              "libguestfs-test-tool",
+              vers->major, vers->minor, vers->release, vers->extra);
+      guestfs_set_verbose (g, 0);
+      exit (EXIT_SUCCESS);
+
     case '?':
       usage ();
       exit (EXIT_SUCCESS);
@@ -144,9 +168,6 @@ main (int argc, char *argv[])
 
   printf ("===== Test starts here =====\n");
 
-  /* Must set LIBGUESTFS_DEBUG=1 */
-  setenv ("LIBGUESTFS_DEBUG", "1", 1);
-
   /* Print out any environment variables which may relate to this test. */
   for (i = 0; environ[i] != NULL; ++i)
     if (STREQLEN (environ[i], "LIBGUESTFS_", 11))
@@ -156,13 +177,7 @@ main (int argc, char *argv[])
       printf ("%s\n", environ[i]);
   printf ("TMPDIR=%s\n", getenv ("TMPDIR") ? : "(not set)");
 
-  /* Create the handle and configure it. */
-  g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to create libguestfs handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  /* Configure the handle. */
   if (guestfs_add_drive_opts (g, tmpf,
                               GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                               -1) == -1) {
@@ -173,11 +188,6 @@ main (int argc, char *argv[])
   }
 
   /* Print any version info etc. */
-  vers = guestfs_version (g);
-  if (vers == NULL) {
-    fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
-    exit (EXIT_FAILURE);
-  }
   printf ("library version: %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
           vers->major, vers->minor, vers->release, vers->extra);
   guestfs_free_version (vers);
@@ -287,7 +297,7 @@ set_qemu (const char *path, int use_wrapper)
       exit (EXIT_FAILURE);
     }
 
-    setenv ("LIBGUESTFS_QEMU", path, 1);
+    guestfs_set_qemu (g, path);
     return;
   }
 
@@ -328,7 +338,7 @@ set_qemu (const char *path, int use_wrapper)
 
   fclose (fp);
 
-  setenv ("LIBGUESTFS_QEMU", qemuwrapper, 1);
+  guestfs_set_qemu (g, qemuwrapper);
   atexit (cleanup_wrapper);
 }
 
