@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-03 16:46+0100\n"
-"PO-Revision-Date: 2012-03-30 17:27+0000\n"
+"POT-Creation-Date: 2012-05-08 15:34+0100\n"
+"PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
 "Language: es\n"
@@ -621,38 +621,32 @@ msgid "set block device to read-write"
 msgstr "configura el dispositivo de bloques con modo de lectura y de escritura"
 
 #: fish/cmds.c:3038
-#, fuzzy
 msgid "add devices to a btrfs filesystem"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3039
-#, fuzzy
 msgid "remove devices from a btrfs filesystem"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3040
-#, fuzzy
 msgid "balance a btrfs filesystem"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3041
 msgid "resize a btrfs filesystem"
 msgstr "redimensiona un sistema de archivos btrfs"
 
 #: fish/cmds.c:3042
-#, fuzzy
 msgid "sync a btrfs filesystem"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3043
-#, fuzzy
 msgid "create a btrfs snapshot"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3044
-#, fuzzy
 msgid "delete a btrfs snapshot"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3045
 msgid "list btrfs snapshots and subvolumes"
@@ -663,9 +657,8 @@ msgid "set default btrfs subvolume"
 msgstr ""
 
 #: fish/cmds.c:3047
-#, fuzzy
 msgid "create a writable btrfs snapshot"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3048
 msgid "return true path on case-insensitive filesystem"
@@ -913,14 +906,12 @@ msgid "get direct appliance mode flag"
 msgstr "obtiene marca directa de modo de dispositivo"
 
 #: fish/cmds.c:3111
-#, fuzzy
 msgid "get ext2 file attributes of a file"
-msgstr "establece un atributo extendido a un archivo o directorio"
+msgstr ""
 
 #: fish/cmds.c:3112
-#, fuzzy
 msgid "get ext2 file generation of a file"
-msgstr "obtiene información de archivo de un enlace simbólico determinado"
+msgstr ""
 
 #: fish/cmds.c:3113
 msgid "get the ext2/3/4 filesystem label"
@@ -1438,9 +1429,8 @@ msgid "make a filesystem with block size"
 msgstr "genera un sistema de archivos con tamaño de bloques"
 
 #: fish/cmds.c:3250
-#, fuzzy
 msgid "create a btrfs filesystem"
-msgstr "redimensiona un sistema de archivos btrfs"
+msgstr ""
 
 #: fish/cmds.c:3252
 msgid "create a mountpoint"
@@ -1733,14 +1723,12 @@ msgid "enable or disable direct appliance mode"
 msgstr "habilita o deshabilita modo directo de dispositivo"
 
 #: fish/cmds.c:3327
-#, fuzzy
 msgid "set ext2 file attributes of a file"
-msgstr "establece un atributo extendido a un archivo o directorio"
+msgstr ""
 
 #: fish/cmds.c:3328
-#, fuzzy
 msgid "set ext2 file generation of a file"
-msgstr "lista los contenidos de un archivo"
+msgstr ""
 
 #: fish/cmds.c:3329
 msgid "set the ext2/3/4 filesystem label"
@@ -3413,7 +3401,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: no es posible leer formato initrd"
 
 #: rescue/virt-rescue.c:67
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3440,22 +3428,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: comprueba el alineamiento de particiones de máquinas virtuales \n"
-"Copyright (C) 2011 Red Hat Inc.\n"
-"Uso:\n"
-"  %s [--options] -d domname\n"
-"  %s [--options] -a disco.img [-a disco.img ...]\n"
-"Opciones:\n"
-"  -a|--add imagen       Añadir imagen\n"
-"  -c|--connect uri     Especificar URI de libvirt para opción -d \n"
-"  -d|--domain invitado    Añadir discos desde invitado libvirt \n"
-"  --format[=raw|..]    Forzar  formato de disco con opción -a \n"
-"  --help               Muestra una ayuda breve \n"
-"  -q|--quiet          Sin mensajes, solo código de salida\n"
-"  -v|--verbose      Mostrar mensajes más detallados\n"
-"  -V|--version      Mostra  versión y salir\n"
-"  -x                   Rastrear llamadas a la API libguestfs\n"
-"Para más información, consultar página del manual %s(1).\n"
 
 #: rescue/virt-rescue.c:170
 #, c-format
@@ -3468,14 +3440,14 @@ msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr "%s: el parámetro  --smp '%s' debería ser >= 1\n"
 
 #: rescue/virt-rescue.c:188
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr "%s: no pudo parsearse el parametro  --smp '%s'\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
-msgstr "%s: el parámetro  --smp '%s' debería ser >= 1\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:224
 #, c-format
@@ -3742,10 +3714,9 @@ msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: no está permitido el parámetro '%s'"
 
 #: src/launch.c:291 src/launch.c:403
-#, fuzzy
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
-msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
+msgstr ""
 
 #: src/launch.c:306 src/launch.c:311
 #, c-format
@@ -3987,64 +3958,66 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:116
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: opción extensa desconocida: %s (%d)\n"
-
-#: test-tool/test-tool.c:125
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: tiempo de espera no válido: %s\n"
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: opción de línea de comando no esperada 0x%x\n"
-
-#: test-tool/test-tool.c:163
+#: test-tool/test-tool.c:111
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "bguestfs-test-tool: falló al crear el manipulador libguestfs\n"
 
-#: test-tool/test-tool.c:170
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: falló al agregar dispositivo '%s'\n"
-
-#: test-tool/test-tool.c:178
+#: test-tool/test-tool.c:117
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: falló guestfs_version\n"
 
-#: test-tool/test-tool.c:212
+#: test-tool/test-tool.c:133
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: opción extensa desconocida: %s (%d)\n"
+
+#: test-tool/test-tool.c:142
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: tiempo de espera no válido: %s\n"
+
+#: test-tool/test-tool.c:161
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: opción de línea de comando no esperada 0x%x\n"
+
+#: test-tool/test-tool.c:185
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: falló al agregar dispositivo '%s'\n"
+
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: falló al intentar lanzar dispositivo\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: falló al ejecutar part-disk\n"
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: falló al realizar mkfs.ext2\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: falló al montar /dev/sda1 sobre /\n"
 
-#: test-tool/test-tool.c:243
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: falló al tocar el archivo\n"
 
-#: test-tool/test-tool.c:277
+#: test-tool/test-tool.c:287
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4053,12 +4026,12 @@ msgstr ""
 "la variable de entorno LIBGUESTFS_QEMU ya se encuentra definida,\n"
 "de modo que las opciones --qemu/--qemudir no pueden ser utilizadas.\n"
 
-#: test-tool/test-tool.c:285
+#: test-tool/test-tool.c:295
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "El binario '%s' no existe o no es un ejecutable\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:309
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: no parece un directorio fuente de qemu\n"
@@ -4758,6 +4731,10 @@ msgid ""
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
 
+#: sysprep/sysprep_operation_pam_data.ml:46
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
 #: sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
 msgstr ""
@@ -5191,42 +5168,3 @@ msgstr ""
 #: sparsify/sparsify.ml:130 resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
-
-#~ msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-#~ msgstr "%s: no se pudo conectar con libvirt (código %d, dominio %d): %s"
-
-#~ msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: no se pudo obtener la cantidad de dominios en ejecución (código %d, "
-#~ "dominio %d): %s"
-
-#~ msgid "%s: could not list running domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: no se pudo listar los dominios en ejecución (código %d, dominio %d): "
-#~ "%s"
-
-#~ msgid ""
-#~ "%s: could not get number of inactive domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: no se pudo obtener la cantidad de dominios inactivos (código %d, "
-#~ "dominio %d): %s"
-
-#~ msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: no se pudo listar los dominios inactivos (código %d, dominio %d): %s"
-
-#~ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
-#~ msgstr "%s: ignorando %s, posee demasiados discos (%zu > %d)"
-
-#~ msgid "guestfs_set_busy: called when in state %d != READY"
-#~ msgstr ""
-#~ "guestfs_set_busy: llamado cuando se encontraba en estado %d != READY "
-
-#~ msgid "guestfs_end_busy: called when in state %d"
-#~ msgstr "guestfs_end_busy: llamado cuando se encontraba en estado %d"
-
-#~ msgid "guestfs___send: state %d != BUSY"
-#~ msgstr "guestfs___send: estado %d != BUSY"
-
-#~ msgid "send_file_chunk: state %d != READY"
-#~ msgstr "send_file_chunk: estado %d != READY"

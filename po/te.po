@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-03 16:46+0100\n"
-"PO-Revision-Date: 2012-03-30 17:27+0000\n"
+"POT-Creation-Date: 2012-05-08 15:34+0100\n"
+"PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/language/"
 "te/)\n"
@@ -520,38 +520,32 @@ msgid "set block device to read-write"
 msgstr "బ్లాక్ పరికరమును చదువుట-వ్రాయుటకు అమర్చుము"
 
 #: fish/cmds.c:3038
-#, fuzzy
 msgid "add devices to a btrfs filesystem"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3039
-#, fuzzy
 msgid "remove devices from a btrfs filesystem"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3040
-#, fuzzy
 msgid "balance a btrfs filesystem"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3041
 msgid "resize a btrfs filesystem"
 msgstr ""
 
 #: fish/cmds.c:3042
-#, fuzzy
 msgid "sync a btrfs filesystem"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3043
-#, fuzzy
 msgid "create a btrfs snapshot"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3044
-#, fuzzy
 msgid "delete a btrfs snapshot"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3045
 msgid "list btrfs snapshots and subvolumes"
@@ -562,9 +556,8 @@ msgid "set default btrfs subvolume"
 msgstr ""
 
 #: fish/cmds.c:3047
-#, fuzzy
 msgid "create a writable btrfs snapshot"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3048
 msgid "return true path on case-insensitive filesystem"
@@ -801,14 +794,12 @@ msgid "get direct appliance mode flag"
 msgstr "డైరెక్ట్ అప్లయెన్స్ రితి ఫ్లాగ్‌ను పొందుము"
 
 #: fish/cmds.c:3111
-#, fuzzy
 msgid "get ext2 file attributes of a file"
-msgstr "ఫైలు లేదా డైరెక్టరీ యొక్క పొడిగించిన యాట్రిబ్యూట్‌ను అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:3112
-#, fuzzy
 msgid "get ext2 file generation of a file"
-msgstr "సింబాలిక్ లింకు కొరకు ఫైలు సమాచారమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:3113
 msgid "get the ext2/3/4 filesystem label"
@@ -1315,9 +1306,8 @@ msgid "make a filesystem with block size"
 msgstr "బ్లాక్ పరిమాణముతో ఫైలుసిస్టమ్‌ను చేయుము"
 
 #: fish/cmds.c:3250
-#, fuzzy
 msgid "create a btrfs filesystem"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:3252
 msgid "create a mountpoint"
@@ -1608,14 +1598,12 @@ msgid "enable or disable direct appliance mode"
 msgstr "నేరుగా ఆపాదించు రీతిని చేతనముచేయి లేదా అచేతనముచేయి"
 
 #: fish/cmds.c:3327
-#, fuzzy
 msgid "set ext2 file attributes of a file"
-msgstr "ఫైలు లేదా డైరెక్టరీ యొక్క పొడిగించిన యాట్రిబ్యూట్‌ను అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:3328
-#, fuzzy
 msgid "set ext2 file generation of a file"
-msgstr "ఫైలు యొక్క సారములను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:3329
 msgid "set the ext2/3/4 filesystem label"
@@ -3219,9 +3207,9 @@ msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
 #: rescue/virt-rescue.c:188
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr "%s అనునది %d పారామితి(ల)ను కలిగివుండాలి\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:194
 #, c-format
@@ -3479,10 +3467,9 @@ msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: పారామితి '%s' అనుమతించబడదు"
 
 #: src/launch.c:291 src/launch.c:403
-#, fuzzy
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
-msgstr "ఫైల్‌నామము ',' (కామా) ఆక్షరమును కలిగివుండలేదు"
+msgstr ""
 
 #: src/launch.c:306 src/launch.c:311
 #, c-format
@@ -3691,64 +3678,66 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:116
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
-
-#: test-tool/test-tool.c:125
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
-
-#: test-tool/test-tool.c:163
+#: test-tool/test-tool.c:111
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:170
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
-
-#: test-tool/test-tool.c:178
+#: test-tool/test-tool.c:117
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
 
-#: test-tool/test-tool.c:212
+#: test-tool/test-tool.c:133
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
+
+#: test-tool/test-tool.c:142
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
+
+#: test-tool/test-tool.c:161
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
+
+#: test-tool/test-tool.c:185
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
+
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:243
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:277
+#: test-tool/test-tool.c:287
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3757,12 +3746,12 @@ msgstr ""
 "LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ యిప్పటికే అమర్చబడింది, అందువలన\n"
 "--qemu/--qemudir ఐచ్చికములు వుపయోగించలేము.\n"
 
-#: test-tool/test-tool.c:285
+#: test-tool/test-tool.c:295
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:309
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
@@ -4430,6 +4419,10 @@ msgid ""
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
 
+#: sysprep/sysprep_operation_pam_data.ml:46
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
 #: sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
 msgstr ""
@@ -4863,15 +4856,3 @@ msgstr ""
 #: sparsify/sparsify.ml:130 resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
-
-#~ msgid "guestfs_set_busy: called when in state %d != READY"
-#~ msgstr "guestfs_set_busy: state %d != READY అయినప్పుడు పిలువబడును"
-
-#~ msgid "guestfs_end_busy: called when in state %d"
-#~ msgstr "guestfs_end_busy: state %d నందు పిలువబడును"
-
-#~ msgid "guestfs___send: state %d != BUSY"
-#~ msgstr "guestfs___send: state %d != BUSY"
-
-#~ msgid "send_file_chunk: state %d != READY"
-#~ msgstr "send_file_chunk: state %d != READY"

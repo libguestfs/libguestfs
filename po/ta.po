@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-03 16:46+0100\n"
-"PO-Revision-Date: 2012-03-30 17:27+0000\n"
+"POT-Creation-Date: 2012-05-08 15:34+0100\n"
+"PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
 "Language: ta\n"
@@ -519,38 +519,32 @@ msgid "set block device to read-write"
 msgstr "தொகுதி சாதனத்தை வாசிக்க-எழுதுவதற்கு அமை"
 
 #: fish/cmds.c:3038
-#, fuzzy
 msgid "add devices to a btrfs filesystem"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3039
-#, fuzzy
 msgid "remove devices from a btrfs filesystem"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3040
-#, fuzzy
 msgid "balance a btrfs filesystem"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3041
 msgid "resize a btrfs filesystem"
 msgstr ""
 
 #: fish/cmds.c:3042
-#, fuzzy
 msgid "sync a btrfs filesystem"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3043
-#, fuzzy
 msgid "create a btrfs snapshot"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3044
-#, fuzzy
 msgid "delete a btrfs snapshot"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3045
 msgid "list btrfs snapshots and subvolumes"
@@ -561,9 +555,8 @@ msgid "set default btrfs subvolume"
 msgstr ""
 
 #: fish/cmds.c:3047
-#, fuzzy
 msgid "create a writable btrfs snapshot"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3048
 msgid "return true path on case-insensitive filesystem"
@@ -801,14 +794,12 @@ msgid "get direct appliance mode flag"
 msgstr "நேரடி பயன்பாட்டு முறைமை கொடியை பெறு"
 
 #: fish/cmds.c:3111
-#, fuzzy
 msgid "get ext2 file attributes of a file"
-msgstr "ஒரு கோப்பு அல்லது அடைவின் விரிவாக்கப்பட்ட தன்மையை அமை"
+msgstr ""
 
 #: fish/cmds.c:3112
-#, fuzzy
 msgid "get ext2 file generation of a file"
-msgstr "ஒரு symbolic இணைப்பிற்கான கோப்பு தகவலைப் பெறு"
+msgstr ""
 
 #: fish/cmds.c:3113
 msgid "get the ext2/3/4 filesystem label"
@@ -1315,9 +1306,8 @@ msgid "make a filesystem with block size"
 msgstr "ஒரு கோப்புமுறையை தடுப்பு அளவுடன் செய்"
 
 #: fish/cmds.c:3250
-#, fuzzy
 msgid "create a btrfs filesystem"
-msgstr "ஒரு கோப்புமுறையை செய்"
+msgstr ""
 
 #: fish/cmds.c:3252
 msgid "create a mountpoint"
@@ -1608,14 +1598,12 @@ msgid "enable or disable direct appliance mode"
 msgstr "நேரடி பயன்பாடு முறைமையை செயல்படுத்து அல்லது செயல்நீக்கு"
 
 #: fish/cmds.c:3327
-#, fuzzy
 msgid "set ext2 file attributes of a file"
-msgstr "ஒரு கோப்பு அல்லது அடைவின் விரிவாக்கப்பட்ட தன்மையை அமை"
+msgstr ""
 
 #: fish/cmds.c:3328
-#, fuzzy
 msgid "set ext2 file generation of a file"
-msgstr "ஒரு கோப்பின் உள்ளடக்கங்களின் பட்டியல்"
+msgstr ""
 
 #: fish/cmds.c:3329
 msgid "set the ext2/3/4 filesystem label"
@@ -3221,9 +3209,9 @@ msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
 #: rescue/virt-rescue.c:188
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr "%s ஆனது %d அளவுருக்(களை) பெற்றிருக்க வேண்டும்\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:194
 #, c-format
@@ -3481,10 +3469,9 @@ msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: அளவுரு '%s' அனுமதிக்கப்படுவதில்லை"
 
 #: src/launch.c:291 src/launch.c:403
-#, fuzzy
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
-msgstr "கோப்புபெயர் ',' (கம்மா) எழுத்தை கொண்டிருக்கவில்லை"
+msgstr ""
 
 #: src/launch.c:306 src/launch.c:311
 #, c-format
@@ -3694,64 +3681,66 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:116
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
-
-#: test-tool/test-tool.c:125
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: தவறான நேரமுடிவு: %s\n"
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: எதிர்பாராத கட்டளை வரி விருப்பம் 0x%x\n"
-
-#: test-tool/test-tool.c:163
+#: test-tool/test-tool.c:111
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs ஹாண்டிலை உருவாக்க முடியவில்லை\n"
 
-#: test-tool/test-tool.c:170
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: இயக்கி '%s' உடன் இணைக்க முடியவில்லை\n"
-
-#: test-tool/test-tool.c:178
+#: test-tool/test-tool.c:117
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version தோல்வியுற்றது\n"
 
-#: test-tool/test-tool.c:212
+#: test-tool/test-tool.c:133
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
+
+#: test-tool/test-tool.c:142
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: தவறான நேரமுடிவு: %s\n"
+
+#: test-tool/test-tool.c:161
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: எதிர்பாராத கட்டளை வரி விருப்பம் 0x%x\n"
+
+#: test-tool/test-tool.c:185
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: இயக்கி '%s' உடன் இணைக்க முடியவில்லை\n"
+
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 தோல்வியுற்றது\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: mount /dev/sda1ல் ஏற முடியவில்லை /\n"
 
-#: test-tool/test-tool.c:243
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:277
+#: test-tool/test-tool.c:287
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3760,12 +3749,12 @@ msgstr ""
 "LIBGUESTFS_QEMU சூழல் மாறிலி ஏற்கனவே அமைக்கப்பட்டது , ஆகையால்\n"
 "--qemu/--qemudir விருப்பங்கள் பயன்படுத்தப்படவில்லை.\n"
 
-#: test-tool/test-tool.c:285
+#: test-tool/test-tool.c:295
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Binary '%s' does not exist or is not executable\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:309
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ஒரு qemu மூல அடைவு போல் இல்லை\n"
@@ -4433,6 +4422,10 @@ msgid ""
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
 
+#: sysprep/sysprep_operation_pam_data.ml:46
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
 #: sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
 msgstr ""
@@ -4866,15 +4859,3 @@ msgstr ""
 #: sparsify/sparsify.ml:130 resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
-
-#~ msgid "guestfs_set_busy: called when in state %d != READY"
-#~ msgstr "guestfs_set_busy: %d நிலையில் உள்ள போது அழைத்தது!= READY"
-
-#~ msgid "guestfs_end_busy: called when in state %d"
-#~ msgstr "guestfs_end_busy: நிலை %dல் உள்ள போது அழைத்தது"
-
-#~ msgid "guestfs___send: state %d != BUSY"
-#~ msgstr "guestfs___send: நிலை%d != BUSY"
-
-#~ msgid "send_file_chunk: state %d != READY"
-#~ msgstr "send_file_chunk: நிலை %d != READY"

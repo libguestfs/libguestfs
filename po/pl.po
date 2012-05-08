@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-03 16:46+0100\n"
-"PO-Revision-Date: 2012-03-30 17:27+0000\n"
+"POT-Creation-Date: 2012-05-08 15:34+0100\n"
+"PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/language/"
 "pl/)\n"
@@ -116,12 +116,12 @@ msgstr "%s: nieznana długa opcja: %s (%d)\n"
 #: align/scan.c:209 df/main.c:266
 #, c-format
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
-msgstr ""
+msgstr "%s: skompilowano bez obsługi biblioteki libvirt i/lub libxml2.\n"
 
 #: align/scan.c:215
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
-msgstr "%s: opcji --lvm nie można podać wiele razy\n"
+msgstr ""
 
 #: align/scan.c:304
 msgid "alignment < 4K"
@@ -664,38 +664,32 @@ msgid "set block device to read-write"
 msgstr "ustawia urządzenie blokowe w tryb odczytu i zapisu"
 
 #: fish/cmds.c:3038
-#, fuzzy
 msgid "add devices to a btrfs filesystem"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3039
-#, fuzzy
 msgid "remove devices from a btrfs filesystem"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3040
-#, fuzzy
 msgid "balance a btrfs filesystem"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3041
 msgid "resize a btrfs filesystem"
 msgstr "zmienia rozmiar systemu plików btrfs"
 
 #: fish/cmds.c:3042
-#, fuzzy
 msgid "sync a btrfs filesystem"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3043
-#, fuzzy
 msgid "create a btrfs snapshot"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3044
-#, fuzzy
 msgid "delete a btrfs snapshot"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3045
 msgid "list btrfs snapshots and subvolumes"
@@ -706,9 +700,8 @@ msgid "set default btrfs subvolume"
 msgstr ""
 
 #: fish/cmds.c:3047
-#, fuzzy
 msgid "create a writable btrfs snapshot"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3048
 msgid "return true path on case-insensitive filesystem"
@@ -948,14 +941,12 @@ msgid "get direct appliance mode flag"
 msgstr "uzyskuje bezpośrednią flagę trybu przyrządu"
 
 #: fish/cmds.c:3111
-#, fuzzy
 msgid "get ext2 file attributes of a file"
-msgstr "ustawia rozszerzony atrybut pliku lub katalogu"
+msgstr ""
 
 #: fish/cmds.c:3112
-#, fuzzy
 msgid "get ext2 file generation of a file"
-msgstr "uzyskuje informacje o dowiązaniu symbolicznym"
+msgstr ""
 
 #: fish/cmds.c:3113
 msgid "get the ext2/3/4 filesystem label"
@@ -1242,11 +1233,11 @@ msgstr "testuje, czy urządzenie zawiera same zerowe bajty"
 
 #: fish/cmds.c:3185
 msgid "get ISO information from primary volume descriptor of ISO file"
-msgstr ""
+msgstr "pobiera informacje ISO z deskryptora podstawowego woluminu pliku ISO"
 
 #: fish/cmds.c:3186
 msgid "get ISO information from primary volume descriptor of device"
-msgstr ""
+msgstr "pobiera informacje ISO z deskryptora podstawowego woluminu urządzenia"
 
 #: fish/cmds.c:3187
 msgid "kill the qemu subprocess"
@@ -1357,7 +1348,7 @@ msgstr "tworzy wolumin logiczny LVM"
 
 #: fish/cmds.c:3219
 msgid "create an LVM logical volume in % remaining free space"
-msgstr ""
+msgstr "tworzy wolumin logiczny LVM w % pozostałego wolnego miejsca"
 
 #: fish/cmds.c:3220
 msgid "get canonical name of an LV"
@@ -1418,7 +1409,7 @@ msgstr "pobiera metadane dla urządzenia MD"
 
 #: fish/cmds.c:3235
 msgid "get underlying devices from an MD device"
-msgstr ""
+msgstr "pobiera podstawowe urządzenia z urządzenia MD"
 
 #: fish/cmds.c:3236
 msgid "stop a Linux md (RAID) device"
@@ -1469,9 +1460,8 @@ msgid "make a filesystem with block size"
 msgstr "tworzy system plików za pomocą rozmiaru bloków"
 
 #: fish/cmds.c:3250
-#, fuzzy
 msgid "create a btrfs filesystem"
-msgstr "zmienia rozmiar systemu plików btrfs"
+msgstr ""
 
 #: fish/cmds.c:3252
 msgid "create a mountpoint"
@@ -1523,11 +1513,11 @@ msgstr "montuje system plików 9p"
 
 #: fish/cmds.c:3264
 msgid "mount on the local filesystem"
-msgstr ""
+msgstr "montuje w lokalnym systemie plików"
 
 #: fish/cmds.c:3265
 msgid "run main loop of mount on the local filesystem"
-msgstr ""
+msgstr "wykonuje główną pętlę montowania w lokalnym systemie plików"
 
 #: fish/cmds.c:3266
 msgid "mount a file using the loop device"
@@ -1765,14 +1755,12 @@ msgid "enable or disable direct appliance mode"
 msgstr "włącza lub wyłącza tryb bezpośredniego przyrządu"
 
 #: fish/cmds.c:3327
-#, fuzzy
 msgid "set ext2 file attributes of a file"
-msgstr "ustawia rozszerzony atrybut pliku lub katalogu"
+msgstr ""
 
 #: fish/cmds.c:3328
-#, fuzzy
 msgid "set ext2 file generation of a file"
-msgstr "wyświetla listę zawartości pliku"
+msgstr ""
 
 #: fish/cmds.c:3329
 msgid "set the ext2/3/4 filesystem label"
@@ -1985,7 +1973,7 @@ msgstr "odmontowuje wszystkie systemy plików"
 
 #: fish/cmds.c:3386
 msgid "unmount a locally mounted filesystem"
-msgstr ""
+msgstr "odmontowuje lokalnie zamontowany system plików"
 
 #: fish/cmds.c:3387
 msgid "unset an environment variable"
@@ -2039,7 +2027,7 @@ msgstr "uzyskuje UUID wszystkich woluminów logicznych w grupie woluminów"
 
 #: fish/cmds.c:3399
 msgid "get volume group metadata"
-msgstr ""
+msgstr "pobiera metadane grupy woluminów"
 
 #: fish/cmds.c:3400
 msgid "get the PV UUIDs containing the volume group"
@@ -2104,7 +2092,7 @@ msgstr "zapisuje zera na całym urządzeniu"
 
 #: fish/cmds.c:3418
 msgid "zero free space in a filesystem"
-msgstr ""
+msgstr "zeruje wolne miejsce w systemie plików"
 
 #: fish/cmds.c:3419
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
@@ -3542,7 +3530,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: nie można odczytać formatu initrd"
 
 #: rescue/virt-rescue.c:67
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3569,30 +3557,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: uruchamia powłokę ratunkową w maszynie wirtualnej\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Użycie:\n"
-"  %s [--opcje] -d nazwa_domeny\n"
-"  %s [--opcje] -a dysk.img [-a dysk.img...]\n"
-"Opcje:\n"
-"  -a|--add obraz       Dodaje obraz\n"
-"  --append opcje_jądra Dołącza opcje jądra\n"
-"  -c|--connect uri     Określa adres URI biblioteki libvirt dla opcji -d\n"
-"  -d|--domain gość     Dodaje dysku z gościa biblioteki libvirt\n"
-"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
-"  --help               Wyświetla krótką pomoc\n"
-"  -m|--memsize MB      Ustawia rozmiar pamięci w megabajtach\n"
-"  --network            Włącza sieć\n"
-"  -r|--ro              Dostęp tylko do odczytu\n"
-"  --selinux            Włącza SELinuksa\n"
-"  --smp N              Włącza SMP za pomocą N &gt;= 2 wirtualnych "
-"procesorów\n"
-"  --suggest            Sugeruje polecenie mount dla tego gościa\n"
-"  -v|--verbose         Więcej komunikatów\n"
-"  -V|--version         Wyświetla wersję i kończy działanie\n"
-"  -w|--rw              Montuje do odczytu i zapisu\n"
-"  -x                   Śledzi wywołania API biblioteki libguestfs\n"
-"Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
 
 #: rescue/virt-rescue.c:170
 #, c-format
@@ -3605,14 +3569,14 @@ msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr "%s: parametr \"%s\" opcji --smp powinien wynosić >= 1\n"
 
 #: rescue/virt-rescue.c:188
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr "%s: nie można przetworzyć parametru \"%s\" opcji --smp\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
-msgstr "%s: parametr \"%s\" opcji --smp powinien wynosić >= 1\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:224
 #, c-format
@@ -3759,53 +3723,53 @@ msgstr ""
 
 #: src/fuse.c:925
 msgid "filesystem is already mounted in another thread"
-msgstr ""
+msgstr "system plików jest już zamontowany w innym wątku"
 
 #: src/fuse.c:950
 #, c-format
 msgid "fuse_opt_add_arg: %s"
-msgstr ""
+msgstr "fuse_opt_add_arg: %s"
 
 #: src/fuse.c:967
 #, c-format
 msgid "fuse_mount: %s"
-msgstr ""
+msgstr "fuse_mount: %s"
 
 #: src/fuse.c:985
 #, c-format
 msgid "fuse_new: %s"
-msgstr ""
+msgstr "fuse_new: %s"
 
 #: src/fuse.c:1014
 msgid "you must call guestfs_mount_local first"
-msgstr ""
+msgstr "należy najpierw wywołać guestfs_mount_local"
 
 #: src/fuse.c:1023
 #, c-format
 msgid "fuse_loop: %s"
-msgstr ""
+msgstr "fuse_loop: %s"
 
 #: src/fuse.c:1076
 msgid "no filesystem is mounted"
-msgstr ""
+msgstr "żaden system plików nie jest zamontowany"
 
 #: src/fuse.c:1089
 #, c-format
 msgid "open: %s"
-msgstr ""
+msgstr "otwarcie: %s"
 
 #: src/fuse.c:1125
 #, c-format
 msgid "fusermount failed: %s: %s"
-msgstr ""
+msgstr "fusermount się nie powiodło: %s: %s"
 
 #: src/fuse.c:1270
 msgid "could not initialize dir cache hashtables"
-msgstr ""
+msgstr "nie można zainicjować tablic sum mieszania katalogu pamięci podręcznej"
 
 #: src/fuse.c:1524 src/fuse.c:1531 src/fuse.c:1539
 msgid "FUSE not supported"
-msgstr ""
+msgstr "FUSE nie jest obsługiwane"
 
 #: src/guestfs.c:177
 #, c-format
@@ -3904,10 +3868,9 @@ msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parametr \"%s\" nie jest dozwolony"
 
 #: src/launch.c:291 src/launch.c:403
-#, fuzzy
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
-msgstr "nazwa pliku nie może zawierać znaku \",\" (przecinka)"
+msgstr ""
 
 #: src/launch.c:306 src/launch.c:311
 #, c-format
@@ -4148,78 +4111,69 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
-"libguestfs-test-tool: interaktywne narzędzie do testowania\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Użycie:\n"
-"  libguestfs-test-tool [--opcje]\n"
-"Opcje:\n"
-"  --help         Wyświetla użycie\n"
-"  --qemudir katalog Określa katalog źródłowy QEMU\n"
-"  --qemu qemu    Określa plik binarny QEMU\n"
-"  --timeout n\n"
-"  -t n           Ustawia czas oczekiwania na uruchomienie (domyślnie: %d "
-"sekund)\n"
 
-#: test-tool/test-tool.c:116
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: nieznana długa opcja: %s (%d)\n"
-
-#: test-tool/test-tool.c:125
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: nieprawidłowy czas oczekiwania: %s\n"
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: nieoczekiwana opcja wiersza poleceń 0x%x\n"
-
-#: test-tool/test-tool.c:163
+#: test-tool/test-tool.c:111
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: utworzenie programu obsługi libguestfs się nie "
 "powiodło\n"
 
-#: test-tool/test-tool.c:170
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: dodanie napędu \"%s\" się nie powiodło\n"
-
-#: test-tool/test-tool.c:178
+#: test-tool/test-tool.c:117
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version się nie powiodło\n"
 
-#: test-tool/test-tool.c:212
+#: test-tool/test-tool.c:133
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: nieznana długa opcja: %s (%d)\n"
+
+#: test-tool/test-tool.c:142
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: nieprawidłowy czas oczekiwania: %s\n"
+
+#: test-tool/test-tool.c:161
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: nieoczekiwana opcja wiersza poleceń 0x%x\n"
+
+#: test-tool/test-tool.c:185
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: dodanie napędu \"%s\" się nie powiodło\n"
+
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: uruchomienie przyrządu się nie powiodło\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: wykonanie polecenia part-disk się nie powiodło\n"
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 się nie powiodło\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: zamontowanie /dev/sda1 w / się nie powiodło\n"
 
-#: test-tool/test-tool.c:243
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 "libguestfs-test-tool: wykonanie polecenia touch na pliku się nie powiodło\n"
 
-#: test-tool/test-tool.c:277
+#: test-tool/test-tool.c:287
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4228,12 +4182,12 @@ msgstr ""
 "Zmienna środowiskowa LIBGUESTFS_QEMU jest już ustawiona, więc nie można\n"
 "użyć opcji --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:285
+#: test-tool/test-tool.c:295
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:309
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
@@ -4924,6 +4878,10 @@ msgid ""
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
 
+#: sysprep/sysprep_operation_pam_data.ml:46
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
 #: sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
 msgstr ""
@@ -5358,136 +5316,26 @@ msgstr ""
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
-#~ msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
-
-#~ msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: nie można uzyskać liczby uruchomionych domen (kod %d, domena %d): %s"
-
-#~ msgid "%s: could not list running domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: nie można wyświetlić listy uruchomionych domen (kod %d, domena %d): %s"
-
 #~ msgid ""
-#~ "%s: could not get number of inactive domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: nie można uzyskać liczby nieaktywnych domen (kod %d, domena %d): %s"
-
-#~ msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: nie można wyświetlić listy nieaktywnych domen (kod %d, domena %d): %s"
-
-#~ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
-#~ msgstr "%s: ignorowanie %s, posiada za dużo dysków (%zu > %d)"
-
-#~ msgid ""
-#~ "%s: guest filesystem shell\n"
-#~ "%s lets you edit virtual machine filesystems\n"
+#~ "libguestfs-test-tool: interactive test tool\n"
 #~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
 #~ "Usage:\n"
-#~ "  %s [--options] cmd [: cmd : cmd ...]\n"
+#~ "  libguestfs-test-tool [--options]\n"
 #~ "Options:\n"
-#~ "  -h|--cmd-help        List available commands\n"
-#~ "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  --csh                Make --listen csh-compatible\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
-#~ "  --echo-keys          Don't turn off echo for passphrases\n"
-#~ "  -f|--file file       Read commands from file\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  -i|--inspector       Automatically mount filesystems\n"
-#~ "  --keys-from-stdin    Read passphrases from stdin\n"
-#~ "  --listen             Listen for remote commands\n"
-#~ "  --live               Connect to a live virtual machine\n"
-#~ "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
-#~ "  -n|--no-sync         Don't autosync\n"
-#~ "  -N|--new type        Create prepared disk (test1.img, ...)\n"
-#~ "  --progress-bars      Enable progress bars even when not interactive\n"
-#~ "  --no-progress-bars   Disable progress bars\n"
-#~ "  --remote[=pid]       Send commands to remote %s\n"
-#~ "  -r|--ro              Mount read-only\n"
-#~ "  --selinux            Enable SELinux support\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -w|--rw              Mount read-write\n"
-#~ "  -x                   Echo each command before executing it\n"
-#~ "\n"
-#~ "To examine a disk image, ISO, hard disk, filesystem etc:\n"
-#~ "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
-#~ "or\n"
-#~ "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
-#~ "\n"
-#~ "--ro recommended to avoid any writes to the disk image.  If -i option "
-#~ "fails\n"
-#~ "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
-#~ "\n"
-#~ "For more information, see the manpage %s(1).\n"
+#~ "  --help         Display usage\n"
+#~ "  --qemudir dir  Specify QEMU source directory\n"
+#~ "  --qemu qemu    Specify QEMU binary\n"
+#~ "  --timeout n\n"
+#~ "  -t n           Set launch timeout (default: %d seconds)\n"
 #~ msgstr ""
-#~ "%s: powłoka systemu plików gościa\n"
-#~ "%s umożliwia modyfikowanie systemów plików maszyn wirtualnych\n"
+#~ "libguestfs-test-tool: interaktywne narzędzie do testowania\n"
 #~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
 #~ "Użycie:\n"
-#~ "  %s [--opcje] polecenie [: polecenie : polecenie...]\n"
+#~ "  libguestfs-test-tool [--opcje]\n"
 #~ "Opcje:\n"
-#~ "  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
-#~ "  -h|--cmd-help polecenie Wyświetla szczegółową pomoc o \"poleceniu\"\n"
-#~ "  -a|--add image       Dodaje obraz\n"
-#~ "  -c|--connect uri     Określa adres URI biblioteki libvirt dla opcji -d\n"
-#~ "  --csh                Sprawia, że --listen jest zgodne z formatem csh\n"
-#~ "  -d|--domain gość     Dodaje dyski z gościa biblioteki libvirt\n"
-#~ "  -D|--no-dest-paths   Bez uzupełniania ścieżek z systemu plików gościa\n"
-#~ "                       tabulacją\n"
-#~ "  --echo-keys          Bez wyłączania echa dla haseł\n"
-#~ "  -f|--file plik       Odczytuje polecenia z pliku\n"
-#~ "  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
-#~ "  -i|--inspector       Automatycznie montuje systemy plików\n"
-#~ "  --keys-from-stdin    Odczytuje hasła ze standardowego wejścia\n"
-#~ "  --listen             Nasłuchuje zdalnych poleceń\n"
-#~ "  --live               Łączy z maszyną wirtualną live\n"
-#~ "  -m|--mount dev[:mnt[:opcje]] Montuje urządzenie w mnt (jeśli "
-#~ "pominięto,\n"
-#~ "                       to w /)\n"
-#~ "  -n|--no-sync         Bez automatycznego synchronizowania\n"
-#~ "  -N|--new typ         Tworzy przygotowany dysk (test1.img, ...)\n"
-#~ "  --progress-bars      Włącza paski postępu nawet, jeśli nie jest w "
-#~ "trybie\n"
-#~ "                       interaktywnym\n"
-#~ "  --no-progress-bars   Wyłącza paski postępu\n"
-#~ "  --remote[=pid]       Wysyła polecenia do zdalnego %s\n"
-#~ "  -r|--ro              Montuje tylko do odczytu\n"
-#~ "  --selinux            Włącza obsługę SELinuksa\n"
-#~ "  -v|--verbose         Więcej komunikatów\n"
-#~ "  -V|--version         Wyświetla wersję i kończy działanie\n"
-#~ "  -w|--rw              Montuje do odczytu i zapisu\n"
-#~ "  -x                   Powtarza każde polecenie przed jego wykonaniem\n"
-#~ "\n"
-#~ "Aby sprawdzić obraz dysku, plik ISO, dysk twardy, system plików itd.:\n"
-#~ "  %s [--ro|--rw] -i -a /ścieżka/do/dysku.img\n"
-#~ "lub\n"
-#~ "  %s [--ro|--rw] -i -d nazwa-domeny-biblioteki-libvirt\n"
-#~ "\n"
-#~ "Opcja --ro jest zalecana, aby uniknąć zapisu do obrazu dysku. Jeśli "
-#~ "opcja\n"
-#~ "-i się nie powiedzie, to należy wykonać ponownie bez niej i użyć poleceń\n"
-#~ "\"run\" + \"list-filesystems\" + \"mount\".\n"
-#~ "\n"
-#~ "Aby dowiedzieć się więcej, należy zobaczyć stronę podręcznika %s(1).\n"
-
-#~ msgid "guestfs_set_busy: called when in state %d != READY"
-#~ msgstr "guestfs_set_busy: wywołano, kiedy w stanie %d != GOTOWY"
-
-#~ msgid "guestfs_end_busy: called when in state %d"
-#~ msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
-
-#~ msgid "guestfs___send: state %d != BUSY"
-#~ msgstr "guestfs___send: stan %d != ZAJĘTY"
-
-#~ msgid "send_file_chunk: state %d != READY"
-#~ msgstr "send_file_chunk: stan %d != GOTOWY"
-
-#~ msgid "drive %s can't be added twice"
-#~ msgstr "napęd %s nie może zostać dodany dwa razy"
+#~ "  --help         Wyświetla użycie\n"
+#~ "  --qemudir katalog Określa katalog źródłowy QEMU\n"
+#~ "  --qemu qemu    Określa plik binarny QEMU\n"
+#~ "  --timeout n\n"
+#~ "  -t n           Ustawia czas oczekiwania na uruchomienie (domyślnie: %d "
+#~ "sekund)\n"

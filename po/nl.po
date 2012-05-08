@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-03 16:46+0100\n"
-"PO-Revision-Date: 2012-03-30 17:27+0000\n"
+"POT-Creation-Date: 2012-05-08 15:34+0100\n"
+"PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/language/"
 "nl/)\n"
@@ -119,9 +119,9 @@ msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr ""
 
 #: align/scan.c:215
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
-msgstr "%s: --lvm optie kan niet meerdere malen worden gegeven\n"
+msgstr ""
 
 #: align/scan.c:304
 msgid "alignment < 4K"
@@ -663,38 +663,32 @@ msgid "set block device to read-write"
 msgstr "blok apparaat instellen op lezen-schrijven"
 
 #: fish/cmds.c:3038
-#, fuzzy
 msgid "add devices to a btrfs filesystem"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3039
-#, fuzzy
 msgid "remove devices from a btrfs filesystem"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3040
-#, fuzzy
 msgid "balance a btrfs filesystem"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3041
 msgid "resize a btrfs filesystem"
 msgstr "verander de grootte van een btrfs bestandssysteem"
 
 #: fish/cmds.c:3042
-#, fuzzy
 msgid "sync a btrfs filesystem"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3043
-#, fuzzy
 msgid "create a btrfs snapshot"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3044
-#, fuzzy
 msgid "delete a btrfs snapshot"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3045
 msgid "list btrfs snapshots and subvolumes"
@@ -705,9 +699,8 @@ msgid "set default btrfs subvolume"
 msgstr ""
 
 #: fish/cmds.c:3047
-#, fuzzy
 msgid "create a writable btrfs snapshot"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3048
 msgid "return true path on case-insensitive filesystem"
@@ -945,14 +938,12 @@ msgid "get direct appliance mode flag"
 msgstr "verkrijg directe toepassing mode vlag"
 
 #: fish/cmds.c:3111
-#, fuzzy
 msgid "get ext2 file attributes of a file"
-msgstr "stel uitgebreide attribuut van een bestand of map in"
+msgstr ""
 
 #: fish/cmds.c:3112
-#, fuzzy
 msgid "get ext2 file generation of a file"
-msgstr "verkrijg bestand informatie voor een symbolische link"
+msgstr ""
 
 #: fish/cmds.c:3113
 msgid "get the ext2/3/4 filesystem label"
@@ -1463,9 +1454,8 @@ msgid "make a filesystem with block size"
 msgstr "maak een bestandssysteem met blok grootte"
 
 #: fish/cmds.c:3250
-#, fuzzy
 msgid "create a btrfs filesystem"
-msgstr "verander de grootte van een btrfs bestandssysteem"
+msgstr ""
 
 #: fish/cmds.c:3252
 msgid "create a mountpoint"
@@ -1759,14 +1749,12 @@ msgid "enable or disable direct appliance mode"
 msgstr "zet directe apparaat mode aan of uit"
 
 #: fish/cmds.c:3327
-#, fuzzy
 msgid "set ext2 file attributes of a file"
-msgstr "stel uitgebreide attribuut van een bestand of map in"
+msgstr ""
 
 #: fish/cmds.c:3328
-#, fuzzy
 msgid "set ext2 file generation of a file"
-msgstr "laat de inhoud van een bestand zien"
+msgstr ""
 
 #: fish/cmds.c:3329
 msgid "set the ext2/3/4 filesystem label"
@@ -3526,7 +3514,7 @@ msgid "{filename}: could not read initrd format"
 msgstr "{filename}: kon initrd formaat niet lezen"
 
 #: rescue/virt-rescue.c:67
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
@@ -3553,29 +3541,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: Draai een reddings-shell op een virtuele machine\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domnaam\n"
-"  %s [--opties] -a disk.img [-a disk.img ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --append kernelopts  Voeg kernel opties toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  -d|--domain guest    Voeg schijven van libvirt gast toe\n"
-"  --format[=raw|..]    Forceer disk format voor -a optie\n"
-"  --help               Toon korte hulp\n"
-"  -m|--memsize MB      Stel geheugengrootte in in megabytes\n"
-"  --network            Zet netwerk aan\n"
-"  -r|--ro              Alleen-lezen toegang\n"
-"  --selinux            Zet SELinux aan\n"
-"  --smp N              Zet SMP aan met N &gt;= 2 virtuele CPU's\n"
-"  --suggest            Suggestie mount-commando's voor deze guest\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -w|--rw              Koppel alleen-lezen aan\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: rescue/virt-rescue.c:170
 #, c-format
@@ -3588,14 +3553,14 @@ msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr "%s: --smp parameter '%s' moet >= 1 zijn\n"
 
 #: rescue/virt-rescue.c:188
-#, fuzzy, c-format
+#, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr "%s: kon --smp parameter '%s' niet ontleden\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
-msgstr "%s: --smp parameter '%s' moet >= 1 zijn\n"
+msgstr ""
 
 #: rescue/virt-rescue.c:224
 #, c-format
@@ -3883,10 +3848,9 @@ msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' is niet toegestaan"
 
 #: src/launch.c:291 src/launch.c:403
-#, fuzzy
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
-msgstr "bestandsnaam kan geen ',' (komma) bevatten"
+msgstr ""
 
 #: src/launch.c:306 src/launch.c:311
 #, c-format
@@ -4123,74 +4087,66 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
-"libguestfs-test-tool: interactief testgereedschap\n"
-"Copyright (C) 2009-2012 Red Hat Inc.\n"
-"Gebruik:\n"
-"  libguestfs-test-tool [--opties]\n"
-"Opties:\n"
-"  --help         Toon gebruik\n"
-"  --qemudir dir  Specificeer QEMU bron map\n"
-"  --qemu qemu    Specificeer QEMU binaire programma\n"
-"  --timeout n\n"
-"  -t n           Stel opstart time-out in (standaard: %d seconden)\n"
 
-#: test-tool/test-tool.c:116
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: onbekende lange optie: %s (%d)\n"
-
-#: test-tool/test-tool.c:125
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: ongeldige time-out: %s\n"
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: onverwachte commando regel optie 0x%x\n"
-
-#: test-tool/test-tool.c:163
+#: test-tool/test-tool.c:111
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs hendel aanmaken mislukte\n"
 
-#: test-tool/test-tool.c:170
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: station '%s' toevoegen mislukte\n"
-
-#: test-tool/test-tool.c:178
+#: test-tool/test-tool.c:117
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version mislukte\n"
 
-#: test-tool/test-tool.c:212
+#: test-tool/test-tool.c:133
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: onbekende lange optie: %s (%d)\n"
+
+#: test-tool/test-tool.c:142
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: ongeldige time-out: %s\n"
+
+#: test-tool/test-tool.c:161
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: onverwachte commando regel optie 0x%x\n"
+
+#: test-tool/test-tool.c:185
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: station '%s' toevoegen mislukte\n"
+
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: toestel lanceren mislukte\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: part-disk draaien mislukte\n"
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 mislukte\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: aankoppelen van /dev/sda1 op / mislukte\n"
 
-#: test-tool/test-tool.c:243
+#: test-tool/test-tool.c:253
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: bestand touchen mislukte\n"
 
-#: test-tool/test-tool.c:277
+#: test-tool/test-tool.c:287
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4199,12 +4155,12 @@ msgstr ""
 "LIBGUESTFS_QEMU omgevingsvariabele al is ingesteld, dus\n"
 "de --qemu/--qemudir opties kunnen niet gebruikt worden.\n"
 
-#: test-tool/test-tool.c:285
+#: test-tool/test-tool.c:295
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:309
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ziet er niet uit als een qemu bron map\n"
@@ -4893,6 +4849,10 @@ msgid ""
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
 
+#: sysprep/sysprep_operation_pam_data.ml:46
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
 #: sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
 msgstr ""
@@ -5327,131 +5287,25 @@ msgstr ""
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
-#~ msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
-#~ msgstr "%s: kon niet converteren naar libvirt (code %d, domein %d): %s"
-
-#~ msgid "%s: could not get number of running domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: kon aantal draaiende domeinen niet verkrijgen (code %d, domein %d): %s"
-
-#~ msgid "%s: could not list running domains (code %d, domain %d): %s"
-#~ msgstr "%s: kon draaiende domeinen niet tonen (code %d, domein %d): %s"
-
 #~ msgid ""
-#~ "%s: could not get number of inactive domains (code %d, domain %d): %s"
-#~ msgstr ""
-#~ "%s: kon aantal inactieve domeinen niet verkrijgen (code %d, domein %d): %s"
-
-#~ msgid "%s: could not list inactive domains (code %d, domain %d): %s"
-#~ msgstr "%s: kon inactieve domeinen niet tonen (code %d, domein %d): %s"
-
-#~ msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
-#~ msgstr "%s: %s wordt genegeerd, deze heeft teveel schijven (%zu > %d)"
-
-#~ msgid ""
-#~ "%s: guest filesystem shell\n"
-#~ "%s lets you edit virtual machine filesystems\n"
+#~ "libguestfs-test-tool: interactive test tool\n"
 #~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
 #~ "Usage:\n"
-#~ "  %s [--options] cmd [: cmd : cmd ...]\n"
+#~ "  libguestfs-test-tool [--options]\n"
 #~ "Options:\n"
-#~ "  -h|--cmd-help        List available commands\n"
-#~ "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  --csh                Make --listen csh-compatible\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
-#~ "  --echo-keys          Don't turn off echo for passphrases\n"
-#~ "  -f|--file file       Read commands from file\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  -i|--inspector       Automatically mount filesystems\n"
-#~ "  --keys-from-stdin    Read passphrases from stdin\n"
-#~ "  --listen             Listen for remote commands\n"
-#~ "  --live               Connect to a live virtual machine\n"
-#~ "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
-#~ "  -n|--no-sync         Don't autosync\n"
-#~ "  -N|--new type        Create prepared disk (test1.img, ...)\n"
-#~ "  --progress-bars      Enable progress bars even when not interactive\n"
-#~ "  --no-progress-bars   Disable progress bars\n"
-#~ "  --remote[=pid]       Send commands to remote %s\n"
-#~ "  -r|--ro              Mount read-only\n"
-#~ "  --selinux            Enable SELinux support\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -w|--rw              Mount read-write\n"
-#~ "  -x                   Echo each command before executing it\n"
-#~ "\n"
-#~ "To examine a disk image, ISO, hard disk, filesystem etc:\n"
-#~ "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
-#~ "or\n"
-#~ "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
-#~ "\n"
-#~ "--ro recommended to avoid any writes to the disk image.  If -i option "
-#~ "fails\n"
-#~ "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
-#~ "\n"
-#~ "For more information, see the manpage %s(1).\n"
+#~ "  --help         Display usage\n"
+#~ "  --qemudir dir  Specify QEMU source directory\n"
+#~ "  --qemu qemu    Specify QEMU binary\n"
+#~ "  --timeout n\n"
+#~ "  -t n           Set launch timeout (default: %d seconds)\n"
 #~ msgstr ""
-#~ "%s: guest bestandssysteem shell\n"
-#~ "%s maakt bewerken van virtual machine bestandssystemen mogelijk\n"
+#~ "libguestfs-test-tool: interactief testgereedschap\n"
 #~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
 #~ "Gebruik:\n"
-#~ "  %s [--opties] cmd [: cmd : cmd ...]\n"
+#~ "  libguestfs-test-tool [--opties]\n"
 #~ "Opties:\n"
-#~ "  -h|--cmd-help        Toon beschikbare commando's\n"
-#~ "  -h|--cmd-help cmd    Toon gedetailleerde hulp over 'cmd'\n"
-#~ "  -a|--add image       Voegimage toe\n"
-#~ "  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-#~ "  --csh                Maak --listen csh-compatibel\n"
-#~ "  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-#~ "  -D|--no-dest-paths   Maak geen paden van gast fs af met tab\n"
-#~ "  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
-#~ "  -f|--file bestand    Lees commando's uit bestand\n"
-#~ "  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-#~ "  -i|--inspector       Koppel bestandssystemen automatisch aan\n"
-#~ "  --keys-from-stdin    Lees wachtzinnen van stdin\n"
-#~ "  --listen             Luister naar commando's op afgstand\n"
-#~ "  --live               Verbind met een live virtuele machine\n"
-#~ "  -m|--mount dev[:mnt[:opts]] Koppen dev aan op mnt (indien "
-#~ "weggelaten, /)\n"
-#~ "  -n|--no-sync         Gebruik autosync niet\n"
-#~ "  -N|--new type        Maak aangemaakt schijf aan (test1.img, ...)\n"
-#~ "  --progress-bars      Zet progressie balken aan zelfs bij niet "
-#~ "interactief\n"
-#~ "  --no-progress-bars   Zet progressie balken uit\n"
-#~ "  --remote[=pid]       Stuur commando's naar %s op afstand\n"
-#~ "  -r|--ro              Koppel read-only aan\n"
-#~ "  --selinux            Zet SELinux ondersteuning aan\n"
-#~ "  -v|--verbose         Breedsprakige boodschappen\n"
-#~ "  -V|--version         Toon versie en sluit af\n"
-#~ "  -w|--rw              Koppel read-write aan\n"
-#~ "  -x                   Echo elk commando voor het uitvoeren\n"
-#~ "\n"
-#~ "Voor het bekijken van een diskimage, ISO, harde schijf, bestandssysteem "
-#~ "enz.:\n"
-#~ "  %s [--ro|--rw] -i -a /pad/naar/schijf.img\n"
-#~ "or\n"
-#~ "  %s [--ro|--rw] -i -d naam-van-libvirt-domein\n"
-#~ "\n"
-#~ "--ro wordt aanbevolen om elk schrijven naar de schijf image te "
-#~ "voorkomen.  Als -i optie faalt\n"
-#~ "voer opnieuw uit zonder -i en gebruik 'run' + 'list-filesystems' + "
-#~ "'mount' cmds.\n"
-#~ "\n"
-#~ "Voor meer informatie, zie de man pagina %s(1).\n"
-
-#~ msgid "guestfs_set_busy: called when in state %d != READY"
-#~ msgstr "guestfs_set_busy: aangeroepen in toestand %d != READY"
-
-#~ msgid "guestfs_end_busy: called when in state %d"
-#~ msgstr "guestfs_end_busy: aangeroepen in toestand %d"
-
-#~ msgid "guestfs___send: state %d != BUSY"
-#~ msgstr "guestfs___send: toestand %d != BUSY"
-
-#~ msgid "send_file_chunk: state %d != READY"
-#~ msgstr "send_file_chunk: toestand %d != READY"
-
-#~ msgid "drive %s can't be added twice"
-#~ msgstr "drive %s kan niet tweemaal worden toegevoegd"
+#~ "  --help         Toon gebruik\n"
+#~ "  --qemudir dir  Specificeer QEMU bron map\n"
+#~ "  --qemu qemu    Specificeer QEMU binaire programma\n"
+#~ "  --timeout n\n"
+#~ "  -t n           Stel opstart time-out in (standaard: %d seconden)\n"
