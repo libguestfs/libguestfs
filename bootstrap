@@ -26,13 +26,6 @@ git submodule init || exit $?
 git submodule update || exit $?
 GNULIB_SRCDIR=.gnulib
 
-ls po/*.po 2>/dev/null | sed 's|.*/||; s|\.po$||' > po/LINGUAS
-
-# Run autopoint, to get po/Makevars.template:
-# Also, released autopoint has the tendency to install macros that have
-# been obsoleted in current gnulib, so run this before gnulib-tool.
-autopoint --force
-
 # Autoreconf runs aclocal before libtoolize, which causes spurious
 # warnings if the initial aclocal is confused by the libtoolized
 # (or worse out-of-date) macro directory.
