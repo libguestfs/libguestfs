@@ -1359,33 +1359,33 @@ echo
 echo    "Daemon .............................. $enable_daemon"
 echo    "Appliance ........................... $enable_appliance"
 echo    "QEMU ................................ $QEMU"
-echo -n "OCaml bindings ...................... "
+AS_ECHO_N(["OCaml bindings ...................... "])
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Perl bindings ....................... "
+AS_ECHO_N(["Perl bindings ....................... "])
 if test "x$HAVE_PERL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Python bindings ..................... "
+AS_ECHO_N(["Python bindings ..................... "])
 if test "x$HAVE_PYTHON_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Ruby bindings ....................... "
+AS_ECHO_N(["Ruby bindings ....................... "])
 if test "x$HAVE_RUBY_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Java bindings ....................... "
+AS_ECHO_N(["Java bindings ....................... "])
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Haskell bindings .................... "
+AS_ECHO_N(["Haskell bindings .................... "])
 if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "PHP bindings ........................ "
+AS_ECHO_N(["PHP bindings ........................ "])
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Erlang bindings ..................... "
+AS_ECHO_N(["Erlang bindings ..................... "])
 if test "x$HAVE_ERLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo    "guestfish and C virt tools .......... yes"
-echo -n "Perl virt tools ..................... "
+AS_ECHO_N(["Perl virt tools ..................... "])
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "OCaml virt tools .................... "
+AS_ECHO_N(["OCaml virt tools .................... "])
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "FUSE filesystem ..................... $enable_fuse"
-echo -n "gobject bindings .................... "
+AS_ECHO_N(["gobject bindings .................... "])
 if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "gobject introspection ............... "
+AS_ECHO_N(["gobject introspection ............... "])
 if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "GNU gettext for i18n ................ "
+AS_ECHO_N(["GNU gettext for i18n ................ "])
 if test "x$HAVE_GNU_GETTEXT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
