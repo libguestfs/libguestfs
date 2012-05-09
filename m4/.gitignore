@@ -109,6 +109,7 @@
 /lib-link.m4
 /lib-prefix.m4
 /localcharset.m4
+/localeconv.m4
 /locale-fr.m4
 /locale_h.m4
 /locale-ja.m4
@@ -144,6 +145,7 @@
 /netinet_in_h.m4
 /nls.m4
 /nocrash.m4
+/off_t.m4
 /onceonly.m4
 /openat.m4
 /opendir.m4
