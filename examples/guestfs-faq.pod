@@ -199,8 +199,8 @@ You'll have to compile from source, and port it.
 If your Linux distro has a working port of febootstrap (that is,
 Fedora, Red Hat Enterprise Linux >= 6.3, Debian, Ubuntu and ArchLinux)
 then you should just be able to compile from source in the usual way.
-Download the latest tarball from L<http://libguestfs/download>, unpack
-it, and start by reading the README file.
+Download the latest tarball from L<http://libguestfs.org/download>,
+unpack it, and start by reading the README file.
 
 If you I<don't> have febootstrap, you will need to use the "fixed
 appliance method".  See:
