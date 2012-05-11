@@ -719,9 +719,15 @@ launch_appliance (guestfs_h *g)
       add_cmdline (g, NET_IF ",netdev=usernet");
     }
 
+#ifdef __arm__
+#define SERIAL_CONSOLE "ttyAMA0"
+#else
+#define SERIAL_CONSOLE "ttyS0"
+#endif
+
 #define LINUX_CMDLINE							\
     "panic=1 "         /* force kernel to panic if daemon exits */	\
-    "console=ttyS0 "   /* serial console */				\
+    "console=" SERIAL_CONSOLE " " /* serial console */		        \
     "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
     "no_timer_check "  /* fix for RHBZ#502058 */                        \
     "acpi=off "        /* we don't need ACPI, turn it off */		\
