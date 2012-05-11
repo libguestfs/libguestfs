@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-08 15:34+0100\n"
+"POT-Creation-Date: 2012-05-11 14:18+0100\n"
 "PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -4402,6 +4402,10 @@ msgstr ""
 msgid ""
 "Remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed."
+msgstr ""
+
+#: sysprep/sysprep_operation_blkid_tab.ml:49
+msgid "Remove blkid tab in the guest"
 msgstr ""
 
 #: sysprep/sysprep_operation_mail_spool.ml:36

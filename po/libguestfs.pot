@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.17.40\n"
+"Project-Id-Version: libguestfs 1.17.41\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-08 22:44+0100\n"
+"POT-Creation-Date: 2012-05-11 14:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4294,6 +4294,10 @@ msgstr ""
 
 #: sysprep/sysprep_operation_user_account.ml:65
 msgid "Remove all the user accounts and their home directories.\nThe \"root\" account is not removed."
+msgstr ""
+
+#: sysprep/sysprep_operation_blkid_tab.ml:49
+msgid "Remove blkid tab in the guest"
 msgstr ""
 
 #: sysprep/sysprep_operation_mail_spool.ml:36
