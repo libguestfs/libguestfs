@@ -49,7 +49,7 @@
 #define _(str) dgettext(PACKAGE, (str))
 #define N_(str) dgettext(PACKAGE, (str))
 
-#ifdef HAVE_SYS_SDT_H
+#if ENABLE_PROBES
 #include <sys/sdt.h>
 /* NB: The 'name' parameter is a literal identifier, NOT a string! */
 #define TRACE0(name) DTRACE_PROBE(guestfs, name)
@@ -61,7 +61,7 @@
   DTRACE_PROBE(guestfs, name, (arg1), (arg2), (arg3))
 #define TRACE4(name, arg1, arg2, arg3, arg4) \
   DTRACE_PROBE(guestfs, name, (arg1), (arg2), (arg3), (arg4))
-#else
+#else /* !ENABLE_PROBES */
 #define TRACE0(name)
 #define TRACE1(name, arg1)
 #define TRACE2(name, arg1, arg2)

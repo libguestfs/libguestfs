@@ -418,9 +418,19 @@ fi
 AC_SUBST([SELINUX_LIB])
 
 dnl Check for systemtap/DTrace userspace probes (optional).
-dnl http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
-AC_CHECK_HEADERS([sys/sdt.h])
-dnl AC_CHECK_PROG([DTRACE],[dtrace],[dtrace],[no])
+dnl Since the probe points break under clang, allow this to be disabled.
+AC_ARG_ENABLE([probes],
+        AS_HELP_STRING([--disable-probes], [Disable systemtap/DTrace userspace probes]),
+        [],
+        [enable_probes=yes])
+AS_IF([test "x$enable_probes" != "xno"],[
+    dnl http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
+    AC_CHECK_HEADERS([sys/sdt.h])
+    dnl AC_CHECK_PROG([DTRACE],[dtrace],[dtrace],[no])
+    AS_IF([test "x$ac_cv_header_sys_sdt_h" = "xyes"],[
+        AC_DEFINE([ENABLE_PROBES],[1],[enable systemtap/DTrace userspace probes])
+    ])
+])
 
 dnl Check for cpio which isn't in the default Pardus install amazingly.
 AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
