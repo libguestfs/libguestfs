@@ -132,7 +132,7 @@ guestfs_create (void)
    */
   str = getenv ("LIBGUESTFS_MEMSIZE");
   if (str) {
-    if (sscanf (str, "%d", &g->memsize) != 1 || g->memsize <= 256) {
+    if (sscanf (str, "%d", &g->memsize) != 1 || g->memsize < 128) {
       warning (g, "non-numeric or too small value for LIBGUESTFS_MEMSIZE");
       goto error;
     }
