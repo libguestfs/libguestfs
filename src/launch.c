@@ -598,6 +598,10 @@ launch_appliance (guestfs_h *g)
     if (qemu_supports (g, "-nodefconfig"))
       add_cmdline (g, "-nodefconfig");
 
+    /* The #if on the next line should really be "architectures for
+     * which KVM is commonly available.
+     */
+#if defined(__i386__) || defined(__x86_64__)
     /* The qemu -machine option (added 2010-12) is a bit more sane
      * since it falls back through various different acceleration
      * modes, so try that first (thanks Markus Armbruster).
@@ -634,6 +638,7 @@ launch_appliance (guestfs_h *g)
           is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC))
         add_cmdline (g, "-enable-kvm");
     }
+#endif /* i386 or x86-64 */
 
     /* Newer versions of qemu (from around 2009/12) changed the
      * behaviour of monitors so that an implicit '-monitor stdio' is
