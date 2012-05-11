@@ -272,6 +272,20 @@ appliance.  You will need to port the febootstrap first
 (http://people.redhat.com/~rjones/febootstrap/).
 
 
+Note on using clang (from LLVM) instead of GCC
+----------------------------------------------------------------------
+
+  export CC=clang
+  ./configure --disable-probes
+  make
+
+SystemTap/DTrace-style userspace probe points don't work under the
+clang compiler, which is why you may need to disable them.
+
+Don't enable GCC warnings (ie. *don't* use
+'./configure --enable-gcc-warnings').
+
+
 Copyright and license information
 ----------------------------------------------------------------------
 
