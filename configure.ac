@@ -536,6 +536,22 @@ AC_PATH_PROGS([QEMU],[$with_qemu],[no],
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
+dnl Does the user wish to specify -M, -cpu or other qemu options?
+AC_MSG_CHECKING([if the user specified extra options for qemu command line])
+AC_ARG_WITH([qemu-options],
+    [AS_HELP_STRING([--with-qemu-options="-M ... -cpu ... etc"],
+        [pass extra options for qemu command line @<:@default=no@:>@])],
+    [QEMU_OPTIONS="$withval"],
+    [QEMU_OPTIONS=no])
+AS_IF([test "x$QEMU_OPTIONS" = "xno"],[
+    AC_MSG_RESULT([no])
+    QEMU_OPTIONS=
+],[
+    AC_MSG_RESULT([$QEMU_OPTIONS])
+])
+AC_DEFINE_UNQUOTED([QEMU_OPTIONS],["$QEMU_OPTIONS"],
+                   [extra options for qemu command line])
+
 dnl Check that the chosen qemu has virtio-serial support.
 dnl For historical reasons this can be disabled by setting vmchannel_test=no.
 if test "x$vmchannel_test" != "xno"; then
@@ -552,53 +568,55 @@ working.
 ])
     fi
 
-    dnl qemu 0.15 was released with broken support for '-machine',
-    dnl requiring you to add the machine type: '-machine pc,[...]'.
-    dnl The problem is that 'pc' is only applicable for PC-like
-    dnl hardware, so we cannot do this as a general solution.  Since
-    dnl qemu 0.15, this problem has been fixed so now the default
-    dnl machine type is chosen (qemu commit 2645c6dcaf6ea2a51a).
-    dnl
-    dnl We need to work out if this qemu is the broken version, so we
-    dnl can add 'pc' just for this broken version.
-    dnl
-    dnl Note that old qemu didn't support the '-machine' option at all.
-    dnl
-    dnl We use the -kernel option for testing this, because this option
-    dnl is processed very late, after qemu has set up the machine.
-    AC_MSG_CHECKING([for broken '-machine accel=tcg' option in $QEMU])
-    LC_ALL=C $QEMU -nographic -machine accel=tcg -kernel /NO_SUCH_FILE \
+    AS_IF([test "x$QEMU_OPTIONS" = "x"],[
+        dnl qemu 0.15 was released with broken support for '-machine',
+        dnl requiring you to add the machine type: '-machine pc,[...]'.
+        dnl The problem is that 'pc' is only applicable for PC-like
+        dnl hardware, so we cannot do this as a general solution.  Since
+        dnl qemu 0.15, this problem has been fixed so now the default
+        dnl machine type is chosen (qemu commit 2645c6dcaf6ea2a51a).
+        dnl
+        dnl We need to work out if this qemu is the broken version, so we
+        dnl can add 'pc' just for this broken version.
+        dnl
+        dnl Note that old qemu didn't support the '-machine' option at all.
+        dnl
+        dnl We use the -kernel option for testing this, because this option
+        dnl is processed very late, after qemu has set up the machine.
+        AC_MSG_CHECKING([for broken '-machine accel=tcg' option in $QEMU])
+        LC_ALL=C $QEMU -nographic -machine accel=tcg -kernel /NO_SUCH_FILE \
              > config1.tmp 2>&1
-    LC_ALL=C $QEMU -nographic -machine pc,accel=tcg -kernel /NO_SUCH_FILE \
+        LC_ALL=C $QEMU -nographic -machine pc,accel=tcg -kernel /NO_SUCH_FILE \
              > config2.tmp 2>&1
-    if cmp -s config1.tmp config2.tmp; then
-        AC_MSG_RESULT([no])
-    else
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([QEMU_MACHINE_TYPE_IS_BROKEN],[1],[qemu -machine accel=tcg option is broken (in qemu 0.15 only)])
-    fi
-    rm config1.tmp config2.tmp
+        if cmp -s config1.tmp config2.tmp; then
+            AC_MSG_RESULT([no])
+        else
+            AC_MSG_RESULT([yes])
+            AC_DEFINE([QEMU_MACHINE_TYPE_IS_BROKEN],[1],[qemu -machine accel=tcg option is broken (in qemu 0.15 only)])
+        fi
+        rm config1.tmp config2.tmp
 
-    dnl See if the '-machine [pc,]accel=tcg' option is required in
-    dnl order to run the virtio-serial test below.  This happens when
-    dnl we run qemu-kvm inside a VM without forcing TCG:
-    dnl
-    dnl   Could not access KVM kernel module: No such file or directory
-    dnl   failed to initialize KVM: No such file or directory
-    dnl   No accelerator found!
-    AC_MSG_CHECKING([if -machine @<:@pc,@:>@accel=tcg option is required to test virtio-serial feature])
-    if $QEMU -nographic -device \? >/dev/null 2>&1; then
-        :
-    elif $QEMU -machine accel=tcg -nographic -device \? >/dev/null 2>&1; then
-        QEMU_EXTRA_OPTIONS_FOR_TEST="-machine accel=tcg"
-    elif $QEMU -machine pc,accel=tcg -nographic -device \? >/dev/null 2>&1; then
-        QEMU_EXTRA_OPTIONS_FOR_TEST="-machine pc,accel=tcg"
-    # else nothing ... it'll fail below.
-    fi
-    AC_MSG_RESULT([$QEMU_EXTRA_OPTIONS_FOR_TEST])
+        dnl See if the '-machine [pc,]accel=tcg' option is required in
+        dnl order to run the virtio-serial test below.  This happens when
+        dnl we run qemu-kvm inside a VM without forcing TCG:
+        dnl
+        dnl   Could not access KVM kernel module: No such file or directory
+        dnl   failed to initialize KVM: No such file or directory
+        dnl   No accelerator found!
+        AC_MSG_CHECKING([if -machine @<:@pc,@:>@accel=tcg option is required to test virtio-serial feature])
+        if $QEMU -nographic -device \? >/dev/null 2>&1; then
+            :
+        elif $QEMU -machine accel=tcg -nographic -device \? >/dev/null 2>&1; then
+            QEMU_OPTIONS_FOR_TEST="-machine accel=tcg"
+        elif $QEMU -machine pc,accel=tcg -nographic -device \? >/dev/null 2>&1; then
+            QEMU_OPTIONS_FOR_TEST="-machine pc,accel=tcg"
+        # else nothing ... it'll fail below.
+        fi
+        AC_MSG_RESULT([$QEMU_OPTIONS_FOR_TEST])
+    ])
 
     AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-    if $QEMU $QEMU_EXTRA_OPTIONS_FOR_TEST -nographic -device \? 2>&1 | grep -sq virtio-serial; then
+    if $QEMU $QEMU_OPTIONS $QEMU_OPTIONS_FOR_TEST -nographic -device \? 2>&1 | grep -sq virtio-serial; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])
@@ -1371,7 +1389,7 @@ echo "This is how we have configured the optional components for you today:"
 echo
 echo    "Daemon .............................. $enable_daemon"
 echo    "Appliance ........................... $enable_appliance"
-echo    "QEMU ................................ $QEMU"
+echo    "QEMU ................................ $QEMU $QEMU_OPTIONS"
 AS_ECHO_N(["OCaml bindings ...................... "])
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["Perl bindings ....................... "])

@@ -142,6 +142,64 @@ add_cmdline (guestfs_h *g, const char *str)
   return 0;
 }
 
+/* Like 'add_cmdline' but allowing a shell-quoted string of zero or
+ * more options.  XXX The unquoting is not very clever.
+ */
+static int
+add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
+{
+  char quote;
+  const char *startp, *endp, *nextp;
+
+  if (g->state != CONFIG) {
+    error (g,
+        _("command line cannot be altered after qemu subprocess launched"));
+    return -1;
+  }
+
+  while (*options) {
+    quote = *options;
+    if (quote == '\'' || quote == '"')
+      startp = options+1;
+    else {
+      startp = options;
+      quote = ' ';
+    }
+
+    endp = strchr (options, quote);
+    if (endp == NULL) {
+      if (quote != ' ') {
+        error (g, _("unclosed quote character (%c) in command line near: %s"),
+               quote, options);
+        return -1;
+      }
+      endp = options + strlen (options);
+    }
+
+    if (quote == ' ')
+      nextp = endp+1;
+    else {
+      if (!endp[1])
+        nextp = endp+1;
+      else if (endp[1] == ' ')
+        nextp = endp+2;
+      else {
+        error (g, _("cannot parse quoted string near: %s"), options);
+        return -1;
+      }
+    }
+    while (*nextp && *nextp == ' ')
+      nextp++;
+
+    incr_cmdline_size (g);
+    g->cmdline[g->cmdline_size-1] = safe_strndup (g, startp, endp-startp);
+
+    options = nextp;
+  }
+
+  return 0;
+}
+
 struct drive **
 guestfs___checkpoint_drives (guestfs_h *g)
 {
@@ -597,6 +655,13 @@ launch_appliance (guestfs_h *g)
 
     if (qemu_supports (g, "-nodefconfig"))
       add_cmdline (g, "-nodefconfig");
+
+    if (STRNEQ (QEMU_OPTIONS, "")) {
+      /* Add the extra options for the qemu command line specified
+       * at configure time.
+       */
+      add_cmdline_shell_unquoted (g, QEMU_OPTIONS);
+    }
 
     /* The #if on the next line should really be "architectures for
      * which KVM is commonly available.
