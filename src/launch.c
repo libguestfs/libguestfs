@@ -603,6 +603,22 @@ launch_appliance (guestfs_h *g)
       add_cmdline (g, "virtio-blk-pci.scsi=off");
     }
 
+    if (qemu_supports (g, "-nodefconfig"))
+      add_cmdline (g, "-nodefconfig");
+
+    /* Newer versions of qemu (from around 2009/12) changed the
+     * behaviour of monitors so that an implicit '-monitor stdio' is
+     * assumed if we are in -nographic mode and there is no other
+     * -monitor option.  Only a single stdio device is allowed, so
+     * this broke the '-serial stdio' option.  There is a new flag
+     * called -nodefaults which gets rid of all this default crud, so
+     * let's use that to avoid this and any future surprises.
+     */
+    if (qemu_supports (g, "-nodefaults"))
+      add_cmdline (g, "-nodefaults");
+
+    add_cmdline (g, "-nographic");
+
     /* Add drives */
     struct drive *drv = g->drives;
     while (drv != NULL) {
@@ -655,19 +671,6 @@ launch_appliance (guestfs_h *g)
           is_openable (g, "/dev/kvm", O_RDWR))
         add_cmdline (g, "-enable-kvm");
     }
-
-    /* Newer versions of qemu (from around 2009/12) changed the
-     * behaviour of monitors so that an implicit '-monitor stdio' is
-     * assumed if we are in -nographic mode and there is no other
-     * -monitor option.  Only a single stdio device is allowed, so
-     * this broke the '-serial stdio' option.  There is a new flag
-     * called -nodefaults which gets rid of all this default crud, so
-     * let's use that to avoid this and any future surprises.
-     */
-    if (qemu_supports (g, "-nodefaults"))
-      add_cmdline (g, "-nodefaults");
-
-    add_cmdline (g, "-nographic");
 
     if (g->smp > 1) {
       snprintf (buf, sizeof buf, "%d", g->smp);
