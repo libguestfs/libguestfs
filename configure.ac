@@ -537,6 +537,7 @@ test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
 dnl Check that the chosen qemu has virtio-serial support.
+dnl For historical reasons this can be disabled by setting vmchannel_test=no.
 if test "x$vmchannel_test" != "xno"; then
     AC_MSG_CHECKING([that $QEMU -help works])
     if $QEMU -help >&AS_MESSAGE_LOG_FD 2>&1; then
@@ -613,8 +614,10 @@ and/or KVM.  Please read the relevant section in the README file for
 more information about this.
 
 You can override this test by setting the environment variable
-vmchannel_test=no  However if you don't have the right support
-in your qemu, then this just delays the pain.
+vmchannel_test=no
+
+However if you don't have the right support in your qemu, then this
+just delays the pain.
 
 If I am using the wrong qemu or you want to compile qemu from source
 and install it in another location, then you should configure with
