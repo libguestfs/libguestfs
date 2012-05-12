@@ -726,7 +726,7 @@ AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 dnl If valgrind is present (it's not required), check whether or not
 dnl it supports the new 'valgrind --vgdb' option.
 AC_CHECK_PROG([VALGRIND],[valgrind],[valgrind],[no])
-AS_IF([test "x$valgrind" != "xno"],[
+AS_IF([test "x$VALGRIND" != "xno"],[
     AC_MSG_CHECKING([if $VALGRIND supports the --vgdb option])
     if $VALGRIND --help | grep -sq -- --vgdb; then
         AC_MSG_RESULT([yes])
