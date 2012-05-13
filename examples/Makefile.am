@@ -47,6 +47,7 @@ inspect_vm_CFLAGS = \
 inspect_vm_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
+if HAVE_HIVEX
 virt_dhcp_address_SOURCES = virt-dhcp-address.c
 virt_dhcp_address_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
@@ -56,6 +57,7 @@ virt_dhcp_address_CFLAGS = \
 virt_dhcp_address_LDADD = \
 	$(HIVEX_LIBS) \
 	$(top_builddir)/src/libguestfs.la
+endif
 
 man_MANS = \
 	guestfs-examples.3 \
