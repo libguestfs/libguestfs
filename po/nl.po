@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-11 14:18+0100\n"
+"POT-Creation-Date: 2012-05-13 23:17+0100\n"
 "PO-Revision-Date: 2012-05-08 14:29+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/language/"
@@ -3832,62 +3832,72 @@ msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
 msgid "read: %s: unexpected end of file"
 msgstr "lezen: %s: onverwacht einde van bestand"
 
-#: src/launch.c:136
+#: src/launch.c:136 src/launch.c:156
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "commando regel kan niet gewijzigd worden nadat een qemu sub-proces "
 "gelanceerd is"
 
-#: src/launch.c:205
+#: src/launch.c:172
+#, c-format
+msgid "unclosed quote character (%c) in command line near: %s"
+msgstr ""
+
+#: src/launch.c:187
+#, c-format
+msgid "cannot parse quoted string near: %s"
+msgstr ""
+
+#: src/launch.c:263
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: parameter moet met '-' beginnen"
 
-#: src/launch.c:219
+#: src/launch.c:277
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' is niet toegestaan"
 
-#: src/launch.c:291 src/launch.c:403
+#: src/launch.c:349 src/launch.c:461
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/launch.c:306 src/launch.c:311
+#: src/launch.c:364 src/launch.c:369
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s parameter is leeg of bevat niet geoorloofde karakters"
 
-#: src/launch.c:423
+#: src/launch.c:481
 msgid "the libguestfs handle has already been launched"
 msgstr "de libguestfs hendel is al gelanceerd"
 
-#: src/launch.c:434
+#: src/launch.c:492
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: kan geen tijdelijke map aanmaken"
 
-#: src/launch.c:478
+#: src/launch.c:536
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch.c:946 src/launch.c:951
+#: src/launch.c:1030 src/launch.c:1035
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
 
-#: src/launch.c:964
+#: src/launch.c:1048
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch.c:1054
+#: src/launch.c:1138
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch mislukte, onverwachte initiele boodschap van guestfsd"
 
-#: src/launch.c:1062
+#: src/launch.c:1146
 msgid "contacted guestfsd, but state != READY"
 msgstr "contact gemaakt met guestfsd, maar toestand != READY"
 
-#: src/launch.c:1261
+#: src/launch.c:1345
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3902,11 +3912,11 @@ msgstr ""
 "omgevingsvariabele in te stellen.  Er kunnen hierboven ook fouten afgedrukt "
 "worden."
 
-#: src/launch.c:1414
+#: src/launch.c:1498
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:1425
+#: src/launch.c:1509
 msgid "no subprocess to kill"
 msgstr "geen sub-proces om af te schieten"
 
