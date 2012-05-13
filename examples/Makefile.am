@@ -37,6 +37,9 @@ endif
 if HAVE_HIVEX
 noinst_PROGRAMS += virt-dhcp-address
 endif
+if HAVE_FUSE
+noinst_PROGRAMS += mount_local
+endif
 
 if HAVE_LIBVIRT
 copy_over_SOURCES = copy_over.c
@@ -74,6 +77,18 @@ inspect_vm_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 inspect_vm_LDADD = \
 	$(top_builddir)/src/libguestfs.la
+
+if HAVE_FUSE
+mount_local_SOURCES = mount_local.c
+mount_local_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(FUSE_CFLAGS) \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+mount_local_LDADD = \
+	$(FUSE_LIBS) -lulockmgr \
+	$(top_builddir)/src/libguestfs.la
+endif
 
 if HAVE_HIVEX
 virt_dhcp_address_SOURCES = virt-dhcp-address.c

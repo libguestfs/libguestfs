@@ -96,6 +96,7 @@ pod2htm?.tmp
 /examples/guestfs-recipes.1
 /examples/guestfs-testing.1
 /examples/inspect_vm
+/examples/mount_local
 /examples/stamp-guestfs-examples.pod
 /examples/stamp-guestfs-faq.pod
 /examples/stamp-guestfs-performance.pod
