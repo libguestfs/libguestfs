@@ -83,7 +83,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Mount the empty filesystem. */
-  if (guestfs_mount (g, "/dev/sda1", "/") == -1)
+  if (guestfs_mount_options (g, "acl,user_xattr", "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
 
   /* Create a temporary mount directory. */
