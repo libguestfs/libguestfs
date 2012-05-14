@@ -14,6 +14,10 @@
 
 #include <guestfs.h>
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
 static void
 usage (void)
 {
