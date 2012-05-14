@@ -864,8 +864,19 @@ let () =
     let start =
       if parttype <> GPT then 512L
       else
-        (* XXX With 4K sectors does GPT just fit more entries in a
-         * sector, or does it always use 34 sectors?
+        (* With 512 byte sectors, GPT looks like:
+         *    512 bytes   sector 0       protective MBR
+         *   1024 bytes   sector 1       GPT header
+         *  17408 bytes   sectors 2-33   GPT entries (up to 128 x 128 bytes)
+         *
+         * With 4K sectors, GPT puts more entries in each sector, so
+         * the partition table looks like this:
+         *   4096 bytes   sector 0       protective MBR
+         *   8192 bytes   sector 1       GPT header
+         *  24576 bytes   sectors 2-5    GPT entries (up to 128 x 128 bytes)
+         *
+         * qemu doesn't support 4k sectors yet, so let's just use the
+         * 512 sector number for now.
          *)
         17408L in
 

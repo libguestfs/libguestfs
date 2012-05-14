@@ -199,7 +199,9 @@ do_part_disk (const char *device, const char *parttype)
    *
    * - aligned operations are faster
    * - absolute minimum recommended alignment is 64K (1M would be better)
-   * - GPT requires at least 34 sectors at the end of the disk.
+   * - GPT requires at least 34 sectors* at the end of the disk.
+   *
+   *   *=except for 4k sector disks, where only 6 sectors are required
    */
   const char *startstr = "128s";
   const char *endstr = "-128s";
