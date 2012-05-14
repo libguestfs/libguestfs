@@ -41,10 +41,10 @@ int
 main (int argc, char *argv[])
 {
   guestfs_h *g;
-  int fd;
+  int fd, r;
   char tempdir[] = "/tmp/mlXXXXXX";
   pid_t pid;
-  char *shell;
+  char *shell, *p;
   guestfs_error_handler_cb old_error_cb;
   void *old_error_data;
 
@@ -102,6 +102,10 @@ main (int argc, char *argv[])
   if (guestfs_mount_options (g, MOUNT_OPTIONS, "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
 
+  /* Create a file in the new filesystem. */
+  if (guestfs_touch (g, "/PUT_FILES_AND_DIRECTORIES_HERE") == -1)
+    exit (EXIT_FAILURE);
+
   /* Create a temporary mount directory. */
   if (mkdtemp (tempdir) == NULL) {
     perror ("mkdtemp");
@@ -137,10 +141,27 @@ main (int argc, char *argv[])
             "\n",
             SIZE_MB);
 
-    setenv ("PS1", "mount-local$ ", 1); /* ignored .. why? XXX */
-
     shell = getenv ("SHELL");
-    system (shell ? : "/bin/sh");
+    if (!shell)
+      r = system ("/bin/sh");
+    else {
+      /* Set a magic prompt.  We only know how to do this for bash. */
+      p = strrchr (shell, '/');
+      if (p && strcmp (p+1, "bash") == 0) {
+        size_t len = 64 + strlen (shell);
+        char buf[len];
+
+        snprintf (buf, len, "PS1='mount-local-shell> ' %s --norc -i", shell);
+        r = system (buf);
+      } else
+        r = system (shell);
+    }
+    if (r == -1) {
+      fprintf (stderr, "error: failed to run sub-shell (%s) "
+               "(is $SHELL set correctly?)\n",
+               shell);
+      //FALLTHROUGH
+    }
 
     chdir ("/");
     guestfs_umount_local (g, GUESTFS_UMOUNT_LOCAL_RETRY, 1, -1);
