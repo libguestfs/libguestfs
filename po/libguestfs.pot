@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.16.21\n"
+"Project-Id-Version: libguestfs 1.16.22\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-01 15:29+0100\n"
+"POT-Creation-Date: 2012-05-14 16:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,32 +198,32 @@ msgstr ""
 
 #: df/domains.c:117
 #, c-format
-msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr ""
 
 #: df/domains.c:126
 #, c-format
-msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
 
 #: df/domains.c:136
 #, c-format
-msgid "%s: could not list running domains (code %d, domain %d): %s"
+msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr ""
 
 #: df/domains.c:147
 #, c-format
-msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
 #: df/domains.c:157
 #, c-format
-msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
 #: df/domains.c:283
 #, c-format
-msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)\n"
 msgstr ""
 
 #: df/main.c:74
@@ -2137,7 +2137,7 @@ msgstr ""
 msgid "display filename\n"
 msgstr ""
 
-#: fish/edit.c:50
+#: fish/edit.c:49
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
@@ -2942,12 +2942,12 @@ msgstr ""
 msgid "{imagename} is not the name of a libvirt domain\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:242
+#: perl/lib/Sys/Guestfs/Lib.pm:246
 #, perl-brace-format
 msgid "{imagename} seems to have no disk devices\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:827
+#: perl/lib/Sys/Guestfs/Lib.pm:831
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
@@ -2959,56 +2959,56 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:945
+#: perl/lib/Sys/Guestfs/Lib.pm:949
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1023
+#: perl/lib/Sys/Guestfs/Lib.pm:1027
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1049
+#: perl/lib/Sys/Guestfs/Lib.pm:1053
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1114
+#: perl/lib/Sys/Guestfs/Lib.pm:1118
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1169
+#: perl/lib/Sys/Guestfs/Lib.pm:1173
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1200
+#: perl/lib/Sys/Guestfs/Lib.pm:1204
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1223
+#: perl/lib/Sys/Guestfs/Lib.pm:1227
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1292
+#: perl/lib/Sys/Guestfs/Lib.pm:1296
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1300
+#: perl/lib/Sys/Guestfs/Lib.pm:1304
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1354
+#: perl/lib/Sys/Guestfs/Lib.pm:1358
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1393
+#: perl/lib/Sys/Guestfs/Lib.pm:1397
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -3278,23 +3278,23 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch.c:967 src/launch.c:972
+#: src/launch.c:970 src/launch.c:975
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/launch.c:985
+#: src/launch.c:988
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch.c:1075
+#: src/launch.c:1078
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1083
+#: src/launch.c:1086
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1282
+#: src/launch.c:1285
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3303,11 +3303,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1422
+#: src/launch.c:1425
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:1433
+#: src/launch.c:1436
 msgid "no subprocess to kill"
 msgstr ""
 
@@ -3486,76 +3486,78 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:128
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr ""
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr ""
-
-#: test-tool/test-tool.c:149
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr ""
-
-#: test-tool/test-tool.c:175
+#: test-tool/test-tool.c:123
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 
-#: test-tool/test-tool.c:182
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr ""
-
-#: test-tool/test-tool.c:190
+#: test-tool/test-tool.c:129
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:145
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr ""
+
+#: test-tool/test-tool.c:154
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr ""
+
+#: test-tool/test-tool.c:173
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr ""
+
+#: test-tool/test-tool.c:197
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr ""
+
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr ""
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:242
+#: test-tool/test-tool.c:252
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr ""
 
-#: test-tool/test-tool.c:248
+#: test-tool/test-tool.c:258
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr ""
 
-#: test-tool/test-tool.c:255
+#: test-tool/test-tool.c:265
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:299
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:297
+#: test-tool/test-tool.c:307
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr ""
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:321
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-01 15:29+0100\n"
+"POT-Creation-Date: 2012-05-14 16:19+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -251,33 +251,33 @@ msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
 #: df/domains.c:117
-#, c-format
-msgid "%s: could not connect to libvirt (code %d, domain %d): %s"
+#, fuzzy, c-format
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr "%s: libvirt शी जोडणी करतेवेळी त्रुटी (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:126
-#, c-format
-msgid "%s: could not get number of running domains (code %d, domain %d): %s"
+#, fuzzy, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr "%s: सुरू असलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:136
-#, c-format
-msgid "%s: could not list running domains (code %d, domain %d): %s"
+#, fuzzy, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr "%s: सुरू असलेल्या डोमेन्स्ची सूची (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:147
-#, c-format
-msgid "%s: could not get number of inactive domains (code %d, domain %d): %s"
+#, fuzzy, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr "%s: सुरू नसलेल्या डोमेन्स्ची संख्या प्राप्त करणे अशक्य (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:157
-#, c-format
-msgid "%s: could not list inactive domains (code %d, domain %d): %s"
+#, fuzzy, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr "%s: सुरू नसलेल्या डोमेन्स्ची सूची दाखवणे अशक्य (कोड %d, डोमेन %d): %s"
 
 #: df/domains.c:283
-#, c-format
-msgid "%s: ignoring %s, it has too many disks (%zu > %d)"
+#, fuzzy, c-format
+msgid "%s: ignoring %s, it has too many disks (%zu > %d)\n"
 msgstr "%s: %s कडे दुर्लक्ष करत आहे, अनेक डिस्क्स् आढळले (%zu > %d)"
 
 #: df/main.c:74
@@ -2216,7 +2216,7 @@ msgstr "copy-out: '%s' फाइल किंवा डिरेक्ट्र�
 msgid "display filename\n"
 msgstr ""
 
-#: fish/edit.c:50
+#: fish/edit.c:49
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "फाइल संपादीत करण्यासाठी '%s filename' याचा वापर करा\n"
@@ -3072,12 +3072,12 @@ msgstr "{imagename} बंद असलेल्या libvirt डोमेन�
 msgid "{imagename} is not the name of a libvirt domain\n"
 msgstr "{imagename} हे libvirt डोमेनचे नाव नाही\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:242
+#: perl/lib/Sys/Guestfs/Lib.pm:246
 #, perl-brace-format
 msgid "{imagename} seems to have no disk devices\n"
 msgstr "{imagename} कडे डिस्क साधणे नाही असे आढळते\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:827
+#: perl/lib/Sys/Guestfs/Lib.pm:831
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
@@ -3096,56 +3096,56 @@ msgstr ""
 "ही त्रुटी आहे असे आढळल्यास, \n"
 "कृपया डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्ट करून बग अहवाल सादर करा.\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:945
+#: perl/lib/Sys/Guestfs/Lib.pm:949
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "अपरिचीत फाइलप्रणाली {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1023
+#: perl/lib/Sys/Guestfs/Lib.pm:1027
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "rpm -qa चालवतेवेळी त्रुटी: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1049
+#: perl/lib/Sys/Guestfs/Lib.pm:1053
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "dpkg-query चालवतेवेळी त्रुटी: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1114
+#: perl/lib/Sys/Guestfs/Lib.pm:1118
 msgid "Can't find grub on guest"
 msgstr "अतिथीवर ग्रब आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1169
+#: perl/lib/Sys/Guestfs/Lib.pm:1173
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "ग्रब नोंदणी {title} मध्ये कर्नल आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1200
+#: perl/lib/Sys/Guestfs/Lib.pm:1204
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "ग्रब {path} करीता निर्देशीत आहे, जे अस्तित्वात नाही\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1223
+#: perl/lib/Sys/Guestfs/Lib.pm:1227
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "ग्रब नोंदणी {title} initrd निर्देशीत करत नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1292
+#: perl/lib/Sys/Guestfs/Lib.pm:1296
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "कर्नल {path} करीता मॉड्यूल्स् डिरेक्ट्री {modules} आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1300
+#: perl/lib/Sys/Guestfs/Lib.pm:1304
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "कर्नल {path} करीता मार्ग पासून कर्नल आवृत्ती क्रमांक तर्कणे अशक्य"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1354
+#: perl/lib/Sys/Guestfs/Lib.pm:1358
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} augeas नमुनाशी जुळत नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1393
+#: perl/lib/Sys/Guestfs/Lib.pm:1397
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: initrd स्वरूप वाचणे अशक्य"
@@ -3419,23 +3419,23 @@ msgstr "%s: तात्पुर्ती डिरेक्ट्री नि
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:967 src/launch.c:972
+#: src/launch.c:970 src/launch.c:975
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:985
+#: src/launch.c:988
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:1075
+#: src/launch.c:1078
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch.c:1083
+#: src/launch.c:1086
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1282
+#: src/launch.c:1285
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3444,11 +3444,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1422
+#: src/launch.c:1425
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1433
+#: src/launch.c:1436
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
@@ -3637,64 +3637,66 @@ msgid ""
 "  --qemu qemu    Specify QEMU binary\n"
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
+"  --version\n"
+"  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:128
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: उपरिचीत लाँग पर्याय: %s (%d)\n"
-
-#: test-tool/test-tool.c:137
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: अवैध वेळसमाप्ती: %s\n"
-
-#: test-tool/test-tool.c:149
-#, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: अनपेक्षीत आदेश ओळ पर्याय 0x%x\n"
-
-#: test-tool/test-tool.c:175
+#: test-tool/test-tool.c:123
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs हँडल निर्माण करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:182
-#, c-format
-msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: ड्राइव्ह '%s' समावेश करण्यास अपयशी\n"
-
-#: test-tool/test-tool.c:190
+#: test-tool/test-tool.c:129
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version अपयशी\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:145
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: उपरिचीत लाँग पर्याय: %s (%d)\n"
+
+#: test-tool/test-tool.c:154
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: अवैध वेळसमाप्ती: %s\n"
+
+#: test-tool/test-tool.c:173
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: अनपेक्षीत आदेश ओळ पर्याय 0x%x\n"
+
+#: test-tool/test-tool.c:197
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: ड्राइव्ह '%s' समावेश करण्यास अपयशी\n"
+
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: अप्लायंस सुरू करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:242
+#: test-tool/test-tool.c:252
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 अपयशी\n"
 
-#: test-tool/test-tool.c:248
+#: test-tool/test-tool.c:258
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 यांस / वर माऊंट करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:255
+#: test-tool/test-tool.c:265
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:299
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3703,12 +3705,12 @@ msgstr ""
 "LIBGUESTFS_QEMU एन्वार्यनमेंट वेरियेबल आधिपासून सेट आहे, म्हणून\n"
 "--qemu/--qemudir पर्याय याचा वापर करणे अशक्य आहे.\n"
 
-#: test-tool/test-tool.c:297
+#: test-tool/test-tool.c:307
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:321
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमाणे आढळले नाही\n"
