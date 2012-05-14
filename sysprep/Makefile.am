@@ -59,7 +59,8 @@ SOURCES = \
 	sysprep_operation_user_account.ml \
 	sysprep_operation_utmp.ml \
 	sysprep_operation_yum_uuid.ml \
-	utils.ml
+	utils.ml \
+	utils.mli
 
 if HAVE_OCAML
 
