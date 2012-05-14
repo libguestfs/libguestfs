@@ -600,3 +600,22 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
 
   return 0;
 }
+
+int
+do_btrfs_set_seeding (const char *device, int svalue)
+{
+  char *err;
+  int r;
+
+  const char *s_value = svalue ? "1" : "0";
+
+  r = commandr (NULL, &err, "btrfstune", "-S", s_value, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return r;
+}

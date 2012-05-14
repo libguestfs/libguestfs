@@ -7222,6 +7222,16 @@ mounted at C<fs>.  If C<devices> is an empty list, this does nothing.");
 Remove the C<devices> from the btrfs filesystem mounted at C<fs>.
 If C<devices> is an empty list, this does nothing.");
 
+  ("btrfs_set_seeding", (RErr, [Device "device"; Bool "seeding"], []), 331, [Optional "btrfs"],
+   [InitPartition, IfAvailable "btrfs", TestRun (
+     [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+      ["btrfs_set_seeding"; "/dev/sda1"; "true"];
+      ["btrfs_set_seeding"; "/dev/sda1"; "false"]])],
+   "enable or disable the seeding feature of device",
+   "\
+Enable or disable the seeding feature of a device that contains
+a btrfs filesystem.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
