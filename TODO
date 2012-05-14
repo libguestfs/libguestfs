@@ -477,3 +477,28 @@ Optimize the appliance
 ----------------------
 
 Pass -cpu host.  Anything else?
+
+Sort out partitioning
+---------------------
+
+Ignoring some legacy APIs, we currently have a mixed selection of
+'part-*' APIs, implemented using parted.  We don't like parted or
+libparted very much, and would love to replace it with something else.
+The part-* APIs are quirky, but not too bad and we should maintain and
+extend them instead of making another set of APIs.
+
+One option is to write "libmbr" and "libgpt" libraries that would just
+do MBR and GPT respectively, and do it directly and do it well.  They
+wouldn't try to abstract anything (so, unlike libparted).  We could
+then reimplement the part-* APIs on top of these hopefully sensible
+libraries.  This is a lot of work.
+
+Another option is to look for tools or libraries to replace parted.
+For GPT there is a fairly obvious candidate: Rod Smith's GPT fdisk
+(http://www.rodsbooks.com/gdisk/).  Rod has spent a lot of time
+studying GPT, and seems to know more about it than any sane man
+should.  There is a command line tool designed for scripts called
+'sgdisk'.  The tools are packaged for many Linux distros.  Even if
+this approach works, it doesn't solve the MBR problem, so likely we'd
+have to write a library for that (or perhaps go back to sfdisk but
+using a very abstracted interface over sfdisk).
