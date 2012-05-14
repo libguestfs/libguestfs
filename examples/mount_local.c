@@ -18,6 +18,15 @@
 #define O_CLOEXEC 0
 #endif
 
+/* Define a list of filesystem mount options (used on the libguestfs
+ * side, nothing to do with FUSE).  An empty string may be used here
+ * instead.
+ */
+#define MOUNT_OPTIONS "acl,user_xattr"
+
+/* Size of the disk (megabytes). */
+#define SIZE_MB 512
+
 static void
 usage (void)
 {
@@ -36,6 +45,8 @@ main (int argc, char *argv[])
   char tempdir[] = "/tmp/mlXXXXXX";
   pid_t pid;
   char *shell;
+  guestfs_error_handler_cb old_error_cb;
+  void *old_error_data;
 
   if (argc != 2) {
     usage ();
@@ -49,13 +60,13 @@ main (int argc, char *argv[])
           "Creating and formatting the disk image, please wait a moment ...\n");
   fflush (stdout);
 
-  /* Create the output disk image: 512 MB raw sparse. */
+  /* Create the output disk image: raw sparse. */
   fd = open (argv[1], O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0644);
   if (fd == -1) {
     perror (argv[1]);
     exit (EXIT_FAILURE);
   }
-  if (ftruncate (fd, 512 * 1024 * 1024) == -1) {
+  if (ftruncate (fd, SIZE_MB * 1024 * 1024) == -1) {
     perror ("truncate");
     close (fd);
     exit (EXIT_FAILURE);
@@ -65,13 +76,14 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  /* Open the disk image and format it with a partition and a filesystem. */
+  /* Guestfs handle. */
   g = guestfs_create ();
   if (g == NULL) {
     perror ("could not create libguestfs handle");
     exit (EXIT_FAILURE);
   }
 
+  /* Create the disk image and format it with a partition and a filesystem. */
   if (guestfs_add_drive_opts (g, argv[1],
                               GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                               -1) == -1)
@@ -87,7 +99,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Mount the empty filesystem. */
-  if (guestfs_mount_options (g, "acl,user_xattr", "/dev/sda1", "/") == -1)
+  if (guestfs_mount_options (g, MOUNT_OPTIONS, "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
 
   /* Create a temporary mount directory. */
@@ -116,13 +128,16 @@ main (int argc, char *argv[])
     printf ("\n"
             "The _current directory_ is a FUSE filesystem backed by the disk\n"
             "image which is managed by libguestfs.  Any files or directories\n"
-            "you copy into here (up to 512 MB) will be saved into the disk\n"
+            "you copy into here (up to %d MB) will be saved into the disk\n"
             "image.  You can also delete files, create certain special files\n"
             "and so on.\n"
             "\n"
             "When you have finished adding files, hit ^D or exit to exit the\n"
             "shell and return to the mount-local program.\n"
-            "\n");
+            "\n",
+            SIZE_MB);
+
+    setenv ("PS1", "mount-local$ ", 1); /* ignored .. why? XXX */
 
     shell = getenv ("SHELL");
     system (shell ? : "/bin/sh");
@@ -135,8 +150,18 @@ main (int argc, char *argv[])
   /* Note that we are *not* waiting for the child yet.  We want to
    * run the FUSE code in parallel with the subshell.
    */
+
+  /* We're going to hide libguestfs errors here, but in a real program
+   * you would probably want to log them somewhere.
+   */
+  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
+  guestfs_set_error_handler (g, NULL, NULL);
+
+  /* Now run the FUSE thread. */
   if (guestfs_mount_local_run (g) == -1)
     exit (EXIT_FAILURE);
+
+  guestfs_set_error_handler (g, old_error_cb, old_error_data);
 
   waitpid (pid, NULL, 0);
 
