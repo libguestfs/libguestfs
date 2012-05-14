@@ -192,6 +192,9 @@ would make more sense to just use libblkid for this.
 There are some places where we call out to the 'blkid' program.  This
 might be replaced by direct use of the library (if this is easier).
 
+But it is very hard to be compatible between RHEL6 and RHEL5 when
+using direct library.
+
 Visualization
 -------------
 
