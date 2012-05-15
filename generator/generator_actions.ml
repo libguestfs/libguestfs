@@ -7232,6 +7232,15 @@ If C<devices> is an empty list, this does nothing.");
 Enable or disable the seeding feature of a device that contains
 a btrfs filesystem.");
 
+  ("btrfs_fsck", (RErr, [Device "device"], [OInt64 "superblock"; OBool "repair"]), 332, [Optional "btrfs"],
+   [InitPartition, IfAvailable "btrfs", TestRun (
+     [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+      ["btrfs_fsck"; "/dev/sda1"; ""; ""]])],
+   "check a btrfs filesystem",
+   "\
+Used to check a btrfs filesystem, C<device> is the device file where the
+filesystem is stored.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -60,7 +60,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-ntfsfix.h \
   include/guestfs-gobject/optargs-ntfsclone_out.h \
   include/guestfs-gobject/optargs-mkfs_btrfs.h \
-  include/guestfs-gobject/optargs-set_e2attrs.h
+  include/guestfs-gobject/optargs-set_e2attrs.h \
+  include/guestfs-gobject/optargs-btrfs_fsck.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -102,4 +103,5 @@ guestfs_gobject_sources= \
   src/optargs-ntfsfix.c \
   src/optargs-ntfsclone_out.c \
   src/optargs-mkfs_btrfs.c \
-  src/optargs-set_e2attrs.c
+  src/optargs-set_e2attrs.c \
+  src/optargs-btrfs_fsck.c

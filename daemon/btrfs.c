@@ -619,3 +619,47 @@ do_btrfs_set_seeding (const char *device, int svalue)
   free (err);
   return 0;
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_btrfs_fsck (const char *device, int64_t superblock, int repair)
+{
+  char *err;
+  int r;
+  size_t i = 0;
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  char super_s[64];
+
+  ADD_ARG (argv, i, "btrfsck");
+
+  /* Optional arguments. */
+  if (optargs_bitmask & GUESTFS_BTRFS_FSCK_SUPERBLOCK_BITMASK) {
+    if (superblock < 0) {
+      reply_with_error ("super block offset must be >= 0");
+      return -1;
+    }
+    snprintf (super_s, sizeof super_s, "%" PRIi64, superblock);
+    ADD_ARG (argv, i, "--super");
+    ADD_ARG (argv, i, super_s);
+  }
+
+  if (!(optargs_bitmask & GUESTFS_BTRFS_FSCK_REPAIR_BITMASK))
+    repair = 0;
+
+  if (repair)
+    ADD_ARG (argv, i, "--repair");
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
