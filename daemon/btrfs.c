@@ -617,5 +617,5 @@ do_btrfs_set_seeding (const char *device, int svalue)
   }
 
   free (err);
-  return r;
+  return 0;
 }
