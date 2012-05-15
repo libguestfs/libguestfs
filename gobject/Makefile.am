@@ -38,7 +38,7 @@ EXTRA_DIST = \
 # Remove the old generated files which were directly in the gobject/
 # directory.  These have now moved into gobject/src/
 CLEANFILES = \
-	guestfs-gobject-*.c *.o *.lo
+	guestfs-gobject*.c *.o *.lo
 
 libname = libguestfs-gobject-1.0.la
 
