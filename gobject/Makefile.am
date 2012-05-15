@@ -35,6 +35,11 @@ EXTRA_DIST = \
 	tests-misc.js \
 	run-tests
 
+# Remove the old generated files which were directly in the gobject/
+# directory.  These have now moved into gobject/src/
+CLEANFILES = \
+	guestfs-gobject-*.c *.o *.lo
+
 libname = libguestfs-gobject-1.0.la
 
 lib_LTLIBRARIES = $(libname)
@@ -61,6 +66,7 @@ INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir) --warn-all
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
+
 introspection_sources = \
 	$(libguestfs_gobject_1_0_la_HEADERS) \
 	$(libguestfs_gobject_1_0_la_SOURCES)
@@ -83,5 +89,6 @@ TESTS_ENVIRONMENT = GJS=$(GJS)
 
 $(TESTS): $(typelib_DATA)
 
-CLEANFILES = $(gir_DATA) $(typelib_DATA)
+CLEANFILES += $(gir_DATA) $(typelib_DATA)
+
 endif
