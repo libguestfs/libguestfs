@@ -833,6 +833,8 @@ show_file (const char *dir, const char *name,
     output_xattrs (xattrs);
   */
 
+  path = full_path (dir, name);
+
   if (checksum && is_reg (stat->mode)) {
     csum = guestfs_checksum (g, checksum, path);
     if (!csum)
@@ -841,7 +843,6 @@ show_file (const char *dir, const char *name,
     output_string (csum);
   }
 
-  path = full_path (dir, name);
   output_string (path);
 
   if (is_lnk (stat->mode))
