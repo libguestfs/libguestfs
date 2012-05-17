@@ -777,7 +777,7 @@ show_file (const char *dir, const char *name,
            const struct guestfs_xattr_list *xattrs)
 {
   char filetype[2];
-  char *path = NULL, *csum = NULL, *link = NULL;
+  char *path, *csum = NULL, *link = NULL;
 
   /* Display the basic fields. */
   output_start_line ();
