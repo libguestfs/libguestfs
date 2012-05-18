@@ -43,6 +43,7 @@ SOURCES = \
 	sysprep_operation_dovecot_data.ml \
 	sysprep_operation_flag_reconfiguration.ml \
 	sysprep_operation_hostname.ml \
+	sysprep_operation_kerberos_data.ml \
 	sysprep_operation_logfiles.ml \
 	sysprep_operation_mail_spool.ml \
 	sysprep_operation_net_hwaddr.ml \
@@ -79,6 +80,7 @@ OBJECTS = \
 	sysprep_operation_dovecot_data.cmx \
 	sysprep_operation_flag_reconfiguration.cmx \
 	sysprep_operation_hostname.cmx \
+	sysprep_operation_kerberos_data.cmx \
 	sysprep_operation_logfiles.cmx \
 	sysprep_operation_mail_spool.cmx \
 	sysprep_operation_net_hwaddr.cmx \
