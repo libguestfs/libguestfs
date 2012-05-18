@@ -36,6 +36,7 @@ SOURCES = \
 	sysprep_operation.mli \
 	sysprep_operation_bash_history.ml \
 	sysprep_operation_blkid_tab.ml \
+	sysprep_operation_ca_certificates.ml \
 	sysprep_operation_cron_spool.ml \
 	sysprep_operation_dhcp_client_state.ml \
 	sysprep_operation_dhcp_server_state.ml \
@@ -71,6 +72,7 @@ OBJECTS = \
 	sysprep_operation.cmx \
 	sysprep_operation_bash_history.cmx \
 	sysprep_operation_blkid_tab.cmx \
+	sysprep_operation_ca_certificates.cmx \
 	sysprep_operation_cron_spool.cmx \
 	sysprep_operation_dhcp_client_state.cmx \
 	sysprep_operation_dhcp_server_state.cmx \
