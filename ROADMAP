@@ -12,19 +12,19 @@ Before you read this:
 
 (4) For general "might be good to have" items, see 'TODO'.
 
-For next major stable release (1.18)
+For next major stable release (1.20)
 ------------------------------------
 
 * Allow remote libvirt volumes to be accessed.  This requires some
   enhancements to libvirt which have been agreed but not yet
   implemented.
 
-Bugs assigned to 1.18 (put "1.18" in the Devel Whiteboard field in
+Bugs assigned to 1.20 (put "1.20" in the Devel Whiteboard field in
 Bugzilla):
 
-https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.18&component=libguestfs&product=Virtualization%20Tools
+https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&field0-0-0=cf_devel_whiteboard&bug_status=NEW&bug_status=ASSIGNED&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=FAILS_QA&bug_status=RELEASE_PENDING&bug_status=POST&bug_status=PASSES_QA&type0-0-0=anywords&value0-0-0=1.20&component=libguestfs&product=Virtualization%20Tools
 
-Beyond 1.18
+Beyond 1.20
 -----------
 
 * Make 'guestfish --ro' be the default, and get users to use
