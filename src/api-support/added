@@ -48,6 +48,10 @@ guestfs_btrfs_filesystem_resize 1.11.17
 guestfs_btrfs_filesystem_resize_argv 1.11.17
 guestfs_btrfs_filesystem_resize_va 1.11.17
 guestfs_btrfs_filesystem_sync 1.17.35
+guestfs_btrfs_fsck 1.17.43
+guestfs_btrfs_fsck_argv 1.17.43
+guestfs_btrfs_fsck_va 1.17.43
+guestfs_btrfs_set_seeding 1.17.43
 guestfs_btrfssubvolume 1.17.35
 guestfs_btrfs_subvolume_create 1.17.35
 guestfs_btrfs_subvolume_delete 1.17.35
