@@ -1,8 +1,6 @@
 Release notes for libguestfs 1.18.0
 -----------------------------------
 
-UPDATED TO COMMIT 500cc67f29b43ebb970f6f276967ee5e9959b140
-
 These release notes only cover the differences from the previous
 stable/dev branch split (1.16.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
@@ -12,9 +10,7 @@ New features
   virt tools:
 
    - virt-sysprep has been rewritten and expanded (thanks Wanlong Gao)
-
-   - virt-edit preserves permissions, UID, GID and SELinux context
-     when editing files
+     http://libguestfs.org/virt-sysprep.1.html
 
    - virt-sparsify --zero is a new option that zeroes the named
      partition or filesystem
@@ -22,10 +18,12 @@ New features
    - virt-sparsify can now safely sparsify Linux swap partitions
 
    - virt-sparsify fixed so it cleans up after ^C
+     http://libguestfs.org/virt-sparsify.1.html
 
    - a new tool 'libguestfs-make-fixed-appliance' is provided to build
      fixed appliances that can be copied to other machines that don't
      have febootstrap support
+     http://libguestfs.org/libguestfs-make-fixed-appliance.1.html
 
    - virt-filesystems now displays the parents (containers) of MD
      devices and volume groups
@@ -33,12 +31,26 @@ New features
    - virt-alignment-scan, run with no args, displays alignment information
      for all libvirt domains
 
+   - virt-df and virt-alignment-scan will display information from all
+     guests even when a disk is inaccessible
+
    - virt-rescue new --scratch option to make scratch disks
+     https://rwmj.wordpress.com/2012/04/26/virt-rescue-scratch/#content
+
+   - virt-make-fs can now be used to create btrfs
+
+   - virt-edit preserves permissions, UID, GID and SELinux context
+     when editing files
+
+   - guestfish passes the close event over stdout and remote correctly
+
+   - guestfish new '--pipe-error' option lets you detect errors in pipe
+     commands
+
+   - guestfish globs now expand device names
 
    - comma and colon characters in filenames now handled correctly by
      all virt tools
-
-   - guestfish passes the close event over stdout and remote correctly
 
   inspection:
 
@@ -53,10 +65,19 @@ New features
 
   API:
 
+   - broad support for btrfs added, including adding multiple devices,
+     fsck, snapshots (thanks Wanlong Gao)
+
+   - the new 'mount-local' API brings FUSE support directly into the
+     core libguestfs API
+     https://rwmj.wordpress.com/2012/05/14/tip-using-mount-local-api-from-c/#content
+
    - new man page: guestfs-performance(1), which contains performance
-     tuning tips.
+     tuning tips
+     http://libguestfs.org/guestfs-performance.1.html
 
    - new man page: guestfs-faq(1), Frequently Asked Questions
+     http://libguestfs.org/guestfs-faq.1.html
 
    - ENOTSUP (from guestfs_last_errno) is now returned for APIs that
      are not supported
@@ -66,6 +87,8 @@ New features
    - 'copy_over' example showing how to copy between two handles
 
    - 'display_icon' program displays the icon associated with a guest
+
+   - 'mount_local.c' example shows how to use the mount-local API
 
 Security
 
@@ -77,6 +100,8 @@ New APIs
   btrfs-device-delete: Remove devices from a btrfs filesystem.
   btrfs-filesystem-sync: Sync a btrfs filesystem.
   btrfs-filesystem-balance: Balance a btrfs filesystem.
+  btrfs-fsck: Check btrfs filesystem.
+  btrfs-set-seeding: Enable or disable seeding.
   btrfs-subvolume-create: Create a btrfs snapshot.
   btrfs-subvolume-delete: Delete a btrfs snapshot.
   btrfs-subvolume-list: List btrfs snapshots and subvolumes.
@@ -103,6 +128,8 @@ Internals
 
  - The debian/ subdirectory has been removed.  We recommend you use
    the official Debian packages made by Hilko Bengen.
+   http://people.debian.org/~bengen/libguestfs/
+   http://packages.debian.org/search?keywords=libguestfs
 
  - O_CLOEXEC / SOCK_CLOEXEC is now used for almost all file
    descriptors that the library opens.
@@ -118,6 +145,8 @@ Internals
 
  - use ./configure --enable-valgrind-daemon to use valgrind on the
    daemon;  many errors have been fixed
+
+ - use ./configure --with-qemu-options to pass extra options to qemu
 
  - the daemon now has a growable strings buffer type (DECLARE_STRINGSBUF)
 
@@ -166,10 +195,13 @@ Internals
 
  - gettext support now covers virt-resize, virt-sparsify and virt-sysprep
 
+ - better support for the arm architecture
+
 Bugs fixed
 
-  [./bugs-in-changelog.sh 1.16.0..]
-
+ - 822490 virt-ls error: "libguestfs: error: checksum: path: parameter cannot be NULL"
+ - 816839 data overflow error when debug progress -1
+ - 816098 virt-make-fs fails to make a btrfs filesystem because it doesn't allocate enough space
  - 811872 inspection fails on ubuntu 10.04 guest with encrypted swap
  - 811650 guestfs_last_error not set when qemu fails early during launch
  - 811649 libguestfs cannot open disk images which are symlinks to files that contain ':' (colon) character
@@ -180,20 +212,28 @@ Bugs fixed
  - 805070 virt-filesystems should show 'parents' of LV and RAID devices
  - 804464 libguestfs cannot be built when LINGUAS is different then ja or uk
  - 803664 libguestfs inspection fails on Windows XP: libguestfs: error: hivex: could not locate HKLM\SYSTEM\MountedDevices
+ - 803533 guestfish: write error
+ - 802389 event handlers for 'close' event doesn't work in remote mode
  - 802109 libguestfs uses putc on stderr, results in many individual 1 byte writes of debug messages
+ - 801640 [RFE] the error reported by resize2fs-M need to be more clear
+ - 801298 Possible null dereference and resource leaks
  - 801273 Document for set-pgroup need to be updated
  - 798196 virt-resize confuses format and output_format variables; using --output-format sets the input format
  - 797986 virt-resize on Windows XP in sysprep state causes "UNMOUNTABLE_BOOT_VOLUME" BSOD
  - 796520 [RFE] Prevent user from running some appliance configure commands after appliance boot up
  - 790721 multiprovider build error: RuntimeError: link: /tmp/.guestfs-0/kernel /tmp/.guestfs-0/kernel.10139: File exists
  - 789960 guestfsd crash when try to mount non-exist disk
+ - 789504 virt-df (other tools?) should not give up if a guest disk is missing
  - 788641 virt-edit doesn't preserve file permissions
  - 786215 libguestfs inspection does not recognize FreeDOS operating system
  - 786188 libguestfs inspection does not recognize FreeDOS install CD
  - 785668 aug-defnode: daemon crash
  - 784647 Libguestfs uses deprecated net-tools
  - 769304 virt-resize on RHEL 6 kernel fails to re-read the partition table
+ - 755729 Error message for resize2fs-M needs tweaking
+ - 701814 virt-win-reg fails on a libvirt guest that has no defined disk format: "format parameter is empty or contains disallowed characters"
  - 679737 libguestfs: improve error message when zerofree is not available in the appliance
+ - 635971 glob mkfs ext2 /dev/vd[b-t]1 does not expand
 
 
 Release notes for libguestfs 1.16.0
