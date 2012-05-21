@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-05-17 19:48+0100\n"
-"PO-Revision-Date: 2012-05-08 14:29+0000\n"
+"PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
-"Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ml\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: align/domains.c:112 df/domains.c:119
@@ -680,9 +679,7 @@ msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ�
 
 #: fish/cmds.c:3092
 msgid "report file system disk space usage (human readable)"
-msgstr ""
-"ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ്കിലുള്ള സ്ഥലത്തിന്റെ ഉപയോഗം രേഖപ്പെടുത്തുക (മനുഷ്യര്‍ക്കു് വായിക്കുവാന്‍ "
-"സാധിക്കുന്നതു്)"
+msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ്കിലുള്ള സ്ഥലത്തിന്റെ ഉപയോഗം രേഖപ്പെടുത്തുക (മനുഷ്യര്‍ക്കു് വായിക്കുവാന്‍ സാധിക്കുന്നതു്)"
 
 #: fish/cmds.c:3093
 msgid "display an image"
@@ -1652,8 +1649,7 @@ msgstr "വീണ്ടെടുക്കുന്ന പ്രക്രിയ �
 
 #: fish/cmds.c:3354
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr ""
-"പ്രയോഗം ബൂട്ട് ചെയ്യുമ്പോള്‍ SELinux പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "പ്രയോഗം ബൂട്ട് ചെയ്യുമ്പോള്‍ SELinux പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:3355
 msgid "set number of virtual CPUs in appliance"
@@ -2265,7 +2261,8 @@ msgstr ""
 #: fish/copy.c:47
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:68
@@ -2471,19 +2468,14 @@ msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr ""
-"help - കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുന്നു\n"
-"     help cmd\n"
-"     help\n"
+msgstr "help - കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുന്നു\n     help cmd\n     help\n"
 
 #: fish/fish.c:1190
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr ""
-"quit - quit guestfish\n"
-"     quit\n"
+msgstr "quit - quit guestfish\n     quit\n"
 
 #: fish/fish.c:1195
 #, c-format
@@ -2543,8 +2535,7 @@ msgstr "glob: guestfs_glob_expand കോള്‍ പരാജയപ്പെട
 #: fish/help.c:39
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -2801,9 +2792,7 @@ msgstr "guestfish: protocol error: 'hello' സന്ദേശം വായിക
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr ""
-"guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
-"പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
+msgstr "guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
 #: fish/rc.c:349 fish/rc.c:363
 #, c-format
@@ -2813,8 +2802,7 @@ msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്�
 #: fish/rc.c:375 fish/rc.c:389
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
+msgstr "guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
 #: fish/rc.c:400
 #, c-format
@@ -3010,12 +2998,10 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3087,8 +3073,8 @@ msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:179
 msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and "
+"XML::XPath::XMLParser)"
 msgstr ""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:184
@@ -3118,8 +3104,7 @@ msgstr ""
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by virt-inspector.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3549,8 +3534,7 @@ msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ�
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
-msgstr ""
-"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgstr "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
 #: src/proto.c:501
 msgid ""
@@ -3662,8 +3646,7 @@ msgstr ""
 #: src/virt.c:426
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -3765,9 +3748,7 @@ msgstr ""
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
-msgstr ""
-"LIBGUESTFS_QEMU എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ നിലവില്‍ സജ്ജമാണു്, അതിനാല്‍\n"
-"--qemu/--qemudir ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല.\n"
+msgstr "LIBGUESTFS_QEMU എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ നിലവില്‍ സജ്ജമാണു്, അതിനാല്‍\n--qemu/--qemudir ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല.\n"
 
 #: test-tool/test-tool.c:295
 #, c-format
@@ -3857,8 +3838,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -3915,8 +3895,8 @@ msgstr ""
 
 #: resize/resize.ml:793
 msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
+"  The surplus space is not large enough for an extra partition to be created"
+" and so it will just be ignored."
 msgstr ""
 
 #: resize/resize.ml:795
@@ -3957,19 +3937,19 @@ msgstr ""
 #: resize/resize.ml:603
 msgid ""
 "%s: This partition has contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the '--resize-force' option,"
+" but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 
 #: resize/resize.ml:599
 msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
+"%s: This partition has contains an LVM physical volume which will be damaged"
+" by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If"
+" you want to shrink this partition, you need to use the '--resize-force' "
+"option, but that could destroy any data on this partition.  (This error came"
+" from '%s' option on the command line.)"
 msgstr ""
 
 #: resize/resize.ml:596
@@ -4036,8 +4016,8 @@ msgstr ""
 #: resize/resize.ml:537
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
+"option on the command line).  Try running this command: virt-filesystems "
+"--partitions --long -a %s"
 msgstr ""
 
 #: resize/resize.ml:424
@@ -4271,8 +4251,7 @@ msgstr ""
 
 #: resize/resize.ml:850
 msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
+"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n"
 "\n"
 "The underlying error was: %s"
 msgstr ""
@@ -4871,8 +4850,7 @@ msgstr ""
 
 #: resize/resize.ml:1085
 msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader "
-"magic\n"
+"warning: first partition is NTFS but does not contain NTFS boot loader magic\n"
 "%!"
 msgstr ""
 
