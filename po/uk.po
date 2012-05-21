@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-21 16:16+0100\n"
+"POT-Creation-Date: 2012-06-01 20:31+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3016,11 +3016,22 @@ msgstr ""
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
 
+#: fish/options.c:153
+#, c-format
+msgid "%s: '%s' could not be mounted.\n"
+msgstr ""
+
 #: fish/options.c:157
 #, c-format
-msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
+msgid ""
+"%s: Check mount(8) man page to ensure options '%s'\n"
+"%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
-"%s: «%s» не вдалося змонтувати. Ви мали на увазі один з цих пристроїв?\n"
+
+#: fish/options.c:161
+#, c-format
+msgid "%s: Did you mean to mount one of these filesystems?\n"
+msgstr ""
 
 #: fish/prep.c:38
 #, c-format
@@ -3956,9 +3967,9 @@ msgstr ""
 "програмний інтерфейс вивчення (inspection) недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки hivex"
 
-#: src/inspect.c:760 src/inspect_fs.c:526 src/inspect_fs.c:570
-#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:744
-#: src/inspect_fs_unix.c:1331
+#: src/inspect.c:760 src/inspect_fs.c:530 src/inspect_fs.c:574
+#: src/inspect_fs_unix.c:232 src/inspect_fs_unix.c:759
+#: src/inspect_fs_unix.c:1346
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
@@ -3982,12 +3993,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect_fs.c:535
+#: src/inspect_fs_unix.c:187
 #, c-format
-msgid "%s: file is empty"
-msgstr "%s: файл порожній"
+msgid "release file %s is empty or malformed"
+msgstr ""
 
-#: src/inspect_fs_unix.c:787
+#: src/inspect_fs_unix.c:802
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
@@ -4369,7 +4380,7 @@ msgid "unexpected output from 'du' command"
 msgstr "несподівані вихідні дані від команди «du»"
 
 #: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
-#: tools/virt-make-fs.pl:489
+#: tools/virt-make-fs.pl:510
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: невідомий формат вхідних даних: {fmt}\n"
@@ -4391,16 +4402,16 @@ msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: підтримку NTFS було вимкнено під час збирання libguestfs\n"
 
-#: tools/virt-make-fs.pl:473
+#: tools/virt-make-fs.pl:494
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: помилка, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:495
+#: tools/virt-make-fs.pl:516
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "помилка команди розпакування, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:530
+#: tools/virt-make-fs.pl:551
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -5705,3 +5716,10 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
+#~ msgstr ""
+#~ "%s: «%s» не вдалося змонтувати. Ви мали на увазі один з цих пристроїв?\n"
+
+#~ msgid "%s: file is empty"
+#~ msgstr "%s: файл порожній"

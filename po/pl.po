@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-21 16:16+0100\n"
+"POT-Creation-Date: 2012-06-01 20:31+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/language/"
@@ -2918,11 +2918,22 @@ msgstr "należy użyć \"%s nazwa_pliku\", aby wyświetlić plik\n"
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: dodano za dużo napędów w wierszu poleceń\n"
 
+#: fish/options.c:153
+#, c-format
+msgid "%s: '%s' could not be mounted.\n"
+msgstr ""
+
 #: fish/options.c:157
 #, c-format
-msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
+msgid ""
+"%s: Check mount(8) man page to ensure options '%s'\n"
+"%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
-"%s: nie można zamontować \"%s\". Być może chciano użyć jednej z tych?\n"
+
+#: fish/options.c:161
+#, c-format
+msgid "%s: Did you mean to mount one of these filesystems?\n"
+msgstr ""
 
 #: fish/prep.c:38
 #, c-format
@@ -3819,9 +3830,9 @@ msgstr ""
 "API badania jest niedostępne, ponieważ ta wersja biblioteki libguestfs "
 "została skompilowana bez biblioteki hivex"
 
-#: src/inspect.c:760 src/inspect_fs.c:526 src/inspect_fs.c:570
-#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:744
-#: src/inspect_fs_unix.c:1331
+#: src/inspect.c:760 src/inspect_fs.c:530 src/inspect_fs.c:574
+#: src/inspect_fs_unix.c:232 src/inspect_fs_unix.c:759
+#: src/inspect_fs_unix.c:1346
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
@@ -3844,12 +3855,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "nie można przetworzyć liczby całkowitej w numerze wersji: %s"
 
-#: src/inspect_fs.c:535
+#: src/inspect_fs_unix.c:187
 #, c-format
-msgid "%s: file is empty"
-msgstr "%s: plik jest pusty"
+msgid "release file %s is empty or malformed"
+msgstr ""
 
-#: src/inspect_fs_unix.c:787
+#: src/inspect_fs_unix.c:802
 msgid "could not parse /etc/fstab or empty file"
 msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 
@@ -4229,7 +4240,7 @@ msgid "unexpected output from 'du' command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
 #: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
-#: tools/virt-make-fs.pl:489
+#: tools/virt-make-fs.pl:510
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: nieznany format wyjścia: {fmt}\n"
@@ -4252,18 +4263,18 @@ msgstr ""
 "virt-make-fs: obsługa systemu plików NTFS została wyłączona podczas "
 "komplikacji biblioteki libguestfs\n"
 
-#: tools/virt-make-fs.pl:473
+#: tools/virt-make-fs.pl:494
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
 "tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:495
+#: tools/virt-make-fs.pl:516
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "polecenie uncompress się nie powiodło, proszę zobaczyć wcześniejsze "
 "komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:530
+#: tools/virt-make-fs.pl:551
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -5347,3 +5358,10 @@ msgstr ""
 #: sparsify/sparsify.ml:130 resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
+
+#~ msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
+#~ msgstr ""
+#~ "%s: nie można zamontować \"%s\". Być może chciano użyć jednej z tych?\n"
+
+#~ msgid "%s: file is empty"
+#~ msgstr "%s: plik jest pusty"
