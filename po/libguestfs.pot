@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.17.43\n"
+"Project-Id-Version: libguestfs 1.18.0\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-17 19:48+0100\n"
+"POT-Creation-Date: 2012-05-21 16:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4296,6 +4296,10 @@ msgstr ""
 msgid "Remove \".ssh\" directories in the guest"
 msgstr ""
 
+#: sysprep/sysprep_operation_ca_certificates.ml:53
+msgid "Remove CA certificates in the guest"
+msgstr ""
+
 #: sysprep/sysprep_operation_dhcp_client_state.ml:36
 msgid "Remove DHCP client leases"
 msgstr ""
@@ -4310,6 +4314,10 @@ msgstr ""
 
 #: sysprep/sysprep_operation_net_hwaddr.ml:49
 msgid "Remove HWADDR (hard-coded MAC address) configuration"
+msgstr ""
+
+#: sysprep/sysprep_operation_kerberos_data.ml:46
+msgid "Remove Kerberos data in the guest"
 msgstr ""
 
 #: sysprep/sysprep_operation_user_account.ml:65
