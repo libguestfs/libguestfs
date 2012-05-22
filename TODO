@@ -377,15 +377,12 @@ virt-sysprep ideas
 ------------------
 
  - other Spacewalk / RHN IDs (?)
- - Kerberos keys
  - Puppet registration
  - Windows sysprep
    (see: https://github.com/clalancette/oz/blob/e74ce83283d468fd987583d6837b441608e5f8f0/oz/Windows.py )
  - (librarian suggests ...)
    . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
-   . run an external shell script
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
- - /var/run/* and pam_faillock's data files
  - if drives are encrypted, then dm-crypt key should be changed
    and drives all re-encrypted
  - /etc/pki
