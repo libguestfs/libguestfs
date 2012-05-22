@@ -38,14 +38,6 @@ package com.redhat.et.libguestfs;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.redhat.et.libguestfs.LibGuestFSException;
-import com.redhat.et.libguestfs.PV;
-import com.redhat.et.libguestfs.VG;
-import com.redhat.et.libguestfs.LV;
-import com.redhat.et.libguestfs.Stat;
-import com.redhat.et.libguestfs.StatVFS;
-import com.redhat.et.libguestfs.IntBool;
-import com.redhat.et.libguestfs.Dirent;
 
 /**
  * The GuestFS object is a libguestfs handle.
