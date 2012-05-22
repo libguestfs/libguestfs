@@ -61,6 +61,7 @@ static char *debug_ll (const char *subcmd, size_t argc, char *const *const argv)
 static char *debug_progress (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_qtrace (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_setenv (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, size_t argc, char *const *const argv);
 
 static struct cmd cmds[] = {
@@ -75,6 +76,7 @@ static struct cmd cmds[] = {
   { "progress", debug_progress },
   { "qtrace", debug_qtrace },
   { "segv", debug_segv },
+  { "setenv", debug_setenv },
   { "sh", debug_sh },
   { NULL, NULL }
 };
@@ -284,6 +286,28 @@ debug_env (const char *subcmd, size_t argc, char *const *const argv)
   free (err);
 
   return out;
+}
+
+/* Set an environment variable in the daemon and future subprocesses. */
+static char *
+debug_setenv (const char *subcmd, size_t argc, char *const *const argv)
+{
+  char *ret;
+
+  if (argc != 2) {
+    reply_with_error ("setenv: two arguments expected");
+    return NULL;
+  }
+
+  setenv (argv[0], argv[1], 1);
+
+  ret = strdup ("ok");
+  if (NULL == ret) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
 }
 
 /* Return binaries in the appliance.
