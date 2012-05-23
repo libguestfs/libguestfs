@@ -348,6 +348,15 @@ L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES>.
 
 =end html
 
+=head2 Can I use libguestfs in my proprietary / closed source / commercial program?
+
+In general, yes.  However this is not legal advice.  You should read
+the license that comes with libguestfs, and if you have specific
+questions about your obligations when distributing libguestfs, contact
+a lawyer.  In the source tree the license is in the file
+C<COPYING.LIB> (LGPLv2+ for the library and bindings) and C<COPYING>
+(GPLv2+ for the standalone programs).
+
 =head1 DEBUGGING LIBGUESTFS
 
 =head2 How do I debug when using any libguestfs program or tool
