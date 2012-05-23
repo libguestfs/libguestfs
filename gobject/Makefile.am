@@ -24,7 +24,8 @@ EXTRA_DIST = \
 	TODO.txt \
 	bindtests-manual.js \
 	tests-misc.js \
-	run-tests
+	run-tests \
+	run-live-tests
 
 libname = libguestfs-gobject-1.0.la
 
@@ -63,9 +64,13 @@ typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
 TESTS = run-tests
+if ENABLE_APPLIANCE
+TESTS += run-live-tests
+endif ENABLE_APPLIANCE
 TESTS_ENVIRONMENT = GJS=$(GJS)
 
 $(TESTS): $(typelib_DATA)
 
 CLEANFILES = $(gir_DATA) $(typelib_DATA)
-endif
+
+endif HAVE_INTROSPECTION
