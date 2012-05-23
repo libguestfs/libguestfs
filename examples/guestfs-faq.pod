@@ -171,8 +171,16 @@ L<http://packages.debian.org/search?keywords=libguestfs>
 =item Ubuntu
 
 We don't have an Ubuntu maintainer, and the packages supplied by
-Canonical (which are outside our control) are broken.  Try compiling
-from source (next section).
+Canonical (which are outside our control) are often broken.  Try
+compiling from source (next section).
+
+Canonical decided to change the permissions on the kernel so that it's
+not readable except by root.  This is completely stupid, but they
+won't change it
+(L<https://bugs.launchpad.net/ubuntu/+source/linux/+bug/759725>).
+So every user should do this:
+
+ sudo chmod 0644 /boot/vmlinuz*
 
 =item Ubuntu 10.04
 
@@ -181,8 +189,20 @@ L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>
 
 =item Ubuntu 12.04
 
-The packages supplied by Canonical are broken.  See:
-L<https://www.redhat.com/archives/libguestfs/2012-April/thread.html#00028>
+libguestfs in this version of Ubuntu works, but you need to update
+febootstrap and seabios to the latest versions.
+
+You need febootstrap E<ge> 3.14-2 from:
+L<http://packages.ubuntu.com/precise/febootstrap>
+
+You need seabios E<ge> 0.6.2-0ubuntu2.1 or E<ge> 0.6.2-0ubuntu3 from:
+L<http://packages.ubuntu.com/precise-updates/seabios>
+or
+L<http://packages.ubuntu.com/quantal/seabios>
+
+Also you need to do (see above):
+
+ sudo chmod 0644 /boot/vmlinuz*
 
 =item Other Linux distro
 
