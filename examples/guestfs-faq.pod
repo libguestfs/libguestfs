@@ -125,6 +125,18 @@ Include as much detail as you can and a way to reproduce the problem.
 
 Include the full output of L<libguestfs-test-tool(1)>.
 
+=head1 COMMON ERRORS
+
+=head2 "child process died unexpectedly"
+
+This error indicates that qemu failed or the host kernel could not boot.
+To get further information about the failure, you have to run:
+
+ libguestfs-test-tool
+
+If, after using this, you still don't understand the failure, contact
+us (see previous section).
+
 =head1 DOWNLOADING, INSTALLING, COMPILING LIBGUESTFS
 
 =begin html
