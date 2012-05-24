@@ -181,6 +181,12 @@ parse_release_file (guestfs_h *g, struct inspect_fs *fs,
   fs->product_name = guestfs___first_line_of_file (g, release_filename);
   if (fs->product_name == NULL)
     return -1;
+  if (STREQ (fs->product_name, "")) {
+    free (fs->product_name);
+    fs->product_name = NULL;
+    error (g, _("release file %s is empty or malformed"), release_filename);
+    return -1;
+  }
   return 0;
 }
 
@@ -644,13 +650,23 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
       fs->hostname = guestfs___first_line_of_file (g, "/etc/HOSTNAME");
       if (fs->hostname == NULL)
         return -1;
+      if (STREQ (fs->hostname, "")) {
+        free (fs->hostname);
+        fs->hostname = NULL;
+      }
     }
-    else if (guestfs_is_file (g, "/etc/hostname")) {
+
+    if (!fs->hostname && guestfs_is_file (g, "/etc/hostname")) {
       fs->hostname = guestfs___first_line_of_file (g, "/etc/hostname");
       if (fs->hostname == NULL)
         return -1;
+      if (STREQ (fs->hostname, "")) {
+        free (fs->hostname);
+        fs->hostname = NULL;
+      }
     }
-    else if (guestfs_is_file (g, "/etc/sysconfig/network")) {
+
+    if (!fs->hostname && guestfs_is_file (g, "/etc/sysconfig/network")) {
       const char *configfiles[] = { "/etc/sysconfig/network", NULL };
       if (inspect_with_augeas (g, fs, configfiles,
                                check_hostname_redhat) == -1)
