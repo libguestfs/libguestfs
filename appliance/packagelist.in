@@ -96,6 +96,7 @@ acl
 attr
 bash
 binutils
+bzip2
 coreutils
 cpio
 dosfstools
