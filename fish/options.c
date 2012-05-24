@@ -104,7 +104,7 @@ add_drives (struct drv *drv, char next_drive)
   return next_drive;
 }
 
-static void display_mountpoints_on_failure (const char *mp_device);
+static void display_mountpoints_on_failure (const char *mp_device, const char *user_supplied_options);
 static void canonical_device_name (char *dev);
 
 /* List is built in reverse order, so mount them in reverse order. */
@@ -126,7 +126,7 @@ mount_mps (struct mp *mp)
 
     r = guestfs_mount_options (g, options, mp->device, mp->mountpoint);
     if (r == -1) {
-      display_mountpoints_on_failure (mp->device);
+      display_mountpoints_on_failure (mp->device, mp->options);
       exit (EXIT_FAILURE);
     }
   }
@@ -136,7 +136,8 @@ mount_mps (struct mp *mp)
  * message listing the mountpoints.
  */
 static void
-display_mountpoints_on_failure (const char *mp_device)
+display_mountpoints_on_failure (const char *mp_device,
+                                const char *user_supplied_options)
 {
   char **fses;
   size_t i;
@@ -149,13 +150,20 @@ display_mountpoints_on_failure (const char *mp_device)
     return;
   }
 
-  fprintf (stderr,
-           _("%s: '%s' could not be mounted.  Did you mean one of these?\n"),
+  fprintf (stderr, _("%s: '%s' could not be mounted.\n"),
            program_name, mp_device);
+
+  if (user_supplied_options)
+    fprintf (stderr, _("%s: Check mount(8) man page to ensure options '%s'\n"
+                       "%s: are supported by the filesystem that is being mounted.\n"),
+             program_name, user_supplied_options, program_name);
+
+  fprintf (stderr, _("%s: Did you mean to mount one of these filesystems?\n"),
+           program_name);
 
   for (i = 0; fses[i] != NULL; i += 2) {
     canonical_device_name (fses[i]);
-    fprintf (stderr, "\t%s (%s)\n", fses[i], fses[i+1]);
+    fprintf (stderr, "%s: \t%s (%s)\n", program_name, fses[i], fses[i+1]);
     free (fses[i]);
     free (fses[i+1]);
   }

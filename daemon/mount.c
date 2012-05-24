@@ -154,7 +154,8 @@ do_mount_vfs (const char *options, const char *vfstype,
                  "mount", "-o", options, device, mp, NULL);
   free (mp);
   if (r == -1) {
-    reply_with_error ("%s on %s: %s", device, mountpoint, error);
+    reply_with_error ("%s on %s (options: '%s'): %s",
+                      device, mountpoint, options, error);
     free (error);
     return -1;
   }
