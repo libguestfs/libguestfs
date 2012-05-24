@@ -448,7 +448,19 @@ eval {
     print STDERR "creating $type filesystem on $dev ...\n" if $debug;
 
     # Create the filesystem.
-    $g->mkfs ($type, $dev);
+    eval {
+        $g->mkfs ($type, $dev);
+    };
+    if ($@) {
+        # Provide more guidance in the error message (RHBZ#823883).
+        print STDERR "'mkfs' (create filesystem) operation failed.\n";
+        if ($type eq "fat") {
+            print STDERR "Instead of 'fat', try 'vfat' (long filenames) or 'msdos' (short filenames).\n";
+        } else {
+            print STDERR "Is '$type' a correct filesystem type?\n";
+        }
+        die
+    }
     $g->mount ($dev, "/");
 
     # Copy the data in.
