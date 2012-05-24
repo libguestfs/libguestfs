@@ -456,7 +456,19 @@ eval {
 
     # Create the filesystem.
     if ($type ne "btrfs") {
-        $g->mkfs ($type, $dev);
+        eval {
+            $g->mkfs ($type, $dev);
+        };
+        if ($@) {
+            # Provide more guidance in the error message (RHBZ#823883).
+            print STDERR "'mkfs' (create filesystem) operation failed.\n";
+            if ($type eq "fat") {
+                print STDERR "Instead of 'fat', try 'vfat' (long filenames) or 'msdos' (short filenames).\n";
+            } else {
+                print STDERR "Is '$type' a correct filesystem type?\n";
+            }
+            die
+        }
     } else {
         $g->mkfs_btrfs ([$dev], datatype => "single", metadata => "single");
     }
