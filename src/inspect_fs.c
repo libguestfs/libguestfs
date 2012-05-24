@@ -507,6 +507,10 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
 
 /* Get the first line of a small file, without any trailing newline
  * character.
+ *
+ * NOTE: If the file is completely empty or begins with a '\n'
+ * character, this returns an empty string (not NULL).  The caller
+ * will usually need to check for this case.
  */
 char *
 guestfs___first_line_of_file (guestfs_h *g, const char *filename)
@@ -532,9 +536,9 @@ guestfs___first_line_of_file (guestfs_h *g, const char *filename)
   if (lines == NULL)
     return NULL;
   if (lines[0] == NULL) {
-    error (g, _("%s: file is empty"), filename);
     guestfs___free_string_list (lines);
-    return NULL;
+    /* Empty file: Return an empty string as explained above. */
+    return safe_strdup (g, "");
   }
   /* lines[1] should be NULL because of '1' argument above ... */
 
