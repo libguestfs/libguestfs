@@ -450,8 +450,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   else if (guestfs_exists (g, "/etc/ttylinux-target") > 0) {
     fs->distro = OS_DISTRO_TTYLINUX;
 
-    fs->product_name = guestfs___first_line_of_file (g, "/etc/ttylinux-target");
-    if (fs->product_name == NULL)
+    if (parse_release_file (g, fs, "/etc/ttylinux-target") == -1)
       return -1;
 
     if (guestfs___parse_major_minor (g, fs) == -1)
