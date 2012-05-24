@@ -472,7 +472,16 @@ eval {
     } else {
         $g->mkfs_btrfs ([$dev], datatype => "single", metadata => "single");
     }
-    $g->mount ($dev, "/");
+
+    # Mount it.
+
+    # For vfat, add the utf8 mount option because we want to be able
+    # to encode any non-ASCII characters into UCS2 which is what
+    # modern vfat uses on disk (RHBZ#823885).
+    my $options = "";
+    $options = "utf8" if $type eq "vfat";
+
+    $g->mount_options ($options, $dev, "/");
 
     # Copy the data in.
     my $ifile;
