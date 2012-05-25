@@ -49,6 +49,7 @@ SOURCES = \
 	sysprep_operation_net_hwaddr.ml \
 	sysprep_operation_package_manager_cache.ml \
 	sysprep_operation_pam_data.ml \
+	sysprep_operation_puppet_data_log.ml \
 	sysprep_operation_random_seed.ml \
 	sysprep_operation_rhn_systemid.ml \
 	sysprep_operation_samba_db_log.ml \
@@ -86,6 +87,7 @@ OBJECTS = \
 	sysprep_operation_net_hwaddr.cmx \
 	sysprep_operation_package_manager_cache.cmx \
 	sysprep_operation_pam_data.cmx \
+	sysprep_operation_puppet_data_log.cmx \
 	sysprep_operation_random_seed.cmx \
 	sysprep_operation_rhn_systemid.cmx \
 	sysprep_operation_samba_db_log.cmx \

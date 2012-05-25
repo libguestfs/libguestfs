@@ -377,7 +377,6 @@ virt-sysprep ideas
 ------------------
 
  - other Spacewalk / RHN IDs (?)
- - Puppet registration
  - Windows sysprep
    (see: https://github.com/clalancette/oz/blob/e74ce83283d468fd987583d6837b441608e5f8f0/oz/Windows.py )
  - (librarian suggests ...)

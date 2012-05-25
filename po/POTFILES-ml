@@ -25,6 +25,7 @@ sysprep/sysprep_operation_mail_spool.ml
 sysprep/sysprep_operation_net_hwaddr.ml
 sysprep/sysprep_operation_package_manager_cache.ml
 sysprep/sysprep_operation_pam_data.ml
+sysprep/sysprep_operation_puppet_data_log.ml
 sysprep/sysprep_operation_random_seed.ml
 sysprep/sysprep_operation_rhn_systemid.ml
 sysprep/sysprep_operation_samba_db_log.ml
