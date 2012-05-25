@@ -163,7 +163,7 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
         case '\t': fputs ("\\t", stderr); break;
         case '\v': fputs ("\\v", stderr); break;
         default:
-          fprintf (stderr, "\\x%x", (unsigned) c);
+          fprintf (stderr, "\\x%x", (unsigned char) c);
         }
       }
     }
