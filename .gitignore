@@ -384,6 +384,7 @@ pod2htm?.tmp
 /tests/c-api/tests.c
 /tests/c-api/test*.tmp
 /tests/c-api/test-user-cancel
+/tests/charsets/test-charset-fidelity
 /tests/data/100kallnewlines
 /tests/data/100kallspaces
 /tests/data/100kallzeroes
