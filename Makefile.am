@@ -43,6 +43,7 @@ SUBDIRS += tests/luks
 SUBDIRS += tests/md
 SUBDIRS += tests/ntfsclone
 SUBDIRS += tests/btrfs
+SUBDIRS += tests/charsets
 SUBDIRS += tests/xml
 SUBDIRS += tests/regressions
 endif
