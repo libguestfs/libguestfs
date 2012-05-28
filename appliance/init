@@ -31,36 +31,37 @@ if [ ! -L /etc/init.d/udev -a -x /etc/init.d/udev ]; then
   fi
 elif [ -x /sbin/start_udev ] && /sbin/start_udev; then
   :
-elif [ -x /sbin/udevd ]; then
-  echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
-  /sbin/udevd --daemon
-  udevadm trigger
-  udevadm settle
-elif [ -x /lib/udev/udevd ]; then
-  echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
-  /lib/udev/udevd --daemon
-  udevadm trigger
-  udevadm settle
 else
-  echo No udev, creating /dev manually
-  mount -t tmpfs none /dev
-  mkdir /dev/pts /dev/shm /dev/mapper
-  mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
-  # Must do each MAKEDEV individually, because if one device fails,
-  # MAKEDEV will quit without creating the rest (RHBZ#507374).
-  for dev in mem null port zero core full ram tty console fd \
-    hda hdb hdc hdd sda sdb sdc sdd loop sd; do
-    MAKEDEV $dev ||:
+  # Find udevd and run it directly.
+  for f in /sbin/udevd /lib/udev/udevd /lib/systemd/systemd-udevd; do
+    if [ -x "$f" ]; then UDEVD="$f"; fi
   done
-  mknod /dev/ptmx c 5 2;    chmod 0666 /dev/ptmx
-  mknod /dev/random c 1 8;  chmod 0666 /dev/random
-  mknod /dev/urandom c 1 9; chmod 0444 /dev/urandom
-  ln -sf /proc/self/fd/0 /dev/stdin
-  ln -sf /proc/self/fd/1 /dev/stdout
-  ln -sf /proc/self/fd/2 /dev/stderr
+  if [ -n "$UDEVD" ]; then
+    echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
+    $UDEVD --daemon
+    udevadm trigger
+    udevadm settle
+  else
+    echo No udevd, creating /dev manually.
+    mount -t tmpfs none /dev
+    mkdir /dev/pts /dev/shm /dev/mapper
+    mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
+    # Must do each MAKEDEV individually, because if one device fails,
+    # MAKEDEV will quit without creating the rest (RHBZ#507374).
+    for dev in mem null port zero core full ram tty console fd \
+      hda hdb hdc hdd sda sdb sdc sdd loop sd; do
+      MAKEDEV $dev ||:
+    done
+    mknod /dev/ptmx c 5 2;    chmod 0666 /dev/ptmx
+    mknod /dev/random c 1 8;  chmod 0666 /dev/random
+    mknod /dev/urandom c 1 9; chmod 0444 /dev/urandom
+    ln -sf /proc/self/fd/0 /dev/stdin
+    ln -sf /proc/self/fd/1 /dev/stdout
+    ln -sf /proc/self/fd/2 /dev/stderr
 
-  modprobe virtio_pci
-  modprobe virtio_net
+    modprobe virtio_pci
+    modprobe virtio_net
+  fi
 fi
 
 if grep -sq selinux=1 /proc/cmdline; then
