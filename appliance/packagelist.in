@@ -40,7 +40,6 @@
   reiserfs-utils
   libselinux
   systemd /* for /sbin/reboot */
-  udev
   util-linux-ng
   vim-minimal
   xz
@@ -64,7 +63,6 @@
   ntfs-3g
   ntfsprogs
   reiserfsprogs
-  udev
   ufsutils
   util-linux
   vim-tiny
@@ -87,7 +85,6 @@
   ntfsprogs
   ntfs-3g
   reiserfsprogs
-  udev
   util-linux-ng
   xz
 #endif /* ARCHLINUX */
@@ -124,6 +121,7 @@ psmisc
 scrub
 strace
 tar
+udev
 #ifndef UBUNTU
 /* on Ubuntu contains a file in /lib64 which conflicts with libc6 that has
  * /lib64 as a symbolic link
