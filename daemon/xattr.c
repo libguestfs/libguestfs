@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <limits.h>
 #include <unistd.h>
 
 #include "guestfs_protocol.h"
@@ -174,6 +175,12 @@ getxattrs (const char *path,
       goto error;
     }
 
+    if (vlen > XATTR_SIZE_MAX) {
+      /* The next call to getxattr will fail anyway, so ... */
+      reply_with_error ("extended attribute is too large");
+      goto error;
+    }
+
     r->guestfs_int_xattr_list_val[j].attrname = strdup (&buf[i]);
     r->guestfs_int_xattr_list_val[j].attrval.attrval_val = malloc (vlen);
     r->guestfs_int_xattr_list_val[j].attrval.attrval_len = vlen;
@@ -221,6 +228,11 @@ _setxattr (const char *xattr, const char *val, int vallen, const char *path,
                             const void *value, size_t size, int flags))
 {
   int r;
+
+  if (vallen > XATTR_SIZE_MAX) {
+    reply_with_error ("extended attribute is too large");
+    return -1;
+  }
 
   CHROOT_IN;
   r = setxattr (path, xattr, val, vallen, 0);
@@ -372,6 +384,11 @@ do_lxattrlist (const char *path, char *const *names)
         goto error;
       }
 
+      if (vlen > XATTR_SIZE_MAX) {
+        reply_with_error ("extended attribute is too large");
+        goto error;
+      }
+
       entry[j+1].attrname = strdup (&buf[i]);
       entry[j+1].attrval.attrval_val = malloc (vlen);
       entry[j+1].attrval.attrval_len = vlen;
@@ -442,6 +459,12 @@ do_getxattr (const char *path, const char *name, size_t *size_r)
   }
 
   len = r;
+
+  if (len > XATTR_SIZE_MAX) {
+    reply_with_error ("extended attribute is too large");
+    return NULL;
+  }
+
   buf = malloc (len);
   if (buf == NULL) {
     reply_with_perror ("malloc");
@@ -484,6 +507,12 @@ do_lgetxattr (const char *path, const char *name, size_t *size_r)
   }
 
   len = r;
+
+  if (len > XATTR_SIZE_MAX) {
+    reply_with_error ("extended attribute is too large");
+    return NULL;
+  }
+
   buf = malloc (len);
   if (buf == NULL) {
     reply_with_perror ("malloc");
