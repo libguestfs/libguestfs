@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-05-18 14:43+0100\n"
+"POT-Creation-Date: 2012-06-01 20:12+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -2613,10 +2613,22 @@ msgstr "फाइल पेज करण्यासाठी '%s filename' य�
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: एकापेक्षा जास्त ड्राइव्ह्स् आदेश ओळवर समाविष्ट केले\n"
 
+#: fish/options.c:151
+#, fuzzy, c-format
+msgid "%s: '%s' could not be mounted.\n"
+msgstr "%s: '%s' माऊंट करणे अशक्य.  यापैकी एक आहे?\n"
+
 #: fish/options.c:155
 #, c-format
-msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
-msgstr "%s: '%s' माऊंट करणे अशक्य.  यापैकी एक आहे?\n"
+msgid ""
+"%s: Check mount(8) man page to ensure options '%s'\n"
+"%s: are supported by the filesystem that is being mounted.\n"
+msgstr ""
+
+#: fish/options.c:159
+#, fuzzy, c-format
+msgid "%s: Did you mean to mount one of these filesystems?\n"
+msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
 
 #: fish/prep.c:37
 #, c-format
@@ -3335,9 +3347,9 @@ msgid ""
 "without the hivex library"
 msgstr ""
 
-#: src/inspect.c:756 src/inspect_fs.c:506 src/inspect_fs.c:550
-#: src/inspect_fs_unix.c:226 src/inspect_fs_unix.c:728
-#: src/inspect_fs_unix.c:1311
+#: src/inspect.c:756 src/inspect_fs.c:510 src/inspect_fs.c:554
+#: src/inspect_fs_unix.c:232 src/inspect_fs_unix.c:743
+#: src/inspect_fs_unix.c:1326
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
@@ -3360,12 +3372,12 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
 
-#: src/inspect_fs.c:515
+#: src/inspect_fs_unix.c:187
 #, c-format
-msgid "%s: file is empty"
-msgstr "%s: फाइल रिकामे नाही"
+msgid "release file %s is empty or malformed"
+msgstr ""
 
-#: src/inspect_fs_unix.c:771
+#: src/inspect_fs_unix.c:786
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
@@ -3732,7 +3744,7 @@ msgid "unexpected output from 'du' command"
 msgstr "'du' आदेशसह अनपेक्षित आउटपुट आढळले"
 
 #: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
-#: tools/virt-make-fs.pl:478
+#: tools/virt-make-fs.pl:499
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: अपरिचीत इंपुट स्वरूप: {fmt}\n"
@@ -3751,15 +3763,15 @@ msgstr "qemu-img create: डिस्क प्रतिमा निर्म�
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr "virt-make-fs: libguestfs कंपाइल केल्यावर NTFS समर्थन बंद केले\n"
 
-#: tools/virt-make-fs.pl:462
+#: tools/virt-make-fs.pl:483
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: अपयशी, मागील संदेश पहा\n"
 
-#: tools/virt-make-fs.pl:484
+#: tools/virt-make-fs.pl:505
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "uncompress आदेश अपयशी, मागील संदेश पहा\n"
 
-#: tools/virt-make-fs.pl:519
+#: tools/virt-make-fs.pl:540
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -3852,3 +3864,6 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
+
+#~ msgid "%s: file is empty"
+#~ msgstr "%s: फाइल रिकामे नाही"

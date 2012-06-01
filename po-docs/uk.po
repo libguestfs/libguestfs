@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-05-14 16:19+0200\n"
+"POT-Creation-Date: 2012-06-01 20:12+0200\n"
 "PO-Revision-Date: 2012-01-23 13:10+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -915,7 +915,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:342 ../inspector/virt-inspector.pod:366
 #: ../rescue/virt-rescue.pod:303 ../resize/virt-resize.pod:690
 #: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260
-#: ../tools/virt-make-fs.pl:552 ../tools/virt-tar.pl:289
+#: ../tools/virt-make-fs.pl:573 ../tools/virt-tar.pl:289
 #: ../tools/virt-win-reg.pl:744
 msgid "SHELL QUOTING"
 msgstr ""
@@ -927,7 +927,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:344 ../inspector/virt-inspector.pod:368
 #: ../rescue/virt-rescue.pod:305 ../resize/virt-resize.pod:692
 #: ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262
-#: ../tools/virt-make-fs.pl:554 ../tools/virt-tar.pl:291
+#: ../tools/virt-make-fs.pl:575 ../tools/virt-tar.pl:291
 #: ../tools/virt-win-reg.pl:752
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
@@ -1096,7 +1096,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:284 ../src/guestfs.pod:3250
 #: ../test-tool/libguestfs-test-tool.pod:106
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
-#: ../tools/virt-make-fs.pl:559 ../tools/virt-tar.pl:296
+#: ../tools/virt-make-fs.pl:580 ../tools/virt-tar.pl:296
 #: ../tools/virt-win-reg.pl:757
 msgid "SEE ALSO"
 msgstr "ТАКОЖ ПЕРЕГЛЯНЬТЕ"
@@ -1117,7 +1117,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:368 ../format/virt-format.pod:187
 #: ../rescue/virt-rescue.pod:334 ../resize/virt-resize.pod:725
 #: ../sparsify/virt-sparsify.pod:297 ../tools/virt-list-filesystems.pl:210
-#: ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:585
+#: ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:606
 #: ../tools/virt-tar.pl:311 ../tools/virt-win-reg.pl:783
 msgid "AUTHOR"
 msgstr "АВТОР"
@@ -1130,7 +1130,7 @@ msgstr "АВТОР"
 #: ../inspector/virt-inspector.pod:516 ../rescue/virt-rescue.pod:336
 #: ../resize/virt-resize.pod:727 ../sparsify/virt-sparsify.pod:299
 #: ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281
-#: ../tools/virt-make-fs.pl:587 ../tools/virt-tar.pl:313
+#: ../tools/virt-make-fs.pl:608 ../tools/virt-tar.pl:313
 #: ../tools/virt-win-reg.pl:785
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
@@ -1152,7 +1152,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sparsify/virt-sparsify.pod:301 ../src/guestfs.pod:3335
 #: ../test-tool/libguestfs-test-tool.pod:116
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
-#: ../tools/virt-make-fs.pl:589 ../tools/virt-tar.pl:315
+#: ../tools/virt-make-fs.pl:610 ../tools/virt-tar.pl:315
 #: ../tools/virt-win-reg.pl:787
 msgid "COPYRIGHT"
 msgstr "АВТОРСЬКІ ПРАВА"
@@ -1175,7 +1175,7 @@ msgstr "© Red Hat Inc., 2011"
 #: ../resize/virt-resize.pod:733 ../sparsify/virt-sparsify.pod:305
 #: ../test-tool/libguestfs-test-tool.pod:121
 #: ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287
-#: ../tools/virt-make-fs.pl:593 ../tools/virt-tar.pl:319
+#: ../tools/virt-make-fs.pl:614 ../tools/virt-tar.pl:319
 #: ../tools/virt-win-reg.pl:791
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
@@ -1196,7 +1196,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:738 ../sparsify/virt-sparsify.pod:310
 #: ../test-tool/libguestfs-test-tool.pod:126
 #: ../tools/virt-list-filesystems.pl:223 ../tools/virt-list-partitions.pl:292
-#: ../tools/virt-make-fs.pl:598 ../tools/virt-tar.pl:324
+#: ../tools/virt-make-fs.pl:619 ../tools/virt-tar.pl:324
 #: ../tools/virt-win-reg.pl:796
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
@@ -1221,7 +1221,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:743 ../sparsify/virt-sparsify.pod:315
 #: ../test-tool/libguestfs-test-tool.pod:131
 #: ../tools/virt-list-filesystems.pl:228 ../tools/virt-list-partitions.pl:297
-#: ../tools/virt-make-fs.pl:603 ../tools/virt-tar.pl:329
+#: ../tools/virt-make-fs.pl:624 ../tools/virt-tar.pl:329
 #: ../tools/virt-win-reg.pl:801
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
@@ -1664,7 +1664,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:258 ../inspector/virt-inspector.pod:526
-#: ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:591
+#: ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:612
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr ""
 
@@ -44253,7 +44253,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3298 ../tools/virt-make-fs.pl:574
+#: ../src/guestfs.pod:3298 ../tools/virt-make-fs.pl:595
 #: ../tools/virt-win-reg.pl:772
 msgid "BUGS"
 msgstr "ВАДИ"
@@ -45097,7 +45097,7 @@ msgid "For MBR, virt-make-fs sets the partition type byte automatically."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:561
+#: ../tools/virt-make-fs.pl:582
 msgid ""
 "L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
 "L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, L<resize2fs"
@@ -45105,14 +45105,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:576 ../tools/virt-win-reg.pl:774
+#: ../tools/virt-make-fs.pl:597 ../tools/virt-win-reg.pl:774
 msgid ""
 "When reporting bugs, please enable debugging and capture the I<complete> "
 "output:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:579
+#: ../tools/virt-make-fs.pl:600
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_DEBUG=1\n"
@@ -45124,7 +45124,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:582
+#: ../tools/virt-make-fs.pl:603
 msgid ""
 "Attach /tmp/virt-make-fs.log to a new bug report at L<https://bugzilla."
 "redhat.com/>"
