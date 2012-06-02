@@ -471,7 +471,9 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
   return guestfs__config (g, "-cdrom", filename);
 }
 
+#if defined(__i386__) || defined(__x86_64__)
 static int is_openable (guestfs_h *g, const char *path, int flags);
+#endif
 
 int
 guestfs__launch (guestfs_h *g)
@@ -1438,6 +1440,7 @@ qemu_supports_re (guestfs_h *g, const pcre *option_regex)
 }
 #endif
 
+#if defined(__i386__) || defined(__x86_64__)
 /* Check if a file can be opened. */
 static int
 is_openable (guestfs_h *g, const char *path, int flags)
@@ -1450,6 +1453,7 @@ is_openable (guestfs_h *g, const char *path, int flags)
   close (fd);
   return 1;
 }
+#endif
 
 static char *
 qemu_drive_param (guestfs_h *g, const struct drive *drv)
