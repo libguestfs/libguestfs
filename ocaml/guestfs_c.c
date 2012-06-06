@@ -48,7 +48,7 @@ static void event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, in
 #endif
 
 /* These prototypes are solely to quiet gcc warning.  */
-CAMLprim value ocaml_guestfs_create (void);
+CAMLprim value ocaml_guestfs_create (value unitv);
 CAMLprim value ocaml_guestfs_close (value gv);
 CAMLprim value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
 CAMLprim value ocaml_guestfs_delete_event_callback (value gv, value eh);
@@ -141,9 +141,9 @@ ocaml_guestfs_raise_closed (const char *func)
 
 /* Guestfs.create */
 CAMLprim value
-ocaml_guestfs_create (void)
+ocaml_guestfs_create (value unitv)
 {
-  CAMLparam0 ();
+  CAMLparam1 (unitv);
   CAMLlocal1 (gv);
   guestfs_h *g;
   value *v;
