@@ -791,7 +791,7 @@ launch_appliance (guestfs_h *g)
       add_cmdline (g, NET_IF ",netdev=usernet");
     }
 
-#ifdef __arm__
+#if defined(__arm__)
 #define SERIAL_CONSOLE "ttyAMA0"
 #else
 #define SERIAL_CONSOLE "ttyS0"
