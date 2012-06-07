@@ -25,8 +25,8 @@ MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libgues
 # Don't use LINGUAS (uppercase) as Gentoo defines it (RHBZ#804464).
 linguas     := en_GB es gu hi kn ml mr nl or pa pl ta te uk
 
-POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' POTFILES)
-POTFILES_ML := $(shell $(SED) 's,^,$(top_srcdir)/,' POTFILES-ml)
+POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES)
+POTFILES_ML := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-ml)
 POFILES     := $(linguas:%=%.po)
 GMOFILES    := $(linguas:%=%.gmo)
 
@@ -68,9 +68,7 @@ $(DOMAIN).pot: Makefile $(POTFILES) $(POTFILES-ml)
 	  --directory=$(top_srcdir) \
 	  --files-from=$(abs_srcdir)/POTFILES
 if HAVE_OCAML_GETTEXT
-	cd $(top_srcdir) && \
-	$(OCAML_GETTEXT) --action extract --extract-pot po/$@-ml \
-	  $$(cat $(abs_srcdir)/POTFILES-ml)
+	$(OCAML_GETTEXT) --action extract --extract-pot $@-ml $(POTFILES_ML)
 # Don't trust msgcat since it will definitely screw up.  Instead, chop
 # the head from the second file and append it to the first.
 	echo >> $@-t
@@ -80,18 +78,18 @@ endif
 	mv $@-t $@
 
 %.po: $(DOMAIN).pot
-	$(MSGMERGE) -N --update $@ $(DOMAIN).pot
+	cd $(srcdir) && $(MSGMERGE) -N --update $@ $(DOMAIN).pot
 
 .po.gmo:
 	rm -f $@ $@-t
-	$(MSGFMT) -c -o $@-t $<
+	$(MSGFMT) -c -o $@-t $(srcdir)/$<
 	mv $@-t $@
 
 # Install.
 # Cannot use 'localedir' since this conflicts with autoconf.
 langinstdir = $(datadir)/locale
 
-install-data-hook:
+install-data-hook: $(GMOFILES)
 	mkdir -p $(DESTDIR)$(langinstdir)
 	for lang in $(linguas); do \
 	  d=$(DESTDIR)$(langinstdir)/$$lang/LC_MESSAGES; \
