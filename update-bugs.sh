@@ -23,7 +23,32 @@
 # eg. if there is no net access or no 'bugzilla' program, but if that
 # happens just exit and leave the BUGS file alone.
 
-bugzilla query -c libguestfs --outputformat='%{bug_id} %{bug_status} %{short_desc}' > .bugs.tmp || exit 0
+bugzilla query -c libguestfs \
+  --outputformat='%{bug_id} %{bug_status} %{short_desc}' |
+  perl -e '
+    sub bugclass {
+      local $_ = shift;
+      return 1 if /NEW/;
+      return 2 if /ASSIGNED/;
+      return 3 if /ON_DEV/;
+      return 4 if /POST/;
+      return 5 if /MODIFIED/;
+      return 6 if /ON_QA/;
+      return 7 if /VERIFIED/;
+      return 8 if /RELEASE_PENDING/;
+      return 9 #if /CLOSED/;
+    }
+    sub compare {
+      $a->[0] <=> $b->[0] || $a->[1] <=> $b->[1]
+    }
+    while (<>) {
+      /^(\d+) (\w+) (.*)/; push @bugs, [bugclass($2), $1, $2, $3];
+    }
+    foreach (sort compare @bugs) {
+      print $_->[1], " ", $_->[2], " ", $_->[3], "\n";
+    }
+' \
+> .bugs.tmp || exit 0
 
 # Any errors from now on are fatal.
 set -e
@@ -63,7 +88,7 @@ while read bugno status summary; do
         *) bugclass=$status ;;
     esac
 
-    # 'bugzilla' command returns the bugs sorted by status, NEW, ASSIGNED,
+    # perl sort returns the bugs sorted by status, NEW, ASSIGNED,
     # MODIFIED, ..., CLOSED.  Therefore start a new section when the
     # status field changes.
     if [ "$bugclass" != "$lastclass" ]; then
