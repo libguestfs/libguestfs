@@ -31,7 +31,7 @@
 int
 optgroup_btrfs_available (void)
 {
-  return prog_exists ("btrfs");
+  return prog_exists ("btrfs") && filesystem_available ("btrfs") > 0;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
