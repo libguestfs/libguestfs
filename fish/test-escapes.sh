@@ -22,7 +22,7 @@ set -e
 
 rm -f test.output test.error test.error.old
 
-./guestfish <<'EOF' 2>test.error | od > test.output
+./guestfish <<'EOF' 2>test.error | od -b > test.output
 echo ""
 echo " "
 echo "  "
@@ -75,8 +75,8 @@ command arguments not separated by whitespace" ]; then
 fi
 
 if [ "$(cat test.output)" != "\
-0000000 020012 020012 005040 005012 005015 005012 000412 000412
-0000020 040012 000012
+0000000 012 040 012 040 040 012 012 012 015 012 012 012 012 001 012 001
+0000020 012 100 012
 0000023" ]; then
     echo "unexpected stdout from guestfish:"
     cat test.output
