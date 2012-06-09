@@ -1602,6 +1602,16 @@ supports the functionality.
 
 @AVAILABILITY@
 
+=head2 FILESYSTEM AVAILABLE
+
+The L</guestfs_filesystem_available> call tests whether a
+filesystem type is supported by the appliance kernel.
+
+This is mainly useful as a negative test.  If this returns true,
+it doesn't mean that a particular filesystem can be mounted,
+since filesystems can fail for other reasons such as it being
+a later version of the filesystem, or having incompatible features.
+
 =head2 GUESTFISH supported COMMAND
 
 In L<guestfish(3)> there is a handy interactive command

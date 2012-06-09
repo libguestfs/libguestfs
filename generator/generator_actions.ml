@@ -5325,7 +5325,9 @@ versions of libguestfs all you could do would be to speculatively
 execute a command to find out if the daemon implemented it.
 See also C<guestfs_version>.
 
-=back");
+=back
+
+See also C<guestfs_filesystem_available>.");
 
   ("dd", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"], []), 217, [DeprecatedBy "copy_device_to_device"],
    [InitScratchFS, Always, TestOutputBuffer (
@@ -7240,6 +7242,23 @@ a btrfs filesystem.");
    "\
 Used to check a btrfs filesystem, C<device> is the device file where the
 filesystem is stored.");
+
+  ("filesystem_available", (RBool "fsavail", [String "filesystem"], []), 333, [],
+   [],
+   "check if filesystem is available",
+   "\
+Check whether libguestfs supports the named filesystem.
+The argument C<filesystem> is a filesystem name, such as
+C<ext3>.
+
+You must call C<guestfs_launch> before using this command.
+
+This is mainly useful as a negative test.  If this returns true,
+it doesn't mean that a particular filesystem can be mounted,
+since filesystems can fail for other reasons such as it being
+a later version of the filesystem, or having incompatible features.
+
+See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>.");
 
 ]
 

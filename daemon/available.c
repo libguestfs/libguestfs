@@ -22,9 +22,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "c-ctype.h"
+
 #include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 int
 do_available (char *const *groups)
@@ -69,4 +72,80 @@ do_available_all_groups (void)
     return NULL;
 
   return groups.argv;           /* caller frees */
+}
+
+/* Search for filesystem in /proc/filesystems, ignoring "nodev". */
+static int
+test_proc_filesystems (const char *filesystem)
+{
+  size_t len = strlen (filesystem) + 32;
+  char regex[len];
+  char *err;
+  int r;
+
+  snprintf (regex, len, "^[[:space:]]*%s$", filesystem);
+
+  r = commandr (NULL, &err, "grep", regex, "/proc/filesystems", NULL);
+  if (r == -1 || r >= 2) {
+    fprintf (stderr, "grep /proc/filesystems: %s", err);
+    free (err);
+    return -1;
+  }
+  free (err);
+
+  return r == 0;
+}
+
+/* Do modprobe, ignore any errors. */
+static void
+modprobe (const char *module)
+{
+  command (NULL, NULL, "modprobe", module, NULL);
+}
+
+/* Internal function for testing if a filesystem is available.  Note
+ * this must not call reply_with_error functions.
+ */
+int
+filesystem_available (const char *filesystem)
+{
+  int r;
+
+  r = test_proc_filesystems (filesystem);
+  if (r == -1 || r > 0)
+    return r;
+
+  /* Not found: try to modprobe the module, then test again. */
+  if (optgroup_linuxmodules_available ()) {
+    modprobe (filesystem);
+
+    r = test_proc_filesystems (filesystem);
+    if (r == -1)
+      return -1;
+  }
+
+  return r;
+}
+
+int
+do_filesystem_available (const char *filesystem)
+{
+  size_t i, len = strlen (filesystem);
+  int r;
+
+  for (i = 0; i < len; ++i) {
+    if (!c_isalnum (filesystem[i]) && filesystem[i] != '_') {
+      reply_with_error ("filesystem name contains non-alphanumeric characters");
+      return -1;
+    }
+  }
+
+  r = filesystem_available (filesystem);
+  if (r == -1) {
+    reply_with_error ("error testing for filesystem availability; "
+                      "enable verbose mode and look at preceeding output");
+    return -1;
+  }
+
+  return r;
 }

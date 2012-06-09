@@ -151,6 +151,9 @@ struct optgroup {
 };
 extern struct optgroup optgroups[];
 
+/*-- in available.c --*/
+extern int filesystem_available (const char *filesystem);
+
 /*-- in sync.c --*/
 /* Use this as a replacement for sync(2). */
 extern int sync_disks (void);
