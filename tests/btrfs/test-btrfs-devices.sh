@@ -24,15 +24,17 @@
 
 set -e
 
-# XXX Not a very good test.
-if ! btrfs --help >/dev/null 2>&1; then
-    echo "$0: test skipped because no 'btrfs' utility"
+guestfish=../../fish/guestfish
+
+# If btrfs is not available, bail.
+if ! $guestfish -a /dev/null run : available btrfs; then
+    echo "$0: skipping test because btrfs is not available"
     exit 0
 fi
 
 rm -f test[1234].img
 
-../../fish/guestfish <<EOF
+$guestfish <<EOF
 # Add four empty disks
 sparse test1.img 1G
 sparse test2.img 1G
