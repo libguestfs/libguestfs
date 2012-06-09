@@ -2725,8 +2725,7 @@ for that).
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_getbsz", (RInt "blocksize", [Device "device"], []), 60, [],
-   [InitEmpty, Always, TestOutputInt (
-      [["blockdev_getbsz"; "/dev/sda"]], 4096)],
+   [], (* cannot be tested because output differs depending on page size *)
    "get blocksize of block device",
    "\
 This returns the block size of a device.
