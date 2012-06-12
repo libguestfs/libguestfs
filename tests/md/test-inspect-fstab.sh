@@ -23,6 +23,7 @@ set -e
 export LANG=C
 
 guestfish=../../fish/guestfish
+canonical="sed s,/dev/vd,/dev/sd,g"
 
 rm -f test1.img test.fstab test.output
 
@@ -50,12 +51,12 @@ $guestfish -a test1.img <<'EOF'
 EOF
 
 # This will give a warning, but should not fail.
-$guestfish -a test1.img -i <<'EOF' | sort > test.output
+$guestfish -a test1.img -i <<'EOF' | sort | $canonical > test.output
   inspect-get-mountpoints /dev/VG/Root
 EOF
 
 if [ "$(cat test.output)" != "/: /dev/VG/Root
-/boot: /dev/vda1
+/boot: /dev/sda1
 /nosuchfile: /dev/VG/LV1
 /var: /dev/sdb3" ]; then
     echo "$0: error #1: unexpected output from inspect-get-mountpoints command"
@@ -78,7 +79,7 @@ $guestfish -a test1.img <<'EOF'
   upload test.fstab /etc/fstab
 EOF
 
-$guestfish <<'EOF' > test.output
+$guestfish <<'EOF' | $canonical > test.output
   add-drive-opts test1.img readonly:true name:xvdg
   run
   inspect-os
@@ -87,7 +88,7 @@ EOF
 
 if [ "$(cat test.output)" != "/dev/VG/Root
 /: /dev/VG/Root
-/boot: /dev/vda1" ]; then
+/boot: /dev/sda1" ]; then
     echo "$0: error #2: unexpected output from inspect-get-mountpoints command"
     cat test.output
     exit 1
@@ -109,7 +110,7 @@ $guestfish -a test1.img <<'EOF'
   upload test.fstab /etc/fstab
 EOF
 
-$guestfish <<'EOF' > test.output
+$guestfish <<'EOF' | $canonical > test.output
   add-drive-opts test1.img readonly:true name:cciss/c1d3
   run
   inspect-os
@@ -118,8 +119,8 @@ EOF
 
 if [ "$(cat test.output)" != "/dev/VG/Root
 /: /dev/VG/Root
-/boot: /dev/vda1
-/var: /dev/vda" ]; then
+/boot: /dev/sda1
+/var: /dev/sda" ]; then
     echo "$0: error #3: unexpected output from inspect-get-mountpoints command"
     cat test.output
     exit 1
