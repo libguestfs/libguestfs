@@ -78,7 +78,10 @@ static int64_t timeval_diff (const struct timeval *x, const struct timeval *y);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
 static int connect_unix_socket (guestfs_h *g, const char *sock);
 static int qemu_supports (guestfs_h *g, const char *option);
-static char *qemu_drive_param (guestfs_h *g, const struct drive *drv);
+static int qemu_supports_device (guestfs_h *g, const char *device_name);
+static int qemu_supports_virtio_scsi (guestfs_h *g);
+static char *qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index);
+static char *drive_name (size_t index, char *ret);
 
 #if 0
 static int qemu_supports_re (guestfs_h *g, const pcre *option_regex);
@@ -248,7 +251,7 @@ guestfs__debug_drives (guestfs_h *g)
   ret = safe_malloc (g, sizeof (char *) * (count + 1));
 
   for (i = 0, drv = g->drives; drv; i++, drv = drv->next)
-    ret[i] = qemu_drive_param (g, drv);
+    ret[i] = qemu_drive_param (g, drv, i);
 
   ret[count] = NULL;
 
@@ -620,6 +623,7 @@ launch_appliance (guestfs_h *g)
 
   if (r == 0) {			/* Child (qemu). */
     char buf[256];
+    int virtio_scsi = qemu_supports_virtio_scsi (g);
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
@@ -660,15 +664,59 @@ launch_appliance (guestfs_h *g)
 
     /* Add drives */
     struct drive *drv = g->drives;
+    size_t drv_index = 0;
+
+    if (virtio_scsi) {
+      /* Create the virtio-scsi bus. */
+      add_cmdline (g, "-device");
+      add_cmdline (g, "virtio-scsi-pci,id=scsi");
+    }
+
     while (drv != NULL) {
       /* Construct the final -drive parameter. */
-      char *buf = qemu_drive_param (g, drv);
+      char *buf = qemu_drive_param (g, drv, drv_index);
 
       add_cmdline (g, "-drive");
       add_cmdline (g, buf);
       free (buf);
 
+      if (virtio_scsi && drv->iface == NULL) {
+        char buf2[64];
+        snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", drv_index);
+        add_cmdline (g, "-device");
+        add_cmdline (g, buf2);
+      }
+
       drv = drv->next;
+      drv_index++;
+    }
+
+    char appliance_root[64] = "";
+
+    /* Add the ext2 appliance drive (after all the drives). */
+    if (appliance) {
+      const char *cachemode = "";
+      if (qemu_supports (g, "cache=")) {
+        if (qemu_supports (g, "unsafe"))
+          cachemode = ",cache=unsafe";
+        else if (qemu_supports (g, "writeback"))
+          cachemode = ",cache=writeback";
+      }
+
+      char buf2[PATH_MAX + 64];
+      add_cmdline (g, "-drive");
+      snprintf (buf2, sizeof buf2, "file=%s,snapshot=on,id=appliance,if=%s%s",
+                appliance, virtio_scsi ? "none" : "virtio", cachemode);
+      add_cmdline (g, buf2);
+
+      if (virtio_scsi) {
+        add_cmdline (g, "-device");
+        add_cmdline (g, "scsi-hd,drive=appliance");
+      }
+
+      snprintf (appliance_root, sizeof appliance_root, "root=/dev/%cd",
+                virtio_scsi ? 's' : 'v');
+      drive_name (drv_index, &appliance_root[12]);
     }
 
     if (STRNEQ (QEMU_OPTIONS, "")) {
@@ -792,10 +840,12 @@ launch_appliance (guestfs_h *g)
     /* Linux kernel command line. */
     snprintf (buf, sizeof buf,
               LINUX_CMDLINE
+              "%s "             /* (root) */
               "%s "             /* (selinux) */
               "%s "             /* (verbose) */
               "TERM=%s "        /* (TERM environment variable) */
               "%s",             /* (append) */
+              appliance_root,
               g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
               g->verbose ? "guestfs_verbose=1" : "",
               getenv ("TERM") ? : "linux",
@@ -807,23 +857,6 @@ launch_appliance (guestfs_h *g)
     add_cmdline (g, initrd);
     add_cmdline (g, "-append");
     add_cmdline (g, buf);
-
-    /* Add the ext2 appliance drive (last of all). */
-    if (appliance) {
-      const char *cachemode = "";
-      if (qemu_supports (g, "cache=")) {
-        if (qemu_supports (g, "unsafe"))
-          cachemode = ",cache=unsafe";
-        else if (qemu_supports (g, "writeback"))
-          cachemode = ",cache=writeback";
-      }
-
-      char buf2[PATH_MAX + 64];
-      add_cmdline (g, "-drive");
-      snprintf (buf2, sizeof buf2, "file=%s,snapshot=on,if=virtio%s",
-                appliance, cachemode);
-      add_cmdline (g, buf2);
-    }
 
     /* Finish off the command line. */
     incr_cmdline_size (g);
@@ -1432,6 +1465,20 @@ qemu_supports_re (guestfs_h *g, const pcre *option_regex)
 }
 #endif
 
+/* Test if device is supported by qemu (currently just greps the -device ?
+ * output).
+ */
+static int
+qemu_supports_device (guestfs_h *g, const char *device_name)
+{
+  if (!g->qemu_devices) {
+    if (test_qemu (g) == -1)
+      return -1;
+  }
+
+  return strstr (g->qemu_devices, device_name) != NULL;
+}
+
 #if defined(__i386__) || defined(__x86_64__)
 /* Check if a file can be opened. */
 static int
@@ -1447,13 +1494,39 @@ is_openable (guestfs_h *g, const char *path, int flags)
 }
 #endif
 
+/* Returns 1 = use virtio-scsi, or 0 = use virtio-blk. */
+static int
+qemu_supports_virtio_scsi (guestfs_h *g)
+{
+  int r;
+
+  /* g->virtio_scsi has these values:
+   *   0 = untested (after handle creation)
+   *   1 = supported
+   *   2 = not supported (use virtio-blk)
+   *   3 = test failed (use virtio-blk)
+   */
+  if (g->virtio_scsi == 0) {
+    r = qemu_supports_device (g, "virtio-scsi-pci");
+    if (r > 0)
+      g->virtio_scsi = 1;
+    else if (r == 0)
+      g->virtio_scsi = 2;
+    else
+      g->virtio_scsi = 3;
+  }
+
+  return g->virtio_scsi == 1;
+}
+
 static char *
-qemu_drive_param (guestfs_h *g, const struct drive *drv)
+qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 {
   size_t i;
-  size_t len = 64;
+  size_t len = 128;
   const char *p;
   char *r;
+  const char *iface;
 
   len += strlen (drv->path) * 2; /* every "," could become ",," */
   if (drv->iface)
@@ -1475,14 +1548,33 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv)
       r[i++] = *p;
   }
 
-  snprintf (&r[i], len-i, "%s%s%s%s,if=%s",
+  if (drv->iface)
+    iface = drv->iface;
+  else if (qemu_supports_virtio_scsi (g))
+    iface = "none"; /* sic */
+  else
+    iface = "virtio";
+
+  snprintf (&r[i], len-i, "%s%s%s%s,id=hd%zu,if=%s",
             drv->readonly ? ",snapshot=on" : "",
             drv->use_cache_off ? ",cache=off" : "",
             drv->format ? ",format=" : "",
             drv->format ? drv->format : "",
-            drv->iface ? drv->iface : "virtio");
+            index,
+            iface);
 
   return r;                     /* caller frees */
+}
+
+/* https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/ */
+static char *
+drive_name (size_t index, char *ret)
+{
+  if (index > 26)
+    ret = drive_name (index / 26, ret);
+  index %= 26;
+  *ret++ = 'a' + index;
+  return ret;
 }
 
 /* You had to call this function after launch in versions <= 1.0.70,

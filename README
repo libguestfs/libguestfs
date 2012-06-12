@@ -55,11 +55,12 @@ For basic functionality and the C tools:
   to make complex changes to the ./configure command line to get it
   to work if you don't have virtio)
 
-- febootstrap >= 3.3 (it is best to use the latest version)
+- febootstrap >= 3.15
 
   Notes: (1) febootstrap 2.x WILL NOT WORK
          (2) febootstrap 3.x is distro-independent, and is required on
              Debian and other distros as well as Fedora
+         (3) that is the minimum version, but later versions are better
 
 - XDR, rpcgen (on Linux these are provided by glibc)
 

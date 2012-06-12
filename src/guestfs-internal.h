@@ -257,6 +257,9 @@ struct guestfs_h
   int ml_read_only;                     /* If mounted read-only. */
   int ml_debug_calls;        /* Extra debug info on each FUSE call. */
 #endif
+
+  /* Used by src/launch.c:qemu_supports_virtio_scsi */
+  int virtio_scsi;
 };
 
 /* Per-filesystem data stored for inspect_os. */
