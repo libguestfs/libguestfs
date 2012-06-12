@@ -6821,8 +6821,9 @@ The filesystem must be mounted read-write.
 The filesystem contents are not affected, but any free space
 in the filesystem is freed.
 
-In future (but not currently) these zeroed blocks will be
-\"sparsified\" - that is, given back to the host.");
+Free space is not \"trimmed\".  You may want to call
+C<guestfs_fstrim> either as an alternative to this,
+or after calling this, depending on your requirements.");
 
   ("lvcreate_free", (RErr, [String "logvol"; String "volgroup"; Int "percent"], []), 312, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
@@ -7258,6 +7259,28 @@ since filesystems can fail for other reasons such as it being
 a later version of the filesystem, or having incompatible features.
 
 See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>.");
+
+  ("fstrim", (RErr, [Pathname "mountpoint"], [OInt64 "offset"; OInt64 "length"; OInt64 "minimumfreeextent"]), 334, [Optional "fstrim"],
+   [],
+   "trim free space in a filesystem",
+   "\
+Trim the free space in the filesystem mounted on C<mountpoint>.
+The filesystem must be mounted read-write.
+
+The filesystem contents are not affected, but any free space
+in the filesystem is \"trimmed\", that is, given back to the host
+device, thus making disk images more sparse, allowing unused space
+in qcow2 files to be reused, etc.
+
+This operation requires support in libguestfs, the mounted
+filesystem, the host filesystem, qemu and the host kernel.
+If this support isn't present it may give an error or even
+appear to run but do nothing.
+
+See also C<guestfs_zero_free_space>.  That is a slightly
+different operation that turns free space in the filesystem
+into zeroes.  It is valid to call C<guestfs_fstrim> either
+instead of, or after calling C<guestfs_zero_free_space>.");
 
 ]
 

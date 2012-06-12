@@ -114,6 +114,7 @@ guestfsd_SOURCES = \
 	fill.c \
 	find.c \
 	fsck.c \
+	fstrim.c \
 	glob.c \
 	grep.c \
 	grub.c \
