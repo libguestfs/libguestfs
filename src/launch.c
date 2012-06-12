@@ -1319,6 +1319,8 @@ test_qemu (guestfs_h *g)
   g->qemu_help = NULL;
   free (g->qemu_version);
   g->qemu_version = NULL;
+  free (g->qemu_devices);
+  g->qemu_devices = NULL;
 
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -help", g->qemu);
 
@@ -1336,6 +1338,13 @@ test_qemu (guestfs_h *g)
             g->qemu);
 
   if (test_qemu_cmd (g, cmd, &g->qemu_version) == -1)
+    goto qemu_error;
+
+  snprintf (cmd, sizeof cmd,
+            "LC_ALL=C '%s' -nographic -machine accel=kvm:tcg -device '?' 2>&1",
+            g->qemu);
+
+  if (test_qemu_cmd (g, cmd, &g->qemu_devices) == -1)
     goto qemu_error;
 
   return 0;

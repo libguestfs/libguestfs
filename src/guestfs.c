@@ -270,6 +270,7 @@ guestfs_close (guestfs_h *g)
   free (g->append);
   free (g->qemu_help);
   free (g->qemu_version);
+  free (g->qemu_devices);
   free (g);
 }
 

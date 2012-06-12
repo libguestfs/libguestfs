@@ -187,6 +187,7 @@ struct guestfs_h
   char *tmpdir;			/* Temporary directory containing socket. */
 
   char *qemu_help, *qemu_version; /* Output of qemu -help, qemu -version. */
+  char *qemu_devices;           /* Output of qemu -device ? */
 
   char **cmdline;		/* Qemu command line. */
   size_t cmdline_size;
