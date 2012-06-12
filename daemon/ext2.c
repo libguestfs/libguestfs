@@ -368,7 +368,7 @@ do_mke2journal (int blocksize, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-               prog, "-O", "journal_dev", "-b", blocksize_s,
+               prog, "-F", "-O", "journal_dev", "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -400,7 +400,7 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-               prog, "-O", "journal_dev", "-b", blocksize_s,
+               prog, "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-L", label,
                device, NULL);
   if (r == -1) {
@@ -427,7 +427,7 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-               prog, "-O", "journal_dev", "-b", blocksize_s,
+               prog, "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-U", uuid,
                device, NULL);
   if (r == -1) {
@@ -459,7 +459,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=%s", journal);
 
   r = command (NULL, &err,
-               prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               prog, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -496,7 +496,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=LABEL=%s", label);
 
   r = command (NULL, &err,
-               prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               prog, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -527,7 +527,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=UUID=%s", uuid);
 
   r = command (NULL, &err,
-               prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               prog, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
