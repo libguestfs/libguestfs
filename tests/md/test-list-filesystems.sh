@@ -20,6 +20,8 @@
 
 set -e
 
+rm -f test.output
+
 # Create 2 disks partitioned as:
 # sda1: 20M ext3
 # sda2: 20M MD (md127)
@@ -30,8 +32,7 @@ set -e
 # md127 : 20M ext4
 # vg0 : 16M LV (lv0)
 # lv0 : 16M vfat
-output=$(
-../../fish/guestfish <<EOF
+../../fish/guestfish <<EOF | sed s,/dev/vd,/dev/sd,g > test.output
 # Add 2 empty disks
 sparse fs-test1.img 50M
 sparse fs-test2.img 50M
@@ -59,18 +60,17 @@ mkfs vfat /dev/vg0/lv0
 
 list-filesystems
 EOF
-)
 
-expected="/dev/vda1: ext3
+expected="/dev/sda1: ext3
 /dev/md127: ext4
 /dev/vg0/lv0: vfat"
 
 # Check the output of list-filesystems
-if [ "$output" != "$expected" ]; then
+if [ "$(cat test.output)" != "$expected" ]; then
     echo "$0: error: output of list-filesystems did not match expected output"
     printf "%s\n" "$output"
     exit 1;
 fi
 
 
-rm -f fs-test1.img fs-test2.img
+rm -f fs-test1.img fs-test2.img test.output
