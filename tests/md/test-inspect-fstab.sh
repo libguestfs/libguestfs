@@ -36,10 +36,10 @@ cat <<'EOF' > test.fstab
 # Xen-style partition names.
 /dev/xvda1 /boot ext2 default 0 0
 
-# Non-existant device.
+# Non-existent device.
 /dev/sdb3 /var ext2 default 0 0
 
-# Non-existant mountpoint.
+# Non-existent mountpoint.
 /dev/VG/LV1 /nosuchfile ext2 default 0 0
 EOF
 
