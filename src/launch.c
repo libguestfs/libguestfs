@@ -356,7 +356,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
            ? safe_strdup (g, optargs->format) : NULL;
   iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
-          ? safe_strdup (g, optargs->iface) : safe_strdup (g, DRIVE_IF);
+          ? safe_strdup (g, optargs->iface) : NULL;
   name = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK
           ? safe_strdup (g, optargs->name) : NULL;
 
@@ -365,7 +365,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
            "format");
     goto err_out;
   }
-  if (!valid_format_iface (iface)) {
+  if (iface && !valid_format_iface (iface)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "iface");
     goto err_out;
@@ -788,7 +788,7 @@ launch_appliance (guestfs_h *g)
       add_cmdline (g, "-netdev");
       add_cmdline (g, "user,id=usernet,net=169.254.0.0/16");
       add_cmdline (g, "-device");
-      add_cmdline (g, NET_IF ",netdev=usernet");
+      add_cmdline (g, "virtio-net-pci,netdev=usernet");
     }
 
 #if defined(__arm__)
@@ -837,7 +837,7 @@ launch_appliance (guestfs_h *g)
 
       char buf2[PATH_MAX + 64];
       add_cmdline (g, "-drive");
-      snprintf (buf2, sizeof buf2, "file=%s,snapshot=on,if=" DRIVE_IF "%s",
+      snprintf (buf2, sizeof buf2, "file=%s,snapshot=on,if=virtio%s",
                 appliance, cachemode);
       add_cmdline (g, buf2);
     }
@@ -1464,7 +1464,8 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv)
   char *r;
 
   len += strlen (drv->path) * 2; /* every "," could become ",," */
-  len += strlen (drv->iface);
+  if (drv->iface)
+    len += strlen (drv->iface);
   if (drv->format)
     len += strlen (drv->format);
 
@@ -1487,7 +1488,7 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv)
             drv->use_cache_off ? ",cache=off" : "",
             drv->format ? ",format=" : "",
             drv->format ? drv->format : "",
-            drv->iface);
+            drv->iface ? drv->iface : "virtio");
 
   return r;                     /* caller frees */
 }
