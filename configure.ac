@@ -568,55 +568,29 @@ working.
 ])
     fi
 
-    AS_IF([test "x$QEMU_OPTIONS" = "x"],[
-        dnl qemu 0.15 was released with broken support for '-machine',
-        dnl requiring you to add the machine type: '-machine pc,[...]'.
-        dnl The problem is that 'pc' is only applicable for PC-like
-        dnl hardware, so we cannot do this as a general solution.  Since
-        dnl qemu 0.15, this problem has been fixed so now the default
-        dnl machine type is chosen (qemu commit 2645c6dcaf6ea2a51a).
-        dnl
-        dnl We need to work out if this qemu is the broken version, so we
-        dnl can add 'pc' just for this broken version.
-        dnl
-        dnl Note that old qemu didn't support the '-machine' option at all.
-        dnl
-        dnl We use the -kernel option for testing this, because this option
-        dnl is processed very late, after qemu has set up the machine.
-        AC_MSG_CHECKING([for broken '-machine accel=tcg' option in $QEMU])
-        LC_ALL=C $QEMU -nographic -machine accel=tcg -kernel /NO_SUCH_FILE \
-             > config1.tmp 2>&1
-        LC_ALL=C $QEMU -nographic -machine pc,accel=tcg -kernel /NO_SUCH_FILE \
-             > config2.tmp 2>&1
-        if cmp -s config1.tmp config2.tmp; then
-            AC_MSG_RESULT([no])
-        else
-            AC_MSG_RESULT([yes])
-            AC_DEFINE([QEMU_MACHINE_TYPE_IS_BROKEN],[1],[qemu -machine accel=tcg option is broken (in qemu 0.15 only)])
-        fi
-        rm config1.tmp config2.tmp
+    AC_MSG_CHECKING([that $QEMU -version works])
+    if $QEMU -version >&AS_MESSAGE_LOG_FD 2>&1; then
+        AC_MSG_RESULT([yes])
+    else
+        AC_MSG_RESULT([no])
+        AC_MSG_FAILURE(
+[$QEMU -version: command failed.
 
-        dnl See if the '-machine [pc,]accel=tcg' option is required in
-        dnl order to run the virtio-serial test below.  This happens when
-        dnl we run qemu-kvm inside a VM without forcing TCG:
-        dnl
-        dnl   Could not access KVM kernel module: No such file or directory
-        dnl   failed to initialize KVM: No such file or directory
-        dnl   No accelerator found!
-        AC_MSG_CHECKING([if -machine @<:@pc,@:>@accel=tcg option is required to test virtio-serial feature])
-        if $QEMU -nographic -device \? >/dev/null 2>&1; then
-            :
-        elif $QEMU -machine accel=tcg -nographic -device \? >/dev/null 2>&1; then
-            QEMU_OPTIONS_FOR_TEST="-machine accel=tcg"
-        elif $QEMU -machine pc,accel=tcg -nographic -device \? >/dev/null 2>&1; then
-            QEMU_OPTIONS_FOR_TEST="-machine pc,accel=tcg"
-        # else nothing ... it'll fail below.
-        fi
-        AC_MSG_RESULT([$QEMU_OPTIONS_FOR_TEST])
-    ])
+This could be a very old version of qemu, or qemu might not be
+working.
+])
+    fi
+
+    AC_MSG_CHECKING([for $QEMU version >= 1])
+    if $QEMU -version | grep -sq 'version @<:@1-@:>@'; then
+        AC_MSG_RESULT([yes])
+    else
+        AC_MSG_RESULT([no])
+        AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
+    fi
 
     AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-    if $QEMU $QEMU_OPTIONS $QEMU_OPTIONS_FOR_TEST -nographic -device \? 2>&1 | grep -sq virtio-serial; then
+    if $QEMU $QEMU_OPTIONS -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])

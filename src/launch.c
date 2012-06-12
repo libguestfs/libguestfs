@@ -678,29 +678,13 @@ launch_appliance (guestfs_h *g)
       add_cmdline_shell_unquoted (g, QEMU_OPTIONS);
     }
 
-    /* The #if on the next line should really be "architectures for
-     * which KVM is commonly available.
-     */
-#if defined(__i386__) || defined(__x86_64__)
     /* The qemu -machine option (added 2010-12) is a bit more sane
      * since it falls back through various different acceleration
      * modes, so try that first (thanks Markus Armbruster).
      */
     if (qemu_supports (g, "-machine")) {
       add_cmdline (g, "-machine");
-#if QEMU_MACHINE_TYPE_IS_BROKEN
-      /* Workaround for qemu 0.15: We have to add the '[type=]pc'
-       * since there is no default.  This is not a permanent solution
-       * because this only works on PC-like hardware.  Other platforms
-       * like ppc would need a different machine type.
-       *
-       * This bug is fixed in qemu commit 2645c6dcaf6ea2a51a, and was
-       * not a problem in qemu < 0.15.
-       */
-      add_cmdline (g, "pc,accel=kvm:tcg");
-#else
       add_cmdline (g, "accel=kvm:tcg");
-#endif
     } else {
       /* qemu sometimes needs this option to enable hardware
        * virtualization, but some versions of 'qemu-kvm' will use KVM
@@ -718,7 +702,6 @@ launch_appliance (guestfs_h *g)
           is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC))
         add_cmdline (g, "-enable-kvm");
     }
-#endif /* i386 or x86-64 */
 
     if (g->smp > 1) {
       snprintf (buf, sizeof buf, "%d", g->smp);
@@ -1339,11 +1322,11 @@ test_qemu (guestfs_h *g)
 
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -help", g->qemu);
 
-  /* qemu -help should always work (qemu -version OTOH wasn't
-   * supported by qemu 0.9).  If this command doesn't work then it
-   * probably indicates that the qemu binary is missing.
+  /* If this command doesn't work then it probably indicates that the
+   * qemu binary is missing.
    */
   if (test_qemu_cmd (g, cmd, &g->qemu_help) == -1) {
+  qemu_error:
     error (g, _("command failed: %s\n\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."),
            cmd);
     return -1;
@@ -1352,8 +1335,8 @@ test_qemu (guestfs_h *g)
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -version 2>/dev/null",
             g->qemu);
 
-  /* Intentionally ignore errors from qemu -version. */
-  ignore_value (test_qemu_cmd (g, cmd, &g->qemu_version));
+  if (test_qemu_cmd (g, cmd, &g->qemu_version) == -1)
+    goto qemu_error;
 
   return 0;
 }
