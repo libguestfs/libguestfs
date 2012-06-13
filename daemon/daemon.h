@@ -79,6 +79,9 @@ extern void sort_strings (char **argv, size_t len);
 extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, size_t len);
 
+extern void sort_device_names (char **argv, size_t len);
+extern int compare_device_names (const char *a, const char *b);
+
 extern char **split_lines (char *str);
 
 #define command(out,err,name,...) commandf((out),(err),0,(name),__VA_ARGS__)
