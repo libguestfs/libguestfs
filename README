@@ -55,7 +55,7 @@ For basic functionality and the C tools:
   to make complex changes to the ./configure command line to get it
   to work if you don't have virtio)
 
-- febootstrap >= 3.15
+- febootstrap >= 3.16
 
   Notes: (1) febootstrap 2.x WILL NOT WORK
          (2) febootstrap 3.x is distro-independent, and is required on
