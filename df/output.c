@@ -82,7 +82,7 @@ print_title (void)
   }
 }
 
-static void canonical_device (char *dev, int offset);
+static char *adjust_device_offset (const char *device, int offset);
 
 void
 print_stat (const char *name, const char *uuid_param,
@@ -102,13 +102,17 @@ print_stat (const char *name, const char *uuid_param,
   float percent;
   int hopts = human_round_to_nearest|human_autoscale|human_base_1024|human_SI;
   size_t i, len;
+  char *dev;
 
-  /* Make the device canonical. */
-  len = strlen (dev_param) + 1;
-  char dev[len];
-  strcpy (dev, dev_param);
-  if (offset >= 0)
-    canonical_device (dev, offset);
+  /* Make a canonical name, adjusting the device offset if necessary. */
+  dev = guestfs_canonical_device_name (g, dev_param);
+  if (!dev)
+    exit (EXIT_FAILURE);
+  if (offset >= 0) {
+    char *p = dev;
+    dev = adjust_device_offset (p, offset);
+    free (p);
+  }
 
   if (!inodes) {                /* 1K blocks */
     if (!human) {
@@ -190,20 +194,8 @@ print_stat (const char *name, const char *uuid_param,
 
     putchar ('\n');
   }
-}
 
-/* /dev/vda1 -> /dev/sda, adjusting the device offset. */
-static void
-canonical_device (char *dev, int offset)
-{
-  if (STRPREFIX (dev, "/dev/") &&
-      (dev[5] == 'h' || dev[5] == 'v') &&
-      dev[6] == 'd' &&
-      c_isalpha (dev[7]) &&
-      (c_isdigit (dev[8]) || dev[8] == '\0')) {
-    dev[5] = 's';
-    dev[7] -= offset;
-  }
+  free (dev);
 }
 
 /* Function to quote CSV fields on output without requiring an
@@ -240,4 +232,73 @@ write_csv_field (const char *field)
       putchar (field[i]);
   }
   putchar ('"');
+}
+
+static char *drive_name (int index, char *ret);
+
+static char *
+adjust_device_offset (const char *device, int offset)
+{
+  int index;
+  int part_num;
+  char *whole_device;
+  int free_whole_device;
+  size_t len;
+  char *ret;
+
+  /* Could be a whole disk or a partition.  guestfs_device_index will
+   * only work with the whole disk name.
+   */
+  len = strlen (device);
+  if (len > 0 && c_isdigit (device[len-1])) {
+    whole_device = guestfs_part_to_dev (g, device);
+    if (whole_device == NULL)
+      exit (EXIT_FAILURE);
+    free_whole_device = 1;
+    part_num = guestfs_part_to_partnum (g, device);
+    if (part_num == -1)
+      exit (EXIT_FAILURE);
+  } else {
+    whole_device = (char *) device;
+    free_whole_device = 0;
+    part_num = 0;
+  }
+
+  index = guestfs_device_index (g, whole_device);
+  if (index == -1)
+    exit (EXIT_FAILURE);
+
+  if (free_whole_device)
+    free (whole_device);
+
+  assert (index >= offset);
+
+  index -= offset;
+
+  /* Construct the final device name. */
+  ret = malloc (128);
+  if (!ret) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  strcpy (ret, "/dev/sd");
+  drive_name (index, &ret[7]);
+  len = strlen (ret);
+  if (part_num > 0)
+    snprintf (&ret[len], 128-len, "%d", part_num);
+
+  return ret;
+}
+
+/* https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/ */
+static char *
+drive_name (int index, char *ret)
+{
+  if (index >= 26)
+    ret = drive_name (index/26 - 1, ret);
+  index %= 26;
+  *ret++ = 'a' + index;
+  *ret = '\0';
+  return ret;
 }

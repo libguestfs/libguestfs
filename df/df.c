@@ -30,6 +30,7 @@
 #endif
 
 #include "progname.h"
+#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "options.h"
@@ -115,17 +116,50 @@ df_on_handle (const char *name, const char *uuid, char **devices, int offset)
   return ret;
 }
 
+/* dev is a device or partition name such as "/dev/sda" or "/dev/sda1".
+ * See if dev occurs somewhere in the list of devices.
+ */
 static int
 find_dev_in_devices (const char *dev, char **devices)
 {
-  size_t i;
+  guestfs_error_handler_cb old_error_cb;
+  void *old_error_data;
+  size_t i, len;
+  char *whole_disk;
+  int free_whole_disk;
+  int ret = 0;
 
-  for (i = 0; devices[i] != NULL; ++i) {
-    if (STRPREFIX (dev, devices[i]))
-      return 1;
+  /* Convert 'dev' to a whole disk name. */
+  len = strlen (dev);
+  if (len > 0 && c_isdigit (dev[len-1])) {
+    old_error_cb = guestfs_get_error_handler (g, &old_error_data);
+    guestfs_set_error_handler (g, NULL, NULL);
+
+    whole_disk = guestfs_part_to_dev (g, dev);
+
+    guestfs_set_error_handler (g, old_error_cb, old_error_data);
+
+    if (!whole_disk) /* probably an MD device or similar */
+      return 0;
+
+    free_whole_disk = 1;
+  }
+  else {
+    whole_disk = (char *) dev;
+    free_whole_disk = 0;
   }
 
-  return 0;
+  for (i = 0; devices[i] != NULL; ++i) {
+    if (STREQ (whole_disk, devices[i])) {
+      ret = 1;
+      break;
+    }
+  }
+
+  if (free_whole_disk)
+    free (whole_disk);
+
+  return ret;
 }
 
 static void

@@ -41,14 +41,6 @@
 
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 
-/* Limit the number of devices we will ever add to the appliance.  The
- * overall limit in current libguestfs is 25: 26 = number of letters
- * in the English alphabet since we are only confident that
- * /dev/sd[a-z] will work because of various limits, minus 1 because
- * that may be used by the ext2 initial filesystem.  (RHBZ#635373).
- */
-#define MAX_DISKS 25
-
 /* The list of domains and disks that we build up in
  * get_domains_from_libvirt.
  */
@@ -94,9 +86,9 @@ free_domain (struct domain *domain)
   free (domain->uuid);
 }
 
-static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n);
-static void add_domains_by_name (virConnectPtr conn, char **names, size_t n);
-static void add_domain (virDomainPtr dom);
+static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n, size_t max_disks);
+static void add_domains_by_name (virConnectPtr conn, char **names, size_t n, size_t max_disks);
+static void add_domain (virDomainPtr dom, size_t max_disks);
 static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *domain_vp);
 static void multi_df (struct domain *, size_t n, size_t *errors);
 
@@ -105,8 +97,13 @@ get_domains_from_libvirt (void)
 {
   virErrorPtr err;
   virConnectPtr conn;
-  int n;
-  size_t i, j, nr_disks_added, errors;
+  int n, r;
+  size_t i, j, nr_disks_added, errors, max_disks;
+
+  r = guestfs_max_disks (g);
+  if (r == -1)
+    exit (EXIT_FAILURE);
+  max_disks = (size_t) r;
 
   nr_domains = 0;
   domains = NULL;
@@ -140,7 +137,7 @@ get_domains_from_libvirt (void)
     exit (EXIT_FAILURE);
   }
 
-  add_domains_by_id (conn, ids, n);
+  add_domains_by_id (conn, ids, n, max_disks);
 
   n = virConnectNumOfDefinedDomains (conn);
   if (n == -1) {
@@ -161,7 +158,7 @@ get_domains_from_libvirt (void)
     exit (EXIT_FAILURE);
   }
 
-  add_domains_by_name (conn, names, n);
+  add_domains_by_name (conn, names, n, max_disks);
 
   /* You must free these even though the libvirt documentation doesn't
    * mention it.
@@ -182,7 +179,7 @@ get_domains_from_libvirt (void)
 
   /* To minimize the number of times we have to launch the appliance,
    * shuffle as many domains together as we can, but not exceeding
-   * MAX_DISKS per request.  If --one-per-guest was requested then only
+   * max_disks per request.  If --one-per-guest was requested then only
    * request disks from a single guest each time.
    * Interesting application for NP-complete knapsack problem here.
    */
@@ -196,7 +193,7 @@ get_domains_from_libvirt (void)
 
       /* Make a request with domains [i..j-1]. */
       for (j = i; j < nr_domains; ++j) {
-        if (nr_disks_added + domains[j].nr_disks > MAX_DISKS)
+        if (nr_disks_added + domains[j].nr_disks > max_disks)
           break;
         nr_disks_added += domains[j].nr_disks;
       }
@@ -219,7 +216,7 @@ get_domains_from_libvirt (void)
 }
 
 static void
-add_domains_by_id (virConnectPtr conn, int *ids, size_t n)
+add_domains_by_id (virConnectPtr conn, int *ids, size_t n, size_t max_disks)
 {
   size_t i;
   virDomainPtr dom;
@@ -228,7 +225,7 @@ add_domains_by_id (virConnectPtr conn, int *ids, size_t n)
     if (ids[i] != 0) {          /* RHBZ#538041 */
       dom = virDomainLookupByID (conn, ids[i]);
       if (dom) { /* transient errors are possible here, ignore them */
-        add_domain (dom);
+        add_domain (dom, max_disks);
         virDomainFree (dom);
       }
     }
@@ -236,7 +233,8 @@ add_domains_by_id (virConnectPtr conn, int *ids, size_t n)
 }
 
 static void
-add_domains_by_name (virConnectPtr conn, char **names, size_t n)
+add_domains_by_name (virConnectPtr conn, char **names, size_t n,
+                     size_t max_disks)
 {
   size_t i;
   virDomainPtr dom;
@@ -244,14 +242,14 @@ add_domains_by_name (virConnectPtr conn, char **names, size_t n)
   for (i = 0; i < n; ++i) {
     dom = virDomainLookupByName (conn, names[i]);
     if (dom) { /* transient errors are possible here, ignore them */
-      add_domain (dom);
+      add_domain (dom, max_disks);
       virDomainFree (dom);
     }
   }
 }
 
 static void
-add_domain (virDomainPtr dom)
+add_domain (virDomainPtr dom, size_t max_disks)
 {
   struct domain *domain;
 
@@ -287,10 +285,10 @@ add_domain (virDomainPtr dom)
     exit (EXIT_FAILURE);
   domain->nr_disks = n;
 
-  if (domain->nr_disks > MAX_DISKS) {
+  if (domain->nr_disks > max_disks) {
     fprintf (stderr,
-             _("%s: ignoring %s, it has too many disks (%zu > %d)\n"),
-             program_name, domain->name, domain->nr_disks, MAX_DISKS);
+             _("%s: ignoring %s, it has too many disks (%zu > %zu)\n"),
+             program_name, domain->name, domain->nr_disks, max_disks);
     free_domain (domain);
     nr_domains--;
     return;
