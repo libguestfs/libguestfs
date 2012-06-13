@@ -6019,7 +6019,7 @@ removes the partition number, returning the device name
 The named partition must exist, for example as a string returned
 from C<guestfs_list_partitions>.
 
-See also C<guestfs_part_to_partnum>.");
+See also C<guestfs_part_to_partnum>, C<guestfs_device_index>.");
 
   ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"], []), 273,
    [Progress; Cancellable],
@@ -7239,6 +7239,19 @@ a btrfs filesystem.");
    "\
 Used to check a btrfs filesystem, C<device> is the device file where the
 filesystem is stored.");
+
+  ("device_index", (RInt "index", [Device "device"], []), 335, [],
+   [InitEmpty, Always, TestOutputInt (
+      [["device_index"; "/dev/sda"]], 0)],
+   "convert device to index",
+   "\
+This function takes a device name (eg. \"/dev/sdb\") and
+returns the index of the device in the list of devices.
+
+Index numbers start from 0.  The named device must exist,
+for example as a string returned from C<guestfs_list_devices>.
+
+See also C<guestfs_list_devices>, C<guestfs_part_to_dev>.");
 
 ]
 
