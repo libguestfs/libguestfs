@@ -3201,6 +3201,14 @@ filesystem support (L<guestmount(1)>).
 
 =head2 MAXIMUM NUMBER OF DISKS
 
+In libguestfs E<ge> 1.19.7, you can query the maximum number of disks
+that may be added by calling L</guestfs_max_disks>.  In earlier
+versions of libguestfs (ie. where this call is not available) you
+should assume the maximum is 25.
+
+The rest of this section covers implementation details, which could
+change in future.
+
 When using virtio-scsi disks (the default if available in qemu) the
 current limit is B<255> disks.  When using virtio-blk (the old
 default) the limit is around B<27> disks, but may vary according to
@@ -3213,6 +3221,11 @@ Virtio-blk consumes 1 virtual PCI slot per disk, and PCI is limited
 to 31 slots, but some of these are used for other purposes.
 
 One virtual disk is used by libguestfs internally.
+
+Before libguestfs 1.19.7, disk names had to be a single character
+(eg. C</dev/sda> through C</dev/sdz>), and since one disk is reserved,
+that meant the limit was 25.  This has been fixed in more recent
+versions.
 
 In future versions of libguestfs it should also be possible to "hot
 plug" disks (add and remove disks after calling L</guestfs_launch>).

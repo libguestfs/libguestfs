@@ -1608,6 +1608,16 @@ guestfs__kill_subprocess (guestfs_h *g)
   return 0;
 }
 
+/* Maximum number of disks. */
+int
+guestfs__max_disks (guestfs_h *g)
+{
+  if (qemu_supports_virtio_scsi (g))
+    return 255;
+  else
+    return 27;                  /* conservative estimate */
+}
+
 /* Access current state. */
 int
 guestfs__is_config (guestfs_h *g)

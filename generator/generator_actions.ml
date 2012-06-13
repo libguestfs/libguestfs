@@ -1721,6 +1721,19 @@ mountpoint, then this unmounts it.
 
 See L<guestfs(3)/MOUNT LOCAL> for full documentation.");
 
+  ("max_disks", (RInt "disks", [], []), -1, [],
+   [],
+   "maximum number of disks that may be added",
+   "\
+Return the maximum number of disks that may be added to a
+handle (eg. by C<guestfs_add_drive_opts> and similar calls).
+
+This function was added in libguestfs 1.19.7.  In previous
+versions of libguestfs the limit was 25.
+
+See L<guestfs(3)/MAXIMUM NUMBER OF DISKS> for additional
+information on this topic.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
