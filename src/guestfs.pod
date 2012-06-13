@@ -3201,16 +3201,18 @@ filesystem support (L<guestmount(1)>).
 
 =head2 MAXIMUM NUMBER OF DISKS
 
-When using virtio disks (the default) the current limit is B<25>
-disks.
+When using virtio-scsi disks (the default if available in qemu) the
+current limit is B<255> disks.  When using virtio-blk (the old
+default) the limit is around B<27> disks, but may vary according to
+implementation details and whether the network is enabled.
 
-Virtio itself consumes 1 virtual PCI slot per disk, and PCI is limited
-to 31 slots.  However febootstrap only understands disks with names
-C</dev/vda> through C</dev/vdz> (26 letters) and it reserves one disk
-for its own purposes.
+Virtio-scsi as used by libguestfs is configured to use one target per
+disk, and 256 targets are available.
 
-We are working to substantially raise this limit in future versions
-but it requires complex changes to qemu.
+Virtio-blk consumes 1 virtual PCI slot per disk, and PCI is limited
+to 31 slots, but some of these are used for other purposes.
+
+One virtual disk is used by libguestfs internally.
 
 In future versions of libguestfs it should also be possible to "hot
 plug" disks (add and remove disks after calling L</guestfs_launch>).
