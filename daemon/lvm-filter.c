@@ -245,7 +245,7 @@ make_filter_string (char *const *devices)
   size_t i;
   size_t len = 64;
   for (i = 0; devices[i] != NULL; ++i)
-    len += strlen (devices[i]) + 16;
+    len += 2 * strlen (devices[i]) + 64;
 
   char *filter = malloc (len);
   if (filter == NULL) {
@@ -255,19 +255,22 @@ make_filter_string (char *const *devices)
 
   char *p = filter;
   for (i = 0; devices[i] != NULL; ++i) {
-    /* Because of the way matching works in LVM, each match clause
-     * should be either:
-     *   "a|^/dev/sda|",      for whole block devices, or
-     *   "a|^/dev/sda1$|",    for single partitions
-     * (the assumption being we have <= 26 block devices XXX).
+    /* Because of the way matching works in LVM (yes, they wrote their
+     * own regular expression engine!), each match clause should be either:
+     *
+     *   for single partitions:
+     *     "a|^/dev/sda1$|",
+     *   for whole block devices:
+     *     "a|^/dev/sda$|", "a|^/dev/sda[0-9]|",
      */
     size_t slen = strlen (devices[i]);
-    char str[slen+16];
+    char str[2*slen+64];
 
-    if (c_isdigit (devices[i][slen-1]))
-      snprintf (str, slen+16, "\"a|^%s$|\", ", devices[i]);
-    else
-      snprintf (str, slen+16, "\"a|^%s|\", ", devices[i]);
+    if (c_isdigit (devices[i][slen-1])) /* single partition */
+      snprintf (str, 2*slen+64, "\"a|^%s$|\", ", devices[i]);
+    else                        /* whole block device */
+      snprintf (str, 2*slen+64, "\"a|^%s$|\", \"a|^%s[0-9]|\", ",
+                devices[i], devices[i]);
 
     strcpy (p, str);
     p += strlen (str);
