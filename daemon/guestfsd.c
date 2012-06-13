@@ -40,6 +40,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include <assert.h>
 
 #ifdef HAVE_PRINTF_H
 # include <printf.h>
@@ -512,6 +513,69 @@ free_stringslen (char **argv, size_t len)
   for (i = 0; i < len; ++i)
     free (argv[i]);
   free (argv);
+}
+
+/* Compare device names (including partition numbers if present).
+ * https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/
+ */
+int
+compare_device_names (const char *a, const char *b)
+{
+  size_t a_devlen, b_devlen;
+  int r;
+  int a_partnum, b_partnum;
+
+  /* Skip /dev/ prefix if present. */
+  if (STRPREFIX (a, "/dev/"))
+    a += 5;
+  if (STRPREFIX (b, "/dev/"))
+    b += 5;
+
+  /* Skip sd/hd/vd. */
+  assert (a[1] == 'd');
+  a += 2;
+  assert (b[1] == 'd');
+  b += 2;
+
+  /* Get device name part, that is, just 'a', 'ab' etc. */
+  a_devlen = strcspn (a, "0123456789");
+  b_devlen = strcspn (b, "0123456789");
+
+  /* If device name part is longer, it is always greater, eg.
+   * "/dev/sdz" < "/dev/sdaa".
+   */
+  if (a_devlen != b_devlen)
+    return a_devlen - b_devlen;
+
+  /* Device name parts are the same length, so do a regular compare. */
+  r = strncmp (a, b, a_devlen);
+  if (r != 0)
+    return r;
+
+  /* Compare partitions numbers. */
+  a += a_devlen;
+  b += a_devlen;
+
+  r = sscanf (a, "%d", &a_partnum);
+  assert (r == 1);
+  r = sscanf (b, "%d", &b_partnum);
+  assert (r == 1);
+
+  return a_partnum - b_partnum;
+}
+
+static int
+compare_device_names_vp (const void *vp1, const void *vp2)
+{
+  char * const *p1 = (char * const *) vp1;
+  char * const *p2 = (char * const *) vp2;
+  return compare_device_names (*p1, *p2);
+}
+
+void
+sort_device_names (char **argv, size_t len)
+{
+  qsort (argv, len, sizeof (char *), compare_device_names_vp);
 }
 
 /* Easy ways to run external commands.  For full documentation, see
