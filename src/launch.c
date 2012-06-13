@@ -1570,10 +1570,11 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 static char *
 drive_name (size_t index, char *ret)
 {
-  if (index > 26)
-    ret = drive_name (index / 26, ret);
+  if (index >= 26)
+    ret = drive_name (index/26 - 1, ret);
   index %= 26;
   *ret++ = 'a' + index;
+  *ret = '\0';
   return ret;
 }
 
