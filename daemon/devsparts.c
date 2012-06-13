@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2012 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ foreach_block_device (block_dev_func_t func)
 
   /* Sort the devices.  Note that r might be NULL if there are no devices. */
   if (r != NULL)
-    sort_strings (r, size);
+    sort_device_names (r, size);
 
   /* NULL terminate the list */
   if (add_string (&r, &size, &alloc, NULL) == -1) {
