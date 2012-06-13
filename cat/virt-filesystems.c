@@ -82,8 +82,6 @@ static int output = 0;
 #define NR_COLUMNS                8
 static int columns;
 
-static char *canonical_device (const char *dev);
-
 static void do_output_title (void);
 static void do_output (void);
 static void do_output_end (void);
@@ -466,7 +464,9 @@ do_output_filesystems (void)
         (STREQ (fses[i+1], "swap") || STREQ (fses[i+1], "unknown")))
       goto next;
 
-    dev = canonical_device (fses[i]);
+    dev = guestfs_canonical_device_name (g, fses[i]);
+    if (dev == NULL)
+      exit (EXIT_FAILURE);
 
     /* Only bother to look these up if we will be displaying them,
      * otherwise pass them as NULL.
@@ -639,7 +639,9 @@ do_output_pvs (void)
     char uuid[33];
     const char *parents[1] = { NULL };
 
-    dev = canonical_device (pvs->val[i].pv_name);
+    dev = guestfs_canonical_device_name (g, pvs->val[i].pv_name);
+    if (!dev)
+      exit (EXIT_FAILURE);
 
     memcpy (uuid, pvs->val[i].pv_uuid, 32);
     uuid[32] = '\0';
@@ -693,7 +695,9 @@ do_output_partitions (void)
     int64_t size = -1;
     int mbr_id = -1;
 
-    dev = canonical_device (parts[i]);
+    dev = guestfs_canonical_device_name (g, parts[i]);
+    if (!dev)
+      exit (EXIT_FAILURE);
 
     if ((columns & COLUMN_SIZE)) {
       size = guestfs_blockdev_getsize64 (g, parts[i]);
@@ -708,7 +712,9 @@ do_output_partitions (void)
       if ((columns & COLUMN_MBR))
         mbr_id = get_mbr_id (parts[i], parent_name);
 
-      char *p = canonical_device (parent_name);
+      char *p = guestfs_canonical_device_name (g, parent_name);
+      if (!p)
+        exit (EXIT_FAILURE);
       free (parent_name);
       parent_name = p;
 
@@ -742,7 +748,9 @@ do_output_blockdevs (void)
     char *dev;
     char **parents;
 
-    dev = canonical_device (devices[i]);
+    dev = guestfs_canonical_device_name (g, devices[i]);
+    if (!dev)
+      exit (EXIT_FAILURE);
 
     if ((columns & COLUMN_SIZE)) {
       size = guestfs_blockdev_getsize64 (g, devices[i]);
@@ -764,26 +772,6 @@ do_output_blockdevs (void)
   }
 
   free (devices);
-}
-
-/* /dev/vda1 -> /dev/sda.  Returns a string which the caller must free. */
-static char *
-canonical_device (const char *dev)
-{
-  char *ret = strdup (dev);
-  if (ret == NULL) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
-
-  if (STRPREFIX (ret, "/dev/") &&
-      (ret[5] == 'h' || ret[5] == 'v') &&
-      ret[6] == 'd' &&
-      c_isalpha (ret[7]) &&
-      (c_isdigit (ret[8]) || ret[8] == '\0'))
-    ret[5] = 's';
-
-  return ret;
 }
 
 /* Returns an empty list of parents.  Note this must be freed using
@@ -841,8 +829,11 @@ parents_of_md (char *device)
     exit (EXIT_FAILURE);
   }
 
-  for (i = 0; i < stats->len; ++i)
-    ret[i] = canonical_device (stats->val[i].mdstat_device);
+  for (i = 0; i < stats->len; ++i) {
+    ret[i] = guestfs_canonical_device_name (g, stats->val[i].mdstat_device);
+    if (!ret[i])
+      exit (EXIT_FAILURE);
+  }
 
   ret[stats->len] = NULL;
 
@@ -902,8 +893,11 @@ parents_of_vg (char *vg)
         break;
     }
 
-    if (j < pvs->len)
-      ret[i] = canonical_device (pvs->val[j].pv_name);
+    if (j < pvs->len) {
+      ret[i] = guestfs_canonical_device_name (g, pvs->val[j].pv_name);
+      if (!ret[i])
+        exit (EXIT_FAILURE);
+    }
     else {
       fprintf (stderr, "%s: warning: unknown PV UUID ignored\n", __func__);
       ret[i] = strndup (pvuuids[i], 32);

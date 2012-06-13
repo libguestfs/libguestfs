@@ -348,7 +348,7 @@ let get_partition_content =
           | [] ->
               error (f_"%s: physical volume not returned by pvs_full")
                 dev
-          | pv :: _ when canonicalize pv.G.pv_name = dev ->
+          | pv :: _ when g#canonical_device_name pv.G.pv_name = dev ->
               ContentPV pv.G.pv_size
           | _ :: pvs -> loop pvs
         in
@@ -529,7 +529,7 @@ let find_partition =
         "/dev/" ^ name
       else
         name in
-    let name = canonicalize name in
+    let name = g#canonical_device_name name in
 
     let partition =
       try Hashtbl.find hash name

@@ -105,7 +105,6 @@ add_drives (struct drv *drv, char next_drive)
 }
 
 static void display_mountpoints_on_failure (const char *mp_device, const char *user_supplied_options);
-static void canonical_device_name (char *dev);
 
 /* List is built in reverse order, so mount them in reverse order. */
 void
@@ -139,7 +138,7 @@ static void
 display_mountpoints_on_failure (const char *mp_device,
                                 const char *user_supplied_options)
 {
-  char **fses;
+  char **fses, *p;
   size_t i;
 
   fses = guestfs_list_filesystems (g);
@@ -162,24 +161,15 @@ display_mountpoints_on_failure (const char *mp_device,
            program_name);
 
   for (i = 0; fses[i] != NULL; i += 2) {
-    canonical_device_name (fses[i]);
-    fprintf (stderr, "%s: \t%s (%s)\n", program_name, fses[i], fses[i+1]);
+    p = guestfs_canonical_device_name (g, fses[i]);
+    fprintf (stderr, "%s: \t%s (%s)\n", program_name,
+             p ? p : fses[i], fses[i+1]);
+    free (p);
     free (fses[i]);
     free (fses[i+1]);
   }
 
   free (fses);
-}
-
-static void
-canonical_device_name (char *dev)
-{
-  if (STRPREFIX (dev, "/dev/") &&
-      (dev[5] == 'h' || dev[5] == 'v') &&
-      dev[6] == 'd' &&
-      c_isalpha (dev[7]) &&
-      (c_isdigit (dev[8]) || dev[8] == '\0'))
-    dev[5] = 's';
 }
 
 void

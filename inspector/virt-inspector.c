@@ -60,7 +60,6 @@ static void output_mountpoints (xmlTextWriterPtr xo, char *root);
 static void output_filesystems (xmlTextWriterPtr xo, char *root);
 static void output_drive_mappings (xmlTextWriterPtr xo, char *root);
 static void output_applications (xmlTextWriterPtr xo, char *root);
-static void canonicalize (char *dev);
 static void free_strings (char **argv);
 static size_t count_strings (char *const*argv);
 static void do_xpath (const char *query);
@@ -363,15 +362,17 @@ output_root (xmlTextWriterPtr xo, char *root)
   char *str;
   int i, r;
   char buf[32];
-  char canonical_root[strlen (root) + 1];
+  char *canonical_root;
   size_t size;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "operatingsystem"));
 
-  strcpy (canonical_root, root);
-  canonicalize (canonical_root);
+  canonical_root = guestfs_canonical_device_name (g, root);
+  if (canonical_root == NULL)
+    exit (EXIT_FAILURE);
   XMLERROR (-1,
     xmlTextWriterWriteElement (xo, BAD_CAST "root", BAD_CAST canonical_root));
+  free (canonical_root);
 
   str = guestfs_inspect_get_type (g, root);
   if (!str) exit (EXIT_FAILURE);
@@ -560,7 +561,7 @@ compare_keys_len (const void *p1, const void *p2)
 static void
 output_mountpoints (xmlTextWriterPtr xo, char *root)
 {
-  char **mountpoints;
+  char **mountpoints, *p;
   size_t i;
 
   mountpoints = guestfs_inspect_get_mountpoints (g, root);
@@ -576,16 +577,19 @@ output_mountpoints (xmlTextWriterPtr xo, char *root)
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "mountpoints"));
 
   for (i = 0; mountpoints[i] != NULL; i += 2) {
-    canonicalize (mountpoints[i+1]);
+    p = guestfs_canonical_device_name (g, mountpoints[i+1]);
+    if (!p)
+      exit (EXIT_FAILURE);
 
     XMLERROR (-1,
               xmlTextWriterStartElement (xo, BAD_CAST "mountpoint"));
     XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
-                                           BAD_CAST mountpoints[i+1]));
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST p));
     XMLERROR (-1,
               xmlTextWriterWriteString (xo, BAD_CAST mountpoints[i]));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+    free (p);
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
@@ -611,12 +615,14 @@ output_filesystems (xmlTextWriterPtr xo, char *root)
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "filesystems"));
 
   for (i = 0; filesystems[i] != NULL; ++i) {
-    canonicalize (filesystems[i]);
+    str = guestfs_canonical_device_name (g, filesystems[i]);
+    if (!str)
+      exit (EXIT_FAILURE);
 
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "filesystem"));
     XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
-                                           BAD_CAST filesystems[i]));
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST str));
+    free (str);
 
     DISABLE_GUESTFS_ERRORS_FOR (
       str = guestfs_vfs_type (g, filesystems[i]);
@@ -657,6 +663,7 @@ static void
 output_drive_mappings (xmlTextWriterPtr xo, char *root)
 {
   char **drive_mappings = NULL;
+  char *str;
   size_t i;
 
   DISABLE_GUESTFS_ERRORS_FOR (
@@ -678,7 +685,9 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "drive_mappings"));
 
   for (i = 0; drive_mappings[i] != NULL; i += 2) {
-    canonicalize (drive_mappings[i+1]);
+    str = guestfs_canonical_device_name (g, drive_mappings[i+1]);
+    if (!str)
+      exit (EXIT_FAILURE);
 
     XMLERROR (-1,
               xmlTextWriterStartElement (xo, BAD_CAST "drive_mapping"));
@@ -686,8 +695,10 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
               xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
                                            BAD_CAST drive_mappings[i]));
     XMLERROR (-1,
-              xmlTextWriterWriteString (xo, BAD_CAST drive_mappings[i+1]));
+              xmlTextWriterWriteString (xo, BAD_CAST str));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+    free (str);
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
@@ -771,20 +782,6 @@ output_applications (xmlTextWriterPtr xo, char *root)
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   guestfs_free_application_list (apps);
-}
-
-/* "/dev/vda1" -> "/dev/sda1"
- * See BLOCK DEVICE NAMING in guestfs(3).
- */
-static void
-canonicalize (char *dev)
-{
-  if (STRPREFIX (dev, "/dev/") &&
-      (dev[5] == 'h' || dev[5] == 'v') &&
-      dev[6] == 'd' &&
-      c_isalpha (dev[7]) &&
-      (c_isdigit (dev[8]) || dev[8] == '\0'))
-    dev[5] = 's';
 }
 
 static void

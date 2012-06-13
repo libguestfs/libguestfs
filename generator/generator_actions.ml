@@ -1734,6 +1734,34 @@ versions of libguestfs the limit was 25.
 See L<guestfs(3)/MAXIMUM NUMBER OF DISKS> for additional
 information on this topic.");
 
+  ("canonical_device_name", (RString "canonical", [String "device"], []), -1, [],
+   [],
+   "return canonical device name",
+   "\
+This utility function is useful when displaying device names to
+the user.  It takes a number of irregular device names and
+returns them in a consistent format:
+
+=over 4
+
+=item C</dev/hdX>
+
+=item C</dev/vdX>
+
+These are returned as C</dev/sdX>.  Note this works for device
+names and partition names.  This is approximately the reverse of
+the algorithm described in L<guestfs(3)/BLOCK DEVICE NAMING>.
+
+=item C</dev/mapper/VG-LV>
+
+=item C</dev/dm-N>
+
+Converted to C</dev/VG/LV> form using C<guestfs_lvm_canonical_lvm_name>.
+
+=back
+
+Other strings are returned unmodified.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -6132,7 +6160,7 @@ is converted to C</dev/VG/LV>.
 This command returns an error if the C<lvname> parameter does
 not refer to a logical volume.
 
-See also C<guestfs_is_lv>.");
+See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>.");
 
   ("mkfs_opts", (RErr, [String "fstype"; Device "device"], [OInt "blocksize"; OString "features"; OInt "inode"; OInt "sectorsize"]), 278, [],
    [InitEmpty, Always, TestOutput (

@@ -246,7 +246,7 @@ main (int argc, char *argv[])
 void
 scan (size_t *worst_alignment, const char *prefix)
 {
-  char **devices;
+  char **devices, *p;
   size_t i, j;
   size_t alignment;
   uint64_t start;
@@ -262,11 +262,11 @@ scan (size_t *worst_alignment, const char *prefix)
       exit (EXIT_FAILURE);
 
     /* Canonicalize the name of the device for printing. */
-    if (STRPREFIX (devices[i], "/dev/") &&
-        (devices[i][5] == 'h' || devices[i][5] == 'v') &&
-        devices[i][6] == 'd' &&
-        c_isalpha (devices[i][7]))
-      devices[i][5] = 's';
+    p = guestfs_canonical_device_name (g, devices[i]);
+    if (p == NULL)
+      exit (EXIT_FAILURE);
+    free (devices[i]);
+    devices[i] = p;
 
     for (j = 0; j < parts->len; ++j) {
       /* Start offset of the partition in bytes. */

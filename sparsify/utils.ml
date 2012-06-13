@@ -112,20 +112,6 @@ let error fs =
   in
   ksprintf display fs
 
-(* The reverse of device name translation, see
- * BLOCK DEVICE NAMING in guestfs(3).
- *)
-let canonicalize dev =
-  if String.length dev >= 8 &&
-    dev.[0] = '/' && dev.[1] = 'd' && dev.[2] = 'e' && dev.[3] = 'v' &&
-    dev.[4] = '/' && (dev.[5] = 'h' || dev.[5] = 'v') && dev.[6] = 'd' then (
-      let dev = String.copy dev in
-      dev.[5] <- 's';
-      dev
-    )
-  else
-    dev
-
 let feature_available (g : Guestfs.guestfs) names =
   try g#available names; true
   with G.Error _ -> false

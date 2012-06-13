@@ -996,3 +996,26 @@ guestfs___free_drives (struct drive **drives)
     i = next;
   }
 }
+
+char *
+guestfs__canonical_device_name (guestfs_h *g, const char *device)
+{
+  char *ret;
+
+  if (STRPREFIX (device, "/dev/hd") ||
+      STRPREFIX (device, "/dev/vd")) {
+    ret = safe_strdup (g, device);
+    ret[5] = 's';
+  }
+  else if (STRPREFIX (device, "/dev/mapper/") ||
+           STRPREFIX (device, "/dev/dm-")) {
+    /* XXX hide errors */
+    ret = guestfs_lvm_canonical_lv_name (g, device);
+    if (ret == NULL)
+      ret = safe_strdup (g, device);
+  }
+  else
+    ret = safe_strdup (g, device);
+
+  return ret;                   /* caller frees */
+}

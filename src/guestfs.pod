@@ -1158,7 +1158,7 @@ C</dev/hda2> transparently.
 Note that this I<only> applies to parameters.  The
 L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
 return the true names of the devices and partitions as known to the
-appliance.
+appliance, but see L</guestfs_canonical_device_name>.
 
 =head3 ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION
 

@@ -25,15 +25,6 @@ let () =
   assert (int_of_le32 "\x80\x60\x40\x20" = 0x20406080L);
   assert (le32_of_int 0x20406080L = "\x80\x60\x40\x20")
 
-(* Test Utils.canonicalize. *)
-let () =
-  assert (canonicalize "/dev/vda" = "/dev/sda");
-  assert (canonicalize "/dev/hda3" = "/dev/sda3");
-  assert (canonicalize "/dev/sda4" = "/dev/sda4");
-  assert (canonicalize "/dev/hdaa" = "/dev/sdaa");
-  assert (canonicalize "/dev/sdaa" = "/dev/sdaa");
-  assert (canonicalize "/dev/cciss/c0d0p1" = "/dev/cciss/c0d0p1")
-
 (* Test Utils.parse_size. *)
 let () =
   (* For absolute sizes, oldsize is ignored. *)

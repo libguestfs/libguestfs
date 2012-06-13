@@ -214,8 +214,8 @@ let () =
   let filesystems = List.sort compare filesystems in
 
   let is_ignored fs =
-    let fs = canonicalize fs in
-    List.exists (fun fs' -> fs = canonicalize fs') ignores
+    let fs = g#canonical_device_name fs in
+    List.exists (fun fs' -> fs = g#canonical_device_name fs') ignores
   in
 
   List.iter (
