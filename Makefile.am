@@ -38,6 +38,7 @@ SUBDIRS += tests/qemu
 SUBDIRS += tests/guests
 SUBDIRS += tests/c-api
 SUBDIRS += tests/protocol
+SUBDIRS += tests/disks
 SUBDIRS += tests/lvm
 SUBDIRS += tests/luks
 SUBDIRS += tests/md

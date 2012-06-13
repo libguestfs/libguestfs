@@ -1326,6 +1326,7 @@ AC_CONFIG_FILES([Makefile
                  tests/c-api/Makefile
                  tests/charsets/Makefile
                  tests/data/Makefile
+                 tests/disks/Makefile
                  tests/extra/Makefile
                  tests/guests/Makefile
                  tests/luks/Makefile
