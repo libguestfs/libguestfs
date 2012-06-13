@@ -241,3 +241,26 @@ do_part_to_partnum (const char *part)
 
   return r;
 }
+
+int
+do_device_index (const char *device)
+{
+  char **devices;
+  size_t i;
+  int ret = -1;
+
+  devices = do_list_devices ();
+  if (devices == NULL)
+    return -1;
+
+  for (i = 0; devices[i] != NULL; ++i) {
+    if (STREQ (device, devices[i]))
+      ret = (int) i;
+    free (devices[i]);
+  }
+  free (devices);
+
+  if (ret == -1)
+    reply_with_error ("device not found");
+  return ret;
+}
