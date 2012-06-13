@@ -105,6 +105,7 @@ gzip
 jfsutils
 libxml2
 lsof
+lsscsi
 lvm2
 lzop
 mdadm
