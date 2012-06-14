@@ -40,7 +40,7 @@ else
     echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
     $UDEVD --daemon
     udevadm trigger
-    udevadm settle
+    udevadm settle --timeout=600
   else
     echo No udevd, creating /dev manually.
     mount -t tmpfs none /dev
