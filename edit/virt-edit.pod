@@ -326,6 +326,20 @@ C<touch>, C<write> or C<upload> instead:
 
  guestfish --rw -i -d domname upload localfile /newfile
 
+=head1 CVE-2012-2690
+
+Old versions of both virt-edit and the guestfish C<edit> command
+created a new file containing the changes but did not set the
+permissions, etc of the new file to match the old one.  The result of
+this was that if you edited a security sensitive file such as
+C</etc/shadow> then it would be left world-readable after the edit.
+
+This issue was assigned CVE-2012-2690, and is fixed in
+libguestfs E<ge> 1.16.
+
+For further information, see
+https://bugzilla.redhat.com/show_bug.cgi?id=788642
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
