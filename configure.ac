@@ -1336,6 +1336,7 @@ AC_CONFIG_FILES([Makefile
                  tests/protocol/Makefile
                  tests/qemu/Makefile
                  tests/regressions/Makefile
+                 tests/selinux/Makefile
                  tests/xml/Makefile
                  tools/Makefile])
 AC_OUTPUT
