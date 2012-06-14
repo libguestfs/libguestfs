@@ -111,6 +111,7 @@ format/virt-format.1
 fuse/guestmount
 fuse/guestmount.1
 fuse/stamp-guestmount.pod
+.gdb_history
 generator/.depend
 generator/files-generated.txt
 generator/generator
