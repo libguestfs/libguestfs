@@ -474,9 +474,7 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
   return guestfs__config (g, "-cdrom", filename);
 }
 
-#if defined(__i386__) || defined(__x86_64__)
 static int is_openable (guestfs_h *g, const char *path, int flags);
-#endif
 
 int
 guestfs__launch (guestfs_h *g)
@@ -1479,7 +1477,6 @@ qemu_supports_device (guestfs_h *g, const char *device_name)
   return strstr (g->qemu_devices, device_name) != NULL;
 }
 
-#if defined(__i386__) || defined(__x86_64__)
 /* Check if a file can be opened. */
 static int
 is_openable (guestfs_h *g, const char *path, int flags)
@@ -1492,7 +1489,6 @@ is_openable (guestfs_h *g, const char *path, int flags)
   close (fd);
   return 1;
 }
-#endif
 
 /* Returns 1 = use virtio-scsi, or 0 = use virtio-blk. */
 static int
