@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-06-13 23:22+0200\n"
+"POT-Creation-Date: 2012-06-14 16:19+0200\n"
 "PO-Revision-Date: 2012-05-21 13:20+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1022,7 +1022,7 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:334 ../cat/virt-cat.pod:231
 #: ../cat/virt-filesystems.pod:377 ../cat/virt-ls.pod:483
-#: ../df/virt-df.pod:241 ../edit/virt-edit.pod:342
+#: ../df/virt-df.pod:241 ../edit/virt-edit.pod:356
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:318
 #: ../resize/virt-resize.pod:690 ../sysprep/virt-sysprep.pod:421
 #: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260
@@ -1034,7 +1034,7 @@ msgstr "ЕКРАНУВАННЯ СИМВОЛІВ У ОБОЛОНЦІ"
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:336 ../cat/virt-cat.pod:233
 #: ../cat/virt-filesystems.pod:379 ../cat/virt-ls.pod:485
-#: ../df/virt-df.pod:243 ../edit/virt-edit.pod:344
+#: ../df/virt-df.pod:243 ../edit/virt-edit.pod:358
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:320
 #: ../resize/virt-resize.pod:692 ../sysprep/virt-sysprep.pod:423
 #: ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262
@@ -1051,7 +1051,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:341
 #: ../appliance/libguestfs-make-fixed-appliance.pod:134
 #: ../cat/virt-cat.pod:238 ../cat/virt-filesystems.pod:384
-#: ../cat/virt-ls.pod:490 ../df/virt-df.pod:248 ../edit/virt-edit.pod:349
+#: ../cat/virt-ls.pod:490 ../df/virt-df.pod:248 ../edit/virt-edit.pod:363
 #: ../fish/guestfish.pod:1126 ../format/virt-format.pod:173
 #: ../fuse/guestmount.pod:312 ../inspector/virt-inspector.pod:496
 #: ../resize/virt-resize.pod:697 ../sparsify/virt-sparsify.pod:254
@@ -1205,7 +1205,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:375
 #: ../appliance/libguestfs-make-fixed-appliance.pod:144
 #: ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389
-#: ../cat/virt-ls.pod:495 ../df/virt-df.pod:253 ../edit/virt-edit.pod:354
+#: ../cat/virt-ls.pod:495 ../df/virt-df.pod:253 ../edit/virt-edit.pod:368
 #: ../erlang/examples/guestfs-erlang.pod:97
 #: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:648
 #: ../examples/guestfs-performance.pod:364 ../examples/guestfs-recipes.pod:384
@@ -1237,7 +1237,7 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:384 ../cat/virt-cat.pod:252
 #: ../cat/virt-filesystems.pod:400 ../cat/virt-ls.pod:507
-#: ../df/virt-df.pod:261 ../edit/virt-edit.pod:368
+#: ../df/virt-df.pod:261 ../edit/virt-edit.pod:382
 #: ../format/virt-format.pod:187 ../rescue/virt-rescue.pod:349
 #: ../resize/virt-resize.pod:725 ../sparsify/virt-sparsify.pod:299
 #: ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279
@@ -1249,7 +1249,7 @@ msgstr "АВТОР"
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:386 ../cat/virt-cat.pod:254
 #: ../cat/virt-filesystems.pod:402 ../cat/virt-ls.pod:509
-#: ../df/virt-df.pod:263 ../edit/virt-edit.pod:370
+#: ../df/virt-df.pod:263 ../edit/virt-edit.pod:384
 #: ../format/virt-format.pod:189 ../inspector/virt-inspector.pod:516
 #: ../rescue/virt-rescue.pod:351 ../resize/virt-resize.pod:727
 #: ../sparsify/virt-sparsify.pod:301 ../sysprep/virt-sysprep.pod:449
@@ -1263,7 +1263,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../align/virt-alignment-scan.pod:388
 #: ../appliance/libguestfs-make-fixed-appliance.pod:157
 #: ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404
-#: ../cat/virt-ls.pod:511 ../df/virt-df.pod:265 ../edit/virt-edit.pod:372
+#: ../cat/virt-ls.pod:511 ../df/virt-df.pod:265 ../edit/virt-edit.pod:386
 #: ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:49 ../examples/guestfs-faq.pod:658
 #: ../examples/guestfs-performance.pod:379 ../examples/guestfs-recipes.pod:401
@@ -1292,7 +1292,7 @@ msgstr "© Red Hat Inc., 2011"
 #: ../align/virt-alignment-scan.pod:392
 #: ../appliance/libguestfs-make-fixed-appliance.pod:162
 #: ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408
-#: ../cat/virt-ls.pod:515 ../df/virt-df.pod:269 ../edit/virt-edit.pod:376
+#: ../cat/virt-ls.pod:515 ../df/virt-df.pod:269 ../edit/virt-edit.pod:390
 #: ../fish/guestfish.pod:1317 ../fish/virt-copy-in.pod:69
 #: ../fish/virt-copy-out.pod:58 ../fish/virt-tar-in.pod:67
 #: ../fish/virt-tar-out.pod:60 ../format/virt-format.pod:195
@@ -1318,7 +1318,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:397
 #: ../appliance/libguestfs-make-fixed-appliance.pod:167
 #: ../cat/virt-cat.pod:265 ../cat/virt-filesystems.pod:413
-#: ../cat/virt-ls.pod:520 ../df/virt-df.pod:274 ../edit/virt-edit.pod:381
+#: ../cat/virt-ls.pod:520 ../df/virt-df.pod:274 ../edit/virt-edit.pod:395
 #: ../fish/guestfish.pod:1322 ../fish/virt-copy-in.pod:74
 #: ../fish/virt-copy-out.pod:63 ../fish/virt-tar-in.pod:72
 #: ../fish/virt-tar-out.pod:65 ../format/virt-format.pod:200
@@ -1344,7 +1344,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:402
 #: ../appliance/libguestfs-make-fixed-appliance.pod:172
 #: ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:418
-#: ../cat/virt-ls.pod:525 ../df/virt-df.pod:279 ../edit/virt-edit.pod:386
+#: ../cat/virt-ls.pod:525 ../df/virt-df.pod:279 ../edit/virt-edit.pod:400
 #: ../fish/guestfish.pod:1327 ../fish/virt-copy-in.pod:79
 #: ../fish/virt-copy-out.pod:68 ../fish/virt-tar-in.pod:77
 #: ../fish/virt-tar-out.pod:70 ../format/virt-format.pod:205
@@ -1636,7 +1636,7 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:139
-#: ../edit/virt-edit.pod:329 ../fish/guestfish.pod:1131
+#: ../edit/virt-edit.pod:343 ../fish/guestfish.pod:1131
 #: ../rescue/virt-rescue.pod:313 ../sparsify/virt-sparsify.pod:259
 #: ../src/guestfs.pod:3292 ../test-tool/libguestfs-test-tool.pod:101
 msgid "ENVIRONMENT VARIABLES"
@@ -2124,7 +2124,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:240 ../cat/virt-filesystems.pod:386
-#: ../cat/virt-ls.pod:492 ../df/virt-df.pod:250 ../edit/virt-edit.pod:351
+#: ../cat/virt-ls.pod:492 ../df/virt-df.pod:250 ../edit/virt-edit.pod:365
 #: ../fuse/guestmount.pod:314 ../inspector/virt-inspector.pod:498
 #: ../resize/virt-resize.pod:699 ../sparsify/virt-sparsify.pod:256
 msgid ""
@@ -3664,7 +3664,7 @@ msgstr ""
 "L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../cat/virt-ls.pod:513 ../df/virt-df.pod:267 ../edit/virt-edit.pod:374
+#: ../cat/virt-ls.pod:513 ../df/virt-df.pod:267 ../edit/virt-edit.pod:388
 #: ../rescue/virt-rescue.pod:355 ../tools/virt-list-partitions.pl:285
 msgid "Copyright (C) 2009-2012 Red Hat Inc."
 msgstr "© Red Hat Inc., 2009–2012"
@@ -4466,25 +4466,55 @@ msgid ""
 "\n"
 msgstr ""
 
+#. type: =head1
+#: ../edit/virt-edit.pod:329
+#, fuzzy
+#| msgid "CVE-2010-3851"
+msgid "CVE-2012-2690"
+msgstr "CVE-2010-3851"
+
+#. type: textblock
+#: ../edit/virt-edit.pod:331
+msgid ""
+"Old versions of both virt-edit and the guestfish C<edit> command created a "
+"new file containing the changes but did not set the permissions, etc of the "
+"new file to match the old one.  The result of this was that if you edited a "
+"security sensitive file such as C</etc/shadow> then it would be left world-"
+"readable after the edit."
+msgstr ""
+
+#. type: textblock
+#: ../edit/virt-edit.pod:337
+msgid ""
+"This issue was assigned CVE-2012-2690, and is fixed in libguestfs E<ge> 1.16."
+msgstr ""
+
+#. type: textblock
+#: ../edit/virt-edit.pod:340
+msgid ""
+"For further information, see https://bugzilla.redhat.com/show_bug.cgi?"
+"id=788642"
+msgstr ""
+
 #. type: =item
-#: ../edit/virt-edit.pod:333
+#: ../edit/virt-edit.pod:347
 msgid "C<EDITOR>"
 msgstr "C<EDITOR>"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:335
+#: ../edit/virt-edit.pod:349
 msgid ""
 "If set, this string is used as the editor.  It may contain arguments, eg. C<"
 "\"emacs -nw\">"
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:338
+#: ../edit/virt-edit.pod:352
 msgid "If not set, C<vi> is used."
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:356
+#: ../edit/virt-edit.pod:370
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-"
 "tar-in(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Sys::Virt(3)>, "
