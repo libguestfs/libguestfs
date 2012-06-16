@@ -474,8 +474,8 @@ else
 fi
 AC_SUBST([POD2_UTF8_OPTION])
 
-dnl Check for genisoimage.
-AC_PATH_PROGS([GENISOIMAGE],[genisoimage],[no],
+dnl Check for genisoimage/mkisofs
+AC_PATH_PROGS([GENISOIMAGE],[genisoimage mkisofs],[no],
         [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$GENISOIMAGE" = "xno" && AC_MSG_ERROR([genisoimage must be installed])
 
