@@ -1000,7 +1000,8 @@ uuid_hash(const void *x, size_t table_size)
   const md_uuid *a = x;
 
   size_t h = a->uuid[0];
-  for (size_t i = 1; i < 4; i++) {
+  size_t i;
+  for (i = 1; i < 4; i++) {
     h ^= a->uuid[i];
   }
 
@@ -1013,7 +1014,8 @@ uuid_cmp(const void *x, const void *y)
   const md_uuid *a = x;
   const md_uuid *b = y;
 
-  for (size_t i = 0; i < 1; i++) {
+  size_t i;
+  for (i = 0; i < 1; i++) {
     if (a->uuid[i] != b->uuid[i]) return 0;
   }
 
@@ -1077,7 +1079,8 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
   mds = guestfs_list_md_devices(g);
   if (mds == NULL) goto error;
 
-  for (char **md = mds; *md != NULL; md++) {
+  char **md;
+  for (md = mds; *md != NULL; md++) {
     CLEANUP_FREE_STRING_LIST char **detail = guestfs_md_detail (g, *md);
     if (detail == NULL) goto error;
 
@@ -1188,7 +1191,8 @@ map_md_devices(guestfs_h *g, Hash_table **map)
                                    mdadm_app_free);
   if (!*map) g->abort_cb();
 
-  for (char **m = matches; *m != NULL; m++) {
+  char **m;
+  for (m = matches; *m != NULL; m++) {
     /* Get device name and uuid for each array */
     CLEANUP_FREE char *dev_path = safe_asprintf (g, "%s/devicename", *m);
     char *dev = guestfs_aug_get (g, dev_path);
@@ -1481,7 +1485,8 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
                      int (*f) (guestfs_h *, struct inspect_fs *))
 {
   /* Security: Refuse to do this if a config file is too large. */
-  for (const char **i = configfiles; *i != NULL; i++) {
+  const char **i;
+  for (i = configfiles; *i != NULL; i++) {
     if (guestfs_exists(g, *i) == 0) continue;
 
     int64_t size = guestfs_filesize (g, *i);
@@ -1520,7 +1525,7 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
 
 #define EXCL " and . != \""
 #define EXCL_LEN (strlen(EXCL))
-  for (const char **i = &configfiles[1]; *i != NULL; i++) {
+  for (i = &configfiles[1]; *i != NULL; i++) {
     size_t orig_buflen = buflen;
     conflen = strlen(*i);
     buflen += EXCL_LEN + conflen + 1 /* Closing " */;

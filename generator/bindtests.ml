@@ -250,7 +250,8 @@ print_strings (guestfs_h *g, char *const *argv)
              pr "  r = safe_calloc (g, sizeof *r, 1);\n";
              pr "  r->len = len;\n";
              pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
-             pr "  for (size_t i = 0; i < r->len; i++) {\n";
+             pr "  size_t i;\n";
+             pr "  for (i = 0; i < r->len; i++) {\n";
              pr "    r->val[i].pv_size = i;\n";
              pr "  }\n";
              pr "  return r;\n"

@@ -135,7 +135,8 @@ guestfs___get_windows_systemroot (guestfs_h *g)
   static const char *systemroots[] =
     { "/windows", "/winnt", "/win32", "/win", NULL };
 
-  for (size_t i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
+  size_t i;
+  for (i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
     char *systemroot =
       guestfs___case_sensitive_path_silently (g, systemroots[i]);
     if (!systemroot)
@@ -163,7 +164,8 @@ guestfs___get_windows_systemroot (guestfs_h *g)
     }
 
     int found_os = 0;
-    for (char **i = boot_ini; *i != NULL; i++) {
+    char **i;
+    for (i = boot_ini; *i != NULL; i++) {
       CLEANUP_FREE char *controller_type = NULL;
       CLEANUP_FREE char *controller = NULL;
       CLEANUP_FREE char *disk = NULL;
@@ -214,7 +216,8 @@ guestfs___get_windows_systemroot (guestfs_h *g)
 
         /* Swap backslashes for forward slashes in the system root
          * path */
-        for (char *j = path; *j != '\0'; j++) {
+        char *j;
+        for (j = path; *j != '\0'; j++) {
           if (*j == '\\') *j = '/';
         }
 

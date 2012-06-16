@@ -201,7 +201,8 @@ do_list_md_devices (void)
     goto error;
   }
 
-  for (size_t i = 0; i < mds.gl_pathc; i++) {
+  size_t i;
+  for (i = 0; i < mds.gl_pathc; i++) {
     size_t len;
     char *dev, *n;
 
@@ -280,7 +281,8 @@ do_md_detail(const char *md)
        * case */
       if (STRPREFIX (line, "MD_")) {
         line += 3;
-        for (char *j = line; *j != '\0'; j++) {
+        char *j;
+        for (j = line; *j != '\0'; j++) {
           *j = c_tolower (*j);
         }
       }
