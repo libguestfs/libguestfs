@@ -805,30 +805,11 @@ test_qemu (guestfs_h *g)
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
-  guestfs___cmd_add_arg (cmd2, g->qemu);
-  guestfs___cmd_add_arg (cmd2, "-nographic");
-  guestfs___cmd_add_arg (cmd2, "-version");
-  guestfs___cmd_set_stdout_callback (cmd2, read_all, &g->app.qemu_version,
-                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd2);
-  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
-    goto error;
+  g->app.qemu_version = safe_strdup (g, "");
 
   parse_qemu_version (g);
 
-  guestfs___cmd_add_arg (cmd3, g->qemu);
-  guestfs___cmd_add_arg (cmd3, "-nographic");
-  guestfs___cmd_add_arg (cmd3, "-machine");
-  guestfs___cmd_add_arg (cmd3, "accel=kvm:tcg");
-  guestfs___cmd_add_arg (cmd3, "-device");
-  guestfs___cmd_add_arg (cmd3, "?");
-  guestfs___cmd_clear_capture_errors (cmd3);
-  guestfs___cmd_set_stderr_to_stdout (cmd3);
-  guestfs___cmd_set_stdout_callback (cmd3, read_all, &g->app.qemu_devices,
-                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd3);
-  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
-    goto error;
+  g->app.qemu_devices = safe_strdup (g, "");
 
   return 0;
 

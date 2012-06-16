@@ -697,63 +697,6 @@ This could be a very old version of qemu, or qemu might not be
 working.
 ])
     fi
-
-    AC_MSG_CHECKING([that $QEMU -version works])
-    if $QEMU -version >&AS_MESSAGE_LOG_FD 2>&1; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
-[$QEMU -version: command failed.
-
-This could be a very old version of qemu, or qemu might not be
-working.
-])
-    fi
-
-    AC_MSG_CHECKING([for $QEMU version >= 1])
-    if $QEMU -version | grep -sq 'version @<:@1-@:>@'; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
-    fi
-
-    AC_MSG_CHECKING([that $QEMU -nographic -machine accel=kvm:tcg -device ? works])
-    if $QEMU -nographic -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([$QEMU -nographic -machine accel=kvm:tcg -device ? doesn't work.])
-    fi
-
-    AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-    if $QEMU $QEMU_OPTIONS -nographic -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
-[I did not find virtio-serial support in
-$QEMU.
-
-virtio-serial support in qemu or KVM is essential for libguestfs
-to operate.
-
-Usually this means that you have to install a newer version of qemu
-and/or KVM.  Please read the relevant section in the README file for
-more information about this.
-
-You can override this test by setting the environment variable
-vmchannel_test=no
-
-However if you don't have the right support in your qemu, then this
-just delays the pain.
-
-If I am using the wrong qemu or you want to compile qemu from source
-and install it in another location, then you should configure with
-the --with-qemu option.
-])
-    fi
 fi
 
 dnl Enable packet dumps when in verbose mode.  This generates lots
