@@ -1371,58 +1371,6 @@ AS_IF([test "x$PERL" != "xno"],[
 AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
-dnl gobject library
-AC_ARG_ENABLE([gobject],
-    AS_HELP_STRING([--disable-gobject], [disable GObject bindings]),
-    [],
-    [enable_gobject=yes])
-AS_IF([test "x$enable_gobject" != "xno"],[
-    PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.26.0],[
-        AC_SUBST([GOBJECT_CFLAGS])
-        AC_SUBST([GOBJECT_LIBS])
-        AC_DEFINE([HAVE_GOBJECT],[1],
-                  [GObject library found at compile time.])
-    ],
-    [AC_MSG_WARN([gobject library not found, gobject binding will be disabled])])
-
-    PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.26.0],[
-        AC_SUBST([GIO_CFLAGS])
-        AC_SUBST([GIO_LIBS])
-        AC_DEFINE([HAVE_GIO],[1],
-                  [gio library found at compile time.])
-    ],
-    [AC_MSG_WARN([gio library not found, gobject binding will be disabled])])
-])
-AM_CONDITIONAL([HAVE_GOBJECT],
-               [test "x$GOBJECT_LIBS" != "x" -a "x$GIO_LIBS" != "x"])
-
-AC_CHECK_PROG([GJS],[gjs],[gjs])
-AS_IF([test "x$GJS" = "x"],
-      [AC_MSG_WARN([gjs not found, gobject bindtests will not run])])
-
-dnl gobject introspection
-m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
-    GOBJECT_INTROSPECTION_CHECK([1.30.0])
-
-    dnl The above check automatically sets HAVE_INTROSPECTION, but we
-    dnl want this to be conditional on gobject also being
-    dnl available. We can't move the above check inside the gobject if
-    dnl block above or HAVE_INTROSPECTION ends up undefined, so we
-    dnl recheck it here.
-    AM_CONDITIONAL([HAVE_INTROSPECTION],
-                   [test "x$HAVE_INTROSPECTION_TRUE" = "x" &&
-                    test "x$HAVE_GOBJECT_TRUE" = "x"])
-],[
-    AM_CONDITIONAL([HAVE_INTROSPECTION], [false])
-])
-
-# check for gtk-doc
-m4_ifdef([GTK_DOC_CHECK], [
-    GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
-],[
-    AM_CONDITIONAL([ENABLE_GTK_DOC], false)
-])
-
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
@@ -1473,10 +1421,6 @@ AC_CONFIG_FILES([Makefile
                  generator/Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
-                 gobject/libguestfs-gobject-1.0.pc
-                 gobject/Makefile
-                 gobject/docs/Makefile
-                 gobject/docs/guestfs-docs.sgml
                  haskell/Makefile
                  inspector/Makefile
                  java/Makefile
@@ -1569,10 +1513,6 @@ echo -n "PHP bindings ........................ "
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Lua bindings ........................ "
 if test "x$HAVE_LUA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "gobject bindings .................... "
-if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "gobject introspection ............... "
-if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceding messages."
