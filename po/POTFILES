@@ -101,8 +101,6 @@ df/domains.c
 df/main.c
 df/output.c
 edit/virt-edit.c
-erlang/erl-guestfs-proto.c
-erlang/erl-guestfs.c
 fish/alloc.c
 fish/cmds-gperf.c
 fish/cmds.c

@@ -1320,25 +1320,6 @@ AS_IF([test "x$enable_php" != "xno"],[
 ])
 AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
-dnl Erlang
-ERLANG=no
-AC_ARG_ENABLE([erlang],
-    AS_HELP_STRING([--disable-erlang], [disable Erlang language bindings]),
-         [],
-         [enable_erlang=yes])
-# NB: Don't use AS_IF here: it doesn't work.
-if test "x$enable_erlang" != "xno"; then
-        ERLANG=
-        AC_ERLANG_PATH_ERLC([no])
-
-        if test "x$ERLC" != "xno"; then
-            AC_ERLANG_CHECK_LIB([erl_interface], [],
-                                [AC_MSG_FAILURE([Erlang erl_interface library not installed.  Use --disable-erlang to disable.])])
-            AC_ERLANG_SUBST_LIB_DIR
-        fi
-fi
-AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLANG" != "xno" && test "x$ERLC" != "xno"])
-
 dnl Lua
 AC_ARG_ENABLE([lua],
     AS_HELP_STRING([--disable-lua], [disable Lua language bindings]),
@@ -1485,8 +1466,6 @@ AC_CONFIG_FILES([Makefile
                  daemon/Makefile
                  df/Makefile
                  edit/Makefile
-                 erlang/Makefile
-                 erlang/examples/Makefile
                  examples/Makefile
                  fish/Makefile
                  format/Makefile
@@ -1588,8 +1567,6 @@ echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "PHP bindings ........................ "
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "Erlang bindings ..................... "
-if test "x$HAVE_ERLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Lua bindings ........................ "
 if test "x$HAVE_LUA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "gobject bindings .................... "
