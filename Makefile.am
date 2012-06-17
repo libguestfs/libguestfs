@@ -87,9 +87,6 @@ endif
 if HAVE_HASKELL
 SUBDIRS += haskell
 endif
-if HAVE_PHP
-SUBDIRS += php
-endif
 if HAVE_LUA
 SUBDIRS += lua lua/examples
 endif

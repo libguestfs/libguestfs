@@ -1307,19 +1307,6 @@ AS_IF([test "x$enable_haskell" != "xno"],[
 ])
 AM_CONDITIONAL([HAVE_HASKELL],[test "x$GHC" != "xno"])
 
-dnl PHP
-PHP=no
-AC_ARG_ENABLE([php],
-    AS_HELP_STRING([--disable-php], [disable PHP language bindings]),
-    [],
-    [enable_php=yes])
-AS_IF([test "x$enable_php" != "xno"],[
-    PHP=
-    AC_CHECK_PROG([PHP],[php],[php],[no])
-    AC_CHECK_PROG([PHPIZE],[phpize],[phpize],[no])
-])
-AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
-
 dnl Lua
 AC_ARG_ENABLE([lua],
     AS_HELP_STRING([--disable-lua], [disable Lua language bindings]),
@@ -1433,7 +1420,6 @@ AC_CONFIG_FILES([Makefile
                  perl/Makefile
                  perl/Makefile.PL
                  perl/examples/Makefile
-                 php/Makefile
                  po-docs/Makefile
                  po-docs/ja/Makefile
                  po-docs/uk/Makefile
@@ -1509,8 +1495,6 @@ echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "PHP bindings ........................ "
-if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Lua bindings ........................ "
 if test "x$HAVE_LUA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo

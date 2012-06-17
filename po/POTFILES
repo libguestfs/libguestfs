@@ -149,7 +149,6 @@ perl/Guestfs.c
 perl/bindtests.pl
 perl/lib/Sys/Guestfs.pm
 perl/lib/Sys/Guestfs/Lib.pm
-php/extension/guestfs_php.c
 python/guestfs-py-byhand.c
 python/guestfs-py.c
 rescue/test-virt-rescue.pl
