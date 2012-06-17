@@ -17,6 +17,12 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+# Old RHEL 5 autoconf doesn't have builddir.
+builddir ?= .
+
+# Old RHEL 5 autoconf doesn't have abs_srcdir.
+abs_srcdir ?= $(shell cd $(top_srcdir)/sparsify && pwd)
+
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-sparsify.pod \

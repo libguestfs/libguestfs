@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # Old RHEL 5 autoconf doesn't have builddir.
-builddir ?= $(top_builddir)/python
+builddir ?= .
 
 include $(top_srcdir)/subdir-rules.mk
 
