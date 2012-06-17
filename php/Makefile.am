@@ -17,6 +17,9 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+# Old RHEL 5 autoconf doesn't have abs_srcdir.
+abs_srcdir ?= $(shell cd $(top_srcdir)/php && pwd)
+
 generator_built = \
 	extension/php_guestfs_php.h \
 	extension/guestfs_php.c
