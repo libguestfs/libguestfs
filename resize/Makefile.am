@@ -62,7 +62,7 @@ virt-resize: $(OBJECTS)
 .ml.cmo:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
 
 # automake will decide we don't need C support in this file.  Really
 # we do, so we have to provide it ourselves.
