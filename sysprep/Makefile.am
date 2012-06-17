@@ -124,7 +124,7 @@ virt-sysprep: $(OBJECTS)
 .ml.cmo:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-sysprep.1
