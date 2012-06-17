@@ -51,6 +51,9 @@
 #   - hard to test because guestmount forks into the background, and
 #     if valgrind reports errors it doesn't stop the test shell script
 
+# Old RHEL 5 autoconf doesn't have abs_srcdir.
+abs_srcdir ?= $(shell cd $(top_srcdir)/tests/extra && pwd)
+
 EXTRA_DIST = pick-guests.pl suppressions
 
 VG = $(VALGRIND) \
