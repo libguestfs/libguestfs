@@ -24,7 +24,7 @@ set -e
 
 rm -f test1.img
 
-truncate -s 100M test1.img
+../../fish/guestfish sparse test1.img 100M
 test1_md5sum="$(md5sum test1.img | awk '{print $1}')"
 
 ../../fish/guestfish <<'EOF'

@@ -24,7 +24,10 @@ rm -f test1.img test2.img test3.img test4.img test.xml test.out
 
 cwd="$(pwd)"
 
-truncate -s 1M test1.img test2.img test3.img test4.img
+./guestfish sparse test1.img 1M
+./guestfish sparse test2.img 1M
+./guestfish sparse test3.img 1M
+./guestfish sparse test4.img 1M
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
 cat > test.xml <<EOF
