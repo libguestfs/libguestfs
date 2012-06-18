@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-13 23:22+0100\n"
+"POT-Creation-Date: 2012-06-18 16:31+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:205 cat/virt-ls.c:196 df/domains.c:438 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:136
-#: fuse/guestmount.c:172 inspector/virt-inspector.c:139
+#: fuse/guestmount.c:203 inspector/virt-inspector.c:139
 #: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -62,7 +62,7 @@ msgstr "guestfs_create: falló al crear manipulador\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:102
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
-#: fuse/guestmount.c:67 inspector/virt-inspector.c:77 rescue/virt-rescue.c:63
+#: fuse/guestmount.c:98 inspector/virt-inspector.c:77 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:259
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:188 fuse/guestmount.c:200 inspector/virt-inspector.c:163
+#: format/format.c:188 fuse/guestmount.c:231 inspector/virt-inspector.c:163
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3145,7 +3145,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
 
-#: fuse/guestmount.c:71
+#: fuse/guestmount.c:102
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3176,32 +3176,32 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:268
+#: fuse/guestmount.c:299
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: debe tener por lo menos -a/-d, y como mínimo una opción -m/-i\n"
 
-#: fuse/guestmount.c:278
+#: fuse/guestmount.c:309
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr "%s: --live no es compatible con la opcion --ro\n"
 
-#: fuse/guestmount.c:285
+#: fuse/guestmount.c:316
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr "%s: --live no es compatible con la opcion -i\n"
 
-#: fuse/guestmount.c:300
+#: fuse/guestmount.c:331
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr "%s: con --live,debe usar exactamente una opción -d\n"
 
-#: fuse/guestmount.c:307
+#: fuse/guestmount.c:338
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr "%s: --live no es compatible con la opción -a\n"
 
-#: fuse/guestmount.c:316
+#: fuse/guestmount.c:347
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
@@ -3777,38 +3777,38 @@ msgstr ""
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "el parámetro %s está vacío o contiene caracteres no permitidos"
 
-#: src/launch.c:486
+#: src/launch.c:484
 msgid "the libguestfs handle has already been launched"
 msgstr "el manipulador libguestfs ya ha sido iniciado"
 
-#: src/launch.c:497
+#: src/launch.c:495
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/launch.c:541
+#: src/launch.c:539
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:1048 src/launch.c:1053
+#: src/launch.c:1046 src/launch.c:1051
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:1066
+#: src/launch.c:1064
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:1156
+#: src/launch.c:1154
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
-#: src/launch.c:1164
+#: src/launch.c:1162
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: src/launch.c:1365
+#: src/launch.c:1363
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3822,11 +3822,11 @@ msgstr ""
 "de entorno LIBGUESTFS_QEMU. Puede que se hayan mostrado también errores "
 "arriba."
 
-#: src/launch.c:1588
+#: src/launch.c:1584
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1599
+#: src/launch.c:1595
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-13 23:22+0100\n"
+"POT-Creation-Date: 2012-06-18 16:31+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -54,7 +54,7 @@ msgstr ""
 #: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:205 cat/virt-ls.c:196 df/domains.c:438 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:136
-#: fuse/guestmount.c:172 inspector/virt-inspector.c:139
+#: fuse/guestmount.c:203 inspector/virt-inspector.c:139
 #: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -62,7 +62,7 @@ msgstr "guestfs_create: हँडल निर्माण करण्यास
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:102
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
-#: fuse/guestmount.c:67 inspector/virt-inspector.c:77 rescue/virt-rescue.c:63
+#: fuse/guestmount.c:98 inspector/virt-inspector.c:77 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:259
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:188 fuse/guestmount.c:200 inspector/virt-inspector.c:163
+#: format/format.c:188 fuse/guestmount.c:231 inspector/virt-inspector.c:163
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3056,7 +3056,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
 
-#: fuse/guestmount.c:71
+#: fuse/guestmount.c:102
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3087,32 +3087,32 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:268
+#: fuse/guestmount.c:299
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: किमान एक -a/-d व किमान एक -m/-i पर्याय असायला हवे\n"
 
-#: fuse/guestmount.c:278
+#: fuse/guestmount.c:309
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr ""
 
-#: fuse/guestmount.c:285
+#: fuse/guestmount.c:316
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:300
+#: fuse/guestmount.c:331
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr ""
 
-#: fuse/guestmount.c:307
+#: fuse/guestmount.c:338
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr ""
 
-#: fuse/guestmount.c:316
+#: fuse/guestmount.c:347
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
@@ -3660,36 +3660,36 @@ msgstr ""
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s घटक रिकामे आहे किंवा अस्वीकार्य अक्षरे समाविष्टीत आहे"
 
-#: src/launch.c:486
+#: src/launch.c:484
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs हँडल आधिपासूनच सुरू आहे"
 
-#: src/launch.c:497
+#: src/launch.c:495
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:541
+#: src/launch.c:539
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:1048 src/launch.c:1053
+#: src/launch.c:1046 src/launch.c:1051
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:1066
+#: src/launch.c:1064
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:1156
+#: src/launch.c:1154
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch.c:1164
+#: src/launch.c:1162
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1365
+#: src/launch.c:1363
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3698,11 +3698,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1588
+#: src/launch.c:1584
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1599
+#: src/launch.c:1595
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
