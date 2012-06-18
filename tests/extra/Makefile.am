@@ -54,6 +54,9 @@
 # Old RHEL 5 autoconf doesn't have abs_srcdir.
 abs_srcdir ?= $(shell cd $(top_srcdir)/tests/extra && pwd)
 
+# Old RHEL 5 autoconf doesn't have abs_builddir.
+abs_builddir ?= $(shell pwd)
+
 EXTRA_DIST = pick-guests.pl suppressions
 
 VG = $(VALGRIND) \
