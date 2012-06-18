@@ -21,6 +21,9 @@ builddir ?= .
 # Old RHEL 5 autoconf doesn't have abs_srcdir.
 abs_srcdir ?= $(shell cd $(top_srcdir)/sysprep && pwd)
 
+# Old RHEL 5 autoconf doesn't have abs_builddir.
+abs_builddir ?= $(shell pwd)
+
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
