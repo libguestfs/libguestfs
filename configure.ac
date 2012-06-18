@@ -1364,7 +1364,7 @@ AC_SUBST(MAX_PROC_NR)
 
 dnl Replace libtool with a wrapper that clobbers dependency_libs in *.la files
 dnl http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
-LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
+LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool --preserve-dup-deps'
 AC_SUBST([LIBTOOL])
 
 dnl Produce output files.
