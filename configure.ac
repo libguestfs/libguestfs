@@ -69,7 +69,13 @@ gl_INIT
 
 AC_PROG_LIBTOOL
 
-AC_PROG_SED
+# Define $(SED).
+m4_ifdef([AC_PROG_SED],[
+    AC_PROG_SED
+],[
+    dnl ... else hope for the best
+    AC_SUBST([SED], "sed")
+])
 
 dnl Check for basic C environment.
 AC_PROG_CC_STDC
