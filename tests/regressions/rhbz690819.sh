@@ -37,7 +37,7 @@ export LANG=C
 
 rm -f test.img
 
-truncate -s 100M test.img
+../../fish/guestfish sparse test.img 100M
 
 ../../fish/guestfish <<EOF
 add-drive-with-if test.img ide

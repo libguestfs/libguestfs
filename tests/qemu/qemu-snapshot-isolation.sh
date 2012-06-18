@@ -24,9 +24,9 @@ set -e
 
 rm -f test1.img test2.img test3.img
 
-truncate -s 100M test1.img
+../../fish/guestfish sparse test1.img 100M
 test1_md5sum="$(md5sum test1.img | awk '{print $1}')"
-truncate -s 100M test2.img
+../../fish/guestfish sparse test2.img 100M
 test2_md5sum="$(md5sum test2.img | awk '{print $1}')"
 qemu-img create -f qcow2 test3.img 100M
 test3_md5sum="$(md5sum test3.img | awk '{print $1}')"
