@@ -42,6 +42,37 @@
 #include "guestmount.h"
 #include "options.h"
 
+#ifndef HAVE_FUSE_OPT_ADD_OPT_ESCAPED
+/* Copied from lib/fuse_opt.c and modified.
+ * Copyright (C) 2001-2007  Miklos Szeredi <miklos@szeredi.hu>
+ * This [function] can be distributed under the terms of the GNU LGPLv2.
+ */
+static int
+fuse_opt_add_opt_escaped (char **opts, const char *opt)
+{
+  unsigned oldlen = *opts ? strlen(*opts) : 0;
+  char *d = realloc (*opts, oldlen + 1 + strlen(opt) * 2 + 1);
+
+  if (!d) {
+    perror ("realloc");
+    exit (EXIT_FAILURE);
+  }
+
+  *opts = d;
+  if (oldlen) {
+    d += oldlen;
+    *d++ = ',';
+  }
+
+  for (; *opt; opt++) {
+    if (*opt == ',' || *opt == '\\')
+      *d++ = '\\';
+    *d++ = *opt;
+  }
+  *d = '\0';
+}
+#endif
+
 guestfs_h *g = NULL;
 int read_only = 0;
 int live = 0;

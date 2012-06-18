@@ -718,7 +718,12 @@ AS_IF([test "x$enable_fuse" != "xno"],
         [PKG_CHECK_MODULES([FUSE],[fuse],
             [AC_SUBST([FUSE_CFLAGS])
              AC_SUBST([FUSE_LIBS])
-             AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE])],
+             AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE])
+             old_LIBS="$LIBS"
+             LIBS="$FUSE_LIBS $LIBS"
+             AC_CHECK_FUNCS([fuse_opt_add_opt_escaped])
+             LIBS="$old_LIBS"
+            ],
             [enable_fuse=no
              AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])
             ])
