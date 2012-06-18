@@ -36,7 +36,7 @@ filenames[5]='-hda'
 
 rm -f -- test1.img "${filenames[@]}"
 
-truncate -s 10M test1.img
+../../fish/guestfish sparse test1.img 10M
 
 for f in "${filenames[@]}"; do
     ln -- test1.img "$f"
