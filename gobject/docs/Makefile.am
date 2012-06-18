@@ -21,6 +21,9 @@ builddir ?= .
 # Old RHEL 5 autoconf doesn't have abs_srcdir.
 abs_srcdir ?= $(shell cd $(top_srcdir)/gobject/docs && pwd)
 
+# Old RHEL 5 autoconf doesn't have abs_builddir.
+abs_builddir ?= $(shell pwd)
+
 # The name of the module, e.g. 'glib'.
 DOC_MODULE=guestfs
 
