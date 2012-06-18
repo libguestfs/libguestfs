@@ -118,9 +118,6 @@ int autosync_umount = 1;
 /* Not used explicitly, but required by the gnulib 'error' module. */
 const char *program_name = "guestfsd";
 
-/* Name of the virtio-serial channel. */
-#define VIRTIO_SERIAL_CHANNEL "/dev/virtio-ports/org.libguestfs.channel.0"
-
 static void
 usage (void)
 {
@@ -139,6 +136,8 @@ main (int argc, char *argv[])
   };
   int c;
   char *cmdline;
+  char *vmchannel = NULL;
+  int sock = -1;
 
   ignore_value (chdir ("/"));
 
@@ -210,8 +209,6 @@ main (int argc, char *argv[])
       printf ("could not read linux command line\n");
   }
 
-  free (cmdline);
-
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */
   struct sigaction sa;
@@ -253,9 +250,92 @@ main (int argc, char *argv[])
    */
   copy_lvm ();
 
-  /* Connect to virtio-serial channel. */
-  int sock = open (VIRTIO_SERIAL_CHANNEL, O_RDWR|O_CLOEXEC);
+  /* Get the vmchannel string.
+   *
+   * Sources:
+   *   --channel/-c option on the command line
+   *   guestfs_vmchannel=... from the kernel command line
+   *   guestfs=... from the kernel command line
+   *   built-in default
+   *
+   * At the moment we expect this to contain "tcp:ip:port" but in
+   * future it might contain a device name, eg. "/dev/vcon4" for
+   * virtio-console vmchannel.
+   */
+  if (cmdline) {
+    char *p;
+    size_t len;
+
+    p = strstr (cmdline, "guestfs_vmchannel=");
+    if (p) {
+      len = strcspn (p + 18, " \t\n");
+      vmchannel = strndup (p + 18, len);
+      if (!vmchannel) {
+        perror ("strndup");
+        exit (EXIT_FAILURE);
+      }
+    }
+  }
+
+  /* Default vmchannel. */
+  if (vmchannel == NULL)
+    goto no_vmchannel;
+
+  if (verbose)
+    printf ("vmchannel: %s\n", vmchannel);
+
+  /* Connect to vmchannel. */
+  if (STREQLEN (vmchannel, "tcp:", 4)) {
+    /* Resolve the hostname. */
+    struct addrinfo *res, *rr;
+    struct addrinfo hints;
+    int r;
+    char *host, *port;
+
+    host = vmchannel+4;
+    port = strchr (host, ':');
+    if (port) {
+      port[0] = '\0';
+      port++;
+    } else {
+      fprintf (stderr, "vmchannel: expecting \"tcp:<ip>:<port>\": %s\n",
+               vmchannel);
+      exit (EXIT_FAILURE);
+    }
+
+    memset (&hints, 0, sizeof hints);
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_ADDRCONFIG;
+    r = getaddrinfo (host, port, &hints, &res);
+    if (r != 0) {
+      fprintf (stderr, "%s:%s: %s\n",
+               host, port, gai_strerror (r));
+      exit (EXIT_FAILURE);
+    }
+
+    /* Connect to the given TCP socket. */
+    for (rr = res; rr != NULL; rr = rr->ai_next) {
+      sock = socket (rr->ai_family, rr->ai_socktype, rr->ai_protocol);
+      if (sock != -1) {
+        if (connect (sock, rr->ai_addr, rr->ai_addrlen) == 0)
+          break;
+        perror ("connect");
+
+        close (sock);
+        sock = -1;
+      }
+    }
+    freeaddrinfo (res);
+  } else {
+    fprintf (stderr,
+             "unknown vmchannel connection type: %s\n"
+             "expecting \"tcp:<ip>:<port>\"\n",
+             vmchannel);
+    exit (EXIT_FAILURE);
+  }
+
   if (sock == -1) {
+  no_vmchannel:
     fprintf (stderr,
              "\n"
              "Failed to connect to virtio-serial channel.\n"
@@ -269,7 +349,7 @@ main (int argc, char *argv[])
              "output to the libguestfs developers, either in a bug report\n"
              "or on the libguestfs redhat com mailing list.\n"
              "\n");
-    perror (VIRTIO_SERIAL_CHANNEL);
+    perror ("last error");
     exit (EXIT_FAILURE);
   }
 
@@ -299,6 +379,8 @@ main (int argc, char *argv[])
   }
 
   xdr_destroy (&xdr);
+
+  free (cmdline);
 
   /* Enter the main loop, reading and performing actions. */
   main_loop (sock);

@@ -80,10 +80,10 @@ hwclock -u -s
 ip addr add 127.0.0.1/8 brd + dev lo scope host
 ip link set dev lo up
 
-ip addr add 169.254.2.10/16 brd + dev eth0 scope global
+ip addr add 10.0.2.0/24 brd + dev eth0 scope global
 ip link set dev eth0 up
 
-ip route add default via 169.254.2.2
+ip route add default via 10.0.2.2
 
 # Scan for MDs.
 mdadm -As --auto=yes --run

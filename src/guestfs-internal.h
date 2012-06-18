@@ -542,7 +542,7 @@ extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct tim
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern void guestfs___launch_failed_error (guestfs_h *g);
-extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
+extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags, const char *vmchannel);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
 
 /* inspect.c */

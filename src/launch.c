@@ -316,7 +316,7 @@ guestfs__config (guestfs_h *g,
 
 char *
 guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
-                                  int flags)
+                                  int flags, const char *vmchannel)
 {
   char root[64] = "";
   char *term = getenv ("TERM");
@@ -348,12 +348,14 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
      "%s"                       /* root=appliance_dev */
      " %s"                      /* selinux */
+     " %s"                      /* vmchannel */
      "%s"                       /* verbose */
      " TERM=%s"                 /* TERM environment variable */
      "%s%s",                    /* append */
      lpj_s,
      root,
      g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
+     vmchannel,
      g->verbose ? " guestfs_verbose=1" : "",
      term ? term : "linux",
      g->append ? " " : "", g->append ? g->append : "");
