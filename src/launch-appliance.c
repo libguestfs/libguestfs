@@ -390,7 +390,7 @@ launch_appliance (guestfs_h *g, const char *arg)
       size_t buf2_len = strlen (appliance) + 64;
       char buf2[buf2_len];
       add_cmdline (g, "-drive");
-      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
+      snprintf (buf2, buf2_len, "file=%s,snapshot=on,if=%s%s",
                 appliance, virtio_scsi ? "none" : "virtio", cachemode);
       add_cmdline (g, buf2);
 
@@ -998,14 +998,13 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   else
     iface = "virtio";
 
-  snprintf (&r[i], len-i, "%s%s%s%s%s%s,id=hd%zu,if=%s",
+  snprintf (&r[i], len-i, "%s%s%s%s%s%s,if=%s",
             drv->readonly ? ",snapshot=on" : "",
             drv->use_cache_none ? ",cache=none" : "",
             drv->format ? ",format=" : "",
             drv->format ? drv->format : "",
             drv->disk_label ? ",serial=" : "",
             drv->disk_label ? drv->disk_label : "",
-            index,
             iface);
 
   return r;                     /* caller frees */
