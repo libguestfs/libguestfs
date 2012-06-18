@@ -208,15 +208,18 @@ chmod a+r new
 rm -f new
 
 stage Checking truncate
-truncate -s 10000 truncated
-[ "$(stat -c %s truncated)" -eq 10000 ]
-truncate -c -s 1000 truncated
-[ "$(stat -c %s truncated)" -eq 1000 ]
-truncate -c -s 10 truncated
-[ "$(stat -c %s truncated)" -eq 10 ]
-truncate -c -s 0 truncated
-[ "$(stat -c %s truncated)" -eq 0 ]
-rm -f truncated
+# RHEL 5 didn't have the truncate command.
+if truncate --help >/dev/null 2>&1; then
+    truncate -s 10000 truncated
+    [ "$(stat -c %s truncated)" -eq 10000 ]
+    truncate -c -s 1000 truncated
+    [ "$(stat -c %s truncated)" -eq 1000 ]
+    truncate -c -s 10 truncated
+    [ "$(stat -c %s truncated)" -eq 10 ]
+    truncate -c -s 0 truncated
+    [ "$(stat -c %s truncated)" -eq 0 ]
+    rm -f truncated
+fi
 
 # Disabled because of RHBZ#660687 on Debian.
 # stage Checking utimens and timestamps
