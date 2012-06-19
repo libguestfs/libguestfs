@@ -284,6 +284,10 @@ febootstrap and seabios to the latest versions.
 You need febootstrap E<ge> 3.14-2 from:
 L<http://packages.ubuntu.com/precise/febootstrap>
 
+After installing or updating febootstrap, rebuild the appliance:
+
+ sudo update-guestfs-appliance
+
 You need seabios E<ge> 0.6.2-0ubuntu2.1 or E<ge> 0.6.2-0ubuntu3 from:
 L<http://packages.ubuntu.com/precise-updates/seabios>
 or
