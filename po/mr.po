@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-01 20:31+0100\n"
+"POT-Creation-Date: 2012-06-21 13:32+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -54,7 +54,7 @@ msgstr ""
 #: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:440 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:136
-#: fuse/guestmount.c:172 inspector/virt-inspector.c:140
+#: fuse/guestmount.c:203 inspector/virt-inspector.c:140
 #: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -62,7 +62,7 @@ msgstr "guestfs_create: हँडल निर्माण करण्यास
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
-#: fuse/guestmount.c:67 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
+#: fuse/guestmount.c:98 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:188 fuse/guestmount.c:200 inspector/virt-inspector.c:164
+#: format/format.c:188 fuse/guestmount.c:231 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3034,7 +3034,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
 
-#: fuse/guestmount.c:71
+#: fuse/guestmount.c:102
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3065,32 +3065,32 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:268
+#: fuse/guestmount.c:299
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr "%s: किमान एक -a/-d व किमान एक -m/-i पर्याय असायला हवे\n"
 
-#: fuse/guestmount.c:278
+#: fuse/guestmount.c:309
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr ""
 
-#: fuse/guestmount.c:285
+#: fuse/guestmount.c:316
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:300
+#: fuse/guestmount.c:331
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr ""
 
-#: fuse/guestmount.c:307
+#: fuse/guestmount.c:338
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr ""
 
-#: fuse/guestmount.c:316
+#: fuse/guestmount.c:347
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
@@ -3638,36 +3638,36 @@ msgstr ""
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s घटक रिकामे आहे किंवा अस्वीकार्य अक्षरे समाविष्टीत आहे"
 
-#: src/launch.c:481
+#: src/launch.c:483
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs हँडल आधिपासूनच सुरू आहे"
 
-#: src/launch.c:492
+#: src/launch.c:494
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:536
+#: src/launch.c:538
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:1030 src/launch.c:1035
+#: src/launch.c:1032 src/launch.c:1037
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:1048
+#: src/launch.c:1050
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:1138
+#: src/launch.c:1140
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch.c:1146
+#: src/launch.c:1148
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1345
+#: src/launch.c:1347
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3676,11 +3676,11 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1498
+#: src/launch.c:1502
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1509
+#: src/launch.c:1513
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 
@@ -4065,43 +4065,43 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
 
-#: resize/resize.ml:791
+#: ../resize/resize.ml:791
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: resize/resize.ml:776 resize/resize.ml:757
+#: ../resize/resize.ml:776 ../resize/resize.ml:757
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: resize/resize.ml:793
+#: ../resize/resize.ml:793
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: resize/resize.ml:795
+#: ../resize/resize.ml:795
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: sysprep/main.ml:207
+#: ../sysprep/main.ml:207
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: sysprep/main.ml:58
+#: ../sysprep/main.ml:58
 msgid "%s: --domain option can only be given once\n"
 msgstr ""
 
-#: sysprep/main.ml:70
+#: ../sysprep/main.ml:70
 msgid "%s: --enable option can only be given once\n"
 msgstr ""
 
-#: sysprep/main.ml:82
+#: ../sysprep/main.ml:82
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
-#: resize/resize.ml:607
+#: ../resize/resize.ml:607
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -4110,11 +4110,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: resize/resize.ml:773
+#: ../resize/resize.ml:773
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: resize/resize.ml:603
+#: ../resize/resize.ml:603
 msgid ""
 "%s: This partition has contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -4123,7 +4123,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: resize/resize.ml:599
+#: ../resize/resize.ml:599
 msgid ""
 "%s: This partition has contains an LVM physical volume which will be damaged "
 "by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
@@ -4132,7 +4132,7 @@ msgid ""
 "from '%s' option on the command line.)"
 msgstr ""
 
-#: resize/resize.ml:596
+#: ../resize/resize.ml:596
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -4140,79 +4140,79 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: resize/resize.ml:750
+#: ../resize/resize.ml:750
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: resize/resize.ml:752
+#: ../resize/resize.ml:752
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: resize/resize.ml:748
+#: ../resize/resize.ml:748
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: resize/resize.ml:754
+#: ../resize/resize.ml:754
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
-#: resize/resize.ml:59
+#: ../resize/resize.ml:59
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: resize/resize.ml:271 resize/resize.ml:268
+#: ../resize/resize.ml:271 ../resize/resize.ml:268
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: resize/resize.ml:730
+#: ../resize/resize.ml:730
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: resize/resize.ml:625
+#: ../resize/resize.ml:625
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: resize/resize.ml:634
+#: ../resize/resize.ml:634
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: sysprep/main.ml:193
+#: ../sysprep/main.ml:193
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: resize/resize.ml:545
+#: ../resize/resize.ml:545
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: resize/resize.ml:541
+#: ../resize/resize.ml:541
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: resize/resize.ml:537
+#: ../resize/resize.ml:537
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: resize/resize.ml:424
+#: ../resize/resize.ml:424
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: resize/resize.ml:419
+#: ../resize/resize.ml:419
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
-#: resize/resize.ml:349
+#: ../resize/resize.ml:349
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
-#: sysprep/main.ml:128
+#: ../sysprep/main.ml:128
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -4224,7 +4224,7 @@ msgid ""
 "read the man page virt-sysprep(1).\n"
 msgstr ""
 
-#: resize/resize.ml:115
+#: ../resize/resize.ml:115
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -4232,7 +4232,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: sparsify/sparsify.ml:78
+#: ../sparsify/sparsify.ml:78
 msgid ""
 "%s: sparsify a virtual machine disk\n"
 "\n"
@@ -4242,194 +4242,194 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: resize/resize.ml:581
+#: ../resize/resize.ml:581
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: resize/resize.ml:577
+#: ../resize/resize.ml:577
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: resize/resize.ml:434
+#: ../resize/resize.ml:434
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: resize/resize.ml:285
+#: ../resize/resize.ml:285
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: sysprep/main.ml:157
+#: ../sysprep/main.ml:157
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr ""
 
-#: sysprep/main.ml:74
+#: ../sysprep/main.ml:74
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr ""
 
-#: sysprep/main.ml:148
+#: ../sysprep/main.ml:148
 msgid "%s: you must give either -a or -d options\n"
 msgstr ""
 
-#: resize/resize.ml:60
+#: ../resize/resize.ml:60
 msgid "--expand option given twice"
 msgstr ""
 
-#: resize/resize.ml:77
+#: ../resize/resize.ml:77
 msgid "--shrink option given twice"
 msgstr ""
 
-#: sysprep/main.ml:98 sysprep/main.ml:97
+#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
 msgid "Add disk image file"
 msgstr ""
 
-#: sparsify/sparsify.ml:65
+#: ../sparsify/sparsify.ml:65
 msgid "Add qemu-img options"
 msgstr ""
 
-#: resize/resize.ml:82
+#: ../resize/resize.ml:82
 msgid "Align first partition (default: auto)"
 msgstr ""
 
-#: sysprep/sysprep_operation_hostname.ml:57
+#: ../sysprep/sysprep_operation_hostname.ml:57
 msgid "Change the hostname of the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_hostname.ml:66
+#: ../sysprep/sysprep_operation_hostname.ml:66
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
 
-#: sparsify/sparsify.ml:252
+#: ../sparsify/sparsify.ml:252
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
 msgstr ""
 
-#: sparsify/sparsify.ml:59
+#: ../sparsify/sparsify.ml:59
 msgid "Compressed output format"
 msgstr ""
 
-#: sparsify/sparsify.ml:336
+#: ../sparsify/sparsify.ml:336
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:1032
+#: ../resize/resize.ml:1032
 msgid ""
 "Copying %s ...\n"
 "%!"
 msgstr ""
 
-#: sparsify/sparsify.ml:157
+#: ../sparsify/sparsify.ml:157
 msgid ""
 "Create overlay file to protect source disk ...\n"
 "%!"
 msgstr ""
 
-#: sparsify/sparsify.ml:61 resize/resize.ml:87
+#: ../sparsify/sparsify.ml:61 ../resize/resize.ml:87
 msgid "Debug GC and memory allocations"
 msgstr ""
 
-#: sysprep/main.ml:101
+#: ../sysprep/main.ml:101
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: resize/resize.ml:88
+#: ../resize/resize.ml:88
 msgid "Delete partition"
 msgstr ""
 
-#. resize/resize.ml:109
-#: sysprep/main.ml:119 sysprep/main.ml:118 sparsify/sparsify.ml:70
+#. ../resize/resize.ml:109
+#: ../sysprep/main.ml:119 ../sysprep/main.ml:118 ../sparsify/sparsify.ml:70
 msgid "Display version and exit"
 msgstr ""
 
-#: resize/resize.ml:84
+#: ../resize/resize.ml:84
 msgid "Don't copy boot loader"
 msgstr ""
 
-#: resize/resize.ml:91
+#: ../resize/resize.ml:91
 msgid "Don't create extra partition"
 msgstr ""
 
-#: resize/resize.ml:90
+#: ../resize/resize.ml:90
 msgid "Don't expand content"
 msgstr ""
 
-#: resize/resize.ml:99
+#: ../resize/resize.ml:99
 msgid "Don't perform changes"
 msgstr ""
 
-#: sysprep/main.ml:113 sysprep/main.ml:112
+#: ../sysprep/main.ml:113 ../sysprep/main.ml:112
 msgid "Don't print log messages"
 msgstr ""
 
-#: resize/resize.ml:104
+#: ../resize/resize.ml:104
 msgid "Don't print the summary"
 msgstr ""
 
-#: sysprep/main.ml:107
+#: ../sysprep/main.ml:107
 msgid "Dump POD (internal)"
 msgstr ""
 
-#: sysprep/main.ml:108
+#: ../sysprep/main.ml:108
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#. resize/resize.ml:85
-#: sysprep/main.ml:117 sysprep/main.ml:116 sparsify/sparsify.ml:68
+#. ../resize/resize.ml:85
+#: ../sysprep/main.ml:117 ../sysprep/main.ml:116 ../sparsify/sparsify.ml:68
 msgid "Enable debugging messages"
 msgstr ""
 
-#: sysprep/main.ml:109
+#: ../sysprep/main.ml:109
 msgid "Enable specific operations"
 msgstr ""
 
-#: sysprep/main.ml:120 sparsify/sparsify.ml:72
+#: ../sysprep/main.ml:120 ../sparsify/sparsify.ml:72
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: sparsify/sparsify.ml:189
+#: ../sparsify/sparsify.ml:189
 msgid ""
 "Examine source disk ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:230
+#: ../resize/resize.ml:230
 msgid ""
 "Examining %s ...\n"
 "%!"
 msgstr ""
 
-#: sysprep/main.ml:178
+#: ../sysprep/main.ml:178
 msgid ""
 "Examining the guest ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:94
+#: ../resize/resize.ml:94
 msgid "Expand logical volume"
 msgstr ""
 
-#: resize/resize.ml:89
+#: ../resize/resize.ml:89
 msgid "Expand partition"
 msgstr ""
 
-#: resize/resize.ml:1180
+#: ../resize/resize.ml:1180
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:1163
+#: ../resize/resize.ml:1163
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:850
+#: ../resize/resize.ml:850
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -4437,234 +4437,234 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: sparsify/sparsify.ml:236
+#: ../sparsify/sparsify.ml:236
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: sparsify/sparsify.ml:287
+#: ../sparsify/sparsify.ml:287
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:1088
+#: ../resize/resize.ml:1088
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
 msgstr ""
 
-#: sysprep/sysprep_operation_flag_reconfiguration.ml:35
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:35
 msgid "Flag the system for reconfiguration"
 msgstr ""
 
-#: sysprep/sysprep_operation_net_hwaddr.ml:50
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
 msgid ""
 "For Fedora and Red Hat Enterprise Linux,\n"
 "this is removed from C<ifcfg-*> files."
 msgstr ""
 
-#: sysprep/main.ml:114
+#: ../sysprep/main.ml:114
 msgid "Force SELinux relabel"
 msgstr ""
 
-#: resize/resize.ml:102
+#: ../resize/resize.ml:102
 msgid "Force ntfsresize"
 msgstr ""
 
-#: resize/resize.ml:107
+#: ../resize/resize.ml:107
 msgid "Forcefully resize partition"
 msgstr ""
 
-#: sparsify/sparsify.ml:62 resize/resize.ml:92
+#: ../sparsify/sparsify.ml:62 ../resize/resize.ml:92
 msgid "Format of input disk"
 msgstr ""
 
-#: resize/resize.ml:103
+#: ../resize/resize.ml:103
 msgid "Format of output disk"
 msgstr ""
 
-#: sparsify/sparsify.ml:60
+#: ../sparsify/sparsify.ml:60
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: sysprep/sysprep_operation_random_seed.ml:50
+#: ../sysprep/sysprep_operation_random_seed.ml:50
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: resize/utils.ml:81
+#: ../resize/utils.ml:81
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
 msgstr ""
 
-#: sparsify/utils.ml:109
+#: ../sparsify/utils.ml:109
 msgid ""
 "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
 "include the complete output."
 msgstr ""
 
-#: sparsify/sparsify.ml:63
+#: ../sparsify/sparsify.ml:63
 msgid "Ignore filesystem"
 msgstr ""
 
-#: resize/resize.ml:93
+#: ../resize/resize.ml:93
 msgid "Ignore partition"
 msgstr ""
 
-#: sysprep/main.ml:111
+#: ../sysprep/main.ml:111
 msgid "List supported operations"
 msgstr ""
 
-#: sparsify/sparsify.ml:64 resize/resize.ml:98
+#: ../sparsify/sparsify.ml:64 ../resize/resize.ml:98
 msgid "Make output machine readable"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:139
+#: ../sysprep/sysprep_operation_script.ml:139
 msgid "Mount point on host"
 msgstr ""
 
-#: sysprep/main.ml:115
+#: ../sysprep/main.ml:115
 msgid "Never do SELinux relabel"
 msgstr ""
 
-#: sysprep/sysprep_operation_hostname.ml:65
+#: ../sysprep/sysprep_operation_hostname.ml:65
 msgid "New hostname"
 msgstr ""
 
-#: sysprep/sysprep_operation_flag_reconfiguration.ml:36
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
 msgid ""
 "Note that this may require user intervention when the\n"
 "guest is booted."
 msgstr ""
 
-#: sysprep/sysprep_operation_logfiles.ml:87
+#: ../sysprep/sysprep_operation_logfiles.ml:87
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
 "%s"
 msgstr ""
 
-#: sysprep/main.ml:106 sysprep/main.ml:105 sysprep/main.ml:104
+#: ../sysprep/main.ml:106 ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "Perform a dry run"
 msgstr ""
 
-#: sparsify/sparsify.ml:66
+#: ../sparsify/sparsify.ml:66
 msgid "Quiet output"
 msgstr ""
 
-#: sysprep/main.ml:158 sysprep/main.ml:149
+#: ../sysprep/main.ml:158 ../sysprep/main.ml:149
 msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr ""
 
-#: sysprep/sysprep_operation_ssh_userdir.ml:39
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:39
 msgid "Remove \".ssh\" directories in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_ca_certificates.ml:53
+#: ../sysprep/sysprep_operation_ca_certificates.ml:53
 msgid "Remove CA certificates in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_dhcp_client_state.ml:36
+#: ../sysprep/sysprep_operation_dhcp_client_state.ml:36
 msgid "Remove DHCP client leases"
 msgstr ""
 
-#: sysprep/sysprep_operation_dhcp_server_state.ml:31
+#: ../sysprep/sysprep_operation_dhcp_server_state.ml:31
 msgid "Remove DHCP server leases"
 msgstr ""
 
-#: sysprep/sysprep_operation_dovecot_data.ml:38
+#: ../sysprep/sysprep_operation_dovecot_data.ml:38
 msgid "Remove Dovecot (mail server) data"
 msgstr ""
 
-#: sysprep/sysprep_operation_net_hwaddr.ml:49
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:49
 msgid "Remove HWADDR (hard-coded MAC address) configuration"
 msgstr ""
 
-#: sysprep/sysprep_operation_kerberos_data.ml:46
+#: ../sysprep/sysprep_operation_kerberos_data.ml:46
 msgid "Remove Kerberos data in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_user_account.ml:65
+#: ../sysprep/sysprep_operation_user_account.ml:65
 msgid ""
 "Remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed."
 msgstr ""
 
-#: sysprep/sysprep_operation_blkid_tab.ml:49
+#: ../sysprep/sysprep_operation_blkid_tab.ml:49
 msgid "Remove blkid tab in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_mail_spool.ml:36
+#: ../sysprep/sysprep_operation_mail_spool.ml:36
 msgid "Remove email from the local mail spool directory"
 msgstr ""
 
-#: sysprep/sysprep_operation_logfiles.ml:85
+#: ../sysprep/sysprep_operation_logfiles.ml:85
 msgid "Remove many log files from the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_package_manager_cache.ml:40
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:40
 msgid "Remove package manager cache"
 msgstr ""
 
-#: sysprep/sysprep_operation_ssh_userdir.ml:40
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:40
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other\n"
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
 
-#: sysprep/sysprep_operation_pam_data.ml:46
+#: ../sysprep/sysprep_operation_pam_data.ml:46
 msgid "Remove the PAM data in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_rhn_systemid.ml:37
+#: ../sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
 msgstr ""
 
-#: sysprep/sysprep_operation_ssh_hostkeys.ml:36
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:36
 msgid "Remove the SSH host keys in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_smolt_uuid.ml:41
+#: ../sysprep/sysprep_operation_smolt_uuid.ml:41
 msgid "Remove the Smolt hardware UUID"
 msgstr ""
 
-#: sysprep/sysprep_operation_bash_history.ml:39
+#: ../sysprep/sysprep_operation_bash_history.ml:39
 msgid "Remove the bash history in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_bash_history.ml:40
+#: ../sysprep/sysprep_operation_bash_history.ml:40
 msgid ""
 "Remove the bash history of user \"root\" and any other users\n"
 "who have a C<.bash_history> file in their home directory."
 msgstr ""
 
-#: sysprep/sysprep_operation_samba_db_log.ml:47
+#: ../sysprep/sysprep_operation_samba_db_log.ml:47
 msgid "Remove the database and log files of Samba"
 msgstr ""
 
-#: sysprep/sysprep_operation_sssd_db_log.ml:45
+#: ../sysprep/sysprep_operation_sssd_db_log.ml:45
 msgid "Remove the database and log files of sssd"
 msgstr ""
 
-#: sysprep/sysprep_operation_user_account.ml:64
+#: ../sysprep/sysprep_operation_user_account.ml:64
 msgid "Remove the user accounts in the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_utmp.ml:35
+#: ../sysprep/sysprep_operation_utmp.ml:35
 msgid "Remove the utmp file"
 msgstr ""
 
-#: sysprep/sysprep_operation_yum_uuid.ml:35
+#: ../sysprep/sysprep_operation_yum_uuid.ml:35
 msgid "Remove the yum UUID"
 msgstr ""
 
-#: sysprep/sysprep_operation_udev_persistent_net.ml:36
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:36
 msgid "Remove udev persistent net rules"
 msgstr ""
 
-#: sysprep/sysprep_operation_udev_persistent_net.ml:37
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC\n"
 "address to a fixed ethernet device (eg. eth0).\n"
@@ -4675,25 +4675,25 @@ msgid ""
 "undesirable.  Erasing the udev persistent net rules avoids this."
 msgstr ""
 
-#: sysprep/sysprep_operation_cron_spool.ml:31
+#: ../sysprep/sysprep_operation_cron_spool.ml:31
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: resize/resize.ml:1201
+#: ../resize/resize.ml:1201
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
 
-#: resize/resize.ml:106
+#: ../resize/resize.ml:106
 msgid "Resize partition"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:118
+#: ../sysprep/sysprep_operation_script.ml:118
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:150
+#: ../sysprep/sysprep_operation_script.ml:150
 msgid ""
 "Run the named C<script> (a shell script or program) against the\n"
 "guest.  The script can be any program on the host.  The script's\n"
@@ -4703,43 +4703,43 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:149
+#: ../sysprep/sysprep_operation_script.ml:149
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: sysprep/main.ml:110
+#: ../sysprep/main.ml:110
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: sysprep/main.ml:100 sysprep/main.ml:99
+#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
 msgid "Set libvirt URI"
 msgstr ""
 
-#: sysprep/main.ml:103 sysprep/main.ml:102
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "Set libvirt guest name"
 msgstr ""
 
-#: resize/resize.ml:83
+#: ../resize/resize.ml:83
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: resize/resize.ml:829
+#: ../resize/resize.ml:829
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:108
+#: ../resize/resize.ml:108
 msgid "Shrink partition"
 msgstr ""
 
-#: sparsify/sparsify.ml:355
+#: ../sparsify/sparsify.ml:355
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:119
+#: ../sysprep/sysprep_operation_script.ml:119
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs\n"
 "against the guest.\n"
@@ -4761,7 +4761,7 @@ msgid ""
 "can choose a specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
-#: sysprep/sysprep_operation_ssh_hostkeys.ml:37
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:37
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is\n"
 "booted.\n"
@@ -4775,7 +4775,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:140
+#: ../sysprep/sysprep_operation_script.ml:140
 msgid ""
 "The mount point (an empty directory on the host) used when\n"
 "the C<script> operation is enabled and one or more scripts\n"
@@ -4787,24 +4787,24 @@ msgid ""
 "will be created."
 msgstr ""
 
-#: resize/resize.ml:714
+#: ../resize/resize.ml:714
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: resize/resize.ml:788
+#: ../resize/resize.ml:788
 msgid "There is a surplus of %s."
 msgstr ""
 
-#: sysprep/sysprep_operation_utmp.ml:36
+#: ../sysprep/sysprep_operation_utmp.ml:36
 msgid ""
 "This file records who is currently logged in on a machine.  In modern\n"
 "Linux distros it is stored in a ramdisk and hence not part of the\n"
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: sysprep/sysprep_operation_hostname.ml:58
+#: ../sysprep/sysprep_operation_hostname.ml:58
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -4813,7 +4813,7 @@ msgid ""
 "to C<localhost.localdomain>."
 msgstr ""
 
-#: sysprep/sysprep_operation_random_seed.ml:51
+#: ../sysprep/sysprep_operation_random_seed.ml:51
 msgid ""
 "Write some random bytes from the host into the random seed file of the\n"
 "guest.\n"
@@ -4821,234 +4821,236 @@ msgid ""
 "See L</RANDOM SEED> below."
 msgstr ""
 
-#: resize/resize.ml:685
+#: ../resize/resize.ml:685
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: resize/resize.ml:697
+#: ../resize/resize.ml:697
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
 msgstr ""
 
-#: sysprep/sysprep_operation_yum_uuid.ml:36
+#: ../sysprep/sysprep_operation_yum_uuid.ml:36
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the\n"
 "original UUID has been erased."
 msgstr ""
 
-#: sparsify/sparsify.ml:73
+#: ../sparsify/sparsify.ml:73
 msgid "Zero filesystem"
 msgstr ""
 
-#: sparsify/sparsify.ml:226
+#: ../sparsify/sparsify.ml:226
 msgid ""
 "Zeroing %s ...\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:152
+#: ../resize/resize.ml:152
 msgid "alignment cannot be < 1"
 msgstr ""
 
-#: resize/resize.ml:490
+#: ../resize/resize.ml:490
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:139
+#: ../sysprep/sysprep_operation_script.ml:139
 msgid "dir"
 msgstr ""
 
-#: sysprep/main.ml:103 sysprep/main.ml:102
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "domain"
 msgstr ""
 
-#: resize/resize.ml:76
+#: ../resize/resize.ml:76
 msgid "empty --shrink option"
 msgstr ""
 
-#: sparsify/sparsify.ml:320
+#: ../sparsify/sparsify.ml:320
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: sparsify/sparsify.ml:322
+#: ../sparsify/sparsify.ml:322
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: sparsify/sparsify.ml:349 sparsify/sparsify.ml:318 sparsify/sparsify.ml:183
+#. ../sparsify/sparsify.ml:183
+#: ../sparsify/sparsify.ml:349 ../sparsify/sparsify.ml:318
 msgid "external command failed: %s"
 msgstr ""
 
-#: sysprep/main.ml:126
+#: ../sysprep/main.ml:126
 msgid "extra parameter on the command line"
 msgstr ""
 
-#: sysprep/main.ml:98 sysprep/main.ml:97
+#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
 msgid "file"
 msgstr ""
 
-#. resize/resize.ml:103
-#. resize/resize.ml:92
-#: sysprep/main.ml:110 sparsify/sparsify.ml:62 sparsify/sparsify.ml:60
+#. ../resize/resize.ml:103
+#. ../resize/resize.ml:92
+#: ../sysprep/main.ml:110 ../sparsify/sparsify.ml:62
+#: ../sparsify/sparsify.ml:60
 msgid "format"
 msgstr ""
 
-#: sparsify/sparsify.ml:73 sparsify/sparsify.ml:63
+#: ../sparsify/sparsify.ml:73 ../sparsify/sparsify.ml:63
 msgid "fs"
 msgstr ""
 
-#: sysprep/sysprep_operation_hostname.ml:65
+#: ../sysprep/sysprep_operation_hostname.ml:65
 msgid "hostname"
 msgstr ""
 
-#: sparsify/sparsify.ml:146
+#: ../sparsify/sparsify.ml:146
 msgid ""
 "input filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
 msgstr ""
 
-#. resize/resize.ml:94
-#: resize/resize.ml:97 resize/resize.ml:96 resize/resize.ml:95
+#. ../resize/resize.ml:94
+#: ../resize/resize.ml:97 ../resize/resize.ml:96 ../resize/resize.ml:95
 msgid "lv"
 msgstr ""
 
-#: resize/resize.ml:82
+#: ../resize/resize.ml:82
 msgid "never|always|auto"
 msgstr ""
 
-#: resize/resize.ml:489
+#: ../resize/resize.ml:489
 msgid "ntfsresize"
 msgstr ""
 
-#: sysprep/main.ml:109
+#: ../sysprep/main.ml:109
 msgid "operations"
 msgstr ""
 
-#: sparsify/sparsify.ml:65
+#: ../sparsify/sparsify.ml:65
 msgid "option"
 msgstr ""
 
-#: sparsify/sparsify.ml:149
+#: ../sparsify/sparsify.ml:149
 msgid ""
 "output filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
 msgstr ""
 
-#. resize/resize.ml:88
-#: resize/resize.ml:108 resize/resize.ml:93 resize/resize.ml:89
+#. ../resize/resize.ml:88
+#: ../resize/resize.ml:108 ../resize/resize.ml:93 ../resize/resize.ml:89
 msgid "part"
 msgstr ""
 
-#: resize/resize.ml:107 resize/resize.ml:106
+#: ../resize/resize.ml:107 ../resize/resize.ml:106
 msgid "part=size"
 msgstr ""
 
-#: resize/resize.ml:887 resize/resize.ml:863
+#: ../resize/resize.ml:887 ../resize/resize.ml:863
 msgid "pread-device: short read"
 msgstr ""
 
-#: resize/resize.ml:487
+#: ../resize/resize.ml:487
 msgid "pvresize"
 msgstr ""
 
-#: sparsify/sparsify.ml:261
+#: ../sparsify/sparsify.ml:261
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: resize/resize.ml:488
+#: ../resize/resize.ml:488
 msgid "resize2fs"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:149
+#: ../sysprep/sysprep_operation_script.ml:149
 msgid "script"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:75
+#: ../sysprep/sysprep_operation_script.ml:75
 msgid "script failed"
 msgstr ""
 
-#: resize/resize.ml:83
+#: ../resize/resize.ml:83
 msgid "sectors"
 msgstr ""
 
-#: resize/resize.ml:374
+#: ../resize/resize.ml:374
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: resize/resize.ml:161
+#: ../resize/resize.ml:161
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: sysprep/main.ml:100 sysprep/main.ml:99
+#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
 msgid "uri"
 msgstr ""
 
-#: resize/resize.ml:190
+#: ../resize/resize.ml:190
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: resize/resize.ml:43
+#: ../resize/resize.ml:43
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr ""
 
-#: resize/utils.ml:77
+#: ../resize/utils.ml:77
 msgid "virt-resize: error: "
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:31
+#: ../sysprep/sysprep_operation_script.ml:31
 msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:110
+#: ../sysprep/sysprep_operation.ml:110
 msgid "virt-sysprep: POD for %s must not end with newline\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:87
+#: ../sysprep/sysprep_operation.ml:87
 msgid "virt-sysprep: disallowed character (%c) in operation name\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:71
+#: ../sysprep/sysprep_operation.ml:71
 msgid "virt-sysprep: duplicate operation name (%s)\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:97
+#: ../sysprep/sysprep_operation.ml:97
 msgid "virt-sysprep: heading for %s must not end with newline or period\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:106
+#: ../sysprep/sysprep_operation.ml:106
 msgid "virt-sysprep: operation %s has no POD\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:93
+#: ../sysprep/sysprep_operation.ml:93
 msgid "virt-sysprep: operation %s has no heading\n"
 msgstr ""
 
-#: sysprep/sysprep_operation.ml:80
+#: ../sysprep/sysprep_operation.ml:80
 msgid "virt-sysprep: operation name is an empty string\n"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:65
+#: ../sysprep/sysprep_operation_script.ml:65
 msgid "virt-sysprep: script: failed (code %d)\n"
 msgstr ""
 
-#: sysprep/sysprep_operation_script.ml:69
+#: ../sysprep/sysprep_operation_script.ml:69
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: resize/resize.ml:1085
+#: ../resize/resize.ml:1085
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
 "%!"
 msgstr ""
 
-#: resize/resize.ml:673
+#: ../resize/resize.ml:673
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: sparsify/sparsify.ml:130 resize/resize.ml:196
+#: ../sparsify/sparsify.ml:130 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
