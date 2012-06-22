@@ -20,6 +20,11 @@
 
 set -e
 
+if [ -n "$SKIP_TEST_MDADM_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 rm -f md-test1.img md-test2.img md-test3.img md-test4.img
 
 ../../fish/guestfish <<EOF

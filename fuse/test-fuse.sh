@@ -20,6 +20,11 @@ unset CDPATH
 set -e
 #set -v
 
+if [ -n "$SKIP_TEST_FUSE_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 if [ ! -w /dev/fuse ]; then
     echo "SKIPPING guestmount test, because there is no /dev/fuse."
     exit 0
