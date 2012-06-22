@@ -50,10 +50,12 @@ static const char *filesystem = NULL;
 static const char *vg = NULL, *lv = NULL;
 static const char *partition = "DEFAULT";
 static int wipe = 0;
+static int have_wipefs;
 
 static void parse_vg_lv (const char *lvm);
 static int do_format (void);
 static int do_rescan (char **devices);
+static int feature_available (guestfs_h *g, const char *feature);
 
 static inline char *
 bad_cast (char const *s)
@@ -242,6 +244,9 @@ main (int argc, char *argv[])
     if (guestfs_launch (g) == -1)
       exit (EXIT_FAILURE);
 
+    /* Test if the wipefs API is available. */
+    have_wipefs = feature_available (g, "wipefs");
+
     /* Perform the format. */
     retry = do_format ();
     if (!retry)
@@ -325,7 +330,7 @@ do_format (void)
   if (!wipe) {
     for (i = 0; devices[i] != NULL; ++i) {
       /* erase the filesystem signatures on each device */
-      if (guestfs_wipefs (g, devices[i]) == -1)
+      if (have_wipefs && guestfs_wipefs (g, devices[i]) == -1)
         exit (EXIT_FAILURE);
       /* Then erase the partition table on each device. */
       if (guestfs_zero (g, devices[i]) == -1)
@@ -439,4 +444,23 @@ do_rescan (char **devices)
   guestfs_set_error_handler (g, old_error_cb, old_error_data);
 
   return errors ? 1 : 0;
+}
+
+static int
+feature_available (guestfs_h *g, const char *feature)
+{
+  /* If there's an error we should ignore it, so to do that we have to
+   * temporarily replace the error handler with a null one.
+   */
+  guestfs_error_handler_cb old_error_cb;
+  void *old_error_data;
+  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
+  guestfs_set_error_handler (g, NULL, NULL);
+
+  const char *groups[] = { feature, NULL };
+  int r = guestfs_available (g, (char * const *) groups);
+
+  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+
+  return r == 0 ? 1 : 0;
 }
