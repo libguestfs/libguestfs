@@ -131,6 +131,7 @@ lsscsi
 lvm2
 lzop
 mdadm
+mkisofs
 module-init-tools
 /*
 Enabling this pulls out 140 extra packages
