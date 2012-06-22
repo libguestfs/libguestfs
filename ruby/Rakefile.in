@@ -38,7 +38,7 @@ CLOBBER.include [ "@builddir@/config.save", "@builddir@/ext/**/mkmf.log",
 # Build locally
 
 file MAKEFILE => EXT_CONF do |t|
-     unless sh "top_srcdir=$(pwd)/@top_srcdir@; top_builddir=$(pwd)/@top_builddir@; export ARCHFLAGS=\"-arch $(uname -m)\"; mkdir -p @builddir@/ext/guestfs; cd @builddir@/ext/guestfs; @RUBY@ #{EXT_CONF} --with-_guestfs-include=$top_srcdir/src --with-_guestfs-lib=$top_builddir/src/.libs"
+     unless sh "top_srcdir=$(pwd)/@top_srcdir@; top_builddir=$(pwd)/@top_builddir@; export ARCHFLAGS=\"-arch $(uname -m)\"; mkdir -p @builddir@/ext/guestfs; cd @builddir@/ext/guestfs; @RUBY@ #{EXT_CONF} --with-_guestfs-include=$top_srcdir/src:$top_builddir --with-_guestfs-lib=$top_builddir/src/.libs"
          $stderr.puts "Failed to run extconf"
          break
      end
