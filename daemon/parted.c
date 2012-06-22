@@ -696,10 +696,22 @@ do_part_get_bootable (const char *device, int partnum)
     }
     size_t col = p - lines[header];
 
-    /* Look for the line corresponding to this partition number. */
-    row = start + partnum - 1;
-    if (row >= count_strings (lines) || !STRPREFIX (lines[row], " ")) {
-      reply_with_error ("partition number out of range: %d", partnum);
+    /* Partitions may not be in any order, so we have to look for
+     * the matching partition number (RHBZ#602997).
+     */
+    int pnum;
+    for (row = start; lines[row] != NULL; ++row) {
+      if (sscanf (lines[row], " %d", &pnum) != 1) {
+        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
+        free_strings (lines);
+        return -1;
+      }
+      if (pnum == partnum)
+        break;
+    }
+
+    if (lines[row] == NULL) {
+      reply_with_error ("partition number %d not found", partnum);
       free_strings (lines);
       return -1;
     }
