@@ -25,11 +25,18 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <libvirt/libvirt.h>
-
 #ifndef O_CLOEXEC
 #define O_CLOEXEC 0
 #endif
+
+/* Old <libvirt.h> had a slightly different definition of
+ * virDomainGetXMLDesc (using 'int' for flags instead of 'unsigned
+ * int').  To avoid an error trying to redefine it with a different
+ * declaration, don't include <libvirt.h> at all.  Just copy enough to
+ * make the code compile.
+ */
+typedef struct _virDomain virDomain;
+typedef virDomain *virDomainPtr;
 
 char *
 virDomainGetXMLDesc (virDomainPtr dom, unsigned int flags)
