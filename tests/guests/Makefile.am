@@ -43,8 +43,6 @@ disk_images = \
 	blank-bootrootlv.img \
 	debian.img \
 	fedora.img \
-	fedora-md1.img \
-	fedora-md2.img \
 	ubuntu.img \
 	windows.img
 
@@ -81,18 +79,6 @@ fedora.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-packages.db
 	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test $<
 	$(call display,$@)
-
-# Make a (dummy) Fedora image using md devices
-fedora-md1.img fedora-md2.img: stamp-fedora-md.img
-
-stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
-		guest-aux/fedora-name.db \
-		guest-aux/fedora-packages.db
-	rm -f $@
-	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test $<
-	$(call display,fedora-md1.img)
-	$(call display,fedora-md2.img)
-	touch $@
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
 	rm -f $@ $@-t
