@@ -35,6 +35,11 @@
 set -e
 export LANG=C
 
+if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 rm -f test.img
 
 ../../fish/guestfish sparse test.img 100M
