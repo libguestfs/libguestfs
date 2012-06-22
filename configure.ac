@@ -883,11 +883,10 @@ AC_ARG_ENABLE([ruby],
         AS_HELP_STRING([--disable-ruby], [Disable Ruby language bindings]),
         [],
         [enable_ruby=yes])
-AS_IF([test "x$enable_ruby" != "xno"],
-        [
+AS_IF([test "x$enable_ruby" != "xno"],[
         AC_CHECK_PROG([RUBY],[ruby],[ruby],[no])
         AC_CHECK_PROG([RAKE],[rake],[rake],[no])
-        AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=0])
+        AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=])
         AC_SUBST([RAKE])
         ])
 AM_CONDITIONAL([HAVE_RUBY],
