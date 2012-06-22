@@ -228,18 +228,12 @@ let overlaydisk =
 
   (* Create it with the indisk as the backing file. *)
   let cmd =
-    let options =
-      let backing_file_option =
-        [sprintf "backing_file=%s" (replace_str indisk "," ",,")] in
-      let backing_fmt_option =
-        match format with
-        | None -> []
-        | Some fmt -> [sprintf "backing_fmt=%s" fmt] in
-      let version3 =
-        if qemu_img_version >= 1.1 then ["compat=1.1"] else [] in
-      backing_file_option @ backing_fmt_option @ version3 in
-    sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
-      (Filename.quote (String.concat "," options)) (Filename.quote tmp) in
+    sprintf "qemu-img create -f qcow2%s -b %s %s > /dev/null"
+      (match format with
+       | None -> ""
+       | Some fmt -> sprintf " -F %s" fmt)
+      (replace_str indisk "," ",,")
+      (Filename.quote tmp) in
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
