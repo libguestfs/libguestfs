@@ -45,7 +45,7 @@ pvresize-size /dev/sda2 200M
 fsck ext4 /dev/VG/LV
 EOF
 
-rm -f test2.img; truncate -s 300M test2.img
+rm -f test2.img; ../fish/guestfish sparse test2.img 300M
 $VG ./virt-resize -d --debug-gc \
     --shrink /dev/sda2 \
     --format raw --output-format raw \
