@@ -20,6 +20,11 @@ export LANG=C
 set -e
 #set -x
 
+if [ -n "$SKIP_TEST_VIRT_SYSPREP_SCRIPT_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 if [ ! -w /dev/fuse ]; then
     echo "$0: SKIPPING test, because there is no /dev/fuse."
     exit 0

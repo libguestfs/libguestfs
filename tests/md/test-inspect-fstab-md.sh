@@ -21,6 +21,11 @@
 set -e
 export LANG=C
 
+if [ -n "$SKIP_TEST_INSPECT_FSTAB_MD_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 # The first test requires a new Augeas lens for parsing mdadm.conf.
 # If this is not present in the appliance or on the host, skip the
 # test.

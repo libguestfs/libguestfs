@@ -20,6 +20,11 @@
 
 set -e
 
+if [ -n "$SKIP_TEST_LIST_FILESYSTEMS_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 rm -f test.output
 
 # Create 2 disks partitioned as:

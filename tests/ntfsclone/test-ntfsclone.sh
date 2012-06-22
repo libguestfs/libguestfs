@@ -20,6 +20,11 @@
 
 set -e
 
+if [ -n "$SKIP_TEST_NTFSCLONE_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 0
+fi
+
 rm -f test1.img backup1 backup2
 
 guestfish=../../fish/guestfish
