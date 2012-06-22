@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.19.9\n"
+"Project-Id-Version: libguestfs 1.19.10\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-18 16:31+0100\n"
+"POT-Creation-Date: 2012-06-22 22:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:205 cat/virt-ls.c:196 df/domains.c:438 df/main.c:136
-#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:136
+#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:138
 #: fuse/guestmount.c:203 inspector/virt-inspector.c:139
 #: rescue/virt-rescue.c:145
 #, c-format
@@ -87,7 +87,7 @@ msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:259
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:188 fuse/guestmount.c:231 inspector/virt-inspector.c:163
+#: format/format.c:190 fuse/guestmount.c:231 inspector/virt-inspector.c:163
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2876,18 +2876,18 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: format/format.c:68
+#: format/format.c:70
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
-#: format/format.c:71
+#: format/format.c:73
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
 msgstr ""
 
-#: format/format.c:75
+#: format/format.c:77
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -2914,17 +2914,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:157
+#: format/format.c:159
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr ""
 
-#: format/format.c:165
+#: format/format.c:167
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr ""
 
-#: format/format.c:264
+#: format/format.c:269
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -2933,7 +2933,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:303
+#: format/format.c:308
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
