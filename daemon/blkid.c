@@ -51,6 +51,24 @@ get_blkid_tag (const char *device, const char *tag)
   }
 
   if (r == 2) {                 /* means UUID etc not found */
+    if (STREQ (tag, "TYPE") && STREQ (out, "")) {
+      /* RHEL 5 blkid doesn't return "LVM2_member" for PVs.  Instead we
+       * get to this point.  Detect if the device is really a PV and return
+       * the right thing instead.
+       */
+      free (out);
+      if (command (&out, &err, "file", "-bsL", device, NULL) == -1) {
+        reply_with_error ("file: %s", err);
+        free (out);
+        return NULL;
+      }
+      if (STRPREFIX (out, "LVM2 (Linux Logical Volume Manager)")) {
+        strcpy (out, "LVM2_member");
+        return out;
+      }
+      /*FALLTHROUGH*/
+    }
+
     free (out);
     out = strdup ("");
     if (out == NULL)
