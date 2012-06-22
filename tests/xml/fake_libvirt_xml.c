@@ -27,6 +27,10 @@
 
 #include <libvirt/libvirt.h>
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
 char *
 virDomainGetXMLDesc (virDomainPtr dom, unsigned int flags)
 {
