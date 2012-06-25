@@ -18,6 +18,11 @@
 
 # Test guestfish mount-local / mount-local-run commands.
 
+if [ -n "$SKIP_TEST_MOUNT_LOCAL_SH" ]; then
+    echo "$0: skipping test because SKIP_TEST_MOUNT_LOCAL_SH is set."
+    exit 0
+fi
+
 # Skip if no FUSE.
 
 test -w /dev/fuse || {
