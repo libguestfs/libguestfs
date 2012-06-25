@@ -116,27 +116,6 @@
 /* Maximum size of Windows explorer.exe.  2.6MB on Windows 7. */
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
-/* Network configuration of the appliance.  Note these addresses are
- * only meaningful within the context of the running appliance.  QEMU
- * translates network connections to these magic addresses into
- * userspace calls on the host (eg. connect(2)).  qemu-doc has a nice
- * diagram which is also useful to refer to.
- *
- * NETWORK: The network.
- *
- * ROUTER: The address of the "host", ie. this library.
- *
- * [Note: If you change NETWORK and ROUTER then you also have to
- * change the network configuration in appliance/init].
- *
- * GUESTFWD_ADDR, GUESTFWD_PORT: The guestfwd feature of qemu
- * magically connects this pseudo-address to the guestfwd channel.  In
- * typical Linux configurations of libguestfs, guestfwd is not
- * actually used any more.
- */
-#define NETWORK "169.254.0.0/16"
-#define ROUTER "169.254.2.2"
-
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, NO_HANDLE };
 
