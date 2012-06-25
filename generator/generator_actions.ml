@@ -1075,7 +1075,11 @@ deprecated C<guestfs_add_drive_with_if> call (q.v.)
 The name the drive had in the original guest, e.g. /dev/sdb. This is used as a
 hint to the guest inspection process if it is available.
 
-=back");
+=back
+
+C<filename> can have the special value C</dev/null>, which means
+to add a null (zero length) raw format device.  You can add C</dev/null>
+multiple times.");
 
   ("inspect_get_windows_systemroot", (RString "systemroot", [Device "root"], []), -1, [],
    [],

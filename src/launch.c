@@ -347,6 +347,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   char *iface;
   char *name;
   int use_cache_off;
+  int is_null;
 
   if (strchr (filename, ':') != NULL) {
     error (g, _("filename cannot contain ':' (colon) character. "
@@ -372,6 +373,24 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "iface");
     goto err_out;
+  }
+
+  /* Traditionally you have been able to use /dev/null as a filename,
+   * as many times as you like.  Treat this as a special case, because
+   * old versions of qemu have some problems.
+   */
+  is_null = STREQ (filename, "/dev/null");
+  if (is_null) {
+    if (format && STRNEQ (format, "raw")) {
+      error (g, _("for device '/dev/null', format must be 'raw'"));
+      goto err_out;
+    }
+    /* Ancient KVM (RHEL 5) cannot handle the case where we try to add
+     * a snapshot on top of /dev/null.  Modern qemu can handle it OK,
+     * but the device size is still 0, so it shouldn't matter whether
+     * or not this is readonly.
+     */
+    readonly = 0;
   }
 
   /* For writable files, see if we can use cache=off.  This also
