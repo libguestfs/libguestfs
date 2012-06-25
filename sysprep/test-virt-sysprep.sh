@@ -19,11 +19,6 @@
 export LANG=C
 set -e
 
-if [ ! -w /dev/fuse ]; then
-    echo "$0: SKIPPING test, because there is no /dev/fuse."
-    exit 0
-fi
-
 # virt-sysprep with the -n option doesn't modify the guest.  It ought
 # to be able to sysprep any of our test guests.
 
