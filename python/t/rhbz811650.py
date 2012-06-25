@@ -15,11 +15,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import os
 import guestfs
+
+f = open ("test.img", "w")
+f.truncate (500 * 1024 * 1024)
+f.close ()
 
 g = guestfs.GuestFS ()
 
-g.add_drive_opts ("/dev/null", format="qcow2");
+# Deliberate error: the disk format is supposed to be raw.
+g.add_drive_opts ("test.img", format="qcow2");
 
 # Because error() wasn't being called, guestfs_last_error would return
 # NULL, causing a segfault in the Python bindings (RHBZ#811650).
@@ -27,3 +33,5 @@ try:
     g.launch ()
 except:
     pass
+
+os.unlink ("test.img")
