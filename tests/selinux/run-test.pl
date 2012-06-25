@@ -45,6 +45,12 @@ die unless $test_type eq "xattrs" || $test_type eq "selinux";
 my $test_via = $ARGV[1];
 die unless $test_via eq "direct" || $test_via eq "fuse";
 
+my $env_name = "SKIP_TEST_SELINUX_" . uc ($test_type) . "_" . uc ($test_via);
+if ($ENV{$env_name}) {
+    print "$prog $test_type $test_via: test skipped because $env_name is set.\n";
+    exit 0
+}
+
 # SELinux labelling won't work (and can be skipped) if SELinux isn't
 # installed or isn't enabled on the host.
 if ($test_type eq "selinux") {
