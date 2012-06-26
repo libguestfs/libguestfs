@@ -1019,6 +1019,7 @@ launch_appliance (guestfs_h *g)
   if (close (g->sock) != 0) {
     perrorf (g, "close: listening socket");
     close (r);
+    g->sock = -1;
     goto cleanup1;
   }
   g->sock = r; /* This is the accepted data socket. */
