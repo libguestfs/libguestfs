@@ -76,6 +76,7 @@ if ENABLE_APPLIANCE
 TESTS = test-fuse.sh
 endif ENABLE_APPLIANCE
 TESTS_ENVIRONMENT = \
-	top_builddir=..
+	top_builddir=.. \
+	$(top_builddir)/run --test
 
 endif HAVE_FUSE
