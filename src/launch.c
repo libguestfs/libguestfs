@@ -1048,7 +1048,12 @@ launch_appliance (guestfs_h *g)
    * able to open a drive.
    */
 
-  close (g->sock); /* Close the listening socket. */
+  /* Close the listening socket. */
+  if (close (g->sock) != 0) {
+    perrorf (g, "close: listening socket");
+    close (r);
+    goto cleanup1;
+  }
   g->sock = r; /* This is the accepted data socket. */
 
   if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
