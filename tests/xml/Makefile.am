@@ -40,7 +40,7 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	abs_srcdir=$(abs_srcdir) \
 	LD_PRELOAD=.libs/libfakevirtxml.so \
-	$(top_builddir)/run
+	$(top_builddir)/run --test
 
 endif
 

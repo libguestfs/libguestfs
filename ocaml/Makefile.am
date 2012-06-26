@@ -82,7 +82,7 @@ endif
 
 TESTS_ENVIRONMENT = \
 	CAML_LD_LIBRARY_PATH=. \
-	$(top_builddir)/run \
+	$(top_builddir)/run --test \
 	$(VG)
 
 test_progs = \

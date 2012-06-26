@@ -39,7 +39,7 @@ random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
 TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	NOEXEC_CHECK="$(top_builddir)/src/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd" \
-	$(top_builddir)/run
+	$(top_builddir)/run --test
 
 check_PROGRAMS = \
 	rhbz501893 \

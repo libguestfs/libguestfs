@@ -168,7 +168,7 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	abs_builddir=$(abs_builddir) \
 	abs_srcdir=$(abs_srcdir) \
-	$(top_builddir)/run
+	$(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = \

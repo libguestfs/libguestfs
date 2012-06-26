@@ -74,6 +74,6 @@ stamp-virt-alignment-scan.pod: virt-alignment-scan.pod
 
 # TESTS_ENVIRONMENT = \
 # 	MALLOC_PERTURB_=$(random_val) \
-# 	$(top_builddir)/run
+# 	$(top_builddir)/run --test
 
 # TESTS = test-virt-alignment-scan.sh

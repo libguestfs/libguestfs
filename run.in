@@ -26,8 +26,16 @@
 # This works for any C, OCaml or Perl virt tools in the libguestfs
 # distribution.  Also you can make a symbolic link to this 'run'
 # script from anywhere (eg. $HOME/bin/run) if you wish.
+#
+# The script can also be used to make the output of tests shorter:
+#   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test
 
 #----------------------------------------------------------------------
+
+if [ "$1" = "--test" ]; then
+    test_mode=1
+    shift
+fi
 
 # Find this script.
 b=@abs_builddir@
@@ -75,4 +83,20 @@ if libtool --help >/dev/null 2>&1; then
 fi
 
 # Run the program.
-exec $libtool "$@"
+if [ -z "$test_mode" ]; then
+    exec $libtool "$@"
+else
+    # For tests (./run --test), redirect all output to a file, and
+    # only print the file if the test fails.
+    fail=0
+    pid=$$
+    rm -f run.$pid
+    $libtool "$@" > $b/run.$pid 2>&1 || {
+      fail=$?
+      echo "$b/run --test" "$@"
+      cat $b/run.$pid
+      echo "$b/run: command failed with exit code $fail"
+    }
+    rm -f run.$pid
+    exit $fail
+fi
