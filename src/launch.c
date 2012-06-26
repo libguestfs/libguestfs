@@ -1350,8 +1350,8 @@ test_qemu (guestfs_h *g)
    * probably indicates that the qemu binary is missing.
    */
   if (test_qemu_cmd (g, cmd, &g->qemu_help) == -1) {
-    error (g, _("command failed: %s\n\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."),
-           cmd);
+    error (g, _("command failed: %s\nerrno: %s\n\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."),
+           cmd, strerror (errno));
     return -1;
   }
 
@@ -1400,10 +1400,8 @@ read_all (guestfs_h *g, FILE *fp, char **ret)
   *ret = safe_realloc (g, *ret, n + BUFSIZ);
   p = &(*ret)[n];
   r = fread (p, 1, BUFSIZ, fp);
-  if (ferror (fp)) {
-    perrorf (g, "read");
+  if (ferror (fp))
     return -1;
-  }
   n += r;
   goto again;
 }
