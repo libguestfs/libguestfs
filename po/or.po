@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-25 11:28+0100\n"
+"POT-Creation-Date: 2012-06-26 15:31+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.net/projects/p/fedora/language/"
@@ -3549,36 +3549,37 @@ msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମ
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:1065 src/launch.c:1070
+#: src/launch.c:1073 src/launch.c:1078
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:1083
+#: src/launch.c:1091
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:1173
+#: src/launch.c:1183
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1181
+#: src/launch.c:1191
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1382
+#: src/launch.c:1392
 #, c-format
 msgid ""
 "command failed: %s\n"
+"errno: %s\n"
 "\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1603
+#: src/launch.c:1611
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:1614
+#: src/launch.c:1622
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 

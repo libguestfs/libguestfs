@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-25 11:28+0100\n"
+"POT-Creation-Date: 2012-06-26 15:31+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/language/"
@@ -3947,46 +3947,42 @@ msgstr "%s: nie można utworzyć katalogu tymczasowego"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch.c:1065 src/launch.c:1070
+#: src/launch.c:1073 src/launch.c:1078
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:1083
+#: src/launch.c:1091
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:1173
+#: src/launch.c:1183
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "guestfs_launch się nie powiodło, nieoczekiwany komunikat początkowy od "
 "demona guestfsd"
 
-#: src/launch.c:1181
+#: src/launch.c:1191
 msgid "contacted guestfsd, but state != READY"
 msgstr "skontaktowano się z guestfsd, ale stan != GOTOWY"
 
-#: src/launch.c:1382
+#: src/launch.c:1392
 #, c-format
 msgid ""
 "command failed: %s\n"
+"errno: %s\n"
 "\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
-"polecenie się nie powiodło: %s\n"
-"\n"
-"Jeśli qemu jest położone w niestandardowej ścieżce, to należy spróbować\n"
-"ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU. Powyżej mogą zostać\n"
-"wyświetlone błędy."
 
-#: src/launch.c:1603
+#: src/launch.c:1611
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
 
-#: src/launch.c:1614
+#: src/launch.c:1622
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 
@@ -5390,6 +5386,19 @@ msgstr ""
 #: ../sparsify/sparsify.ml:130 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
+
+#~ msgid ""
+#~ "command failed: %s\n"
+#~ "\n"
+#~ "If qemu is located on a non-standard path, try setting the "
+#~ "LIBGUESTFS_QEMU\n"
+#~ "environment variable.  There may also be errors printed above."
+#~ msgstr ""
+#~ "polecenie się nie powiodło: %s\n"
+#~ "\n"
+#~ "Jeśli qemu jest położone w niestandardowej ścieżce, to należy spróbować\n"
+#~ "ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU. Powyżej mogą zostać\n"
+#~ "wyświetlone błędy."
 
 #~ msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
 #~ msgstr ""
