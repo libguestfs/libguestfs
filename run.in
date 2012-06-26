@@ -39,30 +39,30 @@ export TMPDIR="$b"
 # Set local environment relative to this script.
 library_path="$b/src/.libs:$b/gobject/.libs"
 if [ -z "$LD_LIBRARY_PATH" ]; then
-  LD_LIBRARY_PATH=$library_path
+    LD_LIBRARY_PATH=$library_path
 else
-  LD_LIBRARY_PATH="$library_path:$LD_LIBRARY_PATH"
+    LD_LIBRARY_PATH="$library_path:$LD_LIBRARY_PATH"
 fi
 export LD_LIBRARY_PATH
 
 if [ -z "$PERL5LIB" ]; then
-  PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
+    PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
 else
-  PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
+    PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
 fi
 export PERL5LIB
 
 if [ -z "$PYTHONPATH" ]; then
-  PYTHONPATH="$b/python:$b/python/.libs"
+    PYTHONPATH="$b/python:$b/python/.libs"
 else
-  PYTHONPATH="$b/python:$b/python/.libs:$PYTHONPATH"
+    PYTHONPATH="$b/python:$b/python/.libs:$PYTHONPATH"
 fi
 export PYTHONPATH
 
 if [ -z "$GI_TYPELIB_PATH" ]; then
-  GI_TYPELIB_PATH="$b/gobject"
+    GI_TYPELIB_PATH="$b/gobject"
 else
-  GI_TYPELIB_PATH="$b/gobject:$GI_TYPELIB_PATH"
+    GI_TYPELIB_PATH="$b/gobject:$GI_TYPELIB_PATH"
 fi
 export GI_TYPELIB_PATH
 
