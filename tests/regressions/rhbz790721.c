@@ -95,7 +95,7 @@ static void *
 start_thread (void *vi)
 {
   guestfs_h *g;
-  int r;
+  int r, thread_id = *(int *)vi;
   guestfs_error_handler_cb old_error_cb;
   void *old_error_data;
   const char *error;
@@ -124,7 +124,8 @@ start_thread (void *vi)
   /* Wait for the other threads to finish starting up. */
   r = pthread_barrier_wait (&barrier);
   if (r != 0 && r != PTHREAD_BARRIER_SERIAL_THREAD) {
-    fprintf (stderr, "pthread_barrier_wait: %s\n", strerror (r));
+    fprintf (stderr, "pthread_barrier_wait: [thread %d]: %s\n",
+             thread_id, strerror (r));
     *(int *)vi = -1;
     pthread_exit (vi);
   }
@@ -139,13 +140,17 @@ start_thread (void *vi)
   error = guestfs_last_error (g);
 
   if (r == 0) { /* This should NOT happen. */
-    fprintf (stderr, "rhbz790721: strangeness in test: expected launch to fail, but it didn't!\n");
+    fprintf (stderr, "rhbz790721: [thread %d]: "
+             "strangeness in test: expected launch to fail, but it didn't!\n",
+             thread_id);
     *(int *)vi = -1;
     pthread_exit (vi);
   }
 
   if (error == NULL) { /* This also should NOT happen. */
-    fprintf (stderr, "rhbz790721: strangeness in test: no error message!\n");
+    fprintf (stderr, "rhbz790721: [thread %d]: "
+             "strangeness in test: no error message!\n",
+             thread_id);
     *(int *)vi = -1;
     pthread_exit (vi);
   }
@@ -155,7 +160,7 @@ start_thread (void *vi)
    * spot.
    */
   if (strcmp (error, "child process died unexpectedly") != 0) {
-    fprintf (stderr, "rhbz790721: error: %s\n", error);
+    fprintf (stderr, "rhbz790721: [thread %d]: error: %s\n", thread_id, error);
     *(int *)vi = -1;
     pthread_exit (vi);
   }
