@@ -41,6 +41,19 @@ let clip low high v = min high (max low v)
 let rec main () =
   Random.self_init ();
 
+  (* Allow the test to be skipped by setting this environment variable.
+   * This is for RHEL 5, where FUSE doesn't work very reliably.
+   *)
+  let () =
+    let name = "SKIP_TEST_GUESTFS_500_PARALLEL_MOUNT_LOCAL_ML" in
+    let value = try Sys.getenv name with Not_found -> "" in
+    if value <> "" then (
+      printf "%s: test skipped because %s is set.\n"
+        Sys.executable_name name;
+      exit 0
+    )
+  in
+
   (* Choose the number of threads based on the amount of free memory. *)
   let nr_threads =
     let mbytes =
