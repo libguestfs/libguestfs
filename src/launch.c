@@ -1018,6 +1018,7 @@ launch_appliance (guestfs_h *g)
 
     g->fd[0] = wfd[1];		/* stdin of child */
     g->fd[1] = rfd[0];		/* stdout of child */
+    wfd[1] = rfd[0] = -1;
   } else {
     g->fd[0] = open ("/dev/null", O_RDWR|O_CLOEXEC);
     if (g->fd[0] == -1) {
@@ -1028,6 +1029,7 @@ launch_appliance (guestfs_h *g)
     if (g->fd[1] == -1) {
       perrorf (g, "dup");
       close (g->fd[0]);
+      g->fd[0] = -1;
       goto cleanup1;
     }
   }
@@ -1098,13 +1100,15 @@ launch_appliance (guestfs_h *g)
 
  cleanup1:
   if (!g->direct) {
-    close (wfd[1]);
-    close (rfd[0]);
+    if (wfd[1] >= 0) close (wfd[1]);
+    if (rfd[1] >= 0) close (rfd[0]);
   }
   if (g->pid > 0) kill (g->pid, 9);
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
   if (g->pid > 0) waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+  if (g->fd[0] >= 0) close (g->fd[0]);
+  if (g->fd[1] >= 0) close (g->fd[1]);
   g->fd[0] = -1;
   g->fd[1] = -1;
   g->pid = 0;
