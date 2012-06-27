@@ -26,7 +26,7 @@ function check_error(f) {
     g[f]();
   } catch (error) {
     threw = true;
-    if (!error.message.match(/: error$/)) {
+    if (!error.message.match(/error$/)) {
       print(f + " threw unexpected error: " + error.message);
       fail = true;
     }
