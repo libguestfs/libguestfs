@@ -965,6 +965,8 @@ and generate_fish_prep_options_c () =
   generate_header CStyle GPLv2plus;
 
   pr "\
+#include <config.h>
+
 #include <stdio.h>
 
 #include \"fish.h\"
