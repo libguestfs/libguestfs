@@ -287,6 +287,8 @@ let generate_gobject_header_methods () =
 
 let generate_gobject_c_static () =
   pr "
+#include <config.h>
+
 #include <glib.h>
 #include <glib-object.h>
 #include <guestfs.h>

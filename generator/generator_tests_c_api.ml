@@ -33,6 +33,8 @@ let rec generate_tests () =
   generate_header CStyle GPLv2plus;
 
   pr "\
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
