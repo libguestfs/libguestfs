@@ -35,6 +35,8 @@ let rec generate_perl_xs () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
+#include <config.h>
+
 #include \"EXTERN.h\"
 #include \"perl.h\"
 #include \"XSUB.h\"

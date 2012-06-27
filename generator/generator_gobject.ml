@@ -156,6 +156,8 @@ let output_source filename ?(title=None) ?(shortdesc=None) ?(longdesc=None) f =
   output_to source (fun () ->
     generate_header CStyle GPLv2plus;
 
+    pr "#include <config.h>\n\n";
+
     pr "#include \"guestfs-gobject.h\"\n\n";
 
     pr "/**\n";

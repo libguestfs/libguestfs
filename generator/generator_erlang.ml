@@ -142,6 +142,8 @@ and generate_erlang_c () =
   generate_header CStyle GPLv2plus;
 
   pr "\
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
