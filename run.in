@@ -90,13 +90,13 @@ else
     # only print the file if the test fails.
     fail=0
     pid=$$
-    rm -f run.$pid
+    rm -f $b/run.$pid
     $libtool "$@" > $b/run.$pid 2>&1 || {
       fail=$?
       echo "$b/run --test" "$@"
       cat $b/run.$pid
       echo "$b/run: command failed with exit code $fail"
     }
-    rm -f run.$pid
+    rm -f $b/run.$pid
     exit $fail
 fi
