@@ -61,8 +61,7 @@ EXTRA_DIST += test-add-libvirt-dom.c
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
-	$(top_builddir)/run --test \
-	$(VG)
+	$(top_builddir)/run --test $(VG)
 
 #SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi)
 

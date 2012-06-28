@@ -27,9 +27,7 @@ EXTRA_DIST = $(generator_built) *.hs run-bindtests
 
 if HAVE_HASKELL
 
-TESTS_ENVIRONMENT = \
-	$(top_builddir)/run --test \
-	$(VG)
+TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
 # Don't run the bindtests: they don't build since the addition of optargs.
 # Haskell bindings are incomplete.

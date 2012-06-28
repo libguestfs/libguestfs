@@ -20,9 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 TESTS = \
 	test-charset-fidelity
 
-TESTS_ENVIRONMENT = \
-	$(top_builddir)/run --test \
-	$(VG)
+TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
 check_PROGRAMS = $(TESTS)
 

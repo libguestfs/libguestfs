@@ -28,7 +28,9 @@
 # script from anywhere (eg. $HOME/bin/run) if you wish.
 #
 # The script can also be used to make the output of tests shorter:
-#   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test
+#   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test [$(VG)]
+# (Use the optional $(VG) when the tests must also be run under
+# valgrind).
 
 #----------------------------------------------------------------------
 

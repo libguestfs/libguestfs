@@ -80,9 +80,7 @@ html/index.html: $(srcdir)/guestfs*.mli $(srcdir)/guestfs*.ml
 	-$(OCAMLDOC) -d html -html $^
 endif
 
-TESTS_ENVIRONMENT = \
-	$(top_builddir)/run --test \
-	$(VG)
+TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
 test_progs = \
 	t/guestfs_005_load \

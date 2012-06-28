@@ -21,8 +21,7 @@ TESTS = \
 	test-lvm-filtering.sh \
 	test-lvm-mapping.pl
 
-TESTS_ENVIRONMENT = \
-	$(top_builddir)/run --test
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
 	$(TESTS)
