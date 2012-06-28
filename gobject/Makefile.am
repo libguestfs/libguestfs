@@ -86,10 +86,12 @@ typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
 TESTS = run-tests
+
 if ENABLE_APPLIANCE
 TESTS += run-live-tests
 endif ENABLE_APPLIANCE
-TESTS_ENVIRONMENT = GJS=$(GJS)
+
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 $(TESTS): $(typelib_DATA)
 
