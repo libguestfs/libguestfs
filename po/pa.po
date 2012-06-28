@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-21 13:32+0100\n"
+"POT-Creation-Date: 2012-06-28 10:27+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:440 df/main.c:136
-#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:136
+#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:138
 #: fuse/guestmount.c:203 inspector/virt-inspector.c:140
 #: rescue/virt-rescue.c:145
 #, c-format
@@ -105,7 +105,7 @@ msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:188 fuse/guestmount.c:231 inspector/virt-inspector.c:164
+#: format/format.c:190 fuse/guestmount.c:231 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2982,18 +2982,18 @@ msgstr "ਨਹੀਂ"
 msgid "use 'time command [args...]'\n"
 msgstr "use 'time command [args...]'\n"
 
-#: format/format.c:68
+#: format/format.c:70
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
-#: format/format.c:71
+#: format/format.c:73
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
 msgstr ""
 
-#: format/format.c:75
+#: format/format.c:77
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -3020,17 +3020,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:157
+#: format/format.c:159
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr ""
 
-#: format/format.c:165
+#: format/format.c:167
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr ""
 
-#: format/format.c:264
+#: format/format.c:269
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -3039,7 +3039,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:303
+#: format/format.c:308
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
@@ -3663,36 +3663,37 @@ msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸ�
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch.c:1032 src/launch.c:1037
+#: src/launch.c:1040 src/launch.c:1045
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
-#: src/launch.c:1050
+#: src/launch.c:1058
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:1140
+#: src/launch.c:1150
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਅਚਾਨਕ ਸ਼ੁਰੂਆਤੀ ਸੁਨੇਹੇ guestfsd ਤੋਂ"
 
-#: src/launch.c:1148
+#: src/launch.c:1158
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != READY"
 
-#: src/launch.c:1347
+#: src/launch.c:1357
 #, c-format
 msgid ""
 "command failed: %s\n"
+"errno: %s\n"
 "\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1502
+#: src/launch.c:1510
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
 
-#: src/launch.c:1513
+#: src/launch.c:1521
 msgid "no subprocess to kill"
 msgstr "ਖਤਮ ਕਰਨ ਲਈ ਕੋਈ ਅਧੀਨ-ਕਾਰਜ ਨਹੀਂ"
 
