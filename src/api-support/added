@@ -59,6 +59,7 @@ guestfs_btrfs_subvolume_list 1.17.35
 guestfs_btrfssubvolume_list 1.17.35
 guestfs_btrfs_subvolume_set_default 1.17.35
 guestfs_btrfs_subvolume_snapshot 1.17.35
+guestfs_canonical_device_name 1.19.7
 guestfs_case_sensitive_path 1.0.75
 guestfs_cat 0.4
 guestfs_checksum 1.0.2
@@ -97,6 +98,7 @@ guestfs_debug 1.0.11
 guestfs_debug_cmdline 1.7.4
 guestfs_debug_drives 1.13.22
 guestfs_debug_upload 1.3.5
+guestfs_device_index 1.19.7
 guestfs_df 1.0.54
 guestfs_df_h 1.0.54
 guestfs_dirent 1.0.56
@@ -124,6 +126,7 @@ guestfs_fgrepi 1.0.66
 guestfs_file 0.9.1
 guestfs_file_architecture 1.5.3
 guestfs_filesize 1.0.82
+guestfs_filesystem_available 1.19.5
 guestfs_fill 1.0.79
 guestfs_fill_pattern 1.3.12
 guestfs_find0 1.0.74
@@ -132,6 +135,9 @@ guestfs_findfs_label 1.5.3
 guestfs_findfs_uuid 1.5.3
 guestfs_first_private 1.9.11
 guestfs_fsck 1.0.16
+guestfs_fstrim 1.19.6
+guestfs_fstrim_argv 1.19.6
+guestfs_fstrim_va 1.19.6
 guestfs_get_append 1.0.26
 guestfs_get_attach_method 1.9.8
 guestfs_get_autosync 0.3
@@ -302,6 +308,7 @@ guestfs_lvs 0.4
 guestfs_lvs_full 0.4
 guestfs_lvuuid 1.0.87
 guestfs_lxattrlist 1.0.77
+guestfs_max_disks 1.19.7
 guestfs_md_create 1.15.6
 guestfs_md_create_argv 1.15.6
 guestfs_md_create_va 1.15.6
