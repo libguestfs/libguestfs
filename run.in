@@ -64,6 +64,7 @@ fi
 export PERL5LIB
 
 # For Python.
+export PYTHON=@PYTHON@
 if [ -z "$PYTHONPATH" ]; then
     PYTHONPATH="$b/python:$b/python/.libs"
 else
