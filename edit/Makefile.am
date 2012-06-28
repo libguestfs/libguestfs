@@ -66,11 +66,7 @@ stamp-virt-edit.pod: virt-edit.pod
 
 # Tests.
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
-TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
-	$(top_builddir)/run --test
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = test-virt-edit.sh

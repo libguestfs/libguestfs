@@ -108,11 +108,7 @@ utils_tests: resize_gettext.cmx utils.cmx utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
-TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
-	$(top_builddir)/run --test
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = utils_tests
 if ENABLE_APPLIANCE

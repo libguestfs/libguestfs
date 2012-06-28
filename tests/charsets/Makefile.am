@@ -20,10 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 TESTS = \
 	test-charset-fidelity
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
 TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run --test \
 	$(VG)
 

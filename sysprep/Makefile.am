@@ -162,10 +162,7 @@ sysprep-operations.pod: virt-sysprep
 
 # Tests.
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
 TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
 	abs_builddir=$(abs_builddir) \
 	abs_srcdir=$(abs_srcdir) \
 	$(top_builddir)/run --test

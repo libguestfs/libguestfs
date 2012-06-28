@@ -229,11 +229,7 @@ bashcompletion_DATA = guestfish-bash-completion.sh
 
 # Tests.
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
-TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
-	$(top_builddir)/run --test
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
 	test-a.sh \

@@ -31,16 +31,13 @@ libfakevirtxml_la_CFLAGS = $(LIBVIRT_CFLAGS)
 # -version-info and -rpath force libtool to build a shared library.
 libfakevirtxml_la_LDFLAGS = -version-info 0:0:0 -rpath /nowhere
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
-TESTS = \
-	rhbz701814.pl
-
 TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
 	abs_srcdir=$(abs_srcdir) \
 	LD_PRELOAD=.libs/libfakevirtxml.so \
 	$(top_builddir)/run --test
+
+TESTS = \
+	rhbz701814.pl
 
 endif
 

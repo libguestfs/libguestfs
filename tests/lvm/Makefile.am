@@ -21,10 +21,7 @@ TESTS = \
 	test-lvm-filtering.sh \
 	test-lvm-mapping.pl
 
-random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
-
 TESTS_ENVIRONMENT = \
-	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run --test
 
 EXTRA_DIST = \
