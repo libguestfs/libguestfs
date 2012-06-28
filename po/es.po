@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-06-21 13:50+0100\n"
+"POT-Creation-Date: 2012-06-28 10:27+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (Castilian) <trans-es@lists.fedoraproject.org>\n"
@@ -3555,28 +3555,29 @@ msgstr "%s: no es posible crear directorio temporal"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:970 src/launch.c:975
+#: src/launch.c:978 src/launch.c:983
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:988
+#: src/launch.c:996
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:1078
+#: src/launch.c:1088
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "falló el inicio de guestfs_launch, mensaje inicial no esperado de guestfsd"
 
-#: src/launch.c:1086
+#: src/launch.c:1096
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: src/launch.c:1285
-#, c-format
+#: src/launch.c:1295
+#, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
+"errno: %s\n"
 "\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
@@ -3587,11 +3588,11 @@ msgstr ""
 "de entorno LIBGUESTFS_QEMU. Puede que se hayan mostrado también errores "
 "arriba."
 
-#: src/launch.c:1425
+#: src/launch.c:1433
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1436
+#: src/launch.c:1444
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 
