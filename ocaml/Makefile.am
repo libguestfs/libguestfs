@@ -81,7 +81,6 @@ html/index.html: $(srcdir)/guestfs*.mli $(srcdir)/guestfs*.ml
 endif
 
 TESTS_ENVIRONMENT = \
-	CAML_LD_LIBRARY_PATH=. \
 	$(top_builddir)/run --test \
 	$(VG)
 

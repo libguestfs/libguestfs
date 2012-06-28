@@ -74,6 +74,9 @@ export PYTHONPATH
 # For Ruby.
 export RUBY=@RUBY@
 
+# For OCaml.
+export CAML_LD_LIBRARY_PATH="$b/ocaml"
+
 # For Java.
 export JAVA=@JAVA@
 export CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
