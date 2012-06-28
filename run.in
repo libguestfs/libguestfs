@@ -71,6 +71,10 @@ else
 fi
 export PYTHONPATH
 
+# For Java.
+export JAVA=@JAVA@
+export CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
+
 # For GObject and friends.
 export GJS=@GJS@
 if [ -z "$GI_TYPELIB_PATH" ]; then
