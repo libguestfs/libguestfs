@@ -3,15 +3,17 @@
 export LANG=C
 set -e
 
+rm -f test.qcow2
+
 # Make a copy of the Fedora image so we can write to it then
 # discard it.
-cp ../tests/guests/fedora.img test.img
+qemu-img create -F raw -b ../tests/guests/fedora.img -f qcow2 test.qcow2
 
 # Edit interactively.  We have to simulate this by setting $EDITOR.
 # The command will be: echo newline >> /tmp/file
 export EDITOR='echo newline >>'
-./virt-edit -a test.img /etc/test3
-if [ "$(../cat/virt-cat -a test.img /etc/test3)" != "a
+./virt-edit -a test.qcow2 /etc/test3
+if [ "$(../cat/virt-cat -a test.qcow2 /etc/test3)" != "a
 b
 c
 d
@@ -25,8 +27,8 @@ unset EDITOR
 
 # Edit non-interactively, only if we have 'perl' binary.
 if perl --version >/dev/null 2>&1; then
-    ./virt-edit -a test.img /etc/test3 -e 's/^[a-f]/$lineno/'
-    if [ "$(../cat/virt-cat -a test.img /etc/test3)" != "1
+    ./virt-edit -a test.qcow2 /etc/test3 -e 's/^[a-f]/$lineno/'
+    if [ "$(../cat/virt-cat -a test.qcow2 /etc/test3)" != "1
 2
 3
 4
@@ -40,7 +42,7 @@ fi
 
 # Verify the mode of /etc/test3 is still 0600 and the UID:GID is 10:11.
 # See tests/guests/guest-aux/make-fedora-img.pl and RHBZ#788641.
-if [ "$(../fish/guestfish -i -a test.img --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
+if [ "$(../fish/guestfish -i -a test.qcow2 --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
 mode: 33152
 uid: 10" ]; then
     echo "$0: error: editing /etc/test3 did not preserve permissions or ownership"
@@ -48,4 +50,4 @@ uid: 10" ]; then
 fi
 
 # Discard test image.
-rm test.img
+rm test.qcow2
