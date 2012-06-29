@@ -68,6 +68,7 @@ static pcre *re_xdev;
 static pcre *re_cciss;
 static pcre *re_mdN;
 static pcre *re_freebsd;
+static pcre *re_diskbyid;
 static pcre *re_netbsd;
 
 static void compile_regexps (void) __attribute__((constructor));
@@ -112,6 +113,7 @@ compile_regexps (void)
   COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
   COMPILE (re_mdN, "^(/dev/md\\d+)$", 0);
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
+  COMPILE (re_diskbyid, "^/dev/disk/by-id/.*-part(\\d+)$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
 }
 
@@ -133,6 +135,7 @@ free_regexps (void)
   pcre_free (re_cciss);
   pcre_free (re_mdN);
   pcre_free (re_freebsd);
+  pcre_free (re_diskbyid);
   pcre_free (re_netbsd);
 }
 
@@ -147,6 +150,7 @@ static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
 static char *resolve_fstab_device (guestfs_h *g, const char *spec,
                                    Hash_table *md_map);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
+static int is_partition (guestfs_h *g, const char *partition);
 
 /* Hash structure for uuid->path lookups */
 typedef struct md_uuid {
@@ -1261,6 +1265,44 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
   return 0;
 }
 
+static int
+resolve_fstab_device_diskbyid (guestfs_h *g, const char *part,
+                               char **device_ret)
+{
+  int nr_devices;
+  char *device;
+
+  /* For /dev/disk/by-id there is a limit to what we can do because
+   * original SCSI ID information has likely been lost.  This
+   * heuristic will only work for guests that have a single block
+   * device.
+   *
+   * So the main task here is to make sure the assumptions above are
+   * true.
+   *
+   * XXX Use hints from virt-p2v if available.
+   * See also: https://bugzilla.redhat.com/show_bug.cgi?id=836573#c3
+   */
+
+  nr_devices = guestfs_nr_devices (g);
+  if (nr_devices == -1)
+    return -1;
+
+  /* If #devices isn't 1, give up trying to translate this fstab entry. */
+  if (nr_devices != 1)
+    return 0;
+
+  /* Make the partition name and check it exists. */
+  device = safe_asprintf (g, "/dev/sda%s", part);
+  if (!is_partition (g, device)) {
+    free (device);
+    return 0;
+  }
+
+  *device_ret = device;
+  return 0;
+}
+
 /* Resolve block device name to the libguestfs device name, eg.
  * /dev/xvdb1 => /dev/vdb1; and /dev/mapper/VG-LV => /dev/VG/LV.  This
  * assumes that disks were added in the same order as they appear to
@@ -1330,6 +1372,12 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
         part_i >= 0 && part_i < 26) {
       device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
     }
+  }
+  else if ((part = match1 (g, spec, re_diskbyid)) != NULL) {
+    r = resolve_fstab_device_diskbyid (g, part, &device);
+    free (part);
+    if (r == -1)
+      return NULL;
   }
 
   /* Didn't match device pattern, return original spec unchanged. */
@@ -1420,6 +1468,32 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
   guestfs_aug_close (g);
 
   return r;
+}
+
+static int
+is_partition (guestfs_h *g, const char *partition)
+{
+  char *device;
+  guestfs_error_handler_cb old_error_cb;
+
+  old_error_cb = g->error_cb;
+  g->error_cb = NULL;
+
+  if ((device = guestfs_part_to_dev (g, partition)) == NULL) {
+    g->error_cb = old_error_cb;
+    return 0;
+  }
+
+  if (guestfs_device_index (g, device) == -1) {
+    g->error_cb = old_error_cb;
+    free (device);
+    return 0;
+  }
+
+  g->error_cb = old_error_cb;
+  free (device);
+
+  return 1;
 }
 
 #endif /* defined(HAVE_HIVEX) */
