@@ -42,6 +42,11 @@ cat <<'EOF' > test.fstab
 
 # Non-existent mountpoint.
 /dev/VG/LV1 /nosuchfile ext2 default 0 0
+
+# /dev/disk/by-id path (RHBZ#627675).
+/dev/disk/by-id/ata-QEMU_HARDDISK_QM00001 /id ext2 default 0 0
+/dev/disk/by-id/ata-QEMU_HARDDISK_QM00001-part1 /id1 ext2 default 0 0
+/dev/disk/by-id/ata-QEMU_HARDDISK_QM00001-part3 /id3 ext2 default 0 0
 EOF
 
 $guestfish -a test1.qcow2 <<'EOF'
@@ -57,6 +62,9 @@ EOF
 
 if [ "$(cat test.output)" != "/: /dev/VG/Root
 /boot: /dev/sda1
+/id1: /dev/sda1
+/id3: /dev/disk/by-id/ata-QEMU_HARDDISK_QM00001-part3
+/id: /dev/disk/by-id/ata-QEMU_HARDDISK_QM00001
 /nosuchfile: /dev/VG/LV1
 /var: /dev/sdb3" ]; then
     echo "$0: error #1: unexpected output from inspect-get-mountpoints command"
