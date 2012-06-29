@@ -1014,12 +1014,12 @@ AM_CONDITIONAL([HAVE_PYTHON],
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
 AC_ARG_ENABLE([ruby],
-        AS_HELP_STRING([--disable-ruby], [Disable Ruby language bindings]),
-        [],
-        [enable_ruby=yes])
+    AS_HELP_STRING([--disable-ruby], [Disable Ruby language bindings]),
+    [],
+    [enable_ruby=yes])
 AS_IF([test "x$enable_ruby" != "xno"],[
-        AC_CHECK_PROG([RUBY],[ruby],[ruby],[no])
-        AC_CHECK_PROG([RAKE],[rake],[rake],[no])
+    AC_CHECK_PROG([RUBY],[ruby],[ruby],[no])
+    AC_CHECK_PROG([RAKE],[rake],[rake],[no])
         AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=])
         AS_IF([test -n "$HAVE_LIBRUBY"],[
             old_LIBS="$LIBS"
