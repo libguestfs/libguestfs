@@ -979,16 +979,34 @@ AC_ARG_ENABLE([ruby],
 AS_IF([test "x$enable_ruby" != "xno"],[
     AC_CHECK_PROG([RUBY],[ruby],[ruby],[no])
     AC_CHECK_PROG([RAKE],[rake],[rake],[no])
-        AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=])
-        AS_IF([test -n "$HAVE_LIBRUBY"],[
-            old_LIBS="$LIBS"
-            LIBS="$LIBS -lruby"
-            AC_CHECK_FUNCS([rb_hash_lookup])
-            LIBS="$old_LIBS"
+
+    AS_IF([test -n "$RUBY" && test -n "$RAKE"],[
+        dnl Find the library.  Note on Debian it's not -lruby.
+        AC_MSG_CHECKING([for C library for Ruby extensions])
+        ruby_cmd='puts RbConfig::CONFIG@<:@"RUBY_SO_NAME"@:>@'
+        echo running: $RUBY -rrbconfig -e \'$ruby_cmd\' >&AS_MESSAGE_LOG_FD
+        $RUBY -rrbconfig -e "$ruby_cmd" >conftest 2>&AS_MESSAGE_LOG_FD
+        libruby="$(cat conftest)"
+        rm conftest
+        AS_IF([test -n "$libruby"],[
+            AC_MSG_RESULT([-l$libruby])
+            AC_CHECK_LIB([$libruby],[ruby_init],
+                         [have_libruby=1],[have_libruby=])
+
+            dnl Symbols that we substitute when missing.
+            AS_IF([test -n "$have_libruby"],[
+                old_LIBS="$LIBS"
+                LIBS="$LIBS -l$libruby"
+                AC_CHECK_FUNCS([rb_hash_lookup])
+                LIBS="$old_LIBS"
+            ])
+        ],[
+            AC_MSG_RESULT([not found])
         ])
+    ])
 ])
 AM_CONDITIONAL([HAVE_RUBY],
-    [test "x$RAKE" != "xno" && test -n "$HAVE_LIBRUBY"])
+    [test -n "$RUBY" && test -n "$RAKE" && test -n "$have_libruby"])
 
 dnl Check for Java.
 AC_ARG_WITH(java_home,
