@@ -25,11 +25,11 @@ export LANG=C
 guestfish=../../fish/guestfish
 canonical="sed s,/dev/vd,/dev/sd,g"
 
-rm -f test1.img test.fstab test.output
+rm -f test1.qcow2 test.fstab test.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-cp ../guests/fedora.img test1.img
+qemu-img create -F raw -b ../guests/fedora.img -f qcow2 test1.qcow2
 
 cat <<'EOF' > test.fstab
 /dev/VG/Root / ext2 default 0 0
@@ -44,14 +44,14 @@ cat <<'EOF' > test.fstab
 /dev/VG/LV1 /nosuchfile ext2 default 0 0
 EOF
 
-$guestfish -a test1.img <<'EOF'
+$guestfish -a test1.qcow2 <<'EOF'
   run
   mount-options "" /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 
 # This will give a warning, but should not fail.
-$guestfish -a test1.img -i <<'EOF' | sort | $canonical > test.output
+$guestfish -a test1.qcow2 -i <<'EOF' | sort | $canonical > test.output
   inspect-get-mountpoints /dev/VG/Root
 EOF
 
@@ -73,14 +73,14 @@ cat <<'EOF' > test.fstab
 /dev/xvdg1 /boot ext2 default 0 0
 EOF
 
-$guestfish -a test1.img <<'EOF'
+$guestfish -a test1.qcow2 <<'EOF'
   run
   mount-options "" /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 
 $guestfish <<'EOF' | $canonical > test.output
-  add-drive-opts test1.img readonly:true name:xvdg
+  add-drive-opts test1.qcow2 readonly:true name:xvdg
   run
   inspect-os
   inspect-get-mountpoints /dev/VG/Root
@@ -104,14 +104,14 @@ cat <<'EOF' > test.fstab
 /dev/cciss/c1d3 /var ext2 default 0 0
 EOF
 
-$guestfish -a test1.img <<'EOF'
+$guestfish -a test1.qcow2 <<'EOF'
   run
   mount-options "" /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 
 $guestfish <<'EOF' | $canonical > test.output
-  add-drive-opts test1.img readonly:true name:cciss/c1d3
+  add-drive-opts test1.qcow2 readonly:true name:cciss/c1d3
   run
   inspect-os
   inspect-get-mountpoints /dev/VG/Root
@@ -127,5 +127,5 @@ if [ "$(cat test.output)" != "/dev/VG/Root
 fi
 
 rm test.fstab
-rm test1.img
+rm test1.qcow2
 rm test.output
