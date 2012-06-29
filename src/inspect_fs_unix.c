@@ -1185,6 +1185,102 @@ error:
   return -1;
 }
 
+static int
+resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
+                           const char *part, char **device_ret)
+{
+  char *name;
+  char **devices;
+  size_t i, count;
+  struct drive *drive;
+  const char *p;
+
+  /* type: (h|s|v|xv)
+   * disk: ([a-z]+)
+   * part: (\d*)
+   */
+
+  devices = guestfs_list_devices (g);
+  if (devices == NULL)
+    return -1;
+
+  /* Check any hints we were passed for a non-heuristic mapping */
+  name = safe_asprintf (g, "%sd%s", type, disk);
+  i = 0;
+  drive = g->drives;
+  while (drive) {
+    if (drive->name && STREQ (drive->name, name)) {
+      *device_ret = safe_asprintf (g, "%s%s", devices[i], part);
+      break;
+    }
+
+    i++; drive = drive->next;
+  }
+  free (name);
+
+  /* Guess the appliance device name if we didn't find a matching hint */
+  if (!*device_ret) {
+    /* Count how many disks the libguestfs appliance has */
+    for (count = 0; devices[count] != NULL; count++)
+      ;
+
+    /* Calculate the numerical index of the disk */
+    i = disk[0] - 'a';
+    for (p = disk + 1; *p != '\0'; p++) {
+      i += 1; i *= 26;
+      i += *p - 'a';
+    }
+
+    /* Check the index makes sense wrt the number of disks the appliance has.
+     * If it does, map it to an appliance disk.
+     */
+    if (i < count)
+      *device_ret = safe_asprintf (g, "%s%s", devices[i], part);
+  }
+
+  guestfs___free_string_list (devices);
+
+  return 0;
+}
+
+static int
+resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
+                            char **device_ret)
+{
+  char **devices;
+  size_t i;
+  struct drive *drive;
+
+  /* disk: (cciss/c\d+d\d+)
+   * part: (\d+)?
+   */
+
+  devices = guestfs_list_devices (g);
+  if (devices == NULL)
+    return -1;
+
+  /* Check any hints we were passed for a non-heuristic mapping */
+  i = 0;
+  drive = g->drives;
+  while (drive) {
+    if (drive->name && STREQ(drive->name, disk)) {
+      if (part)
+        *device_ret = safe_asprintf (g, "%s%s", devices[i], part);
+      else
+        *device_ret = safe_strdup (g, devices[i]);
+      break;
+    }
+
+    i++; drive = drive->next;
+  }
+
+  /* We don't try to guess mappings for cciss devices */
+
+  guestfs___free_string_list (devices);
+
+  return 0;
+}
+
 /* Resolve block device name to the libguestfs device name, eg.
  * /dev/xvdb1 => /dev/vdb1; and /dev/mapper/VG-LV => /dev/VG/LV.  This
  * assumes that disks were added in the same order as they appear to
@@ -1196,6 +1292,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
 {
   char *device = NULL;
   char *type, *slice, *disk, *part;
+  int r;
 
   if (STRPREFIX (spec, "/dev/mapper/") && guestfs_exists (g, spec) > 0) {
     /* LVM2 does some strange munging on /dev/mapper paths for VGs and
@@ -1211,81 +1308,19 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
     device = guestfs_lvm_canonical_lv_name (g, spec);
   }
   else if (match3 (g, spec, re_xdev, &type, &disk, &part)) {
-    /* type: (h|s|v|xv)
-     * disk: ([a-z]+)
-     * part: (\d*) */
-    char **devices = guestfs_list_devices (g);
-    if (devices == NULL)
-      return NULL;
-
-    /* Check any hints we were passed for a non-heuristic mapping */
-    char *name = safe_asprintf (g, "%sd%s", type, disk);
-    size_t i = 0;
-    struct drive *drive = g->drives;
-    while (drive) {
-      if (drive->name && STREQ(drive->name, name)) {
-        device = safe_asprintf (g, "%s%s", devices[i], part);
-        break;
-      }
-
-      i++; drive = drive->next;
-    }
-    free (name);
-
-    /* Guess the appliance device name if we didn't find a matching hint */
-    if (!device) {
-      /* Count how many disks the libguestfs appliance has */
-      size_t count;
-      for (count = 0; devices[count] != NULL; count++)
-        ;
-
-      /* Calculate the numerical index of the disk */
-      i = disk[0] - 'a';
-      for (char *p = disk + 1; *p != '\0'; p++) {
-        i += 1; i *= 26;
-        i += *p - 'a';
-      }
-
-      /* Check the index makes sense wrt the number of disks the appliance has.
-       * If it does, map it to an appliance disk. */
-      if (i < count) {
-        device = safe_asprintf (g, "%s%s", devices[i], part);
-      }
-    }
-
+    r = resolve_fstab_device_xdev (g, type, disk, part, &device);
     free (type);
     free (disk);
     free (part);
-    guestfs___free_string_list (devices);
+    if (r == -1)
+      return NULL;
   }
   else if (match2 (g, spec, re_cciss, &disk, &part)) {
-    /* disk: (cciss/c\d+d\d+)
-     * part: (\d+)? */
-    char **devices = guestfs_list_devices (g);
-    if (devices == NULL)
-      return NULL;
-
-    /* Check any hints we were passed for a non-heuristic mapping */
-    size_t i = 0;
-    struct drive *drive = g->drives;
-    while (drive) {
-      if (drive->name && STREQ(drive->name, disk)) {
-        if (part) {
-          device = safe_asprintf (g, "%s%s", devices[i], part);
-        } else {
-          device = safe_strdup (g, devices[i]);
-        }
-        break;
-      }
-
-      i++; drive = drive->next;
-    }
-
-    /* We don't try to guess mappings for cciss devices */
-
+    r = resolve_fstab_device_cciss (g, disk, part, &device);
     free (disk);
     free (part);
-    guestfs___free_string_list (devices);
+    if (r == -1)
+      return NULL;
   }
   else if (md_map && (disk = match1 (g, spec, re_mdN)) != NULL) {
     mdadm_app entry;
