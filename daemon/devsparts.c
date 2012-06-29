@@ -264,3 +264,20 @@ do_device_index (const char *device)
     reply_with_error ("device not found");
   return ret;
 }
+
+int
+do_nr_devices (void)
+{
+  char **devices;
+  size_t i;
+
+  devices = do_list_devices ();
+  if (devices == NULL)
+    return -1;
+
+  for (i = 0; devices[i] != NULL; ++i)
+    free (devices[i]);
+  free (devices);
+
+  return (int) i;
+}

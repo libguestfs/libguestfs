@@ -7253,6 +7253,18 @@ for example as a string returned from C<guestfs_list_devices>.
 
 See also C<guestfs_list_devices>, C<guestfs_part_to_dev>.");
 
+  ("nr_devices", (RInt "nrdisks", [], []), 336, [],
+   [InitEmpty, Always, TestOutputInt (
+      [["nr_devices"]], 4)],
+   "return number of whole block devices (disks) added",
+   "\
+This returns the number of whole block devices that were
+added.  This is the same as the number of devices that would
+be returned if you called C<guestfs_list_devices>.
+
+To find out the maximum number of devices that could be added,
+call C<guestfs_max_disks>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
