@@ -1193,7 +1193,7 @@ static int
 resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
                            const char *part, char **device_ret)
 {
-  char *name;
+  char *name, *device;
   char **devices;
   size_t i, count;
   struct drive *drive;
@@ -1214,7 +1214,12 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
   drive = g->drives;
   while (drive) {
     if (drive->name && STREQ (drive->name, name)) {
-      *device_ret = safe_asprintf (g, "%s%s", devices[i], part);
+      device = safe_asprintf (g, "%s%s", devices[i], part);
+      if (!is_partition (g, device)) {
+        free (device);
+        goto out;
+      }
+      *device_ret = device;
       break;
     }
 
@@ -1238,12 +1243,18 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
     /* Check the index makes sense wrt the number of disks the appliance has.
      * If it does, map it to an appliance disk.
      */
-    if (i < count)
-      *device_ret = safe_asprintf (g, "%s%s", devices[i], part);
+    if (i < count) {
+      device = safe_asprintf (g, "%s%s", devices[i], part);
+      if (!is_partition (g, device)) {
+        free (device);
+        goto out;
+      }
+      *device_ret = device;
+    }
   }
 
+ out:
   guestfs___free_string_list (devices);
-
   return 0;
 }
 
@@ -1251,6 +1262,7 @@ static int
 resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
                             char **device_ret)
 {
+  char *device;
   char **devices;
   size_t i;
   struct drive *drive;
@@ -1268,8 +1280,14 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
   drive = g->drives;
   while (drive) {
     if (drive->name && STREQ(drive->name, disk)) {
-      if (part)
-        *device_ret = safe_asprintf (g, "%s%s", devices[i], part);
+      if (part) {
+        device = safe_asprintf (g, "%s%s", devices[i], part);
+        if (!is_partition (g, device)) {
+          free (device);
+          goto out;
+        }
+        *device_ret = device;
+      }
       else
         *device_ret = safe_strdup (g, devices[i]);
       break;
@@ -1280,8 +1298,8 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
 
   /* We don't try to guess mappings for cciss devices */
 
+ out:
   guestfs___free_string_list (devices);
-
   return 0;
 }
 
