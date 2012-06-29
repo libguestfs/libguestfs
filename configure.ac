@@ -980,7 +980,6 @@ AS_IF([test "x$enable_ruby" != "xno"],[
         AC_CHECK_PROG([RUBY],[ruby],[ruby],[no])
         AC_CHECK_PROG([RAKE],[rake],[rake],[no])
         AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=])
-        AC_SUBST([RAKE])
         AS_IF([test -n "$HAVE_LIBRUBY"],[
             old_LIBS="$LIBS"
             LIBS="$LIBS -lruby"
