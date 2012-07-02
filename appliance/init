@@ -33,7 +33,9 @@ elif [ -x /sbin/start_udev ] && /sbin/start_udev; then
   :
 else
   # Find udevd and run it directly.
-  for f in /sbin/udevd /lib/udev/udevd /lib/systemd/systemd-udevd; do
+  for f in /sbin/udevd /lib/udev/udevd \
+      /lib/systemd/systemd-udevd /usr/lib/systemd/systemd-udevd \
+      /usr/lib/udev/udevd; do
     if [ -x "$f" ]; then UDEVD="$f"; fi
   done
   if [ -n "$UDEVD" ]; then
