@@ -23,13 +23,21 @@
 #endif
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <dirent.h>
+#include <sys/types.h>
 
 #include "daemon.h"
 #include "actions.h"
 
 #ifdef WIN32
 static int sync_win32 (void);
+#endif
+
+#ifdef HAVE_FSYNC
+static void fsync_devices (void);
 #endif
 
 int
@@ -52,6 +60,18 @@ sync_disks (void)
 {
 #if defined(HAVE_SYNC)
   sync ();
+
+  /* On Linux, sync(2) doesn't perform a barrier, so qemu (which may
+   * have a writeback cache, even with cache=none) will still have
+   * some unwritten data.  Force the data out of any qemu caches, by
+   * calling fsync on all block devices.  Note we still need the
+   * call to sync above in order to schedule the writes.
+   * Thanks to: Avi Kivity, Kevin Wolf.
+   */
+#ifdef HAVE_FSYNC
+  fsync_devices ();
+#endif
+
   return 0;
 #elif defined(WIN32)
   return sync_win32 ();
@@ -59,6 +79,64 @@ sync_disks (void)
 #error "no known sync() API"
 #endif
 }
+
+#ifdef HAVE_FSYNC
+static void
+fsync_devices (void)
+{
+  DIR *dir;
+  struct dirent *d;
+  char dev_path[256];
+  int fd;
+
+  dir = opendir ("/sys/block");
+  if (!dir) {
+    perror ("opendir: /sys/block");
+    return;
+  }
+
+  for (;;) {
+    errno = 0;
+    d = readdir(dir);
+    if (!d) break;
+
+    if (STREQLEN (d->d_name, "sd", 2) ||
+        STREQLEN (d->d_name, "hd", 2) ||
+        STREQLEN (d->d_name, "vd", 2) ||
+        STREQLEN (d->d_name, "sr", 2)) {
+      snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
+
+      /* Ignore the root device. */
+      if (is_root_device (dev_path))
+        continue;
+
+      fd = open (dev_path, O_RDONLY|O_CLOEXEC);
+      if (fd == -1) {
+        perror (dev_path);
+        continue;
+      }
+
+      /* fsync the device. */
+      if (verbose)
+        fprintf (stderr, "fsync %s\n", dev_path);
+
+      if (fsync (fd) == -1)
+        perror ("fsync");
+
+      if (close (fd) == -1)
+        perror ("close");
+    }
+  }
+
+  /* Check readdir didn't fail */
+  if (errno != 0)
+    perror ("readdir: /sys/block");
+
+  /* Close the directory handle */
+  if (closedir (dir) == -1)
+    perror ("closedir");
+}
+#endif /* HAVE_FSYNC */
 
 #ifdef WIN32
 static int

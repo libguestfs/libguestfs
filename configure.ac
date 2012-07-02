@@ -213,6 +213,7 @@ AC_CHECK_HEADERS([\
 
 dnl Functions.
 AC_CHECK_FUNCS([\
+        fsync \
         futimens \
         getxattr \
         htonl \
