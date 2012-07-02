@@ -297,7 +297,18 @@ guestfs__config (guestfs_h *g,
  * So we check if we can open the file with or without O_DIRECT,
  * and use cache=none (or not) accordingly.
  *
- * NB: This function is only called on the !readonly path.  We must
+ * Notes:
+ *
+ * (1) In qemu, cache=none and cache=off are identical.
+ *
+ * (2) cache=none does not disable caching entirely.  qemu still
+ * maintains a writeback cache internally, which will be written out
+ * when qemu is killed (with SIGTERM).  It disables *host kernel*
+ * caching by using O_DIRECT.  To disable caching entirely in kernel
+ * and qemu we would need to use cache=directsync but there is a
+ * performance penalty for that.
+ *
+ * (3) This function is only called on the !readonly path.  We must
  * try to open with O_RDWR to test that the file is readable and
  * writable here.
  */
