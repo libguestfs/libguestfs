@@ -290,19 +290,19 @@ guestfs__config (guestfs_h *g,
   return 0;
 }
 
-/* cache=off improves reliability in the event of a host crash.
+/* cache=none improves reliability in the event of a host crash.
  *
  * However this option causes qemu to try to open the file with
  * O_DIRECT.  This fails on some filesystem types (notably tmpfs).
  * So we check if we can open the file with or without O_DIRECT,
- * and use cache=off (or not) accordingly.
+ * and use cache=none (or not) accordingly.
  *
  * NB: This function is only called on the !readonly path.  We must
  * try to open with O_RDWR to test that the file is readable and
  * writable here.
  */
 static int
-test_cache_off (guestfs_h *g, const char *filename)
+test_cache_none (guestfs_h *g, const char *filename)
 {
   int fd = open (filename, O_RDWR|O_DIRECT);
   if (fd >= 0) {
@@ -346,7 +346,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   char *format;
   char *iface;
   char *name;
-  int use_cache_off;
+  int use_cache_none;
   int is_null;
 
   if (strchr (filename, ':') != NULL) {
@@ -393,12 +393,12 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     readonly = 0;
   }
 
-  /* For writable files, see if we can use cache=off.  This also
+  /* For writable files, see if we can use cache=none.  This also
    * checks for the existence of the file.  For readonly we have
    * to do the check explicitly.
    */
-  use_cache_off = readonly ? 0 : test_cache_off (g, filename);
-  if (use_cache_off == -1)
+  use_cache_none = readonly ? 0 : test_cache_none (g, filename);
+  if (use_cache_none == -1)
     goto err_out;
 
   if (readonly) {
@@ -418,7 +418,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   (*i)->format = format;
   (*i)->iface = iface;
   (*i)->name = name;
-  (*i)->use_cache_off = use_cache_off;
+  (*i)->use_cache_none = use_cache_none;
 
   return 0;
 
@@ -1580,7 +1580,7 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 
   snprintf (&r[i], len-i, "%s%s%s%s,id=hd%zu,if=%s",
             drv->readonly ? ",snapshot=on" : "",
-            drv->use_cache_off ? ",cache=off" : "",
+            drv->use_cache_none ? ",cache=none" : "",
             drv->format ? ",format=" : "",
             drv->format ? drv->format : "",
             index,
