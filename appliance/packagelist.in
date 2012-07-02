@@ -39,7 +39,7 @@
   ntfs-3g
   reiserfs-utils
   libselinux
-  systemd /* for /sbin/reboot */
+  systemd /* for /sbin/reboot and udevd */
   util-linux-ng
   vim-minimal
   xz
