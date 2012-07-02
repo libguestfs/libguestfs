@@ -38,9 +38,11 @@ static char **
 foreach_block_device (block_dev_func_t func)
 {
   DECLARE_STRINGSBUF (r);
-
   DIR *dir;
   int err = 0;
+  struct dirent *d;
+  char dev_path[256];
+  int fd;
 
   dir = opendir ("/sys/block");
   if (!dir) {
@@ -48,16 +50,15 @@ foreach_block_device (block_dev_func_t func)
     return NULL;
   }
 
-  while(1) {
+  for (;;) {
     errno = 0;
-    struct dirent *d = readdir(dir);
-    if(NULL == d) break;
+    d = readdir(dir);
+    if (!d) break;
 
     if (STREQLEN (d->d_name, "sd", 2) ||
         STREQLEN (d->d_name, "hd", 2) ||
         STREQLEN (d->d_name, "vd", 2) ||
         STREQLEN (d->d_name, "sr", 2)) {
-      char dev_path[256];
       snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
 
       /* Ignore the root device. */
@@ -68,7 +69,7 @@ foreach_block_device (block_dev_func_t func)
        * CD-ROM device even though we didn't request it.  Try to
        * detect this by seeing if the device contains media.
        */
-      int fd = open (dev_path, O_RDONLY|O_CLOEXEC);
+      fd = open (dev_path, O_RDONLY|O_CLOEXEC);
       if (fd == -1) {
         perror (dev_path);
         continue;
@@ -76,7 +77,7 @@ foreach_block_device (block_dev_func_t func)
       close (fd);
 
       /* Call the map function for this device */
-      if((*func)(d->d_name, &r) != 0) {
+      if ((*func)(d->d_name, &r) != 0) {
         err = 1;
         break;
       }
@@ -84,7 +85,7 @@ foreach_block_device (block_dev_func_t func)
   }
 
   /* Check readdir didn't fail */
-  if(0 != errno) {
+  if (errno != 0) {
     reply_with_perror ("readdir: /sys/block");
     free_stringslen (r.argv, r.size);
     closedir (dir);
