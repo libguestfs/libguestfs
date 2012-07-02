@@ -138,7 +138,7 @@ struct drive {
   char *format;
   char *iface;
   char *name;
-  int use_cache_off;
+  int use_cache_none;
 };
 
 struct guestfs_h
