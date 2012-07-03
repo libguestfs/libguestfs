@@ -550,6 +550,9 @@ main (int argc, char *argv[])
   if (progress_bars)
     progress_bar_free (bar);
 
+  if (guestfs_shutdown (g) == -1)
+    exit (EXIT_FAILURE);
+
   guestfs_close (g);
   free_event_handlers ();
 

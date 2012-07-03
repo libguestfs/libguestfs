@@ -337,9 +337,9 @@ else {                          # Import mode.
         upload_hive ($hiveshortname, $hives{$hiveshortname}->{hivefile})
     }
 
-    # Sync everything.
-    $g->umount_all ();
-    $g->sync ();
+    # Close.
+    $g->shutdown ();
+    $g->close ();
 }
 
 exit 0;

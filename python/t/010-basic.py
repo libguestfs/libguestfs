@@ -31,6 +31,7 @@ g.lvcreate ("LV1", "VG", 200)
 g.lvcreate ("LV2", "VG", 200)
 if (g.lvs () != ["/dev/VG/LV1", "/dev/VG/LV2"]):
     raise "Error: g.lvs() returned incorrect result"
+g.shutdown ()
 g.close ()
 
 os.unlink ("test.img")

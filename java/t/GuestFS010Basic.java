@@ -55,6 +55,7 @@ public class GuestFS010Basic
             assert m.get ("/dev/VG/LV1").equals ("ext2");
             assert m.get ("/dev/VG/LV2").equals ("unknown");
 
+            g.shutdown ();
             g.close ();
 
             File f2 = new File ("test.img");

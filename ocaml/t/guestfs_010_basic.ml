@@ -61,5 +61,6 @@ let () =
                "q", 'r' ] then
     failwith "Guestfs.readdir returned incorrect result";
 
+  g#shutdown ();
   g#close ();
   unlink "test.img"

@@ -298,7 +298,7 @@ main (int argc, char *argv[])
   free (root);
 
   /* Cleanly unmount the disks after editing. */
-  if (guestfs_umount_all (g) == -1 || guestfs_sync (g) == -1)
+  if (guestfs_shutdown (g) == -1)
     exit (EXIT_FAILURE);
 
   guestfs_close (g);

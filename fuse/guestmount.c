@@ -1255,6 +1255,8 @@ main (int argc, char *argv[])
   r = fuse_main (fuse_argc, (char **) fuse_argv, &fg_operations, NULL);
 
   /* Cleanup. */
+  if (guestfs_shutdown (g) == -1)
+    r = -1;
   guestfs_close (g);
   free_dir_caches ();
 

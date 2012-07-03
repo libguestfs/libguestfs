@@ -172,8 +172,6 @@ guestfs_create (void)
 void
 guestfs_close (guestfs_h *g)
 {
-  int status, sig;
-
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
     fprintf (stderr, _("guestfs_close: called twice on the same handle\n"));
@@ -202,10 +200,6 @@ guestfs_close (guestfs_h *g)
 
   debug (g, "closing guestfs handle %p (state %d)", g, g->state);
 
-  /* Try to sync if autosync flag is set. */
-  if (g->autosync && g->state == READY)
-    ignore_value (guestfs_internal_autosync (g));
-
   /* If we are valgrinding the daemon, then we *don't* want to kill
    * the subprocess because we want the final valgrind messages sent
    * when we close sockets below.  However for normal production use,
@@ -213,41 +207,9 @@ guestfs_close (guestfs_h *g)
    * daemon or qemu is not responding).
    */
 #ifndef VALGRIND_DAEMON
-  /* Kill the qemu subprocess. */
   if (g->state != CONFIG)
-    ignore_value (guestfs_kill_subprocess (g));
+    ignore_value (guestfs_shutdown (g));
 #endif
-
-  /* Close sockets. */
-  if (g->fd[0] >= 0)
-    close (g->fd[0]);
-  if (g->fd[1] >= 0)
-    close (g->fd[1]);
-  if (g->sock >= 0)
-    close (g->sock);
-  g->fd[0] = -1;
-  g->fd[1] = -1;
-  g->sock = -1;
-
-  /* Wait for subprocess(es) to exit. */
-  if (g->pid > 0) {
-    if (waitpid (g->pid, &status, 0) == -1)
-      perror ("waitpid (qemu)");
-    if (WIFEXITED (status) && WEXITSTATUS (status) != 0)
-      fprintf (stderr, "libguestfs: close: qemu failed (status %d)\n",
-               WEXITSTATUS (status));
-    else if (WIFSIGNALED (status)) {
-      sig = WTERMSIG (status);
-      fprintf (stderr, "libguestfs: close: qemu terminated by signal %d (%s)\n",
-               sig, strsignal (sig));
-    }
-    else if (WIFSTOPPED (status)) {
-      sig = WSTOPSIG (status);
-      fprintf (stderr, "libguestfs: close: qemu stopped by signal %d (%s)\n",
-               sig, strsignal (sig));
-    }
-  }
-  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
 
   /* Run user close callbacks. */
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
@@ -283,6 +245,69 @@ guestfs_close (guestfs_h *g)
   free (g->qemu_help);
   free (g->qemu_version);
   free (g);
+}
+
+/* Shutdown the backend. */
+int
+guestfs__shutdown (guestfs_h *g)
+{
+  int ret = 0;
+  int status, sig;
+
+  if (g->state == CONFIG)
+    return 0;
+
+  /* Try to sync if autosync flag is set. */
+  if (g->autosync && g->state == READY) {
+    if (guestfs_internal_autosync (g) == -1)
+      ret = -1;
+  }
+
+  /* Signal qemu to shutdown cleanly, and kill the recovery process. */
+  if (g->pid > 0) {
+    debug (g, "sending SIGTERM to process %d", g->pid);
+    kill (g->pid, SIGTERM);
+  }
+  if (g->recoverypid > 0) kill (g->recoverypid, 9);
+
+  /* Close sockets. */
+  if (g->fd[0] >= 0)
+    close (g->fd[0]);
+  if (g->fd[1] >= 0)
+    close (g->fd[1]);
+  if (g->sock >= 0)
+    close (g->sock);
+  g->fd[0] = -1;
+  g->fd[1] = -1;
+  g->sock = -1;
+
+  /* Wait for subprocess(es) to exit. */
+  if (g->pid > 0) {
+    if (waitpid (g->pid, &status, 0) == -1) {
+      perrorf (g, "waitpid (qemu)");
+      ret = -1;
+    }
+    else if (WIFEXITED (status) && WEXITSTATUS (status) != 0) {
+      error (g, "qemu failed (status %d)", WEXITSTATUS (status));
+      ret = -1;
+    }
+    else if (WIFSIGNALED (status)) {
+      sig = WTERMSIG (status);
+      error (g, "qemu terminated by signal %d (%s)", sig, strsignal (sig));
+      ret = -1;
+    }
+    else if (WIFSTOPPED (status)) {
+      sig = WSTOPSIG (status);
+      error (g, "qemu stopped by signal %d (%s)", sig, strsignal (sig));
+      ret = -1;
+    }
+  }
+  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+
+  g->pid = g->recoverypid = 0;
+  g->state = CONFIG;
+
+  return ret;
 }
 
 /* Close all open handles (called from atexit(3)). */

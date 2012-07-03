@@ -66,6 +66,11 @@ public class CreateDisk
             // the disk image.
             g.upload ("/etc/resolv.conf", "/foo/resolv.conf");
 
+            // Because we wrote to the disk and we want to detect write
+            // errors, call g.shutdown.  You don't need to do this:
+            // g.close will do it implicitly.
+            g.shutdown ();
+
             // Note also that handles are automatically closed if they are
             // reaped by the garbage collector.  You only need to call close
             // if you want to close the handle right away.
