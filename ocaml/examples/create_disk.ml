@@ -16,11 +16,6 @@ let () =
   (* Set the trace flag so that we can see each libguestfs call. *)
   g#set_trace true;
 
-  (* Set the autosync flag so that the disk will be synchronized
-   * automatically when the libguestfs handle is closed.
-   *)
-  g#set_autosync true;
-
   (* Attach the disk image to libguestfs. *)
   g#add_drive_opts ~format:"raw" ~readonly:false output;
 
@@ -62,11 +57,7 @@ let () =
    *)
   g#upload "/etc/resolv.conf" "/foo/resolv.conf";
 
-  (* Because 'autosync' was set (above) we can just close the handle
-   * and the disk contents will be synchronized.  You can also do
-   * this manually by calling g#umount_all and g#sync.
-   *
-   * Note also that handles are automatically closed if they are
+  (* Note also that handles are automatically closed if they are
    * reaped by the garbage collector.  You only need to call close
    * if you want to close the handle right away.
    *)

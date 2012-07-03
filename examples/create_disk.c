@@ -37,11 +37,6 @@ main (int argc, char *argv[])
   /* Set the trace flag so that we can see each libguestfs call. */
   guestfs_set_trace (g, 1);
 
-  /* Set the autosync flag so that the disk will be synchronized
-   * automatically when the libguestfs handle is closed.
-   */
-  guestfs_set_autosync (g, 1);
-
   /* Add the disk image to libguestfs. */
   if (guestfs_add_drive_opts (g, "disk.img",
         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw", /* raw format */
@@ -104,10 +99,6 @@ main (int argc, char *argv[])
   if (guestfs_upload (g, "/etc/resolv.conf", "/foo/resolv.conf") == -1)
     exit (EXIT_FAILURE);
 
-  /* Because 'autosync' was set (above) we can just close the handle
-   * and the disk contents will be synchronized.  You can also do
-   * this manually by calling guestfs_umount_all and guestfs_sync.
-   */
   guestfs_close (g);
 
   /* Free up the lists. */
