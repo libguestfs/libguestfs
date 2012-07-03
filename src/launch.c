@@ -1629,17 +1629,7 @@ guestfs__wait_ready (guestfs_h *g)
 int
 guestfs__kill_subprocess (guestfs_h *g)
 {
-  if (g->state == CONFIG) {
-    error (g, _("no subprocess to kill"));
-    return -1;
-  }
-
-  debug (g, "sending SIGTERM to process %d", g->pid);
-
-  if (g->pid > 0) kill (g->pid, SIGTERM);
-  if (g->recoverypid > 0) kill (g->recoverypid, 9);
-
-  return 0;
+  return guestfs__shutdown (g);
 }
 
 /* Maximum number of disks. */

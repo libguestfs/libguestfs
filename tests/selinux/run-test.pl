@@ -154,6 +154,7 @@ if ($test_via eq "direct") {
 }
 
 # Finish up.
+$g->shutdown ();
 $g->close ();
 unlink $testimg or die "$testimg: $!";
 

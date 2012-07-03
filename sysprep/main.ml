@@ -239,6 +239,7 @@ let () =
 
 (* Finished. *)
 let () =
+  g#shutdown ();
   g#close ();
 
   if debug_gc then

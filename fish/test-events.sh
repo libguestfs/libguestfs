@@ -53,6 +53,9 @@ if [ "$(cat test.out)" != '"ev1" (0): *: echo $EVENT $@
 "ev1" (1): *: echo $EVENT $@
 "ev2" (2): *: echo $EVENT $@
 "ev2" (2): *: echo $EVENT $@
+enter shutdown
+trace shutdown
+trace shutdown = 0
 enter get_autosync
 trace get_autosync
 trace get_autosync = 1

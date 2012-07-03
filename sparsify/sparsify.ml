@@ -295,6 +295,7 @@ let () =
 
 (* Don't need libguestfs now. *)
 let () =
+  g#shutdown ();
   g#close ()
 
 (* What should the output format be?  If the user specified an

@@ -40,6 +40,9 @@ run_reopen (const char *cmd, size_t argc, char *argv[])
     return -1;
   }
 
+  if (guestfs_shutdown (g) == -1)
+    return -1;
+
   /* Open the new handle first, so we can copy the settings from the
    * old one to the new one, and also so if it fails we still have an
    * open handle.

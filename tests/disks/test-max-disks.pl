@@ -140,7 +140,7 @@ for ($i = 0, $j = 0; $i < $max_disks; ++$i) {
     }
 }
 
-$g->umount_all ();
+$g->shutdown ();
 $g->close ();
 
 for ($i = 0; $i < $max_disks; ++$i) {

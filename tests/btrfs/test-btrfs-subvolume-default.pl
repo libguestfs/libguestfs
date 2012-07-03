@@ -90,6 +90,7 @@ $g->mount ("/dev/sda1", "/");
 # Now we're back to the original default volume, so this should work:
 $g->mkdir ("/test1/foo/bar/baz");
 
+$g->shutdown ();
 $g->close ();
 
 unlink $testimg or die "$testimg: unlink: $!";

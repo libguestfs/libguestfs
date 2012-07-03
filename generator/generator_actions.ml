@@ -137,11 +137,13 @@ If you see any calls to this function in code then you can just
 remove them, unless you want to retain compatibility with older
 versions of the API.");
 
-  ("kill_subprocess", (RErr, [], []), -1, [],
+  ("kill_subprocess", (RErr, [], []), -1, [DeprecatedBy "shutdown"],
    [],
    "kill the qemu subprocess",
    "\
-This kills the qemu subprocess.  You should never need to call this.");
+This kills the qemu subprocess.
+
+Do not call this.  See: C<guestfs_shutdown> instead.");
 
   ("add_drive", (RErr, [String "filename"], []), -1, [ConfigOnly],
    [],
@@ -1765,6 +1767,26 @@ Converted to C</dev/VG/LV> form using C<guestfs_lvm_canonical_lvm_name>.
 =back
 
 Other strings are returned unmodified.");
+
+  ("shutdown", (RErr, [], []), -1, [],
+   [],
+   "shutdown the qemu subprocess",
+   "\
+This is the opposite of C<guestfs_launch>.  It performs an orderly
+shutdown of the backend process(es).  If the autosync flag is set
+(which is the default) then the disk image is synchronized.
+
+If the subprocess exits with an error then this function will return
+an error, which should I<not> be ignored (it may indicate that the
+disk image could not be written out properly).
+
+It is safe to call this multiple times.  Extra calls are ignored.
+
+This call does I<not> close or free up the handle.  You still
+need to call C<guestfs_close> afterwards.
+
+C<guestfs_close> will call this if you don't do it explicitly,
+but note that any errors are ignored in that case.");
 
 ]
 

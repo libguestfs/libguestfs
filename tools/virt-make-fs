@@ -539,9 +539,8 @@ eval {
     }
 
     print STDERR "finishing off\n" if $debug;
-    $g->umount_all ();
-    $g->sync ();
-    undef $g;
+    $g->shutdown ();
+    $g->close ()
 };
 if ($@) {
     # Error: delete the output before exiting.
