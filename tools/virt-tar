@@ -279,10 +279,8 @@ if ($mode eq "x") {
     }
 }
 
-$g->sync ();
-$g->umount_all ();
-
-undef $g;
+$g->shutdown ();
+$g->close ();
 
 exit 0;
 

@@ -836,7 +836,7 @@ let g =
     if ok then g, true
     else if attempts > 0 then (
       g#zero "/dev/sdb";
-      g#sync ();
+      g#shutdown ();
       g#close ();
 
       let g = connect_both_disks () in
@@ -1120,8 +1120,7 @@ let to_be_expanded =
 
 let g =
   if to_be_expanded then (
-    g#umount_all ();
-    g#sync ();
+    g#shutdown ();
     g#close ();
 
     let g = new G.guestfs () in
@@ -1192,8 +1191,7 @@ let () =
 
 (* Finished.  Unmount disks and exit. *)
 let () =
-  g#umount_all ();
-  g#sync ();
+  g#shutdown ();
   g#close ();
 
   if not quiet then (

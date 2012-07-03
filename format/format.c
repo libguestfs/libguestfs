@@ -260,6 +260,8 @@ main (int argc, char *argv[])
       guestfs_set_verbose (g2, guestfs_get_verbose (g));
       guestfs_set_trace (g2, guestfs_get_trace (g));
 
+      if (guestfs_shutdown (g) == -1)
+        exit (EXIT_FAILURE);
       guestfs_close (g);
       g = g2;
     }
@@ -278,6 +280,8 @@ main (int argc, char *argv[])
   /* Free up data structures. */
   free_drives (drvs);
 
+  if (guestfs_shutdown (g) == -1)
+    exit (EXIT_FAILURE);
   guestfs_close (g);
 
   exit (EXIT_SUCCESS);

@@ -195,6 +195,9 @@ $g->mkfs_opts ('ext2', '/dev/VG/LV2', blocksize => 1024);
 $g->mkfs_opts ('ext2', '/dev/VG/LV3', blocksize => 2048);
 
 # Cleanup
+$g->shutdown ();
+$g->close ();
+
 unlink ("fstab.tmp.$$") or die;
 foreach my $img (@images) {
   $img =~ /^(.*)\.tmp\.\d+$/ or die;

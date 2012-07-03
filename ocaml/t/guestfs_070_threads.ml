@@ -65,8 +65,7 @@ let () =
   let s = String.copy "/test" in
   Guestfs.touch g s;
 
-  Guestfs.umount_all g;
-  Guestfs.sync g;
+  Guestfs.shutdown g;
   Guestfs.close g;
   unlink "test.img";
   Gc.compact ();

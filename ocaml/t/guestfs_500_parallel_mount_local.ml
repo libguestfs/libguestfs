@@ -145,6 +145,7 @@ and start_thread (filename, mp) =
   in
   loop ();
 
+  g#shutdown ();
   g#close ()
 
 (* This is run in a child program. *)

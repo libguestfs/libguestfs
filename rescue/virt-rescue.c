@@ -341,7 +341,9 @@ main (int argc, char *argv[])
    */
   guestfs_set_error_handler (g, NULL, NULL);
 
-  /* We expect launch to fail, so ignore the return value. */
+  /* We expect launch to fail, so ignore the return value, and don't
+   * bother with explicit guestfs_shutdown either.
+   */
   ignore_value (guestfs_launch (g));
 
   guestfs_close (g);

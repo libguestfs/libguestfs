@@ -255,6 +255,11 @@ main (int argc, char *argv[])
   }
 
   /* Close the handle. */
+  if (guestfs_shutdown (g) == -1) {
+    fprintf (stderr, _("libguestfs-test-tool: shutdown failed\n"));
+    exit (EXIT_FAILURE);
+  }
+
   guestfs_close (g);
 
   /* Booted and performed some simple operations -- success! */

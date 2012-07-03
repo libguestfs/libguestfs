@@ -99,6 +99,13 @@ main (int argc, char *argv[])
   if (guestfs_upload (g, "/etc/resolv.conf", "/foo/resolv.conf") == -1)
     exit (EXIT_FAILURE);
 
+  /* Because we wrote to the disk and we want to detect write
+   * errors, call guestfs_shutdown.  You don't need to do this:
+   * guestfs_close will do it implicitly.
+   */
+  if (guestfs_shutdown (g) == -1)
+    exit (EXIT_FAILURE);
+
   guestfs_close (g);
 
   /* Free up the lists. */

@@ -186,8 +186,8 @@ main (int argc, char *argv[])
 
   waitpid (pid, NULL, 0);
 
-  /* Unmount and close. */
-  if (guestfs_umount (g, "/") == -1)
+  /* Shutdown the handle explicitly so write errors can be detected. */
+  if (guestfs_shutdown (g) == -1)
     exit (EXIT_FAILURE);
 
   guestfs_close (g);

@@ -431,6 +431,8 @@ main (int argc, char *argv[])
   r = guestfs_mount_local_run (g);
 
   /* Cleanup. */
+  if (guestfs_shutdown (g) == -1)
+    r = -1;
   guestfs_close (g);
 
   exit (r == 0 ? EXIT_SUCCESS : EXIT_FAILURE);

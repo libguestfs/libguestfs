@@ -145,7 +145,7 @@ main (int argc, char *argv[])
   }
 
   /* Clean up. */
-  if (guestfs_umount_all (destg) == -1)
+  if (guestfs_shutdown (destg) == -1)
     exit (EXIT_FAILURE);
   guestfs_close (destg);
 
@@ -193,10 +193,6 @@ start_srcthread (void *arg)
   }
 
   /* Clean up. */
-  if (guestfs_umount_all (srcg) == -1) {
-    pthread_cancel (threaddata->mainthread);
-    exit (EXIT_FAILURE);
-  }
   guestfs_close (srcg);
 
   return NULL;

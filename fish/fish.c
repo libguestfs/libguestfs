@@ -553,6 +553,9 @@ main (int argc, char *argv[])
   else
     cmdline (argv, optind, argc);
 
+  if (guestfs_shutdown (g) == -1)
+    exit (EXIT_FAILURE);
+
   guestfs_close (g);
 
  out_after_handle_close:
