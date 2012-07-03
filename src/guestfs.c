@@ -172,6 +172,8 @@ guestfs_create (void)
 void
 guestfs_close (guestfs_h *g)
 {
+  int status, sig;
+
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
     fprintf (stderr, _("guestfs_close: called twice on the same handle\n"));
@@ -228,7 +230,23 @@ guestfs_close (guestfs_h *g)
   g->sock = -1;
 
   /* Wait for subprocess(es) to exit. */
-  if (g->pid > 0) waitpid (g->pid, NULL, 0);
+  if (g->pid > 0) {
+    if (waitpid (g->pid, &status, 0) == -1)
+      perror ("waitpid (qemu)");
+    if (WIFEXITED (status) && WEXITSTATUS (status) != 0)
+      fprintf (stderr, "libguestfs: close: qemu failed (status %d)\n",
+               WEXITSTATUS (status));
+    else if (WIFSIGNALED (status)) {
+      sig = WTERMSIG (status);
+      fprintf (stderr, "libguestfs: close: qemu terminated by signal %d (%s)\n",
+               sig, strsignal (sig));
+    }
+    else if (WIFSTOPPED (status)) {
+      sig = WSTOPSIG (status);
+      fprintf (stderr, "libguestfs: close: qemu stopped by signal %d (%s)\n",
+               sig, strsignal (sig));
+    }
+  }
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
 
   /* Run user close callbacks. */
