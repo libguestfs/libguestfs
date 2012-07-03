@@ -51,4 +51,7 @@ g.mkdir ("/foo")
 # the disk image.
 g.upload ("/etc/resolv.conf", "/foo/resolv.conf")
 
+# Note also that handles are automatically closed if they are
+# reaped by reference counting.  You only need to call close
+# if you want to close the handle right away.
 g.close ()
