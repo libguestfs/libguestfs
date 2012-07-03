@@ -17,10 +17,6 @@ close FILE or die "$output: $!";
 # Set the trace flag so that we can see each libguestfs call.
 $g->set_trace (1);
 
-# Set the autosync flag so that the disk will be synchronized
-# automatically when the libguestfs handle is closed.
-$g->set_autosync (1);
-
 # Attach the disk image to libguestfs.
 $g->add_drive_opts ($output, format => "raw", readonly => 0);
 
@@ -61,7 +57,4 @@ $g->mkdir ("/foo");
 # the disk image.
 $g->upload ("/etc/resolv.conf", "/foo/resolv.conf");
 
-# Because 'autosync' was set (above) we can just exit here
-# and the disk contents will be synchronized.  You can also do
-# this manually by calling $g->umount_all and $g->sync.
 exit 0
