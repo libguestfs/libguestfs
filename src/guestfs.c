@@ -178,6 +178,19 @@ guestfs_close (guestfs_h *g)
     return;
   }
 
+  /* Remove the handle from the handles list. */
+  gl_lock_lock (handles_lock);
+  if (handles == g)
+    handles = g->next;
+  else {
+    guestfs_h *gg;
+
+    for (gg = handles; gg->next != g; gg = gg->next)
+      ;
+    gg->next = g->next;
+  }
+  gl_lock_unlock (handles_lock);
+
   if (g->trace) {
     const char trace_msg[] = "close";
 
@@ -203,19 +216,6 @@ guestfs_close (guestfs_h *g)
     ignore_value (guestfs_kill_subprocess (g));
 #endif
 
-  /* Run user close callbacks. */
-  guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
-
-  /* Remove all other registered callbacks.  Since we've already
-   * called the close callbacks, we shouldn't call any others.
-   */
-  free (g->events);
-  g->nr_events = 0;
-  g->events = NULL;
-
-  guestfs___free_inspect_info (g);
-  guestfs___free_drives (&g->drives);
-
   /* Close sockets. */
   if (g->fd[0] >= 0)
     close (g->fd[0]);
@@ -231,9 +231,25 @@ guestfs_close (guestfs_h *g)
   if (g->pid > 0) waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
 
+  /* Run user close callbacks. */
+  guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
+
   /* Remove whole temporary directory. */
   guestfs___remove_tmpdir (g->tmpdir);
-  free (g->tmpdir);
+
+  /* Mark the handle as dead and then free up all memory. */
+  g->state = NO_HANDLE;
+
+  free (g->events);
+  g->nr_events = 0;
+  g->events = NULL;
+
+#if HAVE_FUSE
+  guestfs___free_fuse (g);
+#endif
+
+  guestfs___free_inspect_info (g);
+  guestfs___free_drives (&g->drives);
 
   if (g->cmdline) {
     size_t i;
@@ -243,27 +259,9 @@ guestfs_close (guestfs_h *g)
     free (g->cmdline);
   }
 
-  /* Mark the handle as dead before freeing it. */
-  g->state = NO_HANDLE;
-
-  gl_lock_lock (handles_lock);
-  if (handles == g)
-    handles = g->next;
-  else {
-    guestfs_h *gg;
-
-    for (gg = handles; gg->next != g; gg = gg->next)
-      ;
-    gg->next = g->next;
-  }
-  gl_lock_unlock (handles_lock);
-
-#if HAVE_FUSE
-  guestfs___free_fuse (g);
-#endif
-
   if (g->pda)
     hash_free (g->pda);
+  free (g->tmpdir);
   free (g->last_error);
   free (g->path);
   free (g->qemu);
