@@ -46,7 +46,7 @@ For basic functionality and the C tools:
 - look at appliance/packagelist.in and install as many of the packages
   that apply to your distro as possible
 
-- QEMU >= 1.0.
+- QEMU >= 1.1.0.
 
 - kernel >= 2.6.34 with virtio-serial support enabled.
 
