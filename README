@@ -46,7 +46,8 @@ For basic functionality and the C tools:
 - look at appliance/packagelist.in and install as many of the packages
   that apply to your distro as possible
 
-- recent QEMU >= 0.13 (0.14 or later is better) with virtio-serial support
+- QEMU >= 1.1.0 is *highly* recommended.  In particular earlier
+  versions contain a bug that can cause data corruption.
 
 - kernel >= 2.6.34 with virtio-serial support enabled.
 
