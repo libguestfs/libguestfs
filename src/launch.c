@@ -825,6 +825,15 @@ launch_appliance (guestfs_h *g)
     add_cmdline (g, "stdio");
 #endif
 
+    /* Use sgabios instead of vgabios.  This means we'll see BIOS
+     * messages on the serial port, and also works around this bug
+     * in qemu 1.1.0:
+     * https://bugs.launchpad.net/qemu/+bug/1021649
+     * QEmu has included sgabios upstream since just before 1.0.
+     */
+    add_cmdline (g, "-device");
+    add_cmdline (g, "sga");
+
     /* Set up virtio-serial for the communications channel. */
     add_cmdline (g, "-chardev");
     snprintf (buf, sizeof buf, "socket,path=%s,id=channel0", guestfsd_sock);
