@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.19.16\n"
+"Project-Id-Version: libguestfs 1.19.17\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-03 21:43+0100\n"
+"POT-Creation-Date: 2012-07-06 14:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3548,23 +3548,23 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch.c:1084 src/launch.c:1089
+#: src/launch.c:1093 src/launch.c:1098
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/launch.c:1102
+#: src/launch.c:1111
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch.c:1194
+#: src/launch.c:1203
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch.c:1202
+#: src/launch.c:1211
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1403
+#: src/launch.c:1412
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3574,7 +3574,7 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1622
+#: src/launch.c:1631
 msgid "qemu has not been launched yet"
 msgstr ""
 
@@ -4136,7 +4136,7 @@ msgstr ""
 msgid "Copy to destination and make sparse ...\n%!"
 msgstr ""
 
-#: ../resize/resize.ml:1062
+#: ../resize/resize.ml:1032
 msgid "Copying %s ...\n%!"
 msgstr ""
 
@@ -4226,11 +4226,11 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1210
+#: ../resize/resize.ml:1179
 msgid "Expanding %s using the '%s' method ...\n%!"
 msgstr ""
 
-#: ../resize/resize.ml:1193
+#: ../resize/resize.ml:1162
 msgid "Expanding %s%s using the '%s' method ...\n%!"
 msgstr ""
 
@@ -4246,7 +4246,7 @@ msgstr ""
 msgid "Fill free space in volgroup %s with zero ...\n%!"
 msgstr ""
 
-#: ../resize/resize.ml:1119
+#: ../resize/resize.ml:1088
 msgid "Fixing first NTFS partition boot record ...\n%!"
 msgstr ""
 
@@ -4454,7 +4454,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1230
+#: ../resize/resize.ml:1199
 msgid "Resize operation completed with no errors.  Before deleting the old disk, carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
 
@@ -4739,7 +4739,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../resize/resize.ml:1116
+#: ../resize/resize.ml:1085
 msgid "warning: first partition is NTFS but does not contain NTFS boot loader magic\n%!"
 msgstr ""
 

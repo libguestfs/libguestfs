@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-03 21:43+0100\n"
+"POT-Creation-Date: 2012-07-06 14:10+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3699,23 +3699,23 @@ msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸ�
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch.c:1084 src/launch.c:1089
+#: src/launch.c:1093 src/launch.c:1098
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
-#: src/launch.c:1102
+#: src/launch.c:1111
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:1194
+#: src/launch.c:1203
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਅਚਾਨਕ ਸ਼ੁਰੂਆਤੀ ਸੁਨੇਹੇ guestfsd ਤੋਂ"
 
-#: src/launch.c:1202
+#: src/launch.c:1211
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != READY"
 
-#: src/launch.c:1403
+#: src/launch.c:1412
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3725,7 +3725,7 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1622
+#: src/launch.c:1631
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
 
@@ -4368,7 +4368,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1062
+#: ../resize/resize.ml:1032
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -4468,13 +4468,13 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1210
+#: ../resize/resize.ml:1179
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1193
+#: ../resize/resize.ml:1162
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -4500,7 +4500,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1119
+#: ../resize/resize.ml:1088
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -4734,7 +4734,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1230
+#: ../resize/resize.ml:1199
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -5094,7 +5094,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../resize/resize.ml:1116
+#: ../resize/resize.ml:1085
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-03 21:43+0100\n"
+"POT-Creation-Date: 2012-07-06 14:10+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4096,27 +4096,27 @@ msgstr "%s: не вдалося створити тимчасовий катал
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch.c:1084 src/launch.c:1089
+#: src/launch.c:1093 src/launch.c:1098
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/launch.c:1102
+#: src/launch.c:1111
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch.c:1194
+#: src/launch.c:1203
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch.c:1202
+#: src/launch.c:1211
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:1403
+#: src/launch.c:1412
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -4126,7 +4126,7 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1622
+#: src/launch.c:1631
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
@@ -4868,7 +4868,7 @@ msgstr ""
 "Скопіювати призначення і виконати розрідження…\n"
 "%!"
 
-#: ../resize/resize.ml:1062
+#: ../resize/resize.ml:1032
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -4978,7 +4978,7 @@ msgstr "Розширити логічний том"
 msgid "Expand partition"
 msgstr "Розширити розділ"
 
-#: ../resize/resize.ml:1210
+#: ../resize/resize.ml:1179
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -4986,7 +4986,7 @@ msgstr ""
 "Розширення %s за допомогою методу «%s»…\n"
 "%!"
 
-#: ../resize/resize.ml:1193
+#: ../resize/resize.ml:1162
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -5023,7 +5023,7 @@ msgstr ""
 "Заповнити вільне місце у групі томів %s нулями…\n"
 "%!"
 
-#: ../resize/resize.ml:1119
+#: ../resize/resize.ml:1088
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5290,7 +5290,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Вилучити завдання at та cron користувачів"
 
-#: ../resize/resize.ml:1230
+#: ../resize/resize.ml:1199
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -5736,7 +5736,7 @@ msgstr "virt-sysprep: скрипт: помилка (код %d)\n"
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr "virt-sysprep: скрипт: перервано сигналом (%d)\n"
 
-#: ../resize/resize.ml:1116
+#: ../resize/resize.ml:1085
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
