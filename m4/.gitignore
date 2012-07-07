@@ -113,6 +113,7 @@
 /locale-fr.m4
 /locale_h.m4
 /locale-ja.m4
+/localeconv.m4
 /localename.m4
 /locale-tr.m4
 /locale-zh.m4
@@ -145,6 +146,7 @@
 /netinet_in_h.m4
 /nls.m4
 /nocrash.m4
+/off_t.m4
 /onceonly.m4
 /openat.m4
 /opendir.m4
