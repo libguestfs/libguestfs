@@ -23,6 +23,7 @@
 #     (tip: add yourself to the 'disk' group)
 #   - valgrind
 #   - libtool
+#   - qemu in $QEMUDIR
 #
 # These tests may fail for reasons which aren't necessarily real problems.
 #
@@ -88,7 +89,8 @@ extra-tests: \
 	test-sysprep-real \
 	test-ocaml \
 	test-resize \
-	test-sparsify
+	test-sparsify \
+	test-upstream-qemu
 
 test-guests:
 	$(MAKE) -C ../guests check
@@ -184,3 +186,18 @@ test-c-api:
 # Test OCaml bindings under valgrind.
 test-ocaml:
 	$(MAKE) -C ../../ocaml VG="$(VG)" check
+
+# When running the extra tests, if directory $HOME/d/qemu exists then
+# we will try to run the basic tests using the version of qemu from
+# that directory.  eg. That might be qemu from git.
+#
+# The directory name can be overridden using:
+#   make extra-tests QEMUDIR=/path/to/other/qemu
+
+QEMUDIR = $(HOME)/d/qemu
+export QEMUDIR
+export abs_srcdir
+export MAKE
+
+test-upstream-qemu:
+	./test-upstream-qemu.sh
