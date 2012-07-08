@@ -778,8 +778,10 @@ launch_appliance (guestfs_h *g)
 #endif
 
     /* Use sgabios instead of vgabios.  This means we'll see BIOS
-     * messages on the serial port.  QEmu has included sgabios
-     * upstream since just before 1.0.
+     * messages on the serial port, and also works around this bug
+     * in qemu 1.1.0:
+     * https://bugs.launchpad.net/qemu/+bug/1021649
+     * QEmu has included sgabios upstream since just before 1.0.
      */
     add_cmdline (g, "-device");
     add_cmdline (g, "sga");
