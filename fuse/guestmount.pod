@@ -122,6 +122,10 @@ condition:
 
 The solution is to spin waiting for the guestmount process to exit.
 
+Note that if you use the C<guestfs_mount_local> API directly (see
+L<guestfs(3)/MOUNT LOCAL>) then it is much easier to write a safe,
+race-free program.
+
 =head1 OPTIONS
 
 =over 4
@@ -354,7 +358,7 @@ L<virt-inspector(1)>,
 L<virt-cat(1)>,
 L<virt-edit(1)>,
 L<virt-tar(1)>,
-L<guestfs(3)>,
+L<guestfs(3)/MOUNT LOCAL>,
 L<http://libguestfs.org/>,
 L<http://fuse.sf.net/>.
 
