@@ -17,7 +17,7 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXTRA_DIST = guestmount.pod test-fuse.sh
+EXTRA_DIST = guestmount.pod test-fuse.sh test-fuse-umount-race.sh
 
 CLEANFILES = stamp-guestmount.pod
 
@@ -73,7 +73,7 @@ stamp-guestmount.pod: guestmount.pod
 # Tests.
 
 if ENABLE_APPLIANCE
-TESTS = test-fuse.sh
+TESTS = test-fuse.sh test-fuse-umount-race.sh
 endif ENABLE_APPLIANCE
 TESTS_ENVIRONMENT = \
 	top_builddir=..
