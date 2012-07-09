@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-06 14:10+0100\n"
+"POT-Creation-Date: 2012-07-09 18:35+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -58,7 +58,7 @@ msgstr "%s: не вдалося проаналізувати диск. Вище 
 #: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:205 cat/virt-ls.c:196 df/domains.c:438 df/main.c:136
 #: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:138
-#: fuse/guestmount.c:203 inspector/virt-inspector.c:139
+#: fuse/guestmount.c:208 inspector/virt-inspector.c:139
 #: rescue/virt-rescue.c:145
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -66,7 +66,7 @@ msgstr "guestfs_create: не вдалося створити елемент ке
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:102
 #: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
-#: fuse/guestmount.c:98 inspector/virt-inspector.c:77 rescue/virt-rescue.c:63
+#: fuse/guestmount.c:100 inspector/virt-inspector.c:77 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:259
 #: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:190 fuse/guestmount.c:231 inspector/virt-inspector.c:163
+#: format/format.c:190 fuse/guestmount.c:238 inspector/virt-inspector.c:163
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3352,7 +3352,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr "%s: не вдалося обробити параметр --lvm (%s)\n"
 
-#: fuse/guestmount.c:102
+#: fuse/guestmount.c:104
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -3375,6 +3375,7 @@ msgid ""
 "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
 "  -n|--no-sync         Don't autosync\n"
 "  -o|--option opt      Pass extra option to FUSE\n"
+"  --pid-file filename  Write PID to filename\n"
 "  -r|--ro              Mount read-only\n"
 "  --selinux            Enable SELinux support\n"
 "  -v|--verbose         Verbose messages\n"
@@ -3382,63 +3383,35 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: модуль FUSE libguestfs\n"
-"%s надає вам змогу монтувати файлову систему віртуальної машини\n"
-"© Red Hat Inc., 2009–2012\n"
-"Використання:\n"
-"  %s [--параметри] [-- [--параметри-FUSE]] точка_монтування\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  --dir-cache-timeout  Встановити час очікування кешування (типово 5 с)\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не вимикати показ символів паролів\n"
-"  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
-"  --fuse-help          Показати список додаткових параметрів FUSE\n"
-"  --help               Показати це довідкове повідомлення і завершити "
-"роботу\n"
-"  -i|--inspector       Автоматично монтувати файлові системи\n"
-"  --keys-from-stdin    Читати паролі зі stdin\n"
-"  --live               З’єднатися з вже запущеною віртуальною машиною\n"
-"  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
-"до /)\n"
-"  -n|--no-sync         Не виконувати автоматичної синхронізації\n"
-"  -o|--option opt      Передати параметр opt до FUSE\n"
-"  -r|--ro              Змонтувати у режимі лише читання\n"
-"  --selinux            Увімкнути підтримку SELinux\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -w|--rw              Змонтувати у режимі читання-запису\n"
-"  -x|--trace           Трасувати виклики інтерфейсу guestfs\n"
 
-#: fuse/guestmount.c:299
+#: fuse/guestmount.c:306
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr ""
 "%s: слід вказати принаймні один параметр -a/-d і принаймні один параметр -m/-"
 "i\n"
 
-#: fuse/guestmount.c:309
+#: fuse/guestmount.c:316
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr "%s: параметр --live несумісний з параметром --ro\n"
 
-#: fuse/guestmount.c:316
+#: fuse/guestmount.c:323
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr "%s: параметр --live несумісний з параметром -i\n"
 
-#: fuse/guestmount.c:331
+#: fuse/guestmount.c:338
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr "%s: з параметром --live можна вказувати лише один параметр -d\n"
 
-#: fuse/guestmount.c:338
+#: fuse/guestmount.c:345
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr "%s: параметр --live несумісний з параметром -a\n"
 
-#: fuse/guestmount.c:347
+#: fuse/guestmount.c:354
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: вам слід вказати точку монтування у основній файловій системі\n"
@@ -5755,6 +5728,63 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid ""
+#~ "%s: FUSE module for libguestfs\n"
+#~ "%s lets you mount a virtual machine filesystem\n"
+#~ "Copyright (C) 2009-2012 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --fuse-help          Display extra FUSE options\n"
+#~ "  -i|--inspector       Automatically mount filesystems\n"
+#~ "  --help               Display help message and exit\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  --live               Connect to a live virtual machine\n"
+#~ "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
+#~ "  -n|--no-sync         Don't autosync\n"
+#~ "  -o|--option opt      Pass extra option to FUSE\n"
+#~ "  -r|--ro              Mount read-only\n"
+#~ "  --selinux            Enable SELinux support\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -w|--rw              Mount read-write\n"
+#~ "  -x|--trace           Trace guestfs API calls\n"
+#~ msgstr ""
+#~ "%s: модуль FUSE libguestfs\n"
+#~ "%s надає вам змогу монтувати файлову систему віртуальної машини\n"
+#~ "© Red Hat Inc., 2009–2012\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] [-- [--параметри-FUSE]] точка_монтування\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  --dir-cache-timeout  Встановити час очікування кешування (типово 5 с)\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не вимикати показ символів паролів\n"
+#~ "  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
+#~ "  --fuse-help          Показати список додаткових параметрів FUSE\n"
+#~ "  --help               Показати це довідкове повідомлення і завершити "
+#~ "роботу\n"
+#~ "  -i|--inspector       Автоматично монтувати файлові системи\n"
+#~ "  --keys-from-stdin    Читати паролі зі stdin\n"
+#~ "  --live               З’єднатися з вже запущеною віртуальною машиною\n"
+#~ "  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
+#~ "до /)\n"
+#~ "  -n|--no-sync         Не виконувати автоматичної синхронізації\n"
+#~ "  -o|--option opt      Передати параметр opt до FUSE\n"
+#~ "  -r|--ro              Змонтувати у режимі лише читання\n"
+#~ "  --selinux            Увімкнути підтримку SELinux\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -w|--rw              Змонтувати у режимі читання-запису\n"
+#~ "  -x|--trace           Трасувати виклики інтерфейсу guestfs\n"
 
 #~ msgid "no subprocess to kill"
 #~ msgstr "немає підпроцесів для завершення"
