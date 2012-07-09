@@ -42,6 +42,8 @@
 #include "guestmount.h"
 #include "options.h"
 
+static int write_pid_file (const char *pid_file, pid_t pid);
+
 #ifndef HAVE_FUSE_OPT_ADD_OPT_ESCAPED
 /* Copied from lib/fuse_opt.c and modified.
  * Copyright (C) 2001-2007  Miklos Szeredi <miklos@szeredi.hu>
@@ -119,6 +121,7 @@ usage (int status)
              "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -o|--option opt      Pass extra option to FUSE\n"
+             "  --pid-file filename  Write PID to filename\n"
              "  -r|--ro              Mount read-only\n"
              "  --selinux            Enable SELinux support\n"
              "  -v|--verbose         Verbose messages\n"
@@ -161,6 +164,7 @@ main (int argc, char *argv[])
     { "mount", 1, 0, 'm' },
     { "no-sync", 0, 0, 'n' },
     { "option", 1, 0, 'o' },
+    { "pid-file", 1, 0, 0 },
     { "ro", 0, 0, 'r' },
     { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
@@ -184,6 +188,7 @@ main (int argc, char *argv[])
   int dir_cache_timeout = -1;
   int do_fork = 1;
   char *fuse_options = NULL;
+  char *pid_file = NULL;
 
   struct guestfs_mount_local_argv optargs;
 
@@ -227,6 +232,8 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "live")) {
         live = 1;
+      } else if (STREQ (long_options[option_index].name, "pid-file")) {
+        pid_file = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -406,8 +413,12 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
 
-    if (pid != 0)               /* parent */
+    if (pid != 0) {             /* parent */
+      if (write_pid_file (pid_file, pid) == -1)
+        _exit (EXIT_FAILURE);
+
       _exit (EXIT_SUCCESS);
+    }
 
     /* Emulate what old fuse_daemonize used to do. */
     if (setsid () == -1) {
@@ -426,6 +437,11 @@ main (int argc, char *argv[])
         close (fd);
     }
   }
+  else {
+    /* not forking, write PID file anyway */
+    if (write_pid_file (pid_file, getpid ()) == -1)
+      exit (EXIT_FAILURE);
+  }
 
   /* Main loop. */
   r = guestfs_mount_local_run (g);
@@ -435,5 +451,33 @@ main (int argc, char *argv[])
     r = -1;
   guestfs_close (g);
 
+  /* Don't delete PID file until the cleanup has been completed. */
+  if (pid_file)
+    unlink (pid_file);
+
   exit (r == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+}
+
+static int
+write_pid_file (const char *pid_file, pid_t pid)
+{
+  FILE *fp;
+
+  if (pid_file == NULL)
+    return 0;
+
+  fp = fopen (pid_file, "w");
+  if (fp == NULL) {
+  error:
+    perror (pid_file);
+    return -1;
+  }
+
+  if (fprintf (fp, "%d\n", pid) == -1)
+    goto error;
+
+  if (fclose (fp) == -1)
+    goto error;
+
+  return 0;
 }

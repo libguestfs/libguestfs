@@ -120,7 +120,9 @@ condition:
  fusermount -u /mnt
  # immediately try to use 'disk.img' <-- UNSAFE
 
-The solution is to spin waiting for the guestmount process to exit.
+The solution is to use the I<--pid-file> option to write the
+guestmount PID to a file, then after fusermount spin waiting for this
+PID to exit.
 
 Note that if you use the C<guestfs_mount_local> API directly (see
 L<guestfs(3)/MOUNT LOCAL>) then it is much easier to write a safe,
@@ -281,6 +283,10 @@ Use these options to map all UIDs and GIDs inside the guest filesystem
 to the chosen values.
 
 =back
+
+=item B<--pid-file filename>
+
+Write the PID of the guestmount worker process to C<filename>.
 
 =item B<-r>
 
