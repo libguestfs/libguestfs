@@ -89,6 +89,23 @@ necessary on Debian and derivatives.
 On other distros, no special group is required.  It is not necessary
 on Fedora or Red Hat Enterprise Linux.
 
+=head2 fusermount error: "Device or resource busy"
+
+You can see this error when another process on the system jumps into
+the mountpoint you have just created, holding it open and preventing
+you from unmounting it.  The usual culprits are various GUI "indexing"
+programs.
+
+The popular workaround for this problem is to retry the
+C<fusermount -u> command a few times until it works.  Unfortunately
+this isn't a reliable fix if (for example) the mounted filesystem is
+particularly large and the intruding program is persistent.
+
+A proper fix is to use a private mountpoint by creating a new mount
+namespace using the Linux-specific L<clone(2)>/L<unshare(2)> flag
+C<CLONE_NEWNS>.  Unfortunately at the moment this requires root and we
+would also probably need to add it as a feature to guestmount.
+
 =head1 OPTIONS
 
 =over 4
