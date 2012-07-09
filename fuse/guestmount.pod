@@ -106,6 +106,22 @@ namespace using the Linux-specific L<clone(2)>/L<unshare(2)> flag
 C<CLONE_NEWNS>.  Unfortunately at the moment this requires root and we
 would also probably need to add it as a feature to guestmount.
 
+=head2 Race conditions possible when shutting down the connection
+
+When C<fusermount -u> exits, guestmount may still be running and
+cleaning up the mountpoint.  The disk image will not be fully
+finalized.
+
+This means that scripts like the following have a nasty race
+condition:
+
+ guestmount -a disk.img -i /mnt
+ # copy things into /mnt
+ fusermount -u /mnt
+ # immediately try to use 'disk.img' <-- UNSAFE
+
+The solution is to spin waiting for the guestmount process to exit.
+
 =head1 OPTIONS
 
 =over 4
