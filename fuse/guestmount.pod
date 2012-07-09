@@ -120,7 +120,9 @@ condition:
  fusermount -u /mnt
  # immediately try to use 'disk.img' <-- UNSAFE
 
-The solution is to spin waiting for the guestmount process to exit.
+The solution is to use the I<--pid-file> option to write the
+guestmount PID to a file, then after fusermount spin waiting for this
+PID to exit.
 
 =head1 OPTIONS
 
@@ -277,6 +279,12 @@ Use these options to map all UIDs and GIDs inside the guest filesystem
 to the chosen values.
 
 =back
+
+=item B<--pid-file filename>
+
+Write the PID of the guestmount worker process to C<filename>.
+
+In libguestfs 1.16 (only), C<filename> must be an absolute path.
 
 =item B<-r>
 
