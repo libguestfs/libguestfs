@@ -53,6 +53,13 @@ if [ -z "$abs_top_builddir" ]; then
     exit 1
 fi
 
+if [ -e $abs_top_srcdir/ChangeLog ]; then
+    DATEPARAM=`awk '/^[0-9]+-[0-9]+-[0-9]+/ { print "--date=" $1; exit }' \
+        $abs_top_srcdir/ChangeLog`
+else if [ -d $abs_top_srcdir/.git ]; then
+    DATEPARAM=`git show -s --format=%ci | awk '{print "--date=" $1}'`
+else
+
 declare -a inserts
 declare -a pattern
 declare -a indent
@@ -167,6 +174,7 @@ fi
 # Now generate the final output format(s).
 if [ -n "$man_output" ]; then
     "$POD2MAN" "$POD2_STDERR_OPTION" "$POD2_UTF8_OPTION" \
+        $DATEPARAM \
         --section "$section" -c "Virtualization Support" --name "$name" \
         --release "$PACKAGE_NAME-$PACKAGE_VERSION" \
         < $tmpdir/full.pod > "$man_output".tmp
