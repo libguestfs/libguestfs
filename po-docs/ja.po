@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2012-07-09 18:35+0200\n"
-"PO-Revision-Date: 2012-05-21 13:20+0000\n"
+"PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
 "Language: ja\n"
@@ -97,6 +97,8 @@ msgid ""
 " virt-alignment-scan [--options]\n"
 "\n"
 msgstr ""
+" virt-alignment-scan [--options]\n"
+"\n"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:15
@@ -238,6 +240,8 @@ msgid ""
 "Run virt-alignment-scan without any I<-a> or I<-d> options to scan all "
 "libvirt domains."
 msgstr ""
+"すべての libvirt ドメインをスキャンするには I<-a> や I<-d> オプションをつけず"
+"に virt-alignment-scan を実行します。"
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:59
@@ -249,6 +253,11 @@ msgid ""
 " F16x64:/dev/sda3    526385152         2048K   ok\n"
 "\n"
 msgstr ""
+" # virt-alignment-scan\n"
+" F16x64:/dev/sda1      1048576         1024K   ok\n"
+" F16x64:/dev/sda2      2097152         2048K   ok\n"
+" F16x64:/dev/sda3    526385152         2048K   ok\n"
+"\n"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:64
@@ -1529,11 +1538,14 @@ msgid ""
 " libguestfs-make-fixed-appliance --xz\n"
 "\n"
 msgstr ""
+" libguestfs-make-fixed-appliance --xz\n"
+"\n"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:60
 msgid "This creates a tarball in the I<current> directory called:"
 msgstr ""
+"これは呼び出した I<カレント> ディレクトリーに tar ファイルを作成します:"
 
 #. type: verbatim
 #: ../appliance/libguestfs-make-fixed-appliance.pod:62
@@ -3029,7 +3041,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-ls.pod:37
 msgid "Get a list of all files and directories in a virtual machine:"
-msgstr ""
+msgstr "仮想マシンにあるファイルおよびディレクトリーをすべて取得します:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:39
@@ -3045,6 +3057,7 @@ msgstr ""
 #: ../cat/virt-ls.pod:41 ../examples/guestfs-testing.pod:182
 msgid "List all setuid or setgid programs in a Linux virtual machine:"
 msgstr ""
+"Linux 仮想マシンにある setuid または setgid プログラムを一覧表示します:"
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:43
@@ -4671,10 +4684,8 @@ msgstr ""
 
 #. type: =head1
 #: ../edit/virt-edit.pod:329
-#, fuzzy
-#| msgid "CVE-2010-3851"
 msgid "CVE-2012-2690"
-msgstr "CVE-2010-3851"
+msgstr ""
 
 #. type: textblock
 #: ../edit/virt-edit.pod:331
@@ -4694,15 +4705,10 @@ msgstr ""
 
 #. type: textblock
 #: ../edit/virt-edit.pod:340
-#, fuzzy
-#| msgid ""
-#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid ""
 "For further information, see https://bugzilla.redhat.com/show_bug.cgi?"
 "id=788642"
 msgstr ""
-"詳細は L<https://bugzilla.redhat.com/show_bug.cgi?id=599503> を参照してくださ"
-"い"
 
 #. type: =item
 #: ../edit/virt-edit.pod:347
@@ -5143,12 +5149,12 @@ msgstr ""
 #. type: =head1
 #: ../examples/guestfs-faq.pod:7
 msgid "ABOUT LIBGUESTFS"
-msgstr ""
+msgstr "libguestfs について"
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:9
 msgid "What is libguestfs?"
-msgstr ""
+msgstr "libguestfs とは?"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:11
@@ -5158,6 +5164,10 @@ msgid ""
 "resize them, and much more.  It's especially useful from scripts and "
 "programs and from the command line."
 msgstr ""
+"libguestfs はディスクイメージを作成、参照および変更するための手段です。ディス"
+"クイメージの中を参照する、含まれているファイルを変更する、イメージを新規作成"
+"する、およびさまざまなことができます。スクリプトやプログラムから、およびコマ"
+"ンドラインからはとくに有用です。"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:16
@@ -5165,6 +5175,9 @@ msgid ""
 "libguestfs is a C library (hence \"lib-\"), and a set of tools built on this "
 "library, and a set of bindings in many different programming languages."
 msgstr ""
+"libguestfs は C ライブラリ (つまり \"lib-\")、このライブラリに構築された一組"
+"のツール、およびさまざまな種類のプログラミング言語における一組のバインドで"
+"す。"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:20
@@ -5172,6 +5185,8 @@ msgid ""
 "For more information about what libguestfs can do read the introduction on "
 "the home page (L<http://libguestfs.org>)."
 msgstr ""
+"libguestfs が実行できることの詳細はホームページ (L<http://libguestfs.org>) に"
+"ある紹介を参照できます。"
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:23
@@ -5378,6 +5393,8 @@ msgid ""
 " https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "\n"
 msgstr ""
+" https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:124
@@ -5391,10 +5408,8 @@ msgstr ""
 
 #. type: =head1
 #: ../examples/guestfs-faq.pod:128
-#, fuzzy
-#| msgid "ERRORS"
 msgid "COMMON ERRORS"
-msgstr "エラー"
+msgstr ""
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:130
@@ -5464,10 +5479,8 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:164
-#, fuzzy
-#| msgid "This is an installed operating system."
 msgid "This is a design flaw of the GNU/Linux system."
-msgstr "インストールされているオペレーティングシステムです。"
+msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:166
@@ -5496,36 +5509,24 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:179
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " ><fs> mount-options utf8 /dev/sda1 /\n"
 "\n"
 msgstr ""
-" guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:181
-#, fuzzy
-#| msgid "guestfs_command_lines"
 msgid "or on the guestfish command line:"
-msgstr "guestfs_command_lines"
+msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:183
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfish -N fs:vfat:32M -m /dev/sda1\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " guestfish [...] -m /dev/sda1:/:utf8\n"
 "\n"
 msgstr ""
-" guestfish -N fs:vfat:32M -m /dev/sda1\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:185
@@ -5534,16 +5535,11 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:187
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " guestfs_mount_options (g, \"utf8\", \"/dev/sda1\", \"/\");\n"
 "\n"
 msgstr ""
-" guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:189
@@ -5685,7 +5681,7 @@ msgstr ""
 #. type: =item
 #: ../examples/guestfs-faq.pod:260
 msgid "Ubuntu"
-msgstr ""
+msgstr "Ubuntu"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:262
@@ -5715,17 +5711,17 @@ msgstr ""
 #. type: =item
 #: ../examples/guestfs-faq.pod:274
 msgid "Ubuntu 10.04"
-msgstr ""
+msgstr "Ubuntu 10.04"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:276
 msgid "See: L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>"
-msgstr ""
+msgstr "参照: L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>"
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:279
 msgid "Ubuntu 12.04"
-msgstr ""
+msgstr "Ubuntu 12.04"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:281
@@ -5769,10 +5765,8 @@ msgstr ""
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:300
-#, fuzzy
-#| msgid "Gentoo."
 msgid "Gentoo"
-msgstr "Gentoo."
+msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:302
@@ -5781,31 +5775,26 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:304
-#, fuzzy, no-wrap
-#| msgid ""
-#| " Requires: libguestfs >= 1.0.80\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " emerge libguestfs\n"
 "\n"
 msgstr ""
-" Requires: libguestfs >= 1.0.80\n"
-"\n"
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:306
 msgid "Other Linux distro"
-msgstr ""
+msgstr "他の Linux ディストリビューション"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:308
 msgid "Compile from source (next section)."
-msgstr ""
+msgstr "ソースからコンパイルします (次のセクション)。"
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:310
 msgid "Other non-Linux distro"
-msgstr ""
+msgstr "他の非 Linux ディストリビューション"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:312
@@ -6053,6 +6042,13 @@ msgid ""
 "                PHP  guestfs_ln_sf ($g, $target, $linkname);\n"
 "\n"
 msgstr ""
+"                  C  guestfs_ln_sf (g, target, linkname);\n"
+"             Python  g.ln_sf (target, linkname);\n"
+"              OCaml  g#ln_sf target linkname;\n"
+"               Perl  $g->ln_sf (target, linkname);\n"
+"  Shell (guestfish)  ln-sf target linkname\n"
+"                PHP  guestfs_ln_sf ($g, $target, $linkname);\n"
+"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:427
@@ -6086,7 +6082,7 @@ msgstr ""
 #. type: =head1
 #: ../examples/guestfs-faq.pod:447
 msgid "DEBUGGING LIBGUESTFS"
-msgstr ""
+msgstr "libguestfs のデバッグ"
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:449
@@ -6154,11 +6150,14 @@ msgid ""
 " setenv LIBGUESTFS_DEBUG 1\n"
 "\n"
 msgstr ""
+" setenv LIBGUESTFS_TRACE 1\n"
+" setenv LIBGUESTFS_DEBUG 1\n"
+"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:480
 msgid "For further information, see: L<guestfs(3)/ENVIRONMENT VARIABLES>."
-msgstr ""
+msgstr "詳細は L<guestfs(3)/ENVIRONMENT VARIABLES> 参照。"
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:482
@@ -6814,11 +6813,12 @@ msgid ""
 "(For detailed information on this subject, see: L<libguestfs-make-fixed-"
 "appliance(1)>)."
 msgstr ""
+"(この話題の詳細は L<libguestfs-make-fixed-appliance(1)> を参照してください)。"
 
 #. type: =head2
 #: ../examples/guestfs-performance.pod:153
 msgid "PERFORMANCE OF THE FIXED APPLIANCE"
-msgstr ""
+msgstr "固定アプライアンスのパフォーマンス"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:155
@@ -7014,17 +7014,17 @@ msgstr ""
 #. type: =head1
 #: ../examples/guestfs-performance.pod:270
 msgid "TROUBLESHOOTING POOR PERFORMANCE"
-msgstr ""
+msgstr "性能劣化のトラブルシューティング"
 
 #. type: =head2
 #: ../examples/guestfs-performance.pod:272
 msgid "ENSURE HARDWARE VIRTUALIZATION IS AVAILABLE"
-msgstr ""
+msgstr "ハードウェア仮想化機能の利用可能性の確認"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:274
 msgid "Use C</proc/cpuinfo> and this page:"
-msgstr ""
+msgstr "C</proc/cpuinfo> およびこのページを使用します:"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:276 ../examples/guestfs-testing.pod:43
@@ -7037,6 +7037,8 @@ msgid ""
 "to ensure that hardware virtualization is available.  Note that you may need "
 "to enable it in your BIOS."
 msgstr ""
+"ハードウェア仮想化が利用可能であることを確実にします。 BIOS において有効化す"
+"る必要があるかもしれないことに注意してください。"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:281
@@ -7046,11 +7048,15 @@ msgid ""
 "virtualization does not work well in our experience, and is certainly no "
 "substitute for running libguestfs on baremetal."
 msgstr ""
+"ハードウェア仮想化は一般的に仮想マシンの中において利用可能ではありません。"
+"libguestfs はどんな他の仮想マシンよりも遅いです。ネスト仮想化は経験上うまく動"
+"作しないです。そのため、ベアメタルにおいて libguestfs を実行するためにほとん"
+"ど適切ではありません。"
 
 #. type: =head2
 #: ../examples/guestfs-performance.pod:286
 msgid "ENSURE KVM IS AVAILABLE"
-msgstr ""
+msgstr "KVM の利用可能性の確認"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:288
@@ -7059,6 +7065,9 @@ msgid ""
 "libguestfs.  It should be safe to set 0666 permissions on C</dev/kvm> and "
 "most distributions now do this."
 msgstr ""
+"KVM が有効化され、libguestfs を実行するユーザーが利用可能であることを確実にし"
+"ます。C</dev/kvm> において 0666 パーミッションを設定して安全にするべきです"
+"が、多くのディストリビューションにおいて、現在こうしています。"
 
 #. type: =head2
 #: ../examples/guestfs-performance.pod:292
@@ -7172,6 +7181,13 @@ msgid ""
 " }\n"
 "\n"
 msgstr ""
+" /* すべての guestfs_* 関数の呼び出しを一覧表示します。 */\n"
+" probe process(\"/usr/lib*/libguestfs.so.0\")\n"
+"           .function(\"guestfs_[a-z]*\") ? {\n"
+"       display_time();\n"
+"       printf (\"\\t%s %s\\n\", probefunc(), $$parms);\n"
+" }\n"
+"\n"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:336
@@ -7186,6 +7202,9 @@ msgid ""
 " ready\n"
 "\n"
 msgstr ""
+" # stap time.stap\n"
+" ready\n"
+"\n"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:341
@@ -7224,6 +7243,16 @@ msgid ""
 " [etc]\n"
 "\n"
 msgstr ""
+" xxxx (+0):\tguestfs_create \n"
+" xxxx (+29):\tguestfs_set_pgroup g=0x17a9de0 pgroup=0x1\n"
+" xxxx (+9):\tguestfs_add_drive_opts_argv g=0x17a9de0 [...]\n"
+" xxxx (+8):\tguestfs_safe_strdup g=0x17a9de0 str=0x7f8a153bed5d\n"
+" xxxx (+19):\tguestfs_safe_malloc g=0x17a9de0 nbytes=0x38\n"
+" xxxx (+5):\tguestfs_safe_strdup g=0x17a9de0 str=0x17a9f60\n"
+" xxxx (+10):\tguestfs_launch g=0x17a9de0\n"
+" xxxx (+4):\tlaunch_start \n"
+" [etc]\n"
+"\n"
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:361
@@ -10121,10 +10150,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:476
-#, fuzzy
-#| msgid "See also L</list-filesystems>."
 msgid "See also L</filesystem-available>."
-msgstr "L</list-filesystems> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:478
@@ -10658,7 +10685,7 @@ msgstr "L<btrfs(8)> 参照。"
 #. type: =head2
 #: ../fish/guestfish-actions.pod:684
 msgid "btrfs-filesystem-sync"
-msgstr ""
+msgstr "btrfs-filesystem-sync"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:686
@@ -10667,16 +10694,18 @@ msgid ""
 " btrfs-filesystem-sync fs\n"
 "\n"
 msgstr ""
+" btrfs-filesystem-sync fs\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:688 ../src/guestfs-actions.pod:1036
 msgid "Force sync on the btrfs filesystem mounted at C<fs>."
-msgstr ""
+msgstr "C<fs> にマウントされた btrfs ファイルシステムにおいて強制同期します。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:690
 msgid "btrfs-fsck"
-msgstr ""
+msgstr "btrfs-fsck"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:692
@@ -10685,6 +10714,8 @@ msgid ""
 " btrfs-fsck device [superblock:N] [repair:true|false]\n"
 "\n"
 msgstr ""
+" btrfs-fsck device [superblock:N] [repair:true|false]\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:694 ../src/guestfs-actions.pod:1057
@@ -10692,11 +10723,13 @@ msgid ""
 "Used to check a btrfs filesystem, C<device> is the device file where the "
 "filesystem is stored."
 msgstr ""
+"btrfs ファイルシステムをチェックするために使用されると、C<device> はファイル"
+"システムが保存されているデバイスファイルです。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:699
 msgid "btrfs-set-seeding"
-msgstr ""
+msgstr "btrfs-set-seeding"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:701
@@ -10705,6 +10738,8 @@ msgid ""
 " btrfs-set-seeding device true|false\n"
 "\n"
 msgstr ""
+" btrfs-set-seeding device true|false\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:703 ../src/guestfs-actions.pod:1093
@@ -10712,6 +10747,8 @@ msgid ""
 "Enable or disable the seeding feature of a device that contains a btrfs "
 "filesystem."
 msgstr ""
+"btrfs ファイルシステムを含むデバイスの seeding 機能を有効化または無効化しま"
+"す。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:706
@@ -10819,23 +10856,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:742
-#, fuzzy
-#| msgid "lvm-canonical-lv-name"
 msgid "canonical-device-name"
-msgstr "lvm-canonical-lv-name"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:744
-#, fuzzy, no-wrap
-#| msgid ""
-#| " swapon-device device\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " canonical-device-name device\n"
 "\n"
 msgstr ""
-" swapon-device device\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:746 ../src/guestfs-actions.pod:1176
@@ -10847,17 +10877,13 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:752 ../src/guestfs-actions.pod:1182
-#, fuzzy
-#| msgid "C</dev/sdd>"
 msgid "C</dev/hdX>"
-msgstr "C</dev/sdd>"
+msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:754 ../src/guestfs-actions.pod:1184
-#, fuzzy
-#| msgid "C</dev/sdd>"
 msgid "C</dev/vdX>"
-msgstr "C</dev/sdd>"
+msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:756 ../src/guestfs-actions.pod:1186
@@ -10874,10 +10900,8 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:762 ../src/guestfs-actions.pod:1192
-#, fuzzy
-#| msgid "C</dev/sdd>"
 msgid "C</dev/dm-N>"
-msgstr "C</dev/sdd>"
+msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:764
@@ -11695,23 +11719,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1124
-#, fuzzy
-#| msgid "device"
 msgid "device-index"
-msgstr "device"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:1126
-#, fuzzy, no-wrap
-#| msgid ""
-#| " zero-device device\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " device-index device\n"
 "\n"
 msgstr ""
-" zero-device device\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1128 ../src/guestfs-actions.pod:1924
@@ -11729,10 +11746,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1134
-#, fuzzy
-#| msgid "See also L</part-to-dev>."
 msgid "See also L</list-devices>, L</part-to-dev>."
-msgstr "L</part-to-dev> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1136
@@ -12293,7 +12308,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1375 ../src/guestfs-actions.pod:2337
 msgid ""
 "This calls the external C<fgrep -i> program and returns the matching lines."
-msgstr ""
+msgstr "外部の C<fgrep -i> プログラムを呼び出し、一致した行を返します。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1381
@@ -12316,6 +12331,8 @@ msgid ""
 "This call uses the standard L<file(1)> command to determine the type or "
 "contents of the file."
 msgstr ""
+"この呼び出しは、ファイルの形式または内容を決定するために、標準的な L<file(1)"
+"> コマンドを使用します。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1388 ../src/guestfs-actions.pod:2358
@@ -12565,23 +12582,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1517
-#, fuzzy
-#| msgid "guestfs_available"
 msgid "filesystem-available"
-msgstr "guestfs_available"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:1519
-#, fuzzy, no-wrap
-#| msgid ""
-#| " list-filesystems\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " filesystem-available filesystem\n"
 "\n"
 msgstr ""
-" list-filesystems\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1521 ../src/guestfs-actions.pod:2511
@@ -12592,10 +12602,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1525
-#, fuzzy
-#| msgid "You must call C<guestfs_launch> before calling this function."
 msgid "You must call L</launch> before using this command."
-msgstr "この関数を呼び出す前に C<guestfs_launch> を呼び出す必要があります。"
+msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1527 ../src/guestfs-actions.pod:2517
@@ -12609,10 +12617,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1532
-#, fuzzy
-#| msgid "See also L</available> and L<guestfs(3)/AVAILABILITY>."
 msgid "See also L</available>, L<guestfs(3)/AVAILABILITY>."
-msgstr "L</available> および L<guestfs(3)/AVAILABILITY> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1534
@@ -12914,10 +12920,8 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1677
-#, fuzzy
-#| msgid "strings"
 msgid "fstrim"
-msgstr "strings"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:1679
@@ -12929,16 +12933,10 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1681 ../src/guestfs-actions.pod:2747
-#, fuzzy
-#| msgid ""
-#| "Zero the free space in the filesystem mounted on C<directory>.  The "
-#| "filesystem must be mounted read-write."
 msgid ""
 "Trim the free space in the filesystem mounted on C<mountpoint>.  The "
 "filesystem must be mounted read-write."
 msgstr ""
-"C<directory> にマウントされたファイルシステムにある空き領域にゼロを書き込みま"
-"す。  ファイルシステムは読み書きモードでマウントする必要があります。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1684 ../src/guestfs-actions.pod:2750
@@ -13206,12 +13204,12 @@ msgstr ""
 #. type: =item
 #: ../fish/guestfish-actions.pod:1792 ../src/guestfs-actions.pod:2907
 msgid "'j'"
-msgstr ""
+msgstr "'j'"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1794 ../src/guestfs-actions.pod:2909
 msgid "The file is data-journaled."
-msgstr ""
+msgstr "ファイルはジャーナル付きデータです。"
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:1796 ../fish/guestfish-actions.pod:4799
@@ -13222,17 +13220,17 @@ msgstr "'s'"
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1798 ../src/guestfs-actions.pod:2913
 msgid "When the file is deleted, all its blocks will be zeroed."
-msgstr ""
+msgstr "ファイルが削除されるとき、そのブロックはすべてゼロが書き込みされます。"
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:1800 ../src/guestfs-actions.pod:2915
 msgid "'S'"
-msgstr ""
+msgstr "'S'"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1802 ../src/guestfs-actions.pod:2917
 msgid "Changes to this file are written synchronously to disk."
-msgstr ""
+msgstr "このファイルへの変更は同期的にディスクに書き込まれます。"
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:1804 ../src/guestfs-actions.pod:2919
@@ -13286,12 +13284,12 @@ msgstr ""
 #. type: =item
 #: ../fish/guestfish-actions.pod:1825 ../src/guestfs-actions.pod:2940
 msgid "'Z'"
-msgstr ""
+msgstr "'Z'"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1827 ../src/guestfs-actions.pod:2942
 msgid "The compressed file is dirty."
-msgstr ""
+msgstr "圧縮されたファイルがダーティーです。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1831 ../src/guestfs-actions.pod:2946
@@ -13304,7 +13302,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1835
 msgid "See also L</set-e2attrs>."
-msgstr ""
+msgstr "L</set-e2attrs> 参照。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1837
@@ -13344,7 +13342,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1852
 msgid "See L</set-e2generation>."
-msgstr ""
+msgstr "L</set-e2generation> 参照。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1854
@@ -14389,7 +14387,7 @@ msgstr "アーキテクチャーが決められなければ、文字列 C<unknow
 #: ../src/guestfs-actions.pod:4299 ../src/guestfs-actions.pod:4317
 #: ../src/guestfs-actions.pod:4419 ../src/guestfs-actions.pod:4460
 msgid "Please read L<guestfs(3)/INSPECTION> for more details."
-msgstr ""
+msgstr "詳細は L<guestfs(3)/INSPECTION> を参照してください。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:2278
@@ -16130,14 +16128,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3074 ../src/guestfs-actions.pod:4712
-#, fuzzy
-#| msgid ""
-#| " kill-subprocess\n"
-#| "\n"
 msgid "This kills the qemu subprocess."
 msgstr ""
-" kill-subprocess\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3076
@@ -16146,16 +16138,10 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3078
-#, fuzzy
-#| msgid ""
-#| "I<This function is deprecated.> In new code, use the L</vfs_uuid> call "
-#| "instead."
 msgid ""
 "I<This function is deprecated.> In new code, use the L</shutdown> call "
 "instead."
 msgstr ""
-"I<この関数は推奨されません。> 新しいコードでは、代わりに L</vfs_uuid> を使用"
-"してください。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3085
@@ -16498,6 +16484,8 @@ msgid ""
 "This command is mostly useful for interactive sessions.  It is I<not> "
 "intended that you try to parse the output string."
 msgstr ""
+"このコマンドはほとんどの対話式セッションのために有用です。出力文字列を構文解"
+"析しようという意図はI<ありません>。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3229
@@ -16537,7 +16525,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3242 ../src/guestfs-actions.pod:4972
 msgid "This command creates a hard link using the C<ln> command."
-msgstr ""
+msgstr "このコマンドは C<ln> コマンドを使用してハードリンクを作成します。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3244
@@ -16580,6 +16568,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3255 ../src/guestfs-actions.pod:4999
 msgid "This command creates a symbolic link using the C<ln -s> command."
 msgstr ""
+"このコマンドは C<ln -s> コマンドを使用してシンボリックリンクを作成します。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3257
@@ -16695,7 +16684,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3295 ../fish/guestfish-actions.pod:5469
 #: ../src/guestfs-actions.pod:5076 ../src/guestfs-actions.pod:8527
 msgid "Returns file information for the given C<path>."
-msgstr ""
+msgstr "与えられた C<path> のファイル情報を返します。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3297
@@ -16707,7 +16696,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3301 ../src/guestfs-actions.pod:5082
 msgid "This is the same as the C<lstat(2)> system call."
-msgstr ""
+msgstr "これは C<lstat(2)> と同じです。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3303
@@ -17034,10 +17023,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3446
-#, fuzzy
-#| msgid "See also L</pwrite>, L</pread-device>."
 msgid "See also L</is-lv>, L</canonical-device-name>."
-msgstr "L</pwrite>, L</pread-device> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3448
@@ -17360,10 +17347,8 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3577
-#, fuzzy
-#| msgid "part-disk"
 msgid "max-disks"
-msgstr "part-disk"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:3579
@@ -18108,7 +18093,7 @@ msgstr ""
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3875
 msgid "mkfs-btrfs"
-msgstr ""
+msgstr "mkfs-btrfs"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:3877
@@ -18117,6 +18102,8 @@ msgid ""
 " mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] [leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
 "\n"
 msgstr ""
+" mkfs-btrfs 'devices ...' [allocstart:N] [bytecount:N] [datatype:..] [leafsize:N] [label:..] [metadata:..] [nodesize:N] [sectorsize:N]\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3879 ../src/guestfs-actions.pod:6018
@@ -18124,6 +18111,8 @@ msgid ""
 "Create a btrfs filesystem, allowing all configurables to be set.  For more "
 "information on the optional arguments, see L<mkfs.btrfs(8)>."
 msgstr ""
+"すべての設定可能なものについて設定を許可して、btrfs ファイルシステムを作成し"
+"ます。オプション引数の詳細は L<mkfs.btrfs(8)> を参照してください。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3882 ../src/guestfs-actions.pod:6021
@@ -18131,11 +18120,13 @@ msgid ""
 "Since btrfs filesystems can span multiple devices, this takes a non-empty "
 "list of devices."
 msgstr ""
+"btrfs ファイルシステムは複数のデバイスを結合できるので、これは非空白のデバイ"
+"ス一覧をとります。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3885
 msgid "To create general filesystems, use L</mkfs-opts>."
-msgstr ""
+msgstr "一般的なファイルを作成するには、L</mkfs-opts> を使用します。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3889
@@ -18903,23 +18894,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:4212
-#, fuzzy
-#| msgid "C<nrdevices>"
 msgid "nr-devices"
-msgstr "C<nrdevices>"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:4214
-#, fuzzy, no-wrap
-#| msgid ""
-#| " list-devices\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " nr-devices\n"
 "\n"
 msgstr ""
-" list-devices\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4216
@@ -19748,10 +19732,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4585
-#, fuzzy
-#| msgid "See also L</part-to-partnum>."
 msgid "See also L</part-to-partnum>, L</device-index>."
-msgstr "L</part-to-partnum> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:4587
@@ -20838,7 +20820,7 @@ msgstr "デフォルトは無効です。"
 #. type: =head2
 #: ../fish/guestfish-actions.pod:5036
 msgid "set-e2attrs"
-msgstr ""
+msgstr "set-e2attrs"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:5038
@@ -20847,6 +20829,8 @@ msgid ""
 " set-e2attrs file attrs [clear:true|false]\n"
 "\n"
 msgstr ""
+" set-e2attrs file attrs [clear:true|false]\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5040 ../src/guestfs-actions.pod:7914
@@ -20885,7 +20869,7 @@ msgstr ""
 #. type: =head2
 #: ../fish/guestfish-actions.pod:5062
 msgid "set-e2generation"
-msgstr ""
+msgstr "set-e2generation"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:5064
@@ -20894,16 +20878,18 @@ msgid ""
 " set-e2generation file generation\n"
 "\n"
 msgstr ""
+" set-e2generation file generation\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5066 ../src/guestfs-actions.pod:7969
 msgid "This sets the ext2 file generation of a file."
-msgstr ""
+msgstr "これはファイルの ext2 ファイル世代を設定します。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5068
 msgid "See L</get-e2generation>."
-msgstr ""
+msgstr "L</get-e2generation> を参照してください。"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:5070
@@ -21812,16 +21798,10 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5453
-#, fuzzy
-#| msgid ""
-#| "This does not return logical volumes.  For that you will need to call L</"
-#| "lvs>."
 msgid ""
 "This call does I<not> close or free up the handle.  You still need to call "
 "L</close> afterwards."
 msgstr ""
-"これは論理ボリュームを返しません。  そのためには L</lvs> を呼び出す必要があり"
-"ます。"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:5456
@@ -25023,6 +25003,7 @@ msgstr ""
 #: ../fish/guestfish.pod:116
 msgid "Another way to edit C</boot/grub/grub.conf> interactively is:"
 msgstr ""
+"対話的に C</boot/grub/grub.conf> を編集するもう一つの方法は次のとおりです:"
 
 #. type: verbatim
 #: ../fish/guestfish.pod:118
@@ -25042,7 +25023,7 @@ msgstr "スクリプトのインタープリターとして"
 #. type: textblock
 #: ../fish/guestfish.pod:122
 msgid "Create a 100MB disk containing an ext2-formatted partition:"
-msgstr ""
+msgstr "ext2 フォーマット済みパーティションを含む 100MB ディスクを作成します:"
 
 #. type: verbatim
 #: ../fish/guestfish.pod:124
@@ -25065,7 +25046,7 @@ msgstr ""
 #. type: =head2
 #: ../fish/guestfish.pod:130
 msgid "Start with a prepared disk"
-msgstr ""
+msgstr "準備済みディスクを用いて起動します"
 
 #. type: textblock
 #: ../fish/guestfish.pod:132
@@ -25537,7 +25518,7 @@ msgstr ""
 #. type: =item
 #: ../fish/guestfish.pod:353
 msgid "B<--pipe-error>"
-msgstr ""
+msgstr "B<--pipe-error>"
 
 #. type: textblock
 #: ../fish/guestfish.pod:355
@@ -25545,6 +25526,8 @@ msgid ""
 "If writes fail to pipe commands (see L</PIPES> below), then the command "
 "returns an error."
 msgstr ""
+"コマンドのパイプ (以下の L</PIPES> 参照) への書き込みに失敗すると、コマンドは"
+"エラーを返します。"
 
 #. type: textblock
 #: ../fish/guestfish.pod:358
@@ -25559,11 +25542,13 @@ msgid ""
 " ><fs> command_with_lots_of_output | head\n"
 "\n"
 msgstr ""
+" ><fs> command_with_lots_of_output | head\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish.pod:363
 msgid "doesn't give an error."
-msgstr ""
+msgstr "エラーを与えません。"
 
 #. type: =item
 #: ../fish/guestfish.pod:365
@@ -28913,10 +28898,8 @@ msgstr ""
 
 #. type: =item
 #: ../fuse/guestmount.pod:287
-#, fuzzy
-#| msgid "B<--file file>"
 msgid "B<--pid-file filename>"
-msgstr "B<--file file>"
+msgstr ""
 
 #. type: textblock
 #: ../fuse/guestmount.pod:289
@@ -28982,19 +28965,11 @@ msgstr ""
 
 #. type: textblock
 #: ../fuse/guestmount.pod:362
-#, fuzzy
-#| msgid ""
-#| "L<guestfish(1)>, L<virt-inspector(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
-#| "L<virt-tar(1)>, L<guestfs(3)>, L<http://libguestfs.org/>, L<http://fuse."
-#| "sf.net/>."
 msgid ""
 "L<guestfish(1)>, L<virt-inspector(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
 "L<virt-tar(1)>, L<guestfs(3)/MOUNT LOCAL>, L<http://libguestfs.org/>, "
 "L<http://fuse.sf.net/>."
 msgstr ""
-"L<guestfish(1)>, L<virt-inspector(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
-"L<virt-tar(1)>, L<guestfs(3)>, L<http://libguestfs.org/>, L<http://fuse.sf."
-"net/>."
 
 #. type: textblock
 #: ../inspector/virt-inspector.pod:5
@@ -30689,12 +30664,12 @@ msgstr "イメージを読み込み専用で開きます。"
 #. type: =item
 #: ../rescue/virt-rescue.pod:204
 msgid "B<--scratch>"
-msgstr ""
+msgstr "B<--scratch>"
 
 #. type: =item
 #: ../rescue/virt-rescue.pod:206
 msgid "B<--scratch=N>"
-msgstr ""
+msgstr "B<--scratch=N>"
 
 #. type: textblock
 #: ../rescue/virt-rescue.pod:208
@@ -30703,6 +30678,10 @@ msgid ""
 "I<--scratch=N> adds C<N> scratch disks.  The scratch disk(s) are deleted "
 "automatically when virt-rescue exits."
 msgstr ""
+"I<--scratch> オプションにより、大きなスクラッチディスクをレスキュー・アプライ"
+"アンスに追加できます。I<--scratch=N> により、C<N> 個のスクラッチディスクを追"
+"加できます。virt-rescue が終了するとき、スクラッチディスクは自動的に削除され"
+"ます。"
 
 #. type: textblock
 #: ../rescue/virt-rescue.pod:212
@@ -30710,6 +30689,8 @@ msgid ""
 "You can also mix I<-a>, I<-d> and I<--scratch> options.  The scratch disk(s) "
 "are added to the appliance in the order they appear on the command line."
 msgstr ""
+"I<-a>, I<-d> および I<--scratch> オプションは混在できます。スクラッチディスク"
+"は、これらがコマンドラインに現れる順番で、アプライアンスに追加されます。"
 
 #. type: textblock
 #: ../rescue/virt-rescue.pod:218
@@ -32816,6 +32797,8 @@ msgid ""
 " mount -o remount,size=10G /tmp\n"
 "\n"
 msgstr ""
+" mount -o remount,size=10G /tmp\n"
+"\n"
 
 #. type: textblock
 #: ../sparsify/virt-sparsify.pod:284
@@ -33599,6 +33582,8 @@ msgid ""
 "This function returns a string, or NULL on error.  I<The caller must free "
 "the returned string after use>."
 msgstr ""
+"この関数は文字列を返します。エラー時は NULL です。 I<呼び出し元は使用後に返さ"
+"れた文字列を開放する必要があります>。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:425
@@ -33909,10 +33894,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:676
-#, fuzzy
-#| msgid "See also C<guestfs_list_filesystems>."
 msgid "See also C<guestfs_filesystem_available>."
-msgstr "C<guestfs_list_filesystems> 参照。"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:680 ../src/guestfs-actions.pod:1916
@@ -34280,7 +34263,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs-actions.pod:930
 msgid "guestfs_btrfs_device_add"
-msgstr ""
+msgstr "guestfs_btrfs_device_add"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:932
@@ -34292,6 +34275,11 @@ msgid ""
 "                           const char *fs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_device_add (guestfs_h *g,\n"
+"                           char *const *devices,\n"
+"                           const char *fs);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:942 ../src/guestfs-actions.pod:956
@@ -34300,12 +34288,12 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1138 ../src/guestfs-actions.pod:1153
 #: ../src/guestfs-actions.pod:1168
 msgid "(Added in 1.17.35)"
-msgstr ""
+msgstr "(1.17.35 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:944
 msgid "guestfs_btrfs_device_delete"
-msgstr ""
+msgstr "guestfs_btrfs_device_delete"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:946
@@ -34317,11 +34305,16 @@ msgid ""
 "                              const char *fs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_device_delete (guestfs_h *g,\n"
+"                              char *const *devices,\n"
+"                              const char *fs);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:958
 msgid "guestfs_btrfs_filesystem_balance"
-msgstr ""
+msgstr "guestfs_btrfs_filesystem_balance"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:960
@@ -34332,6 +34325,10 @@ msgid ""
 "                                   const char *fs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_filesystem_balance (guestfs_h *g,\n"
+"                                   const char *fs);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:971
@@ -34425,7 +34422,7 @@ msgstr "これは L</guestfs_btrfs_filesystem_resize> の \"argv variant\" で�
 #. type: =head2
 #: ../src/guestfs-actions.pod:1030
 msgid "guestfs_btrfs_filesystem_sync"
-msgstr ""
+msgstr "guestfs_btrfs_filesystem_sync"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1032
@@ -34436,11 +34433,15 @@ msgid ""
 "                                const char *fs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_filesystem_sync (guestfs_h *g,\n"
+"                                const char *fs);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1042
 msgid "guestfs_btrfs_fsck"
-msgstr ""
+msgstr "guestfs_btrfs_fsck"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1044
@@ -34452,6 +34453,11 @@ msgid ""
 "                     ...);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_fsck (guestfs_h *g,\n"
+"                     const char *device,\n"
+"                     ...);\n"
+"\n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1054
@@ -34461,18 +34467,19 @@ msgid ""
 " GUESTFS_BTRFS_FSCK_REPAIR, int repair,\n"
 "\n"
 msgstr ""
+" GUESTFS_BTRFS_FSCK_SUPERBLOCK, int64_t superblock,\n"
+" GUESTFS_BTRFS_FSCK_REPAIR, int repair,\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1062 ../src/guestfs-actions.pod:1098
-#, fuzzy
-#| msgid "(Added in 1.7.4)"
 msgid "(Added in 1.17.43)"
-msgstr "(1.7.4 において追加)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1064
 msgid "guestfs_btrfs_fsck_va"
-msgstr ""
+msgstr "guestfs_btrfs_fsck_va"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1066
@@ -34484,16 +34491,21 @@ msgid ""
 "                        va_list args);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_fsck_va (guestfs_h *g,\n"
+"                        const char *device,\n"
+"                        va_list args);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1071
 msgid "This is the \"va_list variant\" of L</guestfs_btrfs_fsck>."
-msgstr ""
+msgstr "これは L</guestfs_btrfs_fsck> の \"va_list variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1075
 msgid "guestfs_btrfs_fsck_argv"
-msgstr ""
+msgstr "guestfs_btrfs_fsck_argv"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1077
@@ -34505,16 +34517,21 @@ msgid ""
 "                          const struct guestfs_btrfs_fsck_argv *optargs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_fsck_argv (guestfs_h *g,\n"
+"                          const char *device,\n"
+"                          const struct guestfs_btrfs_fsck_argv *optargs);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1082
 msgid "This is the \"argv variant\" of L</guestfs_btrfs_fsck>."
-msgstr ""
+msgstr "これは L</guestfs_btrfs_fsck> の \"argv variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1086
 msgid "guestfs_btrfs_set_seeding"
-msgstr ""
+msgstr "guestfs_btrfs_set_seeding"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1088
@@ -34526,11 +34543,16 @@ msgid ""
 "                            int seeding);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_set_seeding (guestfs_h *g,\n"
+"                            const char *device,\n"
+"                            int seeding);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1100
 msgid "guestfs_btrfs_subvolume_create"
-msgstr ""
+msgstr "guestfs_btrfs_subvolume_create"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1102
@@ -34541,11 +34563,15 @@ msgid ""
 "                                 const char *dest);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_subvolume_create (guestfs_h *g,\n"
+"                                 const char *dest);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1113
 msgid "guestfs_btrfs_subvolume_delete"
-msgstr ""
+msgstr "guestfs_btrfs_subvolume_delete"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1115
@@ -34556,11 +34582,15 @@ msgid ""
 "                                 const char *subvolume);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_subvolume_delete (guestfs_h *g,\n"
+"                                 const char *subvolume);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1125
 msgid "guestfs_btrfs_subvolume_list"
-msgstr ""
+msgstr "guestfs_btrfs_subvolume_list"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1127
@@ -34571,6 +34601,10 @@ msgid ""
 "                               const char *fs);\n"
 "\n"
 msgstr ""
+" struct guestfs_btrfssubvolume_list *\n"
+" guestfs_btrfs_subvolume_list (guestfs_h *g,\n"
+"                               const char *fs);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1134
@@ -34579,11 +34613,14 @@ msgid ""
 "there was an error.  I<The caller must call "
 "C<guestfs_free_btrfssubvolume_list> after use>."
 msgstr ""
+"この関数は C<struct guestfs_btrfssubvolume_list *> を返します。エラーが発生し"
+"た場合、NULL が返されます。 I<呼び出し元は使用後に "
+"C<guestfs_free_btrfssubvolume_list> を呼び出す必要があります>。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1140
 msgid "guestfs_btrfs_subvolume_set_default"
-msgstr ""
+msgstr "guestfs_btrfs_subvolume_set_default"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1142
@@ -34595,6 +34632,11 @@ msgid ""
 "                                      const char *fs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_subvolume_set_default (guestfs_h *g,\n"
+"                                      int64_t id,\n"
+"                                      const char *fs);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1147
@@ -34606,7 +34648,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs-actions.pod:1155
 msgid "guestfs_btrfs_subvolume_snapshot"
-msgstr ""
+msgstr "guestfs_btrfs_subvolume_snapshot"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1157
@@ -34618,32 +34660,26 @@ msgid ""
 "                                   const char *dest);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_subvolume_snapshot (guestfs_h *g,\n"
+"                                   const char *source,\n"
+"                                   const char *dest);\n"
+"\n"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1170
-#, fuzzy
-#| msgid "guestfs_lvm_canonical_lv_name"
 msgid "guestfs_canonical_device_name"
-msgstr "guestfs_lvm_canonical_lv_name"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1172
-#, fuzzy, no-wrap
-#| msgid ""
-#| " char *\n"
-#| " guestfs_lvm_canonical_lv_name (guestfs_h *g,\n"
-#| "                                const char *lvname);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char *\n"
 " guestfs_canonical_device_name (guestfs_h *g,\n"
 "                                const char *device);\n"
 "\n"
 msgstr ""
-" char *\n"
-" guestfs_lvm_canonical_lv_name (guestfs_h *g,\n"
-"                                const char *lvname);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1194
@@ -34654,10 +34690,8 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1203 ../src/guestfs-actions.pod:1934
 #: ../src/guestfs-actions.pod:5547
-#, fuzzy
-#| msgid "(Added in 1.9.17)"
 msgid "(Added in 1.19.7)"
-msgstr "(1.9.17 において追加)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1205
@@ -35724,29 +35758,18 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1918
-#, fuzzy
-#| msgid "guestfs_copy_device_to_file"
 msgid "guestfs_device_index"
-msgstr "guestfs_copy_device_to_file"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1920
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_scrub_device (guestfs_h *g,\n"
-#| "                       const char *device);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_device_index (guestfs_h *g,\n"
 "                       const char *device);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_scrub_device (guestfs_h *g,\n"
-"                       const char *device);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1927
@@ -35757,10 +35780,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1930
-#, fuzzy
-#| msgid "See also C<guestfs_pwrite>, C<guestfs_pread_device>."
 msgid "See also C<guestfs_list_devices>, C<guestfs_part_to_dev>."
-msgstr "C<guestfs_pwrite>, C<guestfs_pread_device> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1936
@@ -36417,50 +36438,33 @@ msgstr "(1.0.82 において追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2505
-#, fuzzy
-#| msgid "guestfs_available"
 msgid "guestfs_filesystem_available"
-msgstr "guestfs_available"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2507
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_inspect_is_multipart (guestfs_h *g,\n"
-#| "                               const char *root);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_filesystem_available (guestfs_h *g,\n"
 "                               const char *filesystem);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_inspect_is_multipart (guestfs_h *g,\n"
-"                               const char *root);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2515
-#, fuzzy
-#| msgid "You must call C<guestfs_launch> before calling this function."
 msgid "You must call C<guestfs_launch> before using this command."
-msgstr "この関数を呼び出す前に C<guestfs_launch> を呼び出す必要があります。"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2522
-#, fuzzy
-#| msgid "See also C<guestfs_available> and L<guestfs(3)/AVAILABILITY>."
 msgid "See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>."
-msgstr "C<guestfs_available> および L<guestfs(3)/AVAILABILITY> 参照。"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2526
-#, fuzzy
-#| msgid "(Added in 1.13.15)"
 msgid "(Added in 1.19.5)"
-msgstr "(1.13.15 において追加)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2528
@@ -36681,20 +36685,12 @@ msgstr "(1.0.16 において追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2731
-#, fuzzy
-#| msgid "guestfs_rm"
 msgid "guestfs_fstrim"
-msgstr "guestfs_rm"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2733
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_e2fsck (guestfs_h *g,\n"
-#| "                 const char *device,\n"
-#| "                 ...);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_fstrim (guestfs_h *g,\n"
@@ -36702,30 +36698,16 @@ msgid ""
 "                 ...);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_e2fsck (guestfs_h *g,\n"
-"                 const char *device,\n"
-"                 ...);\n"
-"\n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2743
-#, fuzzy, no-wrap
-#| msgid ""
-#| " GUESTFS_COPY_FILE_TO_FILE_SRCOFFSET, int64_t srcoffset,\n"
-#| " GUESTFS_COPY_FILE_TO_FILE_DESTOFFSET, int64_t destoffset,\n"
-#| " GUESTFS_COPY_FILE_TO_FILE_SIZE, int64_t size,\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " GUESTFS_FSTRIM_OFFSET, int64_t offset,\n"
 " GUESTFS_FSTRIM_LENGTH, int64_t length,\n"
 " GUESTFS_FSTRIM_MINIMUMFREEEXTENT, int64_t minimumfreeextent,\n"
 "\n"
 msgstr ""
-" GUESTFS_COPY_FILE_TO_FILE_SRCOFFSET, int64_t srcoffset,\n"
-" GUESTFS_COPY_FILE_TO_FILE_DESTOFFSET, int64_t destoffset,\n"
-" GUESTFS_COPY_FILE_TO_FILE_SIZE, int64_t size,\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2760
@@ -36738,27 +36720,17 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2767
-#, fuzzy
-#| msgid "(Added in 1.17.6)"
 msgid "(Added in 1.19.6)"
-msgstr "(1.17.6 において追加)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2769
-#, fuzzy
-#| msgid "guestfs_ntfsfix_va"
 msgid "guestfs_fstrim_va"
-msgstr "guestfs_ntfsfix_va"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2771
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_e2fsck_va (guestfs_h *g,\n"
-#| "                    const char *device,\n"
-#| "                    va_list args);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_fstrim_va (guestfs_h *g,\n"
@@ -36766,35 +36738,20 @@ msgid ""
 "                    va_list args);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_e2fsck_va (guestfs_h *g,\n"
-"                    const char *device,\n"
-"                    va_list args);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2776
-#, fuzzy
-#| msgid "This is the \"va_list variant\" of L</guestfs_ntfsfix>."
 msgid "This is the \"va_list variant\" of L</guestfs_fstrim>."
-msgstr "これは L</guestfs_ntfsfix> の \"va_list variant\" です。"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2780
-#, fuzzy
-#| msgid "guestfs_ntfsfix_argv"
 msgid "guestfs_fstrim_argv"
-msgstr "guestfs_ntfsfix_argv"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2782
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_ntfsfix_argv (guestfs_h *g,\n"
-#| "                       const char *device,\n"
-#| "                       const struct guestfs_ntfsfix_argv *optargs);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_fstrim_argv (guestfs_h *g,\n"
@@ -36802,18 +36759,11 @@ msgid ""
 "                      const struct guestfs_fstrim_argv *optargs);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_ntfsfix_argv (guestfs_h *g,\n"
-"                       const char *device,\n"
-"                       const struct guestfs_ntfsfix_argv *optargs);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2787
-#, fuzzy
-#| msgid "This is the \"argv variant\" of L</guestfs_ntfsfix>."
 msgid "This is the \"argv variant\" of L</guestfs_fstrim>."
-msgstr "これは L</guestfs_ntfsfix> の \"argv variant\" です。"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2791
@@ -36918,7 +36868,7 @@ msgstr "(1.0.72 において追加)"
 #. type: =head2
 #: ../src/guestfs-actions.pod:2841
 msgid "guestfs_get_e2attrs"
-msgstr ""
+msgstr "guestfs_get_e2attrs"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2843
@@ -36929,11 +36879,15 @@ msgid ""
 "                      const char *file);\n"
 "\n"
 msgstr ""
+" char *\n"
+" guestfs_get_e2attrs (guestfs_h *g,\n"
+"                      const char *file);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2950
 msgid "See also C<guestfs_set_e2attrs>."
-msgstr ""
+msgstr "C<guestfs_set_e2attrs> 参照。"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2952
@@ -36946,12 +36900,12 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2958 ../src/guestfs-actions.pod:2978
 #: ../src/guestfs-actions.pod:7936 ../src/guestfs-actions.pod:7975
 msgid "(Added in 1.17.31)"
-msgstr ""
+msgstr "(1.17.31 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2960
 msgid "guestfs_get_e2generation"
-msgstr ""
+msgstr "guestfs_get_e2generation"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2962
@@ -36962,11 +36916,15 @@ msgid ""
 "                           const char *file);\n"
 "\n"
 msgstr ""
+" int64_t\n"
+" guestfs_get_e2generation (guestfs_h *g,\n"
+"                           const char *file);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2974
 msgid "See C<guestfs_set_e2generation>."
-msgstr ""
+msgstr "C<guestfs_set_e2generation> 参照。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2980
@@ -38851,7 +38809,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:4675 ../src/guestfs-actions.pod:4698
 msgid "(Added in 1.17.19)"
-msgstr ""
+msgstr "(1.17.19 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:4677
@@ -38891,23 +38849,15 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4705
-#, fuzzy
-#| msgid ""
-#| "I<This function is deprecated.> In new code, use the L</guestfs_vfs_uuid> "
-#| "call instead."
 msgid ""
 "I<This function is deprecated.> In new code, use the L</guestfs_shutdown> "
 "call instead."
 msgstr ""
-"I<この関数は推奨されません。> 新しいコードでは、代わりに L</"
-"guestfs_vfs_uuid> を使用してください。"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4714
-#, fuzzy
-#| msgid "Do not load the tree in C<guestfs_aug_init>."
 msgid "Do not call this.  See: C<guestfs_shutdown> instead."
-msgstr "C<guestfs_aug_init> にツリーを読み込みません。"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:4720
@@ -39322,6 +39272,8 @@ msgid ""
 "This is the same as C<guestfs_removexattr>, but if C<path> is a symbolic "
 "link, then it removes an extended attribute of the link itself."
 msgstr ""
+"これは C<guestfs_removexattr> と同じです。ただし、C<path> がシンボリックリン"
+"クならば、リンク自身の拡張属性を削除します。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:5034
@@ -39703,6 +39655,8 @@ msgid ""
 "This is the same as C<guestfs_luks_open> except that a read-only mapping is "
 "created."
 msgstr ""
+"これは、読み込み専用のマッピングが作成されることを除き、C<guestfs_luks_open> "
+"と同じです。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:5277
@@ -39753,7 +39707,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:5307 ../src/guestfs-actions.pod:9830
 msgid "(Added in 1.17.18)"
-msgstr ""
+msgstr "(1.17.18 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:5309
@@ -39776,10 +39730,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5322
-#, fuzzy
-#| msgid "See also C<guestfs_pwrite>, C<guestfs_pread_device>."
 msgid "See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>."
-msgstr "C<guestfs_pwrite>, C<guestfs_pread_device> 参照。"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5327
@@ -40043,26 +39995,17 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:5531
-#, fuzzy
-#| msgid "guestfs_part_disk"
 msgid "guestfs_max_disks"
-msgstr "guestfs_part_disk"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:5533
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_get_umask (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_max_disks (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_get_umask (guestfs_h *g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5536
@@ -40230,7 +40173,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:5747
 msgid "(Added in 1.17.21)"
-msgstr ""
+msgstr "(1.17.21 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:5749
@@ -40591,7 +40534,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs-actions.pod:5997
 msgid "guestfs_mkfs_btrfs"
-msgstr ""
+msgstr "guestfs_mkfs_btrfs"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:5999
@@ -40603,6 +40546,11 @@ msgid ""
 "                     ...);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_mkfs_btrfs (guestfs_h *g,\n"
+"                     char *const *devices,\n"
+"                     ...);\n"
+"\n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6009
@@ -40618,21 +40566,31 @@ msgid ""
 " GUESTFS_MKFS_BTRFS_SECTORSIZE, int sectorsize,\n"
 "\n"
 msgstr ""
+" GUESTFS_MKFS_BTRFS_ALLOCSTART, int64_t allocstart,\n"
+" GUESTFS_MKFS_BTRFS_BYTECOUNT, int64_t bytecount,\n"
+" GUESTFS_MKFS_BTRFS_DATATYPE, const char *datatype,\n"
+" GUESTFS_MKFS_BTRFS_LEAFSIZE, int leafsize,\n"
+" GUESTFS_MKFS_BTRFS_LABEL, const char *label,\n"
+" GUESTFS_MKFS_BTRFS_METADATA, const char *metadata,\n"
+" GUESTFS_MKFS_BTRFS_NODESIZE, int nodesize,\n"
+" GUESTFS_MKFS_BTRFS_SECTORSIZE, int sectorsize,\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6024
 msgid "To create general filesystems, use C<guestfs_mkfs_opts>."
 msgstr ""
+"一般的なファイルシステムを作成するには、C<guestfs_mkfs_opts> を使用します。"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6028
 msgid "(Added in 1.17.25)"
-msgstr ""
+msgstr "(1.17.25 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6030
 msgid "guestfs_mkfs_btrfs_va"
-msgstr ""
+msgstr "guestfs_mkfs_btrfs_va"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6032
@@ -40644,16 +40602,21 @@ msgid ""
 "                        va_list args);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_mkfs_btrfs_va (guestfs_h *g,\n"
+"                        char *const *devices,\n"
+"                        va_list args);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6037
 msgid "This is the \"va_list variant\" of L</guestfs_mkfs_btrfs>."
-msgstr ""
+msgstr "これは L</guestfs_mkfs_btrfs> の \"va_list variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6041
 msgid "guestfs_mkfs_btrfs_argv"
-msgstr ""
+msgstr "guestfs_mkfs_btrfs_argv"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6043
@@ -40665,11 +40628,16 @@ msgid ""
 "                          const struct guestfs_mkfs_btrfs_argv *optargs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_mkfs_btrfs_argv (guestfs_h *g,\n"
+"                          char *const *devices,\n"
+"                          const struct guestfs_mkfs_btrfs_argv *optargs);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6048
 msgid "This is the \"argv variant\" of L</guestfs_mkfs_btrfs>."
-msgstr ""
+msgstr "これは L</guestfs_mkfs_btrfs> の \"argv variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6052
@@ -41209,7 +41177,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6454 ../src/guestfs-actions.pod:6503
 #: ../src/guestfs-actions.pod:9160
 msgid "(Added in 1.17.22)"
-msgstr ""
+msgstr "(1.17.22 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6456
@@ -41490,26 +41458,17 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6620
-#, fuzzy
-#| msgid "guestfs_zero_device"
 msgid "guestfs_nr_devices"
-msgstr "guestfs_zero_device"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6622
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_sync (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_nr_devices (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_sync (guestfs_h *g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6625
@@ -42280,10 +42239,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7214
-#, fuzzy
-#| msgid "See also C<guestfs_pwrite>, C<guestfs_pread_device>."
 msgid "See also C<guestfs_part_to_partnum>, C<guestfs_device_index>."
-msgstr "C<guestfs_pwrite>, C<guestfs_pread_device> 参照。"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:7221
@@ -43115,7 +43072,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs-actions.pod:7899
 msgid "guestfs_set_e2attrs"
-msgstr ""
+msgstr "guestfs_set_e2attrs"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:7901
@@ -43128,6 +43085,12 @@ msgid ""
 "                      ...);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_set_e2attrs (guestfs_h *g,\n"
+"                      const char *file,\n"
+"                      const char *attrs,\n"
+"                      ...);\n"
+"\n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:7912
@@ -43136,6 +43099,8 @@ msgid ""
 " GUESTFS_SET_E2ATTRS_CLEAR, int clear,\n"
 "\n"
 msgstr ""
+" GUESTFS_SET_E2ATTRS_CLEAR, int clear,\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7917
@@ -43144,11 +43109,14 @@ msgid ""
 "C<guestfs_get_e2attrs> for a list of possible attributes.  Not all "
 "attributes can be changed."
 msgstr ""
+"C<attrs> はファイル属性を表す文字の列です。利用可能な属性の一覧は "
+"C<guestfs_get_e2attrs> を参照してください。すべての属性が変更できるわけではあ"
+"りません。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:7938
 msgid "guestfs_set_e2attrs_va"
-msgstr ""
+msgstr "guestfs_set_e2attrs_va"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:7940
@@ -43161,16 +43129,22 @@ msgid ""
 "                         va_list args);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_set_e2attrs_va (guestfs_h *g,\n"
+"                         const char *file,\n"
+"                         const char *attrs,\n"
+"                         va_list args);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7946
 msgid "This is the \"va_list variant\" of L</guestfs_set_e2attrs>."
-msgstr ""
+msgstr "これは L</guestfs_set_e2attrs> の \"va_list variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:7950
 msgid "guestfs_set_e2attrs_argv"
-msgstr ""
+msgstr "guestfs_set_e2attrs_argv"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:7952
@@ -43183,16 +43157,22 @@ msgid ""
 "                           const struct guestfs_set_e2attrs_argv *optargs);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_set_e2attrs_argv (guestfs_h *g,\n"
+"                           const char *file,\n"
+"                           const char *attrs,\n"
+"                           const struct guestfs_set_e2attrs_argv *optargs);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7958
 msgid "This is the \"argv variant\" of L</guestfs_set_e2attrs>."
-msgstr ""
+msgstr "これは L</guestfs_set_e2attrs> の \"argv variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:7962
 msgid "guestfs_set_e2generation"
-msgstr ""
+msgstr "guestfs_set_e2generation"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:7964
@@ -43204,11 +43184,16 @@ msgid ""
 "                           int64_t generation);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_set_e2generation (guestfs_h *g,\n"
+"                           const char *file,\n"
+"                           int64_t generation);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7971
 msgid "See C<guestfs_get_e2generation>."
-msgstr ""
+msgstr "C<guestfs_get_e2generation> 参照。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:7977
@@ -43866,26 +43851,17 @@ msgstr "関連項目: C<guestfs_command_lines>"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:8486
-#, fuzzy
-#| msgid "guestfs_chown"
 msgid "guestfs_shutdown"
-msgstr "guestfs_chown"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:8488
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_sync (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_shutdown (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_sync (guestfs_h *g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:8491
@@ -45092,7 +45068,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:9452
 msgid "(Added in 1.17.20)"
-msgstr ""
+msgstr "(1.17.20 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:9454
@@ -45768,6 +45744,13 @@ msgid ""
 "guestfs_btrfs_subvolume_list> L</guestfs_btrfs_subvolume_set_default> L</"
 "guestfs_btrfs_subvolume_snapshot> L</guestfs_mkfs_btrfs>"
 msgstr ""
+"以下の関数: L</guestfs_btrfs_device_add> L</guestfs_btrfs_device_delete> L</"
+"guestfs_btrfs_filesystem_balance> L</guestfs_btrfs_filesystem_resize> L</"
+"guestfs_btrfs_filesystem_sync> L</guestfs_btrfs_fsck> L</"
+"guestfs_btrfs_set_seeding> L</guestfs_btrfs_subvolume_create> L</"
+"guestfs_btrfs_subvolume_delete> L</guestfs_btrfs_subvolume_list> L</"
+"guestfs_btrfs_subvolume_set_default> L</guestfs_btrfs_subvolume_snapshot> L</"
+"guestfs_mkfs_btrfs>"
 
 #. type: =item
 #: ../src/guestfs-availability.pod:38
@@ -45776,10 +45759,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-availability.pod:40
-#, fuzzy
-#| msgid "The following functions: L</guestfs_wipefs>"
 msgid "The following functions: L</guestfs_fstrim>"
-msgstr "次の関数: L</guestfs_wipefs>"
+msgstr ""
 
 #. type: =item
 #: ../src/guestfs-availability.pod:43
@@ -46885,7 +46866,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs-structs.pod:314
 msgid "guestfs_btrfssubvolume"
-msgstr ""
+msgstr "guestfs_btrfssubvolume"
 
 #. type: verbatim
 #: ../src/guestfs-structs.pod:316
@@ -46898,6 +46879,12 @@ msgid ""
 " };\n"
 " \n"
 msgstr ""
+" struct guestfs_btrfssubvolume {\n"
+"   uint64_t btrfssubvolume_id;\n"
+"   uint64_t btrfssubvolume_top_level_id;\n"
+"   char *btrfssubvolume_path;\n"
+" };\n"
+" \n"
 
 #. type: verbatim
 #: ../src/guestfs-structs.pod:322
@@ -46909,6 +46896,11 @@ msgid ""
 " };\n"
 " \n"
 msgstr ""
+" struct guestfs_btrfssubvolume_list {\n"
+"   uint32_t len; /* 一覧にある要素の数 */\n"
+"   struct guestfs_btrfssubvolume *val; /* 要素 */\n"
+" };\n"
+" \n"
 
 #. type: verbatim
 #: ../src/guestfs-structs.pod:327
@@ -46918,6 +46910,9 @@ msgid ""
 " void guestfs_free_btrfssubvolume_list (struct guestfs_free_btrfssubvolume_list *);\n"
 "\n"
 msgstr ""
+" void guestfs_free_btrfssubvolume (struct guestfs_free_btrfssubvolume *);\n"
+" void guestfs_free_btrfssubvolume_list (struct guestfs_free_btrfssubvolume_list *);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs.pod:5
@@ -46926,16 +46921,7 @@ msgstr "guestfs - 仮想マシンイメージのアクセスまたは変更の�
 
 #. type: verbatim
 #: ../src/guestfs.pod:11
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfs_h *g = guestfs_create ();\n"
-#| " guestfs_add_drive (g, \"guest.img\");\n"
-#| " guestfs_launch (g);\n"
-#| " guestfs_mount (g, \"/dev/sda1\", \"/\");\n"
-#| " guestfs_touch (g, \"/hello\");\n"
-#| " guestfs_umount (g, \"/\");\n"
-#| " guestfs_close (g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " guestfs_h *g = guestfs_create ();\n"
 " guestfs_add_drive (g, \"guest.img\");\n"
@@ -46947,14 +46933,6 @@ msgid ""
 " guestfs_close (g);\n"
 "\n"
 msgstr ""
-" guestfs_h *g = guestfs_create ();\n"
-" guestfs_add_drive (g, \"guest.img\");\n"
-" guestfs_launch (g);\n"
-" guestfs_mount (g, \"/dev/sda1\", \"/\");\n"
-" guestfs_touch (g, \"/hello\");\n"
-" guestfs_umount (g, \"/\");\n"
-" guestfs_close (g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs.pod:26
@@ -47135,19 +47113,12 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:90
-#, fuzzy, no-wrap
-#| msgid ""
-#| " /* Close the handle 'g'. */\n"
-#| " guestfs_close (g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " /* Close and free the handle 'g'. */\n"
 " guestfs_close (g);\n"
 "\n"
 msgstr ""
-" /* 'g' を閉じます。 */\n"
-" guestfs_close (g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs.pod:93
@@ -48395,6 +48366,9 @@ msgid ""
 "for more details.  The L</guestfs_inspect_os> function just ignores any "
 "encrypted devices."
 msgstr ""
+"暗号化ディスクは検査の前に開く必要があります。詳細はL</暗号化ディスク>を参照"
+"してください。L</guestfs_inspect_os> 関数はすべての暗号化デバイスを単に無視し"
+"ます。"
 
 #. type: textblock
 #: ../src/guestfs.pod:651
@@ -49662,7 +49636,7 @@ msgstr "同型異義語を含む場合"
 #. type: =head2
 #: ../src/guestfs.pod:1271
 msgid "SECURITY OF MOUNTING FILESYSTEMS"
-msgstr ""
+msgstr "ファイルシステムのマウントに関するセキュリティ"
 
 #. type: textblock
 #: ../src/guestfs.pod:1273
@@ -49952,19 +49926,15 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:1423
-#, fuzzy
-#| msgid "This closes the connection handle and frees up all resources used."
 msgid ""
 "This closes the connection handle and frees up all resources used.  If a "
 "close callback was set on the handle, then it is called."
-msgstr "これにより、接続ハンドルを閉じ、すべての使用資源を解放します。"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:1426
-#, fuzzy
-#| msgid "To close the handle:"
 msgid "The correct way to close the handle is:"
-msgstr "ハンドルを閉じるには:"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:1428
@@ -50000,10 +49970,8 @@ msgstr ""
 
 #. type: =item
 #: ../src/guestfs.pod:1449
-#, fuzzy
-#| msgid "4."
 msgid "4"
-msgstr "4."
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:1451
@@ -50288,12 +50256,12 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs.pod:1578
 msgid "The default handler prints messages on C<stderr>."
-msgstr ""
+msgstr "標準のハンドラーは C<stderr> にメッセージを表示します。"
 
 #. type: textblock
 #: ../src/guestfs.pod:1580
 msgid "If you set C<cb> to C<NULL> then I<no> handler is called."
-msgstr ""
+msgstr "C<cb> を C<NULL> に設定すると、 I<no> ハンドラーが呼び出されます。"
 
 #. type: =head2
 #: ../src/guestfs.pod:1582
@@ -50342,6 +50310,8 @@ msgid ""
 "The callback C<cb> will be called if there is an out of memory situation.  "
 "I<Note this callback must not return>."
 msgstr ""
+"メモリー不足になると、コールバック C<cb> が呼び出されます。 I<このコールバッ"
+"クは戻ってこない可能性があることに注意してください>。"
 
 #. type: textblock
 #: ../src/guestfs.pod:1598
@@ -50417,10 +50387,8 @@ msgstr "@AVAILABILITY@"
 
 #. type: =head2
 #: ../src/guestfs.pod:1628
-#, fuzzy
-#| msgid "FILESYSTEM TYPE"
 msgid "FILESYSTEM AVAILABLE"
-msgstr "ファイルシステム形式"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:1630
@@ -50752,7 +50720,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs.pod:1758
 msgid "CONSTRUCTING OPTIONAL ARGUMENTS"
-msgstr ""
+msgstr "オプション引数の構築"
 
 #. type: textblock
 #: ../src/guestfs.pod:1760
@@ -53507,12 +53475,12 @@ msgstr "C ライブラリーのソースコード。"
 #. type: =item
 #: ../src/guestfs.pod:3104
 msgid "C<sysprep>"
-msgstr ""
+msgstr "C<sysprep>"
 
 #. type: textblock
 #: ../src/guestfs.pod:3106
 msgid "L<virt-sysprep(1)> command and documentation."
-msgstr ""
+msgstr "L<virt-sysprep(1)> コマンドおよびドキュメント。"
 
 #. type: =item
 #: ../src/guestfs.pod:3108
@@ -54057,18 +54025,20 @@ msgstr ""
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:1
 msgid "B<--hostname> hostname (see C<hostname> below)"
-msgstr ""
+msgstr "B<--hostname> hostname (以下の C<hostname> 参照)"
 
 #. type: textblock
 #: ../sysprep/sysprep-extra-options.pod:4
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
+"ホスト名を変更します。指定されないと、デフォルトで C<localhost.localdomain> "
+"になります。"
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:6
 msgid "B<--script> script (see C<script> below)"
-msgstr ""
+msgstr "B<--script> script (以下の C<script> 参照)"
 
 #. type: textblock
 #: ../sysprep/sysprep-extra-options.pod:9
@@ -54113,12 +54083,12 @@ msgstr ""
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:1
 msgid "B<bash-history> *"
-msgstr ""
+msgstr "B<bash-history> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:4
 msgid "Remove the bash history in the guest."
-msgstr ""
+msgstr "仮想マシンにおいて bash 履歴を削除します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:6
@@ -54126,16 +54096,18 @@ msgid ""
 "Remove the bash history of user \"root\" and any other users who have a C<."
 "bash_history> file in their home directory."
 msgstr ""
+"ユーザー \"root\" および他のあらゆるユーザーのホームディレクトリーに C<."
+"bash_history> ファイルを持つユーザーの bash 履歴を削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:9
 msgid "B<blkid-tab> *"
-msgstr ""
+msgstr "B<blkid-tab> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:12
 msgid "Remove blkid tab in the guest."
-msgstr ""
+msgstr "ゲストにある blkid テーブルを削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:14
@@ -54144,15 +54116,13 @@ msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:16
-#, fuzzy
-#| msgid "Remove the user accounts in the guest."
 msgid "Remove CA certificates in the guest."
-msgstr "仮想マシンにあるユーザーアカウントを削除します。"
+msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:18
 msgid "B<cron-spool> *"
-msgstr ""
+msgstr "B<cron-spool> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:21
@@ -54162,7 +54132,7 @@ msgstr ""
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:23
 msgid "B<dhcp-client-state> *"
-msgstr ""
+msgstr "B<dhcp-client-state> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:26
@@ -54172,7 +54142,7 @@ msgstr "DHCP クライアントのリースを削除します。"
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:28
 msgid "B<dhcp-server-state> *"
-msgstr ""
+msgstr "B<dhcp-server-state> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:31
@@ -54182,17 +54152,17 @@ msgstr "DHCP サーバーのリースを削除します。"
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:33
 msgid "B<dovecot-data> *"
-msgstr ""
+msgstr "B<dovecot-data> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:36
 msgid "Remove Dovecot (mail server) data."
-msgstr ""
+msgstr "Dovecot (メールサーバー) のデータを削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:38
 msgid "B<flag-reconfiguration>"
-msgstr ""
+msgstr "B<flag-reconfiguration>"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:40
@@ -54207,12 +54177,12 @@ msgstr ""
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:45
 msgid "B<hostname> *"
-msgstr ""
+msgstr "B<hostname> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:48
 msgid "Change the hostname of the guest."
-msgstr ""
+msgstr "仮想マシンのホスト名を変更します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:50
@@ -54237,25 +54207,23 @@ msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:58
-#, fuzzy
-#| msgid "Remove the user accounts in the guest."
 msgid "Remove Kerberos data in the guest."
-msgstr "仮想マシンにあるユーザーアカウントを削除します。"
+msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:60
 msgid "B<logfiles> *"
-msgstr ""
+msgstr "B<logfiles> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:63
 msgid "Remove many log files from the guest."
-msgstr ""
+msgstr "仮想マシンから多くのログファイルを削除します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:65
 msgid "On Linux the following files are removed:"
-msgstr ""
+msgstr "Linux においては以下のファイルが削除されます:"
 
 #. type: verbatim
 #: ../sysprep/sysprep-operations.pod:67
@@ -54300,11 +54268,49 @@ msgid ""
 " /var/named/data/named.run\n"
 "\n"
 msgstr ""
+" /root/anaconda-ks.cfg\n"
+" /root/install.log\n"
+" /root/install.log.syslog\n"
+" /var/account/pacct\n"
+" /var/cache/gdm/*\n"
+" /var/lib/AccountService/users/*\n"
+" /var/lib/fprint/*\n"
+" /var/lib/logrotate.status\n"
+" /var/log/*.log*\n"
+" /var/log/BackupPC/LOG\n"
+" /var/log/audit/*\n"
+" /var/log/btmp*\n"
+" /var/log/ceph/*.log\n"
+" /var/log/chrony/*.log\n"
+" /var/log/cron*\n"
+" /var/log/cups/*_log\n"
+" /var/log/dmesg*\n"
+" /var/log/glusterfs/*glusterd.vol.log\n"
+" /var/log/glusterfs/glusterfs.log\n"
+" /var/log/httpd/*log\n"
+" /var/log/jetty/jetty-console.log\n"
+" /var/log/lastlog*\n"
+" /var/log/libvirt/libvirtd.log\n"
+" /var/log/libvirt/lxc/*.log\n"
+" /var/log/libvirt/qemu/*.log\n"
+" /var/log/libvirt/uml/*.log\n"
+" /var/log/mail/*\n"
+" /var/log/maillog*\n"
+" /var/log/messages*\n"
+" /var/log/ppp/connect-errors\n"
+" /var/log/secure*\n"
+" /var/log/setroubleshoot/*.log\n"
+" /var/log/spooler*\n"
+" /var/log/squid/*.log\n"
+" /var/log/tallylog*\n"
+" /var/log/wtmp*\n"
+" /var/named/data/named.run\n"
+"\n"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:105
 msgid "B<mail-spool> *"
-msgstr ""
+msgstr "B<mail-spool> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:108
@@ -54314,12 +54320,12 @@ msgstr "ローカルのメールスプールのディレクトリから電子メ
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:110
 msgid "B<net-hwaddr> *"
-msgstr ""
+msgstr "B<net-hwaddr> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:113
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
-msgstr ""
+msgstr "HWADDR (ハードコードされた MAC アドレス) 設定を削除します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:115
@@ -54327,50 +54333,48 @@ msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
 msgstr ""
+"Fedora および Red Hat Enterprise Linux に対して、これは C<ifcfg-*> ファイルか"
+"ら削除されます。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:118
 msgid "B<package-manager-cache> *"
-msgstr ""
+msgstr "B<package-manager-cache> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:121
 msgid "Remove package manager cache."
-msgstr ""
+msgstr "パッケージマネージャーのキャッシュを削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:123
 msgid "B<pam-data> *"
-msgstr ""
+msgstr "B<pam-data> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:126
 msgid "Remove the PAM data in the guest."
-msgstr ""
+msgstr "ゲストにある PAM データを削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:128
-#, fuzzy
-#| msgid "B<sssd-db-log> *"
 msgid "B<puppet-data-log> *"
-msgstr "B<sssd-db-log> *"
+msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:131
-#, fuzzy
-#| msgid "Remove the database and log files of sssd."
 msgid "Remove the data and log files of puppet."
-msgstr "SSSD のデータベースとログファイルを削除します。"
+msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:133
 msgid "B<random-seed> *"
-msgstr ""
+msgstr "B<random-seed> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:136
 msgid "Generate random seed for guest."
-msgstr ""
+msgstr "仮想マシンに対して乱数種を生成します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:138
@@ -54386,7 +54390,7 @@ msgstr "以下の L</RANDOM SEED> を参照してください。"
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:143
 msgid "B<rhn-systemid> *"
-msgstr ""
+msgstr "B<rhn-systemid> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:146
@@ -54396,22 +54400,22 @@ msgstr "RHN システム ID を削除します。"
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:148
 msgid "B<samba-db-log> *"
-msgstr ""
+msgstr "B<samba-db-log> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:151
 msgid "Remove the database and log files of Samba."
-msgstr ""
+msgstr "Samba のデータベースおよびログファイルを削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:153
 msgid "B<script> *"
-msgstr ""
+msgstr "B<script> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:156
 msgid "Run arbitrary scripts against the guest."
-msgstr ""
+msgstr "仮想マシンに対して任意のスクリプトを実行します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:158
@@ -54533,12 +54537,12 @@ msgstr "SSSD のデータベースとログファイルを削除します。"
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:211
 msgid "B<udev-persistent-net> *"
-msgstr ""
+msgstr "B<udev-persistent-net> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:214
 msgid "Remove udev persistent net rules."
-msgstr ""
+msgstr "udev persistent net ルールを削除します。"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:216
@@ -54836,7 +54840,7 @@ msgstr ""
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:152
 msgid "Don't print log messages."
-msgstr ""
+msgstr "ログメッセージを表示しません。"
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:154
@@ -54870,7 +54874,7 @@ msgstr ""
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:182
 msgid "@EXTRA_OPTIONS@"
-msgstr ""
+msgstr "@EXTRA_OPTIONS@"
 
 #. type: =head1
 #: ../sysprep/virt-sysprep.pod:186
@@ -54922,11 +54926,12 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:205
 msgid "C<*> = enabled by default when no I<--enable> option is given."
 msgstr ""
+"C<*> = I<--enable> オプションが与えられるとき、デフォルトで有効化されます。"
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:207
 msgid "@OPERATIONS@"
-msgstr ""
+msgstr "@OPERATIONS@"
 
 #. type: =head1
 #: ../sysprep/virt-sysprep.pod:209
@@ -55364,10 +55369,8 @@ msgstr "Copyright (C) 2011-2012 Red Hat Inc."
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:457
-#, fuzzy
-#| msgid "Copyright (C) 2012 Red Hat Inc."
 msgid "Copyright (C) 2012 Fujitsu Ltd."
-msgstr "Copyright (C) 2012 Red Hat Inc."
+msgstr ""
 
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:5
@@ -55477,7 +55480,7 @@ msgstr ""
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:65
 msgid "Display the libguestfs version number and exit."
-msgstr ""
+msgstr "libguestfs のバージョン番号を表示して、終了します。"
 
 #. type: =head1
 #: ../test-tool/libguestfs-test-tool.pod:69
@@ -57199,34 +57202,3 @@ msgid ""
 msgstr ""
 "L<https://bugzilla.redhat.com/> の新規バグ報告に /tmp/virt-win-reg.log を添付"
 "してください"
-
-#~ msgid ""
-#~ " /* This is only needed for libguestfs < 1.5.24.  Since then\n"
-#~ "  * it is done automatically when you close the handle.  See\n"
-#~ "  * discussion of autosync in this page.\n"
-#~ "  */\n"
-#~ " guestfs_sync (g);\n"
-#~ " \n"
-#~ msgstr ""
-#~ " /* これは libguestfs < 1.5.24 に対してのみ必要にです。\n"
-#~ "  * それ以降はハンドルを閉じるときに自動的に実行されます。\n"
-#~ "  * このページにある自動同期の議論を参照してください。\n"
-#~ "  */\n"
-#~ " guestfs_sync (g);\n"
-#~ " \n"
-
-#~ msgid "See also L</is-lv>."
-#~ msgstr "L</is-lv> 参照。"
-
-#~ msgid "See also C<guestfs_is_lv>."
-#~ msgstr "C<guestfs_is_lv> 参照。"
-
-#~ msgid "See also C<guestfs_part_to_partnum>."
-#~ msgstr "C<guestfs_part_to_partnum> 参照。"
-
-#~ msgid ""
-#~ "In future (but not currently) these zeroed blocks will be \"sparsified\" "
-#~ "- that is, given back to the host."
-#~ msgstr ""
-#~ "将来（現在ではありません）これらのゼロにされたブロックは「スパース化」され"
-#~ "ます。つまり、ホストに返されます。"

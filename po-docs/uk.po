@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
 "POT-Creation-Date: 2012-07-09 18:35+0200\n"
-"PO-Revision-Date: 2012-05-21 13:20+0000\n"
+"PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -246,6 +246,8 @@ msgid ""
 "Run virt-alignment-scan without any I<-a> or I<-d> options to scan all "
 "libvirt domains."
 msgstr ""
+"Щоб виконати сканування всіх доменів libvirt, віддайте команду virt-"
+"alignment-scan без параметрів I<-a> та I<-d>."
 
 #. type: verbatim
 #: ../align/virt-alignment-scan.pod:59
@@ -467,6 +469,8 @@ msgid ""
 "If you specify guest block devices directly (I<-a>), then libvirt is not "
 "used at all."
 msgstr ""
+"Якщо вказати блокові пристрої гостьових систем безпосередньо (I<-a>), "
+"libvirt не буде використовуватися взагалі."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:91
@@ -493,6 +497,8 @@ msgid ""
 "Add all the disks from the named libvirt guest.  Domain UUIDs can be used "
 "instead of names."
 msgstr ""
+"Додати всі диски з вказаної гостьової системи libvirt. UUID доменів можна "
+"використовувати замість назв."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:137 ../cat/virt-cat.pod:105
@@ -2461,6 +2467,8 @@ msgid ""
 " virt-filesystems --format=raw -a disk.img --format -a another.img\n"
 "\n"
 msgstr ""
+" virt-filesystems --format=raw -a диск.img --format -a інший_диск.img\n"
+"\n"
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:194 ../cat/virt-ls.pod:352
@@ -2521,7 +2529,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-filesystems.pod:221
 msgid "Use I<--uuid> to display UUIDs too."
-msgstr ""
+msgstr "Скористайтеся параметром I<--uuid>, щоб було показано також UUID."
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:223
@@ -2771,7 +2779,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-filesystems.pod:349
 msgid "The UUID is only displayed if the I<--uuid> option is given."
-msgstr ""
+msgstr "UUID буде показано, лише якщо вказано параметр I<--uuid>."
 
 #. type: =head1
 #: ../cat/virt-filesystems.pod:353 ../cat/virt-ls.pod:459
@@ -2910,6 +2918,8 @@ msgid ""
 " virt-ls [--options] disk.img [disk.img ...] directory\n"
 "\n"
 msgstr ""
+" virt-ls [--параметри] диск.img [диск.img ...] каталог\n"
+"\n"
 
 #. type: textblock
 #: ../cat/virt-ls.pod:21
@@ -3527,6 +3537,8 @@ msgid ""
 " virt-ls --format=raw -a disk.img --format -a another.img /dir\n"
 "\n"
 msgstr ""
+" virt-ls --format=raw -a диск.img --format -a інший_диск.img /каталог\n"
+"\n"
 
 #. type: textblock
 #: ../cat/virt-ls.pod:356
@@ -3651,6 +3663,8 @@ msgid ""
 " virt-ls guestname /dir\n"
 "\n"
 msgstr ""
+" virt-ls назва_гостьової_системи /каталог\n"
+"\n"
 
 #. type: textblock
 #: ../cat/virt-ls.pod:497
@@ -3881,7 +3895,7 @@ msgstr ""
 #. type: =head1
 #: ../df/virt-df.pod:191
 msgid "STATVFS NUMBERS"
-msgstr ""
+msgstr "ЧИСЛОВІ ДАНІ ЩОДО STATVFS"
 
 #. type: textblock
 #: ../df/virt-df.pod:193
@@ -4019,6 +4033,9 @@ msgid ""
 "turn.  Each filename must be a full path, starting at the root directory "
 "(starting with '/')."
 msgstr ""
+"Ви можете вказати декілька назв файлів. Вміст таких файлів буде редаговано "
+"послідовно. Назви файлів слід вказувати повністю (разом зі шляхом), "
+"починаючи з кореневого каталогу (тобто назва має починатися з «/»)."
 
 #. type: textblock
 #: ../edit/virt-edit.pod:36
@@ -4051,6 +4068,8 @@ msgid ""
 " virt-edit -d mydomain /boot/grub/grub.conf\n"
 "\n"
 msgstr ""
+" virt-edit -d mydomain /boot/grub/grub.conf\n"
+"\n"
 
 #. type: verbatim
 #: ../edit/virt-edit.pod:50
@@ -4059,6 +4078,8 @@ msgid ""
 " virt-edit -d mydomain /etc/passwd\n"
 "\n"
 msgstr ""
+" virt-edit -d mydomain /etc/passwd\n"
+"\n"
 
 #. type: textblock
 #: ../edit/virt-edit.pod:52
@@ -4072,6 +4093,8 @@ msgid ""
 " virt-edit -d mywindomain 'c:\\autoexec.bat'\n"
 "\n"
 msgstr ""
+" virt-edit -d mywindomain 'c:\\autoexec.bat'\n"
+"\n"
 
 #. type: textblock
 #: ../edit/virt-edit.pod:56
@@ -4087,16 +4110,18 @@ msgid ""
 " virt-edit -d mydomain /etc/inittab -e 's/^id:.*/id:5:initdefault:/'\n"
 "\n"
 msgstr ""
+" virt-edit -d mydomain /etc/inittab -e 's/^id:.*/id:5:initdefault:/'\n"
+"\n"
 
 #. type: =item
 #: ../edit/virt-edit.pod:81
 msgid "B<-b> extension"
-msgstr ""
+msgstr "B<-b> суфікс"
 
 #. type: =item
 #: ../edit/virt-edit.pod:83
 msgid "B<--backup> extension"
-msgstr ""
+msgstr "B<--backup> суфікс"
 
 #. type: textblock
 #: ../edit/virt-edit.pod:85
@@ -4468,10 +4493,8 @@ msgstr ""
 
 #. type: =head1
 #: ../edit/virt-edit.pod:329
-#, fuzzy
-#| msgid "CVE-2010-3851"
 msgid "CVE-2012-2690"
-msgstr "CVE-2010-3851"
+msgstr ""
 
 #. type: textblock
 #: ../edit/virt-edit.pod:331
@@ -5157,10 +5180,8 @@ msgstr ""
 
 #. type: =head1
 #: ../examples/guestfs-faq.pod:128
-#, fuzzy
-#| msgid "ERRORS"
 msgid "COMMON ERRORS"
-msgstr "ПОМИЛКИ"
+msgstr ""
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:130
@@ -5230,10 +5251,8 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:164
-#, fuzzy
-#| msgid "This is an installed operating system."
 msgid "This is a design flaw of the GNU/Linux system."
-msgstr "Це встановлена операційна система."
+msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:166
@@ -5262,36 +5281,24 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:179
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " ><fs> mount-options utf8 /dev/sda1 /\n"
 "\n"
 msgstr ""
-" guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:181
-#, fuzzy
-#| msgid "guestfs_command_lines"
 msgid "or on the guestfish command line:"
-msgstr "guestfs_command_lines"
+msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:183
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfish --rw -a /dev/Guests/MyGuest -i\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " guestfish [...] -m /dev/sda1:/:utf8\n"
 "\n"
 msgstr ""
-" guestfish --rw -a /dev/Guests/MyGuest -i\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:185
@@ -5300,16 +5307,11 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:187
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " guestfs_mount_options (g, \"utf8\", \"/dev/sda1\", \"/\");\n"
 "\n"
 msgstr ""
-" guestfs_mount_options (g, \"\", \"/dev/sda1\", \"/\");\n"
-"\n"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:189
@@ -5539,10 +5541,8 @@ msgstr ""
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:300
-#, fuzzy
-#| msgid "Gentoo."
 msgid "Gentoo"
-msgstr "Gentoo."
+msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:302
@@ -5551,16 +5551,11 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:304
-#, fuzzy, no-wrap
-#| msgid ""
-#| " libguestfs-test-tool\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " emerge libguestfs\n"
 "\n"
 msgstr ""
-" libguestfs-test-tool\n"
-"\n"
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:306
@@ -9677,10 +9672,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:476
-#, fuzzy
-#| msgid "See also L</list-filesystems>."
 msgid "See also L</filesystem-available>."
-msgstr "Див. також L</list-filesystems>."
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:478
@@ -10352,23 +10345,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:742
-#, fuzzy
-#| msgid "lvm-canonical-lv-name"
 msgid "canonical-device-name"
-msgstr "lvm-canonical-lv-name"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:744
-#, fuzzy, no-wrap
-#| msgid ""
-#| " swapon-device device\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " canonical-device-name device\n"
 "\n"
 msgstr ""
-" swapon-device пристрій\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:746 ../src/guestfs-actions.pod:1176
@@ -10380,17 +10366,13 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:752 ../src/guestfs-actions.pod:1182
-#, fuzzy
-#| msgid "C</dev/sdd>"
 msgid "C</dev/hdX>"
-msgstr "C</dev/sdd>"
+msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:754 ../src/guestfs-actions.pod:1184
-#, fuzzy
-#| msgid "C</dev/sdd>"
 msgid "C</dev/vdX>"
-msgstr "C</dev/sdd>"
+msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:756 ../src/guestfs-actions.pod:1186
@@ -10407,10 +10389,8 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:762 ../src/guestfs-actions.pod:1192
-#, fuzzy
-#| msgid "C</dev/sdd>"
 msgid "C</dev/dm-N>"
-msgstr "C</dev/sdd>"
+msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:764
@@ -11177,23 +11157,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1124
-#, fuzzy
-#| msgid "device"
 msgid "device-index"
-msgstr "пристрій"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:1126
-#, fuzzy, no-wrap
-#| msgid ""
-#| " zero-device device\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " device-index device\n"
 "\n"
 msgstr ""
-" zero-device пристрій\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1128 ../src/guestfs-actions.pod:1924
@@ -11211,10 +11184,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1134
-#, fuzzy
-#| msgid "See also L</part-to-dev>."
 msgid "See also L</list-devices>, L</part-to-dev>."
-msgstr "Див. також L</part-to-dev>."
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1136
@@ -12015,23 +11986,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1517
-#, fuzzy
-#| msgid "guestfs_available"
 msgid "filesystem-available"
-msgstr "guestfs_available"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:1519
-#, fuzzy, no-wrap
-#| msgid ""
-#| " list-filesystems\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " filesystem-available filesystem\n"
 "\n"
 msgstr ""
-" list-filesystems\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1521 ../src/guestfs-actions.pod:2511
@@ -12057,10 +12021,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1532
-#, fuzzy
-#| msgid "See also L<guestfs(3)/AVAILABILITY>."
 msgid "See also L</available>, L<guestfs(3)/AVAILABILITY>."
-msgstr "Див. також L<guestfs(3)/AVAILABILITY>."
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1534
@@ -12344,10 +12306,8 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1677
-#, fuzzy
-#| msgid "strings"
 msgid "fstrim"
-msgstr "strings"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:1679
@@ -15495,14 +15455,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3074 ../src/guestfs-actions.pod:4712
-#, fuzzy
-#| msgid ""
-#| " kill-subprocess\n"
-#| "\n"
 msgid "This kills the qemu subprocess."
 msgstr ""
-" kill-subprocess\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3076
@@ -16354,10 +16308,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:3446
-#, fuzzy
-#| msgid "See also L</pwrite>, L</pread-device>."
 msgid "See also L</is-lv>, L</canonical-device-name>."
-msgstr "Див. також L</pwrite>, L</pread-device>."
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3448
@@ -16668,10 +16620,8 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:3577
-#, fuzzy
-#| msgid "part-disk"
 msgid "max-disks"
-msgstr "part-disk"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:3579
@@ -18134,23 +18084,16 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:4212
-#, fuzzy
-#| msgid "C<nrdevices>"
 msgid "nr-devices"
-msgstr "C<nrdevices>"
+msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:4214
-#, fuzzy, no-wrap
-#| msgid ""
-#| " list-devices\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " nr-devices\n"
 "\n"
 msgstr ""
-" list-devices\n"
-"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4216
@@ -18931,10 +18874,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4585
-#, fuzzy
-#| msgid "See also L</part-to-partnum>."
 msgid "See also L</part-to-partnum>, L</device-index>."
-msgstr "Див. також L</part-to-partnum>."
+msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:4587
@@ -24577,7 +24518,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish.pod:422
 msgid "See L</OPENING DISKS FOR READ AND WRITE> below."
-msgstr ""
+msgstr "Див. L</OPENING DISKS FOR READ AND WRITE> нижче."
 
 #. type: textblock
 #: ../fish/guestfish.pod:426
@@ -27531,10 +27472,8 @@ msgstr ""
 
 #. type: =item
 #: ../fuse/guestmount.pod:287
-#, fuzzy
-#| msgid "B<--file file>"
 msgid "B<--pid-file filename>"
-msgstr "B<--file файл>"
+msgstr ""
 
 #. type: textblock
 #: ../fuse/guestmount.pod:289
@@ -27600,19 +27539,11 @@ msgstr ""
 
 #. type: textblock
 #: ../fuse/guestmount.pod:362
-#, fuzzy
-#| msgid ""
-#| "L<guestfish(1)>, L<virt-inspector(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
-#| "L<virt-tar(1)>, L<guestfs(3)>, L<http://libguestfs.org/>, L<http://fuse."
-#| "sf.net/>."
 msgid ""
 "L<guestfish(1)>, L<virt-inspector(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
 "L<virt-tar(1)>, L<guestfs(3)/MOUNT LOCAL>, L<http://libguestfs.org/>, "
 "L<http://fuse.sf.net/>."
 msgstr ""
-"L<guestfish(1)>, L<virt-inspector(1)>, L<virt-cat(1)>, L<virt-edit(1)>, "
-"L<virt-tar(1)>, L<guestfs(3)>, L<http://libguestfs.org/>, L<http://fuse.sf."
-"net/>."
 
 #. type: textblock
 #: ../inspector/virt-inspector.pod:5
@@ -31380,7 +31311,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:155
 msgid "This is the \"va_list variant\" of L</guestfs_add_domain>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_add_domain>."
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:157 ../src/guestfs-actions.pod:168
@@ -31434,7 +31365,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:166
 msgid "This is the \"argv variant\" of L</guestfs_add_domain>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_add_domain>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:170
@@ -31554,7 +31485,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:269
 msgid "This is the \"va_list variant\" of L</guestfs_add_drive_opts>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_add_drive_opts>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:273
@@ -31580,7 +31511,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:280
 msgid "This is the \"argv variant\" of L</guestfs_add_drive_opts>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_add_drive_opts>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:284
@@ -32155,10 +32086,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:676
-#, fuzzy
-#| msgid "See also C<guestfs_list_filesystems>."
 msgid "See also C<guestfs_filesystem_available>."
-msgstr "Див. також C<guestfs_list_filesystems>."
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:680 ../src/guestfs-actions.pod:1916
@@ -32551,7 +32480,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1138 ../src/guestfs-actions.pod:1153
 #: ../src/guestfs-actions.pod:1168
 msgid "(Added in 1.17.35)"
-msgstr ""
+msgstr "(Додано у 1.17.35)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:944
@@ -32653,7 +32582,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1015
 msgid "This is the \"va_list variant\" of L</guestfs_btrfs_filesystem_resize>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_btrfs_filesystem_resize>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1019
@@ -32679,7 +32608,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1026
 msgid "This is the \"argv variant\" of L</guestfs_btrfs_filesystem_resize>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_btrfs_filesystem_resize>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1030
@@ -32703,7 +32632,7 @@ msgstr ""
 #. type: =head2
 #: ../src/guestfs-actions.pod:1042
 msgid "guestfs_btrfs_fsck"
-msgstr ""
+msgstr "guestfs_btrfs_fsck"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1044
@@ -32715,6 +32644,11 @@ msgid ""
 "                     ...);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_fsck (guestfs_h *g,\n"
+"                     const char *device,\n"
+"                     ...);\n"
+"\n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1054
@@ -32724,18 +32658,19 @@ msgid ""
 " GUESTFS_BTRFS_FSCK_REPAIR, int repair,\n"
 "\n"
 msgstr ""
+" GUESTFS_BTRFS_FSCK_SUPERBLOCK, int64_t superblock,\n"
+" GUESTFS_BTRFS_FSCK_REPAIR, int repair,\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1062 ../src/guestfs-actions.pod:1098
-#, fuzzy
-#| msgid "(Added in 1.7.4)"
 msgid "(Added in 1.17.43)"
-msgstr "(Додано у 1.7.4)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1064
 msgid "guestfs_btrfs_fsck_va"
-msgstr ""
+msgstr "guestfs_btrfs_fsck_va"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1066
@@ -32747,11 +32682,16 @@ msgid ""
 "                        va_list args);\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_btrfs_fsck_va (guestfs_h *g,\n"
+"                        const char *device,\n"
+"                        va_list args);\n"
+"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1071
 msgid "This is the \"va_list variant\" of L</guestfs_btrfs_fsck>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_btrfs_fsck>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1075
@@ -32772,7 +32712,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1082
 msgid "This is the \"argv variant\" of L</guestfs_btrfs_fsck>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_btrfs_fsck>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1086
@@ -32906,29 +32846,18 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1170
-#, fuzzy
-#| msgid "guestfs_lvm_canonical_lv_name"
 msgid "guestfs_canonical_device_name"
-msgstr "guestfs_lvm_canonical_lv_name"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1172
-#, fuzzy, no-wrap
-#| msgid ""
-#| " char *\n"
-#| " guestfs_lvm_canonical_lv_name (guestfs_h *g,\n"
-#| "                                const char *lvname);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " char *\n"
 " guestfs_canonical_device_name (guestfs_h *g,\n"
 "                                const char *device);\n"
 "\n"
 msgstr ""
-" char *\n"
-" guestfs_lvm_canonical_lv_name (guestfs_h *g,\n"
-"                                const char *lvname);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1194
@@ -32939,10 +32868,8 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1203 ../src/guestfs-actions.pod:1934
 #: ../src/guestfs-actions.pod:5547
-#, fuzzy
-#| msgid "(Added in 1.9.17)"
 msgid "(Added in 1.19.7)"
-msgstr "(Додано у 1.9.17)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1205
@@ -33310,7 +33237,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1503
 msgid "This is the \"va_list variant\" of L</guestfs_compress_device_out>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_compress_device_out>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1507
@@ -33340,7 +33267,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1516
 msgid "This is the \"argv variant\" of L</guestfs_compress_device_out>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_compress_device_out>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1520
@@ -33403,7 +33330,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1562
 msgid "This is the \"va_list variant\" of L</guestfs_compress_out>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_compress_out>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1566
@@ -33433,7 +33360,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1575
 msgid "This is the \"argv variant\" of L</guestfs_compress_out>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_compress_out>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1579
@@ -33551,7 +33478,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1652
 msgid "This is the \"va_list variant\" of L</guestfs_copy_device_to_device>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_copy_device_to_device>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1656
@@ -33579,7 +33506,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1664
 msgid "This is the \"argv variant\" of L</guestfs_copy_device_to_device>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_copy_device_to_device>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1668
@@ -33651,7 +33578,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1705
 msgid "This is the \"va_list variant\" of L</guestfs_copy_device_to_file>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_copy_device_to_file>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1709
@@ -33679,7 +33606,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1717
 msgid "This is the \"argv variant\" of L</guestfs_copy_device_to_file>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_copy_device_to_file>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1721
@@ -33744,7 +33671,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1758
 msgid "This is the \"va_list variant\" of L</guestfs_copy_file_to_device>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_copy_file_to_device>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1762
@@ -33772,7 +33699,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1770
 msgid "This is the \"argv variant\" of L</guestfs_copy_file_to_device>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_copy_file_to_device>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1774
@@ -33845,7 +33772,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1816
 msgid "This is the \"va_list variant\" of L</guestfs_copy_file_to_file>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_copy_file_to_file>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1820
@@ -33873,7 +33800,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:1828
 msgid "This is the \"argv variant\" of L</guestfs_copy_file_to_file>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_copy_file_to_file>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1832
@@ -33993,29 +33920,18 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1918
-#, fuzzy
-#| msgid "guestfs_btrfs_device_add"
 msgid "guestfs_device_index"
-msgstr "guestfs_btrfs_device_add"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:1920
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_scrub_device (guestfs_h *g,\n"
-#| "                       const char *device);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_device_index (guestfs_h *g,\n"
 "                       const char *device);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_scrub_device (guestfs_h *g,\n"
-"                       const char *device);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1927
@@ -34026,10 +33942,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1930
-#, fuzzy
-#| msgid "See also C<guestfs_pwrite>, C<guestfs_pread_device>."
 msgid "See also C<guestfs_list_devices>, C<guestfs_part_to_dev>."
-msgstr "Див. також C<guestfs_pwrite>, C<guestfs_pread_device>."
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:1936
@@ -34278,7 +34192,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2135
 msgid "This is the \"va_list variant\" of L</guestfs_e2fsck>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_e2fsck>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2139
@@ -34304,7 +34218,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2146
 msgid "This is the \"argv variant\" of L</guestfs_e2fsck>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_e2fsck>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2150
@@ -34676,29 +34590,18 @@ msgstr "(Додано у 1.0.82)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2505
-#, fuzzy
-#| msgid "guestfs_btrfs_filesystem_balance"
 msgid "guestfs_filesystem_available"
-msgstr "guestfs_btrfs_filesystem_balance"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2507
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_btrfs_filesystem_balance (guestfs_h *g,\n"
-#| "                                   const char *fs);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_filesystem_available (guestfs_h *g,\n"
 "                               const char *filesystem);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_btrfs_filesystem_balance (guestfs_h *g,\n"
-"                                   const char *fs);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2515
@@ -34707,17 +34610,13 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2522
-#, fuzzy
-#| msgid "See also L<guestfs(3)/AVAILABILITY>."
 msgid "See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>."
-msgstr "Див. також L<guestfs(3)/AVAILABILITY>."
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2526
-#, fuzzy
-#| msgid "(Added in 1.13.15)"
 msgid "(Added in 1.19.5)"
-msgstr "(Додано у 1.13.15)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2528
@@ -34884,6 +34783,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2668
 msgid "To find the label of a filesystem, use C<guestfs_vfs_label>."
 msgstr ""
+"Щоб визначити мітку файлової системи, скористайтеся C<guestfs_vfs_label>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2675
@@ -34908,6 +34808,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2685
 msgid "To find the UUID of a filesystem, use C<guestfs_vfs_uuid>."
 msgstr ""
+"Щоб визначити UUID файлової системи, скористайтеся C<guestfs_vfs_uuid>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2692
@@ -34937,20 +34838,12 @@ msgstr "(Додано у 1.0.16)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2731
-#, fuzzy
-#| msgid "guestfs_rm"
 msgid "guestfs_fstrim"
-msgstr "guestfs_rm"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2733
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_e2fsck (guestfs_h *g,\n"
-#| "                 const char *device,\n"
-#| "                 ...);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_fstrim (guestfs_h *g,\n"
@@ -34958,30 +34851,16 @@ msgid ""
 "                 ...);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_e2fsck (guestfs_h *g,\n"
-"                 const char *device,\n"
-"                 ...);\n"
-"\n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2743
-#, fuzzy, no-wrap
-#| msgid ""
-#| " GUESTFS_COPY_FILE_TO_FILE_SRCOFFSET, int64_t srcoffset,\n"
-#| " GUESTFS_COPY_FILE_TO_FILE_DESTOFFSET, int64_t destoffset,\n"
-#| " GUESTFS_COPY_FILE_TO_FILE_SIZE, int64_t size,\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " GUESTFS_FSTRIM_OFFSET, int64_t offset,\n"
 " GUESTFS_FSTRIM_LENGTH, int64_t length,\n"
 " GUESTFS_FSTRIM_MINIMUMFREEEXTENT, int64_t minimumfreeextent,\n"
 "\n"
 msgstr ""
-" GUESTFS_COPY_FILE_TO_FILE_SRCOFFSET, int64_t srcoffset,\n"
-" GUESTFS_COPY_FILE_TO_FILE_DESTOFFSET, int64_t destoffset,\n"
-" GUESTFS_COPY_FILE_TO_FILE_SIZE, int64_t size,\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2760
@@ -34994,27 +34873,17 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2767
-#, fuzzy
-#| msgid "(Added in 1.17.6)"
 msgid "(Added in 1.19.6)"
-msgstr "(Додано у 1.17.6)"
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2769
-#, fuzzy
-#| msgid "guestfs_ntfsfix_va"
 msgid "guestfs_fstrim_va"
-msgstr "guestfs_ntfsfix_va"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2771
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_e2fsck_va (guestfs_h *g,\n"
-#| "                    const char *device,\n"
-#| "                    va_list args);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_fstrim_va (guestfs_h *g,\n"
@@ -35022,35 +34891,20 @@ msgid ""
 "                    va_list args);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_e2fsck_va (guestfs_h *g,\n"
-"                    const char *device,\n"
-"                    va_list args);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2776
-#, fuzzy
-#| msgid "This is the \"va_list variant\" of L</guestfs_ntfsfix>."
 msgid "This is the \"va_list variant\" of L</guestfs_fstrim>."
-msgstr "Це «варіант з va_list» L</guestfs_ntfsfix>."
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2780
-#, fuzzy
-#| msgid "guestfs_ntfsfix_argv"
 msgid "guestfs_fstrim_argv"
-msgstr "guestfs_ntfsfix_argv"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:2782
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_ntfsfix_argv (guestfs_h *g,\n"
-#| "                       const char *device,\n"
-#| "                       const struct guestfs_ntfsfix_argv *optargs);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_fstrim_argv (guestfs_h *g,\n"
@@ -35058,18 +34912,11 @@ msgid ""
 "                      const struct guestfs_fstrim_argv *optargs);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_ntfsfix_argv (guestfs_h *g,\n"
-"                       const char *device,\n"
-"                       const struct guestfs_ntfsfix_argv *optargs);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:2787
-#, fuzzy
-#| msgid "This is the \"argv variant\" of L</guestfs_ntfsfix>."
 msgid "This is the \"argv variant\" of L</guestfs_fstrim>."
-msgstr "Це «варіант з argv» L</guestfs_ntfsfix>."
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2791
@@ -35206,7 +35053,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2958 ../src/guestfs-actions.pod:2978
 #: ../src/guestfs-actions.pod:7936 ../src/guestfs-actions.pod:7975
 msgid "(Added in 1.17.31)"
-msgstr ""
+msgstr "(Додано у 1.17.31)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:2960
@@ -36312,7 +36159,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:3954
 msgid "This is the \"va_list variant\" of L</guestfs_inspect_get_icon>."
-msgstr ""
+msgstr "Це «варіант з va_list» L</guestfs_inspect_get_icon>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:3958
@@ -36340,7 +36187,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:3966
 msgid "This is the \"argv variant\" of L</guestfs_inspect_get_icon>."
-msgstr ""
+msgstr "Це «варіант з argv» L</guestfs_inspect_get_icon>."
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:3970
@@ -37143,10 +36990,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:4714
-#, fuzzy
-#| msgid "Do not load the tree in C<guestfs_aug_init>."
 msgid "Do not call this.  See: C<guestfs_shutdown> instead."
-msgstr "Не завантажувати ієрархію у C<guestfs_aug_init>."
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:4720
@@ -38005,10 +37850,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5322
-#, fuzzy
-#| msgid "See also C<guestfs_pwrite>, C<guestfs_pread_device>."
 msgid "See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>."
-msgstr "Див. також C<guestfs_pwrite>, C<guestfs_pread_device>."
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5327
@@ -38272,26 +38115,17 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:5531
-#, fuzzy
-#| msgid "guestfs_part_disk"
 msgid "guestfs_max_disks"
-msgstr "guestfs_part_disk"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:5533
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_get_umask (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_max_disks (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_get_umask (guestfs_h *g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5536
@@ -38866,7 +38700,7 @@ msgstr "Для створення файлових систем скориста
 #. type: textblock
 #: ../src/guestfs-actions.pod:6028
 msgid "(Added in 1.17.25)"
-msgstr ""
+msgstr "(Додано у 1.17.25)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6030
@@ -39736,26 +39570,17 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:6620
-#, fuzzy
-#| msgid "guestfs_zero_device"
 msgid "guestfs_nr_devices"
-msgstr "guestfs_zero_device"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6622
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_sync (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_nr_devices (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_sync (guestfs_h *g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6625
@@ -40520,10 +40345,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:7214
-#, fuzzy
-#| msgid "See also C<guestfs_pwrite>, C<guestfs_pread_device>."
 msgid "See also C<guestfs_part_to_partnum>, C<guestfs_device_index>."
-msgstr "Див. також C<guestfs_pwrite>, C<guestfs_pread_device>."
+msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:7221
@@ -42120,26 +41943,17 @@ msgstr "Див. також C<guestfs_command_lines>"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:8486
-#, fuzzy
-#| msgid "guestfs_chown"
 msgid "guestfs_shutdown"
-msgstr "guestfs_chown"
+msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:8488
-#, fuzzy, no-wrap
-#| msgid ""
-#| " int\n"
-#| " guestfs_sync (guestfs_h *g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " int\n"
 " guestfs_shutdown (guestfs_h *g);\n"
 "\n"
 msgstr ""
-" int\n"
-" guestfs_sync (guestfs_h *g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:8491
@@ -44019,10 +43833,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-availability.pod:40
-#, fuzzy
-#| msgid "The following functions: L</guestfs_wipefs>"
 msgid "The following functions: L</guestfs_fstrim>"
-msgstr "Такі функції: L</guestfs_wipefs>"
+msgstr ""
 
 #. type: =item
 #: ../src/guestfs-availability.pod:43
@@ -45134,16 +44946,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:11
-#, fuzzy, no-wrap
-#| msgid ""
-#| " guestfs_h *g = guestfs_create ();\n"
-#| " guestfs_add_drive (g, \"guest.img\");\n"
-#| " guestfs_launch (g);\n"
-#| " guestfs_mount (g, \"/dev/sda1\", \"/\");\n"
-#| " guestfs_touch (g, \"/hello\");\n"
-#| " guestfs_umount (g, \"/\");\n"
-#| " guestfs_close (g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " guestfs_h *g = guestfs_create ();\n"
 " guestfs_add_drive (g, \"guest.img\");\n"
@@ -45155,14 +44958,6 @@ msgid ""
 " guestfs_close (g);\n"
 "\n"
 msgstr ""
-" guestfs_h *g = guestfs_create ();\n"
-" guestfs_add_drive (g, \"guest.img\");\n"
-" guestfs_launch (g);\n"
-" guestfs_mount (g, \"/dev/sda1\", \"/\");\n"
-" guestfs_touch (g, \"/hello\");\n"
-" guestfs_umount (g, \"/\");\n"
-" guestfs_close (g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs.pod:26
@@ -45321,19 +45116,12 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:90
-#, fuzzy, no-wrap
-#| msgid ""
-#| " /* Close the handle 'g'. */\n"
-#| " guestfs_close (g);\n"
-#| "\n"
+#, no-wrap
 msgid ""
 " /* Close and free the handle 'g'. */\n"
 " guestfs_close (g);\n"
 "\n"
 msgstr ""
-" /* Закрити дескриптор 'g'. */\n"
-" guestfs_close (g);\n"
-"\n"
 
 #. type: textblock
 #: ../src/guestfs.pod:93
@@ -47970,10 +47758,8 @@ msgstr ""
 
 #. type: =item
 #: ../src/guestfs.pod:1449
-#, fuzzy
-#| msgid "4."
 msgid "4"
-msgstr "4."
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:1451
@@ -48353,10 +48139,8 @@ msgstr "@AVAILABILITY@"
 
 #. type: =head2
 #: ../src/guestfs.pod:1628
-#, fuzzy
-#| msgid "FILESYSTEM TYPE"
 msgid "FILESYSTEM AVAILABLE"
-msgstr "ТИП ФАЙЛОВОЇ СИСТЕМИ"
+msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:1630
@@ -51827,11 +51611,14 @@ msgid ""
 "operation is enabled and one or more scripts are specified using I<--script> "
 "parameter(s)."
 msgstr ""
+"Точку монтування (порожній каталог на вузлі), використану при виконанні дії "
+"C<script>, увімкнено і вказано використання одного або декількох скриптів за "
+"допомогою I<--script>."
 
 #. type: textblock
 #: ../sysprep/sysprep-extra-options.pod:23
 msgid "B<Note:> C<scriptdir> B<must> be an absolute path."
-msgstr ""
+msgstr "B<Зауваження:> C<scriptdir> B<має> бути вказано повністю."
 
 #. type: textblock
 #: ../sysprep/sysprep-extra-options.pod:25
@@ -51839,6 +51626,7 @@ msgid ""
 "If I<--scriptdir> is not specified then a temporary mountpoint will be "
 "created."
 msgstr ""
+"Якщо I<--scriptdir> не вказано, буде створено тимчасову точку монтування"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:1
@@ -51856,16 +51644,18 @@ msgid ""
 "Remove the bash history of user \"root\" and any other users who have a C<."
 "bash_history> file in their home directory."
 msgstr ""
+"Вилучити журнал команд bash користувача «root» та всіх інших користувачів, у "
+"домашніх каталогах яких містяться файли C<.bash_history>."
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:9
 msgid "B<blkid-tab> *"
-msgstr ""
+msgstr "B<blkid-tab> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:12
 msgid "Remove blkid tab in the guest."
-msgstr ""
+msgstr "Вилучити вкладку ідентифікаторів блоків у гостьовій системі."
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:14
@@ -51874,10 +51664,8 @@ msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:16
-#, fuzzy
-#| msgid "Remove the user accounts in the guest."
 msgid "Remove CA certificates in the guest."
-msgstr "Вилучити облікові записи користувачів у гостьовій системі."
+msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:18
@@ -51966,17 +51754,13 @@ msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:56
-#, fuzzy
-#| msgid "B<dovecot-data> *"
 msgid "B<kerberos-data>"
-msgstr "B<dovecot-data> *"
+msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:58
-#, fuzzy
-#| msgid "Remove the user accounts in the guest."
 msgid "Remove Kerberos data in the guest."
-msgstr "Вилучити облікові записи користувачів у гостьовій системі."
+msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:60
@@ -52116,26 +51900,22 @@ msgstr "Вилучити кеш керування пакунками."
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:123
 msgid "B<pam-data> *"
-msgstr ""
+msgstr "B<pam-data> *"
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:126
 msgid "Remove the PAM data in the guest."
-msgstr ""
+msgstr "Вилучити дані PAM у гостьовій системі."
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:128
-#, fuzzy
-#| msgid "B<dovecot-data> *"
 msgid "B<puppet-data-log> *"
-msgstr "B<dovecot-data> *"
+msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:131
-#, fuzzy
-#| msgid "Remove the database and log files of sssd."
 msgid "Remove the data and log files of puppet."
-msgstr "Вилучити бази даних і файли журналів sssd."
+msgstr ""
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:133
@@ -53105,10 +52885,8 @@ msgstr ""
 
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:457
-#, fuzzy
-#| msgid "Copyright (C) 2011 Red Hat Inc."
 msgid "Copyright (C) 2012 Fujitsu Ltd."
-msgstr "© Red Hat Inc., 2011"
+msgstr ""
 
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:5
@@ -54844,19 +54622,3 @@ msgid ""
 "Attach /tmp/virt-win-reg.log to a new bug report at L<https://bugzilla."
 "redhat.com/>"
 msgstr ""
-
-#~ msgid "See also L</is-lv>."
-#~ msgstr "Див. також L</is-lv>."
-
-#~ msgid "See also C<guestfs_is_lv>."
-#~ msgstr "Див. також C<guestfs_is_lv>."
-
-#~ msgid "See also C<guestfs_part_to_partnum>."
-#~ msgstr "Див. також C<guestfs_part_to_partnum>."
-
-#~ msgid ""
-#~ "The packages supplied by Canonical are broken.  See: L<https://www.redhat."
-#~ "com/archives/libguestfs/2012-April/thread.html#00028>"
-#~ msgstr ""
-#~ "Пакунки, створені Canonical непрацездатні. Див. L<https://www.redhat.com/"
-#~ "archives/libguestfs/2012-April/thread.html#00028>"

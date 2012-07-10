@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-09 18:35+0100\n"
-"PO-Revision-Date: 2012-05-21 13:19+0000\n"
+"POT-Creation-Date: 2012-07-10 18:42+0100\n"
+"PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
 "Language: pa\n"
@@ -5109,12 +5109,3 @@ msgstr ""
 #: ../sparsify/sparsify.ml:130 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
-
-#~ msgid "no subprocess to kill"
-#~ msgstr "ਖਤਮ ਕਰਨ ਲਈ ਕੋਈ ਅਧੀਨ-ਕਾਰਜ ਨਹੀਂ"
-
-#~ msgid "%s: '%s' could not be mounted.  Did you mean one of these?\n"
-#~ msgstr "%s: '%s' ਮਾਊਂਟ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ। ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ ਇਹਨਾਂ ਤੋਂ ਹੈ?\n"
-
-#~ msgid "%s: file is empty"
-#~ msgstr "%s: ਫਾਇਲ ਖਾਲੀ ਹੈ"
