@@ -56,9 +56,9 @@ fi
 if [ -e $abs_top_srcdir/ChangeLog ]; then
     DATEPARAM=`awk '/^[0-9]+-[0-9]+-[0-9]+/ { print "--date=" $1; exit }' \
         $abs_top_srcdir/ChangeLog`
-else if [ -d $abs_top_srcdir/.git ]; then
+elif [ -d $abs_top_srcdir/.git ]; then
     DATEPARAM=`git show -s --format=%ci | awk '{print "--date=" $1}'`
-else
+fi
 
 declare -a inserts
 declare -a pattern
