@@ -40,7 +40,7 @@ EXTRA_DIST = \
 # time and we need the tools we have built in order to make it.
 check_DATA = debian.img fedora.img fedora-md1.img fedora-md2.img ubuntu.img windows.img
 
-CLEANFILES = $(check_DATA) stamp-fedora-md.img
+CLEANFILES = $(check_DATA) stamp-fedora-md.img *.tmp.*
 
 # Make a (dummy) Fedora image.
 fedora.img: guest-aux/make-fedora-img.pl \
