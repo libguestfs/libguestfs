@@ -99,7 +99,19 @@ programs.
 The popular workaround for this problem is to retry the
 C<fusermount -u> command a few times until it works.  Unfortunately
 this isn't a reliable fix if (for example) the mounted filesystem is
-particularly large and the intruding program is persistent.
+particularly large and the intruding program particularly persistent.
+
+ timeout=10
+ 
+ count=$timeout
+ while ! fusermount -u $mountpoint && [ $count -gt 0 ]; do
+     sleep 1
+     ((count--))
+ done
+ if [ $count -eq 0 ]; then
+     echo "$0: fusermount failed after $timeout seconds"
+     exit 1
+ fi
 
 A proper fix is to use a private mountpoint by creating a new mount
 namespace using the Linux-specific L<clone(2)>/L<unshare(2)> flag
@@ -118,11 +130,37 @@ condition:
  guestmount -a disk.img -i /mnt
  # copy things into /mnt
  fusermount -u /mnt
- # immediately try to use 'disk.img' <-- UNSAFE
+ # immediately try to use 'disk.img' ** UNSAFE **
 
 The solution is to use the I<--pid-file> option to write the
 guestmount PID to a file, then after fusermount spin waiting for this
 PID to exit.
+
+ guestmount -a disk.img -i --pid-file guestmount.pid /mnt
+ 
+ # ...
+ # ...
+ 
+ # Save the PID of guestmount *before* calling fusermount.
+ pid="$(cat guestmount.pid)"
+ 
+ timeout=10
+ 
+ # fusermount retry code, see above
+ # ...
+ # ...
+ 
+ count=$timeout
+ while kill -0 "$pid" 2>/dev/null && [ $count -gt 0 ]; do
+     sleep 1
+     ((count--))
+ done
+ if [ $count -eq 0 ]; then
+     echo "$0: wait for guestmount to exit failed after $timeout seconds"
+     exit 1
+ fi
+ 
+ # Now it is safe to use the disk image.
 
 Note that if you use the C<guestfs_mount_local> API directly (see
 L<guestfs(3)/MOUNT LOCAL>) then it is much easier to write a safe,

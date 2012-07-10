@@ -43,24 +43,29 @@ mkdir mp
 ./guestmount -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp
 cp $0 mp/test-umount
 
-count=10
+# Save the PID of guestmount.
+pid="$(cat test.pid)"
+
+timeout=10
+
+count=$timeout
 while ! fusermount -u mp && [ $count -gt 0 ]; do
     sleep 1
     ((count--))
 done
 if [ $count -eq 0 ]; then
-    echo "$0: fusermount failed after 10 attempts"
+    echo "$0: fusermount failed after $timeout seconds"
     exit 1
 fi
 
 # Wait for guestmount to exit.
-count=10
-while kill -0 `cat test.pid` 2>/dev/null && [ $count -gt 0 ]; do
+count=$timeout
+while kill -0 "$pid" 2>/dev/null && [ $count -gt 0 ]; do
     sleep 1
     ((count--))
 done
 if [ $count -eq 0 ]; then
-    echo "$0: wait for guestmount to exit failed after 10 seconds"
+    echo "$0: wait for guestmount to exit failed after $timeout seconds"
     exit 1
 fi
 
