@@ -39,3 +39,12 @@ When referring to another action, use the format C<guestfs_other>
 (ie. the full name of the C function).  This will be replaced as
 appropriate in other language bindings.  Apart from that, long
 descriptions are just perldoc paragraphs.
+
+Note about extending functions:
+
+In general you cannot change the name, number of required arguments or
+type of required arguments of a function, since this would break
+backwards compatibility.
+
+You may add another optional argument, *if* the function has >= 1
+optional arguments already.  Add it at the end of the list.
