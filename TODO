@@ -514,3 +514,8 @@ necessarily care about ongoing data integrity while writing, as long
 as data is reliably written out when g.sync or g.close return.  Also
 in libguestfs we effectively control the whole stack, so we can ensure
 write barriers happen when we want.
+
+Tidy up test0 functions
+-----------------------
+
+test0_* functions should be called internal_test_*
