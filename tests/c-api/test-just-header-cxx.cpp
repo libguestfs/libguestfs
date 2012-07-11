@@ -30,6 +30,5 @@ int
 main (int argc, char *argv[])
 {
   guestfs_h *g = guestfs_create ();
-  (void) g; /* trick shamelessly stolen from gnulib */
-  return 0;
+  return g != NULL ? 0 : 1;
 }
