@@ -59,6 +59,7 @@ for t in $tarballs; do
             grep -v '_args$' |
             grep -v '^guestfs_free_' |
             grep -v '^guestfs_test0' |
+            grep -v '^guestfs_internal_test' |
             grep -v '^guestfs_message_error$' |
             grep -v '^guestfs_message_header$' > $v
     fi

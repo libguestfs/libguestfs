@@ -47,64 +47,64 @@ var g = new Guestfs.Session();
 var v;
 var eq;
 
-v = g.test0rint('1');
-v == 1 || eq_fail('test0rint', v);
-check_error('test0rinterr');
+v = g.internal_test_rint('1');
+v == 1 || eq_fail('internal_test_rint', v);
+check_error('internal_test_rinterr');
 
-v = g.test0rint64('1');
-v == 1 || eq_fail('test0rint64', v);
-check_error('test0rint64err');
+v = g.internal_test_rint64('1');
+v == 1 || eq_fail('internal_test_rint64', v);
+check_error('internal_test_rint64err');
 
-v = g.test0rbool('true');
-v == 1 || eq_fail('test0rbool', v);
-check_error('test0rboolerr');
+v = g.internal_test_rbool('true');
+v == 1 || eq_fail('internal_test_rbool', v);
+check_error('internal_test_rboolerr');
 
-v = g.test0rconststring('1');
-v == 'static string' || eq_fail('test0rconststring', v);
-check_error('test0rconststringerr');
+v = g.internal_test_rconststring('1');
+v == 'static string' || eq_fail('internal_test_rconststring', v);
+check_error('internal_test_rconststringerr');
 
-v = g.test0rconstoptstring('1');
-v == 'static string' || eq_fail('test0rconstoptstring', v);
-//check_error('test0rconstoptstringerr');
+v = g.internal_test_rconstoptstring('1');
+v == 'static string' || eq_fail('internal_test_rconstoptstring', v);
+//check_error('internal_test_rconstoptstringerr');
 
-v = g.test0rstring('string');
-v == 'string' || eq_fail('test0rstring', v);
-check_error('test0rstringerr');
+v = g.internal_test_rstring('string');
+v == 'string' || eq_fail('internal_test_rstring', v);
+check_error('internal_test_rstringerr');
 
-v = g.test0rstringlist('5');
+v = g.internal_test_rstringlist('5');
 eq = v.length == 5;
 for (var i = 0; eq && i < 5; i++) {
   if (v[i] != i) eq = false;
 }
-eq || eq_fail('test0rstringlist', v.join(' '));
-check_error('test0rstringlisterr');
+eq || eq_fail('internal_test_rstringlist', v.join(' '));
+check_error('internal_test_rstringlisterr');
 
-v = g.test0rstruct('1');
-v.pv_size == 0 || eq_fail('test0rstruct', v);
-check_error('test0rstructerr');
+v = g.internal_test_rstruct('1');
+v.pv_size == 0 || eq_fail('internal_test_rstruct', v);
+check_error('internal_test_rstructerr');
 
-v = g.test0rstructlist('5');
+v = g.internal_test_rstructlist('5');
 eq = v.length == 5;
 for (var i = 0; eq && i < 5; i++) {
   if (v[i].pv_size != i) eq = false;
 }
-eq || eq_fail('test0rstructlist', v);
-check_error('test0rstructlisterr');
+eq || eq_fail('internal_test_rstructlist', v);
+check_error('internal_test_rstructlisterr');
 
-v = g.test0rhashtable('5');
+v = g.internal_test_rhashtable('5');
 eq = true;
 for (var i = 0; eq && i < 5; i++) {
   if (v[i] != i) eq = false;
 }
-eq || eq_fail('test0rhashtable', v);
-check_error('test0rhashtableerr');
+eq || eq_fail('internal_test_rhashtable', v);
+check_error('internal_test_rhashtableerr');
 
-v = g.test0rbufferout("01234");
+v = g.internal_test_rbufferout("01234");
 eq = v.length == 5;
 for (var i = 0; i < v.length; i++) {
   if (v[i] != 48 + i) eq = false; // 48 = ascii '0'
 }
-eq || eq_fail('test0rbufferout', v);
-check_error('test0rbufferouterr');
+eq || eq_fail('internal_test_rbufferout', v);
+check_error('internal_test_rbufferouterr');
 
 fail ? 1 : 0;

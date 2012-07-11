@@ -145,6 +145,7 @@ gobject/src/optargs-copy_file_to_file.c
 gobject/src/optargs-e2fsck.c
 gobject/src/optargs-fstrim.c
 gobject/src/optargs-inspect_get_icon.c
+gobject/src/optargs-internal_test.c
 gobject/src/optargs-md_create.c
 gobject/src/optargs-mkfs_btrfs.c
 gobject/src/optargs-mkfs_opts.c
@@ -154,7 +155,6 @@ gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c
 gobject/src/optargs-ntfsresize_opts.c
 gobject/src/optargs-set_e2attrs.c
-gobject/src/optargs-test0.c
 gobject/src/optargs-tune2fs.c
 gobject/src/optargs-umount_local.c
 gobject/src/session.c

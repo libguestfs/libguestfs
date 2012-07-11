@@ -551,11 +551,12 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
   List.iter (
     fun { name = shortname; style = (ret, args, optargs as style);
           deprecated_by = deprecated_by } ->
-      let test0 =
-        String.length shortname >= 5 && String.sub shortname 0 5 = "test0" in
+      let test =
+        String.length shortname >= 13 &&
+          String.sub shortname 0 13 = "internal_test" in
       let debug =
         String.length shortname >= 5 && String.sub shortname 0 5 = "debug" in
-      if deprecated_by = None && not test0 && not debug then
+      if deprecated_by = None && not test && not debug then
         pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
 
       if optargs <> [] then (
@@ -787,7 +788,8 @@ trace_send_line (guestfs_h *g)
           let errcode =
             match errcode_of_ret ret with
             | `CannotReturnError ->
-                if shortname = "test0rconstoptstring" then (* XXX hack *)
+                (* XXX hack *)
+                if shortname = "internal_test_rconstoptstring" then
                   `ErrorIsNULL
                 else
                   failwithf

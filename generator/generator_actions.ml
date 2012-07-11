@@ -55,22 +55,22 @@ let test_all_optargs = [
 
 let test_all_rets = [
   (* except for RErr, which is tested thoroughly elsewhere *)
-  "test0rint",         RInt "valout";
-  "test0rint64",       RInt64 "valout";
-  "test0rbool",        RBool "valout";
-  "test0rconststring", RConstString "valout";
-  "test0rconstoptstring", RConstOptString "valout";
-  "test0rstring",      RString "valout";
-  "test0rstringlist",  RStringList "valout";
-  "test0rstruct",      RStruct ("valout", "lvm_pv");
-  "test0rstructlist",  RStructList ("valout", "lvm_pv");
-  "test0rhashtable",   RHashtable "valout";
-  "test0rbufferout",   RBufferOut "valout";
+  "internal_test_rint",         RInt "valout";
+  "internal_test_rint64",       RInt64 "valout";
+  "internal_test_rbool",        RBool "valout";
+  "internal_test_rconststring", RConstString "valout";
+  "internal_test_rconstoptstring", RConstOptString "valout";
+  "internal_test_rstring",      RString "valout";
+  "internal_test_rstringlist",  RStringList "valout";
+  "internal_test_rstruct",      RStruct ("valout", "lvm_pv");
+  "internal_test_rstructlist",  RStructList ("valout", "lvm_pv");
+  "internal_test_rhashtable",   RHashtable "valout";
+  "internal_test_rbufferout",   RBufferOut "valout";
 ]
 
 let test_functions = [
   { defaults with
-    name = "test0";
+    name = "internal_test";
     style = RErr, test_all_args, test_all_optargs;
     in_fish = false; in_docs = false; cancellable = true;
     shortdesc = "internal test function - do not use";

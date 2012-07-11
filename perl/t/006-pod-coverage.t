@@ -26,6 +26,5 @@ all_pod_coverage_ok ({
         qr/^debug.*/,
         qr/^is_busy$/,
         qr/^internal.*/,
-        qr/^test0.*/,
         ]
 });

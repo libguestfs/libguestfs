@@ -58,7 +58,7 @@ if (!progress_detected) {
 g.close();
 var threw = false;
 try {
-  var v = g.test0rconstoptstring('1');
+  var v = g.internal_test_rconstoptstring('1');
 } catch (error) {
   threw = true;
   if (!error.message.match(/closed/)) {

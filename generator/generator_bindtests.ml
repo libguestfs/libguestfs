@@ -58,16 +58,16 @@ print_strings (char *const *argv)
   printf (\"]\\n\");
 }
 
-/* The test0 function prints its parameters to stdout. */
+/* The internal_test function prints its parameters to stdout. */
 ";
 
-  let test0, tests =
+  let test, tests =
     match test_functions with
     | [] -> assert false
-    | test0 :: tests -> test0, tests in
+    | test :: tests -> test, tests in
 
   let () =
-    let { name = name; style = (ret, args, optargs as style) } = test0 in
+    let { name = name; style = (ret, args, optargs as style) } = test in
     generate_prototype ~extern:false ~semicolon:false ~newline:true
       ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
     pr "{\n";
@@ -95,7 +95,7 @@ print_strings (char *const *argv)
     ) args;
     let check_optarg n printf_args =
       pr "  printf (\"%s: \");\n" n;
-      pr "  if (optargs->bitmask & GUESTFS_TEST0_%s_BITMASK) {\n"
+      pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
         (String.uppercase n);
       pr "    printf(%s);\n" printf_args;
       pr "  } else {\n";
@@ -551,7 +551,7 @@ var o;
 
     let mkoptargs = function
     | Some optargs ->
-      "o = new Guestfs.Test0({" ^
+      "o = new Guestfs.InternalTest({" ^
       (
         String.concat ", " (
           List.map (
@@ -597,62 +597,75 @@ var o;
  * ensure there is parity in testing bindings across all languages.
  *)
 and generate_lang_bindtests call =
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList []; CallBool false;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"]
-               (Some [CallOBool ("obool", true); CallOInt ("oint", 1)]);
-  call "test0" [CallString "abc"; CallOptString None;
-                CallStringList []; CallBool false;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"]
-               (Some [CallOInt64 ("oint64", 1L);
-                      CallOString ("ostring", "string")]);
-  call "test0" [CallString ""; CallOptString (Some "def");
-                CallStringList []; CallBool false;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"]
-               (Some [CallOBool ("obool", false)]);
-  call "test0" [CallString ""; CallOptString (Some "");
-                CallStringList []; CallBool false;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"]
-                (Some []);
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"; "2"]; CallBool false;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool true;
-                CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt (-1); CallInt64 (-1L); CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt (-2); CallInt64 (-2L); CallString "123";CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt 1; CallInt64 1L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt 2; CallInt64 2L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt 4095; CallInt64 4095L; CallString "123"; CallString "456";
-                CallBuffer "abc\000abc"] None;
-  call "test0" [CallString "abc"; CallOptString (Some "def");
-                CallStringList ["1"]; CallBool false;
-                CallInt 0; CallInt64 0L; CallString ""; CallString "";
-                CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOBool ("obool", true); CallOInt ("oint", 1)]);
+  call "internal_test"
+    [CallString "abc"; CallOptString None;
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOInt64 ("oint64", 1L);
+           CallOString ("ostring", "string")]);
+  call "internal_test"
+    [CallString ""; CallOptString (Some "def");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOBool ("obool", false)]);
+  call "internal_test"
+    [CallString ""; CallOptString (Some "");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some []);
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"; "2"]; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool true;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt (-1); CallInt64 (-1L); CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt (-2); CallInt64 (-2L); CallString "123";CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt 1; CallInt64 1L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt 2; CallInt64 2L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt 4095; CallInt64 4095L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList ["1"]; CallBool false;
+     CallInt 0; CallInt64 0L; CallString ""; CallString "";
+     CallBuffer "abc\000abc"] None;
 
 (* XXX Add here tests of the return and error functions. *)
