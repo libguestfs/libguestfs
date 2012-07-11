@@ -18,14 +18,6 @@
 
 (* Please read generator/README first. *)
 
-(* Note about long descriptions: When referring to another
- * action, use the format C<guestfs_other> (ie. the full name of
- * the C function).  This will be replaced as appropriate in other
- * language bindings.
- *
- * Apart from that, long descriptions are just perldoc paragraphs.
- *)
-
 open Generator_types
 open Generator_utils
 
