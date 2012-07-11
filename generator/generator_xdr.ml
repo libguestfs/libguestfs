@@ -66,7 +66,7 @@ let generate_xdr () =
   ) structs;
 
   List.iter (
-    fun (shortname, (ret, args, optargs), _, _, _, _, _) ->
+    fun { name =shortname; style = ret, args, optargs } ->
       let name = "guestfs_" ^ shortname in
 
       (* Ordinary arguments and optional arguments are concatenated
@@ -140,8 +140,10 @@ let generate_xdr () =
   (* Table of procedure numbers. *)
   pr "enum guestfs_procedure {\n";
   List.iter (
-    fun (shortname, _, proc_nr, _, _, _, _) ->
+    function
+    | { name = shortname; proc_nr = Some proc_nr } ->
       pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
+    | { proc_nr = None } -> assert false
   ) daemon_functions;
   pr "  GUESTFS_PROC_NR_PROCS\n";
   pr "};\n";

@@ -67,7 +67,7 @@ print_strings (char *const *argv)
     | test0 :: tests -> test0, tests in
 
   let () =
-    let (name, (ret, args, optargs as style), _, _, _, _, _) = test0 in
+    let { name = name; style = (ret, args, optargs as style) } = test0 in
     generate_prototype ~extern:false ~semicolon:false ~newline:true
       ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
     pr "{\n";
@@ -125,7 +125,7 @@ print_strings (char *const *argv)
     pr "\n" in
 
   List.iter (
-    fun (name, (ret, args, _ as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, _ as style) } ->
       if String.sub name (String.length name - 3) 3 <> "err" then (
         pr "/* Test normal return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true

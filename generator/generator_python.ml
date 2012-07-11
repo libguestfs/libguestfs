@@ -247,7 +247,7 @@ free_strings (char **argv)
 
   (* Python wrapper functions. *)
   List.iter (
-    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style) } ->
       pr "static PyObject *\n";
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -515,7 +515,7 @@ free_strings (char **argv)
   pr "  { (char *) \"delete_event_callback\",\n";
   pr "    py_guestfs_delete_event_callback, METH_VARARGS, NULL },\n";
   List.iter (
-    fun (name, _, _, _, _, _, _) ->
+    fun { name = name } ->
       pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
         name name
   ) all_functions;
@@ -697,7 +697,8 @@ class GuestFS:
 ";
 
   List.iter (
-    fun (name, (ret, args, optargs), _, flags, _, _, longdesc) ->
+    fun ({ name = name; style = ret, args, optargs; in_docs = in_docs;
+          longdesc = longdesc } as f) ->
       pr "    def %s (self" name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
       List.iter (
@@ -707,7 +708,7 @@ class GuestFS:
       ) optargs;
       pr "):\n";
 
-      if not (List.mem NotInDocs flags) then (
+      if in_docs then (
         let doc = replace_str longdesc "C<guestfs_" "C<g." in
         let doc =
           match ret with
@@ -723,11 +724,11 @@ class GuestFS:
           | RHashtable _ ->
               doc ^ "\n\nThis function returns a dictionary." in
         let doc =
-          if List.mem ProtocolLimitWarning flags then
+          if f.protocol_limit_warning then
             doc ^ "\n\n" ^ protocol_limit_warning
           else doc in
         let doc =
-          match deprecation_notice flags with
+          match deprecation_notice f with
           | None -> doc
           | Some txt -> doc ^ "\n\n" ^ txt in
         let doc = pod2text ~width:60 name doc in

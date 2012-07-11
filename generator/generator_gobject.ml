@@ -29,18 +29,17 @@ open Generator_structs
 open Generator_types
 open Generator_utils
 
-let camel_of_name flags name =
-  "Guestfs" ^
-  try
-    find_map (function CamelName n -> Some n | _ -> None) flags
-  with Not_found ->
-    List.fold_left (
-      fun a b ->
-        a ^ String.uppercase (Str.first_chars b 1) ^ Str.string_after b 1
-    ) "" (Str.split (regexp "_") name)
+let camel_of_name = function
+  | { camel_name = Some name } -> "Guestfs" ^ name
+  | { name = name; camel_name = None } ->
+    "Guestfs" ^
+      List.fold_left (
+        fun a b ->
+          a ^ String.uppercase (Str.first_chars b 1) ^ Str.string_after b 1
+      ) "" (Str.split (regexp "_") name)
 
 let generate_gobject_proto name ?(single_line = true)
-                                (ret, args, optargs) flags =
+                                (ret, args, optargs) f =
   let spacer = if single_line then " " else "\n" in
   let ptr_spacer = if single_line then "" else "\n" in
   (match ret with
@@ -99,13 +98,13 @@ let generate_gobject_proto name ?(single_line = true)
         failwith "gobject bindings do not support Pointer arguments"
   ) args;
   if optargs <> [] then (
-    pr ", %s *optargs" (camel_of_name flags name)
+    pr ", %s *optargs" (camel_of_name f)
   );
   (match ret with
   | RBufferOut _ ->
     pr ", gsize *size_r"
   | _ -> ());
-  if List.exists (function Cancellable -> true | _ -> false) flags then
+  if f.cancellable then
     pr ", GCancellable *cancellable";
   pr ", GError **err";
   pr ")"
@@ -117,11 +116,11 @@ let output_filenames =
   List.map (function typ, cols -> "struct-" ^ typ) structs @
 
   (* optargs *)
-  List.map (function name, _, _, _, _, _, _ -> "optargs-" ^ name) (
+  List.map (function { name = name } -> "optargs-" ^ name) (
     List.filter (
       function
-      | _, (_, _, (_::_)), _, _, _, _, _ -> true
-      | _ -> false
+      | { style = _, _, (_::_) } -> true
+      | { style = _, _, [] } -> false
     ) all_functions
   )
 
@@ -312,9 +311,9 @@ let generate_gobject_structs =
         (generate_gobject_struct_source typ cols)
   ) structs
 
-let generate_gobject_optargs_header name optargs flags () =
+let generate_gobject_optargs_header name optargs f () =
   let uc_name = String.uppercase name in
-  let camel_name = camel_of_name flags name in
+  let camel_name = camel_of_name f in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
 
   pr "\n";
@@ -366,9 +365,9 @@ let generate_gobject_optargs_header name optargs flags () =
   pr "GType guestfs_%s_get_type(void);\n" name;
   pr "%s *guestfs_%s_new(void);\n" camel_name name
 
-let generate_gobject_optargs_source name optargs flags () =
+let generate_gobject_optargs_source name optargs f () =
   let uc_name = String.uppercase name in
-  let camel_name = camel_of_name flags name in
+  let camel_name = camel_of_name f in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
 
   pr "\n";
@@ -543,16 +542,16 @@ let generate_gobject_optargs_source name optargs flags () =
 let generate_gobject_optargs =
   List.iter (
     function
-    | name, (_, _, (_::_ as optargs)), _, flags,_, _, _ ->
+    | ({ name = name; style = (_, _, (_::_ as optargs)) } as f) ->
       let filename = "optargs-" ^ name in
       output_header
         filename
-        (generate_gobject_optargs_header name optargs flags);
+        (generate_gobject_optargs_header name optargs f);
       let desc = "An object encapsulating optional arguments for guestfs_session_" ^ name in
       output_source ~shortdesc:(Some desc) ~longdesc:(Some desc)
         filename
-        (generate_gobject_optargs_source name optargs flags)
-    | _ -> ()
+        (generate_gobject_optargs_source name optargs f)
+    | { style = _, _, [] } -> ()
   ) all_functions
 
 let generate_gobject_tristate_header () =
@@ -708,8 +707,8 @@ gboolean guestfs_session_close(GuestfsSession *session, GError **err);
 ";
 
   List.iter (
-    fun (name, style, _, flags, _, _, _) ->
-      generate_gobject_proto name style flags;
+    fun ({ name = name; style = style } as f) ->
+      generate_gobject_proto name style f;
       pr ";\n";
   ) all_functions
 
@@ -956,7 +955,9 @@ guestfs_session_close(GuestfsSession *session, GError **err)
   let literal = Str.regexp "\\(^\\|\n\\)[ \t]+\\([^\n]*\\)\\(\n\\|$\\)" in
 
   List.iter (
-    fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
+    fun ({ name = name; style = (ret, args, optargs as style);
+           cancellable = cancellable;
+           shortdesc = shortdesc; longdesc = longdesc } as f) ->
       pr "\n";
 
       let longdesc = Str.global_substitute urls (
@@ -1002,7 +1003,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
         ) longdesc in
       let doc = pod2text ~width:76 name longdesc in
       let doc = String.concat "\n * " doc in
-      let camel_name = camel_of_name flags name in
+      let camel_name = camel_of_name f in
       let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
       let gobject_error_return = match ret with
       | RErr ->
@@ -1015,9 +1016,6 @@ guestfs_session_close(GuestfsSession *session, GError **err)
       | RConstOptString _ ->
         "NULL" (* NULL is a valid return for RConstOptString. Error is
                   indicated by also setting *err to a non-NULL value *)
-      in
-      let cancellable =
-        List.exists (function Cancellable -> true | _ -> false) flags
       in
 
       (* The comment header, including GI annotations for arguments and the
@@ -1101,7 +1099,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
 
       (* The function body *)
 
-      generate_gobject_proto ~single_line:false name style flags;
+      generate_gobject_proto ~single_line:false name style f;
       pr "\n{\n";
 
       if cancellable then (

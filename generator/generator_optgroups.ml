@@ -25,14 +25,11 @@ open Generator_actions
 let optgroups =
   let h = Hashtbl.create 13 in
   List.iter (
-    fun (name, _, _, flags, _, _, _) ->
-      List.iter (
-        function
-        | Optional group ->
-            let names = try Hashtbl.find h group with Not_found -> [] in
-            Hashtbl.replace h group (name :: names)
-        | _ -> ()
-      ) flags
+    function
+    | { name = name; optional = Some group } ->
+      let names = try Hashtbl.find h group with Not_found -> [] in
+      Hashtbl.replace h group (name :: names)
+    | _ -> ()
   ) daemon_functions;
   let groups = Hashtbl.fold (fun k _ ks -> k :: ks) h [] in
   let groups =

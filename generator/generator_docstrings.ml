@@ -36,10 +36,10 @@ let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
 
-let deprecation_notice ?(prefix = "") flags =
-  try
-    let alt =
-      find_map (function DeprecatedBy str -> Some str | _ -> None) flags in
+let deprecation_notice ?(prefix = "") =
+  function
+  | { deprecated_by = None } -> None
+  | { deprecated_by = Some alt } ->
     let txt =
       sprintf "I<This function is deprecated.>
 In new code, use the L</%s%s> call instead.
@@ -48,8 +48,6 @@ Deprecated functions will not be removed from the API, but the
 fact that they are deprecated indicates that there are problems
 with correct use of these functions." prefix alt in
     Some txt
-  with
-    Not_found -> None
 
 let copyright_years =
   let this_year = 1900 + (localtime (time ())).tm_year in

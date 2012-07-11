@@ -93,19 +93,21 @@ public class GuestFS {
 ";
 
   List.iter (
-    fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
-      if not (List.mem NotInDocs flags); then (
+    fun ({ name = name; style = (ret, args, optargs as style);
+           in_docs = in_docs; shortdesc = shortdesc;
+           longdesc = longdesc } as f) ->
+      if in_docs then (
         let doc = replace_str longdesc "C<guestfs_" "C<g." in
         let doc =
           if optargs <> [] then
             doc ^ "\n\nOptional arguments are supplied in the final Map<String,Object> parameter, which is a hash of the argument name to its value (cast to Object).  Pass an empty Map or null for no optional arguments."
           else doc in
         let doc =
-          if List.mem ProtocolLimitWarning flags then
+          if f.protocol_limit_warning then
             doc ^ "\n\n" ^ protocol_limit_warning
           else doc in
         let doc =
-          match deprecation_notice flags with
+          match deprecation_notice f with
           | None -> doc
           | Some txt -> doc ^ "\n\n" ^ txt in
         let doc = pod2text ~width:60 name doc in
@@ -361,7 +363,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 ";
 
   List.iter (
-    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style) } ->
       pr "JNIEXPORT ";
       (match ret with
        | RErr -> pr "void ";

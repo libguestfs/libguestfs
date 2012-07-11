@@ -124,18 +124,13 @@ val user_cancel : t -> unit
 
   (* The actions. *)
   List.iter (
-    fun (name, style, _, flags, _, shortdesc, _) ->
-      let deprecated =
-        try Some (find_map (function DeprecatedBy fn -> Some fn | _ -> None)
-                    flags)
-        with Not_found -> None in
-      let in_docs = not (List.mem NotInDocs flags) in
-
+    fun { name = name; style = style; deprecated_by = deprecated_by;
+          in_docs = in_docs; shortdesc = shortdesc } ->
       generate_ocaml_prototype name style;
 
       if in_docs then (
         pr "(** %s" shortdesc;
-        (match deprecated with
+        (match deprecated_by with
          | None -> ()
          | Some replacement ->
              pr "\n\n    @deprecated Use {!%s} instead\n" replacement
@@ -179,11 +174,11 @@ class guestfs : unit -> object
 
   List.iter (
     function
-    | name, ((_, [], _) as style), _, _, _, _, _ ->
+    | { name = name; style = ((_, [], _) as style) } ->
         pr "  method %s : " name;
         generate_ocaml_function_type ~extra_unit:true style;
         pr "\n"
-    | name, style, _, _, _, _, _ ->
+    | { name = name; style = style } ->
         pr "  method %s : " name;
         generate_ocaml_function_type style;
         pr "\n"
@@ -248,7 +243,7 @@ let () =
 
   (* The actions. *)
   List.iter (
-    fun (name, style, _, _, _, shortdesc, _) ->
+    fun { name = name; style = style } ->
       generate_ocaml_prototype ~is_external:true name style;
   ) all_functions_sorted;
 
@@ -267,13 +262,13 @@ class guestfs () =
 
   List.iter (
     function
-    | name, (_, [], optargs), _, _, _, _, _ ->
+    | { name = name; style = _, [], optargs } ->
         (* No required params?  Add explicit unit. *)
         let optargs =
           String.concat ""
             (List.map (fun arg -> " ?" ^ name_of_optargt arg) optargs) in
         pr "    method %s%s () = %s g%s\n" name optargs name optargs
-    | name, _, _, _, _, _, _ ->
+    | { name = name } ->
         pr "    method %s = %s g\n" name name
   ) all_functions_sorted;
 
@@ -413,7 +408,7 @@ copy_table (char * const * argv)
 
   (* The wrappers. *)
   List.iter (
-    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style) } ->
       pr "/* Automatically generated wrapper for function\n";
       pr " * ";
       generate_ocaml_prototype name style;

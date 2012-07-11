@@ -106,7 +106,7 @@ let rstructs_used_by functions =
   in
 
   List.iter (
-    fun (_, (ret, _, _), _, _, _, _, _) ->
+    fun { style = ret, _, _ } ->
       match ret with
       | RStruct (_, structname) -> update structname RStructOnly
       | RStructList (_, structname) -> update structname RStructListOnly
@@ -342,7 +342,7 @@ let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
     lines
 
 (* Compare two actions (for sorting). *)
-let action_compare (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) = compare n1 n2
+let action_compare { name = n1 } { name = n2 } = compare n1 n2
 
 let chars c n =
   let str = String.create n in

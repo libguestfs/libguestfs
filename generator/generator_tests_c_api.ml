@@ -152,7 +152,7 @@ get_key (char **hash, const char *key)
 
   let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
   List.iter (
-    fun (_, _, _, _, tests, _, _) ->
+    fun { tests = tests } ->
       let tests = filter_map (
         function
         | (_, (Always|If _|Unless _|IfAvailable _), test) -> Some test
@@ -164,7 +164,7 @@ get_key (char **hash, const char *key)
   ) all_functions;
 
   List.iter (
-    fun (name, _, _, _, _, _, _) ->
+    fun { name = name } ->
       if not (Hashtbl.mem hash name) then
         pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
   ) all_functions;
@@ -179,8 +179,8 @@ get_key (char **hash, const char *key)
    *)
   let test_names =
     List.map (
-      fun (name, _, _, flags, tests, _, _) ->
-        mapi (generate_one_test name flags) tests
+      fun { name = name; optional = optional; tests = tests } ->
+        mapi (generate_one_test name optional) tests
     ) (List.rev all_functions) in
   let test_names = List.concat test_names in
   let nr_tests = List.length test_names in
@@ -340,7 +340,7 @@ int main (int argc, char *argv[])
   pr "  exit (EXIT_SUCCESS);\n";
   pr "}\n"
 
-and generate_one_test name flags i (init, prereq, test) =
+and generate_one_test name optional i (init, prereq, test) =
   let test_name = sprintf "test_%s_%d" name i in
 
   pr "\
@@ -383,15 +383,14 @@ static int %s (void)
   (* Optional functions should only be tested if the relevant
    * support is available in the daemon.
    *)
-  List.iter (
-    function
-    | Optional group ->
-        pr "  if (!is_available (\"%s\")) {\n" group;
-        pr "    printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", \"%s\");\n" test_name group;
-        pr "    return 0;\n";
-        pr "  }\n";
-    | _ -> ()
-  ) flags;
+  (match optional with
+  | Some group ->
+    pr "  if (!is_available (\"%s\")) {\n" group;
+    pr "    printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", \"%s\");\n" test_name group;
+    pr "    return 0;\n";
+    pr "  }\n";
+  | None -> ()
+  );
 
   (match prereq with
    | Disabled ->
@@ -763,9 +762,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       (* Look up the command to find out what args/ret it has. *)
       let style_ret, style_args, style_optargs =
         try
-          let _, style, _, _, _, _, _ =
-            List.find (fun (n, _, _, _, _, _, _) -> n = name) all_functions in
-          style
+          (List.find (fun { name = n } -> n = name) all_functions).style
         with Not_found ->
           failwithf "%s: in test, command %s was not found" test_name name in
 

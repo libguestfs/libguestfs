@@ -175,113 +175,114 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
 (* Generate the pod documentation for the C API. *)
 and generate_actions_pod () =
   List.iter (
-    fun (shortname, (ret, args, optargs as style), _, flags, _, _, longdesc) ->
-      if not (List.mem NotInDocs flags) then (
-        let name = "guestfs_" ^ shortname in
-        pr "=head2 %s\n\n" name;
-        generate_prototype ~extern:false ~indent:" " ~handle:"g" name style;
-        pr "\n\n";
+    function
+    | { in_docs = false } -> ()
+    | ({ name = shortname; style = (ret, args, optargs as style);
+         in_docs = true } as f) ->
+      let name = "guestfs_" ^ shortname in
+      pr "=head2 %s\n\n" name;
+      generate_prototype ~extern:false ~indent:" " ~handle:"g" name style;
+      pr "\n\n";
 
-        (match deprecation_notice ~prefix:"guestfs_" flags with
-         | None -> ()
-         | Some txt -> pr "%s\n\n" txt
-        );
+      (match deprecation_notice ~prefix:"guestfs_" f with
+      | None -> ()
+      | Some txt -> pr "%s\n\n" txt
+      );
 
-        let uc_shortname = String.uppercase shortname in
-        if optargs <> [] then (
-          pr "You may supply a list of optional arguments to this call.\n";
-          pr "Use zero or more of the following pairs of parameters,\n";
-          pr "and terminate the list with C<-1> on its own.\n";
-          pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
-          List.iter (
-            fun argt ->
-              let n = name_of_optargt argt in
-              let uc_n = String.uppercase n in
-              pr " GUESTFS_%s_%s, " uc_shortname uc_n;
-              match argt with
-              | OBool n -> pr "int %s,\n" n
-              | OInt n -> pr "int %s,\n" n
-              | OInt64 n -> pr "int64_t %s,\n" n
-              | OString n -> pr "const char *%s,\n" n
-          ) optargs;
-          pr "\n";
-        );
+      let uc_shortname = String.uppercase shortname in
+      if optargs <> [] then (
+        pr "You may supply a list of optional arguments to this call.\n";
+        pr "Use zero or more of the following pairs of parameters,\n";
+        pr "and terminate the list with C<-1> on its own.\n";
+        pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
+        List.iter (
+          fun argt ->
+            let n = name_of_optargt argt in
+            let uc_n = String.uppercase n in
+            pr " GUESTFS_%s_%s, " uc_shortname uc_n;
+            match argt with
+            | OBool n -> pr "int %s,\n" n
+            | OInt n -> pr "int %s,\n" n
+            | OInt64 n -> pr "int64_t %s,\n" n
+            | OString n -> pr "const char *%s,\n" n
+        ) optargs;
+        pr "\n";
+      );
 
-        pr "%s\n\n" longdesc;
-        let ret, args, optargs = style in
-        (match ret with
-         | RErr ->
-             pr "This function returns 0 on success or -1 on error.\n\n"
-         | RInt _ ->
-             pr "On error this function returns -1.\n\n"
-         | RInt64 _ ->
-             pr "On error this function returns -1.\n\n"
-         | RBool _ ->
-             pr "This function returns a C truth value on success or -1 on error.\n\n"
-         | RConstString _ ->
-             pr "This function returns a string, or NULL on error.
+      pr "%s\n\n" f.longdesc;
+      let ret, args, optargs = style in
+      (match ret with
+      | RErr ->
+        pr "This function returns 0 on success or -1 on error.\n\n"
+      | RInt _ ->
+        pr "On error this function returns -1.\n\n"
+      | RInt64 _ ->
+        pr "On error this function returns -1.\n\n"
+      | RBool _ ->
+        pr "This function returns a C truth value on success or -1 on error.\n\n"
+      | RConstString _ ->
+        pr "This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
-         | RConstOptString _ ->
-             pr "This function returns a string which may be NULL.
+      | RConstOptString _ ->
+        pr "This function returns a string which may be NULL.
 There is no way to return an error from this function.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
-         | RString _ ->
-             pr "This function returns a string, or NULL on error.
+      | RString _ ->
+        pr "This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
-         | RStringList _ ->
-             pr "This function returns a NULL-terminated array of strings
+      | RStringList _ ->
+        pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.\n\n"
-         | RStruct (_, typ) ->
-             pr "This function returns a C<struct guestfs_%s *>,
+      | RStruct (_, typ) ->
+        pr "This function returns a C<struct guestfs_%s *>,
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_%s> after use>.\n\n" typ typ
-         | RStructList (_, typ) ->
-             pr "This function returns a C<struct guestfs_%s_list *>,
+      | RStructList (_, typ) ->
+        pr "This function returns a C<struct guestfs_%s_list *>,
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_%s_list> after use>.\n\n" typ typ
-         | RHashtable _ ->
-             pr "This function returns a NULL-terminated array of
+      | RHashtable _ ->
+        pr "This function returns a NULL-terminated array of
 strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
-         | RBufferOut _ ->
-             pr "This function returns a buffer, or NULL on error.
+      | RBufferOut _ ->
+        pr "This function returns a buffer, or NULL on error.
 The size of the returned buffer is written to C<*size_r>.
 I<The caller must free the returned buffer after use>.\n\n"
-        );
-        if List.mem Progress flags then
-          pr "%s\n\n" progress_message;
-        if List.mem ProtocolLimitWarning flags then
-          pr "%s\n\n" protocol_limit_warning;
-        if List.exists (function Key _ -> true | _ -> false) args then
-          pr "This function takes a key or passphrase parameter which
+      );
+      if f.progress then
+        pr "%s\n\n" progress_message;
+      if f.protocol_limit_warning then
+        pr "%s\n\n" protocol_limit_warning;
+      if List.exists (function Key _ -> true | _ -> false) args then
+        pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
-        (match lookup_api_version name with
-         | Some version -> pr "(Added in %s)\n\n" version
-         | None -> ()
-        );
+      (match lookup_api_version name with
+      | Some version -> pr "(Added in %s)\n\n" version
+      | None -> ()
+      );
 
-        (* Handling of optional argument variants. *)
-        if optargs <> [] then (
-          pr "=head2 %s_va\n\n" name;
-          generate_prototype ~extern:false ~indent:" " ~handle:"g"
-            ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
-            shortname style;
-          pr "\n\n";
-          pr "This is the \"va_list variant\" of L</%s>.\n\n" name;
-          pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
-          pr "=head2 %s_argv\n\n" name;
-          generate_prototype ~extern:false ~indent:" " ~handle:"g"
-            ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
-            shortname style;
-          pr "\n\n";
-          pr "This is the \"argv variant\" of L</%s>.\n\n" name;
-          pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
-        );
-      )
+      (* Handling of optional argument variants. *)
+      if optargs <> [] then (
+        pr "=head2 %s_va\n\n" name;
+        generate_prototype ~extern:false ~indent:" " ~handle:"g"
+          ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
+          shortname style;
+        pr "\n\n";
+        pr "This is the \"va_list variant\" of L</%s>.\n\n" name;
+        pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
+        pr "=head2 %s_argv\n\n" name;
+        generate_prototype ~extern:false ~indent:" " ~handle:"g"
+          ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
+          shortname style;
+        pr "\n\n";
+        pr "This is the \"argv variant\" of L</%s>.\n\n" name;
+        pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
+      );
   ) all_functions_sorted
 
 and generate_structs_pod () =
@@ -548,17 +549,13 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 ";
 
   List.iter (
-    fun (shortname, (ret, args, optargs as style), _, flags, _, _, _) ->
-      let deprecated =
-        try
-          Some (find_map (function DeprecatedBy fn -> Some fn | _ -> None)
-                  flags)
-        with Not_found -> None in
+    fun { name = shortname; style = (ret, args, optargs as style);
+          deprecated_by = deprecated_by } ->
       let test0 =
         String.length shortname >= 5 && String.sub shortname 0 5 = "test0" in
       let debug =
         String.length shortname >= 5 && String.sub shortname 0 5 = "debug" in
-      if deprecated = None && not test0 && not debug then
+      if deprecated_by = None && not test0 && not debug then
         pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
 
       if optargs <> [] then (
@@ -573,7 +570,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
       generate_prototype ~single_line:true ~semicolon:false ~dll_public:true
         ~handle:"g" ~prefix:"guestfs_" shortname style;
-      (match deprecated with
+      (match deprecated_by with
        | Some fn -> pr "\n  GUESTFS_DEPRECATED_BY (%S);\n" fn
        | None -> pr ";\n"
       );
@@ -647,7 +644,7 @@ extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, virDomainPt
 and generate_internal_actions_h () =
   generate_header CStyle LGPLv2plus;
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun { name = shortname; style = style } ->
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         ~prefix:"guestfs__" ~optarg_proto:Argv
         shortname style
@@ -1010,7 +1007,8 @@ trace_send_line (guestfs_h *g)
 
   (* For non-daemon functions, generate a wrapper around each function. *)
   List.iter (
-    fun (shortname, (ret, _, optargs as style), _, flags, _, _, _) ->
+    fun { name = shortname; style = (ret, _, optargs as style);
+          config_only = config_only } ->
       if optargs = [] then
         generate_prototype ~extern:false ~semicolon:false ~newline:true
           ~handle:"g" ~prefix:"guestfs_"
@@ -1044,7 +1042,7 @@ trace_send_line (guestfs_h *g)
            pr "  struct guestfs_%s_list *r;\n" typ
       );
       pr "\n";
-      if List.mem ConfigOnly flags then (
+      if config_only then (
         pr "  if (g->state != CONFIG) {\n";
         pr "    error (g, \"%%s: this function can only be called in the config state\",\n";
         pr "              \"%s\");\n" shortname;
@@ -1077,7 +1075,7 @@ trace_send_line (guestfs_h *g)
 
   (* Client-side stubs for each function. *)
   List.iter (
-    fun (shortname, (ret, args, optargs as style), _, _, _, _, _) ->
+    fun { name = shortname; style = (ret, args, optargs as style) } ->
       let name = "guestfs_" ^ shortname in
       let errcode =
         match errcode_of_ret ret with
@@ -1389,7 +1387,8 @@ trace_send_line (guestfs_h *g)
   (* Functions which have optional arguments have two generated variants. *)
   List.iter (
     function
-    | shortname, (ret, args, (_::_ as optargs) as style), _, _, _, _, _ ->
+    | { style = _, _, [] } -> ()
+    | { name = shortname; style = (ret, args, (_::_ as optargs) as style) } ->
         let uc_shortname = String.uppercase shortname in
 
         (* Get the name of the last regular argument. *)
@@ -1485,7 +1484,6 @@ trace_send_line (guestfs_h *g)
         generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
         pr ";\n";
         pr "}\n\n"
-    | _ -> ()
   ) all_functions_sorted
 
 (* Generate the linker script which controls the visibility of
@@ -1531,8 +1529,8 @@ and generate_linker_script () =
     List.flatten (
       List.map (
         function
-        | name, (_, _, []), _, _, _, _, _ -> ["guestfs_" ^ name]
-        | name, (_, _, _), _, _, _, _, _ ->
+        | { name = name; style = _, _, [] } -> ["guestfs_" ^ name]
+        | { name = name } ->
             ["guestfs_" ^ name;
              "guestfs_" ^ name ^ "_va";
              "guestfs_" ^ name ^ "_argv"]

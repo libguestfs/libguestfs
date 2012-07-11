@@ -42,13 +42,9 @@ let generate_fish_cmds () =
   generate_header CStyle GPLv2plus;
 
   let all_functions =
-    List.filter (
-      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
-    ) all_functions in
+    List.filter (fun { in_fish = b } -> b) all_functions in
   let all_functions_sorted =
-    List.filter (
-      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
-    ) all_functions_sorted in
+    List.filter (fun { in_fish = b } -> b) all_functions_sorted in
 
   let all_functions_and_fish_commands_sorted =
     List.sort action_compare (all_functions_sorted @ fish_commands) in
@@ -79,7 +75,7 @@ let generate_fish_cmds () =
   pr "\n";
 
   List.iter (
-    fun (name, _, _, _, _, _, _) ->
+    fun { name = name } ->
       pr "static int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
         name
   ) all_functions;
@@ -88,10 +84,9 @@ let generate_fish_cmds () =
 
   (* List of command_entry structs. *)
   List.iter (
-    fun (name, _, _, flags, _, shortdesc, longdesc) ->
+    fun { name = name; fish_alias = aliases; shortdesc = shortdesc;
+          longdesc = longdesc } ->
       let name2 = replace_char name '_' '-' in
-      let aliases =
-        filter_map (function FishAlias n -> Some n | _ -> None) flags in
       let describe_alias =
         if aliases <> [] then
           sprintf "\n\nYou can use %s as an alias for this command."
@@ -114,10 +109,9 @@ let generate_fish_cmds () =
   ) fish_commands;
 
   List.iter (
-    fun (name, (_, args, optargs), _, flags, _, shortdesc, longdesc) ->
+    fun ({ name = name; style = _, args, optargs; fish_alias = aliases;
+           shortdesc = shortdesc; longdesc = longdesc } as f) ->
       let name2 = replace_char name '_' '-' in
-      let aliases =
-        filter_map (function FishAlias n -> Some n | _ -> None) flags in
 
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
@@ -142,13 +136,13 @@ Guestfish will prompt for these separately."
 
       let warnings =
         warnings ^
-          if List.mem ProtocolLimitWarning flags then
-            ("\n\n" ^ protocol_limit_warning)
+          if f.protocol_limit_warning then
+            "\n\n" ^ protocol_limit_warning
           else "" in
 
       let warnings =
         warnings ^
-          match deprecation_notice flags with
+          match deprecation_notice f with
           | None -> ""
           | Some txt -> "\n\n" ^ txt in
 
@@ -180,7 +174,7 @@ Guestfish will prompt for these separately."
   pr "  printf (\"    %%-16s     %%s\\n\", _(\"Command\"), _(\"Description\"));\n";
   pr "  list_builtin_commands ();\n";
   List.iter (
-    fun (name, _, _, flags, _, shortdesc, _) ->
+    fun { name = name; shortdesc = shortdesc } ->
       let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
         name shortdesc
@@ -302,7 +296,8 @@ Guestfish will prompt for these separately."
 
   (* run_<action> actions *)
   List.iter (
-    fun (name, (ret, args, optargs as style), _, flags, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style);
+          fish_output = fish_output } ->
       pr "static int\n";
       pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
@@ -522,17 +517,6 @@ Guestfish will prompt for these separately."
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
-      (* Any output flags? *)
-      let fish_output =
-        let flags = filter_map (
-          function FishOutput flag -> Some flag | _ -> None
-        ) flags in
-        match flags with
-        | [] -> None
-        | [f] -> Some f
-        | _ ->
-            failwithf "%s: more than one FishOutput flag is not allowed" name in
-
       (* Check return value for errors and display command results. *)
       (match ret with
        | RErr ->
@@ -663,9 +647,9 @@ and generate_fish_cmds_h () =
   pr "\n";
 
   List.iter (
-    fun (shortname, _, _, _, _, _, _) ->
+    fun { name = name } ->
       pr "extern int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
-        shortname
+        name
   ) fish_commands;
 
   pr "\n";
@@ -676,9 +660,7 @@ and generate_fish_cmds_gperf () =
   generate_header CStyle GPLv2plus;
 
   let all_functions_sorted =
-    List.filter (
-      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
-    ) all_functions_sorted in
+    List.filter (fun { in_fish = b } -> b) all_functions_sorted in
 
   let all_functions_and_fish_commands_sorted =
     List.sort action_compare (all_functions_sorted @ fish_commands) in
@@ -702,7 +684,7 @@ and generate_fish_cmds_gperf () =
 ";
 
   List.iter (
-    fun (name, _, _, _, _, _, _) ->
+    fun { name = name } ->
       pr "extern struct command_entry %s_cmd_entry;\n" name
   ) all_functions_and_fish_commands_sorted;
 
@@ -715,10 +697,8 @@ struct command_table;
 ";
 
   List.iter (
-    fun (name, _, _, flags, _, _, _) ->
+    fun { name = name; fish_alias = aliases } ->
       let name2 = replace_char name '_' '-' in
-      let aliases =
-        filter_map (function FishAlias n -> Some n | _ -> None) flags in
 
       (* The basic command. *)
       pr "%s, &%s_cmd_entry\n" name name;
@@ -739,9 +719,7 @@ and generate_fish_completion () =
   generate_header CStyle GPLv2plus;
 
   let all_functions =
-    List.filter (
-      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
-    ) all_functions in
+    List.filter (fun { in_fish = b } -> b) all_functions in
 
   pr "\
 #include <config.h>
@@ -767,10 +745,8 @@ static const char *const commands[] = {
    *)
   let commands =
     List.map (
-      fun (name, _, _, flags, _, _, _) ->
+      fun { name = name; fish_alias = aliases } ->
         let name2 = replace_char name '_' '-' in
-        let aliases =
-          filter_map (function FishAlias n -> Some n | _ -> None) flags in
         name2 :: aliases
     ) (all_functions @ fish_commands) in
   let commands = List.flatten commands in
@@ -834,14 +810,14 @@ do_completion (const char *text, int start, int end)
 and generate_fish_actions_pod () =
   let all_functions_sorted =
     List.filter (
-      fun (_, _, _, flags, _, _, _) ->
-        not (List.mem NotInFish flags || List.mem NotInDocs flags)
+      fun { in_fish = in_fish; in_docs = in_docs } -> in_fish && in_docs
     ) all_functions_sorted in
 
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
 
   List.iter (
-    fun (name, (_, args, optargs), _, flags, _, _, longdesc) ->
+    fun ({ name = name; style = _, args, optargs; fish_alias = aliases;
+          longdesc = longdesc } as f) ->
       let longdesc =
         Str.global_substitute rex (
           fun s ->
@@ -852,8 +828,6 @@ and generate_fish_actions_pod () =
             "L</" ^ replace_char sub '_' '-' ^ ">"
         ) longdesc in
       let name = replace_char name '_' '-' in
-      let aliases =
-        filter_map (function FishAlias n -> Some n | _ -> None) flags in
 
       List.iter (
         fun name ->
@@ -894,10 +868,10 @@ Guestfish will prompt for these separately.\n\n";
       if optargs <> [] then
         pr "This command has one or more optional arguments.  See L</OPTIONAL ARGUMENTS>.\n\n";
 
-      if List.mem ProtocolLimitWarning flags then
+      if f.protocol_limit_warning then
         pr "%s\n\n" protocol_limit_warning;
 
-      match deprecation_notice flags with
+      match deprecation_notice f with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted
@@ -905,10 +879,8 @@ Guestfish will prompt for these separately.\n\n";
 (* Generate documentation for guestfish-only commands. *)
 and generate_fish_commands_pod () =
   List.iter (
-    fun (name, _, _, flags, _, _, longdesc) ->
+    fun { name = name; fish_alias = aliases; longdesc = longdesc } ->
       let name = replace_char name '_' '-' in
-      let aliases =
-        filter_map (function FishAlias n -> Some n | _ -> None) flags in
 
       List.iter (
         fun name ->

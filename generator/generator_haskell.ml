@@ -59,7 +59,7 @@ module Guestfs (
 
   (* List out the names of the actions we want to export. *)
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun { name = name; style = style } ->
       if can_generate style then pr ",\n  %s" name
   ) all_functions;
 
@@ -124,7 +124,7 @@ last_error h = do
 
   (* Generate wrappers for each foreign function. *)
   List.iter (
-    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style) } ->
       if can_generate style then (
         pr "foreign import ccall unsafe \"guestfs_%s\" c_%s\n" name name;
         pr "  :: ";

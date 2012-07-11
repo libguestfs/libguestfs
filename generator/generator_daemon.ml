@@ -38,7 +38,8 @@ let generate_daemon_actions_h () =
 
   List.iter (
     function
-    | shortname, (_, _, (_::_ as optargs)), _, _, _, _, _ ->
+    | { style = _, _, [] } -> ()
+    | { name = shortname; style = _, _, (_::_ as optargs) } ->
         iteri (
           fun i arg ->
             let uc_shortname = String.uppercase shortname in
@@ -47,11 +48,10 @@ let generate_daemon_actions_h () =
             pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n"
               uc_shortname uc_n i
         ) optargs
-    | _ -> ()
   ) daemon_functions;
 
   List.iter (
-    fun (name, (ret, args, optargs), _, _, _, _, _) ->
+    fun { name = name; style = ret, args, optargs } ->
       let style = ret, args @ args_of_optargs optargs, [] in
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
@@ -80,7 +80,7 @@ and generate_daemon_actions () =
   pr "\n";
 
   List.iter (
-    fun (name, (ret, args, optargs), _, flags, _, _, _) ->
+    fun { name = name; style = ret, args, optargs; optional = optional } ->
       (* Generate server-side stubs. *)
       pr "static void\n";
       pr "%s_stub (XDR *xdr_in)\n" name;
@@ -126,23 +126,22 @@ and generate_daemon_actions () =
         List.exists (function FileIn _ -> true | _ -> false) args in
 
       (* Reject Optional functions that are not available (RHBZ#679737). *)
-      List.iter (
-        function
-        | Optional group ->
-          pr "  /* The caller should have checked before calling this. */\n";
-          pr "  if (! optgroup_%s_available ()) {\n" group;
-          if is_filein then
-            pr "    cancel_receive ();\n";
-          pr "    reply_with_error_errno (ENOTSUP,\n";
-          pr "       \"feature '%%s' is not available in this\\n\"\n";
-          pr "       \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
-          pr "       \"how to check for the availability of features.\",\n";
-          pr "       \"%s\");\n" group;
-          pr "    goto done_no_free;\n";
-          pr "  }\n";
-          pr "\n"
-        | _ -> ()
-      ) flags;
+      (match optional with
+      | Some group ->
+        pr "  /* The caller should have checked before calling this. */\n";
+        pr "  if (! optgroup_%s_available ()) {\n" group;
+        if is_filein then
+          pr "    cancel_receive ();\n";
+        pr "    reply_with_error_errno (ENOTSUP,\n";
+        pr "       \"feature '%%s' is not available in this\\n\"\n";
+        pr "       \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
+        pr "       \"how to check for the availability of features.\",\n";
+        pr "       \"%s\");\n" group;
+        pr "    goto done_no_free;\n";
+        pr "  }\n";
+        pr "\n"
+      | None -> ()
+      );
 
       (* Reject unknown optional arguments.
        * Note this code is included even for calls with no optional
@@ -352,7 +351,7 @@ and generate_daemon_actions () =
   pr "  switch (proc_nr) {\n";
 
   List.iter (
-    fun (name, _, _, _, _, _, _) ->
+    fun { name = name } ->
       pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
       pr "      %s_stub (xdr_in);\n" name;
       pr "      break;\n"
@@ -544,7 +543,10 @@ and generate_daemon_names () =
   pr "/* This array is indexed by proc_nr.  See guestfs_protocol.x. */\n";
   pr "const char *function_names[] = {\n";
   List.iter (
-    fun (name, _, proc_nr, _, _, _, _) -> pr "  [%d] = \"%s\",\n" proc_nr name
+    function
+    | { name = name; proc_nr = Some proc_nr } ->
+      pr "  [%d] = \"%s\",\n" proc_nr name
+    | { proc_nr = None } -> assert false
   ) daemon_functions;
   pr "};\n";
 

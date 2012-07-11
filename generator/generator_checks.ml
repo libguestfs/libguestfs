@@ -39,7 +39,7 @@ let () =
 
   (* Check function names. *)
   List.iter (
-    fun (name, _, _, _, _, _, _) ->
+    fun { name = name } ->
       if String.length name >= 7 && String.sub name 0 7 = "guestfs" then
         failwithf "function name %s does not need 'guestfs' prefix" name;
       if name = "" then
@@ -53,7 +53,7 @@ let () =
 
   (* Check function parameter/return names. *)
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun { name = name; style = style } ->
       let check_arg_ret_name n =
         if contains_uppercase n then
           failwithf "%s param/ret %s should not contain uppercase chars"
@@ -117,14 +117,14 @@ let () =
 
   (* Maximum of 63 optargs permitted. *)
   List.iter (
-    fun (name, (_, _, optargs), _, _, _, _, _) ->
+    fun { name = name; style = _, _, optargs } ->
       if List.length optargs > 63 then
         failwithf "maximum of 63 optional args allowed for %s" name;
   ) all_functions;
 
   (* Some parameter types not supported for daemon functions. *)
   List.iter (
-    fun (name, (_, args, _), _, _, _, _, _) ->
+    fun { name = name; style = _, args, _ } ->
       let check_arg_type = function
         | Pointer _ ->
             failwithf "Pointer is not supported for daemon function %s."
@@ -136,7 +136,7 @@ let () =
 
   (* Check short descriptions. *)
   List.iter (
-    fun (name, _, _, _, _, shortdesc, _) ->
+    fun { name = name; shortdesc = shortdesc } ->
       if shortdesc.[0] <> Char.lowercase shortdesc.[0] then
         failwithf "short description of %s should begin with lowercase." name;
       let c = shortdesc.[String.length shortdesc-1] in
@@ -146,27 +146,34 @@ let () =
 
   (* Check long descriptions. *)
   List.iter (
-    fun (name, _, _, _, _, _, longdesc) ->
+    fun { name = name; longdesc = longdesc } ->
       if longdesc.[String.length longdesc-1] = '\n' then
         failwithf "long description of %s should not end with \\n." name
   ) (all_functions @ fish_commands);
 
   (* Check proc_nrs. *)
   List.iter (
-    fun (name, _, proc_nr, _, _, _, _) ->
-      if proc_nr <= 0 then
-        failwithf "daemon function %s should have proc_nr > 0" name
+    function
+    | { name = name; proc_nr = None } ->
+      failwithf "daemon function %s should have proc_nr > 0" name
+    | { name = name; proc_nr = Some n } when n <= 0 ->
+      failwithf "daemon function %s should have proc_nr > 0" name
+    | { proc_nr = Some _ } -> ()
   ) daemon_functions;
 
   List.iter (
-    fun (name, _, proc_nr, _, _, _, _) ->
-      if proc_nr <> -1 then
-        failwithf "non-daemon function %s should have proc_nr -1" name
+    function
+    | { name = name; proc_nr = Some _ } ->
+      failwithf "non-daemon function %s should have proc_nr -1" name
+    | { proc_nr = None } -> ()
   ) non_daemon_functions;
 
   let proc_nrs =
-    List.map (fun (name, _, proc_nr, _, _, _, _) -> name, proc_nr)
-      daemon_functions in
+    List.map (
+      function
+      | { name = name; proc_nr = Some proc_nr } -> (name, proc_nr)
+      | _ -> assert false
+    ) daemon_functions in
   let proc_nrs =
     List.sort (fun (_,nr1) (_,nr2) -> compare nr1 nr2) proc_nrs in
   let rec loop = function
@@ -182,52 +189,56 @@ let () =
 
   (* Check flags. *)
   List.iter (
-    fun (name, (ret, _, _), _, flags, _, _, _) ->
+    fun ({ name = name; style = ret, _, _ } as f) ->
       List.iter (
-        function
-        | ProtocolLimitWarning
-        | FishOutput _
-        | NotInFish
-        | NotInDocs
-        | ConfigOnly
-        | Progress -> ()
-        | FishAlias n ->
-            if contains_uppercase n then
-              failwithf "%s: guestfish alias %s should not contain uppercase chars" name n;
-            if String.contains n '_' then
-              failwithf "%s: guestfish alias %s should not contain '_'" name n
-        | DeprecatedBy n ->
-            (* 'n' must be a cross-ref to the name of another action. *)
-            if not (List.exists (
-                      function
-                      | (n', _, _, _, _, _, _) when n = n' -> true
-                      | _ -> false
-                    ) all_functions) then
-              failwithf "%s: DeprecatedBy flag must be cross-reference to another action" name
-        | Optional n ->
-            if contains_uppercase n then
-              failwithf "%s: Optional group name %s should not contain uppercase chars" name n;
-            if String.contains n '-' || String.contains n '_' then
-              failwithf "%s: Optional group name %s should not contain '-' or '_'" name n
-        | CamelName n ->
-            if not (contains_uppercase n) then
-              failwithf "%s: camel case name must contains uppercase characters" name n;
-            if String.contains n '_' then
-              failwithf "%s: camel case name must not contain '_'" name n;
-        | Cancellable ->
-          (match ret with
-          | RConstOptString n ->
-            failwithf "%s: Cancellable function cannot return RConstOptString"
-                      name
-          | _ -> ())
-      ) flags
+        fun n ->
+          if contains_uppercase n then
+            failwithf "%s: guestfish alias %s should not contain uppercase chars" name n;
+          if String.contains n '_' then
+            failwithf "%s: guestfish alias %s should not contain '_'" name n
+      ) f.fish_alias;
+      (match f.deprecated_by with
+      | Some n ->
+        (* 'n' must be a cross-ref to the name of another action. *)
+        if not (List.exists (
+          function
+          | { name = n' } when n = n' -> true
+          | _ -> false
+        ) all_functions) then
+          failwithf "%s: deprecated_by flag must be cross-reference to another action" name
+      | None -> ()
+      );
+      (match f.optional with
+      | Some n ->
+        if contains_uppercase n then
+          failwithf "%s: optional group name %s should not contain uppercase chars" name n;
+        if String.contains n '-' || String.contains n '_' then
+          failwithf "%s: optional group name %s should not contain '-' or '_'" name n
+      | None -> ()
+      );
+      (match f.camel_name with
+      | Some n ->
+        if not (contains_uppercase n) then
+          failwithf "%s: camel case name must contains uppercase characters" name n;
+        if String.contains n '_' then
+          failwithf "%s: camel case name must not contain '_'" name n;
+      | None -> ()
+      );
+      if f.cancellable then (
+        match ret with
+        | RConstOptString n ->
+          failwithf "%s: Cancellable function cannot return RConstOptString"
+            name
+        | _ -> ()
+      )
   ) (all_functions @ fish_commands);
 
   (* ConfigOnly should only be specified on non_daemon_functions. *)
   List.iter (
-    fun (name, (_, _, _), _, flags, _, _, _) ->
-      if List.mem ConfigOnly flags then
-        failwithf "%s cannot have ConfigOnly flag" name
+    function
+    | { name = name; config_only = true } ->
+      failwithf "%s cannot have ConfigOnly flag" name
+    | { config_only = false } -> ()
   ) (daemon_functions @ fish_commands);
 
   (* Check tests. *)
@@ -236,20 +247,20 @@ let () =
       (* Ignore functions that have no tests.  We generate a
        * warning when the user does 'make check' instead.
        *)
-    | name, _, _, _, [], _, _ -> ()
-    | name, _, _, _, tests, _, _ ->
-        let funcs =
-          List.map (
-            fun (_, _, test) ->
-              match seq_of_test test with
-              | [] ->
-                  failwithf "%s has a test containing an empty sequence" name
-              | cmds -> List.map List.hd cmds
-          ) tests in
-        let funcs = List.flatten funcs in
+    | { tests = [] } -> ()
+    | { name = name; tests = tests } ->
+      let funcs =
+        List.map (
+          fun (_, _, test) ->
+            match seq_of_test test with
+            | [] ->
+              failwithf "%s has a test containing an empty sequence" name
+            | cmds -> List.map List.hd cmds
+        ) tests in
+      let funcs = List.flatten funcs in
 
-        let tested = List.mem name funcs in
+      let tested = List.mem name funcs in
 
-        if not tested then
-          failwithf "function %s has tests but does not test itself" name
+      if not tested then
+        failwithf "function %s has tests but does not test itself" name
   ) all_functions

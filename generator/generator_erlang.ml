@@ -40,7 +40,7 @@ let rec generate_erlang_erl () =
 
   (* Export the public actions. *)
   List.iter (
-    fun (name, (_, args, optargs), _, _, _, _, _) ->
+    fun { name = name; style = _, args, optargs } ->
       let nr_args = List.length args in
       if optargs = [] then
         pr "-export([%s/%d]).\n" name (nr_args+1)
@@ -95,7 +95,7 @@ loop(Port) ->
    * process which dispatches them to the port.
    *)
   List.iter (
-    fun (name, (_, args, optargs), _, _, _, _, _) ->
+    fun { name = name; style = _, args, optargs } ->
       pr "%s(G" name;
       List.iter (
         fun arg ->
@@ -235,7 +235,7 @@ extern void free_strings (char **r);
 
   (* The wrapper functions. *)
   List.iter (
-    fun (name, ((ret, args, optargs) as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style) } ->
       pr "static ETERM *\n";
       pr "run_%s (ETERM *message)\n" name;
       pr "{\n";
@@ -423,7 +423,7 @@ dispatch (ETERM *message)
   ";
 
   List.iter (
-    fun (name, (ret, args, optargs), _, _, _, _, _) ->
+    fun { name = name; style = ret, args, optargs } ->
       pr "if (atom_equals (fun, \"%s\"))\n" name;
       pr "    return run_%s (message);\n" name;
       pr "  else ";

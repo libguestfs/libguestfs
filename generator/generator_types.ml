@@ -213,25 +213,7 @@ and optargt =
 
 type errcode = [ `CannotReturnError | `ErrorIsMinusOne | `ErrorIsNULL ]
 
-type flags =
-  | ProtocolLimitWarning  (* display warning about protocol size limits *)
-  | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
-  | FishOutput of fish_output_t (* how to display output in guestfish *)
-  | NotInFish		  (* do not export via guestfish *)
-  | NotInDocs		  (* do not add this function to documentation *)
-  | DeprecatedBy of string (* function is deprecated, use .. instead *)
-  | Optional of string	  (* function is part of an optional group *)
-  | Progress              (* function can generate progress messages *)
-  | CamelName of string   (* Pretty camel case name of function. Only specify
-                             this if the generator doesn't make a good job of
-                             it, for example if it contains an abbreviation.
-                             This flag is currently only used by the GObject
-                             bindings. *)
-  | Cancellable           (* The user can cancel this long-running function *)
-  | ConfigOnly            (* The non-daemon-function which only used at CONFIG
-                             state. *)
-
-and fish_output_t =
+type fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)
   | FishOutputHexadecimal (* for int return, print in hex *)
 
@@ -400,7 +382,34 @@ and seq = cmd list
 and cmd = string list
 
 (* Type of an action as declared in Generator_actions module. *)
-type action = string * style * int * flags list * tests * string * string
+type action = {
+  name : string;                  (* name, not including "guestfs_" *)
+  style : style;                  (* args and return value *)
+  proc_nr : int option;           (* proc number, None for non-daemon *)
+  tests : tests;                  (* tests *)
+  shortdesc : string;             (* single line description *)
+  longdesc : string;              (* longer documentation *)
+
+  (* Lots of flags ... *)
+  protocol_limit_warning : bool;  (* warn about protocol size limits *)
+  fish_alias : string list;       (* alias(es) for this cmd in guestfish *)
+  fish_output : fish_output_t option; (* how to display output in guestfish *)
+  in_fish : bool;                 (* export via guestfish *)
+  in_docs : bool;                 (* add this function to documentation *)
+  deprecated_by : string option;  (* function is deprecated, use .. instead *)
+  optional : string option;       (* function is part of an optional group *)
+  progress : bool;                (* function can generate progress messages *)
+  camel_name : string option;     (* Pretty camel case name of
+                                     function. Only specify this if the
+                                     generator doesn't make a good job of
+                                     it, for example if it contains an
+                                     abbreviation.  This flag is currently
+                                     only used by the GObject bindings. *)
+  cancellable : bool;             (* the user can cancel this long-running
+                                     function *)
+  config_only : bool;             (* non-daemon-function which can only be used
+                                     while in CONFIG state *)
+}
 
 (* Field types for structures. *)
 type field =

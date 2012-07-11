@@ -359,20 +359,22 @@ ruby_user_cancel (VALUE gv)
 ";
 
   List.iter (
-    fun (name, (ret, args, optargs as style), _, flags, _, shortdesc, longdesc) ->
+    fun ({ name = name; style = (ret, args, optargs as style);
+           in_docs = in_docs;
+           shortdesc = shortdesc; longdesc = longdesc } as f) ->
       (* Generate rdoc. *)
-      if not (List.mem NotInDocs flags); then (
+      if in_docs then (
         let doc = replace_str longdesc "C<guestfs_" "C<g." in
         let doc =
           if optargs <> [] then
             doc ^ "\n\nOptional arguments are supplied in the final hash parameter, which is a hash of the argument name to its value.  Pass an empty {} for no optional arguments."
           else doc in
         let doc =
-          if List.mem ProtocolLimitWarning flags then
+          if f.protocol_limit_warning then
             doc ^ "\n\n" ^ protocol_limit_warning
           else doc in
         let doc =
-          match deprecation_notice flags with
+          match deprecation_notice f with
           | None -> doc
           | Some txt -> doc ^ "\n\n" ^ txt in
         let doc = pod2text ~width:60 name doc in
@@ -634,7 +636,7 @@ void Init__guestfs ()
 
   (* Methods. *)
   List.iter (
-    fun (name, (_, args, optargs), _, _, _, _, _) ->
+    fun { name = name; style = _, args, optargs } ->
       let nr_args = List.length args + if optargs <> [] then 1 else 0 in
       pr "  rb_define_method (c_guestfs, \"%s\",\n" name;
       pr "        ruby_guestfs_%s, %d);\n" name nr_args

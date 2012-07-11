@@ -289,7 +289,7 @@ user_cancel (g)
 ";
 
   List.iter (
-    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
+    fun { name = name; style = (ret, args, optargs as style) } ->
       (match ret with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
@@ -797,19 +797,20 @@ handlers and threads.
    * they are pulled in from the XS code automatically.
    *)
   List.iter (
-    fun (name, style, _, flags, _, _, longdesc) ->
-      if not (List.mem NotInDocs flags) then (
-        let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
-        pr "=item ";
-        generate_perl_prototype name style;
-        pr "\n\n";
-        pr "%s\n\n" longdesc;
-        if List.mem ProtocolLimitWarning flags then
-          pr "%s\n\n" protocol_limit_warning;
-        match deprecation_notice flags with
-        | None -> ()
-        | Some txt -> pr "%s\n\n" txt
-      )
+    function
+    | { in_docs = false } -> ()
+    | ({ name = name; style = style; in_docs = true;
+         longdesc = longdesc } as f) ->
+      let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
+      pr "=item ";
+      generate_perl_prototype name style;
+      pr "\n\n";
+      pr "%s\n\n" longdesc;
+      if f.protocol_limit_warning then
+        pr "%s\n\n" protocol_limit_warning;
+      match deprecation_notice f with
+      | None -> ()
+      | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted;
 
   pr "=cut\n\n";
@@ -818,7 +819,7 @@ handlers and threads.
   pr "use vars qw(%%guestfs_introspection);\n";
   pr "%%guestfs_introspection = (\n";
   List.iter (
-    fun (name, (ret, args, optargs), _, _, _, shortdesc, _) ->
+    fun { name = name; style = (ret, args, optargs); shortdesc = shortdesc } ->
       pr "  \"%s\" => {\n" name;
       pr "    ret => ";
       (match ret with
