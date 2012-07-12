@@ -153,7 +153,7 @@ gobject/src/optargs-mount_9p.c
 gobject/src/optargs-mount_local.c
 gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c
-gobject/src/optargs-ntfsresize_opts.c
+gobject/src/optargs-ntfsresize.c
 gobject/src/optargs-set_e2attrs.c
 gobject/src/optargs-tune2fs.c
 gobject/src/optargs-umount_local.c

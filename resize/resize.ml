@@ -1139,7 +1139,7 @@ let () =
     let do_expand_content target = function
       | PVResize -> g#pvresize target
       | Resize2fs -> g#resize2fs target
-      | NTFSResize -> g#ntfsresize_opts ~force:ntfsresize_force target
+      | NTFSResize -> g#ntfsresize ~force:ntfsresize_force target
       | BtrfsFilesystemResize ->
           (* Complicated ...  Btrfs forces us to mount the filesystem
            * in order to resize it.

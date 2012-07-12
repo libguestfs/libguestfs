@@ -64,7 +64,7 @@ do_ntfs_3g_probe (int rw, const char *device)
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_ntfsresize_opts (const char *device, int64_t size, int force)
+do_ntfsresize (const char *device, int64_t size, int force)
 {
   char *err;
   int r;
@@ -75,7 +75,7 @@ do_ntfsresize_opts (const char *device, int64_t size, int force)
   ADD_ARG (argv, i, "ntfsresize");
   ADD_ARG (argv, i, "-P");
 
-  if (optargs_bitmask & GUESTFS_NTFSRESIZE_OPTS_SIZE_BITMASK) {
+  if (optargs_bitmask & GUESTFS_NTFSRESIZE_SIZE_BITMASK) {
     if (size <= 0) {
       reply_with_error ("size is zero or negative");
       return -1;
@@ -86,7 +86,7 @@ do_ntfsresize_opts (const char *device, int64_t size, int force)
     ADD_ARG (argv, i, size_str);
   }
 
-  if (optargs_bitmask & GUESTFS_NTFSRESIZE_OPTS_FORCE_BITMASK && force)
+  if (optargs_bitmask & GUESTFS_NTFSRESIZE_FORCE_BITMASK && force)
     ADD_ARG (argv, i, "--force");
 
   ADD_ARG (argv, i, device);
@@ -104,16 +104,10 @@ do_ntfsresize_opts (const char *device, int64_t size, int force)
 }
 
 int
-do_ntfsresize (const char *device)
-{
-  return do_ntfsresize_opts (device, 0, 0);
-}
-
-int
 do_ntfsresize_size (const char *device, int64_t size)
 {
-  optargs_bitmask = GUESTFS_NTFSRESIZE_OPTS_SIZE_BITMASK;
-  return do_ntfsresize_opts (device, size, 0);
+  optargs_bitmask = GUESTFS_NTFSRESIZE_SIZE_BITMASK;
+  return do_ntfsresize (device, size, 0);
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */

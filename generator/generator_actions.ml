@@ -6710,26 +6710,6 @@ This command packs the contents of C<directory> and downloads
 it to local file C<tarball> (as an xz compressed tar archive)." };
 
   { defaults with
-    name = "ntfsresize";
-    style = RErr, [Device "device"], [];
-    proc_nr = Some 231;
-    optional = Some "ntfsprogs"; deprecated_by = Some "ntfsresize_opts";
-    shortdesc = "resize an NTFS filesystem";
-    longdesc = "\
-This command resizes an NTFS filesystem, expanding or
-shrinking it to the size of the underlying device.
-
-I<Note:> After the resize operation, the filesystem is marked
-as requiring a consistency check (for safety).  You have to boot
-into Windows to perform this check and clear this condition.
-Furthermore, ntfsresize refuses to resize filesystems
-which have been marked in this way.  So in effect it is
-not possible to call ntfsresize multiple times on a single
-filesystem without booting into Windows between each resize.
-
-See also L<ntfsresize(8)>." };
-
-  { defaults with
     name = "vgscan";
     style = RErr, [], [];
     proc_nr = Some 232;
@@ -7039,7 +7019,7 @@ allows you to specify the new size (in bytes) explicitly." };
     name = "ntfsresize_size";
     style = RErr, [Device "device"; Int64 "size"], [];
     proc_nr = Some 250;
-    optional = Some "ntfsprogs"; deprecated_by = Some "ntfsresize_opts";
+    optional = Some "ntfsprogs"; deprecated_by = Some "ntfsresize";
     shortdesc = "resize an NTFS filesystem (with size)";
     longdesc = "\
 This command is the same as C<guestfs_ntfsresize> except that it
@@ -7750,8 +7730,9 @@ returned in this list.  Call C<guestfs_lvs> if you want to list logical
 volumes." };
 
   { defaults with
-    name = "ntfsresize_opts";
+    name = "ntfsresize";
     style = RErr, [Device "device"], [OInt64 "size"; OBool "force"];
+    once_had_no_optargs = true;
     proc_nr = Some 288;
     optional = Some "ntfsprogs"; camel_name = "NTFSResizeOpts";
     shortdesc = "resize an NTFS filesystem";
@@ -7777,7 +7758,7 @@ After the resize operation, the filesystem is always marked
 as requiring a consistency check (for safety).  You have to boot
 into Windows to perform this check and clear this condition.
 If you I<don't> set the C<force> option then it is not
-possible to call C<guestfs_ntfsresize_opts> multiple times on a
+possible to call C<guestfs_ntfsresize> multiple times on a
 single filesystem without booting into Windows between each resize.
 
 =back
