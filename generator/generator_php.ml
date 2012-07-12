@@ -178,7 +178,8 @@ PHP_FUNCTION (guestfs_last_error)
 
   (* Now generate the PHP bindings for each action. *)
   List.iter (
-    fun { name = shortname; style = ret, args, optargs as style } ->
+    fun { name = shortname; style = ret, args, optargs as style;
+          c_function = c_function } ->
       pr "PHP_FUNCTION (guestfs_%s)\n" shortname;
       pr "{\n";
       pr "  zval *z_g;\n";
@@ -374,10 +375,7 @@ PHP_FUNCTION (guestfs_last_error)
       );
 
       (* Call the function. *)
-      if optargs = [] then
-        pr "  r = guestfs_%s " shortname
-      else
-        pr "  r = guestfs_%s_argv " shortname;
+      pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
       pr "\n";

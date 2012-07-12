@@ -360,7 +360,7 @@ ruby_user_cancel (VALUE gv)
 
   List.iter (
     fun ({ name = name; style = (ret, args, optargs as style);
-           in_docs = in_docs;
+           in_docs = in_docs; c_function = c_function;
            shortdesc = shortdesc; longdesc = longdesc } as f) ->
       (* Generate rdoc. *)
       if in_docs then (
@@ -521,10 +521,7 @@ ruby_user_cancel (VALUE gv)
       );
       pr "\n";
 
-      if optargs = [] then
-        pr "  r = guestfs_%s " name
-      else
-        pr "  r = guestfs_%s_argv " name;
+      pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 

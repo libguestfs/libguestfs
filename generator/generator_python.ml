@@ -247,7 +247,8 @@ free_strings (char **argv)
 
   (* Python wrapper functions. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style) } ->
+    fun { name = name; style = (ret, args, optargs as style);
+          c_function = c_function } ->
       pr "static PyObject *\n";
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -413,10 +414,7 @@ free_strings (char **argv)
       pr "    py_save = PyEval_SaveThread ();\n";
       pr "\n";
 
-      if optargs = [] then
-        pr "  r = guestfs_%s " name
-      else
-        pr "  r = guestfs_%s_argv " name;
+      pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 

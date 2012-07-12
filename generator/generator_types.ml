@@ -408,6 +408,11 @@ type action = {
                                      function *)
   config_only : bool;             (* non-daemon-function which can only be used
                                      while in CONFIG state *)
+
+  (* "Internal" data attached by the generator at various stages.  This
+   * doesn't need to (and shouldn't) be set when defining actions.
+   *)
+  c_function : string;            (* name of C API function *)
 }
 
 (* Field types for structures. *)

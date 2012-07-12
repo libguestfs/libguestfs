@@ -30,7 +30,8 @@ let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  fish_output = None; in_fish = true; in_docs = true;
                  deprecated_by = None; optional = None;
                  progress = false; camel_name = "";
-                 cancellable = false; config_only = false }
+                 cancellable = false; config_only = false;
+                 c_function = "" }
 
 (* These test functions are used in the language binding tests. *)
 
@@ -9294,6 +9295,23 @@ Remove C<VAR> from the environment." };
 (*----------------------------------------------------------------------*)
 
 (* Some post-processing of the basic lists of actions. *)
+
+(* Add the name of the C function that non-C language bindings should
+ * call.  Currently this is simply guestfs_<name> or
+ * guestfs_<name>_argv depending on whether the function has no
+ * optional args or some optional args.
+ *)
+let non_daemon_functions, daemon_functions =
+  let make_c_function f =
+    match f with
+    | { style = _, _, [] } ->
+      { f with c_function = "guestfs_" ^ f.name }
+    | { style = _, _, (_::_) } ->
+      { f with c_function = "guestfs_" ^ f.name ^ "_argv" }
+  in
+  let non_daemon_functions = List.map make_c_function non_daemon_functions in
+  let daemon_functions = List.map make_c_function daemon_functions in
+  non_daemon_functions, daemon_functions
 
 (* Create a camel-case version of each name, unless the camel_name
  * field was set above.

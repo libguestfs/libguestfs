@@ -297,7 +297,7 @@ Guestfish will prompt for these separately."
   (* run_<action> actions *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
-          fish_output = fish_output } ->
+          fish_output = fish_output; c_function = c_function } ->
       pr "static int\n";
       pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
@@ -510,10 +510,7 @@ Guestfish will prompt for these separately."
       );
 
       (* Call C API function. *)
-      if optargs = [] then
-        pr "  r = guestfs_%s " name
-      else
-        pr "  r = guestfs_%s_argv " name;
+      pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 

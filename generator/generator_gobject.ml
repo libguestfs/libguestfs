@@ -948,7 +948,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
 
   List.iter (
     fun ({ name = name; style = (ret, args, optargs as style);
-           cancellable = cancellable;
+           cancellable = cancellable; c_function = c_function;
            shortdesc = shortdesc; longdesc = longdesc } as f) ->
       pr "\n";
 
@@ -1173,8 +1173,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
       | RStructList (_, typ) ->
         pr "struct guestfs_%s_list *" typ
       );
-      let suffix = if optargs <> [] then "_argv" else "" in
-      pr "ret = guestfs_%s%s(g" name suffix;
+      pr "ret = %s (g" c_function;
       List.iter (
         fun argt ->
           pr ", ";

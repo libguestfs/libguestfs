@@ -759,12 +759,14 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
   match cmd with
   | [] -> assert false
   | name :: args ->
-      (* Look up the command to find out what args/ret it has. *)
-      let style_ret, style_args, style_optargs =
-        try
-          (List.find (fun { name = n } -> n = name) all_functions).style
+      (* Look up the function. *)
+      let f = 
+        try List.find (fun { name = n } -> n = name) all_functions
         with Not_found ->
           failwithf "%s: in test, command %s was not found" test_name name in
+
+      (* Look up the arguments and return type. *)
+      let style_ret, style_args, style_optargs = f.style in
 
       (* Match up the arguments strings and argument types. *)
       let args, optargs =
@@ -878,10 +880,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       );
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
-      if optargs = [] then
-        pr "    r = guestfs_%s (g" name
-      else
-        pr "    r = guestfs_%s_argv (g" name;
+      pr "    r = %s (g" f.c_function;
 
       (* Generate the parameters. *)
       List.iter (

@@ -408,7 +408,8 @@ copy_table (char * const * argv)
 
   (* The wrappers. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style) } ->
+    fun { name = name; style = (ret, args, optargs as style);
+          c_function = c_function } ->
       pr "/* Automatically generated wrapper for function\n";
       pr " * ";
       generate_ocaml_prototype name style;
@@ -543,10 +544,7 @@ copy_table (char * const * argv)
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
-      if optargs = [] then
-        pr "  r = guestfs_%s " name
-      else
-        pr "  r = guestfs_%s_argv " name;
+      pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
       pr "  caml_leave_blocking_section ();\n";

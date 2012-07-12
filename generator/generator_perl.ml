@@ -289,7 +289,8 @@ user_cancel (g)
 ";
 
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style) } ->
+    fun { name = name; style = (ret, args, optargs as style);
+          c_function = c_function } ->
       (match ret with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
@@ -439,10 +440,7 @@ user_cancel (g)
       );
 
       (* The call to the C function. *)
-      if optargs = [] then
-        pr "      r = guestfs_%s " name
-      else
-        pr "      r = guestfs_%s_argv " name;
+      pr "      r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 

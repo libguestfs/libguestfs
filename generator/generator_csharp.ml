@@ -135,7 +135,8 @@ namespace Guestfs
 
   (* Generate C# function bindings. *)
   List.iter (
-    fun { name = name; style = ret, args, optargs; shortdesc = shortdesc } ->
+    fun { name = name; style = ret, args, optargs; c_function = c_function;
+          shortdesc = shortdesc } ->
       let rec csharp_return_type () =
         match ret with
         | RErr -> "void"
@@ -182,8 +183,8 @@ namespace Guestfs
         | RStructList (_,_) -> "== null"
 
       and generate_extern_prototype () =
-        pr "    static extern %s guestfs_%s (IntPtr h"
-          (c_return_type ()) name;
+        pr "    static extern %s %s (IntPtr h"
+          (c_return_type ()) c_function;
         List.iter (
           function
           | Pathname n | Device n | Dev_or_Path n | String n | OptString n
@@ -200,6 +201,7 @@ namespace Guestfs
           | Int64 n | Pointer (_, n) ->
               pr ", long %s" n
         ) args;
+        if optargs <> [] then pr ", void *";
         pr ");\n"
 
       and generate_public_prototype () =
@@ -228,8 +230,12 @@ namespace Guestfs
         pr ")\n"
 
       and generate_call () =
-        pr "guestfs_%s (_handle" name;
+        pr "%s (_handle" c_function;
         List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
+        (* C# bindings don't deal with optargs at all, so just pass
+         * NULL for the structure here.
+         *)
+        if optargs <> [] then pr ", NULL";
         pr ");\n";
       in
 

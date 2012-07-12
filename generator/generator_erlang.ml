@@ -235,7 +235,8 @@ extern void free_strings (char **r);
 
   (* The wrapper functions. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style) } ->
+    fun { name = name; style = (ret, args, optargs as style);
+          c_function = c_function } ->
       pr "static ETERM *\n";
       pr "run_%s (ETERM *message)\n" name;
       pr "{\n";
@@ -329,10 +330,7 @@ extern void free_strings (char **r);
       );
       pr "\n";
 
-      if optargs = [] then
-        pr "  r = guestfs_%s " name
-      else
-        pr "  r = guestfs_%s_argv " name;
+      pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 

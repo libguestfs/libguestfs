@@ -124,9 +124,10 @@ last_error h = do
 
   (* Generate wrappers for each foreign function. *)
   List.iter (
-    fun { name = name; style = (ret, args, optargs as style) } ->
+    fun { name = name; style = (ret, args, optargs as style);
+          c_function = c_function } ->
       if can_generate style then (
-        pr "foreign import ccall unsafe \"guestfs_%s\" c_%s\n" name name;
+        pr "foreign import ccall unsafe \"%s\" c_%s\n" c_function name;
         pr "  :: ";
         generate_haskell_prototype ~handle:"GuestfsP" style;
         pr "\n";
