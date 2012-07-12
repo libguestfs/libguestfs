@@ -248,7 +248,7 @@ free_strings (char **argv)
   (* Python wrapper functions. *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function } ->
+          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "static PyObject *\n";
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -259,8 +259,8 @@ free_strings (char **argv)
       pr "  PyObject *py_r;\n";
 
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv optargs_s;\n" name;
-        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        pr "  struct %s optargs_s;\n" c_function;
+        pr "  struct %s *optargs = &optargs_s;\n" c_function;
       );
 
       (match ret with
@@ -388,7 +388,6 @@ free_strings (char **argv)
       pr "\n";
 
       if optargs <> [] then (
-        let uc_name = String.uppercase name in
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
@@ -400,7 +399,7 @@ free_strings (char **argv)
             );
             pr ") {\n";
             pr "    optargs_s.%s = optargs_t_%s;\n" n n;
-            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n"
         ) optargs;
         pr "\n"

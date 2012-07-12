@@ -31,7 +31,7 @@ let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  deprecated_by = None; optional = None;
                  progress = false; camel_name = "";
                  cancellable = false; config_only = false;
-                 c_function = "" }
+                 c_function = ""; c_optarg_prefix = "" }
 
 (* These test functions are used in the language binding tests. *)
 
@@ -9305,9 +9305,13 @@ let non_daemon_functions, daemon_functions =
   let make_c_function f =
     match f with
     | { style = _, _, [] } ->
-      { f with c_function = "guestfs_" ^ f.name }
+      { f with
+          c_function = "guestfs_" ^ f.name;
+          c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name }
     | { style = _, _, (_::_) } ->
-      { f with c_function = "guestfs_" ^ f.name ^ "_argv" }
+      { f with
+          c_function = "guestfs_" ^ f.name ^ "_argv";
+          c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name }
   in
   let non_daemon_functions = List.map make_c_function non_daemon_functions in
   let daemon_functions = List.map make_c_function daemon_functions in

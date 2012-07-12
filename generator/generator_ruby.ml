@@ -360,7 +360,8 @@ ruby_user_cancel (VALUE gv)
 
   List.iter (
     fun ({ name = name; style = (ret, args, optargs as style);
-           in_docs = in_docs; c_function = c_function;
+           in_docs = in_docs;
+           c_function = c_function; c_optarg_prefix = c_optarg_prefix;
            shortdesc = shortdesc; longdesc = longdesc } as f) ->
       (* Generate rdoc. *)
       if in_docs then (
@@ -478,10 +479,9 @@ ruby_user_cancel (VALUE gv)
 
       (* Optional arguments are passed in a final hash parameter. *)
       if optargs <> [] then (
-        let uc_name = String.uppercase name in
         pr "  Check_Type (optargsv, T_HASH);\n";
-        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
-        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
+        pr "  struct %s *optargs = &optargs_s;\n" c_function;
         pr "  VALUE v;\n";
         List.iter (
           fun argt ->
@@ -499,7 +499,7 @@ ruby_user_cancel (VALUE gv)
              | OString _ ->
                  pr "    optargs_s.%s = StringValueCStr (v);\n" n
             );
-            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n";
         ) optargs;
         pr "\n";

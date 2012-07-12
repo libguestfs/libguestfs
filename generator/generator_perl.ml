@@ -290,7 +290,7 @@ user_cancel (g)
 
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function } ->
+          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       (match ret with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
@@ -367,8 +367,8 @@ user_cancel (g)
       );
 
       if optargs <> [] then (
-        pr "      struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
-        pr "      struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        pr "      struct %s optargs_s = { .bitmask = 0 };\n" c_function;
+        pr "      struct %s *optargs = &optargs_s;\n" c_function;
         pr "      size_t items_i;\n";
       );
 
@@ -403,7 +403,6 @@ user_cancel (g)
        * variable by hand.
        *)
       if optargs <> [] then (
-        let uc_name = String.uppercase name in
         let skip = List.length args + 1 in
         pr "      if (((items - %d) & 1) != 0)\n" skip;
         pr "        croak (\"expecting an even number of extra parameters\");\n";
@@ -426,7 +425,7 @@ user_cancel (g)
              | OString _ -> pr "SvPV_nolen (ST (items_i+1))"
             );
             pr ";\n";
-            pr "          this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "          this_mask = %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "        }\n";
             pr "        else ";
         ) optargs;

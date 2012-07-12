@@ -760,7 +760,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
   | [] -> assert false
   | name :: args ->
       (* Look up the function. *)
-      let f = 
+      let f =
         try List.find (fun { name = n } -> n = name) all_functions
         with Not_found ->
           failwithf "%s: in test, command %s was not found" test_name name in
@@ -826,7 +826,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       ) args;
 
       if optargs <> [] then (
-        pr "    struct guestfs_%s_argv optargs;\n" name;
+        pr "    struct %s optargs;\n" f.c_function;
         let _, bitmask = List.fold_left (
           fun (shift, bitmask) optarg ->
             let is_set =

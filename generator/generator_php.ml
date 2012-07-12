@@ -179,7 +179,7 @@ PHP_FUNCTION (guestfs_last_error)
   (* Now generate the PHP bindings for each action. *)
   List.iter (
     fun { name = shortname; style = ret, args, optargs as style;
-          c_function = c_function } ->
+          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "PHP_FUNCTION (guestfs_%s)\n" shortname;
       pr "{\n";
       pr "  zval *z_g;\n";
@@ -204,8 +204,8 @@ PHP_FUNCTION (guestfs_last_error)
         ) args;
 
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" shortname;
-        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" shortname;
+        pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
+        pr "  struct %s *optargs = &optargs_s;\n" c_function;
 
         (* XXX Ugh PHP doesn't have proper optional arguments, so we
          * have to use sentinel values.
@@ -331,7 +331,6 @@ PHP_FUNCTION (guestfs_last_error)
 
       (* Optional arguments. *)
       if optargs <> [] then (
-        let uc_shortname = String.uppercase shortname in
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
@@ -344,8 +343,7 @@ PHP_FUNCTION (guestfs_last_error)
             );
             pr ") {\n";
             pr "    optargs_s.%s = optargs_t_%s;\n" n n;
-            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n"
-              uc_shortname uc_n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n"
         ) optargs;
         pr "\n"

@@ -476,8 +476,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       ) args;
 
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv optargs_s;\n" name;
-        pr "  const struct guestfs_%s_argv *optargs = &optargs_s;\n" name
+        pr "  struct %s optargs_s;\n" c_function;
+        pr "  const struct %s *optargs = &optargs_s;\n" c_function
       );
 
       let needs_i =

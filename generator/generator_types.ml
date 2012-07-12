@@ -413,6 +413,7 @@ type action = {
    * doesn't need to (and shouldn't) be set when defining actions.
    *)
   c_function : string;            (* name of C API function *)
+  c_optarg_prefix : string;       (* prefix for optarg names/bitmask names *)
 }
 
 (* Field types for structures. *)

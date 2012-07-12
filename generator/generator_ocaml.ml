@@ -409,7 +409,7 @@ copy_table (char * const * argv)
   (* The wrappers. *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function } ->
+          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "/* Automatically generated wrapper for function\n";
       pr " * ";
       generate_ocaml_prototype name style;
@@ -497,15 +497,14 @@ copy_table (char * const * argv)
 
       (* Optional arguments. *)
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
-        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
-        let uc_name = String.uppercase name in
+        pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
+        pr "  struct %s *optargs = &optargs_s;\n" c_function;
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "  if (%sv != Val_int (0)) {\n" n;
-            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "    optargs_s.%s = " n;
             (match argt with
              | OBool _ -> pr "Bool_val (Field (%sv, 0))" n

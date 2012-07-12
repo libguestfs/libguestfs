@@ -949,6 +949,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
   List.iter (
     fun ({ name = name; style = (ret, args, optargs as style);
            cancellable = cancellable; c_function = c_function;
+           c_optarg_prefix = c_optarg_prefix;
            shortdesc = shortdesc; longdesc = longdesc } as f) ->
       pr "\n";
 
@@ -1113,11 +1114,10 @@ guestfs_session_close(GuestfsSession *session, GError **err)
       (* Optargs *)
 
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv argv;\n" name;
-        pr "  struct guestfs_%s_argv *argvp = NULL;\n\n" name;
+        pr "  struct %s argv;\n" c_function;
+        pr "  struct %s *argvp = NULL;\n\n" c_function;
 
         pr "  if (optargs) {\n";
-        let uc_prefix = "GUESTFS_" ^ String.uppercase name in
         pr "    argv.bitmask = 0;\n\n";
         let set_property name typ v_typ get_typ unset =
           let uc_name = String.uppercase name in
@@ -1126,7 +1126,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
           pr "    g_object_get_property(G_OBJECT(optargs), \"%s\", &%s_v);\n" name name;
           pr "    %s%s = g_value_get_%s(&%s_v);\n" typ name get_typ name;
           pr "    if (%s != %s) {\n" name unset;
-          pr "      argv.bitmask |= %s_%s_BITMASK;\n" uc_prefix uc_name;
+          pr "      argv.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_name;
           pr "      argv.%s = %s;\n" name name;
           pr "    }\n"
         in

@@ -236,7 +236,7 @@ extern void free_strings (char **r);
   (* The wrapper functions. *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
-          c_function = c_function } ->
+          c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "static ETERM *\n";
       pr "run_%s (ETERM *message)\n" name;
       pr "{\n";
@@ -272,13 +272,11 @@ extern void free_strings (char **r);
             assert false
       ) args;
 
-      let uc_name = String.uppercase name in
-
       (* Optional arguments. *)
       if optargs <> [] then (
         pr "\n";
-        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
-        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
+        pr "  struct %s *optargs = &optargs_s;\n" c_function;
         pr "  ETERM *optargst = ARG (%d);\n" (List.length args);
         pr "  while (!ERL_IS_EMPTY_LIST (optargst)) {\n";
         pr "    ETERM *hd = ERL_CONS_HEAD (optargst);\n";
@@ -290,7 +288,8 @@ extern void free_strings (char **r);
             let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "    if (atom_equals (hd_name, \"%s\")) {\n" n;
-            pr "      optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "      optargs_s.bitmask |= %s_%s_BITMASK;\n"
+              c_optarg_prefix uc_n;
             pr "      optargs_s.%s = " n;
             (match argt with
              | OBool _ -> pr "get_bool (hd_value)"
@@ -349,8 +348,8 @@ extern void free_strings (char **r);
         | OBool _ | OInt _ | OInt64 _ -> ()
         | OString n ->
             let uc_n = String.uppercase n in
-            pr "  if ((optargs_s.bitmask & GUESTFS_%s_%s_BITMASK))\n"
-              uc_name uc_n;
+            pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
+              c_optarg_prefix uc_n;
             pr "    free ((char *) optargs_s.%s);\n" n
       ) optargs;
 

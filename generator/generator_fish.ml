@@ -297,7 +297,8 @@ Guestfish will prompt for these separately."
   (* run_<action> actions *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
-          fish_output = fish_output; c_function = c_function } ->
+          fish_output = fish_output; c_function = c_function;
+          c_optarg_prefix = c_optarg_prefix } ->
       pr "static int\n";
       pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
@@ -337,8 +338,8 @@ Guestfish will prompt for these separately."
       ) args;
 
       if optargs <> [] then (
-        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
-        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name
+        pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
+        pr "  struct %s *optargs = &optargs_s;\n" c_function
       );
 
       if args <> [] || optargs <> [] then
@@ -451,7 +452,6 @@ Guestfish will prompt for these separately."
        * the argument list.
        *)
       if optargs <> [] then (
-        let uc_name = String.uppercase name in
         pr "\n";
         pr "  for (; i < argc; ++i) {\n";
         pr "    uint64_t this_mask;\n";
@@ -487,7 +487,7 @@ Guestfish will prompt for these separately."
              | OString n ->
                  pr "      optargs_s.%s = &argv[i][%d];\n" n (len+1);
             );
-            pr "      this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "      this_mask = %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "      this_arg = \"%s\";\n" n;
             pr "    }\n";
             pr "    else ";
