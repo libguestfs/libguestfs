@@ -408,11 +408,16 @@ type action = {
                                      function *)
   config_only : bool;             (* non-daemon-function which can only be used
                                      while in CONFIG state *)
+  once_had_no_optargs : bool;     (* mark functions that once had no optargs
+                                     but now do, so we can generate the
+                                     required back-compat machinery *)
 
   (* "Internal" data attached by the generator at various stages.  This
    * doesn't need to (and shouldn't) be set when defining actions.
    *)
-  c_function : string;            (* name of C API function *)
+  c_name : string;                (* shortname exposed by C API *)
+  c_function : string;            (* full name of C API function called by
+                                     non-C bindings *)
   c_optarg_prefix : string;       (* prefix for optarg names/bitmask names *)
 }
 

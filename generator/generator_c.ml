@@ -177,14 +177,18 @@ and generate_actions_pod () =
   List.iter (
     function
     | { in_docs = false } -> ()
-    | ({ in_docs = true } as f) -> generate_actions_pod_entry f
+    | ({ in_docs = true; once_had_no_optargs = false } as f) ->
+      generate_actions_pod_entry f
+    | ({ in_docs = true; once_had_no_optargs = true } as f) ->
+      generate_actions_pod_back_compat_entry f;
+      generate_actions_pod_entry f
   ) all_functions_sorted
 
-and generate_actions_pod_entry ({ name = shortname;
+and generate_actions_pod_entry ({ c_name = c_name;
                                   style = ret, args, optargs as style } as f) =
-  let name = "guestfs_" ^ shortname in
-  pr "=head2 %s\n\n" name;
-  generate_prototype ~extern:false ~indent:" " ~handle:"g" name style;
+  pr "=head2 guestfs_%s\n\n" c_name;
+  generate_prototype ~extern:false ~indent:" " ~handle:"g"
+    ~prefix:"guestfs_" c_name style;
   pr "\n\n";
 
   (match deprecation_notice ~prefix:"guestfs_" f with
@@ -192,7 +196,6 @@ and generate_actions_pod_entry ({ name = shortname;
   | Some txt -> pr "%s\n\n" txt
   );
 
-  let uc_shortname = String.uppercase shortname in
   if optargs <> [] then (
     pr "You may supply a list of optional arguments to this call.\n";
     pr "Use zero or more of the following pairs of parameters,\n";
@@ -201,8 +204,7 @@ and generate_actions_pod_entry ({ name = shortname;
     List.iter (
       fun argt ->
         let n = name_of_optargt argt in
-        let uc_n = String.uppercase n in
-        pr " GUESTFS_%s_%s, " uc_shortname uc_n;
+        pr " GUESTFS_%s_%s, " (String.uppercase c_name) (String.uppercase n);
         match argt with
         | OBool n -> pr "int %s,\n" n
         | OInt n -> pr "int %s,\n" n
@@ -264,28 +266,46 @@ I<The caller must free the returned buffer after use>.\n\n"
     pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
-  (match lookup_api_version name with
+  (match lookup_api_version ("guestfs_" ^ c_name) with
   | Some version -> pr "(Added in %s)\n\n" version
   | None -> ()
   );
 
   (* Handling of optional argument variants. *)
   if optargs <> [] then (
-    pr "=head2 %s_va\n\n" name;
+    pr "=head2 guestfs_%s_va\n\n" c_name;
     generate_prototype ~extern:false ~indent:" " ~handle:"g"
       ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
-      shortname style;
+      c_name style;
     pr "\n\n";
-    pr "This is the \"va_list variant\" of L</%s>.\n\n" name;
+    pr "This is the \"va_list variant\" of L</guestfs_%s>.\n\n" c_name;
     pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
-    pr "=head2 %s_argv\n\n" name;
+    pr "=head2 guestfs_%s_argv\n\n" c_name;
     generate_prototype ~extern:false ~indent:" " ~handle:"g"
       ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
-      shortname style;
+      c_name style;
     pr "\n\n";
-    pr "This is the \"argv variant\" of L</%s>.\n\n" name;
+    pr "This is the \"argv variant\" of L</guestfs_%s>.\n\n" c_name;
     pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
   )
+
+and generate_actions_pod_back_compat_entry { name = name;
+                                             style = ret, args, _ } =
+  pr "= head2 guestfs_%s\n\n" name;
+  generate_prototype ~extern:false ~indent:" " ~handle:"g"
+    ~prefix:"guestfs_" name (ret, args, []);
+  pr "\n\n";
+
+  pr "This function is provided for backwards compatibility\n";
+  pr "with earlier versions of libguestfs.  It simply calls\n";
+  pr "L</guestfs_%s_opts> with no optional arguments.\n" name;
+  pr "\n";
+
+  (match lookup_api_version ("guestfs_" ^ name) with
+  | Some version -> pr "(Added in %s)\n\n" version
+  | None -> ()
+  );
+  pr "\n"
 
 and generate_structs_pod () =
   (* Structs documentation. *)
@@ -619,7 +639,17 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
   in
 
   List.iter (
-    fun f -> generate_action_header f
+    fun ({ name = name; style = ret, args, _ } as f) ->
+      (* If once_had_no_optargs is set, then we need to generate a
+       * <name>_opts variant, plus a backwards-compatible wrapper
+       * called just <name> with no optargs.
+       *)
+      if f.once_had_no_optargs then (
+        generate_action_header { f with style = ret, args, [] };
+        generate_action_header { f with name = f.name ^ "_opts" };
+      )
+      else
+        generate_action_header f
   ) all_functions_sorted;
 
   pr "\
@@ -651,10 +681,10 @@ extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, virDomainPt
 and generate_internal_actions_h () =
   generate_header CStyle LGPLv2plus;
   List.iter (
-    fun { name = shortname; style = style } ->
+    fun { c_name = c_name; style = style } ->
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         ~prefix:"guestfs__" ~optarg_proto:Argv
-        shortname style
+        c_name style
   ) non_daemon_functions
 
 (* Generate the client-side dispatch stubs. *)
@@ -772,7 +802,7 @@ trace_send_line (guestfs_h *g)
   (* Generate code to check String-like parameters are not passed in
    * as NULL (returning an error if they are).
    *)
-  let check_null_strings shortname (ret, args, optargs) =
+  let check_null_strings c_name (ret, args, optargs) =
     let pr_newline = ref false in
     List.iter (
       function
@@ -790,17 +820,17 @@ trace_send_line (guestfs_h *g)
       | Pointer (_, n) ->
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
-          pr "           \"%s\", \"%s\");\n" shortname n;
+          pr "           \"%s\", \"%s\");\n" c_name n;
           let errcode =
             match errcode_of_ret ret with
             | `CannotReturnError ->
                 (* XXX hack *)
-                if shortname = "internal_test_rconstoptstring" then
+                if c_name = "internal_test_rconstoptstring" then
                   `ErrorIsNULL
                 else
                   failwithf
                     "%s: RConstOptString function has invalid parameter '%s'"
-                    shortname n
+                    c_name n
             | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
           pr "    return %s;\n" (string_of_errcode errcode);
           pr "  }\n";
@@ -820,10 +850,10 @@ trace_send_line (guestfs_h *g)
       function
       | OString n ->
           pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK) &&\n"
-            (String.uppercase shortname) (String.uppercase n);
+            (String.uppercase c_name) (String.uppercase n);
           pr "      optargs->%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: optional parameter cannot be NULL\",\n";
-          pr "           \"%s\", \"%s\");\n" shortname n;
+          pr "           \"%s\", \"%s\");\n" c_name n;
           let errcode =
             match errcode_of_ret ret with
             | `CannotReturnError -> assert false
@@ -840,14 +870,14 @@ trace_send_line (guestfs_h *g)
   in
 
   (* Generate code to reject optargs we don't know about. *)
-  let reject_unknown_optargs shortname = function
+  let reject_unknown_optargs c_name = function
     | _, _, [] -> ()
     | ret, _, optargs ->
         let len = List.length optargs in
         let mask = Int64.lognot (Int64.pred (Int64.shift_left 1L len)) in
         pr "  if (optargs->bitmask & UINT64_C(0x%Lx)) {\n" mask;
         pr "    error (g, \"%%s: unknown option in guestfs_%%s_argv->bitmask (this can happen if a program is compiled against a newer version of libguestfs, then dynamically linked to an older version)\",\n";
-        pr "           \"%s\", \"%s\");\n" shortname shortname;
+        pr "           \"%s\", \"%s\");\n" c_name c_name;
         let errcode =
           match errcode_of_ret ret with
           | `CannotReturnError -> assert false
@@ -858,7 +888,7 @@ trace_send_line (guestfs_h *g)
   in
 
   (* Generate code to generate guestfish call traces. *)
-  let trace_call shortname (ret, args, optargs) =
+  let trace_call name c_name (ret, args, optargs) =
     pr "  if (trace_flag) {\n";
 
     let needs_i =
@@ -872,7 +902,7 @@ trace_send_line (guestfs_h *g)
 
     pr "    trace_fp = trace_open (g);\n";
 
-    pr "    fprintf (trace_fp, \"%%s\", \"%s\");\n" shortname;
+    pr "    fprintf (trace_fp, \"%%s\", \"%s\");\n" name;
 
     (* Required arguments. *)
     List.iter (
@@ -917,10 +947,8 @@ trace_send_line (guestfs_h *g)
     List.iter (
       fun argt ->
         let n = name_of_optargt argt in
-        let uc_shortname = String.uppercase shortname in
-        let uc_n = String.uppercase n in
         pr "    if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
-          uc_shortname uc_n;
+          (String.uppercase c_name) (String.uppercase n);
         (match argt with
          | OString n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s);\n" n n
@@ -938,7 +966,7 @@ trace_send_line (guestfs_h *g)
     pr "\n";
   in
 
-  let trace_return ?(indent = 2) shortname (ret, _, _) rv =
+  let trace_return ?(indent = 2) name (ret, _, _) rv =
     let indent = spaces indent in
 
     pr "%sif (trace_flag) {\n" indent;
@@ -954,7 +982,7 @@ trace_send_line (guestfs_h *g)
 
     pr "%s  trace_fp = trace_open (g);\n" indent;
 
-    pr "%s  fprintf (trace_fp, \"%%s = \", \"%s\");\n" indent shortname;
+    pr "%s  fprintf (trace_fp, \"%%s = \", \"%s\");\n" indent name;
 
     (match ret with
      | RErr | RInt _ | RBool _ ->
@@ -993,19 +1021,19 @@ trace_send_line (guestfs_h *g)
     pr "\n";
   in
 
-  let trace_return_error ?(indent = 2) shortname (ret, _, _) errcode =
+  let trace_return_error ?(indent = 2) name (ret, _, _) errcode =
     let indent = spaces indent in
 
     pr "%sif (trace_flag)\n" indent;
 
     pr "%s  guestfs___trace (g, \"%%s = %%s (error)\",\n" indent;
     pr "%s                   \"%s\", \"%s\");\n"
-      indent shortname (string_of_errcode errcode)
+      indent name (string_of_errcode errcode)
   in
 
-  let handle_null_optargs optargs shortname =
+  let handle_null_optargs optargs c_name =
     if optargs <> [] then (
-      pr "  struct guestfs_%s_argv optargs_null;\n" shortname;
+      pr "  struct guestfs_%s_argv optargs_null;\n" c_name;
       pr "  if (!optargs) {\n";
       pr "    optargs_null.bitmask = 0;\n";
       pr "    optargs = &optargs_null;\n";
@@ -1014,20 +1042,20 @@ trace_send_line (guestfs_h *g)
   in
 
   (* For non-daemon functions, generate a wrapper around each function. *)
-  let generate_non_daemon_wrapper { name = shortname;
+  let generate_non_daemon_wrapper { name = name; c_name = c_name;
                                     style = ret, _, optargs as style;
                                     config_only = config_only } =
     if optargs = [] then
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_"
-        shortname style
+        c_name style
     else
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
-        shortname style;
+        c_name style;
     pr "{\n";
 
-    handle_null_optargs optargs shortname;
+    handle_null_optargs optargs c_name;
 
     pr "  int trace_flag = g->trace;\n";
     pr "  FILE *trace_fp;\n";
@@ -1053,27 +1081,27 @@ trace_send_line (guestfs_h *g)
     if config_only then (
       pr "  if (g->state != CONFIG) {\n";
       pr "    error (g, \"%%s: this function can only be called in the config state\",\n";
-      pr "              \"%s\");\n" shortname;
+      pr "              \"%s\");\n" c_name;
       pr "    return -1;\n";
       pr "  }\n";
     );
-    enter_event shortname;
-    check_null_strings shortname style;
-    reject_unknown_optargs shortname style;
-    trace_call shortname style;
-    pr "  r = guestfs__%s " shortname;
+    enter_event name;
+    check_null_strings c_name style;
+    reject_unknown_optargs c_name style;
+    trace_call name c_name style;
+    pr "  r = guestfs__%s " c_name;
     generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
     pr ";\n";
     pr "\n";
     (match errcode_of_ret ret with
     | (`ErrorIsMinusOne | `ErrorIsNULL) as errcode ->
       pr "  if (r != %s) {\n" (string_of_errcode errcode);
-      trace_return ~indent:4 shortname style "r";
+      trace_return ~indent:4 name style "r";
       pr "  } else {\n";
-      trace_return_error ~indent:4 shortname style errcode;
+      trace_return_error ~indent:4 name style errcode;
       pr "  }\n";
     | `CannotReturnError ->
-      trace_return shortname style "r";
+      trace_return name style "r";
     );
     pr "\n";
     pr "  return r;\n";
@@ -1086,9 +1114,8 @@ trace_send_line (guestfs_h *g)
   ) non_daemon_functions;
 
   (* Client-side stubs for each function. *)
-  let generate_daemon_stub { name = shortname;
+  let generate_daemon_stub { name = name; c_name = c_name;
                              style = ret, args, optargs as style } =
-    let name = "guestfs_" ^ shortname in
     let errcode =
       match errcode_of_ret ret with
       | `CannotReturnError -> assert false
@@ -1097,19 +1124,19 @@ trace_send_line (guestfs_h *g)
     (* Generate the action stub. *)
     if optargs = [] then
       generate_prototype ~extern:false ~semicolon:false ~newline:true
-        ~handle:"g" ~prefix:"guestfs_" shortname style
+        ~handle:"g" ~prefix:"guestfs_" c_name style
     else
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv"
-        ~optarg_proto:Argv shortname style;
+        ~optarg_proto:Argv c_name style;
 
     pr "{\n";
 
-    handle_null_optargs optargs shortname;
+    handle_null_optargs optargs c_name;
 
     (match args with
     | [] -> ()
-    | _ -> pr "  struct %s_args args;\n" name
+    | _ -> pr "  struct guestfs_%s_args args;\n" name
     );
 
     pr "  guestfs_message_header hdr;\n";
@@ -1123,7 +1150,7 @@ trace_send_line (guestfs_h *g)
       | RBool _ | RString _ | RStringList _
       | RStruct _ | RStructList _
       | RHashtable _ | RBufferOut _ ->
-        pr "  struct %s_ret ret;\n" name;
+        pr "  struct guestfs_%s_ret ret;\n" name;
         true in
 
     pr "  int serial;\n";
@@ -1149,10 +1176,10 @@ trace_send_line (guestfs_h *g)
       pr "  const uint64_t progress_hint = 0;\n";
 
     pr "\n";
-    enter_event shortname;
-    check_null_strings shortname style;
-    reject_unknown_optargs shortname style;
-    trace_call shortname style;
+    enter_event name;
+    check_null_strings c_name style;
+    reject_unknown_optargs c_name style;
+    trace_call name c_name style;
 
     (* Calculate the total size of all FileIn arguments to pass
      * as a progress bar hint.
@@ -1168,8 +1195,8 @@ trace_send_line (guestfs_h *g)
     ) args;
 
     (* This is a daemon_function so check the appliance is up. *)
-    pr "  if (check_appliance_up (g, \"%s\") == -1) {\n" shortname;
-    trace_return_error ~indent:4 shortname style errcode;
+    pr "  if (check_appliance_up (g, \"%s\") == -1) {\n" name;
+    trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
     pr "  }\n";
     pr "\n";
@@ -1177,7 +1204,7 @@ trace_send_line (guestfs_h *g)
     (* Send the main header and arguments. *)
     if args = [] && optargs = [] then (
       pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint, 0,\n"
-        (String.uppercase shortname);
+        (String.uppercase name);
       pr "                           NULL, NULL);\n"
     ) else (
       List.iter (
@@ -1199,9 +1226,9 @@ trace_send_line (guestfs_h *g)
         | BufferIn n ->
           pr "  /* Just catch grossly large sizes. XDR encoding will make this precise. */\n";
           pr "  if (%s_size >= GUESTFS_MESSAGE_MAX) {\n" n;
-          trace_return_error ~indent:4 shortname style errcode;
+          trace_return_error ~indent:4 name style errcode;
           pr "    error (g, \"%%s: size of input buffer too large\", \"%s\");\n"
-            shortname;
+            name;
           pr "    return %s;\n" (string_of_errcode errcode);
           pr "  }\n";
           pr "  args.%s.%s_val = (char *) %s;\n" n n n;
@@ -1212,10 +1239,8 @@ trace_send_line (guestfs_h *g)
       List.iter (
         fun argt ->
           let n = name_of_optargt argt in
-          let uc_shortname = String.uppercase shortname in
-          let uc_n = String.uppercase n in
           pr "  if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
-            uc_shortname uc_n;
+            (String.uppercase c_name) (String.uppercase n);
           (match argt with
           | OBool n
           | OInt n
@@ -1231,14 +1256,14 @@ trace_send_line (guestfs_h *g)
       ) optargs;
 
       pr "  serial = guestfs___send (g, GUESTFS_PROC_%s,\n"
-        (String.uppercase shortname);
+        (String.uppercase name);
       pr "                           progress_hint, %s,\n"
         (if optargs <> [] then "optargs->bitmask" else "0");
-      pr "                           (xdrproc_t) xdr_%s_args, (char *) &args);\n"
+      pr "                           (xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
         name;
     );
     pr "  if (serial == -1) {\n";
-    trace_return_error ~indent:4 shortname style errcode;
+    trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
     pr "  }\n";
     pr "\n";
@@ -1250,9 +1275,9 @@ trace_send_line (guestfs_h *g)
       | FileIn n ->
         pr "  r = guestfs___send_file (g, %s);\n" n;
         pr "  if (r == -1) {\n";
-        trace_return_error ~indent:4 shortname style errcode;
+        trace_return_error ~indent:4 name style errcode;
         pr "    /* daemon will send an error reply which we discard */\n";
-        pr "    guestfs___recv_discard (g, \"%s\");\n" shortname;
+        pr "    guestfs___recv_discard (g, \"%s\");\n" name;
         pr "    return %s;\n" (string_of_errcode errcode);
         pr "  }\n";
         pr "  if (r == -2) /* daemon cancelled */\n";
@@ -1268,37 +1293,37 @@ trace_send_line (guestfs_h *g)
     pr "  memset (&err, 0, sizeof err);\n";
     if has_ret then pr "  memset (&ret, 0, sizeof ret);\n";
     pr "\n";
-    pr "  r = guestfs___recv (g, \"%s\", &hdr, &err,\n        " shortname;
+    pr "  r = guestfs___recv (g, \"%s\", &hdr, &err,\n        " name;
     if not has_ret then
       pr "NULL, NULL"
     else
-      pr "(xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret" shortname;
+      pr "(xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret" name;
     pr ");\n";
 
     pr "  if (r == -1) {\n";
-    trace_return_error ~indent:4 shortname style errcode;
+    trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
     pr "  }\n";
     pr "\n";
 
     pr "  if (check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
-      (String.uppercase shortname);
-    trace_return_error ~indent:4 shortname style errcode;
+      (String.uppercase name);
+    trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
     pr "  }\n";
     pr "\n";
 
     pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
-    trace_return_error ~indent:4 shortname style errcode;
+    trace_return_error ~indent:4 name style errcode;
     pr "    int errnum = 0;\n";
     pr "    if (err.errno_string[0] != '\\0')\n";
     pr "      errnum = guestfs___string_to_errno (err.errno_string);\n";
     pr "    if (errnum <= 0)\n";
     pr "      error (g, \"%%s: %%s\", \"%s\", err.error_message);\n"
-      shortname;
+      name;
     pr "    else\n";
     pr "      guestfs_error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
-      shortname;
+      name;
     pr "                           err.error_message);\n";
     pr "    free (err.error_message);\n";
     pr "    free (err.errno_string);\n";
@@ -1311,7 +1336,7 @@ trace_send_line (guestfs_h *g)
       function
       | FileOut n ->
         pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
-        trace_return_error ~indent:4 shortname style errcode;
+        trace_return_error ~indent:4 name style errcode;
         pr "    return %s;\n" (string_of_errcode errcode);
         pr "  }\n";
         pr "\n";
@@ -1357,7 +1382,7 @@ trace_send_line (guestfs_h *g)
       pr "    ret_v = p;\n";
       pr "  }\n";
     );
-    trace_return shortname style "ret_v";
+    trace_return name style "ret_v";
     pr "  return ret_v;\n";
     pr "}\n\n"
   in
@@ -1393,12 +1418,12 @@ trace_send_line (guestfs_h *g)
 
   ) structs;
 
-  (* Functions which have optional arguments have two generated variants. *)
-  let generate_va_variants { name = shortname;
+  (* Functions which have optional arguments have two or three
+   * generated variants.
+   *)
+  let generate_va_variants { name = name; c_name = c_name;
                              style = ret, args, optargs as style } =
     assert (optargs <> []); (* checked by caller *)
-
-    let uc_shortname = String.uppercase shortname in
 
     (* Get the name of the last regular argument. *)
     let last_arg =
@@ -1428,12 +1453,12 @@ trace_send_line (guestfs_h *g)
 
     (* The regular variable args function, just calls the _va variant. *)
     generate_prototype ~extern:false ~semicolon:false ~newline:true
-      ~handle:"g" ~prefix:"guestfs_" shortname style;
+      ~handle:"g" ~prefix:"guestfs_" c_name style;
     pr "{\n";
     pr "  va_list optargs;\n";
     pr "\n";
     pr "  va_start (optargs, %s);\n" last_arg;
-    pr "  %sr = guestfs_%s_va " rtype shortname;
+    pr "  %sr = guestfs_%s_va " rtype c_name;
     generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
     pr ";\n";
     pr "  va_end (optargs);\n";
@@ -1443,10 +1468,10 @@ trace_send_line (guestfs_h *g)
 
     generate_prototype ~extern:false ~semicolon:false ~newline:true
       ~handle:"g" ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
-      shortname style;
+      c_name style;
     pr "{\n";
-    pr "  struct guestfs_%s_argv optargs_s;\n" shortname;
-    pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" shortname;
+    pr "  struct guestfs_%s_argv optargs_s;\n" c_name;
+    pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" c_name;
     pr "  int i;\n";
     pr "\n";
     pr "  optargs_s.bitmask = 0;\n";
@@ -1457,8 +1482,8 @@ trace_send_line (guestfs_h *g)
     List.iter (
       fun argt ->
         let n = name_of_optargt argt in
-        let uc_n = String.uppercase n in
-        pr "    case GUESTFS_%s_%s:\n" uc_shortname uc_n;
+        pr "    case GUESTFS_%s_%s:\n"
+          (String.uppercase c_name) (String.uppercase n);
         pr "      optargs_s.%s = va_arg (args, " n;
         (match argt with
         | OBool _ | OInt _ -> pr "int"
@@ -1476,30 +1501,48 @@ trace_send_line (guestfs_h *g)
 
     pr "    default:\n";
     pr "      error (g, \"%%s: unknown option %%d (this can happen if a program is compiled against a newer version of libguestfs, then dynamically linked to an older version)\",\n";
-    pr "             \"%s\", i);\n" shortname;
+    pr "             \"%s\", i);\n" name;
     pr "      return %s;\n" (string_of_errcode errcode);
     pr "    }\n";
     pr "\n";
     pr "    uint64_t i_mask = UINT64_C(1) << i;\n";
     pr "    if (optargs_s.bitmask & i_mask) {\n";
     pr "      error (g, \"%%s: same optional argument specified more than once\",\n";
-    pr "             \"%s\");\n" shortname;
+    pr "             \"%s\");\n" name;
     pr "      return %s;\n" (string_of_errcode errcode);
     pr "    }\n";
     pr "    optargs_s.bitmask |= i_mask;\n";
     pr "  }\n";
     pr "\n";
-    pr "  return guestfs_%s_argv " shortname;
+    pr "  return guestfs_%s_argv " c_name;
     generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
     pr ";\n";
     pr "}\n\n"
+
+  and generate_back_compat_wrapper { name = name;
+                                     style = ret, args, _ as style } =
+    generate_prototype ~extern:false ~semicolon:false ~newline:true
+      ~handle:"g" ~prefix:"guestfs_"
+      name (ret, args, []);
+    pr "{\n";
+    pr "  struct guestfs_%s_opts_argv optargs_s = { .bitmask = 0 };\n" name;
+    pr "  struct guestfs_%s_opts_argv *optargs = &optargs_s;\n" name;
+    pr "\n";
+    pr "  return guestfs_%s_opts_argv " name;
+    generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
+    pr ";\n";
+    pr "}\n";
+    pr "\n"
   in
 
   List.iter (
     function
     | { style = _, _, [] } -> ()
-    | ({ style = _, _, (_::_) } as f) ->
+    | ({ style = _, _, (_::_); once_had_no_optargs = false } as f) ->
       generate_va_variants f
+    | ({ style = _, _, (_::_); once_had_no_optargs = true } as f) ->
+      generate_va_variants f;
+      generate_back_compat_wrapper f
   ) all_functions_sorted
 
 (* Generate the linker script which controls the visibility of
@@ -1545,11 +1588,18 @@ and generate_linker_script () =
     List.flatten (
       List.map (
         function
-        | { name = name; style = _, _, [] } -> ["guestfs_" ^ name]
-        | { name = name } ->
+        | { c_name = c_name; style = _, _, [] } -> ["guestfs_" ^ c_name]
+        | { c_name = c_name; style = _, _, (_::_);
+            once_had_no_optargs = false } ->
+            ["guestfs_" ^ c_name;
+             "guestfs_" ^ c_name ^ "_va";
+             "guestfs_" ^ c_name ^ "_argv"]
+        | { name = name; c_name = c_name; style = _, _, (_::_);
+            once_had_no_optargs = true } ->
             ["guestfs_" ^ name;
-             "guestfs_" ^ name ^ "_va";
-             "guestfs_" ^ name ^ "_argv"]
+             "guestfs_" ^ c_name;
+             "guestfs_" ^ c_name ^ "_va";
+             "guestfs_" ^ c_name ^ "_argv"]
       ) all_functions
     ) in
   let structs =

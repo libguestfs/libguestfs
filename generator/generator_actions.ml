@@ -31,7 +31,8 @@ let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  deprecated_by = None; optional = None;
                  progress = false; camel_name = "";
                  cancellable = false; config_only = false;
-                 c_function = ""; c_optarg_prefix = "" }
+                 once_had_no_optargs = false;
+                 c_name = ""; c_function = ""; c_optarg_prefix = "" }
 
 (* These test functions are used in the language binding tests. *)
 
@@ -9296,22 +9297,29 @@ Remove C<VAR> from the environment." };
 
 (* Some post-processing of the basic lists of actions. *)
 
-(* Add the name of the C function that non-C language bindings should
- * call.  Currently this is simply guestfs_<name> or
- * guestfs_<name>_argv depending on whether the function has no
- * optional args or some optional args.
+(* Add the name of the C function:
+ * c_name = short name, used by C bindings so we know what to export
+ * c_function = full name that non-C bindings should call
+ * c_optarg_prefix = prefix for optarg / bitmask names
  *)
 let non_daemon_functions, daemon_functions =
   let make_c_function f =
     match f with
     | { style = _, _, [] } ->
       { f with
+          c_name = f.name;
           c_function = "guestfs_" ^ f.name;
           c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name }
-    | { style = _, _, (_::_) } ->
+    | { style = _, _, (_::_); once_had_no_optargs = false } ->
       { f with
+          c_name = f.name;
           c_function = "guestfs_" ^ f.name ^ "_argv";
           c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name }
+    | { style = _, _, (_::_); once_had_no_optargs = true } ->
+      { f with
+          c_name = f.name ^ "_opts";
+          c_function = "guestfs_" ^ f.name ^ "_opts_argv";
+          c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name ^ "_OPTS" }
   in
   let non_daemon_functions = List.map make_c_function non_daemon_functions in
   let daemon_functions = List.map make_c_function daemon_functions in

@@ -48,3 +48,7 @@ backwards compatibility.
 
 You may add another optional argument, *if* the function has >= 1
 optional arguments already.  Add it at the end of the list.
+
+You may add optional arguments to a function that doesn't have any.
+However you *must* set the once_had_no_optargs flag to true, so that
+the relevant backwards compatibility bindings can be added.

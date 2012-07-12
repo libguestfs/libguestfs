@@ -40,7 +40,9 @@ let () =
   (* Check function names. *)
   List.iter (
     fun { name = name } ->
-      if String.length name >= 7 && String.sub name 0 7 = "guestfs" then
+      let len = String.length name in
+
+      if len >= 7 && String.sub name 0 7 = "guestfs" then
         failwithf "function name %s does not need 'guestfs' prefix" name;
       if name = "" then
         failwithf "function name is empty";
@@ -48,7 +50,14 @@ let () =
         failwithf "function name %s must start with lowercase a-z" name;
       if String.contains name '-' then
         failwithf "function name %s should not contain '-', use '_' instead."
-          name
+          name;
+(*
+      (* Functions mustn't be named '_opts' since that is reserved for
+       * backwards compatibility functions.
+       *)
+      if len >= 5 && String.sub name (len-5) 5 = "_opts" then
+        failwithf "function name %s cannot end with _opts" name
+*)
   ) (all_functions @ fish_commands);
 
   (* Check function parameter/return names. *)
@@ -242,6 +251,14 @@ let () =
       failwithf "%s cannot have ConfigOnly flag" name
     | { config_only = false } -> ()
   ) (daemon_functions @ fish_commands);
+
+  (* once_had_no_optargs can only apply if the function now has optargs. *)
+  List.iter (
+    function
+    | { name = name; once_had_no_optargs = true; style = _, _, [] } ->
+      failwithf "%s cannot have once_had_no_optargs flag and no optargs" name
+    | { once_had_no_optargs = false } | { style = _, _, (_::_) } -> ()
+  ) all_functions;
 
   (* Check tests. *)
   List.iter (
