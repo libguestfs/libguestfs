@@ -216,14 +216,6 @@ let () =
           failwithf "%s: optional group name %s should not contain '-' or '_'" name n
       | None -> ()
       );
-      (match f.camel_name with
-      | Some n ->
-        if not (contains_uppercase n) then
-          failwithf "%s: camel case name must contains uppercase characters" name n;
-        if String.contains n '_' then
-          failwithf "%s: camel case name must not contain '_'" name n;
-      | None -> ()
-      );
       if f.cancellable then (
         match ret with
         | RConstOptString n ->
@@ -232,6 +224,16 @@ let () =
         | _ -> ()
       )
   ) (all_functions @ fish_commands);
+
+  (* Non-fish functions must have correct camel_name. *)
+  List.iter (
+    fun { name = name; camel_name = camel_name } ->
+      if not (contains_uppercase camel_name) then
+        failwithf "%s: camel case name must contain uppercase characters"
+          name;
+      if String.contains camel_name '_' then
+        failwithf "%s: camel case name must not contain '_'" name;
+  ) all_functions;
 
   (* ConfigOnly should only be specified on non_daemon_functions. *)
   List.iter (

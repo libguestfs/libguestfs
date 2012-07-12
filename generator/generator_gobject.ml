@@ -18,7 +18,6 @@
 
 (* Please read generator/README first. *)
 
-open Str
 open Printf
 
 open Generator_actions
@@ -29,14 +28,7 @@ open Generator_structs
 open Generator_types
 open Generator_utils
 
-let camel_of_name = function
-  | { camel_name = Some name } -> "Guestfs" ^ name
-  | { name = name; camel_name = None } ->
-    "Guestfs" ^
-      List.fold_left (
-        fun a b ->
-          a ^ String.uppercase (Str.first_chars b 1) ^ Str.string_after b 1
-      ) "" (Str.split (regexp "_") name)
+let camel_of_name { camel_name = camel_name } = "Guestfs" ^ camel_name
 
 let generate_gobject_proto name ?(single_line = true)
                                 (ret, args, optargs) f =

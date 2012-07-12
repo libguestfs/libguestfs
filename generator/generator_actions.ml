@@ -29,7 +29,7 @@ let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  protocol_limit_warning = false; fish_alias = [];
                  fish_output = None; in_fish = true; in_docs = true;
                  deprecated_by = None; optional = None;
-                 progress = false; camel_name = None;
+                 progress = false; camel_name = "";
                  cancellable = false; config_only = false }
 
 (* These test functions are used in the language binding tests. *)
@@ -7754,7 +7754,7 @@ mount tags is returned." };
     name = "mount_9p";
     style = RErr, [String "mounttag"; String "mountpoint"], [OString "options"];
     proc_nr = Some 286;
-    camel_name = Some "Mount9P";
+    camel_name = "Mount9P";
     shortdesc = "mount 9p filesystem";
     longdesc = "\
 Mount the virtio-9p filesystem with the tag C<mounttag> on the
@@ -7783,7 +7783,7 @@ volumes." };
     name = "ntfsresize_opts";
     style = RErr, [Device "device"], [OInt64 "size"; OBool "force"];
     proc_nr = Some 288;
-    optional = Some "ntfsprogs"; camel_name = Some "NTFSResizeOpts";
+    optional = Some "ntfsprogs"; camel_name = "NTFSResizeOpts";
     shortdesc = "resize an NTFS filesystem";
     longdesc = "\
 This command resizes an NTFS filesystem, expanding or
@@ -7818,7 +7818,7 @@ See also L<ntfsresize(8)>." };
     name = "btrfs_filesystem_resize";
     style = RErr, [Pathname "mountpoint"], [OInt64 "size"];
     proc_nr = Some 289;
-    optional = Some "btrfs"; camel_name = Some "BTRFSFilesystemResize";
+    optional = Some "btrfs"; camel_name = "BTRFSFilesystemResize";
     shortdesc = "resize a btrfs filesystem";
     longdesc = "\
 This command resizes a btrfs filesystem.
@@ -7985,7 +7985,7 @@ moving functions." };
     name = "tune2fs";
     style = RErr, [Device "device"], [OBool "force"; OInt "maxmountcount"; OInt "mountcount"; OString "errorbehavior"; OInt64 "group"; OInt "intervalbetweenchecks"; OInt "reservedblockspercentage"; OString "lastmounteddirectory"; OInt64 "reservedblockscount"; OInt64 "user"];
     proc_nr = Some 298;
-    camel_name = Some "Tune2FS";
+    camel_name = "Tune2FS";
     tests = [
       InitScratchFS, Always, TestOutputHashtable (
         [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "0"; ""; "NOARG"; ""; ""];
@@ -8087,7 +8087,7 @@ works, see the L<tune2fs(8)> man page." };
     name = "md_create";
     style = RErr, [String "name"; DeviceList "devices"], [OInt64 "missingbitmap"; OInt "nrdevices"; OInt "spare"; OInt64 "chunk"; OString "level"];
     proc_nr = Some 299;
-    optional = Some "mdadm"; camel_name = Some "MDCreate";
+    optional = Some "mdadm"; camel_name = "MDCreate";
     shortdesc = "create a Linux md (RAID) device";
     longdesc = "\
 Create a Linux md (RAID) device named C<name> on the devices
@@ -8765,7 +8765,7 @@ See C<guestfs_get_e2generation>." };
     name = "btrfs_subvolume_snapshot";
     style = RErr, [Pathname "source"; Pathname "dest"], [];
     proc_nr = Some 322;
-    optional = Some "btrfs"; camel_name = Some "BTRFSSubvolumeSnapshot";
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeSnapshot";
     tests = [
       InitPartition, IfAvailable "btrfs", TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
@@ -8786,7 +8786,7 @@ of the snapshot, in the form C</path/to/dest/name>." };
     name = "btrfs_subvolume_delete";
     style = RErr, [Pathname "subvolume"], [];
     proc_nr = Some 323;
-    optional = Some "btrfs"; camel_name = Some "BTRFSSubvolumeDelete";
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeDelete";
     tests = [
       InitPartition, IfAvailable "btrfs", TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
@@ -8802,7 +8802,7 @@ Delete the named btrfs subvolume." };
     name = "btrfs_subvolume_create";
     style = RErr, [Pathname "dest"], [];
     proc_nr = Some 324;
-    optional = Some "btrfs"; camel_name = Some "BTRFSSubvolumeCreate";
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeCreate";
     shortdesc = "create a btrfs snapshot";
     longdesc = "\
 Create a btrfs subvolume.  The C<dest> argument is the destination
@@ -8812,7 +8812,7 @@ directory and the name of the snapshot, in the form C</path/to/dest/name>." };
     name = "btrfs_subvolume_list";
     style = RStructList ("subvolumes", "btrfssubvolume"), [Pathname "fs"], [];
     proc_nr = Some 325;
-    optional = Some "btrfs"; camel_name = Some "BTRFSSubvolumeList";
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeList";
     tests = [] (* tested in tests/btrfs *);
     shortdesc = "list btrfs snapshots and subvolumes";
     longdesc = "\
@@ -8823,7 +8823,7 @@ which is mounted at C<fs>." };
     name = "btrfs_subvolume_set_default";
     style = RErr, [Int64 "id"; Pathname "fs"], [];
     proc_nr = Some 326;
-    optional = Some "btrfs"; camel_name = Some "BTRFSSubvolumeSetDefault";
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeSetDefault";
     tests = [] (* tested in tests/btrfs *);
     shortdesc = "set default btrfs subvolume";
     longdesc = "\
@@ -8835,7 +8835,7 @@ get a list of subvolumes." };
     name = "btrfs_filesystem_sync";
     style = RErr, [Pathname "fs"], [];
     proc_nr = Some 327;
-    optional = Some "btrfs"; camel_name = Some "BTRFSFilesystemSync";
+    optional = Some "btrfs"; camel_name = "BTRFSFilesystemSync";
     tests = [
       InitPartition, IfAvailable "btrfs", TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
@@ -8852,7 +8852,7 @@ Force sync on the btrfs filesystem mounted at C<fs>." };
     name = "btrfs_filesystem_balance";
     style = RErr, [Pathname "fs"], [];
     proc_nr = Some 328;
-    optional = Some "btrfs"; camel_name = Some "BTRFSFilesystemBalance";
+    optional = Some "btrfs"; camel_name = "BTRFSFilesystemBalance";
     shortdesc = "balance a btrfs filesystem";
     longdesc = "\
 Balance the chunks in the btrfs filesystem mounted at C<fs>
@@ -8862,7 +8862,7 @@ across the underlying devices." };
     name = "btrfs_device_add";
     style = RErr, [DeviceList "devices"; Pathname "fs"], [];
     proc_nr = Some 329;
-    optional = Some "btrfs"; camel_name = Some "BTRFSDeviceAdd";
+    optional = Some "btrfs"; camel_name = "BTRFSDeviceAdd";
     tests = [] (* test disk isn't large enough to test this
                   thoroughly, so there is an external test in
                   'tests/btrfs' directory. *);
@@ -8875,7 +8875,7 @@ mounted at C<fs>.  If C<devices> is an empty list, this does nothing." };
     name = "btrfs_device_delete";
     style = RErr, [DeviceList "devices"; Pathname "fs"], [];
     proc_nr = Some 330;
-    optional = Some "btrfs"; camel_name = Some "BTRFSDeviceDelete";
+    optional = Some "btrfs"; camel_name = "BTRFSDeviceDelete";
     tests = [] (* test disk isn't large enough to test this
                   thoroughly, so there is an external test in
                   'tests/btrfs' directory.  *);
@@ -8995,23 +8995,6 @@ To find out the maximum number of devices that could be added,
 call C<guestfs_max_disks>." };
 
 ]
-
-let all_functions = non_daemon_functions @ daemon_functions
-
-(* In some places we want the functions to be displayed sorted
- * alphabetically, so this is useful:
- *)
-let all_functions_sorted = List.sort action_compare all_functions
-
-(* This is used to generate the src/MAX_PROC_NR file which
- * contains the maximum procedure number, a surrogate for the
- * ABI version number.  See src/Makefile.am for the details.
- *)
-let max_proc_nr =
-  let proc_nrs = List.map (
-    function { proc_nr = Some n } -> n | { proc_nr = None } -> 0
-  ) daemon_functions in
-  List.fold_left max 0 proc_nrs
 
 (* Non-API meta-commands available only in guestfish.
  *
@@ -9307,3 +9290,47 @@ can be useful for benchmarking operations." };
 Remove C<VAR> from the environment." };
 
 ]
+
+(*----------------------------------------------------------------------*)
+
+(* Some post-processing of the basic lists of actions. *)
+
+(* Create a camel-case version of each name, unless the camel_name
+ * field was set above.
+ *)
+let non_daemon_functions, daemon_functions =
+  let make_camel_case name =
+    List.fold_left (
+      fun a b ->
+        a ^ String.uppercase (Str.first_chars b 1) ^ Str.string_after b 1
+    ) "" (Str.split (Str.regexp "_") name)
+  in
+  let make_camel_case_if_not_set f =
+    if f.camel_name = "" then
+      { f with camel_name = make_camel_case f.name }
+    else
+      f
+  in
+  let non_daemon_functions =
+    List.map make_camel_case_if_not_set non_daemon_functions in
+  let daemon_functions =
+    List.map make_camel_case_if_not_set daemon_functions in
+  non_daemon_functions, daemon_functions
+
+(* All functions. *)
+let all_functions = non_daemon_functions @ daemon_functions
+
+(* In some places we want the functions to be displayed sorted
+ * alphabetically, so this is useful:
+ *)
+let all_functions_sorted = List.sort action_compare all_functions
+
+(* This is used to generate the src/MAX_PROC_NR file which
+ * contains the maximum procedure number, a surrogate for the
+ * ABI version number.  See src/Makefile.am for the details.
+ *)
+let max_proc_nr =
+  let proc_nrs = List.map (
+    function { proc_nr = Some n } -> n | { proc_nr = None } -> 0
+  ) daemon_functions in
+  List.fold_left max 0 proc_nrs

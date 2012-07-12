@@ -399,12 +399,11 @@ type action = {
   deprecated_by : string option;  (* function is deprecated, use .. instead *)
   optional : string option;       (* function is part of an optional group *)
   progress : bool;                (* function can generate progress messages *)
-  camel_name : string option;     (* Pretty camel case name of
-                                     function. Only specify this if the
+  camel_name : string;            (* Pretty camel case name of
+                                     function.  Only specify this if the
                                      generator doesn't make a good job of
                                      it, for example if it contains an
-                                     abbreviation.  This flag is currently
-                                     only used by the GObject bindings. *)
+                                     abbreviation. *)
   cancellable : bool;             (* the user can cancel this long-running
                                      function *)
   config_only : bool;             (* non-daemon-function which can only be used
