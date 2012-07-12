@@ -938,7 +938,7 @@ containing useful introspection information about the method
 (further fields may be added to this in future).
 
  use Sys::Guestfs;
- $Sys::Guestfs::guestfs_introspection{mkfs_opts}
+ $Sys::Guestfs::guestfs_introspection{mkfs}
  => {
     ret => 'void',                    # return type
     args => [                         # required arguments
@@ -951,7 +951,7 @@ containing useful introspection information about the method
       inode => [ 'inode', 'int', 2 ],
       sectorsize => [ 'sectorsize', 'int', 3 ],
     },
-    name => \"mkfs_opts\",
+    name => \"mkfs\",
     description => \"make a filesystem\",
   }
 

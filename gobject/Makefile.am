@@ -45,6 +45,8 @@ CLEANFILES = \
 CLEANFILES += \
 	src/optargs-add_drive_opts.c \
 	include/guestfs-gobject/optargs-add_drive_opts.h \
+	src/optargs-mkfs_opts.c \
+	include/guestfs-gobject/optargs-mkfs_opts.h \
 	src/optargs-test0.c \
 	include/guestfs-gobject/optargs-test0.h
 

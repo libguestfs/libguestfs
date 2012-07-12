@@ -452,7 +452,7 @@ and generate_one_test_body name i test_name init test =
           ["umount_all"];
           ["lvm_remove_all"];
           ["part_disk"; "/dev/sda"; "mbr"];
-          ["mkfs"; "ext2"; "/dev/sda1"];
+          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
           ["mount_options"; ""; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
        pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
@@ -465,7 +465,7 @@ and generate_one_test_body name i test_name init test =
           ["pvcreate"; "/dev/sda1"];
           ["vgcreate"; "VG"; "/dev/sda1"];
           ["lvcreate"; "LV"; "VG"; "8"];
-          ["mkfs"; "ext2"; "/dev/VG/LV"];
+          ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
           ["mount_options"; ""; "/dev/VG/LV"; "/"]]
    | InitISOFS ->
        pr "  /* InitISOFS for %s */\n" test_name;

@@ -125,12 +125,12 @@ $g->lvcreate ('LV2', 'VG', 32);
 $g->lvcreate ('LV3', 'VG', 64);
 
 # Phony /boot filesystem
-$g->mkfs_opts ('ext2', $bootdev, blocksize => 4096);
+$g->mkfs ('ext2', $bootdev, blocksize => 4096);
 $g->set_label ($bootdev, 'BOOT');
 $g->set_e2uuid ($bootdev, '01234567-0123-0123-0123-012345678901');
 
 # Phony root filesystem.
-$g->mkfs_opts ('ext2', '/dev/VG/Root', blocksize => 4096);
+$g->mkfs ('ext2', '/dev/VG/Root', blocksize => 4096);
 $g->set_label ('/dev/VG/Root', 'ROOT');
 $g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
 
@@ -190,9 +190,9 @@ $g->mknod (0777, 10, 10, '/bin/test7');
 
 # Other filesystems.
 # Note that these should be empty, for testing virt-df.
-$g->mkfs_opts ('ext2', '/dev/VG/LV1', blocksize => 4096);
-$g->mkfs_opts ('ext2', '/dev/VG/LV2', blocksize => 1024);
-$g->mkfs_opts ('ext2', '/dev/VG/LV3', blocksize => 2048);
+$g->mkfs ('ext2', '/dev/VG/LV1', blocksize => 4096);
+$g->mkfs ('ext2', '/dev/VG/LV2', blocksize => 1024);
+$g->mkfs ('ext2', '/dev/VG/LV3', blocksize => 2048);
 
 # Cleanup
 $g->shutdown ();

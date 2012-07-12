@@ -1950,7 +1950,7 @@ let daemon_functions = [
     tests = [
       InitEmpty, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents")
@@ -2713,24 +2713,6 @@ This creates an LVM logical volume called C<logvol>
 on the volume group C<volgroup>, with C<size> megabytes." };
 
   { defaults with
-    name = "mkfs";
-    style = RErr, [String "fstype"; Device "device"], [];
-    proc_nr = Some 42;
-    tests = [
-      InitEmpty, Always, TestOutput (
-        [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
-         ["write"; "/new"; "new file contents"];
-         ["cat"; "/new"]], "new file contents")
-    ];
-    shortdesc = "make a filesystem";
-    longdesc = "\
-This creates a filesystem on C<device> (usually a partition
-or LVM logical volume).  The filesystem type is C<fstype>, for
-example C<ext3>." };
-
-  { defaults with
     name = "sfdisk";
     style = RErr, [Device "device";
                    Int "cyls"; Int "heads"; Int "sectors";
@@ -2793,12 +2775,12 @@ characters does I<not> work, even if the length is specified." };
     tests = [
       InitEmpty, Always, TestOutputListOfDevices (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["mounts"]], ["/dev/sda1"]);
       InitEmpty, Always, TestOutputList (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["umount"; "/"];
          ["mounts"]], [])
@@ -2841,9 +2823,9 @@ See also: C<guestfs_mountpoints>" };
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
          ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
-         ["mkfs"; "ext2"; "/dev/sda1"];
-         ["mkfs"; "ext2"; "/dev/sda2"];
-         ["mkfs"; "ext2"; "/dev/sda3"];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda2"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda3"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["mkdir"; "/mp1"];
          ["mount_options"; ""; "/dev/sda2"; "/mp1"];
@@ -4093,7 +4075,7 @@ the human-readable, canonical hex dump of the file." };
     tests = [
       InitNone, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext3"; "/dev/sda1"];
+         ["mkfs"; "ext3"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["write"; "/new"; "test file"];
          ["umount"; "/dev/sda1"];
@@ -4217,7 +4199,7 @@ are activated or deactivated." };
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV"; "VG"; "10"];
-         ["mkfs"; "ext2"; "/dev/VG/LV"];
+         ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/VG/LV"; "/"];
          ["write"; "/new"; "test content"];
          ["umount"; "/"];
@@ -4331,11 +4313,11 @@ Sleep for C<secs> seconds." };
     tests = [
       InitNone, Always, TestOutputInt (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ntfs"; "/dev/sda1"];
+         ["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 0);
       InitNone, Always, TestOutputInt (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 12)
     ];
     shortdesc = "probe NTFS volume";
@@ -5700,7 +5682,7 @@ and C<guestfs_setcon>" };
     name = "mkfs_b";
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"], [];
     proc_nr = Some 187;
-    deprecated_by = Some "mkfs_opts";
+    deprecated_by = Some "mkfs";
     tests = [
       InitEmpty, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
@@ -7565,13 +7547,14 @@ not refer to a logical volume.
 See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
 
   { defaults with
-    name = "mkfs_opts";
+    name = "mkfs";
     style = RErr, [String "fstype"; Device "device"], [OInt "blocksize"; OString "features"; OInt "inode"; OInt "sectorsize"];
     proc_nr = Some 278;
+    once_had_no_optargs = true;
     tests = [
       InitEmpty, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs_opts"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents")
@@ -8293,7 +8276,7 @@ device." };
     optional = Some "ntfs3g";
     tests = [
       InitPartition, IfAvailable "ntfs3g", TestRun (
-        [["mkfs"; "ntfs"; "/dev/sda1"];
+        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["ntfsfix"; "/dev/sda1"; "false"]])
     ];
     shortdesc = "fix common errors and force Windows to check NTFS";
@@ -8352,7 +8335,7 @@ any existing contents of this device." };
         [["set_label"; "/dev/sda1"; "testlabel"];
          ["vfs_label"; "/dev/sda1"]], "testlabel");
       InitPartition, IfAvailable "ntfs3g", TestOutput (
-        [["mkfs"; "ntfs"; "/dev/sda1"];
+        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["set_label"; "/dev/sda1"; "testlabel2"];
          ["vfs_label"; "/dev/sda1"]], "testlabel2");
       InitPartition, Always, TestLastFail (
@@ -8539,7 +8522,7 @@ For more information on the optional arguments, see L<mkfs.btrfs(8)>.
 Since btrfs filesystems can span multiple devices, this takes a
 non-empty list of devices.
 
-To create general filesystems, use C<guestfs_mkfs_opts>." };
+To create general filesystems, use C<guestfs_mkfs>." };
 
   { defaults with
     name = "get_e2attrs";

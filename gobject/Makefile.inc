@@ -44,7 +44,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-inspect_get_icon.h \
   include/guestfs-gobject/optargs-mount_local.h \
   include/guestfs-gobject/optargs-umount_local.h \
-  include/guestfs-gobject/optargs-mkfs_opts.h \
+  include/guestfs-gobject/optargs-mkfs.h \
   include/guestfs-gobject/optargs-mount_9p.h \
   include/guestfs-gobject/optargs-ntfsresize_opts.h \
   include/guestfs-gobject/optargs-btrfs_filesystem_resize.h \
@@ -88,7 +88,7 @@ guestfs_gobject_sources= \
   src/optargs-inspect_get_icon.c \
   src/optargs-mount_local.c \
   src/optargs-umount_local.c \
-  src/optargs-mkfs_opts.c \
+  src/optargs-mkfs.c \
   src/optargs-mount_9p.c \
   src/optargs-ntfsresize_opts.c \
   src/optargs-btrfs_filesystem_resize.c \

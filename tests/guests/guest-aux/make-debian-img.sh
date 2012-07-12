@@ -48,18 +48,18 @@ lvcreate var debian 32
 lvcreate home debian 32
 
 # Phony /boot filesystem.
-mkfs-opts ext2 /dev/sda1 blocksize:4096
+mkfs ext2 /dev/sda1 blocksize:4096
 set-label /dev/sda1 BOOT
 set-e2uuid /dev/sda1 01234567-0123-0123-0123-012345678901
 
 # Phony root and other filesystems.
-mkfs-opts ext2 /dev/debian/root blocksize:4096
+mkfs ext2 /dev/debian/root blocksize:4096
 set-e2uuid /dev/debian/root 01234567-0123-0123-0123-012345678902
-mkfs-opts ext2 /dev/debian/usr blocksize:4096
+mkfs ext2 /dev/debian/usr blocksize:4096
 set-e2uuid /dev/debian/usr 01234567-0123-0123-0123-012345678903
-mkfs-opts ext2 /dev/debian/var blocksize:4096
+mkfs ext2 /dev/debian/var blocksize:4096
 set-e2uuid /dev/debian/var 01234567-0123-0123-0123-012345678904
-mkfs-opts ext2 /dev/debian/home blocksize:4096
+mkfs ext2 /dev/debian/home blocksize:4096
 set-e2uuid /dev/debian/home 01234567-0123-0123-0123-012345678905
 
 # Enough to fool inspection API.
