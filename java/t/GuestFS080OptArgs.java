@@ -27,7 +27,7 @@ public class GuestFS080OptArgs
         try {
             GuestFS g = new GuestFS ();
 
-            g.add_drive_opts ("/dev/null", null);
+            g.add_drive_opts ("/dev/null");
 
             HashMap<String,Object> optargs;
 
