@@ -176,6 +176,29 @@ public class GuestFS {
       );
       pr "  }\n";
       pr "\n";
+
+      (* Generate an overloaded method that has no optargs argument,
+       * and make it call the method above with 'null' for the last
+       * arg.
+       *)
+      if optargs <> [] then (
+        pr "  ";
+        generate_java_prototype ~public:true ~semicolon:false
+          name (ret, args, []);
+        pr "\n";
+        pr "  {\n";
+        (match ret with
+        | RErr -> pr "    "
+        | _ ->    pr "    return "
+        );
+        pr "%s (" name;
+        List.iter (fun arg -> pr "%s, " (name_of_argt arg)) args;
+        pr "null);\n";
+        pr "  }\n";
+        pr "\n"
+      );
+
+      (* Prototype for the native method. *)
       pr "  ";
       generate_java_prototype ~privat:true ~native:true name style;
       pr "\n";
