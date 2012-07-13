@@ -136,7 +136,7 @@ namespace Guestfs
   (* Generate C# function bindings. *)
   List.iter (
     fun { name = name; style = ret, args, optargs; c_function = c_function;
-          shortdesc = shortdesc } ->
+          shortdesc = shortdesc; non_c_aliases = non_c_aliases } ->
       let rec csharp_return_type () =
         match ret with
         | RErr -> "void"
@@ -204,7 +204,7 @@ namespace Guestfs
         if optargs <> [] then pr ", void *";
         pr ");\n"
 
-      and generate_public_prototype () =
+      and generate_public_prototype name =
         pr "    public %s %s (" (csharp_return_type ()) name;
         let comma = ref false in
         let next () =
@@ -237,15 +237,27 @@ namespace Guestfs
          *)
         if optargs <> [] then pr ", NULL";
         pr ");\n";
+
+      and generate_alias alias =
+        generate_public_prototype alias;
+        pr "    {\n";
+        (match ret with
+        | RErr -> pr "      ";
+        | _ -> pr "      return "
+        );
+        pr "%s (%s);\n" name (String.concat ", " (List.map name_of_argt args));
+        pr "    }\n";
+        pr "\n";
       in
 
       pr "    [DllImport (\"%s\")]\n" library;
       generate_extern_prototype ();
       pr "\n";
+
       pr "    /// <summary>\n";
       pr "    /// %s\n" shortdesc;
       pr "    /// </summary>\n";
-      generate_public_prototype ();
+      generate_public_prototype name;
       pr "    {\n";
       pr "      %s r;\n" (c_return_type ());
       pr "      r = ";
@@ -268,6 +280,8 @@ namespace Guestfs
       );
       pr "    }\n";
       pr "\n";
+
+      List.iter generate_alias non_c_aliases
   ) all_functions_sorted;
 
   pr "  }

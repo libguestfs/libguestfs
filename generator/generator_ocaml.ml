@@ -125,6 +125,7 @@ val user_cancel : t -> unit
   (* The actions. *)
   List.iter (
     fun { name = name; style = style; deprecated_by = deprecated_by;
+          non_c_aliases = non_c_aliases;
           in_docs = in_docs; shortdesc = shortdesc } ->
       generate_ocaml_prototype name style;
 
@@ -137,7 +138,14 @@ val user_cancel : t -> unit
         );
         pr " *)\n";
       );
-      pr "\n"
+      pr "\n";
+
+      (* Aliases. *)
+      List.iter (
+        fun alias ->
+          generate_ocaml_prototype alias style;
+          pr "\n";
+      ) non_c_aliases;
   ) all_functions_sorted;
 
   pr "\
@@ -173,15 +181,22 @@ class guestfs : unit -> object
 ";
 
   List.iter (
-    function
-    | { name = name; style = ((_, [], _) as style) } ->
+    fun { name = name; style = style; non_c_aliases = non_c_aliases } ->
+      (match style with
+      | _, [], _ ->
         pr "  method %s : " name;
         generate_ocaml_function_type ~extra_unit:true style;
         pr "\n"
-    | { name = name; style = style } ->
+      | _, (_::_), _ ->
         pr "  method %s : " name;
         generate_ocaml_function_type style;
         pr "\n"
+      );
+      List.iter (fun alias ->
+        pr "  method %s : " alias;
+        generate_ocaml_function_type style;
+        pr "\n"
+      ) non_c_aliases
   ) all_functions_sorted;
 
   pr "end\n"
@@ -243,15 +258,16 @@ let () =
 
   (* The actions. *)
   List.iter (
-    fun { name = name; style = style } ->
+    fun { name = name; style = style; non_c_aliases = non_c_aliases } ->
       generate_ocaml_prototype ~is_external:true name style;
+      List.iter (fun alias -> pr "let %s = %s\n" alias name) non_c_aliases
   ) all_functions_sorted;
 
   (* OO API. *)
   pr "
 class guestfs () =
   let g = create () in
-  object
+  object (self)
     method close () = close g
     method set_event_callback = set_event_callback g
     method delete_event_callback = delete_event_callback g
@@ -261,15 +277,19 @@ class guestfs () =
 ";
 
   List.iter (
-    function
-    | { name = name; style = _, [], optargs } ->
+    fun { name = name; style = style; non_c_aliases = non_c_aliases } ->
+      (match style with
+      | _, [], optargs ->
         (* No required params?  Add explicit unit. *)
         let optargs =
           String.concat ""
             (List.map (fun arg -> " ?" ^ name_of_optargt arg) optargs) in
         pr "    method %s%s () = %s g%s\n" name optargs name optargs
-    | { name = name } ->
+      | _, (_::_), _ ->
         pr "    method %s = %s g\n" name name
+      );
+      List.iter
+        (fun alias -> pr "    method %s = self#%s\n" alias name) non_c_aliases
   ) all_functions_sorted;
 
   pr "  end\n"

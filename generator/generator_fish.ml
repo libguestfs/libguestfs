@@ -37,6 +37,11 @@ let doc_opttype_of = function
   | OInt64 n -> "N"
   | OString n -> ".."
 
+let get_aliases { fish_alias = fish_alias; non_c_aliases = non_c_aliases } =
+  let non_c_aliases =
+    List.map (fun n -> replace_char n '_' '-') non_c_aliases in
+  fish_alias @ non_c_aliases
+
 (* Generate a lot of different functions for guestfish. *)
 let generate_fish_cmds () =
   generate_header CStyle GPLv2plus;
@@ -84,8 +89,9 @@ let generate_fish_cmds () =
 
   (* List of command_entry structs. *)
   List.iter (
-    fun { name = name; fish_alias = aliases; shortdesc = shortdesc;
-          longdesc = longdesc } ->
+    fun ({ name = name; shortdesc = shortdesc; longdesc = longdesc } as f) ->
+      let aliases = get_aliases f in
+
       let name2 = replace_char name '_' '-' in
       let describe_alias =
         if aliases <> [] then
@@ -109,8 +115,10 @@ let generate_fish_cmds () =
   ) fish_commands;
 
   List.iter (
-    fun ({ name = name; style = _, args, optargs; fish_alias = aliases;
+    fun ({ name = name; style = _, args, optargs;
            shortdesc = shortdesc; longdesc = longdesc } as f) ->
+      let aliases = get_aliases f in
+
       let name2 = replace_char name '_' '-' in
 
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
@@ -694,7 +702,8 @@ struct command_table;
 ";
 
   List.iter (
-    fun { name = name; fish_alias = aliases } ->
+    fun ({ name = name } as f) ->
+      let aliases = get_aliases f in
       let name2 = replace_char name '_' '-' in
 
       (* The basic command. *)
@@ -742,7 +751,8 @@ static const char *const commands[] = {
    *)
   let commands =
     List.map (
-      fun { name = name; fish_alias = aliases } ->
+      fun ({ name = name } as f) ->
+        let aliases = get_aliases f in
         let name2 = replace_char name '_' '-' in
         name2 :: aliases
     ) (all_functions @ fish_commands) in
@@ -813,8 +823,9 @@ and generate_fish_actions_pod () =
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
 
   List.iter (
-    fun ({ name = name; style = _, args, optargs; fish_alias = aliases;
-          longdesc = longdesc } as f) ->
+    fun ({ name = name; style = _, args, optargs; longdesc = longdesc } as f) ->
+      let aliases = get_aliases f in
+
       let longdesc =
         Str.global_substitute rex (
           fun s ->
@@ -876,7 +887,8 @@ Guestfish will prompt for these separately.\n\n";
 (* Generate documentation for guestfish-only commands. *)
 and generate_fish_commands_pod () =
   List.iter (
-    fun { name = name; fish_alias = aliases; longdesc = longdesc } ->
+    fun ({ name = name; longdesc = longdesc } as f) ->
+      let aliases = get_aliases f in
       let name = replace_char name '_' '-' in
 
       List.iter (

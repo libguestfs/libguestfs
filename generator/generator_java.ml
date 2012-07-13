@@ -95,7 +95,7 @@ public class GuestFS {
   List.iter (
     fun ({ name = name; style = (ret, args, optargs as style);
            in_docs = in_docs; shortdesc = shortdesc;
-           longdesc = longdesc } as f) ->
+           longdesc = longdesc; non_c_aliases = non_c_aliases } as f) ->
       if in_docs then (
         let doc = replace_str longdesc "C<guestfs_" "C<g." in
         let doc =
@@ -199,6 +199,52 @@ public class GuestFS {
         pr "  }\n";
         pr "\n"
       );
+
+      (* Aliases. *)
+      List.iter (
+        fun alias ->
+          pr "  ";
+          generate_java_prototype ~public:true ~semicolon:false alias style;
+          pr "\n";
+          pr "  {\n";
+          (match ret with
+          | RErr -> pr "    "
+          | _ ->    pr "    return "
+          );
+          pr "%s (" name;
+          let needs_comma = ref false in
+          List.iter (
+            fun arg ->
+              if !needs_comma then pr ", ";
+              needs_comma := true;
+              pr "%s" (name_of_argt arg)
+          ) args;
+          if optargs <> [] then (
+            if !needs_comma then pr ", ";
+            needs_comma := true;
+            pr "optargs"
+          );
+          pr ");\n";
+          pr "  }\n";
+          pr "\n";
+
+          if optargs <> [] then (
+            pr "  ";
+            generate_java_prototype ~public:true ~semicolon:false
+              alias (ret, args, []);
+            pr "\n";
+            pr "  {\n";
+            (match ret with
+            | RErr -> pr "    "
+            | _ ->    pr "    return "
+            );
+            pr "%s (" name;
+            List.iter (fun arg -> pr "%s, " (name_of_argt arg)) args;
+            pr "null);\n";
+            pr "  }\n";
+            pr "\n"
+          )
+      ) non_c_aliases;
 
       (* Prototype for the native method. *)
       pr "  ";

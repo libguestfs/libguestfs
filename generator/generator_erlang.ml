@@ -40,12 +40,16 @@ let rec generate_erlang_erl () =
 
   (* Export the public actions. *)
   List.iter (
-    fun { name = name; style = _, args, optargs } ->
+    fun { name = name; style = _, args, optargs; non_c_aliases = aliases } ->
       let nr_args = List.length args in
-      if optargs = [] then
-        pr "-export([%s/%d]).\n" name (nr_args+1)
-      else
-        pr "-export([%s/%d, %s/%d]).\n" name (nr_args+1) name (nr_args+2)
+      let export name =
+        if optargs = [] then
+          pr "-export([%s/%d]).\n" name (nr_args+1)
+        else
+          pr "-export([%s/%d, %s/%d]).\n" name (nr_args+1) name (nr_args+2)
+      in
+      export name;
+      List.iter export aliases
   ) all_functions_sorted;
 
   pr "\n";
@@ -95,7 +99,7 @@ loop(Port) ->
    * process which dispatches them to the port.
    *)
   List.iter (
-    fun { name = name; style = _, args, optargs } ->
+    fun { name = name; style = _, args, optargs; non_c_aliases = aliases } ->
       pr "%s(G" name;
       List.iter (
         fun arg ->
@@ -134,6 +138,44 @@ loop(Port) ->
         pr ", []";
         pr ").\n"
       );
+
+      (* Aliases. *)
+      List.iter (
+        fun alias ->
+          pr "%s(G" alias;
+          List.iter (
+            fun arg ->
+              pr ", %s" (String.capitalize (name_of_argt arg))
+          ) args;
+          if optargs <> [] then
+            pr ", Optargs";
+          pr ") ->\n";
+
+          pr "  %s(G" name;
+          List.iter (
+            fun arg ->
+              pr ", %s" (String.capitalize (name_of_argt arg))
+          ) args;
+          if optargs <> [] then
+            pr ", Optargs";
+          pr ").\n";
+
+          if optargs <> [] then (
+            pr "%s(G" alias;
+            List.iter (
+              fun arg ->
+                pr ", %s" (String.capitalize (name_of_argt arg))
+            ) args;
+            pr ") ->\n";
+
+            pr "  %s(G" name;
+            List.iter (
+              fun arg ->
+                pr ", %s" (String.capitalize (name_of_argt arg))
+            ) args;
+            pr ").\n"
+          )
+      ) aliases;
 
       pr "\n"
   ) all_functions_sorted

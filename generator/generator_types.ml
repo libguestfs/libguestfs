@@ -419,6 +419,8 @@ type action = {
   c_function : string;            (* full name of C API function called by
                                      non-C bindings *)
   c_optarg_prefix : string;       (* prefix for optarg names/bitmask names *)
+  non_c_aliases : string list;    (* back-compat aliases that have to be
+                                     generated for this function *)
 }
 
 (* Field types for structures. *)

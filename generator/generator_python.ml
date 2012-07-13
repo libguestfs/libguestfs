@@ -695,7 +695,7 @@ class GuestFS:
 
   List.iter (
     fun ({ name = name; style = ret, args, optargs; in_docs = in_docs;
-          longdesc = longdesc } as f) ->
+          longdesc = longdesc; non_c_aliases = non_c_aliases } as f) ->
       pr "    def %s (self" name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
       List.iter (
@@ -750,4 +750,10 @@ class GuestFS:
       List.iter (fun arg -> pr ", %s" (name_of_argt arg))
         (args @ args_of_optargs optargs);
       pr ")\n\n";
+
+      (* Aliases. *)
+      List.iter (
+        fun alias ->
+          pr "    %s = %s\n\n" alias name
+      ) non_c_aliases
   ) all_functions

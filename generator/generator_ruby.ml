@@ -633,10 +633,18 @@ void Init__guestfs ()
 
   (* Methods. *)
   List.iter (
-    fun { name = name; style = _, args, optargs } ->
+    fun { name = name; style = _, args, optargs;
+          non_c_aliases = non_c_aliases } ->
       let nr_args = List.length args + if optargs <> [] then 1 else 0 in
       pr "  rb_define_method (c_guestfs, \"%s\",\n" name;
-      pr "        ruby_guestfs_%s, %d);\n" name nr_args
+      pr "        ruby_guestfs_%s, %d);\n" name nr_args;
+
+      (* Aliases. *)
+      List.iter (
+        fun alias ->
+          pr "  rb_define_method (c_guestfs, \"%s\",\n" alias;
+          pr "        ruby_guestfs_%s, %d);\n" name nr_args
+      ) non_c_aliases
   ) all_functions;
 
   pr "}\n"

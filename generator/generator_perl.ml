@@ -797,7 +797,7 @@ handlers and threads.
     function
     | { in_docs = false } -> ()
     | ({ name = name; style = style; in_docs = true;
-         longdesc = longdesc } as f) ->
+         longdesc = longdesc; non_c_aliases = non_c_aliases } as f) ->
       let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
       pr "=item ";
       generate_perl_prototype name style;
@@ -805,9 +805,28 @@ handlers and threads.
       pr "%s\n\n" longdesc;
       if f.protocol_limit_warning then
         pr "%s\n\n" protocol_limit_warning;
-      match deprecation_notice f with
+      (match deprecation_notice f with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
+      );
+
+      (* Aliases. *)
+      List.iter (
+        fun alias ->
+          pr "=item ";
+          generate_perl_prototype alias style;
+          pr "\n";
+          pr "\n";
+          pr "This is an alias of L</%s>.\n" name;
+          pr "\n";
+          pr "=cut\n\n";
+          pr "sub %s {\n" alias;
+          pr "  &%s (@_)\n" name;
+          pr "}\n";
+          pr "\n";
+          pr "=pod\n";
+          pr "\n";
+      ) non_c_aliases
   ) all_functions_sorted;
 
   pr "=cut\n\n";
@@ -872,6 +891,19 @@ handlers and threads.
       pr "  },\n";
   ) all_functions_sorted;
   pr ");\n\n";
+
+  pr "# Add aliases to the introspection hash.\n";
+  let i = ref 0 in
+  List.iter (
+    fun { name = name; non_c_aliases = non_c_aliases } ->
+      List.iter (
+        fun alias ->
+          pr "my %%ielem%d = %%{$guestfs_introspection{%s}};\n" !i name;
+          pr "$guestfs_introspection{%s} = \\%%ielem%d;\n" alias !i;
+          incr i
+      ) non_c_aliases
+  ) all_functions_sorted;
+  pr "\n";
 
   (* End of file. *)
   pr "\
