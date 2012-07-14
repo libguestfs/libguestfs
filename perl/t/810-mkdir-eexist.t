@@ -33,7 +33,7 @@ truncate FILE, 500*1024*1024;
 close FILE;
 ok (1);
 
-$g->add_drive_opts ("test.img", format => "raw");
+$g->add_drive ("test.img", format => "raw");
 ok (1);
 
 $g->launch ();

@@ -26,7 +26,7 @@ main = do
   fd <- openFile "test.img" WriteMode
   hSetFileSize fd (500 * 1024 * 1024)
   hClose fd
-  Guestfs.add_drive g "test.img"
+  Guestfs.add_drive_ro g "test.img"
   Guestfs.launch g
 
   Guestfs.pvcreate g "/dev/sda"

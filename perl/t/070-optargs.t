@@ -24,11 +24,11 @@ use Sys::Guestfs;
 my $h = Sys::Guestfs->new ();
 ok ($h);
 
-$h->add_drive_opts ("/dev/null");
+$h->add_drive ("/dev/null");
 ok (1);
 
-$h->add_drive_opts ("/dev/null", readonly => 1);
+$h->add_drive ("/dev/null", readonly => 1);
 ok (1);
 
-$h->add_drive_opts ("/dev/null", format => "raw", readonly => 0);
+$h->add_drive ("/dev/null", format => "raw", readonly => 0);
 ok (1);

@@ -253,7 +253,7 @@ auto-detection for C<another.img>.
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).  See also
-L</add-drive-opts>.
+L</add>.
 
 =item B<-i>
 
@@ -594,11 +594,11 @@ Some commands take optional arguments.  These arguments appear in this
 documentation as C<[argname:..]>.  You can use them as in these
 examples:
 
- add-drive-opts filename
+ add filename
 
- add-drive-opts filename readonly:true
+ add filename readonly:true
 
- add-drive-opts filename format:qcow2 readonly:false
+ add filename format:qcow2 readonly:false
 
 Each optional argument can appear at most once.  All optional
 arguments must appear after the required ones.

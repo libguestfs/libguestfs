@@ -161,7 +161,7 @@ read the man page virt-sysprep(1).
       fun g readonly ->
         List.iter (
           fun (file, format) ->
-            g#add_drive_opts ~readonly ?format file
+            g#add_drive ~readonly ?format file
         ) files
   in
 

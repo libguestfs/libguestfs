@@ -9,7 +9,7 @@ guestfs-perl - How to use libguestfs from Perl
  use Sys::Guestfs;
  
  my $h = Sys::Guestfs->new ();
- $h->add_drive_opts ('guest.img', format => 'raw');
+ $h->add_drive ('guest.img', format => 'raw');
  $h->launch ();
  $h->mount_options ('', '/dev/sda1', '/');
  $h->touch ('/hello');

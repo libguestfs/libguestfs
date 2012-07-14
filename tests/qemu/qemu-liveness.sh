@@ -28,7 +28,7 @@ rm -f test1.img
 test1_md5sum="$(md5sum test1.img | awk '{print $1}')"
 
 ../../fish/guestfish <<'EOF'
-add-drive-opts test1.img format:raw
+add test1.img format:raw
 run
 
 part-disk /dev/sda mbr

@@ -441,16 +441,6 @@ err_out:
 }
 
 int
-guestfs__add_drive (guestfs_h *g, const char *filename)
-{
-  struct guestfs_add_drive_opts_argv optargs = {
-    .bitmask = 0,
-  };
-
-  return guestfs__add_drive_opts (g, filename, &optargs);
-}
-
-int
 guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 {
   struct guestfs_add_drive_opts_argv optargs = {

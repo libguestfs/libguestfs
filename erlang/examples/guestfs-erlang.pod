@@ -7,8 +7,8 @@ guestfs-erlang - How to use libguestfs from Erlang
 =head1 SYNOPSIS
 
  {ok, G} = guestfs:create(),
- ok = guestfs:add_drive_opts(G, Disk,
-                             [{format, "raw"}, {readonly, true}]),
+ ok = guestfs:add_drive(G, Disk,
+                        [{format, "raw"}, {readonly, true}]),
  ok = guestfs:launch(G),
  [Device] = guestfs:list_devices(G),
  ok = guestfs:close(G).
@@ -43,12 +43,12 @@ For functions that take optional arguments, the first arguments are
 the non-optional ones.  The last argument is a list of tuples
 supplying the remaining optional arguments.
 
- ok = guestfs:add_drive_opts(G, Disk,
-                             [{format, "raw"}, {readonly, true}]).
+ ok = guestfs:add_drive(G, Disk,
+                        [{format, "raw"}, {readonly, true}]).
 
 If the last argument would be an empty list, you can also omit it:
 
- ok = guestfs:add_drive_opts(G, Disk).
+ ok = guestfs:add_drive(G, Disk).
 
 =head2 RETURN VALUES AND ERRORS
 

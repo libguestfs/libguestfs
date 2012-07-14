@@ -133,7 +133,7 @@ If the C<Sys::Virt> module is not available, then libvirt is bypassed,
 and this function can only open disk images.
 
 The optional C<interface> parameter can be used to open devices with a
-specified qemu interface.  See L<Sys::Guestfs/guestfs_add_drive_opts>
+specified qemu interface.  See L<Sys::Guestfs/guestfs_add_drive>
 for more details.
 
 =cut
@@ -257,7 +257,7 @@ sub open_guest
         push @args, format => $_->[1] if defined $_->[1];
         push @args, readonly => 1 unless $rw;
         push @args, iface => $interface if defined $interface;
-        $g->add_drive_opts (@args);
+        $g->add_drive (@args);
     }
 
     return wantarray ? ($g, $conn, $dom, @images) : $g

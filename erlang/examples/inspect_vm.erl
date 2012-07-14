@@ -6,7 +6,7 @@ main([Disk]) ->
     {ok, G} = guestfs:create(),
 
     % Attach the disk image read-only to libguestfs.
-    ok = guestfs:add_drive_opts(G, Disk, [{readonly, true}]),
+    ok = guestfs:add_drive(G, Disk, [{readonly, true}]),
 
     % Run the libguestfs back-end.
     ok = guestfs:launch(G),

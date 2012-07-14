@@ -12,7 +12,7 @@ let () =
   let g = new Guestfs.guestfs () in
 
   (* Attach the disk image read-only to libguestfs. *)
-  g#add_drive_opts (*~format:"raw"*) ~readonly:true disk;
+  g#add_drive (*~format:"raw"*) ~readonly:true disk;
 
   (* Run the libguestfs back-end. *)
   g#launch ();

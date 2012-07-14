@@ -25,7 +25,7 @@ f.close ()
 g = guestfs.GuestFS ()
 
 # Deliberate error: the disk format is supposed to be raw.
-g.add_drive_opts ("test.img", format="qcow2");
+g.add_drive ("test.img", format="qcow2");
 
 # Because error() wasn't being called, guestfs_last_error would return
 # NULL, causing a segfault in the Python bindings (RHBZ#811650).

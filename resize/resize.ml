@@ -173,7 +173,7 @@ read the man page virt-resize(1).
     printf "alignment\n";
     printf "align-first\n";
     let g = new G.guestfs () in
-    g#add_drive_opts "/dev/null";
+    g#add_drive "/dev/null";
     g#launch ();
     if feature_available g [| "ntfsprogs"; "ntfs3g" |] then
       printf "ntfs\n";
@@ -209,8 +209,8 @@ let btrfs_available = ref true
 let connect_both_disks () =
   let g = new G.guestfs () in
   if debug then g#set_trace true;
-  g#add_drive_opts ?format ~readonly:true infile;
-  g#add_drive_opts ?format:output_format ~readonly:false outfile;
+  g#add_drive ?format ~readonly:true infile;
+  g#add_drive ?format:output_format ~readonly:false outfile;
   if not quiet then Progress.set_up_progress_bar ~machine_readable g;
   g#launch ();
 
@@ -1125,7 +1125,7 @@ let g =
 
     let g = new G.guestfs () in
     if debug then g#set_trace true;
-    g#add_drive_opts ?format:output_format ~readonly:false outfile;
+    g#add_drive ?format:output_format ~readonly:false outfile;
     if not quiet then Progress.set_up_progress_bar ~machine_readable g;
     g#launch ();
 

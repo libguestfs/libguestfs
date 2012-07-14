@@ -40,7 +40,7 @@ for ($i = 0; $i < $max_disks; ++$i) {
     truncate FILE, 1024*1024 or die "$name: truncate: $!";
     close FILE or die "$name: $!";
 
-    $g->add_drive_opts ($name, format => "raw");
+    $g->add_drive ($name, format => "raw");
 }
 
 $g->launch ();

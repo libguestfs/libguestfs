@@ -88,7 +88,7 @@ $guestfish -a test1.qcow2 <<'EOF'
 EOF
 
 $guestfish <<'EOF' | $canonical > test.output
-  add-drive-opts test1.qcow2 readonly:true name:xvdg
+  add test1.qcow2 readonly:true name:xvdg
   run
   inspect-os
   inspect-get-mountpoints /dev/VG/Root
@@ -119,7 +119,7 @@ $guestfish -a test1.qcow2 <<'EOF'
 EOF
 
 $guestfish <<'EOF' | $canonical > test.output
-  add-drive-opts test1.qcow2 readonly:true name:cciss/c1d3
+  add test1.qcow2 readonly:true name:cciss/c1d3
   run
   inspect-os
   inspect-get-mountpoints /dev/VG/Root

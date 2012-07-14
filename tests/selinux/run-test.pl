@@ -108,7 +108,7 @@ open FILE, ">$testimg" or die "$testimg: $!";
 truncate FILE, 256*1024*1024 or die "$testimg: truncate: $!";
 close FILE or die "$testimg: $!";
 
-$g->add_drive_opts ($testimg, format => "raw");
+$g->add_drive ($testimg, format => "raw");
 $g->launch ();
 
 unless (feature_available ($g, "linuxxattrs")) {

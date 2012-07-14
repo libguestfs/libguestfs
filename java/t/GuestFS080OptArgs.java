@@ -27,7 +27,7 @@ public class GuestFS080OptArgs
         try {
             GuestFS g = new GuestFS ();
 
-            g.add_drive_opts ("/dev/null");
+            g.add_drive ("/dev/null");
 
             HashMap<String,Object> optargs;
 
@@ -36,7 +36,7 @@ public class GuestFS080OptArgs
                     put ("readonly", Boolean.TRUE);
                 }
             };
-            g.add_drive_opts ("/dev/null", optargs);
+            g.add_drive ("/dev/null", optargs);
 
             optargs = new HashMap<String,Object>() {
                 {
@@ -44,7 +44,7 @@ public class GuestFS080OptArgs
                     put ("format", "raw");
                 }
             };
-            g.add_drive_opts ("/dev/null", optargs);
+            g.add_drive ("/dev/null", optargs);
 
             optargs = new HashMap<String,Object>() {
                 {
@@ -53,7 +53,7 @@ public class GuestFS080OptArgs
                     put ("iface", "virtio");
                 }
             };
-            g.add_drive_opts ("/dev/null", optargs);
+            g.add_drive ("/dev/null", optargs);
         }
         catch (Exception exn) {
             System.err.println (exn);

@@ -33,7 +33,7 @@ close FILE or die "$testimg: $!";
 
 my $g = Sys::Guestfs->new ();
 
-$g->add_drive_opts ($testimg, format => "raw");
+$g->add_drive ($testimg, format => "raw");
 $g->launch ();
 
 # If btrfs is not available, bail.

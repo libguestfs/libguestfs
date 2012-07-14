@@ -21,10 +21,9 @@ open Unix
 let () =
   let g = Guestfs.create () in
 
-  Guestfs.add_drive_opts g "/dev/null";
-  Guestfs.add_drive_opts g ~readonly:true "/dev/null";
-  Guestfs.add_drive_opts g ~readonly:true ~format:"raw" "/dev/null";
-  Guestfs.add_drive_opts g ~iface:"virtio" ~readonly:true ~format:"raw"
-    "/dev/null";
+  Guestfs.add_drive g "/dev/null";
+  Guestfs.add_drive g ~readonly:true "/dev/null";
+  Guestfs.add_drive g ~readonly:true ~format:"raw" "/dev/null";
+  Guestfs.add_drive g ~iface:"virtio" ~readonly:true ~format:"raw" "/dev/null";
 
   Guestfs.close g

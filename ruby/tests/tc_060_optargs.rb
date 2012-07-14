@@ -24,10 +24,10 @@ class TestLoad < Test::Unit::TestCase
   def test_optargs
     g = Guestfs::create()
 
-    g.add_drive_opts("/dev/null", {})
-    g.add_drive_opts("/dev/null", :readonly => 1)
-    g.add_drive_opts("/dev/null", :readonly => 1, :iface => "virtio")
-    g.add_drive_opts("/dev/null",
-                     :readonly => 1, :iface => "virtio", :format => "qcow2")
+    g.add_drive("/dev/null", {})
+    g.add_drive("/dev/null", :readonly => 1)
+    g.add_drive("/dev/null", :readonly => 1, :iface => "virtio")
+    g.add_drive("/dev/null",
+                :readonly => 1, :iface => "virtio", :format => "qcow2")
   end
 end

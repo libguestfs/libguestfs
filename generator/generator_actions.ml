@@ -164,26 +164,9 @@ This kills the qemu subprocess.
 Do not call this.  See: C<guestfs_shutdown> instead." };
 
   { defaults with
-    name = "add_drive";
-    style = RErr, [String "filename"], [];
-    config_only = true;
-    shortdesc = "add an image to examine or modify";
-    longdesc = "\
-This function is the equivalent of calling C<guestfs_add_drive_opts>
-with no optional parameters, so the disk is added writable, with
-the format being detected automatically.
-
-Automatic detection of the format opens you up to a potential
-security hole when dealing with untrusted raw-format images.
-See CVE-2010-3851 and RHBZ#642934.  Specifying the format closes
-this security hole.  Therefore you should think about replacing
-calls to this function with calls to C<guestfs_add_drive_opts>,
-and specifying the format." };
-
-  { defaults with
     name = "add_cdrom";
     style = RErr, [String "filename"], [];
-    deprecated_by = Some "add_drive_opts"; config_only = true;
+    deprecated_by = Some "add_drive"; config_only = true;
     shortdesc = "add a CD-ROM disk image to examine";
     longdesc = "\
 This function adds a virtual CD-ROM disk image to the guest.
@@ -648,7 +631,7 @@ Return the recovery process enabled flag." };
   { defaults with
     name = "add_drive_with_if";
     style = RErr, [String "filename"; String "iface"], [];
-    deprecated_by = Some "add_drive_opts"; config_only = true;
+    deprecated_by = Some "add_drive"; config_only = true;
     shortdesc = "add a drive specifying the QEMU block emulation to use";
     longdesc = "\
 This is the same as C<guestfs_add_drive> but it allows you
@@ -657,7 +640,7 @@ to specify the QEMU interface emulation to use at run time." };
   { defaults with
     name = "add_drive_ro_with_if";
     style = RErr, [String "filename"; String "iface"], [];
-    deprecated_by = Some "add_drive_opts"; config_only = true;
+    deprecated_by = Some "add_drive"; config_only = true;
     shortdesc = "add a drive read-only specifying the QEMU block emulation to use";
     longdesc = "\
 This is the same as C<guestfs_add_drive_ro> but it allows you
@@ -1150,8 +1133,9 @@ not all belong to a single logical operating system
 (use C<guestfs_inspect_os> to look for OSes)." };
 
   { defaults with
-    name = "add_drive_opts";
+    name = "add_drive";
     style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"];
+    once_had_no_optargs = true;
     fish_alias = ["add"]; config_only = true;
     shortdesc = "add an image to examine or modify";
     longdesc = "\

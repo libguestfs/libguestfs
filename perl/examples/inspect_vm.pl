@@ -16,7 +16,7 @@ my $g = new Sys::Guestfs ();
 # Attach the disk image read-only to libguestfs.
 # You could also add an optional format => ... argument here.  This is
 # advisable since automatic format detection is insecure.
-$g->add_drive_opts ($disk, readonly => 1);
+$g->add_drive ($disk, readonly => 1);
 
 # Run the libguestfs back-end.
 $g->launch ();

@@ -17,8 +17,8 @@ main(_) ->
     ok = guestfs:set_trace(G, true),
 
     % Attach the disk image to libguestfs.
-    ok = guestfs:add_drive_opts(G, Output,
-                                [{format, "raw"}, {readonly, false}]),
+    ok = guestfs:add_drive(G, Output,
+                           [{format, "raw"}, {readonly, false}]),
 
     % Run the libguestfs back-end.
     ok = guestfs:launch(G),

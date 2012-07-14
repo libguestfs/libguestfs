@@ -33,6 +33,7 @@ is ($add_drive{args}[0][0], "filename");
 is ($add_drive{args}[0][1], "string");
 is ($add_drive{args}[0][2], 0);
 
+# In libguestfs >= 1.19.19, this is an alias.
 my %add_drive_opts = %{$Sys::Guestfs::guestfs_introspection{add_drive_opts}};
 ok(1);
 

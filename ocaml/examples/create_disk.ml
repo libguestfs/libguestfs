@@ -17,7 +17,7 @@ let () =
   g#set_trace true;
 
   (* Attach the disk image to libguestfs. *)
-  g#add_drive_opts ~format:"raw" ~readonly:false output;
+  g#add_drive ~format:"raw" ~readonly:false output;
 
   (* Run the libguestfs back-end. *)
   g#launch ();

@@ -100,7 +100,7 @@ and start_thread (filename, mp) =
   ftruncate fd (500 * 1024 * 1024);
   close fd;
 
-  g#add_drive_opts filename;
+  g#add_drive filename;
   g#launch ();
 
   g#part_disk "/dev/sda" "mbr";

@@ -29,7 +29,7 @@ public class CreateDisk
                     put ("readonly", Boolean.FALSE);
                 }
             };
-            g.add_drive_opts (output, optargs);
+            g.add_drive (output, optargs);
 
             // Run the libguestfs back-end.
             g.launch ();

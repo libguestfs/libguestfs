@@ -107,7 +107,7 @@ read the man page virt-sparsify(1).
     printf "linux-swap\n";
     printf "zero\n";
     let g = new G.guestfs () in
-    g#add_drive_opts "/dev/null";
+    g#add_drive "/dev/null";
     g#launch ();
     if feature_available g [| "ntfsprogs"; "ntfs3g" |] then
       printf "ntfs\n";
@@ -195,7 +195,7 @@ let g =
   if verbose then g#set_verbose true;
 
   (* Note that the temporary overlay disk is always qcow2 format. *)
-  g#add_drive_opts ~format:"qcow2" ~readonly:false overlaydisk;
+  g#add_drive ~format:"qcow2" ~readonly:false overlaydisk;
 
   if not quiet then Progress.set_up_progress_bar ~machine_readable g;
   g#launch ();
