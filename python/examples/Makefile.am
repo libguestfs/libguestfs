@@ -29,7 +29,7 @@ noinst_DATA = $(top_builddir)/html/guestfs-python.3.html
 guestfs-python.3 $(top_builddir)/html/guestfs-python.3.html: stamp-guestfs-python.pod
 
 stamp-guestfs-python.pod: guestfs-python.pod create_disk.py inspect_vm.py
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-python.3 \
 	  --html $(top_builddir)/html/guestfs-python.3.html \
