@@ -23,9 +23,10 @@
 #
 #   ./run ./inspector/virt-inspector [args ...]
 #
-# This works for any C, OCaml or Perl virt tools in the libguestfs
-# distribution.  Also you can make a symbolic link to this 'run'
-# script from anywhere (eg. $HOME/bin/run) if you wish.
+# This works for any C program, virt tools, and most non-C bindings
+# and programs in the libguestfs distribution.  Also you can make a
+# symbolic [not hard] link to this 'run' script from anywhere
+# (eg. $HOME/bin/run) if you wish.
 #
 # The script can also be used to make the output of tests shorter:
 #   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test [$(VG)]
@@ -84,7 +85,7 @@ export CAML_LD_LIBRARY_PATH="$b/ocaml"
 export JAVA=@JAVA@
 export CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
 
-# For GObject and friends.
+# For GObject, Javascript and friends.
 export GJS=@GJS@
 if [ -z "$GI_TYPELIB_PATH" ]; then
     GI_TYPELIB_PATH="$b/gobject"
