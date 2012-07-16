@@ -90,8 +90,9 @@ For basic functionality and the C tools:
 - systemtap/DTrace userspace probes (optional)
   http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
 
-- perldoc (pod2man, pod2text, pod2html) to generate the manual pages
-  and other documentation.
+- perl Pod::Man and Pod::Simple are required.  These are used to
+  generate man pages and other documentation.  Every recent Perl
+  distribution ought to include both.
 
 - Readline to have nicer command-line editing in guestfish (optional)
 
