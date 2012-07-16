@@ -69,7 +69,7 @@ a[name="warning"]:after {
 }
 
 /* Put the index on the right hand side in a floating box. */
-div[name="index"] {
+ul[id="index"] {
     float: right;
     width: 18em;
     border-left: 3em solid white;
@@ -82,21 +82,21 @@ div[name="index"] {
     font-size: 90%;
 }
 
-div[name="index"] a[href] {
+ul[id="index"] a[href] {
     text-decoration: none;
 }
 
-div[name="index"] a[href]:hover {
+ul[id="index"] a[href]:hover {
     text-decoration: underline;
 }
 
-div[name="index"] a[href]:before {
+ul[id="index"] a[href]:before {
     content: '#\00a0';
     color: rgb(204,0,0);
     font-size: x-small;
 }
 
-div[name="index"] > ul {
+ul[id="index"] {
     width: 17em;
     list-style: none;
     margin-left: 0px;
@@ -105,11 +105,11 @@ div[name="index"] > ul {
     padding-right: 0px;
 }
 
-div[name="index"] > ul > li {
+ul[id="index"] > li {
     margin-bottom: 0.5em;
 }
 
-div[name="index"] > ul ul {
+ul[id="index"] > li ul {
     width: 16em;
     list-style: none;
     margin-left: 0px;
@@ -119,13 +119,13 @@ div[name="index"] > ul ul {
     margin-bottom: 0.5em;
 }
 
-div[name="index"] > ul > ul li {
+ul[id="index"] > li ul li {
     display: inline;
     margin-right: 1em;
 }
 
 /*
-div[name="index"] > ul > ul li:after {
+ul[id="index"] > li ul li:after {
     color: #ccc;
     content: '\2014';
 }
