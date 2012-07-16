@@ -115,7 +115,6 @@ and start_thread (filename, mp) =
     let t = time () in
     if t -. start_t < total_time then (
       if debug then eprintf "%s < mounting filesystem\n%!" mp;
-      Gc.compact (); (* Workaround for RHBZ#838081 *)
       g#mount_local mp;
 
       (* Run test in an exec'd subprocess. *)
