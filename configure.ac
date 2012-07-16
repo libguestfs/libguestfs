@@ -481,6 +481,10 @@ else
 fi
 AC_SUBST([POD2_UTF8_OPTION])
 
+dnl Define the path to the podwrapper program.
+PODWRAPPER="$(pwd)/podwrapper.sh"
+AC_SUBST([PODWRAPPER])
+
 dnl Check for genisoimage/mkisofs
 AC_PATH_PROGS([GENISOIMAGE],[genisoimage mkisofs],[no],
         [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])

@@ -118,7 +118,7 @@ noinst_DATA = \
 guestfs-examples.3 $(top_builddir)/html/guestfs-examples.3.html: stamp-guestfs-examples.pod
 
 stamp-guestfs-examples.pod: guestfs-examples.pod create_disk.c inspect_vm.c
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-examples.3 \
 	  --html $(top_builddir)/html/guestfs-examples.3.html \
@@ -130,7 +130,7 @@ stamp-guestfs-examples.pod: guestfs-examples.pod create_disk.c inspect_vm.c
 guestfs-faq.1 $(top_builddir)/html/guestfs-faq.1.html: stamp-guestfs-faq.pod
 
 stamp-guestfs-faq.pod: guestfs-faq.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-faq.1 \
 	  --html $(top_builddir)/html/guestfs-faq.1.html \
@@ -140,7 +140,7 @@ stamp-guestfs-faq.pod: guestfs-faq.pod
 guestfs-performance.1 $(top_builddir)/html/guestfs-performance.1.html: stamp-guestfs-performance.pod
 
 stamp-guestfs-performance.pod: guestfs-performance.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-performance.1 \
 	  --html $(top_builddir)/html/guestfs-performance.1.html \
@@ -150,7 +150,7 @@ stamp-guestfs-performance.pod: guestfs-performance.pod
 guestfs-recipes.1 $(top_builddir)/html/guestfs-recipes.1.html: stamp-guestfs-recipes.pod
 
 stamp-guestfs-recipes.pod: guestfs-recipes.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-recipes.1 \
 	  --html $(top_builddir)/html/guestfs-recipes.1.html \
@@ -160,7 +160,7 @@ stamp-guestfs-recipes.pod: guestfs-recipes.pod
 guestfs-testing.1 $(top_builddir)/html/guestfs-testing.1.html: stamp-guestfs-testing.pod
 
 stamp-guestfs-testing.pod: guestfs-testing.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-testing.1 \
 	  --html $(top_builddir)/html/guestfs-testing.1.html \

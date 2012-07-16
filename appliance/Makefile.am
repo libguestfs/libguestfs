@@ -97,7 +97,7 @@ man_MANS = libguestfs-make-fixed-appliance.1
 libguestfs-make-fixed-appliance.1 $(top_builddir)/html/libguestfs-make-fixed-appliance.1.html: stamp-libguestfs-make-fixed-appliance.pod
 
 stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --man libguestfs-make-fixed-appliance.1 \
 	  --html $(top_builddir)/html/libguestfs-make-fixed-appliance.1.html \
 	  $<

@@ -36,7 +36,7 @@ libguestfs_test_tool_LDADD = \
 libguestfs-test-tool.1 $(top_builddir)/html/libguestfs-test-tool.1.html: stamp-libguestfs-test-tool.pod
 
 stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --man libguestfs-test-tool.1 \
 	  --html $(top_builddir)/html/libguestfs-test-tool.1.html \
 	  $<

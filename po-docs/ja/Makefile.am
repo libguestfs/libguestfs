@@ -57,7 +57,7 @@ EXTRA_DIST = \
 all-local: $(MANPAGES)
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --section 3 \
 	  --man $@ \
 	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
@@ -66,14 +66,14 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  $<
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --man $@ \
 	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
 	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
 	  $<
 
 virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --man virt-sysprep.1 \
           --insert sysprep-extra-options.pod:@EXTRA_OPTIONS@ \
           --insert sysprep-operations.pod:@OPERATIONS@ \
@@ -81,10 +81,10 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
 	  $<
 
 %.1: %.pod
-	$(top_builddir)/podwrapper.sh --man $@ $<
+	$(PODWRAPPER) --man $@ $<
 
 %.1: %.pl
-	$(top_builddir)/podwrapper.sh --man $@ $<
+	$(PODWRAPPER) --man $@ $<
 
 # Ensure that the first time we build from git, since guestfs.pod
 # hasn't been built yet, build it.
