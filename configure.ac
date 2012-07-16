@@ -426,40 +426,22 @@ AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
 test "x$GPERF" = "xno" &&
      AC_MSG_ERROR([gperf must be installed])
 
-dnl Check for pod2man, pod2text, pod2html.
-AC_CHECK_PROG([POD2MAN],[pod2man],[pod2man],[no])
-test "x$POD2MAN" = "xno" &&
-     AC_MSG_ERROR([pod2man must be installed])
-AC_CHECK_PROG([POD2TEXT],[pod2text],[pod2text],[no])
-test "x$POD2TEXT" = "xno" &&
-     AC_MSG_ERROR([pod2text must be installed])
-AC_CHECK_PROG([POD2HTML],[pod2html],[pod2html],[no])
-test "x$POD2HTML" = "xno" &&
-     AC_MSG_ERROR([pod2html must be installed])
-
-dnl Check if pod2man, pod2text take --stderr and -u options (not in RHEL 5).
-AC_MSG_CHECKING([if pod2man takes --stderr option])
-if "$POD2MAN" --stderr >&AS_MESSAGE_LOG_FD 2>&1; then
-    AC_MSG_RESULT([yes])
-    POD2_STDERR_OPTION="--stderr"
+dnl Check for Pod::Man, Pod::Simple.
+AC_MSG_CHECKING([for Pod::Man])
+if ! perl -MPod::Man -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_ERROR([perl Pod::Man must be installed])
 else
-    AC_MSG_RESULT([no])
-    POD2_STDERR_OPTION=""
-fi
-AC_SUBST([POD2_STDERR_OPTION])
-
-AC_MSG_CHECKING([if pod2man takes -u option])
-if "$POD2MAN" -u >&AS_MESSAGE_LOG_FD 2>&1; then
     AC_MSG_RESULT([yes])
-    POD2_UTF8_OPTION="-u"
-else
-    AC_MSG_RESULT([no])
-    POD2_UTF8_OPTION=""
 fi
-AC_SUBST([POD2_UTF8_OPTION])
+AC_MSG_CHECKING([for Pod::Simple])
+if ! perl -MPod::Simple -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_ERROR([perl Pod::Simple must be installed])
+else
+    AC_MSG_RESULT([yes])
+fi
 
 dnl Define the path to the podwrapper program.
-PODWRAPPER="$(pwd)/podwrapper.sh"
+PODWRAPPER="$(pwd)/podwrapper.pl"
 AC_SUBST([PODWRAPPER])
 
 dnl Check for genisoimage/mkisofs
@@ -1188,8 +1170,8 @@ AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([clone/virt-sysprep],
                 [chmod +x,-w clone/virt-sysprep])
-AC_CONFIG_FILES([podwrapper.sh],
-                [chmod +x,-w podwrapper.sh])
+AC_CONFIG_FILES([podwrapper.pl],
+                [chmod +x,-w podwrapper.pl])
 AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
 AC_CONFIG_FILES([Makefile

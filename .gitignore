@@ -265,14 +265,13 @@ php/extension/php_guestfs_php.h
 php/extension/run-tests.php
 php/extension/tmp-php.ini
 po/boldquot.sed
-pod2htm?.tmp
 po-docs/*/*.1
 po-docs/*/*.3
 po-docs/*/*.pl
 po-docs/po4a.conf
 po-docs/*/*.pod
 /po-docs/*/stamp-update-po
-podwrapper.sh
+podwrapper.pl
 po/en@boldquot.header
 po/en@quot.header
 po/*.gmo
