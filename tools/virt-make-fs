@@ -438,8 +438,12 @@ eval {
         # Set the partition type byte if it's MBR and the filesystem
         # type is one that we know about.
         my $mbr_id;
-        if ($partition eq "mbr") {
-            if ($type =~ /^v?fat$/) {
+        if ($partition eq "mbr" || $partition eq "msdos") {
+            if ($type eq "msdos") {
+                # According to Wikipedia.  However I have not actually
+                # tried this.
+                $mbr_id = 0x1;
+            } elsif ($type =~ /^v?fat$/) {
                 $mbr_id = 0xb;
             } elsif ($type eq "ntfs") {
                 $mbr_id = 0x7;
