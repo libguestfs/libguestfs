@@ -57,7 +57,7 @@ noinst_DATA = $(top_builddir)/html/virt-rescue.1.html
 virt-rescue.1 $(top_builddir)/html/virt-rescue.1.html: stamp-virt-rescue.pod
 
 stamp-virt-rescue.pod: virt-rescue.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --man virt-rescue.1 \
 	  --html $(top_builddir)/html/virt-rescue.1.html \
 	  $<

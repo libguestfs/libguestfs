@@ -92,7 +92,7 @@ noinst_DATA = $(top_builddir)/html/virt-resize.1.html
 virt-resize.1 $(top_builddir)/html/virt-resize.1.html: stamp-virt-resize.pod
 
 stamp-virt-resize.pod: virt-resize.pod
-	$(top_builddir)/podwrapper.sh \
+	$(PODWRAPPER) \
 	  --man virt-resize.1 \
 	  --html $(top_builddir)/html/virt-resize.1.html \
 	  $<
