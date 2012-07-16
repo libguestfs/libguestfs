@@ -1,0 +1,374 @@
+#!/usr/bin/perl -w
+# podwrapper.pl
+# Copyright (C) 2010-2012 Red Hat Inc.
+# @configure_input@
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+use warnings;
+use strict;
+
+use Pod::Usage;
+use Getopt::Long;
+use Pod::Man;
+use Pod::Simple;
+use Pod::Simple::Text;
+use Pod::Simple::XHTML;
+use File::Basename;
+
+=encoding utf8
+
+=head1 NAME
+
+podwrapper.pl - Generate various output formats from POD input files
+
+=head1 SYNOPSIS
+
+ virt-foo.1 $(top_builddir)/html/virt-foo.1.html: stamp-virt-foo.pod
+ stamp-virt-foo.pod: virt-foo.pod
+   $(PODWRAPPER) --man virt-foo.1 --html virt-foo.1.html $<
+   touch $@
+
+=head1 DESCRIPTION
+
+podwrapper is a Perl script that generates various output formats
+from POD input files that libguestfs uses for most documentation.
+
+You should specify an input file, and one or more output formats.
+For example:
+
+ podwrapper.pl virt-foo.pod --man virt-foo.1
+
+will turn C<virt-foo.pod> into a man page C<virt-foo.1>.  The output
+options are I<--man>, I<--html> and I<--text> (see below).
+
+=head1 OPTIONS
+
+=over 4
+
+=cut
+
+my $help;
+
+=item B<--help>
+
+Display brief help.
+
+=cut
+
+my $html;
+
+=item B<--html=output.html>
+
+Write a web page to C<output.html>.  If this option is not
+given, then no web page output is produced.
+
+=cut
+
+my @inserts;
+
+=item B<--insert=filename:@PATTERN@>
+
+In the input file, replace the literal text C<@PATTERN@> with the
+replacement file C<filename>.  You can give this option multiple
+times.
+
+The contents of C<filename> are treated as POD.
+Compare and contrast with I<--verbatim>.
+
+Although it is conventional to use C<@...@> for patterns, in fact
+you can use any string as the pattern.
+
+=cut
+
+my $man;
+
+=item B<--man=output.n>
+
+Write a man page to C<output.n>.  If this option is not
+given, then no man page output is produced.
+
+=cut
+
+my $name;
+
+=item B<--name=name>
+
+Set the name of the man page.  If not set, defaults to the basename
+of the input file.
+
+=cut
+
+my $section;
+
+=item B<--section=N>
+
+Set the section of the man page (a number such as C<1> for
+command line utilities or C<3> for C API documentation).  If
+not set, defaults to C<1>.
+
+=cut
+
+my $text;
+
+=item B<--text=output.txt>
+
+Write a text file to C<output.txt>.  If this option is not
+given, then no text output is produced.
+
+=cut
+
+my @verbatims;
+
+=item B<--verbatim=filename:@PATTERN@>
+
+In the input file, replace the literal text C<@PATTERN@> with the
+replacement file C<filename>.  You can give this option multiple
+times.
+
+The contents of C<filename> are inserted as verbatim text, and
+are I<not> interpreted as POD.
+Compare and contrast with I<--insert>.
+
+Although it is conventional to use C<@...@> for patterns, in fact
+you can use any string as the pattern.
+
+=cut
+
+=back
+
+=cut
+
+GetOptions ("help|?" => \$help,
+            "html=s" => \$html,
+            "insert=s" => \@inserts,
+            "man=s" => \$man,
+            "name=s" => \$name,
+            "section=s" => \$section,
+            "text=s" => \$text,
+            "verbatim=s" => \@verbatims
+    ) or pod2usage (2);
+pod2usage (1) if $help;
+
+die "missing argument: podwrapper input.pod\n" unless @ARGV == 1;
+my $input = $ARGV[0];
+
+# There should be at least one output.
+die "$0: no output format specified.  Use --man and/or --html and/or --text.\n"
+    unless defined $man || defined $html || defined $text;
+
+# Default for $name and $section.
+$name = basename ($input, ".pod") unless defined $name;
+$section = 1 unless defined $section;
+
+# Note that these @...@ are substituted by ./configure.
+my $abs_top_srcdir = "@abs_top_srcdir@";
+my $abs_top_builddir = "@abs_top_builddir@";
+my $package_name = "@PACKAGE_NAME@";
+my $package_version = "@PACKAGE_VERSION@";
+
+die "$0: ./configure substitutions were not performed"
+    unless $abs_top_srcdir && $abs_top_builddir &&
+    $package_name && $package_version;
+
+# Create a stable date (thanks Hilko Bengen).
+my $date;
+my $filename = "$abs_top_srcdir/ChangeLog";
+if (-r $filename) {
+    open FILE, $filename or die "$filename: $!";
+    $_ = <FILE>;
+    close FILE;
+    $date = $1 if /^(\d+-\d+-\d+)\s/;
+}
+$filename = "$abs_top_srcdir/.git";
+if (!$date && -d $filename) {
+    $_ = `git show --git-dir=$filename -s --format=%ci`;
+    $date = $1 if /^(\d+-\d+-\d+)\s/;
+}
+if (!$date) {
+    my ($day, $month, $year) = (localtime)[3,4,5];
+    $date = sprintf ("%04d-%02d-%02d", $year+1900, $month+1, $day);
+}
+
+# Create a release string.
+my $release = "$package_name-$package_version";
+
+#print "input=$input\n";
+#print "name=$name\n";
+#print "section=$section\n";
+#print "date=$date\n";
+
+# Read the input.
+my $content = read_whole_file ($input);
+
+# Perform @inserts.
+foreach (@inserts) {
+    my @a = split /:/, $_, 2;
+    die "$0: no colon in parameter of --insert\n" unless @a >= 2;
+    my $replacement = read_whole_file ($a[0]);
+    $content =~ s/$a[1]/$replacement/ge;
+}
+
+# Perform @verbatims.
+foreach (@verbatims) {
+    my @a = split /:/, $_, 2;
+    die "$0: no colon in parameter of --verbatim\n" unless @a >= 2;
+    my $replacement = read_verbatim_file ($a[0]);
+    $content =~ s/$a[1]/$replacement/ge;
+}
+
+# Output man page.
+if ($man) {
+    my $parser = Pod::Man->new (name => $name,
+                                release => $release, section => $section,
+                                center => "Virtualization Support",
+                                date => $date);
+    my $output;
+    $parser->output_string (\$output);
+    $parser->parse_string_document ($content)
+        or die "$0: could not parse input document";
+    open OUT, ">$man" or die "$man: $!";
+    print OUT $output or die "$man: $!";
+    close OUT or die "$man: $!";
+    print "$0: wrote $man\n";
+}
+
+# Output HTML.
+SUBCLASS: {
+    # Subclass Pod::Simple::XHTML.  See the documentation.
+    package Podwrapper::XHTML;
+
+    use vars qw(@ISA);
+    @ISA = qw(Pod::Simple::XHTML);
+
+    # Pod::Simple::XHTML returns uppercase identifiers, whereas the
+    # old pod2html returns lowercase ones.
+    sub idify
+    {
+        my $self = shift;
+        my $id = $self->SUPER::idify (@_);
+        lc ($id);
+    }
+
+    sub is_a_libguestfs_page
+    {
+        local $_ = shift;
+
+        return 1 if /^Sys::Guestfs/;
+        return 1 if /^virt-/;
+        return 1 if /^libguestf/;
+        return 1 if /^guestf/;
+        return 1 if /^guestmount/;
+        return 1 if /^hivex/;
+        return 1 if /^febootstrap/;
+        return 0;
+    }
+
+    sub resolve_pod_page_link
+    {
+        my $self = shift;
+        my $podname = $_[0]; # eg. "Sys::Guestfs", can be undef
+        my $anchor = $_[1];  # eg. "SYNOPSIS", can be undef
+        my $r = "";
+        if (defined $podname) {
+            return $self->SUPER::resolve_pod_page_link (@_)
+                unless is_a_libguestfs_page ($podname);
+            $r .= "$podname.3.html"
+        }
+        $r .= "#" . $self->idify ($anchor, 1) if defined $anchor;
+        $r;
+    }
+
+    sub resolve_man_page_link
+    {
+        my $self = shift;
+        my $name = $_[0];   # eg. "virt-make-fs(1)", can be undef
+        my $anchor = $_[1]; # eg. "SYNOPSIS", can be undef
+        my $r = "";
+        if (defined $name) {
+            return $self->SUPER::resolve_man_page_link (@_)
+                unless is_a_libguestfs_page ($name);
+            $name =~ s/\((.*)\)$/.$1/;
+            $r .= "$name.html";
+        }
+        $r .= "#" . $self->idify ($anchor, 1) if defined $anchor;
+        $r;
+    }
+}
+
+if ($html) {
+    mkdir "$abs_top_builddir/html";
+
+    my $parser = Podwrapper::XHTML->new;
+    my $output;
+    $parser->output_string (\$output);
+    $parser->html_charset ("UTF-8");
+    $parser->html_css ("pod.css");
+    $parser->index (1);
+    $parser->parse_string_document ($content);
+
+    # Hack for Perl 5.16.
+    $output =~ s{/>pod.css<}{/>\n<};
+
+    open OUT, ">$html" or die "$html: $!";
+    print OUT $output or die "$html: $!";
+    close OUT or die "$html: $!";
+    print "$0: wrote $html\n";
+}
+
+# Output text.
+if ($text) {
+    my $parser = Pod::Simple::Text->new;
+    my $output;
+    $parser->output_string (\$output);
+    $parser->parse_string_document ($content);
+    open OUT, ">$text" or die "$text: $!";
+    print OUT $output or die "$text: $!";
+    close OUT or die "$text: $!";
+    print "$0: wrote $text\n";
+}
+
+sub read_whole_file
+{
+    my $input = shift;
+    local $/ = undef;
+
+    open FILE, $input or die "$input: $!";
+    $_ = <FILE>;
+    close FILE;
+    $_;
+}
+
+sub read_verbatim_file
+{
+    my $input = shift;
+    my $r = "";
+
+    open FILE, $input or die "$input: $!";
+    while (<FILE>) {
+        $r .= " $_";
+    }
+    close FILE;
+    $r;
+}
+
+=head1 AUTHOR
+
+Richard W.M. Jones.
+
+=head1 SEE ALSO
+
+libguestfs.git/README,
+L<Pod::Simple>
