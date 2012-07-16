@@ -182,6 +182,15 @@ Enable debugging information.
 
 =cut
 
+=item B<--floppy>
+
+Create a virtual floppy disk.
+
+Currently this preselects the size (1440K), partition type (MBR) and
+filesystem type (VFAT).  In future it may also choose the geometry.
+
+=cut
+
 my $size;
 
 =item B<--size=E<lt>NE<gt>>
@@ -279,6 +288,11 @@ For MBR, virt-make-fs sets the partition type byte automatically.
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "debug" => \$debug,
+            "floppy" => sub {
+                $size = "1440K";
+                $partition = "mbr";
+                $type = "vfat";
+            },
             "s|size=s" => \$size,
             "F|format=s" => \$format,
             "t|type=s" => \$type,
