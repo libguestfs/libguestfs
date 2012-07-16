@@ -23,9 +23,10 @@
 #
 #   ./run ./inspector/virt-inspector [args ...]
 #
-# This works for any C, OCaml or Perl virt tools in the libguestfs
-# distribution.  Also you can make a symbolic link to this 'run'
-# script from anywhere (eg. $HOME/bin/run) if you wish.
+# This works for any C program, virt tools, and most non-C bindings
+# and programs in the libguestfs distribution.  Also you can make a
+# symbolic [not hard] link to this 'run' script from anywhere
+# (eg. $HOME/bin/run) if you wish.
 
 #----------------------------------------------------------------------
 
