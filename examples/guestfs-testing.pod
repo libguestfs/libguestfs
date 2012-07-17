@@ -40,7 +40,7 @@ After a few runs, the time should settle down to a few seconds (under
 
 How to check for hardware virt:
 
-http://virt-tools.org/learning/check-hardware-virt/
+L<http://virt-tools.org/learning/check-hardware-virt/>
 
 If the command above does not work at all, use
 L<libguestfs-test-tool(1)>.
@@ -135,8 +135,8 @@ Run:
 Now try to load this into your favorite spreadsheet or database.  Are
 the results reproduced faithfully in the spreadsheet/database?
 
-http://www.postgresql.org/docs/8.1/static/sql-copy.html
-http://dev.mysql.com/doc/refman/5.1/en/load-data.html
+L<http://www.postgresql.org/docs/8.1/static/sql-copy.html>
+L<http://dev.mysql.com/doc/refman/5.1/en/load-data.html>
 
 =head2 B<*> Edit a file in a B<shut off> guest.
 

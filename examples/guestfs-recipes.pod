@@ -2,10 +2,6 @@
 
 =begin comment
 
-pod2man and pod2html have differing bugs which makes it hard to write
-URLs here.  The only way which works for both sorts of output is to
-just write the URL directly.  Do NOT use L<...> for URLs.
-
 We break with tradition here and don't use ALL CAPS for the section
 headings, as this makes them much easier to read.
 
@@ -25,7 +21,7 @@ libguestfs, L<guestfish(1)> and the virt tools.
 The link below contains a small program which can be used to audit a
 Linux virtual machine to see what setuid and setgid files it contains.
 
-https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/#content
+L<https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/#content>
 
 =head1 Change the background image in a Windows XP VM
 
@@ -34,8 +30,8 @@ background image for a user of a Windows XP VM.  Unfortunately the
 technique appears to be substantially different for each version of
 Windows.
 
-https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html
-https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html
+L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html>
+L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html>
 
 =head1 Cloning a virtual machine (Linux)
 
@@ -43,12 +39,12 @@ The guestfish technique described in the link below works well for
 most Linux VMs.  Depending on the Linux distro you may need to change
 the paths slightly.
 
-https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-fedora-vm/#content
+L<https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-fedora-vm/#content>
 
 Avoid L<virt-clone(1)>.  Currently what to do about virt-clone is
 under discussion.
 
-https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html
+L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>
 
 =head1 Cloning a virtual machine (Windows)
 
@@ -57,8 +53,8 @@ straightforward.  Currently there is code in the Aeolus Oz project
 which does this (using libguestfs).  As part of our review of the
 virt-clone tool, we may add sysprepping ability.
 
-https://github.com/clalancette/oz
-https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html
+L<https://github.com/clalancette/oz>
+L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>
 
 =head1 Convert a CD-ROM / DVD / ISO to a tarball
 
@@ -75,7 +71,7 @@ To export just a subdirectory, eg. C</files>, do:
 You can use the L<guestfish(1)> I<-N> option to create empty disk
 images.  The useful guide below explains the options available.
 
-https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content
+L<https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content>
 
 =head1 Dump raw filesystem content from inside a disk image or VM
 
@@ -152,7 +148,7 @@ To get the output as a compressed tarball, do:
 
 Although it sounds tempting, this is usually not a reliable way to get
 a backup from a running guest.  See the entry in the FAQ:
-http://libguestfs.org/FAQ.html#backup
+L<http://libguestfs.org/FAQ.html#backup>
 
 =head1 Find out which user is using the most space
 
@@ -181,7 +177,7 @@ using the most space in their home directory:
 The link below explains the many different possible techniques for
 getting the last assigned DHCP address of a virtual machine.
 
-https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-a-virtual-machine-disk-image/#content
+L<https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-a-virtual-machine-disk-image/#content>
 
 In the libguestfs source examples directory you will find the latest
 version of the C<virt-dhcp-address.c> program.
@@ -217,7 +213,7 @@ language:
 The link below contains a program to print the default boot kernel for
 a Linux VM.
 
-https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-boot-kernel-for-a-vm/#content
+L<https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-boot-kernel-for-a-vm/#content>
 
 It uses Augeas, and the technique is generally applicable for many
 different tasks, such as:
@@ -246,7 +242,7 @@ listing who was logged in recently
 
 =back
 
-http://augeas.net/
+L<http://augeas.net/>
 
 =head1 Install RPMs in a guest
 
@@ -256,7 +252,7 @@ script that installs them next time the guest is booted.  You could
 use this technique to install vital security updates in an offline
 guest.
 
-https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content
+L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content>
 
 =head1 List applications installed in a VM
 
@@ -318,21 +314,21 @@ The link below contains a script that can be used to list out the
 services from a Windows VM, and whether those services run at boot
 time or are loaded on demand.
 
-https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/#content
+L<https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/#content>
 
 =head1 Make a disk image sparse
 
 The link below contains some guides for making a disk image sparse (or
 reintroducing sparseness).
 
-https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/#content
+L<https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/#content>
 
 =head1 Monitor disk usage over time
 
 You can use L<virt-df(1)> to monitor disk usage of your guests over
 time.  The link below contains a guide.
 
-http://virt-tools.org/learning/advanced-virt-df/
+L<http://virt-tools.org/learning/advanced-virt-df/>
 
 =head1 Reading the Windows Event Log from Windows Vista (or later)
 
@@ -340,7 +336,7 @@ L<guestfish(1)> plus the tools described in the link below can be used
 to read out the Windows Event Log from any virtual machine running
 Windows Vista or a later version.
 
-https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/#content
+L<https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/#content>
 
 =head1 Remove root password (Linux)
 
@@ -356,7 +352,7 @@ password from a Windows VM, or to be more precise, it gives you a
 command prompt the next time you log in which you can use to bypass
 any security:
 
-https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-administrator-password-with-guestfish/
+L<https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-administrator-password-with-guestfish/>
 
 =head1 Unpack a live CD
 
@@ -364,14 +360,14 @@ Linux live CDs often contain multiple layers of disk images wrapped
 like a Russian doll.  You can use L<guestfish(1)> to look inside these
 multiple layers, as outlined in the guide below.
 
-https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-cd/#content
+L<https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-cd/#content>
 
 =head1 Uploading and downloading files
 
 The link below contains general tips on uploading (copying in)
 and downloading (copying out) files from VMs.
 
-https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content
+L<https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content>
 
 =head1 Use libguestfs tools on VMware ESX guests
 
@@ -379,7 +375,7 @@ The link below explains how to use libguestfs, L<guestfish(1)> and the
 virt tools on any VMware ESX guests, by first sharing the VMware VMFS
 over sshfs.
 
-https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-guests/#content
+L<https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-guests/#content>
 
 =head1 SEE ALSO
 
