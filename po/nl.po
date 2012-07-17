@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-16 12:35+0100\n"
+"POT-Creation-Date: 2012-07-17 15:36+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -4210,47 +4210,47 @@ msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 
-#: tools/virt-make-fs.pl:295
+#: tools/virt-make-fs.pl:309
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs input output\n"
 
-#: tools/virt-make-fs.pl:325
+#: tools/virt-make-fs.pl:339
 msgid "unexpected output from 'du' command"
 msgstr "onverwachte output  van 'du' commando"
 
-#: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
-#: tools/virt-make-fs.pl:510
+#: tools/virt-make-fs.pl:351 tools/virt-make-fs.pl:365
+#: tools/virt-make-fs.pl:528
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: onbekend invoer formaat: {fmt}\n"
 
-#: tools/virt-make-fs.pl:402
+#: tools/virt-make-fs.pl:416
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: kan size parameter niet ontleden: {sz}\n"
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:431
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: aanmaken schijf image mislukte, zie eerdere fout "
 "boodschappen\n"
 
-#: tools/virt-make-fs.pl:428
+#: tools/virt-make-fs.pl:442
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: NTFS ondersteuning was uitgezet toen libguestfs gecompileerd "
 "werd\n"
 
-#: tools/virt-make-fs.pl:494
+#: tools/virt-make-fs.pl:512
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: misluket, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:516
+#: tools/virt-make-fs.pl:534
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "decomprimeer commando mislukte, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:550
+#: tools/virt-make-fs.pl:568
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"

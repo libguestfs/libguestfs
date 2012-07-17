@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-07-16 12:35+0200\n"
+"POT-Creation-Date: 2012-07-17 15:36+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:3 ../cat/virt-ls.pod:3 ../df/virt-df.pod:3
 #: ../edit/virt-edit.pod:3 ../erlang/examples/guestfs-erlang.pod:3
 #: ../examples/guestfs-examples.pod:3 ../examples/guestfs-faq.pod:3
-#: ../examples/guestfs-performance.pod:3 ../examples/guestfs-recipes.pod:14
+#: ../examples/guestfs-performance.pod:3 ../examples/guestfs-recipes.pod:10
 #: ../examples/guestfs-testing.pod:3 ../fish/guestfish.pod:3
 #: ../fish/virt-copy-in.pod:3 ../fish/virt-copy-out.pod:3
 #: ../fish/virt-tar-in.pod:3 ../fish/virt-tar-out.pod:3
@@ -106,13 +106,13 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:13 ../cat/virt-ls.pod:19 ../df/virt-df.pod:21
 #: ../edit/virt-edit.pod:27 ../erlang/examples/guestfs-erlang.pod:16
 #: ../examples/guestfs-examples.pod:19 ../examples/guestfs-performance.pod:7
-#: ../examples/guestfs-recipes.pod:18 ../examples/guestfs-testing.pod:7
+#: ../examples/guestfs-recipes.pod:14 ../examples/guestfs-testing.pod:7
 #: ../fish/guestfish.pod:30 ../fish/virt-copy-in.pod:19
 #: ../fish/virt-copy-out.pod:13 ../fish/virt-tar-in.pod:21
 #: ../fish/virt-tar-out.pod:15 ../format/virt-format.pod:11
 #: ../fuse/guestmount.pod:20 ../inspector/virt-inspector.pod:19
 #: ../java/examples/guestfs-java.pod:15 ../ocaml/examples/guestfs-ocaml.pod:25
-#: ../perl/examples/guestfs-perl.pod:18
+#: ../perl/examples/guestfs-perl.pod:19
 #: ../python/examples/guestfs-python.pod:14 ../rescue/virt-rescue.pod:31
 #: ../resize/virt-resize.pod:13 ../ruby/examples/guestfs-ruby.pod:15
 #: ../sparsify/virt-sparsify.pod:11 ../src/guestfs.pod:24
@@ -1073,7 +1073,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:318
 #: ../resize/virt-resize.pod:690 ../sysprep/virt-sysprep.pod:421
 #: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260
-#: ../tools/virt-make-fs.pl:583 ../tools/virt-tar.pl:287
+#: ../tools/virt-make-fs.pl:601 ../tools/virt-tar.pl:287
 #: ../tools/virt-win-reg.pl:744
 msgid "SHELL QUOTING"
 msgstr ""
@@ -1085,7 +1085,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:320
 #: ../resize/virt-resize.pod:692 ../sysprep/virt-sysprep.pod:423
 #: ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262
-#: ../tools/virt-make-fs.pl:585 ../tools/virt-tar.pl:289
+#: ../tools/virt-make-fs.pl:603 ../tools/virt-tar.pl:289
 #: ../tools/virt-win-reg.pl:752
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
@@ -1127,12 +1127,12 @@ msgstr "このプログラムは以下を返します:"
 #: ../examples/guestfs-performance.pod:118
 #: ../examples/guestfs-performance.pod:253
 #: ../examples/guestfs-performance.pod:258
-#: ../examples/guestfs-performance.pod:263 ../examples/guestfs-recipes.pod:98
-#: ../examples/guestfs-recipes.pod:102 ../examples/guestfs-recipes.pod:106
-#: ../examples/guestfs-recipes.pod:132 ../examples/guestfs-recipes.pod:137
-#: ../examples/guestfs-recipes.pod:227 ../examples/guestfs-recipes.pod:231
-#: ../examples/guestfs-recipes.pod:235 ../examples/guestfs-recipes.pod:239
-#: ../examples/guestfs-recipes.pod:243 ../examples/guestfs-testing.pod:110
+#: ../examples/guestfs-performance.pod:263 ../examples/guestfs-recipes.pod:94
+#: ../examples/guestfs-recipes.pod:98 ../examples/guestfs-recipes.pod:102
+#: ../examples/guestfs-recipes.pod:128 ../examples/guestfs-recipes.pod:133
+#: ../examples/guestfs-recipes.pod:223 ../examples/guestfs-recipes.pod:227
+#: ../examples/guestfs-recipes.pod:231 ../examples/guestfs-recipes.pod:235
+#: ../examples/guestfs-recipes.pod:239 ../examples/guestfs-testing.pod:110
 #: ../examples/guestfs-testing.pod:114 ../examples/guestfs-testing.pod:118
 #: ../fish/guestfish-actions.pod:13 ../fish/guestfish-actions.pod:20
 #: ../fish/guestfish-actions.pod:432 ../fish/guestfish-actions.pod:440
@@ -1259,19 +1259,19 @@ msgstr ""
 #: ../cat/virt-ls.pod:495 ../df/virt-df.pod:253 ../edit/virt-edit.pod:368
 #: ../erlang/examples/guestfs-erlang.pod:97
 #: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:658
-#: ../examples/guestfs-performance.pod:364 ../examples/guestfs-recipes.pod:384
+#: ../examples/guestfs-performance.pod:364 ../examples/guestfs-recipes.pod:380
 #: ../examples/guestfs-testing.pod:291 ../fish/guestfish.pod:1280
 #: ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39
 #: ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41
 #: ../format/virt-format.pod:177 ../fuse/guestmount.pod:398
 #: ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:45
-#: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:39
+#: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40
 #: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:340
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
 #: ../sparsify/virt-sparsify.pod:286 ../src/guestfs.pod:3376
 #: ../sysprep/virt-sysprep.pod:432 ../test-tool/libguestfs-test-tool.pod:106
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
-#: ../tools/virt-make-fs.pl:590 ../tools/virt-tar.pl:294
+#: ../tools/virt-make-fs.pl:608 ../tools/virt-tar.pl:294
 #: ../tools/virt-win-reg.pl:757
 msgid "SEE ALSO"
 msgstr "関連項目"
@@ -1292,7 +1292,7 @@ msgstr ""
 #: ../format/virt-format.pod:187 ../rescue/virt-rescue.pod:349
 #: ../resize/virt-resize.pod:725 ../sparsify/virt-sparsify.pod:299
 #: ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279
-#: ../tools/virt-make-fs.pl:616 ../tools/virt-tar.pl:309
+#: ../tools/virt-make-fs.pl:634 ../tools/virt-tar.pl:309
 #: ../tools/virt-win-reg.pl:783
 msgid "AUTHOR"
 msgstr "著者"
@@ -1305,7 +1305,7 @@ msgstr "著者"
 #: ../rescue/virt-rescue.pod:351 ../resize/virt-resize.pod:727
 #: ../sparsify/virt-sparsify.pod:301 ../sysprep/virt-sysprep.pod:449
 #: ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281
-#: ../tools/virt-make-fs.pl:618 ../tools/virt-tar.pl:311
+#: ../tools/virt-make-fs.pl:636 ../tools/virt-tar.pl:311
 #: ../tools/virt-win-reg.pl:785
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
@@ -1317,19 +1317,19 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-ls.pod:511 ../df/virt-df.pod:265 ../edit/virt-edit.pod:386
 #: ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:49 ../examples/guestfs-faq.pod:668
-#: ../examples/guestfs-performance.pod:379 ../examples/guestfs-recipes.pod:401
+#: ../examples/guestfs-performance.pod:379 ../examples/guestfs-recipes.pod:397
 #: ../examples/guestfs-testing.pod:302 ../fish/guestfish.pod:1312
 #: ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53
 #: ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55
 #: ../format/virt-format.pod:191 ../fuse/guestmount.pod:413
 #: ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:62
-#: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:56
+#: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:353
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:303 ../src/guestfs.pod:3464
 #: ../sysprep/virt-sysprep.pod:453 ../test-tool/libguestfs-test-tool.pod:116
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
-#: ../tools/virt-make-fs.pl:620 ../tools/virt-tar.pl:313
+#: ../tools/virt-make-fs.pl:638 ../tools/virt-tar.pl:313
 #: ../tools/virt-win-reg.pl:787
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
@@ -1352,7 +1352,7 @@ msgstr "Copyright (C) 2011 Red Hat Inc."
 #: ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:459
 #: ../test-tool/libguestfs-test-tool.pod:121
 #: ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287
-#: ../tools/virt-make-fs.pl:624 ../tools/virt-tar.pl:317
+#: ../tools/virt-make-fs.pl:642 ../tools/virt-tar.pl:317
 #: ../tools/virt-win-reg.pl:791
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
@@ -1378,7 +1378,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:312 ../sysprep/virt-sysprep.pod:464
 #: ../test-tool/libguestfs-test-tool.pod:126
 #: ../tools/virt-list-filesystems.pl:223 ../tools/virt-list-partitions.pl:292
-#: ../tools/virt-make-fs.pl:629 ../tools/virt-tar.pl:322
+#: ../tools/virt-make-fs.pl:647 ../tools/virt-tar.pl:322
 #: ../tools/virt-win-reg.pl:796
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
@@ -1404,7 +1404,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:317 ../sysprep/virt-sysprep.pod:469
 #: ../test-tool/libguestfs-test-tool.pod:131
 #: ../tools/virt-list-filesystems.pl:228 ../tools/virt-list-partitions.pl:297
-#: ../tools/virt-make-fs.pl:634 ../tools/virt-tar.pl:327
+#: ../tools/virt-make-fs.pl:652 ../tools/virt-tar.pl:327
 #: ../tools/virt-win-reg.pl:801
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
@@ -1715,13 +1715,13 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:153
 #: ../erlang/examples/guestfs-erlang.pod:110
 #: ../examples/guestfs-examples.pod:45 ../examples/guestfs-faq.pod:664
-#: ../examples/guestfs-performance.pod:375 ../examples/guestfs-recipes.pod:397
+#: ../examples/guestfs-performance.pod:375 ../examples/guestfs-recipes.pod:393
 #: ../examples/guestfs-testing.pod:298 ../fish/guestfish.pod:1308
 #: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
 #: ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51
 #: ../fuse/guestmount.pod:409 ../inspector/virt-inspector.pod:510
 #: ../java/examples/guestfs-java.pod:58 ../ocaml/examples/guestfs-ocaml.pod:91
-#: ../perl/examples/guestfs-perl.pod:52
+#: ../perl/examples/guestfs-perl.pod:53
 #: ../python/examples/guestfs-python.pod:54
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3460
 #: ../sysprep/virt-sysprep.pod:447 ../test-tool/libguestfs-test-tool.pod:112
@@ -1732,12 +1732,12 @@ msgstr "著者"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:155
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:47 ../examples/guestfs-faq.pod:666
-#: ../examples/guestfs-performance.pod:377 ../examples/guestfs-recipes.pod:399
+#: ../examples/guestfs-performance.pod:377 ../examples/guestfs-recipes.pod:395
 #: ../examples/guestfs-testing.pod:300 ../fish/guestfish.pod:1310
 #: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
 #: ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53
 #: ../fuse/guestmount.pod:411 ../java/examples/guestfs-java.pod:60
-#: ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:54
+#: ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55
 #: ../python/examples/guestfs-python.pod:56
 #: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:3462
 #: ../test-tool/libguestfs-test-tool.pod:114
@@ -2193,7 +2193,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:258 ../inspector/virt-inspector.pod:526
-#: ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:622
+#: ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:640
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
@@ -4705,10 +4705,15 @@ msgstr ""
 
 #. type: textblock
 #: ../edit/virt-edit.pod:340
+#, fuzzy
+#| msgid ""
+#| "For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>"
 msgid ""
-"For further information, see https://bugzilla.redhat.com/show_bug.cgi?"
-"id=788642"
+"For further information, see L<https://bugzilla.redhat.com/show_bug.cgi?"
+"id=788642>"
 msgstr ""
+"詳細は L<https://bugzilla.redhat.com/show_bug.cgi?id=599503> を参照してくださ"
+"い"
 
 #. type: =item
 #: ../edit/virt-edit.pod:347
@@ -4963,7 +4968,7 @@ msgstr ""
 #. type: =head1
 #: ../erlang/examples/guestfs-erlang.pod:89
 #: ../examples/guestfs-examples.pod:25 ../java/examples/guestfs-java.pod:37
-#: ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:31
+#: ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:32
 #: ../python/examples/guestfs-python.pod:34
 #: ../ruby/examples/guestfs-ruby.pod:28
 msgid "EXAMPLE 1: CREATE A DISK IMAGE"
@@ -4972,7 +4977,7 @@ msgstr "例 1: ディスクイメージの作成"
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:91
 #: ../examples/guestfs-examples.pod:27 ../java/examples/guestfs-java.pod:39
-#: ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:33
+#: ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:34
 #: ../python/examples/guestfs-python.pod:36
 #: ../ruby/examples/guestfs-ruby.pod:30
 msgid "@EXAMPLE1@"
@@ -4981,7 +4986,7 @@ msgstr "@EXAMPLE1@"
 #. type: =head1
 #: ../erlang/examples/guestfs-erlang.pod:93
 #: ../examples/guestfs-examples.pod:29 ../java/examples/guestfs-java.pod:41
-#: ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:35
+#: ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:36
 #: ../python/examples/guestfs-python.pod:38
 #: ../ruby/examples/guestfs-ruby.pod:32
 msgid "EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE"
@@ -4990,7 +4995,7 @@ msgstr "例 2: 仮想マシンのディスクイメージの検査"
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:31 ../java/examples/guestfs-java.pod:43
-#: ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:37
+#: ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:40
 #: ../ruby/examples/guestfs-ruby.pod:34
 msgid "@EXAMPLE2@"
@@ -5010,15 +5015,15 @@ msgstr ""
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:116
 #: ../examples/guestfs-testing.pod:304 ../java/examples/guestfs-java.pod:64
-#: ../perl/examples/guestfs-perl.pod:58
+#: ../perl/examples/guestfs-perl.pod:59
 msgid "Copyright (C) 2011 Red Hat Inc. L<http://libguestfs.org/>"
 msgstr "Copyright (C) 2011 Red Hat Inc. L<http://libguestfs.org/>"
 
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:118
-#: ../examples/guestfs-examples.pod:53 ../examples/guestfs-recipes.pod:405
+#: ../examples/guestfs-examples.pod:53 ../examples/guestfs-recipes.pod:401
 #: ../java/examples/guestfs-java.pod:66 ../ocaml/examples/guestfs-ocaml.pod:99
-#: ../perl/examples/guestfs-perl.pod:60
+#: ../perl/examples/guestfs-perl.pod:61
 #: ../python/examples/guestfs-python.pod:62
 #: ../ruby/examples/guestfs-ruby.pod:56
 msgid ""
@@ -5031,10 +5036,10 @@ msgstr ""
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:121
 #: ../examples/guestfs-examples.pod:56 ../examples/guestfs-faq.pod:672
-#: ../examples/guestfs-performance.pod:383 ../examples/guestfs-recipes.pod:408
+#: ../examples/guestfs-performance.pod:383 ../examples/guestfs-recipes.pod:404
 #: ../examples/guestfs-testing.pod:306 ../java/examples/guestfs-java.pod:69
 #: ../ocaml/examples/guestfs-ocaml.pod:102
-#: ../perl/examples/guestfs-perl.pod:63
+#: ../perl/examples/guestfs-perl.pod:64
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:59 ../src/guestfs.pod:3469
 msgid ""
@@ -5051,10 +5056,10 @@ msgstr ""
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:126
 #: ../examples/guestfs-examples.pod:61 ../examples/guestfs-faq.pod:677
-#: ../examples/guestfs-performance.pod:388 ../examples/guestfs-recipes.pod:413
+#: ../examples/guestfs-performance.pod:388 ../examples/guestfs-recipes.pod:409
 #: ../examples/guestfs-testing.pod:311 ../java/examples/guestfs-java.pod:74
 #: ../ocaml/examples/guestfs-ocaml.pod:107
-#: ../perl/examples/guestfs-perl.pod:68
+#: ../perl/examples/guestfs-perl.pod:69
 #: ../python/examples/guestfs-python.pod:70
 #: ../ruby/examples/guestfs-ruby.pod:64 ../src/guestfs.pod:3474
 msgid ""
@@ -5071,10 +5076,10 @@ msgstr ""
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:131
 #: ../examples/guestfs-examples.pod:66 ../examples/guestfs-faq.pod:682
-#: ../examples/guestfs-performance.pod:393 ../examples/guestfs-recipes.pod:418
+#: ../examples/guestfs-performance.pod:393 ../examples/guestfs-recipes.pod:414
 #: ../examples/guestfs-testing.pod:316 ../java/examples/guestfs-java.pod:79
 #: ../ocaml/examples/guestfs-ocaml.pod:112
-#: ../perl/examples/guestfs-perl.pod:73
+#: ../perl/examples/guestfs-perl.pod:74
 #: ../python/examples/guestfs-python.pod:75
 #: ../ruby/examples/guestfs-ruby.pod:69 ../src/guestfs.pod:3479
 msgid ""
@@ -5401,15 +5406,14 @@ msgstr ""
 msgid "Please use the following link to enter a bug in Bugzilla:"
 msgstr ""
 
-#. type: verbatim
-#: ../examples/guestfs-faq.pod:122
-#, no-wrap
+#. type: textblock
+#: ../examples/guestfs-faq.pod:122 ../src/guestfs.pod:3435
 msgid ""
-" https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"\n"
+"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools>"
 msgstr ""
-" https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"\n"
+"L<https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:124
@@ -7042,7 +7046,7 @@ msgid "Use C</proc/cpuinfo> and this page:"
 msgstr "C</proc/cpuinfo> およびこのページを使用します:"
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:276 ../examples/guestfs-testing.pod:43
+#: ../examples/guestfs-performance.pod:276
 msgid "http://virt-tools.org/learning/check-hardware-virt/"
 msgstr "http://virt-tools.org/learning/check-hardware-virt/"
 
@@ -7285,23 +7289,12 @@ msgid ""
 msgstr ""
 
 #. type: =end
-#: ../examples/guestfs-recipes.pod:3 ../examples/guestfs-recipes.pod:12
+#: ../examples/guestfs-recipes.pod:3 ../examples/guestfs-recipes.pod:8
 msgid "comment"
 msgstr "コメント"
 
 #. type: textblock
 #: ../examples/guestfs-recipes.pod:5
-msgid ""
-"pod2man and pod2html have differing bugs which makes it hard to write URLs "
-"here.  The only way which works for both sorts of output is to just write "
-"the URL directly.  Do NOT use L<...> for URLs."
-msgstr ""
-"pod2man と pod2html は、ここに URL を書きにくくする別々のバグがあります。  ど"
-"ちらの方法に対しても並び替えをうまく機能させる方法は直接 URL を書くことで"
-"す。  URL に L<...> を使用してはいけません。"
-
-#. type: textblock
-#: ../examples/guestfs-recipes.pod:9
 msgid ""
 "We break with tradition here and don't use ALL CAPS for the section "
 "headings, as this makes them much easier to read."
@@ -7310,12 +7303,12 @@ msgstr ""
 "てはいません。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:16
+#: ../examples/guestfs-recipes.pod:12
 msgid "guestfs-recipes - libguestfs, guestfish and virt tools recipes"
 msgstr "guestfs-recipes - libguestfs, guestfish および仮想化ツールのレシピ"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:20
+#: ../examples/guestfs-recipes.pod:16
 msgid ""
 "This page contains recipes for and links to things you can do using "
 "libguestfs, L<guestfish(1)> and the virt tools."
@@ -7324,12 +7317,12 @@ msgstr ""
 "ことのレシピとリンクがあります。"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:23
+#: ../examples/guestfs-recipes.pod:19
 msgid "Audit a virtual machine for setuid files"
 msgstr "仮想マシンの setuid ファイルを監査します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:25
+#: ../examples/guestfs-recipes.pod:21
 msgid ""
 "The link below contains a small program which can be used to audit a Linux "
 "virtual machine to see what setuid and setgid files it contains."
@@ -7338,21 +7331,25 @@ msgstr ""
 "に、Linux 仮想マシンを監査するために使用できる、小さなプログラムがあります。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:28
+#: ../examples/guestfs-recipes.pod:24
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-"
+#| "setuid-files/#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-"
-"files/#content"
+"L<https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-"
+"files/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-"
 "files/#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:30
+#: ../examples/guestfs-recipes.pod:26
 msgid "Change the background image in a Windows XP VM"
 msgstr "Windows XP 仮想マシンの背景画像を変更します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:32
+#: ../examples/guestfs-recipes.pod:28
 msgid ""
 "The links below explain how to use L<guestfish(1)> to change the background "
 "image for a user of a Windows XP VM.  Unfortunately the technique appears to "
@@ -7363,21 +7360,25 @@ msgstr ""
 "ニックは Windows のバージョンによりわずかに異なります。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:37
+#: ../examples/guestfs-recipes.pod:33
+#, fuzzy
+#| msgid ""
+#| "https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html "
+#| "https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html"
 msgid ""
-"https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html https://"
-"lists.fedoraproject.org/pipermail/virt/2011-May/002658.html"
+"L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html> "
+"L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html>"
 msgstr ""
 "https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html https://"
 "lists.fedoraproject.org/pipermail/virt/2011-May/002658.html"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:40
+#: ../examples/guestfs-recipes.pod:36
 msgid "Cloning a virtual machine (Linux)"
 msgstr "仮想マシンのクローン方法 (Linux)"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:42
+#: ../examples/guestfs-recipes.pod:38
 msgid ""
 "The guestfish technique described in the link below works well for most "
 "Linux VMs.  Depending on the Linux distro you may need to change the paths "
@@ -7388,16 +7389,20 @@ msgstr ""
 "必要があるかもしれません。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:46
+#: ../examples/guestfs-recipes.pod:42
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-"
+#| "fedora-vm/#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-fedora-"
-"vm/#content"
+"L<https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-"
+"fedora-vm/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-fedora-"
 "vm/#content"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:48
+#: ../examples/guestfs-recipes.pod:44
 msgid ""
 "Avoid L<virt-clone(1)>.  Currently what to do about virt-clone is under "
 "discussion."
@@ -7405,17 +7410,21 @@ msgstr ""
 "L<virt-clone(1)> を避けます。現在 virt-clone について行うことは議論中です。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:51
-msgid "https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html"
+#: ../examples/guestfs-recipes.pod:47
+#, fuzzy
+#| msgid ""
+#| "https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html"
+msgid ""
+"L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>"
 msgstr "https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:53
+#: ../examples/guestfs-recipes.pod:49
 msgid "Cloning a virtual machine (Windows)"
 msgstr "仮想マシンのクローン方法 (Windows)"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:55
+#: ../examples/guestfs-recipes.pod:51
 msgid ""
 "It is possible to do a \"sysprep\" using libguestfs alone, although not "
 "straightforward.  Currently there is code in the Aeolus Oz project which "
@@ -7428,43 +7437,47 @@ msgstr ""
 "加するかもしれません。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:60
+#: ../examples/guestfs-recipes.pod:56
+#, fuzzy
+#| msgid ""
+#| "https://github.com/clalancette/oz https://www.redhat.com/archives/virt-"
+#| "tools-list/2011-May/msg00019.html"
 msgid ""
-"https://github.com/clalancette/oz https://www.redhat.com/archives/virt-tools-"
-"list/2011-May/msg00019.html"
+"L<https://github.com/clalancette/oz> L<https://www.redhat.com/archives/virt-"
+"tools-list/2011-May/msg00019.html>"
 msgstr ""
 "https://github.com/clalancette/oz https://www.redhat.com/archives/virt-tools-"
 "list/2011-May/msg00019.html"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:63
+#: ../examples/guestfs-recipes.pod:59
 msgid "Convert a CD-ROM / DVD / ISO to a tarball"
 msgstr "CD-ROM / DVD / ISO を tar ファイルに変換します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:65
+#: ../examples/guestfs-recipes.pod:61
 msgid "This converts input C<cd.iso> to output C<cd.tar.gz>:"
 msgstr "入力 C<cd.iso> を出力 C<cd.tar.gz> に変換します:"
+
+#. type: verbatim
+#: ../examples/guestfs-recipes.pod:63
+#, no-wrap
+msgid ""
+" guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz\n"
+"\n"
+msgstr ""
+" guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-recipes.pod:65
+msgid "To export just a subdirectory, eg. C</files>, do:"
+msgstr "サブディレクトリ（例: C</files>）をエクスポートするには:"
 
 #. type: verbatim
 #: ../examples/guestfs-recipes.pod:67
 #, no-wrap
 msgid ""
-" guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz\n"
-"\n"
-msgstr ""
-" guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz\n"
-"\n"
-
-#. type: textblock
-#: ../examples/guestfs-recipes.pod:69
-msgid "To export just a subdirectory, eg. C</files>, do:"
-msgstr "サブディレクトリ（例: C</files>）をエクスポートするには:"
-
-#. type: verbatim
-#: ../examples/guestfs-recipes.pod:71
-#, no-wrap
-msgid ""
 " guestfish --ro -a cd.iso -m /dev/sda tgz-out /files cd.tar.gz\n"
 "\n"
 msgstr ""
@@ -7472,12 +7485,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:73
+#: ../examples/guestfs-recipes.pod:69
 msgid "Create empty disk images"
 msgstr "空のディスクイメージを作成します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:75
+#: ../examples/guestfs-recipes.pod:71
 msgid ""
 "You can use the L<guestfish(1)> I<-N> option to create empty disk images.  "
 "The useful guide below explains the options available."
@@ -7486,23 +7499,27 @@ msgstr ""
 "きます。以下の有用なガイドは利用可能なオプションについて説明しています。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:78
+#: ../examples/guestfs-recipes.pod:74
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/"
+#| "#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/"
-"#content"
+"L<https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/"
+"#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/"
 "#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:80
+#: ../examples/guestfs-recipes.pod:76
 msgid "Dump raw filesystem content from inside a disk image or VM"
 msgstr ""
 "ディスクイメージまたは仮想マシンの中にあるファイルシステムの内容をそのままダ"
 "ンプします"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:82
+#: ../examples/guestfs-recipes.pod:78
 msgid ""
 "You can use the L<guestfish(1)> C<download> command to extract the raw "
 "filesystem content from any filesystem in a disk image or a VM (even one "
@@ -7513,7 +7530,7 @@ msgstr ""
 "容を抽出するために L<guestfish(1)> C<download> コマンドを使用できます。"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:86
+#: ../examples/guestfs-recipes.pod:82
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img run : download /dev/sda1 sda1.img\n"
@@ -7523,7 +7540,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:88
+#: ../examples/guestfs-recipes.pod:84
 #, no-wrap
 msgid ""
 " guestfish --ro -d Guest run : download /dev/vg_guest/lv_root lv.img\n"
@@ -7533,44 +7550,44 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:90
+#: ../examples/guestfs-recipes.pod:86
 msgid "To list the filesystems in a disk image, use L<virt-filesystems(1)>."
 msgstr ""
 "ディスクイメージにあるファイルシステムを一覧表示するには L<virt-filesystems"
 "(1)> を使用します。"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:92
+#: ../examples/guestfs-recipes.pod:88
 msgid "Edit grub configuration in a VM"
 msgstr "仮想マシンの GRUB 設定を編集します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:94
+#: ../examples/guestfs-recipes.pod:90
 msgid "You can use this to:"
 msgstr "次の目的のために実行できます:"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:100
+#: ../examples/guestfs-recipes.pod:96
 msgid "Fix a virtual machine that does not boot."
 msgstr "起動しない仮想マシンを修正します。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:104
+#: ../examples/guestfs-recipes.pod:100
 msgid "Change which kernel is used to boot the VM."
 msgstr "仮想マシンの起動時に使用するカーネルを変更します。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:108
+#: ../examples/guestfs-recipes.pod:104
 msgid "Change kernel command line options."
 msgstr "カーネルのコマンドラインオプションを変更します。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:112
+#: ../examples/guestfs-recipes.pod:108
 msgid "Use L<virt-edit(1)> to edit the grub configuration:"
 msgstr "GRUB 設定を編集するには L<virt-edit(1)> を使用します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:114
+#: ../examples/guestfs-recipes.pod:110
 #, no-wrap
 msgid ""
 " virt-edit -d BrokenGuest /boot/grub/grub.conf\n"
@@ -7580,7 +7597,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:116
+#: ../examples/guestfs-recipes.pod:112
 msgid ""
 "or for general tinkering inside an unbootable VM use L<virt-rescue(1)> like "
 "this:"
@@ -7589,7 +7606,7 @@ msgstr ""
 "L<virt-rescue(1)> を使用します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:119
+#: ../examples/guestfs-recipes.pod:115
 #, no-wrap
 msgid ""
 " virt-rescue -d BrokenGuest\n"
@@ -7599,12 +7616,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:121
+#: ../examples/guestfs-recipes.pod:117
 msgid "Export any directory from a VM"
 msgstr "仮想マシンから任意のディレクトリをエクスポートします"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:123
+#: ../examples/guestfs-recipes.pod:119
 msgid ""
 "To export C</home> from a VM into a local directory use L<virt-copy-out(1)>:"
 msgstr ""
@@ -7612,7 +7629,7 @@ msgstr ""
 "copy-out(1)> を使用します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:126 ../examples/guestfs-testing.pod:93
+#: ../examples/guestfs-recipes.pod:122 ../examples/guestfs-testing.pod:93
 #, no-wrap
 msgid ""
 " virt-copy-out -d Guest /home .\n"
@@ -7622,7 +7639,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:128 ../fish/guestfish-actions.pod:9
+#: ../examples/guestfs-recipes.pod:124 ../fish/guestfish-actions.pod:9
 #: ../fish/guestfish-actions.pod:1642 ../fish/guestfish-actions.pod:2061
 #: ../fish/guestfish-actions.pod:2488 ../src/guestfs-actions.pod:18
 #: ../src/guestfs-actions.pod:2697 ../src/guestfs-actions.pod:3324
@@ -7632,7 +7649,7 @@ msgid "Notes:"
 msgstr "注:"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:134
+#: ../examples/guestfs-recipes.pod:130
 msgid ""
 "The final dot of the command is not a printing error.  It means we want to "
 "copy out to the current directory."
@@ -7641,13 +7658,13 @@ msgstr ""
 "ピーしたいことを意味します。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:139
+#: ../examples/guestfs-recipes.pod:135
 msgid "This creates a directory called C<home> under the current directory."
 msgstr ""
 "これは現在のディレクトリーに C<home> というディレクトリーを作成します。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:143
+#: ../examples/guestfs-recipes.pod:139
 msgid ""
 "If the guest is a Windows guest then you can use drive letters and "
 "backslashes, but you must prefix the path with C<win:> and quote it to "
@@ -7658,7 +7675,7 @@ msgstr ""
 "くる必要があります。このようにします:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:147
+#: ../examples/guestfs-recipes.pod:143
 #, no-wrap
 msgid ""
 " virt-copy-out -d WinGuest 'win:c:\\windows\\system32\\config' .\n"
@@ -7668,12 +7685,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:149
+#: ../examples/guestfs-recipes.pod:145
 msgid "To get the output as a compressed tarball, do:"
 msgstr "圧縮された tar ファイルとして出力を取得するには:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:151
+#: ../examples/guestfs-recipes.pod:147
 #, no-wrap
 msgid ""
 " virt-tar-out -d Guest /home - | gzip --best > home.tar.gz\n"
@@ -7683,23 +7700,28 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:153
+#: ../examples/guestfs-recipes.pod:149
+#, fuzzy
+#| msgid ""
+#| "Although it sounds tempting, this is usually not a reliable way to get a "
+#| "backup from a running guest.  See the entry in the FAQ: http://libguestfs."
+#| "org/FAQ.html#backup"
 msgid ""
 "Although it sounds tempting, this is usually not a reliable way to get a "
-"backup from a running guest.  See the entry in the FAQ: http://libguestfs."
-"org/FAQ.html#backup"
+"backup from a running guest.  See the entry in the FAQ: L<http://libguestfs."
+"org/FAQ.html#backup>"
 msgstr ""
 "魅力的なように聞こえますが、これは通常、実行中の仮想マシンからバックアップを"
 "取得する方法として信頼できる方法ではありません。次の FAQ の項目を参照してくだ"
 "さい: http://libguestfs.org/FAQ.html#backup"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:157
+#: ../examples/guestfs-recipes.pod:153
 msgid "Find out which user is using the most space"
 msgstr "もっとも領域を使用しているユーザーを検索します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:159
+#: ../examples/guestfs-recipes.pod:155
 msgid ""
 "This simple script examines a Linux guest to find out which user is using "
 "the most space in their home directory:"
@@ -7708,29 +7730,29 @@ msgstr ""
 "るユーザーを検索するために、Linux 仮想マシンを検査します。"
 
 #. type: verbatim
+#: ../examples/guestfs-recipes.pod:158
+#, no-wrap
+msgid ""
+" #!/bin/sh -\n"
+" \n"
+msgstr ""
+" #!/bin/sh -\n"
+" \n"
+
+#. type: verbatim
+#: ../examples/guestfs-recipes.pod:160 ../fish/guestfish.pod:996
+#, no-wrap
+msgid ""
+" set -e\n"
+" \n"
+msgstr ""
+" set -e\n"
+" \n"
+
+#. type: verbatim
 #: ../examples/guestfs-recipes.pod:162
 #, no-wrap
 msgid ""
-" #!/bin/sh -\n"
-" \n"
-msgstr ""
-" #!/bin/sh -\n"
-" \n"
-
-#. type: verbatim
-#: ../examples/guestfs-recipes.pod:164 ../fish/guestfish.pod:996
-#, no-wrap
-msgid ""
-" set -e\n"
-" \n"
-msgstr ""
-" set -e\n"
-" \n"
-
-#. type: verbatim
-#: ../examples/guestfs-recipes.pod:166
-#, no-wrap
-msgid ""
 " vm=\"$1\"\n"
 " dir=/home\n"
 " \n"
@@ -7740,7 +7762,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:169
+#: ../examples/guestfs-recipes.pod:165
 #, no-wrap
 msgid ""
 " eval $(guestfish --ro -d \"$vm\" -i --listen)\n"
@@ -7750,7 +7772,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:171
+#: ../examples/guestfs-recipes.pod:167
 #, no-wrap
 msgid ""
 " for d in $(guestfish --remote ls \"$dir\"); do\n"
@@ -7768,7 +7790,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:177 ../fish/guestfish.pod:953
+#: ../examples/guestfs-recipes.pod:173 ../fish/guestfish.pod:953
 #, no-wrap
 msgid ""
 " guestfish --remote exit\n"
@@ -7778,12 +7800,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:179
+#: ../examples/guestfs-recipes.pod:175
 msgid "Get DHCP address from a VM"
 msgstr "仮想マシンから DHCP アドレスを取得します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:181
+#: ../examples/guestfs-recipes.pod:177
 msgid ""
 "The link below explains the many different possible techniques for getting "
 "the last assigned DHCP address of a virtual machine."
@@ -7792,16 +7814,20 @@ msgstr ""
 "るために、多くの異なる利用可能なテクニックを説明しています。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:184
+#: ../examples/guestfs-recipes.pod:180
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-"
+#| "from-a-virtual-machine-disk-image/#content"
 msgid ""
-"https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-"
-"a-virtual-machine-disk-image/#content"
+"L<https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-"
+"from-a-virtual-machine-disk-image/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-"
 "a-virtual-machine-disk-image/#content"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:186
+#: ../examples/guestfs-recipes.pod:182
 msgid ""
 "In the libguestfs source examples directory you will find the latest version "
 "of the C<virt-dhcp-address.c> program."
@@ -7810,17 +7836,17 @@ msgstr ""
 "ラムの最新バージョンがあります。"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:189
+#: ../examples/guestfs-recipes.pod:185
 msgid "Get the operating system product name string"
 msgstr "オペレーティングシステムの製品名を取得します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:191
+#: ../examples/guestfs-recipes.pod:187
 msgid "Save the following script into a file called C<product-name.sh>:"
 msgstr "以下のスクリプトを C<product-name.sh> というファイルの中に保存します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:193
+#: ../examples/guestfs-recipes.pod:189
 #, no-wrap
 msgid ""
 " #!/bin/sh -\n"
@@ -7840,12 +7866,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:200
+#: ../examples/guestfs-recipes.pod:196
 msgid "Make the script executable and run it on a named guest:"
 msgstr "スクリプトを実行可能にして、名前付き仮想マシンにおいて実行します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:202
+#: ../examples/guestfs-recipes.pod:198
 #, no-wrap
 msgid ""
 " # product-name.sh RHEL60x64\n"
@@ -7857,7 +7883,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:205
+#: ../examples/guestfs-recipes.pod:201
 msgid ""
 "You can also use an XPath query on the L<virt-inspector(1)> XML using the "
 "C<xpath> command line tool or from your favourite programming language:"
@@ -7867,7 +7893,7 @@ msgstr ""
 "す:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:209
+#: ../examples/guestfs-recipes.pod:205
 #, no-wrap
 msgid ""
 " # virt-inspector RHEL60x64 > xml\n"
@@ -7885,12 +7911,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:215
+#: ../examples/guestfs-recipes.pod:211
 msgid "Get the default boot kernel for a Linux VM"
 msgstr "Linux 仮想マシンのデフォルトの起動カーネルを取得します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:217
+#: ../examples/guestfs-recipes.pod:213
 msgid ""
 "The link below contains a program to print the default boot kernel for a "
 "Linux VM."
@@ -7899,16 +7925,20 @@ msgstr ""
 "グラムがあります。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:220
+#: ../examples/guestfs-recipes.pod:216
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-"
+#| "boot-kernel-for-a-vm/#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-boot-"
-"kernel-for-a-vm/#content"
+"L<https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-"
+"boot-kernel-for-a-vm/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/10/30/tip-use-augeas-to-get-the-default-boot-"
 "kernel-for-a-vm/#content"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:222
+#: ../examples/guestfs-recipes.pod:218
 msgid ""
 "It uses Augeas, and the technique is generally applicable for many different "
 "tasks, such as:"
@@ -7917,42 +7947,44 @@ msgstr ""
 "な一般的なテクニックがあります:"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:229
+#: ../examples/guestfs-recipes.pod:225
 msgid "listing the user accounts in the guest"
 msgstr "仮想マシンのユーザーアカウントの一覧"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:233
+#: ../examples/guestfs-recipes.pod:229
 msgid "what repositories is it configured to use"
 msgstr "使用するよう設定されたリポジトリー"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:237
+#: ../examples/guestfs-recipes.pod:233
 msgid "what NTP servers does it connect to"
 msgstr "接続する NTP サーバー"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:241
+#: ../examples/guestfs-recipes.pod:237
 msgid "what were the boot messages last time it booted"
 msgstr "前回起動時の起動メッセージ"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:245
+#: ../examples/guestfs-recipes.pod:241
 msgid "listing who was logged in recently"
 msgstr "最近ログインしたユーザーの一覧"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:249
-msgid "http://augeas.net/"
+#: ../examples/guestfs-recipes.pod:245
+#, fuzzy
+#| msgid "http://augeas.net/"
+msgid "L<http://augeas.net/>"
 msgstr "http://augeas.net/"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:251
+#: ../examples/guestfs-recipes.pod:247
 msgid "Install RPMs in a guest"
 msgstr "仮想マシンに RPM をインストールします"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:253
+#: ../examples/guestfs-recipes.pod:249
 msgid ""
 "The link below contains a method to install RPMs in a guest.  In fact the "
 "RPMs are just uploaded to the guest along with a \"firstboot\" script that "
@@ -7965,24 +7997,27 @@ msgstr ""
 "セキュリティ更新をインストールするためにこのテクニックを使用できます。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:259
+#: ../examples/guestfs-recipes.pod:255
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content"
+"L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:261
+#: ../examples/guestfs-recipes.pod:257
 msgid "List applications installed in a VM"
 msgstr "仮想マシンにインストールされているアプリケーションを一覧表示します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:263
+#: ../examples/guestfs-recipes.pod:259
 msgid "Save the following to a file C<list-apps.sh>:"
 msgstr "以下をファイル C<list-apps.sh> に保存します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:265
+#: ../examples/guestfs-recipes.pod:261
 #, no-wrap
 msgid ""
 " #!/bin/sh -\n"
@@ -8002,7 +8037,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:272
+#: ../examples/guestfs-recipes.pod:268
 msgid ""
 "Make the file executable and then you can run it on any named virtual "
 "machine:"
@@ -8010,7 +8045,7 @@ msgstr ""
 "ファイルを実行可能にして、あらゆる名前付き仮想マシンにおいて実行できます:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:275
+#: ../examples/guestfs-recipes.pod:271
 #, no-wrap
 msgid ""
 " # list-apps.sh WinGuest\n"
@@ -8076,7 +8111,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:305
+#: ../examples/guestfs-recipes.pod:301
 msgid ""
 "If you want to run the script on disk images (instead of libvirt virtual "
 "machines), change C<-d \"$1\"> to C<-a \"$1\">.  See also L<virt-inspector(1)"
@@ -8087,17 +8122,17 @@ msgstr ""
 "照。"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:309
+#: ../examples/guestfs-recipes.pod:305
 msgid "List files and directories in a VM"
 msgstr "仮想マシンのファイルおよびディレクトリを一覧表示します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:311
+#: ../examples/guestfs-recipes.pod:307
 msgid "This involves using the L<guestfish(1)> C<find0> command like this:"
 msgstr "このように L<guestfish(1)> C<find0> コマンドを使用することを含みます:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:313
+#: ../examples/guestfs-recipes.pod:309
 #, no-wrap
 msgid ""
 " guestfish --ro -d Guest -i find0 / - | tr '\\0' '\\n' | sort\n"
@@ -8107,12 +8142,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:315
+#: ../examples/guestfs-recipes.pod:311
 msgid "List services in a Windows VM"
 msgstr "Windows 仮想マシンのサービスを一覧表示します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:317
+#: ../examples/guestfs-recipes.pod:313
 msgid ""
 "The link below contains a script that can be used to list out the services "
 "from a Windows VM, and whether those services run at boot time or are loaded "
@@ -8123,21 +8158,25 @@ msgstr ""
 "リプトがあります。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:321
+#: ../examples/guestfs-recipes.pod:317
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-"
+#| "guest/#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/"
-"#content"
+"L<https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/"
+"#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/"
 "#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:323
+#: ../examples/guestfs-recipes.pod:319
 msgid "Make a disk image sparse"
 msgstr "ディスクイメージをスパースにします"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:325
+#: ../examples/guestfs-recipes.pod:321
 msgid ""
 "The link below contains some guides for making a disk image sparse (or "
 "reintroducing sparseness)."
@@ -8146,19 +8185,24 @@ msgstr ""
 "ためのいくつかのガイドがあります。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:328
+#: ../examples/guestfs-recipes.pod:324
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/"
+#| "#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/#content"
+"L<https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/"
+"#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:330
+#: ../examples/guestfs-recipes.pod:326
 msgid "Monitor disk usage over time"
 msgstr "ディスク使用量を時系列に監視します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:332
+#: ../examples/guestfs-recipes.pod:328
 msgid ""
 "You can use L<virt-df(1)> to monitor disk usage of your guests over time.  "
 "The link below contains a guide."
@@ -8167,18 +8211,20 @@ msgstr ""
 "す。以下のリンクは仮想マシンを含みます。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:335
-msgid "http://virt-tools.org/learning/advanced-virt-df/"
+#: ../examples/guestfs-recipes.pod:331
+#, fuzzy
+#| msgid "http://virt-tools.org/learning/advanced-virt-df/"
+msgid "L<http://virt-tools.org/learning/advanced-virt-df/>"
 msgstr "http://virt-tools.org/learning/advanced-virt-df/"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:337
+#: ../examples/guestfs-recipes.pod:333
 msgid "Reading the Windows Event Log from Windows Vista (or later)"
 msgstr ""
 "Windows Vista （またそれ以降）から Windows のイベントログを読み出します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:339
+#: ../examples/guestfs-recipes.pod:335
 msgid ""
 "L<guestfish(1)> plus the tools described in the link below can be used to "
 "read out the Windows Event Log from any virtual machine running Windows "
@@ -8189,21 +8235,25 @@ msgstr ""
 "めに使用できます。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:343
+#: ../examples/guestfs-recipes.pod:339
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-"
+#| "using-guestfish/#content"
 msgid ""
-"https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-"
-"guestfish/#content"
+"L<https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-"
+"guestfish/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-"
 "guestfish/#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:345
+#: ../examples/guestfs-recipes.pod:341
 msgid "Remove root password (Linux)"
 msgstr "root のパスワードを削除します (Linux)"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:347
+#: ../examples/guestfs-recipes.pod:343
 msgid ""
 "Using the L<virt-edit(1)> I<-e> option you can do simple replacements on "
 "files.  One use is to remove the root password from a Linux guest:"
@@ -8213,7 +8263,7 @@ msgstr ""
 "ることです。"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:350
+#: ../examples/guestfs-recipes.pod:346
 #, no-wrap
 msgid ""
 " virt-edit domname /etc/passwd -e 's/^root:.*?:/root::/'\n"
@@ -8223,12 +8273,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:352
+#: ../examples/guestfs-recipes.pod:348
 msgid "Remove Administrator password (Windows)"
 msgstr "Administrator のパスワードを削除します (Windows)"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:354
+#: ../examples/guestfs-recipes.pod:350
 msgid ""
 "The link below contains one technique for removing the Administrator "
 "password from a Windows VM, or to be more precise, it gives you a command "
@@ -8239,21 +8289,25 @@ msgstr ""
 "使用でき、次回ログイン時にコマンドプロンプトを出します:"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:359
+#: ../examples/guestfs-recipes.pod:355
+#, fuzzy
+#| msgid ""
+#| "https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-"
+#| "administrator-password-with-guestfish/"
 msgid ""
-"https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-"
-"administrator-password-with-guestfish/"
+"L<https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-"
+"administrator-password-with-guestfish/>"
 msgstr ""
 "https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-"
 "administrator-password-with-guestfish/"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:361
+#: ../examples/guestfs-recipes.pod:357
 msgid "Unpack a live CD"
 msgstr "Live CD を展開します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:363
+#: ../examples/guestfs-recipes.pod:359
 msgid ""
 "Linux live CDs often contain multiple layers of disk images wrapped like a "
 "Russian doll.  You can use L<guestfish(1)> to look inside these multiple "
@@ -8264,21 +8318,25 @@ msgstr ""
 "L<guestfish(1)> を使用できます。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:367
+#: ../examples/guestfs-recipes.pod:363
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-"
+#| "live-cd/#content"
 msgid ""
-"https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-"
-"cd/#content"
+"L<https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-"
+"live-cd/#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-"
 "cd/#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:369
+#: ../examples/guestfs-recipes.pod:365
 msgid "Uploading and downloading files"
 msgstr "ファイルのアップロード方法およびダウンロード方法"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:371
+#: ../examples/guestfs-recipes.pod:367
 msgid ""
 "The link below contains general tips on uploading (copying in)  and "
 "downloading (copying out) files from VMs."
@@ -8287,19 +8345,24 @@ msgstr ""
 "イルをダウンロードすることに関する、一般的なヒントがあります。"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:374
+#: ../examples/guestfs-recipes.pod:370
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/"
+#| "#content"
 msgid ""
-"https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content"
+"L<https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/"
+"#content>"
 msgstr ""
 "https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:376
+#: ../examples/guestfs-recipes.pod:372
 msgid "Use libguestfs tools on VMware ESX guests"
 msgstr "VMware ESX 仮想マシンにおいて libguestfs ツールを使用します"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:378
+#: ../examples/guestfs-recipes.pod:374
 msgid ""
 "The link below explains how to use libguestfs, L<guestfish(1)> and the virt "
 "tools on any VMware ESX guests, by first sharing the VMware VMFS over sshfs."
@@ -8309,17 +8372,21 @@ msgstr ""
 "を使用する方法を説明しています。"
 
 #. type: textblock
+#: ../examples/guestfs-recipes.pod:378
+#, fuzzy
+#| msgid ""
+#| "https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-"
+#| "guests/#content"
+msgid ""
+"L<https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-"
+"guests/#content>"
+msgstr ""
+"https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-"
+"guests/#content"
+
+#. type: textblock
 #: ../examples/guestfs-recipes.pod:382
 msgid ""
-"https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-"
-"guests/#content"
-msgstr ""
-"https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-"
-"guests/#content"
-
-#. type: textblock
-#: ../examples/guestfs-recipes.pod:386
-msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)"
 ">, L<guestfs-java(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-"
 "python(3)>, L<guestfs-ruby(3)>, L<http://libguestfs.org/>."
@@ -8329,7 +8396,7 @@ msgstr ""
 "python(3)>, L<guestfs-ruby(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:403
+#: ../examples/guestfs-recipes.pod:399
 msgid "Copyright (C) 2009-2012 Red Hat Inc. L<http://libguestfs.org/>"
 msgstr "Copyright (C) 2009-2012 Red Hat Inc. L<http://libguestfs.org/>"
 
@@ -8414,6 +8481,13 @@ msgstr ""
 #: ../examples/guestfs-testing.pod:41
 msgid "How to check for hardware virt:"
 msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:43
+#, fuzzy
+#| msgid "http://virt-tools.org/learning/check-hardware-virt/"
+msgid "L<http://virt-tools.org/learning/check-hardware-virt/>"
+msgstr "http://virt-tools.org/learning/check-hardware-virt/"
 
 #. type: textblock
 #: ../examples/guestfs-testing.pod:45
@@ -8659,9 +8733,13 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-testing.pod:138
+#, fuzzy
+#| msgid ""
+#| "http://www.postgresql.org/docs/8.1/static/sql-copy.html http://dev.mysql."
+#| "com/doc/refman/5.1/en/load-data.html"
 msgid ""
-"http://www.postgresql.org/docs/8.1/static/sql-copy.html http://dev.mysql.com/"
-"doc/refman/5.1/en/load-data.html"
+"L<http://www.postgresql.org/docs/8.1/static/sql-copy.html> L<http://dev."
+"mysql.com/doc/refman/5.1/en/load-data.html>"
 msgstr ""
 "http://www.postgresql.org/docs/8.1/static/sql-copy.html http://dev.mysql.com/"
 "doc/refman/5.1/en/load-data.html"
@@ -28325,7 +28403,7 @@ msgid "Create no logical volume.  This is the default."
 msgstr "論理ボリュームを作成しません。  これがデフォルトです。"
 
 #. type: =item
-#: ../format/virt-format.pod:125 ../tools/virt-make-fs.pl:251
+#: ../format/virt-format.pod:125 ../tools/virt-make-fs.pl:260
 msgid "B<--partition>"
 msgstr "B<--partition>"
 
@@ -30292,12 +30370,13 @@ msgstr ""
 #| " $h->sync ();\n"
 #| "\n"
 msgid ""
-" my $h = Sys::Guestfs->new ();\n"
-" $h->add_drive ('guest.img', format => 'raw');\n"
-" $h->launch ();\n"
-" $h->mount_options ('', '/dev/sda1', '/');\n"
-" $h->touch ('/hello');\n"
-" $h->sync ();\n"
+" my $g = Sys::Guestfs->new ();\n"
+" $g->add_drive ('guest.img', format => 'raw');\n"
+" $g->launch ();\n"
+" $g->mount_options ('', '/dev/sda1', '/');\n"
+" $g->touch ('/hello');\n"
+" $g->shutdown ();\n"
+" $g->close ();\n"
 "\n"
 msgstr ""
 " my $h = Sys::Guestfs->new ();\n"
@@ -30309,7 +30388,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../perl/examples/guestfs-perl.pod:20
+#: ../perl/examples/guestfs-perl.pod:21
 msgid ""
 "This manual page documents how to call libguestfs from the Perl programming "
 "language.  This page just documents the differences from the C API and gives "
@@ -30318,19 +30397,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../perl/examples/guestfs-perl.pod:26
+#: ../perl/examples/guestfs-perl.pod:27
 msgid "ERRORS"
 msgstr "エラー"
 
 #. type: textblock
-#: ../perl/examples/guestfs-perl.pod:28
+#: ../perl/examples/guestfs-perl.pod:29
 msgid ""
 "Errors from libguestfs functions turn into calls to C<croak> (see L<Carp(3)"
 ">)."
 msgstr ""
 
 #. type: textblock
-#: ../perl/examples/guestfs-perl.pod:41
+#: ../perl/examples/guestfs-perl.pod:42
 msgid ""
 "L<Sys::Guestfs(3)>, L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang"
 "(3)>, L<guestfs-java(3)>, L<guestfs-ocaml(3)>, L<guestfs-python(3)>, "
@@ -49891,7 +49970,9 @@ msgstr "CVE-2010-3851"
 
 #. type: textblock
 #: ../src/guestfs.pod:1340
-msgid "https://bugzilla.redhat.com/642934"
+#, fuzzy
+#| msgid "https://bugzilla.redhat.com/642934"
+msgid "L<https://bugzilla.redhat.com/642934>"
 msgstr "https://bugzilla.redhat.com/642934"
 
 #. type: textblock
@@ -54076,6 +54157,16 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:3378
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, "
+#| "L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, "
+#| "L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-"
+#| "list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-"
+#| "make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, "
+#| "L<virt-sysprep(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)"
+#| ">, L<virt-win-reg(1)>, L<display(1)>, L<hexedit(1)>, L<febootstrap-"
+#| "supermin-helper(8)>."
 msgid ""
 "L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-java(3)>, L<guestfs-"
 "ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-ruby(3)>, "
@@ -54087,9 +54178,16 @@ msgid ""
 "(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg"
 "(1)>, L<guestfs-faq(1)>, L<guestfs-performance(1)>, L<guestfs-testing(1)>, "
 "L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-appliance(1)>, "
-"L<febootstrap(1)>, L<febootstrap-supermin-helper(8)>, L<qemu(1)>, L<hivex(3)"
+"L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<qemu(1)>, L<hivex(3)"
 ">, L<stap(1)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, L<virt-"
+"cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit"
+"(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-list-filesystems"
+"(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-"
+"rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, "
+"L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg(1)>, "
+"L<display(1)>, L<hexedit(1)>, L<febootstrap-supermin-helper(8)>。"
 
 #. type: textblock
 #: ../src/guestfs.pod:3420
@@ -54101,7 +54199,7 @@ msgstr ""
 "L<disktype(1)>."
 
 #. type: =head1
-#: ../src/guestfs.pod:3427 ../tools/virt-make-fs.pl:605
+#: ../src/guestfs.pod:3427 ../tools/virt-make-fs.pl:623
 #: ../tools/virt-win-reg.pl:772
 msgid "BUGS"
 msgstr "バグ"
@@ -54124,15 +54222,6 @@ msgstr ""
 #: ../src/guestfs.pod:3433
 msgid "To report a new bug against libguestfs use this link:"
 msgstr "libguestfs の新しいバグを報告するには、このリンクを使用します:"
-
-#. type: textblock
-#: ../src/guestfs.pod:3435
-msgid ""
-"L<https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools>"
-msgstr ""
-"L<https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools>"
 
 #. type: textblock
 #: ../src/guestfs.pod:3437
@@ -56137,40 +56226,59 @@ msgid "Enable debugging information."
 msgstr "デバッグ情報を有効にします。"
 
 #. type: =item
+#: ../tools/virt-make-fs.pl:185
+#, fuzzy
+#| msgid "B<--help>"
+msgid "B<--floppy>"
+msgstr "B<--help>"
+
+#. type: textblock
 #: ../tools/virt-make-fs.pl:187
+msgid "Create a virtual floppy disk."
+msgstr ""
+
+#. type: textblock
+#: ../tools/virt-make-fs.pl:189
+msgid ""
+"Currently this preselects the size (1440K), partition type (MBR) and "
+"filesystem type (VFAT).  In future it may also choose the geometry."
+msgstr ""
+
+#. type: =item
+#: ../tools/virt-make-fs.pl:196
 msgid "B<--size=E<lt>NE<gt>>"
 msgstr "B<--size=E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:189
+#: ../tools/virt-make-fs.pl:198
 msgid "B<--size=+E<lt>NE<gt>>"
 msgstr "B<--size=+E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:191
+#: ../tools/virt-make-fs.pl:200
 msgid "B<-s E<lt>NE<gt>>"
 msgstr "B<-s E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:193
+#: ../tools/virt-make-fs.pl:202
 msgid "B<-s +E<lt>NE<gt>>"
 msgstr "B<-s +E<lt>NE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:195
+#: ../tools/virt-make-fs.pl:204
 msgid ""
 "Use the I<--size> (or I<-s>) option to choose the size of the output image."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:198
+#: ../tools/virt-make-fs.pl:207
 msgid ""
 "If this option is I<not> given, then the output image will be just large "
 "enough to contain all the files, with not much wasted space."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:201
+#: ../tools/virt-make-fs.pl:210
 msgid ""
 "To choose a fixed size output disk, specify an absolute number followed by b/"
 "K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, "
@@ -56179,7 +56287,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:206
+#: ../tools/virt-make-fs.pl:215
 msgid ""
 "To leave extra space, specify C<+> (plus sign) and a number followed by b/K/"
 "M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, "
@@ -56188,7 +56296,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:212
+#: ../tools/virt-make-fs.pl:221
 msgid ""
 "Note that virt-make-fs estimates free space, and therefore will not produce "
 "filesystems containing precisely the free space requested.  (It is much more "
@@ -56197,65 +56305,65 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:221
+#: ../tools/virt-make-fs.pl:230
 msgid "B<--format=E<lt>fmtE<gt>>"
 msgstr "B<--format=E<lt>fmtE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:223
+#: ../tools/virt-make-fs.pl:232
 msgid "B<-F E<lt>fmtE<gt>>"
 msgstr "B<-F E<lt>fmtE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:225
+#: ../tools/virt-make-fs.pl:234
 msgid "Choose the output disk image format."
 msgstr "出力するディスクイメージ形式を選択します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:227
+#: ../tools/virt-make-fs.pl:236
 msgid "The default is C<raw> (raw sparse disk image)."
 msgstr "デフォルトは C<raw> です (スパースな raw 形式のディスクイメージ)。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:229
+#: ../tools/virt-make-fs.pl:238
 msgid ""
 "For other choices, see the L<qemu-img(1)> manpage.  The only other choice "
 "that would really make sense here is C<qcow2>."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:236
+#: ../tools/virt-make-fs.pl:245
 msgid "B<--type=E<lt>fsE<gt>>"
 msgstr "B<--type=E<lt>fsE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:238
+#: ../tools/virt-make-fs.pl:247
 msgid "B<-t E<lt>fsE<gt>>"
 msgstr "B<-t E<lt>fsE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:240
+#: ../tools/virt-make-fs.pl:249
 msgid "Choose the output filesystem type."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:242
+#: ../tools/virt-make-fs.pl:251
 msgid "The default is C<ext2>."
 msgstr "デフォルトは C<ext2> です。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:244
+#: ../tools/virt-make-fs.pl:253
 msgid ""
 "Any filesystem which is supported read-write by libguestfs can be used here."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:253
+#: ../tools/virt-make-fs.pl:262
 msgid "B<--partition=E<lt>parttypeE<gt>>"
 msgstr "B<--partition=E<lt>parttypeE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:255
+#: ../tools/virt-make-fs.pl:264
 msgid ""
 "If specified, this flag adds an MBR partition table to the output disk image."
 msgstr ""
@@ -56263,21 +56371,21 @@ msgstr ""
 "ルを追加します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:258
+#: ../tools/virt-make-fs.pl:267
 msgid ""
 "You can change the partition table type, eg. I<--partition=gpt> for large "
 "disks."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:261
+#: ../tools/virt-make-fs.pl:270
 msgid ""
 "Note that if you just use a lonesome I<--partition>, the Perl option parser "
 "might consider the next parameter to be the partition type.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:265
+#: ../tools/virt-make-fs.pl:274
 #, no-wrap
 msgid ""
 " virt-make-fs --partition input.tar output.img\n"
@@ -56287,7 +56395,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:267
+#: ../tools/virt-make-fs.pl:276
 msgid ""
 "would cause virt-make-fs to think you wanted to use a partition type of "
 "C<input.tar> which is completely wrong.  To avoid this, use I<--> (a double "
@@ -56295,7 +56403,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:271
+#: ../tools/virt-make-fs.pl:280
 #, no-wrap
 msgid ""
 " virt-make-fs --partition -- input.tar output.img\n"
@@ -56305,12 +56413,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:273
+#: ../tools/virt-make-fs.pl:282
 msgid "For MBR, virt-make-fs sets the partition type byte automatically."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:592
+#: ../tools/virt-make-fs.pl:610
 msgid ""
 "L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
 "L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, L<resize2fs"
@@ -56321,7 +56429,7 @@ msgstr ""
 "(8)>, L<guestfs(3)>, L<Sys::Guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:607 ../tools/virt-win-reg.pl:774
+#: ../tools/virt-make-fs.pl:625 ../tools/virt-win-reg.pl:774
 msgid ""
 "When reporting bugs, please enable debugging and capture the I<complete> "
 "output:"
@@ -56329,7 +56437,7 @@ msgstr ""
 "バグを報告するとき、デバッグを有効にして、I<完全な> 出力を記録してください:"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:610
+#: ../tools/virt-make-fs.pl:628
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_DEBUG=1\n"
@@ -56341,7 +56449,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:613
+#: ../tools/virt-make-fs.pl:631
 msgid ""
 "Attach /tmp/virt-make-fs.log to a new bug report at L<https://bugzilla."
 "redhat.com/>"
@@ -57341,6 +57449,22 @@ msgid ""
 msgstr ""
 "L<https://bugzilla.redhat.com/> の新規バグ報告に /tmp/virt-win-reg.log を添付"
 "してください"
+
+#~ msgid ""
+#~ " https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+#~ "\n"
+#~ msgstr ""
+#~ " https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "pod2man and pod2html have differing bugs which makes it hard to write "
+#~ "URLs here.  The only way which works for both sorts of output is to just "
+#~ "write the URL directly.  Do NOT use L<...> for URLs."
+#~ msgstr ""
+#~ "pod2man と pod2html は、ここに URL を書きにくくする別々のバグがありま"
+#~ "す。  どちらの方法に対しても並び替えをうまく機能させる方法は直接 URL を書"
+#~ "くことです。  URL に L<...> を使用してはいけません。"
 
 #~ msgid ""
 #~ " add-drive filename\n"

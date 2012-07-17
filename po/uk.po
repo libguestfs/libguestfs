@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-16 12:35+0100\n"
+"POT-Creation-Date: 2012-07-17 15:36+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4387,47 +4387,47 @@ msgstr "virt-list-filesystems: не вказано образу або назв�
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-make-fs.pl:295
+#: tools/virt-make-fs.pl:309
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs вхідні_дані вихідні_дані\n"
 
-#: tools/virt-make-fs.pl:325
+#: tools/virt-make-fs.pl:339
 msgid "unexpected output from 'du' command"
 msgstr "несподівані вихідні дані від команди «du»"
 
-#: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
-#: tools/virt-make-fs.pl:510
+#: tools/virt-make-fs.pl:351 tools/virt-make-fs.pl:365
+#: tools/virt-make-fs.pl:528
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: невідомий формат вхідних даних: {fmt}\n"
 
-#: tools/virt-make-fs.pl:402
+#: tools/virt-make-fs.pl:416
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: не вдалося обробити параметр розміру: {sz}\n"
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:431
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: не вдалося створити образ диска, ознайомтеся з попередніми "
 "повідомленнями\n"
 
-#: tools/virt-make-fs.pl:428
+#: tools/virt-make-fs.pl:442
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: підтримку NTFS було вимкнено під час збирання libguestfs\n"
 
-#: tools/virt-make-fs.pl:494
+#: tools/virt-make-fs.pl:512
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: помилка, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:516
+#: tools/virt-make-fs.pl:534
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "помилка команди розпакування, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:550
+#: tools/virt-make-fs.pl:568
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
