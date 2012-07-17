@@ -5909,7 +5909,10 @@ The result list is not sorted.
         [["mkdir"; "/case_sensitive_path3"];
          ["mkdir"; "/case_sensitive_path3/bbb"];
          ["touch"; "/case_sensitive_path3/bbb/c"];
-         ["case_sensitive_path"; "/case_SENSITIVE_path3/bbb/../bbb/C"]])
+         ["case_sensitive_path"; "/case_SENSITIVE_path3/bbb/../bbb/C"]]);
+      InitScratchFS, Always, TestOutput (
+        [["mkdir"; "/case_sensitive_path4"];
+         ["case_sensitive_path"; "/case_SENSITIVE_path4/new_file"]], "/case_sensitive_path4/new_file")
     ];
     shortdesc = "return true path on case-insensitive filesystem";
     longdesc = "\
