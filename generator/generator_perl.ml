@@ -610,12 +610,12 @@ Sys::Guestfs - Perl bindings for libguestfs
 
  use Sys::Guestfs;
 
- my $h = Sys::Guestfs->new ();
- $h->add_drive_opts ('guest.img', format => 'raw');
- $h->launch ();
- $h->mount_options ('', '/dev/sda1', '/');
- $h->touch ('/hello');
- $h->sync ();
+ my $g = Sys::Guestfs->new ();
+ $g->add_drive_opts ('guest.img', format => 'raw');
+ $g->launch ();
+ $g->mount_options ('', '/dev/sda1', '/');
+ $g->touch ('/hello');
+ $g->sync ();
 
 =head1 DESCRIPTION
 
@@ -675,7 +675,7 @@ XSLoader::load ('Sys::Guestfs');
 
   (* Methods. *)
   pr "\
-=item $h = Sys::Guestfs->new ();
+=item $g = Sys::Guestfs->new ();
 
 Create a new guestfs handle.
 
@@ -691,7 +691,7 @@ sub new {
   return $self;
 }
 
-=item $h->close ();
+=item $g->close ();
 
 Explicitly close the guestfs handle.
 
@@ -721,7 +721,7 @@ when the final reference is cleaned up is OK).
   ) events;
 
   pr "\
-=item $event_handle = $h->set_event_callback (\\&cb, $event_bitmask);
+=item $event_handle = $g->set_event_callback (\\&cb, $event_bitmask);
 
 Register C<cb> as a callback function for all of the events
 in C<$event_bitmask> (one or more C<$Sys::Guestfs::EVENT_*> flags
@@ -759,15 +759,15 @@ You should carefully read the documentation for
 L<guestfs(3)/guestfs_set_event_callback> before using
 this function.
 
-=item $h->delete_event_callback ($event_handle);
+=item $g->delete_event_callback ($event_handle);
 
 This removes the callback which was previously registered using
 C<set_event_callback>.
 
-=item $errnum = $h->last_errno ();
+=item $errnum = $g->last_errno ();
 
 This returns the last error number (errno) that happened on the
-handle C<$h>.
+handle C<$g>.
 
 If successful, an errno integer not equal to zero is returned.
 
@@ -779,12 +779,12 @@ You can use the standard Perl module L<Errno(3)> to compare
 the numeric error returned from this call with symbolic
 errnos:
 
- $h->mkdir (\"/foo\");
- if ($h->last_errno() == Errno::EEXIST()) {
+ $g->mkdir (\"/foo\");
+ if ($g->last_errno() == Errno::EEXIST()) {
    # mkdir failed because the directory exists already.
  }
 
-=item $h->user_cancel ();
+=item $g->user_cancel ();
 
 Cancel current transfer.  This is safe to call from Perl signal
 handlers and threads.
@@ -799,7 +799,7 @@ handlers and threads.
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
       if not (List.mem NotInDocs flags) then (
-        let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
+        let longdesc = replace_str longdesc "C<guestfs_" "C<$g-E<gt>" in
         pr "=item ";
         generate_perl_prototype name style;
         pr "\n\n";
@@ -895,7 +895,7 @@ class, use the ordinary Perl UNIVERSAL method C<can(METHOD)>
 
  use Sys::Guestfs;
  if (defined (Sys::Guestfs->can (\"set_verbose\"))) {
-   print \"\\$h->set_verbose is available\\n\";
+   print \"\\$g->set_verbose is available\\n\";
  }
 
 Perl does not offer a way to list the arguments of a method, and
@@ -929,7 +929,7 @@ To test if particular features are supported by the current
 build, use the L</available> method like the example below.  Note
 that the appliance must be launched first.
 
- $h->available ( [\"augeas\"] );
+ $g->available ( [\"augeas\"] );
 
 Since the L</available> method croaks if the feature is not supported,
 you might also want to wrap this in an eval and return a boolean.
@@ -990,7 +990,7 @@ and generate_perl_prototype name (ret, args, optargs) =
    | RStringList n
    | RStructList (n,_) -> pr "@%s = " n
   );
-  pr "$h->%s (" name;
+  pr "$g->%s (" name;
   let comma = ref false in
   List.iter (
     fun arg ->

@@ -21,41 +21,41 @@ use Test::More tests => 12;
 
 use Sys::Guestfs;
 
-my $h = Sys::Guestfs->new ();
-ok ($h);
+my $g = Sys::Guestfs->new ();
+ok ($g);
 open FILE, ">test.img";
 truncate FILE, 10*1024*1024;
 close FILE;
 ok (1);
 
-$h->add_drive ("test.img");
+$g->add_drive ("test.img");
 ok (1);
 
-$h->launch ();
+$g->launch ();
 ok (1);
 
-$h->part_disk ("/dev/sda", "mbr");
+$g->part_disk ("/dev/sda", "mbr");
 ok (1);
-$h->mkfs ("ext2", "/dev/sda1");
+$g->mkfs ("ext2", "/dev/sda1");
 ok (1);
-$h->mount_options ("", "/dev/sda1", "/");
+$g->mount_options ("", "/dev/sda1", "/");
 ok (1);
-$h->mkdir ("/p");
+$g->mkdir ("/p");
 ok (1);
-$h->touch ("/q");
+$g->touch ("/q");
 ok (1);
 
-my @dirs = $h->readdir ("/");
+my @dirs = $g->readdir ("/");
 @dirs = sort { $a->{name} cmp $b->{name} } @dirs;
 foreach (@dirs) {
   print "$_->{name} $_->{ino} $_->{ftyp}\n";
 }
 ok (1);
 
-$h->sync ();
+$g->sync ();
 ok (1);
 
-undef $h;
+undef $g;
 ok (1);
 
 unlink ("test.img");

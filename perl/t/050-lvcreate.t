@@ -21,38 +21,38 @@ use Test::More tests => 11;
 
 use Sys::Guestfs;
 
-my $h = Sys::Guestfs->new ();
-ok ($h);
+my $g = Sys::Guestfs->new ();
+ok ($g);
 open FILE, ">test.img";
 truncate FILE, 500*1024*1024;
 close FILE;
 ok (1);
 
-$h->add_drive ("test.img");
+$g->add_drive ("test.img");
 ok (1);
 
-$h->launch ();
+$g->launch ();
 ok (1);
 
-$h->pvcreate ("/dev/sda");
+$g->pvcreate ("/dev/sda");
 ok (1);
-$h->vgcreate ("VG", ["/dev/sda"]);
+$g->vgcreate ("VG", ["/dev/sda"]);
 ok (1);
-$h->lvcreate ("LV1", "VG", 200);
+$g->lvcreate ("LV1", "VG", 200);
 ok (1);
-$h->lvcreate ("LV2", "VG", 200);
+$g->lvcreate ("LV2", "VG", 200);
 ok (1);
 
-my @lvs = $h->lvs ();
+my @lvs = $g->lvs ();
 if (@lvs != 2 || $lvs[0] ne "/dev/VG/LV1" || $lvs[1] ne "/dev/VG/LV2") {
     die "h->lvs() returned incorrect result"
 }
 ok (1);
 
-$h->sync ();
+$g->sync ();
 ok (1);
 
-undef $h;
+undef $g;
 ok (1);
 
 unlink ("test.img");

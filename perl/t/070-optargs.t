@@ -21,14 +21,14 @@ use Test::More tests => 4;
 
 use Sys::Guestfs;
 
-my $h = Sys::Guestfs->new ();
-ok ($h);
+my $g = Sys::Guestfs->new ();
+ok ($g);
 
-$h->add_drive_opts ("/dev/null");
+$g->add_drive_opts ("/dev/null");
 ok (1);
 
-$h->add_drive_opts ("/dev/null", readonly => 1);
+$g->add_drive_opts ("/dev/null", readonly => 1);
 ok (1);
 
-$h->add_drive_opts ("/dev/null", format => "raw", readonly => 0);
+$g->add_drive_opts ("/dev/null", format => "raw", readonly => 0);
 ok (1);
