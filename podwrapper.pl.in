@@ -255,7 +255,8 @@ if ($man) {
         name => $name,
         release => $release, section => $section,
         center => "Virtualization Support",
-        date => $date
+        date => $date,
+        stderr => 1, utf8 => 1
     );
     my $output;
     $parser->output_string (\$output);
