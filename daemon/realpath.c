@@ -84,8 +84,11 @@ char *
 do_case_sensitive_path (const char *path)
 {
   char ret[PATH_MAX+1] = "/";
+  char name[NAME_MAX+1];
   size_t next = 1;
-  int fd_cwd;
+  int fd_cwd, fd2, err;
+  size_t i;
+  char *retp;
 
   /* 'fd_cwd' here is a surrogate for the current working directory, so
    * that we don't have to actually call chdir(2).
@@ -100,7 +103,7 @@ do_case_sensitive_path (const char *path)
    * and follow it.
    */
   while (*path) {
-    size_t i = strcspn (path, "/");
+    i = strcspn (path, "/");
     if (i == 0) {
       path++;
       continue;
@@ -116,7 +119,6 @@ do_case_sensitive_path (const char *path)
       goto error;
     }
 
-    char name[NAME_MAX+1];
     memcpy (name, path, i);
     name[i] = '\0';
 
@@ -143,8 +145,8 @@ do_case_sensitive_path (const char *path)
     next += i;
 
     /* Is it a directory?  Try going into it. */
-    int fd2 = openat (fd_cwd, name, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
-    int err = errno;
+    fd2 = openat (fd_cwd, name, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
+    err = errno;
     close (fd_cwd);
     fd_cwd = fd2;
     errno = err;
@@ -166,7 +168,7 @@ do_case_sensitive_path (const char *path)
     close (fd_cwd);
 
   ret[next] = '\0';
-  char *retp = strdup (ret);
+  retp = strdup (ret);
   if (retp == NULL) {
     reply_with_perror ("strdup");
     return NULL;
