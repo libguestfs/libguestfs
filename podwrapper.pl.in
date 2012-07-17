@@ -255,8 +255,9 @@ SUBCLASS: {
     # Subclass Pod::Simple::XHTML.  See the documentation.
     package Podwrapper::XHTML;
 
-    use vars qw(@ISA);
+    use vars qw(@ISA $VERSION);
     @ISA = qw(Pod::Simple::XHTML);
+    $VERSION = $package_version;
 
     # Pod::Simple::XHTML returns uppercase identifiers, whereas the
     # old pod2html returns lowercase ones.
