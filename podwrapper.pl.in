@@ -151,6 +151,11 @@ you can use any string as the pattern.
 
 =cut
 
+# Clean up the program name.
+my $progname = $0;
+$progname =~ s{.*/}{};
+
+# Parse options.
 GetOptions ("help|?" => \$help,
             "html=s" => \$html,
             "insert=s" => \@inserts,
@@ -162,11 +167,11 @@ GetOptions ("help|?" => \$help,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 
-die "missing argument: podwrapper input.pod\n" unless @ARGV == 1;
+die "$progname: missing argument: podwrapper input.pod\n" unless @ARGV == 1;
 my $input = $ARGV[0];
 
 # There should be at least one output.
-die "$0: no output format specified.  Use --man and/or --html and/or --text.\n"
+die "$progname: no output format specified.  Use --man and/or --html and/or --text.\n"
     unless defined $man || defined $html || defined $text;
 
 # Default for $name and $section.
@@ -179,7 +184,7 @@ my $abs_top_builddir = "@abs_top_builddir@";
 my $package_name = "@PACKAGE_NAME@";
 my $package_version = "@PACKAGE_VERSION@";
 
-die "$0: ./configure substitutions were not performed"
+die "$progname: ./configure substitutions were not performed"
     unless $abs_top_srcdir && $abs_top_builddir &&
     $package_name && $package_version;
 
@@ -187,7 +192,7 @@ die "$0: ./configure substitutions were not performed"
 my $date;
 my $filename = "$abs_top_srcdir/ChangeLog";
 if (-r $filename) {
-    open FILE, $filename or die "$filename: $!";
+    open FILE, $filename or die "$progname: $filename: $!";
     $_ = <FILE>;
     close FILE;
     $date = $1 if /^(\d+-\d+-\d+)\s/;
@@ -216,7 +221,7 @@ my $content = read_whole_file ($input);
 # Perform @inserts.
 foreach (@inserts) {
     my @a = split /:/, $_, 2;
-    die "$0: no colon in parameter of --insert\n" unless @a >= 2;
+    die "$progname: no colon in parameter of --insert\n" unless @a >= 2;
     my $replacement = read_whole_file ($a[0]);
     $content =~ s/$a[1]/$replacement/ge;
 }
@@ -224,7 +229,7 @@ foreach (@inserts) {
 # Perform @verbatims.
 foreach (@verbatims) {
     my @a = split /:/, $_, 2;
-    die "$0: no colon in parameter of --verbatim\n" unless @a >= 2;
+    die "$progname: no colon in parameter of --verbatim\n" unless @a >= 2;
     my $replacement = read_verbatim_file ($a[0]);
     $content =~ s/$a[1]/$replacement/ge;
 }
@@ -238,11 +243,11 @@ if ($man) {
     my $output;
     $parser->output_string (\$output);
     $parser->parse_string_document ($content)
-        or die "$0: could not parse input document";
-    open OUT, ">$man" or die "$man: $!";
-    print OUT $output or die "$man: $!";
-    close OUT or die "$man: $!";
-    print "$0: wrote $man\n";
+        or die "$progname: could not parse input document";
+    open OUT, ">$man" or die "$progname: $man: $!";
+    print OUT $output or die "$progname: $man: $!";
+    close OUT or die "$progname: $man: $!";
+    print "$progname: wrote $man\n";
 }
 
 # Output HTML.
@@ -322,10 +327,10 @@ if ($html) {
     # Hack for Perl 5.16.
     $output =~ s{/>pod.css<}{/>\n<};
 
-    open OUT, ">$html" or die "$html: $!";
-    print OUT $output or die "$html: $!";
-    close OUT or die "$html: $!";
-    print "$0: wrote $html\n";
+    open OUT, ">$html" or die "$progname: $html: $!";
+    print OUT $output or die "$progname: $html: $!";
+    close OUT or die "$progname: $html: $!";
+    print "$progname: wrote $html\n";
 }
 
 # Output text.
@@ -334,10 +339,10 @@ if ($text) {
     my $output;
     $parser->output_string (\$output);
     $parser->parse_string_document ($content);
-    open OUT, ">$text" or die "$text: $!";
-    print OUT $output or die "$text: $!";
-    close OUT or die "$text: $!";
-    print "$0: wrote $text\n";
+    open OUT, ">$text" or die "$progname: $text: $!";
+    print OUT $output or die "$progname: $text: $!";
+    close OUT or die "$progname: $text: $!";
+    print "$progname: wrote $text\n";
 }
 
 sub read_whole_file
@@ -345,7 +350,7 @@ sub read_whole_file
     my $input = shift;
     local $/ = undef;
 
-    open FILE, $input or die "$input: $!";
+    open FILE, $input or die "$progname: $input: $!";
     $_ = <FILE>;
     close FILE;
     $_;
@@ -356,7 +361,7 @@ sub read_verbatim_file
     my $input = shift;
     my $r = "";
 
-    open FILE, $input or die "$input: $!";
+    open FILE, $input or die "$progname: $input: $!";
     while (<FILE>) {
         $r .= " $_";
     }
