@@ -76,7 +76,7 @@ do_realpath (const char *path)
 
 #endif /* !HAVE_REALPATH */
 
-static int find_path_element (int fd_cwd, char *name, size_t *name_len_ret);
+static int find_path_element (int fd_cwd, int is_end, char *name, size_t *name_len_ret);
 
 char *
 do_case_sensitive_path (const char *path)
@@ -84,7 +84,7 @@ do_case_sensitive_path (const char *path)
   char ret[PATH_MAX+1] = "/";
   char name[NAME_MAX+1];
   size_t next = 1;
-  int fd_cwd, fd2, err;
+  int fd_cwd, fd2, err, is_end;
   size_t i;
   char *retp;
 
@@ -122,12 +122,13 @@ do_case_sensitive_path (const char *path)
 
     /* Skip to next element in path (for the next loop iteration). */
     path += i;
+    is_end = *path == 0;
 
     /* Read the current directory looking (case insensitively) for
      * this element of the path.  This replaces 'name' with the
      * correct case version.
      */
-    if (find_path_element (fd_cwd, name, &i) == -1)
+    if (find_path_element (fd_cwd, is_end, name, &i) == -1)
       goto error;
 
     /* Add the real name of this path element to the return value. */
@@ -149,16 +150,12 @@ do_case_sensitive_path (const char *path)
     fd_cwd = fd2;
     errno = err;
     if (fd_cwd == -1) {
-      /* ENOTDIR is OK provided we've reached the end of the path. */
-      if (errno != ENOTDIR) {
-        reply_with_perror ("openat: %s", name);
-        goto error;
-      }
+      /* Some errors are OK provided we've reached the end of the path. */
+      if (is_end && (errno == ENOTDIR || errno == ENOENT))
+        break;
 
-      if (*path) {
-        reply_with_error ("%s: non-directory element in path", name);
-        goto error;
-      }
+      reply_with_perror ("openat: %s", name);
+      goto error;
     }
   }
 
@@ -182,7 +179,8 @@ do_case_sensitive_path (const char *path)
 
 /* 'fd_cwd' is a file descriptor pointing to an open directory.
  * 'name' is a buffer of NAME_MAX+1 characters in size which initially
- * contains the path element to search for.
+ * contains the path element to search for.  'is_end' is a flag
+ * indicating if this is the last path element.
  *
  * We search the directory looking for a path element that case
  * insensitively matches 'name' and update the 'name' buffer.
@@ -191,7 +189,7 @@ do_case_sensitive_path (const char *path)
  * and return -1.
  */
 static int
-find_path_element (int fd_cwd, char *name, size_t *name_len_ret)
+find_path_element (int fd_cwd, int is_end, char *name, size_t *name_len_ret)
 {
   int fd2;
   DIR *dir;
@@ -222,6 +220,14 @@ find_path_element (int fd_cwd, char *name, size_t *name_len_ret)
     reply_with_perror ("readdir");
     closedir (dir);
     return -1;
+  }
+
+  if (d == NULL && is_end) {
+    /* Last path element: return it as-is, assuming that the user will
+     * create a new file or directory (RHBZ#840115).
+     */
+    closedir (dir);
+    return 0;
   }
 
   if (d == NULL) {
