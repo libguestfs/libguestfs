@@ -119,7 +119,7 @@ L<https://www.redhat.com/mailman/listinfo/virt-tools-list>
 
 Please use the following link to enter a bug in Bugzilla:
 
- https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools
+L<https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools>
 
 Include as much detail as you can and a way to reproduce the problem.
 

@@ -1337,7 +1337,7 @@ be found in the section L</RUNNING COMMANDS>.
 
 =head2 CVE-2010-3851
 
-https://bugzilla.redhat.com/642934
+L<https://bugzilla.redhat.com/642934>
 
 This security bug concerns the automatic disk format detection that
 qemu does on disk images.
