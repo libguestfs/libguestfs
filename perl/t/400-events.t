@@ -21,8 +21,8 @@ use Test::More tests => 7;
 
 use Sys::Guestfs;
 
-my $h = Sys::Guestfs->new ();
-ok ($h);
+my $g = Sys::Guestfs->new ();
+ok ($g);
 
 sub log_callback {
     my $ev = shift;
@@ -49,24 +49,24 @@ sub close_callback {
 my $events = $Sys::Guestfs::EVENT_APPLIANCE | $Sys::Guestfs::EVENT_LIBRARY |
     $Sys::Guestfs::EVENT_TRACE;
 my $eh;
-$eh = $h->set_event_callback (\&log_callback, $events);
+$eh = $g->set_event_callback (\&log_callback, $events);
 ok ($eh >= 0);
 
 # Check that the close event is invoked.
-$h->set_event_callback (\&close_callback, $Sys::Guestfs::EVENT_CLOSE);
+$g->set_event_callback (\&close_callback, $Sys::Guestfs::EVENT_CLOSE);
 ok ($eh >= 0);
 
 # Now make sure we see some messages.
-$h->set_trace (1);
-$h->set_verbose (1);
+$g->set_trace (1);
+$g->set_verbose (1);
 ok (1);
 
 # Do some stuff.
-$h->add_drive_ro ("/dev/null");
-$h->set_autosync (1);
+$g->add_drive_ro ("/dev/null");
+$g->set_autosync (1);
 ok (1);
 
 # Close the handle.  The close callback should be invoked.
 ok ($close_invoked == 0);
-undef $h;
+undef $g;
 ok ($close_invoked == 1);
