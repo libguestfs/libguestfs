@@ -13,7 +13,8 @@ guestfs-perl - How to use libguestfs from Perl
  $g->launch ();
  $g->mount_options ('', '/dev/sda1', '/');
  $g->touch ('/hello');
- $g->sync ();
+ $g->shutdown ();
+ $g->close ();
 
 =head1 DESCRIPTION
 

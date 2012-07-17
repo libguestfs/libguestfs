@@ -612,7 +612,8 @@ Sys::Guestfs - Perl bindings for libguestfs
  $g->launch ();
  $g->mount_options ('', '/dev/sda1', '/');
  $g->touch ('/hello');
- $g->sync ();
+ $g->shutdown ();
+ $g->close ();
 
 =head1 DESCRIPTION
 
