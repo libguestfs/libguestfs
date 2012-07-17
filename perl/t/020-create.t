@@ -23,7 +23,7 @@ use Sys::Guestfs;
 
 # Put it in a block so the handle gets destroyed as well.
 {
-    my $h = Sys::Guestfs->new ();
-    ok ($h);
+    my $g = Sys::Guestfs->new ();
+    ok ($g);
 }
 ok (1);
