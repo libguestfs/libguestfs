@@ -235,11 +235,28 @@ foreach (@verbatims) {
 }
 
 # Output man page.
+SUBMAN: {
+    package Podwrapper::Man;
+
+    use vars qw(@ISA $VERSION);
+    @ISA = qw(Pod::Man);
+    $VERSION = $package_version;
+
+    # Override the L<> method.
+    sub cmd_l
+    {
+        my ($self, $attrs, $text) = @_;
+        return $text;
+    }
+}
+
 if ($man) {
-    my $parser = Pod::Man->new (name => $name,
-                                release => $release, section => $section,
-                                center => "Virtualization Support",
-                                date => $date);
+    my $parser = Podwrapper::Man->new (
+        name => $name,
+        release => $release, section => $section,
+        center => "Virtualization Support",
+        date => $date
+    );
     my $output;
     $parser->output_string (\$output);
     $parser->parse_string_document ($content)
@@ -251,7 +268,7 @@ if ($man) {
 }
 
 # Output HTML.
-SUBCLASS: {
+SUBHTML: {
     # Subclass Pod::Simple::XHTML.  See the documentation.
     package Podwrapper::XHTML;
 
