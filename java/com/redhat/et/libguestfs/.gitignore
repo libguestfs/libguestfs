@@ -13,3 +13,4 @@ StatVFS.java
 VG.java
 Version.java
 XAttr.java
+XFSInfo.java

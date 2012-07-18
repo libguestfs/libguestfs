@@ -38,6 +38,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/struct-isoinfo.h \
   include/guestfs-gobject/struct-mdstat.h \
   include/guestfs-gobject/struct-btrfssubvolume.h \
+  include/guestfs-gobject/struct-xfsinfo.h \
   include/guestfs-gobject/optargs-internal_test.h \
   include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_domain.h \
@@ -82,6 +83,7 @@ guestfs_gobject_sources= \
   src/struct-isoinfo.c \
   src/struct-mdstat.c \
   src/struct-btrfssubvolume.c \
+  src/struct-xfsinfo.c \
   src/optargs-internal_test.c \
   src/optargs-add_drive.c \
   src/optargs-add_domain.c \

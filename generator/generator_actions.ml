@@ -8948,6 +8948,29 @@ be returned if you called C<guestfs_list_devices>.
 To find out the maximum number of devices that could be added,
 call C<guestfs_max_disks>." };
 
+  { defaults with
+    name = "xfs_info";
+    style = RStruct ("info", "xfsinfo"), [Pathname "path"], [];
+    proc_nr = Some 337;
+    optional = Some "xfs";
+    tests = [
+      InitEmpty, IfAvailable "xfs", TestOutputStruct (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["xfs_info"; "/"]],
+        [CompareWithInt ("xfs_blocksize", 4096);
+        ])
+    ];
+    shortdesc = "get geometry of XFS filesystem";
+    longdesc = "\
+C<path> is a mounted XFS filesystem.  This command returns the
+geometry of the filesystem.
+
+The returned struct contains geometry information.  Missing
+fields are returned as C<-1> (for numeric fields) or empty
+string." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

@@ -165,6 +165,7 @@ guestfsd_SOURCES = \
 	utimens.c \
 	wc.c \
 	xattr.c \
+	xfs.c \
 	zero.c \
 	zerofree.c
 guestfsd_LDADD = \

@@ -226,6 +226,35 @@ let structs = [
     "btrfssubvolume_top_level_id", FUInt64;
     "btrfssubvolume_path", FString;
   ];
+
+  (* XFS info descriptor. *)
+  "xfsinfo", [
+    "xfs_mntpoint", FString;
+    "xfs_inodesize", FUInt32;
+    "xfs_agcount", FUInt32;
+    "xfs_agsize", FUInt32;
+    "xfs_sectsize", FUInt32;
+    "xfs_attr", FUInt32;
+    "xfs_blocksize", FUInt32;
+    "xfs_datablocks", FUInt64;
+    "xfs_imaxpct", FUInt32;
+    "xfs_sunit", FUInt32;
+    "xfs_swidth", FUInt32;
+    "xfs_dirversion", FUInt32;
+    "xfs_dirblocksize", FUInt32;
+    "xfs_cimode", FUInt32;
+    "xfs_logname", FString;
+    "xfs_logblocksize", FUInt32;
+    "xfs_logblocks", FUInt32;
+    "xfs_logversion", FUInt32;
+    "xfs_logsectsize", FUInt32;
+    "xfs_logsunit", FUInt32;
+    "xfs_lazycount", FUInt32;
+    "xfs_rtname", FString;
+    "xfs_rtextsize", FUInt32;
+    "xfs_rtblocks", FUInt64;
+    "xfs_rtextents", FUInt64;
+  ];
 ] (* end of structs *)
 
 (* For bindings which want camel case *)
@@ -243,6 +272,7 @@ let camel_structs = [
   "partition", "Partition";
   "application", "Application";
   "isoinfo", "ISOInfo";
+  "xfsinfo", "XFSInfo";
   "mdstat", "MDStat";
   "btrfssubvolume", "BTRFSSubvolume";
 ]

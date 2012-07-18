@@ -84,6 +84,7 @@ daemon/upload.c
 daemon/utimens.c
 daemon/wc.c
 daemon/xattr.c
+daemon/xfs.c
 daemon/zero.c
 daemon/zerofree.c
 df/df.c
@@ -173,6 +174,7 @@ gobject/src/struct-stat.c
 gobject/src/struct-statvfs.c
 gobject/src/struct-version.c
 gobject/src/struct-xattr.c
+gobject/src/struct-xfsinfo.c
 gobject/src/tristate.c
 inspector/virt-inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
