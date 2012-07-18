@@ -389,85 +389,85 @@ optgroup_augeas_available (void)
   return 0;
 }
 
-int
+int __attribute__((noreturn))
 do_aug_init (const char *root, int flags)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_close (void)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_defvar (const char *name, const char *expr)
 {
   abort ();
 }
 
-guestfs_int_int_bool *
+guestfs_int_int_bool * __attribute__((noreturn))
 do_aug_defnode (const char *name, const char *expr, const char *val)
 {
   abort ();
 }
 
-char *
+char * __attribute__((noreturn))
 do_aug_get (const char *path)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_set (const char *path, const char *val)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_clear (const char *path)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_insert (const char *path, const char *label, int before)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_rm (const char *path)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_mv (const char *src, const char *dest)
 {
   abort ();
 }
 
-char **
+char ** __attribute__((noreturn))
 do_aug_match (const char *path)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_save (void)
 {
   abort ();
 }
 
-int
+int __attribute__((noreturn))
 do_aug_load (void)
 {
   abort ();
 }
 
-char **
+char ** __attribute__((noreturn))
 do_aug_ls (const char *path)
 {
   abort ();
