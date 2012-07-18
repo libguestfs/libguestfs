@@ -246,8 +246,8 @@ Makefile.in
 /ocaml/t/guestfs_400_events.opt
 /ocaml/t/guestfs_400_progress.bc
 /ocaml/t/guestfs_400_progress.opt
-/ocaml/t/guestfs_500_parallel_mount_local.bc
-/ocaml/t/guestfs_500_parallel_mount_local.opt
+/ocaml/t/guestfs_500_mount_local.bc
+/ocaml/t/guestfs_500_mount_local.opt
 /perl/bindtests.pl
 /perl/blib
 /perl/examples/guestfs-perl.3
