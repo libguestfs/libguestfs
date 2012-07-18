@@ -36,6 +36,51 @@ optgroup_xz_available (void)
   return prog_exists ("xz");
 }
 
+/* Detect if chown(2) is supported on the target directory. */
+static int
+is_chown_supported (const char *dir)
+{
+  size_t len = sysroot_len + strlen (dir) + 64;
+  char buf[len];
+  int fd, r, saved_errno;
+
+  /* Create a randomly named file. */
+  snprintf (buf, len, "%s%s/XXXXXXXX.XXX", sysroot, dir);
+  if (random_name (buf) == -1) {
+    reply_with_perror ("random_name");
+    return -1;
+  }
+
+  /* Maybe 'dir' is not a directory or filesystem not writable? */
+  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
+  if (fd == -1) {
+    reply_with_perror ("%s", dir);
+    return -1;
+  }
+
+  /* This is the test. */
+  r = fchown (fd, 1000, 1000);
+  saved_errno = errno;
+
+  /* Make sure the test file is removed. */
+  close (fd);
+  unlink (buf);
+
+  if (r == -1 && saved_errno == EPERM) {
+    /* This means chown is not supported by the filesystem. */
+    return 0;
+  }
+
+  if (r == -1) {
+    /* Some other error? */
+    reply_with_perror_errno (saved_errno, "unexpected error in fchown");
+    return -1;
+  }
+
+  /* Else chown is supported. */
+  return 1;
+}
+
 /* Read the error file.  Returns a string that the caller must free. */
 static char *
 read_error_file (char *error_file)
@@ -75,7 +120,11 @@ do_tXz_in (const char *dir, const char *filter)
   FILE *fp;
   char *cmd;
   char error_file[] = "/tmp/tarXXXXXX";
-  int fd;
+  int fd, chown_supported;
+
+  chown_supported = is_chown_supported (dir);
+  if (chown_supported == -1)
+    return -1;
 
   fd = mkstemp (error_file);
   if (fd == -1) {
@@ -86,8 +135,10 @@ do_tXz_in (const char *dir, const char *filter)
   close (fd);
 
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R -%sxf - 2> %s",
-                       dir, filter, error_file) == -1) {
+  if (asprintf_nowarn (&cmd, "tar -C %R -%sxf - %s2> %s",
+                       dir, filter,
+                       chown_supported ? "" : "--no-same-owner ",
+                       error_file) == -1) {
     err = errno;
     r = cancel_receive ();
     errno = err;
