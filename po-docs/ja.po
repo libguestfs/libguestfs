@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-07-17 15:36+0200\n"
+"POT-Creation-Date: 2012-07-18 21:04+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -353,7 +353,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:262 ../sparsify/virt-sparsify.pod:94
 #: ../sysprep/virt-sysprep.pod:39 ../test-tool/libguestfs-test-tool.pod:36
 #: ../tools/virt-list-filesystems.pl:55 ../tools/virt-list-partitions.pl:56
-#: ../tools/virt-make-fs.pl:155 ../tools/virt-tar.pl:103
+#: ../tools/virt-make-fs.pl:156 ../tools/virt-tar.pl:103
 #: ../tools/virt-win-reg.pl:96
 msgid "OPTIONS"
 msgstr "オプション"
@@ -368,7 +368,7 @@ msgstr "オプション"
 #: ../resize/virt-resize.pod:266 ../sparsify/virt-sparsify.pod:98
 #: ../sysprep/virt-sysprep.pod:43 ../test-tool/libguestfs-test-tool.pod:40
 #: ../tools/virt-list-filesystems.pl:63 ../tools/virt-list-partitions.pl:64
-#: ../tools/virt-make-fs.pl:163 ../tools/virt-tar.pl:111
+#: ../tools/virt-make-fs.pl:164 ../tools/virt-tar.pl:111
 #: ../tools/virt-win-reg.pl:104
 msgid "B<--help>"
 msgstr "B<--help>"
@@ -379,7 +379,7 @@ msgstr "B<--help>"
 #: ../edit/virt-edit.pod:68 ../format/virt-format.pod:65
 #: ../inspector/virt-inspector.pod:60 ../rescue/virt-rescue.pod:121
 #: ../sysprep/virt-sysprep.pod:45 ../tools/virt-list-filesystems.pl:65
-#: ../tools/virt-list-partitions.pl:66 ../tools/virt-make-fs.pl:165
+#: ../tools/virt-list-partitions.pl:66 ../tools/virt-make-fs.pl:166
 #: ../tools/virt-tar.pl:113 ../tools/virt-win-reg.pl:106
 msgid "Display brief help."
 msgstr "簡単なヘルプを表示します。"
@@ -683,7 +683,7 @@ msgstr "B<-V>"
 #: ../resize/virt-resize.pod:569 ../sparsify/virt-sparsify.pod:186
 #: ../sysprep/virt-sysprep.pod:174 ../test-tool/libguestfs-test-tool.pod:63
 #: ../tools/virt-list-filesystems.pl:71 ../tools/virt-list-partitions.pl:72
-#: ../tools/virt-make-fs.pl:171 ../tools/virt-tar.pl:119
+#: ../tools/virt-make-fs.pl:172 ../tools/virt-tar.pl:119
 #: ../tools/virt-win-reg.pl:112
 msgid "B<--version>"
 msgstr "B<--version>"
@@ -696,7 +696,7 @@ msgstr "B<--version>"
 #: ../rescue/virt-rescue.pod:244 ../resize/virt-resize.pod:571
 #: ../sparsify/virt-sparsify.pod:188 ../sysprep/virt-sysprep.pod:176
 #: ../tools/virt-list-filesystems.pl:73 ../tools/virt-list-partitions.pl:74
-#: ../tools/virt-make-fs.pl:173 ../tools/virt-tar.pl:121
+#: ../tools/virt-make-fs.pl:174 ../tools/virt-tar.pl:121
 #: ../tools/virt-win-reg.pl:114
 msgid "Display version number and exit."
 msgstr "バージョン番号を表示して終了します。"
@@ -1073,7 +1073,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:318
 #: ../resize/virt-resize.pod:690 ../sysprep/virt-sysprep.pod:421
 #: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260
-#: ../tools/virt-make-fs.pl:601 ../tools/virt-tar.pl:287
+#: ../tools/virt-make-fs.pl:602 ../tools/virt-tar.pl:287
 #: ../tools/virt-win-reg.pl:744
 msgid "SHELL QUOTING"
 msgstr ""
@@ -1085,7 +1085,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:320
 #: ../resize/virt-resize.pod:692 ../sysprep/virt-sysprep.pod:423
 #: ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262
-#: ../tools/virt-make-fs.pl:603 ../tools/virt-tar.pl:289
+#: ../tools/virt-make-fs.pl:604 ../tools/virt-tar.pl:289
 #: ../tools/virt-win-reg.pl:752
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
@@ -1271,7 +1271,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:286 ../src/guestfs.pod:3376
 #: ../sysprep/virt-sysprep.pod:432 ../test-tool/libguestfs-test-tool.pod:106
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
-#: ../tools/virt-make-fs.pl:608 ../tools/virt-tar.pl:294
+#: ../tools/virt-make-fs.pl:609 ../tools/virt-tar.pl:294
 #: ../tools/virt-win-reg.pl:757
 msgid "SEE ALSO"
 msgstr "関連項目"
@@ -1292,7 +1292,7 @@ msgstr ""
 #: ../format/virt-format.pod:187 ../rescue/virt-rescue.pod:349
 #: ../resize/virt-resize.pod:725 ../sparsify/virt-sparsify.pod:299
 #: ../tools/virt-list-filesystems.pl:210 ../tools/virt-list-partitions.pl:279
-#: ../tools/virt-make-fs.pl:634 ../tools/virt-tar.pl:309
+#: ../tools/virt-make-fs.pl:635 ../tools/virt-tar.pl:309
 #: ../tools/virt-win-reg.pl:783
 msgid "AUTHOR"
 msgstr "著者"
@@ -1305,7 +1305,7 @@ msgstr "著者"
 #: ../rescue/virt-rescue.pod:351 ../resize/virt-resize.pod:727
 #: ../sparsify/virt-sparsify.pod:301 ../sysprep/virt-sysprep.pod:449
 #: ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281
-#: ../tools/virt-make-fs.pl:636 ../tools/virt-tar.pl:311
+#: ../tools/virt-make-fs.pl:637 ../tools/virt-tar.pl:311
 #: ../tools/virt-win-reg.pl:785
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
@@ -1329,7 +1329,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sparsify/virt-sparsify.pod:303 ../src/guestfs.pod:3464
 #: ../sysprep/virt-sysprep.pod:453 ../test-tool/libguestfs-test-tool.pod:116
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
-#: ../tools/virt-make-fs.pl:638 ../tools/virt-tar.pl:313
+#: ../tools/virt-make-fs.pl:639 ../tools/virt-tar.pl:313
 #: ../tools/virt-win-reg.pl:787
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
@@ -1352,7 +1352,7 @@ msgstr "Copyright (C) 2011 Red Hat Inc."
 #: ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:459
 #: ../test-tool/libguestfs-test-tool.pod:121
 #: ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287
-#: ../tools/virt-make-fs.pl:642 ../tools/virt-tar.pl:317
+#: ../tools/virt-make-fs.pl:643 ../tools/virt-tar.pl:317
 #: ../tools/virt-win-reg.pl:791
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
@@ -1378,7 +1378,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:312 ../sysprep/virt-sysprep.pod:464
 #: ../test-tool/libguestfs-test-tool.pod:126
 #: ../tools/virt-list-filesystems.pl:223 ../tools/virt-list-partitions.pl:292
-#: ../tools/virt-make-fs.pl:647 ../tools/virt-tar.pl:322
+#: ../tools/virt-make-fs.pl:648 ../tools/virt-tar.pl:322
 #: ../tools/virt-win-reg.pl:796
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
@@ -1404,7 +1404,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:317 ../sysprep/virt-sysprep.pod:469
 #: ../test-tool/libguestfs-test-tool.pod:131
 #: ../tools/virt-list-filesystems.pl:228 ../tools/virt-list-partitions.pl:297
-#: ../tools/virt-make-fs.pl:652 ../tools/virt-tar.pl:327
+#: ../tools/virt-make-fs.pl:653 ../tools/virt-tar.pl:327
 #: ../tools/virt-win-reg.pl:801
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
@@ -2193,7 +2193,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:258 ../inspector/virt-inspector.pod:526
-#: ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:640
+#: ../resize/virt-resize.pod:731 ../tools/virt-make-fs.pl:641
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
@@ -9265,7 +9265,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:5043 ../fish/guestfish-actions.pod:5291
 #: ../fish/guestfish-actions.pod:5311 ../fish/guestfish-actions.pod:5330
 #: ../fish/guestfish-actions.pod:5368 ../fish/guestfish-actions.pod:6150
-#: ../fish/guestfish-actions.pod:6267 ../src/guestfs-actions.pod:10
+#: ../fish/guestfish-actions.pod:6278 ../src/guestfs-actions.pod:10
 #: ../src/guestfs-actions.pod:301 ../src/guestfs-actions.pod:322
 #: ../src/guestfs-actions.pod:1835 ../src/guestfs-actions.pod:1892
 #: ../src/guestfs-actions.pod:2151 ../src/guestfs-actions.pod:2260
@@ -9275,7 +9275,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8272 ../src/guestfs-actions.pod:8313
 #: ../src/guestfs-actions.pod:8344 ../src/guestfs-actions.pod:8404
 #: ../src/guestfs-actions.pod:9542 ../src/guestfs-actions.pod:9670
-#: ../src/guestfs-actions.pod:9875
+#: ../src/guestfs-actions.pod:9892
 msgid ""
 "Deprecated functions will not be removed from the API, but the fact that "
 "they are deprecated indicates that there are problems with correct use of "
@@ -11103,9 +11103,9 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:5495 ../fish/guestfish-actions.pod:5580
 #: ../fish/guestfish-actions.pod:5595 ../fish/guestfish-actions.pod:6114
 #: ../fish/guestfish-actions.pod:6126 ../fish/guestfish-actions.pod:6144
-#: ../fish/guestfish-actions.pod:6161 ../fish/guestfish-actions.pod:6171
-#: ../fish/guestfish-actions.pod:6239 ../fish/guestfish-actions.pod:6249
-#: ../fish/guestfish-actions.pod:6278 ../fish/guestfish-actions.pod:6288
+#: ../fish/guestfish-actions.pod:6172 ../fish/guestfish-actions.pod:6182
+#: ../fish/guestfish-actions.pod:6250 ../fish/guestfish-actions.pod:6260
+#: ../fish/guestfish-actions.pod:6289 ../fish/guestfish-actions.pod:6299
 #: ../src/guestfs-actions.pod:1256 ../src/guestfs-actions.pod:1435
 #: ../src/guestfs-actions.pod:1455 ../src/guestfs-actions.pod:2195
 #: ../src/guestfs-actions.pod:2214 ../src/guestfs-actions.pod:2317
@@ -11119,9 +11119,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8597 ../src/guestfs-actions.pod:8743
 #: ../src/guestfs-actions.pod:8767 ../src/guestfs-actions.pod:9634
 #: ../src/guestfs-actions.pod:9654 ../src/guestfs-actions.pod:9687
-#: ../src/guestfs-actions.pod:9706 ../src/guestfs-actions.pod:9725
-#: ../src/guestfs-actions.pod:9841 ../src/guestfs-actions.pod:9860
-#: ../src/guestfs-actions.pod:9906 ../src/guestfs-actions.pod:9925
+#: ../src/guestfs-actions.pod:9723 ../src/guestfs-actions.pod:9742
+#: ../src/guestfs-actions.pod:9858 ../src/guestfs-actions.pod:9877
+#: ../src/guestfs-actions.pod:9923 ../src/guestfs-actions.pod:9942
 msgid ""
 "Because of the message protocol, there is a transfer limit of somewhere "
 "between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
@@ -23675,11 +23675,45 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:6154
+#, fuzzy
+#| msgid "isoinfo"
+msgid "xfs-info"
+msgstr "isoinfo"
+
+#. type: verbatim
+#: ../fish/guestfish-actions.pod:6156
+#, fuzzy, no-wrap
+#| msgid ""
+#| " is-fifo path\n"
+#| "\n"
+msgid ""
+" xfs-info path\n"
+"\n"
+msgstr ""
+" is-fifo path\n"
+"\n"
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:6158 ../src/guestfs-actions.pod:9698
+msgid ""
+"C<path> is a mounted XFS filesystem.  This command returns the geometry of "
+"the filesystem."
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:6161 ../src/guestfs-actions.pod:9701
+msgid ""
+"The returned struct contains geometry information.  Missing fields are "
+"returned as C<-1> (for numeric fields) or empty string."
+msgstr ""
+
+#. type: =head2
+#: ../fish/guestfish-actions.pod:6165
 msgid "zegrep"
 msgstr "zegrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6156
+#: ../fish/guestfish-actions.pod:6167
 #, no-wrap
 msgid ""
 " zegrep regex path\n"
@@ -23689,18 +23723,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6158 ../src/guestfs-actions.pod:9699
+#: ../fish/guestfish-actions.pod:6169 ../src/guestfs-actions.pod:9716
 msgid ""
 "This calls the external C<zegrep> program and returns the matching lines."
 msgstr "これは外部の C<zegrep> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6164
+#: ../fish/guestfish-actions.pod:6175
 msgid "zegrepi"
 msgstr "zegrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6166
+#: ../fish/guestfish-actions.pod:6177
 #, no-wrap
 msgid ""
 " zegrepi regex path\n"
@@ -23710,18 +23744,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6168 ../src/guestfs-actions.pod:9718
+#: ../fish/guestfish-actions.pod:6179 ../src/guestfs-actions.pod:9735
 msgid ""
 "This calls the external C<zegrep -i> program and returns the matching lines."
 msgstr "これは外部の C<zegrep -i> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6174
+#: ../fish/guestfish-actions.pod:6185
 msgid "zero"
 msgstr "zero"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6176
+#: ../fish/guestfish-actions.pod:6187
 #, no-wrap
 msgid ""
 " zero device\n"
@@ -23731,12 +23765,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6178 ../src/guestfs-actions.pod:9736
+#: ../fish/guestfish-actions.pod:6189 ../src/guestfs-actions.pod:9753
 msgid "This command writes zeroes over the first few blocks of C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6180 ../src/guestfs-actions.pod:9738
+#: ../fish/guestfish-actions.pod:6191 ../src/guestfs-actions.pod:9755
 msgid ""
 "How many blocks are zeroed isn't specified (but it's I<not> enough to "
 "securely wipe the device).  It should be sufficient to remove any partition "
@@ -23744,8 +23778,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6184 ../fish/guestfish-actions.pod:6199
-#: ../src/guestfs-actions.pod:9742 ../src/guestfs-actions.pod:9768
+#: ../fish/guestfish-actions.pod:6195 ../fish/guestfish-actions.pod:6210
+#: ../src/guestfs-actions.pod:9759 ../src/guestfs-actions.pod:9785
 msgid ""
 "If blocks are already zero, then this command avoids writing zeroes.  This "
 "prevents the underlying device from becoming non-sparse or growing "
@@ -23756,17 +23790,17 @@ msgstr ""
 "ことを避けるためです。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6188
+#: ../fish/guestfish-actions.pod:6199
 msgid "See also: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 msgstr "関連項目: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6191
+#: ../fish/guestfish-actions.pod:6202
 msgid "zero-device"
 msgstr "zero-device"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6193
+#: ../fish/guestfish-actions.pod:6204
 #, no-wrap
 msgid ""
 " zero-device device\n"
@@ -23776,19 +23810,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6195
+#: ../fish/guestfish-actions.pod:6206
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with L</zero> "
 "which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6203
+#: ../fish/guestfish-actions.pod:6214
 msgid "zero-free-space"
 msgstr "zero-free-space"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6205
+#: ../fish/guestfish-actions.pod:6216
 #, no-wrap
 msgid ""
 " zero-free-space directory\n"
@@ -23798,7 +23832,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6207 ../src/guestfs-actions.pod:9787
+#: ../fish/guestfish-actions.pod:6218 ../src/guestfs-actions.pod:9804
 msgid ""
 "Zero the free space in the filesystem mounted on C<directory>.  The "
 "filesystem must be mounted read-write."
@@ -23807,7 +23841,7 @@ msgstr ""
 "す。  ファイルシステムは読み書きモードでマウントする必要があります。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6210 ../src/guestfs-actions.pod:9790
+#: ../fish/guestfish-actions.pod:6221 ../src/guestfs-actions.pod:9807
 msgid ""
 "The filesystem contents are not affected, but any free space in the "
 "filesystem is freed."
@@ -23816,19 +23850,19 @@ msgstr ""
 "領域はすべて開放されます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6213
+#: ../fish/guestfish-actions.pod:6224
 msgid ""
 "Free space is not \"trimmed\".  You may want to call L</fstrim> either as an "
 "alternative to this, or after calling this, depending on your requirements."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6217
+#: ../fish/guestfish-actions.pod:6228
 msgid "zerofree"
 msgstr "zerofree"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6219
+#: ../fish/guestfish-actions.pod:6230
 #, no-wrap
 msgid ""
 " zerofree device\n"
@@ -23838,7 +23872,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6221 ../src/guestfs-actions.pod:9812
+#: ../fish/guestfish-actions.pod:6232 ../src/guestfs-actions.pod:9829
 msgid ""
 "This runs the I<zerofree> program on C<device>.  This program claims to zero "
 "unused inodes and disk blocks on an ext2/3 filesystem, thus making it "
@@ -23846,24 +23880,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6226 ../src/guestfs-actions.pod:9817
+#: ../fish/guestfish-actions.pod:6237 ../src/guestfs-actions.pod:9834
 msgid "You should B<not> run this program if the filesystem is mounted."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6229 ../src/guestfs-actions.pod:9820
+#: ../fish/guestfish-actions.pod:6240 ../src/guestfs-actions.pod:9837
 msgid ""
 "It is possible that using this program can damage the filesystem or data on "
 "the filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6232
+#: ../fish/guestfish-actions.pod:6243
 msgid "zfgrep"
 msgstr "zfgrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6234
+#: ../fish/guestfish-actions.pod:6245
 #, no-wrap
 msgid ""
 " zfgrep pattern path\n"
@@ -23873,18 +23907,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6236 ../src/guestfs-actions.pod:9834
+#: ../fish/guestfish-actions.pod:6247 ../src/guestfs-actions.pod:9851
 msgid ""
 "This calls the external C<zfgrep> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6242
+#: ../fish/guestfish-actions.pod:6253
 msgid "zfgrepi"
 msgstr "zfgrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6244
+#: ../fish/guestfish-actions.pod:6255
 #, no-wrap
 msgid ""
 " zfgrepi pattern path\n"
@@ -23894,18 +23928,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6246 ../src/guestfs-actions.pod:9853
+#: ../fish/guestfish-actions.pod:6257 ../src/guestfs-actions.pod:9870
 msgid ""
 "This calls the external C<zfgrep -i> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6252
+#: ../fish/guestfish-actions.pod:6263
 msgid "zfile"
 msgstr "zfile"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6254
+#: ../fish/guestfish-actions.pod:6265
 #, no-wrap
 msgid ""
 " zfile meth path\n"
@@ -23915,26 +23949,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6256 ../src/guestfs-actions.pod:9879
+#: ../fish/guestfish-actions.pod:6267 ../src/guestfs-actions.pod:9896
 msgid ""
 "This command runs C<file> after first decompressing C<path> using C<method>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6259 ../src/guestfs-actions.pod:9882
+#: ../fish/guestfish-actions.pod:6270 ../src/guestfs-actions.pod:9899
 msgid "C<method> must be one of C<gzip>, C<compress> or C<bzip2>."
 msgstr ""
 "C<method> は C<gzip>, C<compress> または C<bzip2> のいずれかである必要があり"
 "ます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6261
+#: ../fish/guestfish-actions.pod:6272
 msgid ""
 "Since 1.0.63, use L</file> instead which can now process compressed files."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6264
+#: ../fish/guestfish-actions.pod:6275
 msgid ""
 "I<This function is deprecated.> In new code, use the L</file> call instead."
 msgstr ""
@@ -23942,12 +23976,12 @@ msgstr ""
 "ください。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6271
+#: ../fish/guestfish-actions.pod:6282
 msgid "zgrep"
 msgstr "zgrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6273
+#: ../fish/guestfish-actions.pod:6284
 #, no-wrap
 msgid ""
 " zgrep regex path\n"
@@ -23957,18 +23991,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6275 ../src/guestfs-actions.pod:9899
+#: ../fish/guestfish-actions.pod:6286 ../src/guestfs-actions.pod:9916
 msgid ""
 "This calls the external C<zgrep> program and returns the matching lines."
 msgstr "外部 C<zgrep> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6281
+#: ../fish/guestfish-actions.pod:6292
 msgid "zgrepi"
 msgstr "zgrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6283
+#: ../fish/guestfish-actions.pod:6294
 #, no-wrap
 msgid ""
 " zgrepi regex path\n"
@@ -23978,7 +24012,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6285 ../src/guestfs-actions.pod:9918
+#: ../fish/guestfish-actions.pod:6296 ../src/guestfs-actions.pod:9935
 msgid ""
 "This calls the external C<zgrep -i> program and returns the matching lines."
 msgstr "外部 C<zgrep -i> プログラムを呼び出し、一致する行を返します。"
@@ -28403,7 +28437,7 @@ msgid "Create no logical volume.  This is the default."
 msgstr "論理ボリュームを作成しません。  これがデフォルトです。"
 
 #. type: =item
-#: ../format/virt-format.pod:125 ../tools/virt-make-fs.pl:260
+#: ../format/virt-format.pod:125 ../tools/virt-make-fs.pl:261
 msgid "B<--partition>"
 msgstr "B<--partition>"
 
@@ -31775,7 +31809,7 @@ msgid "B<-d>"
 msgstr "B<-d>"
 
 #. type: =item
-#: ../resize/virt-resize.pod:328 ../tools/virt-make-fs.pl:179
+#: ../resize/virt-resize.pod:328 ../tools/virt-make-fs.pl:180
 #: ../tools/virt-win-reg.pl:120
 msgid "B<--debug>"
 msgstr "B<--debug>"
@@ -33166,9 +33200,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:9472 ../src/guestfs-actions.pod:9517
 #: ../src/guestfs-actions.pod:9557 ../src/guestfs-actions.pod:9615
 #: ../src/guestfs-actions.pod:9632 ../src/guestfs-actions.pod:9652
-#: ../src/guestfs-actions.pod:9685 ../src/guestfs-actions.pod:9749
-#: ../src/guestfs-actions.pod:9772 ../src/guestfs-actions.pod:9797
-#: ../src/guestfs-actions.pod:9823
+#: ../src/guestfs-actions.pod:9685 ../src/guestfs-actions.pod:9766
+#: ../src/guestfs-actions.pod:9789 ../src/guestfs-actions.pod:9814
+#: ../src/guestfs-actions.pod:9840
 msgid "This function returns 0 on success or -1 on error."
 msgstr "この関数は、成功のとき 0 を、エラーのとき -1 を返します。"
 
@@ -33763,7 +33797,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8414 ../src/guestfs-actions.pod:8438
 #: ../src/guestfs-actions.pod:9299 ../src/guestfs-actions.pod:9318
 #: ../src/guestfs-actions.pod:9336 ../src/guestfs-actions.pod:9529
-#: ../src/guestfs-actions.pod:9887
+#: ../src/guestfs-actions.pod:9904
 msgid ""
 "This function returns a string, or NULL on error.  I<The caller must free "
 "the returned string after use>."
@@ -33902,9 +33936,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8593 ../src/guestfs-actions.pod:8739
 #: ../src/guestfs-actions.pod:8763 ../src/guestfs-actions.pod:9403
 #: ../src/guestfs-actions.pod:9442 ../src/guestfs-actions.pod:9489
-#: ../src/guestfs-actions.pod:9702 ../src/guestfs-actions.pod:9721
-#: ../src/guestfs-actions.pod:9837 ../src/guestfs-actions.pod:9856
-#: ../src/guestfs-actions.pod:9902 ../src/guestfs-actions.pod:9921
+#: ../src/guestfs-actions.pod:9719 ../src/guestfs-actions.pod:9738
+#: ../src/guestfs-actions.pod:9854 ../src/guestfs-actions.pod:9873
+#: ../src/guestfs-actions.pod:9919 ../src/guestfs-actions.pod:9938
 msgid ""
 "This function returns a NULL-terminated array of strings (like L<environ(3)"
 ">), or NULL if there was an error.  I<The caller must free the strings and "
@@ -35456,8 +35490,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2027 ../src/guestfs-actions.pod:2072
 #: ../src/guestfs-actions.pod:2539 ../src/guestfs-actions.pod:2561
 #: ../src/guestfs-actions.pod:4725 ../src/guestfs-actions.pod:9172
-#: ../src/guestfs-actions.pod:9206 ../src/guestfs-actions.pod:9751
-#: ../src/guestfs-actions.pod:9774 ../src/guestfs-actions.pod:9799
+#: ../src/guestfs-actions.pod:9206 ../src/guestfs-actions.pod:9768
+#: ../src/guestfs-actions.pod:9791 ../src/guestfs-actions.pod:9816
 msgid ""
 "This long-running command can generate progress notification messages so "
 "that the caller can display a progress bar or indicator.  To receive these "
@@ -36343,9 +36377,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8639 ../src/guestfs-actions.pod:8652
 #: ../src/guestfs-actions.pod:8674 ../src/guestfs-actions.pod:8687
 #: ../src/guestfs-actions.pod:8700 ../src/guestfs-actions.pod:8713
-#: ../src/guestfs-actions.pod:9709 ../src/guestfs-actions.pod:9728
-#: ../src/guestfs-actions.pod:9844 ../src/guestfs-actions.pod:9863
-#: ../src/guestfs-actions.pod:9909 ../src/guestfs-actions.pod:9928
+#: ../src/guestfs-actions.pod:9726 ../src/guestfs-actions.pod:9745
+#: ../src/guestfs-actions.pod:9861 ../src/guestfs-actions.pod:9880
+#: ../src/guestfs-actions.pod:9926 ../src/guestfs-actions.pod:9945
 msgid "(Added in 1.0.66)"
 msgstr "(1.0.66 において追加)"
 
@@ -36865,7 +36899,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:2721 ../src/guestfs-actions.pod:9756
+#: ../src/guestfs-actions.pod:2721 ../src/guestfs-actions.pod:9773
 msgid "(Added in 1.0.16)"
 msgstr "(1.0.16 において追加)"
 
@@ -36981,7 +37015,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7800 ../src/guestfs-actions.pod:8358
 #: ../src/guestfs-actions.pod:8377 ../src/guestfs-actions.pod:8393
 #: ../src/guestfs-actions.pod:8417 ../src/guestfs-actions.pod:9358
-#: ../src/guestfs-actions.pod:9373 ../src/guestfs-actions.pod:9825
+#: ../src/guestfs-actions.pod:9373 ../src/guestfs-actions.pod:9842
 msgid "(Added in 1.0.26)"
 msgstr "(1.0.26 において追加)"
 
@@ -37594,7 +37628,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3247 ../src/guestfs-actions.pod:4796
 #: ../src/guestfs-actions.pod:5024 ../src/guestfs-actions.pod:5060
 #: ../src/guestfs-actions.pod:7624 ../src/guestfs-actions.pod:8257
-#: ../src/guestfs-actions.pod:9890
+#: ../src/guestfs-actions.pod:9907
 msgid "(Added in 1.0.59)"
 msgstr "(1.0.59 において追加)"
 
@@ -39891,7 +39925,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:5299 ../src/guestfs-actions.pod:9804
+#: ../src/guestfs-actions.pod:5299 ../src/guestfs-actions.pod:9821
 msgid "(Added in 1.17.18)"
 msgstr "(1.17.18 にて追加)"
 
@@ -45657,11 +45691,50 @@ msgstr ""
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:9692
+#, fuzzy
+#| msgid "guestfs_isoinfo"
+msgid "guestfs_xfs_info"
+msgstr "guestfs_isoinfo"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9694
+#, fuzzy, no-wrap
+#| msgid ""
+#| " struct guestfs_isoinfo *\n"
+#| " guestfs_isoinfo (guestfs_h *g,\n"
+#| "                  const char *isofile);\n"
+#| "\n"
+msgid ""
+" struct guestfs_xfsinfo *\n"
+" guestfs_xfs_info (guestfs_h *g,\n"
+"                   const char *path);\n"
+"\n"
+msgstr ""
+" struct guestfs_isoinfo *\n"
+" guestfs_isoinfo (guestfs_h *g,\n"
+"                  const char *isofile);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:9705
+#, fuzzy
+#| msgid ""
+#| "This function returns a C<struct guestfs_stat *>, or NULL if there was an "
+#| "error.  I<The caller must call C<guestfs_free_stat> after use>."
+msgid ""
+"This function returns a C<struct guestfs_xfsinfo *>, or NULL if there was an "
+"error.  I<The caller must call C<guestfs_free_xfsinfo> after use>."
+msgstr ""
+"この関数は C<struct guestfs_stat *> を返します。エラーがあれば NULL です。 I<"
+"呼び出し元は使用後に C<guestfs_free_stat> を呼び出す必要があります>。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9709
 msgid "guestfs_zegrep"
 msgstr "guestfs_zegrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9694
+#: ../src/guestfs-actions.pod:9711
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45677,12 +45750,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9711
+#: ../src/guestfs-actions.pod:9728
 msgid "guestfs_zegrepi"
 msgstr "guestfs_zegrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9713
+#: ../src/guestfs-actions.pod:9730
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45698,12 +45771,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9730
+#: ../src/guestfs-actions.pod:9747
 msgid "guestfs_zero"
 msgstr "guestfs_zero"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9732
+#: ../src/guestfs-actions.pod:9749
 #, no-wrap
 msgid ""
 " int\n"
@@ -45717,7 +45790,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9746
+#: ../src/guestfs-actions.pod:9763
 msgid ""
 "See also: C<guestfs_zero_device>, C<guestfs_scrub_device>, "
 "C<guestfs_is_zero_device>"
@@ -45726,12 +45799,12 @@ msgstr ""
 "C<guestfs_is_zero_device>"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9758
+#: ../src/guestfs-actions.pod:9775
 msgid "guestfs_zero_device"
 msgstr "guestfs_zero_device"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9760
+#: ../src/guestfs-actions.pod:9777
 #, no-wrap
 msgid ""
 " int\n"
@@ -45745,24 +45818,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9764
+#: ../src/guestfs-actions.pod:9781
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with "
 "C<guestfs_zero> which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9779
+#: ../src/guestfs-actions.pod:9796
 msgid "(Added in 1.3.1)"
 msgstr "(1.3.1 において追加)"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9781
+#: ../src/guestfs-actions.pod:9798
 msgid "guestfs_zero_free_space"
 msgstr "guestfs_zero_free_space"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9783
+#: ../src/guestfs-actions.pod:9800
 #, no-wrap
 msgid ""
 " int\n"
@@ -45776,7 +45849,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9793
+#: ../src/guestfs-actions.pod:9810
 msgid ""
 "Free space is not \"trimmed\".  You may want to call C<guestfs_fstrim> "
 "either as an alternative to this, or after calling this, depending on your "
@@ -45784,12 +45857,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9806
+#: ../src/guestfs-actions.pod:9823
 msgid "guestfs_zerofree"
 msgstr "guestfs_zerofree"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9808
+#: ../src/guestfs-actions.pod:9825
 #, no-wrap
 msgid ""
 " int\n"
@@ -45803,12 +45876,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9827
+#: ../src/guestfs-actions.pod:9844
 msgid "guestfs_zfgrep"
 msgstr "guestfs_zfgrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9829
+#: ../src/guestfs-actions.pod:9846
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45824,12 +45897,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9846
+#: ../src/guestfs-actions.pod:9863
 msgid "guestfs_zfgrepi"
 msgstr "guestfs_zfgrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9848
+#: ../src/guestfs-actions.pod:9865
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45845,12 +45918,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9865
+#: ../src/guestfs-actions.pod:9882
 msgid "guestfs_zfile"
 msgstr "guestfs_zfile"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9867
+#: ../src/guestfs-actions.pod:9884
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45866,7 +45939,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9872
+#: ../src/guestfs-actions.pod:9889
 msgid ""
 "I<This function is deprecated.> In new code, use the L</guestfs_file> call "
 "instead."
@@ -45875,19 +45948,19 @@ msgstr ""
 "使用してください。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9884
+#: ../src/guestfs-actions.pod:9901
 msgid ""
 "Since 1.0.63, use C<guestfs_file> instead which can now process compressed "
 "files."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9892
+#: ../src/guestfs-actions.pod:9909
 msgid "guestfs_zgrep"
 msgstr "guestfs_zgrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9894
+#: ../src/guestfs-actions.pod:9911
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45903,12 +45976,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9911
+#: ../src/guestfs-actions.pod:9928
 msgid "guestfs_zgrepi"
 msgstr "guestfs_zgrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9913
+#: ../src/guestfs-actions.pod:9930
 #, no-wrap
 msgid ""
 " char **\n"
@@ -46191,21 +46264,33 @@ msgstr "次の関数: L</guestfs_wipefs>"
 
 #. type: =item
 #: ../src/guestfs-availability.pod:176
+msgid "B<xfs>"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs-availability.pod:178
+#, fuzzy
+#| msgid "The following functions: L</guestfs_wipefs>"
+msgid "The following functions: L</guestfs_xfs_info>"
+msgstr "次の関数: L</guestfs_wipefs>"
+
+#. type: =item
+#: ../src/guestfs-availability.pod:181
 msgid "B<xz>"
 msgstr "B<xz>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:178
+#: ../src/guestfs-availability.pod:183
 msgid "The following functions: L</guestfs_txz_in> L</guestfs_txz_out>"
 msgstr "以下の関数: L</guestfs_txz_in> L</guestfs_txz_out>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:182
+#: ../src/guestfs-availability.pod:187
 msgid "B<zerofree>"
 msgstr "B<zerofree>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:184
+#: ../src/guestfs-availability.pod:189
 msgid "The following functions: L</guestfs_zerofree>"
 msgstr "以下の関数: L</guestfs_zerofree>"
 
@@ -47130,6 +47215,85 @@ msgid ""
 msgstr ""
 " void guestfs_free_btrfssubvolume (struct guestfs_free_btrfssubvolume *);\n"
 " void guestfs_free_btrfssubvolume_list (struct guestfs_free_btrfssubvolume_list *);\n"
+"\n"
+
+#. type: =head2
+#: ../src/guestfs-structs.pod:330
+#, fuzzy
+#| msgid "guestfs_isoinfo"
+msgid "guestfs_xfsinfo"
+msgstr "guestfs_isoinfo"
+
+#. type: verbatim
+#: ../src/guestfs-structs.pod:332
+#, no-wrap
+msgid ""
+" struct guestfs_xfsinfo {\n"
+"   char *xfs_mntpoint;\n"
+"   uint32_t xfs_inodesize;\n"
+"   uint32_t xfs_agcount;\n"
+"   uint32_t xfs_agsize;\n"
+"   uint32_t xfs_sectsize;\n"
+"   uint32_t xfs_attr;\n"
+"   uint32_t xfs_blocksize;\n"
+"   uint64_t xfs_datablocks;\n"
+"   uint32_t xfs_imaxpct;\n"
+"   uint32_t xfs_sunit;\n"
+"   uint32_t xfs_swidth;\n"
+"   uint32_t xfs_dirversion;\n"
+"   uint32_t xfs_dirblocksize;\n"
+"   uint32_t xfs_cimode;\n"
+"   char *xfs_logname;\n"
+"   uint32_t xfs_logblocksize;\n"
+"   uint32_t xfs_logblocks;\n"
+"   uint32_t xfs_logversion;\n"
+"   uint32_t xfs_logsectsize;\n"
+"   uint32_t xfs_logsunit;\n"
+"   uint32_t xfs_lazycount;\n"
+"   char *xfs_rtname;\n"
+"   uint32_t xfs_rtextsize;\n"
+"   uint64_t xfs_rtblocks;\n"
+"   uint64_t xfs_rtextents;\n"
+" };\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../src/guestfs-structs.pod:360
+#, fuzzy, no-wrap
+#| msgid ""
+#| " struct guestfs_isoinfo_list {\n"
+#| "   uint32_t len; /* Number of elements in list. */\n"
+#| "   struct guestfs_isoinfo *val; /* Elements. */\n"
+#| " };\n"
+#| " \n"
+msgid ""
+" struct guestfs_xfsinfo_list {\n"
+"   uint32_t len; /* Number of elements in list. */\n"
+"   struct guestfs_xfsinfo *val; /* Elements. */\n"
+" };\n"
+" \n"
+msgstr ""
+" struct guestfs_isoinfo_list {\n"
+"   uint32_t len; /* 一覧にある要素数 */\n"
+"   struct guestfs_isoinfo *val; /* 要素 */\n"
+" };\n"
+" \n"
+
+#. type: verbatim
+#: ../src/guestfs-structs.pod:365
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void guestfs_free_isoinfo (struct guestfs_free_isoinfo *);\n"
+#| " void guestfs_free_isoinfo_list (struct guestfs_free_isoinfo_list *);\n"
+#| "\n"
+msgid ""
+" void guestfs_free_xfsinfo (struct guestfs_free_xfsinfo *);\n"
+" void guestfs_free_xfsinfo_list (struct guestfs_free_xfsinfo_list *);\n"
+"\n"
+msgstr ""
+" void guestfs_free_isoinfo (struct guestfs_free_isoinfo *);\n"
+" void guestfs_free_isoinfo_list (struct guestfs_free_isoinfo_list *);\n"
 "\n"
 
 #. type: textblock
@@ -54199,7 +54363,7 @@ msgstr ""
 "L<disktype(1)>."
 
 #. type: =head1
-#: ../src/guestfs.pod:3427 ../tools/virt-make-fs.pl:623
+#: ../src/guestfs.pod:3427 ../tools/virt-make-fs.pl:624
 #: ../tools/virt-win-reg.pl:772
 msgid "BUGS"
 msgstr "バグ"
@@ -56013,16 +56177,20 @@ msgstr ""
 
 #. type: textblock
 #: ../tools/virt-make-fs.pl:57
-msgid "To create blank disks, use L<virt-format(1)>."
+#, fuzzy
+#| msgid "To create blank disks, use L<virt-format(1)>."
+msgid ""
+"To create blank disks, use L<virt-format(1)>.  To create complex layouts, "
+"use L<guestfish(1)>."
 msgstr "空のディスクを使用するには L<virt-format(1)> を使用します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:59
+#: ../tools/virt-make-fs.pl:60
 msgid "Basic usage is:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:61
+#: ../tools/virt-make-fs.pl:62
 #, no-wrap
 msgid ""
 " virt-make-fs input output.img\n"
@@ -56032,7 +56200,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:63
+#: ../tools/virt-make-fs.pl:64
 msgid ""
 "where C<input> is either a directory containing files that you want to add, "
 "or a tar archive (either uncompressed tar or gzip-compressed tar); and "
@@ -56042,12 +56210,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../tools/virt-make-fs.pl:69
+#: ../tools/virt-make-fs.pl:70
 msgid "FILESYSTEM TYPE"
 msgstr "ファイルシステム形式"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:71
+#: ../tools/virt-make-fs.pl:72
 msgid ""
 "The default filesystem type is C<ext2>.  Just about any filesystem type that "
 "libguestfs supports can be used (but I<not> read-only formats like "
@@ -56055,12 +56223,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:77
+#: ../tools/virt-make-fs.pl:78
 msgid "I<ext3>"
 msgstr "I<ext3>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:79
+#: ../tools/virt-make-fs.pl:80
 msgid ""
 "Note that ext3 filesystems contain a journal, typically 1-32 MB in size.  If "
 "you are not going to use the filesystem in a way that requires the journal, "
@@ -56068,17 +56236,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:83
+#: ../tools/virt-make-fs.pl:84
 msgid "I<ntfs> or I<vfat>"
 msgstr "I<ntfs> または I<vfat>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:85
+#: ../tools/virt-make-fs.pl:86
 msgid "Useful if exporting data to a Windows guest."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:87
+#: ../tools/virt-make-fs.pl:88
 msgid ""
 "I<Note for vfat>: The tar archive or local directory must only contain files "
 "which are owned by root (ie. UID:GID = 0:0).  The reason is that the tar "
@@ -56087,25 +56255,25 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:92
+#: ../tools/virt-make-fs.pl:93
 msgid "I<minix>"
 msgstr "I<minix>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:94
+#: ../tools/virt-make-fs.pl:95
 msgid ""
 "Lower overhead than C<ext2>, but certain limitations on filename length and "
 "total filesystem size."
 msgstr ""
 
 #. type: =head3
-#: ../tools/virt-make-fs.pl:99 ../tools/virt-make-fs.pl:118
-#: ../tools/virt-make-fs.pl:151
+#: ../tools/virt-make-fs.pl:100 ../tools/virt-make-fs.pl:119
+#: ../tools/virt-make-fs.pl:152
 msgid "EXAMPLE"
 msgstr "例"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:101
+#: ../tools/virt-make-fs.pl:102
 #, no-wrap
 msgid ""
 " virt-make-fs --type=minix input minixfs.img\n"
@@ -56115,17 +56283,17 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-make-fs.pl:103
+#: ../tools/virt-make-fs.pl:104
 msgid "TO PARTITION OR NOT TO PARTITION"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:105
+#: ../tools/virt-make-fs.pl:106
 msgid "Optionally virt-make-fs can add a partition table to the output disk."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:107
+#: ../tools/virt-make-fs.pl:108
 msgid ""
 "Adding a partition can make the disk image more compatible with certain "
 "virtualized operating systems which don't expect to see a filesystem "
@@ -56134,7 +56302,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:112
+#: ../tools/virt-make-fs.pl:113
 msgid ""
 "On the other hand, if you have a partition table then the output image is no "
 "longer a straight filesystem.  For example you cannot run L<fsck(8)> "
@@ -56143,12 +56311,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:120
+#: ../tools/virt-make-fs.pl:121
 msgid "Add an MBR partition:"
 msgstr "MBR パーティションを追加します:"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:122
+#: ../tools/virt-make-fs.pl:123
 #, no-wrap
 msgid ""
 " virt-make-fs --partition -- input disk.img\n"
@@ -56158,14 +56326,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:124
+#: ../tools/virt-make-fs.pl:125
 msgid ""
 "If the output disk image could be terabyte-sized or larger, it's better to "
 "use an EFI/GPT-compatible partition table:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:127
+#: ../tools/virt-make-fs.pl:128
 #, no-wrap
 msgid ""
 " virt-make-fs --partition=gpt --size=+4T --format=qcow2 input disk.img\n"
@@ -56175,12 +56343,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-make-fs.pl:129
+#: ../tools/virt-make-fs.pl:130
 msgid "EXTRA SPACE"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:131
+#: ../tools/virt-make-fs.pl:132
 msgid ""
 "Unlike formats such as tar and squashfs, a filesystem does not \"just fit\" "
 "the files that it contains, but might have extra space.  Depending on how "
@@ -56192,7 +56360,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:139
+#: ../tools/virt-make-fs.pl:140
 msgid ""
 "An alternative way to leave extra space but not make the output image any "
 "bigger is to use an alternative disk image format (instead of the default "
@@ -56203,7 +56371,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:147
+#: ../tools/virt-make-fs.pl:148
 msgid ""
 "Don't forget that you can also use local commands including L<resize2fs(8)> "
 "and L<virt-resize(1)> to resize existing filesystems, or rerun virt-make-fs "
@@ -56211,7 +56379,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:153
+#: ../tools/virt-make-fs.pl:154
 #, no-wrap
 msgid ""
 " virt-make-fs --format=qcow2 --size=+200M input output.img\n"
@@ -56221,64 +56389,64 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:181
+#: ../tools/virt-make-fs.pl:182
 msgid "Enable debugging information."
 msgstr "デバッグ情報を有効にします。"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:185
+#: ../tools/virt-make-fs.pl:186
 #, fuzzy
 #| msgid "B<--help>"
 msgid "B<--floppy>"
 msgstr "B<--help>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:187
+#: ../tools/virt-make-fs.pl:188
 msgid "Create a virtual floppy disk."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:189
+#: ../tools/virt-make-fs.pl:190
 msgid ""
 "Currently this preselects the size (1440K), partition type (MBR) and "
 "filesystem type (VFAT).  In future it may also choose the geometry."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:196
+#: ../tools/virt-make-fs.pl:197
 msgid "B<--size=E<lt>NE<gt>>"
 msgstr "B<--size=E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:198
+#: ../tools/virt-make-fs.pl:199
 msgid "B<--size=+E<lt>NE<gt>>"
 msgstr "B<--size=+E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:200
+#: ../tools/virt-make-fs.pl:201
 msgid "B<-s E<lt>NE<gt>>"
 msgstr "B<-s E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:202
+#: ../tools/virt-make-fs.pl:203
 msgid "B<-s +E<lt>NE<gt>>"
 msgstr "B<-s +E<lt>NE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:204
+#: ../tools/virt-make-fs.pl:205
 msgid ""
 "Use the I<--size> (or I<-s>) option to choose the size of the output image."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:207
+#: ../tools/virt-make-fs.pl:208
 msgid ""
 "If this option is I<not> given, then the output image will be just large "
 "enough to contain all the files, with not much wasted space."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:210
+#: ../tools/virt-make-fs.pl:211
 msgid ""
 "To choose a fixed size output disk, specify an absolute number followed by b/"
 "K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, "
@@ -56287,7 +56455,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:215
+#: ../tools/virt-make-fs.pl:216
 msgid ""
 "To leave extra space, specify C<+> (plus sign) and a number followed by b/K/"
 "M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, "
@@ -56296,7 +56464,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:221
+#: ../tools/virt-make-fs.pl:222
 msgid ""
 "Note that virt-make-fs estimates free space, and therefore will not produce "
 "filesystems containing precisely the free space requested.  (It is much more "
@@ -56305,65 +56473,65 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:230
+#: ../tools/virt-make-fs.pl:231
 msgid "B<--format=E<lt>fmtE<gt>>"
 msgstr "B<--format=E<lt>fmtE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:232
+#: ../tools/virt-make-fs.pl:233
 msgid "B<-F E<lt>fmtE<gt>>"
 msgstr "B<-F E<lt>fmtE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:234
+#: ../tools/virt-make-fs.pl:235
 msgid "Choose the output disk image format."
 msgstr "出力するディスクイメージ形式を選択します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:236
+#: ../tools/virt-make-fs.pl:237
 msgid "The default is C<raw> (raw sparse disk image)."
 msgstr "デフォルトは C<raw> です (スパースな raw 形式のディスクイメージ)。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:238
+#: ../tools/virt-make-fs.pl:239
 msgid ""
 "For other choices, see the L<qemu-img(1)> manpage.  The only other choice "
 "that would really make sense here is C<qcow2>."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:245
+#: ../tools/virt-make-fs.pl:246
 msgid "B<--type=E<lt>fsE<gt>>"
 msgstr "B<--type=E<lt>fsE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:247
+#: ../tools/virt-make-fs.pl:248
 msgid "B<-t E<lt>fsE<gt>>"
 msgstr "B<-t E<lt>fsE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:249
+#: ../tools/virt-make-fs.pl:250
 msgid "Choose the output filesystem type."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:251
+#: ../tools/virt-make-fs.pl:252
 msgid "The default is C<ext2>."
 msgstr "デフォルトは C<ext2> です。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:253
+#: ../tools/virt-make-fs.pl:254
 msgid ""
 "Any filesystem which is supported read-write by libguestfs can be used here."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:262
+#: ../tools/virt-make-fs.pl:263
 msgid "B<--partition=E<lt>parttypeE<gt>>"
 msgstr "B<--partition=E<lt>parttypeE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:264
+#: ../tools/virt-make-fs.pl:265
 msgid ""
 "If specified, this flag adds an MBR partition table to the output disk image."
 msgstr ""
@@ -56371,21 +56539,21 @@ msgstr ""
 "ルを追加します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:267
+#: ../tools/virt-make-fs.pl:268
 msgid ""
 "You can change the partition table type, eg. I<--partition=gpt> for large "
 "disks."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:270
+#: ../tools/virt-make-fs.pl:271
 msgid ""
 "Note that if you just use a lonesome I<--partition>, the Perl option parser "
 "might consider the next parameter to be the partition type.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:274
+#: ../tools/virt-make-fs.pl:275
 #, no-wrap
 msgid ""
 " virt-make-fs --partition input.tar output.img\n"
@@ -56395,7 +56563,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:276
+#: ../tools/virt-make-fs.pl:277
 msgid ""
 "would cause virt-make-fs to think you wanted to use a partition type of "
 "C<input.tar> which is completely wrong.  To avoid this, use I<--> (a double "
@@ -56403,7 +56571,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:280
+#: ../tools/virt-make-fs.pl:281
 #, no-wrap
 msgid ""
 " virt-make-fs --partition -- input.tar output.img\n"
@@ -56413,12 +56581,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:282
+#: ../tools/virt-make-fs.pl:283
 msgid "For MBR, virt-make-fs sets the partition type byte automatically."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:610
+#: ../tools/virt-make-fs.pl:611
 msgid ""
 "L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
 "L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, L<resize2fs"
@@ -56429,7 +56597,7 @@ msgstr ""
 "(8)>, L<guestfs(3)>, L<Sys::Guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:625 ../tools/virt-win-reg.pl:774
+#: ../tools/virt-make-fs.pl:626 ../tools/virt-win-reg.pl:774
 msgid ""
 "When reporting bugs, please enable debugging and capture the I<complete> "
 "output:"
@@ -56437,7 +56605,7 @@ msgstr ""
 "バグを報告するとき、デバッグを有効にして、I<完全な> 出力を記録してください:"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:628
+#: ../tools/virt-make-fs.pl:629
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_DEBUG=1\n"
@@ -56449,7 +56617,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:631
+#: ../tools/virt-make-fs.pl:632
 msgid ""
 "Attach /tmp/virt-make-fs.log to a new bug report at L<https://bugzilla."
 "redhat.com/>"
@@ -57451,10 +57619,12 @@ msgstr ""
 "してください"
 
 #~ msgid ""
-#~ " https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+#~ " https://bugzilla.redhat.com/enter_bug.cgi?"
+#~ "component=libguestfs&product=Virtualization+Tools\n"
 #~ "\n"
 #~ msgstr ""
-#~ " https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+#~ " https://bugzilla.redhat.com/enter_bug.cgi?"
+#~ "component=libguestfs&product=Virtualization+Tools\n"
 #~ "\n"
 
 #~ msgid ""
