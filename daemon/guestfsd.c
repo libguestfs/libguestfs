@@ -1190,6 +1190,52 @@ prog_exists (const char *prog)
   return 0;
 }
 
+/* Pass a template such as "/sysroot/XXXXXXXX.XXX".  This updates the
+ * template to contain a randomly named file.  Any 'X' characters
+ * after the final '/' are replaced with random characters.
+ *
+ * Notes: You should probably use an 8.3 path, so it's compatible with
+ * all filesystems including basic FAT.  Also this only substitutes
+ * lowercase ASCII letters and numbers, again for compatibility with
+ * lowest common denominator filesystems.
+ *
+ * This doesn't create a file or check whether or not the file exists
+ * (it would be extremely unlikely to exist as long as the RNG is
+ * working).
+ *
+ * If there is an error, -1 is returned.
+ */
+int
+random_name (char *template)
+{
+  int fd;
+  unsigned char c;
+  char *p;
+
+  fd = open ("/dev/urandom", O_RDONLY|O_CLOEXEC);
+  if (fd == -1)
+    return -1;
+
+  p = strrchr (template, '/');
+  if (p == NULL)
+    abort ();                   /* internal error - bad template */
+
+  while (*p) {
+    if (*p == 'X') {
+      if (read (fd, &c, 1) != 1) {
+        close (fd);
+        return -1;
+      }
+      *p = "0123456789abcdefghijklmnopqrstuvwxyz"[c % 36];
+    }
+
+    p++;
+  }
+
+  close (fd);
+  return 0;
+}
+
 /* LVM and other commands aren't synchronous, especially when udev is
  * involved.  eg. You can create or remove some device, but the /dev
  * device node won't appear until some time later.  This means that
