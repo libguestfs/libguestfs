@@ -40,26 +40,29 @@ superminfs_DATA = \
 # This used to be a configure-generated file (as is update.sh still).
 # However config.status always touches the destination file, which
 # means the appliance got rebuilt too often.
-make.sh: make.sh.in
+make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  ./config.status --file=appliance/$@-t:appliance/$<
 	chmod +x $@-t
-	mv $@-t $@
+	cmp -s $@ $@-t || mv $@-t $@
+	rm -f $@-t
 
 PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1
 if VALGRIND_DAEMON
 PACKAGELIST_CPP_FLAGS += -DVALGRIND_DAEMON=1
 endif
 
-packagelist: packagelist.in
+packagelist: packagelist.in Makefile
 	cpp -undef $(PACKAGELIST_CPP_FLAGS) < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
-	mv $@-t $@
+	cmp -s $@ $@-t || mv $@-t $@
+	rm -f $@-t
 
-excludelist: excludelist.in
+excludelist: excludelist.in Makefile
 	cpp -undef $(PACKAGELIST_CPP_FLAGS) < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
-	mv $@-t $@
+	cmp -s $@ $@-t || mv $@-t $@
+	rm -f $@-t
 
 supermin.d/base.img supermin.d/hostfiles: stamp-supermin
 stamp-supermin: make.sh packagelist excludelist
