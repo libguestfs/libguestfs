@@ -112,6 +112,8 @@ extern int prog_exists (const char *prog);
 
 extern void udev_settle (void);
 
+extern int random_name (char *template);
+
 /* This just stops gcc from giving a warning about our custom printf
  * formatters %Q and %R.  See guestfs(3)/EXTENDING LIBGUESTFS for more
  * info about these.

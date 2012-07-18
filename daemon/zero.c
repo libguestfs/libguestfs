@@ -228,35 +228,6 @@ do_is_zero_device (const char *device)
   return 1;
 }
 
-static int
-random_name (char *p)
-{
-  int fd;
-  unsigned char c;
-
-  fd = open ("/dev/urandom", O_RDONLY|O_CLOEXEC);
-  if (fd == -1) {
-    reply_with_perror ("/dev/urandom");
-    return -1;
-  }
-
-  while (*p) {
-    if (*p == 'X') {
-      if (read (fd, &c, 1) != 1) {
-        reply_with_perror ("read: /dev/urandom");
-        close (fd);
-        return -1;
-      }
-      *p = "0123456789abcdefghijklmnopqrstuvwxyz"[c % 36];
-    }
-
-    p++;
-  }
-
-  close (fd);
-  return 0;
-}
-
 /* Current implementation is to create a file of all zeroes, then
  * delete it.  The description of this function is left open in order
  * to allow better implementations in future, including
@@ -277,8 +248,10 @@ do_zero_free_space (const char *dir)
    * compatible with any filesystem type inc. FAT.
    */
   snprintf (filename, sysroot_len+len+14, "%s%s/XXXXXXXX.XXX", sysroot, dir);
-  if (random_name (&filename[sysroot_len+len]) == -1)
+  if (random_name (filename) == -1) {
+    reply_with_perror ("random_name");
     return -1;
+  }
 
   if (verbose)
     printf ("random filename: %s\n", filename);
