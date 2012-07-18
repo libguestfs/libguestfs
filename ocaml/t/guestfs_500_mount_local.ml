@@ -16,27 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Test guestfs_mount_local, from a higher level language (it will
- * mostly be used first from Python), in parallel threads.  OCaml
- * allows us to test this at a reasonable speed.
- *)
+(* Test guestfs_mount_local. *)
 
 open Unix
 open Printf
 
 let (//) = Filename.concat
 
-(* See [exit.c]. *)
-external _exit : int -> 'a = "ocaml_guestfs__exit"
-
 (* Some settings. *)
 let total_time = 60.                 (* seconds, excluding launch *)
 let debug = true                     (* overview debugging messages *)
-let min_threads = 2
-let max_threads = 12
-let mbytes_per_thread = 900
-
-let clip low high v = min high (max low v)
 
 let rec main () =
   Random.self_init ();
@@ -45,7 +34,7 @@ let rec main () =
    * This is for RHEL 5, where FUSE doesn't work very reliably.
    *)
   let () =
-    let name = "SKIP_TEST_GUESTFS_500_PARALLEL_MOUNT_LOCAL_ML" in
+    let name = "SKIP_TEST_GUESTFS_500_MOUNT_LOCAL_ML" in
     let value = try Sys.getenv name with Not_found -> "" in
     if value <> "" then (
       printf "%s: test skipped because %s is set.\n"
@@ -54,51 +43,25 @@ let rec main () =
     )
   in
 
-  (* Choose the number of threads based on the amount of free memory. *)
-  let nr_threads =
-    let mbytes =
-      let cmd = "LANG=C free -m | grep 'buffers/cache' | awk '{print $NF}'" in
-      let chan = open_process_in cmd in
-      let mbytes = input_line chan in
-      match close_process_in chan with
-      | WEXITED 0 -> Some (int_of_string mbytes)
-      | _ -> None in
-    match mbytes with
-    | None -> min_threads (* default *)
-    | Some mbytes ->
-      clip min_threads max_threads (mbytes / mbytes_per_thread) in
-
-  let threads = ref [] in
-  for i = 1 to nr_threads do
-    let filename = sprintf "test%d.img" i in
-    let mp = sprintf "mp%d" i in
-    (try rmdir mp with Unix_error _ -> ());
-    mkdir mp 0o700;
-
-    if debug then eprintf "%s : starting thread\n%!" mp;
-    let t = Thread.create start_thread (filename, mp) in
-    threads := (t, filename, mp) :: !threads
-  done;
-
-  (* Wait until the threads terminate and delete the files and mountpoints. *)
-  List.iter (
-    fun (t, filename, mp) ->
-      Thread.join t;
-
-      if debug then eprintf "%s : cleaning up thread\n%!" mp;
-      unlink filename;
-      rmdir mp
-  ) !threads;
-
-  Gc.compact ()
-
-and start_thread (filename, mp) =
-  (* Create a filesystem for the tests. *)
-  let g = new Guestfs.guestfs () in
-
+  let filename = "test1.img" in
   let fd = openfile filename [O_WRONLY;O_CREAT;O_NOCTTY;O_TRUNC] 0o666 in
   ftruncate fd (500 * 1024 * 1024);
   close fd;
+
+  let mp = "mp" in
+  (try rmdir mp with Unix_error _ -> ());
+  mkdir mp 0o700;
+
+  start_test filename mp;
+
+  unlink filename;
+  rmdir mp;
+
+  Gc.compact ()
+
+and start_test filename mp =
+  (* Create a filesystem for the tests. *)
+  let g = new Guestfs.guestfs () in
 
   g#add_drive_opts filename;
   g#launch ();
@@ -122,7 +85,7 @@ and start_thread (filename, mp) =
       let pid = fork () in
       if pid = 0 then (			(* child *)
         try execv Sys.executable_name args
-        with exn -> prerr_endline (Printexc.to_string exn); _exit 1
+        with exn -> prerr_endline (Printexc.to_string exn); exit 1
       );
 
       (* Run FUSE main loop.  This processes requests until the
