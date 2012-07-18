@@ -90,6 +90,7 @@ extra-tests: \
 	test-ocaml \
 	test-resize \
 	test-sparsify \
+	test-mount-local \
 	test-upstream-qemu
 
 test-guests:
@@ -182,6 +183,10 @@ test-sparsify:
 # Run c-api tests under valgrind.
 test-c-api:
 	$(MAKE) -C ../c-api VG="$(RUN_VG)" check
+
+# Run parallel mount-local test under valgrind.
+test-mount-local:
+	$(MAKE) -C ../mount-local VG="$(VG)" check
 
 # Test OCaml bindings under valgrind.
 test-ocaml:

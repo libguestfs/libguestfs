@@ -1352,6 +1352,7 @@ AC_CONFIG_FILES([Makefile
                  tests/luks/Makefile
                  tests/lvm/Makefile
                  tests/md/Makefile
+                 tests/mount-local/Makefile
                  tests/ntfsclone/Makefile
                  tests/protocol/Makefile
                  tests/qemu/Makefile
