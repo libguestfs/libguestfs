@@ -54,7 +54,8 @@ which can be useful if you want to attach these filesystems to
 existing virtual machines (eg. to import large amounts of read-only
 data to a VM).
 
-To create blank disks, use L<virt-format(1)>.
+To create blank disks, use L<virt-format(1)>.  To create complex
+layouts, use L<guestfish(1)>.
 
 Basic usage is:
 
