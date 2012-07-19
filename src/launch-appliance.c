@@ -44,34 +44,6 @@ static int qemu_supports_virtio_scsi (guestfs_h *g);
 static char *qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index);
 static char *drive_name (size_t index, char *ret);
 
-#if 0
-static int qemu_supports_re (guestfs_h *g, const pcre *option_regex);
-
-static void compile_regexps (void) __attribute__((constructor));
-static void free_regexps (void) __attribute__((destructor));
-
-static void
-compile_regexps (void)
-{
-  const char *err;
-  int offset;
-
-#define COMPILE(re,pattern,options)                                     \
-  do {                                                                  \
-    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
-    if (re == NULL) {                                                   \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  } while (0)
-}
-
-static void
-free_regexps (void)
-{
-}
-#endif
-
 /* Functions to add a string to the current command line. */
 static void
 alloc_cmdline (guestfs_h *g)
@@ -974,20 +946,6 @@ qemu_supports (guestfs_h *g, const char *option)
 
   return strstr (g->qemu_help, option) != NULL;
 }
-
-#if 0
-/* As above but using a regex instead of a fixed string. */
-static int
-qemu_supports_re (guestfs_h *g, const pcre *option_regex)
-{
-  if (!g->qemu_help) {
-    if (test_qemu (g) == -1)
-      return -1;
-  }
-
-  return match (g, g->qemu_help, option_regex);
-}
-#endif
 
 /* Test if device is supported by qemu (currently just greps the -device ?
  * output).
