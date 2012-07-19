@@ -64,13 +64,13 @@ EXTRA_DIST = \
 # files must not include other guestfish files.
 SHARED_SOURCE_FILES = \
 	config.c \
+	domain.c \
 	inspect.c \
 	keys.c \
 	options.h \
 	options.c \
 	progress.h \
-	progress.c \
-	virt.c
+	progress.c
 
 guestfish_SOURCES = \
 	$(generator_built) \

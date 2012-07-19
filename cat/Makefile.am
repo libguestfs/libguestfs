@@ -31,11 +31,11 @@ bin_PROGRAMS = virt-cat virt-filesystems virt-ls
 
 SHARED_SOURCE_FILES = \
 	../fish/config.c \
+	../fish/domain.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
-	../fish/options.c \
-	../fish/virt.c
+	../fish/options.c
 
 virt_cat_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
