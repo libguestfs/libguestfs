@@ -128,6 +128,7 @@ libguestfs_la_SOURCES = \
 	dbdump.c \
 	events.c \
 	filearch.c \
+	fuse.c \
 	inspect.c \
 	inspect_apps.c \
 	inspect_fs.c \
@@ -139,7 +140,6 @@ libguestfs_la_SOURCES = \
 	listfs.c \
 	match.c \
 	proto.c \
-	fuse.c \
 	virt.c \
 	libguestfs.syms
 
