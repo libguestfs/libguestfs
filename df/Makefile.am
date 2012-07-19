@@ -28,11 +28,11 @@ bin_PROGRAMS = virt-df
 
 SHARED_SOURCE_FILES = \
 	../fish/config.c \
+	../fish/domain.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
-	../fish/options.c \
-	../fish/virt.c
+	../fish/options.c
 
 virt_df_SOURCES = \
 	$(SHARED_SOURCE_FILES) \

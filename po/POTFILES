@@ -102,6 +102,7 @@ fish/config.c
 fish/copy.c
 fish/destpaths.c
 fish/display.c
+fish/domain.c
 fish/echo.c
 fish/edit.c
 fish/event-names.c
@@ -130,7 +131,6 @@ fish/setenv.c
 fish/supported.c
 fish/tilde.c
 fish/time.c
-fish/virt.c
 format/format.c
 fuse/guestmount.c
 gobject/src/optargs-add_domain.c
