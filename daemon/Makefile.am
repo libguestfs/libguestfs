@@ -28,8 +28,8 @@ BUILT_SOURCES = \
 	$(generator_built) \
 	guestfs_protocol.c \
 	guestfs_protocol.h \
-	errnostring_gperf.c \
-	errnostring_gperf.gperf \
+	errnostring-gperf.c \
+	errnostring-gperf.gperf \
 	errnostring.c \
 	errnostring.h
 
@@ -57,16 +57,16 @@ $(libsrcdir)/guestfs_protocol.h: force
 # of warnings so we must compile it in a separate mini-library.
 noinst_LIBRARIES += liberrnostring.a
 liberrnostring_a_SOURCES = \
-	errnostring_gperf.c \
+	errnostring-gperf.c \
 	errnostring.h \
 	errnostring.c
 liberrnostring_a_CFLAGS =
 
-errnostring_gperf.c: errnostring_gperf.gperf
+errnostring-gperf.c: errnostring-gperf.gperf
 	rm -f $@
 	$(GPERF) -t $< > $@-t
 	mv $@-t $@
-errnostring_gperf.gperf: $(libsrcdir)/errnostring_gperf.gperf
+errnostring-gperf.gperf: $(libsrcdir)/errnostring-gperf.gperf
 	rm -f $@
 	ln $< $@
 errnostring.c: $(libsrcdir)/errnostring.c
@@ -106,7 +106,7 @@ guestfsd_SOURCES = \
 	dmesg.c \
 	dropcaches.c \
 	du.c \
-	echo_daemon.c \
+	echo-daemon.c \
 	ext2.c \
 	fallocate.c \
 	file.c \

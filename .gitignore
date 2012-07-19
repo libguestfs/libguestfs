@@ -61,8 +61,8 @@ Makefile.in
 /csharp/Libguestfs.cs
 /daemon/actions.h
 /daemon/errnostring.c
-/daemon/errnostring_gperf.c
-/daemon/errnostring_gperf.gperf
+/daemon/errnostring-gperf.c
+/daemon/errnostring-gperf.gperf
 /daemon/errnostring.h
 /daemon/guestfsd
 /daemon/guestfsd.exe
@@ -104,8 +104,8 @@ Makefile.in
 /examples/stamp-guestfs-testing.pod
 /examples/virt-dhcp-address
 /fish/cmds.c
-/fish/cmds_gperf.c
-/fish/cmds_gperf.gperf
+/fish/cmds-gperf.c
+/fish/cmds-gperf.gperf
 /fish/completion.c
 /fish/event-names.c
 /fish/fish-cmds.h
@@ -227,7 +227,7 @@ Makefile.in
 /ocaml/examples/guestfs-ocaml.3
 /ocaml/examples/inspect_vm
 /ocaml/examples/stamp-guestfs-ocaml.pod
-/ocaml/guestfs_c_actions.c
+/ocaml/guestfs-c-actions.c
 /ocaml/guestfs.ml
 /ocaml/guestfs.mli
 /ocamlinit-stamp
@@ -336,8 +336,8 @@ Makefile.in
 /src/actions.c
 /src/bindtests.c
 /src/errnostring.c
-/src/errnostring_gperf.c
-/src/errnostring_gperf.gperf
+/src/errnostring-gperf.c
+/src/errnostring-gperf.gperf
 /src/errnostring.h
 /src/guestfs.3
 /src/guestfs-actions.pod

@@ -33,7 +33,7 @@
 #include <caml/printexc.h>
 #include <caml/signals.h>
 
-#include "guestfs_c.h"
+#include "guestfs-c.h"
 
 static value **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
 static void event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);

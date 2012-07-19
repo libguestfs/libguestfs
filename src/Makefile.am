@@ -25,7 +25,7 @@ generator_built = \
 	guestfs-internal-actions.h \
 	actions.c \
 	bindtests.c \
-	errnostring_gperf.gperf \
+	errnostring-gperf.gperf \
 	errnostring.c \
 	errnostring.h \
 	guestfs-actions.pod \
@@ -37,7 +37,7 @@ BUILT_SOURCES = \
 	$(generator_built) \
 	guestfs_protocol.c \
 	guestfs_protocol.h \
-	errnostring_gperf.c
+	errnostring-gperf.c
 
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
@@ -62,12 +62,12 @@ libprotocol_la_CFLAGS = \
 # Build the errnostring perfect hash code.  The generated code has lots
 # of warnings so we must compile it in a separate mini-library.
 liberrnostring_la_SOURCES = \
-	errnostring_gperf.c \
+	errnostring-gperf.c \
 	errnostring.h \
 	errnostring.c
 liberrnostring_la_CFLAGS = $(GCC_VISIBILITY_HIDDEN)
 
-errnostring_gperf.c: errnostring_gperf.gperf
+errnostring-gperf.c: errnostring-gperf.gperf
 	rm -f $@
 	$(GPERF) -t $< > $@-t
 	mv $@-t $@
@@ -130,12 +130,12 @@ libguestfs_la_SOURCES = \
 	filearch.c \
 	fuse.c \
 	inspect.c \
-	inspect_apps.c \
-	inspect_fs.c \
-	inspect_fs_cd.c \
-	inspect_fs_unix.c \
-	inspect_fs_windows.c \
-	inspect_icon.c \
+	inspect-apps.c \
+	inspect-fs.c \
+	inspect-fs-cd.c \
+	inspect-fs-unix.c \
+	inspect-fs-windows.c \
+	inspect-icon.c \
 	launch.c \
 	libvirtdomain.c \
 	listfs.c \

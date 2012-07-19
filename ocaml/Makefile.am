@@ -26,13 +26,13 @@ include $(top_srcdir)/subdir-rules.mk
 generator_built = \
 	guestfs.mli \
 	guestfs.ml \
-	guestfs_c_actions.c \
+	guestfs-c-actions.c \
 	bindtests.ml
 
 EXTRA_DIST = \
 	$(generator_built) \
 	.depend \
-	guestfs_c.c guestfs_c.h \
+	guestfs-c.c guestfs-c.h \
 	html/.gitignore \
 	META.in \
 	run-bindtests \
@@ -68,7 +68,7 @@ libguestfsocaml_a_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	-fPIC
-libguestfsocaml_a_SOURCES = guestfs_c.c guestfs_c_actions.c
+libguestfsocaml_a_SOURCES = guestfs-c.c guestfs-c-actions.c
 
 if HAVE_OCAMLDOC
 
