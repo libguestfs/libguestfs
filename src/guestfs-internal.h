@@ -150,50 +150,34 @@ struct drive {
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
+  enum state state;             /* See the state machine diagram in guestfs(3)*/
 
-  /* State: see the state machine diagram in the man page guestfs(3). */
-  enum state state;
+  /**** Configuration of the handle. ****/
 
-  struct drive *drives;         /* Drives added by add-drive* APIs. */
+  int verbose;                  /* Debugging. */
+  int trace;                    /* Trace calls. */
+  int autosync;                 /* Autosync. */
+  int direct;                   /* Direct mode. */
+  int recovery_proc;            /* Create a recovery process. */
+  int enable_network;           /* Enable the network. */
+  int selinux;                  /* selinux enabled? */
+  int pgroup;                   /* Create process group for children? */
+  int smp;                      /* If > 1, -smp flag passed to qemu. */
+  int memsize;			/* Size of RAM (megabytes). */
 
-  int fd[2];			/* Stdin/stdout of qemu. */
-  int sock;			/* Daemon communications socket. */
-  pid_t pid;			/* Qemu PID. */
-  pid_t recoverypid;		/* Recovery process PID. */
-
-  struct timeval launch_t;      /* The time that we called guestfs_launch. */
-
-  char *tmpdir;			/* Temporary directory containing socket. */
-
-  char *qemu_help, *qemu_version; /* Output of qemu -help, qemu -version. */
-  char *qemu_devices;           /* Output of qemu -device ? */
-
-  char **cmdline;		/* Qemu command line. */
-  size_t cmdline_size;
-
-  int verbose;
-  int trace;
-  int autosync;
-  int direct;
-  int recovery_proc;
-  int enable_network;
-
-  char *path;			/* Path to kernel, initrd. */
+  char *path;			/* Path to the appliance. */
   char *qemu;			/* Qemu binary. */
   char *append;			/* Append to kernel command line. */
+
+  struct drive *drives;         /* Drives added by add-drive* APIs. */
 
   enum attach_method attach_method;
   char *attach_method_arg;
 
-  int memsize;			/* Size of RAM (megabytes). */
+  /**** Runtime information. ****/
+  char *tmpdir;			/* Temporary directory containing socket. */
 
-  int selinux;                  /* selinux enabled? */
-
-  int pgroup;                   /* Create process group for children? */
-
-  int smp;                      /* If > 1, -smp flag passed to qemu. */
-
-  char *last_error;
+  char *last_error;             /* Last error on handle. */
   int last_errnum;              /* errno, or 0 if there was no errno */
 
   /* Callbacks. */
@@ -204,8 +188,6 @@ struct guestfs_h
   /* Events. */
   struct event *events;
   size_t nr_events;
-
-  int msg_next_serial;
 
   /* Information gathered by inspect_os.  Must be freed by calling
    * guestfs___free_inspect_info.
@@ -227,8 +209,13 @@ struct guestfs_h
    */
   int user_cancel;
 
+  /*** Protocol. ***/
+  int fd[2];			/* Stdin/stdout of qemu. */
+  int sock;			/* Daemon communications socket. */
+  int msg_next_serial;
+
 #if HAVE_FUSE
-  /* These fields are used by guestfs_mount_local. */
+  /**** Used by the mount-local APIs. ****/
   const char *localmountpoint;
   struct fuse *fuse;                    /* FUSE handle. */
   int ml_dir_cache_timeout;             /* Directory cache timeout. */
@@ -237,8 +224,20 @@ struct guestfs_h
   int ml_debug_calls;        /* Extra debug info on each FUSE call. */
 #endif
 
-  /* Used by src/launch-appliance.c:qemu_supports_virtio_scsi */
-  int virtio_scsi;
+  /**** Used by src/launch-appliance.c. ****/
+  pid_t pid;			/* Qemu PID. */
+  pid_t recoverypid;		/* Recovery process PID. */
+
+  struct timeval launch_t;      /* The time that we called guestfs_launch. */
+
+  char *qemu_help;              /* Output of qemu -help. */
+  char *qemu_version;           /* Output of qemu -version. */
+  char *qemu_devices;           /* Output of qemu -device ? */
+
+  char **cmdline;		/* Qemu command line. */
+  size_t cmdline_size;
+
+  int virtio_scsi;              /* See function qemu_supports_virtio_scsi */
 };
 
 /* Per-filesystem data stored for inspect_os. */
