@@ -211,6 +211,8 @@ struct guestfs_h
    */
   int user_cancel;
 
+  struct timeval launch_t;      /* The time that we called guestfs_launch. */
+
   /*** Protocol. ***/
   int fd[2];			/* Stdin/stdout of qemu. */
   int sock;			/* Daemon communications socket. */
@@ -229,8 +231,6 @@ struct guestfs_h
   /**** Used by src/launch-appliance.c. ****/
   pid_t pid;			/* Qemu PID. */
   pid_t recoverypid;		/* Recovery process PID. */
-
-  struct timeval launch_t;      /* The time that we called guestfs_launch. */
 
   char *qemu_help;              /* Output of qemu -help. */
   char *qemu_version;           /* Output of qemu -version. */
@@ -380,6 +380,7 @@ extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern const char *guestfs___persistent_tmpdir (void);
 extern void guestfs___remove_tmpdir (const char *dir);
+extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 #if HAVE_FUSE
 extern void guestfs___free_fuse (guestfs_h *g);

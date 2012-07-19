@@ -20,6 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
@@ -261,6 +263,8 @@ guestfs__launch (guestfs_h *g)
     return -1;
   }
 
+  /* Start the clock ... */
+  gettimeofday (&g->launch_t, NULL);
   TRACE0 (launch_start);
 
   /* Make the temporary directory. */
@@ -291,6 +295,75 @@ guestfs__launch (guestfs_h *g)
   default:
     abort ();
   }
+}
+
+/* launch (of the appliance) generates approximate progress
+ * messages.  Currently these are defined as follows:
+ *
+ *    0 / 12: launch clock starts
+ *    3 / 12: appliance created
+ *    6 / 12: detected that guest kernel started
+ *    9 / 12: detected that /init script is running
+ *   12 / 12: launch completed successfully
+ *
+ * Notes:
+ * (1) This is not a documented ABI and the behaviour may be changed
+ * or removed in future.
+ * (2) Messages are only sent if more than 5 seconds has elapsed
+ * since the launch clock started.
+ * (3) There is a gross hack in proto.c to make this work.
+ */
+void
+guestfs___launch_send_progress (guestfs_h *g, int perdozen)
+{
+  struct timeval tv;
+
+  gettimeofday (&tv, NULL);
+  if (guestfs___timeval_diff (&g->launch_t, &tv) >= 5000) {
+    guestfs_progress progress_message =
+      { .proc = 0, .serial = 0, .position = perdozen, .total = 12 };
+
+    guestfs___progress_message_callback (g, &progress_message);
+  }
+}
+
+/* Note that since this calls 'debug' it should only be called
+ * from the parent process.
+ */
+void
+guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...)
+{
+  va_list args;
+  char *msg;
+  int err;
+  struct timeval tv;
+
+  va_start (args, fs);
+  err = vasprintf (&msg, fs, args);
+  va_end (args);
+
+  if (err < 0) return;
+
+  gettimeofday (&tv, NULL);
+
+  debug (g, "[%05" PRIi64 "ms] %s",
+         guestfs___timeval_diff (&g->launch_t, &tv), msg);
+
+  free (msg);
+}
+
+/* Compute Y - X and return the result in milliseconds.
+ * Approximately the same as this code:
+ * http://www.mpp.mpg.de/~huber/util/timevaldiff.c
+ */
+int64_t
+guestfs___timeval_diff (const struct timeval *x, const struct timeval *y)
+{
+  int64_t msec;
+
+  msec = (y->tv_sec - x->tv_sec) * 1000;
+  msec += (y->tv_usec - x->tv_usec) / 1000;
+  return msec;
 }
 
 /* Return the location of the tmpdir (eg. "/tmp") and allow users
