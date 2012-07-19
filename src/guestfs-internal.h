@@ -19,6 +19,8 @@
 #ifndef GUESTFS_INTERNAL_H_
 #define GUESTFS_INTERNAL_H_
 
+#include <stdbool.h>
+
 #include <libintl.h>
 
 #include <rpc/types.h>
@@ -144,7 +146,7 @@ struct drive {
   char *format;
   char *iface;
   char *name;
-  int use_cache_none;
+  bool use_cache_none;
 };
 
 struct guestfs_h
@@ -153,15 +155,15 @@ struct guestfs_h
   enum state state;             /* See the state machine diagram in guestfs(3)*/
 
   /**** Configuration of the handle. ****/
+  bool verbose;                 /* Debugging. */
+  bool trace;                   /* Trace calls. */
+  bool autosync;                /* Autosync. */
+  bool direct;                  /* Direct mode. */
+  bool recovery_proc;           /* Create a recovery process. */
+  bool enable_network;          /* Enable the network. */
+  bool selinux;                 /* selinux enabled? */
+  bool pgroup;                  /* Create process group for children? */
 
-  int verbose;                  /* Debugging. */
-  int trace;                    /* Trace calls. */
-  int autosync;                 /* Autosync. */
-  int direct;                   /* Direct mode. */
-  int recovery_proc;            /* Create a recovery process. */
-  int enable_network;           /* Enable the network. */
-  int selinux;                  /* selinux enabled? */
-  int pgroup;                   /* Create process group for children? */
   int smp;                      /* If > 1, -smp flag passed to qemu. */
   int memsize;			/* Size of RAM (megabytes). */
 
@@ -237,7 +239,7 @@ struct guestfs_h
   char **cmdline;		/* Qemu command line. */
   size_t cmdline_size;
 
-  int virtio_scsi;              /* See function qemu_supports_virtio_scsi */
+  bool virtio_scsi;             /* See function qemu_supports_virtio_scsi */
 };
 
 /* Per-filesystem data stored for inspect_os. */
