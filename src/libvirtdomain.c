@@ -584,9 +584,7 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   }
 
   /* Got a path. */
-  attach_method = safe_malloc (g, strlen (path) + 5 + 1);
-  strcpy (attach_method, "unix:");
-  strcat (attach_method, path);
+  attach_method = safe_asprintf (g, "unix:%s", path);
   r = guestfs_set_attach_method (g, attach_method);
 
  cleanup:
