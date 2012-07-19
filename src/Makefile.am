@@ -137,10 +137,10 @@ libguestfs_la_SOURCES = \
 	inspect_fs_windows.c \
 	inspect_icon.c \
 	launch.c \
+	libvirtdomain.c \
 	listfs.c \
 	match.c \
 	proto.c \
-	virt.c \
 	libguestfs.syms
 
 libguestfs_la_LIBADD = \

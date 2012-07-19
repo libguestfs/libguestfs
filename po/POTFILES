@@ -209,10 +209,10 @@ src/inspect_fs_unix.c
 src/inspect_fs_windows.c
 src/inspect_icon.c
 src/launch.c
+src/libvirtdomain.c
 src/listfs.c
 src/match.c
 src/proto.c
-src/virt.c
 test-tool/test-tool.c
 tools/virt-list-filesystems.pl
 tools/virt-list-partitions.pl
