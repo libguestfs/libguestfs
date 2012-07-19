@@ -20,7 +20,7 @@ set -e
 
 if [ -z "$GJS" ]; then
   echo "GObject bind tests skipped: gjs is missing"
-  exit 0
+  exit 77
 fi
 
 ../run $GJS $srcdir/bindtests.js > bindtests.tmp

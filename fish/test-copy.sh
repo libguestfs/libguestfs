@@ -23,7 +23,7 @@
 
 test -d /dev/fd || {
     echo "$0: Skipping this test because /dev/fd is missing."
-    exit 0
+    exit 77
 }
 
 set -e
