@@ -26,7 +26,7 @@ if HAVE_LIBVIRT
 # returned by libvirt.
 check_LTLIBRARIES = libfakevirtxml.la
 
-libfakevirtxml_la_SOURCES = fake_libvirt_xml.c
+libfakevirtxml_la_SOURCES = fake-libvirt-xml.c
 libfakevirtxml_la_CFLAGS = $(LIBVIRT_CFLAGS)
 # -version-info and -rpath force libtool to build a shared library.
 libfakevirtxml_la_LDFLAGS = -version-info 0:0:0 -rpath /nowhere

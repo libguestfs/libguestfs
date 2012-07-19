@@ -72,7 +72,7 @@ let generate_fish_cmds () =
   pr "#include \"fish.h\"\n";
   pr "#include \"fish-cmds.h\"\n";
   pr "#include \"options.h\"\n";
-  pr "#include \"cmds_gperf.h\"\n";
+  pr "#include \"cmds-gperf.h\"\n";
   pr "\n";
   pr "/* Valid suffixes allowed for numbers.  See Gnulib xstrtol function. */\n";
   pr "static const char *xstrtol_suffixes = \"0kKMGTPEZY\";\n";
@@ -697,7 +697,7 @@ and generate_fish_cmds_gperf () =
 #include <stdlib.h>
 #include <string.h>
 
-#include \"cmds_gperf.h\"
+#include \"cmds-gperf.h\"
 
 ";
 

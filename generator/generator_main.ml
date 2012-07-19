@@ -86,7 +86,7 @@ Run it from the top source directory using the command
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
   output_to "src/guestfs-availability.pod" generate_availability_pod;
-  output_to "src/errnostring_gperf.gperf" generate_errnostring_gperf;
+  output_to "src/errnostring-gperf.gperf" generate_errnostring_gperf;
   output_to "src/errnostring.c" generate_errnostring_c;
   output_to "src/errnostring.h" generate_errnostring_h;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
@@ -97,7 +97,7 @@ Run it from the top source directory using the command
   output_to "daemon/optgroups.c" generate_daemon_optgroups_c;
   output_to "daemon/optgroups.h" generate_daemon_optgroups_h;
   output_to "tests/c-api/tests.c" generate_tests;
-  output_to "fish/cmds_gperf.gperf" generate_fish_cmds_gperf;
+  output_to "fish/cmds-gperf.gperf" generate_fish_cmds_gperf;
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
   output_to "fish/event-names.c" generate_fish_event_names;
@@ -108,7 +108,7 @@ Run it from the top source directory using the command
   output_to "fish/prepopts.h" generate_fish_prep_options_h;
   output_to "ocaml/guestfs.mli" generate_ocaml_mli;
   output_to "ocaml/guestfs.ml" generate_ocaml_ml;
-  output_to "ocaml/guestfs_c_actions.c" generate_ocaml_c;
+  output_to "ocaml/guestfs-c-actions.c" generate_ocaml_c;
   output_to "ocaml/bindtests.ml" generate_ocaml_bindtests;
   output_to "perl/Guestfs.xs" generate_perl_xs;
   output_to "perl/lib/Sys/Guestfs.pm" generate_perl_pm;

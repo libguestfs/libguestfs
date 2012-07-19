@@ -299,7 +299,7 @@ and generate_ocaml_c () =
 
 #include \"guestfs.h\"
 
-#include \"guestfs_c.h\"
+#include \"guestfs-c.h\"
 
 /* Copy a hashtable of string pairs into an assoc-list.  We return
  * the list in reverse order, but hashtables aren't supposed to be

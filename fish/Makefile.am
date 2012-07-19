@@ -28,7 +28,7 @@ bin_PROGRAMS = guestfish
 
 generator_built = \
 	cmds.c \
-	cmds_gperf.gperf \
+	cmds-gperf.gperf \
 	completion.c \
 	event-names.c \
 	fish-cmds.h \
@@ -39,7 +39,7 @@ generator_built = \
 
 BUILT_SOURCES = \
 	$(generator_built) \
-	cmds_gperf.c \
+	cmds-gperf.c \
 	rc_protocol.h \
 	rc_protocol.c
 
@@ -76,7 +76,7 @@ guestfish_SOURCES = \
 	$(generator_built) \
 	$(SHARED_SOURCE_FILES) \
 	alloc.c \
-	cmds_gperf.h \
+	cmds-gperf.h \
 	copy.c \
 	destpaths.c \
 	display.c \
@@ -92,11 +92,11 @@ guestfish_SOURCES = \
 	man.c \
 	more.c \
 	prep.c \
-	prep_disk.c \
-	prep_part.c \
-	prep_fs.c \
-	prep_lv.c \
-	prep_boot.c \
+	prep-disk.c \
+	prep-part.c \
+	prep-fs.c \
+	prep-lv.c \
+	prep-boot.c \
 	rc.c \
 	reopen.c \
 	setenv.c \
@@ -111,10 +111,10 @@ librc_protocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 
 # Build the command lookup perfect hash code.  The generated code has
 # lots of warnings so we must compile it in a separate mini-library.
-libcmds_la_SOURCES = cmds_gperf.c
+libcmds_la_SOURCES = cmds-gperf.c
 libcmds_la_CFLAGS =
 
-cmds_gperf.c: cmds_gperf.gperf
+cmds-gperf.c: cmds-gperf.gperf
 	rm -f $@
 	$(GPERF) -t $< > $@-t
 	mv $@-t $@
@@ -250,7 +250,7 @@ TESTS += \
 	test-find0.sh \
 	test-glob.sh \
 	test-mount-local.sh \
-	test-read_file.sh \
+	test-read-file.sh \
 	test-remote.sh \
 	test-reopen.sh \
 	test-stringlist.sh \
@@ -268,7 +268,7 @@ EXTRA_DIST += \
 	test-find0.sh \
 	test-glob.sh \
 	test-mount-local.sh \
-	test-read_file.sh \
+	test-read-file.sh \
 	test-remote.sh \
 	test-reopen.sh \
 	test-stringlist.sh \

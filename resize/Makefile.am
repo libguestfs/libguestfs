@@ -32,7 +32,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize test.img
 
 # Alphabetical order.
 SOURCES = \
-	progress_c.c \
+	progress-c.c \
 	progress.mli \
 	progress.ml \
 	resize.ml \
@@ -45,7 +45,7 @@ if HAVE_OCAML
 # Note this list must be in dependency order.
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
-	progress_c.o \
+	progress-c.o \
 	resize_gettext.cmx \
 	utils.cmx \
 	progress.cmx \
