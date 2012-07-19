@@ -211,8 +211,6 @@ ocaml/examples/guestfs-ocaml.3
 ocaml/examples/inspect_vm
 ocaml/examples/stamp-guestfs-ocaml.pod
 ocaml/guestfs_c_actions.c
-ocaml/guestfs_inspector.ml
-ocaml/guestfs_inspector.mli
 ocaml/guestfs.ml
 ocaml/guestfs.mli
 ocamlinit-stamp
