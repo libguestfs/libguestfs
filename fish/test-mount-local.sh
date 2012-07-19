@@ -20,7 +20,7 @@
 
 if [ -n "$SKIP_TEST_MOUNT_LOCAL_SH" ]; then
     echo "$0: skipping test because SKIP_TEST_MOUNT_LOCAL_SH is set."
-    exit 0
+    exit 77
 fi
 
 # Skip if no FUSE.
@@ -28,7 +28,7 @@ fi
 test -w /dev/fuse || {
     echo "$0: Skipping this test"
     echo "  because /dev/fuse is missing or not writable by the current user."
-    exit 0
+    exit 77
 }
 
 set -e

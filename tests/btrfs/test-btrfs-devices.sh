@@ -29,7 +29,7 @@ guestfish=../../fish/guestfish
 # If btrfs is not available, bail.
 if ! $guestfish -a /dev/null run : available btrfs; then
     echo "$0: skipping test because btrfs is not available"
-    exit 0
+    exit 77
 fi
 
 rm -f test[1234].img

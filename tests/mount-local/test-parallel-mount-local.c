@@ -101,13 +101,13 @@ main (int argc, char *argv[])
   if (skip && STREQ (skip, "1")) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
              argv[0]);
-    exit (EXIT_SUCCESS);
+    exit (77);
   }
 
   if (access ("/dev/fuse", W_OK) == -1) {
     fprintf (stderr, "%s: test skipped because /dev/fuse is not writable.\n",
              argv[0]);
-    exit (EXIT_SUCCESS);
+    exit (77);
   }
 
   /* Choose the number of threads based on the amount of free memory. */

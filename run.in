@@ -116,9 +116,13 @@ else
     rm -f $b/run.$pid
     $libtool "$@" > $b/run.$pid 2>&1 || {
       fail=$?
-      echo "$b/run --test" "$@"
-      cat $b/run.$pid
-      echo "$b/run: command failed with exit code $fail"
+      if [ "$fail" -eq 77 ]; then
+          cat $b/run.$pid
+      else
+          echo "$b/run --test" "$@"
+          cat $b/run.$pid
+          echo "$b/run: command failed with exit code $fail"
+      fi
     }
     rm -f $b/run.$pid
     exit $fail

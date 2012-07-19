@@ -39,7 +39,7 @@ $g->launch ();
 # If btrfs is not available, bail.
 unless (feature_available ($g, "btrfs")) {
     warn "$0: skipping test because btrfs is not available\n";
-    exit 0;
+    exit 77;
 }
 
 $g->part_disk ("/dev/sda", "mbr");

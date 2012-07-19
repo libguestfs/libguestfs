@@ -25,12 +25,12 @@ set -e
 
 if [ -n "$SKIP_TEST_FUSE_SH" ]; then
     echo "$0: test skipped because environment variable is set."
-    exit 0
+    exit 77
 fi
 
 if [ ! -w /dev/fuse ]; then
     echo "SKIPPING guestmount test, because there is no /dev/fuse."
-    exit 0
+    exit 77
 fi
 
 rm -f test.qcow2 test-copy.qcow2 test.pid

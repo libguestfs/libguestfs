@@ -39,7 +39,7 @@ let rec main () =
     if value <> "" then (
       printf "%s: test skipped because %s is set.\n"
         Sys.executable_name name;
-      exit 0
+      exit 77
     )
   in
 

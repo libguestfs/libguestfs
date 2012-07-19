@@ -48,7 +48,7 @@ die unless $test_via eq "direct" || $test_via eq "fuse";
 my $env_name = "SKIP_TEST_SELINUX_" . uc ($test_type) . "_" . uc ($test_via);
 if ($ENV{$env_name}) {
     print "$prog $test_type $test_via: test skipped because $env_name is set.\n";
-    exit 0
+    exit 77
 }
 
 # SELinux labelling won't work (and can be skipped) if SELinux isn't
@@ -58,7 +58,7 @@ if ($test_type eq "selinux") {
     chomp;
     if ($_ ne "Enforcing" && $_ ne "Permissive") {
         print "$prog $test_type $test_via: test skipped because SELinux is not enabled.\n";
-        exit
+        exit 77
     }
 }
 
@@ -66,7 +66,7 @@ if ($test_type eq "selinux") {
 if ($test_via eq "fuse") {
     unless (-w "/dev/fuse") {
         print "$prog $test_type $test_via: test skipped because there is no /dev/fuse.\n";
-        exit
+        exit 77
     }
 }
 
@@ -74,7 +74,7 @@ if ($test_via eq "fuse") {
 if ($test_type eq "xattrs" && $test_via eq "fuse") {
     if (system ("setfattr --help >/dev/null 2>&1") != 0) {
         print "$prog $test_type $test_via: test skipped because 'setfattr' is not installed.\n";
-        exit
+        exit 77
     }
 }
 
@@ -82,7 +82,7 @@ if ($test_type eq "xattrs" && $test_via eq "fuse") {
 if ($test_type eq "selinux" && $test_via eq "fuse") {
     if (system ("chcon --help >/dev/null 2>&1") != 0) {
         print "$prog $test_type $test_via: test skipped because 'chcon' is not installed.\n";
-        exit
+        exit 77
     }
 }
 
@@ -95,7 +95,7 @@ if ($test_type eq "selinux" && $test_via eq "fuse") {
     print "don't work well together:\n";
     print "https://bugzilla.redhat.com/show_bug.cgi?id=811217\n";
     print "https://bugzilla.redhat.com/show_bug.cgi?id=812798#c42\n";
-    exit;
+    exit 77;
 }
 
 # Create a filesystem that could support xattrs and SELinux labels.
@@ -115,7 +115,7 @@ unless (feature_available ($g, "linuxxattrs")) {
     print "$prog $test_type $test_via: test skipped because 'linuxxattrs' feature not available.\n";
     $g->close ();
     unlink $testimg;
-    exit 0
+    exit 77
 }
 
 $g->part_disk ("/dev/sda", "mbr");
