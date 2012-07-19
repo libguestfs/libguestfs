@@ -746,6 +746,16 @@ guestfs__set_attach_method (guestfs_h *g, const char *method)
     free (g->attach_method_arg);
     g->attach_method_arg = NULL;
   }
+  else if (STREQ (method, "libvirt")) {
+    g->attach_method = ATTACH_METHOD_LIBVIRT;
+    free (g->attach_method_arg);
+    g->attach_method_arg = NULL;
+  }
+  else if (STRPREFIX (method, "libvirt:") && strlen (method) > 8) {
+    g->attach_method = ATTACH_METHOD_LIBVIRT;
+    free (g->attach_method_arg);
+    g->attach_method_arg = safe_strdup (g, method + 8);
+  }
   else if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
     g->attach_method = ATTACH_METHOD_UNIX;
     free (g->attach_method_arg);
@@ -768,6 +778,13 @@ guestfs__get_attach_method (guestfs_h *g)
   switch (g->attach_method) {
   case ATTACH_METHOD_APPLIANCE:
     ret = safe_strdup (g, "appliance");
+    break;
+
+  case ATTACH_METHOD_LIBVIRT:
+    if (g->attach_method_arg == NULL)
+      ret = safe_strdup (g, "libvirt");
+    else
+      ret = safe_asprintf (g, "libvirt:%s", g->attach_method_arg);
     break;
 
   case ATTACH_METHOD_UNIX:

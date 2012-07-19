@@ -1076,6 +1076,8 @@ library connects to the C<guestfsd> daemon in L</guestfs_launch>
 
 The normal attach method is C<appliance>, where a small appliance is
 created containing the daemon, and then the library connects to this.
+C<libvirt> or C<libvirt:I<URI>> are alternatives that use libvirt to
+start the appliance.
 
 Setting attach method to C<unix:I<path>> (where I<path> is the path of
 a Unix domain socket) causes L</guestfs_launch> to connect to an

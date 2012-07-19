@@ -1576,6 +1576,13 @@ guestfsd daemon.  Possible methods are:
 Launch an appliance and connect to it.  This is the ordinary method
 and the default.
 
+=item C<libvirt>
+
+=item C<libvirt:I<URI>>
+
+Use libvirt to launch the appliance.  The optional I<URI> is the
+libvirt connection URI to use (see L<http://libvirt.org/uri.html>).
+
 =item C<unix:I<path>>
 
 Connect to the Unix domain socket I<path>.

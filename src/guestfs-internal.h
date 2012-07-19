@@ -122,7 +122,11 @@
 enum state { CONFIG, LAUNCHING, READY, NO_HANDLE };
 
 /* Attach method. */
-enum attach_method { ATTACH_METHOD_APPLIANCE = 0, ATTACH_METHOD_UNIX };
+enum attach_method {
+  ATTACH_METHOD_APPLIANCE,
+  ATTACH_METHOD_LIBVIRT,
+  ATTACH_METHOD_UNIX,
+};
 
 /* Event. */
 struct event {
