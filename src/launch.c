@@ -217,26 +217,6 @@ guestfs___rollback_drives (guestfs_h *g, struct drive **i)
   guestfs___free_drives(i);
 }
 
-/* Internal command to return the command line. */
-char **
-guestfs__debug_cmdline (guestfs_h *g)
-{
-  size_t i;
-  char **r;
-
-  alloc_cmdline (g);
-
-  r = safe_malloc (g, sizeof (char *) * (g->cmdline_size + 1));
-  r[0] = safe_strdup (g, g->qemu); /* g->cmdline[0] is always NULL */
-
-  for (i = 1; i < g->cmdline_size; ++i)
-    r[i] = safe_strdup (g, g->cmdline[i]);
-
-  r[g->cmdline_size] = NULL;
-
-  return r;                     /* caller frees */
-}
-
 /* Internal command to return the list of drives. */
 char **
 guestfs__debug_drives (guestfs_h *g)

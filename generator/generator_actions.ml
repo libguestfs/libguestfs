@@ -1218,15 +1218,6 @@ found or the caller has not called C<guestfs_inspect_os>.
 Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
-    name = "debug_cmdline";
-    style = RStringList "cmdline", [], [];
-    in_docs = false;
-    shortdesc = "debug the QEMU command line (internal use only)";
-    longdesc = "\
-This returns the internal QEMU command line.  'debug' commands are
-not part of the formal API and can be removed or changed at any time." };
-
-  { defaults with
     name = "debug_drives";
     style = RStringList "cmdline", [], [];
     in_docs = false;
