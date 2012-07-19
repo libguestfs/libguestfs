@@ -20,13 +20,13 @@ set -e
 
 if [ ! -d "$QEMUDIR" ]; then
     echo "$0: \$QEMUDIR not a directory, tests against upstream qemu skipped"
-    exit 0
+    exit 77
 fi
 
 QEMU="$QEMUDIR/x86_64-softmmu/qemu-system-x86_64"
 if ! "$QEMU" --help >/dev/null 2>&1; then
     echo "$0: $QEMU not executable, tests against upstream qemu skipped"
-    exit 0
+    exit 77
 fi
 
 "$QEMU" --version

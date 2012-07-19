@@ -22,7 +22,7 @@ set -e
 
 if [ -n "$SKIP_TEST_NTFSCLONE_SH" ]; then
     echo "$0: test skipped because environment variable is set."
-    exit 0
+    exit 77
 fi
 
 rm -f test1.img backup1 backup2
@@ -32,7 +32,7 @@ guestfish=../../fish/guestfish
 # Skip if ntfs-3g is not supported by the appliance.
 if ! $guestfish add /dev/null : run : available "ntfs3g"; then
     echo "$0: skipped because ntfs-3g is not supported by the appliance"
-    exit 0
+    exit 77
 fi
 
 # Export the filesystems to the backup file.

@@ -27,7 +27,7 @@ set -e
 # XXX Not a very good test.
 if ! btrfs --help >/dev/null 2>&1; then
     echo "$0: test skipped because no 'btrfs' utility"
-    exit 0
+    exit 77
 fi
 
 rm -f test[1234].img

@@ -23,7 +23,7 @@ export LANG=C
 
 if [ -n "$SKIP_TEST_INSPECT_FSTAB_MD_SH" ]; then
     echo "$0: test skipped because environment variable is set."
-    exit 0
+    exit 77
 fi
 
 # The first test requires a new Augeas lens for parsing mdadm.conf.
@@ -32,7 +32,7 @@ fi
 f=$(grep mdadm_conf.aug ../../appliance/supermin.d/hostfiles | head -1)
 if [ -z "$f" -o ! -f "$f" ]; then
     echo "$0: test skipped because Augeas mdadm.conf lens is not available."
-    exit 0
+    exit 77
 fi
 
 guestfish=../../fish/guestfish

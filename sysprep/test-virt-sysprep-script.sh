@@ -22,12 +22,12 @@ set -e
 
 if [ -n "$SKIP_TEST_VIRT_SYSPREP_SCRIPT_SH" ]; then
     echo "$0: test skipped because environment variable is set."
-    exit 0
+    exit 77
 fi
 
 if [ ! -w /dev/fuse ]; then
     echo "$0: SKIPPING test, because there is no /dev/fuse."
-    exit 0
+    exit 77
 fi
 
 # Check that multiple scripts can run.

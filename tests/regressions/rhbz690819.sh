@@ -29,7 +29,7 @@
 # the mkfs fails.  It's not clear how to solve this cleanly. XXX
 [ -n "$SKIP_TEST_RHBZ690819_SH" ] && {
     echo "$0 skipped (environment variable set)"
-    exit 0
+    exit 77
 }
 
 set -e
@@ -37,7 +37,7 @@ export LANG=C
 
 if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
     echo "$0: test skipped because environment variable is set."
-    exit 0
+    exit 77
 fi
 
 rm -f test.img

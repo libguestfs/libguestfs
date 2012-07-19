@@ -22,7 +22,7 @@ set -e
 
 [ -n "$SKIP_TEST_LUKS_SH" ] && {
     echo "test-luks-list.sh skipped (environment variable set)"
-    exit 0
+    exit 77
 }
 
 rm -f test1.img test.output
