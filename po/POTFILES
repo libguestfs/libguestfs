@@ -208,6 +208,8 @@ src/inspect-fs-windows.c
 src/inspect-fs.c
 src/inspect-icon.c
 src/inspect.c
+src/launch-appliance.c
+src/launch-unix.c
 src/launch.c
 src/libvirtdomain.c
 src/listfs.c
