@@ -813,9 +813,7 @@ guestfs__get_attach_method (guestfs_h *g)
     break;
 
   case ATTACH_METHOD_UNIX:
-    ret = safe_malloc (g, strlen (g->attach_method_arg) + 5 + 1);
-    strcpy (ret, "unix:");
-    strcat (ret, g->attach_method_arg);
+    ret = safe_asprintf (g, "unix:%s", g->attach_method_arg);
     break;
 
   default: /* keep GCC happy - this is not reached */
