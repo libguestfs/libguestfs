@@ -199,7 +199,8 @@ if (-r $filename) {
 }
 $filename = "$abs_top_srcdir/.git";
 if (!$date && -d $filename) {
-    $_ = `git show --git-dir=$filename -s --format=%ci`;
+    local $ENV{GIT_DIR} = $filename;
+    $_ = `git show -s --format=%ci`;
     $date = $1 if /^(\d+-\d+-\d+)\s/;
 }
 if (!$date) {
