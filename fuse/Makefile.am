@@ -29,11 +29,11 @@ bin_PROGRAMS = guestmount
 # between guestfish and guestmount.
 SHARED_SOURCE_FILES = \
 	../fish/config.c \
+	../fish/domain.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
-	../fish/options.c \
-	../fish/virt.c
+	../fish/options.c
 
 guestmount_SOURCES = \
 	$(SHARED_SOURCE_FILES) \

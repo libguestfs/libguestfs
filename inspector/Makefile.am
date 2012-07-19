@@ -51,11 +51,11 @@ bin_PROGRAMS = virt-inspector
 
 SHARED_SOURCE_FILES = \
 	../fish/config.c \
+	../fish/domain.c \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
-	../fish/options.c \
-	../fish/virt.c
+	../fish/options.c
 
 virt_inspector_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
