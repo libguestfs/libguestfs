@@ -233,14 +233,6 @@ guestfs_close (guestfs_h *g)
   guestfs___free_inspect_info (g);
   guestfs___free_drives (&g->drives);
 
-  if (g->cmdline) {
-    size_t i;
-
-    for (i = 0; i < g->cmdline_size; ++i)
-      free (g->cmdline[i]);
-    free (g->cmdline);
-  }
-
   for (qp = g->qemu_params; qp; qp = qp_next) {
     free (qp->qemu_param);
     free (qp->qemu_value);

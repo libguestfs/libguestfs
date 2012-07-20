@@ -246,7 +246,7 @@ struct guestfs_h
   char *qemu_version;           /* Output of qemu -version. */
   char *qemu_devices;           /* Output of qemu -device ? */
 
-  char **cmdline;		/* Qemu command line. */
+  char **cmdline;               /* Only used in child, does not need freeing. */
   size_t cmdline_size;
 
   bool virtio_scsi;             /* See function qemu_supports_virtio_scsi */

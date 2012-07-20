@@ -43,54 +43,40 @@ static int qemu_supports_virtio_scsi (guestfs_h *g);
 static char *qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index);
 static char *drive_name (size_t index, char *ret);
 
-/* Functions to add a string to the current command line. */
+/* Functions to build up the qemu command line.  These are only run
+ * in the child process so no clean-up is required.
+ */
 static void
 alloc_cmdline (guestfs_h *g)
 {
-  if (g->cmdline == NULL) {
-    /* g->cmdline[0] is reserved for argv[0], set in guestfs_launch. */
-    g->cmdline_size = 1;
-    g->cmdline = safe_malloc (g, sizeof (char *));
-    g->cmdline[0] = NULL;
-  }
+  g->cmdline_size = 1;
+  g->cmdline = safe_malloc (g, sizeof (char *));
+  g->cmdline[0] = g->qemu;
 }
 
 static void
 incr_cmdline_size (guestfs_h *g)
 {
-  alloc_cmdline (g);
   g->cmdline_size++;
-  g->cmdline = safe_realloc (g, g->cmdline, sizeof (char *) * g->cmdline_size);
+  g->cmdline =
+    safe_realloc (g, g->cmdline, sizeof (char *) * g->cmdline_size);
 }
 
-static int
+static void
 add_cmdline (guestfs_h *g, const char *str)
 {
-  if (g->state != CONFIG) {
-    error (g,
-        _("command line cannot be altered after qemu subprocess launched"));
-    return -1;
-  }
-
   incr_cmdline_size (g);
   g->cmdline[g->cmdline_size-1] = safe_strdup (g, str);
-  return 0;
 }
 
 /* Like 'add_cmdline' but allowing a shell-quoted string of zero or
  * more options.  XXX The unquoting is not very clever.
  */
-static int
+static void
 add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
 {
   char quote;
   const char *startp, *endp, *nextp;
-
-  if (g->state != CONFIG) {
-    error (g,
-        _("command line cannot be altered after qemu subprocess launched"));
-    return -1;
-  }
 
   while (*options) {
     quote = *options;
@@ -104,9 +90,10 @@ add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
     endp = strchr (options, quote);
     if (endp == NULL) {
       if (quote != ' ') {
-        error (g, _("unclosed quote character (%c) in command line near: %s"),
-               quote, options);
-        return -1;
+        fprintf (stderr,
+                 _("unclosed quote character (%c) in command line near: %s"),
+                 quote, options);
+        _exit (EXIT_FAILURE);
       }
       endp = options + strlen (options);
     }
@@ -119,20 +106,19 @@ add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
       else if (endp[1] == ' ')
         nextp = endp+2;
       else {
-        error (g, _("cannot parse quoted string near: %s"), options);
-        return -1;
+        fprintf (stderr, _("cannot parse quoted string near: %s"), options);
+        _exit (EXIT_FAILURE);
       }
     }
     while (*nextp && *nextp == ' ')
       nextp++;
 
     incr_cmdline_size (g);
-    g->cmdline[g->cmdline_size-1] = safe_strndup (g, startp, endp-startp);
+    g->cmdline[g->cmdline_size-1] =
+      safe_strndup (g, startp, endp-startp);
 
     options = nextp;
   }
-
-  return 0;
 }
 
 /* RHBZ#790721: It makes no sense to have multiple threads racing to
@@ -243,13 +229,7 @@ guestfs___launch_appliance (guestfs_h *g)
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
-
-    /* Set g->cmdline[0] to the name of the qemu process.  However
-     * it is possible that no g->cmdline has been allocated yet so
-     * we must do that first.
-     */
     alloc_cmdline (g);
-    g->cmdline[0] = g->qemu;
 
     /* Add any qemu parameters. */
     for (qp = g->qemu_params; qp; qp = qp->next) {
