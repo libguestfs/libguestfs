@@ -149,6 +149,14 @@ struct drive {
   bool use_cache_none;
 };
 
+/* Extra qemu parameters (from guestfs_config). */
+struct qemu_param {
+  struct qemu_param *next;
+
+  char *qemu_param;
+  char *qemu_value;             /* May be NULL. */
+};
+
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
@@ -172,6 +180,8 @@ struct guestfs_h
   char *append;			/* Append to kernel command line. */
 
   struct drive *drives;         /* Drives added by add-drive* APIs. */
+
+  struct qemu_param *qemu_params; /* Extra qemu parameters. */
 
   enum attach_method attach_method;
   char *attach_method_arg;

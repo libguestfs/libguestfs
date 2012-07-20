@@ -37,6 +37,11 @@ guestfs___launch_unix (guestfs_h *g, const char *sockpath)
   int r;
   struct sockaddr_un addr;
 
+  if (g->qemu_params) {
+    error (g, _("cannot set qemu parameters with the 'unix:' attach method"));
+    return -1;
+  }
+
   /* Set these to nothing so we don't try to kill random processes or
    * read from random file descriptors.
    */

@@ -255,6 +255,41 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
 }
 
 int
+guestfs__config (guestfs_h *g,
+                 const char *qemu_param, const char *qemu_value)
+{
+  struct qemu_param *qp;
+
+  if (qemu_param[0] != '-') {
+    error (g, _("parameter must begin with '-' character"));
+    return -1;
+  }
+
+  /* A bit fascist, but the user will probably break the extra
+   * parameters that we add if they try to set any of these.
+   */
+  if (STREQ (qemu_param, "-kernel") ||
+      STREQ (qemu_param, "-initrd") ||
+      STREQ (qemu_param, "-nographic") ||
+      STREQ (qemu_param, "-serial") ||
+      STREQ (qemu_param, "-full-screen") ||
+      STREQ (qemu_param, "-std-vga") ||
+      STREQ (qemu_param, "-vnc")) {
+    error (g, _("parameter '%s' isn't allowed"), qemu_param);
+    return -1;
+  }
+
+  qp = safe_malloc (g, sizeof *qp);
+  qp->qemu_param = safe_strdup (g, qemu_param);
+  qp->qemu_value = safe_strdup (g, qemu_value);
+
+  qp->next = g->qemu_params;
+  g->qemu_params = qp;
+
+  return 0;
+}
+
+int
 guestfs__launch (guestfs_h *g)
 {
   /* Configured? */

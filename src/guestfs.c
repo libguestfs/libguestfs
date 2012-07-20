@@ -172,6 +172,8 @@ guestfs_create (void)
 void
 guestfs_close (guestfs_h *g)
 {
+  struct qemu_param *qp, *qp_next;
+
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
     fprintf (stderr, _("guestfs_close: called twice on the same handle\n"));
@@ -237,6 +239,13 @@ guestfs_close (guestfs_h *g)
     for (i = 0; i < g->cmdline_size; ++i)
       free (g->cmdline[i]);
     free (g->cmdline);
+  }
+
+  for (qp = g->qemu_params; qp; qp = qp_next) {
+    free (qp->qemu_param);
+    free (qp->qemu_value);
+    qp_next = qp->next;
+    free (qp);
   }
 
   if (g->pda)

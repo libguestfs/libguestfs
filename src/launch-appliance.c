@@ -238,6 +238,7 @@ guestfs___launch_appliance (guestfs_h *g)
   if (r == 0) {			/* Child (qemu). */
     char buf[256];
     int virtio_scsi = qemu_supports_virtio_scsi (g);
+    struct qemu_param *qp;
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
@@ -249,6 +250,13 @@ guestfs___launch_appliance (guestfs_h *g)
      */
     alloc_cmdline (g);
     g->cmdline[0] = g->qemu;
+
+    /* Add any qemu parameters. */
+    for (qp = g->qemu_params; qp; qp = qp->next) {
+      add_cmdline (g, qp->qemu_param);
+      if (qp->qemu_value)
+        add_cmdline (g, qp->qemu_value);
+    }
 
     /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
      * devices.  The -global option must exist, but you can pass any
@@ -1017,36 +1025,4 @@ guestfs__max_disks (guestfs_h *g)
     return 255;
   else
     return 27;                  /* conservative estimate */
-}
-
-int
-guestfs__config (guestfs_h *g,
-                 const char *qemu_param, const char *qemu_value)
-{
-  if (qemu_param[0] != '-') {
-    error (g, _("guestfs_config: parameter must begin with '-' character"));
-    return -1;
-  }
-
-  /* A bit fascist, but the user will probably break the extra
-   * parameters that we add if they try to set any of these.
-   */
-  if (STREQ (qemu_param, "-kernel") ||
-      STREQ (qemu_param, "-initrd") ||
-      STREQ (qemu_param, "-nographic") ||
-      STREQ (qemu_param, "-serial") ||
-      STREQ (qemu_param, "-full-screen") ||
-      STREQ (qemu_param, "-std-vga") ||
-      STREQ (qemu_param, "-vnc")) {
-    error (g, _("guestfs_config: parameter '%s' isn't allowed"), qemu_param);
-    return -1;
-  }
-
-  if (add_cmdline (g, qemu_param) != 0) return -1;
-
-  if (qemu_value != NULL) {
-    if (add_cmdline (g, qemu_value) != 0) return -1;
-  }
-
-  return 0;
 }

@@ -196,9 +196,9 @@ of the form I<-param value>.  Actually it's not quite arbitrary - we
 prevent you from setting some parameters which would interfere with
 parameters that we use.
 
-The first character of C<param> string must be a C<-> (dash).
+The first character of C<qemuparam> string must be a C<-> (dash).
 
-C<value> can be NULL." };
+C<qemuvalue> can be NULL." };
 
   { defaults with
     name = "set_qemu";
