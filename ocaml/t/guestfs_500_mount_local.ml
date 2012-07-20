@@ -30,6 +30,14 @@ let debug = true                     (* overview debugging messages *)
 let rec main () =
   Random.self_init ();
 
+  let fuse_writable =
+    try access "/dev/fuse" [W_OK]; true with Unix_error _ -> false in
+  if not fuse_writable then (
+    printf "%s: test skipped because /dev/fuse is not writable.\n"
+      Sys.executable_name;
+    exit 77
+  );
+
   (* Allow the test to be skipped by setting this environment variable.
    * This is for RHEL 5, where FUSE doesn't work very reliably.
    *)
