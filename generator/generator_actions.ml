@@ -171,26 +171,8 @@ Do not call this.  See: C<guestfs_shutdown> instead." };
     longdesc = "\
 This function adds a virtual CD-ROM disk image to the guest.
 
-This is equivalent to the qemu parameter I<-cdrom filename>.
-
-Notes:
-
-=over 4
-
-=item *
-
-This call checks for the existence of C<filename>.  This
-stops you from specifying other types of drive which are supported
-by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
-the general C<guestfs_config> call instead.
-
-=item *
-
-If you just want to add an ISO file (often you use this as an
-efficient way to transfer large files into the guest), then you
-should probably use C<guestfs_add_drive_ro> instead.
-
-=back" };
+B<Do not use this function!>  ISO files are just ordinary
+read-only disk images.  Use C<guestfs_add_drive_ro> instead." };
 
   { defaults with
     name = "add_drive_ro";
