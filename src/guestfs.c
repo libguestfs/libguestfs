@@ -247,9 +247,6 @@ guestfs_close (guestfs_h *g)
   free (g->path);
   free (g->qemu);
   free (g->append);
-  free (g->qemu_help);
-  free (g->qemu_version);
-  free (g->qemu_devices);
   free (g);
 }
 
@@ -258,7 +255,6 @@ int
 guestfs__shutdown (guestfs_h *g)
 {
   int ret = 0;
-  int status, sig;
 
   if (g->state == CONFIG)
     return 0;
@@ -268,13 +264,6 @@ guestfs__shutdown (guestfs_h *g)
     if (guestfs_internal_autosync (g) == -1)
       ret = -1;
   }
-
-  /* Signal qemu to shutdown cleanly, and kill the recovery process. */
-  if (g->pid > 0) {
-    debug (g, "sending SIGTERM to process %d", g->pid);
-    kill (g->pid, SIGTERM);
-  }
-  if (g->recoverypid > 0) kill (g->recoverypid, 9);
 
   /* Close sockets. */
   if (g->fd[0] >= 0)
@@ -287,30 +276,9 @@ guestfs__shutdown (guestfs_h *g)
   g->fd[1] = -1;
   g->sock = -1;
 
-  /* Wait for subprocess(es) to exit. */
-  if (g->pid > 0) {
-    if (waitpid (g->pid, &status, 0) == -1) {
-      perrorf (g, "waitpid (qemu)");
-      ret = -1;
-    }
-    else if (WIFEXITED (status) && WEXITSTATUS (status) != 0) {
-      error (g, "qemu failed (status %d)", WEXITSTATUS (status));
-      ret = -1;
-    }
-    else if (WIFSIGNALED (status)) {
-      sig = WTERMSIG (status);
-      error (g, "qemu terminated by signal %d (%s)", sig, strsignal (sig));
-      ret = -1;
-    }
-    else if (WIFSTOPPED (status)) {
-      sig = WSTOPSIG (status);
-      error (g, "qemu stopped by signal %d (%s)", sig, strsignal (sig));
-      ret = -1;
-    }
-  }
-  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+  if (g->attach_ops->shutdown (g) == -1)
+    ret = -1;
 
-  g->pid = g->recoverypid = 0;
   g->state = CONFIG;
 
   return ret;
@@ -703,17 +671,6 @@ int
 guestfs__get_selinux (guestfs_h *g)
 {
   return g->selinux;
-}
-
-int
-guestfs__get_pid (guestfs_h *g)
-{
-  if (g->pid > 0)
-    return g->pid;
-  else {
-    error (g, "get_pid: no qemu subprocess");
-    return -1;
-  }
 }
 
 struct guestfs_version *

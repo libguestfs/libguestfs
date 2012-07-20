@@ -157,6 +157,14 @@ struct qemu_param {
   char *qemu_value;             /* May be NULL. */
 };
 
+/* Backend (attach-method) operations. */
+struct attach_ops {
+  int (*launch) (guestfs_h *g, const char *arg); /* Initialize and launch. */
+  int (*shutdown) (guestfs_h *g); /* Shutdown and cleanup. */
+};
+extern struct attach_ops attach_ops_appliance;
+extern struct attach_ops attach_ops_unix;
+
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
@@ -183,8 +191,10 @@ struct guestfs_h
 
   struct qemu_param *qemu_params; /* Extra qemu parameters. */
 
+  /* Attach method, and associated backend operations. */
   enum attach_method attach_method;
   char *attach_method_arg;
+  const struct attach_ops *attach_ops;
 
   /**** Runtime information. ****/
   char *tmpdir;			/* Temporary directory containing socket. */
@@ -238,18 +248,26 @@ struct guestfs_h
   int ml_debug_calls;        /* Extra debug info on each FUSE call. */
 #endif
 
-  /**** Used by src/launch-appliance.c. ****/
-  pid_t pid;			/* Qemu PID. */
-  pid_t recoverypid;		/* Recovery process PID. */
+  /**** Private data for attach-methods. ****/
+  /* NB: This cannot be a union because of a pathological case where
+   * the user changes attach-method while reusing the handle to launch
+   * multiple times (not a recommended thing to do).  Some fields here
+   * cache things across launches so that would break if we used a
+   * union.
+   */
+  struct {                      /* Used only by src/launch-appliance.c. */
+    pid_t pid;                  /* Qemu PID. */
+    pid_t recoverypid;          /* Recovery process PID. */
 
-  char *qemu_help;              /* Output of qemu -help. */
-  char *qemu_version;           /* Output of qemu -version. */
-  char *qemu_devices;           /* Output of qemu -device ? */
+    char *qemu_help;            /* Output of qemu -help. */
+    char *qemu_version;         /* Output of qemu -version. */
+    char *qemu_devices;         /* Output of qemu -device ? */
 
-  char **cmdline;               /* Only used in child, does not need freeing. */
-  size_t cmdline_size;
+    char **cmdline;   /* Only used in child, does not need freeing. */
+    size_t cmdline_size;
 
-  bool virtio_scsi;             /* See function qemu_supports_virtio_scsi */
+    bool virtio_scsi;     /* See function qemu_supports_virtio_scsi */
+  } app;
 };
 
 /* Per-filesystem data stored for inspect_os. */

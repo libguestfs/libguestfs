@@ -31,8 +31,8 @@
 /* Alternate attach method: instead of launching the appliance,
  * connect to an existing unix socket.
  */
-int
-guestfs___launch_unix (guestfs_h *g, const char *sockpath)
+static int
+launch_unix (guestfs_h *g, const char *sockpath)
 {
   int r;
   struct sockaddr_un addr;
@@ -42,11 +42,9 @@ guestfs___launch_unix (guestfs_h *g, const char *sockpath)
     return -1;
   }
 
-  /* Set these to nothing so we don't try to kill random processes or
-   * read from random file descriptors.
+  /* Set these to nothing so we don't try to read from random file
+   * descriptors.
    */
-  g->pid = 0;
-  g->recoverypid = 0;
   g->fd[0] = -1;
   g->fd[1] = -1;
 
@@ -101,3 +99,17 @@ guestfs___launch_unix (guestfs_h *g, const char *sockpath)
   close (g->sock);
   return -1;
 }
+
+static int
+shutdown_unix (guestfs_h *g)
+{
+  /* Merely closing g->sock is sufficient and that is already done
+   * in the calling code.
+   */
+  return 0;
+}
+
+struct attach_ops attach_ops_unix = {
+  .launch = launch_unix,
+  .shutdown = shutdown_unix,
+};

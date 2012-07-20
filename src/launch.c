@@ -319,17 +319,21 @@ guestfs__launch (guestfs_h *g)
   if (chmod (g->tmpdir, 0755) == -1)
     warning (g, "chmod: %s: %m (ignored)", g->tmpdir);
 
-  /* Launch the appliance or attach to an existing daemon. */
+  /* Launch the appliance. */
   switch (g->attach_method) {
   case ATTACH_METHOD_APPLIANCE:
-    return guestfs___launch_appliance (g);
+    g->attach_ops = &attach_ops_appliance;
+    break;
 
   case ATTACH_METHOD_UNIX:
-    return guestfs___launch_unix (g, g->attach_method_arg);
+    g->attach_ops = &attach_ops_unix;
+    break;
 
   default:
     abort ();
   }
+
+  return g->attach_ops->launch (g, g->attach_method_arg);
 }
 
 /* launch (of the appliance) generates approximate progress

@@ -181,18 +181,13 @@ child_cleanup (guestfs_h *g)
 {
   debug (g, "child_cleanup: %p: child process died", g);
 
-  /*if (g->pid > 0) kill (g->pid, SIGTERM);*/
-  if (g->recoverypid > 0) kill (g->recoverypid, 9);
-  waitpid (g->pid, NULL, 0);
-  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+  g->attach_ops->shutdown (g);
   if (g->fd[0] >= 0) close (g->fd[0]);
   if (g->fd[1] >= 0) close (g->fd[1]);
   close (g->sock);
   g->fd[0] = -1;
   g->fd[1] = -1;
   g->sock = -1;
-  g->pid = 0;
-  g->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
   g->state = CONFIG;
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
@@ -715,11 +710,18 @@ guestfs___accept_from_daemon (guestfs_h *g)
   int sock = -1;
 
   while (sock == -1) {
+#if 0
+    /* RWMJ: Temporarily disable this.  It *should* happen that the
+     * zombie is cleaned up now on the usual close path, but we
+     * might need to reenable this if that is not the case.
+     * 2012-07-20.
+     */
     /* If the qemu process has died, clean up the zombie (RHBZ#579155).
      * By partially polling in the select below we ensure that this
      * function will be called eventually.
      */
     waitpid (g->pid, NULL, WNOHANG);
+#endif
 
     rset2 = rset;
 
