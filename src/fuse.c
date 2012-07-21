@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#if HAVE_FUSE
 /* See <attr/xattr.h> */
 #ifndef ENOATTR
 #define ENOATTR ENODATA
@@ -32,7 +33,6 @@
 
 #define FUSE_USE_VERSION 26
 
-#if HAVE_FUSE
 #include <fuse.h>
 #include <fuse_lowlevel.h>
 #endif
