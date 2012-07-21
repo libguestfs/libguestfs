@@ -36,6 +36,8 @@
 #include <sys/types.h>
 #endif
 
+#include "glthread/lock.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
@@ -57,6 +59,13 @@ static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, co
 static int hard_link_to_cached_appliance (guestfs_h *g, const char *cachedir, char **kernel, char **initrd, char **appliance);
 static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir, size_t cdlen);
 static void print_febootstrap_command_line (guestfs_h *g, const char *argv[]);
+
+/* RHBZ#790721: It makes no sense to have multiple threads racing to
+ * build the appliance from within a single process, and the code
+ * isn't safe for that anyway.  Therefore put a thread lock around
+ * appliance building.
+ */
+gl_lock_define_initialized (static, building_lock);
 
 /* Locate or build the appliance.
  *
@@ -136,11 +145,15 @@ guestfs___build_appliance (guestfs_h *g,
   int r;
   uid_t uid = geteuid ();
 
+  gl_lock_lock (building_lock);
+
   /* Step (1). */
   char *supermin_path;
   r = find_path (g, contains_supermin_appliance, NULL, &supermin_path);
-  if (r == -1)
+  if (r == -1) {
+    gl_lock_unlock (building_lock);
     return -1;
+  }
 
   if (r == 1) {
     /* Step (2): calculate checksum. */
@@ -152,6 +165,7 @@ guestfs___build_appliance (guestfs_h *g,
       if (r != 0) {
         free (supermin_path);
         free (checksum);
+        gl_lock_unlock (building_lock);
         return r == 1 ? 0 : -1;
       }
 
@@ -160,6 +174,7 @@ guestfs___build_appliance (guestfs_h *g,
                                     kernel, initrd, appliance);
       free (supermin_path);
       free (checksum);
+      gl_lock_unlock (building_lock);
       return r;
     }
     free (supermin_path);
@@ -168,8 +183,10 @@ guestfs___build_appliance (guestfs_h *g,
   /* Step (5). */
   char *path;
   r = find_path (g, contains_fixed_appliance, NULL, &path);
-  if (r == -1)
+  if (r == -1) {
+    gl_lock_unlock (building_lock);
     return -1;
+  }
 
   if (r == 1) {
     size_t len = strlen (path);
@@ -181,13 +198,16 @@ guestfs___build_appliance (guestfs_h *g,
     sprintf (*appliance, "%s/root", path);
 
     free (path);
+    gl_lock_unlock (building_lock);
     return 0;
   }
 
   /* Step (6). */
   r = find_path (g, contains_old_style_appliance, NULL, &path);
-  if (r == -1)
+  if (r == -1) {
+    gl_lock_unlock (building_lock);
     return -1;
+  }
 
   if (r == 1) {
     size_t len = strlen (path);
@@ -198,11 +218,13 @@ guestfs___build_appliance (guestfs_h *g,
     *appliance = NULL;
 
     free (path);
+    gl_lock_unlock (building_lock);
     return 0;
   }
 
   error (g, _("cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH (search path: %s)"),
          g->path);
+  gl_lock_unlock (building_lock);
   return -1;
 }
 
