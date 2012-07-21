@@ -326,8 +326,8 @@ guestfs__launch (guestfs_h *g)
     break;
 
   case ATTACH_METHOD_LIBVIRT:
-    error (g, _("libvirt attach method is not yet supported"));
-    return -1;
+    g->attach_ops = &attach_ops_libvirt;
+    break;
 
   case ATTACH_METHOD_UNIX:
     g->attach_ops = &attach_ops_unix;

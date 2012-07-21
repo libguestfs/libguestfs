@@ -209,6 +209,7 @@ src/inspect-fs.c
 src/inspect-icon.c
 src/inspect.c
 src/launch-appliance.c
+src/launch-libvirt.c
 src/launch-unix.c
 src/launch.c
 src/libvirtdomain.c

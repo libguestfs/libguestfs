@@ -167,6 +167,7 @@ struct attach_ops {
   int (*shutdown) (guestfs_h *g); /* Shutdown and cleanup. */
 };
 extern struct attach_ops attach_ops_appliance;
+extern struct attach_ops attach_ops_libvirt;
 extern struct attach_ops attach_ops_unix;
 
 struct guestfs_h
@@ -272,6 +273,11 @@ struct guestfs_h
 
     bool virtio_scsi;     /* See function qemu_supports_virtio_scsi */
   } app;
+
+  struct {                      /* Used only by src/launch-libvirt.c. */
+    void *connv;                /* libvirt connection (really virConnectPtr) */
+    void *domv;                 /* libvirt domain (really virDomainPtr) */
+  } virt;
 };
 
 /* Per-filesystem data stored for inspect_os. */

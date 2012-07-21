@@ -678,6 +678,10 @@ PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],
         [AC_SUBST([LIBXML2_CFLAGS])
          AC_SUBST([LIBXML2_LIBS])
          AC_DEFINE([HAVE_LIBXML2],[1],[libxml2 found at compile time.])
+         old_LIBS="$LIBS"
+         LIBS="$LIBS $LIBXML2_LIBS"
+         AC_CHECK_FUNCS([xmlBufferDetach])
+         LIBS="$old_LIBS"
         ],
         [AC_MSG_WARN([libxml2 not found, some core features will be disabled])])
 AM_CONDITIONAL([HAVE_LIBXML2],[test "x$LIBXML2_LIBS" != "x"])

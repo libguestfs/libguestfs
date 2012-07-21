@@ -138,6 +138,7 @@ libguestfs_la_SOURCES = \
 	inspect-icon.c \
 	launch.c \
 	launch-appliance.c \
+	launch-libvirt.c \
 	launch-unix.c \
 	libvirtdomain.c \
 	listfs.c \
