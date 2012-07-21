@@ -40,7 +40,6 @@ static int qemu_supports (guestfs_h *g, const char *option);
 static int qemu_supports_device (guestfs_h *g, const char *device_name);
 static int qemu_supports_virtio_scsi (guestfs_h *g);
 static char *qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index);
-static char *drive_name (size_t index, char *ret);
 
 /* Functions to build up the qemu command line.  These are only run
  * in the child process so no clean-up is required.
@@ -306,7 +305,7 @@ launch_appliance (guestfs_h *g, const char *arg)
 
       snprintf (appliance_root, sizeof appliance_root, "root=/dev/%cd",
                 virtio_scsi ? 's' : 'v');
-      drive_name (drv_index, &appliance_root[12]);
+      guestfs___drive_name (drv_index, &appliance_root[12]);
     }
 
     if (STRNEQ (QEMU_OPTIONS, "")) {
@@ -953,11 +952,11 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 }
 
 /* https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/ */
-static char *
-drive_name (size_t index, char *ret)
+char *
+guestfs___drive_name (size_t index, char *ret)
 {
   if (index >= 26)
-    ret = drive_name (index/26 - 1, ret);
+    ret = guestfs___drive_name (index/26 - 1, ret);
   index %= 26;
   *ret++ = 'a' + index;
   *ret = '\0';

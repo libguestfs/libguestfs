@@ -446,6 +446,7 @@ extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
 extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
 extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
+extern char *guestfs___drive_name (size_t index, char *ret);
 
 #if defined(HAVE_HIVEX)
 extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
