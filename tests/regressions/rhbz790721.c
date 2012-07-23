@@ -43,6 +43,8 @@
 
 #include "guestfs.h"
 
+#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
+
 /* Number of worker threads running the test. */
 #define NR_THREADS 20
 
@@ -55,6 +57,29 @@ main (int argc, char *argv[])
   pthread_t thread[NR_THREADS];
   int data[NR_THREADS];
   int i, r, errors;
+  guestfs_h *g;
+  char *attach_method;
+
+  /* Test is only meaningful if the attach-method "appliance" is used. */
+  g = guestfs_create ();
+  if (!g) {
+    perror ("guestfs_create");
+    exit (EXIT_FAILURE);
+  }
+  attach_method = guestfs_get_attach_method (g);
+  if (attach_method == NULL) {
+    guestfs_close (g);
+    exit (EXIT_FAILURE);
+  }
+  if (STRNEQ (attach_method, "appliance")) {
+    fprintf (stderr, "%s: test skipped because attach method isn't 'appliance'.\n",
+             argv[0]);
+    free (attach_method);
+    guestfs_close (g);
+    exit (77);
+  }
+  free (attach_method);
+  guestfs_close (g);
 
   /* Ensure error messages are not translated. */
   setenv ("LC_ALL", "C", 1);
