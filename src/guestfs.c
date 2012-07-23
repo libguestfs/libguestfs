@@ -72,6 +72,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+static int parse_attach_method (guestfs_h *g, const char *method);
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 static void close_handles (void);
 
@@ -139,6 +140,19 @@ guestfs_create (void)
   } else
     g->memsize = 500;
 
+  str = getenv ("LIBGUESTFS_ATTACH_METHOD");
+  if (str) {
+    if (parse_attach_method (g, str) == -1) {
+      warning (g, _("invalid or unknown value for LIBGUESTFS_ATTACH_METHOD environment variable"));
+      goto error;
+    }
+  } else {
+    if (parse_attach_method (g, DEFAULT_ATTACH_METHOD) == -1) {
+      warning (g, _("libguestfs was built with an invalid default attach-method, using 'appliance' instead"));
+      g->attach_method = ATTACH_METHOD_APPLIANCE;
+    }
+  }
+
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
    */
@@ -162,6 +176,7 @@ guestfs_create (void)
   return g;
 
  error:
+  free (g->attach_method_arg);
   free (g->path);
   free (g->qemu);
   free (g->append);
@@ -738,31 +753,45 @@ guestfs__get_network (guestfs_h *g)
   return g->enable_network;
 }
 
-int
-guestfs__set_attach_method (guestfs_h *g, const char *method)
+static int
+parse_attach_method (guestfs_h *g, const char *method)
 {
   if (STREQ (method, "appliance")) {
     g->attach_method = ATTACH_METHOD_APPLIANCE;
     free (g->attach_method_arg);
     g->attach_method_arg = NULL;
+    return 0;
   }
-  else if (STREQ (method, "libvirt")) {
+
+  if (STREQ (method, "libvirt")) {
     g->attach_method = ATTACH_METHOD_LIBVIRT;
     free (g->attach_method_arg);
     g->attach_method_arg = NULL;
+    return 0;
   }
-  else if (STRPREFIX (method, "libvirt:") && strlen (method) > 8) {
+
+  if (STRPREFIX (method, "libvirt:") && strlen (method) > 8) {
     g->attach_method = ATTACH_METHOD_LIBVIRT;
     free (g->attach_method_arg);
     g->attach_method_arg = safe_strdup (g, method + 8);
+    return 0;
   }
-  else if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
+
+  if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
     g->attach_method = ATTACH_METHOD_UNIX;
     free (g->attach_method_arg);
     g->attach_method_arg = safe_strdup (g, method + 5);
     /* Note that we don't check the path exists until launch is called. */
+    return 0;
   }
-  else {
+
+  return -1;
+}
+
+int
+guestfs__set_attach_method (guestfs_h *g, const char *method)
+{
+  if (parse_attach_method (g, method) == -1) {
     error (g, "invalid attach method: %s", method);
     return -1;
   }

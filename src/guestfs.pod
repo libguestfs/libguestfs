@@ -3332,6 +3332,11 @@ feature is only available in febootstrap E<ge> 3.8.
 
 Pass additional options to the guest kernel.
 
+=item LIBGUESTFS_ATTACH_METHOD
+
+Choose the default way to create the appliance.  See
+L</guestfs_set_attach_method>.
+
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
