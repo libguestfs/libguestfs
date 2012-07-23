@@ -448,10 +448,7 @@ see L<guestfs(3)>." };
     name = "get_pid";
     style = RInt "pid", [], [];
     fish_alias = ["pid"];
-    tests = [
-      InitNone, Always, TestOutputIntOp (
-        [["get_pid"]], ">=", 1)
-    ];
+    tests = [];
     shortdesc = "get PID of qemu subprocess";
     longdesc = "\
 Return the process ID of the qemu subprocess.  If there is no
