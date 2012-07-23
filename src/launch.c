@@ -28,6 +28,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 #include "c-ctype.h"
 
@@ -320,6 +321,17 @@ guestfs__debug_drives (guestfs_h *g)
   return ret;                   /* caller frees */
 }
 
+static const struct attach_ops *
+get_attach_ops (guestfs_h *g)
+{
+  switch (g->attach_method) {
+  case ATTACH_METHOD_APPLIANCE: return &attach_ops_appliance;
+  case ATTACH_METHOD_LIBVIRT:   return &attach_ops_libvirt;
+  case ATTACH_METHOD_UNIX:      return &attach_ops_unix;
+  default: abort ();
+  }
+}
+
 int
 guestfs__launch (guestfs_h *g)
 {
@@ -351,23 +363,7 @@ guestfs__launch (guestfs_h *g)
     warning (g, "chmod: %s: %m (ignored)", g->tmpdir);
 
   /* Launch the appliance. */
-  switch (g->attach_method) {
-  case ATTACH_METHOD_APPLIANCE:
-    g->attach_ops = &attach_ops_appliance;
-    break;
-
-  case ATTACH_METHOD_LIBVIRT:
-    g->attach_ops = &attach_ops_libvirt;
-    break;
-
-  case ATTACH_METHOD_UNIX:
-    g->attach_ops = &attach_ops_unix;
-    break;
-
-  default:
-    abort ();
-  }
-
+  g->attach_ops = get_attach_ops (g);
   return g->attach_ops->launch (g, g->attach_method_arg);
 }
 
@@ -504,6 +500,38 @@ guestfs___remove_tmpdir (const char *dir)
     perror ("remove tmpdir: waitpid");
     return;
   }
+}
+
+int
+guestfs__get_pid (guestfs_h *g)
+{
+  if (g->state != READY || g->attach_ops == NULL) {
+    error (g, _("get-pid can only be called after launch"));
+    return -1;
+  }
+
+  if (g->attach_ops->get_pid == NULL) {
+    guestfs_error_errno (g, ENOTSUP,
+                         _("the current attach-method does not support 'get-pid'"));
+    return -1;
+  }
+
+  return g->attach_ops->get_pid (g);
+}
+
+/* Maximum number of disks. */
+int
+guestfs__max_disks (guestfs_h *g)
+{
+  const struct attach_ops *attach_ops = get_attach_ops (g);
+
+  if (attach_ops->max_disks == NULL) {
+    guestfs_error_errno (g, ENOTSUP,
+                         _("the current attach-method does not allow max disks to be queried"));
+    return -1;
+  }
+
+  return attach_ops->max_disks (g);
 }
 
 /* You had to call this function after launch in versions <= 1.0.70,

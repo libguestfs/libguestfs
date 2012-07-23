@@ -1011,16 +1011,8 @@ shutdown_appliance (guestfs_h *g)
   return ret;
 }
 
-struct attach_ops attach_ops_appliance = {
-  .launch = launch_appliance,
-  .shutdown = shutdown_appliance,
-};
-
-/* The APIs below this line depend in some way on this specific attach
- * method, and need some rethinking.
- */
-int
-guestfs__get_pid (guestfs_h *g)
+static int
+get_pid_appliance (guestfs_h *g)
 {
   if (g->app.pid > 0)
     return g->app.pid;
@@ -1031,11 +1023,18 @@ guestfs__get_pid (guestfs_h *g)
 }
 
 /* Maximum number of disks. */
-int
-guestfs__max_disks (guestfs_h *g)
+static int
+max_disks_appliance (guestfs_h *g)
 {
   if (qemu_supports_virtio_scsi (g))
     return 255;
   else
     return 27;                  /* conservative estimate */
 }
+
+struct attach_ops attach_ops_appliance = {
+  .launch = launch_appliance,
+  .shutdown = shutdown_appliance,
+  .get_pid = get_pid_appliance,
+  .max_disks = max_disks_appliance,
+};

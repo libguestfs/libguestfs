@@ -1193,6 +1193,13 @@ libvirt_error (guestfs_h *g, const char *fs, ...)
   free (msg);
 }
 
+/* This backend assumes virtio-scsi is available. */
+static int
+max_disks_libvirt (guestfs_h *g)
+{
+  return 255;
+}
+
 #else /* no libvirt or libxml2 at compile time */
 
 #define NOT_IMPL(r)                                                     \
@@ -1211,9 +1218,16 @@ shutdown_libvirt (guestfs_h *g)
   NOT_IMPL (-1);
 }
 
+static int
+max_disks_libvirt (guestfs_h *g)
+{
+  NOT_IMPL (-1);
+}
+
 #endif /* no libvirt or libxml2 at compile time */
 
 struct attach_ops attach_ops_libvirt = {
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
+  .max_disks = max_disks_libvirt,
 };

@@ -165,6 +165,9 @@ struct qemu_param {
 struct attach_ops {
   int (*launch) (guestfs_h *g, const char *arg); /* Initialize and launch. */
   int (*shutdown) (guestfs_h *g); /* Shutdown and cleanup. */
+
+  int (*get_pid) (guestfs_h *g);         /* get-pid API. */
+  int (*max_disks) (guestfs_h *g);       /* max-disks API. */
 };
 extern struct attach_ops attach_ops_appliance;
 extern struct attach_ops attach_ops_libvirt;
