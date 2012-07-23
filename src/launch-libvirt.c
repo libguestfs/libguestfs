@@ -524,7 +524,7 @@ construct_libvirt_xml_name (guestfs_h *g, xmlTextWriterPtr xo)
   close (fd);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "name"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST name));
+  XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "guestfs-%s", name));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   return 0;
