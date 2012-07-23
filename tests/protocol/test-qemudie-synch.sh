@@ -20,6 +20,11 @@
 
 set -e
 
+if [ "$(../../fish/guestfish get-attach-method)" != "appliance" ]; then
+    echo "$0: test skipped because default attach-method is not 'appliance'"
+    exit 77
+fi
+
 rm -f test.pid test1.img
 
 ../../fish/guestfish -N disk <<'EOF'
