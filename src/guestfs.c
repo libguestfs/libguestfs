@@ -61,6 +61,15 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#ifdef HAVE_LIBVIRT
+#include <libvirt/libvirt.h>
+#endif
+
+#ifdef HAVE_LIBXML2
+#include <libxml/parser.h>
+#include <libxml/xmlversion.h>
+#endif
+
 #include "c-ctype.h"
 #include "glthread/lock.h"
 #include "hash.h"
@@ -78,6 +87,33 @@ static void close_handles (void);
 gl_lock_define_initialized (static, handles_lock);
 static guestfs_h *handles = NULL;
 static int atexit_handler_set = 0;
+
+gl_lock_define_initialized (static, init_lock);
+
+/* No initialization is required by libguestfs, but libvirt and
+ * libxml2 require initialization if they might be called from
+ * multiple threads.  Hence this constructor function which is called
+ * when libguestfs is first loaded.
+ */
+static void init_libguestfs (void) __attribute__((constructor));
+
+static void
+init_libguestfs (void)
+{
+#if defined(HAVE_LIBVIRT) || defined(HAVE_LIBXML2)
+  gl_lock_lock (init_lock);
+#endif
+#ifdef HAVE_LIBVIRT
+  virInitialize ();
+#endif
+#ifdef HAVE_LIBXML2
+  xmlInitParser ();
+  LIBXML_TEST_VERSION;
+#endif
+#if defined(HAVE_LIBVIRT) || defined(HAVE_LIBXML2)
+  gl_lock_unlock (init_lock);
+#endif
+}
 
 guestfs_h *
 guestfs_create (void)
