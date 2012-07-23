@@ -312,7 +312,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   }
   g->sock = r; /* This is the accepted data socket. */
 
-  if (fcntl (g->sock, F_SETFL, O_NONBLOCK|O_CLOEXEC) == -1) {
+  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
     perrorf (g, "fcntl");
     goto cleanup;
   }
