@@ -99,6 +99,7 @@ static void libvirt_error (guestfs_h *g, const char *fs, ...);
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 {
+  unsigned long version;
   virConnectPtr conn = NULL;
   virDomainPtr dom = NULL;
   char *capabilities = NULL;
@@ -114,6 +115,18 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    */
   if (!g->drives) {
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
+    return -1;
+  }
+
+  /* Check minimum required version of libvirt.  The libvirt backend
+   * is new and not the default, so we can get away with forcing
+   * people who want to try it to have a reasonably new version of
+   * libvirt, so we don't have to work around any bugs in libvirt.
+   */
+  virGetVersion (&version, NULL, NULL);
+  debug (g, "libvirt version = %lu", version);
+  if (version < 9013) {
+    error (g, _("you need a newer version of libvirt to use the 'libvirt' attach-method"));
     return -1;
   }
 
