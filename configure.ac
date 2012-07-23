@@ -1141,20 +1141,20 @@ if test "x$with_java_home" != "xno"; then
 
         dnl Need extra version flag?
         AC_MSG_CHECKING([extra javac flags])
-        JAVAC_FLAGS=
+        EXTRA_JAVAC_FLAGS=
         javac_version=`$JAVAC -version 2>&1`
         case "$javac_version" in
         *Eclipse*)
-            JAVAC_FLAGS="-source 1.5" ;;
+            EXTRA_JAVAC_FLAGS="-source 1.5" ;;
         esac
-        AC_MSG_RESULT([$JAVAC_FLAGS])
+        AC_MSG_RESULT([$EXTRA_JAVAC_FLAGS])
 
         dnl Extra lint flags?
         AC_MSG_CHECKING([extra javac lint flags])
         if $JAVAC -X >/dev/null 2>&1 && \
            $JAVAC -X 2>&1 | grep -q -- '-Xlint:.*all'; then
             AC_MSG_RESULT([-Xlint:all])
-            JAVAC_FLAGS="$JAVAC_FLAGS -Xlint:all"
+            EXTRA_JAVAC_FLAGS="$EXTRA_JAVAC_FLAGS -Xlint:all"
         else
             AC_MSG_RESULT([no])
         fi
@@ -1182,7 +1182,7 @@ AC_SUBST(JAVAH)
 AC_SUBST(JAVADOC)
 AC_SUBST(JAR)
 AC_SUBST(JNI_CFLAGS)
-AC_SUBST(JAVAC_FLAGS)
+AC_SUBST(EXTRA_JAVAC_FLAGS)
 AC_SUBST(JAR_INSTALL_DIR)
 AC_SUBST(JNI_INSTALL_DIR)
 AC_SUBST(JNI_VERSION_INFO)
