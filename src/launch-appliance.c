@@ -1030,27 +1030,6 @@ guestfs__get_pid (guestfs_h *g)
   }
 }
 
-/* Internal command to return the list of drives. */
-char **
-guestfs__debug_drives (guestfs_h *g)
-{
-  size_t i, count;
-  char **ret;
-  struct drive *drv;
-
-  for (count = 0, drv = g->drives; drv; count++, drv = drv->next)
-    ;
-
-  ret = safe_malloc (g, sizeof (char *) * (count + 1));
-
-  for (i = 0, drv = g->drives; drv; i++, drv = drv->next)
-    ret[i] = qemu_drive_param (g, drv, i);
-
-  ret[count] = NULL;
-
-  return ret;                   /* caller frees */
-}
-
 /* Maximum number of disks. */
 int
 guestfs__max_disks (guestfs_h *g)

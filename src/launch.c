@@ -289,6 +289,37 @@ guestfs__config (guestfs_h *g,
   return 0;
 }
 
+/* Internal command to return the list of drives. */
+char **
+guestfs__debug_drives (guestfs_h *g)
+{
+  size_t i, count;
+  char **ret;
+  struct drive *drv;
+
+  for (count = 0, drv = g->drives; drv; count++, drv = drv->next)
+    ;
+
+  ret = safe_malloc (g, sizeof (char *) * (count + 1));
+
+  for (i = 0, drv = g->drives; drv; i++, drv = drv->next) {
+    ret[i] = safe_asprintf (g, "path=%s%s%s%s%s%s%s%s%s",
+                            drv->path,
+                            drv->readonly ? " readonly" : "",
+                            drv->format ? " format=" : "",
+                            drv->format ? : "",
+                            drv->iface ? " iface=" : "",
+                            drv->iface ? : "",
+                            drv->name ? " name=" : "",
+                            drv->name ? : "",
+                            drv->use_cache_none ? " cache=none" : "");
+  }
+
+  ret[count] = NULL;
+
+  return ret;                   /* caller frees */
+}
+
 int
 guestfs__launch (guestfs_h *g)
 {

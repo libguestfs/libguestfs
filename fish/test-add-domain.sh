@@ -69,10 +69,10 @@ EOF
   domain guest libvirturi:test://$cwd/test.xml readonly:true
   debug-drives
 EOF
-grep -sq "test1.img.*snapshot=on" test.out
+grep -sq "test1.img readonly" test.out
 ! grep -sq "test1.img.*format" test.out
-grep -sq "test2.img.*snapshot=on.*format=raw" test.out
-grep -sq "test3.img.*snapshot=on.*format=qcow2" test.out
+grep -sq "test2.img readonly format=raw" test.out
+grep -sq "test3.img readonly format=qcow2" test.out
 
 # Test readonlydisk = "ignore".
 ./guestfish >test.out <<EOF
