@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-22 11:42+0100\n"
+"POT-Creation-Date: 2012-07-23 21:52+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -3430,22 +3430,33 @@ msgstr ""
 msgid "FUSE not supported"
 msgstr ""
 
-#: src/guestfs.c:179
+#: src/guestfs.c:182
+msgid ""
+"invalid or unknown value for LIBGUESTFS_ATTACH_METHOD environment variable"
+msgstr ""
+
+#: src/guestfs.c:187
+msgid ""
+"libguestfs was built with an invalid default attach-method, using "
+"'appliance' instead"
+msgstr ""
+
+#: src/guestfs.c:230
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ఒకే సంభాలికపై రెండుసార్లు పిలువబడింది\n"
 
-#: src/guestfs.c:331
+#: src/guestfs.c:382
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:392
+#: src/guestfs.c:443
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: దోషము: %s\n"
 
-#: src/guestfs.c:977
+#: src/guestfs.c:1042
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
@@ -3516,16 +3527,16 @@ msgstr ""
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:134 src/launch-libvirt.c:116
+#: src/launch-appliance.c:134 src/launch-libvirt.c:101
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
 
 #: src/launch-appliance.c:654 src/launch-appliance.c:659
-#: src/launch-libvirt.c:334 src/launch-libvirt.c:339
+#: src/launch-libvirt.c:327 src/launch-libvirt.c:332
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
 
-#: src/launch-appliance.c:672 src/launch-libvirt.c:352
+#: src/launch-appliance.c:672 src/launch-libvirt.c:345
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
@@ -3539,34 +3550,51 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:130
+#: src/launch-libvirt.c:113
+msgid "you need a newer version of libvirt to use the 'libvirt' attach-method"
+msgstr ""
+
+#: src/launch-libvirt.c:127
 #, c-format
 msgid "could not connect to libvirt: URI: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:140
+#: src/launch-libvirt.c:137
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:260
+#: src/launch-libvirt.c:257
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:407
+#: src/launch-libvirt.c:401
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:988
+#: src/launch-libvirt.c:779
+#, c-format
+msgid "realpath: could not convert '%s' to absolute path"
+msgstr ""
+
+#: src/launch-libvirt.c:1132
+#, c-format
+msgid ""
+"could not auto-detect the format of '%s'\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format=...' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+
+#: src/launch-libvirt.c:1155
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1016
+#: src/launch-libvirt.c:1183
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1032
+#: src/launch-libvirt.c:1206
 msgid ""
 "libvirt attach-method is not available since this version of libguestfs was "
 "compiled without libvirt or libxml2"
@@ -3584,87 +3612,99 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:124 src/launch.c:244
+#: src/launch.c:125 src/launch.c:245
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/launch.c:139 src/launch.c:144
+#: src/launch.c:140 src/launch.c:145
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:156
+#: src/launch.c:157
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/launch.c:264
+#: src/launch.c:265
 msgid "parameter must begin with '-' character"
 msgstr ""
 
-#: src/launch.c:278
+#: src/launch.c:279
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:297
+#: src/launch.c:340
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:310
+#: src/launch.c:353
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: తాత్కాలిక డైరెక్టరీను సృష్టించలేదు"
 
-#: src/launch.c:485
+#: src/launch.c:509
+msgid "get-pid can only be called after launch"
+msgstr ""
+
+#: src/launch.c:515
+msgid "the current attach-method does not support 'get-pid'"
+msgstr ""
+
+#: src/launch.c:530
+msgid "the current attach-method does not allow max disks to be queried"
+msgstr ""
+
+#: src/launch.c:544
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
-#: src/libvirtdomain.c:108 src/libvirtdomain.c:401
+#: src/libvirtdomain.c:97 src/libvirtdomain.c:390
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
-#: src/libvirtdomain.c:116
+#: src/libvirtdomain.c:105
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: src/libvirtdomain.c:137
+#: src/libvirtdomain.c:126
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/libvirtdomain.c:197 src/libvirtdomain.c:524
+#: src/libvirtdomain.c:186 src/libvirtdomain.c:513
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/libvirtdomain.c:207 src/libvirtdomain.c:532
+#: src/libvirtdomain.c:196 src/libvirtdomain.c:521
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/libvirtdomain.c:213 src/libvirtdomain.c:538
+#: src/libvirtdomain.c:202 src/libvirtdomain.c:527
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/libvirtdomain.c:220 src/libvirtdomain.c:553
+#: src/libvirtdomain.c:209 src/libvirtdomain.c:542
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: src/libvirtdomain.c:329
+#: src/libvirtdomain.c:318
 msgid "libvirt domain has no disks"
 msgstr ""
 
-#: src/libvirtdomain.c:395
+#: src/libvirtdomain.c:384
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/libvirtdomain.c:412
+#: src/libvirtdomain.c:401
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: src/libvirtdomain.c:426
+#: src/libvirtdomain.c:415
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -3674,20 +3714,20 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/libvirtdomain.c:491
+#: src/libvirtdomain.c:480
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirtdomain.c:581
+#: src/libvirtdomain.c:570
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/libvirtdomain.c:604
+#: src/libvirtdomain.c:593
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
