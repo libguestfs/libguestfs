@@ -570,6 +570,11 @@ initlibguestfsmod (void)
 
 (* Generate Python module. *)
 and generate_python_py () =
+  (* This has to appear very near the top of the file, before the large
+   * header.
+   *)
+  pr "# coding: utf-8\n";
+
   generate_header HashStyle LGPLv2plus;
 
   pr "\
