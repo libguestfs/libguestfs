@@ -28,6 +28,7 @@
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
@@ -76,7 +77,7 @@ xmlBufferDetach (xmlBufferPtr buf)
 #endif
 
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance, const char *guestfsd_sock, const char *console_sock);
-
+static char *autodetect_format (guestfs_h *g, const char *path);
 static void libvirt_error (guestfs_h *g, const char *fs, ...);
 
 static int
@@ -751,6 +752,7 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   char drive_name[64] = "sd";
   char scsi_target[64];
   char *path = NULL;
+  char *format = NULL;
   struct stat statbuf;
   int is_host_device;
 
@@ -819,8 +821,17 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
                                          BAD_CAST "qemu"));
   if (drv->format) {
     XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "format",
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
                                            BAD_CAST drv->format));
+  }
+  else {
+    format = autodetect_format (g, path);
+    if (!format)
+      goto err;
+
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                           BAD_CAST format));
   }
   if (drv->use_cache_none) {
     XMLERROR (-1,
@@ -859,10 +870,12 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   free (path);
+  free (format);
   return 0;
 
  err:
   free (path);
+  free (format);
   return -1;
 }
 
@@ -904,7 +917,7 @@ construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
                                          BAD_CAST "qemu"));
   XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "format",
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
                                          BAD_CAST "raw"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
@@ -1042,6 +1055,89 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
 
  err:
   return -1;
+}
+
+/* libvirt has disabled the feature of detecting the disk format,
+ * unless the administrator sets allow_disk_format_probing=1 in
+ * qemu.conf.  There is no way to detect if this option is set, so we
+ * have to do format detection here using qemu-img and pass that to
+ * libvirt.
+ *
+ * This is still a security issue, so in most cases it is recommended
+ * the users pass the format to libguestfs which will faithfully pass
+ * that to libvirt and this function won't be used.
+ */
+static char *
+autodetect_format (guestfs_h *g, const char *path)
+{
+  pid_t pid;
+  int fd[2];
+  FILE *fp;
+  char *line = NULL;
+  size_t len;
+  char *p;
+  size_t n;
+  char *ret = NULL;
+
+  if (pipe2 (fd, O_CLOEXEC) == -1) {
+    perrorf (g, "pipe2");
+    return NULL;
+  }
+
+  pid = fork ();
+  if (pid == -1) {
+    perrorf (g, "fork");
+    close (fd[0]);
+    close (fd[1]);
+    return NULL;
+  }
+
+  if (pid == 0) {               /* child */
+    close (fd[0]);
+    dup2 (fd[1], 1);
+    close (fd[1]);
+
+    execlp ("qemu-img", "qemu-img", "info", path, NULL);
+    perror ("could not execute 'qemu-img info'");
+    _exit (EXIT_FAILURE);
+  }
+
+  close (fd[1]);
+
+  fp = fdopen (fd[0], "r");
+  if (fp == NULL) {
+    perrorf (g, "fdopen: qemu-img info");
+    close (fd[0]);
+    waitpid (pid, NULL, 0);
+    return NULL;
+  }
+
+  while (getline (&line, &len, fp) != -1) {
+    if (STRPREFIX (line, "file format: ")) {
+      p = &line[13];
+      n = strlen (p);
+      if (n > 0 && p[n-1] == '\n')
+        n--;
+      memmove (line, p, n);
+      line[n] = '\0';
+      ret = line;
+      break;
+    }
+  }
+
+  fclose (fp); /* also closes fd[0] */
+  waitpid (pid, NULL, 0);
+
+  if (ret == NULL) {
+    error (g, _("could not auto-detect the format of '%s'\n"
+                "If the format is known, pass the format to libguestfs, eg. using the\n"
+                "'--format=...' option, or via the optional 'format' argument to 'add-drive'."),
+           path);
+    free (line);
+    return NULL;
+  }
+
+  return ret;                   /* caller frees */
 }
 
 static int

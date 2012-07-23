@@ -70,6 +70,7 @@ netdb
 netinet_in
 openat
 perror
+pipe2
 pread
 progname
 read-file
