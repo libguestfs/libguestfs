@@ -52,7 +52,8 @@ CLEANFILES = doc-stamp $(builddir)/com/redhat/et/libguestfs/*.class com_redhat_e
 
 if HAVE_JAVA
 
-JAVAC_FLAGS = $(EXTRA_JAVAC_FLAGS)
+JAVAC_FLAGS = $(EXTRA_JAVAC_FLAGS) -encoding utf-8
+JAVADOC_FLAGS = -encoding utf-8
 
 # Java source.
 
