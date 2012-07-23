@@ -44,6 +44,8 @@ if HAVE_JAVA
 
 noinst_SCRIPTS = CreateDisk.class InspectVM.class
 
+JAVAC_FLAGS = $(EXTRA_JAVAC_FLAGS)
+
 %.class: %.java
 	$(JAVAC) $(JAVAC_FLAGS) -classpath ../libguestfs-$(VERSION).jar $<
 
