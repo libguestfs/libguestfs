@@ -398,7 +398,7 @@ static int construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo, const char *kernel, const char *initrd, size_t appliance_index);
 static int construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index, const char *guestfsd_sock, const char *console_sock);
-static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo, size_t appliance_index);
+static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
 static int construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index);
 
@@ -460,7 +460,7 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
   if (construct_libvirt_xml_devices (g, xo, appliance, appliance_index,
                                      guestfsd_sock, console_sock) == -1)
     goto err;
-  if (construct_libvirt_xml_qemu_cmdline (g, xo, appliance_index) == -1)
+  if (construct_libvirt_xml_qemu_cmdline (g, xo) == -1)
     goto err;
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
@@ -800,10 +800,14 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
                                          BAD_CAST "0"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  if (drv->readonly) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "readonly"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
+  /* We'd like to do this, but it's not supported by libvirt.
+   * See construct_libvirt_xml_qemu_cmdline for the workaround.
+   *
+   * if (drv->readonly) {
+   *   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "transient"));
+   *   XMLERROR (-1, xmlTextWriterEndElement (xo));
+   * }
+   */
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
@@ -894,9 +898,10 @@ construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
 }
 
 static int
-construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo,
-                                    size_t appliance_index)
+construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
 {
+  struct drive *drv;
+  size_t drv_index;
   char attr[256];
   struct qemu_param *qp;
 
@@ -906,8 +911,27 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo,
    * by Stefan Hajnoczi's post here:
    * http://blog.vmsplice.net/2011/04/how-to-pass-qemu-command-line-options.html
    */
+  for (drv = g->drives, drv_index = 0; drv; drv = drv->next, drv_index++) {
+    if (drv->readonly) {
+      snprintf (attr, sizeof attr,
+                "drive.drive-scsi0-0-%zu-0.snapshot=on", drv_index);
+
+      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
+                                             BAD_CAST "-set"));
+      XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
+                                             BAD_CAST attr));
+      XMLERROR (-1, xmlTextWriterEndElement (xo));
+    }
+  }
+
   snprintf (attr, sizeof attr,
-            "drive.drive-scsi0-0-%zu-0.snapshot=on", appliance_index);
+            "drive.drive-scsi0-0-%zu-0.snapshot=on", drv_index);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
   XMLERROR (-1,
