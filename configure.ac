@@ -1007,13 +1007,13 @@ if test "x$with_java_home" != "xno"; then
 
         dnl Need extra version flag?
         AC_MSG_CHECKING([extra javac flags])
-        JAVAC_FLAGS=
+        EXTRA_JAVAC_FLAGS=
         javac_version=`$JAVAC -version 2>&1`
         case "$javac_version" in
         *Eclipse*)
-            JAVAC_FLAGS="-source 1.5" ;;
+            EXTRA_JAVAC_FLAGS="-source 1.5" ;;
         esac
-        AC_MSG_RESULT([$JAVAC_FLAGS])
+        AC_MSG_RESULT([$EXTRA_JAVAC_FLAGS])
 
         dnl Where to install jarfiles, jnifiles
         if test -z $JAR_INSTALL_DIR; then
@@ -1038,7 +1038,7 @@ AC_SUBST(JAVAH)
 AC_SUBST(JAVADOC)
 AC_SUBST(JAR)
 AC_SUBST(JNI_CFLAGS)
-AC_SUBST(JAVAC_FLAGS)
+AC_SUBST(EXTRA_JAVAC_FLAGS)
 AC_SUBST(JAR_INSTALL_DIR)
 AC_SUBST(JNI_INSTALL_DIR)
 AC_SUBST(JNI_VERSION_INFO)
