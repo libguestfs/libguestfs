@@ -271,7 +271,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   g->state = LAUNCHING;
 
   /* Wait for console socket to open. */
-  r = accept (console, NULL, NULL);
+  r = accept4 (console, NULL, NULL, SOCK_NONBLOCK|SOCK_CLOEXEC);
   if (r == -1) {
     perrorf (g, "accept");
     goto cleanup;
@@ -283,10 +283,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   }
   g->fd[0] = r; /* This is the accepted console socket. */
 
-  if (fcntl (g->fd[0], F_SETFL, O_NONBLOCK|O_CLOEXEC) == -1) {
-    perrorf (g, "fcntl");
-    goto cleanup;
-  }
   g->fd[1] = dup (g->fd[0]);
   if (g->fd[1] == -1) {
     perrorf (g, "dup");
