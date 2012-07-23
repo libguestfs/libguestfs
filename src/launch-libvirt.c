@@ -436,6 +436,7 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
   xmlTextWriterPtr xo = NULL;
   struct drive *drv = g->drives;
   size_t appliance_index = 0;
+  const char *type;
 
   /* Count the number of disks added, in order to get the offset
    * of the appliance disk.
@@ -444,6 +445,9 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
     drv = drv->next;
     appliance_index++;
   }
+
+  /* Big hack, instead of actually parsing the capabilities XML (XXX). */
+  type = strstr (capabilities_xml, "'kvm'") != NULL ? "kvm" : "qemu";
 
   XMLERROR (NULL, xb = xmlBufferCreate ());
   XMLERROR (NULL, ob = xmlOutputBufferCreateBuffer (xb, NULL));
@@ -455,7 +459,7 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "domain"));
   XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type", BAD_CAST "kvm"));
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "type", BAD_CAST type));
   XMLERROR (-1,
             xmlTextWriterWriteAttributeNS (xo,
                                            BAD_CAST "xmlns",
