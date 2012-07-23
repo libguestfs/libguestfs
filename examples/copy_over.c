@@ -21,7 +21,6 @@
 #include <pthread.h>
 
 #include <guestfs.h>
-#include <libvirt/libvirt.h>
 
 struct threaddata {
   const char *src;
@@ -65,9 +64,6 @@ main (int argc, char *argv[])
   char fdname[128];
   struct timeval start_t, end_t;
   int64_t ms;
-
-  /* This is required when using libvirt from multiple threads. */
-  virInitialize ();
 
   if (argc != 5) {
     usage ();
