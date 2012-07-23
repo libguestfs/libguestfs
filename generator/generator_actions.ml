@@ -2772,9 +2772,10 @@ characters does I<not> work, even if the length is specified." };
 
   { defaults with
     name = "umount";
-    style = RErr, [String "pathordevice"], [];
+    style = RErr, [String "pathordevice"], [OBool "force"; OBool "lazyunmount"];
     proc_nr = Some 45;
     fish_alias = ["unmount"];
+    once_had_no_optargs = true;
     tests = [
       InitEmpty, Always, TestOutputListOfDevices (
         [["part_disk"; "/dev/sda"; "mbr"];
@@ -2785,7 +2786,7 @@ characters does I<not> work, even if the length is specified." };
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
-         ["umount"; "/"];
+         ["umount"; "/"; "false"; "false"];
          ["mounts"]], [])
     ];
     shortdesc = "unmount a filesystem";
@@ -3467,12 +3468,12 @@ To download an uncompressed tarball, use C<guestfs_tar_out>." };
     proc_nr = Some 73;
     tests = [
       InitBasicFS, Always, TestLastFail (
-        [["umount"; "/"];
+        [["umount"; "/"; "false"; "false"];
          ["mount_ro"; "/dev/sda1"; "/"];
          ["touch"; "/new"]]);
       InitBasicFS, Always, TestOutput (
         [["write"; "/new"; "data"];
-         ["umount"; "/"];
+         ["umount"; "/"; "false"; "false"];
          ["mount_ro"; "/dev/sda1"; "/"];
          ["cat"; "/new"]], "data")
     ];
@@ -3715,10 +3716,10 @@ C<device>." };
     fish_output = Some FishOutputHexadecimal;
     tests = [
       InitBasicFS, Always, TestOutputInt (
-        [["umount"; "/dev/sda1"];
+        [["umount"; "/dev/sda1"; "false"; "false"];
          ["fsck"; "ext2"; "/dev/sda1"]], 0);
       InitBasicFS, Always, TestOutputInt (
-        [["umount"; "/dev/sda1"];
+        [["umount"; "/dev/sda1"; "false"; "false"];
          ["zero"; "/dev/sda1"];
          ["fsck"; "ext2"; "/dev/sda1"]], 8)
     ];
@@ -3759,7 +3760,7 @@ This command is entirely equivalent to running C<fsck -a -t fstype device>." };
     progress = true;
     tests = [
       InitBasicFS, Always, TestRun (
-        [["umount"; "/dev/sda1"];
+        [["umount"; "/dev/sda1"; "false"; "false"];
          ["zero"; "/dev/sda1"]])
     ];
     shortdesc = "write zeroes to the device";
@@ -4081,7 +4082,7 @@ the human-readable, canonical hex dump of the file." };
          ["mkfs"; "ext3"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["write"; "/new"; "test file"];
-         ["umount"; "/dev/sda1"];
+         ["umount"; "/dev/sda1"; "false"; "false"];
          ["zerofree"; "/dev/sda1"];
          ["mount_options"; ""; "/dev/sda1"; "/"];
          ["cat"; "/new"]], "test file")
@@ -4205,7 +4206,7 @@ are activated or deactivated." };
          ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
          ["mount_options"; ""; "/dev/VG/LV"; "/"];
          ["write"; "/new"; "test content"];
-         ["umount"; "/"];
+         ["umount"; "/"; "false"; "false"];
          ["lvresize"; "/dev/VG/LV"; "20"];
          ["e2fsck_f"; "/dev/VG/LV"];
          ["e2fsck"; "/dev/VG/LV"; "true"; "false"];
@@ -6564,7 +6565,7 @@ Rename a logical volume C<logvol> with the new name C<newlogvol>." };
     proc_nr = Some 220;
     tests = [
       InitBasicFSonLVM, Always, TestOutputList (
-        [["umount"; "/"];
+        [["umount"; "/"; "false"; "false"];
          ["vg_activate"; "false"; "VG"];
          ["vgrename"; "VG"; "VG2"];
          ["vg_activate"; "true"; "VG2"];
@@ -7685,7 +7686,7 @@ it contains all zero bytes." };
     proc_nr = Some 284;
     tests = [
       InitBasicFS, Always, TestOutputTrue (
-        [["umount"; "/dev/sda1"];
+        [["umount"; "/dev/sda1"; "false"; "false"];
          ["zero_device"; "/dev/sda1"];
          ["is_zero_device"; "/dev/sda1"]]);
       InitBasicFS, Always, TestOutputFalse (

@@ -29,6 +29,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+#define MAX_ARGS 64
+
 /* You must mount something on "/" first before many operations.
  * Hence we have an internal function which can test if something is
  * mounted on *or under* the sysroot directory.  (It has to be *or
@@ -183,16 +185,17 @@ do_mount_options (const char *options, const char *device,
   return do_mount_vfs (options, NULL, device, mountpoint);
 }
 
-/* Again, use the external /bin/umount program, so that /etc/mtab
- * is kept updated.
- */
+/* Takes optional arguments, consult optargs_bitmask. */
 int
-do_umount (const char *pathordevice)
+do_umount (const char *pathordevice,
+           int force, int lazyunmount)
 {
   int r;
   char *err;
   char *buf;
   int is_dev;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
 
   is_dev = STREQLEN (pathordevice, "/dev/", 5);
   buf = is_dev ? strdup (pathordevice)
@@ -205,7 +208,25 @@ do_umount (const char *pathordevice)
   if (is_dev)
     RESOLVE_DEVICE (buf, , { free (buf); return -1; });
 
-  r = command (NULL, &err, "umount", buf, NULL);
+  if (!(optargs_bitmask & GUESTFS_UMOUNT_FORCE_BITMASK))
+    force = 0;
+  if (!(optargs_bitmask & GUESTFS_UMOUNT_LAZYUNMOUNT_BITMASK))
+    lazyunmount = 0;
+
+  /* Use the external /bin/umount program, so that /etc/mtab is kept
+   * updated.
+   */
+  ADD_ARG (argv, i, "umount");
+
+  if (force)
+    ADD_ARG (argv, i, "-f");
+  if (lazyunmount)
+    ADD_ARG (argv, i, "-l");
+
+  ADD_ARG (argv, i, buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
   free (buf);
 
   if (r == -1) {
