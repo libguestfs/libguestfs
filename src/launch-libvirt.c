@@ -44,6 +44,7 @@
 #include <limits.h>
 #include <grp.h>
 #include <assert.h>
+#include <sys/types.h>
 #include <sys/stat.h>
 
 #ifdef HAVE_LIBVIRT
@@ -745,30 +746,58 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   char drive_name[64] = "sd";
   char scsi_target[64];
   char *path = NULL;
+  struct stat statbuf;
+  int is_host_device;
 
   guestfs___drive_name (drv_index, &drive_name[2]);
   snprintf (scsi_target, sizeof scsi_target, "%zu", drv_index);
 
-  /* Drive path must be absolute for libvirt. */
+  /* Change the libvirt XML according to whether the host path is
+   * a device or a file.  For devices, use:
+   *   <disk type=block device=disk>
+   *     <source dev=[path]>
+   * For files, use:
+   *   <disk type=file device=disk>
+   *     <source file=[path]>
+   */
+  if (stat (drv->path, &statbuf) == -1) {
+    perrorf (g, "stat: %s", drv->path);
+    goto err;
+  }
+  is_host_device = S_ISBLK (statbuf.st_mode);
+
+  /* Path must be absolute for libvirt. */
   path = realpath (drv->path, NULL);
   if (path == NULL) {
-    perrorf (g, "realpath: could not convert '%s' to absolute path", drv->path);
+    perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+             drv->path);
     goto err;
   }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "disk"));
   XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "file"));
-  XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "device",
                                          BAD_CAST "disk"));
+  if (!is_host_device) {
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                           BAD_CAST "file"));
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
-                                         BAD_CAST path));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "file", BAD_CAST path));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+  else {
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                           BAD_CAST "block"));
+
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST path));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
   XMLERROR (-1,
