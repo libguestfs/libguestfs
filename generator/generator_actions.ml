@@ -1620,8 +1620,8 @@ attach method, do:
     name = "get_attach_method";
     style = RString "attachmethod", [], [];
     tests = [
-      InitNone, Always, TestOutput (
-        [["get_attach_method"]], "appliance")
+      InitNone, Always, TestRun (
+        [["get_attach_method"]])
     ];
     shortdesc = "get the attach method";
     longdesc = "\
