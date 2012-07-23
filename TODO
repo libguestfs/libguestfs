@@ -514,3 +514,18 @@ necessarily care about ongoing data integrity while writing, as long
 as data is reliably written out when g.sync or g.close return.  Also
 in libguestfs we effectively control the whole stack, so we can ensure
 write barriers happen when we want.
+
+libvirt attach-method
+---------------------
+
+Since libguestfs 1.19.24 this mostly works.  Here are some suggested
+items to work on:
+
+ - SELinux labelling of guestfsd.sock, console.sock
+   https://bugzilla.redhat.com/show_bug.cgi?id=842307
+   Once this is fixed, remove <seclabel type=none> from libvirt XML
+
+ - Check feature parity between src/launch-appliance.c and
+   src/launch-libvirt.c.
+
+ - Remote support.  (This requires work on libvirt)

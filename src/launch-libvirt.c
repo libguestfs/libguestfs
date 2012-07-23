@@ -16,24 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* To do (XXX):
- *
- * - Need to query libvirt to find out if virtio-scsi is supported.
- *   This code assumes it.
- *
- * - SELinux labelling of guestfsd.sock, console.sock
- *
- * - Set qemu binary to non-standard (g->qemu).
- *
- * - Check for feature parity with src/launch-appliance.c
- *
- * - Environment variable $LIBGUESTFS_ATTACH_METHOD
- *
- * - ./configure override default
- *
- * - Remote support.
- */
-
 #include <config.h>
 
 #include <stdio.h>
