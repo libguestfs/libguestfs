@@ -393,6 +393,7 @@ static int construct_libvirt_xml_name (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo, const char *kernel, const char *initrd, size_t appliance_index);
 static int construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
+static int construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index, const char *guestfsd_sock, const char *console_sock);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
@@ -456,6 +457,8 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
   if (construct_libvirt_xml_boot (g, xo, kernel, initrd, appliance_index) == -1)
     goto err;
   if (construct_libvirt_xml_seclabel (g, xo) == -1)
+    goto err;
+  if (construct_libvirt_xml_lifecycle (g, xo) == -1)
     goto err;
   if (construct_libvirt_xml_devices (g, xo, appliance, appliance_index,
                                      guestfsd_sock, console_sock) == -1)
@@ -635,6 +638,20 @@ construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo)
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
                                          BAD_CAST "none"));
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  return 0;
+
+ err:
+  return -1;
+}
+
+/* qemu -no-reboot */
+static int
+construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo)
+{
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "on_reboot"));
+  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST "destroy"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   return 0;
