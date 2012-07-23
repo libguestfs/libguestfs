@@ -44,17 +44,6 @@
 
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 
-static void init_libxml2 (void) __attribute__((constructor));
-
-static void
-init_libxml2 (void)
-{
-  /* I am told that you don't really need to call virInitialize ... */
-
-  xmlInitParser ();
-  LIBXML_TEST_VERSION;
-}
-
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
 {
