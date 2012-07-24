@@ -83,6 +83,7 @@ static void restorecon (const char *dir);
 static int is_dir (const char *path);
 static int is_blk (const char *path);
 static int random_chars (char *ret, size_t len);
+static void ignore_errors (void *ignore, virErrorPtr ignore2);
 
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
@@ -131,10 +132,16 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   /* XXX Support libvirt authentication in the future. */
   conn = virConnectOpen (libvirt_uri);
   if (!conn) {
-    error (g, _("could not connect to libvirt: URI: %s"),
+    libvirt_error (g, _("could not connect to libvirt (URI = %s)"),
            libvirt_uri ? : "NULL");
     goto cleanup;
   }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "get libvirt capabilities");
@@ -1266,6 +1273,12 @@ random_chars (char *ret, size_t len)
   return 0;
 }
 
+static void
+ignore_errors (void *ignore, virErrorPtr ignore2)
+{
+  /* empty */
+}
+
 static int
 shutdown_libvirt (guestfs_h *g)
 {
@@ -1311,9 +1324,11 @@ libvirt_error (guestfs_h *g, const char *fs, ...)
 
   /* In all recent libvirt, this retrieves the thread-local error. */
   err = virGetLastError ();
-
-  error (g, "%s: %s [code=%d domain=%d]",
-         msg, err->message, err->code, err->domain);
+  if (err)
+    error (g, "%s: %s [code=%d domain=%d]",
+           msg, err->message, err->code, err->domain);
+  else
+    error (g, "%s", msg);
 
   /* NB. 'err' must not be freed! */
   free (msg);
