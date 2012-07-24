@@ -106,7 +106,7 @@ noinst_DATA += \
 
 bindtests.bc: bindtests.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 bindtests.opt: bindtests.cmx mlguestfs.cmxa
@@ -115,7 +115,7 @@ bindtests.opt: bindtests.cmx mlguestfs.cmxa
 
 t/guestfs_005_load.bc: t/guestfs_005_load.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_005_load.opt: t/guestfs_005_load.cmx mlguestfs.cmxa
@@ -124,7 +124,7 @@ t/guestfs_005_load.opt: t/guestfs_005_load.cmx mlguestfs.cmxa
 
 t/guestfs_010_basic.bc: t/guestfs_010_basic.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_010_basic.opt: t/guestfs_010_basic.cmx mlguestfs.cmxa
@@ -133,7 +133,7 @@ t/guestfs_010_basic.opt: t/guestfs_010_basic.cmx mlguestfs.cmxa
 
 t/guestfs_070_threads.bc: t/guestfs_070_threads.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix,threads -thread -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_070_threads.opt: t/guestfs_070_threads.cmx mlguestfs.cmxa
@@ -142,7 +142,7 @@ t/guestfs_070_threads.opt: t/guestfs_070_threads.cmx mlguestfs.cmxa
 
 t/guestfs_080_optargs.bc: t/guestfs_080_optargs.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_080_optargs.opt: t/guestfs_080_optargs.cmx mlguestfs.cmxa
@@ -151,7 +151,7 @@ t/guestfs_080_optargs.opt: t/guestfs_080_optargs.cmx mlguestfs.cmxa
 
 t/guestfs_400_events.bc: t/guestfs_400_events.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_400_events.opt: t/guestfs_400_events.cmx mlguestfs.cmxa
@@ -160,7 +160,7 @@ t/guestfs_400_events.opt: t/guestfs_400_events.cmx mlguestfs.cmxa
 
 t/guestfs_400_progress.bc: t/guestfs_400_progress.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_400_progress.opt: t/guestfs_400_progress.cmx mlguestfs.cmxa
@@ -169,7 +169,7 @@ t/guestfs_400_progress.opt: t/guestfs_400_progress.cmx mlguestfs.cmxa
 
 t/guestfs_500_mount_local.bc: t/guestfs_500_mount_local.cmo mlguestfs.cma
 	mkdir -p t
-	LD_LIBRARY_PATH=../src/.libs \
+	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc -custom $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 t/guestfs_500_mount_local.opt: t/guestfs_500_mount_local.cmx mlguestfs.cmxa
