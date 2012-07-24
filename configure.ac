@@ -403,6 +403,14 @@ AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
         AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
         ])
+AC_SEARCH_LIBS([xdr_u_int64_t],[portablexdr rpc xdr nsl],[
+        AC_DEFINE([HAVE_XDR_U_INT64_T],[1],[Define to 1 if xdr_u_int64_t() exists])
+        ])
+AC_SEARCH_LIBS([xdr_uint64_t],[portablexdr rpc xdr nsl],[
+        AC_DEFINE([HAVE_XDR_UINT64_T],[1],[Define to 1 if xdr_uint64_t() exists])
+        ])
+AM_CONDITIONAL([HAVE_XDR_U_INT64_T],[test "x$ac_cv_search_xdr_u_int64_t" != "xno"])
+AM_CONDITIONAL([HAVE_XDR_UINT64_T],[test "x$ac_cv_search_xdr_uint64_t" != "xno"])
 
 dnl Check for Augeas (optional).
 PKG_CHECK_MODULES([AUGEAS], [augeas],
