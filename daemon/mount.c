@@ -205,9 +205,6 @@ do_umount (const char *pathordevice,
     return -1;
   }
 
-  if (is_dev)
-    RESOLVE_DEVICE (buf, , { free (buf); return -1; });
-
   if (!(optargs_bitmask & GUESTFS_UMOUNT_FORCE_BITMASK))
     force = 0;
   if (!(optargs_bitmask & GUESTFS_UMOUNT_LAZYUNMOUNT_BITMASK))

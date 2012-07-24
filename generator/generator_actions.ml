@@ -2772,7 +2772,7 @@ characters does I<not> work, even if the length is specified." };
 
   { defaults with
     name = "umount";
-    style = RErr, [String "pathordevice"], [OBool "force"; OBool "lazyunmount"];
+    style = RErr, [Dev_or_Path "pathordevice"], [OBool "force"; OBool "lazyunmount"];
     proc_nr = Some 45;
     fish_alias = ["unmount"];
     once_had_no_optargs = true;
