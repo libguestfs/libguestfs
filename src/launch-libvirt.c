@@ -79,6 +79,7 @@ xmlBufferDetach (xmlBufferPtr buf)
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance, const char *guestfsd_sock, const char *console_sock);
 static char *autodetect_format (guestfs_h *g, const char *path);
 static void libvirt_error (guestfs_h *g, const char *fs, ...);
+static int is_blk (const char *path);
 
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
@@ -762,7 +763,6 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   char scsi_target[64];
   char *path = NULL;
   char *format = NULL;
-  struct stat statbuf;
   int is_host_device;
 
   guestfs___drive_name (drv_index, &drive_name[2]);
@@ -776,11 +776,7 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
    *   <disk type=file device=disk>
    *     <source file=[path]>
    */
-  if (stat (drv->path, &statbuf) == -1) {
-    perrorf (g, "stat: %s", drv->path);
-    goto err;
-  }
-  is_host_device = S_ISBLK (statbuf.st_mode);
+  is_host_device = is_blk (drv->path);
 
   /* Path must be absolute for libvirt. */
   path = realpath (drv->path, NULL);
@@ -1147,6 +1143,16 @@ autodetect_format (guestfs_h *g, const char *path)
   }
 
   return ret;                   /* caller frees */
+}
+
+static int
+is_blk (const char *path)
+{
+  struct stat statbuf;
+
+  if (stat (path, &statbuf) == -1)
+    return 0;
+  return S_ISBLK (statbuf.st_mode);
 }
 
 static int
