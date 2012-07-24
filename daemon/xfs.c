@@ -311,26 +311,21 @@ error:
 }
 
 guestfs_int_xfsinfo *
-do_xfs_info (const char *path)
+do_xfs_info (const char *pathordevice)
 {
   int r;
   char *buf;
   char *out = NULL, *err = NULL;
   char **lines = NULL;
   guestfs_int_xfsinfo *ret = NULL;
+  int is_dev;
 
-  if (do_is_dir (path)) {
-    buf = sysroot_path (path);
-    if (!buf) {
-      reply_with_perror ("malloc");
-      return NULL;
-    }
-  } else {
-    buf = strdup(path);
-    if (!buf) {
-      reply_with_perror ("strdup");
-      return NULL;
-    }
+  is_dev = STREQLEN (pathordevice, "/dev/", 5);
+  buf = is_dev ? strdup (pathordevice)
+               : sysroot_path (pathordevice);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
   }
 
   r = command (&out, &err, "xfs_info", buf, NULL);

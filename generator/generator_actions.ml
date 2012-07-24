@@ -8954,7 +8954,7 @@ call C<guestfs_max_disks>." };
 
   { defaults with
     name = "xfs_info";
-    style = RStruct ("info", "xfsinfo"), [Pathname "path"], [];
+    style = RStruct ("info", "xfsinfo"), [Dev_or_Path "pathordevice"], [];
     proc_nr = Some 337;
     optional = Some "xfs";
     tests = [
