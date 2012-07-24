@@ -125,6 +125,7 @@
 /malloca.m4
 /malloc.m4
 /manywarnings.m4
+/memmem.m4
 /math_h.m4
 /mbrtowc.m4
 /mbsinit.m4
