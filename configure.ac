@@ -593,16 +593,16 @@ working.
         AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
     fi
 
-    AC_MSG_CHECKING([that $QEMU -machine accel=kvm:tcg -device ? works])
-    if $QEMU -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_CHECKING([that $QEMU -nographic -machine accel=kvm:tcg -device ? works])
+    if $QEMU -nographic -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([$QEMU -machine accel=kvm:tcg -device ? doesn't work.])
+        AC_MSG_FAILURE([$QEMU -nographic -machine accel=kvm:tcg -device ? doesn't work.])
     fi
 
     AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-    if $QEMU $QEMU_OPTIONS -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
+    if $QEMU $QEMU_OPTIONS -nographic -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])
