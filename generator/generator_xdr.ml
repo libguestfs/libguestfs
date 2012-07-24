@@ -39,6 +39,21 @@ open Generator_structs
 let generate_xdr () =
   generate_header CStyle LGPLv2plus;
 
+  (* This has to be defined to get around a limitation in Mac OS X's rpcgen. *)
+  pr "#if HAVE_XDR_U_INT64_T\n";
+  pr "#define uint64_t u_int64_t\n";
+  pr "%%#if HAVE_XDR_UINT64_T\n";
+  pr "%%#define xdr_u_int64_t xdr_uint64_t\n";
+  pr "%%#define u_int64_t uint64_t\n";
+  pr "%%#endif\n";
+  pr "#else\n";
+  pr "%%#if HAVE_XDR_U_INT64_T\n";
+  pr "%%#define xdr_uint64_t xdr_u_int64_t\n";
+  pr "%%#define uint64_t u_int64_t\n";
+  pr "%%#endif\n";
+  pr "#endif\n";
+  pr "\n";
+
   (* This has to be defined to get around a limitation in Sun's rpcgen. *)
   pr "typedef string guestfs_str<>;\n";
   pr "\n";
@@ -55,8 +70,8 @@ let generate_xdr () =
                    | name, FUUID -> pr "  opaque %s[32];\n" name
                    | name, FInt32 -> pr "  int %s;\n" name
                    | name, FUInt32 -> pr "  unsigned int %s;\n" name
-                   | name, (FInt64|FBytes) -> pr "  hyper %s;\n" name
-                   | name, FUInt64 -> pr "  unsigned hyper %s;\n" name
+                   | name, (FInt64|FBytes) -> pr "  int64_t %s;\n" name
+                   | name, FUInt64 -> pr "  uint64_t %s;\n" name
                    | name, FOptPercent -> pr "  float %s;\n" name
                   ) cols;
         pr "};\n";
@@ -86,7 +101,7 @@ let generate_xdr () =
              | StringList n | DeviceList n -> pr "  guestfs_str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
              | Int n -> pr "  int %s;\n" n
-             | Int64 n -> pr "  hyper %s;\n" n
+             | Int64 n -> pr "  int64_t %s;\n" n
              | BufferIn n ->
                  pr "  opaque %s<>;\n" n
              | FileIn _ | FileOut _ -> ()
@@ -102,7 +117,7 @@ let generate_xdr () =
            pr "};\n\n"
        | RInt64 n ->
            pr "struct %s_ret {\n" name;
-           pr "  hyper %s;\n" n;
+           pr "  int64_t %s;\n" n;
            pr "};\n\n"
        | RBool n ->
            pr "struct %s_ret {\n" name;
@@ -197,8 +212,8 @@ struct guestfs_message_header {
   guestfs_procedure proc;            /* GUESTFS_PROC_x */
   guestfs_message_direction direction;
   unsigned serial;                   /* message serial number */
-  unsigned hyper progress_hint;      /* upload hint for progress bar */
-  unsigned hyper optargs_bitmask;    /* bitmask for optional args */
+  uint64_t progress_hint;            /* upload hint for progress bar */
+  uint64_t optargs_bitmask;          /* bitmask for optional args */
   guestfs_message_status status;
 };
 
@@ -228,8 +243,8 @@ struct guestfs_chunk {
 struct guestfs_progress {
   guestfs_procedure proc;            /* @0:  GUESTFS_PROC_x */
   unsigned serial;                   /* @4:  message serial number */
-  unsigned hyper position;           /* @8:  0 <= position <= total */
-  unsigned hyper total;              /* @16: total size of operation */
+  uint64_t position;                 /* @8:  0 <= position <= total */
+  uint64_t total;                    /* @16: total size of operation */
                                      /* @24: size of structure */
 };
 "
