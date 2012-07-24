@@ -669,6 +669,15 @@ construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "devices"));
 
+  /* Path to qemu.  Only write this if the user has changed the
+   * default, otherwise allow libvirt to choose the best one.
+   */
+  if (g->qemu && STRNEQ (g->qemu, QEMU)) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
+    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->qemu));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+
   /* virtio-scsi controller. */
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "controller"));
   XMLERROR (-1,
