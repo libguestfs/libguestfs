@@ -81,6 +81,7 @@ select
 setenv
 sleep
 socket
+stat-time
 strchrnul
 strerror
 strndup
