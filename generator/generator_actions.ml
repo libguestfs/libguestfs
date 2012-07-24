@@ -8968,8 +8968,8 @@ call C<guestfs_max_disks>." };
     ];
     shortdesc = "get geometry of XFS filesystem";
     longdesc = "\
-C<path> is a mounted XFS filesystem.  This command returns the
-geometry of the filesystem.
+C<pathordevice> is a mounted XFS filesystem or a device containing
+an XFS filesystem.  This command returns the geometry of the filesystem.
 
 The returned struct contains geometry information.  Missing
 fields are returned as C<-1> (for numeric fields) or empty
