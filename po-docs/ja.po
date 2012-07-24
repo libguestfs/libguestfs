@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-07-23 21:52+0200\n"
+"POT-Creation-Date: 2012-07-24 14:47+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -9246,8 +9246,8 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3881 ../fish/guestfish-actions.pod:4297
 #: ../fish/guestfish-actions.pod:5058 ../fish/guestfish-actions.pod:5306
 #: ../fish/guestfish-actions.pod:5326 ../fish/guestfish-actions.pod:5345
-#: ../fish/guestfish-actions.pod:5383 ../fish/guestfish-actions.pod:6165
-#: ../fish/guestfish-actions.pod:6293 ../src/guestfs-actions.pod:10
+#: ../fish/guestfish-actions.pod:5383 ../fish/guestfish-actions.pod:6169
+#: ../fish/guestfish-actions.pod:6297 ../src/guestfs-actions.pod:10
 #: ../src/guestfs-actions.pod:283 ../src/guestfs-actions.pod:304
 #: ../src/guestfs-actions.pod:1817 ../src/guestfs-actions.pod:1874
 #: ../src/guestfs-actions.pod:2133 ../src/guestfs-actions.pod:2242
@@ -9256,8 +9256,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6849 ../src/guestfs-actions.pod:7976
 #: ../src/guestfs-actions.pod:8287 ../src/guestfs-actions.pod:8328
 #: ../src/guestfs-actions.pod:8359 ../src/guestfs-actions.pod:8419
-#: ../src/guestfs-actions.pod:9557 ../src/guestfs-actions.pod:9685
-#: ../src/guestfs-actions.pod:9907
+#: ../src/guestfs-actions.pod:9599 ../src/guestfs-actions.pod:9727
+#: ../src/guestfs-actions.pod:9949
 msgid ""
 "Deprecated functions will not be removed from the API, but the fact that "
 "they are deprecated indicates that there are problems with correct use of "
@@ -9439,7 +9439,8 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:4060 ../fish/guestfish-actions.pod:4090
 #: ../fish/guestfish-actions.pod:4233 ../fish/guestfish-actions.pod:4249
 #: ../fish/guestfish-actions.pod:4285 ../fish/guestfish-actions.pod:5034
-#: ../fish/guestfish-actions.pod:5767 ../fish/guestfish-actions.pod:5849
+#: ../fish/guestfish-actions.pod:5767 ../fish/guestfish-actions.pod:5832
+#: ../fish/guestfish-actions.pod:5853
 msgid ""
 "This command has one or more optional arguments.  See L</OPTIONAL ARGUMENTS>."
 msgstr ""
@@ -10265,7 +10266,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:5623 ../fish/guestfish-actions.pod:5635
 #: ../fish/guestfish-actions.pod:5646 ../fish/guestfish-actions.pod:5657
 #: ../fish/guestfish-actions.pod:5788 ../fish/guestfish-actions.pod:5797
-#: ../fish/guestfish-actions.pod:5862 ../fish/guestfish-actions.pod:5885
+#: ../fish/guestfish-actions.pod:5866 ../fish/guestfish-actions.pod:5889
 msgid "Use C<-> instead of a filename to read/write from stdin/stdout."
 msgstr ""
 
@@ -11083,11 +11084,11 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:4652 ../fish/guestfish-actions.pod:4669
 #: ../fish/guestfish-actions.pod:4684 ../fish/guestfish-actions.pod:5464
 #: ../fish/guestfish-actions.pod:5510 ../fish/guestfish-actions.pod:5595
-#: ../fish/guestfish-actions.pod:5610 ../fish/guestfish-actions.pod:6129
-#: ../fish/guestfish-actions.pod:6141 ../fish/guestfish-actions.pod:6159
-#: ../fish/guestfish-actions.pod:6187 ../fish/guestfish-actions.pod:6197
-#: ../fish/guestfish-actions.pod:6265 ../fish/guestfish-actions.pod:6275
-#: ../fish/guestfish-actions.pod:6304 ../fish/guestfish-actions.pod:6314
+#: ../fish/guestfish-actions.pod:5610 ../fish/guestfish-actions.pod:6133
+#: ../fish/guestfish-actions.pod:6145 ../fish/guestfish-actions.pod:6163
+#: ../fish/guestfish-actions.pod:6191 ../fish/guestfish-actions.pod:6201
+#: ../fish/guestfish-actions.pod:6269 ../fish/guestfish-actions.pod:6279
+#: ../fish/guestfish-actions.pod:6308 ../fish/guestfish-actions.pod:6318
 #: ../src/guestfs-actions.pod:1238 ../src/guestfs-actions.pod:1417
 #: ../src/guestfs-actions.pod:1437 ../src/guestfs-actions.pod:2177
 #: ../src/guestfs-actions.pod:2196 ../src/guestfs-actions.pod:2299
@@ -11099,11 +11100,11 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7387 ../src/guestfs-actions.pod:7413
 #: ../src/guestfs-actions.pod:7437 ../src/guestfs-actions.pod:8557
 #: ../src/guestfs-actions.pod:8612 ../src/guestfs-actions.pod:8758
-#: ../src/guestfs-actions.pod:8782 ../src/guestfs-actions.pod:9649
-#: ../src/guestfs-actions.pod:9669 ../src/guestfs-actions.pod:9702
-#: ../src/guestfs-actions.pod:9738 ../src/guestfs-actions.pod:9757
-#: ../src/guestfs-actions.pod:9873 ../src/guestfs-actions.pod:9892
-#: ../src/guestfs-actions.pod:9938 ../src/guestfs-actions.pod:9957
+#: ../src/guestfs-actions.pod:8782 ../src/guestfs-actions.pod:9691
+#: ../src/guestfs-actions.pod:9711 ../src/guestfs-actions.pod:9744
+#: ../src/guestfs-actions.pod:9780 ../src/guestfs-actions.pod:9799
+#: ../src/guestfs-actions.pod:9915 ../src/guestfs-actions.pod:9934
+#: ../src/guestfs-actions.pod:9980 ../src/guestfs-actions.pod:9999
 msgid ""
 "Because of the message protocol, there is a transfer limit of somewhere "
 "between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
@@ -11913,8 +11914,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:1146 ../fish/guestfish-actions.pod:5858
-#: ../src/guestfs-actions.pod:1972 ../src/guestfs-actions.pod:9181
+#: ../fish/guestfish-actions.pod:1146 ../fish/guestfish-actions.pod:5862
+#: ../src/guestfs-actions.pod:1972 ../src/guestfs-actions.pod:9223
 msgid "C<filename> can also be a named pipe."
 msgstr "C<filename> は名前付きパイプを使えます。"
 
@@ -18720,8 +18721,8 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4088 ../fish/guestfish-actions.pod:4112
-#: ../fish/guestfish-actions.pod:5847 ../src/guestfs-actions.pod:6423
-#: ../src/guestfs-actions.pod:6472 ../src/guestfs-actions.pod:9145
+#: ../fish/guestfish-actions.pod:5851 ../src/guestfs-actions.pod:6423
+#: ../src/guestfs-actions.pod:6472 ../src/guestfs-actions.pod:9187
 msgid "See L<guestfs(3)/MOUNT LOCAL> for full documentation."
 msgstr "完全なドキュメントは L<guestfs(3)/MOUNT LOCAL> を参照してください。"
 
@@ -22869,35 +22870,45 @@ msgstr "umount"
 msgid "unmount"
 msgstr "unmount"
 
-#. type: verbatim
+#. type: =head2
 #: ../fish/guestfish-actions.pod:5824
-#, no-wrap
+#, fuzzy
+#| msgid "mount-options"
+msgid "umount-opts"
+msgstr "mount-options"
+
+#. type: verbatim
+#: ../fish/guestfish-actions.pod:5826
+#, fuzzy, no-wrap
+#| msgid ""
+#| " e2fsck device [correct:true|false] [forceall:true|false]\n"
+#| "\n"
 msgid ""
-" umount pathordevice\n"
+" umount pathordevice [force:true|false] [lazyunmount:true|false]\n"
 "\n"
 msgstr ""
-" umount pathordevice\n"
+" e2fsck device [correct:true|false] [forceall:true|false]\n"
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5826 ../src/guestfs-actions.pod:9108
+#: ../fish/guestfish-actions.pod:5828 ../src/guestfs-actions.pod:9130
 msgid ""
 "This unmounts the given filesystem.  The filesystem may be specified either "
 "by its mountpoint (path) or the device which contains the filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5830
+#: ../fish/guestfish-actions.pod:5834
 msgid "umount-all"
 msgstr "umount-all"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5832
+#: ../fish/guestfish-actions.pod:5836
 msgid "unmount-all"
 msgstr "unmount-all"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5834
+#: ../fish/guestfish-actions.pod:5838
 #, no-wrap
 msgid ""
 " umount-all\n"
@@ -22907,22 +22918,22 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5836 ../src/guestfs-actions.pod:9121
+#: ../fish/guestfish-actions.pod:5840 ../src/guestfs-actions.pod:9163
 msgid "This unmounts all mounted filesystems."
 msgstr "これはマウントされたファイルシステムをすべてアンマウントします。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5838 ../src/guestfs-actions.pod:9123
+#: ../fish/guestfish-actions.pod:5842 ../src/guestfs-actions.pod:9165
 msgid "Some internal mounts are not unmounted by this call."
 msgstr "いくつかの内部マウントはこの呼び出しによりアンマウントされません。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5840
+#: ../fish/guestfish-actions.pod:5844
 msgid "umount-local"
 msgstr "umount-local"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5842
+#: ../fish/guestfish-actions.pod:5846
 #, no-wrap
 msgid ""
 " umount-local [retry:true|false]\n"
@@ -22932,7 +22943,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5844 ../src/guestfs-actions.pod:9142
+#: ../fish/guestfish-actions.pod:5848 ../src/guestfs-actions.pod:9184
 msgid ""
 "If libguestfs is exporting the filesystem on a local mountpoint, then this "
 "unmounts it."
@@ -22941,12 +22952,12 @@ msgstr ""
 "いるならば、これによりアンマウントされます。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5851
+#: ../fish/guestfish-actions.pod:5855
 msgid "upload"
 msgstr "upload"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5853
+#: ../fish/guestfish-actions.pod:5857
 #, no-wrap
 msgid ""
 " upload (filename|-) remotefilename\n"
@@ -22956,25 +22967,25 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5855 ../fish/guestfish-actions.pod:5868
-#: ../src/guestfs-actions.pod:9178 ../src/guestfs-actions.pod:9202
+#: ../fish/guestfish-actions.pod:5859 ../fish/guestfish-actions.pod:5872
+#: ../src/guestfs-actions.pod:9220 ../src/guestfs-actions.pod:9244
 msgid "Upload local file C<filename> to C<remotefilename> on the filesystem."
 msgstr ""
 "ローカルファイル C<filename> をファイルシステムにおいて C<remotefilename> に"
 "アップロードします。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5860
+#: ../fish/guestfish-actions.pod:5864
 msgid "See also L</download>."
 msgstr "L</download> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5864
+#: ../fish/guestfish-actions.pod:5868
 msgid "upload-offset"
 msgstr "upload-offset"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5866
+#: ../fish/guestfish-actions.pod:5870
 #, no-wrap
 msgid ""
 " upload-offset (filename|-) remotefilename offset\n"
@@ -22984,7 +22995,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5871 ../src/guestfs-actions.pod:9205
+#: ../fish/guestfish-actions.pod:5875 ../src/guestfs-actions.pod:9247
 msgid ""
 "C<remotefilename> is overwritten starting at the byte C<offset> specified.  "
 "The intention is to overwrite parts of existing files or devices, although "
@@ -22994,7 +23005,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5878
+#: ../fish/guestfish-actions.pod:5882
 msgid ""
 "Note that there is no limit on the amount of data that can be uploaded with "
 "this call, unlike with L</pwrite>, and this call always writes the full "
@@ -23002,17 +23013,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5883
+#: ../fish/guestfish-actions.pod:5887
 msgid "See also L</upload>, L</pwrite>."
 msgstr "L</upload>, L</pwrite> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5887
+#: ../fish/guestfish-actions.pod:5891
 msgid "utimens"
 msgstr "utimens"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5889
+#: ../fish/guestfish-actions.pod:5893
 #, no-wrap
 msgid ""
 " utimens path atsecs atnsecs mtsecs mtnsecs\n"
@@ -23022,26 +23033,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5891 ../src/guestfs-actions.pod:9238
+#: ../fish/guestfish-actions.pod:5895 ../src/guestfs-actions.pod:9280
 msgid "This command sets the timestamps of a file with nanosecond precision."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5894 ../src/guestfs-actions.pod:9241
+#: ../fish/guestfish-actions.pod:5898 ../src/guestfs-actions.pod:9283
 msgid ""
 "C<atsecs, atnsecs> are the last access time (atime) in secs and nanoseconds "
 "from the epoch."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5897 ../src/guestfs-actions.pod:9244
+#: ../fish/guestfish-actions.pod:5901 ../src/guestfs-actions.pod:9286
 msgid ""
 "C<mtsecs, mtnsecs> are the last modification time (mtime) in secs and "
 "nanoseconds from the epoch."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5900 ../src/guestfs-actions.pod:9247
+#: ../fish/guestfish-actions.pod:5904 ../src/guestfs-actions.pod:9289
 msgid ""
 "If the C<*nsecs> field contains the special value C<-1> then the "
 "corresponding timestamp is set to the current time.  (The C<*secs> field is "
@@ -23049,7 +23060,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5904 ../src/guestfs-actions.pod:9251
+#: ../fish/guestfish-actions.pod:5908 ../src/guestfs-actions.pod:9293
 msgid ""
 "If the C<*nsecs> field contains the special value C<-2> then the "
 "corresponding timestamp is left unchanged.  (The C<*secs> field is ignored "
@@ -23057,12 +23068,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5908
+#: ../fish/guestfish-actions.pod:5912
 msgid "version"
 msgstr "version"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5910
+#: ../fish/guestfish-actions.pod:5914
 #, no-wrap
 msgid ""
 " version\n"
@@ -23072,13 +23083,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5912 ../src/guestfs-actions.pod:9264
+#: ../fish/guestfish-actions.pod:5916 ../src/guestfs-actions.pod:9306
 msgid ""
 "Return the libguestfs version number that the program is linked against."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5915 ../src/guestfs-actions.pod:9267
+#: ../fish/guestfish-actions.pod:5919 ../src/guestfs-actions.pod:9309
 msgid ""
 "Note that because of dynamic linking this is not necessarily the version of "
 "libguestfs that you compiled against.  You can compile the program, and then "
@@ -23087,7 +23098,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5920 ../src/guestfs-actions.pod:9272
+#: ../fish/guestfish-actions.pod:5924 ../src/guestfs-actions.pod:9314
 msgid ""
 "This call was added in version C<1.0.58>.  In previous versions of "
 "libguestfs there was no way to get the version number.  From C code you can "
@@ -23096,7 +23107,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5926 ../src/guestfs-actions.pod:9278
+#: ../fish/guestfish-actions.pod:5930 ../src/guestfs-actions.pod:9320
 msgid ""
 "The call returns a structure with four elements.  The first three (C<major>, "
 "C<minor> and C<release>) are numbers and correspond to the usual version "
@@ -23105,18 +23116,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5932 ../src/guestfs-actions.pod:9284
+#: ../fish/guestfish-actions.pod:5936 ../src/guestfs-actions.pod:9326
 msgid ""
 "To construct the original version string: C<$major.$minor.$release$extra>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5935 ../src/guestfs-actions.pod:9287
+#: ../fish/guestfish-actions.pod:5939 ../src/guestfs-actions.pod:9329
 msgid "See also: L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>."
 msgstr "関連項目: L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5937
+#: ../fish/guestfish-actions.pod:5941
 msgid ""
 "I<Note:> Don't use this call to test for availability of features.  In "
 "enterprise distributions we backport features from later versions into "
@@ -23125,12 +23136,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5943
+#: ../fish/guestfish-actions.pod:5947
 msgid "vfs-label"
 msgstr "vfs-label"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5945
+#: ../fish/guestfish-actions.pod:5949
 #, no-wrap
 msgid ""
 " vfs-label device\n"
@@ -23140,28 +23151,28 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5947 ../src/guestfs-actions.pod:9307
+#: ../fish/guestfish-actions.pod:5951 ../src/guestfs-actions.pod:9349
 msgid "This returns the filesystem label of the filesystem on C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5950 ../src/guestfs-actions.pod:9310
+#: ../fish/guestfish-actions.pod:5954 ../src/guestfs-actions.pod:9352
 msgid "If the filesystem is unlabeled, this returns the empty string."
 msgstr "ファイルシステムにラベルが付いていないと、空の文字列が返されます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5952
+#: ../fish/guestfish-actions.pod:5956
 msgid "To find a filesystem from the label, use L</findfs-label>."
 msgstr ""
 "ラベルからファイルシステムを検索するには L</findfs-label> を使用します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5954
+#: ../fish/guestfish-actions.pod:5958
 msgid "vfs-type"
 msgstr "vfs-type"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5956
+#: ../fish/guestfish-actions.pod:5960
 #, no-wrap
 msgid ""
 " vfs-type device\n"
@@ -23171,14 +23182,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5958 ../src/guestfs-actions.pod:9325
+#: ../fish/guestfish-actions.pod:5962 ../src/guestfs-actions.pod:9367
 msgid ""
 "This command gets the filesystem type corresponding to the filesystem on "
 "C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5961 ../src/guestfs-actions.pod:9328
+#: ../fish/guestfish-actions.pod:5965 ../src/guestfs-actions.pod:9370
 msgid ""
 "For most filesystems, the result is the name of the Linux VFS module which "
 "would be used to mount this filesystem if you mounted it without specifying "
@@ -23186,12 +23197,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5966
+#: ../fish/guestfish-actions.pod:5970
 msgid "vfs-uuid"
 msgstr "vfs-uuid"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5968
+#: ../fish/guestfish-actions.pod:5972
 #, no-wrap
 msgid ""
 " vfs-uuid device\n"
@@ -23201,27 +23212,27 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5970 ../src/guestfs-actions.pod:9344
+#: ../fish/guestfish-actions.pod:5974 ../src/guestfs-actions.pod:9386
 msgid "This returns the filesystem UUID of the filesystem on C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5973 ../src/guestfs-actions.pod:9347
+#: ../fish/guestfish-actions.pod:5977 ../src/guestfs-actions.pod:9389
 msgid "If the filesystem does not have a UUID, this returns the empty string."
 msgstr "ファイルシステムが UUID を持っていないと、空の文字列を返します。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5975
+#: ../fish/guestfish-actions.pod:5979
 msgid "To find a filesystem from the UUID, use L</findfs-uuid>."
 msgstr "UUID からファイルシステムを検索するには L</findfs-uuid> を使用します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5977
+#: ../fish/guestfish-actions.pod:5981
 msgid "vg-activate"
 msgstr "vg-activate"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5979
+#: ../fish/guestfish-actions.pod:5983
 #, no-wrap
 msgid ""
 " vg-activate true|false 'volgroups ...'\n"
@@ -23231,32 +23242,32 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5981 ../src/guestfs-actions.pod:9363
+#: ../fish/guestfish-actions.pod:5985 ../src/guestfs-actions.pod:9405
 msgid ""
 "This command activates or (if C<activate> is false) deactivates all logical "
 "volumes in the listed volume groups C<volgroups>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5984 ../src/guestfs-actions.pod:9366
+#: ../fish/guestfish-actions.pod:5988 ../src/guestfs-actions.pod:9408
 msgid "This command is the same as running C<vgchange -a y|n volgroups...>"
 msgstr ""
 "このコマンドは C<vgchange -a y|n volgroups...> を実行するときと同じです。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5986 ../src/guestfs-actions.pod:9368
+#: ../fish/guestfish-actions.pod:5990 ../src/guestfs-actions.pod:9410
 msgid ""
 "Note that if C<volgroups> is an empty list then B<all> volume groups are "
 "activated or deactivated."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5989
+#: ../fish/guestfish-actions.pod:5993
 msgid "vg-activate-all"
 msgstr "vg-activate-all"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:5991
+#: ../fish/guestfish-actions.pod:5995
 #, no-wrap
 msgid ""
 " vg-activate-all true|false\n"
@@ -23266,24 +23277,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5993 ../src/guestfs-actions.pod:9381
+#: ../fish/guestfish-actions.pod:5997 ../src/guestfs-actions.pod:9423
 msgid ""
 "This command activates or (if C<activate> is false) deactivates all logical "
 "volumes in all volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:5996 ../src/guestfs-actions.pod:9384
+#: ../fish/guestfish-actions.pod:6000 ../src/guestfs-actions.pod:9426
 msgid "This command is the same as running C<vgchange -a y|n>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:5998
+#: ../fish/guestfish-actions.pod:6002
 msgid "vgcreate"
 msgstr "vgcreate"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6000
+#: ../fish/guestfish-actions.pod:6004
 #, no-wrap
 msgid ""
 " vgcreate volgroup 'physvols ...'\n"
@@ -23293,19 +23304,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6002 ../src/guestfs-actions.pod:9397
+#: ../fish/guestfish-actions.pod:6006 ../src/guestfs-actions.pod:9439
 msgid ""
 "This creates an LVM volume group called C<volgroup> from the non-empty list "
 "of physical volumes C<physvols>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6005
+#: ../fish/guestfish-actions.pod:6009
 msgid "vglvuuids"
 msgstr "vglvuuids"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6007
+#: ../fish/guestfish-actions.pod:6011
 #, no-wrap
 msgid ""
 " vglvuuids vgname\n"
@@ -23315,31 +23326,31 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6009 ../src/guestfs-actions.pod:9410
+#: ../fish/guestfish-actions.pod:6013 ../src/guestfs-actions.pod:9452
 msgid ""
 "Given a VG called C<vgname>, this returns the UUIDs of all the logical "
 "volumes created in this volume group."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6012
+#: ../fish/guestfish-actions.pod:6016
 msgid ""
 "You can use this along with L</lvs> and L</lvuuid> calls to associate "
 "logical volumes and volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6015
+#: ../fish/guestfish-actions.pod:6019
 msgid "See also L</vgpvuuids>."
 msgstr "L</vgpvuuids> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6017
+#: ../fish/guestfish-actions.pod:6021
 msgid "vgmeta"
 msgstr "vgmeta"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6019
+#: ../fish/guestfish-actions.pod:6023
 #, no-wrap
 msgid ""
 " vgmeta vgname\n"
@@ -23349,7 +23360,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6021 ../src/guestfs-actions.pod:9431
+#: ../fish/guestfish-actions.pod:6025 ../src/guestfs-actions.pod:9473
 msgid ""
 "C<vgname> is an LVM volume group.  This command examines the volume group "
 "and returns its metadata."
@@ -23358,7 +23369,7 @@ msgstr ""
 "検査して、そのメタ情報を返します。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6024 ../src/guestfs-actions.pod:9434
+#: ../fish/guestfish-actions.pod:6028 ../src/guestfs-actions.pod:9476
 msgid ""
 "Note that the metadata is an internal structure used by LVM, subject to "
 "change at any time, and is provided for information only."
@@ -23367,12 +23378,12 @@ msgstr ""
 "してのみ提供されることに注意してください。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6027
+#: ../fish/guestfish-actions.pod:6031
 msgid "vgpvuuids"
 msgstr "vgpvuuids"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6029
+#: ../fish/guestfish-actions.pod:6033
 #, no-wrap
 msgid ""
 " vgpvuuids vgname\n"
@@ -23382,31 +23393,31 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6031 ../src/guestfs-actions.pod:9449
+#: ../fish/guestfish-actions.pod:6035 ../src/guestfs-actions.pod:9491
 msgid ""
 "Given a VG called C<vgname>, this returns the UUIDs of all the physical "
 "volumes that this volume group resides on."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6034
+#: ../fish/guestfish-actions.pod:6038
 msgid ""
 "You can use this along with L</pvs> and L</pvuuid> calls to associate "
 "physical volumes and volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6037
+#: ../fish/guestfish-actions.pod:6041
 msgid "See also L</vglvuuids>."
 msgstr "L</vglvuuids> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6039
+#: ../fish/guestfish-actions.pod:6043
 msgid "vgremove"
 msgstr "vgremove"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6041
+#: ../fish/guestfish-actions.pod:6045
 #, no-wrap
 msgid ""
 " vgremove vgname\n"
@@ -23416,23 +23427,23 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6043 ../src/guestfs-actions.pod:9469
+#: ../fish/guestfish-actions.pod:6047 ../src/guestfs-actions.pod:9511
 msgid "Remove an LVM volume group C<vgname>, (for example C<VG>)."
 msgstr "LVM ボリュームグループ C<vgname> を削除します（例: C<VG>）。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6045 ../src/guestfs-actions.pod:9471
+#: ../fish/guestfish-actions.pod:6049 ../src/guestfs-actions.pod:9513
 msgid ""
 "This also forcibly removes all logical volumes in the volume group (if any)."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6048
+#: ../fish/guestfish-actions.pod:6052
 msgid "vgrename"
 msgstr "vgrename"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6050
+#: ../fish/guestfish-actions.pod:6054
 #, no-wrap
 msgid ""
 " vgrename volgroup newvolgroup\n"
@@ -23442,17 +23453,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6052 ../src/guestfs-actions.pod:9485
+#: ../fish/guestfish-actions.pod:6056 ../src/guestfs-actions.pod:9527
 msgid "Rename a volume group C<volgroup> with the new name C<newvolgroup>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6054
+#: ../fish/guestfish-actions.pod:6058
 msgid "vgs"
 msgstr "vgs"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6056
+#: ../fish/guestfish-actions.pod:6060
 #, no-wrap
 msgid ""
 " vgs\n"
@@ -23462,31 +23473,31 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6058 ../src/guestfs-actions.pod:9496
+#: ../fish/guestfish-actions.pod:6062 ../src/guestfs-actions.pod:9538
 msgid ""
 "List all the volumes groups detected.  This is the equivalent of the L<vgs(8)"
 "> command."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6061 ../src/guestfs-actions.pod:9499
+#: ../fish/guestfish-actions.pod:6065 ../src/guestfs-actions.pod:9541
 msgid ""
 "This returns a list of just the volume group names that were detected (eg. "
 "C<VolGroup00>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6064
+#: ../fish/guestfish-actions.pod:6068
 msgid "See also L</vgs-full>."
 msgstr "L</vgs-full> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6066
+#: ../fish/guestfish-actions.pod:6070
 msgid "vgs-full"
 msgstr "vgs-full"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6068
+#: ../fish/guestfish-actions.pod:6072
 #, no-wrap
 msgid ""
 " vgs-full\n"
@@ -23496,19 +23507,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6070 ../src/guestfs-actions.pod:9515
+#: ../fish/guestfish-actions.pod:6074 ../src/guestfs-actions.pod:9557
 msgid ""
 "List all the volumes groups detected.  This is the equivalent of the L<vgs(8)"
 "> command.  The \"full\" version includes all fields."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6073
+#: ../fish/guestfish-actions.pod:6077
 msgid "vgscan"
 msgstr "vgscan"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6075
+#: ../fish/guestfish-actions.pod:6079
 #, no-wrap
 msgid ""
 " vgscan\n"
@@ -23518,19 +23529,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6077 ../src/guestfs-actions.pod:9529
+#: ../fish/guestfish-actions.pod:6081 ../src/guestfs-actions.pod:9571
 msgid ""
 "This rescans all block devices and rebuilds the list of LVM physical "
 "volumes, volume groups and logical volumes."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6080
+#: ../fish/guestfish-actions.pod:6084
 msgid "vguuid"
 msgstr "vguuid"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6082
+#: ../fish/guestfish-actions.pod:6086
 #, no-wrap
 msgid ""
 " vguuid vgname\n"
@@ -23540,17 +23551,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6084 ../src/guestfs-actions.pod:9542
+#: ../fish/guestfish-actions.pod:6088 ../src/guestfs-actions.pod:9584
 msgid "This command returns the UUID of the LVM VG named C<vgname>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6086
+#: ../fish/guestfish-actions.pod:6090
 msgid "wc-c"
 msgstr "wc-c"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6088
+#: ../fish/guestfish-actions.pod:6092
 #, no-wrap
 msgid ""
 " wc-c path\n"
@@ -23560,19 +23571,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6090 ../src/guestfs-actions.pod:9582
+#: ../fish/guestfish-actions.pod:6094 ../src/guestfs-actions.pod:9624
 msgid ""
 "This command counts the characters in a file, using the C<wc -c> external "
 "command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6093
+#: ../fish/guestfish-actions.pod:6097
 msgid "wc-l"
 msgstr "wc-l"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6095
+#: ../fish/guestfish-actions.pod:6099
 #, no-wrap
 msgid ""
 " wc-l path\n"
@@ -23582,18 +23593,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6097 ../src/guestfs-actions.pod:9595
+#: ../fish/guestfish-actions.pod:6101 ../src/guestfs-actions.pod:9637
 msgid ""
 "This command counts the lines in a file, using the C<wc -l> external command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6100
+#: ../fish/guestfish-actions.pod:6104
 msgid "wc-w"
 msgstr "wc-w"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6102
+#: ../fish/guestfish-actions.pod:6106
 #, no-wrap
 msgid ""
 " wc-w path\n"
@@ -23603,7 +23614,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6104 ../src/guestfs-actions.pod:9608
+#: ../fish/guestfish-actions.pod:6108 ../src/guestfs-actions.pod:9650
 msgid ""
 "This command counts the words in a file, using the C<wc -w> external command."
 msgstr ""
@@ -23611,12 +23622,12 @@ msgstr ""
 "す。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6107
+#: ../fish/guestfish-actions.pod:6111
 msgid "wipefs"
 msgstr "wipefs"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6109
+#: ../fish/guestfish-actions.pod:6113
 #, no-wrap
 msgid ""
 " wipefs device\n"
@@ -23626,14 +23637,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6111 ../src/guestfs-actions.pod:9621
+#: ../fish/guestfish-actions.pod:6115 ../src/guestfs-actions.pod:9663
 msgid ""
 "This command erases filesystem or RAID signatures from the specified "
 "C<device> to make the filesystem invisible to libblkid."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6114 ../src/guestfs-actions.pod:9624
+#: ../fish/guestfish-actions.pod:6118 ../src/guestfs-actions.pod:9666
 msgid ""
 "This does not erase the filesystem itself nor any other data from the "
 "C<device>."
@@ -23642,17 +23653,17 @@ msgstr ""
 "タも削除しません。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6117
+#: ../fish/guestfish-actions.pod:6121
 msgid "Compare with L</zero> which zeroes the first few blocks of a device."
 msgstr "デバイスの最初の数ブロックをゼロにする L</zero> と比較します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6120
+#: ../fish/guestfish-actions.pod:6124
 msgid "write"
 msgstr "write"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6122
+#: ../fish/guestfish-actions.pod:6126
 #, no-wrap
 msgid ""
 " write path content\n"
@@ -23662,24 +23673,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6124 ../src/guestfs-actions.pod:9642
+#: ../fish/guestfish-actions.pod:6128 ../src/guestfs-actions.pod:9684
 msgid ""
 "This call creates a file called C<path>.  The content of the file is the "
 "string C<content> (which can contain any 8 bit data)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6127
+#: ../fish/guestfish-actions.pod:6131
 msgid "See also L</write-append>."
 msgstr "L</write-append> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6132
+#: ../fish/guestfish-actions.pod:6136
 msgid "write-append"
 msgstr "write-append"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6134
+#: ../fish/guestfish-actions.pod:6138
 #, no-wrap
 msgid ""
 " write-append path content\n"
@@ -23689,24 +23700,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6136 ../src/guestfs-actions.pod:9662
+#: ../fish/guestfish-actions.pod:6140 ../src/guestfs-actions.pod:9704
 msgid ""
 "This call appends C<content> to the end of file C<path>.  If C<path> does "
 "not exist, then a new file is created."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6139
+#: ../fish/guestfish-actions.pod:6143
 msgid "See also L</write>."
 msgstr "L</write> 参照。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6144
+#: ../fish/guestfish-actions.pod:6148
 msgid "write-file"
 msgstr "write-file"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6146
+#: ../fish/guestfish-actions.pod:6150
 #, no-wrap
 msgid ""
 " write-file path content size\n"
@@ -23716,28 +23727,28 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6148 ../src/guestfs-actions.pod:9689
+#: ../fish/guestfish-actions.pod:6152 ../src/guestfs-actions.pod:9731
 msgid ""
 "This call creates a file called C<path>.  The contents of the file is the "
 "string C<content> (which can contain any 8 bit data), with length C<size>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6152 ../src/guestfs-actions.pod:9693
+#: ../fish/guestfish-actions.pod:6156 ../src/guestfs-actions.pod:9735
 msgid ""
 "As a special case, if C<size> is C<0> then the length is calculated using "
 "C<strlen> (so in this case the content cannot contain embedded ASCII NULs)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6156 ../src/guestfs-actions.pod:9697
+#: ../fish/guestfish-actions.pod:6160 ../src/guestfs-actions.pod:9739
 msgid ""
 "I<NB.> Owing to a bug, writing content containing ASCII NUL characters does "
 "I<not> work, even if the length is specified."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6162
+#: ../fish/guestfish-actions.pod:6166
 msgid ""
 "I<This function is deprecated.> In new code, use the L</write> call instead."
 msgstr ""
@@ -23745,46 +23756,46 @@ msgstr ""
 "ください。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6169
+#: ../fish/guestfish-actions.pod:6173
 #, fuzzy
 #| msgid "isoinfo"
 msgid "xfs-info"
 msgstr "isoinfo"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6171
+#: ../fish/guestfish-actions.pod:6175
 #, fuzzy, no-wrap
 #| msgid ""
 #| " is-fifo path\n"
 #| "\n"
 msgid ""
-" xfs-info path\n"
+" xfs-info pathordevice\n"
 "\n"
 msgstr ""
 " is-fifo path\n"
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6173 ../src/guestfs-actions.pod:9713
+#: ../fish/guestfish-actions.pod:6177 ../src/guestfs-actions.pod:9755
 msgid ""
-"C<path> is a mounted XFS filesystem.  This command returns the geometry of "
-"the filesystem."
+"C<pathordevice> is a mounted XFS filesystem or a device containing an XFS "
+"filesystem.  This command returns the geometry of the filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6176 ../src/guestfs-actions.pod:9716
+#: ../fish/guestfish-actions.pod:6180 ../src/guestfs-actions.pod:9758
 msgid ""
 "The returned struct contains geometry information.  Missing fields are "
 "returned as C<-1> (for numeric fields) or empty string."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6180
+#: ../fish/guestfish-actions.pod:6184
 msgid "zegrep"
 msgstr "zegrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6182
+#: ../fish/guestfish-actions.pod:6186
 #, no-wrap
 msgid ""
 " zegrep regex path\n"
@@ -23794,18 +23805,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6184 ../src/guestfs-actions.pod:9731
+#: ../fish/guestfish-actions.pod:6188 ../src/guestfs-actions.pod:9773
 msgid ""
 "This calls the external C<zegrep> program and returns the matching lines."
 msgstr "これは外部の C<zegrep> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6190
+#: ../fish/guestfish-actions.pod:6194
 msgid "zegrepi"
 msgstr "zegrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6192
+#: ../fish/guestfish-actions.pod:6196
 #, no-wrap
 msgid ""
 " zegrepi regex path\n"
@@ -23815,18 +23826,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6194 ../src/guestfs-actions.pod:9750
+#: ../fish/guestfish-actions.pod:6198 ../src/guestfs-actions.pod:9792
 msgid ""
 "This calls the external C<zegrep -i> program and returns the matching lines."
 msgstr "これは外部の C<zegrep -i> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6200
+#: ../fish/guestfish-actions.pod:6204
 msgid "zero"
 msgstr "zero"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6202
+#: ../fish/guestfish-actions.pod:6206
 #, no-wrap
 msgid ""
 " zero device\n"
@@ -23836,12 +23847,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6204 ../src/guestfs-actions.pod:9768
+#: ../fish/guestfish-actions.pod:6208 ../src/guestfs-actions.pod:9810
 msgid "This command writes zeroes over the first few blocks of C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6206 ../src/guestfs-actions.pod:9770
+#: ../fish/guestfish-actions.pod:6210 ../src/guestfs-actions.pod:9812
 msgid ""
 "How many blocks are zeroed isn't specified (but it's I<not> enough to "
 "securely wipe the device).  It should be sufficient to remove any partition "
@@ -23849,8 +23860,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6210 ../fish/guestfish-actions.pod:6225
-#: ../src/guestfs-actions.pod:9774 ../src/guestfs-actions.pod:9800
+#: ../fish/guestfish-actions.pod:6214 ../fish/guestfish-actions.pod:6229
+#: ../src/guestfs-actions.pod:9816 ../src/guestfs-actions.pod:9842
 msgid ""
 "If blocks are already zero, then this command avoids writing zeroes.  This "
 "prevents the underlying device from becoming non-sparse or growing "
@@ -23861,17 +23872,17 @@ msgstr ""
 "ことを避けるためです。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6214
+#: ../fish/guestfish-actions.pod:6218
 msgid "See also: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 msgstr "関連項目: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6217
+#: ../fish/guestfish-actions.pod:6221
 msgid "zero-device"
 msgstr "zero-device"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6219
+#: ../fish/guestfish-actions.pod:6223
 #, no-wrap
 msgid ""
 " zero-device device\n"
@@ -23881,19 +23892,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6221
+#: ../fish/guestfish-actions.pod:6225
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with L</zero> "
 "which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6229
+#: ../fish/guestfish-actions.pod:6233
 msgid "zero-free-space"
 msgstr "zero-free-space"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6231
+#: ../fish/guestfish-actions.pod:6235
 #, no-wrap
 msgid ""
 " zero-free-space directory\n"
@@ -23903,7 +23914,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6233 ../src/guestfs-actions.pod:9819
+#: ../fish/guestfish-actions.pod:6237 ../src/guestfs-actions.pod:9861
 msgid ""
 "Zero the free space in the filesystem mounted on C<directory>.  The "
 "filesystem must be mounted read-write."
@@ -23912,7 +23923,7 @@ msgstr ""
 "す。  ファイルシステムは読み書きモードでマウントする必要があります。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6236 ../src/guestfs-actions.pod:9822
+#: ../fish/guestfish-actions.pod:6240 ../src/guestfs-actions.pod:9864
 msgid ""
 "The filesystem contents are not affected, but any free space in the "
 "filesystem is freed."
@@ -23921,19 +23932,19 @@ msgstr ""
 "領域はすべて開放されます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6239
+#: ../fish/guestfish-actions.pod:6243
 msgid ""
 "Free space is not \"trimmed\".  You may want to call L</fstrim> either as an "
 "alternative to this, or after calling this, depending on your requirements."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6243
+#: ../fish/guestfish-actions.pod:6247
 msgid "zerofree"
 msgstr "zerofree"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6245
+#: ../fish/guestfish-actions.pod:6249
 #, no-wrap
 msgid ""
 " zerofree device\n"
@@ -23943,7 +23954,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6247 ../src/guestfs-actions.pod:9844
+#: ../fish/guestfish-actions.pod:6251 ../src/guestfs-actions.pod:9886
 msgid ""
 "This runs the I<zerofree> program on C<device>.  This program claims to zero "
 "unused inodes and disk blocks on an ext2/3 filesystem, thus making it "
@@ -23951,24 +23962,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6252 ../src/guestfs-actions.pod:9849
+#: ../fish/guestfish-actions.pod:6256 ../src/guestfs-actions.pod:9891
 msgid "You should B<not> run this program if the filesystem is mounted."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6255 ../src/guestfs-actions.pod:9852
+#: ../fish/guestfish-actions.pod:6259 ../src/guestfs-actions.pod:9894
 msgid ""
 "It is possible that using this program can damage the filesystem or data on "
 "the filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6258
+#: ../fish/guestfish-actions.pod:6262
 msgid "zfgrep"
 msgstr "zfgrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6260
+#: ../fish/guestfish-actions.pod:6264
 #, no-wrap
 msgid ""
 " zfgrep pattern path\n"
@@ -23978,18 +23989,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6262 ../src/guestfs-actions.pod:9866
+#: ../fish/guestfish-actions.pod:6266 ../src/guestfs-actions.pod:9908
 msgid ""
 "This calls the external C<zfgrep> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6268
+#: ../fish/guestfish-actions.pod:6272
 msgid "zfgrepi"
 msgstr "zfgrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6270
+#: ../fish/guestfish-actions.pod:6274
 #, no-wrap
 msgid ""
 " zfgrepi pattern path\n"
@@ -23999,18 +24010,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6272 ../src/guestfs-actions.pod:9885
+#: ../fish/guestfish-actions.pod:6276 ../src/guestfs-actions.pod:9927
 msgid ""
 "This calls the external C<zfgrep -i> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6278
+#: ../fish/guestfish-actions.pod:6282
 msgid "zfile"
 msgstr "zfile"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6280
+#: ../fish/guestfish-actions.pod:6284
 #, no-wrap
 msgid ""
 " zfile meth path\n"
@@ -24020,26 +24031,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6282 ../src/guestfs-actions.pod:9911
+#: ../fish/guestfish-actions.pod:6286 ../src/guestfs-actions.pod:9953
 msgid ""
 "This command runs C<file> after first decompressing C<path> using C<method>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6285 ../src/guestfs-actions.pod:9914
+#: ../fish/guestfish-actions.pod:6289 ../src/guestfs-actions.pod:9956
 msgid "C<method> must be one of C<gzip>, C<compress> or C<bzip2>."
 msgstr ""
 "C<method> は C<gzip>, C<compress> または C<bzip2> のいずれかである必要があり"
 "ます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6287
+#: ../fish/guestfish-actions.pod:6291
 msgid ""
 "Since 1.0.63, use L</file> instead which can now process compressed files."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6290
+#: ../fish/guestfish-actions.pod:6294
 msgid ""
 "I<This function is deprecated.> In new code, use the L</file> call instead."
 msgstr ""
@@ -24047,12 +24058,12 @@ msgstr ""
 "ください。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6297
+#: ../fish/guestfish-actions.pod:6301
 msgid "zgrep"
 msgstr "zgrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6299
+#: ../fish/guestfish-actions.pod:6303
 #, no-wrap
 msgid ""
 " zgrep regex path\n"
@@ -24062,18 +24073,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6301 ../src/guestfs-actions.pod:9931
+#: ../fish/guestfish-actions.pod:6305 ../src/guestfs-actions.pod:9973
 msgid ""
 "This calls the external C<zgrep> program and returns the matching lines."
 msgstr "外部 C<zgrep> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6307
+#: ../fish/guestfish-actions.pod:6311
 msgid "zgrepi"
 msgstr "zgrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6309
+#: ../fish/guestfish-actions.pod:6313
 #, no-wrap
 msgid ""
 " zgrepi regex path\n"
@@ -24083,7 +24094,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6311 ../src/guestfs-actions.pod:9950
+#: ../fish/guestfish-actions.pod:6315 ../src/guestfs-actions.pod:9992
 msgid ""
 "This calls the external C<zgrep -i> program and returns the matching lines."
 msgstr "外部 C<zgrep -i> プログラムを呼び出し、一致する行を返します。"
@@ -33267,17 +33278,17 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8866 ../src/guestfs-actions.pod:8879
 #: ../src/guestfs-actions.pod:8899 ../src/guestfs-actions.pod:8999
 #: ../src/guestfs-actions.pod:9057 ../src/guestfs-actions.pod:9071
-#: ../src/guestfs-actions.pod:9112 ../src/guestfs-actions.pod:9125
-#: ../src/guestfs-actions.pod:9147 ../src/guestfs-actions.pod:9185
-#: ../src/guestfs-actions.pod:9219 ../src/guestfs-actions.pod:9255
-#: ../src/guestfs-actions.pod:9371 ../src/guestfs-actions.pod:9386
-#: ../src/guestfs-actions.pod:9400 ../src/guestfs-actions.pod:9474
-#: ../src/guestfs-actions.pod:9487 ../src/guestfs-actions.pod:9532
-#: ../src/guestfs-actions.pod:9572 ../src/guestfs-actions.pod:9630
-#: ../src/guestfs-actions.pod:9647 ../src/guestfs-actions.pod:9667
-#: ../src/guestfs-actions.pod:9700 ../src/guestfs-actions.pod:9781
-#: ../src/guestfs-actions.pod:9804 ../src/guestfs-actions.pod:9829
-#: ../src/guestfs-actions.pod:9855
+#: ../src/guestfs-actions.pod:9134 ../src/guestfs-actions.pod:9167
+#: ../src/guestfs-actions.pod:9189 ../src/guestfs-actions.pod:9227
+#: ../src/guestfs-actions.pod:9261 ../src/guestfs-actions.pod:9297
+#: ../src/guestfs-actions.pod:9413 ../src/guestfs-actions.pod:9428
+#: ../src/guestfs-actions.pod:9442 ../src/guestfs-actions.pod:9516
+#: ../src/guestfs-actions.pod:9529 ../src/guestfs-actions.pod:9574
+#: ../src/guestfs-actions.pod:9614 ../src/guestfs-actions.pod:9672
+#: ../src/guestfs-actions.pod:9689 ../src/guestfs-actions.pod:9709
+#: ../src/guestfs-actions.pod:9742 ../src/guestfs-actions.pod:9823
+#: ../src/guestfs-actions.pod:9846 ../src/guestfs-actions.pod:9871
+#: ../src/guestfs-actions.pod:9897
 msgid "This function returns 0 on success or -1 on error."
 msgstr "この関数は、成功のとき 0 を、エラーのとき -1 を返します。"
 
@@ -33289,7 +33300,7 @@ msgstr "この関数は、成功のとき 0 を、エラーのとき -1 を返�
 #: ../src/guestfs-actions.pod:6332 ../src/guestfs-actions.pod:7863
 #: ../src/guestfs-actions.pod:8087 ../src/guestfs-actions.pod:8238
 #: ../src/guestfs-actions.pod:8743 ../src/guestfs-actions.pod:8868
-#: ../src/guestfs-actions.pod:9574
+#: ../src/guestfs-actions.pod:9616
 msgid "(Added in 0.3)"
 msgstr "(0.3 において追加)"
 
@@ -33326,7 +33337,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6342 ../src/guestfs-actions.pod:6391
 #: ../src/guestfs-actions.pod:6653 ../src/guestfs-actions.pod:6714
 #: ../src/guestfs-actions.pod:6777 ../src/guestfs-actions.pod:7896
-#: ../src/guestfs-actions.pod:8910 ../src/guestfs-actions.pod:9135
+#: ../src/guestfs-actions.pod:8910 ../src/guestfs-actions.pod:9122
+#: ../src/guestfs-actions.pod:9177
 msgid ""
 "You may supply a list of optional arguments to this call.  Use zero or more "
 "of the following pairs of parameters, and terminate the list with C<-1> on "
@@ -33384,8 +33396,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6626 ../src/guestfs-actions.pod:6953
 #: ../src/guestfs-actions.pod:7191 ../src/guestfs-actions.pod:7385
 #: ../src/guestfs-actions.pod:7411 ../src/guestfs-actions.pod:9098
-#: ../src/guestfs-actions.pod:9585 ../src/guestfs-actions.pod:9598
-#: ../src/guestfs-actions.pod:9611
+#: ../src/guestfs-actions.pod:9627 ../src/guestfs-actions.pod:9640
+#: ../src/guestfs-actions.pod:9653
 msgid "On error this function returns -1."
 msgstr "この関数はエラーのとき -1 を返します。"
 
@@ -33444,7 +33456,8 @@ msgstr "これは L</guestfs_add_domain> の \"va_list variant\" です。"
 #: ../src/guestfs-actions.pod:6826 ../src/guestfs-actions.pod:6837
 #: ../src/guestfs-actions.pod:7937 ../src/guestfs-actions.pod:7949
 #: ../src/guestfs-actions.pod:9012 ../src/guestfs-actions.pod:9023
-#: ../src/guestfs-actions.pod:9159 ../src/guestfs-actions.pod:9169
+#: ../src/guestfs-actions.pod:9145 ../src/guestfs-actions.pod:9156
+#: ../src/guestfs-actions.pod:9201 ../src/guestfs-actions.pod:9211
 msgid "See L</CALLS WITH OPTIONAL ARGUMENTS>."
 msgstr "L</CALLS WITH OPTIONAL ARGUMENTS> 参照。"
 
@@ -33870,9 +33883,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7538 ../src/guestfs-actions.pod:7587
 #: ../src/guestfs-actions.pod:8389 ../src/guestfs-actions.pod:8405
 #: ../src/guestfs-actions.pod:8429 ../src/guestfs-actions.pod:8453
-#: ../src/guestfs-actions.pod:9314 ../src/guestfs-actions.pod:9333
-#: ../src/guestfs-actions.pod:9351 ../src/guestfs-actions.pod:9544
-#: ../src/guestfs-actions.pod:9919
+#: ../src/guestfs-actions.pod:9356 ../src/guestfs-actions.pod:9375
+#: ../src/guestfs-actions.pod:9393 ../src/guestfs-actions.pod:9586
+#: ../src/guestfs-actions.pod:9961
 msgid ""
 "This function returns a string, or NULL on error.  I<The caller must free "
 "the returned string after use>."
@@ -34009,11 +34022,11 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7458 ../src/guestfs-actions.pod:7572
 #: ../src/guestfs-actions.pod:8469 ../src/guestfs-actions.pod:8553
 #: ../src/guestfs-actions.pod:8608 ../src/guestfs-actions.pod:8754
-#: ../src/guestfs-actions.pod:8778 ../src/guestfs-actions.pod:9418
-#: ../src/guestfs-actions.pod:9457 ../src/guestfs-actions.pod:9504
-#: ../src/guestfs-actions.pod:9734 ../src/guestfs-actions.pod:9753
-#: ../src/guestfs-actions.pod:9869 ../src/guestfs-actions.pod:9888
-#: ../src/guestfs-actions.pod:9934 ../src/guestfs-actions.pod:9953
+#: ../src/guestfs-actions.pod:8778 ../src/guestfs-actions.pod:9460
+#: ../src/guestfs-actions.pod:9499 ../src/guestfs-actions.pod:9546
+#: ../src/guestfs-actions.pod:9776 ../src/guestfs-actions.pod:9795
+#: ../src/guestfs-actions.pod:9911 ../src/guestfs-actions.pod:9930
+#: ../src/guestfs-actions.pod:9976 ../src/guestfs-actions.pod:9995
 msgid ""
 "This function returns a NULL-terminated array of strings (like L<environ(3)"
 ">), or NULL if there was an error.  I<The caller must free the strings and "
@@ -34029,9 +34042,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:5940 ../src/guestfs-actions.pod:6577
 #: ../src/guestfs-actions.pod:7273 ../src/guestfs-actions.pod:7670
 #: ../src/guestfs-actions.pod:7684 ../src/guestfs-actions.pod:7696
-#: ../src/guestfs-actions.pod:8316 ../src/guestfs-actions.pod:9114
-#: ../src/guestfs-actions.pod:9127 ../src/guestfs-actions.pod:9402
-#: ../src/guestfs-actions.pod:9705
+#: ../src/guestfs-actions.pod:8316 ../src/guestfs-actions.pod:9112
+#: ../src/guestfs-actions.pod:9169 ../src/guestfs-actions.pod:9444
+#: ../src/guestfs-actions.pod:9747
 msgid "(Added in 0.8)"
 msgstr "(0.8 において追加)"
 
@@ -35021,7 +35034,7 @@ msgid "See also C<guestfs_realpath>."
 msgstr "C<guestfs_realpath> 参照。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:1220 ../src/guestfs-actions.pod:9336
+#: ../src/guestfs-actions.pod:1220 ../src/guestfs-actions.pod:9378
 msgid "(Added in 1.0.75)"
 msgstr "(1.0.75 において追加)"
 
@@ -35058,8 +35071,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:4904 ../src/guestfs-actions.pod:4921
 #: ../src/guestfs-actions.pod:5025 ../src/guestfs-actions.pod:5441
 #: ../src/guestfs-actions.pod:5455 ../src/guestfs-actions.pod:7336
-#: ../src/guestfs-actions.pod:7350 ../src/guestfs-actions.pod:9508
-#: ../src/guestfs-actions.pod:9522
+#: ../src/guestfs-actions.pod:7350 ../src/guestfs-actions.pod:9550
+#: ../src/guestfs-actions.pod:9564
 msgid "(Added in 0.4)"
 msgstr "(0.4 において追加)"
 
@@ -35102,7 +35115,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1298 ../src/guestfs-actions.pod:1983
 #: ../src/guestfs-actions.pod:3130 ../src/guestfs-actions.pod:4486
 #: ../src/guestfs-actions.pod:4547 ../src/guestfs-actions.pod:4574
-#: ../src/guestfs-actions.pod:9192
+#: ../src/guestfs-actions.pod:9234
 msgid "(Added in 1.0.2)"
 msgstr "(1.0.2 において追加)"
 
@@ -35140,7 +35153,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:6903 ../src/guestfs-actions.pod:6937
 #: ../src/guestfs-actions.pod:6955 ../src/guestfs-actions.pod:7137
 #: ../src/guestfs-actions.pod:9059 ../src/guestfs-actions.pod:9073
-#: ../src/guestfs-actions.pod:9534
+#: ../src/guestfs-actions.pod:9576
 msgid "(Added in 1.3.2)"
 msgstr "(1.3.2 において追加)"
 
@@ -35564,9 +35577,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:1829 ../src/guestfs-actions.pod:1978
 #: ../src/guestfs-actions.pod:2009 ../src/guestfs-actions.pod:2054
 #: ../src/guestfs-actions.pod:2521 ../src/guestfs-actions.pod:2543
-#: ../src/guestfs-actions.pod:4707 ../src/guestfs-actions.pod:9187
-#: ../src/guestfs-actions.pod:9221 ../src/guestfs-actions.pod:9783
-#: ../src/guestfs-actions.pod:9806 ../src/guestfs-actions.pod:9831
+#: ../src/guestfs-actions.pod:4707 ../src/guestfs-actions.pod:9229
+#: ../src/guestfs-actions.pod:9263 ../src/guestfs-actions.pod:9825
+#: ../src/guestfs-actions.pod:9848 ../src/guestfs-actions.pod:9873
 msgid ""
 "This long-running command can generate progress notification messages so "
 "that the caller can display a progress bar or indicator.  To receive these "
@@ -35967,8 +35980,8 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:1834 ../src/guestfs-actions.pod:5468
-#: ../src/guestfs-actions.pod:7363 ../src/guestfs-actions.pod:9422
-#: ../src/guestfs-actions.pod:9461 ../src/guestfs-actions.pod:9547
+#: ../src/guestfs-actions.pod:7363 ../src/guestfs-actions.pod:9464
+#: ../src/guestfs-actions.pod:9503 ../src/guestfs-actions.pod:9589
 msgid "(Added in 1.0.87)"
 msgstr "(1.0.87 において追加)"
 
@@ -36109,8 +36122,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3383 ../src/guestfs-actions.pod:3451
 #: ../src/guestfs-actions.pod:5809 ../src/guestfs-actions.pod:6491
 #: ../src/guestfs-actions.pod:8761 ../src/guestfs-actions.pod:8785
-#: ../src/guestfs-actions.pod:9587 ../src/guestfs-actions.pod:9600
-#: ../src/guestfs-actions.pod:9613
+#: ../src/guestfs-actions.pod:9629 ../src/guestfs-actions.pod:9642
+#: ../src/guestfs-actions.pod:9655
 msgid "(Added in 1.0.54)"
 msgstr "(1.0.54 において追加)"
 
@@ -36221,7 +36234,7 @@ msgid "See also C<guestfs_download>, C<guestfs_pread>."
 msgstr "C<guestfs_download>, C<guestfs_pread> 参照。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:2014 ../src/guestfs-actions.pod:9226
+#: ../src/guestfs-actions.pod:2014 ../src/guestfs-actions.pod:9268
 msgid "(Added in 1.5.17)"
 msgstr "(1.5.17 において追加)"
 
@@ -36452,9 +36465,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8654 ../src/guestfs-actions.pod:8667
 #: ../src/guestfs-actions.pod:8689 ../src/guestfs-actions.pod:8702
 #: ../src/guestfs-actions.pod:8715 ../src/guestfs-actions.pod:8728
-#: ../src/guestfs-actions.pod:9741 ../src/guestfs-actions.pod:9760
-#: ../src/guestfs-actions.pod:9876 ../src/guestfs-actions.pod:9895
-#: ../src/guestfs-actions.pod:9941 ../src/guestfs-actions.pod:9960
+#: ../src/guestfs-actions.pod:9783 ../src/guestfs-actions.pod:9802
+#: ../src/guestfs-actions.pod:9918 ../src/guestfs-actions.pod:9937
+#: ../src/guestfs-actions.pod:9983 ../src/guestfs-actions.pod:10002
 msgid "(Added in 1.0.66)"
 msgstr "(1.0.66 において追加)"
 
@@ -36974,7 +36987,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:2703 ../src/guestfs-actions.pod:9788
+#: ../src/guestfs-actions.pod:2703 ../src/guestfs-actions.pod:9830
 msgid "(Added in 1.0.16)"
 msgstr "(1.0.16 において追加)"
 
@@ -37089,8 +37102,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2779 ../src/guestfs-actions.pod:7303
 #: ../src/guestfs-actions.pod:7782 ../src/guestfs-actions.pod:8373
 #: ../src/guestfs-actions.pod:8392 ../src/guestfs-actions.pod:8408
-#: ../src/guestfs-actions.pod:8432 ../src/guestfs-actions.pod:9373
-#: ../src/guestfs-actions.pod:9388 ../src/guestfs-actions.pod:9857
+#: ../src/guestfs-actions.pod:8432 ../src/guestfs-actions.pod:9415
+#: ../src/guestfs-actions.pod:9430 ../src/guestfs-actions.pod:9899
 msgid "(Added in 1.0.26)"
 msgstr "(1.0.26 において追加)"
 
@@ -37383,7 +37396,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:3050 ../src/guestfs-actions.pod:8108
-#: ../src/guestfs-actions.pod:9672
+#: ../src/guestfs-actions.pod:9714
 msgid "(Added in 1.11.18)"
 msgstr "(1.11.18 において追加)"
 
@@ -37454,7 +37467,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:5766 ../src/guestfs-actions.pod:7233
 #: ../src/guestfs-actions.pod:7576 ../src/guestfs-actions.pod:8160
 #: ../src/guestfs-actions.pod:8881 ../src/guestfs-actions.pod:8901
-#: ../src/guestfs-actions.pod:9257
+#: ../src/guestfs-actions.pod:9299
 msgid "(Added in 1.0.77)"
 msgstr "(1.0.77 において追加)"
 
@@ -37655,7 +37668,7 @@ msgstr "関連項目: C<guestfs_getxattrs>, C<guestfs_lgetxattr>, L<attr(5)>"
 #: ../src/guestfs-actions.pod:3205 ../src/guestfs-actions.pod:3422
 #: ../src/guestfs-actions.pod:3914 ../src/guestfs-actions.pod:4758
 #: ../src/guestfs-actions.pod:7226 ../src/guestfs-actions.pod:7252
-#: ../src/guestfs-actions.pod:7433 ../src/guestfs-actions.pod:9437
+#: ../src/guestfs-actions.pod:7433 ../src/guestfs-actions.pod:9479
 msgid ""
 "This function returns a buffer, or NULL on error.  The size of the returned "
 "buffer is written to C<*size_r>.  I<The caller must free the returned buffer "
@@ -37703,7 +37716,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3229 ../src/guestfs-actions.pod:4778
 #: ../src/guestfs-actions.pod:5006 ../src/guestfs-actions.pod:5042
 #: ../src/guestfs-actions.pod:7606 ../src/guestfs-actions.pod:8272
-#: ../src/guestfs-actions.pod:9922
+#: ../src/guestfs-actions.pod:9964
 msgid "(Added in 1.0.59)"
 msgstr "(1.0.59 において追加)"
 
@@ -39452,7 +39465,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:4937 ../src/guestfs-actions.pod:9632
+#: ../src/guestfs-actions.pod:4937 ../src/guestfs-actions.pod:9674
 msgid "(Added in 1.17.6)"
 msgstr "(1.17.6 において追加)"
 
@@ -40000,7 +40013,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:5281 ../src/guestfs-actions.pod:9836
+#: ../src/guestfs-actions.pod:5281 ../src/guestfs-actions.pod:9878
 msgid "(Added in 1.17.18)"
 msgstr "(1.17.18 にて追加)"
 
@@ -40114,7 +40127,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:5377 ../src/guestfs-actions.pod:7290
-#: ../src/guestfs-actions.pod:9476
+#: ../src/guestfs-actions.pod:9518
 msgid "(Added in 1.0.13)"
 msgstr "(1.0.13 において追加)"
 
@@ -40140,7 +40153,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:5390 ../src/guestfs-actions.pod:9489
+#: ../src/guestfs-actions.pod:5390 ../src/guestfs-actions.pod:9531
 msgid "(Added in 1.0.83)"
 msgstr "(1.0.83 において追加)"
 
@@ -41486,7 +41499,7 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs-actions.pod:6427 ../src/guestfs-actions.pod:6476
-#: ../src/guestfs-actions.pod:9149
+#: ../src/guestfs-actions.pod:9191
 msgid "(Added in 1.17.22)"
 msgstr "(1.17.22 にて追加)"
 
@@ -42214,7 +42227,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:6858 ../src/guestfs-actions.pod:7317
 #: ../src/guestfs-actions.pod:7390 ../src/guestfs-actions.pod:7658
-#: ../src/guestfs-actions.pod:9652
+#: ../src/guestfs-actions.pod:9694
 msgid "(Added in 1.3.14)"
 msgstr "(1.3.14 において追加)"
 
@@ -44961,10 +44974,12 @@ msgid ""
 msgstr ""
 "C<guestfs_get_umask>, L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir> 参照。"
 
-#. type: =head2
+#. type: textblock
 #: ../src/guestfs-actions.pod:9102
-msgid "guestfs_umount"
-msgstr "guestfs_umount"
+#, fuzzy
+#| msgid "guestfs_mkfs"
+msgid "= head2 guestfs_umount"
+msgstr "guestfs_mkfs"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:9104
@@ -44980,13 +44995,138 @@ msgstr ""
 "                 const char *pathordevice);\n"
 "\n"
 
+#. type: textblock
+#: ../src/guestfs-actions.pod:9108
+msgid ""
+"This function is provided for backwards compatibility with earlier versions "
+"of libguestfs.  It simply calls L</guestfs_umount_opts> with no optional "
+"arguments."
+msgstr ""
+
 #. type: =head2
-#: ../src/guestfs-actions.pod:9116
+#: ../src/guestfs-actions.pod:9115
+#, fuzzy
+#| msgid "guestfs_mount_options"
+msgid "guestfs_umount_opts"
+msgstr "guestfs_mount_options"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9117
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_btrfs_fsck (guestfs_h *g,\n"
+#| "                     const char *device,\n"
+#| "                     ...);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_umount_opts (guestfs_h *g,\n"
+"                      const char *pathordevice,\n"
+"                      ...);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_btrfs_fsck (guestfs_h *g,\n"
+"                     const char *device,\n"
+"                     ...);\n"
+"\n"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9127
+#, fuzzy, no-wrap
+#| msgid ""
+#| " GUESTFS_NTFSRESIZE_OPTS_SIZE, int64_t size,\n"
+#| " GUESTFS_NTFSRESIZE_OPTS_FORCE, int force,\n"
+#| "\n"
+msgid ""
+" GUESTFS_UMOUNT_OPTS_FORCE, int force,\n"
+" GUESTFS_UMOUNT_OPTS_LAZYUNMOUNT, int lazyunmount,\n"
+"\n"
+msgstr ""
+" GUESTFS_NTFSRESIZE_OPTS_SIZE, int64_t size,\n"
+" GUESTFS_NTFSRESIZE_OPTS_FORCE, int force,\n"
+"\n"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9136
+#, fuzzy
+#| msgid "guestfs_mount_9p_va"
+msgid "guestfs_umount_opts_va"
+msgstr "guestfs_mount_9p_va"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9138
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_btrfs_fsck_va (guestfs_h *g,\n"
+#| "                        const char *device,\n"
+#| "                        va_list args);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_umount_opts_va (guestfs_h *g,\n"
+"                         const char *pathordevice,\n"
+"                         va_list args);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_btrfs_fsck_va (guestfs_h *g,\n"
+"                        const char *device,\n"
+"                        va_list args);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:9143
+#, fuzzy
+#| msgid "This is the \"va_list variant\" of L</guestfs_mount_9p>."
+msgid "This is the \"va_list variant\" of L</guestfs_umount_opts>."
+msgstr "これは L</guestfs_mount_9p> の \"va_list variant\" です。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9147
+#, fuzzy
+#| msgid "guestfs_mount_9p_argv"
+msgid "guestfs_umount_opts_argv"
+msgstr "guestfs_mount_9p_argv"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9149
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_mount_local_argv (guestfs_h *g,\n"
+#| "                           const char *localmountpoint,\n"
+#| "                           const struct guestfs_mount_local_argv *optargs);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_umount_opts_argv (guestfs_h *g,\n"
+"                           const char *pathordevice,\n"
+"                           const struct guestfs_umount_opts_argv *optargs);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_mount_local_argv (guestfs_h *g,\n"
+"                           const char *localmountpoint,\n"
+"                           const struct guestfs_mount_local_argv *optargs);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:9154
+#, fuzzy
+#| msgid "This is the \"argv variant\" of L</guestfs_mount_9p>."
+msgid "This is the \"argv variant\" of L</guestfs_umount_opts>."
+msgstr "これは L</guestfs_mount_9p> の \"argv variant\" です。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9158
 msgid "guestfs_umount_all"
 msgstr "guestfs_umount_all"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9118
+#: ../src/guestfs-actions.pod:9160
 #, no-wrap
 msgid ""
 " int\n"
@@ -44996,94 +45136,94 @@ msgstr ""
 " int\n"
 " guestfs_umount_all (guestfs_h *g);\n"
 "\n"
-
-#. type: =head2
-#: ../src/guestfs-actions.pod:9129
-msgid "guestfs_umount_local"
-msgstr "guestfs_umount_local"
-
-#. type: verbatim
-#: ../src/guestfs-actions.pod:9131
-#, no-wrap
-msgid ""
-" int\n"
-" guestfs_umount_local (guestfs_h *g,\n"
-"                       ...);\n"
-"\n"
-msgstr ""
-" int\n"
-" guestfs_umount_local (guestfs_h *g,\n"
-"                       ...);\n"
-"\n"
-
-#. type: verbatim
-#: ../src/guestfs-actions.pod:9140
-#, no-wrap
-msgid ""
-" GUESTFS_UMOUNT_LOCAL_RETRY, int retry,\n"
-"\n"
-msgstr ""
-" GUESTFS_UMOUNT_LOCAL_RETRY, int retry,\n"
-"\n"
-
-#. type: =head2
-#: ../src/guestfs-actions.pod:9151
-msgid "guestfs_umount_local_va"
-msgstr "guestfs_umount_local_va"
-
-#. type: verbatim
-#: ../src/guestfs-actions.pod:9153
-#, no-wrap
-msgid ""
-" int\n"
-" guestfs_umount_local_va (guestfs_h *g,\n"
-"                          va_list args);\n"
-"\n"
-msgstr ""
-" int\n"
-" guestfs_umount_local_va (guestfs_h *g,\n"
-"                          va_list args);\n"
-"\n"
-
-#. type: textblock
-#: ../src/guestfs-actions.pod:9157
-msgid "This is the \"va_list variant\" of L</guestfs_umount_local>."
-msgstr "これは L</guestfs_umount_local> の \"va_list variant\" です。"
-
-#. type: =head2
-#: ../src/guestfs-actions.pod:9161
-msgid "guestfs_umount_local_argv"
-msgstr "guestfs_umount_local_argv"
-
-#. type: verbatim
-#: ../src/guestfs-actions.pod:9163
-#, no-wrap
-msgid ""
-" int\n"
-" guestfs_umount_local_argv (guestfs_h *g,\n"
-"                            const struct guestfs_umount_local_argv *optargs);\n"
-"\n"
-msgstr ""
-" int\n"
-" guestfs_umount_local_argv (guestfs_h *g,\n"
-"                            const struct guestfs_umount_local_argv *optargs);\n"
-"\n"
-
-#. type: textblock
-#: ../src/guestfs-actions.pod:9167
-msgid "This is the \"argv variant\" of L</guestfs_umount_local>."
-msgstr "これは L</guestfs_umount_local> の \"argv variant\" です。"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:9171
-msgid "guestfs_upload"
-msgstr "guestfs_upload"
+msgid "guestfs_umount_local"
+msgstr "guestfs_umount_local"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:9173
 #, no-wrap
 msgid ""
 " int\n"
+" guestfs_umount_local (guestfs_h *g,\n"
+"                       ...);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_umount_local (guestfs_h *g,\n"
+"                       ...);\n"
+"\n"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9182
+#, no-wrap
+msgid ""
+" GUESTFS_UMOUNT_LOCAL_RETRY, int retry,\n"
+"\n"
+msgstr ""
+" GUESTFS_UMOUNT_LOCAL_RETRY, int retry,\n"
+"\n"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9193
+msgid "guestfs_umount_local_va"
+msgstr "guestfs_umount_local_va"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9195
+#, no-wrap
+msgid ""
+" int\n"
+" guestfs_umount_local_va (guestfs_h *g,\n"
+"                          va_list args);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_umount_local_va (guestfs_h *g,\n"
+"                          va_list args);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:9199
+msgid "This is the \"va_list variant\" of L</guestfs_umount_local>."
+msgstr "これは L</guestfs_umount_local> の \"va_list variant\" です。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9203
+msgid "guestfs_umount_local_argv"
+msgstr "guestfs_umount_local_argv"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9205
+#, no-wrap
+msgid ""
+" int\n"
+" guestfs_umount_local_argv (guestfs_h *g,\n"
+"                            const struct guestfs_umount_local_argv *optargs);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_umount_local_argv (guestfs_h *g,\n"
+"                            const struct guestfs_umount_local_argv *optargs);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:9209
+msgid "This is the \"argv variant\" of L</guestfs_umount_local>."
+msgstr "これは L</guestfs_umount_local> の \"argv variant\" です。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:9213
+msgid "guestfs_upload"
+msgstr "guestfs_upload"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:9215
+#, no-wrap
+msgid ""
+" int\n"
 " guestfs_upload (guestfs_h *g,\n"
 "                 const char *filename,\n"
 "                 const char *remotefilename);\n"
@@ -45096,17 +45236,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9183
+#: ../src/guestfs-actions.pod:9225
 msgid "See also C<guestfs_download>."
 msgstr "C<guestfs_download> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9194
+#: ../src/guestfs-actions.pod:9236
 msgid "guestfs_upload_offset"
 msgstr "guestfs_upload_offset"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9196
+#: ../src/guestfs-actions.pod:9238
 #, no-wrap
 msgid ""
 " int\n"
@@ -45124,7 +45264,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9212
+#: ../src/guestfs-actions.pod:9254
 msgid ""
 "Note that there is no limit on the amount of data that can be uploaded with "
 "this call, unlike with C<guestfs_pwrite>, and this call always writes the "
@@ -45132,17 +45272,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9217
+#: ../src/guestfs-actions.pod:9259
 msgid "See also C<guestfs_upload>, C<guestfs_pwrite>."
 msgstr "C<guestfs_upload>, C<guestfs_pwrite> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9228
+#: ../src/guestfs-actions.pod:9270
 msgid "guestfs_utimens"
 msgstr "guestfs_utimens"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9230
+#: ../src/guestfs-actions.pod:9272
 #, no-wrap
 msgid ""
 " int\n"
@@ -45164,12 +45304,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9259 ../src/guestfs-structs.pod:175
+#: ../src/guestfs-actions.pod:9301 ../src/guestfs-structs.pod:175
 msgid "guestfs_version"
 msgstr "guestfs_version"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9261
+#: ../src/guestfs-actions.pod:9303
 #, no-wrap
 msgid ""
 " struct guestfs_version *\n"
@@ -45181,7 +45321,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9289
+#: ../src/guestfs-actions.pod:9331
 msgid ""
 "I<Note:> Don't use this call to test for availability of features.  In "
 "enterprise distributions we backport features from later versions into "
@@ -45190,24 +45330,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9295
+#: ../src/guestfs-actions.pod:9337
 msgid ""
 "This function returns a C<struct guestfs_version *>, or NULL if there was an "
 "error.  I<The caller must call C<guestfs_free_version> after use>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9299
+#: ../src/guestfs-actions.pod:9341
 msgid "(Added in 1.0.58)"
 msgstr "(1.0.58 において追加)"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9301
+#: ../src/guestfs-actions.pod:9343
 msgid "guestfs_vfs_label"
 msgstr "guestfs_vfs_label"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9303
+#: ../src/guestfs-actions.pod:9345
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45221,24 +45361,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9312
+#: ../src/guestfs-actions.pod:9354
 msgid "To find a filesystem from the label, use C<guestfs_findfs_label>."
 msgstr ""
 "ラベルからファイルシステムを検索するには C<guestfs_findfs_label> を使用しま"
 "す。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9317 ../src/guestfs-actions.pod:9354
+#: ../src/guestfs-actions.pod:9359 ../src/guestfs-actions.pod:9396
 msgid "(Added in 1.3.18)"
 msgstr "(1.3.18 において追加)"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9319
+#: ../src/guestfs-actions.pod:9361
 msgid "guestfs_vfs_type"
 msgstr "guestfs_vfs_type"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9321
+#: ../src/guestfs-actions.pod:9363
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45252,12 +45392,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9338
+#: ../src/guestfs-actions.pod:9380
 msgid "guestfs_vfs_uuid"
 msgstr "guestfs_vfs_uuid"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9340
+#: ../src/guestfs-actions.pod:9382
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45271,18 +45411,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9349
+#: ../src/guestfs-actions.pod:9391
 msgid "To find a filesystem from the UUID, use C<guestfs_findfs_uuid>."
 msgstr ""
 "UUID からファイルシステムを検索するには C<guestfs_findfs_uuid> を使用します。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9356
+#: ../src/guestfs-actions.pod:9398
 msgid "guestfs_vg_activate"
 msgstr "guestfs_vg_activate"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9358
+#: ../src/guestfs-actions.pod:9400
 #, no-wrap
 msgid ""
 " int\n"
@@ -45298,12 +45438,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9375
+#: ../src/guestfs-actions.pod:9417
 msgid "guestfs_vg_activate_all"
 msgstr "guestfs_vg_activate_all"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9377
+#: ../src/guestfs-actions.pod:9419
 #, no-wrap
 msgid ""
 " int\n"
@@ -45317,12 +45457,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9390
+#: ../src/guestfs-actions.pod:9432
 msgid "guestfs_vgcreate"
 msgstr "guestfs_vgcreate"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9392
+#: ../src/guestfs-actions.pod:9434
 #, no-wrap
 msgid ""
 " int\n"
@@ -45338,12 +45478,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9404
+#: ../src/guestfs-actions.pod:9446
 msgid "guestfs_vglvuuids"
 msgstr "guestfs_vglvuuids"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9406
+#: ../src/guestfs-actions.pod:9448
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45357,24 +45497,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9413
+#: ../src/guestfs-actions.pod:9455
 msgid ""
 "You can use this along with C<guestfs_lvs> and C<guestfs_lvuuid> calls to "
 "associate logical volumes and volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9416
+#: ../src/guestfs-actions.pod:9458
 msgid "See also C<guestfs_vgpvuuids>."
 msgstr "C<guestfs_vgpvuuids> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9424
+#: ../src/guestfs-actions.pod:9466
 msgid "guestfs_vgmeta"
 msgstr "guestfs_vgmeta"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9426
+#: ../src/guestfs-actions.pod:9468
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45390,17 +45530,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9441
+#: ../src/guestfs-actions.pod:9483
 msgid "(Added in 1.17.20)"
 msgstr "(1.17.20 にて追加)"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9443
+#: ../src/guestfs-actions.pod:9485
 msgid "guestfs_vgpvuuids"
 msgstr "guestfs_vgpvuuids"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9445
+#: ../src/guestfs-actions.pod:9487
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45414,24 +45554,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9452
+#: ../src/guestfs-actions.pod:9494
 msgid ""
 "You can use this along with C<guestfs_pvs> and C<guestfs_pvuuid> calls to "
 "associate physical volumes and volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9455
+#: ../src/guestfs-actions.pod:9497
 msgid "See also C<guestfs_vglvuuids>."
 msgstr "C<guestfs_vglvuuids> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9463
+#: ../src/guestfs-actions.pod:9505
 msgid "guestfs_vgremove"
 msgstr "guestfs_vgremove"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9465
+#: ../src/guestfs-actions.pod:9507
 #, no-wrap
 msgid ""
 " int\n"
@@ -45445,12 +45585,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9478
+#: ../src/guestfs-actions.pod:9520
 msgid "guestfs_vgrename"
 msgstr "guestfs_vgrename"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9480
+#: ../src/guestfs-actions.pod:9522
 #, no-wrap
 msgid ""
 " int\n"
@@ -45466,12 +45606,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9491
+#: ../src/guestfs-actions.pod:9533
 msgid "guestfs_vgs"
 msgstr "guestfs_vgs"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9493
+#: ../src/guestfs-actions.pod:9535
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45483,17 +45623,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9502
+#: ../src/guestfs-actions.pod:9544
 msgid "See also C<guestfs_vgs_full>."
 msgstr "C<guestfs_vgs_full> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9510
+#: ../src/guestfs-actions.pod:9552
 msgid "guestfs_vgs_full"
 msgstr "guestfs_vgs_full"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9512
+#: ../src/guestfs-actions.pod:9554
 #, no-wrap
 msgid ""
 " struct guestfs_lvm_vg_list *\n"
@@ -45505,19 +45645,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9518
+#: ../src/guestfs-actions.pod:9560
 msgid ""
 "This function returns a C<struct guestfs_lvm_vg_list *>, or NULL if there "
 "was an error.  I<The caller must call C<guestfs_free_lvm_vg_list> after use>."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9524
+#: ../src/guestfs-actions.pod:9566
 msgid "guestfs_vgscan"
 msgstr "guestfs_vgscan"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9526
+#: ../src/guestfs-actions.pod:9568
 #, no-wrap
 msgid ""
 " int\n"
@@ -45529,12 +45669,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9536
+#: ../src/guestfs-actions.pod:9578
 msgid "guestfs_vguuid"
 msgstr "guestfs_vguuid"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9538
+#: ../src/guestfs-actions.pod:9580
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45548,12 +45688,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9549
+#: ../src/guestfs-actions.pod:9591
 msgid "guestfs_wait_ready"
 msgstr "guestfs_wait_ready"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9551
+#: ../src/guestfs-actions.pod:9593
 #, no-wrap
 msgid ""
 " int\n"
@@ -45565,7 +45705,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9554
+#: ../src/guestfs-actions.pod:9596
 msgid ""
 "I<This function is deprecated.> In new code, use the L</guestfs_launch> call "
 "instead."
@@ -45574,12 +45714,12 @@ msgstr ""
 "を使用してください。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9561
+#: ../src/guestfs-actions.pod:9603
 msgid "This function is a no op."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9563
+#: ../src/guestfs-actions.pod:9605
 msgid ""
 "In versions of the API E<lt> 1.0.71 you had to call this function just after "
 "calling C<guestfs_launch> to wait for the launch to complete.  However this "
@@ -45587,19 +45727,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9568
+#: ../src/guestfs-actions.pod:9610
 msgid ""
 "If you see any calls to this function in code then you can just remove them, "
 "unless you want to retain compatibility with older versions of the API."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9576
+#: ../src/guestfs-actions.pod:9618
 msgid "guestfs_wc_c"
 msgstr "guestfs_wc_c"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9578
+#: ../src/guestfs-actions.pod:9620
 #, no-wrap
 msgid ""
 " int\n"
@@ -45613,12 +45753,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9589
+#: ../src/guestfs-actions.pod:9631
 msgid "guestfs_wc_l"
 msgstr "guestfs_wc_l"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9591
+#: ../src/guestfs-actions.pod:9633
 #, no-wrap
 msgid ""
 " int\n"
@@ -45632,12 +45772,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9602
+#: ../src/guestfs-actions.pod:9644
 msgid "guestfs_wc_w"
 msgstr "guestfs_wc_w"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9604
+#: ../src/guestfs-actions.pod:9646
 #, no-wrap
 msgid ""
 " int\n"
@@ -45651,12 +45791,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9615
+#: ../src/guestfs-actions.pod:9657
 msgid "guestfs_wipefs"
 msgstr "guestfs_wipefs"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9617
+#: ../src/guestfs-actions.pod:9659
 #, no-wrap
 msgid ""
 " int\n"
@@ -45670,19 +45810,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9627
+#: ../src/guestfs-actions.pod:9669
 msgid ""
 "Compare with C<guestfs_zero> which zeroes the first few blocks of a device."
 msgstr ""
 "デバイスの先頭数ブロックにゼロを書き込む C<guestfs_zero> と比較します。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9634
+#: ../src/guestfs-actions.pod:9676
 msgid "guestfs_write"
 msgstr "guestfs_write"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9636
+#: ../src/guestfs-actions.pod:9678
 #, no-wrap
 msgid ""
 " int\n"
@@ -45700,17 +45840,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9645
+#: ../src/guestfs-actions.pod:9687
 msgid "See also C<guestfs_write_append>."
 msgstr "C<guestfs_write_append> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9654
+#: ../src/guestfs-actions.pod:9696
 msgid "guestfs_write_append"
 msgstr "guestfs_write_append"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9656
+#: ../src/guestfs-actions.pod:9698
 #, no-wrap
 msgid ""
 " int\n"
@@ -45728,17 +45868,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9665
+#: ../src/guestfs-actions.pod:9707
 msgid "See also C<guestfs_write>."
 msgstr "C<guestfs_write> 参照。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9674
+#: ../src/guestfs-actions.pod:9716
 msgid "guestfs_write_file"
 msgstr "guestfs_write_file"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9676
+#: ../src/guestfs-actions.pod:9718
 #, no-wrap
 msgid ""
 " int\n"
@@ -45756,7 +45896,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9682
+#: ../src/guestfs-actions.pod:9724
 msgid ""
 "I<This function is deprecated.> In new code, use the L</guestfs_write> call "
 "instead."
@@ -45765,14 +45905,14 @@ msgstr ""
 "使用してください。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9707
+#: ../src/guestfs-actions.pod:9749
 #, fuzzy
 #| msgid "guestfs_isoinfo"
 msgid "guestfs_xfs_info"
 msgstr "guestfs_isoinfo"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9709
+#: ../src/guestfs-actions.pod:9751
 #, fuzzy, no-wrap
 #| msgid ""
 #| " struct guestfs_isoinfo *\n"
@@ -45782,7 +45922,7 @@ msgstr "guestfs_isoinfo"
 msgid ""
 " struct guestfs_xfsinfo *\n"
 " guestfs_xfs_info (guestfs_h *g,\n"
-"                   const char *path);\n"
+"                   const char *pathordevice);\n"
 "\n"
 msgstr ""
 " struct guestfs_isoinfo *\n"
@@ -45791,7 +45931,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9720
+#: ../src/guestfs-actions.pod:9762
 #, fuzzy
 #| msgid ""
 #| "This function returns a C<struct guestfs_stat *>, or NULL if there was an "
@@ -45804,12 +45944,12 @@ msgstr ""
 "呼び出し元は使用後に C<guestfs_free_stat> を呼び出す必要があります>。"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9724
+#: ../src/guestfs-actions.pod:9766
 msgid "guestfs_zegrep"
 msgstr "guestfs_zegrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9726
+#: ../src/guestfs-actions.pod:9768
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45825,12 +45965,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9743
+#: ../src/guestfs-actions.pod:9785
 msgid "guestfs_zegrepi"
 msgstr "guestfs_zegrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9745
+#: ../src/guestfs-actions.pod:9787
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45846,12 +45986,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9762
+#: ../src/guestfs-actions.pod:9804
 msgid "guestfs_zero"
 msgstr "guestfs_zero"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9764
+#: ../src/guestfs-actions.pod:9806
 #, no-wrap
 msgid ""
 " int\n"
@@ -45865,7 +46005,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9778
+#: ../src/guestfs-actions.pod:9820
 msgid ""
 "See also: C<guestfs_zero_device>, C<guestfs_scrub_device>, "
 "C<guestfs_is_zero_device>"
@@ -45874,12 +46014,12 @@ msgstr ""
 "C<guestfs_is_zero_device>"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9790
+#: ../src/guestfs-actions.pod:9832
 msgid "guestfs_zero_device"
 msgstr "guestfs_zero_device"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9792
+#: ../src/guestfs-actions.pod:9834
 #, no-wrap
 msgid ""
 " int\n"
@@ -45893,24 +46033,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9796
+#: ../src/guestfs-actions.pod:9838
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with "
 "C<guestfs_zero> which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9811
+#: ../src/guestfs-actions.pod:9853
 msgid "(Added in 1.3.1)"
 msgstr "(1.3.1 において追加)"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9813
+#: ../src/guestfs-actions.pod:9855
 msgid "guestfs_zero_free_space"
 msgstr "guestfs_zero_free_space"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9815
+#: ../src/guestfs-actions.pod:9857
 #, no-wrap
 msgid ""
 " int\n"
@@ -45924,7 +46064,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9825
+#: ../src/guestfs-actions.pod:9867
 msgid ""
 "Free space is not \"trimmed\".  You may want to call C<guestfs_fstrim> "
 "either as an alternative to this, or after calling this, depending on your "
@@ -45932,12 +46072,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9838
+#: ../src/guestfs-actions.pod:9880
 msgid "guestfs_zerofree"
 msgstr "guestfs_zerofree"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9840
+#: ../src/guestfs-actions.pod:9882
 #, no-wrap
 msgid ""
 " int\n"
@@ -45951,12 +46091,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9859
+#: ../src/guestfs-actions.pod:9901
 msgid "guestfs_zfgrep"
 msgstr "guestfs_zfgrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9861
+#: ../src/guestfs-actions.pod:9903
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45972,12 +46112,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9878
+#: ../src/guestfs-actions.pod:9920
 msgid "guestfs_zfgrepi"
 msgstr "guestfs_zfgrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9880
+#: ../src/guestfs-actions.pod:9922
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45993,12 +46133,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9897
+#: ../src/guestfs-actions.pod:9939
 msgid "guestfs_zfile"
 msgstr "guestfs_zfile"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9899
+#: ../src/guestfs-actions.pod:9941
 #, no-wrap
 msgid ""
 " char *\n"
@@ -46014,7 +46154,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9904
+#: ../src/guestfs-actions.pod:9946
 msgid ""
 "I<This function is deprecated.> In new code, use the L</guestfs_file> call "
 "instead."
@@ -46023,19 +46163,19 @@ msgstr ""
 "使用してください。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:9916
+#: ../src/guestfs-actions.pod:9958
 msgid ""
 "Since 1.0.63, use C<guestfs_file> instead which can now process compressed "
 "files."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9924
+#: ../src/guestfs-actions.pod:9966
 msgid "guestfs_zgrep"
 msgstr "guestfs_zgrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9926
+#: ../src/guestfs-actions.pod:9968
 #, no-wrap
 msgid ""
 " char **\n"
@@ -46051,12 +46191,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:9943
+#: ../src/guestfs-actions.pod:9985
 msgid "guestfs_zgrepi"
 msgstr "guestfs_zgrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:9945
+#: ../src/guestfs-actions.pod:9987
 #, no-wrap
 msgid ""
 " char **\n"
@@ -57700,6 +57840,16 @@ msgid ""
 msgstr ""
 "L<https://bugzilla.redhat.com/> の新規バグ報告に /tmp/virt-win-reg.log を添付"
 "してください"
+
+#~ msgid ""
+#~ " umount pathordevice\n"
+#~ "\n"
+#~ msgstr ""
+#~ " umount pathordevice\n"
+#~ "\n"
+
+#~ msgid "guestfs_umount"
+#~ msgstr "guestfs_umount"
 
 #~ msgid "This is equivalent to the qemu parameter I<-cdrom filename>."
 #~ msgstr "これは QEMU パラメーター I<-cdrom filename> と同等です。"
