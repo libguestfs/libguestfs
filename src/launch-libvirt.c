@@ -259,17 +259,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     goto cleanup;
   }
 
-  free (kernel);
-  kernel = NULL;
-  free (initrd);
-  initrd = NULL;
-  free (appliance);
-  appliance = NULL;
-  free (xml);
-  xml = NULL;
-  free (capabilities);
-  capabilities = NULL;
-
   g->state = LAUNCHING;
 
   /* Wait for console socket to open. */
@@ -353,6 +342,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   g->virt.connv = conn;
   g->virt.domv = dom;
+
+  free (kernel);
+  free (initrd);
+  free (appliance);
+  free (xml);
+  free (capabilities);
 
   return 0;
 
