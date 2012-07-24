@@ -51,6 +51,7 @@ closeout
 connect
 error
 filevercmp
+fstatat
 fsusage
 fts
 full-read
