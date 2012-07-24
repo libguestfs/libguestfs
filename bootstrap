@@ -65,6 +65,7 @@ ignore-value
 lock
 maintainer-makefile
 manywarnings
+memmem
 mkdtemp
 netdb
 netinet_in
