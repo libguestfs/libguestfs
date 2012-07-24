@@ -460,22 +460,27 @@ AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
 test "x$GPERF" = "xno" &&
      AC_MSG_ERROR([gperf must be installed])
 
+dnl Check for perl.
+AC_CHECK_PROG([PERL],[perl],[perl],[no])
+test "x$PERL" = "xno" &&
+     AC_MSG_ERROR([perl must be installed])
+
 dnl Check for Pod::Man, Pod::Simple.
 AC_MSG_CHECKING([for Pod::Man])
-if ! perl -MPod::Man -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+if ! $PERL -MPod::Man -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
     AC_MSG_ERROR([perl Pod::Man must be installed])
 else
     AC_MSG_RESULT([yes])
 fi
 AC_MSG_CHECKING([for Pod::Simple])
-if ! perl -MPod::Simple -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+if ! $PERL -MPod::Simple -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
     AC_MSG_ERROR([perl Pod::Simple must be installed])
 else
     AC_MSG_RESULT([yes])
 fi
 
 dnl Define the path to the podwrapper program.
-PODWRAPPER="$(pwd)/podwrapper.pl"
+PODWRAPPER="$PERL $(pwd)/podwrapper.pl"
 AC_SUBST([PODWRAPPER])
 
 dnl Check for genisoimage/mkisofs
@@ -869,22 +874,17 @@ AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
         [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings and Perl tools).
-PERL=no
 AC_ARG_ENABLE([perl],
         AS_HELP_STRING([--disable-perl], [Disable Perl language bindings]),
         [],
         [enable_perl=yes])
-AS_IF([test "x$enable_perl" != "xno"],
-        [
-        PERL=
-        AC_CHECK_PROG([PERL],[perl],[perl],[no])
-
+AS_IF([test "x$enable_perl" != "xno"],[
         dnl Check for Perl modules that must be present to compile and
         dnl test the Perl bindings.
         missing_perl_modules=no
         for pm in Test::More ExtUtils::MakeMaker; do
             AC_MSG_CHECKING([for $pm])
-            if ! perl -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+            if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
                 AC_MSG_RESULT([no])
                 missing_perl_modules=yes
             else
