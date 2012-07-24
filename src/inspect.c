@@ -27,7 +27,10 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <errno.h>
+
+#ifdef HAVE_ENDIAN_H
 #include <endian.h>
+#endif
 
 #include <pcre.h>
 
