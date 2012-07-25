@@ -27,7 +27,7 @@ let machine_id_perform g root =
     let path = "/etc/machine-id" in
     (try g#rm path with G.Error _ -> ());
     (try g#touch path with G.Error _ -> ());
-    []
+    [ `Created_files ]
   )
   else []
 
