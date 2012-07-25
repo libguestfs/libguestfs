@@ -77,6 +77,7 @@ export PYTHONPATH
 
 # For Ruby.
 export RUBY=@RUBY@
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$b/ruby/ext/guestfs"
 
 # For OCaml.
 export CAML_LD_LIBRARY_PATH="$b/ocaml"
