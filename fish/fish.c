@@ -1436,7 +1436,7 @@ cleanup_readline (void)
   int fd;
 
   if (histfile[0] != '\0') {
-    fd = open (histfile, O_WRONLY|O_CREAT, 0644);
+    fd = open (histfile, O_WRONLY|O_CREAT, 0600);
     if (fd == -1) {
       perror (histfile);
       return;
