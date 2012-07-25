@@ -43,6 +43,7 @@ SOURCES = \
 	sysprep_gettext.ml \
 	sysprep_operation.ml \
 	sysprep_operation.mli \
+	sysprep_operation_abrt_data.ml \
 	sysprep_operation_bash_history.ml \
 	sysprep_operation_blkid_tab.ml \
 	sysprep_operation_ca_certificates.ml \
@@ -81,6 +82,7 @@ OBJECTS = \
 	sysprep_gettext.cmx \
 	utils.cmx \
 	sysprep_operation.cmx \
+	sysprep_operation_abrt_data.cmx \
 	sysprep_operation_bash_history.cmx \
 	sysprep_operation_blkid_tab.cmx \
 	sysprep_operation_ca_certificates.cmx \
