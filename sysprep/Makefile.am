@@ -37,39 +37,23 @@ CLEANFILES = \
 	virt-sysprep virt-sysprep.1 \
 	stamp-virt-sysprep.pod
 
+# Filenames sysprep_operation_<name>.ml in alphabetical order.
+operations = \
+	bash_history blkid_tab ca_certificates cron_spool \
+	dhcp_client_state dhcp_server_state dovecot_data flag_reconfiguration \
+	hostname kerberos_data logfiles mail_spool net_hwaddr \
+	package_manager_cache pam_data random_seed \
+	rhn_systemid samba_db_log script smolt_uuid ssh_hostkeys \
+	ssh_userdir sssd_db_log udev_persistent_net user_account \
+	utmp yum_uuid
+
 # Alphabetical order.
 SOURCES = \
 	main.ml \
 	sysprep_gettext.ml \
 	sysprep_operation.ml \
 	sysprep_operation.mli \
-	sysprep_operation_bash_history.ml \
-	sysprep_operation_blkid_tab.ml \
-	sysprep_operation_ca_certificates.ml \
-	sysprep_operation_cron_spool.ml \
-	sysprep_operation_dhcp_client_state.ml \
-	sysprep_operation_dhcp_server_state.ml \
-	sysprep_operation_dovecot_data.ml \
-	sysprep_operation_flag_reconfiguration.ml \
-	sysprep_operation_hostname.ml \
-	sysprep_operation_kerberos_data.ml \
-	sysprep_operation_logfiles.ml \
-	sysprep_operation_mail_spool.ml \
-	sysprep_operation_net_hwaddr.ml \
-	sysprep_operation_package_manager_cache.ml \
-	sysprep_operation_pam_data.ml \
-	sysprep_operation_random_seed.ml \
-	sysprep_operation_rhn_systemid.ml \
-	sysprep_operation_samba_db_log.ml \
-	sysprep_operation_script.ml \
-	sysprep_operation_smolt_uuid.ml \
-	sysprep_operation_ssh_hostkeys.ml \
-	sysprep_operation_ssh_userdir.ml \
-	sysprep_operation_sssd_db_log.ml \
-	sysprep_operation_udev_persistent_net.ml \
-	sysprep_operation_user_account.ml \
-	sysprep_operation_utmp.ml \
-	sysprep_operation_yum_uuid.ml \
+	$(patsubst %,sysprep_operation_%.ml,$(operations)) \
 	utils.ml \
 	utils.mli
 
@@ -80,33 +64,7 @@ OBJECTS = \
 	sysprep_gettext.cmx \
 	utils.cmx \
 	sysprep_operation.cmx \
-	sysprep_operation_bash_history.cmx \
-	sysprep_operation_blkid_tab.cmx \
-	sysprep_operation_ca_certificates.cmx \
-	sysprep_operation_cron_spool.cmx \
-	sysprep_operation_dhcp_client_state.cmx \
-	sysprep_operation_dhcp_server_state.cmx \
-	sysprep_operation_dovecot_data.cmx \
-	sysprep_operation_flag_reconfiguration.cmx \
-	sysprep_operation_hostname.cmx \
-	sysprep_operation_kerberos_data.cmx \
-	sysprep_operation_logfiles.cmx \
-	sysprep_operation_mail_spool.cmx \
-	sysprep_operation_net_hwaddr.cmx \
-	sysprep_operation_package_manager_cache.cmx \
-	sysprep_operation_pam_data.cmx \
-	sysprep_operation_random_seed.cmx \
-	sysprep_operation_rhn_systemid.cmx \
-	sysprep_operation_samba_db_log.cmx \
-	sysprep_operation_script.cmx \
-	sysprep_operation_smolt_uuid.cmx \
-	sysprep_operation_ssh_hostkeys.cmx \
-	sysprep_operation_ssh_userdir.cmx \
-	sysprep_operation_sssd_db_log.cmx \
-	sysprep_operation_udev_persistent_net.cmx \
-	sysprep_operation_user_account.cmx \
-	sysprep_operation_utmp.cmx \
-	sysprep_operation_yum_uuid.cmx \
+	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
 	main.cmx
 
 bin_SCRIPTS = virt-sysprep
