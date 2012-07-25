@@ -38,7 +38,8 @@ let dovecot_data_op = {
   heading = s_"Remove Dovecot (mail server) data";
   pod_description = None;
   extra_args = [];
-  perform = dovecot_data_perform;
+  perform_on_filesystems = Some dovecot_data_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation dovecot_data_op

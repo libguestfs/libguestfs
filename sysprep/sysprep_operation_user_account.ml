@@ -66,7 +66,8 @@ let user_account_op = {
 Remove all the user accounts and their home directories.
 The \"root\" account is not removed.");
   extra_args = [];
-  perform = user_account_perform;
+  perform_on_filesystems = Some user_account_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation user_account_op

@@ -54,7 +54,8 @@ guest.
 
 See L</RANDOM SEED> below.");
   extra_args = [];
-  perform = random_seed_perform;
+  perform_on_filesystems = Some random_seed_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation random_seed_op

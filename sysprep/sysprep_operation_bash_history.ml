@@ -41,7 +41,8 @@ let bash_history_op = {
 Remove the bash history of user \"root\" and any other users
 who have a C<.bash_history> file in their home directory.");
   extra_args = [];
-  perform = bash_history_perform;
+  perform_on_filesystems = Some bash_history_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation bash_history_op

@@ -40,7 +40,8 @@ let package_manager_cache_op = {
   heading = s_"Remove package manager cache";
   pod_description = None;
   extra_args = [];
-  perform = package_manager_cache_perform;
+  perform_on_filesystems = Some package_manager_cache_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation package_manager_cache_op

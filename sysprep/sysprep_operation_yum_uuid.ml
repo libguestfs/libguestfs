@@ -37,7 +37,8 @@ let yum_uuid_op = {
 Yum creates a fresh UUID the next time it runs when it notices that the
 original UUID has been erased.");
   extra_args = [];
-  perform = yum_uuid_perform;
+  perform_on_filesystems = Some yum_uuid_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation yum_uuid_op

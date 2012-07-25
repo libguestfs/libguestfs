@@ -20,6 +20,8 @@
 
 type flag = [ `Created_files ]
 
+type callback = Guestfs.guestfs -> string -> flag list
+
 type operation = {
   name : string;
   (** Operation name, also used to enable the operation on the command
@@ -46,7 +48,7 @@ type operation = {
       You can decide the types of the arguments, whether they are
       mandatory etc. *)
 
-  perform : Guestfs.guestfs -> string -> flag list;
+  perform_on_filesystems : callback option;
   (** The function which is called to perform this operation, when
       enabled.
 
@@ -66,6 +68,11 @@ type operation = {
       On error the function should raise an exception.  The function
       also needs to be careful to {i suppress} exceptions for things
       which are not errors, eg. deleting non-existent files. *)
+
+  perform_on_devices : callback option;
+  (** This is the same as {!perform_on_filesystems} except that
+      the guest filesystem(s) are {i not} mounted.  This allows the
+      operation to work directly on block devices, LVs etc. *)
 }
 
 val register_operation : operation -> unit
@@ -102,5 +109,8 @@ val add_to_set : string -> set -> set
     Note that this will raise [Not_found] if [name] is not
     a valid operation name. *)
 
-val perform_operations : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
+val perform_operations_on_filesystems : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
+(** Perform all operations, or the subset listed in the [operations] set. *)
+
+val perform_operations_on_devices : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
 (** Perform all operations, or the subset listed in the [operations] set. *)

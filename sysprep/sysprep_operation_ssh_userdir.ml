@@ -41,7 +41,8 @@ let ssh_userdir_op = {
 Remove the C<.ssh> directory of user \"root\" and any other
 users who have a C<.ssh> directory in their home directory.");
   extra_args = [];
-  perform = ssh_userdir_perform;
+  perform_on_filesystems = Some ssh_userdir_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation ssh_userdir_op

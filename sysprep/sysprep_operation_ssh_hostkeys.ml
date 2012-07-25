@@ -46,7 +46,8 @@ you a stark warning about the host key changing:
  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!");
   extra_args = [];
-  perform = ssh_hostkeys_perform;
+  perform_on_filesystems = Some ssh_hostkeys_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation ssh_hostkeys_op

@@ -45,7 +45,8 @@ let sssd_db_log_op = {
   heading = s_"Remove the database and log files of sssd";
   pod_description = None;
   extra_args = [];
-  perform = sssd_db_log_perform;
+  perform_on_filesystems = Some sssd_db_log_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation sssd_db_log_op

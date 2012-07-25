@@ -31,7 +31,8 @@ let cron_spool_op = {
   heading = s_"Remove user at-jobs and cron-jobs";
   pod_description = None;
   extra_args = [];
-  perform = cron_spool_perform;
+  perform_on_filesystems = Some cron_spool_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation cron_spool_op

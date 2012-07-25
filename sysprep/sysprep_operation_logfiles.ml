@@ -89,7 +89,8 @@ On Linux the following files are removed:
 
 %s") globs_as_pod);
   extra_args = [];
-  perform = logfiles_perform;
+  perform_on_filesystems = Some logfiles_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation logfiles_op

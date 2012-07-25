@@ -155,7 +155,8 @@ current directory will be the guest's root directory.
 B<Note:> If the script is not on the $PATH, then you must give
 the full absolute path to the script.";
   ];
-  perform = script_perform;
+  perform_on_filesystems = Some script_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation script_op

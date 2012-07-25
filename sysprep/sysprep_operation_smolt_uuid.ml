@@ -41,7 +41,8 @@ let smolt_uuid_op = {
   heading = s_"Remove the Smolt hardware UUID";
   pod_description = None;
   extra_args = [];
-  perform = smolt_uuid_perform;
+  perform_on_filesystems = Some smolt_uuid_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation smolt_uuid_op

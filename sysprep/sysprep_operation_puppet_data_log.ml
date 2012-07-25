@@ -46,7 +46,8 @@ let puppet_data_log_op = {
   heading = s_"Remove the data and log files of puppet";
   pod_description = None;
   extra_args = [];
-  perform = puppet_data_log_perform;
+  perform_on_filesystems = Some puppet_data_log_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation puppet_data_log_op

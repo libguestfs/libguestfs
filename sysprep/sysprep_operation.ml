@@ -24,13 +24,16 @@ open Sysprep_gettext.Gettext
 
 type flag = [ `Created_files ]
 
+type callback = Guestfs.guestfs -> string -> flag list
+
 type operation = {
   name : string;
   enabled_by_default : bool;
   heading : string;
   pod_description : string option;
   extra_args : ((Arg.key * Arg.spec * Arg.doc) * string) list;
-  perform : Guestfs.guestfs -> string -> flag list;
+  perform_on_filesystems : callback option;
+  perform_on_devices : callback option;
 }
 
 let all_operations = ref []
@@ -189,7 +192,7 @@ let list_operations () =
         op.heading
   ) !all_operations
 
-let perform_operations ?operations ?(quiet = false) g root =
+let perform_operations_on_filesystems ?operations ?(quiet = false) g root =
   assert !baked;
 
   let ops =
@@ -200,10 +203,33 @@ let perform_operations ?operations ?(quiet = false) g root =
 
   let flags =
     List.map (
-      fun op ->
+      function
+      | { name = name; perform_on_filesystems = Some fn } ->
         if not quiet then
-          printf "Performing %S ...\n%!" op.name;
-        op.perform g root
+          printf "Performing %S ...\n%!" name;
+        fn g root
+      | { perform_on_filesystems = None } -> []
+    ) ops in
+
+  List.flatten flags
+
+let perform_operations_on_devices ?operations ?(quiet = false) g root =
+  assert !baked;
+
+  let ops =
+    match operations with
+    | None -> !enabled_by_default_operations
+    | Some opset -> (* just the operation names listed *)
+      OperationSet.elements opset in
+
+  let flags =
+    List.map (
+      function
+      | { name = name; perform_on_devices = Some fn } ->
+        if not quiet then
+          printf "Performing %S ...\n%!" name;
+        fn g root
+      | { perform_on_devices = None } -> []
     ) ops in
 
   List.flatten flags

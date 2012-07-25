@@ -36,7 +36,8 @@ let dhcp_client_state_op = {
   heading = s_"Remove DHCP client leases";
   pod_description = None;
   extra_args = [];
-  perform = dhcp_client_state_perform;
+  perform_on_filesystems = Some dhcp_client_state_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation dhcp_client_state_op

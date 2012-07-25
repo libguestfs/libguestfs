@@ -66,7 +66,8 @@ to C<localhost.localdomain>.");
     s_"\
 Change the hostname.  If not given, defaults to C<localhost.localdomain>."
   ];
-  perform = hostname_perform;
+  perform_on_filesystems = Some hostname_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation hostname_op

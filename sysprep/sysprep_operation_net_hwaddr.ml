@@ -51,7 +51,8 @@ let net_hwaddr_op = {
 For Fedora and Red Hat Enterprise Linux,
 this is removed from C<ifcfg-*> files.");
   extra_args = [];
-  perform = net_hwaddr_perform;
+  perform_on_filesystems = Some net_hwaddr_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation net_hwaddr_op

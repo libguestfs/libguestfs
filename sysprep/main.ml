@@ -207,9 +207,10 @@ let () =
             with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
         ) mps;
 
-        (* Perform the operations. *)
+        (* Perform the filesystem operations. *)
         let flags =
-          Sysprep_operation.perform_operations ?operations ~quiet g root in
+          Sysprep_operation.perform_operations_on_filesystems
+            ?operations ~quiet g root in
 
         (* Parse flags. *)
         let relabel = ref false in
@@ -234,7 +235,15 @@ let () =
         );
 
         (* Unmount everything in this guest. *)
-        g#umount_all ()
+        g#umount_all ();
+
+        (* Perform the block device operations. *)
+        let flags =
+          Sysprep_operation.perform_operations_on_devices
+            ?operations ~quiet g root in
+
+        (* At present we don't support any flags from perform_on_devices. *)
+        assert (flags = [])
     ) roots
 
 (* Finished. *)

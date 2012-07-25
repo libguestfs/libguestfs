@@ -40,7 +40,8 @@ let abrt_data_op = {
 Remove the automatically generated ABRT crash data in
 C</var/spool/abrt/>.");
   extra_args = [];
-  perform = abrt_data_perform;
+  perform_on_filesystems = Some abrt_data_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation abrt_data_op

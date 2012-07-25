@@ -38,7 +38,8 @@ This file records who is currently logged in on a machine.  In modern
 Linux distros it is stored in a ramdisk and hence not part of the
 virtual machine's disk, but it was stored on disk in older distros.");
   extra_args = [];
-  perform = utmp_perform;
+  perform_on_filesystems = Some utmp_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation utmp_op

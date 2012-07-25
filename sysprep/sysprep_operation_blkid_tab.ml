@@ -49,7 +49,8 @@ let blkid_tab_op = {
   heading = s_"Remove blkid tab in the guest";
   pod_description = None;
   extra_args = [];
-  perform = blkid_tab_perform;
+  perform_on_filesystems = Some blkid_tab_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation blkid_tab_op

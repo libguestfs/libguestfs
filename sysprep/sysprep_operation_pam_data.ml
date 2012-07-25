@@ -46,7 +46,8 @@ let pam_data_op = {
   heading = s_"Remove the PAM data in the guest";
   pod_description = None;
   extra_args = [];
-  perform = pam_data_perform;
+  perform_on_filesystems = Some pam_data_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation pam_data_op

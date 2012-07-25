@@ -47,7 +47,8 @@ let samba_db_log_op = {
   heading = s_"Remove the database and log files of Samba";
   pod_description = None;
   extra_args = [];
-  perform = samba_db_log_perform;
+  perform_on_filesystems = Some samba_db_log_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation samba_db_log_op

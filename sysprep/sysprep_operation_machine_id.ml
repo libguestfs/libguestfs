@@ -41,7 +41,8 @@ installation and stays constant for all subsequent boots.  Optionally,
 for stateless systems it is generated during runtime at boot if it is
 found to be empty.");
   extra_args = [];
-  perform = machine_id_perform;
+  perform_on_filesystems = Some machine_id_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation machine_id_op

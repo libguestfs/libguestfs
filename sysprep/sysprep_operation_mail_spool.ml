@@ -36,7 +36,8 @@ let mail_spool_op = {
   heading = s_"Remove email from the local mail spool directory";
   pod_description = None;
   extra_args = [];
-  perform = mail_spool_perform;
+  perform_on_filesystems = Some mail_spool_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation mail_spool_op

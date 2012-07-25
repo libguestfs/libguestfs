@@ -37,7 +37,8 @@ let rhn_systemid_op = {
   heading = s_"Remove the RHN system ID";
   pod_description = None;
   extra_args = [];
-  perform = rhn_systemid_perform;
+  perform_on_filesystems = Some rhn_systemid_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation rhn_systemid_op

@@ -43,7 +43,8 @@ old MAC address occupies the old name (eg. eth0), this means the fresh
 MAC address is assigned to a new name (eg. eth1) and this is usually
 undesirable.  Erasing the udev persistent net rules avoids this.");
   extra_args = [];
-  perform = udev_persistent_net_perform;
+  perform_on_filesystems = Some udev_persistent_net_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation udev_persistent_net_op

@@ -53,7 +53,8 @@ let ca_certificates_op = {
   heading = s_"Remove CA certificates in the guest";
   pod_description = None;
   extra_args = [];
-  perform = ca_certificates_perform;
+  perform_on_filesystems = Some ca_certificates_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation ca_certificates_op

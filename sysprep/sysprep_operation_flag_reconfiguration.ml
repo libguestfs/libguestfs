@@ -37,7 +37,8 @@ let flag_reconfiguration_op = {
 Note that this may require user intervention when the
 guest is booted.");
   extra_args = [];
-  perform = flag_reconfiguration;
+  perform_on_filesystems = Some flag_reconfiguration;
+  perform_on_devices = None;
 }
 
 let () = register_operation flag_reconfiguration_op;

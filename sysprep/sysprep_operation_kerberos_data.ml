@@ -46,7 +46,8 @@ let kerberos_data_op = {
   heading = s_"Remove Kerberos data in the guest";
   pod_description = None;
   extra_args = [];
-  perform = kerberos_data_perform;
+  perform_on_filesystems = Some kerberos_data_perform;
+  perform_on_devices = None;
 }
 
 let () = register_operation kerberos_data_op
