@@ -960,3 +960,87 @@ do_vgmeta (const char *vg, size_t *size_r)
 
   return buf;			/* caller will free */
 }
+
+int
+do_pvchange_uuid (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+               "lvm", "pvchange", "-u", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  udev_settle ();
+
+  return 0;
+}
+
+int
+do_pvchange_uuid_all (void)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+               "lvm", "pvchange", "-u", "-a", NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  udev_settle ();
+
+  return 0;
+}
+
+int
+do_vgchange_uuid (const char *vg)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+               "lvm", "vgchange", "-u", vg, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", vg, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  udev_settle ();
+
+  return 0;
+}
+
+int
+do_vgchange_uuid_all (void)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+               "lvm", "vgchange", "-u", NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  udev_settle ();
+
+  return 0;
+}

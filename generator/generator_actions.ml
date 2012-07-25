@@ -8975,6 +8975,68 @@ The returned struct contains geometry information.  Missing
 fields are returned as C<-1> (for numeric fields) or empty
 string." };
 
+  { defaults with
+    name = "pvchange_uuid";
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 338;
+    optional = Some "lvm2";
+    tests = [
+      InitEmpty, IfAvailable "lvm2", TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["pvcreate"; "/dev/sda1"];
+         ["pvchange_uuid"; "/dev/sda1"]])
+    ];
+    shortdesc = "generate a new random UUID for a physical volume";
+    longdesc = "\
+Generate a new random UUID for the physical volume C<device>." };
+
+  { defaults with
+    name = "pvchange_uuid_all";
+    style = RErr, [], [];
+    proc_nr = Some 339;
+    optional = Some "lvm2";
+    tests = [
+      InitEmpty, IfAvailable "lvm2", TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["pvcreate"; "/dev/sda1"];
+         ["pvchange_uuid_all"]])
+    ];
+    shortdesc = "generate new random UUIDs for all physical volumes";
+    longdesc = "\
+Generate new random UUIDs for all physical volumes." };
+
+  { defaults with
+    name = "vgchange_uuid";
+    style = RErr, [String "vg"], [];
+    proc_nr = Some 340;
+    optional = Some "lvm2";
+    tests = [
+      InitEmpty, IfAvailable "lvm2", TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["pvcreate"; "/dev/sda1"];
+         ["vgcreate"; "VG"; "/dev/sda1"];
+         ["vgchange_uuid"; "/dev/VG"]])
+    ];
+    shortdesc = "generate a new random UUID for a volume group";
+    longdesc = "\
+Generate a new random UUID for the volume group C<vg>." };
+
+  { defaults with
+    name = "vgchange_uuid_all";
+    style = RErr, [], [];
+    proc_nr = Some 341;
+    optional = Some "lvm2";
+    tests = [
+      InitEmpty, IfAvailable "lvm2", TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["pvcreate"; "/dev/sda1"];
+         ["vgcreate"; "VG"; "/dev/sda1"];
+         ["vgchange_uuid_all"]])
+    ];
+    shortdesc = "generate new random UUIDs for all volume groups";
+    longdesc = "\
+Generate new random UUIDs for all volume groups." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
