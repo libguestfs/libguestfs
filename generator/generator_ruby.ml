@@ -276,9 +276,14 @@ ruby_event_callback_wrapper_wrapper (VALUE argvv)
   /* Check the Ruby callback still exists.  For reasons which are not
    * fully understood, even though we registered this as a global root,
    * it is still possible for the callback to go away (fn value remains
-   * but its type changes from T_DATA to T_NONE).  (RHBZ#733297)
+   * but its type changes from T_DATA to T_NONE or T_ZOMBIE).
+   * (RHBZ#733297, RHBZ#843188)
    */
-  if (rb_type (fn) != T_NONE) {
+  if (rb_type (fn) != T_NONE
+#ifdef T_ZOMBIE
+      && rb_type (fn) != T_ZOMBIE
+#endif
+      ) {
     eventv = argv[1];
     event_handlev = argv[2];
     bufv = argv[3];
