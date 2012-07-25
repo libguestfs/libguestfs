@@ -17,6 +17,7 @@
  *)
 
 open Unix
+open Scanf
 open Printf
 
 open Sparsify_gettext.Gettext
@@ -152,6 +153,43 @@ read the man page virt-sparsify(1).
     debug_gc, format, ignores, machine_readable,
     option, quiet, verbose, trace, zeroes
 
+(* Try to determine the version of the 'qemu-img' program.
+ * All known versions of qemu-img display the following first
+ * line when you run 'qemu-img --help':
+ *
+ *   "qemu-img version x.y.z, Copyright [...]"
+ *
+ * Parse out 'x.y'.
+ *)
+let qemu_img_version =
+  let cmd = "qemu-img --help" in
+  let chan = open_process_in cmd in
+  let line = input_line chan in
+  let stat = close_process_in chan in
+  (match stat with
+  | WEXITED _ -> ()
+  | WSIGNALED i ->
+    error (f_"external command '%s' killed by signal %d") cmd i
+  | WSTOPPED i ->
+    error (f_"external command '%s' stopped by signal %d") cmd i
+  );
+
+  try
+    sscanf line "qemu-img version %d.%d" (
+      fun major minor ->
+        let minor = if minor > 9 then 9 else minor in
+        float major +. float minor /. 10.
+    )
+  with
+    Scan_failure msg ->
+      eprintf (f_"warning: failed to read qemu-img version\n  line: %S\n  message: %s\n%!")
+        line msg;
+      0.9
+
+let () =
+  if not quiet then
+    printf (f_"qemu-img version %g\n%!") qemu_img_version
+
 let () =
   if not quiet then
     printf (f_"Create overlay file to protect source disk ...\n%!")
@@ -176,7 +214,9 @@ let overlaydisk =
         match format with
         | None -> []
         | Some fmt -> [sprintf "backing_fmt=%s" fmt] in
-      backing_file_option @ backing_fmt_option in
+      let version3 =
+        if qemu_img_version >= 1.1 then ["compat=1.1"] else [] in
+      backing_file_option @ backing_fmt_option @ version3 in
     sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
       (Filename.quote (String.concat "," options)) (Filename.quote tmp) in
   if verbose then
