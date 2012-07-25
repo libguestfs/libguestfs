@@ -55,6 +55,7 @@ SOURCES = \
 	sysprep_operation_hostname.ml \
 	sysprep_operation_kerberos_data.ml \
 	sysprep_operation_logfiles.ml \
+	sysprep_operation_machine_id.ml \
 	sysprep_operation_mail_spool.ml \
 	sysprep_operation_net_hwaddr.ml \
 	sysprep_operation_package_manager_cache.ml \
@@ -94,6 +95,7 @@ OBJECTS = \
 	sysprep_operation_hostname.cmx \
 	sysprep_operation_kerberos_data.cmx \
 	sysprep_operation_logfiles.cmx \
+	sysprep_operation_machine_id.cmx \
 	sysprep_operation_mail_spool.cmx \
 	sysprep_operation_net_hwaddr.cmx \
 	sysprep_operation_package_manager_cache.cmx \

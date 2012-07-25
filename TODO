@@ -399,12 +399,9 @@ virt-sysprep ideas
 
 Kazuo Moriwaka adds:
 
- - /etc/machine-id (created by systemd)
  - "yum clean all" (or the equivalent) to remove yum caches
  - lvm PV and VG have its UUID.  'pvchange -u' and 'vgchange -u' generate
    new UUID (causes trouble with clustered LVM).
- - ABRT have crash report and core dumps under /var/spool/abrt. This can
-   be deleted.
  - swap devices (both of block device and file) should be wiped. This may  
    good for security purpose, and size.  I found virt-sparsify can clear
    swap partition.
