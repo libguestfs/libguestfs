@@ -400,8 +400,6 @@ virt-sysprep ideas
 Kazuo Moriwaka adds:
 
  - "yum clean all" (or the equivalent) to remove yum caches
- - lvm PV and VG have its UUID.  'pvchange -u' and 'vgchange -u' generate
-   new UUID (causes trouble with clustered LVM).
  - swap devices (both of block device and file) should be wiped. This may  
    good for security purpose, and size.  I found virt-sparsify can clear
    swap partition.

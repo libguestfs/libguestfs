@@ -41,8 +41,8 @@ CLEANFILES = \
 operations = \
 	abrt_data bash_history blkid_tab ca_certificates cron_spool \
 	dhcp_client_state dhcp_server_state dovecot_data flag_reconfiguration \
-	hostname kerberos_data logfiles machine_id mail_spool net_hwaddr \
-	package_manager_cache pam_data puppet_data_log random_seed \
+	hostname kerberos_data lvm_uuids logfiles machine_id mail_spool \
+	net_hwaddr package_manager_cache pam_data puppet_data_log random_seed \
 	rhn_systemid samba_db_log script smolt_uuid ssh_hostkeys \
 	ssh_userdir sssd_db_log udev_persistent_net user_account \
 	utmp yum_uuid
