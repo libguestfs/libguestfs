@@ -421,19 +421,21 @@ ruby_user_cancel (VALUE gv)
 " name args ret shortdesc doc name name
       );
 
-      (* Generate the function. *)
-      pr "static VALUE\n";
-      pr "ruby_guestfs_%s (VALUE gv" name;
-      List.iter (fun arg -> pr ", VALUE %sv" (name_of_argt arg)) args;
-      (* XXX This makes the hash mandatory, meaning that you have
-       * to specify {} for no arguments.  We could make it so this
-       * can be omitted.  However that is a load of hassle because
-       * you have to completely change the way that arguments are
-       * passed in.  See:
-       * http://www.redhat.com/archives/libvir-list/2008-April/msg00004.html
+      (* Generate the function.  Prototype is completely different
+       * depending on whether it's got optargs or not.
+       *
+       * See:
+       * http://stackoverflow.com/questions/7626745/extending-ruby-in-c-how-to-specify-default-argument-values-to-function
        *)
-      if optargs <> [] then
-        pr ", VALUE optargsv";
+      pr "static VALUE\n";
+      pr "ruby_guestfs_%s (" name;
+      if optargs = [] then (
+        pr "VALUE gv";
+        List.iter
+          (fun arg -> pr ", VALUE %sv" (name_of_argt arg))
+          args
+      ) else
+        pr "int argc, VALUE *argv, VALUE gv";
       pr ")\n";
       pr "{\n";
       pr "  guestfs_h *g;\n";
@@ -443,42 +445,61 @@ ruby_user_cancel (VALUE gv)
         name;
       pr "\n";
 
+      (* For optargs case, get the arg VALUEs into local variables.
+       * Note for compatibility with old code we're still expecting
+       * just a single optional hash parameter as the final element
+       * containing all the optargs.
+       *)
+      if optargs <> [] then (
+        let nr_args = List.length args in
+        pr "  if (argc < %d || argc > %d)\n" nr_args (nr_args+1);
+        pr "    rb_raise (rb_eArgError, \"expecting %d or %d arguments\");\n" nr_args (nr_args+1);
+        pr "\n";
+        iteri (
+          fun i arg ->
+            pr "  VALUE %sv = argv[%d];\n" (name_of_argt arg) i
+        ) args;
+        pr "  VALUE optargsv = argc > %d ? argv[%d] : rb_hash_new ();\n"
+          nr_args nr_args;
+        pr "\n"
+      );
+
       List.iter (
         function
         | Pathname n | Device n | Dev_or_Path n | String n | Key n
         | FileIn n | FileOut n ->
-            pr "  const char *%s = StringValueCStr (%sv);\n" n n;
+          pr "  const char *%s = StringValueCStr (%sv);\n" n n;
         | BufferIn n ->
-            pr "  Check_Type (%sv, T_STRING);\n" n;
-            pr "  const char *%s = RSTRING_PTR (%sv);\n" n n;
-            pr "  if (!%s)\n" n;
-            pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
-            pr "              \"%s\", \"%s\");\n" n name;
-            pr "  size_t %s_size = RSTRING_LEN (%sv);\n" n n
+          pr "  Check_Type (%sv, T_STRING);\n" n;
+          pr "  const char *%s = RSTRING_PTR (%sv);\n" n n;
+          pr "  if (!%s)\n" n;
+          pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
+          pr "              \"%s\", \"%s\");\n" n name;
+          pr "  size_t %s_size = RSTRING_LEN (%sv);\n" n n
         | OptString n ->
-            pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
+          pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
         | StringList n | DeviceList n ->
-            pr "  char **%s;\n" n;
-            pr "  Check_Type (%sv, T_ARRAY);\n" n;
-            pr "  {\n";
-            pr "    size_t i, len;\n";
-            pr "    len = RARRAY_LEN (%sv);\n" n;
-            pr "    %s = ALLOC_N (char *, len+1);\n"
-              n;
-            pr "    for (i = 0; i < len; ++i) {\n";
-            pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
-            pr "      %s[i] = StringValueCStr (v);\n" n;
-            pr "    }\n";
-            pr "    %s[len] = NULL;\n" n;
-            pr "  }\n";
+          pr "  char **%s;\n" n;
+          pr "  Check_Type (%sv, T_ARRAY);\n" n;
+          pr "  {\n";
+          pr "    size_t i, len;\n";
+          pr "    len = RARRAY_LEN (%sv);\n" n;
+          pr "    %s = ALLOC_N (char *, len+1);\n"
+            n;
+          pr "    for (i = 0; i < len; ++i) {\n";
+          pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
+          pr "      %s[i] = StringValueCStr (v);\n" n;
+          pr "    }\n";
+          pr "    %s[len] = NULL;\n" n;
+          pr "  }\n";
         | Bool n ->
-            pr "  int %s = RTEST (%sv);\n" n n
+          pr "  int %s = RTEST (%sv);\n" n n
         | Int n ->
-            pr "  int %s = NUM2INT (%sv);\n" n n
+          pr "  int %s = NUM2INT (%sv);\n" n n
         | Int64 n ->
-            pr "  long long %s = NUM2LL (%sv);\n" n n
+          pr "  long long %s = NUM2LL (%sv);\n" n n
         | Pointer (t, n) ->
-            pr "  %s %s = (%s) (intptr_t) NUM2LL (%sv);\n" t n t n
+          pr "  %s %s = (%s) (intptr_t) NUM2LL (%sv);\n" t n t n
       ) args;
       pr "\n";
 
@@ -640,7 +661,7 @@ void Init__guestfs ()
   List.iter (
     fun { name = name; style = _, args, optargs;
           non_c_aliases = non_c_aliases } ->
-      let nr_args = List.length args + if optargs <> [] then 1 else 0 in
+      let nr_args = if optargs = [] then List.length args else -1 in
       pr "  rb_define_method (c_guestfs, \"%s\",\n" name;
       pr "        ruby_guestfs_%s, %d);\n" name nr_args;
 
