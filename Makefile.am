@@ -249,7 +249,7 @@ CLEANFILES = \
 # is NOT a substitute for proper testing!
 
 quickcheck:
-	./run test-tool/libguestfs-test-tool $(QUICKCHECK_TEST_TOOL_ARGS)
+	$(top_builddir)/run test-tool/libguestfs-test-tool $(QUICKCHECK_TEST_TOOL_ARGS)
 
 # Run extra-tests in tests/extra/ subdirectory.
 

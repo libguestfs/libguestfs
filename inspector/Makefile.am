@@ -104,18 +104,18 @@ endif
 
 example-debian.xml:
 	rm -f $@ $@-t
-	../run $(builddir)/virt-inspector ../tests/guests/debian.img > $@-t
+	$(top_builddir)/run $(builddir)/virt-inspector ../tests/guests/debian.img > $@-t
 	mv $@-t $@
 example-fedora.xml:
 	rm -f $@ $@-t
-	../run $(builddir)/virt-inspector ../tests/guests/fedora.img > $@-t
+	$(top_builddir)/run $(builddir)/virt-inspector ../tests/guests/fedora.img > $@-t
 	mv $@-t $@
 example-ubuntu.xml:
 	rm -f $@ $@-t
-	../run $(builddir)/virt-inspector ../tests/guests/ubuntu.img > $@-t
+	$(top_builddir)/run $(builddir)/virt-inspector ../tests/guests/ubuntu.img > $@-t
 	mv $@-t $@
 example-windows.xml:
 	rm -f $@ $@-t
-	../run $(builddir)/virt-inspector ../tests/guests/windows.img | \
+	$(top_builddir)/run $(builddir)/virt-inspector ../tests/guests/windows.img | \
 	    fgrep -v '<uuid>' > $@-t
 	mv $@-t $@
