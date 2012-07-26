@@ -46,10 +46,7 @@ CLEANFILES = $(check_DATA) stamp-fedora-md.img *.tmp.*
 fedora.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-name.db \
 		guest-aux/fedora-packages.db
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	LAYOUT=partitions \
-	$(top_builddir)/run --test $<
+	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test $<
 
 # Make a (dummy) Fedora image using md devices
 fedora-md1.img fedora-md2.img: stamp-fedora-md.img
@@ -58,10 +55,7 @@ stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-name.db \
 		guest-aux/fedora-packages.db
 	rm -f $@
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	LAYOUT=partitions-md \
-	$(top_builddir)/run --test $<
+	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test $<
 	touch $@
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
@@ -78,22 +72,16 @@ guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
 
 # Make a (dummy) Debian image.
 debian.img: guest-aux/make-debian-img.sh
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	bash $<
+	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 
 # Make a (dummy) Ubuntu image.
 ubuntu.img: guest-aux/make-ubuntu-img.sh
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	bash $<
+	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 
 # Make a (dummy) Windows image.
 windows.img: guest-aux/make-windows-img.sh \
 	     guest-aux/windows-software guest-aux/windows-system
-	TMPDIR=$(top_builddir) \
-	SRCDIR=$(srcdir) \
-	bash $<
+	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 
 # Since users might not have the tools needed to create this, we
 # also distribute these files.
