@@ -32,19 +32,24 @@
 /* Plymouth is a graphical boot thing - not needed. */
 ^plymouth
 
-/* Linux firmware.  Note that febootstrap itself excludes the kernel
- * which is also not needed since we get the kernel, modules etc
- * from the host at appliance boot.
- */
+/* Linux firmware. */
 ^linux-firmware
 
 /* Keyboard maps - appliance is not interactive. */
 ^kbd-misc
 
 #ifdef REDHAT
+
+/* Linux kernel.  febootstrap <= 3.18 used to exclude the kernel
+ * package (only) by default, but since 3.19 it doesn't do this any
+ * longer.
+ */
+^kernel
+
 ^fedora-logos
 ^redhat-logos
 ^dracut
+
 #endif
 
 #ifdef DEBIAN
