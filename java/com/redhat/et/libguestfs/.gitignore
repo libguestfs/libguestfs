@@ -10,6 +10,7 @@ PV.java
 Partition.java
 Stat.java
 StatVFS.java
+UTSName.java
 VG.java
 Version.java
 XAttr.java

@@ -82,6 +82,7 @@ daemon/truncate.c
 daemon/umask.c
 daemon/upload.c
 daemon/utimens.c
+daemon/utsname.c
 daemon/wc.c
 daemon/xattr.c
 daemon/xfs.c
@@ -173,6 +174,7 @@ gobject/src/struct-mdstat.c
 gobject/src/struct-partition.c
 gobject/src/struct-stat.c
 gobject/src/struct-statvfs.c
+gobject/src/struct-utsname.c
 gobject/src/struct-version.c
 gobject/src/struct-xattr.c
 gobject/src/struct-xfsinfo.c

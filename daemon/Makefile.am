@@ -163,11 +163,13 @@ guestfsd_SOURCES = \
 	umask.c \
 	upload.c \
 	utimens.c \
+	utsname.c \
 	wc.c \
 	xattr.c \
 	xfs.c \
 	zero.c \
 	zerofree.c
+
 guestfsd_LDADD = \
 	liberrnostring.a \
 	libprotocol.a \

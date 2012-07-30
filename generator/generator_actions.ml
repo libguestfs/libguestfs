@@ -9037,6 +9037,20 @@ Generate a new random UUID for the volume group C<vg>." };
     longdesc = "\
 Generate new random UUIDs for all volume groups." };
 
+  { defaults with
+    name = "utsname";
+    style = RStruct ("uts", "utsname"), [], [];
+    proc_nr = Some 342;
+    tests = [
+      InitEmpty, Always, TestRun (
+        [["utsname"]])
+    ];
+    shortdesc = "appliance kernel version";
+    longdesc = "\
+This returns the kernel version of the appliance, where this is
+available.  This information is only useful for debugging.  Nothing
+in the returned structure is defined by the API." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

@@ -255,6 +255,14 @@ let structs = [
     "xfs_rtblocks", FUInt64;
     "xfs_rtextents", FUInt64;
   ];
+
+  (* utsname *)
+  "utsname", [
+    "uts_sysname", FString;
+    "uts_release", FString;
+    "uts_version", FString;
+    "uts_machine", FString;
+  ];
 ] (* end of structs *)
 
 (* For bindings which want camel case *)
@@ -275,6 +283,7 @@ let camel_structs = [
   "xfsinfo", "XFSInfo";
   "mdstat", "MDStat";
   "btrfssubvolume", "BTRFSSubvolume";
+  "utsname", "UTSName";
 ]
 let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
 
