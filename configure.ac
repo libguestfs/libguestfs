@@ -1365,6 +1365,7 @@ AC_CONFIG_FILES([Makefile
                  src/libguestfs.pc
                  sysprep/Makefile
                  test-tool/Makefile
+                 tests/9p/Makefile
                  tests/btrfs/Makefile
                  tests/c-api/Makefile
                  tests/charsets/Makefile
