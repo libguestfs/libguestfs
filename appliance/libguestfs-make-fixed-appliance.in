@@ -130,7 +130,7 @@ Then copy all four files:
 
 into a directory somewhere, eg. /usr/local/lib/guestfs/appliance/
 
-Then build libguestfs (>= 1.16.7 or >= 1.17.10) from source, disabling
+Then build libguestfs (>= 1.16.7 or >= 1.18) from source, disabling
 the normal appliance and daemon:
 
   ./configure --disable-appliance --disable-daemon
