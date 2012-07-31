@@ -545,7 +545,8 @@ fi
 
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
-default_qemu="qemu-kvm kvm qemu-system-$host_cpu qemu"
+qemu_system="`echo qemu-system-$host_cpu | $SED 's/i@<:@456@:>@86/i386/g'`"
+default_qemu="qemu-kvm kvm $qemu_system qemu"
 AC_ARG_WITH([qemu],
         [AS_HELP_STRING([--with-qemu],
           [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
