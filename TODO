@@ -488,6 +488,9 @@ Optimize the appliance
 
 Pass -cpu host.  Anything else?
 
+[The libvirt attach-method uses 'host-model' which is basically
+the same as this]
+
 Sort out partitioning
 ---------------------
 
@@ -525,9 +528,9 @@ It's doubtful that using cache=none is useful, since it disables the
 host cache making read-heavy workloads slower (they rely entirely on
 the smaller appliance kernel's cache).  And in libguestfs we don't
 necessarily care about ongoing data integrity while writing, as long
-as data is reliably written out when g.sync or g.close return.  Also
-in libguestfs we effectively control the whole stack, so we can ensure
-write barriers happen when we want.
+as data is reliably written out when g.sync, g.shutdown or g.close
+return.  Also in libguestfs we effectively control the whole stack, so
+we can ensure write barriers happen when we want.
 
 libvirt attach-method
 ---------------------
@@ -543,3 +546,9 @@ items to work on:
    src/launch-libvirt.c.
 
  - Remote support.  (This requires work on libvirt)
+
+virt-sparsify should use discard
+--------------------------------
+
+This requires some changes to qemu to make discard work properly
+throughout the entire stack.
