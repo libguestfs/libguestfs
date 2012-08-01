@@ -65,7 +65,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mkfs_btrfs.h \
   include/guestfs-gobject/optargs-set_e2attrs.h \
   include/guestfs-gobject/optargs-btrfs_fsck.h \
-  include/guestfs-gobject/optargs-fstrim.h
+  include/guestfs-gobject/optargs-fstrim.h \
+  include/guestfs-gobject/optargs-xfs_growfs.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -112,4 +113,5 @@ guestfs_gobject_sources= \
   src/optargs-mkfs_btrfs.c \
   src/optargs-set_e2attrs.c \
   src/optargs-btrfs_fsck.c \
-  src/optargs-fstrim.c
+  src/optargs-fstrim.c \
+  src/optargs-xfs_growfs.c

@@ -9051,6 +9051,33 @@ This returns the kernel version of the appliance, where this is
 available.  This information is only useful for debugging.  Nothing
 in the returned structure is defined by the API." };
 
+  { defaults with
+    name = "xfs_growfs";
+    style = RString "info", [Pathname "path"], [OBool "datasec"; OBool "logsec"; OBool "rtsec"; OInt64 "datasize"; OInt64 "logsize"; OInt64 "rtsize"; OInt64 "rtextsize"; OInt "maxpct"];
+    proc_nr = Some 343;
+    optional = Some "xfs";
+    tests = [
+      InitEmpty, IfAvailable "xfs", TestOutputStruct (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["pvcreate"; "/dev/sda1"];
+         ["vgcreate"; "VG"; "/dev/sda1"];
+         ["lvcreate"; "LV"; "VG"; "40"];
+         ["mkfs"; "xfs"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
+         ["lvresize"; "/dev/VG/LV"; "80"];
+         ["mount_options"; ""; "/dev/VG/LV"; "/"];
+         ["xfs_growfs"; "/"; "true"; "false"; "false"; ""; ""; ""; ""; ""];
+         ["xfs_info"; "/"]],
+        [CompareWithInt ("xfs_blocksize", 4096);
+        ])
+    ];
+    shortdesc = "expand an existing XFS filesystem";
+    longdesc = "\
+Grow the XFS filesystem mounted at C<path>.
+
+The returned struct contains geometry information.  Missing
+fields are returned as C<-1> (for numeric fields) or empty
+string." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

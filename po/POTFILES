@@ -160,6 +160,7 @@ gobject/src/optargs-set_e2attrs.c
 gobject/src/optargs-tune2fs.c
 gobject/src/optargs-umount.c
 gobject/src/optargs-umount_local.c
+gobject/src/optargs-xfs_growfs.c
 gobject/src/session.c
 gobject/src/struct-application.c
 gobject/src/struct-btrfssubvolume.c

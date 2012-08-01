@@ -28,6 +28,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#define MAX_ARGS 64
+
 int
 optgroup_xfs_available (void)
 {
@@ -347,4 +349,113 @@ error:
   if (lines)
     free_strings (lines);
   return ret;
+}
+
+char *
+do_xfs_growfs (const char *path,
+               int datasec, int logsec, int rtsec,
+               int64_t datasize, int64_t logsize, int64_t rtsize,
+               int64_t rtextsize, int32_t maxpct)
+{
+  int r;
+  char *buf;
+  char *out = NULL, *err = NULL;
+  const char *argv[MAX_ARGS];
+  char datasize_s[64];
+  char logsize_s[64];
+  char rtsize_s[64];
+  char rtextsize_s[64];
+  char maxpct_s[32];
+  size_t i = 0;
+
+  buf = sysroot_path (path);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  ADD_ARG (argv, i, "xfs_growfs");
+
+  /* Optional arguments */
+  if (!(optargs_bitmask & GUESTFS_XFS_GROWFS_DATASEC_BITMASK))
+    datasec = 0;
+  if (!(optargs_bitmask & GUESTFS_XFS_GROWFS_LOGSEC_BITMASK))
+    logsec = 0;
+  if (!(optargs_bitmask & GUESTFS_XFS_GROWFS_RTSEC_BITMASK))
+    rtsec = 0;
+
+  if (datasec)
+    ADD_ARG (argv, i, "-d");
+  if (logsec)
+    ADD_ARG (argv, i, "-l");
+  if (rtsec)
+    ADD_ARG (argv, i, "-r");
+
+  if (optargs_bitmask & GUESTFS_XFS_GROWFS_DATASIZE_BITMASK) {
+    if (datasize < 0) {
+      reply_with_error ("datasize must be >= 0");
+      goto error;
+    }
+    snprintf (datasize_s, sizeof datasize_s, "%" PRIi64, datasize);
+    ADD_ARG (argv, i, "-D");
+    ADD_ARG (argv, i, datasize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_GROWFS_LOGSIZE_BITMASK) {
+    if (logsize < 0) {
+      reply_with_error ("logsize must be >= 0");
+      goto error;
+    }
+    snprintf(logsize_s, sizeof logsize_s, "%" PRIi64, logsize);
+    ADD_ARG (argv, i, "-L");
+    ADD_ARG (argv, i, logsize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_GROWFS_RTSIZE_BITMASK) {
+    if (rtsize < 0) {
+      reply_with_error ("rtsize must be >= 0");
+      goto error;
+    }
+    snprintf(rtsize_s, sizeof rtsize_s, "%" PRIi64, rtsize);
+    ADD_ARG (argv, i, "-R");
+    ADD_ARG (argv, i, rtsize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_GROWFS_RTEXTSIZE_BITMASK) {
+    if (rtextsize < 0) {
+      reply_with_error ("rtextsize must be >= 0");
+      goto error;
+    }
+    snprintf(rtextsize_s, sizeof rtextsize_s, "%" PRIi64, rtextsize);
+    ADD_ARG (argv, i, "-e");
+    ADD_ARG (argv, i, rtextsize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_GROWFS_MAXPCT_BITMASK) {
+    if (maxpct < 0) {
+      reply_with_error ("maxpct must be >= 0");
+      goto error;
+    }
+    snprintf(maxpct_s, sizeof maxpct_s, "%" PRIi32, maxpct);
+    ADD_ARG (argv, i, "-m");
+    ADD_ARG (argv, i, maxpct_s);
+  }
+
+  ADD_ARG (argv, i, buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  free (buf);
+  if (r == -1) {
+    reply_with_error ("%s: %s", path, err);
+    goto error;
+  }
+
+  free (err);
+  return out;
+
+error:
+  if (buf) free (buf);
+  if (err) free (err);
+  return NULL;
 }
