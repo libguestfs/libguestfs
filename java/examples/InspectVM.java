@@ -35,7 +35,7 @@ public class InspectVM
                 }
             };
 
-            g.add_drive (disk, optargs);
+            g.add_drive_opts (disk, optargs);
 
             // Run the libguestfs back-end.
             g.launch ();

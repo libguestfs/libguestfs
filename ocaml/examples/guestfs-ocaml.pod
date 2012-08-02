@@ -9,13 +9,13 @@ guestfs-ocaml - How to use libguestfs from OCaml
 Module style:
 
  let g = Guestfs.create () in
- Guestfs.add_drive g ~format:"raw" ~readonly:true "disk.img";
+ Guestfs.add_drive_opts g ~format:"raw" ~readonly:true "disk.img";
  Guestfs.launch g;
 
 Object-oriented style:
 
  let g = new Guestfs.guestfs () in
- g#add_drive ~format:"raw" ~readonly:true "disk.img";
+ g#add_drive_opts ~format:"raw" ~readonly:true "disk.img";
  g#launch ();
 
  ocamlfind opt prog.ml -package guestfs -linkpkg -o prog

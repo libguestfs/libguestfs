@@ -9,7 +9,7 @@ disk = sys.argv[1]
 g = guestfs.GuestFS ()
 
 # Attach the disk image read-only to libguestfs.
-g.add_drive (disk, readonly=1)
+g.add_drive_opts (disk, readonly=1)
 
 # Run the libguestfs back-end.
 g.launch ()

@@ -15,7 +15,7 @@ File.open(output, "w") {
 g.set_trace(1)
 
 # Attach the disk image to libguestfs.
-g.add_drive(output, :format => "raw")
+g.add_drive_opts(output, :format => "raw")
 
 # Run the libguestfs back-end.
 g.launch();

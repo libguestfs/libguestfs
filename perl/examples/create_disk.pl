@@ -18,7 +18,7 @@ close FILE or die "$output: $!";
 $g->set_trace (1);
 
 # Attach the disk image to libguestfs.
-$g->add_drive ($output, format => "raw", readonly => 0);
+$g->add_drive_opts ($output, format => "raw", readonly => 0);
 
 # Run the libguestfs back-end.
 $g->launch ();
