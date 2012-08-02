@@ -146,6 +146,7 @@ gobject/src/optargs-copy_file_to_device.c
 gobject/src/optargs-copy_file_to_file.c
 gobject/src/optargs-e2fsck.c
 gobject/src/optargs-fstrim.c
+gobject/src/optargs-grep.c
 gobject/src/optargs-inspect_get_icon.c
 gobject/src/optargs-internal_test.c
 gobject/src/optargs-md_create.c

@@ -28,12 +28,39 @@
 #include "daemon.h"
 #include "actions.h"
 
+#define MAX_ARGS 64
+
 static char **
-grep (const char *prog, const char *flag, const char *regex, const char *path)
+grep (const char *regex, const char *path,
+      int extended, int fixed, int insensitive, int compressed)
 {
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
   char *out, *err;
   int fd, flags, r;
   char **lines;
+
+  if (extended && fixed) {
+    reply_with_error ("can't use 'extended' and 'fixed' flags at the same time");
+    return NULL;
+  }
+
+  if (!compressed)
+    ADD_ARG (argv, i, "grep");
+  else
+    ADD_ARG (argv, i, "zgrep");
+
+  if (extended)
+    ADD_ARG (argv, i, "-E");
+
+  if (fixed)
+    ADD_ARG (argv, i, "-F");
+
+  if (insensitive)
+    ADD_ARG (argv, i, "-i");
+
+  ADD_ARG (argv, i, regex);
+  ADD_ARG (argv, i, NULL);
 
   CHROOT_IN;
   fd = open (path, O_RDONLY|O_CLOEXEC);
@@ -48,9 +75,9 @@ grep (const char *prog, const char *flag, const char *regex, const char *path)
    * suppress this error and return an empty list.
    */
   flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
-  r = commandrf (&out, &err, flags, prog, flag, regex, NULL);
+  r = commandrvf (&out, &err, flags, argv);
   if (r == -1 || r > 1) {
-    reply_with_error ("%s %s %s: %s", prog, flag, regex, err);
+    reply_with_error ("%s: %s", regex, err);
     free (out);
     free (err);
     return NULL;
@@ -65,75 +92,85 @@ grep (const char *prog, const char *flag, const char *regex, const char *path)
   return lines;
 }
 
+/* Takes optional arguments, consult optargs_bitmask. */
 char **
-do_grep (const char *regex, const char *path)
+do_grep (const char *regex, const char *path,
+         int extended, int fixed, int insensitive, int compressed)
 {
-  /* The "--" is not really needed, but it helps when we don't need a flag. */
-  return grep ("grep", "--", regex, path);
+  if (!(optargs_bitmask & GUESTFS_GREP_EXTENDED_BITMASK))
+    extended = 0;
+  if (!(optargs_bitmask & GUESTFS_GREP_FIXED_BITMASK))
+    fixed = 0;
+  if (!(optargs_bitmask & GUESTFS_GREP_INSENSITIVE_BITMASK))
+    insensitive = 0;
+  if (!(optargs_bitmask & GUESTFS_GREP_COMPRESSED_BITMASK))
+    compressed = 0;
+
+  return grep (regex, path, extended, fixed, insensitive, compressed);
 }
 
 char **
 do_egrep (const char *regex, const char *path)
 {
-  return grep ("egrep", "--", regex, path);
+  return grep (regex, path, 1, 0, 0, 0);
 }
 
 char **
 do_fgrep (const char *regex, const char *path)
 {
-  return grep ("fgrep", "--", regex, path);
+  return grep (regex, path, 0, 1, 0, 0);
 }
 
 char **
 do_grepi (const char *regex, const char *path)
 {
-  return grep ("grep", "-i", regex, path);
+  return grep (regex, path, 0, 0, 1, 0);
 }
 
 char **
 do_egrepi (const char *regex, const char *path)
 {
-  return grep ("egrep", "-i", regex, path);
+  return grep (regex, path, 1, 0, 1, 0);
 }
 
 char **
 do_fgrepi (const char *regex, const char *path)
 {
-  return grep ("fgrep", "-i", regex, path);
+  return grep (regex, path, 0, 1, 1, 0);
 }
 
 char **
 do_zgrep (const char *regex, const char *path)
 {
-  return grep ("zgrep", "--", regex, path);
+  return grep (regex, path, 0, 0, 0, 1);
 }
 
 char **
 do_zegrep (const char *regex, const char *path)
 {
-  return grep ("zegrep", "--", regex, path);
+  return grep (regex, path, 1, 0, 0, 1);
 }
 
 char **
 do_zfgrep (const char *regex, const char *path)
 {
-  return grep ("zfgrep", "--", regex, path);
+  return grep (regex, path, 0, 1, 0, 1);
 }
 
 char **
 do_zgrepi (const char *regex, const char *path)
 {
-  return grep ("zgrep", "-i", regex, path);
+  return grep (regex, path, 0, 0, 1, 1);
 }
 
 char **
 do_zegrepi (const char *regex, const char *path)
 {
-  return grep ("zegrep", "-i", regex, path);
+  return grep (regex, path, 1, 0, 1, 1);
 }
 
 char **
 do_zfgrepi (const char *regex, const char *path)
 {
-  return grep ("zfgrep", "-i", regex, path);
+  return grep (regex, path, 0, 1, 1, 1);
 }

@@ -551,7 +551,7 @@ guestfs___first_line_of_file (guestfs_h *g, const char *filename)
   return ret;
 }
 
-/* Get the first matching line (using guestfs_egrep{,i}) of a small file,
+/* Get the first matching line (using egrep [-i]) of a small file,
  * without any trailing newline character.
  *
  * Returns: 1 = returned a line (in *ret)
@@ -565,8 +565,9 @@ guestfs___first_egrep_of_file (guestfs_h *g, const char *filename,
   char **lines;
   int64_t size;
   size_t i;
+  struct guestfs_grep_opts_argv optargs;
 
-  /* Don't trust guestfs_egrep not to break with very large files.
+  /* Don't trust guestfs_grep not to break with very large files.
    * Check the file size is something reasonable first.
    */
   size = guestfs_filesize (g, filename);
@@ -579,7 +580,13 @@ guestfs___first_egrep_of_file (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  lines = (!iflag ? guestfs_egrep : guestfs_egrepi) (g, eregex, filename);
+  optargs.bitmask = GUESTFS_GREP_OPTS_EXTENDED_BITMASK;
+  optargs.extended = 1;
+  if (iflag) {
+    optargs.bitmask |= GUESTFS_GREP_OPTS_INSENSITIVE_BITMASK;
+    optargs.insensitive = 1;
+  }
+  lines = guestfs_grep_opts_argv (g, eregex, filename, &optargs);
   if (lines == NULL)
     return -1;
   if (lines[0] == NULL) {

@@ -5131,28 +5131,88 @@ in the total size of file that can be handled." };
 
   { defaults with
     name = "grep";
-    style = RStringList "lines", [String "regex"; Pathname "path"], [];
+    style = RStringList "lines", [String "regex"; Pathname "path"], [OBool "extended"; OBool "fixed"; OBool "insensitive"; OBool "compressed"];
     proc_nr = Some 151;
-    protocol_limit_warning = true;
+    protocol_limit_warning = true; once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestOutputList (
-        [["grep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"]);
+        [["grep"; "abc"; "/test-grep.txt"; ""; ""; ""; ""]],
+        ["abc"; "abc123"]);
       InitISOFS, Always, TestOutputList (
-        [["grep"; "nomatch"; "/test-grep.txt"]], []);
+        [["grep"; "nomatch"; "/test-grep.txt"; ""; ""; ""; ""]], []);
       (* Test for RHBZ#579608, absolute symbolic links. *)
       InitISOFS, Always, TestOutputList (
-        [["grep"; "nomatch"; "/abssymlink"]], [])
+        [["grep"; "nomatch"; "/abssymlink"; ""; ""; ""; ""]], []);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt"; "true"; ""; ""; ""]],
+        ["abc"; "abc123"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt"; ""; "true"; ""; ""]],
+        ["abc"; "abc123"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt"; ""; ""; "true"; ""]],
+        ["abc"; "abc123"; "ABC"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt"; "true"; ""; "true"; ""]],
+        ["abc"; "abc123"; "ABC"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt"; ""; "true"; "true"; ""]],
+        ["abc"; "abc123"; "ABC"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt.gz"; ""; ""; ""; "true"]],
+        ["abc"; "abc123"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt.gz"; "true"; ""; ""; "true"]],
+        ["abc"; "abc123"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt.gz"; ""; "true"; ""; "true"]],
+        ["abc"; "abc123"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt.gz"; ""; ""; "true"; "true"]],
+        ["abc"; "abc123"; "ABC"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt.gz"; "true"; ""; "true"; "true"]],
+        ["abc"; "abc123"; "ABC"]);
+      InitISOFS, Always, TestOutputList (
+        [["grep"; "abc"; "/test-grep.txt.gz"; ""; "true"; "true"; "true"]],
+        ["abc"; "abc123"; "ABC"])
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
 This calls the external C<grep> program and returns the
-matching lines." };
+matching lines.
+
+The optional flags are:
+
+=over 4
+
+=item C<extended>
+
+Use extended regular expressions.
+This is the same as using the I<-E> flag.
+
+=item C<fixed>
+
+Match fixed (don't use regular expressions).
+This is the same as using the I<-F> flag.
+
+=item C<insensitive>
+
+Match case-insensitive.  This is the same as using the I<-i> flag.
+
+=item C<compressed>
+
+Use C<zgrep> instead of C<grep>.  This allows the input to be
+compress- or gzip-compressed.
+
+=back" };
 
   { defaults with
     name = "egrep";
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 152;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["egrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])
@@ -5167,6 +5227,7 @@ matching lines." };
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     proc_nr = Some 153;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["fgrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])
@@ -5181,6 +5242,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 154;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["grepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])
@@ -5195,6 +5257,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 155;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["egrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])
@@ -5209,6 +5272,7 @@ matching lines." };
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     proc_nr = Some 156;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["fgrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])
@@ -5223,6 +5287,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 157;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["zgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])
@@ -5237,6 +5302,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 158;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["zegrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])
@@ -5251,6 +5317,7 @@ matching lines." };
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     proc_nr = Some 159;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["zfgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])
@@ -5265,6 +5332,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 160;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["zgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])
@@ -5279,6 +5347,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     proc_nr = Some 161;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["zegrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])
@@ -5293,6 +5362,7 @@ matching lines." };
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     proc_nr = Some 162;
     protocol_limit_warning = true;
+    deprecated_by = Some "grep";
     tests = [
       InitISOFS, Always, TestOutputList (
         [["zfgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])

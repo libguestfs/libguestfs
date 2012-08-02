@@ -169,7 +169,9 @@ print_dhcp_address_linux (guestfs_h *g, char *root, const char *logfile)
   char **lines, *p;
   size_t len;
 
-  lines = guestfs_egrep (g, "dhclient.*: bound to ", logfile);
+  lines = guestfs_grep_opts (g, "dhclient.*: bound to ", logfile,
+                             GUESTFS_GREP_OPTS_EXTENDED, 1,
+                             -1);
   if (lines == NULL)
     exit (EXIT_FAILURE);
 
