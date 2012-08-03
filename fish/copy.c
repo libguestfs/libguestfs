@@ -27,6 +27,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <assert.h>
 
 #include "fish.h"
 
@@ -276,6 +277,13 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
         return -1;
       }
 
+      /* RHBZ#845522: If remote == "/" then basename would be an empty
+       * string.  Replace it with "." so that make_tar_output writes
+       * to "local/."
+       */
+      if (STREQ (basename, ""))
+        basename = ".";
+
       struct fd_pid fdpid = make_tar_output (local, basename);
       if (fdpid.fd == -1) {
         free (remote);
@@ -325,6 +333,14 @@ make_tar_output (const char *local, const char *basename)
 {
   int fd[2];
   struct fd_pid r = { .fd = -1 };
+
+  /* local can't be an empty string because the caller stats it and
+   * checks it is a directory.
+   */
+  assert (STRNEQ (local, ""));
+
+  /* basename must not be an empty string (see RHBZ#845522). */
+  assert (STRNEQ (basename, ""));
 
   if (pipe (fd) == -1) {
     perror ("pipe");
