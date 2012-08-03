@@ -699,6 +699,28 @@ replacement will work.
 To resolve the case insensitivity of paths, call
 L</guestfs_case_sensitive_path>.
 
+=head3 LONG FILENAMES ON NTFS
+
+NTFS supports filenames up to 255 characters long.  "Character" means
+a 2 byte UTF-16 codepoint which can encode the most common Unicode
+codepoints.
+
+Most Linux filesystems support filenames up to 255 I<bytes>.
+This means you may get an error:
+
+ File name too long
+
+when you copy a file from NTFS to a Linux filesystem if the name, when
+reencoded as UTF-8, would exceed 255 bytes in length.
+
+This will most often happen when using non-ASCII names that are longer
+than ~127 characters (eg. Greek, Cyrillic) or longer than ~85
+characters (Asian languages).
+
+A workaround is not to try to store such long filenames on Linux
+native filesystems.  Since the L<tar(1)> format can store unlimited
+length filenames, keep the files in a tarball.
+
 =head3 ACCESSING THE WINDOWS REGISTRY
 
 Libguestfs also provides some help for decoding Windows Registry
