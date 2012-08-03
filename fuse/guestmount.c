@@ -105,7 +105,7 @@ usage (int status)
              "%s lets you mount a virtual machine filesystem\n"
              "Copyright (C) 2009-2012 Red Hat Inc.\n"
              "Usage:\n"
-             "  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+             "  %s [--options] mountpoint\n"
              "Options:\n"
              "  -a|--add image       Add image\n"
              "  -c|--connect uri     Specify libvirt URI for -d option\n"
