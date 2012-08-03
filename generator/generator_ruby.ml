@@ -47,6 +47,17 @@ let rec generate_ruby_c () =
 
 #include \"extconf.h\"
 
+/* Ruby has a mark-sweep garbage collector and performs imprecise
+ * scanning of the stack to look for pointers.  Some implications
+ * of this:
+ * (1) Any VALUE stored in a stack location must be marked as
+ *     volatile so that the compiler doesn't put it in a register.
+ * (2) Anything at all on the stack that \"looks like\" a Ruby
+ *     pointer could be followed, eg. buffers of random data.
+ *     (See: https://bugzilla.redhat.com/show_bug.cgi?id=843188#c6)
+ * We fix (1) by marking everything possible as volatile.
+ */
+
 /* For Ruby < 1.9 */
 #ifndef RARRAY_LEN
 #define RARRAY_LEN(r) (RARRAY((r))->len)
@@ -66,7 +77,7 @@ let rec generate_ruby_c () =
 VALUE
 rb_hash_lookup (VALUE hash, VALUE key)
 {
-  VALUE val;
+  volatile VALUE val;
 
   if (!st_lookup (RHASH(hash)->tbl, key, &val))
     return Qnil;
@@ -240,8 +251,8 @@ ruby_event_callback_wrapper (guestfs_h *g,
                              const uint64_t *array, size_t array_len)
 {
   size_t i;
-  VALUE eventv, event_handlev, bufv, arrayv;
-  VALUE argv[5];
+  volatile VALUE eventv, event_handlev, bufv, arrayv;
+  volatile VALUE argv[5];
 
   eventv = ULL2NUM (event);
   event_handlev = INT2NUM (event_handle);
@@ -269,7 +280,7 @@ static VALUE
 ruby_event_callback_wrapper_wrapper (VALUE argvv)
 {
   VALUE *argv = (VALUE *) argvv;
-  VALUE fn, eventv, event_handlev, bufv, arrayv;
+  volatile VALUE fn, eventv, event_handlev, bufv, arrayv;
 
   fn = argv[0];
 
@@ -457,9 +468,9 @@ ruby_user_cancel (VALUE gv)
         pr "\n";
         iteri (
           fun i arg ->
-            pr "  VALUE %sv = argv[%d];\n" (name_of_argt arg) i
+            pr "  volatile VALUE %sv = argv[%d];\n" (name_of_argt arg) i
         ) args;
-        pr "  VALUE optargsv = argc > %d ? argv[%d] : rb_hash_new ();\n"
+        pr "  volatile VALUE optargsv = argc > %d ? argv[%d] : rb_hash_new ();\n"
           nr_args nr_args;
         pr "\n"
       );
@@ -487,7 +498,7 @@ ruby_user_cancel (VALUE gv)
           pr "    %s = ALLOC_N (char *, len+1);\n"
             n;
           pr "    for (i = 0; i < len; ++i) {\n";
-          pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
+          pr "      volatile VALUE v = rb_ary_entry (%sv, i);\n" n;
           pr "      %s[i] = StringValueCStr (v);\n" n;
           pr "    }\n";
           pr "    %s[len] = NULL;\n" n;
@@ -508,7 +519,7 @@ ruby_user_cancel (VALUE gv)
         pr "  Check_Type (optargsv, T_HASH);\n";
         pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
         pr "  struct %s *optargs = &optargs_s;\n" c_function;
-        pr "  VALUE v;\n";
+        pr "  volatile VALUE v;\n";
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
@@ -586,13 +597,13 @@ ruby_user_cancel (VALUE gv)
            pr "  else\n";
            pr "    return Qnil;\n";
        | RString _ ->
-           pr "  VALUE rv = rb_str_new2 (r);\n";
+           pr "  volatile VALUE rv = rb_str_new2 (r);\n";
            pr "  free (r);\n";
            pr "  return rv;\n";
        | RStringList _ ->
            pr "  size_t i, len = 0;\n";
            pr "  for (i = 0; r[i] != NULL; ++i) len++;\n";
-           pr "  VALUE rv = rb_ary_new2 (len);\n";
+           pr "  volatile VALUE rv = rb_ary_new2 (len);\n";
            pr "  for (i = 0; r[i] != NULL; ++i) {\n";
            pr "    rb_ary_push (rv, rb_str_new2 (r[i]));\n";
            pr "    free (r[i]);\n";
@@ -606,7 +617,7 @@ ruby_user_cancel (VALUE gv)
            let cols = cols_of_struct typ in
            generate_ruby_struct_list_code typ cols
        | RHashtable _ ->
-           pr "  VALUE rv = rb_hash_new ();\n";
+           pr "  volatile VALUE rv = rb_hash_new ();\n";
            pr "  size_t i;\n";
            pr "  for (i = 0; r[i] != NULL; i+=2) {\n";
            pr "    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));\n";
@@ -616,7 +627,7 @@ ruby_user_cancel (VALUE gv)
            pr "  free (r);\n";
            pr "  return rv;\n"
        | RBufferOut _ ->
-           pr "  VALUE rv = rb_str_new (r, size);\n";
+           pr "  volatile VALUE rv = rb_str_new (r, size);\n";
            pr "  free (r);\n";
            pr "  return rv;\n";
       );
@@ -677,7 +688,7 @@ void Init__guestfs ()
 
 (* Ruby code to return a struct. *)
 and generate_ruby_struct_code typ cols =
-  pr "  VALUE rv = rb_hash_new ();\n";
+  pr "  volatile VALUE rv = rb_hash_new ();\n";
   List.iter (
     function
     | name, FString ->
@@ -704,10 +715,10 @@ and generate_ruby_struct_code typ cols =
 
 (* Ruby code to return a struct list. *)
 and generate_ruby_struct_list_code typ cols =
-  pr "  VALUE rv = rb_ary_new2 (r->len);\n";
+  pr "  volatile VALUE rv = rb_ary_new2 (r->len);\n";
   pr "  size_t i;\n";
   pr "  for (i = 0; i < r->len; ++i) {\n";
-  pr "    VALUE hv = rb_hash_new ();\n";
+  pr "    volatile VALUE hv = rb_hash_new ();\n";
   List.iter (
     function
     | name, FString ->
