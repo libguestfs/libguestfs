@@ -37,6 +37,7 @@
   nilfs-utils
   ntfsprogs
   ntfs-3g
+  openssh-clients
   reiserfs-utils
   libselinux
   systemd /* for /sbin/reboot and udevd */
@@ -62,6 +63,7 @@
   nilfs-tools
   ntfs-3g
   ntfsprogs
+  openssh-client
   reiserfsprogs
   ufsutils
   util-linux
@@ -120,6 +122,7 @@ ocfs2-tools
 parted
 procps
 psmisc
+rsync
 scrub
 strace
 tar
