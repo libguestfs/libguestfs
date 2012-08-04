@@ -3181,7 +3181,7 @@ Ubuntu.
 
 =item *
 
-Finalize RELEASE-NOTES.
+Finalize C<guestfs-release-notes.pod>
 
 =item *
 

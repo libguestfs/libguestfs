@@ -16,10 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Used when preparing the RELEASE-NOTES file.  This script looks at
-# the bugs noted in the git changelog since the last stable release
-# (or any release).  To use it, the only parameter should be the git
-# commit range, eg:
+# Used when preparing the guestfs-release-notes(1) man page.  This
+# script looks at the bugs noted in the git changelog since the last
+# stable release (or any release).  To use it, the only parameter
+# should be the git commit range, eg:
 #
 #   ./bugs-in-changelog.sh "1.0.89.."
 
@@ -42,5 +42,10 @@ bugids=$(
 # Filter out any bugs which may still be in NEW or ASSIGNED:
 bugzilla query -b "$bugids" \
     -t MODIFIED,POST,ON_QA,PASSES_QA,VERIFIED,RELEASE_PENDING,CLOSED \
-    --outputformat=' - %{bug_id} %{short_desc}' |
-    sort -n -r
+    --outputformat='%{bug_id} %{short_desc}' |
+    sort -n -r |
+    perl -pe '
+        s{([0-9]+)\s+(.*)}{
+        sprintf ("=item L<https://bugzilla.redhat.com/%s>\n\n%s\n",
+                 $1, $2)
+        }xe'

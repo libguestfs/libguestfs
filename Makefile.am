@@ -119,7 +119,7 @@ endif
 
 EXTRA_DIST = \
 	$(generator_built) \
-	BUGS HACKING RELEASE-NOTES ROADMAP TODO \
+	BUGS HACKING ROADMAP TODO \
 	.gitignore \
 	bugs-in-changelog.sh \
 	autogen.sh \
@@ -142,6 +142,7 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/qemu-0.13-trace-block-device-access.patch \
 	contrib/visualize-alignment/README \
 	contrib/visualize-alignment/tracetops.ml \
+	guestfs-release-notes.pod \
 	html/pod.css \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
@@ -160,6 +161,7 @@ HTMLFILES = \
 	html/guestfs-perl.3.html \
 	html/guestfs-python.3.html \
 	html/guestfs-recipes.1.html \
+	html/guestfs-release-notes.1.html \
 	html/guestfs-ruby.3.html \
 	html/guestfs-testing.1.html \
 	html/guestfish.1.html \
@@ -188,7 +190,7 @@ HTMLFILES = \
 	html/virt-tar-out.1.html \
 	html/virt-win-reg.1.html
 
-TEXTFILES = BUGS README RELEASE-NOTES ROADMAP TODO
+TEXTFILES = BUGS README ROADMAP TODO
 
 WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
@@ -243,11 +245,30 @@ all-local:
 	find resize sparsify sysprep -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
 
+# Manual pages in top level directory.
+
+man_MANS = \
+	guestfs-release-notes.1
+noinst_DATA = \
+	$(top_builddir)/html/guestfs-release-notes.1.html
+
+guestfs-release-notes.1 $(top_builddir)/html/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
+
+stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-release-notes.1 \
+	  --text guestfs-release-notes.txt \
+	  --html $(top_builddir)/html/guestfs-release-notes.1.html \
+	  $<
+	touch $@
+
 # Make clean.
 
 CLEANFILES = \
 	pod2htm?.tmp \
-	html/*.html
+	html/*.html \
+	stamp-guestfs-release-notes.pod
 
 # If you don't want to run all of the tests ('make check') then this
 # will just run libguestfs-test-tool for a quick check.  Note this

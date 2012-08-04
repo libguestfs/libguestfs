@@ -1,0 +1,1560 @@
+NAME
+
+    guestfs-release-notes - libguestfs Release Notes
+
+RELEASE NOTES FOR LIBGUESTFS 1.20
+
+    NOTES UPDATED TO COMMIT 47410e79995f9d8c5fb9739ca4609c78e13218ee
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.18.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+  library
+
+    You can optionally use libvirt to launch the backend appliance by:
+
+    (a)
+
+      setting LIBGUESTFS_ATTACH_METHOD=libvirt[:URI]
+
+    (b)
+
+       ./configure --with-default-attach-method=libvirt[:URI]
+
+    (c)
+
+      setting the attach-method through the API
+
+    virtio-scsi is now used by default, if available. This greatly
+    increases the number of drives that can be added to a single libguestfs
+    handle (up to 255).
+
+    Libguestfs can now handle > 25 disks, in all APIs, tools and tests.
+
+  virt tools
+
+    guestfish touch 'win:c:\new_file' now works as expected.
+
+    rsync and ssh commands are now availble in virt-rescue.
+
+    virt-sparsify uses qcow2 v3 for increased efficiency.
+
+    virt-sysprep enhancements:
+
+      * generate new UUIDs for PVs and VGs
+
+      * remote the local machine ID (Wanlong Gao)
+
+      * remove ABRT data (Wanlong Gao)
+
+      * remove puppet keys and log files (Wanlong Gao)
+
+    virt-make-fs can now create virtual floppy disks (VFDs).
+
+    guestmount has a --pid-file option.
+
+  language bindings
+
+    In Ruby, optional arguments hash is optional.
+
+  ports
+
+    Libguestfs without the appliance can be compiled on Mac OS X (Masami
+    HIRATA).
+
+    RHEL 5 is now explicitly supported through the 'oldlinux' branch in
+    upstream git.
+
+    PowerPC 64 bit is now supported. Also libguestfs has been examined for
+    endianness bugs and these have been fixed.
+
+ Security
+
+    The $HOME/.guestfish history file is now created with 0600 permissions
+    (instead of 0644 before) so it is no longer world readable.
+
+  CVE-2012-2690
+
+    Old versions of both virt-edit and the guestfish edit command created a
+    new file containing the changes but did not set the permissions, etc of
+    the new file to match the old one. The result of this was that if you
+    edited a security sensitive file such as /etc/shadow then it would be
+    left world-readable after the edit.
+
+    This issue was assigned CVE-2012-2690, and is fixed in libguestfs ≥
+    1.16.
+
+    For further information, see
+    https://bugzilla.redhat.com/show_bug.cgi?id=788642
+
+ New APIs
+
+     canonical-device-name
+     device-index
+     filesystem-available
+     fstrim
+     max-disks
+     nr-devices
+     shutdown [backported to 1.16 and 1.18]
+     umount [added force and lazy optional arguments]
+     utsname
+     xfs-growfs
+     xfs-info
+
+ Internals
+
+    qemu ≥ 1.1.0 is required.
+
+    febootstrap ≥ 3.19 is required.
+
+    Functions which previously had no optargs can now be converted to ones
+    with optargs, making extending the API much more flexible. Source and
+    binary backwards compatibility is preserved for users of the API. APIs
+    which were changed are:
+
+      * grep and related *grep* functions
+
+      * add_drive / add_drive_opts
+
+      * mkfs / mkfs_opts
+
+      * ntfsresize / ntfsresize_opts
+
+      * umount
+
+    The way that libguestfs APIs are represented in the generator has
+    changed to use an OCaml struct instead of a tuple. This makes it far
+    more flexible. For details see commit 39d1a7db.
+
+    Launch backends are now located in separate files eg.
+    src/launch-appliance.c, src/launch-libvirt.c.
+
+    POD (documentation) is now generated using a rewritten Perl program
+    instead of pod2* + shell scripts.
+
+    Man pages now contain stable dates (Hilko Bengen).
+
+    Skipped tests now exit with code 77, so they appear as SKIP: in make
+    check output.
+
+    The parallel mount-local test has been rewritten in C (RHBZ#838081).
+
+    Ruby 1.8.5 is now supported (though not recommended).
+
+    The appliance backend now uses sgabios instead of vgabios (Dan
+    Berrange).
+
+    The ./run script now sets enough environment variables that you can run
+    OCaml, Python, Ruby, Java, GJS programs.
+
+    run --test flag for running tests with minimal output.
+
+ Bugs fixed
+
+     ./bugs-in-changelog.sh 1.18.0..
+
+    https://bugzilla.redhat.com/845522
+
+      guestfish "copy-out / localdir" command fails with "No such file or
+      directory"
+
+    https://bugzilla.redhat.com/845488
+
+      Long filenames on NTFS cause tar-out, copy-out etc to fail with error
+      "Cannot open: File name too long"
+
+    https://bugzilla.redhat.com/840572
+
+      virt-make-fs / tar-in should support vfat properly
+
+    https://bugzilla.redhat.com/840115
+
+      guestfish touch problem - case_sensitive_path API expects the file to
+      exist
+
+    https://bugzilla.redhat.com/836710
+
+      Data loss when writing to qcow2-format disk files
+
+    https://bugzilla.redhat.com/824716
+
+      compress-device-out didn't support bzip2
+
+    https://bugzilla.redhat.com/824043
+
+      guestfish unrecognized mount option gives confusing error message
+
+    https://bugzilla.redhat.com/823887
+
+      Filenames containing Chinese characters can't be created on vfat
+      filesystems
+
+    https://bugzilla.redhat.com/823885
+
+      virt-make-fs cannot create vfat filesystem containing filesystems
+      with chinese characters
+
+    https://bugzilla.redhat.com/823883
+
+      virt-make-fs -t fat fails with an obscure error message
+
+    https://bugzilla.redhat.com/823821
+
+      Inspection fails when /etc/HOSTNAME is empty
+
+    https://bugzilla.redhat.com/627675
+
+      libguestfs inspector code cannot handle /dev/disk/by-id/* paths
+
+    https://bugzilla.redhat.com/602997
+
+      part-get-bootable gives wrong result with an unordered part layout
+
+RELEASE NOTES FOR LIBGUESTFS 1.18
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.16.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+  virt tools
+
+       - virt-sysprep has been rewritten and expanded (thanks Wanlong Gao)
+         http://libguestfs.org/virt-sysprep.1.html
+    
+       - virt-sparsify --zero is a new option that zeroes the named
+         partition or filesystem
+    
+       - virt-sparsify can now safely sparsify Linux swap partitions
+    
+       - virt-sparsify fixed so it cleans up after ^C
+         http://libguestfs.org/virt-sparsify.1.html
+    
+       - a new tool 'libguestfs-make-fixed-appliance' is provided to build
+         fixed appliances that can be copied to other machines that don't
+         have febootstrap support
+         http://libguestfs.org/libguestfs-make-fixed-appliance.1.html
+    
+       - virt-filesystems now displays the parents (containers) of MD
+         devices and volume groups
+    
+       - virt-alignment-scan, run with no args, displays alignment information
+         for all libvirt domains
+    
+       - virt-df and virt-alignment-scan will display information from all
+         guests even when a disk is inaccessible
+    
+       - virt-rescue new --scratch option to make scratch disks
+         https://rwmj.wordpress.com/2012/04/26/virt-rescue-scratch/#content
+    
+       - virt-make-fs can now be used to create btrfs
+    
+       - virt-edit preserves permissions, UID, GID and SELinux context
+         when editing files
+    
+       - guestfish passes the close event over stdout and remote correctly
+    
+       - guestfish new '--pipe-error' option lets you detect errors in pipe
+         commands
+    
+       - guestfish globs now expand device names
+    
+       - comma and colon characters in filenames now handled correctly by
+         all virt tools
+
+  inspection
+
+       - added support for Fedora 17+
+    
+       - added support for FreeDOS
+    
+       - added support for Buildroot and Cirros
+    
+       - inspection is now compatible with Windows guests that have been
+         sysprepped (thanks Grant Williamson).
+
+  API
+
+       - broad support for btrfs added, including adding multiple devices,
+         fsck, snapshots (thanks Wanlong Gao)
+    
+       - the new 'mount-local' API brings FUSE support directly into the
+         core libguestfs API
+         https://rwmj.wordpress.com/2012/05/14/tip-using-mount-local-api-from-c/#content
+    
+       - new man page: guestfs-performance(1), which contains performance
+         tuning tips
+         http://libguestfs.org/guestfs-performance.1.html
+    
+       - new man page: guestfs-faq(1), Frequently Asked Questions
+         http://libguestfs.org/guestfs-faq.1.html
+    
+       - ENOTSUP (from guestfs_last_errno) is now returned for APIs that
+         are not supported
+
+  examples
+
+       - 'copy_over' example showing how to copy between two handles
+    
+       - 'display_icon' program displays the icon associated with a guest
+    
+       - 'mount_local.c' example shows how to use the mount-local API
+
+ Security
+
+      (no security problems were found or fixed in this release)
+
+ New APIs
+
+      btrfs-device-add: Add devices to a btrfs filesystem.
+      btrfs-device-delete: Remove devices from a btrfs filesystem.
+      btrfs-filesystem-sync: Sync a btrfs filesystem.
+      btrfs-filesystem-balance: Balance a btrfs filesystem.
+      btrfs-fsck: Check btrfs filesystem.
+      btrfs-set-seeding: Enable or disable seeding.
+      btrfs-subvolume-create: Create a btrfs snapshot.
+      btrfs-subvolume-delete: Delete a btrfs snapshot.
+      btrfs-subvolume-list: List btrfs snapshots and subvolumes.
+      btrfs-subvolume-set-default: Set default btrfs subvolume.
+      btrfs-subvolume-snapshot: Create a writable btrfs snapshot.
+      get-e2attrs: List ext2 file attributes of a file.
+      get-e2generation: Get ext2 file generation of a file.
+      isoinfo, isoinfo-device: Get information from the header of ISO files.
+      llz: List files with SELinux information.
+      lvcreate-free: Create an LVM logical volume in % remaining free space.
+      md-stat: Return underlying devices from an MD device.
+      mkfs-brtfs: Make btrfs filesystem, with all tunables.
+      mount-local, mount-local-run, umount-local: FUSE support in the API.
+      ntfsclone-in, ntfsclone-out: Save, restore NTFS from backup.
+      ntfsfix: Fix common errors and force Windows to check NTFS.
+      set-e2attrs: Set or clear ext2 file attributes of a file.
+      set-e2generation: Set ext2 file generation of a file.
+      set-label: Unified interface for setting filesystem label.
+      vgmeta: Get volume group metadata.
+      wipefs: Wipe filesystem signatures from a device.
+      zero-free-space: Zero free space in a filesystem.
+
+ Internals
+
+     - The debian/ subdirectory has been removed.  We recommend you use
+       the official Debian packages made by Hilko Bengen.
+       http://people.debian.org/~bengen/libguestfs/
+       http://packages.debian.org/search?keywords=libguestfs
+    
+     - O_CLOEXEC / SOCK_CLOEXEC is now used for almost all file
+       descriptors that the library opens.
+    
+     - posix_fadvise is called when sequentially reading or writing large
+       files.
+    
+     - close all file descriptors and remove all signal handlers in the
+       recovery process
+    
+     - multiple gcc warnings and Coverity bugs have been fixed;  many
+       strict-overflow bugs have also been fixed
+    
+     - use ./configure --enable-valgrind-daemon to use valgrind on the
+       daemon;  many errors have been fixed
+    
+     - use ./configure --with-qemu-options to pass extra options to qemu
+    
+     - the daemon now has a growable strings buffer type (DECLARE_STRINGSBUF)
+    
+     - the <guestfs.h> header file works with C++ and we have a regression
+       test for this
+    
+     - multiple APIs which should only be called in the CONFIG state now
+       give an error if they are not
+    
+     - .gitignore fixed to use absolute paths
+    
+     - gobject bindings have been expanded, including mapping libguestfs
+       events to gobject signals (thanks Matt Booth)
+    
+     - gobject documentation is generated properly (thanks Matt Booth)
+    
+     - gobject header files now live in a subdirectory
+    
+     - CompareWithString test in the generator now works
+    
+     - FUInt32, FUInt64 struct field types now use the correct XDR type
+    
+     - OCaml tests are now run on bytecode and native code.
+    
+     - java -Xlint:all is used, and all warnings have been fixed
+    
+     - bmptopng, wrestool (etc) missing or failure no longer prints
+       warning messages
+    
+     - ruby: Use RbConfig instead of Config.
+    
+     - PYTHONPATH is set by the ./run script.
+    
+     - appliance building is now thread-safe.
+    
+     - appliance now uses 'ip' instead of 'ifconfig' and 'netstat'
+       commands
+    
+     - several fixes to make parallel builds work properly
+    
+     - guestfish --listen now cleans up properly
+    
+     - the BUSY state has been removed
+    
+     - gettextize has been removed, replaced by a simple Makefile.am
+    
+     - gettext support now covers virt-resize, virt-sparsify and virt-sysprep
+    
+     - better support for the arm architecture
+
+ Bugs fixed
+
+     - 822490 virt-ls error: "libguestfs: error: checksum: path: parameter cannot be NULL"
+     - 816839 data overflow error when debug progress -1
+     - 816098 virt-make-fs fails to make a btrfs filesystem because it doesn't allocate enough space
+     - 811872 inspection fails on ubuntu 10.04 guest with encrypted swap
+     - 811650 guestfs_last_error not set when qemu fails early during launch
+     - 811649 libguestfs cannot open disk images which are symlinks to files that contain ':' (colon) character
+     - 811117 [RFE][virt-sysprep] net-hwaddr not removed from "ifcfg-*" files on rhel
+     - 811112 [RFE][virt-sysprep] hostname can not be changed on rhel system
+     - 809361 inspection doesn't recognize Fedora 18 (grub2 + GPT)
+     - 807905 mkfs blocksize option breaks when creating btrfs
+     - 805070 virt-filesystems should show 'parents' of LV and RAID devices
+     - 804464 libguestfs cannot be built when LINGUAS is different then ja or uk
+     - 803664 libguestfs inspection fails on Windows XP: libguestfs: error: hivex: could not locate HKLM\SYSTEM\MountedDevices
+     - 803533 guestfish: write error
+     - 802389 event handlers for 'close' event doesn't work in remote mode
+     - 802109 libguestfs uses putc on stderr, results in many individual 1 byte writes of debug messages
+     - 801640 [RFE] the error reported by resize2fs-M need to be more clear
+     - 801298 Possible null dereference and resource leaks
+     - 801273 Document for set-pgroup need to be updated
+     - 798196 virt-resize confuses format and output_format variables; using --output-format sets the input format
+     - 797986 virt-resize on Windows XP in sysprep state causes "UNMOUNTABLE_BOOT_VOLUME" BSOD
+     - 796520 [RFE] Prevent user from running some appliance configure commands after appliance boot up
+     - 790721 multiprovider build error: RuntimeError: link: /tmp/.guestfs-0/kernel /tmp/.guestfs-0/kernel.10139: File exists
+     - 789960 guestfsd crash when try to mount non-exist disk
+     - 789504 virt-df (other tools?) should not give up if a guest disk is missing
+     - 788641 virt-edit doesn't preserve file permissions
+     - 786215 libguestfs inspection does not recognize FreeDOS operating system
+     - 786188 libguestfs inspection does not recognize FreeDOS install CD
+     - 785668 aug-defnode: daemon crash
+     - 784647 Libguestfs uses deprecated net-tools
+     - 769304 virt-resize on RHEL 6 kernel fails to re-read the partition table
+     - 755729 Error message for resize2fs-M needs tweaking
+     - 701814 virt-win-reg fails on a libvirt guest that has no defined disk format: "format parameter is empty or contains disallowed characters"
+     - 679737 libguestfs: improve error message when zerofree is not available in the appliance
+     - 635971 glob mkfs ext2 /dev/vd[b-t]1 does not expand
+
+RELEASE NOTES FOR LIBGUESTFS 1.16
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.14.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+  libguestfs
+
+       - allow XFS filesystems to be created over an existing filesystem
+         (Wanlong Gao)
+    
+       - the (unspecified) default alignment for part-disk has been
+         changed to 64K for better support of high-end network-attached
+         storage
+    
+       - new guestfs-testing(1) man page
+    
+       - list-filesystems returns MD devices containing filesystems
+         (Matthew Booth)
+    
+       - support for GCC >= 4.7 (Jim Meyering)
+    
+       - check user does not add the same drive twice (Wanlong Gao).
+
+  language bindings
+
+       - Experimental GObject bindings, with support for GObject
+         Introspection.  You can now use libguestfs from Javascript.
+         Please note these are not stable and final in this release.
+         (Matthew Booth).
+    
+       - support for Ruby >= 1.9
+    
+       - Ruby bindings can be disabled individually (Hilko Bengen)
+    
+       - support for Python 2.6, 3.x (Richard Jones, Hilko Bengen)
+    
+       - support for PHP >= 5.4
+    
+       - new %guestfs_introspection hash is available in Perl bindings so
+         you can query which optional arguments are available
+
+  inspection
+
+       - guests with MD devices can be inspected (Matthew Booth)
+    
+       - support for GNU/Hurd guests
+
+  guestfish
+
+       - libguestfs events (such as progress bar events and log messages) can
+         be trapped and processed by user-defined shell scripts.
+    
+       - MD devices are tab-completed (Matthew Booth)
+
+  virt tools
+
+       - New tool virt-format for erasing and making blank disks
+    
+       - virt-sparsify new --compress and -o options to allow for compressed
+         and different format output
+    
+       - virt-sparsify can now detect and sparsify .vdi files
+    
+       - virt-sysprep no longer requires xmlstarlet; a new virt-inspector --xpath
+         option has been added to replace this functionality
+    
+       - virt-rescue has a new --suggest option which suggests mount commands
+         for the guest
+    
+       - virt-resize no longer requires OCaml pcre library
+
+  libguestfs live
+
+       - daemon will no longer try to edit your live /etc/lvm configuration
+    
+       - fix a potential security problem with predictable /tmp names (Steve Kemp)
+
+ Security
+
+      CVE-2011-4127, RHBZ#757071
+      Mitigate possible privilege escalation via SG_IO ioctl
+      For more information, see: https://github.com/libguestfs/libguestfs/commit/9a5f784d511a8f00a8386f316eab41fe660430db
+
+ New APIs
+
+      blkid: print all attributes of a device known to blkid (Wanlong Gao)
+      e2fsck: access to more features of e2fsck (Wanlong Gao)
+      list-md-devices: list of Linux MD devices (Matthew Booth)
+      md-create: create an MD device
+      md-detail: returns metadata for an MD device (Matthew Booth)
+      md-stop: stop an MD device (Wanlong Gao)
+      tune2fs: allow ext2/3/4 filesystems to be tuned
+
+ Internals
+
+      Git hosting has moved to http://github.com/libguestfs
+    
+      The various test directories have been rearranged logically, and now
+      all appear under 'tests/'.
+    
+      There is a 'make extra-tests' rule which runs ordinary tests and
+      additional tests, using valgrind to check for memory problems.
+    
+      Multiple memory leaks and other problems found by valgrind and fixed.
+    
+      Support for optional arguments in the generator has been rewritten
+      to provide more features and safety (Matthew Booth).
+    
+      With gcc -fvisibility=hidden is used for internal symbols, avoiding
+      call indirection via the PLT.
+    
+      RHashtable functions can be tested in the generator.
+    
+      ADD_ARG macro in daemon allows arg lists to be constructed without
+      risk of stack smashing.
+    
+      Fix generation of OCaml functions that have more than 10 arguments.
+    
+      psmisc has been added to the appliance, allowing use of 'fuser',
+      'killall' and 'pstree' for debugging.
+    
+      bindtests now cover RBufferOut and optional arguments (Matthew Booth).
+
+ Bugs fixed
+
+     - 769680 temporary directories created during appliance builds are not cleaned up on error
+     - 761460 guestfs_utimens hangs on named pipes
+     - 761451 guestfs_utimens cannot set times on a directory
+     - 760775 "guestfish: multi-boot operating systems are not supported by the -i option" should be more explanatory
+     - 760669 guestfish copy-in and <! (inline execution) don't mix well: pclose: No child processes
+     - 760000 libguestfs fails to compile with Ruby >= 1.9
+     - 755729 Error message for resize2fs-M needs tweaking
+     - 750889 Python code incompatible with Python v3.
+     - 596761 Ctrl-\ causes guestfish to abort
+
+RELEASE NOTES FOR LIBGUESTFS 1.14
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.12.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+      Erlang bindings.
+    
+      virt-alignment-scan is a new tool to check the alignment of
+      partitions within virtual machines or disk images.
+    
+      virt-sparsify is a new tool to make virtual machine disk images
+      sparse.
+    
+      virt-sysprep is a new tool to make cloning guests from a template
+      simpler.
+
+  guestfish
+
+       - New commands setenv, unsetenv, to set environment variables.
+    
+       - The input file and line number is printed in error messages.
+    
+       - guestfish progress bars are now a "mini-library" used by other
+         tools too.
+
+  guestmount
+
+       - the --live option (for access to live VMs) now works.
+
+  virt-cat
+
+       - virt-cat can now handle Windows paths and drive letters (RHBZ#693359).
+
+  virt-filesystems
+
+       - the MBR partition type byte is displayed in --long output.
+
+  virt-make-fs
+
+       - virt-make-fs now sets the MBR partition type byte correctly,
+         improving compatibility with Windows (RHBZ#746295).
+
+  virt-resize
+
+       - virt-resize can now work with guests using extended and logical
+         partitions, in particular Ubuntu guests.
+    
+       - virt-resize can now align the first partition of Windows guests,
+         improving performance.  The new virt-resize --align-first option
+         controls this behaviour.
+    
+       - The virt-resize --machine-readable flag makes it possible to use
+         virt-resize from other programs.
+    
+       - Partitions are now aligned to 128 sectors (usually 64K) by
+         default.  This improves efficiency on high-end storage.  The new
+         virt-resize --alignment option allows the alignment to be
+         adjusted.
+
+  virt-win-reg
+
+       - The syntax for deleting registry keys and values is documented
+         in the man page (RHBZ#737944).
+
+  library
+
+       - non-printing characters are escaped correctly in debug output.
+    
+       - GUESTFS_EVENT_ENTER is a new event type generated whenever a
+         libguestfs function is called.
+    
+       - the library contains systemtap/DTrace probes.
+    
+       - the library can now be compiled without hivex (RHBZ#723474).
+
+  inspection
+
+       - Improve detection of Windows disks.
+    
+       - Adds support for:
+             ttylinux - a minimal Linux
+             Mageia (thanks Michael Scherer)
+             OpenSUSE and zypper (thanks Michael Scherer, Vincent Untz)
+             Ubuntu logos (thanks Michael Scherer)
+             NetBSD and pkgsrc (thanks Michael Scherer)
+    
+       - Handle some guest types that use /dev/root in /etc/fstab.
+    
+       - Fix handling of guests with > 26 disks (thanks Matthew Booth)
+    
+       - Add support for guests with HP Smart Array disks (thanks Matthew Booth)
+
+  febootstrap
+
+       - FEBOOTSTRAP_KERNEL, FEBOOTSTRAP_MODULES environment variables can
+         be set in order to choose which kernel to use for the appliance.
+
+  misc
+
+       - ArchLinux support now working with Linux 3.0 (thanks Erik Nolte)
+    
+       - libvirt disks marked <readonly/> are now added readonly when
+         using the virt-tools '-d' option.
+
+ Security
+
+      (no security problems were found or fixed in this release)
+
+ New APIs
+
+      compress-out, compress-device-out, copy-device-to-device,
+      copy-device-to-file, copy-file-to-device, copy-file-to-file,
+      get-smp, part-to-partnum, set-smp.
+    
+      The mount API no longer implicitly adds -o sync,noatime options.
+    
+      add-domain has a new 'readonlydisk' optional parameter to control
+      how <readonly/> disks are handled.
+
+ Internals
+
+     - Coverity was run on the source and more bugs were identified and
+       fixed.
+    
+     - PCRE library is now required to build libguestfs.
+    
+     - APIC is now the default for the appliance.  You can also enable
+       SMP support in the appliance.
+    
+     - OCaml bindings now correctly acquire GC lock during callbacks.
+    
+     - Out of tree builds should now work correctly (thanks Hilko Bengen).
+    
+     - ./configure --with-extra="..." can be used by packagers to set
+       the extra version string.
+    
+     - zero, zero-device APIs: if the blocks already contain zeroes,
+       don't write zeroes, so that we don't unnecessarily make the
+       underlying storage non-sparse.
+    
+     - is-zero, is-zero-device APIs: optimize these so zero detection is
+       faster.
+
+ Bugs fixed
+
+     - 748266 libguestfs should detect versions of qemu which require -machine pc option
+     - 747290 libguestfs ignores <readonly/> in libvirt XML
+     - 747287 Misleading error message when permission denied opening a disk image
+     - 746295 virt-make-fs doesn't set partition ID
+     - 744795 guestmount --live is not usable
+     - 737944 virt-win-reg hyphen (delete key) syntax may be wrong, and is not documented
+     - 733297 ruby event handlers fail with "exception in callback: wrong argument type Proc (expected Data)"
+     - 731744 libguestfs should escape special/non-printing characters in debug output
+     - 729887 appliance crashes running aug_init with flags=4
+     - 729075 libguestfs confuses Hp_recovery partition with Windows root filesystem
+     - 727178 error: luks_open: cryptsetup: error while loading shared libraries: libfipscheck.so.1: cannot open shared object file: No such file or directory
+     - 726739 libguestfs: error: aug_get: no matching node, trying to find hostname
+     - 723474 If hivex and/or pcre not installed, libguestfs fails to compile
+     - 693359 virt-cat and virt-edit don't handle case sensitive NTFS paths properly
+     - 678231 virt-inspector reports unknown filesystem UUID
+     - 671082 libguestfs does not work with kernel-rt
+     - 666578 libguestfs: unknown filesystem label SWAP-sda2
+     - 642821 virt-resize falls over on a disk image with a logical swap partition
+
+RELEASE NOTES FOR LIBGUESTFS 1.12
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.10.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+  guestfish
+
+       - guestfish strings can use escapes,
+         eg. ><fs> write /foo "line 1\nline 2\n"
+    
+       - guestfish write-append command can be used to append to files.
+    
+       - Long-running file uploads and downloads can be cancelled through the
+         API or by hitting ^C in guestfish.
+    
+       - New guestfish "display" command for displaying graphical files
+         inside guests.
+    
+       - In guestfish, tab completion now works on /dev/mapper devices.
+
+  virt-inspector
+
+       - Inspection API can get an icon or logo for certain guests.
+    
+       - virt-inspector includes the logo and hostname for certain guests.
+    
+       - virt-inspector can now get the version and release numbers for RPM
+         packages.
+    
+       - CentOS and Scientific Linux are now treated as separate distros by
+         the inspection API.
+
+  virt-resize
+
+       - virt-resize can now handle btrfs.
+    
+       - New virt-resize --ntfsresize-force option allows Windows VMs to be
+         resized multiple times.
+
+  other virt tools
+
+       - guestfish, guestmount, virt-cat, virt-df, virt-edit, virt-filesystems,
+         virt-inspector, virt-ls and virt-rescue now allow you to use
+         "-d UUID" option to specify a guest by UUID.  This makes them more
+         robust to use from other programs.
+    
+       - virt-ls -lR option allows complex file iteration and guest analysis.
+    
+       - virt-win-reg supports HKEY_USERS\<SID> and HKEY_USERS\<username>.
+    
+       - virt-win-reg new option --unsafe-printable-strings allows printable
+         strings to be displayed in the output (unsafely: read the documentation
+         before using).
+    
+       - virt-edit has been rewritten in C.
+
+  API and language bindings
+
+       - Java is now completely supported.
+         See http://libguestfs.org/guestfs-java.3.html
+    
+       - JRuby is supported via the Java bindings.
+    
+       - guestfs_close now appears in trace messages.
+    
+       - Python binding adds explicit g.close() method.
+    
+       - Python programs can now use the new event API.
+    
+       - Python GIL is released during libguestfs calls, allowing multithreaded
+         Python programs to work properly.
+    
+       - 9pfs (Plan 9 filesystems exported from the host) are now supported.
+    
+       - Add -DGUESTFS_WARN_DEPRECATED=1 to warn about use of deprecated API
+         functions in C programs.
+    
+       - New manual page guestfs-recipes(1) with recipes.
+    
+       - mkfs-opts can now set inode size and sector size on created filesystems
+         (thanks Nikita Menkovich).
+    
+       - guestfs_last_errno is now accessible from OCaml (as g#last_errno ()).
+
+ Security
+
+     - optargs_bitmask is checked even for calls that have no optional
+       arguments.  This closes a possible exploit in the daemon from
+       untrusted callers.
+
+ New APIs
+
+      btrfs-filesystem-resize, get-pgroup, inspect-get-icon, is-zero,
+      is-zero-device, list-9p, list-dm-devices, mount-9p, ntfsresize-opts,
+      set-pgroup, write-append
+
+ Internals
+
+     - Coverity (a static analysis tool) was run across the codebase and
+       many fixes were made.
+    
+     - Generator can handle functions that return RBufferOut and have
+       optional arguments.
+    
+     - Compatible with Perl 5.14.
+    
+     - Compatible with gcc 4.6.
+    
+     - Perform safety checks on QEMU.
+    
+     - C API tests can now fully test calls that have optional arguments.
+    
+     - Use ./configure --enable-install-daemon to install /usr/sbin/guestfsd.
+    
+     - po-docs directory now covers all man pages.
+    
+     - stderr from qemu process is now captured by the event subsystem.
+
+ Bugs fixed
+
+     - 602997 part-get-bootable gives wrong result with an unordered part layout
+     - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
+     - 700369 qemu-system-x86_64 says 'KVM not supported for this target'
+     - 705200 guestmount attempt results in access denied
+     - 714981 'list-filesystems' does not know about virtio 9p filesystems or detect existing mounts
+     - 717786 libguestfs python bindings should have an explicit close call
+     - 721275 virt-resize in F16 should support btrfs
+
+Release notes for libguestfs 1.10.0
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.8.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+     - libguestfs and tools can be used against live virtual machines.
+       See the 'guestfish --live' and 'guestmount --live' options, and (for
+       the low-level interface) the new APIs set-attach-method and
+       get-attach-method.
+    
+     - New virt tools:
+       virt-copy-in, virt-copy-out, virt-tar-in, virt-tar-out.
+    
+     - libguestfs can get the drive letter mappings for Windows guests.
+    
+     - virt-inspector displays drive letter mappings for Windows guests.
+    
+     - Drive letters can now be used in virt-edit and guestfish programs
+       when operating on Windows guests.
+    
+     - virt-resize now works on 32 bit hosts.
+    
+     - You can now inspect the install disks and live CDs of many different
+       operating systems.
+    
+     - guestfish <! cmd which executes a shell cmd and inlines the result.
+    
+     - guestfish, guestmount, virt-rescue now all support --ro and --rw
+       options, and the default for this can be chosen via a configuration
+       file (/etc/libguestfs-tools.conf).
+    
+     - New event API allows more than one callback to be registered for
+       each event, makes it possible to call the API from other languages,
+       and allows nearly all log, debug and trace messages to be rerouted
+       from stderr.
+    
+     - Greater FHS compliance for temporary files, including using /var/tmp
+       for large cached files that should survive reboot (instead of /tmp).
+    
+     - guestfish, guestmount -m option allows mount options to be passed
+       through to the underlying filesystem.
+    
+     - mkfs-opts allows filesystem features to be specified.
+    
+     - More intelligent handling of mountpoints, allowing mkmountpoint, mount
+       and umount-all commands to work together properly.
+    
+     - Trace messages are prefixed with a distinct string, allowing them to
+       be easily 'grepped' out from debug output.
+    
+     - guestfs_launch (guestfish 'run' command) now produces progress
+       messages (a guestfish progress bar) if it takes longer than 5
+       seconds to run.
+    
+     - Several long-running commands where we are unable to estimate time
+       to completion generate "pulse mode" progress events.  Progress bar
+       in guestfish has been updated to display these.
+    
+     - Publish new example code in: C, Perl, Python, OCaml, Ruby.
+    
+     - New virt-dhcp-address example program.
+    
+     - The Java and Ruby bindings have been improved greatly.
+    
+     - Perl includes a way to get the errno of the last error.
+    
+     - Python bindings now compatible with rpyc (thanks Erez Shinan).
+    
+     - Transifex is now being used to manage translations.
+       http://www.transifex.net/projects/p/libguestfs/
+    
+     - Inspection now supports Red Hat Desktop, Slackware distributions.
+    
+     - Inspection no longer fails for Windows guests that have two or
+       more disks.
+    
+     - Inspection can now tell the difference between Windows 2008 Server
+       and Windows 7.
+    
+     - Inspection can detect 32 bit applications installed in 64 bit
+       Windows, running on the WOW64 emulator.
+    
+     - A series of protocol fixes has fixed the old bug RHBZ#576879
+       which used to cause errors during the upload command to lose
+       protocol synchronization.
+    
+     - New logo!
+
+ Security
+
+      [none]
+
+ New APIs
+
+      first-private, get-attach-method, inspect-get-drive-mappings,
+      inspect-get-product-variant,
+      inspect-get-windows-current-control-set, next-private, resize2fs-M,
+      set-attach-method.
+
+ Internals
+
+     - The 'HACKING' file is obsolete.  The contents have been moved into
+       a section of the guestfs(3) manual page.
+    
+     - libguestfs-test-tool simplified.  It no longer needs the static
+       binary or tries to construct an ISO.
+    
+     - rpcgen-generated files are compiled with -fno-strict-aliasing
+       which should be safer (thanks Matt Booth).
+    
+     - virt-resize was rewritten in OCaml.
+    
+     - guestfish and other tools tested with valgrind; some memory leaks
+       were fixed.
+
+ Bugs fixed
+
+     - 502533 Updated Polish translation of libguestfs
+     - 576879 libguestfs protocol loses synchronization if you 'upload' before mounting disks
+     - 599503 document that mkmountpoint and umount-all cannot be mixed
+     - 617440 guestfish: fails to tilde expand '~' when the $HOME env is unset
+     - 664558 RFE: Allow to set log callback in Ruby bindings
+     - 665358 Punjabi Translation Completed (pa_IN)
+     - 666577 libguestfs: unknown filesystem /dev/fd0
+     - 667610 Multiple bugs, memory leaks in libguestfs ruby bindings
+     - 668112 virt-filesystems command fails on guest with corrupt filesystem label
+     - 668574 guestfish -i is trying to mount all mounts from /etc/fstab and fails with an error when device doesn't exists
+     - 673479 Add a grep-friendly string to LIBGUESTFS_TRACE output
+     - 674130 Inspection code fails for Windows guest with two disks
+     - 682756 libguestfs trace segfaults when list-filesystems returns error
+     - 682979 libguestfs incorrectly detects Red Hat desktop as 'redhat-based' instead of 'redhat'
+     - 690819 mkfs fails creating a filesytem on a disk device when using a disk with 'ide' interface
+     - 691389 Extended attributes don't work over guestmount (FUSE)
+     - 691724 virt-inspector reports unknown filesystem /dev/vda1
+     - 692545 inspect-list-applications fails to detect 32 bit apps installed under WOW64 emulator on 64 bit Windows
+     - 693324 sfdisk's python interface only accepts lists of type 'list' for the lines parameter
+
+Release notes for libguestfs 1.8
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.6.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+     - Support and packages for Debian and Ubuntu.
+    
+     - Daily builds from git repository on Debian and Ubuntu to reduce risk
+       of regressions.
+    
+     - Port to ArchLinux 'pacman' (thanks Thomas S Hatch).
+    
+     - The following tools have been rewritten in C (originally in Perl):
+    
+         . virt-cat
+         . virt-df
+         . virt-inspector
+         . virt-ls
+         . virt-rescue
+    
+     - Some C tools support encrypted guests automatically.  This is
+       supported in: guestfish, guestmount, virt-cat, virt-inspector,
+       virt-ls.
+    
+     - New tool virt-filesystems (in C) which is a replacement for
+       virt-list-filesystems and virt-list-partitions, and has a superset
+       of the functionality of those tools.
+    
+     - guestfish, guestmount and the C tools use unified command line option
+       parsing, so they support many common options such as '-a disk.img',
+       '-d libvirt-domain', '-x', '-v'.  The old command line option
+       parsing is preserved for compatibility in scripts etc.
+    
+     - guestfish no longer has any dependencies on Perl
+    
+     - New man pages containing programming examples: guestfs-examples(3) (C/C++),
+       guestfs-ocaml(3), guestfs-python(3), guestfs-ruby(3).
+    
+     - Trace mode prints return values from API functions.
+    
+     - virt-inspector can list applications installed in Windows guests, along
+       with a great deal of information about those applications.
+    
+     - Add support for inspecting: Linux Mint, Mandriva, FreeBSD.
+    
+     - guestfish --rw option (with no effect currently) to make potentially
+       dangerous write access explicit.
+    
+     - guestfish --listen --csh for compatibility with csh, tcsh (thanks
+       Eric Blake).
+    
+     - The first upstream version that introduced each API function is now
+       documented in guestfs(3).
+    
+     - guestfs_last_errno allows you to retrieve the errno from the
+       daemon, correctly translated to the local operating system.
+    
+     - Functions can now have optional parameters.
+    
+     - Progress bars and progress notifications can now happen for upload
+       commands.
+    
+     - Appliance builder more careful about not leaving temporary files
+       around in /tmp.
+    
+     - getfattr/setfattr commands added to virt-rescue.
+    
+     - ROADMAP file covers roadmap and goals for future releases.
+
+ Security
+
+     - New SECURITY section in guestfs(3) API documentation.
+    
+     - virt-inspector no longer runs any guest commands.
+    
+     - Inspection code is more careful about avoiding very large files
+       from guests which might previously have caused a denial of service.
+    
+     - FUSE calls into guestmount are now traced when using guestmount -x.
+
+ New APIs
+
+     - add-domain
+     - add-drive-opts
+     - getxattr
+     - inspect-get-hostname
+     - inspect-get-package-format
+     - inspect-get-package-management
+     - inspect-get-roots
+     - inspect-list-applications
+     - lgetxattr
+     - mkfs-opts
+
+ Internals
+
+     - C programs now only link precisely with the libraries that they use.
+    
+     - PCRE, libmagic, hivex and libvirt libraries are now completely
+       optional for building.
+    
+     - Multiple memory leaks and file descriptor leaks fixed.
+    
+     - Add a POD wrapper to unify generation of man pages and HTML files
+       across all programs.
+    
+     - Source includes phony images of Fedora, Debian, Ubuntu and
+       Windows guests.
+    
+     - Ruby bindings have 'make install' rule.
+    
+     - <guestfs.h> is now a single file.
+    
+     - <guestfs.h> does not require XDR headers.
+    
+     - ocaml xml-light library is no longer required to build (thanks
+       Maxim Koltsov).
+    
+     - ./configure --disable-[...] for each language binding (thanks
+       Maxim Koltsov).
+    
+     - Old ocaml-viewer program removed (use guestfs-browser instead).
+    
+     - New C API test type 'InitScratchFS' makes the tests run a little
+       more quickly.
+    
+     - Excluded packages in the appliance are now listed in a separate
+       file appliance/excludelist.in, and can be customized per-distro.
+
+ Bugs fixed
+
+     - 663407 readlink and readlinklist returns /sysroot/ in some paths
+     - 661280 virt-rescue: panic when shutting down: "/sbin/reboot: No such file or directory"
+     - 657499 checksum: wrong check sum type causes umount to fail
+     - 655554 Whole disk paths are not made canonical by virt-inspector
+     - 654638 openssl updated to 1.0.0b libguestfs depends on exact file names
+     - 652796 ruby bindings not installed by 'make install', hence omitted from the binary distribution
+
+RELEASE NOTES FOR LIBGUESTFS 1.6
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.4.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+     - Use a new method for creating and caching the appliance.  This
+       greatly improves the performance of libguestfs, often by a factor
+       of x 4 to x 5.
+    
+     - Support for guest inspection (like virt-inspector) via the ordinary
+       API and all language bindings.  'guestfish -i' option is as a side-
+       effect much quicker.
+    
+     - virt-inspector and core inspection API can now detect guests running:
+       Fedora, Debian, Ubuntu, Windows, Red Hat Enterprise Linux, CentOS,
+       Scientific Linux, Gentoo, Pardus, Arch Linux, MeeGo.
+    
+     - Support for LUKS whole-disk encryption in guests.
+    
+     - PHP bindings.
+    
+     - Progress messages (and progress bars in guestfish and virt-resize)
+       for certain long-running operations.
+    
+     - virt-df is now much more efficient.  Use '--one-per-guest' to restore
+       the old per-guest isolation behaviour.
+    
+     - guestfish 'copy-in' and 'copy-out' commands for copying files and
+       directories recursively in and out of the guest.
+    
+     - guestfish 'hexedit' command for doing binary edits to devices and
+       files.
+    
+     - Change guestfish -i syntax to allow commands to be specified on the
+       command line (retaining backwards compatibility).
+    
+     - guestfish '-d <domain>' for adding disks from libvirt domains.
+    
+     - guestfish '-N' option supports several new prepared disk image types:
+             lvfs : disk with LV formatted with filesystem
+               lv : disk with LV
+         bootroot : boot+root
+       bootrootlv : boot and root on LV
+    
+     - guestfish 'more' and 'edit' commands now work with arbitrary files.
+    
+     - guestfish '--echo-keys' option allows you to echo keys/passphrases
+       while typing them.
+    
+     - guestmount now supports -a / -d / -i options, like guestfish.
+    
+     - Use virtio-serial for communications with the appliance.  This
+       also has a major performance benefit.
+    
+     - virt-edit '-b' option to create a backup of edited files.
+    
+     - virt-edit '-e' option for non-interactive edits to files.
+    
+     - Ability to capture core dumps from the appliance (thanks Matthew Booth).
+    
+     - virt-rescue now shuts down cleanly (thanks Matthew Booth).
+    
+     - virt-rescue now has a --network option to enable network access.
+    
+     - virt-resize can now handle guests which use GPT partition table format.
+    
+     - virt-resize has better support for shrinking guests.
+    
+     - virt-resize supports qcow2-format guests.
+    
+     - $TMPDIR can be used to override almost all temporary directory usage.
+    
+     - OCaml users can use an alternate OO-style of coding, eg. g#launch ()
+    
+     - The API supports calls which take optional parameters, eg.
+         $g->add_drive_opts ("disk", readonly => 1);
+    
+     - Trace output now escapes and shortens large strings (thanks
+       Matthew Booth).
+    
+     - Autosync is now on by default, resulting in more reliable behaviour
+       when the handle is closed.
+    
+     - virt-df --uuid option allows you to follow a domain across migration
+       and renaming.
+    
+     - Translations of manual pages.
+
+ Security
+
+     - CVE-2010-3851 libguestfs: missing disk format specifier when adding a disk
+       https://www.redhat.com/archives/libguestfs/2010-October/msg00036.html
+       This is comprehensively fixed in this release, and the fix will be
+       backported to the other stable branches after more testing.
+    
+     - virt-inspector no longer relies on untrusted guest code to list
+       applications in some guests.
+
+ New APIs
+
+      download-offset, file-architecture, findfs-label, findfs-uuid,
+      inspect-os, inspect-get-arch, inspect-get-distro,
+      inspect-get-filesystems, inspect-get-major-version,
+      inspect-get-minor-version, inspect-get-mountpoints,
+      inspect-get-product-name, inspect-get-type, is-blockdev, is-chardev,
+      is-fifo, is-lv, is-socket, is-symlink, list-filesystems, luks-add-key,
+      luks-close, luks-format, luks-format-cipher, luks-kill-slot,
+      luks-open, luks-open-ro, lvm-clear-filter, lvm-canonical-lv-name,
+      lvm-set-filter, part-to-dev, pread-device, pwrite-device,
+      upload-offset
+
+ Internals
+
+     - Use size_t for loop iterators.
+     - Refactor the library code into separate files.
+     - Refactor the generator code into separate files.
+     - Generate guestfish commands.
+     - guestfish & guestmount options processing is unified.
+     - Protocol changes:
+         error message size increased to 64K
+         send errno to library
+     - Add 'make bindist' to make a binary distribution.
+     - Cleaner behaviour under valgrind.
+     - More testing of the guestfish command line options and libvirt
+       integration.
+     - The Perl inspection code is no longer used by any of the tools.
+
+ Bugs fixed
+
+     - 646822 libguestfs trace mode should not print long binary strings
+     - 646821 virt-df should have --uuid option
+     - 646432 /dev/mapper paths should not be returned from guestfs_mountpoints
+     - 643624 libguestfs tools documentation should describe how to quote guest domain names from shell
+     - 642934 No way to specify disk format when adding a disk to libguestfs
+     - 642933 guestfs_list_filesystems should be used in all possible places
+     - 642932 guestmount options should match guestfish options
+     - 642930 virt-inspector (Sys::Guestfs::Lib) should use C inspection APIs
+     - 642929 C inspection code should ignore /dev/fd* in /etc/fstab
+     - 642826 virt-resize converts any other image format to raw without notifying user, instructions do not account for this
+     - 640961 Document that grub-install might be needed for old Linux guests after virt-resize
+     - 639986 virt-df --csv does not properly quote " in libvirt domain names
+     - 639405 Interrupted cached appliance creation leaves libguestfs unusable
+     - 638901 Appliance filename should not contain repository name
+     - 638899 /dev/mapper paths should not be returned from C inspection APIs
+     - 636918 Updates to Spanish translation
+     - 636061 [abrt] guestfish-1.2.11-1.fc12: malloc_consolidate: Process /usr/bin/guestfish was killed by signal 11 (SIGSEGV)
+     - 635969 glob echo mkfs ext2 /dev/vd[b-t]1 prints garbage
+     - 634246 guestfs_part_get_parttype returns "loop" when run against a partition, LV or filesystem
+     - 633766 virt-resize --shrink fails
+     - 633357 Updates to Spanish translation
+     - 633096 virt-resize calculates block device size incorrectly, doesn't work with qcow2 target
+     - 629593 Dutch translation added
+     - 627556 Updates to Spanish translations of libguestfs
+     - 626843 Updates to Spanish translations
+     - 619793 [RFE] Need a way to determine if a particular block device is a logical volume
+     - 618556 virt-rescue return none zero value when exit
+     - 617200 mount operation failed and hung on some images which running in read-only mode
+     - 610880 libguestfs should set broader read perms on tmpdir, so works in some situations when executed with umask 077
+     - 599503 document that mkmountpoint and umount-all cannot be mixed
+     - 571714 Running virt-df on disk image relabels it, so qemu can no longer write to it.
+     - 502533 Updated Polish translation of libguestfs
+
+RELEASE NOTES FOR LIBGUESTFS 1.4
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.2.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+     - guestfish lets you choose a prepared disk image, eg:
+         guestfish -N fs:ext4
+    
+     - Add write support to guestmount (FUSE) module.
+    
+     - virt-resize can now resize the content of partitions and logical
+       volumes in the guest, and we have better support for shrinking guests.
+    
+     - Bash tab-completion script for guestfish.
+    
+     - Add ZFS support to virt-rescue.
+    
+     - New tool 'virt-make-fs' for creating filesystems with content.
+    
+     - Allow suffixes on any guestfish number parameter, eg. "1M".
+    
+     - guestfish 'man' command opens the manual page.
+    
+     - guestfish supports a "heredoc" syntax for uploading files:
+         upload -<<_end_ /foo
+         content
+         _end_
+    
+     - Some guestfish commands now print their output in octal or hex
+       where appropriate (RHBZ#583242).
+    
+     - Allow dash prefix on guestfish command line.  This ignores any
+       error from the second command:                   (RHBZ#578407)
+         guestfish -- cmd1 : -cmd2 : cmd3
+    
+     - guestfish -h / help command now returns an error for non-existent
+       commands (RHBZ#597145).
+    
+     - New 'supported' command in guestfish to list optional groups of
+       commands which are supported by the daemon / configuration.
+    
+     - virt-inspector and guestfish -i now work for filenames which
+       contain spaces (RHBZ#507810).
+    
+     - Change the protocol to use link-local addresses, to avoid
+       conflicting with any address that the host might be using
+       (RHBZ#588763).
+    
+     - libguestfs now sets the correct time and timezone on filesystem
+       modifications.
+    
+     - Sort the domains into alphabetical order in virt-df.
+    
+     - Make mkfs-b command work for FAT and NTFS by mapping the blocksize
+       parameter to the cluster size (RHBZ#599464).
+    
+     - Add version numbers to Perl modules (RHBZ#521674).
+    
+     - Localization now works for all the libguestfs tools (RHBZ#559963).
+    
+     - Tools now support filesystem-on-image VMs (RHBZ#590167).
+    
+     - virt-list-partitions has a '-t' option to show the total size of disks.
+    
+     - Include extra Augeas lenses in the supermin appliance (Matthew Booth).
+    
+     - Add error and close callbacks.
+    
+     - Add explicit close method in the Perl API.
+    
+     - Multiple fixes for RHEL 5 compatibility.
+    
+     - Multiple fixes for Debian/Ubuntu compatibility.
+    
+     - Multiple revisions to improve the documentation.
+
+ Security
+
+     - Fix a potential DoS in virt-inspector and virt-v2v if a specially
+       crafted disk image contained a char device in place of one of the
+       configuration files that we read under /etc (RHBZ#582484).
+
+ New APIs
+
+     - aug-clear - clear Augeas path
+     - available-all-groups - return a list of all optional groups
+     - base64-in - upload base64-encoded data to file
+     - base64-out - download file and encode as base64
+     - checksum-device - compute checksums on the contents of a device
+     - checksums-out - compute checksums of multiple files in a directory
+     - debug-upload - upload a file to the appliance
+     - fallocate64 - preallocate a file in the guest filesystem
+     - fill-pattern - fill a file with a repeating pattern of bytes
+     - get-umask - get the current umask
+     - lvresize-free - expand an LV to fill free space
+     - ntfsresize - resize an NTFS filesystem
+     - ntfsresize-size - resize an NTFS filesystem (with size)
+     - part-del - delete a partition
+     - part-get-bootable - get the bootable flag of a partition
+     - part-get-mbr-id - get the MBR type byte of a partition
+     - part-set-mbr-id - set the MBR type byte of a partition
+     - pvresize-size - resize a physical volume (with size)
+     - pwrite - write to part of a file
+     - resize2fs-size - resize an ext2/3/4 filesystem (with size)
+     - txz-in - unpack compressed tarball to directory (RHBZ#580556)
+     - txz-out - pack directory into compressed tarball (RHBZ#580556)
+     - vfs-label - get the filesystem label
+     - vfs-uuid - get the filesystem UUID
+     - vgscan - rescan for LVM physical volumes, volume groups and logical volumes
+     - write - create a new file
+     - zero-device - write zeroes to an entire device
+
+ Internals
+
+     - Extend the generator to support testing optional features.
+     - Stricter checks on input parameters to many calls (RHBZ#501893 RHBZ#501894)
+     - Extend the protocol to support sending arbitrary 8 bit data buffers.
+     - Ship 'BUGS' file with releases.  This is a summary of the bugs in
+       the Red Hat Bugzilla database.
+     - Ship 'RELEASE-NOTES' file with releases, containing release notes.
+     - Unify supermin appliance building into one place, in febootstrap 2.7.
+     - Fix the protocol code to handle the case where both ends send cancel
+       messages at the same time.
+
+ Bugs fixed
+
+     - 612178 guestfish: using -m option in conjunction with --listen option causes appliance to die
+     - 610880 libguestfs should set broader read perms on tmpdir, so works in some situations when executed with umask 077
+     - 604691 OCaml bindings are not thread safe
+     - 603870 Updates to Spanish translation
+     - 602592 [RFE] expose guestfs_close in perl bindings
+     - 600977 virt-df -h --csv "Argument .. isn't numeric in printf"
+     - 599464 mkfs-b does not support vfat/ntfs
+     - 598807 add_cdrom does not work in RHEL 6
+     - 598309 part-list and several other cmd failed on libguestfs on RHEL5
+     - 597145 guestfish 'help' command should indicate error in exit status with an unknown command
+     - 597135 guestfish write-file cmd does not check "size" parameter
+     - 597118 A warning should be given in the help of mke2journal-L for the length of label
+     - 597112 get-e2uuid should use blkid instead of "tune2fs -l" to get filesystem UUID
+     - 596776 virt-inspector doesn't discover modprobe aliases on RHEL 3 guests
+     - 596763 Updates to Spanish translation
+     - 593292 Updates to Spanish translation
+     - 592883 can not edit files on  images mounted with guestmount cmd
+     - 592360 Updates to Spanish translation
+     - 591250 virt-tar prints "tar_in: tar subcommand failed on directory" if the archive is compressed or not in the right format
+     - 591155 virt-tar prints "tar_in: tar subcommand failed on directory" if a disk image is not writable
+     - 591142 virt-inspector should give an error for unrecognized disk images
+     - 590167 virt-inspector and other virt tools should be able to handle filesystem-on-image VMs
+     - 589039 guestfish read-file cmd will cause daemon hang when read large files
+     - 588851 guestfs_launch() returns -1, but guestfs_last_error() == NULL
+     - 588763 libguestfs should use non-public or link-local addresses for appliance network
+     - 588733 Updates to Spanish translation
+     - 588651 guestfish 'strings-e' cmd does not give proper error message or hint
+     - 587484 lvresize can't reduce size of a volumn
+     - 585961 Updates to Spanish translation
+     - 585223 ntfsresize should support shrinking filesystems
+     - 585222 pvresize should support shrinking PVs
+     - 585221 resize2fs should support shrinking filesystems
+     - 584038 Updates to Spanish translation
+     - 583554 [FEAT] mknod-mode command is needed to set mode explicitly
+     - 583242 [RFE] guestfish should print outputs in a suitable base (eg. octal for modes)
+     - 582993 guestfish eats words when tab completing case (in)sensitive paths
+     - 582953 Misleading help information about lvcreate command
+     - 582948 mknod command doesn't make block, character or FIFO devices
+     - 582929 mknod doesn't check for invalid mode
+     - 582901 guestfish chmod/umask commands do not check invalid mode value
+     - 582899 guestfish:sparse is missed from command autocomplete list
+     - 582891 [Feature Request] behavior and return value of guestfish umask cmd should be changed
+     - 582548 [mknod] umask shouldn't take effect when mode is set explicitly
+     - 582484 some guestfish sub commands can not handle special files properly
+     - 582252 Updates to Spanish translation
+     - 581501 Updates to Spanish translation
+     - 580650 virt-inspector warns "No grub default specified at /usr/lib/perl5/Sys/Guestfs/Lib.pm at [...]"
+     - 580556 request for libguestfs to support .txz tarballs
+     - 580246 tar-in command hangs if uploading more than available space
+     - 580016 aug-ls in guestfish does not take augeas variable as argument
+     - 579664 guestfish doesn't report error when there is not enough space for image allocation
+     - 579608 multiple commands in guestfish can not work for symbol links
+     - 579155 libguestfs hangs if qemu doesn't start (in null vmchannel mode)
+     - 578407 the prefix '-' in sub-command isn't handled by guestfish in remote control mode
+     - 576879 libguestfs protocol loses synchronization if you 'upload' before mounting disks
+     - 559963 libguestfs Perl programs do set locale, but still localization doesn't work
+     - 521674 Perl modules are unversioned, but should carry version numbers
+     - 516096 Race condition in test_swapon_label_0: /sbin/blockdev: BLKRRPART: Device or resource busy
+     - 507810 guestfish -i / virt-inspector cannot handle spaces in filenames
+     - 502533 Updated Polish translation of libguestfs
+     - 501894 Some String parameters should be OptString
+     - 501893 String parameters should be checked for != NULL
+     - 501889 write-file does not support strings containing ASCII NUL
+     - 484986 grub-install fails on virtio disk
+
+RELEASE NOTES FOR HISTORICAL VERSIONS OF LIBGUESTFS
+
+    Before 2010 libguestfs did not have official release notes or a
+    formalized version numbering system. However these are links to
+    historically significant versions.
+
+    2009-11-10 (1.0.78)
+
+      https://www.redhat.com/archives/libguestfs/2009-November/msg00095.htm
+      l
+
+    2009-09-13 (1.0.67)
+
+      https://www.redhat.com/archives/libguestfs/2009-August/msg00281.html
+
+    2009-07-23 (1.0.64)
+
+      https://www.redhat.com/archives/libguestfs/2009-July/msg00059.html
+
+    2009-07-14 (1.0.59)
+
+      https://www.redhat.com/archives/libguestfs/2009-July/msg00023.html
+
+    2009-04-01 (the initial announcement)
+
+      http://rwmj.wordpress.com/2009/04/01/libguestfs-access-and-modify-vir
+      tual-machine-disk-images/
+
+SEE ALSO
+
+    guestfs-examples(1), guestfs-faq(1), guestfs-performance(1),
+    guestfs-recipes(1), guestfs-testing(1), guestfs(3), guestfish(1),
+    http://libguestfs.org/
+
