@@ -125,8 +125,9 @@ usage (int status)
              "  --listen             Listen for remote commands\n"
              "  --live               Connect to a live virtual machine\n"
              "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
-             "  -n|--no-sync         Don't autosync\n"
+             "  --network            Enable network\n"
              "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+             "  -n|--no-sync         Don't autosync\n"
              "  --pipe-error         Pipe commands can detect write errors\n"
              "  --progress-bars      Enable progress bars even when not interactive\n"
              "  --no-progress-bars   Disable progress bars\n"
@@ -190,6 +191,7 @@ main (int argc, char *argv[])
     { "listen", 0, 0, 0 },
     { "live", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
+    { "network", 0, 0, 0 },
     { "new", 1, 0, 'N' },
     { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
@@ -286,6 +288,8 @@ main (int argc, char *argv[])
         live = 1;
       } else if (STREQ (long_options[option_index].name, "pipe-error")) {
         pipe_error = 1;
+      } else if (STREQ (long_options[option_index].name, "network")) {
+        guestfs_set_network (g, 1);
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
