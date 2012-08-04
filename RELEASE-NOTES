@@ -1,3 +1,157 @@
+Release notes for libguestfs 1.20.0
+-----------------------------------
+
+NOTES UPDATED TO COMMIT 47410e79995f9d8c5fb9739ca4609c78e13218ee.
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.18.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+New features
+
+  library:
+
+    - You can optionally use libvirt to launch the backend appliance
+      by setting either:
+      (a) setting LIBGUESTFS_ATTACH_METHOD=libvirt[:URI]
+      (b) ./configure --with-default-attach-method=libvirt[:URI]
+      (c) setting the attach-method through the API
+
+    - virtio-scsi is now used by default, if available.  This greatly
+      increases the number of drives that can be added to a single
+      libguestfs handle (up to 255).
+
+    - libguestfs can now handle > 25 disks, in all APIs, tools and tests
+
+  virt tools:
+
+    - guestfish touch 'win:c:\new_file' now works as expected
+
+    - 'rsync' and 'ssh' commands are now availble in virt-rescue
+
+    - virt-sparsify uses qcow2 v3 for increased efficiency
+
+    - virt-sysprep enhancements:
+       * generate new UUIDs for PVs and VGs
+       * remote the local machine ID (Wanlong Gao)
+       * remove ABRT data (Wanlong Gao)
+       * remove puppet keys and log files (Wanlong Gao)
+
+    - virt-make-fs can now create virtual floppy disks (VFDs)
+
+    - guestmount has a --pid-file option
+
+  language bindings:
+
+    - in Ruby, optional arguments hash is optional
+
+  ports:
+
+    - libguestfs without the appliance can be compiled on Mac OS X
+      (Masami HIRATA)
+
+    - RHEL 5 is now explicitly supported through the 'oldlinux' branch
+      in upstream git
+
+    - PowerPC 64 bit is now supported.  Also libguestfs has been
+      examined for endianness bugs and these have been fixed.
+
+Security
+
+  - the $HOME/.guestfish history file is now created with 0600
+    permissions (instead of 0644 before) so it is no longer world
+    readable
+
+  - CVE-2012-2690
+
+    Old versions of both virt-edit and the guestfish "edit" command
+    created a new file containing the changes but did not set the
+    permissions, etc of the new file to match the old one.  The result
+    of this was that if you edited a security sensitive file such as
+    "/etc/shadow" then it would be left world-readable after the edit.
+
+    This issue was assigned CVE-2012-2690, and is fixed in libguestfs ≥ 1.16.
+
+    For further information, see
+    https://bugzilla.redhat.com/show_bug.cgi?id=788642
+
+New APIs
+
+  canonical-device-name
+  device-index
+  filesystem-available
+  fstrim
+  max-disks
+  nr-devices
+  shutdown [backported to 1.16 and 1.18]
+  umount [added force and lazy optional arguments]
+  utsname
+  xfs-growfs
+  xfs-info
+
+Internals
+
+  - qemu >= 1.1.0 is required
+    febootstrap >= 3.19 is required
+
+  - Functions which previously had no optargs can now be converted
+    to ones with optargs, making extending the API much more
+    flexible.  Source and binary backwards compatibility is
+    preserved for users of the API.
+
+    APIs changed like this:
+      * grep and related *grep* functions
+      * add_drive / add_drive_opts
+      * mkfs / mkfs_opts
+      * ntfsresize / ntfsresize_opts
+      * umount
+
+  - The way that libguestfs APIs are represented in the generator
+    has changed to use an OCaml struct instead of a tuple.  This
+    makes it far more flexible.  For details see commit 39d1a7db.
+
+  - launch backends are now located in separate files
+    eg. src/launch-appliance.c, src/launch-libvirt.c
+
+  - POD (documentation) is now generated using a rewritten Perl
+    program instead of pod2* + shell scripts
+
+  - man pages now contain stable dates (Hilko Bengen)
+
+  - skipped tests now exit with code 77, so they appear as
+    'SKIP:' in make check output
+
+  - the parallel mount-local test has been rewritten in C (RHBZ#838081)
+
+  - Ruby 1.8.5 is now supported (though not recommended)
+
+  - the appliance backend now uses sgabios instead of vgabios
+    (Dan Berrange)
+
+  - the './run' script now sets enough environment variables that you
+    can run OCaml, Python, Ruby, Java, GJS programs
+
+  - 'run --test' flag for running tests with minimal output
+
+Bugs fixed
+
+[./bugs-in-changelog.sh 1.18.0..]
+
+ - 845522 guestfish "copy-out / localdir" command fails with "No such file or directory"
+ - 845488 Long filenames on NTFS cause tar-out, copy-out etc to fail with error "Cannot open: File name too long"
+ - 840572 virt-make-fs / tar-in should support vfat properly
+ - 840115 guestfish touch problem - case_sensitive_path API expects the file to exist
+ - 836710 Data loss when writing to qcow2-format disk files
+ - 824716 compress-device-out didn't support bzip2
+ - 824043 guestfish unrecognized mount option gives confusing error message
+ - 823887 Filenames containing Chinese characters can't be created on vfat filesystems
+ - 823885 virt-make-fs cannot create vfat filesystem containing filesystems with chinese characters
+ - 823883 virt-make-fs -t fat fails with an obscure error message
+ - 823821 Inspection fails when /etc/HOSTNAME is empty
+ - 627675 libguestfs inspector code cannot handle /dev/disk/by-id/* paths
+ - 602997 part-get-bootable gives wrong result with an unordered part layout
+
+
 Release notes for libguestfs 1.18.0
 -----------------------------------
 
