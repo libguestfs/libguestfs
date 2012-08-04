@@ -67,6 +67,7 @@ daemon/pingdaemon.c
 daemon/proto.c
 daemon/readdir.c
 daemon/realpath.c
+daemon/rsync.c
 daemon/scrub.c
 daemon/selinux.c
 daemon/sfdisk.c
@@ -157,6 +158,9 @@ gobject/src/optargs-mount_local.c
 gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c
 gobject/src/optargs-ntfsresize.c
+gobject/src/optargs-rsync.c
+gobject/src/optargs-rsync_in.c
+gobject/src/optargs-rsync_out.c
 gobject/src/optargs-set_e2attrs.c
 gobject/src/optargs-tune2fs.c
 gobject/src/optargs-umount.c

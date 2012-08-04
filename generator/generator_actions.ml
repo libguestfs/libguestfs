@@ -9148,6 +9148,89 @@ The returned struct contains geometry information.  Missing
 fields are returned as C<-1> (for numeric fields) or empty
 string." };
 
+  { defaults with
+    name = "rsync";
+    style = RErr, [Pathname "src"; Pathname "dest"], [OBool "archive"; OBool "deletedest"];
+    proc_nr = Some 344;
+    optional = Some "rsync";
+    tests = []; (* tests are in tests/rsync *)
+    shortdesc = "synchronize the contents of two directories";
+    longdesc = "\
+This call may be used to copy or synchronize two directories
+under the same libguestfs handle.  This uses the L<rsync(1)>
+program which uses a fast algorithm that avoids copying files
+unnecessarily.
+
+C<src> and C<dest> are the source and destination directories.
+Files are copied from C<src> to C<dest>.
+
+The optional arguments are:
+
+=over 4
+
+=item C<archive>
+
+Turns on archive mode.  This is the same as passing the
+I<--archive> flag to C<rsync>.
+
+=item C<deletedest>
+
+Delete files at the destination that do not exist at the source.
+
+=back" };
+
+  { defaults with
+    name = "rsync_in";
+    style = RErr, [String "remote"; Pathname "dest"], [OBool "archive"; OBool "deletedest"];
+    proc_nr = Some 345;
+    optional = Some "rsync";
+    tests = []; (* tests are in tests/rsync *)
+    shortdesc = "synchronize host or remote filesystem with filesystem";
+    longdesc = "\
+This call may be used to copy or synchronize the filesystem
+on the host or on a remote computer with the filesystem
+within libguestfs.  This uses the L<rsync(1)> program
+which uses a fast algorithm that avoids copying files unnecessarily.
+
+This call only works if the network is enabled.  See
+C<guestfs_set_network> or the I<--network> option to
+various tools like L<guestfish(1)>.
+
+Files are copied from the remote server and directory
+specified by C<remote> to the destination directory C<dest>.
+
+The format of the remote server string is defined by L<rsync(1)>.
+Note that there is no way to supply a password or passphrase
+so the target must be set up not to require one.
+
+The optional arguments are the same as those of C<guestfs_rsync>." };
+
+  { defaults with
+    name = "rsync_out";
+    style = RErr, [Pathname "src"; String "remote"], [OBool "archive"; OBool "deletedest"];
+    proc_nr = Some 346;
+    optional = Some "rsync";
+    tests = []; (* tests are in tests/rsync *)
+    shortdesc = "synchronize filesystem with host or remote filesystem";
+    longdesc = "\
+This call may be used to copy or synchronize the filesystem within
+libguestfs with a filesystem on the host or on a remote computer.
+This uses the L<rsync(1)> program which uses a fast algorithm that
+avoids copying files unnecessarily.
+
+This call only works if the network is enabled.  See
+C<guestfs_set_network> or the I<--network> option to
+various tools like L<guestfish(1)>.
+
+Files are copied from the source directory C<src> to the
+remote server and directory specified by C<remote>.
+
+The format of the remote server string is defined by L<rsync(1)>.
+Note that there is no way to supply a password or passphrase
+so the target must be set up not to require one.
+
+The optional arguments are the same as those of C<guestfs_rsync>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

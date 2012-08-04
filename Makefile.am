@@ -49,6 +49,7 @@ SUBDIRS += tests/charsets
 SUBDIRS += tests/xml
 SUBDIRS += tests/mount-local
 SUBDIRS += tests/9p
+SUBDIRS += tests/rsync
 SUBDIRS += tests/regressions
 endif
 
