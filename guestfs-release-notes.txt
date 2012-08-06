@@ -46,7 +46,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
       * generate new UUIDs for PVs and VGs
 
-      * remote the local machine ID (Wanlong Gao)
+      * remove the local machine ID (Wanlong Gao)
 
       * remove ABRT data (Wanlong Gao)
 

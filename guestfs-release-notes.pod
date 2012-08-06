@@ -59,7 +59,7 @@ generate new UUIDs for PVs and VGs
 
 =item *
 
-remote the local machine ID (Wanlong Gao)
+remove the local machine ID (Wanlong Gao)
 
 =item *
 
