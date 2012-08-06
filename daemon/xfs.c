@@ -457,5 +457,6 @@ do_xfs_growfs (const char *path,
 error:
   if (buf) free (buf);
   if (err) free (err);
+  if (out) free (out);
   return NULL;
 }
