@@ -54,7 +54,6 @@ let globs = List.sort compare [
   "/var/log/libvirt/uml/*.log";
   "/var/named/data/named.run";
   "/var/log/ppp/connect-errors";
-  "/var/account/pacct";
   "/var/log/setroubleshoot/*.log";
   "/var/log/squid/*.log";
   (* And the status file of logrotate *)
