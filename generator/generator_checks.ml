@@ -83,10 +83,10 @@ let () =
         let reserved = [
           "and"; "as"; "asr"; "assert"; "auto"; "begin"; "break"; "case";
           "char"; "class"; "const"; "constraint"; "continue"; "data";
-          "default"; "deriving"; "do"; "done"; "double"; "downto"; "else";
-          "end"; "enum"; "exception"; "extern"; "external"; "false"; "float";
-          "for"; "forall"; "foreign"; "fun"; "function"; "functor"; "goto";
-          "hiding"; "if"; "import"; "in"; "include"; "infix"; "infixl";
+          "default"; "delete"; "deriving"; "do"; "done"; "double"; "downto";
+          "else"; "end"; "enum"; "exception"; "extern"; "external"; "false";
+          "float"; "for"; "forall"; "foreign"; "fun"; "function"; "functor";
+          "goto"; "hiding"; "if"; "import"; "in"; "include"; "infix"; "infixl";
           "infixr"; "inherit"; "initializer"; "inline"; "instance"; "int";
           "interface";
           "land"; "lazy"; "let"; "long"; "lor"; "lsl"; "lsr"; "lxor";
