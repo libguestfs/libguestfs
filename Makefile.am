@@ -143,6 +143,7 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/README \
 	contrib/visualize-alignment/tracetops.ml \
 	guestfs-release-notes.pod \
+	guestfs-release-notes.txt \
 	html/pod.css \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
