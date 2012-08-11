@@ -170,11 +170,23 @@
 # corresponding gnutls_global_deinit function because of
 # thread-safety issues (in GnuTLS).
 {
-   libvirt_leak
+   libvirt_leak_1
    Memcheck:Leak
    ...
    fun:gnutls_global_init
    fun:virInitialize
+}
+
+# RHBZ#847429
+{
+   libvirt_leak_2
+   Memcheck:Leak
+   ...
+   fun:tryLoadOne
+   fun:VBoxCGlueInit
+   fun:vboxRegister
+   fun:virInitialize
+   fun:init_libguestfs
 }
 
 # FUSE leaks the per-thread context (although the code looks
