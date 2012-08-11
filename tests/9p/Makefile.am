@@ -17,6 +17,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+EXTRA_DIST = $(TESTS)
+
 TESTS = test-9p.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
