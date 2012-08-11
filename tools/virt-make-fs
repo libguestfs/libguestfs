@@ -85,11 +85,6 @@ journal, then this is just wasted overhead.
 
 Useful if exporting data to a Windows guest.
 
-I<Note for vfat>: The tar archive or local directory must only contain
-files which are owned by root (ie. UID:GID = 0:0).  The reason is that
-the tar program running within libguestfs is unable to change the
-ownership of non-root files, since vfat itself does not support this.
-
 =item I<minix>
 
 Lower overhead than C<ext2>, but certain limitations on filename
