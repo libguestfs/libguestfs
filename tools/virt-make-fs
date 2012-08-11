@@ -24,11 +24,12 @@ use Sys::Guestfs::Lib qw(feature_available);
 
 use Pod::Usage;
 use Getopt::Long;
-use File::Temp qw(tempdir);
+use File::Temp qw(tempfile tempdir);
 use POSIX qw(mkfifo floor);
 use Data::Dumper;
 use String::ShellQuote qw(shell_quote);
 use Locale::TextDomain 'libguestfs';
+use Fcntl qw(SEEK_SET);
 
 =encoding utf8
 
@@ -417,14 +418,36 @@ if (!defined $size) {
 $size = int ($size);
 
 # Create the output disk.
-# Take the unusual step of invoking qemu-img here.
+#
+# Use qemu-img so we can control the output format, but capture any
+# output temporarily and only display it if the command fails.
 
 my @cmd = ("qemu-img", "create", "-f", $format, $output, $size);
 if ($debug) {
     print STDERR ("running: ", join (" ", @cmd), "\n");
 }
-system (@cmd) == 0 or
-    die __"qemu-img create: failed to create disk image, see earlier error messages\n";
+
+{
+    my $tmpfh = tempfile ();
+    my ($r, $oldout, $olderr);
+
+    open $oldout, ">&STDOUT" or die __"cannot dup STDOUT";
+    open $olderr, ">&STDERR" or die __"cannot dup STDERR";
+    close STDOUT;
+    close STDERR;
+    open STDOUT, ">&", \$tmpfh or die __"cannot redirect STDOUT";
+    open STDERR, ">&", \$tmpfh or die __"cannot redirect STDERR";
+    $r = system (@cmd);
+    open STDOUT, ">&", $oldout or die __"cannot restore STDOUT";
+    open STDERR, ">&", $olderr or die __"cannot restore STDERR";
+
+    unless ($r == 0) {
+        print STDERR __"qemu-img create: failed to create disk image:\n";
+        seek $tmpfh, 0, SEEK_SET;
+        print STDERR $_ while <$tmpfh>;
+        die "\n";
+    }
+}
 
 eval {
     print STDERR "starting libguestfs ...\n" if $debug;
