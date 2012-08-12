@@ -346,7 +346,7 @@ copy_table (char * const * argv)
     pr "    rv = caml_alloc (%ss->len, 0);\n" typ;
     pr "    for (i = 0; i < %ss->len; ++i) {\n" typ;
     pr "      v = copy_%s (&%ss->val[i]);\n" typ typ;
-    pr "      caml_modify (&Field (rv, i), v);\n";
+    pr "      Store_field (rv, i, v);\n";
     pr "    }\n";
     pr "    CAMLreturn (rv);\n";
     pr "  }\n";
