@@ -295,6 +295,23 @@ Avoid processors that don't have hardware virtualization, and some
 processors which are simply very slow (AMD Geode being a great
 example).
 
+=head1 DETAILED TIMINGS USING ANNOTATE
+
+Use the L<annotate(1)>/L<annotate-output(1)> command to show detailed
+timings:
+
+ $ annotate-output +'%T.%N' guestfish -a /dev/null run -v
+ 22:17:53.215784625 I: Started guestfish -a /dev/null run -v
+ 22:17:53.240335409 E: libguestfs: [00000ms] febootstrap-supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64
+ 22:17:53.266857866 E: supermin helper [00000ms] whitelist = (not specified), host_cpu = x86_64, kernel = (null), initrd = (null), appliance = (null)
+ 22:17:53.272704072 E: supermin helper [00000ms] inputs[0] = /usr/lib64/guestfs/supermin.d
+ 22:17:53.276528651 E: checking modpath /lib/modules/3.4.0-1.fc17.x86_64.debug is a directory
+ [etc]
+
+The timestamps are C<hours:minutes:seconds.nanoseconds>.  By comparing
+the timestamps you can see exactly how long each operation in the boot
+sequence takes.
+
 =head1 DETAILED TIMINGS USING SYSTEMTAP
 
 You can use SystemTap (L<stap(1)>) to get detailed timings from
