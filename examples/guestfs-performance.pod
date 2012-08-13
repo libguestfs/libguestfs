@@ -378,6 +378,54 @@ example:
 You will need to consult, and even modify, the source to libguestfs to
 fully understand the output.
 
+=head1 DETAILED DEBUGGING USING GDB
+
+You can attach to the appliance BIOS/kernel using gdb.  If you know
+what you're doing, this can be a useful way to diagnose boot
+regressions.
+
+Firstly, you have to change qemu so it runs with the C<-S> and C<-s>
+options.  These options cause qemu to pause at boot and allow you to
+attach a debugger.  Read L<qemu(1)> for further information.
+Libguestfs invokes qemu several times (to scan the help output and so
+on) and you only want the final invocation of qemu to use these
+options, so use a qemu wrapper script like this:
+
+ #!/bin/bash -
+ 
+ # Set this to point to the real qemu binary.
+ qemu=/usr/bin/qemu-kvm
+ 
+ if [ "$1" != "-global" ]; then
+     # Scanning help output etc.
+     exec $qemu "$@"
+ else 
+     # Really running qemu.
+     exec $qemu -S -s "$@"
+ fi
+
+Now run guestfish or another libguestfs tool with the qemu wrapper
+(see L<guestfs(3)/QEMU WRAPPERS> to understand what this is doing):
+
+ LIBGUESTFS_QEMU=/path/to/qemu-wrapper guestfish -a /dev/null -v run
+
+This should pause just after qemu launches.  In another window, attach
+to qemu using gdb:
+
+ $ gdb
+ (gdb) set architecture i8086
+ The target architecture is assumed to be i8086
+ (gdb) target remote :1234
+ Remote debugging using :1234
+ 0x0000fff0 in ?? ()
+ (gdb) cont
+
+At this point you can use standard gdb techniques, eg. hitting C<^C>
+to interrupt the boot and C<bt> get a stack trace, setting
+breakpoints, etc.  Note that when you are past the BIOS and into the
+Linux kernel, you'll want to change the architecture back to 32 or 64
+bit.
+
 =head1 SEE ALSO
 
 L<febootstrap(8)>,
@@ -387,6 +435,8 @@ L<guestfs(3)>,
 L<guestfs-examples(3)>,
 L<libguestfs-make-fixed-appliance(1)>,
 L<stap(1)>,
+L<qemu(1)>,
+L<gdb(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
