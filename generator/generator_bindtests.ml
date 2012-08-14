@@ -97,7 +97,7 @@ print_strings (char *const *argv)
       pr "  printf (\"%s: \");\n" n;
       pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
         (String.uppercase n);
-      pr "    printf(%s);\n" printf_args;
+      pr "    printf (%s);\n" printf_args;
       pr "  } else {\n";
       pr "    printf (\"unset\\n\");\n";
       pr "  }\n";
