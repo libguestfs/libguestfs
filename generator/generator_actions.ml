@@ -3402,40 +3402,58 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
 
   { defaults with
     name = "tar_in";
-    style = RErr, [FileIn "tarfile"; Pathname "directory"], [];
+    style = RErr, [FileIn "tarfile"; Pathname "directory"], [OString "compress"];
     proc_nr = Some 69;
+    once_had_no_optargs = true;
     cancellable = true;
     tests = [
       InitScratchFS, Always, TestOutput (
         [["mkdir"; "/tar_in"];
-         ["tar_in"; "../data/helloworld.tar"; "/tar_in"];
-         ["cat"; "/tar_in/hello"]], "hello\n")
+         ["tar_in"; "../data/helloworld.tar"; "/tar_in"; "NOARG"];
+         ["cat"; "/tar_in/hello"]], "hello\n");
+      InitScratchFS, Always, TestOutput (
+        [["mkdir"; "/tar_in_gz"];
+         ["tar_in"; "../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"];
+         ["cat"; "/tar_in_gz/hello"]], "hello\n");
+      InitScratchFS, Always, TestOutput (
+        [["mkdir"; "/tar_in_xz"];
+         ["tar_in"; "../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"];
+         ["cat"; "/tar_in_xz/hello"]], "hello\n")
     ];
     shortdesc = "unpack tarfile to directory";
     longdesc = "\
-This command uploads and unpacks local file C<tarfile> (an
-I<uncompressed> tar file) into C<directory>.
+This command uploads and unpacks local file C<tarfile> into C<directory>.
 
-To upload a compressed tarball, use C<guestfs_tgz_in>
-or C<guestfs_txz_in>." };
+The optional C<compress> flag controls compression.  If not given,
+then the input should be an uncompressed tar file.  Otherwise one
+of the following strings may be given to select the compression
+type of the input file: C<compress>, C<gzip>, C<bzip2>, C<xz>, C<lzop>.
+(Note that not all builds of libguestfs will support all of these
+compression types)." };
 
   { defaults with
     name = "tar_out";
-    style = RErr, [String "directory"; FileOut "tarfile"], [];
+    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"];
     proc_nr = Some 70;
+    once_had_no_optargs = true;
     cancellable = true;
     shortdesc = "pack directory into tarfile";
     longdesc = "\
 This command packs the contents of C<directory> and downloads
 it to local file C<tarfile>.
 
-To download a compressed tarball, use C<guestfs_tgz_out>
-or C<guestfs_txz_out>." };
+The optional C<compress> flag controls compression.  If not given,
+then the output will be an uncompressed tar file.  Otherwise one
+of the following strings may be given to select the compression
+type of the output file: C<compress>, C<gzip>, C<bzip2>, C<xz>, C<lzop>.
+(Note that not all builds of libguestfs will support all of these
+compression types)." };
 
   { defaults with
     name = "tgz_in";
     style = RErr, [FileIn "tarball"; Pathname "directory"], [];
     proc_nr = Some 71;
+    deprecated_by = Some "tar_in";
     cancellable = true;
     tests = [
       InitScratchFS, Always, TestOutput (
@@ -3446,21 +3464,18 @@ or C<guestfs_txz_out>." };
     shortdesc = "unpack compressed tarball to directory";
     longdesc = "\
 This command uploads and unpacks local file C<tarball> (a
-I<gzip compressed> tar file) into C<directory>.
-
-To upload an uncompressed tarball, use C<guestfs_tar_in>." };
+I<gzip compressed> tar file) into C<directory>." };
 
   { defaults with
     name = "tgz_out";
     style = RErr, [Pathname "directory"; FileOut "tarball"], [];
     proc_nr = Some 72;
+    deprecated_by = Some "tar_out";
     cancellable = true;
     shortdesc = "pack directory into compressed tarball";
     longdesc = "\
 This command packs the contents of C<directory> and downloads
-it to local file C<tarball>.
-
-To download an uncompressed tarball, use C<guestfs_tar_out>." };
+it to local file C<tarball>." };
 
   { defaults with
     name = "mount_ro";
@@ -6764,6 +6779,7 @@ or growing unnecessarily." };
     name = "txz_in";
     style = RErr, [FileIn "tarball"; Pathname "directory"], [];
     proc_nr = Some 229;
+    deprecated_by = Some "tar_in";
     optional = Some "xz"; cancellable = true;
     tests = [
       InitScratchFS, Always, TestOutput (
@@ -6780,6 +6796,7 @@ I<xz compressed> tar file) into C<directory>." };
     name = "txz_out";
     style = RErr, [Pathname "directory"; FileOut "tarball"], [];
     proc_nr = Some 230;
+    deprecated_by = Some "tar_out";
     optional = Some "xz"; cancellable = true;
     shortdesc = "pack directory into compressed tarball";
     longdesc = "\

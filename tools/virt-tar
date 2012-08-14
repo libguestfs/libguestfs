@@ -267,13 +267,13 @@ foreach (@fses) {
 # Do the tar command.
 if ($mode eq "x") {
     if ($gzip) {
-        $g->tgz_out ($directory, $tarball);
+        $g->tar_out ($directory, $tarball, compress => "gzip");
     } else {
         $g->tar_out ($directory, $tarball);
     }
 } else { # mode eq "u"
     if ($gzip) {
-        $g->tgz_in ($tarball, $directory);
+        $g->tar_in ($tarball, $directory, compress => "gzip");
     } else {
         $g->tar_in ($tarball, $directory);
     }
