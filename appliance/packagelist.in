@@ -23,7 +23,6 @@
   btrfs-progs
   cryptsetup
   cryptsetup-luks /* old name used before Fedora 17 */
-  diffutils
   e2fsprogs
   /* e4fsprogs only exists on RHEL 5, will be ignored everywhere else. */
   e4fsprogs
@@ -50,7 +49,6 @@
   bsdmainutils
   btrfs-tools
   cryptsetup
-  diff
   e2fsprogs
   gfs-tools
   gfs2-tools
@@ -75,7 +73,6 @@
   vim
   btrfs-progs-unstable
   cryptsetup
-  diffutils
   augeas
   zfs-fuse
   e2fsprogs
@@ -96,6 +93,7 @@ binutils
 bzip2
 coreutils
 cpio
+diffutils
 dosfstools
 file
 findutils
