@@ -292,7 +292,7 @@ L</KEYS AND PASSPHRASES> for more information.\n\n";
 
 and generate_actions_pod_back_compat_entry { name = name;
                                              style = ret, args, _ } =
-  pr "= head2 guestfs_%s\n\n" name;
+  pr "=head2 guestfs_%s\n\n" name;
   generate_prototype ~extern:false ~indent:" " ~handle:"g"
     ~prefix:"guestfs_" name (ret, args, []);
   pr "\n\n";
