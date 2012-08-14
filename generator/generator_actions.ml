@@ -3434,7 +3434,7 @@ compression types)." };
 
   { defaults with
     name = "tar_out";
-    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"; OBool "numericowner"];
+    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"; OBool "numericowner"; OStringList "excludes"];
     proc_nr = Some 70;
     once_had_no_optargs = true;
     cancellable = true;
@@ -3453,6 +3453,11 @@ compression types).
 The other optional arguments are:
 
 =over 4
+
+=item C<excludes>
+
+A list of wildcards.  Files are excluded if they match any of the
+wildcards.
 
 =item C<numericowner>
 

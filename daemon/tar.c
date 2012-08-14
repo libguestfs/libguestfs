@@ -237,14 +237,53 @@ do_txz_in (const char *dir)
   return do_tar_in (dir, "xz");
 }
 
+/* Turn list 'excludes' into list of " --excludes=..." strings, all
+ * properly quoted.  Caller must free the returned string.
+ */
+static char *
+make_excludes_args (char *const *excludes)
+{
+  DECLARE_STRINGSBUF (strings);
+  size_t i;
+  char *s, *ret;
+
+  for (i = 0; excludes[i] != NULL; ++i) {
+    if (asprintf_nowarn (&s, " --exclude=%Q", excludes[i]) == -1) {
+      reply_with_perror ("asprintf");
+      free_stringslen (strings.argv, strings.size);
+      return NULL;
+    }
+    if (!add_string_nodup (&strings, s) == -1) {
+      free (s);
+      return NULL;
+    }
+  }
+
+  if (end_stringsbuf (&strings) == -1)
+    return NULL;
+
+  ret = concat_strings (strings.argv);
+  if (!ret) {
+    reply_with_perror ("concat");
+    free_stringslen (strings.argv, strings.size);
+    return NULL;
+  }
+
+  free_stringslen (strings.argv, strings.size);
+
+  return ret;
+}
+
 /* Has one FileOut parameter. */
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_tar_out (const char *dir, const char *compress, int numericowner)
+do_tar_out (const char *dir, const char *compress, int numericowner,
+            char *const *excludes)
 {
   const char *filter;
   int r;
   FILE *fp;
+  char *excludes_args;
   char *cmd;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
@@ -269,13 +308,28 @@ do_tar_out (const char *dir, const char *compress, int numericowner)
   if (!(optargs_bitmask & GUESTFS_TAR_OUT_NUMERICOWNER_BITMASK))
     numericowner = 0;
 
+  if ((optargs_bitmask & GUESTFS_TAR_OUT_EXCLUDES_BITMASK)) {
+    excludes_args = make_excludes_args (excludes);
+    if (!excludes_args)
+      return -1;
+  } else {
+    excludes_args = strdup ("");
+    if (excludes_args == NULL) {
+      reply_with_perror ("strdup");
+      return -1;
+    }
+  }
+
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R%s%s -cf - .",
+  if (asprintf_nowarn (&cmd, "tar -C %R%s%s%s -cf - .",
                        dir, filter,
-                       numericowner ? " --numeric-owner" : "") == -1) {
+                       numericowner ? " --numeric-owner" : "",
+                       excludes_args) == -1) {
     reply_with_perror ("asprintf");
+    free (excludes_args);
     return -1;
   }
+  free (excludes_args);
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -325,7 +379,7 @@ int
 do_tgz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "gzip", 0);
+  return do_tar_out (dir, "gzip", 0, NULL);
 }
 
 /* Has one FileOut parameter. */
@@ -333,5 +387,5 @@ int
 do_txz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "bzip2", 0);
+  return do_tar_out (dir, "bzip2", 0, NULL);
 }
