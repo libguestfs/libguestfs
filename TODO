@@ -68,6 +68,9 @@ Ideas for extra commands
     pivot_root
     fts(3) / ftw(3)
 
+  sh-in, sh-out: run shell command with large input/output
+  debug sh-in, debug sh-out: debug versions of the above
+
 Other initrd-* commands
 -----------------------
 
