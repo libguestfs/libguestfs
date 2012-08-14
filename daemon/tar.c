@@ -240,7 +240,7 @@ do_txz_in (const char *dir)
 /* Has one FileOut parameter. */
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_tar_out (const char *dir, const char *compress)
+do_tar_out (const char *dir, const char *compress, int numericowner)
 {
   const char *filter;
   int r;
@@ -266,9 +266,13 @@ do_tar_out (const char *dir, const char *compress)
   } else
     filter = "";
 
+  if (!(optargs_bitmask & GUESTFS_TAR_OUT_NUMERICOWNER_BITMASK))
+    numericowner = 0;
+
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R%s -cf - .",
-                       dir, filter) == -1) {
+  if (asprintf_nowarn (&cmd, "tar -C %R%s%s -cf - .",
+                       dir, filter,
+                       numericowner ? " --numeric-owner" : "") == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
@@ -321,7 +325,7 @@ int
 do_tgz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "gzip");
+  return do_tar_out (dir, "gzip", 0);
 }
 
 /* Has one FileOut parameter. */
@@ -329,5 +333,5 @@ int
 do_txz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "bzip2");
+  return do_tar_out (dir, "bzip2", 0);
 }

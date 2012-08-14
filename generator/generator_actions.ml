@@ -3433,7 +3433,7 @@ compression types)." };
 
   { defaults with
     name = "tar_out";
-    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"];
+    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"; OBool "numericowner"];
     proc_nr = Some 70;
     once_had_no_optargs = true;
     cancellable = true;
@@ -3447,7 +3447,18 @@ then the output will be an uncompressed tar file.  Otherwise one
 of the following strings may be given to select the compression
 type of the output file: C<compress>, C<gzip>, C<bzip2>, C<xz>, C<lzop>.
 (Note that not all builds of libguestfs will support all of these
-compression types)." };
+compression types).
+
+The other optional arguments are:
+
+=over 4
+
+=item C<numericowner>
+
+If set to true, the output tar file will contain UID/GID numbers
+instead of user/group names.
+
+=back" };
 
   { defaults with
     name = "tgz_in";
