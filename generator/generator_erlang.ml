@@ -338,6 +338,7 @@ extern void free_strings (char **r);
              | OInt _ -> pr "ERL_INT_VALUE (hd_value)"
              | OInt64 _ -> pr "ERL_LL_VALUE (hd_value)"
              | OString _ -> pr "erl_iolist_to_string (hd_value)"
+             | OStringList n -> pr "get_string_list (hd_value)"
             );
             pr ";\n";
             pr "    }\n";
@@ -393,6 +394,11 @@ extern void free_strings (char **r);
             pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
               c_optarg_prefix uc_n;
             pr "    free ((char *) optargs_s.%s);\n" n
+        | OStringList n ->
+            let uc_n = String.uppercase n in
+            pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
+              c_optarg_prefix uc_n;
+            pr "    free_strings ((char **) optargs_s.%s);\n" n
       ) optargs;
 
       (match errcode_of_ret ret with

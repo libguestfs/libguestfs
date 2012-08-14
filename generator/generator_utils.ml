@@ -256,7 +256,7 @@ let name_of_argt = function
   | FileIn n | FileOut n | BufferIn n | Key n | Pointer (_, n) -> n
 
 let name_of_optargt = function
-  | OBool n | OInt n | OInt64 n | OString n -> n
+  | OBool n | OInt n | OInt64 n | OString n | OStringList n -> n
 
 let seq_of_test = function
   | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
@@ -360,4 +360,5 @@ let args_of_optargs optargs =
     | OInt n -> Int n
     | OInt64 n -> Int64 n
     | OString n -> String n
+    | OStringList n -> StringList n
   ) optargs;

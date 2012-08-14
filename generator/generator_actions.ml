@@ -50,10 +50,11 @@ let test_all_args = [
 ]
 
 let test_all_optargs = [
-  OBool   "obool";
-  OInt    "oint";
-  OInt64  "oint64";
-  OString "ostring"
+  OBool "obool";
+  OInt "oint";
+  OInt64 "oint64";
+  OString "ostring";
+  OStringList "ostringlist";
 ]
 
 let test_all_rets = [

@@ -532,6 +532,8 @@ copy_table (char * const * argv)
              | OInt64 _ -> pr "Int64_val (Field (%sv, 0))" n
              | OString _ ->
                  pr "guestfs_safe_strdup (g, String_val (Field (%sv, 0)))" n
+             | OStringList n ->
+                 pr "ocaml_guestfs_strings_val (g, Field (%sv, 0))\n" n
             );
             pr ";\n";
             pr "  }\n";
@@ -584,6 +586,9 @@ copy_table (char * const * argv)
         | OString n ->
             pr "  if (%sv != Val_int (0))\n" n;
             pr "    free ((char *) optargs_s.%s);\n" n
+        | OStringList n ->
+            pr "  if (%sv != Val_int (0))\n" n;
+            pr "    ocaml_guestfs_free_strings ((char **) optargs_s.%s);\n" n;
       ) optargs;
 
       (match errcode_of_ret ret with
@@ -693,6 +698,7 @@ and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
     | OInt n -> pr "?%s:int -> " n
     | OInt64 n -> pr "?%s:int64 -> " n
     | OString n -> pr "?%s:string -> " n
+    | OStringList n -> pr "?%s:string array -> " n
   ) optargs;
   List.iter (
     function

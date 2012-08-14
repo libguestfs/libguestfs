@@ -417,14 +417,33 @@ user_cancel (g)
             let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
             pr "if (strcmp (this_arg, \"%s\") == 0) {\n" n;
-            pr "          optargs_s.%s = " n;
             (match argt with
              | OBool _
              | OInt _
-             | OInt64 _ -> pr "SvIV (ST (items_i+1))"
-             | OString _ -> pr "SvPV_nolen (ST (items_i+1))"
+             | OInt64 _ ->
+               pr "          optargs_s.%s = SvIV (ST (items_i+1));\n" n;
+             | OString _ ->
+               pr "          optargs_s.%s = SvPV_nolen (ST (items_i+1));\n" n;
+             | OStringList _ ->
+               pr "          size_t i, len;\n";
+               pr "          char **r;\n";
+               pr "          AV *av;\n";
+               pr "          SV **svp;\n";
+               pr "\n";
+               pr "          /* XXX More checking required here. */\n";
+               pr "          av = (AV *) SvRV (ST (items_i+1));\n";
+               pr "\n";
+               pr "          /* Note av_len returns index of final element. */\n";
+               pr "          len = av_len (av) + 1;\n";
+               pr "\n";
+               pr "          r = malloc ((len+1) * sizeof (char *));\n";
+               pr "          for (i = 0; i < len; ++i) {\n";
+               pr "            svp = av_fetch (av, i, 0);\n";
+               pr "            r[i] = SvPV_nolen (*svp);\n";
+               pr "          }\n";
+               pr "          r[i] = NULL;\n";
+               pr "          optargs_s.%s = r;\n" n
             );
-            pr ";\n";
             pr "          this_mask = %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "        }\n";
             pr "        else ";

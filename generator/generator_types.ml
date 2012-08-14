@@ -210,6 +210,8 @@ and optargt =
   | OInt of string	(* int (smallish ints, signed, <= 31 bits) *)
   | OInt64 of string	(* any 64 bit int *)
   | OString of string	(* const char *name, cannot be NULL *)
+  | OStringList of string (* char **strings, neither the list nor any
+                             string may be NULL *)
 
 type errcode = [ `CannotReturnError | `ErrorIsMinusOne | `ErrorIsNULL ]
 
@@ -451,3 +453,4 @@ type call_optargt =
   | CallOInt of string * int
   | CallOInt64 of string * int64
   | CallOString of string * string
+  | CallOStringList of string * string list

@@ -144,7 +144,8 @@ public class GuestFS {
               | OBool n -> "boolean", "Boolean", ".booleanValue()", n, "false"
               | OInt n -> "int", "Integer", ".intValue()", n, "0"
               | OInt64 n -> "long", "Long", ".longValue()", n, "0"
-              | OString n -> "String", "String", "", n, "\"\"" in
+              | OString n -> "String", "String", "", n, "\"\""
+              | OStringList n -> "String[]", "String[]", "", n, "new String[]{}" in
             pr "    %s %s = %s;\n" t n default;
             pr "    _optobj = null;\n";
             pr "    if (optargs != null)\n";
@@ -343,6 +344,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
           | OInt n -> pr ", int %s" n
           | OInt64 n -> pr ", long %s" n
           | OString n -> pr ", String %s" n
+          | OStringList n -> pr ", String[] %s" n
       ) optargs
     )
   );
@@ -480,6 +482,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
           | OInt n -> pr ", jint j%s" n
           | OInt64 n -> pr ", jlong j%s" n
           | OString n -> pr ", jstring j%s" n
+          | OStringList n -> pr ", jobjectArray j%s" n
         ) optargs
       );
       pr ")\n";
@@ -546,7 +549,15 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       if optargs <> [] then (
         pr "  struct %s optargs_s;\n" c_function;
-        pr "  const struct %s *optargs = &optargs_s;\n" c_function
+        pr "  const struct %s *optargs = &optargs_s;\n" c_function;
+
+        List.iter (
+          function
+          | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
+          | OStringList n ->
+            pr "  size_t %s_len;\n" n;
+            pr "  char **%s;\n" n
+        ) optargs
       );
 
       let needs_i =
@@ -556,9 +567,12 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
          | RConstOptString _
          | RString _ | RBufferOut _ | RStruct _ -> false) ||
           List.exists (function
-                       | StringList _ -> true
-                       | DeviceList _ -> true
-                       | _ -> false) args in
+          | StringList _ -> true
+          | DeviceList _ -> true
+          | _ -> false) args ||
+          List.exists (function
+          | OStringList _ -> true
+          | _ -> false) optargs in
       if needs_i then
         pr "  size_t i;\n";
 
@@ -600,7 +614,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       ) args;
 
       if optargs <> [] then (
-        pr "  optargs_s.bitmask = joptargs_bitmask;\n";
+        pr "\n";
         List.iter (
           function
           | OBool n | OInt n | OInt64 n ->
@@ -608,7 +622,18 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
           | OString n ->
               pr "  optargs_s.%s = (*env)->GetStringUTFChars (env, j%s, NULL);\n"
                 n n
+          | OStringList n ->
+            pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
+            pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  for (i = 0; i < %s_len; ++i) {\n" n;
+            pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
+              n;
+            pr "    %s[i] = (char *) (*env)->GetStringUTFChars (env, o, NULL);\n" n;
+            pr "  }\n";
+            pr "  %s[%s_len] = NULL;\n" n n;
+            pr "  optargs_s.%s = %s;\n" n n
         ) optargs;
+        pr "  optargs_s.bitmask = joptargs_bitmask;\n";
       );
 
       pr "\n";
@@ -653,6 +678,13 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | OBool n | OInt n | OInt64 n -> ()
         | OString n ->
             pr "  (*env)->ReleaseStringUTFChars (env, j%s, optargs_s.%s);\n" n n
+        | OStringList n ->
+            pr "  for (i = 0; i < %s_len; ++i) {\n" n;
+            pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
+              n;
+            pr "    (*env)->ReleaseStringUTFChars (env, o, optargs_s.%s[i]);\n" n;
+            pr "  }\n";
+            pr "  free (%s);\n" n
       ) optargs;
 
       pr "\n";

@@ -852,7 +852,22 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
                   pr "    optargs.%s = %Ld;\n" n i; true
               | OString n, "NOARG" -> false
               | OString n, arg ->
-                  pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true in
+                  pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true
+              | OStringList n, "NOARG" -> false
+              | OStringList n, "" ->
+                  pr "    const char *const %s[1] = { NULL };\n" n; true
+              | OStringList n, arg ->
+                  let strs = string_split " " arg in
+                  iteri (
+                    fun i str ->
+                      pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
+                  ) strs;
+                  pr "    const char *const %s[] = {\n" n;
+                  iteri (
+                    fun i _ -> pr "      %s_%d,\n" n i
+                  ) strs;
+                  pr "      NULL\n";
+                  pr "    };\n"; true in
             let bit = if is_set then Int64.shift_left 1L shift else 0L in
             let bitmask = Int64.logor bitmask bit in
             let shift = shift + 1 in

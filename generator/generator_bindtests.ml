@@ -117,6 +117,14 @@ print_strings (char *const *argv)
       | OString n ->
         let printf_args = sprintf "\"%%s\\n\", optargs->%s" n in
         check_optarg n printf_args;
+      | OStringList n ->
+        pr "  printf (\"%s: \");\n" n;
+        pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
+          (String.uppercase n);
+        pr "    print_strings (optargs->%s);\n" n;
+        pr "  } else {\n";
+        pr "    printf (\"unset\\n\");\n";
+        pr "  }\n";
     ) optargs;
     pr "  /* Java changes stdout line buffering so we need this: */\n";
     pr "  fflush (stdout);\n";
@@ -270,6 +278,9 @@ let () =
         | CallOInt (n, v)     -> "~" ^ n ^ ":" ^ string_of_int v
         | CallOInt64 (n, v)   -> "~" ^ n ^ ":" ^ Int64.to_string v ^ "L"
         | CallOString (n, v)  -> "~" ^ n ^ ":\"" ^ v ^ "\""
+        | CallOStringList (n, xs) ->
+          "~" ^ n ^ ":" ^
+            "[|" ^ String.concat ";" (List.map (sprintf "\"%s\"") xs) ^ "|]"
       ) optargs
     )
   in
@@ -318,6 +329,9 @@ my $g = Sys::Guestfs->new ();
         | CallOInt (n, v)     -> "'" ^ n ^ "' => " ^ string_of_int v
         | CallOInt64 (n, v)   -> "'" ^ n ^ "' => " ^ Int64.to_string v
         | CallOString (n, v)  -> "'" ^ n ^ "' => '" ^ v ^ "'"
+        | CallOStringList (n, xs) ->
+          "'" ^ n ^ "' => " ^
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
       ) optargs
     )
   in
@@ -363,6 +377,9 @@ g = guestfs.GuestFS ()
         | CallOInt (n, v)     -> n ^ "=" ^ string_of_int v
         | CallOInt64 (n, v)   -> n ^ "=" ^ Int64.to_string v
         | CallOString (n, v)  -> n ^ "=\"" ^ v ^ "\""
+        | CallOStringList (n, xs) ->
+          n ^ "=" ^
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
       ) optargs
     )
   in
@@ -410,6 +427,9 @@ g = Guestfs::create()
         | CallOInt (n, v)     -> ":" ^ n ^ " => " ^ string_of_int v
         | CallOInt64 (n, v)   -> ":" ^ n ^ " => " ^ Int64.to_string v
         | CallOString (n, v)  -> ":" ^ n ^ " => \"" ^ v ^ "\""
+        | CallOStringList (n, xs) ->
+          ":" ^ n ^ " => " ^
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
       ) optargs
     ) ^
     "}"
@@ -453,6 +473,11 @@ public class Bindtests {
           "  put(\"" ^ n ^ "\", " ^ Int64.to_string v ^ "l);"
         | CallOString (n, v)  ->
           "  put(\"" ^ n ^ "\", \"" ^ v ^ "\");"
+        | CallOStringList (n, xs)  ->
+          "  put(\"" ^ n ^ "\", " ^
+            "new String[]{" ^
+            String.concat "," (List.map (sprintf "\"%s\"") xs) ^
+            "});"
       ) optargs @
       [ "}};\n" ]
     | None ->
@@ -560,6 +585,12 @@ var o;
             | CallOInt (n, v)     -> n ^ ": " ^ (string_of_int v)
             | CallOInt64 (n, v)   -> n ^ ": " ^ Int64.to_string v
             | CallOString (n, v)  -> n ^ ": \"" ^ v ^ "\""
+            | CallOStringList (n, xs) -> "" (* not implemented XXX *)
+(*
+            | CallOStringList (n, xs) ->
+              n ^ ": " ^
+                "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+*)
           ) optargs
         )
       ) ^
@@ -667,5 +698,29 @@ and generate_lang_bindtests call =
      CallStringList ["1"]; CallBool false;
      CallInt 0; CallInt64 0L; CallString ""; CallString "";
      CallBuffer "abc\000abc"] None;
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOStringList ("ostringlist", [])]);
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOStringList ("ostringlist", ["optelem1"])]);
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOStringList ("ostringlist", ["optelem1"; "optelem2"])]);
+  call "internal_test"
+    [CallString "abc"; CallOptString (Some "def");
+     CallStringList []; CallBool false;
+     CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
+     CallBuffer "abc\000abc"]
+    (Some [CallOStringList ("ostringlist", ["optelem1"; "optelem2"; "optelem3"])]);
 
 (* XXX Add here tests of the return and error functions. *)

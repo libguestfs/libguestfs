@@ -535,6 +535,21 @@ ruby_user_cancel (VALUE gv)
                  pr "    optargs_s.%s = NUM2LL (v);\n" n;
              | OString _ ->
                  pr "    optargs_s.%s = StringValueCStr (v);\n" n
+             | OStringList _ ->
+               pr "  Check_Type (v, T_ARRAY);\n";
+               pr "  {\n";
+               pr "    size_t i, len;\n";
+               pr "    char **r;\n";
+               pr "\n";
+               pr "    len = RARRAY_LEN (v);\n";
+               pr "    r = ALLOC_N (char *, len+1);\n";
+               pr "    for (i = 0; i < len; ++i) {\n";
+               pr "      volatile VALUE sv = rb_ary_entry (v, i);\n";
+               pr "      r[i] = StringValueCStr (sv);\n";
+               pr "    }\n";
+               pr "    r[len] = NULL;\n";
+               pr "    optargs_s.%s = r;\n" n;
+               pr "  }\n"
             );
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n";

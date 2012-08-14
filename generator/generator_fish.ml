@@ -35,7 +35,8 @@ let doc_opttype_of = function
   | OBool n -> "true|false"
   | OInt n
   | OInt64 n -> "N"
-  | OString n -> ".."
+  | OString n
+  | OStringList n -> ".."
 
 let get_aliases { fish_alias = fish_alias; non_c_aliases = non_c_aliases } =
   let non_c_aliases =
@@ -494,6 +495,9 @@ Guestfish will prompt for these separately."
                    (sprintf "optargs_s.%s" n) "out"
              | OString n ->
                  pr "      optargs_s.%s = &argv[i][%d];\n" n (len+1);
+             | OStringList name ->
+               pr "      optargs_s.%s = parse_string_list (&argv[i][%d]);\n" name (len+1);
+               pr "      if (optargs_s.%s == NULL) goto out;\n" name
             );
             pr "      this_mask = %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "      this_arg = \"%s\";\n" n;
@@ -600,6 +604,16 @@ Guestfish will prompt for these separately."
       (match ret with
       | RConstOptString _ -> ()
       | _ -> pr " out:\n");
+      List.iter (
+        function
+        | OStringList n ->
+          let uc_n = String.uppercase n in
+          pr "  if ((optargs_s.bitmask & %s_%s_BITMASK) &&\n"
+            c_optarg_prefix uc_n;
+          pr "      optargs_s.%s != NULL)\n" n;
+          pr "    free_strings ((char **) optargs_s.%s);\n" n
+        | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
+      ) (List.rev optargs);
       List.iter (
         function
         | Device _ | String _
@@ -857,9 +871,7 @@ and generate_fish_actions_pod () =
         | Pointer _ -> assert false
       ) args;
       List.iter (
-        function
-        | (OBool n | OInt n | OInt64 n | OString n) as arg ->
-          pr " [%s:%s]" n (doc_opttype_of arg)
+        fun arg -> pr " [%s:%s]" (name_of_optargt arg) (doc_opttype_of arg)
       ) optargs;
       pr "\n";
       pr "\n";

@@ -210,6 +210,7 @@ and generate_actions_pod_entry ({ c_name = c_name;
         | OInt n -> pr "int %s,\n" n
         | OInt64 n -> pr "int64_t %s,\n" n
         | OString n -> pr "const char *%s,\n" n
+        | OStringList n -> pr "char *const *%s,\n" n
     ) optargs;
     pr "\n";
   );
@@ -614,7 +615,8 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
             | OBool n -> "int "
             | OInt n -> "int "
             | OInt64 n -> "int64_t "
-            | OString n -> "const char *" in
+            | OString n -> "const char *"
+            | OStringList n -> "char *const *" in
           let uc_shortname = String.uppercase shortname in
           let n = name_of_optargt argt in
           let uc_n = String.uppercase n in
@@ -862,6 +864,20 @@ trace_send_line (guestfs_h *g)
           pr "  }\n";
           pr_newline := true
 
+      | OStringList n ->
+          pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK) &&\n"
+            (String.uppercase c_name) (String.uppercase n);
+          pr "      optargs->%s == NULL) {\n" n;
+          pr "    error (g, \"%%s: %%s: optional list cannot be NULL\",\n";
+          pr "           \"%s\", \"%s\");\n" c_name n;
+          let errcode =
+            match errcode_of_ret ret with
+            | `CannotReturnError -> assert false
+            | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
+          pr "    return %s;\n" (string_of_errcode errcode);
+          pr "  }\n";
+          pr_newline := true
+
       (* not applicable *)
       | OBool _ | OInt _ | OInt64 _ -> ()
     ) optargs;
@@ -893,8 +909,11 @@ trace_send_line (guestfs_h *g)
 
     let needs_i =
       List.exists (function
-                   | StringList _ | DeviceList _ -> true
-                   | _ -> false) args in
+      | StringList _ | DeviceList _ -> true
+      | _ -> false) args ||
+      List.exists (function
+      | OStringList _ -> true
+      | _ -> false) optargs in
     if needs_i then (
       pr "    size_t i;\n";
       pr "\n"
@@ -947,11 +966,18 @@ trace_send_line (guestfs_h *g)
     List.iter (
       fun argt ->
         let n = name_of_optargt argt in
-        pr "    if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
+        pr "    if (optargs->bitmask & GUESTFS_%s_%s_BITMASK) {\n"
           (String.uppercase c_name) (String.uppercase n);
         (match argt with
          | OString n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s);\n" n n
+         | OStringList n ->
+             pr "      fprintf (trace_fp, \" \\\"%%s:\", \"%s\");\n" n;
+             pr "      for (i = 0; optargs->%s[i] != NULL; ++i) {\n" n;
+             pr "        if (i > 0) fputc (' ', trace_fp);\n";
+             pr "        fputs (optargs->%s[i], trace_fp);\n" n;
+             pr "      }\n";
+             pr "      fputc ('\\\"', trace_fp);\n"
          | OBool n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s ? \"true\" : \"false\");\n" n n
          | OInt n ->
@@ -959,6 +985,7 @@ trace_send_line (guestfs_h *g)
          | OInt64 n ->
              pr "      fprintf (trace_fp, \" \\\"%%s:%%\" PRIi64 \"\\\"\", \"%s\", optargs->%s);\n" n n
         );
+        pr "    }\n"
     ) optargs;
 
     pr "    trace_send_line (g);\n";
@@ -1239,19 +1266,28 @@ trace_send_line (guestfs_h *g)
       List.iter (
         fun argt ->
           let n = name_of_optargt argt in
-          pr "  if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
+          pr "  if (optargs->bitmask & GUESTFS_%s_%s_BITMASK) {\n"
             (String.uppercase c_name) (String.uppercase n);
           (match argt with
           | OBool n
           | OInt n
           | OInt64 n ->
             pr "    args.%s = optargs->%s;\n" n n;
-            pr "  else\n";
-            pr "    args.%s = 0;\n" n
+            pr "  } else {\n";
+            pr "    args.%s = 0;\n" n;
+            pr "  }\n";
           | OString n ->
             pr "    args.%s = (char *) optargs->%s;\n" n n;
-            pr "  else\n";
-            pr "    args.%s = (char *) \"\";\n" n
+            pr "  } else {\n";
+            pr "    args.%s = (char *) \"\";\n" n;
+            pr "  }\n";
+          | OStringList n ->
+            pr "    args.%s.%s_val = (char **) optargs->%s;\n" n n n;
+            pr "    for (args.%s.%s_len = 0; optargs->%s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
+            pr "  } else {\n";
+            pr "    args.%s.%s_len = 0;\n" n n;
+            pr "    args.%s.%s_val = NULL;\n" n n;
+            pr "  }\n";
           )
       ) optargs;
 
@@ -1489,6 +1525,7 @@ trace_send_line (guestfs_h *g)
         | OBool _ | OInt _ -> pr "int"
         | OInt64 _ -> pr "int64_t"
         | OString _ -> pr "const char *"
+        | OStringList _ -> pr "char *const *"
         );
         pr ");\n";
         pr "      break;\n";

@@ -220,6 +220,8 @@ PHP_FUNCTION (guestfs_last_error)
           | OString n ->
               pr "  char *optargs_t_%s = NULL;\n" n;
               pr "  int optargs_t_%s_size = -1;\n" n
+          | OStringList n ->
+              pr "  zval *z_%s;\n" n
         ) optargs
       );
 
@@ -247,6 +249,7 @@ PHP_FUNCTION (guestfs_last_error)
                 | OBool _ -> "b"
                 | OInt _ | OInt64 _ -> "l"
                 | OString _ -> "s"
+                | OStringList _ -> "a"
               ) optargs
             )
         else param_string in
@@ -273,6 +276,8 @@ PHP_FUNCTION (guestfs_last_error)
             pr ", &optargs_t_%s" n
         | OString n ->
             pr ", &optargs_t_%s, &optargs_t_%s_size" n n
+        | OStringList n ->
+            pr ", &z_%s" n
       ) optargs;
       pr ") == FAILURE) {\n";
       pr "    RETURN_FALSE;\n";
@@ -332,19 +337,52 @@ PHP_FUNCTION (guestfs_last_error)
       (* Optional arguments. *)
       if optargs <> [] then (
         List.iter (
-          fun argt ->
-            let n = name_of_optargt argt in
+          function
+          | OBool n ->
             let uc_n = String.uppercase n in
-            pr "  if (optargs_t_%s != " n;
-            (match argt with
-             | OBool _ -> pr "((zend_bool)-1)"
-             | OInt _ | OInt64 _ -> pr "-1"
-             | OString _ -> pr "NULL"
-            );
-            pr ") {\n";
+            pr "  if (optargs_t_%s != (zend_bool)-1) {\n" n;
             pr "    optargs_s.%s = optargs_t_%s;\n" n n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n"
+          | OInt n | OInt64 n ->
+            let uc_n = String.uppercase n in
+            pr "  if (optargs_t_%s != -1) {\n" n;
+            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
+            pr "  }\n"
+          | OString n ->
+            let uc_n = String.uppercase n in
+            pr "  if (optargs_t_%s != NULL) {\n" n;
+            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
+            pr "  }\n"
+          | OStringList n ->
+            let uc_n = String.uppercase n in
+            pr "  if (z_%s != NULL) {\n" n;
+            pr "    char **r;\n";
+            pr "    HashTable *a;\n";
+            pr "    int n;\n";
+            pr "    HashPosition p;\n";
+            pr "    zval **d;\n";
+            pr "    size_t c = 0;\n";
+            pr "\n";
+            pr "    a = Z_ARRVAL_P (z_%s);\n" n;
+            pr "    n = zend_hash_num_elements (a);\n";
+            pr "    r = safe_emalloc (n + 1, sizeof (char *), 0);\n";
+            pr "    for (zend_hash_internal_pointer_reset_ex (a, &p);\n";
+            pr "         zend_hash_get_current_data_ex (a, (void **) &d, &p) == SUCCESS;\n";
+            pr "         zend_hash_move_forward_ex (a, &p)) {\n";
+            pr "      zval t = **d;\n";
+            pr "      zval_copy_ctor (&t);\n";
+            pr "      convert_to_string (&t);\n";
+            pr "      r[c] = Z_STRVAL (t);\n";
+            pr "      c++;\n";
+            pr "    }\n";
+            pr "    r[c] = NULL;\n";
+            pr "    optargs_s.%s = r;\n" n;
+            pr "\n";
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
+            pr "  }\n";
         ) optargs;
         pr "\n"
       );

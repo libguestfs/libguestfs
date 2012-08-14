@@ -311,6 +311,7 @@ free_strings (char **argv)
           | OInt n -> pr "  int optargs_t_%s = -1;\n" n
           | OInt64 n -> pr "  long long optargs_t_%s = -1;\n" n
           | OString n -> pr "  const char *optargs_t_%s = NULL;\n" n
+          | OStringList n -> pr "  PyObject *py_%s;\n" n
         ) optargs
       );
 
@@ -346,6 +347,7 @@ free_strings (char **argv)
           | OBool _ | OInt _ -> pr "i"
           | OInt64 _ -> pr "L"
           | OString _ -> pr "z" (* because we use None to mean not set *)
+          | OStringList _ -> pr "O"
         ) optargs;
       );
 
@@ -367,6 +369,7 @@ free_strings (char **argv)
       List.iter (
         function
         | OBool n | OInt n | OInt64 n | OString n -> pr ", &optargs_t_%s" n
+        | OStringList n -> pr ", &py_%s" n
       ) optargs;
 
       pr "))\n";
@@ -389,16 +392,24 @@ free_strings (char **argv)
 
       if optargs <> [] then (
         List.iter (
-          fun argt ->
-            let n = name_of_optargt argt in
+          function
+          | OBool n | OInt n | OInt64 n ->
             let uc_n = String.uppercase n in
-            pr "  if (optargs_t_%s != " n;
-            (match argt with
-             | OBool _ | OInt _ | OInt64 _ -> pr "-1"
-             | OString _ -> pr "NULL"
-            );
-            pr ") {\n";
+            pr "  if (optargs_t_%s != -1) {\n" n;
             pr "    optargs_s.%s = optargs_t_%s;\n" n n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
+            pr "  }\n"
+          | OString n ->
+            let uc_n = String.uppercase n in
+            pr "  if (optargs_t_%s != NULL) {\n" n;
+            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
+            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
+            pr "  }\n"
+          | OStringList n ->
+            let uc_n = String.uppercase n in
+            pr "  if (py_%s != Py_None) {\n" n;
+            pr "    optargs_s.%s = get_string_list (py_%s);\n" n n;
+            pr "    if (!optargs_s.%s) return NULL;\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n"
         ) optargs;
@@ -430,6 +441,14 @@ free_strings (char **argv)
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) args;
+
+      List.iter (
+        function
+        | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
+        | OStringList n ->
+          pr "  if (py_%s != Py_None)\n" n;
+          pr "    free (optargs_s.%s);\n" n
+      ) optargs;
 
       (match errcode_of_ret ret with
        | `CannotReturnError -> ()
@@ -706,7 +725,7 @@ class GuestFS:
       List.iter (
         function
         | OBool n | OInt n | OInt64 n -> pr ", %s=-1" n
-        | OString n -> pr ", %s=None" n
+        | OString n | OStringList n -> pr ", %s=None" n
       ) optargs;
       pr "):\n";
 

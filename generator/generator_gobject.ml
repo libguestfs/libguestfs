@@ -18,6 +18,8 @@
 
 (* Please read generator/README first. *)
 
+(* NB: This is missing support for OStringList. *)
+
 open Printf
 
 open Generator_actions
@@ -371,14 +373,12 @@ let generate_gobject_optargs_source name optargs f () =
 
   pr "struct _%sPrivate {\n" camel_name;
   List.iter (
-    fun optargt ->
-      let name = name_of_optargt optargt in
-      let typ = match optargt with
-      | OBool n   -> "GuestfsTristate "
-      | OInt n    -> "gint "
-      | OInt64 n  -> "gint64 "
-      | OString n -> "gchar *" in
-      pr "  %s%s;\n" typ name;
+    function
+    | OBool n   -> pr "  GuestfsTristate %s;\n" n
+    | OInt n    -> pr "  gint %s;\n" n
+    | OInt64 n  -> pr "  gint64 %s;\n" n
+    | OString n -> pr "  gchar *%s;\n" n
+    | OStringList _ -> pr "  /* OStringList not implemented yet */\n"
   ) optargs;
   pr "};\n\n";
 
@@ -401,21 +401,23 @@ let generate_gobject_optargs_source name optargs f () =
 
   pr "  switch (property_id) {\n";
   List.iter (
-    fun optargt ->
+    function OStringList _ -> () (* XXX *)
+    | optargt ->
       let optname = name_of_optargt optargt in
       let uc_optname = String.uppercase optname in
       pr "    case PROP_GUESTFS_%s_%s:\n" uc_name uc_optname;
       (match optargt with
       | OString n ->
         pr "      g_free(priv->%s);\n" n;
-      | OBool _ | OInt _ | OInt64 _ -> ());
-      let set_value_func = match optargt with
-      | OBool _   -> "g_value_get_enum"
-      | OInt _    -> "g_value_get_int"
-      | OInt64 _  -> "g_value_get_int64"
-      | OString _ -> "g_value_dup_string"
-      in
-      pr "      priv->%s = %s(value);\n" optname set_value_func;
+      | OBool _ | OInt _ | OInt64 _ -> ()
+      | OStringList _ -> () (* XXX *));
+      (match optargt with
+      | OBool n   -> pr "      priv->%s = g_value_get_enum (value);\n" n
+      | OInt n    -> pr "      priv->%s = g_value_get_int (value);\n" n
+      | OInt64 n  -> pr "      priv->%s = g_value_get_int64 (value);\n" n
+      | OString n -> pr "      priv->%s = g_value_dup_string (value);\n" n
+      | OStringList _ -> ()
+      );
       pr "      break;\n\n";
   ) optargs;
   pr "    default:\n";
@@ -432,7 +434,8 @@ let generate_gobject_optargs_source name optargs f () =
 
   pr "  switch (property_id) {\n";
   List.iter (
-    fun optargt ->
+    function OStringList _ -> () (* XXX *)
+    | optargt ->
       let optname = name_of_optargt optargt in
       let uc_optname = String.uppercase optname in
       pr "    case PROP_GUESTFS_%s_%s:\n" uc_name uc_optname;
@@ -441,6 +444,7 @@ let generate_gobject_optargs_source name optargs f () =
       | OInt _    -> "int"
       | OInt64 _  -> "int64"
       | OString _ -> "string"
+      | OStringList _ -> "" (* XXX *)
       in
       pr "      g_value_set_%s(value, priv->%s);\n" set_value_func optname;
       pr "      break;\n\n";
@@ -460,6 +464,7 @@ let generate_gobject_optargs_source name optargs f () =
     function
     | OString n ->
       pr "  g_free(priv->%s);\n" n
+    | OStringList n -> () (* XXX *)
     | OBool _ | OInt _ | OInt64 _ -> ()
   ) optargs;
   pr "\n";
@@ -475,7 +480,8 @@ let generate_gobject_optargs_source name optargs f () =
   pr "  object_class->get_property = guestfs_%s_get_property;\n\n" name;
 
   List.iter (
-    fun optargt ->
+    function OStringList _ -> () (* XXX *)
+    | optargt ->
       let optname = name_of_optargt optargt in
       let type_spec, type_init, type_desc =
         match optargt with
@@ -487,6 +493,7 @@ let generate_gobject_optargs_source name optargs f () =
           "int64", "G_MININT64, G_MAXINT64, -1", "A 64-bit integer."
         | OString n ->
           "string", "NULL", "A string."
+        | OStringList n -> "", "", "" (* XXX *)
       in
       pr "  /**\n";
       pr "   * %s:%s:\n" camel_name optname;
@@ -1140,6 +1147,8 @@ guestfs_session_close(GuestfsSession *session, GError **err)
             set_property n "gint64 " "G_TYPE_INT64" "int64" "-1"
           | OString n ->
             set_property n "const gchar *" "G_TYPE_STRING" "string" "NULL"
+          | OStringList n ->
+            () (* XXX *)
         ) optargs;
         pr "    argvp = &argv;\n";
         pr "  }\n"
