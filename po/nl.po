@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-11 13:34+0100\n"
+"POT-Creation-Date: 2012-08-14 17:41+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -2207,70 +2207,69 @@ msgstr ""
 #: fish/cmds.c:7450 fish/cmds.c:7472 fish/cmds.c:7494 fish/cmds.c:7517
 #: fish/cmds.c:7540 fish/cmds.c:7564 fish/cmds.c:7606 fish/cmds.c:7629
 #: fish/cmds.c:7652 fish/cmds.c:7674 fish/cmds.c:7697 fish/cmds.c:7727
-#: fish/cmds.c:7757 fish/cmds.c:7786 fish/cmds.c:7816 fish/cmds.c:7843
-#: fish/cmds.c:7873 fish/cmds.c:7903 fish/cmds.c:7928 fish/cmds.c:7955
-#: fish/cmds.c:7981 fish/cmds.c:8009 fish/cmds.c:8031 fish/cmds.c:8053
-#: fish/cmds.c:8076 fish/cmds.c:8099 fish/cmds.c:8124 fish/cmds.c:8147
-#: fish/cmds.c:8172 fish/cmds.c:8196 fish/cmds.c:8219 fish/cmds.c:8246
-#: fish/cmds.c:8276 fish/cmds.c:8306 fish/cmds.c:8335 fish/cmds.c:8374
-#: fish/cmds.c:8395 fish/cmds.c:8417 fish/cmds.c:8447 fish/cmds.c:8475
-#: fish/cmds.c:8503 fish/cmds.c:8530 fish/cmds.c:8552 fish/cmds.c:8579
-#: fish/cmds.c:8682 fish/cmds.c:8706 fish/cmds.c:8730 fish/cmds.c:8754
-#: fish/cmds.c:8777 fish/cmds.c:8804 fish/cmds.c:8846 fish/cmds.c:8868
-#: fish/cmds.c:8895 fish/cmds.c:8917 fish/cmds.c:8959 fish/cmds.c:8983
-#: fish/cmds.c:9007 fish/cmds.c:9031 fish/cmds.c:9058 fish/cmds.c:9080
-#: fish/cmds.c:9105 fish/cmds.c:9130 fish/cmds.c:9157 fish/cmds.c:9183
-#: fish/cmds.c:9209 fish/cmds.c:9235 fish/cmds.c:9263 fish/cmds.c:9310
-#: fish/cmds.c:9338 fish/cmds.c:9383 fish/cmds.c:9404 fish/cmds.c:9427
-#: fish/cmds.c:9453 fish/cmds.c:9481 fish/cmds.c:9510 fish/cmds.c:9533
-#: fish/cmds.c:9557 fish/cmds.c:9583 fish/cmds.c:9669 fish/cmds.c:9717
-#: fish/cmds.c:9805 fish/cmds.c:9890 fish/cmds.c:9932 fish/cmds.c:9960
-#: fish/cmds.c:9987 fish/cmds.c:10015 fish/cmds.c:10042 fish/cmds.c:10072
-#: fish/cmds.c:10122 fish/cmds.c:10170 fish/cmds.c:10197 fish/cmds.c:10221
-#: fish/cmds.c:10244 fish/cmds.c:10266 fish/cmds.c:10289 fish/cmds.c:10391
-#: fish/cmds.c:10420 fish/cmds.c:10449 fish/cmds.c:10478 fish/cmds.c:10507
-#: fish/cmds.c:10536 fish/cmds.c:10565 fish/cmds.c:10594 fish/cmds.c:10623
-#: fish/cmds.c:10652 fish/cmds.c:10681 fish/cmds.c:10709 fish/cmds.c:10737
-#: fish/cmds.c:10764 fish/cmds.c:10791 fish/cmds.c:10818 fish/cmds.c:10844
-#: fish/cmds.c:10872 fish/cmds.c:10917 fish/cmds.c:10939 fish/cmds.c:10961
-#: fish/cmds.c:10986 fish/cmds.c:11011 fish/cmds.c:11033 fish/cmds.c:11055
-#: fish/cmds.c:11077 fish/cmds.c:11099 fish/cmds.c:11124 fish/cmds.c:11166
-#: fish/cmds.c:11212 fish/cmds.c:11251 fish/cmds.c:11272 fish/cmds.c:11293
-#: fish/cmds.c:11314 fish/cmds.c:11334 fish/cmds.c:11359 fish/cmds.c:11403
-#: fish/cmds.c:11447 fish/cmds.c:11492 fish/cmds.c:11538 fish/cmds.c:11585
-#: fish/cmds.c:11632 fish/cmds.c:11676 fish/cmds.c:11698 fish/cmds.c:11726
-#: fish/cmds.c:11755 fish/cmds.c:11782 fish/cmds.c:11806 fish/cmds.c:11832
-#: fish/cmds.c:11875 fish/cmds.c:11957 fish/cmds.c:12004 fish/cmds.c:12070
-#: fish/cmds.c:12102 fish/cmds.c:12134 fish/cmds.c:12168 fish/cmds.c:12234
-#: fish/cmds.c:12260 fish/cmds.c:12312 fish/cmds.c:12337 fish/cmds.c:12382
-#: fish/cmds.c:12425 fish/cmds.c:12449 fish/cmds.c:12475 fish/cmds.c:12540
-#: fish/cmds.c:12566 fish/cmds.c:12595 fish/cmds.c:12622 fish/cmds.c:12646
-#: fish/cmds.c:12671 fish/cmds.c:12703 fish/cmds.c:12727 fish/cmds.c:12751
-#: fish/cmds.c:12775 fish/cmds.c:12799 fish/cmds.c:12825 fish/cmds.c:12868
-#: fish/cmds.c:12891 fish/cmds.c:12921 fish/cmds.c:12948 fish/cmds.c:12970
-#: fish/cmds.c:13013 fish/cmds.c:13057 fish/cmds.c:13102 fish/cmds.c:13165
-#: fish/cmds.c:13191 fish/cmds.c:13233 fish/cmds.c:13253 fish/cmds.c:13277
-#: fish/cmds.c:13324 fish/cmds.c:13354 fish/cmds.c:13385 fish/cmds.c:13417
-#: fish/cmds.c:13465 fish/cmds.c:13496 fish/cmds.c:13540 fish/cmds.c:13577
-#: fish/cmds.c:13614 fish/cmds.c:13648 fish/cmds.c:13672 fish/cmds.c:13711
-#: fish/cmds.c:13735 fish/cmds.c:13759 fish/cmds.c:13782 fish/cmds.c:13805
-#: fish/cmds.c:13836 fish/cmds.c:13865 fish/cmds.c:13889 fish/cmds.c:13940
-#: fish/cmds.c:13992 fish/cmds.c:14048 fish/cmds.c:14096 fish/cmds.c:14119
-#: fish/cmds.c:14143 fish/cmds.c:14167 fish/cmds.c:14193 fish/cmds.c:14219
-#: fish/cmds.c:14245 fish/cmds.c:14271 fish/cmds.c:14297 fish/cmds.c:14323
-#: fish/cmds.c:14369 fish/cmds.c:14429 fish/cmds.c:14472 fish/cmds.c:14534
-#: fish/cmds.c:14679 fish/cmds.c:14713 fish/cmds.c:14745 fish/cmds.c:14767
-#: fish/cmds.c:14793 fish/cmds.c:14814 fish/cmds.c:14885 fish/cmds.c:15038
-#: fish/cmds.c:15215 fish/cmds.c:15966 fish/cmds.c:15989 fish/cmds.c:16013
-#: fish/cmds.c:16035 fish/cmds.c:16112 fish/cmds.c:16139 fish/cmds.c:16283
-#: fish/cmds.c:16310 fish/cmds.c:16333 fish/cmds.c:16360 fish/cmds.c:16403
-#: fish/cmds.c:16427 fish/cmds.c:16455 fish/cmds.c:16483 fish/cmds.c:16671
-#: fish/cmds.c:16751 fish/cmds.c:16778 fish/cmds.c:16818 fish/cmds.c:16847
-#: fish/cmds.c:16872 fish/cmds.c:16897 fish/cmds.c:16925 fish/cmds.c:16964
-#: fish/cmds.c:16989 fish/cmds.c:17015 fish/cmds.c:17045 fish/cmds.c:17075
-#: fish/cmds.c:17163 fish/cmds.c:17283 fish/cmds.c:17304 fish/cmds.c:17326
-#: fish/cmds.c:17353 fish/cmds.c:17373 fish/cmds.c:17394 fish/cmds.c:17414
-#: fish/cmds.c:17433
+#: fish/cmds.c:7757 fish/cmds.c:7909 fish/cmds.c:7939 fish/cmds.c:7969
+#: fish/cmds.c:7994 fish/cmds.c:8021 fish/cmds.c:8047 fish/cmds.c:8075
+#: fish/cmds.c:8097 fish/cmds.c:8119 fish/cmds.c:8142 fish/cmds.c:8165
+#: fish/cmds.c:8190 fish/cmds.c:8213 fish/cmds.c:8238 fish/cmds.c:8262
+#: fish/cmds.c:8285 fish/cmds.c:8312 fish/cmds.c:8342 fish/cmds.c:8372
+#: fish/cmds.c:8401 fish/cmds.c:8440 fish/cmds.c:8461 fish/cmds.c:8483
+#: fish/cmds.c:8513 fish/cmds.c:8541 fish/cmds.c:8569 fish/cmds.c:8596
+#: fish/cmds.c:8618 fish/cmds.c:8645 fish/cmds.c:8748 fish/cmds.c:8772
+#: fish/cmds.c:8796 fish/cmds.c:8820 fish/cmds.c:8843 fish/cmds.c:8870
+#: fish/cmds.c:8912 fish/cmds.c:8934 fish/cmds.c:8961 fish/cmds.c:8983
+#: fish/cmds.c:9025 fish/cmds.c:9049 fish/cmds.c:9073 fish/cmds.c:9097
+#: fish/cmds.c:9124 fish/cmds.c:9146 fish/cmds.c:9171 fish/cmds.c:9196
+#: fish/cmds.c:9223 fish/cmds.c:9249 fish/cmds.c:9275 fish/cmds.c:9301
+#: fish/cmds.c:9329 fish/cmds.c:9376 fish/cmds.c:9404 fish/cmds.c:9449
+#: fish/cmds.c:9470 fish/cmds.c:9493 fish/cmds.c:9519 fish/cmds.c:9547
+#: fish/cmds.c:9576 fish/cmds.c:9599 fish/cmds.c:9623 fish/cmds.c:9649
+#: fish/cmds.c:9735 fish/cmds.c:9783 fish/cmds.c:9871 fish/cmds.c:9956
+#: fish/cmds.c:9998 fish/cmds.c:10026 fish/cmds.c:10053 fish/cmds.c:10081
+#: fish/cmds.c:10108 fish/cmds.c:10138 fish/cmds.c:10188 fish/cmds.c:10236
+#: fish/cmds.c:10263 fish/cmds.c:10287 fish/cmds.c:10310 fish/cmds.c:10332
+#: fish/cmds.c:10355 fish/cmds.c:10457 fish/cmds.c:10486 fish/cmds.c:10515
+#: fish/cmds.c:10544 fish/cmds.c:10573 fish/cmds.c:10602 fish/cmds.c:10631
+#: fish/cmds.c:10660 fish/cmds.c:10689 fish/cmds.c:10718 fish/cmds.c:10747
+#: fish/cmds.c:10775 fish/cmds.c:10803 fish/cmds.c:10830 fish/cmds.c:10857
+#: fish/cmds.c:10884 fish/cmds.c:10910 fish/cmds.c:10938 fish/cmds.c:10983
+#: fish/cmds.c:11005 fish/cmds.c:11027 fish/cmds.c:11052 fish/cmds.c:11077
+#: fish/cmds.c:11099 fish/cmds.c:11121 fish/cmds.c:11143 fish/cmds.c:11165
+#: fish/cmds.c:11190 fish/cmds.c:11232 fish/cmds.c:11278 fish/cmds.c:11317
+#: fish/cmds.c:11338 fish/cmds.c:11359 fish/cmds.c:11380 fish/cmds.c:11400
+#: fish/cmds.c:11425 fish/cmds.c:11469 fish/cmds.c:11513 fish/cmds.c:11558
+#: fish/cmds.c:11604 fish/cmds.c:11651 fish/cmds.c:11698 fish/cmds.c:11742
+#: fish/cmds.c:11764 fish/cmds.c:11792 fish/cmds.c:11821 fish/cmds.c:11848
+#: fish/cmds.c:11872 fish/cmds.c:11898 fish/cmds.c:11941 fish/cmds.c:12023
+#: fish/cmds.c:12070 fish/cmds.c:12136 fish/cmds.c:12168 fish/cmds.c:12200
+#: fish/cmds.c:12234 fish/cmds.c:12300 fish/cmds.c:12326 fish/cmds.c:12378
+#: fish/cmds.c:12403 fish/cmds.c:12448 fish/cmds.c:12491 fish/cmds.c:12515
+#: fish/cmds.c:12541 fish/cmds.c:12606 fish/cmds.c:12632 fish/cmds.c:12661
+#: fish/cmds.c:12688 fish/cmds.c:12712 fish/cmds.c:12737 fish/cmds.c:12769
+#: fish/cmds.c:12793 fish/cmds.c:12817 fish/cmds.c:12841 fish/cmds.c:12865
+#: fish/cmds.c:12891 fish/cmds.c:12934 fish/cmds.c:12957 fish/cmds.c:12987
+#: fish/cmds.c:13014 fish/cmds.c:13036 fish/cmds.c:13079 fish/cmds.c:13123
+#: fish/cmds.c:13168 fish/cmds.c:13231 fish/cmds.c:13257 fish/cmds.c:13299
+#: fish/cmds.c:13319 fish/cmds.c:13343 fish/cmds.c:13390 fish/cmds.c:13420
+#: fish/cmds.c:13451 fish/cmds.c:13483 fish/cmds.c:13531 fish/cmds.c:13562
+#: fish/cmds.c:13606 fish/cmds.c:13643 fish/cmds.c:13680 fish/cmds.c:13714
+#: fish/cmds.c:13738 fish/cmds.c:13777 fish/cmds.c:13801 fish/cmds.c:13825
+#: fish/cmds.c:13848 fish/cmds.c:13871 fish/cmds.c:13902 fish/cmds.c:13931
+#: fish/cmds.c:13955 fish/cmds.c:14006 fish/cmds.c:14058 fish/cmds.c:14114
+#: fish/cmds.c:14162 fish/cmds.c:14185 fish/cmds.c:14209 fish/cmds.c:14233
+#: fish/cmds.c:14259 fish/cmds.c:14285 fish/cmds.c:14311 fish/cmds.c:14337
+#: fish/cmds.c:14363 fish/cmds.c:14389 fish/cmds.c:14435 fish/cmds.c:14495
+#: fish/cmds.c:14538 fish/cmds.c:14600 fish/cmds.c:14745 fish/cmds.c:14779
+#: fish/cmds.c:14811 fish/cmds.c:14833 fish/cmds.c:14859 fish/cmds.c:14880
+#: fish/cmds.c:14951 fish/cmds.c:15104 fish/cmds.c:15281 fish/cmds.c:16032
+#: fish/cmds.c:16055 fish/cmds.c:16079 fish/cmds.c:16101 fish/cmds.c:16178
+#: fish/cmds.c:16205 fish/cmds.c:16349 fish/cmds.c:16376 fish/cmds.c:16399
+#: fish/cmds.c:16426 fish/cmds.c:16469 fish/cmds.c:16493 fish/cmds.c:16521
+#: fish/cmds.c:16549 fish/cmds.c:16737 fish/cmds.c:16817 fish/cmds.c:16844
+#: fish/cmds.c:16884 fish/cmds.c:16913 fish/cmds.c:16938 fish/cmds.c:16963
+#: fish/cmds.c:16991 fish/cmds.c:17030 fish/cmds.c:17055 fish/cmds.c:17081
+#: fish/cmds.c:17111 fish/cmds.c:17141 fish/cmds.c:17229 fish/cmds.c:17349
+#: fish/cmds.c:17370 fish/cmds.c:17392 fish/cmds.c:17419 fish/cmds.c:17439
+#: fish/cmds.c:17460 fish/cmds.c:17480 fish/cmds.c:17499
 #, c-format
 msgid "%s should have %d parameter(s)\n"
 msgstr "%s moet %d parameter(s) hebben\n"
@@ -2310,76 +2309,76 @@ msgstr "%s moet %d parameter(s) hebben\n"
 #: fish/cmds.c:7400 fish/cmds.c:7427 fish/cmds.c:7451 fish/cmds.c:7473
 #: fish/cmds.c:7495 fish/cmds.c:7518 fish/cmds.c:7541 fish/cmds.c:7565
 #: fish/cmds.c:7607 fish/cmds.c:7630 fish/cmds.c:7653 fish/cmds.c:7675
-#: fish/cmds.c:7698 fish/cmds.c:7728 fish/cmds.c:7758 fish/cmds.c:7787
-#: fish/cmds.c:7817 fish/cmds.c:7844 fish/cmds.c:7874 fish/cmds.c:7904
-#: fish/cmds.c:7929 fish/cmds.c:7956 fish/cmds.c:7982 fish/cmds.c:8010
-#: fish/cmds.c:8032 fish/cmds.c:8054 fish/cmds.c:8077 fish/cmds.c:8100
-#: fish/cmds.c:8125 fish/cmds.c:8148 fish/cmds.c:8173 fish/cmds.c:8197
-#: fish/cmds.c:8220 fish/cmds.c:8247 fish/cmds.c:8277 fish/cmds.c:8307
-#: fish/cmds.c:8336 fish/cmds.c:8375 fish/cmds.c:8396 fish/cmds.c:8418
-#: fish/cmds.c:8448 fish/cmds.c:8476 fish/cmds.c:8504 fish/cmds.c:8531
-#: fish/cmds.c:8553 fish/cmds.c:8580 fish/cmds.c:8683 fish/cmds.c:8707
-#: fish/cmds.c:8731 fish/cmds.c:8755 fish/cmds.c:8778 fish/cmds.c:8805
-#: fish/cmds.c:8847 fish/cmds.c:8869 fish/cmds.c:8896 fish/cmds.c:8918
-#: fish/cmds.c:8960 fish/cmds.c:8984 fish/cmds.c:9008 fish/cmds.c:9032
-#: fish/cmds.c:9059 fish/cmds.c:9081 fish/cmds.c:9106 fish/cmds.c:9131
-#: fish/cmds.c:9158 fish/cmds.c:9184 fish/cmds.c:9210 fish/cmds.c:9236
-#: fish/cmds.c:9264 fish/cmds.c:9311 fish/cmds.c:9339 fish/cmds.c:9384
-#: fish/cmds.c:9405 fish/cmds.c:9428 fish/cmds.c:9454 fish/cmds.c:9482
-#: fish/cmds.c:9511 fish/cmds.c:9534 fish/cmds.c:9558 fish/cmds.c:9584
-#: fish/cmds.c:9670 fish/cmds.c:9718 fish/cmds.c:9806 fish/cmds.c:9891
-#: fish/cmds.c:9933 fish/cmds.c:9961 fish/cmds.c:9988 fish/cmds.c:10016
-#: fish/cmds.c:10043 fish/cmds.c:10073 fish/cmds.c:10123 fish/cmds.c:10171
-#: fish/cmds.c:10198 fish/cmds.c:10222 fish/cmds.c:10245 fish/cmds.c:10267
-#: fish/cmds.c:10290 fish/cmds.c:10324 fish/cmds.c:10392 fish/cmds.c:10421
-#: fish/cmds.c:10450 fish/cmds.c:10479 fish/cmds.c:10508 fish/cmds.c:10537
-#: fish/cmds.c:10566 fish/cmds.c:10595 fish/cmds.c:10624 fish/cmds.c:10653
-#: fish/cmds.c:10682 fish/cmds.c:10710 fish/cmds.c:10738 fish/cmds.c:10765
-#: fish/cmds.c:10792 fish/cmds.c:10819 fish/cmds.c:10845 fish/cmds.c:10873
-#: fish/cmds.c:10918 fish/cmds.c:10940 fish/cmds.c:10962 fish/cmds.c:10987
-#: fish/cmds.c:11012 fish/cmds.c:11034 fish/cmds.c:11056 fish/cmds.c:11078
-#: fish/cmds.c:11100 fish/cmds.c:11125 fish/cmds.c:11167 fish/cmds.c:11213
-#: fish/cmds.c:11252 fish/cmds.c:11273 fish/cmds.c:11294 fish/cmds.c:11315
-#: fish/cmds.c:11335 fish/cmds.c:11360 fish/cmds.c:11404 fish/cmds.c:11448
-#: fish/cmds.c:11493 fish/cmds.c:11539 fish/cmds.c:11586 fish/cmds.c:11633
-#: fish/cmds.c:11677 fish/cmds.c:11699 fish/cmds.c:11727 fish/cmds.c:11756
-#: fish/cmds.c:11783 fish/cmds.c:11807 fish/cmds.c:11833 fish/cmds.c:11876
-#: fish/cmds.c:11958 fish/cmds.c:12005 fish/cmds.c:12071 fish/cmds.c:12103
-#: fish/cmds.c:12135 fish/cmds.c:12169 fish/cmds.c:12235 fish/cmds.c:12261
-#: fish/cmds.c:12313 fish/cmds.c:12338 fish/cmds.c:12383 fish/cmds.c:12426
-#: fish/cmds.c:12450 fish/cmds.c:12476 fish/cmds.c:12541 fish/cmds.c:12567
-#: fish/cmds.c:12596 fish/cmds.c:12623 fish/cmds.c:12647 fish/cmds.c:12672
-#: fish/cmds.c:12704 fish/cmds.c:12728 fish/cmds.c:12752 fish/cmds.c:12776
-#: fish/cmds.c:12800 fish/cmds.c:12826 fish/cmds.c:12869 fish/cmds.c:12892
-#: fish/cmds.c:12922 fish/cmds.c:12949 fish/cmds.c:12971 fish/cmds.c:13014
-#: fish/cmds.c:13058 fish/cmds.c:13103 fish/cmds.c:13166 fish/cmds.c:13192
-#: fish/cmds.c:13234 fish/cmds.c:13254 fish/cmds.c:13278 fish/cmds.c:13325
-#: fish/cmds.c:13355 fish/cmds.c:13386 fish/cmds.c:13418 fish/cmds.c:13466
-#: fish/cmds.c:13497 fish/cmds.c:13541 fish/cmds.c:13578 fish/cmds.c:13615
-#: fish/cmds.c:13649 fish/cmds.c:13673 fish/cmds.c:13712 fish/cmds.c:13736
-#: fish/cmds.c:13760 fish/cmds.c:13783 fish/cmds.c:13806 fish/cmds.c:13837
-#: fish/cmds.c:13866 fish/cmds.c:13890 fish/cmds.c:13941 fish/cmds.c:13993
-#: fish/cmds.c:14049 fish/cmds.c:14097 fish/cmds.c:14120 fish/cmds.c:14144
-#: fish/cmds.c:14168 fish/cmds.c:14194 fish/cmds.c:14220 fish/cmds.c:14246
-#: fish/cmds.c:14272 fish/cmds.c:14298 fish/cmds.c:14324 fish/cmds.c:14370
-#: fish/cmds.c:14430 fish/cmds.c:14473 fish/cmds.c:14535 fish/cmds.c:14562
-#: fish/cmds.c:14680 fish/cmds.c:14714 fish/cmds.c:14746 fish/cmds.c:14768
-#: fish/cmds.c:14794 fish/cmds.c:14815 fish/cmds.c:14841 fish/cmds.c:14886
-#: fish/cmds.c:14911 fish/cmds.c:14976 fish/cmds.c:15039 fish/cmds.c:15071
-#: fish/cmds.c:15147 fish/cmds.c:15216 fish/cmds.c:15242 fish/cmds.c:15338
-#: fish/cmds.c:15437 fish/cmds.c:15536 fish/cmds.c:15637 fish/cmds.c:15839
-#: fish/cmds.c:15967 fish/cmds.c:15990 fish/cmds.c:16014 fish/cmds.c:16036
-#: fish/cmds.c:16062 fish/cmds.c:16113 fish/cmds.c:16140 fish/cmds.c:16164
-#: fish/cmds.c:16213 fish/cmds.c:16284 fish/cmds.c:16311 fish/cmds.c:16334
-#: fish/cmds.c:16361 fish/cmds.c:16404 fish/cmds.c:16428 fish/cmds.c:16456
-#: fish/cmds.c:16484 fish/cmds.c:16510 fish/cmds.c:16672 fish/cmds.c:16702
-#: fish/cmds.c:16752 fish/cmds.c:16779 fish/cmds.c:16819 fish/cmds.c:16848
-#: fish/cmds.c:16873 fish/cmds.c:16898 fish/cmds.c:16926 fish/cmds.c:16965
-#: fish/cmds.c:16990 fish/cmds.c:17016 fish/cmds.c:17046 fish/cmds.c:17076
-#: fish/cmds.c:17101 fish/cmds.c:17164 fish/cmds.c:17189 fish/cmds.c:17284
-#: fish/cmds.c:17305 fish/cmds.c:17327 fish/cmds.c:17354 fish/cmds.c:17374
-#: fish/cmds.c:17395 fish/cmds.c:17415 fish/cmds.c:17434 fish/cmds.c:17459
-#: fish/cmds.c:17614 fish/cmds.c:17675 fish/cmds.c:17733
+#: fish/cmds.c:7698 fish/cmds.c:7728 fish/cmds.c:7758 fish/cmds.c:7789
+#: fish/cmds.c:7845 fish/cmds.c:7910 fish/cmds.c:7940 fish/cmds.c:7970
+#: fish/cmds.c:7995 fish/cmds.c:8022 fish/cmds.c:8048 fish/cmds.c:8076
+#: fish/cmds.c:8098 fish/cmds.c:8120 fish/cmds.c:8143 fish/cmds.c:8166
+#: fish/cmds.c:8191 fish/cmds.c:8214 fish/cmds.c:8239 fish/cmds.c:8263
+#: fish/cmds.c:8286 fish/cmds.c:8313 fish/cmds.c:8343 fish/cmds.c:8373
+#: fish/cmds.c:8402 fish/cmds.c:8441 fish/cmds.c:8462 fish/cmds.c:8484
+#: fish/cmds.c:8514 fish/cmds.c:8542 fish/cmds.c:8570 fish/cmds.c:8597
+#: fish/cmds.c:8619 fish/cmds.c:8646 fish/cmds.c:8749 fish/cmds.c:8773
+#: fish/cmds.c:8797 fish/cmds.c:8821 fish/cmds.c:8844 fish/cmds.c:8871
+#: fish/cmds.c:8913 fish/cmds.c:8935 fish/cmds.c:8962 fish/cmds.c:8984
+#: fish/cmds.c:9026 fish/cmds.c:9050 fish/cmds.c:9074 fish/cmds.c:9098
+#: fish/cmds.c:9125 fish/cmds.c:9147 fish/cmds.c:9172 fish/cmds.c:9197
+#: fish/cmds.c:9224 fish/cmds.c:9250 fish/cmds.c:9276 fish/cmds.c:9302
+#: fish/cmds.c:9330 fish/cmds.c:9377 fish/cmds.c:9405 fish/cmds.c:9450
+#: fish/cmds.c:9471 fish/cmds.c:9494 fish/cmds.c:9520 fish/cmds.c:9548
+#: fish/cmds.c:9577 fish/cmds.c:9600 fish/cmds.c:9624 fish/cmds.c:9650
+#: fish/cmds.c:9736 fish/cmds.c:9784 fish/cmds.c:9872 fish/cmds.c:9957
+#: fish/cmds.c:9999 fish/cmds.c:10027 fish/cmds.c:10054 fish/cmds.c:10082
+#: fish/cmds.c:10109 fish/cmds.c:10139 fish/cmds.c:10189 fish/cmds.c:10237
+#: fish/cmds.c:10264 fish/cmds.c:10288 fish/cmds.c:10311 fish/cmds.c:10333
+#: fish/cmds.c:10356 fish/cmds.c:10390 fish/cmds.c:10458 fish/cmds.c:10487
+#: fish/cmds.c:10516 fish/cmds.c:10545 fish/cmds.c:10574 fish/cmds.c:10603
+#: fish/cmds.c:10632 fish/cmds.c:10661 fish/cmds.c:10690 fish/cmds.c:10719
+#: fish/cmds.c:10748 fish/cmds.c:10776 fish/cmds.c:10804 fish/cmds.c:10831
+#: fish/cmds.c:10858 fish/cmds.c:10885 fish/cmds.c:10911 fish/cmds.c:10939
+#: fish/cmds.c:10984 fish/cmds.c:11006 fish/cmds.c:11028 fish/cmds.c:11053
+#: fish/cmds.c:11078 fish/cmds.c:11100 fish/cmds.c:11122 fish/cmds.c:11144
+#: fish/cmds.c:11166 fish/cmds.c:11191 fish/cmds.c:11233 fish/cmds.c:11279
+#: fish/cmds.c:11318 fish/cmds.c:11339 fish/cmds.c:11360 fish/cmds.c:11381
+#: fish/cmds.c:11401 fish/cmds.c:11426 fish/cmds.c:11470 fish/cmds.c:11514
+#: fish/cmds.c:11559 fish/cmds.c:11605 fish/cmds.c:11652 fish/cmds.c:11699
+#: fish/cmds.c:11743 fish/cmds.c:11765 fish/cmds.c:11793 fish/cmds.c:11822
+#: fish/cmds.c:11849 fish/cmds.c:11873 fish/cmds.c:11899 fish/cmds.c:11942
+#: fish/cmds.c:12024 fish/cmds.c:12071 fish/cmds.c:12137 fish/cmds.c:12169
+#: fish/cmds.c:12201 fish/cmds.c:12235 fish/cmds.c:12301 fish/cmds.c:12327
+#: fish/cmds.c:12379 fish/cmds.c:12404 fish/cmds.c:12449 fish/cmds.c:12492
+#: fish/cmds.c:12516 fish/cmds.c:12542 fish/cmds.c:12607 fish/cmds.c:12633
+#: fish/cmds.c:12662 fish/cmds.c:12689 fish/cmds.c:12713 fish/cmds.c:12738
+#: fish/cmds.c:12770 fish/cmds.c:12794 fish/cmds.c:12818 fish/cmds.c:12842
+#: fish/cmds.c:12866 fish/cmds.c:12892 fish/cmds.c:12935 fish/cmds.c:12958
+#: fish/cmds.c:12988 fish/cmds.c:13015 fish/cmds.c:13037 fish/cmds.c:13080
+#: fish/cmds.c:13124 fish/cmds.c:13169 fish/cmds.c:13232 fish/cmds.c:13258
+#: fish/cmds.c:13300 fish/cmds.c:13320 fish/cmds.c:13344 fish/cmds.c:13391
+#: fish/cmds.c:13421 fish/cmds.c:13452 fish/cmds.c:13484 fish/cmds.c:13532
+#: fish/cmds.c:13563 fish/cmds.c:13607 fish/cmds.c:13644 fish/cmds.c:13681
+#: fish/cmds.c:13715 fish/cmds.c:13739 fish/cmds.c:13778 fish/cmds.c:13802
+#: fish/cmds.c:13826 fish/cmds.c:13849 fish/cmds.c:13872 fish/cmds.c:13903
+#: fish/cmds.c:13932 fish/cmds.c:13956 fish/cmds.c:14007 fish/cmds.c:14059
+#: fish/cmds.c:14115 fish/cmds.c:14163 fish/cmds.c:14186 fish/cmds.c:14210
+#: fish/cmds.c:14234 fish/cmds.c:14260 fish/cmds.c:14286 fish/cmds.c:14312
+#: fish/cmds.c:14338 fish/cmds.c:14364 fish/cmds.c:14390 fish/cmds.c:14436
+#: fish/cmds.c:14496 fish/cmds.c:14539 fish/cmds.c:14601 fish/cmds.c:14628
+#: fish/cmds.c:14746 fish/cmds.c:14780 fish/cmds.c:14812 fish/cmds.c:14834
+#: fish/cmds.c:14860 fish/cmds.c:14881 fish/cmds.c:14907 fish/cmds.c:14952
+#: fish/cmds.c:14977 fish/cmds.c:15042 fish/cmds.c:15105 fish/cmds.c:15137
+#: fish/cmds.c:15213 fish/cmds.c:15282 fish/cmds.c:15308 fish/cmds.c:15404
+#: fish/cmds.c:15503 fish/cmds.c:15602 fish/cmds.c:15703 fish/cmds.c:15905
+#: fish/cmds.c:16033 fish/cmds.c:16056 fish/cmds.c:16080 fish/cmds.c:16102
+#: fish/cmds.c:16128 fish/cmds.c:16179 fish/cmds.c:16206 fish/cmds.c:16230
+#: fish/cmds.c:16279 fish/cmds.c:16350 fish/cmds.c:16377 fish/cmds.c:16400
+#: fish/cmds.c:16427 fish/cmds.c:16470 fish/cmds.c:16494 fish/cmds.c:16522
+#: fish/cmds.c:16550 fish/cmds.c:16576 fish/cmds.c:16738 fish/cmds.c:16768
+#: fish/cmds.c:16818 fish/cmds.c:16845 fish/cmds.c:16885 fish/cmds.c:16914
+#: fish/cmds.c:16939 fish/cmds.c:16964 fish/cmds.c:16992 fish/cmds.c:17031
+#: fish/cmds.c:17056 fish/cmds.c:17082 fish/cmds.c:17112 fish/cmds.c:17142
+#: fish/cmds.c:17167 fish/cmds.c:17230 fish/cmds.c:17255 fish/cmds.c:17350
+#: fish/cmds.c:17371 fish/cmds.c:17393 fish/cmds.c:17420 fish/cmds.c:17440
+#: fish/cmds.c:17461 fish/cmds.c:17481 fish/cmds.c:17500 fish/cmds.c:17525
+#: fish/cmds.c:17680 fish/cmds.c:17741 fish/cmds.c:17799
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr "type 'help %s' voor hulp over %s\n"
@@ -2387,37 +2386,37 @@ msgstr "type 'help %s' voor hulp over %s\n"
 #: fish/cmds.c:4444 fish/cmds.c:5672 fish/cmds.c:5752 fish/cmds.c:6289
 #: fish/cmds.c:6738 fish/cmds.c:6785 fish/cmds.c:6804 fish/cmds.c:6981
 #: fish/cmds.c:7027 fish/cmds.c:7046 fish/cmds.c:7065 fish/cmds.c:7117
-#: fish/cmds.c:7576 fish/cmds.c:8346 fish/cmds.c:8591 fish/cmds.c:8610
-#: fish/cmds.c:8629 fish/cmds.c:8648 fish/cmds.c:8816 fish/cmds.c:8928
-#: fish/cmds.c:9274 fish/cmds.c:9349 fish/cmds.c:9594 fish/cmds.c:9613
-#: fish/cmds.c:9632 fish/cmds.c:9680 fish/cmds.c:9728 fish/cmds.c:9747
-#: fish/cmds.c:9766 fish/cmds.c:9816 fish/cmds.c:9835 fish/cmds.c:9854
-#: fish/cmds.c:9901 fish/cmds.c:10085 fish/cmds.c:10135 fish/cmds.c:10885
-#: fish/cmds.c:11135 fish/cmds.c:11179 fish/cmds.c:11223 fish/cmds.c:11371
-#: fish/cmds.c:11414 fish/cmds.c:11458 fish/cmds.c:11503 fish/cmds.c:11550
-#: fish/cmds.c:11597 fish/cmds.c:11644 fish/cmds.c:11845 fish/cmds.c:11888
-#: fish/cmds.c:11901 fish/cmds.c:11914 fish/cmds.c:11927 fish/cmds.c:11970
-#: fish/cmds.c:12015 fish/cmds.c:12034 fish/cmds.c:12181 fish/cmds.c:12200
-#: fish/cmds.c:12273 fish/cmds.c:12286 fish/cmds.c:12349 fish/cmds.c:12394
-#: fish/cmds.c:12486 fish/cmds.c:12505 fish/cmds.c:12840 fish/cmds.c:12982
-#: fish/cmds.c:13025 fish/cmds.c:13069 fish/cmds.c:13114 fish/cmds.c:13133
-#: fish/cmds.c:13203 fish/cmds.c:13291 fish/cmds.c:13429 fish/cmds.c:13512
-#: fish/cmds.c:13552 fish/cmds.c:13589 fish/cmds.c:13626 fish/cmds.c:13685
-#: fish/cmds.c:13905 fish/cmds.c:13956 fish/cmds.c:14012 fish/cmds.c:14064
-#: fish/cmds.c:14338 fish/cmds.c:14384 fish/cmds.c:14397 fish/cmds.c:14444
-#: fish/cmds.c:14484 fish/cmds.c:14503 fish/cmds.c:14580 fish/cmds.c:14608
-#: fish/cmds.c:14631 fish/cmds.c:14928 fish/cmds.c:14994 fish/cmds.c:15092
-#: fish/cmds.c:15167 fish/cmds.c:15260 fish/cmds.c:15277 fish/cmds.c:15294
-#: fish/cmds.c:15357 fish/cmds.c:15374 fish/cmds.c:15391 fish/cmds.c:15456
-#: fish/cmds.c:15473 fish/cmds.c:15490 fish/cmds.c:15556 fish/cmds.c:15573
-#: fish/cmds.c:15590 fish/cmds.c:15659 fish/cmds.c:15682 fish/cmds.c:15710
-#: fish/cmds.c:15727 fish/cmds.c:15750 fish/cmds.c:15778 fish/cmds.c:15795
-#: fish/cmds.c:15858 fish/cmds.c:15875 fish/cmds.c:15898 fish/cmds.c:15921
-#: fish/cmds.c:16373 fish/cmds.c:16528 fish/cmds.c:16545 fish/cmds.c:16567
-#: fish/cmds.c:16600 fish/cmds.c:16623 fish/cmds.c:16791 fish/cmds.c:16936
-#: fish/cmds.c:17118 fish/cmds.c:17207 fish/cmds.c:17224 fish/cmds.c:17241
-#: fish/cmds.c:17492 fish/cmds.c:17509 fish/cmds.c:17526 fish/cmds.c:17543
-#: fish/cmds.c:17560
+#: fish/cmds.c:7576 fish/cmds.c:8412 fish/cmds.c:8657 fish/cmds.c:8676
+#: fish/cmds.c:8695 fish/cmds.c:8714 fish/cmds.c:8882 fish/cmds.c:8994
+#: fish/cmds.c:9340 fish/cmds.c:9415 fish/cmds.c:9660 fish/cmds.c:9679
+#: fish/cmds.c:9698 fish/cmds.c:9746 fish/cmds.c:9794 fish/cmds.c:9813
+#: fish/cmds.c:9832 fish/cmds.c:9882 fish/cmds.c:9901 fish/cmds.c:9920
+#: fish/cmds.c:9967 fish/cmds.c:10151 fish/cmds.c:10201 fish/cmds.c:10951
+#: fish/cmds.c:11201 fish/cmds.c:11245 fish/cmds.c:11289 fish/cmds.c:11437
+#: fish/cmds.c:11480 fish/cmds.c:11524 fish/cmds.c:11569 fish/cmds.c:11616
+#: fish/cmds.c:11663 fish/cmds.c:11710 fish/cmds.c:11911 fish/cmds.c:11954
+#: fish/cmds.c:11967 fish/cmds.c:11980 fish/cmds.c:11993 fish/cmds.c:12036
+#: fish/cmds.c:12081 fish/cmds.c:12100 fish/cmds.c:12247 fish/cmds.c:12266
+#: fish/cmds.c:12339 fish/cmds.c:12352 fish/cmds.c:12415 fish/cmds.c:12460
+#: fish/cmds.c:12552 fish/cmds.c:12571 fish/cmds.c:12906 fish/cmds.c:13048
+#: fish/cmds.c:13091 fish/cmds.c:13135 fish/cmds.c:13180 fish/cmds.c:13199
+#: fish/cmds.c:13269 fish/cmds.c:13357 fish/cmds.c:13495 fish/cmds.c:13578
+#: fish/cmds.c:13618 fish/cmds.c:13655 fish/cmds.c:13692 fish/cmds.c:13751
+#: fish/cmds.c:13971 fish/cmds.c:14022 fish/cmds.c:14078 fish/cmds.c:14130
+#: fish/cmds.c:14404 fish/cmds.c:14450 fish/cmds.c:14463 fish/cmds.c:14510
+#: fish/cmds.c:14550 fish/cmds.c:14569 fish/cmds.c:14646 fish/cmds.c:14674
+#: fish/cmds.c:14697 fish/cmds.c:14994 fish/cmds.c:15060 fish/cmds.c:15158
+#: fish/cmds.c:15233 fish/cmds.c:15326 fish/cmds.c:15343 fish/cmds.c:15360
+#: fish/cmds.c:15423 fish/cmds.c:15440 fish/cmds.c:15457 fish/cmds.c:15522
+#: fish/cmds.c:15539 fish/cmds.c:15556 fish/cmds.c:15622 fish/cmds.c:15639
+#: fish/cmds.c:15656 fish/cmds.c:15725 fish/cmds.c:15748 fish/cmds.c:15776
+#: fish/cmds.c:15793 fish/cmds.c:15816 fish/cmds.c:15844 fish/cmds.c:15861
+#: fish/cmds.c:15924 fish/cmds.c:15941 fish/cmds.c:15964 fish/cmds.c:15987
+#: fish/cmds.c:16439 fish/cmds.c:16594 fish/cmds.c:16611 fish/cmds.c:16633
+#: fish/cmds.c:16666 fish/cmds.c:16689 fish/cmds.c:16857 fish/cmds.c:17002
+#: fish/cmds.c:17184 fish/cmds.c:17273 fish/cmds.c:17290 fish/cmds.c:17307
+#: fish/cmds.c:17558 fish/cmds.c:17575 fish/cmds.c:17592 fish/cmds.c:17609
+#: fish/cmds.c:17626
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: ongeldige geheel getal paramter (%s gaf %d terug)\n"
@@ -2425,65 +2424,65 @@ msgstr "%s: %s: ongeldige geheel getal paramter (%s gaf %d terug)\n"
 #: fish/cmds.c:4450 fish/cmds.c:5678 fish/cmds.c:5758 fish/cmds.c:6295
 #: fish/cmds.c:6744 fish/cmds.c:6791 fish/cmds.c:6810 fish/cmds.c:6987
 #: fish/cmds.c:7033 fish/cmds.c:7052 fish/cmds.c:7071 fish/cmds.c:7123
-#: fish/cmds.c:7582 fish/cmds.c:8352 fish/cmds.c:8597 fish/cmds.c:8616
-#: fish/cmds.c:8635 fish/cmds.c:8654 fish/cmds.c:8822 fish/cmds.c:8934
-#: fish/cmds.c:9280 fish/cmds.c:9355 fish/cmds.c:9600 fish/cmds.c:9619
-#: fish/cmds.c:9638 fish/cmds.c:9686 fish/cmds.c:9734 fish/cmds.c:9753
-#: fish/cmds.c:9772 fish/cmds.c:9822 fish/cmds.c:9841 fish/cmds.c:9860
-#: fish/cmds.c:9907 fish/cmds.c:10091 fish/cmds.c:10141 fish/cmds.c:10891
-#: fish/cmds.c:11141 fish/cmds.c:11185 fish/cmds.c:11229 fish/cmds.c:11377
-#: fish/cmds.c:11420 fish/cmds.c:11464 fish/cmds.c:11509 fish/cmds.c:11556
-#: fish/cmds.c:11603 fish/cmds.c:11650 fish/cmds.c:11976 fish/cmds.c:12021
-#: fish/cmds.c:12040 fish/cmds.c:12187 fish/cmds.c:12355 fish/cmds.c:12400
-#: fish/cmds.c:12492 fish/cmds.c:12511 fish/cmds.c:12988 fish/cmds.c:13031
-#: fish/cmds.c:13075 fish/cmds.c:13120 fish/cmds.c:13139 fish/cmds.c:13209
-#: fish/cmds.c:13297 fish/cmds.c:13435 fish/cmds.c:13911 fish/cmds.c:13962
-#: fish/cmds.c:14018 fish/cmds.c:14070 fish/cmds.c:14490 fish/cmds.c:14586
-#: fish/cmds.c:14614 fish/cmds.c:14637 fish/cmds.c:15098 fish/cmds.c:15173
-#: fish/cmds.c:15665 fish/cmds.c:15688 fish/cmds.c:15733 fish/cmds.c:15756
-#: fish/cmds.c:15881 fish/cmds.c:15904 fish/cmds.c:16379 fish/cmds.c:16573
-#: fish/cmds.c:16606 fish/cmds.c:16629 fish/cmds.c:17566
+#: fish/cmds.c:7582 fish/cmds.c:8418 fish/cmds.c:8663 fish/cmds.c:8682
+#: fish/cmds.c:8701 fish/cmds.c:8720 fish/cmds.c:8888 fish/cmds.c:9000
+#: fish/cmds.c:9346 fish/cmds.c:9421 fish/cmds.c:9666 fish/cmds.c:9685
+#: fish/cmds.c:9704 fish/cmds.c:9752 fish/cmds.c:9800 fish/cmds.c:9819
+#: fish/cmds.c:9838 fish/cmds.c:9888 fish/cmds.c:9907 fish/cmds.c:9926
+#: fish/cmds.c:9973 fish/cmds.c:10157 fish/cmds.c:10207 fish/cmds.c:10957
+#: fish/cmds.c:11207 fish/cmds.c:11251 fish/cmds.c:11295 fish/cmds.c:11443
+#: fish/cmds.c:11486 fish/cmds.c:11530 fish/cmds.c:11575 fish/cmds.c:11622
+#: fish/cmds.c:11669 fish/cmds.c:11716 fish/cmds.c:12042 fish/cmds.c:12087
+#: fish/cmds.c:12106 fish/cmds.c:12253 fish/cmds.c:12421 fish/cmds.c:12466
+#: fish/cmds.c:12558 fish/cmds.c:12577 fish/cmds.c:13054 fish/cmds.c:13097
+#: fish/cmds.c:13141 fish/cmds.c:13186 fish/cmds.c:13205 fish/cmds.c:13275
+#: fish/cmds.c:13363 fish/cmds.c:13501 fish/cmds.c:13977 fish/cmds.c:14028
+#: fish/cmds.c:14084 fish/cmds.c:14136 fish/cmds.c:14556 fish/cmds.c:14652
+#: fish/cmds.c:14680 fish/cmds.c:14703 fish/cmds.c:15164 fish/cmds.c:15239
+#: fish/cmds.c:15731 fish/cmds.c:15754 fish/cmds.c:15799 fish/cmds.c:15822
+#: fish/cmds.c:15947 fish/cmds.c:15970 fish/cmds.c:16445 fish/cmds.c:16639
+#: fish/cmds.c:16672 fish/cmds.c:16695 fish/cmds.c:17632
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: geheel getal ligt buiten de reeks\n"
 
 #: fish/cmds.c:5054 fish/cmds.c:5183 fish/cmds.c:5562 fish/cmds.c:5724
-#: fish/cmds.c:5823 fish/cmds.c:7151 fish/cmds.c:10323 fish/cmds.c:14561
-#: fish/cmds.c:14840 fish/cmds.c:14910 fish/cmds.c:14975 fish/cmds.c:15070
-#: fish/cmds.c:15146 fish/cmds.c:15241 fish/cmds.c:15337 fish/cmds.c:15436
-#: fish/cmds.c:15535 fish/cmds.c:15636 fish/cmds.c:15838 fish/cmds.c:16061
-#: fish/cmds.c:16163 fish/cmds.c:16212 fish/cmds.c:16509 fish/cmds.c:16701
-#: fish/cmds.c:17100 fish/cmds.c:17188 fish/cmds.c:17458 fish/cmds.c:17613
-#: fish/cmds.c:17674 fish/cmds.c:17732
+#: fish/cmds.c:5823 fish/cmds.c:7151 fish/cmds.c:7788 fish/cmds.c:7844
+#: fish/cmds.c:10389 fish/cmds.c:14627 fish/cmds.c:14906 fish/cmds.c:14976
+#: fish/cmds.c:15041 fish/cmds.c:15136 fish/cmds.c:15212 fish/cmds.c:15307
+#: fish/cmds.c:15403 fish/cmds.c:15502 fish/cmds.c:15601 fish/cmds.c:15702
+#: fish/cmds.c:15904 fish/cmds.c:16127 fish/cmds.c:16229 fish/cmds.c:16278
+#: fish/cmds.c:16575 fish/cmds.c:16767 fish/cmds.c:17166 fish/cmds.c:17254
+#: fish/cmds.c:17524 fish/cmds.c:17679 fish/cmds.c:17740 fish/cmds.c:17798
 #, c-format
 msgid "%s should have %d-%d parameter(s)\n"
 msgstr "%s moet %d-%d parameter(s) hebben\n"
 
 #: fish/cmds.c:5085 fish/cmds.c:5224 fish/cmds.c:5583 fish/cmds.c:5773
-#: fish/cmds.c:5838 fish/cmds.c:7173 fish/cmds.c:10356 fish/cmds.c:14647
-#: fish/cmds.c:14857 fish/cmds.c:14943 fish/cmds.c:15004 fish/cmds.c:15108
-#: fish/cmds.c:15183 fish/cmds.c:15304 fish/cmds.c:15401 fish/cmds.c:15500
-#: fish/cmds.c:15600 fish/cmds.c:15805 fish/cmds.c:15936 fish/cmds.c:16082
-#: fish/cmds.c:16179 fish/cmds.c:16250 fish/cmds.c:16639 fish/cmds.c:16719
-#: fish/cmds.c:17133 fish/cmds.c:17251 fish/cmds.c:17576 fish/cmds.c:17637
-#: fish/cmds.c:17697 fish/cmds.c:17755
+#: fish/cmds.c:5838 fish/cmds.c:7173 fish/cmds.c:7807 fish/cmds.c:7873
+#: fish/cmds.c:10422 fish/cmds.c:14713 fish/cmds.c:14923 fish/cmds.c:15009
+#: fish/cmds.c:15070 fish/cmds.c:15174 fish/cmds.c:15249 fish/cmds.c:15370
+#: fish/cmds.c:15467 fish/cmds.c:15566 fish/cmds.c:15666 fish/cmds.c:15871
+#: fish/cmds.c:16002 fish/cmds.c:16148 fish/cmds.c:16245 fish/cmds.c:16316
+#: fish/cmds.c:16705 fish/cmds.c:16785 fish/cmds.c:17199 fish/cmds.c:17317
+#: fish/cmds.c:17642 fish/cmds.c:17703 fish/cmds.c:17763 fish/cmds.c:17821
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: onbekend optioneel argument \"%s\"\n"
 
 #: fish/cmds.c:5091 fish/cmds.c:5230 fish/cmds.c:5589 fish/cmds.c:5779
-#: fish/cmds.c:5844 fish/cmds.c:7179 fish/cmds.c:10362 fish/cmds.c:14653
-#: fish/cmds.c:14863 fish/cmds.c:14949 fish/cmds.c:15010 fish/cmds.c:15114
-#: fish/cmds.c:15189 fish/cmds.c:15310 fish/cmds.c:15407 fish/cmds.c:15506
-#: fish/cmds.c:15606 fish/cmds.c:15811 fish/cmds.c:15942 fish/cmds.c:16088
-#: fish/cmds.c:16185 fish/cmds.c:16256 fish/cmds.c:16645 fish/cmds.c:16725
-#: fish/cmds.c:17139 fish/cmds.c:17257 fish/cmds.c:17582 fish/cmds.c:17643
-#: fish/cmds.c:17703 fish/cmds.c:17761
+#: fish/cmds.c:5844 fish/cmds.c:7179 fish/cmds.c:7813 fish/cmds.c:7879
+#: fish/cmds.c:10428 fish/cmds.c:14719 fish/cmds.c:14929 fish/cmds.c:15015
+#: fish/cmds.c:15076 fish/cmds.c:15180 fish/cmds.c:15255 fish/cmds.c:15376
+#: fish/cmds.c:15473 fish/cmds.c:15572 fish/cmds.c:15672 fish/cmds.c:15877
+#: fish/cmds.c:16008 fish/cmds.c:16154 fish/cmds.c:16251 fish/cmds.c:16322
+#: fish/cmds.c:16711 fish/cmds.c:16791 fish/cmds.c:17205 fish/cmds.c:17323
+#: fish/cmds.c:17648 fish/cmds.c:17709 fish/cmds.c:17769 fish/cmds.c:17827
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: optioneel argument \"%s\" tweemaal opgegeven\n"
 
-#: fish/cmds.c:17787
+#: fish/cmds.c:17853
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: onbekend commando\n"
@@ -4330,47 +4329,68 @@ msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 
-#: tools/virt-make-fs.pl:310
+#: tools/virt-make-fs.pl:306
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs input output\n"
 
-#: tools/virt-make-fs.pl:340
+#: tools/virt-make-fs.pl:336
 msgid "unexpected output from 'du' command"
 msgstr "onverwachte output  van 'du' commando"
 
-#: tools/virt-make-fs.pl:352 tools/virt-make-fs.pl:366
-#: tools/virt-make-fs.pl:529
+#: tools/virt-make-fs.pl:348 tools/virt-make-fs.pl:362
+#: tools/virt-make-fs.pl:547
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: onbekend invoer formaat: {fmt}\n"
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:413
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: kan size parameter niet ontleden: {sz}\n"
 
-#: tools/virt-make-fs.pl:432
-msgid ""
-"qemu-img create: failed to create disk image, see earlier error messages\n"
+#: tools/virt-make-fs.pl:434
+msgid "cannot dup STDOUT"
 msgstr ""
-"qemu-img create: aanmaken schijf image mislukte, zie eerdere fout "
-"boodschappen\n"
 
-#: tools/virt-make-fs.pl:443
+#: tools/virt-make-fs.pl:435
+msgid "cannot dup STDERR"
+msgstr ""
+
+#: tools/virt-make-fs.pl:438
+msgid "cannot redirect STDOUT"
+msgstr ""
+
+#: tools/virt-make-fs.pl:439
+msgid "cannot redirect STDERR"
+msgstr ""
+
+#: tools/virt-make-fs.pl:441
+msgid "cannot restore STDOUT"
+msgstr ""
+
+#: tools/virt-make-fs.pl:442
+msgid "cannot restore STDERR"
+msgstr ""
+
+#: tools/virt-make-fs.pl:445
+msgid "qemu-img create: failed to create disk image:\n"
+msgstr ""
+
+#: tools/virt-make-fs.pl:461
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: NTFS ondersteuning was uitgezet toen libguestfs gecompileerd "
 "werd\n"
 
-#: tools/virt-make-fs.pl:513
+#: tools/virt-make-fs.pl:531
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: misluket, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:535
+#: tools/virt-make-fs.pl:553
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "decomprimeer commando mislukte, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:569
+#: tools/virt-make-fs.pl:587
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -5518,6 +5538,12 @@ msgstr ""
 #: ../sparsify/sparsify.ml:131 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
+
+#~ msgid ""
+#~ "qemu-img create: failed to create disk image, see earlier error messages\n"
+#~ msgstr ""
+#~ "qemu-img create: aanmaken schijf image mislukte, zie eerdere fout "
+#~ "boodschappen\n"
 
 #~ msgid "debug the QEMU command line (internal use only)"
 #~ msgstr "debug de QEMU commando-regel (alleen voor intern gebruik)"
