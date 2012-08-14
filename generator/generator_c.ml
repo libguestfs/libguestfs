@@ -620,12 +620,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
           let uc_shortname = String.uppercase shortname in
           let n = name_of_optargt argt in
           let uc_n = String.uppercase n in
-          pr "\n";
           pr "# define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n" uc_shortname uc_n i;
-          pr "  /* The field below is only valid in this struct if the\n";
-          pr "   * GUESTFS_%s_%s_BITMASK bit is set\n" uc_shortname uc_n;
-          pr "   * in the bitmask above.  If not, the field is ignored.\n";
-          pr "   */\n";
           pr "  %s%s;\n" c_type n
       ) optargs;
       pr "};\n";
