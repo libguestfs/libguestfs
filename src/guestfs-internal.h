@@ -248,6 +248,12 @@ struct guestfs_h
   /* Used by bindtests. */
   FILE *test_fp;
 
+  /* Used to generate unique numbers, eg for temp files.  To use this,
+   * '++g->unique'.  Note these are only unique per-handle, not
+   * globally unique.
+   */
+  int unique;
+
   /*** Protocol. ***/
   int fd[2];			/* Stdin/stdout of qemu. */
   int sock;			/* Daemon communications socket. */
