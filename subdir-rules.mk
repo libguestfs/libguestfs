@@ -18,19 +18,11 @@
 # Define a force dependency which will always be rebuilt
 .PHONY: force
 
-# Rebuild rules for common dependencies
-$(top_builddir)/src/libguestfs.la: force
-	$(MAKE) -C $(top_builddir)/src libguestfs.la
-
 # Automatically build targets defined in generator_built
 # generator_built is defined in individual Makefiles
 $(generator_built): $(top_builddir)/generator/stamp-generator
 $(top_builddir)/generator/stamp-generator: force
 	$(MAKE) -C $(top_builddir)/generator stamp-generator
-
-# The daemon
-$(top_builddir)/daemon/guestfsd: force
-	$(MAKE) -C $(top_builddir)/daemon
 
 # A symbolic rule to regenerate the appliance
 .PHONY: appliance
