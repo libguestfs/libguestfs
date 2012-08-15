@@ -23,7 +23,7 @@
 val pr : ('a, unit, string, unit) format4 -> 'a
 (** General printing function which prints to the current output file. *)
 
-val output_to : string -> (unit -> unit) -> unit
+val output_to : ?perm:int -> string -> (unit -> unit) -> unit
 (** [output_to filename f] runs [f] and writes the result to [filename].
     [filename] is only updated if the output is different from what
     is in the file already. *)

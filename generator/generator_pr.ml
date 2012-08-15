@@ -43,7 +43,7 @@ let pr fs =
        output_string !chan str
     ) fs
 
-let output_to filename k =
+let output_to ?(perm = 0o444) filename k =
   files := filename :: !files;
 
   let filename_new = filename ^ ".new" in
@@ -59,7 +59,7 @@ let output_to filename k =
     (* different, overwrite old one *)
     (try chmod filename 0o644 with Unix_error _ -> ());
     rename filename_new filename;
-    chmod filename 0o444;
+    chmod filename perm;
     printf "written %s\n%!" filename;
   )
 
