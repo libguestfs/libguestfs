@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.19.30\n"
+"Project-Id-Version: libguestfs 1.19.31\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-08-14 17:42+0200\n"
+"POT-Creation-Date: 2012-08-15 17:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33713,9 +33713,9 @@ msgstr ""
 msgid "This is the \"argv variant\" of L</guestfs_add_domain>."
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:152
-msgid "= head2 guestfs_add_drive"
+msgid "guestfs_add_drive"
 msgstr ""
 
 #. type: verbatim
@@ -37107,9 +37107,9 @@ msgstr ""
 msgid "(Added in 1.0.50)"
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:3286
-msgid "= head2 guestfs_grep"
+msgid "guestfs_grep"
 msgstr ""
 
 #. type: verbatim
@@ -39651,9 +39651,9 @@ msgid ""
 "is just a convenient wrapper around C<guestfs_mknod>."
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:6036
-msgid "= head2 guestfs_mkfs"
+msgid "guestfs_mkfs"
 msgstr ""
 
 #. type: verbatim
@@ -40673,9 +40673,9 @@ msgstr ""
 msgid "This is the \"argv variant\" of L</guestfs_ntfsfix>."
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:6864
-msgid "= head2 guestfs_ntfsresize"
+msgid "guestfs_ntfsresize"
 msgstr ""
 
 #. type: verbatim
@@ -42989,9 +42989,9 @@ msgid ""
 "\n"
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:9098
-msgid "= head2 guestfs_tar_in"
+msgid "guestfs_tar_in"
 msgstr ""
 
 #. type: verbatim
@@ -43088,9 +43088,9 @@ msgstr ""
 msgid "This is the \"argv variant\" of L</guestfs_tar_in_opts>."
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:9162
-msgid "= head2 guestfs_tar_out"
+msgid "guestfs_tar_out"
 msgstr ""
 
 #. type: verbatim
@@ -43437,9 +43437,9 @@ msgid ""
 "C<guestfs_mkdir>."
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:9550
-msgid "= head2 guestfs_umount"
+msgid "guestfs_umount"
 msgstr ""
 
 #. type: verbatim

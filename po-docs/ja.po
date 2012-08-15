@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-08-14 17:42+0200\n"
+"POT-Creation-Date: 2012-08-15 17:55+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -38076,12 +38076,12 @@ msgstr ""
 msgid "This is the \"argv variant\" of L</guestfs_add_domain>."
 msgstr "これは L</guestfs_add_domain> の \"argv variant\" です。"
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:152
 #, fuzzy
-#| msgid "guestfs_add_drive"
-msgid "= head2 guestfs_add_drive"
-msgstr "guestfs_add_drive"
+#| msgid "guestfs_add_drive_ro"
+msgid "guestfs_add_drive"
+msgstr "guestfs_add_drive_ro"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:154
@@ -42360,12 +42360,12 @@ msgstr ""
 msgid "(Added in 1.0.50)"
 msgstr "(1.0.50 において追加)"
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:3286
 #, fuzzy
-#| msgid "guestfs_add_drive"
-msgid "= head2 guestfs_grep"
-msgstr "guestfs_add_drive"
+#| msgid "guestfs_grepi"
+msgid "guestfs_grep"
+msgstr "guestfs_grepi"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:3288
@@ -45527,12 +45527,12 @@ msgid ""
 "is just a convenient wrapper around C<guestfs_mknod>."
 msgstr ""
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:6036
 #, fuzzy
-#| msgid "guestfs_mkfs"
-msgid "= head2 guestfs_mkfs"
-msgstr "guestfs_mkfs"
+#| msgid "guestfs_mkfs_b"
+msgid "guestfs_mkfs"
+msgstr "guestfs_mkfs_b"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6038
@@ -46808,12 +46808,12 @@ msgstr ""
 msgid "This is the \"argv variant\" of L</guestfs_ntfsfix>."
 msgstr "これは L</guestfs_ntfsfix> の \"argv variant\" です。"
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:6864
 #, fuzzy
-#| msgid "guestfs_ntfsresize"
-msgid "= head2 guestfs_ntfsresize"
-msgstr "guestfs_ntfsresize"
+#| msgid "guestfs_ntfsresize_opts"
+msgid "guestfs_ntfsresize"
+msgstr "guestfs_ntfsresize_opts"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:6866
@@ -49779,12 +49779,12 @@ msgstr ""
 "                 const char *path);\n"
 "\n"
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:9098
 #, fuzzy
-#| msgid "guestfs_add_drive"
-msgid "= head2 guestfs_tar_in"
-msgstr "guestfs_add_drive"
+#| msgid "guestfs_tail_n"
+msgid "guestfs_tar_in"
+msgstr "guestfs_tail_n"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:9100
@@ -49939,12 +49939,12 @@ msgstr ""
 msgid "This is the \"argv variant\" of L</guestfs_tar_in_opts>."
 msgstr "これは L</guestfs_mkfs_opts> の \"argv variant\" です。"
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:9162
 #, fuzzy
-#| msgid "guestfs_mkfs"
-msgid "= head2 guestfs_tar_out"
-msgstr "guestfs_mkfs"
+#| msgid "guestfs_tgz_out"
+msgid "guestfs_tar_out"
+msgstr "guestfs_tgz_out"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:9164
@@ -50423,12 +50423,10 @@ msgid ""
 msgstr ""
 "C<guestfs_get_umask>, L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir> 参照。"
 
-#. type: textblock
+#. type: =head2
 #: ../src/guestfs-actions.pod:9550
-#, fuzzy
-#| msgid "guestfs_mkfs"
-msgid "= head2 guestfs_umount"
-msgstr "guestfs_mkfs"
+msgid "guestfs_umount"
+msgstr "guestfs_umount"
 
 #. type: verbatim
 #: ../src/guestfs-actions.pod:9552
@@ -63795,6 +63793,41 @@ msgstr ""
 "L<https://bugzilla.redhat.com/> の新規バグ報告に /tmp/virt-win-reg.log を添付"
 "してください"
 
+#, fuzzy
+#~| msgid "guestfs_add_drive"
+#~ msgid "= head2 guestfs_add_drive"
+#~ msgstr "guestfs_add_drive"
+
+#, fuzzy
+#~| msgid "guestfs_add_drive"
+#~ msgid "= head2 guestfs_grep"
+#~ msgstr "guestfs_add_drive"
+
+#, fuzzy
+#~| msgid "guestfs_mkfs"
+#~ msgid "= head2 guestfs_mkfs"
+#~ msgstr "guestfs_mkfs"
+
+#, fuzzy
+#~| msgid "guestfs_ntfsresize"
+#~ msgid "= head2 guestfs_ntfsresize"
+#~ msgstr "guestfs_ntfsresize"
+
+#, fuzzy
+#~| msgid "guestfs_add_drive"
+#~ msgid "= head2 guestfs_tar_in"
+#~ msgstr "guestfs_add_drive"
+
+#, fuzzy
+#~| msgid "guestfs_mkfs"
+#~ msgid "= head2 guestfs_tar_out"
+#~ msgstr "guestfs_mkfs"
+
+#, fuzzy
+#~| msgid "guestfs_mkfs"
+#~ msgid "= head2 guestfs_umount"
+#~ msgstr "guestfs_mkfs"
+
 #~ msgid "To upload a compressed tarball, use L</tgz-in> or L</txz-in>."
 #~ msgstr ""
 #~ "圧縮した tar ファイルをアップロードするには L</tgz-in> または L</txz-in> "
@@ -63849,9 +63882,6 @@ msgstr ""
 #~ msgstr ""
 #~ " umount pathordevice\n"
 #~ "\n"
-
-#~ msgid "guestfs_umount"
-#~ msgstr "guestfs_umount"
 
 #~ msgid "This is equivalent to the qemu parameter I<-cdrom filename>."
 #~ msgstr "これは QEMU パラメーター I<-cdrom filename> と同等です。"

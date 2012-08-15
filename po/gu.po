@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-14 17:41+0100\n"
+"POT-Creation-Date: 2012-08-15 17:55+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -3496,17 +3496,17 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: એજ હેન્ડલ પર બે વાર બોલાવેલ છે\n"
 
-#: src/guestfs.c:382
+#: src/guestfs.c:387
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:443
+#: src/guestfs.c:448
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: ભૂલ: %s\n"
 
-#: src/guestfs.c:1042
+#: src/guestfs.c:1047
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
@@ -3524,7 +3524,7 @@ msgstr ""
 
 #: src/inspect-fs-unix.c:239 src/inspect-fs-unix.c:766
 #: src/inspect-fs-unix.c:1450 src/inspect-fs.c:533 src/inspect-fs.c:578
-#: src/inspect.c:763
+#: src/inspect.c:765
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3556,11 +3556,11 @@ msgstr ""
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:799
+#: src/inspect.c:801
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:811
+#: src/inspect.c:813
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3662,51 +3662,51 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:125 src/launch.c:245
+#: src/launch.c:150
+msgid "for device '/dev/null', format must be 'raw'"
+msgstr ""
+
+#: src/launch.c:195 src/launch.c:283
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/launch.c:140 src/launch.c:145
+#: src/launch.c:210 src/launch.c:215
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:157
-msgid "for device '/dev/null', format must be 'raw'"
-msgstr ""
-
-#: src/launch.c:265
+#: src/launch.c:303
 msgid "parameter must begin with '-' character"
 msgstr ""
 
-#: src/launch.c:279
+#: src/launch.c:317
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:340
+#: src/launch.c:378
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:353
+#: src/launch.c:520
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: કામચલાઉ ડિરેક્ટરીને બનાવી શકાતી નથી"
 
-#: src/launch.c:509
+#: src/launch.c:559
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:515
+#: src/launch.c:565
 msgid "the current attach-method does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:530
+#: src/launch.c:580
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:544
+#: src/launch.c:594
 msgid "qemu has not been launched yet"
 msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
 
