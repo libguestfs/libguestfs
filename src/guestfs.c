@@ -270,6 +270,10 @@ guestfs_close (guestfs_h *g)
   /* Remove whole temporary directory. */
   guestfs___remove_tmpdir (g->tmpdir);
 
+  /* Test output file used by bindtests. */
+  if (g->test_fp != NULL)
+    fclose (g->test_fp);
+
   /* Mark the handle as dead and then free up all memory. */
   g->state = NO_HANDLE;
 

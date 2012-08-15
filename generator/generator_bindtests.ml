@@ -45,20 +45,68 @@ let rec generate_bindtests () =
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 
-static void
-print_strings (char *const *argv)
+int
+guestfs__internal_test_set_output (guestfs_h *g, const char *filename)
 {
-  size_t argc;
+  FILE *fp;
 
-  printf (\"[\");
-  for (argc = 0; argv[argc] != NULL; ++argc) {
-    if (argc > 0) printf (\", \");
-    printf (\"\\\"%%s\\\"\", argv[argc]);
+  fp = fopen (filename, \"w\");
+  if (fp == NULL) {
+    perrorf (g, \"cannot open output file %%s\\n\", filename);
+    return -1;
   }
-  printf (\"]\\n\");
+
+  if (guestfs_internal_test_close_output (g) == -1) {
+    fclose (fp);
+    return -1;
+  }
+
+  g->test_fp = fp;
+
+  return 0;
 }
 
-/* The internal_test function prints its parameters to stdout. */
+int
+guestfs__internal_test_close_output (guestfs_h *g)
+{
+  if (g->test_fp != NULL) {
+    if (fclose (g->test_fp) == EOF) {
+      perrorf (g, \"fclose\");
+      g->test_fp = NULL;
+      return -1;
+    }
+    g->test_fp = NULL;
+  }
+
+  return 0;
+}
+
+static inline FILE *
+get_fp (guestfs_h *g)
+{
+  if (g->test_fp)
+    return g->test_fp;
+  else
+    return stdout;
+}
+
+static void
+print_strings (guestfs_h *g, char *const *argv)
+{
+  FILE *fp = get_fp (g);
+  size_t argc;
+
+  fprintf (fp, \"[\");
+  for (argc = 0; argv[argc] != NULL; ++argc) {
+    if (argc > 0) fprintf (fp, \", \");
+    fprintf (fp, \"\\\"%%s\\\"\", argv[argc]);
+  }
+  fprintf (fp, \"]\\n\");
+}
+
+/* The internal_test function prints its parameters to stdout or the
+ * file set by internal_test_set_output.
+ */
 ";
 
   let test, tests =
@@ -71,6 +119,9 @@ print_strings (char *const *argv)
     generate_prototype ~extern:false ~semicolon:false ~newline:true
       ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
     pr "{\n";
+    pr "  FILE *fp = get_fp (g);\n";
+    pr "\n";
+
     List.iter (
       function
       | Pathname n
@@ -78,28 +129,29 @@ print_strings (char *const *argv)
       | String n
       | FileIn n
       | FileOut n
-      | Key n -> pr "  printf (\"%%s\\n\", %s);\n" n
+      | Key n -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
       | BufferIn n ->
           pr "  {\n";
           pr "    size_t i;\n";
           pr "    for (i = 0; i < %s_size; ++i)\n" n;
-          pr "      printf (\"<%%02x>\", %s[i]);\n" n;
-          pr "    printf (\"\\n\");\n";
+          pr "      fprintf (fp, \"<%%02x>\", %s[i]);\n" n;
+          pr "    fprintf (fp, \"\\n\");\n";
           pr "  }\n";
-      | OptString n -> pr "  printf (\"%%s\\n\", %s ? %s : \"null\");\n" n n
-      | StringList n | DeviceList n -> pr "  print_strings (%s);\n" n
-      | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
-      | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
-      | Int64 n -> pr "  printf (\"%%\" PRIi64 \"\\n\", %s);\n" n
+      | OptString n -> pr "  fprintf (fp, \"%%s\\n\", %s ? %s : \"null\");\n" n n
+      | StringList n | DeviceList n -> pr "  print_strings (g, %s);\n" n
+      | Bool n -> pr "  fprintf (fp, \"%%s\\n\", %s ? \"true\" : \"false\");\n" n
+      | Int n -> pr "  fprintf (fp, \"%%d\\n\", %s);\n" n
+      | Int64 n -> pr "  fprintf (fp, \"%%\" PRIi64 \"\\n\", %s);\n" n
       | Pointer _ -> assert false
     ) args;
+
     let check_optarg n printf_args =
-      pr "  printf (\"%s: \");\n" n;
+      pr "  fprintf (fp, \"%s: \");\n" n;
       pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
         (String.uppercase n);
-      pr "    printf (%s);\n" printf_args;
+      pr "    fprintf (fp, %s);\n" printf_args;
       pr "  } else {\n";
-      pr "    printf (\"unset\\n\");\n";
+      pr "    fprintf (fp, \"unset\\n\");\n";
       pr "  }\n";
     in
     List.iter (
@@ -118,16 +170,16 @@ print_strings (char *const *argv)
         let printf_args = sprintf "\"%%s\\n\", optargs->%s" n in
         check_optarg n printf_args;
       | OStringList n ->
-        pr "  printf (\"%s: \");\n" n;
+        pr "  fprintf (fp, \"%s: \");\n" n;
         pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
           (String.uppercase n);
-        pr "    print_strings (optargs->%s);\n" n;
+        pr "    print_strings (g, optargs->%s);\n" n;
         pr "  } else {\n";
-        pr "    printf (\"unset\\n\");\n";
+        pr "    fprintf (fp, \"unset\\n\");\n";
         pr "  }\n";
     ) optargs;
     pr "  /* Java changes stdout line buffering so we need this: */\n";
-    pr "  fflush (stdout);\n";
+    pr "  fflush (fp);\n";
     pr "  return 0;\n";
     pr "}\n";
     pr "\n" in

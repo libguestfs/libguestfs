@@ -83,7 +83,8 @@ This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 parameter type correctly.
 
-It echos the contents of each parameter to stdout.
+It echos the contents of each parameter to stdout (by default)
+or to a file (if C<guestfs_internal_test_set_output> was called).
 
 You probably don't want to call this function." }
 ] @ List.flatten (
@@ -125,6 +126,35 @@ You probably don't want to call this function." }
  *)
 
 let non_daemon_functions = test_functions @ [
+  { defaults with
+    name = "internal_test_set_output";
+    style = RErr, [String "filename"], [];
+    in_fish = false; in_docs = false;
+    shortdesc = "internal test function - do not use";
+    longdesc = "\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle every possible
+parameter type correctly.
+
+It sets the output file used by C<guestfs_internal_test>.
+
+You probably don't want to call this function." };
+
+  { defaults with
+    name = "internal_test_close_output";
+    style = RErr, [], [];
+    in_fish = false; in_docs = false;
+    shortdesc = "internal test function - do not use";
+    longdesc = "\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle every possible
+parameter type correctly.
+
+It closes the output file previously opened by
+C<guestfs_internal_test_set_output>.
+
+You probably don't want to call this function." };
+
   { defaults with
     name = "launch";
     style = RErr, [], [];

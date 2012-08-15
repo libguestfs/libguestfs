@@ -245,6 +245,9 @@ struct guestfs_h
 
   struct timeval launch_t;      /* The time that we called guestfs_launch. */
 
+  /* Used by bindtests. */
+  FILE *test_fp;
+
   /*** Protocol. ***/
   int fd[2];			/* Stdin/stdout of qemu. */
   int sock;			/* Daemon communications socket. */
