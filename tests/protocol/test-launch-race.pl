@@ -32,21 +32,18 @@ exit 77 if $ENV{SKIP_TEST_LAUNCH_RACE_PL};
 my $tmpdir = tempdir (CLEANUP => 1);
 $ENV{TMPDIR} = $tmpdir;
 
-my $testimg = $tmpdir.'/test.img';
-system ("touch $testimg");
-
 my $pid = fork();
 die ("fork failed: $!") if ($pid < 0);
 
 if ($pid == 0) {
   my $g = Sys::Guestfs->new ();
-  $g->add_drive ($testimg);
+  $g->add_drive ("/dev/null");
   $g->launch ();
   _exit (0);
 }
 
 my $g = Sys::Guestfs->new ();
-$g->add_drive ($testimg);
+$g->add_drive ("/dev/null");
 $g->launch ();
 $g = undef;
 
