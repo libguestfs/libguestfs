@@ -744,7 +744,9 @@ guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
   char devfd[32];
   int64_t size;
 
-  /* Make the basename unique by prefixing it with the fs number. */
+  /* Make the basename unique by prefixing it with the fs number.
+   * This also ensures there is one cache per filesystem.
+   */
   if (asprintf (&r, "%s/%td-%s", g->tmpdir, fs - g->fses, basename) == -1) {
     perrorf (g, "asprintf");
     return NULL;
