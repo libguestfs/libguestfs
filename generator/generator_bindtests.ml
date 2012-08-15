@@ -450,7 +450,7 @@ public class Bindtests {
         | CallOInt (n, v)     ->
           "  put(\"" ^ n ^ "\", " ^ string_of_int v ^ ");"
         | CallOInt64 (n, v)   ->
-          "  put(\"" ^ n ^ "\", " ^ Int64.to_string v ^ "l);"
+          "  put(\"" ^ n ^ "\", " ^ Int64.to_string v ^ "L);"
         | CallOString (n, v)  ->
           "  put(\"" ^ n ^ "\", \"" ^ v ^ "\");"
       ) optargs @
@@ -470,7 +470,7 @@ public class Bindtests {
             "new String[]{" ^
               String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "}"
         | CallInt i -> string_of_int i
-        | CallInt64 i -> Int64.to_string i
+        | CallInt64 i -> Int64.to_string i ^ "L"
         | CallBool b -> string_of_bool b
         | CallBuffer s ->
             "new byte[] { " ^ String.concat "," (
