@@ -267,8 +267,8 @@ let () =
       List.map (
         function
         | CallOBool (n, v)    -> "~" ^ n ^ ":" ^ string_of_bool v
-        | CallOInt (n, v)     -> "~" ^ n ^ ":" ^ string_of_int v
-        | CallOInt64 (n, v)   -> "~" ^ n ^ ":" ^ Int64.to_string v ^ "L"
+        | CallOInt (n, v)     -> "~" ^ n ^ ":(" ^ string_of_int v ^ ")"
+        | CallOInt64 (n, v)   -> "~" ^ n ^ ":(" ^ Int64.to_string v ^ "L)"
         | CallOString (n, v)  -> "~" ^ n ^ ":\"" ^ v ^ "\""
       ) optargs
     )
