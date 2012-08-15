@@ -131,6 +131,56 @@ add_drive (guestfs_h *g, const char *path,
   (*drv)->use_cache_none = use_cache_none;
 }
 
+/* Traditionally you have been able to use /dev/null as a filename, as
+ * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
+ * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
+ * any zero-sized file including /dev/null.  Therefore, we replace
+ * /dev/null with a non-zero sized temporary file.  This shouldn't
+ * make any difference since users are not supposed to try and access
+ * a null drive.
+ */
+static int
+add_null_drive (guestfs_h *g, int readonly, const char *format,
+                const char *iface, const char *name)
+{
+  char *tmpfile = NULL;
+  int fd = -1;
+
+  if (format && STRNEQ (format, "raw")) {
+    error (g, _("for device '/dev/null', format must be 'raw'"));
+    return -1;
+  }
+
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    return -1;
+
+  tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
+  fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
+  if (fd == -1) {
+    perrorf (g, "open: %s", tmpfile);
+    goto err;
+  }
+  if (ftruncate (fd, 4096) == -1) {
+    perrorf (g, "truncate: %s", tmpfile);
+    goto err;
+  }
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", tmpfile);
+    goto err;
+  }
+
+  add_drive (g, tmpfile, readonly, format, iface, name, 0);
+  free (tmpfile);
+
+  return 0;
+
+ err:
+  free (tmpfile);
+  if (fd >= 0)
+    close (fd);
+  return -1;
+}
+
 int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
@@ -140,7 +190,6 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   const char *iface;
   const char *name;
   int use_cache_none;
-  int is_null;
 
   if (strchr (filename, ':') != NULL) {
     error (g, _("filename cannot contain ':' (colon) character. "
@@ -168,23 +217,8 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  /* Traditionally you have been able to use /dev/null as a filename,
-   * as many times as you like.  Treat this as a special case, because
-   * old versions of qemu have some problems.
-   */
-  is_null = STREQ (filename, "/dev/null");
-  if (is_null) {
-    if (format && STRNEQ (format, "raw")) {
-      error (g, _("for device '/dev/null', format must be 'raw'"));
-      goto err_out;
-    }
-    /* Ancient KVM (RHEL 5) cannot handle the case where we try to add
-     * a snapshot on top of /dev/null.  Modern qemu can handle it OK,
-     * but the device size is still 0, so it shouldn't matter whether
-     * or not this is readonly.
-     */
-    readonly = 0;
-  }
+  if (STREQ (filename, "/dev/null"))
+    return add_null_drive (g, readonly, format, iface, name);
 
   /* For writable files, see if we can use cache=none.  This also
    * checks for the existence of the file.  For readonly we have
