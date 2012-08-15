@@ -676,6 +676,66 @@ var o;
 
     pr "\nprint(\"EOF\");\n"
 
+and generate_erlang_bindtests () =
+  pr "#!/usr/bin/env escript\n";
+  pr "%%! -smp enable -sname create_disk debug verbose\n";
+  pr "\n";
+  generate_header ErlangStyle GPLv2plus;
+
+  pr "main(_) ->\n";
+  pr "    {ok, G} = guestfs:create(),\n";
+  pr "\n";
+  pr "    %% We have to set the output file here because otherwise the\n";
+  pr "    %% bindtests code would print its output on stdout, and that\n";
+  pr "    %% channel is also being used by the erl-guestfs communications.\n";
+  pr "    Filename = \"bindtests.tmp\",\n";
+  pr "    ok = guestfs:internal_test_set_output(G, Filename),\n";
+  pr "\n";
+
+  generate_lang_bindtests (
+    fun f args optargs ->
+      pr "    ok = guestfs:%s(G" f;
+      List.iter (function
+      | CallString s -> pr ", \"%s\"" s
+      | CallOptString None -> pr ", undefined"
+      | CallOptString (Some s) -> pr ", \"%s\"" s
+      | CallStringList xs ->
+        pr ", [%s]" (String.concat "," (List.map (sprintf "\"%s\"") xs))
+      | CallInt i -> pr ", %d" i
+      | CallInt64 i -> pr ", %Ld" i
+      | CallBool b -> pr ", %b" b
+      | CallBuffer s -> pr ", \"%s\"" (c_quote s)
+      ) args;
+      (match optargs with
+      | None -> ()
+      | Some optargs ->
+        pr ", [";
+        let needs_comma = ref false in
+        List.iter (
+          fun optarg ->
+            if !needs_comma then pr ", ";
+            needs_comma := true;
+            match optarg with
+            | CallOBool (n, v) -> pr "{%s, %b}" n v
+            | CallOInt (n, v) -> pr "{%s, %d}" n v
+            | CallOInt64 (n, v) -> pr "{%s, %Ld}" n v
+            | CallOString (n, v) -> pr "{%s, \"%s\"}" n v
+            | CallOStringList (n, xs) ->
+              pr "{%s, [%s]}" n
+                (String.concat "," (List.map (sprintf "\"%s\"") xs))
+        ) optargs;
+        pr "]";
+      );
+      pr "),\n"
+  );
+
+  pr "\n";
+  pr "    ok = guestfs:internal_test_close_output(G),\n";
+  pr "    ok = guestfs:close(G),\n";
+  pr "    {ok, File} = file:open(Filename, [append]),\n";
+  pr "    ok = file:write(File, \"EOF\\n\"),\n";
+  pr "    ok = file:close(File).\n"
+
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
  *)

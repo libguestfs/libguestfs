@@ -81,6 +81,7 @@ Makefile.in
 /edit/stamp-virt-*.pod
 /edit/virt-edit
 /edit/virt-edit.1
+/erlang/bindtests.erl
 /erlang/erl-guestfs
 /erlang/erl-guestfs.c
 /erlang/examples/guestfs-erlang.3
