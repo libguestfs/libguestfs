@@ -188,11 +188,15 @@ and generate_erlang_c () =
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <errno.h>
 
 #include <erl_interface.h>
-#include <ei.h>
+/* We should switch over to using
+  #include <ei.h>
+instead of erl_interface.
+*/
 
 #include \"guestfs.h\"
 
@@ -208,6 +212,8 @@ extern ETERM *make_table (char **r);
 extern ETERM *make_bool (int r);
 extern char **get_string_list (ETERM *term);
 extern int get_bool (ETERM *term);
+extern int get_int (ETERM *term);
+extern int64_t get_int64 (ETERM *term);
 extern void free_strings (char **r);
 
 #define ARG(i) (ERL_TUPLE_ELEMENT(message,(i)+1))
@@ -308,9 +314,9 @@ extern void free_strings (char **r);
           | Bool n ->
             pr "  int %s = get_bool (ARG (%d));\n" n i
           | Int n ->
-            pr "  int %s = ERL_INT_VALUE (ARG (%d));\n" n i
+            pr "  int %s = get_int (ARG (%d));\n" n i
           | Int64 n ->
-            pr "  int64_t %s = ERL_LL_VALUE (ARG (%d));\n" n i
+            pr "  int64_t %s = get_int64 (ARG (%d));\n" n i
           | Pointer (t, n) ->
             assert false
       ) args;
@@ -336,8 +342,8 @@ extern void free_strings (char **r);
             pr "      optargs_s.%s = " n;
             (match argt with
              | OBool _ -> pr "get_bool (hd_value)"
-             | OInt _ -> pr "ERL_INT_VALUE (hd_value)"
-             | OInt64 _ -> pr "ERL_LL_VALUE (hd_value)"
+             | OInt _ -> pr "get_int (hd_value)"
+             | OInt64 _ -> pr "get_int64 (hd_value)"
              | OString _ -> pr "erl_iolist_to_string (hd_value)"
              | OStringList n -> pr "get_string_list (hd_value)"
             );

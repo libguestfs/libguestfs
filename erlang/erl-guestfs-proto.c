@@ -20,11 +20,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <errno.h>
 
 #include <erl_interface.h>
-#include <ei.h>
+/* We should switch over to using
+  #include <ei.h>
+instead of erl_interface.
+*/
 
 #include "error.h"
 #include "full-read.h"
@@ -44,6 +48,8 @@ extern ETERM *make_table (char **r);
 extern ETERM *make_bool (int r);
 extern char **get_string_list (ETERM *term);
 extern int get_bool (ETERM *term);
+extern int get_int (ETERM *term);
+extern int64_t get_int64 (ETERM *term);
 extern void free_strings (char **r);
 
 /* This stops things getting out of hand, but also lets us detect
@@ -267,6 +273,44 @@ get_bool (ETERM *term)
     return 1;
   else
     return 0;
+}
+
+int
+get_int (ETERM *term)
+{
+  switch (ERL_TYPE (term)) {
+  case ERL_INTEGER:
+    return ERL_INT_VALUE (term);
+  case ERL_U_INTEGER:
+    return (int) ERL_INT_UVALUE (term);
+  case ERL_LONGLONG:
+    /* XXX check for overflow */
+    return (int) ERL_LL_VALUE (term);
+  case ERL_U_LONGLONG:
+    /* XXX check for overflow */
+    return (int) ERL_LL_UVALUE (term);
+  default:
+    /* XXX fail in some way */
+    return -1;
+  }
+}
+
+int64_t
+get_int64 (ETERM *term)
+{
+  switch (ERL_TYPE (term)) {
+  case ERL_INTEGER:
+    return ERL_INT_VALUE (term);
+  case ERL_U_INTEGER:
+    return ERL_INT_UVALUE (term);
+  case ERL_LONGLONG:
+    return ERL_LL_VALUE (term);
+  case ERL_U_LONGLONG:
+    return (int64_t) ERL_LL_UVALUE (term);
+  default:
+    /* XXX fail in some way */
+    return -1;
+  }
 }
 
 void
