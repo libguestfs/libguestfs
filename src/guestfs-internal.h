@@ -223,6 +223,12 @@ struct guestfs_h
    * matter for this case because we only care if it is != 0.
    */
   int user_cancel;
+
+  /* Used to generate unique numbers, eg for temp files.  To use this,
+   * '++g->unique'.  Note these are only unique per-handle, not
+   * globally unique.
+   */
+  int unique;
 };
 
 /* Per-filesystem data stored for inspect_os. */
