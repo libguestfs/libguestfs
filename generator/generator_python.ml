@@ -447,7 +447,7 @@ free_strings (char **argv)
         | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
         | OStringList n ->
           pr "  if (py_%s != Py_None)\n" n;
-          pr "    free (optargs_s.%s);\n" n
+          pr "    free ((char **) optargs_s.%s);\n" n
       ) optargs;
 
       (match errcode_of_ret ret with
