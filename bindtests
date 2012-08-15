@@ -9,7 +9,7 @@ false
 <61><62><63><00><61><62><63>
 obool: true
 oint: 1
-oint64: unset
+oint64: 9223372036854775807
 ostring: unset
 ostringlist: unset
 abc
@@ -37,7 +37,7 @@ false
 <61><62><63><00><61><62><63>
 obool: false
 oint: unset
-oint64: unset
+oint64: -9223372036854775808
 ostring: unset
 ostringlist: unset
 
@@ -157,7 +157,7 @@ def
 ["1"]
 false
 4095
-4095
+9223372036854775807
 123
 456
 <61><62><63><00><61><62><63>
@@ -171,7 +171,7 @@ def
 ["1"]
 false
 0
-0
+-9223372036854775808
 
 
 <61><62><63><00><61><62><63>

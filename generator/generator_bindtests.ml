@@ -745,7 +745,9 @@ and generate_lang_bindtests call =
      CallStringList []; CallBool false;
      CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
      CallBuffer "abc\000abc"]
-    (Some [CallOBool ("obool", true); CallOInt ("oint", 1)]);
+    (Some [CallOBool ("obool", true);
+           CallOInt ("oint", 1);
+           CallOInt64 ("oint64", Int64.max_int)]);
   call "internal_test"
     [CallString "abc"; CallOptString None;
      CallStringList []; CallBool false;
@@ -758,7 +760,8 @@ and generate_lang_bindtests call =
      CallStringList []; CallBool false;
      CallInt 0; CallInt64 0L; CallString "123"; CallString "456";
      CallBuffer "abc\000abc"]
-    (Some [CallOBool ("obool", false)]);
+    (Some [CallOBool ("obool", false);
+           CallOInt64 ("oint64", Int64.min_int)]);
   call "internal_test"
     [CallString ""; CallOptString (Some "");
      CallStringList []; CallBool false;
@@ -803,12 +806,12 @@ and generate_lang_bindtests call =
   call "internal_test"
     [CallString "abc"; CallOptString (Some "def");
      CallStringList ["1"]; CallBool false;
-     CallInt 4095; CallInt64 4095L; CallString "123"; CallString "456";
+     CallInt 4095; CallInt64 Int64.max_int; CallString "123"; CallString "456";
      CallBuffer "abc\000abc"] None;
   call "internal_test"
     [CallString "abc"; CallOptString (Some "def");
      CallStringList ["1"]; CallBool false;
-     CallInt 0; CallInt64 0L; CallString ""; CallString "";
+     CallInt 0; CallInt64 Int64.min_int; CallString ""; CallString "";
      CallBuffer "abc\000abc"] None;
   call "internal_test"
     [CallString "abc"; CallOptString (Some "def");
