@@ -300,8 +300,9 @@ extern void free_strings (char **r);
             pr "  else\n";
             pr "    %s = erl_iolist_to_string (ARG (%d));\n" n i
           | BufferIn n ->
-            pr "  size_t %s_size = erl_iolist_length (ARG (%d));\n" n i;
-            pr "  char *%s = erl_iolist_to_string (ARG (%d));\n" n i
+            pr "  ETERM *%s_bin = erl_iolist_to_binary (ARG (%d));\n" n i;
+            pr "  const void *%s = ERL_BIN_PTR (%s_bin);\n" n n;
+            pr "  size_t %s_size = ERL_BIN_SIZE (%s_bin);\n" n n
           | StringList n | DeviceList n ->
             pr "  char **%s = get_string_list (ARG (%d));\n" n i
           | Bool n ->
@@ -380,11 +381,11 @@ extern void free_strings (char **r);
       List.iter (
         function
         | Pathname n | Device n | Dev_or_Path n | String n | OptString n
-        | FileIn n | FileOut n | BufferIn n | Key n ->
+        | FileIn n | FileOut n | Key n ->
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
             pr "  free_strings (%s);\n" n;
-        | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
+        | Bool _ | Int _ | Int64 _ | Pointer _ | BufferIn _ -> ()
       ) args;
       List.iter (
         function
