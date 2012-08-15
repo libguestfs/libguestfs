@@ -298,22 +298,13 @@ free_strings (char **argv)
             pr "  %s %s;\n" t n
       ) args;
 
-      if optargs <> [] then (
-        (* XXX This is horrible.  We have to use sentinel values on the
-         * Python side to denote values not set.
-         *)
-        (* Since we don't know if Python types will exactly match
-         * structure types, declare some local variables here.
-         *)
-        List.iter (
-          function
-          | OBool n
-          | OInt n -> pr "  int optargs_t_%s = -1;\n" n
-          | OInt64 n -> pr "  long long optargs_t_%s = -1;\n" n
-          | OString n -> pr "  const char *optargs_t_%s = NULL;\n" n
-          | OStringList n -> pr "  PyObject *py_%s;\n" n
-        ) optargs
-      );
+      (* Fetch the optional arguments as objects, so we can detect
+       * if they are 'None'.
+       *)
+      List.iter (
+        fun optarg ->
+          pr "  PyObject *py_%s;\n" (name_of_optargt optarg)
+      ) optargs;
 
       pr "\n";
 
@@ -340,16 +331,8 @@ free_strings (char **argv)
         | BufferIn _ -> pr "s#"
       ) args;
 
-      (* Optional parameters. *)
-      if optargs <> [] then (
-        List.iter (
-          function
-          | OBool _ | OInt _ -> pr "i"
-          | OInt64 _ -> pr "L"
-          | OString _ -> pr "z" (* because we use None to mean not set *)
-          | OStringList _ -> pr "O"
-        ) optargs;
-      );
+      (* Optional parameters.  All objects, so we can detect None. *)
+      List.iter (fun _ -> pr "O") optargs;
 
       pr ":guestfs_%s\",\n" name;
       pr "                         &py_g";
@@ -367,9 +350,8 @@ free_strings (char **argv)
       ) args;
 
       List.iter (
-        function
-        | OBool n | OInt n | OInt64 n | OString n -> pr ", &optargs_t_%s" n
-        | OStringList n -> pr ", &py_%s" n
+        fun optarg ->
+          pr ", &py_%s" (name_of_optargt optarg)
       ) optargs;
 
       pr "))\n";
@@ -392,26 +374,31 @@ free_strings (char **argv)
 
       if optargs <> [] then (
         List.iter (
-          function
-          | OBool n | OInt n | OInt64 n ->
-            let uc_n = String.uppercase n in
-            pr "  if (optargs_t_%s != -1) {\n" n;
-            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
-            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
-            pr "  }\n"
-          | OString n ->
-            let uc_n = String.uppercase n in
-            pr "  if (optargs_t_%s != NULL) {\n" n;
-            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
-            pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
-            pr "  }\n"
-          | OStringList n ->
+          fun optarg ->
+            let n = name_of_optargt optarg in
             let uc_n = String.uppercase n in
             pr "  if (py_%s != Py_None) {\n" n;
-            pr "    optargs_s.%s = get_string_list (py_%s);\n" n n;
-            pr "    if (!optargs_s.%s) return NULL;\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
-            pr "  }\n"
+            (match optarg with
+            | OBool _ | OInt _ ->
+              pr "    optargs_s.%s = PyInt_AsLong (py_%s);\n" n n;
+              pr "    if (PyErr_Occurred ()) return NULL;\n"
+            | OInt64 _ ->
+              pr "    optargs_s.%s = PyLong_AsLong (py_%s);\n" n n;
+              pr "    if (PyErr_Occurred ()) return NULL;\n"
+            | OString _ ->
+              pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
+              pr "    optargs_s.%s = PyString_AsString (py_%s);\n" n n;
+              pr "#else\n";
+              pr "    PyObject *bytes;\n";
+              pr "    bytes = PyUnicode_AsUTF8String (py_%s));\n" n;
+              pr "    optargs_s.%s = PyBytes_AS_STRING (bytes);\n" n;
+              pr "#endif\n";
+            | OStringList _ ->
+              pr "    optargs_s.%s = get_string_list (py_%s);\n" n n;
+              pr "    if (!optargs_s.%s) return NULL;\n" n;
+            );
+            pr "  }\n";
         ) optargs;
         pr "\n"
       );
@@ -723,9 +710,8 @@ class GuestFS:
       pr "    def %s (self" name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
       List.iter (
-        function
-        | OBool n | OInt n | OInt64 n -> pr ", %s=-1" n
-        | OString n | OStringList n -> pr ", %s=None" n
+        fun optarg ->
+          pr ", %s=None" (name_of_optargt optarg)
       ) optargs;
       pr "):\n";
 

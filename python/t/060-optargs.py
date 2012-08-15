@@ -20,6 +20,6 @@ import guestfs
 
 g = guestfs.GuestFS()
 g.add_drive ("/dev/null")
-g.add_drive ("/dev/null", readonly = 1)
+g.add_drive ("/dev/null", readonly = True)
 g.add_drive ("/dev/null", iface = "virtio", format = "raw")
 g.close ()
