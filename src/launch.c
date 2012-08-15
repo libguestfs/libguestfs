@@ -459,14 +459,8 @@ guestfs__launch (guestfs_h *g)
   TRACE0 (launch_start);
 
   /* Make the temporary directory. */
-  if (!g->tmpdir) {
-    TMP_TEMPLATE_ON_STACK (dir_template);
-    g->tmpdir = safe_strdup (g, dir_template);
-    if (mkdtemp (g->tmpdir) == NULL) {
-      perrorf (g, _("%s: cannot create temporary directory"), dir_template);
-      return -1;
-    }
-  }
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    return -1;
 
   /* Allow anyone to read the temporary directory.  The socket in this
    * directory won't be readable but anyone can see it exists if they
@@ -1190,6 +1184,24 @@ guestfs___persistent_tmpdir (void)
   if (t) tmpdir = t;
 
   return tmpdir;
+}
+
+/* The g->tmpdir (per-handle temporary directory) is not created when
+ * the handle is created.  Instead we create it lazily before the
+ * first time it is used, or during launch.
+ */
+int
+guestfs___lazy_make_tmpdir (guestfs_h *g)
+{
+  if (!g->tmpdir) {
+    TMP_TEMPLATE_ON_STACK (dir_template);
+    g->tmpdir = safe_strdup (g, dir_template);
+    if (mkdtemp (g->tmpdir) == NULL) {
+      perrorf (g, _("%s: cannot create temporary directory"), dir_template);
+      return -1;
+    }
+  }
+  return 0;
 }
 
 /* Recursively remove a temporary directory.  If removal fails, just
