@@ -268,7 +268,8 @@ guestfs_close (guestfs_h *g)
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
 
   /* Remove whole temporary directory. */
-  guestfs___remove_tmpdir (g->tmpdir);
+  if (g->tmpdir)
+    guestfs___remove_tmpdir (g->tmpdir);
 
   /* Test output file used by bindtests. */
   if (g->test_fp != NULL)
