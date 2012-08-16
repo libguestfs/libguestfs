@@ -52,3 +52,6 @@ val compare_command_line_args : string -> string -> int
 (** Compare two command line arguments (eg. ["-a"] and ["--V"]),
     ignoring leading dashes and case.  Note this assumes the
     strings are 7 bit ASCII. *)
+
+val read_whole_file : string -> string
+(** Read whole file into memory. *)

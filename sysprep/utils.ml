@@ -86,3 +86,19 @@ let skip_dashes str =
 
 let compare_command_line_args a b =
   compare (String.lowercase (skip_dashes a)) (String.lowercase (skip_dashes b))
+
+let read_whole_file path =
+  let buf = Buffer.create 16384 in
+  let chan = open_in path in
+  let maxlen = 16384 in
+  let s = String.create maxlen in
+  let rec loop () =
+    let r = input chan s 0 maxlen in
+    if r > 0 then (
+      Buffer.add_substring buf s 0 r;
+      loop ()
+    )
+  in
+  loop ();
+  close_in chan;
+  Buffer.contents buf

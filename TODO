@@ -383,7 +383,6 @@ virt-sysprep ideas
  - Windows sysprep
    (see: https://github.com/clalancette/oz/blob/e74ce83283d468fd987583d6837b441608e5f8f0/oz/Windows.py )
  - (librarian suggests ...)
-   . install a firstboot script      virt-sysprep --script=/tmp/foo.sh
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
  - if drives are encrypted, then dm-crypt key should be changed
    and drives all re-encrypted
@@ -421,7 +420,6 @@ customized with the organization logo etc.  Some ideas:
 
  - change the background image to some custom desktop
  - change the sign-on messages (/etc/issue.net etc)
- - firstboot script (as suggested by librarian above)
  - Windows login script/service
 
 Launch remote sessions over ssh

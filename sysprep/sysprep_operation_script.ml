@@ -134,7 +134,11 @@ guest's DNS configuration file, but C<rm /etc/resolv.conf> would
 (try to) remove the host's file.
 
 Normally a temporary mount point for the guest is used, but you
-can choose a specific one by using the I<--scriptdir> parameter.");
+can choose a specific one by using the I<--scriptdir> parameter.
+
+B<Note:> This is different from I<--firstboot> scripts (which run
+in the context of the guest when it is booting first time).
+I<--script> scripts run on the host, not in the guest.");
   extra_args = [
     ("--scriptdir", Arg.String set_scriptdir, s_"dir" ^ " " ^ s_"Mount point on host"),
     s_"\

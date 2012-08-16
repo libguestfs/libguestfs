@@ -7,6 +7,7 @@ sparsify/progress.ml
 sparsify/sparsify.ml
 sparsify/sparsify_gettext.ml
 sparsify/utils.ml
+sysprep/firstboot.ml
 sysprep/main.ml
 sysprep/sysprep_gettext.ml
 sysprep/sysprep_operation.ml
@@ -18,6 +19,7 @@ sysprep/sysprep_operation_cron_spool.ml
 sysprep/sysprep_operation_dhcp_client_state.ml
 sysprep/sysprep_operation_dhcp_server_state.ml
 sysprep/sysprep_operation_dovecot_data.ml
+sysprep/sysprep_operation_firstboot.ml
 sysprep/sysprep_operation_flag_reconfiguration.ml
 sysprep/sysprep_operation_hostname.ml
 sysprep/sysprep_operation_kerberos_data.ml
