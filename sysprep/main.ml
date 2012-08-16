@@ -186,7 +186,7 @@ read the man page virt-sysprep(1).
 
   debug_gc, operations, g, selinux_relabel, quiet
 
-let () =
+let do_sysprep () =
   (* Inspection. *)
   match Array.to_list (g#inspect_os ()) with
   | [] ->
@@ -239,6 +239,25 @@ let () =
 
 (* Finished. *)
 let () =
+  (try do_sysprep ()
+   with
+   | Failure msg ->                     (* from failwith/failwithf *)
+     eprintf (f_"sysprep operation failed: %s\n") msg;
+     exit 1
+   | Invalid_argument msg ->            (* probably should never happen *)
+     eprintf (f_"sysprep operation failed: internal error: invalid argument: %s\n") msg;
+     exit 1
+   | Assert_failure (file, line, char) -> (* should never happen *)
+     eprintf (f_"sysprep operation failed: internal error: assertion failed at %s, line %d, char %d\n") file line char;
+     exit 1
+   | Not_found ->                       (* should never happen *)
+     eprintf (f_"sysprep operation failed: internal error: Not_found exception was thrown\n");
+     exit 1
+   | exn ->
+     eprintf (f_"sysprep operation failed: exception: %s\n")
+       (Printexc.to_string exn);
+     exit 1
+  );
   g#shutdown ();
   g#close ();
 
