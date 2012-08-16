@@ -21,6 +21,9 @@
 val (//) : string -> string -> string
 (** Filename concatenation. *)
 
+val failwithf : ('a, unit, string, 'b) format4 -> 'a
+(** Like [failwith] but supports printf-like arguments. *)
+
 val string_prefix : string -> string -> bool
 (** [string_prefix str prefix] returns true iff [prefix] is a prefix
     of [str]. *)

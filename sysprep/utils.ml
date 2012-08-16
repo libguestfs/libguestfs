@@ -24,6 +24,8 @@ let (//) = Filename.concat
 
 let () = Random.self_init ()
 
+let failwithf fs = ksprintf failwith fs
+
 let string_prefix str prefix =
   let n = String.length prefix in
   String.length str >= n && String.sub str 0 n = prefix
