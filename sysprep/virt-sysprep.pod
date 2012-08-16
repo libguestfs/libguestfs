@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-virt-sysprep - Reset or unconfigure a virtual machine so clones can be made
+virt-sysprep - Reset, unconfigure or customize a virtual machine so clones can be made
 
 =head1 SYNOPSIS
 
@@ -12,16 +12,17 @@ virt-sysprep - Reset or unconfigure a virtual machine so clones can be made
 
 =head1 DESCRIPTION
 
-Virt-sysprep "resets" or "unconfigures" a virtual machine so that
+Virt-sysprep can resets or unconfigure a virtual machine so that
 clones can be made from it.  Steps in this process include removing
 SSH host keys, removing persistent network MAC configuration, and
-removing user accounts.  Each step can be enabled or disabled as
-required.
+removing user accounts.  Virt-sysprep can also customize a virtual
+machine, for instance by adding SSH keys, users or logos.  Each step
+can be enabled or disabled as required.
 
 Virt-sysprep modifies the guest or disk image I<in place>.  The guest
 must be shut down.  If you want to preserve the existing contents of
-the guest, you I<must snapshot, copy or clone the disk first>.
-See L</COPYING AND CLONING> below.
+the guest, I<you must snapshot, copy or clone the disk first>.  See
+L</COPYING AND CLONING> below.
 
 You do I<not> need to run virt-sysprep as root.  In fact we'd
 generally recommend that you don't.  The time you might want to run it
@@ -309,6 +310,17 @@ There are some smarter (and faster) ways too:
                             \------> cloned
                              \-----> guests
                               \---->
+
+You may want to run virt-sysprep twice, once to reset the guest (to
+make a template) and a second time to customize the guest for a
+specific user:
+
+                    virt-sysprep        virt-sysprep
+                      (reset)      (add user, keys, logos)
+                         |                   |
+                 dd      v          dd       v
+ original guest ----> template ---------> copied ------> custom
+                                          template       guest
 
 =over 4
 
