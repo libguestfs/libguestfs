@@ -555,3 +555,23 @@ virt-sparsify should use discard
 
 This requires some changes to qemu to make discard work properly
 throughout the entire stack.
+
+Reimplement some APIs to avoid protocol limits
+----------------------------------------------
+
+We should reimplement the following APIs to avoid protocol limits.
+These would be changed from daemon_functions to non_daemon_functions,
+with the non-daemon versions implemented using guestfs_upload and
+guestfs_download (and others).  This change should be transparent from
+the p.o.v of the API and ABI.
+
+ - guestfs_cat
+ - guestfs_find
+ - guestfs_lstatlist
+ - guestfs_lxattrlist
+ - guestfs_read_file
+ - guestfs_read_lines
+ - guestfs_readlinklist
+ - guestfs_write
+ - guestfs_write_append
+ - guestfs_write_file
