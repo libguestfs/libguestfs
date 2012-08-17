@@ -247,16 +247,15 @@ L<http://tldp.org/HOWTO/LVM-HOWTO/>.
 
 =head2 DOWNLOADING
 
-Use L</guestfs_cat> to download small, text only files.  This call is
-limited to files which are less than 2 MB and which cannot contain any
-ASCII NUL (C<\0>) characters.  However the API is very simple to use.
+Use L</guestfs_cat> to download small, text only files.  This call
+cannot handle files contain any ASCII NUL (C<\0>) characters.  However
+the API is very simple to use.
 
 L</guestfs_read_file> can be used to read files which contain
 arbitrary 8 bit data, since it returns a (pointer, size) pair.
-However it is still limited to "small" files, less than 2 MB.
 
-L</guestfs_download> can be used to download any file, with no
-limits on content or size (even files larger than 4 GB).
+L</guestfs_download> can be used to download any file, with no limits
+on content or size.
 
 To download multiple files, see L</guestfs_tar_out> and
 L</guestfs_tgz_out>.
@@ -273,7 +272,7 @@ variety of other functions for creating test files, for example
 L</guestfs_fill> and L</guestfs_fill_pattern>.
 
 To upload a single file, use L</guestfs_upload>.  This call has no
-limits on file content or size (even files larger than 4 GB).
+limits on file content or size.
 
 To upload multiple files, see L</guestfs_tar_in> and L</guestfs_tgz_in>.
 
@@ -3233,11 +3232,21 @@ need to be aware of this limit.  The API calls which may be affected
 are individually documented, with a link back to this section of the
 documentation.
 
-A simple call such as L</guestfs_cat> returns its result (the file
-data) in a simple string.  Because this string is at some point
-internally encoded as a message, the maximum size that it can return
-is slightly under 4 MB.  If the requested file is larger than this
-then you will get an error.
+In libguestfs E<lt> 1.19.32, a simple call such as L</guestfs_cat>
+returns its result (the file data) in a simple string.  Because this
+string is at some point internally encoded as a message, the maximum
+size that it can return is slightly under 4 MB.  If the requested file
+is larger than this then you will get an error.
+
+However in more recent versions of libguestfs, some APIs such as
+L</guestfs_cat> and L</guestfs_write> have been rewritten so that they
+are not subject to protocol limits.  They still may be limited because
+the file content is stored in memory.
+
+(To find out if a specific API is subject to protocol limits, check
+for the warning in the API documentation which links to this section,
+and remember to check the version of the documentation that matches
+the version of libguestfs you are using).
 
 In order to transfer large files into and out of the guest filesystem,
 you need to use particular calls that support this.  The sections
