@@ -93,49 +93,6 @@ do_ls0 (const char *path)
   return 0;
 }
 
-char **
-do_ls (const char *path)
-{
-  DECLARE_STRINGSBUF (ret);
-  DIR *dir;
-  struct dirent *d;
-
-  CHROOT_IN;
-  dir = opendir (path);
-  CHROOT_OUT;
-
-  if (!dir) {
-    reply_with_perror ("opendir: %s", path);
-    return NULL;
-  }
-
-  while ((d = readdir (dir)) != NULL) {
-    if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
-      continue;
-
-    if (add_string (&ret, d->d_name) == -1) {
-      closedir (dir);
-      return NULL;
-    }
-  }
-
-  if (ret.size > 0)
-    sort_strings (ret.argv, ret.size);
-
-  if (end_stringsbuf (&ret) == -1) {
-    closedir (dir);
-    return NULL;
-  }
-
-  if (closedir (dir) == -1) {
-    reply_with_perror ("closedir: %s", path);
-    free_stringslen (ret.argv, ret.size);
-    return NULL;
-  }
-
-  return ret.argv;
-}
-
 /* Because we can't chroot and run the ls command (since 'ls' won't
  * necessarily exist in the chroot), this command can be used to escape
  * from the sysroot (eg. 'll /..').  This command is not meant for

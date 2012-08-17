@@ -2219,6 +2219,23 @@ symbolic links already (albeit slightly less efficient).
 This call is intended for programs that want to efficiently
 list a directory contents without making many round-trips." };
 
+  { defaults with
+    name = "ls";
+    style = RStringList "listing", [Pathname "directory"], [];
+    tests = [
+      InitScratchFS, Always, TestOutputList (
+        [["mkdir"; "/ls"];
+         ["touch"; "/ls/new"];
+         ["touch"; "/ls/newer"];
+         ["touch"; "/ls/newest"];
+         ["ls"; "/ls"]], ["new"; "newer"; "newest"])
+    ];
+    shortdesc = "list the files in a directory";
+    longdesc = "\
+List the files in C<directory> (relative to the root directory,
+there is no cwd).  The '.' and '..' entries are not returned, but
+hidden files are shown." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -2308,27 +2325,6 @@ there is no cwd) in the format of 'ls -la'.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string." };
-
-  { defaults with
-    name = "ls";
-    style = RStringList "listing", [Pathname "directory"], [];
-    proc_nr = Some 6;
-    tests = [
-      InitScratchFS, Always, TestOutputList (
-        [["mkdir"; "/ls"];
-         ["touch"; "/ls/new"];
-         ["touch"; "/ls/newer"];
-         ["touch"; "/ls/newest"];
-         ["ls"; "/ls"]], ["new"; "newer"; "newest"])
-    ];
-    shortdesc = "list the files in a directory";
-    longdesc = "\
-List the files in C<directory> (relative to the root directory,
-there is no cwd).  The '.' and '..' entries are not returned, but
-hidden files are shown.
-
-This command is mostly useful for interactive sessions.  Programs
-should probably use C<guestfs_readdir> instead." };
 
   { defaults with
     name = "list_devices";
