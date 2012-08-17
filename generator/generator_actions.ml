@@ -9425,6 +9425,20 @@ so the target must be set up not to require one.
 
 The optional arguments are the same as those of C<guestfs_rsync>." };
 
+  { defaults with
+    name = "ls0";
+    style = RErr, [Pathname "dir"; FileOut "filenames"], [];
+    proc_nr = Some 347;
+    shortdesc = "get list of files in a directory";
+    longdesc = "\
+This specialized command is used to get a listing of
+the filenames in the directory C<dir>.  The list of filenames
+is written to the local file C<filenames> (on the host).
+
+In the output file, the filenames are separated by C<\\0> characters.
+
+C<.> and C<..> are not returned.  The filenames are not sorted." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

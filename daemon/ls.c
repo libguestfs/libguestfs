@@ -25,9 +25,73 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 #include "daemon.h"
 #include "actions.h"
+
+/* Has one FileOut parameter. */
+int
+do_ls0 (const char *path)
+{
+  DIR *dir;
+  struct dirent *d;
+  size_t len;
+
+  CHROOT_IN;
+  dir = opendir (path);
+  CHROOT_OUT;
+
+  if (dir == NULL) {
+    reply_with_perror ("opendir: %s", path);
+    return -1;
+  }
+
+  /* Now we must send the reply message, before the filenames.  After
+   * this there is no opportunity in the protocol to send any error
+   * message back.  Instead we can only cancel the transfer.
+   */
+  reply (NULL, NULL);
+
+  while (1) {
+    errno = 0;
+    d = readdir (dir);
+    if (d == NULL) break;
+
+    /* Ignore . and .. */
+    if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
+      continue;
+
+    /* Send the name in a single chunk.  XXX Needs to be fixed if
+     * names can be longer than the chunk size.  Note we use 'len+1'
+     * because we want to include the \0 terminating character in the
+     * output.
+     */
+    len = strlen (d->d_name);
+    if (send_file_write (d->d_name, len+1) < 0) {
+      closedir (dir);
+      return -1;
+    }
+  }
+
+  if (errno != 0) {
+    perror (path);
+    send_file_end (1);          /* Cancel. */
+    closedir (dir);
+    return -1;
+  }
+
+  if (closedir (dir) == -1) {
+    perror (path);
+    send_file_end (1);          /* Cancel. */
+    return -1;
+  }
+
+  if (send_file_end (0))	/* Normal end of file. */
+    return -1;
+
+  return 0;
+}
 
 char **
 do_ls (const char *path)
