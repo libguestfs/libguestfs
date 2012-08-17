@@ -5083,6 +5083,7 @@ This call returns the previous umask." };
     name = "readdir";
     style = RStructList ("entries", "dirent"), [Pathname "dir"], [];
     proc_nr = Some 138;
+    protocol_limit_warning = true;
     shortdesc = "read directories entries";
     longdesc = "\
 This returns the list of directory entries in directory C<dir>.

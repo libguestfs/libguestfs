@@ -564,3 +564,5 @@ These would be changed from daemon_functions to non_daemon_functions,
 with the non-daemon versions implemented using guestfs_upload and
 guestfs_download (and others).  This change should be transparent from
 the p.o.v of the API and ABI.
+
+ - guestfs_readdir
