@@ -494,3 +494,44 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 
   return ret;
 }
+
+#define READLINK_MAX 1000
+
+char **
+guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
+{
+  size_t len = count_strings (names);
+  char **first;
+  size_t old_len, ret_len = 0;
+  char **ret = NULL, **links;
+
+  while (len > 0) {
+    first = take_strings (g, names, READLINK_MAX, &names);
+    len = len <= READLINK_MAX ? 0 : len - READLINK_MAX;
+
+    links = guestfs_internal_readlinklist (g, dir, first);
+    /* Note we don't need to free up the strings because take_strings
+     * does not do a deep copy.
+     */
+    free (first);
+
+    if (links == NULL) {
+      guestfs___free_string_list (ret);
+      return NULL;
+    }
+
+    /* Append links to ret. */
+    old_len = ret_len;
+    ret_len += count_strings (links);
+    ret = safe_realloc (g, ret, ret_len * sizeof (char *));
+    memcpy (&ret[old_len], links, (ret_len-old_len) * sizeof (char *));
+
+    free (links);
+  }
+
+  /* NULL-terminate the list. */
+  ret = safe_realloc (g, ret, (ret_len+1) * sizeof (char *));
+  ret[ret_len] = NULL;
+
+  return ret;
+}

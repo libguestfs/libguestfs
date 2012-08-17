@@ -53,7 +53,7 @@ do_readlink (const char *path)
 }
 
 char **
-do_readlinklist (const char *path, char *const *names)
+do_internal_readlinklist (const char *path, char *const *names)
 {
   int fd_cwd;
   size_t i;

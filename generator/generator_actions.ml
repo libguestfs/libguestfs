@@ -2196,6 +2196,29 @@ list a directory contents without making many round-trips.
 See also C<guestfs_lstatlist> for a similarly efficient call
 for getting standard stats." };
 
+  { defaults with
+    name = "readlinklist";
+    style = RStringList "links", [Pathname "path"; StringList "names"], [];
+    shortdesc = "readlink on multiple files";
+    longdesc = "\
+This call allows you to do a C<readlink> operation
+on multiple files, where all files are in the directory C<path>.
+C<names> is the list of files from this directory.
+
+On return you get a list of strings, with a one-to-one
+correspondence to the C<names> list.  Each string is the
+value of the symbolic link.
+
+If the C<readlink(2)> operation fails on any name, then
+the corresponding result string is the empty string C<\"\">.
+However the whole operation is completed even if there
+were C<readlink(2)> errors, and so you can call this
+function with names where you don't know if they are
+symbolic links already (albeit slightly less efficient).
+
+This call is intended for programs that want to efficiently
+list a directory contents without making many round-trips." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -6379,9 +6402,10 @@ this call to fail.  The caller must split up such requests
 into smaller groups of names." };
 
   { defaults with
-    name = "readlinklist";
+    name = "internal_readlinklist";
     style = RStringList "links", [Pathname "path"; StringList "names"], [];
     proc_nr = Some 206;
+    in_docs = false; in_fish = false;
     shortdesc = "readlink on multiple files";
     longdesc = "\
 This call allows you to do a C<readlink> operation
