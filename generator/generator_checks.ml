@@ -164,16 +164,16 @@ let () =
   List.iter (
     function
     | { name = name; proc_nr = None } ->
-      failwithf "daemon function %s should have proc_nr > 0" name
+      failwithf "daemon function %s should have proc_nr = Some n > 0" name
     | { name = name; proc_nr = Some n } when n <= 0 ->
-      failwithf "daemon function %s should have proc_nr > 0" name
+      failwithf "daemon function %s should have proc_nr = Some n > 0" name
     | { proc_nr = Some _ } -> ()
   ) daemon_functions;
 
   List.iter (
     function
     | { name = name; proc_nr = Some _ } ->
-      failwithf "non-daemon function %s should have proc_nr -1" name
+      failwithf "non-daemon function %s should have proc_nr = None" name
     | { proc_nr = None } -> ()
   ) non_daemon_functions;
 
