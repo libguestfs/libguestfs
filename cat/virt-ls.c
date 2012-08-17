@@ -86,9 +86,7 @@ static int is_fifo (int64_t mode);
 static int is_lnk (int64_t mode);
 static int is_sock (int64_t mode);
 
-static size_t count_strings (char **);
 static void free_strings (char **);
-static char **take_strings (char **, size_t n, char ***);
 
 static inline char *
 bad_cast (char const *s)
@@ -467,8 +465,6 @@ do_ls_R (const char *dir)
 https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/
 */
 static char *full_path (const char *dir, const char *name);
-static struct guestfs_stat_list *lstatlist (const char *dir, char **names);
-static struct guestfs_xattr_list *lxattrlist (const char *dir, char **names);
 static int show_file (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs);
 
 typedef int (*visitor_function) (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs);
@@ -514,11 +510,11 @@ visit (int depth, const char *dir, visitor_function f)
   if (names == NULL)
     goto out;
 
-  stats = lstatlist (dir, names);
+  stats = guestfs_lstatlist (g, dir, names);
   if (stats == NULL)
     goto out;
 
-  xattrs = lxattrlist (dir, names);
+  xattrs = guestfs_lxattrlist (g, dir, names);
   if (xattrs == NULL)
     goto out;
 
@@ -538,8 +534,12 @@ visit (int depth, const char *dir, visitor_function f)
                program_name, dir, names[i]);
       goto out;
     }
-    /* lxattrlist function made sure attrval was \0-terminated, so we can do */
-    if (sscanf (xattrs->val[xattrp].attrval, "%zu", &nr_xattrs) != 1) {
+    /* attrval is not \0-terminated. */
+    char attrval[xattrs->val[xattrp].attrval_len+1];
+    memcpy (attrval, xattrs->val[xattrp].attrval,
+            xattrs->val[xattrp].attrval_len);
+    attrval[xattrs->val[xattrp].attrval_len] = '\0';
+    if (sscanf (attrval, "%zu", &nr_xattrs) != 1) {
       fprintf (stderr, _("%s: error: cannot parse xattr count for %s %s\n"),
                program_name, dir, names[i]);
       goto out;
@@ -594,129 +594,6 @@ full_path (const char *dir, const char *name)
   }
 
   return path;
-}
-
-/* This calls guestfs_lstatlist, but it splits the names list up so that we
- * don't overrun the libguestfs protocol limit.
- */
-#define LSTATLIST_MAX 1000
-
-static struct guestfs_stat_list *
-lstatlist (const char *dir, char **names)
-{
-  size_t len = count_strings (names);
-  char **first;
-  size_t old_len;
-  struct guestfs_stat_list *ret, *stats;
-
-  ret = malloc (sizeof *ret);
-  if (ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-  ret->len = 0;
-  ret->val = NULL;
-
-  while (len > 0) {
-    first = take_strings (names, LSTATLIST_MAX, &names);
-    len = len <= LSTATLIST_MAX ? 0 : len - LSTATLIST_MAX;
-
-    stats = guestfs_lstatlist (g, dir, first);
-    /* Note we don't need to free up the strings because take_strings
-     * does not do a deep copy.
-     */
-    free (first);
-
-    if (stats == NULL) {
-      free (ret);
-      return NULL;
-    }
-
-    /* Append stats to ret. */
-    old_len = ret->len;
-    ret->len += stats->len;
-    ret->val = realloc (ret->val, ret->len * sizeof (struct guestfs_stat));
-    if (ret->val == NULL) {
-      perror ("realloc");
-      exit (EXIT_FAILURE);
-    }
-    memcpy (&ret->val[old_len], stats->val,
-            stats->len * sizeof (struct guestfs_stat));
-
-    guestfs_free_stat_list (stats);
-  }
-
-  return ret;
-}
-
-/* Same as above, for lxattrlist.  Note the rather peculiar format
- * used to return the list of extended attributes (see
- * guestfs_lxattrlist documentation).
- */
-#define LXATTRLIST_MAX 1000
-
-static struct guestfs_xattr_list *
-lxattrlist (const char *dir, char **names)
-{
-  size_t len = count_strings (names);
-  char **first;
-  size_t i, old_len;
-  struct guestfs_xattr_list *ret, *xattrs;
-
-  ret = malloc (sizeof *ret);
-  if (ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-  ret->len = 0;
-  ret->val = NULL;
-
-  while (len > 0) {
-    first = take_strings (names, LXATTRLIST_MAX, &names);
-    len = len <= LXATTRLIST_MAX ? 0 : len - LXATTRLIST_MAX;
-
-    xattrs = guestfs_lxattrlist (g, dir, first);
-    /* Note we don't need to free up the strings because take_strings
-     * does not do a deep copy.
-     */
-    free (first);
-
-    if (xattrs == NULL) {
-      free (ret);
-      return NULL;
-    }
-
-    /* Append xattrs to ret. */
-    old_len = ret->len;
-    ret->len += xattrs->len;
-    ret->val = realloc (ret->val, ret->len * sizeof (struct guestfs_xattr));
-    if (ret->val == NULL) {
-      perror ("realloc");
-      exit (EXIT_FAILURE);
-    }
-    for (i = 0; i < xattrs->len; ++i, ++old_len) {
-      /* We have to make a deep copy of the attribute name and value.
-       * The attrval contains 8 bit data.  However make sure also that
-       * it is \0-terminated, because that makes the calling code
-       * simpler.
-       */
-      ret->val[old_len].attrname = strdup (xattrs->val[i].attrname);
-      ret->val[old_len].attrval = malloc (xattrs->val[i].attrval_len + 1);
-      if (ret->val[old_len].attrname == NULL ||
-          ret->val[old_len].attrval == NULL) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      ret->val[old_len].attrval_len = xattrs->val[i].attrval_len;
-      memcpy (ret->val[old_len].attrval, xattrs->val[i].attrval,
-              xattrs->val[i].attrval_len);
-      ret->val[i].attrval[ret->val[i].attrval_len] = '\0';
-    }
-
-    guestfs_free_xattr_list (xattrs);
-  }
-
-  return ret;
 }
 
 static int
@@ -1095,16 +972,6 @@ is_sock (int64_t mode)
 }
 
 /* String functions. */
-static size_t
-count_strings (char **names)
-{
-  size_t ret = 0;
-
-  while (names[ret] != NULL)
-    ret++;
-  return ret;
-}
-
 static void
 free_strings (char **names)
 {
@@ -1113,30 +980,4 @@ free_strings (char **names)
   for (i = 0; names[i] != NULL; ++i)
     free (names[i]);
   free (names);
-}
-
-/* Take the first 'n' names, returning a newly allocated list.  The
- * strings themselves are not duplicated.  If 'lastp' is not NULL,
- * then it is updated with the pointer to the list of remaining names.
- */
-static char **
-take_strings (char **names, size_t n, char ***lastp)
-{
-  size_t i;
-
-  char **ret = malloc ((n+1) * sizeof (char *));
-  if (ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-
-  for (i = 0; names[i] != NULL && i < n; ++i)
-    ret[i] = names[i];
-
-  ret[i] = NULL;
-
-  if (lastp)
-    *lastp = &names[i];
-
-  return ret;
 }

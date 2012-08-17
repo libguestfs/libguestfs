@@ -125,7 +125,7 @@ do_lstat (const char *path)
 }
 
 guestfs_int_stat_list *
-do_lstatlist (const char *path, char *const *names)
+do_internal_lstatlist (const char *path, char *const *names)
 {
   int path_fd;
   guestfs_int_stat_list *ret;

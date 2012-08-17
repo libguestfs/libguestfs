@@ -263,7 +263,7 @@ _removexattr (const char *xattr, const char *path,
 }
 
 guestfs_int_xattr_list *
-do_lxattrlist (const char *path, char *const *names)
+do_internal_lxattrlist (const char *path, char *const *names)
 {
 #if defined(HAVE_LLISTXATTR) && defined(HAVE_LGETXATTR)
   /* XXX This would be easier if the kernel had lgetxattrat.  In the
@@ -588,7 +588,7 @@ do_lremovexattr (const char *xattr, const char *path)
 }
 
 guestfs_int_xattr_list *
-do_lxattrlist (const char *path, char *const *names)
+do_internal_lxattrlist (const char *path, char *const *names)
 {
   abort ();
 }

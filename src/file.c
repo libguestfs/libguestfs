@@ -49,6 +49,38 @@ sort_strings (char **argv, size_t len)
   qsort (argv, len, sizeof (char *), compare);
 }
 
+/* Take the first 'n' names, returning a newly allocated list.  The
+ * strings themselves are not duplicated.  If 'lastp' is not NULL,
+ * then it is updated with the pointer to the list of remaining names.
+ */
+static char **
+take_strings (guestfs_h *g, char *const *names, size_t n, char *const **lastp)
+{
+  size_t i;
+
+  char **ret = safe_malloc (g, (n+1) * sizeof (char *));
+
+  for (i = 0; names[i] != NULL && i < n; ++i)
+    ret[i] = names[i];
+
+  ret[i] = NULL;
+
+  if (lastp)
+    *lastp = &names[i];
+
+  return ret;
+}
+
+static size_t
+count_strings (char * const*names)
+{
+  size_t ret = 0;
+
+  while (names[ret] != NULL)
+    ret++;
+  return ret;
+}
+
 char *
 guestfs__cat (guestfs_h *g, const char *path)
 {
@@ -368,4 +400,97 @@ guestfs__write_append (guestfs_h *g, const char *path,
                        const char *content, size_t size)
 {
   return write_or_append (g, path, content, size, 1);
+}
+
+#define LSTATLIST_MAX 1000
+
+struct guestfs_stat_list *
+guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
+{
+  size_t len = count_strings (names);
+  char **first;
+  size_t old_len;
+  struct guestfs_stat_list *ret, *stats;
+
+  ret = safe_malloc (g, sizeof *ret);
+  ret->len = 0;
+  ret->val = NULL;
+
+  while (len > 0) {
+    first = take_strings (g, names, LSTATLIST_MAX, &names);
+    len = len <= LSTATLIST_MAX ? 0 : len - LSTATLIST_MAX;
+
+    stats = guestfs_internal_lstatlist (g, dir, first);
+    /* Note we don't need to free up the strings because take_strings
+     * does not do a deep copy.
+     */
+    free (first);
+
+    if (stats == NULL) {
+      guestfs_free_stat_list (stats);
+      return NULL;
+    }
+
+    /* Append stats to ret. */
+    old_len = ret->len;
+    ret->len += stats->len;
+    ret->val = safe_realloc (g, ret->val,
+                             ret->len * sizeof (struct guestfs_stat));
+    memcpy (&ret->val[old_len], stats->val,
+            stats->len * sizeof (struct guestfs_stat));
+
+    guestfs_free_stat_list (stats);
+  }
+
+  return ret;
+}
+
+#define LXATTRLIST_MAX 1000
+
+struct guestfs_xattr_list *
+guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
+{
+  size_t len = count_strings (names);
+  char **first;
+  size_t i, old_len;
+  struct guestfs_xattr_list *ret, *xattrs;
+
+  ret = safe_malloc (g, sizeof *ret);
+  ret->len = 0;
+  ret->val = NULL;
+
+  while (len > 0) {
+    first = take_strings (g, names, LXATTRLIST_MAX, &names);
+    len = len <= LXATTRLIST_MAX ? 0 : len - LXATTRLIST_MAX;
+
+    xattrs = guestfs_internal_lxattrlist (g, dir, first);
+    /* Note we don't need to free up the strings because take_strings
+     * does not do a deep copy.
+     */
+    free (first);
+
+    if (xattrs == NULL) {
+      guestfs_free_xattr_list (ret);
+      return NULL;
+    }
+
+    /* Append xattrs to ret. */
+    old_len = ret->len;
+    ret->len += xattrs->len;
+    ret->val = safe_realloc (g, ret->val,
+                             ret->len * sizeof (struct guestfs_xattr));
+    for (i = 0; i < xattrs->len; ++i, ++old_len) {
+      /* We have to make a deep copy of the attribute name and value.
+       */
+      ret->val[old_len].attrname = safe_strdup (g, xattrs->val[i].attrname);
+      ret->val[old_len].attrval = safe_malloc (g, xattrs->val[i].attrval_len);
+      ret->val[old_len].attrval_len = xattrs->val[i].attrval_len;
+      memcpy (ret->val[old_len].attrval, xattrs->val[i].attrval,
+              xattrs->val[i].attrval_len);
+    }
+
+    guestfs_free_xattr_list (xattrs);
+  }
+
+  return ret;
 }
