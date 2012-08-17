@@ -2059,6 +2059,51 @@ buffer.
 Unlike C<guestfs_cat>, this function can correctly
 handle files that contain embedded ASCII NUL characters." };
 
+  { defaults with
+    name = "read_lines";
+    style = RStringList "lines", [Pathname "path"], [];
+    tests = [
+      InitISOFS, Always, TestOutputList (
+        [["read_lines"; "/known-4"]], ["abc"; "def"; "ghi"]);
+      InitISOFS, Always, TestOutputList (
+        [["read_lines"; "/empty"]], []);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines1"; "\n"];
+         ["read_lines"; "/read_lines1"]], [""]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines2"; "\r\n"];
+         ["read_lines"; "/read_lines2"]], [""]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines3"; "\n\r\n"];
+         ["read_lines"; "/read_lines3"]], [""; ""]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines4"; "a"];
+         ["read_lines"; "/read_lines4"]], ["a"]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines5"; "a\nb"];
+         ["read_lines"; "/read_lines5"]], ["a"; "b"]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines6"; "a\nb\n"];
+         ["read_lines"; "/read_lines6"]], ["a"; "b"]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines7"; "a\nb\r\n"];
+         ["read_lines"; "/read_lines7"]], ["a"; "b"]);
+      InitScratchFS, Always, TestOutputList (
+        [["write"; "/read_lines8"; "a\nb\r\n\n"];
+         ["read_lines"; "/read_lines8"]], ["a"; "b"; ""]);
+    ];
+    shortdesc = "read file as lines";
+    longdesc = "\
+Return the contents of the file named C<path>.
+
+The file contents are returned as a list of lines.  Trailing
+C<LF> and C<CRLF> character sequences are I<not> returned.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\\0> character which is treated
+as end of string).  For those you need to use the C<guestfs_read_file>
+function and split the buffer into lines yourself." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -2331,28 +2376,6 @@ of the L<vgs(8)> command.  The \"full\" version includes all fields." };
     longdesc = "\
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields." };
-
-  { defaults with
-    name = "read_lines";
-    style = RStringList "lines", [Pathname "path"], [];
-    proc_nr = Some 15;
-    tests = [
-      InitISOFS, Always, TestOutputList (
-        [["read_lines"; "/known-4"]], ["abc"; "def"; "ghi"]);
-      InitISOFS, Always, TestOutputList (
-        [["read_lines"; "/empty"]], [])
-    ];
-    shortdesc = "read file as lines";
-    longdesc = "\
-Return the contents of the file named C<path>.
-
-The file contents are returned as a list of lines.  Trailing
-C<LF> and C<CRLF> character sequences are I<not> returned.
-
-Note that this function cannot correctly handle binary files
-(specifically, files containing C<\\0> character which is treated
-as end of line).  For those you need to use the C<guestfs_read_file>
-function which has a more complex interface." };
 
   { defaults with
     name = "aug_init";

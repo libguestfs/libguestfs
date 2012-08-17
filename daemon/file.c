@@ -85,54 +85,6 @@ do_touch (const char *path)
   return 0;
 }
 
-char **
-do_read_lines (const char *path)
-{
-  DECLARE_STRINGSBUF (r);
-  FILE *fp;
-  char *line = NULL;
-  size_t len = 0;
-  ssize_t n;
-
-  CHROOT_IN;
-  fp = fopen (path, "r");
-  CHROOT_OUT;
-
-  if (!fp) {
-    reply_with_perror ("fopen: %s", path);
-    return NULL;
-  }
-
-  while ((n = getline (&line, &len, fp)) != -1) {
-    /* Remove either LF or CRLF. */
-    if (n >= 2 && line[n-2] == '\r' && line[n-1] == '\n')
-      line[n-2] = '\0';
-    else if (n >= 1 && line[n-1] == '\n')
-      line[n-1] = '\0';
-
-    if (add_string (&r, line) == -1) {
-      free (line);
-      fclose (fp);
-      return NULL;
-    }
-  }
-
-  free (line);
-
-  if (end_stringsbuf (&r) == -1) {
-    fclose (fp);
-    return NULL;
-  }
-
-  if (fclose (fp) == EOF) {
-    reply_with_perror ("fclose: %s", path);
-    free_stringslen (r.argv, r.size);
-    return NULL;
-  }
-
-  return r.argv;
-}
-
 int
 do_rm (const char *path)
 {

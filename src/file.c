@@ -123,6 +123,72 @@ guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
 }
 
 char **
+guestfs__read_lines (guestfs_h *g, const char *file)
+{
+  size_t i, count, size, len;
+  char *buf = NULL;
+  char **ret = NULL;
+
+  /* Read the whole file into memory. */
+  buf = guestfs__read_file (g, file, &size);
+  if (buf == NULL)
+    return NULL;
+
+  /* 'buf' contains the list of strings, separated by LF or CRLF
+   * characters.  Convert this to a list of lines.  Note we have to
+   * handle the cases where the buffer is zero length and where the
+   * final string is not terminated.
+   */
+  count = 0;
+  for (i = 0; i < size; ++i)
+    if (buf[i] == '\n')
+      count++;
+  if (size > 0 && buf[size-1] != '\n')
+    count++;
+
+  ret = malloc ((count + 1) * sizeof (char *));
+  if (!ret) {
+    perrorf (g, "malloc");
+    goto err;
+  }
+
+  count = 0;
+  if (size > 0) {
+    ret[count++] = buf;
+    for (i = 0; i < size; ++i) {
+      if (buf[i] == '\n') {
+        buf[i] = '\0';
+        if (i+1 < size)
+          ret[count++] = &buf[i+1];
+      }
+    }
+  }
+  ret[count] = NULL;
+
+  /* Duplicate the strings, and remove the trailing \r characters if any. */
+  for (i = 0; ret[i] != NULL; ++i) {
+    ret[i] = strdup (ret[i]);
+    if (ret[i] == NULL) {
+      perrorf (g, "strdup");
+      while (i > 0)
+        free (ret[--i]);
+      goto err;
+    }
+    len = strlen (ret[i]);
+    if (len > 0 && ret[i][len-1] == '\r')
+      ret[i][len-1] = '\0';
+  }
+  free (buf);
+
+  return ret;
+
+ err:
+  free (buf);
+  free (ret);
+  return NULL;
+}
+
+char **
 guestfs__find (guestfs_h *g, const char *directory)
 {
   int fd = -1;
