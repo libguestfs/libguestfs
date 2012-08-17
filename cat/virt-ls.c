@@ -447,63 +447,20 @@ do_ls_l (const char *dir)
 static int
 do_ls_R (const char *dir)
 {
-  /* This is TMP_TEMPLATE_ON_STACK expanded from fish.h. */
-  const char *tmpdir = guestfs_tmpdir ();
-  char tmpfile[strlen (tmpdir) + 32];
-  sprintf (tmpfile, "%s/virtlsXXXXXX", tmpdir);
+  char **dirs;
+  size_t i;
 
-  int fd = mkstemp (tmpfile);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
-
-  char buf[BUFSIZ]; /* also used below */
-  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
-
-  if (guestfs_find0 (g, dir, buf) == -1)
+  dirs = guestfs_find (g, dir);
+  if (dirs == NULL)
     return -1;
 
-  if (close (fd) == -1) {
-    perror (tmpfile);
-    exit (EXIT_FAILURE);
+  for (i = 0; dirs[i] != NULL; ++i) {
+    puts (dirs[i]);
+    free (dirs[i]);
   }
+  free (dirs);
 
-  /* The output of find0 is a \0-separated file.  Turn each \0 into
-   * a \n character.
-   */
-  fd = open (tmpfile, O_RDONLY|O_CLOEXEC);
-  if (fd == -1) {
-    perror (tmpfile);
-    exit (EXIT_FAILURE);
-  }
-
-  ssize_t r;
-  while ((r = read (fd, buf, sizeof buf)) > 0) {
-    size_t i;
-    for (i = 0; i < (size_t) r; ++i)
-      if (buf[i] == '\0')
-        buf[i] = '\n';
-
-    size_t n = r;
-    while (n > 0) {
-      r = write (1, buf, n);
-      if (r == -1) {
-        perror ("write");
-        exit (EXIT_FAILURE);
-      }
-      n -= r;
-    }
-  }
-
-  if (r == -1 || close (fd) == -1) {
-    perror (tmpfile);
-    exit (EXIT_FAILURE);
-  }
-
- unlink (tmpfile);
-
- return 0;
+  return 0;
 }
 
 /* Adapted from

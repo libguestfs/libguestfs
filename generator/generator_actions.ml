@@ -1994,6 +1994,56 @@ return arbitrary sized files (limited by the amount of
 memory available).  In either case you should check the size
 of the file before downloading it or consider alternate APIs." };
 
+  { defaults with
+    name = "find";
+    style = RStringList "names", [Pathname "directory"], [];
+    tests = [
+      InitBasicFS, Always, TestOutputList (
+        [["find"; "/"]], ["lost+found"]);
+      InitBasicFS, Always, TestOutputList (
+        [["touch"; "/a"];
+         ["mkdir"; "/b"];
+         ["touch"; "/b/c"];
+         ["find"; "/"]], ["a"; "b"; "b/c"; "lost+found"]);
+      InitScratchFS, Always, TestOutputList (
+        [["mkdir_p"; "/find/b/c"];
+         ["touch"; "/find/b/c/d"];
+         ["find"; "/find/b/"]], ["c"; "c/d"])
+    ];
+    shortdesc = "find all files and directories";
+    longdesc = "\
+This command lists out all files and directories, recursively,
+starting at C<directory>.  It is essentially equivalent to
+running the shell command C<find directory -print> but some
+post-processing happens on the output, described below.
+
+This returns a list of strings I<without any prefix>.  Thus
+if the directory structure was:
+
+ /tmp/a
+ /tmp/b
+ /tmp/c/d
+
+then the returned list from C<guestfs_find> C</tmp> would be
+4 elements:
+
+ a
+ b
+ c
+ c/d
+
+If C<directory> is not a directory, then this command returns
+an error.
+
+The returned list is sorted.
+
+In libguestfs E<lt> 1.19.32, this API was also subject to
+a limit in the protocol which limited the number of lines
+that could be returned.  In later versions of libguestfs,
+this limit has been lifted and the call can download and
+return an arbitrary list of files (limited by the amount of
+memory available)." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -4308,53 +4358,6 @@ the underlying device.
 See also L<guestfs(3)/RESIZE2FS ERRORS>." };
 
   { defaults with
-    name = "find";
-    style = RStringList "names", [Pathname "directory"], [];
-    proc_nr = Some 107;
-    protocol_limit_warning = true;
-    tests = [
-      InitBasicFS, Always, TestOutputList (
-        [["find"; "/"]], ["lost+found"]);
-      InitBasicFS, Always, TestOutputList (
-        [["touch"; "/a"];
-         ["mkdir"; "/b"];
-         ["touch"; "/b/c"];
-         ["find"; "/"]], ["a"; "b"; "b/c"; "lost+found"]);
-      InitScratchFS, Always, TestOutputList (
-        [["mkdir_p"; "/find/b/c"];
-         ["touch"; "/find/b/c/d"];
-         ["find"; "/find/b/"]], ["c"; "c/d"])
-    ];
-    shortdesc = "find all files and directories";
-    longdesc = "\
-This command lists out all files and directories, recursively,
-starting at C<directory>.  It is essentially equivalent to
-running the shell command C<find directory -print> but some
-post-processing happens on the output, described below.
-
-This returns a list of strings I<without any prefix>.  Thus
-if the directory structure was:
-
- /tmp/a
- /tmp/b
- /tmp/c/d
-
-then the returned list from C<guestfs_find> C</tmp> would be
-4 elements:
-
- a
- b
- c
- c/d
-
-If C<directory> is not a directory, then this command returns
-an error.
-
-The returned list is sorted.
-
-See also C<guestfs_find0>." };
-
-  { defaults with
     name = "e2fsck_f";
     style = RErr, [Device "device"], [];
     proc_nr = Some 108;
@@ -6012,11 +6015,6 @@ The resulting list is written to an external file.
 
 Items (filenames) in the result are separated
 by C<\\0> characters.  See L<find(1)> option I<-print0>.
-
-=item *
-
-This command is not limited in the number of names that it
-can return.
 
 =item *
 
