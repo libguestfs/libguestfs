@@ -2044,6 +2044,21 @@ this limit has been lifted and the call can download and
 return an arbitrary list of files (limited by the amount of
 memory available)." };
 
+  { defaults with
+    name = "read_file";
+    style = RBufferOut "content", [Pathname "path"], [];
+    tests = [
+      InitISOFS, Always, TestOutputBuffer (
+        [["read_file"; "/known-4"]], "abc\ndef\nghi")
+    ];
+    shortdesc = "read a file";
+    longdesc = "\
+This calls returns the contents of the file C<path> as a
+buffer.
+
+Unlike C<guestfs_cat>, this function can correctly
+handle files that contain embedded ASCII NUL characters." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -5167,38 +5182,6 @@ is closed which can also trigger these issues." };
 This calls removes a mountpoint that was previously created
 with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
 for full details." };
-
-  { defaults with
-    name = "read_file";
-    style = RBufferOut "content", [Pathname "path"], [];
-    proc_nr = Some 150;
-    protocol_limit_warning = true;
-    tests = [
-      InitISOFS, Always, TestOutputBuffer (
-        [["read_file"; "/known-4"]], "abc\ndef\nghi");
-      (* Test various near large, large and too large files (RHBZ#589039). *)
-      InitScratchFS, Always, TestLastFail (
-        [["touch"; "/read_file"];
-         ["truncate_size"; "/read_file"; "4194303"]; (* GUESTFS_MESSAGE_MAX - 1 *)
-         ["read_file"; "/read_file"]]);
-      InitScratchFS, Always, TestLastFail (
-        [["touch"; "/read_file2"];
-         ["truncate_size"; "/read_file2"; "4194304"]; (* GUESTFS_MESSAGE_MAX *)
-         ["read_file"; "/read_file2"]]);
-      InitScratchFS, Always, TestLastFail (
-        [["touch"; "/read_file3"];
-         ["truncate_size"; "/read_file3"; "41943040"]; (* GUESTFS_MESSAGE_MAX * 10 *)
-         ["read_file"; "/read_file3"]])
-    ];
-    shortdesc = "read a file";
-    longdesc = "\
-This calls returns the contents of the file C<path> as a
-buffer.
-
-Unlike C<guestfs_cat>, this function can correctly
-handle files that contain embedded ASCII NUL characters.
-However unlike C<guestfs_download>, this function is limited
-in the total size of file that can be handled." };
 
   { defaults with
     name = "grep";

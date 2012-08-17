@@ -314,65 +314,6 @@ do_write_append (const char *path, const char *content, size_t size)
   return 0;
 }
 
-char *
-do_read_file (const char *path, size_t *size_r)
-{
-  int fd;
-  struct stat statbuf;
-  char *r;
-
-  CHROOT_IN;
-  fd = open (path, O_RDONLY|O_CLOEXEC);
-  CHROOT_OUT;
-
-  if (fd == -1) {
-    reply_with_perror ("open: %s", path);
-    return NULL;
-  }
-
-  if (fstat (fd, &statbuf) == -1) {
-    reply_with_perror ("fstat: %s", path);
-    close (fd);
-    return NULL;
-  }
-
-  /* The actual limit on messages is smaller than this.  This
-   * check just limits the amount of memory we'll try and allocate
-   * here.  If the message is larger than the real limit, that will
-   * be caught later when we try to serialize the message.
-   */
-  if (statbuf.st_size >= GUESTFS_MESSAGE_MAX) {
-    reply_with_error ("%s: file is too large for the protocol, use guestfs_download instead", path);
-    close (fd);
-    return NULL;
-  }
-  r = malloc (statbuf.st_size);
-  if (r == NULL) {
-    reply_with_perror ("malloc");
-    close (fd);
-    return NULL;
-  }
-
-  if (xread (fd, r, statbuf.st_size) == -1) {
-    reply_with_perror ("read: %s", path);
-    close (fd);
-    free (r);
-    return NULL;
-  }
-
-  if (close (fd) == -1) {
-    reply_with_perror ("close: %s", path);
-    free (r);
-    return NULL;
-  }
-
-  /* Mustn't touch *size_r until we are sure that we won't return any
-   * error (RHBZ#589039).
-   */
-  *size_r = statbuf.st_size;
-  return r;
-}
-
 static char *
 pread_fd (int fd, int count, int64_t offset, size_t *size_r,
           const char *display_path)

@@ -567,7 +567,6 @@ the p.o.v of the API and ABI.
 
  - guestfs_lstatlist
  - guestfs_lxattrlist
- - guestfs_read_file
  - guestfs_read_lines
  - guestfs_readlinklist
  - guestfs_write

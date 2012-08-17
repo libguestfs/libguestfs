@@ -51,6 +51,14 @@ sort_strings (char **argv, size_t len)
 char *
 guestfs__cat (guestfs_h *g, const char *path)
 {
+  size_t size;
+
+  return guestfs_read_file (g, path, &size);
+}
+
+char *
+guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
+{
   int fd = -1;
   size_t size;
   char *tmpfile = NULL, *ret = NULL;
@@ -97,6 +105,10 @@ guestfs__cat (guestfs_h *g, const char *path)
     goto err;
   }
 
+  /* Mustn't touch *size_r until we are sure that we won't return any
+   * error (RHBZ#589039).
+   */
+  *size_r = size;
   return ret;
 
  err:
