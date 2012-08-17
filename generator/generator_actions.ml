@@ -1970,6 +1970,30 @@ need to call C<guestfs_close> afterwards.
 C<guestfs_close> will call this if you don't do it explicitly,
 but note that any errors are ignored in that case." };
 
+  { defaults with
+    name = "cat";
+    style = RString "content", [Pathname "path"], [];
+    tests = [
+      InitISOFS, Always, TestOutput (
+        [["cat"; "/known-2"]], "abcdef\n")
+    ];
+    shortdesc = "list the contents of a file";
+    longdesc = "\
+Return the contents of the file named C<path>.
+
+Because, in C, this function returns a C<char *>, there is no
+way to differentiate between a C<\\0> character in a file and
+end of string.  To handle binary files, use the C<guestfs_read_file>
+or C<guestfs_download> functions.
+
+In libguestfs E<lt> 1.19.32, this API was also subject to
+a limit in the protocol which limited the effective size of
+a file that it could read.  In later versions of libguestfs,
+this limit has been lifted and the call can download and
+return arbitrary sized files (limited by the amount of
+memory available).  In either case you should check the size
+of the file before downloading it or consider alternate APIs." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -2044,24 +2068,6 @@ to create a new zero-length file.
 
 This command only works on regular files, and will fail on other
 file types such as directories, symbolic links, block special etc." };
-
-  { defaults with
-    name = "cat";
-    style = RString "content", [Pathname "path"], [];
-    proc_nr = Some 4;
-    protocol_limit_warning = true;
-    tests = [
-      InitISOFS, Always, TestOutput (
-        [["cat"; "/known-2"]], "abcdef\n")
-    ];
-    shortdesc = "list the contents of a file";
-    longdesc = "\
-Return the contents of the file named C<path>.
-
-Note that this function cannot correctly handle binary files
-(specifically, files containing C<\\0> character which is treated
-as end of string).  For those you need to use the C<guestfs_read_file>
-or C<guestfs_download> functions which have a more complex interface." };
 
   { defaults with
     name = "ll";
