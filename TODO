@@ -566,3 +566,9 @@ guestfs_download (and others).  This change should be transparent from
 the p.o.v of the API and ABI.
 
  - guestfs_readdir
+
+mke2fs
+------
+
+Add a mke2fs API call allowing full configuration of filesystems.
+Then fix tests/bigdirs/test-big-dirs.pl to use it.
