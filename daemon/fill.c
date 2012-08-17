@@ -123,3 +123,31 @@ do_fill_pattern (const char *pattern, int len, const char *path)
 
   return 0;
 }
+
+int
+do_fill_dir (const char *dir, int n)
+{
+  size_t len = strlen (dir);
+  char filename[len+10];
+  int fd;
+  int i;
+
+  for (i = 0; i < n; ++i) {
+    snprintf (filename, len+10, "%s/%08d", dir, i);
+
+    CHROOT_IN;
+    fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
+    CHROOT_OUT;
+
+    if (fd == -1) {
+      reply_with_perror ("create: %s", filename);
+      return -1;
+    }
+    if (close (fd) == -1) {
+      reply_with_perror ("close: %s", filename);
+      return -1;
+    }
+  }
+
+  return 0;
+}

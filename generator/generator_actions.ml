@@ -9436,6 +9436,17 @@ In the output file, the filenames are separated by C<\\0> characters.
 
 C<.> and C<..> are not returned.  The filenames are not sorted." };
 
+  { defaults with
+    name = "fill_dir";
+    style = RErr, [Pathname "dir"; Int "nr"], [];
+    proc_nr = Some 348;
+    shortdesc = "fill a directory with empty files";
+    longdesc = "\
+This function, useful for testing filesystems, creates C<nr>
+empty files in the directory C<dir> with names C<00000000>
+through C<nr-1> (ie. each file name is 8 digits long padded
+with zeroes)." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
