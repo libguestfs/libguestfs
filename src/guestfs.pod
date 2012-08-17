@@ -3232,28 +3232,26 @@ need to be aware of this limit.  The API calls which may be affected
 are individually documented, with a link back to this section of the
 documentation.
 
-In libguestfs E<lt> 1.19.32, a simple call such as L</guestfs_cat>
-returns its result (the file data) in a simple string.  Because this
-string is at some point internally encoded as a message, the maximum
-size that it can return is slightly under 4 MB.  If the requested file
-is larger than this then you will get an error.
+In libguestfs E<lt> 1.19.32, several calls had to encode either their
+entire argument list or their entire return value (or sometimes both)
+in a single protocol message, and this gave them an arbitrary
+limitation on how much data they could handle.  For example,
+L</guestfs_cat> could only download a file if it was less than around
+4 MB in size.  In later versions of libguestfs, some of these limits
+have been removed.  The APIs which were previously limited but are now
+unlimited (except perhaps by available memory) are listed below.  To
+find out if a specific API is subject to protocol limits, check for
+the warning in the API documentation which links to this section, and
+remember to check the version of the documentation that matches the
+version of libguestfs you are using.
 
-However in more recent versions of libguestfs, some APIs such as
-L</guestfs_cat> and L</guestfs_write> have been rewritten so that they
-are not subject to protocol limits.  They still may be limited because
-the file content is stored in memory.
+L</guestfs_cat>, L</guestfs_find>, L</guestfs_read_file>,
+L</guestfs_read_lines>, L</guestfs_write>, L</guestfs_write_append>,
+L</guestfs_lstatlist>, L</guestfs_lxattrlist>,
+L</guestfs_readlinklist>, L</guestfs_ls>.
 
-(To find out if a specific API is subject to protocol limits, check
-for the warning in the API documentation which links to this section,
-and remember to check the version of the documentation that matches
-the version of libguestfs you are using).
-
-In order to transfer large files into and out of the guest filesystem,
-you need to use particular calls that support this.  The sections
-L</UPLOADING> and L</DOWNLOADING> document how to do this.
-
-You might also consider mounting the disk image using our FUSE
-filesystem support (L<guestmount(1)>).
+See also L</UPLOADING> and L</DOWNLOADING> for further information
+about copying large amounts of data into or out of a filesystem.
 
 =head2 MAXIMUM NUMBER OF DISKS
 

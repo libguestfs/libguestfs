@@ -1984,15 +1984,7 @@ Return the contents of the file named C<path>.
 Because, in C, this function returns a C<char *>, there is no
 way to differentiate between a C<\\0> character in a file and
 end of string.  To handle binary files, use the C<guestfs_read_file>
-or C<guestfs_download> functions.
-
-In libguestfs E<lt> 1.19.32, this API was also subject to
-a limit in the protocol which limited the effective size of
-a file that it could read.  In later versions of libguestfs,
-this limit has been lifted and the call can download and
-return arbitrary sized files (limited by the amount of
-memory available).  In either case you should check the size
-of the file before downloading it or consider alternate APIs." };
+or C<guestfs_download> functions." };
 
   { defaults with
     name = "find";
@@ -2035,14 +2027,7 @@ then the returned list from C<guestfs_find> C</tmp> would be
 If C<directory> is not a directory, then this command returns
 an error.
 
-The returned list is sorted.
-
-In libguestfs E<lt> 1.19.32, this API was also subject to
-a limit in the protocol which limited the number of lines
-that could be returned.  In later versions of libguestfs,
-this limit has been lifted and the call can download and
-return an arbitrary list of files (limited by the amount of
-memory available)." };
+The returned list is sorted." };
 
   { defaults with
     name = "read_file";
