@@ -28,6 +28,7 @@
 #include <sys/stat.h>
 
 #include "full-read.h"
+#include "full-write.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -289,4 +290,82 @@ guestfs__find (guestfs_h *g, const char *directory)
     free (tmpfile);
   }
   return NULL;
+}
+
+static int
+write_or_append (guestfs_h *g, const char *path,
+                 const char *content, size_t size,
+                 int append)
+{
+  char *tmpfile = NULL;
+  int fd = -1;
+  int64_t filesize;
+
+  /* If the content is small enough, use guestfs_internal_write{,_append}
+   * since that call is more efficient.
+   */
+  if (size <= 2*1024*1024)
+    return
+      (!append ? guestfs_internal_write : guestfs_internal_write_append)
+      (g, path, content, size);
+
+  /* Write the content out to a temporary file. */
+  tmpfile = safe_asprintf (g, "%s/write%d", g->tmpdir, ++g->unique);
+
+  fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
+  if (fd == -1) {
+    perrorf (g, "open: %s", tmpfile);
+    goto err;
+  }
+
+  if (full_write (fd, content, size) != size) {
+    perrorf (g, "write: %s", tmpfile);
+    goto err;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", tmpfile);
+    goto err;
+  }
+  fd = -1;
+
+  if (!append) {
+    if (guestfs_upload (g, tmpfile, path) == -1)
+      goto err;
+  }
+  else {
+    /* XXX Should have an 'upload-append' call to make this atomic. */
+    filesize = guestfs_filesize (g, path);
+    if (filesize == -1)
+      goto err;
+    if (guestfs_upload_offset (g, tmpfile, path, filesize) == -1)
+      goto err;
+  }
+
+  unlink (tmpfile);
+  free (tmpfile);
+  return 0;
+
+ err:
+  if (fd >= 0)
+    close (fd);
+  if (tmpfile) {
+    unlink (tmpfile);
+    free (tmpfile);
+  }
+  return -1;
+}
+
+int
+guestfs__write (guestfs_h *g, const char *path,
+                const char *content, size_t size)
+{
+  return write_or_append (g, path, content, size, 0);
+}
+
+int
+guestfs__write_append (guestfs_h *g, const char *path,
+                       const char *content, size_t size)
+{
+  return write_or_append (g, path, content, size, 1);
 }

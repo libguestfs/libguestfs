@@ -2104,6 +2104,54 @@ Note that this function cannot correctly handle binary files
 as end of string).  For those you need to use the C<guestfs_read_file>
 function and split the buffer into lines yourself." };
 
+  { defaults with
+    name = "write";
+    style = RErr, [Pathname "path"; BufferIn "content"], [];
+    tests = [
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write"; "new file contents"];
+         ["cat"; "/write"]], "new file contents");
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write2"; "\nnew file contents\n"];
+         ["cat"; "/write2"]], "\nnew file contents\n");
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write3"; "\n\n"];
+         ["cat"; "/write3"]], "\n\n");
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write4"; ""];
+         ["cat"; "/write4"]], "");
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write5"; "\n\n\n"];
+         ["cat"; "/write5"]], "\n\n\n");
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write6"; "\n"];
+         ["cat"; "/write6"]], "\n")
+    ];
+    shortdesc = "create a new file";
+    longdesc = "\
+This call creates a file called C<path>.  The content of the
+file is the string C<content> (which can contain any 8 bit data).
+
+See also C<guestfs_write_append>." };
+
+  { defaults with
+    name = "write_append";
+    style = RErr, [Pathname "path"; BufferIn "content"], [];
+    tests = [
+      InitScratchFS, Always, TestOutput (
+        [["write"; "/write_append"; "line1\n"];
+         ["write_append"; "/write_append"; "line2\n"];
+         ["write_append"; "/write_append"; "line3a"];
+         ["write_append"; "/write_append"; "line3b\n"];
+         ["cat"; "/write_append"]], "line1\nline2\nline3aline3b\n")
+    ];
+    shortdesc = "append content to end of file";
+    longdesc = "\
+This call appends C<content> to the end of file C<path>.  If
+C<path> does not exist, then a new file is created.
+
+See also C<guestfs_write>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -7082,29 +7130,30 @@ of bytes in C<pattern>.  The pattern is truncated if necessary
 to ensure the length of the file is exactly C<len> bytes." };
 
   { defaults with
-    name = "write";
+    name = "internal_write";
     style = RErr, [Pathname "path"; BufferIn "content"], [];
     proc_nr = Some 246;
+    in_fish = false; in_docs = false;
     protocol_limit_warning = true;
     tests = [
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write"; "new file contents"];
-         ["cat"; "/write"]], "new file contents");
+        [["internal_write"; "/internal_write"; "new file contents"];
+         ["cat"; "/internal_write"]], "new file contents");
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write2"; "\nnew file contents\n"];
-         ["cat"; "/write2"]], "\nnew file contents\n");
+        [["internal_write"; "/internal_write2"; "\nnew file contents\n"];
+         ["cat"; "/internal_write2"]], "\nnew file contents\n");
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write3"; "\n\n"];
-         ["cat"; "/write3"]], "\n\n");
+        [["internal_write"; "/internal_write3"; "\n\n"];
+         ["cat"; "/internal_write3"]], "\n\n");
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write4"; ""];
-         ["cat"; "/write4"]], "");
+        [["internal_write"; "/internal_write4"; ""];
+         ["cat"; "/internal_write4"]], "");
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write5"; "\n\n\n"];
-         ["cat"; "/write5"]], "\n\n\n");
+        [["internal_write"; "/internal_write5"; "\n\n\n"];
+         ["cat"; "/internal_write5"]], "\n\n\n");
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write6"; "\n"];
-         ["cat"; "/write6"]], "\n")
+        [["internal_write"; "/internal_write6"; "\n"];
+         ["cat"; "/internal_write6"]], "\n")
     ];
     shortdesc = "create a new file";
     longdesc = "\
@@ -7943,17 +7992,18 @@ is resized to the maximum size.
 See also L<btrfs(8)>." };
 
   { defaults with
-    name = "write_append";
+    name = "internal_write_append";
     style = RErr, [Pathname "path"; BufferIn "content"], [];
     proc_nr = Some 290;
+    in_fish = false; in_docs = false;
     protocol_limit_warning = true;
     tests = [
       InitScratchFS, Always, TestOutput (
-        [["write"; "/write_append"; "line1\n"];
-         ["write_append"; "/write_append"; "line2\n"];
-         ["write_append"; "/write_append"; "line3a"];
-         ["write_append"; "/write_append"; "line3b\n"];
-         ["cat"; "/write_append"]], "line1\nline2\nline3aline3b\n")
+        [["write"; "/internal_write_append"; "line1\n"];
+         ["internal_write_append"; "/internal_write_append"; "line2\n"];
+         ["internal_write_append"; "/internal_write_append"; "line3a"];
+         ["internal_write_append"; "/internal_write_append"; "line3b\n"];
+         ["cat"; "/internal_write_append"]], "line1\nline2\nline3aline3b\n")
     ];
     shortdesc = "append content to end of file";
     longdesc = "\

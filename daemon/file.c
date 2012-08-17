@@ -211,7 +211,7 @@ do_write_file (const char *path, const char *content, int size)
 }
 
 int
-do_write (const char *path, const char *content, size_t size)
+do_internal_write (const char *path, const char *content, size_t size)
 {
   int fd;
 
@@ -239,7 +239,7 @@ do_write (const char *path, const char *content, size_t size)
 }
 
 int
-do_write_append (const char *path, const char *content, size_t size)
+do_internal_write_append (const char *path, const char *content, size_t size)
 {
   int fd;
 

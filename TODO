@@ -568,6 +568,3 @@ the p.o.v of the API and ABI.
  - guestfs_lstatlist
  - guestfs_lxattrlist
  - guestfs_readlinklist
- - guestfs_write
- - guestfs_write_append
- - guestfs_write_file
