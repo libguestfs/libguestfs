@@ -1370,6 +1370,7 @@ AC_CONFIG_FILES([Makefile
                  sysprep/Makefile
                  test-tool/Makefile
                  tests/9p/Makefile
+                 tests/bigdirs/Makefile
                  tests/btrfs/Makefile
                  tests/c-api/Makefile
                  tests/charsets/Makefile
