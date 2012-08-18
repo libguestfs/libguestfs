@@ -405,6 +405,25 @@ C<$TMPDIR/.guestfs-E<lt>UIDE<gt>> is used instead.
 
 It is safe to delete this directory when you are not using libguestfs.
 
+=head2 virt-sparsify seems to make the image grow to the
+full size of the virtual disk
+
+If the input to L<virt-sparsify(1)> is raw, then the output will be
+raw sparse.  Make sure you are measuring the output with a tool which
+understands sparseness such as C<du-sh>.  It can make a huge difference:
+
+ $ ls -lh test1.img
+ -rw-rw-r--. 1 rjones rjones 100M Aug  8 08:08 test1.img
+ $ du -sh test1.img
+ 3.6M	test1.img
+
+(Compare the apparent size B<100M> vs the actual size B<3.6M>)
+
+If all this confuses you, use a non-sparse output by specifying the
+I<--convert> option, eg:
+
+ virt-sparsify --convert qcow2 disk.raw disk.qcow2
+
 =head1 USING LIBGUESTFS IN YOUR OWN PROGRAMS
 
 =head2 The API has hundreds of methods, where do I start?

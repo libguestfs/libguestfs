@@ -25,6 +25,19 @@ Virt-sparsify can operate on any disk image, not just ones from
 virtual machines.  If a virtual machine has more than one attached
 disk, you must sparsify each one separately.
 
+=head2 IMPORTANT NOTE ABOUT SPARSE OUTPUT IMAGES
+
+If the input is raw, then the default output is raw sparse.  B<You
+must check the output size using a tool that understands sparseness>
+such as C<du -sh>.  It can make a huge difference:
+
+ $ ls -lh test1.img
+ -rw-rw-r--. 1 rjones rjones 100M Aug  8 08:08 test1.img
+ $ du -sh test1.img
+ 3.6M	test1.img
+
+(Compare the apparent size B<100M> vs the actual size B<3.6M>)
+
 =head2 IMPORTANT LIMITATIONS
 
 =over 4
