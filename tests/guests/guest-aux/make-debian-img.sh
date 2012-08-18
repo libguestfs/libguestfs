@@ -63,15 +63,15 @@ mkfs ext2 /dev/debian/home blocksize:4096
 set-e2uuid /dev/debian/home 01234567-0123-0123-0123-012345678905
 
 # Enough to fool inspection API.
-mount-options "" /dev/debian/root /
+mount /dev/debian/root /
 mkdir /boot
-mount-options "" /dev/sda1 /boot
+mount /dev/sda1 /boot
 mkdir /usr
-mount-options "" /dev/debian/usr /usr
+mount /dev/debian/usr /usr
 mkdir /var
-mount-options "" /dev/debian/var /var
+mount /dev/debian/var /var
 mkdir /home
-mount-options "" /dev/debian/home /home
+mount /dev/debian/home /home
 mkdir /bin
 mkdir /etc
 mkdir-p /var/lib/dpkg

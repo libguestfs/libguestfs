@@ -143,12 +143,12 @@ NAMING> below.
 
 Before you can read or write files, create directories and so on in a
 disk image that contains filesystems, you have to mount those
-filesystems using L</guestfs_mount_options> or L</guestfs_mount_ro>.
+filesystems using L</guestfs_mount> or L</guestfs_mount_ro>.
 If you already know that a disk image contains (for example) one
 partition with a filesystem on that partition, then you can mount it
 directly:
 
- guestfs_mount_options (g, "", "/dev/sda1", "/");
+ guestfs_mount (g, "/dev/sda1", "/");
 
 where C</dev/sda1> means literally the first partition (C<1>) of the
 first disk image that we added (C</dev/sda>).  If the disk contains
@@ -632,7 +632,7 @@ return a hash table like this example:
  /     => /dev/vg_guest/lv_root
  /usr  => /dev/vg_guest/lv_usr
 
-The caller can then make calls to L</guestfs_mount_options> to
+The caller can then make calls to L</guestfs_mount> to
 mount the filesystems as suggested.
 
 Be careful to mount filesystems in the right order (eg. C</> before

@@ -55,7 +55,7 @@ mkfs ntfs /dev/sda1
 mkfs ntfs /dev/sda2
 
 # Enough to fool inspection API.
-mount-options "" /dev/sda2 /
+mount /dev/sda2 /
 mkdir-p /Windows/System32/Config
 
 upload $SRCDIR/guest-aux/windows-software /Windows/System32/Config/SOFTWARE

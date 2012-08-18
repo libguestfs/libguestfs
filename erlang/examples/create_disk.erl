@@ -39,7 +39,7 @@ main(_) ->
     ok = guestfs:mkfs(G, "ext4", Partition),
 
     % Now mount the filesystem so that we can add files. *)
-    ok = guestfs:mount_options(G, "", Partition, "/"),
+    ok = guestfs:mount(G, Partition, "/"),
 
     % Create some files and directories. *)
     ok = guestfs:touch(G, "/empty"),

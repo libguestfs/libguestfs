@@ -38,7 +38,7 @@ run
 
 part-disk /dev/sda mbr
 mkfs ext2 /dev/sda1
-mount-options "" /dev/sda1 /
+mount /dev/sda1 /
 
 fallocate64 /file $size
 

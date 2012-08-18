@@ -104,7 +104,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Mount it writable and test some other errors. */
-  if (guestfs_mount_options (g, "", "/dev/sda1", "/") == -1)
+  if (guestfs_mount (g, "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
 
   stat = guestfs_lstat (g, "/nosuchfile");

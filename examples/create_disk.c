@@ -81,7 +81,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Now mount the filesystem so that we can add files. */
-  if (guestfs_mount_options (g, "", partitions[0], "/") == -1)
+  if (guestfs_mount (g, partitions[0], "/") == -1)
     exit (EXIT_FAILURE);
 
   /* Create some files and directories. */

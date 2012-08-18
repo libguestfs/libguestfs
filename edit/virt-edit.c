@@ -686,7 +686,7 @@ mount_drive_letter (char drive_letter, const char *root)
   if (guestfs_umount_all (g) == -1)
     exit (EXIT_FAILURE);
 
-  if (guestfs_mount_options (g, "", device, "/") == -1)
+  if (guestfs_mount (g, device, "/") == -1)
     exit (EXIT_FAILURE);
 
   for (i = 0; drives[i] != NULL; ++i)

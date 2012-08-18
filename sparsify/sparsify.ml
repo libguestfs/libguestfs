@@ -270,7 +270,7 @@ let () =
           g#zero_device fs
         ) else (
           let mounted =
-            try g#mount_options "" fs "/"; true
+            try g#mount fs "/"; true
             with _ -> false in
 
           if mounted then (

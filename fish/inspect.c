@@ -152,7 +152,7 @@ inspect_mount_root (const char *root)
   for (i = 0; mountpoints[i] != NULL; i += 2) {
     int r;
     if (!read_only)
-      r = guestfs_mount_options (g, "", mountpoints[i+1], mountpoints[i]);
+      r = guestfs_mount (g, mountpoints[i+1], mountpoints[i]);
     else
       r = guestfs_mount_ro (g, mountpoints[i+1], mountpoints[i]);
     if (r == -1) {

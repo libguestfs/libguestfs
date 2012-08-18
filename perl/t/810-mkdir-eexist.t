@@ -44,7 +44,7 @@ ok (1);
 $g->mkfs ("ext2", "/dev/sda1");
 ok (1);
 
-$g->mount_options ("", "/dev/sda1", "/");
+$g->mount ("/dev/sda1", "/");
 ok (1);
 
 # Directory doesn't exist, so this mkdir should succeed.

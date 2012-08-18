@@ -44,7 +44,7 @@ let () =
   g#mkfs "ext4" partitions.(0);
 
   (* Now mount the filesystem so that we can add files. *)
-  g#mount_options "" partitions.(0) "/";
+  g#mount partitions.(0) "/";
 
   (* Create some files and directories. *)
   g#touch "/empty";

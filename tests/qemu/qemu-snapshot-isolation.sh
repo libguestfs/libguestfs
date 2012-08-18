@@ -51,11 +51,11 @@ lvcreate LV VG 80
 mkfs ext3 /dev/VG/LV
 
 mkmountpoint /a
-mount-options "" /dev/sda1 /a
+mount /dev/sda1 /a
 mkmountpoint /b
-mount-options "" /dev/sdb1 /b
+mount /dev/sdb1 /b
 mkmountpoint /c
-mount-options "" /dev/VG/LV /c
+mount /dev/VG/LV /c
 
 write /a/test "This is a test"
 write /b/test "This is a test"

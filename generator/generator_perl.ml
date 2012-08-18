@@ -629,7 +629,7 @@ Sys::Guestfs - Perl bindings for libguestfs
  my $g = Sys::Guestfs->new ();
  $g->add_drive_opts ('guest.img', format => 'raw');
  $g->launch ();
- $g->mount_options ('', '/dev/sda1', '/');
+ $g->mount ('/dev/sda1', '/');
  $g->touch ('/hello');
  $g->shutdown ();
  $g->close ();

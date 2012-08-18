@@ -182,9 +182,9 @@ get_blkid_tag (const char *device, const char *tag)
       <tr><td valign="top" style="padding-bottom: 1.5em;" colspan="2">
 <pre>
 <b>guestfish -N bootrootlv:/dev/VG/LV:ext4:ext4:10G:256M &lt;&lt;EOF</b>
-  <font style="color: green;">mount-options "" /dev/VG/LV /
+  <font style="color: green;">mount /dev/VG/LV /
   mkdir /boot
-  mount-options "" /dev/sda1 /boot
+  mount /dev/sda1 /boot
   txz-in filesystem.tar.xz /
   write /etc/HOSTNAME "test01.example.com\n"
   upload /etc/resolv.conf /etc/resolv.conf</font>

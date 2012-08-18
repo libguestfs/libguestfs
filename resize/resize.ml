@@ -1145,7 +1145,7 @@ let () =
            * in order to resize it.
            *)
           assert (Array.length (g#mounts ()) = 0);
-          g#mount_options "" target "/";
+          g#mount target "/";
           g#btrfs_filesystem_resize "/";
           g#umount "/"
     in

@@ -453,7 +453,7 @@ and generate_one_test_body name i test_name init test =
           ["lvm_remove_all"];
           ["part_disk"; "/dev/sda"; "mbr"];
           ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-          ["mount_options"; ""; "/dev/sda1"; "/"]]
+          ["mount"; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
        pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
          test_name;
@@ -466,7 +466,7 @@ and generate_one_test_body name i test_name init test =
           ["vgcreate"; "VG"; "/dev/sda1"];
           ["lvcreate"; "LV"; "VG"; "8"];
           ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
-          ["mount_options"; ""; "/dev/VG/LV"; "/"]]
+          ["mount"; "/dev/VG/LV"; "/"]]
    | InitISOFS ->
        pr "  /* InitISOFS for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)
@@ -480,7 +480,7 @@ and generate_one_test_body name i test_name init test =
          [["blockdev_setrw"; "/dev/sda"];
           ["umount_all"];
           ["lvm_remove_all"];
-          ["mount_options"; ""; "/dev/sdb1"; "/"]]
+          ["mount"; "/dev/sdb1"; "/"]]
   );
 
   let get_seq_last = function

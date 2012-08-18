@@ -58,9 +58,9 @@ mkfs ext2 /dev/sda2 blocksize:4096
 set-e2uuid /dev/sda2 01234567-0123-0123-0123-012345678902
 
 # Enough to fool inspection API.
-mount-options "" /dev/sda2 /
+mount /dev/sda2 /
 mkdir /boot
-mount-options "" /dev/sda1 /boot
+mount /dev/sda1 /boot
 mkdir /bin
 mkdir /etc
 mkdir /home

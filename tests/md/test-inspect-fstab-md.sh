@@ -60,7 +60,7 @@ EOF
 
 $guestfish -a test1.img -a test2.img <<'EOF'
   run
-  mount-options "" /dev/VG/Root /
+  mount /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 

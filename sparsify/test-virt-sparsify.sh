@@ -26,9 +26,9 @@ rm -f test1.img test2.img
 
 ../fish/guestfish \
     -N bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt <<EOF
-mount-options "" /dev/VG/LV /
+mount /dev/VG/LV /
 mkdir /boot
-mount-options "" /dev/sda1 /boot
+mount /dev/sda1 /boot
 fill 1 300M /big
 fill 1 10M /boot/big
 sync

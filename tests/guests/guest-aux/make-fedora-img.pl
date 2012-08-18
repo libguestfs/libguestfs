@@ -135,9 +135,9 @@ $g->set_label ('/dev/VG/Root', 'ROOT');
 $g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
 
 # Enough to fool inspection API.
-$g->mount_options ('', '/dev/VG/Root', '/');
+$g->mount ('/dev/VG/Root', '/');
 $g->mkdir ('/boot');
-$g->mount_options ('', $bootdev, '/boot');
+$g->mount ($bootdev, '/boot');
 $g->mkdir ('/bin');
 $g->mkdir ('/etc');
 $g->mkdir ('/etc/sysconfig');

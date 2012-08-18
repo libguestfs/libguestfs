@@ -3001,12 +3001,12 @@ characters does I<not> work, even if the length is specified." };
       InitEmpty, Always, TestOutputListOfDevices (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["mounts"]], ["/dev/sda1"]);
       InitEmpty, Always, TestOutputList (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["umount"; "/"; "false"; "false"];
          ["mounts"]], [])
     ];
@@ -3051,11 +3051,11 @@ See also: C<guestfs_mountpoints>" };
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mkfs"; "ext2"; "/dev/sda2"; ""; "NOARG"; ""; ""];
          ["mkfs"; "ext2"; "/dev/sda3"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["mkdir"; "/mp1"];
-         ["mount_options"; ""; "/dev/sda2"; "/mp1"];
+         ["mount"; "/dev/sda2"; "/mp1"];
          ["mkdir"; "/mp1/mp2"];
-         ["mount_options"; ""; "/dev/sda3"; "/mp1/mp2"];
+         ["mount"; "/dev/sda3"; "/mp1/mp2"];
          ["mkdir"; "/mp1/mp2/mp3"];
          ["umount_all"];
          ["mounts"]], [])
@@ -4332,11 +4332,11 @@ the human-readable, canonical hex dump of the file." };
       InitNone, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext3"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "test file"];
          ["umount"; "/dev/sda1"; "false"; "false"];
          ["zerofree"; "/dev/sda1"];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["cat"; "/new"]], "test file")
     ];
     shortdesc = "zero unused inodes and disk blocks on ext2/3 filesystem";
@@ -4456,7 +4456,7 @@ are activated or deactivated." };
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV"; "VG"; "10"];
          ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/VG/LV"; "/"];
+         ["mount"; "/dev/VG/LV"; "/"];
          ["write"; "/new"; "test content"];
          ["umount"; "/"; "false"; "false"];
          ["lvresize"; "/dev/VG/LV"; "20"];
@@ -4464,7 +4464,7 @@ are activated or deactivated." };
          ["e2fsck"; "/dev/VG/LV"; "true"; "false"];
          ["e2fsck"; "/dev/VG/LV"; "false"; "true"];
          ["resize2fs"; "/dev/VG/LV"];
-         ["mount_options"; ""; "/dev/VG/LV"; "/"];
+         ["mount"; "/dev/VG/LV"; "/"];
          ["cat"; "/new"]], "test content");
       InitNone, Always, TestRun (
         (* Make an LV smaller to test RHBZ#587484. *)
@@ -5935,7 +5935,7 @@ and C<guestfs_setcon>" };
       InitEmpty, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents");
       InitEmpty, Always, TestRun (
@@ -5972,7 +5972,7 @@ the requested cluster size." };
          ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
          ["mke2journal"; "4096"; "/dev/sda1"];
          ["mke2fs_J"; "ext2"; "4096"; "/dev/sda2"; "/dev/sda1"];
-         ["mount_options"; ""; "/dev/sda2"; "/"];
+         ["mount"; "/dev/sda2"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents")
     ];
@@ -5994,7 +5994,7 @@ to the command:
          ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
          ["mke2journal_L"; "4096"; "JOURNAL"; "/dev/sda1"];
          ["mke2fs_JL"; "ext2"; "4096"; "/dev/sda2"; "JOURNAL"];
-         ["mount_options"; ""; "/dev/sda2"; "/"];
+         ["mount"; "/dev/sda2"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents")
     ];
@@ -6015,7 +6015,7 @@ This creates an ext2 external journal on C<device> with label C<label>." };
            ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
            ["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
            ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
-           ["mount_options"; ""; "/dev/sda2"; "/"];
+           ["mount"; "/dev/sda2"; "/"];
            ["write"; "/new"; "new file contents"];
            ["cat"; "/new"]], "new file contents")
        ]);
@@ -6811,7 +6811,7 @@ Rename a logical volume C<logvol> with the new name C<newlogvol>." };
          ["vg_activate"; "false"; "VG"];
          ["vgrename"; "VG"; "VG2"];
          ["vg_activate"; "true"; "VG2"];
-         ["mount_options"; ""; "/dev/VG2/LV"; "/"];
+         ["mount"; "/dev/VG2/LV"; "/"];
          ["vgs"]], ["VG2"])
     ];
     shortdesc = "rename an LVM volume group";
@@ -7787,7 +7787,7 @@ See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
       InitEmpty, Always, TestOutput (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents")
     ];
@@ -9207,7 +9207,7 @@ call C<guestfs_max_disks>." };
       InitEmpty, IfAvailable "xfs", TestOutputStruct (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["mount_options"; ""; "/dev/sda1"; "/"];
+         ["mount"; "/dev/sda1"; "/"];
          ["xfs_info"; "/"]],
         [CompareWithInt ("xfs_blocksize", 4096);
         ])
@@ -9310,7 +9310,7 @@ in the returned structure is defined by the API." };
          ["lvcreate"; "LV"; "VG"; "40"];
          ["mkfs"; "xfs"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
          ["lvresize"; "/dev/VG/LV"; "80"];
-         ["mount_options"; ""; "/dev/VG/LV"; "/"];
+         ["mount"; "/dev/VG/LV"; "/"];
          ["xfs_growfs"; "/"; "true"; "false"; "false"; ""; ""; ""; ""; ""];
          ["xfs_info"; "/"]],
         [CompareWithInt ("xfs_blocksize", 4096);

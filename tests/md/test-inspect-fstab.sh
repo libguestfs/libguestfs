@@ -51,7 +51,7 @@ EOF
 
 $guestfish -a test1.qcow2 <<'EOF'
   run
-  mount-options "" /dev/VG/Root /
+  mount /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 
@@ -83,7 +83,7 @@ EOF
 
 $guestfish -a test1.qcow2 <<'EOF'
   run
-  mount-options "" /dev/VG/Root /
+  mount /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 
@@ -114,7 +114,7 @@ EOF
 
 $guestfish -a test1.qcow2 <<'EOF'
   run
-  mount-options "" /dev/VG/Root /
+  mount /dev/VG/Root /
   upload test.fstab /etc/fstab
 EOF
 

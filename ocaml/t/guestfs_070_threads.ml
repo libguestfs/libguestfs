@@ -61,7 +61,7 @@ let () =
   let lv = String.copy "/dev/VG/LV1" in
   Guestfs.mkfs g s lv;
   let s = String.copy "/" in
-  Guestfs.mount_options g "" lv s;
+  Guestfs.mount g lv s;
   let s = String.copy "/test" in
   Guestfs.touch g s;
 

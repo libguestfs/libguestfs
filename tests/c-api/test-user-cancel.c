@@ -126,7 +126,7 @@ main (int argc, char *argv[])
   if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1)
     exit (EXIT_FAILURE);
 
-  if (guestfs_mount_options (g, "", "/dev/sda1", "/") == -1)
+  if (guestfs_mount (g, "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
 
   /*----- Upload cancellation test -----*/

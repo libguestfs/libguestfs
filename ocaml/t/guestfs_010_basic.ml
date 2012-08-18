@@ -42,7 +42,7 @@ let () =
     failwith "Guestfs.lvs returned incorrect result";
 
   g#mkfs "ext2" "/dev/VG/LV1";
-  g#mount_options "" "/dev/VG/LV1" "/";
+  g#mount "/dev/VG/LV1" "/";
   g#mkdir "/p";
   g#touch "/q";
 

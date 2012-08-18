@@ -977,7 +977,7 @@ sub mount_operating_system
             if($ro) {
                 $g->mount_ro ($mounts->{$_}, $_)
             } else {
-                $g->mount_options ("", $mounts->{$_}, $_)
+                $g->mount ($mounts->{$_}, $_)
             }
         }
     }
