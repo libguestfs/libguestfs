@@ -71,6 +71,9 @@ else
     GI_TYPELIB_PATH="$b/gobject:$GI_TYPELIB_PATH"
 fi
 export GI_TYPELIB_PATH
+# Be friendly to valgrind (https://live.gnome.org/Valgrind)
+export G_SLICE=always-malloc
+export G_DEBUG=gc-friendly
 
 # Do we have libtool?  If we have it then we can use it to make
 # running valgrind simpler.  However don't depend on it.
