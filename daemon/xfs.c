@@ -460,3 +460,72 @@ error:
   if (out) free (out);
   return NULL;
 }
+
+int
+do_xfs_admin (const char *device,
+              int extunwritten, int imgfile, int v2log,
+              int projid32bit,
+              int lazycounter, const char *label, const char *uuid)
+{
+  int r;
+  char *err = NULL;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+
+  ADD_ARG (argv, i, "xfs_admin");
+
+  /* Optional arguments */
+  if (!(optargs_bitmask & GUESTFS_XFS_ADMIN_EXTUNWRITTEN_BITMASK))
+    extunwritten = 0;
+  if (!(optargs_bitmask & GUESTFS_XFS_ADMIN_IMGFILE_BITMASK))
+    imgfile = 0;
+  if (!(optargs_bitmask & GUESTFS_XFS_ADMIN_V2LOG_BITMASK))
+    v2log = 0;
+  if (!(optargs_bitmask & GUESTFS_XFS_ADMIN_PROJID32BIT_BITMASK))
+    projid32bit = 0;
+
+  if (extunwritten)
+    ADD_ARG (argv, i, "-e");
+  if (imgfile)
+    ADD_ARG (argv, i, "-f");
+  if (v2log)
+    ADD_ARG (argv, i, "-j");
+  if (projid32bit)
+    ADD_ARG (argv, i, "-p");
+
+  if (optargs_bitmask & GUESTFS_XFS_ADMIN_LAZYCOUNTER_BITMASK) {
+    if (lazycounter) {
+      ADD_ARG (argv, i, "-c");
+      ADD_ARG (argv, i, "1");
+    } else {
+      ADD_ARG (argv, i, "-c");
+      ADD_ARG (argv, i, "0");
+    }
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_ADMIN_LABEL_BITMASK) {
+    ADD_ARG (argv, i, "-L");
+    ADD_ARG (argv, i, label);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_ADMIN_UUID_BITMASK) {
+    ADD_ARG (argv, i, "-U");
+    ADD_ARG (argv, i, uuid);
+  }
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    goto error;
+  }
+
+  free (err);
+  return 0;
+
+error:
+  free (err);
+  return -1;
+}

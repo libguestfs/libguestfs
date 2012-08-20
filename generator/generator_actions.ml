@@ -9432,6 +9432,33 @@ empty files in the directory C<dir> with names C<00000000>
 through C<nr-1> (ie. each file name is 8 digits long padded
 with zeroes)." };
 
+  { defaults with
+    name = "xfs_admin";
+    style = RErr, [Device "device"], [OBool "extunwritten"; OBool "imgfile"; OBool "v2log"; OBool "projid32bit"; OBool "lazycounter"; OString "label"; OString "uuid"];
+    proc_nr = Some 349;
+    optional = Some "xfs";
+    tests = [
+      InitEmpty, IfAvailable "xfs", TestOutputStruct (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
+         ["mount"; "/dev/sda1"; "/"];
+         ["xfs_info"; "/"]],
+        [CompareWithInt ("xfs_lazycount", 0);
+        ])
+    ];
+    shortdesc = "change parameters of an XFS filesystem";
+    longdesc = "\
+Change the parameters of the XFS filesystem on C<device>.
+
+Devices that are mounted cannot be modified.
+Administrators must unmount filesystems before this call
+can modify parameters.
+
+Some of the parameters of a mounted filesystem can be examined
+and modified using the C<guestfs_xfs_info> and
+C<guestfs_xfs_growfs> calls." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

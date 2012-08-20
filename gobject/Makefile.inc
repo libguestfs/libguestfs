@@ -72,7 +72,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-xfs_growfs.h \
   include/guestfs-gobject/optargs-rsync.h \
   include/guestfs-gobject/optargs-rsync_in.h \
-  include/guestfs-gobject/optargs-rsync_out.h
+  include/guestfs-gobject/optargs-rsync_out.h \
+  include/guestfs-gobject/optargs-xfs_admin.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -126,4 +127,5 @@ guestfs_gobject_sources= \
   src/optargs-xfs_growfs.c \
   src/optargs-rsync.c \
   src/optargs-rsync_in.c \
-  src/optargs-rsync_out.c
+  src/optargs-rsync_out.c \
+  src/optargs-xfs_admin.c
