@@ -351,7 +351,7 @@ error:
   return ret;
 }
 
-char *
+int
 do_xfs_growfs (const char *path,
                int datasec, int logsec, int rtsec,
                int64_t datasize, int64_t logsize, int64_t rtsize,
@@ -359,7 +359,7 @@ do_xfs_growfs (const char *path,
 {
   int r;
   char *buf;
-  char *out = NULL, *err = NULL;
+  char *err = NULL;
   const char *argv[MAX_ARGS];
   char datasize_s[64];
   char logsize_s[64];
@@ -371,7 +371,7 @@ do_xfs_growfs (const char *path,
   buf = sysroot_path (path);
   if (buf == NULL) {
     reply_with_perror ("malloc");
-    return NULL;
+    return -1;
   }
 
   ADD_ARG (argv, i, "xfs_growfs");
@@ -444,7 +444,7 @@ do_xfs_growfs (const char *path,
   ADD_ARG (argv, i, buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
@@ -452,13 +452,12 @@ do_xfs_growfs (const char *path,
   }
 
   free (err);
-  return out;
+  return 0;
 
 error:
   if (buf) free (buf);
   if (err) free (err);
-  if (out) free (out);
-  return NULL;
+  return -1;
 }
 
 int

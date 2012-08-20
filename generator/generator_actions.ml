@@ -9299,7 +9299,7 @@ in the returned structure is defined by the API." };
 
   { defaults with
     name = "xfs_growfs";
-    style = RString "info", [Pathname "path"], [OBool "datasec"; OBool "logsec"; OBool "rtsec"; OInt64 "datasize"; OInt64 "logsize"; OInt64 "rtsize"; OInt64 "rtextsize"; OInt "maxpct"];
+    style = RErr, [Pathname "path"], [OBool "datasec"; OBool "logsec"; OBool "rtsec"; OInt64 "datasize"; OInt64 "logsize"; OInt64 "rtsize"; OInt64 "rtextsize"; OInt "maxpct"];
     proc_nr = Some 343;
     optional = Some "xfs";
     tests = [
