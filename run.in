@@ -94,6 +94,9 @@ else
     GI_TYPELIB_PATH="$b/gobject:$GI_TYPELIB_PATH"
 fi
 export GI_TYPELIB_PATH
+# Be friendly to valgrind (https://live.gnome.org/Valgrind)
+export G_SLICE=always-malloc
+export G_DEBUG=gc-friendly
 
 # This is a cheap way to find some use-after-free and uninitialized
 # read problems when using glibc.
