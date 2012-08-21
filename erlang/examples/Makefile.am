@@ -35,5 +35,6 @@ stamp-guestfs-erlang.pod: guestfs-erlang.pod create_disk.erl inspect_vm.erl
 	  --html $(top_builddir)/html/guestfs-erlang.3.html \
 	  --verbatim $(srcdir)/create_disk.erl:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.erl:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@

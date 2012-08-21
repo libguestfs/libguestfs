@@ -77,6 +77,7 @@ stamp-guestfs-examples.pod: guestfs-examples.pod create_disk.c inspect_vm.c
 	  --html $(top_builddir)/html/guestfs-examples.3.html \
 	  --verbatim $(srcdir)/create_disk.c:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.c:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@
 
@@ -87,6 +88,7 @@ stamp-guestfs-recipes.pod: guestfs-recipes.pod
 	  --section 1 \
 	  --man guestfs-recipes.1 \
 	  --html $(top_builddir)/html/guestfs-recipes.1.html \
+	  --license examples \
 	  $<
 	touch $@
 
@@ -97,5 +99,6 @@ stamp-guestfs-testing.pod: guestfs-testing.pod
 	  --section 1 \
 	  --man guestfs-testing.1 \
 	  --html $(top_builddir)/html/guestfs-testing.1.html \
+	  --license LGPLv2+ \
 	  $<
 	touch $@

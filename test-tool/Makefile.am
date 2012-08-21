@@ -38,4 +38,5 @@ libguestfs-test-tool.1 $(top_builddir)/html/libguestfs-test-tool.1.html: stamp-l
 stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
 	$(PODWRAPPER) \
 	  --man libguestfs-test-tool.1 \
+	  --license GPLv2+ \
 	  $<

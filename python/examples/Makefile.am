@@ -35,5 +35,6 @@ stamp-guestfs-python.pod: guestfs-python.pod create_disk.py inspect_vm.py
 	  --html $(top_builddir)/html/guestfs-python.3.html \
 	  --verbatim $(srcdir)/create_disk.py:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.py:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@

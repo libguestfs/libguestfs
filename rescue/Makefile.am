@@ -60,5 +60,6 @@ stamp-virt-rescue.pod: virt-rescue.pod
 	$(PODWRAPPER) \
 	  --man virt-rescue.1 \
 	  --html $(top_builddir)/html/virt-rescue.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
