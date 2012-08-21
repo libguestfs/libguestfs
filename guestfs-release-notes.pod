@@ -1596,3 +1596,11 @@ L<guestfs-testing(1)>,
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<http://libguestfs.org/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2012 Red Hat Inc.
