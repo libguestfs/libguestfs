@@ -1038,6 +1038,9 @@ image).
 
 This call checks that C<filename> exists.
 
+C<filename> may be the special string C<\"/dev/null\">.
+See L<guestfs(3)/NULL DISKS>.
+
 The optional arguments are:
 
 =over 4
