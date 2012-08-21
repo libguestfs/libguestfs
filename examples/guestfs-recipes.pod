@@ -38,16 +38,6 @@ and L<virt-resize(1)>.
 
 For more details, see: L<virt-sysprep(1)/COPYING AND CLONING>.
 
-=head1 Cloning a virtual machine (Windows)
-
-It is possible to do a "sysprep" using libguestfs alone, although not
-straightforward.  Currently there is code in the Aeolus Oz project
-which does this (using libguestfs).  As part of our review of the
-virt-clone tool, we may add sysprepping ability.
-
-L<https://github.com/clalancette/oz>
-L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>
-
 =head1 Convert a CD-ROM / DVD / ISO to a tarball
 
 This converts input C<cd.iso> to output C<cd.tar.gz>:
@@ -358,6 +348,16 @@ command prompt the next time you log in which you can use to bypass
 any security:
 
 L<https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-administrator-password-with-guestfish/>
+
+=head1 Sysprepping a virtual machine (Windows)
+
+It is possible to do a "sysprep" using libguestfs alone, although not
+straightforward.  Currently there is code in the Aeolus Oz project
+which does this (using libguestfs).  It is likely we will add this to
+L<virt-sysprep(1)> in future.
+
+L<https://github.com/clalancette/oz>
+L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>
 
 =head1 Unpack a live CD
 
