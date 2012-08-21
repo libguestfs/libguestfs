@@ -571,6 +571,13 @@ the libguestfs API.  However the GVFS FTP backend makes multiple
 simultaneous connections in order to keep interactivity, which we
 can't easily do with libguestfs.
 
+=begin html
+
+<!-- old anchor for the next section -->
+<a name="backup"/>
+
+=end html
+
 =head2 Can I use C<guestfish --ro> as a way to backup my virtual machines?
 
 Usually this is not a good idea.  The question is answered in more
