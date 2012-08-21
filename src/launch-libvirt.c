@@ -182,8 +182,10 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    * right we have to choose a directory which is known about in the
    * policy.  See: https://bugzilla.redhat.com/show_bug.cgi?id=842307
    */
-  if (is_root && is_dir ("/var/run/libguestfs"))
-    sockdir = safe_strdup (g, "/var/run/libguestfs");
+  if (is_root) {
+    if (mkdir ("/var/run/libguestfs", 0755) == 0)
+      sockdir = safe_strdup (g, "/var/run/libguestfs");
+  }
 
   if (!sockdir) {
     const char *xdg = getenv ("XDG_RUNTIME_DIR");
