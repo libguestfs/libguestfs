@@ -419,7 +419,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 static int construct_libvirt_xml_name (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo, const char *kernel, const char *initrd, size_t appliance_index);
-static int construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index, const char *guestfsd_sock, const char *console_sock);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo);
@@ -482,8 +481,6 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
   if (construct_libvirt_xml_cpu (g, xo) == -1)
     goto err;
   if (construct_libvirt_xml_boot (g, xo, kernel, initrd, appliance_index) == -1)
-    goto err;
-  if (construct_libvirt_xml_seclabel (g, xo) == -1)
     goto err;
   if (construct_libvirt_xml_lifecycle (g, xo) == -1)
     goto err;
@@ -631,24 +628,6 @@ construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo,
   XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST buf));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  return 0;
-
- err:
-  return -1;
-}
-
-static int
-construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo)
-{
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
-  /* XXX This disables SELinux/sVirt confinement.  Remove this
-   * once we've worked out how to label guestfsd_sock.
-   */
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "none"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   return 0;
