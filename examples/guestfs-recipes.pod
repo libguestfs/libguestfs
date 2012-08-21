@@ -317,9 +317,7 @@ L<virt-inspector(1)>.
 
 =head1 List files and directories in a VM
 
-This involves using the L<guestfish(1)> C<find0> command like this:
-
- guestfish --ro -d Guest -i find0 / - | tr '\0' '\n' | sort
+Use L<virt-ls(1)>.
 
 =head1 List services in a Windows VM
 
