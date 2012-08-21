@@ -267,6 +267,9 @@ guest.
 
 L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content>
 
+Since libguestfs 1.20, L<virt-sysprep(1)> has an option for installing
+firstboot scripts in Linux guests.
+
 =head1 List applications installed in a VM
 
 Save the following to a file C<list-apps.sh>:
