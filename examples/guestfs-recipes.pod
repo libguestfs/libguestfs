@@ -120,7 +120,7 @@ Change kernel command line options.
 
 Use L<virt-edit(1)> to edit the grub configuration:
 
- virt-edit -d BrokenGuest /boot/grub/grub.conf
+ virt-edit -d BrokenGuest /boot/grub2/grub.cfg
 
 or for general tinkering inside an unbootable VM use L<virt-rescue(1)>
 like this:
