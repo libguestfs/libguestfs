@@ -1250,6 +1250,67 @@ UUIDs and filesystem labels.
 
 =back
 
+=head2 NULL DISKS
+
+When adding a disk using, eg., L</guestfs_add_drive>, you can
+set the filename to C<"/dev/null">.  This string is treated
+specially by libguestfs, causing it to add a "null disk".
+
+A null disk has the following properties:
+
+=over 4
+
+=item *
+
+A null disk will appear as a normal device, eg. in
+calls to L</guestfs_list_devices>.
+
+=item *
+
+You may add C<"/dev/null"> multiple times.
+
+=item *
+
+You should not try to access a null disk in any way.  For
+example, you shouldn't try to read it or mount it.
+
+=back
+
+Null disks are used for three main purposes:
+
+=over 4
+
+=item 1.
+
+Performance testing of libguestfs (see L<guestfs-performance(1)>).
+
+=item 2.
+
+The internal test suite.
+
+=item 3.
+
+If you want to use libguestfs APIs that don't refer to disks, since
+libguestfs requires that at least one disk is added, you should add a
+null disk.
+
+For example, to test if a feature is available, use code like this:
+
+ guestfs_h *g;
+ char **groups = [ "btrfs", NULL ];
+ 
+ g = guestfs_create ();
+ guestfs_add_drive (g, "/dev/null");
+ guestfs_launch (g);
+ if (guestfs_available (g, groups) == 0) {
+   // group(s) are available
+ } else {
+   // group(s) are not available
+ }
+ guestfs_close (g);
+
+=back
+
 =head1 SECURITY
 
 This section discusses security implications of using libguestfs,
