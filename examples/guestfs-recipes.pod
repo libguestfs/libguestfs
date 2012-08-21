@@ -334,10 +334,7 @@ L<https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/#co
 
 =head1 Make a disk image sparse
 
-The link below contains some guides for making a disk image sparse (or
-reintroducing sparseness).
-
-L<https://rwmj.wordpress.com/2010/10/19/tip-making-a-disk-image-sparse/#content>
+Use L<virt-sparsify(1)>.
 
 =head1 Monitor disk usage over time
 
