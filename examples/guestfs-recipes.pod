@@ -88,7 +88,7 @@ of C<guestfish -h>
 
 You can use the L<guestfish(1)> C<download> command to extract the raw
 filesystem content from any filesystem in a disk image or a VM (even
-one which is encrypted or buried inside an LV):
+one which is encrypted or buried inside an LV or RAID device):
 
  guestfish --ro -a disk.img run : download /dev/sda1 sda1.img
 
