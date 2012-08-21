@@ -18,10 +18,7 @@ libguestfs, L<guestfish(1)> and the virt tools.
 
 =head1 Audit a virtual machine for setuid files
 
-The link below contains a small program which can be used to audit a
-Linux virtual machine to see what setuid and setgid files it contains.
-
-L<https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/#content>
+See: L<virt-ls(1)/EXAMPLES>.
 
 =head1 Change the background image in a Windows XP VM
 
