@@ -452,6 +452,11 @@ SUBHTML: {
         $r .= "#" . $self->idify ($anchor, 1) if defined $anchor;
         $r;
     }
+
+    # For some reason Pod::Simple::XHTML usually cannot find a
+    # title for the page.  This defaults the HTML <title> field
+    # to the same as the man page name.
+    sub default_title { $name }
 }
 
 if ($html) {
