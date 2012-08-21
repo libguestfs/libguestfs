@@ -6,7 +6,7 @@ guestfs-release-notes - libguestfs Release Notes
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.20
 
-I<NOTES UPDATED TO COMMIT 47410e79995f9d8c5fb9739ca4609c78e13218ee>
+I<NOTES UPDATED TO COMMIT 56287d16ebde3d892ed4886724573015e39f79fa>
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.18.0).  For detailed changelogs, please see
@@ -41,11 +41,23 @@ libguestfs handle (up to 255).
 
 Libguestfs can now handle E<gt> 25 disks, in all APIs, tools and tests.
 
+Several libguestfs APIs were reimplemented so they no longer suffer
+from any protocol limits.  The reimplemented APIs are:
+C<guestfs_cat>, C<guestfs_find>, C<guestfs_read_file>,
+C<guestfs_read_lines>, C<guestfs_write>, C<guestfs_write_append>,
+C<guestfs_lstatlist>, C<guestfs_lxattrlist>,
+C<guestfs_readlinklist>, C<guestfs_ls>.
+
 =head3 virt tools
 
 C<guestfish touch 'win:c:\new_file'> now works as expected.
 
-C<rsync> and C<ssh> commands are now availble in virt-rescue.
+C<guestfish> has a new I<--network> option, which enables the user
+network in libguestfs.
+
+C<rsync> and C<ssh> commands are now availble in virt-rescue.  In
+addition, C<rsync> can be used through the API for doing incremental
+copies.
 
 C<virt-sparsify> uses qcow2 v3 for increased efficiency.
 
@@ -69,6 +81,15 @@ remove ABRT data (Wanlong Gao)
 
 remove puppet keys and log files (Wanlong Gao)
 
+=item *
+
+remove process accounting files (Wanlong Gao)
+
+=item *
+
+new I<--firstboot> parameter allowing firstboot scripts
+for customizing guests
+
 =back
 
 C<virt-make-fs> can now create virtual floppy disks (VFDs).
@@ -78,6 +99,17 @@ C<guestmount> has a I<--pid-file> option.
 =head3 language bindings
 
 In Ruby, optional arguments hash is optional.
+
+In Python, optional arguments now don't use special "sentinel"
+values, so any integer can be passed as an optional argument.
+
+Erlang bindings now come with examples and tests.
+
+Erlang bindings now handle 64 bit integer parameters correctly.
+
+The automated 'bindtests' now test for 64 bit cleanliness in parameter
+passing.  Several bugs in the bindings were found and fixed as a
+result.
 
 =head3 ports
 
@@ -114,20 +146,32 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  canonical-device-name
  device-index
  filesystem-available
+ fill-dir
  fstrim
+ ls0
  max-disks
  nr-devices
+ rsync
+ rsync-in
+ rsync-out
  shutdown [backported to 1.16 and 1.18]
+ tar-in [added compress flag]
+ tar-out [added compress, numericowner, exclude flags]
  umount [added force and lazy optional arguments]
  utsname
- xfs-growfs
- xfs-info
+ xfs-admin (thanks Wanlong Gao)
+ xfs-growfs (thanks Wanlong Gao)
+ xfs-info (thanks Wanlong Gao)
 
 =head2 Internals
 
 qemu E<ge> 1.1.0 is required.
 
 febootstrap E<ge> 3.19 is required.
+
+libvirt is optional, but if you want to use the new libvirt
+backend for launching the appliance then libvirt E<ge> 0.10.0 would
+be required.
 
 Functions which previously had no optargs can now be converted to ones
 with optargs, making extending the API much more flexible.  Source and
@@ -151,6 +195,10 @@ C<mkfs> / C<mkfs_opts>
 =item *
 
 C<ntfsresize> / C<ntfsresize_opts>
+
+=item *
+
+C<tar_in> and C<tar_out>
 
 =item *
 
@@ -190,6 +238,14 @@ C<run --test> flag for running tests with minimal output.
  ./bugs-in-changelog.sh 1.18.0..
 
 =over 4
+
+=item L<https://bugzilla.redhat.com/847881>
+
+RFE: allow extra arguments (like --exclude) to tar-out
+
+=item L<https://bugzilla.redhat.com/847880>
+
+tar-out should allow (or force) --numeric-owner
 
 =item L<https://bugzilla.redhat.com/845522>
 

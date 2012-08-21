@@ -4,7 +4,7 @@ NAME
 
 RELEASE NOTES FOR LIBGUESTFS 1.20
 
-    NOTES UPDATED TO COMMIT 47410e79995f9d8c5fb9739ca4609c78e13218ee
+    NOTES UPDATED TO COMMIT 56287d16ebde3d892ed4886724573015e39f79fa
 
     These release notes only cover the differences from the previous
     stable/dev branch split (1.18.0). For detailed changelogs, please see
@@ -34,11 +34,21 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     Libguestfs can now handle > 25 disks, in all APIs, tools and tests.
 
+    Several libguestfs APIs were reimplemented so they no longer suffer
+    from any protocol limits. The reimplemented APIs are: guestfs_cat,
+    guestfs_find, guestfs_read_file, guestfs_read_lines, guestfs_write,
+    guestfs_write_append, guestfs_lstatlist, guestfs_lxattrlist,
+    guestfs_readlinklist, guestfs_ls.
+
   virt tools
 
     guestfish touch 'win:c:\new_file' now works as expected.
 
-    rsync and ssh commands are now availble in virt-rescue.
+    guestfish has a new --network option, which enables the user network in
+    libguestfs.
+
+    rsync and ssh commands are now availble in virt-rescue. In addition,
+    rsync can be used through the API for doing incremental copies.
 
     virt-sparsify uses qcow2 v3 for increased efficiency.
 
@@ -52,6 +62,11 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
       * remove puppet keys and log files (Wanlong Gao)
 
+      * remove process accounting files (Wanlong Gao)
+
+      * new --firstboot parameter allowing firstboot scripts for
+      customizing guests
+
     virt-make-fs can now create virtual floppy disks (VFDs).
 
     guestmount has a --pid-file option.
@@ -59,6 +74,16 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
   language bindings
 
     In Ruby, optional arguments hash is optional.
+
+    In Python, optional arguments now don't use special "sentinel" values,
+    so any integer can be passed as an optional argument.
+
+    Erlang bindings now come with examples and tests.
+
+    Erlang bindings now handle 64 bit integer parameters correctly.
+
+    The automated 'bindtests' now test for 64 bit cleanliness in parameter
+    passing. Several bugs in the bindings were found and fixed as a result.
 
   ports
 
@@ -95,20 +120,31 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
      canonical-device-name
      device-index
      filesystem-available
+     fill-dir
      fstrim
+     ls0
      max-disks
      nr-devices
+     rsync
+     rsync-in
+     rsync-out
      shutdown [backported to 1.16 and 1.18]
+     tar-in [added compress flag]
+     tar-out [added compress, numericowner, exclude flags]
      umount [added force and lazy optional arguments]
      utsname
-     xfs-growfs
-     xfs-info
+     xfs-admin (thanks Wanlong Gao)
+     xfs-growfs (thanks Wanlong Gao)
+     xfs-info (thanks Wanlong Gao)
 
  Internals
 
     qemu ≥ 1.1.0 is required.
 
     febootstrap ≥ 3.19 is required.
+
+    libvirt is optional, but if you want to use the new libvirt backend for
+    launching the appliance then libvirt ≥ 0.10.0 would be required.
 
     Functions which previously had no optargs can now be converted to ones
     with optargs, making extending the API much more flexible. Source and
@@ -122,6 +158,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
       * mkfs / mkfs_opts
 
       * ntfsresize / ntfsresize_opts
+
+      * tar_in and tar_out
 
       * umount
 
@@ -155,6 +193,14 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
  Bugs fixed
 
      ./bugs-in-changelog.sh 1.18.0..
+
+    https://bugzilla.redhat.com/847881
+
+      RFE: allow extra arguments (like --exclude) to tar-out
+
+    https://bugzilla.redhat.com/847880
+
+      tar-out should allow (or force) --numeric-owner
 
     https://bugzilla.redhat.com/845522
 
@@ -1557,4 +1603,50 @@ SEE ALSO
     guestfs-examples(1), guestfs-faq(1), guestfs-performance(1),
     guestfs-recipes(1), guestfs-testing(1), guestfs(3), guestfish(1),
     http://libguestfs.org/
+
+AUTHOR
+
+    Richard W.M. Jones
+
+COPYRIGHT
+
+    Copyright (C) 2009-2012 Red Hat Inc.
+
+LICENSE
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; either version 2 of the License, or (at your
+    option) any later version.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+BUGS
+
+    To get a list of bugs against libguestfs, use this link:
+    https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Vi
+    rtualization+Tools
+
+    To report a new bug against libguestfs, use this link:
+    https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=
+    Virtualization+Tools
+
+    When reporting a bug, please supply:
+
+      * The version of libguestfs.
+
+      * Where you got libguestfs (eg. which Linux distro, compiled from
+      source, etc)
+
+      * Describe the bug accurately and give a way to reproduce it.
+
+      * Run libguestfs-test-tool(1) and paste the complete, unedited output
+      into the bug report.
 
