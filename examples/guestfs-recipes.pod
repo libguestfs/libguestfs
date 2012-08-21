@@ -33,18 +33,13 @@ Windows.
 L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html>
 L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html>
 
-=head1 Cloning a virtual machine (Linux)
+=head1 Cloning a virtual machine
 
-The guestfish technique described in the link below works well for
-most Linux VMs.  Depending on the Linux distro you may need to change
-the paths slightly.
+Use a combination of tools like L<cp(1)>, L<dd(1)>, and
+virt tools like L<virt-sysprep(1)>, L<virt-sparsify(1)>
+and L<virt-resize(1)>.
 
-L<https://rwmj.wordpress.com/2010/09/24/tip-my-procedure-for-cloning-a-fedora-vm/#content>
-
-Avoid L<virt-clone(1)>.  Currently what to do about virt-clone is
-under discussion.
-
-L<https://www.redhat.com/archives/virt-tools-list/2011-May/msg00019.html>
+For more details, see: L<virt-sysprep(1)/COPYING AND CLONING>.
 
 =head1 Cloning a virtual machine (Windows)
 
