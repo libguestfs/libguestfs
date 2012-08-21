@@ -89,7 +89,6 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     For further information, see
     https://bugzilla.redhat.com/show_bug.cgi?id=788642
-    <https://bugzilla.redhat.com/show_bug.cgi?id=788642>
 
  New APIs
 
