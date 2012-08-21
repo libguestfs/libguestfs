@@ -69,6 +69,7 @@ stamp-virt-df.pod: virt-df.pod
 	$(PODWRAPPER) \
 	  --man virt-df.1 \
 	  --html $(top_builddir)/html/virt-df.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

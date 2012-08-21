@@ -37,6 +37,7 @@ stamp-guestfs-ocaml.pod: guestfs-ocaml.pod create_disk.ml inspect_vm.ml
 	  --html $(top_builddir)/html/guestfs-ocaml.3.html \
 	  --verbatim $(srcdir)/create_disk.ml:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.ml:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@
 

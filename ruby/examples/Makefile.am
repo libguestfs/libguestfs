@@ -35,5 +35,6 @@ stamp-guestfs-ruby.pod: guestfs-ruby.pod create_disk.rb inspect_vm.rb
 	  --html $(top_builddir)/html/guestfs-ruby.3.html \
 	  --verbatim $(srcdir)/create_disk.rb:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.rb:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@

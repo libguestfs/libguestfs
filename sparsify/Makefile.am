@@ -94,6 +94,7 @@ stamp-virt-sparsify.pod: virt-sparsify.pod
 	$(PODWRAPPER) \
 	  --man virt-sparsify.1 \
 	  --html $(top_builddir)/html/virt-sparsify.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

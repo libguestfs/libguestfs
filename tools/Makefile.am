@@ -46,11 +46,13 @@ noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
 virt-%.1: virt-%
 	$(PODWRAPPER) \
 	  --man $@ \
+	  --license GPLv2+ \
 	  $<
 
 $(top_builddir)/html/virt-%.1.html: virt-%
 	$(PODWRAPPER) \
 	  --html $@ \
+	  --license GPLv2+ \
 	  $<
 
 # Tests.

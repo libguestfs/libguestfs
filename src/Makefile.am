@@ -226,5 +226,6 @@ stamp-guestfs.pod: guestfs.pod \
 	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
 	  --insert $(srcdir)/guestfs-availability.pod:@AVAILABILITY@ \
 	  --insert $(srcdir)/guestfs-structs.pod:@STRUCTS@ \
+	  --license LGPLv2+ \
 	  $<
 	touch $@

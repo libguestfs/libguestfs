@@ -61,6 +61,7 @@ stamp-virt-edit.pod: virt-edit.pod
 	$(PODWRAPPER) \
 	  --man virt-edit.1 \
 	  --html $(top_builddir)/html/virt-edit.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

@@ -105,6 +105,7 @@ stamp-virt-cat.pod: virt-cat.pod
 	$(PODWRAPPER) \
 	  --man virt-cat.1 \
 	  --html $(top_builddir)/html/virt-cat.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
@@ -114,6 +115,7 @@ stamp-virt-ls.pod: virt-ls.pod
 	$(PODWRAPPER) \
 	  --man virt-ls.1 \
 	  --html $(top_builddir)/html/virt-ls.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
@@ -123,6 +125,7 @@ stamp-virt-filesystems.pod: virt-filesystems.pod
 	$(PODWRAPPER) \
 	  --man virt-filesystems.1 \
 	  --html $(top_builddir)/html/virt-filesystems.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

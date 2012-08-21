@@ -67,6 +67,7 @@ stamp-guestmount.pod: guestmount.pod
 	$(PODWRAPPER) \
 	  --man guestmount.1 \
 	  --html $(top_builddir)/html/guestmount.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

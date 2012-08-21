@@ -262,6 +262,7 @@ stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 	  --man guestfs-release-notes.1 \
 	  --text guestfs-release-notes.txt \
 	  --html $(top_builddir)/html/guestfs-release-notes.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

@@ -35,5 +35,6 @@ stamp-guestfs-perl.pod: guestfs-perl.pod create_disk.pl inspect_vm.pl
 	  --html $(top_builddir)/html/guestfs-perl.3.html \
 	  --verbatim $(srcdir)/create_disk.pl:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.pl:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@

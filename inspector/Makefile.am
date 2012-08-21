@@ -87,6 +87,7 @@ stamp-virt-inspector.pod: virt-inspector.pod
 	$(PODWRAPPER) \
 	  --man virt-inspector.1 \
 	  --html $(top_builddir)/html/virt-inspector.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

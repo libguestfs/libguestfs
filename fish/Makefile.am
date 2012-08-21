@@ -187,6 +187,7 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	  --html $(top_builddir)/html/guestfish.1.html \
 	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
 	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
@@ -196,6 +197,7 @@ stamp-virt-copy-in.pod: virt-copy-in.pod
 	$(PODWRAPPER) \
 	  --man virt-copy-in.1 \
 	  --html $(top_builddir)/html/virt-copy-in.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
@@ -205,6 +207,7 @@ stamp-virt-copy-out.pod: virt-copy-out.pod
 	$(PODWRAPPER) \
 	  --man virt-copy-out.1 \
 	  --html $(top_builddir)/html/virt-copy-out.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
@@ -214,6 +217,7 @@ stamp-virt-tar-in.pod: virt-tar-in.pod
 	$(PODWRAPPER) \
 	  --man virt-tar-in.1 \
 	  --html $(top_builddir)/html/virt-tar-in.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
@@ -223,6 +227,7 @@ stamp-virt-tar-out.pod: virt-tar-out.pod
 	$(PODWRAPPER) \
 	  --man virt-tar-out.1 \
 	  --html $(top_builddir)/html/virt-tar-out.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 
