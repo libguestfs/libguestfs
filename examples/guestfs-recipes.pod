@@ -73,6 +73,24 @@ images.  The useful guide below explains the options available.
 
 L<https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content>
 
+=head1 Delete a file (or other simple file operations)
+
+Use guestfish.  To delete a file:
+
+ guestfish -a disk.img -i rm /file/to/delete
+
+To touch a file (bring it up to date or create it):
+
+ guestfish -a disk.img -i touch /file/to/touch
+
+To stat a file.  Since this is a read-only operation, we can make it
+safer by adding the I<--ro> flag.
+
+ guestfish --ro -a disk.img -i stat /file/to/stat
+
+There are dozens of these commands.  See L<guestfish(1)> or the output
+of C<guestfish -h>
+
 =head1 Dump raw filesystem content from inside a disk image or VM
 
 You can use the L<guestfish(1)> C<download> command to extract the raw
