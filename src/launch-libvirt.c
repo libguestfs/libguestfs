@@ -51,7 +51,24 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+/* Check minimum required version of libvirt.  The libvirt backend
+ * is new and not the default, so we can get away with forcing
+ * people who want to try it to have a reasonably new version of
+ * libvirt, so we don't have to work around any bugs in libvirt.
+ *
+ * This is also checked at runtime because you can dynamically link
+ * with a different version from what you were compiled with.
+ */
+#define MIN_LIBVIRT_MAJOR 0
+#define MIN_LIBVIRT_MINOR 10
+#define MIN_LIBVIRT_MICRO 0
+#define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 + \
+                             MIN_LIBVIRT_MINOR * 1000 + \
+                             MIN_LIBVIRT_MICRO)
+
+#if defined(HAVE_LIBVIRT) && \
+  LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION && \
+  defined(HAVE_LIBXML2)
 
 #ifndef HAVE_XMLBUFFERDETACH
 /* Added in libxml2 2.8.0.  This is mostly a copy of the function from
@@ -110,15 +127,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     return -1;
   }
 
-  /* Check minimum required version of libvirt.  The libvirt backend
-   * is new and not the default, so we can get away with forcing
-   * people who want to try it to have a reasonably new version of
-   * libvirt, so we don't have to work around any bugs in libvirt.
-   */
   virGetVersion (&version, NULL, NULL);
   debug (g, "libvirt version = %lu", version);
-  if (version < 9013) {
-    error (g, _("you need a newer version of libvirt to use the 'libvirt' attach-method"));
+  if (version < MIN_LIBVIRT_VERSION) {
+    error (g, _("you must have libvirt >= %d.%d.%d "
+                "to use the 'libvirt' attach-method"),
+           MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);
     return -1;
   }
 
@@ -1344,7 +1358,10 @@ max_disks_libvirt (guestfs_h *g)
 #else /* no libvirt or libxml2 at compile time */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("libvirt attach-method is not available since this version of libguestfs was compiled without libvirt or libxml2")); \
+  error (g, _("libvirt attach-method is not available because "         \
+              "this version of libguestfs was compiled "                \
+              "without libvirt or libvirt < %d.%d.%d or without libxml2"), \
+         MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);      \
   return r
 
 static int

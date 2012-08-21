@@ -76,7 +76,7 @@ For basic functionality and the C tools:
 
 - libmagic (the library that corresponds to the 'file' command) (optional)
 
-- libvirt (optional)
+- libvirt (optional, >= 0.10.0 to use the libvirt launch method)
 
 - libxml2 (optional)
 
