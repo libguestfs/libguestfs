@@ -171,7 +171,7 @@ die "$progname: missing argument: podwrapper input.pod\n" unless @ARGV == 1;
 my $input = $ARGV[0];
 
 # There should be at least one output.
-die "$progname: no output format specified.  Use --man and/or --html and/or --text.\n"
+die "$progname: $input: no output format specified.  Use --man and/or --html and/or --text.\n"
     unless defined $man || defined $html || defined $text;
 
 # Default for $name and $section.
@@ -222,7 +222,7 @@ my $content = read_whole_file ($input);
 # Perform @inserts.
 foreach (@inserts) {
     my @a = split /:/, $_, 2;
-    die "$progname: no colon in parameter of --insert\n" unless @a >= 2;
+    die "$progname: $input: no colon in parameter of --insert\n" unless @a >= 2;
     my $replacement = read_whole_file ($a[0]);
     $content =~ s/$a[1]/$replacement/ge;
 }
@@ -230,7 +230,7 @@ foreach (@inserts) {
 # Perform @verbatims.
 foreach (@verbatims) {
     my @a = split /:/, $_, 2;
-    die "$progname: no colon in parameter of --verbatim\n" unless @a >= 2;
+    die "$progname: $input: no colon in parameter of --verbatim\n" unless @a >= 2;
     my $replacement = read_verbatim_file ($a[0]);
     $content =~ s/$a[1]/$replacement/ge;
 }
