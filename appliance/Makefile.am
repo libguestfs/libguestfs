@@ -103,6 +103,7 @@ stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
 	$(PODWRAPPER) \
 	  --man libguestfs-make-fixed-appliance.1 \
 	  --html $(top_builddir)/html/libguestfs-make-fixed-appliance.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

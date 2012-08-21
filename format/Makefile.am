@@ -62,6 +62,7 @@ stamp-virt-format.pod: virt-format.pod
 	$(PODWRAPPER) \
 	  --man virt-format.1 \
 	  --html $(top_builddir)/html/virt-format.1.html \
+	  --license GPLv2+ \
 	  $<
 	touch $@
 

@@ -37,6 +37,7 @@ stamp-guestfs-java.pod: guestfs-java.pod CreateDisk.java InspectVM.java
 	  --html $(top_builddir)/html/guestfs-java.3.html \
 	  --verbatim $(srcdir)/CreateDisk.java:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/InspectVM.java:@EXAMPLE2@ \
+	  --license examples \
 	  $<
 	touch $@
 
