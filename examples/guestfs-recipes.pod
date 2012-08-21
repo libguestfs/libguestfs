@@ -55,7 +55,13 @@ To export just a subdirectory, eg. C</files>, do:
 
 =head1 Create empty disk images
 
-You can use the L<guestfish(1)> I<-N> option to create empty disk
+The L<virt-format(1)> tool can do this directly.
+
+Use L<virt-make-fs(1)> to create a disk image with content.  This can
+also create some standard disk images such as virtual floppy devices
+(VFDs).
+
+You can also use the L<guestfish(1)> I<-N> option to create empty disk
 images.  The useful guide below explains the options available.
 
 L<https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content>
