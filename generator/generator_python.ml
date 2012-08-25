@@ -391,7 +391,7 @@ free_strings (char **argv)
               pr "    optargs_s.%s = PyString_AsString (py_%s);\n" n n;
               pr "#else\n";
               pr "    PyObject *bytes;\n";
-              pr "    bytes = PyUnicode_AsUTF8String (py_%s));\n" n;
+              pr "    bytes = PyUnicode_AsUTF8String (py_%s);\n" n;
               pr "    optargs_s.%s = PyBytes_AS_STRING (bytes);\n" n;
               pr "#endif\n";
             | OStringList _ ->
