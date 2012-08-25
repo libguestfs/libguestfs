@@ -99,8 +99,8 @@ For basic functionality and the C tools:
 - xmllint (part of libxml2) to validate virt-inspector
   RELAX NG schema (optional)
 
-- OCaml if you want to rebuild the generated files, and
-  also to build the OCaml bindings (optional)
+- OCaml compiler.  Optional when compiling from the tarball, but
+  mandatory if you compile from git.
 
 - ocaml-gettext if you want to translate OCaml tools (optional)
 
@@ -113,11 +113,13 @@ For basic functionality and the C tools:
 - netpbm, icoutils (optional)
   These programs are used to render icons from guests.
 
-To build FUSE support (guestmount):
+To build FUSE support in the core library, and guestmount:
 
 - FUSE libraries and kernel module (optional)
 
 To build language bindings:
+
+- OCaml compiler to build the OCaml bindings (optional, but see above)
 
 - Perl if you want to build the perl bindings (optional)
 
@@ -146,10 +148,6 @@ To build the Perl tools:
 
 - perl-libintl for translating perl code (optional)
 
-To run virt-sysprep:
-
-- virt-sysprep requires FUSE support since it uses guestmount
-
 
 Building
 ----------------------------------------------------------------------
@@ -177,8 +175,8 @@ this command as root:
   make install
 
 You can run guestfish, guestmount and the virt tools without needing
-to install, using the "run" script in the top directory.  This script
-sets up some environment variables.  For example:
+to install, using the "./run" script in the top directory.  This
+script sets up some environment variables.  For example:
 
   ./run ./fish/guestfish [usual guestfish args ...]
 
@@ -200,6 +198,10 @@ the run script, eg:
 You can also run the C programs under valgrind like this:
 
   ./run valgrind [valgrind opts...] ./cat/virt-cat [virt-cat opts...]
+
+or under gdb:
+
+  ./run gdb --args ./cat/virt-cat [virt-cat opts...]
 
 This also works with sudo (eg. if you need root access for libvirt or
 to access a block device):
@@ -236,7 +238,7 @@ these instructions:
 
 On some systems, this will work too:
 
-  chmod o+rw /dev/kvm
+  chmod 0666 /dev/kvm
 
 On some systems, the chmod will not survive a reboot, and you will
 need to make edits to the udev configuration.
@@ -329,3 +331,5 @@ Copyright (C) 2009-2012 Red Hat Inc.
 The library is distributed under the LGPLv2+.  The programs are
 distributed under the GPLv2+.  Please see the files COPYING and
 COPYING.LIB for full license information.
+
+The examples are under a very liberal license.
