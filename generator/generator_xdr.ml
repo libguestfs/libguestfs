@@ -39,6 +39,8 @@ open Generator_structs
 let generate_xdr () =
   generate_header CStyle LGPLv2plus;
 
+  pr "%%#include <config.h>\n";
+
   (* This has to be defined to get around a limitation in Sun's rpcgen. *)
   pr "typedef string guestfs_str<>;\n";
   pr "\n";
