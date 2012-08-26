@@ -40,6 +40,7 @@ let generate_xdr () =
   generate_header CStyle LGPLv2plus;
 
   (* This has to be defined to get around a limitation in Mac OS X's rpcgen. *)
+  pr "%%#include <config.h>\n";
   pr "#if HAVE_XDR_U_INT64_T\n";
   pr "#define uint64_t u_int64_t\n";
   pr "%%#if HAVE_XDR_UINT64_T\n";
