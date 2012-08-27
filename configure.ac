@@ -908,7 +908,7 @@ AS_IF([test "x$enable_perl" != "xno"],[
         fi
         ])
 AM_CONDITIONAL([HAVE_PERL],
-    [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
+    [test "x$enable_perl" != "xno" && test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
 dnl Check for Python (optional, for Python bindings).
 PYTHON_PREFIX=
