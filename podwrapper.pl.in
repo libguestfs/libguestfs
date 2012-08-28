@@ -131,6 +131,16 @@ not set, defaults to C<1>.
 
 =cut
 
+my $strict_checks = 1;
+
+=item B<--no-strict-checks>
+
+Disable strict checks of the man page.  This is only used
+when generating the translated man pages in the C<po-docs>
+subdirectory.
+
+=cut
+
 my $text;
 
 =item B<--text=output.txt>
@@ -173,6 +183,7 @@ GetOptions ("help|?" => \$help,
             "man=s" => \$man,
             "name=s" => \$name,
             "section=s" => \$section,
+            "strict-checks!" => \$strict_checks,
             "text=s" => \$text,
             "verbatim=s" => \@verbatims
     ) or pod2usage (2);
@@ -182,7 +193,7 @@ die "$progname: missing argument: podwrapper input.pod\n" unless @ARGV == 1;
 my $input = $ARGV[0];
 
 die "$progname: $input: missing argument: --license parameter is required\n"
-    unless @licenses >= 1;
+    if $strict_checks && @licenses == 0;
 
 # There should be at least one output.
 die "$progname: $input: no output format specified.  Use --man and/or --html and/or --text.\n"
@@ -249,20 +260,22 @@ foreach (@verbatims) {
     $content =~ s/$a[1]/$replacement/ge;
 }
 
-# Verify sections present / not present.
-die "$progname: $input: missing AUTHOR or AUTHORS section\n"
-    unless $content =~ /^=head1 AUTHOR/m;
-die "$progname: $input: missing SEE ALSO section\n"
-    unless $content =~ /^=head1 SEE ALSO/m;
-die "$progname: $input: missing COPYRIGHT section\n"
-    unless $content =~ /^=head1 COPYRIGHT/m;
-die "$progname: $input: BUGS is now added automatically, do not add it to the POD file\n"
-    if $content =~ /^=head1 (REPORTING )?BUGS/m;
-die "$progname: $input: LICENSE is now added automatically, do not add it to the POD file\n"
-    if $content =~ /^=head1 LICENSE/m;
-die "$progname: $input: GPL/LGPL should be specified using the --license parameter, not included in the POD file\n"
-    if $content =~ /^This program is free software/ ||
-       $content =~ /^This library is free software/;
+if ($strict_checks) {
+    # Verify sections present / not present.
+    die "$progname: $input: missing AUTHOR or AUTHORS section\n"
+        unless $content =~ /^=head1 AUTHOR/m;
+    die "$progname: $input: missing SEE ALSO section\n"
+        unless $content =~ /^=head1 SEE ALSO/m;
+    die "$progname: $input: missing COPYRIGHT section\n"
+        unless $content =~ /^=head1 COPYRIGHT/m;
+    die "$progname: $input: BUGS is now added automatically, do not add it to the POD file\n"
+        if $content =~ /^=head1 (REPORTING )?BUGS/m;
+    die "$progname: $input: LICENSE is now added automatically, do not add it to the POD file\n"
+        if $content =~ /^=head1 LICENSE/m;
+    die "$progname: $input: GPL/LGPL should be specified using the --license parameter, not included in the POD file\n"
+        if $content =~ /^This program is free software/ ||
+        $content =~ /^This library is free software/;
+}
 
 # Add standard LICENSE and BUGS sections.
 my $LGPLv2plus =

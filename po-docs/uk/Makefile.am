@@ -58,8 +58,10 @@ all-local: $(MANPAGES)
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
 	$(PODWRAPPER) \
-	  --section 3 \
+	  --no-strict-checks \
 	  --man $@ \
+	  --section 3 \
+	  --license LGPLv2+ \
 	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
 	  --insert $(srcdir)/guestfs-availability.pod:@AVAILABILITY@ \
 	  --insert $(srcdir)/guestfs-structs.pod:@STRUCTS@ \
@@ -67,16 +69,31 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	$(PODWRAPPER) \
+	  --no-strict-checks \
 	  --man $@ \
+	  --license GPLv2+ \
 	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
 	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
 	  $<
 
 %.1: %.pod
-	$(PODWRAPPER) --man $@ $<
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  $<
+
+%.3: %.pod
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  --section 3 \
+	  $<
 
 %.1: %.pl
-	$(PODWRAPPER) --man $@ $<
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  $<
 
 # Ensure that the first time we build from git, since guestfs.pod
 # hasn't been built yet, build it.
