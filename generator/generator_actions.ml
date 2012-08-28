@@ -4908,21 +4908,35 @@ the command C<mount -o loop file mountpoint>." };
 
   { defaults with
     name = "mkswap";
-    style = RErr, [Device "device"], [];
+    style = RErr, [Device "device"], [OString "label"; OString "uuid"];
     proc_nr = Some 130;
-    tests = [
+    once_had_no_optargs = true;
+    tests = (let uuid = uuidgen () in [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkswap"; "/dev/sda1"]])
-    ];
+         ["mkswap"; "/dev/sda1"; "NOARG"; "NOARG"]]);
+      InitEmpty, Always, TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkswap"; "/dev/sda1"; "hello"; "NOARG"]]);
+      InitEmpty, Always, TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkswap"; "/dev/sda1"; "NOARG"; uuid]]);
+      InitEmpty, Always, TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkswap"; "/dev/sda1"; "hello"; uuid]])
+    ]);
     shortdesc = "create a swap partition";
     longdesc = "\
-Create a swap partition on C<device>." };
+Create a Linux swap partition on C<device>.
+
+The option arguments C<label> and C<uuid> allow you to set the
+label and/or UUID of the new swap partition." };
 
   { defaults with
     name = "mkswap_L";
     style = RErr, [String "label"; Device "device"], [];
     proc_nr = Some 131;
+    deprecated_by = Some "mkswap";
     tests = [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
@@ -4940,6 +4954,7 @@ a limitation of the kernel or swap tools." };
     name = "mkswap_U";
     style = RErr, [String "uuid"; Device "device"], [];
     proc_nr = Some 132;
+    deprecated_by = Some "mkswap";
     optional = Some "linuxfsuuid";
     tests =
       (let uuid = uuidgen () in [
@@ -5660,7 +5675,7 @@ attaches it as a device." };
     proc_nr = Some 170;
     tests = [
       InitPartition, Always, TestRun (
-        [["mkswap"; "/dev/sda1"];
+        [["mkswap"; "/dev/sda1"; "NOARG"; "NOARG"];
          ["swapon_device"; "/dev/sda1"];
          ["swapoff_device"; "/dev/sda1"]])
     ];
@@ -5720,7 +5735,7 @@ This command disables the libguestfs appliance swap on file." };
     tests = [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkswap_L"; "swapit"; "/dev/sda1"];
+         ["mkswap"; "/dev/sda1"; "swapit"; "NOARG"];
          ["swapon_label"; "swapit"];
          ["swapoff_label"; "swapit"];
          ["zero"; "/dev/sda"];
@@ -5748,7 +5763,7 @@ labeled swap partition." };
     tests =
       (let uuid = uuidgen () in [
         InitEmpty, Always, TestRun (
-          [["mkswap_U"; uuid; "/dev/sdc"];
+          [["mkswap"; "/dev/sdc"; "NOARG"; uuid];
            ["swapon_uuid"; uuid];
            ["swapoff_uuid"; uuid]])
        ]);

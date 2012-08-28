@@ -56,56 +56,71 @@ optgroup_linuxfsuuid_available (void)
   return av;
 }
 
-static int
-mkswap (const char *device, const char *flag, const char *value)
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_mkswap (const char *device, const char *label, const char *uuid)
 {
-  char *err;
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
   int r;
+  char *err;
 
-  if (!flag)
-    r = command (NULL, &err, "mkswap", "-f", device, NULL);
-  else
-    r = command (NULL, &err, "mkswap", "-f", flag, value, device, NULL);
+  ADD_ARG (argv, i, "mkswap");
+  ADD_ARG (argv, i, "-f");
 
+  if (optargs_bitmask & GUESTFS_MKSWAP_LABEL_BITMASK) {
+    if (strlen (label) > SWAP_LABEL_MAX) {
+      reply_with_error ("%s: Linux swap labels are limited to %d bytes",
+                        label, SWAP_LABEL_MAX);
+      return -1;
+    }
+
+    ADD_ARG (argv, i, "-L");
+    ADD_ARG (argv, i, label);
+  }
+
+  if (optargs_bitmask & GUESTFS_MKSWAP_UUID_BITMASK) {
+    ADD_ARG (argv, i, "-U");
+    ADD_ARG (argv, i, uuid);
+  }
+
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
-    reply_with_error ("%s", err);
+    reply_with_error ("%s: %s", device, err);
     free (err);
     return -1;
   }
 
   free (err);
 
-  return 0;
-}
+  udev_settle ();
 
-int
-do_mkswap (const char *device)
-{
-  return mkswap (device, NULL, NULL);
+  return 0;
 }
 
 int
 do_mkswap_L (const char *label, const char *device)
 {
-  if (strlen (label) > SWAP_LABEL_MAX) {
-    reply_with_error ("%s: Linux swap labels are limited to %d bytes",
-                      label, SWAP_LABEL_MAX);
-    return -1;
-  }
-
-  return mkswap (device, "-L", label);
+  optargs_bitmask = GUESTFS_MKSWAP_LABEL_BITMASK;
+  return do_mkswap (device, label, NULL);
 }
 
 int
 do_mkswap_U (const char *uuid, const char *device)
 {
-  return mkswap (device, "-U", uuid);
+  optargs_bitmask = GUESTFS_MKSWAP_UUID_BITMASK;
+  return do_mkswap (device, NULL, uuid);
 }
 
 int
 do_mkswap_file (const char *path)
 {
   char *buf;
+  char *err;
   int r;
 
   buf = sysroot_path (path);
@@ -114,8 +129,17 @@ do_mkswap_file (const char *path)
     return -1;
   }
 
-  r = mkswap (buf, NULL, NULL);
+  r = command (NULL, &err, "mkswap", "-f", buf, NULL);
   free (buf);
+
+  if (r == -1) {
+    reply_with_error ("%s: %s", path, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
   return r;
 }
 
