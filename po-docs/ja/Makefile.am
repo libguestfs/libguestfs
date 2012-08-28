@@ -74,10 +74,9 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 
 virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
 	$(PODWRAPPER) \
-	  --man virt-sysprep.1 \
+	  --man $@ \
           --insert sysprep-extra-options.pod:@EXTRA_OPTIONS@ \
           --insert sysprep-operations.pod:@OPERATIONS@ \
-	  --html $(top_builddir)/html/virt-sysprep.1.html \
 	  $<
 
 %.1: %.pod
