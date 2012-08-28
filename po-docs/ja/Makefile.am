@@ -24,26 +24,44 @@ LINGUA = $(shell basename -- `pwd`)
 CLEANFILES = *.1 *.3 stamp-update-po
 
 MANPAGES = \
-	guestfs.3 \
 	guestfish.1 \
+	guestfs.3 \
+	guestfs-erlang.3 \
+	guestfs-examples.3 \
+	guestfs-faq.1 \
+	guestfs-java.3 \
+	guestfs-ocaml.3 \
+	guestfs-performance.1 \
+	guestfs-perl.3 \
+	guestfs-python.3 \
+	guestfs-recipes.1 \
+	guestfs-release-notes.1 \
+	guestfs-ruby.3 \
+	guestfs-testing.1 \
+	guestmount.1 \
+	libguestfs-make-fixed-appliance.1 \
+	libguestfs-test-tool.1 \
 	virt-alignment-scan.1 \
+	virt-cat.1 \
 	virt-copy-in.1 \
 	virt-copy-out.1 \
-	virt-tar-in.1 \
-	virt-tar-out.1 \
-	libguestfs-test-tool.1 \
-	guestmount.1 \
-	$(patsubst %.pl,%.1,$(wildcard virt-*.pl)) \
-	virt-cat.1 \
 	virt-df.1 \
 	virt-edit.1 \
 	virt-filesystems.1 \
+	virt-format.1 \
 	virt-inspector.1 \
+	virt-list-filesystems.1 \
+	virt-list-partitions.1 \
 	virt-ls.1 \
+	virt-make-fs.1 \
 	virt-rescue.1 \
 	virt-resize.1 \
 	virt-sparsify.1 \
-	virt-sysprep.1
+	virt-sysprep.1 \
+	virt-tar.1 \
+	virt-tar-in.1 \
+	virt-tar-out.1 \
+	virt-win-reg.1
 
 podfiles := $(shell for f in `cat ../podfiles`; do basename $$f; done)
 
