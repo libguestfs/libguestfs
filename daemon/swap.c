@@ -75,6 +75,8 @@ mkswap (const char *device, const char *flag, const char *value)
 
   free (err);
 
+  udev_settle ();
+
   return 0;
 }
 
