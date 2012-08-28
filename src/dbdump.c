@@ -34,10 +34,6 @@
 
 #include <pcre.h>
 
-#ifdef HAVE_HIVEX
-#include <hivex.h>
-#endif
-
 #include "c-ctype.h"
 #include "ignore-value.h"
 

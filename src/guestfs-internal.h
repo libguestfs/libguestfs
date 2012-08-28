@@ -107,11 +107,6 @@
 #define MAX_SMALL_FILE_SIZE    (2 * 1000 * 1000)
 #define MAX_AUGEAS_FILE_SIZE        (100 * 1000)
 
-/* Maximum Windows Registry hive that we will download to /tmp.  Some
- * registries can be legitimately very large.
- */
-#define MAX_REGISTRY_SIZE    (100 * 1000 * 1000)
-
 /* Maximum RPM or dpkg database we will download to /tmp.  RPM
  * 'Packages' database can get very large: 70 MB is roughly the
  * standard size for a new Fedora install, and after lots of package
@@ -474,8 +469,6 @@ extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, con
 extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
 extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
 extern char *guestfs___drive_name (size_t index, char *ret);
-
-#if defined(HAVE_HIVEX)
 extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
 extern int guestfs___parse_unsigned_int (guestfs_h *g, const char *str);
 extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
@@ -491,7 +484,6 @@ extern int guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___has_windows_systemroot (guestfs_h *g);
 extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
-#endif
 
 #define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf

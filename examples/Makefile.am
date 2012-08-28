@@ -95,10 +95,8 @@ virt_dhcp_address_SOURCES = virt-dhcp-address.c
 virt_dhcp_address_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(HIVEX_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 virt_dhcp_address_LDADD = \
-	$(HIVEX_LIBS) \
 	$(top_builddir)/src/libguestfs.la
 endif
 

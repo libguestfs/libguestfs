@@ -34,10 +34,6 @@
 
 #include <pcre.h>
 
-#ifdef HAVE_HIVEX
-#include <hivex.h>
-#endif
-
 #include "c-ctype.h"
 #include "ignore-value.h"
 #include "xstrtol.h"
@@ -46,8 +42,6 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
-
-#if defined(HAVE_HIVEX)
 
 /* Debian/Ubuntu install disks are easy ...
  *
@@ -484,5 +478,3 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   return 0;
 }
-
-#endif /* defined(HAVE_HIVEX) */

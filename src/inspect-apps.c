@@ -34,10 +34,6 @@
 
 #include <pcre.h>
 
-#ifdef HAVE_HIVEX
-#include <hivex.h>
-#endif
-
 #include "c-ctype.h"
 #include "ignore-value.h"
 #include "xstrtol.h"
@@ -46,8 +42,6 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
-
-#if defined(HAVE_HIVEX)
 
 #ifdef DB_DUMP
 static struct guestfs_application_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
@@ -414,7 +408,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   return ret;
 }
 
-static void list_applications_windows_from_path (guestfs_h *g, hive_h *h, struct guestfs_application_list *apps, const char **path, size_t path_len);
+static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_application_list *apps, const char **path, size_t path_len);
 
 static struct guestfs_application_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
@@ -431,23 +425,11 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
     return NULL;
   }
 
-  char *software_hive = NULL;
   struct guestfs_application_list *ret = NULL;
-  hive_h *h = NULL;
 
-  software_hive = guestfs___download_to_tmp (g, fs, software_path, "software",
-                                             MAX_REGISTRY_SIZE);
-  if (software_hive == NULL)
+  if (guestfs_hivex_open (g, software_path,
+                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
     goto out;
-
-  free (software_path);
-  software_path = NULL;
-
-  h = hivex_open (software_hive, g->verbose ? HIVEX_OPEN_VERBOSE : 0);
-  if (h == NULL) {
-    perrorf (g, "hivex_open");
-    goto out;
-  }
 
   /* Allocate apps list. */
   ret = safe_malloc (g, sizeof *ret);
@@ -457,7 +439,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   /* Ordinary native applications. */
   const char *hivepath[] =
     { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
-  list_applications_windows_from_path (g, h, ret, hivepath,
+  list_applications_windows_from_path (g, ret, hivepath,
                                        sizeof hivepath / sizeof hivepath[0]);
 
   /* 32-bit emulated Windows apps running on the WOW64 emulator.
@@ -465,35 +447,34 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
    */
   const char *hivepath2[] =
     { "WOW6432node", "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
-  list_applications_windows_from_path (g, h, ret, hivepath2,
+  list_applications_windows_from_path (g, ret, hivepath2,
                                        sizeof hivepath2 / sizeof hivepath2[0]);
 
  out:
-  if (h) hivex_close (h);
+  guestfs_hivex_close (g);
   free (software_path);
-  free (software_hive);
 
   return ret;
 }
 
 static void
-list_applications_windows_from_path (guestfs_h *g, hive_h *h,
+list_applications_windows_from_path (guestfs_h *g,
                                      struct guestfs_application_list *apps,
                                      const char **path, size_t path_len)
 {
-  hive_node_h *children = NULL;
-  hive_node_h node;
+  struct guestfs_hivex_node_list *children = NULL;
+  int64_t node;
   size_t i;
 
-  node = hivex_root (h);
+  node = guestfs_hivex_root (g);
 
   for (i = 0; node != 0 && i < path_len; ++i)
-    node = hivex_node_get_child (h, node, path[i]);
+    node = guestfs_hivex_node_get_child (g, node, path[i]);
 
   if (node == 0)
     return;
 
-  children = hivex_node_children (h, node);
+  children = guestfs_hivex_node_children (g, node);
   if (children == NULL)
     return;
 
@@ -501,8 +482,9 @@ list_applications_windows_from_path (guestfs_h *g, hive_h *h,
    * See also:
    * http://nsis.sourceforge.net/Add_uninstall_information_to_Add/Remove_Programs#Optional_values
    */
-  for (i = 0; children[i] != 0; ++i) {
-    hive_value_h value;
+  for (i = 0; i < children->len; ++i) {
+    int64_t child = children->val[i].hivex_node_h;
+    int64_t value;
     char *name = NULL;
     char *display_name = NULL;
     char *version = NULL;
@@ -514,29 +496,29 @@ list_applications_windows_from_path (guestfs_h *g, hive_h *h,
     /* Use the node name as a proxy for the package name in Linux.  The
      * display name is not language-independent, so it cannot be used.
      */
-    name = hivex_node_name (h, children[i]);
+    name = guestfs_hivex_node_name (g, child);
     if (name == NULL)
       continue;
 
-    value = hivex_node_get_value (h, children[i], "DisplayName");
+    value = guestfs_hivex_node_get_value (g, child, "DisplayName");
     if (value) {
-      display_name = hivex_value_string (h, value);
+      display_name = guestfs_hivex_value_utf8 (g, value);
       if (display_name) {
-        value = hivex_node_get_value (h, children[i], "DisplayVersion");
+        value = guestfs_hivex_node_get_value (g, child, "DisplayVersion");
         if (value)
-          version = hivex_value_string (h, value);
-        value = hivex_node_get_value (h, children[i], "InstallLocation");
+          version = guestfs_hivex_value_utf8 (g, value);
+        value = guestfs_hivex_node_get_value (g, child, "InstallLocation");
         if (value)
-          install_path = hivex_value_string (h, value);
-        value = hivex_node_get_value (h, children[i], "Publisher");
+          install_path = guestfs_hivex_value_utf8 (g, value);
+        value = guestfs_hivex_node_get_value (g, child, "Publisher");
         if (value)
-          publisher = hivex_value_string (h, value);
-        value = hivex_node_get_value (h, children[i], "URLInfoAbout");
+          publisher = guestfs_hivex_value_utf8 (g, value);
+        value = guestfs_hivex_node_get_value (g, child, "URLInfoAbout");
         if (value)
-          url = hivex_value_string (h, value);
-        value = hivex_node_get_value (h, children[i], "Comments");
+          url = guestfs_hivex_value_utf8 (g, value);
+        value = guestfs_hivex_node_get_value (g, child, "Comments");
         if (value)
-          comments = hivex_value_string (h, value);
+          comments = guestfs_hivex_value_utf8 (g, value);
 
         add_application (g, apps, name, display_name, 0,
                          version ? : "",
@@ -557,7 +539,7 @@ list_applications_windows_from_path (guestfs_h *g, hive_h *h,
     free (comments);
   }
 
-  free (children);
+  guestfs_free_hivex_node_list (children);
 }
 
 static void
@@ -606,19 +588,3 @@ sort_applications (struct guestfs_application_list *apps)
     qsort (apps->val, apps->len, sizeof (struct guestfs_application),
            compare_applications);
 }
-
-#else /* no hivex at compile time */
-
-/* XXX These functions should be in an optgroup. */
-
-#define NOT_IMPL(r)                                                     \
-  error (g, _("inspection API not available since this version of libguestfs was compiled without the hivex library")); \
-  return r
-
-struct guestfs_application_list *
-guestfs__inspect_list_applications (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-#endif /* no hivex at compile time */

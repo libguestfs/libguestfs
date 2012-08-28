@@ -570,3 +570,11 @@ mke2fs
 
 Add a mke2fs API call allowing full configuration of filesystems.
 Then fix tests/bigdirs/test-big-dirs.pl to use it.
+
+hivex
+-----
+
+Add more of hivex to the API, especially for writing.
+
+Reimplement virt-win-reg to use this API.  (This is difficult because
+the Perl libraries underneath access the hivex API directly).

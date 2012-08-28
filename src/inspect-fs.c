@@ -34,10 +34,6 @@
 
 #include <pcre.h>
 
-#ifdef HAVE_HIVEX
-#include <hivex.h>
-#endif
-
 #include "c-ctype.h"
 #include "ignore-value.h"
 #include "xstrtol.h"
@@ -46,8 +42,6 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
-
-#if defined(HAVE_HIVEX)
 
 /* Compile all the regular expressions once when the shared library is
  * loaded.  PCRE is thread safe so we're supposedly OK here if
@@ -603,5 +597,3 @@ guestfs___first_egrep_of_file (guestfs_h *g, const char *filename,
 
   return 1;
 }
-
-#endif /* defined(HAVE_HIVEX) */

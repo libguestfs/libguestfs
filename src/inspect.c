@@ -34,10 +34,6 @@
 
 #include <pcre.h>
 
-#ifdef HAVE_HIVEX
-#include <hivex.h>
-#endif
-
 #include "c-ctype.h"
 #include "ignore-value.h"
 #include "xstrtol.h"
@@ -46,8 +42,6 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
-
-#if defined(HAVE_HIVEX)
 
 /* The main inspection code. */
 char **
@@ -539,143 +533,6 @@ guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
 
   return safe_strdup (g, fs->hostname ? : "unknown");
 }
-
-#else /* no hivex at compile time */
-
-/* XXX These functions should be in an optgroup. */
-
-#define NOT_IMPL(r)                                                     \
-  guestfs_error_errno (g, ENOTSUP, _("inspection API not available since this version of libguestfs was compiled without the hivex library")); \
-  return r
-
-char **
-guestfs__inspect_os (guestfs_h *g)
-{
-  NOT_IMPL(NULL);
-}
-
-char **
-guestfs__inspect_get_roots (guestfs_h *g)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_type (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_arch (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_distro (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-int
-guestfs__inspect_get_major_version (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(-1);
-}
-
-int
-guestfs__inspect_get_minor_version (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(-1);
-}
-
-char *
-guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_product_variant (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_windows_current_control_set (guestfs_h *g,
-                                                  const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char **
-guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char **
-guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char **
-guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-char *
-guestfs__inspect_get_format (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(NULL);
-}
-
-int
-guestfs__inspect_is_live (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(-1);
-}
-
-int
-guestfs__inspect_is_netinst (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(-1);
-}
-
-int
-guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
-{
-  NOT_IMPL(-1);
-}
-
-#endif /* no hivex at compile time */
 
 void
 guestfs___free_inspect_info (guestfs_h *g)

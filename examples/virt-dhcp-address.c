@@ -17,7 +17,6 @@
 #include <assert.h>
 
 #include <guestfs.h>
-#include <hivex.h>
 
 static int compare_keys_len (const void *p1, const void *p2);
 static size_t count_strings (char *const *argv);
@@ -198,11 +197,8 @@ static void
 print_dhcp_address_windows (guestfs_h *g, char *root_fs)
 {
   char *system_path;
-  char tmpfile[] = "/tmp/systemXXXXXX";
-  int fd, err;
-  hive_h *h;
-  hive_node_h root, node, *nodes;
-  hive_value_h value;
+  int64_t root, node, value;
+  struct guestfs_hivex_node_list *nodes;
   char *controlset;
   size_t i;
   char *p;
@@ -215,71 +211,52 @@ print_dhcp_address_windows (guestfs_h *g, char *root_fs)
     exit (EXIT_FAILURE);
   }
 
-  fd = mkstemp (tmpfile);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
-
-  /* Download the SYSTEM hive. */
-  if (guestfs_download (g, system_path, tmpfile) == -1)
+  /* Open the hive to parse it.  Note that before libguestfs 1.19.35
+   * you had to download the file and parse it using hivex(3).  Since
+   * libguestfs 1.19.35, parts of the hivex(3) API are now exposed
+   * through libguestfs, and that is what we'll use here because it is
+   * more convenient and avoids having to download the hive.
+   */
+  if (guestfs_hivex_open (g, system_path, -1) == -1)
     exit (EXIT_FAILURE);
 
   free (system_path);
 
+  root = guestfs_hivex_root (g);
+  if (root == -1)
+    exit (EXIT_FAILURE);
+
+  /* Get ControlSetXXX\Services\Tcpip\Parameters\Interfaces. */
   controlset = guestfs_inspect_get_windows_current_control_set (g, root_fs);
   if (controlset == NULL)
     exit (EXIT_FAILURE);
-
-  /* Open the hive to parse it. */
-  h = hivex_open (tmpfile, 0);
-  err = errno;
-  close (fd);
-  unlink (tmpfile);
-
-  if (h == NULL) {
-    errno = err;
-    perror ("hivex_open");
-    exit (EXIT_FAILURE);
-  }
-
-  root = hivex_root (h);
-  if (root == 0) {
-    perror ("hivex_root");
-    exit (EXIT_FAILURE);
-  }
-
-  /* Get ControlSetXXX\Services\Tcpip\Parameters\Interfaces. */
   const char *path[] = { controlset, "Services", "Tcpip", "Parameters",
                          "Interfaces" };
   node = root;
-  errno = 0;
-  for (i = 0; node != 0 && i < sizeof path / sizeof path[0]; ++i)
-    node = hivex_node_get_child (h, node, path[i]);
+  for (i = 0; node > 0 && i < sizeof path / sizeof path[0]; ++i)
+    node = guestfs_hivex_node_get_child (g, node, path[i]);
+
+  if (node == -1)
+    exit (EXIT_FAILURE);
 
   if (node == 0) {
-    if (errno != 0)
-      perror ("hivex_node_get_child");
-    else
-      fprintf (stderr, "virt-dhcp-address: HKLM\\System\\%s\\Services\\Tcpip\\Parameters\\Interfaces not found.", controlset);
+    fprintf (stderr, "virt-dhcp-address: HKLM\\System\\%s\\Services\\Tcpip\\Parameters\\Interfaces not found.", controlset);
     exit (EXIT_FAILURE);
   }
+
+  free (controlset);
 
   /* Look for a node under here which has a "DhcpIPAddress" entry in it. */
-  nodes = hivex_node_children (h, node);
-  if (nodes == NULL) {
-    perror ("hivex_node_children");
+  nodes = guestfs_hivex_node_children (g, node);
+  if (nodes == NULL)
     exit (EXIT_FAILURE);
-  }
 
   value = 0;
-  for (i = 0; value == 0 && nodes[i] != 0; ++i) {
-    errno = 0;
-    value = hivex_node_get_value (h, nodes[i], "DhcpIPAddress");
-    if (value == 0 && errno != 0) {
-      perror ("hivex_node_get_value");
+  for (i = 0; value == 0 && i < nodes->len; ++i) {
+    value = guestfs_hivex_node_get_value (g, nodes->val[i].hivex_node_h,
+                                          "DhcpIPAddress");
+    if (value == -1)
       exit (EXIT_FAILURE);
-    }
   }
 
   if (value == 0) {
@@ -287,21 +264,21 @@ print_dhcp_address_windows (guestfs_h *g, char *root_fs)
     exit (EXIT_FAILURE);
   }
 
-  /* Get the string and use hivex's auto-conversion to convert it to UTF-8
-   * for output.
+  guestfs_free_hivex_node_list (nodes);
+
+  /* Get the string and use libguestfs's auto-conversion to convert it
+   * to UTF-8 for output.
    */
-  p = hivex_value_string (h, value);
-  if (!p) {
-    perror ("hivex_value_string");
+  p = guestfs_hivex_value_utf8 (g, value);
+  if (!p)
     exit (EXIT_FAILURE);
-  }
 
   printf ("%s\n", p);
 
-  /* Close the hive handle. */
-  hivex_close (h);
+  free (p);
 
-  free (controlset);
+  /* Close the hive handle. */
+  guestfs_hivex_close (g);
 }
 
 static int
