@@ -106,8 +106,6 @@ stamp-update-po:
 # XXX Can automake do this properly?
 install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man1
-	$(INSTALL) -m 0644 guestfish.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
-	$(INSTALL) -m 0644 guestmount.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
-	$(INSTALL) -m 0644 virt-*.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
+	$(INSTALL) -m 0644 *.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man3
-	$(INSTALL) -m 0644 guestfs.3 $(DESTDIR)$(mandir)/$(LINGUA)/man3
+	$(INSTALL) -m 0644 *.3 $(DESTDIR)$(mandir)/$(LINGUA)/man3
