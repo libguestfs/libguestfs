@@ -9477,6 +9477,193 @@ Some of the parameters of a mounted filesystem can be examined
 and modified using the C<guestfs_xfs_info> and
 C<guestfs_xfs_growfs> calls." };
 
+  { defaults with
+    name = "hivex_open";
+    style = RErr, [Pathname "filename"], [OBool "verbose"; OBool "debug"; OBool "write"];
+    proc_nr = Some 350;
+    optional = Some "hivex";
+    shortdesc = "open a Windows Registry hive file";
+    longdesc = "\
+Open the Windows Registry hive file named C<filename>.
+If there was any previous hivex handle associated with this
+guestfs session, then it is closed.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_close";
+    style = RErr, [], [];
+    proc_nr = Some 351;
+    optional = Some "hivex";
+    shortdesc = "close the current hivex handle";
+    longdesc = "\
+Close the current hivex handle.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_root";
+    style = RInt64 "nodeh", [], [];
+    proc_nr = Some 352;
+    optional = Some "hivex";
+    shortdesc = "return the root node of the hive";
+    longdesc = "\
+Return the root node of the hive.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_name";
+    style = RString "name", [Int64 "nodeh"], [];
+    proc_nr = Some 353;
+    optional = Some "hivex";
+    shortdesc = "return the name of the node";
+    longdesc = "\
+Return the name of C<nodeh>.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_children";
+    style = RStructList ("nodehs", "hivex_node"), [Int64 "nodeh"], [];
+    proc_nr = Some 354;
+    optional = Some "hivex";
+    shortdesc = "return list of nodes which are subkeys of node";
+    longdesc = "\
+Return the list of nodes which are subkeys of C<nodeh>.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_get_child";
+    style = RInt64 "child", [Int64 "nodeh"; String "name"], [];
+    proc_nr = Some 355;
+    optional = Some "hivex";
+    shortdesc = "return the named child of node";
+    longdesc = "\
+Return the child of C<nodeh> with the name C<name>, if it exists.
+This can return C<0> meaning the name was not found.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_parent";
+    style = RInt64 "parent", [Int64 "nodeh"], [];
+    proc_nr = Some 356;
+    optional = Some "hivex";
+    shortdesc = "return the parent of node";
+    longdesc = "\
+Return the parent node of C<nodeh>.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_values";
+    style = RStructList ("valuehs", "hivex_value"), [Int64 "nodeh"], [];
+    proc_nr = Some 357;
+    optional = Some "hivex";
+    shortdesc = "return list of values attached to node";
+    longdesc = "\
+Return the array of (key, datatype, data) tuples attached to C<nodeh>.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_get_value";
+    style = RInt64 "valueh", [Int64 "nodeh"; String "key"], [];
+    proc_nr = Some 358;
+    optional = Some "hivex";
+    shortdesc = "return the named value";
+    longdesc = "\
+Return the value attached to C<nodeh> which has the
+name C<key>, if it exists.  This can return C<0> meaning
+the key was not found.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_value_key";
+    style = RString "key", [Int64 "valueh"], [];
+    proc_nr = Some 359;
+    optional = Some "hivex";
+    shortdesc = "return the key field from the (key, datatype, data) tuple";
+    longdesc = "\
+Return the key (name) field of a (key, datatype, data) tuple.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_value_type";
+    style = RInt64 "datatype", [Int64 "valueh"], [];
+    proc_nr = Some 360;
+    optional = Some "hivex";
+    shortdesc = "return the data type from the (key, datatype, data) tuple";
+    longdesc = "\
+Return the data type field from a (key, datatype, data) tuple.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_value_value";
+    style = RBufferOut "databuf", [Int64 "valueh"], [];
+    proc_nr = Some 361;
+    optional = Some "hivex";
+    shortdesc = "return the data field from the (key, datatype, data) tuple";
+    longdesc = "\
+Return the data field of a (key, datatype, data) tuple.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_commit";
+    style = RErr, [OptString "filename"], [];
+    proc_nr = Some 362;
+    optional = Some "hivex";
+    shortdesc = "commit (write) changes back to the hive";
+    longdesc = "\
+Commit (write) changes to the hive.
+
+If the optional C<filename> parameter is null, then the changes
+are written back to the same hive that was opened.  If this is
+not null then they are written to the alternate filename given
+and the original hive is left untouched.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_add_child";
+    style = RInt64 "nodeh", [Int64 "parent"; String "name"], [];
+    proc_nr = Some 363;
+    optional = Some "hivex";
+    shortdesc = "add a child node";
+    longdesc = "\
+Add a child node to C<parent> named C<name>.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_delete_child";
+    style = RErr, [Int64 "nodeh"], [];
+    proc_nr = Some 364;
+    optional = Some "hivex";
+    shortdesc = "delete a node (recursively)";
+    longdesc = "\
+Delete C<nodeh>, recursively if necessary.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
+  { defaults with
+    name = "hivex_node_set_value";
+    style = RErr, [Int64 "nodeh"; String "key"; Int64 "t"; BufferIn "val"], [];
+    proc_nr = Some 365;
+    optional = Some "hivex";
+    shortdesc = "set or replace a single value in a node";
+    longdesc = "\
+Set or replace a single value under the node C<nodeh>.  The
+C<key> is the name, C<t> is the type, and C<val> is the data.
+
+This is a wrapper around the L<hivex(3)> call of the same name." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

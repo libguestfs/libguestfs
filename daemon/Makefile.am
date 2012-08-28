@@ -121,6 +121,7 @@ guestfsd_SOURCES = \
 	guestfsd.c \
 	headtail.c \
 	hexdump.c \
+	hivex.c \
 	htonl.c \
 	initrd.c \
 	inotify.c \
@@ -176,6 +177,7 @@ guestfsd_LDADD = \
 	libprotocol.a \
 	$(SELINUX_LIB) \
 	$(AUGEAS_LIBS) \
+	$(HIVEX_LIBS) \
 	$(top_builddir)/gnulib/lib/.libs/libgnu.a \
 	$(GETADDRINFO_LIB) \
 	$(HOSTENT_LIB) \
@@ -186,6 +188,9 @@ guestfsd_LDADD = \
 	$(SERVENT_LIB)
 
 guestfsd_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
-guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(AUGEAS_CFLAGS)
+guestfsd_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(AUGEAS_CFLAGS) \
+	$(HIVEX_CFLAGS)
 
 .PHONY: force

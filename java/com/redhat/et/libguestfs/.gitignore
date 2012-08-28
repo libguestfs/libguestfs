@@ -1,6 +1,8 @@
 Application.java
 BTRFSSubvolume.java
 Dirent.java
+HivexNode.java
+HivexValue.java
 INotifyEvent.java
 ISOInfo.java
 IntBool.java

@@ -263,6 +263,18 @@ let structs = [
     "uts_version", FString;
     "uts_machine", FString;
   ];
+
+  (* Used by hivex_* APIs to return a list of int64 handles (node
+   * handles and value handles).  Note that we can't add a putative
+   * 'RInt64List' type to the generator because we need to return
+   * length and size, and RStructList does this already.
+   *)
+  "hivex_node", [
+    "hivex_node_h", FInt64;
+  ];
+  "hivex_value", [
+    "hivex_value_h", FInt64;
+  ];
 ] (* end of structs *)
 
 (* For bindings which want camel case *)
@@ -284,6 +296,8 @@ let camel_structs = [
   "mdstat", "MDStat";
   "btrfssubvolume", "BTRFSSubvolume";
   "utsname", "UTSName";
+  "hivex_node", "HivexNode";
+  "hivex_value", "HivexValue";
 ]
 let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
 

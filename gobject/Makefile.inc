@@ -40,6 +40,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/struct-btrfssubvolume.h \
   include/guestfs-gobject/struct-xfsinfo.h \
   include/guestfs-gobject/struct-utsname.h \
+  include/guestfs-gobject/struct-hivex_node.h \
+  include/guestfs-gobject/struct-hivex_value.h \
   include/guestfs-gobject/optargs-internal_test.h \
   include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_domain.h \
@@ -74,7 +76,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-rsync.h \
   include/guestfs-gobject/optargs-rsync_in.h \
   include/guestfs-gobject/optargs-rsync_out.h \
-  include/guestfs-gobject/optargs-xfs_admin.h
+  include/guestfs-gobject/optargs-xfs_admin.h \
+  include/guestfs-gobject/optargs-hivex_open.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -96,6 +99,8 @@ guestfs_gobject_sources= \
   src/struct-btrfssubvolume.c \
   src/struct-xfsinfo.c \
   src/struct-utsname.c \
+  src/struct-hivex_node.c \
+  src/struct-hivex_value.c \
   src/optargs-internal_test.c \
   src/optargs-add_drive.c \
   src/optargs-add_domain.c \
@@ -130,4 +135,5 @@ guestfs_gobject_sources= \
   src/optargs-rsync.c \
   src/optargs-rsync_in.c \
   src/optargs-rsync_out.c \
-  src/optargs-xfs_admin.c
+  src/optargs-xfs_admin.c \
+  src/optargs-hivex_open.c

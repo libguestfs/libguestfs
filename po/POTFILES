@@ -41,6 +41,7 @@ daemon/grub.c
 daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
+daemon/hivex.c
 daemon/htonl.c
 daemon/initrd.c
 daemon/inotify.c
@@ -148,6 +149,7 @@ gobject/src/optargs-copy_file_to_file.c
 gobject/src/optargs-e2fsck.c
 gobject/src/optargs-fstrim.c
 gobject/src/optargs-grep.c
+gobject/src/optargs-hivex_open.c
 gobject/src/optargs-inspect_get_icon.c
 gobject/src/optargs-internal_test.c
 gobject/src/optargs-md_create.c
@@ -174,6 +176,8 @@ gobject/src/session.c
 gobject/src/struct-application.c
 gobject/src/struct-btrfssubvolume.c
 gobject/src/struct-dirent.c
+gobject/src/struct-hivex_node.c
+gobject/src/struct-hivex_value.c
 gobject/src/struct-inotify_event.c
 gobject/src/struct-int_bool.c
 gobject/src/struct-isoinfo.c

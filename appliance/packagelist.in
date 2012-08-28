@@ -30,6 +30,7 @@
   gfs2-utils
   grub
   hfsplus-tools
+  hivex
   iputils
   kernel
   MAKEDEV
@@ -57,6 +58,7 @@
   hfsplus
   iproute
   libaugeas0
+  libhivex0
   linux-image
   nilfs-tools
   ntfs-3g
@@ -76,6 +78,7 @@
   btrfs-progs-unstable
   cryptsetup
   augeas
+  hivex
   zfs-fuse
   e2fsprogs
   grub

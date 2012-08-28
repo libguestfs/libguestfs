@@ -723,12 +723,15 @@ length filenames, keep the files in a tarball.
 =head3 ACCESSING THE WINDOWS REGISTRY
 
 Libguestfs also provides some help for decoding Windows Registry
-"hive" files, through the library C<hivex> which is part of the
-libguestfs project although ships as a separate tarball.  You have to
-locate and download the hive file(s) yourself, and then pass them to
-C<hivex> functions.  See also the programs L<hivexml(1)>,
-L<hivexsh(1)>, L<hivexregedit(1)> and L<virt-win-reg(1)> for more help
-on this issue.
+"hive" files, through a separate C library called L<hivex(3)>.
+
+Before libguestfs 1.19.35 you had to download the hive file, operate
+on it locally using hivex, and upload it again.  Since this version,
+we have included the major hivex APIs directly in the libguestfs API
+(see L</guestfs_hivex_open>).  This means that if you have opened a
+Windows guest, you can read and write the registry directly.
+
+See also L<virt-win-reg(1)>.
 
 =head3 SYMLINKS ON NTFS-3G FILESYSTEMS
 
