@@ -144,7 +144,7 @@ libguestfs_la_SOURCES = \
 	libguestfs.syms
 
 libguestfs_la_LIBADD = \
-	$(HIVEX_LIBS) $(AUGEAS_LIBS) $(PCRE_LIBS) $(MAGIC_LIBS) \
+	$(HIVEX_LIBS) $(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	../gnulib/lib/libgnu.la \
 	$(GETADDRINFO_LIB) \
@@ -163,7 +163,7 @@ libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
 libguestfs_la_CFLAGS = \
   -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
   -DGUESTFS_WARN_DEPRECATED=1 \
-  $(HIVEX_CFLAGS) $(AUGEAS_CFLAGS) $(PCRE_CFLAGS) \
+  $(HIVEX_CFLAGS) $(PCRE_CFLAGS) \
   $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
   $(WARN_CFLAGS) $(WERROR_CFLAGS) \
   $(GCC_VISIBILITY_HIDDEN)
