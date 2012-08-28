@@ -261,8 +261,8 @@ die "$progname: $input: BUGS is now added automatically, do not add it to the PO
 die "$progname: $input: LICENSE is now added automatically, do not add it to the POD file\n"
     if $content =~ /^=head1 LICENSE/m;
 die "$progname: $input: GPL/LGPL should be specified using the --license parameter, not included in the POD file\n"
-    if $content =~ /This program is free software/ ||
-       $content =~ /This library is free software/;
+    if $content =~ /^This program is free software/ ||
+       $content =~ /^This library is free software/;
 
 # Add standard LICENSE and BUGS sections.
 my $LGPLv2plus =
