@@ -1302,16 +1302,21 @@ shutdown_libvirt (guestfs_h *g)
   virDomainPtr dom = g->virt.domv;
   int ret = 0;
 
-  assert (conn != NULL);
-  assert (dom != NULL);
+  /* Note that we can be called back very early in launch (specifically
+   * from launch_libvirt itself), when conn and dom might be NULL.
+   */
 
-  /* XXX Need to be graceful? */
-  if (virDomainDestroyFlags (dom, 0) == -1) {
-    libvirt_error (g, _("could not destroy libvirt domain"));
-    ret = -1;
+  if (dom != NULL) {
+    /* XXX Need to be graceful? */
+    if (virDomainDestroyFlags (dom, 0) == -1) {
+      libvirt_error (g, _("could not destroy libvirt domain"));
+      ret = -1;
+    }
+    virDomainFree (dom);
   }
-  virDomainFree (dom);
-  virConnectClose (conn);
+
+  if (conn != NULL)
+    virConnectClose (conn);
 
   g->virt.connv = g->virt.domv = NULL;
 
