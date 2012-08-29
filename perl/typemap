@@ -2,7 +2,7 @@ TYPEMAP
 char *		T_PV
 const char *	T_PV
 guestfs_h *	O_OBJECT_guestfs_h
-int64_t	  	T_IV
+int64_t	  	O_OBJECT_int64
 
 INPUT
 O_OBJECT_guestfs_h
@@ -17,6 +17,9 @@ O_OBJECT_guestfs_h
     } else {
         croak (\"${Package}::$func_name(): $var is not a blessed HV reference\");
     }
+
+O_OBJECT_int64
+    $var = my_SvIV64 ($arg);
 
 OUTPUT
 O_OBJECT_guestfs_h
