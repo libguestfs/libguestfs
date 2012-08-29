@@ -75,6 +75,28 @@ my_newSVull(unsigned long long val) {
 #endif
 }
 
+/* Convert a 64 bit int on input.  To cope with the case of having
+ * a 32 bit Perl interpreter, we allow the user to pass a string
+ * here which is scanned as a 64 bit integer.
+ */
+static int64_t
+my_SvIV64 (SV *sv)
+{
+#ifdef USE_64_BIT_ALL
+  return SvIV (sv);
+#else
+  if (SvTYPE (sv) == SVt_PV) {
+    const char *str = SvPV_nolen (sv);
+    int64_t r;
+
+    sscanf (str, \"%%\" SCNi64, &r);
+    return r;
+  }
+  else
+    return SvIV (sv);
+#endif
+}
+
 /* http://www.perlmonks.org/?node_id=680842 */
 static char **
 XS_unpack_charPtrPtr (SV *arg) {
@@ -420,8 +442,8 @@ user_cancel (g)
             pr "          optargs_s.%s = " n;
             (match argt with
              | OBool _
-             | OInt _
-             | OInt64 _ -> pr "SvIV (ST (items_i+1))"
+             | OInt _ -> pr "SvIV (ST (items_i+1))"
+             | OInt64 _ -> pr "my_SvIV64 (ST (items_i+1))"
              | OString _ -> pr "SvPV_nolen (ST (items_i+1))"
             );
             pr ";\n";
