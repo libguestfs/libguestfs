@@ -27,6 +27,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <iconv.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
@@ -586,4 +587,88 @@ guestfs___case_sensitive_path_silently (guestfs_h *g, const char *path)
   char *ret = guestfs_case_sensitive_path (g, path);
   g->error_cb = old_error_cb;
   return ret;
+}
+
+/* Read the data from 'valueh', assume it is UTF16LE and convert it to
+ * UTF8.  This is copied from hivex_value_string which doesn't work in
+ * the appliance because it uses iconv_open which doesn't work because
+ * we delete all the i18n databases.
+ */
+static char *utf16_to_utf8 (/* const */ char *input, size_t len);
+
+char *
+guestfs__hivex_value_utf8 (guestfs_h *g, int64_t valueh)
+{
+  char *buf, *ret;
+  size_t buflen;
+
+  buf = guestfs_hivex_value_value (g, valueh, &buflen);
+  if (buf == NULL)
+    return NULL;
+
+  ret = utf16_to_utf8 (buf, buflen);
+  if (ret == NULL) {
+    perrorf (g, "hivex: conversion of registry value to UTF8 failed");
+    free (buf);
+    return NULL;
+  }
+  free (buf);
+
+  return ret;
+}
+
+static char *
+utf16_to_utf8 (/* const */ char *input, size_t len)
+{
+  iconv_t ic = iconv_open ("UTF-8", "UTF-16");
+  if (ic == (iconv_t) -1)
+    return NULL;
+
+  /* iconv(3) has an insane interface ... */
+
+  /* Mostly UTF-8 will be smaller, so this is a good initial guess. */
+  size_t outalloc = len;
+
+ again:;
+  size_t inlen = len;
+  size_t outlen = outalloc;
+  char *out = malloc (outlen + 1);
+  if (out == NULL) {
+    int err = errno;
+    iconv_close (ic);
+    errno = err;
+    return NULL;
+  }
+  char *inp = input;
+  char *outp = out;
+
+  size_t r = iconv (ic, &inp, &inlen, &outp, &outlen);
+  if (r == (size_t) -1) {
+    if (errno == E2BIG) {
+      int err = errno;
+      size_t prev = outalloc;
+      /* Try again with a larger output buffer. */
+      free (out);
+      outalloc *= 2;
+      if (outalloc < prev) {
+        iconv_close (ic);
+        errno = err;
+        return NULL;
+      }
+      goto again;
+    }
+    else {
+      /* Else some conversion failure, eg. EILSEQ, EINVAL. */
+      int err = errno;
+      iconv_close (ic);
+      free (out);
+      errno = err;
+      return NULL;
+    }
+  }
+
+  *outp = '\0';
+  iconv_close (ic);
+
+  return out;
 }
