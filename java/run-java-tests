@@ -20,5 +20,5 @@ set -e
 
 for f in $(ls -1 t/*.class | fgrep -v \$); do
   classname=$(basename $f .class)
-  $JAVA -Djava.library.path=.libs -ea $classname
+  $JAVA_EXE -Djava.library.path=.libs -ea $classname
 done
