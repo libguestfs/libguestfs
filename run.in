@@ -115,19 +115,24 @@ if [ -z "$test_mode" ]; then
 else
     # For tests (./run --test), redirect all output to a file, and
     # only print the file if the test fails.
-    fail=0
     pid=$$
     rm -f $b/run.$pid
-    $libtool "$@" > $b/run.$pid 2>&1 || {
-      fail=$?
-      if [ "$fail" -eq 77 ]; then
-          cat $b/run.$pid
-      else
-          echo "$b/run --test" "$@"
-          cat $b/run.$pid
-          echo "$b/run: command failed with exit code $fail"
-      fi
-    }
+    start_t="$(date +'%s')"
+    $libtool "$@" > $b/run.$pid 2>&1
+    fail=$?
+    end_t="$(date +'%s')"
+    if [ "$fail" -eq 0 ]; then
+        # Test successful.
+        echo $(($end_t - $start_t)) seconds: "$@"
+    elif [ "$fail" -eq 77 ]; then
+        # Tests return 77 to mean skipped.
+        cat $b/run.$pid
+    else
+        # Test failed.
+        echo "$b/run --test" "$@"
+        cat $b/run.$pid
+        echo "$b/run: command failed with exit code $fail"
+    fi
     rm -f $b/run.$pid
     exit $fail
 fi
