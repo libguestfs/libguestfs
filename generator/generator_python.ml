@@ -384,7 +384,7 @@ free_strings (char **argv)
               pr "    optargs_s.%s = PyInt_AsLong (py_%s);\n" n n;
               pr "    if (PyErr_Occurred ()) return NULL;\n"
             | OInt64 _ ->
-              pr "    optargs_s.%s = PyLong_AsLong (py_%s);\n" n n;
+              pr "    optargs_s.%s = PyLong_AsLongLong (py_%s);\n" n n;
               pr "    if (PyErr_Occurred ()) return NULL;\n"
             | OString _ ->
               pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
