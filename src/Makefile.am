@@ -177,7 +177,7 @@ libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 if HAVE_FUSE
 # XXX Unfortunately FUSE_CFLAGS defines _FILE_OFFSET_BITS=64.
 libguestfs_la_CFLAGS += $(FUSE_CFLAGS)
-libguestfs_la_LIBADD += $(FUSE_LIBS) -lulockmgr
+libguestfs_la_LIBADD += $(FUSE_LIBS)
 endif
 
 if HAVE_RPCGEN

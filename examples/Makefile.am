@@ -86,7 +86,7 @@ mount_local_CFLAGS = \
 	$(FUSE_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 mount_local_LDADD = \
-	$(FUSE_LIBS) -lulockmgr \
+	$(FUSE_LIBS) \
 	$(top_builddir)/src/libguestfs.la
 endif
 

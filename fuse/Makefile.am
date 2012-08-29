@@ -51,7 +51,7 @@ guestmount_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestmount_LDADD = \
-	$(FUSE_LIBS) -lulockmgr \
+	$(FUSE_LIBS) \
 	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
