@@ -1063,7 +1063,7 @@ if test "x$with_java" != "xno"; then
 '
         case $JAVA in
           *[\\\"\#\$\&\'\`$jh_lf\ \	]*)
-            AC_MSG_FAILURE([unsafe \$JAVA_HOME directory (use --without-java to disable Java support)]);;
+            AC_MSG_FAILURE([unsafe \$JAVA directory (use --without-java to disable Java support)]);;
         esac
         if test -d "$with_java"; then
             JAVA="$with_java"
@@ -1113,7 +1113,7 @@ if test "x$with_java" != "xno"; then
             JAR="$JAVA/bin/jar"
         fi
         java_version=`$JAVA_EXE -version 2>&1 | grep "java version"`
-        AC_MSG_RESULT(found $java_version in $JAVA_HOME)
+        AC_MSG_RESULT(found $java_version in $JAVA)
 
         dnl Find jni.h.
         AC_MSG_CHECKING([for jni.h])

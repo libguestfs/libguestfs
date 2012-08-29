@@ -111,7 +111,7 @@ TESTS += run-java-tests
 endif ENABLE_APPLIANCE
 
 TESTS_ENVIRONMENT = \
-	JAVA=$(JAVA) \
+	JAVA_EXE=$(JAVA_EXE) \
 	CLASSPATH=.:t:libguestfs-$(VERSION).jar \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	TMPDIR=$(top_builddir)
