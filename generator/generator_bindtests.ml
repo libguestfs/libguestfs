@@ -307,7 +307,7 @@ my $g = Sys::Guestfs->new ();
         | CallStringList xs ->
             "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
         | CallInt i -> string_of_int i
-        | CallInt64 i -> Int64.to_string i
+        | CallInt64 i -> "\"" ^ Int64.to_string i ^ "\""
         | CallBool b -> if b then "1" else "0"
         | CallBuffer s -> "\"" ^ c_quote s ^ "\""
       ) args
@@ -316,7 +316,7 @@ my $g = Sys::Guestfs->new ();
         function
         | CallOBool (n, v)    -> "'" ^ n ^ "' => " ^ if v then "1" else "0"
         | CallOInt (n, v)     -> "'" ^ n ^ "' => " ^ string_of_int v
-        | CallOInt64 (n, v)   -> "'" ^ n ^ "' => " ^ Int64.to_string v
+        | CallOInt64 (n, v)   -> "'" ^ n ^ "' => \"" ^ Int64.to_string v ^ "\""
         | CallOString (n, v)  -> "'" ^ n ^ "' => '" ^ v ^ "'"
       ) optargs
     )
