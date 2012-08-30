@@ -193,6 +193,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
       char *p = safe_asprintf (g, "%s/libguestfs", xdg);
       if (mkdir (p, 0755) == 0)
         sockdir = p;
+      else
+        free (p);
     }
   }
 
