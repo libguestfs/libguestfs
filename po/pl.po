@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-10 13:20+0100\n"
+"POT-Creation-Date: 2012-08-30 23:39+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/language/"
@@ -2438,7 +2438,7 @@ msgstr "%s: nieznane polecenie\n"
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr "%s: %s: wiersz %d: błąd podczas przetwarzania pliku konfiguracji: %s\n"
 
-#: fish/copy.c:47
+#: fish/copy.c:48
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
@@ -2446,18 +2446,18 @@ msgstr ""
 "należy użyć \"copy-in <lokalny> [<lokalny>...] <zdalny_katalog>\", aby "
 "skopiować pliki do obrazu\n"
 
-#: fish/copy.c:68
+#: fish/copy.c:69
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
 
-#: fish/copy.c:165
+#: fish/copy.c:166
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
 "błąd: parametr jest zerowej długości lub dłuższy niż dozwolone maksimum\n"
 
-#: fish/copy.c:210
+#: fish/copy.c:211
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2466,12 +2466,12 @@ msgstr ""
 "należy użyć \"copy-out <zdalny> [<zdalny>...] <lokalny_katalog>\", aby "
 "skopiować pliki z obrazu\n"
 
-#: fish/copy.c:221
+#: fish/copy.c:222
 #, c-format
 msgid "copy-out: target '%s' is not a directory\n"
 msgstr "copy-out: element docelowy \"%s\" nie jest katalogiem\n"
 
-#: fish/copy.c:266
+#: fish/copy.c:267
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "copy-out: \"%s\" nie jest plikiem lub katalogiem\n"
@@ -2949,6 +2949,72 @@ msgstr ""
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
 
+#: fish/prep-boot.c:35 fish/prep-boot.c:90 fish/prep-disk.c:35
+#: fish/prep-fs.c:35 fish/prep-lv.c:70 fish/prep-lv.c:117 fish/prep-part.c:35
+msgid "failed to allocate disk"
+msgstr "przydzielenie dysku się nie powiodło"
+
+#: fish/prep-boot.c:43 fish/prep-boot.c:98
+msgid "could not parse boot size"
+msgstr "nie można przetworzyć rozmiaru partycji startowej"
+
+#: fish/prep-boot.c:47 fish/prep-boot.c:102
+#, c-format
+msgid "failed to get sector size of disk: %s"
+msgstr "uzyskanie rozmiaru sektora dysku się nie powiodło: %s"
+
+#: fish/prep-boot.c:51 fish/prep-boot.c:106 fish/prep-fs.c:42
+#: fish/prep-lv.c:77 fish/prep-lv.c:124 fish/prep-part.c:42
+#, c-format
+msgid "failed to partition disk: %s"
+msgstr "partycjonowanie dysku się nie powiodło: %s"
+
+#: fish/prep-boot.c:56 fish/prep-boot.c:111
+#, c-format
+msgid "failed to add boot partition: %s"
+msgstr "dodanie partycji startowej się nie powiodło: %s"
+
+#: fish/prep-boot.c:60 fish/prep-boot.c:115
+#, c-format
+msgid "failed to add root partition: %s"
+msgstr "dodanie partycji głównej się nie powiodło: %s"
+
+#: fish/prep-boot.c:69 fish/prep-boot.c:129
+#, c-format
+msgid "failed to create boot filesystem: %s"
+msgstr "utworzenie startowego systemu plików się nie powiodło: %s"
+
+#: fish/prep-boot.c:78 fish/prep-boot.c:152
+#, c-format
+msgid "failed to create root filesystem: %s"
+msgstr "utworzenie głównego systemu plików się nie powiodło: %s"
+
+#: fish/prep-boot.c:87 fish/prep-boot.c:121 fish/prep-lv.c:67
+#: fish/prep-lv.c:83 fish/prep-lv.c:114 fish/prep-lv.c:130
+msgid "incorrect format for LV name, use '/dev/VG/LV'"
+msgstr ""
+"niepoprawny format dla nazwy woluminu logicznego, należy użyć \"/dev/VG/LV\""
+
+#: fish/prep-boot.c:138 fish/prep-lv.c:92 fish/prep-lv.c:139
+#, c-format
+msgid "failed to create PV: %s: %s"
+msgstr "utworzenie woluminu fizycznego się nie powiodło: %s: %s"
+
+#: fish/prep-boot.c:143 fish/prep-lv.c:97 fish/prep-lv.c:144
+#, c-format
+msgid "failed to create VG: %s: %s"
+msgstr "utworzenie grupy woluminów nsię nie powiodło: %s: %s"
+
+#: fish/prep-boot.c:148 fish/prep-lv.c:102 fish/prep-lv.c:149
+#, c-format
+msgid "failed to create LV: /dev/%s/%s: %s"
+msgstr "utworzenie woluminu logicznego się nie powiodło: /dev/%s/%s: %s"
+
+#: fish/prep-fs.c:52 fish/prep-lv.c:154
+#, c-format
+msgid "failed to create filesystem (%s): %s"
+msgstr "utworzenie systemu plików (%s) się nie powiodło: %s"
+
 #: fish/prep.c:38
 #, c-format
 msgid ""
@@ -3006,72 +3072,6 @@ msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 "guestfish: błąd podczas tworzenia przygotowanego obrazu dysku \"%s\" na \"%s"
 "\": "
-
-#: fish/prep_boot.c:35 fish/prep_boot.c:90 fish/prep_disk.c:35
-#: fish/prep_fs.c:35 fish/prep_lv.c:70 fish/prep_lv.c:117 fish/prep_part.c:35
-msgid "failed to allocate disk"
-msgstr "przydzielenie dysku się nie powiodło"
-
-#: fish/prep_boot.c:43 fish/prep_boot.c:98
-msgid "could not parse boot size"
-msgstr "nie można przetworzyć rozmiaru partycji startowej"
-
-#: fish/prep_boot.c:47 fish/prep_boot.c:102
-#, c-format
-msgid "failed to get sector size of disk: %s"
-msgstr "uzyskanie rozmiaru sektora dysku się nie powiodło: %s"
-
-#: fish/prep_boot.c:51 fish/prep_boot.c:106 fish/prep_fs.c:42
-#: fish/prep_lv.c:77 fish/prep_lv.c:124 fish/prep_part.c:42
-#, c-format
-msgid "failed to partition disk: %s"
-msgstr "partycjonowanie dysku się nie powiodło: %s"
-
-#: fish/prep_boot.c:56 fish/prep_boot.c:111
-#, c-format
-msgid "failed to add boot partition: %s"
-msgstr "dodanie partycji startowej się nie powiodło: %s"
-
-#: fish/prep_boot.c:60 fish/prep_boot.c:115
-#, c-format
-msgid "failed to add root partition: %s"
-msgstr "dodanie partycji głównej się nie powiodło: %s"
-
-#: fish/prep_boot.c:69 fish/prep_boot.c:129
-#, c-format
-msgid "failed to create boot filesystem: %s"
-msgstr "utworzenie startowego systemu plików się nie powiodło: %s"
-
-#: fish/prep_boot.c:78 fish/prep_boot.c:152
-#, c-format
-msgid "failed to create root filesystem: %s"
-msgstr "utworzenie głównego systemu plików się nie powiodło: %s"
-
-#: fish/prep_boot.c:87 fish/prep_boot.c:121 fish/prep_lv.c:67
-#: fish/prep_lv.c:83 fish/prep_lv.c:114 fish/prep_lv.c:130
-msgid "incorrect format for LV name, use '/dev/VG/LV'"
-msgstr ""
-"niepoprawny format dla nazwy woluminu logicznego, należy użyć \"/dev/VG/LV\""
-
-#: fish/prep_boot.c:138 fish/prep_lv.c:92 fish/prep_lv.c:139
-#, c-format
-msgid "failed to create PV: %s: %s"
-msgstr "utworzenie woluminu fizycznego się nie powiodło: %s: %s"
-
-#: fish/prep_boot.c:143 fish/prep_lv.c:97 fish/prep_lv.c:144
-#, c-format
-msgid "failed to create VG: %s: %s"
-msgstr "utworzenie grupy woluminów nsię nie powiodło: %s: %s"
-
-#: fish/prep_boot.c:148 fish/prep_lv.c:102 fish/prep_lv.c:149
-#, c-format
-msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr "utworzenie woluminu logicznego się nie powiodło: /dev/%s/%s: %s"
-
-#: fish/prep_fs.c:52 fish/prep_lv.c:154
-#, c-format
-msgid "failed to create filesystem (%s): %s"
-msgstr "utworzenie systemu plików (%s) się nie powiodło: %s"
 
 #: fish/rc.c:260
 #, c-format
@@ -3237,7 +3237,7 @@ msgid ""
 "%s lets you mount a virtual machine filesystem\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"  %s [--options] mountpoint\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
@@ -3700,20 +3700,20 @@ msgstr ""
 "zewnętrzne polecenie się nie powiodło, proszę zobaczyć wcześniejsze "
 "komunikaty błędów"
 
-#: src/dbdump.c:85
+#: src/dbdump.c:88
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr "nieoczekiwany koniec wyjścia polecenia db_dump przed końcem nagłówka"
 
-#: src/dbdump.c:98 src/dbdump.c:110
+#: src/dbdump.c:101 src/dbdump.c:113
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 "nieoczekiwany wiersz polecenia db_dump, brak przedrostka w formie spacji"
 
-#: src/dbdump.c:127
+#: src/dbdump.c:130
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr "nieoczekiwany koniec wyjścia polecenia db_dump przed końcem danych"
 
-#: src/dbdump.c:209
+#: src/dbdump.c:212
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr "nieoczekiwane nieszesnastkowe cyfry w wyjściu polecenia db_dump "
 
@@ -3780,37 +3780,27 @@ msgstr "nie można zainicjować tablic sum mieszania katalogu pamięci podręczn
 msgid "FUSE not supported"
 msgstr "FUSE nie jest obsługiwane"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:213
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n"
 
-#: src/guestfs.c:361
+#: src/guestfs.c:398
 #, c-format
 msgid "warning: %s"
 msgstr "ostrzeżenie: %s"
 
-#: src/guestfs.c:422
+#: src/guestfs.c:459
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: błąd: %s\n"
 
-#: src/guestfs.c:1003
+#: src/guestfs.c:1038
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
 
-#: src/inspect.c:297
-msgid "not a Windows guest, or systemroot could not be determined"
-msgstr "nie jest gościem systemu Windows lub nie można określić systemroot"
-
-#: src/inspect.c:313
-msgid "not a Windows guest, or CurrentControlSet could not be determined"
-msgstr ""
-"nie jest gościem systemu Windows lub nie można określić wartości "
-"CurrentControlSet"
-
-#: src/inspect.c:545 src/inspect_apps.c:612
+#: src/inspect-apps.c:615 src/inspect.c:548
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -3818,18 +3808,52 @@ msgstr ""
 "API badania jest niedostępne, ponieważ ta wersja biblioteki libguestfs "
 "została skompilowana bez biblioteki hivex"
 
-#: src/inspect.c:760 src/inspect_fs.c:530 src/inspect_fs.c:574
-#: src/inspect_fs_unix.c:236 src/inspect_fs_unix.c:763
-#: src/inspect_fs_unix.c:1447
+#: src/inspect-fs-unix.c:194
+#, c-format
+msgid "release file %s is empty or malformed"
+msgstr ""
+
+#: src/inspect-fs-unix.c:239 src/inspect-fs-unix.c:766
+#: src/inspect-fs-unix.c:1450 src/inspect-fs.c:533 src/inspect-fs.c:577
+#: src/inspect.c:765
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
 
-#: src/inspect.c:796
+#: src/inspect-fs-unix.c:809
+msgid "could not parse /etc/fstab or empty file"
+msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
+
+#: src/inspect-fs-windows.c:167
+#, c-format
+msgid "cannot resolve Windows %%SYSTEMROOT%%"
+msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
+
+#: src/inspect-fs.c:366 src/inspect-fs.c:379
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "nie można przetworzyć liczby całkowitej w numerze wersji: %s"
+
+#: src/inspect-icon.c:581
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "odczyt: %s: nieoczekiwany koniec pliku"
+
+#: src/inspect.c:300
+msgid "not a Windows guest, or systemroot could not be determined"
+msgstr "nie jest gościem systemu Windows lub nie można określić systemroot"
+
+#: src/inspect.c:316
+msgid "not a Windows guest, or CurrentControlSet could not be determined"
+msgstr ""
+"nie jest gościem systemu Windows lub nie można określić wartości "
+"CurrentControlSet"
+
+#: src/inspect.c:801
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "brak danych badania: najpierw należy wywołać guestfs_inspect_os"
 
-#: src/inspect.c:808
+#: src/inspect.c:813
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3837,30 +3861,6 @@ msgid ""
 msgstr ""
 "%s: nie odnaleziono urządzenia root: należy wywoływać tę funkcję tylko z "
 "urządzeniem root poprzednio zwróconym przez guestfs_inspect_os"
-
-#: src/inspect_fs.c:363 src/inspect_fs.c:376
-#, c-format
-msgid "could not parse integer in version number: %s"
-msgstr "nie można przetworzyć liczby całkowitej w numerze wersji: %s"
-
-#: src/inspect_fs_unix.c:191
-#, c-format
-msgid "release file %s is empty or malformed"
-msgstr ""
-
-#: src/inspect_fs_unix.c:806
-msgid "could not parse /etc/fstab or empty file"
-msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
-
-#: src/inspect_fs_windows.c:164
-#, c-format
-msgid "cannot resolve Windows %%SYSTEMROOT%%"
-msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
-
-#: src/inspect_icon.c:581
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr "odczyt: %s: nieoczekiwany koniec pliku"
 
 #: src/launch.c:136 src/launch.c:156
 msgid "command line cannot be altered after qemu subprocess launched"
@@ -3886,51 +3886,51 @@ msgstr "guestfs_config: parametr musi zaczynać się od znaku \"-\""
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parametr \"%s\" nie jest dozwolony"
 
-#: src/launch.c:360 src/launch.c:472
+#: src/launch.c:381 src/launch.c:476
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/launch.c:375 src/launch.c:380
+#: src/launch.c:396 src/launch.c:401
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "parametr %s jest pusty lub zawiera niedozwolone znaki"
 
-#: src/launch.c:494
+#: src/launch.c:498
 msgid "the libguestfs handle has already been launched"
 msgstr "program obsługi libguestfs został już uruchomiony"
 
-#: src/launch.c:505
-#, c-format
-msgid "%s: cannot create temporary directory"
-msgstr "%s: nie można utworzyć katalogu tymczasowego"
-
-#: src/launch.c:549
+#: src/launch.c:547
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch.c:1060 src/launch.c:1065
+#: src/launch.c:1058 src/launch.c:1063
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch się nie powiodło, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:1078
+#: src/launch.c:1076
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:1170
+#: src/launch.c:1168
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "guestfs_launch się nie powiodło, nieoczekiwany komunikat początkowy od "
 "demona guestfsd"
 
-#: src/launch.c:1178
+#: src/launch.c:1176
 msgid "contacted guestfsd, but state != READY"
 msgstr "skontaktowano się z guestfsd, ale stan != GOTOWY"
 
-#: src/launch.c:1377
+#: src/launch.c:1266
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: nie można utworzyć katalogu tymczasowego"
+
+#: src/launch.c:1393
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3940,9 +3940,97 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1530
+#: src/launch.c:1546
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
+
+#: src/libvirtdomain.c:97 src/libvirtdomain.c:390
+msgid "you cannot set both live and readonly flags"
+msgstr "nie można ustawić jednocześnie flag live i readonly"
+
+#: src/libvirtdomain.c:105
+#, c-format
+msgid "could not connect to libvirt (code %d, domain %d): %s"
+msgstr "nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
+
+#: src/libvirtdomain.c:126
+#, c-format
+msgid "no libvirt domain called '%s': %s"
+msgstr "brak domeny biblioteki libvirt o nazwie \"%s\": %s"
+
+#: src/libvirtdomain.c:186 src/libvirtdomain.c:513
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
+
+#: src/libvirtdomain.c:196 src/libvirtdomain.c:521
+msgid "unable to parse XML information returned by libvirt"
+msgstr ""
+"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
+
+#: src/libvirtdomain.c:202 src/libvirtdomain.c:527
+msgid "unable to create new XPath context"
+msgstr "nie można utworzyć nowego kontekstu XPath"
+
+#: src/libvirtdomain.c:209 src/libvirtdomain.c:542
+msgid "unable to evaluate XPath expression"
+msgstr "nie można sprawdzić wyrażenia XPath"
+
+#: src/libvirtdomain.c:318
+msgid "libvirt domain has no disks"
+msgstr "domena biblioteki libvirt nie posiada dysków"
+
+#: src/libvirtdomain.c:384
+msgid "unknown readonlydisk parameter"
+msgstr "nieznany parametr readonlydisk"
+
+#: src/libvirtdomain.c:401
+#, c-format
+msgid "error getting domain info: %s"
+msgstr "błąd podczas uzyskiwania informacji o domenie: %s"
+
+#: src/libvirtdomain.c:415
+msgid ""
+"error: domain is a live virtual machine.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access.  In most libguestfs tools these options are --ro or\n"
+"--live respectively.  Consult the documentation for further information."
+msgstr ""
+"błąd: domena jest maszyną wirtualną live.\n"
+"Zapisywanie na dyskach uruchomionej maszyny wirtualnej może spowodować\n"
+"uszkodzenie danych. Należy użyć dostępu tylko do odczytu lub jeśli gość\n"
+"posiada uruchomionego demona guestfsd, należy podać dostęp live. W\n"
+"większości narzędzi biblioteki libguestfs te opcje to odpowiednio --ro lub\n"
+"--live. Proszę skonsultować się z dokumentacją, aby dowiedzieć się więcej."
+
+#: src/libvirtdomain.c:480
+#, c-format
+msgid ""
+"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
+"\"error\""
+msgstr ""
+"%s: dysk jest oznaczony jako <readonly/> w pliku XML biblioteki libvirt, a "
+"parametr readonlydisk został ustawiony na \"error\""
+
+#: src/libvirtdomain.c:570
+msgid ""
+"this guest has no libvirt <channel> definition for guestfsd\n"
+"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
+msgstr ""
+"ten gość nie posiada określenia <channel> biblioteki libvirt dla demona "
+"guestfsd\n"
+"Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby "
+"dowiedzieć się więcej."
+
+#: src/libvirtdomain.c:593
+msgid ""
+"add-domain API not available since this version of libguestfs was compiled "
+"without libvirt or libxml2"
+msgstr ""
+"API dodawania domen jest niedostępne, ponieważ ta wersja biblioteki "
+"libguestfs została skompilowana bez bibliotek libvirt lub libxml2"
 
 #: src/proto.c:379
 #, c-format
@@ -4020,94 +4108,6 @@ msgstr "przetworzenie fragmentu pliku się nie powiodło"
 #: src/proto.c:1193
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
-
-#: src/virt.c:108 src/virt.c:401
-msgid "you cannot set both live and readonly flags"
-msgstr "nie można ustawić jednocześnie flag live i readonly"
-
-#: src/virt.c:116
-#, c-format
-msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr "nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
-
-#: src/virt.c:137
-#, c-format
-msgid "no libvirt domain called '%s': %s"
-msgstr "brak domeny biblioteki libvirt o nazwie \"%s\": %s"
-
-#: src/virt.c:197 src/virt.c:524
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
-
-#: src/virt.c:207 src/virt.c:532
-msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
-
-#: src/virt.c:213 src/virt.c:538
-msgid "unable to create new XPath context"
-msgstr "nie można utworzyć nowego kontekstu XPath"
-
-#: src/virt.c:220 src/virt.c:553
-msgid "unable to evaluate XPath expression"
-msgstr "nie można sprawdzić wyrażenia XPath"
-
-#: src/virt.c:329
-msgid "libvirt domain has no disks"
-msgstr "domena biblioteki libvirt nie posiada dysków"
-
-#: src/virt.c:395
-msgid "unknown readonlydisk parameter"
-msgstr "nieznany parametr readonlydisk"
-
-#: src/virt.c:412
-#, c-format
-msgid "error getting domain info: %s"
-msgstr "błąd podczas uzyskiwania informacji o domenie: %s"
-
-#: src/virt.c:426
-msgid ""
-"error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
-"Either use read-only access, or if the guest is running the guestfsd daemon\n"
-"specify live access.  In most libguestfs tools these options are --ro or\n"
-"--live respectively.  Consult the documentation for further information."
-msgstr ""
-"błąd: domena jest maszyną wirtualną live.\n"
-"Zapisywanie na dyskach uruchomionej maszyny wirtualnej może spowodować\n"
-"uszkodzenie danych. Należy użyć dostępu tylko do odczytu lub jeśli gość\n"
-"posiada uruchomionego demona guestfsd, należy podać dostęp live. W\n"
-"większości narzędzi biblioteki libguestfs te opcje to odpowiednio --ro lub\n"
-"--live. Proszę skonsultować się z dokumentacją, aby dowiedzieć się więcej."
-
-#: src/virt.c:491
-#, c-format
-msgid ""
-"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
-"\"error\""
-msgstr ""
-"%s: dysk jest oznaczony jako <readonly/> w pliku XML biblioteki libvirt, a "
-"parametr readonlydisk został ustawiony na \"error\""
-
-#: src/virt.c:581
-msgid ""
-"this guest has no libvirt <channel> definition for guestfsd\n"
-"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr ""
-"ten gość nie posiada określenia <channel> biblioteki libvirt dla demona "
-"guestfsd\n"
-"Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby "
-"dowiedzieć się więcej."
-
-#: src/virt.c:606
-msgid ""
-"add-domain API not available since this version of libguestfs was compiled "
-"without libvirt or libxml2"
-msgstr ""
-"API dodawania domen jest niedostępne, ponieważ ta wersja biblioteki "
-"libguestfs została skompilowana bez bibliotek libvirt lub libxml2"
 
 #: test-tool/test-tool.c:67
 #, c-format
@@ -4216,33 +4216,33 @@ msgstr "virt-list-filesystems: nie podano obrazu lub nazwy maszyny wirtualnej"
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: nie podano obrazu lub nazwy maszyny wirtualnej"
 
-#: tools/virt-make-fs.pl:295
+#: tools/virt-make-fs.pl:291
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs wejście wyjście\n"
 
-#: tools/virt-make-fs.pl:325
+#: tools/virt-make-fs.pl:321
 msgid "unexpected output from 'du' command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
-#: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
+#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
 #: tools/virt-make-fs.pl:510
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: nieznany format wyjścia: {fmt}\n"
 
-#: tools/virt-make-fs.pl:402
+#: tools/virt-make-fs.pl:398
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: nie można przetworzyć parametru rozmiaru: {sz}\n"
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:413
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: utworzenie obrazu dysku się nie powiodło, proszę zobaczyć "
 "wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:428
+#: tools/virt-make-fs.pl:424
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: obsługa systemu plików NTFS została wyłączona podczas "
@@ -4593,7 +4593,7 @@ msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:252
+#: ../sparsify/sparsify.ml:254
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -4603,7 +4603,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:337
+#: ../sparsify/sparsify.ml:339
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -4683,7 +4683,7 @@ msgstr ""
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:189
+#: ../sparsify/sparsify.ml:191
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -4729,13 +4729,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:236
+#: ../sparsify/sparsify.ml:238
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:287
+#: ../sparsify/sparsify.ml:289
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -5025,7 +5025,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:358
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -5135,7 +5135,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:226
+#: ../sparsify/sparsify.ml:228
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -5161,16 +5161,16 @@ msgstr ""
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:321
+#: ../sparsify/sparsify.ml:323
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:323
+#: ../sparsify/sparsify.ml:325
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#. ../sparsify/sparsify.ml:183
-#: ../sparsify/sparsify.ml:350 ../sparsify/sparsify.ml:319
+#. ../sparsify/sparsify.ml:185
+#: ../sparsify/sparsify.ml:352 ../sparsify/sparsify.ml:321
 msgid "external command failed: %s"
 msgstr ""
 
@@ -5247,7 +5247,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:261
+#: ../sparsify/sparsify.ml:263
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -5265,6 +5265,29 @@ msgstr ""
 
 #: ../resize/resize.ml:83
 msgid "sectors"
+msgstr ""
+
+#: ../sysprep/main.ml:245
+msgid "sysprep operation failed: %s\n"
+msgstr ""
+
+#: ../sysprep/main.ml:257
+msgid "sysprep operation failed: exception: %s\n"
+msgstr ""
+
+#: ../sysprep/main.ml:254
+msgid ""
+"sysprep operation failed: internal error: Not_found exception was thrown\n"
+msgstr ""
+
+#: ../sysprep/main.ml:251
+msgid ""
+"sysprep operation failed: internal error: assertion failed at %s, line %d, "
+"char %d\n"
+msgstr ""
+
+#: ../sysprep/main.ml:248
+msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
 #: ../resize/resize.ml:374

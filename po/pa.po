@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-10 13:20+0100\n"
+"POT-Creation-Date: 2012-08-30 23:39+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -2361,24 +2361,24 @@ msgstr "%s: ਅਣਜਾਣ ਕਮਾਂਡ\n"
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr ""
 
-#: fish/copy.c:47
+#: fish/copy.c:48
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 "ਫਾਇਲਾਂ ਨੂੰ ਈਮੇਜ਼ ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-in <local> [<local>...] <remotedir>' ਵਰਤੋ\n"
 
-#: fish/copy.c:68
+#: fish/copy.c:69
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: ਟਾਰਗਿਟ '%s' ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਹੈ\n"
 
-#: fish/copy.c:165
+#: fish/copy.c:166
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr "ਗਲਤੀ: ਆਰਗੂਮੈਂਟ ਦੀ ਜ਼ੀਰੋ ਲੰਬਾਈ ਹੈ ਜਾਂ ਅਧਿਕਤਮ ਮਨਜੂਰ ਤੋਂ ਜਿਆਦਾ ਹੈ\n"
 
-#: fish/copy.c:210
+#: fish/copy.c:211
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2386,12 +2386,12 @@ msgid ""
 msgstr ""
 "ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲਾਂ ਕਾਪੀ ਕਰਨ ਲਈ 'copy-out <remote> [<remote>...] <localdir>' ਵਰਤੋ\n"
 
-#: fish/copy.c:221
+#: fish/copy.c:222
 #, c-format
 msgid "copy-out: target '%s' is not a directory\n"
 msgstr "ਕਾਪੀ-ਆਊਟ: ਟਾਰਗਿਟ '%s' ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਹੈ\n"
 
-#: fish/copy.c:266
+#: fish/copy.c:267
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "copy-out: '%s' ਇੱਕ ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਹੈ\n"
@@ -2814,6 +2814,71 @@ msgstr ""
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
 
+#: fish/prep-boot.c:35 fish/prep-boot.c:90 fish/prep-disk.c:35
+#: fish/prep-fs.c:35 fish/prep-lv.c:70 fish/prep-lv.c:117 fish/prep-part.c:35
+msgid "failed to allocate disk"
+msgstr "ਡਿਸਕ ਨਿਰਧਾਰਤ ਕਰਨ ਤੋਂ ਫੇਲ ਹੋਇਆ"
+
+#: fish/prep-boot.c:43 fish/prep-boot.c:98
+msgid "could not parse boot size"
+msgstr "ਬੂਟ ਅਕਾਰ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ"
+
+#: fish/prep-boot.c:47 fish/prep-boot.c:102
+#, c-format
+msgid "failed to get sector size of disk: %s"
+msgstr "ਡਿਸਕ ਦਾ ਸੈਕਟਰ ਅਕਾਰ ਲੈਣ ਤੋਂ ਫੇਲ: %s"
+
+#: fish/prep-boot.c:51 fish/prep-boot.c:106 fish/prep-fs.c:42
+#: fish/prep-lv.c:77 fish/prep-lv.c:124 fish/prep-part.c:42
+#, c-format
+msgid "failed to partition disk: %s"
+msgstr "ਡਿਸਕ ਦੇ ਭਾਗ ਕਰਨ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
+
+#: fish/prep-boot.c:56 fish/prep-boot.c:111
+#, c-format
+msgid "failed to add boot partition: %s"
+msgstr "ਬੂਟ ਭਾਗ ਜੋੜਨ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
+
+#: fish/prep-boot.c:60 fish/prep-boot.c:115
+#, c-format
+msgid "failed to add root partition: %s"
+msgstr "ਰੂਟ ਭਾਗ ਜੋੜਨ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
+
+#: fish/prep-boot.c:69 fish/prep-boot.c:129
+#, c-format
+msgid "failed to create boot filesystem: %s"
+msgstr "ਬੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਉਣ ਤੋਂ ਫੇਲ: %s"
+
+#: fish/prep-boot.c:78 fish/prep-boot.c:152
+#, c-format
+msgid "failed to create root filesystem: %s"
+msgstr "ਰੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਉਣ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
+
+#: fish/prep-boot.c:87 fish/prep-boot.c:121 fish/prep-lv.c:67
+#: fish/prep-lv.c:83 fish/prep-lv.c:114 fish/prep-lv.c:130
+msgid "incorrect format for LV name, use '/dev/VG/LV'"
+msgstr "LV ਨਾਂ ਲਈ ਗਲਤ ਫਾਰਮੈਟ, '/dev/VG/LV' ਵਰਤੋ"
+
+#: fish/prep-boot.c:138 fish/prep-lv.c:92 fish/prep-lv.c:139
+#, c-format
+msgid "failed to create PV: %s: %s"
+msgstr "PV ਬਣਾਉਣ ਤੋਂ ਫੇਲ: %s: %s"
+
+#: fish/prep-boot.c:143 fish/prep-lv.c:97 fish/prep-lv.c:144
+#, c-format
+msgid "failed to create VG: %s: %s"
+msgstr "VG ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ: %s: %s"
+
+#: fish/prep-boot.c:148 fish/prep-lv.c:102 fish/prep-lv.c:149
+#, c-format
+msgid "failed to create LV: /dev/%s/%s: %s"
+msgstr "LV ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ ਹੋਇਆ: /dev/%s/%s: %s"
+
+#: fish/prep-fs.c:52 fish/prep-lv.c:154
+#, c-format
+msgid "failed to create filesystem (%s): %s"
+msgstr "ਫਾਇਲ-ਸਿਸਟਮ (%s) ਬਣਾਉਣ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
+
 #: fish/prep.c:38
 #, c-format
 msgid ""
@@ -2868,71 +2933,6 @@ msgstr ""
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr "guestfish: ਪਰੀਪੇਡ ਡਿਸਕ ਈਮੇਜ਼ '%s' ਨੂੰ '%s' ਉੱਪਰ ਬਣਾਉਣ ਸਮੇਂ ਗਲਤੀ : "
-
-#: fish/prep_boot.c:35 fish/prep_boot.c:90 fish/prep_disk.c:35
-#: fish/prep_fs.c:35 fish/prep_lv.c:70 fish/prep_lv.c:117 fish/prep_part.c:35
-msgid "failed to allocate disk"
-msgstr "ਡਿਸਕ ਨਿਰਧਾਰਤ ਕਰਨ ਤੋਂ ਫੇਲ ਹੋਇਆ"
-
-#: fish/prep_boot.c:43 fish/prep_boot.c:98
-msgid "could not parse boot size"
-msgstr "ਬੂਟ ਅਕਾਰ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ"
-
-#: fish/prep_boot.c:47 fish/prep_boot.c:102
-#, c-format
-msgid "failed to get sector size of disk: %s"
-msgstr "ਡਿਸਕ ਦਾ ਸੈਕਟਰ ਅਕਾਰ ਲੈਣ ਤੋਂ ਫੇਲ: %s"
-
-#: fish/prep_boot.c:51 fish/prep_boot.c:106 fish/prep_fs.c:42
-#: fish/prep_lv.c:77 fish/prep_lv.c:124 fish/prep_part.c:42
-#, c-format
-msgid "failed to partition disk: %s"
-msgstr "ਡਿਸਕ ਦੇ ਭਾਗ ਕਰਨ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
-
-#: fish/prep_boot.c:56 fish/prep_boot.c:111
-#, c-format
-msgid "failed to add boot partition: %s"
-msgstr "ਬੂਟ ਭਾਗ ਜੋੜਨ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
-
-#: fish/prep_boot.c:60 fish/prep_boot.c:115
-#, c-format
-msgid "failed to add root partition: %s"
-msgstr "ਰੂਟ ਭਾਗ ਜੋੜਨ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
-
-#: fish/prep_boot.c:69 fish/prep_boot.c:129
-#, c-format
-msgid "failed to create boot filesystem: %s"
-msgstr "ਬੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਉਣ ਤੋਂ ਫੇਲ: %s"
-
-#: fish/prep_boot.c:78 fish/prep_boot.c:152
-#, c-format
-msgid "failed to create root filesystem: %s"
-msgstr "ਰੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਉਣ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
-
-#: fish/prep_boot.c:87 fish/prep_boot.c:121 fish/prep_lv.c:67
-#: fish/prep_lv.c:83 fish/prep_lv.c:114 fish/prep_lv.c:130
-msgid "incorrect format for LV name, use '/dev/VG/LV'"
-msgstr "LV ਨਾਂ ਲਈ ਗਲਤ ਫਾਰਮੈਟ, '/dev/VG/LV' ਵਰਤੋ"
-
-#: fish/prep_boot.c:138 fish/prep_lv.c:92 fish/prep_lv.c:139
-#, c-format
-msgid "failed to create PV: %s: %s"
-msgstr "PV ਬਣਾਉਣ ਤੋਂ ਫੇਲ: %s: %s"
-
-#: fish/prep_boot.c:143 fish/prep_lv.c:97 fish/prep_lv.c:144
-#, c-format
-msgid "failed to create VG: %s: %s"
-msgstr "VG ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ: %s: %s"
-
-#: fish/prep_boot.c:148 fish/prep_lv.c:102 fish/prep_lv.c:149
-#, c-format
-msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr "LV ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ ਹੋਇਆ: /dev/%s/%s: %s"
-
-#: fish/prep_fs.c:52 fish/prep_lv.c:154
-#, c-format
-msgid "failed to create filesystem (%s): %s"
-msgstr "ਫਾਇਲ-ਸਿਸਟਮ (%s) ਬਣਾਉਣ ਤੋਂ ਫੇਲ ਹੋਇਆ: %s"
 
 #: fish/rc.c:260
 #, c-format
@@ -3065,7 +3065,7 @@ msgid ""
 "%s lets you mount a virtual machine filesystem\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"  %s [--options] mountpoint\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
@@ -3477,19 +3477,19 @@ msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਗਰੁੱਪ ਜਾ�
 msgid "external command failed, see earlier error messages"
 msgstr "ਬਾਹਰੀ ਕਮਾਂਡ ਫੇਲ ਹੋਈ ਹੈ, ਪਿਛਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
-#: src/dbdump.c:85
+#: src/dbdump.c:88
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr ""
 
-#: src/dbdump.c:98 src/dbdump.c:110
+#: src/dbdump.c:101 src/dbdump.c:113
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 
-#: src/dbdump.c:127
+#: src/dbdump.c:130
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr ""
 
-#: src/dbdump.c:209
+#: src/dbdump.c:212
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
@@ -3554,52 +3554,76 @@ msgstr ""
 msgid "FUSE not supported"
 msgstr ""
 
-#: src/guestfs.c:177
+#: src/guestfs.c:213
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: called twice on the same handle\n"
 
-#: src/guestfs.c:361
+#: src/guestfs.c:398
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:422
+#: src/guestfs.c:459
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:1003
+#: src/guestfs.c:1038
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<ਘਟਾਇਆ, ਅਸਲੀ ਅਕਾਰ %zu ਬਾਈਟ>"
 
-#: src/inspect.c:297
-msgid "not a Windows guest, or systemroot could not be determined"
-msgstr "ਇੱਕ Windows ਗਿਸਟ ਨਹੀਂ ਹੈ, ਜਾਂ systemroot ਦਾ ਪਤਾ ਨਹੀਂ ਲਾਇਆ ਜਾ ਸਕਦਾ"
-
-#: src/inspect.c:313
-msgid "not a Windows guest, or CurrentControlSet could not be determined"
-msgstr ""
-
-#: src/inspect.c:545 src/inspect_apps.c:612
+#: src/inspect-apps.c:615 src/inspect.c:548
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
 msgstr ""
 
-#: src/inspect.c:760 src/inspect_fs.c:530 src/inspect_fs.c:574
-#: src/inspect_fs_unix.c:236 src/inspect_fs_unix.c:763
-#: src/inspect_fs_unix.c:1447
+#: src/inspect-fs-unix.c:194
+#, c-format
+msgid "release file %s is empty or malformed"
+msgstr ""
+
+#: src/inspect-fs-unix.c:239 src/inspect-fs-unix.c:766
+#: src/inspect-fs-unix.c:1450 src/inspect-fs.c:533 src/inspect-fs.c:577
+#: src/inspect.c:765
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s ਦਾ ਅਕਾਰ ਬੇਲੋੜਾ ਹੈ (%<PRIi64> ਬਾਈਟਾਂ)"
 
-#: src/inspect.c:796
+#: src/inspect-fs-unix.c:809
+msgid "could not parse /etc/fstab or empty file"
+msgstr "/etc/fstab ਜਾਂ ਖਾਲੀ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ"
+
+#: src/inspect-fs-windows.c:167
+#, c-format
+msgid "cannot resolve Windows %%SYSTEMROOT%%"
+msgstr "Windows %%SYSTEMROOT%% ਨੂੰ ਰਿਜ਼ੌਲਵ ਨਹੀਂ ਕਰ ਸਕਦਾ"
+
+#: src/inspect-fs.c:366 src/inspect-fs.c:379
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
+
+#: src/inspect-icon.c:581
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr ""
+
+#: src/inspect.c:300
+msgid "not a Windows guest, or systemroot could not be determined"
+msgstr "ਇੱਕ Windows ਗਿਸਟ ਨਹੀਂ ਹੈ, ਜਾਂ systemroot ਦਾ ਪਤਾ ਨਹੀਂ ਲਾਇਆ ਜਾ ਸਕਦਾ"
+
+#: src/inspect.c:316
+msgid "not a Windows guest, or CurrentControlSet could not be determined"
+msgstr ""
+
+#: src/inspect.c:801
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "ਕੋਈ ਪੜਤਾਲ ਡਾਟਾ ਨਹੀਂ ਹੈ: ਪਹਿਲਾਂ guestfs_inspect_os ਨੂੰ ਕਾਲ ਕਰੋ"
 
-#: src/inspect.c:808
+#: src/inspect.c:813
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3607,30 +3631,6 @@ msgid ""
 msgstr ""
 "%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
 "guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
-
-#: src/inspect_fs.c:363 src/inspect_fs.c:376
-#, c-format
-msgid "could not parse integer in version number: %s"
-msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
-
-#: src/inspect_fs_unix.c:191
-#, c-format
-msgid "release file %s is empty or malformed"
-msgstr ""
-
-#: src/inspect_fs_unix.c:806
-msgid "could not parse /etc/fstab or empty file"
-msgstr "/etc/fstab ਜਾਂ ਖਾਲੀ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ"
-
-#: src/inspect_fs_windows.c:164
-#, c-format
-msgid "cannot resolve Windows %%SYSTEMROOT%%"
-msgstr "Windows %%SYSTEMROOT%% ਨੂੰ ਰਿਜ਼ੌਲਵ ਨਹੀਂ ਕਰ ਸਕਦਾ"
-
-#: src/inspect_icon.c:581
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr ""
 
 #: src/launch.c:136 src/launch.c:156
 msgid "command line cannot be altered after qemu subprocess launched"
@@ -3655,46 +3655,46 @@ msgstr "guestfs_config: parameter must begin with '-' character"
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: parameter '%s' isn't allowed"
 
-#: src/launch.c:360 src/launch.c:472
+#: src/launch.c:381 src/launch.c:476
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/launch.c:375 src/launch.c:380
+#: src/launch.c:396 src/launch.c:401
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s ਪੈਰਾਮੀਟਰ ਖਾਲੀ ਹੈ ਜਾਂ ਇਸ ਵਿੱਚ ਨਾ-ਮਨਜੂਰ ਅੱਖਰ ਹਨ"
 
-#: src/launch.c:494
+#: src/launch.c:498
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs ਹੈਂਡਲ ਪਹਿਲਾਂ ਹੀ ਚਾਲੂ ਕੀਤਾ ਹੈ"
 
-#: src/launch.c:505
+#: src/launch.c:547
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "you must call guestfs_add_drive before guestfs_launch"
+
+#: src/launch.c:1058 src/launch.c:1063
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
+
+#: src/launch.c:1076
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr "qemu launched and contacted daemon, but state != READY"
+
+#: src/launch.c:1168
+msgid "guestfs_launch failed, unexpected initial message from guestfsd"
+msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਅਚਾਨਕ ਸ਼ੁਰੂਆਤੀ ਸੁਨੇਹੇ guestfsd ਤੋਂ"
+
+#: src/launch.c:1176
+msgid "contacted guestfsd, but state != READY"
+msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != READY"
+
+#: src/launch.c:1266
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
-#: src/launch.c:549
-msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "you must call guestfs_add_drive before guestfs_launch"
-
-#: src/launch.c:1060 src/launch.c:1065
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
-
-#: src/launch.c:1078
-msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu launched and contacted daemon, but state != READY"
-
-#: src/launch.c:1170
-msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਅਚਾਨਕ ਸ਼ੁਰੂਆਤੀ ਸੁਨੇਹੇ guestfsd ਤੋਂ"
-
-#: src/launch.c:1178
-msgid "contacted guestfsd, but state != READY"
-msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != READY"
-
-#: src/launch.c:1377
+#: src/launch.c:1393
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3704,9 +3704,92 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1530
+#: src/launch.c:1546
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
+
+#: src/libvirtdomain.c:97 src/libvirtdomain.c:390
+msgid "you cannot set both live and readonly flags"
+msgstr "ਤੁਸੀਂ ਲਾਈਵ ਅਤੇ ਸਿਰਫ-ਪੜ੍ਹਨ ਵਾਲੇ ਫਲੈਗ ਦੋਨੋਂ ਸੈੱਟ ਨਹੀਂ ਕਰ ਸਕਦੇ"
+
+#: src/libvirtdomain.c:105
+#, c-format
+msgid "could not connect to libvirt (code %d, domain %d): %s"
+msgstr "libvirt (ਕੋਡ %d, ਡੋਮੇਨ %d) ਨਾਲ ਜੁੜ ਨਹੀਂ ਸਕਿਆ: %s"
+
+#: src/libvirtdomain.c:126
+#, c-format
+msgid "no libvirt domain called '%s': %s"
+msgstr "ਕਿਸੇ libvirt ਡੋਮੇਨ ਨੂੰ '%s' ਨਹੀਂ ਕਿਹਾ ਜਾਂਦਾ: %s"
+
+#: src/libvirtdomain.c:186 src/libvirtdomain.c:513
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "libvirt XML ਜਾਣਕਾਰੀ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ: %s"
+
+#: src/libvirtdomain.c:196 src/libvirtdomain.c:521
+msgid "unable to parse XML information returned by libvirt"
+msgstr "libvirt ਦੁਆਰਾ ਦਿੱਤੀ XML ਜਾਣਕਾਰੀ ਨੂੰ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
+#: src/libvirtdomain.c:202 src/libvirtdomain.c:527
+msgid "unable to create new XPath context"
+msgstr "ਨਵਾਂ XPath ਪ੍ਰਸੰਗ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
+
+#: src/libvirtdomain.c:209 src/libvirtdomain.c:542
+msgid "unable to evaluate XPath expression"
+msgstr "XPath ਐਕਸਪ੍ਰੈਸ਼ਨ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
+#: src/libvirtdomain.c:318
+msgid "libvirt domain has no disks"
+msgstr "libvirt ਡੋਮੇਨ ਵਿੱਚ ਕੋਈ ਡਿਸਕ ਨਹੀਂ ਹੈ"
+
+#: src/libvirtdomain.c:384
+msgid "unknown readonlydisk parameter"
+msgstr ""
+
+#: src/libvirtdomain.c:401
+#, c-format
+msgid "error getting domain info: %s"
+msgstr "ਡੋਮੇਨ ਜਾਣਕਾਰੀ ਲੈਣ ਸਮੇਂ ਗਲਤੀ: %s"
+
+#: src/libvirtdomain.c:415
+msgid ""
+"error: domain is a live virtual machine.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access.  In most libguestfs tools these options are --ro or\n"
+"--live respectively.  Consult the documentation for further information."
+msgstr ""
+"error: domain is a live virtual machine।\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption।\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access।  In most libguestfs tools these options are --ro or\n"
+"--live respectively।  Consult the documentation for further information।"
+
+#: src/libvirtdomain.c:480
+#, c-format
+msgid ""
+"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
+"\"error\""
+msgstr ""
+
+#: src/libvirtdomain.c:570
+msgid ""
+"this guest has no libvirt <channel> definition for guestfsd\n"
+"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
+msgstr ""
+"ਇਸ ਗਿਸਟ ਉੱਪਰ guestfsd ਲਈ ਕੋਈ libvirt <channel> ਪਰਿਭਾਸ਼ਾ ਨਹੀਂ ਹੈ\n"
+"ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ATTACHING TO RUNNING DAEMONS ਨੂੰ guestfs(3) ਵਿੱਚ ਵੇਖੋ।"
+
+#: src/libvirtdomain.c:593
+msgid ""
+"add-domain API not available since this version of libguestfs was compiled "
+"without libvirt or libxml2"
+msgstr ""
+"add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 ਤੋਂ "
+"ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
 
 #: src/proto.c:379
 #, c-format
@@ -3777,89 +3860,6 @@ msgstr "ਫਾਇਲ ਚੰਕ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਫੇਲ ਹ
 #: src/proto.c:1193
 msgid "file receive cancelled by daemon"
 msgstr "ਫਾਇਲ ਸਵੀਕਾਰ ਕਰਨਾ ਡੈਮਨ ਦੁਆਰਾ ਰੱਦ ਕੀਤਾ ਗਿਆ ਹੈ"
-
-#: src/virt.c:108 src/virt.c:401
-msgid "you cannot set both live and readonly flags"
-msgstr "ਤੁਸੀਂ ਲਾਈਵ ਅਤੇ ਸਿਰਫ-ਪੜ੍ਹਨ ਵਾਲੇ ਫਲੈਗ ਦੋਨੋਂ ਸੈੱਟ ਨਹੀਂ ਕਰ ਸਕਦੇ"
-
-#: src/virt.c:116
-#, c-format
-msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr "libvirt (ਕੋਡ %d, ਡੋਮੇਨ %d) ਨਾਲ ਜੁੜ ਨਹੀਂ ਸਕਿਆ: %s"
-
-#: src/virt.c:137
-#, c-format
-msgid "no libvirt domain called '%s': %s"
-msgstr "ਕਿਸੇ libvirt ਡੋਮੇਨ ਨੂੰ '%s' ਨਹੀਂ ਕਿਹਾ ਜਾਂਦਾ: %s"
-
-#: src/virt.c:197 src/virt.c:524
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "libvirt XML ਜਾਣਕਾਰੀ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ: %s"
-
-#: src/virt.c:207 src/virt.c:532
-msgid "unable to parse XML information returned by libvirt"
-msgstr "libvirt ਦੁਆਰਾ ਦਿੱਤੀ XML ਜਾਣਕਾਰੀ ਨੂੰ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
-
-#: src/virt.c:213 src/virt.c:538
-msgid "unable to create new XPath context"
-msgstr "ਨਵਾਂ XPath ਪ੍ਰਸੰਗ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
-
-#: src/virt.c:220 src/virt.c:553
-msgid "unable to evaluate XPath expression"
-msgstr "XPath ਐਕਸਪ੍ਰੈਸ਼ਨ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
-
-#: src/virt.c:329
-msgid "libvirt domain has no disks"
-msgstr "libvirt ਡੋਮੇਨ ਵਿੱਚ ਕੋਈ ਡਿਸਕ ਨਹੀਂ ਹੈ"
-
-#: src/virt.c:395
-msgid "unknown readonlydisk parameter"
-msgstr ""
-
-#: src/virt.c:412
-#, c-format
-msgid "error getting domain info: %s"
-msgstr "ਡੋਮੇਨ ਜਾਣਕਾਰੀ ਲੈਣ ਸਮੇਂ ਗਲਤੀ: %s"
-
-#: src/virt.c:426
-msgid ""
-"error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
-"Either use read-only access, or if the guest is running the guestfsd daemon\n"
-"specify live access.  In most libguestfs tools these options are --ro or\n"
-"--live respectively.  Consult the documentation for further information."
-msgstr ""
-"error: domain is a live virtual machine।\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption।\n"
-"Either use read-only access, or if the guest is running the guestfsd daemon\n"
-"specify live access।  In most libguestfs tools these options are --ro or\n"
-"--live respectively।  Consult the documentation for further information।"
-
-#: src/virt.c:491
-#, c-format
-msgid ""
-"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
-"\"error\""
-msgstr ""
-
-#: src/virt.c:581
-msgid ""
-"this guest has no libvirt <channel> definition for guestfsd\n"
-"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr ""
-"ਇਸ ਗਿਸਟ ਉੱਪਰ guestfsd ਲਈ ਕੋਈ libvirt <channel> ਪਰਿਭਾਸ਼ਾ ਨਹੀਂ ਹੈ\n"
-"ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ATTACHING TO RUNNING DAEMONS ਨੂੰ guestfs(3) ਵਿੱਚ ਵੇਖੋ।"
-
-#: src/virt.c:606
-msgid ""
-"add-domain API not available since this version of libguestfs was compiled "
-"without libvirt or libxml2"
-msgstr ""
-"add-domain API ਉਪਲੱਬਧ ਨਹੀਂ ਕਿਉਂਕਿ libguestfs ਦਾ ਇਹ ਵਰਜਨ libvirt ਜਾਂ libxml2 ਤੋਂ "
-"ਬਿਨਾਂ ਕੰਪਾਈਲ ਕੀਤਾ ਗਿਆ ਸੀ"
 
 #: test-tool/test-tool.c:67
 #, c-format
@@ -3965,31 +3965,31 @@ msgstr "virt-list-filesystems:  VM ਨਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ"
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: ਕੋਈ ਈਮੇਜ਼ ਜਾਂ VM ਨਾਂ ਨਹੀਂ ਦਿੱਤਾ"
 
-#: tools/virt-make-fs.pl:295
+#: tools/virt-make-fs.pl:291
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs ਇੰਪੁੱਟ ਆਊਟਪੁੱਟ\n"
 
-#: tools/virt-make-fs.pl:325
+#: tools/virt-make-fs.pl:321
 msgid "unexpected output from 'du' command"
 msgstr "'du' ਕਮਾਂਡ ਤੋਂ ਅਣਜਾਣ ਆਊਟਪੁੱਟ"
 
-#: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
+#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
 #: tools/virt-make-fs.pl:510
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: ਅਣਜਾਣ ਇੰਪੁੱਟ ਫਾਰਮੈਟ: {fmt}\n"
 
-#: tools/virt-make-fs.pl:402
+#: tools/virt-make-fs.pl:398
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: ਅਕਾਰ ਪੈਰਾਮੀਟਰ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ: {sz}\n"
 
-#: tools/virt-make-fs.pl:417
+#: tools/virt-make-fs.pl:413
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr "qemu-img ਬਣਾਓ: ਡਿਸਕ ਈਮੇਜ਼ ਬਣਾਉਣ ਤੋਂ ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ\n"
 
-#: tools/virt-make-fs.pl:428
+#: tools/virt-make-fs.pl:424
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: NTFS ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਜਦੋਂ libguestfs ਕੰਪਾਈਲ ਕੀਤੀ ਜਾਂਦੀ ਸੀ\n"
@@ -4331,7 +4331,7 @@ msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:252
+#: ../sparsify/sparsify.ml:254
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -4341,7 +4341,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:337
+#: ../sparsify/sparsify.ml:339
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -4421,7 +4421,7 @@ msgstr ""
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:189
+#: ../sparsify/sparsify.ml:191
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -4467,13 +4467,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:236
+#: ../sparsify/sparsify.ml:238
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:287
+#: ../sparsify/sparsify.ml:289
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -4763,7 +4763,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:358
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -4873,7 +4873,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:226
+#: ../sparsify/sparsify.ml:228
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -4899,16 +4899,16 @@ msgstr ""
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:321
+#: ../sparsify/sparsify.ml:323
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:323
+#: ../sparsify/sparsify.ml:325
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#. ../sparsify/sparsify.ml:183
-#: ../sparsify/sparsify.ml:350 ../sparsify/sparsify.ml:319
+#. ../sparsify/sparsify.ml:185
+#: ../sparsify/sparsify.ml:352 ../sparsify/sparsify.ml:321
 msgid "external command failed: %s"
 msgstr ""
 
@@ -4985,7 +4985,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:261
+#: ../sparsify/sparsify.ml:263
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -5003,6 +5003,29 @@ msgstr ""
 
 #: ../resize/resize.ml:83
 msgid "sectors"
+msgstr ""
+
+#: ../sysprep/main.ml:245
+msgid "sysprep operation failed: %s\n"
+msgstr ""
+
+#: ../sysprep/main.ml:257
+msgid "sysprep operation failed: exception: %s\n"
+msgstr ""
+
+#: ../sysprep/main.ml:254
+msgid ""
+"sysprep operation failed: internal error: Not_found exception was thrown\n"
+msgstr ""
+
+#: ../sysprep/main.ml:251
+msgid ""
+"sysprep operation failed: internal error: assertion failed at %s, line %d, "
+"char %d\n"
+msgstr ""
+
+#: ../sysprep/main.ml:248
+msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
 #: ../resize/resize.ml:374
