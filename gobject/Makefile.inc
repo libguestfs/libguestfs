@@ -77,7 +77,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-rsync_in.h \
   include/guestfs-gobject/optargs-rsync_out.h \
   include/guestfs-gobject/optargs-xfs_admin.h \
-  include/guestfs-gobject/optargs-hivex_open.h
+  include/guestfs-gobject/optargs-hivex_open.h \
+  include/guestfs-gobject/optargs-xfs_repair.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -136,4 +137,5 @@ guestfs_gobject_sources= \
   src/optargs-rsync_in.c \
   src/optargs-rsync_out.c \
   src/optargs-xfs_admin.c \
-  src/optargs-hivex_open.c
+  src/optargs-hivex_open.c \
+  src/optargs-xfs_repair.c

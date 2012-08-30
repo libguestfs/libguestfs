@@ -9682,6 +9682,34 @@ C<key> is the name, C<t> is the type, and C<val> is the data.
 
 This is a wrapper around the L<hivex(3)> call of the same name." };
 
+  { defaults with
+    name = "xfs_repair";
+    style = RInt "status", [Dev_or_Path "device"], [OBool "forcelogzero"; OBool "nomodify"; OBool "noprefetch"; OBool "forcegeometry"; OInt64 "maxmem"; OInt64 "ihashsize"; OInt64 "bhashsize"; OInt64 "agstride"; OString "logdev"; OString "rtdev"];
+    proc_nr = Some 366;
+    optional = Some "xfs";
+    tests = [
+      InitEmpty, IfAvailable "xfs", TestRun (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["xfs_repair"; "/dev/sda1"; ""; "true"; ""; ""; ""; ""; ""; ""; "NOARG"; "NOARG"]
+      ])
+    ];
+    shortdesc = "repair an XFS filesystem";
+    longdesc = "\
+Repair corrupt or damaged XFS filesystem on C<device>.
+
+The filesystem is specified using the C<device> argument which should be
+the device name of the disk partition or volume containing the filesystem.
+If given the name of a block device, C<xfs_repair> will attempt to find
+the raw device associated with the specified block device and will use
+the raw device instead.
+
+Regardless, the filesystem to be repaired must be unmounted, otherwise,
+the resulting filesystem may be inconsistent or corrupt.
+
+The returned status indicates whether filesystem corruption was
+detected (returns C<1>) or was not detected (returns C<0>)." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

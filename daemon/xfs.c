@@ -528,3 +528,125 @@ error:
   free (err);
   return -1;
 }
+
+int
+do_xfs_repair (const char *device,
+               int forcelogzero, int nomodify,
+               int noprefetch, int forcegeometry,
+               int64_t maxmem, int64_t ihashsize,
+               int64_t bhashsize, int64_t agstride,
+               const char *logdev, const char *rtdev)
+{
+  int r;
+  char *err = NULL;
+  const char *argv[MAX_ARGS];
+  char *buf = NULL;
+  char maxmem_s[64];
+  char ihashsize_s[70];
+  char bhashsize_s[70];
+  char agstride_s[74];
+  size_t i = 0;
+  int is_device;
+
+  ADD_ARG (argv, i, "xfs_repair");
+
+  /* Optional arguments */
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_FORCELOGZERO_BITMASK) {
+    if (forcelogzero)
+      ADD_ARG (argv, i, "-L");
+  }
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_NOMODIFY_BITMASK) {
+    if (nomodify)
+      ADD_ARG (argv, i, "-n");
+  }
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_NOPREFETCH_BITMASK) {
+    if (noprefetch)
+      ADD_ARG (argv, i, "-P");
+  }
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_FORCEGEOMETRY_BITMASK) {
+    if (forcegeometry) {
+      ADD_ARG (argv, i, "-o");
+      ADD_ARG (argv, i, "force_geometry");
+    }
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_MAXMEM_BITMASK) {
+    if (maxmem < 0) {
+      reply_with_error ("maxmem must be >= 0");
+      goto error;
+    }
+    snprintf(maxmem_s, sizeof maxmem_s, "%" PRIi64, maxmem);
+    ADD_ARG (argv, i, "-m");
+    ADD_ARG (argv, i, maxmem_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_IHASHSIZE_BITMASK) {
+    if (ihashsize < 0) {
+      reply_with_error ("ihashsize must be >= 0");
+      goto error;
+    }
+    snprintf(ihashsize_s, sizeof ihashsize_s, "ihash=" "%" PRIi64, ihashsize);
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, ihashsize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_BHASHSIZE_BITMASK) {
+    if (bhashsize < 0) {
+      reply_with_error ("bhashsize must be >= 0");
+      goto error;
+    }
+    snprintf(bhashsize_s, sizeof bhashsize_s, "bhash=" "%" PRIi64, bhashsize);
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, bhashsize_s);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_AGSTRIDE_BITMASK) {
+    if (agstride < 0) {
+      reply_with_error ("agstride must be >= 0");
+      goto error;
+    }
+    snprintf(agstride_s, sizeof agstride_s, "ag_stride=" "%" PRIi64, agstride);
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, agstride_s);
+  }
+
+
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_LOGDEV_BITMASK) {
+    ADD_ARG (argv, i, "-l");
+    ADD_ARG (argv, i, logdev);
+  }
+
+  if (optargs_bitmask & GUESTFS_XFS_REPAIR_RTDEV_BITMASK) {
+    ADD_ARG (argv, i, "-r");
+    ADD_ARG (argv, i, rtdev);
+  }
+
+  is_device = STREQLEN (device, "/dev/", 5);
+  if (!is_device) {
+    buf = sysroot_path (device);
+    if (buf == NULL) {
+      reply_with_perror ("malloc");
+      goto error;
+    }
+    ADD_ARG (argv, i, "-f");
+    ADD_ARG (argv, i, buf);
+  } else {
+    ADD_ARG (argv, i, device);
+  }
+
+  ADD_ARG (argv, i, NULL);
+
+  r = commandrv (NULL, &err, argv);
+  if (buf) free (buf);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    goto error;
+  }
+
+  free (err);
+  return r;
+
+error:
+  if (err) free (err);
+  return -1;
+}
