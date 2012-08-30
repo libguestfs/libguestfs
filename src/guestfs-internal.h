@@ -282,7 +282,7 @@ struct guestfs_h
     char **cmdline;   /* Only used in child, does not need freeing. */
     size_t cmdline_size;
 
-    bool virtio_scsi;     /* See function qemu_supports_virtio_scsi */
+    int virtio_scsi;      /* See function qemu_supports_virtio_scsi */
   } app;
 
   struct {                      /* Used only by src/launch-libvirt.c. */
