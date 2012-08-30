@@ -72,7 +72,7 @@
                              MIN_LIBVIRT_MINOR * 1000 + \
                              MIN_LIBVIRT_MICRO)
 
-#if defined(HAVE_LIBVIRT) && \
+#if 0 && defined(HAVE_LIBVIRT) && \
   LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION && \
   defined(HAVE_LIBXML2)
 
