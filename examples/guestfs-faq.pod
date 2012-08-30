@@ -241,10 +241,9 @@ L<http://koji.fedoraproject.org/koji/packageinfo?packageID=8391>
 It is part of the default install.  On RHEL 6 (only) you have to
 install C<libguestfs-winsupport> to get Windows guest support.
 
-=item RHEL 6.3
+=item RHEL 6.4
 
-Preview packages are available here:
-L<http://people.redhat.com/~rjones/libguestfs-RHEL-6.3-preview/>
+A preview repository will be announced at a later date.
 
 =item Debian Squeeze (6)
 
