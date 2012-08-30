@@ -254,7 +254,7 @@ man_MANS = \
 noinst_DATA = \
 	$(top_builddir)/html/guestfs-release-notes.1.html
 
-guestfs-release-notes.1 $(top_builddir)/html/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
+guestfs-release-notes.1 guestfs-release-notes.txt $(top_builddir)/html/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
 
 stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 	$(PODWRAPPER) \
