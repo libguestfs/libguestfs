@@ -33,17 +33,13 @@ e2label (const char *device, const char *label)
   int r;
   char *err;
 
-  char prog[] = "e2label";
-  if (e2prog (prog) == -1)
-    return -1;
-
   if (strlen (label) > EXT2_LABEL_MAX) {
     reply_with_error ("%s: ext2 labels are limited to %d bytes",
                       label, EXT2_LABEL_MAX);
     return -1;
   }
 
-  r = command (NULL, &err, prog, device, label, NULL);
+  r = command (NULL, &err, "e2label", device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
