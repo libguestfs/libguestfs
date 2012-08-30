@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-07-10 13:19+0100\n"
+"POT-Creation-Date: 2012-08-30 23:28+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/fedora/team/pl/)\n"
@@ -2235,7 +2235,7 @@ msgstr "%s: nieznane polecenie\n"
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr "%s: %s: wiersz %d: błąd podczas przetwarzania pliku konfiguracji: %s\n"
 
-#: fish/copy.c:46
+#: fish/copy.c:47
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
@@ -2243,18 +2243,18 @@ msgstr ""
 "należy użyć \"copy-in <lokalny> [<lokalny>...] <zdalny_katalog>\", aby "
 "skopiować pliki do obrazu\n"
 
-#: fish/copy.c:67
+#: fish/copy.c:68
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
 
-#: fish/copy.c:164
+#: fish/copy.c:165
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
 "błąd: parametr jest zerowej długości lub dłuższy niż dozwolone maksimum\n"
 
-#: fish/copy.c:209
+#: fish/copy.c:210
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -2263,12 +2263,12 @@ msgstr ""
 "należy użyć \"copy-out <zdalny> [<zdalny>...] <lokalny_katalog>\", aby "
 "skopiować pliki z obrazu\n"
 
-#: fish/copy.c:220
+#: fish/copy.c:221
 #, c-format
 msgid "copy-out: target '%s' is not a directory\n"
 msgstr "copy-out: element docelowy \"%s\" nie jest katalogiem\n"
 
-#: fish/copy.c:265
+#: fish/copy.c:266
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "copy-out: \"%s\" nie jest plikiem lub katalogiem\n"
@@ -2973,7 +2973,7 @@ msgid ""
 "%s lets you mount a virtual machine filesystem\n"
 "Copyright (C) 2009-2012 Red Hat Inc.\n"
 "Usage:\n"
-"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"  %s [--options] mountpoint\n"
 "Options:\n"
 "  -a|--add image       Add image\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
@@ -3392,20 +3392,20 @@ msgstr ""
 "zewnętrzne polecenie nie powiodło się, proszę zobaczyć wcześniejsze "
 "komunikaty błędów"
 
-#: src/dbdump.c:85
+#: src/dbdump.c:88
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr "nieoczekiwany koniec wyjścia polecenia db_dump przed końcem nagłówka"
 
-#: src/dbdump.c:98 src/dbdump.c:110
+#: src/dbdump.c:101 src/dbdump.c:113
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 "nieoczekiwany wiersz polecenia db_dump, brak przedrostka w formie spacji"
 
-#: src/dbdump.c:127
+#: src/dbdump.c:130
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr "nieoczekiwany koniec wyjścia polecenia db_dump przed końcem danych"
 
-#: src/dbdump.c:209
+#: src/dbdump.c:212
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr "nieoczekiwane nieszesnastkowe cyfry w wyjściu polecenia db_dump "
 
@@ -3422,37 +3422,37 @@ msgstr ""
 "API architektury plików jest niedostępne, ponieważ ta wersja biblioteki "
 "libguestfs została skompilowana bez biblioteki libmagic"
 
-#: src/guestfs.c:177
+#: src/guestfs.c:213
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n"
 
-#: src/guestfs.c:357
+#: src/guestfs.c:394
 #, c-format
 msgid "warning: %s"
 msgstr "ostrzeżenie: %s"
 
-#: src/guestfs.c:418
+#: src/guestfs.c:455
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: błąd: %s\n"
 
-#: src/guestfs.c:996
+#: src/guestfs.c:1031
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<skrócone, pierwotny rozmiar %zu bajtów>"
 
-#: src/inspect.c:293
+#: src/inspect.c:296
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "nie jest gościem systemu Windows lub nie można określić systemroot"
 
-#: src/inspect.c:309
+#: src/inspect.c:312
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "nie jest gościem systemu Windows lub nie można określić wartości "
 "CurrentControlSet"
 
-#: src/inspect.c:541 src/inspect_apps.c:611
+#: src/inspect.c:544 src/inspect_apps.c:614
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -3460,18 +3460,18 @@ msgstr ""
 "API badania jest niedostępne, ponieważ ta wersja biblioteki libguestfs "
 "została skompilowana bez biblioteki hivex"
 
-#: src/inspect.c:756 src/inspect_fs.c:510 src/inspect_fs.c:554
-#: src/inspect_fs_unix.c:236 src/inspect_fs_unix.c:747
-#: src/inspect_fs_unix.c:1427
+#: src/inspect.c:761 src/inspect_fs.c:513 src/inspect_fs.c:557
+#: src/inspect_fs_unix.c:239 src/inspect_fs_unix.c:750
+#: src/inspect_fs_unix.c:1430
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
 
-#: src/inspect.c:792
+#: src/inspect.c:797
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "brak danych badania: najpierw należy wywołać guestfs_inspect_os"
 
-#: src/inspect.c:804
+#: src/inspect.c:809
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3480,21 +3480,21 @@ msgstr ""
 "%s: nie odnaleziono urządzenia root: należy wywoływać tę funkcję tylko z "
 "urządzeniem root poprzednio zwróconym przez guestfs_inspect_os"
 
-#: src/inspect_fs.c:349 src/inspect_fs.c:362
+#: src/inspect_fs.c:352 src/inspect_fs.c:365
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "nie można przetworzyć liczby całkowitej w numerze wersji: %s"
 
-#: src/inspect_fs_unix.c:191
+#: src/inspect_fs_unix.c:194
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect_fs_unix.c:790
+#: src/inspect_fs_unix.c:793
 msgid "could not parse /etc/fstab or empty file"
 msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 
-#: src/inspect_fs_windows.c:164
+#: src/inspect_fs_windows.c:167
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "nie można rozwiązać %%SYSTEMROOT%% systemu Windows"
@@ -3536,37 +3536,37 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr "program obsługi libguestfs został już uruchomiony"
 
-#: src/launch.c:466
-#, c-format
-msgid "%s: cannot create temporary directory"
-msgstr "%s: nie można utworzyć katalogu tymczasowego"
-
-#: src/launch.c:510
+#: src/launch.c:504
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch.c:998 src/launch.c:1003
+#: src/launch.c:992 src/launch.c:997
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:1016
+#: src/launch.c:1010
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:1108
+#: src/launch.c:1102
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 "guestfs_launch nie powiodło się, nieoczekiwany komunikat początkowy od "
 "demona guestfsd"
 
-#: src/launch.c:1116
+#: src/launch.c:1110
 msgid "contacted guestfsd, but state != READY"
 msgstr "skontaktowano się z guestfsd, ale stan != GOTOWY"
 
-#: src/launch.c:1315
+#: src/launch.c:1200
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: nie można utworzyć katalogu tymczasowego"
+
+#: src/launch.c:1327
 #, fuzzy, c-format
 msgid ""
 "command failed: %s\n"
@@ -3581,9 +3581,97 @@ msgstr ""
 "ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU. Powyżej mogą zostać\n"
 "wyświetlone błędy."
 
-#: src/launch.c:1453
+#: src/launch.c:1465
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
+
+#: src/libvirtdomain.c:97 src/libvirtdomain.c:390
+msgid "you cannot set both live and readonly flags"
+msgstr "nie można ustawić jednocześnie flag live i readonly"
+
+#: src/libvirtdomain.c:105
+#, c-format
+msgid "could not connect to libvirt (code %d, domain %d): %s"
+msgstr "nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
+
+#: src/libvirtdomain.c:126
+#, c-format
+msgid "no libvirt domain called '%s': %s"
+msgstr "brak domeny biblioteki libvirt o nazwie \"%s\": %s"
+
+#: src/libvirtdomain.c:186 src/libvirtdomain.c:513
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
+
+#: src/libvirtdomain.c:196 src/libvirtdomain.c:521
+msgid "unable to parse XML information returned by libvirt"
+msgstr ""
+"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
+
+#: src/libvirtdomain.c:202 src/libvirtdomain.c:527
+msgid "unable to create new XPath context"
+msgstr "nie można utworzyć nowego kontekstu XPath"
+
+#: src/libvirtdomain.c:209 src/libvirtdomain.c:542
+msgid "unable to evaluate XPath expression"
+msgstr "nie można sprawdzić wyrażenia XPath"
+
+#: src/libvirtdomain.c:318
+msgid "libvirt domain has no disks"
+msgstr "domena biblioteki libvirt nie posiada dysków"
+
+#: src/libvirtdomain.c:384
+msgid "unknown readonlydisk parameter"
+msgstr "nieznany parametr readonlydisk"
+
+#: src/libvirtdomain.c:401
+#, c-format
+msgid "error getting domain info: %s"
+msgstr "błąd podczas uzyskiwania informacji o domenie: %s"
+
+#: src/libvirtdomain.c:415
+msgid ""
+"error: domain is a live virtual machine.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access.  In most libguestfs tools these options are --ro or\n"
+"--live respectively.  Consult the documentation for further information."
+msgstr ""
+"błąd: domena jest maszyną wirtualną live.\n"
+"Zapisywanie na dyskach uruchomionej maszyny wirtualnej może spowodować\n"
+"uszkodzenie danych. Należy użyć dostępu tylko do odczytu lub jeśli gość\n"
+"posiada uruchomionego demona guestfsd, należy podać dostęp live. W\n"
+"większości narzędzi biblioteki libguestfs te opcje to odpowiednio --ro lub\n"
+"--live. Proszę skonsultować się z dokumentacją, aby dowiedzieć się więcej."
+
+#: src/libvirtdomain.c:480
+#, c-format
+msgid ""
+"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
+"\"error\""
+msgstr ""
+"%s: dysk jest oznaczony jako <readonly/> w pliku XML biblioteki libvirt, a "
+"parametr readonlydisk został ustawiony na \"error\""
+
+#: src/libvirtdomain.c:570
+msgid ""
+"this guest has no libvirt <channel> definition for guestfsd\n"
+"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
+msgstr ""
+"ten gość nie posiada określenia <channel> biblioteki libvirt dla demona "
+"guestfsd\n"
+"Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby "
+"dowiedzieć się więcej."
+
+#: src/libvirtdomain.c:593
+msgid ""
+"add-domain API not available since this version of libguestfs was compiled "
+"without libvirt or libxml2"
+msgstr ""
+"API dodawania domen jest niedostępne, ponieważ ta wersja biblioteki "
+"libguestfs została skompilowana bez bibliotek libvirt lub libxml2"
 
 #: src/proto.c:188
 #, c-format
@@ -3681,94 +3769,6 @@ msgstr "przetworzenie fragmentu pliku nie powiodło się"
 #: src/proto.c:1229
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
-
-#: src/virt.c:108 src/virt.c:401
-msgid "you cannot set both live and readonly flags"
-msgstr "nie można ustawić jednocześnie flag live i readonly"
-
-#: src/virt.c:116
-#, c-format
-msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr "nie można połączyć się z biblioteką libvirt (kod %d, domena %d): %s"
-
-#: src/virt.c:137
-#, c-format
-msgid "no libvirt domain called '%s': %s"
-msgstr "brak domeny biblioteki libvirt o nazwie \"%s\": %s"
-
-#: src/virt.c:197 src/virt.c:524
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
-
-#: src/virt.c:207 src/virt.c:532
-msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-"nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
-
-#: src/virt.c:213 src/virt.c:538
-msgid "unable to create new XPath context"
-msgstr "nie można utworzyć nowego kontekstu XPath"
-
-#: src/virt.c:220 src/virt.c:553
-msgid "unable to evaluate XPath expression"
-msgstr "nie można sprawdzić wyrażenia XPath"
-
-#: src/virt.c:329
-msgid "libvirt domain has no disks"
-msgstr "domena biblioteki libvirt nie posiada dysków"
-
-#: src/virt.c:395
-msgid "unknown readonlydisk parameter"
-msgstr "nieznany parametr readonlydisk"
-
-#: src/virt.c:412
-#, c-format
-msgid "error getting domain info: %s"
-msgstr "błąd podczas uzyskiwania informacji o domenie: %s"
-
-#: src/virt.c:426
-msgid ""
-"error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
-"Either use read-only access, or if the guest is running the guestfsd daemon\n"
-"specify live access.  In most libguestfs tools these options are --ro or\n"
-"--live respectively.  Consult the documentation for further information."
-msgstr ""
-"błąd: domena jest maszyną wirtualną live.\n"
-"Zapisywanie na dyskach uruchomionej maszyny wirtualnej może spowodować\n"
-"uszkodzenie danych. Należy użyć dostępu tylko do odczytu lub jeśli gość\n"
-"posiada uruchomionego demona guestfsd, należy podać dostęp live. W\n"
-"większości narzędzi biblioteki libguestfs te opcje to odpowiednio --ro lub\n"
-"--live. Proszę skonsultować się z dokumentacją, aby dowiedzieć się więcej."
-
-#: src/virt.c:491
-#, c-format
-msgid ""
-"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
-"\"error\""
-msgstr ""
-"%s: dysk jest oznaczony jako <readonly/> w pliku XML biblioteki libvirt, a "
-"parametr readonlydisk został ustawiony na \"error\""
-
-#: src/virt.c:581
-msgid ""
-"this guest has no libvirt <channel> definition for guestfsd\n"
-"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr ""
-"ten gość nie posiada określenia <channel> biblioteki libvirt dla demona "
-"guestfsd\n"
-"Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby "
-"dowiedzieć się więcej."
-
-#: src/virt.c:606
-msgid ""
-"add-domain API not available since this version of libguestfs was compiled "
-"without libvirt or libxml2"
-msgstr ""
-"API dodawania domen jest niedostępne, ponieważ ta wersja biblioteki "
-"libguestfs została skompilowana bez bibliotek libvirt lub libxml2"
 
 #: test-tool/test-tool.c:79
 #, c-format
@@ -3877,33 +3877,33 @@ msgstr "virt-list-filesystems: nie podano obrazu lub nazwy maszyny wirtualnej"
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: nie podano obrazu lub nazwy maszyny wirtualnej"
 
-#: tools/virt-make-fs.pl:295
+#: tools/virt-make-fs.pl:291
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs wejście wyjście\n"
 
-#: tools/virt-make-fs.pl:325
+#: tools/virt-make-fs.pl:321
 msgid "unexpected output from 'du' command"
 msgstr "nieoczekiwane wyjście polecenia \"du\""
 
-#: tools/virt-make-fs.pl:337 tools/virt-make-fs.pl:351
+#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
 #: tools/virt-make-fs.pl:499
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: nieznany format wyjścia: {fmt}\n"
 
-#: tools/virt-make-fs.pl:395
+#: tools/virt-make-fs.pl:391
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: nie można przetworzyć parametru rozmiaru: {sz}\n"
 
-#: tools/virt-make-fs.pl:410
+#: tools/virt-make-fs.pl:406
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
 "qemu-img create: utworzenie obrazu dysku nie powiodło się, proszę zobaczyć "
 "wcześniejsze komunikaty błędów\n"
 
-#: tools/virt-make-fs.pl:421
+#: tools/virt-make-fs.pl:417
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: obsługa systemu plików NTFS została wyłączona podczas "

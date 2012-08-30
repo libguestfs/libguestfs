@@ -4,6 +4,7 @@ Charles Duffy <cduffy@messageone.com>
 Daniel Berrange <berrange@redhat.com>
 Daniel Cabrera <logan@fedoraproject.org>
 Douglas Schilling Landgraf <dougsland@redhat.com>
+Eric Blake <eblake@redhat.com>
 Erik Nolte <erik_nolte@acm.org>
 Geert Warrink <geert.warrink@onsnet.nu>
 Guido Günther <agx@sigxcpu.org>
@@ -12,6 +13,7 @@ Jaswinder Singh <jsingh@redhat.com>
 Jim Meyering <jim@meyering.net>
 Karel Klíč <kklic@redhat.com>
 Marcin Gibula <m.gibula@e24cloud.com>
+Masami HIRATA <msmhrt@gmail.com>
 Matthew Booth <mbooth@redhat.com>
 Maxim Koltsov <kolmax94@gmail.com>
 Michael Scherer <misc@zarb.org>
@@ -25,3 +27,4 @@ Sandeep Shedmake <sshedmak@redhat.com>
 Shankar Prasad <svenkate@redhat.com>
 Thomas S Hatch <thatch45@gmail.com>
 Wanlong Gao <gaowanlong@cn.fujitsu.com>
+Wulf C. Krueger <philantrop@exherbo.org>
