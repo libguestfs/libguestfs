@@ -17,10 +17,11 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-TESTS = \
-	test-big-dirs.pl
+EXTRA_DIST = test-big-dirs.pl
+
+# Don't run this test by default.  It takes a very long time
+# to run and is not especially informative.
+
+#TESTS = test-big-dirs.pl
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
-
-EXTRA_DIST = \
-	$(TESTS)
