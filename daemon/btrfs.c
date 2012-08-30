@@ -28,10 +28,15 @@
 #include "actions.h"
 #include "optgroups.h"
 
+GUESTFSD_EXT_CMD(str_btrfs, btrfs);
+GUESTFSD_EXT_CMD(str_btrfstune, btrfstune);
+GUESTFSD_EXT_CMD(str_btrfsck, btrfsck);
+GUESTFSD_EXT_CMD(str_mkfs_btrfs, mkfs.btrfs);
+
 int
 optgroup_btrfs_available (void)
 {
-  return prog_exists ("btrfs") && filesystem_available ("btrfs") > 0;
+  return prog_exists (str_btrfs) && filesystem_available ("btrfs") > 0;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -46,7 +51,7 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
   size_t i = 0;
   char size_str[32];
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "resize");
 
@@ -109,7 +114,7 @@ do_mkfs_btrfs (char *const *devices,
   char nodesize_s[64];
   char sectorsize_s[64];
 
-  ADD_ARG (argv, i, "mkfs.btrfs");
+  ADD_ARG (argv, i, str_mkfs_btrfs);
 
   /* Optional arguments. */
   if (optargs_bitmask & GUESTFS_MKFS_BTRFS_ALLOCSTART_BITMASK) {
@@ -225,7 +230,7 @@ do_btrfs_subvolume_snapshot (const char *source, const char *dest)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "snapshot");
   ADD_ARG (argv, i, source_buf);
@@ -261,7 +266,7 @@ do_btrfs_subvolume_delete (const char *subvolume)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "delete");
   ADD_ARG (argv, i, subvolume_buf);
@@ -295,7 +300,7 @@ do_btrfs_subvolume_create (const char *dest)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "create");
   ADD_ARG (argv, i, dest_buf);
@@ -331,7 +336,7 @@ do_btrfs_subvolume_list (const char *fs)
     return NULL;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "list");
   ADD_ARG (argv, i, fs_buf);
@@ -428,7 +433,7 @@ do_btrfs_subvolume_set_default (int64_t id, const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "set-default");
   ADD_ARG (argv, i, buf);
@@ -463,7 +468,7 @@ do_btrfs_filesystem_sync (const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "sync");
   ADD_ARG (argv, i, fs_buf);
@@ -497,7 +502,7 @@ do_btrfs_filesystem_balance (const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "balance");
   ADD_ARG (argv, i, fs_buf);
@@ -536,7 +541,7 @@ do_btrfs_device_add (char *const *devices, const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "device");
   ADD_ARG (argv, i, "add");
 
@@ -579,7 +584,7 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, "btrfs");
+  ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "device");
   ADD_ARG (argv, i, "delete");
 
@@ -609,7 +614,7 @@ do_btrfs_set_seeding (const char *device, int svalue)
 
   const char *s_value = svalue ? "1" : "0";
 
-  r = commandr (NULL, &err, "btrfstune", "-S", s_value, device, NULL);
+  r = commandr (NULL, &err, str_btrfstune, "-S", s_value, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);
@@ -631,7 +636,7 @@ do_btrfs_fsck (const char *device, int64_t superblock, int repair)
   const char *argv[MAX_ARGS];
   char super_s[64];
 
-  ADD_ARG (argv, i, "btrfsck");
+  ADD_ARG (argv, i, str_btrfsck);
 
   /* Optional arguments. */
   if (optargs_bitmask & GUESTFS_BTRFS_FSCK_SUPERBLOCK_BITMASK) {

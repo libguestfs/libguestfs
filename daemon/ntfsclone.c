@@ -30,6 +30,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+GUESTFSD_EXT_CMD(str_ntfsclone, ntfsclone);
+
 /* Read the error file.  Returns a string that the caller must free. */
 static char *
 read_error_file (char *error_file)
@@ -80,8 +82,8 @@ do_ntfsclone_in (const char *device)
   close (fd);
 
   /* Construct the command. */
-  if (asprintf_nowarn (&cmd, "ntfsclone -O %s --restore-image - 2> %s",
-                       device, error_file) == -1) {
+  if (asprintf_nowarn (&cmd, "%s -O %s --restore-image - 2> %s",
+                       str_ntfsclone, device, error_file) == -1) {
     err = errno;
     r = cancel_receive ();
     errno = err;
@@ -157,7 +159,8 @@ do_ntfsclone_out (const char *device,
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
   /* Construct the ntfsclone command. */
-  if (asprintf (&cmd, "ntfsclone -o - --save-image%s%s%s%s%s %s",
+  if (asprintf (&cmd, "%s -o - --save-image%s%s%s%s%s %s",
+                str_ntfsclone,
                 (optargs_bitmask & GUESTFS_NTFSCLONE_OUT_METADATAONLY_BITMASK) && metadataonly ? " --metadata" : "",
                 (optargs_bitmask & GUESTFS_NTFSCLONE_OUT_RESCUE_BITMASK) && rescue ? " --rescue" : "",
                 (optargs_bitmask & GUESTFS_NTFSCLONE_OUT_IGNOREFSCHECK_BITMASK) && ignorefscheck ? " --ignore-fs-check" : "",

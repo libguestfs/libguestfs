@@ -31,6 +31,9 @@
 
 #define MAX_ARGS 64
 
+GUESTFSD_EXT_CMD(str_mount, mount);
+GUESTFSD_EXT_CMD(str_umount, umount);
+
 /* You must mount something on "/" first before many operations.
  * Hence we have an internal function which can test if something is
  * mounted on *or under* the sysroot directory.  (It has to be *or
@@ -150,10 +153,10 @@ do_mount_vfs (const char *options, const char *vfstype,
 
   if (vfstype)
     r = command (NULL, &error,
-                 "mount", "-o", options, "-t", vfstype, device, mp, NULL);
+                 str_mount, "-o", options, "-t", vfstype, device, mp, NULL);
   else
     r = command (NULL, &error,
-                 "mount", "-o", options, device, mp, NULL);
+                 str_mount, "-o", options, device, mp, NULL);
   free (mp);
   if (r == -1) {
     reply_with_error ("%s on %s (options: '%s'): %s",
@@ -213,7 +216,7 @@ do_umount (const char *pathordevice,
   /* Use the external /bin/umount program, so that /etc/mtab is kept
    * updated.
    */
-  ADD_ARG (argv, i, "umount");
+  ADD_ARG (argv, i, str_umount);
 
   if (force)
     ADD_ARG (argv, i, "-f");
@@ -382,7 +385,7 @@ do_umount_all (void)
 
   /* Unmount them. */
   for (i = 0; i < mounts.size; ++i) {
-    r = command (NULL, &err, "umount", mounts.argv[i], NULL);
+    r = command (NULL, &err, str_umount, mounts.argv[i], NULL);
     if (r == -1) {
       reply_with_error ("umount: %s: %s", mounts.argv[i], err);
       free (err);
@@ -422,7 +425,7 @@ do_mount_loop (const char *file, const char *mountpoint)
     return -1;
   }
 
-  r = command (NULL, &error, "mount", "-o", "loop", buf, mp, NULL);
+  r = command (NULL, &error, str_mount, "-o", "loop", buf, mp, NULL);
   free (mp);
   free (buf);
   if (r == -1) {

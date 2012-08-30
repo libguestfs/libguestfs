@@ -33,6 +33,7 @@
 #include "actions.h"
 
 #define BUS_PATH "/sys/bus/virtio/drivers/9pnet_virtio"
+GUESTFSD_EXT_CMD(str_mount, mount);
 
 static char *read_whole_file (const char *filename);
 
@@ -211,7 +212,7 @@ do_mount_9p (const char *mount_tag, const char *mountpoint, const char *options)
   }
 
   r = command (NULL, &err,
-               "mount", "-o", opts, "-t", "9p", mount_tag, mp, NULL);
+               str_mount, "-o", opts, "-t", "9p", mount_tag, mp, NULL);
   if (r == -1) {
     reply_with_error ("%s on %s: %s", mount_tag, mountpoint, err);
     goto out;

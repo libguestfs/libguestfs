@@ -27,6 +27,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_base64, base64);
+
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
 {
@@ -42,7 +44,7 @@ do_base64_in (const char *file)
   FILE *fp;
   char *cmd;
 
-  if (asprintf_nowarn (&cmd, "base64 -d -i > %R", file) == -1) {
+  if (asprintf_nowarn (&cmd, "%s -d -i > %R", str_base64, file) == -1) {
     err = errno;
     cancel_receive ();
     errno = err;
@@ -102,7 +104,7 @@ do_base64_out (const char *file)
   char *cmd;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
-  if (asprintf_nowarn (&cmd, "base64 %R", file) == -1) {
+  if (asprintf_nowarn (&cmd, "%s %R", str_base64, file) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }

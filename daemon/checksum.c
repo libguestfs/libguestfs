@@ -29,6 +29,9 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_find, find);
+GUESTFSD_EXT_CMD(str_xargs, xargs);
+
 static const char *
 program_of_csum (const char *csumtype)
 {
@@ -150,7 +153,8 @@ do_checksums_out (const char *csumtype, const char *dir)
   }
 
   char *cmd;
-  if (asprintf_nowarn (&cmd, "cd %Q && find -type f -print0 | xargs -0 %s",
+  if (asprintf_nowarn (&cmd, "cd %Q && %s -type f -print0 | %s -0 %s",
+                       str_find, str_xargs,
                        sysrootdir, program) == -1) {
     reply_with_perror ("asprintf");
     free (sysrootdir);

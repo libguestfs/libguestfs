@@ -26,6 +26,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_findfs, findfs);
+
 static char *
 findfs (const char *tag, const char *label_or_uuid)
 {
@@ -42,7 +44,7 @@ findfs (const char *tag, const char *label_or_uuid)
   snprintf (arg, len, "%s=%s", tag, label_or_uuid);
 
   char *out, *err;
-  int r = command (&out, &err, "findfs", arg, NULL);
+  int r = command (&out, &err, str_findfs, arg, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);

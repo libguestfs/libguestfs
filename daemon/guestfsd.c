@@ -53,6 +53,9 @@
 
 #include "daemon.h"
 
+GUESTFSD_EXT_CMD(str_udevadm, udevadm);
+GUESTFSD_EXT_CMD(str_udevsettle, udevsettle);
+
 static char *read_cmdline (void);
 
 #ifndef MAX
@@ -1294,6 +1297,6 @@ random_name (char *template)
 void
 udev_settle (void)
 {
-  (void) command (NULL, NULL, "udevadm", "settle", NULL);
-  (void) command (NULL, NULL, "udevsettle", NULL);
+  (void) command (NULL, NULL, str_udevadm, "settle", NULL);
+  (void) command (NULL, NULL, str_udevsettle, NULL);
 }

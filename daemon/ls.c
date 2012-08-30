@@ -30,6 +30,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_ls, ls);
+
 /* Has one FileOut parameter. */
 int
 do_ls0 (const char *path)
@@ -112,7 +114,7 @@ do_ll (const char *path)
     return NULL;
   }
 
-  r = command (&out, &err, "ls", "-la", spath, NULL);
+  r = command (&out, &err, str_ls, "-la", spath, NULL);
   free (spath);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -138,7 +140,7 @@ do_llz (const char *path)
     return NULL;
   }
 
-  r = command (&out, &err, "ls", "-laZ", spath, NULL);
+  r = command (&out, &err, str_ls, "-laZ", spath, NULL);
   free (spath);
   if (r == -1) {
     reply_with_error ("%s", err);

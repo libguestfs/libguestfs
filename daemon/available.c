@@ -29,6 +29,9 @@
 #include "actions.h"
 #include "optgroups.h"
 
+GUESTFSD_EXT_CMD(str_grep, grep);
+GUESTFSD_EXT_CMD(str_modprobe, modprobe);
+
 int
 do_available (char *const *groups)
 {
@@ -85,7 +88,7 @@ test_proc_filesystems (const char *filesystem)
 
   snprintf (regex, len, "^[[:space:]]*%s$", filesystem);
 
-  r = commandr (NULL, &err, "grep", regex, "/proc/filesystems", NULL);
+  r = commandr (NULL, &err, str_grep, regex, "/proc/filesystems", NULL);
   if (r == -1 || r >= 2) {
     fprintf (stderr, "grep /proc/filesystems: %s", err);
     free (err);
@@ -100,7 +103,7 @@ test_proc_filesystems (const char *filesystem)
 static void
 modprobe (const char *module)
 {
-  command (NULL, NULL, "modprobe", module, NULL);
+  command (NULL, NULL, str_modprobe, module, NULL);
 }
 
 /* Internal function for testing if a filesystem is available.  Note

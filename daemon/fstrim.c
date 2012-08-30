@@ -30,10 +30,12 @@
 
 #define MAX_ARGS 64
 
+GUESTFSD_EXT_CMD(str_fstrim, fstrim);
+
 int
 optgroup_fstrim_available (void)
 {
-  return prog_exists ("fstrim");
+  return prog_exists (str_fstrim);
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -47,7 +49,7 @@ do_fstrim (const char *path,
   char *err;
   int r;
 
-  ADD_ARG (argv, i, "fstrim");
+  ADD_ARG (argv, i, str_fstrim);
 
   if ((optargs_bitmask & GUESTFS_FSTRIM_OFFSET_BITMASK)) {
     if (offset < 0) {

@@ -26,13 +26,15 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_fsck, fsck);
+
 int
 do_fsck (const char *fstype, const char *device)
 {
   char *err;
   int r;
 
-  r = commandr (NULL, &err, "fsck", "-a", "-t", fstype, device, NULL);
+  r = commandr (NULL, &err, str_fsck, "-a", "-t", fstype, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);

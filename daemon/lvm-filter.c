@@ -31,6 +31,10 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_lvm, lvm);
+GUESTFSD_EXT_CMD(str_cp, cp);
+GUESTFSD_EXT_CMD(str_rm, rm);
+
 /* This runs during daemon start up and creates a complete copy of
  * /etc/lvm so that we can modify it as we desire.  We set
  * LVM_SYSTEM_DIR to point to the copy.
@@ -65,7 +69,7 @@ copy_lvm (void)
   }
 
   /* Hopefully no dotfiles in there ... XXX */
-  snprintf (cmd, sizeof cmd, "cp -a /etc/lvm/* %s", lvm_system_dir);
+  snprintf (cmd, sizeof cmd, "%s -a /etc/lvm/* %s", str_cp, lvm_system_dir);
   r = system (cmd);
   if (r == -1) {
     perror (cmd);
@@ -92,7 +96,7 @@ rm_lvm_system_dir (void)
 {
   char cmd[64];
 
-  snprintf (cmd, sizeof cmd, "rm -rf %s", lvm_system_dir);
+  snprintf (cmd, sizeof cmd, "%s -rf %s", str_rm, lvm_system_dir);
   ignore_value (system (cmd));
 }
 
@@ -189,7 +193,7 @@ static int
 vgchange (const char *vgchange_flag)
 {
   char *err;
-  int r = command (NULL, &err, "lvm", "vgchange", vgchange_flag, NULL);
+  int r = command (NULL, &err, str_lvm, "vgchange", vgchange_flag, NULL);
   if (r == -1) {
     reply_with_error ("vgchange: %s", err);
     free (err);
@@ -224,7 +228,7 @@ rescan (void)
   unlink (lvm_cache);
 
   char *err;
-  int r = command (NULL, &err, "lvm", "vgscan", NULL);
+  int r = command (NULL, &err, str_lvm, "vgscan", NULL);
   if (r == -1) {
     reply_with_error ("vgscan: %s", err);
     free (err);

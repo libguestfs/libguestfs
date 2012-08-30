@@ -30,16 +30,20 @@
 
 #define MAX_ARGS 64
 
+GUESTFSD_EXT_CMD(str_ntfs3g_probe, ntfs-3g.probe);
+GUESTFSD_EXT_CMD(str_ntfsresize, ntfsresize);
+GUESTFSD_EXT_CMD(str_ntfsfix, ntfsfix);
+
 int
 optgroup_ntfs3g_available (void)
 {
-  return prog_exists ("ntfs-3g.probe");
+  return prog_exists (str_ntfs3g_probe);
 }
 
 int
 optgroup_ntfsprogs_available (void)
 {
-  return prog_exists ("ntfsresize");
+  return prog_exists (str_ntfsresize);
 }
 
 int
@@ -51,7 +55,7 @@ do_ntfs_3g_probe (int rw, const char *device)
 
   rw_flag = rw ? "-w" : "-r";
 
-  r = commandr (NULL, &err, "ntfs-3g.probe", rw_flag, device, NULL);
+  r = commandr (NULL, &err, str_ntfs3g_probe, rw_flag, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);
@@ -72,7 +76,7 @@ do_ntfsresize (const char *device, int64_t size, int force)
   size_t i = 0;
   char size_str[32];
 
-  ADD_ARG (argv, i, "ntfsresize");
+  ADD_ARG (argv, i, str_ntfsresize);
   ADD_ARG (argv, i, "-P");
 
   if (optargs_bitmask & GUESTFS_NTFSRESIZE_SIZE_BITMASK) {
@@ -119,7 +123,7 @@ do_ntfsfix (const char *device, int clearbadsectors)
   int r;
   char *err;
 
-  ADD_ARG (argv, i, "ntfsfix");
+  ADD_ARG (argv, i, str_ntfsfix);
 
   if ((optargs_bitmask & GUESTFS_NTFSFIX_CLEARBADSECTORS_BITMASK) &&
       clearbadsectors)

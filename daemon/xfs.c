@@ -30,10 +30,16 @@
 
 #define MAX_ARGS 64
 
+GUESTFSD_EXT_CMD(str_mkfs_xfs, mkfs.xfs);
+GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
+GUESTFSD_EXT_CMD(str_xfs_info, xfs_info);
+GUESTFSD_EXT_CMD(str_xfs_growfs, xfs_growfs);
+GUESTFSD_EXT_CMD(str_xfs_repair, xfs_repair);
+
 int
 optgroup_xfs_available (void)
 {
-  return prog_exists ("mkfs.xfs");
+  return prog_exists (str_mkfs_xfs);
 }
 
 static char *
@@ -330,7 +336,7 @@ do_xfs_info (const char *pathordevice)
     return NULL;
   }
 
-  r = command (&out, &err, "xfs_info", buf, NULL);
+  r = command (&out, &err, str_xfs_info, buf, NULL);
   free (buf);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -374,7 +380,7 @@ do_xfs_growfs (const char *path,
     return -1;
   }
 
-  ADD_ARG (argv, i, "xfs_growfs");
+  ADD_ARG (argv, i, str_xfs_growfs);
 
   /* Optional arguments */
   if (!(optargs_bitmask & GUESTFS_XFS_GROWFS_DATASEC_BITMASK))
@@ -471,7 +477,7 @@ do_xfs_admin (const char *device,
   const char *argv[MAX_ARGS];
   size_t i = 0;
 
-  ADD_ARG (argv, i, "xfs_admin");
+  ADD_ARG (argv, i, str_xfs_admin);
 
   /* Optional arguments */
   if (!(optargs_bitmask & GUESTFS_XFS_ADMIN_EXTUNWRITTEN_BITMASK))
@@ -548,7 +554,7 @@ do_xfs_repair (const char *device,
   size_t i = 0;
   int is_device;
 
-  ADD_ARG (argv, i, "xfs_repair");
+  ADD_ARG (argv, i, str_xfs_repair);
 
   /* Optional arguments */
   if (optargs_bitmask & GUESTFS_XFS_REPAIR_FORCELOGZERO_BITMASK) {

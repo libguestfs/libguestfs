@@ -28,6 +28,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_du, du);
+
 int64_t
 do_du (const char *path)
 {
@@ -45,7 +47,7 @@ do_du (const char *path)
 
   pulse_mode_start ();
 
-  r = command (&out, &err, "du", "-s", buf, NULL);
+  r = command (&out, &err, str_du, "-s", buf, NULL);
   free (buf);
   if (r == -1) {
     pulse_mode_cancel ();

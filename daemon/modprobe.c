@@ -25,17 +25,19 @@
 #include "actions.h"
 #include "optgroups.h"
 
+GUESTFSD_EXT_CMD(str_modprobe, modprobe);
+
 int
 optgroup_linuxmodules_available (void)
 {
-  return prog_exists ("modprobe");
+  return prog_exists (str_modprobe);
 }
 
 int
 do_modprobe (const char *module)
 {
   char *err;
-  int r = command (NULL, &err, "modprobe", module, NULL);
+  int r = command (NULL, &err, str_modprobe, module, NULL);
 
   if (r == -1) {
     reply_with_error ("%s", err);

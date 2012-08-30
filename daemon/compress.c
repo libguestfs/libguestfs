@@ -27,6 +27,12 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_compress, compress);
+GUESTFSD_EXT_CMD(str_gzip, gzip);
+GUESTFSD_EXT_CMD(str_bzip2, bzip2);
+GUESTFSD_EXT_CMD(str_xz, xz);
+GUESTFSD_EXT_CMD(str_lzop, lzop);
+
 /* Has one FileOut parameter. */
 static int
 do_compressX_out (const char *file, const char *filter, int is_device)
@@ -118,15 +124,15 @@ get_filter (const char *ctype, int level, char *ret, size_t n)
       reply_with_error ("compress: cannot use optional level parameter with this compression type");
       return -1;
     }
-    snprintf (ret, n, "compress -c");
+    snprintf (ret, n, "%s -c", str_compress);
     return 0;
   }
   else if (STREQ (ctype, "gzip")) {
     CHECK_SUPPORTED ("gzip");
     if (level == -1)
-      snprintf (ret, n, "gzip -c");
+      snprintf (ret, n, "%s -c", str_gzip);
     else if (level >= 1 && level <= 9)
-      snprintf (ret, n, "gzip -c -%d", level);
+      snprintf (ret, n, "%s -c -%d", str_gzip, level);
     else {
       reply_with_error ("gzip: incorrect value for level parameter");
       return -1;
@@ -136,9 +142,9 @@ get_filter (const char *ctype, int level, char *ret, size_t n)
   else if (STREQ (ctype, "bzip2")) {
     CHECK_SUPPORTED ("bzip2");
     if (level == -1)
-      snprintf (ret, n, "bzip2 -c");
+      snprintf (ret, n, "%s -c", str_bzip2);
     else if (level >= 1 && level <= 9)
-      snprintf (ret, n, "bzip2 -c -%d", level);
+      snprintf (ret, n, "%s -c -%d", str_bzip2, level);
     else {
       reply_with_error ("bzip2: incorrect value for level parameter");
       return -1;
@@ -148,9 +154,9 @@ get_filter (const char *ctype, int level, char *ret, size_t n)
   else if (STREQ (ctype, "xz")) {
     CHECK_SUPPORTED ("xz");
     if (level == -1)
-      snprintf (ret, n, "xz -c");
+      snprintf (ret, n, "%s -c", str_xz);
     else if (level >= 0 && level <= 9)
-      snprintf (ret, n, "xz -c -%d", level);
+      snprintf (ret, n, "%s -c -%d", str_xz, level);
     else {
       reply_with_error ("xz: incorrect value for level parameter");
       return -1;
@@ -160,9 +166,9 @@ get_filter (const char *ctype, int level, char *ret, size_t n)
   else if (STREQ (ctype, "lzop")) {
     CHECK_SUPPORTED ("lzop");
     if (level == -1)
-      snprintf (ret, n, "lzop -c");
+      snprintf (ret, n, "%s -c", str_lzop);
     else if (level >= 1 && level <= 9)
-      snprintf (ret, n, "lzop -c -%d", level);
+      snprintf (ret, n, "%s -c -%d", str_lzop, level);
     else {
       reply_with_error ("lzop: incorrect value for level parameter");
       return -1;

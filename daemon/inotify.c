@@ -35,6 +35,8 @@
 #include "optgroups.h"
 
 #ifdef HAVE_SYS_INOTIFY_H
+GUESTFSD_EXT_CMD(str_sort, sort);
+
 /* Currently open inotify handle, or -1 if not opened. */
 static int inotify_fd = -1;
 
@@ -318,7 +320,7 @@ do_inotify_files (void)
     return NULL;
   }
 
-  snprintf (cmd, sizeof cmd, "sort -u > %s", tempfile);
+  snprintf (cmd, sizeof cmd, "%s -u > %s", str_sort, tempfile);
 
   fp = popen (cmd, "w");
   if (fp == NULL) {

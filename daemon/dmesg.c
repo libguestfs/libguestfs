@@ -27,13 +27,15 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_dmesg, dmesg);
+
 char *
 do_dmesg (void)
 {
   char *out, *err;
   int r;
 
-  r = command (&out, &err, "dmesg", NULL);
+  r = command (&out, &err, str_dmesg, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);

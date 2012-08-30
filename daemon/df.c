@@ -27,6 +27,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_df, df);
+
 char *
 do_df (void)
 {
@@ -35,7 +37,7 @@ do_df (void)
 
   NEED_ROOT (, return NULL);
 
-  r = command (&out, &err, "df", NULL);
+  r = command (&out, &err, str_df, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -56,7 +58,7 @@ do_df_h (void)
 
   NEED_ROOT (, return NULL);
 
-  r = command (&out, &err, "df", "-h", NULL);
+  r = command (&out, &err, str_df, "-h", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);

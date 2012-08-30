@@ -30,6 +30,10 @@
 
 #include "ignore-value.h"
 
+GUESTFSD_EXT_CMD(str_mkswap, mkswap);
+GUESTFSD_EXT_CMD(str_swapon, swapon);
+GUESTFSD_EXT_CMD(str_swapoff, swapoff);
+
 /* Confirmed this is true for Linux swap partitions from the Linux sources. */
 #define SWAP_LABEL_MAX 16
 
@@ -49,7 +53,7 @@ optgroup_linuxfsuuid_available (void)
    * return code.
    */
   ignore_value (commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                          "mkswap", "--help", NULL));
+                          str_mkswap, "--help", NULL));
 
   av = strstr (err, "-U") != NULL;
   free (err);
@@ -66,7 +70,7 @@ do_mkswap (const char *device, const char *label, const char *uuid)
   int r;
   char *err;
 
-  ADD_ARG (argv, i, "mkswap");
+  ADD_ARG (argv, i, str_mkswap);
   ADD_ARG (argv, i, "-f");
 
   if (optargs_bitmask & GUESTFS_MKSWAP_LABEL_BITMASK) {
@@ -129,7 +133,7 @@ do_mkswap_file (const char *path)
     return -1;
   }
 
-  r = command (NULL, &err, "mkswap", "-f", buf, NULL);
+  r = command (NULL, &err, str_mkswap, "-f", buf, NULL);
   free (buf);
 
   if (r == -1) {
@@ -173,13 +177,13 @@ swaponoff (const char *cmd, const char *flag, const char *value)
 int
 do_swapon_device (const char *device)
 {
-  return swaponoff ("swapon", NULL, device);
+  return swaponoff (str_swapon, NULL, device);
 }
 
 int
 do_swapoff_device (const char *device)
 {
-  return swaponoff ("swapoff", NULL, device);
+  return swaponoff (str_swapoff, NULL, device);
 }
 
 int
@@ -194,7 +198,7 @@ do_swapon_file (const char *path)
     return -1;
   }
 
-  r = swaponoff ("swapon", NULL, buf);
+  r = swaponoff (str_swapon, NULL, buf);
   free (buf);
   return r;
 }
@@ -211,7 +215,7 @@ do_swapoff_file (const char *path)
     return -1;
   }
 
-  r = swaponoff ("swapoff", NULL, buf);
+  r = swaponoff (str_swapoff, NULL, buf);
   free (buf);
   return r;
 }
@@ -225,7 +229,7 @@ do_swapon_label (const char *label)
     return -1;
   }
 
-  return swaponoff ("swapon", "-L", label);
+  return swaponoff (str_swapon, "-L", label);
 }
 
 int
@@ -237,17 +241,17 @@ do_swapoff_label (const char *label)
     return -1;
   }
 
-  return swaponoff ("swapoff", "-L", label);
+  return swaponoff (str_swapoff, "-L", label);
 }
 
 int
 do_swapon_uuid (const char *uuid)
 {
-  return swaponoff ("swapon", "-U", uuid);
+  return swaponoff (str_swapon, "-U", uuid);
 }
 
 int
 do_swapoff_uuid (const char *uuid)
 {
-  return swaponoff ("swapoff", "-U", uuid);
+  return swaponoff (str_swapoff, "-U", uuid);
 }

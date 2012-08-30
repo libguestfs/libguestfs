@@ -119,6 +119,7 @@ char *
   return get_blkid_tag (device, "TYPE");
 }
 
+GUESTFSD_EXT_CMD(str_blkid, blkid);
 static char *
 get_blkid_tag (const char *device, const char *tag)
 {
@@ -126,7 +127,7 @@ get_blkid_tag (const char *device, const char *tag)
   int r;
 
   r = commandr (&amp;out, &amp;err,
-                "blkid",
+                str_blkid,
                 "-c", "/dev/null",
                 "-o", "value", "-s", tag, device, NULL);
   if (r != 0 &amp;&amp; r != 2) {

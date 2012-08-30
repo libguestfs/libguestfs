@@ -29,6 +29,10 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_file, file);
+GUESTFSD_EXT_CMD(str_zcat, zcat);
+GUESTFSD_EXT_CMD(str_bzcat, bzcat);
+
 int
 do_touch (const char *path)
 {
@@ -473,7 +477,7 @@ do_file (const char *path)
   const char *flags = is_dev ? "-zbsL" : "-zb";
 
   char *out, *err;
-  int r = command (&out, &err, "file", flags, path, NULL);
+  int r = command (&out, &err, str_file, flags, path, NULL);
   free (buf);
 
   if (r == -1) {
@@ -503,9 +507,9 @@ do_zfile (const char *method, const char *path)
   char line[256];
 
   if (STREQ (method, "gzip") || STREQ (method, "compress"))
-    zcat = "zcat";
+    zcat = str_zcat;
   else if (STREQ (method, "bzip2"))
-    zcat = "bzcat";
+    zcat = str_bzcat;
   else {
     reply_with_error ("unknown method");
     return NULL;

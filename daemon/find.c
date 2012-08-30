@@ -30,6 +30,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_find, find);
+
 static int
 input_to_nul (FILE *fp, char *buf, size_t maxlen)
 {
@@ -89,7 +91,7 @@ do_find0 (const char *dir)
 
   sysrootdirlen = strlen (sysrootdir);
 
-  if (asprintf_nowarn (&cmd, "find %Q -print0", sysrootdir) == -1) {
+  if (asprintf_nowarn (&cmd, "%s %Q -print0", str_find, sysrootdir) == -1) {
     reply_with_perror ("asprintf");
     free (sysrootdir);
     return -1;

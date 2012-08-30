@@ -31,6 +31,9 @@
 
 #define MAX_ARGS 64
 
+GUESTFSD_EXT_CMD(str_mke2fs, mke2fs);
+GUESTFSD_EXT_CMD(str_mkfs, mkfs);
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_mkfs (const char *fstype, const char *device, int blocksize,
@@ -54,9 +57,9 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
    * option.
    */
   if (extfs)
-    ADD_ARG (argv, i, "mke2fs");
+    ADD_ARG (argv, i, str_mke2fs);
   else
-    ADD_ARG (argv, i, "mkfs");
+    ADD_ARG (argv, i, str_mkfs);
 
   ADD_ARG (argv, i, "-t");
   ADD_ARG (argv, i, fstype);

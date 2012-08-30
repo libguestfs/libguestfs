@@ -31,6 +31,13 @@
 
 #define MAX_ARGS 64
 
+GUESTFSD_EXT_CMD(str_tune2fs, tune2fs);
+GUESTFSD_EXT_CMD(str_e2fsck, e2fsck);
+GUESTFSD_EXT_CMD(str_resize2fs, resize2fs);
+GUESTFSD_EXT_CMD(str_mke2fs, mke2fs);
+GUESTFSD_EXT_CMD(str_lsattr, lsattr);
+GUESTFSD_EXT_CMD(str_chattr, chattr);
+
 char **
 do_tune2fs_l (const char *device)
 {
@@ -39,7 +46,7 @@ do_tune2fs_l (const char *device)
   char *p, *pend, *colon;
   DECLARE_STRINGSBUF (ret);
 
-  r = command (&out, &err, "tune2fs", "-l", device, NULL);
+  r = command (&out, &err, str_tune2fs, "-l", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -135,7 +142,7 @@ do_set_e2uuid (const char *device, const char *uuid)
   int r;
   char *err;
 
-  r = command (NULL, &err, "tune2fs", "-U", uuid, device, NULL);
+  r = command (NULL, &err, str_tune2fs, "-U", uuid, device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -164,7 +171,7 @@ if_not_mounted_run_e2fsck (const char *device)
     return -1;
 
   if (!mounted) {
-    r = command (NULL, &err, "e2fsck", "-fy", device, NULL);
+    r = command (NULL, &err, str_e2fsck, "-fy", device, NULL);
     if (r == -1) {
       reply_with_error ("%s", err);
       free (err);
@@ -185,7 +192,7 @@ do_resize2fs (const char *device)
   if (if_not_mounted_run_e2fsck (device) == -1)
     return -1;
 
-  r = command (NULL, &err, "resize2fs", device, NULL);
+  r = command (NULL, &err, str_resize2fs, device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -219,7 +226,7 @@ do_resize2fs_size (const char *device, int64_t size)
   char buf[32];
   snprintf (buf, sizeof buf, "%" PRIi64 "K", size);
 
-  r = command (NULL, &err, "resize2fs", device, buf, NULL);
+  r = command (NULL, &err, str_resize2fs, device, buf, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -239,7 +246,7 @@ do_resize2fs_M (const char *device)
   if (if_not_mounted_run_e2fsck (device) == -1)
     return -1;
 
-  r = command (NULL, &err, "resize2fs", "-M", device, NULL);
+  r = command (NULL, &err, str_resize2fs, "-M", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -272,7 +279,7 @@ do_e2fsck (const char *device,
     return -1;
   }
 
-  ADD_ARG (argv, i, "e2fsck");
+  ADD_ARG (argv, i, str_e2fsck);
   ADD_ARG (argv, i, "-f");
 
   if (correct)
@@ -319,7 +326,7 @@ do_mke2journal (int blocksize, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-               "mke2fs", "-F", "-O", "journal_dev", "-b", blocksize_s,
+               str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -347,7 +354,7 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-               "mke2fs", "-F", "-O", "journal_dev", "-b", blocksize_s,
+               str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-L", label,
                device, NULL);
   if (r == -1) {
@@ -370,7 +377,7 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-               "mke2fs", "-F", "-O", "journal_dev", "-b", blocksize_s,
+               str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-U", uuid,
                device, NULL);
   if (r == -1) {
@@ -398,7 +405,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=%s", journal);
 
   r = command (NULL, &err,
-               "mke2fs", "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -431,7 +438,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=LABEL=%s", label);
 
   r = command (NULL, &err,
-               "mke2fs", "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -458,7 +465,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=UUID=%s", uuid);
 
   r = command (NULL, &err,
-               "mke2fs", "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -496,7 +503,7 @@ do_tune2fs (const char *device, /* only required parameter */
   char reservedblockscount_s[64];
   char user_s[64];
 
-  ADD_ARG (argv, i, "tune2fs");
+  ADD_ARG (argv, i, str_tune2fs);
 
   if (optargs_bitmask & GUESTFS_TUNE2FS_FORCE_BITMASK) {
     if (force)
@@ -635,7 +642,7 @@ do_get_e2attrs (const char *filename)
     return NULL;
   }
 
-  r = command (&out, &err, "lsattr", "-d", "--", buf, NULL);
+  r = command (&out, &err, str_lsattr, "-d", "--", buf, NULL);
   free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "lsattr", filename, err);
@@ -729,7 +736,7 @@ do_set_e2attrs (const char *filename, const char *attrs, int clear)
     return -1;
   }
 
-  r = command (NULL, &err, "chattr", attr_arg, "--", buf, NULL);
+  r = command (NULL, &err, str_chattr, attr_arg, "--", buf, NULL);
   free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "chattr", filename, err);
@@ -755,7 +762,7 @@ do_get_e2generation (const char *filename)
     return -1;
   }
 
-  r = command (&out, &err, "lsattr", "-dv", "--", buf, NULL);
+  r = command (&out, &err, str_lsattr, "-dv", "--", buf, NULL);
   free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "lsattr", filename, err);
@@ -793,7 +800,7 @@ do_set_e2generation (const char *filename, int64_t generation)
   snprintf (generation_str, sizeof generation_str,
             "%" PRIu64, (uint64_t) generation);
 
-  r = command (NULL, &err, "chattr", "-v", generation_str, "--", buf, NULL);
+  r = command (NULL, &err, str_chattr, "-v", generation_str, "--", buf, NULL);
   free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "chattr", filename, err);

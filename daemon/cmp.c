@@ -27,6 +27,8 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_cmp, cmp);
+
 int
 do_equal (const char *file1, const char *file2)
 {
@@ -47,7 +49,7 @@ do_equal (const char *file1, const char *file2)
     return -1;
   }
 
-  r = commandr (NULL, &err, "cmp", "-s", file1buf, file2buf, NULL);
+  r = commandr (NULL, &err, str_cmp, "-s", file1buf, file2buf, NULL);
 
   free (file1buf);
   free (file2buf);

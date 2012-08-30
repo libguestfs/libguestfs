@@ -96,6 +96,9 @@ extern char **split_lines (char *str);
 #define commandv(out,err,argv) commandvf((out),(err),0,(argv))
 #define commandrv(out,err,argv) commandrvf((out),(err),0,(argv))
 
+#define __external_command __attribute__((__section__(".guestfsd_ext_cmds")))
+#define GUESTFSD_EXT_CMD(___ext_cmd_var, ___ext_cmd_str) static const char ___ext_cmd_var[] __external_command = #___ext_cmd_str
+
 #define COMMAND_FLAG_FD_MASK                   (1024-1)
 #define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR     1024
 #define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 2048

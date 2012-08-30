@@ -30,6 +30,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+GUESTFSD_EXT_CMD(str_tar, tar);
+
 int
 optgroup_xz_available (void)
 {
@@ -155,7 +157,8 @@ do_tar_in (const char *dir, const char *compress)
   close (fd);
 
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R%s -xf - %s2> %s",
+  if (asprintf_nowarn (&cmd, "%s -C %R%s -xf - %s2> %s",
+                       str_tar,
                        dir, filter,
                        chown_supported ? "" : "--no-same-owner ",
                        error_file) == -1) {
@@ -321,7 +324,8 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   }
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R%s%s%s -cf - .",
+  if (asprintf_nowarn (&cmd, "%s -C %R%s%s%s -cf - .",
+                       str_tar,
                        dir, filter,
                        numericowner ? " --numeric-owner" : "",
                        excludes_args) == -1) {

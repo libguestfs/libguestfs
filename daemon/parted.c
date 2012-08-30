@@ -28,6 +28,9 @@
 #include "daemon.h"
 #include "actions.h"
 
+GUESTFSD_EXT_CMD(str_parted, parted);
+GUESTFSD_EXT_CMD(str_sfdisk, sfdisk);
+
 /* Notes:
  *
  * Parted 1.9 sends error messages to stdout, hence use of the
@@ -82,7 +85,7 @@ do_part_init (const char *device, const char *parttype)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "parted", "-s", "--", device, "mklabel", parttype, NULL);
+                str_parted, "-s", "--", device, "mklabel", parttype, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
     free (err);
@@ -137,7 +140,7 @@ do_part_add (const char *device, const char *prlogex,
    * this as a bug in the parted mkpart command.
    */
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "parted", "-s", "--",
+                str_parted, "-s", "--",
                 device, "mkpart", prlogex, startstr, endstr, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
@@ -168,7 +171,7 @@ do_part_del (const char *device, int partnum)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "parted", "-s", "--", device, "rm", partnum_str, NULL);
+                str_parted, "-s", "--", device, "rm", partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
     free (err);
@@ -209,7 +212,7 @@ do_part_disk (const char *device, const char *parttype)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "parted", "-s", "--",
+                str_parted, "-s", "--",
                 device,
                 "mklabel", parttype,
                 /* See comment about about the parted mkpart command. */
@@ -245,7 +248,7 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "parted", "-s", "--",
+                str_parted, "-s", "--",
                 device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
@@ -277,7 +280,7 @@ do_part_set_name (const char *device, int partnum, const char *name)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                "parted", "-s", "--", device, "name", partstr, name, NULL);
+                str_parted, "-s", "--", device, "name", partstr, name, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
     free (err);
@@ -333,7 +336,7 @@ test_parted_m_opt (void)
     return result;
 
   char *err = NULL;
-  int r = commandr (NULL, &err, "parted", "-s", "-m", "/dev/null", NULL);
+  int r = commandr (NULL, &err, str_parted, "-s", "-m", "/dev/null", NULL);
   if (r == -1) {
     /* Test failed, eg. missing or completely unusable parted binary. */
     reply_with_error ("could not run 'parted' command");
@@ -356,11 +359,11 @@ print_partition_table (const char *device, int parted_has_m_opt)
   int r;
 
   if (parted_has_m_opt)
-    r = command (&out, &err, "parted", "-m", "--", device,
+    r = command (&out, &err, str_parted, "-m", "--", device,
                  "unit", "b",
                  "print", NULL);
   else
-    r = command (&out, &err, "parted", "-s", "--", device,
+    r = command (&out, &err, str_parted, "-s", "--", device,
                  "unit", "b",
                  "print", NULL);
   if (r == -1) {
@@ -744,7 +747,7 @@ do_part_get_mbr_id (const char *device, int partnum)
 
   udev_settle ();
 
-  r = command (&out, &err, "sfdisk", "--print-id", device, partnum_str, NULL);
+  r = command (&out, &err, str_sfdisk, "--print-id", device, partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk --print-id: %s", err);
     free (out);
@@ -786,7 +789,7 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
 
   udev_settle ();
 
-  r = command (NULL, &err, "sfdisk",
+  r = command (NULL, &err, str_sfdisk,
                "--change-id", device, partnum_str, idbyte_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk --change-id: %s", err);

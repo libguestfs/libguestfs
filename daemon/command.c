@@ -28,10 +28,13 @@
 
 #include "ignore-value.h"
 
+GUESTFSD_EXT_CMD(str_mount, mount);
+GUESTFSD_EXT_CMD(str_umount, umount);
+
 static inline void
 umount_ignore_fail (const char *path)
 {
-  ignore_value (command (NULL, NULL, "umount", path, NULL));
+  ignore_value (command (NULL, NULL, str_umount, path, NULL));
 }
 
 char *
@@ -81,15 +84,15 @@ do_command (char *const *argv)
     return NULL;
   }
 
-  r = command (NULL, NULL, "mount", "--bind", "/dev", sysroot_dev, NULL);
+  r = command (NULL, NULL, str_mount, "--bind", "/dev", sysroot_dev, NULL);
   dev_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/dev/pts", sysroot_dev_pts, NULL);
+  r = command (NULL, NULL, str_mount, "--bind", "/dev/pts", sysroot_dev_pts, NULL);
   dev_pts_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/proc", sysroot_proc, NULL);
+  r = command (NULL, NULL, str_mount, "--bind", "/proc", sysroot_proc, NULL);
   proc_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/selinux", sysroot_selinux, NULL);
+  r = command (NULL, NULL, str_mount, "--bind", "/selinux", sysroot_selinux, NULL);
   selinux_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/sys", sysroot_sys, NULL);
+  r = command (NULL, NULL, str_mount, "--bind", "/sys", sysroot_sys, NULL);
   sys_ok = r != -1;
 
   CHROOT_IN;
