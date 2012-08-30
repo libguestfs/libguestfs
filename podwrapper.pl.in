@@ -390,7 +390,7 @@ SUBMAN: {
     package Podwrapper::Man;
 
     use vars qw(@ISA $VERSION);
-    @ISA = qw(Pod::Man);
+    @ISA = qw(Pod::Simple::Text);
     $VERSION = $package_version;
 
     # Override the L<> method.
