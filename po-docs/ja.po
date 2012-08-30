@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-08-29 18:58+0200\n"
+"POT-Creation-Date: 2012-08-30 16:19+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1263,7 +1263,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389
 #: ../cat/virt-ls.pod:495 ../df/virt-df.pod:253 ../edit/virt-edit.pod:368
 #: ../erlang/examples/guestfs-erlang.pod:97
-#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:684
+#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:683
 #: ../examples/guestfs-performance.pod:429 ../examples/guestfs-recipes.pod:394
 #: ../examples/guestfs-testing.pod:291 ../fish/guestfish.pod:1289
 #: ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39
@@ -1322,7 +1322,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404
 #: ../cat/virt-ls.pod:511 ../df/virt-df.pod:265 ../edit/virt-edit.pod:386
 #: ../erlang/examples/guestfs-erlang.pod:114
-#: ../examples/guestfs-examples.pod:49 ../examples/guestfs-faq.pod:694
+#: ../examples/guestfs-examples.pod:49 ../examples/guestfs-faq.pod:693
 #: ../examples/guestfs-performance.pod:446 ../examples/guestfs-recipes.pod:411
 #: ../examples/guestfs-testing.pod:302 ../fish/guestfish.pod:1321
 #: ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53
@@ -1645,7 +1645,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:153
 #: ../erlang/examples/guestfs-erlang.pod:110
-#: ../examples/guestfs-examples.pod:45 ../examples/guestfs-faq.pod:690
+#: ../examples/guestfs-examples.pod:45 ../examples/guestfs-faq.pod:689
 #: ../examples/guestfs-performance.pod:442 ../examples/guestfs-recipes.pod:407
 #: ../examples/guestfs-testing.pod:298 ../fish/guestfish.pod:1317
 #: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
@@ -1662,7 +1662,7 @@ msgstr "著者"
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:155
 #: ../erlang/examples/guestfs-erlang.pod:112
-#: ../examples/guestfs-examples.pod:47 ../examples/guestfs-faq.pod:692
+#: ../examples/guestfs-examples.pod:47 ../examples/guestfs-faq.pod:691
 #: ../examples/guestfs-performance.pod:444 ../examples/guestfs-recipes.pod:409
 #: ../examples/guestfs-testing.pod:300 ../fish/guestfish.pod:1319
 #: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
@@ -5460,8 +5460,8 @@ msgstr ""
 
 #. type: =end
 #: ../examples/guestfs-faq.pod:219 ../examples/guestfs-faq.pod:224
-#: ../examples/guestfs-faq.pod:450 ../examples/guestfs-faq.pod:455
-#: ../examples/guestfs-faq.pod:574 ../examples/guestfs-faq.pod:579
+#: ../examples/guestfs-faq.pod:449 ../examples/guestfs-faq.pod:454
+#: ../examples/guestfs-faq.pod:573 ../examples/guestfs-faq.pod:578
 #: ../src/guestfs.pod:2442 ../src/guestfs.pod:2447
 msgid "html"
 msgstr "HTML"
@@ -5515,47 +5515,45 @@ msgstr ""
 
 #. type: =item
 #: ../examples/guestfs-faq.pod:244
-msgid "RHEL 6.3"
+msgid "RHEL 6.4"
 msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:246
-msgid ""
-"Preview packages are available here: L<http://people.redhat.com/~rjones/"
-"libguestfs-RHEL-6.3-preview/>"
+msgid "A preview repository will be announced at a later date."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:249
+#: ../examples/guestfs-faq.pod:248
 msgid "Debian Squeeze (6)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:251
+#: ../examples/guestfs-faq.pod:250
 msgid ""
 "Use Hilko Bengen's backport repository: L<http://people.debian.org/~bengen/"
 "libguestfs/>"
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:254
+#: ../examples/guestfs-faq.pod:253
 msgid "Debian Wheezy and later (7+)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:256
+#: ../examples/guestfs-faq.pod:255
 msgid ""
 "Official Debian packages are available: L<http://packages.debian.org/search?"
 "keywords=libguestfs> (thanks Hilko Bengen)."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:260
+#: ../examples/guestfs-faq.pod:259
 msgid "Ubuntu"
 msgstr "Ubuntu"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:262
+#: ../examples/guestfs-faq.pod:261
 msgid ""
 "We don't have an Ubuntu maintainer, and the packages supplied by Canonical "
 "(which are outside our control) are often broken.  Try compiling from source "
@@ -5563,7 +5561,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:266
+#: ../examples/guestfs-faq.pod:265
 msgid ""
 "Canonical decided to change the permissions on the kernel so that it's not "
 "readable except by root.  This is completely stupid, but they won't change "
@@ -5572,7 +5570,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:272 ../examples/guestfs-faq.pod:298
+#: ../examples/guestfs-faq.pod:271 ../examples/guestfs-faq.pod:297
 #, no-wrap
 msgid ""
 " sudo chmod 0644 /boot/vmlinuz*\n"
@@ -5580,41 +5578,41 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:274
+#: ../examples/guestfs-faq.pod:273
 msgid "Ubuntu 10.04"
 msgstr "Ubuntu 10.04"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:276
+#: ../examples/guestfs-faq.pod:275
 msgid "See: L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>"
 msgstr "参照: L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:279
+#: ../examples/guestfs-faq.pod:278
 msgid "Ubuntu 12.04"
 msgstr "Ubuntu 12.04"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:281
+#: ../examples/guestfs-faq.pod:280
 msgid ""
 "libguestfs in this version of Ubuntu works, but you need to update "
 "febootstrap and seabios to the latest versions."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:284
+#: ../examples/guestfs-faq.pod:283
 msgid ""
 "You need febootstrap E<ge> 3.14-2 from: L<http://packages.ubuntu.com/precise/"
 "febootstrap>"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:287
+#: ../examples/guestfs-faq.pod:286
 msgid "After installing or updating febootstrap, rebuild the appliance:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:289
+#: ../examples/guestfs-faq.pod:288
 #, no-wrap
 msgid ""
 " sudo update-guestfs-appliance\n"
@@ -5622,7 +5620,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:291
+#: ../examples/guestfs-faq.pod:290
 msgid ""
 "You need seabios E<ge> 0.6.2-0ubuntu2.1 or E<ge> 0.6.2-0ubuntu3 from: "
 "L<http://packages.ubuntu.com/precise-updates/seabios> or L<http://packages."
@@ -5630,22 +5628,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:296
+#: ../examples/guestfs-faq.pod:295
 msgid "Also you need to do (see above):"
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:300
+#: ../examples/guestfs-faq.pod:299
 msgid "Gentoo"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:302
+#: ../examples/guestfs-faq.pod:301
 msgid "Libguestfs was added to Gentoo in 2012-07.  Do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:304
+#: ../examples/guestfs-faq.pod:303
 #, no-wrap
 msgid ""
 " emerge libguestfs\n"
@@ -5653,32 +5651,32 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:306
+#: ../examples/guestfs-faq.pod:305
 msgid "Other Linux distro"
 msgstr "他の Linux ディストリビューション"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:308
+#: ../examples/guestfs-faq.pod:307
 msgid "Compile from source (next section)."
 msgstr "ソースからコンパイルします (次のセクション)。"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:310
+#: ../examples/guestfs-faq.pod:309
 msgid "Other non-Linux distro"
 msgstr "他の非 Linux ディストリビューション"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:312
+#: ../examples/guestfs-faq.pod:311
 msgid "You'll have to compile from source, and port it."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:316
+#: ../examples/guestfs-faq.pod:315
 msgid "How can I compile and install libguestfs from source?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:318
+#: ../examples/guestfs-faq.pod:317
 msgid ""
 "If your Linux distro has a working port of febootstrap (that is, Fedora, Red "
 "Hat Enterprise Linux >= 6.3, Debian, Ubuntu and ArchLinux)  then you should "
@@ -5688,33 +5686,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:324
+#: ../examples/guestfs-faq.pod:323
 msgid ""
 "If you I<don't> have febootstrap, you will need to use the \"fixed appliance "
 "method\".  See: L<http://libguestfs.org/download/binaries/appliance/>"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:328
+#: ../examples/guestfs-faq.pod:327
 msgid "Patches to port febootstrap to more Linux distros are welcome."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:330
+#: ../examples/guestfs-faq.pod:329
 msgid ""
 "Why do I get an error when I try to rebuild from the source RPMs supplied by "
 "Red Hat / Fedora?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:333
+#: ../examples/guestfs-faq.pod:332
 msgid ""
 "Because of the complexity of building the libguestfs appliance, the source "
 "RPMs provided cannot be rebuilt directly using C<rpmbuild> or C<mock>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:337
+#: ../examples/guestfs-faq.pod:336
 msgid ""
 "If you use Koji (which is open source software and may be installed "
 "locally), then the SRPMs can be rebuilt in Koji.  L<https://fedoraproject."
@@ -5722,7 +5720,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:341
+#: ../examples/guestfs-faq.pod:340
 msgid ""
 "If you don't have or want to use Koji, then you have to give libguestfs "
 "access to the network so it can download the RPMs for building the "
@@ -5731,7 +5729,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:347
+#: ../examples/guestfs-faq.pod:346
 #, no-wrap
 msgid ""
 " %libguestfs_buildnet   1\n"
@@ -5739,12 +5737,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:349
+#: ../examples/guestfs-faq.pod:348
 msgid "If you are using mock, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:351
+#: ../examples/guestfs-faq.pod:350
 #, no-wrap
 msgid ""
 " mock -D '%libguestfs_buildnet 1' [etc]\n"
@@ -5752,22 +5750,22 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:353
+#: ../examples/guestfs-faq.pod:352
 msgid "Libguestfs has a really long list of dependencies!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:355
+#: ../examples/guestfs-faq.pod:354
 msgid "That's because it does a lot of things."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:357
+#: ../examples/guestfs-faq.pod:356
 msgid "How can I speed up libguestfs builds?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:359
+#: ../examples/guestfs-faq.pod:358
 msgid ""
 "By far the most important thing you can do is to install and properly "
 "configure Squid.  Note that the default configuration that ships with Squid "
@@ -5775,7 +5773,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:363
+#: ../examples/guestfs-faq.pod:362
 msgid ""
 "A very good place to start with Squid configuration is here: L<https://"
 "fedoraproject.org/wiki/Extras/"
@@ -5783,38 +5781,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:366
+#: ../examples/guestfs-faq.pod:365
 msgid ""
 "Make sure Squid is running, and that the environment variables C<"
 "$http_proxy> and C<$ftp_proxy> are pointing to it."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:369
+#: ../examples/guestfs-faq.pod:368
 msgid ""
 "With Squid running and correctly configured, appliance builds should be "
 "reduced to a few minutes."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:372
+#: ../examples/guestfs-faq.pod:371
 msgid "SPEED, DISK SPACE USED BY LIBGUESTFS"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:374
+#: ../examples/guestfs-faq.pod:373
 msgid ""
 "Note: Most of the information in this section has moved: L<guestfs-"
 "performance(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:377
+#: ../examples/guestfs-faq.pod:376
 msgid "Upload or write seem very slow."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:379
+#: ../examples/guestfs-faq.pod:378
 msgid ""
 "In libguestfs E<lt> 1.13.16, the mount command (L<guestfs(3)/guestfs_mount>) "
 "enabled option C<-o sync> implicitly.  This causes very poor write "
@@ -5822,14 +5820,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:384
+#: ../examples/guestfs-faq.pod:383
 msgid ""
 "For libguestfs E<lt> 1.13.16, replace mount with C<mount-options>, leaving "
 "the first parameter as an empty string."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:387
+#: ../examples/guestfs-faq.pod:386
 msgid ""
 "You can also do this with more recent versions of libguestfs, but if you "
 "know that you are using libguestfs ≥ 1.13.16 then it's safe to use plain "
@@ -5837,7 +5835,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:391
+#: ../examples/guestfs-faq.pod:390
 msgid ""
 "If the underlying disk is not fully allocated (eg. sparse raw or qcow2) then "
 "writes can be slow because the host operating system has to do costly disk "
@@ -5847,17 +5845,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:397
+#: ../examples/guestfs-faq.pod:396
 msgid "Libguestfs uses too much disk space!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:399
+#: ../examples/guestfs-faq.pod:398
 msgid "libguestfs caches a large-ish appliance in:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:401
+#: ../examples/guestfs-faq.pod:400
 #, no-wrap
 msgid ""
 " /var/tmp/.guestfs-<UID>\n"
@@ -5865,26 +5863,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:403
+#: ../examples/guestfs-faq.pod:402
 msgid ""
 "If the environment variable C<TMPDIR> is defined, then C<$TMPDIR/.guestfs-"
 "E<lt>UIDE<gt>> is used instead."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:406
+#: ../examples/guestfs-faq.pod:405
 msgid "It is safe to delete this directory when you are not using libguestfs."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:408
+#: ../examples/guestfs-faq.pod:407
 msgid ""
 "virt-sparsify seems to make the image grow to the full size of the virtual "
 "disk"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:411
+#: ../examples/guestfs-faq.pod:410
 msgid ""
 "If the input to L<virt-sparsify(1)> is raw, then the output will be raw "
 "sparse.  Make sure you are measuring the output with a tool which "
@@ -5892,7 +5890,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:415 ../sparsify/virt-sparsify.pod:34
+#: ../examples/guestfs-faq.pod:414 ../sparsify/virt-sparsify.pod:34
 #, no-wrap
 msgid ""
 " $ ls -lh test1.img\n"
@@ -5903,19 +5901,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:420 ../sparsify/virt-sparsify.pod:39
+#: ../examples/guestfs-faq.pod:419 ../sparsify/virt-sparsify.pod:39
 msgid "(Compare the apparent size B<100M> vs the actual size B<3.6M>)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:422
+#: ../examples/guestfs-faq.pod:421
 msgid ""
 "If all this confuses you, use a non-sparse output by specifying the I<--"
 "convert> option, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:425
+#: ../examples/guestfs-faq.pod:424
 #, fuzzy, no-wrap
 #| msgid ""
 #| " virt-sparsify disk.raw --convert qcow2 disk.qcow2\n"
@@ -5928,24 +5926,24 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:427
+#: ../examples/guestfs-faq.pod:426
 msgid "USING LIBGUESTFS IN YOUR OWN PROGRAMS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:429
+#: ../examples/guestfs-faq.pod:428
 msgid "The API has hundreds of methods, where do I start?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:431
+#: ../examples/guestfs-faq.pod:430
 msgid ""
 "We recommend you start by reading the API overview: L<guestfs(3)/API "
 "OVERVIEW>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:434
+#: ../examples/guestfs-faq.pod:433
 msgid ""
 "Although the API overview covers the C API, it is still worth reading even "
 "if you are going to use another programming language, because the API is the "
@@ -5953,7 +5951,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:439
+#: ../examples/guestfs-faq.pod:438
 #, no-wrap
 msgid ""
 "                  C  guestfs_ln_sf (g, target, linkname);\n"
@@ -5973,7 +5971,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:446
+#: ../examples/guestfs-faq.pod:445
 msgid ""
 "Once you're familiar with the API overview, you should look at this list of "
 "starting points for other language bindings: L<guestfs(3)/USING LIBGUESTFS "
@@ -5981,18 +5979,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:452
+#: ../examples/guestfs-faq.pod:451
 msgid "<!-- old anchor for the next section --> <a name=\"debug\"/>"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:457
+#: ../examples/guestfs-faq.pod:456
 msgid ""
 "Can I use libguestfs in my proprietary / closed source / commercial program?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:459
+#: ../examples/guestfs-faq.pod:458
 msgid ""
 "In general, yes.  However this is not legal advice.  You should read the "
 "license that comes with libguestfs, and if you have specific questions about "
@@ -6002,43 +6000,43 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:466
+#: ../examples/guestfs-faq.pod:465
 msgid "DEBUGGING LIBGUESTFS"
 msgstr "libguestfs のデバッグ"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:468
+#: ../examples/guestfs-faq.pod:467
 msgid ""
 "How do I debug when using any libguestfs program or tool (eg. virt-v2v or "
 "virt-df)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:471
+#: ../examples/guestfs-faq.pod:470
 msgid ""
 "There are two C<LIBGUESTFS_*> environment variables you can set in order to "
 "get more information from libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:476
+#: ../examples/guestfs-faq.pod:475
 msgid "C<LIBGUESTFS_TRACE>"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:478
+#: ../examples/guestfs-faq.pod:477
 msgid ""
 "Set this to 1 and libguestfs will print out each command / API call in a "
 "format which is similar to guestfish commands."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:481
+#: ../examples/guestfs-faq.pod:480
 msgid "C<LIBGUESTFS_DEBUG>"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:483
+#: ../examples/guestfs-faq.pod:482
 msgid ""
 "Set this to 1 in order to enable massive amounts of debug messages.  If you "
 "think there is some problem inside the libguestfs appliance, then you should "
@@ -6046,12 +6044,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:489
+#: ../examples/guestfs-faq.pod:488
 msgid "To set these from the shell, do this before running the program:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:491
+#: ../examples/guestfs-faq.pod:490
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_TRACE=1\n"
@@ -6060,12 +6058,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:494
+#: ../examples/guestfs-faq.pod:493
 msgid "For csh/tcsh the equivalent commands would be:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:496
+#: ../examples/guestfs-faq.pod:495
 #, no-wrap
 msgid ""
 " setenv LIBGUESTFS_TRACE 1\n"
@@ -6077,17 +6075,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:499
+#: ../examples/guestfs-faq.pod:498
 msgid "For further information, see: L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr "詳細は L<guestfs(3)/ENVIRONMENT VARIABLES> 参照。"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:501
+#: ../examples/guestfs-faq.pod:500
 msgid "How do I debug when using guestfish?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:503
+#: ../examples/guestfs-faq.pod:502
 msgid ""
 "You can use the same environment variables above.  Alternatively use the "
 "guestfish options -x (to trace commands) or -v (to get the full debug "
@@ -6095,60 +6093,60 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:507
+#: ../examples/guestfs-faq.pod:506
 msgid "For further information, see: L<guestfish(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:509
+#: ../examples/guestfs-faq.pod:508
 msgid "How do I debug when using the API?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:511
+#: ../examples/guestfs-faq.pod:510
 msgid ""
 "Call L<guestfs(3)/guestfs_set_trace> to enable command traces, and/or "
 "L<guestfs(3)/guestfs_set_verbose> to enable debug messages."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:514
+#: ../examples/guestfs-faq.pod:513
 msgid ""
 "For best results, call these functions as early as possible, just after "
 "creating the guestfs handle if you can, and definitely before calling launch."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:518
+#: ../examples/guestfs-faq.pod:517
 msgid "How do I capture debug output and put it into my logging system?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:520
+#: ../examples/guestfs-faq.pod:519
 msgid ""
 "Use the event API.  For examples, see: L<guestfs(3)/SETTING CALLBACKS TO "
 "HANDLE EVENTS>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:523
+#: ../examples/guestfs-faq.pod:522
 msgid "Digging deeper into the appliance boot process."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:525
+#: ../examples/guestfs-faq.pod:524
 msgid ""
 "Enable debugging and then read this documentation on the appliance boot "
 "process: L<guestfs(3)/INTERNALS>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:528
+#: ../examples/guestfs-faq.pod:527
 msgid "libguestfs hangs or fails during run/launch."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:530
+#: ../examples/guestfs-faq.pod:529
 msgid ""
 "Enable debugging and look at the full output.  If you cannot work out what "
 "is going on, file a bug report, including the I<complete> output of "
@@ -6156,17 +6154,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:534
+#: ../examples/guestfs-faq.pod:533
 msgid "DESIGN/INTERNALS OF LIBGUESTFS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:536
+#: ../examples/guestfs-faq.pod:535
 msgid "Why don't you do everything through the FUSE / filesystem interface?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:539
+#: ../examples/guestfs-faq.pod:538
 msgid ""
 "We offer a command called L<guestmount(1)> which lets you mount guest "
 "filesystems on the host.  This is implemented as a FUSE module.  Why don't "
@@ -6175,7 +6173,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:544
+#: ../examples/guestfs-faq.pod:543
 msgid ""
 "The reasons are twofold.  Firstly, libguestfs offers API calls for doing "
 "things like creating and deleting partitions and logical volumes, which "
@@ -6189,7 +6187,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:554
+#: ../examples/guestfs-faq.pod:553
 msgid ""
 "The second reason is for efficiency.  FUSE itself is reasonably efficient, "
 "but it does make lots of small, independent calls into the FUSE module.  In "
@@ -6202,17 +6200,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:564
+#: ../examples/guestfs-faq.pod:563
 msgid "Why don't you do everything through GVFS?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:566
+#: ../examples/guestfs-faq.pod:565
 msgid "The problems are similar to the problems with FUSE."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:568
+#: ../examples/guestfs-faq.pod:567
 msgid ""
 "GVFS is a better abstraction than POSIX/FUSE.  There is an FTP backend for "
 "GVFS, which is encouraging because FTP is conceptually similar to the "
@@ -6222,7 +6220,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:576
+#: ../examples/guestfs-faq.pod:575
 #, fuzzy
 #| msgid ""
 #| "<!-- old anchor for the next section --> <a name="
@@ -6233,12 +6231,12 @@ msgstr ""
 "\"state_machine_and_low_level_event_api\"/>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:581
+#: ../examples/guestfs-faq.pod:580
 msgid "Can I use C<guestfish --ro> as a way to backup my virtual machines?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:583
+#: ../examples/guestfs-faq.pod:582
 msgid ""
 "Usually this is not a good idea.  The question is answered in more detail in "
 "this mailing list posting: L<https://www.redhat.com/archives/libguestfs/2010-"
@@ -6246,19 +6244,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:587
+#: ../examples/guestfs-faq.pod:586
 msgid "What's the difference between guestfish and virt-rescue?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:589
+#: ../examples/guestfs-faq.pod:588
 msgid ""
 "A lot of people are confused by the two superficially similar tools we "
 "provide:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:592
+#: ../examples/guestfs-faq.pod:591
 #, no-wrap
 msgid ""
 " $ guestfish --ro -a guest.img\n"
@@ -6268,7 +6266,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:596
+#: ../examples/guestfs-faq.pod:595
 #, no-wrap
 msgid ""
 " $ virt-rescue --ro guest.img\n"
@@ -6277,7 +6275,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:599
+#: ../examples/guestfs-faq.pod:598
 msgid ""
 "And the related question which then arises is why you can't type in full "
 "shell commands with all the --options in guestfish (but you can in L<virt-"
@@ -6285,7 +6283,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:603
+#: ../examples/guestfs-faq.pod:602
 msgid ""
 "L<guestfish(1)> is a program providing structured access to the L<guestfs(3)"
 "> API.  It happens to be a nice interactive shell too, but its primary "
@@ -6296,7 +6294,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:610
+#: ../examples/guestfs-faq.pod:609
 msgid ""
 "L<virt-rescue(1)> is a free-for-all freeform way to boot the libguestfs "
 "appliance and make arbitrary changes to your VM. It's not structured, you "
@@ -6305,7 +6303,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:615
+#: ../examples/guestfs-faq.pod:614
 msgid ""
 "But, libguestfs also has a \"backdoor\" into the appliance allowing you to "
 "send arbitrary shell commands.  It's not as flexible as virt-rescue, because "
@@ -6313,7 +6311,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:620
+#: ../examples/guestfs-faq.pod:619
 #, no-wrap
 msgid ""
 " ><fs> debug sh \"cmd arg1 arg2 ...\"\n"
@@ -6321,7 +6319,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:622
+#: ../examples/guestfs-faq.pod:621
 msgid ""
 "Note that you should B<not> rely on this.  It could be removed or changed in "
 "future. If your program needs some operation, please add it to the "
@@ -6329,7 +6327,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:626
+#: ../examples/guestfs-faq.pod:625
 msgid ""
 "What's the deal with C<guestfish -i>? Why does virt-cat only work on a real "
 "VM image, but virt-df works on any disk image? What does \"no root device "
@@ -6337,28 +6335,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:631
+#: ../examples/guestfs-faq.pod:630
 msgid ""
 "These questions are all related at a fundamental level which may not be "
 "immediately obvious."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:634
+#: ../examples/guestfs-faq.pod:633
 msgid ""
 "At the L<guestfs(3)> API level, a \"disk image\" is just a pile of "
 "partitions and filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:637
+#: ../examples/guestfs-faq.pod:636
 msgid ""
 "In contrast, when the virtual machine boots, it mounts those filesystems "
 "into a consistent hierarchy such as:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:640
+#: ../examples/guestfs-faq.pod:639
 #, no-wrap
 msgid ""
 " /          (/dev/sda2)\n"
@@ -6384,12 +6382,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:650
+#: ../examples/guestfs-faq.pod:649
 msgid "(or drive letters on Windows)."
 msgstr "(または Windows におけるドライブレター)。"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:652
+#: ../examples/guestfs-faq.pod:651
 msgid ""
 "The API first of all sees the disk image at the \"pile of filesystems\" "
 "level.  But it also has a way to inspect the disk image to see if it "
@@ -6398,12 +6396,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:657
+#: ../examples/guestfs-faq.pod:656
 msgid "Users expect some tools (like L<virt-cat(1)>) to work with VM paths:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:659
+#: ../examples/guestfs-faq.pod:658
 #, no-wrap
 msgid ""
 " virt-cat fedora.img /var/log/messages\n"
@@ -6411,7 +6409,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:661
+#: ../examples/guestfs-faq.pod:660
 msgid ""
 "How does virt-cat know that C</var> is a separate partition? The trick is "
 "that virt-cat performs inspection on the disk image, and uses that to "
@@ -6419,7 +6417,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:665
+#: ../examples/guestfs-faq.pod:664
 msgid ""
 "Some tools (including L<virt-cat(1)>, L<virt-edit(1)>, L<virt-ls(1)>)  use "
 "inspection to map VM paths.  Other tools, such as L<virt-df(1)> and L<virt-"
@@ -6428,7 +6426,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:670
+#: ../examples/guestfs-faq.pod:669
 msgid ""
 "L<guestfish(1)> is in an interesting middle ground.  If you use the I<-a> "
 "and I<-m> command line options, then you have to tell guestfish exactly how "
@@ -6436,14 +6434,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:675
+#: ../examples/guestfs-faq.pod:674
 msgid ""
 "If you use the I<-i> option, libguestfs performs inspection and mounts the "
 "filesystems for you."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:678
+#: ../examples/guestfs-faq.pod:677
 msgid ""
 "The error C<no root device found in this operating system image> is related "
 "to this.  It means inspection was unable to locate an operating system "
@@ -6453,12 +6451,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:686
+#: ../examples/guestfs-faq.pod:685
 msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:696 ../examples/guestfs-performance.pod:448
+#: ../examples/guestfs-faq.pod:695 ../examples/guestfs-performance.pod:448
 #: ../format/virt-format.pod:193
 msgid "Copyright (C) 2012 Red Hat Inc."
 msgstr "Copyright (C) 2012 Red Hat Inc."
@@ -9358,10 +9356,10 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:5674 ../fish/guestfish-actions.pod:5712
 #: ../fish/guestfish-actions.pod:6009 ../fish/guestfish-actions.pod:6025
 #: ../fish/guestfish-actions.pod:6163 ../fish/guestfish-actions.pod:6179
-#: ../fish/guestfish-actions.pod:6567 ../fish/guestfish-actions.pod:6623
-#: ../fish/guestfish-actions.pod:6640 ../fish/guestfish-actions.pod:6715
-#: ../fish/guestfish-actions.pod:6732 ../fish/guestfish-actions.pod:6751
-#: ../fish/guestfish-actions.pod:6768 ../fish/guestfish-actions.pod:6785
+#: ../fish/guestfish-actions.pod:6567 ../fish/guestfish-actions.pod:6643
+#: ../fish/guestfish-actions.pod:6660 ../fish/guestfish-actions.pod:6735
+#: ../fish/guestfish-actions.pod:6752 ../fish/guestfish-actions.pod:6771
+#: ../fish/guestfish-actions.pod:6788 ../fish/guestfish-actions.pod:6805
 #: ../src/guestfs-actions.pod:10 ../src/guestfs-actions.pod:286
 #: ../src/guestfs-actions.pod:307 ../src/guestfs-actions.pod:1817
 #: ../src/guestfs-actions.pod:1874 ../src/guestfs-actions.pod:2133
@@ -9377,10 +9375,10 @@ msgstr ""
 #: ../src/guestfs-actions.pod:9614 ../src/guestfs-actions.pod:9635
 #: ../src/guestfs-actions.pod:9850 ../src/guestfs-actions.pod:9871
 #: ../src/guestfs-actions.pod:10446 ../src/guestfs-actions.pod:10568
-#: ../src/guestfs-actions.pod:10726 ../src/guestfs-actions.pod:10752
-#: ../src/guestfs-actions.pod:10875 ../src/guestfs-actions.pod:10901
-#: ../src/guestfs-actions.pod:10927 ../src/guestfs-actions.pod:10954
-#: ../src/guestfs-actions.pod:10980
+#: ../src/guestfs-actions.pod:10787 ../src/guestfs-actions.pod:10813
+#: ../src/guestfs-actions.pod:10936 ../src/guestfs-actions.pod:10962
+#: ../src/guestfs-actions.pod:10988 ../src/guestfs-actions.pod:11015
+#: ../src/guestfs-actions.pod:11041
 msgid ""
 "Deprecated functions will not be removed from the API, but the fact that "
 "they are deprecated indicates that there are problems with correct use of "
@@ -9568,7 +9566,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:5959 ../fish/guestfish-actions.pod:5995
 #: ../fish/guestfish-actions.pod:6137 ../fish/guestfish-actions.pod:6216
 #: ../fish/guestfish-actions.pod:6237 ../fish/guestfish-actions.pod:6585
-#: ../fish/guestfish-actions.pod:6597
+#: ../fish/guestfish-actions.pod:6597 ../fish/guestfish-actions.pod:6628
 msgid ""
 "This command has one or more optional arguments.  See L</OPTIONAL ARGUMENTS>."
 msgstr ""
@@ -11528,9 +11526,9 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:5012 ../fish/guestfish-actions.pod:5793
 #: ../fish/guestfish-actions.pod:5839 ../fish/guestfish-actions.pod:5924
 #: ../fish/guestfish-actions.pod:5939 ../fish/guestfish-actions.pod:6561
-#: ../fish/guestfish-actions.pod:6617 ../fish/guestfish-actions.pod:6634
-#: ../fish/guestfish-actions.pod:6709 ../fish/guestfish-actions.pod:6726
-#: ../fish/guestfish-actions.pod:6762 ../fish/guestfish-actions.pod:6779
+#: ../fish/guestfish-actions.pod:6637 ../fish/guestfish-actions.pod:6654
+#: ../fish/guestfish-actions.pod:6729 ../fish/guestfish-actions.pod:6746
+#: ../fish/guestfish-actions.pod:6782 ../fish/guestfish-actions.pod:6799
 #: ../src/guestfs-actions.pod:1417 ../src/guestfs-actions.pod:1437
 #: ../src/guestfs-actions.pod:2184 ../src/guestfs-actions.pod:2210
 #: ../src/guestfs-actions.pod:2320 ../src/guestfs-actions.pod:2346
@@ -11542,9 +11540,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8002 ../src/guestfs-actions.pod:9223
 #: ../src/guestfs-actions.pod:9278 ../src/guestfs-actions.pod:9424
 #: ../src/guestfs-actions.pod:9448 ../src/guestfs-actions.pod:10585
-#: ../src/guestfs-actions.pod:10737 ../src/guestfs-actions.pod:10763
-#: ../src/guestfs-actions.pod:10886 ../src/guestfs-actions.pod:10912
-#: ../src/guestfs-actions.pod:10965 ../src/guestfs-actions.pod:10991
+#: ../src/guestfs-actions.pod:10798 ../src/guestfs-actions.pod:10824
+#: ../src/guestfs-actions.pod:10947 ../src/guestfs-actions.pod:10973
+#: ../src/guestfs-actions.pod:11026 ../src/guestfs-actions.pod:11052
 msgid ""
 "Because of the message protocol, there is a transfer limit of somewhere "
 "between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
@@ -12310,10 +12308,10 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1263 ../fish/guestfish-actions.pod:1280
 #: ../fish/guestfish-actions.pod:1354 ../fish/guestfish-actions.pod:1371
-#: ../fish/guestfish-actions.pod:2092 ../fish/guestfish-actions.pod:6620
-#: ../fish/guestfish-actions.pod:6637 ../fish/guestfish-actions.pod:6712
-#: ../fish/guestfish-actions.pod:6729 ../fish/guestfish-actions.pod:6765
-#: ../fish/guestfish-actions.pod:6782
+#: ../fish/guestfish-actions.pod:2092 ../fish/guestfish-actions.pod:6640
+#: ../fish/guestfish-actions.pod:6657 ../fish/guestfish-actions.pod:6732
+#: ../fish/guestfish-actions.pod:6749 ../fish/guestfish-actions.pod:6785
+#: ../fish/guestfish-actions.pod:6802
 #, fuzzy
 #| msgid ""
 #| "I<This function is deprecated.> In new code, use the L</write> call "
@@ -24864,13 +24862,62 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:6610
-msgid "zegrep"
-msgstr "zegrep"
+#, fuzzy
+#| msgid "isoinfo"
+msgid "xfs-repair"
+msgstr "isoinfo"
 
 #. type: verbatim
 #: ../fish/guestfish-actions.pod:6612
 #, no-wrap
 msgid ""
+" xfs-repair device [forcelogzero:true|false] [nomodify:true|false] [noprefetch:true|false] [forcegeometry:true|false] [maxmem:N] [ihashsize:N] [bhashsize:N] [agstride:N] [logdev:..] [rtdev:..]\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:6614 ../src/guestfs-actions.pod:10739
+#, fuzzy
+#| msgid ""
+#| "This returns the ext2/3/4 filesystem label of the filesystem on C<device>."
+msgid "Repair corrupt or damaged XFS filesystem on C<device>."
+msgstr ""
+"これは C<device> にあるファイルシステムの ext2/3/4 ファイルシステムラベルを返"
+"します。"
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:6616 ../src/guestfs-actions.pod:10741
+msgid ""
+"The filesystem is specified using the C<device> argument which should be the "
+"device name of the disk partition or volume containing the filesystem.  If "
+"given the name of a block device, C<xfs_repair> will attempt to find the raw "
+"device associated with the specified block device and will use the raw "
+"device instead."
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:6622 ../src/guestfs-actions.pod:10747
+msgid ""
+"Regardless, the filesystem to be repaired must be unmounted, otherwise, the "
+"resulting filesystem may be inconsistent or corrupt."
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish-actions.pod:6625 ../src/guestfs-actions.pod:10750
+msgid ""
+"The returned status indicates whether filesystem corruption was detected "
+"(returns C<1>) or was not detected (returns C<0>)."
+msgstr ""
+
+#. type: =head2
+#: ../fish/guestfish-actions.pod:6630
+msgid "zegrep"
+msgstr "zegrep"
+
+#. type: verbatim
+#: ../fish/guestfish-actions.pod:6632
+#, no-wrap
+msgid ""
 " zegrep regex path\n"
 "\n"
 msgstr ""
@@ -24878,18 +24925,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6614 ../src/guestfs-actions.pod:10730
+#: ../fish/guestfish-actions.pod:6634 ../src/guestfs-actions.pod:10791
 msgid ""
 "This calls the external C<zegrep> program and returns the matching lines."
 msgstr "これは外部の C<zegrep> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6627
+#: ../fish/guestfish-actions.pod:6647
 msgid "zegrepi"
 msgstr "zegrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6629
+#: ../fish/guestfish-actions.pod:6649
 #, no-wrap
 msgid ""
 " zegrepi regex path\n"
@@ -24899,18 +24946,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6631 ../src/guestfs-actions.pod:10756
+#: ../fish/guestfish-actions.pod:6651 ../src/guestfs-actions.pod:10817
 msgid ""
 "This calls the external C<zegrep -i> program and returns the matching lines."
 msgstr "これは外部の C<zegrep -i> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6644
+#: ../fish/guestfish-actions.pod:6664
 msgid "zero"
 msgstr "zero"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6646
+#: ../fish/guestfish-actions.pod:6666
 #, no-wrap
 msgid ""
 " zero device\n"
@@ -24920,12 +24967,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6648 ../src/guestfs-actions.pod:10774
+#: ../fish/guestfish-actions.pod:6668 ../src/guestfs-actions.pod:10835
 msgid "This command writes zeroes over the first few blocks of C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6650 ../src/guestfs-actions.pod:10776
+#: ../fish/guestfish-actions.pod:6670 ../src/guestfs-actions.pod:10837
 msgid ""
 "How many blocks are zeroed isn't specified (but it's I<not> enough to "
 "securely wipe the device).  It should be sufficient to remove any partition "
@@ -24933,8 +24980,8 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6654 ../fish/guestfish-actions.pod:6669
-#: ../src/guestfs-actions.pod:10780 ../src/guestfs-actions.pod:10806
+#: ../fish/guestfish-actions.pod:6674 ../fish/guestfish-actions.pod:6689
+#: ../src/guestfs-actions.pod:10841 ../src/guestfs-actions.pod:10867
 msgid ""
 "If blocks are already zero, then this command avoids writing zeroes.  This "
 "prevents the underlying device from becoming non-sparse or growing "
@@ -24945,17 +24992,17 @@ msgstr ""
 "ことを避けるためです。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6658
+#: ../fish/guestfish-actions.pod:6678
 msgid "See also: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 msgstr "関連項目: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6661
+#: ../fish/guestfish-actions.pod:6681
 msgid "zero-device"
 msgstr "zero-device"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6663
+#: ../fish/guestfish-actions.pod:6683
 #, no-wrap
 msgid ""
 " zero-device device\n"
@@ -24965,19 +25012,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6665
+#: ../fish/guestfish-actions.pod:6685
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with L</zero> "
 "which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6673
+#: ../fish/guestfish-actions.pod:6693
 msgid "zero-free-space"
 msgstr "zero-free-space"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6675
+#: ../fish/guestfish-actions.pod:6695
 #, no-wrap
 msgid ""
 " zero-free-space directory\n"
@@ -24987,7 +25034,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6677 ../src/guestfs-actions.pod:10825
+#: ../fish/guestfish-actions.pod:6697 ../src/guestfs-actions.pod:10886
 msgid ""
 "Zero the free space in the filesystem mounted on C<directory>.  The "
 "filesystem must be mounted read-write."
@@ -24996,7 +25043,7 @@ msgstr ""
 "す。  ファイルシステムは読み書きモードでマウントする必要があります。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6680 ../src/guestfs-actions.pod:10828
+#: ../fish/guestfish-actions.pod:6700 ../src/guestfs-actions.pod:10889
 msgid ""
 "The filesystem contents are not affected, but any free space in the "
 "filesystem is freed."
@@ -25005,19 +25052,19 @@ msgstr ""
 "領域はすべて開放されます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6683
+#: ../fish/guestfish-actions.pod:6703
 msgid ""
 "Free space is not \"trimmed\".  You may want to call L</fstrim> either as an "
 "alternative to this, or after calling this, depending on your requirements."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6687
+#: ../fish/guestfish-actions.pod:6707
 msgid "zerofree"
 msgstr "zerofree"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6689
+#: ../fish/guestfish-actions.pod:6709
 #, no-wrap
 msgid ""
 " zerofree device\n"
@@ -25027,7 +25074,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6691 ../src/guestfs-actions.pod:10850
+#: ../fish/guestfish-actions.pod:6711 ../src/guestfs-actions.pod:10911
 msgid ""
 "This runs the I<zerofree> program on C<device>.  This program claims to zero "
 "unused inodes and disk blocks on an ext2/3 filesystem, thus making it "
@@ -25035,24 +25082,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6696 ../src/guestfs-actions.pod:10855
+#: ../fish/guestfish-actions.pod:6716 ../src/guestfs-actions.pod:10916
 msgid "You should B<not> run this program if the filesystem is mounted."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6699 ../src/guestfs-actions.pod:10858
+#: ../fish/guestfish-actions.pod:6719 ../src/guestfs-actions.pod:10919
 msgid ""
 "It is possible that using this program can damage the filesystem or data on "
 "the filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6702
+#: ../fish/guestfish-actions.pod:6722
 msgid "zfgrep"
 msgstr "zfgrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6704
+#: ../fish/guestfish-actions.pod:6724
 #, no-wrap
 msgid ""
 " zfgrep pattern path\n"
@@ -25062,18 +25109,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6706 ../src/guestfs-actions.pod:10879
+#: ../fish/guestfish-actions.pod:6726 ../src/guestfs-actions.pod:10940
 msgid ""
 "This calls the external C<zfgrep> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6719
+#: ../fish/guestfish-actions.pod:6739
 msgid "zfgrepi"
 msgstr "zfgrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6721
+#: ../fish/guestfish-actions.pod:6741
 #, no-wrap
 msgid ""
 " zfgrepi pattern path\n"
@@ -25083,18 +25130,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6723 ../src/guestfs-actions.pod:10905
+#: ../fish/guestfish-actions.pod:6743 ../src/guestfs-actions.pod:10966
 msgid ""
 "This calls the external C<zfgrep -i> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6736
+#: ../fish/guestfish-actions.pod:6756
 msgid "zfile"
 msgstr "zfile"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6738
+#: ../fish/guestfish-actions.pod:6758
 #, no-wrap
 msgid ""
 " zfile meth path\n"
@@ -25104,26 +25151,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6740 ../src/guestfs-actions.pod:10931
+#: ../fish/guestfish-actions.pod:6760 ../src/guestfs-actions.pod:10992
 msgid ""
 "This command runs C<file> after first decompressing C<path> using C<method>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6743 ../src/guestfs-actions.pod:10934
+#: ../fish/guestfish-actions.pod:6763 ../src/guestfs-actions.pod:10995
 msgid "C<method> must be one of C<gzip>, C<compress> or C<bzip2>."
 msgstr ""
 "C<method> は C<gzip>, C<compress> または C<bzip2> のいずれかである必要があり"
 "ます。"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6745
+#: ../fish/guestfish-actions.pod:6765
 msgid ""
 "Since 1.0.63, use L</file> instead which can now process compressed files."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6748
+#: ../fish/guestfish-actions.pod:6768
 msgid ""
 "I<This function is deprecated.> In new code, use the L</file> call instead."
 msgstr ""
@@ -25131,12 +25178,12 @@ msgstr ""
 "ください。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6755
+#: ../fish/guestfish-actions.pod:6775
 msgid "zgrep"
 msgstr "zgrep"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6757
+#: ../fish/guestfish-actions.pod:6777
 #, no-wrap
 msgid ""
 " zgrep regex path\n"
@@ -25146,18 +25193,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6759 ../src/guestfs-actions.pod:10958
+#: ../fish/guestfish-actions.pod:6779 ../src/guestfs-actions.pod:11019
 msgid ""
 "This calls the external C<zgrep> program and returns the matching lines."
 msgstr "外部 C<zgrep> プログラムを呼び出し、一致する行を返します。"
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:6772
+#: ../fish/guestfish-actions.pod:6792
 msgid "zgrepi"
 msgstr "zgrepi"
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:6774
+#: ../fish/guestfish-actions.pod:6794
 #, no-wrap
 msgid ""
 " zgrepi regex path\n"
@@ -25167,7 +25214,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:6776 ../src/guestfs-actions.pod:10984
+#: ../fish/guestfish-actions.pod:6796 ../src/guestfs-actions.pod:11045
 msgid ""
 "This calls the external C<zgrep -i> program and returns the matching lines."
 msgstr "外部 C<zgrep -i> プログラムを呼び出し、一致する行を返します。"
@@ -38456,9 +38503,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:10461 ../src/guestfs-actions.pod:10519
 #: ../src/guestfs-actions.pod:10536 ../src/guestfs-actions.pod:10553
 #: ../src/guestfs-actions.pod:10583 ../src/guestfs-actions.pod:10620
-#: ../src/guestfs-actions.pod:10671 ../src/guestfs-actions.pod:10787
-#: ../src/guestfs-actions.pod:10810 ../src/guestfs-actions.pod:10835
-#: ../src/guestfs-actions.pod:10861
+#: ../src/guestfs-actions.pod:10671 ../src/guestfs-actions.pod:10848
+#: ../src/guestfs-actions.pod:10871 ../src/guestfs-actions.pod:10896
+#: ../src/guestfs-actions.pod:10922
 msgid "This function returns 0 on success or -1 on error."
 msgstr "この関数は、成功のとき 0 を、エラーのとき -1 を返します。"
 
@@ -38513,7 +38560,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:9475 ../src/guestfs-actions.pod:9541
 #: ../src/guestfs-actions.pod:9703 ../src/guestfs-actions.pod:9929
 #: ../src/guestfs-actions.pod:9986 ../src/guestfs-actions.pod:10597
-#: ../src/guestfs-actions.pod:10651
+#: ../src/guestfs-actions.pod:10651 ../src/guestfs-actions.pod:10723
 msgid ""
 "You may supply a list of optional arguments to this call.  Use zero or more "
 "of the following pairs of parameters, and terminate the list with C<-1> on "
@@ -38575,7 +38622,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:7647 ../src/guestfs-actions.pod:7864
 #: ../src/guestfs-actions.pod:7890 ../src/guestfs-actions.pod:9905
 #: ../src/guestfs-actions.pod:10474 ../src/guestfs-actions.pod:10487
-#: ../src/guestfs-actions.pod:10500
+#: ../src/guestfs-actions.pod:10500 ../src/guestfs-actions.pod:10753
 msgid "On error this function returns -1."
 msgstr "この関数はエラーのとき -1 を返します。"
 
@@ -38646,6 +38693,7 @@ msgstr "これは L</guestfs_add_domain> の \"va_list variant\" です。"
 #: ../src/guestfs-actions.pod:10010 ../src/guestfs-actions.pod:10020
 #: ../src/guestfs-actions.pod:10631 ../src/guestfs-actions.pod:10642
 #: ../src/guestfs-actions.pod:10684 ../src/guestfs-actions.pod:10695
+#: ../src/guestfs-actions.pod:10764 ../src/guestfs-actions.pod:10775
 msgid "See L</CALLS WITH OPTIONAL ARGUMENTS>."
 msgstr "L</CALLS WITH OPTIONAL ARGUMENTS> 参照。"
 
@@ -39074,7 +39122,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:9069 ../src/guestfs-actions.pod:9093
 #: ../src/guestfs-actions.pod:9117 ../src/guestfs-actions.pod:10180
 #: ../src/guestfs-actions.pod:10199 ../src/guestfs-actions.pod:10217
-#: ../src/guestfs-actions.pod:10433 ../src/guestfs-actions.pod:10939
+#: ../src/guestfs-actions.pod:10433 ../src/guestfs-actions.pod:11000
 msgid ""
 "This function returns a string, or NULL on error.  I<The caller must free "
 "the returned string after use>."
@@ -39213,9 +39261,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:9274 ../src/guestfs-actions.pod:9420
 #: ../src/guestfs-actions.pod:9444 ../src/guestfs-actions.pod:10307
 #: ../src/guestfs-actions.pod:10346 ../src/guestfs-actions.pod:10393
-#: ../src/guestfs-actions.pod:10733 ../src/guestfs-actions.pod:10759
-#: ../src/guestfs-actions.pod:10882 ../src/guestfs-actions.pod:10908
-#: ../src/guestfs-actions.pod:10961 ../src/guestfs-actions.pod:10987
+#: ../src/guestfs-actions.pod:10794 ../src/guestfs-actions.pod:10820
+#: ../src/guestfs-actions.pod:10943 ../src/guestfs-actions.pod:10969
+#: ../src/guestfs-actions.pod:11022 ../src/guestfs-actions.pod:11048
 msgid ""
 "This function returns a NULL-terminated array of strings (like L<environ(3)"
 ">), or NULL if there was an error.  I<The caller must free the strings and "
@@ -40767,8 +40815,8 @@ msgstr ""
 #: ../src/guestfs-actions.pod:2009 ../src/guestfs-actions.pod:2054
 #: ../src/guestfs-actions.pod:2549 ../src/guestfs-actions.pod:2587
 #: ../src/guestfs-actions.pod:5092 ../src/guestfs-actions.pod:10038
-#: ../src/guestfs-actions.pod:10072 ../src/guestfs-actions.pod:10789
-#: ../src/guestfs-actions.pod:10812 ../src/guestfs-actions.pod:10837
+#: ../src/guestfs-actions.pod:10072 ../src/guestfs-actions.pod:10850
+#: ../src/guestfs-actions.pod:10873 ../src/guestfs-actions.pod:10898
 msgid ""
 "This long-running command can generate progress notification messages so "
 "that the caller can display a progress bar or indicator.  To receive these "
@@ -41642,10 +41690,10 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs-actions.pod:2170 ../src/guestfs-actions.pod:2196
 #: ../src/guestfs-actions.pod:2306 ../src/guestfs-actions.pod:2332
-#: ../src/guestfs-actions.pod:3392 ../src/guestfs-actions.pod:10723
-#: ../src/guestfs-actions.pod:10749 ../src/guestfs-actions.pod:10872
-#: ../src/guestfs-actions.pod:10898 ../src/guestfs-actions.pod:10951
-#: ../src/guestfs-actions.pod:10977
+#: ../src/guestfs-actions.pod:3392 ../src/guestfs-actions.pod:10784
+#: ../src/guestfs-actions.pod:10810 ../src/guestfs-actions.pod:10933
+#: ../src/guestfs-actions.pod:10959 ../src/guestfs-actions.pod:11012
+#: ../src/guestfs-actions.pod:11038
 #, fuzzy
 #| msgid ""
 #| "I<This function is deprecated.> In new code, use the L</guestfs_write> "
@@ -41672,9 +41720,9 @@ msgstr ""
 #: ../src/guestfs-actions.pod:9320 ../src/guestfs-actions.pod:9333
 #: ../src/guestfs-actions.pod:9355 ../src/guestfs-actions.pod:9368
 #: ../src/guestfs-actions.pod:9381 ../src/guestfs-actions.pod:9394
-#: ../src/guestfs-actions.pod:10740 ../src/guestfs-actions.pod:10766
-#: ../src/guestfs-actions.pod:10889 ../src/guestfs-actions.pod:10915
-#: ../src/guestfs-actions.pod:10968 ../src/guestfs-actions.pod:10994
+#: ../src/guestfs-actions.pod:10801 ../src/guestfs-actions.pod:10827
+#: ../src/guestfs-actions.pod:10950 ../src/guestfs-actions.pod:10976
+#: ../src/guestfs-actions.pod:11029 ../src/guestfs-actions.pod:11055
 msgid "(Added in 1.0.66)"
 msgstr "(1.0.66 において追加)"
 
@@ -42225,7 +42273,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:2737 ../src/guestfs-actions.pod:10794
+#: ../src/guestfs-actions.pod:2737 ../src/guestfs-actions.pod:10855
 msgid "(Added in 1.0.16)"
 msgstr "(1.0.16 において追加)"
 
@@ -42341,7 +42389,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:8446 ../src/guestfs-actions.pod:9037
 #: ../src/guestfs-actions.pod:9056 ../src/guestfs-actions.pod:9072
 #: ../src/guestfs-actions.pod:9096 ../src/guestfs-actions.pod:10239
-#: ../src/guestfs-actions.pod:10254 ../src/guestfs-actions.pod:10863
+#: ../src/guestfs-actions.pod:10254 ../src/guestfs-actions.pod:10924
 msgid "(Added in 1.0.26)"
 msgstr "(1.0.26 において追加)"
 
@@ -42955,7 +43003,7 @@ msgstr ""
 #: ../src/guestfs-actions.pod:3263 ../src/guestfs-actions.pod:5163
 #: ../src/guestfs-actions.pod:5391 ../src/guestfs-actions.pod:5443
 #: ../src/guestfs-actions.pod:8079 ../src/guestfs-actions.pod:8936
-#: ../src/guestfs-actions.pod:10942
+#: ../src/guestfs-actions.pod:11003
 msgid "(Added in 1.0.59)"
 msgstr "(1.0.59 において追加)"
 
@@ -46018,7 +46066,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:5679 ../src/guestfs-actions.pod:10842
+#: ../src/guestfs-actions.pod:5679 ../src/guestfs-actions.pod:10903
 msgid "(Added in 1.17.18)"
 msgstr "(1.17.18 にて追加)"
 
@@ -53175,11 +53223,148 @@ msgstr "(1.17.21 にて追加)"
 
 #. type: =head2
 #: ../src/guestfs-actions.pod:10716
+#, fuzzy
+#| msgid "guestfs_fgrepi"
+msgid "guestfs_xfs_repair"
+msgstr "guestfs_fgrepi"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:10718
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_ntfsfix (guestfs_h *g,\n"
+#| "                  const char *device,\n"
+#| "                  ...);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_xfs_repair (guestfs_h *g,\n"
+"                     const char *device,\n"
+"                     ...);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_ntfsfix (guestfs_h *g,\n"
+"                  const char *device,\n"
+"                  ...);\n"
+"\n"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:10728
+#, fuzzy, no-wrap
+#| msgid ""
+#| " GUESTFS_MKFS_BTRFS_ALLOCSTART, int64_t allocstart,\n"
+#| " GUESTFS_MKFS_BTRFS_BYTECOUNT, int64_t bytecount,\n"
+#| " GUESTFS_MKFS_BTRFS_DATATYPE, const char *datatype,\n"
+#| " GUESTFS_MKFS_BTRFS_LEAFSIZE, int leafsize,\n"
+#| " GUESTFS_MKFS_BTRFS_LABEL, const char *label,\n"
+#| " GUESTFS_MKFS_BTRFS_METADATA, const char *metadata,\n"
+#| " GUESTFS_MKFS_BTRFS_NODESIZE, int nodesize,\n"
+#| " GUESTFS_MKFS_BTRFS_SECTORSIZE, int sectorsize,\n"
+#| "\n"
+msgid ""
+" GUESTFS_XFS_REPAIR_FORCELOGZERO, int forcelogzero,\n"
+" GUESTFS_XFS_REPAIR_NOMODIFY, int nomodify,\n"
+" GUESTFS_XFS_REPAIR_NOPREFETCH, int noprefetch,\n"
+" GUESTFS_XFS_REPAIR_FORCEGEOMETRY, int forcegeometry,\n"
+" GUESTFS_XFS_REPAIR_MAXMEM, int64_t maxmem,\n"
+" GUESTFS_XFS_REPAIR_IHASHSIZE, int64_t ihashsize,\n"
+" GUESTFS_XFS_REPAIR_BHASHSIZE, int64_t bhashsize,\n"
+" GUESTFS_XFS_REPAIR_AGSTRIDE, int64_t agstride,\n"
+" GUESTFS_XFS_REPAIR_LOGDEV, const char *logdev,\n"
+" GUESTFS_XFS_REPAIR_RTDEV, const char *rtdev,\n"
+"\n"
+msgstr ""
+" GUESTFS_MKFS_BTRFS_ALLOCSTART, int64_t allocstart,\n"
+" GUESTFS_MKFS_BTRFS_BYTECOUNT, int64_t bytecount,\n"
+" GUESTFS_MKFS_BTRFS_DATATYPE, const char *datatype,\n"
+" GUESTFS_MKFS_BTRFS_LEAFSIZE, int leafsize,\n"
+" GUESTFS_MKFS_BTRFS_LABEL, const char *label,\n"
+" GUESTFS_MKFS_BTRFS_METADATA, const char *metadata,\n"
+" GUESTFS_MKFS_BTRFS_NODESIZE, int nodesize,\n"
+" GUESTFS_MKFS_BTRFS_SECTORSIZE, int sectorsize,\n"
+"\n"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:10755
+#, fuzzy
+#| msgid "guestfs_add_domain_va"
+msgid "guestfs_xfs_repair_va"
+msgstr "guestfs_add_domain_va"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:10757
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_ntfsfix_va (guestfs_h *g,\n"
+#| "                     const char *device,\n"
+#| "                     va_list args);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_xfs_repair_va (guestfs_h *g,\n"
+"                        const char *device,\n"
+"                        va_list args);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_ntfsfix_va (guestfs_h *g,\n"
+"                     const char *device,\n"
+"                     va_list args);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:10762
+#, fuzzy
+#| msgid "This is the \"va_list variant\" of L</guestfs_add_domain>."
+msgid "This is the \"va_list variant\" of L</guestfs_xfs_repair>."
+msgstr "これは L</guestfs_add_domain> の \"va_list variant\" です。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:10766
+#, fuzzy
+#| msgid "guestfs_add_domain_argv"
+msgid "guestfs_xfs_repair_argv"
+msgstr "guestfs_add_domain_argv"
+
+#. type: verbatim
+#: ../src/guestfs-actions.pod:10768
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_ntfsfix_argv (guestfs_h *g,\n"
+#| "                       const char *device,\n"
+#| "                       const struct guestfs_ntfsfix_argv *optargs);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_xfs_repair_argv (guestfs_h *g,\n"
+"                          const char *device,\n"
+"                          const struct guestfs_xfs_repair_argv *optargs);\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_ntfsfix_argv (guestfs_h *g,\n"
+"                       const char *device,\n"
+"                       const struct guestfs_ntfsfix_argv *optargs);\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs-actions.pod:10773
+#, fuzzy
+#| msgid "This is the \"argv variant\" of L</guestfs_add_domain>."
+msgid "This is the \"argv variant\" of L</guestfs_xfs_repair>."
+msgstr "これは L</guestfs_add_domain> の \"argv variant\" です。"
+
+#. type: =head2
+#: ../src/guestfs-actions.pod:10777
 msgid "guestfs_zegrep"
 msgstr "guestfs_zegrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10718
+#: ../src/guestfs-actions.pod:10779
 #, no-wrap
 msgid ""
 " char **\n"
@@ -53195,12 +53380,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10742
+#: ../src/guestfs-actions.pod:10803
 msgid "guestfs_zegrepi"
 msgstr "guestfs_zegrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10744
+#: ../src/guestfs-actions.pod:10805
 #, no-wrap
 msgid ""
 " char **\n"
@@ -53216,12 +53401,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10768
+#: ../src/guestfs-actions.pod:10829
 msgid "guestfs_zero"
 msgstr "guestfs_zero"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10770
+#: ../src/guestfs-actions.pod:10831
 #, no-wrap
 msgid ""
 " int\n"
@@ -53235,7 +53420,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:10784
+#: ../src/guestfs-actions.pod:10845
 msgid ""
 "See also: C<guestfs_zero_device>, C<guestfs_scrub_device>, "
 "C<guestfs_is_zero_device>"
@@ -53244,12 +53429,12 @@ msgstr ""
 "C<guestfs_is_zero_device>"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10796
+#: ../src/guestfs-actions.pod:10857
 msgid "guestfs_zero_device"
 msgstr "guestfs_zero_device"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10798
+#: ../src/guestfs-actions.pod:10859
 #, no-wrap
 msgid ""
 " int\n"
@@ -53263,24 +53448,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:10802
+#: ../src/guestfs-actions.pod:10863
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with "
 "C<guestfs_zero> which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:10817
+#: ../src/guestfs-actions.pod:10878
 msgid "(Added in 1.3.1)"
 msgstr "(1.3.1 において追加)"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10819
+#: ../src/guestfs-actions.pod:10880
 msgid "guestfs_zero_free_space"
 msgstr "guestfs_zero_free_space"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10821
+#: ../src/guestfs-actions.pod:10882
 #, no-wrap
 msgid ""
 " int\n"
@@ -53294,7 +53479,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:10831
+#: ../src/guestfs-actions.pod:10892
 msgid ""
 "Free space is not \"trimmed\".  You may want to call C<guestfs_fstrim> "
 "either as an alternative to this, or after calling this, depending on your "
@@ -53302,12 +53487,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10844
+#: ../src/guestfs-actions.pod:10905
 msgid "guestfs_zerofree"
 msgstr "guestfs_zerofree"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10846
+#: ../src/guestfs-actions.pod:10907
 #, no-wrap
 msgid ""
 " int\n"
@@ -53321,12 +53506,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10865
+#: ../src/guestfs-actions.pod:10926
 msgid "guestfs_zfgrep"
 msgstr "guestfs_zfgrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10867
+#: ../src/guestfs-actions.pod:10928
 #, no-wrap
 msgid ""
 " char **\n"
@@ -53342,12 +53527,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10891
+#: ../src/guestfs-actions.pod:10952
 msgid "guestfs_zfgrepi"
 msgstr "guestfs_zfgrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10893
+#: ../src/guestfs-actions.pod:10954
 #, no-wrap
 msgid ""
 " char **\n"
@@ -53363,12 +53548,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10917
+#: ../src/guestfs-actions.pod:10978
 msgid "guestfs_zfile"
 msgstr "guestfs_zfile"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10919
+#: ../src/guestfs-actions.pod:10980
 #, no-wrap
 msgid ""
 " char *\n"
@@ -53384,7 +53569,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:10924
+#: ../src/guestfs-actions.pod:10985
 msgid ""
 "I<This function is deprecated.> In new code, use the L</guestfs_file> call "
 "instead."
@@ -53393,19 +53578,19 @@ msgstr ""
 "使用してください。"
 
 #. type: textblock
-#: ../src/guestfs-actions.pod:10936
+#: ../src/guestfs-actions.pod:10997
 msgid ""
 "Since 1.0.63, use C<guestfs_file> instead which can now process compressed "
 "files."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10944
+#: ../src/guestfs-actions.pod:11005
 msgid "guestfs_zgrep"
 msgstr "guestfs_zgrep"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10946
+#: ../src/guestfs-actions.pod:11007
 #, no-wrap
 msgid ""
 " char **\n"
@@ -53421,12 +53606,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../src/guestfs-actions.pod:10970
+#: ../src/guestfs-actions.pod:11031
 msgid "guestfs_zgrepi"
 msgstr "guestfs_zgrepi"
 
 #. type: verbatim
-#: ../src/guestfs-actions.pod:10972
+#: ../src/guestfs-actions.pod:11033
 #, no-wrap
 msgid ""
 " char **\n"
@@ -53781,26 +53966,26 @@ msgstr ""
 #| msgid "The following functions: L</guestfs_txz_in> L</guestfs_txz_out>"
 msgid ""
 "The following functions: L</guestfs_xfs_admin> L</guestfs_xfs_growfs> L</"
-"guestfs_xfs_info>"
+"guestfs_xfs_info> L</guestfs_xfs_repair>"
 msgstr "以下の関数: L</guestfs_txz_in> L</guestfs_txz_out>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:214
+#: ../src/guestfs-availability.pod:215
 msgid "B<xz>"
 msgstr "B<xz>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:216
+#: ../src/guestfs-availability.pod:217
 msgid "The following functions: L</guestfs_txz_in> L</guestfs_txz_out>"
 msgstr "以下の関数: L</guestfs_txz_in> L</guestfs_txz_out>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:220
+#: ../src/guestfs-availability.pod:221
 msgid "B<zerofree>"
 msgstr "B<zerofree>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:222
+#: ../src/guestfs-availability.pod:223
 msgid "The following functions: L</guestfs_zerofree>"
 msgstr "以下の関数: L</guestfs_zerofree>"
 
