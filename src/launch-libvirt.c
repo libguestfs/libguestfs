@@ -96,8 +96,6 @@ xmlBufferDetach (xmlBufferPtr buf)
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance, const char *guestfsd_sock, const char *console_sock);
 static char *autodetect_format (guestfs_h *g, const char *path);
 static void libvirt_error (guestfs_h *g, const char *fs, ...);
-static void restorecon (const char *dir);
-static int is_dir (const char *path);
 static int is_blk (const char *path);
 static int random_chars (char *ret, size_t len);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
@@ -112,10 +110,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   char *capabilities = NULL;
   xmlChar *xml = NULL;
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
-  char *sockdir = NULL;
-  int rm_sockets = 0;
-  char *guestfsd_sock = NULL;
-  char *console_sock = NULL;
+  char guestfsd_sock[256];
+  char console_sock[256];
   struct sockaddr_un addr;
   int console = -1, r;
 
@@ -178,58 +174,10 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   guestfs___launch_send_progress (g, 3);
   TRACE0 (launch_build_libvirt_appliance_end);
 
-  /* Choose a directory for the sockets.  To get SELinux labelling
-   * right we have to choose a directory which is known about in the
-   * policy.  See: https://bugzilla.redhat.com/show_bug.cgi?id=842307
-   */
-  if (is_root) {
-    if (mkdir ("/var/run/libguestfs", 0755) == 0)
-      sockdir = safe_strdup (g, "/var/run/libguestfs");
-  }
-
-  if (!sockdir) {
-    const char *xdg = getenv ("XDG_RUNTIME_DIR");
-    if (xdg && is_dir (xdg)) {
-      char *p = safe_asprintf (g, "%s/libguestfs", xdg);
-      if (mkdir (p, 0755) == 0)
-        sockdir = p;
-      else
-        free (p);
-    }
-  }
-
-  /* We want a private temporary directory underneath sockdir, if
-   * sockdir is set above.  Else we want to use g->tmpdir which is
-   * already a private temporary directory that will be cleaned up by
-   * the parent code.  Note that on modern systems /var/run and
-   * $XDG_RUNTIME_DIR will be cleaned up by the system when the user
-   * logs out and/or the machine is rebooted.
-   */
-  if (sockdir) {
-    char *old_sockdir = sockdir;
-    char subdir[17];
-
-    if (random_chars (subdir, 16) == -1) {
-      perrorf (g, "/dev/urandom");
-      goto cleanup;
-    }
-
-    sockdir = safe_asprintf (g, "%s/%s", old_sockdir, subdir);
-    free (old_sockdir);
-    if (mkdir (sockdir, 0755) == -1) {
-      perrorf (g, "mkdir: %s", sockdir);
-      goto cleanup;
-    }
-
-    rm_sockets = 1;
-  }
-  else
-    sockdir = safe_strdup (g, g->tmpdir);
-
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
    */
-  guestfsd_sock = safe_asprintf (g, "%s/guestfsd.sock", sockdir);
+  snprintf (guestfsd_sock, sizeof guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
   unlink (guestfsd_sock);
 
   g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
@@ -258,7 +206,9 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   }
 
   /* For the serial console. */
-  console_sock = safe_asprintf (g, "%s/console.sock", sockdir);
+  snprintf (console_sock, sizeof console_sock, "%s/console.sock", g->tmpdir);
+  unlink (console_sock);
+
   console = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (console == -1) {
     perrorf (g, "socket");
@@ -285,9 +235,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    * (1) Permissions of the socket.
    * (2) Permissions of the parent directory(-ies).  Remember this
    *     if $TMPDIR is located in your home directory.
-   * (3) SELinux/sVirt will prevent access.  If the SELinux policy
-   *     has been set up right then the socket should be labeled
-   *     when it is created.
+   * (3) SELinux/sVirt will prevent access.  libvirt ought to
+   *     label the socket.
    */
   if (is_root) {
     struct group *grp;
@@ -315,9 +264,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     } else
       debug (g, "cannot find group 'qemu'");
   }
-
-  /* Set SELinux labels on sockets. */
-  restorecon (sockdir);
 
   /* Construct the libvirt XML. */
   if (g->verbose)
@@ -423,17 +369,11 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   g->virt.connv = conn;
   g->virt.domv = dom;
 
-  if (sockdir && rm_sockets)
-    guestfs___remove_tmpdir (sockdir);
-
   free (kernel);
   free (initrd);
   free (appliance);
   free (xml);
   free (capabilities);
-  free (sockdir);
-  free (guestfsd_sock);
-  free (console_sock);
 
   return 0;
 
@@ -460,17 +400,11 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   if (conn)
     virConnectClose (conn);
 
-  if (sockdir && rm_sockets)
-    guestfs___remove_tmpdir (sockdir);
-
   free (kernel);
   free (initrd);
   free (appliance);
   free (capabilities);
   free (xml);
-  free (sockdir);
-  free (guestfsd_sock);
-  free (console_sock);
 
   g->state = CONFIG;
 
@@ -1217,39 +1151,6 @@ autodetect_format (guestfs_h *g, const char *path)
   }
 
   return ret;                   /* caller frees */
-}
-
-/* Run external 'restorecon' command on the socket directory to set
- * labels.  This is not required in recent versions of SELinux, and if
- * SELinux isn't available we'll just ignore errors.
- */
-static void
-restorecon (const char *dir)
-{
-  pid_t pid;
-
-  pid = fork ();
-  if (pid == -1)
-    return;
-
-  if (pid == 0) {               /* child */
-    close (2);
-    open ("/dev/null", O_RDWR);
-    execlp ("restorecon", "restorecon", dir, NULL);
-    _exit (EXIT_FAILURE);
-  }
-
-  waitpid (pid, NULL, 0);
-}
-
-static int
-is_dir (const char *path)
-{
-  struct stat statbuf;
-
-  if (stat (path, &statbuf) == -1)
-    return 0;
-  return S_ISDIR (statbuf.st_mode);
 }
 
 static int
