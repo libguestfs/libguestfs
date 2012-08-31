@@ -409,81 +409,33 @@ struct guestfs_message_header;
 struct guestfs_message_error;
 struct guestfs_progress;
 
+/* guestfs.c */
 extern void guestfs_error (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
   __attribute__((format (printf,3,4)));
 extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
+
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 extern char *guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
+
 extern void guestfs___warning (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void guestfs___debug (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
-extern const char *guestfs___persistent_tmpdir (void);
-extern int guestfs___lazy_make_tmpdir (guestfs_h *g);
-extern void guestfs___remove_tmpdir (const char *dir);
-extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);
-extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
-#if HAVE_FUSE
-extern void guestfs___free_fuse (guestfs_h *g);
-#endif
-extern void guestfs___free_inspect_info (guestfs_h *g);
+
 extern void guestfs___free_drives (struct drive **drives);
-extern int guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint, uint64_t optargs_bitmask, xdrproc_t xdrp, char *args);
-extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
-extern int guestfs___recv_discard (guestfs_h *g, const char *fn);
-extern int guestfs___send_file (guestfs_h *g, const char *filename);
-extern int guestfs___recv_file (guestfs_h *g, const char *filename);
-extern int guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
-extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
-extern int guestfs___accept_from_daemon (guestfs_h *g);
-extern void guestfs___progress_message_callback (guestfs_h *g, const struct guestfs_progress *message);
-extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
-extern int guestfs___launch_appliance (guestfs_h *g);
-extern int guestfs___launch_unix (guestfs_h *g, const char *sockpath);
-extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
+extern void guestfs___free_string_list (char **);
+
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size);
-extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
-extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
-extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
-extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
-extern int guestfs___feature_available (guestfs_h *g, const char *feature);
-extern void guestfs___free_string_list (char **);
-extern struct drive ** guestfs___checkpoint_drives (guestfs_h *g);
-extern void guestfs___rollback_drives (guestfs_h *g, struct drive **i);
-extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
-extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
-extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
-extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
-extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
-extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
-extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
-extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
-extern char *guestfs___drive_name (size_t index, char *ret);
-extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
-extern int guestfs___parse_unsigned_int (guestfs_h *g, const char *str);
-extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
-extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
-extern char *guestfs___first_line_of_file (guestfs_h *g, const char *filename);
-extern int guestfs___first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
-typedef int (*guestfs___db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
-extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opaque, guestfs___db_dump_callback callback);
-extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs___has_windows_systemroot (guestfs_h *g);
-extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 
 #define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf
@@ -497,9 +449,87 @@ extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 #define safe_strndup guestfs_safe_strndup
 #define safe_memdup guestfs_safe_memdup
 #define safe_asprintf guestfs_safe_asprintf
+
+/* match.c */
+extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
+extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
+extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
+extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
+
 #define match guestfs___match
 #define match1 guestfs___match1
 #define match2 guestfs___match2
 #define match3 guestfs___match3
+
+/* proto.c */
+extern int guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint, uint64_t optargs_bitmask, xdrproc_t xdrp, char *args);
+extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
+extern int guestfs___recv_discard (guestfs_h *g, const char *fn);
+extern int guestfs___send_file (guestfs_h *g, const char *filename);
+extern int guestfs___recv_file (guestfs_h *g, const char *filename);
+extern int guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
+extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
+extern int guestfs___accept_from_daemon (guestfs_h *g);
+extern void guestfs___progress_message_callback (guestfs_h *g, const struct guestfs_progress *message);
+
+/* events.c */
+extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
+extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
+extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
+
+/* appliance.c */
+extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
+
+/* launch.c */
+extern const char *guestfs___persistent_tmpdir (void);
+extern int guestfs___lazy_make_tmpdir (guestfs_h *g);
+extern void guestfs___remove_tmpdir (const char *dir);
+extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);
+extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
+extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
+extern struct drive ** guestfs___checkpoint_drives (guestfs_h *g);
+extern void guestfs___rollback_drives (guestfs_h *g, struct drive **i);
+
+/* launch-appliance.c */
+extern char *guestfs___drive_name (size_t index, char *ret);
+
+/* inspect.c */
+extern void guestfs___free_inspect_info (guestfs_h *g);
+extern int guestfs___feature_available (guestfs_h *g, const char *feature);
+extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
+extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
+
+/* inspect-fs.c */
+extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
+extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
+extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
+extern int guestfs___parse_unsigned_int (guestfs_h *g, const char *str);
+extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
+extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
+extern char *guestfs___first_line_of_file (guestfs_h *g, const char *filename);
+extern int guestfs___first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
+
+/* inspect-fs-unix.c */
+extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
+
+/* inspect-fs-windows.c */
+extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
+extern int guestfs___has_windows_systemroot (guestfs_h *g);
+extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
+
+/* inspect-fs-cd.c */
+extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
+
+/* dbdump.c */
+typedef int (*guestfs___db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
+extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opaque, guestfs___db_dump_callback callback);
+
+/* fuse.c */
+#if HAVE_FUSE
+extern void guestfs___free_fuse (guestfs_h *g);
+#endif
 
 #endif /* GUESTFS_INTERNAL_H_ */
