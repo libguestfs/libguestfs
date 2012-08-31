@@ -35,6 +35,7 @@ test_parallel_mount_local_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_parallel_mount_local_LDADD = \
 	$(FUSE_LIBS) \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/gnulib/lib/libgnu.la
 
 endif
