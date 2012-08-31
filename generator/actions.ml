@@ -4129,7 +4129,7 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
         [["mkdir"; "/tar_in_gz"];
          ["tar_in"; "../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"];
          ["cat"; "/tar_in_gz/hello"]], "hello\n");
-      InitScratchFS, IfAvailable "xz", TestOutput (
+      InitScratchFS, Disabled, TestOutput (
         [["mkdir"; "/tar_in_xz"];
          ["tar_in"; "../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"];
          ["cat"; "/tar_in_xz/hello"]], "hello\n")
