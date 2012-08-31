@@ -45,6 +45,7 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   char sectorsize_str[32];
   int r;
   CLEANUP_FREE char *err = NULL;
+  char mke2fs[] = "mke2fs";
   int extfs = 0;
 
   if (fstype_is_extfs (fstype))
@@ -54,8 +55,11 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
    * the mkfs program "eats" some options, in particular the -F
    * option.
    */
-  if (extfs)
-    ADD_ARG (argv, i, str_mke2fs);
+  if (extfs) {
+    if (e2prog (mke2fs) == -1)
+      return -1;
+    ADD_ARG (argv, i, mke2fs);
+  }
   else
     ADD_ARG (argv, i, str_mkfs);
 
