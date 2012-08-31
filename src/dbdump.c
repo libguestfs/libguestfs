@@ -40,7 +40,7 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-#if defined(HAVE_HIVEX) && defined(DB_DUMP)
+#if defined(DB_DUMP)
 
 static unsigned char *convert_hex_to_binary (guestfs_h *g, const char *hex, size_t hexlen, size_t *binlen_rtn);
 
@@ -215,4 +215,4 @@ convert_hex_to_binary (guestfs_h *g, const char *hex, size_t hexlen,
   return bin;
 }
 
-#endif /* defined(HAVE_HIVEX) && defined(DB_DUMP) */
+#endif /* defined(DB_DUMP) */
