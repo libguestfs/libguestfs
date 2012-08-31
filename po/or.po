@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-30 16:19+0100\n"
+"POT-Creation-Date: 2012-08-31 18:33+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -3494,7 +3494,7 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:734
+#: src/appliance.c:735
 msgid "external command failed, see earlier error messages"
 msgstr ""
 

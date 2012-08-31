@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-30 16:19+0100\n"
+"POT-Creation-Date: 2012-08-31 18:33+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3632,7 +3632,7 @@ msgstr "security: cached appliance %s is not a directory (mode %o)"
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਗਰੁੱਪ ਜਾਂ ਹੋਰ (mode %o) ਦੁਆਰਾ ਲਿਖਣਯੋਗ ਹੈ"
 
-#: src/appliance.c:734
+#: src/appliance.c:735
 msgid "external command failed, see earlier error messages"
 msgstr "ਬਾਹਰੀ ਕਮਾਂਡ ਫੇਲ ਹੋਈ ਹੈ, ਪਿਛਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
