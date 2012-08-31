@@ -168,8 +168,7 @@ let qemu_img_version =
   let stat = close_process_in chan in
   (match stat with
   | WEXITED _ -> ()
-  | WSIGNALED i ->
-    error (f_"external command '%s' killed by signal %d") cmd i
+  | WSIGNALED i -> ()
   | WSTOPPED i ->
     error (f_"external command '%s' stopped by signal %d") cmd i
   );
