@@ -419,17 +419,6 @@ launch_appliance (guestfs_h *g, const char *arg)
     add_cmdline (g, "-serial");
     add_cmdline (g, "stdio");
 
-    if (qemu_supports_device (g, "Serial Graphics Adapter")) {
-      /* Use sgabios instead of vgabios.  This means we'll see BIOS
-       * messages on the serial port, and also works around this bug
-       * in qemu 1.1.0:
-       * https://bugs.launchpad.net/qemu/+bug/1021649
-       * QEmu has included sgabios upstream since just before 1.0.
-       */
-      add_cmdline (g, "-device");
-      add_cmdline (g, "sga");
-    }
-
     /* Null vmchannel. */
     add_cmdline (g, "-net");
     add_cmdline (g, "user,vlan=0,net=" NETWORK);
