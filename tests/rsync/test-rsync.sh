@@ -24,6 +24,11 @@ set -e
 
 guestfish=../../fish/guestfish
 
+if [ -n "$SKIP_TEST_RSYNC_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
+
 # Check we have the rsync command.
 if ! rsync --help >/dev/null 2>&1; then
     echo "$0: skipping test because local rsync command is not available"
