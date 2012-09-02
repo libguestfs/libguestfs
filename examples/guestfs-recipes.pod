@@ -30,6 +30,28 @@ Windows.
 L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002655.html>
 L<https://lists.fedoraproject.org/pipermail/virt/2011-May/002658.html>
 
+=head1 Checksum a file or device within a disk image
+
+To checksum a whole device, or a partition, LV etc within a disk image:
+
+ guestfish --ro -a disk.img run : checksum-device md5 /dev/sda1
+
+Replace C<md5> with the type of checksum you want.  See
+L<guestfs(3)/guestfs_checksum_device> for a list of supported types.
+
+C</dev/sda1> means "the first partition".  You could use C</dev/sda>
+to checksum the whole disk image, or the name of a logical volume or
+RAID device.
+
+To checksum a single file:
+
+ guestfish --ro -a disk.img -i checksum sha256 /etc/passwd
+
+or for a Windows guest:
+
+ guestfish --ro -a disk.img -i \
+   checksum sha256 'win:\windows\system32\config\SOFTWARE'
+
 =head1 Cloning a virtual machine
 
 Use a combination of tools like L<cp(1)>, L<dd(1)>, and
@@ -88,6 +110,10 @@ one which is encrypted or buried inside an LV or RAID device):
  guestfish --ro -a disk.img run : download /dev/sda1 sda1.img
 
  guestfish --ro -d Guest run : download /dev/vg_guest/lv_root lv.img
+
+To download to stdout, replace the filename with a C<-> character:
+
+ guestfish --ro -a disk.img run : download /dev/sda1 - | hexdump -C
 
 To list the filesystems in a disk image, use L<virt-filesystems(1)>.
 
