@@ -20,15 +20,15 @@
 
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
-open Generator_docstrings
-open Generator_api_versions
-open Generator_optgroups
-open Generator_actions
-open Generator_structs
-open Generator_events
+open Types
+open Utils
+open Pr
+open Docstrings
+open Api_versions
+open Optgroups
+open Actions
+open Structs
+open Events
 
 (* Generate C API. *)
 

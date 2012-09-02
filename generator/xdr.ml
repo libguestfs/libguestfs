@@ -20,13 +20,13 @@
 
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
-open Generator_docstrings
-open Generator_optgroups
-open Generator_actions
-open Generator_structs
+open Types
+open Utils
+open Pr
+open Docstrings
+open Optgroups
+open Actions
+open Structs
 
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
  * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.

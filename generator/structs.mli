@@ -18,22 +18,26 @@
 
 (* Please read generator/README first. *)
 
-open Generator_types
-open Generator_actions
+(** Structures returned by the API. *)
 
-(* Create list of optional groups. *)
-let optgroups =
-  let h = Hashtbl.create 13 in
-  List.iter (
-    function
-    | { name = name; optional = Some group } ->
-      let names = try Hashtbl.find h group with Not_found -> [] in
-      Hashtbl.replace h group (name :: names)
-    | _ -> ()
-  ) daemon_functions;
-  let groups = Hashtbl.fold (fun k _ ks -> k :: ks) h [] in
-  let groups =
-    List.map (
-      fun group -> group, List.sort compare (Hashtbl.find h group)
-    ) groups in
-  List.sort (fun x y -> compare (fst x) (fst y)) groups
+type cols = (string * Types.field) list
+(** List of structure fields (called "columns"). *)
+
+val structs : (string * cols) list
+(** List of structures. *)
+
+val camel_structs : (string * string) list
+(** For bindings which want camel case struct names *)
+
+val lvm_pv_cols : cols
+val lvm_vg_cols : cols
+val lvm_lv_cols : cols
+(** These are exported to the daemon code generator where they are
+    used to generate code for parsing the output of commands like
+    [lvs].  One day replace this with liblvm API calls. *)
+
+val camel_name_of_struct : string -> string
+(** Camel case name of struct. *)
+
+val cols_of_struct : string -> cols
+(** Extract columns of a struct. *)

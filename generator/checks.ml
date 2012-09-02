@@ -18,9 +18,9 @@
 
 (* Please read generator/README first. *)
 
-open Generator_types
-open Generator_utils
-open Generator_actions
+open Types
+open Utils
+open Actions
 
 (* Check function names etc. for consistency. *)
 let () =

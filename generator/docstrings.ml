@@ -21,9 +21,9 @@
 open Unix
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
+open Types
+open Utils
+open Pr
 
 (* Handling for function flags. *)
 let progress_message =

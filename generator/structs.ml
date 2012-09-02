@@ -18,8 +18,8 @@
 
 (* Please read generator/README first. *)
 
-open Generator_types
-open Generator_utils
+open Types
+open Utils
 
 type cols = (string * field) list
 

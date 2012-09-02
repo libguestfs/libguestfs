@@ -16,41 +16,41 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 SOURCES = \
-	generator_types.ml \
-	generator_utils.mli \
-	generator_utils.ml \
-	generator_actions.mli \
-	generator_actions.ml \
-	generator_structs.mli \
-	generator_structs.ml \
-	generator_api_versions.mli \
-	generator_api_versions.ml \
-	generator_optgroups.ml \
-	generator_prepopts.mli \
-	generator_prepopts.ml \
-	generator_events.ml \
-	generator_pr.mli \
-	generator_pr.ml \
-	generator_docstrings.ml \
-	generator_checks.ml \
-	generator_c.ml \
-	generator_xdr.ml \
-	generator_daemon.ml \
-	generator_tests_c_api.ml \
-	generator_fish.ml \
-	generator_ocaml.ml \
-	generator_perl.ml \
-	generator_python.ml \
-	generator_ruby.ml \
-	generator_java.ml \
-	generator_haskell.ml \
-	generator_csharp.ml \
-	generator_php.ml \
-	generator_erlang.ml \
-	generator_gobject.ml \
-	generator_bindtests.ml \
-	generator_errnostring.ml \
-	generator_main.ml
+	types.ml \
+	utils.mli \
+	utils.ml \
+	actions.mli \
+	actions.ml \
+	structs.mli \
+	structs.ml \
+	api_versions.mli \
+	api_versions.ml \
+	optgroups.ml \
+	prepopts.mli \
+	prepopts.ml \
+	events.ml \
+	pr.mli \
+	pr.ml \
+	docstrings.ml \
+	checks.ml \
+	c.ml \
+	xdr.ml \
+	daemon.ml \
+	tests_c_api.ml \
+	fish.ml \
+	ocaml.ml \
+	perl.ml \
+	python.ml \
+	ruby.ml \
+	java.ml \
+	haskell.ml \
+	csharp.ml \
+	php.ml \
+	erlang.ml \
+	gobject.ml \
+	bindtests.ml \
+	errnostring.ml \
+	main.ml
 
 SOURCES_ML = $(filter %.ml,$(SOURCES))
 OBJECTS = $(SOURCES_ML:.ml=.cmo)

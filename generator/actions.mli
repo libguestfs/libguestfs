@@ -18,26 +18,26 @@
 
 (* Please read generator/README first. *)
 
-(** Structures returned by the API. *)
+(** The libguestfs API. *)
 
-type cols = (string * Generator_types.field) list
-(** List of structure fields (called "columns"). *)
+val non_daemon_functions : Types.action list
+(** API actions which are implemented within the library itself. *)
 
-val structs : (string * cols) list
-(** List of structures. *)
+val daemon_functions : Types.action list
+(** API actions which are implemented by the daemon. *)
 
-val camel_structs : (string * string) list
-(** For bindings which want camel case struct names *)
+val all_functions : Types.action list
+(** Concatenation of [non_daemon_functions] and [daemon_functions] lists. *)
 
-val lvm_pv_cols : cols
-val lvm_vg_cols : cols
-val lvm_lv_cols : cols
-(** These are exported to the daemon code generator where they are
-    used to generate code for parsing the output of commands like
-    [lvs].  One day replace this with liblvm API calls. *)
+val all_functions_sorted : Types.action list
+(** [all_functions] but sorted by name. *)
 
-val camel_name_of_struct : string -> string
-(** Camel case name of struct. *)
+val test_functions : Types.action list
+(** Internal test functions used to test the language bindings. *)
 
-val cols_of_struct : string -> cols
-(** Extract columns of a struct. *)
+val max_proc_nr : int
+(** The largest procedure number used (also saved in [src/MAX_PROC_NR] and
+    used as the minor version number of the shared library). *)
+
+val fish_commands : Types.action list
+(** Non-API meta-commands available only in guestfish. *)

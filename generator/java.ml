@@ -20,14 +20,14 @@
 
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
-open Generator_docstrings
-open Generator_optgroups
-open Generator_actions
-open Generator_structs
-open Generator_c
+open Types
+open Utils
+open Pr
+open Docstrings
+open Optgroups
+open Actions
+open Structs
+open C
 
 (* Generate Java bindings GuestFS.java file. *)
 let rec generate_java_java () =

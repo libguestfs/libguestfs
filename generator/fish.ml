@@ -20,16 +20,16 @@
 
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
-open Generator_docstrings
-open Generator_optgroups
-open Generator_actions
-open Generator_structs
-open Generator_prepopts
-open Generator_c
-open Generator_events
+open Types
+open Utils
+open Pr
+open Docstrings
+open Optgroups
+open Actions
+open Structs
+open Prepopts
+open C
+open Events
 
 let doc_opttype_of = function
   | OBool n -> "true|false"

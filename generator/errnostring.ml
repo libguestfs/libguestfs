@@ -20,10 +20,10 @@
 
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
-open Generator_docstrings
+open Types
+open Utils
+open Pr
+open Docstrings
 
 (* Generate the functions errno_to_string and string_to_errno which
  * convert errno (eg. EINVAL) into string ("EINVAL") and back again,
@@ -179,7 +179,7 @@ let errnos = [
 
 let () =
   (* Check list is sorted and no duplicates. *)
-  let file = "generator/generator_errnostring.ml" in
+  let file = "generator/errnostring.ml" in
   let check str =
     let len = String.length str in
     if len == 0 || len > 32 then

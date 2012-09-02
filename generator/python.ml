@@ -20,15 +20,15 @@
 
 open Printf
 
-open Generator_types
-open Generator_utils
-open Generator_pr
-open Generator_docstrings
-open Generator_optgroups
-open Generator_actions
-open Generator_structs
-open Generator_c
-open Generator_events
+open Types
+open Utils
+open Pr
+open Docstrings
+open Optgroups
+open Actions
+open Structs
+open C
+open Events
 
 (* Generate Python C module. *)
 let rec generate_python_c () =

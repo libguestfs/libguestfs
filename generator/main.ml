@@ -21,27 +21,27 @@
 open Unix
 open Printf
 
-open Generator_pr
-open Generator_structs
-open Generator_api_versions
+open Pr
+open Structs
+open Api_versions
 
-open Generator_c
-open Generator_xdr
-open Generator_daemon
-open Generator_tests_c_api
-open Generator_fish
-open Generator_ocaml
-open Generator_perl
-open Generator_python
-open Generator_ruby
-open Generator_java
-open Generator_haskell
-open Generator_csharp
-open Generator_php
-open Generator_erlang
-open Generator_gobject
-open Generator_bindtests
-open Generator_errnostring
+open C
+open Xdr
+open Daemon
+open Tests_c_api
+open Fish
+open Ocaml
+open Perl
+open Python
+open Ruby
+open Java
+open Haskell
+open Csharp
+open Php
+open Erlang
+open Gobject
+open Bindtests
+open Errnostring
 
 let perror msg = function
   | Unix_error (err, _, _) ->

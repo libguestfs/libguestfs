@@ -22,13 +22,13 @@
 
 open Printf
 
-open Generator_actions
-open Generator_docstrings
-open Generator_events
-open Generator_pr
-open Generator_structs
-open Generator_types
-open Generator_utils
+open Actions
+open Docstrings
+open Events
+open Pr
+open Structs
+open Types
+open Utils
 
 let camel_of_name { camel_name = camel_name } = "Guestfs" ^ camel_name
 

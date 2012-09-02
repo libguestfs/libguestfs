@@ -18,8 +18,8 @@
 
 (* Please read generator/README first. *)
 
-open Generator_types
-open Generator_utils
+open Types
+open Utils
 
 (* Default settings for all action fields.  So we copy and override
  * this struct by writing '{ defaults with name = &c }'

@@ -18,7 +18,7 @@
 
 (* Please read generator/README first. *)
 
-open Generator_utils
+open Utils
 
 let hash = Hashtbl.create 13
 

@@ -20,7 +20,7 @@
 
 (** Useful utility functions. *)
 
-val errcode_of_ret : Generator_types.ret -> Generator_types.errcode
+val errcode_of_ret : Types.ret -> Types.errcode
 (** Map [ret] type to the error indication that the action returns,
     eg. [errcode_of_ret RErr] => [`ErrorIsMinusOne] (meaning that
     these actions return [-1]).
@@ -37,7 +37,7 @@ val uuidgen : unit -> string
 type rstructs_used_t = RStructOnly | RStructListOnly | RStructAndList
 (** Return type of {!rstructs_used_by}. *)
 
-val rstructs_used_by : Generator_types.action list -> (string * rstructs_used_t) list
+val rstructs_used_by : Types.action list -> (string * rstructs_used_t) list
 (** Returns a list of RStruct/RStructList structs that are returned
     by any function. *)
 
@@ -93,13 +93,13 @@ val explode : string -> char list
 val map_chars : (char -> 'a) -> string -> 'a list
 (** Explode string, then map function over the characters. *)
 
-val name_of_argt : Generator_types.argt -> string
+val name_of_argt : Types.argt -> string
 (** Extract argument name. *)
 
-val name_of_optargt : Generator_types.optargt -> string
+val name_of_optargt : Types.optargt -> string
 (** Extract optional argument name. *)
 
-val seq_of_test : Generator_types.test -> Generator_types.seq
+val seq_of_test : Types.test -> Types.seq
 (** Extract test sequence from a test. *)
 
 val c_quote : string -> string
@@ -120,7 +120,7 @@ val pod2text : ?width:int -> ?trim:bool -> ?discard:bool -> string -> string -> 
       This is the slowest part of autogeneration, so the results are
       memoized into a temporary file. *)
 
-val action_compare : Generator_types.action -> Generator_types.action -> int
+val action_compare : Types.action -> Types.action -> int
   (** Compare the names of two actions, for sorting. *)
 
 val chars : char -> int -> string
@@ -129,5 +129,5 @@ val chars : char -> int -> string
 val spaces : int -> string
 (** [spaces n] creates a string of n spaces. *)
 
-val args_of_optargs : Generator_types.optargs -> Generator_types.args
+val args_of_optargs : Types.optargs -> Types.args
 (** Convert a list of optargs into an equivalent list of args *)

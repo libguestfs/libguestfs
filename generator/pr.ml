@@ -21,7 +21,7 @@
 open Unix
 open Printf
 
-open Generator_utils
+open Utils
 
 (* Output channel, 'pr' prints to this. *)
 let chan = ref Pervasives.stdout

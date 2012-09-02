@@ -2877,7 +2877,7 @@ To add a new API action there are two changes:
 =item 1.
 
 You need to add a description of the call (name, parameters, return
-type, tests, documentation) to C<generator/generator_actions.ml>.
+type, tests, documentation) to C<generator/actions.ml>.
 
 There are two sorts of API action, depending on whether the call goes
 through to the daemon in the appliance, or is serviced entirely by the
@@ -2923,13 +2923,12 @@ the OCaml description.
 
 You can supply zero or as many tests as you want per API call.  The
 tests can either be added as part of the API description
-(C<generator/generator_actions.ml>), or in some rarer cases you may
-want to drop a script into C<tests/*/>.  Note that adding
-a script to C<tests/*/> is slower, so if possible use the
-first method.
+(C<generator/actions.ml>), or in some rarer cases you may want to drop
+a script into C<tests/*/>.  Note that adding a script to C<tests/*/>
+is slower, so if possible use the first method.
 
 The following describes the test environment used when you add an API
-test in C<generator_actions.ml>.
+test in C<actions.ml>.
 
 The test environment has 4 block devices:
 
@@ -2959,10 +2958,10 @@ libguestfs appliance and block devices are reused between tests.  So
 don't try testing L</guestfs_kill_subprocess> :-x
 
 Each test starts with an initial scenario, selected using one of the
-C<Init*> expressions, described in C<generator/generator_types.ml>.
-These initialize the disks mentioned above in a particular way as
-documented in C<generator_types.ml>.  You should not assume anything
-about the previous contents of other disks that are not initialized.
+C<Init*> expressions, described in C<generator/types.ml>.  These
+initialize the disks mentioned above in a particular way as documented
+in C<types.ml>.  You should not assume anything about the previous
+contents of other disks that are not initialized.
 
 You can add a prerequisite clause to any individual test.  This is a
 run-time check, which, if it fails, causes the test to be skipped.

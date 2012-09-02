@@ -383,7 +383,7 @@ and test_init =
 and seq = cmd list
 and cmd = string list
 
-(* Type of an action as declared in Generator_actions module. *)
+(* Type of an action as declared in Actions module. *)
 type action = {
   name : string;                  (* name, not including "guestfs_" *)
   style : style;                  (* args and return value *)

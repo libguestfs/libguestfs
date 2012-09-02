@@ -18,7 +18,7 @@
 
 (* Please read generator/README first. *)
 
-open Generator_utils
+open Utils
 
 (* NB: DO NOT REORDER THESE, as doing so will change the ABI.  Only
  * add new event types at the end of the list.
