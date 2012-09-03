@@ -55,6 +55,7 @@ operations = \
 	logfiles \
 	machine_id \
 	mail_spool \
+	net_hostname \
 	net_hwaddr \
 	pacct_log \
 	package_manager_cache \
