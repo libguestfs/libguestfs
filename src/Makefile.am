@@ -130,6 +130,7 @@ libguestfs_la_SOURCES = \
 	file.c \
 	filearch.c \
 	fuse.c \
+	info.c \
 	inspect.c \
 	inspect-apps.c \
 	inspect-fs.c \

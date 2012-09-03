@@ -222,6 +222,7 @@ src/file.c
 src/filearch.c
 src/fuse.c
 src/guestfs.c
+src/info.c
 src/inspect-apps.c
 src/inspect-fs-cd.c
 src/inspect-fs-unix.c

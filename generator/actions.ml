@@ -2272,6 +2272,18 @@ However it is not foolproof because the registry is not
 strongly-typed and fields can contain arbitrary or unexpected
 data." };
 
+  { defaults with
+    name = "disk_format";
+    style = RString "format", [String "filename"], [];
+    shortdesc = "detect the disk format of a disk image";
+    longdesc = "\
+Detect and return the format of the disk image called C<filename>.
+C<filename> can also be a host device, etc.  If the format of the
+image could not be detected, then C<\"unknown\"> is returned.
+
+Note that detecting the disk format can be insecure under some
+circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
