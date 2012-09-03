@@ -54,7 +54,6 @@
 #include "daemon.h"
 
 GUESTFSD_EXT_CMD(str_udevadm, udevadm);
-GUESTFSD_EXT_CMD(str_udevsettle, udevsettle);
 
 static char *read_cmdline (void);
 
@@ -1287,16 +1286,9 @@ random_name (char *template)
  *
  * Use 'udevadm settle' after certain commands, but don't be too
  * fussed if it fails.
- *
- * 'udevsettle' was the old name for this command (RHEL 5).  This was
- * deprecated in favour of 'udevadm settle'.  The old 'udevsettle'
- * command was left as a symlink.  Then in Fedora 13 the old symlink
- * remained but it stopped working (RHBZ#548121), so we have to be
- * careful not to assume that we can use 'udevsettle' if it exists.
  */
 void
 udev_settle (void)
 {
   (void) command (NULL, NULL, str_udevadm, "settle", NULL);
-  (void) command (NULL, NULL, str_udevsettle, NULL);
 }
