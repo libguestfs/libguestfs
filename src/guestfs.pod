@@ -124,6 +124,7 @@ You can add a disk read-only using:
 
 or by calling the older function L</guestfs_add_drive_ro>.  In either
 case libguestfs won't modify the file.
+(See also L</DISK IMAGE FORMATS> below).
 
 Be extremely cautious if the disk image is in use, eg. if it is being
 used by a virtual machine.  Adding it read-write will almost certainly
@@ -1314,6 +1315,91 @@ For example, to test if a feature is available, use code like this:
 
 =back
 
+=head2 DISK IMAGE FORMATS
+
+Virtual disks come in a variety of formats.  Some common formats
+are listed below.
+
+Note that libguestfs itself is not responsible for handling the disk
+format: this is done using L<qemu(1)>.  If support for a particular
+format is missing or broken, this has to be fixed in qemu.
+
+=head3 COMMON VIRTUAL DISK IMAGE FORMATS
+
+=over 4
+
+=item I<raw>
+
+Raw format is simply a dump of the sequential bytes of the virtual
+hard disk.  There is no header, container, compression or processing
+of any sort.
+
+Since raw format requires no translation to read or write, it is both
+fast and very well supported by qemu and all other hypervisors.  You
+can consider it to be a universal format that any hypervisor can
+access.
+
+Raw format files are not compressed and so take up the full space of
+the original disk image even when they are empty.  A variation (on
+Linux/Unix at least) is to not store ranges of all-zero bytes by
+storing the file as a sparse file.  This "variant format" is sometimes
+called I<raw sparse>.  Many utilities, including L<virt-sparsify(1)>,
+can make raw disk images sparse.
+
+=item I<qcow2>
+
+Qcow2 is the native disk image format used by qemu.  Internally it
+uses a two-level directory structure so that only blocks containing
+data are stored in the file.  It also has many other features such as
+compression, snapshots and backing files.
+
+There are at least two distinct variants of this format, although qemu
+(and hence libguestfs) handles both transparently to the user.
+
+=item I<vmdk>
+
+VMDK is VMware's native disk image format.  There are many variations.
+Modern qemu (hence libguestfs) supports most variations, but you
+should be aware that older versions of qemu had some very bad
+data-corrupting bugs in this area.
+
+Note that VMware ESX exposes files with the name C<guest-flat.vmdk>.
+These are not VMDK.  They are raw format files which happen to have a
+C<.vmdk> extension.
+
+=item I<vdi>
+
+VDI is VirtualBox's native disk image format.  Qemu (hence libguestfs)
+has generally good support for this.
+
+=item I<vpc>
+
+=item I<vhd>
+
+VPC (old) and VHD (modern) are the native disk image format of
+Microsoft (and previously, Connectix) Virtual PC and Hyper-V.
+
+=item Obsolete formats
+
+The following formats are obsolete and should not be used:
+I<qcow> (aka I<qcow1>), I<cow>, I<bochs>.
+
+=back
+
+=head3 DETECTING THE FORMAT OF A DISK IMAGE
+
+Firstly note there is a security issue with auto-detecting the format
+of a disk image.  It may or may not apply in your use case.  Read
+L</CVE-2010-3851> below.
+
+Libguestfs offers an API to get the format of a disk image
+(L</guestfs_disk_format>, and it is safest to use this.
+
+I<Don't> be tempted to try parsing the text / human-readable output of
+C<qemu-img> since it cannot be parsed reliably and securely.  Also do
+not use the C<file> command since the output of that changes over
+time.
+
 =head1 SECURITY
 
 This section discusses security implications of using libguestfs,
@@ -1467,6 +1553,7 @@ The way to avoid this is to specify the expected disk format when
 adding disks (the optional C<format> option to
 L</guestfs_add_drive_opts>).  You should always do this if the disk is
 raw format, and it's a good idea for other cases too.
+(See also L</DISK IMAGE FORMATS>).
 
 For disks added from libvirt using calls like L</guestfs_add_domain>,
 the format is fetched from libvirt and passed through.

@@ -2282,7 +2282,9 @@ C<filename> can also be a host device, etc.  If the format of the
 image could not be detected, then C<\"unknown\"> is returned.
 
 Note that detecting the disk format can be insecure under some
-circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
+circumstances.  See L<guestfs(3)/CVE-2010-3851>.
+
+See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
 
 ]
 
