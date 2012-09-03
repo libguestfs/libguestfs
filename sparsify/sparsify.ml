@@ -351,25 +351,10 @@ let output_format =
     | Some fmt -> fmt           (* user specified input format, use that *)
     | None ->
       (* Don't know, so we must autodetect. *)
-      let cmd = sprintf "file -bsL %s" (Filename.quote indisk) in
-      let chan = open_process_in cmd in
-      let line = input_line chan in
-      let stat = close_process_in chan in
-      (match stat with
-      | WEXITED 0 -> ()
-      | WEXITED _ ->
-        error (f_"external command failed: %s") cmd
-      | WSIGNALED i ->
-        error (f_"external command '%s' killed by signal %d") cmd i
-      | WSTOPPED i ->
-        error (f_"external command '%s' stopped by signal %d") cmd i
-      );
-      if string_prefix line "QEMU QCOW Image (v2)" then
-        "qcow2"
-      else if string_find line "VirtualBox" >= 0 then
-        "vdi"
-      else
-        "raw" (* XXX guess *)
+      match g#disk_format indisk  with
+      | "unknown" ->
+        error (f_"cannot detect input disk format; use the --format parameter")
+      | fmt -> fmt
 
 (* Now run qemu-img convert which copies the overlay to the
  * destination and automatically does sparsification.
