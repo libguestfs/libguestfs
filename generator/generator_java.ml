@@ -149,7 +149,7 @@ public class GuestFS {
             pr "      _optobj = optargs.get (\"%s\");\n" n;
             pr "    if (_optobj != null) {\n";
             pr "      %s = ((%s) _optobj)%s;\n" n boxed_t convert;
-            pr "      _optargs_bitmask |= %Ld;\n"
+            pr "      _optargs_bitmask |= %LdL;\n"
               (Int64.shift_left Int64.one i);
             pr "    }\n";
         ) optargs
