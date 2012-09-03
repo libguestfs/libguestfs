@@ -31,24 +31,31 @@
 
 GUESTFSD_EXT_CMD(str_find, find);
 GUESTFSD_EXT_CMD(str_xargs, xargs);
+GUESTFSD_EXT_CMD(str_cksum, cksum);
+GUESTFSD_EXT_CMD(str_md5sum, md5sum);
+GUESTFSD_EXT_CMD(str_sha1sum, sha1sum);
+GUESTFSD_EXT_CMD(str_sha224sum, sha224sum);
+GUESTFSD_EXT_CMD(str_sha256sum, sha256sum);
+GUESTFSD_EXT_CMD(str_sha384sum, sha384sum);
+GUESTFSD_EXT_CMD(str_sha512sum, sha512sum);
 
 static const char *
 program_of_csum (const char *csumtype)
 {
   if (STRCASEEQ (csumtype, "crc"))
-    return "cksum";
+    return str_cksum;
   else if (STRCASEEQ (csumtype, "md5"))
-    return "md5sum";
+    return str_md5sum;
   else if (STRCASEEQ (csumtype, "sha1"))
-    return "sha1sum";
+    return str_sha1sum;
   else if (STRCASEEQ (csumtype, "sha224"))
-    return "sha224sum";
+    return str_sha224sum;
   else if (STRCASEEQ (csumtype, "sha256"))
-    return "sha256sum";
+    return str_sha256sum;
   else if (STRCASEEQ (csumtype, "sha384"))
-    return "sha384sum";
+    return str_sha384sum;
   else if (STRCASEEQ (csumtype, "sha512"))
-    return "sha512sum";
+    return str_sha512sum;
   else {
     reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512");
     return NULL;
