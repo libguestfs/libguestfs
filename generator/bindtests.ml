@@ -104,85 +104,88 @@ print_strings (guestfs_h *g, char *const *argv)
   fprintf (fp, \"]\\n\");
 }
 
-/* The internal_test function prints its parameters to stdout or the
- * file set by internal_test_set_output.
- */
 ";
 
-  let test, tests =
+  let ptests, rtests =
     match test_functions with
-    | [] -> assert false
-    | test :: tests -> test, tests in
+    | t :: t1 :: t2 :: rtests -> [ t; t1; t2 ], rtests
+    | _ -> assert false in
 
-  let () =
-    let { name = name; style = (ret, args, optargs as style) } = test in
-    generate_prototype ~extern:false ~semicolon:false ~newline:true
-      ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
-    pr "{\n";
-    pr "  FILE *fp = get_fp (g);\n";
-    pr "\n";
+  List.iter (
+    fun { name = name; style = (ret, args, optargs as style);
+          c_optarg_prefix = c_optarg_prefix } ->
+      pr "/* The %s function prints its parameters to stdout or the\n" name;
+      pr " * file set by internal_test_set_output.\n";
+      pr " */\n";
 
-    List.iter (
-      function
-      | Pathname n
-      | Device n | Dev_or_Path n
-      | String n
-      | FileIn n
-      | FileOut n
-      | Key n -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
-      | BufferIn n ->
+      generate_prototype ~extern:false ~semicolon:false ~newline:true
+        ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
+      pr "{\n";
+      pr "  FILE *fp = get_fp (g);\n";
+      pr "\n";
+
+      List.iter (
+        function
+        | Pathname n
+        | Device n | Dev_or_Path n
+        | String n
+        | FileIn n
+        | FileOut n
+        | Key n -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
+        | BufferIn n ->
           pr "  {\n";
           pr "    size_t i;\n";
           pr "    for (i = 0; i < %s_size; ++i)\n" n;
           pr "      fprintf (fp, \"<%%02x>\", %s[i]);\n" n;
           pr "    fprintf (fp, \"\\n\");\n";
           pr "  }\n";
-      | OptString n -> pr "  fprintf (fp, \"%%s\\n\", %s ? %s : \"null\");\n" n n
-      | StringList n | DeviceList n -> pr "  print_strings (g, %s);\n" n
-      | Bool n -> pr "  fprintf (fp, \"%%s\\n\", %s ? \"true\" : \"false\");\n" n
-      | Int n -> pr "  fprintf (fp, \"%%d\\n\", %s);\n" n
-      | Int64 n -> pr "  fprintf (fp, \"%%\" PRIi64 \"\\n\", %s);\n" n
-      | Pointer _ -> assert false
-    ) args;
+        | OptString n -> pr "  fprintf (fp, \"%%s\\n\", %s ? %s : \"null\");\n" n n
+        | StringList n | DeviceList n -> pr "  print_strings (g, %s);\n" n
+        | Bool n -> pr "  fprintf (fp, \"%%s\\n\", %s ? \"true\" : \"false\");\n" n
+        | Int n -> pr "  fprintf (fp, \"%%d\\n\", %s);\n" n
+        | Int64 n -> pr "  fprintf (fp, \"%%\" PRIi64 \"\\n\", %s);\n" n
+        | Pointer _ -> assert false
+      ) args;
 
-    let check_optarg n printf_args =
-      pr "  fprintf (fp, \"%s: \");\n" n;
-      pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
-        (String.uppercase n);
-      pr "    fprintf (fp, %s);\n" printf_args;
-      pr "  } else {\n";
-      pr "    fprintf (fp, \"unset\\n\");\n";
-      pr "  }\n";
-    in
-    List.iter (
-      function
-      | OBool n ->
-        let printf_args =
-          sprintf "\"%%s\\n\", optargs->%s ? \"true\" : \"false\"" n in
-        check_optarg n printf_args;
-      | OInt n ->
-        let printf_args = sprintf "\"%%i\\n\", optargs->%s" n in
-        check_optarg n printf_args;
-      | OInt64 n ->
-        let printf_args = sprintf "\"%%\" PRIi64 \"\\n\", optargs->%s" n in
-        check_optarg n printf_args;
-      | OString n ->
-        let printf_args = sprintf "\"%%s\\n\", optargs->%s" n in
-        check_optarg n printf_args;
-      | OStringList n ->
+      let check_optarg n printf_args =
         pr "  fprintf (fp, \"%s: \");\n" n;
-        pr "  if (optargs->bitmask & GUESTFS_INTERNAL_TEST_%s_BITMASK) {\n"
+        pr "  if (optargs->bitmask & %s_%s_BITMASK) {\n" c_optarg_prefix
           (String.uppercase n);
-        pr "    print_strings (g, optargs->%s);\n" n;
+        pr "    fprintf (fp, %s);\n" printf_args;
         pr "  } else {\n";
         pr "    fprintf (fp, \"unset\\n\");\n";
         pr "  }\n";
-    ) optargs;
-    pr "  /* Java changes stdout line buffering so we need this: */\n";
-    pr "  fflush (fp);\n";
-    pr "  return 0;\n";
-    pr "}\n";
-    pr "\n" in
+      in
+      List.iter (
+        function
+        | OBool n ->
+          let printf_args =
+            sprintf "\"%%s\\n\", optargs->%s ? \"true\" : \"false\"" n in
+          check_optarg n printf_args;
+        | OInt n ->
+          let printf_args = sprintf "\"%%i\\n\", optargs->%s" n in
+          check_optarg n printf_args;
+        | OInt64 n ->
+          let printf_args = sprintf "\"%%\" PRIi64 \"\\n\", optargs->%s" n in
+          check_optarg n printf_args;
+        | OString n ->
+          let printf_args = sprintf "\"%%s\\n\", optargs->%s" n in
+          check_optarg n printf_args;
+        | OStringList n ->
+          pr "  fprintf (fp, \"%s: \");\n" n;
+          pr "  if (optargs->bitmask & %s_%s_BITMASK) {\n" c_optarg_prefix
+            (String.uppercase n);
+          pr "    print_strings (g, optargs->%s);\n" n;
+          pr "  } else {\n";
+          pr "    fprintf (fp, \"unset\\n\");\n";
+          pr "  }\n";
+      ) optargs;
+      pr "  /* Java changes stdout line buffering so we need this: */\n";
+      pr "  fflush (fp);\n";
+      pr "  return 0;\n";
+      pr "}\n";
+      pr "\n"
+  ) ptests;
 
   List.iter (
     fun { name = name; style = (ret, args, _ as style) } ->
@@ -292,7 +295,7 @@ print_strings (guestfs_h *g, char *const *argv)
         pr "}\n";
         pr "\n"
       )
-  ) tests
+  ) rtests
 
 and generate_ocaml_bindtests () =
   generate_header OCamlStyle GPLv2plus;

@@ -86,7 +86,39 @@ parameter type correctly.
 It echos the contents of each parameter to stdout (by default)
 or to a file (if C<guestfs_internal_test_set_output> was called).
 
+You probably don't want to call this function." };
+
+  { defaults with
+    name = "internal_test_only_optargs";
+    style = RErr, [], [OInt "test"];
+    in_fish = false; in_docs = false; cancellable = true;
+    shortdesc = "internal test function - do not use";
+    longdesc = "\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle no args, some
+optargs correctly.
+
+It echos the contents of each parameter to stdout (by default)
+or to a file (if C<guestfs_internal_test_set_output> was called).
+
+You probably don't want to call this function." };
+
+  { defaults with
+    name = "internal_test_63_optargs";
+    style = RErr, [], [OInt "opt1"; OInt "opt2"; OInt "opt3"; OInt "opt4"; OInt "opt5"; OInt "opt6"; OInt "opt7"; OInt "opt8"; OInt "opt9"; OInt "opt10"; OInt "opt11"; OInt "opt12"; OInt "opt13"; OInt "opt14"; OInt "opt15"; OInt "opt16"; OInt "opt17"; OInt "opt18"; OInt "opt19"; OInt "opt20"; OInt "opt21"; OInt "opt22"; OInt "opt23"; OInt "opt24"; OInt "opt25"; OInt "opt26"; OInt "opt27"; OInt "opt28"; OInt "opt29"; OInt "opt30"; OInt "opt31"; OInt "opt32"; OInt "opt33"; OInt "opt34"; OInt "opt35"; OInt "opt36"; OInt "opt37"; OInt "opt38"; OInt "opt39"; OInt "opt40"; OInt "opt41"; OInt "opt42"; OInt "opt43"; OInt "opt44"; OInt "opt45"; OInt "opt46"; OInt "opt47"; OInt "opt48"; OInt "opt49"; OInt "opt50"; OInt "opt51"; OInt "opt52"; OInt "opt53"; OInt "opt54"; OInt "opt55"; OInt "opt56"; OInt "opt57"; OInt "opt58"; OInt "opt59"; OInt "opt60"; OInt "opt61"; OInt "opt62"; OInt "opt63"];
+    in_fish = false; in_docs = false; cancellable = true;
+    shortdesc = "internal test function - do not use";
+    longdesc = "\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle the full range
+of 63 optargs correctly.  (Note that 63 is not an absolute limit
+and it could be raised by changing the XDR protocol).
+
+It echos the contents of each parameter to stdout (by default)
+or to a file (if C<guestfs_internal_test_set_output> was called).
+
 You probably don't want to call this function." }
+
 ] @ List.flatten (
   List.map (
     fun (name, ret) -> [
@@ -10016,7 +10048,7 @@ Remove C<VAR> from the environment." };
  * c_function = full name that non-C bindings should call
  * c_optarg_prefix = prefix for optarg / bitmask names
  *)
-let non_daemon_functions, daemon_functions =
+let test_functions, non_daemon_functions, daemon_functions =
   let make_c_function f =
     match f with
     | { style = _, _, [] } ->
@@ -10036,9 +10068,10 @@ let non_daemon_functions, daemon_functions =
           c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name ^ "_OPTS";
           non_c_aliases = [ f.name ^ "_opts" ] }
   in
+  let test_functions = List.map make_c_function test_functions in
   let non_daemon_functions = List.map make_c_function non_daemon_functions in
   let daemon_functions = List.map make_c_function daemon_functions in
-  non_daemon_functions, daemon_functions
+  test_functions, non_daemon_functions, daemon_functions
 
 (* Create a camel-case version of each name, unless the camel_name
  * field was set above.

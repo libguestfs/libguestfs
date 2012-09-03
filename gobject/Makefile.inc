@@ -43,6 +43,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/struct-hivex_node.h \
   include/guestfs-gobject/struct-hivex_value.h \
   include/guestfs-gobject/optargs-internal_test.h \
+  include/guestfs-gobject/optargs-internal_test_only_optargs.h \
+  include/guestfs-gobject/optargs-internal_test_63_optargs.h \
   include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_domain.h \
   include/guestfs-gobject/optargs-inspect_get_icon.h \
@@ -103,6 +105,8 @@ guestfs_gobject_sources= \
   src/struct-hivex_node.c \
   src/struct-hivex_value.c \
   src/optargs-internal_test.c \
+  src/optargs-internal_test_only_optargs.c \
+  src/optargs-internal_test_63_optargs.c \
   src/optargs-add_drive.c \
   src/optargs-add_domain.c \
   src/optargs-inspect_get_icon.c \
