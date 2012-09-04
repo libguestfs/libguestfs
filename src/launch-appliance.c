@@ -602,19 +602,6 @@ launch_appliance (guestfs_h *g, const char *arg)
     g->fd[0] = wfd[1];		/* stdin of child */
     g->fd[1] = rfd[0];		/* stdout of child */
     wfd[1] = rfd[0] = -1;
-  } else {
-    g->fd[0] = open ("/dev/null", O_RDWR|O_CLOEXEC);
-    if (g->fd[0] == -1) {
-      perrorf (g, "open /dev/null");
-      goto cleanup1;
-    }
-    g->fd[1] = dup (g->fd[0]);
-    if (g->fd[1] == -1) {
-      perrorf (g, "dup");
-      close (g->fd[0]);
-      g->fd[0] = -1;
-      goto cleanup1;
-    }
   }
 
   g->state = LAUNCHING;
