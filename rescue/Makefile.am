@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	test-virt-rescue.pl \
 	virt-rescue.pod
 
 CLEANFILES = stamp-virt-rescue.pod
@@ -63,3 +64,11 @@ stamp-virt-rescue.pod: virt-rescue.pod
 	  --license GPLv2+ \
 	  $<
 	touch $@
+
+# Tests.
+
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+
+if ENABLE_APPLIANCE
+TESTS = test-virt-rescue.pl
+endif ENABLE_APPLIANCE
