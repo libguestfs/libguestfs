@@ -4,7 +4,7 @@ NAME
 
 RELEASE NOTES FOR LIBGUESTFS 1.20
 
-    NOTES UPDATED TO COMMIT 56287d16ebde3d892ed4886724573015e39f79fa
+    NOTES UPDATED TO COMMIT d03361b1afee09135b0cbd92a2cc180c66c5f84e
 
     These release notes only cover the differences from the previous
     stable/dev branch split (1.18.0). For detailed changelogs, please see
@@ -67,6 +67,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
       * new --firstboot parameter allowing firstboot scripts for
       customizing guests
 
+      * remove HOSTNAME field from ifcfg-eth* files (Wanlong Gao)
+
     virt-make-fs can now create virtual floppy disks (VFDs).
 
     guestmount has a --pid-file option.
@@ -84,6 +86,12 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     The automated 'bindtests' now test for 64 bit cleanliness in parameter
     passing. Several bugs in the bindings were found and fixed as a result.
+
+  inspection
+
+    Windows guests with unlimited-sized Registries are now supported. By
+    adding the hivex API to the libguestfs API, it is much more efficient
+    and easier to inspect and modify the Windows Registry in guests.
 
   ports
 
@@ -119,11 +127,16 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
      canonical-device-name
      device-index
+     disk-has-backing-file
+     disk-format
+     disk-virtual-size
      filesystem-available
      fill-dir
      fstrim
+     hivex-*
      ls0
      max-disks
+     mkswap [added label and uuid optional arguments]
      nr-devices
      rsync
      rsync-in
@@ -136,6 +149,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
      xfs-admin (thanks Wanlong Gao)
      xfs-growfs (thanks Wanlong Gao)
      xfs-info (thanks Wanlong Gao)
+     xfs-repair (thanks Wanlong Gao)
 
  Internals
 
@@ -151,15 +165,17 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     binary backwards compatibility is preserved for users of the API. APIs
     which were changed are:
 
-      * grep and related *grep* functions
+      * grep (deprecating other *grep* functions)
 
       * add_drive / add_drive_opts
 
       * mkfs / mkfs_opts
 
+      * mkswap (deprecating mkswap_L and mkswap_U)
+
       * ntfsresize / ntfsresize_opts
 
-      * tar_in and tar_out
+      * tar_in and tar_out (deprecating tgz_in etc.)
 
       * umount
 
@@ -182,13 +198,25 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     Ruby 1.8.5 is now supported (though not recommended).
 
+    Perl bindings can be disabled via ./configure --disable-perl (Wulf C.
+    Krueger).
+
+    Java bindings are now enabled/disabled using ./configure --with-java or
+    ./configure --without-java (Wulf C. Krueger).
+
+    Multiple fixes to use of 64 bit integers in language bindings.
+
     The appliance backend now uses sgabios instead of vgabios (Dan
     Berrange).
 
     The ./run script now sets enough environment variables that you can run
     OCaml, Python, Ruby, Java, GJS programs.
 
-    run --test flag for running tests with minimal output.
+    run --test flag for running tests with minimal output. It also prints
+    the time taken to run each test.
+
+    You can extract a list of external commands required by the daemon,
+    making building the appliance on certain distros easier (Olaf Hering).
 
  Bugs fixed
 
