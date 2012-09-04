@@ -351,7 +351,7 @@ let output_format =
     | Some fmt -> fmt           (* user specified input format, use that *)
     | None ->
       (* Don't know, so we must autodetect. *)
-      match g#disk_format indisk  with
+      match (new G.guestfs ())#disk_format indisk  with
       | "unknown" ->
         error (f_"cannot detect input disk format; use the --format parameter")
       | fmt -> fmt
