@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -44,6 +45,7 @@
 char *
 guestfs__disk_format (guestfs_h *g, const char *filename)
 {
+  char *abs_filename = NULL;
   char *safe_filename = NULL;
   pid_t pid = 0;
   int fd[2] = { -1, -1 };
@@ -60,7 +62,14 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
 
   safe_filename = safe_asprintf (g, "%s/format.%d", g->tmpdir, ++g->unique);
 
-  if (symlink (filename, safe_filename) == -1) {
+  /* 'filename' must be an absolute path so we can link to it. */
+  abs_filename = realpath (filename, NULL);
+  if (abs_filename == NULL) {
+    perrorf (g, "realpath");
+    goto error;
+  }
+
+  if (symlink (abs_filename, safe_filename) == -1) {
     perrorf (g, "symlink");
     goto error;
   }
@@ -140,6 +149,7 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
     ret = safe_strdup (g, "unknown");
 
   free (safe_filename);
+  free (abs_filename);
   free (line);
   return ret;                   /* caller frees */
 
@@ -154,6 +164,7 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
     waitpid (pid, NULL, 0);
 
   free (safe_filename);
+  free (abs_filename);
   free (line);
   free (ret);
 
