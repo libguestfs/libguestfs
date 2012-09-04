@@ -1150,8 +1150,7 @@ shutdown_libvirt (guestfs_h *g)
    */
 
   if (dom != NULL) {
-    /* XXX Need to be graceful? */
-    if (virDomainDestroyFlags (dom, 0) == -1) {
+    if (virDomainDestroyFlags (dom, VIR_DOMAIN_DESTROY_GRACEFUL) == -1) {
       libvirt_error (g, _("could not destroy libvirt domain"));
       ret = -1;
     }
