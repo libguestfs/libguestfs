@@ -35,6 +35,44 @@
 #define O_CLOEXEC 0
 #endif
 
+static int run_qemu_img_info (guestfs_h *g, const char *filename, int (*fn) (guestfs_h *g, char *line, void *data), void *data);
+static int check_disk_format (guestfs_h *h, char *line, void *data);
+
+char *
+guestfs__disk_format (guestfs_h *g, const char *filename)
+{
+  char *ret = NULL;
+
+  if (run_qemu_img_info (g, filename, check_disk_format, &ret) == -1) {
+    free (ret);
+    return NULL;
+  }
+
+  if (ret == NULL)
+    ret = safe_strdup (g, "unknown");
+
+  return ret;
+}
+
+static int
+check_disk_format (guestfs_h *g, char *line, void *retpv)
+{
+  char **retp = retpv;
+  char *p;
+  size_t n;
+
+  if (STRPREFIX (line, "file format: ")) {
+    p = &line[13];
+    n = strlen (p);
+    if (n > 0 && p[n-1] == '\n')
+      p[n-1] = '\0';
+    *retp = safe_strdup (g, p);
+    return 0;                   /* finish processing */
+  }
+
+  return 1;                     /* continue processing */
+}
+
 /* It's hard to use 'qemu-img info' safely.  See:
  * https://lists.gnu.org/archive/html/qemu-devel/2012-09/msg00137.html
  * Eventually we should switch to the JSON output format, when it
@@ -42,8 +80,10 @@
  * we control the input filename, and (2) bail parsing as soon as
  * /^backing file: / is seen in the input.
  */
-char *
-guestfs__disk_format (guestfs_h *g, const char *filename)
+static int
+run_qemu_img_info (guestfs_h *g, const char *filename,
+                   int (*fn) (guestfs_h *g, char *line, void *data),
+                   void *data)
 {
   char *abs_filename = NULL;
   char *safe_filename = NULL;
@@ -52,13 +92,10 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
   FILE *fp = NULL;
   char *line = NULL;
   size_t len;
-  char *p;
-  size_t n;
-  char *ret = NULL;
-  int status;
+  int r;
 
   if (guestfs___lazy_make_tmpdir (g) == -1)
-    return NULL;
+    return -1;
 
   safe_filename = safe_asprintf (g, "%s/format.%d", g->tmpdir, ++g->unique);
 
@@ -110,16 +147,11 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
   fd[0] = -1;
 
   while (getline (&line, &len, fp) != -1) {
-    if (STRPREFIX (line, "file format: ")) {
-      p = &line[13];
-      n = strlen (p);
-      if (n > 0 && p[n-1] == '\n')
-        n--;
-      memmove (line, p, n);
-      line[n] = '\0';
-      ret = safe_strdup (g, line);
+    r = fn (g, line, data);
+    if (r == -1)                /* error */
+      goto error;
+    if (r == 0)                 /* finished processing */
       break;
-    }
 
     /* This is for security reasons, see comment above. */
     if (STRPREFIX (line, "backing file: "))
@@ -133,25 +165,22 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
   }
   fp = NULL;
 
-  if (waitpid (pid, &status, 0) == -1) {
+  if (waitpid (pid, &r, 0) == -1) {
     perrorf (g, "waitpid");
     pid = 0;
     goto error;
   }
   pid = 0;
 
-  if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     error (g, "qemu-img: %s: child process failed", filename);
     goto error;
   }
 
-  if (ret == NULL)
-    ret = safe_strdup (g, "unknown");
-
   free (safe_filename);
   free (abs_filename);
   free (line);
-  return ret;                   /* caller frees */
+  return 0;
 
  error:
   if (fd[0] >= 0)
@@ -166,7 +195,6 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
   free (safe_filename);
   free (abs_filename);
   free (line);
-  free (ret);
 
-  return NULL;
+  return -1;
 }
