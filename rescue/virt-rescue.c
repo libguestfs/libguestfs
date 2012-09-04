@@ -139,6 +139,7 @@ main (int argc, char *argv[])
   int memsize = 0;
   int smp = 0;
   int suggest = 0;
+  char *attach_method;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -312,6 +313,21 @@ main (int argc, char *argv[])
 
   /* Setting "direct mode" is required for the rescue appliance. */
   guestfs_set_direct (g, 1);
+
+  /* The libvirt backend doesn't support direct mode.  As a temporary
+   * workaround, force the appliance backend, but warn about it.
+   */
+  attach_method = guestfs_get_attach_method (g);
+  if (attach_method) {
+    if (STREQ (attach_method, "libvirt") ||
+        STRPREFIX (attach_method, "libvirt:")) {
+      fprintf (stderr, _("%s: warning: virt-rescue doesn't work with the libvirt backend\n"
+                         "at the moment.  As a workaround, forcing attach-method = 'appliance'.\n"),
+               program_name);
+      guestfs_set_attach_method (g, "appliance");
+    }
+    free (attach_method);
+  }
 
   /* Set other features. */
   if (memsize > 0)
