@@ -20,6 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include <limits.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -37,6 +39,8 @@
 
 static int run_qemu_img_info (guestfs_h *g, const char *filename, int (*fn) (guestfs_h *g, char *line, void *data), void *data);
 static int check_disk_format (guestfs_h *h, char *line, void *data);
+static int check_disk_virtual_size (guestfs_h *h, char *line, void *data);
+static int check_disk_has_backing_file (guestfs_h *h, char *line, void *data);
 
 char *
 guestfs__disk_format (guestfs_h *g, const char *filename)
@@ -67,6 +71,65 @@ check_disk_format (guestfs_h *g, char *line, void *retpv)
     if (n > 0 && p[n-1] == '\n')
       p[n-1] = '\0';
     *retp = safe_strdup (g, p);
+    return 0;                   /* finish processing */
+  }
+
+  return 1;                     /* continue processing */
+}
+
+int64_t
+guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
+{
+  int64_t ret = -1;
+
+  if (run_qemu_img_info (g, filename, check_disk_virtual_size, &ret) == -1)
+    return -1;
+
+  if (ret == -1)
+    error (g, _("%s: cannot detect virtual size of disk image"), filename);
+
+  return ret;
+}
+
+static int
+check_disk_virtual_size (guestfs_h *g, char *line, void *retpv)
+{
+  int64_t *retp = retpv;
+  char *p;
+
+  if (STRPREFIX (line, "virtual size: ")) {
+    /* "virtual size: 500M (524288000 bytes)\n" */
+    p = &line[14];
+    p = strchr (p, ' ');
+    if (!p || p[1] != '(' || sscanf (&p[2], "%" SCNi64, retp) != 1) {
+      error (g, _("cannot parse output of qemu-img info: '%s'"),
+             line);
+      return -1;
+    }
+    return 0;                   /* finish processing */
+  }
+
+  return 1;                     /* continue processing */
+}
+
+int
+guestfs__disk_has_backing_file (guestfs_h *g, const char *filename)
+{
+  int ret = 0;
+
+  if (run_qemu_img_info (g, filename, check_disk_has_backing_file, &ret) == -1)
+    return -1;
+
+  return ret;
+}
+
+static int
+check_disk_has_backing_file (guestfs_h *g, char *line, void *retpv)
+{
+  int *retp = retpv;
+
+  if (STRPREFIX (line, "backing file: ")) {
+    *retp = 1;
     return 0;                   /* finish processing */
   }
 

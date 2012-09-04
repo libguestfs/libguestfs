@@ -2286,6 +2286,28 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>.
 
 See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
 
+  { defaults with
+    name = "disk_virtual_size";
+    style = RInt64 "size", [String "filename"], [];
+    shortdesc = "return virtual size of a disk";
+    longdesc = "\
+Detect and return the virtual size in bytes of the disk image
+called C<filename>.
+
+Note that detecting disk features can be insecure under some
+circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
+
+  { defaults with
+    name = "disk_has_backing_file";
+    style = RBool "backingfile", [String "filename"], [];
+    shortdesc = "return whether disk has a backing file";
+    longdesc = "\
+Detect and return whether the disk image C<filename> has a
+backing file.
+
+Note that detecting disk features can be insecure under some
+circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
