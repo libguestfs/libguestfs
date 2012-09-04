@@ -122,6 +122,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     return -1;
   }
 
+  /* XXX: It should be possible to make this work. */
+  if (g->direct) {
+    error (g, _("direct mode flag is not supported yet for libvirt attach method"));
+    return -1;
+  }
+
   virGetVersion (&version, NULL, NULL);
   debug (g, "libvirt version = %lu", version);
   if (version < MIN_LIBVIRT_VERSION) {
