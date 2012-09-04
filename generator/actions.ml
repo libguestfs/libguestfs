@@ -2275,6 +2275,14 @@ data." };
   { defaults with
     name = "disk_format";
     style = RString "format", [String "filename"], [];
+    tests = [
+      InitEmpty, Always, TestOutput (
+        [["disk_format"; "test1.img"]], "raw");
+      InitEmpty, Always, TestOutput (
+        [["disk_format"; "test2.img"]], "raw");
+      InitEmpty, Always, TestOutput (
+        [["disk_format"; "test3.img"]], "raw");
+    ];
     shortdesc = "detect the disk format of a disk image";
     longdesc = "\
 Detect and return the format of the disk image called C<filename>.
@@ -2289,6 +2297,14 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
   { defaults with
     name = "disk_virtual_size";
     style = RInt64 "size", [String "filename"], [];
+    tests = [
+      InitEmpty, Always, TestOutputInt (
+        [["disk_virtual_size"; "test1.img"]], 524288000);
+      InitEmpty, Always, TestOutputInt (
+        [["disk_virtual_size"; "test2.img"]], 52428800);
+      InitEmpty, Always, TestOutputInt (
+        [["disk_virtual_size"; "test3.img"]], 10485760);
+    ];
     shortdesc = "return virtual size of a disk";
     longdesc = "\
 Detect and return the virtual size in bytes of the disk image
@@ -2300,6 +2316,14 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
   { defaults with
     name = "disk_has_backing_file";
     style = RBool "backingfile", [String "filename"], [];
+    tests = [
+      InitEmpty, Always, TestOutputFalse (
+        [["disk_has_backing_file"; "test1.img"]]);
+      InitEmpty, Always, TestOutputFalse (
+        [["disk_has_backing_file"; "test2.img"]]);
+      InitEmpty, Always, TestOutputFalse (
+        [["disk_has_backing_file"; "test3.img"]]);
+    ];
     shortdesc = "return whether disk has a backing file";
     longdesc = "\
 Detect and return whether the disk image C<filename> has a
