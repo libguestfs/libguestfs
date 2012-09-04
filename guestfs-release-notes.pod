@@ -6,7 +6,7 @@ guestfs-release-notes - libguestfs Release Notes
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.20
 
-I<NOTES UPDATED TO COMMIT 56287d16ebde3d892ed4886724573015e39f79fa>
+I<NOTES UPDATED TO COMMIT d03361b1afee09135b0cbd92a2cc180c66c5f84e>
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.18.0).  For detailed changelogs, please see
@@ -90,6 +90,10 @@ remove process accounting files (Wanlong Gao)
 new I<--firstboot> parameter allowing firstboot scripts
 for customizing guests
 
+=item *
+
+remove HOSTNAME field from C<ifcfg-eth*> files (Wanlong Gao)
+
 =back
 
 C<virt-make-fs> can now create virtual floppy disks (VFDs).
@@ -110,6 +114,13 @@ Erlang bindings now handle 64 bit integer parameters correctly.
 The automated 'bindtests' now test for 64 bit cleanliness in parameter
 passing.  Several bugs in the bindings were found and fixed as a
 result.
+
+=head3 inspection
+
+Windows guests with unlimited-sized Registries are now supported.
+By adding the hivex API to the libguestfs API, it is much more
+efficient and easier to inspect and modify the Windows Registry
+in guests.
 
 =head3 ports
 
@@ -145,11 +156,16 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
 
  canonical-device-name
  device-index
+ disk-has-backing-file
+ disk-format
+ disk-virtual-size
  filesystem-available
  fill-dir
  fstrim
+ hivex-*
  ls0
  max-disks
+ mkswap [added label and uuid optional arguments]
  nr-devices
  rsync
  rsync-in
@@ -162,6 +178,7 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  xfs-admin (thanks Wanlong Gao)
  xfs-growfs (thanks Wanlong Gao)
  xfs-info (thanks Wanlong Gao)
+ xfs-repair (thanks Wanlong Gao)
 
 =head2 Internals
 
@@ -182,7 +199,7 @@ APIs which were changed are:
 
 =item *
 
-C<grep> and related C<*grep*> functions
+C<grep> (deprecating other C<*grep*> functions)
 
 =item *
 
@@ -194,11 +211,15 @@ C<mkfs> / C<mkfs_opts>
 
 =item *
 
+C<mkswap> (deprecating C<mkswap_L> and C<mkswap_U>)
+
+=item *
+
 C<ntfsresize> / C<ntfsresize_opts>
 
 =item *
 
-C<tar_in> and C<tar_out>
+C<tar_in> and C<tar_out> (deprecating C<tgz_in> etc.)
 
 =item *
 
@@ -225,13 +246,26 @@ The parallel mount-local test has been rewritten in C (RHBZ#838081).
 
 Ruby 1.8.5 is now supported (though not recommended).
 
+Perl bindings can be disabled via C<./configure --disable-perl>
+(Wulf C. Krueger).
+
+Java bindings are now enabled/disabled using C<./configure --with-java>
+or C<./configure --without-java> (Wulf C. Krueger).
+
+Multiple fixes to use of 64 bit integers in language bindings.
+
 The appliance backend now uses sgabios instead of vgabios
 (Dan Berrange).
 
 The C<./run> script now sets enough environment variables that you
 can run OCaml, Python, Ruby, Java, GJS programs.
 
-C<run --test> flag for running tests with minimal output.
+C<run --test> flag for running tests with minimal output.  It also
+prints the time taken to run each test.
+
+You can extract a list of external commands required by the
+daemon, making building the appliance on certain distros easier
+(Olaf Hering).
 
 =head2 Bugs fixed
 
