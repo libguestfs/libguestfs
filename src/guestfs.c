@@ -83,6 +83,7 @@
 
 static int parse_attach_method (guestfs_h *g, const char *method);
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
+static int shutdown_backend (guestfs_h *g, int check_for_errors);
 static void close_handles (void);
 
 gl_lock_define_initialized (static, handles_lock);
@@ -261,7 +262,7 @@ guestfs_close (guestfs_h *g)
    */
 #ifndef VALGRIND_DAEMON
   if (g->state != CONFIG)
-    ignore_value (guestfs_shutdown (g));
+    shutdown_backend (g, 0);
 #endif
 
   /* Run user close callbacks. */
@@ -306,9 +307,21 @@ guestfs_close (guestfs_h *g)
   free (g);
 }
 
-/* Shutdown the backend. */
 int
 guestfs__shutdown (guestfs_h *g)
+{
+  return shutdown_backend (g, 1);
+}
+
+/* guestfs_shutdown calls shutdown_backend with check_for_errors = 1.
+ * guestfs_close calls shutdown_backend with check_for_errors = 0.
+ *
+ * 'check_for_errors' is a hint to the backend about whether we care
+ * about errors or not.  In the libvirt case it can be used to
+ * optimize the shutdown for speed when we don't care.
+ */
+static int
+shutdown_backend (guestfs_h *g, int check_for_errors)
 {
   int ret = 0;
 
@@ -332,7 +345,7 @@ guestfs__shutdown (guestfs_h *g)
   g->fd[1] = -1;
   g->sock = -1;
 
-  if (g->attach_ops->shutdown (g) == -1)
+  if (g->attach_ops->shutdown (g, check_for_errors) == -1)
     ret = -1;
 
   g->state = CONFIG;

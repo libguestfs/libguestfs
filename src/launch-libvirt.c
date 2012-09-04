@@ -1139,18 +1139,20 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
 }
 
 static int
-shutdown_libvirt (guestfs_h *g)
+shutdown_libvirt (guestfs_h *g, int check_for_errors)
 {
   virConnectPtr conn = g->virt.connv;
   virDomainPtr dom = g->virt.domv;
   int ret = 0;
+  int flags;
 
   /* Note that we can be called back very early in launch (specifically
    * from launch_libvirt itself), when conn and dom might be NULL.
    */
 
   if (dom != NULL) {
-    if (virDomainDestroyFlags (dom, VIR_DOMAIN_DESTROY_GRACEFUL) == -1) {
+    flags = check_for_errors ? VIR_DOMAIN_DESTROY_GRACEFUL : 0;
+    if (virDomainDestroyFlags (dom, flags) == -1) {
       libvirt_error (g, _("could not destroy libvirt domain"));
       ret = -1;
     }
@@ -1220,7 +1222,7 @@ launch_libvirt (guestfs_h *g, const char *arg)
 }
 
 static int
-shutdown_libvirt (guestfs_h *g)
+shutdown_libvirt (guestfs_h *g, int check_for_errors)
 {
   NOT_IMPL (-1);
 }

@@ -953,7 +953,7 @@ guestfs___drive_name (size_t index, char *ret)
 }
 
 static int
-shutdown_appliance (guestfs_h *g)
+shutdown_appliance (guestfs_h *g, int check_for_errors)
 {
   int ret = 0;
   int status, sig;

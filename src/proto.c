@@ -181,7 +181,7 @@ child_cleanup (guestfs_h *g)
 {
   debug (g, "child_cleanup: %p: child process died", g);
 
-  g->attach_ops->shutdown (g);
+  g->attach_ops->shutdown (g, 0);
   if (g->fd[0] >= 0) close (g->fd[0]);
   if (g->fd[1] >= 0) close (g->fd[1]);
   close (g->sock);

@@ -103,7 +103,7 @@ launch_unix (guestfs_h *g, const char *sockpath)
 }
 
 static int
-shutdown_unix (guestfs_h *g)
+shutdown_unix (guestfs_h *g, int check_for_errors)
 {
   /* Merely closing g->sock is sufficient and that is already done
    * in the calling code.

@@ -163,7 +163,8 @@ struct qemu_param {
 /* Backend (attach-method) operations. */
 struct attach_ops {
   int (*launch) (guestfs_h *g, const char *arg); /* Initialize and launch. */
-  int (*shutdown) (guestfs_h *g); /* Shutdown and cleanup. */
+                                /* Shutdown and cleanup. */
+  int (*shutdown) (guestfs_h *g, int check_for_errors);
 
   int (*get_pid) (guestfs_h *g);         /* get-pid API. */
   int (*max_disks) (guestfs_h *g);       /* max-disks API. */
