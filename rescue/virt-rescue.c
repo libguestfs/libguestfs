@@ -339,7 +339,8 @@ main (int argc, char *argv[])
   /* Run the appliance.  This won't return until the user quits the
    * appliance.
    */
-  guestfs_set_error_handler (g, NULL, NULL);
+  if (!verbose)
+    guestfs_set_error_handler (g, NULL, NULL);
 
   /* We expect launch to fail, so ignore the return value, and don't
    * bother with explicit guestfs_shutdown either.
