@@ -31,6 +31,7 @@ let lines = ref 0
 
 (* Name of each file generated. *)
 let files = ref []
+let fileshash = Hashtbl.create 13
 
 (* Print-to-current-output function, used everywhere.  It has
  * printf-like semantics.
@@ -45,6 +46,7 @@ let pr fs =
 
 let output_to ?(perm = 0o444) filename k =
   files := filename :: !files;
+  Hashtbl.add fileshash filename ();
 
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -62,6 +64,36 @@ let output_to ?(perm = 0o444) filename k =
     chmod filename perm;
     printf "written %s\n%!" filename;
   )
+
+let delete_except_generated ?(skip = []) glob =
+  let cmd = sprintf "ls -1 %s" glob in
+  let chan = open_process_in cmd in
+  let lines = ref [] in
+  let rec loop () =
+    lines := input_line chan :: !lines;
+    loop ()
+  in
+  let lines = try loop () with End_of_file -> List.rev !lines in
+  (match close_process_in chan with
+  | WEXITED 0 -> ()
+  | WEXITED i ->
+    failwithf "command exited with non-zero status (%d)" i
+  | WSIGNALED i | WSTOPPED i ->
+    failwithf "command signalled or stopped with non-zero status (%d)" i
+  );
+
+  (* Build the final skip hash. *)
+  let skiphash = Hashtbl.copy fileshash in
+  List.iter (fun filename -> Hashtbl.add skiphash filename ()) skip;
+
+  (* Remove the files. *)
+  List.iter (
+    fun filename ->
+      if not (Hashtbl.mem skiphash filename) then (
+        unlink filename;
+        printf "deleted %s\n%!" filename
+      )
+  ) lines
 
 let get_lines_generated () =
   !lines

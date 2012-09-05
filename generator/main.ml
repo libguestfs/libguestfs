@@ -126,8 +126,11 @@ Run it from the top source directory using the command
     fun (typ, jtyp) ->
       let cols = cols_of_struct typ in
       let filename = sprintf "java/com/redhat/et/libguestfs/%s.java" jtyp in
-      output_to filename (generate_java_struct jtyp cols);
+      output_to filename (generate_java_struct jtyp cols)
   ) camel_structs;
+  delete_except_generated
+    ~skip:["java/com/redhat/et/libguestfs/LibGuestFSException.java"]
+    "java/com/redhat/et/libguestfs/*.java";
 
   output_to "java/Makefile.inc" generate_java_makefile_inc;
   output_to "java/com_redhat_et_libguestfs_GuestFS.c" generate_java_c;
@@ -156,6 +159,8 @@ Run it from the top source directory using the command
       let filename = sprintf "gobject/src/%s.c" short in
       output_to filename (generate_gobject_struct_source short typ cols)
   ) structs;
+  delete_except_generated "gobject/include/guestfs-gobject/struct-*.h";
+  delete_except_generated "gobject/src/struct-*.c";
 
   List.iter (
     function
@@ -170,6 +175,8 @@ Run it from the top source directory using the command
         (generate_gobject_optargs_source short name optargs f)
     | { style = _, _, [] } -> ()
   ) all_functions;
+  delete_except_generated "gobject/include/guestfs-gobject/optargs-*.h";
+  delete_except_generated "gobject/src/optargs-*.c";
 
   output_to "gobject/include/guestfs-gobject/tristate.h"
     generate_gobject_tristate_header;

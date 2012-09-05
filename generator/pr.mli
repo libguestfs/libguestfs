@@ -28,6 +28,10 @@ val output_to : ?perm:int -> string -> (unit -> unit) -> unit
     [filename] is only updated if the output is different from what
     is in the file already. *)
 
+val delete_except_generated : ?skip: string list -> string -> unit
+(** Remove files matching [glob], unless those files have been
+    generated (so far), OR match a name in the [~skip] list. *)
+
 val get_lines_generated : unit -> int
 (** Return number of lines of code generated. *)
 
