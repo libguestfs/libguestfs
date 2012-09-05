@@ -23,17 +23,24 @@ if [ ! -d "$QEMUDIR" ]; then
     exit 77
 fi
 
-QEMU="$QEMUDIR/x86_64-softmmu/qemu-system-x86_64"
-if ! "$QEMU" --help >/dev/null 2>&1; then
-    echo "$0: $QEMU not executable, tests against upstream qemu skipped"
+# Note that Makefile sets 'QEMU', so we cannot use that variable.
+upstream_qemu="$QEMUDIR/x86_64-softmmu/qemu-system-x86_64"
+if ! "$upstream_qemu" --help >/dev/null 2>&1; then
+    echo "$0: $upstream_qemu not executable, tests against upstream qemu skipped"
     exit 77
 fi
 
-"$QEMU" --version
+"$upstream_qemu" --version
 
 LIBGUESTFS_QEMU=$abs_srcdir/test-upstream-qemu-wrapper.sh
+
+if [ ! -f "$LIBGUESTFS_QEMU" ]; then
+    echo "$0: internal error: \$LIBGUESTFS_QEMU not a file"
+    exit 1
+fi
+
 export LIBGUESTFS_QEMU
-export QEMU
+export upstream_qemu
 
 $MAKE -C ../.. quickcheck
 $MAKE -C ../c-api check
