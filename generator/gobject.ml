@@ -103,7 +103,7 @@ let generate_gobject_proto name ?(single_line = true)
   pr ", GError **err";
   pr ")"
 
-let output_filenames =
+let filenames =
   "session" :: "tristate" ::
 
   (* structs *)
@@ -118,75 +118,66 @@ let output_filenames =
     ) all_functions
   )
 
-let output_header filename f =
-  let header = sprintf "gobject/include/guestfs-gobject/%s.h" filename in
+let header_start filename =
+  generate_header CStyle GPLv2plus;
   let guard = Str.global_replace (Str.regexp "-") "_" filename in
   let guard = "GUESTFS_GOBJECT_" ^ String.uppercase guard ^ "_H__" in
-  output_to header (fun () ->
-    generate_header CStyle GPLv2plus;
-    pr "#ifndef %s\n" guard;
-    pr "#define %s\n" guard;
-    pr "
+  pr "#ifndef %s\n" guard;
+  pr "#define %s\n" guard;
+  pr "
 #include <glib-object.h>
 #include <gio/gio.h>
 
 #include <guestfs-gobject.h>
 
 G_BEGIN_DECLS
-";
+"
 
-    f ();
-
-    pr "
+and header_end filename =
+  let guard = Str.global_replace (Str.regexp "-") "_" filename in
+  let guard = "GUESTFS_GOBJECT_" ^ String.uppercase guard ^ "_H__" in
+  pr "
 G_END_DECLS
 
 #endif /* %s */
-" guard;
-  )
+" guard
 
-let output_source filename ?(title=None) ?(shortdesc=None) ?(longdesc=None) f =
-  let source = sprintf "gobject/src/%s.c" filename in
-  output_to source (fun () ->
-    generate_header CStyle GPLv2plus;
+let source_start ?title ?shortdesc ?longdesc filename =
+  generate_header CStyle GPLv2plus;
 
-    pr "#include <config.h>\n\n";
+  pr "#include <config.h>\n\n";
+  pr "#include \"guestfs-gobject.h\"\n\n";
+  pr "/**\n";
+  pr " * SECTION:%s\n" filename;
 
-    pr "#include \"guestfs-gobject.h\"\n\n";
+  (match title with
+  | Some title ->
+    pr " * @title: %s\n" title
+  | _ -> ());
 
-    pr "/**\n";
-    pr " * SECTION:%s\n" filename;
+  (match shortdesc with
+  | Some desc ->
+    pr " * @short_description: %s\n" desc;
+  | _ -> ());
 
-    (match title with
-    | Some title ->
-      pr " * @title: %s\n" title
-    | _ -> ());
+  pr " * @include: guestfs-gobject.h\n";
 
-    (match shortdesc with
-    | Some desc ->
-      pr " * @short_description: %s\n" desc;
-    | _ -> ());
+  (match longdesc with
+  | Some desc ->
+    pr " *\n";
+    pr " %s\n" desc
+  | _ -> ());
 
-    pr " * @include: guestfs-gobject.h\n";
-
-    (match longdesc with
-    | Some desc ->
-      pr " *\n";
-      pr " %s\n" desc
-    | _ -> ());
-
-    pr " */\n";
-
-    f ();
-  )
+  pr " */\n"
 
 let generate_gobject_makefile () =
   generate_header HashStyle GPLv2plus;
   let headers =
     List.map
-      (function n -> sprintf "include/guestfs-gobject/%s.h" n) output_filenames
+      (function n -> sprintf "include/guestfs-gobject/%s.h" n) filenames
   in
   let sources =
-    List.map (function n -> sprintf "src/%s.c" n) output_filenames
+    List.map (function n -> sprintf "src/%s.c" n) filenames
   in
   pr "guestfs_gobject_headers= \\\n  include/guestfs-gobject.h \\\n  %s\n\n"
     (String.concat " \\\n  " headers);
@@ -196,7 +187,7 @@ let generate_gobject_header () =
   generate_header CStyle GPLv2plus;
   List.iter
     (function f -> pr "#include <guestfs-gobject/%s.h>\n" f)
-    output_filenames
+    filenames
 
 let generate_gobject_doc_title () =
   pr
@@ -212,11 +203,13 @@ let generate_gobject_doc_title () =
 
   List.iter (
     function n -> pr "  <xi:include href=\"xml/%s.xml\"/>\n" n
-  ) output_filenames;
+  ) filenames;
 
   pr "</chapter>\n"
 
-let generate_gobject_struct_header typ cols () =
+let generate_gobject_struct_header filename typ cols () =
+  header_start filename;
+
   let camel = camel_name_of_struct typ in
 
   pr "\n";
@@ -272,9 +265,14 @@ let generate_gobject_struct_header typ cols () =
       pr "  gfloat %s;\n" n
   ) cols;
   pr "};\n";
-  pr "GType guestfs_%s_get_type(void);\n" typ
+  pr "GType guestfs_%s_get_type(void);\n" typ;
 
-let generate_gobject_struct_source typ cols () =
+  header_end filename
+
+let generate_gobject_struct_source filename typ cols () =
+  let title = "Guestfs" ^ camel_name_of_struct typ in
+  source_start ~title filename;
+
   let name = "guestfs_" ^ typ in
   let camel_name = "Guestfs" ^ camel_name_of_struct typ in
 
@@ -295,17 +293,8 @@ let generate_gobject_struct_source typ cols () =
   pr "G_DEFINE_BOXED_TYPE(%s, %s, %s_copy, %s_free)\n"
      camel_name name name name
 
-let generate_gobject_structs =
-  List.iter (
-    fun (typ, cols) ->
-      let filename = "struct-" ^ typ in
-      output_header filename (generate_gobject_struct_header typ cols);
-      output_source ~title:(Some ("Guestfs" ^ camel_name_of_struct typ))
-        filename
-        (generate_gobject_struct_source typ cols)
-  ) structs
-
-let generate_gobject_optargs_header name optargs f () =
+let generate_gobject_optargs_header filename name optargs f () =
+  header_start filename;
   let uc_name = String.uppercase name in
   let camel_name = camel_of_name f in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
@@ -357,9 +346,14 @@ let generate_gobject_optargs_header name optargs f () =
   pr "};\n\n";
 
   pr "GType guestfs_%s_get_type(void);\n" name;
-  pr "%s *guestfs_%s_new(void);\n" camel_name name
+  pr "%s *guestfs_%s_new(void);\n" camel_name name;
+  header_end filename
 
-let generate_gobject_optargs_source name optargs f () =
+let generate_gobject_optargs_source filename name optargs f () =
+  let desc =
+    "An object encapsulating optional arguments for guestfs_session_" ^ name in
+  source_start ~shortdesc:desc ~longdesc:desc filename;
+
   let uc_name = String.uppercase name in
   let camel_name = camel_of_name f in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
@@ -538,22 +532,9 @@ let generate_gobject_optargs_source name optargs f () =
   pr "  return GUESTFS_%s(g_object_new(%s, NULL));\n" uc_name type_define;
   pr "}\n"
 
-let generate_gobject_optargs =
-  List.iter (
-    function
-    | ({ name = name; style = (_, _, (_::_ as optargs)) } as f) ->
-      let filename = "optargs-" ^ name in
-      output_header
-        filename
-        (generate_gobject_optargs_header name optargs f);
-      let desc = "An object encapsulating optional arguments for guestfs_session_" ^ name in
-      output_source ~shortdesc:(Some desc) ~longdesc:(Some desc)
-        filename
-        (generate_gobject_optargs_source name optargs f)
-    | { style = _, _, [] } -> ()
-  ) all_functions
-
 let generate_gobject_tristate_header () =
+  let filename = "tristate" in
+  header_start filename;
   pr "
 /**
  * GuestfsTristate:
@@ -575,9 +556,14 @@ typedef enum
 
 GType guestfs_tristate_get_type(void);
 #define GUESTFS_TYPE_TRISTATE (guestfs_tristate_get_type())
-"
+";
+  header_end filename
 
 let generate_gobject_tristate_source () =
+  let filename = "tristate" in
+  let title = "GuestfsTristate" in
+  let shortdesc = "An object representing a tristate value" in
+  source_start ~title ~shortdesc filename;
   pr "
 GType
 guestfs_tristate_get_type(void)
@@ -597,6 +583,8 @@ guestfs_tristate_get_type(void)
 "
 
 let generate_gobject_session_header () =
+  let filename = "session" in
+  header_start filename;
   pr "
 /* GuestfsSessionEvent */
 
@@ -709,9 +697,15 @@ gboolean guestfs_session_close(GuestfsSession *session, GError **err);
     fun ({ name = name; style = style } as f) ->
       generate_gobject_proto name style f;
       pr ";\n";
-  ) all_functions
+  ) all_functions;
+
+  header_end filename
 
 let generate_gobject_session_source () =
+  let filename = "session" in
+  let shortdesc = "A libguestfs session" in
+  source_start ~shortdesc filename;
+
   pr "
   #include <glib.h>
   #include <glib-object.h>
@@ -1283,23 +1277,3 @@ guestfs_session_close(GuestfsSession *session, GError **err)
 
       pr "}\n";
   ) all_functions
-
-let generate_gobject () =
-  output_to "gobject/Makefile.inc" generate_gobject_makefile;
-  output_to "gobject/include/guestfs-gobject.h" generate_gobject_header;
-  output_to "gobject/docs/guestfs-title.sgml" generate_gobject_doc_title;
-
-  generate_gobject_structs;
-  generate_gobject_optargs;
-
-  output_header "tristate" generate_gobject_tristate_header;
-  output_source
-    ~title:(Some "GuestfsTristate")
-    ~shortdesc:(Some "An object representing a tristate value")
-    "tristate"
-    generate_gobject_tristate_source;
-
-  output_header "session" generate_gobject_session_header;
-  output_source ~shortdesc:(Some "A libguestfs session")
-    "session"
-    generate_gobject_session_source

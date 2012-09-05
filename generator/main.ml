@@ -22,8 +22,10 @@ open Unix
 open Printf
 
 open Pr
+open Actions
 open Structs
 open Api_versions
+open Types
 
 open C
 open Xdr
@@ -139,8 +141,43 @@ Run it from the top source directory using the command
   output_to "erlang/guestfs.erl" generate_erlang_erl;
   output_to "erlang/erl-guestfs.c" generate_erlang_c;
   output_to ~perm:0o555 "erlang/bindtests.erl" generate_erlang_bindtests;
+
   output_to "gobject/bindtests.js" generate_gobject_js_bindtests;
-  generate_gobject();
+  output_to "gobject/Makefile.inc" generate_gobject_makefile;
+  output_to "gobject/include/guestfs-gobject.h" generate_gobject_header;
+  output_to "gobject/docs/guestfs-title.sgml" generate_gobject_doc_title;
+
+  List.iter (
+    fun (typ, cols) ->
+      let short = sprintf "struct-%s" typ in
+      let filename =
+        sprintf "gobject/include/guestfs-gobject/%s.h" short in
+      output_to filename (generate_gobject_struct_header short typ cols);
+      let filename = sprintf "gobject/src/%s.c" short in
+      output_to filename (generate_gobject_struct_source short typ cols)
+  ) structs;
+
+  List.iter (
+    function
+    | ({ name = name; style = (_, _, (_::_ as optargs)) } as f) ->
+      let short = sprintf "optargs-%s" name in
+      let filename =
+        sprintf "gobject/include/guestfs-gobject/%s.h" short in
+      output_to filename
+        (generate_gobject_optargs_header short name optargs f);
+      let filename = sprintf "gobject/src/%s.c" short in
+      output_to filename
+        (generate_gobject_optargs_source short name optargs f)
+    | { style = _, _, [] } -> ()
+  ) all_functions;
+
+  output_to "gobject/include/guestfs-gobject/tristate.h"
+    generate_gobject_tristate_header;
+  output_to "gobject/src/tristate.c" generate_gobject_tristate_source;
+
+  output_to "gobject/include/guestfs-gobject/session.h"
+    generate_gobject_session_header;
+  output_to "gobject/src/session.c" generate_gobject_session_source;
 
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());
