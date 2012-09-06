@@ -4,9 +4,23 @@
 
 guestfs-release-notes - libguestfs Release Notes
 
-=head1 RELEASE NOTES FOR LIBGUESTFS 1.20
+=begin comment
 
-I<NOTES UPDATED TO COMMIT d03361b1afee09135b0cbd92a2cc180c66c5f84e>
+NOTE!  Pre-release notes for the next stable version of libguestfs.
+Updated to commit d03361b1afee09135b0cbd92a2cc180c66c5f84e
+
+=end comment
+
+=begin html
+
+<script>
+document.body.style.backgroundImage = "url('draft.png')";
+document.body.style.backgroundRepeat = "no-repeat";
+</script>
+
+=end html
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.20
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.18.0).  For detailed changelogs, please see

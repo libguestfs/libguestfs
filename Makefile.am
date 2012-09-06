@@ -145,6 +145,8 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/tracetops.ml \
 	guestfs-release-notes.pod \
 	guestfs-release-notes.txt \
+	html/draft.png \
+	html/draft.svg \
 	html/pod.css \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
@@ -192,6 +194,8 @@ HTMLFILES = \
 	html/virt-tar-out.1.html \
 	html/virt-win-reg.1.html
 
+HTMLSUPPORTFILES = html/draft.png html/pod.css
+
 TEXTFILES = BUGS README ROADMAP TODO
 
 WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
@@ -201,7 +205,7 @@ WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 website: $(HTMLFILES) $(TEXTFILES)
 	find -name 'stamp-*.pod' -delete
 	$(MAKE)
-	cp $(HTMLFILES) $(WEBSITEDIR)
+	cp $(HTMLFILES) $(HTMLSUPPORTFILES) $(WEBSITEDIR)
 	for f in $(TEXTFILES); do cp $$f $(WEBSITEDIR)/$$f.txt; done
 	cd $(WEBSITEDIR) && \
 	date=`date +%F`; \

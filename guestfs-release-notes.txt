@@ -4,8 +4,6 @@ NAME
 
 RELEASE NOTES FOR LIBGUESTFS 1.20
 
-    NOTES UPDATED TO COMMIT d03361b1afee09135b0cbd92a2cc180c66c5f84e
-
     These release notes only cover the differences from the previous
     stable/dev branch split (1.18.0). For detailed changelogs, please see
     the git repository, or the ChangeLog file distributed in the tarball.
