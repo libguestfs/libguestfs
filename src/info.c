@@ -190,7 +190,7 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
     dup2 (fd[1], 1);
     close (fd[1]);
 
-    setenv ("LANG", "C", 1);
+    setenv ("LC_ALL", "C", 1);
 
     /* XXX stderr to event log */
 
