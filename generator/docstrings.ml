@@ -36,10 +36,12 @@ let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
 
-let deprecation_notice ?(prefix = "") =
+let deprecation_notice ?(prefix = "") ?(replace_underscores = false) =
   function
   | { deprecated_by = None } -> None
   | { deprecated_by = Some alt } ->
+    let alt =
+      if replace_underscores then replace_char alt '_' '-' else alt in
     let txt =
       sprintf "I<This function is deprecated.>
 In new code, use the L</%s%s> call instead.

@@ -151,7 +151,7 @@ Guestfish will prompt for these separately."
 
       let warnings =
         warnings ^
-          match deprecation_notice f with
+          match deprecation_notice ~replace_underscores:true f with
           | None -> ""
           | Some txt -> "\n\n" ^ txt in
 
@@ -891,7 +891,7 @@ Guestfish will prompt for these separately.\n\n";
       if f.protocol_limit_warning then
         pr "%s\n\n" protocol_limit_warning;
 
-      match deprecation_notice f with
+      match deprecation_notice ~replace_underscores:true f with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted
