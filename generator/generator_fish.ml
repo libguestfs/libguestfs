@@ -148,7 +148,7 @@ Guestfish will prompt for these separately."
 
       let warnings =
         warnings ^
-          match deprecation_notice flags with
+          match deprecation_notice ~replace_underscores:true flags with
           | None -> ""
           | Some txt -> "\n\n" ^ txt in
 
@@ -897,7 +897,7 @@ Guestfish will prompt for these separately.\n\n";
       if List.mem ProtocolLimitWarning flags then
         pr "%s\n\n" protocol_limit_warning;
 
-      match deprecation_notice flags with
+      match deprecation_notice ~replace_underscores:true flags with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted
