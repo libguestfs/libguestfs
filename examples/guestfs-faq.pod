@@ -583,6 +583,41 @@ Usually this is not a good idea.  The question is answered in more
 detail in this mailing list posting:
 L<https://www.redhat.com/archives/libguestfs/2010-August/msg00024.html>
 
+=head2 Why can I write to the disk, even though I added it read-only?
+Why does C<--ro> appear to have no effect?
+
+When you add a disk read-only, libguestfs places a writable overlay on
+top of the underlying disk.  Writes go into this overlay, and are
+discarded when the handle is closed (or C<guestfish> etc. exits).
+
+There are two reasons for doing it this way: Firstly read-only disks
+aren't possible in many cases (eg. IDE simply doesn't support them, so
+you couldn't have an IDE-emulated read-only disk, although this is not
+common in real libguestfs installations).
+
+Secondly and more importantly, even if read-only disks were possible,
+you wouldn't want them.  Mounting any filesystem that has a journal,
+even C<mount -o ro>, causes writes to the filesystem because the
+journal has to be replayed and metadata updated.  If the disk was
+truly read-only, you wouldn't be able to mount a dirty filesystem.
+
+To make it usable, we create the overlay as a place to temporarily
+store these writes, and then we discard it afterwards.  This ensures
+that the underlying disk is always untouched.
+
+Note also that there is a regression test for this when building
+libguestfs (in C<tests/qemu>).  This is one reason why it's important
+for packagers to run the test suite.
+
+=head2 Does C<--ro> make all disks read-only?
+
+I<No!>  The C<--ro> option only affects disks added on the command
+line, ie. using C<-a> and C<-d> options.
+
+In guestfish, if you use the C<add> command, then disk is added
+read-write (unless you specify the C<readonly:true> flag explicitly
+with the command).
+
 =head2 What's the difference between guestfish and virt-rescue?
 
 A lot of people are confused by the two superficially similar tools we
