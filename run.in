@@ -45,7 +45,12 @@ b=@abs_builddir@
 
 # Set TMPDIR so the appliance doesn't conflict with globally
 # installed libguestfs.
-export TMPDIR="$b"
+#
+# We set it to a subdirectory ('tmp') so that we can label this
+# subdirectory to make libvirt + sVirt + SELinux enforcing work.
+#
+#   chcon --reference=/tmp tmp
+export TMPDIR="$b/tmp"
 
 # Set local environment relative to this script.
 export LIBGUESTFS_PATH="$b/appliance"

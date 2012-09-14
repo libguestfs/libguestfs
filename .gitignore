@@ -147,8 +147,6 @@ Makefile.in
 /gobject/Guestfs-1.0.typelib
 /gobject/guestfs-gobject*.c
 /gobject/guestfs-gobject*.h
-/.guestfs-*
-/guestfs.*
 /guestfs-release-notes.1
 /guestfsd-in-wine.log
 /haskell/Bindtests
