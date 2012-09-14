@@ -27,8 +27,8 @@ if [ -n "$SKIP_TEST_9P_SH" ]; then
 fi
 
 method="$(../../fish/guestfish get-attach-method)"
-if [[ "$method" != "appliance" && ! "$method" =~ ^libvirt ]]; then
-    echo "$0: test skipped because attach-method ($method) is not 'appliance' or 'libvirt'."
+if [[ "$method" != "appliance" ]]; then
+    echo "$0: test skipped because attach-method ($method) is not 'appliance'."
     exit 77
 fi
 
