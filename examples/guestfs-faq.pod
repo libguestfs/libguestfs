@@ -98,7 +98,8 @@ periodically create a stable branch which we backport stable patches
 to.  To find out more, read L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>.
 
 =head2 How can I get help?
-What mailing lists or chat rooms are available?
+
+=head2 What mailing lists or chat rooms are available?
 
 If you are a Red Hat customer using Red Hat Enterprise Linux, please
 contact Red Hat Support: L<http://redhat.com/support>
@@ -125,7 +126,10 @@ Include as much detail as you can and a way to reproduce the problem.
 
 Include the full output of L<libguestfs-test-tool(1)>.
 
-=head1 COMMON ERRORS
+=head1 COMMON PROBLEMS
+
+See also L<guestfs(3)/LIBGUESTFS GOTCHAS> for some "gotchas" with
+using the libguestfs API.
 
 =head2 "child process died unexpectedly"
 
@@ -136,11 +140,6 @@ To get further information about the failure, you have to run:
 
 If, after using this, you still don't understand the failure, contact
 us (see previous section).
-
-=head1 COMMON PROBLEMS
-
-See also L<guestfs(3)/LIBGUESTFS GOTCHAS> for some "gotchas" with
-using the libguestfs API.
 
 =head2 Non-ASCII characters don't appear on VFAT filesystems.
 
@@ -453,7 +452,8 @@ L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES>.
 
 =end html
 
-=head2 Can I use libguestfs in my proprietary / closed source / commercial program?
+=head2 Can I use libguestfs in my proprietary / closed source /
+commercial program?
 
 In general, yes.  However this is not legal advice.  You should read
 the license that comes with libguestfs, and if you have specific
@@ -584,7 +584,8 @@ detail in this mailing list posting:
 L<https://www.redhat.com/archives/libguestfs/2010-August/msg00024.html>
 
 =head2 Why can I write to the disk, even though I added it read-only?
-Why does C<--ro> appear to have no effect?
+
+=head2 Why does C<--ro> appear to have no effect?
 
 When you add a disk read-only, libguestfs places a writable overlay on
 top of the underlying disk.  Writes go into this overlay, and are
@@ -658,9 +659,12 @@ changed in future. If your program needs some operation, please add it
 to the libguestfs API instead.
 
 =head2 What's the deal with C<guestfish -i>?
-Why does virt-cat only work on a real VM image, but virt-df works on
-any disk image?
-What does "no root device found in this operating system image" mean?
+
+=head2 Why does virt-cat only work on a real VM image, but virt-df
+works on any disk image?
+
+=head2 What does "no root device found in this operating system image"
+mean?
 
 These questions are all related at a fundamental level which may not
 be immediately obvious.
