@@ -978,6 +978,9 @@ construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
                                          BAD_CAST "0"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "shareable"));
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
+
   /* We'd like to do this, but it's not supported by libvirt.
    * See construct_libvirt_xml_qemu_cmdline for the workaround.
    *
