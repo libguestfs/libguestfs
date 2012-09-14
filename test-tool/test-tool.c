@@ -42,11 +42,11 @@
 //#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
 //#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
 //#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
-#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
+//#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
 //#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
 //#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
 //#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-//#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
 #ifndef P_tmpdir
 #define P_tmpdir "/tmp"
@@ -169,13 +169,24 @@ main (int argc, char *argv[])
   printf ("===== Test starts here =====\n");
 
   /* Print out any environment variables which may relate to this test. */
-  for (i = 0; environ[i] != NULL; ++i)
-    if (STREQLEN (environ[i], "LIBGUESTFS_", 11))
+  for (i = 0; environ[i] != NULL; ++i) {
+    if (STRPREFIX (environ[i], "LIBGUESTFS_"))
       printf ("%s\n", environ[i]);
-  for (i = 0; environ[i] != NULL; ++i)
-    if (STREQLEN (environ[i], "FEBOOTSTRAP_", 12))
+    if (STRPREFIX (environ[i], "FEBOOTSTRAP_"))
       printf ("%s\n", environ[i]);
-  printf ("TMPDIR=%s\n", getenv ("TMPDIR") ? : "(not set)");
+    if (STRPREFIX (environ[i], "LIBVIRT_"))
+      printf ("%s\n", environ[i]);
+    if (STRPREFIX (environ[i], "LIBVIRTD_"))
+      printf ("%s\n", environ[i]);
+    if (STRPREFIX (environ[i], "LD_"))
+      printf ("%s\n", environ[i]);
+  }
+  p = getenv ("TMPDIR");
+  if (p)
+    printf ("TMPDIR=%s\n", p);
+  p = getenv ("PATH");
+  if (p)
+    printf ("PATH=%s\n", p);
 
   /* Configure the handle. */
   if (guestfs_add_drive_opts (g, tmpf,
