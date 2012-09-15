@@ -82,14 +82,6 @@ sc_prohibit_ctype_h:
 	  { echo "$(ME): don't use ctype.h; instead, use c-ctype.h"	\
 		1>&2; exit 1; } || :
 
-# Ensure that no C source file uses TABs for indentation.
-# Exclude some version-controlled symlinks.
-sc_TAB_in_indentation:
-	@grep -lE '^ *	' /dev/null					\
-	     $$($(VC_LIST_EXCEPT)) &&					\
-	  { echo '$(ME): found TAB(s) used for indentation in C sources;'\
-	      'use spaces' 1>&2; exit 1; } || :
-
 ctype_re = isalnum|isalpha|isascii|isblank|iscntrl|isdigit|isgraph|islower\
 |isprint|ispunct|isspace|isupper|isxdigit|tolower|toupper
 
