@@ -73,7 +73,7 @@ random_guests := \
 	  LIBVIRT_DEFAULT_URI="$(libvirt_uri)" \
 	    $(abs_top_builddir)/run $(srcdir)/pick-guests.pl 5)
 
-extra-tests: \
+extra-tests-non-recursive: \
 	test-guests \
 	test-prerequisites \
 	test-c-api \
@@ -85,8 +85,11 @@ extra-tests: \
 	test-sysprep-real \
 	test-ocaml \
 	test-resize \
-	test-sparsify \
-	test-upstream-qemu
+	test-sparsify
+
+extra-tests: \
+	extra-tests-non-recursive \
+	extra-tests-with-upstream-qemu
 
 test-guests:
 	$(MAKE) -C ../guests check
@@ -184,8 +187,8 @@ test-ocaml:
 	$(MAKE) -C ../../ocaml VG="$(VG)" check
 
 # When running the extra tests, if directory $HOME/d/qemu exists then
-# we will try to run the basic tests using the version of qemu from
-# that directory.  eg. That might be qemu from git.
+# we will rerun the extra-tests using the version of qemu from that
+# directory.  eg. That might be qemu from git.
 #
 # The directory name can be overridden using:
 #   make extra-tests QEMUDIR=/path/to/other/qemu
@@ -195,5 +198,5 @@ export QEMUDIR
 export abs_srcdir
 export MAKE
 
-test-upstream-qemu:
-	./test-upstream-qemu.sh
+extra-tests-with-upstream-qemu:
+	./test-with-upstream-qemu.sh
