@@ -1073,7 +1073,7 @@ mdadm_app_cmp(const void *x, const void *y)
   const mdadm_app *a = x;
   const mdadm_app *b = y;
 
-  return strcmp(a->mdadm, b->mdadm) == 0;
+  return STREQ (a->mdadm, b->mdadm);
 }
 
 static void
