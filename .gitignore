@@ -367,6 +367,7 @@ tests/data/initrd-x86_64.img.gz
 tests/data/test-grep.txt.gz
 tests/data/test.iso
 tests/extra/valgrind.log
+tests/extra/qemu-wrapper.sh
 tests/guests/debian.img
 tests/guests/fedora.img
 tests/guests/fedora-md1.img
