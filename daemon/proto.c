@@ -37,7 +37,6 @@
 #endif
 
 #include "c-ctype.h"
-#include "ignore-value.h"
 
 #include "daemon.h"
 #include "guestfs_protocol.h"

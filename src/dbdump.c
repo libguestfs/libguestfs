@@ -34,8 +34,6 @@
 
 #include <pcre.h>
 
-#include "ignore-value.h"
-
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
