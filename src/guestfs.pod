@@ -3026,8 +3026,13 @@ finds):
 
 Useful targets are:
 
- make syntax-check  # checks the syntax of the C code
- make check         # runs the test suite
+ make syntax-check -j1 -k # checks for various syntax and
+                          # style problems
+ 
+ make check               # runs the test suite
+ 
+ make extra-tests         # in-depth testing using valgrind
+                          # and real guests
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS
 
