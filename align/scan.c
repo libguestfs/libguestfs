@@ -35,7 +35,6 @@
 #endif
 
 #include "progname.h"
-#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "options.h"
