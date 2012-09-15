@@ -461,8 +461,8 @@ do_xfs_growfs (const char *path,
   return 0;
 
 error:
-  if (buf) free (buf);
-  if (err) free (err);
+  free (buf);
+  free (err);
   return -1;
 }
 
@@ -643,7 +643,7 @@ do_xfs_repair (const char *device,
   ADD_ARG (argv, i, NULL);
 
   r = commandrv (NULL, &err, argv);
-  if (buf) free (buf);
+  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     goto error;
@@ -653,6 +653,6 @@ do_xfs_repair (const char *device,
   return r;
 
 error:
-  if (err) free (err);
+  free (err);
   return -1;
 }
