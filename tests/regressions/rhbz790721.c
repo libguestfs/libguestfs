@@ -184,7 +184,7 @@ start_thread (void *vi)
    * building code which is what this regression test is designed to
    * spot.
    */
-  if (strcmp (error, "child process died unexpectedly") != 0) {
+  if (STRNEQ (error, "child process died unexpectedly")) {
     fprintf (stderr, "rhbz790721: [thread %d]: error: %s\n", thread_id, error);
     *(int *)vi = -1;
     pthread_exit (vi);
