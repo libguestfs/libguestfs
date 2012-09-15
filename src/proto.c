@@ -34,32 +34,16 @@
 #include <sys/select.h>
 #include <dirent.h>
 #include <signal.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
-
-#ifdef HAVE_ERRNO_H
-#include <errno.h>
-#endif
-
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
-
-#ifdef HAVE_SYS_WAIT_H
-#include <sys/wait.h>
-#endif
-
-#ifdef HAVE_SYS_SOCKET_H
-#include <sys/socket.h>
-#endif
-
-#ifdef HAVE_SYS_UN_H
-#include <sys/un.h>
-#endif
-
-#include <arpa/inet.h>
-#include <netinet/in.h>
 
 #include "c-ctype.h"
 #include "glthread/lock.h"

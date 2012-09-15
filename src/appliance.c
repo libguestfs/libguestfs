@@ -29,12 +29,9 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <utime.h>
-
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
