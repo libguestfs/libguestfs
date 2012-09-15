@@ -37,26 +37,6 @@ type style = ret * args * optargs
      *   $g->fn (required1, required2, opt1 => val, opt2 => val);
      * As the name suggests these are optional, and the function can
      * tell which optional parameters were supplied by the caller.
-     * 
-     * Only [Bool], [Int], [Int64], [String] may currently appear in
-     * the optional argument list (we may permit more types in future).
-     *
-     * ABI and API considerations
-     * --------------------------
-     * 
-     * The return type and required arguments may not be changed after
-     * these have been published in a stable version of libguestfs,
-     * because doing so would break the ABI.
-     * 
-     * If a published function has one or more optional arguments,
-     * then the call can be extended without breaking the ABI or API.
-     * This is in fact the only way to change an existing function.
-     * There are limitations on this:
-     *
-     * (1) you may _only_ add extra elements at the end of the list
-     * (2) you may _not_ rearrange or rename or remove existing elements
-     * (3) you may _not_ add optional arguments to a function which did
-     *     not have any before (since this breaks the C ABI).
      *)
 
 and ret =
