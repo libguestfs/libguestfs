@@ -38,8 +38,6 @@
 #include <hivex.h>
 #endif
 
-#include "ignore-value.h"
-
 #include "guestfs.h"
 #include "guestfs-internal.h"
 

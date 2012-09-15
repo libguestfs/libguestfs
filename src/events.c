@@ -29,7 +29,6 @@
 #include <string.h>
 
 #include "c-ctype.h"
-#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

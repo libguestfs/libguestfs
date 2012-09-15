@@ -39,7 +39,6 @@
 #endif
 
 #include "c-ctype.h"
-#include "ignore-value.h"
 #include "xstrtol.h"
 
 #include "guestfs.h"
