@@ -30,15 +30,14 @@
 #include <string.h>
 #include <fcntl.h>
 #include <time.h>
-#include <sys/stat.h>
-#include <sys/select.h>
-#include <dirent.h>
 #include <signal.h>
 #include <errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/select.h>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <sys/un.h>
+#include <sys/wait.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
