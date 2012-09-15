@@ -44,7 +44,7 @@ fi
 
 # If no arguments were specified and configure has run before, use the previous
 # arguments
-if test $# == 0 && test -x ./config.status; then
+if test $# -eq 0 && test -x ./config.status; then
     ./config.status --recheck
 else
     $CONFIGUREDIR/configure "$@"

@@ -114,28 +114,28 @@ for md in `../../fish/guestfish --remote list-md-devices`; do
   error=0
   case "$name" in
     *:r1t1)
-      [ "$level" == "raid1" ] || error=1
-      [ "$devices" == "2" ] || error=1
+      [ "$level" = "raid1" ] || error=1
+      [ "$devices" -eq 2 ] || error=1
       ;;
 
     *:r1t2)
-      [ "$level" == "raid1" ] || error=1
-      [ "$devices" == "2" ] || error=1
+      [ "$level" = "raid1" ] || error=1
+      [ "$devices" -eq 2 ] || error=1
       ;;
 
     *:r5t1)
-      [ "$level" == "raid5" ] || error=1
-      [ "$devices" == "4" ] || error=1
+      [ "$level" = "raid5" ] || error=1
+      [ "$devices" -eq 4 ] || error=1
       ;;
 
     *:r5t2)
-      [ "$level" == "raid5" ] || error=1
-      [ "$devices" == "3" ] || error=1
+      [ "$level" = "raid5" ] || error=1
+      [ "$devices" -eq 3 ] || error=1
       ;;
 
     *:r5t3)
-      [ "$level" == "raid5" ] || error=1
-      [ "$devices" == "2" ] || error=1
+      [ "$level" = "raid5" ] || error=1
+      [ "$devices" -eq 2 ] || error=1
       ;;
 
     *)
@@ -145,7 +145,7 @@ for md in `../../fish/guestfish --remote list-md-devices`; do
   [[ "$uuid" =~ ([0-9a-f]{8}:){3}[0-9a-f]{8} ]] || error=1
   [ ! -z "$metadata" ] || error=1
 
-  if [ "$error" == "1" ]; then
+  if [ "$error" -eq 1 ]; then
     echo "$0: Unexpected output from md-detail for device $md"
     cat md-detail.out
     ../../fish/guestfish --remote exit
