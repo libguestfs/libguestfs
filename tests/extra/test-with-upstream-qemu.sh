@@ -32,7 +32,7 @@ fi
 
 "$upstream_qemu" --version
 
-LIBGUESTFS_QEMU=$abs_srcdir/test-upstream-qemu-wrapper.sh
+LIBGUESTFS_QEMU=$abs_srcdir/qemu-wrapper.sh
 
 if [ ! -f "$LIBGUESTFS_QEMU" ]; then
     echo "$0: internal error: \$LIBGUESTFS_QEMU not a file"
@@ -42,5 +42,4 @@ fi
 export LIBGUESTFS_QEMU
 export upstream_qemu
 
-$MAKE -C ../.. quickcheck
-$MAKE -C ../c-api check
+exec $MAKE extra-tests-non-recursive
