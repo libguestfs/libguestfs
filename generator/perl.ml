@@ -47,6 +47,8 @@ let rec generate_perl_xs () =
 
 #include <guestfs.h>
 
+#define STREQ(a,b) (strcmp((a),(b)) == 0)
+
 static SV *
 my_newSVll(long long val) {
 #ifdef USE_64_BIT_ALL
@@ -434,7 +436,7 @@ user_cancel (g)
           fun argt ->
             let n = name_of_optargt argt in
             let uc_n = String.uppercase n in
-            pr "if (strcmp (this_arg, \"%s\") == 0) {\n" n;
+            pr "if (STREQ (this_arg, \"%s\")) {\n" n;
             (match argt with
              | OBool _
              | OInt _ ->
