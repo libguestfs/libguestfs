@@ -293,7 +293,7 @@ cleanup_wrapper (void)
 static void
 set_qemu (const char *path, int use_wrapper)
 {
-  char buffer[PATH_MAX];
+  char *buffer;
   struct stat statbuf;
   int fd;
   FILE *fp;
@@ -318,14 +318,19 @@ set_qemu (const char *path, int use_wrapper)
   }
 
   /* This should be a source directory, so check it. */
-  snprintf (buffer, sizeof buffer, "%s/pc-bios", path);
+  if (asprintf (&buffer, "%s/pc-bios", path) == -1) {
+    perror ("asprintf");
+    exit (EXIT_FAILURE);
+  }
   if (stat (buffer, &statbuf) == -1 ||
       !S_ISDIR (statbuf.st_mode)) {
     fprintf (stderr,
              _("%s: does not look like a qemu source directory\n"),
              path);
+    free (buffer);
     exit (EXIT_FAILURE);
   }
+  free (buffer);
 
   /* Make a wrapper script. */
   fd = mkstemp (qemuwrapper);

@@ -582,12 +582,14 @@ do_output_vgs (void)
     exit (EXIT_FAILURE);
 
   for (i = 0; i < vgs->len; ++i) {
-    char name[PATH_MAX];
+    char *name;
     char uuid[33];
     char **parents;
 
-    strcpy (name, "/dev/");
-    strcpy (&name[5], vgs->val[i].vg_name);
+    if (asprintf (&name, "/dev/%s", vgs->val[i].vg_name) == -1) {
+      perror ("asprintf");
+      exit (EXIT_FAILURE);
+    }
 
     memcpy (uuid, vgs->val[i].vg_uuid, 32);
     uuid[32] = '\0';
@@ -597,6 +599,7 @@ do_output_vgs (void)
     write_row (name, "vg",
                NULL, NULL, -1, (int64_t) vgs->val[i].vg_size, parents, uuid);
 
+    free (name);
     free_strings (parents);
   }
 

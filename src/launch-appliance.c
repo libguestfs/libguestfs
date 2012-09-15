@@ -294,9 +294,10 @@ launch_appliance (guestfs_h *g, const char *arg)
           cachemode = ",cache=writeback";
       }
 
-      char buf2[PATH_MAX + 64];
+      size_t buf2_len = strlen (appliance) + 64;
+      char buf2[buf2_len];
       add_cmdline (g, "-drive");
-      snprintf (buf2, sizeof buf2, "file=%s,snapshot=on,id=appliance,if=%s%s",
+      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
                 appliance, virtio_scsi ? "none" : "virtio", cachemode);
       add_cmdline (g, buf2);
 

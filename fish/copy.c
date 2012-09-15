@@ -145,9 +145,10 @@ make_tar_from_local (const char *local)
   dup2 (fd[1], 1);
   close (fd[1]);
 
-  char buf[PATH_MAX];
+  size_t buf_len = strlen (local) + 1;
+  char buf[buf_len];
   const char *dirname, *basename;
-  if (split_path (buf, sizeof buf, local, &dirname, &basename) == -1)
+  if (split_path (buf, buf_len, local, &dirname, &basename) == -1)
     _exit (EXIT_FAILURE);
 
   tar_create (dirname, basename);
@@ -242,19 +243,26 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
       return -1;
     }
     if (r == 1) {               /* is file */
-      char buf[PATH_MAX];
+      size_t buf_len = strlen (remote) + 1;
+      char buf[buf_len];
       const char *basename;
-      if (split_path (buf, sizeof buf, remote, NULL, &basename) == -1) {
+      if (split_path (buf, buf_len, remote, NULL, &basename) == -1) {
         free (remote);
         return -1;
       }
 
-      char filename[PATH_MAX];
-      snprintf (filename, sizeof filename, "%s/%s", local, basename);
-      if (guestfs_download (g, remote, filename) == -1) {
+      char *filename;
+      if (asprintf (&filename, "%s/%s", local, basename) == -1) {
+        perror ("asprintf");
         free (remote);
         return -1;
       }
+      if (guestfs_download (g, remote, filename) == -1) {
+        free (remote);
+        free (filename);
+        return -1;
+      }
+      free (filename);
     }
     else {                      /* not a regular file */
       r = guestfs_is_dir (g, remote);
@@ -270,9 +278,10 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
         return -1;
       }
 
-      char buf[PATH_MAX];
+      size_t buf_len = strlen (remote) + 1;
+      char buf[buf_len];
       const char *basename;
-      if (split_path (buf, sizeof buf, remote, NULL, &basename) == -1) {
+      if (split_path (buf, buf_len, remote, NULL, &basename) == -1) {
         free (remote);
         return -1;
       }
