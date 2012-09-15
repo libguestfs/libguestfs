@@ -395,6 +395,7 @@ Makefile.in
 /tests/data/initrd-x86_64.img.gz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
+/tests/extra/qemu-wrapper.sh
 /tests/extra/valgrind.log
 /tests/guests/debian.img
 /tests/guests/fedora.img
