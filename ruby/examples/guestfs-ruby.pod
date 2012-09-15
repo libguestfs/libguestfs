@@ -52,4 +52,3 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 =head1 COPYRIGHT
 
 Copyright (C) 2010-2012 Red Hat Inc.
-

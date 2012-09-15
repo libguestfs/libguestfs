@@ -822,7 +822,7 @@ guestfs_session_event_get_type(void)
   static GType etype = 0;
   if (etype == 0) {
     static const GEnumValue values[] = {";
-  
+
   List.iter (
     fun (name, _) ->
       let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase name in
