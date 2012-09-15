@@ -435,7 +435,7 @@ guestfs__add_drive (guestfs_h *g, const char *filename)
 int
 guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 {
-  struct guestfs_add_drive_opts_argv optargs = {
+  const struct guestfs_add_drive_opts_argv optargs = {
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
     .readonly = 1,
   };
@@ -447,7 +447,7 @@ int
 guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
                             const char *iface)
 {
-  struct guestfs_add_drive_opts_argv optargs = {
+  const struct guestfs_add_drive_opts_argv optargs = {
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK,
     .iface = iface,
   };
@@ -459,7 +459,7 @@ int
 guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
                                const char *iface)
 {
-  struct guestfs_add_drive_opts_argv optargs = {
+  const struct guestfs_add_drive_opts_argv optargs = {
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
              | GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
     .iface = iface,
