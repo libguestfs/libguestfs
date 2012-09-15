@@ -47,7 +47,7 @@ let string_of_errcode = function
  * avoid having the UUID change every time we rebuild the tests,
  * generate it as a function of the contents of the
  * generator_actions.ml file.
- * 
+ *
  * Originally I thought uuidgen was using RFC 4122, but it doesn't
  * appear to.
  *

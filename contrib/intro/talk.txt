@@ -159,4 +159,3 @@ screenshots shown.  But many people will simply want to mount
 a filesystem on the host using guestmount, and then use
 ordinary tools.  At the bottom is a screenshot of GNOME
 Nautilus browsing into a guest filesystem.
-

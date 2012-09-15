@@ -507,7 +507,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
    * guestfs_protocol.h (which includes much unrelated and
    * XDR-dependent stuff that we don't want to be public, or required
    * by clients).
-   * 
+   *
    * To reiterate, we will pass these structures to and from the client
    * with a simple assignment or memcpy, so the format must be
    * identical to what rpcgen / the RFC defines.
