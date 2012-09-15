@@ -42,19 +42,21 @@ optgroup_xfs_available (void)
   return prog_exists (str_mkfs_xfs);
 }
 
+/* Return everything up to the first comma or space in the input
+ * string, strdup'ing the return value.
+ */
 static char *
 split_strdup (char *string)
 {
-  char *end = string;
-  while (*end != ' ' && *end != ',' && *end != '\0') end++;
-  size_t len = end - string;
-  char *ret = malloc (len + 1);
+  size_t len;
+  char *ret;
+
+  len = strcspn (string, " ,");
+  ret = strndup (string, len);
   if (!ret) {
     reply_with_perror ("malloc");
     return NULL;
   }
-  strncpy (ret, string, len);
-  ret[len] = '\0';
   return ret;
 }
 
