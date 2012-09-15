@@ -37,6 +37,8 @@ let rec generate_perl_xs () =
   pr "\
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <inttypes.h>
 
 #include \"EXTERN.h\"
