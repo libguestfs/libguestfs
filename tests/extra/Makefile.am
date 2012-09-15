@@ -68,16 +68,12 @@ VG = $(VALGRIND) \
 	--suppressions=$(abs_srcdir)/suppressions
 RUN_VG = $(abs_top_builddir)/run $(VG)
 
-export LIBVIRT_DEFAULT_URI = \
-	qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
+libvirt_uri = qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
 
 # Choose guests at random on each run.
-#
-# 'export LIBVIRT_DEFAULT_URI' above doesn't appear to have an effect
-# for $(shell ...) commands, so we have to redefine LIBVIRT_DEFAULT_URI here.
 random_guests := \
 	$(shell \
-	  LIBVIRT_DEFAULT_URI='qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro' \
+	  LIBVIRT_DEFAULT_URI="$(libvirt_uri)" \
 	    $(abs_top_builddir)/run $(srcdir)/pick-guests.pl 5)
 
 extra-tests: \
@@ -141,21 +137,21 @@ test-tools-internal:
 
 # Invocations of tools on real images shouldn't leak memory.
 test-df-real:
-	$(RUN_VG) ../../df/virt-df >/dev/null
-	$(RUN_VG) ../../df/virt-df -h >/dev/null
+	$(RUN_VG) ../../df/virt-df -c "$(libvirt_uri)" >/dev/null
+	$(RUN_VG) ../../df/virt-df -c "$(libvirt_uri)" -h >/dev/null
 
 test-filesystems-real:
 	@for g in $(random_guests); do \
-	  echo $(RUN_VG) ../../cat/virt-filesystems -d $$g --all --long -h --uuid; \
-	  $(RUN_VG) ../../cat/virt-filesystems -d $$g --all --long -h --uuid > /dev/null; \
+	  echo $(RUN_VG) ../../cat/virt-filesystems -c "$(libvirt_uri)" -d $$g --all --long -h --uuid; \
+	  $(RUN_VG) ../../cat/virt-filesystems -c "$(libvirt_uri)" -d $$g --all --long -h --uuid > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
 
 test-inspector-real:
 	@for g in $(random_guests); do \
-	  echo $(RUN_VG) ../../inspector/virt-inspector -d $$g; \
-	  $(RUN_VG) ../../inspector/virt-inspector -d $$g > /dev/null; \
+	  echo $(RUN_VG) ../../inspector/virt-inspector -c "$(libvirt_uri)" -d $$g; \
+	  $(RUN_VG) ../../inspector/virt-inspector -c "$(libvirt_uri)" -d $$g > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
