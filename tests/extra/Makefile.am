@@ -90,7 +90,8 @@ extra-tests-non-recursive: \
 
 extra-tests: \
 	extra-tests-non-recursive \
-	extra-tests-with-upstream-qemu
+	extra-tests-with-upstream-qemu \
+	extra-tests-with-launch-appliance
 
 test-guests:
 	$(MAKE) -C ../guests check
@@ -205,3 +206,9 @@ export MAKE
 
 extra-tests-with-upstream-qemu:
 	./test-with-upstream-qemu.sh
+
+# If libvirt is being used as the backend, rerun all the extra-tests
+# again using the regular appliance backend.
+
+extra-tests-with-launch-appliance:
+	./test-with-launch-appliance.sh
