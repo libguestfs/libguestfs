@@ -37,15 +37,13 @@ let rec generate_perl_xs () =
   pr "\
 #include <config.h>
 
+#include <inttypes.h>
+
 #include \"EXTERN.h\"
 #include \"perl.h\"
 #include \"XSUB.h\"
 
 #include <guestfs.h>
-
-#ifndef PRId64
-#define PRId64 \"lld\"
-#endif
 
 static SV *
 my_newSVll(long long val) {
@@ -58,10 +56,6 @@ my_newSVll(long long val) {
   return newSVpv(buf, len);
 #endif
 }
-
-#ifndef PRIu64
-#define PRIu64 \"llu\"
-#endif
 
 static SV *
 my_newSVull(unsigned long long val) {
