@@ -39,8 +39,6 @@
 #include <sys/wait.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
