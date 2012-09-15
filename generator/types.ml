@@ -23,14 +23,14 @@
 type style = ret * args * optargs
     (* The [style] is a tuple which describes the return value and
      * arguments of a function.
-     * 
+     *
      * [ret] is the return value, one of the [R*] values below.
-     * 
+     *
      * The second element is the list of required arguments, a list of
      * [argt]s from the list below, eg. [Bool], [String] etc.  Each has
      * a name so that for example [Int "foo"] corresponds in the C
      * bindings to an [int foo] parameter.
-     * 
+     *
      * The third element is the list of optional arguments.  These are
      * mapped to optional arguments in the language binding, eg. in
      * Perl to:

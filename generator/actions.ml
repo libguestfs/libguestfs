@@ -4029,7 +4029,7 @@ C<device>." };
     name = "set_e2uuid";
     style = RErr, [Device "device"; String "uuid"], [];
     proc_nr = Some 82;
-    tests = 
+    tests =
       (let uuid = uuidgen () in [
         InitBasicFS, Always, TestOutput (
           [["set_e2uuid"; "/dev/sda1"; uuid];

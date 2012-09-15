@@ -46,11 +46,12 @@ let string_of_errcode = function
 (* Generate a uuidgen-compatible UUID (used in tests).  However to
  * avoid having the UUID change every time we rebuild the tests,
  * generate it as a function of the contents of the actions.ml file.
- * 
+ *
  * Originally I thought uuidgen was using RFC 4122, but it doesn't
  * appear to.
- * 
- * Note that the format must be 01234567-0123-0123-0123-0123456789ab *)
+ *
+ * Note that the format must be 01234567-0123-0123-0123-0123456789ab
+ *)
 let uuidgen () =
   let s = Digest.to_hex (Digest.file "generator/actions.ml") in
 

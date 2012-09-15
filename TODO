@@ -402,7 +402,7 @@ virt-sysprep ideas
 Kazuo Moriwaka adds:
 
  - "yum clean all" (or the equivalent) to remove yum caches
- - swap devices (both of block device and file) should be wiped. This may  
+ - swap devices (both of block device and file) should be wiped. This may
    good for security purpose, and size.  I found virt-sparsify can clear
    swap partition.
  - --script is nice.  Defining default sysprep script directory
