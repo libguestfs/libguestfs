@@ -92,8 +92,9 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
-static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance, const char *guestfsd_sock, const char *console_sock);
+static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance, const char *guestfsd_sock, const char *console_sock, int disable_svirt);
 static void libvirt_error (guestfs_h *g, const char *fs, ...);
+static int is_custom_qemu (guestfs_h *g);
 static int is_blk (const char *path);
 static int random_chars (char *ret, size_t len);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
@@ -114,6 +115,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   int console = -1, r;
   uint32_t size;
   void *buf = NULL;
+  int disable_svirt = is_custom_qemu (g);
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -277,7 +279,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   xml = construct_libvirt_xml (g, capabilities,
                                kernel, initrd, appliance,
-                               guestfsd_sock, console_sock);
+                               guestfsd_sock, console_sock,
+                               disable_svirt);
   if (!xml)
     goto cleanup;
 
@@ -415,9 +418,16 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   return -1;
 }
 
+static int
+is_custom_qemu (guestfs_h *g)
+{
+  return g->qemu && STRNEQ (g->qemu, QEMU);
+}
+
 static int construct_libvirt_xml_name (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo, const char *kernel, const char *initrd, size_t appliance_index);
+static int construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index, const char *guestfsd_sock, const char *console_sock);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo);
@@ -436,7 +446,8 @@ static xmlChar *
 construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
                        const char *kernel, const char *initrd,
                        const char *appliance,
-                       const char *guestfsd_sock, const char *console_sock)
+                       const char *guestfsd_sock, const char *console_sock,
+                       int disable_svirt)
 {
   xmlChar *ret = NULL;
   xmlBufferPtr xb = NULL;
@@ -481,6 +492,9 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
     goto err;
   if (construct_libvirt_xml_boot (g, xo, kernel, initrd, appliance_index) == -1)
     goto err;
+  if (disable_svirt)
+    if (construct_libvirt_xml_seclabel (g, xo) == -1)
+      goto err;
   if (construct_libvirt_xml_lifecycle (g, xo) == -1)
     goto err;
   if (construct_libvirt_xml_devices (g, xo, appliance, appliance_index,
@@ -635,6 +649,22 @@ construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo,
   return -1;
 }
 
+static int
+construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo)
+{
+  /* This disables SELinux/sVirt confinement. */
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                         BAD_CAST "none"));
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  return 0;
+
+ err:
+  return -1;
+}
+
 /* qemu -no-reboot */
 static int
 construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo)
@@ -664,7 +694,7 @@ construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
   /* Path to qemu.  Only write this if the user has changed the
    * default, otherwise allow libvirt to choose the best one.
    */
-  if (g->qemu && STRNEQ (g->qemu, QEMU)) {
+  if (is_custom_qemu (g)) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
     XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->qemu));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
