@@ -107,7 +107,7 @@ and generate_daemon_actions () =
           | Device n | Dev_or_Path n
           | Pathname n
           | String n
-          | Key n -> ()
+          | Key n
           | OptString n -> pr "  char *%s;\n" n
           | StringList n | DeviceList n -> pr "  char **%s;\n" n
           | Bool n -> pr "  int %s;\n" n
@@ -179,7 +179,7 @@ and generate_daemon_actions () =
         pr "    goto done;\n";
         pr "  }\n";
         let pr_args n =
-          pr "  char *%s = args.%s;\n" n n
+          pr "  %s = args.%s;\n" n n
         in
         let pr_list_handling_code n =
           pr "  %s = realloc (args.%s.%s_val,\n" n n n;
