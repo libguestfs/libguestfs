@@ -9802,6 +9802,33 @@ the resulting filesystem may be inconsistent or corrupt.
 The returned status indicates whether filesystem corruption was
 detected (returns C<1>) or was not detected (returns C<0>)." };
 
+  { defaults with
+    name = "rm_f";
+    style = RErr, [Pathname "path"], [];
+    proc_nr = Some 367;
+    tests = [
+      InitScratchFS, Always, TestOutputFalse
+        [["mkdir"; "/rm_f"];
+         ["touch"; "/rm_f/foo"];
+         ["rm_f"; "/rm_f/foo"];
+         ["rm_f"; "/rm_f/not_exists"];
+         ["exists"; "/rm_f/foo"]];
+      InitScratchFS, Always, TestLastFail
+        [["mkdir"; "/rm_f2"];
+         ["mkdir"; "/rm_f2/foo"];
+         ["rm_f"; "/rm_f2/foo"]]
+    ];
+    shortdesc = "remove a file ignoring errors";
+    longdesc = "\
+Remove the file C<path>.
+
+If the file doesn't exist, that error is ignored.  (Other errors,
+eg. I/O errors or bad paths, are not ignored)
+
+This call cannot remove directories.
+Use C<guestfs_rmdir> to remove an empty directory,
+or C<guestfs_rm_rf> to remove directories recursively." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

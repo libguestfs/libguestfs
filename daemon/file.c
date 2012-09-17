@@ -107,6 +107,24 @@ do_rm (const char *path)
 }
 
 int
+do_rm_f (const char *path)
+{
+  int r;
+
+  CHROOT_IN;
+  r = unlink (path);
+  CHROOT_OUT;
+
+  /* Ignore ENOENT. */
+  if (r == -1 && errno != ENOENT) {
+    reply_with_perror ("%s", path);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
 do_chmod (int mode, const char *path)
 {
   int r;
