@@ -36,6 +36,7 @@
 /exitfail.m4
 /exponentd.m4
 /extensions.m4
+/extern-inline.m4
 /fchdir.m4
 /fclose.m4
 /fcntl_h.m4
