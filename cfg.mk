@@ -33,6 +33,7 @@ exclude_file_name_regexp--sc_prohibit_magic_number_exit = ^(po|po-docs)/|\.pod$
 exclude_file_name_regexp--sc_prohibit_strcmp = ^examples/
 exclude_file_name_regexp--sc_prohibit_strcmp_and_strncmp = ^examples/
 exclude_file_name_regexp--sc_prohibit_strncpy = ^src/launch-.*\.c$
+exclude_file_name_regexp--sc_require_config_h = ^examples/|^tests/c-api/test-just-header\.c$
 
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip =			\
