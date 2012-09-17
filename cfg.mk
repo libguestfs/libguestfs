@@ -28,6 +28,7 @@ url_dir_list = \
 exclude_file_name_regexp--sc_bindtextdomain = ^(daemon|erlang|examples|tests)/
 exclude_file_name_regexp--sc_error_message_period = ^php/
 exclude_file_name_regexp--sc_prohibit_always-defined_macros = ^examples/
+exclude_file_name_regexp--sc_prohibit_doubled_word = ^po/
 
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip =			\
