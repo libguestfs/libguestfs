@@ -24,6 +24,9 @@ gnu_rel_host = $(gnu_ftp_host-$(RELEASE_TYPE))
 url_dir_list = \
   ftp://$(gnu_rel_host)/gnu/coreutils
 
+# Exclude some filenames.
+exclude_file_name_regexp--sc_bindtextdomain = ^(daemon|erlang|examples|tests)/
+
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip =			\
   sc_po_check				\
