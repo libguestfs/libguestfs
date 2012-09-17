@@ -332,7 +332,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   char *buf = NULL;
   size_t buflen;
   const char *hivepath[] =
-    { fs->windows_current_control_set, "Services", "Tcpip", "Parameters" };
+    { NULL /* current control set */, "Services", "Tcpip", "Parameters" };
 
   if (guestfs_hivex_open (g, system_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
@@ -429,6 +429,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
  skip_drive_letter_mappings:;
   /* Get the hostname. */
+  hivepath[0] = fs->windows_current_control_set;
   for (node = root, i = 0;
        node > 0 && i < sizeof hivepath / sizeof hivepath[0];
        ++i) {

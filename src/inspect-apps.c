@@ -264,7 +264,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   char *Name = NULL, *Packages = NULL;
   struct rpm_names_list list = { .names = NULL, .len = 0 };
   struct guestfs_application_list *apps = NULL;
-  struct read_package_data data = { .list = &list, .apps = apps };
+  struct read_package_data data;
 
   Name = guestfs___download_to_tmp (g, fs,
                                     "/var/lib/rpm/Name", "rpm_Name",
@@ -291,6 +291,8 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   apps->val = NULL;
 
   /* Read Packages database. */
+  data.list = &list;
+  data.apps = apps;
   if (guestfs___read_db_dump (g, Packages, &data, read_package) == -1)
     goto error;
 
