@@ -1,3 +1,4 @@
 /.guestfs-*
 /guestfs.*
+/libguestfs??????/
 /run-*
