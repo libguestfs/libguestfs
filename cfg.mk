@@ -44,7 +44,8 @@ local-checks-to-skip =			\
   sc_error_message_uppercase		\
   sc_program_name			\
   $(disable_temporarily)		\
-  sc_useless_cpp_parens
+  sc_useless_cpp_parens			\
+  sc_cast_of_argument_to_free
 
 disable_temporarily =			\
   sc_makefile_check			\
