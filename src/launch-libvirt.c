@@ -1011,6 +1011,7 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
   size_t drv_index;
   char attr[256];
   struct qemu_param *qp;
+  char *p;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:commandline"));
 
@@ -1051,6 +1052,19 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
             xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
                                          BAD_CAST attr));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  /* We need to ensure the snapshots are created in $TMPDIR (RHBZ#856619). */
+  p = getenv ("TMPDIR");
+  if (p) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:env"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
+                                           BAD_CAST "TMPDIR"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
+                                           BAD_CAST p));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   /* Workaround because libvirt user networking cannot specify "net="
    * parameter.
