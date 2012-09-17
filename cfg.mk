@@ -1,5 +1,5 @@
 # Customize Makefile.maint.                           -*- makefile -*-
-# Copyright (C) 2003-2009 Free Software Foundation, Inc.
+# Copyright (C) 2003-2012 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -114,16 +114,6 @@ sc_prohibit_gethostby:
 	@prohibit='\<gethostby(addr|name2?) *\('			\
 	halt='use getaddrinfo, not gethostby*'				\
 	  $(_sc_search_regexp)
-
-# Disallow trailing blank lines.
-sc_prohibit_trailing_blank_lines:
-	@$(VC_LIST_EXCEPT)						\
-	  | xargs perl -ln -0777 -e					\
-	      '-f $$ARGV or next; /\n\n+$$/ and print $$ARGV' > $@-t
-	@found=0; test -s $@-t && { found=1; cat $@-t 1>&2;		\
-	  echo '$(ME): found trailing blank line(s)' 1>&2; };		\
-	rm -f $@-t;							\
-	test $$found = 0
 
 # We don't use this feature of maint.mk.
 prev_version_file = /dev/null
