@@ -36,10 +36,6 @@
 #include "guestfs.h"
 #include "options.h"
 
-#ifndef O_CLOEXEC
-#define O_CLOEXEC 0
-#endif
-
 /* Currently open libguestfs handle. */
 guestfs_h *g;
 

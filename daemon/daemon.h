@@ -30,10 +30,6 @@
 
 #include "guestfs_protocol.h"
 
-#ifndef O_CLOEXEC
-#define O_CLOEXEC 0
-#endif
-
 /*-- in guestfsd.c --*/
 extern int verbose;
 
