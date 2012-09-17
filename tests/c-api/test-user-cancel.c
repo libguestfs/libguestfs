@@ -46,10 +46,6 @@
 
 #include "guestfs.h"
 
-#ifndef O_CLOEXEC
-#define O_CLOEXEC 0
-#endif
-
 static const char *filename = "test.img";
 static const off_t filesize = 1024*1024*1024;
 

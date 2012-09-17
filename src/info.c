@@ -33,10 +33,6 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#ifndef O_CLOEXEC
-#define O_CLOEXEC 0
-#endif
-
 static int run_qemu_img_info (guestfs_h *g, const char *filename, int (*fn) (guestfs_h *g, char *line, void *data), void *data);
 static int check_disk_format (guestfs_h *h, char *line, void *data);
 static int check_disk_virtual_size (guestfs_h *h, char *line, void *data);
