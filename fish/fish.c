@@ -1684,22 +1684,25 @@ static char *
 file_in_heredoc (const char *endmarker)
 {
   TMP_TEMPLATE_ON_STACK (template);
+  int fd;
+  size_t markerlen;
+  char buffer[BUFSIZ];
+  int write_error = 0;
+
   file_in_tmpfile = strdup (template);
   if (file_in_tmpfile == NULL) {
     perror ("strdup");
     return NULL;
   }
 
-  int fd = mkstemp (file_in_tmpfile);
+  fd = mkstemp (file_in_tmpfile);
   if (fd == -1) {
     perror ("mkstemp");
     goto error1;
   }
 
-  size_t markerlen = strlen (endmarker);
+  markerlen = strlen (endmarker);
 
-  char buffer[BUFSIZ];
-  int write_error = 0;
   while (fgets (buffer, sizeof buffer, stdin) != NULL) {
     /* Look for "END"<EOF> or "END\n" in input. */
     size_t blen = strlen (buffer);

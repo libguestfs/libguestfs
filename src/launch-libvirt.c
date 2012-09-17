@@ -112,6 +112,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   char console_sock[256];
   struct sockaddr_un addr;
   int console = -1, r;
+  uint32_t size;
+  void *buf = NULL;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -338,8 +340,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     goto cleanup;
   }
 
-  uint32_t size;
-  void *buf = NULL;
   r = guestfs___recv_from_daemon (g, &size, &buf);
   free (buf);
 

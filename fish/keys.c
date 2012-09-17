@@ -39,6 +39,10 @@ read_key (const char *param)
   FILE *infp, *outfp;
   struct termios orig, temp;
   char *ret = NULL;
+  int tty;
+  int tcset = 0;
+  size_t n = 0;
+  ssize_t len;
 
   /* Read and write to /dev/tty if available. */
   if (keys_from_stdin ||
@@ -48,8 +52,7 @@ read_key (const char *param)
   }
 
   /* Print the prompt and set no echo. */
-  int tty = isatty (fileno (infp));
-  int tcset = 0;
+  tty = isatty (fileno (infp));
   if (tty) {
     fprintf (outfp, _("Enter key or passphrase (\"%s\"): "), param);
 
@@ -66,8 +69,6 @@ read_key (const char *param)
     }
   }
 
-  size_t n = 0;
-  ssize_t len;
   len = getline (&ret, &n, infp);
   if (len == -1) {
     perror ("getline");

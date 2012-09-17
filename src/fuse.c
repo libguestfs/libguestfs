@@ -750,6 +750,8 @@ mount_local_getxattr (const char *path, const char *name, char *value,
 
   const struct guestfs_xattr_list *xattrs;
   int free_attrs = 0;
+  ssize_t r;
+  size_t i, sz;
 
   xattrs = xac_lookup (g, path);
   if (xattrs == NULL) {
@@ -760,8 +762,6 @@ mount_local_getxattr (const char *path, const char *name, char *value,
   }
 
   /* Find the matching attribute (index in 'i'). */
-  ssize_t r;
-  size_t i;
   for (i = 0; i < xattrs->len; ++i) {
     if (STREQ (xattrs->val[i].attrname, name))
       break;
@@ -779,7 +779,7 @@ mount_local_getxattr (const char *path, const char *name, char *value,
    * copy as much as possible and return -ERANGE if there's not enough
    * space in the buffer.
    */
-  size_t sz = xattrs->val[i].attrval_len;
+  sz = xattrs->val[i].attrval_len;
   if (value == NULL) {
     r = sz;
     goto out;

@@ -135,10 +135,13 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   char cmd[cmd_len];
 #define bin_len (dir_len + 32)
   char bin[bin_len];
-
   char *ret = NULL;
-
   const char *method;
+  int64_t size;
+  int r;
+  const char *bins[] = INITRD_BINARIES2;
+  size_t i;
+
   if (strstr (file, "gzip"))
     method = "zcat";
   else if (strstr (file, "bzip2"))
@@ -147,7 +150,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
     method = "cat";
 
   /* Security: Refuse to download initrd if it is huge. */
-  int64_t size = guestfs_filesize (g, path);
+  size = guestfs_filesize (g, path);
   if (size == -1 || size > 100000000) {
     error (g, _("size of %s unreasonable (%" PRIi64 " bytes)"),
            path, size);
@@ -166,14 +169,12 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   snprintf (cmd, cmd_len,
             "cd %s && %s initrd | cpio --quiet -id " INITRD_BINARIES1,
             dir, method);
-  int r = system (cmd);
+  r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
     perrorf (g, "cpio command failed");
     goto out;
   }
 
-  const char *bins[] = INITRD_BINARIES2;
-  size_t i;
   for (i = 0; i < sizeof bins / sizeof bins[0]; ++i) {
     snprintf (bin, bin_len, "%s/%s", dir, bins[i]);
 

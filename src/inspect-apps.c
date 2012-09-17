@@ -264,6 +264,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   char *Name = NULL, *Packages = NULL;
   struct rpm_names_list list = { .names = NULL, .len = 0 };
   struct guestfs_application_list *apps = NULL;
+  struct read_package_data data = { .list = &list, .apps = apps };
 
   Name = guestfs___download_to_tmp (g, fs,
                                     "/var/lib/rpm/Name", "rpm_Name",
@@ -290,7 +291,6 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   apps->val = NULL;
 
   /* Read Packages database. */
-  struct read_package_data data = { .list = &list, .apps = apps };
   if (guestfs___read_db_dump (g, Packages, &data, read_package) == -1)
     goto error;
 
@@ -424,6 +424,10 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   }
 
   struct guestfs_application_list *ret = NULL;
+  const char *hivepath[] =
+    { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
+  const char *hivepath2[] =
+    { "WOW6432node", "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
 
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
@@ -435,16 +439,12 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   ret->val = NULL;
 
   /* Ordinary native applications. */
-  const char *hivepath[] =
-    { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
   list_applications_windows_from_path (g, ret, hivepath,
                                        sizeof hivepath / sizeof hivepath[0]);
 
   /* 32-bit emulated Windows apps running on the WOW64 emulator.
    * http://support.microsoft.com/kb/896459 (RHBZ#692545).
    */
-  const char *hivepath2[] =
-    { "WOW6432node", "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
   list_applications_windows_from_path (g, ret, hivepath2,
                                        sizeof hivepath2 / sizeof hivepath2[0]);
 

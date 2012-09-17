@@ -223,14 +223,17 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
      */
     return 0;
 
+  int64_t node;
+  const char *hivepath[] =
+    { "Microsoft", "Windows NT", "CurrentVersion" };
+  size_t i;
+  struct guestfs_hivex_value_list *values = NULL;
+
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
     goto out;
 
-  int64_t node = guestfs_hivex_root (g);
-  const char *hivepath[] =
-    { "Microsoft", "Windows NT", "CurrentVersion" };
-  size_t i;
+  node = guestfs_hivex_root (g);
   for (i = 0; node > 0 && i < sizeof hivepath / sizeof hivepath[0]; ++i)
     node = guestfs_hivex_node_get_child (g, node, hivepath[i]);
 
@@ -242,7 +245,6 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
     goto out;
   }
 
-  struct guestfs_hivex_value_list *values = NULL;
   values = guestfs_hivex_node_values (g, node);
 
   for (i = 0; i < values->len; ++i) {
@@ -329,6 +331,8 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   size_t i, count;
   char *buf = NULL;
   size_t buflen;
+  const char *hivepath[] =
+    { fs->windows_current_control_set, "Services", "Tcpip", "Parameters" };
 
   if (guestfs_hivex_open (g, system_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
@@ -425,8 +429,6 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
  skip_drive_letter_mappings:;
   /* Get the hostname. */
-  const char *hivepath[] =
-    { fs->windows_current_control_set, "Services", "Tcpip", "Parameters" };
   for (node = root, i = 0;
        node > 0 && i < sizeof hivepath / sizeof hivepath[0];
        ++i) {

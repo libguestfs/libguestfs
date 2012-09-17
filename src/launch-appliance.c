@@ -128,6 +128,9 @@ launch_appliance (guestfs_h *g, const char *arg)
   int wfd[2], rfd[2];
   char guestfsd_sock[256];
   struct sockaddr_un addr;
+  char *kernel = NULL, *initrd = NULL, *appliance = NULL;
+  uint32_t size;
+  void *buf = NULL;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -142,7 +145,6 @@ launch_appliance (guestfs_h *g, const char *arg)
   TRACE0 (launch_build_appliance_start);
 
   /* Locate and/or build the appliance. */
-  char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
 
@@ -635,8 +637,6 @@ launch_appliance (guestfs_h *g, const char *arg)
     goto cleanup1;
   }
 
-  uint32_t size;
-  void *buf = NULL;
   r = guestfs___recv_from_daemon (g, &size, &buf);
   free (buf);
 

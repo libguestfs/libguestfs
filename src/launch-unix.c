@@ -38,6 +38,8 @@ launch_unix (guestfs_h *g, const char *sockpath)
 {
   int r;
   struct sockaddr_un addr;
+  uint32_t size;
+  void *buf = NULL;
 
   if (g->qemu_params) {
     error (g, _("cannot set qemu parameters with the 'unix:' attach method"));
@@ -75,8 +77,6 @@ launch_unix (guestfs_h *g, const char *sockpath)
     goto cleanup;
   }
 
-  uint32_t size;
-  void *buf = NULL;
   r = guestfs___recv_from_daemon (g, &size, &buf);
   free (buf);
 

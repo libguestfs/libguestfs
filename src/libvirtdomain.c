@@ -177,6 +177,7 @@ guestfs___for_each_disk (guestfs_h *g,
   xmlXPathContextPtr xpathCtx = NULL;
   xmlXPathObjectPtr xpathObj = NULL;
   char *xml = NULL;
+  xmlNodeSetPtr nodes;
 
   /* Domain XML. */
   xml = virDomainGetXMLDesc (dom, 0);
@@ -210,7 +211,7 @@ guestfs___for_each_disk (guestfs_h *g,
     goto cleanup;
   }
 
-  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  nodes = xpathObj->nodesetval;
   for (i = 0; i < nodes->nodeNr; ++i) {
     xmlXPathObjectPtr xptype;
 
@@ -504,6 +505,7 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   char *xml = NULL;
   char *path = NULL;
   char *attach_method = NULL;
+  xmlNodeSetPtr nodes;
 
   /* Domain XML. */
   xml = virDomainGetXMLDesc (dom, 0);
@@ -543,7 +545,7 @@ connect_live (guestfs_h *g, virDomainPtr dom)
     goto cleanup;
   }
 
-  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  nodes = xpathObj->nodesetval;
   for (i = 0; i < nodes->nodeNr; ++i) {
     xmlXPathObjectPtr xppath;
 

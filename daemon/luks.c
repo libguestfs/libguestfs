@@ -40,19 +40,23 @@ optgroup_luks_available (void)
 static char *
 write_key_to_temp (const char *key)
 {
-  char *tempfile = strdup ("/tmp/luksXXXXXX");
+  char *tempfile;
+  int fd;
+  size_t len;
+
+  tempfile = strdup ("/tmp/luksXXXXXX");
   if (!tempfile) {
     reply_with_perror ("strdup");
     return NULL;
   }
 
-  int fd = mkstemp (tempfile);
+  fd = mkstemp (tempfile);
   if (fd == -1) {
     reply_with_perror ("mkstemp");
     goto error;
   }
 
-  size_t len = strlen (key);
+  len = strlen (key);
   if (xwrite (fd, key, len) == -1) {
     reply_with_perror ("write");
     close (fd);
