@@ -58,7 +58,10 @@ abs_srcdir ?= $(shell cd $(top_srcdir)/tests/extra && pwd)
 # Old RHEL 5 autoconf doesn't have abs_builddir.
 abs_builddir ?= $(shell pwd)
 
-EXTRA_DIST = pick-guests.pl suppressions
+EXTRA_DIST = \
+	pick-guests.pl \
+	suppressions \
+	test-with-upstream-qemu.sh
 
 VG = $(VALGRIND) \
 	$(VALGRIND_NO_VGDB) \
