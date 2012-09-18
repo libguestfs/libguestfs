@@ -23,7 +23,8 @@
 #     (tip: add yourself to the 'disk' group)
 #   - valgrind
 #   - libtool
-#   - qemu in $QEMUDIR
+# Optional:
+#   - upstream qemu in $QEMUDIR
 #
 # These tests may fail for reasons which aren't necessarily real problems.
 #
@@ -189,8 +190,8 @@ test-c-api:
 test-ocaml:
 	$(MAKE) -C ../../ocaml VG="$(VG)" check
 
-# When running the extra tests, if directory $HOME/d/qemu exists then
-# we will rerun the extra-tests using the version of qemu from that
+# When running the extra tests, if directory $QEMUDIR exists then we
+# will rerun all the extra-tests using the version of qemu from that
 # directory.  eg. That might be qemu from git.
 #
 # The directory name can be overridden using:
