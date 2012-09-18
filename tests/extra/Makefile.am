@@ -25,6 +25,7 @@
 #   - libtool
 # Optional:
 #   - upstream qemu in $QEMUDIR
+#   - upstream libvirt in $LIBVIRTDIR
 #
 # These tests may fail for reasons which aren't necessarily real problems.
 #
@@ -60,6 +61,7 @@ EXTRA_DIST = \
 	pick-guests.pl \
 	suppressions \
 	test-with-launch-appliance.sh \
+	test-with-upstream-libvirt.sh \
 	test-with-upstream-qemu.sh
 
 VG = $(VALGRIND) \
@@ -96,6 +98,7 @@ extra-tests-non-recursive: \
 extra-tests: \
 	extra-tests-non-recursive \
 	extra-tests-with-upstream-qemu \
+	extra-tests-with-upstream-libvirt \
 	extra-tests-with-launch-appliance
 
 test-guests:
@@ -211,6 +214,21 @@ export MAKE
 
 extra-tests-with-upstream-qemu:
 	./test-with-upstream-qemu.sh
+
+# When running the extra tests and ./configure
+# --with-default-attach-method=libvirt, if directory $LIBVIRTDIR
+# exists, we will rerun all the extra-tests using the version of
+# libvirt in that directory.  eg. That might be upstream libvirt from
+# git.
+#
+# The directory name can be overridden using:
+#   make extra-tests LIBVIRTDIR=/path/to/other/libvirt
+
+LIBVIRTDIR = $(HOME)/d/libvirt
+export LIBVIRTDIR
+
+extra-tests-with-upstream-libvirt:
+	./test-with-upstream-libvirt.sh
 
 # If libvirt is being used as the backend, rerun all the extra-tests
 # again using the regular appliance backend.
