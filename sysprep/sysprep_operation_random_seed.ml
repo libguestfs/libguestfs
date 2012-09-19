@@ -27,6 +27,7 @@ let random_seed_perform g root =
     let files = [
       "/var/lib/random-seed"; (* Fedora *)
       "/var/lib/urandom/random-seed"; (* Debian *)
+      "/var/lib/misc/random-seed"; (* SuSE *)
     ] in
     List.iter (
       fun file ->
