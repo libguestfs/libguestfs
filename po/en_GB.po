@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-30 23:39+0100\n"
+"POT-Creation-Date: 2012-09-19 13:50+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.net/projects/p/"
@@ -20,39 +20,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: align/domains.c:112 df/domains.c:119
+#: align/domains.c:111 df/domains.c:118
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:121 df/domains.c:128
+#: align/domains.c:120 df/domains.c:127
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:131 df/domains.c:138
+#: align/domains.c:130 df/domains.c:137
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:142 df/domains.c:149
+#: align/domains.c:141 df/domains.c:148
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:152 df/domains.c:159
+#: align/domains.c:151 df/domains.c:158
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:201 df/domains.c:215
+#: align/domains.c:200 df/domains.c:214
 #, c-format
 msgid "%s: failed to analyze a disk, see error(s) above\n"
 msgstr ""
 
-#: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
-#: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:440 df/main.c:136
-#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:138
+#: align/domains.c:351 align/scan.c:130 cat/virt-cat.c:121
+#: cat/virt-filesystems.c:207 cat/virt-ls.c:192 df/domains.c:439 df/main.c:136
+#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:137
 #: fuse/guestmount.c:208 inspector/virt-inspector.c:140
 #: rescue/virt-rescue.c:145
 #, c-format
@@ -60,7 +60,7 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: failed to create handle\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
-#: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
+#: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
 #: fuse/guestmount.c:100 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -88,8 +88,8 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
-#: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:190 fuse/guestmount.c:238 inspector/virt-inspector.c:164
+#: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
+#: format/format.c:189 fuse/guestmount.c:238 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -235,12 +235,12 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 
-#: cat/virt-filesystems.c:323 cat/virt-ls.c:350 df/main.c:254
+#: cat/virt-filesystems.c:323 cat/virt-ls.c:346 df/main.c:254
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: you cannot use -h and --csv options together.\n"
 
-#: cat/virt-ls.c:107
+#: cat/virt-ls.c:103
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -273,24 +273,24 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-ls.c:341
+#: cat/virt-ls.c:337
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page.\n"
 msgstr ""
 
-#: cat/virt-ls.c:580
+#: cat/virt-ls.c:576
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr ""
 
-#: cat/virt-ls.c:586
+#: cat/virt-ls.c:582
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:292
+#: df/domains.c:291
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)\n"
 msgstr ""
@@ -2941,18 +2941,18 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: format/format.c:70
+#: format/format.c:69
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
-#: format/format.c:73
+#: format/format.c:72
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
 msgstr ""
 
-#: format/format.c:77
+#: format/format.c:76
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -2979,17 +2979,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:159
+#: format/format.c:158
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr ""
 
-#: format/format.c:167
+#: format/format.c:166
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr ""
 
-#: format/format.c:271
+#: format/format.c:270
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -2998,7 +2998,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:312
+#: format/format.c:311
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
@@ -3322,14 +3322,14 @@ msgstr ""
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:395
+#: rescue/virt-rescue.c:396
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:414
+#: rescue/virt-rescue.c:415
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3337,7 +3337,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:424
+#: rescue/virt-rescue.c:425
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3346,7 +3346,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:481
+#: rescue/virt-rescue.c:482
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3356,7 +3356,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:488
+#: rescue/virt-rescue.c:489
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3365,55 +3365,55 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:493
+#: rescue/virt-rescue.c:494
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:701
+#: rescue/virt-rescue.c:702
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 
-#: src/appliance.c:204
+#: src/appliance.c:201
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:362
+#: src/appliance.c:359
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:367
+#: src/appliance.c:364
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:372
+#: src/appliance.c:369
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:712
+#: src/appliance.c:709
 msgid "external command failed, see earlier error messages"
 msgstr ""
 
-#: src/dbdump.c:88
+#: src/dbdump.c:85
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr ""
 
-#: src/dbdump.c:101 src/dbdump.c:113
+#: src/dbdump.c:98 src/dbdump.c:110
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 
-#: src/dbdump.c:130
+#: src/dbdump.c:127
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr ""
 
-#: src/dbdump.c:212
+#: src/dbdump.c:209
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
@@ -3478,27 +3478,27 @@ msgstr ""
 msgid "FUSE not supported"
 msgstr ""
 
-#: src/guestfs.c:213
+#: src/guestfs.c:194
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: src/guestfs.c:398
+#: src/guestfs.c:379
 #, c-format
 msgid "warning: %s"
 msgstr ""
 
-#: src/guestfs.c:459
+#: src/guestfs.c:440
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/guestfs.c:1038
+#: src/guestfs.c:1019
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect-apps.c:615 src/inspect.c:548
+#: src/inspect-apps.c:613 src/inspect.c:546
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -3510,8 +3510,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:239 src/inspect-fs-unix.c:766
-#: src/inspect-fs-unix.c:1450 src/inspect-fs.c:533 src/inspect-fs.c:577
-#: src/inspect.c:765
+#: src/inspect-fs-unix.c:1450 src/inspect-fs.c:532 src/inspect-fs.c:576
+#: src/inspect.c:763
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3525,7 +3525,7 @@ msgstr ""
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect-fs.c:366 src/inspect-fs.c:379
+#: src/inspect-fs.c:365 src/inspect-fs.c:378
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
@@ -3535,19 +3535,19 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:300
+#: src/inspect.c:298
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:316
+#: src/inspect.c:314
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:801
+#: src/inspect.c:799
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:813
+#: src/inspect.c:811
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3703,72 +3703,72 @@ msgid ""
 "without libvirt or libxml2"
 msgstr ""
 
-#: src/proto.c:379
+#: src/proto.c:359
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/proto.c:501
+#: src/proto.c:481
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
 "the debug messages output prior to this error.\n"
 msgstr ""
 
-#: src/proto.c:507
+#: src/proto.c:487
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:597
+#: src/proto.c:577
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/proto.c:616
+#: src/proto.c:596
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/proto.c:786
+#: src/proto.c:766
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/proto.c:795
+#: src/proto.c:775
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/proto.c:891 src/proto.c:1189
+#: src/proto.c:871 src/proto.c:1169
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:954
+#: src/proto.c:934
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/proto.c:1115
+#: src/proto.c:1095
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/proto.c:1143
+#: src/proto.c:1123
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/proto.c:1166
+#: src/proto.c:1146
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 
-#: src/proto.c:1171
+#: src/proto.c:1151
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/proto.c:1179
+#: src/proto.c:1159
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/proto.c:1193
+#: src/proto.c:1173
 msgid "file receive cancelled by daemon"
 msgstr ""
 
@@ -3814,54 +3814,54 @@ msgstr ""
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr ""
 
-#: test-tool/test-tool.c:185
+#: test-tool/test-tool.c:196
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr ""
 
-#: test-tool/test-tool.c:222
+#: test-tool/test-tool.c:233
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr ""
 
-#: test-tool/test-tool.c:234
+#: test-tool/test-tool.c:245
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:240
+#: test-tool/test-tool.c:251
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr ""
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:257
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr ""
 
-#: test-tool/test-tool.c:253
+#: test-tool/test-tool.c:264
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:259
+#: test-tool/test-tool.c:270
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:292
+#: test-tool/test-tool.c:303
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:300
+#: test-tool/test-tool.c:311
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr ""
 
-#: test-tool/test-tool.c:314
+#: test-tool/test-tool.c:325
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""

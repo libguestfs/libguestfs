@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-30 23:39+0100\n"
+"POT-Creation-Date: 2012-09-19 13:50+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -20,44 +20,44 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: align/domains.c:112 df/domains.c:119
+#: align/domains.c:111 df/domains.c:118
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr "%s: не вдалося встановити зв’язок з libvirt (код %d, домен %d): %s\n"
 
-#: align/domains.c:121 df/domains.c:128
+#: align/domains.c:120 df/domains.c:127
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: не вдалося визначити кількість запущених доменів (код %d, домен %d): %s\n"
 
-#: align/domains.c:131 df/domains.c:138
+#: align/domains.c:130 df/domains.c:137
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: не вдалося побудувати список запущених доменів (код %d, домен %d): %s\n"
 
-#: align/domains.c:142 df/domains.c:149
+#: align/domains.c:141 df/domains.c:148
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: не вдалося отримати дані щодо кількості неактивних доменів (код %d, "
 "домен %d): %s\n"
 
-#: align/domains.c:152 df/domains.c:159
+#: align/domains.c:151 df/domains.c:158
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: не вдалося побудувати список неактивних доменів (код %d, домен %d): %s\n"
 
-#: align/domains.c:201 df/domains.c:215
+#: align/domains.c:200 df/domains.c:214
 #, c-format
 msgid "%s: failed to analyze a disk, see error(s) above\n"
 msgstr "%s: не вдалося проаналізувати диск. Вище наведено список помилок.\n"
 
-#: align/domains.c:352 align/scan.c:130 cat/virt-cat.c:121
-#: cat/virt-filesystems.c:207 cat/virt-ls.c:196 df/domains.c:440 df/main.c:136
-#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:138
+#: align/domains.c:351 align/scan.c:130 cat/virt-cat.c:121
+#: cat/virt-filesystems.c:207 cat/virt-ls.c:192 df/domains.c:439 df/main.c:136
+#: edit/virt-edit.c:143 fish/fish.c:231 format/format.c:137
 #: fuse/guestmount.c:208 inspector/virt-inspector.c:140
 #: rescue/virt-rescue.c:145
 #, c-format
@@ -65,7 +65,7 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
 #: align/scan.c:67 cat/virt-cat.c:61 cat/virt-filesystems.c:104
-#: cat/virt-ls.c:103 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
+#: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:103
 #: fuse/guestmount.c:100 inspector/virt-inspector.c:78 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -109,8 +109,8 @@ msgstr ""
 "З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
 #: align/scan.c:150 cat/virt-cat.c:143 cat/virt-filesystems.c:261
-#: cat/virt-ls.c:246 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
-#: format/format.c:190 fuse/guestmount.c:238 inspector/virt-inspector.c:164
+#: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:290
+#: format/format.c:189 fuse/guestmount.c:238 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:201
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -262,12 +262,12 @@ msgstr ""
 "  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-filesystems.c:323 cat/virt-ls.c:350 df/main.c:254
+#: cat/virt-filesystems.c:323 cat/virt-ls.c:346 df/main.c:254
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
 
-#: cat/virt-ls.c:107
+#: cat/virt-ls.c:103
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -328,7 +328,7 @@ msgstr ""
 "  -x                   Трасувати виклики API libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-ls.c:341
+#: cat/virt-ls.c:337
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -338,17 +338,17 @@ msgstr ""
 "lR\n"
 "Докладніші дані наведено на сторінці довідника (man) virt-ls(1).\n"
 
-#: cat/virt-ls.c:580
+#: cat/virt-ls.c:576
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: помилка під час спроби отримання розширених атрибутів %s %s\n"
 
-#: cat/virt-ls.c:586
+#: cat/virt-ls.c:582
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: помилка: не вдалося обробити числове значення xattr для %s %s\n"
 
-#: df/domains.c:292
+#: df/domains.c:291
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %d)\n"
 msgstr "%s: ігноруємо %s, містить надто багато дисків (%zu > %d)\n"
@@ -3243,11 +3243,11 @@ msgstr "ні"
 msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
 
-#: format/format.c:70
+#: format/format.c:69
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr "ВАЖЛИВЕ ЗАУВАЖЕННЯ: ця програма ВИТИРАЄ ВСІ ДАНІ з дисків."
 
-#: format/format.c:73
+#: format/format.c:72
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
@@ -3256,7 +3256,7 @@ msgstr ""
 "Щоб дізнатися більше, віддайте команду «%s --help».\n"
 "%s\n"
 
-#: format/format.c:77
+#: format/format.c:76
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -3305,17 +3305,17 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: format/format.c:159
+#: format/format.c:158
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr "%s: не вказано файлової системи\n"
 
-#: format/format.c:167
+#: format/format.c:166
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr "%s: параметр --lvm можна визначати лише один раз\n"
 
-#: format/format.c:271
+#: format/format.c:270
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -3329,7 +3329,7 @@ msgstr ""
 "Якщо ви вважаєте, що зіткнулися з вадою, будь ласка,\n"
 "повідомте про це на сайті http://libguestfs.org/\n"
 
-#: format/format.c:312
+#: format/format.c:311
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr "%s: не вдалося обробити параметр --lvm (%s)\n"
@@ -3724,7 +3724,7 @@ msgstr "%s: значенням у параметрі --scratch «%s» має б�
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: не вдалося обробити запис об’єму пам’яті «%s»\n"
 
-#: rescue/virt-rescue.c:395
+#: rescue/virt-rescue.c:396
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -3733,7 +3733,7 @@ msgstr ""
 "Вивчення віртуальної машини або образу диска...\n"
 "\n"
 
-#: rescue/virt-rescue.c:414
+#: rescue/virt-rescue.c:415
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3746,7 +3746,7 @@ msgstr ""
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:424
+#: rescue/virt-rescue.c:425
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3759,7 +3759,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/virt-rescue.c:481
+#: rescue/virt-rescue.c:482
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3776,7 +3776,7 @@ msgstr ""
 "створити розділи, логічні томи та файлові системи на порожньому\n"
 "диску.\n"
 
-#: rescue/virt-rescue.c:488
+#: rescue/virt-rescue.c:489
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3790,18 +3790,18 @@ msgstr ""
 "відповідь на запит ><rescue>) для монтування цих файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:493
+#: rescue/virt-rescue.c:494
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
 
-#: rescue/virt-rescue.c:701
+#: rescue/virt-rescue.c:702
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 "%s: невідоме повідомлення про стан завершення дочірнього процесу (%d)\n"
 
-#: src/appliance.c:204
+#: src/appliance.c:201
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -3811,46 +3811,46 @@ msgstr ""
 "або розгортання у застарілому стилі за адресою LIBGUESTFS_PATH (каталог "
 "пошуку: %s)"
 
-#: src/appliance.c:362
+#: src/appliance.c:359
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "безпека: кешований пристрій %s не належить UID %d"
 
-#: src/appliance.c:367
+#: src/appliance.c:364
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
 
-#: src/appliance.c:372
+#: src/appliance.c:369
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/appliance.c:712
+#: src/appliance.c:709
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
 "попередніми повідомленнями"
 
-#: src/dbdump.c:88
+#: src/dbdump.c:85
 msgid "unexpected end of output from db_dump command before end of header"
 msgstr ""
 "неочікуване завершення вихідних даних від команди db_dump перед кінцем "
 "заголовка"
 
-#: src/dbdump.c:101 src/dbdump.c:113
+#: src/dbdump.c:98 src/dbdump.c:110
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 "неочікуваний рядок, виведений командою db_dump, не починається з пробілу"
 
-#: src/dbdump.c:130
+#: src/dbdump.c:127
 msgid "unexpected end of output from db_dump command before end of data"
 msgstr ""
 "неочікуване завершення даних, виведених командою db_dump, до кінця даних"
 
-#: src/dbdump.c:212
+#: src/dbdump.c:209
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr "неочікувані не шістнадцяткові цифри у виводі команди db_dump"
 
@@ -3917,27 +3917,27 @@ msgstr "не вдалося ініціалізувати таблиці хеші
 msgid "FUSE not supported"
 msgstr "підтримки FUSE не передбачено"
 
-#: src/guestfs.c:213
+#: src/guestfs.c:194
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/guestfs.c:398
+#: src/guestfs.c:379
 #, c-format
 msgid "warning: %s"
 msgstr "попередження: %s"
 
-#: src/guestfs.c:459
+#: src/guestfs.c:440
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/guestfs.c:1038
+#: src/guestfs.c:1019
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
 
-#: src/inspect-apps.c:615 src/inspect.c:548
+#: src/inspect-apps.c:613 src/inspect.c:546
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -3951,8 +3951,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:239 src/inspect-fs-unix.c:766
-#: src/inspect-fs-unix.c:1450 src/inspect-fs.c:533 src/inspect-fs.c:577
-#: src/inspect.c:765
+#: src/inspect-fs-unix.c:1450 src/inspect-fs.c:532 src/inspect-fs.c:576
+#: src/inspect.c:763
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
@@ -3966,7 +3966,7 @@ msgstr "не вдалося обробити /etc/fstab або порожній 
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
 
-#: src/inspect-fs.c:366 src/inspect-fs.c:379
+#: src/inspect-fs.c:365 src/inspect-fs.c:378
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
@@ -3976,20 +3976,20 @@ msgstr "не вдалося обробити ціле число у номері
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/inspect.c:300
+#: src/inspect.c:298
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:316
+#: src/inspect.c:314
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "не є гостьовою системою Windows або не вдалося визначити CurrentControlSet"
 
-#: src/inspect.c:801
+#: src/inspect.c:799
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:813
+#: src/inspect.c:811
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -4171,7 +4171,7 @@ msgstr ""
 "програмний інтерфейс add-domain недоступний, оскільки цю версію libguestfs "
 "було зібрано без підтримки бібліотеки libvirt або libxml2"
 
-#: src/proto.c:379
+#: src/proto.c:359
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -4179,7 +4179,7 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: від фонової служби отримано значення 0x"
 "%x, мало бути 0x%x\n"
 
-#: src/proto.c:501
+#: src/proto.c:481
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
@@ -4192,61 +4192,61 @@ msgstr ""
 "потім ознайомтеся з діагностичними повідомленнями до повідомлення про "
 "помилку.\n"
 
-#: src/proto.c:507
+#: src/proto.c:487
 msgid "See earlier debug messages.\n"
 msgstr "Ознайомтеся з попередніми діагностичними повідомленнями.\n"
 
-#: src/proto.c:597
+#: src/proto.c:577
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "отримано керівну послідовність байтів від guestfsd, але маємо стан %d"
 
-#: src/proto.c:616
+#: src/proto.c:596
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "довжина повідомлення (%u) перевищує максимальний можливий розмір (%d)"
 
-#: src/proto.c:786
+#: src/proto.c:766
 msgid "xdr_guestfs_message_header failed"
 msgstr "помилка xdr_guestfs_message_header"
 
-#: src/proto.c:795
+#: src/proto.c:775
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:891 src/proto.c:1189
+#: src/proto.c:871 src/proto.c:1169
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
-#: src/proto.c:954
+#: src/proto.c:934
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "помилка xdr_guestfs_chunk (буфер = %p, довжина буфера = %zu)"
 
-#: src/proto.c:1115
+#: src/proto.c:1095
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: помилка у кодуванні фрагмента"
 
-#: src/proto.c:1143
+#: src/proto.c:1123
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:1166
+#: src/proto.c:1146
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
 
-#: src/proto.c:1171
+#: src/proto.c:1151
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:1179
+#: src/proto.c:1159
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:1193
+#: src/proto.c:1173
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
@@ -4293,42 +4293,42 @@ msgstr "libguestfs-test-tool: некоректне значення часу о�
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
-#: test-tool/test-tool.c:185
+#: test-tool/test-tool.c:196
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
 
-#: test-tool/test-tool.c:222
+#: test-tool/test-tool.c:233
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:234
+#: test-tool/test-tool.c:245
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося запустити part-disk\n"
 
-#: test-tool/test-tool.c:240
+#: test-tool/test-tool.c:251
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:257
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:253
+#: test-tool/test-tool.c:264
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: не вдалося виконати touch для файла\n"
 
-#: test-tool/test-tool.c:259
+#: test-tool/test-tool.c:270
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:292
+#: test-tool/test-tool.c:303
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4337,12 +4337,12 @@ msgstr ""
 "Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:300
+#: test-tool/test-tool.c:311
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:314
+#: test-tool/test-tool.c:325
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
