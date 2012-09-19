@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-08-30 23:28+0100\n"
+"POT-Creation-Date: 2012-09-19 15:19+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -3101,14 +3101,14 @@ msgstr ""
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:373
+#: rescue/virt-rescue.c:374
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:392
+#: rescue/virt-rescue.c:393
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3116,7 +3116,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:402
+#: rescue/virt-rescue.c:403
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3125,7 +3125,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:459
+#: rescue/virt-rescue.c:460
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3135,7 +3135,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:466
+#: rescue/virt-rescue.c:467
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3144,12 +3144,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:471
+#: rescue/virt-rescue.c:472
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:595
+#: rescue/virt-rescue.c:596
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
@@ -3558,42 +3558,42 @@ msgstr "libguestfs-test-tool: invalid timeout: %s\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: അപ്രതീക്ഷിതമായ കമാന്‍ഡ് ലൈന്‍ ഉപാധി 0x%x\n"
 
-#: test-tool/test-tool.c:197
+#: test-tool/test-tool.c:208
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ഡ്രൈവ് '%s' ചേര്‍ക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:234
+#: test-tool/test-tool.c:245
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: പ്രയോഗം ലഭ്യമാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:257
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:252
+#: test-tool/test-tool.c:263
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:258
+#: test-tool/test-tool.c:269
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 /-ല്‍ മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:265
+#: test-tool/test-tool.c:276
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:271
+#: test-tool/test-tool.c:282
 #, fuzzy, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: guestfs_version പരാജയപ്പെട്ടു\n"
 
-#: test-tool/test-tool.c:304
+#: test-tool/test-tool.c:315
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3602,12 +3602,12 @@ msgstr ""
 "LIBGUESTFS_QEMU എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ നിലവില്‍ സജ്ജമാണു്, അതിനാല്‍\n"
 "--qemu/--qemudir ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല.\n"
 
-#: test-tool/test-tool.c:312
+#: test-tool/test-tool.c:323
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ്കില്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: test-tool/test-tool.c:326
+#: test-tool/test-tool.c:337
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu ഉറവിട ഡയറക്ടറിയില്‍ നിന്നും വ്യത്യസ്ഥമാണു്\n"
