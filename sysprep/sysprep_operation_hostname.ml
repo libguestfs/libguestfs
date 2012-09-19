@@ -31,18 +31,27 @@ let hostname_perform g root =
   let distro = g#inspect_get_distro root in
   match typ, distro with
   | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based") ->
-    (* Replace HOSTNAME=... entry.  The code assumes it's a small,
-     * plain text file.
+    (* Fedora 18 anaconda can create guests without
+     * /etc/sysconfig/network file.  If this happens then we may need
+     * to create this file (RHBZ#858696).
      *)
     let filename = "/etc/sysconfig/network" in
-    let lines = Array.to_list (g#read_lines filename) in
-    let lines = List.filter (
-      fun line -> not (string_prefix line "HOSTNAME=")
-    ) lines in
-    let file =
-      String.concat "\n" lines ^
-      sprintf "\nHOSTNAME=%s\n" !hostname in
-    g#write filename file;
+    if g#is_file filename then (
+      (* Replace HOSTNAME=... entry.  The code assumes it's a small,
+       * plain text file.
+       *)
+      let lines = Array.to_list (g#read_lines filename) in
+      let lines = List.filter (
+        fun line -> not (string_prefix line "HOSTNAME=")
+      ) lines in
+      let file =
+        String.concat "\n" lines ^
+          sprintf "\nHOSTNAME=%s\n" !hostname in
+      g#write filename file;
+    ) else (
+      let file = sprintf "HOSTNAME=%s\n" !hostname in
+      g#write filename file;
+    );
     [ `Created_files ]
 
   | "linux", ("debian"|"ubuntu") ->
