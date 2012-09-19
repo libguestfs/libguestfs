@@ -38,6 +38,10 @@ let globs = List.sort compare [
   "/var/log/spooler*";
   "/var/log/tallylog*";
   "/var/log/wtmp*";
+  "/var/log/apache2/*_log";
+  "/var/log/apache2/*_log-*";
+  "/var/log/audit/audit.log";
+  "/var/log/ntp";
 
   (* logfiles configured by /etc/logrotate.d/* *)
   "/var/log/BackupPC/LOG";
