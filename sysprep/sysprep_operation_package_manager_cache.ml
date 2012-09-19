@@ -25,6 +25,8 @@ let package_manager_cache_perform g root =
   let packager = g#inspect_get_package_management root in
   let cache_dirs =
     match packager with
+    | "zypper" ->
+      Some (g#glob_expand "/var/cache/zypp*/*")
     | "yum" ->
       Some (g#glob_expand "/var/cache/yum/*")
     | "apt" ->
