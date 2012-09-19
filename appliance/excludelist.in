@@ -50,6 +50,9 @@
 ^redhat-logos
 ^dracut
 
+/* RHBZ#858648 */
+^iptables
+
 #endif
 
 #ifdef DEBIAN
