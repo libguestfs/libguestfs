@@ -115,6 +115,10 @@ if libtool --help >/dev/null 2>&1; then
     libtool="libtool --mode=execute"
 fi
 
+# Avoid GNOME keyring stupidity
+export GNOME_KEYRING_CONTROL=
+export GNOME_KEYRING_PID=
+
 # Run the program.
 if [ -z "$test_mode" ]; then
     exec $libtool "$@"
