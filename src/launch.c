@@ -468,6 +468,22 @@ guestfs___timeval_diff (const struct timeval *x, const struct timeval *y)
   return msec;
 }
 
+/* Since this is the most common error seen by people who have
+ * installation problems, buggy qemu, etc, and since no one reads the
+ * FAQ, describe in this error message what resources are available to
+ * debug launch problems.
+ */
+void
+guestfs___launch_failed_error (guestfs_h *g)
+{
+  if (g->verbose)
+    error (g, _("guestfs_launch failed, see earlier error messages"));
+  else
+    error (g, _("guestfs_launch failed.\n"
+                "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+                "and/or run 'libguestfs-test-tool'."));
+}
+
 /* Return the location of the tmpdir (eg. "/tmp") and allow users
  * to override it at runtime using $TMPDIR.
  * http://www.pathname.com/fhs/pub/fhs-2.3.html#TMPTEMPORARYFILES

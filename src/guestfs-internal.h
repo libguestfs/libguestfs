@@ -486,6 +486,7 @@ extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, .
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern struct drive ** guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, struct drive **i);
+extern void guestfs___launch_failed_error (guestfs_h *g);
 
 /* launch-appliance.c */
 extern char *guestfs___drive_name (size_t index, char *ret);

@@ -347,12 +347,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   free (buf);
 
   if (r == -1) {
-    error (g, _("guestfs_launch failed, see earlier error messages"));
+    guestfs___launch_failed_error (g);
     goto cleanup;
   }
 
   if (size != GUESTFS_LAUNCH_FLAG) {
-    error (g, _("guestfs_launch failed, see earlier error messages"));
+    guestfs___launch_failed_error (g);
     goto cleanup;
   }
 
