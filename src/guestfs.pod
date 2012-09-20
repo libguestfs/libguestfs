@@ -38,6 +38,10 @@ For examples of using the API from C, see L<guestfs-examples(3)>.  For
 examples in other languages, see
 L</USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> below.
 
+If you are having performance problems, read
+L<guestfs-performance(1)>.  To help test libguestfs, read
+L<libguestfs-test-tool(1)> and L<guestfs-testing(1)>.
+
 =head1 API OVERVIEW
 
 This section provides a gentler overview of the libguestfs API.  We
