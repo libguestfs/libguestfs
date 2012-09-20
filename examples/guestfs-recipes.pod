@@ -117,6 +117,8 @@ To download to stdout, replace the filename with a C<-> character:
 
 To list the filesystems in a disk image, use L<virt-filesystems(1)>.
 
+See also L</Uploading raw filesystem content>.
+
 =head1 Edit grub configuration in a VM
 
 You can use this to:
@@ -405,6 +407,28 @@ The link below contains general tips on uploading (copying in)
 and downloading (copying out) files from VMs.
 
 L<https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/#content>
+
+=head1 Uploading raw filesystem content
+
+You can use L<guestfish(1)> to upload whole filesystems into a VM,
+even into a filesystem which is encrypted or buried inside an LV or
+RAID device:
+
+ guestfish --rw -a disk.img run : upload sda1.img /dev/sda1
+
+ guestfish --rw -d Guest run : upload lv.img /dev/vg_guest/lv_root
+
+One common problem is that the filesystem isn't the right size for the
+target.  If it is too large, there's not much you can do with
+libguestfs - you have to prepare the filesystem differently.  But if
+the filesystem needs to expand into the target, you can use guestfish
+to resize it to the right size:
+
+ guestfish --rw -d Guest run : \
+   upload lv.img /dev/vg_guest/lv_root : \
+   resize2fs /dev/vg_guest/lv_root
+
+(or use C<ntfsresize> if the filesystem is NTFS).
 
 =head1 Use libguestfs tools on VMware ESX guests
 
