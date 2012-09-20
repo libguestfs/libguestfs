@@ -1123,14 +1123,14 @@ map_md_devices(guestfs_h *g, Hash_table **map)
                                    mdadm_app_free);
   if (!*map) g->abort_cb();
 
-  for (char **match = matches; *match != NULL; match++) {
+  for (char **m = matches; *m != NULL; m++) {
     /* Get device name and uuid for each array */
-    char *dev_path = safe_asprintf(g, "%s/devicename", *match);
+    char *dev_path = safe_asprintf(g, "%s/devicename", *m);
     char *dev = guestfs_aug_get(g, dev_path);
     free(dev_path);
     if (!dev) goto error;
 
-    char *uuid_path = safe_asprintf(g, "%s/uuid", *match);
+    char *uuid_path = safe_asprintf(g, "%s/uuid", *m);
     char *uuid = guestfs_aug_get(g, uuid_path);
     free(uuid_path);
     if (!uuid) {
