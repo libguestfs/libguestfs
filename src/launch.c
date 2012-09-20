@@ -1055,12 +1055,12 @@ launch_appliance (guestfs_h *g)
   free (buf);
 
   if (r == -1) {
-    error (g, _("guestfs_launch failed, see earlier error messages"));
+    guestfs___launch_failed_error (g);
     goto cleanup1;
   }
 
   if (size != GUESTFS_LAUNCH_FLAG) {
-    error (g, _("guestfs_launch failed, see earlier error messages"));
+    guestfs___launch_failed_error (g);
     goto cleanup1;
   }
 
@@ -1212,6 +1212,22 @@ guestfs___launch_send_progress (guestfs_h *g, int perdozen)
 
     guestfs___progress_message_callback (g, &progress_message);
   }
+}
+
+/* Since this is the most common error seen by people who have
+ * installation problems, buggy qemu, etc, and since no one reads the
+ * FAQ, describe in this error message what resources are available to
+ * debug launch problems.
+ */
+void
+guestfs___launch_failed_error (guestfs_h *g)
+{
+  if (g->verbose)
+    error (g, _("guestfs_launch failed, see earlier error messages"));
+  else
+    error (g, _("guestfs_launch failed.\n"
+                "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+                "and/or run 'libguestfs-test-tool'."));
 }
 
 /* Return the location of the tmpdir (eg. "/tmp") and allow users

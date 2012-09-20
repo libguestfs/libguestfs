@@ -414,6 +414,7 @@ extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, cons
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
 extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
 extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
+extern void guestfs___launch_failed_error (guestfs_h *g);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
 extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
 extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
