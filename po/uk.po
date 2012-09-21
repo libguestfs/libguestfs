@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-09-17 23:04+0100\n"
+"POT-Creation-Date: 2012-09-21 15:43+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4089,19 +4089,19 @@ msgstr ""
 msgid "cannot parse output of qemu-img info: '%s'"
 msgstr ""
 
-#: src/inspect-fs-unix.c:188
+#: src/inspect-fs-unix.c:206
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:233 src/inspect-fs-unix.c:760
-#: src/inspect-fs-unix.c:1444 src/inspect-fs.c:526 src/inspect-fs.c:571
-#: src/inspect.c:620
+#: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
+#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1536 src/inspect-fs.c:530
+#: src/inspect-fs.c:575 src/inspect.c:622
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect-fs-unix.c:803
+#: src/inspect-fs-unix.c:895
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
@@ -4115,25 +4115,25 @@ msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:581
+#: src/inspect-icon.c:583
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/inspect.c:292
+#: src/inspect.c:294
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:308
+#: src/inspect.c:310
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "не є гостьовою системою Windows або не вдалося визначити CurrentControlSet"
 
-#: src/inspect.c:656
+#: src/inspect.c:658
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:668
+#: src/inspect.c:670
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -4156,13 +4156,6 @@ msgstr "не вдалося обробити рядок у лапках побл
 #: src/launch-appliance.c:139 src/launch-libvirt.c:124
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
-
-#: src/launch-appliance.c:644 src/launch-appliance.c:649
-#: src/launch-libvirt.c:350 src/launch-libvirt.c:355
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr ""
-"спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
-"повідомленнями"
 
 #: src/launch-appliance.c:662 src/launch-libvirt.c:368
 msgid "qemu launched and contacted daemon, but state != READY"
@@ -4220,16 +4213,16 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1181
+#: src/launch-libvirt.c:1183
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1212
+#: src/launch-libvirt.c:1214
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1237
+#: src/launch-libvirt.c:1239
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4277,24 +4270,37 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:520
+#: src/launch.c:480
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr ""
+"спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
+"повідомленнями"
+
+#: src/launch.c:482
+msgid ""
+"guestfs_launch failed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"and/or run 'libguestfs-test-tool'."
+msgstr ""
+
+#: src/launch.c:536
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/launch.c:559
+#: src/launch.c:575
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:565
+#: src/launch.c:581
 msgid "the current attach-method does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:580
+#: src/launch.c:596
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:594
+#: src/launch.c:610
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
@@ -5046,11 +5052,11 @@ msgstr "Вирівняти перший розділ (типове значен�
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:57
+#: ../sysprep/sysprep_operation_hostname.ml:70
 msgid "Change the hostname of the guest"
 msgstr "Змінити назву вузла гостьової системи"
 
-#: ../sysprep/sysprep_operation_hostname.ml:66
+#: ../sysprep/sysprep_operation_hostname.ml:79
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -5279,7 +5285,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../sysprep/sysprep_operation_random_seed.ml:50
+#: ../sysprep/sysprep_operation_random_seed.ml:51
 msgid "Generate random seed for guest"
 msgstr "Створити породжувач випадкових чисел для гостьової системи"
 
@@ -5323,7 +5329,7 @@ msgstr "Точка монтування у основній системі"
 msgid "Never do SELinux relabel"
 msgstr "Ніколи не виконувати зміни міток SELinux"
 
-#: ../sysprep/sysprep_operation_hostname.ml:65
+#: ../sysprep/sysprep_operation_hostname.ml:78
 msgid "New hostname"
 msgstr "Нова назва вузла"
 
@@ -5342,7 +5348,7 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:86
+#: ../sysprep/sysprep_operation_logfiles.ml:90
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -5414,11 +5420,11 @@ msgstr "Вилучити вкладку ідентифікаторів блок�
 msgid "Remove email from the local mail spool directory"
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера"
 
-#: ../sysprep/sysprep_operation_logfiles.ml:84
+#: ../sysprep/sysprep_operation_logfiles.ml:88
 msgid "Remove many log files from the guest"
 msgstr "Вилучити з гостьової системи багато файлів журналів"
 
-#: ../sysprep/sysprep_operation_package_manager_cache.ml:40
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:42
 msgid "Remove package manager cache"
 msgstr "Вилучити кеш керування пакунками"
 
@@ -5733,7 +5739,7 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../sysprep/sysprep_operation_hostname.ml:58
+#: ../sysprep/sysprep_operation_hostname.ml:71
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -5747,7 +5753,7 @@ msgstr ""
 "Якщо параметр I<--hostname> не буде вказано, назву вузла буде змінено\n"
 "на C<localhost.localdomain>."
 
-#: ../sysprep/sysprep_operation_random_seed.ml:51
+#: ../sysprep/sysprep_operation_random_seed.ml:52
 msgid ""
 "Write some random bytes from the host into the random seed file of the\n"
 "guest.\n"
@@ -5855,7 +5861,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "файлова система"
 
-#: ../sysprep/sysprep_operation_hostname.ml:65
+#: ../sysprep/sysprep_operation_hostname.ml:78
 msgid "hostname"
 msgstr "назва_вузла"
 
