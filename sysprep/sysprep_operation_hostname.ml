@@ -54,7 +54,7 @@ let hostname_perform g root =
     );
     [ `Created_files ]
 
-  | "linux", ("opensuse"|"sles") ->
+  | "linux", ("opensuse"|"sles"|"suse-based") ->
     g#write "/etc/HOSTNAME" !hostname;
     [ `Created_files ]
 
