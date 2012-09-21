@@ -346,6 +346,8 @@ enum inspect_os_distro {
   OS_DISTRO_BUILDROOT,
   OS_DISTRO_CIRROS,
   OS_DISTRO_FREEDOS,
+  OS_DISTRO_SUSE_BASED,
+  OS_DISTRO_SLES,
 };
 
 enum inspect_os_package_format {

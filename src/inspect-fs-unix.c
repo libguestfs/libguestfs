@@ -67,6 +67,12 @@ static pcre *re_mdN;
 static pcre *re_freebsd;
 static pcre *re_diskbyid;
 static pcre *re_netbsd;
+static pcre *re_opensuse;
+static pcre *re_sles;
+static pcre *re_nld;
+static pcre *re_opensuse_version;
+static pcre *re_sles_version;
+static pcre *re_sles_patchlevel;
 
 static void compile_regexps (void) __attribute__((constructor));
 static void free_regexps (void) __attribute__((destructor));
@@ -112,6 +118,12 @@ compile_regexps (void)
   COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
   COMPILE (re_diskbyid, "^/dev/disk/by-id/.*-part(\\d+)$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
+  COMPILE (re_opensuse, "^(openSUSE|SuSE Linux|SUSE LINUX) ", 0);
+  COMPILE (re_sles, "^SUSE (Linux|LINUX) Enterprise ", 0);
+  COMPILE (re_nld, "^Novell Linux Desktop ", 0);
+  COMPILE (re_opensuse_version, "^VERSION = (\\d+)\\.(\\d+)", 0);
+  COMPILE (re_sles_version, "^VERSION = (\\d+)", 0);
+  COMPILE (re_sles_patchlevel, "^PATCHLEVEL = (\\d+)", 0);
 }
 
 static void
@@ -134,6 +146,12 @@ free_regexps (void)
   pcre_free (re_freebsd);
   pcre_free (re_diskbyid);
   pcre_free (re_netbsd);
+  pcre_free (re_opensuse);
+  pcre_free (re_sles);
+  pcre_free (re_nld);
+  pcre_free (re_opensuse_version);
+  pcre_free (re_sles_version);
+  pcre_free (re_sles_patchlevel);
 }
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
@@ -301,6 +319,82 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
   return r ? 1 : 0;
 }
 
+static int
+parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
+{
+  int64_t size;
+  char *major, *minor;
+  char **lines;
+  int r = -1;
+
+  /* Don't trust guestfs_head_n not to break with very large files.
+   * Check the file size is something reasonable first.
+   */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > MAX_SMALL_FILE_SIZE) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  lines = guestfs_head_n (g, 10, filename);
+  if (lines == NULL)
+    return -1;
+
+  /* First line is dist release name */
+  fs->product_name = safe_strdup (g, lines[0]);
+  if (fs->product_name == NULL)
+    goto out;
+
+  /* Match SLES first because openSuSE regex overlaps some SLES release strings */
+  if (match (g, fs->product_name, re_sles) || match (g, fs->product_name, re_nld)) {
+    fs->distro = OS_DISTRO_SLES;
+
+    /* Second line contains version string */
+    if (lines[1] == NULL)
+      goto out;
+    major = match1 (g, lines[1], re_sles_version);
+    fs->major_version = guestfs___parse_unsigned_int (g, major);
+    free (major);
+    if (fs->major_version == -1)
+      goto out;
+
+    /* Third line contains service pack string */
+    if (lines[2] == NULL)
+      goto out;
+    minor = match1 (g, lines[2], re_sles_patchlevel);
+    fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+    free (minor);
+    if (fs->minor_version == -1)
+      goto out;
+  }
+  else if (match (g, fs->product_name, re_opensuse)) {
+    fs->distro = OS_DISTRO_OPENSUSE;
+
+    /* Second line contains version string */
+    if (lines[1] == NULL)
+      goto out;
+    if (match2 (g, lines[1], re_opensuse_version, &major, &minor)) {
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      free (major);
+      free (minor);
+      if (fs->major_version == -1 || fs->minor_version == -1)
+        goto out;
+    }
+  }
+
+  r = 0;
+
+out:
+  guestfs___free_string_list (lines);
+
+  return r;
+}
+
 /* The currently mounted device is known to be a Linux root.  Try to
  * determine from this the distro, version, etc.  Also parse
  * /etc/fstab to determine the arrangement of mountpoints and
@@ -464,13 +558,11 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
   }
   else if (guestfs_exists (g, "/etc/SuSE-release") > 0) {
-    fs->distro = OS_DISTRO_OPENSUSE;
+    fs->distro = OS_DISTRO_SUSE_BASED;
 
-    if (parse_release_file (g, fs, "/etc/SuSE-release") == -1)
+    if (parse_suse_release (g, fs, "/etc/SuSE-release") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
-      return -1;
   }
   /* Buildroot (http://buildroot.net) is an embedded Linux distro
    * toolkit.  It is used by specific distros such as Cirros.

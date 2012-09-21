@@ -232,6 +232,8 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
   case OS_DISTRO_SCIENTIFIC_LINUX: ret = safe_strdup (g, "scientificlinux"); break;
   case OS_DISTRO_SLACKWARE: ret = safe_strdup (g, "slackware"); break;
+  case OS_DISTRO_SLES: ret = safe_strdup (g, "sles"); break;
+  case OS_DISTRO_SUSE_BASED: ret = safe_strdup (g, "suse-based"); break;
   case OS_DISTRO_TTYLINUX: ret = safe_strdup (g, "ttylinux"); break;
   case OS_DISTRO_WINDOWS: ret = safe_strdup (g, "windows"); break;
   case OS_DISTRO_UBUNTU: ret = safe_strdup (g, "ubuntu"); break;

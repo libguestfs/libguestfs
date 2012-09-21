@@ -410,7 +410,9 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_RHEL:
   case OS_DISTRO_MAGEIA:
   case OS_DISTRO_MANDRIVA:
+  case OS_DISTRO_SUSE_BASED:
   case OS_DISTRO_OPENSUSE:
+  case OS_DISTRO_SLES:
   case OS_DISTRO_CENTOS:
   case OS_DISTRO_SCIENTIFIC_LINUX:
     fs->package_format = OS_PACKAGE_FORMAT_RPM;
@@ -484,7 +486,9 @@ check_package_management (guestfs_h *g, struct inspect_fs *fs)
     fs->package_management = OS_PACKAGE_MANAGEMENT_URPMI;
     break;
 
+  case OS_DISTRO_SUSE_BASED:
   case OS_DISTRO_OPENSUSE:
+  case OS_DISTRO_SLES:
     fs->package_management = OS_PACKAGE_MANAGEMENT_ZYPPER;
     break;
 

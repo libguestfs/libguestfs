@@ -1000,6 +1000,14 @@ Scientific Linux.
 
 Slackware.
 
+=item \"sles\"
+
+SuSE Linux Enterprise Server or Desktop.
+
+=item \"suse-based\"
+
+Some openSuSE-derived distro.
+
 =item \"ttylinux\"
 
 ttylinux.

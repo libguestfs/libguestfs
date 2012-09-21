@@ -152,7 +152,9 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
       r = icon_mageia (g, fs, &size);
       break;
 
+    case OS_DISTRO_SUSE_BASED:
     case OS_DISTRO_OPENSUSE:
+    case OS_DISTRO_SLES:
       r = icon_opensuse (g, fs, &size);
       break;
 
