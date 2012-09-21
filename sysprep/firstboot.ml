@@ -28,14 +28,35 @@ let firstboot_dir = "/usr/lib/virt-sysprep"
 let firstboot_sh = sprintf "\
 #!/bin/sh -
 
+### BEGIN INIT INFO
+# Provides:          virt-sysprep
+# Required-Start:    $null
+# Should-Start:      $all
+# Required-Stop:     $null
+# Should-Stop:       $all
+# Default-Start:     2 3 5
+# Default-Stop:      0 1 6
+# Short-Description: Start scripts to run once at next boot
+# Description:       Start scripts to run once at next boot
+#	These scripts run the first time the guest boots,
+#	and then are deleted. Output or errors from the scripts
+#	are written to ~root/virt-sysprep-firstboot.log.
+### END INIT INFO
+
 d=%s/scripts
 logfile=~root/virt-sysprep-firstboot.log
 
-for f in $d/* ; do
-  echo '=== Running' $f '===' >>$logfile
-  $f >>$logfile 2>&1
-  rm $f
-done
+if test \"$1\" = \"start\"
+then
+  for f in $d/* ; do
+    if test -x \"$f\"
+    then
+      echo '=== Running' $f '===' >>$logfile
+      $f >>$logfile 2>&1
+      rm -f $f
+    fi
+  done
+fi
 " firstboot_dir
 
 let firstboot_service = sprintf "\
@@ -56,7 +77,7 @@ WantedBy=default.target
 let failed fs =
   ksprintf (fun msg -> failwith (s_"firstboot: failed: " ^ msg)) fs
 
-let rec install_service g root =
+let rec install_service g distro =
   g#mkdir_p firstboot_dir;
   g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
   g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
@@ -64,18 +85,28 @@ let rec install_service g root =
 
   (* systemd, else assume sysvinit *)
   if g#is_dir "/etc/systemd" then
-    install_systemd_service g root
+    install_systemd_service g
   else
-    install_sysvinit_service g root
+    install_sysvinit_service g distro
 
 (* Install the systemd firstboot service, if not installed already. *)
-and install_systemd_service g root =
+and install_systemd_service g =
   g#write (sprintf "%s/firstboot.service" firstboot_dir) firstboot_service;
   g#mkdir_p "/etc/systemd/system/default.target.wants";
   g#ln_sf (sprintf "%s/firstboot.service" firstboot_dir)
     "/etc/systemd/system/default.target.wants"
 
-and install_sysvinit_service g root =
+and install_sysvinit_service g = function
+  | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
+    install_sysvinit_redhat g
+  | "opensuse"|"sles"|"suse-based" ->
+    install_sysvinit_suse g
+  | "debian" ->
+    install_sysvinit_debian g
+  | distro ->
+    failed "guest type %s is not supported" distro
+
+and install_sysvinit_redhat g =
   g#mkdir_p "/etc/rc.d/rc2.d";
   g#mkdir_p "/etc/rc.d/rc3.d";
   g#mkdir_p "/etc/rc.d/rc5.d";
@@ -86,12 +117,40 @@ and install_sysvinit_service g root =
   g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
     "/etc/rc.d/rc5.d/99virt-sysprep-firstboot"
 
+(* Make firstboot.sh look like a runlevel script to avoid insserv warnings. *)
+and install_sysvinit_suse g =
+  g#mkdir_p "/etc/init.d/rc2.d";
+  g#mkdir_p "/etc/init.d/rc3.d";
+  g#mkdir_p "/etc/init.d/rc5.d";
+  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+    "/etc/init.d/virt-sysprep-firstboot";
+  g#ln_sf "../virt-sysprep-firstboot"
+    "/etc/init.d/rc2.d/S99virt-sysprep-firstboot";
+  g#ln_sf "../virt-sysprep-firstboot"
+    "/etc/init.d/rc3.d/S99virt-sysprep-firstboot";
+  g#ln_sf "../virt-sysprep-firstboot"
+    "/etc/init.d/rc5.d/S99virt-sysprep-firstboot"
+
+and install_sysvinit_debian g =
+  g#mkdir_p "/etc/init.d";
+  g#mkdir_p "/etc/rc2.d";
+  g#mkdir_p "/etc/rc3.d";
+  g#mkdir_p "/etc/rc5.d";
+  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+    "/etc/init.d/virt-sysprep-firstboot";
+  g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
+    "/etc/rc2.d/S99virt-sysprep-firstboot";
+  g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
+    "/etc/rc3.d/S99virt-sysprep-firstboot";
+  g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
+    "/etc/rc5.d/S99virt-sysprep-firstboot"
+
 let add_firstboot_script g root id content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
   | "linux", _ ->
-    install_service g root;
+    install_service g distro;
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
     let filename = sprintf "%s/scripts/%Ld-%s-%s" firstboot_dir t r id in
