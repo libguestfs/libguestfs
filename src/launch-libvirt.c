@@ -1103,11 +1103,13 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
                                            BAD_CAST qp->qemu_param));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST qp->qemu_value));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    if (qp->qemu_value) {
+      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
+                                             BAD_CAST qp->qemu_value));
+      XMLERROR (-1, xmlTextWriterEndElement (xo));
+    }
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));

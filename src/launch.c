@@ -320,7 +320,7 @@ guestfs__config (guestfs_h *g,
 
   qp = safe_malloc (g, sizeof *qp);
   qp->qemu_param = safe_strdup (g, qemu_param);
-  qp->qemu_value = safe_strdup (g, qemu_value);
+  qp->qemu_value = qemu_value ? safe_strdup (g, qemu_value) : NULL;
 
   qp->next = g->qemu_params;
   g->qemu_params = qp;
