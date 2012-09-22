@@ -39,7 +39,7 @@ if ($pid == 0) {
   my $g = Sys::Guestfs->new ();
   $g->add_drive ("/dev/null");
   $g->launch ();
-  _exit (0);
+  _exit (0); # So the tmpdir is not removed.
 }
 
 my $g = Sys::Guestfs->new ();
