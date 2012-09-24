@@ -63,7 +63,7 @@ type comment_style =
   | ErlangStyle
 type license = GPLv2plus | LGPLv2plus
 
-let generate_header ?(extra_inputs = []) comment license =
+let generate_header ?(extra_inputs = []) ?emacs_mode comment license =
   let inputs = "generator/generator_*.ml" :: extra_inputs in
   let c = match comment with
     | CStyle ->         pr "/* "; " *"
@@ -72,7 +72,12 @@ let generate_header ?(extra_inputs = []) comment license =
     | OCamlStyle ->     pr "(* "; " *"
     | HaskellStyle ->   pr "{- "; "  "
     | ErlangStyle ->    pr "%% "; "% " in
-  pr "libguestfs generated file\n";
+  pr "libguestfs generated file";
+  (match emacs_mode with
+  | None -> ()
+  | Some mode -> pr " -*- %s -*-" mode
+  );
+  pr "\n";
   pr "%s WARNING: THIS FILE IS GENERATED FROM:\n" c;
   List.iter (pr "%s   %s\n" c) inputs;
   pr "%s ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n" c;
