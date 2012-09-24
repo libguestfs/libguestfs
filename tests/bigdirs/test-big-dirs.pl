@@ -22,23 +22,12 @@ use warnings;
 
 use Sys::Guestfs;
 
-# Skip this test on 32 bit machines, since we cannot create a large
-# enough file below.
-if (~1 == 4294967294) {
-    print STDERR "$0: tested skipped because this is a 32 bit machine\n";
-    exit 77
-}
-
 my $g = Sys::Guestfs->new ();
 
-# Create a 16 GB test file.  Don't worry, it's sparse.
-#
-# It has to be this big because the 'defaults' configuration of mke2fs
-# will choose a default inode ratio of 16K, and in order to create a
-# million files that means we have to have the disk be >= 16K * 1000000
-# bytes in size.
+# Create a 2 GB test file.  Don't worry, it's sparse.
+
 my $nr_files = 1000000;
-my $image_size = 16*1024*1024*1024;
+my $image_size = 2*1024*1024*1024;
 
 unlink "test.img";
 open FILE, ">test.img" or die "test.img: $!";
@@ -51,6 +40,7 @@ $g->launch ();
 
 $g->part_disk ("/dev/sda", "mbr");
 $g->mkfs ("ext4", "/dev/sda1");
+$g->mke2fs ("/dev/sda1", fstype => "ext4", bytesperinode => 2048);
 $g->mount ("/dev/sda1", "/");
 
 my %df = $g->statvfs ("/");
