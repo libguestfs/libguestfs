@@ -37,15 +37,23 @@ open Generator_structs
  * This header is NOT exported to clients, but see also generate_structs_h.
  *)
 let generate_xdr () =
-  generate_header CStyle LGPLv2plus;
+  generate_header ~emacs_mode:"c" CStyle LGPLv2plus;
 
+  pr "/* This file defines the protocol used between the library and\n";
+  pr " * the appliance/daemon.  For more information see the COMMUNICATION\n";
+  pr " * PROTOCOL section in guestfs(3).  Note this protocol is internal\n";
+  pr " * to libguestfs and may change at any time.\n";
+  pr " */\n";
+  pr "\n";
   pr "%%#include <config.h>\n";
+  pr "\n";
 
-  (* This has to be defined to get around a limitation in Sun's rpcgen. *)
+  pr "/* This has to be defined to get around a limitation in Sun's rpcgen. */\n";
   pr "typedef string guestfs_str<>;\n";
   pr "\n";
 
-  (* Internal structures. *)
+  pr "/* Internal structures. */\n";
+  pr "\n";
   List.iter (
     function
     | typ, cols ->
@@ -67,6 +75,8 @@ let generate_xdr () =
         pr "\n";
   ) structs;
 
+  pr "/* Function arguments and return values. */\n";
+  pr "\n";
   List.iter (
     fun (shortname, (ret, args, optargs), _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
@@ -139,7 +149,7 @@ let generate_xdr () =
       );
   ) daemon_functions;
 
-  (* Table of procedure numbers. *)
+  pr "/* Table of procedure numbers. */\n";
   pr "enum guestfs_procedure {\n";
   List.iter (
     fun (shortname, _, proc_nr, _, _, _, _) ->
@@ -147,6 +157,9 @@ let generate_xdr () =
   ) daemon_functions;
   pr "  GUESTFS_PROC_NR_PROCS\n";
   pr "};\n";
+  pr "\n";
+
+  pr "/* The remote procedure call protocol. */\n";
   pr "\n";
 
   (* Having to choose a maximum message size is annoying for several
@@ -159,10 +172,6 @@ let generate_xdr () =
 
   (* Message header, etc. *)
   pr "\
-/* The communication protocol is now documented in the guestfs(3)
- * manpage.
- */
-
 const GUESTFS_PROGRAM = 0x2000F5F5;
 const GUESTFS_PROTOCOL_VERSION = 4;
 
