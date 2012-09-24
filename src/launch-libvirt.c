@@ -60,7 +60,7 @@
  */
 #define MIN_LIBVIRT_MAJOR 0
 #define MIN_LIBVIRT_MINOR 10
-#define MIN_LIBVIRT_MICRO 0
+#define MIN_LIBVIRT_MICRO 2 /* XXX patches in > 2 already */
 #define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 + \
                              MIN_LIBVIRT_MINOR * 1000 + \
                              MIN_LIBVIRT_MICRO)
