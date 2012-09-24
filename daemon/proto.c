@@ -205,7 +205,7 @@ main_loop (int _sock)
       fprintf (stderr,
 	       "guestfsd: main_loop: proc %d (%s) took %d.%02d seconds\n",
                proc_nr,
-               proc_nr >= 0 && proc_nr < GUESTFS_PROC_NR_PROCS
+               proc_nr >= 0 && proc_nr <= GUESTFS_MAX_PROC_NR
                ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
                (int) (elapsed_us / 1000000),
                (int) ((elapsed_us / 10000) % 100));

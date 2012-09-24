@@ -166,14 +166,20 @@ let generate_xdr () =
 
   pr "/* Table of procedure numbers. */\n";
   pr "enum guestfs_procedure {\n";
-  List.iter (
-    function
-    | { name = shortname; proc_nr = Some proc_nr } ->
-      pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
-    | { proc_nr = None } -> assert false
-  ) daemon_functions;
-  pr "  GUESTFS_PROC_NR_PROCS\n";
+  let rec loop = function
+    | [] -> ()
+    | { proc_nr = None } :: _ -> assert false
+    | { name = shortname; proc_nr = Some proc_nr } :: [] ->
+      pr "  GUESTFS_PROC_%s = %d\n" (String.uppercase shortname) proc_nr
+    | { name = shortname; proc_nr = Some proc_nr } :: rest ->
+      pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr;
+      loop rest
+  in
+  loop daemon_functions;
   pr "};\n";
+  pr "\n";
+
+  pr "const GUESTFS_MAX_PROC_NR = %d;\n" max_proc_nr;
   pr "\n";
 
   pr "/* The remote procedure call protocol. */\n";
