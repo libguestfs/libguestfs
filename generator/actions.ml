@@ -6099,6 +6099,7 @@ the requested cluster size." };
     name = "mke2journal";
     style = RErr, [Int "blocksize"; Device "device"], [];
     proc_nr = Some 188;
+    deprecated_by = Some "mke2fs";
     tests = [
       InitEmpty, Always, TestOutput (
         [["part_init"; "/dev/sda"; "mbr"];
@@ -6121,6 +6122,7 @@ to the command:
     name = "mke2journal_L";
     style = RErr, [Int "blocksize"; String "label"; Device "device"], [];
     proc_nr = Some 189;
+    deprecated_by = Some "mke2fs";
     tests = [
       InitEmpty, Always, TestOutput (
         [["part_init"; "/dev/sda"; "mbr"];
@@ -6140,6 +6142,7 @@ This creates an ext2 external journal on C<device> with label C<label>." };
     name = "mke2journal_U";
     style = RErr, [Int "blocksize"; String "uuid"; Device "device"], [];
     proc_nr = Some 190;
+    deprecated_by = Some "mke2fs";
     optional = Some "linuxfsuuid";
     tests =
       (let uuid = uuidgen () in [
@@ -6161,6 +6164,7 @@ This creates an ext2 external journal on C<device> with UUID C<uuid>." };
     name = "mke2fs_J";
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"; Device "journal"], [];
     proc_nr = Some 191;
+    deprecated_by = Some "mke2fs";
     shortdesc = "make ext2/3/4 filesystem with external journal";
     longdesc = "\
 This creates an ext2/3/4 filesystem on C<device> with
@@ -6175,6 +6179,7 @@ See also C<guestfs_mke2journal>." };
     name = "mke2fs_JL";
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"; String "label"], [];
     proc_nr = Some 192;
+    deprecated_by = Some "mke2fs";
     shortdesc = "make ext2/3/4 filesystem with external journal";
     longdesc = "\
 This creates an ext2/3/4 filesystem on C<device> with
@@ -6186,6 +6191,7 @@ See also C<guestfs_mke2journal_L>." };
     name = "mke2fs_JU";
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"; String "uuid"], [];
     proc_nr = Some 193;
+    deprecated_by = Some "mke2fs";
     optional = Some "linuxfsuuid";
     shortdesc = "make ext2/3/4 filesystem with external journal";
     longdesc = "\
@@ -9836,6 +9842,90 @@ eg. I/O errors or bad paths, are not ignored)
 This call cannot remove directories.
 Use C<guestfs_rmdir> to remove an empty directory,
 or C<guestfs_rm_rf> to remove directories recursively." };
+
+  { defaults with
+    name = "mke2fs";
+    style = RErr, [Device "device"], [OInt64 "blockscount"; OInt64 "blocksize"; OInt64 "fragsize"; OInt64 "blockspergroup"; OInt64 "numberofgroups"; OInt64 "bytesperinode"; OInt64 "inodesize"; OInt64 "journalsize"; OInt64 "numberofinodes"; OInt64 "stridesize"; OInt64 "stripewidth"; OInt64 "maxonlineresize"; OInt "reservedblockspercentage"; OInt "mmpupdateinterval"; OString "journaldevice"; OString "label"; OString "lastmounteddir"; OString "creatoros"; OString "fstype"; OString "usagetype"; OString "uuid"; OBool "forcecreate"; OBool "writesbandgrouponly"; OBool "lazyitableinit"; OBool "lazyjournalinit"; OBool "testfs"; OBool "discard"; OBool "quotatype";  OBool "extent"; OBool "filetype"; OBool "flexbg"; OBool "hasjournal"; OBool "journaldev"; OBool "largefile"; OBool "quota"; OBool "resizeinode"; OBool "sparsesuper"; OBool "uninitbg"];
+    proc_nr = Some 368;
+    tests =
+      (let uuid = uuidgen () in
+       let uuid_s = "UUID=" ^ uuid in [
+         InitEmpty, Always, TestOutput (
+           [["part_init"; "/dev/sda"; "mbr"];
+            ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+            ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
+            ["mke2fs"; "/dev/sda1"; ""; "4096"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "NOARG";
+             "NOARG"; "NOARG"; "NOARG"; "NOARG"; "NOARG";
+             "NOARG"; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; "true"; ""; "";
+             ""; ""; ""];
+            ["mke2fs"; "/dev/sda2"; ""; "4096"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "/dev/sda1";
+             "NOARG"; "NOARG"; "NOARG"; "ext2"; "NOARG";
+             "NOARG"; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""];
+            ["mount"; "/dev/sda2"; "/"];
+            ["write"; "/new"; "new file contents"];
+            ["cat"; "/new"]], "new file contents");
+         InitEmpty, Always, TestOutput (
+           [["part_init"; "/dev/sda"; "mbr"];
+            ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+            ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
+            ["mke2fs"; "/dev/sda1"; ""; "4096"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "/dev/sda1";
+             "JOURNAL"; "NOARG"; "NOARG"; "ext2"; "NOARG";
+             "NOARG"; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; "true"; ""; "";
+             ""; ""; ""];
+            ["mke2fs"; "/dev/sda2"; ""; "4096"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "LABEL=JOURNAL";
+             "JOURNAL"; "NOARG"; "NOARG"; "ext2"; "NOARG";
+             "NOARG"; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""];
+            ["mount"; "/dev/sda2"; "/"];
+            ["write"; "/new"; "new file contents"];
+            ["cat"; "/new"]], "new file contents");
+         InitEmpty, Always, TestOutput (
+           [["part_init"; "/dev/sda"; "mbr"];
+            ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+            ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
+            ["mke2fs"; "/dev/sda1"; ""; "4096"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "NOARG";
+             "NOARG"; "NOARG"; "NOARG"; "NOARG"; "NOARG";
+             uuid; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; "true"; ""; "";
+             ""; ""; ""];
+            ["mke2fs"; "/dev/sda2"; ""; "4096"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; uuid_s;
+             "JOURNAL"; "NOARG"; "NOARG"; "ext2"; "NOARG";
+             "NOARG"; "true"; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""; ""; "";
+             ""; ""; ""];
+            ["mount"; "/dev/sda2"; "/"];
+            ["write"; "/new"; "new file contents"];
+            ["cat"; "/new"]], "new file contents")
+       ]);
+    shortdesc = "create an ext2/ext3/ext4 filesystem on device";
+    longdesc = "\
+C<mke2fs> is used to create an ext2, ext3, or ext4 filesystem
+on C<device>.  The optional C<blockscount> is the size of the
+filesystem in blocks.  If omitted it defaults to the size of
+C<device>." (* XXX document optional args properly *) };
 
 ]
 

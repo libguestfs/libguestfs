@@ -155,6 +155,7 @@ gobject/src/optargs-internal_test.c
 gobject/src/optargs-internal_test_63_optargs.c
 gobject/src/optargs-internal_test_only_optargs.c
 gobject/src/optargs-md_create.c
+gobject/src/optargs-mke2fs.c
 gobject/src/optargs-mkfs.c
 gobject/src/optargs-mkfs_btrfs.c
 gobject/src/optargs-mkswap.c
