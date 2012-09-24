@@ -62,7 +62,7 @@ type comment_style =
 type license = GPLv2plus | LGPLv2plus
 
 let generate_header ?(extra_inputs = []) comment license =
-  let inputs = "generator/generator_*.ml" :: extra_inputs in
+  let inputs = "generator/ *.ml" :: extra_inputs in
   let c = match comment with
     | CStyle ->         pr "/* "; " *"
     | CPlusPlusStyle -> pr "// "; "//"
