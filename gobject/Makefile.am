@@ -41,17 +41,6 @@ EXTRA_DIST = \
 CLEANFILES = \
 	guestfs-gobject*.c *.o *.lo
 
-# Remove old test0 API files.
-CLEANFILES += \
-	src/optargs-add_drive_opts.c \
-	include/guestfs-gobject/optargs-add_drive_opts.h \
-	src/optargs-mkfs_opts.c \
-	include/guestfs-gobject/optargs-mkfs_opts.h \
-	src/optargs-ntfsresize_opts.c \
-	include/guestfs-gobject/optargs-ntfsresize_opts.h \
-	src/optargs-test0.c \
-	include/guestfs-gobject/optargs-test0.h
-
 libname = libguestfs-gobject-1.0.la
 
 lib_LTLIBRARIES = $(libname)
