@@ -14,8 +14,7 @@ from scratch, resize them, and much more.  It's especially useful from
 scripts and programs and from the command line.
 
 libguestfs is a C library (hence "lib-"), and a set of tools built on
-this library, and a set of bindings in many different programming
-languages.
+this library, and bindings for many common programming languages.
 
 For more information about what libguestfs can do read the
 introduction on the home page (L<http://libguestfs.org>).
@@ -39,7 +38,7 @@ libguestfs works with any disk image, including ones created in
 VMware, KVM, qemu, VirtualBox, Xen, and many other hypervisors, and
 ones which you have created from scratch.
 
-Red Hat sponsors (ie. pays for) development of libguestfs and a huge
+S<Red Hat> sponsors (ie. pays for) development of libguestfs and a huge
 number of other open source projects.  But you can run libguestfs and
 the virt tools on many different Linux distros and Mac OS X.  Some
 virt tools have been ported to Windows.
@@ -101,8 +100,8 @@ to.  To find out more, read L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>.
 
 =head2 What mailing lists or chat rooms are available?
 
-If you are a Red Hat customer using Red Hat Enterprise Linux, please
-contact Red Hat Support: L<http://redhat.com/support>
+If you are a S<Red Hat> customer using Red Hat Enterprise Linux, please
+contact S<Red Hat Support>: L<http://redhat.com/support>
 
 There is a mailing list, mainly for development, but users are also
 welcome to ask questions about libguestfs and the virt tools:
@@ -226,7 +225,7 @@ handle the filesystem.
 
 =over 4
 
-=item Fedora E<ge> 11, RHEL E<ge> 5.3, EPEL 5
+=item Fedora E<ge> 11
 
 Use:
 
@@ -235,14 +234,36 @@ Use:
 For the latest builds, see:
 L<http://koji.fedoraproject.org/koji/packageinfo?packageID=8391>
 
-=item Red Hat Enterprise Linux 6
+=item Red Hat Enterprise Linux
+
+=over 4
+
+=item RHEL 5
+
+Use the package from EPEL 5:
+L<https://fedoraproject.org/wiki/EPEL>
+
+=item RHEL 6.2-6.3
 
 It is part of the default install.  On RHEL 6 (only) you have to
 install C<libguestfs-winsupport> to get Windows guest support.
 
 =item RHEL 6.4
 
-A preview repository will be announced at a later date.
+A preview repository is available.  See the announcement here:
+L<https://www.redhat.com/archives/libguestfs/2012-September/msg00074.html>
+
+=item RHEL 7
+
+It will be part of the default install, and based on libguestfs 1.20.
+As with RHEL 6 you will need to install C<libguestfs-winsupport>
+separately to get Windows guest support.
+
+=back
+
+=item Debian and Ubuntu
+
+=over 4
 
 =item Debian Squeeze (6)
 
@@ -257,9 +278,8 @@ L<http://packages.debian.org/search?keywords=libguestfs>
 
 =item Ubuntu
 
-We don't have an Ubuntu maintainer, and the packages supplied by
-Canonical (which are outside our control) are often broken.  Try
-compiling from source (next section).
+We don't have a full time Ubuntu maintainer, and the packages supplied
+by Canonical (which are outside our control) are sometimes broken.
 
 Canonical decided to change the permissions on the kernel so that it's
 not readable except by root.  This is completely stupid, but they
@@ -295,6 +315,8 @@ Also you need to do (see above):
 
  sudo chmod 0644 /boot/vmlinuz*
 
+=back
+
 =item Gentoo
 
 Libguestfs was added to Gentoo in 2012-07.  Do:
@@ -314,7 +336,7 @@ You'll have to compile from source, and port it.
 =head2 How can I compile and install libguestfs from source?
 
 If your Linux distro has a working port of febootstrap (that is,
-Fedora, Red Hat Enterprise Linux >= 6.3, Debian, Ubuntu and ArchLinux)
+Fedora, S<Red Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)
 then you should just be able to compile from source in the usual way.
 Download the latest tarball from L<http://libguestfs.org/download>,
 unpack it, and start by reading the README file.
@@ -347,6 +369,40 @@ called C<$HOME/.rpmmacros>:
 If you are using mock, do:
 
  mock -D '%libguestfs_buildnet 1' [etc]
+
+=head2 How can I add support for sVirt?
+
+Note: We are planning to make this configuration the default in
+S<Fedora 18>.  If you find any problems, please let us know or file a bug.
+
+L<SVirt|http://selinuxproject.org/page/SVirt> provides a hardened
+appliance using SELinux, making it very hard for a rogue disk image to
+"escape" from the confinement of libguestfs and damage the host (it's
+fair to say that even in standard libguestfs this would be hard, but
+sVirt provides an extra layer of protection for the host and more
+importantly protects virtual machines on the same host from each
+other).
+
+Currently to enable sVirt you will need the very latest libvirt (from
+git), libguestfs and SELinux policies.  If you are not running
+S<Fedora 18+>, you will need to make changes to your SELinux policy -
+contact us on the mailing list.
+
+Once you have the requirements, do:
+
+ ./configure --with-default-attach-method=libvirt
+ make
+
+Enable SELinux, and sVirt should be used automatically.
+
+All, or almost all, features of libguestfs should work under sVirt.
+There is one known shortcoming: L<virt-rescue(1)> will not use libvirt
+(hence sVirt), but falls back to direct launch of qemu.  So you won't
+currently get the benefit of sVirt protection when using virt-rescue.
+
+In theory sVirt should support AppArmor, but we have not tried it.  It
+will almost certainly require patching libvirt and writing an AppArmor
+policy.
 
 =head2 Libguestfs has a really long list of dependencies!
 
