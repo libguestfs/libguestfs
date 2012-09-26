@@ -278,6 +278,35 @@ listing who was logged in recently
 
 L<http://augeas.net/>
 
+=head1 Hanging guests
+
+There are various ways to use libguestfs to find out why a guest
+is hanging or unresponsive:
+
+=over 4
+
+=item 1.
+
+Read the log files using virt-cat:
+
+ virt-cat Guest /var/log/messages | less
+
+=item 2.
+
+Read the Windows Event Log (Windows Vista or later only):
+
+L<https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/#content>
+
+=item 3.
+
+Find out which files were last updated in a guest:
+
+L<https://rwmj.wordpress.com/2012/02/27/using-libguestfs-to-find-out-why-a-windows-guest-was-hanging/#content>
+
+This might give you a clue as to what program is running.
+
+=back
+
 =head1 Install RPMs in a guest
 
 The link below contains a method to install RPMs in a guest.  In fact
