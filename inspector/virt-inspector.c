@@ -177,9 +177,6 @@ main (int argc, char *argv[])
       OPTION_d;
       break;
 
-    case 'h':
-      usage (EXIT_SUCCESS);
-
     case 'v':
       OPTION_v;
       break;

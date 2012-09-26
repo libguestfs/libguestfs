@@ -198,9 +198,6 @@ main (int argc, char *argv[])
       perl_expr = optarg;
       break;
 
-    case 'h':
-      usage (EXIT_SUCCESS);
-
     case 'v':
       OPTION_v;
       break;
