@@ -3305,11 +3305,6 @@ etc).  The reason is so that you can run multiple parallel tests of
 libguestfs without having one set of tests overwriting the appliance
 created by another.
 
-If you are using libvirt + sVirt with SELinux enforcing, then you have
-to label this directory:
-
- chcon --reference=/tmp tmp
-
 =item C<tools>
 
 Command line tools written in Perl (L<virt-win-reg(1)> and many others).

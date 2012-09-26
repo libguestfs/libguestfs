@@ -48,10 +48,9 @@ b=@abs_builddir@
 #
 # We set it to a subdirectory ('tmp') so that we can label this
 # subdirectory to make libvirt + sVirt + SELinux enforcing work.
-#
-#   chcon --reference=/tmp tmp
 export TMPDIR="$b/tmp"
 mkdir -p "$b/tmp"
+chcon --reference=/tmp tmp 2>/dev/null ||:
 
 # Set local environment relative to this script.
 export LIBGUESTFS_PATH="$b/appliance"
