@@ -32,11 +32,6 @@ exit 77 if $ENV{SKIP_TEST_LAUNCH_RACE_PL};
 my $tmpdir = tempdir (CLEANUP => 1);
 $ENV{TMPDIR} = $tmpdir;
 
-# Temporary workaround for RHBZ#860235 which can be removed
-# once that bug is fixed.
-system ("chcon system_u:object_r:tmp_t:s0 $tmpdir") == 0
-    or warn "chcon: $tmpdir: $!";
-
 my $pid = fork();
 die ("fork failed: $!") if ($pid < 0);
 
