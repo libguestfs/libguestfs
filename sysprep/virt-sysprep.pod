@@ -12,7 +12,7 @@ virt-sysprep - Reset, unconfigure or customize a virtual machine so clones can b
 
 =head1 DESCRIPTION
 
-Virt-sysprep can resets or unconfigure a virtual machine so that
+Virt-sysprep can reset or unconfigure a virtual machine so that
 clones can be made from it.  Steps in this process include removing
 SSH host keys, removing persistent network MAC configuration, and
 removing user accounts.  Virt-sysprep can also customize a virtual
