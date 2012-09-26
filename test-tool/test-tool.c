@@ -104,6 +104,17 @@ main (int argc, char *argv[])
   struct guestfs_version *vers;
   char *p;
 
+  /* Everyone ignores the documentation, so ... */
+  printf ("     ************************************************************\n"
+          "     *                    IMPORTANT NOTICE\n"
+          "     *\n"
+          "     * When reporting bugs, include the COMPLETE, UNEDITED\n"
+          "     * output below in your bug report.\n"
+          "     *\n"
+          "     ************************************************************\n"
+          );
+  sleep (3);
+
   /* Create the handle. */
   g = guestfs_create ();
   if (g == NULL) {
