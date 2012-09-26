@@ -216,9 +216,6 @@ main (int argc, char *argv[])
       OPTION_d;
       break;
 
-    case 'h':
-      usage (EXIT_SUCCESS);
-
     case 'm':
       if (sscanf (optarg, "%u", &memsize) != 1) {
         fprintf (stderr, _("%s: could not parse memory size '%s'\n"),
