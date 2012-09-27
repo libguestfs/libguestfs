@@ -228,7 +228,7 @@ language bindings turn these errors into exceptions).
 File writes are affected by the per-handle umask, set by calling
 L</guestfs_umask> and defaulting to 022.  See L</UMASK>.
 
-Since libguestfs 1.18, it is possible to mount the libguestfs
+Since RHEL 6.4, it is possible to mount the libguestfs
 filesystem on a local directory, subject to some restrictions.  See
 L</MOUNT LOCAL> below.
 
@@ -559,7 +559,7 @@ device (I<not> the underlying encrypted block device).
 
 =head2 MOUNT LOCAL
 
-In libguestfs E<ge> 1.18, it is possible to mount the libguestfs
+In RHEL E<ge> 6.4, it is possible to mount the libguestfs
 filesystem on a local directory and access it using ordinary POSIX
 calls and programs.
 
@@ -590,8 +590,8 @@ L</guestfs_mount_local_run>.
 
 =head3 MOUNT LOCAL COMPATIBILITY
 
-Since local mounting was only added in libguestfs 1.18, and may not
-be available even in these builds, you should consider writing code
+Since local mounting was only added in RHEL 6.4,
+you should consider writing code
 so that it doesn't depend on this feature, and can fall back to
 using libguestfs file system calls.
 
