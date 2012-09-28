@@ -356,6 +356,9 @@ sub resolve_windows_path
 
     my $r;
     eval { $r = $g->case_sensitive_path ($path); };
+
+    $r = undef if defined $r && ! $g->exists ($r);
+
     return $r;
 }
 

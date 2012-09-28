@@ -162,11 +162,9 @@ guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   }
 
-  systemroot = guestfs___case_sensitive_path_silently (g, systemroots[i]);
-  if (!systemroot) {
-    error (g, _("cannot resolve Windows %%SYSTEMROOT%%"));
+  systemroot = guestfs_case_sensitive_path (g, systemroots[i]);
+  if (!systemroot)
     return -1;
-  }
 
   debug (g, "windows %%SYSTEMROOT%% = %s", systemroot);
 
@@ -194,9 +192,10 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
   char cmd_exe[len];
   snprintf (cmd_exe, len, "%s/system32/cmd.exe", fs->windows_systemroot);
 
-  char *cmd_exe_path = guestfs___case_sensitive_path_silently (g, cmd_exe);
+  /* Should exist because of previous check above in has_windows_systemroot. */
+  char *cmd_exe_path = guestfs_case_sensitive_path (g, cmd_exe);
   if (!cmd_exe_path)
-    return 0;
+    return -1;
 
   char *arch = guestfs_file_architecture (g, cmd_exe_path);
   free (cmd_exe_path);
@@ -214,16 +213,23 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 {
+  int r;
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software",
             fs->windows_systemroot);
 
-  char *software_path = guestfs___case_sensitive_path_silently (g, software);
+  char *software_path = guestfs_case_sensitive_path (g, software);
   if (!software_path)
-    /* If the software hive doesn't exist, just accept that we cannot
-     * find product_name etc.
-     */
+    return -1;
+
+  r = guestfs_is_file (g, software_path);
+  if (r == -1)
+    return -1;
+  /* If the software hive doesn't exist, just accept that we cannot
+   * find product_name etc.
+   */
+  if (r == 0)
     return 0;
 
   char *software_hive = NULL;
@@ -328,16 +334,23 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 {
+  int r;
   size_t len = strlen (fs->windows_systemroot) + 64;
   char system[len];
   snprintf (system, len, "%s/system32/config/system",
             fs->windows_systemroot);
 
-  char *system_path = guestfs___case_sensitive_path_silently (g, system);
+  char *system_path = guestfs_case_sensitive_path (g, system);
   if (!system_path)
-    /* If the system hive doesn't exist, just accept that we cannot
-     * find hostname etc.
-     */
+    return -1;
+
+  r = guestfs_is_file (g, system_path);
+  if (r == -1)
+    return -1;
+  /* If the system hive doesn't exist, just accept that we cannot
+   * find hostname etc.
+   */
+  if (r == 0)
     return 0;
 
   char *system_hive = NULL;

@@ -422,12 +422,9 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   snprintf (software, len, "%s/system32/config/software",
             fs->windows_systemroot);
 
-  char *software_path = guestfs___case_sensitive_path_silently (g, software);
-  if (!software_path) {
-    /* Missing software hive is a problem. */
-    error (g, "no HKLM\\SOFTWARE hive found in the guest");
+  char *software_path = guestfs_case_sensitive_path (g, software);
+  if (!software_path)
     return NULL;
-  }
 
   char *software_hive = NULL;
   struct guestfs_application_list *ret = NULL;

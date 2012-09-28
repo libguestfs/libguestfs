@@ -208,10 +208,8 @@ print_dhcp_address_windows (guestfs_h *g, char *root_fs)
   /* Locate the SYSTEM hive case-sensitive path. */
   system_path =
     guestfs_case_sensitive_path (g, "/windows/system32/config/system");
-  if (!system_path) {
-    fprintf (stderr, "virt-dhcp-address: HKLM\\System not found in this guest.");
+  if (!system_path)
     exit (EXIT_FAILURE);
-  }
 
   fd = mkstemp (tmpfile);
   if (fd == -1) {
