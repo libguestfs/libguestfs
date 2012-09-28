@@ -556,6 +556,14 @@ compare_device_names (const char *a, const char *b)
   a += a_devlen;
   b += a_devlen;
 
+  /* If no partition numbers, bail -- the devices are the same.  This
+   * can happen in one peculiar case: where you have a mix of devices
+   * with different interfaces (eg. /dev/sda and /dev/vda).
+   * (RHBZ#858128).
+   */
+  if (!*a && !*b)
+    return 0;
+
   r = sscanf (a, "%d", &a_partnum);
   assert (r == 1);
   r = sscanf (b, "%d", &b_partnum);
