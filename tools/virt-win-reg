@@ -516,12 +516,7 @@ sub download_hive
     my $hivefile = shift;
     my $hiveshortname = shift;
 
-    my $winfile;
-    eval { $winfile = $g->case_sensitive_path ($hivefile); };
-    if ($@) {
-        die __x("virt-win-reg: {p}: file not found in guest: {err}\n",
-                p => $hivefile, err => $@);
-    }
+    my $winfile = $g->case_sensitive_path ($hivefile);
 
     warn "downloading $winfile ..." if $debug;
     eval { $g->download ($winfile, "$tmpdir/$hiveshortname"); };
@@ -538,12 +533,7 @@ sub upload_hive
     my $hiveshortname = shift;
     my $hivefile = shift;
 
-    my $winfile;
-    eval { $winfile = $g->case_sensitive_path ($hivefile); };
-    if ($@) {
-        die __x("virt-win-reg: {p}: file not found in guest: {err}\n",
-                p => $hivefile, err => $@);
-    }
+    my $winfile = $g->case_sensitive_path ($hivefile);
 
     warn "uploading $winfile ..." if $debug;
     eval { $g->upload ("$tmpdir/$hiveshortname", $winfile); };
