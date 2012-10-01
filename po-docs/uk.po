@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-09-26 21:19+0200\n"
+"POT-Creation-Date: 2012-10-01 13:31+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1034,7 +1034,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:690 ../sysprep/virt-sysprep.pod:469
 #: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:260
 #: ../tools/virt-make-fs.pl:620 ../tools/virt-tar.pl:287
-#: ../tools/virt-win-reg.pl:744
+#: ../tools/virt-win-reg.pl:734
 msgid "SHELL QUOTING"
 msgstr "ЕКРАНУВАННЯ СИМВОЛІВ У ОБОЛОНЦІ"
 
@@ -1046,7 +1046,7 @@ msgstr "ЕКРАНУВАННЯ СИМВОЛІВ У ОБОЛОНЦІ"
 #: ../resize/virt-resize.pod:692 ../sysprep/virt-sysprep.pod:471
 #: ../tools/virt-list-filesystems.pl:192 ../tools/virt-list-partitions.pl:262
 #: ../tools/virt-make-fs.pl:622 ../tools/virt-tar.pl:289
-#: ../tools/virt-win-reg.pl:752
+#: ../tools/virt-win-reg.pl:742
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -1161,8 +1161,8 @@ msgstr "Ця програма повертає:"
 #: ../sysprep/virt-sysprep.pod:343 ../sysprep/virt-sysprep.pod:351
 #: ../sysprep/virt-sysprep.pod:357 ../tools/virt-win-reg.pl:197
 #: ../tools/virt-win-reg.pl:202 ../tools/virt-win-reg.pl:208
-#: ../tools/virt-win-reg.pl:721 ../tools/virt-win-reg.pl:727
-#: ../tools/virt-win-reg.pl:733
+#: ../tools/virt-win-reg.pl:711 ../tools/virt-win-reg.pl:717
+#: ../tools/virt-win-reg.pl:723
 msgid "*"
 msgstr "*"
 
@@ -1234,7 +1234,7 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:480 ../test-tool/libguestfs-test-tool.pod:106
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
 #: ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294
-#: ../tools/virt-win-reg.pl:757
+#: ../tools/virt-win-reg.pl:747
 msgid "SEE ALSO"
 msgstr "ТАКОЖ ПЕРЕГЛЯНЬТЕ"
 
@@ -1255,7 +1255,7 @@ msgstr ""
 #: ../rescue/virt-rescue.pod:349 ../resize/virt-resize.pod:725
 #: ../sparsify/virt-sparsify.pod:312 ../tools/virt-list-filesystems.pl:210
 #: ../tools/virt-list-partitions.pl:279 ../tools/virt-make-fs.pl:642
-#: ../tools/virt-tar.pl:309 ../tools/virt-win-reg.pl:772
+#: ../tools/virt-tar.pl:309 ../tools/virt-win-reg.pl:762
 msgid "AUTHOR"
 msgstr "АВТОР"
 
@@ -1268,7 +1268,7 @@ msgstr "АВТОР"
 #: ../sparsify/virt-sparsify.pod:314 ../sysprep/virt-sysprep.pod:497
 #: ../tools/virt-list-filesystems.pl:212 ../tools/virt-list-partitions.pl:281
 #: ../tools/virt-make-fs.pl:644 ../tools/virt-tar.pl:311
-#: ../tools/virt-win-reg.pl:774
+#: ../tools/virt-win-reg.pl:764
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
@@ -1293,7 +1293,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sysprep/virt-sysprep.pod:501 ../test-tool/libguestfs-test-tool.pod:116
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
 #: ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313
-#: ../tools/virt-win-reg.pl:776
+#: ../tools/virt-win-reg.pl:766
 msgid "COPYRIGHT"
 msgstr "АВТОРСЬКІ ПРАВА"
 
@@ -7704,7 +7704,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2139 ../fish/guestfish-actions.pod:2731
 #: ../src/guestfs-actions.pod:2759 ../src/guestfs-actions.pod:3467
 #: ../src/guestfs-actions.pod:4314 ../src/guestfs.pod:1966
-#: ../tools/virt-win-reg.pl:717
+#: ../tools/virt-win-reg.pl:707
 msgid "Notes:"
 msgstr "Нотатки:"
 
@@ -63839,89 +63839,89 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:556
+#: ../tools/virt-win-reg.pl:546
 msgid "SUPPORTED SYSTEMS"
 msgstr "ПІДТРИМУВАНІ СИСТЕМИ"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:558
+#: ../tools/virt-win-reg.pl:548
 msgid ""
 "The program currently supports Windows NT-derived guests starting with "
 "Windows XP through to at least Windows 7."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:561
+#: ../tools/virt-win-reg.pl:551
 msgid "The following Registry keys are supported:"
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:565
+#: ../tools/virt-win-reg.pl:555
 msgid "C<HKEY_LOCAL_MACHINE\\SAM>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SAM>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:567
+#: ../tools/virt-win-reg.pl:557
 msgid "C<HKEY_LOCAL_MACHINE\\SECURITY>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SECURITY>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:569
+#: ../tools/virt-win-reg.pl:559
 msgid "C<HKEY_LOCAL_MACHINE\\SOFTWARE>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SOFTWARE>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:571
+#: ../tools/virt-win-reg.pl:561
 msgid "C<HKEY_LOCAL_MACHINE\\SYSTEM>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SYSTEM>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:573
+#: ../tools/virt-win-reg.pl:563
 msgid "C<HKEY_USERS\\.DEFAULT>"
 msgstr "C<HKEY_USERS\\.DEFAULT>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:575
+#: ../tools/virt-win-reg.pl:565
 msgid "C<HKEY_USERS\\I<SID>>"
 msgstr "C<HKEY_USERS\\I<SID>>"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:577
+#: ../tools/virt-win-reg.pl:567
 msgid "where I<SID> is a Windows User SID (eg. C<S-1-5-18>)."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:579
+#: ../tools/virt-win-reg.pl:569
 msgid "C<HKEY_USERS\\I<username>>"
 msgstr "C<HKEY_USERS\\I<користувач>>"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:581
+#: ../tools/virt-win-reg.pl:571
 msgid ""
 "where I<username> is a local user name (this is a libguestfs extension)."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:585
+#: ../tools/virt-win-reg.pl:575
 msgid ""
 "You can use C<HKLM> as a shorthand for C<HKEY_LOCAL_MACHINE>, and C<HKU> for "
 "C<HKEY_USERS>."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:588
+#: ../tools/virt-win-reg.pl:578
 msgid ""
 "The literal keys C<HKEY_USERS\\$SID> and C<HKEY_CURRENT_USER> are not "
 "supported (there is no \"current user\")."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:591
+#: ../tools/virt-win-reg.pl:581
 msgid "ENCODING"
 msgstr "КОДУВАННЯ"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:593
+#: ../tools/virt-win-reg.pl:583
 msgid ""
 "C<virt-win-reg> expects that regedit files have already been reencoded in "
 "the local encoding.  Usually on Linux hosts, this means UTF-8 with Unix-"
@@ -63931,14 +63931,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:599
+#: ../tools/virt-win-reg.pl:589
 msgid ""
 "To reencode a file from Windows format to Linux (before processing it with "
 "the I<--merge> option), you would do something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:602
+#: ../tools/virt-win-reg.pl:592
 #, no-wrap
 msgid ""
 " iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg\n"
@@ -63948,14 +63948,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:604
+#: ../tools/virt-win-reg.pl:594
 msgid ""
 "To go in the opposite direction, after exporting and before sending the file "
 "to a Windows user, do something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:607
+#: ../tools/virt-win-reg.pl:597
 #, no-wrap
 msgid ""
 " unix2dos linux.reg | iconv -f utf-8 -t utf-16le > win.reg\n"
@@ -63965,12 +63965,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:609
+#: ../tools/virt-win-reg.pl:599
 msgid "For more information about encoding, see L<Win::Hivex::Regedit(3)>."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:611
+#: ../tools/virt-win-reg.pl:601
 msgid ""
 "If you are unsure about the current encoding, use the L<file(1)> command.  "
 "Recent versions of Windows regedit.exe produce a UTF-16LE file with Windows-"
@@ -63978,7 +63978,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:615
+#: ../tools/virt-win-reg.pl:605
 #, no-wrap
 msgid ""
 " $ file software.reg\n"
@@ -63988,17 +63988,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:619
+#: ../tools/virt-win-reg.pl:609
 msgid "This file would need conversion before you could I<--merge> it."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:621
+#: ../tools/virt-win-reg.pl:611
 msgid "CurrentControlSet etc."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:623
+#: ../tools/virt-win-reg.pl:613
 msgid ""
 "Registry keys like C<CurrentControlSet> don't really exist in the Windows "
 "Registry at the level of the hive file, and therefore you cannot modify "
@@ -64006,7 +64006,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:627
+#: ../tools/virt-win-reg.pl:617
 msgid ""
 "C<CurrentControlSet> is usually an alias for C<ControlSet001>.  In some "
 "circumstances it might refer to another control set.  The way to find out is "
@@ -64014,7 +64014,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:631
+#: ../tools/virt-win-reg.pl:621
 #, no-wrap
 msgid ""
 " # virt-win-reg WindowsGuest 'HKLM\\SYSTEM\\Select'\n"
@@ -64034,28 +64034,28 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:638
+#: ../tools/virt-win-reg.pl:628
 msgid "\"Current\" is the one which Windows will choose when it boots."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:640
+#: ../tools/virt-win-reg.pl:630
 msgid ""
 "Similarly, other C<Current...> keys in the path may need to be replaced."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:643
+#: ../tools/virt-win-reg.pl:633
 msgid "DELETING REGISTRY KEYS AND VALUES"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:645
+#: ../tools/virt-win-reg.pl:635
 msgid "To delete a whole registry key, use the syntax:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:647
+#: ../tools/virt-win-reg.pl:637
 #, no-wrap
 msgid ""
 " [-HKEY_LOCAL_MACHINE\\Foo]\n"
@@ -64063,12 +64063,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:649
+#: ../tools/virt-win-reg.pl:639
 msgid "To delete a single value within a key, use the syntax:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:651
+#: ../tools/virt-win-reg.pl:641
 #, no-wrap
 msgid ""
 " [HKEY_LOCAL_MACHINE\\Foo]\n"
@@ -64077,24 +64077,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:654
+#: ../tools/virt-win-reg.pl:644
 msgid "WINDOWS TIPS"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:656
+#: ../tools/virt-win-reg.pl:646
 msgid ""
 "Note that some of these tips modify the guest disk image.  The guest I<must> "
 "be shut off, else you will get disk corruption."
 msgstr ""
 
 #. type: =head2
-#: ../tools/virt-win-reg.pl:659
+#: ../tools/virt-win-reg.pl:649
 msgid "RUNNING A BATCH SCRIPT WHEN A USER LOGS IN"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:661
+#: ../tools/virt-win-reg.pl:651
 msgid ""
 "Prepare a DOS batch script, VBScript or executable.  Upload this using "
 "L<guestfish(1)>.  For this example the script is called C<test.bat> and it "
@@ -64102,7 +64102,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:665
+#: ../tools/virt-win-reg.pl:655
 #, no-wrap
 msgid ""
 " guestfish -i -d WindowsGuest upload test.bat /test.bat\n"
@@ -64112,12 +64112,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:667
+#: ../tools/virt-win-reg.pl:657
 msgid "Prepare a regedit file containing the registry change:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:669
+#: ../tools/virt-win-reg.pl:659
 #, no-wrap
 msgid ""
 " cat > test.reg <<'EOF'\n"
@@ -64133,7 +64133,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:674
+#: ../tools/virt-win-reg.pl:664
 msgid ""
 "In this example we use the key C<RunOnce> which means that the script will "
 "run precisely once when the first user logs in.  If you want it to run every "
@@ -64141,12 +64141,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:678
+#: ../tools/virt-win-reg.pl:668
 msgid "Now update the registry:"
 msgstr "Оновіть регістр:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:680
+#: ../tools/virt-win-reg.pl:670
 #, no-wrap
 msgid ""
 " virt-win-reg --merge WindowsGuest test.reg\n"
@@ -64154,12 +64154,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../tools/virt-win-reg.pl:682
+#: ../tools/virt-win-reg.pl:672
 msgid "INSTALLING A SERVICE"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:684
+#: ../tools/virt-win-reg.pl:674
 msgid ""
 "This section assumes you are familiar with Windows services, and you either "
 "have a program which handles the Windows Service Control Protocol directly "
@@ -64168,14 +64168,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:689
+#: ../tools/virt-win-reg.pl:679
 msgid ""
 "First upload the program and optionally the service wrapper.  In this case "
 "the test program is called C<test.exe> and we are using the RHSrvAny wrapper:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:693
+#: ../tools/virt-win-reg.pl:683
 #, no-wrap
 msgid ""
 " guestfish -i -d WindowsGuest <<EOF\n"
@@ -64191,7 +64191,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:698
+#: ../tools/virt-win-reg.pl:688
 msgid ""
 "Prepare a regedit file containing the registry changes.  In this example, "
 "the first registry change is needed for the service itself or the service "
@@ -64200,7 +64200,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:703
+#: ../tools/virt-win-reg.pl:693
 #, no-wrap
 msgid ""
 " cat > service.reg <<'EOF'\n"
@@ -64224,7 +64224,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:712
+#: ../tools/virt-win-reg.pl:702
 #, no-wrap
 msgid ""
 " [HKLM\\SYSTEM\\ControlSet001\\services\\RHSrvAny\\Parameters]\n"
@@ -64240,7 +64240,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:723
+#: ../tools/virt-win-reg.pl:713
 msgid ""
 "For use of C<ControlSet001> see the section above in this manual page.  You "
 "may need to adjust this according to the control set that is in use by the "
@@ -64248,7 +64248,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:729
+#: ../tools/virt-win-reg.pl:719
 msgid ""
 "C<\"ObjectName\"> controls the privileges that the service will have.  An "
 "alternative is C<\"ObjectName\"=\"LocalSystem\"> which would be the most "
@@ -64256,19 +64256,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:735
+#: ../tools/virt-win-reg.pl:725
 msgid ""
 "For the meaning of the magic numbers, see this Microsoft KB article: "
 "L<http://support.microsoft.com/kb/103000>."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:740
+#: ../tools/virt-win-reg.pl:730
 msgid "Update the registry:"
 msgstr "Оновіть регістр:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:742
+#: ../tools/virt-win-reg.pl:732
 #, no-wrap
 msgid ""
 " virt-win-reg --merge WindowsGuest service.reg\n"
@@ -64276,7 +64276,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:746
+#: ../tools/virt-win-reg.pl:736
 msgid ""
 "Be careful when passing parameters containing C<\\> (backslash) in the "
 "shell.  Usually you will have to use 'single quotes' or double backslashes "
@@ -64284,12 +64284,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:750
+#: ../tools/virt-win-reg.pl:740
 msgid "Paths and value names are case-insensitive."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:759
+#: ../tools/virt-win-reg.pl:749
 msgid ""
 "L<hivex(3)>, L<hivexsh(1)>, L<hivexregedit(1)>, L<guestfs(3)>, L<guestfish(1)"
 ">, L<virt-cat(1)>, L<Sys::Guestfs(3)>, L<Sys::Guestfs::Lib(3)>, L<Win::Hivex"
@@ -64300,7 +64300,7 @@ msgstr ""
 "(3)>, L<Win::Hivex::Regedit(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:778
+#: ../tools/virt-win-reg.pl:768
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr "©Red Hat Inc., 2010"
 
