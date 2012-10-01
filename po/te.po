@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-09-19 15:19+0100\n"
+"POT-Creation-Date: 2012-10-01 16:29+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/team/te/)\n"
@@ -93,12 +93,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1563
+#: cat/virt-cat.c:355 edit/virt-edit.c:665 fish/fish.c:1563
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: cat/virt-cat.c:372 edit/virt-edit.c:680
+#: cat/virt-cat.c:369 edit/virt-edit.c:679
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr ""
@@ -2874,12 +2874,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:254
+#: inspector/virt-inspector.c:251
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:287
+#: inspector/virt-inspector.c:284
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -2896,52 +2896,52 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:312
+#: inspector/virt-inspector.c:309
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:324
+#: inspector/virt-inspector.c:321
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:332
+#: inspector/virt-inspector.c:329
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:826
+#: inspector/virt-inspector.c:823
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:832
+#: inspector/virt-inspector.c:829
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:839
+#: inspector/virt-inspector.c:836
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:850
+#: inspector/virt-inspector.c:847
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:857
+#: inspector/virt-inspector.c:854
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:862
+#: inspector/virt-inspector.c:859
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:869
+#: inspector/virt-inspector.c:866
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
@@ -2988,7 +2988,7 @@ msgstr ""
 msgid "{imagename} seems to have no disk devices\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:831
+#: perl/lib/Sys/Guestfs/Lib.pm:834
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
@@ -3000,56 +3000,56 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:949
+#: perl/lib/Sys/Guestfs/Lib.pm:952
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1027
+#: perl/lib/Sys/Guestfs/Lib.pm:1030
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1053
+#: perl/lib/Sys/Guestfs/Lib.pm:1056
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1118
+#: perl/lib/Sys/Guestfs/Lib.pm:1121
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1173
+#: perl/lib/Sys/Guestfs/Lib.pm:1176
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1204
+#: perl/lib/Sys/Guestfs/Lib.pm:1207
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1227
+#: perl/lib/Sys/Guestfs/Lib.pm:1230
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1296
+#: perl/lib/Sys/Guestfs/Lib.pm:1299
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1304
+#: perl/lib/Sys/Guestfs/Lib.pm:1307
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1358
+#: perl/lib/Sys/Guestfs/Lib.pm:1361
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1397
+#: perl/lib/Sys/Guestfs/Lib.pm:1400
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -3092,19 +3092,19 @@ msgstr ""
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:202
+#: rescue/virt-rescue.c:199
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:374
+#: rescue/virt-rescue.c:371
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:393
+#: rescue/virt-rescue.c:390
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3112,7 +3112,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:403
+#: rescue/virt-rescue.c:400
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3121,7 +3121,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:460
+#: rescue/virt-rescue.c:457
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3131,7 +3131,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:467
+#: rescue/virt-rescue.c:464
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3140,12 +3140,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:472
+#: rescue/virt-rescue.c:469
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:596
+#: rescue/virt-rescue.c:593
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
@@ -3231,7 +3231,7 @@ msgstr ""
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:544 src/inspect_apps.c:614
+#: src/inspect.c:544 src/inspect_apps.c:611
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -3267,11 +3267,6 @@ msgstr ""
 
 #: src/inspect_fs_unix.c:793
 msgid "could not parse /etc/fstab or empty file"
-msgstr ""
-
-#: src/inspect_fs_windows.c:167
-#, c-format
-msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
 #: src/inspect_icon.c:507
@@ -3314,10 +3309,6 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
 
-#: src/launch.c:992 src/launch.c:997
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
-
 #: src/launch.c:1010
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
@@ -3330,12 +3321,23 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:1200
+#: src/launch.c:1160
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
+
+#: src/launch.c:1162
+msgid ""
+"guestfs_launch failed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"and/or run 'libguestfs-test-tool'."
+msgstr ""
+
+#: src/launch.c:1216
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: తాత్కాలిక డైరెక్టరీను సృష్టించలేదు"
 
-#: src/launch.c:1327
+#: src/launch.c:1343
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3345,7 +3347,7 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1465
+#: src/launch.c:1481
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
@@ -3529,67 +3531,67 @@ msgid ""
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:123
+#: test-tool/test-tool.c:134
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:129
+#: test-tool/test-tool.c:140
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
 
-#: test-tool/test-tool.c:145
+#: test-tool/test-tool.c:156
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
 
-#: test-tool/test-tool.c:154
+#: test-tool/test-tool.c:165
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
 
-#: test-tool/test-tool.c:173
+#: test-tool/test-tool.c:184
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
 
-#: test-tool/test-tool.c:208
+#: test-tool/test-tool.c:219
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:245
+#: test-tool/test-tool.c:256
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:257
+#: test-tool/test-tool.c:268
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:263
+#: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:269
+#: test-tool/test-tool.c:280
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:276
+#: test-tool/test-tool.c:287
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:282
+#: test-tool/test-tool.c:293
 #, fuzzy, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
 
-#: test-tool/test-tool.c:315
+#: test-tool/test-tool.c:326
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3598,12 +3600,12 @@ msgstr ""
 "LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ యిప్పటికే అమర్చబడింది, అందువలన\n"
 "--qemu/--qemudir ఐచ్చికములు వుపయోగించలేము.\n"
 
-#: test-tool/test-tool.c:323
+#: test-tool/test-tool.c:334
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
 
-#: test-tool/test-tool.c:337
+#: test-tool/test-tool.c:348
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
@@ -3719,17 +3721,12 @@ msgstr ""
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
-#, perl-brace-format
-msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
-msgstr ""
-
-#: tools/virt-win-reg.pl:529
+#: tools/virt-win-reg.pl:524
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg.pl:551
+#: tools/virt-win-reg.pl:541
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
