@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-09-19 13:50+0100\n"
+"POT-Creation-Date: 2012-10-01 16:29+0100\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -153,12 +153,12 @@ msgstr ""
 "  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
-#: cat/virt-cat.c:358 edit/virt-edit.c:666 fish/fish.c:1582
+#: cat/virt-cat.c:355 edit/virt-edit.c:665 fish/fish.c:1582
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: cat/virt-cat.c:372 edit/virt-edit.c:680
+#: cat/virt-cat.c:369 edit/virt-edit.c:679
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr ""
@@ -3133,12 +3133,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:254
+#: inspector/virt-inspector.c:251
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:287
+#: inspector/virt-inspector.c:284
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3165,52 +3165,52 @@ msgstr ""
 "ही त्रुटी आहे असे आढळल्यास, कृपया बग अहवाल सादर करा ज्यामध्ये \n"
 "डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्टीत असेल.\n"
 
-#: inspector/virt-inspector.c:312
+#: inspector/virt-inspector.c:309
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: \"%s\" येथे XML लेखन त्रुटी आढळली: %m\n"
 
-#: inspector/virt-inspector.c:324
+#: inspector/virt-inspector.c:321
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: stdout उघडण्यास अपयशी\n"
 
-#: inspector/virt-inspector.c:332
+#: inspector/virt-inspector.c:329
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: libxml2 राइटर निर्माण करण्यास अपयशी\n"
 
-#: inspector/virt-inspector.c:826
+#: inspector/virt-inspector.c:823
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:832
+#: inspector/virt-inspector.c:829
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:839
+#: inspector/virt-inspector.c:836
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:850
+#: inspector/virt-inspector.c:847
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:857
+#: inspector/virt-inspector.c:854
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:862
+#: inspector/virt-inspector.c:859
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:869
+#: inspector/virt-inspector.c:866
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
@@ -3259,7 +3259,7 @@ msgstr "{imagename} हे libvirt डोमेनचे नाव नाही\
 msgid "{imagename} seems to have no disk devices\n"
 msgstr "{imagename} कडे डिस्क साधणे नाही असे आढळते\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:831
+#: perl/lib/Sys/Guestfs/Lib.pm:834
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
@@ -3278,56 +3278,56 @@ msgstr ""
 "ही त्रुटी आहे असे आढळल्यास, \n"
 "कृपया डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्ट करून बग अहवाल सादर करा.\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:949
+#: perl/lib/Sys/Guestfs/Lib.pm:952
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "अपरिचीत फाइलप्रणाली {fs}\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1027
+#: perl/lib/Sys/Guestfs/Lib.pm:1030
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr "rpm -qa चालवतेवेळी त्रुटी: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1053
+#: perl/lib/Sys/Guestfs/Lib.pm:1056
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr "dpkg-query चालवतेवेळी त्रुटी: {error}"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1118
+#: perl/lib/Sys/Guestfs/Lib.pm:1121
 msgid "Can't find grub on guest"
 msgstr "अतिथीवर ग्रब आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1173
+#: perl/lib/Sys/Guestfs/Lib.pm:1176
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr "ग्रब नोंदणी {title} मध्ये कर्नल आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1204
+#: perl/lib/Sys/Guestfs/Lib.pm:1207
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr "ग्रब {path} करीता निर्देशीत आहे, जे अस्तित्वात नाही\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1227
+#: perl/lib/Sys/Guestfs/Lib.pm:1230
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr "ग्रब नोंदणी {title} initrd निर्देशीत करत नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1296
+#: perl/lib/Sys/Guestfs/Lib.pm:1299
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr "कर्नल {path} करीता मॉड्यूल्स् डिरेक्ट्री {modules} आढळले नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1304
+#: perl/lib/Sys/Guestfs/Lib.pm:1307
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr "कर्नल {path} करीता मार्ग पासून कर्नल आवृत्ती क्रमांक तर्कणे अशक्य"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1358
+#: perl/lib/Sys/Guestfs/Lib.pm:1361
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "{path} augeas नमुनाशी जुळत नाही"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1397
+#: perl/lib/Sys/Guestfs/Lib.pm:1400
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: initrd स्वरूप वाचणे अशक्य"
@@ -3381,19 +3381,19 @@ msgstr ""
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:224
+#: rescue/virt-rescue.c:221
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: मेमरी आकार '%s' वाचणे अशक्य\n"
 
-#: rescue/virt-rescue.c:396
+#: rescue/virt-rescue.c:393
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:415
+#: rescue/virt-rescue.c:412
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3401,7 +3401,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:425
+#: rescue/virt-rescue.c:422
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3410,7 +3410,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:482
+#: rescue/virt-rescue.c:479
 #, c-format
 msgid ""
 "This disk contains no filesystems that we recognize.\n"
@@ -3420,7 +3420,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:489
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3429,12 +3429,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:494
+#: rescue/virt-rescue.c:491
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:702
+#: rescue/virt-rescue.c:699
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
@@ -3562,7 +3562,7 @@ msgstr "libguestfs: त्रुटी: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
 
-#: src/inspect-apps.c:613 src/inspect.c:546
+#: src/inspect-apps.c:610 src/inspect.c:546
 msgid ""
 "inspection API not available since this version of libguestfs was compiled "
 "without the hivex library"
@@ -3583,11 +3583,6 @@ msgstr "%s चे आकार असमंजसपणे मोठे आह�
 #: src/inspect-fs-unix.c:809
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
-
-#: src/inspect-fs-windows.c:167
-#, c-format
-msgid "cannot resolve Windows %%SYSTEMROOT%%"
-msgstr "विंडोज %%SYSTEMROOT%% निश्चित करणे अशक्य"
 
 #: src/inspect-fs.c:365 src/inspect-fs.c:378
 #, c-format
@@ -3661,10 +3656,6 @@ msgstr "libguestfs हँडल आधिपासूनच सुरू आह�
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:1058 src/launch.c:1063
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
-
 #: src/launch.c:1076
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
@@ -3677,12 +3668,23 @@ msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
-#: src/launch.c:1266
+#: src/launch.c:1226
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
+
+#: src/launch.c:1228
+msgid ""
+"guestfs_launch failed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"and/or run 'libguestfs-test-tool'."
+msgstr ""
+
+#: src/launch.c:1282
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:1393
+#: src/launch.c:1409
 #, c-format
 msgid ""
 "command failed: %s\n"
@@ -3692,7 +3694,7 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch.c:1546
+#: src/launch.c:1562
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
@@ -3865,67 +3867,67 @@ msgid ""
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:111
+#: test-tool/test-tool.c:122
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs हँडल निर्माण करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:117
+#: test-tool/test-tool.c:128
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version अपयशी\n"
 
-#: test-tool/test-tool.c:133
+#: test-tool/test-tool.c:144
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: उपरिचीत लाँग पर्याय: %s (%d)\n"
 
-#: test-tool/test-tool.c:142
+#: test-tool/test-tool.c:153
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: अवैध वेळसमाप्ती: %s\n"
 
-#: test-tool/test-tool.c:161
+#: test-tool/test-tool.c:172
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: अनपेक्षीत आदेश ओळ पर्याय 0x%x\n"
 
-#: test-tool/test-tool.c:196
+#: test-tool/test-tool.c:207
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ड्राइव्ह '%s' समावेश करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:233
+#: test-tool/test-tool.c:244
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: अप्लायंस सुरू करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:245
+#: test-tool/test-tool.c:256
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:251
+#: test-tool/test-tool.c:262
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 अपयशी\n"
 
-#: test-tool/test-tool.c:257
+#: test-tool/test-tool.c:268
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 यांस / वर माऊंट करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:264
+#: test-tool/test-tool.c:275
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:270
+#: test-tool/test-tool.c:281
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:314
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -3934,12 +3936,12 @@ msgstr ""
 "LIBGUESTFS_QEMU एन्वार्यनमेंट वेरियेबल आधिपासून सेट आहे, म्हणून\n"
 "--qemu/--qemudir पर्याय याचा वापर करणे अशक्य आहे.\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:322
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
 
-#: test-tool/test-tool.c:325
+#: test-tool/test-tool.c:336
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमाणे आढळले नाही\n"
@@ -4067,17 +4069,12 @@ msgstr ""
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: समर्थीत विंडोज रेजिस्ट्री पाथ नाही\n"
 
-#: tools/virt-win-reg.pl:522 tools/virt-win-reg.pl:544
-#, perl-brace-format
-msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
-msgstr "virt-win-reg: {p}: अतिथीमध्ये फाइल आढळली नाही: {err}\n"
-
-#: tools/virt-win-reg.pl:529
+#: tools/virt-win-reg.pl:524
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउनलोड करणे शक्य नाही: {err}\n"
 
-#: tools/virt-win-reg.pl:551
+#: tools/virt-win-reg.pl:541
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
@@ -4309,11 +4306,11 @@ msgstr ""
 msgid "Align first partition (default: auto)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:57
+#: ../sysprep/sysprep_operation_hostname.ml:66
 msgid "Change the hostname of the guest"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:66
+#: ../sysprep/sysprep_operation_hostname.ml:75
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -4546,7 +4543,7 @@ msgstr ""
 msgid "Never do SELinux relabel"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:65
+#: ../sysprep/sysprep_operation_hostname.ml:74
 msgid "New hostname"
 msgstr ""
 
@@ -4821,7 +4818,7 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:58
+#: ../sysprep/sysprep_operation_hostname.ml:67
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -4918,7 +4915,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:65
+#: ../sysprep/sysprep_operation_hostname.ml:74
 msgid "hostname"
 msgstr ""
 
@@ -5093,6 +5090,12 @@ msgstr ""
 #: ../sparsify/sparsify.ml:130 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
+
+#~ msgid "cannot resolve Windows %%SYSTEMROOT%%"
+#~ msgstr "विंडोज %%SYSTEMROOT%% निश्चित करणे अशक्य"
+
+#~ msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
+#~ msgstr "virt-win-reg: {p}: अतिथीमध्ये फाइल आढळली नाही: {err}\n"
 
 #~ msgid "no subprocess to kill"
 #~ msgstr "kill करीता उपकार्य उपलब्ध नाही"
