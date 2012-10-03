@@ -786,6 +786,12 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   char *format = NULL;
   int is_host_device;
 
+  /* XXX We probably could support this if we thought about it some more. */
+  if (drv->iface) {
+    error (g, _("'iface' parameter is not supported by the libvirt attach-method"));
+    goto err;
+  }
+
   guestfs___drive_name (drv_index, &drive_name[2]);
   snprintf (scsi_target, sizeof scsi_target, "%zu", drv_index);
 
