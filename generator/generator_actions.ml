@@ -1062,8 +1062,9 @@ deprecated C<guestfs_add_drive_with_if> call (q.v.)
 
 =item C<name>
 
-The name the drive had in the original guest, e.g. /dev/sdb. This is used as a
-hint to the guest inspection process if it is available.
+The name the drive had in the original guest, e.g. C</dev/sdb>.
+This is used as a hint to the guest inspection process if
+it is available.
 
 =back");
 
