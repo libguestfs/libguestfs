@@ -1117,11 +1117,11 @@ With a C<cmd> parameter, this displays detailed help for that command.
 
 This exits guestfish.  You can also use C<^D> key.
 
-@FISH_COMMANDS@
+__FISH_COMMANDS__
 
 =head1 COMMANDS
 
-@ACTIONS@
+__ACTIONS__
 
 =head1 EXIT STATUS
 

@@ -179,7 +179,7 @@ Display version number and exit.
 
 Enable tracing of libguestfs API calls.
 
-@EXTRA_OPTIONS@
+__EXTRA_OPTIONS__
 
 =back
 
@@ -204,7 +204,7 @@ operations that you want to have enabled.
 
 C<*> = enabled by default when no I<--enable> option is given.
 
-@OPERATIONS@
+__OPERATIONS__
 
 =head1 COPYING AND CLONING
 

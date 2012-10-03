@@ -219,9 +219,9 @@ stamp-guestfs.pod: guestfs.pod \
 	  --section 3 \
 	  --man guestfs.3 \
 	  --html $(top_builddir)/html/guestfs.3.html \
-	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
-	  --insert $(srcdir)/guestfs-availability.pod:@AVAILABILITY@ \
-	  --insert $(srcdir)/guestfs-structs.pod:@STRUCTS@ \
+	  --insert $(srcdir)/guestfs-actions.pod:__ACTIONS__ \
+	  --insert $(srcdir)/guestfs-availability.pod:__AVAILABILITY__ \
+	  --insert $(srcdir)/guestfs-structs.pod:__STRUCTS__ \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
