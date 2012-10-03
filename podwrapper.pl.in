@@ -79,17 +79,17 @@ given, then no web page output is produced.
 
 my @inserts;
 
-=item B<--insert=filename:@PATTERN@>
+=item B<--insert=filename:__PATTERN__>
 
-In the input file, replace the literal text C<@PATTERN@> with the
+In the input file, replace the literal text C<__PATTERN__> with the
 replacement file C<filename>.  You can give this option multiple
 times.
 
 The contents of C<filename> are treated as POD.
 Compare and contrast with I<--verbatim>.
 
-Although it is conventional to use C<@...@> for patterns, in fact
-you can use any string as the pattern.
+Although it is conventional to use C<__...__> (double underscores) for
+patterns, in fact you can use any string as the pattern.
 
 =cut
 
@@ -154,7 +154,7 @@ my @verbatims;
 
 =item B<--verbatim=filename:@PATTERN@>
 
-In the input file, replace the literal text C<@PATTERN@> with the
+In the input file, replace the literal text C<__PATTERN__> with the
 replacement file C<filename>.  You can give this option multiple
 times.
 
@@ -162,8 +162,8 @@ The contents of C<filename> are inserted as verbatim text, and
 are I<not> interpreted as POD.
 Compare and contrast with I<--insert>.
 
-Although it is conventional to use C<@...@> for patterns, in fact
-you can use any string as the pattern.
+Although it is conventional to use C<__...__> (double underscores) for
+patterns, in fact you can use any string as the pattern.
 
 =cut
 

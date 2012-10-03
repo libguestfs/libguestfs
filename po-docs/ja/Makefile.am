@@ -62,9 +62,9 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  --man $@ \
 	  --section 3 \
 	  --license LGPLv2+ \
-	  --insert $(srcdir)/guestfs-actions.pod:@ACTIONS@ \
-	  --insert $(srcdir)/guestfs-availability.pod:@AVAILABILITY@ \
-	  --insert $(srcdir)/guestfs-structs.pod:@STRUCTS@ \
+	  --insert $(srcdir)/guestfs-actions.pod:__ACTIONS__ \
+	  --insert $(srcdir)/guestfs-availability.pod:__AVAILABILITY__ \
+	  --insert $(srcdir)/guestfs-structs.pod:__STRUCTS__ \
 	  $<
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
@@ -72,8 +72,8 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
-	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
-	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
+	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
+	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
 	  $<
 
 %.1: %.pod
