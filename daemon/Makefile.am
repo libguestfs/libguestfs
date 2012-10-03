@@ -17,6 +17,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+CLEANFILES = stamp-guestfsd.pod
+
 libsrcdir = $(top_builddir)/src
 
 generator_built = \
@@ -192,5 +194,20 @@ guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(AUGEAS_CFLAGS) \
 	$(HIVEX_CFLAGS)
+
+# Manual pages and HTML files for the website.
+man_MANS = guestfsd.8
+noinst_DATA = $(top_builddir)/html/guestfsd.8.html
+
+guestfsd.8 $(top_builddir)/html/guestfsd.8.html: stamp-guestfsd.pod
+
+stamp-guestfsd.pod: guestfsd.pod
+	$(PODWRAPPER) \
+	  --section 8 \
+	  --man guestfsd.8 \
+	  --html $(top_builddir)/html/guestfsd.8.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
 
 .PHONY: force

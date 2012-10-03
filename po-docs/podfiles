@@ -3,6 +3,7 @@
 ../cat/virt-cat.pod
 ../cat/virt-filesystems.pod
 ../cat/virt-ls.pod
+../daemon/guestfsd.pod
 ../df/virt-df.pod
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod

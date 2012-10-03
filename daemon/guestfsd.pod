@@ -1,0 +1,103 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfsd - guestfs daemon
+
+=head1 SYNOPSIS
+
+ guestfsd [-r] [-v|--verbose]
+
+=head1 DESCRIPTION
+
+C<guestfsd> is the libguestfs daemon.  Normal users never need to run
+this program explicitly.  This man page discusses what C<guestfsd>
+does in both the libguestfs appliance and when using libguestfs live.
+
+=head2 LIBGUESTFS APPLIANCE
+
+For the architecture of the libguestfs appliance, see
+L<guestfs(3)/ARCHITECTURE>.
+
+After the appliance boots, the C</init> script in the appliance starts
+C<guestfsd> with no arguments.  C<guestfsd> opens the virtio-serial
+port on a known path (see L</FILES>).  It initiates the protocol (see
+L<guestfs(3)/COMMUNICATION PROTOCOL>) and processes requests one at a
+time from the library until the appliance is destroyed.
+
+Filesystems are mounted under C</sysroot> and all filesystem
+operations happen relative to this directory.
+
+=head2 LIBGUESTFS LIVE
+
+In the libguestfs live case, C<guestfsd -r> is started from the
+rc-scripts, systemd, etc.
+
+The C<-r> option causes the daemon to operate on the root filesystem
+instead of C</sysroot>.
+
+Currently (because of limitations in virtio-serial) only one client
+can connect at a time, and C<guestfsd> must be restarted after each
+client disconnects.  If libguestfs live were changed to use a
+different transport such as TCP/IP then this limitation could be
+removed.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<-?>
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-r>
+
+Set the root filesystem to be C</> (instead of the default which is
+C</sysroot>).  Also do not unmount filesystems when the daemon exits.
+
+This option is used to enable libguestfs live.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+The verbose flag is also set if the Linux command line contains the
+substring C<guestfs_verbose=1>.
+
+=back
+
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
+=head1 FILES
+
+=over 4
+
+=item C</dev/virtio-ports/org.libguestfs.channel.0>
+
+The virtio serial port which C<guestfsd> connects to.
+
+=item C</proc/cmdline>
+
+The Linux command line is parsed to discover C<guestfs_*> flags.
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2012 Red Hat Inc.

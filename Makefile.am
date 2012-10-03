@@ -169,6 +169,7 @@ HTMLFILES = \
 	html/guestfs-release-notes.1.html \
 	html/guestfs-ruby.3.html \
 	html/guestfs-testing.1.html \
+	html/guestfsd.8.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
 	html/libguestfs-make-fixed-appliance.1.html \
