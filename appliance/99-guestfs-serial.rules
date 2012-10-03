@@ -1,0 +1,17 @@
+# For libguestfs, create /dev/disk/guestfs/<serial>
+# and /dev/disk/guestfs/<serial><partnum>
+
+KERNEL=="sd*[!0-9]", ENV{DEVTYPE}=="disk", ENV{ID_SCSI_SERIAL}=="?*", \
+  SYMLINK+="disk/guestfs/$env{ID_SCSI_SERIAL}"
+KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_SCSI_SERIAL}=="?*", \
+  SYMLINK+="disk/guestfs/$env{ID_SCSI_SERIAL}%n"
+
+# As written, it's likely the above only works with virtio-scsi
+# because ID_SCSI_SERIAL is specific to the output of the 'scsi_id'
+# program.  The following will not work because ID_SERIAL contains
+# some unwanted text.
+
+#KERNEL=="vd*[!0-9]", ATTRS{serial}=="?*", ENV{ID_SERIAL}="$attr{serial}", \
+#  SYMLINK+="disk/guestfs/$env{ID_SERIAL}"
+#KERNEL=="vd*[0-9]", ATTRS{serial}=="?*", ENV{ID_SERIAL}="$attr{serial}", \
+#  SYMLINK+="disk/guestfs/$env{ID_SERIAL}%n"

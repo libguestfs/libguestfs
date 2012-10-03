@@ -913,6 +913,12 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   }
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
+  if (drv->disk_label) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "serial"));
+    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST drv->disk_label));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "address"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "type",

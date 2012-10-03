@@ -908,6 +908,8 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
     len += strlen (drv->iface);
   if (drv->format)
     len += strlen (drv->format);
+  if (drv->disk_label)
+    len += strlen (drv->disk_label);
 
   r = safe_malloc (g, len);
 
@@ -930,11 +932,13 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   else
     iface = "virtio";
 
-  snprintf (&r[i], len-i, "%s%s%s%s,id=hd%zu,if=%s",
+  snprintf (&r[i], len-i, "%s%s%s%s%s%s,id=hd%zu,if=%s",
             drv->readonly ? ",snapshot=on" : "",
             drv->use_cache_none ? ",cache=none" : "",
             drv->format ? ",format=" : "",
             drv->format ? drv->format : "",
+            drv->disk_label ? ",serial=" : "",
+            drv->disk_label ? drv->disk_label : "",
             index,
             iface);
 

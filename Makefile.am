@@ -51,6 +51,7 @@ SUBDIRS += tests/mount-local
 SUBDIRS += tests/9p
 SUBDIRS += tests/rsync
 SUBDIRS += tests/bigdirs
+SUBDIRS += tests/disk-labels
 SUBDIRS += tests/regressions
 endif
 

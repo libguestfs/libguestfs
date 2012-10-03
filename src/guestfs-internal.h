@@ -143,6 +143,7 @@ struct drive {
   char *format;
   char *iface;
   char *name;
+  char *disk_label;
   bool use_cache_none;
 
   void *priv;                   /* Data used by attach method. */

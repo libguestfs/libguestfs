@@ -37,7 +37,8 @@ superminfs_DATA = \
 	supermin.d/base.img \
 	supermin.d/daemon.img \
 	supermin.d/init.img \
-	supermin.d/hostfiles
+	supermin.d/hostfiles \
+	supermin.d/udev-rules.img
 
 # This used to be a configure-generated file (as is update.sh still).
 # However config.status always touches the destination file, which
@@ -90,6 +91,25 @@ supermin.d/init.img: init
 	rm -f $@ $@-t
 	echo "init" | cpio --quiet -o -H newc > $@-t
 	mv $@-t $@
+
+# We should put this file in /lib/udev/rules.d, but put it in /etc so
+# we don't have to deal with all the UsrMove crap in Fedora.
+supermin.d/udev-rules.img: 99-guestfs-serial.rules
+	mkdir -p supermin.d
+	rm -f $@ $@-t
+	rm -rf tmp-u
+	mkdir -p tmp-u/etc/udev/rules.d
+	for f in $^; do ln $$f tmp-u/etc/udev/rules.d/$$f; done
+	( cd tmp-u && find | cpio --quiet -o -H newc ) > $@-t
+	rm -rf tmp-u
+	mv $@-t $@
+
+# If installing the daemon, install the udev rules too.
+
+if INSTALL_DAEMON
+udevrulesdir = /lib/udev/rules.d
+udevrules_DATA = 99-guestfs-serial.rules
+endif
 
 # libguestfs-make-fixed-appliance script and man page.
 

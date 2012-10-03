@@ -1191,6 +1191,26 @@ L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
 return the true names of the devices and partitions as known to the
 appliance, but see L</guestfs_canonical_device_name>.
 
+=head3 DISK LABELS
+
+In libguestfs E<ge> 1.20, you can give a label to a disk when you add
+it, using the optional C<label> parameter to L</guestfs_add_drive_opts>.
+(Note that disk labels are different from and not related to
+filesystem labels).
+
+Not all versions of libguestfs support setting a disk label, and when
+it is supported, it is limited to 20 ASCII characters C<[a-zA-Z]>.
+
+When you add a disk with a label, it can either be addressed
+using C</dev/sd*>, or using C</dev/disk/guestfs/I<label>>.
+Partitions on the disk can be addressed using
+C</dev/disk/guestfs/I<label>I<partnum>>.
+
+Listing devices (L</guestfs_list_devices>) and partitions
+(L</guestfs_list_partitions>) returns the raw block device name.
+However you can use L</guestfs_list_disk_labels> to map disk labels
+to raw block device and partition names.
+
 =head3 ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION
 
 Usually this translation is transparent.  However in some (very rare)

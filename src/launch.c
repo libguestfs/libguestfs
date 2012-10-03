@@ -71,6 +71,7 @@ static struct drive *
 create_drive_struct (guestfs_h *g, const char *path,
                      int readonly, const char *format,
                      const char *iface, const char *name,
+                     const char *disk_label,
                      int use_cache_none)
 {
   struct drive *drv = safe_malloc (g, sizeof (struct drive));
@@ -80,6 +81,7 @@ create_drive_struct (guestfs_h *g, const char *path,
   drv->format = format ? safe_strdup (g, format) : NULL;
   drv->iface = iface ? safe_strdup (g, iface) : NULL;
   drv->name = name ? safe_strdup (g, name) : NULL;
+  drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
   drv->use_cache_none = use_cache_none;
   drv->priv = drv->free_priv = NULL;
 
@@ -92,7 +94,7 @@ guestfs___add_dummy_appliance_drive (guestfs_h *g)
 {
   struct drive *drv;
 
-  drv = create_drive_struct (g, "", 0, NULL, NULL, NULL, 0);
+  drv = create_drive_struct (g, "", 0, NULL, NULL, NULL, NULL, 0);
   add_drive_to_handle (g, drv);
 }
 
@@ -119,6 +121,7 @@ free_drive_struct (struct drive *drv)
   free (drv->format);
   free (drv->iface);
   free (drv->name);
+  free (drv->disk_label);
   if (drv->priv && drv->free_priv)
     drv->free_priv (drv->priv);
   free (drv);
@@ -183,6 +186,27 @@ valid_format_iface (const char *str)
   return 1;
 }
 
+/* Check the disk label is reasonable.  It can't contain certain
+ * characters, eg. '/', ','.  However be stricter here and ensure it's
+ * just alphabetic and <= 20 characters in length.
+ */
+static int
+valid_disk_label (const char *str)
+{
+  size_t len = strlen (str);
+
+  if (len == 0 || len > 20)
+    return 0;
+
+  while (len > 0) {
+    char c = *str++;
+    len--;
+    if (!c_isalpha (c))
+      return 0;
+  }
+  return 1;
+}
+
 /* Traditionally you have been able to use /dev/null as a filename, as
  * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
  * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
@@ -193,7 +217,7 @@ valid_format_iface (const char *str)
  */
 static int
 add_null_drive (guestfs_h *g, int readonly, const char *format,
-                const char *iface, const char *name)
+                const char *iface, const char *name, const char *disk_label)
 {
   char *tmpfile = NULL;
   int fd = -1;
@@ -227,7 +251,7 @@ add_null_drive (guestfs_h *g, int readonly, const char *format,
     goto err;
   }
 
-  drv = create_drive_struct (g, tmpfile, readonly, format, iface, name, 0);
+  drv = create_drive_struct (g, tmpfile, readonly, format, iface, name, disk_label, 0);
   add_drive_to_handle (g, drv);
   free (tmpfile);
 
@@ -248,6 +272,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   const char *format;
   const char *iface;
   const char *name;
+  const char *disk_label;
   int use_cache_none;
   struct drive *drv;
 
@@ -265,6 +290,8 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
           ? optargs->iface : NULL;
   name = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK
          ? optargs->name : NULL;
+  disk_label = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_LABEL_BITMASK
+         ? optargs->label : NULL;
 
   if (format && !valid_format_iface (format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
@@ -276,9 +303,13 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
            "iface");
     return -1;
   }
+  if (disk_label && !valid_disk_label (disk_label)) {
+    error (g, _("label parameter is empty, too long, or contains disallowed characters"));
+    return -1;
+  }
 
   if (STREQ (filename, "/dev/null"))
-    return add_null_drive (g, readonly, format, iface, name);
+    return add_null_drive (g, readonly, format, iface, name, disk_label);
 
   /* For writable files, see if we can use cache=none.  This also
    * checks for the existence of the file.  For readonly we have
@@ -295,7 +326,8 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     }
   }
 
-  drv = create_drive_struct (g, filename, readonly, format, iface, name, use_cache_none);
+  drv = create_drive_struct (g, filename, readonly, format, iface, name, disk_label,
+                             use_cache_none);
   add_drive_to_handle (g, drv);
   return 0;
 }

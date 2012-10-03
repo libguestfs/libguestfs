@@ -1184,7 +1184,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"];
     once_had_no_optargs = true;
     fish_alias = ["add"]; config_only = true;
     shortdesc = "add an image to examine or modify";
@@ -1237,6 +1237,15 @@ deprecated C<guestfs_add_drive_with_if> call (q.v.)
 The name the drive had in the original guest, e.g. C</dev/sdb>.
 This is used as a hint to the guest inspection process if
 it is available.
+
+=item C<label>
+
+Give the disk a label.  The label should be a unique, short
+string using I<only> ASCII characters C<[a-zA-Z]>.
+As well as its usual name in the API (such as C</dev/sda>),
+the drive will also be named C</dev/disk/guestfs/I<label>>.
+
+See L<guestfs(3)/DISK LABELS>.
 
 =back" };
 
@@ -9924,6 +9933,23 @@ C<mke2fs> is used to create an ext2, ext3, or ext4 filesystem
 on C<device>.  The optional C<blockscount> is the size of the
 filesystem in blocks.  If omitted it defaults to the size of
 C<device>." (* XXX document optional args properly *) };
+
+  { defaults with
+    name = "list_disk_labels";
+    style = RHashtable "labels", [], [];
+    proc_nr = Some 369;
+    tests = [];
+    shortdesc = "mapping of disk labels to devices";
+    longdesc = "\
+If you add drives using the optional C<label> parameter
+of C<guestfs_add_drive_opts>, you can use this call to
+map between disk labels, and raw block device and partition
+names (like C</dev/sda> and C</dev/sda1>).
+
+This returns a hashtable, where keys are the disk labels
+(I<without> the C</dev/disk/guestfs> prefix), and the values
+are the full raw block device and partition names
+(eg. C</dev/sda> and C</dev/sda1>)." };
 
 ]
 

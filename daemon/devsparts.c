@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <dirent.h>
+#include <limits.h>
 #include <sys/stat.h>
 
 #include "c-ctype.h"
@@ -281,4 +282,79 @@ do_nr_devices (void)
   free (devices);
 
   return (int) i;
+}
+
+#define GUESTFSDIR "/dev/disk/guestfs"
+
+char **
+do_list_disk_labels (void)
+{
+  DIR *dir = NULL;
+  struct dirent *d;
+  char *path = NULL, *rawdev = NULL;
+  DECLARE_STRINGSBUF (ret);
+
+  dir = opendir (GUESTFSDIR);
+  if (!dir) {
+    reply_with_perror ("opendir: %s", GUESTFSDIR);
+    return NULL;
+  }
+
+  errno = 0;
+  while ((d = readdir (dir)) != NULL) {
+    if (d->d_name[0] == '.')
+      continue;
+
+    if (asprintf (&path, "%s/%s", GUESTFSDIR, d->d_name) == -1) {
+      reply_with_perror ("asprintf");
+      free_stringslen (ret.argv, ret.size);
+      goto error;
+    }
+
+    rawdev = realpath (path, NULL);
+    if (rawdev == NULL) {
+      reply_with_perror ("realpath: %s", path);
+      free_stringslen (ret.argv, ret.size);
+      goto error;
+    }
+
+    free (path);
+    path = NULL;
+
+    if (add_string (&ret, d->d_name) == -1)
+      goto error;
+
+    if (add_string_nodup (&ret, rawdev) == -1)
+      goto error;
+    rawdev = NULL;            /* buffer now owned by the stringsbuf */
+  }
+
+  /* Check readdir didn't fail */
+  if (errno != 0) {
+    reply_with_perror ("readdir: %s", GUESTFSDIR);
+    free_stringslen (ret.argv, ret.size);
+    goto error;
+  }
+
+  /* Close the directory handle */
+  if (closedir (dir) == -1) {
+    reply_with_perror ("closedir: %s", GUESTFSDIR);
+    free_stringslen (ret.argv, ret.size);
+    dir = NULL;
+    goto error;
+  }
+
+  dir = NULL;
+
+  if (end_stringsbuf (&ret) == -1)
+    goto error;
+
+  return ret.argv;              /* caller frees */
+
+ error:
+  if (dir)
+    closedir (dir);
+  free (path);
+  free (rawdev);
+  return NULL;
 }
