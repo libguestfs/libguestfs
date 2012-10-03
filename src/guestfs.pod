@@ -1788,11 +1788,11 @@ This returns the current out of memory handler.
 
 =head1 API CALLS
 
-@ACTIONS@
+__ACTIONS__
 
 =head1 STRUCTURES
 
-@STRUCTS@
+__STRUCTS__
 
 =head1 AVAILABILITY
 
@@ -1803,7 +1803,7 @@ the following groups of functions.  This test queries the
 appliance to see if the appliance you are currently using
 supports the functionality.
 
-@AVAILABILITY@
+__AVAILABILITY__
 
 =head2 FILESYSTEM AVAILABLE
 

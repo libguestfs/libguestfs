@@ -185,8 +185,8 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	$(PODWRAPPER) \
 	  --man guestfish.1 \
 	  --html $(top_builddir)/html/guestfish.1.html \
-	  --insert $(srcdir)/guestfish-actions.pod:@ACTIONS@ \
-	  --insert $(srcdir)/guestfish-commands.pod:@FISH_COMMANDS@ \
+	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
+	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
 	  --license GPLv2+ \
 	  $<
 	touch $@
