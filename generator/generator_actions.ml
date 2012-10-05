@@ -1018,10 +1018,11 @@ not all belong to a single logical operating system
    [],
    "add an image to examine or modify",
    "\
-This function adds a virtual machine disk image C<filename> to
-libguestfs.  The first time you call this function, the disk
-appears as C</dev/sda>, the second time as C</dev/sdb>, and
-so on.
+This function adds a disk image called C<filename> to the handle.
+C<filename> may be a regular host file or a host device.
+
+The first time you call this function, the disk appears as
+C</dev/sda>, the second time as C</dev/sdb>, and so on.
 
 You don't necessarily need to be root when using libguestfs.  However
 you obviously do need sufficient permissions to access the filename
