@@ -166,6 +166,9 @@ struct attach_ops {
 
   int (*get_pid) (guestfs_h *g);         /* get-pid API. */
   int (*max_disks) (guestfs_h *g);       /* max-disks API. */
+
+  /* Hotplugging drives. */
+  int (*hot_add_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
 };
 extern struct attach_ops attach_ops_appliance;
 extern struct attach_ops attach_ops_libvirt;

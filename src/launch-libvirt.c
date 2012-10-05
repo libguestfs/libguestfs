@@ -135,14 +135,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   struct drive *drv;
   size_t i;
 
-  /* At present you must add drives before starting the appliance.  In
-   * future when we enable hotplugging you won't need to do this.
-   */
-  if (!g->nr_drives) {
-    error (g, _("you must call guestfs_add_drive before guestfs_launch"));
-    return -1;
-  }
-
   /* XXX: It should be possible to make this work. */
   if (g->direct) {
     error (g, _("direct mode flag is not supported yet for libvirt attach method"));
@@ -1376,6 +1368,89 @@ max_disks_libvirt (guestfs_h *g)
   return 255;
 }
 
+static xmlChar *construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv, size_t drv_index);
+
+/* Hot-add a drive.  Note the appliance is up when this is called. */
+static int
+hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
+{
+  virConnectPtr conn = g->virt.connv;
+  virDomainPtr dom = g->virt.domv;
+  xmlChar *xml = NULL;
+
+  if (!conn || !dom) {
+    /* This is essentially an internal error if it happens. */
+    error (g, "%s: conn == NULL or dom == NULL", __func__);
+    return -1;
+  }
+
+  /* Create overlay for read-only drive.  This works around lack of
+   * support for <transient/> disks in libvirt.
+   */
+  if (make_qcow2_overlay_for_drive (g, drv) == -1)
+    return -1;
+
+  /* Create the XML for the new disk. */
+  xml = construct_libvirt_xml_hot_add_disk (g, drv, drv_index);
+  if (xml == NULL)
+    return -1;
+
+  /* Attach it. */
+  if (virDomainAttachDeviceFlags (dom, (char *) xml,
+                                  VIR_DOMAIN_DEVICE_MODIFY_LIVE) == -1) {
+    libvirt_error (g, _("could not attach disk to libvirt domain"));
+    goto error;
+  }
+
+  free (xml);
+  return 0;
+
+ error:
+  free (xml);
+  return -1;
+}
+
+static xmlChar *
+construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
+                                    size_t drv_index)
+{
+  xmlChar *ret = NULL;
+  xmlBufferPtr xb = NULL;
+  xmlOutputBufferPtr ob;
+  xmlTextWriterPtr xo = NULL;
+
+  XMLERROR (NULL, xb = xmlBufferCreate ());
+  XMLERROR (NULL, ob = xmlOutputBufferCreateBuffer (xb, NULL));
+  XMLERROR (NULL, xo = xmlNewTextWriter (ob));
+
+  XMLERROR (-1, xmlTextWriterSetIndent (xo, 1));
+  XMLERROR (-1, xmlTextWriterSetIndentString (xo, BAD_CAST "  "));
+  XMLERROR (-1, xmlTextWriterStartDocument (xo, NULL, NULL, NULL));
+
+  if (construct_libvirt_xml_disk (g, xo, drv, drv_index) == -1)
+    goto err;
+
+  XMLERROR (-1, xmlTextWriterEndDocument (xo));
+  XMLERROR (NULL, ret = xmlBufferDetach (xb)); /* caller frees ret */
+
+  debug (g, "hot-add disk XML:\n%s", ret);
+
+ err:
+  if (xo)
+    xmlFreeTextWriter (xo); /* frees 'ob' too */
+  if (xb)
+    xmlBufferFree (xb);
+
+  return ret;
+}
+
+struct attach_ops attach_ops_libvirt = {
+  .launch = launch_libvirt,
+  .shutdown = shutdown_libvirt,
+  .max_disks = max_disks_libvirt,
+  .hot_add_drive = hot_add_drive_libvirt,
+};
+
 #else /* no libvirt or libxml2 at compile time */
 
 #define NOT_IMPL(r)                                                     \
@@ -1403,10 +1478,16 @@ max_disks_libvirt (guestfs_h *g)
   NOT_IMPL (-1);
 }
 
-#endif /* no libvirt or libxml2 at compile time */
+static int
+hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
+{
+  NOT_IMPL (-1);
+}
 
 struct attach_ops attach_ops_libvirt = {
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,
 };
+
+#endif /* no libvirt or libxml2 at compile time */

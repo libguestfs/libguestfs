@@ -143,8 +143,11 @@ one you added), etc.
 
 Once L</guestfs_launch> has been called you cannot add any more images.
 You can call L</guestfs_list_devices> to get a list of the device
-names, in the order that you added them.  See also L</BLOCK DEVICE
-NAMING> below.
+names, in the order that you added them.
+See also L</BLOCK DEVICE NAMING> below.
+
+There are slightly different rules when hotplugging disks (in
+libguestfs E<ge> 1.20).  See L</HOTPLUGGING> below.
 
 =head2 MOUNTING
 
@@ -600,6 +603,35 @@ L</guestfs_last_errno>).
 Libguestfs on top of FUSE performs quite poorly.  For best performance
 do not use it.  Use ordinary libguestfs filesystem calls, upload,
 download etc. instead.
+
+=head2 HOTPLUGGING
+
+In libguestfs E<ge> 1.20, you may add drives after calling
+L</guestfs_launch>.  There are some restrictions, see below.
+This is called I<hotplugging>.
+
+Only a subset of the attach-method backends support hotplugging
+(currently only the libvirt attach-method has support).  It also
+requires that you use libvirt E<ge> 0.10.3 and qemu E<ge> 1.2.
+
+To hot-add a disk, simply call L</guestfs_add_drive_opts> after
+L</guestfs_launch>.  It is mandatory to specify the C<label> parameter
+so that the newly added disk has a predictable name.  For example:
+
+ if (guestfs_launch (g) == -1)
+   error ("launch failed");
+ 
+ if (guestfs_add_drive_opts (g, filename,
+                             GUESTFS_ADD_DRIVE_OPTS_LABEL, "newdisk",
+                             -1) == -1)
+   error ("hot-add of disk failed");
+ 
+ if (guestfs_part_disk ("/dev/disk/guestfs/newdisk", "mbr") == -1)
+   error ("partitioning of hot-added disk failed");
+
+Backends that support hotplugging do not require that you add
+E<ge> 1 disk before calling launch.  When hotplugging is supported
+you don't need to add any disks.
 
 =head2 INSPECTION
 
@@ -2639,7 +2671,7 @@ The guest may be killed by L</guestfs_kill_subprocess>, or may die
 asynchronously at any time (eg. due to some internal error), and that
 causes the state to transition back to CONFIG.
 
-Configuration commands for qemu such as L</guestfs_add_drive> can only
+Configuration commands for qemu such as L</guestfs_set_path> can only
 be issued when in the CONFIG state.
 
 The API offers one call that goes from CONFIG through LAUNCHING to

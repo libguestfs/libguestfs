@@ -72,11 +72,6 @@ alloc_disk (const char *filename, const char *size_str, int add, int sparse)
   if (parse_size (size_str, &size) == -1)
     return -1;
 
-  if (!guestfs_is_config (g)) {
-    fprintf (stderr, _("can't allocate or add disks after launching\n"));
-    return -1;
-  }
-
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
   if (fd == -1) {
     perror (filename);

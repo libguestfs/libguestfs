@@ -29,6 +29,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <assert.h>
 
 #include "c-ctype.h"
 
@@ -57,14 +58,29 @@ guestfs___rollback_drives (guestfs_h *g, size_t old_i)
   g->nr_drives = old_i;
 }
 
+/* Add struct drive to the g->drives vector at the given index. */
+static void
+add_drive_to_handle_at (guestfs_h *g, struct drive *d, size_t drv_index)
+{
+  if (drv_index >= g->nr_drives) {
+    g->drives = safe_realloc (g, g->drives,
+                              sizeof (struct drive *) * (drv_index + 1));
+    while (g->nr_drives <= drv_index) {
+      g->drives[g->nr_drives] = NULL;
+      g->nr_drives++;
+    }
+  }
+
+  assert (g->drives[drv_index] == NULL);
+
+  g->drives[drv_index] = d;
+}
+
 /* Add struct drive to the end of the g->drives vector in the handle. */
 static void
 add_drive_to_handle (guestfs_h *g, struct drive *d)
 {
-  g->nr_drives++;
-  g->drives = safe_realloc (g, g->drives,
-                            sizeof (struct drive *) * g->nr_drives);
-  g->drives[g->nr_drives-1] = d;
+  add_drive_to_handle_at (g, d, g->nr_drives);
 }
 
 static struct drive *
@@ -207,6 +223,48 @@ valid_disk_label (const char *str)
   return 1;
 }
 
+/* The low-level function that adds a drive. */
+static int
+add_drive (guestfs_h *g, struct drive *drv)
+{
+  size_t i, drv_index;
+
+  if (g->state == CONFIG) {
+    /* Not hotplugging, so just add it to the handle. */
+    add_drive_to_handle (g, drv);
+    return 0;
+  }
+
+  /* ... else, hotplugging case. */
+  if (!g->attach_ops || !g->attach_ops->hot_add_drive) {
+    error (g, _("the current attach-method does not support hotplugging drives"));
+    return -1;
+  }
+
+  if (!drv->disk_label) {
+    error (g, _("'label' is required when hotplugging drives"));
+    return -1;
+  }
+
+  /* Get the first free index, or add it at the end. */
+  drv_index = g->nr_drives;
+  for (i = 0; i < g->nr_drives; ++i)
+    if (g->drives[i] == NULL)
+      drv_index = i;
+
+  /* Hot-add the drive. */
+  if (g->attach_ops->hot_add_drive (g, drv, drv_index) == -1)
+    return -1;
+
+  add_drive_to_handle_at (g, drv, drv_index);
+
+  /* Call into the appliance to wait for the new drive to appear. */
+  if (guestfs_internal_hot_add_drive (g, drv->disk_label) == -1)
+    return -1;
+
+  return 0;
+}
+
 /* Traditionally you have been able to use /dev/null as a filename, as
  * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
  * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
@@ -220,7 +278,7 @@ add_null_drive (guestfs_h *g, int readonly, const char *format,
                 const char *iface, const char *name, const char *disk_label)
 {
   char *tmpfile = NULL;
-  int fd = -1;
+  int fd = -1, r;
   struct drive *drv;
 
   if (format && STRNEQ (format, "raw")) {
@@ -252,8 +310,12 @@ add_null_drive (guestfs_h *g, int readonly, const char *format,
   }
 
   drv = create_drive_struct (g, tmpfile, readonly, format, iface, name, disk_label, 0);
-  add_drive_to_handle (g, drv);
+  r = add_drive (g, drv);
   free (tmpfile);
+  if (r == -1) {
+    free_drive_struct (drv);
+    return -1;
+  }
 
   return 0;
 
@@ -328,7 +390,11 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
 
   drv = create_drive_struct (g, filename, readonly, format, iface, name, disk_label,
                              use_cache_none);
-  add_drive_to_handle (g, drv);
+  if (add_drive (g, drv) == -1) {
+    free_drive_struct (drv);
+    return -1;
+  }
+
   return 0;
 }
 

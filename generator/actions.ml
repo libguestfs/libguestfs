@@ -1186,14 +1186,22 @@ not all belong to a single logical operating system
     name = "add_drive";
     style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"];
     once_had_no_optargs = true;
-    fish_alias = ["add"]; config_only = true;
+    fish_alias = ["add"];
     shortdesc = "add an image to examine or modify";
     longdesc = "\
 This function adds a disk image called C<filename> to the handle.
 C<filename> may be a regular host file or a host device.
 
-The first time you call this function, the disk appears as
-C</dev/sda>, the second time as C</dev/sdb>, and so on.
+When this function is called before C<guestfs_launch> (the
+usual case) then the first time you call this function,
+the disk appears in the API as C</dev/sda>, the second time
+as C</dev/sdb>, and so on.
+
+In libguestfs E<ge> 1.20 you can also call this function
+after launch (with some restrictions).  This is called
+\"hotplugging\".  When hotplugging, you must specify a
+C<label> so that the new disk gets a predictable name.
+For more information see L<guestfs(3)/HOTPLUGGING>.
 
 You don't necessarily need to be root when using libguestfs.  However
 you obviously do need sufficient permissions to access the filename
@@ -9950,6 +9958,16 @@ This returns a hashtable, where keys are the disk labels
 (I<without> the C</dev/disk/guestfs> prefix), and the values
 are the full raw block device and partition names
 (eg. C</dev/sda> and C</dev/sda1>)." };
+
+  { defaults with
+    name = "internal_hot_add_drive";
+    style = RErr, [String "label"], [];
+    proc_nr = Some 370;
+    in_fish = false; in_docs = false;
+    tests = [];
+    shortdesc = "internal hotplugging operation";
+    longdesc = "\
+This function is used internally when hotplugging drives." };
 
 ]
 
