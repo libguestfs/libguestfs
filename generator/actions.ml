@@ -1189,10 +1189,11 @@ not all belong to a single logical operating system
     fish_alias = ["add"]; config_only = true;
     shortdesc = "add an image to examine or modify";
     longdesc = "\
-This function adds a virtual machine disk image C<filename> to
-libguestfs.  The first time you call this function, the disk
-appears as C</dev/sda>, the second time as C</dev/sdb>, and
-so on.
+This function adds a disk image called C<filename> to the handle.
+C<filename> may be a regular host file or a host device.
+
+The first time you call this function, the disk appears as
+C</dev/sda>, the second time as C</dev/sdb>, and so on.
 
 You don't necessarily need to be root when using libguestfs.  However
 you obviously do need sufficient permissions to access the filename
@@ -1237,11 +1238,7 @@ The name the drive had in the original guest, e.g. C</dev/sdb>.
 This is used as a hint to the guest inspection process if
 it is available.
 
-=back
-
-C<filename> can have the special value C</dev/null>, which means
-to add a null (zero length) raw format device.  You can add C</dev/null>
-multiple times." };
+=back" };
 
   { defaults with
     name = "inspect_get_windows_systemroot";
