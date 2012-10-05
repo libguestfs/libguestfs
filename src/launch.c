@@ -37,6 +37,8 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+static void free_drive_struct (struct drive *drv);
+
 struct drive **
 guestfs___checkpoint_drives (guestfs_h *g)
 {
@@ -49,6 +51,60 @@ void
 guestfs___rollback_drives (guestfs_h *g, struct drive **i)
 {
   guestfs___free_drives(i);
+}
+
+/* Add struct drive to the g->drives list in the handle. */
+static void
+add_drive_to_handle (guestfs_h *g, struct drive *d)
+{
+  struct drive **drv = &(g->drives);
+
+  while (*drv != NULL)
+    drv = &((*drv)->next);
+
+  *drv = d;
+}
+
+static struct drive *
+create_drive_struct (guestfs_h *g, const char *path,
+                     int readonly, const char *format,
+                     const char *iface, const char *name,
+                     int use_cache_none)
+{
+  struct drive *drv = safe_malloc (g, sizeof (struct drive));
+
+  drv->next = NULL;
+  drv->path = safe_strdup (g, path);
+  drv->readonly = readonly;
+  drv->format = format ? safe_strdup (g, format) : NULL;
+  drv->iface = iface ? safe_strdup (g, iface) : NULL;
+  drv->name = name ? safe_strdup (g, name) : NULL;
+  drv->use_cache_none = use_cache_none;
+
+  return drv;
+}
+
+void
+guestfs___free_drives (struct drive **drives)
+{
+  struct drive *i = *drives;
+  *drives = NULL;
+
+  while (i != NULL) {
+    struct drive *next = i->next;
+    free_drive_struct (i);
+    i = next;
+  }
+}
+
+static void
+free_drive_struct (struct drive *drv)
+{
+  free (drv->path);
+  free (drv->format);
+  free (drv->iface);
+  free (drv->name);
+  free (drv);
 }
 
 /* cache=none improves reliability in the event of a host crash.
@@ -110,27 +166,6 @@ valid_format_iface (const char *str)
   return 1;
 }
 
-static void
-add_drive (guestfs_h *g, const char *path,
-           int readonly, const char *format,
-           const char *iface, const char *name,
-           int use_cache_none)
-{
-  struct drive **drv = &(g->drives);
-
-  while (*drv != NULL)
-    drv = &((*drv)->next);
-
-  *drv = safe_malloc (g, sizeof (struct drive));
-  (*drv)->next = NULL;
-  (*drv)->path = safe_strdup (g, path);
-  (*drv)->readonly = readonly;
-  (*drv)->format = format ? safe_strdup (g, format) : NULL;
-  (*drv)->iface = iface ? safe_strdup (g, iface) : NULL;
-  (*drv)->name = name ? safe_strdup (g, name) : NULL;
-  (*drv)->use_cache_none = use_cache_none;
-}
-
 /* Traditionally you have been able to use /dev/null as a filename, as
  * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
  * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
@@ -145,6 +180,7 @@ add_null_drive (guestfs_h *g, int readonly, const char *format,
 {
   char *tmpfile = NULL;
   int fd = -1;
+  struct drive *drv;
 
   if (format && STRNEQ (format, "raw")) {
     error (g, _("for device '/dev/null', format must be 'raw'"));
@@ -169,7 +205,8 @@ add_null_drive (guestfs_h *g, int readonly, const char *format,
     goto err;
   }
 
-  add_drive (g, tmpfile, readonly, format, iface, name, 0);
+  drv = create_drive_struct (g, tmpfile, readonly, format, iface, name, 0);
+  add_drive_to_handle (g, drv);
   free (tmpfile);
 
   return 0;
@@ -190,6 +227,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   const char *iface;
   const char *name;
   int use_cache_none;
+  struct drive *drv;
 
   if (strchr (filename, ':') != NULL) {
     error (g, _("filename cannot contain ':' (colon) character. "
@@ -235,7 +273,8 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     }
   }
 
-  add_drive (g, filename, readonly, format, iface, name, use_cache_none);
+  drv = create_drive_struct (g, filename, readonly, format, iface, name, use_cache_none);
+  add_drive_to_handle (g, drv);
   return 0;
 }
 

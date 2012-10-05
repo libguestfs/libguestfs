@@ -1055,25 +1055,6 @@ guestfs___free_string_list (char **argv)
   free (argv);
 }
 
-void
-guestfs___free_drives (struct drive **drives)
-{
-  struct drive *i = *drives;
-  *drives = NULL;
-
-  while (i != NULL) {
-    struct drive *next = i->next;
-
-    free (i->path);
-    free (i->format);
-    free (i->iface);
-    free (i->name);
-    free (i);
-
-    i = next;
-  }
-}
-
 char *
 guestfs__canonical_device_name (guestfs_h *g, const char *device)
 {
