@@ -190,6 +190,11 @@ add_null_drive (guestfs_h *g, int readonly, const char *format,
   if (guestfs___lazy_make_tmpdir (g) == -1)
     return -1;
 
+  /* Because we create a special file, there is no point forcing qemu
+   * to create an overlay as well.  Save time by setting readonly = 0.
+   */
+  readonly = 0;
+
   tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
   fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
   if (fd == -1) {
