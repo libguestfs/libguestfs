@@ -40,6 +40,12 @@ if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
     exit 77
 fi
 
+method="$(../../fish/guestfish get-attach-method)"
+if [[ "$method" =~ ^libvirt ]]; then
+    echo "$0: test skipped because attach-method ($method) is 'libvirt'."
+    exit 77
+fi
+
 rm -f test.img
 
 ../../fish/guestfish sparse test.img 100M
