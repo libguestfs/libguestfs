@@ -80,6 +80,7 @@ create_drive_struct (guestfs_h *g, const char *path,
   drv->iface = iface ? safe_strdup (g, iface) : NULL;
   drv->name = name ? safe_strdup (g, name) : NULL;
   drv->use_cache_none = use_cache_none;
+  drv->priv = drv->free_priv = NULL;
 
   return drv;
 }
@@ -104,6 +105,8 @@ free_drive_struct (struct drive *drv)
   free (drv->format);
   free (drv->iface);
   free (drv->name);
+  if (drv->priv && drv->free_priv)
+    drv->free_priv (drv->priv);
   free (drv);
 }
 

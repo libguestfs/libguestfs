@@ -146,6 +146,9 @@ struct drive {
   char *iface;
   char *name;
   bool use_cache_none;
+
+  void *priv;                   /* Data used by attach method. */
+  void (*free_priv) (void *);
 };
 
 /* Extra qemu parameters (from guestfs_config). */
