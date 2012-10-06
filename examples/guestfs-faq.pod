@@ -776,6 +776,23 @@ operating system within the disk image you gave it.  You might see
 this from programs like virt-cat if you try to run them on something
 which is just a disk image, not a virtual machine disk image.
 
+=head2 What do these C<debug*> and C<internal-*> functions do?
+
+There are some functions which are used for debugging and
+internal purposes which are I<not> part of the stable API.
+
+The C<debug*> (or C<guestfs_debug*>) functions, primarily
+L<guestfs(3)/guestfs_debug> and a handful of others, are used for
+debugging libguestfs.  Although they are not part of the stable API
+and thus may change or be removed at any time, some programs may want
+to call these while waiting for features to be added to libguestfs.
+
+The C<internal-*> (or C<guestfs_internal_*>) functions are purely to
+be used by libguestfs itself.  There is no reason for programs to call
+them, and programs should not try to use them.  Using them will often
+cause bad things to happen, as well as not being part of the
+documented stable API.
+
 =head1 SEE ALSO
 
 L<guestfish(1)>,
