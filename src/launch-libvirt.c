@@ -28,6 +28,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <assert.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
@@ -92,12 +93,26 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
-static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance, const char *guestfsd_sock, const char *console_sock, int disable_svirt);
+/* Pointed to by 'struct drive *' -> priv field. */
+struct drive_libvirt {
+  /* This is either the original path, made absolute.  Or for readonly
+   * drives, it is an (absolute path to) the overlay file that we
+   * create.  This is always non-NULL.
+   */
+  char *path;
+  /* The format of priv->path. */
+  char *format;
+};
+
+static xmlChar *construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml, const char *kernel, const char *initrd, const char *appliance_overlay, const char *guestfsd_sock, const char *console_sock, int disable_svirt);
 static void libvirt_error (guestfs_h *g, const char *fs, ...);
 static int is_custom_qemu (guestfs_h *g);
 static int is_blk (const char *path);
 static int random_chars (char *ret, size_t len);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
+static char *make_qcow2_overlay (guestfs_h *g, const char *path, const char *format);
+static int make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv);
+static void drive_free_priv (void *);
 
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
@@ -109,6 +124,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   char *capabilities = NULL;
   xmlChar *xml = NULL;
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
+  char *appliance_overlay = NULL;
   char guestfsd_sock[256];
   char console_sock[256];
   struct sockaddr_un addr;
@@ -116,6 +132,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   uint32_t size;
   void *buf = NULL;
   int disable_svirt = is_custom_qemu (g);
+  struct drive *drv;
+  size_t i;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -181,6 +199,20 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   guestfs___launch_send_progress (g, 3);
   TRACE0 (launch_build_libvirt_appliance_end);
+
+  /* Create overlays for read-only drives and the appliance.  This
+   * works around lack of support for <transient/> disks in libvirt.
+   */
+  appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
+  if (!appliance_overlay)
+    goto cleanup;
+
+  ITER_DRIVES (g, i, drv) {
+    if (make_qcow2_overlay_for_drive (g, drv) == -1)
+      goto cleanup;
+  }
+
+  TRACE0 (launch_build_libvirt_qcow2_overlay_end);
 
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
@@ -278,7 +310,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     guestfs___print_timestamped_message (g, "create libvirt XML");
 
   xml = construct_libvirt_xml (g, capabilities,
-                               kernel, initrd, appliance,
+                               kernel, initrd, appliance_overlay,
                                guestfsd_sock, console_sock,
                                disable_svirt);
   if (!xml)
@@ -381,6 +413,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   free (kernel);
   free (initrd);
   free (appliance);
+  free (appliance_overlay);
   free (xml);
   free (capabilities);
 
@@ -412,6 +445,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   free (kernel);
   free (initrd);
   free (appliance);
+  free (appliance_overlay);
   free (capabilities);
   free (xml);
 
@@ -431,10 +465,10 @@ static int construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo, const char *kernel, const char *initrd, size_t appliance_index);
 static int construct_libvirt_xml_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo);
-static int construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index, const char *guestfsd_sock, const char *console_sock);
+static int construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance_overlay, size_t appliance_index, const char *guestfsd_sock, const char *console_sock);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
-static int construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance, size_t appliance_index);
+static int construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo, const char *appliance_overlay, size_t appliance_index);
 
 #define XMLERROR(code,e) do {                                           \
     if ((e) == (code)) {                                                \
@@ -447,7 +481,7 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo, c
 static xmlChar *
 construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
                        const char *kernel, const char *initrd,
-                       const char *appliance,
+                       const char *appliance_overlay,
                        const char *guestfsd_sock, const char *console_sock,
                        int disable_svirt)
 {
@@ -490,7 +524,7 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
       goto err;
   if (construct_libvirt_xml_lifecycle (g, xo) == -1)
     goto err;
-  if (construct_libvirt_xml_devices (g, xo, appliance, appliance_index,
+  if (construct_libvirt_xml_devices (g, xo, appliance_overlay, appliance_index,
                                      guestfsd_sock, console_sock) == -1)
     goto err;
   if (construct_libvirt_xml_qemu_cmdline (g, xo) == -1)
@@ -675,7 +709,8 @@ construct_libvirt_xml_lifecycle (guestfs_h *g, xmlTextWriterPtr xo)
 /* Devices. */
 static int
 construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
-                               const char *appliance, size_t appliance_index,
+                               const char *appliance_overlay,
+                               size_t appliance_index,
                                const char *guestfsd_sock,
                                const char *console_sock)
 {
@@ -713,7 +748,8 @@ construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
   }
 
   /* Appliance disk. */
-  if (construct_libvirt_xml_appliance (g, xo, appliance, appliance_index) == -1)
+  if (construct_libvirt_xml_appliance (g, xo, appliance_overlay,
+                                       appliance_index) == -1)
     goto err;
 
   /* Console. */
@@ -773,7 +809,7 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
 {
   char drive_name[64] = "sd";
   char scsi_target[64];
-  char *path = NULL;
+  struct drive_libvirt *drv_priv;
   char *format = NULL;
   int is_host_device;
 
@@ -786,6 +822,8 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   guestfs___drive_name (drv_index, &drive_name[2]);
   snprintf (scsi_target, sizeof scsi_target, "%zu", drv_index);
 
+  drv_priv = (struct drive_libvirt *) drv->priv;
+
   /* Change the libvirt XML according to whether the host path is
    * a device or a file.  For devices, use:
    *   <disk type=block device=disk>
@@ -794,15 +832,7 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
    *   <disk type=file device=disk>
    *     <source file=[path]>
    */
-  is_host_device = is_blk (drv->path);
-
-  /* Path must be absolute for libvirt. */
-  path = realpath (drv->path, NULL);
-  if (path == NULL) {
-    perrorf (g, _("realpath: could not convert '%s' to absolute path"),
-             drv->path);
-    goto err;
-  }
+  is_host_device = is_blk (drv_priv->path);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "disk"));
   XMLERROR (-1,
@@ -815,7 +845,8 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
 
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
     XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "file", BAD_CAST path));
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
+                                           BAD_CAST drv_priv->path));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
   else {
@@ -825,7 +856,8 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
 
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
     XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST path));
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
+                                           BAD_CAST drv_priv->path));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 
@@ -842,10 +874,10 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
                                          BAD_CAST "qemu"));
-  if (drv->format) {
+  if (drv_priv->format) {
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST drv->format));
+                                           BAD_CAST drv_priv->format));
   }
   else {
     /* libvirt has disabled the feature of detecting the disk format,
@@ -858,7 +890,7 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
      * the users pass the format to libguestfs which will faithfully pass
      * that to libvirt and this function won't be used.
      */
-    format = guestfs_disk_format (g, path);
+    format = guestfs_disk_format (g, drv_priv->path);
     if (!format)
       goto err;
 
@@ -866,7 +898,7 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
       error (g, _("could not auto-detect the format of '%s'\n"
                   "If the format is known, pass the format to libguestfs, eg. using the\n"
                   "'--format' option, or via the optional 'format' argument to 'add-drive'."),
-             path);
+             drv->path);
       goto err;
     }
 
@@ -899,30 +931,20 @@ construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo,
                                          BAD_CAST "0"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  /* We'd like to do this, but it's not supported by libvirt.
-   * See construct_libvirt_xml_qemu_cmdline for the workaround.
-   *
-   * if (drv->readonly) {
-   *   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "transient"));
-   *   XMLERROR (-1, xmlTextWriterEndElement (xo));
-   * }
-   */
-
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  free (path);
   free (format);
   return 0;
 
  err:
-  free (path);
   free (format);
   return -1;
 }
 
 static int
 construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
-                                 const char *appliance, size_t drv_index)
+                                 const char *appliance_overlay,
+                                 size_t drv_index)
 {
   char drive_name[64] = "sd";
   char scsi_target[64];
@@ -941,7 +963,7 @@ construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
-                                         BAD_CAST appliance));
+                                         BAD_CAST appliance_overlay));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
@@ -959,7 +981,7 @@ construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
                                          BAD_CAST "qemu"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "raw"));
+                                         BAD_CAST "qcow2"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
                                          BAD_CAST "unsafe"));
@@ -1004,51 +1026,10 @@ construct_libvirt_xml_appliance (guestfs_h *g, xmlTextWriterPtr xo,
 static int
 construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
 {
-  struct drive *drv;
-  size_t i;
-  char attr[256];
   struct qemu_param *qp;
   char *p;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:commandline"));
-
-  /* Workaround because libvirt can't do snapshot=on yet.  Idea inspired
-   * by Stefan Hajnoczi's post here:
-   * http://blog.vmsplice.net/2011/04/how-to-pass-qemu-command-line-options.html
-   */
-  ITER_DRIVES (g, i, drv) {
-    if (drv->readonly) {
-      snprintf (attr, sizeof attr,
-                "drive.drive-scsi0-0-%zu-0.snapshot=on", i);
-
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                             BAD_CAST "-set"));
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                             BAD_CAST attr));
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
-    }
-  }
-
-  snprintf (attr, sizeof attr,
-            "drive.drive-scsi0-0-%zu-0.snapshot=on", g->nr_drives);
-
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                         BAD_CAST "-set"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                         BAD_CAST attr));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   /* We need to ensure the snapshots are created in $TMPDIR (RHBZ#856619). */
   p = getenv ("TMPDIR");
@@ -1160,6 +1141,165 @@ static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
 {
   /* empty */
+}
+
+/* Create a temporary qcow2 overlay on top of 'path'. */
+static char *
+make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
+{
+  char *tmpfile = NULL;
+  int fd[2] = { -1, -1 };
+  pid_t pid = -1;
+  FILE *fp = NULL;
+  char *line = NULL;
+  size_t len;
+  int r;
+
+  /* Path must be absolute. */
+  assert (path);
+  assert (path[0] == '/');
+
+  tmpfile = safe_asprintf (g, "%s/snapshot%d", g->tmpdir, ++g->unique);
+
+  /* Because 'qemu-img create' spews junk to stdout and stderr, pass
+   * all output from it up through the event system.
+   * XXX Like libvirt, we should create a generic library for running
+   * commands.
+   */
+  if (pipe2 (fd, O_CLOEXEC) == -1) {
+    perrorf (g, "pipe2");
+    goto error;
+  }
+
+  pid = fork ();
+  if (pid == -1) {
+    perrorf (g, "fork");
+    goto error;
+  }
+
+  if (pid == 0) {               /* child: qemu-img create command */
+    /* Capture stdout and stderr. */
+    close (fd[0]);
+    dup2 (fd[1], 1);
+    dup2 (fd[1], 2);
+    close (fd[1]);
+
+    setenv ("LC_ALL", "C", 1);
+
+    if (!format)
+      execlp ("qemu-img", "qemu-img", "create", "-f", "qcow2",
+              "-b", path, tmpfile, NULL);
+    else {
+      size_t len = strlen (format);
+      char backing_fmt[len+64];
+
+      snprintf (backing_fmt, len+64, "backing_fmt=%s", format);
+
+      execlp ("qemu-img", "qemu-img", "create", "-f", "qcow2",
+              "-b", path, "-o", backing_fmt, tmpfile, NULL);
+    }
+
+    perror ("could not execute 'qemu-img create' command");
+    _exit (EXIT_FAILURE);
+  }
+
+  close (fd[1]);
+  fd[1] = -1;
+
+  fp = fdopen (fd[0], "r");
+  if (fp == NULL) {
+    perrorf (g, "fdopen: qemu-img create");
+    goto error;
+  }
+  fd[0] = -1;
+
+  while (getline (&line, &len, fp) != -1) {
+    guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, line, len);
+  }
+
+  if (fclose (fp) == -1) { /* also closes fd[0] */
+    perrorf (g, "fclose");
+    fp = NULL;
+    goto error;
+  }
+  fp = NULL;
+
+  free (line);
+  line = NULL;
+
+  if (waitpid (pid, &r, 0) == -1) {
+    perrorf (g, "waitpid");
+    pid = 0;
+    goto error;
+  }
+  pid = 0;
+
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    error (g, _("qemu-img create: could not create snapshot over %s"), path);
+    goto error;
+  }
+
+  return tmpfile;               /* caller frees */
+
+ error:
+  if (fd[0] >= 0)
+    close (fd[0]);
+  if (fd[1] >= 0)
+    close (fd[1]);
+  if (fp != NULL)
+    fclose (fp);
+  if (pid > 0)
+    waitpid (pid, NULL, 0);
+
+  free (tmpfile);
+  free (line);
+
+  return NULL;
+}
+
+static int
+make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv)
+{
+  char *path;
+  struct drive_libvirt *drv_priv;
+
+  if (drv->priv && drv->free_priv)
+    drv->free_priv (drv->priv);
+
+  drv->priv = drv_priv = safe_calloc (g, 1, sizeof (struct drive_libvirt));
+  drv->free_priv = drive_free_priv;
+
+  /* Even for non-readonly paths, we need to make the paths absolute here. */
+  path = realpath (drv->path, NULL);
+  if (path == NULL) {
+    perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+             drv->path);
+    return -1;
+  }
+
+  if (!drv->readonly) {
+    drv_priv->path = path;
+    drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
+  }
+  else {
+    drv_priv->path = make_qcow2_overlay (g, path, drv->format);
+    free (path);
+    if (!drv_priv->path)
+      return -1;
+    drv_priv->format = safe_strdup (g, "qcow2");
+  }
+
+  return 0;
+}
+
+static void
+drive_free_priv (void *priv)
+{
+  struct drive_libvirt *drv_priv = priv;
+
+  free (drv_priv->path);
+  free (drv_priv->format);
+  free (drv_priv);
 }
 
 static int
