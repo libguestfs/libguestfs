@@ -35,7 +35,9 @@ BUILT_SOURCES = \
 	errnostring.c \
 	errnostring.h
 
-EXTRA_DIST = $(BUILT_SOURCES)
+EXTRA_DIST = \
+	$(BUILT_SOURCES) \
+	guestfsd.pod
 
 noinst_LIBRARIES = libprotocol.a
 
