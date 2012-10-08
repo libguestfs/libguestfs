@@ -452,6 +452,60 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
   return guestfs__config (g, "-cdrom", filename);
 }
 
+/* Depending on whether we are hotplugging or not, this function
+ * does slightly different things: If not hotplugging, then the
+ * drive just disappears as if it had never been added.  The later
+ * drives "move up" to fill the space.  When hotplugging we have to
+ * do some complex stuff, and we usually end up leaving an empty
+ * (NULL) slot in the g->drives vector.
+ */
+int
+guestfs__remove_drive (guestfs_h *g, const char *label)
+{
+  size_t i;
+  struct drive *drv;
+
+  ITER_DRIVES (g, i, drv) {
+    if (drv->disk_label && STREQ (label, drv->disk_label))
+      goto found;
+  }
+  error (g, _("disk with label '%s' not found"), label);
+  return -1;
+
+ found:
+  if (g->state == CONFIG) {     /* Not hotplugging. */
+    free_drive_struct (drv);
+
+    g->nr_drives--;
+    for (; i < g->nr_drives; ++i)
+      g->drives[i] = g->drives[i+1];
+
+    return 0;
+  }
+  else {                        /* Hotplugging. */
+    if (!g->attach_ops || !g->attach_ops->hot_remove_drive) {
+      error (g, _("the current attach-method does not support hotplugging drives"));
+      return -1;
+    }
+
+    if (guestfs_internal_hot_remove_drive_precheck (g, label) == -1)
+      return -1;
+
+    if (g->attach_ops->hot_remove_drive (g, drv, i) == -1)
+      return -1;
+
+    free_drive_struct (drv);
+    g->drives[i] = NULL;
+    if (i == g->nr_drives-1)
+      g->nr_drives--;
+
+    if (guestfs_internal_hot_remove_drive (g, label) == -1)
+      return -1;
+
+    return 0;
+  }
+}
+
 int
 guestfs__config (guestfs_h *g,
                  const char *qemu_param, const char *qemu_value)

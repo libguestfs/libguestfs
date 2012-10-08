@@ -606,9 +606,9 @@ download etc. instead.
 
 =head2 HOTPLUGGING
 
-In libguestfs E<ge> 1.20, you may add drives after calling
-L</guestfs_launch>.  There are some restrictions, see below.
-This is called I<hotplugging>.
+In libguestfs E<ge> 1.20, you may add drives and remove after calling
+L</guestfs_launch>.  There are some restrictions, see below.  This is
+called I<hotplugging>.
 
 Only a subset of the attach-method backends support hotplugging
 (currently only the libvirt attach-method has support).  It also
@@ -628,6 +628,10 @@ so that the newly added disk has a predictable name.  For example:
  
  if (guestfs_part_disk ("/dev/disk/guestfs/newdisk", "mbr") == -1)
    error ("partitioning of hot-added disk failed");
+
+To hot-remove a disk, call L</guestfs_remove_drive>.  You can call
+this before or after L</guestfs_launch>.  You can only remove disks
+that were previously added with a label.
 
 Backends that support hotplugging do not require that you add
 E<ge> 1 disk before calling launch.  When hotplugging is supported

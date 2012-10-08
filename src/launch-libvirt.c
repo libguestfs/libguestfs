@@ -1410,6 +1410,40 @@ hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
   return -1;
 }
 
+/* Hot-remove a drive.  Note the appliance is up when this is called. */
+static int
+hot_remove_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
+{
+  virConnectPtr conn = g->virt.connv;
+  virDomainPtr dom = g->virt.domv;
+  xmlChar *xml = NULL;
+
+  if (!conn || !dom) {
+    /* This is essentially an internal error if it happens. */
+    error (g, "%s: conn == NULL or dom == NULL", __func__);
+    return -1;
+  }
+
+  /* Re-create the XML for the disk. */
+  xml = construct_libvirt_xml_hot_add_disk (g, drv, drv_index);
+  if (xml == NULL)
+    return -1;
+
+  /* Detach it. */
+  if (virDomainDetachDeviceFlags (dom, (char *) xml,
+                                  VIR_DOMAIN_DEVICE_MODIFY_LIVE) == -1) {
+    libvirt_error (g, _("could not detach disk from libvirt domain"));
+    goto error;
+  }
+
+  free (xml);
+  return 0;
+
+ error:
+  free (xml);
+  return -1;
+}
+
 static xmlChar *
 construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
                                     size_t drv_index)
@@ -1449,6 +1483,7 @@ struct attach_ops attach_ops_libvirt = {
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,
   .hot_add_drive = hot_add_drive_libvirt,
+  .hot_remove_drive = hot_remove_drive_libvirt,
 };
 
 #else /* no libvirt or libxml2 at compile time */

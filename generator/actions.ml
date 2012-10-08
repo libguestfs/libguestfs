@@ -2355,6 +2355,25 @@ backing file.
 Note that detecting disk features can be insecure under some
 circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
 
+  { defaults with
+    name = "remove_drive";
+    style = RErr, [String "label"], [];
+    tests = [];
+    shortdesc = "remove a disk image";
+    longdesc = "\
+This function is conceptually the opposite of C<guestfs_add_drive_opts>.
+It removes the drive that was previously added with label C<label>.
+
+Note that in order to remove drives, you have to add them with
+labels (see the optional C<label> argument to C<guestfs_add_drive_opts>).
+If you didn't use a label, then they cannot be removed.
+
+You can call this function before or after launching the handle.
+If called after launch, if the attach-method supports it, we try to hot
+unplug the drive: see L<guestfs(3)/HOTPLUGGING>.  The disk B<must not>
+be in use (eg. mounted) when you do this.  We try to detect if the
+disk is in use and stop you from doing this." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -9963,6 +9982,26 @@ are the full raw block device and partition names
     name = "internal_hot_add_drive";
     style = RErr, [String "label"], [];
     proc_nr = Some 370;
+    in_fish = false; in_docs = false;
+    tests = [];
+    shortdesc = "internal hotplugging operation";
+    longdesc = "\
+This function is used internally when hotplugging drives." };
+
+  { defaults with
+    name = "internal_hot_remove_drive_precheck";
+    style = RErr, [String "label"], [];
+    proc_nr = Some 371;
+    in_fish = false; in_docs = false;
+    tests = [];
+    shortdesc = "internal hotplugging operation";
+    longdesc = "\
+This function is used internally when hotplugging drives." };
+
+  { defaults with
+    name = "internal_hot_remove_drive";
+    style = RErr, [String "label"], [];
+    proc_nr = Some 372;
     in_fish = false; in_docs = false;
     tests = [];
     shortdesc = "internal hotplugging operation";

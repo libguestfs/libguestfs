@@ -18,9 +18,11 @@
 include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
-	test-hot-add.pl
+	test-hot-add.pl \
+	test-hot-remove.pl
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
-	$(TESTS)
+	$(TESTS) \
+	test-hotplug-repeated.pl

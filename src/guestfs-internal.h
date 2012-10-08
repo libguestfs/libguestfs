@@ -169,6 +169,7 @@ struct attach_ops {
 
   /* Hotplugging drives. */
   int (*hot_add_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
+  int (*hot_remove_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
 };
 extern struct attach_ops attach_ops_appliance;
 extern struct attach_ops attach_ops_libvirt;

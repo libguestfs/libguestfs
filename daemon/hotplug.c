@@ -29,6 +29,17 @@
 #include "actions.h"
 
 #define HOT_ADD_TIMEOUT 30 /* seconds */
+#define HOT_REMOVE_TIMEOUT HOT_ADD_TIMEOUT
+
+static void
+hotplug_error (const char *op, const char *path, const char *verb,
+               int timeout)
+{
+  reply_with_error ("%s drive: '%s' did not %s after %d seconds: "
+                    "this could mean that virtio-scsi (in qemu or kernel) "
+                    "or udev is not working",
+                    op, path, verb, timeout);
+}
 
 /* Wait for /dev/disk/guestfs/<label> to appear.  Timeout (and error)
  * if it doesn't appear after a reasonable length of time.
@@ -59,9 +70,91 @@ do_internal_hot_add_drive (const char *label)
     sleep (1);
   }
 
-  reply_with_error ("hot-add drive: '%s' did not appear after %d seconds: "
-                    "this could mean that virtio-scsi (in qemu or kernel) "
-                    "or udev is not working",
-                    path, HOT_ADD_TIMEOUT);
+  hotplug_error ("hot-add", path, "appear", HOT_ADD_TIMEOUT);
+  return -1;
+}
+
+GUESTFSD_EXT_CMD(str_fuser, fuser);
+
+/* This function is called before a drive is hot-unplugged. */
+int
+do_internal_hot_remove_drive_precheck (const char *label)
+{
+  size_t len = strlen (label);
+  char path[len+64];
+  int r;
+  char *out, *err;
+
+  /* Ensure there are no requests in flight (thanks Paolo Bonzini). */
+  udev_settle ();
+  sync_disks ();
+
+  snprintf (path, len+64, "/dev/disk/guestfs/%s", label);
+
+  r = commandr (&out, &err, str_fuser, "-v", "-m", path, NULL);
+  if (r == -1) {
+    reply_with_error ("fuser: %s: %s", path, err);
+    free (out);
+    free (err);
+    return -1;
+  }
+  free (err);
+
+  /* "fuser returns a non-zero return code if none of the specified
+   * files is accessed or in case of a fatal error. If at least one
+   * access has been found, fuser returns zero."
+   */
+  if (r == 0) {
+    reply_with_error ("disk with label '%s' is in use "
+                      "(eg. mounted or belongs to a volume group)", label);
+
+    /* Useful for debugging when a drive cannot be unplugged. */
+    if (verbose)
+      fprintf (stderr, "%s\n", out);
+
+    free (out);
+
+    return -1;
+  }
+
+  free (out);
+
+  return 0;
+}
+
+/* This function is called after a drive is hot-unplugged.  It checks
+ * that it has really gone and udev has finished processing the
+ * events, in case the user immediately hotplugs a drive with an
+ * identical label.
+ */
+int
+do_internal_hot_remove_drive (const char *label)
+{
+  time_t start_t, now_t;
+  size_t len = strlen (label);
+  char path[len+64];
+  int r;
+
+  snprintf (path, len+64, "/dev/disk/guestfs/%s", label);
+
+  time (&start_t);
+
+  while (time (&now_t) - start_t <= HOT_REMOVE_TIMEOUT) {
+    udev_settle ();
+
+    r = access (path, F_OK);
+    if (r == -1) {
+      if (errno != ENOENT) {
+        reply_with_perror ("%s", path);
+        return -1;
+      }
+      /* else udev has removed the file, so we can return */
+      return 0;
+    }
+
+    sleep (1);
+  }
+
+  hotplug_error ("hot-remove", path, "disappear", HOT_REMOVE_TIMEOUT);
   return -1;
 }
