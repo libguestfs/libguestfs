@@ -39,30 +39,32 @@
 
 static void free_drive_struct (struct drive *drv);
 
-struct drive **
+size_t
 guestfs___checkpoint_drives (guestfs_h *g)
 {
-  struct drive **i = &g->drives;
-  while (*i != NULL) i = &((*i)->next);
-  return i;
+  return g->nr_drives;
 }
 
 void
-guestfs___rollback_drives (guestfs_h *g, struct drive **i)
+guestfs___rollback_drives (guestfs_h *g, size_t old_i)
 {
-  guestfs___free_drives(i);
+  size_t i;
+
+  for (i = old_i; i < g->nr_drives; ++i) {
+    if (g->drives[i])
+      free_drive_struct (g->drives[i]);
+  }
+  g->nr_drives = old_i;
 }
 
-/* Add struct drive to the g->drives list in the handle. */
+/* Add struct drive to the end of the g->drives vector in the handle. */
 static void
 add_drive_to_handle (guestfs_h *g, struct drive *d)
 {
-  struct drive **drv = &(g->drives);
-
-  while (*drv != NULL)
-    drv = &((*drv)->next);
-
-  *drv = d;
+  g->nr_drives++;
+  g->drives = safe_realloc (g, g->drives,
+                            sizeof (struct drive *) * g->nr_drives);
+  g->drives[g->nr_drives-1] = d;
 }
 
 static struct drive *
@@ -73,7 +75,6 @@ create_drive_struct (guestfs_h *g, const char *path,
 {
   struct drive *drv = safe_malloc (g, sizeof (struct drive));
 
-  drv->next = NULL;
   drv->path = safe_strdup (g, path);
   drv->readonly = readonly;
   drv->format = format ? safe_strdup (g, format) : NULL;
@@ -85,17 +86,30 @@ create_drive_struct (guestfs_h *g, const char *path,
   return drv;
 }
 
+/* Called during launch to add a dummy slot to g->drives. */
 void
-guestfs___free_drives (struct drive **drives)
+guestfs___add_dummy_appliance_drive (guestfs_h *g)
 {
-  struct drive *i = *drives;
-  *drives = NULL;
+  struct drive *drv;
 
-  while (i != NULL) {
-    struct drive *next = i->next;
-    free_drive_struct (i);
-    i = next;
+  drv = create_drive_struct (g, "", 0, NULL, NULL, NULL, 0);
+  add_drive_to_handle (g, drv);
+}
+
+void
+guestfs___free_drives (guestfs_h *g)
+{
+  struct drive *drv;
+  size_t i;
+
+  ITER_DRIVES (g, i, drv) {
+    free_drive_struct (drv);
   }
+
+  free (g->drives);
+
+  g->drives = NULL;
+  g->nr_drives = 0;
 }
 
 static void
@@ -383,22 +397,26 @@ guestfs__debug_drives (guestfs_h *g)
   char **ret;
   struct drive *drv;
 
-  for (count = 0, drv = g->drives; drv; count++, drv = drv->next)
-    ;
+  count = 0;
+  ITER_DRIVES (g, i, drv) {
+    count++;
+  }
 
   ret = safe_malloc (g, sizeof (char *) * (count + 1));
 
-  for (i = 0, drv = g->drives; drv; i++, drv = drv->next) {
-    ret[i] = safe_asprintf (g, "path=%s%s%s%s%s%s%s%s%s",
-                            drv->path,
-                            drv->readonly ? " readonly" : "",
-                            drv->format ? " format=" : "",
-                            drv->format ? : "",
-                            drv->iface ? " iface=" : "",
-                            drv->iface ? : "",
-                            drv->name ? " name=" : "",
-                            drv->name ? : "",
-                            drv->use_cache_none ? " cache=none" : "");
+  count = 0;
+  ITER_DRIVES (g, i, drv) {
+    ret[count++] =
+      safe_asprintf (g, "path=%s%s%s%s%s%s%s%s%s",
+                     drv->path,
+                     drv->readonly ? " readonly" : "",
+                     drv->format ? " format=" : "",
+                     drv->format ? : "",
+                     drv->iface ? " iface=" : "",
+                     drv->iface ? : "",
+                     drv->name ? " name=" : "",
+                     drv->name ? : "",
+                     drv->use_cache_none ? " cache=none" : "");
   }
 
   ret[count] = NULL;

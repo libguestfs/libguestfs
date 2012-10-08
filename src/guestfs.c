@@ -268,7 +268,7 @@ guestfs_close (guestfs_h *g)
 #endif
 
   guestfs___free_inspect_info (g);
-  guestfs___free_drives (&g->drives);
+  guestfs___free_drives (g);
 
   for (qp = g->qemu_params; qp; qp = qp_next) {
     free (qp->qemu_param);
@@ -327,6 +327,8 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
 
   if (g->attach_ops->shutdown (g, check_for_errors) == -1)
     ret = -1;
+
+  guestfs___free_drives (g);
 
   g->state = CONFIG;
 

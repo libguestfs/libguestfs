@@ -135,10 +135,8 @@ struct event {
   void *opaque2;
 };
 
-/* Linked list of drives added to the handle. */
+/* Drives added to the handle. */
 struct drive {
-  struct drive *next;
-
   char *path;
 
   int readonly;
@@ -194,9 +192,31 @@ struct guestfs_h
   char *qemu;			/* Qemu binary. */
   char *append;			/* Append to kernel command line. */
 
-  struct drive *drives;         /* Drives added by add-drive* APIs. */
-
   struct qemu_param *qemu_params; /* Extra qemu parameters. */
+
+  /* Array of drives added by add-drive* APIs.
+   *
+   * Before launch this list can be empty or contain some drives.
+   *
+   * During launch, a dummy slot may be added which represents the
+   * slot taken up by the appliance drive.
+   *
+   * When hotplugging is supported by the attach method, drives can be
+   * added to the end of this list after launch.  Also hot-removing a
+   * drive causes a NULL slot to appear in the list.
+   *
+   * During shutdown, this list is deleted, so that each launch gets a
+   * fresh set of drives (however callers: don't do this, create a new
+   * handle each time).
+   *
+   * Always use ITER_DRIVES macro to iterate over this list!
+   */
+  struct drive **drives;
+  size_t nr_drives;
+
+#define ITER_DRIVES(g,i,drv)              \
+  for (i = 0; i < (g)->nr_drives; ++i)    \
+    if (((drv) = (g)->drives[i]) != NULL)
 
   /* Attach method, and associated backend operations. */
   enum attach_method attach_method;
@@ -433,7 +453,6 @@ extern void guestfs___debug (guestfs_h *g, const char *fs, ...)
 extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 
-extern void guestfs___free_drives (struct drive **drives);
 extern void guestfs___free_string_list (char **);
 
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
@@ -489,9 +508,11 @@ extern void guestfs___remove_tmpdir (const char *dir);
 extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
-extern struct drive ** guestfs___checkpoint_drives (guestfs_h *g);
-extern void guestfs___rollback_drives (guestfs_h *g, struct drive **i);
+extern size_t guestfs___checkpoint_drives (guestfs_h *g);
+extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___launch_failed_error (guestfs_h *g);
+extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
+extern void guestfs___free_drives (guestfs_h *g);
 
 /* launch-appliance.c */
 extern char *guestfs___drive_name (size_t index, char *ret);

@@ -120,7 +120,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
    */
-  if (!g->drives) {
+  if (!g->nr_drives) {
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
     return -1;
   }
@@ -369,6 +369,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     goto cleanup;
   }
 
+  guestfs___add_dummy_appliance_drive (g);
+
   TRACE0 (launch_libvirt_end);
 
   guestfs___launch_send_progress (g, 12);
@@ -453,17 +455,8 @@ construct_libvirt_xml (guestfs_h *g, const char *capabilities_xml,
   xmlBufferPtr xb = NULL;
   xmlOutputBufferPtr ob;
   xmlTextWriterPtr xo = NULL;
-  struct drive *drv = g->drives;
-  size_t appliance_index = 0;
+  size_t appliance_index = g->nr_drives;
   const char *type;
-
-  /* Count the number of disks added, in order to get the offset
-   * of the appliance disk.
-   */
-  while (drv != NULL) {
-    drv = drv->next;
-    appliance_index++;
-  }
 
   /* Big hack, instead of actually parsing the capabilities XML (XXX). */
   type = strstr (capabilities_xml, "'kvm'") != NULL ? "kvm" : "qemu";
@@ -686,8 +679,8 @@ construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
                                const char *guestfsd_sock,
                                const char *console_sock)
 {
-  struct drive *drv = g->drives;
-  size_t drv_index = 0;
+  struct drive *drv;
+  size_t i;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "devices"));
 
@@ -714,11 +707,9 @@ construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   /* Disks. */
-  while (drv != NULL) {
-    if (construct_libvirt_xml_disk (g, xo, drv, drv_index) == -1)
+  ITER_DRIVES (g, i, drv) {
+    if (construct_libvirt_xml_disk (g, xo, drv, i) == -1)
       goto err;
-    drv = drv->next;
-    drv_index++;
   }
 
   /* Appliance disk. */
@@ -1014,7 +1005,7 @@ static int
 construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
 {
   struct drive *drv;
-  size_t drv_index;
+  size_t i;
   char attr[256];
   struct qemu_param *qp;
   char *p;
@@ -1025,10 +1016,10 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
    * by Stefan Hajnoczi's post here:
    * http://blog.vmsplice.net/2011/04/how-to-pass-qemu-command-line-options.html
    */
-  for (drv = g->drives, drv_index = 0; drv; drv = drv->next, drv_index++) {
+  ITER_DRIVES (g, i, drv) {
     if (drv->readonly) {
       snprintf (attr, sizeof attr,
-                "drive.drive-scsi0-0-%zu-0.snapshot=on", drv_index);
+                "drive.drive-scsi0-0-%zu-0.snapshot=on", i);
 
       XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
       XMLERROR (-1,
@@ -1045,7 +1036,7 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
   }
 
   snprintf (attr, sizeof attr,
-            "drive.drive-scsi0-0-%zu-0.snapshot=on", drv_index);
+            "drive.drive-scsi0-0-%zu-0.snapshot=on", g->nr_drives);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
   XMLERROR (-1,

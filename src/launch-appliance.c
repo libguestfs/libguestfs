@@ -135,7 +135,7 @@ launch_appliance (guestfs_h *g, const char *arg)
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
    */
-  if (!g->drives) {
+  if (!g->nr_drives) {
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
     return -1;
   }
@@ -256,8 +256,8 @@ launch_appliance (guestfs_h *g, const char *arg)
     add_cmdline (g, "-nographic");
 
     /* Add drives */
-    struct drive *drv = g->drives;
-    size_t drv_index = 0;
+    struct drive *drv;
+    size_t i;
 
     if (virtio_scsi) {
       /* Create the virtio-scsi bus. */
@@ -265,9 +265,9 @@ launch_appliance (guestfs_h *g, const char *arg)
       add_cmdline (g, "virtio-scsi-pci,id=scsi");
     }
 
-    while (drv != NULL) {
+    ITER_DRIVES (g, i, drv) {
       /* Construct the final -drive parameter. */
-      char *buf = qemu_drive_param (g, drv, drv_index);
+      char *buf = qemu_drive_param (g, drv, i);
 
       add_cmdline (g, "-drive");
       add_cmdline (g, buf);
@@ -275,13 +275,10 @@ launch_appliance (guestfs_h *g, const char *arg)
 
       if (virtio_scsi && drv->iface == NULL) {
         char buf2[64];
-        snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", drv_index);
+        snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", i);
         add_cmdline (g, "-device");
         add_cmdline (g, buf2);
       }
-
-      drv = drv->next;
-      drv_index++;
     }
 
     char appliance_root[64] = "";
@@ -310,7 +307,7 @@ launch_appliance (guestfs_h *g, const char *arg)
 
       snprintf (appliance_root, sizeof appliance_root, "root=/dev/%cd",
                 virtio_scsi ? 's' : 'v');
-      guestfs___drive_name (drv_index, &appliance_root[12]);
+      guestfs___drive_name (g->nr_drives, &appliance_root[12]);
     }
 
     if (STRNEQ (QEMU_OPTIONS, "")) {
@@ -666,6 +663,9 @@ launch_appliance (guestfs_h *g, const char *arg)
   TRACE0 (launch_end);
 
   guestfs___launch_send_progress (g, 12);
+
+  if (appliance)
+    guestfs___add_dummy_appliance_drive (g);
 
   return 0;
 

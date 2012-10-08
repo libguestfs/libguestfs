@@ -1285,7 +1285,7 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
   char *name, *device;
   char **devices;
   size_t i, count;
-  struct drive *drive;
+  struct drive *drv;
   const char *p;
 
   /* type: (h|s|v|xv)
@@ -1299,10 +1299,8 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
 
   /* Check any hints we were passed for a non-heuristic mapping */
   name = safe_asprintf (g, "%sd%s", type, disk);
-  i = 0;
-  drive = g->drives;
-  while (drive) {
-    if (drive->name && STREQ (drive->name, name)) {
+  ITER_DRIVES (g, i, drv) {
+    if (drv->name && STREQ (drv->name, name)) {
       device = safe_asprintf (g, "%s%s", devices[i], part);
       if (!is_partition (g, device)) {
         free (device);
@@ -1311,8 +1309,6 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
       *device_ret = device;
       break;
     }
-
-    i++; drive = drive->next;
   }
   free (name);
 
@@ -1354,7 +1350,7 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
   char *device;
   char **devices;
   size_t i;
-  struct drive *drive;
+  struct drive *drv;
 
   /* disk: (cciss/c\d+d\d+)
    * part: (\d+)?
@@ -1365,10 +1361,8 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
     return -1;
 
   /* Check any hints we were passed for a non-heuristic mapping */
-  i = 0;
-  drive = g->drives;
-  while (drive) {
-    if (drive->name && STREQ(drive->name, disk)) {
+  ITER_DRIVES (g, i, drv) {
+    if (drv->name && STREQ (drv->name, disk)) {
       if (part) {
         device = safe_asprintf (g, "%s%s", devices[i], part);
         if (!is_partition (g, device)) {
@@ -1381,8 +1375,6 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
         *device_ret = safe_strdup (g, devices[i]);
       break;
     }
-
-    i++; drive = drive->next;
   }
 
   /* We don't try to guess mappings for cciss devices */
