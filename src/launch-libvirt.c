@@ -194,10 +194,13 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   /* Create overlays for read-only drives and the appliance.  This
    * works around lack of support for <transient/> disks in libvirt.
+   * Note that appliance can be NULL if using the old-style appliance.
    */
-  appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
-  if (!appliance_overlay)
-    goto cleanup;
+  if (appliance) {
+    appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
+    if (!appliance_overlay)
+      goto cleanup;
+  }
 
   ITER_DRIVES (g, i, drv) {
     if (make_qcow2_overlay_for_drive (g, drv) == -1)
@@ -393,7 +396,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     goto cleanup;
   }
 
-  guestfs___add_dummy_appliance_drive (g);
+  if (appliance)
+    guestfs___add_dummy_appliance_drive (g);
 
   TRACE0 (launch_libvirt_end);
 
@@ -739,10 +743,12 @@ construct_libvirt_xml_devices (guestfs_h *g, xmlTextWriterPtr xo,
       goto err;
   }
 
-  /* Appliance disk. */
-  if (construct_libvirt_xml_appliance (g, xo, appliance_overlay,
-                                       appliance_index) == -1)
-    goto err;
+  if (appliance_overlay) {
+    /* Appliance disk. */
+    if (construct_libvirt_xml_appliance (g, xo, appliance_overlay,
+                                         appliance_index) == -1)
+      goto err;
+  }
 
   /* Console. */
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "serial"));
