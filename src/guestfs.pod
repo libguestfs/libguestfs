@@ -3133,6 +3133,10 @@ L<virt-alignment-scan(1)> command and documentation.
 
 The libguestfs appliance, build scripts and so on.
 
+=item C<build-aux>
+
+Various build scripts used by autotools.
+
 =item C<cat>
 
 The L<virt-cat(1)>, L<virt-filesystems(1)> and L<virt-ls(1)> commands
@@ -3178,6 +3182,15 @@ L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
 The crucially important generator, used to automatically generate
 large amounts of boilerplate C code for things like RPC and bindings.
 
+=item C<gnulib>
+
+Gnulib is used as a portability library.  A copy of gnulib is included
+under here.
+
+=item C<html>
+
+Generated HTML manual pages.
+
 =item C<inspector>
 
 L<virt-inspector(1)>, the virtual machine image inspector.
@@ -3219,6 +3232,10 @@ Source code to the C library.
 =item C<sysprep>
 
 L<virt-sysprep(1)> command and documentation.
+
+=item C<tests>
+
+Tests.
 
 =item C<test-tool>
 
