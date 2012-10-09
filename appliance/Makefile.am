@@ -21,6 +21,7 @@ builddir ?= .
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	99-guestfs-serial.rules \
 	excludelist.in \
 	guestfsd.suppressions \
 	init \
