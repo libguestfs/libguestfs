@@ -2856,11 +2856,42 @@ time.
 
 =head1 EXTENDING LIBGUESTFS
 
-=head2 ADDING A NEW API ACTION
+This section is for hackers who want to extend libguestfs itself.
+
+=head2 OVERVIEW OF THE SOURCE CODE
+
+Libguestfs source is located in the github repository
+L<https://github.com/libguestfs/libguestfs>
 
 Large amounts of boilerplate code in libguestfs (RPC, bindings,
-documentation) are generated, and this makes it easy to extend the
-libguestfs API.
+documentation) are generated.  This means that many source files will
+appear to be missing from a straightforward git checkout.  You have to
+run the generator (C<./autogen.sh && make -C generator>) in order to
+create those files.
+
+Libguestfs uses an autotools-based build system, with the main files
+being C<configure.ac> and C<Makefile.am>.  The C<generator>
+subdirectory contains the generator, plus files describing the API.
+The C<src> subdirectory contains source for the library.  The
+C<appliance> and C<daemon> subdirectories contain the source for the
+code that builds the appliance, and the code that runs in the
+appliance respectively.  Other directories are covered in the section
+L<SOURCE CODE SUBDIRECTORIES> below.
+
+Apart from the fact that all API entry points go via some generated
+code, the library is straightforward.  (In fact, even the generated
+code is designed to be readable, and should be read as ordinary code).
+Some actions run entirely in the library, and are written as C
+functions in files under C<src>.  Others are forwarded to the daemon
+where (after some generated RPC marshalling) they appear as C
+functions in files under C<daemon>.
+
+To build from source, first read the C<README> file.
+
+=head2 ADDING A NEW API ACTION
+
+Because large amounts of boilerplate code in libguestfs are generated,
+this makes it easy to extend the libguestfs API.
 
 To add a new API action there are two changes:
 
