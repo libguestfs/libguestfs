@@ -3549,9 +3549,8 @@ Before libguestfs 1.19.7, disk names had to be a single character
 that meant the limit was 25.  This has been fixed in more recent
 versions.
 
-In future versions of libguestfs it should also be possible to "hot
-plug" disks (add and remove disks after calling L</guestfs_launch>).
-This also requires changes to qemu.
+In libguestfs E<ge> 1.20 it is possible to hot plug disks.  See
+L</HOTPLUGGING>.
 
 =head2 MAXIMUM NUMBER OF PARTITIONS PER DISK
 
