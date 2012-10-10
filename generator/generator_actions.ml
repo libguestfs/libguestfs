@@ -112,7 +112,12 @@ Internally libguestfs is implemented by running a virtual machine
 using L<qemu(1)>.
 
 You should call this after configuring the handle
-(eg. adding drives) but before performing any actions.");
+(eg. adding drives) but before performing any actions.
+
+Do not call C<guestfs_launch> twice on the same handle.  Although
+it will not give an error (for historical reasons), the precise
+behaviour when you do this is not well defined.  Handles are
+very cheap to create, so create a new one for each launch.");
 
   ("wait_ready", (RErr, [], []), -1, [NotInFish; DeprecatedBy "launch"],
    [],
