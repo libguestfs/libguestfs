@@ -192,13 +192,6 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   }
 
   free (err);
-
-  /* Workaround for RHBZ#863978, possibly in kernel 3.7.0.  Can be
-   * fixed when we work out what's going on upstream.
-   */
-  if (STREQ (fstype, "btrfs"))
-    sync_disks ();
-
   return 0;
 }
 

@@ -204,11 +204,6 @@ do_mkfs_btrfs (char *const *devices,
     return -1;
   }
 
-  /* Workaround for RHBZ#863978, possibly in kernel 3.7.0.  Can be
-   * fixed when we work out what's going on upstream.
-   */
-  sync_disks ();
-
   free (err);
   return 0;
 }
