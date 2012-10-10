@@ -35,6 +35,7 @@ pid | cat > test.pid
 -sleep 1000
 
 # We should now be able to rerun the subprocess.
+add test1.img
 run
 ping-daemon
 EOF
