@@ -179,7 +179,7 @@ void
 print_inspect_prompt (void)
 {
   size_t i;
-  char *name;
+  char *name, *dev;
   char **mountpoints;
 
   name = guestfs_inspect_get_product_name (g, root);
@@ -195,8 +195,16 @@ print_inspect_prompt (void)
   qsort (mountpoints, count_strings (mountpoints) / 2, 2 * sizeof (char *),
          compare_keys);
 
-  for (i = 0; mountpoints[i] != NULL; i += 2)
-    printf (_("%s mounted on %s\n"), mountpoints[i+1], mountpoints[i]);
+  for (i = 0; mountpoints[i] != NULL; i += 2) {
+    /* Try to make the device name canonical for printing, but don't
+     * worry if this fails.
+     */
+    dev = guestfs_canonical_device_name (g, mountpoints[i+1]);
+    if (!dev)
+      dev = mountpoints[i+1];
+
+    printf (_("%s mounted on %s\n"), dev, mountpoints[i]);
+  }
 
   free_strings (mountpoints);
 }
