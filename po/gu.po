@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-09 11:20+0100\n"
+"POT-Creation-Date: 2012-10-11 17:07+0100\n"
 "PO-Revision-Date: 2012-07-10 17:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -2842,12 +2842,12 @@ msgstr ""
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: અમુક ફાઇલસિસ્ટમોને માઉન્ટ કરી શક્યા નહિં (અવગણેલ)\n"
 
-#: fish/inspect.c:183
+#: fish/inspect.c:187
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "ઓપરેટીંગ સિસ્ટમ: %s\n"
 
-#: fish/inspect.c:196
+#: fish/inspect.c:206
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -3771,34 +3771,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1242
+#: src/launch-libvirt.c:1245
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1279
+#: src/launch-libvirt.c:1282
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1324
+#: src/launch-libvirt.c:1327
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1355
+#: src/launch-libvirt.c:1358
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1407
+#: src/launch-libvirt.c:1410
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1441
+#: src/launch-libvirt.c:1444
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1498
+#: src/launch-libvirt.c:1501
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4713,13 +4713,13 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: ../resize/utils.ml:81
+#: ../resize/resize_utils.ml:81
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
 msgstr ""
 
-#: ../sparsify/utils.ml:109
+#: ../sparsify/sparsify_utils.ml:109
 msgid ""
 "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
 "include the complete output."
@@ -5329,7 +5329,7 @@ msgstr ""
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr ""
 
-#: ../resize/utils.ml:77
+#: ../resize/resize_utils.ml:77
 msgid "virt-resize: error: "
 msgstr ""
 
