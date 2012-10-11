@@ -21,7 +21,7 @@ open Printf
 
 module G = Guestfs
 
-open Utils
+open Sparsify_utils
 
 let () = Random.self_init ()
 

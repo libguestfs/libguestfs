@@ -20,7 +20,7 @@ open Printf
 
 module G = Guestfs
 
-open Utils
+open Resize_utils
 
 (* Minimum surplus before we create an extra partition. *)
 let min_extra_partition = 10L *^ 1024L *^ 1024L

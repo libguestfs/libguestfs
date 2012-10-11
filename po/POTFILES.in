@@ -143,7 +143,6 @@ python/guestfs-py.c
 rescue/virt-rescue.c
 resize/progress_c.c
 ruby/ext/guestfs/_guestfs.c
-sparsify/progress_c.c
 src/actions.c
 src/appliance.c
 src/bindtests.c
