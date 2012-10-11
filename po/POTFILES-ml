@@ -1,12 +1,11 @@
 resize/progress.ml
 resize/resize.ml
 resize/resize_gettext.ml
-resize/utils.ml
-resize/utils_tests.ml
-sparsify/progress.ml
+resize/resize_utils.ml
+resize/resize_utils_tests.ml
 sparsify/sparsify.ml
 sparsify/sparsify_gettext.ml
-sparsify/utils.ml
+sparsify/sparsify_utils.ml
 sysprep/main.ml
 sysprep/sysprep_gettext.ml
 sysprep/sysprep_operation.ml

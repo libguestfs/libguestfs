@@ -37,8 +37,8 @@ SOURCES = \
 	progress.ml \
 	resize.ml \
 	resize_gettext.ml \
-	utils.ml \
-	utils_tests.ml
+	resize_utils.ml \
+	resize_utils_tests.ml
 
 if HAVE_OCAML
 
@@ -47,7 +47,7 @@ OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	progress-c.o \
 	resize_gettext.cmx \
-	utils.cmx \
+	resize_utils.cmx \
 	progress.cmx \
 	resize.cmx
 
@@ -103,9 +103,9 @@ CLEANFILES += stamp-virt-resize.pod
 
 # Tests.
 
-check_SCRIPTS = utils_tests
+check_SCRIPTS = resize_utils_tests
 
-utils_tests: resize_gettext.cmx utils.cmx utils_tests.cmx
+resize_utils_tests: resize_gettext.cmx resize_utils.cmx resize_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 
@@ -115,7 +115,7 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	$(top_builddir)/run
 
-TESTS = utils_tests
+TESTS = resize_utils_tests
 if ENABLE_APPLIANCE
 TESTS += test-virt-resize.sh
 endif

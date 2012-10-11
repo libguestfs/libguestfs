@@ -32,22 +32,19 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify test.img
 
 # Alphabetical order.
 SOURCES = \
-	progress-c.c \
-	progress.mli \
-	progress.ml \
 	sparsify.ml \
 	sparsify_gettext.ml \
-	utils.ml
+	sparsify_utils.ml
 
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
-	progress-c.o \
+	$(top_builddir)/resize/progress-c.o \
 	sparsify_gettext.cmx \
-	utils.cmx \
-	progress.cmx \
+	sparsify_utils.cmx \
+	$(top_builddir)/resize/progress.cmx \
 	sparsify.cmx
 
 bin_SCRIPTS = virt-sparsify
@@ -55,7 +52,7 @@ bin_SCRIPTS = virt-sparsify
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
-OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml
+OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml -I $(top_builddir)/resize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
