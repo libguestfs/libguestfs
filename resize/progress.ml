@@ -18,8 +18,6 @@
 
 open Printf
 
-open Utils
-
 module G = Guestfs
 
 type progress_bar

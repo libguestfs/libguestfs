@@ -213,7 +213,6 @@ rescue/test-virt-rescue.pl
 rescue/virt-rescue.c
 resize/progress-c.c
 ruby/ext/guestfs/_guestfs.c
-sparsify/progress-c.c
 src/actions.c
 src/appliance.c
 src/bindtests.c

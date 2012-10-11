@@ -318,8 +318,8 @@ Makefile.in
 /rescue/virt-rescue.1
 /resize/.depend
 /resize/resize_gettext.ml
+/resize/resize_utils_tests
 /resize/stamp-virt-resize.pod
-/resize/utils_tests
 /resize/virt-resize
 /resize/virt-resize.1
 /ruby/bindtests.rb
