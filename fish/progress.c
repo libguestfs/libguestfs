@@ -93,6 +93,7 @@ struct progress_bar {
   int have_terminfo;
   int utf8_mode;
   int machine_readable;
+  FILE *fp;             /* output device, only used when !dumb mode */
 };
 
 struct progress_bar *
@@ -121,6 +122,8 @@ progress_bar_init (unsigned flags)
       if (tgetent (NULL, term) == 1)
         bar->have_terminfo = 1;
     }
+
+    bar->fp = fopen ("/dev/tty", "w"); /* deliberately ignore errors */
   }
 
   /* Call this to ensure the other fields are in a reasonable state.
@@ -135,6 +138,8 @@ progress_bar_init (unsigned flags)
 void
 progress_bar_free (struct progress_bar *bar)
 {
+  if (bar->fp)
+    fclose (bar->fp);
   free (bar);
 }
 
@@ -266,17 +271,30 @@ progress_bar_set (struct progress_bar *bar,
   int pulse_mode;
   double ratio;
   const char *s_open, *s_dot, *s_dash, *s_close;
+  FILE *fp;
 
   if (bar->machine_readable || bar->have_terminfo == 0) {
   dumb:
     printf ("%" PRIu64 "/%" PRIu64 "\n", position, total);
+    fflush (stdout);
   } else {
     cols = tgetnum ((char *) "co");
     if (cols < 32) goto dumb;
 
+    /* Send progress bar output to /dev/tty if we could open it, else stdout. */
+    fp = bar->fp;
+    if (!fp)
+      fp = stdout;
+
     /* Update an existing progress bar just printed? */
-    if (bar->count > 0)
-      tputs (UP, 2, putchar);
+    if (bar->count > 0) {
+      /* XXX We should call tputs here, but (a) it's unlikely that any
+       * modern terminal is so slow that it requires padding, and
+       * (b) it's just not possible to use tputs in a sane way here.
+       */
+      /*tputs (UP, 2, putchar);*/
+      fprintf (fp, "%s", UP);
+    }
     bar->count++;
 
     /* Find out if we're in "pulse mode". */
@@ -286,14 +304,14 @@ progress_bar_set (struct progress_bar *bar,
     if (ratio < 0) ratio = 0; else if (ratio > 1) ratio = 1;
 
     if (pulse_mode) {
-      printf ("%s --- ", spinner (bar, bar->count));
+      fprintf (fp, "%s --- ", spinner (bar, bar->count));
     }
     else if (ratio < 1) {
       int percent = 100.0 * ratio;
-      printf ("%s%3d%% ", spinner (bar, bar->count), percent);
+      fprintf (fp, "%s%3d%% ", spinner (bar, bar->count), percent);
     }
     else {
-      fputs (" 100% ", stdout);
+      fputs (" 100% ", fp);
     }
 
     if (bar->utf8_mode) {
@@ -305,28 +323,28 @@ progress_bar_set (struct progress_bar *bar,
       s_open = "["; s_dot = "#"; s_dash = "-"; s_close = "]";
     }
 
-    fputs (s_open, stdout);
+    fputs (s_open, fp);
 
     if (!pulse_mode) {
       size_t dots = ratio * (double) (cols - COLS_OVERHEAD);
 
       for (i = 0; i < dots; ++i)
-        fputs (s_dot, stdout);
+        fputs (s_dot, fp);
       for (i = dots; i < cols - COLS_OVERHEAD; ++i)
-        fputs (s_dash, stdout);
+        fputs (s_dash, fp);
     }
     else {           /* "Pulse mode": the progress bar just pulses. */
       for (i = 0; i < cols - COLS_OVERHEAD; ++i) {
         int cc = (bar->count * 3 - i) % (cols - COLS_OVERHEAD);
         if (cc >= 0 && cc <= 3)
-          fputs (s_dot, stdout);
+          fputs (s_dot, fp);
         else
-          fputs (s_dash, stdout);
+          fputs (s_dash, fp);
       }
     }
 
-    fputs (s_close, stdout);
-    fputc (' ', stdout);
+    fputs (s_close, fp);
+    fputc (' ', fp);
 
     /* Time estimate. */
     double estimate = estimate_remaining_time (bar, ratio);
@@ -334,26 +352,26 @@ progress_bar_set (struct progress_bar *bar,
       /* Display hours<h> */
       estimate /= 60. * 60.;
       int hh = floor (estimate);
-      printf (">%dh", hh);
+      fprintf (fp, ">%dh", hh);
     } else if (estimate >= 100.0 * 60.0 /* >= 100 minutes */) {
       /* Display hours<h>minutes */
       estimate /= 60. * 60.;
       int hh = floor (estimate);
       double ignore;
       int mm = floor (modf (estimate, &ignore) * 60.);
-      printf ("%02dh%02d", hh, mm);
+      fprintf (fp, "%02dh%02d", hh, mm);
     } else if (estimate >= 0.0) {
       /* Display minutes:seconds */
       estimate /= 60.;
       int mm = floor (estimate);
       double ignore;
       int ss = floor (modf (estimate, &ignore) * 60.);
-      printf ("%02d:%02d", mm, ss);
+      fprintf (fp, "%02d:%02d", mm, ss);
     }
     else /* < 0 means estimate was not meaningful */
-      fputs ("--:--", stdout);
+      fputs ("--:--", fp);
 
-    fputc ('\n', stdout);
+    fputc ('\n', fp);
+    fflush (fp);
   }
-  fflush (stdout);
 }
