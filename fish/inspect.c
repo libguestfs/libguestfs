@@ -178,12 +178,16 @@ inspect_mount_root (const char *root)
 void
 print_inspect_prompt (void)
 {
-  char *name = guestfs_inspect_get_product_name (g, root);
+  size_t i;
+  char *name;
+  char **mountpoints;
+
+  name = guestfs_inspect_get_product_name (g, root);
   if (name && STRNEQ (name, "unknown"))
     printf (_("Operating system: %s\n"), name);
   free (name);
 
-  char **mountpoints = guestfs_inspect_get_mountpoints (g, root);
+  mountpoints = guestfs_inspect_get_mountpoints (g, root);
   if (mountpoints == NULL)
     return;
 
@@ -191,7 +195,6 @@ print_inspect_prompt (void)
   qsort (mountpoints, count_strings (mountpoints) / 2, 2 * sizeof (char *),
          compare_keys);
 
-  size_t i;
   for (i = 0; mountpoints[i] != NULL; i += 2)
     printf (_("%s mounted on %s\n"), mountpoints[i+1], mountpoints[i]);
 
