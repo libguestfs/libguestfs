@@ -760,7 +760,10 @@ AC_PROG_CXX
 
 dnl The C++ compiler test is pretty useless because even if it fails
 dnl it sets CXX=g++.  So test the compiler actually works.
-AM_CONDITIONAL([HAVE_CXX], [$CXX --version])
+AC_MSG_CHECKING([if the C++ compiler really really works])
+AS_IF([$CXX --version >&AS_MESSAGE_LOG_FD 2>&1],[have_cxx=yes],[have_cxx=no])
+AC_MSG_RESULT([$have_cxx])
+AM_CONDITIONAL([HAVE_CXX], [test "$have_cxx" = "yes"])
 
 dnl If valgrind is present (it's not required), check whether or not
 dnl it supports the new 'valgrind --vgdb' option.
