@@ -21,7 +21,7 @@ m4_define([_GOBJECT_INTROSPECTION_CHECK_INTERNAL],
     ],[dnl
         AC_ARG_ENABLE(introspection,
                   AS_HELP_STRING([--enable-introspection[=@<:@no/auto/yes@:>@]],
-                                 [Enable introspection for this build]),,
+                                 [enable introspection for this build]),,
                                  [enable_introspection=auto])
     ])dnl
 
