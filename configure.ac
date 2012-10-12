@@ -58,10 +58,10 @@ AC_ARG_WITH([extra],
 AC_MSG_NOTICE([libguestfs version libguestfs_major.libguestfs_minor.libguestfs_release$libguestfs_extra])
 
 dnl Split up the version string.
-AC_DEFINE([PACKAGE_VERSION_MAJOR],[libguestfs_major],[Major version number])
-AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number])
-AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number])
-AC_DEFINE_UNQUOTED([PACKAGE_VERSION_EXTRA],["$libguestfs_extra"],[Extra version string])
+AC_DEFINE([PACKAGE_VERSION_MAJOR],[libguestfs_major],[Major version number.])
+AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number.])
+AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number.])
+AC_DEFINE_UNQUOTED([PACKAGE_VERSION_EXTRA],["$libguestfs_extra"],[Extra version string.])
 
 dnl Default attach method.
 AC_MSG_CHECKING([if the user specified a default attach method])
@@ -72,7 +72,7 @@ AC_ARG_WITH([default-attach-method],
     [DEFAULT_ATTACH_METHOD=appliance])
 AC_MSG_RESULT([$DEFAULT_ATTACH_METHOD])
 AC_DEFINE_UNQUOTED([DEFAULT_ATTACH_METHOD],["$DEFAULT_ATTACH_METHOD"],
-                   [default attach method])
+                   [Default attach method.])
 
 dnl Early gnulib initialization.
 gl_EARLY
@@ -158,7 +158,7 @@ if test "$gl_gcc_warnings" = yes; then
   AC_SUBST([WARN_CFLAGS])
 
   AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
-  AC_DEFINE([GNULIB_PORTCHECK], [1], [enable some gnulib portability checks])
+  AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
   AH_VERBATIM([FORTIFY_SOURCE],
     [/* Enable compile-time and run-time bounds-checking, and some warnings. */
 #if __OPTIMIZE__
@@ -195,7 +195,7 @@ AC_STRUCT_DIRENT_D_TYPE
 dnl Check if stat has the required fields.
 AC_STRUCT_ST_BLOCKS
 AC_CHECK_MEMBER([struct stat.st_blksize],[
-        AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'])])
+        AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'.])])
 
 dnl Define a C symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
@@ -303,8 +303,8 @@ if test "x$enable_daemon" = "xyes"; then
         AC_MSG_RESULT([$enable_valgrind_daemon])
 
         if test "x$enable_valgrind_daemon" = "xyes"; then
-            AC_DEFINE([VALGRIND_DAEMON],[1],[Define to 1 to run the daemon under valgrind])
-            AC_DEFINE_UNQUOTED([VALGRIND_LOG_PATH],["$(pwd)"],[Path to save valgrind log files])
+            AC_DEFINE([VALGRIND_DAEMON],[1],[Define to 1 to run the daemon under valgrind.])
+            AC_DEFINE_UNQUOTED([VALGRIND_LOG_PATH],["$(pwd)"],[Path to save valgrind log files.])
         fi
 
         dnl Which directory should we put the daemon in?  NOTE: This
@@ -333,11 +333,11 @@ if test "x$enable_daemon" = "xyes"; then
         dnl register_printf_function or (new-style) register_printf_specifier.
         AC_CHECK_FUNC([register_printf_specifier],[
                 AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
-                        [Define to 1 if you have new-style register_printf_specifier])
+                        [Define to 1 if you have new-style register_printf_specifier.])
                 ],[
                 AC_CHECK_FUNC([register_printf_function],[
                         AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
-                                [Define to 1 if you have old-style register_printf_function])
+                                [Define to 1 if you have old-style register_printf_function.])
                         ],[
                         AC_MSG_FAILURE(
 [No support for glibc-style extended printf formatters.
@@ -407,10 +407,10 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
         AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
         ])
 AC_SEARCH_LIBS([xdr_u_int64_t],[portablexdr rpc xdr nsl],[
-        AC_DEFINE([HAVE_XDR_U_INT64_T],[1],[Define to 1 if xdr_u_int64_t() exists])
+        AC_DEFINE([HAVE_XDR_U_INT64_T],[1],[Define to 1 if xdr_u_int64_t() exists.])
         ])
 AC_SEARCH_LIBS([xdr_uint64_t],[portablexdr rpc xdr nsl],[
-        AC_DEFINE([HAVE_XDR_UINT64_T],[1],[Define to 1 if xdr_uint64_t() exists])
+        AC_DEFINE([HAVE_XDR_UINT64_T],[1],[Define to 1 if xdr_uint64_t() exists.])
         ])
 AM_CONDITIONAL([HAVE_XDR_U_INT64_T],[test "x$ac_cv_search_xdr_u_int64_t" != "xno"])
 AM_CONDITIONAL([HAVE_XDR_UINT64_T],[test "x$ac_cv_search_xdr_uint64_t" != "xno"])
@@ -419,7 +419,7 @@ dnl Check for Augeas (optional).
 PKG_CHECK_MODULES([AUGEAS], [augeas],
         [AC_SUBST([AUGEAS_CFLAGS])
          AC_SUBST([AUGEAS_LIBS])
-         AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
+         AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas.])
 
          old_LIBS="$LIBS"
          LIBS="$LIBS $AUGEAS_LIBS"
@@ -442,14 +442,14 @@ AC_CHECK_LIB([selinux],[setexeccon],[
 
         ],[have_libselinux=no])
 if test "x$have_libselinux" = "xyes"; then
-        AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux])
+        AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux.])
 fi
 AC_SUBST([SELINUX_LIB])
 
 dnl Check for systemtap/DTrace userspace probes (optional).
 dnl Since the probe points break under clang, allow this to be disabled.
 AC_ARG_ENABLE([probes],
-        AS_HELP_STRING([--disable-probes], [Disable systemtap/DTrace userspace probes]),
+        AS_HELP_STRING([--disable-probes], [disable systemtap/DTrace userspace probes]),
         [],
         [enable_probes=yes])
 AS_IF([test "x$enable_probes" != "xno"],[
@@ -457,7 +457,7 @@ AS_IF([test "x$enable_probes" != "xno"],[
     AC_CHECK_HEADERS([sys/sdt.h])
     dnl AC_CHECK_PROG([DTRACE],[dtrace],[dtrace],[no])
     AS_IF([test "x$ac_cv_header_sys_sdt_h" = "xyes"],[
-        AC_DEFINE([ENABLE_PROBES],[1],[enable systemtap/DTrace userspace probes])
+        AC_DEFINE([ENABLE_PROBES],[1],[Enable systemtap/DTrace userspace probes.])
     ])
 ])
 
@@ -571,7 +571,7 @@ AS_IF([test "x$QEMU_OPTIONS" = "xno"],[
     AC_MSG_RESULT([$QEMU_OPTIONS])
 ])
 AC_DEFINE_UNQUOTED([QEMU_OPTIONS],["$QEMU_OPTIONS"],
-                   [extra options for qemu command line])
+                   [Extra options for qemu command line.])
 
 dnl Check that the chosen qemu has virtio-serial support.
 dnl For historical reasons this can be disabled by setting vmchannel_test=no.
@@ -667,7 +667,7 @@ AS_IF([test "x$with_readline" != xno],
     [AC_CHECK_LIB([readline], [main],
         [AC_SUBST([LIBREADLINE], ["-lreadline -lncurses"])
          AC_DEFINE([HAVE_LIBREADLINE], [1],
-                   [Define if you have libreadline])
+                   [Define if you have libreadline.])
         ],
         [if test "x$with_readline" != xcheck; then
          AC_MSG_FAILURE(
@@ -736,14 +736,14 @@ AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
 dnl FUSE is optional to build the FUSE module.
 AC_ARG_ENABLE([fuse],
-        AS_HELP_STRING([--disable-fuse], [Disable FUSE (guestmount) support]),
+        AS_HELP_STRING([--disable-fuse], [disable FUSE (guestmount) support]),
         [],
         [enable_fuse=yes])
 AS_IF([test "x$enable_fuse" != "xno"],
         [PKG_CHECK_MODULES([FUSE],[fuse],
             [AC_SUBST([FUSE_CFLAGS])
              AC_SUBST([FUSE_LIBS])
-             AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE])
+             AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE.])
              old_LIBS="$LIBS"
              LIBS="$FUSE_LIBS $LIBS"
              AC_CHECK_FUNCS([fuse_opt_add_opt_escaped])
@@ -783,7 +783,7 @@ dnl Check for OCaml (optional, for OCaml bindings and OCaml tools).
 OCAMLC=no
 OCAMLFIND=no
 AC_ARG_ENABLE([ocaml],
-        AS_HELP_STRING([--disable-ocaml], [Disable OCaml language bindings]),
+        AS_HELP_STRING([--disable-ocaml], [disable OCaml language bindings]),
         [],
         [enable_ocaml=yes])
 AS_IF([test "x$enable_ocaml" != "xno"],
@@ -890,7 +890,7 @@ AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
 
 dnl Check for Perl (optional, for Perl bindings and Perl tools).
 AC_ARG_ENABLE([perl],
-        AS_HELP_STRING([--disable-perl], [Disable Perl language bindings]),
+        AS_HELP_STRING([--disable-perl], [disable Perl language bindings]),
         [],
         [enable_perl=yes])
 AS_IF([test "x$enable_perl" != "xno"],[
@@ -920,7 +920,7 @@ PYTHON_INCLUDEDIR=
 PYTHON_INSTALLDIR=
 
 AC_ARG_ENABLE([python],
-        AS_HELP_STRING([--disable-python], [Disable Python language bindings]),
+        AS_HELP_STRING([--disable-python], [disable Python language bindings]),
         [],
         [enable_python=yes])
 AS_IF([test "x$enable_python" != "xno"],
@@ -970,11 +970,11 @@ AS_IF([test "x$enable_python" != "xno"],
                                            print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
             AC_CHECK_LIB([c],[PyCapsule_New],
                          [AC_DEFINE([HAVE_PYCAPSULE_NEW],1,
-                                    [Found PyCapsule_New in libpython])],
+                                    [Found PyCapsule_New in libpython.])],
                          [],[$PYTHON_BLDLIBRARY])
             AC_CHECK_LIB([c],[PyString_AsString],
                          [AC_DEFINE([HAVE_PYSTRING_ASSTRING],1,
-                                    [Found PyString_AsString in libpython])],
+                                    [Found PyString_AsString in libpython.])],
                          [],[$PYTHON_BLDLIBRARY])
 
             LIBS="$old_LIBS"
@@ -990,7 +990,7 @@ AM_CONDITIONAL([HAVE_PYTHON],
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
 AC_ARG_ENABLE([ruby],
-    AS_HELP_STRING([--disable-ruby], [Disable Ruby language bindings]),
+    AS_HELP_STRING([--disable-ruby], [disable Ruby language bindings]),
     [],
     [enable_ruby=yes])
 AS_IF([test "x$enable_ruby" != "xno"],[
@@ -1181,7 +1181,7 @@ AM_CONDITIONAL([HAVE_JAVA],[test "x$with_java" != "xno" && test -n "$JAVAC"])
 dnl Check for Haskell (GHC).
 GHC=no
 AC_ARG_ENABLE([haskell],
-        AS_HELP_STRING([--disable-haskell], [Disable Haskell language bindings]),
+        AS_HELP_STRING([--disable-haskell], [disable Haskell language bindings]),
         [],
         [enable_haskell=yes])
 AS_IF([test "x$enable_haskell" != "xno"],
@@ -1195,7 +1195,7 @@ AM_CONDITIONAL([HAVE_HASKELL],
 dnl PHP
 PHP=no
 AC_ARG_ENABLE([php],
-        AS_HELP_STRING([--disable-php], [Disable PHP language bindings]),
+        AS_HELP_STRING([--disable-php], [disable PHP language bindings]),
         [],
         [enable_php=yes])
 AS_IF([test "x$enable_php" != "xno"],
@@ -1209,7 +1209,7 @@ AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 dnl Erlang
 ERLANG=no
 AC_ARG_ENABLE([erlang],
-    AS_HELP_STRING([--disable-erlang], [Disable Erlang language bindings]),
+    AS_HELP_STRING([--disable-erlang], [disable Erlang language bindings]),
          [],
          [enable_erlang=yes])
 # NB: Don't use AS_IF here: it doesn't work.
@@ -1248,7 +1248,7 @@ AM_CONDITIONAL([HAVE_TOOLS],
 
 dnl gobject library
 AC_ARG_ENABLE([gobject],
-    AS_HELP_STRING([--disable-gobject], [Disable GObject bindings]),
+    AS_HELP_STRING([--disable-gobject], [disable GObject bindings]),
     [],
     [enable_gobject=yes])
 AS_IF(
@@ -1259,7 +1259,7 @@ AS_IF(
         AC_SUBST([GOBJECT_CFLAGS])
         AC_SUBST([GOBJECT_LIBS])
         AC_DEFINE([HAVE_GOBJECT],[1],
-                  [gobject library found at compile time.])
+                  [GObject library found at compile time.])
       ],
       [AC_MSG_WARN([gobject library not found, gobject binding will be disabled])]
     )
