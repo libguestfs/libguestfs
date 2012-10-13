@@ -629,7 +629,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 extern GUESTFS_DLL_PUBLIC void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
 extern GUESTFS_DLL_PUBLIC void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
 extern GUESTFS_DLL_PUBLIC char *guestfs_safe_strdup (guestfs_h *g, const char *str);
-extern GUESTFS_DLL_PUBLIC void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+extern GUESTFS_DLL_PUBLIC void *guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
 extern GUESTFS_DLL_PUBLIC const char *guestfs_tmpdir (void);
 #ifdef GUESTFS_PRIVATE_FOR_EACH_DISK
 extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
