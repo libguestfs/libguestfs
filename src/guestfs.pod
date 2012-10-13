@@ -2047,6 +2047,8 @@ language-specific documentation for more details on that.
 
 For guestfish, see L<guestfish(1)/OPTIONAL ARGUMENTS>.
 
+=head1 EVENTS
+
 =head2 SETTING CALLBACKS TO HANDLE EVENTS
 
 B<Note:> This section documents the generic event mechanism introduced
@@ -2075,7 +2077,7 @@ Events may contain a payload, usually nothing (void), an array of 64
 bit unsigned integers, or a message buffer.  Payloads are discussed
 later on.
 
-=head3 CLASSES OF EVENTS
+=head2 CLASSES OF EVENTS
 
 =over 4
 
@@ -2232,6 +2234,8 @@ If no callback is registered: the event is ignored.
 
 =back
 
+=head2 EVENT API
+
 =head3 guestfs_set_event_callback
 
  int guestfs_set_event_callback (guestfs_h *g,
@@ -2305,7 +2309,7 @@ contain arbitrary 8 bit data, including NUL bytes.
 C<array> and C<array_len> is an array of 64 bit unsigned integers.  At
 the moment this is only used for progress messages.
 
-=head3 EXAMPLE: CAPTURING LOG MESSAGES
+=head2 EXAMPLE: CAPTURING LOG MESSAGES
 
 One motivation for the generic event API was to allow GUI programs to
 capture debug and other messages.  In libguestfs E<le> 1.8 these were
