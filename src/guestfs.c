@@ -563,7 +563,7 @@ guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n)
 }
 
 void *
-guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size)
+guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size)
 {
   void *p = malloc (size);
   if (!p) g->abort_cb ();
