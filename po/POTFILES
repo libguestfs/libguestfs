@@ -236,7 +236,7 @@ src/launch-appliance.c
 src/launch-libvirt.c
 src/launch-unix.c
 src/launch.c
-src/libvirtdomain.c
+src/libvirt-domain.c
 src/listfs.c
 src/match.c
 src/proto.c

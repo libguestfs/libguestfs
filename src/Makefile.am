@@ -142,7 +142,7 @@ libguestfs_la_SOURCES = \
 	launch-appliance.c \
 	launch-libvirt.c \
 	launch-unix.c \
-	libvirtdomain.c \
+	libvirt-domain.c \
 	listfs.c \
 	match.c \
 	proto.c \
