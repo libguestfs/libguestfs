@@ -1523,12 +1523,6 @@ max_disks_libvirt (guestfs_h *g)
   NOT_IMPL (-1);
 }
 
-static int
-hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
-{
-  NOT_IMPL (-1);
-}
-
 struct attach_ops attach_ops_libvirt = {
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,

@@ -693,12 +693,19 @@ AC_CHECK_LIB([magic],[magic_file],
         [AC_MSG_WARN([libmagic not found, some core features will be disabled])])
 
 dnl libvirt (highly recommended)
-PKG_CHECK_MODULES([LIBVIRT], [libvirt],
+AC_ARG_WITH([libvirt],
+    [AS_HELP_STRING([--without-libvirt],
+                    [disable libvirt support @<:@default=check@:>@])],
+    [],
+    [with_libvirt=check])
+AS_IF([test "$with_libvirt" != "no"],[
+    PKG_CHECK_MODULES([LIBVIRT], [libvirt],
         [AC_SUBST([LIBVIRT_CFLAGS])
          AC_SUBST([LIBVIRT_LIBS])
          AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
         ],
         [AC_MSG_WARN([libvirt not found, some core features will be disabled])])
+])
 AM_CONDITIONAL([HAVE_LIBVIRT],[test "x$LIBVIRT_LIBS" != "x"])
 
 dnl libxml2 (highly recommended)
