@@ -2379,6 +2379,107 @@ unplug the drive: see L<guestfs(3)/HOTPLUGGING>.  The disk B<must not>
 be in use (eg. mounted) when you do this.  We try to detect if the
 disk is in use and stop you from doing this." };
 
+  { defaults with
+    name = "set_libvirt_supported_credentials";
+    style = RErr, [StringList "creds"], [];
+    tests = [];
+    shortdesc = "set libvirt credentials supported by calling program";
+    longdesc = "\
+Call this function before setting an event handler for
+C<GUESTFS_EVENT_LIBVIRT_AUTH>, to supply the list of credential types
+that the program knows how to process.
+
+The C<creds> list must be a non-empty list of strings.
+Possible strings are:
+
+=over 4
+
+=item C<username>
+
+=item C<authname>
+
+=item C<language>
+
+=item C<cnonce>
+
+=item C<passphrase>
+
+=item C<echoprompt>
+
+=item C<noechoprompt>
+
+=item C<realm>
+
+=item C<external>
+
+=back
+
+See libvirt documentation for the meaning of these credential types.
+
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+
+  { defaults with
+    name = "get_libvirt_requested_credentials";
+    style = RStringList "creds", [], [];
+    tests = [];
+    shortdesc = "get list of credentials requested by libvirt";
+    longdesc = "\
+This should only be called during the event callback
+for events of type C<GUESTFS_EVENT_LIBVIRT_AUTH>.
+
+Return the list of credentials requested by libvirt.  Possible
+values are a subset of the strings provided when you called
+C<guestfs_set_libvirt_supported_credentials>.
+
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+
+  { defaults with
+    name = "get_libvirt_requested_credential_prompt";
+    style = RString "prompt", [Int "index"], [];
+    tests = [];
+    shortdesc = "prompt of i'th requested credential";
+    longdesc = "\
+Get the prompt (provided by libvirt) for the C<index>'th
+requested credential.  If libvirt did not provide a prompt,
+this returns the empty string C<\"\">.
+
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+
+  { defaults with
+    name = "get_libvirt_requested_credential_challenge";
+    style = RString "challenge", [Int "index"], [];
+    tests = [];
+    shortdesc = "challenge of i'th requested credential";
+    longdesc = "\
+Get the challenge (provided by libvirt) for the C<index>'th
+requested credential.  If libvirt did not provide a challenge,
+this returns the empty string C<\"\">.
+
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+
+  { defaults with
+    name = "get_libvirt_requested_credential_defresult";
+    style = RString "defresult", [Int "index"], [];
+    tests = [];
+    shortdesc = "default result of i'th requested credential";
+    longdesc = "\
+Get the default result (provided by libvirt) for the C<index>'th
+requested credential.  If libvirt did not provide a default result,
+this returns the empty string C<\"\">.
+
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+
+  { defaults with
+    name = "set_libvirt_requested_credential";
+    style = RErr, [Int "index"; BufferIn "cred"], [];
+    tests = [];
+    shortdesc = "pass requested credential back to libvirt";
+    longdesc = "\
+After requesting the C<index>'th credential from the user,
+call this function to pass the answer back to libvirt.
+
+See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
+
 ]
 
 (* daemon_functions are any functions which cause some action

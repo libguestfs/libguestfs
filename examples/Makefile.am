@@ -32,7 +32,7 @@ CLEANFILES = \
 
 noinst_PROGRAMS = create_disk display_icon inspect_vm
 if HAVE_LIBVIRT
-noinst_PROGRAMS += copy_over
+noinst_PROGRAMS += copy_over libvirt_auth
 endif
 if HAVE_HIVEX
 noinst_PROGRAMS += virt-dhcp-address
@@ -50,6 +50,17 @@ copy_over_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 copy_over_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBVIRT_LIBS)
+
+libvirt_auth_SOURCES = libvirt_auth.c
+libvirt_auth_CFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(LIBVIRT_CFLAGS) \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+libvirt_auth_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBVIRT_LIBS)
 endif

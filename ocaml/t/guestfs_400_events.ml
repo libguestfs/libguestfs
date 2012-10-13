@@ -28,7 +28,8 @@ let log g ev eh buf array =
     | Guestfs.EVENT_APPLIANCE -> "appliance"
     | Guestfs.EVENT_LIBRARY -> "library"
     | Guestfs.EVENT_TRACE -> "trace"
-    | Guestfs.EVENT_ENTER -> "enter" in
+    | Guestfs.EVENT_ENTER -> "enter"
+    | Guestfs.EVENT_LIBVIRT_AUTH -> "libvirt_auth" in
 
   let eh : int = Obj.magic eh in
 

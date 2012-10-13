@@ -2232,6 +2232,16 @@ do not generate this event.
 
 If no callback is registered: the event is ignored.
 
+=item GUESTFS_EVENT_LIBVIRT_AUTH
+(payload type: libvirt URI)
+
+For any API function that opens a libvirt connection, this
+event may be generated to indicate that libvirt demands
+authentication information.  See L</LIBVIRT AUTHENTICATION> below.
+
+If no callback is registered: C<virConnectAuthPtrDefault> is
+used (suitable for command-line programs only).
+
 =back
 
 =head2 EVENT API
@@ -2349,6 +2359,132 @@ this example, messages are directed to syslog:
    const int priority = LOG_USER|LOG_INFO;
    if (buf_len > 0)
      syslog (priority, "event 0x%lx: %s", event, buf);
+ }
+
+=head2 LIBVIRT AUTHENTICATION
+
+Some libguestfs API calls can open libvirt connections.  Currently the
+only ones are L</guestfs_add_domain>; and L</guestfs_launch> if the
+libvirt attach-method has been selected.  Libvirt connections may
+require authentication, for example if they need to access a remote
+server or to access root services from non-root.  Libvirt
+authentication happens via a callback mechanism, see
+L<http://libvirt.org/guide/html/Application_Development_Guide-Connections.html>
+
+You may provide libvirt authentication data by registering a callback
+for events of type C<GUESTFS_EVENT_LIBVIRT_AUTH>.
+
+If no such event is registered, then libguestfs uses a libvirt
+function that provides command-line prompts
+(C<virConnectAuthPtrDefault>).  This is only suitable for command-line
+libguestfs programs.
+
+To provide authentication, first call
+L</guestfs_set_libvirt_supported_credentials> with the list of
+credentials your program knows how to provide.  Second, register a
+callback for the C<GUESTFS_EVENT_LIBVIRT_AUTH> event.  The event
+handler will be called when libvirt is requesting authentication
+information.
+
+In the event handler, call
+L</guestfs_get_libvirt_requested_credentials> to get a list of the
+credentials that libvirt is asking for.  You then need to ask (eg. the
+user) for each credential, and call
+L</guestfs_set_libvirt_requested_credential> with the answer.  Note
+that for each credential, additional information may be available
+via the calls
+L</guestfs_get_libvirt_requested_credential_prompt>,
+L</guestfs_get_libvirt_requested_credential_challenge> or
+L</guestfs_get_libvirt_requested_credential_defresult>.
+
+The example program below should make this clearer.
+
+There is also a more substantial working example program supplied with
+the libguestfs sources, called C<libvirt_auth.c>.
+
+ main ()
+ {
+   guestfs_h *g;
+   char *creds[] = { "authname", "passphrase", NULL };
+   int r, eh;
+ 
+   g = guestfs_create ();
+   if (!g) exit (EXIT_FAILURE);
+ 
+   /* Tell libvirt what credentials the program supports. */
+   r = guestfs_set_libvirt_supported_credentials (g, creds);
+   if (r == -1)
+     exit (EXIT_FAILURE);
+ 
+   /* Set up the event handler. */
+   eh = guestfs_set_event_callback (
+       g, do_auth,
+       GUESTFS_EVENT_LIBVIRT_AUTH, 0, NULL);
+   if (eh == -1)
+     exit (EXIT_FAILURE);
+ 
+   /* An example of a call that may ask for credentials. */
+   r = guestfs_add_domain (
+       g, "dom",
+       GUESTFS_ADD_DOMAIN_LIBVIRTURI, "qemu:///system",
+       -1);
+   if (r == -1)
+     exit (EXIT_FAILURE);
+ 
+   exit (EXIT_SUCCESS);
+ }
+ 
+ static void
+ do_auth (guestfs_h *g,
+          void *opaque,
+          uint64_t event,
+          int event_handle,
+          int flags,
+          const char *buf, size_t buf_len,
+          const uint64_t *array, size_t array_len)
+ {
+   char **creds;
+   size_t i;
+   char *prompt;
+   char *reply;
+   size_t replylen;
+   int r;
+ 
+   // buf will be the libvirt URI.  buf_len may be ignored.
+   printf ("Authentication required for libvirt conn '%s'\n",
+           buf);
+ 
+   // Ask libguestfs what credentials libvirt is demanding.
+   creds = guestfs_get_libvirt_requested_credentials (g);
+   if (creds == NULL)
+     exit (EXIT_FAILURE);
+ 
+   // Now ask the user for answers.
+   for (i = 0; creds[i] != NULL; ++i)
+   {
+     if (strcmp (creds[i], "authname") == 0 ||
+         strcmp (creds[i], "passphrase") == 0)
+     {
+       prompt =
+         guestfs_get_libvirt_requested_credential_prompt (g, i);
+       if (prompt && strcmp (prompt, "") != 0)
+         printf ("%s: ", prompt);
+       free (prompt);
+ 
+       // Some code here to ask for the credential.
+       // ...
+       // Put the reply in 'reply', length 'replylen' (bytes).
+ 
+      r = guestfs_set_libvirt_requested_credential (g, i,
+          reply, replylen);
+      if (r == -1)
+        exit (EXIT_FAILURE);
+     }
+ 
+     free (creds[i]);
+   }
+ 
+   free (creds);
  }
 
 =head1 CANCELLING LONG TRANSFERS

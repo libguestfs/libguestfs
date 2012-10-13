@@ -293,6 +293,16 @@ struct guestfs_h
   int ml_debug_calls;        /* Extra debug info on each FUSE call. */
 #endif
 
+#ifdef HAVE_LIBVIRT
+  /* Used by src/libvirt-auth.c. */
+#define NR_CREDENTIAL_TYPES 9
+  unsigned int nr_supported_credentials;
+  int supported_credentials[NR_CREDENTIAL_TYPES];
+  const char *saved_libvirt_uri; /* Doesn't need to be freed. */
+  unsigned int nr_requested_credentials;
+  virConnectCredentialPtr requested_credentials;
+#endif
+
   /**** Private data for attach-methods. ****/
   /* NB: This cannot be a union because of a pathological case where
    * the user changes attach-method while reusing the handle to launch
@@ -565,6 +575,11 @@ extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opa
 /* fuse.c */
 #if HAVE_FUSE
 extern void guestfs___free_fuse (guestfs_h *g);
+#endif
+
+/* libvirt-auth.c */
+#ifdef HAVE_LIBVIRT
+extern virConnectPtr guestfs___open_libvirt_connection (guestfs_h *g, const char *uri, unsigned int flags);
 #endif
 
 #endif /* GUESTFS_INTERNAL_H_ */

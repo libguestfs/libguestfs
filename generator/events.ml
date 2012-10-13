@@ -37,6 +37,8 @@ let events = [
   "trace";                              (* call trace messages *)
 
   "enter";                              (* enter a function *)
+
+  "libvirt_auth";                       (* libvirt authentication request *)
 ]
 
 let events = mapi (fun i name -> name, 1 lsl i) events

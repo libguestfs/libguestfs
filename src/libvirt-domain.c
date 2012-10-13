@@ -99,7 +99,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   }
 
   /* Connect to libvirt, find the domain. */
-  conn = virConnectOpenReadOnly (libvirturi);
+  conn = guestfs___open_libvirt_connection (g, libvirturi, VIR_CONNECT_RO);
   if (!conn) {
     err = virGetLastError ();
     error (g, _("could not connect to libvirt (code %d, domain %d): %s"),

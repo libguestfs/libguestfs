@@ -157,8 +157,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     guestfs___print_timestamped_message (g, "connect to libvirt");
 
   /* Connect to libvirt, get capabilities. */
-  /* XXX Support libvirt authentication in the future. */
-  conn = virConnectOpen (libvirt_uri);
+  conn = guestfs___open_libvirt_connection (g, libvirt_uri, 0);
   if (!conn) {
     libvirt_error (g, _("could not connect to libvirt (URI = %s)"),
            libvirt_uri ? : "NULL");

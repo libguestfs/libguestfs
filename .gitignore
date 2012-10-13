@@ -99,6 +99,7 @@ Makefile.in
 /examples/guestfs-recipes.1
 /examples/guestfs-testing.1
 /examples/inspect_vm
+/examples/libvirt_auth
 /examples/mount_local
 /examples/stamp-guestfs-examples.pod
 /examples/stamp-guestfs-faq.pod
