@@ -28,6 +28,10 @@
 
 #include <pcre.h>
 
+#ifdef HAVE_LIBVIRT
+#include <libvirt/libvirt.h>
+#endif
+
 #include "hash.h"
 
 #ifndef SOCK_CLOEXEC
@@ -310,10 +314,12 @@ struct guestfs_h
     int virtio_scsi;      /* See function qemu_supports_virtio_scsi */
   } app;
 
+#ifdef HAVE_LIBVIRT
   struct {                      /* Used only by src/launch-libvirt.c. */
-    void *connv;                /* libvirt connection (really virConnectPtr) */
-    void *domv;                 /* libvirt domain (really virDomainPtr) */
+    virConnectPtr conn;         /* libvirt connection */
+    virDomainPtr dom;           /* libvirt domain */
   } virt;
+#endif
 };
 
 /* Per-filesystem data stored for inspect_os. */

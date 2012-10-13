@@ -403,8 +403,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   guestfs___launch_send_progress (g, 12);
 
-  g->virt.connv = conn;
-  g->virt.domv = dom;
+  g->virt.conn = conn;
+  g->virt.dom = dom;
 
   free (kernel);
   free (initrd);
@@ -1312,8 +1312,8 @@ drive_free_priv (void *priv)
 static int
 shutdown_libvirt (guestfs_h *g, int check_for_errors)
 {
-  virConnectPtr conn = g->virt.connv;
-  virDomainPtr dom = g->virt.domv;
+  virConnectPtr conn = g->virt.conn;
+  virDomainPtr dom = g->virt.dom;
   int ret = 0;
   int flags;
 
@@ -1333,7 +1333,8 @@ shutdown_libvirt (guestfs_h *g, int check_for_errors)
   if (conn != NULL)
     virConnectClose (conn);
 
-  g->virt.connv = g->virt.domv = NULL;
+  g->virt.conn = NULL;
+  g->virt.dom = NULL;
 
   return ret;
 }
@@ -1383,8 +1384,8 @@ static xmlChar *construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *
 static int
 hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
 {
-  virConnectPtr conn = g->virt.connv;
-  virDomainPtr dom = g->virt.domv;
+  virConnectPtr conn = g->virt.conn;
+  virDomainPtr dom = g->virt.dom;
   xmlChar *xml = NULL;
 
   if (!conn || !dom) {
@@ -1423,8 +1424,8 @@ hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
 static int
 hot_remove_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
 {
-  virConnectPtr conn = g->virt.connv;
-  virDomainPtr dom = g->virt.domv;
+  virConnectPtr conn = g->virt.conn;
+  virDomainPtr dom = g->virt.dom;
   xmlChar *xml = NULL;
 
   if (!conn || !dom) {
