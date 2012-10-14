@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Geert Warrink <geert.warrink@onsnet.nu>, 2011, 2012.
+# Geert Warrink <geert.warrink@onsnet.nu>, 2011-2012.
 # Richard E. van der Luit <nippur@fedoraproject.org>, 2011, 2012.
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-11 17:07+0100\n"
-"PO-Revision-Date: 2012-07-10 17:13+0000\n"
+"POT-Creation-Date: 2012-10-14 13:35+0100\n"
+"PO-Revision-Date: 2012-10-14 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
 "nl/)\n"
@@ -20,37 +20,39 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: align/domains.c:111 df/domains.c:115
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
 
 #: align/domains.c:120 df/domains.c:124
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
+"%s: kon het aantal draaiende domeinen niet krijgen (code %d, domein %d): %s\n"
 
 #: align/domains.c:130 df/domains.c:134
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: kon draaiende domeinen niet tonen (code %d, domein %d): %s\n"
 
 #: align/domains.c:141 df/domains.c:145
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
+"%s: kon het aantal inactieve domeinen niet krijgen (code %d, domein %d): %s\n"
 
 #: align/domains.c:151 df/domains.c:155
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: kon inactieve domeinen niet tonen (code %d, domein %d): %s\n"
 
 #: align/domains.c:200 df/domains.c:211
 #, c-format
 msgid "%s: failed to analyze a disk, see error(s) above\n"
-msgstr ""
+msgstr "%s: analyseren van een schijf mislukte, zie fout(en) hierboven\n"
 
 #: align/domains.c:351 align/scan.c:129 cat/virt-cat.c:121
 #: cat/virt-filesystems.c:205 cat/virt-ls.c:190 df/domains.c:437 df/main.c:136
@@ -116,12 +118,12 @@ msgstr "%s: onbekende lange optie: %s (%d)\n"
 #: align/scan.c:208 df/main.c:266
 #, c-format
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
-msgstr ""
+msgstr "%s: gecompileerd zonder ondersteuning voor libvirt en/of libxml2.\n"
 
 #: align/scan.c:214
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
-msgstr ""
+msgstr "%s: --uuid optie kan met een -a of -d gebruikt worden\n"
 
 #: align/scan.c:303
 msgid "alignment < 4K"
@@ -342,7 +344,7 @@ msgstr "%s: error: kan xattr telling niet ontleden voor %s %s\n"
 #: df/domains.c:289
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %zu)\n"
-msgstr ""
+msgstr "%s: negeer %s, het heeft teveel schijven (%zu > %zu)\n"
 
 #: df/main.c:74
 #, c-format
@@ -501,2119 +503,2148 @@ msgstr "gebruik 'sparse file size' om een sparse image aan te maken\n"
 msgid "%s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: ongeldige integer parameter (%s gaf %d terug)\n"
 
-#: fish/cmds.c:3300
+#: fish/cmds.c:3342
 msgid "Command"
 msgstr "Commando"
 
-#: fish/cmds.c:3300
+#: fish/cmds.c:3342
 msgid "Description"
 msgstr "Beschrijving"
 
-#: fish/cmds.c:3302
+#: fish/cmds.c:3344
 msgid "add a CD-ROM disk image to examine"
 msgstr "voeg een CD-ROM schijf image toe voor onderzoek"
 
-#: fish/cmds.c:3303
+#: fish/cmds.c:3345
 msgid "add the disk(s) from a named libvirt domain"
 msgstr "voeg de schijf(ven) toe van een benoemd libvirt domein"
 
-#: fish/cmds.c:3304
+#: fish/cmds.c:3346
 msgid "add an image to examine or modify"
 msgstr "voeg een image toe voor onderzoek of te veranderen"
 
-#: fish/cmds.c:3305
+#: fish/cmds.c:3347
 msgid "add a drive in snapshot mode (read-only)"
 msgstr "voeg een station toe in snapshot mode (alleen-lezen)"
 
-#: fish/cmds.c:3306
+#: fish/cmds.c:3348
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
 "voeg een station alleen-lezen toe met het specificeren van de te gebruiken "
 "QEMU blok emulatie"
 
-#: fish/cmds.c:3307
+#: fish/cmds.c:3349
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr ""
 "voeg een station toe met het specificeren van de te gebruiken QEMU blok "
 "emulatie"
 
-#: fish/cmds.c:3308
+#: fish/cmds.c:3350
 msgid "allocate and add a disk file"
 msgstr "wijs een schijfbestand toe en voeg deze toe"
 
-#: fish/cmds.c:3309
+#: fish/cmds.c:3351
 msgid "clear Augeas path"
 msgstr "Augeas pad opschonen"
 
-#: fish/cmds.c:3310
+#: fish/cmds.c:3352
 msgid "close the current Augeas handle"
 msgstr "sluit de huidige Augeas hendel"
 
-#: fish/cmds.c:3311
+#: fish/cmds.c:3353
 msgid "define an Augeas node"
 msgstr "definieer een Augeas node"
 
-#: fish/cmds.c:3312
+#: fish/cmds.c:3354
 msgid "define an Augeas variable"
 msgstr "definieer een Augeas variabele"
 
-#: fish/cmds.c:3313
+#: fish/cmds.c:3355
 msgid "look up the value of an Augeas path"
 msgstr "zoek de waarde op van een Augeas pad"
 
-#: fish/cmds.c:3314
+#: fish/cmds.c:3356
 msgid "create a new Augeas handle"
 msgstr "maak een nieuwe Augeas hendel aan"
 
-#: fish/cmds.c:3315
+#: fish/cmds.c:3357
 msgid "insert a sibling Augeas node"
 msgstr "voeg in broer Augeas node in"
 
-#: fish/cmds.c:3316
+#: fish/cmds.c:3358
 msgid "load files into the tree"
 msgstr "laad bestanden in de boom"
 
-#: fish/cmds.c:3317
+#: fish/cmds.c:3359
 msgid "list Augeas nodes under augpath"
 msgstr "laat Augeas nodes onder augpath zien"
 
-#: fish/cmds.c:3318
+#: fish/cmds.c:3360
 msgid "return Augeas nodes which match augpath"
 msgstr "geef Augeas nodes terug die overeenkomen met augpath"
 
-#: fish/cmds.c:3319
+#: fish/cmds.c:3361
 msgid "move Augeas node"
 msgstr "verplaats Augeas node"
 
-#: fish/cmds.c:3320
+#: fish/cmds.c:3362
 msgid "remove an Augeas path"
 msgstr "verwijder een Augeas pad"
 
-#: fish/cmds.c:3321
+#: fish/cmds.c:3363
 msgid "write all pending Augeas changes to disk"
 msgstr "schrijf alle wachtende Augeas veranderingen naar schijf"
 
-#: fish/cmds.c:3322
+#: fish/cmds.c:3364
 msgid "set Augeas path to value"
 msgstr "stel Augeas pad in op waarde"
 
-#: fish/cmds.c:3323
+#: fish/cmds.c:3365
 msgid "test availability of some parts of the API"
 msgstr "testen beschikbaarheid van bepaalde onderdelen van de API"
 
-#: fish/cmds.c:3324
+#: fish/cmds.c:3366
 msgid "return a list of all optional groups"
 msgstr "geeft een lijst terug van alle optionele groepen"
 
-#: fish/cmds.c:3325
+#: fish/cmds.c:3367
 msgid "upload base64-encoded data to file"
 msgstr "base64-gecodeerde data uploaden naar bestand"
 
-#: fish/cmds.c:3326
+#: fish/cmds.c:3368
 msgid "download file and encode as base64"
 msgstr "download bestand en codeer deze als base64"
 
-#: fish/cmds.c:3327
+#: fish/cmds.c:3369
 msgid "print block device attributes"
 msgstr "print block device attributen"
 
-#: fish/cmds.c:3328
+#: fish/cmds.c:3370
 msgid "flush device buffers"
 msgstr "maak apparaat buffers leeg"
 
-#: fish/cmds.c:3329
+#: fish/cmds.c:3371
 msgid "get blocksize of block device"
 msgstr "verkrijg blok grootte van blok apparaat"
 
-#: fish/cmds.c:3330
+#: fish/cmds.c:3372
 msgid "is block device set to read-only"
 msgstr "blok apparaat ingesteld op alleen-lezen"
 
-#: fish/cmds.c:3331
+#: fish/cmds.c:3373
 msgid "get total size of device in bytes"
 msgstr "verkrijgen van totale grootte van apparaat in bytes"
 
-#: fish/cmds.c:3332
+#: fish/cmds.c:3374
 msgid "get sectorsize of block device"
 msgstr "verkrijg sector grootte van blok apparaat"
 
-#: fish/cmds.c:3333
+#: fish/cmds.c:3375
 msgid "get total size of device in 512-byte sectors"
 msgstr "verkrijg totale grootte van apparaat in 512-byte sectoren"
 
-#: fish/cmds.c:3334
+#: fish/cmds.c:3376
 msgid "reread partition table"
 msgstr "herlees partitie tabel"
 
-#: fish/cmds.c:3335
+#: fish/cmds.c:3377
 msgid "set blocksize of block device"
 msgstr "stel blok grootte van blok apparaat in"
 
-#: fish/cmds.c:3336
+#: fish/cmds.c:3378
 msgid "set block device to read-only"
 msgstr "blok apparaat instellen op alleen-lezen"
 
-#: fish/cmds.c:3337
+#: fish/cmds.c:3379
 msgid "set block device to read-write"
 msgstr "blok apparaat instellen op lezen-schrijven"
 
-#: fish/cmds.c:3338
+#: fish/cmds.c:3380
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "voeg apparaten toe aan een btrfs bestandssysteem"
 
-#: fish/cmds.c:3339
+#: fish/cmds.c:3381
 msgid "remove devices from a btrfs filesystem"
-msgstr ""
+msgstr "verwijder apparaten van een btrfs bestandssysteem"
 
-#: fish/cmds.c:3340
+#: fish/cmds.c:3382
 msgid "balance a btrfs filesystem"
-msgstr ""
+msgstr "balanceer een btrfs bestandssysteem"
 
-#: fish/cmds.c:3341
+#: fish/cmds.c:3383
 msgid "resize a btrfs filesystem"
 msgstr "verander de grootte van een btrfs bestandssysteem"
 
-#: fish/cmds.c:3342
+#: fish/cmds.c:3384
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr " synchroniseer een btrfs bestandssysteem"
 
-#: fish/cmds.c:3343
+#: fish/cmds.c:3385
 msgid "check a btrfs filesystem"
-msgstr ""
+msgstr "controleer een btrfs bestandssysteem"
 
-#: fish/cmds.c:3344
+#: fish/cmds.c:3386
 msgid "enable or disable the seeding feature of device"
-msgstr ""
+msgstr "aanzetten of uitzetten van de zaai functie van een apparaat"
 
-#: fish/cmds.c:3345
+#: fish/cmds.c:3387
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "maak een btrfs snapshot aan"
 
-#: fish/cmds.c:3346
+#: fish/cmds.c:3388
 msgid "delete a btrfs snapshot"
-msgstr ""
+msgstr "verwijder een btrfs snapshot"
 
-#: fish/cmds.c:3347
+#: fish/cmds.c:3389
 msgid "list btrfs snapshots and subvolumes"
-msgstr ""
+msgstr "toon btrfs snapshots en sub-volumes"
 
-#: fish/cmds.c:3348
+#: fish/cmds.c:3390
 msgid "set default btrfs subvolume"
-msgstr ""
+msgstr "stel standaard btrfs sub-volume in"
 
-#: fish/cmds.c:3349
+#: fish/cmds.c:3391
 msgid "create a writable btrfs snapshot"
-msgstr ""
+msgstr "maak een beschrijfbaar btrfs snapshot aan"
 
-#: fish/cmds.c:3350
+#: fish/cmds.c:3392
 msgid "return canonical device name"
-msgstr ""
+msgstr "kan canonieke apparaat naam niet teruggeven"
 
-#: fish/cmds.c:3351
+#: fish/cmds.c:3393
 msgid "return true path on case-insensitive filesystem"
 msgstr "geef echte pad terug voor hoofdletter-ongevoelige bestandssystemen"
 
-#: fish/cmds.c:3352
+#: fish/cmds.c:3394
 msgid "list the contents of a file"
 msgstr "laat de inhoud van een bestand zien"
 
-#: fish/cmds.c:3353
+#: fish/cmds.c:3395
 msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "Bereken MD5, SHAx of CRC checksum van bestand"
 
-#: fish/cmds.c:3354
+#: fish/cmds.c:3396
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
 msgstr "Bereken MD5, SHAx of CRC checksum van de inhoud van een apparaat"
 
-#: fish/cmds.c:3355
+#: fish/cmds.c:3397
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
 msgstr "Bereken MD5, SHAx of CRC checksum van bestanden in een map"
 
-#: fish/cmds.c:3356
+#: fish/cmds.c:3398
 msgid "change file mode"
 msgstr "verander bestand mode"
 
-#: fish/cmds.c:3357 fish/cmds.c:3516
+#: fish/cmds.c:3399 fish/cmds.c:3562
 msgid "change file owner and group"
 msgstr "verander bestand eigenaar en groep"
 
-#: fish/cmds.c:3358
+#: fish/cmds.c:3400
 msgid "run a command from the guest filesystem"
 msgstr "voer een commando uit in het gast bestandssysteem"
 
-#: fish/cmds.c:3359
+#: fish/cmds.c:3401
 msgid "run a command, returning lines"
 msgstr "voer een opdracht uit, regels worden teruggegeven"
 
-#: fish/cmds.c:3360
+#: fish/cmds.c:3402
 msgid "output compressed device"
 msgstr "output gecomprimeerd apparaat"
 
-#: fish/cmds.c:3361
+#: fish/cmds.c:3403
 msgid "output compressed file"
 msgstr "output gecomprimeerd bestand"
 
-#: fish/cmds.c:3362
+#: fish/cmds.c:3404
 msgid "add qemu parameters"
 msgstr "voeg qemu parameters toe"
 
-#: fish/cmds.c:3363
+#: fish/cmds.c:3405
 msgid "copy from source device to destination device"
 msgstr "kopieer van bron apparaat naar doel apparaat"
 
-#: fish/cmds.c:3364
+#: fish/cmds.c:3406
 msgid "copy from source device to destination file"
 msgstr "kopieer van bron apparaat naar doel bestand"
 
-#: fish/cmds.c:3365
+#: fish/cmds.c:3407
 msgid "copy from source file to destination device"
 msgstr "kopieer van bron bestand naar doel apparaat"
 
-#: fish/cmds.c:3366
+#: fish/cmds.c:3408
 msgid "copy from source file to destination file"
 msgstr "kopieer van bron bestand naar doel bestand"
 
-#: fish/cmds.c:3367
+#: fish/cmds.c:3409
 msgid "copy local files or directories into an image"
 msgstr "kopieer locale bestanden op mappen naar een image"
 
-#: fish/cmds.c:3368
+#: fish/cmds.c:3410
 msgid "copy remote files or directories out of an image"
 msgstr "kopieer bestanden of mappen op afstand uit een image"
 
-#: fish/cmds.c:3369
+#: fish/cmds.c:3411
 msgid "copy size bytes from source to destination using dd"
 msgstr "kopieer grootte bits van bron naar bestemming met dd"
 
-#: fish/cmds.c:3370
+#: fish/cmds.c:3412
 msgid "copy a file"
 msgstr "kopieer een bestand"
 
-#: fish/cmds.c:3371
+#: fish/cmds.c:3413
 msgid "copy a file or directory recursively"
 msgstr "kopieer een bestand of map recursief"
 
-#: fish/cmds.c:3372
+#: fish/cmds.c:3414
 msgid "copy from source to destination using dd"
 msgstr "kopieer van bron naar bestemming met dd"
 
-#: fish/cmds.c:3373
+#: fish/cmds.c:3415
 msgid "debugging and internals"
 msgstr "debug en interne"
 
-#: fish/cmds.c:3374
+#: fish/cmds.c:3416
 msgid "debug the drives (internal use only)"
 msgstr "debug de stations (alleen voor intern gebruik)"
 
-#: fish/cmds.c:3375
+#: fish/cmds.c:3417
 msgid "upload a file to the appliance (internal use only)"
 msgstr "upload een bestand naar het toestel (alleen voor intern gebruik)"
 
-#: fish/cmds.c:3376
+#: fish/cmds.c:3418
 msgid "delete a previously registered event handler"
 msgstr "delete een eerder registreerde event handler"
 
-#: fish/cmds.c:3377
+#: fish/cmds.c:3419
 msgid "convert device to index"
-msgstr ""
+msgstr "converteer apparaat naar index"
 
-#: fish/cmds.c:3378
+#: fish/cmds.c:3420
 msgid "report file system disk space usage"
 msgstr "rapporteer bestandssysteem schijfruimte gebruik"
 
-#: fish/cmds.c:3379
+#: fish/cmds.c:3421
 msgid "report file system disk space usage (human readable)"
 msgstr "rapporteer bestandssysteem schijfruimte gebruik (leesbaar)"
 
-#: fish/cmds.c:3380
+#: fish/cmds.c:3422
 msgid "detect the disk format of a disk image"
 msgstr ""
 
-#: fish/cmds.c:3381
+#: fish/cmds.c:3423
 msgid "return whether disk has a backing file"
 msgstr ""
 
-#: fish/cmds.c:3382
+#: fish/cmds.c:3424
 msgid "return virtual size of a disk"
 msgstr ""
 
-#: fish/cmds.c:3383
+#: fish/cmds.c:3425
 msgid "display an image"
 msgstr "toon een image"
 
-#: fish/cmds.c:3384
+#: fish/cmds.c:3426
 msgid "return kernel messages"
 msgstr "geef kernel boodschappen terug"
 
-#: fish/cmds.c:3385
+#: fish/cmds.c:3427
 msgid "download a file to the local machine"
 msgstr "download een bestand naar de lokale machine"
 
-#: fish/cmds.c:3386
+#: fish/cmds.c:3428
 msgid "download a file to the local machine with offset and size"
 msgstr "download een bestand naar de locale machine met offset en grootte"
 
-#: fish/cmds.c:3387
+#: fish/cmds.c:3429
 msgid "drop kernel page cache, dentries and inodes"
 msgstr "laag kernel pagina cache, dentries en inodes weg"
 
-#: fish/cmds.c:3388
+#: fish/cmds.c:3430
 msgid "estimate file space usage"
 msgstr "schat bestand ruimte gebruik"
 
-#: fish/cmds.c:3389 fish/cmds.c:3390
+#: fish/cmds.c:3431 fish/cmds.c:3432
 msgid "check an ext2/ext3 filesystem"
 msgstr "controleer een ext2/ext3 bestandssysteem"
 
-#: fish/cmds.c:3391
+#: fish/cmds.c:3433
 msgid "display a line of text"
 msgstr "laat een regel tekst zien"
 
-#: fish/cmds.c:3392
+#: fish/cmds.c:3434
 msgid "echo arguments back to the client"
 msgstr "echo argumenten terug naar de cliënt"
 
-#: fish/cmds.c:3393
+#: fish/cmds.c:3435
 msgid "edit a file"
 msgstr "bewerk een bestand"
 
-#: fish/cmds.c:3394 fish/cmds.c:3395 fish/cmds.c:3401 fish/cmds.c:3402
-#: fish/cmds.c:3442 fish/cmds.c:3443 fish/cmds.c:3758 fish/cmds.c:3759
-#: fish/cmds.c:3764 fish/cmds.c:3765 fish/cmds.c:3767 fish/cmds.c:3768
+#: fish/cmds.c:3436 fish/cmds.c:3437 fish/cmds.c:3443 fish/cmds.c:3444
+#: fish/cmds.c:3488 fish/cmds.c:3489 fish/cmds.c:3806 fish/cmds.c:3807
+#: fish/cmds.c:3812 fish/cmds.c:3813 fish/cmds.c:3815 fish/cmds.c:3816
 msgid "return lines matching a pattern"
 msgstr "geef regels terug die overeenkomen met een patroon"
 
-#: fish/cmds.c:3396
+#: fish/cmds.c:3438
 msgid "test if two files have equal contents"
 msgstr "test of twee bestanden dezelfde inhoud hebben"
 
-#: fish/cmds.c:3397
+#: fish/cmds.c:3439
 msgid "register a handler for an event or events"
 msgstr "registreer een handler voor een event of events"
 
-#: fish/cmds.c:3398
+#: fish/cmds.c:3440
 msgid "test if file or directory exists"
 msgstr "test of bestand of map bestaat"
 
-#: fish/cmds.c:3399 fish/cmds.c:3400
+#: fish/cmds.c:3441 fish/cmds.c:3442
 msgid "preallocate a file in the guest filesystem"
 msgstr "pre-allocate een bestand in het gast bestandssysteem "
 
-#: fish/cmds.c:3403
+#: fish/cmds.c:3445
 msgid "determine file type"
 msgstr "bepaal bestand type"
 
-#: fish/cmds.c:3404
+#: fish/cmds.c:3446
 msgid "detect the architecture of a binary file"
 msgstr "detecteer de architectuur van een binair bestand"
 
-#: fish/cmds.c:3405
+#: fish/cmds.c:3447
 msgid "return the size of the file in bytes"
 msgstr "geef de grootte van het bestand terug in bytes"
 
-#: fish/cmds.c:3406
+#: fish/cmds.c:3448
 msgid "check if filesystem is available"
-msgstr ""
+msgstr "controleer of bestandssysteem beschikbaar is"
 
-#: fish/cmds.c:3407
+#: fish/cmds.c:3449
 msgid "fill a file with octets"
 msgstr "vul een bestand met octetten"
 
-#: fish/cmds.c:3408
+#: fish/cmds.c:3450
 msgid "fill a directory with empty files"
 msgstr ""
 
-#: fish/cmds.c:3409
+#: fish/cmds.c:3451
 msgid "fill a file with a repeating pattern of bytes"
 msgstr "vul een bestand met een herhalend patroon van bytes"
 
-#: fish/cmds.c:3410
+#: fish/cmds.c:3452
 msgid "find all files and directories"
 msgstr "zoek alle bestanden en mappen op"
 
-#: fish/cmds.c:3411
+#: fish/cmds.c:3453
 msgid "find all files and directories, returning NUL-separated list"
 msgstr ""
 "zoek alle bestanden en mappen op, geef een door NUL gescheiden lijst terug"
 
-#: fish/cmds.c:3412
+#: fish/cmds.c:3454
 msgid "find a filesystem by label"
 msgstr "zoek een bestandssysteem op volgens label"
 
-#: fish/cmds.c:3413
+#: fish/cmds.c:3455
 msgid "find a filesystem by UUID"
 msgstr "zoek een bestandssysteem op volgens UUID"
 
-#: fish/cmds.c:3414
+#: fish/cmds.c:3456
 msgid "run the filesystem checker"
 msgstr "voer de bestandssysteem checker uit"
 
-#: fish/cmds.c:3415
+#: fish/cmds.c:3457
 msgid "trim free space in a filesystem"
-msgstr ""
+msgstr "trim vrije ruimte in een bestandssysteem"
 
-#: fish/cmds.c:3416
+#: fish/cmds.c:3458
 msgid "get the additional kernel options"
 msgstr "verkrijg de extra kernel opties"
 
-#: fish/cmds.c:3417
+#: fish/cmds.c:3459
 msgid "get the attach method"
 msgstr "verkrijg de attach methode"
 
-#: fish/cmds.c:3418
+#: fish/cmds.c:3460
 msgid "get autosync mode"
 msgstr "verkrijg automatische synchronisatie mode"
 
-#: fish/cmds.c:3419
+#: fish/cmds.c:3461
 msgid "get direct appliance mode flag"
 msgstr "verkrijg directe toepassing mode vlag"
 
-#: fish/cmds.c:3420
+#: fish/cmds.c:3462
 msgid "get ext2 file attributes of a file"
-msgstr ""
+msgstr "haal ext2 bestandsattributen van een bestand op"
 
-#: fish/cmds.c:3421
+#: fish/cmds.c:3463
 msgid "get ext2 file generation of a file"
-msgstr ""
+msgstr "haal ext2 bestandsgeneratie van een bestand op"
 
-#: fish/cmds.c:3422
+#: fish/cmds.c:3464
 msgid "get the ext2/3/4 filesystem label"
 msgstr "verkrijg het ext2/3/4 bestandssysteem label"
 
-#: fish/cmds.c:3423
+#: fish/cmds.c:3465
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "verkrijg het ext2/3/4 bestandssysteem UUID"
 
-#: fish/cmds.c:3424
+#: fish/cmds.c:3466
+msgid "challenge of i'th requested credential"
+msgstr ""
+
+#: fish/cmds.c:3467
+msgid "default result of i'th requested credential"
+msgstr ""
+
+#: fish/cmds.c:3468
+msgid "prompt of i'th requested credential"
+msgstr ""
+
+#: fish/cmds.c:3469
+msgid "get list of credentials requested by libvirt"
+msgstr ""
+
+#: fish/cmds.c:3470
 msgid "get memory allocated to the qemu subprocess"
 msgstr "verkrijg geheugen toegekend aan het qemu sub-proces"
 
-#: fish/cmds.c:3425
+#: fish/cmds.c:3471
 msgid "get enable network flag"
 msgstr "verkrijg netwerk aanzetten vlag"
 
-#: fish/cmds.c:3426
+#: fish/cmds.c:3472
 msgid "get the search path"
 msgstr "verkrijg het zoek pad"
 
-#: fish/cmds.c:3427
+#: fish/cmds.c:3473
 msgid "get process group flag"
 msgstr "verkrijg proces groep vlag"
 
-#: fish/cmds.c:3428
+#: fish/cmds.c:3474
 msgid "get PID of qemu subprocess"
 msgstr "verkrijg PID van qemu sub-proces"
 
-#: fish/cmds.c:3429
+#: fish/cmds.c:3475
 msgid "get the qemu binary"
 msgstr "verkrijg het qemu binaire bestand"
 
-#: fish/cmds.c:3430
+#: fish/cmds.c:3476
 msgid "get recovery process enabled flag"
 msgstr "verkrijg herstel proces aanzetten vlag"
 
-#: fish/cmds.c:3431
+#: fish/cmds.c:3477
 msgid "get SELinux enabled flag"
 msgstr "verkrijg SELinux aanzetten vlag"
 
-#: fish/cmds.c:3432
+#: fish/cmds.c:3478
 msgid "get number of virtual CPUs in appliance"
 msgstr "verkrijg aantal virtuele CPU's in toepassing"
 
-#: fish/cmds.c:3433
+#: fish/cmds.c:3479
 msgid "get the current state"
 msgstr "verkrijg de huidige toestand"
 
-#: fish/cmds.c:3434
+#: fish/cmds.c:3480
 msgid "get command trace enabled flag"
 msgstr "verkrijg commando trace aanzetten vlag"
 
-#: fish/cmds.c:3435
+#: fish/cmds.c:3481
 msgid "get the current umask"
 msgstr "verkrijg de huidige umask"
 
-#: fish/cmds.c:3436
+#: fish/cmds.c:3482
 msgid "get verbose mode"
 msgstr "verkrijg breedsprakige mode"
 
-#: fish/cmds.c:3437
+#: fish/cmds.c:3483
 msgid "get SELinux security context"
 msgstr "verkrijg SELinux beveiliging context"
 
-#: fish/cmds.c:3438 fish/cmds.c:3517
+#: fish/cmds.c:3484 fish/cmds.c:3563
 msgid "get a single extended attribute"
 msgstr "verkrijg een enkele uitgebreide attribuut"
 
-#: fish/cmds.c:3439 fish/cmds.c:3518
+#: fish/cmds.c:3485 fish/cmds.c:3564
 msgid "list extended attributes of a file or directory"
 msgstr "laat uitgebreide attributen zien van een bestand of map"
 
-#: fish/cmds.c:3440
+#: fish/cmds.c:3486
 msgid "expand wildcards in command"
 msgstr "expandeer wildcards in commando"
 
-#: fish/cmds.c:3441
+#: fish/cmds.c:3487
 msgid "expand a wildcard path"
 msgstr "expandeer een wildcard pad"
 
-#: fish/cmds.c:3444
+#: fish/cmds.c:3490
 msgid "install GRUB 1"
 msgstr "installeer GRUB 1"
 
-#: fish/cmds.c:3445
+#: fish/cmds.c:3491
 msgid "return first 10 lines of a file"
 msgstr "geef de eerste 10 regels van een bestand terug"
 
-#: fish/cmds.c:3446
+#: fish/cmds.c:3492
 msgid "return first N lines of a file"
 msgstr "geef de eerste N regels van een bestand terug"
 
-#: fish/cmds.c:3447
+#: fish/cmds.c:3493
 msgid "dump a file in hexadecimal"
 msgstr "dump een bestand in hexadecimaal"
 
-#: fish/cmds.c:3448
+#: fish/cmds.c:3494
 msgid "edit with a hex editor"
 msgstr "bewerk met een hex verwerker"
 
-#: fish/cmds.c:3449
+#: fish/cmds.c:3495
 msgid "close the current hivex handle"
 msgstr ""
 
-#: fish/cmds.c:3450
+#: fish/cmds.c:3496
 msgid "commit (write) changes back to the hive"
 msgstr ""
 
-#: fish/cmds.c:3451
+#: fish/cmds.c:3497
 msgid "add a child node"
 msgstr ""
 
-#: fish/cmds.c:3452
+#: fish/cmds.c:3498
 msgid "return list of nodes which are subkeys of node"
 msgstr ""
 
-#: fish/cmds.c:3453
+#: fish/cmds.c:3499
 msgid "delete a node (recursively)"
 msgstr ""
 
-#: fish/cmds.c:3454
+#: fish/cmds.c:3500
 msgid "return the named child of node"
 msgstr ""
 
-#: fish/cmds.c:3455
+#: fish/cmds.c:3501
 msgid "return the named value"
 msgstr ""
 
-#: fish/cmds.c:3456
+#: fish/cmds.c:3502
 msgid "return the name of the node"
 msgstr ""
 
-#: fish/cmds.c:3457
+#: fish/cmds.c:3503
 msgid "return the parent of node"
 msgstr ""
 
-#: fish/cmds.c:3458
+#: fish/cmds.c:3504
 msgid "set or replace a single value in a node"
 msgstr ""
 
-#: fish/cmds.c:3459
+#: fish/cmds.c:3505
 msgid "return list of values attached to node"
 msgstr ""
 
-#: fish/cmds.c:3460
+#: fish/cmds.c:3506
 msgid "open a Windows Registry hive file"
 msgstr ""
 
-#: fish/cmds.c:3461
+#: fish/cmds.c:3507
 msgid "return the root node of the hive"
 msgstr ""
 
-#: fish/cmds.c:3462
+#: fish/cmds.c:3508
 msgid "return the key field from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:3463
+#: fish/cmds.c:3509
 msgid "return the data type from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:3464 fish/cmds.c:3465
+#: fish/cmds.c:3510 fish/cmds.c:3511
 msgid "return the data field from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:3466
+#: fish/cmds.c:3512
 msgid "list the contents of a single file in an initrd"
 msgstr "laat de inhoud van een enkel bestand in een initrd zien"
 
-#: fish/cmds.c:3467
+#: fish/cmds.c:3513
 msgid "list files in an initrd"
 msgstr "laat bestanden in een initrd zien"
 
-#: fish/cmds.c:3468
+#: fish/cmds.c:3514
 msgid "add an inotify watch"
 msgstr "voeg een inotify bewaker toe"
 
-#: fish/cmds.c:3469
+#: fish/cmds.c:3515
 msgid "close the inotify handle"
 msgstr "sluit de inotify hendel"
 
-#: fish/cmds.c:3470
+#: fish/cmds.c:3516
 msgid "return list of watched files that had events"
 msgstr "geef lijst terug van bewaakte bestanden met gebeurtenissen"
 
-#: fish/cmds.c:3471
+#: fish/cmds.c:3517
 msgid "create an inotify handle"
 msgstr "maak een inotify hendel aan"
 
-#: fish/cmds.c:3472
+#: fish/cmds.c:3518
 msgid "return list of inotify events"
 msgstr "geef een lijst van inotify gebeurtenissen terug"
 
-#: fish/cmds.c:3473
+#: fish/cmds.c:3519
 msgid "remove an inotify watch"
 msgstr "verwijder een inotify bewaker"
 
-#: fish/cmds.c:3474
+#: fish/cmds.c:3520
 msgid "get architecture of inspected operating system"
 msgstr "verkrijg architectuur van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3475
+#: fish/cmds.c:3521
 msgid "get distro of inspected operating system"
 msgstr "verkrijg distributie van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3476
+#: fish/cmds.c:3522
 msgid "get drive letter mappings"
 msgstr "verkrijg station letter afbeelding"
 
-#: fish/cmds.c:3477
+#: fish/cmds.c:3523
 msgid "get filesystems associated with inspected operating system"
 msgstr ""
 "verkrijg bestandssystemen geassocieerd met geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3478
+#: fish/cmds.c:3524
 msgid "get format of inspected operating system"
 msgstr "verkrijg formaat van geïnspecteerd besturingssysteem "
 
-#: fish/cmds.c:3479
+#: fish/cmds.c:3525
 msgid "get hostname of the operating system"
 msgstr "verkrijg hostnaam van het besturingssysteem"
 
-#: fish/cmds.c:3480
+#: fish/cmds.c:3526
 msgid "get the icon corresponding to this operating system"
 msgstr "verkrijg de icoon die overeenkomt met dit besturingssysteem"
 
-#: fish/cmds.c:3481
+#: fish/cmds.c:3527
 msgid "get major version of inspected operating system"
 msgstr "verkrijg major versie van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3482
+#: fish/cmds.c:3528
 msgid "get minor version of inspected operating system"
 msgstr "verkrijg minor versie van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3483
+#: fish/cmds.c:3529
 msgid "get mountpoints of inspected operating system"
 msgstr "verkrijg aankoppel punten van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3484
+#: fish/cmds.c:3530
 msgid "get package format used by the operating system"
 msgstr "verkrijg pakket formaat gebruikt door het besturingssysteem"
 
-#: fish/cmds.c:3485
+#: fish/cmds.c:3531
 msgid "get package management tool used by the operating system"
 msgstr "verkrijg pakketbeheersgereedschap gebruikt door het besturingssysteem"
 
-#: fish/cmds.c:3486
+#: fish/cmds.c:3532
 msgid "get product name of inspected operating system"
 msgstr "verkrijg prouct naam van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3487
+#: fish/cmds.c:3533
 msgid "get product variant of inspected operating system"
 msgstr "verkrijg product variant van geinspecteerd bestandssysteem"
 
-#: fish/cmds.c:3488
+#: fish/cmds.c:3534
 msgid "return list of operating systems found by last inspection"
 msgstr ""
 "geef de lijst van besturingssystemen terug gevonden tijdens de laatste "
 "inspectie"
 
-#: fish/cmds.c:3489
+#: fish/cmds.c:3535
 msgid "get type of inspected operating system"
 msgstr "verkrijg type van geïnspecteerd besturingssysteem"
 
-#: fish/cmds.c:3490
+#: fish/cmds.c:3536
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr "verkrijg Windows CurrentControlSet van geinspecteerd besturingssysteem"
 
-#: fish/cmds.c:3491
+#: fish/cmds.c:3537
 msgid "get Windows systemroot of inspected operating system"
 msgstr "verkrijg Windows systeem root van geïnspecteerd besturingssysteem "
 
-#: fish/cmds.c:3492
+#: fish/cmds.c:3538
 msgid "get live flag for install disk"
 msgstr "verkrijg live vlag voor installatie schijf"
 
-#: fish/cmds.c:3493
+#: fish/cmds.c:3539
 msgid "get multipart flag for install disk"
 msgstr "verkrijg multipart vlag voor installatie schijf"
 
-#: fish/cmds.c:3494
+#: fish/cmds.c:3540
 msgid "get netinst (network installer) flag for install disk"
 msgstr "verkrijg netinst (netwerk installer) vlag voor installatie schijf"
 
-#: fish/cmds.c:3495
+#: fish/cmds.c:3541
 msgid "get list of applications installed in the operating system"
 msgstr ""
 "verkrijg lijst van toepassingen geïnstalleerd voor het besturingssysteem"
 
-#: fish/cmds.c:3496
+#: fish/cmds.c:3542
 msgid "inspect disk and return list of operating systems found"
 msgstr "inspecteer schijf en geef lijst van gevonden besturingssystemen terug"
 
-#: fish/cmds.c:3497
+#: fish/cmds.c:3543
 msgid "test if block device"
 msgstr "test voor blokapparaat"
 
-#: fish/cmds.c:3498
+#: fish/cmds.c:3544
 msgid "is busy processing a command"
 msgstr "is bezig met het verwerken van een commando"
 
-#: fish/cmds.c:3499
+#: fish/cmds.c:3545
 msgid "test if character device"
 msgstr "test voor karakterapparaat"
 
-#: fish/cmds.c:3500
+#: fish/cmds.c:3546
 msgid "is in configuration state"
 msgstr "is in de configuratie toestand"
 
-#: fish/cmds.c:3501
+#: fish/cmds.c:3547
 msgid "test if a directory"
 msgstr "test voor een map"
 
-#: fish/cmds.c:3502
+#: fish/cmds.c:3548
 msgid "test if FIFO (named pipe)"
 msgstr "test voor een FIFO (benoemde pipe)"
 
-#: fish/cmds.c:3503
+#: fish/cmds.c:3549
 msgid "test if a regular file"
 msgstr "test voor een standaard bestand"
 
-#: fish/cmds.c:3504
+#: fish/cmds.c:3550
 msgid "is launching subprocess"
 msgstr "lanceert een sub-proces"
 
-#: fish/cmds.c:3505
+#: fish/cmds.c:3551
 msgid "test if device is a logical volume"
 msgstr "test of het apparaat een logische volume is"
 
-#: fish/cmds.c:3506
+#: fish/cmds.c:3552
 msgid "is ready to accept commands"
 msgstr "is klaar om commando's te accepteren"
 
-#: fish/cmds.c:3507
+#: fish/cmds.c:3553
 msgid "test if socket"
 msgstr "test voor een socket"
 
-#: fish/cmds.c:3508
+#: fish/cmds.c:3554
 msgid "test if symbolic link"
 msgstr "test voor een symbolische link"
 
-#: fish/cmds.c:3509
+#: fish/cmds.c:3555
 msgid "test if a file contains all zero bytes"
 msgstr "test of een bestand alleen nul bytes bevat"
 
-#: fish/cmds.c:3510
+#: fish/cmds.c:3556
 msgid "test if a device contains all zero bytes"
 msgstr "test of een apparaat alleen nul bytes bevat"
 
-#: fish/cmds.c:3511
+#: fish/cmds.c:3557
 msgid "get ISO information from primary volume descriptor of ISO file"
-msgstr ""
+msgstr "haal ISO informatie van primaire volume descriptor van ISO bestand"
 
-#: fish/cmds.c:3512
+#: fish/cmds.c:3558
 msgid "get ISO information from primary volume descriptor of device"
-msgstr ""
+msgstr "haal ISO informatie van primaire volume descriptor van apparaat"
 
-#: fish/cmds.c:3513
+#: fish/cmds.c:3559
 msgid "kill the qemu subprocess"
 msgstr "schiet de qemu sub-processen af"
 
-#: fish/cmds.c:3514
+#: fish/cmds.c:3560
 msgid "launch the qemu subprocess"
 msgstr "lanceer het qemu sub-proces"
 
-#: fish/cmds.c:3515
+#: fish/cmds.c:3561
 msgid "change working directory"
 msgstr "verander werkmap"
 
-#: fish/cmds.c:3519
+#: fish/cmds.c:3565
 msgid "list 9p filesystems"
 msgstr "toon 9p bestandssystemen"
 
-#: fish/cmds.c:3520
+#: fish/cmds.c:3566
 msgid "list the block devices"
 msgstr "laat de blok apparaten zien"
 
-#: fish/cmds.c:3521
+#: fish/cmds.c:3567
 msgid "mapping of disk labels to devices"
 msgstr ""
 
-#: fish/cmds.c:3522
+#: fish/cmds.c:3568
 msgid "list device mapper devices"
 msgstr "toon apparaat mapper apparaten"
 
-#: fish/cmds.c:3523
+#: fish/cmds.c:3569
 msgid "list event handlers"
 msgstr "Toon event handlers"
 
-#: fish/cmds.c:3524
+#: fish/cmds.c:3570
 msgid "list filesystems"
 msgstr "toon bestandssystemen"
 
-#: fish/cmds.c:3525
+#: fish/cmds.c:3571
 msgid "list Linux md (RAID) devices"
 msgstr "Toon Linux md (RAID) devices"
 
-#: fish/cmds.c:3526
+#: fish/cmds.c:3572
 msgid "list the partitions"
 msgstr "laat de partities zien"
 
-#: fish/cmds.c:3527
+#: fish/cmds.c:3573
 msgid "list the files in a directory (long format)"
 msgstr "laat de bestanden in een map zien (lang formaat)"
 
-#: fish/cmds.c:3528
+#: fish/cmds.c:3574
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr "toon de bestanden in een map (lang format met SELinux contexts)"
 
-#: fish/cmds.c:3529 fish/cmds.c:3530
+#: fish/cmds.c:3575 fish/cmds.c:3576
 msgid "create a hard link"
 msgstr "maak een harde link aan"
 
-#: fish/cmds.c:3531 fish/cmds.c:3532
+#: fish/cmds.c:3577 fish/cmds.c:3578
 msgid "create a symbolic link"
 msgstr "maak een symbolische link aan"
 
-#: fish/cmds.c:3533 fish/cmds.c:3643
+#: fish/cmds.c:3579 fish/cmds.c:3689
 msgid "remove extended attribute of a file or directory"
 msgstr "verwijder uitgebreide attribuut van een bestand of map"
 
-#: fish/cmds.c:3534
+#: fish/cmds.c:3580
 msgid "list the files in a directory"
 msgstr "laat de bestanden in een map zien"
 
-#: fish/cmds.c:3535
+#: fish/cmds.c:3581
 msgid "get list of files in a directory"
 msgstr ""
 
-#: fish/cmds.c:3536 fish/cmds.c:3680
+#: fish/cmds.c:3582 fish/cmds.c:3728
 msgid "set extended attribute of a file or directory"
 msgstr "stel uitgebreide attribuut van een bestand of map in"
 
-#: fish/cmds.c:3537
+#: fish/cmds.c:3583
 msgid "get file information for a symbolic link"
 msgstr "verkrijg bestand informatie voor een symbolische link"
 
-#: fish/cmds.c:3538
+#: fish/cmds.c:3584
 msgid "lstat on multiple files"
 msgstr "lstat op meerdere bestanden"
 
-#: fish/cmds.c:3539
+#: fish/cmds.c:3585
 msgid "add a key on a LUKS encrypted device"
 msgstr "voeg een sleutel toe aan een LUKS versleuteld apparaat"
 
-#: fish/cmds.c:3540
+#: fish/cmds.c:3586
 msgid "close a LUKS device"
 msgstr "sluit een LUKS apparaat"
 
-#: fish/cmds.c:3541 fish/cmds.c:3542
+#: fish/cmds.c:3587 fish/cmds.c:3588
 msgid "format a block device as a LUKS encrypted device"
 msgstr "formatteer een blok apparaat als een LUKS versleuteld apparaat"
 
-#: fish/cmds.c:3543
+#: fish/cmds.c:3589
 msgid "remove a key from a LUKS encrypted device"
 msgstr "verwijder een sleutel toe van een LUKS versleuteld apparaat"
 
-#: fish/cmds.c:3544
+#: fish/cmds.c:3590
 msgid "open a LUKS-encrypted block device"
 msgstr "open een LUKS versleuteld blok apparaat"
 
-#: fish/cmds.c:3545
+#: fish/cmds.c:3591
 msgid "open a LUKS-encrypted block device read-only"
 msgstr "open een LUKS versleuteld blok alleen-lezen apparaat"
 
-#: fish/cmds.c:3546
+#: fish/cmds.c:3592
 msgid "create an LVM logical volume"
 msgstr "maak een LVM logische volume aan"
 
-#: fish/cmds.c:3547
+#: fish/cmds.c:3593
 msgid "create an LVM logical volume in % remaining free space"
-msgstr ""
+msgstr "maak een LVM logische volume aan in % overblijvende vrije ruimte"
 
-#: fish/cmds.c:3548
+#: fish/cmds.c:3594
 msgid "get canonical name of an LV"
 msgstr "verkrijg gezaghebbende naam van een LV"
 
-#: fish/cmds.c:3549
+#: fish/cmds.c:3595
 msgid "clear LVM device filter"
 msgstr "wis LVM apparaat filter"
 
-#: fish/cmds.c:3550
+#: fish/cmds.c:3596
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "verwijder alle LVM LV's, VG's en PV's"
 
-#: fish/cmds.c:3551
+#: fish/cmds.c:3597
 msgid "set LVM device filter"
 msgstr "stel LVM apparaat filter in"
 
-#: fish/cmds.c:3552
+#: fish/cmds.c:3598
 msgid "remove an LVM logical volume"
 msgstr "verwijder een LVM logische volume"
 
-#: fish/cmds.c:3553
+#: fish/cmds.c:3599
 msgid "rename an LVM logical volume"
 msgstr "hernoem een LVM logische volume"
 
-#: fish/cmds.c:3554
+#: fish/cmds.c:3600
 msgid "resize an LVM logical volume"
 msgstr "verander grootte van een LVM logische volume"
 
-#: fish/cmds.c:3555
+#: fish/cmds.c:3601
 msgid "expand an LV to fill free space"
 msgstr "expandeer een LV om vrije ruimte te vullen"
 
-#: fish/cmds.c:3556 fish/cmds.c:3557
+#: fish/cmds.c:3602 fish/cmds.c:3603
 msgid "list the LVM logical volumes (LVs)"
 msgstr "laat de LVM logische volumes (LV's) zien"
 
-#: fish/cmds.c:3558
+#: fish/cmds.c:3604
 msgid "get the UUID of a logical volume"
 msgstr "verkrijg de UUID van een logische volume"
 
-#: fish/cmds.c:3559
+#: fish/cmds.c:3605
 msgid "lgetxattr on multiple files"
 msgstr "lgetxattr op meerdere bestanden"
 
-#: fish/cmds.c:3560
+#: fish/cmds.c:3606
 msgid "open the manual"
 msgstr "open de manual"
 
-#: fish/cmds.c:3561
+#: fish/cmds.c:3607
 msgid "maximum number of disks that may be added"
-msgstr ""
+msgstr "Maximale aantal schijven dat toegevoegd mag worden"
 
-#: fish/cmds.c:3562
+#: fish/cmds.c:3608
 msgid "create a Linux md (RAID) device"
 msgstr "creëer een Linux md (RAID) device"
 
-#: fish/cmds.c:3563
+#: fish/cmds.c:3609
 msgid "obtain metadata for an MD device"
 msgstr "verkrijg metadata voor een MD device"
 
-#: fish/cmds.c:3564
+#: fish/cmds.c:3610
 msgid "get underlying devices from an MD device"
-msgstr ""
+msgstr "haal onderliggende apparaten van een MD apparaat op"
 
-#: fish/cmds.c:3565
+#: fish/cmds.c:3611
 msgid "stop a Linux md (RAID) device"
 msgstr "stop een Linux md (RAID) device"
 
-#: fish/cmds.c:3566
+#: fish/cmds.c:3612
 msgid "create a directory"
 msgstr "maak een map aan"
 
-#: fish/cmds.c:3567
+#: fish/cmds.c:3613
 msgid "create a directory with a particular mode"
 msgstr "maak een map aan met een bepaalde mode"
 
-#: fish/cmds.c:3568
+#: fish/cmds.c:3614
 msgid "create a directory and parents"
 msgstr "maak en map en ouders aan"
 
-#: fish/cmds.c:3569
+#: fish/cmds.c:3615
 msgid "create a temporary directory"
 msgstr "maak een tijdelijke map aan"
 
-#: fish/cmds.c:3570
+#: fish/cmds.c:3616
 msgid "create an ext2/ext3/ext4 filesystem on device"
 msgstr ""
 
-#: fish/cmds.c:3571 fish/cmds.c:3572 fish/cmds.c:3573
+#: fish/cmds.c:3617 fish/cmds.c:3618 fish/cmds.c:3619
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "maak een ext2/3/4 bestandssysteem met extern journaal"
 
-#: fish/cmds.c:3574
+#: fish/cmds.c:3620
 msgid "make ext2/3/4 external journal"
 msgstr "maak een ext2/3/4 extern journaal"
 
-#: fish/cmds.c:3575
+#: fish/cmds.c:3621
 msgid "make ext2/3/4 external journal with label"
 msgstr "maak een ext2/3/4 extern journaal met label"
 
-#: fish/cmds.c:3576
+#: fish/cmds.c:3622
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "maak een ext2/3/4 extern journaal met UUID"
 
-#: fish/cmds.c:3577
+#: fish/cmds.c:3623
 msgid "make FIFO (named pipe)"
 msgstr "maak een FIFO (benoemde pipe)"
 
-#: fish/cmds.c:3578
+#: fish/cmds.c:3624
 msgid "make a filesystem"
 msgstr "maak een bestandssysteem"
 
-#: fish/cmds.c:3579
+#: fish/cmds.c:3625
 msgid "make a filesystem with block size"
 msgstr "maak een bestandssysteem met blok grootte"
 
-#: fish/cmds.c:3580
+#: fish/cmds.c:3626
 msgid "create a btrfs filesystem"
-msgstr ""
+msgstr "maak een btrfs bestandssysteem aan"
 
-#: fish/cmds.c:3581
+#: fish/cmds.c:3627
 msgid "create a mountpoint"
 msgstr "maak een aankoppel punt aan"
 
-#: fish/cmds.c:3582
+#: fish/cmds.c:3628
 msgid "make block, character or FIFO devices"
 msgstr "maak blok, karakter, of FIFO apparaten"
 
-#: fish/cmds.c:3583
+#: fish/cmds.c:3629
 msgid "make block device node"
 msgstr "maak een blok apparaat node"
 
-#: fish/cmds.c:3584
+#: fish/cmds.c:3630
 msgid "make char device node"
 msgstr "maak een karakter apparaat node"
 
-#: fish/cmds.c:3585
+#: fish/cmds.c:3631
 msgid "create a swap partition"
 msgstr "maak een swap partitie aan"
 
-#: fish/cmds.c:3586
+#: fish/cmds.c:3632
 msgid "create a swap partition with a label"
 msgstr "maak een swap partitie met een label aan"
 
-#: fish/cmds.c:3587
+#: fish/cmds.c:3633
 msgid "create a swap partition with an explicit UUID"
 msgstr "maak een swap partitie met een expliciete UUID aan"
 
-#: fish/cmds.c:3588
+#: fish/cmds.c:3634
 msgid "create a swap file"
 msgstr "maak een swap bestand aan"
 
-#: fish/cmds.c:3589
+#: fish/cmds.c:3635
 msgid "load a kernel module"
 msgstr "laad een kernel module"
 
-#: fish/cmds.c:3590
+#: fish/cmds.c:3636
 msgid "view a file"
 msgstr "bekijk een bestand"
 
-#: fish/cmds.c:3591
+#: fish/cmds.c:3637
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "koppel een gast schijf aan op een plaats in het bestandssysteem"
 
-#: fish/cmds.c:3592
+#: fish/cmds.c:3638
 msgid "mount 9p filesystem"
 msgstr "koppel 9p bestandssysteem aan"
 
-#: fish/cmds.c:3593
+#: fish/cmds.c:3639
 msgid "mount on the local filesystem"
-msgstr ""
+msgstr "koppel aan op het lokale bestandssysteem"
 
-#: fish/cmds.c:3594
+#: fish/cmds.c:3640
 msgid "run main loop of mount on the local filesystem"
-msgstr ""
+msgstr "voer hoofd loop uit van aankoppeling op het lokale bestandssysteem"
 
-#: fish/cmds.c:3595
+#: fish/cmds.c:3641
 msgid "mount a file using the loop device"
 msgstr "koppel een bestand aan met het loop apparaat"
 
-#: fish/cmds.c:3596
+#: fish/cmds.c:3642
 msgid "mount a guest disk with mount options"
 msgstr "koppel een gast schijf aan met aankoppel opties"
 
-#: fish/cmds.c:3597
+#: fish/cmds.c:3643
 msgid "mount a guest disk, read-only"
 msgstr "koppel een gast schijf alleen-lezen aan"
 
-#: fish/cmds.c:3598
+#: fish/cmds.c:3644
 msgid "mount a guest disk with mount options and vfstype"
 msgstr "koppel een gast schijf aan met aankoppel opties en vfstype"
 
-#: fish/cmds.c:3599
+#: fish/cmds.c:3645
 msgid "show mountpoints"
 msgstr "laat aankoppel punten zien"
 
-#: fish/cmds.c:3600
+#: fish/cmds.c:3646
 msgid "show mounted filesystems"
 msgstr "laat aangekoppelde bestandssystemen zien"
 
-#: fish/cmds.c:3601
+#: fish/cmds.c:3647
 msgid "move a file"
 msgstr "verplaats een bestand"
 
-#: fish/cmds.c:3602
+#: fish/cmds.c:3648
 msgid "return number of whole block devices (disks) added"
-msgstr ""
+msgstr "geeft aantal toegevoegde gehele blokapparaten (schijven) terug"
 
-#: fish/cmds.c:3603
+#: fish/cmds.c:3649
 msgid "probe NTFS volume"
 msgstr "onderzoek NTFS volume"
 
-#: fish/cmds.c:3604
+#: fish/cmds.c:3650
 msgid "restore NTFS from backup file"
 msgstr "restore NTFS vanuit backup bestand"
 
-#: fish/cmds.c:3605
+#: fish/cmds.c:3651
 msgid "save NTFS to backup file"
 msgstr "sla NTFS op naar backup bestand"
 
-#: fish/cmds.c:3606
+#: fish/cmds.c:3652
 msgid "fix common errors and force Windows to check NTFS"
 msgstr ""
 "repareer veel voorkomende fouten en forceer Windows om NTFS te controleren"
 
-#: fish/cmds.c:3607
+#: fish/cmds.c:3653
 msgid "resize an NTFS filesystem"
 msgstr "verander grootte van een NTFS bestandssysteem"
 
-#: fish/cmds.c:3608
+#: fish/cmds.c:3654
 msgid "resize an NTFS filesystem (with size)"
 msgstr "verander grootte van een NTFS bestandssysteem (met grootte)"
 
-#: fish/cmds.c:3609
+#: fish/cmds.c:3655
 msgid "add a partition to the device"
 msgstr "voeg een partiie toe aan een apparaat"
 
-#: fish/cmds.c:3610
+#: fish/cmds.c:3656
 msgid "delete a partition"
 msgstr "verwijder een partitie"
 
-#: fish/cmds.c:3611
+#: fish/cmds.c:3657
 msgid "partition whole disk with a single primary partition"
 msgstr "partitioneer gehele schijf met een enkele primaire partitie"
 
-#: fish/cmds.c:3612
+#: fish/cmds.c:3658
 msgid "return true if a partition is bootable"
 msgstr "geef waar terug als een partitie opstartbaar is"
 
-#: fish/cmds.c:3613
+#: fish/cmds.c:3659
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr "verkrijg het MBR type byte (ID byte) van een partitie"
 
-#: fish/cmds.c:3614
+#: fish/cmds.c:3660
 msgid "get the partition table type"
 msgstr "verkrijg het partitie abel type"
 
-#: fish/cmds.c:3615
+#: fish/cmds.c:3661
 msgid "create an empty partition table"
 msgstr "maak een lege partitie tabel aan"
 
-#: fish/cmds.c:3616
+#: fish/cmds.c:3662
 msgid "list partitions on a device"
 msgstr "laat partities op een apparaat zien"
 
-#: fish/cmds.c:3617
+#: fish/cmds.c:3663
 msgid "make a partition bootable"
 msgstr "maak een partitie opstartbaar"
 
-#: fish/cmds.c:3618
+#: fish/cmds.c:3664
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr "stel het MBR type byte (ID byte) van een partitie in"
 
-#: fish/cmds.c:3619
+#: fish/cmds.c:3665
 msgid "set partition name"
 msgstr "stel partitie naam in"
 
-#: fish/cmds.c:3620
+#: fish/cmds.c:3666
 msgid "convert partition name to device name"
 msgstr "converteer partitie naam naar apparaat naam"
 
-#: fish/cmds.c:3621
+#: fish/cmds.c:3667
 msgid "convert partition name to partition number"
 msgstr "converteer partitie naam naar partitie nummer"
 
-#: fish/cmds.c:3622
+#: fish/cmds.c:3668
 msgid "ping the guest daemon"
 msgstr "ping de gast daemon"
 
-#: fish/cmds.c:3623
+#: fish/cmds.c:3669
 msgid "read part of a file"
 msgstr "lees deel van een bestand"
 
-#: fish/cmds.c:3624
+#: fish/cmds.c:3670
 msgid "read part of a device"
 msgstr "lees deel van een apparaat"
 
-#: fish/cmds.c:3625
+#: fish/cmds.c:3671
 msgid "generate a new random UUID for a physical volume"
 msgstr ""
 
-#: fish/cmds.c:3626
+#: fish/cmds.c:3672
 msgid "generate new random UUIDs for all physical volumes"
 msgstr ""
 
-#: fish/cmds.c:3627
+#: fish/cmds.c:3673
 msgid "create an LVM physical volume"
 msgstr "maak een LVM fysieke volume aan"
 
-#: fish/cmds.c:3628
+#: fish/cmds.c:3674
 msgid "remove an LVM physical volume"
 msgstr "verwijder een LVM fysieke volume"
 
-#: fish/cmds.c:3629
+#: fish/cmds.c:3675
 msgid "resize an LVM physical volume"
 msgstr "verander grootte van een LVM fysieke volume"
 
-#: fish/cmds.c:3630
+#: fish/cmds.c:3676
 msgid "resize an LVM physical volume (with size)"
 msgstr "verander grootte van een LVM fysieke volume (met grootte)"
 
-#: fish/cmds.c:3631 fish/cmds.c:3632
+#: fish/cmds.c:3677 fish/cmds.c:3678
 msgid "list the LVM physical volumes (PVs)"
 msgstr "laat de LVM fysieke (PV's) zien"
 
-#: fish/cmds.c:3633
+#: fish/cmds.c:3679
 msgid "get the UUID of a physical volume"
 msgstr "verkrijg de UUID van een fysieke volume"
 
-#: fish/cmds.c:3634
+#: fish/cmds.c:3680
 msgid "write to part of a file"
 msgstr "schrijf naar deel van een bestand"
 
-#: fish/cmds.c:3635
+#: fish/cmds.c:3681
 msgid "write to part of a device"
 msgstr "schrijf naar deel van een apparaat"
 
-#: fish/cmds.c:3636
+#: fish/cmds.c:3682
 msgid "read a file"
 msgstr "lees een bestand"
 
-#: fish/cmds.c:3637
+#: fish/cmds.c:3683
 msgid "read file as lines"
 msgstr "lees een bestand als regels"
 
-#: fish/cmds.c:3638
+#: fish/cmds.c:3684
 msgid "read directories entries"
 msgstr "lees map ingangen"
 
-#: fish/cmds.c:3639
+#: fish/cmds.c:3685
 msgid "read the target of a symbolic link"
 msgstr "lees het doel van een symbolische link"
 
-#: fish/cmds.c:3640
+#: fish/cmds.c:3686
 msgid "readlink on multiple files"
 msgstr "readlink op meerdere bestanden"
 
-#: fish/cmds.c:3641
+#: fish/cmds.c:3687
 msgid "canonicalized absolute pathname"
 msgstr "gezaghebbende absolute pad naam"
 
-#: fish/cmds.c:3642
+#: fish/cmds.c:3688
 msgid "remove a disk image"
 msgstr ""
 
-#: fish/cmds.c:3644
+#: fish/cmds.c:3690
 msgid "close and reopen libguestfs handle"
 msgstr "sluit en open libguestfs hendel"
 
-#: fish/cmds.c:3645
+#: fish/cmds.c:3691
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "verander grootte van een ext2, ext3 of ext4 bestandssysteem"
 
-#: fish/cmds.c:3646
+#: fish/cmds.c:3692
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
 "verklein een ext2, ext3 of ext4 bestandssysteem naar de minimale grootte"
 
-#: fish/cmds.c:3647
+#: fish/cmds.c:3693
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 "verander grootte van een ext2, ext3 of ext4 bestandssysteem (met grootte)"
 
-#: fish/cmds.c:3648
+#: fish/cmds.c:3694
 msgid "remove a file"
 msgstr "verwijder een bestand"
 
-#: fish/cmds.c:3649
+#: fish/cmds.c:3695
 msgid "remove a file ignoring errors"
 msgstr ""
 
-#: fish/cmds.c:3650
+#: fish/cmds.c:3696
 msgid "remove a file or directory recursively"
 msgstr "verwijder een bestand of map recursief"
 
-#: fish/cmds.c:3651
+#: fish/cmds.c:3697
 msgid "remove a directory"
 msgstr "verwijder een map"
 
-#: fish/cmds.c:3652
+#: fish/cmds.c:3698
 msgid "remove a mountpoint"
 msgstr "verwijder een aankoppel punt"
 
-#: fish/cmds.c:3653
+#: fish/cmds.c:3699
 msgid "synchronize the contents of two directories"
 msgstr ""
 
-#: fish/cmds.c:3654
+#: fish/cmds.c:3700
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr ""
 
-#: fish/cmds.c:3655
+#: fish/cmds.c:3701
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 
-#: fish/cmds.c:3656
+#: fish/cmds.c:3702
 msgid "scrub (securely wipe) a device"
 msgstr "boen (veilig schoonmaken) een apparaat"
 
-#: fish/cmds.c:3657
+#: fish/cmds.c:3703
 msgid "scrub (securely wipe) a file"
 msgstr "boen (veilig schoonmaken) een bestand"
 
-#: fish/cmds.c:3658
+#: fish/cmds.c:3704
 msgid "scrub (securely wipe) free space"
 msgstr "boen (veilig schoonmaken) vrije ruimte"
 
-#: fish/cmds.c:3659
+#: fish/cmds.c:3705
 msgid "add options to kernel command line"
 msgstr "voeg opties toe aan kernel commando regel"
 
-#: fish/cmds.c:3660
+#: fish/cmds.c:3706
 msgid "set the attach method"
 msgstr "stel de attach methode in"
 
-#: fish/cmds.c:3661
+#: fish/cmds.c:3707
 msgid "set autosync mode"
 msgstr "stel autosync mode in"
 
-#: fish/cmds.c:3662
+#: fish/cmds.c:3708
 msgid "enable or disable direct appliance mode"
 msgstr "zet directe apparaat mode aan of uit"
 
-#: fish/cmds.c:3663
+#: fish/cmds.c:3709
 msgid "set ext2 file attributes of a file"
-msgstr ""
+msgstr "stel ext2 bestandsattributen van een bestand in"
 
-#: fish/cmds.c:3664
+#: fish/cmds.c:3710
 msgid "set ext2 file generation of a file"
-msgstr ""
+msgstr "stel ext2 bestandsgeneratie van een bestand in"
 
-#: fish/cmds.c:3665
+#: fish/cmds.c:3711
 msgid "set the ext2/3/4 filesystem label"
 msgstr "stel het ext2/3/4 bestandssysteem label in"
 
-#: fish/cmds.c:3666
+#: fish/cmds.c:3712
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "stel het ext2/3/4 bestandssysteem UUID in"
 
-#: fish/cmds.c:3667
+#: fish/cmds.c:3713
 msgid "set filesystem label"
 msgstr "stel bestandssysteem label in"
 
-#: fish/cmds.c:3668
+#: fish/cmds.c:3714
+msgid "pass requested credential back to libvirt"
+msgstr ""
+
+#: fish/cmds.c:3715
+msgid "set libvirt credentials supported by calling program"
+msgstr ""
+
+#: fish/cmds.c:3716
 msgid "set memory allocated to the qemu subprocess"
 msgstr "stel geheugen toegekend aan het qemu sub-proces in"
 
-#: fish/cmds.c:3669
+#: fish/cmds.c:3717
 msgid "set enable network flag"
 msgstr "stel netwerk aanzetten vlag in"
 
-#: fish/cmds.c:3670
+#: fish/cmds.c:3718
 msgid "set the search path"
 msgstr "stel het zoek pad in"
 
-#: fish/cmds.c:3671
+#: fish/cmds.c:3719
 msgid "set process group flag"
 msgstr "stel proces groep vlag in"
 
-#: fish/cmds.c:3672
+#: fish/cmds.c:3720
 msgid "set the qemu binary"
 msgstr "stel het qemu binaire bestand in"
 
-#: fish/cmds.c:3673
+#: fish/cmds.c:3721
 msgid "enable or disable the recovery process"
 msgstr "zet het herstel proces aan of uit"
 
-#: fish/cmds.c:3674
+#: fish/cmds.c:3722
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr "zet SELinux aan of uit bij opstarten van het toestel"
 
-#: fish/cmds.c:3675
+#: fish/cmds.c:3723
 msgid "set number of virtual CPUs in appliance"
 msgstr "stel aantal virtuele CPU's in toepassing in"
 
-#: fish/cmds.c:3676
+#: fish/cmds.c:3724
 msgid "enable or disable command traces"
 msgstr "zet commando traces aan of uit"
 
-#: fish/cmds.c:3677
+#: fish/cmds.c:3725
 msgid "set verbose mode"
 msgstr "stel breedsprakige mode in"
 
-#: fish/cmds.c:3678
+#: fish/cmds.c:3726
 msgid "set SELinux security context"
 msgstr "stel SELinux beveiliging context in"
 
-#: fish/cmds.c:3679
+#: fish/cmds.c:3727
 msgid "set an environment variable"
 msgstr "stel een omgevingsvariabele in"
 
-#: fish/cmds.c:3681 fish/cmds.c:3682
+#: fish/cmds.c:3729 fish/cmds.c:3730
 msgid "create partitions on a block device"
 msgstr "maak partities aan op een blok apparaat"
 
-#: fish/cmds.c:3683
+#: fish/cmds.c:3731
 msgid "modify a single partition on a block device"
 msgstr "verander een enkele partitie op een blok apparaat"
 
-#: fish/cmds.c:3684
+#: fish/cmds.c:3732
 msgid "display the disk geometry from the partition table"
 msgstr "laat de schijf geometrie van de partitie tabel zien"
 
-#: fish/cmds.c:3685
+#: fish/cmds.c:3733
 msgid "display the kernel geometry"
 msgstr "laat de kernel geometrie zien"
 
-#: fish/cmds.c:3686
+#: fish/cmds.c:3734
 msgid "display the partition table"
 msgstr "laat de partitie tabel zien"
 
-#: fish/cmds.c:3687
+#: fish/cmds.c:3735
 msgid "run a command via the shell"
 msgstr "voer een commando uit via de shell"
 
-#: fish/cmds.c:3688
+#: fish/cmds.c:3736
 msgid "run a command via the shell returning lines"
 msgstr "voer een commando uit via de shell met het teruggeven van regels"
 
-#: fish/cmds.c:3689
+#: fish/cmds.c:3737
 msgid "shutdown the qemu subprocess"
-msgstr ""
+msgstr "sluit het qemu sub-process af"
 
-#: fish/cmds.c:3690
+#: fish/cmds.c:3738
 msgid "sleep for some seconds"
 msgstr "slaap gedurende een paar seconden"
 
-#: fish/cmds.c:3691
+#: fish/cmds.c:3739
 msgid "create a sparse disk image and add"
 msgstr "maak een sparse schijf image aan en voeg deze toe"
 
-#: fish/cmds.c:3692
+#: fish/cmds.c:3740
 msgid "get file information"
 msgstr "verkrijg bestand informatie"
 
-#: fish/cmds.c:3693
+#: fish/cmds.c:3741
 msgid "get file system statistics"
 msgstr "verkrijg bestandssysteem statistieken"
 
-#: fish/cmds.c:3694 fish/cmds.c:3695
+#: fish/cmds.c:3742 fish/cmds.c:3743
 msgid "print the printable strings in a file"
 msgstr "druk de afdrukbare tekenreeksen ad in een bestand"
 
-#: fish/cmds.c:3696
+#: fish/cmds.c:3744
 msgid "list supported groups of commands"
 msgstr "laat ondersteunde groep commando's zien"
 
-#: fish/cmds.c:3697
+#: fish/cmds.c:3745
 msgid "disable swap on device"
 msgstr "zet swap op een apparaat uit"
 
-#: fish/cmds.c:3698
+#: fish/cmds.c:3746
 msgid "disable swap on file"
 msgstr "zet swap op een bestand uit"
 
-#: fish/cmds.c:3699
+#: fish/cmds.c:3747
 msgid "disable swap on labeled swap partition"
 msgstr "zet swap op een gelabelde swap partitie uit"
 
-#: fish/cmds.c:3700
+#: fish/cmds.c:3748
 msgid "disable swap on swap partition by UUID"
 msgstr "zet swap op swap partitie volgens UUID uit"
 
-#: fish/cmds.c:3701
+#: fish/cmds.c:3749
 msgid "enable swap on device"
 msgstr "zet swap op een apparaat aan"
 
-#: fish/cmds.c:3702
+#: fish/cmds.c:3750
 msgid "enable swap on file"
 msgstr "zet swap op een bestand aan"
 
-#: fish/cmds.c:3703
+#: fish/cmds.c:3751
 msgid "enable swap on labeled swap partition"
 msgstr "zet swap op een gelabelde swap partitie aan"
 
-#: fish/cmds.c:3704
+#: fish/cmds.c:3752
 msgid "enable swap on swap partition by UUID"
 msgstr "zet swap op swap partitie volgens UUID aan"
 
-#: fish/cmds.c:3705
+#: fish/cmds.c:3753
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr ""
 "synchroniseer schijven, schrijven wordt doorgespoeld naar het schijf image"
 
-#: fish/cmds.c:3706
+#: fish/cmds.c:3754
 msgid "return last 10 lines of a file"
 msgstr "geef de laatste 10 regels van een bestand terug"
 
-#: fish/cmds.c:3707
+#: fish/cmds.c:3755
 msgid "return last N lines of a file"
 msgstr "geef de laatste N regels van een bestand terug"
 
-#: fish/cmds.c:3708
+#: fish/cmds.c:3756
 msgid "unpack tarfile to directory"
 msgstr "tar bestand uitpakken naar map"
 
-#: fish/cmds.c:3709
+#: fish/cmds.c:3757
 msgid "pack directory into tarfile"
 msgstr "map inpakken in tar bestand"
 
-#: fish/cmds.c:3710 fish/cmds.c:3718
+#: fish/cmds.c:3758 fish/cmds.c:3766
 msgid "unpack compressed tarball to directory"
 msgstr "gecomprimeerde tar bal uitpakken naar map"
 
-#: fish/cmds.c:3711 fish/cmds.c:3719
+#: fish/cmds.c:3759 fish/cmds.c:3767
 msgid "pack directory into compressed tarball"
 msgstr "map inpakken in gecomprimeerde tar bal"
 
-#: fish/cmds.c:3712
+#: fish/cmds.c:3760
 msgid "print elapsed time taken to run a command"
 msgstr "print de verstreken tijd om een commando uit te voeren"
 
-#: fish/cmds.c:3713
+#: fish/cmds.c:3761
 msgid "update file timestamps or create a new file"
 msgstr "vernieuw tijd stempels of maak een nieuw bestand aan"
 
-#: fish/cmds.c:3714
+#: fish/cmds.c:3762
 msgid "truncate a file to zero size"
 msgstr "kap een bestand af op grootte nul"
 
-#: fish/cmds.c:3715
+#: fish/cmds.c:3763
 msgid "truncate a file to a particular size"
 msgstr "kap een bestand af op een bepaalde grootte"
 
-#: fish/cmds.c:3716
+#: fish/cmds.c:3764
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr "pas ext2/ext3/ext4 filesystem parameters aan"
 
-#: fish/cmds.c:3717
+#: fish/cmds.c:3765
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "verkrijg ext2/ext3/ext4 super-blok details"
 
-#: fish/cmds.c:3720
+#: fish/cmds.c:3768
 msgid "set file mode creation mask (umask)"
 msgstr "stel bestande mode aanmaak masker (umask) in"
 
-#: fish/cmds.c:3721
+#: fish/cmds.c:3769
 msgid "unmount a filesystem"
 msgstr "koppel een bestandssysteem af"
 
-#: fish/cmds.c:3722
+#: fish/cmds.c:3770
 msgid "unmount all filesystems"
 msgstr "koppel alle bestandssystemen af"
 
-#: fish/cmds.c:3723
+#: fish/cmds.c:3771
 msgid "unmount a locally mounted filesystem"
-msgstr ""
+msgstr "koppel een lokaal aangekoppeld bestandssysteem los"
 
-#: fish/cmds.c:3724
+#: fish/cmds.c:3772
 msgid "unset an environment variable"
 msgstr "verwijdereen omgevingsvariabele"
 
-#: fish/cmds.c:3725
+#: fish/cmds.c:3773
 msgid "upload a file from the local machine"
 msgstr "upload een bestand van de lokale machine"
 
-#: fish/cmds.c:3726
+#: fish/cmds.c:3774
 msgid "upload a file from the local machine with offset"
 msgstr "upload een bestand van de locale machine met offset"
 
-#: fish/cmds.c:3727
+#: fish/cmds.c:3775
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "stel tijd stempel van een bestand in met nanoseconde precisie"
 
-#: fish/cmds.c:3728
+#: fish/cmds.c:3776
 msgid "appliance kernel version"
 msgstr ""
 
-#: fish/cmds.c:3729
+#: fish/cmds.c:3777
 msgid "get the library version number"
 msgstr "verkrijg het bibliotheek versie nummer"
 
-#: fish/cmds.c:3730
+#: fish/cmds.c:3778
 msgid "get the filesystem label"
 msgstr "verkrijg het bestandssysteem label"
 
-#: fish/cmds.c:3731
+#: fish/cmds.c:3779
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
 "verkrijg het Linux VFS type dat correspondeert met een aangekoppeld apparaat"
 
-#: fish/cmds.c:3732
+#: fish/cmds.c:3780
 msgid "get the filesystem UUID"
 msgstr "verkrijg het bestandssysteem UUID"
 
-#: fish/cmds.c:3733
+#: fish/cmds.c:3781
 msgid "activate or deactivate some volume groups"
 msgstr "activeer of de-activeer sommige volume groepen"
 
-#: fish/cmds.c:3734
+#: fish/cmds.c:3782
 msgid "activate or deactivate all volume groups"
 msgstr "activeer of de-activeer alle volume groepen"
 
-#: fish/cmds.c:3735
+#: fish/cmds.c:3783
 msgid "generate a new random UUID for a volume group"
 msgstr ""
 
-#: fish/cmds.c:3736
+#: fish/cmds.c:3784
 msgid "generate new random UUIDs for all volume groups"
 msgstr ""
 
-#: fish/cmds.c:3737
+#: fish/cmds.c:3785
 msgid "create an LVM volume group"
 msgstr "maak een LVM volume groep aan"
 
-#: fish/cmds.c:3738
+#: fish/cmds.c:3786
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr "verkrijg de LV UUID's van alle LV's in de volume groep"
 
-#: fish/cmds.c:3739
+#: fish/cmds.c:3787
 msgid "get volume group metadata"
-msgstr ""
+msgstr "haal volumegroep metadata op"
 
-#: fish/cmds.c:3740
+#: fish/cmds.c:3788
 msgid "get the PV UUIDs containing the volume group"
 msgstr "verkrijg de PV UUID's die de volume groep bevatten"
 
-#: fish/cmds.c:3741
+#: fish/cmds.c:3789
 msgid "remove an LVM volume group"
 msgstr "verwijder een LVM volume groep"
 
-#: fish/cmds.c:3742
+#: fish/cmds.c:3790
 msgid "rename an LVM volume group"
 msgstr "wijzig de naam van een LVM volume groep"
 
-#: fish/cmds.c:3743 fish/cmds.c:3744
+#: fish/cmds.c:3791 fish/cmds.c:3792
 msgid "list the LVM volume groups (VGs)"
 msgstr "laat de LVM volume groepen (VG's) zien"
 
-#: fish/cmds.c:3745
+#: fish/cmds.c:3793
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 "opnieuw scannen voor LVM fysiwkw volumes, volume groepen en logische volumes"
 
-#: fish/cmds.c:3746
+#: fish/cmds.c:3794
 msgid "get the UUID of a volume group"
 msgstr "verkrijg de UUID van een volume groep"
 
-#: fish/cmds.c:3747
+#: fish/cmds.c:3795
 msgid "count characters in a file"
 msgstr "tel aantal karakters in een bestand"
 
-#: fish/cmds.c:3748
+#: fish/cmds.c:3796
 msgid "count lines in a file"
 msgstr "tel aantal regels in een bestand"
 
-#: fish/cmds.c:3749
+#: fish/cmds.c:3797
 msgid "count words in a file"
 msgstr "tel aantal woorden in een bestand"
 
-#: fish/cmds.c:3750
+#: fish/cmds.c:3798
 msgid "wipe a filesystem signature from a device"
 msgstr "wis een bestandssysteem ondertekening van een apparaat"
 
-#: fish/cmds.c:3751
+#: fish/cmds.c:3799
 msgid "create a new file"
 msgstr "maak een nieuw bestand aan"
 
-#: fish/cmds.c:3752
+#: fish/cmds.c:3800
 msgid "append content to end of file"
 msgstr "voeg inhoud toe aan eind van bestand"
 
-#: fish/cmds.c:3753
+#: fish/cmds.c:3801
 msgid "create a file"
 msgstr "maak een bestand aan"
 
-#: fish/cmds.c:3754
+#: fish/cmds.c:3802
 msgid "change parameters of an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:3755
+#: fish/cmds.c:3803
 msgid "expand an existing XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:3756
+#: fish/cmds.c:3804
 msgid "get geometry of XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:3757
+#: fish/cmds.c:3805
 msgid "repair an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:3760
+#: fish/cmds.c:3808
 msgid "write zeroes to the device"
 msgstr "schrijf nullen naar het apparaat"
 
-#: fish/cmds.c:3761
+#: fish/cmds.c:3809
 msgid "write zeroes to an entire device"
 msgstr "schrijf nullen naar een heel apparaat"
 
-#: fish/cmds.c:3762
+#: fish/cmds.c:3810
 msgid "zero free space in a filesystem"
-msgstr ""
+msgstr "nul vrije ruimte in een bestandssysteem"
 
-#: fish/cmds.c:3763
+#: fish/cmds.c:3811
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "nul ongebruikte inodes en schijf blokken op ext2/3 bestandssysteem"
 
-#: fish/cmds.c:3766
+#: fish/cmds.c:3814
 msgid "determine file type inside a compressed file"
 msgstr "bepaal bestand type in een gecomprimeerd bestand"
 
-#: fish/cmds.c:3769
+#: fish/cmds.c:3817
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Gebruik -h <cmd> / help <cmd> om gedetailleerde hulp voor een commando te "
 "tonen."
 
-#: fish/cmds.c:4273 fish/cmds.c:4292 fish/cmds.c:4313 fish/cmds.c:4335
-#: fish/cmds.c:4358 fish/cmds.c:4382 fish/cmds.c:4403 fish/cmds.c:4425
-#: fish/cmds.c:4446 fish/cmds.c:4468 fish/cmds.c:4489 fish/cmds.c:4509
-#: fish/cmds.c:4529 fish/cmds.c:4551 fish/cmds.c:4571 fish/cmds.c:4591
-#: fish/cmds.c:4611 fish/cmds.c:4631 fish/cmds.c:4651 fish/cmds.c:4671
-#: fish/cmds.c:4693 fish/cmds.c:4732 fish/cmds.c:4752 fish/cmds.c:4772
-#: fish/cmds.c:4795 fish/cmds.c:4815 fish/cmds.c:4837 fish/cmds.c:4857
-#: fish/cmds.c:4879 fish/cmds.c:4899 fish/cmds.c:4921 fish/cmds.c:4941
-#: fish/cmds.c:4964 fish/cmds.c:4988 fish/cmds.c:5011 fish/cmds.c:5036
-#: fish/cmds.c:5059 fish/cmds.c:5083 fish/cmds.c:5107 fish/cmds.c:5131
-#: fish/cmds.c:5154 fish/cmds.c:5177 fish/cmds.c:5201 fish/cmds.c:5225
-#: fish/cmds.c:5249 fish/cmds.c:5269 fish/cmds.c:5289 fish/cmds.c:5380
-#: fish/cmds.c:5402 fish/cmds.c:5423 fish/cmds.c:5520 fish/cmds.c:5544
-#: fish/cmds.c:5568 fish/cmds.c:5592 fish/cmds.c:5616 fish/cmds.c:5640
-#: fish/cmds.c:5663 fish/cmds.c:5686 fish/cmds.c:5709 fish/cmds.c:5729
-#: fish/cmds.c:5752 fish/cmds.c:5776 fish/cmds.c:5800 fish/cmds.c:5884
-#: fish/cmds.c:5904 fish/cmds.c:5926 fish/cmds.c:5965 fish/cmds.c:6066
-#: fish/cmds.c:6131 fish/cmds.c:6153 fish/cmds.c:6175 fish/cmds.c:6196
-#: fish/cmds.c:6223 fish/cmds.c:6251 fish/cmds.c:6282 fish/cmds.c:6311
-#: fish/cmds.c:6341 fish/cmds.c:6370 fish/cmds.c:6402 fish/cmds.c:6434
-#: fish/cmds.c:6465 fish/cmds.c:6492 fish/cmds.c:6529 fish/cmds.c:6553
-#: fish/cmds.c:6576 fish/cmds.c:6599 fish/cmds.c:6622 fish/cmds.c:6643
-#: fish/cmds.c:6664 fish/cmds.c:6689 fish/cmds.c:6714 fish/cmds.c:6735
-#: fish/cmds.c:6756 fish/cmds.c:6777 fish/cmds.c:6798 fish/cmds.c:6819
-#: fish/cmds.c:6840 fish/cmds.c:6861 fish/cmds.c:6885 fish/cmds.c:6928
-#: fish/cmds.c:6950 fish/cmds.c:6977 fish/cmds.c:7003 fish/cmds.c:7028
-#: fish/cmds.c:7053 fish/cmds.c:7077 fish/cmds.c:7101 fish/cmds.c:7124
-#: fish/cmds.c:7146 fish/cmds.c:7165 fish/cmds.c:7186 fish/cmds.c:7210
-#: fish/cmds.c:7235 fish/cmds.c:7260 fish/cmds.c:7285 fish/cmds.c:7310
-#: fish/cmds.c:7336 fish/cmds.c:7383 fish/cmds.c:7448 fish/cmds.c:7474
-#: fish/cmds.c:7500 fish/cmds.c:7526 fish/cmds.c:7549 fish/cmds.c:7577
-#: fish/cmds.c:7624 fish/cmds.c:7712 fish/cmds.c:7812 fish/cmds.c:7833
-#: fish/cmds.c:7852 fish/cmds.c:7873 fish/cmds.c:7900 fish/cmds.c:7927
-#: fish/cmds.c:7954 fish/cmds.c:7981 fish/cmds.c:8008 fish/cmds.c:8035
-#: fish/cmds.c:8059 fish/cmds.c:8081 fish/cmds.c:8103 fish/cmds.c:8126
-#: fish/cmds.c:8149 fish/cmds.c:8173 fish/cmds.c:8215 fish/cmds.c:8238
-#: fish/cmds.c:8261 fish/cmds.c:8283 fish/cmds.c:8306 fish/cmds.c:8336
-#: fish/cmds.c:8366 fish/cmds.c:8518 fish/cmds.c:8548 fish/cmds.c:8578
-#: fish/cmds.c:8603 fish/cmds.c:8630 fish/cmds.c:8656 fish/cmds.c:8684
-#: fish/cmds.c:8706 fish/cmds.c:8728 fish/cmds.c:8751 fish/cmds.c:8774
-#: fish/cmds.c:8799 fish/cmds.c:8822 fish/cmds.c:8847 fish/cmds.c:8871
-#: fish/cmds.c:8894 fish/cmds.c:8921 fish/cmds.c:8951 fish/cmds.c:8981
-#: fish/cmds.c:9010 fish/cmds.c:9049 fish/cmds.c:9070 fish/cmds.c:9092
-#: fish/cmds.c:9122 fish/cmds.c:9150 fish/cmds.c:9178 fish/cmds.c:9205
-#: fish/cmds.c:9227 fish/cmds.c:9254 fish/cmds.c:9357 fish/cmds.c:9381
-#: fish/cmds.c:9405 fish/cmds.c:9429 fish/cmds.c:9452 fish/cmds.c:9479
-#: fish/cmds.c:9521 fish/cmds.c:9543 fish/cmds.c:9565 fish/cmds.c:9607
-#: fish/cmds.c:9631 fish/cmds.c:9655 fish/cmds.c:9679 fish/cmds.c:9706
-#: fish/cmds.c:9728 fish/cmds.c:9753 fish/cmds.c:9778 fish/cmds.c:9805
-#: fish/cmds.c:9831 fish/cmds.c:9857 fish/cmds.c:9883 fish/cmds.c:9911
-#: fish/cmds.c:9958 fish/cmds.c:9986 fish/cmds.c:10031 fish/cmds.c:10052
-#: fish/cmds.c:10075 fish/cmds.c:10101 fish/cmds.c:10129 fish/cmds.c:10212
-#: fish/cmds.c:10236 fish/cmds.c:10262 fish/cmds.c:10348 fish/cmds.c:10396
-#: fish/cmds.c:10484 fish/cmds.c:10569 fish/cmds.c:10611 fish/cmds.c:10639
-#: fish/cmds.c:10666 fish/cmds.c:10694 fish/cmds.c:10721 fish/cmds.c:10751
-#: fish/cmds.c:10801 fish/cmds.c:10849 fish/cmds.c:10876 fish/cmds.c:10900
-#: fish/cmds.c:10923 fish/cmds.c:10945 fish/cmds.c:11038 fish/cmds.c:11067
-#: fish/cmds.c:11096 fish/cmds.c:11125 fish/cmds.c:11154 fish/cmds.c:11183
-#: fish/cmds.c:11212 fish/cmds.c:11241 fish/cmds.c:11270 fish/cmds.c:11299
-#: fish/cmds.c:11328 fish/cmds.c:11356 fish/cmds.c:11384 fish/cmds.c:11411
-#: fish/cmds.c:11438 fish/cmds.c:11465 fish/cmds.c:11491 fish/cmds.c:11519
-#: fish/cmds.c:11564 fish/cmds.c:11586 fish/cmds.c:11608 fish/cmds.c:11633
-#: fish/cmds.c:11658 fish/cmds.c:11680 fish/cmds.c:11702 fish/cmds.c:11724
-#: fish/cmds.c:11746 fish/cmds.c:11771 fish/cmds.c:11813 fish/cmds.c:11859
-#: fish/cmds.c:11898 fish/cmds.c:11919 fish/cmds.c:11940 fish/cmds.c:11961
-#: fish/cmds.c:11981 fish/cmds.c:12006 fish/cmds.c:12050 fish/cmds.c:12094
-#: fish/cmds.c:12139 fish/cmds.c:12185 fish/cmds.c:12232 fish/cmds.c:12279
-#: fish/cmds.c:12323 fish/cmds.c:12345 fish/cmds.c:12373 fish/cmds.c:12402
-#: fish/cmds.c:12429 fish/cmds.c:12453 fish/cmds.c:12479 fish/cmds.c:12522
-#: fish/cmds.c:12604 fish/cmds.c:12651 fish/cmds.c:12719 fish/cmds.c:12785
-#: fish/cmds.c:12811 fish/cmds.c:12863 fish/cmds.c:12888 fish/cmds.c:12933
-#: fish/cmds.c:12976 fish/cmds.c:13000 fish/cmds.c:13026 fish/cmds.c:13091
-#: fish/cmds.c:13117 fish/cmds.c:13146 fish/cmds.c:13173 fish/cmds.c:13197
-#: fish/cmds.c:13222 fish/cmds.c:13254 fish/cmds.c:13278 fish/cmds.c:13302
-#: fish/cmds.c:13326 fish/cmds.c:13350 fish/cmds.c:13376 fish/cmds.c:13419
-#: fish/cmds.c:13442 fish/cmds.c:13472 fish/cmds.c:13499 fish/cmds.c:13521
-#: fish/cmds.c:13564 fish/cmds.c:13608 fish/cmds.c:13653 fish/cmds.c:13716
-#: fish/cmds.c:13742 fish/cmds.c:13784 fish/cmds.c:13804 fish/cmds.c:13828
-#: fish/cmds.c:13875 fish/cmds.c:13905 fish/cmds.c:13936 fish/cmds.c:13968
-#: fish/cmds.c:14017 fish/cmds.c:14061 fish/cmds.c:14098 fish/cmds.c:14135
-#: fish/cmds.c:14169 fish/cmds.c:14193 fish/cmds.c:14232 fish/cmds.c:14256
-#: fish/cmds.c:14280 fish/cmds.c:14303 fish/cmds.c:14326 fish/cmds.c:14357
-#: fish/cmds.c:14386 fish/cmds.c:14410 fish/cmds.c:14461 fish/cmds.c:14513
-#: fish/cmds.c:14569 fish/cmds.c:14617 fish/cmds.c:14640 fish/cmds.c:14664
-#: fish/cmds.c:14688 fish/cmds.c:14714 fish/cmds.c:14740 fish/cmds.c:14766
-#: fish/cmds.c:14792 fish/cmds.c:14818 fish/cmds.c:14844 fish/cmds.c:14890
-#: fish/cmds.c:14950 fish/cmds.c:14993 fish/cmds.c:15055 fish/cmds.c:15200
-#: fish/cmds.c:15234 fish/cmds.c:15266 fish/cmds.c:15288 fish/cmds.c:15314
-#: fish/cmds.c:15335 fish/cmds.c:15406 fish/cmds.c:15706 fish/cmds.c:16457
-#: fish/cmds.c:16480 fish/cmds.c:16504 fish/cmds.c:16526 fish/cmds.c:16603
-#: fish/cmds.c:16630 fish/cmds.c:16774 fish/cmds.c:16801 fish/cmds.c:16824
-#: fish/cmds.c:16851 fish/cmds.c:16894 fish/cmds.c:16918 fish/cmds.c:16946
-#: fish/cmds.c:16974 fish/cmds.c:17162 fish/cmds.c:17242 fish/cmds.c:17269
-#: fish/cmds.c:17309 fish/cmds.c:17338 fish/cmds.c:17363 fish/cmds.c:17388
-#: fish/cmds.c:17416 fish/cmds.c:17455 fish/cmds.c:17480 fish/cmds.c:17506
-#: fish/cmds.c:17536 fish/cmds.c:17566 fish/cmds.c:17654 fish/cmds.c:17774
-#: fish/cmds.c:17795 fish/cmds.c:17817 fish/cmds.c:17844 fish/cmds.c:17864
-#: fish/cmds.c:17885 fish/cmds.c:17905 fish/cmds.c:17924 fish/cmds.c:18277
-#: fish/cmds.c:18307 fish/cmds.c:18489 fish/cmds.c:18508 fish/cmds.c:18530
-#: fish/cmds.c:18567 fish/cmds.c:18605 fish/cmds.c:18642 fish/cmds.c:18678
-#: fish/cmds.c:18716 fish/cmds.c:18753 fish/cmds.c:18790 fish/cmds.c:18827
-#: fish/cmds.c:18868 fish/cmds.c:18892 fish/cmds.c:18929 fish/cmds.c:18968
-#: fish/cmds.c:19166 fish/cmds.c:19602
+#: fish/cmds.c:4321 fish/cmds.c:4340 fish/cmds.c:4361 fish/cmds.c:4383
+#: fish/cmds.c:4406 fish/cmds.c:4430 fish/cmds.c:4451 fish/cmds.c:4473
+#: fish/cmds.c:4494 fish/cmds.c:4516 fish/cmds.c:4537 fish/cmds.c:4557
+#: fish/cmds.c:4577 fish/cmds.c:4599 fish/cmds.c:4619 fish/cmds.c:4639
+#: fish/cmds.c:4659 fish/cmds.c:4679 fish/cmds.c:4699 fish/cmds.c:4719
+#: fish/cmds.c:4741 fish/cmds.c:4780 fish/cmds.c:4800 fish/cmds.c:4820
+#: fish/cmds.c:4843 fish/cmds.c:4863 fish/cmds.c:4885 fish/cmds.c:4905
+#: fish/cmds.c:4927 fish/cmds.c:4947 fish/cmds.c:4969 fish/cmds.c:4989
+#: fish/cmds.c:5012 fish/cmds.c:5036 fish/cmds.c:5059 fish/cmds.c:5084
+#: fish/cmds.c:5107 fish/cmds.c:5131 fish/cmds.c:5155 fish/cmds.c:5179
+#: fish/cmds.c:5202 fish/cmds.c:5225 fish/cmds.c:5249 fish/cmds.c:5273
+#: fish/cmds.c:5297 fish/cmds.c:5317 fish/cmds.c:5337 fish/cmds.c:5428
+#: fish/cmds.c:5450 fish/cmds.c:5471 fish/cmds.c:5568 fish/cmds.c:5592
+#: fish/cmds.c:5616 fish/cmds.c:5640 fish/cmds.c:5664 fish/cmds.c:5688
+#: fish/cmds.c:5711 fish/cmds.c:5734 fish/cmds.c:5757 fish/cmds.c:5777
+#: fish/cmds.c:5800 fish/cmds.c:5824 fish/cmds.c:5848 fish/cmds.c:5932
+#: fish/cmds.c:5952 fish/cmds.c:5974 fish/cmds.c:6013 fish/cmds.c:6114
+#: fish/cmds.c:6179 fish/cmds.c:6201 fish/cmds.c:6223 fish/cmds.c:6244
+#: fish/cmds.c:6271 fish/cmds.c:6299 fish/cmds.c:6330 fish/cmds.c:6359
+#: fish/cmds.c:6389 fish/cmds.c:6418 fish/cmds.c:6450 fish/cmds.c:6482
+#: fish/cmds.c:6513 fish/cmds.c:6540 fish/cmds.c:6577 fish/cmds.c:6601
+#: fish/cmds.c:6624 fish/cmds.c:6647 fish/cmds.c:6669 fish/cmds.c:6692
+#: fish/cmds.c:6715 fish/cmds.c:6758 fish/cmds.c:6801 fish/cmds.c:6846
+#: fish/cmds.c:6891 fish/cmds.c:6912 fish/cmds.c:6933 fish/cmds.c:6958
+#: fish/cmds.c:6983 fish/cmds.c:7004 fish/cmds.c:7025 fish/cmds.c:7046
+#: fish/cmds.c:7067 fish/cmds.c:7088 fish/cmds.c:7109 fish/cmds.c:7130
+#: fish/cmds.c:7154 fish/cmds.c:7197 fish/cmds.c:7219 fish/cmds.c:7246
+#: fish/cmds.c:7272 fish/cmds.c:7297 fish/cmds.c:7322 fish/cmds.c:7346
+#: fish/cmds.c:7370 fish/cmds.c:7393 fish/cmds.c:7415 fish/cmds.c:7434
+#: fish/cmds.c:7455 fish/cmds.c:7479 fish/cmds.c:7504 fish/cmds.c:7529
+#: fish/cmds.c:7554 fish/cmds.c:7579 fish/cmds.c:7605 fish/cmds.c:7652
+#: fish/cmds.c:7717 fish/cmds.c:7743 fish/cmds.c:7769 fish/cmds.c:7795
+#: fish/cmds.c:7818 fish/cmds.c:7846 fish/cmds.c:7893 fish/cmds.c:7981
+#: fish/cmds.c:8081 fish/cmds.c:8102 fish/cmds.c:8121 fish/cmds.c:8142
+#: fish/cmds.c:8169 fish/cmds.c:8196 fish/cmds.c:8223 fish/cmds.c:8250
+#: fish/cmds.c:8277 fish/cmds.c:8304 fish/cmds.c:8328 fish/cmds.c:8350
+#: fish/cmds.c:8372 fish/cmds.c:8395 fish/cmds.c:8418 fish/cmds.c:8442
+#: fish/cmds.c:8484 fish/cmds.c:8507 fish/cmds.c:8530 fish/cmds.c:8552
+#: fish/cmds.c:8575 fish/cmds.c:8605 fish/cmds.c:8635 fish/cmds.c:8787
+#: fish/cmds.c:8817 fish/cmds.c:8847 fish/cmds.c:8872 fish/cmds.c:8899
+#: fish/cmds.c:8925 fish/cmds.c:8953 fish/cmds.c:8975 fish/cmds.c:8997
+#: fish/cmds.c:9020 fish/cmds.c:9043 fish/cmds.c:9068 fish/cmds.c:9091
+#: fish/cmds.c:9116 fish/cmds.c:9140 fish/cmds.c:9163 fish/cmds.c:9190
+#: fish/cmds.c:9220 fish/cmds.c:9250 fish/cmds.c:9279 fish/cmds.c:9318
+#: fish/cmds.c:9339 fish/cmds.c:9361 fish/cmds.c:9391 fish/cmds.c:9419
+#: fish/cmds.c:9447 fish/cmds.c:9474 fish/cmds.c:9496 fish/cmds.c:9523
+#: fish/cmds.c:9626 fish/cmds.c:9650 fish/cmds.c:9674 fish/cmds.c:9698
+#: fish/cmds.c:9721 fish/cmds.c:9748 fish/cmds.c:9790 fish/cmds.c:9812
+#: fish/cmds.c:9834 fish/cmds.c:9876 fish/cmds.c:9900 fish/cmds.c:9924
+#: fish/cmds.c:9948 fish/cmds.c:9975 fish/cmds.c:9997 fish/cmds.c:10022
+#: fish/cmds.c:10047 fish/cmds.c:10074 fish/cmds.c:10100 fish/cmds.c:10126
+#: fish/cmds.c:10152 fish/cmds.c:10180 fish/cmds.c:10227 fish/cmds.c:10255
+#: fish/cmds.c:10300 fish/cmds.c:10321 fish/cmds.c:10344 fish/cmds.c:10370
+#: fish/cmds.c:10398 fish/cmds.c:10481 fish/cmds.c:10505 fish/cmds.c:10531
+#: fish/cmds.c:10617 fish/cmds.c:10665 fish/cmds.c:10753 fish/cmds.c:10838
+#: fish/cmds.c:10880 fish/cmds.c:10908 fish/cmds.c:10935 fish/cmds.c:10963
+#: fish/cmds.c:10990 fish/cmds.c:11020 fish/cmds.c:11070 fish/cmds.c:11118
+#: fish/cmds.c:11145 fish/cmds.c:11169 fish/cmds.c:11192 fish/cmds.c:11214
+#: fish/cmds.c:11307 fish/cmds.c:11336 fish/cmds.c:11365 fish/cmds.c:11394
+#: fish/cmds.c:11423 fish/cmds.c:11452 fish/cmds.c:11481 fish/cmds.c:11510
+#: fish/cmds.c:11539 fish/cmds.c:11568 fish/cmds.c:11597 fish/cmds.c:11625
+#: fish/cmds.c:11653 fish/cmds.c:11680 fish/cmds.c:11707 fish/cmds.c:11734
+#: fish/cmds.c:11760 fish/cmds.c:11788 fish/cmds.c:11833 fish/cmds.c:11855
+#: fish/cmds.c:11877 fish/cmds.c:11902 fish/cmds.c:11927 fish/cmds.c:11949
+#: fish/cmds.c:11971 fish/cmds.c:11993 fish/cmds.c:12015 fish/cmds.c:12040
+#: fish/cmds.c:12082 fish/cmds.c:12128 fish/cmds.c:12167 fish/cmds.c:12188
+#: fish/cmds.c:12209 fish/cmds.c:12230 fish/cmds.c:12250 fish/cmds.c:12275
+#: fish/cmds.c:12319 fish/cmds.c:12363 fish/cmds.c:12408 fish/cmds.c:12454
+#: fish/cmds.c:12501 fish/cmds.c:12548 fish/cmds.c:12592 fish/cmds.c:12614
+#: fish/cmds.c:12642 fish/cmds.c:12671 fish/cmds.c:12698 fish/cmds.c:12722
+#: fish/cmds.c:12748 fish/cmds.c:12791 fish/cmds.c:12873 fish/cmds.c:12920
+#: fish/cmds.c:12988 fish/cmds.c:13054 fish/cmds.c:13080 fish/cmds.c:13132
+#: fish/cmds.c:13157 fish/cmds.c:13202 fish/cmds.c:13245 fish/cmds.c:13269
+#: fish/cmds.c:13295 fish/cmds.c:13360 fish/cmds.c:13386 fish/cmds.c:13415
+#: fish/cmds.c:13442 fish/cmds.c:13466 fish/cmds.c:13491 fish/cmds.c:13523
+#: fish/cmds.c:13547 fish/cmds.c:13571 fish/cmds.c:13595 fish/cmds.c:13619
+#: fish/cmds.c:13645 fish/cmds.c:13688 fish/cmds.c:13711 fish/cmds.c:13741
+#: fish/cmds.c:13768 fish/cmds.c:13790 fish/cmds.c:13833 fish/cmds.c:13877
+#: fish/cmds.c:13922 fish/cmds.c:13985 fish/cmds.c:14011 fish/cmds.c:14053
+#: fish/cmds.c:14073 fish/cmds.c:14097 fish/cmds.c:14144 fish/cmds.c:14174
+#: fish/cmds.c:14205 fish/cmds.c:14237 fish/cmds.c:14286 fish/cmds.c:14330
+#: fish/cmds.c:14367 fish/cmds.c:14404 fish/cmds.c:14438 fish/cmds.c:14462
+#: fish/cmds.c:14501 fish/cmds.c:14525 fish/cmds.c:14549 fish/cmds.c:14572
+#: fish/cmds.c:14595 fish/cmds.c:14626 fish/cmds.c:14655 fish/cmds.c:14679
+#: fish/cmds.c:14730 fish/cmds.c:14782 fish/cmds.c:14838 fish/cmds.c:14886
+#: fish/cmds.c:14909 fish/cmds.c:14933 fish/cmds.c:14957 fish/cmds.c:14983
+#: fish/cmds.c:15009 fish/cmds.c:15035 fish/cmds.c:15061 fish/cmds.c:15087
+#: fish/cmds.c:15113 fish/cmds.c:15159 fish/cmds.c:15219 fish/cmds.c:15262
+#: fish/cmds.c:15324 fish/cmds.c:15469 fish/cmds.c:15503 fish/cmds.c:15535
+#: fish/cmds.c:15557 fish/cmds.c:15583 fish/cmds.c:15604 fish/cmds.c:15675
+#: fish/cmds.c:15975 fish/cmds.c:16726 fish/cmds.c:16749 fish/cmds.c:16773
+#: fish/cmds.c:16795 fish/cmds.c:16872 fish/cmds.c:16899 fish/cmds.c:17043
+#: fish/cmds.c:17070 fish/cmds.c:17093 fish/cmds.c:17120 fish/cmds.c:17163
+#: fish/cmds.c:17187 fish/cmds.c:17215 fish/cmds.c:17243 fish/cmds.c:17431
+#: fish/cmds.c:17511 fish/cmds.c:17538 fish/cmds.c:17578 fish/cmds.c:17607
+#: fish/cmds.c:17632 fish/cmds.c:17657 fish/cmds.c:17685 fish/cmds.c:17724
+#: fish/cmds.c:17749 fish/cmds.c:17775 fish/cmds.c:17805 fish/cmds.c:17835
+#: fish/cmds.c:17923 fish/cmds.c:18043 fish/cmds.c:18064 fish/cmds.c:18086
+#: fish/cmds.c:18113 fish/cmds.c:18133 fish/cmds.c:18154 fish/cmds.c:18174
+#: fish/cmds.c:18193 fish/cmds.c:18546 fish/cmds.c:18576 fish/cmds.c:18758
+#: fish/cmds.c:18777 fish/cmds.c:18799 fish/cmds.c:18836 fish/cmds.c:18874
+#: fish/cmds.c:18911 fish/cmds.c:18947 fish/cmds.c:18985 fish/cmds.c:19022
+#: fish/cmds.c:19059 fish/cmds.c:19096 fish/cmds.c:19137 fish/cmds.c:19161
+#: fish/cmds.c:19198 fish/cmds.c:19237 fish/cmds.c:19435 fish/cmds.c:19871
 #, c-format
 msgid "%s should have %d parameter(s)\n"
 msgstr "%s moet %d parameter(s) hebben\n"
 
-#: fish/cmds.c:4274 fish/cmds.c:4293 fish/cmds.c:4314 fish/cmds.c:4336
-#: fish/cmds.c:4359 fish/cmds.c:4383 fish/cmds.c:4404 fish/cmds.c:4426
-#: fish/cmds.c:4447 fish/cmds.c:4469 fish/cmds.c:4490 fish/cmds.c:4510
-#: fish/cmds.c:4530 fish/cmds.c:4552 fish/cmds.c:4572 fish/cmds.c:4592
-#: fish/cmds.c:4612 fish/cmds.c:4632 fish/cmds.c:4652 fish/cmds.c:4672
-#: fish/cmds.c:4694 fish/cmds.c:4733 fish/cmds.c:4753 fish/cmds.c:4773
-#: fish/cmds.c:4796 fish/cmds.c:4816 fish/cmds.c:4838 fish/cmds.c:4858
-#: fish/cmds.c:4880 fish/cmds.c:4900 fish/cmds.c:4922 fish/cmds.c:4942
-#: fish/cmds.c:4965 fish/cmds.c:4989 fish/cmds.c:5012 fish/cmds.c:5037
-#: fish/cmds.c:5060 fish/cmds.c:5084 fish/cmds.c:5108 fish/cmds.c:5132
-#: fish/cmds.c:5155 fish/cmds.c:5178 fish/cmds.c:5202 fish/cmds.c:5226
-#: fish/cmds.c:5250 fish/cmds.c:5270 fish/cmds.c:5290 fish/cmds.c:5315
-#: fish/cmds.c:5381 fish/cmds.c:5403 fish/cmds.c:5424 fish/cmds.c:5449
-#: fish/cmds.c:5521 fish/cmds.c:5545 fish/cmds.c:5569 fish/cmds.c:5593
-#: fish/cmds.c:5617 fish/cmds.c:5641 fish/cmds.c:5664 fish/cmds.c:5687
-#: fish/cmds.c:5710 fish/cmds.c:5730 fish/cmds.c:5753 fish/cmds.c:5777
-#: fish/cmds.c:5801 fish/cmds.c:5828 fish/cmds.c:5885 fish/cmds.c:5905
-#: fish/cmds.c:5927 fish/cmds.c:5966 fish/cmds.c:5990 fish/cmds.c:6067
-#: fish/cmds.c:6089 fish/cmds.c:6132 fish/cmds.c:6154 fish/cmds.c:6176
-#: fish/cmds.c:6197 fish/cmds.c:6224 fish/cmds.c:6252 fish/cmds.c:6283
-#: fish/cmds.c:6312 fish/cmds.c:6342 fish/cmds.c:6371 fish/cmds.c:6403
-#: fish/cmds.c:6435 fish/cmds.c:6466 fish/cmds.c:6493 fish/cmds.c:6530
-#: fish/cmds.c:6554 fish/cmds.c:6577 fish/cmds.c:6600 fish/cmds.c:6623
-#: fish/cmds.c:6644 fish/cmds.c:6665 fish/cmds.c:6690 fish/cmds.c:6715
-#: fish/cmds.c:6736 fish/cmds.c:6757 fish/cmds.c:6778 fish/cmds.c:6799
-#: fish/cmds.c:6820 fish/cmds.c:6841 fish/cmds.c:6862 fish/cmds.c:6886
-#: fish/cmds.c:6929 fish/cmds.c:6951 fish/cmds.c:6978 fish/cmds.c:7004
-#: fish/cmds.c:7029 fish/cmds.c:7054 fish/cmds.c:7078 fish/cmds.c:7102
-#: fish/cmds.c:7125 fish/cmds.c:7147 fish/cmds.c:7166 fish/cmds.c:7187
-#: fish/cmds.c:7211 fish/cmds.c:7236 fish/cmds.c:7261 fish/cmds.c:7286
-#: fish/cmds.c:7311 fish/cmds.c:7337 fish/cmds.c:7384 fish/cmds.c:7449
-#: fish/cmds.c:7475 fish/cmds.c:7501 fish/cmds.c:7527 fish/cmds.c:7550
-#: fish/cmds.c:7578 fish/cmds.c:7625 fish/cmds.c:7713 fish/cmds.c:7761
-#: fish/cmds.c:7813 fish/cmds.c:7834 fish/cmds.c:7853 fish/cmds.c:7874
-#: fish/cmds.c:7901 fish/cmds.c:7928 fish/cmds.c:7955 fish/cmds.c:7982
-#: fish/cmds.c:8009 fish/cmds.c:8036 fish/cmds.c:8060 fish/cmds.c:8082
-#: fish/cmds.c:8104 fish/cmds.c:8127 fish/cmds.c:8150 fish/cmds.c:8174
-#: fish/cmds.c:8216 fish/cmds.c:8239 fish/cmds.c:8262 fish/cmds.c:8284
-#: fish/cmds.c:8307 fish/cmds.c:8337 fish/cmds.c:8367 fish/cmds.c:8398
-#: fish/cmds.c:8454 fish/cmds.c:8519 fish/cmds.c:8549 fish/cmds.c:8579
-#: fish/cmds.c:8604 fish/cmds.c:8631 fish/cmds.c:8657 fish/cmds.c:8685
-#: fish/cmds.c:8707 fish/cmds.c:8729 fish/cmds.c:8752 fish/cmds.c:8775
-#: fish/cmds.c:8800 fish/cmds.c:8823 fish/cmds.c:8848 fish/cmds.c:8872
-#: fish/cmds.c:8895 fish/cmds.c:8922 fish/cmds.c:8952 fish/cmds.c:8982
-#: fish/cmds.c:9011 fish/cmds.c:9050 fish/cmds.c:9071 fish/cmds.c:9093
-#: fish/cmds.c:9123 fish/cmds.c:9151 fish/cmds.c:9179 fish/cmds.c:9206
-#: fish/cmds.c:9228 fish/cmds.c:9255 fish/cmds.c:9358 fish/cmds.c:9382
-#: fish/cmds.c:9406 fish/cmds.c:9430 fish/cmds.c:9453 fish/cmds.c:9480
-#: fish/cmds.c:9522 fish/cmds.c:9544 fish/cmds.c:9566 fish/cmds.c:9608
-#: fish/cmds.c:9632 fish/cmds.c:9656 fish/cmds.c:9680 fish/cmds.c:9707
-#: fish/cmds.c:9729 fish/cmds.c:9754 fish/cmds.c:9779 fish/cmds.c:9806
-#: fish/cmds.c:9832 fish/cmds.c:9858 fish/cmds.c:9884 fish/cmds.c:9912
-#: fish/cmds.c:9959 fish/cmds.c:9987 fish/cmds.c:10032 fish/cmds.c:10053
-#: fish/cmds.c:10076 fish/cmds.c:10102 fish/cmds.c:10130 fish/cmds.c:10161
-#: fish/cmds.c:10213 fish/cmds.c:10237 fish/cmds.c:10263 fish/cmds.c:10349
-#: fish/cmds.c:10397 fish/cmds.c:10485 fish/cmds.c:10570 fish/cmds.c:10612
-#: fish/cmds.c:10640 fish/cmds.c:10667 fish/cmds.c:10695 fish/cmds.c:10722
-#: fish/cmds.c:10752 fish/cmds.c:10802 fish/cmds.c:10850 fish/cmds.c:10877
-#: fish/cmds.c:10901 fish/cmds.c:10924 fish/cmds.c:10946 fish/cmds.c:10971
-#: fish/cmds.c:11039 fish/cmds.c:11068 fish/cmds.c:11097 fish/cmds.c:11126
-#: fish/cmds.c:11155 fish/cmds.c:11184 fish/cmds.c:11213 fish/cmds.c:11242
-#: fish/cmds.c:11271 fish/cmds.c:11300 fish/cmds.c:11329 fish/cmds.c:11357
-#: fish/cmds.c:11385 fish/cmds.c:11412 fish/cmds.c:11439 fish/cmds.c:11466
-#: fish/cmds.c:11492 fish/cmds.c:11520 fish/cmds.c:11565 fish/cmds.c:11587
-#: fish/cmds.c:11609 fish/cmds.c:11634 fish/cmds.c:11659 fish/cmds.c:11681
-#: fish/cmds.c:11703 fish/cmds.c:11725 fish/cmds.c:11747 fish/cmds.c:11772
-#: fish/cmds.c:11814 fish/cmds.c:11860 fish/cmds.c:11899 fish/cmds.c:11920
-#: fish/cmds.c:11941 fish/cmds.c:11962 fish/cmds.c:11982 fish/cmds.c:12007
-#: fish/cmds.c:12051 fish/cmds.c:12095 fish/cmds.c:12140 fish/cmds.c:12186
-#: fish/cmds.c:12233 fish/cmds.c:12280 fish/cmds.c:12324 fish/cmds.c:12346
-#: fish/cmds.c:12374 fish/cmds.c:12403 fish/cmds.c:12430 fish/cmds.c:12454
-#: fish/cmds.c:12480 fish/cmds.c:12523 fish/cmds.c:12605 fish/cmds.c:12652
-#: fish/cmds.c:12720 fish/cmds.c:12786 fish/cmds.c:12812 fish/cmds.c:12864
-#: fish/cmds.c:12889 fish/cmds.c:12934 fish/cmds.c:12977 fish/cmds.c:13001
-#: fish/cmds.c:13027 fish/cmds.c:13092 fish/cmds.c:13118 fish/cmds.c:13147
-#: fish/cmds.c:13174 fish/cmds.c:13198 fish/cmds.c:13223 fish/cmds.c:13255
-#: fish/cmds.c:13279 fish/cmds.c:13303 fish/cmds.c:13327 fish/cmds.c:13351
-#: fish/cmds.c:13377 fish/cmds.c:13420 fish/cmds.c:13443 fish/cmds.c:13473
-#: fish/cmds.c:13500 fish/cmds.c:13522 fish/cmds.c:13565 fish/cmds.c:13609
-#: fish/cmds.c:13654 fish/cmds.c:13717 fish/cmds.c:13743 fish/cmds.c:13785
-#: fish/cmds.c:13805 fish/cmds.c:13829 fish/cmds.c:13876 fish/cmds.c:13906
-#: fish/cmds.c:13937 fish/cmds.c:13969 fish/cmds.c:14018 fish/cmds.c:14062
-#: fish/cmds.c:14099 fish/cmds.c:14136 fish/cmds.c:14170 fish/cmds.c:14194
-#: fish/cmds.c:14233 fish/cmds.c:14257 fish/cmds.c:14281 fish/cmds.c:14304
-#: fish/cmds.c:14327 fish/cmds.c:14358 fish/cmds.c:14387 fish/cmds.c:14411
-#: fish/cmds.c:14462 fish/cmds.c:14514 fish/cmds.c:14570 fish/cmds.c:14618
-#: fish/cmds.c:14641 fish/cmds.c:14665 fish/cmds.c:14689 fish/cmds.c:14715
-#: fish/cmds.c:14741 fish/cmds.c:14767 fish/cmds.c:14793 fish/cmds.c:14819
-#: fish/cmds.c:14845 fish/cmds.c:14891 fish/cmds.c:14951 fish/cmds.c:14994
-#: fish/cmds.c:15056 fish/cmds.c:15083 fish/cmds.c:15201 fish/cmds.c:15235
-#: fish/cmds.c:15267 fish/cmds.c:15289 fish/cmds.c:15315 fish/cmds.c:15336
-#: fish/cmds.c:15362 fish/cmds.c:15407 fish/cmds.c:15432 fish/cmds.c:15497
-#: fish/cmds.c:15562 fish/cmds.c:15638 fish/cmds.c:15707 fish/cmds.c:15733
-#: fish/cmds.c:15829 fish/cmds.c:15928 fish/cmds.c:16027 fish/cmds.c:16128
-#: fish/cmds.c:16330 fish/cmds.c:16458 fish/cmds.c:16481 fish/cmds.c:16505
-#: fish/cmds.c:16527 fish/cmds.c:16553 fish/cmds.c:16604 fish/cmds.c:16631
-#: fish/cmds.c:16655 fish/cmds.c:16704 fish/cmds.c:16775 fish/cmds.c:16802
-#: fish/cmds.c:16825 fish/cmds.c:16852 fish/cmds.c:16895 fish/cmds.c:16919
-#: fish/cmds.c:16947 fish/cmds.c:16975 fish/cmds.c:17001 fish/cmds.c:17163
-#: fish/cmds.c:17193 fish/cmds.c:17243 fish/cmds.c:17270 fish/cmds.c:17310
-#: fish/cmds.c:17339 fish/cmds.c:17364 fish/cmds.c:17389 fish/cmds.c:17417
-#: fish/cmds.c:17456 fish/cmds.c:17481 fish/cmds.c:17507 fish/cmds.c:17537
-#: fish/cmds.c:17567 fish/cmds.c:17592 fish/cmds.c:17655 fish/cmds.c:17680
-#: fish/cmds.c:17775 fish/cmds.c:17796 fish/cmds.c:17818 fish/cmds.c:17845
-#: fish/cmds.c:17865 fish/cmds.c:17886 fish/cmds.c:17906 fish/cmds.c:17925
-#: fish/cmds.c:17950 fish/cmds.c:18103 fish/cmds.c:18164 fish/cmds.c:18222
-#: fish/cmds.c:18278 fish/cmds.c:18308 fish/cmds.c:18355 fish/cmds.c:18433
-#: fish/cmds.c:18490 fish/cmds.c:18509 fish/cmds.c:18531 fish/cmds.c:18568
-#: fish/cmds.c:18606 fish/cmds.c:18643 fish/cmds.c:18679 fish/cmds.c:18717
-#: fish/cmds.c:18754 fish/cmds.c:18791 fish/cmds.c:18828 fish/cmds.c:18869
-#: fish/cmds.c:18893 fish/cmds.c:18930 fish/cmds.c:18969 fish/cmds.c:19024
-#: fish/cmds.c:19167 fish/cmds.c:19194 fish/cmds.c:19603
+#: fish/cmds.c:4322 fish/cmds.c:4341 fish/cmds.c:4362 fish/cmds.c:4384
+#: fish/cmds.c:4407 fish/cmds.c:4431 fish/cmds.c:4452 fish/cmds.c:4474
+#: fish/cmds.c:4495 fish/cmds.c:4517 fish/cmds.c:4538 fish/cmds.c:4558
+#: fish/cmds.c:4578 fish/cmds.c:4600 fish/cmds.c:4620 fish/cmds.c:4640
+#: fish/cmds.c:4660 fish/cmds.c:4680 fish/cmds.c:4700 fish/cmds.c:4720
+#: fish/cmds.c:4742 fish/cmds.c:4781 fish/cmds.c:4801 fish/cmds.c:4821
+#: fish/cmds.c:4844 fish/cmds.c:4864 fish/cmds.c:4886 fish/cmds.c:4906
+#: fish/cmds.c:4928 fish/cmds.c:4948 fish/cmds.c:4970 fish/cmds.c:4990
+#: fish/cmds.c:5013 fish/cmds.c:5037 fish/cmds.c:5060 fish/cmds.c:5085
+#: fish/cmds.c:5108 fish/cmds.c:5132 fish/cmds.c:5156 fish/cmds.c:5180
+#: fish/cmds.c:5203 fish/cmds.c:5226 fish/cmds.c:5250 fish/cmds.c:5274
+#: fish/cmds.c:5298 fish/cmds.c:5318 fish/cmds.c:5338 fish/cmds.c:5363
+#: fish/cmds.c:5429 fish/cmds.c:5451 fish/cmds.c:5472 fish/cmds.c:5497
+#: fish/cmds.c:5569 fish/cmds.c:5593 fish/cmds.c:5617 fish/cmds.c:5641
+#: fish/cmds.c:5665 fish/cmds.c:5689 fish/cmds.c:5712 fish/cmds.c:5735
+#: fish/cmds.c:5758 fish/cmds.c:5778 fish/cmds.c:5801 fish/cmds.c:5825
+#: fish/cmds.c:5849 fish/cmds.c:5876 fish/cmds.c:5933 fish/cmds.c:5953
+#: fish/cmds.c:5975 fish/cmds.c:6014 fish/cmds.c:6038 fish/cmds.c:6115
+#: fish/cmds.c:6137 fish/cmds.c:6180 fish/cmds.c:6202 fish/cmds.c:6224
+#: fish/cmds.c:6245 fish/cmds.c:6272 fish/cmds.c:6300 fish/cmds.c:6331
+#: fish/cmds.c:6360 fish/cmds.c:6390 fish/cmds.c:6419 fish/cmds.c:6451
+#: fish/cmds.c:6483 fish/cmds.c:6514 fish/cmds.c:6541 fish/cmds.c:6578
+#: fish/cmds.c:6602 fish/cmds.c:6625 fish/cmds.c:6648 fish/cmds.c:6670
+#: fish/cmds.c:6693 fish/cmds.c:6716 fish/cmds.c:6759 fish/cmds.c:6802
+#: fish/cmds.c:6847 fish/cmds.c:6892 fish/cmds.c:6913 fish/cmds.c:6934
+#: fish/cmds.c:6959 fish/cmds.c:6984 fish/cmds.c:7005 fish/cmds.c:7026
+#: fish/cmds.c:7047 fish/cmds.c:7068 fish/cmds.c:7089 fish/cmds.c:7110
+#: fish/cmds.c:7131 fish/cmds.c:7155 fish/cmds.c:7198 fish/cmds.c:7220
+#: fish/cmds.c:7247 fish/cmds.c:7273 fish/cmds.c:7298 fish/cmds.c:7323
+#: fish/cmds.c:7347 fish/cmds.c:7371 fish/cmds.c:7394 fish/cmds.c:7416
+#: fish/cmds.c:7435 fish/cmds.c:7456 fish/cmds.c:7480 fish/cmds.c:7505
+#: fish/cmds.c:7530 fish/cmds.c:7555 fish/cmds.c:7580 fish/cmds.c:7606
+#: fish/cmds.c:7653 fish/cmds.c:7718 fish/cmds.c:7744 fish/cmds.c:7770
+#: fish/cmds.c:7796 fish/cmds.c:7819 fish/cmds.c:7847 fish/cmds.c:7894
+#: fish/cmds.c:7982 fish/cmds.c:8030 fish/cmds.c:8082 fish/cmds.c:8103
+#: fish/cmds.c:8122 fish/cmds.c:8143 fish/cmds.c:8170 fish/cmds.c:8197
+#: fish/cmds.c:8224 fish/cmds.c:8251 fish/cmds.c:8278 fish/cmds.c:8305
+#: fish/cmds.c:8329 fish/cmds.c:8351 fish/cmds.c:8373 fish/cmds.c:8396
+#: fish/cmds.c:8419 fish/cmds.c:8443 fish/cmds.c:8485 fish/cmds.c:8508
+#: fish/cmds.c:8531 fish/cmds.c:8553 fish/cmds.c:8576 fish/cmds.c:8606
+#: fish/cmds.c:8636 fish/cmds.c:8667 fish/cmds.c:8723 fish/cmds.c:8788
+#: fish/cmds.c:8818 fish/cmds.c:8848 fish/cmds.c:8873 fish/cmds.c:8900
+#: fish/cmds.c:8926 fish/cmds.c:8954 fish/cmds.c:8976 fish/cmds.c:8998
+#: fish/cmds.c:9021 fish/cmds.c:9044 fish/cmds.c:9069 fish/cmds.c:9092
+#: fish/cmds.c:9117 fish/cmds.c:9141 fish/cmds.c:9164 fish/cmds.c:9191
+#: fish/cmds.c:9221 fish/cmds.c:9251 fish/cmds.c:9280 fish/cmds.c:9319
+#: fish/cmds.c:9340 fish/cmds.c:9362 fish/cmds.c:9392 fish/cmds.c:9420
+#: fish/cmds.c:9448 fish/cmds.c:9475 fish/cmds.c:9497 fish/cmds.c:9524
+#: fish/cmds.c:9627 fish/cmds.c:9651 fish/cmds.c:9675 fish/cmds.c:9699
+#: fish/cmds.c:9722 fish/cmds.c:9749 fish/cmds.c:9791 fish/cmds.c:9813
+#: fish/cmds.c:9835 fish/cmds.c:9877 fish/cmds.c:9901 fish/cmds.c:9925
+#: fish/cmds.c:9949 fish/cmds.c:9976 fish/cmds.c:9998 fish/cmds.c:10023
+#: fish/cmds.c:10048 fish/cmds.c:10075 fish/cmds.c:10101 fish/cmds.c:10127
+#: fish/cmds.c:10153 fish/cmds.c:10181 fish/cmds.c:10228 fish/cmds.c:10256
+#: fish/cmds.c:10301 fish/cmds.c:10322 fish/cmds.c:10345 fish/cmds.c:10371
+#: fish/cmds.c:10399 fish/cmds.c:10430 fish/cmds.c:10482 fish/cmds.c:10506
+#: fish/cmds.c:10532 fish/cmds.c:10618 fish/cmds.c:10666 fish/cmds.c:10754
+#: fish/cmds.c:10839 fish/cmds.c:10881 fish/cmds.c:10909 fish/cmds.c:10936
+#: fish/cmds.c:10964 fish/cmds.c:10991 fish/cmds.c:11021 fish/cmds.c:11071
+#: fish/cmds.c:11119 fish/cmds.c:11146 fish/cmds.c:11170 fish/cmds.c:11193
+#: fish/cmds.c:11215 fish/cmds.c:11240 fish/cmds.c:11308 fish/cmds.c:11337
+#: fish/cmds.c:11366 fish/cmds.c:11395 fish/cmds.c:11424 fish/cmds.c:11453
+#: fish/cmds.c:11482 fish/cmds.c:11511 fish/cmds.c:11540 fish/cmds.c:11569
+#: fish/cmds.c:11598 fish/cmds.c:11626 fish/cmds.c:11654 fish/cmds.c:11681
+#: fish/cmds.c:11708 fish/cmds.c:11735 fish/cmds.c:11761 fish/cmds.c:11789
+#: fish/cmds.c:11834 fish/cmds.c:11856 fish/cmds.c:11878 fish/cmds.c:11903
+#: fish/cmds.c:11928 fish/cmds.c:11950 fish/cmds.c:11972 fish/cmds.c:11994
+#: fish/cmds.c:12016 fish/cmds.c:12041 fish/cmds.c:12083 fish/cmds.c:12129
+#: fish/cmds.c:12168 fish/cmds.c:12189 fish/cmds.c:12210 fish/cmds.c:12231
+#: fish/cmds.c:12251 fish/cmds.c:12276 fish/cmds.c:12320 fish/cmds.c:12364
+#: fish/cmds.c:12409 fish/cmds.c:12455 fish/cmds.c:12502 fish/cmds.c:12549
+#: fish/cmds.c:12593 fish/cmds.c:12615 fish/cmds.c:12643 fish/cmds.c:12672
+#: fish/cmds.c:12699 fish/cmds.c:12723 fish/cmds.c:12749 fish/cmds.c:12792
+#: fish/cmds.c:12874 fish/cmds.c:12921 fish/cmds.c:12989 fish/cmds.c:13055
+#: fish/cmds.c:13081 fish/cmds.c:13133 fish/cmds.c:13158 fish/cmds.c:13203
+#: fish/cmds.c:13246 fish/cmds.c:13270 fish/cmds.c:13296 fish/cmds.c:13361
+#: fish/cmds.c:13387 fish/cmds.c:13416 fish/cmds.c:13443 fish/cmds.c:13467
+#: fish/cmds.c:13492 fish/cmds.c:13524 fish/cmds.c:13548 fish/cmds.c:13572
+#: fish/cmds.c:13596 fish/cmds.c:13620 fish/cmds.c:13646 fish/cmds.c:13689
+#: fish/cmds.c:13712 fish/cmds.c:13742 fish/cmds.c:13769 fish/cmds.c:13791
+#: fish/cmds.c:13834 fish/cmds.c:13878 fish/cmds.c:13923 fish/cmds.c:13986
+#: fish/cmds.c:14012 fish/cmds.c:14054 fish/cmds.c:14074 fish/cmds.c:14098
+#: fish/cmds.c:14145 fish/cmds.c:14175 fish/cmds.c:14206 fish/cmds.c:14238
+#: fish/cmds.c:14287 fish/cmds.c:14331 fish/cmds.c:14368 fish/cmds.c:14405
+#: fish/cmds.c:14439 fish/cmds.c:14463 fish/cmds.c:14502 fish/cmds.c:14526
+#: fish/cmds.c:14550 fish/cmds.c:14573 fish/cmds.c:14596 fish/cmds.c:14627
+#: fish/cmds.c:14656 fish/cmds.c:14680 fish/cmds.c:14731 fish/cmds.c:14783
+#: fish/cmds.c:14839 fish/cmds.c:14887 fish/cmds.c:14910 fish/cmds.c:14934
+#: fish/cmds.c:14958 fish/cmds.c:14984 fish/cmds.c:15010 fish/cmds.c:15036
+#: fish/cmds.c:15062 fish/cmds.c:15088 fish/cmds.c:15114 fish/cmds.c:15160
+#: fish/cmds.c:15220 fish/cmds.c:15263 fish/cmds.c:15325 fish/cmds.c:15352
+#: fish/cmds.c:15470 fish/cmds.c:15504 fish/cmds.c:15536 fish/cmds.c:15558
+#: fish/cmds.c:15584 fish/cmds.c:15605 fish/cmds.c:15631 fish/cmds.c:15676
+#: fish/cmds.c:15701 fish/cmds.c:15766 fish/cmds.c:15831 fish/cmds.c:15907
+#: fish/cmds.c:15976 fish/cmds.c:16002 fish/cmds.c:16098 fish/cmds.c:16197
+#: fish/cmds.c:16296 fish/cmds.c:16397 fish/cmds.c:16599 fish/cmds.c:16727
+#: fish/cmds.c:16750 fish/cmds.c:16774 fish/cmds.c:16796 fish/cmds.c:16822
+#: fish/cmds.c:16873 fish/cmds.c:16900 fish/cmds.c:16924 fish/cmds.c:16973
+#: fish/cmds.c:17044 fish/cmds.c:17071 fish/cmds.c:17094 fish/cmds.c:17121
+#: fish/cmds.c:17164 fish/cmds.c:17188 fish/cmds.c:17216 fish/cmds.c:17244
+#: fish/cmds.c:17270 fish/cmds.c:17432 fish/cmds.c:17462 fish/cmds.c:17512
+#: fish/cmds.c:17539 fish/cmds.c:17579 fish/cmds.c:17608 fish/cmds.c:17633
+#: fish/cmds.c:17658 fish/cmds.c:17686 fish/cmds.c:17725 fish/cmds.c:17750
+#: fish/cmds.c:17776 fish/cmds.c:17806 fish/cmds.c:17836 fish/cmds.c:17861
+#: fish/cmds.c:17924 fish/cmds.c:17949 fish/cmds.c:18044 fish/cmds.c:18065
+#: fish/cmds.c:18087 fish/cmds.c:18114 fish/cmds.c:18134 fish/cmds.c:18155
+#: fish/cmds.c:18175 fish/cmds.c:18194 fish/cmds.c:18219 fish/cmds.c:18372
+#: fish/cmds.c:18433 fish/cmds.c:18491 fish/cmds.c:18547 fish/cmds.c:18577
+#: fish/cmds.c:18624 fish/cmds.c:18702 fish/cmds.c:18759 fish/cmds.c:18778
+#: fish/cmds.c:18800 fish/cmds.c:18837 fish/cmds.c:18875 fish/cmds.c:18912
+#: fish/cmds.c:18948 fish/cmds.c:18986 fish/cmds.c:19023 fish/cmds.c:19060
+#: fish/cmds.c:19097 fish/cmds.c:19138 fish/cmds.c:19162 fish/cmds.c:19199
+#: fish/cmds.c:19238 fish/cmds.c:19293 fish/cmds.c:19436 fish/cmds.c:19463
+#: fish/cmds.c:19872
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr "type 'help %s' voor hulp over %s\n"
 
-#: fish/cmds.c:4704 fish/cmds.c:5937 fish/cmds.c:6017 fish/cmds.c:6503
-#: fish/cmds.c:6898 fish/cmds.c:7347 fish/cmds.c:7394 fish/cmds.c:7413
-#: fish/cmds.c:7590 fish/cmds.c:7636 fish/cmds.c:7655 fish/cmds.c:7674
-#: fish/cmds.c:7726 fish/cmds.c:8185 fish/cmds.c:9021 fish/cmds.c:9266
-#: fish/cmds.c:9285 fish/cmds.c:9304 fish/cmds.c:9323 fish/cmds.c:9491
-#: fish/cmds.c:9576 fish/cmds.c:9922 fish/cmds.c:9997 fish/cmds.c:10273
-#: fish/cmds.c:10292 fish/cmds.c:10311 fish/cmds.c:10359 fish/cmds.c:10407
-#: fish/cmds.c:10426 fish/cmds.c:10445 fish/cmds.c:10495 fish/cmds.c:10514
-#: fish/cmds.c:10533 fish/cmds.c:10580 fish/cmds.c:10764 fish/cmds.c:10814
-#: fish/cmds.c:11532 fish/cmds.c:11782 fish/cmds.c:11826 fish/cmds.c:11870
-#: fish/cmds.c:12018 fish/cmds.c:12061 fish/cmds.c:12105 fish/cmds.c:12150
-#: fish/cmds.c:12197 fish/cmds.c:12244 fish/cmds.c:12291 fish/cmds.c:12492
-#: fish/cmds.c:12535 fish/cmds.c:12548 fish/cmds.c:12561 fish/cmds.c:12574
-#: fish/cmds.c:12617 fish/cmds.c:12662 fish/cmds.c:12681 fish/cmds.c:12732
-#: fish/cmds.c:12751 fish/cmds.c:12824 fish/cmds.c:12837 fish/cmds.c:12900
-#: fish/cmds.c:12945 fish/cmds.c:13037 fish/cmds.c:13056 fish/cmds.c:13391
-#: fish/cmds.c:13533 fish/cmds.c:13576 fish/cmds.c:13620 fish/cmds.c:13665
-#: fish/cmds.c:13684 fish/cmds.c:13754 fish/cmds.c:13842 fish/cmds.c:13980
-#: fish/cmds.c:14033 fish/cmds.c:14073 fish/cmds.c:14110 fish/cmds.c:14147
-#: fish/cmds.c:14206 fish/cmds.c:14426 fish/cmds.c:14477 fish/cmds.c:14533
-#: fish/cmds.c:14585 fish/cmds.c:14859 fish/cmds.c:14905 fish/cmds.c:14918
-#: fish/cmds.c:14965 fish/cmds.c:15005 fish/cmds.c:15024 fish/cmds.c:15101
-#: fish/cmds.c:15129 fish/cmds.c:15152 fish/cmds.c:15449 fish/cmds.c:15515
-#: fish/cmds.c:15583 fish/cmds.c:15658 fish/cmds.c:15751 fish/cmds.c:15768
-#: fish/cmds.c:15785 fish/cmds.c:15848 fish/cmds.c:15865 fish/cmds.c:15882
-#: fish/cmds.c:15947 fish/cmds.c:15964 fish/cmds.c:15981 fish/cmds.c:16047
-#: fish/cmds.c:16064 fish/cmds.c:16081 fish/cmds.c:16150 fish/cmds.c:16173
-#: fish/cmds.c:16201 fish/cmds.c:16218 fish/cmds.c:16241 fish/cmds.c:16269
-#: fish/cmds.c:16286 fish/cmds.c:16349 fish/cmds.c:16366 fish/cmds.c:16389
-#: fish/cmds.c:16412 fish/cmds.c:16864 fish/cmds.c:17019 fish/cmds.c:17036
-#: fish/cmds.c:17058 fish/cmds.c:17091 fish/cmds.c:17114 fish/cmds.c:17282
-#: fish/cmds.c:17427 fish/cmds.c:17609 fish/cmds.c:17698 fish/cmds.c:17715
-#: fish/cmds.c:17732 fish/cmds.c:17983 fish/cmds.c:18000 fish/cmds.c:18017
-#: fish/cmds.c:18034 fish/cmds.c:18051 fish/cmds.c:18320 fish/cmds.c:18541
-#: fish/cmds.c:18578 fish/cmds.c:18616 fish/cmds.c:18653 fish/cmds.c:18689
-#: fish/cmds.c:18727 fish/cmds.c:18764 fish/cmds.c:18801 fish/cmds.c:18838
-#: fish/cmds.c:18903 fish/cmds.c:18940 fish/cmds.c:18979 fish/cmds.c:18993
-#: fish/cmds.c:19062 fish/cmds.c:19079 fish/cmds.c:19096 fish/cmds.c:19113
-#: fish/cmds.c:19211 fish/cmds.c:19228 fish/cmds.c:19245 fish/cmds.c:19262
-#: fish/cmds.c:19279 fish/cmds.c:19296 fish/cmds.c:19313 fish/cmds.c:19330
-#: fish/cmds.c:19347 fish/cmds.c:19364 fish/cmds.c:19381 fish/cmds.c:19398
-#: fish/cmds.c:19415 fish/cmds.c:19438
+#: fish/cmds.c:4752 fish/cmds.c:5985 fish/cmds.c:6065 fish/cmds.c:6551
+#: fish/cmds.c:6726 fish/cmds.c:6769 fish/cmds.c:6812 fish/cmds.c:6857
+#: fish/cmds.c:7167 fish/cmds.c:7616 fish/cmds.c:7663 fish/cmds.c:7682
+#: fish/cmds.c:7859 fish/cmds.c:7905 fish/cmds.c:7924 fish/cmds.c:7943
+#: fish/cmds.c:7995 fish/cmds.c:8454 fish/cmds.c:9290 fish/cmds.c:9535
+#: fish/cmds.c:9554 fish/cmds.c:9573 fish/cmds.c:9592 fish/cmds.c:9760
+#: fish/cmds.c:9845 fish/cmds.c:10191 fish/cmds.c:10266 fish/cmds.c:10542
+#: fish/cmds.c:10561 fish/cmds.c:10580 fish/cmds.c:10628 fish/cmds.c:10676
+#: fish/cmds.c:10695 fish/cmds.c:10714 fish/cmds.c:10764 fish/cmds.c:10783
+#: fish/cmds.c:10802 fish/cmds.c:10849 fish/cmds.c:11033 fish/cmds.c:11083
+#: fish/cmds.c:11801 fish/cmds.c:12051 fish/cmds.c:12095 fish/cmds.c:12139
+#: fish/cmds.c:12287 fish/cmds.c:12330 fish/cmds.c:12374 fish/cmds.c:12419
+#: fish/cmds.c:12466 fish/cmds.c:12513 fish/cmds.c:12560 fish/cmds.c:12761
+#: fish/cmds.c:12804 fish/cmds.c:12817 fish/cmds.c:12830 fish/cmds.c:12843
+#: fish/cmds.c:12886 fish/cmds.c:12931 fish/cmds.c:12950 fish/cmds.c:13001
+#: fish/cmds.c:13020 fish/cmds.c:13093 fish/cmds.c:13106 fish/cmds.c:13169
+#: fish/cmds.c:13214 fish/cmds.c:13306 fish/cmds.c:13325 fish/cmds.c:13660
+#: fish/cmds.c:13802 fish/cmds.c:13845 fish/cmds.c:13889 fish/cmds.c:13934
+#: fish/cmds.c:13953 fish/cmds.c:14023 fish/cmds.c:14111 fish/cmds.c:14249
+#: fish/cmds.c:14302 fish/cmds.c:14342 fish/cmds.c:14379 fish/cmds.c:14416
+#: fish/cmds.c:14475 fish/cmds.c:14695 fish/cmds.c:14746 fish/cmds.c:14802
+#: fish/cmds.c:14854 fish/cmds.c:15128 fish/cmds.c:15174 fish/cmds.c:15187
+#: fish/cmds.c:15234 fish/cmds.c:15274 fish/cmds.c:15293 fish/cmds.c:15370
+#: fish/cmds.c:15398 fish/cmds.c:15421 fish/cmds.c:15718 fish/cmds.c:15784
+#: fish/cmds.c:15852 fish/cmds.c:15927 fish/cmds.c:16020 fish/cmds.c:16037
+#: fish/cmds.c:16054 fish/cmds.c:16117 fish/cmds.c:16134 fish/cmds.c:16151
+#: fish/cmds.c:16216 fish/cmds.c:16233 fish/cmds.c:16250 fish/cmds.c:16316
+#: fish/cmds.c:16333 fish/cmds.c:16350 fish/cmds.c:16419 fish/cmds.c:16442
+#: fish/cmds.c:16470 fish/cmds.c:16487 fish/cmds.c:16510 fish/cmds.c:16538
+#: fish/cmds.c:16555 fish/cmds.c:16618 fish/cmds.c:16635 fish/cmds.c:16658
+#: fish/cmds.c:16681 fish/cmds.c:17133 fish/cmds.c:17288 fish/cmds.c:17305
+#: fish/cmds.c:17327 fish/cmds.c:17360 fish/cmds.c:17383 fish/cmds.c:17551
+#: fish/cmds.c:17696 fish/cmds.c:17878 fish/cmds.c:17967 fish/cmds.c:17984
+#: fish/cmds.c:18001 fish/cmds.c:18252 fish/cmds.c:18269 fish/cmds.c:18286
+#: fish/cmds.c:18303 fish/cmds.c:18320 fish/cmds.c:18589 fish/cmds.c:18810
+#: fish/cmds.c:18847 fish/cmds.c:18885 fish/cmds.c:18922 fish/cmds.c:18958
+#: fish/cmds.c:18996 fish/cmds.c:19033 fish/cmds.c:19070 fish/cmds.c:19107
+#: fish/cmds.c:19172 fish/cmds.c:19209 fish/cmds.c:19248 fish/cmds.c:19262
+#: fish/cmds.c:19331 fish/cmds.c:19348 fish/cmds.c:19365 fish/cmds.c:19382
+#: fish/cmds.c:19480 fish/cmds.c:19497 fish/cmds.c:19514 fish/cmds.c:19531
+#: fish/cmds.c:19548 fish/cmds.c:19565 fish/cmds.c:19582 fish/cmds.c:19599
+#: fish/cmds.c:19616 fish/cmds.c:19633 fish/cmds.c:19650 fish/cmds.c:19667
+#: fish/cmds.c:19684 fish/cmds.c:19707
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: ongeldige geheel getal paramter (%s gaf %d terug)\n"
 
-#: fish/cmds.c:4710 fish/cmds.c:5943 fish/cmds.c:6023 fish/cmds.c:6904
-#: fish/cmds.c:7353 fish/cmds.c:7400 fish/cmds.c:7419 fish/cmds.c:7596
-#: fish/cmds.c:7642 fish/cmds.c:7661 fish/cmds.c:7680 fish/cmds.c:7732
-#: fish/cmds.c:8191 fish/cmds.c:9027 fish/cmds.c:9272 fish/cmds.c:9291
-#: fish/cmds.c:9310 fish/cmds.c:9329 fish/cmds.c:9497 fish/cmds.c:9582
-#: fish/cmds.c:9928 fish/cmds.c:10003 fish/cmds.c:10279 fish/cmds.c:10298
-#: fish/cmds.c:10317 fish/cmds.c:10365 fish/cmds.c:10413 fish/cmds.c:10432
-#: fish/cmds.c:10451 fish/cmds.c:10501 fish/cmds.c:10520 fish/cmds.c:10539
-#: fish/cmds.c:10586 fish/cmds.c:10770 fish/cmds.c:10820 fish/cmds.c:11538
-#: fish/cmds.c:11788 fish/cmds.c:11832 fish/cmds.c:11876 fish/cmds.c:12024
-#: fish/cmds.c:12067 fish/cmds.c:12111 fish/cmds.c:12156 fish/cmds.c:12203
-#: fish/cmds.c:12250 fish/cmds.c:12297 fish/cmds.c:12623 fish/cmds.c:12668
-#: fish/cmds.c:12687 fish/cmds.c:12738 fish/cmds.c:12906 fish/cmds.c:12951
-#: fish/cmds.c:13043 fish/cmds.c:13062 fish/cmds.c:13539 fish/cmds.c:13582
-#: fish/cmds.c:13626 fish/cmds.c:13671 fish/cmds.c:13690 fish/cmds.c:13760
-#: fish/cmds.c:13848 fish/cmds.c:13986 fish/cmds.c:14432 fish/cmds.c:14483
-#: fish/cmds.c:14539 fish/cmds.c:14591 fish/cmds.c:15011 fish/cmds.c:15107
-#: fish/cmds.c:15135 fish/cmds.c:15158 fish/cmds.c:15589 fish/cmds.c:15664
-#: fish/cmds.c:16156 fish/cmds.c:16179 fish/cmds.c:16224 fish/cmds.c:16247
-#: fish/cmds.c:16372 fish/cmds.c:16395 fish/cmds.c:16870 fish/cmds.c:17064
-#: fish/cmds.c:17097 fish/cmds.c:17120 fish/cmds.c:18057 fish/cmds.c:18326
-#: fish/cmds.c:19421 fish/cmds.c:19444
+#: fish/cmds.c:4758 fish/cmds.c:5991 fish/cmds.c:6071 fish/cmds.c:6732
+#: fish/cmds.c:6775 fish/cmds.c:6818 fish/cmds.c:6863 fish/cmds.c:7173
+#: fish/cmds.c:7622 fish/cmds.c:7669 fish/cmds.c:7688 fish/cmds.c:7865
+#: fish/cmds.c:7911 fish/cmds.c:7930 fish/cmds.c:7949 fish/cmds.c:8001
+#: fish/cmds.c:8460 fish/cmds.c:9296 fish/cmds.c:9541 fish/cmds.c:9560
+#: fish/cmds.c:9579 fish/cmds.c:9598 fish/cmds.c:9766 fish/cmds.c:9851
+#: fish/cmds.c:10197 fish/cmds.c:10272 fish/cmds.c:10548 fish/cmds.c:10567
+#: fish/cmds.c:10586 fish/cmds.c:10634 fish/cmds.c:10682 fish/cmds.c:10701
+#: fish/cmds.c:10720 fish/cmds.c:10770 fish/cmds.c:10789 fish/cmds.c:10808
+#: fish/cmds.c:10855 fish/cmds.c:11039 fish/cmds.c:11089 fish/cmds.c:11807
+#: fish/cmds.c:12057 fish/cmds.c:12101 fish/cmds.c:12145 fish/cmds.c:12293
+#: fish/cmds.c:12336 fish/cmds.c:12380 fish/cmds.c:12425 fish/cmds.c:12472
+#: fish/cmds.c:12519 fish/cmds.c:12566 fish/cmds.c:12892 fish/cmds.c:12937
+#: fish/cmds.c:12956 fish/cmds.c:13007 fish/cmds.c:13175 fish/cmds.c:13220
+#: fish/cmds.c:13312 fish/cmds.c:13331 fish/cmds.c:13808 fish/cmds.c:13851
+#: fish/cmds.c:13895 fish/cmds.c:13940 fish/cmds.c:13959 fish/cmds.c:14029
+#: fish/cmds.c:14117 fish/cmds.c:14255 fish/cmds.c:14701 fish/cmds.c:14752
+#: fish/cmds.c:14808 fish/cmds.c:14860 fish/cmds.c:15280 fish/cmds.c:15376
+#: fish/cmds.c:15404 fish/cmds.c:15427 fish/cmds.c:15858 fish/cmds.c:15933
+#: fish/cmds.c:16425 fish/cmds.c:16448 fish/cmds.c:16493 fish/cmds.c:16516
+#: fish/cmds.c:16641 fish/cmds.c:16664 fish/cmds.c:17139 fish/cmds.c:17333
+#: fish/cmds.c:17366 fish/cmds.c:17389 fish/cmds.c:18326 fish/cmds.c:18595
+#: fish/cmds.c:19690 fish/cmds.c:19713
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: geheel getal ligt buiten de reeks\n"
 
-#: fish/cmds.c:5314 fish/cmds.c:5448 fish/cmds.c:5827 fish/cmds.c:5989
-#: fish/cmds.c:6088 fish/cmds.c:7760 fish/cmds.c:8397 fish/cmds.c:8453
-#: fish/cmds.c:10160 fish/cmds.c:10970 fish/cmds.c:15082 fish/cmds.c:15361
-#: fish/cmds.c:15431 fish/cmds.c:15496 fish/cmds.c:15561 fish/cmds.c:15637
-#: fish/cmds.c:15732 fish/cmds.c:15828 fish/cmds.c:15927 fish/cmds.c:16026
-#: fish/cmds.c:16127 fish/cmds.c:16329 fish/cmds.c:16552 fish/cmds.c:16654
-#: fish/cmds.c:16703 fish/cmds.c:17000 fish/cmds.c:17192 fish/cmds.c:17591
-#: fish/cmds.c:17679 fish/cmds.c:17949 fish/cmds.c:18102 fish/cmds.c:18163
-#: fish/cmds.c:18221 fish/cmds.c:18354 fish/cmds.c:18432 fish/cmds.c:19023
-#: fish/cmds.c:19193
+#: fish/cmds.c:5362 fish/cmds.c:5496 fish/cmds.c:5875 fish/cmds.c:6037
+#: fish/cmds.c:6136 fish/cmds.c:8029 fish/cmds.c:8666 fish/cmds.c:8722
+#: fish/cmds.c:10429 fish/cmds.c:11239 fish/cmds.c:15351 fish/cmds.c:15630
+#: fish/cmds.c:15700 fish/cmds.c:15765 fish/cmds.c:15830 fish/cmds.c:15906
+#: fish/cmds.c:16001 fish/cmds.c:16097 fish/cmds.c:16196 fish/cmds.c:16295
+#: fish/cmds.c:16396 fish/cmds.c:16598 fish/cmds.c:16821 fish/cmds.c:16923
+#: fish/cmds.c:16972 fish/cmds.c:17269 fish/cmds.c:17461 fish/cmds.c:17860
+#: fish/cmds.c:17948 fish/cmds.c:18218 fish/cmds.c:18371 fish/cmds.c:18432
+#: fish/cmds.c:18490 fish/cmds.c:18623 fish/cmds.c:18701 fish/cmds.c:19292
+#: fish/cmds.c:19462
 #, c-format
 msgid "%s should have %d-%d parameter(s)\n"
 msgstr "%s moet %d-%d parameter(s) hebben\n"
 
-#: fish/cmds.c:5350 fish/cmds.c:5489 fish/cmds.c:5848 fish/cmds.c:6038
-#: fish/cmds.c:6103 fish/cmds.c:7782 fish/cmds.c:8416 fish/cmds.c:8482
-#: fish/cmds.c:10181 fish/cmds.c:11003 fish/cmds.c:15168 fish/cmds.c:15378
-#: fish/cmds.c:15464 fish/cmds.c:15525 fish/cmds.c:15599 fish/cmds.c:15674
-#: fish/cmds.c:15795 fish/cmds.c:15892 fish/cmds.c:15991 fish/cmds.c:16091
-#: fish/cmds.c:16296 fish/cmds.c:16427 fish/cmds.c:16573 fish/cmds.c:16670
-#: fish/cmds.c:16741 fish/cmds.c:17130 fish/cmds.c:17210 fish/cmds.c:17624
-#: fish/cmds.c:17742 fish/cmds.c:18067 fish/cmds.c:18126 fish/cmds.c:18186
-#: fish/cmds.c:18244 fish/cmds.c:18400 fish/cmds.c:18459 fish/cmds.c:19133
-#: fish/cmds.c:19574
+#: fish/cmds.c:5398 fish/cmds.c:5537 fish/cmds.c:5896 fish/cmds.c:6086
+#: fish/cmds.c:6151 fish/cmds.c:8051 fish/cmds.c:8685 fish/cmds.c:8751
+#: fish/cmds.c:10450 fish/cmds.c:11272 fish/cmds.c:15437 fish/cmds.c:15647
+#: fish/cmds.c:15733 fish/cmds.c:15794 fish/cmds.c:15868 fish/cmds.c:15943
+#: fish/cmds.c:16064 fish/cmds.c:16161 fish/cmds.c:16260 fish/cmds.c:16360
+#: fish/cmds.c:16565 fish/cmds.c:16696 fish/cmds.c:16842 fish/cmds.c:16939
+#: fish/cmds.c:17010 fish/cmds.c:17399 fish/cmds.c:17479 fish/cmds.c:17893
+#: fish/cmds.c:18011 fish/cmds.c:18336 fish/cmds.c:18395 fish/cmds.c:18455
+#: fish/cmds.c:18513 fish/cmds.c:18669 fish/cmds.c:18728 fish/cmds.c:19402
+#: fish/cmds.c:19843
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: onbekend optioneel argument \"%s\"\n"
 
-#: fish/cmds.c:5356 fish/cmds.c:5495 fish/cmds.c:5854 fish/cmds.c:6044
-#: fish/cmds.c:6109 fish/cmds.c:7788 fish/cmds.c:8422 fish/cmds.c:8488
-#: fish/cmds.c:10187 fish/cmds.c:11009 fish/cmds.c:15174 fish/cmds.c:15384
-#: fish/cmds.c:15470 fish/cmds.c:15531 fish/cmds.c:15605 fish/cmds.c:15680
-#: fish/cmds.c:15801 fish/cmds.c:15898 fish/cmds.c:15997 fish/cmds.c:16097
-#: fish/cmds.c:16302 fish/cmds.c:16433 fish/cmds.c:16579 fish/cmds.c:16676
-#: fish/cmds.c:16747 fish/cmds.c:17136 fish/cmds.c:17216 fish/cmds.c:17630
-#: fish/cmds.c:17748 fish/cmds.c:18073 fish/cmds.c:18132 fish/cmds.c:18192
-#: fish/cmds.c:18250 fish/cmds.c:18406 fish/cmds.c:18465 fish/cmds.c:19139
-#: fish/cmds.c:19580
+#: fish/cmds.c:5404 fish/cmds.c:5543 fish/cmds.c:5902 fish/cmds.c:6092
+#: fish/cmds.c:6157 fish/cmds.c:8057 fish/cmds.c:8691 fish/cmds.c:8757
+#: fish/cmds.c:10456 fish/cmds.c:11278 fish/cmds.c:15443 fish/cmds.c:15653
+#: fish/cmds.c:15739 fish/cmds.c:15800 fish/cmds.c:15874 fish/cmds.c:15949
+#: fish/cmds.c:16070 fish/cmds.c:16167 fish/cmds.c:16266 fish/cmds.c:16366
+#: fish/cmds.c:16571 fish/cmds.c:16702 fish/cmds.c:16848 fish/cmds.c:16945
+#: fish/cmds.c:17016 fish/cmds.c:17405 fish/cmds.c:17485 fish/cmds.c:17899
+#: fish/cmds.c:18017 fish/cmds.c:18342 fish/cmds.c:18401 fish/cmds.c:18461
+#: fish/cmds.c:18519 fish/cmds.c:18675 fish/cmds.c:18734 fish/cmds.c:19408
+#: fish/cmds.c:19849
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: optioneel argument \"%s\" tweemaal opgegeven\n"
 
-#: fish/cmds.c:19625
+#: fish/cmds.c:19894
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: onbekend commando\n"
@@ -2670,7 +2701,7 @@ msgstr "toon bestandsnaam\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "gebruik '%s bestandsnaam' om een bestand te bewerken\n"
 
-#: fish/event-names.c:140
+#: fish/event-names.c:149
 #, c-format
 msgid "unknown event name: %s\n"
 msgstr "onbekende event naam: %s\n"
@@ -3119,7 +3150,7 @@ msgstr "%s: te veel apparaten toegevoegd op de commando-regel\n"
 #: fish/options.c:150
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
-msgstr ""
+msgstr "%s: '%s' kon niet aangekoppeld worden.\n"
 
 #: fish/options.c:154
 #, c-format
@@ -3127,11 +3158,14 @@ msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
+"%s: Check mount(8) man pagina om er zeker van te zijn dat opties '%s'\n"
+"%s: ondersteund worden door het bestandssysteem dat aangekoppeld wordt.\n"
 
 #: fish/options.c:158
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
+"%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
 
 #: fish/prep-boot.c:35 fish/prep-boot.c:90 fish/prep-disk.c:35
 #: fish/prep-fs.c:35 fish/prep-lv.c:70 fish/prep-lv.c:117 fish/prep-part.c:35
@@ -3746,6 +3780,31 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: Draai een redding shell op een virtuele machine\n"
+"Copyright (C) 2009-2012 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] -d domnaam\n"
+"  %s [--opties] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --append kernelopts  Voeg kernel opties toe\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
+"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
+"  --help               Toon korte hulp\n"
+"  -m|--memsize MB      Geheugengrootte instellen in megabytes\n"
+"  --network            Zet netwerk aan\n"
+"  -r|--ro              Alleen-lezen toegang\n"
+"  --scratch[=N]        Voeg scratch schijf(ven) toe\n"
+"  --selinux            Zet SELinux aan\n"
+"  --smp N              Zet SMP aan met N >= 2 virtuele CPU's\n"
+"  --suggest            Geef suggestie voor aankoppel commando's voor deze "
+"gast\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Toon versie en sluit af\n"
+"  -w|--rw              Koppel lezen-schrijven aan\n"
+"  -x                   Traceer libguestfs API aanroepen\n"
+"Voor meer informatie refereer je naar de man pagina %s(1).\n"
 
 #: rescue/virt-rescue.c:171
 #, c-format
@@ -3760,12 +3819,12 @@ msgstr "%s: --smp parameter '%s' moet >= 1 zijn\n"
 #: rescue/virt-rescue.c:189
 #, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr ""
+msgstr "%s: kon  --scratch parameter '%s' noet ontleden\n"
 
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
-msgstr ""
+msgstr "%s: --scratch parameter '%s' moet >= 1 zijn\n"
 
 #: rescue/virt-rescue.c:222
 #, c-format
@@ -3916,53 +3975,53 @@ msgstr ""
 
 #: src/fuse.c:925
 msgid "filesystem is already mounted in another thread"
-msgstr ""
+msgstr "bestandssysteem is al aangekoppeld in een andere thread"
 
 #: src/fuse.c:950
 #, c-format
 msgid "fuse_opt_add_arg: %s"
-msgstr ""
+msgstr "fuse_opt_add_arg: %s"
 
 #: src/fuse.c:967
 #, c-format
 msgid "fuse_mount: %s"
-msgstr ""
+msgstr "fuse_mount: %s"
 
 #: src/fuse.c:985
 #, c-format
 msgid "fuse_new: %s"
-msgstr ""
+msgstr "fuse_new: %s"
 
 #: src/fuse.c:1014
 msgid "you must call guestfs_mount_local first"
-msgstr ""
+msgstr "je moet guestfs_mount_local eerst aanroepen"
 
 #: src/fuse.c:1023
 #, c-format
 msgid "fuse_loop: %s"
-msgstr ""
+msgstr "fuse_loop: %s"
 
 #: src/fuse.c:1076
 msgid "no filesystem is mounted"
-msgstr ""
+msgstr "er is geen bestandssysteem aangekoppeld"
 
 #: src/fuse.c:1089
 #, c-format
 msgid "open: %s"
-msgstr ""
+msgstr "open: %s"
 
 #: src/fuse.c:1125
 #, c-format
 msgid "fusermount failed: %s: %s"
-msgstr ""
+msgstr "fusermount mislukte: %s: %s"
 
 #: src/fuse.c:1270
 msgid "could not initialize dir cache hashtables"
-msgstr ""
+msgstr "kon map cache hashtabellen niet initialiseren"
 
 #: src/fuse.c:1524 src/fuse.c:1531 src/fuse.c:1539
 msgid "FUSE not supported"
-msgstr ""
+msgstr "FUSE wordt niet ondersteund"
 
 #: src/guestfs.c:163
 msgid ""
@@ -4008,7 +4067,7 @@ msgstr ""
 #: src/inspect-fs-unix.c:206
 #, c-format
 msgid "release file %s is empty or malformed"
-msgstr ""
+msgstr "release bestand %s is leeg of misvormd"
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
 #: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:530
@@ -4056,17 +4115,18 @@ msgstr ""
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
+"niet afgesloten aanhalingsteken (%c) in commandoregel in de buurt van: %s"
 
 #: src/launch-appliance.c:109
 #, c-format
 msgid "cannot parse quoted string near: %s"
-msgstr ""
+msgstr "kan string in aanhalingstekens in de buurt van: %s niet ontleden"
 
 #: src/launch-appliance.c:139
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-appliance.c:659 src/launch-libvirt.c:395
+#: src/launch-appliance.c:659 src/launch-libvirt.c:394
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
@@ -4080,6 +4140,13 @@ msgid ""
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
+"commando mislukte: %s\n"
+"errno: %s\n"
+"\n"
+"Als qemu zich op een niet-standaard pad bevindt, probeer dan het instellen "
+"van de\n"
+"LIBGUESTFS_QEMU omgevingsvariabele.  Er kunnen hierboven ook fouten geprint "
+"zijn."
 
 #: src/launch-libvirt.c:140
 msgid "direct mode flag is not supported yet for libvirt attach method"
@@ -4090,29 +4157,29 @@ msgstr ""
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:163
+#: src/launch-libvirt.c:162
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:179
+#: src/launch-libvirt.c:178
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:320
+#: src/launch-libvirt.c:319
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:471
+#: src/launch-libvirt.c:470
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:816
+#: src/launch-libvirt.c:815
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:896
+#: src/launch-libvirt.c:895
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4120,17 +4187,17 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1245
+#: src/launch-libvirt.c:1244
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1282
+#: src/launch-libvirt.c:1281
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1327
+#: src/launch-libvirt.c:1326
 msgid "could not destroy libvirt domain"
 msgstr ""
 
@@ -4176,12 +4243,14 @@ msgstr ""
 
 #: src/launch.c:285
 msgid "for device '/dev/null', format must be 'raw'"
-msgstr ""
+msgstr "voor apparaat '/dev/null' moet het formaat 'raw' zijn"
 
 #: src/launch.c:342 src/launch.c:442
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
+"bestandsnaam kan geen ':' (dubbelepunt) karakter bevatten. Dit is een "
+"beperking van qemu."
 
 #: src/launch.c:359 src/launch.c:364
 #, c-format
@@ -4242,51 +4311,78 @@ msgstr ""
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/libvirtdomain.c:97 src/libvirtdomain.c:391
+#: src/libvirt-auth.c:101
+#, c-format
+msgid "unknown credential type '%s'"
+msgstr ""
+
+#: src/libvirt-auth.c:106
+msgid "list of supported credentials is too long"
+msgstr ""
+
+#: src/libvirt-auth.c:216
+#, c-format
+msgid ""
+"%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
+"handler"
+msgstr ""
+
+#: src/libvirt-auth.c:250 src/libvirt-auth.c:270 src/libvirt-auth.c:290
+#: src/libvirt-auth.c:311
+msgid "credential index out of range"
+msgstr ""
+
+#: src/libvirt-auth.c:330
+msgid ""
+"libvirt authentication APIs not available since this version of libguestfs "
+"was compiled without libvirt or libxml2"
+msgstr ""
+
+#: src/libvirt-domain.c:97 src/libvirt-domain.c:391
 msgid "you cannot set both live and readonly flags"
 msgstr "je kunt niet zowel live als readonly vlaggen instellen"
 
-#: src/libvirtdomain.c:105
+#: src/libvirt-domain.c:105
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "kon niet naar libvirt converteren (code %d, domein %d): %s"
 
-#: src/libvirtdomain.c:126
+#: src/libvirt-domain.c:126
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr "geen libvirt domein aangeroepen '%s': %s"
 
-#: src/libvirtdomain.c:187 src/libvirtdomain.c:515
+#: src/libvirt-domain.c:187 src/libvirt-domain.c:515
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr "fout bij het lezen van libvirt XML informatie: %s"
 
-#: src/libvirtdomain.c:197 src/libvirtdomain.c:523
+#: src/libvirt-domain.c:197 src/libvirt-domain.c:523
 msgid "unable to parse XML information returned by libvirt"
 msgstr "kan XML informatie teruggegeven door libvirt niet ontleden"
 
-#: src/libvirtdomain.c:203 src/libvirtdomain.c:529
+#: src/libvirt-domain.c:203 src/libvirt-domain.c:529
 msgid "unable to create new XPath context"
 msgstr "kan nieuwe XPath context niet aanmaken"
 
-#: src/libvirtdomain.c:210 src/libvirtdomain.c:544
+#: src/libvirt-domain.c:210 src/libvirt-domain.c:544
 msgid "unable to evaluate XPath expression"
 msgstr "kan XPath expressie niet evalueren"
 
-#: src/libvirtdomain.c:319
+#: src/libvirt-domain.c:319
 msgid "libvirt domain has no disks"
 msgstr "libvirt domein heeft geen schijven"
 
-#: src/libvirtdomain.c:385
+#: src/libvirt-domain.c:385
 msgid "unknown readonlydisk parameter"
 msgstr "onbekende readonlydisk parameter"
 
-#: src/libvirtdomain.c:402
+#: src/libvirt-domain.c:402
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "fout bij verkrijgen van domein info: %s"
 
-#: src/libvirtdomain.c:416
+#: src/libvirt-domain.c:416
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4303,7 +4399,7 @@ msgstr ""
 "deze opties respectievelijk\n"
 "--ro of --live.  Raadpleeg de documentatie voor meer informatie."
 
-#: src/libvirtdomain.c:481
+#: src/libvirt-domain.c:481
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
@@ -4312,7 +4408,7 @@ msgstr ""
 "%s: schijf is in libvirt XML  <readonly/> gemarkeerd, en readonlydisk was "
 "ingesteld op \"error\""
 
-#: src/libvirtdomain.c:572
+#: src/libvirt-domain.c:572
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -4320,7 +4416,7 @@ msgstr ""
 "deze gast heeft geen libvirt <channel> definitie voor guestfsd\n"
 "Zie ATTACHING TO RUNNING DAEMONS in guestfs(3) voor meer informate."
 
-#: src/libvirtdomain.c:595
+#: src/libvirt-domain.c:595
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -4422,6 +4518,18 @@ msgid ""
 "  --version\n"
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
+"libguestfs-test-tool: interactief test gereedschap\n"
+"Copyright (C) 2009-2012 Red Hat Inc.\n"
+"Gebruik:\n"
+"  libguestfs-test-tool [--opties]\n"
+"Opties:\n"
+"  --help         Toon hulp\n"
+"  --qemudir dir  Specificeer QEMU bron map\n"
+"  --qemu qemu    Specificeer QEMU binaire programma\n"
+"  --timeout n\n"
+"  -t n           Stel lanceer time-out in (standaard: %d seconden)\n"
+"  --version\n"
+"  -V             Toon libguestfs versie en sluitaf\n"
 
 #: test-tool/test-tool.c:122
 #, c-format
@@ -4481,7 +4589,7 @@ msgstr "libguestfs-test-tool: bestand touchen mislukte\n"
 #: test-tool/test-tool.c:281
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
-msgstr ""
+msgstr "libguestfs-test-tool: afsluiten mislukte\n"
 
 #: test-tool/test-tool.c:314
 #, c-format
@@ -4667,39 +4775,43 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
 
 #: ../resize/resize.ml:791
 msgid "  An extra partition will be created for the surplus."
-msgstr ""
+msgstr "  Voor de surplus zal een extra partitie aangemaakt worden."
 
 #: ../resize/resize.ml:776 ../resize/resize.ml:757
 msgid "  The %s on %s will be expanded using the '%s' method."
-msgstr ""
+msgstr "  De %s op %s zal geëxpandeerd worden met de '%s' methode."
 
 #: ../resize/resize.ml:793
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
+"De surplus ruimte is niet groot genoeg om een extra partitie aan te maken en "
+"wordt daarom genegeerd."
 
 #: ../resize/resize.ml:795
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
 msgstr ""
+"De surplus ruimte wordt genegeerd.  Indien gewenst voer je in de gast een "
+"partitioneringsprogramma uit om deze extra ruimte te partitioneren."
 
 #: ../sysprep/main.ml:207
 msgid "%s (ignored)\n"
-msgstr ""
+msgstr "%s (ignored)\n"
 
 #: ../sysprep/main.ml:58
 msgid "%s: --domain option can only be given once\n"
-msgstr ""
+msgstr "%s: --domain optie kan slechts een keer opgegeven worden\n"
 
 #: ../sysprep/main.ml:70
 msgid "%s: --enable option can only be given once\n"
-msgstr ""
+msgstr "%s: --enable optie kan slechts een keer opgegeven worden\n"
 
 #: ../sysprep/main.ml:82
 msgid "%s: --enable: '%s' is not a known operation\n"
-msgstr ""
+msgstr "%s: --enable: '%s' is geen bekende bewerking\n"
 
 #: ../resize/resize.ml:607
 msgid ""
@@ -4709,10 +4821,15 @@ msgid ""
 "within this partition.  (This error came from '%s' option on the command "
 "line.)"
 msgstr ""
+"%s: Deze extended partitie bevat logische partities die beschadigd kunnen "
+"raken als je ze verkleint.  Als je deze partitie wilt verkleinen dan moet je "
+"de '--resize-force' optie gebruiken, maar deze kan logische partities binnen "
+"deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
+"commandoregel.)"
 
 #: ../resize/resize.ml:773
 msgid "%s: This logical volume will be expanded to maximum size."
-msgstr ""
+msgstr "%s: Dit logische volume zal vergroot worden tot de maximale grootte."
 
 #: ../resize/resize.ml:603
 msgid ""
@@ -4722,6 +4839,11 @@ msgid ""
 "but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
+"%s: Deze partitie bevat een %s bestandssysteem welke beschadigd zal worden "
+"als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg verkleinen "
+"tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet je de '--"
+"resize-force' optie gebruiken, maar deze kan data op deze partitie "
+"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:599
 msgid ""
@@ -4731,6 +4853,11 @@ msgid ""
 "option, but that could destroy any data on this partition.  (This error came "
 "from '%s' option on the command line.)"
 msgstr ""
+"%s: Deze partitie bevat een LVM fysieke volume welke beschadigd zal worden "
+"als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg verkleinen "
+"tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet je de '--"
+"resize-force' optie gebruiken, maar deze kan data op deze partitie "
+"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:596
 msgid ""
@@ -4739,32 +4866,38 @@ msgid ""
 "force' option, but that could destroy any data on this partition.  (This "
 "error came from '%s' option on the command line.)"
 msgstr ""
+"%s: Deze partitie heeft onbekende inhoud welke beschadigd kan raken door het "
+"te verkleinen.  Als je deze partitie wilt verkleinen dan moet je de '--"
+"resize-force' optie gebruiken, maar deze kan data op deze partitie "
+"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:750
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
+"%s: Deze partitie zal aangemaakt worden, maar de inhoud zal genegeerd worden "
+"(bijv. niet gekopieerd naar het doel)."
 
 #: ../resize/resize.ml:752
 msgid "%s: This partition will be deleted."
-msgstr ""
+msgstr "%s: Deze partitie zal verwijderd worden."
 
 #: ../resize/resize.ml:748
 msgid "%s: This partition will be left alone."
-msgstr ""
+msgstr "%s: Deze partitie wordt met rust gelaten."
 
 #: ../resize/resize.ml:754
 msgid "%s: This partition will be resized from %s to %s."
-msgstr ""
+msgstr "%s: De grootte van deze partitie wordt veranderd van %s naar %s."
 
 #: ../resize/resize.ml:59
 msgid "%s: empty --expand option"
-msgstr ""
+msgstr "%s: lege --expand optie"
 
 #: ../resize/resize.ml:271 ../resize/resize.ml:268
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
-msgstr ""
+msgstr "%s: bestand is te klein om een schijf image te zijn (%Ld bytes)"
 
 #: ../resize/resize.ml:730
 msgid ""
@@ -4772,26 +4905,31 @@ msgid ""
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
+"%s: logische volume werd niet gevonden in de bron schijf image (deze fout "
+"kwam van de '--lv-expand' optie op de commandoregel).  Probeer dit commando "
+"uit te voeren: virt-filesystems --logical-volumes --long -a %s"
 
 #: ../resize/resize.ml:625
 msgid "%s: missing size field in '%s' option"
-msgstr ""
+msgstr "%s: ontbrekend grootte veld in '%s' optie"
 
 #: ../resize/resize.ml:634
 msgid "%s: new partition size is zero or negative"
-msgstr ""
+msgstr "%s: nieuwe partitie grootte is nul of negatief"
 
 #: ../sysprep/main.ml:193
 msgid "%s: no operating systems were found in the guest image\n"
-msgstr ""
+msgstr "%s: In de gast image werden geen besturingssystemen gevonden\n"
 
 #: ../resize/resize.ml:545
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
+"%s: partitie is al verwijderd, je kunt het niet in de '%s' optie gebruiken"
 
 #: ../resize/resize.ml:541
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
+"%s: partitie wordt al genegeerd, je kunt het niet in de '%s' optie gebruiken"
 
 #: ../resize/resize.ml:537
 msgid ""
@@ -4799,18 +4937,21 @@ msgid ""
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
+"%s: partitie werd niet gevonden in de bron schijf image (deze fout kwam van "
+"de '%s' optie op de commandoregel).  Probeer dit commando uit te voeren: "
+"virt-filesystems --partitions --long -a %s"
 
 #: ../resize/resize.ml:424
 msgid "%s: partition size %Ld < filesystem size %Ld"
-msgstr ""
+msgstr "%s: partitie grootte %Ld < bestandssysteem grootte %Ld"
 
 #: ../resize/resize.ml:419
 msgid "%s: partition size %Ld < physical volume size %Ld"
-msgstr ""
+msgstr "%s: partitie grootte %Ld < fysieke volume grootte %Ld"
 
 #: ../resize/resize.ml:349
 msgid "%s: physical volume not returned by pvs_full"
-msgstr ""
+msgstr "%s: fysieke volume niet teruggeven door pvs_full"
 
 #: ../sysprep/main.ml:128
 msgid ""
@@ -4823,6 +4964,16 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sysprep(1).\n"
 msgstr ""
+"%s: reset of verwijder configuratie van een virtuele machine zodat klonen "
+"gemaakt kunnen worden\n"
+"\n"
+" virt-sysprep [--opties] -d domnaam\n"
+"\n"
+" virt-sysprep [--opties] -a disk.img [-a disk.img ...]\n"
+"\n"
+"Een korte samenvatting van de opties wordt hieronder gegeven.  Voor "
+"gedetailleerde hulp\n"
+"lees je de man pagina virt-sysprep(1).\n"
 
 #: ../resize/resize.ml:115
 msgid ""
@@ -4831,6 +4982,11 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-resize(1).\n"
 msgstr ""
+"%s: verander de grootte van een virtuele machine schijf\n"
+"\n"
+"Een korte samenvatting van de opties wordt hieronder gegeven.  Voor "
+"gedetailleerde hulp\n"
+"lees je de man pagina virt-resize(1).\n"
 
 #: ../sparsify/sparsify.ml:79
 msgid ""
@@ -4841,52 +4997,61 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sparsify(1).\n"
 msgstr ""
+"%s: verdun een virtuele machine schijf\n"
+"\n"
+" virt-sparsify [--opties] inschijf uitschijf\n"
+"\n"
+"Een korte samenvatting van de opties wordt hieronder gegeven.  Voor "
+"gedetailleerde hulp\n"
+"lees je de man pagina virt-sparsify(1).\n"
 
 #: ../resize/resize.ml:581
 msgid "%s: this partition has already been ignored or deleted"
-msgstr ""
+msgstr "%s: deze partitie wordt al genegeerd of is al verwijderd"
 
 #: ../resize/resize.ml:577
 msgid "%s: this partition has already been marked for resizing"
-msgstr ""
+msgstr "%s: deze partitie is als gemarkeerd om in grootte veranderd te worden"
 
 #: ../resize/resize.ml:434
 msgid "%s: this partition overlaps the previous one"
-msgstr ""
+msgstr "%s: deze partitie overlapt de vorige"
 
 #: ../resize/resize.ml:285
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
+"%s: onbekend partitie tabel type\n"
+"virt-resize ondersteunt alleen MBR (DOS) en GPT partitie tabellen."
 
 #: ../sysprep/main.ml:157
 msgid "%s: you cannot give -a and -d options together\n"
-msgstr ""
+msgstr "%s: je kunt de -a en -d opties niet tegelijkertijd opgeven\n"
 
 #: ../sysprep/main.ml:74
 msgid "%s: you cannot pass an empty argument to --enable\n"
-msgstr ""
+msgstr "%s: je kunt geen leeg argument doorgeven met --enable\n"
 
 #: ../sysprep/main.ml:148
 msgid "%s: you must give either -a or -d options\n"
-msgstr ""
+msgstr "%s: je moet de -a of de -d optie opgeven\n"
 
 #: ../resize/resize.ml:60
 msgid "--expand option given twice"
-msgstr ""
+msgstr "--expand optie wordt tweemaal opgegeven"
 
 #: ../resize/resize.ml:77
 msgid "--shrink option given twice"
-msgstr ""
+msgstr "--shrink optie wordt tweemaal opgegeven"
 
 #: ../sysprep/main.ml:98 ../sysprep/main.ml:97
 msgid "Add disk image file"
-msgstr ""
+msgstr "Voeg schijf image bestand toe"
 
 #: ../sparsify/sparsify.ml:66
 msgid "Add qemu-img options"
-msgstr ""
+msgstr "Voeg qemu-img opties toe"
 
 #: ../sysprep/sysprep_operation_firstboot.ml:59
 msgid "Add scripts to run once at next boot"
@@ -4894,7 +5059,7 @@ msgstr ""
 
 #: ../resize/resize.ml:82
 msgid "Align first partition (default: auto)"
-msgstr ""
+msgstr "Richt eerste partitie uit (standaard: auto)"
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:44
 msgid "Change LVM2 PV and VG UUIDs"
@@ -4902,140 +5067,160 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_hostname.ml:70
 msgid "Change the hostname of the guest"
-msgstr ""
+msgstr "Verander de hostnaam van een gast"
 
 #: ../sysprep/sysprep_operation_hostname.ml:79
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
+"Verander de hostnaam.  Als deze niet opgegeven wordt, wordt het C<localhost."
+"localdomain>."
 
 #: ../sparsify/sparsify.ml:294
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
 msgstr ""
+"Opschonen van Linux swap op %s ...\n"
+"%!"
 
 #: ../sparsify/sparsify.ml:60
 msgid "Compressed output format"
-msgstr ""
+msgstr "Gecomprimeerde output formaat"
 
 #: ../sparsify/sparsify.ml:364
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
 msgstr ""
+"Kopieer naar doel en maakt het sparse ...\n"
+"%!"
 
 #: ../resize/resize.ml:1032
 msgid ""
 "Copying %s ...\n"
 "%!"
 msgstr ""
+"Bezig met kopiëren %s ...\n"
+"%!"
 
 #: ../sparsify/sparsify.ml:195
 msgid ""
 "Create overlay file to protect source disk ...\n"
 "%!"
 msgstr ""
+"Maak overlay bestand aan om bron schijf te beschermen ...\n"
+"%!"
 
 #: ../sparsify/sparsify.ml:62 ../resize/resize.ml:87
 msgid "Debug GC and memory allocations"
-msgstr ""
+msgstr "Debug GC en geheugen toewijzingen"
 
 #: ../sysprep/main.ml:101
 msgid "Debug GC and memory allocations (internal)"
-msgstr ""
+msgstr "Debug GC en geheugen toewijzingen (intern)"
 
 #: ../resize/resize.ml:88
 msgid "Delete partition"
-msgstr ""
+msgstr "Verwijder partitie"
 
 #. ../resize/resize.ml:109
 #: ../sysprep/main.ml:119 ../sysprep/main.ml:118 ../sparsify/sparsify.ml:71
 msgid "Display version and exit"
-msgstr ""
+msgstr "Toon versie en sluit af"
 
 #: ../resize/resize.ml:84
 msgid "Don't copy boot loader"
-msgstr ""
+msgstr "Kopieer bootlader niet"
 
 #: ../resize/resize.ml:91
 msgid "Don't create extra partition"
-msgstr ""
+msgstr "Maak geen extra partitie aan"
 
 #: ../resize/resize.ml:90
 msgid "Don't expand content"
-msgstr ""
+msgstr "Expandeer de inhoud niet"
 
 #: ../resize/resize.ml:99
 msgid "Don't perform changes"
-msgstr ""
+msgstr "Maak geen veranderingen"
 
 #: ../sysprep/main.ml:113 ../sysprep/main.ml:112
 msgid "Don't print log messages"
-msgstr ""
+msgstr "Print geen log boodschappen"
 
 #: ../resize/resize.ml:104
 msgid "Don't print the summary"
-msgstr ""
+msgstr "Print de samenvatting niet"
 
 #: ../sysprep/main.ml:107
 msgid "Dump POD (internal)"
-msgstr ""
+msgstr "Dump POD (intern)"
 
 #: ../sysprep/main.ml:108
 msgid "Dump POD for options (internal)"
-msgstr ""
+msgstr "Dump POD voor opties (intern)"
 
 #. ../resize/resize.ml:85
 #: ../sysprep/main.ml:117 ../sysprep/main.ml:116 ../sparsify/sparsify.ml:69
 msgid "Enable debugging messages"
-msgstr ""
+msgstr "Zet debug boodschappen aan"
 
 #: ../sysprep/main.ml:109
 msgid "Enable specific operations"
-msgstr ""
+msgstr "Zet specifieke bewerkingen aan"
 
 #: ../sysprep/main.ml:120 ../sparsify/sparsify.ml:73
 msgid "Enable tracing of libguestfs calls"
-msgstr ""
+msgstr "Zet traceren van libguestfs aanroepen aan"
 
 #: ../sparsify/sparsify.ml:231
 msgid ""
 "Examine source disk ...\n"
 "%!"
 msgstr ""
+"Onderzoek bron schijf ...\n"
+"%!"
 
 #: ../resize/resize.ml:230
 msgid ""
 "Examining %s ...\n"
 "%!"
 msgstr ""
+"%s wordt onderzocht ...\n"
+"%!"
 
 #: ../sysprep/main.ml:178
 msgid ""
 "Examining the guest ...\n"
 "%!"
 msgstr ""
+"Onderzoek de gast ...\n"
+"%!"
 
 #: ../resize/resize.ml:94
 msgid "Expand logical volume"
-msgstr ""
+msgstr "Expandeer logische volume"
 
 #: ../resize/resize.ml:89
 msgid "Expand partition"
-msgstr ""
+msgstr "Expandeer partitie"
 
 #: ../resize/resize.ml:1179
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
+"%s wordt geëxpandeerd met de '%s' methode ...\n"
+"%!"
 
 #: ../resize/resize.ml:1162
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
 msgstr ""
+"%s%s wordt geëxpandeerd met de '%s' methode ...\n"
+"%!"
 
 #: ../resize/resize.ml:850
 msgid ""
@@ -5044,28 +5229,39 @@ msgid ""
 "\n"
 "The underlying error was: %s"
 msgstr ""
+"Het initialiseren van de partitie tabrl op de doel schijf is mislukt.  Je "
+"moet de doel schijf schoonvegen of opnieuw aanmaken en dan virt-resize "
+"opnieuw uitvoeren.\n"
+"\n"
+"De onderliggende fout was: %s"
 
 #: ../sparsify/sparsify.ml:278
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
+"Vul vrije ruime in %s met nul in ...\n"
+"%!"
 
 #: ../sparsify/sparsify.ml:329
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
 msgstr ""
+"Vul vrije ruimte in volgroep %s met nul in ...\n"
+"%!"
 
 #: ../resize/resize.ml:1088
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
 msgstr ""
+"Eerste NTFS partitie boot record wordt gerepareerd...\n"
+"%!"
 
 #: ../sysprep/sysprep_operation_flag_reconfiguration.ml:35
 msgid "Flag the system for reconfiguration"
-msgstr ""
+msgstr "Markeer het systeem voor opnieuw configureren"
 
 #. ../sysprep/sysprep_operation_net_hostname.ml:50
 #: ../sysprep/sysprep_operation_net_hwaddr.ml:50
@@ -5073,80 +5269,88 @@ msgid ""
 "For Fedora and Red Hat Enterprise Linux,\n"
 "this is removed from C<ifcfg-*> files."
 msgstr ""
+"Voor Fedora en Red Hat Enterprise Linux,\n"
+"is dit verwijderd uit C<ifcfg-*> bestanden."
 
 #: ../sysprep/main.ml:114
 msgid "Force SELinux relabel"
-msgstr ""
+msgstr "Forceer SELinux opnieuw labelen"
 
 #: ../resize/resize.ml:102
 msgid "Force ntfsresize"
-msgstr ""
+msgstr "Forceer ntfsresize"
 
 #: ../resize/resize.ml:107
 msgid "Forcefully resize partition"
-msgstr ""
+msgstr "Forceer partitie grootteverandering"
 
 #: ../sparsify/sparsify.ml:63 ../resize/resize.ml:92
 msgid "Format of input disk"
-msgstr ""
+msgstr "Formaat van input schijf"
 
 #: ../resize/resize.ml:103
 msgid "Format of output disk"
-msgstr ""
+msgstr "Formaat van output schijf"
 
 #: ../sparsify/sparsify.ml:61
 msgid "Format of output disk (default: same as input)"
-msgstr ""
+msgstr "Formaat van output schijf (standaard: hetzelfde als input)"
 
 #: ../sysprep/sysprep_operation_random_seed.ml:51
 msgid "Generate random seed for guest"
-msgstr ""
+msgstr "Genereer random seed voor gast"
 
 #: ../resize/resize_utils.ml:81
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
 msgstr ""
+"Bij het rapporten van bug voer je virt-resize uit met de '-d' optie en voeg "
+"je de volledige output toe."
 
 #: ../sparsify/sparsify_utils.ml:109
 msgid ""
 "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
 "include the complete output."
 msgstr ""
+"Bij het rapporteren van voer je virt-sparsify uit met de '-v' en '-x' opties "
+"en voeg je de volledige output toe."
 
 #: ../sparsify/sparsify.ml:64
 msgid "Ignore filesystem"
-msgstr ""
+msgstr "Negeer bestandssysteem"
 
 #: ../resize/resize.ml:93
 msgid "Ignore partition"
-msgstr ""
+msgstr "Negeer partitie"
 
 #: ../sysprep/main.ml:111
 msgid "List supported operations"
-msgstr ""
+msgstr "Toon ondersteunde bewerkingen"
 
 #: ../sparsify/sparsify.ml:65 ../resize/resize.ml:98
 msgid "Make output machine readable"
-msgstr ""
+msgstr "Maak output leesbaar voor machines"
 
 #: ../sysprep/sysprep_operation_script.ml:143
 msgid "Mount point on host"
-msgstr ""
+msgstr "Aankoppel punt op host"
 
 #: ../sysprep/main.ml:115
 msgid "Never do SELinux relabel"
-msgstr ""
+msgstr "Voer nooit een SELinux relabel uit"
 
 #: ../sysprep/sysprep_operation_hostname.ml:78
 msgid "New hostname"
-msgstr ""
+msgstr "Nieuwe hostnaam"
 
 #: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
 msgid ""
 "Note that this may require user intervention when the\n"
 "guest is booted."
 msgstr ""
+"Merk op dat dit gebruikersinterventie kan vereisen als de\n"
+"gast opgestart is."
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
@@ -5161,38 +5365,41 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Onder Linux worden de volgende bestanden verwijderd:\n"
+"\n"
+"%s"
 
 #: ../sysprep/main.ml:106 ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "Perform a dry run"
-msgstr ""
+msgstr "Voer een test run uit"
 
 #: ../sparsify/sparsify.ml:67
 msgid "Quiet output"
-msgstr ""
+msgstr "Stille output"
 
 #: ../sysprep/main.ml:158 ../sysprep/main.ml:149
 msgid "Read virt-sysprep(1) man page for further information.\n"
-msgstr ""
+msgstr "Lees virt-sysprep(1) man pagina voor verdere informatie.\n"
 
 #: ../sysprep/sysprep_operation_ssh_userdir.ml:39
 msgid "Remove \".ssh\" directories in the guest"
-msgstr ""
+msgstr "Verwijder \".ssh\" mappen op de gast"
 
 #: ../sysprep/sysprep_operation_ca_certificates.ml:53
 msgid "Remove CA certificates in the guest"
-msgstr ""
+msgstr "Verwijder CA certificaten in de gast"
 
 #: ../sysprep/sysprep_operation_dhcp_client_state.ml:36
 msgid "Remove DHCP client leases"
-msgstr ""
+msgstr "Verwijder DHCP cliënt leases"
 
 #: ../sysprep/sysprep_operation_dhcp_server_state.ml:31
 msgid "Remove DHCP server leases"
-msgstr ""
+msgstr "Verwijder DHCP server leases"
 
 #: ../sysprep/sysprep_operation_dovecot_data.ml:38
 msgid "Remove Dovecot (mail server) data"
-msgstr ""
+msgstr "Verwijder Dovecot (mail server) data"
 
 #: ../sysprep/sysprep_operation_net_hostname.ml:49
 msgid "Remove HOSTNAME in network interface configuration"
@@ -5200,55 +5407,59 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_net_hwaddr.ml:49
 msgid "Remove HWADDR (hard-coded MAC address) configuration"
-msgstr ""
+msgstr "Verwijder HWADDR (hard-coded MAC adres) configuratie"
 
 #: ../sysprep/sysprep_operation_kerberos_data.ml:46
 msgid "Remove Kerberos data in the guest"
-msgstr ""
+msgstr "Verwijder Kerberos data in de gast"
 
 #: ../sysprep/sysprep_operation_user_account.ml:65
 msgid ""
 "Remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed."
 msgstr ""
+"Verwijder alle gebruikersaccounts en hun persoonlijke mappen.\n"
+"Het \"root\" account wordt niet verwijderd."
 
 #: ../sysprep/sysprep_operation_blkid_tab.ml:49
 msgid "Remove blkid tab in the guest"
-msgstr ""
+msgstr "Verwijder blkid tab in de gast"
 
 #: ../sysprep/sysprep_operation_mail_spool.ml:36
 msgid "Remove email from the local mail spool directory"
-msgstr ""
+msgstr "Verwijder email uit de lokale mail spool map"
 
 #: ../sysprep/sysprep_operation_logfiles.ml:88
 msgid "Remove many log files from the guest"
-msgstr ""
+msgstr "Verwijder veel log bestanden van de gast"
 
 #: ../sysprep/sysprep_operation_package_manager_cache.ml:42
 msgid "Remove package manager cache"
-msgstr ""
+msgstr "Verwijder pakketmanager cache"
 
 #: ../sysprep/sysprep_operation_ssh_userdir.ml:40
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other\n"
 "users who have a C<.ssh> directory in their home directory."
 msgstr ""
+"Verwijder de C<.ssh> map van gebruiker \"root\" en alle andere\n"
+"gebruikers die een C<.ssh> map in hun persoonlijke map hebben."
 
 #: ../sysprep/sysprep_operation_pam_data.ml:46
 msgid "Remove the PAM data in the guest"
-msgstr ""
+msgstr "Verwijder de PAM data in de gast"
 
 #: ../sysprep/sysprep_operation_rhn_systemid.ml:37
 msgid "Remove the RHN system ID"
-msgstr ""
+msgstr "Verwijder de RHN systeem ID"
 
 #: ../sysprep/sysprep_operation_ssh_hostkeys.ml:36
 msgid "Remove the SSH host keys in the guest"
-msgstr ""
+msgstr "Verwijder de SSH host sleutels op de gast"
 
 #: ../sysprep/sysprep_operation_smolt_uuid.ml:41
 msgid "Remove the Smolt hardware UUID"
-msgstr ""
+msgstr "Verwijder de Smolt hardware UUID"
 
 #: ../sysprep/sysprep_operation_abrt_data.ml:39
 msgid ""
@@ -5258,13 +5469,16 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_bash_history.ml:39
 msgid "Remove the bash history in the guest"
-msgstr ""
+msgstr "Verwijder de bash geschiedenis op de gast"
 
 #: ../sysprep/sysprep_operation_bash_history.ml:40
 msgid ""
 "Remove the bash history of user \"root\" and any other users\n"
 "who have a C<.bash_history> file in their home directory."
 msgstr ""
+"Verwijder de bash geschiedenis van gebruiker \"root\" en alle andere "
+"gebruikers\n"
+"die een C<.bash_history> bestand in hun persoonlijke map hebben."
 
 #: ../sysprep/sysprep_operation_abrt_data.ml:38
 msgid "Remove the crash data generated by ABRT"
@@ -5272,15 +5486,15 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_puppet_data_log.ml:46
 msgid "Remove the data and log files of puppet"
-msgstr ""
+msgstr "Verwijder de data en log bestanden van puppet"
 
 #: ../sysprep/sysprep_operation_samba_db_log.ml:47
 msgid "Remove the database and log files of Samba"
-msgstr ""
+msgstr "Verwijder de database en log bestanden van Samba"
 
 #: ../sysprep/sysprep_operation_sssd_db_log.ml:45
 msgid "Remove the database and log files of sssd"
-msgstr ""
+msgstr "Verwijder de database en log bestanden van sssd"
 
 #: ../sysprep/sysprep_operation_machine_id.ml:37
 msgid "Remove the local machine ID"
@@ -5292,19 +5506,19 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_user_account.ml:64
 msgid "Remove the user accounts in the guest"
-msgstr ""
+msgstr "Verwijder de gebruikersaccounts op de gast"
 
 #: ../sysprep/sysprep_operation_utmp.ml:35
 msgid "Remove the utmp file"
-msgstr ""
+msgstr "Verwijder het utmp bestand"
 
 #: ../sysprep/sysprep_operation_yum_uuid.ml:35
 msgid "Remove the yum UUID"
-msgstr ""
+msgstr "Verwijder de yum UUID"
 
 #: ../sysprep/sysprep_operation_udev_persistent_net.ml:36
 msgid "Remove udev persistent net rules"
-msgstr ""
+msgstr "Verwijder udev persistente net regels"
 
 #: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
 msgid ""
@@ -5316,24 +5530,37 @@ msgid ""
 "MAC address is assigned to a new name (eg. eth1) and this is usually\n"
 "undesirable.  Erasing the udev persistent net rules avoids this."
 msgstr ""
+"Verwijder udev persistente net regels welke de bestaande MAC adres van de "
+"gast\n"
+"afbeelden op een vast ethernet apparaat (bijv. eth0).\n"
+"\n"
+"Nadat een gast gekloond is, verandert het MAC adres gewoonlijk.  omdat het\n"
+"oude MAC adres de oude naam gebruikt (bijv. eth0), betekent dit dat het "
+"nieuwe\n"
+"MAC adres toegekend wordt aan een nieuwe naam (bijv. eth1) en dit is "
+"meestal\n"
+"ongewenst.  Het verwijderen van de udev persistente net regels voorkomt dit."
 
 #: ../sysprep/sysprep_operation_cron_spool.ml:37
 msgid "Remove user at-jobs and cron-jobs"
-msgstr ""
+msgstr "Verwijder at-jobs en cron-jobs van gebruiker"
 
 #: ../resize/resize.ml:1199
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
+"De bewerking om de grootte te veranderen is zonder fouten afgerond.  Voor "
+"het verwijderen van de oude schijf moet je zorgvuldig controleren dat de in "
+"grootte veranderde schijf opstart en correct werkt.\n"
 
 #: ../resize/resize.ml:106
 msgid "Resize partition"
-msgstr ""
+msgstr "Verander grootte van partitie"
 
 #: ../sysprep/sysprep_operation_script.ml:118
 msgid "Run arbitrary scripts against the guest"
-msgstr ""
+msgstr "Voer willekeurige scrips voor de gast uit"
 
 #: ../sysprep/sysprep_operation_firstboot.ml:77
 msgid ""
@@ -5350,42 +5577,54 @@ msgid ""
 "B<Note:> If the script is not on the $PATH, then you must give\n"
 "the full absolute path to the script."
 msgstr ""
+"Voer de named C<script> (een shell script of programma) uit voor de\n"
+"gast.  Het script kan elk programma op de host zijn.  De huidige map\n"
+"van het script zal de root map van de gast zijn.\n"
+"\n"
+"B<Note:> Als het script zich niet op het $PATH bevindt dan moet het "
+"volledige\n"
+"absolute pad naar het script opgeven."
 
 #: ../sysprep/sysprep_operation_script.ml:153
 msgid "Script or program to run on guest"
-msgstr ""
+msgstr "Script of programma welke op de gast uitgevoerd moet worden"
 
 #: ../sysprep/main.ml:110
 msgid "Set format (default: auto)"
-msgstr ""
+msgstr "Stel formaat in (standaad: auto)"
 
 #: ../sysprep/main.ml:100 ../sysprep/main.ml:99
 msgid "Set libvirt URI"
-msgstr ""
+msgstr "Stel libvirt URI in"
 
 #: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "Set libvirt guest name"
-msgstr ""
+msgstr "Stel libvirt gastnaam in"
 
 #: ../resize/resize.ml:83
 msgid "Set partition alignment (default: 128 sectors)"
-msgstr ""
+msgstr "Stel partitie uitlijning in (standaard: 128 sectors)"
 
 #: ../resize/resize.ml:829
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
 msgstr ""
+"Bezig met instellen van initiële partitie tabel op %s ...\n"
+"%!"
 
 #: ../resize/resize.ml:108
 msgid "Shrink partition"
-msgstr ""
+msgstr "Verklein partitie"
 
 #: ../sparsify/sparsify.ml:383
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
 msgstr ""
+"Sparse maken bewerking is zonder fouten beëindigd.  voor het verwijderen van "
+"de oude schijf moet je zorgvuldig controleren dat de doel schijf opstart en "
+"correct werkt.\n"
 
 #: ../sysprep/sysprep_operation_firstboot.ml:60
 msgid ""
@@ -5442,6 +5681,16 @@ msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
+"De SSH host sleutels worden opnieuw (anders) aangemaakt zodra de gast\n"
+"op wordt gestart.\n"
+"\n"
+"Als na het klonen de gast hetzelfde IP adres krijgt, zal ssh je een\n"
+"duidelijke waarschuwing geven over de verandering van de host sleutel:\n"
+"\n"
+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
 #: ../sysprep/sysprep_operation_machine_id.ml:38
 msgid ""
@@ -5462,6 +5711,15 @@ msgid ""
 "If I<--scriptdir> is not specified then a temporary mountpoint\n"
 "will be created."
 msgstr ""
+"Het aankoppel punt (een lege map op de host) dat gebruikt wordt\n"
+"als de C<script> bewerking aangezet is en een of meer scripts\n"
+"gespecificeerd zijn met gebruik van I<--script> parameter(s).\n"
+"\n"
+"B<Note:> C<scriptdir> B<must> een absoluut pad zijn.\n"
+"\n"
+"Als I<--scriptdir> niet gespecificeerd is dan wordt een tijdelijk aankoppel "
+"punt\n"
+"aangemaakt."
 
 #: ../sysprep/sysprep_operation_pacct_log.ml:52
 msgid ""
@@ -5474,10 +5732,13 @@ msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
+"Er is een tekort van %Ld bytes (%s).  Je moet de doelschijf met tenminste "
+"die hoeveelheid groter maken of je verzoek om de grootte te veranderen "
+"aanpassen."
 
 #: ../resize/resize.ml:788
 msgid "There is a surplus of %s."
-msgstr ""
+msgstr "Er is een overschot van %s."
 
 #: ../sysprep/sysprep_operation_utmp.ml:36
 msgid ""
@@ -5485,6 +5746,12 @@ msgid ""
 "Linux distros it is stored in a ramdisk and hence not part of the\n"
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
+"Dit bestand houdt bij wie op dit moment ingelogd zijn op de machine.  In "
+"moderne\n"
+"Linux distributies wordt dit opgeslagen op een ramdisk en is daarom geen "
+"onderdeel\n"
+"van de schijf van de virtuele machine, maar in oudere distributies werd het "
+"opgeslagen op de schijf."
 
 #: ../sysprep/sysprep_operation_hostname.ml:71
 msgid ""
@@ -5494,6 +5761,12 @@ msgid ""
 "If the I<--hostname> parameter is not given, then the hostname is changed\n"
 "to C<localhost.localdomain>."
 msgstr ""
+"Deze bewerking verandert de hostnaam van de gast naar de waarde\n"
+"opgegeven in de I<--hostname> parameter.\n"
+"\n"
+"Als de I<--hostname> parameter niet opgegeven is, dan wordt de hostnaam "
+"veranderd\n"
+"naar C<localhost.localdomain>."
 
 #: ../sysprep/sysprep_operation_random_seed.ml:52
 msgid ""
@@ -5502,42 +5775,55 @@ msgid ""
 "\n"
 "See L</RANDOM SEED> below."
 msgstr ""
+"Schrijf wat random bytes van de host naar het random seed bestand van de\n"
+"gast.\n"
+"\n"
+"Zie L</RANDOM SEED> hieronder."
 
 #: ../resize/resize.ml:685
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
+"Je kunt --expand niet gebruiken als er geen surplus ruimte voor expansie "
+"is.  Je moet de doel schijf tenminste %s groter maken."
 
 #: ../resize/resize.ml:697
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
 msgstr ""
+"Je kunt --shrink niet gebruiken als er geen tekort is (zie 'deficit' in de "
+"virt-resize(1) man pagina)."
 
 #: ../sysprep/sysprep_operation_yum_uuid.ml:36
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the\n"
 "original UUID has been erased."
 msgstr ""
+"Yum maakt een nieuwe UUID aan als het de volgende draait en ontdekt dat de "
+"originele\n"
+"UUID verwijderd is."
 
 #: ../sparsify/sparsify.ml:74
 msgid "Zero filesystem"
-msgstr ""
+msgstr "Nul bestandssysteem"
 
 #: ../sparsify/sparsify.ml:268
 msgid ""
 "Zeroing %s ...\n"
 "%!"
 msgstr ""
+"Met nullen vullen %s ...\n"
+"%!"
 
 #: ../resize/resize.ml:152
 msgid "alignment cannot be < 1"
-msgstr ""
+msgstr "uitlijning kan niet < 1 zijn"
 
 #: ../resize/resize.ml:490
 msgid "btrfs-filesystem-resize"
-msgstr ""
+msgstr "btrfs-filesystem-resize"
 
 #: ../sparsify/sparsify.ml:356
 msgid "cannot detect input disk format; use the --format parameter"
@@ -5545,35 +5831,35 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:143
 msgid "dir"
-msgstr ""
+msgstr "dir"
 
 #: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "domain"
-msgstr ""
+msgstr "domain"
 
 #: ../resize/resize.ml:76
 msgid "empty --shrink option"
-msgstr ""
+msgstr "empty --shrink optie"
 
 #: ../sparsify/sparsify.ml:172
 msgid "external command '%s' killed by signal %d"
-msgstr ""
+msgstr "extern commando '%s' werd afgeschoten door signaal %d"
 
 #: ../sparsify/sparsify.ml:174
 msgid "external command '%s' stopped by signal %d"
-msgstr ""
+msgstr "extern commando '%s' werd gestopt door signaal %d"
 
 #: ../sparsify/sparsify.ml:377 ../sparsify/sparsify.ml:225
 msgid "external command failed: %s"
-msgstr ""
+msgstr "extern commando mislukte: %s"
 
 #: ../sysprep/main.ml:126
 msgid "extra parameter on the command line"
-msgstr ""
+msgstr "extra parameter op de commandoregel"
 
 #: ../sysprep/main.ml:98 ../sysprep/main.ml:97
 msgid "file"
-msgstr ""
+msgstr "bestand"
 
 #: ../sysprep/firstboot.ml:78
 msgid "firstboot: failed: "
@@ -5584,69 +5870,73 @@ msgstr ""
 #: ../sysprep/main.ml:110 ../sparsify/sparsify.ml:63
 #: ../sparsify/sparsify.ml:61
 msgid "format"
-msgstr ""
+msgstr "formaat"
 
 #: ../sparsify/sparsify.ml:74 ../sparsify/sparsify.ml:64
 msgid "fs"
-msgstr ""
+msgstr "bs"
 
 #: ../sysprep/sysprep_operation_hostname.ml:78
 msgid "hostname"
-msgstr ""
+msgstr "hostnaam"
 
 #: ../sparsify/sparsify.ml:147
 msgid ""
 "input filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
 msgstr ""
+"input bestandsnaam '%s' bevat een dubbelepunt (':'); qemu-img commandoregel "
+"syntax belet ons om zo'n image te gebruiken"
 
 #. ../resize/resize.ml:94
 #: ../resize/resize.ml:97 ../resize/resize.ml:96 ../resize/resize.ml:95
 msgid "lv"
-msgstr ""
+msgstr "lv"
 
 #: ../resize/resize.ml:82
 msgid "never|always|auto"
-msgstr ""
+msgstr "nooit|altijd|auto"
 
 #: ../resize/resize.ml:489
 msgid "ntfsresize"
-msgstr ""
+msgstr "ntfsresize"
 
 #: ../sysprep/main.ml:109
 msgid "operations"
-msgstr ""
+msgstr "bewerkingen"
 
 #: ../sparsify/sparsify.ml:66
 msgid "option"
-msgstr ""
+msgstr "optie"
 
 #: ../sparsify/sparsify.ml:150
 msgid ""
 "output filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
 msgstr ""
+"output bestandsnaam '%s' bevat een dubbelepunt (':'); qemu-img commandoregel "
+"syntax belet ons om zo'n image te gebruiken"
 
 #. ../resize/resize.ml:88
 #: ../resize/resize.ml:108 ../resize/resize.ml:93 ../resize/resize.ml:89
 msgid "part"
-msgstr ""
+msgstr "part"
 
 #: ../resize/resize.ml:107 ../resize/resize.ml:106
 msgid "part=size"
-msgstr ""
+msgstr "part=grootte"
 
 #: ../resize/resize.ml:887 ../resize/resize.ml:863
 msgid "pread-device: short read"
-msgstr ""
+msgstr "pread-device: kort lezen"
 
 #: ../resize/resize.ml:487
 msgid "pvresize"
-msgstr ""
+msgstr "pvresize"
 
 #: ../sparsify/sparsify.ml:303
 msgid "pwrite: short write restoring swap partition header"
-msgstr ""
+msgstr "pwrite: kort schrijven herstellen van swap partitie koptekst"
 
 #: ../sparsify/sparsify.ml:191
 msgid ""
@@ -5656,7 +5946,7 @@ msgstr ""
 
 #: ../resize/resize.ml:488
 msgid "resize2fs"
-msgstr ""
+msgstr "resize2fs"
 
 #: ../sysprep/sysprep_operation_firstboot.ml:76
 msgid "run script once next time guest boots"
@@ -5665,15 +5955,15 @@ msgstr ""
 #. ../sysprep/sysprep_operation_firstboot.ml:76
 #: ../sysprep/sysprep_operation_script.ml:153
 msgid "script"
-msgstr ""
+msgstr "script"
 
 #: ../sysprep/sysprep_operation_script.ml:75
 msgid "script failed"
-msgstr ""
+msgstr "script mislukte"
 
 #: ../resize/resize.ml:83
 msgid "sectors"
-msgstr ""
+msgstr "sectoren"
 
 #: ../sysprep/main.ml:254
 msgid "sysprep operation failed: %s\n"
@@ -5700,67 +5990,69 @@ msgstr ""
 
 #: ../resize/resize.ml:374
 msgid "the source disk has no partitions"
-msgstr ""
+msgstr "de bron schijf heeft geen partities"
 
 #: ../resize/resize.ml:161
 msgid "unknown --align-first option: use never|always|auto"
-msgstr ""
+msgstr "onbekende --align-first optie: gebruik nooit|altijd|auto"
 
 #: ../sysprep/main.ml:100 ../sysprep/main.ml:99
 msgid "uri"
-msgstr ""
+msgstr "uri"
 
 #: ../resize/resize.ml:190
 msgid "usage is: %s [--options] indisk outdisk"
-msgstr ""
+msgstr "gebruik is: %s [--opties] indisk outdisk"
 
 #: ../resize/resize.ml:43
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
-msgstr ""
+msgstr "virt-resize %Ld.%Ld.%Ld%s\n"
 
 #: ../resize/resize_utils.ml:77
 msgid "virt-resize: error: "
-msgstr ""
+msgstr "virt-resize: fout: "
 
 #: ../sysprep/sysprep_operation_script.ml:31
 msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
-msgstr ""
+msgstr "virt-sysprep: --scriptdir kan slechts een keer gebruikt worden\n"
 
 #: ../sysprep/sysprep_operation.ml:113
 msgid "virt-sysprep: POD for %s must not end with newline\n"
-msgstr ""
+msgstr "virt-sysprep: POD voor %s mag niet op een nieuwe regel eindigen\n"
 
 #: ../sysprep/sysprep_operation.ml:90
 msgid "virt-sysprep: disallowed character (%c) in operation name\n"
-msgstr ""
+msgstr "virt-sysprep: niet toegestaan karakter (%c) in bewerkingsnaam\n"
 
 #: ../sysprep/sysprep_operation.ml:74
 msgid "virt-sysprep: duplicate operation name (%s)\n"
-msgstr ""
+msgstr "virt-sysprep: bewerkingsnaam (%s) dubbel gebruikt\n"
 
 #: ../sysprep/sysprep_operation.ml:100
 msgid "virt-sysprep: heading for %s must not end with newline or period\n"
 msgstr ""
+"virt-sysprep: koptekst voor %s mag niet eindigen op een nieuwe regel of "
+"punt\n"
 
 #: ../sysprep/sysprep_operation.ml:109
 msgid "virt-sysprep: operation %s has no POD\n"
-msgstr ""
+msgstr "virt-sysprep: bewerking %s heeft geen POD\n"
 
 #: ../sysprep/sysprep_operation.ml:96
 msgid "virt-sysprep: operation %s has no heading\n"
-msgstr ""
+msgstr "virt-sysprep: bewerking %s heeft geen koptekst\n"
 
 #: ../sysprep/sysprep_operation.ml:83
 msgid "virt-sysprep: operation name is an empty string\n"
-msgstr ""
+msgstr "virt-sysprep: bewerkingsnaam is een lege string\n"
 
 #: ../sysprep/sysprep_operation_script.ml:65
 msgid "virt-sysprep: script: failed (code %d)\n"
-msgstr ""
+msgstr "virt-sysprep: script: faalde (code %d)\n"
 
 #: ../sysprep/sysprep_operation_script.ml:69
 msgid "virt-sysprep: script: killed by signal (%d)\n"
-msgstr ""
+msgstr "virt-sysprep: script: afgeschoten door signaal (%d)\n"
 
 #: ../sparsify/sparsify.ml:185
 msgid ""
@@ -5776,47 +6068,14 @@ msgid ""
 "magic\n"
 "%!"
 msgstr ""
+"waarschuwing: eerste partitie is NTFS maar bevat geen NTFS boot loader "
+"magic\n"
+"%!"
 
 #: ../resize/resize.ml:673
 msgid "you cannot use options --expand and --shrink together"
-msgstr ""
+msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 
 #: ../sparsify/sparsify.ml:131 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
-msgstr ""
-
-#~ msgid "can't allocate or add disks after launching\n"
-#~ msgstr "kan schijven niet toewijzen of toevoegen na het starten\n"
-
-#~ msgid "cannot resolve Windows %%SYSTEMROOT%%"
-#~ msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
-
-#~ msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
-#~ msgstr "virt-win-reg: {p}: bestand niet gevonden in gast: {err}\n"
-
-#~ msgid ""
-#~ "inspection API not available since this version of libguestfs was "
-#~ "compiled without the hivex library"
-#~ msgstr ""
-#~ "inspectie API is niet beschikbaar omdat deze versie van libguestfs "
-#~ "gecompileerd werd zonder de hivex bibliotheek"
-
-#~ msgid ""
-#~ "qemu-img create: failed to create disk image, see earlier error messages\n"
-#~ msgstr ""
-#~ "qemu-img create: aanmaken schijf image mislukte, zie eerdere fout "
-#~ "boodschappen\n"
-
-#~ msgid "debug the QEMU command line (internal use only)"
-#~ msgstr "debug de QEMU commando-regel (alleen voor intern gebruik)"
-
-#~ msgid "command line cannot be altered after qemu subprocess launched"
-#~ msgstr ""
-#~ "commando regel kan niet gewijzigd worden nadat een qemu sub-proces "
-#~ "gelanceerd is"
-
-#~ msgid "guestfs_config: parameter must begin with '-' character"
-#~ msgstr "guestfs_config: parameter moet met '-' beginnen"
-
-#~ msgid "guestfs_config: parameter '%s' isn't allowed"
-#~ msgstr "guestfs_config: parameter '%s' is niet toegestaan"
+msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
