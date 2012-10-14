@@ -190,10 +190,18 @@
 }
 
 # FUSE leaks the per-thread context (although the code looks
-# like it attempts to clean it up).
+# like it attempts to clean it up).  In older fuse, it uses
+# malloc.  In newer fuse it uses calloc.
 {
-   fuse_leak
+   fuse_leak_1
    Memcheck:Leak
    fun:malloc
+   fun:fuse_get_context_internal
+}
+
+{
+   fuse_leak_2
+   Memcheck:Leak
+   fun:calloc
    fun:fuse_get_context_internal
 }
