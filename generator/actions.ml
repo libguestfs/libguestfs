@@ -10207,6 +10207,40 @@ This function is used internally when hotplugging drives." };
     longdesc = "\
 This function is used internally when hotplugging drives." };
 
+  { defaults with
+    name = "mktemp";
+    style = RString "path", [Pathname "tmpl"], [OString "suffix"];
+    proc_nr = Some 373;
+    tests = [
+      InitScratchFS, Always, TestRun (
+        [["mkdir"; "/mktemp"];
+         ["mktemp"; "/mktemp/tmpXXXXXX"; "NOARG"];
+         ["mktemp"; "/mktemp/tmpXXXXXX"; "suff"]])
+    ];
+    shortdesc = "create a temporary file";
+    longdesc = "\
+This command creates a temporary file.  The
+C<tmpl> parameter should be a full pathname for the
+temporary directory name with the final six characters being
+\"XXXXXX\".
+
+For example: \"/tmp/myprogXXXXXX\" or \"/Temp/myprogXXXXXX\",
+the second one being suitable for Windows filesystems.
+
+The name of the temporary file that was created
+is returned.
+
+The temporary file is created with mode 0600
+and is owned by root.
+
+The caller is responsible for deleting the temporary
+file after use.
+
+If the optional C<suffix> parameter is given, then the suffix
+(eg. C<.txt>) is appended to the temporary name.
+
+See also: C<guestfs_mkdtemp>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

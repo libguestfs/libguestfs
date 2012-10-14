@@ -58,6 +58,7 @@ daemon/lvm.c
 daemon/md.c
 daemon/mkfs.c
 daemon/mknod.c
+daemon/mktemp.c
 daemon/modprobe.c
 daemon/mount.c
 daemon/names.c
@@ -160,6 +161,7 @@ gobject/src/optargs-mke2fs.c
 gobject/src/optargs-mkfs.c
 gobject/src/optargs-mkfs_btrfs.c
 gobject/src/optargs-mkswap.c
+gobject/src/optargs-mktemp.c
 gobject/src/optargs-mount_9p.c
 gobject/src/optargs-mount_local.c
 gobject/src/optargs-ntfsclone_out.c

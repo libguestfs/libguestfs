@@ -191,24 +191,3 @@ do_mkdir_p (const char *path)
 
   return 0;
 }
-
-char *
-do_mkdtemp (const char *template)
-{
-  char *writable = strdup (template);
-  if (writable == NULL) {
-    reply_with_perror ("strdup");
-    return NULL;
-  }
-
-  CHROOT_IN;
-  char *r = mkdtemp (writable);
-  CHROOT_OUT;
-
-  if (r == NULL) {
-    reply_with_perror ("%s", template);
-    free (writable);
-  }
-
-  return r;
-}

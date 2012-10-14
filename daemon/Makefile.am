@@ -142,6 +142,7 @@ guestfsd_SOURCES = \
 	md.c \
 	mkfs.c \
 	mknod.c \
+	mktemp.c \
 	modprobe.c \
 	mount.c \
 	names.c \
