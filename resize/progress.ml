@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Unix
 open Printf
 
 module G = Guestfs
@@ -29,24 +30,29 @@ external progress_bar_set : progress_bar -> int64 -> int64 -> unit
   = "virt_resize_progress_bar_set"
 
 let set_up_progress_bar ?(machine_readable = false) (g : Guestfs.guestfs) =
-  (* Initialize the C mini library. *)
-  let bar = progress_bar_init ~machine_readable in
+  (* Only display progress bars if the machine_readable flag is set or
+   * the output is a tty.
+   *)
+  if machine_readable || isatty stdout then (
+    (* Initialize the C mini library. *)
+    let bar = progress_bar_init ~machine_readable in
 
-  (* Reset the progress bar before every libguestfs function. *)
-  let enter_callback g event evh buf array =
-    if event = G.EVENT_ENTER then
-      progress_bar_reset bar
-  in
+    (* Reset the progress bar before every libguestfs function. *)
+    let enter_callback g event evh buf array =
+      if event = G.EVENT_ENTER then
+        progress_bar_reset bar
+    in
 
-  (* A progress event: move the progress bar. *)
-  let progress_callback g event evh buf array =
-    if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
-      let position = array.(2)
-      and total = array.(3) in
+    (* A progress event: move the progress bar. *)
+    let progress_callback g event evh buf array =
+      if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
+        let position = array.(2)
+        and total = array.(3) in
 
-      progress_bar_set bar position total
-    )
-  in
+        progress_bar_set bar position total
+      )
+    in
 
-  ignore (g#set_event_callback enter_callback [G.EVENT_ENTER]);
-  ignore (g#set_event_callback progress_callback [G.EVENT_PROGRESS])
+    ignore (g#set_event_callback enter_callback [G.EVENT_ENTER]);
+    ignore (g#set_event_callback progress_callback [G.EVENT_PROGRESS])
+  )
