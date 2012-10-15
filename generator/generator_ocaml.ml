@@ -305,7 +305,7 @@ and generate_ocaml_c () =
  * the list in reverse order, but hashtables aren't supposed to be
  * ordered anyway.
  */
-static CAMLprim value
+static value
 copy_table (char * const * argv)
 {
   CAMLparam0 ();
@@ -333,7 +333,7 @@ copy_table (char * const * argv)
   (* Struct copy functions. *)
 
   let emit_ocaml_copy_list_function typ =
-    pr "static CAMLprim value\n";
+    pr "static value\n";
     pr "copy_%s_list (const struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
     pr "  CAMLparam0 ();\n";
@@ -359,7 +359,7 @@ copy_table (char * const * argv)
       let has_optpercent_col =
         List.exists (function (_, FOptPercent) -> true | _ -> false) cols in
 
-      pr "static CAMLprim value\n";
+      pr "static value\n";
       pr "copy_%s (const struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
       pr "  CAMLparam0 ();\n";
@@ -429,11 +429,11 @@ copy_table (char * const * argv)
         match ret with RConstOptString _ -> true | _ -> false in
 
       pr "/* Emit prototype to appease gcc's -Wmissing-prototypes. */\n";
-      pr "CAMLprim value ocaml_guestfs_%s (value %s" name (List.hd params);
+      pr "value ocaml_guestfs_%s (value %s" name (List.hd params);
       List.iter (pr ", value %s") (List.tl params); pr ");\n";
       pr "\n";
 
-      pr "CAMLprim value\n";
+      pr "value\n";
       pr "ocaml_guestfs_%s (value %s" name (List.hd params);
       List.iter (pr ", value %s") (List.tl params);
       pr ")\n";
@@ -629,9 +629,9 @@ copy_table (char * const * argv)
 
       if List.length params > 5 then (
         pr "/* Emit prototype to appease gcc's -Wmissing-prototypes. */\n";
-        pr "CAMLprim value ";
-        pr "ocaml_guestfs_%s_byte (value *argv, int argn);\n" name;
-        pr "CAMLprim value\n";
+        pr "value ocaml_guestfs_%s_byte (value *argv, int argn);\n" name;
+        pr "\n";
+        pr "value\n";
         pr "ocaml_guestfs_%s_byte (value *argv, int argn ATTRIBUTE_UNUSED)\n"
           name;
         pr "{\n";

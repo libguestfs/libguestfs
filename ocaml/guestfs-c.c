@@ -48,10 +48,10 @@ static void event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, in
 #endif
 
 /* These prototypes are solely to quiet gcc warning.  */
-CAMLprim value ocaml_guestfs_create (value unitv);
-CAMLprim value ocaml_guestfs_close (value gv);
-CAMLprim value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
-CAMLprim value ocaml_guestfs_delete_event_callback (value gv, value eh);
+value ocaml_guestfs_create (value unitv);
+value ocaml_guestfs_close (value gv);
+value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
+value ocaml_guestfs_delete_event_callback (value gv, value eh);
 value ocaml_guestfs_last_errno (value gv);
 value ocaml_guestfs_user_cancel (value gv);
 
@@ -140,7 +140,7 @@ ocaml_guestfs_raise_closed (const char *func)
 }
 
 /* Guestfs.create */
-CAMLprim value
+value
 ocaml_guestfs_create (value unitv)
 {
   CAMLparam1 (unitv);
@@ -171,7 +171,7 @@ ocaml_guestfs_create (value unitv)
 }
 
 /* Guestfs.close */
-CAMLprim value
+value
 ocaml_guestfs_close (value gv)
 {
   CAMLparam1 (gv);
@@ -225,7 +225,7 @@ event_bitmask_of_event_list (value events)
 }
 
 /* Guestfs.set_event_callback */
-CAMLprim value
+value
 ocaml_guestfs_set_event_callback (value gv, value closure, value events)
 {
   CAMLparam3 (gv, closure, events);
@@ -260,7 +260,7 @@ ocaml_guestfs_set_event_callback (value gv, value closure, value events)
 }
 
 /* Guestfs.delete_event_callback */
-CAMLprim value
+value
 ocaml_guestfs_delete_event_callback (value gv, value ehv)
 {
   CAMLparam2 (gv, ehv);
