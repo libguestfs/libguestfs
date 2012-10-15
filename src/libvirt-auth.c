@@ -131,8 +131,10 @@ libvirt_auth_callback (virConnectCredentialPtr cred,
     return 0;
 
   /* libvirt probably does this already, but no harm in checking. */
-  for (i = 0; i < ncred; ++i)
+  for (i = 0; i < ncred; ++i) {
     cred[i].result = NULL;
+    cred[i].resultlen = 0;
+  }
 
   g->requested_credentials = cred;
   g->nr_requested_credentials = ncred;
@@ -141,25 +143,11 @@ libvirt_auth_callback (virConnectCredentialPtr cred,
                                     g->saved_libvirt_uri,
                                     strlen (g->saved_libvirt_uri));
 
-  /* libvirt documentation says: "Returns: 0 if all interactions were
-   * filled, or -1 upon error" However it also says "If an interaction
-   * cannot be filled, fill in NULL and 0".  Does that mean it's OK
-   * (not an error) to leave a field NULL?  libguestfs events cannot
-   * return errors, so that we would never have any other reason to
-   * return -1 here.  XXX
+  /* Clarified with Dan that it is not an error for some fields to be
+   * left as NULL.
+   * https://www.redhat.com/archives/libvir-list/2012-October/msg00707.html
    */
-  for (i = 0; i < ncred; ++i)
-    if (cred[i].result == NULL)
-      goto error;
   return 0;
-
-error:
-  for (i = 0; i < ncred; ++i) {
-    free (cred[i].result);
-    cred[i].result = NULL;
-    cred[i].resultlen = 0;
-  }
-  return -1;
 }
 
 static int
@@ -317,7 +305,8 @@ guestfs__set_libvirt_requested_credential (guestfs_h *g, int index,
   memcpy (g->requested_credentials[i].result, cred, cred_size);
   /* Some libvirt drivers are buggy (eg. libssh2), and they expect
    * that the cred field will be \0 terminated.  To avoid surprises,
-   * add a \0 at the end.
+   * add a \0 at the end.  See also:
+   * https://www.redhat.com/archives/libvir-list/2012-October/msg00711.html
    */
   g->requested_credentials[i].result[cred_size] = 0;
   g->requested_credentials[i].resultlen = cred_size;
