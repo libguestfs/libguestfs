@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 =begin comment
 
 NOTE!  Pre-release notes for the next stable version of libguestfs.
-Updated to commit d03361b1afee09135b0cbd92a2cc180c66c5f84e
+Updated to commit c164cc9bea89aa627dad4338469c26a1a70b61f5
 
 =end comment
 
@@ -49,11 +49,19 @@ setting the attach-method through the API
 
 =back
 
+SVirt (SELinux confinement) is used to secure the libguestfs
+appliance, if the libvirt backend is selected.
+
 virtio-scsi is now used by default, if available.  This greatly
 increases the number of drives that can be added to a single
 libguestfs handle (up to 255).
 
+You can now hotplug drives (add and remove drives after launch).
+
 Libguestfs can now handle E<gt> 25 disks, in all APIs, tools and tests.
+
+You can label drives when adding them, then optionally refer to them
+by label through the API (C</dev/disk/guestfs/LABEL>).
 
 Several libguestfs APIs were reimplemented so they no longer suffer
 from any protocol limits.  The reimplemented APIs are:
@@ -108,6 +116,10 @@ for customizing guests
 
 remove HOSTNAME field from C<ifcfg-eth*> files (Wanlong Gao)
 
+=item *
+
+miscellaneous improvements for SuSE (Olaf Hering)
+
 =back
 
 C<virt-make-fs> can now create virtual floppy disks (VFDs).
@@ -136,6 +148,8 @@ By adding the hivex API to the libguestfs API, it is much more
 efficient and easier to inspect and modify the Windows Registry
 in guests.
 
+Better support for SuSE guests (Olaf Hering).
+
 =head3 ports
 
 Libguestfs without the appliance can be compiled on Mac OS X
@@ -146,6 +160,10 @@ in upstream git.
 
 PowerPC 64 bit is now supported.  Also libguestfs has been
 examined for endianness bugs and these have been fixed.
+
+=head3 daemon
+
+A man page for the daemon (L<guestfsd(8)>) is included.
 
 =head2 Security
 
@@ -169,6 +187,7 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
 =head2 New APIs
 
  canonical-device-name
+ create-flags
  device-index
  disk-has-backing-file
  disk-format
@@ -176,32 +195,42 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  filesystem-available
  fill-dir
  fstrim
+ get-libvirt-requested-credentials
+ get-libvirt-requested-credential-prompt
+ get-libvirt-requested-credential-challenge
+ get-libvirt-requested-credential-defresult
  hivex-*
  ls0
  max-disks
+ mke2fs (Wanlong Gao)
  mkswap [added label and uuid optional arguments]
  nr-devices
+ parse-environment
+ parse-environment-list
+ rm-f
  rsync
  rsync-in
  rsync-out
+ set-libvirt-supported-credentials
+ set-libvirt-requested-credential
  shutdown [backported to 1.16 and 1.18]
  tar-in [added compress flag]
  tar-out [added compress, numericowner, exclude flags]
  umount [added force and lazy optional arguments]
  utsname
- xfs-admin (thanks Wanlong Gao)
- xfs-growfs (thanks Wanlong Gao)
- xfs-info (thanks Wanlong Gao)
- xfs-repair (thanks Wanlong Gao)
+ xfs-admin (Wanlong Gao)
+ xfs-growfs (Wanlong Gao)
+ xfs-info (Wanlong Gao)
+ xfs-repair (Wanlong Gao)
 
 =head2 Internals
 
 qemu E<ge> 1.1.0 is required.
 
-febootstrap E<ge> 3.19 is required.
+febootstrap E<ge> 3.20 is required.
 
 libvirt is optional, but if you want to use the new libvirt
-backend for launching the appliance then libvirt E<ge> 0.10.0 would
+backend for launching the appliance then libvirt E<ge> 0.10.2 would
 be required.
 
 Functions which previously had no optargs can now be converted to ones
@@ -281,11 +310,69 @@ You can extract a list of external commands required by the
 daemon, making building the appliance on certain distros easier
 (Olaf Hering).
 
+The C<virt-rescue> command is now tested during C<make check>.
+
+The generator now removes unused generated files.  This helps
+when going back and forth with git rebase, git bisect, etc.
+
+Tests now run in a separate toplevel C<tmp/> directory in the source.
+This allows the directory to be labelled for SELinux (sVirt), and also
+makes it easier to clean up.
+
+C<make syntax-check> now works to a greater extent, and many problems
+in the main code that were found by syntax-check have been fixed
+(thanks Jim Meyering).
+
+Emacs mode (-*- foo -*-) has been added to generated files.
+
+Progress bar output is now sent to C</dev/tty> so it doesn't end up in
+the regular output of the program.  virt-resize and virt-sparsify now
+suppress progress bars if stdout is not a tty.
+
+There is now a C<./configure --without-libvirt> option.  This is
+useful for testing that the code still compiles without libvirt.
+
 =head2 Bugs fixed
 
  ./bugs-in-changelog.sh 1.18.0..
 
 =over 4
+
+=item L<https://bugzilla.redhat.com/860235>
+
+SELinux policy ought to allow qemu to write to unconfined_u:object_r:user_tmp_t:s0
+
+=item L<https://bugzilla.redhat.com/859876>
+
+guestfish printed paths are not canonicalized
+
+=item L<https://bugzilla.redhat.com/859875>
+
+Progress bar output should go to tty(?) stderr(?)
+
+=item L<https://bugzilla.redhat.com/858696>
+
+virt-sysprep reports Guestfs.Error("read_lines: fopen: /etc/sysconfig/network: No such file or directory") on some Fedora guests
+
+=item L<https://bugzilla.redhat.com/858128>
+
+libguestfs fail to list devices added by add-drive-ro-with-if twice
+
+=item L<https://bugzilla.redhat.com/858126>
+
+virt-inspector fail to work with some windows guests
+
+=item L<https://bugzilla.redhat.com/853762>
+
+virt-sparsify should use a more robust method to detect the input format
+
+=item L<https://bugzilla.redhat.com/853159>
+
+virt-rescue in Fedora 18 is completely broken
+
+=item L<https://bugzilla.redhat.com/852394>
+
+libguestfs inspection limits registries to 100 MiB
 
 =item L<https://bugzilla.redhat.com/847881>
 
@@ -302,6 +389,10 @@ guestfish "copy-out / localdir" command fails with "No such file or directory"
 =item L<https://bugzilla.redhat.com/845488>
 
 Long filenames on NTFS cause tar-out, copy-out etc to fail with error "Cannot open: File name too long"
+
+=item L<https://bugzilla.redhat.com/842307>
+
+RFE: Need help designing and implementing selinux policy for libguestfs/sVirt
 
 =item L<https://bugzilla.redhat.com/840572>
 
