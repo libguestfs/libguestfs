@@ -33,7 +33,8 @@ check_PROGRAMS = \
 	test-last-errno \
 	test-private-data \
 	test-user-cancel \
-	test-debug-to-file
+	test-debug-to-file \
+	test-environment
 
 TESTS = \
 	tests \
@@ -44,7 +45,8 @@ TESTS = \
 	test-last-errno \
 	test-private-data \
 	test-user-cancel \
-	test-debug-to-file
+	test-debug-to-file \
+	test-environment
 
 if HAVE_CXX
 check_PROGRAMS += test-just-header-cxx
@@ -144,6 +146,16 @@ test_debug_to_file_CFLAGS = \
 	-I$(top_builddir)/gnulib/lib \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_debug_to_file_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/gnulib/lib/libgnu.la
+
+test_environment_SOURCES = test-environment.c
+test_environment_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_environment_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
