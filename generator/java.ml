@@ -56,15 +56,39 @@ public class GuestFS {
   long g;
 
   /**
+   * Create a libguestfs handle, setting flags.
+   *
+   * @throws LibGuestFSException
+   */
+  public GuestFS (Map<String, Object> optargs) throws LibGuestFSException
+  {
+    int flags = 0;
+
+    /* Unpack optional args. */
+    Object _optobj;
+    _optobj = null;
+    if (optargs != null)
+      _optobj = optargs.get (\"environment\");
+    if (_optobj != null && !((Boolean) _optobj).booleanValue())
+      flags |= 1;
+    if (optargs != null)
+      _optobj = optargs.get (\"close_on_exit\");
+    if (_optobj != null && !((Boolean) _optobj).booleanValue())
+      flags |= 2;
+
+    g = _create (flags);
+  }
+
+  /**
    * Create a libguestfs handle.
    *
    * @throws LibGuestFSException
    */
   public GuestFS () throws LibGuestFSException
   {
-    g = _create ();
+    g = _create (0);
   }
-  private native long _create () throws LibGuestFSException;
+  private native long _create (int flags) throws LibGuestFSException;
 
   /**
    * Close a libguestfs handle.
@@ -409,12 +433,12 @@ throw_exception (JNIEnv *env, const char *msg)
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_redhat_et_libguestfs_GuestFS__1create
-  (JNIEnv *env, jobject obj)
+Java_com_redhat_et_libguestfs_GuestFS__1create (JNIEnv *env,
+                                                jobject obj_unused, jint flags)
 {
   guestfs_h *g;
 
-  g = guestfs_create ();
+  g = guestfs_create_flags ((int) flags);
   if (g == NULL) {
     throw_exception (env, \"GuestFS.create: failed to allocate handle\");
     return 0;

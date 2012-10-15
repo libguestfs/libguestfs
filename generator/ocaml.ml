@@ -62,8 +62,14 @@ exception Handle_closed of string
     after calling {!close} on it.  The string is the name of
     the function. *)
 
-val create : unit -> t
-(** Create a {!t} handle. *)
+val create : ?environment:bool -> ?close_on_exit:bool -> unit -> t
+(** Create a {!t} handle.
+
+    [?environment] defaults to [true].  If set to false, it sets
+    the [GUESTFS_CREATE_NO_ENVIRONMENT] flag.
+
+    [?close_on_exit] defaults to [true].  If set to false, it sets
+    the [GUESTFS_CREATE_NO_CLOSE_ON_EXIT] flag. *)
 
 val close : t -> unit
 (** Close the {!t} handle and free up all resources used
@@ -171,7 +177,7 @@ val user_cancel : t -> unit
     For example [g#]{{!guestfs.get_verbose}get_verbose} [()]
     calls the method, whereas [g#get_verbose] is a function. *)
 
-class guestfs : unit -> object
+class guestfs : ?environment:bool -> ?close_on_exit:bool -> unit -> object
   method close : unit -> unit
   method set_event_callback : event_callback -> event list -> event_handle
   method delete_event_callback : event_handle -> unit
@@ -211,7 +217,8 @@ type t
 exception Error of string
 exception Handle_closed of string
 
-external create : unit -> t = \"ocaml_guestfs_create\"
+external create : ?environment:bool -> ?close_on_exit:bool -> unit -> t =
+  \"ocaml_guestfs_create\"
 external close : t -> unit = \"ocaml_guestfs_close\"
 
 type event =
@@ -265,8 +272,8 @@ let () =
 
   (* OO API. *)
   pr "
-class guestfs () =
-  let g = create () in
+class guestfs ?environment ?close_on_exit () =
+  let g = create ?environment ?close_on_exit () in
   object (self)
     method close () = close g
     method set_event_callback = set_event_callback g

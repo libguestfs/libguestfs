@@ -100,13 +100,16 @@ init_libguestfs (void)
 guestfs_h *
 guestfs_create (void)
 {
+  return guestfs_create_flags (0);
+}
+
+guestfs_h *
+guestfs_create_flags (unsigned flags, ...)
+{
   guestfs_h *g;
-  const char *str;
 
-  g = malloc (sizeof (*g));
+  g = calloc (1, sizeof (*g));
   if (!g) return NULL;
-
-  memset (g, 0, sizeof (*g));
 
   g->state = CONFIG;
 
@@ -121,54 +124,7 @@ guestfs_create (void)
   g->recovery_proc = 1;
   g->autosync = 1;
 
-  str = getenv ("LIBGUESTFS_DEBUG");
-  g->verbose = str != NULL && STREQ (str, "1");
-
-  str = getenv ("LIBGUESTFS_TRACE");
-  g->trace = str != NULL && STREQ (str, "1");
-
-  str = getenv ("LIBGUESTFS_PATH");
-  g->path = str != NULL ? strdup (str) : strdup (GUESTFS_DEFAULT_PATH);
-  if (!g->path) goto error;
-
-  str = getenv ("LIBGUESTFS_QEMU");
-  g->qemu = str != NULL ? strdup (str) : strdup (QEMU);
-  if (!g->qemu) goto error;
-
-  str = getenv ("LIBGUESTFS_APPEND");
-  if (str) {
-    g->append = strdup (str);
-    if (!g->append) goto error;
-  }
-
-  /* Choose a suitable memory size.  Previously we tried to choose
-   * a minimal memory size, but this isn't really necessary since
-   * recent QEMU and KVM don't do anything nasty like locking
-   * memory into core any more.  Thus we can safely choose a
-   * large, generous amount of memory, and it'll just get swapped
-   * on smaller systems.
-   */
-  str = getenv ("LIBGUESTFS_MEMSIZE");
-  if (str) {
-    if (sscanf (str, "%d", &g->memsize) != 1 || g->memsize < 128) {
-      warning (g, "non-numeric or too small value for LIBGUESTFS_MEMSIZE");
-      goto error;
-    }
-  } else
-    g->memsize = 500;
-
-  str = getenv ("LIBGUESTFS_ATTACH_METHOD");
-  if (str) {
-    if (parse_attach_method (g, str) == -1) {
-      warning (g, _("invalid or unknown value for LIBGUESTFS_ATTACH_METHOD environment variable"));
-      goto error;
-    }
-  } else {
-    if (parse_attach_method (g, DEFAULT_ATTACH_METHOD) == -1) {
-      warning (g, _("libguestfs was built with an invalid default attach-method, using 'appliance' instead"));
-      g->attach_method = ATTACH_METHOD_APPLIANCE;
-    }
-  }
+  g->memsize = 500;
 
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
@@ -178,17 +134,35 @@ guestfs_create (void)
   /* Default is uniprocessor appliance. */
   g->smp = 1;
 
-  /* Link the handles onto a global list. */
-  gl_lock_lock (handles_lock);
-  g->next = handles;
-  handles = g;
-  if (!atexit_handler_set) {
-    atexit (close_handles);
-    atexit_handler_set = 1;
-  }
-  gl_lock_unlock (handles_lock);
+  g->path = strdup (GUESTFS_DEFAULT_PATH);
+  if (!g->path) goto error;
 
-  debug (g, "new guestfs handle %p", g);
+  g->qemu = strdup (QEMU);
+  if (!g->qemu) goto error;
+
+  if (parse_attach_method (g, DEFAULT_ATTACH_METHOD) == -1) {
+    warning (g, _("libguestfs was built with an invalid default attach-method, using 'appliance' instead"));
+    g->attach_method = ATTACH_METHOD_APPLIANCE;
+  }
+
+  if (!(flags & GUESTFS_CREATE_NO_ENVIRONMENT))
+    guestfs_parse_environment (g);
+
+  if (!(flags & GUESTFS_CREATE_NO_CLOSE_ON_EXIT)) {
+    g->close_on_exit = true;
+
+    /* Link the handles onto a global list. */
+    gl_lock_lock (handles_lock);
+    g->next = handles;
+    handles = g;
+    if (!atexit_handler_set) {
+      atexit (close_handles);
+      atexit_handler_set = 1;
+    }
+    gl_lock_unlock (handles_lock);
+  }
+
+  debug (g, "create: flags = %u, handle = %p", flags, g);
 
   return g;
 
@@ -201,10 +175,92 @@ guestfs_create (void)
   return NULL;
 }
 
+static int
+parse_environment (guestfs_h *g,
+                   char *(*do_getenv) (const void *data, const char *),
+                   const void *data)
+{
+  int memsize;
+  char *str;
+
+  /* Don't bother checking the return values of functions
+   * that cannot return errors.
+   */
+
+  str = do_getenv (data, "LIBGUESTFS_DEBUG");
+  if (str != NULL && STREQ (str, "1"))
+    guestfs_set_verbose (g, 1);
+
+  str = do_getenv (data, "LIBGUESTFS_TRACE");
+  if (str != NULL && STREQ (str, "1"))
+    guestfs_set_trace (g, 1);
+
+  str = do_getenv (data, "LIBGUESTFS_PATH");
+  if (str)
+    guestfs_set_path (g, str);
+
+  str = do_getenv (data, "LIBGUESTFS_QEMU");
+  if (str)
+    guestfs_set_qemu (g, str);
+
+  str = do_getenv (data, "LIBGUESTFS_APPEND");
+  if (str)
+    guestfs_set_append (g, str);
+
+  str = do_getenv (data, "LIBGUESTFS_MEMSIZE");
+  if (str) {
+    if (sscanf (str, "%d", &memsize) != 1 || memsize < 128) {
+      error (g, "non-numeric or too small value for LIBGUESTFS_MEMSIZE");
+      return -1;
+    }
+    guestfs_set_memsize (g, memsize);
+  }
+
+  str = do_getenv (data, "LIBGUESTFS_ATTACH_METHOD");
+  if (str) {
+    if (guestfs_set_attach_method (g, str) == -1)
+      return -1;
+  }
+
+  return 0;
+}
+
+static char *
+call_getenv (const void *data, const char *name)
+{
+  return getenv (name);
+}
+
+int
+guestfs__parse_environment (guestfs_h *g)
+{
+  return parse_environment (g, call_getenv, NULL);
+}
+
+static char *
+getenv_from_strings (const void *stringsv, const char *name)
+{
+  char **strings = (char **) stringsv;
+  size_t len = strlen (name);
+  size_t i;
+
+  for (i = 0; strings[i] != NULL; ++i)
+    if (STRPREFIX (strings[i], name) && strings[i][len] == '=')
+      return (char *) &strings[i][len+1];
+  return NULL;
+}
+
+int
+guestfs__parse_environment_list (guestfs_h *g, char * const *strings)
+{
+  return parse_environment (g, getenv_from_strings, strings);
+}
+
 void
 guestfs_close (guestfs_h *g)
 {
   struct qemu_param *qp, *qp_next;
+  guestfs_h **gg;
 
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
@@ -213,17 +269,13 @@ guestfs_close (guestfs_h *g)
   }
 
   /* Remove the handle from the handles list. */
-  gl_lock_lock (handles_lock);
-  if (handles == g)
-    handles = g->next;
-  else {
-    guestfs_h *gg;
-
-    for (gg = handles; gg->next != g; gg = gg->next)
+  if (g->close_on_exit) {
+    gl_lock_lock (handles_lock);
+    for (gg = &handles; *gg != g; gg = &(*gg)->next)
       ;
-    gg->next = g->next;
+    *gg = g->next;
+    gl_lock_unlock (handles_lock);
   }
-  gl_lock_unlock (handles_lock);
 
   if (g->trace) {
     const char trace_msg[] = "close";

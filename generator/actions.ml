@@ -2480,6 +2480,39 @@ call this function to pass the answer back to libvirt.
 
 See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
 
+  { defaults with
+    name = "parse_environment";
+    style = RErr, [], [];
+    tests = [];
+    shortdesc = "parse the environment and set handle flags accordingly";
+    longdesc = "\
+Parse the program's environment and set flags in the handle
+accordingly.  For example if C<LIBGUESTFS_DEBUG=1> then the
+'verbose' flag is set in the handle.
+
+I<Most programs do not need to call this>.  It is done implicitly
+when you call C<guestfs_create>.
+
+See L<guestfs(3)/ENVIRONMENT VARIABLES> for a list of environment
+variables that can affect libguestfs handles.  See also
+L<guestfs(3)/guestfs_create_flags>, and
+C<guestfs_parse_environment_list>." };
+
+  { defaults with
+    name = "parse_environment_list";
+    style = RErr, [StringList "environment"], [];
+    tests = [];
+    shortdesc = "parse the environment and set handle flags accordingly";
+    longdesc = "\
+Parse the list of strings in the argument C<environment>
+and set flags in the handle accordingly.
+For example if C<LIBGUESTFS_DEBUG=1> is a string in the list,
+then the 'verbose' flag is set in the handle.
+
+This is the same as C<guestfs_parse_environment> except that
+it parses an explicit list of strings instead of the program's
+environment." };
+
 ]
 
 (* daemon_functions are any functions which cause some action

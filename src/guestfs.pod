@@ -1628,8 +1628,9 @@ appropriate.
 =head2 guestfs_h *
 
 C<guestfs_h> is the opaque type representing a connection handle.
-Create a handle by calling L</guestfs_create>.  Call L</guestfs_close>
-to free the handle and release all resources used.
+Create a handle by calling L</guestfs_create> or
+L</guestfs_create_flags>.  Call L</guestfs_close> to free the handle
+and release all resources used.
 
 For information on using multiple handles and threads, see the section
 L</MULTIPLE HANDLES AND MULTIPLE THREADS> above.
@@ -1651,6 +1652,67 @@ After configuring the handle, you have to call L</guestfs_launch>.
 
 You may also want to configure error handling for the handle.  See the
 L</ERROR HANDLING> section below.
+
+=head2 guestfs_create_flags
+
+ guestfs_h *guestfs_create_flags (unsigned flags [, ...]);
+
+Create a connection handle, supplying extra flags and
+extra arguments to control how the handle is created.
+
+On success this returns a non-NULL pointer to a handle.  On error it
+returns NULL.
+
+L</guestfs_create> is equivalent to calling C<guestfs_create_flags(0)>.
+
+The following flags may be logically ORed together.  (Currently
+no extra arguments are used).
+
+=over 4
+
+=item C<GUESTFS_CREATE_NO_ENVIRONMENT>
+
+Don't parse any environment variables (such as C<LIBGUESTFS_DEBUG> etc).
+
+You can call L</guestfs_parse_environment> or
+L</guestfs_parse_environment_list> afterwards to parse environment
+variables.  Alternately, I<don't> call these functions if you want the
+handle to be unaffected by environment variables.  See the example below.
+
+The default (if this flag is not given) is to implicitly call
+L</guestfs_parse_environment>.
+
+=item C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>
+
+Don't try to close the handle in an L<atexit(3)> handler if the
+program exits without explicitly closing the handle.
+
+The default (if this flag is not given) is to install such an atexit
+handler.
+
+=back
+
+=head3 USING C<GUESTFS_CREATE_NO_ENVIRONMENT>
+
+You might use C<GUESTFS_CREATE_NO_ENVIRONMENT> and
+an explicit call to L</guestfs_parse_environment> like this:
+
+ guestfs_h *g;
+ int r;
+ 
+ g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);
+ if (!g)
+   exit (EXIT_FAILURE);
+ r = guestfs_parse_environment (g);
+ if (!r)
+   exit (EXIT_FAILURE);
+
+Or to create a handle which is unaffected by environment variables,
+omit the call to C<guestfs_parse_environment> from the above code.
+
+The above code has another advantage which is that any errors from
+parsing the environment are passed through the error handler, whereas
+C<guestfs_create> prints errors on stderr and ignores them.
 
 =head2 guestfs_close
 
@@ -2785,7 +2847,7 @@ since these usually results in massive disk corruption).
 libguestfs uses a state machine to model the child process:
 
                          |
-                    guestfs_create
+          guestfs_create / guestfs_create_flags
                          |
                          |
                      ____V_____

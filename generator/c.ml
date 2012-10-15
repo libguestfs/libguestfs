@@ -416,6 +416,9 @@ typedef struct guestfs_h guestfs_h;
 
 /* Connection management. */
 extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create (void);
+extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create_flags (unsigned flags, ...);
+#define GUESTFS_CREATE_NO_ENVIRONMENT   (1 << 0)
+#define GUESTFS_CREATE_NO_CLOSE_ON_EXIT (1 << 1)
 extern GUESTFS_DLL_PUBLIC void guestfs_close (guestfs_h *g);
 
 /* Error handling. */
@@ -1586,6 +1589,7 @@ and generate_linker_script () =
 
   let globals = [
     "guestfs_create";
+    "guestfs_create_flags";
     "guestfs_close";
     "guestfs_delete_event_callback";
     "guestfs_first_private";

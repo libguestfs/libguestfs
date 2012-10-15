@@ -126,7 +126,7 @@ ruby_guestfs_free (void *gvp)
 
 /*
  * call-seq:
- *   Guestfs::Guestfs.new() -> Guestfs::Guestfs
+ *   Guestfs::Guestfs.new([{:environment => false, :close_on_exit => false}]) -> Guestfs::Guestfs
  *
  * Call
  * +guestfs_create+[http://libguestfs.org/guestfs.3.html#guestfs_create]
@@ -134,11 +134,26 @@ ruby_guestfs_free (void *gvp)
  * Ruby as an instance of the Guestfs::Guestfs class.
  */
 static VALUE
-ruby_guestfs_create (VALUE m)
+ruby_guestfs_create (int argc, VALUE *argv, VALUE m)
 {
   guestfs_h *g;
 
-  g = guestfs_create ();
+  if (argc > 1)
+    rb_raise (rb_eArgError, \"expecting 0 or 1 arguments\");
+
+  volatile VALUE optargsv = argc == 1 ? argv[0] : rb_hash_new ();
+  Check_Type (optargsv, T_HASH);
+
+  unsigned flags = 0;
+  volatile VALUE v;
+  v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"environment\")));
+  if (v != Qnil && !RTEST (v))
+    flags |= GUESTFS_CREATE_NO_ENVIRONMENT;
+  v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"close_on_exit\")));
+  if (v != Qnil && !RTEST (v))
+    flags |= GUESTFS_CREATE_NO_CLOSE_ON_EXIT;
+
+  g = guestfs_create_flags (flags);
   if (!g)
     rb_raise (e_Error, \"failed to create guestfs handle\");
 
@@ -663,7 +678,7 @@ void Init__guestfs ()
   rb_define_alloc_func (c_guestfs, ruby_guestfs_create);
 #endif
 
-  rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, 0);
+  rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, -1);
   rb_define_method (c_guestfs, \"close\", ruby_guestfs_close, 0);
   rb_define_method (c_guestfs, \"set_event_callback\",
                     ruby_set_event_callback, 2);

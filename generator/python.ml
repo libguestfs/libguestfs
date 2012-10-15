@@ -645,9 +645,12 @@ class ClosedHandle(ValueError):
 class GuestFS:
     \"\"\"Instances of this class are libguestfs API handles.\"\"\"
 
-    def __init__ (self):
+    def __init__ (self, environment=True, close_on_exit=True):
         \"\"\"Create a new libguestfs handle.\"\"\"
-        self._o = libguestfsmod.create ()
+        flags = 0
+        if not environment: flags |= 1
+        if not close_on_exit: flags |= 2
+        self._o = libguestfsmod.create (flags)
 
     def __del__ (self):
         if self._o:

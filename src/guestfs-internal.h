@@ -193,6 +193,7 @@ struct guestfs_h
   bool enable_network;          /* Enable the network. */
   bool selinux;                 /* selinux enabled? */
   bool pgroup;                  /* Create process group for children? */
+  bool close_on_exit;           /* Is this handle on the atexit list? */
 
   int smp;                      /* If > 1, -smp flag passed to qemu. */
   int memsize;			/* Size of RAM (megabytes). */

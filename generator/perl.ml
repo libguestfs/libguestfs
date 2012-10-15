@@ -211,9 +211,10 @@ MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
 PROTOTYPES: ENABLE
 
 guestfs_h *
-_create ()
+_create (flags)
+      unsigned flags;
    CODE:
-      RETVAL = guestfs_create ();
+      RETVAL = guestfs_create_flags (flags);
       if (!RETVAL)
         croak (\"could not create guestfs handle\");
       guestfs_set_error_handler (RETVAL, NULL, NULL);
@@ -713,18 +714,29 @@ XSLoader::load ('Sys::Guestfs');
 
   (* Methods. *)
   pr "\
-=item $g = Sys::Guestfs->new ();
+=item $g = Sys::Guestfs->new ([environment => 0,] [close_on_exit => 0]);
 
 Create a new guestfs handle.
+
+If the optional argument C<environment> is false, then
+the C<GUESTFS_CREATE_NO_ENVIRONMENT> flag is set.
+
+If the optional argument C<close_on_exit> is false, then
+the C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT> flag is set.
 
 =cut
 
 sub new {
   my $proto = shift;
   my $class = ref ($proto) || $proto;
+  my %%flags = @_;
 
-  my $g = Sys::Guestfs::_create ();
-  my $self = { _g => $g };
+  my $flags = 0;
+  $flags |= 1 if exists $flags{environment} && !$flags{environment};
+  $flags |= 2 if exists $flags{close_on_exit} && !$flags{close_on_exit};
+
+  my $g = Sys::Guestfs::_create ($flags);
+  my $self = { _g => $g, _flags => $flags };
   bless $self, $class;
   return $self;
 }
@@ -1013,10 +1025,11 @@ L<guestfs(3)/AVAILABILITY>.
 =head1 STORING DATA IN THE HANDLE
 
 The handle returned from L</new> is a hash reference.  The hash
-normally contains a single element:
+normally contains some elements:
 
  {
-   _g => [private data used by libguestfs]
+   _g => [private data used by libguestfs],
+   _flags => [flags provided when creating the handle]
  }
 
 Callers can add other elements to this hash to store data for their own
