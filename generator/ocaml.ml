@@ -436,6 +436,7 @@ copy_table (char * const * argv)
   (* The wrappers. *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
+          blocking = blocking;
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "/* Automatically generated wrapper for function\n";
       pr " * ";
@@ -571,11 +572,13 @@ copy_table (char * const * argv)
       );
       pr "\n";
 
-      pr "  caml_enter_blocking_section ();\n";
+      if blocking then
+        pr "  caml_enter_blocking_section ();\n";
       pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
-      pr "  caml_leave_blocking_section ();\n";
+      if blocking then
+        pr "  caml_leave_blocking_section ();\n";
 
       (* Free strings if we copied them above. *)
       List.iter (

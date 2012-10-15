@@ -234,6 +234,15 @@ let () =
       )
   ) (all_functions @ fish_commands);
 
+  (* Checking blocking flag is set on all daemon functions. *)
+  List.iter (
+    function
+    | { name = name; blocking = false } ->
+      failwithf "%s: blocking flag should be 'true' on this daemon function"
+        name
+    | { blocking = true } -> ()
+  ) daemon_functions;
+
   (* Non-fish functions must have correct camel_name. *)
   List.iter (
     fun { name = name; camel_name = camel_name } ->

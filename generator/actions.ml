@@ -31,7 +31,7 @@ let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  deprecated_by = None; optional = None;
                  progress = false; camel_name = "";
                  cancellable = false; config_only = false;
-                 once_had_no_optargs = false;
+                 once_had_no_optargs = false; blocking = true;
                  c_name = ""; c_function = ""; c_optarg_prefix = "";
                  non_c_aliases = [] }
 
@@ -77,6 +77,7 @@ let test_functions = [
     name = "internal_test";
     style = RErr, test_all_args, test_all_optargs;
     in_fish = false; in_docs = false; cancellable = true;
+    blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
 This is an internal test function which is used to test whether
@@ -92,6 +93,7 @@ You probably don't want to call this function." };
     name = "internal_test_only_optargs";
     style = RErr, [], [OInt "test"];
     in_fish = false; in_docs = false; cancellable = true;
+    blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
 This is an internal test function which is used to test whether
@@ -107,6 +109,7 @@ You probably don't want to call this function." };
     name = "internal_test_63_optargs";
     style = RErr, [], [OInt "opt1"; OInt "opt2"; OInt "opt3"; OInt "opt4"; OInt "opt5"; OInt "opt6"; OInt "opt7"; OInt "opt8"; OInt "opt9"; OInt "opt10"; OInt "opt11"; OInt "opt12"; OInt "opt13"; OInt "opt14"; OInt "opt15"; OInt "opt16"; OInt "opt17"; OInt "opt18"; OInt "opt19"; OInt "opt20"; OInt "opt21"; OInt "opt22"; OInt "opt23"; OInt "opt24"; OInt "opt25"; OInt "opt26"; OInt "opt27"; OInt "opt28"; OInt "opt29"; OInt "opt30"; OInt "opt31"; OInt "opt32"; OInt "opt33"; OInt "opt34"; OInt "opt35"; OInt "opt36"; OInt "opt37"; OInt "opt38"; OInt "opt39"; OInt "opt40"; OInt "opt41"; OInt "opt42"; OInt "opt43"; OInt "opt44"; OInt "opt45"; OInt "opt46"; OInt "opt47"; OInt "opt48"; OInt "opt49"; OInt "opt50"; OInt "opt51"; OInt "opt52"; OInt "opt53"; OInt "opt54"; OInt "opt55"; OInt "opt56"; OInt "opt57"; OInt "opt58"; OInt "opt59"; OInt "opt60"; OInt "opt61"; OInt "opt62"; OInt "opt63"];
     in_fish = false; in_docs = false; cancellable = true;
+    blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
 This is an internal test function which is used to test whether
@@ -126,6 +129,7 @@ You probably don't want to call this function." }
         name = name;
         style = ret, [String "val"], [];
         in_fish = false; in_docs = false;
+        blocking = false;
         shortdesc = "internal test function - do not use";
         longdesc = "\
 This is an internal test function which is used to test whether
@@ -139,6 +143,7 @@ You probably don't want to call this function." };
         name = name ^ "err";
         style = ret, [], [];
         in_fish = false; in_docs = false;
+        blocking = false;
         shortdesc = "internal test function - do not use";
         longdesc = "\
 This is an internal test function which is used to test whether
@@ -162,6 +167,7 @@ let non_daemon_functions = test_functions @ [
     name = "internal_test_set_output";
     style = RErr, [String "filename"], [];
     in_fish = false; in_docs = false;
+    blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
 This is an internal test function which is used to test whether
@@ -176,6 +182,7 @@ You probably don't want to call this function." };
     name = "internal_test_close_output";
     style = RErr, [], [];
     in_fish = false; in_docs = false;
+    blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
 This is an internal test function which is used to test whether
@@ -208,6 +215,7 @@ very cheap to create, so create a new one for each launch." };
     name = "wait_ready";
     style = RErr, [], [];
     in_fish = false; deprecated_by = Some "launch";
+    blocking = false;
     shortdesc = "wait until the qemu subprocess launches (no op)";
     longdesc = "\
 This function is a no op.
@@ -235,6 +243,7 @@ Do not call this.  See: C<guestfs_shutdown> instead." };
     name = "add_cdrom";
     style = RErr, [String "filename"], [];
     deprecated_by = Some "add_drive"; config_only = true;
+    blocking = false;
     shortdesc = "add a CD-ROM disk image to examine";
     longdesc = "\
 This function adds a virtual CD-ROM disk image to the guest.
@@ -246,6 +255,7 @@ read-only disk images.  Use C<guestfs_add_drive_ro> instead." };
     name = "add_drive_ro";
     style = RErr, [String "filename"], [];
     fish_alias = ["add-ro"]; config_only = true;
+    blocking = false;
     shortdesc = "add a drive in snapshot mode (read-only)";
     longdesc = "\
 This function is the equivalent of calling C<guestfs_add_drive_opts>
@@ -257,6 +267,7 @@ automatically." };
     name = "config";
     style = RErr, [String "qemuparam"; OptString "qemuvalue"], [];
     config_only = true;
+    blocking = false;
     shortdesc = "add qemu parameters";
     longdesc = "\
 This can be used to add arbitrary qemu command line parameters
@@ -272,6 +283,7 @@ C<qemuvalue> can be NULL." };
     name = "set_qemu";
     style = RErr, [OptString "qemu"], [];
     fish_alias = ["qemu"]; config_only = true;
+    blocking = false;
     shortdesc = "set the qemu binary";
     longdesc = "\
 Set the qemu binary that we will use.
@@ -295,6 +307,7 @@ the qemu binary at the same time as the handle is created." };
   { defaults with
     name = "get_qemu";
     style = RConstString "qemu", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestRun (
         [["get_qemu"]])
@@ -310,6 +323,7 @@ return the default qemu binary name." };
     name = "set_path";
     style = RErr, [OptString "searchpath"], [];
     fish_alias = ["path"]; config_only = true;
+    blocking = false;
     shortdesc = "set the search path";
     longdesc = "\
 Set the path that libguestfs searches for kernel and initrd.img.
@@ -322,6 +336,7 @@ Setting C<path> to C<NULL> restores the default path." };
   { defaults with
     name = "get_path";
     style = RConstString "path", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestRun (
       [["get_path"]])
@@ -337,6 +352,7 @@ return the default path." };
     name = "set_append";
     style = RErr, [OptString "append"], [];
     fish_alias = ["append"]; config_only = true;
+    blocking = false;
     shortdesc = "add options to kernel command line";
     longdesc = "\
 This function is used to add additional options to the
@@ -351,6 +367,7 @@ are passed (libguestfs always adds a few of its own)." };
   { defaults with
     name = "get_append";
     style = RConstOptString "append", [], [];
+    blocking = false;
     (* This cannot be tested with the current framework.  The
      * function can return NULL in normal operations, which the
      * test framework interprets as an error.
@@ -367,6 +384,7 @@ If C<NULL> then no options are added." };
     name = "set_autosync";
     style = RErr, [Bool "autosync"], [];
     fish_alias = ["autosync"];
+    blocking = false;
     shortdesc = "set autosync mode";
     longdesc = "\
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
@@ -380,6 +398,7 @@ disabled by default)." };
   { defaults with
     name = "get_autosync";
     style = RBool "autosync", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputTrue (
         [["get_autosync"]])
@@ -392,6 +411,7 @@ Get the autosync flag." };
     name = "set_verbose";
     style = RErr, [Bool "verbose"], [];
     fish_alias = ["verbose"];
+    blocking = false;
     shortdesc = "set verbose mode";
     longdesc = "\
 If C<verbose> is true, this turns on verbose messages.
@@ -406,6 +426,7 @@ C<guestfs_set_event_callback>)." };
   { defaults with
     name = "get_verbose";
     style = RBool "verbose", [], [];
+    blocking = false;
     shortdesc = "get verbose mode";
     longdesc = "\
 This returns the verbose messages flag." };
@@ -413,6 +434,7 @@ This returns the verbose messages flag." };
   { defaults with
     name = "is_ready";
     style = RBool "ready", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputTrue (
       [["is_ready"]])
@@ -427,6 +449,7 @@ For more information on states, see L<guestfs(3)>." };
   { defaults with
     name = "is_config";
     style = RBool "config", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputFalse (
       [["is_config"]])
@@ -441,6 +464,7 @@ For more information on states, see L<guestfs(3)>." };
   { defaults with
     name = "is_launching";
     style = RBool "launching", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputFalse (
         [["is_launching"]])
@@ -456,6 +480,7 @@ For more information on states, see L<guestfs(3)>." };
     name = "is_busy";
     style = RBool "busy", [], [];
     in_docs = false;
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputFalse (
         [["is_busy"]])
@@ -469,6 +494,7 @@ For more information on states, see L<guestfs(3)>." };
   { defaults with
     name = "get_state";
     style = RInt "state", [], [];
+    blocking = false;
     shortdesc = "get the current state";
     longdesc = "\
 This returns the current state as an opaque integer.  This is
@@ -480,6 +506,7 @@ For more information on states, see L<guestfs(3)>." };
     name = "set_memsize";
     style = RErr, [Int "memsize"], [];
     fish_alias = ["memsize"]; config_only = true;
+    blocking = false;
     shortdesc = "set memory allocated to the qemu subprocess";
     longdesc = "\
 This sets the memory size in megabytes allocated to the
@@ -496,6 +523,7 @@ see L<guestfs(3)>." };
   { defaults with
     name = "get_memsize";
     style = RInt "memsize", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputIntOp (
       [["get_memsize"]], ">=", 256)
@@ -516,6 +544,7 @@ see L<guestfs(3)>." };
     name = "get_pid";
     style = RInt "pid", [], [];
     fish_alias = ["pid"];
+    blocking = false;
     tests = [];
     shortdesc = "get PID of qemu subprocess";
     longdesc = "\
@@ -527,6 +556,7 @@ This is an internal call used for debugging and testing." };
   { defaults with
     name = "version";
     style = RStruct ("version", "version"), [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputStruct (
         [["version"]], [CompareWithInt ("major", 1)])
@@ -568,6 +598,7 @@ Use C<guestfs_available> instead." };
     name = "set_selinux";
     style = RErr, [Bool "selinux"], [];
     fish_alias = ["selinux"]; config_only = true;
+    blocking = false;
     shortdesc = "set SELinux enabled or disabled at appliance boot";
     longdesc = "\
 This sets the selinux flag that is passed to the appliance
@@ -582,6 +613,7 @@ see L<guestfs(3)>." };
   { defaults with
     name = "get_selinux";
     style = RBool "selinux", [], [];
+    blocking = false;
     shortdesc = "get SELinux enabled flag";
     longdesc = "\
 This returns the current setting of the selinux flag which
@@ -594,6 +626,7 @@ see L<guestfs(3)>." };
     name = "set_trace";
     style = RErr, [Bool "trace"], [];
     fish_alias = ["trace"];
+    blocking = false;
     tests = [
       InitNone, Always, TestOutputFalse (
         [["set_trace"; "false"];
@@ -618,6 +651,7 @@ C<guestfs_set_event_callback>)." };
   { defaults with
     name = "get_trace";
     style = RBool "trace", [], [];
+    blocking = false;
     shortdesc = "get command trace enabled flag";
     longdesc = "\
 Return the command trace flag." };
@@ -626,6 +660,7 @@ Return the command trace flag." };
     name = "set_direct";
     style = RErr, [Bool "direct"], [];
     fish_alias = ["direct"]; config_only = true;
+    blocking = false;
     shortdesc = "enable or disable direct appliance mode";
     longdesc = "\
 If the direct appliance mode flag is enabled, then stdin and
@@ -644,6 +679,7 @@ The default is disabled." };
   { defaults with
     name = "get_direct";
     style = RBool "direct", [], [];
+    blocking = false;
     shortdesc = "get direct appliance mode flag";
     longdesc = "\
 Return the direct appliance mode flag." };
@@ -652,6 +688,7 @@ Return the direct appliance mode flag." };
     name = "set_recovery_proc";
     style = RErr, [Bool "recoveryproc"], [];
     fish_alias = ["recovery-proc"]; config_only = true;
+    blocking = false;
     shortdesc = "enable or disable the recovery process";
     longdesc = "\
 If this is called with the parameter C<false> then
@@ -671,6 +708,7 @@ qemu, which is not very helpful." };
   { defaults with
     name = "get_recovery_proc";
     style = RBool "recoveryproc", [], [];
+    blocking = false;
     shortdesc = "get recovery process enabled flag";
     longdesc = "\
 Return the recovery process enabled flag." };
@@ -679,6 +717,7 @@ Return the recovery process enabled flag." };
     name = "add_drive_with_if";
     style = RErr, [String "filename"; String "iface"], [];
     deprecated_by = Some "add_drive"; config_only = true;
+    blocking = false;
     shortdesc = "add a drive specifying the QEMU block emulation to use";
     longdesc = "\
 This is the same as C<guestfs_add_drive> but it allows you
@@ -687,6 +726,7 @@ to specify the QEMU interface emulation to use at run time." };
   { defaults with
     name = "add_drive_ro_with_if";
     style = RErr, [String "filename"; String "iface"], [];
+    blocking = false;
     deprecated_by = Some "add_drive"; config_only = true;
     shortdesc = "add a drive read-only specifying the QEMU block emulation to use";
     longdesc = "\
@@ -1135,6 +1175,7 @@ See also C<guestfs_inspect_get_mountpoints>." };
     name = "set_network";
     style = RErr, [Bool "network"], [];
     fish_alias = ["network"]; config_only = true;
+    blocking = false;
     shortdesc = "set enable network flag";
     longdesc = "\
 If C<network> is true, then the network is enabled in the
@@ -1149,6 +1190,7 @@ it has no effect." };
   { defaults with
     name = "get_network";
     style = RBool "network", [], [];
+    blocking = false;
     shortdesc = "get enable network flag";
     longdesc = "\
 This returns the enable network flag." };
@@ -1191,6 +1233,7 @@ not all belong to a single logical operating system
     name = "add_drive";
     style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"];
     once_had_no_optargs = true;
+    blocking = false;
     fish_alias = ["add"];
     shortdesc = "add an image to examine or modify";
     longdesc = "\
@@ -1294,6 +1337,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
     name = "debug_drives";
     style = RStringList "cmdline", [], [];
     in_docs = false;
+    blocking = false;
     shortdesc = "debug the drives (internal use only)";
     longdesc = "\
 This returns the internal list of drives.  'debug' commands are
@@ -1655,6 +1699,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
     name = "set_attach_method";
     style = RErr, [String "attachmethod"], [];
     fish_alias = ["attach-method"]; config_only = true;
+    blocking = false;
     shortdesc = "set the attach method";
     longdesc = "\
 Set the method that libguestfs uses to connect to the back end
@@ -1713,6 +1758,7 @@ attach method, do:
   { defaults with
     name = "get_attach_method";
     style = RString "attachmethod", [], [];
+    blocking = false;
     tests = [
       InitNone, Always, TestRun (
         [["get_attach_method"]])
@@ -1866,6 +1912,7 @@ advice before using trademarks in applications.
     name = "set_pgroup";
     style = RErr, [Bool "pgroup"], [];
     fish_alias = ["pgroup"]; config_only = true;
+    blocking = false;
     shortdesc = "set process group flag";
     longdesc = "\
 If C<pgroup> is true, child processes are placed into
@@ -1882,6 +1929,7 @@ long-running commands gracefully (see C<guestfs_user_cancel>)." };
   { defaults with
     name = "get_pgroup";
     style = RBool "pgroup", [], [];
+    blocking = false;
     shortdesc = "get process group flag";
     longdesc = "\
 This returns the process group flag." };
@@ -1890,6 +1938,7 @@ This returns the process group flag." };
     name = "set_smp";
     style = RErr, [Int "smp"], [];
     fish_alias = ["smp"]; config_only = true;
+    blocking = false;
     shortdesc = "set number of virtual CPUs in appliance";
     longdesc = "\
 Change the number of virtual CPUs assigned to the appliance.  The
@@ -1901,6 +1950,7 @@ This function must be called before C<guestfs_launch>." };
   { defaults with
     name = "get_smp";
     style = RInt "smp", [], [];
+    blocking = false;
     shortdesc = "get number of virtual CPUs in appliance";
     longdesc = "\
 This returns the number of virtual CPUs assigned to the appliance." };
@@ -1972,6 +2022,7 @@ See L<guestfs(3)/MOUNT LOCAL> for full documentation." };
   { defaults with
     name = "max_disks";
     style = RInt "disks", [], [];
+    blocking = false;
     shortdesc = "maximum number of disks that may be added";
     longdesc = "\
 Return the maximum number of disks that may be added to a
@@ -2363,6 +2414,7 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
   { defaults with
     name = "remove_drive";
     style = RErr, [String "label"], [];
+    blocking = false;
     tests = [];
     shortdesc = "remove a disk image";
     longdesc = "\
@@ -2382,6 +2434,7 @@ disk is in use and stop you from doing this." };
   { defaults with
     name = "set_libvirt_supported_credentials";
     style = RErr, [StringList "creds"], [];
+    blocking = false;
     tests = [];
     shortdesc = "set libvirt credentials supported by calling program";
     longdesc = "\
@@ -2421,6 +2474,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
   { defaults with
     name = "get_libvirt_requested_credentials";
     style = RStringList "creds", [], [];
+    blocking = false;
     tests = [];
     shortdesc = "get list of credentials requested by libvirt";
     longdesc = "\
@@ -2436,6 +2490,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
   { defaults with
     name = "get_libvirt_requested_credential_prompt";
     style = RString "prompt", [Int "index"], [];
+    blocking = false;
     tests = [];
     shortdesc = "prompt of i'th requested credential";
     longdesc = "\
@@ -2448,6 +2503,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
   { defaults with
     name = "get_libvirt_requested_credential_challenge";
     style = RString "challenge", [Int "index"], [];
+    blocking = false;
     tests = [];
     shortdesc = "challenge of i'th requested credential";
     longdesc = "\
@@ -2460,6 +2516,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
   { defaults with
     name = "get_libvirt_requested_credential_defresult";
     style = RString "defresult", [Int "index"], [];
+    blocking = false;
     tests = [];
     shortdesc = "default result of i'th requested credential";
     longdesc = "\
@@ -2472,6 +2529,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
   { defaults with
     name = "set_libvirt_requested_credential";
     style = RErr, [Int "index"; BufferIn "cred"], [];
+    blocking = false;
     tests = [];
     shortdesc = "pass requested credential back to libvirt";
     longdesc = "\
@@ -2483,6 +2541,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
   { defaults with
     name = "parse_environment";
     style = RErr, [], [];
+    blocking = false;
     tests = [];
     shortdesc = "parse the environment and set handle flags accordingly";
     longdesc = "\
@@ -2501,6 +2560,7 @@ C<guestfs_parse_environment_list>." };
   { defaults with
     name = "parse_environment_list";
     style = RErr, [StringList "environment"], [];
+    blocking = false;
     tests = [];
     shortdesc = "parse the environment and set handle flags accordingly";
     longdesc = "\

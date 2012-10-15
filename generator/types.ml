@@ -393,6 +393,12 @@ type action = {
   once_had_no_optargs : bool;     (* mark functions that once had no optargs
                                      but now do, so we can generate the
                                      required back-compat machinery *)
+  blocking : bool;                (* Function blocks (long-running).  All
+                                     daemon functions are blocking by
+                                     definition.  Some functions that just
+                                     set flags in the handle are marked
+                                     non-blocking so that we don't add
+                                     machinery in various bindings. *)
 
   (* "Internal" data attached by the generator at various stages.  This
    * doesn't need to (and shouldn't) be set when defining actions.

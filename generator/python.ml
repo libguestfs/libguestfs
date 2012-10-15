@@ -248,12 +248,15 @@ free_strings (char **argv)
   (* Python wrapper functions. *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
+          blocking = blocking;
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "static PyObject *\n";
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
 
-      pr "  PyThreadState *py_save = NULL;\n";
+      if blocking then
+        pr "  PyThreadState *py_save = NULL;\n";
+
       pr "  PyObject *py_g;\n";
       pr "  guestfs_h *g;\n";
       pr "  PyObject *py_r;\n";
@@ -403,22 +406,26 @@ free_strings (char **argv)
         pr "\n"
       );
 
-      (* Release Python GIL while running.  This code is from
-       * libvirt/python/typewrappers.h.  Thanks to Dan Berrange for
-       * showing us how to do this properly.
-       *)
-      pr "  if (PyEval_ThreadsInitialized ())\n";
-      pr "    py_save = PyEval_SaveThread ();\n";
-      pr "\n";
+      if blocking then (
+        (* Release Python GIL while running.  This code is from
+         * libvirt/python/typewrappers.h.  Thanks to Dan Berrange for
+         * showing us how to do this properly.
+         *)
+        pr "  if (PyEval_ThreadsInitialized ())\n";
+        pr "    py_save = PyEval_SaveThread ();\n";
+        pr "\n"
+      );
 
       pr "  r = %s " c_function;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+      pr "\n";
 
-      pr "\n";
-      pr "  if (PyEval_ThreadsInitialized ())\n";
-      pr "    PyEval_RestoreThread (py_save);\n";
-      pr "\n";
+      if blocking then (
+        pr "  if (PyEval_ThreadsInitialized ())\n";
+        pr "    PyEval_RestoreThread (py_save);\n";
+        pr "\n"
+      );
 
       List.iter (
         function
