@@ -572,3 +572,17 @@ Add more of hivex to the API, especially for writing.
 
 Reimplement virt-win-reg to use this API.  (This is difficult because
 the Perl libraries underneath access the hivex API directly).
+
+ruby
+----
+
+Implement blocking calls.  The API for this:
+
+  http://www.spacevatican.org/2012/7/5/whos-afraid-of-the-big-bad-lock/
+
+is very poorly designed and essentially impossible for us to use:
+
+  https://bugs.ruby-lang.org/issues/5543
+
+particularly if we also want to maintain backwards compatibility with
+Ruby 1.8, and/or maintain volatile VALUEs on the stack.
