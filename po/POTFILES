@@ -218,6 +218,7 @@ ruby/ext/guestfs/_guestfs.c
 src/actions.c
 src/appliance.c
 src/bindtests.c
+src/command.c
 src/dbdump.c
 src/errnostring-gperf.c
 src/errnostring.c

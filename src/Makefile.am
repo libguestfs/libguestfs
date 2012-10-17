@@ -125,6 +125,7 @@ libguestfs_la_SOURCES = \
 	actions.c \
 	appliance.c \
 	bindtests.c \
+	command.c \
 	dbdump.c \
 	events.c \
 	file.c \
