@@ -39,111 +39,136 @@
 
 #if defined(DB_DUMP)
 
+static void read_db_dump_line (guestfs_h *g, void *datav, const char *line, size_t len);
 static unsigned char *convert_hex_to_binary (guestfs_h *g, const char *hex, size_t hexlen, size_t *binlen_rtn);
+
+struct cb_data {
+  guestfs___db_dump_callback callback;
+  void *opaque;
+  enum { reading_header,
+         reading_key, reading_value,
+         reading_finished,
+         reading_failed } state;
+  unsigned char *key;
+  size_t keylen;
+};
 
 /* This helper function is specialized to just reading the hash-format
  * output from db_dump/db4_dump.  It's just enough to support the RPM
- * database format.  Note that the filename must not contain any shell
- * characters (this is guaranteed by the caller).
+ * database format.
  */
 int
 guestfs___read_db_dump (guestfs_h *g,
                         const char *dumpfile, void *opaque,
                         guestfs___db_dump_callback callback)
 {
-#define cmd_len (strlen (dumpfile) + 64)
-  char cmd[cmd_len];
-  FILE *pp = NULL;
-  char *line = NULL;
-  size_t len = 0;
-  ssize_t linelen;
-  unsigned char *key = NULL, *value = NULL;
-  size_t keylen, valuelen;
-  int ret = -1;
+  struct cb_data data;
+  struct command *cmd;
+  int r;
 
-  snprintf (cmd, cmd_len, DB_DUMP " -k '%s'", dumpfile);
+  data.callback = callback;
+  data.opaque = opaque;
+  data.state = reading_header;
+  data.key = NULL;
 
-  debug (g, "read_db_dump command: %s", cmd);
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, DB_DUMP);
+  guestfs___cmd_add_arg (cmd, "-k");
+  guestfs___cmd_add_arg (cmd, dumpfile);
+  guestfs___cmd_set_stdout_callback (cmd, read_db_dump_line, &data, 0);
 
-  pp = popen (cmd, "r");
-  if (pp == NULL) {
-    perrorf (g, "popen: %s", cmd);
-    goto out;
+  r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
+  free (data.key);
+
+  if (r == -1)
+    return -1;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    error (g, _("%s: command failed"), DB_DUMP);
+    return -1;
+  }
+  if (data.state != reading_finished) {
+    error (g, _("%s: unexpected error or end of output"), DB_DUMP);
+    return -1;
   }
 
-  /* Ignore everything to end-of-header marker. */
-  while ((linelen = getline (&line, &len, pp)) != -1) {
+  return 0;
+}
+
+static void
+read_db_dump_line (guestfs_h *g, void *datav, const char *line, size_t len)
+{
+  struct cb_data *data = datav;
+  unsigned char *value;
+  size_t valuelen;
+
+  switch (data->state) {
+  case reading_finished:
+  case reading_failed:
+    return;
+
+  case reading_header:
+    /* Ignore everything to end-of-header marker. */
     if (STRPREFIX (line, "HEADER=END"))
-      break;
-  }
+      data->state = reading_key;
+    return;
 
-  if (linelen == -1) {
-    error (g, _("unexpected end of output from db_dump command before end of header"));
-    goto out;
-  }
-
-  /* Now read the key, value pairs.  They are prefixed with a space and
-   * printed as hex strings, so convert those strings to binary.  Pass
-   * the strings up to the callback function.
-   */
-  while ((linelen = getline (&line, &len, pp)) != -1) {
-    if (STRPREFIX (line, "DATA=END"))
-      break;
-
-    if (linelen < 1 || line[0] != ' ') {
-      error (g, _("unexpected line from db_dump command, no space prefix"));
-      goto out;
+    /* Read the key, value pairs using a state machine.  They are
+     * prefixed with a space and printed as hex strings, so convert
+     * those strings to binary.  Pass the strings up to the callback
+     * function.
+     */
+  case reading_key:
+    if (STRPREFIX (line, "DATA=END")) {
+      data->state = reading_finished;
+      return;
     }
 
-    if ((key = convert_hex_to_binary (g, &line[1], linelen-1,
-                                      &keylen)) == NULL)
-      goto out;
-
-    if ((linelen = getline (&line, &len, pp)) == -1)
-      break;
-
-    if (linelen < 1 || line[0] != ' ') {
-      error (g, _("unexpected line from db_dump command, no space prefix"));
-      goto out;
+    if (len < 1 || line[0] != ' ') {
+      debug (g, _("unexpected line from db_dump command, no space prefix"));
+      data->state = reading_failed;
+      return;
     }
 
-    if ((value = convert_hex_to_binary (g, &line[1], linelen-1,
-                                        &valuelen)) == NULL)
-      goto out;
+    data->key = convert_hex_to_binary (g, &line[1], len-1, &data->keylen);
+    if (data->key == NULL) {
+      data->state = reading_failed;
+      return;
+    }
 
-    if (callback (g, key, keylen, value, valuelen, opaque) == -1)
-      goto out;
+    data->state = reading_value;
+    return;
 
-    free (key);
+  case reading_value:
+    if (len < 1 || line[0] != ' ') {
+      debug (g, _("unexpected line from db_dump command, no space prefix"));
+      data->state = reading_failed;
+      return;
+    }
+
+    value = convert_hex_to_binary (g, &line[1], len-1, &valuelen);
+    if (value == NULL) {
+      data->state = reading_failed;
+      return;
+    }
+
+    if (data->callback (g, data->key, data->keylen,
+                        value, valuelen, data->opaque) == -1) {
+      data->state = reading_failed;
+      return;
+    }
+
+    free (data->key);
+    data->key = NULL;
     free (value);
-    key = value = NULL;
+    value = NULL;
+
+    data->state = reading_key;
+    return;
+
+  default:
+    abort ();
   }
-
-  if (linelen == -1) {
-    error (g, _("unexpected end of output from db_dump command before end of data"));
-    goto out;
-  }
-
-  /* Catch errors from the db_dump command. */
-  if (pclose (pp) != 0) {
-    perrorf (g, "pclose: %s", cmd);
-    pp = NULL;
-    goto out;
-  }
-  pp = NULL;
-
-  ret = 0;
-
- out:
-  if (pp)
-    pclose (pp);
-
-  free (line);
-  free (key);
-  free (value);
-
-  return ret;
-#undef cmd_len
 }
 
 static int
