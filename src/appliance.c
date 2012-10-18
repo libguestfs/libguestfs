@@ -54,8 +54,7 @@ static char *calculate_supermin_checksum (guestfs_h *g, const char *supermin_pat
 static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
 static int hard_link_to_cached_appliance (guestfs_h *g, const char *cachedir, char **kernel, char **initrd, char **appliance);
-static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir, size_t cdlen);
-static void print_febootstrap_command_line (guestfs_h *g, const char *argv[]);
+static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir);
 
 /* RHBZ#790721: It makes no sense to have multiple threads racing to
  * build the appliance from within a single process, and the code
@@ -245,6 +244,18 @@ contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
   return dir_contains_files (path, "supermin.d", NULL);
 }
 
+#define MAX_CHECKSUM_LEN 256
+
+static void
+read_checksum (guestfs_h *g, void *checksumv, const char *line, size_t len)
+{
+  char *checksum = checksumv;
+
+  if (len > MAX_CHECKSUM_LEN)
+    return;
+  strcpy (checksum, line);
+}
+
 /* supermin_path is a path which is known to contain a supermin
  * appliance.  Using febootstrap-supermin-helper -f checksum calculate
  * the checksum so we can see if it is cached.
@@ -252,58 +263,43 @@ contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 static char *
 calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
 {
-  size_t len = 2 * strlen (supermin_path) + 256;
-  char cmd[len];
+  size_t len;
+  struct command *cmd;
   int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
+  int r;
+  char checksum[MAX_CHECKSUM_LEN + 1] = { 0 };
 
-  if (!pass_u_g_args)
-    snprintf (cmd, len,
-              "febootstrap-supermin-helper%s "
-              "-f checksum "
-              "'%s/supermin.d' "
-              host_cpu,
-              g->verbose ? " --verbose" : "",
-              supermin_path);
-  else
-    snprintf (cmd, len,
-              "febootstrap-supermin-helper%s "
-              "-u %i "
-              "-g %i "
-              "-f checksum "
-              "'%s/supermin.d' "
-              host_cpu,
-              g->verbose ? " --verbose" : "",
-              geteuid (), getegid (),
-              supermin_path);
-
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "febootstrap-supermin-helper");
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "%s", cmd);
+    guestfs___cmd_add_arg (cmd, "--verbose");
+  if (pass_u_g_args) {
+    guestfs___cmd_add_arg (cmd, "-u");
+    guestfs___cmd_add_arg_format (cmd, "%d", geteuid ());
+    guestfs___cmd_add_arg (cmd, "-g");
+    guestfs___cmd_add_arg_format (cmd, "%d", getegid ());
+  }
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "checksum");
+  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
+  guestfs___cmd_add_arg (cmd, host_cpu);
+  guestfs___cmd_set_stdout_callback (cmd, read_checksum, checksum, 0);
 
+  r = guestfs___cmd_run (cmd);
   /* Errors here are non-fatal, so we don't need to call error(). */
-  FILE *pp = popen (cmd, "r");
-  if (pp == NULL)
-    return NULL;
-
-  char checksum[256];
-  if (fgets (checksum, sizeof checksum, pp) == NULL) {
-    pclose (pp);
+  if (r == -1) {
+    guestfs___cmd_close (cmd);
     return NULL;
   }
+  guestfs___cmd_close (cmd);
 
-  if (pclose (pp) != 0) {
-    warning (g, "pclose: %m");
-    return NULL;
-  }
+  debug (g, "checksum of existing appliance: %s", checksum);
 
   len = strlen (checksum);
-
   if (len < 16) {               /* sanity check */
     warning (g, "febootstrap-supermin-helper -f checksum returned a short string");
     return NULL;
   }
-
-  if (len > 0 && checksum[len-1] == '\n')
-    checksum[--len] = '\0';
 
   return safe_strndup (g, checksum, len);
 }
@@ -498,7 +494,7 @@ build_supermin_appliance (guestfs_h *g,
   if (g->verbose)
     guestfs___print_timestamped_message (g, "run febootstrap-supermin-helper");
 
-  int r = run_supermin_helper (g, supermin_path, tmpcd, len);
+  int r = run_supermin_helper (g, supermin_path, tmpcd);
   if (r == -1) {
     guestfs___remove_tmpdir (g, tmpcd);
     return -1;
@@ -672,127 +668,44 @@ hard_link_to_cached_appliance (guestfs_h *g,
  */
 static int
 run_supermin_helper (guestfs_h *g, const char *supermin_path,
-                     const char *cachedir, size_t cdlen)
+                     const char *cachedir)
 {
-  size_t pathlen = strlen (supermin_path);
+  struct command *cmd;
+  int r;
+  uid_t uid = getuid ();
+  uid_t euid = geteuid ();
+  gid_t gid = getgid ();
+  gid_t egid = getegid ();
+  int pass_u_g_args = uid != euid || gid != egid;
 
-  const char *argv[30];
-  size_t i = 0;
-
-  char uid[32];
-  snprintf (uid, sizeof uid, "%i", geteuid ());
-  char gid[32];
-  snprintf (gid, sizeof gid, "%i", getegid ());
-  char supermin_d[pathlen + 32];
-  snprintf (supermin_d, pathlen + 32, "%s/supermin.d", supermin_path);
-  char kernel[cdlen + 32];
-  snprintf (kernel, cdlen + 32, "%s/kernel", cachedir);
-  char initrd[cdlen + 32];
-  snprintf (initrd, cdlen + 32, "%s/initrd", cachedir);
-  char root[cdlen + 32];
-  snprintf (root, cdlen + 32, "%s/root", cachedir);
-
-  int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
-
-  argv[i++] = "febootstrap-supermin-helper";
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "febootstrap-supermin-helper");
   if (g->verbose)
-    argv[i++] = "--verbose";
+    guestfs___cmd_add_arg (cmd, "--verbose");
   if (pass_u_g_args) {
-    argv[i++] = "-u";
-    argv[i++] = uid;
-    argv[i++] = "-g";
-    argv[i++] = gid;
+    guestfs___cmd_add_arg (cmd, "-u");
+    guestfs___cmd_add_arg_format (cmd, "%d", euid);
+    guestfs___cmd_add_arg (cmd, "-g");
+    guestfs___cmd_add_arg_format (cmd, "%d", egid);
   }
-  argv[i++] = "--copy-kernel";
-  argv[i++] = "-f";
-  argv[i++] = "ext2";
-  argv[i++] = supermin_d;
-  argv[i++] = host_cpu;
-  argv[i++] = kernel;
-  argv[i++] = initrd;
-  argv[i++] = root;
-  argv[i++] = NULL;
+  guestfs___cmd_add_arg (cmd, "--copy-kernel");
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "ext2");
+  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
+  guestfs___cmd_add_arg (cmd, host_cpu);
+  guestfs___cmd_add_arg_format (cmd, "%s/kernel", cachedir);
+  guestfs___cmd_add_arg_format (cmd, "%s/initrd", cachedir);
+  guestfs___cmd_add_arg_format (cmd, "%s/root", cachedir);
 
-  if (g->verbose)
-    print_febootstrap_command_line (g, argv);
-
-  pid_t pid = fork ();
-  if (pid == -1) {
-    perrorf (g, "fork");
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
+    return -1;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    error (g, _("external command failed, see earlier error messages"));
     return -1;
   }
 
-  if (pid > 0) {                /* Parent. */
-    int status;
-    if (waitpid (pid, &status, 0) == -1) {
-      perrorf (g, "waitpid");
-      return -1;
-    }
-    if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      error (g, _("external command failed, see earlier error messages"));
-      return -1;
-    }
-    return 0;
-  }
-
-  /* Child. */
-
-  /* Set a sensible umask in the subprocess, so kernel and initrd
-   * output files are world-readable (RHBZ#610880).
-   */
-  umask (0022);
-
-  execvp ("febootstrap-supermin-helper", (char * const *) argv);
-  perror ("execvp");
-  _exit (EXIT_FAILURE);
-}
-
-static void
-print_febootstrap_command_line (guestfs_h *g, const char *argv[])
-{
-  size_t i;
-  int needs_quote;
-  char *buf;
-  size_t len;
-
-  /* Calculate length of the buffer needed.  This is an overestimate. */
-  len = 0;
-  for (i = 0; argv[i] != NULL; ++i)
-    len += strlen (argv[i]) + 32;
-
-  buf = malloc (len);
-  if (buf == NULL) {
-    warning (g, "malloc: %m");
-    return;
-  }
-
-  len = 0;
-  for (i = 0; argv[i] != NULL; ++i) {
-    if (i > 0) {
-      strcpy (&buf[len], " ");
-      len++;
-    }
-
-    /* Does it need shell quoting?  This only deals with simple cases. */
-    needs_quote = strcspn (argv[i], " ") != strlen (argv[i]);
-
-    if (needs_quote) {
-      strcpy (&buf[len], "'");
-      len++;
-    }
-
-    strcpy (&buf[len], argv[i]);
-    len += strlen (argv[i]);
-
-    if (needs_quote) {
-      strcpy (&buf[len], "'");
-      len++;
-    }
-  }
-
-  guestfs___print_timestamped_message (g, "%s", buf);
-
-  free (buf);
+  return 0;
 }
 
 /* Search elements of g->path, returning the first path element which
