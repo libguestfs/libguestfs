@@ -205,3 +205,11 @@
    fun:calloc
    fun:fuse_get_context_internal
 }
+
+# ld-*.so
+{
+   ld_leak
+   Memcheck:Leak
+   ...
+   fun:_dl_init
+}
