@@ -500,7 +500,7 @@ build_supermin_appliance (guestfs_h *g,
 
   int r = run_supermin_helper (g, supermin_path, tmpcd, len);
   if (r == -1) {
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
@@ -519,7 +519,7 @@ build_supermin_appliance (guestfs_h *g,
   int fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0755);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
   struct flock fl;
@@ -533,7 +533,7 @@ build_supermin_appliance (guestfs_h *g,
       goto again;
     perrorf (g, "fcntl: F_SETLKW: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
@@ -545,7 +545,7 @@ build_supermin_appliance (guestfs_h *g,
   if (ftruncate (fd, clen) == -1) {
     perrorf (g, "ftruncate: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
@@ -553,13 +553,13 @@ build_supermin_appliance (guestfs_h *g,
   if (rr == -1) {
     perrorf (g, "write: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
   if ((size_t) rr != clen) {
     error (g, "partial write: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
@@ -569,7 +569,7 @@ build_supermin_appliance (guestfs_h *g,
   if (rename (filename, filename2) == -1) {
     perrorf (g, "rename: %s %s", filename, filename2);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
@@ -579,7 +579,7 @@ build_supermin_appliance (guestfs_h *g,
   if (rename (filename, filename2) == -1) {
     perrorf (g, "rename: %s %s", filename, filename2);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
@@ -589,11 +589,11 @@ build_supermin_appliance (guestfs_h *g,
   if (rename (filename, filename2) == -1) {
     perrorf (g, "rename: %s %s", filename, filename2);
     close (fd);
-    guestfs___remove_tmpdir (tmpcd);
+    guestfs___remove_tmpdir (g, tmpcd);
     return -1;
   }
 
-  guestfs___remove_tmpdir (tmpcd);
+  guestfs___remove_tmpdir (g, tmpcd);
 
   /* Now finish off by linking to the cached appliance and returning it. */
   if (hard_link_to_cached_appliance (g, cachedir,

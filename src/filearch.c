@@ -214,7 +214,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   error (g, "file_architecture: could not determine architecture of cpio archive");
 
  out:
-  guestfs___remove_tmpdir (dir);
+  guestfs___remove_tmpdir (g, dir);
 
   return ret;
 #undef dir_len

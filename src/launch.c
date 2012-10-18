@@ -760,29 +760,20 @@ guestfs___lazy_make_tmpdir (guestfs_h *g)
 /* Recursively remove a temporary directory.  If removal fails, just
  * return (it's a temporary directory so it'll eventually be cleaned
  * up by a temp cleaner).  This is done using "rm -rf" because that's
- * simpler and safer, but we have to exec to ensure that paths don't
- * need to be quoted.
+ * simpler and safer.
  */
 void
-guestfs___remove_tmpdir (const char *dir)
+guestfs___remove_tmpdir (guestfs_h *g, const char *dir)
 {
-  pid_t pid = fork ();
+  struct command *cmd;
 
-  if (pid == -1) {
-    perror ("remove tmpdir: fork");
-    return;
-  }
-  if (pid == 0) {
-    execlp ("rm", "rm", "-rf", dir, NULL);
-    perror ("remove tmpdir: exec: rm");
-    _exit (EXIT_FAILURE);
-  }
-
-  /* Parent. */
-  if (waitpid (pid, NULL, 0) == -1) {
-    perror ("remove tmpdir: waitpid");
-    return;
-  }
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "rm");
+  guestfs___cmd_add_arg (cmd, "-rf");
+  guestfs___cmd_add_arg (cmd, dir);
+  /* Ignore failures. */
+  guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
 }
 
 int

@@ -302,7 +302,7 @@ guestfs_close (guestfs_h *g)
 
   /* Remove whole temporary directory. */
   if (g->tmpdir)
-    guestfs___remove_tmpdir (g->tmpdir);
+    guestfs___remove_tmpdir (g, g->tmpdir);
 
   /* Test output file used by bindtests. */
   if (g->test_fp != NULL)
