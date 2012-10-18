@@ -33,124 +33,142 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static int run_qemu_img_info (guestfs_h *g, const char *filename, int (*fn) (guestfs_h *g, char *line, void *data), void *data);
-static int check_disk_format (guestfs_h *h, char *line, void *data);
-static int check_disk_virtual_size (guestfs_h *h, char *line, void *data);
-static int check_disk_has_backing_file (guestfs_h *h, char *line, void *data);
+static int run_qemu_img_info (guestfs_h *g, const char *filename, cmd_stdout_callback cb, void *data);
+
+/* NB: For security reasons, the check_* callbacks MUST bail
+ * after seeing the first line that matches /^backing file: /.  See:
+ * https://lists.gnu.org/archive/html/qemu-devel/2012-09/msg00137.html
+ * Eventually we should use the JSON output of qemu-img info.
+ */
+
+struct check_data {
+  int stop, failed;
+  union {
+    char *ret;
+    int reti;
+    int64_t reti64;
+  };
+};
+
+static void check_disk_format (guestfs_h *g, void *data, const char *line, size_t len);
+static void check_disk_virtual_size (guestfs_h *g, void *data, const char *line, size_t len);
+static void check_disk_has_backing_file (guestfs_h *g, void *data, const char *line, size_t len);
 
 char *
 guestfs__disk_format (guestfs_h *g, const char *filename)
 {
-  char *ret = NULL;
+  struct check_data data;
 
-  if (run_qemu_img_info (g, filename, check_disk_format, &ret) == -1) {
-    free (ret);
+  memset (&data, 0, sizeof data);
+
+  if (run_qemu_img_info (g, filename, check_disk_format, &data) == -1) {
+    free (data.ret);
     return NULL;
   }
 
-  if (ret == NULL)
-    ret = safe_strdup (g, "unknown");
+  if (data.ret == NULL)
+    data.ret = safe_strdup (g, "unknown");
 
-  return ret;
+  return data.ret;
 }
 
-static int
-check_disk_format (guestfs_h *g, char *line, void *retpv)
+static void
+check_disk_format (guestfs_h *g, void *datav, const char *line, size_t len)
 {
-  char **retp = retpv;
-  char *p;
-  size_t n;
+  struct check_data *data = datav;
+  const char *p;
+
+  if (data->stop)
+    return;
+
+  if (STRPREFIX (line, "backing file: ")) {
+    data->stop = 1;
+    return;
+  }
 
   if (STRPREFIX (line, "file format: ")) {
     p = &line[13];
-    n = strlen (p);
-    if (n > 0 && p[n-1] == '\n')
-      p[n-1] = '\0';
-    *retp = safe_strdup (g, p);
-    return 0;                   /* finish processing */
+    data->ret = safe_strdup (g, p);
+    data->stop = 1;
   }
-
-  return 1;                     /* continue processing */
 }
 
 int64_t
 guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
 {
-  int64_t ret = -1;
+  struct check_data data;
 
-  if (run_qemu_img_info (g, filename, check_disk_virtual_size, &ret) == -1)
+  memset (&data, 0, sizeof data);
+
+  if (run_qemu_img_info (g, filename, check_disk_virtual_size, &data) == -1)
     return -1;
 
-  if (ret == -1)
+  if (data.failed)
     error (g, _("%s: cannot detect virtual size of disk image"), filename);
 
-  return ret;
+  return data.reti64;
 }
 
-static int
-check_disk_virtual_size (guestfs_h *g, char *line, void *retpv)
+static void
+check_disk_virtual_size (guestfs_h *g, void *datav,
+                         const char *line, size_t len)
 {
-  int64_t *retp = retpv;
-  char *p;
+  struct check_data *data = datav;
+  const char *p;
+
+  if (data->stop)
+    return;
+
+  if (STRPREFIX (line, "backing file: ")) {
+    data->stop = 1;
+    return;
+  }
 
   if (STRPREFIX (line, "virtual size: ")) {
     /* "virtual size: 500M (524288000 bytes)\n" */
     p = &line[14];
     p = strchr (p, ' ');
-    if (!p || p[1] != '(' || sscanf (&p[2], "%" SCNi64, retp) != 1) {
-      error (g, _("cannot parse output of qemu-img info: '%s'"),
-             line);
-      return -1;
-    }
-    return 0;                   /* finish processing */
+    if (!p || p[1] != '(' || sscanf (&p[2], "%" SCNi64, &data->reti64) != 1)
+      data->failed = 1;
+    data->stop = 1;
   }
-
-  return 1;                     /* continue processing */
 }
 
 int
 guestfs__disk_has_backing_file (guestfs_h *g, const char *filename)
 {
-  int ret = 0;
+  struct check_data data;
 
-  if (run_qemu_img_info (g, filename, check_disk_has_backing_file, &ret) == -1)
+  memset (&data, 0, sizeof data);
+
+  if (run_qemu_img_info (g, filename, check_disk_has_backing_file, &data) == -1)
     return -1;
 
-  return ret;
+  return data.reti;
 }
 
-static int
-check_disk_has_backing_file (guestfs_h *g, char *line, void *retpv)
+static void
+check_disk_has_backing_file (guestfs_h *g, void *datav,
+                             const char *line, size_t len)
 {
-  int *retp = retpv;
+  struct check_data *data = datav;
+
+  if (data->stop)
+    return;
 
   if (STRPREFIX (line, "backing file: ")) {
-    *retp = 1;
-    return 0;                   /* finish processing */
+    data->reti = 1;
+    data->stop = 1;
   }
-
-  return 1;                     /* continue processing */
 }
 
-/* It's hard to use 'qemu-img info' safely.  See:
- * https://lists.gnu.org/archive/html/qemu-devel/2012-09/msg00137.html
- * Eventually we should switch to the JSON output format, when it
- * becomes available.  In the meantime: (1) make a symlink to ensure
- * we control the input filename, and (2) bail parsing as soon as
- * /^backing file: / is seen in the input.
- */
 static int
 run_qemu_img_info (guestfs_h *g, const char *filename,
-                   int (*fn) (guestfs_h *g, char *line, void *data),
-                   void *data)
+                   cmd_stdout_callback fn, void *data)
 {
   char *abs_filename = NULL;
   char *safe_filename = NULL;
-  pid_t pid = 0;
-  int fd[2] = { -1, -1 };
-  FILE *fp = NULL;
-  char *line = NULL;
-  size_t len;
+  struct command *cmd = NULL;
   int r;
 
   if (guestfs___lazy_make_tmpdir (g) == -1)
@@ -170,90 +188,30 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
     goto error;
   }
 
-  if (pipe2 (fd, O_CLOEXEC) == -1) {
-    perrorf (g, "pipe2");
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "qemu-img");
+  guestfs___cmd_add_arg (cmd, "info");
+  guestfs___cmd_add_arg (cmd, safe_filename);
+  guestfs___cmd_set_stdout_callback (cmd, fn, data, 0);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
     goto error;
-  }
-
-  pid = fork ();
-  if (pid == -1) {
-    perrorf (g, "fork");
-    goto error;
-  }
-
-  if (pid == 0) {               /* child */
-    close (fd[0]);
-    dup2 (fd[1], 1);
-    close (fd[1]);
-
-    setenv ("LC_ALL", "C", 1);
-
-    /* XXX stderr to event log */
-
-    execlp ("qemu-img", "qemu-img", "info", safe_filename, NULL);
-    perror ("could not execute 'qemu-img info' command");
-    _exit (EXIT_FAILURE);
-  }
-
-  close (fd[1]);
-  fd[1] = -1;
-
-  fp = fdopen (fd[0], "r");
-  if (fp == NULL) {
-    perrorf (g, "fdopen: qemu-img info");
-    goto error;
-  }
-  fd[0] = -1;
-
-  while (getline (&line, &len, fp) != -1) {
-    r = fn (g, line, data);
-    if (r == -1)                /* error */
-      goto error;
-    if (r == 0)                 /* finished processing */
-      break;
-
-    /* This is for security reasons, see comment above. */
-    if (STRPREFIX (line, "backing file: "))
-      break;
-  }
-
-  if (fclose (fp) == -1) { /* also closes fd[0] */
-    perrorf (g, "fclose");
-    fp = NULL;
-    goto error;
-  }
-  fp = NULL;
-
-  if (waitpid (pid, &r, 0) == -1) {
-    perrorf (g, "waitpid");
-    pid = 0;
-    goto error;
-  }
-  pid = 0;
-
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, "qemu-img: %s: child process failed", filename);
+    error (g, _("qemu-img: %s: child process failed"), filename);
     goto error;
   }
 
+  guestfs___cmd_close (cmd);
   free (safe_filename);
   free (abs_filename);
-  free (line);
   return 0;
 
  error:
-  if (fd[0] >= 0)
-    close (fd[0]);
-  if (fd[1] >= 0)
-    close (fd[1]);
-  if (fp != NULL)
-    fclose (fp);
-  if (pid > 0)
-    waitpid (pid, NULL, 0);
+  if (cmd)
+    guestfs___cmd_close (cmd);
 
   free (safe_filename);
   free (abs_filename);
-  free (line);
 
   return -1;
 }
