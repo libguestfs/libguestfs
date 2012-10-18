@@ -1044,17 +1044,19 @@ guestfs___free_fuse (guestfs_h *g)
   free_dir_caches (g);
 }
 
-static int do_fusermount (guestfs_h *g, const char *localmountpoint, int error_fd);
-
 int
 guestfs__umount_local (guestfs_h *g,
                        const struct guestfs_umount_local_argv *optargs)
 {
+  int ret = -1;
   size_t i, tries;
   char *localmountpoint;
   char *fusermount_log = NULL;
-  int error_fd = -1;
-  int ret = -1;
+  struct command *cmd = NULL;
+  int r;
+  FILE *fp;
+  char error_message[4096];
+  size_t n;
 
   /* How many times should we try the fusermount command? */
   if (optargs->bitmask & GUESTFS_UMOUNT_LOCAL_RETRY_BITMASK)
@@ -1081,22 +1083,22 @@ guestfs__umount_local (guestfs_h *g,
    * all 'tries' have failed do we print the contents of this file.  A
    * temporary failure when retry == true will not cause any error.
    */
-  fusermount_log = safe_asprintf (g, "%s/fusermount.log", g->tmpdir);
-  error_fd = open (fusermount_log,
-                   O_RDWR|O_CREAT|O_TRUNC|O_NOCTTY /* not O_CLOEXEC */,
-                   0600);
-  if (error_fd == -1) {
-    perrorf (g, _("open: %s"), fusermount_log);
-    goto out;
-  }
+  fusermount_log = safe_asprintf (g, "%s/fusermount%d", g->tmpdir, ++g->unique);
 
   for (i = 0; i < tries; ++i) {
-    int r;
-
-    r = do_fusermount (g, localmountpoint, error_fd);
+    cmd = guestfs___new_command (g);
+    guestfs___cmd_add_string_unquoted (cmd, "fusermount -u ");
+    guestfs___cmd_add_string_quoted   (cmd, localmountpoint);
+    guestfs___cmd_add_string_unquoted (cmd, " > ");
+    guestfs___cmd_add_string_quoted   (cmd, fusermount_log);
+    guestfs___cmd_add_string_unquoted (cmd, " 2>&1");
+    guestfs___cmd_clear_capture_errors (cmd);
+    r = guestfs___cmd_run (cmd);
+    guestfs___cmd_close (cmd);
+    cmd = NULL;
     if (r == -1)
       goto out;
-    if (r) {
+    if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS) {
       /* External fusermount succeeded.  Note that the original thread
        * is responsible for setting g->localmountpoint to NULL.
        */
@@ -1108,66 +1110,31 @@ guestfs__umount_local (guestfs_h *g,
   }
 
   if (ret == -1) {              /* fusermount failed */
-    char error_message[4096];
-    ssize_t n;
-
     /* Get the error message from the log file. */
-    if (lseek (error_fd, 0, SEEK_SET) >= 0 &&
-        (n = read (error_fd, error_message, sizeof error_message - 1)) > 0) {
+    fp = fopen (fusermount_log, "r");
+    if (fp != NULL) {
+      n = fread (error_message, 1, sizeof error_message, fp);
       while (n > 0 && error_message[n-1] == '\n')
         n--;
       error_message[n] = '\0';
+      fclose (fp);
+      error (g, _("fusermount failed: %s: %s"), localmountpoint, error_message);
     } else {
-      snprintf (error_message, sizeof error_message,
-                "(fusermount error could not be preserved)");
+      perrorf (g,
+               _("fusermount failed: %s: "
+                 "original error could not be preserved"), localmountpoint);
     }
-
-    error (g, _("fusermount failed: %s: %s"), localmountpoint, error_message);
-    goto out;
   }
 
  out:
-  if (error_fd >= 0) close (error_fd);
+  if (cmd)
+    guestfs___cmd_close (cmd);
   if (fusermount_log) {
     unlink (fusermount_log);
     free (fusermount_log);
   }
   free (localmountpoint);
   return ret;
-}
-
-static int
-do_fusermount (guestfs_h *g, const char *localmountpoint, int error_fd)
-{
-  pid_t pid;
-  int status;
-
-  pid = fork ();
-  if (pid == -1) {
-    perrorf (g, "fork");
-    return -1;
-  }
-
-  if (pid == 0) {               /* child */
-    /* Ensure stdout and stderr point to the error_fd. */
-    dup2 (error_fd, STDOUT_FILENO);
-    dup2 (error_fd, STDERR_FILENO);
-    close (error_fd);
-    execlp ("fusermount", "fusermount", "-u", localmountpoint, NULL);
-    perror ("exec: fusermount");
-    _exit (EXIT_FAILURE);
-  }
-
-  /* Parent. */
-  if (waitpid (pid, &status, 0) == -1) {
-    perrorf (g, "waitpid");
-    return -1;
-  }
-
-  if (!WIFEXITED (status) || WEXITSTATUS (status) != EXIT_SUCCESS)
-    return 0;                   /* it failed to unmount the mountpoint */
-
-  return 1;                     /* unmount was successful */
 }
 
 /* Functions handling the directory cache.
