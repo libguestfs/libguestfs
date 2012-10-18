@@ -1153,12 +1153,8 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
 static char *
 make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
 {
-  char *tmpfile = NULL;
-  int fd[2] = { -1, -1 };
-  pid_t pid = -1;
-  FILE *fp = NULL;
-  char *line = NULL;
-  size_t len;
+  char *tmpfile;
+  struct command *cmd;
   int r;
 
   /* Path must be absolute. */
@@ -1167,98 +1163,32 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
 
   tmpfile = safe_asprintf (g, "%s/snapshot%d", g->tmpdir, ++g->unique);
 
-  /* Because 'qemu-img create' spews junk to stdout and stderr, pass
-   * all output from it up through the event system.
-   * XXX Like libvirt, we should create a generic library for running
-   * commands.
-   */
-  if (pipe2 (fd, O_CLOEXEC) == -1) {
-    perrorf (g, "pipe2");
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "qemu-img");
+  guestfs___cmd_add_arg (cmd, "create");
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "qcow2");
+  guestfs___cmd_add_arg (cmd, "-b");
+  guestfs___cmd_add_arg (cmd, path);
+  if (format) {
+    guestfs___cmd_add_arg (cmd, "-o");
+    guestfs___cmd_add_arg_format (cmd, "backing_fmt=%s", format);
+  }
+  guestfs___cmd_add_arg (cmd, tmpfile);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
     goto error;
-  }
-
-  pid = fork ();
-  if (pid == -1) {
-    perrorf (g, "fork");
-    goto error;
-  }
-
-  if (pid == 0) {               /* child: qemu-img create command */
-    /* Capture stdout and stderr. */
-    close (fd[0]);
-    dup2 (fd[1], 1);
-    dup2 (fd[1], 2);
-    close (fd[1]);
-
-    setenv ("LC_ALL", "C", 1);
-
-    if (!format)
-      execlp ("qemu-img", "qemu-img", "create", "-f", "qcow2",
-              "-b", path, tmpfile, NULL);
-    else {
-      size_t len = strlen (format);
-      char backing_fmt[len+64];
-
-      snprintf (backing_fmt, len+64, "backing_fmt=%s", format);
-
-      execlp ("qemu-img", "qemu-img", "create", "-f", "qcow2",
-              "-b", path, "-o", backing_fmt, tmpfile, NULL);
-    }
-
-    perror ("could not execute 'qemu-img create' command");
-    _exit (EXIT_FAILURE);
-  }
-
-  close (fd[1]);
-  fd[1] = -1;
-
-  fp = fdopen (fd[0], "r");
-  if (fp == NULL) {
-    perrorf (g, "fdopen: qemu-img create");
-    goto error;
-  }
-  fd[0] = -1;
-
-  while (getline (&line, &len, fp) != -1) {
-    guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, line, len);
-  }
-
-  if (fclose (fp) == -1) { /* also closes fd[0] */
-    perrorf (g, "fclose");
-    fp = NULL;
-    goto error;
-  }
-  fp = NULL;
-
-  free (line);
-  line = NULL;
-
-  if (waitpid (pid, &r, 0) == -1) {
-    perrorf (g, "waitpid");
-    pid = 0;
-    goto error;
-  }
-  pid = 0;
-
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     error (g, _("qemu-img create: could not create snapshot over %s"), path);
     goto error;
   }
+  guestfs___cmd_close (cmd);
 
   return tmpfile;               /* caller frees */
 
  error:
-  if (fd[0] >= 0)
-    close (fd[0]);
-  if (fd[1] >= 0)
-    close (fd[1]);
-  if (fp != NULL)
-    fclose (fp);
-  if (pid > 0)
-    waitpid (pid, NULL, 0);
-
+  guestfs___cmd_close (cmd);
   free (tmpfile);
-  free (line);
 
   return NULL;
 }
