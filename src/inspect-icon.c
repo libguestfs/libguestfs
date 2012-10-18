@@ -364,7 +364,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   char *type = NULL;
   char *local = NULL;
   char *pngfile = NULL;
-  char *cmd = NULL;
+  struct command *cmd = NULL;
   int r;
 
   r = guestfs_exists (g, CIRROS_LOGO);
@@ -386,13 +386,16 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   /* Use pbmtext to render it. */
   pngfile = safe_asprintf (g, "%s/cirros.png", g->tmpdir);
 
-  cmd = safe_asprintf (g, PBMTEXT " < %s | " PNMTOPNG " > %s",
-                       local, pngfile);
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0) {
-    debug (g, "external command failed: %s", cmd);
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_string_unquoted (cmd, PBMTEXT " < ");
+  guestfs___cmd_add_string_quoted   (cmd, local);
+  guestfs___cmd_add_string_unquoted (cmd, " | " PNMTOPNG " > ");
+  guestfs___cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
     goto out;
-  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto out;
 
   /* Read it into memory. */
   if (read_whole_file (g, pngfile, &ret, size_r) == -1) {
@@ -402,9 +405,10 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
  out:
   free (pngfile);
-  free (cmd);
   free (local);
   free (type);
+  if (cmd)
+    guestfs___cmd_close (cmd);
 
   return ret;
 }
@@ -433,34 +437,45 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
                  size_t *size_r)
 {
   char *ret;
-  char *pngfile;
-  char *cmd;
+  char *pngfile = NULL;
+  struct command *cmd = NULL;
   int r;
 
   pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
 
-  cmd = safe_asprintf (g,
-                       WRESTOOL " -x --type=2 --name=143 %s | "
-                       BMPTOPNM " 2>/dev/null | " PNMTOPNG " > %s",
-          explorer, pngfile);
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0) {
-    debug (g, "external command failed: %s", cmd);
-    free (cmd);
-    free (pngfile);
-    return NOT_FOUND;
-  }
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=143 ");
+  guestfs___cmd_add_string_quoted   (cmd, explorer);
+  guestfs___cmd_add_string_unquoted (cmd,
+                                     " | " BMPTOPNM " | " PNMTOPNG " > ");
+  guestfs___cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
+    goto error;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto not_found;
 
-  free (cmd);
+  guestfs___cmd_close (cmd);
+  cmd = NULL;
 
-  if (read_whole_file (g, pngfile, &ret, size_r) == -1) {
-    free (pngfile);
-    return NULL;
-  }
+  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+    goto error;
 
   free (pngfile);
 
   return ret;
+
+ error:
+  if (cmd)
+    guestfs___cmd_close (cmd);
+  free (pngfile);
+  return NULL;
+
+ not_found:
+  if (cmd)
+    guestfs___cmd_close (cmd);
+  free (pngfile);
+  return NOT_FOUND;
 }
 
 static char *
@@ -468,35 +483,47 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
                 size_t *size_r)
 {
   char *ret;
-  char *pngfile;
-  char *cmd;
+  char *pngfile = NULL;
+  struct command *cmd = NULL;
   int r;
 
   pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
 
-  cmd = safe_asprintf (g,
-                       WRESTOOL " -x --type=2 --name=6801 %s | "
-                       BMPTOPNM " 2>/dev/null | " PAMCUT " -bottom 54 | "
-                       PNMTOPNG " > %s",
-          explorer, pngfile);
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0) {
-    debug (g, "external command failed: %s", cmd);
-    free (cmd);
-    free (pngfile);
-    return NOT_FOUND;
-  }
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=6801 ");
+  guestfs___cmd_add_string_quoted   (cmd, explorer);
+  guestfs___cmd_add_string_unquoted (cmd,
+                                     " | " BMPTOPNM " | "
+                                     PAMCUT " -bottom 54 | "
+                                     PNMTOPNG " > ");
+  guestfs___cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
+    goto error;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto not_found;
 
-  free (cmd);
+  guestfs___cmd_close (cmd);
+  cmd = NULL;
 
-  if (read_whole_file (g, pngfile, &ret, size_r) == -1) {
-    free (pngfile);
-    return NULL;
-  }
+  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+    goto error;
 
   free (pngfile);
 
   return ret;
+
+ error:
+  if (cmd)
+    guestfs___cmd_close (cmd);
+  free (pngfile);
+  return NULL;
+
+ not_found:
+  if (cmd)
+    guestfs___cmd_close (cmd);
+  free (pngfile);
+  return NOT_FOUND;
 }
 
 static char *
