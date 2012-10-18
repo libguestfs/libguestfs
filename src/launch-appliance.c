@@ -729,8 +729,7 @@ print_qemu_command_line (guestfs_h *g, char **argv)
   }
 }
 
-static int test_qemu_cmd (guestfs_h *g, const char *cmd, char **ret);
-static int read_all (guestfs_h *g, FILE *fp, char **ret);
+static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 
 /* Test qemu binary (or wrapper) runs, and do 'qemu -help' and
  * 'qemu -version' so we know what options this qemu supports and
@@ -739,7 +738,8 @@ static int read_all (guestfs_h *g, FILE *fp, char **ret);
 static int
 test_qemu (guestfs_h *g)
 {
-  char cmd[1024];
+  struct command *cmd;
+  int r;
 
   free (g->app.qemu_help);
   g->app.qemu_help = NULL;
@@ -748,74 +748,58 @@ test_qemu (guestfs_h *g)
   free (g->app.qemu_devices);
   g->app.qemu_devices = NULL;
 
-  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -help", g->qemu);
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, g->qemu);
+  guestfs___cmd_add_arg (cmd, "-nographic");
+  guestfs___cmd_add_arg (cmd, "-help");
+  guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_help,
+                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto error;
+  guestfs___cmd_close (cmd);
 
-  /* If this command doesn't work then it probably indicates that the
-   * qemu binary is missing.
-   */
-  if (test_qemu_cmd (g, cmd, &g->app.qemu_help) == -1) {
-  qemu_error:
-    error (g, _("command failed: %s\nerrno: %s\n\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."),
-           cmd, strerror (errno));
-    return -1;
-  }
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, g->qemu);
+  guestfs___cmd_add_arg (cmd, "-nographic");
+  guestfs___cmd_add_arg (cmd, "-version");
+  guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_version,
+                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto error;
+  guestfs___cmd_close (cmd);
 
-  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -version 2>/dev/null",
-            g->qemu);
-
-  if (test_qemu_cmd (g, cmd, &g->app.qemu_version) == -1)
-    goto qemu_error;
-
-  snprintf (cmd, sizeof cmd,
-            "LC_ALL=C '%s' -nographic -machine accel=kvm:tcg -device '?' 2>&1",
-            g->qemu);
-
-  if (test_qemu_cmd (g, cmd, &g->app.qemu_devices) == -1)
-    goto qemu_error;
-
-  return 0;
-}
-
-static int
-test_qemu_cmd (guestfs_h *g, const char *cmd, char **ret)
-{
-  FILE *fp;
-
-  fp = popen (cmd, "r");
-  if (fp == NULL)
-    return -1;
-
-  if (read_all (g, fp, ret) == -1) {
-    pclose (fp);
-    return -1;
-  }
-
-  if (pclose (fp) != 0)
-    return -1;
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, g->qemu);
+  guestfs___cmd_add_arg (cmd, "-nographic");
+  guestfs___cmd_add_arg (cmd, "-machine");
+  guestfs___cmd_add_arg (cmd, "accel=kvm:tcg");
+  guestfs___cmd_add_arg (cmd, "-device");
+  guestfs___cmd_add_arg (cmd, "?");
+  guestfs___cmd_clear_capture_errors (cmd);
+  guestfs___cmd_set_stderr_to_stdout (cmd);
+  guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_devices,
+                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto error;
+  guestfs___cmd_close (cmd);
 
   return 0;
+
+ error:
+  error (g, _("qemu command failed\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."));
+  guestfs___cmd_close (cmd);
+  return -1;
 }
 
-static int
-read_all (guestfs_h *g, FILE *fp, char **ret)
+static void
+read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
 {
-  int r, n = 0;
-  char *p;
+  char **ret = retv;
 
- again:
-  if (feof (fp)) {
-    *ret = safe_realloc (g, *ret, n + 1);
-    (*ret)[n] = '\0';
-    return n;
-  }
-
-  *ret = safe_realloc (g, *ret, n + BUFSIZ);
-  p = &(*ret)[n];
-  r = fread (p, 1, BUFSIZ, fp);
-  if (ferror (fp))
-    return -1;
-  n += r;
-  goto again;
+  *ret = safe_memdup (g, buf, len);
 }
 
 /* Test if option is supported by qemu command line (just by grepping
