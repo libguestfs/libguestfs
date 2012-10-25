@@ -1778,32 +1778,41 @@ since the default error handler will ensure that an error message has
 been printed to C<stderr> before the program exits.
 
 For other programs the caller will almost certainly want to install an
-alternate error handler or do error handling in-line like this:
+alternate error handler or do error handling in-line as in the example
+below.  The non-C language bindings all install NULL error handlers
+and turn errors into exceptions using code similar to this:
 
+ const char *msg;
+ int errnum;
+ 
  /* This disables the default behaviour of printing errors
     on stderr. */
  guestfs_set_error_handler (g, NULL, NULL);
  
  if (guestfs_launch (g) == -1) {
-   /* Examine the error message and print it etc. */
-   char *msg = guestfs_last_error (g);
-   int errnum = guestfs_last_errno (g);
+   /* Examine the error message and print it, throw it,
+      etc. */
+   msg = guestfs_last_error (g);
+   errnum = guestfs_last_errno (g);
+ 
    fprintf (stderr, "%s", msg);
    if (errnum != 0)
      fprintf (stderr, ": %s", strerror (errnum));
    fprintf (stderr, "\n");
+ 
    /* ... */
  }
+
+L</guestfs_create> returns C<NULL> if the handle cannot be created,
+and because there is no handle if this happens there is no way to get
+additional error information.  Since libguestfs E<ge> 1.20, you can
+use L</guestfs_create_flags> to properly deal with errors during
+handle creation, although the vast majority of programs can continue
+to use L</guestfs_create> and not worry about this situation.
 
 Out of memory errors are handled differently.  The default action is
 to call L<abort(3)>.  If this is undesirable, then you can set a
 handler using L</guestfs_set_out_of_memory_handler>.
-
-L</guestfs_create> returns C<NULL> if the handle cannot be created,
-and because there is no handle if this happens there is no way to get
-additional error information.  However L</guestfs_create> is supposed
-to be a lightweight operation which can only fail because of
-insufficient memory (it returns NULL in this case).
 
 =head2 guestfs_last_error
 
@@ -1813,8 +1822,14 @@ This returns the last error message that happened on C<g>.  If
 there has not been an error since the handle was created, then this
 returns C<NULL>.
 
-The lifetime of the returned string is until the next error occurs, or
-L</guestfs_close> is called.
+Note the returned string does I<not> have a newline character at the
+end.  Most error messages are single lines.  Some are split over
+multiple lines and contain C<\n> characters within the string but not
+at the end.
+
+The lifetime of the returned string is until the next error occurs
+on the same handle, or L</guestfs_close> is called.  If you need
+to keep it longer, copy it.
 
 =head2 guestfs_last_errno
 
@@ -1824,8 +1839,11 @@ This returns the last error number (errno) that happened on C<g>.
 
 If successful, an errno integer not equal to zero is returned.
 
-If no error, this returns 0.  This call can return 0 in three
-situations:
+In many cases the special errno C<ENOTSUP> is returned if you tried to
+call a function or use a feature which is not supported.
+
+If no error number is available, this returns 0.  This call can return
+0 in three situations:
 
 =over 4
 
