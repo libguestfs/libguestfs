@@ -584,8 +584,13 @@ construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo)
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cpu"));
   XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
                                          BAD_CAST "host-model"));
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "model"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "fallback",
+                                         BAD_CAST "allow"));
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "vcpu"));
