@@ -32,6 +32,7 @@ clone/virt-sysprep.1
 *.cmx
 *.cmxa
 compile
+config.cache
 config.guess
 config.h
 config.h.in
