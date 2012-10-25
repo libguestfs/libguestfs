@@ -93,13 +93,13 @@ optgroup_selinux_available (void)
   return 0;
 }
 
-int
+int __attribute__((noreturn))
 do_setcon (const char *context)
 {
   abort ();
 }
 
-char *
+char * __attribute__((noreturn))
 do_getcon (void)
 {
   abort ();
