@@ -582,6 +582,13 @@ construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo)
   XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->memsize));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
+  /* It would be faster to pass the CPU host model to the appliance,
+   * allowing maximum speed for things like checksums, encryption.
+   * However this doesn't work because KVM doesn't emulate all of the
+   * required guest insns (RHBZ#870071).  This is why the following
+   * section is commented out.
+   */
+#if 0
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cpu"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
@@ -592,6 +599,7 @@ construct_libvirt_xml_cpu (guestfs_h *g, xmlTextWriterPtr xo)
                                          BAD_CAST "allow"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
+#endif
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "vcpu"));
   XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->smp));
