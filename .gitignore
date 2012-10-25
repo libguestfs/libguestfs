@@ -51,6 +51,7 @@ Makefile.in
 /cat/virt-ls.1
 /ChangeLog
 /compile
+/config.cache
 /config.guess
 /config.h
 /config.h.in
