@@ -125,7 +125,7 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 #ifdef DB_DUMP
 
 /* This data comes from the Name database, and contains the application
- * names and the first 4 bytes of the link field.
+ * names and the first 4 bytes of each link field.
  */
 struct rpm_names_list {
   struct rpm_name *names;
@@ -161,24 +161,74 @@ read_rpm_name (guestfs_h *g,
                void *listv)
 {
   struct rpm_names_list *list = listv;
+  const unsigned char *link_p;
   char *name;
 
   /* Ignore bogus entries. */
   if (keylen == 0 || valuelen < 4)
     return 0;
 
-  /* The name (key) field won't be NUL-terminated, so we must do that. */
-  name = safe_malloc (g, keylen+1);
-  memcpy (name, key, keylen);
-  name[keylen] = '\0';
+  /* A name entry will have as many links as installed instances of
+   * that pacakge.  For example, if glibc.i686 and glibc.x86_64 are
+   * both installed, then there will be a link for each Packages
+   * entry.  Add an entry onto list for all installed instances.
+   */
+  for (link_p = value; link_p < value + valuelen; link_p += 8) {
+    name = safe_strndup (g, (const char *) key, keylen);
 
-  list->names = safe_realloc (g, list->names,
-                              (list->len + 1) * sizeof (struct rpm_name));
-  list->names[list->len].name = name;
-  memcpy (list->names[list->len].link, value, 4);
-  list->len++;
+    list->names = safe_realloc (g, list->names,
+                                (list->len + 1) * sizeof (struct rpm_name));
+    list->names[list->len].name = name;
+    memcpy (list->names[list->len].link, link_p, 4);
+    list->len++;
+  }
 
   return 0;
+}
+
+/* tag constants, see rpmtag.h in RPM for complete list */
+#define RPMTAG_VERSION 1001
+#define RPMTAG_RELEASE 1002
+
+static char *
+get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
+                    size_t header_len, uint32_t tag)
+{
+  uint32_t num_fields, offset;
+  const unsigned char *cursor = header_start + 8, *store, *header_end;
+
+  /* This function parses the RPM header structure to pull out various
+   * tag strings (version, release, arch, etc.).  For more detail on the
+   * header format, see:
+   * http://www.rpm.org/max-rpm/s1-rpm-file-format-rpm-file-format.html#S2-RPM-FILE-FORMAT-HEADER
+   */
+
+  /* The minimum header size that makes sense here is 24 bytes.  Four
+   * bytes for number of fields, followed by four bytes denoting the
+   * size of the store, then 16 bytes for the first index entry.
+   */
+  if (header_len < 24)
+    return NULL;
+
+  num_fields = be32toh (*(uint32_t *) header_start);
+  store = header_start + 8 + (16 * num_fields);
+
+  /* The first byte *after* the buffer.  If you are here, you've gone
+   * too far! */
+  header_end = header_start + header_len;
+
+  while (cursor < store && cursor <= header_end - 16) {
+    if (be32toh (*(uint32_t *) cursor) == tag) {
+      offset = be32toh(*(uint32_t *) (cursor + 8));
+      if (store + offset >= header_end)
+        return NULL;
+      return safe_strndup(g, (const char *) (store + offset),
+                          header_end - (store + offset));
+    }
+    cursor += 16;
+  }
+
+  return NULL;
 }
 
 struct read_package_data {
@@ -194,16 +244,13 @@ read_package (guestfs_h *g,
 {
   struct read_package_data *data = datav;
   struct rpm_name nkey, *entry;
-  char *p;
-  size_t len;
-  ssize_t max;
-  char *nul_name_nul, *version, *release;
+  char *version, *release;
 
   /* This function reads one (key, value) pair from the Packages
    * database.  The key is the link field (see struct rpm_name).  The
-   * value is a long binary string, but we can extract the version
-   * number from it as below.  First we have to look up the link field
-   * in the list of links (which is sorted by link field).
+   * value is a long binary string, but we can extract the header data
+   * from it as below.  First we have to look up the link field in the
+   * list of links (which is sorted by link field).
    */
 
   /* Ignore bogus entries. */
@@ -219,38 +266,16 @@ read_package (guestfs_h *g,
 
   /* We found a matching link entry, so that gives us the application
    * name (entry->name).  Now we can get other data for this
-   * application out of the binary value string.  XXX This is a real
-   * hack.
+   * application out of the binary value string.
    */
 
-  /* Look for \0<name>\0 */
-  len = strlen (entry->name);
-  nul_name_nul = safe_malloc (g, len + 2);
-  nul_name_nul[0] = '\0';
-  memcpy (&nul_name_nul[1], entry->name, len);
-  nul_name_nul[len+1] = '\0';
-  p = memmem (value, valuelen, nul_name_nul, len+2);
-  free (nul_name_nul);
-  if (!p)
-    return 0;
-
-  /* Following that are \0-delimited version and release fields. */
-  p += len + 2; /* Note we have to skip \0 + name + \0. */
-  max = valuelen - (p - (char *) value);
-  if (max < 0)
-    max = 0;
-  version = safe_strndup (g, p, max);
-
-  len = strlen (version);
-  p += len + 1;
-  max = valuelen - (p - (char *) value);
-  if (max < 0)
-    max = 0;
-  release = safe_strndup (g, p, max);
+  version = get_rpm_header_tag (g, value, valuelen, RPMTAG_VERSION);
+  release = get_rpm_header_tag (g, value, valuelen, RPMTAG_RELEASE);
 
   /* Add the application and what we know. */
-  add_application (g, data->apps, entry->name, "", 0, version, release,
-                   "", "", "", "");
+  if (version && release)
+    add_application (g, data->apps, entry->name, "", 0, version, release,
+                     "", "", "", "");
 
   free (version);
   free (release);
