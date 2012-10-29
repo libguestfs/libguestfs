@@ -1103,6 +1103,71 @@ interactively.  You can enable them even for non-interactive modes
 using I<--progress-bars>, and you can disable them completely using
 I<--no-progress-bars>.
 
+=head1 PROMPT
+
+You can change or add colours to the default prompt
+(C<E<gt>E<lt>fsE<gt>>) by setting the C<GUESTFISH_PS1> environment
+variable.  A simple change can be made simply by setting this to an
+alternate string:
+
+ $ GUESTFISH_PS1='(type a command) '
+ $ export GUESTFISH_PS1
+ $ guestfish
+ [...]
+ (type a command) ls
+
+You can also use special escape sequences, as described in the table
+below:
+
+=over 4
+
+=item \\
+
+A literal backslash character.
+
+=item \[
+
+=item \]
+
+Place non-printing characters (eg. terminal control codes for colours)
+between C<\[...\]>.  What this does it to tell the L<readline(3)>
+library that it should treat this subsequence as zero-width, so that
+command-line redisplay, editing etc works.
+
+=item \a
+
+A bell character.
+
+=item \e
+
+An ASCII ESC (escape) character.
+
+=item \n
+
+A newline.
+
+=item \r
+
+A carriage return.
+
+=item \NNN
+
+The ASCII character whose code is the octal value NNN.
+
+=item \xNN
+
+The ASCII character whose code is the hex value NN.
+
+=back
+
+=head2 EXAMPLES OF PROMPTS
+
+Note these these require a terminal that supports ANSI escape codes.
+
+ GUESTFISH_PS1='\[\e[1;30m\]><fs>\[\e[0;30m\] '
+
+A bold black version of the ordinary prompt.
+
 =head1 GUESTFISH COMMANDS
 
 The commands in this section are guestfish convenience commands, in
@@ -1161,6 +1226,10 @@ display images.  If not set, it uses L<display(1)>.
 Used with the I<--remote> option to specify the remote guestfish
 process to control.  See section
 L</REMOTE CONTROL GUESTFISH OVER A SOCKET>.
+
+=item GUESTFISH_PS1
+
+Set the command prompt.  See L</PROMPT>.
 
 =item HEXEDITOR
 

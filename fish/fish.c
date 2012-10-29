@@ -69,6 +69,7 @@ static void error_cb (guestfs_h *g, void *data, const char *msg);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 #ifdef HAVE_LIBREADLINE
+static char *decode_ps1 (const char *);
 static void add_history_line (const char *);
 #endif
 
@@ -614,12 +615,14 @@ shell_script (void)
 
 #define FISH "><fs> "
 
+static char *ps1 = NULL;
 static char *line_read = NULL;
 
 static char *
 rl_gets (int prompt)
 {
 #ifdef HAVE_LIBREADLINE
+  char *p = NULL;
 
   if (prompt) {
     if (line_read) {
@@ -627,7 +630,9 @@ rl_gets (int prompt)
       line_read = NULL;
     }
 
-    line_read = readline (prompt ? FISH : "");
+    p = prompt && ps1 ? decode_ps1 (ps1) : NULL;
+    line_read = readline (prompt ? (ps1 ? p : FISH) : "");
+    free (p);
 
     if (line_read && *line_read)
       add_history_line (line_read);
@@ -1431,14 +1436,7 @@ static void
 initialize_readline (void)
 {
 #ifdef HAVE_LIBREADLINE
-  const char *home;
-
-  home = getenv ("HOME");
-  if (home) {
-    snprintf (histfile, sizeof histfile, "%s/.guestfish", home);
-    using_history ();
-    (void) read_history (histfile);
-  }
+  const char *str;
 
   rl_readline_name = "guestfish";
   rl_attempted_completion_function = do_completion;
@@ -1449,6 +1447,25 @@ initialize_readline (void)
    * they wish.
    */
   (void) rl_variable_bind ("completion-ignore-case", "on");
+
+  /* Set up the history file. */
+  str = getenv ("HOME");
+  if (str) {
+    snprintf (histfile, sizeof histfile, "%s/.guestfish", str);
+    using_history ();
+    (void) read_history (histfile);
+  }
+
+  /* Set up the prompt. */
+  str = getenv ("GUESTFISH_PS1");
+  if (str) {
+    free (ps1);
+    ps1 = strdup (str);
+    if (!ps1) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
 #endif
 }
 
@@ -1482,6 +1499,114 @@ add_history_line (const char *line)
 {
   add_history (line);
   nr_history_lines++;
+}
+
+static int decode_ps1_octal (const char *s, size_t *i);
+static int decode_ps1_hex (const char *s, size_t *i);
+
+/* Decode 'str' into the final printable prompt string. */
+static char *
+decode_ps1 (const char *str)
+{
+  char *ret;
+  size_t len = strlen (str);
+  size_t i, j;
+
+  /* Result string is always smaller than the input string.  This will
+   * change if we add new features like date/time substitution in
+   * future.
+   */
+  ret = malloc (len + 1);
+  if (!ret) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  for (i = j = 0; i < len; ++i) {
+    if (str[i] == '\\') {       /* Start of an escape sequence. */
+      if (i < len-1)
+        i++;
+      switch (str[i]) {
+      case '\\':
+        ret[j++] = '\\';
+        break;
+      case '[':
+        ret[j++] = RL_PROMPT_START_IGNORE;
+        break;
+      case ']':
+        ret[j++] = RL_PROMPT_END_IGNORE;
+        break;
+      case 'a':
+        ret[j++] = '\a';
+        break;
+      case 'e':
+        ret[j++] = '\033';
+        break;
+      case 'n':
+        ret[j++] = '\n';
+        break;
+      case 'r':
+        ret[j++] = '\r';
+        break;
+      case '0'...'7':
+        ret[j++] = decode_ps1_octal (str, &i);
+        i--;
+        break;
+      case 'x':
+        i++;
+        ret[j++] = decode_ps1_hex (str, &i);
+        i--;
+        break;
+      default:
+        ret[j++] = '?';
+      }
+    }
+    else
+      ret[j++] = str[i];
+  }
+
+  ret[j] = '\0';
+  return ret;                   /* caller frees */
+}
+
+static int
+decode_ps1_octal (const char *s, size_t *i)
+{
+  size_t lim = 3;
+  int ret = 0;
+
+  while (lim > 0 && s[*i] >= '0' && s[*i] <= '7') {
+    ret *= 8;
+    ret += s[*i] - '0';
+    (*i)++;
+    lim--;
+  }
+
+  return ret;
+}
+
+static int
+decode_ps1_hex (const char *s, size_t *i)
+{
+  size_t lim = 2;
+  int ret = 0;
+
+  while (lim > 0 && c_isxdigit (s[*i])) {
+    ret *= 16;
+    if (s[*i] >= '0' && s[*i] <= '9')
+      ret += s[*i] - '0';
+    else if (s[*i] >= 'a' && s[*i] <= 'f')
+      ret += s[*i] - 'a' + 10;
+    else if (s[*i] >= 'A' && s[*i] <= 'F')
+      ret += s[*i] - 'A' + 10;
+    (*i)++;
+    lim--;
+  }
+
+  if (lim == 2)                 /* \x not followed by any hex digits */
+    return '?';
+
+  return ret;
 }
 #endif
 
