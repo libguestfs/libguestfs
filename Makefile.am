@@ -292,15 +292,3 @@ quickcheck:
 
 extra-tests:
 	make -C tests/extra $@
-
-# Make binary distribution.
-
-BINTMPDIR = /tmp/libguestfs-bin
-bindist:
-	rm -rf $(BINTMPDIR)
-	mkdir $(BINTMPDIR)
-	$(MAKE)
-	$(MAKE) DESTDIR=$(BINTMPDIR) install
-	-find $(BINTMPDIR) -type d -exec rmdir --ignore-fail-on-non-empty {} \;
-	(cd $(BINTMPDIR) && tar cf - .) | \
-	  gzip -c -9 > libguestfs-$(VERSION)-$(DISTRO)-$(host_cpu).tar.gz
