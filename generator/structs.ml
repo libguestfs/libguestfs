@@ -22,6 +22,12 @@ open Types
 open Utils
 
 type cols = (string * field) list
+type struc = {
+  s_name : string;
+  s_cols : cols;
+  s_camel_name : string;
+  s_unused : unit; (* Silences warning 23 when using 'defaults with ...' *)
+}
 
 (* Because we generate extra parsing code for LVM command line tools,
  * we have to pull out the LVM columns separately here.
@@ -88,6 +94,8 @@ let lvm_lv_cols = [
   "modules", FString;
 ]
 
+let defaults = { s_name = ""; s_cols = []; s_camel_name = ""; s_unused = () }
+
 (* Names and fields in all structures (in RStruct and RStructList)
  * that we support.
  *)
@@ -95,21 +103,29 @@ let structs = [
   (* The old RIntBool return type, only ever used for aug_defnode.  Do
    * not use this struct in any new code.
    *)
-  "int_bool", [
+  { defaults with
+    s_name = "int_bool";
+    s_cols = [
     "i", FInt32;		(* for historical compatibility *)
     "b", FInt32;		(* for historical compatibility *)
-  ];
+    ];
+    s_camel_name = "IntBool" };
 
   (* LVM PVs, VGs, LVs. *)
-  "lvm_pv", lvm_pv_cols;
-  "lvm_vg", lvm_vg_cols;
-  "lvm_lv", lvm_lv_cols;
+  { defaults with
+    s_name = "lvm_pv"; s_cols = lvm_pv_cols; s_camel_name = "PV" };
+  { defaults with
+    s_name = "lvm_vg"; s_cols = lvm_vg_cols; s_camel_name = "VG" };
+  { defaults with
+    s_name = "lvm_lv"; s_cols = lvm_lv_cols; s_camel_name = "LV" };
 
   (* Column names and types from stat structures.
    * NB. Can't use things like 'st_atime' because glibc header files
    * define some of these as macros.  Ugh.
    *)
-  "stat", [
+  { defaults with
+    s_name = "stat";
+    s_cols = [
     "dev", FInt64;
     "ino", FInt64;
     "mode", FInt64;
@@ -123,8 +139,11 @@ let structs = [
     "atime", FInt64;
     "mtime", FInt64;
     "ctime", FInt64;
-  ];
-  "statvfs", [
+    ];
+    s_camel_name = "Stat" };
+  { defaults with
+    s_name = "statvfs";
+    s_cols = [
     "bsize", FInt64;
     "frsize", FInt64;
     "blocks", FInt64;
@@ -136,48 +155,66 @@ let structs = [
     "fsid", FInt64;
     "flag", FInt64;
     "namemax", FInt64;
-  ];
+    ];
+    s_camel_name = "StatVFS" };
 
   (* Column names in dirent structure. *)
-  "dirent", [
+  { defaults with
+    s_name = "dirent";
+    s_cols = [
     "ino", FInt64;
     (* 'b' 'c' 'd' 'f' (FIFO) 'l' 'r' (regular file) 's' 'u' '?' *)
     "ftyp", FChar;
     "name", FString;
-  ];
+    ];
+    s_camel_name = "Dirent" };
 
   (* Version numbers. *)
-  "version", [
+  { defaults with
+    s_name = "version";
+    s_cols = [
     "major", FInt64;
     "minor", FInt64;
     "release", FInt64;
     "extra", FString;
-  ];
+    ];
+    s_camel_name = "Version" };
 
   (* Extended attribute. *)
-  "xattr", [
+  { defaults with
+    s_name = "xattr";
+    s_cols = [
     "attrname", FString;
     "attrval", FBuffer;
-  ];
+    ];
+    s_camel_name = "XAttr" };
 
   (* Inotify events. *)
-  "inotify_event", [
+  { defaults with
+    s_name = "inotify_event";
+    s_cols = [
     "in_wd", FInt64;
     "in_mask", FUInt32;
     "in_cookie", FUInt32;
     "in_name", FString;
-  ];
+    ];
+    s_camel_name = "INotifyEvent" };
 
   (* Partition table entry. *)
-  "partition", [
+  { defaults with
+    s_name = "partition";
+    s_cols = [
     "part_num", FInt32;
     "part_start", FBytes;
     "part_end", FBytes;
     "part_size", FBytes;
-  ];
+    ];
+    s_camel_name = "Partition" };
 
   (* Application. *)
-  "application", [
+  { defaults with
+    s_name = "application";
+    s_cols = [
     "app_name", FString;
     "app_display_name", FString;
     "app_epoch", FInt32;
@@ -190,10 +227,13 @@ let structs = [
     "app_source_package", FString;
     "app_summary", FString;
     "app_description", FString;
-  ];
+    ];
+    s_camel_name = "Application" };
 
   (* ISO primary volume descriptor. *)
-  "isoinfo", [
+  { defaults with
+    s_name = "isoinfo";
+    s_cols = [
     "iso_system_id", FString;
     "iso_volume_id", FString;
     "iso_volume_space_size", FUInt32;
@@ -211,24 +251,33 @@ let structs = [
     "iso_volume_modification_t", FInt64;
     "iso_volume_expiration_t", FInt64;
     "iso_volume_effective_t", FInt64;
-  ];
+    ];
+    s_camel_name = "ISOInfo" };
 
   (* /proc/mdstat information.  See linux.git/drivers/md/md.c *)
-  "mdstat", [
+  { defaults with
+    s_name = "mdstat";
+    s_cols = [
     "mdstat_device", FString;
     "mdstat_index", FInt32;
     "mdstat_flags", FString;
-  ];
+    ];
+    s_camel_name = "MDStat" };
 
   (* btrfs subvolume list output *)
-  "btrfssubvolume", [
+  { defaults with
+    s_name = "btrfssubvolume";
+    s_cols = [
     "btrfssubvolume_id", FUInt64;
     "btrfssubvolume_top_level_id", FUInt64;
     "btrfssubvolume_path", FString;
-  ];
+    ];
+    s_camel_name = "BTRFSSubvolume" };
 
   (* XFS info descriptor. *)
-  "xfsinfo", [
+  { defaults with
+    s_name = "xfsinfo";
+    s_cols = [
     "xfs_mntpoint", FString;
     "xfs_inodesize", FUInt32;
     "xfs_agcount", FUInt32;
@@ -254,60 +303,45 @@ let structs = [
     "xfs_rtextsize", FUInt32;
     "xfs_rtblocks", FUInt64;
     "xfs_rtextents", FUInt64;
-  ];
+    ];
+    s_camel_name = "XFSInfo" };
 
   (* utsname *)
-  "utsname", [
+  { defaults with
+    s_name = "utsname";
+    s_cols = [
     "uts_sysname", FString;
     "uts_release", FString;
     "uts_version", FString;
     "uts_machine", FString;
-  ];
+    ];
+    s_camel_name = "UTSName" };
 
   (* Used by hivex_* APIs to return a list of int64 handles (node
    * handles and value handles).  Note that we can't add a putative
    * 'RInt64List' type to the generator because we need to return
    * length and size, and RStructList does this already.
    *)
-  "hivex_node", [
+  { defaults with
+    s_name = "hivex_node";
+    s_cols = [
     "hivex_node_h", FInt64;
-  ];
-  "hivex_value", [
+    ];
+    s_camel_name = "HivexNode" };
+  { defaults with
+    s_name = "hivex_value";
+    s_cols = [
     "hivex_value_h", FInt64;
-  ];
+    ];
+    s_camel_name = "HivexValue" };
 ] (* end of structs *)
 
-(* For bindings which want camel case *)
-let camel_structs = [
-  "int_bool", "IntBool";
-  "lvm_pv", "PV";
-  "lvm_vg", "VG";
-  "lvm_lv", "LV";
-  "stat", "Stat";
-  "statvfs", "StatVFS";
-  "dirent", "Dirent";
-  "version", "Version";
-  "xattr", "XAttr";
-  "inotify_event", "INotifyEvent";
-  "partition", "Partition";
-  "application", "Application";
-  "isoinfo", "ISOInfo";
-  "xfsinfo", "XFSInfo";
-  "mdstat", "MDStat";
-  "btrfssubvolume", "BTRFSSubvolume";
-  "utsname", "UTSName";
-  "hivex_node", "HivexNode";
-  "hivex_value", "HivexValue";
-]
-let camel_structs = List.sort (fun (_,a) (_,b) -> compare a b) camel_structs
-
-let camel_name_of_struct typ =
-  try List.assoc typ camel_structs
+let lookup_struct name =
+  try List.find (fun { s_name = n } -> n = name) structs
   with Not_found ->
     failwithf
-      "camel_name_of_struct: no camel_structs entry corresponding to %s" typ
+      "lookup_struct: no structs entry corresponding to %s" name
 
-let cols_of_struct typ =
-  try List.assoc typ structs
-  with Not_found ->
-    failwithf "cols_of_struct: unknown struct %s" typ
+let camel_name_of_struct name = (lookup_struct name).s_camel_name
+
+let cols_of_struct name = (lookup_struct name).s_cols

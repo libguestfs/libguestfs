@@ -70,8 +70,7 @@ let generate_xdr () =
   pr "/* Internal structures. */\n";
   pr "\n";
   List.iter (
-    function
-    | typ, cols ->
+    fun { s_name = typ; s_cols = cols } ->
         pr "struct guestfs_int_%s {\n" typ;
         List.iter (function
                    | name, FChar -> pr "  char %s;\n" name

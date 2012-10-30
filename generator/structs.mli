@@ -23,11 +23,15 @@
 type cols = (string * Types.field) list
 (** List of structure fields (called "columns"). *)
 
-val structs : (string * cols) list
-(** List of structures. *)
+type struc = {
+  s_name : string;                      (** Regular name. *)
+  s_cols : cols;                        (** Columns. *)
+  s_camel_name : string;                (** Camel-cased name. *)
+  s_unused : unit;
+}
 
-val camel_structs : (string * string) list
-(** For bindings which want camel case struct names *)
+val structs : struc list
+(** List of structures. *)
 
 val lvm_pv_cols : cols
 val lvm_vg_cols : cols
@@ -36,8 +40,11 @@ val lvm_lv_cols : cols
     used to generate code for parsing the output of commands like
     [lvs].  One day replace this with liblvm API calls. *)
 
+val lookup_struct : string -> struc
+(** Lookup a struct by name. *)
+
 val camel_name_of_struct : string -> string
-(** Camel case name of struct. *)
+(** Lookup struct by name, return the s_camel_name field. *)
 
 val cols_of_struct : string -> cols
-(** Extract columns of a struct. *)
+(** Lookup struct by name, return the s_cols field. *)

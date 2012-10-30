@@ -110,7 +110,7 @@ namespace Guestfs
    * method names (eg. "class stat" and "stat").
    *)
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       pr "    [StructLayout (LayoutKind.Sequential)]\n";
       pr "    public class _%s {\n" typ;
       List.iter (

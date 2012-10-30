@@ -160,7 +160,7 @@ free_strings (char **argv)
 
   (* Structures, turned into Python dictionaries. *)
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       pr "static PyObject *\n";
       pr "put_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";

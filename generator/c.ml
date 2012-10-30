@@ -311,7 +311,7 @@ and generate_actions_pod_back_compat_entry { name = name;
 and generate_structs_pod () =
   (* Structs documentation. *)
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       pr "=head2 guestfs_%s\n" typ;
       pr "\n";
       pr " struct guestfs_%s {\n" typ;
@@ -542,7 +542,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
   (* Public structures. *)
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       pr "struct guestfs_%s {\n" typ;
       List.iter (
         function
@@ -710,7 +710,7 @@ and generate_client_free_structs () =
   pr "\n";
 
   List.iter (
-    fun (typ, _) ->
+    fun { s_name = typ } ->
       pr "GUESTFS_DLL_PUBLIC void\n";
       pr "guestfs_free_%s (struct guestfs_%s *x)\n" typ typ;
       pr "{\n";
@@ -1661,7 +1661,7 @@ and generate_linker_script () =
     ) in
   let structs =
     List.concat (
-      List.map (fun (typ, _) ->
+      List.map (fun { s_name = typ } ->
                   ["guestfs_free_" ^ typ; "guestfs_free_" ^ typ ^ "_list"])
         structs
     ) in

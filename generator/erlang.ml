@@ -237,7 +237,7 @@ extern void free_strings (char **r);
   in
 
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       pr "static ETERM *\n";
       pr "make_%s (const struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";

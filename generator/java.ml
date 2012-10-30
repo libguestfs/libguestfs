@@ -873,12 +873,17 @@ and generate_java_struct_list_return typ jtyp cols =
 and generate_java_makefile_inc () =
   generate_header HashStyle GPLv2plus;
 
+  let jtyps = List.map (fun { s_camel_name = jtyp } -> jtyp) structs in
+  let jtyps = List.sort compare jtyps in
+
   pr "java_built_sources = \\\n";
   List.iter (
-    fun (typ, jtyp) ->
-        pr "\tcom/redhat/et/libguestfs/%s.java \\\n" jtyp;
-  ) camel_structs;
+    pr "\tcom/redhat/et/libguestfs/%s.java \\\n"
+  ) jtyps;
   pr "\tcom/redhat/et/libguestfs/GuestFS.java\n"
 
 and generate_java_gitignore () =
-  List.iter (fun (_, jtyp) -> pr "%s.java\n" jtyp) camel_structs
+  let jtyps = List.map (fun { s_camel_name = jtyp } -> jtyp) structs in
+  let jtyps = List.sort compare jtyps in
+
+  List.iter (pr "%s.java\n") jtyps

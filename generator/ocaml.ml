@@ -377,7 +377,7 @@ copy_table (char * const * argv)
   in
 
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       let has_optpercent_col =
         List.exists (function (_, FOptPercent) -> true | _ -> false) cols in
 
@@ -672,7 +672,7 @@ copy_table (char * const * argv)
 
 and generate_ocaml_structure_decls () =
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       pr "type %s = {\n" typ;
       List.iter (
         function

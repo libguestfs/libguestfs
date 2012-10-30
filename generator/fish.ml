@@ -227,7 +227,7 @@ Guestfish will prompt for these separately."
 
   (* print_* functions *)
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       let needs_i =
         List.exists (function (_, (FUUID|FBuffer)) -> true | _ -> false) cols in
 

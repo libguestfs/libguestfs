@@ -124,11 +124,11 @@ Run it from the top source directory using the command
   output_to "java/com/redhat/et/libguestfs/GuestFS.java" generate_java_java;
 
   List.iter (
-    fun (typ, jtyp) ->
+    fun { s_name = typ; s_camel_name = jtyp } ->
       let cols = cols_of_struct typ in
       let filename = sprintf "java/com/redhat/et/libguestfs/%s.java" jtyp in
       output_to filename (generate_java_struct jtyp cols)
-  ) camel_structs;
+  ) structs;
   delete_except_generated
     ~skip:["java/com/redhat/et/libguestfs/LibGuestFSException.java"]
     "java/com/redhat/et/libguestfs/*.java";
@@ -152,7 +152,7 @@ Run it from the top source directory using the command
   output_to "gobject/docs/guestfs-title.sgml" generate_gobject_doc_title;
 
   List.iter (
-    fun (typ, cols) ->
+    fun { s_name = typ; s_cols = cols } ->
       let short = sprintf "struct-%s" typ in
       let filename =
         sprintf "gobject/include/guestfs-gobject/%s.h" short in
