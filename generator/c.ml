@@ -711,7 +711,7 @@ and generate_client_free_structs () =
 
   List.iter (
     fun (typ, _) ->
-      pr "void\n";
+      pr "GUESTFS_DLL_PUBLIC void\n";
       pr "guestfs_free_%s (struct guestfs_%s *x)\n" typ typ;
       pr "{\n";
       pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
@@ -719,7 +719,7 @@ and generate_client_free_structs () =
       pr "}\n";
       pr "\n";
 
-      pr "void\n";
+      pr "GUESTFS_DLL_PUBLIC void\n";
       pr "guestfs_free_%s_list (struct guestfs_%s_list *x)\n" typ typ;
       pr "{\n";
       pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n" typ;
@@ -1115,10 +1115,12 @@ trace_send_line (guestfs_h *g)
     if optargs = [] then
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_"
+        ~dll_public:true
         c_name style
     else
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
+        ~dll_public:true
         c_name style;
     pr "{\n";
 
@@ -1191,11 +1193,15 @@ trace_send_line (guestfs_h *g)
     (* Generate the action stub. *)
     if optargs = [] then
       generate_prototype ~extern:false ~semicolon:false ~newline:true
-        ~handle:"g" ~prefix:"guestfs_" c_name style
+        ~handle:"g" ~prefix:"guestfs_"
+        ~dll_public:true
+        c_name style
     else
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv"
-        ~optarg_proto:Argv c_name style;
+        ~optarg_proto:Argv
+        ~dll_public:true
+        c_name style;
 
     pr "{\n";
 
