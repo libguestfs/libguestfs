@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-29 15:19+0000\n"
+"POT-Creation-Date: 2012-10-30 14:32+0000\n"
 "PO-Revision-Date: 2012-10-14 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5449,7 +5449,7 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:90
+#: ../sysprep/sysprep_operation_logfiles.ml:98
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -5521,7 +5521,7 @@ msgstr "Вилучити вкладку ідентифікаторів блок�
 msgid "Remove email from the local mail spool directory"
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера"
 
-#: ../sysprep/sysprep_operation_logfiles.ml:88
+#: ../sysprep/sysprep_operation_logfiles.ml:96
 msgid "Remove many log files from the guest"
 msgstr "Вилучити з гостьової системи багато файлів журналів"
 
