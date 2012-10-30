@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-01 16:29+0100\n"
+"POT-Creation-Date: 2012-10-30 19:22+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.net/projects/p/fedora/team/nl/)\n"
@@ -2638,12 +2638,12 @@ msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 "%s: sommige bestandssystemen konden niet aangekoppeld worden (genegeerd)\n"
 
-#: fish/inspect.c:182
+#: fish/inspect.c:186
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Besturingssysteem: %s\n"
 
-#: fish/inspect.c:195
+#: fish/inspect.c:198
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s aangekoppeld op %s\n"

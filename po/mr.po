@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-01 16:29+0100\n"
+"POT-Creation-Date: 2012-10-30 19:22+0000\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
@@ -2588,12 +2588,12 @@ msgstr ""
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: काहिक फाइलप्रणाली माऊंट करणे अशक्य (दुर्लक्ष केले)\n"
 
-#: fish/inspect.c:182
+#: fish/inspect.c:186
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "कार्यप्रणाली: %s\n"
 
-#: fish/inspect.c:195
+#: fish/inspect.c:198
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s ला %s वर माऊंट केले\n"
