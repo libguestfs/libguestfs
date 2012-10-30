@@ -24,6 +24,9 @@ use warnings;
 use Sys::Guestfs;
 use Sys::Guestfs::Lib qw(feature_available);
 
+# Allow the test to be skipped since btrfs is often broken.
+exit 77 if $ENV{SKIP_TEST_BTRFS_SUBVOLUME_DEFAULT_PL};
+
 my $testimg = "test1.img";
 
 unlink $testimg;

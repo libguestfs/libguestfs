@@ -26,6 +26,12 @@ set -e
 
 guestfish=../../fish/guestfish
 
+# Allow the test to be skipped since btrfs is often broken.
+if [ -n "$SKIP_TEST_BTRFS_DEVICES_SH" ]; then
+    echo "$0: skipping test because environment variable is set."
+    exit 77
+fi
+
 # If btrfs is not available, bail.
 if ! $guestfish -a /dev/null run : available btrfs; then
     echo "$0: skipping test because btrfs is not available"

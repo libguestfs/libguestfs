@@ -77,11 +77,20 @@ static int feature_available (guestfs_h *g, const char *feature);
 int
 main (int argc, char *argv[])
 {
+  char *str;
   guestfs_h *g;
   char tmp[] = "/tmp/charsetXXXXXX";
   int fd;
   size_t i;
   struct filesystem *fs;
+
+  /* Allow this test to be skipped. */
+  str = getenv ("SKIP_TEST_CHARSET_FIDELITY");
+  if (str && STREQ (str, "1")) {
+    printf ("%s: test skipped because environment variable is set.\n",
+            argv[0]);
+    exit (77);
+  }
 
   g = guestfs_create ();
   if (g == NULL)
