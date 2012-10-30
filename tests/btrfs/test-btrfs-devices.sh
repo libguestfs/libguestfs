@@ -24,6 +24,12 @@
 
 set -e
 
+# Allow the test to be skipped since btrfs is often broken.
+if [ -n "$SKIP_TEST_BTRFS_DEVICES_SH" ]; then
+    echo "$0: skipping test because environment variable is set."
+    exit 77
+fi
+
 # XXX Not a very good test.
 if ! btrfs --help >/dev/null 2>&1; then
     echo "$0: test skipped because no 'btrfs' utility"
