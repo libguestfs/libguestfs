@@ -75,6 +75,9 @@ let globs = List.sort compare [
 
   (* fontconfig caches *)
   "/var/cache/fontconfig/*";
+
+  (* man pages cache *)
+  "/var/cache/man/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
