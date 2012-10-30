@@ -72,6 +72,9 @@ let globs = List.sort compare [
   "/var/cache/gdm/*";
   "/var/lib/AccountService/users/*";
   "/var/lib/fprint/*";                  (* Fingerprint service files *)
+
+  (* fontconfig caches *)
+  "/var/cache/fontconfig/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
