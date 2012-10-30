@@ -687,6 +687,48 @@ and generate_internal_actions_h () =
         c_name style
   ) non_daemon_functions
 
+(* Functions to free structures. *)
+and generate_client_free_structs () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+#include \"guestfs_protocol.h\"
+
+";
+
+  pr "/* Structure-freeing functions.  These rely on the fact that the\n";
+  pr " * structure format is identical to the XDR format.  See note in\n";
+  pr " * generator.ml.\n";
+  pr " */\n";
+  pr "\n";
+
+  List.iter (
+    fun (typ, _) ->
+      pr "void\n";
+      pr "guestfs_free_%s (struct guestfs_%s *x)\n" typ typ;
+      pr "{\n";
+      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
+      pr "  free (x);\n";
+      pr "}\n";
+      pr "\n";
+
+      pr "void\n";
+      pr "guestfs_free_%s_list (struct guestfs_%s_list *x)\n" typ typ;
+      pr "{\n";
+      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n" typ;
+      pr "  free (x);\n";
+      pr "}\n";
+      pr "\n";
+
+  ) structs
+
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions () =
   generate_header CStyle LGPLv2plus;
@@ -1424,33 +1466,6 @@ trace_send_line (guestfs_h *g)
   List.iter (
     fun f -> generate_daemon_stub f
   ) daemon_functions;
-
-  (* Functions to free structures. *)
-  pr "/* Structure-freeing functions.  These rely on the fact that the\n";
-  pr " * structure format is identical to the XDR format.  See note in\n";
-  pr " * generator.ml.\n";
-  pr " */\n";
-  pr "\n";
-
-  List.iter (
-    fun (typ, _) ->
-      pr "void\n";
-      pr "guestfs_free_%s (struct guestfs_%s *x)\n" typ typ;
-      pr "{\n";
-      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
-      pr "  free (x);\n";
-      pr "}\n";
-      pr "\n";
-
-      pr "void\n";
-      pr "guestfs_free_%s_list (struct guestfs_%s_list *x)\n" typ typ;
-      pr "{\n";
-      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n" typ;
-      pr "  free (x);\n";
-      pr "}\n";
-      pr "\n";
-
-  ) structs;
 
   (* Functions which have optional arguments have two or three
    * generated variants.

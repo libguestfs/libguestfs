@@ -225,6 +225,7 @@ src/errnostring.c
 src/events.c
 src/file.c
 src/filearch.c
+src/free-structs.c
 src/fuse.c
 src/guestfs.c
 src/info.c

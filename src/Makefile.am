@@ -28,6 +28,7 @@ generator_built = \
 	errnostring-gperf.gperf \
 	errnostring.c \
 	errnostring.h \
+	free-structs.c \
 	guestfs-actions.pod \
 	guestfs-availability.pod \
 	guestfs-structs.pod \
@@ -130,6 +131,7 @@ libguestfs_la_SOURCES = \
 	events.c \
 	file.c \
 	filearch.c \
+	free-structs.c \
 	fuse.c \
 	info.c \
 	inspect.c \

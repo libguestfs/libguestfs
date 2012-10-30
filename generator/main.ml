@@ -84,6 +84,7 @@ Run it from the top source directory using the command
   output_to "src/guestfs.h" generate_guestfs_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
   output_to "src/actions.c" generate_client_actions;
+  output_to "src/free-structs.c" generate_client_free_structs;
   output_to "src/bindtests.c" generate_bindtests;
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
