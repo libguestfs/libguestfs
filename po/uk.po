@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-01 16:29+0100\n"
+"POT-Creation-Date: 2012-10-30 18:16+0000\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2988,12 +2988,12 @@ msgstr ""
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: деякі з файлових систем не вдалося змонтувати (проігноровано)\n"
 
-#: fish/inspect.c:183
+#: fish/inspect.c:187
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Операційна система: %s\n"
 
-#: fish/inspect.c:196
+#: fish/inspect.c:199
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s змонтовано до %s\n"
@@ -5021,7 +5021,7 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr "Створити породжувач випадкових чисел для гостьової системи"
 
-#: ../resize/utils.ml:81
+#: ../resize/resize_utils.ml:81
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
@@ -5029,7 +5029,7 @@ msgstr ""
 "Щоб покращити повідомлення про ваду, віддайте команду virt-resize з "
 "параметром «-d» і додайте до сповіщення виведені дані повністю."
 
-#: ../sparsify/utils.ml:109
+#: ../sparsify/sparsify_utils.ml:109
 msgid ""
 "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
 "include the complete output."
@@ -5656,7 +5656,7 @@ msgstr "спосіб використання: %s [--параметри] поч�
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr "virt-resize %Ld.%Ld.%Ld%s\n"
 
-#: ../resize/utils.ml:77
+#: ../resize/resize_utils.ml:77
 msgid "virt-resize: error: "
 msgstr "virt-resize: помилка: "
 

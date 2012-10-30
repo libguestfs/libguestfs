@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.18.9\n"
+"Project-Id-Version: libguestfs 1.18.10\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-01 16:29+0100\n"
+"POT-Creation-Date: 2012-10-30 18:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2641,12 +2641,12 @@ msgstr ""
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 
-#: fish/inspect.c:183
+#: fish/inspect.c:187
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:196
+#: fish/inspect.c:199
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -4262,11 +4262,11 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: ../resize/utils.ml:81
+#: ../resize/resize_utils.ml:81
 msgid "If reporting bugs, run virt-resize with the '-d' option and include the complete output."
 msgstr ""
 
-#: ../sparsify/utils.ml:109
+#: ../sparsify/sparsify_utils.ml:109
 msgid "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and include the complete output."
 msgstr ""
 
@@ -4687,7 +4687,7 @@ msgstr ""
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr ""
 
-#: ../resize/utils.ml:77
+#: ../resize/resize_utils.ml:77
 msgid "virt-resize: error: "
 msgstr ""
 
