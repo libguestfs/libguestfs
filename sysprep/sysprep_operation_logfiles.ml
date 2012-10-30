@@ -71,7 +71,9 @@ let globs = List.sort compare [
   (* GDM and session preferences. *)
   "/var/cache/gdm/*";
   "/var/lib/AccountService/users/*";
-  "/var/lib/fprint/*";                  (* Fingerprint service files *)
+
+  (* Fingerprint service files *)
+  "/var/lib/fprint/*";
 
   (* fontconfig caches *)
   "/var/cache/fontconfig/*";
