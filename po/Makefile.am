@@ -97,7 +97,7 @@ install-data-hook: $(GMOFILES)
 	for lang in $(linguas); do \
 	  d=$(DESTDIR)$(langinstdir)/$$lang/LC_MESSAGES; \
 	  mkdir -p $$d; \
-	  install -m 0755 $$lang.gmo $$d/$(DOMAIN).mo; \
+	  install -m 0644 $$lang.gmo $$d/$(DOMAIN).mo; \
 	done
 
 .PRECIOUS: $(DOMAIN).pot $(POFILES)
