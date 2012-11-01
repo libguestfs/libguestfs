@@ -35,6 +35,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/struct-inotify_event.h \
   include/guestfs-gobject/struct-partition.h \
   include/guestfs-gobject/struct-application.h \
+  include/guestfs-gobject/struct-application2.h \
   include/guestfs-gobject/struct-isoinfo.h \
   include/guestfs-gobject/struct-mdstat.h \
   include/guestfs-gobject/struct-btrfssubvolume.h \
@@ -99,6 +100,7 @@ guestfs_gobject_sources= \
   src/struct-inotify_event.c \
   src/struct-partition.c \
   src/struct-application.c \
+  src/struct-application2.c \
   src/struct-isoinfo.c \
   src/struct-mdstat.c \
   src/struct-btrfssubvolume.c \

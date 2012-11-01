@@ -42,24 +42,71 @@
 #include "guestfs_protocol.h"
 
 #ifdef DB_DUMP
-static struct guestfs_application_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
 #endif
-static struct guestfs_application_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
-static struct guestfs_application_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
-static void add_application (guestfs_h *g, struct guestfs_application_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *install_path, const char *publisher, const char *url, const char *description);
-static void sort_applications (struct guestfs_application_list *);
+static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
+static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *description);
+static void sort_applications (struct guestfs_application2_list *);
+
+/* The deprecated guestfs_inspect_list_applications call, which is now
+ * just a wrapper around guestfs_inspect_list_applications2.
+ */
+struct guestfs_application_list *
+guestfs__inspect_list_applications (guestfs_h *g, const char *root)
+{
+  struct guestfs_application_list *ret;
+  struct guestfs_application2_list *r;
+  size_t i;
+
+  /* Call the new function. */
+  r = guestfs_inspect_list_applications2 (g, root);
+  if (!r)
+    return NULL;
+
+  /* Translate the structures from the new format to the old format. */
+  ret = safe_malloc (g, sizeof (struct guestfs_application_list));
+  ret->len = r->len;
+  ret->val =
+    safe_malloc (g, sizeof (struct guestfs_application) * r->len);
+  for (i = 0; i < r->len; ++i) {
+    ret->val[i].app_name = r->val[i].app2_name;
+    ret->val[i].app_display_name = r->val[i].app2_display_name;
+    ret->val[i].app_epoch = r->val[i].app2_epoch;
+    ret->val[i].app_version = r->val[i].app2_version;
+    ret->val[i].app_release = r->val[i].app2_release;
+    ret->val[i].app_install_path = r->val[i].app2_install_path;
+    ret->val[i].app_trans_path = r->val[i].app2_trans_path;
+    ret->val[i].app_publisher = r->val[i].app2_publisher;
+    ret->val[i].app_url = r->val[i].app2_url;
+    ret->val[i].app_source_package = r->val[i].app2_source_package;
+    ret->val[i].app_summary = r->val[i].app2_summary;
+    ret->val[i].app_description = r->val[i].app2_description;
+
+    /* The other strings that we don't copy must be freed. */
+    free (r->val[i].app2_arch);
+    free (r->val[i].app2_spare1);
+    free (r->val[i].app2_spare2);
+    free (r->val[i].app2_spare3);
+    free (r->val[i].app2_spare4);
+  }
+  free (r->val);                /* Must not free the other strings. */
+  free (r);
+
+  return ret;
+}
 
 /* Unlike the simple inspect-get-* calls, this one assumes that the
  * disks are mounted up, and reads files from the mounted disks.
  */
-struct guestfs_application_list *
-guestfs__inspect_list_applications (guestfs_h *g, const char *root)
+struct guestfs_application2_list *
+guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
 
-  struct guestfs_application_list *ret = NULL;
+  struct guestfs_application2_list *ret = NULL;
 
   /* Presently we can only list applications for installed disks.  It
    * is possible in future to get lists of packages from installers.
@@ -189,6 +236,7 @@ read_rpm_name (guestfs_h *g,
 /* tag constants, see rpmtag.h in RPM for complete list */
 #define RPMTAG_VERSION 1001
 #define RPMTAG_RELEASE 1002
+#define RPMTAG_ARCH 1022
 
 static char *
 get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
@@ -233,7 +281,7 @@ get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
 
 struct read_package_data {
   struct rpm_names_list *list;
-  struct guestfs_application_list *apps;
+  struct guestfs_application2_list *apps;
 };
 
 static int
@@ -244,7 +292,7 @@ read_package (guestfs_h *g,
 {
   struct read_package_data *data = datav;
   struct rpm_name nkey, *entry;
-  char *version, *release;
+  char *version, *release, *arch;
 
   /* This function reads one (key, value) pair from the Packages
    * database.  The key is the link field (see struct rpm_name).  The
@@ -271,24 +319,26 @@ read_package (guestfs_h *g,
 
   version = get_rpm_header_tag (g, value, valuelen, RPMTAG_VERSION);
   release = get_rpm_header_tag (g, value, valuelen, RPMTAG_RELEASE);
+  arch = get_rpm_header_tag (g, value, valuelen, RPMTAG_ARCH);
 
   /* Add the application and what we know. */
   if (version && release)
     add_application (g, data->apps, entry->name, "", 0, version, release,
-                     "", "", "", "");
+                     arch ? arch : "", "", "", "", "");
 
   free (version);
   free (release);
+  free (arch);
 
   return 0;
 }
 
-static struct guestfs_application_list *
+static struct guestfs_application2_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 {
   char *Name = NULL, *Packages = NULL;
   struct rpm_names_list list = { .names = NULL, .len = 0 };
-  struct guestfs_application_list *apps = NULL;
+  struct guestfs_application2_list *apps = NULL;
   struct read_package_data data;
 
   Name = guestfs___download_to_tmp (g, fs,
@@ -332,14 +382,14 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   free (Packages);
   free_rpm_names_list (&list);
   if (apps != NULL)
-    guestfs_free_application_list (apps);
+    guestfs_free_application2_list (apps);
 
   return NULL;
 }
 
 #endif /* defined DB_DUMP */
 
-static struct guestfs_application_list *
+static struct guestfs_application2_list *
 list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 {
   char *status = NULL;
@@ -348,7 +398,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   if (status == NULL)
     return NULL;
 
-  struct guestfs_application_list *apps = NULL, *ret = NULL;
+  struct guestfs_application2_list *apps = NULL, *ret = NULL;
   FILE *fp = NULL;
   char line[1024];
   size_t len;
@@ -403,7 +453,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
     else if (STREQ (line, "")) {
       if (installed_flag && name && version)
         add_application (g, apps, name, "", 0, version, release ? : "",
-                         "", "", "", "");
+                         "", "", "", "", "");
       free (name);
       free (version);
       free (release);
@@ -423,7 +473,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 
  out:
   if (ret == NULL && apps != NULL)
-    guestfs_free_application_list (apps);
+    guestfs_free_application2_list (apps);
   if (fp)
     fclose (fp);
   free (name);
@@ -433,9 +483,9 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   return ret;
 }
 
-static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_application_list *apps, const char **path, size_t path_len);
+static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_application2_list *apps, const char **path, size_t path_len);
 
-static struct guestfs_application_list *
+static struct guestfs_application2_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
   size_t len = strlen (fs->windows_systemroot) + 64;
@@ -447,7 +497,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   if (!software_path)
     return NULL;
 
-  struct guestfs_application_list *ret = NULL;
+  struct guestfs_application2_list *ret = NULL;
   const char *hivepath[] =
     { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
   const char *hivepath2[] =
@@ -481,7 +531,7 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 
 static void
 list_applications_windows_from_path (guestfs_h *g,
-                                     struct guestfs_application_list *apps,
+                                     struct guestfs_application2_list *apps,
                                      const char **path, size_t path_len)
 {
   struct guestfs_hivex_node_list *children = NULL;
@@ -544,7 +594,7 @@ list_applications_windows_from_path (guestfs_h *g,
 
         add_application (g, apps, name, display_name, 0,
                          version ? : "",
-                         "",
+                         "", "",
                          install_path ? : "",
                          publisher ? : "",
                          url ? : "",
@@ -565,48 +615,54 @@ list_applications_windows_from_path (guestfs_h *g,
 }
 
 static void
-add_application (guestfs_h *g, struct guestfs_application_list *apps,
+add_application (guestfs_h *g, struct guestfs_application2_list *apps,
                  const char *name, const char *display_name, int32_t epoch,
-                 const char *version, const char *release,
+                 const char *version, const char *release, const char *arch,
                  const char *install_path,
                  const char *publisher, const char *url,
                  const char *description)
 {
   apps->len++;
   apps->val = safe_realloc (g, apps->val,
-                            apps->len * sizeof (struct guestfs_application));
-  apps->val[apps->len-1].app_name = safe_strdup (g, name);
-  apps->val[apps->len-1].app_display_name = safe_strdup (g, display_name);
-  apps->val[apps->len-1].app_epoch = epoch;
-  apps->val[apps->len-1].app_version = safe_strdup (g, version);
-  apps->val[apps->len-1].app_release = safe_strdup (g, release);
-  apps->val[apps->len-1].app_install_path = safe_strdup (g, install_path);
+                            apps->len * sizeof (struct guestfs_application2));
+  apps->val[apps->len-1].app2_name = safe_strdup (g, name);
+  apps->val[apps->len-1].app2_display_name = safe_strdup (g, display_name);
+  apps->val[apps->len-1].app2_epoch = epoch;
+  apps->val[apps->len-1].app2_version = safe_strdup (g, version);
+  apps->val[apps->len-1].app2_release = safe_strdup (g, release);
+  apps->val[apps->len-1].app2_arch = safe_strdup (g, arch);
+  apps->val[apps->len-1].app2_install_path = safe_strdup (g, install_path);
   /* XXX Translated path is not implemented yet. */
-  apps->val[apps->len-1].app_trans_path = safe_strdup (g, "");
-  apps->val[apps->len-1].app_publisher = safe_strdup (g, publisher);
-  apps->val[apps->len-1].app_url = safe_strdup (g, url);
+  apps->val[apps->len-1].app2_trans_path = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_publisher = safe_strdup (g, publisher);
+  apps->val[apps->len-1].app2_url = safe_strdup (g, url);
   /* XXX The next two are not yet implemented for any package
    * format, but we could easily support them for rpm and deb.
    */
-  apps->val[apps->len-1].app_source_package = safe_strdup (g, "");
-  apps->val[apps->len-1].app_summary = safe_strdup (g, "");
-  apps->val[apps->len-1].app_description = safe_strdup (g, description);
+  apps->val[apps->len-1].app2_source_package = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_summary = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_description = safe_strdup (g, description);
+  /* XXX Reserved for future use. */
+  apps->val[apps->len-1].app2_spare1 = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_spare2 = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_spare3 = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_spare4 = safe_strdup (g, "");
 }
 
 /* Sort applications by name before returning the list. */
 static int
 compare_applications (const void *vp1, const void *vp2)
 {
-  const struct guestfs_application *v1 = vp1;
-  const struct guestfs_application *v2 = vp2;
+  const struct guestfs_application2 *v1 = vp1;
+  const struct guestfs_application2 *v2 = vp2;
 
-  return strcmp (v1->app_name, v2->app_name);
+  return strcmp (v1->app2_name, v2->app2_name);
 }
 
 static void
-sort_applications (struct guestfs_application_list *apps)
+sort_applications (struct guestfs_application2_list *apps)
 {
   if (apps && apps->val)
-    qsort (apps->val, apps->len, sizeof (struct guestfs_application),
+    qsort (apps->val, apps->len, sizeof (struct guestfs_application2),
            compare_applications);
 }

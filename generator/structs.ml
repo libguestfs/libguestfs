@@ -230,6 +230,30 @@ let structs = [
     ];
     s_camel_name = "Application" };
 
+  (* Application v2. *)
+  { defaults with
+    s_name = "application2";
+    s_cols = [
+    "app2_name", FString;
+    "app2_display_name", FString;
+    "app2_epoch", FInt32;
+    "app2_version", FString;
+    "app2_release", FString;
+    "app2_arch", FString;
+    "app2_install_path", FString;
+    "app2_trans_path", FString;
+    "app2_publisher", FString;
+    "app2_url", FString;
+    "app2_source_package", FString;
+    "app2_summary", FString;
+    "app2_description", FString;
+    "app2_spare1", FString;
+    "app2_spare2", FString;
+    "app2_spare3", FString;
+    "app2_spare4", FString;
+    ];
+    s_camel_name = "Application2" };
+
   (* ISO primary volume descriptor. *)
   { defaults with
     s_name = "isoinfo";
