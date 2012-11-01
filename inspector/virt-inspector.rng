@@ -111,6 +111,7 @@
           <optional><element name="epoch"><text/></element></optional>
           <optional><element name="version"><text/></element></optional>
           <optional><element name="release"><text/></element></optional>
+          <optional><element name="arch"><text/></element></optional>
           <optional><element name="install_path"><text/></element></optional>
           <optional><element name="publisher"><text/></element></optional>
           <optional><element name="url"><text/></element></optional>

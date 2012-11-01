@@ -705,13 +705,13 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
 static void
 output_applications (xmlTextWriterPtr xo, char *root)
 {
-  struct guestfs_application_list *apps;
+  struct guestfs_application2_list *apps;
   size_t i;
 
   /* This returns an empty list if we simply couldn't determine the
    * applications, so if it returns NULL then it's a real error.
    */
-  apps = guestfs_inspect_list_applications (g, root);
+  apps = guestfs_inspect_list_applications2 (g, root);
   if (apps == NULL)
     exit (EXIT_FAILURE);
 
@@ -720,64 +720,68 @@ output_applications (xmlTextWriterPtr xo, char *root)
   for (i = 0; i < apps->len; ++i) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "application"));
 
-    assert (apps->val[i].app_name && apps->val[i].app_name[0]);
+    assert (apps->val[i].app2_name && apps->val[i].app2_name[0]);
     XMLERROR (-1,
               xmlTextWriterWriteElement (xo, BAD_CAST "name",
-                                         BAD_CAST apps->val[i].app_name));
+                                         BAD_CAST apps->val[i].app2_name));
 
-    if (apps->val[i].app_display_name && apps->val[i].app_display_name[0])
+    if (apps->val[i].app2_display_name && apps->val[i].app2_display_name[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "display_name",
-                                   BAD_CAST apps->val[i].app_display_name));
+                                   BAD_CAST apps->val[i].app2_display_name));
 
-    if (apps->val[i].app_epoch != 0) {
+    if (apps->val[i].app2_epoch != 0) {
       char buf[32];
 
-      snprintf (buf, sizeof buf, "%d", apps->val[i].app_epoch);
+      snprintf (buf, sizeof buf, "%d", apps->val[i].app2_epoch);
 
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "epoch", BAD_CAST buf));
     }
 
-    if (apps->val[i].app_version && apps->val[i].app_version[0])
+    if (apps->val[i].app2_version && apps->val[i].app2_version[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "version",
-                                   BAD_CAST apps->val[i].app_version));
-    if (apps->val[i].app_release && apps->val[i].app_release[0])
+                                   BAD_CAST apps->val[i].app2_version));
+    if (apps->val[i].app2_release && apps->val[i].app2_release[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "release",
-                                   BAD_CAST apps->val[i].app_release));
-    if (apps->val[i].app_install_path && apps->val[i].app_install_path[0])
+                                   BAD_CAST apps->val[i].app2_release));
+    if (apps->val[i].app2_arch && apps->val[i].app2_arch[0])
+      XMLERROR (-1,
+        xmlTextWriterWriteElement (xo, BAD_CAST "arch",
+                                   BAD_CAST apps->val[i].app2_arch));
+    if (apps->val[i].app2_install_path && apps->val[i].app2_install_path[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "install_path",
-                                   BAD_CAST apps->val[i].app_install_path));
-    if (apps->val[i].app_publisher && apps->val[i].app_publisher[0])
+                                   BAD_CAST apps->val[i].app2_install_path));
+    if (apps->val[i].app2_publisher && apps->val[i].app2_publisher[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "publisher",
-                                   BAD_CAST apps->val[i].app_publisher));
-    if (apps->val[i].app_url && apps->val[i].app_url[0])
+                                   BAD_CAST apps->val[i].app2_publisher));
+    if (apps->val[i].app2_url && apps->val[i].app2_url[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "url",
-                                   BAD_CAST apps->val[i].app_url));
-    if (apps->val[i].app_source_package && apps->val[i].app_source_package[0])
+                                   BAD_CAST apps->val[i].app2_url));
+    if (apps->val[i].app2_source_package && apps->val[i].app2_source_package[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "source_package",
-                                   BAD_CAST apps->val[i].app_source_package));
-    if (apps->val[i].app_summary && apps->val[i].app_summary[0])
+                                   BAD_CAST apps->val[i].app2_source_package));
+    if (apps->val[i].app2_summary && apps->val[i].app2_summary[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "summary",
-                                   BAD_CAST apps->val[i].app_summary));
-    if (apps->val[i].app_description && apps->val[i].app_description[0])
+                                   BAD_CAST apps->val[i].app2_summary));
+    if (apps->val[i].app2_description && apps->val[i].app2_description[0])
       XMLERROR (-1,
         xmlTextWriterWriteElement (xo, BAD_CAST "description",
-                                   BAD_CAST apps->val[i].app_description));
+                                   BAD_CAST apps->val[i].app2_description));
 
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  guestfs_free_application_list (apps);
+  guestfs_free_application2_list (apps);
 }
 
 static void
