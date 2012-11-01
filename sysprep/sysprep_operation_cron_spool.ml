@@ -26,7 +26,9 @@ let cron_spool_perform g root =
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/*");
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/.SEQ");
   Array.iter g#rm (g#glob_expand "/var/spool/atspool/*");
-  Array.iter g#rm (g#glob_expand "/var/spool/at/*");
+  Array.iter
+    (fun path -> if not (g#is_dir path) then g#rm path)
+    (g#glob_expand "/var/spool/at/*");
   Array.iter g#rm (g#glob_expand "/var/spool/at/.SEQ");
   Array.iter g#rm (g#glob_expand "/var/spool/at/spool/*");
   []
