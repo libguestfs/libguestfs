@@ -1114,7 +1114,7 @@ alternate string:
  $ export GUESTFISH_PS1
  $ guestfish
  [...]
- (type a command) ls
+ (type a command) ▂
 
 You can also use special escape sequences, as described in the table
 below:
