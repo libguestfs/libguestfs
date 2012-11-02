@@ -1107,8 +1107,8 @@ I<--no-progress-bars>.
 
 You can change or add colours to the default prompt
 (C<E<gt>E<lt>fsE<gt>>) by setting the C<GUESTFISH_PS1> environment
-variable.  A simple change can be made simply by setting this to an
-alternate string:
+variable.  A simple prompt can be set by setting this to an alternate
+string:
 
  $ GUESTFISH_PS1='(type a command) '
  $ export GUESTFISH_PS1
