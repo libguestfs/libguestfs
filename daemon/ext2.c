@@ -1178,3 +1178,30 @@ error:
   if (err) free (err);
   return -1;
 }
+
+int
+do_mklost_and_found (const char *mountpoint)
+{
+  char *cmd;
+  int r;
+
+  if (asprintf_nowarn (&cmd, "cd %R && mklost+found", mountpoint) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
+
+  r = system (cmd);
+  if (r == -1) {
+    reply_with_perror ("system");
+    free (cmd);
+    return -1;
+  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    reply_with_error ("%s: command failed", cmd);
+    free (cmd);
+    return -1;
+  }
+  free (cmd);
+
+  return 0;
+}

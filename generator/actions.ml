@@ -10345,6 +10345,21 @@ If the optional C<suffix> parameter is given, then the suffix
 
 See also: C<guestfs_mkdtemp>." };
 
+  { defaults with
+    name = "mklost_and_found";
+    style = RErr, [Pathname "mountpoint"], [];
+    proc_nr = Some 374;
+    tests = [
+      InitBasicFS, Always, TestRun (
+        [["rm_rf"; "/lost+found"];
+         ["mklost_and_found"; "/"]])
+    ];
+    shortdesc = "make lost+found directory on an ext2/3/4 filesystem";
+    longdesc = "\
+Make the C<lost+found> directory, normally in the root directory
+of an ext2/3/4 filesystem.  C<mountpoint> is the directory under
+which we try to create the C<lost+found> directory." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

@@ -57,7 +57,6 @@ Ideas for extra commands
     e2image
     e2undo
     filefrag
-    mklost+found
 
   SELinux:
     chcat
