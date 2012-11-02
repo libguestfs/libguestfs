@@ -1182,7 +1182,9 @@ Without any parameter, this provides general help.
 
 With a C<cmd> parameter, this displays detailed help for that command.
 
-=head2 quit | exit
+=head2 exit
+
+=head2 quit
 
 This exits guestfish.  You can also use C<^D> key.
 
