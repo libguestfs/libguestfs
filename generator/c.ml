@@ -1388,11 +1388,28 @@ and generate_client_actions () =
 
   List.iter (
     fun f -> generate_daemon_stub f
-  ) daemon_functions;
+  ) daemon_functions
 
-  (* Functions which have optional arguments have two or three
-   * generated variants.
-   *)
+(* Functions which have optional arguments have two or three
+ * generated variants.
+ *)
+and generate_client_actions_variants () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <inttypes.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+#include \"guestfs-internal-actions.h\"
+
+";
+
   let generate_va_variants { name = name; c_name = c_name;
                              style = ret, args, optargs as style } =
     assert (optargs <> []); (* checked by caller *)

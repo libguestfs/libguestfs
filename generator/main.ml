@@ -83,8 +83,6 @@ Run it from the top source directory using the command
   output_to "src/guestfs_protocol.x" generate_xdr;
   output_to "src/guestfs.h" generate_guestfs_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
-  output_to "src/actions.c" generate_client_actions;
-  output_to "src/free-structs.c" generate_client_free_structs;
   output_to "src/bindtests.c" generate_bindtests;
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
@@ -94,6 +92,11 @@ Run it from the top source directory using the command
   output_to "src/errnostring.h" generate_errnostring_h;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
   output_to "src/libguestfs.syms" generate_linker_script;
+
+  output_to "src/free-structs.c" generate_client_free_structs;
+  output_to "src/actions.c" generate_client_actions;
+  output_to "src/actions-variants.c" generate_client_actions_variants;
+
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;
   output_to "daemon/names.c" generate_daemon_names;

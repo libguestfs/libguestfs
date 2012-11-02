@@ -24,6 +24,7 @@ generator_built = \
 	guestfs.h \
 	guestfs-internal-actions.h \
 	actions.c \
+	actions-variants.c \
 	bindtests.c \
 	errnostring-gperf.gperf \
 	errnostring.c \
@@ -125,6 +126,7 @@ libguestfs_la_SOURCES = \
 	guestfs_protocol.h \
 	actions.c \
 	actions-support.c \
+	actions-variants.c \
 	appliance.c \
 	bindtests.c \
 	command.c \

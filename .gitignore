@@ -341,6 +341,7 @@ Makefile.in
 /sparsify/virt-sparsify
 /sparsify/virt-sparsify.1
 /src/actions.c
+/src/actions-variants.c
 /src/bindtests.c
 /src/errnostring.c
 /src/errnostring-gperf.c
