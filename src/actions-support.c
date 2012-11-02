@@ -1,0 +1,113 @@
+/* libguestfs
+ * Copyright (C) 2009-2012 Red Hat Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/* Helper functions for the actions defined in src/actions.c */
+
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <unistd.h>
+#include <assert.h>
+
+#include "guestfs.h"
+#include "guestfs-internal.h"
+#include "guestfs-internal-actions.h"
+#include "guestfs_protocol.h"
+
+/* Check the return message from a call for validity. */
+int
+guestfs___check_reply_header (guestfs_h *g,
+                              const struct guestfs_message_header *hdr,
+                              unsigned int proc_nr, unsigned int serial)
+{
+  if (hdr->prog != GUESTFS_PROGRAM) {
+    error (g, "wrong program (%d/%d)", hdr->prog, GUESTFS_PROGRAM);
+    return -1;
+  }
+  if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
+    error (g, "wrong protocol version (%d/%d)",
+           hdr->vers, GUESTFS_PROTOCOL_VERSION);
+    return -1;
+  }
+  if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
+    error (g, "unexpected message direction (%d/%d)",
+           hdr->direction, GUESTFS_DIRECTION_REPLY);
+    return -1;
+  }
+  if (hdr->proc != proc_nr) {
+    error (g, "unexpected procedure number (%d/%d)", hdr->proc, proc_nr);
+    return -1;
+  }
+  if (hdr->serial != serial) {
+    error (g, "unexpected serial (%d/%d)", hdr->serial, serial);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Check the appliance is up when running a daemon_function. */
+int
+guestfs___check_appliance_up (guestfs_h *g, const char *caller)
+{
+  if (guestfs__is_config (g) || guestfs__is_launching (g)) {
+    error (g, "%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)",
+           caller);
+    return -1;
+  }
+  return 0;
+}
+
+/* Convenience wrapper for tracing. */
+FILE *
+guestfs___trace_open (guestfs_h *g)
+{
+  assert (g->trace_fp == NULL);
+  g->trace_buf = NULL;
+  g->trace_len = 0;
+  g->trace_fp = open_memstream (&g->trace_buf, &g->trace_len);
+  if (g->trace_fp)
+    return g->trace_fp;
+  else
+    return stderr;
+}
+
+void
+guestfs___trace_send_line (guestfs_h *g)
+{
+  char *buf;
+  size_t len;
+
+  if (g->trace_fp) {
+    fclose (g->trace_fp);
+    g->trace_fp = NULL;
+
+    /* The callback might invoke other libguestfs calls, so keep
+     * a copy of the pointer to the buffer and length.
+     */
+    buf = g->trace_buf;
+    len = g->trace_len;
+    g->trace_buf = NULL;
+    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, buf, len);
+
+    free (buf);
+  }
+}

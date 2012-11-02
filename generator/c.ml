@@ -739,98 +739,15 @@ and generate_client_actions () =
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <string.h>
 #include <inttypes.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <assert.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-internal.h\"
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 #include \"errnostring.h\"
-
-/* Check the return message from a call for validity. */
-static int
-check_reply_header (guestfs_h *g,
-                    const struct guestfs_message_header *hdr,
-                    unsigned int proc_nr, unsigned int serial)
-{
-  if (hdr->prog != GUESTFS_PROGRAM) {
-    error (g, \"wrong program (%%d/%%d)\", hdr->prog, GUESTFS_PROGRAM);
-    return -1;
-  }
-  if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
-    error (g, \"wrong protocol version (%%d/%%d)\",
-           hdr->vers, GUESTFS_PROTOCOL_VERSION);
-    return -1;
-  }
-  if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
-    error (g, \"unexpected message direction (%%d/%%d)\",
-           hdr->direction, GUESTFS_DIRECTION_REPLY);
-    return -1;
-  }
-  if (hdr->proc != proc_nr) {
-    error (g, \"unexpected procedure number (%%d/%%d)\", hdr->proc, proc_nr);
-    return -1;
-  }
-  if (hdr->serial != serial) {
-    error (g, \"unexpected serial (%%d/%%d)\", hdr->serial, serial);
-    return -1;
-  }
-
-  return 0;
-}
-
-/* Check the appliance is up when running a daemon_function. */
-static int
-check_appliance_up (guestfs_h *g, const char *caller)
-{
-  if (guestfs__is_config (g) || guestfs__is_launching (g)) {
-    error (g, \"%%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)\",
-           caller);
-    return -1;
-  }
-  return 0;
-}
-
-/* Convenience wrapper for tracing. */
-static FILE *
-trace_open (guestfs_h *g)
-{
-  assert (g->trace_fp == NULL);
-  g->trace_buf = NULL;
-  g->trace_len = 0;
-  g->trace_fp = open_memstream (&g->trace_buf, &g->trace_len);
-  if (g->trace_fp)
-    return g->trace_fp;
-  else
-    return stderr;
-}
-
-static void
-trace_send_line (guestfs_h *g)
-{
-  char *buf;
-  size_t len;
-
-  if (g->trace_fp) {
-    fclose (g->trace_fp);
-    g->trace_fp = NULL;
-
-    /* The callback might invoke other libguestfs calls, so keep
-     * a copy of the pointer to the buffer and length.
-     */
-    buf = g->trace_buf;
-    len = g->trace_len;
-    g->trace_buf = NULL;
-    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, buf, len);
-
-    free (buf);
-  }
-}
 
 ";
 
@@ -959,7 +876,7 @@ trace_send_line (guestfs_h *g)
       pr "\n"
     );
 
-    pr "    trace_fp = trace_open (g);\n";
+    pr "    trace_fp = guestfs___trace_open (g);\n";
 
     pr "    fprintf (trace_fp, \"%%s\", \"%s\");\n" name;
 
@@ -1028,7 +945,7 @@ trace_send_line (guestfs_h *g)
         pr "    }\n"
     ) optargs;
 
-    pr "    trace_send_line (g);\n";
+    pr "    guestfs___trace_send_line (g);\n";
     pr "  }\n";
     pr "\n";
   in
@@ -1047,7 +964,7 @@ trace_send_line (guestfs_h *g)
       pr "\n"
     );
 
-    pr "%s  trace_fp = trace_open (g);\n" indent;
+    pr "%s  trace_fp = guestfs___trace_open (g);\n" indent;
 
     pr "%s  fprintf (trace_fp, \"%%s = \", \"%s\");\n" indent name;
 
@@ -1083,7 +1000,7 @@ trace_send_line (guestfs_h *g)
          pr "%s  fprintf (trace_fp, \"<struct guestfs_%s_list *>\");\n"
            indent typ (* XXX *)
     );
-    pr "%s  trace_send_line (g);\n" indent;
+    pr "%s  guestfs___trace_send_line (g);\n" indent;
     pr "%s}\n" indent;
     pr "\n";
   in
@@ -1268,7 +1185,7 @@ trace_send_line (guestfs_h *g)
     ) args;
 
     (* This is a daemon_function so check the appliance is up. *)
-    pr "  if (check_appliance_up (g, \"%s\") == -1) {\n" name;
+    pr "  if (guestfs___check_appliance_up (g, \"%s\") == -1) {\n" name;
     trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
     pr "  }\n";
@@ -1388,7 +1305,7 @@ trace_send_line (guestfs_h *g)
     pr "  }\n";
     pr "\n";
 
-    pr "  if (check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
+    pr "  if (guestfs___check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
       (String.uppercase name);
     trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);

@@ -493,6 +493,12 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
 #define safe_memdup guestfs_safe_memdup
 #define safe_asprintf guestfs_safe_asprintf
 
+/* actions-support.c */
+extern int guestfs___check_reply_header (guestfs_h *g, const struct guestfs_message_header *hdr, unsigned int proc_nr, unsigned int serial);
+extern int guestfs___check_appliance_up (guestfs_h *g, const char *caller);
+extern FILE *guestfs___trace_open (guestfs_h *g);
+extern void guestfs___trace_send_line (guestfs_h *g);
+
 /* match.c */
 extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
 extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
