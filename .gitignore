@@ -340,7 +340,7 @@ Makefile.in
 /sparsify/stamp-virt-sparsify.pod
 /sparsify/virt-sparsify
 /sparsify/virt-sparsify.1
-/src/actions.c
+/src/actions-?.c
 /src/actions-variants.c
 /src/bindtests.c
 /src/errnostring.c

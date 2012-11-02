@@ -94,8 +94,12 @@ Run it from the top source directory using the command
   output_to "src/libguestfs.syms" generate_linker_script;
 
   output_to "src/free-structs.c" generate_client_free_structs;
-  output_to "src/actions.c" generate_client_actions;
   output_to "src/actions-variants.c" generate_client_actions_variants;
+
+  for i = 0 to nr_actions_files-1 do
+    let filename = sprintf "src/actions-%d.c" i in
+    output_to filename (generate_client_actions i)
+  done;
 
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;

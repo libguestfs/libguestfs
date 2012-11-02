@@ -32,6 +32,16 @@ open Events
 
 (* Generate C API. *)
 
+(* The actions are split across this many C files.  You can increase
+ * this number in order to reduce the number of lines in each file
+ * (hence making compilation faster), but you also have to modify
+ * src/Makefile.am.
+ *)
+let nr_actions_files = 7
+let hash_matches h { name = name } =
+  let h' = Hashtbl.hash name mod nr_actions_files in
+  h = h'
+
 type optarg_proto = Dots | VA | Argv
 
 (* Generate a C function prototype. *)
@@ -730,7 +740,7 @@ and generate_client_free_structs () =
   ) structs
 
 (* Generate the client-side dispatch stubs. *)
-and generate_client_actions () =
+and generate_client_actions hash () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
@@ -1096,7 +1106,8 @@ and generate_client_actions () =
   in
 
   List.iter (
-    fun f -> generate_non_daemon_wrapper f
+    fun f ->
+      if hash_matches hash f then generate_non_daemon_wrapper f
   ) non_daemon_functions;
 
   (* Client-side stubs for each function. *)
@@ -1387,7 +1398,8 @@ and generate_client_actions () =
   in
 
   List.iter (
-    fun f -> generate_daemon_stub f
+    fun f ->
+      if hash_matches hash f then generate_daemon_stub f
   ) daemon_functions
 
 (* Functions which have optional arguments have two or three
