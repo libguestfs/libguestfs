@@ -6756,7 +6756,8 @@ is I<not> intended that you try to parse the output string.");
 
   ("wipefs", (RErr, [Device "device"], []), 306, [Optional "wipefs"],
    [InitBasicFSonLVM, Always, TestRun (
-      [["wipefs"; "/dev/VG/LV"]])],
+      [["umount"; "/dev/VG/LV"];
+       ["wipefs"; "/dev/VG/LV"]])],
    "wipe a filesystem signature from a device",
    "\
 This command erases filesystem or RAID signatures from
