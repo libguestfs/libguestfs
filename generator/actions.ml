@@ -8967,7 +8967,8 @@ is I<not> intended that you try to parse the output string." };
     optional = Some "wipefs";
     tests = [
       InitBasicFSonLVM, Always, TestRun (
-        [["wipefs"; "/dev/VG/LV"]])
+        [["umount"; "/dev/VG/LV"; ""; ""];
+         ["wipefs"; "/dev/VG/LV"]])
     ];
     shortdesc = "wipe a filesystem signature from a device";
     longdesc = "\
