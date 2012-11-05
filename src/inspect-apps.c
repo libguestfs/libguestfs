@@ -402,7 +402,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   FILE *fp = NULL;
   char line[1024];
   size_t len;
-  char *name = NULL, *version = NULL, *release = NULL;
+  char *name = NULL, *version = NULL, *release = NULL, *arch = NULL;
   int installed_flag = 0;
 
   fp = fopen (status, "r");
@@ -450,14 +450,19 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
         release = NULL;
       }
     }
+    else if (STRPREFIX (line, "Architecture: ")) {
+      free (arch);
+      arch = safe_strdup (g, &line[14]);
+    }
     else if (STREQ (line, "")) {
       if (installed_flag && name && version)
         add_application (g, apps, name, "", 0, version, release ? : "",
-                         "", "", "", "", "");
+                         arch ? : "", "", "", "", "");
       free (name);
       free (version);
       free (release);
-      name = version = release = NULL;
+      free (arch);
+      name = version = release = arch = NULL;
       installed_flag = 0;
     }
   }
