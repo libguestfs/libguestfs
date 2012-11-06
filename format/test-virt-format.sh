@@ -20,6 +20,11 @@
 
 set -e
 
+if [ -n "$SKIP_TEST_VIRT_FORMAT_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
+
 rm -f test1.img
 
 ../fish/guestfish -N bootrootlv exit
