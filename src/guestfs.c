@@ -195,6 +195,18 @@ parse_environment (guestfs_h *g,
   if (str != NULL && STREQ (str, "1"))
     guestfs_set_verbose (g, 1);
 
+  str = do_getenv (data, "LIBGUESTFS_TMPDIR");
+  if (str)
+    guestfs_set_tmpdir (g, str);
+
+  str = do_getenv (data, "LIBGUESTFS_CACHEDIR");
+  if (str)
+    guestfs_set_cachedir (g, str);
+
+  free (g->env_tmpdir);
+  str = do_getenv (data, "TMPDIR");
+  g->env_tmpdir = str ? safe_strdup (g, str) : NULL;
+
   str = do_getenv (data, "LIBGUESTFS_PATH");
   if (str)
     guestfs_set_path (g, str);
@@ -300,13 +312,12 @@ guestfs_close (guestfs_h *g)
   /* Run user close callbacks. */
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
 
-  /* Remove whole temporary directory. */
-  if (g->tmpdir)
-    guestfs___remove_tmpdir (g, g->tmpdir);
-
   /* Test output file used by bindtests. */
   if (g->test_fp != NULL)
     fclose (g->test_fp);
+
+  /* Remove temporary directory. */
+  guestfs___remove_tmpdir (g);
 
   /* Mark the handle as dead and then free up all memory. */
   g->state = NO_HANDLE;

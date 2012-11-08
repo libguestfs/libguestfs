@@ -307,9 +307,11 @@ static void
 edit (const char *filename, const char *root)
 {
   char *filename_to_free = NULL;
-  const char *tmpdir = guestfs_tmpdir ();
+  char *tmpdir = guestfs_get_tmpdir (g);
   char tmpfile[strlen (tmpdir) + 32];
   sprintf (tmpfile, "%s/virteditXXXXXX", tmpdir);
+  free (tmpdir);
+
   int fd;
   char fdbuf[32];
   char *upload_from = NULL;

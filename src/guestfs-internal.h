@@ -71,10 +71,11 @@
 #define TRACE4(name, arg1, arg2, arg3, arg4)
 #endif
 
-#define TMP_TEMPLATE_ON_STACK(var)                        \
-  const char *ttos_tmpdir = guestfs_tmpdir ();            \
+#define TMP_TEMPLATE_ON_STACK(g,var)                      \
+  char *ttos_tmpdir = guestfs_get_tmpdir (g);             \
   char var[strlen (ttos_tmpdir) + 32];                    \
-  sprintf (var, "%s/libguestfsXXXXXX", ttos_tmpdir)       \
+  sprintf (var, "%s/libguestfsXXXXXX", ttos_tmpdir);      \
+  free (ttos_tmpdir)
 
 #ifdef __APPLE__
 #define UNIX_PATH_MAX 104
@@ -234,10 +235,18 @@ struct guestfs_h
   const struct attach_ops *attach_ops;
 
   /**** Runtime information. ****/
-  char *tmpdir;			/* Temporary directory containing socket. */
-
   char *last_error;             /* Last error on handle. */
   int last_errnum;              /* errno, or 0 if there was no errno */
+
+  /* Temporary and cache directories. */
+  /* The actual temporary directory - this is not created with the
+   * handle, you have to call guestfs___lazy_make_tmpdir.
+   */
+  char *tmpdir;
+  /* Environment variables that affect tmpdir/cachedir locations. */
+  char *env_tmpdir;             /* $TMPDIR (NULL if not set) */
+  char *int_tmpdir;   /* $LIBGUESTFS_TMPDIR or guestfs_set_tmpdir or NULL */
+  char *int_cachedir; /* $LIBGUESTFS_CACHEDIR or guestfs_set_cachedir or NULL */
 
   /* Callbacks. */
   guestfs_abort_cb           abort_cb;
@@ -526,13 +535,15 @@ extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
 extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, const char *buf, size_t buf_len);
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
 
+/* tmpdirs.c */
+extern int guestfs___lazy_make_tmpdir (guestfs_h *g);
+extern void guestfs___remove_tmpdir (guestfs_h *g);
+extern void guestfs___recursive_remove_dir (guestfs_h *g, const char *dir);
+
 /* appliance.c */
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 
 /* launch.c */
-extern const char *guestfs___persistent_tmpdir (void);
-extern int guestfs___lazy_make_tmpdir (guestfs_h *g);
-extern void guestfs___remove_tmpdir (guestfs_h *g, const char *dir);
 extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);

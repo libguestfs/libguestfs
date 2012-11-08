@@ -127,7 +127,7 @@ is_regular_file (const char *filename)
 static char *
 cpio_arch (guestfs_h *g, const char *file, const char *path)
 {
-  TMP_TEMPLATE_ON_STACK (dir);
+  TMP_TEMPLATE_ON_STACK (g, dir);
 #define dir_len (strlen (dir))
 #define initrd_len (dir_len + 16)
   char initrd[initrd_len];
@@ -221,7 +221,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   if (cmd)
     guestfs___cmd_close (cmd);
 
-  guestfs___remove_tmpdir (g, dir);
+  guestfs___recursive_remove_dir (g, dir);
 
   return ret;
 #undef dir_len

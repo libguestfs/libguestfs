@@ -41,9 +41,10 @@
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
 #define TMP_TEMPLATE_ON_STACK(var)                        \
-  const char *ttos_tmpdir = guestfs_tmpdir ();            \
+  char *ttos_tmpdir = guestfs_get_tmpdir (g);             \
   char var[strlen (ttos_tmpdir) + 32];                    \
-  sprintf (var, "%s/guestfishXXXXXX", ttos_tmpdir)        \
+  sprintf (var, "%s/guestfishXXXXXX", ttos_tmpdir);       \
+  free (ttos_tmpdir)
 
 /* in fish.c */
 extern guestfs_h *g;

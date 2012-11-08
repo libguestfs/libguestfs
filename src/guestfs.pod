@@ -2934,7 +2934,7 @@ C<febootstrap-supermin-helper> is invoked to create the kernel, a
 small initrd and the appliance.
 
 The appliance is cached in C</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in
-another directory if C<TMPDIR> is set).
+another directory if C<LIBGUESTFS_CACHEDIR> or C<TMPDIR> are set).
 
 For a complete description of how the appliance is created and cached,
 read the L<febootstrap(8)> and L<febootstrap-supermin-helper(8)> man
@@ -3890,6 +3890,17 @@ Pass additional options to the guest kernel.
 Choose the default way to create the appliance.  See
 L</guestfs_set_attach_method>.
 
+=item LIBGUESTFS_CACHEDIR
+
+The location where libguestfs will cache its appliance, when
+using a supermin appliance.  The appliance is cached and shared
+between all handles which have the same effective user ID.
+
+If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If
+C<TMPDIR> is not set, then C</var/tmp> is used.
+
+See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>.
+
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
@@ -3915,6 +3926,16 @@ used.
 
 See also L</QEMU WRAPPERS> above.
 
+=item LIBGUESTFS_TMPDIR
+
+The location where libguestfs will store temporary files used
+by each handle.
+
+If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If
+C<TMPDIR> is not set, then C</tmp> is used.
+
+See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>.
+
 =item LIBGUESTFS_TRACE
 
 Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This
@@ -3922,14 +3943,7 @@ has the same effect as calling C<guestfs_set_trace (g, 1)>.
 
 =item TMPDIR
 
-Location of temporary directory, defaults to C</tmp> except for the
-cached supermin appliance which defaults to C</var/tmp>.
-
-If libguestfs was compiled to use the supermin appliance then the
-real appliance is cached in this directory, shared between all
-handles belonging to the same EUID.  You can use C<$TMPDIR> to
-configure another directory to use in case C</var/tmp> is not large
-enough.
+See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 
 =back
 

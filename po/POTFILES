@@ -254,6 +254,7 @@ src/libvirt-domain.c
 src/listfs.c
 src/match.c
 src/proto.c
+src/tmpdirs.c
 test-tool/test-tool.c
 tools/virt-list-filesystems.pl
 tools/virt-list-partitions.pl

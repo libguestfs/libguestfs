@@ -39,6 +39,7 @@ if ENABLE_APPLIANCE
 SUBDIRS += tests/qemu
 SUBDIRS += tests/guests
 SUBDIRS += tests/c-api
+SUBDIRS += tests/tmpdirs
 SUBDIRS += tests/protocol
 SUBDIRS += tests/disks
 SUBDIRS += tests/lvm

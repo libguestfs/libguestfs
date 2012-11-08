@@ -103,11 +103,9 @@ mkdir -p "$outputdir"
 guestfish -a /dev/null run
 
 # Find the location of the appliance.
-if [ -n "$TMPDIR" ]; then
-    appliancedir="$TMPDIR/.guestfs-$(id -u)"
-else
-    appliancedir="/var/tmp/.guestfs-$(id -u)"
-fi
+cachedir="$(guestfish get-cachedir)"
+euid="$(id -u)"
+appliancedir="$cachedir/.guestfs-$euid"
 
 cp "$appliancedir/kernel" "$outputdir/kernel"
 cp "$appliancedir/initrd" "$outputdir/initrd"

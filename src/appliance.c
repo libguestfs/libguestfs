@@ -354,7 +354,7 @@ check_for_cached_appliance (guestfs_h *g,
                             uid_t uid,
                             char **kernel, char **initrd, char **appliance)
 {
-  const char *tmpdir = guestfs___persistent_tmpdir ();
+  char *tmpdir = guestfs_get_cachedir (g);
 
   /* len must be longer than the length of any pathname we can
    * generate in this function.
@@ -364,6 +364,8 @@ check_for_cached_appliance (guestfs_h *g,
   snprintf (cachedir, len, "%s/.guestfs-%d", tmpdir, uid);
   char filename[len];
   snprintf (filename, len, "%s/checksum", cachedir);
+
+  free (tmpdir);
 
   (void) mkdir (cachedir, 0755);
 
@@ -472,15 +474,18 @@ build_supermin_appliance (guestfs_h *g,
                           uid_t uid,
                           char **kernel, char **initrd, char **appliance)
 {
+  char *tmpdir;
+  size_t len;
+
   if (g->verbose)
     guestfs___print_timestamped_message (g, "begin building supermin appliance");
 
-  const char *tmpdir = guestfs___persistent_tmpdir ();
+  tmpdir = guestfs_get_cachedir (g);
 
   /* len must be longer than the length of any pathname we can
    * generate in this function.
    */
-  size_t len = strlen (tmpdir) + 128;
+  len = strlen (tmpdir) + 128;
 
   /* Build the appliance into a temporary directory. */
   char tmpcd[len];
@@ -488,6 +493,7 @@ build_supermin_appliance (guestfs_h *g,
 
   if (mkdtemp (tmpcd) == NULL) {
     perrorf (g, "mkdtemp");
+    free (tmpdir);
     return -1;
   }
 
@@ -496,7 +502,8 @@ build_supermin_appliance (guestfs_h *g,
 
   int r = run_supermin_helper (g, supermin_path, tmpcd);
   if (r == -1) {
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
+    free (tmpdir);
     return -1;
   }
 
@@ -509,13 +516,15 @@ build_supermin_appliance (guestfs_h *g,
   char filename2[len];
   snprintf (filename, len, "%s/checksum", cachedir);
 
+  free (tmpdir);
+
   /* Open and acquire write lock on checksum file.  The file might
    * not exist, in which case we want to create it.
    */
   int fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0755);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
   struct flock fl;
@@ -529,7 +538,7 @@ build_supermin_appliance (guestfs_h *g,
       goto again;
     perrorf (g, "fcntl: F_SETLKW: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
 
@@ -541,7 +550,7 @@ build_supermin_appliance (guestfs_h *g,
   if (ftruncate (fd, clen) == -1) {
     perrorf (g, "ftruncate: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
 
@@ -549,13 +558,13 @@ build_supermin_appliance (guestfs_h *g,
   if (rr == -1) {
     perrorf (g, "write: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
   if ((size_t) rr != clen) {
     error (g, "partial write: %s", filename);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
 
@@ -565,7 +574,7 @@ build_supermin_appliance (guestfs_h *g,
   if (rename (filename, filename2) == -1) {
     perrorf (g, "rename: %s %s", filename, filename2);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
 
@@ -575,7 +584,7 @@ build_supermin_appliance (guestfs_h *g,
   if (rename (filename, filename2) == -1) {
     perrorf (g, "rename: %s %s", filename, filename2);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
 
@@ -585,11 +594,11 @@ build_supermin_appliance (guestfs_h *g,
   if (rename (filename, filename2) == -1) {
     perrorf (g, "rename: %s %s", filename, filename2);
     close (fd);
-    guestfs___remove_tmpdir (g, tmpcd);
+    guestfs___recursive_remove_dir (g, tmpcd);
     return -1;
   }
 
-  guestfs___remove_tmpdir (g, tmpcd);
+  guestfs___recursive_remove_dir (g, tmpcd);
 
   /* Now finish off by linking to the cached appliance and returning it. */
   if (hard_link_to_cached_appliance (g, cachedir,

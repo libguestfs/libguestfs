@@ -165,6 +165,7 @@ libguestfs_la_SOURCES = \
 	listfs.c \
 	match.c \
 	proto.c \
+	tmpdirs.c \
 	libguestfs.syms
 
 libguestfs_la_LIBADD = \

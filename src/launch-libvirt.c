@@ -1043,16 +1043,15 @@ static int
 construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
 {
   struct qemu_param *qp;
-  const char *tmpdir;
+  char *tmpdir;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:commandline"));
 
-  /* We need to ensure the snapshots are created in $TMPDIR (RHBZ#856619).
-   * If TMPDIR is not set, we must choose one, because otherwise libvirt
-   * will use a random TMPDIR (RHBZ#865464).  Luckily the
-   * guestfs___persistent_tmpdir function does both of these tasks.
+  /* We need to ensure the snapshots are created in the persistent
+   * temporary directory (RHBZ#856619).  We must set one, because
+   * otherwise libvirt will use a random TMPDIR (RHBZ#865464).
    */
-  tmpdir = guestfs___persistent_tmpdir ();
+  tmpdir = guestfs_get_cachedir (g);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:env"));
   XMLERROR (-1,
@@ -1062,6 +1061,8 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g, xmlTextWriterPtr xo)
             xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
                                          BAD_CAST tmpdir));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  free (tmpdir);
 
   /* Workaround because libvirt user networking cannot specify "net="
    * parameter.

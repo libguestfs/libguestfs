@@ -2677,6 +2677,53 @@ This is the same as C<guestfs_parse_environment> except that
 it parses an explicit list of strings instead of the program's
 environment." };
 
+  { defaults with
+    name = "set_tmpdir";
+    style = RErr, [OptString "tmpdir"], [];
+    fish_alias = ["tmpdir"]; config_only = true;
+    blocking = false;
+    shortdesc = "set the temporary directory";
+    longdesc = "\
+Set the directory used by the handle to store temporary files.
+
+The environment variables C<LIBGUESTFS_TMPDIR> and C<TMPDIR>
+control the default value: If C<LIBGUESTFS_TMPDIR> is set, then
+that is the default.  Else if C<TMPDIR> is set, then that is
+the default.  Else C</tmp> is the default." };
+
+  { defaults with
+    name = "get_tmpdir";
+    style = RString "tmpdir", [], [];
+    blocking = false;
+    shortdesc = "get the temporary directory";
+    longdesc = "\
+Get the directory used by the handle to store temporary files." };
+
+  { defaults with
+    name = "set_cachedir";
+    style = RErr, [OptString "cachedir"], [];
+    fish_alias = ["cachedir"]; config_only = true;
+    blocking = false;
+    shortdesc = "set the appliance cache directory";
+    longdesc = "\
+Set the directory used by the handle to store the appliance
+cache, when using a supermin appliance.  The appliance is
+cached and shared between all handles which have the same
+effective user ID.
+
+The environment variables C<LIBGUESTFS_CACHEDIR> and C<TMPDIR>
+control the default value: If C<LIBGUESTFS_CACHEDIR> is set, then
+that is the default.  Else if C<TMPDIR> is set, then that is
+the default.  Else C</var/tmp> is the default." };
+
+  { defaults with
+    name = "get_cachedir";
+    style = RString "cachedir", [], [];
+    blocking = false;
+    shortdesc = "get the appliance cache directory";
+    longdesc = "\
+Get the directory used by the handle to store the appliance cache." };
+
 ]
 
 (* daemon_functions are any functions which cause some action

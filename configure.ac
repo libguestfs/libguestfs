@@ -1400,6 +1400,7 @@ AC_CONFIG_FILES([Makefile
                  tests/regressions/Makefile
                  tests/rsync/Makefile
                  tests/selinux/Makefile
+                 tests/tmpdirs/Makefile
                  tests/xml/Makefile
                  tools/Makefile])
 AC_OUTPUT
