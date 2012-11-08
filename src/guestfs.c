@@ -187,13 +187,13 @@ parse_environment (guestfs_h *g,
    * that cannot return errors.
    */
 
-  str = do_getenv (data, "LIBGUESTFS_DEBUG");
-  if (str != NULL && STREQ (str, "1"))
-    guestfs_set_verbose (g, 1);
-
   str = do_getenv (data, "LIBGUESTFS_TRACE");
   if (str != NULL && STREQ (str, "1"))
     guestfs_set_trace (g, 1);
+
+  str = do_getenv (data, "LIBGUESTFS_DEBUG");
+  if (str != NULL && STREQ (str, "1"))
+    guestfs_set_verbose (g, 1);
 
   str = do_getenv (data, "LIBGUESTFS_PATH");
   if (str)
