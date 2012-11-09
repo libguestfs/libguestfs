@@ -395,13 +395,6 @@ main (int argc, char *argv[])
   if (guestfs_mount_local_argv (g, argv[optind], &optargs) == -1)
     exit (EXIT_FAILURE);
 
-  /* At the last minute, remove the libguestfs error handler.  In code
-   * above this point, the default error handler has been used which
-   * sends all errors to stderr.  From now on, the FUSE code will
-   * convert errors into error codes (errnos) when appropriate.
-   */
-  guestfs_set_error_handler (g, NULL, NULL);
-
   /* Daemonize. */
   if (do_fork) {
     pid_t pid;
@@ -443,8 +436,17 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
   }
 
+  /* At the last minute, remove the libguestfs error handler.  In code
+   * above this point, the default error handler has been used which
+   * sends all errors to stderr.  From now on, the FUSE code will
+   * convert errors into error codes (errnos) when appropriate.
+   */
+  guestfs_push_error_handler (g, NULL, NULL);
+
   /* Main loop. */
   r = guestfs_mount_local_run (g);
+
+  guestfs_pop_error_handler (g);
 
   /* Cleanup. */
   if (guestfs_shutdown (g) == -1)
