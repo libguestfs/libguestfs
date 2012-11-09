@@ -74,16 +74,6 @@ print_strings (char *const *argv)
     printf (\"\\t%%s\\n\", argv[argc]);
 }
 
-/*
-static void print_table (char const *const *argv)
-{
-  size_t i;
-
-  for (i = 0; argv[i] != NULL; i += 2)
-    printf (\"%%s: %%s\\n\", argv[i], argv[i+1]);
-}
-*/
-
 static int
 is_available (const char *group)
 {
