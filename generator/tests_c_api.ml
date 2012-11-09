@@ -55,14 +55,6 @@ let rec generate_tests () =
 //#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
 static guestfs_h *g;
-static int suppress_error = 0;
-
-static void
-print_error (guestfs_h *g, void *data, const char *msg)
-{
-  if (!suppress_error)
-    fprintf (stderr, \"%%s\\n\", msg);
-}
 
 /* FIXME: nearly identical code appears in fish.c */
 static void
@@ -80,9 +72,9 @@ is_available (const char *group)
   const char *groups[] = { group, NULL };
   int r;
 
-  suppress_error = 1;
+  guestfs_push_error_handler (g, NULL, NULL);
   r = guestfs_available (g, (char **) groups);
-  suppress_error = 0;
+  guestfs_pop_error_handler (g);
 
   return r == 0;
 }
@@ -210,8 +202,6 @@ main (int argc, char *argv[])
     printf (\"guestfs_create FAILED\\n\");
     exit (EXIT_FAILURE);
   }
-
-  guestfs_set_error_handler (g, print_error, NULL);
 
   filename = \"test1.img\";
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
@@ -901,7 +891,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
            pr "    size_t size;\n"
       );
 
-      pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
+      if expect_error then
+        pr "    guestfs_push_error_handler (g, NULL, NULL);\n";
       pr "    r = %s (g" f.c_function;
 
       (* Generate the parameters. *)
@@ -946,6 +937,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         pr ", &optargs";
 
       pr ");\n";
+
+      if expect_error then
+        pr "    guestfs_pop_error_handler (g);\n";
 
       (match errcode_of_ret style_ret, expect_error with
        | `CannotReturnError, _ -> ()
