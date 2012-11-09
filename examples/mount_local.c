@@ -130,14 +130,14 @@ main (int argc, char *argv[])
     }
 
     printf ("\n"
-            "The _current directory_ is a FUSE filesystem backed by the disk\n"
+            "The *current directory* is a FUSE filesystem backed by the disk\n"
             "image which is managed by libguestfs.  Any files or directories\n"
             "you copy into here (up to %d MB) will be saved into the disk\n"
             "image.  You can also delete files, create certain special files\n"
             "and so on.\n"
             "\n"
-            "When you have finished adding files, hit ^D or exit to exit the\n"
-            "shell and return to the mount-local program.\n"
+            "When you have finished adding files, hit ^D or type 'exit' to\n"
+            "exit the shell and return to the mount-local program.\n"
             "\n",
             SIZE_MB);
 
