@@ -449,6 +449,10 @@ typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));
 
 extern GUESTFS_DLL_PUBLIC void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
 extern GUESTFS_DLL_PUBLIC guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **opaque_rtn);
+#define LIBGUESTFS_HAVE_PUSH_ERROR_HANDLER 1
+extern GUESTFS_DLL_PUBLIC void guestfs_push_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
+#define LIBGUESTFS_HAVE_POP_ERROR_HANDLER 1
+extern GUESTFS_DLL_PUBLIC void guestfs_pop_error_handler (guestfs_h *g);
 
 extern GUESTFS_DLL_PUBLIC void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern GUESTFS_DLL_PUBLIC guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
@@ -1566,6 +1570,8 @@ and generate_linker_script () =
     "guestfs_last_errno";
     "guestfs_last_error";
     "guestfs_next_private";
+    "guestfs_pop_error_handler";
+    "guestfs_push_error_handler";
     "guestfs_set_close_callback";
     "guestfs_set_error_handler";
     "guestfs_set_event_callback";

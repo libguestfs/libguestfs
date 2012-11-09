@@ -180,6 +180,13 @@ extern struct attach_ops attach_ops_appliance;
 extern struct attach_ops attach_ops_libvirt;
 extern struct attach_ops attach_ops_unix;
 
+/* Stack of old error handlers. */
+struct error_cb_stack {
+  struct error_cb_stack   *next;
+  guestfs_error_handler_cb error_cb;
+  void *                   error_cb_data;
+};
+
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
@@ -248,10 +255,13 @@ struct guestfs_h
   char *int_tmpdir;   /* $LIBGUESTFS_TMPDIR or guestfs_set_tmpdir or NULL */
   char *int_cachedir; /* $LIBGUESTFS_CACHEDIR or guestfs_set_cachedir or NULL */
 
-  /* Callbacks. */
-  guestfs_abort_cb           abort_cb;
+  /* Error handler, plus stack of old error handlers. */
   guestfs_error_handler_cb   error_cb;
   void *                     error_cb_data;
+  struct error_cb_stack     *error_cb_stack;
+
+  /* Out of memory error handler. */
+  guestfs_abort_cb           abort_cb;
 
   /* Events. */
   struct event *events;

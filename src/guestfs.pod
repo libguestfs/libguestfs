@@ -1904,6 +1904,32 @@ If you set C<cb> to C<NULL> then I<no> handler is called.
 
 Returns the current error handler callback.
 
+=head2 guestfs_push_error_handler
+
+ void guestfs_push_error_handler (guestfs_h *g,
+                                  guestfs_error_handler_cb cb,
+                                  void *opaque);
+
+This is the same as L</guestfs_set_error_handler>, except that the old
+error handler is stashed away in a stack inside the handle.  You can
+restore the previous error handler by calling
+L</guestfs_pop_error_handler>.
+
+Use the following code to temporarily disable errors around a function:
+
+ guestfs_push_error_handler (g, NULL, NULL);
+ guestfs_mkdir (g, "/foo"); /* We don't care if this fails. */
+ guestfs_pop_error_handler (g);
+
+=head2 guestfs_pop_error_handler
+
+ void guestfs_pop_error_handler (guestfs_h *g);
+
+Restore the previous error handler (see L</guestfs_push_error_handler>).
+
+If you pop the stack too many times, then the default error handler is
+restored.
+
 =head2 guestfs_set_out_of_memory_handler
 
  typedef void (*guestfs_abort_cb) (void);

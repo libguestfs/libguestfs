@@ -62,7 +62,7 @@
 #include "guestfs_protocol.h"
 
 static int parse_attach_method (guestfs_h *g, const char *method);
-static void default_error_cb (guestfs_h *g, void *data, const char *msg);
+static void init_error_handler (guestfs_h *g);
 static int shutdown_backend (guestfs_h *g, int check_for_errors);
 static void close_handles (void);
 
@@ -117,9 +117,8 @@ guestfs_create_flags (unsigned flags, ...)
   g->fd[1] = -1;
   g->sock = -1;
 
+  init_error_handler (g);
   g->abort_cb = abort;
-  g->error_cb = default_error_cb;
-  g->error_cb_data = NULL;
 
   g->recovery_proc = 1;
   g->autosync = 1;
@@ -340,6 +339,9 @@ guestfs_close (guestfs_h *g)
     free (qp);
   }
 
+  while (g->error_cb_stack)
+    guestfs_pop_error_handler (g);
+
   if (g->pda)
     hash_free (g->pda);
   free (g->tmpdir);
@@ -498,12 +500,6 @@ guestfs___trace (guestfs_h *g, const char *fs, ...)
   guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, msg, len);
 
   free (msg);
-}
-
-static void
-default_error_cb (guestfs_h *g, void *data, const char *msg)
-{
-  fprintf (stderr, _("libguestfs: error: %s\n"), msg);
 }
 
 void
@@ -678,6 +674,52 @@ guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
 {
   if (data_rtn) *data_rtn = g->error_cb_data;
   return g->error_cb;
+}
+
+void
+guestfs_push_error_handler (guestfs_h *g,
+                            guestfs_error_handler_cb cb, void *data)
+{
+  struct error_cb_stack *old_stack;
+
+  old_stack = g->error_cb_stack;
+  g->error_cb_stack = safe_malloc (g, sizeof (struct error_cb_stack));
+  g->error_cb_stack->next = old_stack;
+  g->error_cb_stack->error_cb = g->error_cb;
+  g->error_cb_stack->error_cb_data = g->error_cb_data;
+
+  guestfs_set_error_handler (g, cb, data);
+}
+
+void
+guestfs_pop_error_handler (guestfs_h *g)
+{
+  struct error_cb_stack *next_stack;
+
+  if (g->error_cb_stack) {
+    next_stack = g->error_cb_stack->next;
+    guestfs_set_error_handler (g, g->error_cb_stack->error_cb,
+                               g->error_cb_stack->error_cb_data);
+    free (g->error_cb_stack);
+    g->error_cb_stack = next_stack;
+  }
+  else
+    init_error_handler (g);
+}
+
+static void default_error_cb (guestfs_h *g, void *data, const char *msg);
+
+static void
+init_error_handler (guestfs_h *g)
+{
+  g->error_cb = default_error_cb;
+  g->error_cb_data = NULL;
+}
+
+static void
+default_error_cb (guestfs_h *g, void *data, const char *msg)
+{
+  fprintf (stderr, _("libguestfs: error: %s\n"), msg);
 }
 
 void
