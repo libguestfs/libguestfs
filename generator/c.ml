@@ -426,6 +426,7 @@ typedef struct guestfs_h guestfs_h;
 
 /* Connection management. */
 extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create (void);
+#define LIBGUESTFS_HAVE_CREATE_FLAGS 1
 extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create_flags (unsigned flags, ...);
 #define GUESTFS_CREATE_NO_ENVIRONMENT   (1 << 0)
 #define GUESTFS_CREATE_NO_CLOSE_ON_EXIT (1 << 1)
