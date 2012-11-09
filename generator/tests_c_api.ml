@@ -135,8 +135,11 @@ get_key (char **hash, const char *key)
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
-  pr "static void no_test_warnings (void)\n";
+  pr "static void\n";
+  pr "no_test_warnings (void)\n";
   pr "{\n";
+  pr "  size_t i;\n";
+  pr "  const char *no_tests[] = {\n";
 
   let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
   List.iter (
@@ -154,9 +157,15 @@ get_key (char **hash, const char *key)
   List.iter (
     fun { name = name } ->
       if not (Hashtbl.mem hash name) then
-        pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
-  ) all_functions;
+        pr "    \"%s\",\n" name
+  ) all_functions_sorted;
 
+  pr "    NULL\n";
+  pr "  };\n";
+  pr "\n";
+  pr "  for (i = 0; no_tests[i] != NULL; ++i)\n";
+  pr "    fprintf (stderr, \"warning: \\\"guestfs_%%s\\\" has no tests\\n\",\n";
+  pr "             no_tests[i]);\n";
   pr "}\n";
   pr "\n";
 
