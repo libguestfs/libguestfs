@@ -132,6 +132,15 @@ get_key (char **hash, const char *key)
   return NULL; /* key not found */
 }
 
+static void
+next_test (guestfs_h *g, size_t test_num, size_t nr_tests,
+           const char *test_name)
+{
+  if (guestfs_get_verbose (g))
+    printf (\"-------------------------------------------------------------------------------\\n\");
+  printf (\"%%3zu/%%3zu %%s\\n\", test_num, nr_tests, test_name);
+}
+
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
@@ -186,10 +195,11 @@ get_key (char **hash, const char *key)
 int
 main (int argc, char *argv[])
 {
-  unsigned long int n_failed = 0;
   const char *filename;
   int fd;
-  int nr_tests, test_num = 0;
+  const size_t nr_tests = %d;
+  size_t test_num = 0;
+  size_t nr_failed = 0;
 
   setbuf (stdout, NULL);
 
@@ -295,19 +305,15 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  nr_tests = %d;
-
-" (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024) nr_tests;
+" nr_tests (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024);
 
   iteri (
     fun i test_name ->
       pr "  test_num++;\n";
-      pr "  if (guestfs_get_verbose (g))\n";
-      pr "    printf (\"-------------------------------------------------------------------------------\\n\");\n";
-      pr "  printf (\"%%3d/%%3d %s\\n\", test_num, nr_tests);\n" test_name;
+      pr "  next_test (g, test_num, nr_tests, \"%s\");\n" test_name;
       pr "  if (%s () == -1) {\n" test_name;
-      pr "    printf (\"%s FAILED\\n\");\n" test_name;
-      pr "    n_failed++;\n";
+      pr "    printf (\"%%s FAILED\\n\", \"%s\");\n" test_name;
+      pr "    nr_failed++;\n";
       pr "  }\n";
   ) test_names;
   pr "\n";
@@ -329,8 +335,8 @@ main (int argc, char *argv[])
 
 ";
 
-  pr "  if (n_failed > 0) {\n";
-  pr "    printf (\"***** %%lu / %%d tests FAILED *****\\n\", n_failed, nr_tests);\n";
+  pr "  if (nr_failed > 0) {\n";
+  pr "    printf (\"***** %%zu / %%zu tests FAILED *****\\n\", nr_failed, nr_tests);\n";
   pr "    exit (EXIT_FAILURE);\n";
   pr "  }\n";
   pr "\n";
