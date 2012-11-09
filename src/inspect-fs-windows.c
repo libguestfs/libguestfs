@@ -564,10 +564,12 @@ map_registry_disk_blob (guestfs_h *g, const char *blob)
 char *
 guestfs___case_sensitive_path_silently (guestfs_h *g, const char *path)
 {
-  guestfs_error_handler_cb old_error_cb = g->error_cb;
-  g->error_cb = NULL;
-  char *ret = guestfs_case_sensitive_path (g, path);
-  g->error_cb = old_error_cb;
+  char *ret;
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  ret = guestfs_case_sensitive_path (g, path);
+  guestfs_pop_error_handler (g);
+
   return ret;
 }
 

@@ -564,16 +564,15 @@ guestfs___free_inspect_info (guestfs_h *g)
 int
 guestfs___feature_available (guestfs_h *g, const char *feature)
 {
+  const char *groups[] = { feature, NULL };
+  int r;
+
   /* If there's an error we should ignore it, so to do that we have to
    * temporarily replace the error handler with a null one.
    */
-  guestfs_error_handler_cb old_error_cb = g->error_cb;
-  g->error_cb = NULL;
-
-  const char *groups[] = { feature, NULL };
-  int r = guestfs_available (g, (char * const *) groups);
-
-  g->error_cb = old_error_cb;
+  guestfs_push_error_handler (g, NULL, NULL);
+  r = guestfs_available (g, (char * const *) groups);
+  guestfs_pop_error_handler (g);
 
   return r == 0 ? 1 : 0;
 }

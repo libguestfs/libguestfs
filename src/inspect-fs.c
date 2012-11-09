@@ -91,14 +91,15 @@ int
 guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
                                    int is_block, int is_partnum)
 {
+  char *vfs_type;
+
   /* Get vfs-type in order to check if it's a Linux(?) swap device.
    * If there's an error we should ignore it, so to do that we have to
    * temporarily replace the error handler with a null one.
    */
-  guestfs_error_handler_cb old_error_cb = g->error_cb;
-  g->error_cb = NULL;
-  char *vfs_type = guestfs_vfs_type (g, device);
-  g->error_cb = old_error_cb;
+  guestfs_push_error_handler (g, NULL, NULL);
+  vfs_type = guestfs_vfs_type (g, device);
+  guestfs_pop_error_handler (g);
 
   int is_swap = vfs_type && STREQ (vfs_type, "swap");
 
@@ -115,8 +116,8 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
   }
 
   /* Try mounting the device.  As above, ignore errors. */
-  g->error_cb = NULL;
   int r;
+  guestfs_push_error_handler (g, NULL, NULL);
   if (vfs_type && STREQ (vfs_type, "ufs")) { /* Hack for the *BSDs. */
     /* FreeBSD fs is a variant of ufs called ufs2 ... */
     r = guestfs_mount_vfs (g, "ro,ufstype=ufs2", "ufs", device, "/");
@@ -127,7 +128,7 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
     r = guestfs_mount_ro (g, device, "/");
   }
   free (vfs_type);
-  g->error_cb = old_error_cb;
+  guestfs_pop_error_handler (g);
   if (r == -1)
     return 0;
 

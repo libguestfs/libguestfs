@@ -134,11 +134,11 @@ check_with_vfs_type (guestfs_h *g, const char *device,
                      char ***ret, size_t *ret_size)
 {
   char *v;
+  char *vfs_type;
 
-  guestfs_error_handler_cb old_error_cb = g->error_cb;
-  g->error_cb = NULL;
-  char *vfs_type = guestfs_vfs_type (g, device);
-  g->error_cb = old_error_cb;
+  guestfs_push_error_handler (g, NULL, NULL);
+  vfs_type = guestfs_vfs_type (g, device);
+  guestfs_pop_error_handler (g);
 
   if (!vfs_type)
     v = safe_strdup (g, "unknown");

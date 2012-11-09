@@ -718,14 +718,14 @@ check_architecture (guestfs_h *g, struct inspect_fs *fs)
   const char *binaries[] =
     { "/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh" };
   size_t i;
+  char *arch;
 
   for (i = 0; i < sizeof binaries / sizeof binaries[0]; ++i) {
     if (guestfs_is_file (g, binaries[i]) > 0) {
       /* Ignore errors from file_architecture call. */
-      guestfs_error_handler_cb old_error_cb = g->error_cb;
-      g->error_cb = NULL;
-      char *arch = guestfs_file_architecture (g, binaries[i]);
-      g->error_cb = old_error_cb;
+      guestfs_push_error_handler (g, NULL, NULL);
+      arch = guestfs_file_architecture (g, binaries[i]);
+      guestfs_pop_error_handler (g);
 
       if (arch) {
         /* String will be owned by handle, freed by
@@ -814,10 +814,9 @@ check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs)
   /* Errors here are not fatal (RHBZ#726739), since it could be
    * just missing HOSTNAME field in the file.
    */
-  guestfs_error_handler_cb old_error_cb = g->error_cb;
-  g->error_cb = NULL;
+  guestfs_push_error_handler (g, NULL, NULL);
   hostname = guestfs_aug_get (g, "/files/etc/sysconfig/network/HOSTNAME");
-  g->error_cb = old_error_cb;
+  guestfs_pop_error_handler (g);
 
   /* This is freed by guestfs___free_inspect_info.  Note that hostname
    * could be NULL because we ignored errors above.
@@ -1593,23 +1592,21 @@ static int
 is_partition (guestfs_h *g, const char *partition)
 {
   char *device;
-  guestfs_error_handler_cb old_error_cb;
 
-  old_error_cb = g->error_cb;
-  g->error_cb = NULL;
+  guestfs_push_error_handler (g, NULL, NULL);
 
   if ((device = guestfs_part_to_dev (g, partition)) == NULL) {
-    g->error_cb = old_error_cb;
+    guestfs_pop_error_handler (g);
     return 0;
   }
 
   if (guestfs_device_index (g, device) == -1) {
-    g->error_cb = old_error_cb;
+    guestfs_pop_error_handler (g);
     free (device);
     return 0;
   }
 
-  g->error_cb = old_error_cb;
+  guestfs_pop_error_handler (g);
   free (device);
 
   return 1;
