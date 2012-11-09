@@ -45,8 +45,6 @@ main (int argc, char *argv[])
   char tempdir[] = "/tmp/mlXXXXXX";
   pid_t pid;
   char *shell, *p;
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_data;
 
   if (argc != 2) {
     usage ();
@@ -175,14 +173,13 @@ main (int argc, char *argv[])
   /* We're going to hide libguestfs errors here, but in a real program
    * you would probably want to log them somewhere.
    */
-  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-  guestfs_set_error_handler (g, NULL, NULL);
+  guestfs_push_error_handler (g, NULL, NULL);
 
   /* Now run the FUSE thread. */
   if (guestfs_mount_local_run (g) == -1)
     exit (EXIT_FAILURE);
 
-  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+  guestfs_pop_error_handler (g);
 
   waitpid (pid, NULL, 0);
 

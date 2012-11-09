@@ -39,10 +39,7 @@ run_supported (const char *cmd, size_t argc, char *argv[])
   /* Temporarily replace the error handler so that messages don't get
    * printed to stderr while we are issuing commands.
    */
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_cb_data;
-  old_error_cb = guestfs_get_error_handler (g, &old_error_cb_data);
-  guestfs_set_error_handler (g, NULL, NULL);
+  guestfs_push_error_handler (g, NULL, NULL);
 
   /* Work out the max string length of any group name. */
   size_t i;
@@ -76,7 +73,7 @@ run_supported (const char *cmd, size_t argc, char *argv[])
   free (groups);
 
   /* Restore error handler. */
-  guestfs_set_error_handler (g, old_error_cb, old_error_cb_data);
+  guestfs_pop_error_handler (g);
 
   return 0;
 }

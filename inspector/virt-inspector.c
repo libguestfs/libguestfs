@@ -293,15 +293,6 @@ main (int argc, char *argv[])
   exit (EXIT_SUCCESS);
 }
 
-#define DISABLE_GUESTFS_ERRORS_FOR(stmt) do {                           \
-    guestfs_error_handler_cb old_error_cb;                              \
-    void *old_error_data;                                               \
-    old_error_cb = guestfs_get_error_handler (g, &old_error_data);      \
-    guestfs_set_error_handler (g, NULL, NULL);                          \
-    stmt;                                                               \
-    guestfs_set_error_handler (g, old_error_cb, old_error_data);        \
-  } while (0)
-
 #define XMLERROR(code,e) do {                                           \
     if ((e) == (code)) {                                                \
       fprintf (stderr, _("%s: XML write error at \"%s\": %m\n"),        \
@@ -433,22 +424,20 @@ output_root (xmlTextWriterPtr xo, char *root)
    * or if the systemroot could not be determined for a windows guest.
    * Disable error output around this call.
    */
-  DISABLE_GUESTFS_ERRORS_FOR (
-    str = guestfs_inspect_get_windows_systemroot (g, root);
-    if (str)
-      XMLERROR (-1,
-                xmlTextWriterWriteElement (xo, BAD_CAST "windows_systemroot",
-                                           BAD_CAST str));
-    free (str);
-  );
-  DISABLE_GUESTFS_ERRORS_FOR (
-    str = guestfs_inspect_get_windows_current_control_set (g, root);
-    if (str)
-      XMLERROR (-1,
-                xmlTextWriterWriteElement (xo, BAD_CAST "windows_current_control_set",
-                                           BAD_CAST str));
-    free (str);
-  );
+  guestfs_push_error_handler (g, NULL, NULL);
+  str = guestfs_inspect_get_windows_systemroot (g, root);
+  if (str)
+    XMLERROR (-1,
+              xmlTextWriterWriteElement (xo, BAD_CAST "windows_systemroot",
+                                         BAD_CAST str));
+  free (str);
+  str = guestfs_inspect_get_windows_current_control_set (g, root);
+  if (str)
+    XMLERROR (-1,
+              xmlTextWriterWriteElement (xo, BAD_CAST "windows_current_control_set",
+                                         BAD_CAST str));
+  free (str);
+  guestfs_pop_error_handler (g);
 
   str = guestfs_inspect_get_hostname (g, root);
   if (!str) exit (EXIT_FAILURE);
@@ -620,32 +609,30 @@ output_filesystems (xmlTextWriterPtr xo, char *root)
               xmlTextWriterWriteAttribute (xo, BAD_CAST "dev", BAD_CAST str));
     free (str);
 
-    DISABLE_GUESTFS_ERRORS_FOR (
-      str = guestfs_vfs_type (g, filesystems[i]);
-      if (str && str[0])
-        XMLERROR (-1,
-                  xmlTextWriterWriteElement (xo, BAD_CAST "type",
-                                             BAD_CAST str));
-      free (str);
-    );
+    guestfs_push_error_handler (g, NULL, NULL);
 
-    DISABLE_GUESTFS_ERRORS_FOR (
-      str = guestfs_vfs_label (g, filesystems[i]);
-      if (str && str[0])
-        XMLERROR (-1,
-                  xmlTextWriterWriteElement (xo, BAD_CAST "label",
-                                             BAD_CAST str));
-      free (str);
-    );
+    str = guestfs_vfs_type (g, filesystems[i]);
+    if (str && str[0])
+      XMLERROR (-1,
+                xmlTextWriterWriteElement (xo, BAD_CAST "type",
+                                           BAD_CAST str));
+    free (str);
 
-    DISABLE_GUESTFS_ERRORS_FOR (
-      str = guestfs_vfs_uuid (g, filesystems[i]);
-      if (str && str[0])
-        XMLERROR (-1,
-                  xmlTextWriterWriteElement (xo, BAD_CAST "uuid",
-                                             BAD_CAST str));
-      free (str);
-    );
+    str = guestfs_vfs_label (g, filesystems[i]);
+    if (str && str[0])
+      XMLERROR (-1,
+                xmlTextWriterWriteElement (xo, BAD_CAST "label",
+                                           BAD_CAST str));
+    free (str);
+
+    str = guestfs_vfs_uuid (g, filesystems[i]);
+    if (str && str[0])
+      XMLERROR (-1,
+                xmlTextWriterWriteElement (xo, BAD_CAST "uuid",
+                                           BAD_CAST str));
+    free (str);
+
+    guestfs_pop_error_handler (g);
 
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
@@ -662,9 +649,9 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
   char *str;
   size_t i;
 
-  DISABLE_GUESTFS_ERRORS_FOR (
-    drive_mappings = guestfs_inspect_get_drive_mappings (g, root);
-  );
+  guestfs_push_error_handler (g, NULL, NULL);
+  drive_mappings = guestfs_inspect_get_drive_mappings (g, root);
+  guestfs_pop_error_handler (g);
   if (drive_mappings == NULL)
     return;
 

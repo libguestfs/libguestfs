@@ -122,8 +122,6 @@ df_on_handle (const char *name, const char *uuid, char **devices, int offset)
 static int
 find_dev_in_devices (const char *dev, char **devices)
 {
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_data;
   size_t i, len;
   char *whole_disk;
   int free_whole_disk;
@@ -132,12 +130,11 @@ find_dev_in_devices (const char *dev, char **devices)
   /* Convert 'dev' to a whole disk name. */
   len = strlen (dev);
   if (len > 0 && c_isdigit (dev[len-1])) {
-    old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-    guestfs_set_error_handler (g, NULL, NULL);
+    guestfs_push_error_handler (g, NULL, NULL);
 
     whole_disk = guestfs_part_to_dev (g, dev);
 
-    guestfs_set_error_handler (g, old_error_cb, old_error_data);
+    guestfs_pop_error_handler (g);
 
     if (!whole_disk) /* probably an MD device or similar */
       return 0;
@@ -167,8 +164,6 @@ try_df (const char *name, const char *uuid,
         const char *dev, int offset)
 {
   struct guestfs_statvfs *stat = NULL;
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_data;
 
   if (verbose)
     fprintf (stderr, "try_df %s %s %d\n", name, dev, offset);
@@ -176,15 +171,14 @@ try_df (const char *name, const char *uuid,
   /* Try mounting and stating the device.  This might reasonably fail,
    * so don't show errors.
    */
-  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-  guestfs_set_error_handler (g, NULL, NULL);
+  guestfs_push_error_handler (g, NULL, NULL);
 
   if (guestfs_mount_ro (g, dev, "/") == 0) {
     stat = guestfs_statvfs (g, "/");
     guestfs_umount_all (g);
   }
 
-  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+  guestfs_pop_error_handler (g);
 
   if (stat) {
     print_stat (name, uuid, dev, offset, stat);

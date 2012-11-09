@@ -204,8 +204,6 @@ start_thread (void *statevp)
   time_t start_t, t;
   pid_t pid;
   int status, r;
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_cb_data;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -264,10 +262,9 @@ start_thread (void *statevp)
     /* Run the FUSE main loop.  We don't really want to see libguestfs
      * errors here since these are harmless.
      */
-    old_error_cb = guestfs_get_error_handler (g, &old_error_cb_data);
-    guestfs_set_error_handler (g, NULL, NULL);
+    guestfs_push_error_handler (g, NULL, NULL);
     r = guestfs_mount_local_run (g);
-    guestfs_set_error_handler (g, old_error_cb, old_error_cb_data);
+    guestfs_pop_error_handler (g);
 
     /* Wait for child process to exit and catch any errors from it. */
   again:

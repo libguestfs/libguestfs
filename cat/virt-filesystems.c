@@ -36,15 +36,6 @@
 #include "guestfs.h"
 #include "options.h"
 
-#define DISABLE_GUESTFS_ERRORS_FOR(stmt) do {                           \
-    guestfs_error_handler_cb old_error_cb;                              \
-    void *old_error_data;                                               \
-    old_error_cb = guestfs_get_error_handler (g, &old_error_data);      \
-    guestfs_set_error_handler (g, NULL, NULL);                          \
-    stmt;                                                               \
-    guestfs_set_error_handler (g, old_error_cb, old_error_data);        \
-  } while (0)
-
 /* These globals are shared with options.c. */
 guestfs_h *g;
 
@@ -472,9 +463,9 @@ do_output_filesystems (void)
      * otherwise pass them as NULL.
      */
     if ((columns & COLUMN_VFS_LABEL)) {
-      DISABLE_GUESTFS_ERRORS_FOR (
-        vfs_label = guestfs_vfs_label (g, fses[i]);
-      );
+      guestfs_push_error_handler (g, NULL, NULL);
+      vfs_label = guestfs_vfs_label (g, fses[i]);
+      guestfs_pop_error_handler (g);
       if (vfs_label == NULL) {
         vfs_label = strdup ("");
         if (!vfs_label) {
@@ -484,9 +475,9 @@ do_output_filesystems (void)
       }
     }
     if ((columns & COLUMN_UUID)) {
-      DISABLE_GUESTFS_ERRORS_FOR (
-        vfs_uuid = guestfs_vfs_uuid (g, fses[i]);
-      );
+      guestfs_push_error_handler (g, NULL, NULL);
+      vfs_uuid = guestfs_vfs_uuid (g, fses[i]);
+      guestfs_pop_error_handler (g);
       if (vfs_uuid == NULL) {
         vfs_uuid = strdup ("");
         if (!vfs_uuid) {
@@ -662,22 +653,19 @@ get_mbr_id (const char *dev, const char *parent_name)
   char *parttype = NULL;
   int mbr_id = -1, partnum;
 
-  DISABLE_GUESTFS_ERRORS_FOR (
-    parttype = guestfs_part_get_parttype (g, parent_name);
-  );
+  guestfs_push_error_handler (g, NULL, NULL);
+
+  parttype = guestfs_part_get_parttype (g, parent_name);
 
   if (parttype && STREQ (parttype, "msdos")) {
-    DISABLE_GUESTFS_ERRORS_FOR (
-      partnum = guestfs_part_to_partnum (g, dev);
-    );
-    if (partnum >= 0) {
-      DISABLE_GUESTFS_ERRORS_FOR (
-        mbr_id = guestfs_part_get_mbr_id (g, parent_name, partnum);
-      );
-    }
+    partnum = guestfs_part_to_partnum (g, dev);
+    if (partnum >= 0)
+      mbr_id = guestfs_part_get_mbr_id (g, parent_name, partnum);
   }
 
   free (parttype);
+
+  guestfs_pop_error_handler (g);
 
   return mbr_id;
 }

@@ -121,8 +121,6 @@ start_thread (void *vi)
 {
   guestfs_h *g;
   int r, thread_id = *(int *)vi;
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_data;
   const char *error;
 
   g = guestfs_create ();
@@ -159,8 +157,7 @@ start_thread (void *vi)
    * will fail with "child process died unexpectedly".  We are
    * interested in other failures.
    */
-  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-  guestfs_set_error_handler (g, NULL, NULL);
+  guestfs_push_error_handler (g, NULL, NULL);
   r = guestfs_launch (g);
   error = guestfs_last_error (g);
 
@@ -190,7 +187,7 @@ start_thread (void *vi)
     pthread_exit (vi);
   }
 
-  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+  guestfs_pop_error_handler (g);
 
   /* Close the handle. */
   guestfs_close (g);

@@ -206,16 +206,13 @@ copy_attributes (const char *src, const char *dest)
    * attributes too?
    */
   if (has_linuxxattrs) {
-    guestfs_error_handler_cb old_error_cb;
-    void *old_error_data;
-    old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-    guestfs_set_error_handler (g, NULL, NULL);
+    guestfs_push_error_handler (g, NULL, NULL);
 
     selinux_context = guestfs_getxattr (g, src, "security.selinux",
                                         &selinux_context_size);
     /* selinux_context could be NULL.  This isn't an error. */
 
-    guestfs_set_error_handler (g, old_error_cb, old_error_data);
+    guestfs_pop_error_handler (g);
   }
 
   /* Set the permissions (inc. sticky and set*id bits), UID, GID. */

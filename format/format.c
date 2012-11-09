@@ -430,11 +430,8 @@ do_rescan (char **devices)
 {
   size_t i;
   size_t errors = 0;
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_data;
 
-  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-  guestfs_set_error_handler (g, NULL, NULL);
+  guestfs_push_error_handler (g, NULL, NULL);
 
   for (i = 0; devices[i] != NULL; ++i) {
     if (guestfs_blockdev_rereadpt (g, devices[i]) == -1)
@@ -444,7 +441,7 @@ do_rescan (char **devices)
   if (guestfs_vgscan (g) == -1)
     errors++;
 
-  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+  guestfs_pop_error_handler (g);
 
   return errors ? 1 : 0;
 }
@@ -455,15 +452,12 @@ feature_available (guestfs_h *g, const char *feature)
   /* If there's an error we should ignore it, so to do that we have to
    * temporarily replace the error handler with a null one.
    */
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_data;
-  old_error_cb = guestfs_get_error_handler (g, &old_error_data);
-  guestfs_set_error_handler (g, NULL, NULL);
+  guestfs_push_error_handler (g, NULL, NULL);
 
   const char *groups[] = { feature, NULL };
   int r = guestfs_available (g, (char * const *) groups);
 
-  guestfs_set_error_handler (g, old_error_cb, old_error_data);
+  guestfs_pop_error_handler (g);
 
   return r == 0 ? 1 : 0;
 }

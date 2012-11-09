@@ -89,19 +89,6 @@ complete_dest_paths_generator (const char *text, int state)
   static size_t len, index;
   static struct word *words = NULL;
   static size_t nr_words = 0;
-  guestfs_error_handler_cb old_error_cb;
-  void *old_error_cb_data;
-
-  /* Temporarily replace the error handler so that messages don't
-   * get printed to stderr while we are issuing commands.
-   */
-#define SAVE_ERROR_CB							\
-  old_error_cb = guestfs_get_error_handler (g, &old_error_cb_data);	\
-  guestfs_set_error_handler (g, NULL, NULL);
-
-  /* Restore error handler. */
-#define RESTORE_ERROR_CB						\
-  guestfs_set_error_handler (g, old_error_cb, old_error_cb_data);
 
   if (!state) {
     char **strs;
@@ -114,7 +101,7 @@ complete_dest_paths_generator (const char *text, int state)
     words = NULL;
     nr_words = 0;
 
-    SAVE_ERROR_CB
+    guestfs_push_error_handler (g, NULL, NULL);
 
 /* Silently do nothing if an allocation fails */
 #define APPEND_STRS_AND_FREE						\
@@ -220,7 +207,7 @@ complete_dest_paths_generator (const char *text, int state)
      * names.  At the moment we don't do that.
      */
 
-    RESTORE_ERROR_CB
+    guestfs_pop_error_handler (g);
   }
 
   /* This inhibits ordinary (local filename) completion. */
