@@ -1253,6 +1253,17 @@ Pass additional options to the guest kernel.
 Choose the default way to create the appliance.  See
 L<guestfs(3)/guestfs_set_attach_method>.
 
+=item LIBGUESTFS_CACHEDIR
+
+The location where libguestfs will cache its appliance, when
+using a supermin appliance.  The appliance is cached and shared
+between all handles which have the same effective user ID.
+
+If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If
+C<TMPDIR> is not set, then C</var/tmp> is used.
+
+See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>.
+
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the
@@ -1276,6 +1287,16 @@ Set the default qemu binary that libguestfs uses.  If not set, then
 the qemu which was found at compile time by the configure script is
 used.
 
+=item LIBGUESTFS_TMPDIR
+
+The location where libguestfs will store temporary files used
+by each handle.
+
+If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If
+C<TMPDIR> is not set, then C</tmp> is used.
+
+See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>.
+
 =item LIBGUESTFS_TRACE
 
 Set C<LIBGUESTFS_TRACE=1> to enable command traces.
@@ -1287,14 +1308,7 @@ set, it uses C<more>.
 
 =item TMPDIR
 
-Location of temporary directory, defaults to C</tmp> except for the
-cached supermin appliance which defaults to C</var/tmp>.
-
-If libguestfs was compiled to use the supermin appliance then the
-real appliance is cached in this directory, shared between all
-handles belonging to the same EUID.  You can use C<$TMPDIR> to
-configure another directory to use in case C</var/tmp> is not large
-enough.
+See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 
 =back
 
