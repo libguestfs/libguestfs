@@ -510,7 +510,7 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let test () =
         pr "    if (STRNEQ (r, expected)) {\n";
-        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -523,21 +523,20 @@ and generate_one_test_body name i test_name init test =
         iteri (
           fun i str ->
             pr "    if (!r[%d]) {\n" i;
-            pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+            pr "      fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
             pr "      print_strings (r);\n";
             pr "      return -1;\n";
             pr "    }\n";
             pr "    {\n";
             pr "      const char *expected = \"%s\";\n" (c_quote str);
             pr "      if (STRNEQ (r[%d], expected)) {\n" i;
-            pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+            pr "        fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r[%d]);\n" test_name i;
             pr "        return -1;\n";
             pr "      }\n";
             pr "    }\n"
         ) expected;
         pr "    if (r[%d] != NULL) {\n" (List.length expected);
-        pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
-          test_name;
+        pr "      fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
         pr "      print_strings (r);\n";
         pr "      return -1;\n";
         pr "    }\n"
@@ -551,7 +550,7 @@ and generate_one_test_body name i test_name init test =
         iteri (
           fun i str ->
             pr "    if (!r[%d]) {\n" i;
-            pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+            pr "      fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
             pr "      print_strings (r);\n";
             pr "      return -1;\n";
             pr "    }\n";
@@ -559,14 +558,13 @@ and generate_one_test_body name i test_name init test =
             pr "      const char *expected = \"%s\";\n" (c_quote str);
             pr "      r[%d][5] = 's';\n" i;
             pr "      if (STRNEQ (r[%d], expected)) {\n" i;
-            pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+            pr "        fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r[%d]);\n" test_name i;
             pr "        return -1;\n";
             pr "      }\n";
             pr "    }\n"
         ) expected;
         pr "    if (r[%d] != NULL) {\n" (List.length expected);
-        pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
-          test_name;
+        pr "      fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
         pr "      print_strings (r);\n";
         pr "      return -1;\n";
         pr "    }\n"
@@ -578,9 +576,9 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let test () =
         pr "    if (r != %d) {\n" expected;
-        pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
-          test_name expected;
-        pr "               (int) r);\n";
+        pr "      fprintf (stderr, \"%%s: expected %d but got %%d\\n\","
+          expected;
+        pr "               \"%s\", (int) r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -591,9 +589,9 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let test () =
         pr "    if (! (r %s %d)) {\n" op expected;
-        pr "      fprintf (stderr, \"%s: expected %s %d but got %%d\\n\","
-          test_name op expected;
-        pr "               (int) r);\n";
+        pr "      fprintf (stderr, \"%%s: expected %s %d but got %%d\\n\","
+          op expected;
+        pr "               \"%s\", (int) r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -604,8 +602,7 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let test () =
         pr "    if (!r) {\n";
-        pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
-          test_name;
+        pr "      fprintf (stderr, \"%%s: expected true, got false\\n\", \"%s\");\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -616,8 +613,7 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let test () =
         pr "    if (r) {\n";
-        pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
-          test_name;
+        pr "      fprintf (stderr, \"%%s: expected false, got true\\n\", \"%s\");\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -630,13 +626,12 @@ and generate_one_test_body name i test_name init test =
         pr "    int j;\n";
         pr "    for (j = 0; j < %d; ++j)\n" expected;
         pr "      if (r[j] == NULL) {\n";
-        pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
-          test_name;
+        pr "        fprintf (stderr, \"%%s: short list returned\\n\", \"%s\");\n" test_name;
         pr "        print_strings (r);\n";
         pr "        return -1;\n";
         pr "      }\n";
         pr "    if (r[j] != NULL) {\n";
-        pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
+        pr "      fprintf (stderr, \"%%s: long list returned\\n\", \"%s\");\n"
           test_name;
         pr "      print_strings (r);\n";
         pr "      return -1;\n";
@@ -651,11 +646,11 @@ and generate_one_test_body name i test_name init test =
       let len = String.length expected in
       let test () =
         pr "    if (size != %d) {\n" len;
-        pr "      fprintf (stderr, \"%s: returned size of buffer wrong, expected %d but got %%zu\\n\", size);\n" test_name len;
+        pr "      fprintf (stderr, \"%%s: returned size of buffer wrong, expected %d but got %%zu\\n\", \"%s\", size);\n" len test_name;
         pr "      return -1;\n";
         pr "    }\n";
         pr "    if (STRNEQLEN (r, expected, size)) {\n";
-        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -669,23 +664,23 @@ and generate_one_test_body name i test_name init test =
           function
           | CompareWithInt (field, expected) ->
               pr "    if (r->%s != %d) {\n" field expected;
-              pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
-                test_name field expected;
-              pr "               (int) r->%s);\n" field;
+              pr "      fprintf (stderr, \"%%s: %s was %%d, expected %d\\n\",\n"
+                field expected;
+              pr "               \"%s\", (int) r->%s);\n" test_name field;
               pr "      return -1;\n";
               pr "    }\n"
           | CompareWithIntOp (field, op, expected) ->
               pr "    if (!(r->%s %s %d)) {\n" field op expected;
-              pr "      fprintf (stderr, \"%s: %s was %%d, expected %s %d\\n\",\n"
-                test_name field op expected;
-              pr "               (int) r->%s);\n" field;
+              pr "      fprintf (stderr, \"%%s: %s was %%d, expected %s %d\\n\",\n"
+                field op expected;
+              pr "               \"%s\", (int) r->%s);\n" test_name field;
               pr "      return -1;\n";
               pr "    }\n"
           | CompareWithString (field, expected) ->
               pr "    if (STRNEQ (r->%s, \"%s\")) {\n" field expected;
-              pr "      fprintf (stderr, \"%s: %s was \\\"%%s\\\", expected \\\"%s\\\"\\n\",\n"
-                test_name field expected;
-              pr "               r->%s);\n" field;
+              pr "      fprintf (stderr, \"%%s: %s was \\\"%%s\\\", expected \\\"%s\\\"\\n\",\n"
+                field expected;
+              pr "               \"%s\", r->%s);\n" test_name field;
               pr "      return -1;\n";
               pr "    }\n"
           | CompareFieldsIntEq (field1, field2) ->
@@ -713,7 +708,7 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let test () =
         pr "    if (STRNEQ (r, expected)) {\n";
-        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -726,7 +721,7 @@ and generate_one_test_body name i test_name init test =
       let test () =
         pr "    r[5] = 's';\n";
         pr "    if (STRNEQ (r, expected)) {\n";
-        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
       in
@@ -743,11 +738,11 @@ and generate_one_test_body name i test_name init test =
             pr "    expected = \"%s\";\n" (c_quote value);
             pr "    value = get_key (r, key);\n";
             pr "    if (value == NULL) {\n";
-            pr "      fprintf (stderr, \"%s: key \\\"%%s\\\" not found in hash: expecting \\\"%%s\\\"\\n\", key, expected);\n" test_name;
+            pr "      fprintf (stderr, \"%%s: key \\\"%%s\\\" not found in hash: expecting \\\"%%s\\\"\\n\", \"%s\", key, expected);\n" test_name;
             pr "      return -1;\n";
             pr "    }\n";
             pr "    if (STRNEQ (value, expected)) {\n";
-            pr "      fprintf (stderr, \"%s: key \\\"%%s\\\": expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", key, expected, value);\n" test_name;
+            pr "      fprintf (stderr, \"%%s: key \\\"%%s\\\": expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", key, expected, value);\n" test_name;
             pr "      return -1;\n";
             pr "    }\n";
         ) fields
