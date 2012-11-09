@@ -57,14 +57,16 @@ let rec generate_tests () =
 static guestfs_h *g;
 static int suppress_error = 0;
 
-static void print_error (guestfs_h *g, void *data, const char *msg)
+static void
+print_error (guestfs_h *g, void *data, const char *msg)
 {
   if (!suppress_error)
     fprintf (stderr, \"%%s\\n\", msg);
 }
 
 /* FIXME: nearly identical code appears in fish.c */
-static void print_strings (char *const *argv)
+static void
+print_strings (char *const *argv)
 {
   size_t argc;
 
@@ -182,7 +184,8 @@ get_key (char **hash, const char *key)
   let nr_tests = List.length test_names in
 
   pr "\
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
   unsigned long int n_failed = 0;
   const char *filename;
@@ -340,7 +343,8 @@ and generate_one_test name flags i (init, prereq, test) =
   let test_name = sprintf "test_%s_%d" name i in
 
   pr "\
-static int %s_skip (void)
+static int
+%s_skip (void)
 {
   const char *str;
 
@@ -359,7 +363,8 @@ static int %s_skip (void)
   (match prereq with
    | Disabled | Always | IfAvailable _ -> ()
    | If code | Unless code ->
-       pr "static int %s_prereq (void)\n" test_name;
+       pr "static int\n";
+       pr "%s_prereq (void)\n" test_name;
        pr "{\n";
        pr "  %s\n" code;
        pr "}\n";
@@ -367,7 +372,8 @@ static int %s_skip (void)
   );
 
   pr "\
-static int %s (void)
+static int
+%s (void)
 {
   if (%s_skip ()) {
     printf (\"        %%s skipped (reason: environment variable set)\\n\", \"%s\");
