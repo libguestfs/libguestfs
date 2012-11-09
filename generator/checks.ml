@@ -291,4 +291,17 @@ let () =
 
       if not tested then
         failwithf "function %s has tests but does not test itself" name
+  ) all_functions;
+
+  List.iter (
+    function
+    | { tests = [] }
+    | { optional = None } -> ()
+    | { name = name; tests = tests; optional = Some optgroup } ->
+      List.iter (
+        function
+        | _, IfAvailable o, _ when o = optgroup ->
+          failwithf "%s test is marked 'IfAvailable %S', but since this function is in the %S optgroup, this is unnecessary; use 'Always' instead" name o optgroup
+        | _ -> ()
+      ) tests
   ) all_functions

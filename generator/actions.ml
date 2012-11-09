@@ -8034,9 +8034,9 @@ I<other> keys." };
     proc_nr = Some 264;
     optional = Some "lvm2";
     tests = [
-      InitBasicFSonLVM, IfAvailable "lvm2", TestOutputTrue (
+      InitBasicFSonLVM, Always, TestOutputTrue (
         [["is_lv"; "/dev/VG/LV"]]);
-      InitBasicFSonLVM, IfAvailable "lvm2", TestOutputFalse (
+      InitBasicFSonLVM, Always, TestOutputFalse (
         [["is_lv"; "/dev/sda1"]])
     ];
     shortdesc = "test if device is a logical volume";
@@ -9034,7 +9034,7 @@ device." };
     proc_nr = Some 307;
     optional = Some "ntfs3g";
     tests = [
-      InitPartition, IfAvailable "ntfs3g", TestRun (
+      InitPartition, Always, TestRun (
         [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["ntfsfix"; "/dev/sda1"; "false"]])
     ];
@@ -9496,7 +9496,7 @@ See C<guestfs_get_e2generation>." };
     proc_nr = Some 322;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeSnapshot";
     tests = [
-      InitPartition, IfAvailable "btrfs", TestRun (
+      InitPartition, Always, TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
          ["mkdir"; "/dir"];
@@ -9517,7 +9517,7 @@ of the snapshot, in the form C</path/to/dest/name>." };
     proc_nr = Some 323;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeDelete";
     tests = [
-      InitPartition, IfAvailable "btrfs", TestRun (
+      InitPartition, Always, TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
          ["btrfs_subvolume_create"; "/test1"];
@@ -9566,7 +9566,7 @@ get a list of subvolumes." };
     proc_nr = Some 327;
     optional = Some "btrfs"; camel_name = "BTRFSFilesystemSync";
     tests = [
-      InitPartition, IfAvailable "btrfs", TestRun (
+      InitPartition, Always, TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
          ["btrfs_subvolume_create"; "/test1"];
@@ -9619,7 +9619,7 @@ If C<devices> is an empty list, this does nothing." };
     proc_nr = Some 331;
     optional = Some "btrfs";
     tests = [
-      InitPartition, IfAvailable "btrfs", TestRun (
+      InitPartition, Always, TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["btrfs_set_seeding"; "/dev/sda1"; "true"];
          ["btrfs_set_seeding"; "/dev/sda1"; "false"]])
@@ -9635,7 +9635,7 @@ a btrfs filesystem." };
     proc_nr = Some 332;
     optional = Some "btrfs";
     tests = [
-      InitPartition, IfAvailable "btrfs", TestRun (
+      InitPartition, Always, TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["btrfs_fsck"; "/dev/sda1"; ""; ""]])
     ];
@@ -9729,7 +9729,7 @@ call C<guestfs_max_disks>." };
     proc_nr = Some 337;
     optional = Some "xfs";
     tests = [
-      InitEmpty, IfAvailable "xfs", TestOutputStruct (
+      InitEmpty, Always, TestOutputStruct (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
@@ -9752,7 +9752,7 @@ string." };
     proc_nr = Some 338;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, IfAvailable "lvm2", TestRun (
+      InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["pvchange_uuid"; "/dev/sda1"]])
@@ -9767,7 +9767,7 @@ Generate a new random UUID for the physical volume C<device>." };
     proc_nr = Some 339;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, IfAvailable "lvm2", TestRun (
+      InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["pvchange_uuid_all"]])
@@ -9782,7 +9782,7 @@ Generate new random UUIDs for all physical volumes." };
     proc_nr = Some 340;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, IfAvailable "lvm2", TestRun (
+      InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -9798,7 +9798,7 @@ Generate a new random UUID for the volume group C<vg>." };
     proc_nr = Some 341;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, IfAvailable "lvm2", TestRun (
+      InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -9828,7 +9828,7 @@ in the returned structure is defined by the API." };
     proc_nr = Some 343;
     optional = Some "xfs";
     tests = [
-      InitEmpty, IfAvailable "xfs", TestOutputStruct (
+      InitEmpty, Always, TestOutputStruct (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -9963,7 +9963,7 @@ with zeroes)." };
     proc_nr = Some 349;
     optional = Some "xfs";
     tests = [
-      InitEmpty, IfAvailable "xfs", TestOutputStruct (
+      InitEmpty, Always, TestOutputStruct (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
@@ -10179,7 +10179,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
     proc_nr = Some 366;
     optional = Some "xfs";
     tests = [
-      InitEmpty, IfAvailable "xfs", TestRun (
+      InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["xfs_repair"; "/dev/sda1"; ""; "true"; ""; ""; ""; ""; ""; ""; "NOARG"; "NOARG"]
