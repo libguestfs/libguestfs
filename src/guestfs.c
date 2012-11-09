@@ -600,7 +600,8 @@ guestfs_get_out_of_memory_handler (guestfs_h *g)
 }
 
 void
-guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *data)
+guestfs_set_error_handler (guestfs_h *g,
+                           guestfs_error_handler_cb cb, void *data)
 {
   g->error_cb = cb;
   g->error_cb_data = data;
