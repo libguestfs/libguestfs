@@ -345,6 +345,9 @@ guestfs_close (guestfs_h *g)
   if (g->pda)
     hash_free (g->pda);
   free (g->tmpdir);
+  free (g->env_tmpdir);
+  free (g->int_tmpdir);
+  free (g->int_cachedir);
   free (g->last_error);
   free (g->path);
   free (g->qemu);
