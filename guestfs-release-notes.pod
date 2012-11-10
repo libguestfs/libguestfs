@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 =begin comment
 
 NOTE!  Pre-release notes for the next stable version of libguestfs.
-Updated to commit c164cc9bea89aa627dad4338469c26a1a70b61f5
+Updated to commit 17090bd09f25c490bce9a5159d54bcabb7a8ecc2
 
 =end comment
 
@@ -77,6 +77,8 @@ C<guestfish touch 'win:c:\new_file'> now works as expected.
 C<guestfish> has a new I<--network> option, which enables the user
 network in libguestfs.
 
+You can set C<GUESTFISH_PS1> to use fancy fonts in C<guestfish>.
+
 C<rsync> and C<ssh> commands are now availble in virt-rescue.  In
 addition, C<rsync> can be used through the API for doing incremental
 copies.
@@ -120,6 +122,10 @@ remove HOSTNAME field from C<ifcfg-eth*> files (Wanlong Gao)
 
 miscellaneous improvements for SuSE (Olaf Hering)
 
+=item *
+
+remove man pages cache (Wanlong Gao)
+
 =back
 
 C<virt-make-fs> can now create virtual floppy disks (VFDs).
@@ -141,6 +147,9 @@ The automated 'bindtests' now test for 64 bit cleanliness in parameter
 passing.  Several bugs in the bindings were found and fixed as a
 result.
 
+Better handling of blocking and non-blocking functions should make
+libguestfs calls more efficient.
+
 =head3 inspection
 
 Windows guests with unlimited-sized Registries are now supported.
@@ -149,6 +158,8 @@ efficient and easier to inspect and modify the Windows Registry
 in guests.
 
 Better support for SuSE guests (Olaf Hering).
+
+Return the architecture of installed applications (John Eckersberg).
 
 =head3 ports
 
@@ -195,15 +206,20 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  filesystem-available
  fill-dir
  fstrim
+ get-cachedir
  get-libvirt-requested-credentials
  get-libvirt-requested-credential-prompt
  get-libvirt-requested-credential-challenge
  get-libvirt-requested-credential-defresult
+ get-tmpdir
  hivex-*
+ inspect-list-applications2 (John Eckersberg)
  ls0
  max-disks
  mke2fs (Wanlong Gao)
+ mklost-and-found
  mkswap [added label and uuid optional arguments]
+ mktemp (Wanlong Gao)
  nr-devices
  parse-environment
  parse-environment-list
@@ -211,8 +227,10 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  rsync
  rsync-in
  rsync-out
+ set-cachedir
  set-libvirt-supported-credentials
  set-libvirt-requested-credential
+ set-tmpdir
  shutdown [backported to 1.16 and 1.18]
  tar-in [added compress flag]
  tar-out [added compress, numericowner, exclude flags]
@@ -222,6 +240,11 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  xfs-growfs (Wanlong Gao)
  xfs-info (Wanlong Gao)
  xfs-repair (Wanlong Gao)
+
+In the C API only:
+
+ guestfs_push_error_handler
+ guestfs_pop_error_handler
 
 =head2 Internals
 
@@ -270,12 +293,16 @@ C<umount>
 
 =back
 
-The way that libguestfs APIs are represented in the generator
-has changed to use an OCaml struct instead of a tuple.  This
-makes it far more flexible.  For details see commit 39d1a7db.
+The way that libguestfs APIs and structures are represented in the
+generator has changed to use an OCaml struct instead of a tuple.  This
+makes it far more flexible.  For details see commits 39d1a7db
+and eb185eef.
 
 Launch backends are now located in separate files
 eg. C<src/launch-appliance.c>, C<src/launch-libvirt.c>.
+
+Generated action code is now split over several C<src/action*.c>
+files, for faster compilation.
 
 POD (documentation) is now generated using a rewritten Perl
 program instead of pod2* + shell scripts.
@@ -332,6 +359,18 @@ suppress progress bars if stdout is not a tty.
 There is now a C<./configure --without-libvirt> option.  This is
 useful for testing that the code still compiles without libvirt.
 
+There is now an internal mini-library for running commands.  This
+allows us to redirect errors from external commands into events.
+
+Code for handling temporary directories and the appliance cache was
+completely overhauled.
+
+Code for temporarily ignoring/disabling errors now looks like this:
+
+ guestfs_push_error_handler (g, NULL, NULL);
+ guestfs_mkdir (g, "/foo"); /* We don't care if this fails. */
+ guestfs_pop_error_handler (g);
+
 =head2 Bugs fixed
 
  ./bugs-in-changelog.sh 1.18.0..
@@ -341,6 +380,14 @@ useful for testing that the code still compiles without libvirt.
 =item L<https://bugzilla.redhat.com/860235>
 
 SELinux policy ought to allow qemu to write to unconfined_u:object_r:user_tmp_t:s0
+
+=item L<https://bugzilla.redhat.com/859949>
+
+RFE: inspect-list-applications does not return the architecture of RPM packages
+
+=item L<https://bugzilla.redhat.com/859885>
+
+inspect-list-applications does not list all installed RPM packages with same name and different versions
 
 =item L<https://bugzilla.redhat.com/859876>
 
@@ -429,6 +476,10 @@ virt-make-fs -t fat fails with an obscure error message
 =item L<https://bugzilla.redhat.com/823821>
 
 Inspection fails when /etc/HOSTNAME is empty
+
+=item L<https://bugzilla.redhat.com/713678>
+
+Not all febootstrap messages are redirected to log callbacks
 
 =item L<https://bugzilla.redhat.com/627675>
 
