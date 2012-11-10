@@ -219,6 +219,9 @@ main (int argc, char *argv[])
   printf ("guestfs_get_attach_method: %s\n", p ? : "(null)");
   free (p);
   printf ("guestfs_get_autosync: %d\n", guestfs_get_autosync (g));
+  p = guestfs_get_cachedir (g);
+  printf ("guestfs_get_cachedir: %s\n", p ? : "(null)");
+  free (p);
   printf ("guestfs_get_direct: %d\n", guestfs_get_direct (g));
   printf ("guestfs_get_memsize: %d\n", guestfs_get_memsize (g));
   printf ("guestfs_get_network: %d\n", guestfs_get_network (g));
@@ -228,6 +231,9 @@ main (int argc, char *argv[])
   printf ("guestfs_get_recovery_proc: %d\n", guestfs_get_recovery_proc (g));
   printf ("guestfs_get_selinux: %d\n", guestfs_get_selinux (g));
   printf ("guestfs_get_smp: %d\n", guestfs_get_smp (g));
+  p = guestfs_get_cachedir (g);
+  printf ("guestfs_get_tmpdir: %s\n", p ? : "(null)");
+  free (p);
   printf ("guestfs_get_trace: %d\n", guestfs_get_trace (g));
   printf ("guestfs_get_verbose: %d\n", guestfs_get_verbose (g));
 
