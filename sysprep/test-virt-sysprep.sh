@@ -23,5 +23,11 @@ set -e
 # to be able to sysprep any of our test guests.
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
-    ./virt-sysprep -q -n -a $f
+    $VG ./virt-sysprep -q -n -a $f
 done
+
+# We could also test this image, but mdadm is problematic for
+# many users.
+# $VG ./virt-sysprep -q -n \
+#   -a ../tests/guests/fedora-md1.img \
+#   -a ../tests/guests/fedora-md2.img

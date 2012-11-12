@@ -24,7 +24,7 @@ set -e
 # This exercises a number of interesting codepaths including resizing
 # LV content, handling GPT, and using qcow2 as a target.
 
-../fish/guestfish -N bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
+$VG ../fish/guestfish -N bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
 
 qemu-img create -f qcow2 test2.img 500M
 $VG ./virt-resize -d --debug-gc \

@@ -270,6 +270,9 @@ TESTS += \
 	test-upload-to-dir.sh
 endif
 
+check-valgrind:
+	$(MAKE) TESTS="test-inspect.sh test-prep.sh test-run.sh" VG="$(top_builddir)/run @VG@" check
+
 EXTRA_DIST += \
 	test-a.sh \
 	test-add-domain.sh \

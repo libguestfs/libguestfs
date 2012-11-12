@@ -116,6 +116,9 @@ if ENABLE_APPLIANCE
 TESTS += test-virt-resize.sh
 endif
 
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
 # Dependencies.
 depend: .depend
 

@@ -59,9 +59,6 @@ SUBDIRS += tests/hotplug
 SUBDIRS += tests/regressions
 endif
 
-# Extra tests don't run by default.  You have to do 'make extra-tests'.
-SUBDIRS += tests/extra
-
 # libguestfs-test-tool
 SUBDIRS += test-tool
 
@@ -281,8 +278,9 @@ stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 # Make clean.
 
 CLEANFILES = \
-	pod2htm?.tmp \
 	html/*.html \
+	pod2htm?.tmp \
+	qemu-wrapper.sh \
 	stamp-guestfs-release-notes.pod
 
 # If you don't want to run all of the tests ('make check') then this
@@ -292,7 +290,60 @@ CLEANFILES = \
 quickcheck:
 	$(top_builddir)/run test-tool/libguestfs-test-tool $(QUICKCHECK_TEST_TOOL_ARGS)
 
-# Run extra-tests in tests/extra/ subdirectory.
+# Non-standard tests.
 
 extra-tests:
-	make -C tests/extra $@
+	$(MAKE) -j1 \
+	  valgrind \
+	  valgrind-local-guests \
+	  check-with-appliance \
+	  check-with-upstream-qemu \
+	  check-with-upstream-libvirt
+
+check-valgrind: build-test-guests
+	@for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
+	  echo $(MAKE) -C `dirname $$f` $@; \
+	  $(MAKE) -C `dirname $$f` $@ || exit $$?; \
+	done
+
+check-valgrind-local-guests:
+	@GUESTS=`$(top_builddir)/run ./pick-guests.pl 5`; \
+	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
+	  echo $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@; \
+	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || exit $$?; \
+	done
+
+build-test-guests:
+	$(MAKE) -C tests/guests check
+
+check-with-appliance:
+	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
+	if [ "$$method" != "appliance" ]; then \
+	  $(MAKE) LIBGUESTFS_ATTACH_METHOD=appliance check || exit $$?; \
+	fi
+
+QEMUDIR = $(HOME)/d/qemu
+QEMUBINARY = $(QEMUDIR)/x86_64-softmmu/qemu-system-x86_64
+
+check-with-upstream-qemu:
+	@if $(QEMUBINARY) --help >/dev/null 2>&1; then \
+	  $(MAKE) check-with-upstream-qemu-1 || exit $$?; \
+	fi
+
+check-with-upstream-qemu-1: $(top_builddir)/qemu-wrapper.sh
+	$(QEMUBINARY) --version
+	$(MAKE) LIBGUESTFS_QEMU=$(top_builddir)/qemu-wrapper.sh check
+
+$(top_builddir)/qemu-wrapper.sh: Makefile
+	rm -f $@ $@-t
+	echo exec "$(QEMUBINARY)" -L "$(QEMUDIR)/pc-bios" "$$@" > $@-t
+	chmod +x,-w $@-t
+	mv $@-t $@
+
+LIBVIRTDIR = $(HOME)/d/libvirt
+
+check-with-upstream-libvirt:
+	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
+	if [ "$$method" = "libvirt" ] && [ -x "$(LIBVIRTDIR)/run" ]; then \
+	  $(LIBVIRTDIR)/run $(MAKE) check || exit $$?; \
+	fi

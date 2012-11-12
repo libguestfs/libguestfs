@@ -38,4 +38,7 @@ test_parallel_mount_local_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
 endif

@@ -134,5 +134,16 @@ stamp-virt-filesystems.pod: virt-filesystems.pod
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
-TESTS = test-virt-cat.sh test-virt-filesystems.sh test-virt-ls.sh
+TESTS = \
+	test-virt-cat.sh \
+	test-virt-filesystems.sh \
+	test-virt-ls.sh
 endif ENABLE_APPLIANCE
+
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
+check-valgrind-local-guests:
+	for g in $(GUESTS); do \
+	  $(top_builddir)/run --test @VG@ ./virt-filesystems -c "$(libvirt_ro_uri)" -d "$$g" --all --long -h --uuid || exit $$?; \
+	done

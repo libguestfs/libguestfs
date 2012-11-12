@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-./virt-alignment-scan -a ../tests/guests/fedora.img
+$VG ./virt-alignment-scan -a ../tests/guests/fedora.img
 r=$?
 
 # 0, 2 and 3 are reasonable non-error exit codes.  Others are errors.

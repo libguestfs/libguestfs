@@ -159,6 +159,14 @@ TESTS = \
 	test-virt-sysprep-script.sh
 endif ENABLE_APPLIANCE
 
+check-valgrind:
+	$(MAKE) TESTS="test-virt-sysprep.sh" VG="$(top_builddir)/run @VG@" check
+
+check-valgrind-local-guests:
+	for g in $(GUESTS); do \
+	  $(top_builddir)/run --test @VG@ ./virt-sysprep -n -c "$(libvirt_ro_uri)" -d "$$g" || exit $$?; \
+	done
+
 # Dependencies.
 depend: .depend
 

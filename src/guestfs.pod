@@ -3462,7 +3462,7 @@ Debugging the daemon is a problem because it runs inside a minimal
 environment.  However you can fprintf messages in the daemon to
 stderr, and they will show up if you use C<guestfish -v>.
 
-=head2 FORMATTING CODE AND OTHER CONVENTIONS
+=head2 FORMATTING CODE
 
 Our C source code generally adheres to some basic code-formatting
 conventions.  The existing code base is not totally consistent on this
@@ -3495,6 +3495,8 @@ If you use Emacs, add the following to one of one of your start-up files
                                (buffer-file-name))
                            (libguestfs-c-mode))))
 
+=head2 TESTING YOUR CHANGES
+
 Enable warnings when compiling (and fix any problems this
 finds):
 
@@ -3502,13 +3504,56 @@ finds):
 
 Useful targets are:
 
- make syntax-check -j1 -k # checks for various syntax and
-                          # style problems
- 
- make check               # runs the test suite
- 
- make extra-tests         # in-depth testing using valgrind
-                          # and real guests
+=over 4
+
+=item C<make check>
+
+Runs the regular test suite.
+
+=item C<make syntax-check -j1 -k>
+
+Checks for various syntax and style problems in the code.
+
+=item C<make check-valgrind>
+
+Runs a subset of the test suite under valgrind.
+
+=item C<make check-valgrind-local-guests>
+
+Runs a subset of the test suite under valgrind
+using locally installed libvirt guests (read-only).
+
+=item C<make check-with-appliance>
+
+Runs all tests using default appliance back-end.  This only
+has any effect if a non-default attach-method was selected
+using C<./configure --with-default-attach-method=...>
+
+=item C<make check-with-upstream-qemu>
+
+Runs all tests using a local qemu binary.  It looks for the qemu
+binary in QEMUDIR (defaults to C<$HOME/d/qemu>), but you can set this
+to another directory on the command line, eg:
+
+ make check-with-upstream-qemu QEMUDIR=/usr/src/qemu
+
+=item C<make check-with-upstream-libvirt>
+
+Runs all tests using a local libvirt.  This only has any effect if the
+libvirt attach-method was selected using
+C<./configure --with-default-attach-method=libvirt>
+
+It looks for libvirt in LIBVIRTDIR (defaults to C<$HOME/d/libvirt>),
+but you can set this to another directory on the command line, eg:
+
+ make check-with-upstream-libvirt LIBVIRTDIR=/usr/src/libvirt
+
+=item C<make extra-tests>
+
+Equivalent to running all C<make check-*> rules
+(but not C<make check>).
+
+=back
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS
 

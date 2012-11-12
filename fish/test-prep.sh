@@ -22,7 +22,7 @@ rm -f test*.img
 
 # It would be nice if we could keep this automatically in sync
 # with the prepared disk types.  XXX
-./guestfish \
+$VG ./guestfish \
     -N disk -N part -N fs \
     -N lv:/dev/VG1/LV \
     -N lvfs:/dev/VG2/LV \

@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# libguestfs
+# @configure_input@
 # Copyright (C) 2009-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # Pick guests at random on the local machine which are accessible.
-# Note that the Makefile sets $LIBVIRT_DEFAULT_URI.
+# This is used by 'make check-valgrind-local-guests'.
 
 use strict;
 
@@ -28,7 +28,7 @@ use List::Util qw(shuffle);
 die "$0 nr-guests\n" unless @ARGV == 1;
 my $n = $ARGV[0];
 
-my $vmm = Sys::Virt->new;
+my $vmm = Sys::Virt->new (uri => '@libvirt_ro_uri@');
 my @domains = ($vmm->list_domains, $vmm->list_defined_domains);
 
 # Only guests which are accessible by the current (non-root) user.  On
@@ -42,7 +42,8 @@ foreach my $dom (@domains) {
     my $name = $dom->get_name;
     my $g = Sys::Guestfs->new;
     eval {
-        $g->add_domain ($name, readonly => 1);
+        $g->add_domain ($name, readonly => 1,
+                        libvirturi => '@libvirt_ro_uri@');
         # $g->launch (); - don't actually need to do this
     };
     push @accessible, $name unless $@;
@@ -55,5 +56,7 @@ $n = @accessible if @accessible < $n;
 
 # Return the first n guests from the list.
 for (my $i = 0; $i < $n; ++$i) {
-    print $accessible[$i], "\n";
+    print " " if $i > 0;
+    print $accessible[$i];
 }
+print "\n";

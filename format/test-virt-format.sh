@@ -27,11 +27,11 @@ fi
 
 rm -f test1.img
 
-../fish/guestfish -N bootrootlv exit
+$VG ../fish/guestfish -N bootrootlv exit
 
-./virt-format --filesystem=ext3 -a test1.img
+$VG ./virt-format --filesystem=ext3 -a test1.img
 
-if [ "$(../cat/virt-filesystems -a test1.img)" != "/dev/sda1" ]; then
+if [ "$($VG ../cat/virt-filesystems -a test1.img)" != "/dev/sda1" ]; then
     echo "$0: unexpected output after using virt-format"
     exit 1
 fi

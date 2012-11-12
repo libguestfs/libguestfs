@@ -1338,6 +1338,8 @@ AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x,-w appliance/libguestfs-make-fixed-appliance])
 AC_CONFIG_FILES([inspector/test-xmllint.sh],
                 [chmod +x,-w inspector/test-xmllint.sh])
+AC_CONFIG_FILES([pick-guests.pl],
+                [chmod +x,-w pick-guests.pl])
 AC_CONFIG_FILES([podwrapper.pl],
                 [chmod +x,-w podwrapper.pl])
 AC_CONFIG_FILES([run],
@@ -1397,7 +1399,6 @@ AC_CONFIG_FILES([Makefile
                  tests/data/Makefile
                  tests/disks/Makefile
                  tests/disk-labels/Makefile
-                 tests/extra/Makefile
                  tests/guests/Makefile
                  tests/hotplug/Makefile
                  tests/luks/Makefile

@@ -20,11 +20,11 @@ export LANG=C
 set -e
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
-    ./virt-inspector -a $f
+    $VG ./virt-inspector -a $f
 done
 
 # We could also test this image, but mdadm is problematic for
 # many users.
-# ./virt-inspector \
+# $VG ./virt-inspector \
 #   -a ../tests/guests/fedora-md1.img \
 #   -a ../tests/guests/fedora-md2.img

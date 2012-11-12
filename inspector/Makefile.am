@@ -99,6 +99,14 @@ if HAVE_XMLLINT
 TESTS += test-xmllint.sh
 endif
 
+check-valgrind:
+	$(MAKE) TESTS="test-virt-inspector.sh" VG="$(top_builddir)/run @VG@" check
+
+check-valgrind-local-guests:
+	for g in $(GUESTS); do \
+	  $(top_builddir)/run --test @VG@ ./virt-inspector -c "$(libvirt_ro_uri)" -d "$$g" || exit $$?; \
+	done
+
 endif
 
 # These rules require virt-inspector so there is no good time that we

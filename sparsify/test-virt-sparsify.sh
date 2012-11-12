@@ -24,7 +24,7 @@ rm -f test1.img test2.img
 # Create a filesystem, fill it with data, then delete the data.  Then
 # prove that sparsifying it reduces the size of the final filesystem.
 
-../fish/guestfish \
+$VG ../fish/guestfish \
     -N bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt <<EOF
 mount /dev/VG/LV /
 mkdir /boot

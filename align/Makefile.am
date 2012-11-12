@@ -80,3 +80,6 @@ if ENABLE_APPLIANCE
 TESTS += \
 	test-virt-alignment-scan.sh
 endif
+
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check

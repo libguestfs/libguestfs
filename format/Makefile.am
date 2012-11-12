@@ -74,4 +74,7 @@ if ENABLE_APPLIANCE
 TESTS = test-virt-format.sh
 endif ENABLE_APPLIANCE
 
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
 EXTRA_DIST += test-virt-format.sh

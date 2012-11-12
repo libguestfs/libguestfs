@@ -42,3 +42,6 @@ stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
 	  --license GPLv2+ \
 	  $<
 	touch $@
+
+check-valgrind:
+	$(top_builddir)/run --test @VG@ ./libguestfs-test-tool

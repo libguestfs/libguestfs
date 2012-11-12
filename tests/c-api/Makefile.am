@@ -169,3 +169,6 @@ test_environment_LDADD = \
 #	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
 #	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
 #endif
+
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check

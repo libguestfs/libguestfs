@@ -299,6 +299,7 @@ Makefile.in
 /php/extension/php_guestfs_php.h
 /php/extension/run-tests.php
 /php/extension/tmp-php.ini
+/pick-guests.pl
 /po-docs/*/*.1
 /po-docs/*/*.3
 /po-docs/*/*.8
@@ -316,6 +317,7 @@ Makefile.in
 /python/guestfs.pyc
 /python/guestfs.pyo
 /python/__pycache__
+/qemu-wrapper.sh
 /rescue/stamp-virt-rescue.pod
 /rescue/virt-rescue
 /rescue/virt-rescue.1
@@ -407,8 +409,6 @@ Makefile.in
 /tests/data/initrd-x86_64.img.gz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
-/tests/extra/qemu-wrapper.sh
-/tests/extra/valgrind.log
 /tests/guests/debian.img
 /tests/guests/fedora.img
 /tests/guests/fedora-md1.img

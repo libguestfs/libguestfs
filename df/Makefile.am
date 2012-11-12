@@ -80,3 +80,9 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 if ENABLE_APPLIANCE
 TESTS = test-virt-df.sh
 endif ENABLE_APPLIANCE
+
+check-valgrind:
+	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
+check-valgrind-local-guests:
+	$(top_builddir)/run --test @VG@ ./virt-df -c "$(libvirt_ro_uri)"
