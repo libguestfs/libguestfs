@@ -59,7 +59,6 @@ abs_builddir ?= $(shell pwd)
 
 EXTRA_DIST = \
 	pick-guests.pl \
-	suppressions \
 	test-with-launch-appliance.sh \
 	test-with-upstream-libvirt.sh \
 	test-with-upstream-qemu.sh
@@ -69,7 +68,7 @@ VG = $(VALGRIND) \
 	--log-file=$(abs_builddir)/valgrind.log \
 	--leak-check=full \
 	--error-exitcode=119 \
-	--suppressions=$(abs_srcdir)/suppressions
+	--suppressions=$(abs_top_srcdir)/valgrind-suppressions
 RUN_VG = $(abs_top_builddir)/run $(VG)
 
 libvirt_uri = qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro

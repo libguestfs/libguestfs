@@ -157,7 +157,8 @@ EXTRA_DIST = \
 	logo/fish.svg logo/fish.png \
 	m4/.gitignore \
 	tmp/.gitignore \
-	update-bugs.sh
+	update-bugs.sh \
+	valgrind-suppressions
 
 # The website.
 HTMLFILES = \
