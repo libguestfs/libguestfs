@@ -258,11 +258,14 @@ TESTS += \
 	test-copy.sh \
 	test-edit.sh \
 	test-find0.sh \
+	test-inspect.sh \
 	test-glob.sh \
 	test-mount-local.sh \
+	test-prep.sh \
 	test-read-file.sh \
 	test-remote.sh \
 	test-reopen.sh \
+	test-run.sh \
 	test-stringlist.sh \
 	test-upload-to-dir.sh
 endif
@@ -277,10 +280,13 @@ EXTRA_DIST += \
 	test-events.sh \
 	test-find0.sh \
 	test-glob.sh \
+	test-inspect.sh \
 	test-mount-local.sh \
+	test-prep.sh \
 	test-read-file.sh \
 	test-remote.sh \
 	test-reopen.sh \
+	test-run.sh \
 	test-stringlist.sh \
 	test-tilde.sh \
 	test-upload-to-dir.sh
