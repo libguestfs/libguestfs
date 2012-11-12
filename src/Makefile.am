@@ -126,7 +126,6 @@ libguestfs_la_LDFLAGS = -version-info $(MAX_PROC_NR):0:$(MAX_PROC_NR)
 libguestfs_la_LDFLAGS += $(VERSION_SCRIPT_FLAGS)$(srcdir)/libguestfs.syms
 
 libguestfs_la_SOURCES = \
-	guestfs.c \
 	guestfs.h \
 	guestfs-internal.h \
 	guestfs_protocol.h \
@@ -139,15 +138,19 @@ libguestfs_la_SOURCES = \
 	actions-6.c \
 	actions-support.c \
 	actions-variants.c \
+	alloc.c \
 	appliance.c \
 	bindtests.c \
 	command.c \
+	canonical-name.c \
 	dbdump.c \
+	errors.c \
 	events.c \
 	file.c \
 	filearch.c \
 	free-structs.c \
 	fuse.c \
+	handle.c \
 	info.c \
 	inspect.c \
 	inspect-apps.c \
@@ -164,8 +167,10 @@ libguestfs_la_SOURCES = \
 	libvirt-domain.c \
 	listfs.c \
 	match.c \
+	private-data.c \
 	proto.c \
 	tmpdirs.c \
+	utils.c \
 	libguestfs.syms
 
 libguestfs_la_LIBADD = \

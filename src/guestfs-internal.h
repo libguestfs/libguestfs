@@ -472,19 +472,30 @@ struct guestfs_message_header;
 struct guestfs_message_error;
 struct guestfs_progress;
 
-/* guestfs.c */
-extern void guestfs_error (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
-extern void guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
-  __attribute__((format (printf,3,4)));
-extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
-
+/* alloc.c */
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
 extern char *guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+
+#define safe_calloc guestfs_safe_calloc
+#define safe_malloc guestfs_safe_malloc
+#define safe_realloc guestfs_safe_realloc
+#define safe_strdup guestfs_safe_strdup
+#define safe_strndup guestfs_safe_strndup
+#define safe_memdup guestfs_safe_memdup
+#define safe_asprintf guestfs_safe_asprintf
+
+/* errors.c */
+extern void guestfs___init_error_handler (guestfs_h *g);
+
+extern void guestfs_error (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+extern void guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
+  __attribute__((format (printf,3,4)));
+extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 
 extern void guestfs___warning (guestfs_h *g, const char *fs, ...)
@@ -494,8 +505,6 @@ extern void guestfs___debug (guestfs_h *g, const char *fs, ...)
 extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 
-extern void guestfs___free_string_list (char **);
-
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size);
 
@@ -504,13 +513,9 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
 #define warning(g,...) guestfs___warning((g),__VA_ARGS__)
 #define debug(g,...) \
   do { if ((g)->verbose) guestfs___debug ((g),__VA_ARGS__); } while (0)
-#define safe_calloc guestfs_safe_calloc
-#define safe_malloc guestfs_safe_malloc
-#define safe_realloc guestfs_safe_realloc
-#define safe_strdup guestfs_safe_strdup
-#define safe_strndup guestfs_safe_strndup
-#define safe_memdup guestfs_safe_memdup
-#define safe_asprintf guestfs_safe_asprintf
+
+/* utils.c */
+extern void guestfs___free_string_list (char **);
 
 /* actions-support.c */
 extern int guestfs___check_reply_header (guestfs_h *g, const struct guestfs_message_header *hdr, unsigned int proc_nr, unsigned int serial);
