@@ -63,12 +63,7 @@ EXTRA_DIST = \
 	test-with-upstream-libvirt.sh \
 	test-with-upstream-qemu.sh
 
-VG = $(VALGRIND) \
-	$(VALGRIND_NO_VGDB) \
-	--log-file=$(abs_builddir)/valgrind.log \
-	--leak-check=full \
-	--error-exitcode=119 \
-	--suppressions=$(abs_top_srcdir)/valgrind-suppressions
+VG = @VG@
 RUN_VG = $(abs_top_builddir)/run $(VG)
 
 libvirt_uri = qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro

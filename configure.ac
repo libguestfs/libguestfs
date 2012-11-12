@@ -784,6 +784,11 @@ AS_IF([test "x$VALGRIND" != "xno"],[
         AC_MSG_RESULT([no])
         AC_SUBST([VALGRIND_NO_VGDB],[])
     fi
+
+    # Substitute the whole valgrind command.
+    VG='$(VALGRIND) $(VALGRIND_NO_VGDB) --log-file=$(abs_top_builddir)/valgrind.log --leak-check=full --error-exitcode=119 --suppressions=$(abs_top_srcdir)/valgrind-suppressions'
+    AC_SUBST([VG])
+    AM_SUBST_NOTMAKE([VG])
 ])
 
 dnl Check for OCaml (optional, for OCaml bindings and OCaml tools).
