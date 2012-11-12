@@ -39,29 +39,38 @@ for t in $tarballs; do
     if [ $v != "1.2.0" -a $v != "1.3.0" -a ! -f $v ]; then
         rm -rf "$tmpdir/*"
         tar -C "$tmpdir" \
-            -zxf $t $p/src/guestfs-actions.c $p/src/actions.c \
-            $p/src/guestfs.c \
-            2>/dev/null ||:
+            -zxf $t $p/src/*.c 2>/dev/null ||:
 
         f="$tmpdir/$p/src/guestfs-actions.c"
         if [ ! -f "$f" ]; then
             f="$tmpdir/$p/src/actions.c"
             if [ ! -f "$f" ]; then
-                echo "$t does not contain actions file"
-                exit 1
+                f="$tmpdir/$p/src/actions-0.c"
+                if [ ! -f "$f" ]; then
+                    echo "$t does not contain actions file"
+                    exit 1
+                fi
             fi
         fi
 
         grep -Eoh 'guestfs_[a-z0-9][_A-Za-z0-9]+' \
-                "$f" $tmpdir/$p/src/guestfs.c |
+                "$f" $tmpdir/$p/src/*.c |
             sort -u |
             grep -v '_ret$' |
             grep -v '_args$' |
+            grep -v '_len$' |
+            grep -v '_val$' |
+            grep -v '_cb$' |
+            grep -v '^guestfs_int_' |
+            grep -v '^guestfs_set_$' |
             grep -v '^guestfs_free_' |
             grep -v '^guestfs_test0' |
+            grep -v '^guestfs_str$' |
             grep -v '^guestfs_internal_test' |
+            grep -v '^guestfs_message_direction$' |
             grep -v '^guestfs_message_error$' |
-            grep -v '^guestfs_message_header$' > $v
+            grep -v '^guestfs_message_header$' |
+            grep -v '^guestfs_message_status$' > $v
     fi
 done
 
