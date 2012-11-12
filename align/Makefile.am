@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	test-virt-alignment-scan.sh \
 	virt-alignment-scan.pod
 
 CLEANFILES = stamp-virt-alignment-scan.pod
@@ -71,6 +72,11 @@ stamp-virt-alignment-scan.pod: virt-alignment-scan.pod
 
 # Tests.
 
-# TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-# TESTS = test-virt-alignment-scan.sh
+TESTS =
+
+if ENABLE_APPLIANCE
+TESTS += \
+	test-virt-alignment-scan.sh
+endif
