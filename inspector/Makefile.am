@@ -20,7 +20,7 @@ builddir ?= .
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXAMPLE_XML = \
+export EXAMPLE_XML = \
 	example-debian.xml \
 	example-fedora.xml \
 	example-ubuntu.xml \
@@ -36,6 +36,8 @@ EXAMPLE_XML = \
 	example-windows-xp-cd.xml
 
 EXTRA_DIST = \
+	test-virt-inspector.sh \
+	test-xmllint.sh.in \
 	virt-inspector.pod
 
 CLEANFILES = stamp-virt-inspector.pod
@@ -91,11 +93,10 @@ stamp-virt-inspector.pod: virt-inspector.pod
 	  $<
 	touch $@
 
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS = test-virt-inspector.sh
 if HAVE_XMLLINT
-
-TESTS = $(EXAMPLE_XML)
-TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng $(srcdir)/virt-inspector.rng
-
+TESTS += test-xmllint.sh
 endif
 
 endif
