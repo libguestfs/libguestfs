@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-10 10:13+0000\n"
+"POT-Creation-Date: 2012-11-13 14:41+0000\n"
 "PO-Revision-Date: 2012-10-14 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3757,6 +3757,21 @@ msgstr ""
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
+#: src/errors.c:69
+#, c-format
+msgid "warning: %s"
+msgstr ""
+
+#: src/errors.c:247
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr "libguestfs: error: %s\n"
+
+#: src/errors.c:275
+#, c-format
+msgid "<truncated, original size %zu bytes>"
+msgstr "<ਘਟਾਇਆ, ਅਸਲੀ ਅਕਾਰ %zu ਬਾਈਟ>"
+
 #: src/filearch.c:154
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
@@ -3818,31 +3833,16 @@ msgstr ""
 msgid "FUSE not supported"
 msgstr ""
 
-#: src/guestfs.c:143
+#: src/handle.c:120
 msgid ""
 "libguestfs was built with an invalid default attach-method, using "
 "'appliance' instead"
 msgstr ""
 
-#: src/guestfs.c:278
+#: src/handle.c:255
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: called twice on the same handle\n"
-
-#: src/guestfs.c:450
-#, c-format
-msgid "warning: %s"
-msgstr ""
-
-#: src/guestfs.c:725
-#, c-format
-msgid "libguestfs: error: %s\n"
-msgstr "libguestfs: error: %s\n"
-
-#: src/guestfs.c:1151
-#, c-format
-msgid "<truncated, original size %zu bytes>"
-msgstr "<ਘਟਾਇਆ, ਅਸਲੀ ਅਕਾਰ %zu ਬਾਈਟ>"
 
 #: src/info.c:107
 #, c-format
@@ -4314,37 +4314,37 @@ msgstr "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: failed to add drive '%s'\n"
 
-#: test-tool/test-tool.c:244
+#: test-tool/test-tool.c:250
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
-#: test-tool/test-tool.c:256
+#: test-tool/test-tool.c:262
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:262
+#: test-tool/test-tool.c:268
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
 
-#: test-tool/test-tool.c:268
+#: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:281
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:281
+#: test-tool/test-tool.c:287
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:314
+#: test-tool/test-tool.c:320
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4353,12 +4353,12 @@ msgstr ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 
-#: test-tool/test-tool.c:322
+#: test-tool/test-tool.c:328
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "ਬਾਇਨਰੀ '%s' ਬੰਦ ਨਹੀਂ ਹੋਇਆ ਜਾਂ ਚੱਲਣਯੋਗ ਨਹੀਂ ਹੈ\n"
 
-#: test-tool/test-tool.c:339
+#: test-tool/test-tool.c:345
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ਇੱਕ qemu ਸਰੋਤ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਲੱਗਦੀ\n"
