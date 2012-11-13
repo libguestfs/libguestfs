@@ -298,7 +298,8 @@ extra-tests:
 	  valgrind-local-guests \
 	  check-with-appliance \
 	  check-with-upstream-qemu \
-	  check-with-upstream-libvirt
+	  check-with-upstream-libvirt \
+	  check-slow
 
 check-valgrind: build-test-guests
 	@for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
@@ -311,6 +312,12 @@ check-valgrind-local-guests:
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
 	  echo $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@; \
 	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || exit $$?; \
+	done
+
+check-slow: build-test-guests
+	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
+	  echo $(MAKE) -C `dirname $$f` $@; \
+	  $(MAKE) -C `dirname $$f` $@ || exit $$?; \
 	done
 
 build-test-guests:
@@ -360,6 +367,7 @@ help:
 	@echo "make check-with-appliance         Test using appliance attach-method."
 	@echo "make check-with-upstream-qemu     Test using upstream qemu."
 	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
+	@echo "make check-slow       Slow/long-running tests."
 	@echo "make extra-tests      Same as check-* (but not 'make check')"
 	@echo "make syntax-check     Check syntax and style problems in the code."
 	@echo

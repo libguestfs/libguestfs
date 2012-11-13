@@ -19,10 +19,12 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = test-big-dirs.pl
 
-# Don't run this test by default.  It takes a very long time
-# to run and is not especially informative.  However we have to
-# have an empty TESTS rule otherwise you can't run the test
-# from the command line using 'make check TESTS=test-big-dirs.pl'
+# Don't run this test by default.  It takes a very long time to run
+# and is not especially informative.  However we have to have an empty
+# TESTS rule otherwise you can't run the test from the command line
+# using 'make TESTS=test-big-dirs.pl check'
 TESTS =
-
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
+
+check-slow:
+	$(MAKE) TESTS="test-big-dirs.pl" check

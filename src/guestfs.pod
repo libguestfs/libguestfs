@@ -3548,6 +3548,10 @@ but you can set this to another directory on the command line, eg:
 
  make check-with-upstream-libvirt LIBVIRTDIR=/usr/src/libvirt
 
+=item C<make check-slow>
+
+Runs some slow/long-running tests which are not run by default.
+
 =item C<make extra-tests>
 
 Equivalent to running all C<make check-*> rules
