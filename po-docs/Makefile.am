@@ -25,7 +25,8 @@ linguas = ja uk
 
 EXTRA_DIST = \
 	libguestfs-docs.pot \
-	$(linguas:%=%.po)
+	$(linguas:%=%.po) \
+	podfiles
 
 CLEANFILES = po4a.conf
 

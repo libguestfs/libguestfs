@@ -31,7 +31,9 @@ BUILT_SOURCES = $(generator_built)
 EXTRA_DIST = \
 	$(generator_built) \
 	TODO.txt \
+	.gitignore \
 	bindtests-manual.js \
+	docs/.gitignore \
 	tests-misc.js \
 	run-tests \
 	run-live-tests

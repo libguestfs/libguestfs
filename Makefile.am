@@ -118,15 +118,24 @@ EXTRA_DIST = \
 	$(generator_built) \
 	BUGS HACKING RELEASE-NOTES ROADMAP TODO \
 	.gitignore \
+	.lvimrc \
+	.tx/config \
 	bugs-in-changelog.sh \
 	autogen.sh \
 	bindtests \
 	contrib/autobuild/autobuild.sh \
 	contrib/guestfsd-in-wine.sh \
 	contrib/intro/libguestfs-intro.html \
+	contrib/intro/overview.png \
 	contrib/intro/overview.svg \
 	contrib/intro/talk.txt \
+	contrib/intro/tools.png \
 	contrib/intro/tools.svg \
+	contrib/intro/virt-manager-t.png \
+	contrib/intro/virt-manager.png \
+	contrib/intro/vmm-icons-t.png \
+	contrib/intro/vmm-icons.png \
+	contrib/intro/win7.xml \
 	contrib/make-check-on-installed.pl \
 	contrib/README \
 	contrib/visualize-alignment/.gitignore \
@@ -143,6 +152,7 @@ EXTRA_DIST = \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
 	m4/.gitignore \
+	tx-pull.sh \
 	update-bugs.sh
 
 # The website.
