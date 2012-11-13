@@ -41,6 +41,7 @@ SUBDIRS += tests/guests
 SUBDIRS += tests/c-api
 SUBDIRS += tests/tmpdirs
 SUBDIRS += tests/protocol
+SUBDIRS += tests/parallel
 SUBDIRS += tests/disks
 SUBDIRS += tests/lvm
 SUBDIRS += tests/luks
