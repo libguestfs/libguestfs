@@ -708,6 +708,9 @@ AS_IF([test "$with_libvirt" != "no"],[
 ])
 AM_CONDITIONAL([HAVE_LIBVIRT],[test "x$LIBVIRT_LIBS" != "x"])
 
+libvirt_ro_uri='qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro'
+AC_SUBST([libvirt_ro_uri])
+
 dnl libxml2 (highly recommended)
 PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],
         [AC_SUBST([LIBXML2_CFLAGS])

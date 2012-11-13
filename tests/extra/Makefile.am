@@ -66,12 +66,10 @@ EXTRA_DIST = \
 VG = @VG@
 RUN_VG = $(abs_top_builddir)/run $(VG)
 
-libvirt_uri = qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro
-
 # Choose guests at random on each run.
 random_guests := \
 	$(shell \
-	  LIBVIRT_DEFAULT_URI="$(libvirt_uri)" \
+	  LIBVIRT_DEFAULT_URI="$(libvirt_ro_uri)" \
 	    $(abs_top_builddir)/run $(srcdir)/pick-guests.pl 5)
 
 extra-tests-non-recursive: \
@@ -147,29 +145,29 @@ test-tools-internal:
 
 # Invocations of tools on real images shouldn't leak memory.
 test-df-real:
-	$(RUN_VG) ../../df/virt-df -c "$(libvirt_uri)" >/dev/null
-	$(RUN_VG) ../../df/virt-df -c "$(libvirt_uri)" -h >/dev/null
+	$(RUN_VG) ../../df/virt-df -c "$(libvirt_ro_uri)" >/dev/null
+	$(RUN_VG) ../../df/virt-df -c "$(libvirt_ro_uri)" -h >/dev/null
 
 test-filesystems-real:
 	@for g in $(random_guests); do \
-	  echo $(RUN_VG) ../../cat/virt-filesystems -c "$(libvirt_uri)" -d $$g --all --long -h --uuid; \
-	  $(RUN_VG) ../../cat/virt-filesystems -c "$(libvirt_uri)" -d $$g --all --long -h --uuid > /dev/null; \
+	  echo $(RUN_VG) ../../cat/virt-filesystems -c "$(libvirt_ro_uri)" -d $$g --all --long -h --uuid; \
+	  $(RUN_VG) ../../cat/virt-filesystems -c "$(libvirt_ro_uri)" -d $$g --all --long -h --uuid > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
 
 test-inspector-real:
 	@for g in $(random_guests); do \
-	  echo $(RUN_VG) ../../inspector/virt-inspector -c "$(libvirt_uri)" -d $$g; \
-	  $(RUN_VG) ../../inspector/virt-inspector -c "$(libvirt_uri)" -d $$g > /dev/null; \
+	  echo $(RUN_VG) ../../inspector/virt-inspector -c "$(libvirt_ro_uri)" -d $$g; \
+	  $(RUN_VG) ../../inspector/virt-inspector -c "$(libvirt_ro_uri)" -d $$g > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
 
 test-sysprep-real:
 	@for g in $(random_guests); do \
-	  echo $(RUN_VG) ../../sysprep/virt-sysprep -n -c "$(libvirt_uri)" -d $$g; \
-	  $(RUN_VG) ../../sysprep/virt-sysprep -n -c "$(libvirt_uri)" -d $$g > /dev/null; \
+	  echo $(RUN_VG) ../../sysprep/virt-sysprep -n -c "$(libvirt_ro_uri)" -d $$g; \
+	  $(RUN_VG) ../../sysprep/virt-sysprep -n -c "$(libvirt_ro_uri)" -d $$g > /dev/null; \
 	  r=$$?; \
 	  if [ $$r -ne 0 ]; then exit $$r; fi; \
 	done
