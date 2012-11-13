@@ -33,4 +33,5 @@ TESTS_ENVIRONMENT = \
 	$(top_builddir)/run
 
 EXTRA_DIST = \
-	$(TESTS)
+	$(TESTS) \
+	test-qemudie-launchfail.sh
