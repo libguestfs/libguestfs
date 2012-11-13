@@ -266,6 +266,7 @@ TESTS += \
 	test-mount-local.sh \
 	test-read-file.sh \
 	test-remote.sh \
+	test-remote-events.sh \
 	test-reopen.sh \
 	test-stringlist.sh \
 	test-upload-to-dir.sh
@@ -284,6 +285,7 @@ EXTRA_DIST += \
 	test-mount-local.sh \
 	test-read-file.sh \
 	test-remote.sh \
+	test-remote-events.sh \
 	test-reopen.sh \
 	test-stringlist.sh \
 	test-tilde.sh \
