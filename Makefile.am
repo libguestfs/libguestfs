@@ -347,3 +347,28 @@ check-with-upstream-libvirt:
 	if [ "$$method" = "libvirt" ] && [ -x "$(LIBVIRTDIR)/run" ]; then \
 	  $(LIBVIRTDIR)/run $(MAKE) check || exit $$?; \
 	fi
+
+# Provide help on common Makefile targets.
+
+help:
+	@echo
+	@echo "make                  Build everything."
+	@echo
+	@echo "make check            Run the standard tests."
+	@echo "make check-valgrind   Run a subset of the tests under valgrind."
+	@echo "make check-valgrind-local-tests   Test under valgrind using local guests."
+	@echo "make check-with-appliance         Test using appliance attach-method."
+	@echo "make check-with-upstream-qemu     Test using upstream qemu."
+	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
+	@echo "make extra-tests      Same as check-* (but not 'make check')"
+	@echo "make syntax-check     Check syntax and style problems in the code."
+	@echo
+	@echo "make install          Install everything."
+	@echo
+	@echo "make clean            Clean everything."
+	@echo
+	@echo "To run programs without installing:"
+	@echo "  ./run ./fish/guestfish [or any other program]"
+	@echo
+	@echo "For more information, see EXTENDING LIBGUESTFS in guestfs(3); and README."
+	@echo

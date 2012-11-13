@@ -1464,4 +1464,6 @@ echo "http://www.redhat.com/mailman/listinfo/libguestfs"
 echo
 echo "Next you should type 'make' to build the package,"
 echo "then 'make check' to run the tests."
+echo
+echo "Or run 'make help' to list some common targets."
 echo "------------------------------------------------------------"
