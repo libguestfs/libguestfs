@@ -264,6 +264,7 @@ TESTS += \
 	test-prep.sh \
 	test-read-file.sh \
 	test-remote.sh \
+	test-remote-events.sh \
 	test-reopen.sh \
 	test-run.sh \
 	test-stringlist.sh \
@@ -288,6 +289,7 @@ EXTRA_DIST += \
 	test-prep.sh \
 	test-read-file.sh \
 	test-remote.sh \
+	test-remote-events.sh \
 	test-reopen.sh \
 	test-run.sh \
 	test-stringlist.sh \

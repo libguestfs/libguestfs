@@ -25,7 +25,7 @@ eval "$(./guestfish --listen)"
 ./guestfish --remote event close_event close "echo closed"
 
 output="$(./guestfish --remote list-events)"
-if [ "$output" != '"close_event": (0): close: echo closed' ]; then
+if [ "$output" != '"close_event" (0): close: echo closed' ]; then
     echo "$0: list-events failed:"
     echo "$output"
     ./guestfish --remote exit
