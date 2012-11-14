@@ -101,6 +101,16 @@ safer by adding the I<--ro> flag.
 There are dozens of these commands.  See L<guestfish(1)> or the output
 of C<guestfish -h>
 
+=head1 Diff two guests; compare a snapshot to the current version
+
+L<virt-ls(1)> provides a simple way to find the differences between
+two guests (for example if they were originally cloned from the same
+source), or between two snapshots from the same guest.  See
+L<virt-ls(1)/DIFFERENCES IN SNAPSHOTS AND BACKING FILES>.
+
+There are also experimental patches on the mailing list for a
+"virt-diff" tool.
+
 =head1 Dump raw filesystem content from inside a disk image or VM
 
 You can use the L<guestfish(1)> C<download> command to extract the raw
