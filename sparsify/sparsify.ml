@@ -190,6 +190,27 @@ let () =
   if not quiet then
     printf (f_"qemu-img version %g\n%!") qemu_img_version
 
+(* What should the output format be?  If the user specified an
+ * input format, use that, else detect it from the source image.
+ *)
+let output_format =
+  match convert with
+  | Some fmt -> fmt             (* user specified output conversion *)
+  | None ->
+    match format with
+    | Some fmt -> fmt           (* user specified input format, use that *)
+    | None ->
+      (* Don't know, so we must autodetect. *)
+      match (new G.guestfs ())#disk_format indisk  with
+      | "unknown" ->
+        error (f_"cannot detect input disk format; use the --format parameter")
+      | fmt -> fmt
+
+(* Compression is not supported by raw output (RHBZ#852194). *)
+let () =
+  if output_format = "raw" && compress then
+    error (f_"--compress cannot be used for raw output.  Remove this option or use --convert qcow2.")
+
 let () =
   if not quiet then
     printf (f_"Create overlay file to protect source disk ...\n%!")
@@ -339,22 +360,6 @@ let () =
 let () =
   g#shutdown ();
   g#close ()
-
-(* What should the output format be?  If the user specified an
- * input format, use that, else detect it from the source image.
- *)
-let output_format =
-  match convert with
-  | Some fmt -> fmt             (* user specified output conversion *)
-  | None ->
-    match format with
-    | Some fmt -> fmt           (* user specified input format, use that *)
-    | None ->
-      (* Don't know, so we must autodetect. *)
-      match (new G.guestfs ())#disk_format indisk  with
-      | "unknown" ->
-        error (f_"cannot detect input disk format; use the --format parameter")
-      | fmt -> fmt
 
 (* Now run qemu-img convert which copies the overlay to the
  * destination and automatically does sparsification.
