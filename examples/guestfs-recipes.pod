@@ -123,7 +123,7 @@ one which is encrypted or buried inside an LV or RAID device):
 
 To download to stdout, replace the filename with a C<-> character:
 
- guestfish --ro -a disk.img run : download /dev/sda1 - | hexdump -C
+ guestfish --ro -a disk.img run : download /dev/sda1 - | gzip > sda1.gz
 
 To list the filesystems in a disk image, use L<virt-filesystems(1)>.
 
@@ -316,6 +316,19 @@ L<https://rwmj.wordpress.com/2012/02/27/using-libguestfs-to-find-out-why-a-windo
 This might give you a clue as to what program is running.
 
 =back
+
+=head1 Hex-dumping sectors from the guest
+
+Hex-dump the boot partition:
+
+ guestfish --ro -a disk.img run : pread-device /dev/sda 0x200 0 |
+   hexdump -C
+
+=head1 Hex-editing sectors in the guest
+
+Hex-edit the first sector (boot partition):
+
+ guestfish --rw -a disk.img run : hexedit /dev/sda 0x200
 
 =head1 Install RPMs in a guest
 
