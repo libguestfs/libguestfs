@@ -864,7 +864,7 @@ do_mke2fs (const char *device,               /* 0 */
   char bytesperinode_s[64];
   char inodesize_s[64];
   char journalsize_s[64];
-  char journaldevice_s[256];
+  char *journaldevice_s = NULL;
   char reservedblockspercentage_s[64];
   char numberofinodes_s[64];
   char mmpupdateinterval_s[84];
@@ -947,8 +947,20 @@ do_mke2fs (const char *device,               /* 0 */
   }
   if (optargs_bitmask & GUESTFS_MKE2FS_JOURNALDEVICE_BITMASK) {
     if (journaldevice) {
-      snprintf (journaldevice_s, sizeof journaldevice_s,
-                "device=%s", journaldevice);
+      /* OString doesn't do device name translation (RHBZ#876579).  We
+       * have to do it manually here, but note that LABEL=.. and
+       * UUID=.. are valid strings which do not require translation.
+       */
+      journaldevice_s = malloc (strlen (journaldevice) + 8);
+      if (!journaldevice_s) {
+        reply_with_perror ("malloc");
+        goto error;
+      }
+
+      sprintf (journaldevice_s, "device=%s", journaldevice);
+      if (STRPREFIX (&journaldevice_s[7], "/dev/"))
+        RESOLVE_DEVICE (&journaldevice_s[7], , goto error);
+
       ADD_ARG (argv, i, "-J");
       ADD_ARG (argv, i, journaldevice_s);
     }
@@ -1171,11 +1183,13 @@ do_mke2fs (const char *device,               /* 0 */
     goto error;
   }
 
+  free (journaldevice_s);
   free (err);
   return 0;
 
 error:
-  if (err) free (err);
+  free (journaldevice_s);
+  free (err);
   return -1;
 }
 
