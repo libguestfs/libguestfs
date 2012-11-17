@@ -45,11 +45,11 @@ ok (1);
 
 my @lvs = $g->lvs ();
 if (@lvs != 2 || $lvs[0] ne "/dev/VG/LV1" || $lvs[1] ne "/dev/VG/LV2") {
-    die "h->lvs() returned incorrect result"
+    die "g->lvs() returned incorrect result"
 }
 ok (1);
 
-$g->sync ();
+$g->shutdown ();
 ok (1);
 
 undef $g;

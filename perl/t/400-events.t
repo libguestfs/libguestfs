@@ -63,7 +63,6 @@ ok (1);
 
 # Do some stuff.
 $g->add_drive_ro ("/dev/null");
-$g->set_autosync (1);
 ok (1);
 
 # Close the handle.  The close callback should be invoked.
