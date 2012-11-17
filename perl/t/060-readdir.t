@@ -52,7 +52,7 @@ foreach (@dirs) {
 }
 ok (1);
 
-$g->sync ();
+$g->shutdown ();
 ok (1);
 
 undef $g;
