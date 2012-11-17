@@ -114,6 +114,8 @@ lua_guestfs_create (lua_State *L)
   if (!g)
     return luaL_error (L, \"Guestfs.create: cannot create handle: %%m\");
 
+  guestfs_set_error_handler (g, NULL, NULL);
+
   u = lua_newuserdata (L, sizeof (struct userdata));
   luaL_getmetatable (L, LUA_GUESTFS_HANDLE);
   lua_setmetatable (L, -2);
@@ -147,6 +149,18 @@ lua_guestfs_close (lua_State *L)
     guestfs_close (u->g);
     u->g = NULL;
   }
+
+  return 0;
+}
+
+/* User cancel. */
+static int
+lua_guestfs_user_cancel (lua_State *L)
+{
+  struct userdata *u = get_handle (L, 1);
+
+  if (u->g)
+    guestfs_user_cancel (u->g);
 
   return 0;
 }
@@ -297,18 +311,29 @@ lua_guestfs_close (lua_State *L)
       ) optargs;
 
       (* Handle errors. *)
+      let raise_error () =
+        pr "    lua_newtable (L);\n";
+        pr "    lua_pushliteral (L, \"msg\");\n";
+        pr "    lua_pushstring (L, guestfs_last_error (g));\n";
+        pr "    lua_settable (L, -3);\n";
+        pr "    lua_pushliteral (L, \"code\");\n";
+        pr "    lua_pushinteger (L, guestfs_last_errno (g));\n";
+        pr "    lua_settable (L, -3);\n";
+        pr "    return lua_error (L);\n"
+      in
+
       (match errcode_of_ret ret with
       | `CannotReturnError -> ()
       | `ErrorIsMinusOne ->
-        pr "  if (r == -1)\n";
-        pr "    return luaL_error (L, \"Guestfs.%%s: %%s\",\n";
-        pr "                       \"%s\", guestfs_last_error (g));\n" name;
+        pr "  if (r == -1) {\n";
+        raise_error ();
+        pr "  }\n";
         pr "\n"
       | `ErrorIsNULL ->
-        pr "  if (r == NULL)\n";
-        pr "    return luaL_error (L, \"Guestfs.%%s: %%s\",\n";
-        pr "                       \"%s\", guestfs_last_error (g));\n" name;
-        pr "\n";
+        pr "  if (r == NULL) {\n";
+        raise_error ();
+        pr "  }\n";
+        pr "\n"
       );
 
       (* Push return value on the stack. *)
@@ -496,6 +521,7 @@ static luaL_Reg handle_methods[] = {
   { \"__gc\", lua_guestfs_finalizer },
   { \"create\", lua_guestfs_create },
   { \"close\", lua_guestfs_close },
+  { \"user_cancel\", lua_guestfs_user_cancel },
 
 ";
 

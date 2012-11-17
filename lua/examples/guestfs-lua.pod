@@ -65,7 +65,23 @@ properly.  We hope to come up with a better solution later.
 
 =head2 ERRORS
 
-Errors are converted into exceptions.  Use C<pcall> to catch these.
+Most (but not all) errors are converted into objects (ie. tables)
+containing the following fields:
+
+=over 4
+
+=item msg
+
+The error message (corresponding to L<guestfs(3)/guestfs_last_error>).
+
+=item code
+
+The C<errno> (corresponding to L<guestfs(3)/guestfs_last_errno>).
+
+=back
+
+Note that some errors can also be thrown as plain strings.  You
+need to check the type.
 
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
