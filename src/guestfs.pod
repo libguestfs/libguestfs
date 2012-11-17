@@ -880,6 +880,10 @@ and we are looking for help to complete this binding.
 Full documentation is contained in the Javadoc which is distributed
 with libguestfs.  For examples, see L<guestfs-java(3)>.
 
+=item B<Lua>
+
+See L<guestfs-lua(3)>.
+
 =item B<OCaml>
 
 See L<guestfs-ocaml(3)>.
@@ -3751,6 +3755,8 @@ Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 
 =item C<java>
 
+=item C<lua>
+
 =item C<ocaml>
 
 =item C<php>
@@ -4027,6 +4033,7 @@ See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 L<guestfs-examples(3)>,
 L<guestfs-erlang(3)>,
 L<guestfs-java(3)>,
+L<guestfs-lua(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,
 L<guestfs-python(3)>,

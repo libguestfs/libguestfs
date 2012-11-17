@@ -203,6 +203,7 @@ gobject/src/struct-xfsinfo.c
 gobject/src/tristate.c
 inspector/virt-inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
+lua/lua-guestfs.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c.c
 perl/Guestfs.c

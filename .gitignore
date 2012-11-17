@@ -164,6 +164,7 @@ Makefile.in
 /html/guestfs-examples.3.html
 /html/guestfs-faq.1.html
 /html/guestfs-java.3.html
+/html/guestfs-lua.3.html
 /html/guestfs-ocaml.3.html
 /html/guestfs-performance.1.html
 /html/guestfs-perl.3.html
@@ -215,6 +216,11 @@ Makefile.in
 /libtool
 /local*
 /ltmain.sh
+/lua/examples/guestfs-lua.3
+/lua/examples/stamp-guestfs-lua.pod
+/lua/guestfs.so
+/lua/lua-guestfs.c
+/lua/test.img
 /m4/ChangeLog
 /m4/gnulib-cache.m4
 /m4/intmax.m4

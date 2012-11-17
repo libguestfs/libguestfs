@@ -1,0 +1,97 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-lua - How to use libguestfs from Lua
+
+=head1 SYNOPSIS
+
+ require "guestfs"
+ g = Guestfs.create ()
+ g:add_drive ("test.img", { format = "raw", readonly = "true" })
+ g:launch ()
+ devices = g:list_devices ()
+ g:close ()
+
+=head1 DESCRIPTION
+
+This manual page documents how to call libguestfs from the Lua
+programming language.  This page just documents the differences from
+the C API and gives some examples.  If you are not familiar with using
+libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 OPENING AND CLOSING THE HANDLE
+
+To create a new handle, call:
+
+ g = Guestfs.create ()
+
+You can also use the optional arguments:
+
+ g = Guestfs.create { environment = 0, close_on_exit = 0 }
+
+to set the flags C<GUESTFS_CREATE_NO_ENVIRONMENT>
+and/or C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>.
+
+The handle will be closed by the garbage collector, but you can
+also close it explicitly by doing:
+
+ g:close ()
+
+=head2 CALLING METHODS
+
+Use the ordinary Lua convention for calling methods on the handle.
+For example:
+
+ g:set_verbose (true)
+
+=head2 FUNCTIONS WITH OPTIONAL ARGUMENTS
+
+For functions that take optional arguments, the first arguments are
+the non-optional ones.  The optional final argument is a table
+supplying the optional arguments.
+
+ g:add_drive ("test.img")
+
+or:
+
+ g:add_drive ("test.img", { format = "raw", readonly = "true" })
+
+=head2 64 BIT VALUES
+
+Currently 64 bit values must be passed as strings, and are returned as
+strings.  This is because 32 bit Lua cannot handle 64 bit integers
+properly.  We hope to come up with a better solution later.
+
+=head2 ERRORS
+
+Errors are converted into exceptions.  Use C<pcall> to catch these.
+
+=head1 EXAMPLE 1: CREATE A DISK IMAGE
+
+@EXAMPLE1@
+
+=head1 EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE
+
+@EXAMPLE2@
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<guestfs-java(3)>,
+L<guestfs-ocaml(3)>,
+L<guestfs-perl(3)>,
+L<guestfs-python(3)>,
+L<guestfs-recipes(1)>,
+L<guestfs-ruby(3)>,
+L<http://www.erlang.org/>.
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 Red Hat Inc.

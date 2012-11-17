@@ -93,6 +93,14 @@ export CAML_LD_LIBRARY_PATH="$b/ocaml"
 export JAVA_EXE=@JAVA_EXE@
 export CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
 
+# For Lua.
+if [ -z "$LUA_CPATH" ]; then
+    LUA_CPATH="$b/lua/?.so"
+else
+    LUA_CPATH="$b/lua/?.so;$LUA_CPATH"
+fi
+export LUA_CPATH
+
 # For GObject, Javascript and friends.
 export GJS=@GJS@
 if [ -z "$GI_TYPELIB_PATH" ]; then

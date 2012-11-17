@@ -1240,6 +1240,28 @@ if test "x$enable_erlang" != "xno"; then
 fi
 AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLANG" != "xno" && test "x$ERLC" != "xno"])
 
+dnl Lua
+LUA=no
+AC_ARG_ENABLE([lua],
+    AS_HELP_STRING([--disable-lua], [disable Lua language bindings]),
+        [],
+        [enable_lua=yes])
+AS_IF([test "x$enable_lua" != "xno"],[
+        LUA=
+        AC_CHECK_PROG([LUA],[lua],[lua],[no])
+        AC_CHECK_HEADER([lua.h],[have_lua_h=yes])
+        AC_CHECK_HEADER([lauxlib.h],[have_lauxlib_h=yes])
+        AC_CHECK_LIB([lua],[lua_checkstack],[have_lua_lib=yes])
+
+        AS_IF([test "x$LUA" != "xno"],[
+            AC_MSG_CHECKING([for Lua version])
+            LUA_VERSION=`$LUA -e 'print(_VERSION)' | awk '{print $2}'`
+            AC_MSG_RESULT([$LUA_VERSION])
+            AC_SUBST([LUA_VERSION])
+        ])
+])
+AM_CONDITIONAL([HAVE_LUA], [test "x$LUA" != "xno" && test "x$have_lua_h" = "xyes" && test "x$have_lauxlib_h" = "xyes" && test "x$have_lua_lib" = "xyes"])
+
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],
         [
@@ -1368,6 +1390,8 @@ AC_CONFIG_FILES([Makefile
                  inspector/Makefile
                  java/Makefile
                  java/examples/Makefile
+                 lua/Makefile
+                 lua/examples/Makefile
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile
@@ -1452,6 +1476,8 @@ AS_ECHO_N(["PHP bindings ........................ "])
 if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["Erlang bindings ..................... "])
 if test "x$HAVE_ERLANG_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+AS_ECHO_N(["Lua bindings ........................ "])
+if test "x$HAVE_LUA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["gobject bindings .................... "])
 if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["gobject introspection ............... "])

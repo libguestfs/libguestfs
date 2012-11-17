@@ -94,6 +94,9 @@ endif
 if HAVE_ERLANG
 SUBDIRS += erlang erlang/examples
 endif
+if HAVE_LUA
+SUBDIRS += lua lua/examples
+endif
 if HAVE_GOBJECT
 SUBDIRS += gobject
 endif
@@ -175,6 +178,7 @@ HTMLFILES = \
 	html/guestfs-erlang.3.html \
 	html/guestfs-faq.1.html \
 	html/guestfs-java.3.html \
+	html/guestfs-lua.3.html \
 	html/guestfs-ocaml.3.html \
 	html/guestfs-performance.1.html \
 	html/guestfs-perl.3.html \

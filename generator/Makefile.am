@@ -47,6 +47,7 @@ SOURCES = \
 	csharp.ml \
 	php.ml \
 	erlang.ml \
+	lua.ml \
 	gobject.ml \
 	bindtests.ml \
 	errnostring.ml \

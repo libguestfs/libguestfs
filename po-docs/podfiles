@@ -24,6 +24,7 @@
 ../guestfs-release-notes.pod
 ../inspector/virt-inspector.pod
 ../java/examples/guestfs-java.pod
+../lua/examples/guestfs-lua.pod
 ../ocaml/examples/guestfs-ocaml.pod
 ../perl/examples/guestfs-perl.pod
 ../python/examples/guestfs-python.pod

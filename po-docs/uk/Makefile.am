@@ -30,6 +30,7 @@ MANPAGES = \
 	guestfs-examples.3 \
 	guestfs-faq.1 \
 	guestfs-java.3 \
+	guestfs-lua.3 \
 	guestfs-ocaml.3 \
 	guestfs-performance.1 \
 	guestfs-perl.3 \

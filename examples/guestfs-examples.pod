@@ -35,6 +35,7 @@ libguestfs, you also need to read L<guestfs(3)>.
 L<guestfs(3)>,
 L<guestfs-erlang(3)>,
 L<guestfs-java(3)>,
+L<guestfs-lua(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,
 L<guestfs-python(3)>,

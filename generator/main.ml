@@ -41,6 +41,7 @@ open Haskell
 open Csharp
 open Php
 open Erlang
+open Lua
 open Gobject
 open Bindtests
 open Errnostring
@@ -152,6 +153,7 @@ Run it from the top source directory using the command
   output_to "erlang/guestfs.erl" generate_erlang_erl;
   output_to "erlang/erl-guestfs.c" generate_erlang_c;
   output_to ~perm:0o555 "erlang/bindtests.erl" generate_erlang_bindtests;
+  output_to "lua/lua-guestfs.c" generate_lua_c;
 
   output_to "gobject/bindtests.js" generate_gobject_js_bindtests;
   output_to "gobject/Makefile.inc" generate_gobject_makefile;

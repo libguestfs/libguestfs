@@ -1,0 +1,79 @@
+# libguestfs Lua bindings
+# Copyright (C) 2012 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+include $(top_srcdir)/subdir-rules.mk
+
+lualibdir = $(libdir)/lua/$(LUA_VERSION)
+
+generator_built = \
+	lua-guestfs.c
+
+EXTRA_DIST = \
+	$(generator_built)
+
+CLEANFILES = *~ guestfs.so
+
+if HAVE_LUA
+
+# Libtool forces us to use 'libluaguestfs.so' instead of the desired
+# name 'guestfs.so'.  However we'll rename it in the install hook.
+# Cannot use 'noinst' here as that prevents the shared library from
+# being built at all.
+lualib_LTLIBRARIES = libluaguestfs.la
+libluaguestfs_la_SOURCES = lua-guestfs.c
+
+libluaguestfs_la_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+libluaguestfs_la_LIBADD = $(top_builddir)/src/libguestfs.la
+libluaguestfs_la_LDFLAGS = -avoid-version -shared
+
+# Hack so we can run without installing.
+noinst_DATA = guestfs.so
+guestfs.so: libluaguestfs.la
+	ln -sf .libs/libluaguestfs.so $@
+
+# Tests.
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS = \
+	tests/010-load.lua \
+	tests/020-create.lua \
+	tests/025-create-flags.lua \
+	tests/030-config.lua \
+	tests/070-optargs.lua
+
+if ENABLE_APPLIANCE
+TESTS += \
+	tests/050-lvcreate.lua \
+	tests/060-readdir.lua
+endif
+
+EXTRA_DIST += \
+	tests/010-load.lua \
+	tests/020-create.lua \
+	tests/025-create-flags.lua \
+	tests/030-config.lua \
+	tests/050-lvcreate.lua \
+	tests/060-readdir.lua \
+	tests/070-optargs.lua
+
+# Custom install rule.
+install-data-hook:
+	mkdir -p $(DESTDIR)$(lualibdir)
+	mv $(DESTDIR)$(lualibdir)/libluaguestfs.so $(DESTDIR)$(lualibdir)/guestfs.so
+
+endif
