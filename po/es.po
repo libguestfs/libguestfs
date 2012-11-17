@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-13 14:41+0000\n"
+"POT-Creation-Date: 2012-11-17 19:53+0000\n"
 "PO-Revision-Date: 2012-10-14 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -4858,6 +4858,12 @@ msgstr ""
 msgid "%s: you must give either -a or -d options\n"
 msgstr ""
 
+#: ../sparsify/sparsify.ml:212
+msgid ""
+"--compress cannot be used for raw output.  Remove this option or use --"
+"convert qcow2."
+msgstr ""
+
 #: ../resize/resize.ml:60
 msgid "--expand option given twice"
 msgstr ""
@@ -4895,7 +4901,7 @@ msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:294
+#: ../sparsify/sparsify.ml:315
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -4905,7 +4911,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:364
+#: ../sparsify/sparsify.ml:369
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -4917,7 +4923,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:195
+#: ../sparsify/sparsify.ml:216
 msgid ""
 "Create overlay file to protect source disk ...\n"
 "%!"
@@ -4985,7 +4991,7 @@ msgstr ""
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:231
+#: ../sparsify/sparsify.ml:252
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -5031,13 +5037,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:278
+#: ../sparsify/sparsify.ml:299
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:329
+#: ../sparsify/sparsify.ml:350
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -5367,7 +5373,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:383
+#: ../sparsify/sparsify.ml:388
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -5511,7 +5517,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:268
+#: ../sparsify/sparsify.ml:289
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -5525,7 +5531,7 @@ msgstr ""
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:206
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
@@ -5549,7 +5555,7 @@ msgstr ""
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:377 ../sparsify/sparsify.ml:225
+#: ../sparsify/sparsify.ml:382 ../sparsify/sparsify.ml:246
 msgid "external command failed: %s"
 msgstr ""
 
@@ -5630,7 +5636,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:303
+#: ../sparsify/sparsify.ml:324
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 

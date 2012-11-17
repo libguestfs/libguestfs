@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-13 14:41+0000\n"
+"POT-Creation-Date: 2012-11-17 19:53+0000\n"
 "PO-Revision-Date: 2012-10-14 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5148,6 +5148,12 @@ msgstr "%s: параметру --enable не можна передавати п�
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: вам слід передати параметр -a або -d\n"
 
+#: ../sparsify/sparsify.ml:212
+msgid ""
+"--compress cannot be used for raw output.  Remove this option or use --"
+"convert qcow2."
+msgstr ""
+
 #: ../resize/resize.ml:60
 msgid "--expand option given twice"
 msgstr "параметр --expand вказано двічі"
@@ -5187,7 +5193,7 @@ msgstr ""
 "Зміни назву вузла. Якщо не вказано, використовувати типове C<localhost."
 "localdomain>."
 
-#: ../sparsify/sparsify.ml:294
+#: ../sparsify/sparsify.ml:315
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -5199,7 +5205,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Стиснений формат виведення даних"
 
-#: ../sparsify/sparsify.ml:364
+#: ../sparsify/sparsify.ml:369
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -5215,7 +5221,7 @@ msgstr ""
 "Копіювання %s ...\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:195
+#: ../sparsify/sparsify.ml:216
 msgid ""
 "Create overlay file to protect source disk ...\n"
 "%!"
@@ -5285,7 +5291,7 @@ msgstr "Увімкнути виконання специфічних дій"
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
-#: ../sparsify/sparsify.ml:231
+#: ../sparsify/sparsify.ml:252
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -5346,7 +5352,7 @@ msgstr ""
 "\n"
 "Повідомлення про помилку: %s"
 
-#: ../sparsify/sparsify.ml:278
+#: ../sparsify/sparsify.ml:299
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -5354,7 +5360,7 @@ msgstr ""
 "Заповнити вільне місце у %s нулями…\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:329
+#: ../sparsify/sparsify.ml:350
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -5731,7 +5737,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr "Зменшити розмір розділу"
 
-#: ../sparsify/sparsify.ml:383
+#: ../sparsify/sparsify.ml:388
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -5918,7 +5924,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Занулити файлову систему"
 
-#: ../sparsify/sparsify.ml:268
+#: ../sparsify/sparsify.ml:289
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -5934,7 +5940,7 @@ msgstr "значенням вирівнювання не може бути чи�
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:206
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
@@ -5958,7 +5964,7 @@ msgstr "роботу зовнішньої програми «%s» перерва
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
-#: ../sparsify/sparsify.ml:377 ../sparsify/sparsify.ml:225
+#: ../sparsify/sparsify.ml:382 ../sparsify/sparsify.ml:246
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
@@ -6043,7 +6049,7 @@ msgstr "pread-device: коротке читання"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/sparsify.ml:303
+#: ../sparsify/sparsify.ml:324
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "

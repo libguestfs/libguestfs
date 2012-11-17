@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-13 14:41+0000\n"
+"POT-Creation-Date: 2012-11-17 19:53+0000\n"
 "PO-Revision-Date: 2012-10-14 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -5055,6 +5055,12 @@ msgstr "%s: je kunt geen leeg argument doorgeven met --enable\n"
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: je moet de -a of de -d optie opgeven\n"
 
+#: ../sparsify/sparsify.ml:212
+msgid ""
+"--compress cannot be used for raw output.  Remove this option or use --"
+"convert qcow2."
+msgstr ""
+
 #: ../resize/resize.ml:60
 msgid "--expand option given twice"
 msgstr "--expand optie wordt tweemaal opgegeven"
@@ -5094,7 +5100,7 @@ msgstr ""
 "Verander de hostnaam.  Als deze niet opgegeven wordt, wordt het C<localhost."
 "localdomain>."
 
-#: ../sparsify/sparsify.ml:294
+#: ../sparsify/sparsify.ml:315
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -5106,7 +5112,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Gecomprimeerde output formaat"
 
-#: ../sparsify/sparsify.ml:364
+#: ../sparsify/sparsify.ml:369
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -5122,7 +5128,7 @@ msgstr ""
 "Bezig met kopiëren %s ...\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:195
+#: ../sparsify/sparsify.ml:216
 msgid ""
 "Create overlay file to protect source disk ...\n"
 "%!"
@@ -5192,7 +5198,7 @@ msgstr "Zet specifieke bewerkingen aan"
 msgid "Enable tracing of libguestfs calls"
 msgstr "Zet traceren van libguestfs aanroepen aan"
 
-#: ../sparsify/sparsify.ml:231
+#: ../sparsify/sparsify.ml:252
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -5253,7 +5259,7 @@ msgstr ""
 "\n"
 "De onderliggende fout was: %s"
 
-#: ../sparsify/sparsify.ml:278
+#: ../sparsify/sparsify.ml:299
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -5261,7 +5267,7 @@ msgstr ""
 "Vul vrije ruime in %s met nul in ...\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:329
+#: ../sparsify/sparsify.ml:350
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -5635,7 +5641,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr "Verklein partitie"
 
-#: ../sparsify/sparsify.ml:383
+#: ../sparsify/sparsify.ml:388
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -5827,7 +5833,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Nul bestandssysteem"
 
-#: ../sparsify/sparsify.ml:268
+#: ../sparsify/sparsify.ml:289
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -5843,7 +5849,7 @@ msgstr "uitlijning kan niet < 1 zijn"
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:206
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
@@ -5867,7 +5873,7 @@ msgstr "extern commando '%s' werd afgeschoten door signaal %d"
 msgid "external command '%s' stopped by signal %d"
 msgstr "extern commando '%s' werd gestopt door signaal %d"
 
-#: ../sparsify/sparsify.ml:377 ../sparsify/sparsify.ml:225
+#: ../sparsify/sparsify.ml:382 ../sparsify/sparsify.ml:246
 msgid "external command failed: %s"
 msgstr "extern commando mislukte: %s"
 
@@ -5952,7 +5958,7 @@ msgstr "pread-device: kort lezen"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/sparsify.ml:303
+#: ../sparsify/sparsify.ml:324
 msgid "pwrite: short write restoring swap partition header"
 msgstr "pwrite: kort schrijven herstellen van swap partitie koptekst"
 
