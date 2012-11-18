@@ -53,6 +53,7 @@ TESTS = \
 	tests/010-load.lua \
 	tests/020-create.lua \
 	tests/025-create-flags.lua \
+	tests/027-create-multiple.lua \
 	tests/030-config.lua \
 	tests/070-optargs.lua
 
@@ -66,6 +67,7 @@ EXTRA_DIST += \
 	tests/010-load.lua \
 	tests/020-create.lua \
 	tests/025-create-flags.lua \
+	tests/027-create-multiple.lua \
 	tests/030-config.lua \
 	tests/050-lvcreate.lua \
 	tests/060-readdir.lua \
