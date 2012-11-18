@@ -8,7 +8,7 @@ guestfs-lua - How to use libguestfs from Lua
 
  require "guestfs"
  g = Guestfs.create ()
- g:add_drive ("test.img", { format = "raw", readonly = "true" })
+ g:add_drive ("test.img", { format = "raw", readonly = true })
  g:launch ()
  devices = g:list_devices ()
  g:close ()
@@ -55,7 +55,7 @@ supplying the optional arguments.
 
 or:
 
- g:add_drive ("test.img", { format = "raw", readonly = "true" })
+ g:add_drive ("test.img", { format = "raw", readonly = true })
 
 =head2 64 BIT VALUES
 
