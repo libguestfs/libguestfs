@@ -41,6 +41,7 @@ let generate_lua_c () =
 #include <stdint.h>
 #include <inttypes.h>
 #include <string.h>
+#include <errno.h>
 
 /*#define LUA_LIB*/
 #include <lua.h>
@@ -112,7 +113,8 @@ lua_guestfs_create (lua_State *L)
 
   g = guestfs_create_flags (flags);
   if (!g)
-    return luaL_error (L, \"Guestfs.create: cannot create handle: %%m\");
+    return luaL_error (L, \"Guestfs.create: cannot create handle: %%s\",
+                       strerror (errno));
 
   guestfs_set_error_handler (g, NULL, NULL);
 
@@ -389,7 +391,8 @@ get_string_list (lua_State *L, int index)
 
   strs = malloc ((len+1) * sizeof (char *));
   if (strs == NULL) {
-    luaL_error (L, \"get_string_list: malloc failed: %%m\");
+    luaL_error (L, \"get_string_list: malloc failed: %%s\",
+                strerror (errno));
     /*NOTREACHED*/
     return NULL;
   }
