@@ -18,6 +18,10 @@
 
 require "guestfs"
 
+for i, v in ipairs (Guestfs.event_all) do
+   print (i, v)
+end
+
 g = Guestfs.create ()
 
 function log_callback (g, event, eh, flags, buf, array)

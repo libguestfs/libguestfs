@@ -729,6 +729,16 @@ push_event (lua_State *L, uint64_t event)
   pr "  abort (); /* should never happen */
 }
 
+static const char *event_all[] = {
+";
+
+  List.iter (
+    fun (event, _) -> pr "  \"%s\",\n" event
+  ) events;
+
+  pr "  NULL
+};
+
 ";
 
   (* Code to push structs. *)
@@ -838,6 +848,11 @@ luaopen_guestfs (lua_State *L)
   /* Set __index field of metatable to point to itself. */
   lua_pushvalue (L, -1);
   lua_setfield (L, -1, \"__index\");
+
+  /* Globals in the Guestfs.* namespace. */
+  lua_pushliteral (L, \"event_all\");
+  push_string_list (L, (char **) event_all);
+  lua_settable (L, -3);
 
   /* Add _COPYRIGHT, etc. fields to the metatable. */
   lua_pushliteral (L, \"_COPYRIGHT\");
