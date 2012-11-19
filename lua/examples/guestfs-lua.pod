@@ -94,6 +94,9 @@ second argument a list:
 
  eh = g:set_event_callback (cb, { "appliance", "library", "trace" })
 
+A list of all valid event types (strings) is in the global variable
+C<Guestfs.event_all>.
+
 The callback (C<cb>) is called with the following parameters:
 
  function cb (g, event, eh, flags, buf, array)
