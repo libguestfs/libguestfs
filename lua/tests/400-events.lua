@@ -18,44 +18,32 @@
 
 require "guestfs"
 
-local g = Guestfs.create ()
+g = Guestfs.create ()
 
-file = io.open ("test.img", "w")
-file:seek ("set", 10 * 1024 * 1024)
-file:write (' ')
-file:close ()
-
-g:add_drive ("test.img")
-
-g:launch ()
-
-g:part_disk ("/dev/sda", "mbr")
-g:mkfs ("ext2", "/dev/sda1")
-g:mount ("/dev/sda1", "/")
-g:mkdir ("/p")
-g:touch ("/q")
-
-local dirs = g:readdir ("/")
-
-function print_dirs(dirs)
-   for i,dentry in ipairs (dirs) do
-      for k,v in pairs (dentry) do
-         print(i, k, v)
-      end
-   end
+function log_callback (g, event, eh, flags, buf, array)
+   io.write (string.format ("lua event logged: event=%s eh=%d buf='%s'\n",
+                            event, eh, buf))
 end
 
-print_dirs (dirs)
-table.sort (dirs, function (a,b) return a["name"] < b["name"] end)
-print_dirs (dirs)
+close_invoked = 0
+function close_callback (g, event, eh, flags, buf, array)
+   close_invoked = close_invoked+1
+   log_callback (g, event, eh, flags, buf, array)
+end
 
--- Slots 1, 2, 3 contain "." and ".." and "lost+found" respectively.
+-- Register an event callback for all log messages.
+g:set_event_callback (log_callback, { "appliance", "library", "trace" })
 
-assert (dirs[4]["name"] == "p", "incorrect name in slot 4")
-assert (dirs[5]["name"] == "q", "incorrect name in slot 5")
+-- Register an event callback for the close event.
+g:set_event_callback (close_callback, "close")
 
-g:shutdown ()
+-- Make sure we see some messages.
+g:set_trace (true)
+g:set_verbose (true)
 
+-- Do some stuff.
+g:add_drive_ro ("/dev/null")
+
+-- Close the handle.  The close callback should be invoked.
 g:close ()
-
-os.remove ("test.img")
+assert (close_invoked == 1, "close callback was not invoked")

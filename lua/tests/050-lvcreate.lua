@@ -35,10 +35,9 @@ g:lvcreate ("LV1", "VG", 200)
 g:lvcreate ("LV2", "VG", 200)
 
 local lvs = g:lvs ()
-if table.getn (lvs) ~= 2 or lvs[1] ~= "/dev/VG/LV1" or lvs[2] ~= "/dev/VG/LV2"
-then
-   error ("g:lvs returned incorrect result")
-end
+assert (table.getn (lvs) == 2 and
+        lvs[1] == "/dev/VG/LV1" and lvs[2] == "/dev/VG/LV2",
+        "g:lvs returned incorrect result")
 
 g:shutdown ()
 

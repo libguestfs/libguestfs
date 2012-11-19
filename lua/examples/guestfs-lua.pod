@@ -83,6 +83,33 @@ The C<errno> (corresponding to L<guestfs(3)/guestfs_last_errno>).
 Note that some errors can also be thrown as plain strings.  You
 need to check the type.
 
+=head2 EVENTS
+
+Events can be registered by calling C<set_event_callback>:
+
+ eh = g:set_event_callback (cb, "close")
+
+or to register a single callback for multiple events make the
+second argument a list:
+
+ eh = g:set_event_callback (cb, { "appliance", "library", "trace" })
+
+The callback (C<cb>) is called with the following parameters:
+
+ function cb (g, event, eh, flags, buf, array)
+   -- g is the guestfs handle
+   -- event is a string which is the name of the event that fired
+   -- flags is always zero
+   -- buf is the data buffer (eg. log message etc)
+   -- array is the array of 64 bit ints (eg. progress bar status etc)
+   ...
+ end
+
+You can also remove a callback using the event handle (C<eh>) that was
+returned when you registered the callback:
+
+ g:delete_event_callback (eh)
+
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
 @EXAMPLE1@

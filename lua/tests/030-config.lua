@@ -28,9 +28,7 @@ g:set_autosync (false)
 g:set_autosync (true)
 
 g:set_path (".")
-if g:get_path () ~= "." then
-   error ()
-end
+assert (g:get_path () == ".")
 
 g:add_drive ("/dev/null")
 

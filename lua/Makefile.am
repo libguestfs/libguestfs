@@ -55,12 +55,14 @@ TESTS = \
 	tests/025-create-flags.lua \
 	tests/027-create-multiple.lua \
 	tests/030-config.lua \
-	tests/070-optargs.lua
+	tests/070-optargs.lua \
+	tests/400-events.lua
 
 if ENABLE_APPLIANCE
 TESTS += \
 	tests/050-lvcreate.lua \
-	tests/060-readdir.lua
+	tests/060-readdir.lua \
+	tests/400-progress.lua
 endif
 
 EXTRA_DIST += \
@@ -71,7 +73,9 @@ EXTRA_DIST += \
 	tests/030-config.lua \
 	tests/050-lvcreate.lua \
 	tests/060-readdir.lua \
-	tests/070-optargs.lua
+	tests/070-optargs.lua \
+	tests/400-events.lua \
+	tests/400-progress.lua
 
 # Custom install rule.
 install-data-hook:

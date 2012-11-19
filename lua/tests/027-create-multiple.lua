@@ -27,15 +27,6 @@ g1:set_path ("1")
 g2:set_path ("2")
 g3:set_path ("3")
 
-if g1:get_path () ~= "1" then
-   error (string.format ("incorrect path in g1, expected '1', got '%s'",
-                         g1:get_path ()))
-end
-if g2:get_path () ~= "2" then
-   error (string.format ("incorrect path in g2, expected '2', got '%s'",
-                         g2:get_path ()))
-end
-if g3:get_path () ~= "3" then
-   error (string.format ("incorrect path in g3, expected '3', got '%s'",
-                         g3:get_path ()))
-end
+assert (g1:get_path () == "1", "incorrect path in g1, expected '1'")
+assert (g2:get_path () == "2", "incorrect path in g2, expected '2'")
+assert (g3:get_path () == "3", "incorrect path in g3, expected '3'")

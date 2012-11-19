@@ -18,44 +18,27 @@
 
 require "guestfs"
 
-local g = Guestfs.create ()
+g = Guestfs.create ()
 
-file = io.open ("test.img", "w")
-file:seek ("set", 10 * 1024 * 1024)
-file:write (' ')
-file:close ()
-
-g:add_drive ("test.img")
-
+g:add_drive ("/dev/null")
 g:launch ()
 
-g:part_disk ("/dev/sda", "mbr")
-g:mkfs ("ext2", "/dev/sda1")
-g:mount ("/dev/sda1", "/")
-g:mkdir ("/p")
-g:touch ("/q")
-
-local dirs = g:readdir ("/")
-
-function print_dirs(dirs)
-   for i,dentry in ipairs (dirs) do
-      for k,v in pairs (dentry) do
-         print(i, k, v)
-      end
-   end
+calls = 0
+function cb ()
+   calls = calls+1
 end
 
-print_dirs (dirs)
-table.sort (dirs, function (a,b) return a["name"] < b["name"] end)
-print_dirs (dirs)
+eh = g:set_event_callback (cb, "progress")
+assert (g:debug ("progress", {"5"}) == "ok", "debug progress command failed")
+assert (calls > 0, "progress callback was not invoked")
 
--- Slots 1, 2, 3 contain "." and ".." and "lost+found" respectively.
+calls = 0
+g:delete_event_callback (eh)
+assert (g:debug ("progress", {"5"}) == "ok", "debug progress command failed")
+assert (calls == 0, "progress callback was invoked when deleted")
 
-assert (dirs[4]["name"] == "p", "incorrect name in slot 4")
-assert (dirs[5]["name"] == "q", "incorrect name in slot 5")
-
-g:shutdown ()
+g:set_event_callback (cb, "progress")
+assert (g:debug ("progress", {"5"}) == "ok", "debug progress command failed")
+assert (calls > 0, "progress callback was not invoked")
 
 g:close ()
-
-os.remove ("test.img")
