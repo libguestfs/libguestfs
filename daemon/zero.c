@@ -80,14 +80,52 @@ optgroup_wipefs_available (void)
   return prog_exists ("wipefs");
 }
 
+/* See RHBZ#872831 */
+static int
+wipefs_has_force_option (void)
+{
+  static int flag = -1;
+  int r;
+  char *out, *err;
+
+  if (flag == -1) {
+    r = command (&out, &err, "wipefs", "--help", NULL);
+    if (r == -1) {
+      reply_with_error ("%s", err);
+      free (out);
+      free (err);
+      return -1;
+    }
+    free (err);
+    flag = strstr (out, "--force") != NULL;
+    free (out);
+  }
+
+  return flag;
+}
+
 int
 do_wipefs (const char *device)
 {
+  int force;
   int r;
   char *err = NULL;
+  const size_t MAX_ARGS = 16;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
 
-  const char *wipefs[] = {"wipefs", "-a", device, NULL};
-  r = commandv (NULL, &err, wipefs);
+  force = wipefs_has_force_option ();
+  if (force == -1)
+    return -1;
+
+  ADD_ARG (argv, i, "wipefs");
+  ADD_ARG (argv, i, "-a");
+  if (force)
+    ADD_ARG (argv, i, "--force");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
