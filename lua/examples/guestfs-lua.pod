@@ -122,13 +122,14 @@ returned when you registered the callback:
 
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
+L<guestfs-erlang(3)>,
 L<guestfs-java(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,
 L<guestfs-python(3)>,
 L<guestfs-recipes(1)>,
 L<guestfs-ruby(3)>,
-L<http://www.erlang.org/>.
+L<http://www.lua.org/>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
