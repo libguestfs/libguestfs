@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-11-17 19:54+0000\n"
+"POT-Creation-Date: 2012-11-19 14:45+0000\n"
 "PO-Revision-Date: 2012-10-14 12:25+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1281,7 +1281,7 @@ msgstr ""
 #: ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41
 #: ../format/virt-format.pod:177 ../fuse/guestmount.pod:398
 #: ../guestfs-release-notes.pod:1853 ../inspector/virt-inspector.pod:501
-#: ../java/examples/guestfs-java.pod:45 ../lua/examples/guestfs-lua.pod:78
+#: ../java/examples/guestfs-java.pod:45 ../lua/examples/guestfs-lua.pod:121
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40
 #: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:340
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
@@ -1340,7 +1340,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55
 #: ../format/virt-format.pod:191 ../fuse/guestmount.pod:413
 #: ../guestfs-release-notes.pod:1868 ../inspector/virt-inspector.pod:524
-#: ../java/examples/guestfs-java.pod:63 ../lua/examples/guestfs-lua.pod:95
+#: ../java/examples/guestfs-java.pod:63 ../lua/examples/guestfs-lua.pod:138
 #: ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:58
 #: ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:353
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53
@@ -1662,7 +1662,7 @@ msgstr ""
 #: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
 #: ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51
 #: ../fuse/guestmount.pod:409 ../inspector/virt-inspector.pod:510
-#: ../java/examples/guestfs-java.pod:59 ../lua/examples/guestfs-lua.pod:91
+#: ../java/examples/guestfs-java.pod:59 ../lua/examples/guestfs-lua.pod:134
 #: ../ocaml/examples/guestfs-ocaml.pod:92 ../perl/examples/guestfs-perl.pod:54
 #: ../python/examples/guestfs-python.pod:55
 #: ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4084
@@ -1679,7 +1679,7 @@ msgstr "著者"
 #: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
 #: ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53
 #: ../fuse/guestmount.pod:411 ../java/examples/guestfs-java.pod:61
-#: ../lua/examples/guestfs-lua.pod:93 ../ocaml/examples/guestfs-ocaml.pod:94
+#: ../lua/examples/guestfs-lua.pod:136 ../ocaml/examples/guestfs-ocaml.pod:94
 #: ../perl/examples/guestfs-perl.pod:56
 #: ../python/examples/guestfs-python.pod:57
 #: ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4086
@@ -5027,7 +5027,7 @@ msgstr ""
 #. type: =head1
 #: ../erlang/examples/guestfs-erlang.pod:89
 #: ../examples/guestfs-examples.pod:25 ../java/examples/guestfs-java.pod:37
-#: ../lua/examples/guestfs-lua.pod:70 ../ocaml/examples/guestfs-ocaml.pod:70
+#: ../lua/examples/guestfs-lua.pod:113 ../ocaml/examples/guestfs-ocaml.pod:70
 #: ../perl/examples/guestfs-perl.pod:32
 #: ../python/examples/guestfs-python.pod:34
 #: ../ruby/examples/guestfs-ruby.pod:28
@@ -5037,7 +5037,7 @@ msgstr "例 1: ディスクイメージの作成"
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:91
 #: ../examples/guestfs-examples.pod:27 ../java/examples/guestfs-java.pod:39
-#: ../lua/examples/guestfs-lua.pod:72 ../ocaml/examples/guestfs-ocaml.pod:72
+#: ../lua/examples/guestfs-lua.pod:115 ../ocaml/examples/guestfs-ocaml.pod:72
 #: ../perl/examples/guestfs-perl.pod:34
 #: ../python/examples/guestfs-python.pod:36
 #: ../ruby/examples/guestfs-ruby.pod:30
@@ -5047,7 +5047,7 @@ msgstr "@EXAMPLE1@"
 #. type: =head1
 #: ../erlang/examples/guestfs-erlang.pod:93
 #: ../examples/guestfs-examples.pod:29 ../java/examples/guestfs-java.pod:41
-#: ../lua/examples/guestfs-lua.pod:74 ../ocaml/examples/guestfs-ocaml.pod:74
+#: ../lua/examples/guestfs-lua.pod:117 ../ocaml/examples/guestfs-ocaml.pod:74
 #: ../perl/examples/guestfs-perl.pod:36
 #: ../python/examples/guestfs-python.pod:38
 #: ../ruby/examples/guestfs-ruby.pod:32
@@ -5057,7 +5057,7 @@ msgstr "例 2: 仮想マシンのディスクイメージの検査"
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:31 ../java/examples/guestfs-java.pod:43
-#: ../lua/examples/guestfs-lua.pod:76 ../ocaml/examples/guestfs-ocaml.pod:76
+#: ../lua/examples/guestfs-lua.pod:119 ../ocaml/examples/guestfs-ocaml.pod:76
 #: ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:40
 #: ../ruby/examples/guestfs-ruby.pod:34
@@ -5065,7 +5065,8 @@ msgid "@EXAMPLE2@"
 msgstr "@EXAMPLE2@"
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:99 ../lua/examples/guestfs-lua.pod:80
+#: ../erlang/examples/guestfs-erlang.pod:99
+#: ../lua/examples/guestfs-lua.pod:123
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-java(3)>, L<guestfs-ocaml(3)"
 ">, L<guestfs-perl(3)>, L<guestfs-python(3)>, L<guestfs-recipes(1)>, "
@@ -6820,7 +6821,7 @@ msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:808 ../examples/guestfs-performance.pod:448
-#: ../format/virt-format.pod:193 ../lua/examples/guestfs-lua.pod:97
+#: ../format/virt-format.pod:193 ../lua/examples/guestfs-lua.pod:140
 msgid "Copyright (C) 2012 Red Hat Inc."
 msgstr "Copyright (C) 2012 Red Hat Inc."
 
@@ -37150,7 +37151,7 @@ msgstr "guestfs-java - Java から libguestfs を使用する方法"
 msgid ""
 " require \"guestfs\"\n"
 " g = Guestfs.create ()\n"
-" g:add_drive (\"test.img\", { format = \"raw\", readonly = \"true\" })\n"
+" g:add_drive (\"test.img\", { format = \"raw\", readonly = true })\n"
 " g:launch ()\n"
 " devices = g:list_devices ()\n"
 " g:close ()\n"
@@ -37286,7 +37287,7 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:58
 #, no-wrap
 msgid ""
-" g:add_drive (\"test.img\", { format = \"raw\", readonly = \"true\" })\n"
+" g:add_drive (\"test.img\", { format = \"raw\", readonly = true })\n"
 "\n"
 msgstr ""
 
@@ -37310,8 +37311,114 @@ msgstr "エラー"
 
 #. type: textblock
 #: ../lua/examples/guestfs-lua.pod:68
-msgid "Errors are converted into exceptions.  Use C<pcall> to catch these."
+msgid ""
+"Most (but not all) errors are converted into objects (ie. tables)  "
+"containing the following fields:"
 msgstr ""
+
+#. type: =item
+#: ../lua/examples/guestfs-lua.pod:73
+#, fuzzy
+#| msgid "dmesg"
+msgid "msg"
+msgstr "dmesg"
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:75
+#, fuzzy
+#| msgid "C<Errno> can be zero.  See L<guestfs(3)/guestfs_last_errno>."
+msgid "The error message (corresponding to L<guestfs(3)/guestfs_last_error>)."
+msgstr ""
+"C<Errno> は 0 の可能性があります。 L<guestfs(3)/guestfs_last_errno> 参照。"
+
+#. type: =item
+#: ../lua/examples/guestfs-lua.pod:77
+msgid "code"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:79
+#, fuzzy
+#| msgid "C<Errno> can be zero.  See L<guestfs(3)/guestfs_last_errno>."
+msgid "The C<errno> (corresponding to L<guestfs(3)/guestfs_last_errno>)."
+msgstr ""
+"C<Errno> は 0 の可能性があります。 L<guestfs(3)/guestfs_last_errno> 参照。"
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:83
+msgid ""
+"Note that some errors can also be thrown as plain strings.  You need to "
+"check the type."
+msgstr ""
+
+#. type: =head1
+#: ../lua/examples/guestfs-lua.pod:86 ../src/guestfs.pod:2162
+msgid "EVENTS"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:88
+msgid "Events can be registered by calling C<set_event_callback>:"
+msgstr ""
+
+#. type: verbatim
+#: ../lua/examples/guestfs-lua.pod:90
+#, no-wrap
+msgid ""
+" eh = g:set_event_callback (cb, \"close\")\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:92
+msgid ""
+"or to register a single callback for multiple events make the second "
+"argument a list:"
+msgstr ""
+
+#. type: verbatim
+#: ../lua/examples/guestfs-lua.pod:95
+#, no-wrap
+msgid ""
+" eh = g:set_event_callback (cb, { \"appliance\", \"library\", \"trace\" })\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:97
+msgid "The callback (C<cb>) is called with the following parameters:"
+msgstr ""
+
+#. type: verbatim
+#: ../lua/examples/guestfs-lua.pod:99
+#, no-wrap
+msgid ""
+" function cb (g, event, eh, flags, buf, array)\n"
+"   -- g is the guestfs handle\n"
+"   -- event is a string which is the name of the event that fired\n"
+"   -- flags is always zero\n"
+"   -- buf is the data buffer (eg. log message etc)\n"
+"   -- array is the array of 64 bit ints (eg. progress bar status etc)\n"
+"   ...\n"
+" end\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:108
+msgid ""
+"You can also remove a callback using the event handle (C<eh>) that was "
+"returned when you registered the callback:"
+msgstr ""
+
+#. type: verbatim
+#: ../lua/examples/guestfs-lua.pod:111
+#, fuzzy, no-wrap
+#| msgid "guestfs_delete_event_callback"
+msgid ""
+" g:delete_event_callback (eh)\n"
+"\n"
+msgstr "guestfs_delete_event_callback"
 
 #. type: textblock
 #: ../ocaml/examples/guestfs-ocaml.pod:5
@@ -61503,11 +61610,6 @@ msgstr ""
 #: ../src/guestfs.pod:2160
 msgid "For guestfish, see L<guestfish(1)/OPTIONAL ARGUMENTS>."
 msgstr "guestfish は L<guestfish(1)/OPTIONAL ARGUMENTS> を参照してください。"
-
-#. type: =head1
-#: ../src/guestfs.pod:2162
-msgid "EVENTS"
-msgstr ""
 
 #. type: =head2
 #: ../src/guestfs.pod:2164
