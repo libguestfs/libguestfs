@@ -51,6 +51,7 @@ guestfs.so: libluaguestfs.la
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = \
 	tests/010-load.lua \
+	tests/015-globals.lua \
 	tests/020-create.lua \
 	tests/025-create-flags.lua \
 	tests/027-create-multiple.lua \
@@ -67,6 +68,7 @@ endif
 
 EXTRA_DIST += \
 	tests/010-load.lua \
+	tests/015-globals.lua \
 	tests/020-create.lua \
 	tests/025-create-flags.lua \
 	tests/027-create-multiple.lua \
