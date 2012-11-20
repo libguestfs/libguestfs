@@ -58,7 +58,7 @@ let copyright_years =
 (* Generate a header block in a number of standard styles. *)
 type comment_style =
     CStyle | CPlusPlusStyle | HashStyle | OCamlStyle | HaskellStyle
-  | ErlangStyle
+  | ErlangStyle | LuaStyle
 type license = GPLv2plus | LGPLv2plus
 
 let generate_header ?(extra_inputs = []) ?emacs_mode comment license =
@@ -69,7 +69,8 @@ let generate_header ?(extra_inputs = []) ?emacs_mode comment license =
     | HashStyle ->      pr "# ";  "#"
     | OCamlStyle ->     pr "(* "; " *"
     | HaskellStyle ->   pr "{- "; "  "
-    | ErlangStyle ->    pr "%% "; "% " in
+    | ErlangStyle ->    pr "%% "; "% "
+    | LuaStyle ->       pr "-- "; "--" in
   pr "libguestfs generated file";
   (match emacs_mode with
   | None -> ()
@@ -117,6 +118,7 @@ let generate_header ?(extra_inputs = []) ?emacs_mode comment license =
    | CStyle -> pr " */\n"
    | CPlusPlusStyle
    | ErlangStyle
+   | LuaStyle
    | HashStyle -> ()
    | OCamlStyle -> pr " *)\n"
    | HaskellStyle -> pr "-}\n"
