@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.19.61\n"
+"Project-Id-Version: libguestfs 1.19.62\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-11-19 14:45+0000\n"
+"POT-Creation-Date: 2012-11-20 19:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -800,7 +800,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:144 ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389 ../cat/virt-ls.pod:495 ../daemon/guestfsd.pod:92 ../df/virt-df.pod:253 ../edit/virt-edit.pod:368 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:796 ../examples/guestfs-performance.pod:429 ../examples/guestfs-recipes.pod:496 ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1374 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177 ../fuse/guestmount.pod:398 ../guestfs-release-notes.pod:1853 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:45 ../lua/examples/guestfs-lua.pod:121 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:340 ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:299 ../src/guestfs.pod:4031 ../sysprep/virt-sysprep.pod:480 ../test-tool/libguestfs-test-tool.pod:106 ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267 ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294 ../tools/virt-win-reg.pl:747
+#: ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:144 ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389 ../cat/virt-ls.pod:495 ../daemon/guestfsd.pod:92 ../df/virt-df.pod:253 ../edit/virt-edit.pod:368 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:796 ../examples/guestfs-performance.pod:429 ../examples/guestfs-recipes.pod:496 ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1374 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177 ../fuse/guestmount.pod:398 ../guestfs-release-notes.pod:1853 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:45 ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:340 ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:299 ../src/guestfs.pod:4031 ../sysprep/virt-sysprep.pod:480 ../test-tool/libguestfs-test-tool.pod:106 ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267 ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294 ../tools/virt-win-reg.pl:747
 msgid "SEE ALSO"
 msgstr ""
 
@@ -822,7 +822,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:388 ../appliance/libguestfs-make-fixed-appliance.pod:157 ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404 ../cat/virt-ls.pod:511 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:265 ../edit/virt-edit.pod:386 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:50 ../examples/guestfs-faq.pod:806 ../examples/guestfs-performance.pod:446 ../examples/guestfs-recipes.pod:514 ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1406 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191 ../fuse/guestmount.pod:413 ../guestfs-release-notes.pod:1868 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:63 ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:58 ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:353 ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53 ../sparsify/virt-sparsify.pod:316 ../src/guestfs.pod:4088 ../sysprep/virt-sysprep.pod:501 ../test-tool/libguestfs-test-tool.pod:116 ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:766
+#: ../align/virt-alignment-scan.pod:388 ../appliance/libguestfs-make-fixed-appliance.pod:157 ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404 ../cat/virt-ls.pod:511 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:265 ../edit/virt-edit.pod:386 ../erlang/examples/guestfs-erlang.pod:115 ../examples/guestfs-examples.pod:50 ../examples/guestfs-faq.pod:806 ../examples/guestfs-performance.pod:446 ../examples/guestfs-recipes.pod:514 ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1406 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191 ../fuse/guestmount.pod:413 ../guestfs-release-notes.pod:1868 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:63 ../lua/examples/guestfs-lua.pod:156 ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:58 ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:353 ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53 ../sparsify/virt-sparsify.pod:316 ../src/guestfs.pod:4088 ../sysprep/virt-sysprep.pod:501 ../test-tool/libguestfs-test-tool.pod:116 ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:766
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1097,12 +1097,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:153 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:46 ../examples/guestfs-faq.pod:802 ../examples/guestfs-performance.pod:442 ../examples/guestfs-recipes.pod:510 ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1402 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:409 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:59 ../lua/examples/guestfs-lua.pod:134 ../ocaml/examples/guestfs-ocaml.pod:92 ../perl/examples/guestfs-perl.pod:54 ../python/examples/guestfs-python.pod:55 ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4084 ../sysprep/virt-sysprep.pod:495 ../test-tool/libguestfs-test-tool.pod:112
+#: ../appliance/libguestfs-make-fixed-appliance.pod:153 ../erlang/examples/guestfs-erlang.pod:111 ../examples/guestfs-examples.pod:46 ../examples/guestfs-faq.pod:802 ../examples/guestfs-performance.pod:442 ../examples/guestfs-recipes.pod:510 ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1402 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:409 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:59 ../lua/examples/guestfs-lua.pod:152 ../ocaml/examples/guestfs-ocaml.pod:92 ../perl/examples/guestfs-perl.pod:54 ../python/examples/guestfs-python.pod:55 ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4084 ../sysprep/virt-sysprep.pod:495 ../test-tool/libguestfs-test-tool.pod:112
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:155 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:48 ../examples/guestfs-faq.pod:804 ../examples/guestfs-performance.pod:444 ../examples/guestfs-recipes.pod:512 ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1404 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:411 ../java/examples/guestfs-java.pod:61 ../lua/examples/guestfs-lua.pod:136 ../ocaml/examples/guestfs-ocaml.pod:94 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:57 ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4086 ../test-tool/libguestfs-test-tool.pod:114
+#: ../appliance/libguestfs-make-fixed-appliance.pod:155 ../erlang/examples/guestfs-erlang.pod:113 ../examples/guestfs-examples.pod:48 ../examples/guestfs-faq.pod:804 ../examples/guestfs-performance.pod:444 ../examples/guestfs-recipes.pod:512 ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1404 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:411 ../java/examples/guestfs-java.pod:61 ../lua/examples/guestfs-lua.pod:154 ../ocaml/examples/guestfs-ocaml.pod:94 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:57 ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4086 ../test-tool/libguestfs-test-tool.pod:114
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
@@ -3860,7 +3860,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../erlang/examples/guestfs-erlang.pod:23 ../lua/examples/guestfs-lua.pod:23
+#: ../erlang/examples/guestfs-erlang.pod:23 ../lua/examples/guestfs-lua.pod:33
 msgid "OPENING AND CLOSING THE HANDLE"
 msgstr ""
 
@@ -3907,7 +3907,7 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../erlang/examples/guestfs-erlang.pod:40 ../lua/examples/guestfs-lua.pod:48
+#: ../erlang/examples/guestfs-erlang.pod:40 ../lua/examples/guestfs-lua.pod:58
 msgid "FUNCTIONS WITH OPTIONAL ARGUMENTS"
 msgstr ""
 
@@ -4017,36 +4017,36 @@ msgid "C<Arg> is the name of the unknown argument."
 msgstr ""
 
 #. type: =head1
-#: ../erlang/examples/guestfs-erlang.pod:89 ../examples/guestfs-examples.pod:25 ../java/examples/guestfs-java.pod:37 ../lua/examples/guestfs-lua.pod:113 ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:32 ../python/examples/guestfs-python.pod:34 ../ruby/examples/guestfs-ruby.pod:28
+#: ../erlang/examples/guestfs-erlang.pod:89 ../examples/guestfs-examples.pod:25 ../java/examples/guestfs-java.pod:37 ../lua/examples/guestfs-lua.pod:130 ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:32 ../python/examples/guestfs-python.pod:34 ../ruby/examples/guestfs-ruby.pod:28
 msgid "EXAMPLE 1: CREATE A DISK IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:91 ../examples/guestfs-examples.pod:27 ../java/examples/guestfs-java.pod:39 ../lua/examples/guestfs-lua.pod:115 ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:34 ../python/examples/guestfs-python.pod:36 ../ruby/examples/guestfs-ruby.pod:30
+#: ../erlang/examples/guestfs-erlang.pod:91 ../examples/guestfs-examples.pod:27 ../java/examples/guestfs-java.pod:39 ../lua/examples/guestfs-lua.pod:132 ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:34 ../python/examples/guestfs-python.pod:36 ../ruby/examples/guestfs-ruby.pod:30
 msgid "@EXAMPLE1@"
 msgstr ""
 
 #. type: =head1
-#: ../erlang/examples/guestfs-erlang.pod:93 ../examples/guestfs-examples.pod:29 ../java/examples/guestfs-java.pod:41 ../lua/examples/guestfs-lua.pod:117 ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:36 ../python/examples/guestfs-python.pod:38 ../ruby/examples/guestfs-ruby.pod:32
+#: ../erlang/examples/guestfs-erlang.pod:93 ../examples/guestfs-examples.pod:29 ../java/examples/guestfs-java.pod:41 ../lua/examples/guestfs-lua.pod:134 ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:36 ../python/examples/guestfs-python.pod:38 ../ruby/examples/guestfs-ruby.pod:32
 msgid "EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:31 ../java/examples/guestfs-java.pod:43 ../lua/examples/guestfs-lua.pod:119 ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:40 ../ruby/examples/guestfs-ruby.pod:34
+#: ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:31 ../java/examples/guestfs-java.pod:43 ../lua/examples/guestfs-lua.pod:136 ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:40 ../ruby/examples/guestfs-ruby.pod:34
 msgid "@EXAMPLE2@"
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:99 ../lua/examples/guestfs-lua.pod:123
+#: ../erlang/examples/guestfs-erlang.pod:99
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-java(3)>, "
-"L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, "
-"L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://www.erlang.org/>.  "
-"L<http://libguestfs.org/>."
+"L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, "
+"L<http://www.erlang.org/>.  L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-testing.pod:318 ../fish/virt-copy-in.pod:66 ../fish/virt-copy-out.pod:55 ../fish/virt-tar-in.pod:64 ../fish/virt-tar-out.pod:57 ../java/examples/guestfs-java.pod:65 ../perl/examples/guestfs-perl.pod:60 ../sparsify/virt-sparsify.pod:318 ../sysprep/virt-sysprep.pod:503
+#: ../erlang/examples/guestfs-erlang.pod:117 ../examples/guestfs-testing.pod:318 ../fish/virt-copy-in.pod:66 ../fish/virt-copy-out.pod:55 ../fish/virt-tar-in.pod:64 ../fish/virt-tar-out.pod:57 ../java/examples/guestfs-java.pod:65 ../perl/examples/guestfs-perl.pod:60 ../sparsify/virt-sparsify.pod:318 ../sysprep/virt-sysprep.pod:503
 msgid "Copyright (C) 2011-2012 Red Hat Inc."
 msgstr ""
 
@@ -5713,7 +5713,7 @@ msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:808 ../examples/guestfs-performance.pod:448 ../format/virt-format.pod:193 ../lua/examples/guestfs-lua.pod:140
+#: ../examples/guestfs-faq.pod:808 ../examples/guestfs-performance.pod:448 ../format/virt-format.pod:193 ../lua/examples/guestfs-lua.pod:158
 msgid "Copyright (C) 2012 Red Hat Inc."
 msgstr ""
 
@@ -7730,7 +7730,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:68 ../examples/guestfs-testing.pod:175 ../examples/guestfs-testing.pod:188 ../examples/guestfs-testing.pod:248 ../lua/examples/guestfs-lua.pod:56 ../src/guestfs.pod:3446
+#: ../examples/guestfs-testing.pod:68 ../examples/guestfs-testing.pod:175 ../examples/guestfs-testing.pod:188 ../examples/guestfs-testing.pod:248 ../lua/examples/guestfs-lua.pod:66 ../src/guestfs.pod:3446
 msgid "or:"
 msgstr ""
 
@@ -33602,8 +33602,8 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:9
 #, no-wrap
 msgid ""
-" require \"guestfs\"\n"
-" g = Guestfs.create ()\n"
+" local G = require \"guestfs\"\n"
+" g = G.create ()\n"
 " g:add_drive (\"test.img\", { format = \"raw\", readonly = true })\n"
 " g:launch ()\n"
 " devices = g:list_devices ()\n"
@@ -33620,48 +33620,75 @@ msgid ""
 "to read L<guestfs(3)>."
 msgstr ""
 
+#. type: =head2
+#: ../lua/examples/guestfs-lua.pod:23
+msgid "REQUIRING THE MODULE"
+msgstr ""
+
 #. type: textblock
 #: ../lua/examples/guestfs-lua.pod:25
+msgid ""
+"C<require \"guestfs\"> returns the module, so you have to assign it to a "
+"local variable.  Typical usage is:"
+msgstr ""
+
+#. type: verbatim
+#: ../lua/examples/guestfs-lua.pod:28
+#, no-wrap
+msgid ""
+" local G = require \"guestfs\"\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:30
+msgid ""
+"(you can use any name you want instead of C<G>, but in the examples in this "
+"man page we always use C<G>)."
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:35
 msgid "To create a new handle, call:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:27
+#: ../lua/examples/guestfs-lua.pod:37
 #, no-wrap
 msgid ""
-" g = Guestfs.create ()\n"
+" g = G.create ()\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:29
+#: ../lua/examples/guestfs-lua.pod:39
 msgid "You can also use the optional arguments:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:31
+#: ../lua/examples/guestfs-lua.pod:41
 #, no-wrap
 msgid ""
-" g = Guestfs.create { environment = 0, close_on_exit = 0 }\n"
+" g = G.create { environment = 0, close_on_exit = 0 }\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:33
+#: ../lua/examples/guestfs-lua.pod:43
 msgid ""
 "to set the flags C<GUESTFS_CREATE_NO_ENVIRONMENT> and/or "
 "C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>."
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:36
+#: ../lua/examples/guestfs-lua.pod:46
 msgid ""
 "The handle will be closed by the garbage collector, but you can also close "
 "it explicitly by doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:39
+#: ../lua/examples/guestfs-lua.pod:49
 #, no-wrap
 msgid ""
 " g:close ()\n"
@@ -33669,19 +33696,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../lua/examples/guestfs-lua.pod:41
+#: ../lua/examples/guestfs-lua.pod:51
 msgid "CALLING METHODS"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:43
+#: ../lua/examples/guestfs-lua.pod:53
 msgid ""
 "Use the ordinary Lua convention for calling methods on the handle.  For "
 "example:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:46
+#: ../lua/examples/guestfs-lua.pod:56
 #, no-wrap
 msgid ""
 " g:set_verbose (true)\n"
@@ -33689,7 +33716,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:50
+#: ../lua/examples/guestfs-lua.pod:60
 msgid ""
 "For functions that take optional arguments, the first arguments are the "
 "non-optional ones.  The optional final argument is a table supplying the "
@@ -33697,7 +33724,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:54
+#: ../lua/examples/guestfs-lua.pod:64
 #, no-wrap
 msgid ""
 " g:add_drive (\"test.img\")\n"
@@ -33705,7 +33732,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:58
+#: ../lua/examples/guestfs-lua.pod:68
 #, no-wrap
 msgid ""
 " g:add_drive (\"test.img\", { format = \"raw\", readonly = true })\n"
@@ -33713,12 +33740,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../lua/examples/guestfs-lua.pod:60
+#: ../lua/examples/guestfs-lua.pod:70
 msgid "64 BIT VALUES"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:62
+#: ../lua/examples/guestfs-lua.pod:72
 msgid ""
 "Currently 64 bit values must be passed as strings, and are returned as "
 "strings.  This is because 32 bit Lua cannot handle 64 bit integers "
@@ -33726,56 +33753,64 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../lua/examples/guestfs-lua.pod:66 ../perl/examples/guestfs-perl.pod:27
+#: ../lua/examples/guestfs-lua.pod:76 ../perl/examples/guestfs-perl.pod:27
 msgid "ERRORS"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:68
+#: ../lua/examples/guestfs-lua.pod:78
 msgid ""
 "Most (but not all) errors are converted into objects (ie. tables)  "
 "containing the following fields:"
 msgstr ""
 
 #. type: =item
-#: ../lua/examples/guestfs-lua.pod:73
+#: ../lua/examples/guestfs-lua.pod:83
 msgid "msg"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:75
+#: ../lua/examples/guestfs-lua.pod:85
 msgid "The error message (corresponding to L<guestfs(3)/guestfs_last_error>)."
 msgstr ""
 
 #. type: =item
-#: ../lua/examples/guestfs-lua.pod:77
+#: ../lua/examples/guestfs-lua.pod:87
 msgid "code"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:79
+#: ../lua/examples/guestfs-lua.pod:89
 msgid "The C<errno> (corresponding to L<guestfs(3)/guestfs_last_errno>)."
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:83
+#: ../lua/examples/guestfs-lua.pod:93
 msgid ""
-"Note that some errors can also be thrown as plain strings.  You need to "
-"check the type."
+"These objects also have C<__tostring> functions attached to them so you can "
+"use C<tostring> (or implicit conversion) to convert them into printable "
+"strings."
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:97
+msgid ""
+"Note that the library also throws some errors as plain strings.  You may "
+"need to check the type."
 msgstr ""
 
 #. type: =head1
-#: ../lua/examples/guestfs-lua.pod:86 ../src/guestfs.pod:2162
+#: ../lua/examples/guestfs-lua.pod:100 ../src/guestfs.pod:2162
 msgid "EVENTS"
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:88
+#: ../lua/examples/guestfs-lua.pod:102
 msgid "Events can be registered by calling C<set_event_callback>:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:90
+#: ../lua/examples/guestfs-lua.pod:104
 #, no-wrap
 msgid ""
 " eh = g:set_event_callback (cb, \"close\")\n"
@@ -33783,14 +33818,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:92
+#: ../lua/examples/guestfs-lua.pod:106
 msgid ""
 "or to register a single callback for multiple events make the second "
 "argument a list:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:95
+#: ../lua/examples/guestfs-lua.pod:109
 #, no-wrap
 msgid ""
 " eh = g:set_event_callback (cb, { \"appliance\", \"library\", \"trace\" })\n"
@@ -33798,12 +33833,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:97
+#: ../lua/examples/guestfs-lua.pod:111
+msgid ""
+"A list of all valid event types (strings) is in the global variable "
+"C<G.event_all>."
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:114
 msgid "The callback (C<cb>) is called with the following parameters:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:99
+#: ../lua/examples/guestfs-lua.pod:116
 #, no-wrap
 msgid ""
 " function cb (g, event, eh, flags, buf, array)\n"
@@ -33818,18 +33860,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../lua/examples/guestfs-lua.pod:108
+#: ../lua/examples/guestfs-lua.pod:125
 msgid ""
 "You can also remove a callback using the event handle (C<eh>) that was "
 "returned when you registered the callback:"
 msgstr ""
 
 #. type: verbatim
-#: ../lua/examples/guestfs-lua.pod:111
+#: ../lua/examples/guestfs-lua.pod:128
 #, no-wrap
 msgid ""
 " g:delete_event_callback (eh)\n"
 "\n"
+msgstr ""
+
+#. type: textblock
+#: ../lua/examples/guestfs-lua.pod:140
+msgid ""
+"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, "
+"L<guestfs-java(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
+"L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, "
+"L<http://www.lua.org/>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
