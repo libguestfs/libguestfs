@@ -330,7 +330,10 @@ event_callback_wrapper (guestfs_h *g,
   }
 
   /* Call the event handler: event_handler (g, event, eh, flags, buf, array) */
-  lua_pushlightuserdata (L, u); /* XXX correct? */
+  /* XXX 'g' parameter is wrong, but fixing it is rather complex.  See:
+   * http://article.gmane.org/gmane.comp.lang.lua.general/95051
+   */
+  lua_pushlightuserdata (L, u);
   push_event (L, event);
   lua_pushinteger (L, eh);
   lua_pushinteger (L, flags);
