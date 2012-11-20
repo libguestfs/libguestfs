@@ -819,7 +819,6 @@ push_event (lua_State *L, uint64_t event)
   ) (rstructs_used_by all_functions);
 
   pr "\
-
 /* Metamethods.
  * See: http://article.gmane.org/gmane.comp.lang.lua.general/95065
  */
@@ -917,5 +916,4 @@ luaopen_guestfs (lua_State *L)
    */
   return 1;
 }
-
 " copyright_years;
