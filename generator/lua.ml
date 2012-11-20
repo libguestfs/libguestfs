@@ -600,8 +600,7 @@ get_string_list (lua_State *L, int index)
   }
 
   for (i = 0; i < len; ++i) {
-    lua_pushinteger (L, i+1 /* because of base 1 arrays */);
-    lua_gettable (L, index);
+    lua_rawgeti (L, index, i+1 /* because of base 1 arrays */);
     strs[i] = (char *) luaL_checkstring (L, -1);
     lua_pop (L, 1);
   }
