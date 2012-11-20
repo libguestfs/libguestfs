@@ -216,6 +216,7 @@ Makefile.in
 /libtool
 /local*
 /ltmain.sh
+/lua/bindtests.lua
 /lua/examples/guestfs-lua.3
 /lua/examples/stamp-guestfs-lua.pod
 /lua/guestfs.so

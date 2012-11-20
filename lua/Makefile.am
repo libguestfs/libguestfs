@@ -20,10 +20,12 @@ include $(top_srcdir)/subdir-rules.mk
 lualibdir = $(libdir)/lua/$(LUA_VERSION)
 
 generator_built = \
+	bindtests.lua \
 	lua-guestfs.c
 
 EXTRA_DIST = \
-	$(generator_built)
+	$(generator_built) \
+	run-bindtests
 
 CLEANFILES = *~ guestfs.so
 
@@ -50,6 +52,7 @@ guestfs.so: libluaguestfs.la
 # Tests.
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = \
+	run-bindtests \
 	tests/010-load.lua \
 	tests/015-globals.lua \
 	tests/020-create.lua \

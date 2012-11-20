@@ -739,6 +739,62 @@ and generate_erlang_bindtests () =
   pr "    ok = file:write(File, \"EOF\\n\"),\n";
   pr "    ok = file:close(File).\n"
 
+and generate_lua_bindtests () =
+  generate_header LuaStyle GPLv2plus;
+
+  pr "require \"guestfs\"\n";
+  pr "\n";
+  pr "g = Guestfs.create ()\n";
+  pr "\n";
+
+  generate_lang_bindtests (
+    fun f args optargs ->
+      pr "g:%s (" f;
+      let needs_comma = ref false in
+      List.iter (
+        fun arg ->
+          if !needs_comma then pr ", ";
+          needs_comma := true;
+
+          match arg with
+          | CallString s -> pr "\"%s\"" s
+          | CallOptString None -> pr "nil"
+          | CallOptString (Some s) -> pr "\"%s\"" s
+          | CallStringList xs ->
+            pr "{%s}" (String.concat "," (List.map (sprintf "\"%s\"") xs))
+          | CallInt i -> pr "%d" i
+          | CallInt64 i -> pr "\"%Ld\"" i
+          | CallBool b -> pr "%b" b
+          | CallBuffer s -> pr "\"%s\"" (c_quote s)
+      ) args;
+      (match optargs with
+      | None -> ()
+      | Some optargs ->
+        if !needs_comma then pr ", ";
+
+        pr "{";
+        needs_comma := false;
+        List.iter (
+          fun optarg ->
+            if !needs_comma then pr ", ";
+            needs_comma := true;
+            match optarg with
+            | CallOBool (n, v) -> pr "%s = %b" n v
+            | CallOInt (n, v) -> pr "%s = %d" n v
+            | CallOInt64 (n, v) -> pr "%s = \"%Ld\"" n v
+            | CallOString (n, v) -> pr "%s = \"%s\"" n v
+            | CallOStringList (n, xs) ->
+              pr "%s = {%s}" n
+                (String.concat "," (List.map (sprintf "\"%s\"") xs))
+        ) optargs;
+        pr "}";
+      );
+      pr ")\n"
+  );
+
+  pr "\n";
+  pr "print (\"EOF\")\n"
+
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
  *)
