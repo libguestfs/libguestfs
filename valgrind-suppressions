@@ -207,7 +207,6 @@
    fun:VBoxCGlueInit
    fun:vboxRegister
    fun:virInitialize
-   fun:init_libguestfs
 }
 
 # FUSE leaks the per-thread context (although the code looks
