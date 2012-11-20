@@ -84,6 +84,8 @@ static int64_t get_int64 (lua_State *L, int index);
 static void push_int64 (lua_State *L, int64_t i64);
 static void push_int64_array (lua_State *L, const int64_t *array, size_t len);
 
+static void print_any (lua_State *L, int index, FILE *out);
+
 static void event_callback_wrapper (guestfs_h *g, void *esvp, uint64_t event, int eh, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 static uint64_t get_event (lua_State *L, int index);
 static uint64_t get_event_bitmask (lua_State *L, int index);
@@ -344,10 +346,11 @@ event_callback_wrapper (guestfs_h *g,
   case 0: /* call ok - do nothing */
     break;
   case LUA_ERRRUN:
-    fprintf (stderr, \"lua-guestfs: %%s: unexpected error in event handler\\n\",
+    fprintf (stderr, \"lua-guestfs: %%s: unexpected error in event handler: \",
              __func__);
-    /* XXX could print the error instead of throwing it away */
+    print_any (L, -1, stderr);
     lua_pop (L, 1);
+    fprintf (stderr, \"\\n\");
     break;
   case LUA_ERRERR: /* can probably never happen */
     fprintf (stderr, \"lua-guestfs: %%s: error calling error handler\\n\",
@@ -681,6 +684,19 @@ push_int64_array (lua_State *L, const int64_t *array, size_t len)
     push_int64 (L, array[i]);
     lua_rawseti (L, -2, i+1 /* because of base 1 arrays */);
   }
+}
+
+/* Use Lua tostring method to print out any.  Useful for debugging
+ * these bindings, but also used if a callback throws an exception.
+ */
+static void
+print_any (lua_State *L, int index, FILE *out)
+{
+  lua_getfield (L, LUA_GLOBALSINDEX, \"tostring\");
+  lua_pushvalue (L, index >= 0 ? index : index-1);
+  lua_call (L, 1, 1);
+  fprintf (out, \"%%s\", luaL_checkstring (L, -1));
+  lua_pop (L, 1);
 }
 
 ";
