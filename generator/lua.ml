@@ -645,10 +645,19 @@ get_int64 (lua_State *L, int index)
   int64_t r;
   const char *s;
 
-  s = luaL_checkstring (L, index);
-  if (sscanf (s, \"%%\" SCNi64, &r) != 1)
-    return luaL_error (L, \"int64 parameter expected\");
-  return r;
+  switch (lua_type (L, index)) {
+  case LUA_TSTRING:
+    s = luaL_checkstring (L, index);
+    if (sscanf (s, \"%%\" SCNi64, &r) != 1)
+      return luaL_error (L, \"int64 parameter expected\");
+    return r;
+
+  case LUA_TNUMBER:
+    return luaL_checkint (L, index);
+
+  default:
+    return luaL_error (L, \"expecting 64 bit integer\");
+  }
 }
 
 static void
