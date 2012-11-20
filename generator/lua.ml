@@ -676,6 +676,16 @@ push_int64_array (lua_State *L, const int64_t *array, size_t len)
 
   (* Code to handle events. *)
   pr "\
+static const char *event_all[] = {
+";
+
+  List.iter (
+    fun (event, _) -> pr "  \"%s\",\n" event
+  ) events;
+
+  pr "  NULL
+};
+
 static uint64_t
 get_event_bitmask (lua_State *L, int index)
 {
@@ -699,18 +709,9 @@ get_event_bitmask (lua_State *L, int index)
 static uint64_t
 get_event (lua_State *L, int index)
 {
-  const char *s;
+  int r = luaL_checkoption (L, index, NULL, event_all);
 
-  s = luaL_checkstring (L, index);
-";
-
-  List.iter (
-    fun (event, i) ->
-      pr "  if (strcmp (s, \"%s\") == 0)\n" event;
-      pr "    return %d;\n" i
-  ) events;
-
-  pr "  return luaL_error (L, \"unknown event name '%%s'\", s);
+  return UINT64_C(1) << r;
 }
 
 static void
@@ -728,16 +729,6 @@ push_event (lua_State *L, uint64_t event)
 
   pr "  abort (); /* should never happen */
 }
-
-static const char *event_all[] = {
-";
-
-  List.iter (
-    fun (event, _) -> pr "  \"%s\",\n" event
-  ) events;
-
-  pr "  NULL
-};
 
 ";
 
