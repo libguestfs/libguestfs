@@ -40,11 +40,10 @@ export TMPDIR="$b"
 # Set local environment relative to this script.
 export LIBGUESTFS_PATH="$b/appliance"
 
-library_path="$b/src/.libs:$b/gobject/.libs"
 if [ -z "$LD_LIBRARY_PATH" ]; then
-    LD_LIBRARY_PATH=$library_path
+    LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs"
 else
-    LD_LIBRARY_PATH="$library_path:$LD_LIBRARY_PATH"
+    LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs:$LD_LIBRARY_PATH"
 fi
 export LD_LIBRARY_PATH
 
