@@ -90,8 +90,12 @@ The C<errno> (corresponding to L<guestfs(3)/guestfs_last_errno>).
 
 =back
 
-Note that some errors can also be thrown as plain strings.  You
-need to check the type.
+These objects also have C<__tostring> functions attached to them
+so you can use C<tostring> (or implicit conversion) to convert them
+into printable strings.
+
+Note that the library also throws some errors as plain strings.  You
+may need to check the type.
 
 =head2 EVENTS
 

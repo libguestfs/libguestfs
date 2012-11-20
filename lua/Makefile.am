@@ -50,7 +50,7 @@ guestfs.so: libluaguestfs.la
 	ln -sf .libs/libluaguestfs.so $@
 
 # Tests.
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS_ENVIRONMENT = LC_ALL=C $(top_builddir)/run --test
 TESTS = \
 	run-bindtests \
 	tests/010-load.lua \
@@ -60,7 +60,8 @@ TESTS = \
 	tests/027-create-multiple.lua \
 	tests/030-config.lua \
 	tests/070-optargs.lua \
-	tests/400-events.lua
+	tests/400-events.lua \
+	tests/900-errors.lua
 
 if ENABLE_APPLIANCE
 TESTS += \
@@ -80,7 +81,8 @@ EXTRA_DIST += \
 	tests/060-readdir.lua \
 	tests/070-optargs.lua \
 	tests/400-events.lua \
-	tests/400-progress.lua
+	tests/400-progress.lua \
+	tests/900-errors.lua
 
 # Custom install rule.
 install-data-hook:

@@ -199,6 +199,28 @@ lua_guestfs_close (lua_State *L)
   return 0;
 }
 
+/* __tostring function attached to all exceptions. */
+static int
+error__tostring (lua_State *L)
+{
+  int code;
+  const char *msg;
+
+  lua_pushliteral (L, \"code\");
+  lua_gettable (L, 1);
+  code = luaL_checkint (L, -1);
+  lua_pushliteral (L, \"msg\");
+  lua_gettable (L, 1);
+  msg = luaL_checkstring (L, -1);
+
+  if (code)
+    lua_pushfstring (L, \"%%s: %%s\", msg, strerror (code));
+  else
+    lua_pushstring (L, msg);
+
+  return 1;
+}
+
 /* Return the last error in the handle. */
 static int
 last_error (lua_State *L, guestfs_h *g)
@@ -213,6 +235,13 @@ last_error (lua_State *L, guestfs_h *g)
   lua_pushliteral (L, \"code\");
   lua_pushinteger (L, guestfs_last_errno (g));
   lua_settable (L, -3);
+
+  lua_newtable (L);
+  lua_pushliteral (L, \"__tostring\");
+  lua_pushcfunction (L, error__tostring);
+  lua_settable (L, -3);
+
+  lua_setmetatable (L, -2);
 
   /* Raise an exception with the error object. */
   return lua_error (L);
