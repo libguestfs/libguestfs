@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-30 18:16+0000\n"
+"POT-Creation-Date: 2012-11-22 11:47+0000\n"
 "PO-Revision-Date: 2012-05-21 13:19+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3932,7 +3932,7 @@ msgstr "попередження: %s"
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/guestfs.c:1019
+#: src/guestfs.c:1020
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
@@ -4495,1233 +4495,999 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
 
-#: ../resize/resize.ml:791
-msgid "  An extra partition will be created for the surplus."
-msgstr "  На решті простору сховища буде створено додатковий розділ."
-
-#: ../resize/resize.ml:776 ../resize/resize.ml:757
-msgid "  The %s on %s will be expanded using the '%s' method."
-msgstr "   %s на %s буде розширено за допомогою методу «%s»."
-
-#: ../resize/resize.ml:793
-msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
-msgstr ""
-"  Залишок місця недостатньо великий для створення нового розділу, отже його "
-"буде просто проігноровано."
-
-#: ../resize/resize.ml:795
-msgid ""
-"  The surplus space will be ignored.  Run a partitioning program in the "
-"guest to partition this extra space if you want."
-msgstr ""
-"  Залишок місця буде проігноровано. Запустіть програму керування розділами "
-"гостьової системи, якщо бажаєте розподілити це залишок місця."
-
-#: ../sysprep/main.ml:207
-msgid "%s (ignored)\n"
-msgstr "%s (проігноровано)\n"
-
-#: ../sysprep/main.ml:58
-msgid "%s: --domain option can only be given once\n"
-msgstr "%s: параметр --domain можна вказувати лише один раз\n"
-
-#: ../sysprep/main.ml:70
-msgid "%s: --enable option can only be given once\n"
-msgstr "%s: параметр --enable можна вказувати лише один раз\n"
-
-#: ../sysprep/main.ml:82
-msgid "%s: --enable: '%s' is not a known operation\n"
-msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
-
-#: ../resize/resize.ml:607
-msgid ""
-"%s: This extended partition contains logical partitions which might be "
-"damaged by shrinking it.  If you want to shrink this partition, you need to "
-"use the '--resize-force' option, but that could destroy logical partitions "
-"within this partition.  (This error came from '%s' option on the command "
-"line.)"
-msgstr ""
-"%s: на цьому розширеному розділі містяться логічні розділи, які може бути "
-"пошкоджено під час зменшення розмірів розширеного розділу. Якщо вам потрібно "
-"зменшити розміри цього розділу, скористайтеся параметром «--resize-force», "
-"але результатом може бути знищення логічних розділів на розширеному розділі. "
-"(Це повідомлення про помилку є наслідком використання параметра «%s» у рядку "
-"команди.)"
-
-#: ../resize/resize.ml:773
-msgid "%s: This logical volume will be expanded to maximum size."
-msgstr "%s: цей логічний том буде розширено до максимального розміру."
-
-#: ../resize/resize.ml:603
-msgid ""
-"%s: This partition has contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
-"'%s' option on the command line.)"
-msgstr ""
-"%s: на цьому розділі міститься файлова система %s, яку може бути пошкоджено "
-"під час зменшення розмірів розділу до об’єму, меншого за %Ld байтів (від "
-"користувача надійшов запит на зменшення розмірів до %Ld байтів). Якщо вам "
-"потрібно зменшити розміри цього розділу, скористайтеся параметром «--resize-"
-"force», але результатом може бути знищення даних на цьому розділі. (Це "
-"повідомлення про помилку є наслідком використання параметра «%s» у рядку "
-"команди.)"
-
-#: ../resize/resize.ml:599
-msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
-msgstr ""
-"s: на цьому розділі міститься фізичний том LVM, який може бути пошкоджено "
-"під час зменшення розмірів розділу до об’єму, меншого за %Ld байтів (від "
-"користувача надійшов запит на зменшення розмірів до %Ld байтів). Якщо вам "
-"потрібно зменшити розміри цього розділу, скористайтеся параметром «--resize-"
-"force», але результатом може бути знищення даних на цьому розділі. (Це "
-"повідомлення про помилку є наслідком використання параметра «%s» у рядку "
-"команди.)"
-
-#: ../resize/resize.ml:596
-msgid ""
-"%s: This partition has unknown content which might be damaged by shrinking "
-"it.  If you want to shrink this partition, you need to use the '--resize-"
-"force' option, but that could destroy any data on this partition.  (This "
-"error came from '%s' option on the command line.)"
-msgstr ""
-"%s: на цьому розділі містяться невідомі дані, які може бути пошкоджено під "
-"час зменшення розмірів розділу. Якщо вам потрібно зменшити розміри цього "
-"розділу, скористайтеся параметром «--resize-force», але результатом може "
-"бути знищення всіх даних на розділі. (Це повідомлення про помилку є "
-"наслідком використання параметра «%s» у рядку команди.)"
-
-#: ../resize/resize.ml:750
-msgid ""
-"%s: This partition will be created, but the contents will be ignored (ie. "
-"not copied to the target)."
-msgstr ""
-"%s: цей розділ буде створено, але дані буде проігноровано (тобто дані не "
-"буде скопійовано на отриманий у результаті розділ)."
-
-#: ../resize/resize.ml:752
-msgid "%s: This partition will be deleted."
-msgstr "%s: цей розділ буде вилучено."
-
-#: ../resize/resize.ml:748
-msgid "%s: This partition will be left alone."
-msgstr "%s: цей розділ не буде змінено."
-
-#: ../resize/resize.ml:754
-msgid "%s: This partition will be resized from %s to %s."
-msgstr "%s: розмір цього розділу буде змінено з %s на %s."
-
-#: ../resize/resize.ml:59
-msgid "%s: empty --expand option"
-msgstr "%s: порожній аргумент параметра --expand"
-
-#: ../resize/resize.ml:271 ../resize/resize.ml:268
-msgid "%s: file is too small to be a disk image (%Ld bytes)"
-msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
-
-#: ../resize/resize.ml:730
-msgid ""
-"%s: logical volume not found in the source disk image (this error came from "
-"'--lv-expand' option on the command line).  Try running this command: virt-"
-"filesystems --logical-volumes --long -a %s"
-msgstr ""
-"%s: на початковому образі диска не знайдено логічного тому (причиною цього "
-"повідомлення є використання параметра «--lv-expand» у командному рядку). "
-"Спробуйте віддати таку команду: virt-filesystems --logical-volumes --long -a "
-"%s"
-
-#: ../resize/resize.ml:625
-msgid "%s: missing size field in '%s' option"
-msgstr "%s: не вказано аргумент розміру у параметрі «%s»"
-
-#: ../resize/resize.ml:634
-msgid "%s: new partition size is zero or negative"
-msgstr "%s: розмір нового розділу є нульовим або від’ємним"
-
-#: ../sysprep/main.ml:193
-msgid "%s: no operating systems were found in the guest image\n"
-msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
-
-#: ../resize/resize.ml:545
-msgid "%s: partition already deleted, you cannot use it in '%s' option"
-msgstr ""
-"%s: розділ вже вилучено, ви не можете використовувати його у аргументах "
-"параметра «%s»"
-
-#: ../resize/resize.ml:541
-msgid "%s: partition already ignored, you cannot use it in '%s' option"
-msgstr ""
-"%s: розділ вже пропущено, ви не можете використовувати його у аргументах "
-"параметра «%s»"
-
-#: ../resize/resize.ml:537
-msgid ""
-"%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
-msgstr ""
-"%s: на початковому образі диска не знайдено розділу (причиною цього "
-"повідомлення є використання параметра «%s» у командному рядку). Спробуйте "
-"віддати таку команду: virt-filesystems --partitions --long -a %s"
-
-#: ../resize/resize.ml:424
-msgid "%s: partition size %Ld < filesystem size %Ld"
-msgstr "%s: розмір розділу, %Ld < розміру файлової системи, %Ld"
-
-#: ../resize/resize.ml:419
-msgid "%s: partition size %Ld < physical volume size %Ld"
-msgstr "%s: розмір розділу, %Ld < розмір фізичного тому, %Ld"
-
-#: ../resize/resize.ml:349
-msgid "%s: physical volume not returned by pvs_full"
-msgstr "%s: фізичний тому не повернуто pvs_full"
-
-#: ../sysprep/main.ml:128
-msgid ""
-"%s: reset or unconfigure a virtual machine so clones can be made\n"
-"\n"
-" virt-sysprep [--options] -d domname\n"
-"\n"
-" virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-sysprep(1).\n"
-msgstr ""
-"%s: відновити початковий стан або скинути налаштування віртуальної машини\n"
-"з метою уможливлення створення клонів\n"
-"\n"
-" virt-sysprep [--параметри] -d назва_домену\n"
-"\n"
-" virt-sysprep [--параметри] -a диск.img [-a диск.img ...]\n"
-"\n"
-"Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
-"будь ласка, ознайомтеся зі сторінкою підручника (man) virt-sysprep(1).\n"
-
-#: ../resize/resize.ml:115
-msgid ""
-"%s: resize a virtual machine disk\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-resize(1).\n"
-msgstr ""
-"%s: змінити розмір диска віртуальної машини\n"
-"\n"
-"Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
-"будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
-
-#: ../sparsify/sparsify.ml:78
-msgid ""
-"%s: sparsify a virtual machine disk\n"
-"\n"
-" virt-sparsify [--options] indisk outdisk\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-sparsify(1).\n"
-msgstr ""
-"%s: розширити диск віртуальної машини\n"
-"\n"
-" virt-sparsify [--параметри] початковий_диск диск_результату\n"
-"\n"
-"Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
-"будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize()\n"
-
-#: ../resize/resize.ml:581
-msgid "%s: this partition has already been ignored or deleted"
-msgstr "%s: цей розділ вже проігноровано або вилучено"
-
-#: ../resize/resize.ml:577
-msgid "%s: this partition has already been marked for resizing"
-msgstr "%s: цей розділ вже було позначено для зміни розміру"
-
-#: ../resize/resize.ml:434
-msgid "%s: this partition overlaps the previous one"
-msgstr "%s: цей розділ перекривається з попереднім"
-
-#: ../resize/resize.ml:285
-msgid ""
-"%s: unknown partition table type\n"
-"virt-resize only supports MBR (DOS) and GPT partition tables."
-msgstr ""
-"%s: невідомий тип таблиці розділів\n"
-"У virt-resize передбачено підтримку лише таблиць MBR (DOS) та GPT."
-
-#: ../sysprep/main.ml:157
-msgid "%s: you cannot give -a and -d options together\n"
-msgstr "%s: не можна передавати одночасно параметри -a і -d\n"
-
-#: ../sysprep/main.ml:74
-msgid "%s: you cannot pass an empty argument to --enable\n"
-msgstr "%s: параметру --enable не можна передавати порожніх аргументів\n"
-
-#: ../sysprep/main.ml:148
-msgid "%s: you must give either -a or -d options\n"
-msgstr "%s: вам слід передати параметр -a або -d\n"
-
-#: ../resize/resize.ml:60
-msgid "--expand option given twice"
-msgstr "параметр --expand вказано двічі"
-
-#: ../resize/resize.ml:77
-msgid "--shrink option given twice"
-msgstr "параметр --shrink вказано двічі"
-
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
-msgid "Add disk image file"
-msgstr "Додати файл образу диска"
-
-#: ../sparsify/sparsify.ml:65
-msgid "Add qemu-img options"
-msgstr "Додати параметри qemu-img"
-
-#: ../resize/resize.ml:82
-msgid "Align first partition (default: auto)"
-msgstr "Вирівняти перший розділ (типове значення: auto)"
-
-#: ../sysprep/sysprep_operation_hostname.ml:66
-msgid "Change the hostname of the guest"
-msgstr "Змінити назву вузла гостьової системи"
-
-#: ../sysprep/sysprep_operation_hostname.ml:75
-msgid ""
-"Change the hostname.  If not given, defaults to C<localhost.localdomain>."
-msgstr ""
-"Зміни назву вузла. Якщо не вказано, використовувати типове C<localhost."
-"localdomain>."
-
-#: ../sparsify/sparsify.ml:254
-msgid ""
-"Clearing Linux swap on %s ...\n"
-"%!"
-msgstr ""
-"Спорожнення розділу резервної пам’яті Linux на %s…\n"
-"%!"
-
-#: ../sparsify/sparsify.ml:59
-msgid "Compressed output format"
-msgstr "Стиснений формат виведення даних"
-
-#: ../sparsify/sparsify.ml:339
-msgid ""
-"Copy to destination and make sparse ...\n"
-"%!"
-msgstr ""
-"Скопіювати призначення і виконати розрідження…\n"
-"%!"
-
-#: ../resize/resize.ml:1032
-msgid ""
-"Copying %s ...\n"
-"%!"
-msgstr ""
-"Копіювання %s ...\n"
-"%!"
-
-#: ../sparsify/sparsify.ml:157
-msgid ""
-"Create overlay file to protect source disk ...\n"
-"%!"
-msgstr ""
-"Створити файл накладки для захисту диска початкових даних…\n"
-"%!"
-
-#: ../sparsify/sparsify.ml:61 ../resize/resize.ml:87
-msgid "Debug GC and memory allocations"
-msgstr "Діагностика GC та розподілу пам’яті"
-
-#: ../sysprep/main.ml:101
-msgid "Debug GC and memory allocations (internal)"
-msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
-
-#: ../resize/resize.ml:88
-msgid "Delete partition"
-msgstr "Вилучити розділ"
-
-#. ../resize/resize.ml:109
-#: ../sysprep/main.ml:119 ../sysprep/main.ml:118 ../sparsify/sparsify.ml:70
-msgid "Display version and exit"
-msgstr "Показати номер версії і вийти"
-
-#: ../resize/resize.ml:84
-msgid "Don't copy boot loader"
-msgstr "Не копіювати завантажувач"
-
-#: ../resize/resize.ml:91
-msgid "Don't create extra partition"
-msgstr "Не створювати додаткового розділу"
-
-#: ../resize/resize.ml:90
-msgid "Don't expand content"
-msgstr "Не розширювати область даних"
-
-#: ../resize/resize.ml:99
-msgid "Don't perform changes"
-msgstr "Не вносити змін"
-
-#: ../sysprep/main.ml:113 ../sysprep/main.ml:112
-msgid "Don't print log messages"
-msgstr "Не виводити повідомлень до журналу"
-
-#: ../resize/resize.ml:104
-msgid "Don't print the summary"
-msgstr "Не виводити даних резюме"
-
-#: ../sysprep/main.ml:107
-msgid "Dump POD (internal)"
-msgstr "Створити дамп POD (вбудоване)"
-
-#: ../sysprep/main.ml:108
-msgid "Dump POD for options (internal)"
-msgstr "Створити дамп POD для параметрів (вбудоване)"
-
-#. ../resize/resize.ml:85
-#: ../sysprep/main.ml:117 ../sysprep/main.ml:116 ../sparsify/sparsify.ml:68
-msgid "Enable debugging messages"
-msgstr "Увімкнути показ діагностичних повідомлень"
-
-#: ../sysprep/main.ml:109
-msgid "Enable specific operations"
-msgstr "Увімкнути виконання специфічних дій"
-
-#: ../sysprep/main.ml:120 ../sparsify/sparsify.ml:72
-msgid "Enable tracing of libguestfs calls"
-msgstr "Увімкнути трасування викликів libguestfs"
-
-#: ../sparsify/sparsify.ml:191
-msgid ""
-"Examine source disk ...\n"
-"%!"
-msgstr ""
-"Вивчення початкового диска…\n"
-"%!"
-
-#: ../resize/resize.ml:230
-msgid ""
-"Examining %s ...\n"
-"%!"
-msgstr ""
-"Вивчення %s…\n"
-"%!"
-
-#: ../sysprep/main.ml:178
-msgid ""
-"Examining the guest ...\n"
-"%!"
-msgstr ""
-"Вивчення гостьової системи…\n"
-"%!"
-
-#: ../resize/resize.ml:94
-msgid "Expand logical volume"
-msgstr "Розширити логічний том"
-
-#: ../resize/resize.ml:89
-msgid "Expand partition"
-msgstr "Розширити розділ"
-
-#: ../resize/resize.ml:1179
-msgid ""
-"Expanding %s using the '%s' method ...\n"
-"%!"
-msgstr ""
-"Розширення %s за допомогою методу «%s»…\n"
-"%!"
-
-#: ../resize/resize.ml:1162
-msgid ""
-"Expanding %s%s using the '%s' method ...\n"
-"%!"
-msgstr ""
-"Розширення %s%s за допомогою методу «%s»…\n"
-"%!"
-
-#: ../resize/resize.ml:850
-msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
-"\n"
-"The underlying error was: %s"
-msgstr ""
-"Не вдалося ініціалізувати таблицю розділів на диску призначення. Вам слід "
-"витерти або повторно створити диск призначення, а потім запустити virt-"
-"resize знову.\n"
-"\n"
-"Повідомлення про помилку: %s"
-
-#: ../sparsify/sparsify.ml:238
-msgid ""
-"Fill free space in %s with zero ...\n"
-"%!"
-msgstr ""
-"Заповнити вільне місце у %s нулями…\n"
-"%!"
-
-#: ../sparsify/sparsify.ml:289
-msgid ""
-"Fill free space in volgroup %s with zero ...\n"
-"%!"
-msgstr ""
-"Заповнити вільне місце у групі томів %s нулями…\n"
-"%!"
-
-#: ../resize/resize.ml:1088
-msgid ""
-"Fixing first NTFS partition boot record ...\n"
-"%!"
-msgstr ""
-"Виправлення завантажувального запису першого розділу NTFS…\n"
-"%!"
-
-#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:35
-msgid "Flag the system for reconfiguration"
-msgstr "Позначити систему для зміни налаштувань"
-
-#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
-msgid ""
-"For Fedora and Red Hat Enterprise Linux,\n"
-"this is removed from C<ifcfg-*> files."
-msgstr ""
-"Для Fedora і Red Hat Enterprise Linux\n"
-"це вилучається з файлів C<ifcfg-*>."
-
-#: ../sysprep/main.ml:114
-msgid "Force SELinux relabel"
-msgstr "Примусова зміна міток SELinux"
-
-#: ../resize/resize.ml:102
-msgid "Force ntfsresize"
-msgstr "Примусове виконання ntfsresize"
-
-#: ../resize/resize.ml:107
-msgid "Forcefully resize partition"
-msgstr "Змінити розміри розділу у примусовому режимі"
-
-#: ../sparsify/sparsify.ml:62 ../resize/resize.ml:92
-msgid "Format of input disk"
-msgstr "Формат диска вхідних даних"
-
-#: ../resize/resize.ml:103
-msgid "Format of output disk"
-msgstr "Формат диска виведення даних"
-
-#: ../sparsify/sparsify.ml:60
-msgid "Format of output disk (default: same as input)"
-msgstr ""
-"Формат диска результатів (типове значення: той самий, що і у початкового "
-"диска)"
-
-#: ../sysprep/sysprep_operation_random_seed.ml:50
-msgid "Generate random seed for guest"
-msgstr "Створити породжувач випадкових чисел для гостьової системи"
-
-#: ../resize/resize_utils.ml:81
-msgid ""
-"If reporting bugs, run virt-resize with the '-d' option and include the "
-"complete output."
-msgstr ""
-"Щоб покращити повідомлення про ваду, віддайте команду virt-resize з "
-"параметром «-d» і додайте до сповіщення виведені дані повністю."
-
-#: ../sparsify/sparsify_utils.ml:109
-msgid ""
-"If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
-"include the complete output."
-msgstr ""
-"Щоб покращити повідомлення про ваду, віддайте команду virt-sparsify з "
-"параметрами «-v» і «-x» і додайте до сповіщення виведені дані повністю."
-
-#: ../sparsify/sparsify.ml:63
-msgid "Ignore filesystem"
-msgstr "Ігнорувати файлову систему"
-
-#: ../resize/resize.ml:93
-msgid "Ignore partition"
-msgstr "Ігнорувати розділ"
-
-#: ../sysprep/main.ml:111
-msgid "List supported operations"
-msgstr "Показати список підтримуваних команд"
-
-#: ../sparsify/sparsify.ml:64 ../resize/resize.ml:98
-msgid "Make output machine readable"
-msgstr "Зробити машину виведення даних придатною для читання даних"
-
-#: ../sysprep/sysprep_operation_script.ml:139
-msgid "Mount point on host"
-msgstr "Точка монтування у основній системі"
-
-#: ../sysprep/main.ml:115
-msgid "Never do SELinux relabel"
-msgstr "Ніколи не виконувати зміни міток SELinux"
-
-#: ../sysprep/sysprep_operation_hostname.ml:74
-msgid "New hostname"
-msgstr "Нова назва вузла"
-
-#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
-msgid ""
-"Note that this may require user intervention when the\n"
-"guest is booted."
-msgstr ""
-"Зауважте, що це може потребувати втручання користувача під\n"
-"час завантаження гостьової системи."
-
-#: ../sysprep/sysprep_operation_logfiles.ml:87
-msgid ""
-"On Linux the following files are removed:\n"
-"\n"
-"%s"
-msgstr ""
-"У Linux вилучено такі файли:\n"
-"\n"
-"%s"
-
-#: ../sysprep/main.ml:106 ../sysprep/main.ml:105 ../sysprep/main.ml:104
-msgid "Perform a dry run"
-msgstr "Виконати тестовий запуск"
-
-#: ../sparsify/sparsify.ml:66
-msgid "Quiet output"
-msgstr "Режим з мінімальним виведенням даних"
-
-#: ../sysprep/main.ml:158 ../sysprep/main.ml:149
-msgid "Read virt-sysprep(1) man page for further information.\n"
-msgstr ""
-"Ознайомтеся зі сторінкою підручника (man) virt-sysprep(1), щоб дізнатися "
-"більше.\n"
-
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:39
-msgid "Remove \".ssh\" directories in the guest"
-msgstr "Вилучити каталоги «.ssh» у гостьовій системі"
-
-#: ../sysprep/sysprep_operation_ca_certificates.ml:53
-msgid "Remove CA certificates in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_dhcp_client_state.ml:36
-msgid "Remove DHCP client leases"
-msgstr "Вилучити надані клієнтські адреси DHCP"
-
-#: ../sysprep/sysprep_operation_dhcp_server_state.ml:31
-msgid "Remove DHCP server leases"
-msgstr "Вилучити надані серверні адреси DHCP"
-
-#: ../sysprep/sysprep_operation_dovecot_data.ml:38
-msgid "Remove Dovecot (mail server) data"
-msgstr "Вилучити дані Dovecot (поштового сервера)"
-
-#: ../sysprep/sysprep_operation_net_hwaddr.ml:49
-msgid "Remove HWADDR (hard-coded MAC address) configuration"
-msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)"
-
-#: ../sysprep/sysprep_operation_kerberos_data.ml:46
-msgid "Remove Kerberos data in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_user_account.ml:65
-msgid ""
-"Remove all the user accounts and their home directories.\n"
-"The \"root\" account is not removed."
-msgstr ""
-"Вилучити всі облікові записи користувачів та відповідні домашні каталоги.\n"
-"Обліковий запис «root» вилучено не буде."
-
-#: ../sysprep/sysprep_operation_blkid_tab.ml:49
-msgid "Remove blkid tab in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_mail_spool.ml:36
-msgid "Remove email from the local mail spool directory"
-msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера"
-
-#: ../sysprep/sysprep_operation_logfiles.ml:85
-msgid "Remove many log files from the guest"
-msgstr "Вилучити з гостьової системи багато файлів журналів"
-
-#: ../sysprep/sysprep_operation_package_manager_cache.ml:40
-msgid "Remove package manager cache"
-msgstr "Вилучити кеш керування пакунками"
-
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:40
-msgid ""
-"Remove the C<.ssh> directory of user \"root\" and any other\n"
-"users who have a C<.ssh> directory in their home directory."
-msgstr ""
-"Вилучити каталог C<.ssh> користувача «root» та всіх інших користувачів,\n"
-"домашні каталоги яких містять каталог C<.ssh>."
-
-#: ../sysprep/sysprep_operation_pam_data.ml:46
-msgid "Remove the PAM data in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_rhn_systemid.ml:37
-msgid "Remove the RHN system ID"
-msgstr "Вилучити ідентифікатор системи у RHN"
-
-#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:36
-msgid "Remove the SSH host keys in the guest"
-msgstr "Вилучити ключі вузла SSH у гостьовій системі"
-
-#: ../sysprep/sysprep_operation_smolt_uuid.ml:41
-msgid "Remove the Smolt hardware UUID"
-msgstr "Вилучити UUID обладнання Smolt"
-
-#: ../sysprep/sysprep_operation_bash_history.ml:39
-msgid "Remove the bash history in the guest"
-msgstr "Вилучити журнал команд bash у гостьовій системі"
-
-#: ../sysprep/sysprep_operation_bash_history.ml:40
-msgid ""
-"Remove the bash history of user \"root\" and any other users\n"
-"who have a C<.bash_history> file in their home directory."
-msgstr ""
-"Вилучити журнал команд bash користувача «root» та всіх інших користувачів,\n"
-"у домашніх каталогах яких містяться файли C<.bash_history>."
-
-#: ../sysprep/sysprep_operation_samba_db_log.ml:47
-msgid "Remove the database and log files of Samba"
-msgstr "Вилучити бази даних та файли журналів Samba"
-
-#: ../sysprep/sysprep_operation_sssd_db_log.ml:45
-msgid "Remove the database and log files of sssd"
-msgstr "Вилучити бази даних і файли журналів sssd"
-
-#: ../sysprep/sysprep_operation_user_account.ml:64
-msgid "Remove the user accounts in the guest"
-msgstr "Вилучити облікові записи користувачів у гостьовій системі"
-
-#: ../sysprep/sysprep_operation_utmp.ml:35
-msgid "Remove the utmp file"
-msgstr "Вилучити файл utmp"
-
-#: ../sysprep/sysprep_operation_yum_uuid.ml:35
-msgid "Remove the yum UUID"
-msgstr "Вилучити UUID yum"
-
-#: ../sysprep/sysprep_operation_udev_persistent_net.ml:36
-msgid "Remove udev persistent net rules"
-msgstr "Вилучити постійні правила мережі udev"
-
-#: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
-msgid ""
-"Remove udev persistent net rules which map the guest's existing MAC\n"
-"address to a fixed ethernet device (eg. eth0).\n"
-"\n"
-"After a guest is cloned, the MAC address usually changes.  Since the\n"
-"old MAC address occupies the old name (eg. eth0), this means the fresh\n"
-"MAC address is assigned to a new name (eg. eth1) and this is usually\n"
-"undesirable.  Erasing the udev persistent net rules avoids this."
-msgstr ""
-"Вилучити постійні правила мережі udev, які відображають вже створену\n"
-"MAC-адресу гостьової системи на фіксований пристрій ethernet (наприклад "
-"eth0).\n"
-"\n"
-"Після клонування гостьової системи MAC-адреса зазвичай змінюється. Оскільки\n"
-"стару MAC-адресу вже пов’язано зі старою назвою (наприклад eth0), це "
-"означає,\n"
-"що нову MAC-адресу буде пов’язано з новою назвою (наприклад eth1), а це\n"
-"зазвичай є небажаним. За допомогою вилучення постійних правил мережі udev\n"
-"цьому можна запобігти."
-
-#: ../sysprep/sysprep_operation_cron_spool.ml:31
-msgid "Remove user at-jobs and cron-jobs"
-msgstr "Вилучити завдання at та cron користувачів"
-
-#: ../resize/resize.ml:1199
-msgid ""
-"Resize operation completed with no errors.  Before deleting the old disk, "
-"carefully check that the resized disk boots and works correctly.\n"
-msgstr ""
-"Дію зі зміни розмірів завершено без помилок. Перш ніж вилучати старий диск, "
-"уважно перевірте, чи завантажується новий диск і чи працює він належним "
-"чином.\n"
-
-#: ../resize/resize.ml:106
-msgid "Resize partition"
-msgstr "Змінити розміри розділу"
-
-#: ../sysprep/sysprep_operation_script.ml:118
-msgid "Run arbitrary scripts against the guest"
-msgstr "Запустити довільні скрипти дій над гостьовою системою"
-
-#: ../sysprep/sysprep_operation_script.ml:150
-msgid ""
-"Run the named C<script> (a shell script or program) against the\n"
-"guest.  The script can be any program on the host.  The script's\n"
-"current directory will be the guest's root directory.\n"
-"\n"
-"B<Note:> If the script is not on the $PATH, then you must give\n"
-"the full absolute path to the script."
-msgstr ""
-"Виконати названий C<скрипт> (скрипт оболонки або програму) над\n"
-"гостьовою системою. Скрипт може бути будь-якою програмою у основній\n"
-"системі. Поточним каталогом скрипту буде кореневий каталог гостьової\n"
-"системи.\n"
-"\n"
-"B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
-"слід вказати шлях до скрипту повністю."
-
-#: ../sysprep/sysprep_operation_script.ml:149
-msgid "Script or program to run on guest"
-msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
-
-#: ../sysprep/main.ml:110
-msgid "Set format (default: auto)"
-msgstr "Встановити формат (типовий формат: auto)"
-
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
-msgid "Set libvirt URI"
-msgstr "Встановити адресу libvirt"
-
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
-msgid "Set libvirt guest name"
-msgstr "Встановити назву гостьової системи libvirt"
-
-#: ../resize/resize.ml:83
-msgid "Set partition alignment (default: 128 sectors)"
-msgstr "Встановити вирівнювання розділів (типове значення: 128 секторів)"
-
-#: ../resize/resize.ml:829
-msgid ""
-"Setting up initial partition table on %s ...\n"
-"%!"
-msgstr ""
-"Встановлення початкової таблиці розділів на %s…\n"
-"%!"
-
-#: ../resize/resize.ml:108
-msgid "Shrink partition"
-msgstr "Зменшити розмір розділу"
-
-#: ../sparsify/sparsify.ml:358
-msgid ""
-"Sparsify operation completed with no errors.  Before deleting the old disk, "
-"carefully check that the target disk boots and works correctly.\n"
-msgstr ""
-"Дію з розрідження завершено без помилок. Перш ніж вилучати старий диск, "
-"уважно перевірте, чи завантажується новий диск і чи працює він належним "
-"чином.\n"
-
-#: ../sysprep/sysprep_operation_script.ml:119
-msgid ""
-"The C<script> module lets you run arbitrary shell scripts or programs\n"
-"against the guest.\n"
-"\n"
-"Note this feature requires FUSE support.  You may have to enable\n"
-"this in your host, for example by adding the current user to the\n"
-"C<fuse> group, or by loading a kernel module.\n"
-"\n"
-"Use one or more I<--script> parameters to specify scripts or programs\n"
-"that will be run against the guest.\n"
-"\n"
-"The script or program is run with its current directory being the\n"
-"guest's root directory, so relative paths should be used.  For\n"
-"example: C<rm etc/resolv.conf> in the script would remove a Linux\n"
-"guest's DNS configuration file, but C<rm /etc/resolv.conf> would\n"
-"(try to) remove the host's file.\n"
-"\n"
-"Normally a temporary mount point for the guest is used, but you\n"
-"can choose a specific one by using the I<--scriptdir> parameter."
-msgstr ""
-"За допомогою модуля C<script> ви можете наказати системі виконувати\n"
-"довільні скрипти оболонки або програми над гостьовою системою.\n"
-"\n"
-"Зауважте, що для роботи цієї можливості потрібна підтримка FUSE. Вам\n"
-"слід увімкнути її на основній системі, наприклад додаванням поточного\n"
-"користувача до групи C<fuse> або завантаженням модуля ядра.\n"
-"\n"
-"Використовуйте один або декілька параметрів I<--script>, що вказати\n"
-"скрипти або програми, які буде запущено для обробки гостьової\n"
-"системи.\n"
-"\n"
-"Скрипт або програма запускається з поточним каталогом, відповідним\n"
-"до кореневого каталогу гостьової системи, тому має бути використано\n"
-"відносні шляхи. Приклад: C<rm etc/resolv.conf> у скрипті вилучить\n"
-"файл налаштувань DNS гостьової системи Linux, але C<rm /etc/resolv.conf>\n"
-"призведе до спроби вилучення файла основної системи.\n"
-"\n"
-"Зазвичай, використовується тимчасова точка монтування гостьової\n"
-"системи, але ви можете вибрати певну точку монтування за допомогою\n"
-"параметра I<--scriptdir>."
-
-#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:37
-msgid ""
-"The SSH host keys are regenerated (differently) next time the guest is\n"
-"booted.\n"
-"\n"
-"If, after cloning, the guest gets the same IP address, ssh will give\n"
-"you a stark warning about the host key changing:\n"
-"\n"
-" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
-" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
-msgstr ""
-"Ключі вузла SSH повторно створюються (незалежно) під час наступного\n"
-"завантаження гостьової системи.\n"
-"\n"
-"Якщо після клонування гостьова система отримати ту саму IP-адресу,\n"
-"ssh надасть вам додаткове попередження щодо зміни ключа вузла:\n"
-"\n"
-" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
-" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
-
-#: ../sysprep/sysprep_operation_script.ml:140
-msgid ""
-"The mount point (an empty directory on the host) used when\n"
-"the C<script> operation is enabled and one or more scripts\n"
-"are specified using I<--script> parameter(s).\n"
-"\n"
-"B<Note:> C<scriptdir> B<must> be an absolute path.\n"
-"\n"
-"If I<--scriptdir> is not specified then a temporary mountpoint\n"
-"will be created."
-msgstr ""
-"Точку монтування (порожній каталог на вузлі), використану\n"
-"при виконанні дії C<script>, увімкнено і вказано використання\n"
-"одного або декількох скриптів за допомогою I<--script>.\n"
-"\n"
-"B<Зауваження:> C<scriptdir> B<має> бути вказано повністю.\n"
-"\n"
-"Якщо I<--scriptdir> не вказано, буде створено тимчасову\n"
-"точку монтування."
-
-#: ../resize/resize.ml:714
-msgid ""
-"There is a deficit of %Ld bytes (%s).  You need to make the target disk "
-"larger by at least this amount or adjust your resizing requests."
-msgstr ""
-"Не вистачає %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
-"принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
-
-#: ../resize/resize.ml:788
-msgid "There is a surplus of %s."
-msgstr "Маємо надлишок у %s."
-
-#: ../sysprep/sysprep_operation_utmp.ml:36
-msgid ""
-"This file records who is currently logged in on a machine.  In modern\n"
-"Linux distros it is stored in a ramdisk and hence not part of the\n"
-"virtual machine's disk, but it was stored on disk in older distros."
-msgstr ""
-"У цьому файлі зберігаються записи щодо входу користувачів до машини.\n"
-"У сучасних дистрибутивах Linux ці записи зберігаються на диску у пам’яті,\n"
-"тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
-"на диску у старіших версіях дистрибутивів."
-
-#: ../sysprep/sysprep_operation_hostname.ml:67
-msgid ""
-"This operation changes the hostname of the guest to the value\n"
-"given in the I<--hostname> parameter.\n"
-"\n"
-"If the I<--hostname> parameter is not given, then the hostname is changed\n"
-"to C<localhost.localdomain>."
-msgstr ""
-"Ця дія змінює назву вузла гостьової системи на значення, вказане\n"
-"за допомогою параметра I<--hostname>.\n"
-"\n"
-"Якщо параметр I<--hostname> не буде вказано, назву вузла буде змінено\n"
-"на C<localhost.localdomain>."
-
-#: ../sysprep/sysprep_operation_random_seed.ml:51
-msgid ""
-"Write some random bytes from the host into the random seed file of the\n"
-"guest.\n"
-"\n"
-"See L</RANDOM SEED> below."
-msgstr ""
-"Записати випадкові байти з основної системи до файла породжувача "
-"псевдовипадкових\n"
-"чисел у гостьовій системі.\n"
-"\n"
-"Див. L</RANDOM SEED> нижче."
-
-#: ../resize/resize.ml:685
-msgid ""
-"You cannot use --expand when there is no surplus space to expand into.  You "
-"need to make the target disk larger by at least %s."
-msgstr ""
-"Не можна використовувати --expand, якщо немає залишку місця для розширення. "
-"Вам слід зробити диск призначення більшим, принаймні на %s."
-
-#: ../resize/resize.ml:697
-msgid ""
-"You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
-"resize(1) man page)."
-msgstr ""
-"Не можна використовувати --shrink, якщо немає запасу (див. «deficit» на "
-"сторінці підручника (man) virt-resize(1))."
-
-#: ../sysprep/sysprep_operation_yum_uuid.ml:36
-msgid ""
-"Yum creates a fresh UUID the next time it runs when it notices that the\n"
-"original UUID has been erased."
-msgstr ""
-"Yum створить новий UUID під час наступного запуску, коли виявить, що\n"
-"початковий UUID було вилучено."
-
-#: ../sparsify/sparsify.ml:73
-msgid "Zero filesystem"
-msgstr "Занулити файлову систему"
-
-#: ../sparsify/sparsify.ml:228
-msgid ""
-"Zeroing %s ...\n"
-"%!"
-msgstr ""
-"Занулюємо %s…\n"
-"%!"
-
-#: ../resize/resize.ml:152
-msgid "alignment cannot be < 1"
-msgstr "значенням вирівнювання не може бути число < 1"
-
-#: ../resize/resize.ml:490
-msgid "btrfs-filesystem-resize"
-msgstr "btrfs-filesystem-resize"
-
-#: ../sysprep/sysprep_operation_script.ml:139
-msgid "dir"
-msgstr "каталог"
-
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
-msgid "domain"
-msgstr "домен"
-
-#: ../resize/resize.ml:76
-msgid "empty --shrink option"
-msgstr "порожній параметр --shrink"
-
-#: ../sparsify/sparsify.ml:323
-msgid "external command '%s' killed by signal %d"
-msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
-
-#: ../sparsify/sparsify.ml:325
-msgid "external command '%s' stopped by signal %d"
-msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
-
-#. ../sparsify/sparsify.ml:185
-#: ../sparsify/sparsify.ml:352 ../sparsify/sparsify.ml:321
-msgid "external command failed: %s"
-msgstr "помилка зовнішньої програми: %s"
-
-#: ../sysprep/main.ml:126
-msgid "extra parameter on the command line"
-msgstr "зайвий параметр у командному рядку"
-
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
-msgid "file"
-msgstr "файл"
-
-#. ../resize/resize.ml:103
-#. ../resize/resize.ml:92
-#: ../sysprep/main.ml:110 ../sparsify/sparsify.ml:62
-#: ../sparsify/sparsify.ml:60
-msgid "format"
-msgstr "формат"
-
-#: ../sparsify/sparsify.ml:73 ../sparsify/sparsify.ml:63
-msgid "fs"
-msgstr "файлова система"
-
-#: ../sysprep/sysprep_operation_hostname.ml:74
-msgid "hostname"
-msgstr "назва_вузла"
-
-#: ../sparsify/sparsify.ml:146
-msgid ""
-"input filename '%s' contains a colon (':'); qemu-img command line syntax "
-"prevents us from using such an image"
-msgstr ""
-"назва початкового файла «%s» містить двокрапку («:»); синтаксичні правила "
-"рядка команди qemu-img забороняють використання такого образу"
-
-#. ../resize/resize.ml:94
-#: ../resize/resize.ml:97 ../resize/resize.ml:96 ../resize/resize.ml:95
-msgid "lv"
-msgstr "логічний том"
-
-#: ../resize/resize.ml:82
-msgid "never|always|auto"
-msgstr "never|always|auto"
-
-#: ../resize/resize.ml:489
-msgid "ntfsresize"
-msgstr "ntfsresize"
-
-#: ../sysprep/main.ml:109
-msgid "operations"
-msgstr "дії"
-
-#: ../sparsify/sparsify.ml:65
-msgid "option"
-msgstr "параметр"
-
-#: ../sparsify/sparsify.ml:149
-msgid ""
-"output filename '%s' contains a colon (':'); qemu-img command line syntax "
-"prevents us from using such an image"
-msgstr ""
-"назва файла результату «%s» містить двокрапку («:»); синтаксичні правила "
-"рядка команди qemu-img забороняють використання такого образу"
-
-#. ../resize/resize.ml:88
-#: ../resize/resize.ml:108 ../resize/resize.ml:93 ../resize/resize.ml:89
-msgid "part"
-msgstr "частина"
-
-#: ../resize/resize.ml:107 ../resize/resize.ml:106
-msgid "part=size"
-msgstr "частина=розмір"
-
-#: ../resize/resize.ml:887 ../resize/resize.ml:863
-msgid "pread-device: short read"
-msgstr "pread-device: коротке читання"
-
-#: ../resize/resize.ml:487
-msgid "pvresize"
-msgstr "pvresize"
-
-#: ../sparsify/sparsify.ml:263
-msgid "pwrite: short write restoring swap partition header"
-msgstr ""
-"pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
-"(свопінгу)"
-
-#: ../resize/resize.ml:488
-msgid "resize2fs"
-msgstr "resize2fs"
-
-#: ../sysprep/sysprep_operation_script.ml:149
-msgid "script"
-msgstr "скрипт"
-
-#: ../sysprep/sysprep_operation_script.ml:75
-msgid "script failed"
-msgstr "помилка скрипту"
-
-#: ../resize/resize.ml:83
-msgid "sectors"
-msgstr "сектори"
-
-#: ../sysprep/main.ml:245
-msgid "sysprep operation failed: %s\n"
-msgstr ""
-
-#: ../sysprep/main.ml:257
-msgid "sysprep operation failed: exception: %s\n"
-msgstr ""
-
-#: ../sysprep/main.ml:254
-msgid ""
-"sysprep operation failed: internal error: Not_found exception was thrown\n"
-msgstr ""
-
-#: ../sysprep/main.ml:251
-msgid ""
-"sysprep operation failed: internal error: assertion failed at %s, line %d, "
-"char %d\n"
-msgstr ""
-
-#: ../sysprep/main.ml:248
-msgid "sysprep operation failed: internal error: invalid argument: %s\n"
-msgstr ""
-
-#: ../resize/resize.ml:374
-msgid "the source disk has no partitions"
-msgstr "на початковому диску немає розділів"
-
-#: ../resize/resize.ml:161
-msgid "unknown --align-first option: use never|always|auto"
-msgstr "невідомий параметр --align-first: слід вказати never|always|auto"
-
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
-msgid "uri"
-msgstr "адреса"
-
-#: ../resize/resize.ml:190
-msgid "usage is: %s [--options] indisk outdisk"
-msgstr "спосіб використання: %s [--параметри] початковий_диск диск_результату"
-
-#: ../resize/resize.ml:43
-msgid "virt-resize %Ld.%Ld.%Ld%s\n"
-msgstr "virt-resize %Ld.%Ld.%Ld%s\n"
-
-#: ../resize/resize_utils.ml:77
-msgid "virt-resize: error: "
-msgstr "virt-resize: помилка: "
-
-#: ../sysprep/sysprep_operation_script.ml:31
-msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
-msgstr "virt-sysprep: --scriptdir не можна використовувати декілька разів\n"
-
-#: ../sysprep/sysprep_operation.ml:110
-msgid "virt-sysprep: POD for %s must not end with newline\n"
-msgstr ""
-"virt-sysprep: POD для %s не повинен завершуватися символом нового рядка\n"
-
-#: ../sysprep/sysprep_operation.ml:87
-msgid "virt-sysprep: disallowed character (%c) in operation name\n"
-msgstr "virt-sysprep: заборонений символ (%c) у назві дії\n"
-
-#: ../sysprep/sysprep_operation.ml:71
-msgid "virt-sysprep: duplicate operation name (%s)\n"
-msgstr "virt-sysprep: дубльована назва дії (%s)\n"
-
-#: ../sysprep/sysprep_operation.ml:97
-msgid "virt-sysprep: heading for %s must not end with newline or period\n"
-msgstr ""
-"virt-sysprep: заголовок %s не повинен завершуватися символом нового рядка "
-"або крапкою\n"
-
-#: ../sysprep/sysprep_operation.ml:106
-msgid "virt-sysprep: operation %s has no POD\n"
-msgstr "virt-sysprep: для дії %s немає POD\n"
-
-#: ../sysprep/sysprep_operation.ml:93
-msgid "virt-sysprep: operation %s has no heading\n"
-msgstr "virt-sysprep: для дії %s немає заголовка\n"
-
-#: ../sysprep/sysprep_operation.ml:80
-msgid "virt-sysprep: operation name is an empty string\n"
-msgstr "virt-sysprep: назвою дії є порожній рядок\n"
-
-#: ../sysprep/sysprep_operation_script.ml:65
-msgid "virt-sysprep: script: failed (code %d)\n"
-msgstr "virt-sysprep: скрипт: помилка (код %d)\n"
-
-#: ../sysprep/sysprep_operation_script.ml:69
-msgid "virt-sysprep: script: killed by signal (%d)\n"
-msgstr "virt-sysprep: скрипт: перервано сигналом (%d)\n"
-
-#: ../resize/resize.ml:1085
-msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader "
-"magic\n"
-"%!"
-msgstr ""
-"попередження: першим розділом є NTFS, але не виявлено даних щодо "
-"завантажувача NTFS\n"
-"%!"
-
-#: ../resize/resize.ml:673
-msgid "you cannot use options --expand and --shrink together"
-msgstr "не можна одночасно використовувати параметри --expand і --shrink"
-
-#: ../sparsify/sparsify.ml:130 ../resize/resize.ml:196
-msgid "you cannot use the same disk image for input and output"
-msgstr ""
-"не можна використовувати один образ диска для початкових даних і даних "
-"результату"
+#~ msgid "  An extra partition will be created for the surplus."
+#~ msgstr "  На решті простору сховища буде створено додатковий розділ."
+
+#~ msgid "  The %s on %s will be expanded using the '%s' method."
+#~ msgstr "   %s на %s буде розширено за допомогою методу «%s»."
+
+#~ msgid ""
+#~ "  The surplus space is not large enough for an extra partition to be "
+#~ "created and so it will just be ignored."
+#~ msgstr ""
+#~ "  Залишок місця недостатньо великий для створення нового розділу, отже "
+#~ "його буде просто проігноровано."
+
+#~ msgid ""
+#~ "  The surplus space will be ignored.  Run a partitioning program in the "
+#~ "guest to partition this extra space if you want."
+#~ msgstr ""
+#~ "  Залишок місця буде проігноровано. Запустіть програму керування "
+#~ "розділами гостьової системи, якщо бажаєте розподілити це залишок місця."
+
+#~ msgid "%s (ignored)\n"
+#~ msgstr "%s (проігноровано)\n"
+
+#~ msgid "%s: --domain option can only be given once\n"
+#~ msgstr "%s: параметр --domain можна вказувати лише один раз\n"
+
+#~ msgid "%s: --enable option can only be given once\n"
+#~ msgstr "%s: параметр --enable можна вказувати лише один раз\n"
+
+#~ msgid "%s: --enable: '%s' is not a known operation\n"
+#~ msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
+
+#~ msgid ""
+#~ "%s: This extended partition contains logical partitions which might be "
+#~ "damaged by shrinking it.  If you want to shrink this partition, you need "
+#~ "to use the '--resize-force' option, but that could destroy logical "
+#~ "partitions within this partition.  (This error came from '%s' option on "
+#~ "the command line.)"
+#~ msgstr ""
+#~ "%s: на цьому розширеному розділі містяться логічні розділи, які може бути "
+#~ "пошкоджено під час зменшення розмірів розширеного розділу. Якщо вам "
+#~ "потрібно зменшити розміри цього розділу, скористайтеся параметром «--"
+#~ "resize-force», але результатом може бути знищення логічних розділів на "
+#~ "розширеному розділі. (Це повідомлення про помилку є наслідком "
+#~ "використання параметра «%s» у рядку команди.)"
+
+#~ msgid "%s: This logical volume will be expanded to maximum size."
+#~ msgstr "%s: цей логічний том буде розширено до максимального розміру."
+
+#~ msgid ""
+#~ "%s: This partition has contains a %s filesystem which will be damaged by "
+#~ "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
+#~ "you want to shrink this partition, you need to use the '--resize-force' "
+#~ "option, but that could destroy any data on this partition.  (This error "
+#~ "came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: на цьому розділі міститься файлова система %s, яку може бути "
+#~ "пошкоджено під час зменшення розмірів розділу до об’єму, меншого за %Ld "
+#~ "байтів (від користувача надійшов запит на зменшення розмірів до %Ld "
+#~ "байтів). Якщо вам потрібно зменшити розміри цього розділу, скористайтеся "
+#~ "параметром «--resize-force», але результатом може бути знищення даних на "
+#~ "цьому розділі. (Це повідомлення про помилку є наслідком використання "
+#~ "параметра «%s» у рядку команди.)"
+
+#~ msgid ""
+#~ "%s: This partition has contains an LVM physical volume which will be "
+#~ "damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld "
+#~ "bytes).  If you want to shrink this partition, you need to use the '--"
+#~ "resize-force' option, but that could destroy any data on this partition.  "
+#~ "(This error came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "s: на цьому розділі міститься фізичний том LVM, який може бути пошкоджено "
+#~ "під час зменшення розмірів розділу до об’єму, меншого за %Ld байтів (від "
+#~ "користувача надійшов запит на зменшення розмірів до %Ld байтів). Якщо вам "
+#~ "потрібно зменшити розміри цього розділу, скористайтеся параметром «--"
+#~ "resize-force», але результатом може бути знищення даних на цьому розділі. "
+#~ "(Це повідомлення про помилку є наслідком використання параметра «%s» у "
+#~ "рядку команди.)"
+
+#~ msgid ""
+#~ "%s: This partition has unknown content which might be damaged by "
+#~ "shrinking it.  If you want to shrink this partition, you need to use the "
+#~ "'--resize-force' option, but that could destroy any data on this "
+#~ "partition.  (This error came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: на цьому розділі містяться невідомі дані, які може бути пошкоджено "
+#~ "під час зменшення розмірів розділу. Якщо вам потрібно зменшити розміри "
+#~ "цього розділу, скористайтеся параметром «--resize-force», але результатом "
+#~ "може бути знищення всіх даних на розділі. (Це повідомлення про помилку є "
+#~ "наслідком використання параметра «%s» у рядку команди.)"
+
+#~ msgid ""
+#~ "%s: This partition will be created, but the contents will be ignored (ie. "
+#~ "not copied to the target)."
+#~ msgstr ""
+#~ "%s: цей розділ буде створено, але дані буде проігноровано (тобто дані не "
+#~ "буде скопійовано на отриманий у результаті розділ)."
+
+#~ msgid "%s: This partition will be deleted."
+#~ msgstr "%s: цей розділ буде вилучено."
+
+#~ msgid "%s: This partition will be left alone."
+#~ msgstr "%s: цей розділ не буде змінено."
+
+#~ msgid "%s: This partition will be resized from %s to %s."
+#~ msgstr "%s: розмір цього розділу буде змінено з %s на %s."
+
+#~ msgid "%s: empty --expand option"
+#~ msgstr "%s: порожній аргумент параметра --expand"
+
+#~ msgid "%s: file is too small to be a disk image (%Ld bytes)"
+#~ msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
+
+#~ msgid ""
+#~ "%s: logical volume not found in the source disk image (this error came "
+#~ "from '--lv-expand' option on the command line).  Try running this "
+#~ "command: virt-filesystems --logical-volumes --long -a %s"
+#~ msgstr ""
+#~ "%s: на початковому образі диска не знайдено логічного тому (причиною "
+#~ "цього повідомлення є використання параметра «--lv-expand» у командному "
+#~ "рядку). Спробуйте віддати таку команду: virt-filesystems --logical-"
+#~ "volumes --long -a %s"
+
+#~ msgid "%s: missing size field in '%s' option"
+#~ msgstr "%s: не вказано аргумент розміру у параметрі «%s»"
+
+#~ msgid "%s: new partition size is zero or negative"
+#~ msgstr "%s: розмір нового розділу є нульовим або від’ємним"
+
+#~ msgid "%s: no operating systems were found in the guest image\n"
+#~ msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
+
+#~ msgid "%s: partition already deleted, you cannot use it in '%s' option"
+#~ msgstr ""
+#~ "%s: розділ вже вилучено, ви не можете використовувати його у аргументах "
+#~ "параметра «%s»"
+
+#~ msgid "%s: partition already ignored, you cannot use it in '%s' option"
+#~ msgstr ""
+#~ "%s: розділ вже пропущено, ви не можете використовувати його у аргументах "
+#~ "параметра «%s»"
+
+#~ msgid ""
+#~ "%s: partition not found in the source disk image (this error came from "
+#~ "'%s' option on the command line).  Try running this command: virt-"
+#~ "filesystems --partitions --long -a %s"
+#~ msgstr ""
+#~ "%s: на початковому образі диска не знайдено розділу (причиною цього "
+#~ "повідомлення є використання параметра «%s» у командному рядку). Спробуйте "
+#~ "віддати таку команду: virt-filesystems --partitions --long -a %s"
+
+#~ msgid "%s: partition size %Ld < filesystem size %Ld"
+#~ msgstr "%s: розмір розділу, %Ld < розміру файлової системи, %Ld"
+
+#~ msgid "%s: partition size %Ld < physical volume size %Ld"
+#~ msgstr "%s: розмір розділу, %Ld < розмір фізичного тому, %Ld"
+
+#~ msgid "%s: physical volume not returned by pvs_full"
+#~ msgstr "%s: фізичний тому не повернуто pvs_full"
+
+#~ msgid ""
+#~ "%s: reset or unconfigure a virtual machine so clones can be made\n"
+#~ "\n"
+#~ " virt-sysprep [--options] -d domname\n"
+#~ "\n"
+#~ " virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
+#~ "\n"
+#~ "A short summary of the options is given below.  For detailed help please\n"
+#~ "read the man page virt-sysprep(1).\n"
+#~ msgstr ""
+#~ "%s: відновити початковий стан або скинути налаштування віртуальної "
+#~ "машини\n"
+#~ "з метою уможливлення створення клонів\n"
+#~ "\n"
+#~ " virt-sysprep [--параметри] -d назва_домену\n"
+#~ "\n"
+#~ " virt-sysprep [--параметри] -a диск.img [-a диск.img ...]\n"
+#~ "\n"
+#~ "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
+#~ "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-sysprep(1).\n"
+
+#~ msgid ""
+#~ "%s: resize a virtual machine disk\n"
+#~ "\n"
+#~ "A short summary of the options is given below.  For detailed help please\n"
+#~ "read the man page virt-resize(1).\n"
+#~ msgstr ""
+#~ "%s: змінити розмір диска віртуальної машини\n"
+#~ "\n"
+#~ "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
+#~ "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
+
+#~ msgid ""
+#~ "%s: sparsify a virtual machine disk\n"
+#~ "\n"
+#~ " virt-sparsify [--options] indisk outdisk\n"
+#~ "\n"
+#~ "A short summary of the options is given below.  For detailed help please\n"
+#~ "read the man page virt-sparsify(1).\n"
+#~ msgstr ""
+#~ "%s: розширити диск віртуальної машини\n"
+#~ "\n"
+#~ " virt-sparsify [--параметри] початковий_диск диск_результату\n"
+#~ "\n"
+#~ "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
+#~ "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize()\n"
+
+#~ msgid "%s: this partition has already been ignored or deleted"
+#~ msgstr "%s: цей розділ вже проігноровано або вилучено"
+
+#~ msgid "%s: this partition has already been marked for resizing"
+#~ msgstr "%s: цей розділ вже було позначено для зміни розміру"
+
+#~ msgid "%s: this partition overlaps the previous one"
+#~ msgstr "%s: цей розділ перекривається з попереднім"
+
+#~ msgid ""
+#~ "%s: unknown partition table type\n"
+#~ "virt-resize only supports MBR (DOS) and GPT partition tables."
+#~ msgstr ""
+#~ "%s: невідомий тип таблиці розділів\n"
+#~ "У virt-resize передбачено підтримку лише таблиць MBR (DOS) та GPT."
+
+#~ msgid "%s: you cannot give -a and -d options together\n"
+#~ msgstr "%s: не можна передавати одночасно параметри -a і -d\n"
+
+#~ msgid "%s: you cannot pass an empty argument to --enable\n"
+#~ msgstr "%s: параметру --enable не можна передавати порожніх аргументів\n"
+
+#~ msgid "%s: you must give either -a or -d options\n"
+#~ msgstr "%s: вам слід передати параметр -a або -d\n"
+
+#~ msgid "--expand option given twice"
+#~ msgstr "параметр --expand вказано двічі"
+
+#~ msgid "--shrink option given twice"
+#~ msgstr "параметр --shrink вказано двічі"
+
+#~ msgid "Add disk image file"
+#~ msgstr "Додати файл образу диска"
+
+#~ msgid "Add qemu-img options"
+#~ msgstr "Додати параметри qemu-img"
+
+#~ msgid "Align first partition (default: auto)"
+#~ msgstr "Вирівняти перший розділ (типове значення: auto)"
+
+#~ msgid "Change the hostname of the guest"
+#~ msgstr "Змінити назву вузла гостьової системи"
+
+#~ msgid ""
+#~ "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
+#~ msgstr ""
+#~ "Зміни назву вузла. Якщо не вказано, використовувати типове C<localhost."
+#~ "localdomain>."
+
+#~ msgid ""
+#~ "Clearing Linux swap on %s ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Спорожнення розділу резервної пам’яті Linux на %s…\n"
+#~ "%!"
+
+#~ msgid "Compressed output format"
+#~ msgstr "Стиснений формат виведення даних"
+
+#~ msgid ""
+#~ "Copy to destination and make sparse ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Скопіювати призначення і виконати розрідження…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Copying %s ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Копіювання %s ...\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Create overlay file to protect source disk ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Створити файл накладки для захисту диска початкових даних…\n"
+#~ "%!"
+
+#~ msgid "Debug GC and memory allocations"
+#~ msgstr "Діагностика GC та розподілу пам’яті"
+
+#~ msgid "Debug GC and memory allocations (internal)"
+#~ msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
+
+#~ msgid "Delete partition"
+#~ msgstr "Вилучити розділ"
+
+#~ msgid "Display version and exit"
+#~ msgstr "Показати номер версії і вийти"
+
+#~ msgid "Don't copy boot loader"
+#~ msgstr "Не копіювати завантажувач"
+
+#~ msgid "Don't create extra partition"
+#~ msgstr "Не створювати додаткового розділу"
+
+#~ msgid "Don't expand content"
+#~ msgstr "Не розширювати область даних"
+
+#~ msgid "Don't perform changes"
+#~ msgstr "Не вносити змін"
+
+#~ msgid "Don't print log messages"
+#~ msgstr "Не виводити повідомлень до журналу"
+
+#~ msgid "Don't print the summary"
+#~ msgstr "Не виводити даних резюме"
+
+#~ msgid "Dump POD (internal)"
+#~ msgstr "Створити дамп POD (вбудоване)"
+
+#~ msgid "Dump POD for options (internal)"
+#~ msgstr "Створити дамп POD для параметрів (вбудоване)"
+
+#~ msgid "Enable debugging messages"
+#~ msgstr "Увімкнути показ діагностичних повідомлень"
+
+#~ msgid "Enable specific operations"
+#~ msgstr "Увімкнути виконання специфічних дій"
+
+#~ msgid "Enable tracing of libguestfs calls"
+#~ msgstr "Увімкнути трасування викликів libguestfs"
+
+#~ msgid ""
+#~ "Examine source disk ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Вивчення початкового диска…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Examining %s ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Вивчення %s…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Examining the guest ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Вивчення гостьової системи…\n"
+#~ "%!"
+
+#~ msgid "Expand logical volume"
+#~ msgstr "Розширити логічний том"
+
+#~ msgid "Expand partition"
+#~ msgstr "Розширити розділ"
+
+#~ msgid ""
+#~ "Expanding %s using the '%s' method ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Розширення %s за допомогою методу «%s»…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Expanding %s%s using the '%s' method ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Розширення %s%s за допомогою методу «%s»…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Failed to initialize the partition table on the target disk.  You need to "
+#~ "wipe or recreate the target disk and then run virt-resize again.\n"
+#~ "\n"
+#~ "The underlying error was: %s"
+#~ msgstr ""
+#~ "Не вдалося ініціалізувати таблицю розділів на диску призначення. Вам слід "
+#~ "витерти або повторно створити диск призначення, а потім запустити virt-"
+#~ "resize знову.\n"
+#~ "\n"
+#~ "Повідомлення про помилку: %s"
+
+#~ msgid ""
+#~ "Fill free space in %s with zero ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Заповнити вільне місце у %s нулями…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Fill free space in volgroup %s with zero ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Заповнити вільне місце у групі томів %s нулями…\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "Fixing first NTFS partition boot record ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Виправлення завантажувального запису першого розділу NTFS…\n"
+#~ "%!"
+
+#~ msgid "Flag the system for reconfiguration"
+#~ msgstr "Позначити систему для зміни налаштувань"
+
+#~ msgid ""
+#~ "For Fedora and Red Hat Enterprise Linux,\n"
+#~ "this is removed from C<ifcfg-*> files."
+#~ msgstr ""
+#~ "Для Fedora і Red Hat Enterprise Linux\n"
+#~ "це вилучається з файлів C<ifcfg-*>."
+
+#~ msgid "Force SELinux relabel"
+#~ msgstr "Примусова зміна міток SELinux"
+
+#~ msgid "Force ntfsresize"
+#~ msgstr "Примусове виконання ntfsresize"
+
+#~ msgid "Forcefully resize partition"
+#~ msgstr "Змінити розміри розділу у примусовому режимі"
+
+#~ msgid "Format of input disk"
+#~ msgstr "Формат диска вхідних даних"
+
+#~ msgid "Format of output disk"
+#~ msgstr "Формат диска виведення даних"
+
+#~ msgid "Format of output disk (default: same as input)"
+#~ msgstr ""
+#~ "Формат диска результатів (типове значення: той самий, що і у початкового "
+#~ "диска)"
+
+#~ msgid "Generate random seed for guest"
+#~ msgstr "Створити породжувач випадкових чисел для гостьової системи"
+
+#~ msgid ""
+#~ "If reporting bugs, run virt-resize with the '-d' option and include the "
+#~ "complete output."
+#~ msgstr ""
+#~ "Щоб покращити повідомлення про ваду, віддайте команду virt-resize з "
+#~ "параметром «-d» і додайте до сповіщення виведені дані повністю."
+
+#~ msgid ""
+#~ "If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
+#~ "include the complete output."
+#~ msgstr ""
+#~ "Щоб покращити повідомлення про ваду, віддайте команду virt-sparsify з "
+#~ "параметрами «-v» і «-x» і додайте до сповіщення виведені дані повністю."
+
+#~ msgid "Ignore filesystem"
+#~ msgstr "Ігнорувати файлову систему"
+
+#~ msgid "Ignore partition"
+#~ msgstr "Ігнорувати розділ"
+
+#~ msgid "List supported operations"
+#~ msgstr "Показати список підтримуваних команд"
+
+#~ msgid "Make output machine readable"
+#~ msgstr "Зробити машину виведення даних придатною для читання даних"
+
+#~ msgid "Mount point on host"
+#~ msgstr "Точка монтування у основній системі"
+
+#~ msgid "Never do SELinux relabel"
+#~ msgstr "Ніколи не виконувати зміни міток SELinux"
+
+#~ msgid "New hostname"
+#~ msgstr "Нова назва вузла"
+
+#~ msgid ""
+#~ "Note that this may require user intervention when the\n"
+#~ "guest is booted."
+#~ msgstr ""
+#~ "Зауважте, що це може потребувати втручання користувача під\n"
+#~ "час завантаження гостьової системи."
+
+#~ msgid ""
+#~ "On Linux the following files are removed:\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "У Linux вилучено такі файли:\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "Perform a dry run"
+#~ msgstr "Виконати тестовий запуск"
+
+#~ msgid "Quiet output"
+#~ msgstr "Режим з мінімальним виведенням даних"
+
+#~ msgid "Read virt-sysprep(1) man page for further information.\n"
+#~ msgstr ""
+#~ "Ознайомтеся зі сторінкою підручника (man) virt-sysprep(1), щоб дізнатися "
+#~ "більше.\n"
+
+#~ msgid "Remove \".ssh\" directories in the guest"
+#~ msgstr "Вилучити каталоги «.ssh» у гостьовій системі"
+
+#~ msgid "Remove DHCP client leases"
+#~ msgstr "Вилучити надані клієнтські адреси DHCP"
+
+#~ msgid "Remove DHCP server leases"
+#~ msgstr "Вилучити надані серверні адреси DHCP"
+
+#~ msgid "Remove Dovecot (mail server) data"
+#~ msgstr "Вилучити дані Dovecot (поштового сервера)"
+
+#~ msgid "Remove HWADDR (hard-coded MAC address) configuration"
+#~ msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)"
+
+#~ msgid ""
+#~ "Remove all the user accounts and their home directories.\n"
+#~ "The \"root\" account is not removed."
+#~ msgstr ""
+#~ "Вилучити всі облікові записи користувачів та відповідні домашні "
+#~ "каталоги.\n"
+#~ "Обліковий запис «root» вилучено не буде."
+
+#~ msgid "Remove email from the local mail spool directory"
+#~ msgstr ""
+#~ "Вилучити поштове повідомлення з локального каталогу поштового буфера"
+
+#~ msgid "Remove many log files from the guest"
+#~ msgstr "Вилучити з гостьової системи багато файлів журналів"
+
+#~ msgid "Remove package manager cache"
+#~ msgstr "Вилучити кеш керування пакунками"
+
+#~ msgid ""
+#~ "Remove the C<.ssh> directory of user \"root\" and any other\n"
+#~ "users who have a C<.ssh> directory in their home directory."
+#~ msgstr ""
+#~ "Вилучити каталог C<.ssh> користувача «root» та всіх інших користувачів,\n"
+#~ "домашні каталоги яких містять каталог C<.ssh>."
+
+#~ msgid "Remove the RHN system ID"
+#~ msgstr "Вилучити ідентифікатор системи у RHN"
+
+#~ msgid "Remove the SSH host keys in the guest"
+#~ msgstr "Вилучити ключі вузла SSH у гостьовій системі"
+
+#~ msgid "Remove the Smolt hardware UUID"
+#~ msgstr "Вилучити UUID обладнання Smolt"
+
+#~ msgid "Remove the bash history in the guest"
+#~ msgstr "Вилучити журнал команд bash у гостьовій системі"
+
+#~ msgid ""
+#~ "Remove the bash history of user \"root\" and any other users\n"
+#~ "who have a C<.bash_history> file in their home directory."
+#~ msgstr ""
+#~ "Вилучити журнал команд bash користувача «root» та всіх інших "
+#~ "користувачів,\n"
+#~ "у домашніх каталогах яких містяться файли C<.bash_history>."
+
+#~ msgid "Remove the database and log files of Samba"
+#~ msgstr "Вилучити бази даних та файли журналів Samba"
+
+#~ msgid "Remove the database and log files of sssd"
+#~ msgstr "Вилучити бази даних і файли журналів sssd"
+
+#~ msgid "Remove the user accounts in the guest"
+#~ msgstr "Вилучити облікові записи користувачів у гостьовій системі"
+
+#~ msgid "Remove the utmp file"
+#~ msgstr "Вилучити файл utmp"
+
+#~ msgid "Remove the yum UUID"
+#~ msgstr "Вилучити UUID yum"
+
+#~ msgid "Remove udev persistent net rules"
+#~ msgstr "Вилучити постійні правила мережі udev"
+
+#~ msgid ""
+#~ "Remove udev persistent net rules which map the guest's existing MAC\n"
+#~ "address to a fixed ethernet device (eg. eth0).\n"
+#~ "\n"
+#~ "After a guest is cloned, the MAC address usually changes.  Since the\n"
+#~ "old MAC address occupies the old name (eg. eth0), this means the fresh\n"
+#~ "MAC address is assigned to a new name (eg. eth1) and this is usually\n"
+#~ "undesirable.  Erasing the udev persistent net rules avoids this."
+#~ msgstr ""
+#~ "Вилучити постійні правила мережі udev, які відображають вже створену\n"
+#~ "MAC-адресу гостьової системи на фіксований пристрій ethernet (наприклад "
+#~ "eth0).\n"
+#~ "\n"
+#~ "Після клонування гостьової системи MAC-адреса зазвичай змінюється. "
+#~ "Оскільки\n"
+#~ "стару MAC-адресу вже пов’язано зі старою назвою (наприклад eth0), це "
+#~ "означає,\n"
+#~ "що нову MAC-адресу буде пов’язано з новою назвою (наприклад eth1), а це\n"
+#~ "зазвичай є небажаним. За допомогою вилучення постійних правил мережі "
+#~ "udev\n"
+#~ "цьому можна запобігти."
+
+#~ msgid "Remove user at-jobs and cron-jobs"
+#~ msgstr "Вилучити завдання at та cron користувачів"
+
+#~ msgid ""
+#~ "Resize operation completed with no errors.  Before deleting the old disk, "
+#~ "carefully check that the resized disk boots and works correctly.\n"
+#~ msgstr ""
+#~ "Дію зі зміни розмірів завершено без помилок. Перш ніж вилучати старий "
+#~ "диск, уважно перевірте, чи завантажується новий диск і чи працює він "
+#~ "належним чином.\n"
+
+#~ msgid "Resize partition"
+#~ msgstr "Змінити розміри розділу"
+
+#~ msgid "Run arbitrary scripts against the guest"
+#~ msgstr "Запустити довільні скрипти дій над гостьовою системою"
+
+#~ msgid ""
+#~ "Run the named C<script> (a shell script or program) against the\n"
+#~ "guest.  The script can be any program on the host.  The script's\n"
+#~ "current directory will be the guest's root directory.\n"
+#~ "\n"
+#~ "B<Note:> If the script is not on the $PATH, then you must give\n"
+#~ "the full absolute path to the script."
+#~ msgstr ""
+#~ "Виконати названий C<скрипт> (скрипт оболонки або програму) над\n"
+#~ "гостьовою системою. Скрипт може бути будь-якою програмою у основній\n"
+#~ "системі. Поточним каталогом скрипту буде кореневий каталог гостьової\n"
+#~ "системи.\n"
+#~ "\n"
+#~ "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
+#~ "слід вказати шлях до скрипту повністю."
+
+#~ msgid "Script or program to run on guest"
+#~ msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
+
+#~ msgid "Set format (default: auto)"
+#~ msgstr "Встановити формат (типовий формат: auto)"
+
+#~ msgid "Set libvirt URI"
+#~ msgstr "Встановити адресу libvirt"
+
+#~ msgid "Set libvirt guest name"
+#~ msgstr "Встановити назву гостьової системи libvirt"
+
+#~ msgid "Set partition alignment (default: 128 sectors)"
+#~ msgstr "Встановити вирівнювання розділів (типове значення: 128 секторів)"
+
+#~ msgid ""
+#~ "Setting up initial partition table on %s ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Встановлення початкової таблиці розділів на %s…\n"
+#~ "%!"
+
+#~ msgid "Shrink partition"
+#~ msgstr "Зменшити розмір розділу"
+
+#~ msgid ""
+#~ "Sparsify operation completed with no errors.  Before deleting the old "
+#~ "disk, carefully check that the target disk boots and works correctly.\n"
+#~ msgstr ""
+#~ "Дію з розрідження завершено без помилок. Перш ніж вилучати старий диск, "
+#~ "уважно перевірте, чи завантажується новий диск і чи працює він належним "
+#~ "чином.\n"
+
+#~ msgid ""
+#~ "The C<script> module lets you run arbitrary shell scripts or programs\n"
+#~ "against the guest.\n"
+#~ "\n"
+#~ "Note this feature requires FUSE support.  You may have to enable\n"
+#~ "this in your host, for example by adding the current user to the\n"
+#~ "C<fuse> group, or by loading a kernel module.\n"
+#~ "\n"
+#~ "Use one or more I<--script> parameters to specify scripts or programs\n"
+#~ "that will be run against the guest.\n"
+#~ "\n"
+#~ "The script or program is run with its current directory being the\n"
+#~ "guest's root directory, so relative paths should be used.  For\n"
+#~ "example: C<rm etc/resolv.conf> in the script would remove a Linux\n"
+#~ "guest's DNS configuration file, but C<rm /etc/resolv.conf> would\n"
+#~ "(try to) remove the host's file.\n"
+#~ "\n"
+#~ "Normally a temporary mount point for the guest is used, but you\n"
+#~ "can choose a specific one by using the I<--scriptdir> parameter."
+#~ msgstr ""
+#~ "За допомогою модуля C<script> ви можете наказати системі виконувати\n"
+#~ "довільні скрипти оболонки або програми над гостьовою системою.\n"
+#~ "\n"
+#~ "Зауважте, що для роботи цієї можливості потрібна підтримка FUSE. Вам\n"
+#~ "слід увімкнути її на основній системі, наприклад додаванням поточного\n"
+#~ "користувача до групи C<fuse> або завантаженням модуля ядра.\n"
+#~ "\n"
+#~ "Використовуйте один або декілька параметрів I<--script>, що вказати\n"
+#~ "скрипти або програми, які буде запущено для обробки гостьової\n"
+#~ "системи.\n"
+#~ "\n"
+#~ "Скрипт або програма запускається з поточним каталогом, відповідним\n"
+#~ "до кореневого каталогу гостьової системи, тому має бути використано\n"
+#~ "відносні шляхи. Приклад: C<rm etc/resolv.conf> у скрипті вилучить\n"
+#~ "файл налаштувань DNS гостьової системи Linux, але C<rm /etc/resolv.conf>\n"
+#~ "призведе до спроби вилучення файла основної системи.\n"
+#~ "\n"
+#~ "Зазвичай, використовується тимчасова точка монтування гостьової\n"
+#~ "системи, але ви можете вибрати певну точку монтування за допомогою\n"
+#~ "параметра I<--scriptdir>."
+
+#~ msgid ""
+#~ "The SSH host keys are regenerated (differently) next time the guest is\n"
+#~ "booted.\n"
+#~ "\n"
+#~ "If, after cloning, the guest gets the same IP address, ssh will give\n"
+#~ "you a stark warning about the host key changing:\n"
+#~ "\n"
+#~ " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+#~ " @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+#~ " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+#~ " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
+#~ msgstr ""
+#~ "Ключі вузла SSH повторно створюються (незалежно) під час наступного\n"
+#~ "завантаження гостьової системи.\n"
+#~ "\n"
+#~ "Якщо після клонування гостьова система отримати ту саму IP-адресу,\n"
+#~ "ssh надасть вам додаткове попередження щодо зміни ключа вузла:\n"
+#~ "\n"
+#~ " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+#~ " @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+#~ " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+#~ " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
+
+#~ msgid ""
+#~ "The mount point (an empty directory on the host) used when\n"
+#~ "the C<script> operation is enabled and one or more scripts\n"
+#~ "are specified using I<--script> parameter(s).\n"
+#~ "\n"
+#~ "B<Note:> C<scriptdir> B<must> be an absolute path.\n"
+#~ "\n"
+#~ "If I<--scriptdir> is not specified then a temporary mountpoint\n"
+#~ "will be created."
+#~ msgstr ""
+#~ "Точку монтування (порожній каталог на вузлі), використану\n"
+#~ "при виконанні дії C<script>, увімкнено і вказано використання\n"
+#~ "одного або декількох скриптів за допомогою I<--script>.\n"
+#~ "\n"
+#~ "B<Зауваження:> C<scriptdir> B<має> бути вказано повністю.\n"
+#~ "\n"
+#~ "Якщо I<--scriptdir> не вказано, буде створено тимчасову\n"
+#~ "точку монтування."
+
+#~ msgid ""
+#~ "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
+#~ "larger by at least this amount or adjust your resizing requests."
+#~ msgstr ""
+#~ "Не вистачає %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
+#~ "принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
+
+#~ msgid "There is a surplus of %s."
+#~ msgstr "Маємо надлишок у %s."
+
+#~ msgid ""
+#~ "This file records who is currently logged in on a machine.  In modern\n"
+#~ "Linux distros it is stored in a ramdisk and hence not part of the\n"
+#~ "virtual machine's disk, but it was stored on disk in older distros."
+#~ msgstr ""
+#~ "У цьому файлі зберігаються записи щодо входу користувачів до машини.\n"
+#~ "У сучасних дистрибутивах Linux ці записи зберігаються на диску у "
+#~ "пам’яті,\n"
+#~ "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
+#~ "на диску у старіших версіях дистрибутивів."
+
+#~ msgid ""
+#~ "This operation changes the hostname of the guest to the value\n"
+#~ "given in the I<--hostname> parameter.\n"
+#~ "\n"
+#~ "If the I<--hostname> parameter is not given, then the hostname is "
+#~ "changed\n"
+#~ "to C<localhost.localdomain>."
+#~ msgstr ""
+#~ "Ця дія змінює назву вузла гостьової системи на значення, вказане\n"
+#~ "за допомогою параметра I<--hostname>.\n"
+#~ "\n"
+#~ "Якщо параметр I<--hostname> не буде вказано, назву вузла буде змінено\n"
+#~ "на C<localhost.localdomain>."
+
+#~ msgid ""
+#~ "Write some random bytes from the host into the random seed file of the\n"
+#~ "guest.\n"
+#~ "\n"
+#~ "See L</RANDOM SEED> below."
+#~ msgstr ""
+#~ "Записати випадкові байти з основної системи до файла породжувача "
+#~ "псевдовипадкових\n"
+#~ "чисел у гостьовій системі.\n"
+#~ "\n"
+#~ "Див. L</RANDOM SEED> нижче."
+
+#~ msgid ""
+#~ "You cannot use --expand when there is no surplus space to expand into.  "
+#~ "You need to make the target disk larger by at least %s."
+#~ msgstr ""
+#~ "Не можна використовувати --expand, якщо немає залишку місця для "
+#~ "розширення. Вам слід зробити диск призначення більшим, принаймні на %s."
+
+#~ msgid ""
+#~ "You cannot use --shrink when there is no deficit (see 'deficit' in the "
+#~ "virt-resize(1) man page)."
+#~ msgstr ""
+#~ "Не можна використовувати --shrink, якщо немає запасу (див. «deficit» на "
+#~ "сторінці підручника (man) virt-resize(1))."
+
+#~ msgid ""
+#~ "Yum creates a fresh UUID the next time it runs when it notices that the\n"
+#~ "original UUID has been erased."
+#~ msgstr ""
+#~ "Yum створить новий UUID під час наступного запуску, коли виявить, що\n"
+#~ "початковий UUID було вилучено."
+
+#~ msgid "Zero filesystem"
+#~ msgstr "Занулити файлову систему"
+
+#~ msgid ""
+#~ "Zeroing %s ...\n"
+#~ "%!"
+#~ msgstr ""
+#~ "Занулюємо %s…\n"
+#~ "%!"
+
+#~ msgid "alignment cannot be < 1"
+#~ msgstr "значенням вирівнювання не може бути число < 1"
+
+#~ msgid "btrfs-filesystem-resize"
+#~ msgstr "btrfs-filesystem-resize"
+
+#~ msgid "dir"
+#~ msgstr "каталог"
+
+#~ msgid "domain"
+#~ msgstr "домен"
+
+#~ msgid "empty --shrink option"
+#~ msgstr "порожній параметр --shrink"
+
+#~ msgid "external command '%s' killed by signal %d"
+#~ msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
+
+#~ msgid "external command '%s' stopped by signal %d"
+#~ msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
+
+#~ msgid "external command failed: %s"
+#~ msgstr "помилка зовнішньої програми: %s"
+
+#~ msgid "extra parameter on the command line"
+#~ msgstr "зайвий параметр у командному рядку"
+
+#~ msgid "file"
+#~ msgstr "файл"
+
+#~ msgid "format"
+#~ msgstr "формат"
+
+#~ msgid "fs"
+#~ msgstr "файлова система"
+
+#~ msgid "hostname"
+#~ msgstr "назва_вузла"
+
+#~ msgid ""
+#~ "input filename '%s' contains a colon (':'); qemu-img command line syntax "
+#~ "prevents us from using such an image"
+#~ msgstr ""
+#~ "назва початкового файла «%s» містить двокрапку («:»); синтаксичні правила "
+#~ "рядка команди qemu-img забороняють використання такого образу"
+
+#~ msgid "lv"
+#~ msgstr "логічний том"
+
+#~ msgid "never|always|auto"
+#~ msgstr "never|always|auto"
+
+#~ msgid "ntfsresize"
+#~ msgstr "ntfsresize"
+
+#~ msgid "operations"
+#~ msgstr "дії"
+
+#~ msgid "option"
+#~ msgstr "параметр"
+
+#~ msgid ""
+#~ "output filename '%s' contains a colon (':'); qemu-img command line syntax "
+#~ "prevents us from using such an image"
+#~ msgstr ""
+#~ "назва файла результату «%s» містить двокрапку («:»); синтаксичні правила "
+#~ "рядка команди qemu-img забороняють використання такого образу"
+
+#~ msgid "part"
+#~ msgstr "частина"
+
+#~ msgid "part=size"
+#~ msgstr "частина=розмір"
+
+#~ msgid "pread-device: short read"
+#~ msgstr "pread-device: коротке читання"
+
+#~ msgid "pvresize"
+#~ msgstr "pvresize"
+
+#~ msgid "pwrite: short write restoring swap partition header"
+#~ msgstr ""
+#~ "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
+#~ "(свопінгу)"
+
+#~ msgid "resize2fs"
+#~ msgstr "resize2fs"
+
+#~ msgid "script"
+#~ msgstr "скрипт"
+
+#~ msgid "script failed"
+#~ msgstr "помилка скрипту"
+
+#~ msgid "sectors"
+#~ msgstr "сектори"
+
+#~ msgid "the source disk has no partitions"
+#~ msgstr "на початковому диску немає розділів"
+
+#~ msgid "unknown --align-first option: use never|always|auto"
+#~ msgstr "невідомий параметр --align-first: слід вказати never|always|auto"
+
+#~ msgid "uri"
+#~ msgstr "адреса"
+
+#~ msgid "usage is: %s [--options] indisk outdisk"
+#~ msgstr ""
+#~ "спосіб використання: %s [--параметри] початковий_диск диск_результату"
+
+#~ msgid "virt-resize %Ld.%Ld.%Ld%s\n"
+#~ msgstr "virt-resize %Ld.%Ld.%Ld%s\n"
+
+#~ msgid "virt-resize: error: "
+#~ msgstr "virt-resize: помилка: "
+
+#~ msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
+#~ msgstr "virt-sysprep: --scriptdir не можна використовувати декілька разів\n"
+
+#~ msgid "virt-sysprep: POD for %s must not end with newline\n"
+#~ msgstr ""
+#~ "virt-sysprep: POD для %s не повинен завершуватися символом нового рядка\n"
+
+#~ msgid "virt-sysprep: disallowed character (%c) in operation name\n"
+#~ msgstr "virt-sysprep: заборонений символ (%c) у назві дії\n"
+
+#~ msgid "virt-sysprep: duplicate operation name (%s)\n"
+#~ msgstr "virt-sysprep: дубльована назва дії (%s)\n"
+
+#~ msgid "virt-sysprep: heading for %s must not end with newline or period\n"
+#~ msgstr ""
+#~ "virt-sysprep: заголовок %s не повинен завершуватися символом нового рядка "
+#~ "або крапкою\n"
+
+#~ msgid "virt-sysprep: operation %s has no POD\n"
+#~ msgstr "virt-sysprep: для дії %s немає POD\n"
+
+#~ msgid "virt-sysprep: operation %s has no heading\n"
+#~ msgstr "virt-sysprep: для дії %s немає заголовка\n"
+
+#~ msgid "virt-sysprep: operation name is an empty string\n"
+#~ msgstr "virt-sysprep: назвою дії є порожній рядок\n"
+
+#~ msgid "virt-sysprep: script: failed (code %d)\n"
+#~ msgstr "virt-sysprep: скрипт: помилка (код %d)\n"
+
+#~ msgid "virt-sysprep: script: killed by signal (%d)\n"
+#~ msgstr "virt-sysprep: скрипт: перервано сигналом (%d)\n"
+
+#~ msgid ""
+#~ "warning: first partition is NTFS but does not contain NTFS boot loader "
+#~ "magic\n"
+#~ "%!"
+#~ msgstr ""
+#~ "попередження: першим розділом є NTFS, але не виявлено даних щодо "
+#~ "завантажувача NTFS\n"
+#~ "%!"
+
+#~ msgid "you cannot use options --expand and --shrink together"
+#~ msgstr "не можна одночасно використовувати параметри --expand і --shrink"
+
+#~ msgid "you cannot use the same disk image for input and output"
+#~ msgstr ""
+#~ "не можна використовувати один образ диска для початкових даних і даних "
+#~ "результату"
 
 #~ msgid "cannot resolve Windows %%SYSTEMROOT%%"
 #~ msgstr "не вдалося визначити %%SYSTEMROOT%% Windows"
