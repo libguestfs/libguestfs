@@ -56,11 +56,10 @@ chcon --reference=/tmp tmp 2>/dev/null ||:
 # Set local environment relative to this script.
 export LIBGUESTFS_PATH="$b/appliance"
 
-library_path="$b/src/.libs:$b/gobject/.libs"
 if [ -z "$LD_LIBRARY_PATH" ]; then
-    LD_LIBRARY_PATH=$library_path
+    LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs"
 else
-    LD_LIBRARY_PATH="$library_path:$LD_LIBRARY_PATH"
+    LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs:$LD_LIBRARY_PATH"
 fi
 export LD_LIBRARY_PATH
 
@@ -83,15 +82,30 @@ export PYTHONPATH
 
 # For Ruby.
 export RUBY=@RUBY@
-export RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$b/ruby/ext/guestfs"
+if [ -z "$RUBYLIB" ]; then
+    RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs"
+else
+    RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs:$RUBYLIB"
+fi
+export RUBYLIB
+export LD_LIBRARY_PATH="$b/ruby/ext/guestfs:$LD_LIBRARY_PATH"
 
 # For OCaml.
-export CAML_LD_LIBRARY_PATH="$b/ocaml"
+if [ -z "$CAML_LD_LIBRARY_PATH" ]; then
+    CAML_LD_LIBRARY_PATH="$b/ocaml"
+else
+    CAML_LD_LIBRARY_PATH="$b/ocaml:$CAML_LD_LIBRARY_PATH"
+fi
+export CAML_LD_LIBRARY_PATH
 
 # For Java.
 export JAVA_EXE=@JAVA_EXE@
-export CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
+if [ -z "$CLASSPATH" ]; then
+    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
+else
+    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar:$CLASSPATH"
+fi
+export CLASSPATH
 
 # For Lua.
 if [ -z "$LUA_CPATH" ]; then
