@@ -16,13 +16,13 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "guestfs"
+local G = require "guestfs"
 
-for i, v in ipairs (Guestfs.event_all) do
+for i, v in ipairs (G.event_all) do
    print (i, v)
 end
 
-g = Guestfs.create ()
+local g = G.create ()
 
 function log_callback (g, event, eh, flags, buf, array)
    io.write (string.format ("lua event logged: event=%s eh=%d buf='%s'\n",

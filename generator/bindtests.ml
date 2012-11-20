@@ -742,9 +742,9 @@ and generate_erlang_bindtests () =
 and generate_lua_bindtests () =
   generate_header LuaStyle GPLv2plus;
 
-  pr "require \"guestfs\"\n";
+  pr "local G = require \"guestfs\"\n";
   pr "\n";
-  pr "g = Guestfs.create ()\n";
+  pr "local g = G.create ()\n";
   pr "\n";
 
   generate_lang_bindtests (

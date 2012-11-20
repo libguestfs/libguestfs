@@ -1,10 +1,10 @@
 -- Example showing how to create a disk image.
 
-require "guestfs"
+local G = require "guestfs"
 
-output = "disk.img"
+local output = "disk.img"
 
-g = Guestfs.create ()
+local g = G.create ()
 
 -- Create a raw-format sparse disk image, 512 MB in size.
 file = io.open (output, "w")

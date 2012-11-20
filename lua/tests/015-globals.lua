@@ -16,11 +16,11 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "guestfs"
+local G = require "guestfs"
 
-assert (Guestfs._COPYRIGHT)
-print ("_COPYRIGHT = ", Guestfs._COPYRIGHT)
-assert (Guestfs._DESCRIPTION)
-print ("_DESCRIPTION = ", Guestfs._DESCRIPTION)
-assert (Guestfs._VERSION)
-print ("_VERSION = ", Guestfs._VERSION)
+assert (G._COPYRIGHT)
+print ("_COPYRIGHT = ", G._COPYRIGHT)
+assert (G._DESCRIPTION)
+print ("_DESCRIPTION = ", G._DESCRIPTION)
+assert (G._VERSION)
+print ("_VERSION = ", G._VERSION)

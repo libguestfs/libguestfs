@@ -6,8 +6,8 @@ guestfs-lua - How to use libguestfs from Lua
 
 =head1 SYNOPSIS
 
- require "guestfs"
- g = Guestfs.create ()
+ local G = require "guestfs"
+ g = G.create ()
  g:add_drive ("test.img", { format = "raw", readonly = true })
  g:launch ()
  devices = g:list_devices ()
@@ -20,15 +20,25 @@ programming language.  This page just documents the differences from
 the C API and gives some examples.  If you are not familiar with using
 libguestfs, you also need to read L<guestfs(3)>.
 
+=head2 REQUIRING THE MODULE
+
+C<require "guestfs"> returns the module, so you have to assign it
+to a local variable.  Typical usage is:
+
+ local G = require "guestfs"
+
+(you can use any name you want instead of C<G>, but in the examples
+in this man page we always use C<G>).
+
 =head2 OPENING AND CLOSING THE HANDLE
 
 To create a new handle, call:
 
- g = Guestfs.create ()
+ g = G.create ()
 
 You can also use the optional arguments:
 
- g = Guestfs.create { environment = 0, close_on_exit = 0 }
+ g = G.create { environment = 0, close_on_exit = 0 }
 
 to set the flags C<GUESTFS_CREATE_NO_ENVIRONMENT>
 and/or C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>.
@@ -95,7 +105,7 @@ second argument a list:
  eh = g:set_event_callback (cb, { "appliance", "library", "trace" })
 
 A list of all valid event types (strings) is in the global variable
-C<Guestfs.event_all>.
+C<G.event_all>.
 
 The callback (C<cb>) is called with the following parameters:
 

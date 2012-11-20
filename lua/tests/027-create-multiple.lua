@@ -16,11 +16,11 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "guestfs"
+local G = require "guestfs"
 
-g1 = Guestfs.create ()
-g2 = Guestfs.create ()
-g3 = Guestfs.create ()
+local g1 = G.create ()
+local g2 = G.create ()
+local g3 = G.create ()
 
 -- Check that each handle is independent.
 g1:set_path ("1")

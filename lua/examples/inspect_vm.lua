@@ -1,6 +1,6 @@
 -- Example showing how to inspect a virtual machine disk.
 
-require "guestfs"
+local G = require "guestfs"
 
 if table.getn (arg) == 1 then
    disk = arg[1]
@@ -8,7 +8,7 @@ else
    error ("usage: inspect_vm disk.img")
 end
 
-g = Guestfs.create ()
+local g = G.create ()
 
 -- Attach the disk image read-only to libguestfs.
 g:add_drive (disk, { -- format:"raw"
@@ -18,7 +18,7 @@ g:add_drive (disk, { -- format:"raw"
 g:launch ()
 
 -- Ask libguestfs to inspect for operating systems.
-roots = g:inspect_os ()
+local roots = g:inspect_os ()
 if table.getn (roots) == 0 then
    error ("inspect_vm: no operating systems found")
 end

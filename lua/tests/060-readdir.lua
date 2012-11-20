@@ -16,9 +16,9 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "guestfs"
+local G = require "guestfs"
 
-local g = Guestfs.create ()
+local g = G.create ()
 
 file = io.open ("test.img", "w")
 file:seek ("set", 10 * 1024 * 1024)

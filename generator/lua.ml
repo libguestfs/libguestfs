@@ -42,6 +42,7 @@ let generate_lua_c () =
 #include <inttypes.h>
 #include <string.h>
 #include <errno.h>
+#include <assert.h>
 
 /*#define LUA_LIB*/
 #include <lua.h>
@@ -148,6 +149,7 @@ lua_guestfs_create (lua_State *L)
 
   u = lua_newuserdata (L, sizeof (struct userdata));
   luaL_getmetatable (L, LUA_GUESTFS_HANDLE);
+  assert (lua_type (L, -1) == LUA_TTABLE);
   lua_setmetatable (L, -2);
 
   u->g = g;
@@ -818,9 +820,22 @@ push_event (lua_State *L, uint64_t event)
 
   pr "\
 
-static luaL_Reg handle_methods[] = {
+/* Metamethods.
+ * See: http://article.gmane.org/gmane.comp.lang.lua.general/95065
+ */
+static luaL_Reg metamethods[] = {
   { \"__gc\", lua_guestfs_finalizer },
+  { NULL, NULL }
+};
+
+/* Module functions. */
+static luaL_Reg functions[] = {
   { \"create\", lua_guestfs_create },
+  { NULL, NULL }
+};
+
+/* Methods. */
+static luaL_Reg methods[] = {
   { \"close\", lua_guestfs_close },
   { \"user_cancel\", lua_guestfs_user_cancel },
   { \"set_event_callback\", lua_guestfs_set_event_callback },
@@ -859,20 +874,30 @@ luaopen_guestfs (lua_State *L)
 {
   char v[256];
 
-  /* Create metatable and register methods into it. */
+  /* Create metatable. */
   luaL_newmetatable (L, LUA_GUESTFS_HANDLE);
-  luaL_register (L, NULL /* \"guestfs\" ? XXX */, handle_methods);
+  luaL_register (L, NULL, metamethods);
 
-  /* Set __index field of metatable to point to itself. */
-  lua_pushvalue (L, -1);
-  lua_setfield (L, -1, \"__index\");
+  /* Create methods table. */
+  lua_newtable (L);
+  luaL_register (L, NULL, methods);
 
-  /* Globals in the Guestfs.* namespace. */
+  /* Set __index field of metatable to point to methods table. */
+  lua_setfield (L, -2, \"__index\");
+
+  /* Pop metatable, it is no longer needed. */
+  lua_pop (L, 1);
+
+  /* Create module functions table. */
+  lua_newtable (L);
+  luaL_register (L, NULL, functions);
+
+  /* Globals in the module namespace. */
   lua_pushliteral (L, \"event_all\");
   push_string_list (L, (char **) event_all);
   lua_settable (L, -3);
 
-  /* Add _COPYRIGHT, etc. fields to the metatable. */
+  /* Add _COPYRIGHT, etc. fields to the module namespace. */
   lua_pushliteral (L, \"_COPYRIGHT\");
   lua_pushliteral (L, \"Copyright (C) %s Red Hat Inc.\");
   lua_settable (L, -3);
@@ -886,9 +911,10 @@ luaopen_guestfs (lua_State *L)
   lua_pushlstring (L, v, strlen (v));
   lua_settable (L, -3);
 
-  /* Expose metatable to lua as \"Guestfs\". */
-  lua_setglobal (L, \"Guestfs\");
-
+  /* Return module table, so users choose their own name for the module:
+   * local G = require \"guestfs\"
+   * g = G.create ()
+   */
   return 1;
 }
 
