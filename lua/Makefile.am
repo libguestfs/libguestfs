@@ -50,7 +50,7 @@ guestfs.so: libluaguestfs.la
 	ln -sf .libs/libluaguestfs.so $@
 
 # Tests.
-TESTS_ENVIRONMENT = LC_ALL=C $(top_builddir)/run --test
+TESTS_ENVIRONMENT = LC_ALL=C $(top_builddir)/run --test $(VG)
 TESTS = \
 	run-bindtests \
 	tests/010-load.lua \
@@ -83,6 +83,15 @@ EXTRA_DIST += \
 	tests/400-events.lua \
 	tests/400-progress.lua \
 	tests/900-errors.lua
+
+# Run the tests under valgrind.
+# This doesn't work.  Because Lua dlcloses the library on exit, the
+# stack traces contain no useful information.  The only way to make
+# this work would be to patch Lua or fix valgrind.
+# https://bugs.kde.org/show_bug.cgi?id=79362
+# http://valgrind.org/docs/manual/faq.html#faq.unhelpful
+#check-valgrind:
+#	$(MAKE) VG="@VG@" check
 
 # Custom install rule.
 install-data-hook:
