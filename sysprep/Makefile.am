@@ -43,6 +43,7 @@ operations = \
 	bash_history \
 	blkid_tab \
 	ca_certificates \
+	crash_data \
 	cron_spool \
 	dhcp_client_state \
 	dhcp_server_state \
