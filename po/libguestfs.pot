@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.16.33\n"
+"Project-Id-Version: libguestfs 1.16.34\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-10-30 19:22+0000\n"
+"POT-Creation-Date: 2012-11-22 14:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3209,7 +3209,7 @@ msgstr ""
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/guestfs.c:1031
+#: src/guestfs.c:1032
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
