@@ -692,6 +692,15 @@ AC_CHECK_LIB([magic],[magic_file],
         ],
         [AC_MSG_WARN([libmagic not found, some core features will be disabled])])
 
+dnl POSIX acl library (highly recommended)
+AC_CHECK_LIB([acl],[acl_from_text],
+    [AC_CHECK_HEADER([sys/acl.h],
+        [AC_SUBST([ACL_LIBS], [-lacl])
+         AC_DEFINE([HAVE_ACL], [1], [Define to 1 if the POSIX acl library is available.])
+        ], [])
+    ],
+    [AC_MSG_WARN([POSIX acl library not found])])
+
 dnl libvirt (highly recommended)
 AC_ARG_WITH([libvirt],
     [AS_HELP_STRING([--without-libvirt],

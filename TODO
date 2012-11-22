@@ -588,20 +588,11 @@ is very poorly designed and essentially impossible for us to use:
 particularly if we also want to maintain backwards compatibility with
 Ruby 1.8, and/or maintain volatile VALUEs on the stack.
 
-ACLs and capabilities
----------------------
+Filesystem capabilities
+-----------------------
 
-We need to model both filesystem ACLs and filesystem capabilities
-through the API.  This is particularly important in order to be able
-to implement SCAP.
-
-ACLs can be read and written using the acl(5) library and the
-functions like acl_set_file(3) etc.
-
-Setting the ACL on a file sets the extended attribute
-'system.posix_acl_access' to a binary blob.  The kernel has a whole
-bunch of complex code that seems to interpret these
-(linux/fs/posix_acl.c).
+We need to model filesystem capabilities through the API.  This is
+particularly important in order to be able to implement SCAP.
 
 Filesystem capabilities can be read and written using the libcap(3)
 library and functions like cap_get_file, cap_set_file.

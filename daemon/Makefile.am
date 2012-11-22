@@ -88,6 +88,7 @@ endif
 
 guestfsd_SOURCES = \
 	9p.c \
+	acl.c \
 	actions.h \
 	available.c \
 	augeas.c \
@@ -181,6 +182,7 @@ guestfsd_SOURCES = \
 guestfsd_LDADD = \
 	liberrnostring.a \
 	libprotocol.a \
+	$(ACL_LIBS) \
 	$(SELINUX_LIB) \
 	$(AUGEAS_LIBS) \
 	$(HIVEX_LIBS) \

@@ -10408,6 +10408,88 @@ Make the C<lost+found> directory, normally in the root directory
 of an ext2/3/4 filesystem.  C<mountpoint> is the directory under
 which we try to create the C<lost+found> directory." };
 
+  { defaults with
+    name = "acl_get_file";
+    style = RString "acl", [Pathname "path"; String "acltype"], [];
+    proc_nr = Some 375;
+    optional = Some "acl";
+    tests = []; (* tested by acl_set_file *)
+    shortdesc = "get the POSIX ACL attached to a file";
+    longdesc = "\
+This function returns the POSIX Access Control List (ACL) attached
+to C<path>.  The ACL is returned in \"long text form\" (see L<acl(5)>).
+
+The C<acltype> parameter may be:
+
+=over 4
+
+=item C<access>
+
+Return the ordinary (access) ACL for any file, directory or
+other filesystem object.
+
+=item C<default>
+
+Return the default ACL.  Normally this only makes sense if
+C<path> is a directory.
+
+=back" };
+
+  { defaults with
+    name = "acl_set_file";
+    style = RErr, [Pathname "path"; String "acltype"; String "acl"], [];
+    proc_nr = Some 376;
+    optional = Some "acl";
+    tests = [
+      InitScratchFS, Always, TestRun (
+        [["touch"; "/acl_set_file_0"];
+         ["acl_set_file"; "/acl_set_file_0"; "access"; "user::r-x,group::r-x,other::r-x"];
+         ["acl_get_file"; "/acl_set_file_0"; "access"]]);
+    ];
+    shortdesc = "set the POSIX ACL attached to a file";
+    longdesc = "\
+This function sets the POSIX Access Control List (ACL) attached
+to C<path>.  The C<acl> parameter is the new ACL in either
+\"long text form\" or \"short text form\" (see L<acl(5)>).
+
+The C<acltype> parameter may be:
+
+=over 4
+
+=item C<access>
+
+Set the ordinary (access) ACL for any file, directory or
+other filesystem object.
+
+=item C<default>
+
+Set the default ACL.  Normally this only makes sense if
+C<path> is a directory.
+
+=back" };
+
+  { defaults with
+    name = "acl_delete_def_file";
+    style = RErr, [Pathname "dir"], [];
+    proc_nr = Some 377;
+    optional = Some "acl";
+    tests = [
+      (* Documentation for libacl says this should fail, but it doesn't.
+       * Therefore disable this test.
+       *)
+      InitScratchFS, Disabled, TestLastFail (
+        [["touch"; "/acl_delete_def_file_0"];
+         ["acl_delete_def_file"; "/acl_delete_def_file_0"]]);
+      InitScratchFS, Always, TestRun (
+        [["mkdir"; "/acl_delete_def_file_1"];
+         ["acl_set_file"; "/acl_delete_def_file_1"; "default"; "user::r-x,group::r-x,other::r-x"];
+         ["acl_delete_def_file"; "/acl_delete_def_file_1"]]);
+    ];
+    shortdesc = "delete the default POSIX ACL of a directory";
+    longdesc = "\
+This function deletes the default POSIX Access Control List (ACL)
+attached to directory C<dir>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
