@@ -10490,6 +10490,34 @@ C<path> is a directory.
 This function deletes the default POSIX Access Control List (ACL)
 attached to directory C<dir>." };
 
+  { defaults with
+    name = "cap_get_file";
+    style = RString "cap", [Pathname "path"], [];
+    proc_nr = Some 378;
+    optional = Some "linuxcaps";
+    tests = []; (* tested by cap_set_file *)
+    shortdesc = "get the Linux capabilities attached to a file";
+    longdesc = "\
+This function returns the Linux capabilities attached to C<path>.
+The capabilities set is returned in text form (see L<cap_to_text(3)>)." };
+
+  { defaults with
+    name = "cap_set_file";
+    style = RErr, [Pathname "path"; String "cap"], [];
+    proc_nr = Some 379;
+    optional = Some "linuxcaps";
+    tests = [
+      InitScratchFS, Always, TestOutput (
+        [["touch"; "/cap_set_file_0"];
+         ["cap_set_file"; "/cap_set_file_0"; "cap_chown=p cap_chown+e"];
+         ["cap_get_file"; "/cap_set_file_0"]], "= cap_chown+ep");
+    ];
+    shortdesc = "set the Linux capabilities attached to a file";
+    longdesc = "\
+This function sets the Linux capabilities attached to C<path>.
+The capabilities set C<cap> should be passed in text form
+(see L<cap_from_text(3)>)." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

@@ -110,6 +110,8 @@ For basic functionality and the C tools:
 
 - getfacl, getfattr libraries and programs (optional)
 
+- Linux capabilities library (libcap) (optional)
+
 - netpbm, icoutils (optional)
   These programs are used to render icons from guests.
 

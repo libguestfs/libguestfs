@@ -96,6 +96,7 @@ guestfsd_SOURCES = \
 	blkid.c \
 	blockdev.c \
 	btrfs.c \
+	cap.c \
 	checksum.c \
 	cmp.c \
 	command.c \
@@ -183,6 +184,7 @@ guestfsd_LDADD = \
 	liberrnostring.a \
 	libprotocol.a \
 	$(ACL_LIBS) \
+	$(CAP_LIBS) \
 	$(SELINUX_LIB) \
 	$(AUGEAS_LIBS) \
 	$(HIVEX_LIBS) \

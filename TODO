@@ -587,17 +587,3 @@ is very poorly designed and essentially impossible for us to use:
 
 particularly if we also want to maintain backwards compatibility with
 Ruby 1.8, and/or maintain volatile VALUEs on the stack.
-
-Filesystem capabilities
------------------------
-
-We need to model filesystem capabilities through the API.  This is
-particularly important in order to be able to implement SCAP.
-
-Filesystem capabilities can be read and written using the libcap(3)
-library and functions like cap_get_file, cap_set_file.
-
-Setting fs capabilities on a file sets the extended attribute
-'security.capability' to a binary blob.  These are implemented using a
-Linux Security Module (security/capability.c) and presumably by
-something in exec, but I couldn't see exactly how this works.
