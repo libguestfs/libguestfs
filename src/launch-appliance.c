@@ -281,7 +281,7 @@ launch_appliance (guestfs_h *g, const char *arg)
       }
     }
 
-    char appliance_root[64] = "";
+    char appliance_dev[64] = "/dev/Xd";
 
     /* Add the ext2 appliance drive (after all the drives). */
     if (appliance) {
@@ -305,9 +305,8 @@ launch_appliance (guestfs_h *g, const char *arg)
         add_cmdline (g, "scsi-hd,drive=appliance");
       }
 
-      snprintf (appliance_root, sizeof appliance_root, "root=/dev/%cd",
-                virtio_scsi ? 's' : 'v');
-      guestfs___drive_name (g->nr_drives, &appliance_root[12]);
+      appliance_dev[5] = virtio_scsi ? 's' : 'v';
+      guestfs___drive_name (g->nr_drives, &appliance_dev[7]);
     }
 
     if (STRNEQ (QEMU_OPTIONS, "")) {
@@ -422,41 +421,15 @@ launch_appliance (guestfs_h *g, const char *arg)
       add_cmdline (g, "virtio-net-pci,netdev=usernet");
     }
 
-#if defined(__arm__)
-#define SERIAL_CONSOLE "ttyAMA0"
-#else
-#define SERIAL_CONSOLE "ttyS0"
-#endif
-
-#define LINUX_CMDLINE							\
-    "panic=1 "         /* force kernel to panic if daemon exits */	\
-    "console=" SERIAL_CONSOLE " " /* serial console */		        \
-    "udevtimeout=600 " /* good for very slow systems (RHBZ#480319) */	\
-    "no_timer_check "  /* fix for RHBZ#502058 */                        \
-    "acpi=off "        /* we don't need ACPI, turn it off */		\
-    "printk.time=1 "   /* display timestamp before kernel messages */   \
-    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
-
-    /* Linux kernel command line. */
-    snprintf (buf, sizeof buf,
-              LINUX_CMDLINE
-              "%s "             /* (root) */
-              "%s "             /* (selinux) */
-              "%s "             /* (verbose) */
-              "TERM=%s "        /* (TERM environment variable) */
-              "%s",             /* (append) */
-              appliance_root,
-              g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
-              g->verbose ? "guestfs_verbose=1" : "",
-              getenv ("TERM") ? : "linux",
-              g->append ? g->append : "");
-
     add_cmdline (g, "-kernel");
     add_cmdline (g, kernel);
     add_cmdline (g, "-initrd");
     add_cmdline (g, initrd);
+
     add_cmdline (g, "-append");
-    add_cmdline (g, buf);
+    char *cmdline = guestfs___appliance_command_line (g, appliance_dev);
+    add_cmdline (g, cmdline);
+    free (cmdline);
 
     /* Finish off the command line. */
     incr_cmdline_size (g);

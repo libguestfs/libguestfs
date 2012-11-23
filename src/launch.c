@@ -784,3 +784,50 @@ guestfs__get_state (guestfs_h *g)
 {
   return g->state;
 }
+
+/* Construct the Linux command line passed to the appliance.  This is
+ * used by the 'appliance' and 'libvirt' attach-methods, and is simply
+ * located in this file because it's a convenient place for this
+ * common code.
+ *
+ * The 'appliance_dev' parameter must be the full device name of the
+ * appliance disk and must have already been adjusted to take into
+ * account virtio-blk or virtio-scsi; eg "/dev/sdb".
+ *
+ * Note that this returns a newly allocated buffer which must be freed
+ * by the caller.
+ */
+#if defined(__arm__)
+#define SERIAL_CONSOLE "ttyAMA0"
+#else
+#define SERIAL_CONSOLE "ttyS0"
+#endif
+
+char *
+guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev)
+{
+  char *term = getenv ("TERM");
+  char *ret;
+
+  ret = safe_asprintf
+    (g,
+     "panic=1"             /* force kernel to panic if daemon exits */
+     " console=" SERIAL_CONSOLE /* serial console */
+     " udevtimeout=600" /* good for very slow systems (RHBZ#480319) */
+     " no_timer_check"  /* fix for RHBZ#502058 */
+     " acpi=off"        /* we don't need ACPI, turn it off */
+     " printk.time=1"   /* display timestamp before kernel messages */
+     " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
+     " root=%s"                 /* root (appliance_dev) */
+     " %s"                      /* selinux */
+     "%s"                       /* verbose */
+     " TERM=%s"                 /* TERM environment variable */
+     "%s%s",                    /* append */
+     appliance_dev,
+     g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
+     g->verbose ? " guestfs_verbose=1" : "",
+     term ? term : "linux",
+     g->append ? " " : "", g->append ? g->append : "");
+
+  return ret;
+}

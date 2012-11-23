@@ -623,40 +623,12 @@ construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo,
                             const char *kernel, const char *initrd,
                             size_t appliance_index)
 {
-  char buf[256];
-  char appliance_root[64] = "";
-
-  /* XXX Lots of common code shared with src/launch-appliance.c */
-#if defined(__arm__)
-#define SERIAL_CONSOLE "ttyAMA0"
-#else
-#define SERIAL_CONSOLE "ttyS0"
-#endif
-
-#define LINUX_CMDLINE							\
-    "panic=1 "         /* force kernel to panic if daemon exits */	\
-    "console=" SERIAL_CONSOLE " " /* serial console */		        \
-    "udevtimeout=600 " /* good for very slow systems (RHBZ#480319) */	\
-    "no_timer_check "  /* fix for RHBZ#502058 */                        \
-    "acpi=off "        /* we don't need ACPI, turn it off */		\
-    "printk.time=1 "   /* display timestamp before kernel messages */   \
-    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
+  char appliance_dev[64] = "/dev/sd";
+  char *cmdline;
 
   /* Linux kernel command line. */
-  guestfs___drive_name (appliance_index, appliance_root);
-
-  snprintf (buf, sizeof buf,
-            LINUX_CMDLINE
-            "root=/dev/sd%s "   /* (root) */
-            "%s "               /* (selinux) */
-            "%s "               /* (verbose) */
-            "TERM=%s "          /* (TERM environment variable) */
-            "%s",               /* (append) */
-            appliance_root,
-            g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
-            g->verbose ? "guestfs_verbose=1" : "",
-            getenv ("TERM") ? : "linux",
-            g->append ? g->append : "");
+  guestfs___drive_name (appliance_index, &appliance_dev[7]);
+  cmdline = guestfs___appliance_command_line (g, appliance_dev);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "os"));
 
@@ -673,14 +645,16 @@ construct_libvirt_xml_boot (guestfs_h *g, xmlTextWriterPtr xo,
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cmdline"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST buf));
+  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST cmdline));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
+  free (cmdline);
   return 0;
 
  err:
+  free (cmdline);
   return -1;
 }
 

@@ -567,6 +567,7 @@ extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___launch_failed_error (guestfs_h *g);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
+extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev);
 
 /* launch-appliance.c */
 extern char *guestfs___drive_name (size_t index, char *ret);
