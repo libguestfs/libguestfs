@@ -723,7 +723,7 @@ push_int64_array (lua_State *L, const int64_t *array, size_t len)
 static void
 print_any (lua_State *L, int index, FILE *out)
 {
-  lua_getfield (L, LUA_GLOBALSINDEX, \"tostring\");
+  lua_getglobal(L, \"tostring\");
   lua_pushvalue (L, index >= 0 ? index : index-1);
   lua_call (L, 1, 1);
   fprintf (out, \"%%s\", luaL_checkstring (L, -1));
