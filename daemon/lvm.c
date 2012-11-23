@@ -295,6 +295,17 @@ do_lvcreate_free (const char *logvol, const char *volgroup, int percent)
   return 0;
 }
 
+/* The lvresize command unnecessarily gives an error if you don't
+ * change the size of the LV.  Suppress this error.
+ * https://bugzilla.redhat.com/show_bug.cgi?id=834712
+ */
+static int
+ignore_same_size_error (const char *err)
+{
+  return strstr (err, "New size (") != NULL &&
+         strstr (err, "extents) matches existing size (") != NULL;
+}
+
 int
 do_lvresize (const char *logvol, int mbytes)
 {
@@ -308,9 +319,11 @@ do_lvresize (const char *logvol, int mbytes)
                str_lvm, "lvresize",
                "--force", "-L", size, logvol, NULL);
   if (r == -1) {
-    reply_with_error ("%s", err);
-    free (err);
-    return -1;
+    if (!ignore_same_size_error (err)) {
+      reply_with_error ("%s", err);
+      free (err);
+      return -1;
+    }
   }
 
   free (err);
@@ -334,9 +347,11 @@ do_lvresize_free (const char *logvol, int percent)
   r = command (NULL, &err,
                str_lvm, "lvresize", "-l", size, logvol, NULL);
   if (r == -1) {
-    reply_with_error ("%s", err);
-    free (err);
-    return -1;
+    if (!ignore_same_size_error (err)) {
+      reply_with_error ("%s", err);
+      free (err);
+      return -1;
+    }
   }
 
   free (err);
