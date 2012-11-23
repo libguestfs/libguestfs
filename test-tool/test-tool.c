@@ -104,17 +104,6 @@ main (int argc, char *argv[])
   struct guestfs_version *vers;
   char *p;
 
-  /* Everyone ignores the documentation, so ... */
-  printf ("     ************************************************************\n"
-          "     *                    IMPORTANT NOTICE\n"
-          "     *\n"
-          "     * When reporting bugs, include the COMPLETE, UNEDITED\n"
-          "     * output below in your bug report.\n"
-          "     *\n"
-          "     ************************************************************\n"
-          );
-  sleep (3);
-
   /* Create the handle. */
   g = guestfs_create ();
   if (g == NULL) {
@@ -165,6 +154,7 @@ main (int argc, char *argv[])
 
     case '?':
       usage ();
+      guestfs_set_verbose (g, 0);
       exit (EXIT_SUCCESS);
 
     default:
@@ -174,6 +164,17 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
   }
+
+  /* Everyone ignores the documentation, so ... */
+  printf ("     ************************************************************\n"
+          "     *                    IMPORTANT NOTICE\n"
+          "     *\n"
+          "     * When reporting bugs, include the COMPLETE, UNEDITED\n"
+          "     * output below in your bug report.\n"
+          "     *\n"
+          "     ************************************************************\n"
+          );
+  sleep (3);
 
   make_files ();
 
