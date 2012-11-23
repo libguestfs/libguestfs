@@ -364,7 +364,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   char *type = NULL;
   char *local = NULL;
   char *pngfile = NULL;
-  struct command *cmd = NULL;
+  struct command *cmd;
   int r;
 
   r = guestfs_exists (g, CIRROS_LOGO);
@@ -392,6 +392,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   guestfs___cmd_add_string_unquoted (cmd, " | " PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1)
     goto out;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -407,8 +408,6 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   free (pngfile);
   free (local);
   free (type);
-  if (cmd)
-    guestfs___cmd_close (cmd);
 
   return ret;
 }
@@ -438,7 +437,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
 {
   char *ret;
   char *pngfile = NULL;
-  struct command *cmd = NULL;
+  struct command *cmd;
   int r;
 
   pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
@@ -450,13 +449,11 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
                                      " | " BMPTOPNM " | " PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1)
     goto error;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto not_found;
-
-  guestfs___cmd_close (cmd);
-  cmd = NULL;
 
   if (read_whole_file (g, pngfile, &ret, size_r) == -1)
     goto error;
@@ -466,14 +463,10 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   return ret;
 
  error:
-  if (cmd)
-    guestfs___cmd_close (cmd);
   free (pngfile);
   return NULL;
 
  not_found:
-  if (cmd)
-    guestfs___cmd_close (cmd);
   free (pngfile);
   return NOT_FOUND;
 }
@@ -484,7 +477,7 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
 {
   char *ret;
   char *pngfile = NULL;
-  struct command *cmd = NULL;
+  struct command *cmd;
   int r;
 
   pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
@@ -498,13 +491,11 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
                                      PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1)
     goto error;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto not_found;
-
-  guestfs___cmd_close (cmd);
-  cmd = NULL;
 
   if (read_whole_file (g, pngfile, &ret, size_r) == -1)
     goto error;
@@ -514,14 +505,10 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   return ret;
 
  error:
-  if (cmd)
-    guestfs___cmd_close (cmd);
   free (pngfile);
   return NULL;
 
  not_found:
-  if (cmd)
-    guestfs___cmd_close (cmd);
   free (pngfile);
   return NOT_FOUND;
 }

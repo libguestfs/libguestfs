@@ -286,12 +286,10 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
   guestfs___cmd_set_stdout_callback (cmd, read_checksum, checksum, 0);
 
   r = guestfs___cmd_run (cmd);
-  /* Errors here are non-fatal, so we don't need to call error(). */
-  if (r == -1) {
-    guestfs___cmd_close (cmd);
-    return NULL;
-  }
   guestfs___cmd_close (cmd);
+  /* Errors here are non-fatal, so we don't need to call error(). */
+  if (r == -1)
+    return NULL;
 
   debug (g, "checksum of existing appliance: %s", checksum);
 
@@ -707,6 +705,7 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   guestfs___cmd_add_arg_format (cmd, "%s/root", cachedir);
 
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {

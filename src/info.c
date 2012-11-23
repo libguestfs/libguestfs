@@ -168,7 +168,7 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
 {
   char *abs_filename = NULL;
   char *safe_filename = NULL;
-  struct command *cmd = NULL;
+  struct command *cmd;
   int r;
 
   if (guestfs___lazy_make_tmpdir (g) == -1)
@@ -194,6 +194,7 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
   guestfs___cmd_add_arg (cmd, safe_filename);
   guestfs___cmd_set_stdout_callback (cmd, fn, data, 0);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1)
     goto error;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
@@ -201,15 +202,11 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
     goto error;
   }
 
-  guestfs___cmd_close (cmd);
   free (safe_filename);
   free (abs_filename);
   return 0;
 
  error:
-  if (cmd)
-    guestfs___cmd_close (cmd);
-
   free (safe_filename);
   free (abs_filename);
 

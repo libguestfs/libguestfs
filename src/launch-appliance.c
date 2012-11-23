@@ -755,9 +755,9 @@ test_qemu (guestfs_h *g)
   guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_help,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
-  guestfs___cmd_close (cmd);
 
   cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, g->qemu);
@@ -766,9 +766,9 @@ test_qemu (guestfs_h *g)
   guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_version,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
-  guestfs___cmd_close (cmd);
 
   cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, g->qemu);
@@ -782,15 +782,14 @@ test_qemu (guestfs_h *g)
   guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_devices,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
-  guestfs___cmd_close (cmd);
 
   return 0;
 
  error:
   error (g, _("qemu command failed\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."));
-  guestfs___cmd_close (cmd);
   return -1;
 }
 

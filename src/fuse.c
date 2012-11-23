@@ -1052,7 +1052,7 @@ guestfs__umount_local (guestfs_h *g,
   size_t i, tries;
   char *localmountpoint;
   char *fusermount_log = NULL;
-  struct command *cmd = NULL;
+  struct command *cmd;
   int r;
   FILE *fp;
   char error_message[4096];
@@ -1095,7 +1095,6 @@ guestfs__umount_local (guestfs_h *g,
     guestfs___cmd_clear_capture_errors (cmd);
     r = guestfs___cmd_run (cmd);
     guestfs___cmd_close (cmd);
-    cmd = NULL;
     if (r == -1)
       goto out;
     if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS) {
@@ -1127,8 +1126,6 @@ guestfs__umount_local (guestfs_h *g,
   }
 
  out:
-  if (cmd)
-    guestfs___cmd_close (cmd);
   if (fusermount_log) {
     unlink (fusermount_log);
     free (fusermount_log);

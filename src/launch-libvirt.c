@@ -1190,18 +1190,17 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
   }
   guestfs___cmd_add_arg (cmd, tmpfile);
   r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
   if (r == -1)
     goto error;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     error (g, _("qemu-img create: could not create snapshot over %s"), path);
     goto error;
   }
-  guestfs___cmd_close (cmd);
 
   return tmpfile;               /* caller frees */
 
  error:
-  guestfs___cmd_close (cmd);
   free (tmpfile);
 
   return NULL;
