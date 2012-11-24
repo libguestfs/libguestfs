@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.19.63\n"
+"Project-Id-Version: libguestfs 1.19.64\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-23 17:32+0000\n"
+"POT-Creation-Date: 2012-11-24 15:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3787,7 +3787,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-appliance.c:632 src/launch-libvirt.c:394
+#: src/launch-appliance.c:632 src/launch-libvirt.c:417
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -3798,38 +3798,38 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:140
+#: src/launch-libvirt.c:158
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:147
+#: src/launch-libvirt.c:165
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:162
+#: src/launch-libvirt.c:180
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:178
+#: src/launch-libvirt.c:196
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:319
+#: src/launch-libvirt.c:342
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:470
+#: src/launch-libvirt.c:493
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:802
+#: src/launch-libvirt.c:824
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:882
+#: src/launch-libvirt.c:904
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -3837,34 +3837,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1171
+#: src/launch-libvirt.c:1193
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1198
+#: src/launch-libvirt.c:1220
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1243
+#: src/launch-libvirt.c:1265
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1275
+#: src/launch-libvirt.c:1297
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1327
+#: src/launch-libvirt.c:1349
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1361
+#: src/launch-libvirt.c:1383
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1418
+#: src/launch-libvirt.c:1440
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -3883,74 +3883,74 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:240 src/launch.c:487
+#: src/launch.c:241 src/launch.c:488
 msgid "the current attach-method does not support hotplugging drives"
 msgstr ""
 
-#: src/launch.c:245
+#: src/launch.c:246
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/launch.c:285
+#: src/launch.c:286
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/launch.c:342 src/launch.c:442
+#: src/launch.c:343 src/launch.c:443
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/launch.c:359 src/launch.c:364
+#: src/launch.c:360 src/launch.c:365
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:369
+#: src/launch.c:370
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/launch.c:472
+#: src/launch.c:473
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
 
-#: src/launch.c:516
+#: src/launch.c:517
 msgid "parameter must begin with '-' character"
 msgstr ""
 
-#: src/launch.c:530
+#: src/launch.c:531
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:595
+#: src/launch.c:596
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:697
+#: src/launch.c:698
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/launch.c:699
+#: src/launch.c:700
 msgid ""
 "guestfs_launch failed.\n"
 "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
 "and/or run 'libguestfs-test-tool'."
 msgstr ""
 
-#: src/launch.c:708
+#: src/launch.c:709
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:714
+#: src/launch.c:715
 msgid "the current attach-method does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:729
+#: src/launch.c:730
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:743
+#: src/launch.c:744
 msgid "qemu has not been launched yet"
 msgstr ""
 
