@@ -567,7 +567,8 @@ extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___launch_failed_error (guestfs_h *g);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
-extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev);
+extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
+#define APPLIANCE_COMMAND_LINE_IS_TCG 1
 
 /* launch-appliance.c */
 extern char *guestfs___drive_name (size_t index, char *ret);
@@ -605,6 +606,9 @@ extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
 /* dbdump.c */
 typedef int (*guestfs___db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
 extern int guestfs___read_db_dump (guestfs_h *g, const char *dumpfile, void *opaque, guestfs___db_dump_callback callback);
+
+/* lpj.c */
+extern int guestfs___get_lpj (guestfs_h *g);
 
 /* fuse.c */
 #if HAVE_FUSE

@@ -427,7 +427,7 @@ launch_appliance (guestfs_h *g, const char *arg)
     add_cmdline (g, initrd);
 
     add_cmdline (g, "-append");
-    char *cmdline = guestfs___appliance_command_line (g, appliance_dev);
+    char *cmdline = guestfs___appliance_command_line (g, appliance_dev, 0);
     add_cmdline (g, cmdline);
     free (cmdline);
 

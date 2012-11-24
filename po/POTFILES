@@ -258,6 +258,7 @@ src/launch.c
 src/libvirt-auth.c
 src/libvirt-domain.c
 src/listfs.c
+src/lpj.c
 src/match.c
 src/private-data.c
 src/proto.c

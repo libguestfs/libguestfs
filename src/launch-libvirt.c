@@ -642,9 +642,13 @@ construct_libvirt_xml_boot (guestfs_h *g,
                             xmlTextWriterPtr xo)
 {
   char *cmdline;
+  int flags;
 
   /* Linux kernel command line. */
-  cmdline = guestfs___appliance_command_line (g, params->appliance_dev);
+  flags = 0;
+  if (!params->is_kvm)
+    flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
+  cmdline = guestfs___appliance_command_line (g, params->appliance_dev, flags);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "os"));
 

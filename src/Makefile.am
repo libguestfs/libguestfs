@@ -166,6 +166,7 @@ libguestfs_la_SOURCES = \
 	libvirt-auth.c \
 	libvirt-domain.c \
 	listfs.c \
+	lpj.c \
 	match.c \
 	private-data.c \
 	proto.c \

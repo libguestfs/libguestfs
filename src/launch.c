@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <string.h>
@@ -794,6 +795,13 @@ guestfs__get_state (guestfs_h *g)
  * appliance disk and must have already been adjusted to take into
  * account virtio-blk or virtio-scsi; eg "/dev/sdb".
  *
+ * The 'flags' parameter can contain the following flags logically
+ * or'd together (or 0):
+ *
+ * GUESTFS___APPLIANCE_COMMAND_LINE_IS_TCG: If we are launching a qemu
+ * TCG guest (ie. KVM is known to be disabled or unavailable).  If you
+ * don't know, don't pass this flag.
+ *
  * Note that this returns a newly allocated buffer which must be freed
  * by the caller.
  */
@@ -804,10 +812,19 @@ guestfs__get_state (guestfs_h *g)
 #endif
 
 char *
-guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev)
+guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
+                                  int flags)
 {
   char *term = getenv ("TERM");
   char *ret;
+  bool tcg = flags & APPLIANCE_COMMAND_LINE_IS_TCG;
+  char lpj_s[64] = "";
+
+  if (tcg) {
+    int lpj = guestfs___get_lpj (g);
+    if (lpj > 0)
+      snprintf (lpj_s, sizeof lpj_s, " lpj=%d", lpj);
+  }
 
   ret = safe_asprintf
     (g,
@@ -815,6 +832,7 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev)
      " console=" SERIAL_CONSOLE /* serial console */
      " udevtimeout=600" /* good for very slow systems (RHBZ#480319) */
      " no_timer_check"  /* fix for RHBZ#502058 */
+     "%s"               /* lpj */
      " acpi=off"        /* we don't need ACPI, turn it off */
      " printk.time=1"   /* display timestamp before kernel messages */
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
@@ -823,6 +841,7 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev)
      "%s"                       /* verbose */
      " TERM=%s"                 /* TERM environment variable */
      "%s%s",                    /* append */
+     lpj_s,
      appliance_dev,
      g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
      g->verbose ? " guestfs_verbose=1" : "",
