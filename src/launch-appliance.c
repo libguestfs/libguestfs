@@ -771,7 +771,7 @@ read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
 {
   char **ret = retv;
 
-  *ret = safe_memdup (g, buf, len);
+  *ret = safe_strndup (g, buf, len);
 }
 
 /* Test if option is supported by qemu command line (just by grepping
