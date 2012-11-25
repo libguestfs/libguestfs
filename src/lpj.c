@@ -49,6 +49,7 @@
 gl_lock_define_initialized (static, lpj_lock);
 static int lpj = 0;
 static int read_lpj_from_var_log_dmesg (guestfs_h *g);
+static int read_lpj_from_var_log_boot_msg (guestfs_h *g);
 static int read_lpj_from_dmesg (guestfs_h *g);
 static int read_lpj_common (guestfs_h *g, const char *func, const char *command);
 
@@ -65,13 +66,19 @@ guestfs___get_lpj (guestfs_h *g)
    * - /proc/cpuinfo [in future]
    * - dmesg
    * - /var/log/dmesg
+   * - /var/log/boot.msg
    */
   r = read_lpj_from_dmesg (g);
   if (r > 0) {
     lpj = r;
     goto out;
   }
-  lpj = read_lpj_from_var_log_dmesg (g);
+  r = read_lpj_from_var_log_dmesg (g);
+  if (r > 0) {
+    lpj = r;
+    goto out;
+  }
+  lpj = read_lpj_from_var_log_boot_msg (g);
 
  out:
   gl_lock_unlock (lpj_lock);
@@ -90,6 +97,13 @@ read_lpj_from_var_log_dmesg (guestfs_h *g)
 {
   return read_lpj_common (g, __func__,
                           "grep -Eo 'lpj=[[:digit:]]+' /var/log/dmesg");
+}
+
+static int
+read_lpj_from_var_log_boot_msg (guestfs_h *g)
+{
+  return read_lpj_common (g, __func__,
+                          "grep -Eo 'lpj=[[:digit:]]+' /var/log/boot.msg");
 }
 
 static void
