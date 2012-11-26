@@ -111,7 +111,8 @@ read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
 {
   char **ret = retv;
 
-  *ret = safe_strndup (g, buf, len);
+  if (!*ret)
+    *ret = safe_strndup (g, buf, len);
 }
 
 static int
