@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -48,10 +49,9 @@
 
 gl_lock_define_initialized (static, lpj_lock);
 static int lpj = 0;
-static int read_lpj_from_var_log_dmesg (guestfs_h *g);
-static int read_lpj_from_var_log_boot_msg (guestfs_h *g);
 static int read_lpj_from_dmesg (guestfs_h *g);
-static int read_lpj_common (guestfs_h *g, const char *func, const char *command);
+static int read_lpj_from_files (guestfs_h *g);
+static int read_lpj_common (guestfs_h *g, const char *func, struct command *cmd);
 
 int
 guestfs___get_lpj (guestfs_h *g)
@@ -65,45 +65,66 @@ guestfs___get_lpj (guestfs_h *g)
   /* Try reading lpj from these sources:
    * - /proc/cpuinfo [in future]
    * - dmesg
-   * - /var/log/dmesg
-   * - /var/log/boot.msg
+   * - files:
+   *   + /var/log/dmesg
+   *   + /var/log/boot.msg
    */
   r = read_lpj_from_dmesg (g);
   if (r > 0) {
     lpj = r;
     goto out;
   }
-  r = read_lpj_from_var_log_dmesg (g);
-  if (r > 0) {
-    lpj = r;
-    goto out;
-  }
-  lpj = read_lpj_from_var_log_boot_msg (g);
+  lpj = read_lpj_from_files (g);
 
  out:
   gl_lock_unlock (lpj_lock);
   return lpj;
 }
 
+/* Grep the output, and print just the matching string "lpj=NNN". */
+#define GREP_FLAGS "-Eoh"
+#define GREP_REGEX "lpj=[[:digit:]]+"
+#define GREP_CMD "grep " GREP_FLAGS " '" GREP_REGEX "'"
+
 static int
 read_lpj_from_dmesg (guestfs_h *g)
 {
-  return read_lpj_common (g, __func__,
-                          "dmesg | grep -Eo 'lpj=[[:digit:]]+'");
+  struct command *cmd;
+
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_string_unquoted (cmd, "dmesg | " GREP_CMD);
+
+  return read_lpj_common (g, __func__, cmd);
 }
 
-static int
-read_lpj_from_var_log_dmesg (guestfs_h *g)
-{
-  return read_lpj_common (g, __func__,
-                          "grep -Eo 'lpj=[[:digit:]]+' /var/log/dmesg");
-}
+#define FILE1 "/var/log/dmesg"
+#define FILE2 "/var/log/boot.msg"
 
 static int
-read_lpj_from_var_log_boot_msg (guestfs_h *g)
+read_lpj_from_files (guestfs_h *g)
 {
-  return read_lpj_common (g, __func__,
-                          "grep -Eo 'lpj=[[:digit:]]+' /var/log/boot.msg");
+  struct command *cmd;
+  size_t files = 0;
+
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "grep");
+  guestfs___cmd_add_arg (cmd, GREP_FLAGS);
+  guestfs___cmd_add_arg (cmd, GREP_REGEX);
+  if (access (FILE1, R_OK) == 0) {
+    guestfs___cmd_add_arg (cmd, FILE1);
+    files++;
+  }
+  if (access (FILE2, R_OK) == 0) {
+    guestfs___cmd_add_arg (cmd, FILE2);
+    files++;
+  }
+
+  if (files > 0)
+    return read_lpj_common (g, __func__, cmd);
+
+  guestfs___cmd_close (cmd);
+  debug (g, "%s: no boot messages files are readable", __func__);
+  return -1;
 }
 
 static void
@@ -116,21 +137,18 @@ read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
 }
 
 static int
-read_lpj_common (guestfs_h *g, const char *func, const char *command)
+read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
 {
-  struct command *cmd;
   int r;
   char *buf = NULL;
 
-  cmd = guestfs___new_command (g);
-  guestfs___cmd_add_string_unquoted (cmd, command);
   guestfs___cmd_set_stdout_callback (cmd, read_all, &buf,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd);
   guestfs___cmd_close (cmd);
 
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    debug (g, "%s: command failed with code %d: %s", func, r, command);
+    debug (g, "%s: external command failed with code %d", func, r);
     free (buf);
     return -1;
   }
