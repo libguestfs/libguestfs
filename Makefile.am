@@ -129,6 +129,7 @@ EXTRA_DIST = \
 	BUGS HACKING ROADMAP TODO \
 	.gitignore \
 	.lvimrc \
+	.mailmap \
 	.tx/config \
 	bugs-in-changelog.sh \
 	autogen.sh \
