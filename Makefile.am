@@ -240,10 +240,7 @@ dist-hook:
 	$(top_srcdir)/update-bugs.sh > BUGS-t
 	mv BUGS-t BUGS
 	cp BUGS $(distdir)/BUGS
-	git log --pretty="format:%an <%ae>" | sort -u | uniq -w 10 | \
-		grep -v rjones | \
-		grep -v "Richard Jones" \
-		> AUTHORS-t
+	git shortlog -se | awk -F'\t' '{print $$2}' > AUTHORS-t
 	mv AUTHORS-t AUTHORS
 	cp AUTHORS $(distdir)/AUTHORS
 
