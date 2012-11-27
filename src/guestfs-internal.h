@@ -47,6 +47,7 @@
 #define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
 #define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+#define STRSUFFIX(a,b) (strlen((a)) >= strlen((b)) && STREQ((a)+strlen((a))-strlen((b)),(b)))
 
 #define _(str) dgettext(PACKAGE, (str))
 #define N_(str) dgettext(PACKAGE, (str))
@@ -590,6 +591,8 @@ extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const cha
 extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
 extern char *guestfs___first_line_of_file (guestfs_h *g, const char *filename);
 extern int guestfs___first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
+extern void guestfs___check_package_format (guestfs_h *g, struct inspect_fs *fs);
+extern void guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs);
 
 /* inspect-fs-unix.c */
 extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
@@ -604,6 +607,7 @@ extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
 
 /* inspect-fs-cd.c */
 extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_installer_iso (guestfs_h *g, struct inspect_fs *fs, const char *device);
 
 /* dbdump.c */
 typedef int (*guestfs___db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
@@ -621,6 +625,32 @@ extern void guestfs___free_fuse (guestfs_h *g);
 #ifdef HAVE_LIBVIRT
 extern virConnectPtr guestfs___open_libvirt_connection (guestfs_h *g, const char *uri, unsigned int flags);
 #endif
+
+/* osinfo.c */
+struct osinfo {
+  /* Data provided by libosinfo database. */
+  enum inspect_os_type type;
+  enum inspect_os_distro distro;
+  char *product_name;
+  int major_version;
+  int minor_version;
+  char *arch;
+  int is_live_disk;
+
+#if 0
+  /* Not yet available in libosinfo database. */
+  char *product_variant;
+  int is_netinst_disk;
+  int is_multipart_disk;
+#endif
+
+  /* The regular expressions used to match ISOs. */
+  pcre *re_system_id;
+  pcre *re_volume_id;
+  pcre *re_publisher_id;
+  pcre *re_application_id;
+};
+extern int guestfs___osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo, const struct osinfo **osinfo_ret);
 
 /* command.c */
 struct command;

@@ -168,6 +168,7 @@ libguestfs_la_SOURCES = \
 	listfs.c \
 	lpj.c \
 	match.c \
+	osinfo.c \
 	private-data.c \
 	proto.c \
 	tmpdirs.c \
@@ -194,6 +195,7 @@ libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
 libguestfs_la_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DLIBOSINFO_DB_PATH='"$(datadir)/libosinfo/db"' \
 	$(PCRE_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \

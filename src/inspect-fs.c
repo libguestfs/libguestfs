@@ -80,8 +80,6 @@ free_regexps (void)
 }
 
 static int check_filesystem (guestfs_h *g, const char *device, int is_block, int is_partnum);
-static void check_package_format (guestfs_h *g, struct inspect_fs *fs);
-static void check_package_management (guestfs_h *g, struct inspect_fs *fs);
 static int extend_fses (guestfs_h *g);
 
 /* Find out if 'device' contains a filesystem.  If it does, add
@@ -116,6 +114,24 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
     fs = &g->fses[g->nr_fses-1];
     fs->is_swap = 1;
     return 0;
+  }
+
+  /* If it's a whole device, see if it is an install ISO. */
+  if (is_block) {
+    if (extend_fses (g) == -1)
+      return -1;
+    fs = &g->fses[g->nr_fses-1];
+
+    r = guestfs___check_installer_iso (g, fs, device);
+    if (r == -1) {              /* Fatal error. */
+      g->nr_fses--;
+      return -1;
+    }
+    if (r > 0)                  /* Found something. */
+      return 0;
+
+    /* Didn't find anything.  Fall through ... */
+    g->nr_fses--;
   }
 
   /* Try mounting the device.  As above, ignore errors. */
@@ -276,8 +292,14 @@ check_filesystem (guestfs_h *g, const char *device,
      */
     fs->arch = safe_strdup (g, "i386");
   }
-  /* Install CD/disk?  Skip these checks if it's not a whole device
-   * (eg. CD) or the first partition (eg. bootable USB key).
+  /* Install CD/disk?
+   *
+   * Note that we checked (above) for an install ISO, but there are
+   * other types of install image (eg. USB keys) which that check
+   * wouldn't have picked up.
+   *
+   * Skip these checks if it's not a whole device (eg. CD) or the
+   * first partition (eg. bootable USB key).
    */
   else if ((is_block || is_partnum == 1) &&
            (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0 ||
@@ -298,8 +320,8 @@ check_filesystem (guestfs_h *g, const char *device,
   /* The above code should have set fs->type and fs->distro fields, so
    * we can now guess the package management system.
    */
-  check_package_format (g, fs);
-  check_package_management (g, fs);
+  guestfs___check_package_format (g, fs);
+  guestfs___check_package_management (g, fs);
 
   return 0;
 }
@@ -403,8 +425,8 @@ guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
  * simple function of the distro and major_version fields, so these
  * can never return an error.  We might be cleverer in future.
  */
-static void
-check_package_format (guestfs_h *g, struct inspect_fs *fs)
+void
+guestfs___check_package_format (guestfs_h *g, struct inspect_fs *fs)
 {
   switch (fs->distro) {
   case OS_DISTRO_FEDORA:
@@ -450,8 +472,8 @@ check_package_format (guestfs_h *g, struct inspect_fs *fs)
   }
 }
 
-static void
-check_package_management (guestfs_h *g, struct inspect_fs *fs)
+void
+guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
 {
   switch (fs->distro) {
   case OS_DISTRO_FEDORA:

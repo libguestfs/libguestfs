@@ -260,6 +260,7 @@ src/libvirt-domain.c
 src/listfs.c
 src/lpj.c
 src/match.c
+src/osinfo.c
 src/private-data.c
 src/proto.c
 src/tmpdirs.c
