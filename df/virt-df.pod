@@ -6,7 +6,11 @@ virt-df - Display free space on virtual filesystems
 
 =head1 SYNOPSIS
 
+All guests:
+
  virt-df [--options]
+
+Single guest:
 
  virt-df [--options] -d domname
 
@@ -32,7 +36,7 @@ a C<df>-type operation on each one in turn, printing out the results.
 If any I<-a> or I<-d> arguments are specified, C<virt-df> performs a
 C<df>-type operation on either the single named libvirt domain, or on
 the disk image(s) listed on the command line (which must all belong to
-a single VM).  In this mode (with arguments), C<virt-df> will I<only
+a single VM).  B<In this mode (with arguments), C<virt-df> will only
 work for a single guest>.  If you want to run on multiple guests, then
 you have to invoke C<virt-df> multiple times.
 
@@ -55,6 +59,16 @@ Show disk usage for a disk image file called C<test.img>:
  $ virt-df -a test1.img
  Filesystem                  1K-blocks     Used  Available  Use%
  test1.img:/dev/sda1             99099     1551      92432    2%
+
+If a single guest has multiple disks, use the I<-a> option repeatedly.
+A plus sign (C<+>) is displayed for each additional disk.  B<Note: Do
+not do this with unrelated guest disks.>
+
+ $ virt-df -a Win7x32TwoDisks-a -a Win7x32TwoDisks-b 
+ Filesystem                   1K-blocks    Used  Available  Use%
+ Win7x32TwoDisks-a+:/dev/sda1    102396   24712      77684   25%
+ Win7x32TwoDisks-a+:/dev/sda2  12478460 7403416    5075044   60%
+ Win7x32TwoDisks-a+:/dev/sdb1    521212   55728     465484   11%
 
 =head1 OPTIONS
 

@@ -57,6 +57,8 @@ int inodes = 0;                 /* --inodes */
 int one_per_guest = 0;          /* --one-per-guest */
 int uuid = 0;                   /* --uuid */
 
+static char *make_display_name (struct drv *drvs);
+
 static inline char *
 bad_cast (char const *s)
 {
@@ -269,7 +271,7 @@ main (int argc, char *argv[])
 #endif
   }
   else {
-    const char *name;
+    char *name;
 
     /* Add domains/drives from the command line (for a single guest). */
     add_drives (drvs, 'a');
@@ -280,21 +282,7 @@ main (int argc, char *argv[])
     print_title ();
 
     /* Synthesize a display name. */
-    switch (drvs->type) {
-    case drv_a:
-      name = strrchr (drvs->a.filename, '/');
-      if (name == NULL)
-        name = drvs->a.filename;
-      else
-        name++; /* skip '/' character */
-      break;
-    case drv_d:
-      name = drvs->d.guest;
-      break;
-    case drv_N:
-    default:
-      abort ();
-    }
+    name = make_display_name (drvs);
 
     /* XXX regression: in the Perl version we cached the UUID from the
      * libvirt domain handle so it was available to us here.  In this
@@ -304,6 +292,8 @@ main (int argc, char *argv[])
      */
     (void) df_on_handle (name, NULL, NULL, 0);
 
+    free (name);
+
     /* Free up data structures, no longer needed after this point. */
     free_drives (drvs);
   }
@@ -311,4 +301,83 @@ main (int argc, char *argv[])
   guestfs_close (g);
 
   exit (EXIT_SUCCESS);
+}
+
+/* Generate a display name for the single guest mode.  See comments in
+ * https://bugzilla.redhat.com/show_bug.cgi?id=880801
+ */
+static const char *
+single_drive_display_name (struct drv *drvs)
+{
+  const char *name;
+
+  assert (drvs != NULL);
+  assert (drvs->next == NULL);
+
+  switch (drvs->type) {
+  case drv_a:
+    name = strrchr (drvs->a.filename, '/');
+    if (name == NULL)
+      name = drvs->a.filename;
+    else
+      name++;                   /* skip '/' character */
+    break;
+  case drv_d:
+    name = drvs->d.guest;
+    break;
+  case drv_N:
+  default:
+    abort ();
+  }
+
+  return name;
+}
+
+static char *
+make_display_name (struct drv *drvs)
+{
+  char *ret;
+
+  assert (drvs != NULL);
+
+  /* Single disk or domain. */
+  if (drvs->next == NULL) {
+    const char *name;
+
+    name = single_drive_display_name (drvs);
+    ret = strdup (name);
+    if (ret == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+  /* Multiple disks.  Multiple domains are possible, although that is
+   * probably user error.  Choose the first name (last in the list),
+   * and add '+' for each additional disk.
+   */
+  else {
+    size_t pluses = 0;
+    size_t i, len;
+    const char *name;
+
+    while (drvs->next != NULL) {
+      drvs = drvs->next;
+      pluses++;
+    }
+
+    name = single_drive_display_name (drvs);
+    len = strlen (name);
+
+    ret = malloc (len + pluses + 1);
+    if (ret == NULL) {
+      perror ("malloc");
+      exit (EXIT_FAILURE);
+    }
+    memcpy (ret, name, len);
+    for (i = len; i < len + pluses; ++i)
+      ret[i] = '+';
+    ret[i] = '\0';
+  }
+
+  return ret;
 }
