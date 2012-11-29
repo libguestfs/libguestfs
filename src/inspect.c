@@ -41,6 +41,8 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+static int parent_device_already_probed (guestfs_h *g, const char *partition);
+
 /* The main inspection code. */
 char **
 guestfs__inspect_os (guestfs_h *g)
@@ -78,6 +80,9 @@ guestfs__inspect_os (guestfs_h *g)
   }
 
   for (i = 0; partitions[i] != NULL; ++i) {
+    if (parent_device_already_probed (g, partitions[i]))
+      continue;
+
     if (guestfs___check_for_filesystem_on (g, partitions[i], 0, i+1) == -1) {
       guestfs___free_string_list (partitions);
       guestfs___free_inspect_info (g);
@@ -130,6 +135,32 @@ guestfs__inspect_os (guestfs_h *g)
   if (ret == NULL)
     guestfs___free_inspect_info (g);
   return ret;
+}
+
+/* If we found a filesystem on the parent device then ignore the
+ * partitions within.
+ */
+static int
+parent_device_already_probed (guestfs_h *g, const char *partition)
+{
+  char *device;
+  size_t i;
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  device = guestfs_part_to_dev (g, partition);
+  guestfs_pop_error_handler (g);
+  if (!device)
+    return 0;
+
+  for (i = 0; i < g->nr_fses; ++i) {
+    if (STREQ (device, g->fses[i].device)) {
+      free (device);
+      return 1;
+    }
+  }
+
+  free (device);
+  return 0;
 }
 
 static int
