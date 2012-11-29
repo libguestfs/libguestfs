@@ -928,6 +928,10 @@ FreeBSD.
 
 NetBSD.
 
+=item \"openbsd\"
+
+OpenBSD.
+
 =item \"hurd\"
 
 GNU/Hurd.
@@ -1020,6 +1024,10 @@ Mandriva.
 =item \"meego\"
 
 MeeGo.
+
+=item \"openbsd\"
+
+OpenBSD.
 
 =item \"opensuse\"
 

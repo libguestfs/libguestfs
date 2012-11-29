@@ -385,6 +385,7 @@ enum inspect_os_type {
   OS_TYPE_NETBSD,
   OS_TYPE_HURD,
   OS_TYPE_DOS,
+  OS_TYPE_OPENBSD,
 };
 
 enum inspect_os_distro {
@@ -412,6 +413,7 @@ enum inspect_os_distro {
   OS_DISTRO_FREEDOS,
   OS_DISTRO_SUSE_BASED,
   OS_DISTRO_SLES,
+  OS_DISTRO_OPENBSD,
 };
 
 enum inspect_os_package_format {

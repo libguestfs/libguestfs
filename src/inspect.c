@@ -188,6 +188,7 @@ guestfs__inspect_get_type (guestfs_h *g, const char *root)
   case OS_TYPE_HURD: ret = safe_strdup (g, "hurd"); break;
   case OS_TYPE_LINUX: ret = safe_strdup (g, "linux"); break;
   case OS_TYPE_NETBSD: ret = safe_strdup (g, "netbsd"); break;
+  case OS_TYPE_OPENBSD: ret = safe_strdup (g, "openbsd"); break;
   case OS_TYPE_WINDOWS: ret = safe_strdup (g, "windows"); break;
   case OS_TYPE_UNKNOWN: default: ret = safe_strdup (g, "unknown"); break;
   }
@@ -226,6 +227,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_MAGEIA: ret = safe_strdup (g, "mageia"); break;
   case OS_DISTRO_MANDRIVA: ret = safe_strdup (g, "mandriva"); break;
   case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
+  case OS_DISTRO_OPENBSD: ret = safe_strdup (g, "openbsd"); break;
   case OS_DISTRO_OPENSUSE: ret = safe_strdup (g, "opensuse"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
