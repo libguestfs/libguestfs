@@ -79,6 +79,7 @@ add_drives (struct drv *drv, char next_drive)
       next_drive += r;
       break;
 
+#if COMPILING_GUESTFISH
     case drv_N:
       /* guestfs_add_drive (ie. autodetecting) should be safe here
        * since we have just created the prepared disk.  At the moment
@@ -93,6 +94,7 @@ add_drives (struct drv *drv, char next_drive)
       drv->nr_drives = 1;
       next_drive++;
       break;
+#endif
 
     default: /* keep GCC happy */
       abort ();
@@ -181,10 +183,12 @@ free_drives (struct drv *drv)
   switch (drv->type) {
   case drv_a: /* a.filename and a.format are optargs, don't free them */ break;
   case drv_d: /* d.filename is optarg, don't free it */ break;
+#if COMPILING_GUESTFISH
   case drv_N:
     free (drv->N.filename);
     drv->N.data_free (drv->N.data);
     break;
+#endif
   default: ;                    /* keep GCC happy */
   }
   free (drv);

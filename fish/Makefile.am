@@ -120,6 +120,7 @@ cmds-gperf.c: cmds-gperf.gperf
 	mv $@-t $@
 
 guestfish_CFLAGS = \
+	-DCOMPILING_GUESTFISH=1 \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \

@@ -325,7 +325,6 @@ single_drive_display_name (struct drv *drvs)
   case drv_d:
     name = drvs->d.guest;
     break;
-  case drv_N:
   default:
     abort ();
   }

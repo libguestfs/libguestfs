@@ -80,7 +80,13 @@ struct drv {
                     */
   int nr_drives;   /* number of drives for this guest */
 
-  enum { drv_a, drv_d, drv_N } type;
+  enum {
+    drv_a,                      /* -a option */
+    drv_d,                      /* -d option */
+#if COMPILING_GUESTFISH
+    drv_N,                      /* -N option (guestfish only) */
+#endif
+  } type;
   union {
     struct {
       char *filename;       /* disk filename */
