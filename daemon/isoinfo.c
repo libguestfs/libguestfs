@@ -57,7 +57,8 @@ parse_time_t (int64_t *ret, const char *str)
   struct tm tm;
   time_t r;
 
-  if (STREQ (str, "0000 00 00 00:00:00.00")) {
+  if (STREQ (str, "0000 00 00 00:00:00.00") ||
+      STREQ (str, "             :  :  .  ")) {
     *ret = -1;
     return 0;
   }
