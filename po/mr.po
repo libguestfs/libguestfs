@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-24 15:09+0000\n"
+"POT-Creation-Date: 2012-11-29 18:40+0000\n"
 "PO-Revision-Date: 2012-11-20 19:44+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -52,7 +52,7 @@ msgid "%s: failed to analyze a disk, see error(s) above\n"
 msgstr ""
 
 #: align/domains.c:351 align/scan.c:129 cat/virt-cat.c:121
-#: cat/virt-filesystems.c:196 cat/virt-ls.c:190 df/domains.c:437 df/main.c:136
+#: cat/virt-filesystems.c:196 cat/virt-ls.c:190 df/domains.c:437 df/main.c:138
 #: edit/virt-edit.c:143 fish/fish.c:234 format/format.c:137
 #: fuse/guestmount.c:208 inspector/virt-inspector.c:138
 #: rescue/virt-rescue.c:146
@@ -61,7 +61,7 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: हँडल निर्माण करण्यास अशक्य\n"
 
 #: align/scan.c:66 cat/virt-cat.c:61 cat/virt-filesystems.c:93
-#: cat/virt-ls.c:97 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:104
+#: cat/virt-ls.c:97 df/main.c:72 edit/virt-edit.c:75 fish/fish.c:104
 #: fuse/guestmount.c:100 inspector/virt-inspector.c:76 rescue/virt-rescue.c:63
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -89,14 +89,14 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:149 cat/virt-cat.c:143 cat/virt-filesystems.c:250
-#: cat/virt-ls.c:240 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:295
+#: cat/virt-ls.c:240 df/main.c:162 edit/virt-edit.c:165 fish/fish.c:295
 #: format/format.c:189 fuse/guestmount.c:238 inspector/virt-inspector.c:162
 #: rescue/virt-rescue.c:202
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
 
-#: align/scan.c:208 df/main.c:266
+#: align/scan.c:208 df/main.c:268
 #, c-format
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr ""
@@ -236,7 +236,7 @@ msgstr ""
 "  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
-#: cat/virt-filesystems.c:312 cat/virt-ls.c:344 df/main.c:254
+#: cat/virt-filesystems.c:312 cat/virt-ls.c:344 df/main.c:256
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: -h व --csv पर्यायचा एकत्रपणे वापर शक्य नाही.\n"
@@ -296,7 +296,7 @@ msgstr ""
 msgid "%s: ignoring %s, it has too many disks (%zu > %zu)\n"
 msgstr ""
 
-#: df/main.c:74
+#: df/main.c:76
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -3065,19 +3065,19 @@ msgstr "फाइल पेज करण्यासाठी '%s filename' य�
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: एकापेक्षा जास्त ड्राइव्ह्स् आदेश ओळवर समाविष्ट केले\n"
 
-#: fish/options.c:150
+#: fish/options.c:152
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr ""
 
-#: fish/options.c:154
+#: fish/options.c:156
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: fish/options.c:158
+#: fish/options.c:160
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
@@ -3871,8 +3871,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1527 src/inspect-fs.c:531
-#: src/inspect-fs.c:576 src/inspect.c:621
+#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1527 src/inspect-fs.c:555
+#: src/inspect-fs.c:600 src/inspect.c:654
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
@@ -3881,7 +3881,7 @@ msgstr "%s चे आकार असमंजसपणे मोठे आह�
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
-#: src/inspect-fs.c:360 src/inspect-fs.c:373
+#: src/inspect-fs.c:384 src/inspect-fs.c:397
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
@@ -3891,19 +3891,19 @@ msgstr "आवृत्ती क्रमांत इंटिजर वाच
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:294
+#: src/inspect.c:327
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "विंडोज अतिथी नाही, किंवा systemroot शोधणे अशक्य"
 
-#: src/inspect.c:310
+#: src/inspect.c:343
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:657
+#: src/inspect.c:690
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "अधिकृत तपासणी डाटा आढळले नाही: पहिले guestfs_inspect_os कॉल करा"
 
-#: src/inspect.c:669
+#: src/inspect.c:702
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -4201,6 +4201,15 @@ msgid ""
 msgstr ""
 "libguestfs ची ही आवृत्ती libvirt किंवा libxml2 विना कंपाईल केल्यामुळे add-domain API "
 "अनुपलब्ध आहे"
+
+#: src/osinfo.c:285
+msgid "osinfo: unable to create new XPath context"
+msgstr ""
+
+#: src/osinfo.c:296
+#, c-format
+msgid "osinfo: %s: unable to evaluate XPath expression"
+msgstr ""
 
 #: src/proto.c:354
 #, c-format
