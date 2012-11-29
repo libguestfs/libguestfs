@@ -192,12 +192,12 @@ noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
 libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
 
 libguestfs_la_CFLAGS = \
-  -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
-  -DGUESTFS_WARN_DEPRECATED=1 \
-  $(PCRE_CFLAGS) \
-  $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS) \
-  $(GCC_VISIBILITY_HIDDEN)
+	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	$(PCRE_CFLAGS) \
+	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GCC_VISIBILITY_HIDDEN)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 
