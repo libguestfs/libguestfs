@@ -513,6 +513,52 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   return NOT_FOUND;
 }
 
+/* NB about Windows 8: No location we've found so far contains a
+ * suitable icon for Win8.  In particular, explorer.exe definitely
+ * does *not* contain any Windows logo as a resource (I checked).
+ * Therefore the "basket icon" that this produces is just a stand-in
+ * until we have a better idea for solving this problem.
+ * XXX RHBZ#801117
+ */
+static char *
+icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
+                size_t *size_r)
+{
+  char *ret;
+  char *pngfile = NULL;
+  struct command *cmd;
+  int r;
+
+  pngfile = safe_asprintf (g, "%s/windows-8-icon.png", g->tmpdir);
+
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=3 --name=125 --raw ");
+  guestfs___cmd_add_string_quoted   (cmd, explorer);
+  guestfs___cmd_add_string_unquoted (cmd, " > ");
+  guestfs___cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs___cmd_run (cmd);
+  guestfs___cmd_close (cmd);
+  if (r == -1)
+    goto error;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    goto not_found;
+
+  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+    goto error;
+
+  free (pngfile);
+
+  return ret;
+
+ error:
+  free (pngfile);
+  return NULL;
+
+ not_found:
+  free (pngfile);
+  return NOT_FOUND;
+}
+
 static char *
 icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
@@ -528,6 +574,10 @@ icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   /* Windows 7. */
   else if (fs->major_version == 6 && fs->minor_version == 1)
     fn = icon_windows_7;
+
+  /* Windows 8. */
+  else if (fs->major_version == 6 && fs->minor_version == 2)
+    fn = icon_windows_8;
 
   /* Not (yet) a supported version of Windows. */
   else return NOT_FOUND;
