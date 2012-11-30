@@ -154,17 +154,23 @@ optgroup_acl_available (void)
   return 0;
 }
 
+extern char *do_acl_get_file (const char *path, const char *acltype) __attribute__((noreturn));
+
 char *
 do_acl_get_file (const char *path, const char *acltype)
 {
   abort ();
 }
 
+extern int do_acl_set_file (const char *path, const char *acltype, const char *acl) __attribute__((noreturn));
+
 int
 do_acl_set_file (const char *path, const char *acltype, const char *acl)
 {
   abort ();
 }
+
+extern int do_acl_delete_def_file (const char *dir) __attribute__((noreturn));
 
 int
 do_acl_delete_def_file (const char *dir)
