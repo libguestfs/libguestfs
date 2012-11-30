@@ -29,12 +29,22 @@ let hostname = ref "localhost.localdomain"
 let hostname_perform g root =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
-  match typ, distro with
-  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based") ->
-    (* Fedora 18 anaconda can create guests without
-     * /etc/sysconfig/network file.  If this happens then we may need
-     * to create this file (RHBZ#858696).
+  let major_version = g#inspect_get_major_version root in
+
+  let update_etc_hostname () =
+    g#write "/etc/hostname" !hostname;
+    [ `Created_files ]
+  in
+
+  match typ, distro, major_version with
+    (* Fedora 18 (hence RHEL 7+) changed to using /etc/hostname
+     * (RHBZ#881953, RHBZ#858696).
      *)
+  | "linux", "fedora", v when v >= 18 -> update_etc_hostname ()
+  | "linux", "rhel", v when v >= 7 -> update_etc_hostname ()
+  | "linux", ("debian"|"ubuntu"), _ -> update_etc_hostname ()
+
+  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
     let filename = "/etc/sysconfig/network" in
     if g#is_file filename then (
       (* Replace HOSTNAME=... entry.  The code assumes it's a small,
@@ -54,12 +64,8 @@ let hostname_perform g root =
     );
     [ `Created_files ]
 
-  | "linux", ("opensuse"|"sles"|"suse-based") ->
+  | "linux", ("opensuse"|"sles"|"suse-based"), _ ->
     g#write "/etc/HOSTNAME" !hostname;
-    [ `Created_files ]
-
-  | "linux", ("debian"|"ubuntu") ->
-    g#write "/etc/hostname" !hostname;
     [ `Created_files ]
 
   | _ -> []

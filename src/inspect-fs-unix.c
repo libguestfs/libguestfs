@@ -748,11 +748,11 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
   switch (fs->type) {
   case OS_TYPE_LINUX:
   case OS_TYPE_HURD:
-    /* Red Hat-derived would be in /etc/sysconfig/network, and
-     * Debian-derived in the file /etc/hostname.  Very old Debian and
-     * SUSE use /etc/HOSTNAME.  It's best to just look for each of
-     * these files in turn, rather than try anything clever based on
-     * distro.
+    /* Red Hat-derived would be in /etc/sysconfig/network or
+     * /etc/hostname (RHEL 7+, F18+).  Debian-derived in the file
+     * /etc/hostname.  Very old Debian and SUSE use /etc/HOSTNAME.
+     * It's best to just look for each of these files in turn, rather
+     * than try anything clever based on distro.
      */
     if (guestfs_is_file (g, "/etc/HOSTNAME")) {
       fs->hostname = guestfs___first_line_of_file (g, "/etc/HOSTNAME");
@@ -803,8 +803,9 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
-/* Parse the hostname from /etc/sysconfig/network.  This must be called
- * from the inspect_with_augeas wrapper.
+/* Parse the hostname from /etc/sysconfig/network.  This must be
+ * called from the inspect_with_augeas wrapper.  Note that F18+ and
+ * RHEL7+ use /etc/hostname just like Debian.
  */
 static int
 check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs)
