@@ -174,10 +174,16 @@ main (int argc, char *argv[])
   sleep (3);
 
   /* Create the handle. */
-  g = guestfs_create ();
+  g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);
   if (g == NULL) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to create libguestfs handle\n"));
+    exit (EXIT_FAILURE);
+  }
+  if (guestfs_parse_environment (g) == -1) {
+    fprintf (stderr,
+             _("libguestfs-test-tool: failed parsing environment variables.\n"
+               "Check earlier messages, and the output of the 'printenv' command.\n"));
     exit (EXIT_FAILURE);
   }
   guestfs_set_verbose (g, 1);
