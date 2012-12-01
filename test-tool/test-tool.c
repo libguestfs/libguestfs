@@ -104,20 +104,6 @@ main (int argc, char *argv[])
   struct guestfs_version *vers;
   char *p;
 
-  /* Create the handle. */
-  g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to create libguestfs handle\n"));
-    exit (EXIT_FAILURE);
-  }
-  guestfs_set_verbose (g, 1);
-  vers = guestfs_version (g);
-  if (vers == NULL) {
-    fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
-    exit (EXIT_FAILURE);
-  }
-
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
     if (c == -1) break;
@@ -146,15 +132,26 @@ main (int argc, char *argv[])
       break;
 
     case 'V':
+      g = guestfs_create ();
+      if (g == NULL) {
+        fprintf (stderr,
+                 _("libguestfs-test-tool: failed to create libguestfs handle\n"));
+        exit (EXIT_FAILURE);
+      }
+      vers = guestfs_version (g);
+      if (vers == NULL) {
+        fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
+        exit (EXIT_FAILURE);
+      }
       printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
               "libguestfs-test-tool",
               vers->major, vers->minor, vers->release, vers->extra);
-      guestfs_set_verbose (g, 0);
+      guestfs_free_version (vers);
+      guestfs_close (g);
       exit (EXIT_SUCCESS);
 
     case '?':
       usage ();
-      guestfs_set_verbose (g, 0);
       exit (EXIT_SUCCESS);
 
     default:
@@ -175,6 +172,15 @@ main (int argc, char *argv[])
           "     ************************************************************\n"
           );
   sleep (3);
+
+  /* Create the handle. */
+  g = guestfs_create ();
+  if (g == NULL) {
+    fprintf (stderr,
+             _("libguestfs-test-tool: failed to create libguestfs handle\n"));
+    exit (EXIT_FAILURE);
+  }
+  guestfs_set_verbose (g, 1);
 
   make_files ();
 
@@ -211,6 +217,11 @@ main (int argc, char *argv[])
   }
 
   /* Print any version info etc. */
+  vers = guestfs_version (g);
+  if (vers == NULL) {
+    fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
+    exit (EXIT_FAILURE);
+  }
   printf ("library version: %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
           vers->major, vers->minor, vers->release, vers->extra);
   guestfs_free_version (vers);
