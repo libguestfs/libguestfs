@@ -20,16 +20,16 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     (b)
 
-       ./configure --with-default-attach-method=libvirt[:URI]
+      using ./configure --with-default-attach-method=libvirt[:URI]
 
     (c)
 
-      setting the attach-method through the API
+      calling the API method guestfs_set_attach_method
 
     SVirt (SELinux confinement) is used to secure the libguestfs appliance,
     if the libvirt backend is selected.
 
-    virtio-scsi is now used by default, if available. This greatly
+    Virtio-scsi is now used by default, if available. This greatly
     increases the number of drives that can be added to a single libguestfs
     handle (up to 255).
 
@@ -37,14 +37,15 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     Libguestfs can now handle > 25 disks, in all APIs, tools and tests.
 
-    You can label drives when adding them, then optionally refer to them by
-    label through the API (/dev/disk/guestfs/LABEL).
+    You can label drives when adding them, then refer to them by label
+    (/dev/disk/guestfs/LABEL) instead of having to use device names
+    (/dev/sda).
 
     POSIX Access Control Lists (ACLs) and Linux filesystem capabilities can
     now be read and written through the API.
 
-    Several libguestfs APIs were reimplemented so they no longer suffer
-    from any protocol limits. The reimplemented APIs are: guestfs_cat,
+    Several libguestfs APIs were reimplemented so they no longer have any
+    limits on output. The reimplemented APIs are: guestfs_cat,
     guestfs_find, guestfs_read_file, guestfs_read_lines, guestfs_write,
     guestfs_write_append, guestfs_lstatlist, guestfs_lxattrlist,
     guestfs_readlinklist, guestfs_ls.
@@ -56,9 +57,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     guestfish has a new --network option, which enables the user network in
     libguestfs.
 
-    You can set GUESTFISH_PS1 to use fancy fonts in guestfish.
+    You can set GUESTFISH_PS1 to use fancy prompts in guestfish.
 
-    rsync and ssh commands are now availble in virt-rescue. In addition,
+    rsync and ssh commands are now available in virt-rescue. In addition,
     rsync can be used through the API for doing incremental copies.
 
     virt-sparsify uses qcow2 v3 for increased efficiency.
@@ -88,7 +89,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     virt-make-fs can now create virtual floppy disks (VFDs).
 
-    guestmount has a --pid-file option.
+    guestmount has a --pid-file option, which can be used to avoid a race
+    condition between unmounting the filesystem and using the underlying
+    disk image.
 
   language bindings
 
@@ -142,6 +145,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     A man page for the daemon (guestfsd(8)) is included.
 
  Security
+
+  guestfish history file
 
     The $HOME/.guestfish history file is now created with 0600 permissions
     (instead of 0644 before) so it is no longer world readable.
@@ -218,7 +223,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
  Internals
 
-    qemu ≥ 1.1.0 is required.
+    qemu ≥ 1.1 is required (≥ 1.2 preferred).
 
     febootstrap ≥ 3.20 is required.
 
@@ -246,8 +251,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     The way that libguestfs APIs and structures are represented in the
     generator has changed to use an OCaml struct instead of a tuple. This
-    makes it far more flexible. For details see commits 39d1a7db and
-    eb185eef.
+    makes generator descriptions more flexible and easier to understand.
+    For details see commits 39d1a7db and eb185eef.
 
     Separation of the library code into more files:
 
@@ -257,7 +262,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
       * Generated action code is now split over several src/action*.c
       files, for faster compilation.
 
-      * The huge src/guestfs.c file is now split into many smaller units.
+      * The huge src/guestfs.c file is now split into smaller logical
+      units.
 
     POD (documentation) is now generated using a rewritten Perl program
     instead of pod2* + shell scripts.
@@ -269,7 +275,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     The parallel mount-local test has been rewritten in C (RHBZ#838081).
 
-    Ruby 1.8.5 is now supported (though not recommended).
+    Ruby 1.8.5 is now supported (though Ruby ≥ 1.9 is preferred).
 
     Perl bindings can be disabled via ./configure --disable-perl (Wulf C.
     Krueger).
@@ -285,7 +291,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     The ./run script now sets enough environment variables that you can run
     OCaml, Python, Ruby, Java, GJS programs.
 
-    run --test flag for running tests with minimal output. It also prints
+    ./run --test flag for running tests with minimal output. It also prints
     the time taken to run each test.
 
     The ./run script now builds up paths cumulatively, meaning that you can
@@ -335,9 +341,6 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     The lpj option is passed to the appliance kernel when using TCG. This
     should improve clock stability (thanks Marcelo Tosatti, Olaf Hering).
-
-    lvresize no longer fails when the new size requested matches the
-    current LV size.
 
  Bugs fixed
 
