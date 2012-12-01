@@ -803,6 +803,45 @@ ntfs-3g filesystems (using L</guestfs_getxattr>).  See:
 
 L<http://www.tuxera.com/community/ntfs-3g-advanced/extended-attributes/>
 
+=head3 WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP
+
+Windows guests which have been hibernated (instead of fully shut down)
+cannot be mounted.  This is a limitation of ntfs-3g.  You will see an
+error like this:
+
+ The disk contains an unclean file system (0, 0).
+ Metadata kept in Windows cache, refused to mount.
+ Failed to mount '/dev/sda2': Operation not permitted
+ The NTFS partition is in an unsafe state. Please resume
+ and shutdown Windows fully (no hibernation or fast
+ restarting), or mount the volume read-only with the
+ 'ro' mount option.
+
+In Windows 8, the shutdown button does not shut down the guest at all.
+Instead it usually hibernates the guest.  This is known as "fast
+startup".
+
+Some suggested workarounds are:
+
+=over 4
+
+=item *
+
+Mount read-only (eg. L</guestfs_mount_ro>).
+
+=item *
+
+On Windows 8, turn off fast startup.  It is in the Control Panel →
+Power Options → Choose what the power buttons do → Change settings
+that are currently unavailable → Turn on fast startup.
+
+=item *
+
+On Windows 7 and earlier, shut the guest off properly instead of
+hibernating it.
+
+=back
+
 =head2 RESIZE2FS ERRORS
 
 The L</guestfs_resize2fs>, L</guestfs_resize2fs_size> and
