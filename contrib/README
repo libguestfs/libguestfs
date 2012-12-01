@@ -22,6 +22,11 @@ make-check-on-installed.pl
         we release them.  Note that a checked out copy of the source
         from git is required.  Read the top of the file before using.
 
+windows-icons.pl
+        This script lets you extract all the icons from a Windows
+        guest.  We use this to locate the Windows logo in new releases
+        of Windows (see src/inspect-icon.c).
+
 visualize-alignment/
         Tests for visualizing block device reads and writes and
         alignment using a patched qemu.  See the README file in that
