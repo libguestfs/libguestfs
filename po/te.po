@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-29 18:40+0000\n"
+"POT-Creation-Date: 2012-12-01 13:32+0000\n"
 "PO-Revision-Date: 2012-11-20 19:44+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -3722,7 +3722,7 @@ msgid ""
 "'appliance' instead"
 msgstr ""
 
-#: src/handle.c:255
+#: src/handle.c:259
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ఒకే సంభాలికపై రెండుసార్లు పిలువబడింది\n"
@@ -3743,13 +3743,13 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1527 src/inspect-fs.c:555
+#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:555
 #: src/inspect-fs.c:600 src/inspect.c:654
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs-unix.c:894
+#: src/inspect-fs-unix.c:895
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
@@ -3758,7 +3758,7 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect-icon.c:597
+#: src/inspect-icon.c:663
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
@@ -4142,7 +4142,17 @@ msgstr "ఫైలు ముక్కను పార్శ్ చేయుటల
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
-#: src/tmpdirs.c:88
+#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#, c-format
+msgid "failed to set temporary directory: %s"
+msgstr ""
+
+#: src/tmpdirs.c:64
+#, c-format
+msgid "temporary directory '%s' is not a directory"
+msgstr ""
+
+#: src/tmpdirs.c:133
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: తాత్కాలిక డైరెక్టరీను సృష్టించలేదు"
@@ -4164,67 +4174,74 @@ msgid ""
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:111
-#, c-format
-msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
-
-#: test-tool/test-tool.c:117
-#, c-format
-msgid "libguestfs-test-tool: guestfs_version failed\n"
-msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
-
-#: test-tool/test-tool.c:133
+#: test-tool/test-tool.c:119
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
 
-#: test-tool/test-tool.c:142
+#: test-tool/test-tool.c:128
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
 
-#: test-tool/test-tool.c:162
+#: test-tool/test-tool.c:138 test-tool/test-tool.c:180
+#, c-format
+msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
+
+#: test-tool/test-tool.c:143 test-tool/test-tool.c:228
+#, c-format
+msgid "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
+
+#: test-tool/test-tool.c:159
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
 
-#: test-tool/test-tool.c:208
+#: test-tool/test-tool.c:185
+#, c-format
+msgid ""
+"libguestfs-test-tool: failed parsing environment variables.\n"
+"Check earlier messages, and the output of the 'printenv' command.\n"
+msgstr ""
+
+#: test-tool/test-tool.c:220
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:251
+#: test-tool/test-tool.c:268
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:263
+#: test-tool/test-tool.c:280
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:269
+#: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:282
+#: test-tool/test-tool.c:299
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:288
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:321
+#: test-tool/test-tool.c:338
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4233,12 +4250,12 @@ msgstr ""
 "LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ యిప్పటికే అమర్చబడింది, అందువలన\n"
 "--qemu/--qemudir ఐచ్చికములు వుపయోగించలేము.\n"
 
-#: test-tool/test-tool.c:329
+#: test-tool/test-tool.c:346
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
 
-#: test-tool/test-tool.c:346
+#: test-tool/test-tool.c:363
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
@@ -4628,11 +4645,11 @@ msgstr ""
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:70
+#: ../sysprep/sysprep_operation_hostname.ml:76
 msgid "Change the hostname of the guest"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:79
+#: ../sysprep/sysprep_operation_hostname.ml:85
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -4866,7 +4883,7 @@ msgstr ""
 msgid "Never do SELinux relabel"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:78
+#: ../sysprep/sysprep_operation_hostname.ml:84
 msgid "New hostname"
 msgstr ""
 
@@ -5222,7 +5239,7 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:71
+#: ../sysprep/sysprep_operation_hostname.ml:77
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -5326,7 +5343,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:78
+#: ../sysprep/sysprep_operation_hostname.ml:84
 msgid "hostname"
 msgstr ""
 

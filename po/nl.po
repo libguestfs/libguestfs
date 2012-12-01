@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-29 18:40+0000\n"
+"POT-Creation-Date: 2012-12-01 13:32+0000\n"
 "PO-Revision-Date: 2012-11-20 19:44+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -4100,7 +4100,7 @@ msgid ""
 "'appliance' instead"
 msgstr ""
 
-#: src/handle.c:255
+#: src/handle.c:259
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: twee keer dezelfde hendel aangeroepen\n"
@@ -4121,13 +4121,13 @@ msgid "release file %s is empty or malformed"
 msgstr "release bestand %s is leeg of misvormd"
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1527 src/inspect-fs.c:555
+#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:555
 #: src/inspect-fs.c:600 src/inspect.c:654
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "groote van %s is buitensporig groot (%<PRIi64> bytes)"
 
-#: src/inspect-fs-unix.c:894
+#: src/inspect-fs-unix.c:895
 msgid "could not parse /etc/fstab or empty file"
 msgstr "kan /etc/fstab niet ontleden of leeg bestand"
 
@@ -4136,7 +4136,7 @@ msgstr "kan /etc/fstab niet ontleden of leeg bestand"
 msgid "could not parse integer in version number: %s"
 msgstr "kon integer in versie nummer niet ontleden: %s"
 
-#: src/inspect-icon.c:597
+#: src/inspect-icon.c:663
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "lezen: %s: onverwacht einde van bestand"
@@ -4547,7 +4547,17 @@ msgstr "bestand chunk ontleden mislukte"
 msgid "file receive cancelled by daemon"
 msgstr "bestand ontvangen geannuleerd door daemon"
 
-#: src/tmpdirs.c:88
+#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#, c-format
+msgid "failed to set temporary directory: %s"
+msgstr ""
+
+#: src/tmpdirs.c:64
+#, c-format
+msgid "temporary directory '%s' is not a directory"
+msgstr ""
+
+#: src/tmpdirs.c:133
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: kan geen tijdelijke map aanmaken"
@@ -4581,67 +4591,74 @@ msgstr ""
 "  --version\n"
 "  -V             Toon libguestfs versie en sluitaf\n"
 
-#: test-tool/test-tool.c:111
-#, c-format
-msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr "libguestfs-test-tool: libguestfs hendel aanmaken mislukte\n"
-
-#: test-tool/test-tool.c:117
-#, c-format
-msgid "libguestfs-test-tool: guestfs_version failed\n"
-msgstr "libguestfs-test-tool: guestfs_version mislukte\n"
-
-#: test-tool/test-tool.c:133
+#: test-tool/test-tool.c:119
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: onbekende lange optie: %s (%d)\n"
 
-#: test-tool/test-tool.c:142
+#: test-tool/test-tool.c:128
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: ongeldige time-out: %s\n"
 
-#: test-tool/test-tool.c:162
+#: test-tool/test-tool.c:138 test-tool/test-tool.c:180
+#, c-format
+msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr "libguestfs-test-tool: libguestfs hendel aanmaken mislukte\n"
+
+#: test-tool/test-tool.c:143 test-tool/test-tool.c:228
+#, c-format
+msgid "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: guestfs_version mislukte\n"
+
+#: test-tool/test-tool.c:159
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: onverwachte commando regel optie 0x%x\n"
 
-#: test-tool/test-tool.c:208
+#: test-tool/test-tool.c:185
+#, c-format
+msgid ""
+"libguestfs-test-tool: failed parsing environment variables.\n"
+"Check earlier messages, and the output of the 'printenv' command.\n"
+msgstr ""
+
+#: test-tool/test-tool.c:220
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: station '%s' toevoegen mislukte\n"
 
-#: test-tool/test-tool.c:251
+#: test-tool/test-tool.c:268
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: toestel lanceren mislukte\n"
 
-#: test-tool/test-tool.c:263
+#: test-tool/test-tool.c:280
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: part-disk draaien mislukte\n"
 
-#: test-tool/test-tool.c:269
+#: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 mislukte\n"
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: aankoppelen van /dev/sda1 op / mislukte\n"
 
-#: test-tool/test-tool.c:282
+#: test-tool/test-tool.c:299
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: bestand touchen mislukte\n"
 
-#: test-tool/test-tool.c:288
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: afsluiten mislukte\n"
 
-#: test-tool/test-tool.c:321
+#: test-tool/test-tool.c:338
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4650,12 +4667,12 @@ msgstr ""
 "LIBGUESTFS_QEMU omgevingsvariabele al is ingesteld, dus\n"
 "de --qemu/--qemudir opties kunnen niet gebruikt worden.\n"
 
-#: test-tool/test-tool.c:329
+#: test-tool/test-tool.c:346
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
 
-#: test-tool/test-tool.c:346
+#: test-tool/test-tool.c:363
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ziet er niet uit als een qemu bron map\n"
@@ -5121,11 +5138,11 @@ msgstr "Richt eerste partitie uit (standaard: auto)"
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:70
+#: ../sysprep/sysprep_operation_hostname.ml:76
 msgid "Change the hostname of the guest"
 msgstr "Verander de hostnaam van een gast"
 
-#: ../sysprep/sysprep_operation_hostname.ml:79
+#: ../sysprep/sysprep_operation_hostname.ml:85
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -5396,7 +5413,7 @@ msgstr "Aankoppel punt op host"
 msgid "Never do SELinux relabel"
 msgstr "Voer nooit een SELinux relabel uit"
 
-#: ../sysprep/sysprep_operation_hostname.ml:78
+#: ../sysprep/sysprep_operation_hostname.ml:84
 msgid "New hostname"
 msgstr "Nieuwe hostnaam"
 
@@ -5817,7 +5834,7 @@ msgstr ""
 "van de schijf van de virtuele machine, maar in oudere distributies werd het "
 "opgeslagen op de schijf."
 
-#: ../sysprep/sysprep_operation_hostname.ml:71
+#: ../sysprep/sysprep_operation_hostname.ml:77
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -5940,7 +5957,7 @@ msgstr "formaat"
 msgid "fs"
 msgstr "bs"
 
-#: ../sysprep/sysprep_operation_hostname.ml:78
+#: ../sysprep/sysprep_operation_hostname.ml:84
 msgid "hostname"
 msgstr "hostnaam"
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-29 18:40+0000\n"
+"POT-Creation-Date: 2012-12-01 13:32+0000\n"
 "PO-Revision-Date: 2012-11-20 19:44+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4261,7 +4261,7 @@ msgstr ""
 "libguestfs було зібрано з некоректним типовим методом attach, будемо "
 "використовувати замість нього метод «appliance»"
 
-#: src/handle.c:255
+#: src/handle.c:259
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
@@ -4282,13 +4282,13 @@ msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1527 src/inspect-fs.c:555
+#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:555
 #: src/inspect-fs.c:600 src/inspect.c:654
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect-fs-unix.c:894
+#: src/inspect-fs-unix.c:895
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
@@ -4297,7 +4297,7 @@ msgstr "не вдалося обробити /etc/fstab або порожній 
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:597
+#: src/inspect-icon.c:663
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
@@ -4738,7 +4738,17 @@ msgstr "не вдалося обробити фрагмент файла"
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
-#: src/tmpdirs.c:88
+#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#, c-format
+msgid "failed to set temporary directory: %s"
+msgstr ""
+
+#: src/tmpdirs.c:64
+#, c-format
+msgid "temporary directory '%s' is not a directory"
+msgstr ""
+
+#: src/tmpdirs.c:133
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
@@ -4772,68 +4782,75 @@ msgstr ""
 "  --version\n"
 "  -V             Показати дані щодо версії libguestfs і завершити роботу\n"
 
-#: test-tool/test-tool.c:111
+#: test-tool/test-tool.c:119
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: невідомий довгий запис параметра: %s (%d)\n"
+
+#: test-tool/test-tool.c:128
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: некоректне значення часу очікування: %s\n"
+
+#: test-tool/test-tool.c:138 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
 
-#: test-tool/test-tool.c:117
+#: test-tool/test-tool.c:143 test-tool/test-tool.c:228
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: помилка guestfs_version\n"
 
-#: test-tool/test-tool.c:133
-#, c-format
-msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: невідомий довгий запис параметра: %s (%d)\n"
-
-#: test-tool/test-tool.c:142
-#, c-format
-msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: некоректне значення часу очікування: %s\n"
-
-#: test-tool/test-tool.c:162
+#: test-tool/test-tool.c:159
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
-#: test-tool/test-tool.c:208
+#: test-tool/test-tool.c:185
+#, c-format
+msgid ""
+"libguestfs-test-tool: failed parsing environment variables.\n"
+"Check earlier messages, and the output of the 'printenv' command.\n"
+msgstr ""
+
+#: test-tool/test-tool.c:220
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
 
-#: test-tool/test-tool.c:251
+#: test-tool/test-tool.c:268
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:263
+#: test-tool/test-tool.c:280
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося запустити part-disk\n"
 
-#: test-tool/test-tool.c:269
+#: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:282
+#: test-tool/test-tool.c:299
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: не вдалося виконати touch для файла\n"
 
-#: test-tool/test-tool.c:288
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: спроба завершення роботи зазнала невдачі\n"
 
-#: test-tool/test-tool.c:321
+#: test-tool/test-tool.c:338
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4842,12 +4859,12 @@ msgstr ""
 "Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:329
+#: test-tool/test-tool.c:346
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:346
+#: test-tool/test-tool.c:363
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
@@ -5324,11 +5341,11 @@ msgstr "Вирівняти перший розділ (типове значен�
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr "Змінити UUID ФТ і ГТ LVM2"
 
-#: ../sysprep/sysprep_operation_hostname.ml:70
+#: ../sysprep/sysprep_operation_hostname.ml:76
 msgid "Change the hostname of the guest"
 msgstr "Змінити назву вузла гостьової системи"
 
-#: ../sysprep/sysprep_operation_hostname.ml:79
+#: ../sysprep/sysprep_operation_hostname.ml:85
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -5601,7 +5618,7 @@ msgstr "Точка монтування у основній системі"
 msgid "Never do SELinux relabel"
 msgstr "Ніколи не виконувати зміни міток SELinux"
 
-#: ../sysprep/sysprep_operation_hostname.ml:78
+#: ../sysprep/sysprep_operation_hostname.ml:84
 msgid "New hostname"
 msgstr "Нова назва вузла"
 
@@ -6073,7 +6090,7 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../sysprep/sysprep_operation_hostname.ml:71
+#: ../sysprep/sysprep_operation_hostname.ml:77
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -6197,7 +6214,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "файлова система"
 
-#: ../sysprep/sysprep_operation_hostname.ml:78
+#: ../sysprep/sysprep_operation_hostname.ml:84
 msgid "hostname"
 msgstr "назва_вузла"
 
