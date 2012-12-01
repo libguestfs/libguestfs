@@ -432,19 +432,33 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
  */
 
 static char *
-icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
-                 size_t *size_r)
+icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
-  char *ret;
+  char *filename = NULL;
+  char *filename_case = NULL;
+  char *filename_downloaded = NULL;
   char *pngfile = NULL;
+  char *ret;
   struct command *cmd;
   int r;
+
+  /* Download %systemroot%\explorer.exe */
+  filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
+  filename_case = guestfs___case_sensitive_path_silently (g, filename);
+  if (filename_case == NULL)
+    goto not_found;
+
+  filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
+                                                   "explorer.exe",
+                                                   MAX_WINDOWS_EXPLORER_SIZE);
+  if (filename_downloaded == NULL)
+    goto not_found;
 
   pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
 
   cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=143 ");
-  guestfs___cmd_add_string_quoted   (cmd, explorer);
+  guestfs___cmd_add_string_quoted   (cmd, filename_downloaded);
   guestfs___cmd_add_string_unquoted (cmd,
                                      " | " BMPTOPNM " | " PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
@@ -458,33 +472,55 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   if (read_whole_file (g, pngfile, &ret, size_r) == -1)
     goto error;
 
+  free (filename);
+  free (filename_case);
+  free (filename_downloaded);
   free (pngfile);
-
   return ret;
 
  error:
+  free (filename);
+  free (filename_case);
+  free (filename_downloaded);
   free (pngfile);
   return NULL;
 
  not_found:
+  free (filename);
+  free (filename_case);
+  free (filename_downloaded);
   free (pngfile);
   return NOT_FOUND;
 }
 
 static char *
-icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
-                size_t *size_r)
+icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
-  char *ret;
+  char *filename = NULL;
+  char *filename_case = NULL;
+  char *filename_downloaded = NULL;
   char *pngfile = NULL;
+  char *ret;
   struct command *cmd;
   int r;
+
+  /* Download %systemroot%\explorer.exe */
+  filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
+  filename_case = guestfs___case_sensitive_path_silently (g, filename);
+  if (filename_case == NULL)
+    goto not_found;
+
+  filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
+                                                   "explorer.exe",
+                                                   MAX_WINDOWS_EXPLORER_SIZE);
+  if (filename_downloaded == NULL)
+    goto not_found;
 
   pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
 
   cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=6801 ");
-  guestfs___cmd_add_string_quoted   (cmd, explorer);
+  guestfs___cmd_add_string_quoted   (cmd, filename_downloaded);
   guestfs___cmd_add_string_unquoted (cmd,
                                      " | " BMPTOPNM " | "
                                      PAMCUT " -bottom 54 | "
@@ -500,107 +536,87 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
   if (read_whole_file (g, pngfile, &ret, size_r) == -1)
     goto error;
 
+  free (filename);
+  free (filename_case);
+  free (filename_downloaded);
   free (pngfile);
-
   return ret;
 
  error:
+  free (filename);
+  free (filename_case);
+  free (filename_downloaded);
   free (pngfile);
   return NULL;
 
  not_found:
+  free (filename);
+  free (filename_case);
+  free (filename_downloaded);
   free (pngfile);
   return NOT_FOUND;
 }
 
-/* NB about Windows 8: No location we've found so far contains a
- * suitable icon for Win8.  In particular, explorer.exe definitely
- * does *not* contain any Windows logo as a resource (I checked).
- * Therefore the "basket icon" that this produces is just a stand-in
- * until we have a better idea for solving this problem.
- * XXX RHBZ#801117
+/* There are several sources we might use:
+ * - /ProgramData/Microsoft/Windows Live/WLive48x48.png
+ * - w-brand.png (in a very long directory name)
+ * - /Windows/System32/slui.exe --type=14 group icon #2
  */
 static char *
-icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
-                size_t *size_r)
+icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
+  char *filename_case = NULL;
+  char *filename_downloaded = NULL;
   char *ret;
-  char *pngfile = NULL;
-  struct command *cmd;
-  int r;
 
-  pngfile = safe_asprintf (g, "%s/windows-8-icon.png", g->tmpdir);
-
-  cmd = guestfs___new_command (g);
-  guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=3 --name=125 --raw ");
-  guestfs___cmd_add_string_quoted   (cmd, explorer);
-  guestfs___cmd_add_string_unquoted (cmd, " > ");
-  guestfs___cmd_add_string_quoted   (cmd, pngfile);
-  r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
-  if (r == -1)
-    goto error;
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+  filename_case = guestfs___case_sensitive_path_silently
+    (g, "/ProgramData/Microsoft/Windows Live/WLive48x48.png");
+  if (filename_case == NULL)
     goto not_found;
 
-  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+  filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
+                                                   "wlive48x48.png", 8192);
+  if (filename_downloaded == NULL)
+    goto not_found;
+
+  if (read_whole_file (g, filename_downloaded, &ret, size_r) == -1)
     goto error;
 
-  free (pngfile);
-
+  free (filename_case);
+  free (filename_downloaded);
   return ret;
 
  error:
-  free (pngfile);
+  free (filename_case);
+  free (filename_downloaded);
   return NULL;
 
  not_found:
-  free (pngfile);
+  free (filename_case);
+  free (filename_downloaded);
   return NOT_FOUND;
 }
 
 static char *
 icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
-  char *(*fn) (guestfs_h *g, struct inspect_fs *fs, const char *explorer,
-               size_t *size_r);
-  char *filename1, *filename2, *filename3;
-  char *ret;
-
-  /* Windows XP. */
-  if (fs->major_version == 5 && fs->minor_version == 1)
-    fn = icon_windows_xp;
-
-  /* Windows 7. */
-  else if (fs->major_version == 6 && fs->minor_version == 1)
-    fn = icon_windows_7;
-
-  /* Windows 8. */
-  else if (fs->major_version == 6 && fs->minor_version == 2)
-    fn = icon_windows_8;
-
-  /* Not (yet) a supported version of Windows. */
-  else return NOT_FOUND;
-
   if (fs->windows_systemroot == NULL)
     return NOT_FOUND;
 
-  /* Download %systemroot%\explorer.exe */
-  filename1 = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
-  filename2 = guestfs___case_sensitive_path_silently (g, filename1);
-  free (filename1);
-  if (filename2 == NULL)
-    return NOT_FOUND;
+  /* Windows XP. */
+  if (fs->major_version == 5 && fs->minor_version == 1)
+    return icon_windows_xp (g, fs, size_r);
 
-  filename3 = guestfs___download_to_tmp (g, fs, filename2, "explorer",
-                                         MAX_WINDOWS_EXPLORER_SIZE);
-  free (filename2);
-  if (filename3 == NULL)
-    return NOT_FOUND;
+  /* Windows 7. */
+  else if (fs->major_version == 6 && fs->minor_version == 1)
+    return icon_windows_7 (g, fs, size_r);
 
-  ret = fn (g, fs, filename3, size_r);
-  free (filename3);
-  return ret;
+  /* Windows 8. */
+  else if (fs->major_version == 6 && fs->minor_version == 2)
+    return icon_windows_8 (g, fs, size_r);
+
+  /* Not (yet) a supported version of Windows. */
+  else return NOT_FOUND;
 }
 
 #endif /* CAN_DO_WINDOWS */
