@@ -554,6 +554,7 @@ extern void guestfs___call_callbacks_message (guestfs_h *g, uint64_t event, cons
 extern void guestfs___call_callbacks_array (guestfs_h *g, uint64_t event, const uint64_t *array, size_t array_len);
 
 /* tmpdirs.c */
+extern int guestfs___set_env_tmpdir (guestfs_h *g, const char *tmpdir);
 extern int guestfs___lazy_make_tmpdir (guestfs_h *g);
 extern void guestfs___remove_tmpdir (guestfs_h *g);
 extern void guestfs___recursive_remove_dir (guestfs_h *g, const char *dir);

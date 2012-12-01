@@ -172,16 +172,20 @@ parse_environment (guestfs_h *g,
     guestfs_set_verbose (g, 1);
 
   str = do_getenv (data, "LIBGUESTFS_TMPDIR");
-  if (str)
-    guestfs_set_tmpdir (g, str);
+  if (str) {
+    if (guestfs_set_tmpdir (g, str) == -1)
+      return -1;
+  }
 
   str = do_getenv (data, "LIBGUESTFS_CACHEDIR");
-  if (str)
-    guestfs_set_cachedir (g, str);
+  if (str) {
+    if (guestfs_set_cachedir (g, str) == -1)
+      return -1;
+  }
 
-  free (g->env_tmpdir);
   str = do_getenv (data, "TMPDIR");
-  g->env_tmpdir = str ? safe_strdup (g, str) : NULL;
+  if (guestfs___set_env_tmpdir (g, str) == -1)
+    return -1;
 
   str = do_getenv (data, "LIBGUESTFS_PATH");
   if (str)

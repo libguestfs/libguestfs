@@ -21,17 +21,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <limits.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
+/* We need to make all tmpdir paths absolute because lots of places in
+ * the code assume this.  Do it at the time we set the path or read
+ * the environment variable (RHBZ#882417).
+ */
+static int
+set_abs_path (guestfs_h *g, const char *tmpdir, char **tmpdir_ret)
+{
+  char *ret;
+  struct stat statbuf;
+
+  /* Free the old path, and set it to NULL so that if we fail below
+   * we don't end up with a pointer to freed memory.
+   */
+  free (*tmpdir_ret);
+  *tmpdir_ret = NULL;
+
+  if (tmpdir == NULL)
+    return 0;
+
+  ret = realpath (tmpdir, NULL);
+  if (ret == NULL) {
+    perrorf (g, _("failed to set temporary directory: %s"), tmpdir);
+    return -1;
+  }
+
+  if (stat (ret, &statbuf) == -1) {
+    perrorf (g, _("failed to set temporary directory: %s"), tmpdir);
+    return -1;
+  }
+
+  if (!S_ISDIR (statbuf.st_mode)) {
+    error (g, _("temporary directory '%s' is not a directory"), tmpdir);
+    return -1;
+  }
+
+  *tmpdir_ret = ret;
+  return 0;
+}
+
+int
+guestfs___set_env_tmpdir (guestfs_h *g, const char *tmpdir)
+{
+  return set_abs_path (g, tmpdir, &g->env_tmpdir);
+}
+
 int
 guestfs__set_tmpdir (guestfs_h *g, const char *tmpdir)
 {
-  free (g->int_tmpdir);
-  g->int_tmpdir = tmpdir ? safe_strdup (g, tmpdir) : NULL;
-  return 0;
+  return set_abs_path (g, tmpdir, &g->int_tmpdir);
 }
 
 /* Note this actually calculates the tmpdir, so it never returns NULL. */
@@ -53,9 +100,7 @@ guestfs__get_tmpdir (guestfs_h *g)
 int
 guestfs__set_cachedir (guestfs_h *g, const char *cachedir)
 {
-  free (g->int_cachedir);
-  g->int_cachedir = cachedir ? safe_strdup (g, cachedir) : NULL;
-  return 0;
+  return set_abs_path (g, cachedir, &g->int_cachedir);
 }
 
 /* Note this actually calculates the cachedir, so it never returns NULL. */

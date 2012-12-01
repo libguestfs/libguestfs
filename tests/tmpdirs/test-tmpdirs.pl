@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use Sys::Guestfs;
+use File::Temp qw(tempdir);
 
 # Remove any environment variables that may have been set by the
 # user or the ./run script which could affect this test.
@@ -35,14 +36,19 @@ $g = Sys::Guestfs->new ();
 die unless $g->get_tmpdir () eq "/tmp";
 die unless $g->get_cachedir () eq "/var/tmp";
 
+# Create some test directories.
+my $a = tempdir (CLEANUP => 1);
+my $b = tempdir (CLEANUP => 1);
+my $c = tempdir (CLEANUP => 1);
+
 # Setting environment variables.
-$ENV{LIBGUESTFS_TMPDIR} = "a";
-$ENV{LIBGUESTFS_CACHEDIR} = "b";
-$ENV{TMPDIR} = "c";
+$ENV{LIBGUESTFS_TMPDIR} = $a;
+$ENV{LIBGUESTFS_CACHEDIR} = $b;
+$ENV{TMPDIR} = $c;
 
 $g = Sys::Guestfs->new ();
-die unless $g->get_tmpdir () eq "a";
-die unless $g->get_cachedir () eq "b";
+die unless $g->get_tmpdir () eq $a;
+die unless $g->get_cachedir () eq $b;
 
 # Creating a handle which isn't affected by environment variables.
 $g = Sys::Guestfs->new (environment => 0);
@@ -52,10 +58,20 @@ die unless $g->get_cachedir () eq "/var/tmp";
 # Uses TMPDIR if the others are not set.
 delete $ENV{LIBGUESTFS_TMPDIR};
 $g = Sys::Guestfs->new ();
-die unless $g->get_tmpdir () eq "c";
-die unless $g->get_cachedir () eq "b";
+die unless $g->get_tmpdir () eq $c;
+die unless $g->get_cachedir () eq $b;
 
 delete $ENV{LIBGUESTFS_CACHEDIR};
 $g = Sys::Guestfs->new ();
-die unless $g->get_tmpdir () eq "c";
-die unless $g->get_cachedir () eq "c";
+die unless $g->get_tmpdir () eq $c;
+die unless $g->get_cachedir () eq $c;
+
+# Directories should be made absolute automatically.
+delete $ENV{LIBGUESTFS_TMPDIR};
+delete $ENV{LIBGUESTFS_CACHEDIR};
+delete $ENV{TMPDIR};
+$ENV{TMPDIR} = ".";
+$g = Sys::Guestfs->new ();
+my $pwd = `pwd`; chomp $pwd;
+die unless $g->get_tmpdir () eq $pwd;
+die unless $g->get_cachedir () eq $pwd;
