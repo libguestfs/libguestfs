@@ -26,11 +26,13 @@
   e2fsprogs
   /* e4fsprogs only exists on RHEL 5, will be ignored everywhere else. */
   e4fsprogs
+  genisoimage
   gfs-utils
   gfs2-utils
   grub
   hfsplus-tools
   hivex
+  iproute
   iputils
   kernel
   MAKEDEV
@@ -41,7 +43,6 @@
   reiserfs-utils
   libselinux
   systemd /* for /sbin/reboot and udevd */
-  util-linux-ng
   vim-minimal
   xz
   zfs-fuse
@@ -52,6 +53,7 @@
   btrfs-tools
   cryptsetup
   e2fsprogs
+  genisoimage
   gfs-tools
   gfs2-tools
   grub-pc
@@ -66,28 +68,30 @@
   openssh-client
   reiserfsprogs
   ufsutils
-  util-linux
   vim-tiny
   xz-utils
   zfs-fuse
 #endif /* DEBIAN */
 
 #ifdef ARCHLINUX
-  linux
-  vim
-  btrfs-progs-unstable
-  cryptsetup
   augeas
-  hivex
-  zfs-fuse
+  btrfs-progs
+  cdrkit
+  cryptsetup
   e2fsprogs
   grub
+  hivex
+  iproute2
   iputils
+  linux
+  lrzip
   nilfs-utils
   ntfsprogs
   ntfs-3g
   reiserfsprogs
-  util-linux-ng
+  systemd
+  vim
+  zfs-fuse
   xz
 #endif /* ARCHLINUX */
 
@@ -103,11 +107,11 @@ dosfstools
 file
 findutils
 gawk
-genisoimage
 grep
 gzip
-iproute
 jfsutils
+kmod
+less
 libxml2
 lsof
 lsscsi
@@ -122,12 +126,16 @@ ocfs2-tools
 */
 parted
 procps
+procps-ng
 psmisc
 rsync
 scrub
+sed
 strace
 tar
 udev
+util-linux
+util-linux-ng
 #ifndef UBUNTU
 /* on Ubuntu contains a file in /lib64 which conflicts with libc6 that has
  * /lib64 as a symbolic link
