@@ -46,9 +46,10 @@ guestmount_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(FUSE_CFLAGS) \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS) \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(FUSE_CFLAGS)
 
 guestmount_LDADD = \
 	$(FUSE_LIBS) \

@@ -127,6 +127,7 @@ guestfish_CFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS)
 
 guestfish_LDADD = \

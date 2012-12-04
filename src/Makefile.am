@@ -196,10 +196,12 @@ libguestfs_la_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLIBOSINFO_DB_PATH='"$(datadir)/libosinfo/db"' \
-	$(PCRE_CFLAGS) \
-	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GCC_VISIBILITY_HIDDEN)
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
+	$(GCC_VISIBILITY_HIDDEN) \
+	$(PCRE_CFLAGS) \
+	$(LIBVIRT_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 

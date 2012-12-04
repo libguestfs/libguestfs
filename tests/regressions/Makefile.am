@@ -45,7 +45,8 @@ check_PROGRAMS = \
 rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 rhbz501893_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -53,7 +54,8 @@ rhbz790721_SOURCES = rhbz790721.c
 rhbz790721_CFLAGS = \
 	-pthread \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 rhbz790721_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 

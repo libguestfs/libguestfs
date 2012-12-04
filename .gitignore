@@ -9,6 +9,9 @@
 *.cmxa
 *.diff
 *.eml
+*.gcda
+*.gcno
+*.gcov
 *.hi
 *.jar
 *.la
@@ -23,6 +26,7 @@ bindtests.tmp
 cscope.out
 .deps
 .gdb_history
+gmon.out
 .libs
 Makefile
 Makefile.in

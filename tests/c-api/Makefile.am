@@ -68,8 +68,10 @@ TESTS_ENVIRONMENT = \
 #SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi)
 
 tests_SOURCES = tests.c
-tests_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS)
+tests_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 tests_LDADD = $(top_builddir)/src/libguestfs.la
 
 # This binary must be statically linked.  It is used for testing
@@ -83,7 +85,8 @@ test_command_LDFLAGS = -all-static
 test_just_header_SOURCES = test-just-header.c
 test_just_header_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_just_header_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -91,7 +94,8 @@ if HAVE_CXX
 test_just_header_cxx_SOURCES = test-just-header-cxx.cpp
 test_just_header_cxx_CXXFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_just_header_cxx_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 endif
@@ -99,35 +103,40 @@ endif
 test_create_handle_SOURCES = test-create-handle.c
 test_create_handle_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_create_handle_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_config_SOURCES = test-config.c
 test_config_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_config_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_add_drive_opts_SOURCES = test-add-drive-opts.c
 test_add_drive_opts_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_add_drive_opts_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_last_errno_SOURCES = test-last-errno.c
 test_last_errno_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_last_errno_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_private_data_SOURCES = test-private-data.c
 test_private_data_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_private_data_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -135,7 +144,8 @@ test_user_cancel_SOURCES = test-user-cancel.c
 test_user_cancel_CFLAGS = \
 	-pthread \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_user_cancel_LDADD = \
 	$(top_builddir)/src/libguestfs.la -lm
 
@@ -144,7 +154,8 @@ test_debug_to_file_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_debug_to_file_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
@@ -154,7 +165,8 @@ test_environment_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_environment_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
@@ -164,7 +176,8 @@ test_environment_LDADD = \
 #test_add_libvirt_dom_CFLAGS = \
 #	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib \
 #	$(LIBVIRT_CFLAGS) \
-#	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+#	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+#	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 #test_add_libvirt_dom_LDADD = \
 #	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
 #	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la

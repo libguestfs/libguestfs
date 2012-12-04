@@ -48,7 +48,8 @@ copy_over_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 copy_over_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBVIRT_LIBS)
@@ -59,7 +60,8 @@ libvirt_auth_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 libvirt_auth_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBVIRT_LIBS)
@@ -69,7 +71,8 @@ create_disk_SOURCES = create_disk.c
 create_disk_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 create_disk_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -77,7 +80,8 @@ display_icon_SOURCES = display_icon.c
 display_icon_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 display_icon_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -85,7 +89,8 @@ inspect_vm_SOURCES = inspect_vm.c
 inspect_vm_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 inspect_vm_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -95,7 +100,8 @@ mount_local_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(FUSE_CFLAGS) \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 mount_local_LDADD = \
 	$(FUSE_LIBS) \
 	$(top_builddir)/src/libguestfs.la
@@ -106,7 +112,8 @@ virt_dhcp_address_SOURCES = virt-dhcp-address.c
 virt_dhcp_address_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 virt_dhcp_address_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 endif

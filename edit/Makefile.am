@@ -43,8 +43,9 @@ virt_edit_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(LIBCONFIG_CFLAGS) \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
+	$(LIBCONFIG_CFLAGS)
 
 virt_edit_LDADD = \
 	$(LIBCONFIG_LIBS) \

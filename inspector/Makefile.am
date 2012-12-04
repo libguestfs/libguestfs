@@ -69,9 +69,10 @@ virt_inspector_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(LIBCONFIG_CFLAGS)
 
 virt_inspector_LDADD = \
 	$(LIBCONFIG_LIBS) \

@@ -66,7 +66,10 @@ OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 virt-resize: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
+	  mlguestfs.cmxa -linkpkg $^ \
+	  -cclib -lncurses \
+	  $(OCAML_GCOV_LDFLAGS) \
+	  -o $@
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@

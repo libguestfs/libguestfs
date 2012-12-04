@@ -45,7 +45,8 @@ erl_guestfs_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-I$(ERLANG_LIB_DIR_erl_interface)/include \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 
 erl_guestfs_LDADD = \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/liberl_interface.a \
