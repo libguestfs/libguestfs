@@ -52,6 +52,7 @@ daemon/internal.c
 daemon/is.c
 daemon/isoinfo.c
 daemon/labels.c
+daemon/ldm.c
 daemon/link.c
 daemon/ls.c
 daemon/luks.c

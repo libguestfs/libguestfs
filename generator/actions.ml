@@ -10526,6 +10526,167 @@ This function sets the Linux capabilities attached to C<path>.
 The capabilities set C<cap> should be passed in text form
 (see L<cap_from_text(3)>)." };
 
+  { defaults with
+    name = "list_ldm_volumes";
+    style = RStringList "devices", [], [];
+    proc_nr = Some 380;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "list all Windows dynamic disk volumes";
+    longdesc = "\
+This function returns all Windows dynamic disk volumes
+that were found at launch time.  It returns a list of
+device names." };
+
+  { defaults with
+    name = "list_ldm_partitions";
+    style = RStringList "devices", [], [];
+    proc_nr = Some 381;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "list all Windows dynamic disk partitions";
+    longdesc = "\
+This function returns all Windows dynamic disk partitions
+that were found at launch time.  It returns a list of
+device names." };
+
+  { defaults with
+    name = "ldmtool_create_all";
+    style = RErr, [], [];
+    proc_nr = Some 382;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "scan and create Windows dynamic disk volumes";
+    longdesc = "\
+This function scans all block devices looking for Windows
+dynamic disk volumes and partitions, and creates devices
+for any that were found.
+
+Call C<guestfs_list_ldm_volumes> and C<guestfs_list_ldm_partitions>
+to return all devices.
+
+Note that you B<don't> normally need to call this explicitly,
+since it is done automatically at C<guestfs_launch> time.
+However you might want to call this function if you have
+hotplugged disks or have just created a Windows dynamic disk." };
+
+  { defaults with
+    name = "ldmtool_remove_all";
+    style = RErr, [], [];
+    proc_nr = Some 383;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "remove all Windows dynamic disk volumes";
+    longdesc = "\
+This is essentially the opposite of C<guestfs_ldmtool_create_all>.
+It removes the device mapper mappings for all Windows dynamic disk
+volumes" };
+
+  { defaults with
+    name = "ldmtool_scan";
+    style = RStringList "guids", [], [];
+    proc_nr = Some 384;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "scan for Windows dynamic disks";
+    longdesc = "\
+This function scans for Windows dynamic disks.  It returns a list
+of identifiers (GUIDs) for all disk groups that were found.  These
+identifiers can be passed to other C<guestfs_ldmtool_*> functions.
+
+This function scans all block devices.  To scan a subset of
+block devices, call C<guestfs_ldmtool_scan_devices> instead." };
+
+  { defaults with
+    name = "ldmtool_scan_devices";
+    style = RStringList "guids", [DeviceList "devices"], [];
+    proc_nr = Some 385;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "scan for Windows dynamic disks";
+    longdesc = "\
+This function scans for Windows dynamic disks.  It returns a list
+of identifiers (GUIDs) for all disk groups that were found.  These
+identifiers can be passed to other C<guestfs_ldmtool_*> functions.
+
+The parameter C<devices> is a list of block devices which are
+scanned.  If this list is empty, all block devices are scanned." };
+
+  { defaults with
+    name = "ldmtool_diskgroup_name";
+    style = RString "name", [String "diskgroup"], [];
+    proc_nr = Some 386;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "return the name of a Windows dynamic disk group";
+    longdesc = "\
+Return the name of a Windows dynamic disk group.  The C<diskgroup>
+parameter should be the GUID of a disk group, one element from
+the list returned by C<guestfs_ldmtool_scan>." };
+
+  { defaults with
+    name = "ldmtool_diskgroup_volumes";
+    style = RStringList "volumes", [String "diskgroup"], [];
+    proc_nr = Some 387;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "return the volumes in a Windows dynamic disk group";
+    longdesc = "\
+Return the volumes in a Windows dynamic disk group.  The C<diskgroup>
+parameter should be the GUID of a disk group, one element from
+the list returned by C<guestfs_ldmtool_scan>." };
+
+  { defaults with
+    name = "ldmtool_diskgroup_disks";
+    style = RStringList "disks", [String "diskgroup"], [];
+    proc_nr = Some 388;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "return the disks in a Windows dynamic disk group";
+    longdesc = "\
+Return the disks in a Windows dynamic disk group.  The C<diskgroup>
+parameter should be the GUID of a disk group, one element from
+the list returned by C<guestfs_ldmtool_scan>." };
+
+  { defaults with
+    name = "ldmtool_volume_type";
+    style = RString "voltype", [String "diskgroup"; String "volume"], [];
+    proc_nr = Some 389;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "return the type of a Windows dynamic disk volume";
+    longdesc = "\
+Return the type of the volume named C<volume> in the disk
+group with GUID <diskgroup>.
+
+Possible volume types that can be returned here include:
+C<simple>, C<spanned>, C<striped>, C<mirrored>, C<raid5>.
+Other types may also be returned." };
+
+  { defaults with
+    name = "ldmtool_volume_hint";
+    style = RString "hint", [String "diskgroup"; String "volume"], [];
+    proc_nr = Some 390;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "return the hint field of a Windows dynamic disk volume";
+    longdesc = "\
+Return the hint field of the volume named C<volume> in the disk
+group with GUID <diskgroup>.  This may not be defined, in which
+case the empty string is returned.  The hint field is often, though
+not always, the name of a Windows drive, eg. C<E:>." };
+
+  { defaults with
+    name = "ldmtool_volume_partitions";
+    style = RStringList "partitions", [String "diskgroup"; String "volume"], [];
+    proc_nr = Some 391;
+    optional = Some "ldm";
+    tests = [];
+    shortdesc = "return the partitions in a Windows dynamic disk volume";
+    longdesc = "\
+Return the list of partitions in the volume named C<volume> in the disk
+group with GUID <diskgroup>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

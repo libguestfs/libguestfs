@@ -52,6 +52,8 @@ guestfs__list_filesystems (guestfs_h *g)
   char **partitions = NULL;
   char **mds = NULL;
   char **lvs = NULL;
+  char **ldmvols = NULL;
+  char **ldmparts = NULL;
 
   /* Look to see if any devices directly contain filesystems
    * (RHBZ#590167).  However vfs-type will fail to tell us anything
@@ -94,17 +96,36 @@ guestfs__list_filesystems (guestfs_h *g)
       check_with_vfs_type (g, lvs[i], &ret, &ret_size);
   }
 
+  if (guestfs___feature_available (g, "ldm")) {
+    /* Use vfs-type to check for filesystems on Windows dynamic disks. */
+    ldmvols = guestfs_list_ldm_volumes (g);
+    if (ldmvols == NULL) goto error;
+
+    for (i = 0; ldmvols[i] != NULL; ++i)
+      check_with_vfs_type (g, ldmvols[i], &ret, &ret_size);
+
+    ldmparts = guestfs_list_ldm_partitions (g);
+    if (ldmparts == NULL) goto error;
+
+    for (i = 0; ldmparts[i] != NULL; ++i)
+      check_with_vfs_type (g, ldmparts[i], &ret, &ret_size);
+  }
+
   guestfs___free_string_list (devices);
   guestfs___free_string_list (partitions);
   guestfs___free_string_list (mds);
   if (lvs) guestfs___free_string_list (lvs);
+  if (ldmvols) guestfs___free_string_list (ldmvols);
+  if (ldmparts) guestfs___free_string_list (ldmparts);
   return ret;
 
  error:
   if (devices) guestfs___free_string_list (devices);
   if (partitions) guestfs___free_string_list (partitions);
   if (mds) guestfs___free_string_list (mds);
-  //if (lvs) guestfs___free_string_list (lvs);
+  if (lvs) guestfs___free_string_list (lvs);
+  if (ldmvols) guestfs___free_string_list (ldmvols);
+  if (ldmparts) guestfs___free_string_list (ldmparts);
   if (ret) guestfs___free_string_list (ret);
   return NULL;
 }

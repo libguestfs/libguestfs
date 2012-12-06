@@ -35,6 +35,7 @@
   iproute
   iputils
   kernel
+  libldm /* only Fedora has this for now, but we should add it to others later*/
   MAKEDEV
   nilfs-utils
   ntfsprogs
@@ -45,6 +46,7 @@
   systemd /* for /sbin/reboot and udevd */
   vim-minimal
   xz
+  yajl
   zfs-fuse
 #endif /* REDHAT */
 
@@ -61,6 +63,7 @@
   iproute
   libaugeas0
   libhivex0
+  libyajl2
   linux-image
   nilfs-tools
   ntfs-3g
@@ -91,8 +94,9 @@
   reiserfsprogs
   systemd
   vim
-  zfs-fuse
   xz
+  yajl
+  zfs-fuse
 #endif /* ARCHLINUX */
 
 acl

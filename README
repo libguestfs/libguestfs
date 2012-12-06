@@ -112,6 +112,12 @@ For basic functionality and the C tools:
 
 - Linux capabilities library (libcap) (optional)
 
+- libldm and ldmtool (optional)
+  This is used to handle Windows dynamic disks.
+
+- yajl >= 2 (optional)
+  JSON parser, needed to handle the output of ldmtool.
+
 - netpbm, icoutils (optional)
   These programs are used to render icons from guests.
 

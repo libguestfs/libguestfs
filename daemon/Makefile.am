@@ -136,6 +136,7 @@ guestfsd_SOURCES = \
 	is.c \
 	isoinfo.c \
 	labels.c \
+	ldm.c \
 	link.c \
 	ls.c \
 	luks.c \
@@ -185,6 +186,7 @@ guestfsd_LDADD = \
 	libprotocol.a \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
+	$(YAJL_LIBS) \
 	$(SELINUX_LIB) \
 	$(AUGEAS_LIBS) \
 	$(HIVEX_LIBS) \
@@ -201,7 +203,8 @@ guestfsd_CPPFLAGS = -I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(AUGEAS_CFLAGS) \
-	$(HIVEX_CFLAGS)
+	$(HIVEX_CFLAGS) \
+	$(YAJL_CFLAGS)
 
 # Manual pages and HTML files for the website.
 man_MANS = guestfsd.8

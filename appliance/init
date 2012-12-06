@@ -91,6 +91,9 @@ modprobe dm_mod ||:
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
 
+# Scan for Windows dynamic disks.
+ldmtool create all
+
 # Improve virtio-blk performance (RHBZ#509383).
 for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
 
