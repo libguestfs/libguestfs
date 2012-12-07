@@ -310,6 +310,77 @@ See L<bash(1)> for more details.
 
 =back
 
+=head1 CAPTURING CORE DUMPS
+
+If you are testing a tool inside virt-rescue and the tool (B<not>
+virt-rescue) segfaults, it can be tricky to capture the core dump
+outside virt-rescue for later analysis.  This section describes one
+way to do this.
+
+=over 4
+
+=item 1.
+
+Create a scratch disk for core dumps:
+
+ truncate -s 4G /tmp/corefiles
+ virt-format --partition=mbr --filesystem=ext2 -a /tmp/corefiles
+ virt-filesystems -a /tmp/corefiles --all --long -h
+
+=item 2.
+
+When starting virt-rescue, attach the core files disk last:
+
+ virt-rescue --rw [-a ...] -a /tmp/corefiles
+
+B<NB.> If you use the I<--ro> option, then virt-rescue will silently
+not write any core files to C</tmp/corefiles>.
+
+=item 3.
+
+Inside virt-rescue, mount the core files disk.  Note replace
+C</dev/sdb1> with the last disk index.  For example if the core files
+disk is the last of four disks, you would use C</dev/sdd1>.
+
+ ><rescue> mkdir /tmp/mnt
+ ><rescue> mount /dev/sdb1 /tmp/mnt
+
+=item 4.
+
+Enable core dumps in the rescue kernel:
+
+ ><rescue> echo '/tmp/mnt/core.%p' > /proc/sys/kernel/core_pattern
+ ><rescue> ulimit -Hc unlimited
+ ><rescue> ulimit -Sc unlimited
+
+=item 5.
+
+Run the tool that caused the core dump.  The core dump will be written
+to C</tmp/mnt/core.I<PID>>.
+
+ ><rescue> ls -l /tmp/mnt
+ total 1628
+ -rw------- 1 root root 1941504 Dec  7 13:13 core.130
+ drwx------ 2 root root   16384 Dec  7 13:00 lost+found
+
+=item 6.
+
+Before exiting virt-rescue, unmount (or at least sync) the disks:
+
+ ><rescue> umount /tmp/mnt
+ ><rescue> exit
+
+=item 7.
+
+Outside virt-rescue, the core dump(s) can be removed from the disk
+using L<guestfish(1)>.  For example:
+
+ guestfish --ro -a /tmp/corefiles -m /dev/sda1
+ ><fs> ll /
+ ><fs> download /core.NNN /tmp/core.NNN
+
+=back
+
 =head1 ENVIRONMENT VARIABLES
 
 Several environment variables affect virt-rescue.  See
