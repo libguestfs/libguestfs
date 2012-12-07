@@ -1485,23 +1485,20 @@ int
 guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
                       const struct guestfs_mount_local_argv *optargs)
 {
-  guestfs_error_errno (g, ENOTSUP, _("FUSE not supported"));
-  return -1;
+  NOT_SUPPORTED (g, -1, _("FUSE not supported"));
 }
 
 int
 guestfs__mount_local_run (guestfs_h *g)
 {
-  guestfs_error_errno (g, ENOTSUP, _("FUSE not supported"));
-  return -1;
+  NOT_SUPPORTED (g, -1, _("FUSE not supported"));
 }
 
 int
 guestfs__umount_local (guestfs_h *g,
                        const struct guestfs_umount_local_argv *optargs)
 {
-  guestfs_error_errno (g, ENOTSUP, _("FUSE not supported"));
-  return -1;
+  NOT_SUPPORTED (g, -1, _("FUSE not supported"));
 }
 
 #endif /* !HAVE_FUSE */

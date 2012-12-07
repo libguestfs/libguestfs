@@ -376,6 +376,14 @@ is_zero (const char *buffer, size_t size)
   }									\
   while (0)
 
+/* Marks functions which are not supported. */
+#define NOT_SUPPORTED(errcode,...)                      \
+    do {                                                \
+      reply_with_error_errno (ENOTSUP, __VA_ARGS__);    \
+      return (errcode);                                 \
+    }                                                   \
+    while (0)
+
 #ifndef __attribute__
 # if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
 #  define __attribute__(x) /* empty */

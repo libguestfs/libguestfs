@@ -517,6 +517,13 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
 #define debug(g,...) \
   do { if ((g)->verbose) guestfs___debug ((g),__VA_ARGS__); } while (0)
 
+#define NOT_SUPPORTED(g,errcode,...)                     \
+  do {                                                   \
+    guestfs_error_errno ((g), ENOTSUP, __VA_ARGS__);     \
+    return (errcode);                                    \
+  }                                                      \
+  while (0)
+
 /* utils.c */
 extern void guestfs___free_string_list (char **);
 

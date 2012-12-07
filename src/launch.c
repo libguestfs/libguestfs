@@ -710,11 +710,9 @@ guestfs__get_pid (guestfs_h *g)
     return -1;
   }
 
-  if (g->attach_ops->get_pid == NULL) {
-    guestfs_error_errno (g, ENOTSUP,
-                         _("the current attach-method does not support 'get-pid'"));
-    return -1;
-  }
+  if (g->attach_ops->get_pid == NULL)
+    NOT_SUPPORTED (g, -1,
+                   _("the current attach-method does not support 'get-pid'"));
 
   return g->attach_ops->get_pid (g);
 }
@@ -725,11 +723,9 @@ guestfs__max_disks (guestfs_h *g)
 {
   const struct attach_ops *attach_ops = get_attach_ops (g);
 
-  if (attach_ops->max_disks == NULL) {
-    guestfs_error_errno (g, ENOTSUP,
-                         _("the current attach-method does not allow max disks to be queried"));
-    return -1;
-  }
+  if (attach_ops->max_disks == NULL)
+    NOT_SUPPORTED (g, -1,
+                   _("the current attach-method does not allow max disks to be queried"));
 
   return attach_ops->max_disks (g);
 }
