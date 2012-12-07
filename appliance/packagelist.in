@@ -147,3 +147,8 @@ zerofree
 #ifdef VALGRIND_DAEMON
 valgrind
 #endif
+
+/* Enable this to add useful debugging tools to the appliance. */
+#if 0
+gdb
+#endif
