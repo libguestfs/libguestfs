@@ -116,17 +116,13 @@ optgroup_linuxcaps_available (void)
   return 0;
 }
 
-extern char *do_cap_get_file (const char *path) __attribute__((noreturn));
-
-char *
+char * __attribute__((noreturn))
 do_cap_get_file (const char *path)
 {
   abort ();
 }
 
-extern int do_cap_set_file (const char *path, const char *cap) __attribute__((noreturn));
-
-int
+int __attribute__((noreturn))
 do_cap_set_file (const char *path, const char *cap)
 {
   abort ();
