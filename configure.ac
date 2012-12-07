@@ -143,11 +143,13 @@ if test "$gl_gcc_warnings" = yes; then
     gl_WARN_ADD([$w])
   done
 
-  # Normally we disable warnings in $nw above.  However for some
-  # unknown reason that doesn't always work, and we need to explicitly
-  # list a few disabled warnings below.
+  # Normally we disable warnings in $nw above.  However $nw only
+  # filters out exact matching warning strings from a list inside
+  # gnulib (see m4/manywarnings.m4).  So we need to explicitly list a
+  # few disabled warnings below.
 
-  gl_WARN_ADD([-Wno-unused-parameter]) # Unused parameters are not a bug.
+  # Unused parameters are not a bug.
+  gl_WARN_ADD([-Wno-unused-parameter])
 
   # Missing field initializers is not a bug in C.
   gl_WARN_ADD([-Wno-missing-field-initializers])
