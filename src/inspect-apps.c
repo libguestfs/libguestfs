@@ -399,7 +399,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
     return NULL;
 
   struct guestfs_application2_list *apps = NULL, *ret = NULL;
-  FILE *fp = NULL;
+  FILE *fp;
   char line[1024];
   size_t len;
   char *name = NULL, *version = NULL, *release = NULL, *arch = NULL;
@@ -469,18 +469,18 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 
   if (fclose (fp) == -1) {
     perrorf (g, "fclose: %s", status);
-    fp = NULL;
     goto out;
   }
-  fp = NULL;
 
   ret = apps;
 
  out:
   if (ret == NULL && apps != NULL)
     guestfs_free_application2_list (apps);
+  /*
   if (fp)
     fclose (fp);
+  */
   free (name);
   free (version);
   free (release);
