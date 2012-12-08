@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "c-ctype.h"
+#include "ignore-value.h"
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
@@ -103,7 +104,7 @@ test_proc_filesystems (const char *filesystem)
 static void
 modprobe (const char *module)
 {
-  command (NULL, NULL, str_modprobe, module, NULL);
+  ignore_value (command (NULL, NULL, str_modprobe, module, NULL));
 }
 
 /* Internal function for testing if a filesystem is available.  Note
