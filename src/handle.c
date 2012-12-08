@@ -33,6 +33,7 @@
 #endif
 
 #include "glthread/lock.h"
+#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -122,7 +123,7 @@ guestfs_create_flags (unsigned flags, ...)
   }
 
   if (!(flags & GUESTFS_CREATE_NO_ENVIRONMENT))
-    guestfs_parse_environment (g);
+    ignore_value (guestfs_parse_environment (g));
 
   if (!(flags & GUESTFS_CREATE_NO_CLOSE_ON_EXIT)) {
     g->close_on_exit = true;
