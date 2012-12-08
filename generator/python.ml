@@ -259,7 +259,7 @@ free_strings (char **argv)
 
       pr "  PyObject *py_g;\n";
       pr "  guestfs_h *g;\n";
-      pr "  PyObject *py_r;\n";
+      pr "  PyObject *py_r = NULL;\n";
 
       if optargs <> [] then (
         pr "  struct %s optargs_s;\n" c_function;
@@ -292,7 +292,7 @@ free_strings (char **argv)
             pr "  Py_ssize_t %s_size;\n" n
         | StringList n | DeviceList n ->
             pr "  PyObject *py_%s;\n" n;
-            pr "  char **%s;\n" n
+            pr "  char **%s = NULL;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  long long %s;\n" n
@@ -358,7 +358,7 @@ free_strings (char **argv)
       ) optargs;
 
       pr "))\n";
-      pr "    return NULL;\n";
+      pr "    goto out;\n";
 
       pr "  g = get_handle (py_g);\n";
       List.iter (
@@ -368,7 +368,7 @@ free_strings (char **argv)
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
-            pr "  if (!%s) return NULL;\n" n
+            pr "  if (!%s) goto out;\n" n
         | Pointer (t, n) ->
             pr "  %s = (%s) (intptr_t) %s_int64;\n" n t n
       ) args;
@@ -385,10 +385,10 @@ free_strings (char **argv)
             (match optarg with
             | OBool _ | OInt _ ->
               pr "    optargs_s.%s = PyLong_AsLong (py_%s);\n" n n;
-              pr "    if (PyErr_Occurred ()) return NULL;\n"
+              pr "    if (PyErr_Occurred ()) goto out;\n"
             | OInt64 _ ->
               pr "    optargs_s.%s = PyLong_AsLongLong (py_%s);\n" n n;
-              pr "    if (PyErr_Occurred ()) return NULL;\n"
+              pr "    if (PyErr_Occurred ()) goto out;\n"
             | OString _ ->
               pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
               pr "    optargs_s.%s = PyString_AsString (py_%s);\n" n n;
@@ -399,7 +399,7 @@ free_strings (char **argv)
               pr "#endif\n";
             | OStringList _ ->
               pr "    optargs_s.%s = get_string_list (py_%s);\n" n n;
-              pr "    if (!optargs_s.%s) return NULL;\n" n;
+              pr "    if (!optargs_s.%s) goto out;\n" n;
             );
             pr "  }\n";
         ) optargs;
@@ -427,34 +427,17 @@ free_strings (char **argv)
         pr "\n"
       );
 
-      List.iter (
-        function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ -> ()
-        | StringList n | DeviceList n ->
-            pr "  free (%s);\n" n
-      ) args;
-
-      List.iter (
-        function
-        | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
-        | OStringList n ->
-          pr "  if (py_%s != Py_None)\n" n;
-          pr "    free ((char **) optargs_s.%s);\n" n
-      ) optargs;
-
       (match errcode_of_ret ret with
        | `CannotReturnError -> ()
        | `ErrorIsMinusOne ->
            pr "  if (r == -1) {\n";
            pr "    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));\n";
-           pr "    return NULL;\n";
+           pr "    goto out;\n";
            pr "  }\n"
        | `ErrorIsNULL ->
            pr "  if (r == NULL) {\n";
            pr "    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));\n";
-           pr "    return NULL;\n";
+           pr "    goto out;\n";
            pr "  }\n"
       );
       pr "\n";
@@ -510,6 +493,26 @@ free_strings (char **argv)
            pr "#endif\n";
            pr "  free (r);\n"
       );
+
+      pr "\n";
+      pr " out:\n";
+
+      List.iter (
+        function
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
+        | BufferIn _ | Pointer _ -> ()
+        | StringList n | DeviceList n ->
+            pr "  free (%s);\n" n
+      ) args;
+
+      List.iter (
+        function
+        | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
+        | OStringList n ->
+          pr "  if (py_%s != Py_None)\n" n;
+          pr "    free ((char **) optargs_s.%s);\n" n
+      ) optargs;
 
       pr "  return py_r;\n";
       pr "}\n";
