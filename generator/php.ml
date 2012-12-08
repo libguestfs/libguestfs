@@ -103,6 +103,7 @@ PHP_MINIT_FUNCTION (guestfs_php)
   res_guestfs_h =
     zend_register_list_destructors_ex (guestfs_php_handle_dtor,
     NULL, PHP_GUESTFS_HANDLE_RES_NAME, module_number);
+  return SUCCESS;
 }
 
 static zend_function_entry guestfs_php_functions[] = {
