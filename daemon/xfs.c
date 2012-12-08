@@ -154,21 +154,21 @@ parse_xfs_info (char **lines)
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_inodesize, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "agcount="))) {
       buf = split_strdup (p + 8);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_agcount, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "agsize="))) {
       buf = split_strdup (p + 7);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_agsize, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "sectsz="))) {
       buf = split_strdup (p + 7);
@@ -176,11 +176,11 @@ parse_xfs_info (char **lines)
       if (i == 1) {
         if (parse_uint32 (&ret->xfs_sectsize, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else if (i == 6) {
         if (parse_uint32 (&ret->xfs_logsectsize, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "attr="))) {
@@ -188,7 +188,7 @@ parse_xfs_info (char **lines)
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_attr, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "bsize="))) {
       buf = split_strdup (p + 6);
@@ -196,15 +196,15 @@ parse_xfs_info (char **lines)
       if (i == 2) {
         if (parse_uint32 (&ret->xfs_blocksize, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else if (i == 4) {
         if (parse_uint32 (&ret->xfs_dirblocksize, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else if (i == 5) {
         if (parse_uint32 (&ret->xfs_logblocksize, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "blocks="))) {
@@ -213,15 +213,15 @@ parse_xfs_info (char **lines)
       if (i == 2) {
         if (parse_uint64 (&ret->xfs_datablocks, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else if (i == 5) {
         if (parse_uint32 (&ret->xfs_logblocks, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else if (i == 7) {
         if (parse_uint64 (&ret->xfs_rtblocks, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "imaxpct="))) {
@@ -229,7 +229,7 @@ parse_xfs_info (char **lines)
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_imaxpct, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "sunit="))) {
       buf = split_strdup (p + 6);
@@ -237,11 +237,11 @@ parse_xfs_info (char **lines)
       if (i == 3) {
         if (parse_uint32 (&ret->xfs_sunit, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else if (i == 6) {
         if (parse_uint32 (&ret->xfs_logsunit, buf) == -1)
           goto error;
-        free (buf);
+        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "swidth="))) {
@@ -249,21 +249,21 @@ parse_xfs_info (char **lines)
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_swidth, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "naming   =version "))) {
       buf = split_strdup (p + 18);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_dirversion, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "ascii-ci="))) {
       buf = split_strdup (p + 9);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_cimode, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "log      ="))) {
       ret->xfs_logname = split_strdup (p + 10);
@@ -274,14 +274,14 @@ parse_xfs_info (char **lines)
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_logversion, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "lazy-count="))) {
       buf = split_strdup (p + 11);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_lazycount, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "realtime ="))) {
       ret->xfs_rtname = split_strdup (p + 10);
@@ -292,7 +292,7 @@ parse_xfs_info (char **lines)
       if (buf == NULL) goto error;
       if (parse_uint64 (&ret->xfs_rtextents, buf) == -1)
         goto error;
-      free (buf);
+      free (buf); buf = NULL;
     }
   }
 
