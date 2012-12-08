@@ -33,6 +33,8 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
+#include "ignore-value.h"
+
 #include "fish.h"
 #include "rc_protocol.h"
 
@@ -44,7 +46,7 @@ create_sockpath (pid_t pid, char *sockpath, size_t len,
   uid_t euid = geteuid ();
 
   snprintf (dir, sizeof dir, "/tmp/.guestfish-%d", euid);
-  mkdir (dir, 0700);
+  ignore_value (mkdir (dir, 0700));
 
   snprintf (sockpath, len, "/tmp/.guestfish-%d/socket-%d", euid, pid);
 
