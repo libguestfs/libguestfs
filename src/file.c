@@ -329,7 +329,7 @@ write_or_append (guestfs_h *g, const char *path,
                  const char *content, size_t size,
                  int append)
 {
-  char *tmpfile = NULL;
+  char *tmpfile;
   int fd = -1;
   int64_t filesize;
 
@@ -381,10 +381,8 @@ write_or_append (guestfs_h *g, const char *path,
  err:
   if (fd >= 0)
     close (fd);
-  if (tmpfile) {
-    unlink (tmpfile);
-    free (tmpfile);
-  }
+  unlink (tmpfile);
+  free (tmpfile);
   return -1;
 }
 
