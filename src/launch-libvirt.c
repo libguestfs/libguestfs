@@ -353,9 +353,11 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   }
   if (close (console) == -1) {
     perrorf (g, "close: console socket");
+    console = -1;
     close (r);
     goto cleanup;
   }
+  console = -1;
   g->fd[0] = r; /* This is the accepted console socket. */
 
   g->fd[1] = dup (g->fd[0]);
