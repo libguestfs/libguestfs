@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <limits.h>
 #include <libintl.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -378,7 +379,10 @@ make_tar_output (const char *local, const char *basename)
     _exit (EXIT_FAILURE);
   }
 
-  mkdir (basename, 0777);
+  if (mkdir (basename, 0777) == -1 && errno != EEXIST) {
+    perror (basename);
+    _exit (EXIT_FAILURE);
+  }
 
   if (chdir (basename) == -1) {
     perror (basename);
