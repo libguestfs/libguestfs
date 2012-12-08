@@ -214,7 +214,8 @@ complete_dest_paths_generator (const char *text, int state)
   rl_attempted_completion_over = 1;
 
   /* Sort the words so the list is stable over multiple calls. */
-  qsort (words, nr_words, sizeof (struct word), compare_words);
+  if (words)
+    qsort (words, nr_words, sizeof (struct word), compare_words);
 
   /* Complete the string. */
   while (index < nr_words) {
