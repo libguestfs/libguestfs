@@ -516,7 +516,8 @@ guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
     free (first);
 
     if (links == NULL) {
-      guestfs___free_string_list (ret);
+      if (ret)
+        guestfs___free_string_list (ret);
       return NULL;
     }
 
