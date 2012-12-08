@@ -129,6 +129,7 @@ launch_appliance (guestfs_h *g, const char *arg)
   char guestfsd_sock[256];
   struct sockaddr_un addr;
   char *kernel = NULL, *initrd = NULL, *appliance = NULL;
+  int has_appliance_drive;
   uint32_t size;
   void *buf = NULL;
 
@@ -147,6 +148,7 @@ launch_appliance (guestfs_h *g, const char *arg)
   /* Locate and/or build the appliance. */
   if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
+  has_appliance_drive = appliance != NULL;
 
   TRACE0 (launch_build_appliance_end);
 
@@ -284,7 +286,7 @@ launch_appliance (guestfs_h *g, const char *arg)
     char appliance_dev[64] = "/dev/Xd";
 
     /* Add the ext2 appliance drive (after all the drives). */
-    if (appliance) {
+    if (has_appliance_drive) {
       const char *cachemode = "";
       if (qemu_supports (g, "cache=")) {
         if (qemu_supports (g, "unsafe"))
@@ -637,7 +639,7 @@ launch_appliance (guestfs_h *g, const char *arg)
 
   guestfs___launch_send_progress (g, 12);
 
-  if (appliance)
+  if (has_appliance_drive)
     guestfs___add_dummy_appliance_drive (g);
 
   return 0;
