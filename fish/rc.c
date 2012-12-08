@@ -323,6 +323,7 @@ rc_listen (void)
   }
 
   unlink (sockpath);
+  close (sock);
 
   /* This returns to 'fish.c', where it jumps to global cleanups and exits. */
 }
