@@ -164,6 +164,11 @@ static void
 close_handle (lua_State *L, guestfs_h *g)
 {
   guestfs_close (g);
+  /* There is a potential and hard-to-solve race here: If another
+   * thread allocates another 'g' at the same address, then
+   * get_per_handle_table might be called with the same address
+   * before we call free_per_handle_table here.  XXX
+   */
   free_per_handle_table (L, g);
 }
 
