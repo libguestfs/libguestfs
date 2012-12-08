@@ -92,6 +92,8 @@ static uint64_t get_event (lua_State *L, int index);
 static uint64_t get_event_bitmask (lua_State *L, int index);
 static void push_event (lua_State *L, uint64_t event);
 
+static void free_strings (char **r);
+
 ";
 
   List.iter (
@@ -587,19 +589,26 @@ guestfs_lua_delete_event_callback (lua_State *L)
       | RInt64 _ ->
         pr "  push_int64 (L, r);\n"
       | RConstString _
-      | RConstOptString _
-      | RString _ ->
+      | RConstOptString _ ->
         pr "  lua_pushstring (L, r);\n"
+      | RString _ ->
+        pr "  lua_pushstring (L, r);\n";
+        pr "  free (r);\n"
       | RStringList _ ->
-        pr "  push_string_list (L, r);\n"
+        pr "  push_string_list (L, r);\n";
+        pr "  free_strings (r);\n"
       | RHashtable _ ->
-        pr "  push_table (L, r);\n"
+        pr "  push_table (L, r);\n";
+        pr "  free_strings (r);\n"
       | RStruct (_, typ) ->
-        pr "  push_%s (L, r);\n" typ
+        pr "  push_%s (L, r);\n" typ;
+        pr "  guestfs_free_%s (r);\n" typ
       | RStructList (_, typ) ->
-        pr "  push_%s_list (L, r);\n" typ
+        pr "  push_%s_list (L, r);\n" typ;
+        pr "  guestfs_free_%s_list (r);\n" typ
       | RBufferOut _ ->
-        pr "  lua_pushlstring (L, r, size);\n"
+        pr "  lua_pushlstring (L, r, size);\n";
+        pr "  free (r);\n"
       );
 
       if ret = RErr then
@@ -848,6 +857,16 @@ push_event (lua_State *L, uint64_t event)
   ) (rstructs_used_by all_functions);
 
   pr "\
+void
+free_strings (char **r)
+{
+  size_t i;
+
+  for (i = 0; r[i] != NULL; ++i)
+    free (r[i]);
+  free (r);
+}
+
 /* Metamethods.
  * See: http://article.gmane.org/gmane.comp.lang.lua.general/95065
  */
