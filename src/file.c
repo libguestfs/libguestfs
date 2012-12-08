@@ -427,7 +427,7 @@ guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
     free (first);
 
     if (stats == NULL) {
-      guestfs_free_stat_list (stats);
+      guestfs_free_stat_list (ret);
       return NULL;
     }
 
