@@ -1147,6 +1147,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd,
    */
   if (fflush (stdout) == EOF) {
     perror ("failed to flush standard output");
+    if (pipecmd)
+      close (stdout_saved_fd);
     return -1;
   }
   if (ferror (stdout)) {
