@@ -26,6 +26,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
@@ -151,8 +153,7 @@ guestfs___recursive_remove_dir (guestfs_h *g, const char *dir)
   guestfs___cmd_add_arg (cmd, "rm");
   guestfs___cmd_add_arg (cmd, "-rf");
   guestfs___cmd_add_arg (cmd, dir);
-  /* Ignore failures. */
-  guestfs___cmd_run (cmd);
+  ignore_value (guestfs___cmd_run (cmd));
   guestfs___cmd_close (cmd);
 }
 
