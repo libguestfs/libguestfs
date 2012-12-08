@@ -219,9 +219,10 @@ main (int argc, char *argv[])
         dir_cache_timeout = atoi (optarg);
       else if (STREQ (long_options[option_index].name, "fuse-help"))
         fuse_help ();
-      else if (STREQ (long_options[option_index].name, "selinux"))
-        guestfs_set_selinux (g, 1);
-      else if (STREQ (long_options[option_index].name, "format")) {
+      else if (STREQ (long_options[option_index].name, "selinux")) {
+        if (guestfs_set_selinux (g, 1) == -1)
+          exit (EXIT_FAILURE);
+      } else if (STREQ (long_options[option_index].name, "format")) {
         if (!optarg || STREQ (optarg, ""))
           format = NULL;
         else
@@ -357,7 +358,8 @@ main (int argc, char *argv[])
   }
 
   /* If we're forking, we can't use the recovery process. */
-  guestfs_set_recovery_proc (g, !do_fork);
+  if (guestfs_set_recovery_proc (g, !do_fork) == -1)
+    exit (EXIT_FAILURE);
 
   /* Do the guest drives and mountpoints. */
   add_drives (drvs, 'a');

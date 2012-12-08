@@ -269,7 +269,8 @@ main (int argc, char *argv[])
           }
         }
       } else if (STREQ (long_options[option_index].name, "selinux")) {
-        guestfs_set_selinux (g, 1);
+        if (guestfs_set_selinux (g, 1) == -1)
+          exit (EXIT_FAILURE);
       } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "progress-bars")) {
@@ -290,7 +291,8 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "pipe-error")) {
         pipe_error = 1;
       } else if (STREQ (long_options[option_index].name, "network")) {
-        guestfs_set_network (g, 1);
+        if (guestfs_set_network (g, 1) == -1)
+          exit (EXIT_FAILURE);
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);

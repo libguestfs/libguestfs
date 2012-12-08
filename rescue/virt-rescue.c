@@ -156,7 +156,8 @@ main (int argc, char *argv[])
     switch (c) {
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "selinux")) {
-        guestfs_set_selinux (g, 1);
+        if (guestfs_set_selinux (g, 1) == -1)
+          exit (EXIT_FAILURE);
       } else if (STREQ (long_options[option_index].name, "append")) {
         append = optarg;
       } else if (STREQ (long_options[option_index].name, "network")) {
@@ -309,7 +310,8 @@ main (int argc, char *argv[])
     usage (EXIT_FAILURE);
 
   /* Setting "direct mode" is required for the rescue appliance. */
-  guestfs_set_direct (g, 1);
+  if (guestfs_set_direct (g, 1) == -1)
+    exit (EXIT_FAILURE);
 
   /* The libvirt backend doesn't support direct mode.  As a temporary
    * workaround, force the appliance backend, but warn about it.
@@ -321,18 +323,22 @@ main (int argc, char *argv[])
       fprintf (stderr, _("%s: warning: virt-rescue doesn't work with the libvirt backend\n"
                          "at the moment.  As a workaround, forcing attach-method = 'appliance'.\n"),
                program_name);
-      guestfs_set_attach_method (g, "appliance");
+      if (guestfs_set_attach_method (g, "appliance") == -1)
+        exit (EXIT_FAILURE);
     }
     free (attach_method);
   }
 
   /* Set other features. */
   if (memsize > 0)
-    guestfs_set_memsize (g, memsize);
+    if (guestfs_set_memsize (g, memsize) == -1)
+      exit (EXIT_FAILURE);
   if (network)
-    guestfs_set_network (g, 1);
+    if (guestfs_set_network (g, 1) == -1)
+      exit (EXIT_FAILURE);
   if (smp >= 1)
-    guestfs_set_smp (g, smp);
+    if (guestfs_set_smp (g, smp) == -1)
+      exit (EXIT_FAILURE);
 
   /* Kernel command line must include guestfs_rescue=1 (see
    * appliance/init) as well as other options.
@@ -340,7 +346,8 @@ main (int argc, char *argv[])
   append_full = xasprintf ("guestfs_rescue=1%s%s",
                            append ? " " : "",
                            append ? append : "");
-  guestfs_set_append (g, append_full);
+  if (guestfs_set_append (g, append_full) == -1)
+    exit (EXIT_FAILURE);
   free (append_full);
 
   /* Add drives. */
