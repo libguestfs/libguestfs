@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <errno.h>
+#include <arpa/inet.h>
 
 #include <erl_interface.h>
 /* We should switch over to using
@@ -100,19 +101,19 @@ main (void)
 static unsigned char *
 read_message (void)
 {
-  unsigned char buf[4];
+  uint32_t buf;
   size_t size;
   unsigned char *r;
 
   errno = 0;
-  if (full_read (0, buf, 4) != 4) {
+  if (full_read (0, &buf, 4) != 4) {
     if (errno == 0) /* ok - closed connection normally */
       return NULL;
     else
       error (EXIT_FAILURE, errno, "read message size");
   }
 
-  size = buf[0] << 24 | buf[1] << 16 | buf[2] << 8 | buf[3];
+  size = ntohl (buf);
 
   if (size > MAX_MESSAGE_SIZE)
     error (EXIT_FAILURE, 0, "message larger than MAX_MESSAGE_SIZE");
