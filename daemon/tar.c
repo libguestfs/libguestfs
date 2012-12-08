@@ -256,7 +256,7 @@ make_excludes_args (char *const *excludes)
       free_stringslen (strings.argv, strings.size);
       return NULL;
     }
-    if (!add_string_nodup (&strings, s) == -1) {
+    if (add_string_nodup (&strings, s) == -1) {
       free (s);
       return NULL;
     }
