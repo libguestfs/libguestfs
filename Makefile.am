@@ -352,11 +352,11 @@ check-with-upstream-qemu:
 
 check-with-upstream-qemu-1: $(top_builddir)/qemu-wrapper.sh
 	$(QEMUBINARY) --version
-	$(MAKE) LIBGUESTFS_QEMU=$(top_builddir)/qemu-wrapper.sh check
+	$(MAKE) LIBGUESTFS_QEMU=$(abs_top_builddir)/qemu-wrapper.sh check
 
 $(top_builddir)/qemu-wrapper.sh: Makefile
 	rm -f $@ $@-t
-	echo exec "$(QEMUBINARY)" -L "$(QEMUDIR)/pc-bios" "$$@" > $@-t
+	echo -e "#!/bin/sh\nexec" "$(QEMUBINARY)" -L "$(QEMUDIR)/pc-bios" \"\$$@\" > $@-t
 	chmod +x,-w $@-t
 	mv $@-t $@
 
