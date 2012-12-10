@@ -86,8 +86,8 @@ seconds).
 
 The first time you use libguestfs, it will build and cache an
 appliance.  This is usually in C</var/tmp/.guestfs-*>, unless you have
-set C<$TMPDIR> in which case it will be under that temporary
-directory.
+set C<$TMPDIR> or C<$LIBGUESTFS_CACHEDIR> in which case it will be
+under that temporary directory.
 
 For more information about how the appliance is constructed, see
 L<febootstrap(8)/SUPERMIN APPLIANCES>.
@@ -117,16 +117,15 @@ host will cause a one time rebuild of the appliance.
 
 =item *
 
-C</var/tmp> (or C<$TMPDIR>) should be on a fast disk, and have plenty
-of space for the appliance.
+C</var/tmp> (or C<$TMPDIR>, C<$LIBGUESTFS_CACHEDIR>) should be on a
+fast disk, and have plenty of space for the appliance.
 
 =back
 
 =head1 USING A FIXED APPLIANCE
 
 To fully control when the appliance is built, you can build a fixed
-appliance.  This appliance can and should be stored on a fast, local
-disk.
+appliance.  This appliance should be stored on a fast local disk.
 
 To build the appliance, run the command:
 
@@ -171,7 +170,7 @@ By default libguestfs (or rather, L<febootstrap-supermin-helper(8)>)
 searches over the root filesystem to find out if any host files have
 changed and if it needs to rebuild the appliance.  If these files are
 not cached and the root filesystem is on an HDD, then this generates
-lots of seeks.  Using a fixed appliance avoids all this.
+lots of seeks.  Using a fixed appliance avoids this.
 
 =item 3.
 
@@ -193,7 +192,8 @@ good performance is to ensure that the appliance is launched the
 minimum number of times.  This will probably involve changing your
 libguestfs application.
 
-Try to call C<guestfs_launch> at most once per virtual machine.
+Try to call C<guestfs_launch> at most once per target virtual machine
+or disk image.
 
 Instead of using a separate instance of L<guestfish(1)> to make a
 series of changes to the same guest, use a single instance of
@@ -217,9 +217,9 @@ trust.
 
 =item 2.
 
-In current qemu, there is a limit of around 26 disks that can be added
-to the appliance.  In future versions of qemu (and hence libguestfs)
-we hope to lift this limit.
+There is a hard limit to the number of disks you can add to a single
+appliance.  Call L<guestfs(3)/guestfs_max_disks> to get this limit.
+For further information see L<guestfs(3)/LIMITS>.
 
 =item 3.
 
