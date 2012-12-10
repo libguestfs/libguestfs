@@ -20,4 +20,30 @@
 
 main(_) ->
     {ok, G} = guestfs:create(),
-    ok = guestfs:close(G).
+
+    Disk_image = "test.img",
+
+    {ok, File} = file:open(Disk_image, [raw, write, binary]),
+    {ok, _} = file:position(File, 10 * 1024 * 1024 - 1),
+    ok = file:write(File, " "),
+    ok = file:close(File),
+
+    ok = guestfs:add_drive(G, Disk_image),
+    ok = guestfs:launch(G),
+    ok = guestfs:part_disk(G, "/dev/sda", "mbr"),
+    ok = guestfs:mkfs(G, "ext2", "/dev/sda1"),
+    ok = guestfs:mount(G, "/dev/sda1", "/"),
+    ok = guestfs:mkdir(G, "/p"),
+    ok = guestfs:mkdir(G, "/q"),
+
+    Dirs = guestfs:readdir(G, "/"),
+    [[_, $d, "."],
+     [_, $d, ".."],
+     [_, $d, "lost+found"],
+     [_, $d, "p"],
+     [_, $d, "q"]]
+        = lists:sort(Dirs),
+
+    ok = guestfs:shutdown(G),
+    ok = guestfs:close(G),
+    file:delete(Disk_image).

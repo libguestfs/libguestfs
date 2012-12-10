@@ -20,4 +20,22 @@
 
 main(_) ->
     {ok, G} = guestfs:create(),
+
+    ok = guestfs:set_verbose(G, true),
+    true = guestfs:get_verbose(G),
+    ok = guestfs:set_verbose(G, false),
+    false = guestfs:get_verbose(G),
+
+    ok = guestfs:set_autosync(G, true),
+    true = guestfs:get_autosync(G),
+    ok = guestfs:set_autosync(G, false),
+    false = guestfs:get_autosync(G),
+
+    ok = guestfs:set_path(G, "."),
+    "." = guestfs:get_path(G),
+    ok = guestfs:set_path(G, undefined),
+    "" /= guestfs:get_path(G),
+
+    ok = guestfs:add_drive(G, "/dev/null"),
+
     ok = guestfs:close(G).

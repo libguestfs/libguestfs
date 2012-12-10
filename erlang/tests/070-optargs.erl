@@ -20,4 +20,10 @@
 
 main(_) ->
     {ok, G} = guestfs:create(),
+
+    ok = guestfs:add_drive(G, "/dev/null"),
+    ok = guestfs:add_drive(G, "/dev/null", [{readonly, true}]),
+    ok = guestfs:add_drive(G, "/dev/null",
+                           [{format, "raw"}, {readonly, false}]),
+
     ok = guestfs:close(G).

@@ -20,4 +20,23 @@
 
 main(_) ->
     {ok, G} = guestfs:create(),
-    ok = guestfs:close(G).
+
+    Disk_image = "test.img",
+
+    {ok, File} = file:open(Disk_image, [raw, write, binary]),
+    {ok, _} = file:position(File, 512 * 1024 * 1024 - 1),
+    ok = file:write(File, " "),
+    ok = file:close(File),
+
+    ok = guestfs:add_drive(G, Disk_image),
+    ok = guestfs:launch(G),
+    ok = guestfs:pvcreate(G, "/dev/sda"),
+    ok = guestfs:vgcreate(G, "VG", ["/dev/sda"]),
+    ok = guestfs:lvcreate(G, "LV1", "VG", 200),
+    ok = guestfs:lvcreate(G, "LV2", "VG", 200),
+
+    ["/dev/VG/LV1", "/dev/VG/LV2"] = guestfs:lvs(G),
+
+    ok = guestfs:shutdown(G),
+    ok = guestfs:close(G),
+    file:delete(Disk_image).

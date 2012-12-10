@@ -60,7 +60,12 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = run-bindtests
 
 if ENABLE_APPLIANCE
-TESTS += tests/010-load.erl
+TESTS += \
+	tests/010-load.erl \
+	tests/030-config.erl \
+	tests/050-lvcreate.erl \
+	tests/060-readdir.erl \
+	tests/070-optargs.erl
 endif
 
 endif
