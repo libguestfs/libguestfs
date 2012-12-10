@@ -107,6 +107,14 @@ else
 fi
 export CLASSPATH
 
+# For Erlang.
+if [ -z "$PATH" ]; then
+    PATH="$b/erlang"
+else
+    PATH="$b/erlang:$PATH"
+fi
+export PATH
+
 # For Lua.
 if [ -z "$LUA_CPATH" ]; then
     LUA_CPATH="$b/lua/?.so"

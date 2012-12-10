@@ -55,7 +55,7 @@ erl_guestfs_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
-TESTS_ENVIRONMENT = PATH=$(builddir):$$PATH $(top_builddir)/run --test
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = run-bindtests
 
