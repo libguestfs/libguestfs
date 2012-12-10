@@ -360,11 +360,11 @@ and generate_availability_pod () =
   pr "=over 4\n";
   pr "\n";
   List.iter (
-    fun (group, functions) ->
+    fun (group, fns) ->
       pr "=item B<%s>\n" group;
       pr "\n";
       pr "The following functions:\n";
-      List.iter (pr "L</guestfs_%s>\n") functions;
+      List.iter (pr "L</guestfs_%s>\n") (List.map (fun { name = n } -> n) fns);
       pr "\n"
   ) optgroups;
   pr "=back\n";

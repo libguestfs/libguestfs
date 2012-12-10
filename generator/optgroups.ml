@@ -26,14 +26,19 @@ let optgroups =
   let h = Hashtbl.create 13 in
   List.iter (
     function
-    | { name = name; optional = Some group } ->
-      let names = try Hashtbl.find h group with Not_found -> [] in
-      Hashtbl.replace h group (name :: names)
+    | { optional = Some group } as fn ->
+      let fns = try Hashtbl.find h group with Not_found -> [] in
+      Hashtbl.replace h group (fn :: fns)
     | _ -> ()
   ) daemon_functions;
   let groups = Hashtbl.fold (fun k _ ks -> k :: ks) h [] in
   let groups =
     List.map (
-      fun group -> group, List.sort compare (Hashtbl.find h group)
+      fun group ->
+        (* Ensure the functions are sorted on the name field. *)
+        let fns = Hashtbl.find h group in
+        let cmp { name = n1 } { name = n2 } = compare n1 n2 in
+        let fns = List.sort cmp fns in
+        group, fns
     ) groups in
   List.sort (fun x y -> compare (fst x) (fst y)) groups
