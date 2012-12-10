@@ -2692,11 +2692,11 @@ C<key> is the name to associate with this data, and C<data> is an
 arbitrary pointer (which can be C<NULL>).  Any previous item with the
 same key is overwritten.
 
-You can use any C<key> you want, but your key should I<not> start with
-an underscore character.  Keys beginning with an underscore character
-are reserved for internal libguestfs purposes (eg. for implementing
-language bindings).  It is recommended that you prefix the key with
-some unique string to avoid collisions with other users.
+You can use any C<key> string you want, but avoid keys beginning with
+an underscore character (libguestfs uses those for its own internal
+purposes, such as implementing language bindings).  It is recommended
+that you prefix the key with some unique string to avoid collisions
+with other users.
 
 To retrieve the pointer, use:
 
@@ -2726,7 +2726,7 @@ the corresponding data pointer is returned from the function.  C<NULL>
 is returned if there are no keys stored in the handle.
 
 C<guestfs_next_private> returns the next key, pointer pair.  The
-return value of this function is also C<NULL> is there are no further
+return value of this function is C<NULL> if there are no further
 entries to return.
 
 Notes about walking over entries:
