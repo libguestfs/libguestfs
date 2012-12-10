@@ -33,6 +33,10 @@ open C
 let generate_daemon_actions_h () =
   generate_header CStyle GPLv2plus;
 
+  pr "#ifndef GUESTFSD_ACTIONS_H\n";
+  pr "#define GUESTFSD_ACTIONS_H\n";
+  pr "\n";
+
   pr "#include \"guestfs_protocol.h\"\n";
   pr "\n";
 
@@ -56,7 +60,10 @@ let generate_daemon_actions_h () =
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
         name style;
-  ) daemon_functions
+  ) daemon_functions;
+
+  pr "\n";
+  pr "#endif /* GUESTFSD_ACTIONS_H */\n"
 
 (* Generate the server-side stubs. *)
 and generate_daemon_actions () =
@@ -573,7 +580,14 @@ and generate_daemon_optgroups_c () =
 and generate_daemon_optgroups_h () =
   generate_header CStyle GPLv2plus;
 
+  pr "#ifndef GUESTFSD_OPTGROUPS_H\n";
+  pr "#define GUESTFSD_OPTGROUPS_H\n";
+  pr "\n";
+
   List.iter (
     fun (group, _) ->
       pr "extern int optgroup_%s_available (void);\n" group
-  ) optgroups
+  ) optgroups;
+
+  pr "\n";
+  pr "#endif /* GUESTFSD_OPTGROUPS_H */\n"
