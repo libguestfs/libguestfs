@@ -58,33 +58,31 @@ let rec generate_prototype ?(extern = true) ?(static = false)
   if extern then pr "extern ";
   if dll_public then pr "GUESTFS_DLL_PUBLIC ";
   if static then pr "static ";
+  let space = ref false in
   (match ret with
    | RErr
    | RInt _
    | RBool _ ->
        pr "int";
-       if single_line then pr " " else pr "\n%s" indent
+       space := true
    | RInt64 _ ->
        pr "int64_t";
-       if single_line then pr " " else pr "\n%s" indent
+       space := true
    | RConstString _ | RConstOptString _ ->
-       pr "const char *";
-       if not single_line then pr "\n%s" indent
+       pr "const char *"
    | RString _ | RBufferOut _ ->
-       pr "char *";
-       if not single_line then pr "\n%s" indent
+       pr "char *"
    | RStringList _ | RHashtable _ ->
-       pr "char **";
-       if not single_line then pr "\n%s" indent
+       pr "char **"
    | RStruct (_, typ) ->
        if not in_daemon then pr "struct guestfs_%s *" typ
-       else pr "guestfs_int_%s *" typ;
-       if not single_line then pr "\n%s" indent
+       else pr "guestfs_int_%s *" typ
    | RStructList (_, typ) ->
        if not in_daemon then pr "struct guestfs_%s_list *" typ
-       else pr "guestfs_int_%s_list *" typ;
-       if not single_line then pr "\n%s" indent
+       else pr "guestfs_int_%s_list *" typ
   );
+  if single_line && !space then pr " ";
+  if not single_line then pr "\n%s" indent;
   let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
   pr "%s%s%s (" prefix name suffix;
   if handle = None && args = [] && optargs = [] && not is_RBufferOut then
