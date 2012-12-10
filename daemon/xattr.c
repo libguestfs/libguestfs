@@ -541,68 +541,6 @@ do_lgetxattr (const char *path, const char *name, size_t *size_r)
 
 #else /* no xattr.h */
 
-/* Note that the wrapper code (daemon/stubs.c) ensures that the
- * functions below are never called because
- * optgroup_linuxxattrs_available returns false.
- */
-int
-optgroup_linuxxattrs_available (void)
-{
-  return 0;
-}
-
-guestfs_int_xattr_list *
-do_getxattrs (const char *path)
-{
-  abort ();
-}
-
-guestfs_int_xattr_list *
-do_lgetxattrs (const char *path)
-{
-  abort ();
-}
-
-int
-do_setxattr (const char *xattr, const char *val, int vallen, const char *path)
-{
-  abort ();
-}
-
-int
-do_lsetxattr (const char *xattr, const char *val, int vallen, const char *path)
-{
-  abort ();
-}
-
-int
-do_removexattr (const char *xattr, const char *path)
-{
-  abort ();
-}
-
-int
-do_lremovexattr (const char *xattr, const char *path)
-{
-  abort ();
-}
-
-guestfs_int_xattr_list *
-do_internal_lxattrlist (const char *path, char *const *names)
-{
-  abort ();
-}
-
-char *
-do_getxattr (const char *path, const char *name, size_t *size_r)
-{
-  abort ();
-}
-
-char *
-do_lgetxattr (const char *path, const char *name, size_t *size_r)
-{
-  abort ();
-}
+OPTGROUP_LINUXXATTRS_NOT_AVAILABLE
 
 #endif /* no xattr.h */

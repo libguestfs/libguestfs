@@ -87,22 +87,6 @@ do_getcon (void)
 
 #else /* !HAVE_LIBSELINUX */
 
-int
-optgroup_selinux_available (void)
-{
-  return 0;
-}
-
-int __attribute__((noreturn))
-do_setcon (const char *context)
-{
-  abort ();
-}
-
-char * __attribute__((noreturn))
-do_getcon (void)
-{
-  abort ();
-}
+OPTGROUP_SELINUX_NOT_AVAILABLE
 
 #endif /* !HAVE_LIBSELINUX */

@@ -50,6 +50,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     ?(single_line = false) ?(indent = "") ?(newline = false)
     ?(in_daemon = false)
     ?(dll_public = false)
+    ?(attribute_noreturn = false)
     ?(prefix = "") ?(suffix = "")
     ?handle
     ?(optarg_proto = Dots)
@@ -82,6 +83,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
        else pr "guestfs_int_%s_list *" typ
   );
   if single_line && !space then pr " ";
+  if attribute_noreturn then pr "__attribute__((noreturn)) ";
   if not single_line then pr "\n%s" indent;
   let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
   pr "%s%s%s (" prefix name suffix;

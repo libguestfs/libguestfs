@@ -388,50 +388,6 @@ do_inotify_files (void)
 
 #else /* !HAVE_SYS_INOTIFY_H */
 
-/* Note that the wrapper code (daemon/stubs.c) ensures that the
- * functions below are never called because optgroup_inotify_available
- * returns false.
- */
-int
-optgroup_inotify_available (void)
-{
-  return 0;
-}
-
-int
-do_inotify_init (int max_events)
-{
-  abort ();
-}
-
-int
-do_inotify_close (void)
-{
-  abort ();
-}
-
-int64_t
-do_inotify_add_watch (const char *path, int mask)
-{
-  abort ();
-}
-
-int
-do_inotify_rm_watch (int wd)
-{
-  abort ();
-}
-
-guestfs_int_inotify_event_list *
-do_inotify_read (void)
-{
-  abort ();
-}
-
-char **
-do_inotify_files (void)
-{
-  abort ();
-}
+OPTGROUP_INOTIFY_NOT_AVAILABLE
 
 #endif

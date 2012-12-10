@@ -144,32 +144,6 @@ do_acl_delete_def_file (const char *dir)
 
 #else /* no acl library */
 
-/* Note that the wrapper code (daemon/stubs.c) ensures that the
- * functions below are never called because
- * optgroup_acl_available returns false.
- */
-int
-optgroup_acl_available (void)
-{
-  return 0;
-}
-
-char * __attribute__((noreturn))
-do_acl_get_file (const char *path, const char *acltype)
-{
-  abort ();
-}
-
-int __attribute__((noreturn))
-do_acl_set_file (const char *path, const char *acltype, const char *acl)
-{
-  abort ();
-}
-
-int __attribute__((noreturn))
-do_acl_delete_def_file (const char *dir)
-{
-  abort ();
-}
+OPTGROUP_ACL_NOT_AVAILABLE
 
 #endif /* no acl library */

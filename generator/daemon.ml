@@ -590,4 +590,35 @@ and generate_daemon_optgroups_h () =
   ) optgroups;
 
   pr "\n";
+
+  pr "\
+/* These macros can be used to disable an entire group of functions.
+ * The advantage of generating this code is that it avoids an
+ * undetected error when a new function in a group is added, but
+ * the appropriate abort function is not added to the daemon (because
+ * the developers rarely test that the daemon builds when a library
+ * is not present).
+ */
+
+";
+  List.iter (
+    fun (group, fns) ->
+      pr "#define OPTGROUP_%s_NOT_AVAILABLE \\\n" (String.uppercase group);
+      List.iter (
+        fun { name = name; style = ret, args, optargs } ->
+          let style = ret, args @ args_of_optargs optargs, [] in
+          pr "  ";
+          generate_prototype
+            ~prefix:"do_"
+            ~attribute_noreturn:true
+            ~single_line:true ~newline:false
+            ~extern:false ~in_daemon:true
+            ~semicolon:false
+            name style;
+          pr " { abort (); } \\\n"
+      ) fns;
+      pr "  int optgroup_%s_available (void) { return 0; }\n" group;
+      pr "\n"
+  ) optgroups;
+
   pr "#endif /* GUESTFSD_OPTGROUPS_H */\n"

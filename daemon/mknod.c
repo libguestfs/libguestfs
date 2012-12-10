@@ -80,34 +80,6 @@ do_mknod_c (int mode, int devmajor, int devminor, const char *path)
 
 #else
 
-int
-optgroup_mknod_available (void)
-{
-  return 0;
-}
-
-int
-do_mknod (int mode, int devmajor, int devminor, const char *path)
-{
-  abort ();
-}
-
-int
-do_mkfifo (int mode, const char *path)
-{
-  abort ();
-}
-
-int
-do_mknod_b (int mode, int devmajor, int devminor, const char *path)
-{
-  abort ();
-}
-
-int
-do_mknod_c (int mode, int devmajor, int devminor, const char *path)
-{
-  abort ();
-}
+OPTGROUP_MKNOD_NOT_AVAILABLE
 
 #endif

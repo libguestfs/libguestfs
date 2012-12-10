@@ -106,26 +106,6 @@ do_cap_set_file (const char *path, const char *capstr)
 
 #else /* no libcap */
 
-/* Note that the wrapper code (daemon/stubs.c) ensures that the
- * functions below are never called because
- * optgroup_linuxcaps_available returns false.
- */
-int
-optgroup_linuxcaps_available (void)
-{
-  return 0;
-}
-
-char * __attribute__((noreturn))
-do_cap_get_file (const char *path)
-{
-  abort ();
-}
-
-int __attribute__((noreturn))
-do_cap_set_file (const char *path, const char *cap)
-{
-  abort ();
-}
+OPTGROUP_LINUXCAPS_NOT_AVAILABLE
 
 #endif /* no libcap */

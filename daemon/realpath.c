@@ -64,17 +64,7 @@ do_realpath (const char *path)
 
 #else /* !HAVE_REALPATH */
 
-int
-optgroup_realpath_available (void)
-{
-  return 0;
-}
-
-char *
-do_realpath (const char *path)
-{
-  abort ();
-}
+OPTGROUP_REALPATH_NOT_AVAILABLE
 
 #endif /* !HAVE_REALPATH */
 
