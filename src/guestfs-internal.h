@@ -426,7 +426,6 @@ struct inspect_fs {
   int is_root;
   char *device;
   int is_mountable;
-  int is_swap;
   enum inspect_os_type type;
   enum inspect_os_distro distro;
   enum inspect_os_package_format package_format;

@@ -112,7 +112,6 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
     if (extend_fses (g) == -1)
       return -1;
     fs = &g->fses[g->nr_fses-1];
-    fs->is_swap = 1;
     return 0;
   }
 
