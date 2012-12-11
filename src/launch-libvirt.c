@@ -45,6 +45,11 @@
 #include <libxml/xmlsave.h>
 #endif
 
+#if HAVE_LIBSELINUX
+#include <selinux/selinux.h>
+#include <selinux/context.h>
+#endif
+
 #include "glthread/lock.h"
 
 #include "guestfs.h"
@@ -130,6 +135,8 @@ static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static char *make_qcow2_overlay (guestfs_h *g, const char *path, const char *format);
 static int make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv);
 static void drive_free_priv (void *);
+static void set_socket_create_context (guestfs_h *g);
+static void clear_socket_create_context (guestfs_h *g);
 
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
@@ -234,6 +241,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
             "%s/guestfsd.sock", g->tmpdir);
   unlink (params.guestfsd_sock);
 
+  set_socket_create_context (g);
+
   g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (g->sock == -1) {
     perrorf (g, "socket");
@@ -281,6 +290,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     perrorf (g, "listen");
     goto cleanup;
   }
+
+  clear_socket_create_context (g);
 
   /* libvirt, if running as root, will run the qemu process as
    * qemu.qemu, which means it won't be able to access the socket.
@@ -440,6 +451,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   return 0;
 
  cleanup:
+  clear_socket_create_context (g);
+
   if (console >= 0)
     close (console);
   if (g->fd[0] >= 0) {
@@ -479,6 +492,75 @@ is_custom_qemu (guestfs_h *g)
 {
   return g->qemu && STRNEQ (g->qemu, QEMU);
 }
+
+#if HAVE_LIBSELINUX
+
+/* Set sVirt (SELinux) socket create context.  For details see:
+ * https://bugzilla.redhat.com/show_bug.cgi?id=853393#c14
+ */
+
+#define SOCKET_CONTEXT "svirt_socket_t"
+
+static void
+set_socket_create_context (guestfs_h *g)
+{
+  security_context_t scon; /* this is actually a 'char *' */
+  context_t con;
+
+  if (getcon (&scon) == -1) {
+    debug (g, "%s: getcon failed: %m", __func__);
+    return;
+  }
+
+  con = context_new (scon);
+  if (!con) {
+    debug (g, "%s: context_new failed: %m", __func__);
+    goto out1;
+  }
+
+  if (context_type_set (con, SOCKET_CONTEXT) == -1) {
+    debug (g, "%s: context_type_set failed: %m", __func__);
+    goto out2;
+  }
+
+  /* Note that setsockcreatecon sets the per-thread socket creation
+   * context (/proc/self/task/<tid>/attr/sockcreate) so this is
+   * thread-safe.
+   */
+  if (setsockcreatecon (context_str (con)) == -1) {
+    debug (g, "%s: setsockcreatecon (%s) failed: %m",
+           __func__, context_str (con));
+    goto out2;
+  }
+
+ out2:
+  context_free (con);
+ out1:
+  freecon (scon);
+}
+
+static void
+clear_socket_create_context (guestfs_h *g)
+{
+  if (setsockcreatecon (NULL) == -1)
+    debug (g, "%s: setsockcreatecon (NULL) failed: %m", __func__);
+}
+
+#else /* !HAVE_LIBSELINUX */
+
+static void
+set_socket_create_context (guestfs_h *g)
+{
+  /* nothing */
+}
+
+static void
+clear_socket_create_context (guestfs_h *g)
+{
+  /* nothing */
+}
+
+#endif /* !HAVE_LIBSELINUX */
 
 static int construct_libvirt_xml_name (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_cpu (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
