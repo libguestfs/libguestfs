@@ -175,7 +175,6 @@ check_filesystem (guestfs_h *g, const char *device,
   struct inspect_fs *fs = &g->fses[g->nr_fses-1];
 
   fs->device = safe_strdup (g, device);
-  fs->is_mountable = 1;
 
   /* Optimize some of the tests by avoiding multiple tests of the same thing. */
   int is_dir_etc = guestfs_is_dir (g, "/etc") > 0;
