@@ -376,7 +376,7 @@ help:
 	@echo
 	@echo "make check            Run the standard tests."
 	@echo "make check-valgrind   Run a subset of the tests under valgrind."
-	@echo "make check-valgrind-local-tests   Test under valgrind using local guests."
+	@echo "make check-valgrind-local-guests  Test under valgrind using local guests."
 	@echo "make check-with-appliance         Test using appliance attach-method."
 	@echo "make check-with-upstream-qemu     Test using upstream qemu."
 	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
