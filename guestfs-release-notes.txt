@@ -10,26 +10,23 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
  New features
 
-  library
+  libvirt and sVirt (SELinux confinement)
 
-    You can optionally use libvirt to launch the backend appliance by:
+    You can optionally use libvirt to launch and manage the backend
+    appliance by:
 
-    (a)
+      * setting LIBGUESTFS_ATTACH_METHOD=libvirt[:URI]
 
-      setting LIBGUESTFS_ATTACH_METHOD=libvirt[:URI]
+      * using ./configure --with-default-attach-method=libvirt[:URI]
 
-    (b)
-
-      using ./configure --with-default-attach-method=libvirt[:URI]
-
-    (c)
-
-      calling the API method guestfs_set_attach_method
+      * or calling the API method guestfs_set_attach_method
 
     SVirt (SELinux confinement) is used to secure the libguestfs appliance,
     if the libvirt backend is selected.
 
-    Virtio-scsi is now used by default, if available. This greatly
+  virtio-scsi, larger number of drives, hotplugging
+
+    Virtio-scsi is now used by default, if it is available. This greatly
     increases the number of drives that can be added to a single libguestfs
     handle (up to 255).
 
@@ -41,8 +38,19 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     (/dev/disk/guestfs/LABEL) instead of having to use device names
     (/dev/sda).
 
+  new library features
+
     POSIX Access Control Lists (ACLs) and Linux filesystem capabilities can
     now be read and written through the API.
+
+    Windows Dynamic Disks are now supported. The metadata can only be read
+    (volumes cannot be modified or created). However the data/filesystems
+    in the volumes themselves can be mounted, read and written (Matthew
+    Booth).
+
+    Hivex (Windows Registry editing) is now directly supported through the
+    API, making reading or editing the Windows Registry much more
+    efficient.
 
     Several libguestfs APIs were reimplemented so they no longer have any
     limits on output. The reimplemented APIs are: guestfs_cat,
@@ -59,8 +67,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
     You can set GUESTFISH_PS1 to use fancy prompts in guestfish.
 
-    rsync and ssh commands are now available in virt-rescue. In addition,
-    rsync can be used through the API for doing incremental copies.
+    rsync, ssh, less and lrzip commands are now available in virt-rescue.
+    In addition, rsync can be used through the API for doing incremental
+    copies.
 
     virt-sparsify uses qcow2 v3 for increased efficiency.
 
@@ -187,8 +196,36 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
      get-libvirt-requested-credential-challenge
      get-libvirt-requested-credential-defresult
      get-tmpdir
-     hivex-*
+     hivex-close
+     hivex-commit
+     hivex-node-add-child
+     hivex-node-children
+     hivex-node-delete-child
+     hivex-node-get-child
+     hivex-node-get-value
+     hivex-node-name
+     hivex-node-parent
+     hivex-node-set-value
+     hivex-node-values
+     hivex-open
+     hivex-root
+     hivex-value-key
+     hivex-value-type
+     hivex-value-utf8
+     hivex-value-value
      inspect-list-applications2 (John Eckersberg)
+     list-ldm-volumes
+     list-ldm-partitions
+     ldmtool-create-all
+     ldmtool-diskgroup-disks
+     ldmtool-diskgroup-name
+     ldmtool-diskgroup-volumes
+     ldmtool-remove-all
+     ldmtool-scan
+     ldmtool-scan-devices
+     ldmtool-volume-hint
+     ldmtool-volume-partitions
+     ldmtool-volume-type
      ls0
      max-disks
      mke2fs (Wanlong Gao)
@@ -208,7 +245,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
      set-tmpdir
      shutdown [backported to 1.16 and 1.18]
      tar-in [added compress flag]
-     tar-out [added compress, numericowner, exclude flags]
+     tar-out [added compress, numericowner, excludes flags]
      umount [added force and lazy optional arguments]
      utsname
      xfs-admin (Wanlong Gao)
@@ -230,24 +267,12 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     libvirt is optional, but if you want to use the new libvirt backend for
     launching the appliance then libvirt ≥ 0.10.2 would be required.
 
+    Coverity has been run over the complete codebase, and many issues fixed
+    (thanks Ondrej Vasik, Kamil Dudka).
+
     Functions which previously had no optargs can now be converted to ones
     with optargs, making extending the API much more flexible. Source and
-    binary backwards compatibility is preserved for users of the API. APIs
-    which were changed are:
-
-      * grep (deprecating other *grep* functions)
-
-      * add_drive / add_drive_opts
-
-      * mkfs / mkfs_opts
-
-      * mkswap (deprecating mkswap_L and mkswap_U)
-
-      * ntfsresize / ntfsresize_opts
-
-      * tar_in and tar_out (deprecating tgz_in etc.)
-
-      * umount
+    binary backwards compatibility is preserved for users of the API.
 
     The way that libguestfs APIs and structures are represented in the
     generator has changed to use an OCaml struct instead of a tuple. This
@@ -278,10 +303,14 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     Ruby 1.8.5 is now supported (though Ruby ≥ 1.9 is preferred).
 
     Perl bindings can be disabled via ./configure --disable-perl (Wulf C.
-    Krueger).
+    Krueger). Note that Perl is still required in order to build
+    libguestfs.
 
     Java bindings are now enabled/disabled using ./configure --with-java or
     ./configure --without-java (Wulf C. Krueger).
+
+    New configure options ./configure --enable-code-profiling and
+    ./configure --enable-code-coverage.
 
     Multiple fixes to use of 64 bit integers in language bindings.
 
@@ -289,7 +318,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     Berrange).
 
     The ./run script now sets enough environment variables that you can run
-    OCaml, Python, Ruby, Java, GJS programs.
+    OCaml, Python, Ruby, Java, GJS, Erlang, Lua programs.
 
     ./run --test flag for running tests with minimal output. It also prints
     the time taken to run each test.
@@ -343,8 +372,6 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     should improve clock stability (thanks Marcelo Tosatti, Olaf Hering).
 
  Bugs fixed
-
-     ./bugs-in-changelog.sh 1.18.0..
 
     https://bugzilla.redhat.com/882417
 
@@ -506,6 +533,11 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
 
       Ubuntu install CDs from oneiric onwards are not recognized:
       "multi-boot operating systems are not supported"
+
+    https://bugzilla.redhat.com/782167
+
+      libguestfs doesn't recognize Windows Dynamic disks in some
+      configurations, eg. spanned
 
     https://bugzilla.redhat.com/713678
 

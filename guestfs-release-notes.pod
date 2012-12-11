@@ -7,18 +7,18 @@ guestfs-release-notes - libguestfs Release Notes
 =begin comment
 
 NOTE!  Pre-release notes for the next stable version of libguestfs.
-Updated to commit 443ea95faff78fe91fdf601cde81b72a4163b83c
+Updated to commit 0efe61b19d4156748912a9a480cd17a141e07575
 
 =end comment
 
-=begin html
+=begin comment
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
-=end html
+=end comment
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.20
 
@@ -28,31 +28,33 @@ the git repository, or the ChangeLog file distributed in the tarball.
 
 =head2 New features
 
-=head3 library
+=head3 libvirt and sVirt (SELinux confinement)
 
-You can optionally use libvirt to launch the backend appliance
-by:
+You can I<optionally> use libvirt to launch and manage the backend
+appliance by:
 
 =over 4
 
-=item (a)
+=item *
 
 setting C<LIBGUESTFS_ATTACH_METHOD=libvirt[:URI]>
 
-=item (b)
+=item *
 
 using C<./configure --with-default-attach-method=libvirt[:URI]>
 
-=item (c)
+=item *
 
-calling the API method C<guestfs_set_attach_method>
+or calling the API method C<guestfs_set_attach_method>
 
 =back
 
 SVirt (SELinux confinement) is used to secure the libguestfs
 appliance, if the libvirt backend is selected.
 
-Virtio-scsi is now used by default, if available.  This greatly
+=head3 virtio-scsi, larger number of drives, hotplugging
+
+Virtio-scsi is now used by default, if it is available.  This greatly
 increases the number of drives that can be added to a single
 libguestfs handle (up to 255).
 
@@ -64,8 +66,19 @@ You can label drives when adding them, then refer to them by label
 (C</dev/disk/guestfs/LABEL>) instead of having to use device names
 (C</dev/sda>).
 
+=head3 new library features
+
 POSIX Access Control Lists (ACLs) and Linux filesystem capabilities
 can now be read and written through the API.
+
+Windows Dynamic Disks are now supported.  The metadata can only be
+read (volumes cannot be modified or created).  However the
+data/filesystems in the volumes themselves can be mounted, read and
+written (Matthew Booth).
+
+Hivex (Windows Registry editing) is now directly supported through the
+API, making reading or editing the Windows Registry much more
+efficient.
 
 Several libguestfs APIs were reimplemented so they no longer have any
 limits on output.  The reimplemented APIs are: C<guestfs_cat>,
@@ -82,9 +95,9 @@ network in libguestfs.
 
 You can set C<GUESTFISH_PS1> to use fancy prompts in C<guestfish>.
 
-C<rsync> and C<ssh> commands are now available in virt-rescue.  In
-addition, C<rsync> can be used through the API for doing incremental
-copies.
+C<rsync>, C<ssh>, C<less> and C<lrzip> commands are now available in
+virt-rescue.  In addition, C<rsync> can be used through the API for
+doing incremental copies.
 
 C<virt-sparsify> uses qcow2 v3 for increased efficiency.
 
@@ -237,8 +250,36 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  get-libvirt-requested-credential-challenge
  get-libvirt-requested-credential-defresult
  get-tmpdir
- hivex-*
+ hivex-close
+ hivex-commit
+ hivex-node-add-child
+ hivex-node-children
+ hivex-node-delete-child
+ hivex-node-get-child
+ hivex-node-get-value
+ hivex-node-name
+ hivex-node-parent
+ hivex-node-set-value
+ hivex-node-values
+ hivex-open
+ hivex-root
+ hivex-value-key
+ hivex-value-type
+ hivex-value-utf8
+ hivex-value-value
  inspect-list-applications2 (John Eckersberg)
+ list-ldm-volumes
+ list-ldm-partitions
+ ldmtool-create-all
+ ldmtool-diskgroup-disks
+ ldmtool-diskgroup-name
+ ldmtool-diskgroup-volumes
+ ldmtool-remove-all
+ ldmtool-scan
+ ldmtool-scan-devices
+ ldmtool-volume-hint
+ ldmtool-volume-partitions
+ ldmtool-volume-type
  ls0
  max-disks
  mke2fs (Wanlong Gao)
@@ -258,7 +299,7 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=788642>
  set-tmpdir
  shutdown [backported to 1.16 and 1.18]
  tar-in [added compress flag]
- tar-out [added compress, numericowner, exclude flags]
+ tar-out [added compress, numericowner, excludes flags]
  umount [added force and lazy optional arguments]
  utsname
  xfs-admin (Wanlong Gao)
@@ -281,42 +322,12 @@ libvirt is optional, but if you want to use the new libvirt
 backend for launching the appliance then libvirt E<ge> 0.10.2 would
 be required.
 
+Coverity has been run over the complete codebase, and many
+issues fixed (thanks Ondrej Vasik, Kamil Dudka).
+
 Functions which previously had no optargs can now be converted to ones
 with optargs, making extending the API much more flexible.  Source and
 binary backwards compatibility is preserved for users of the API.
-APIs which were changed are:
-
-=over 4
-
-=item *
-
-C<grep> (deprecating other C<*grep*> functions)
-
-=item *
-
-C<add_drive> / C<add_drive_opts>
-
-=item *
-
-C<mkfs> / C<mkfs_opts>
-
-=item *
-
-C<mkswap> (deprecating C<mkswap_L> and C<mkswap_U>)
-
-=item *
-
-C<ntfsresize> / C<ntfsresize_opts>
-
-=item *
-
-C<tar_in> and C<tar_out> (deprecating C<tgz_in> etc.)
-
-=item *
-
-C<umount>
-
-=back
 
 The way that libguestfs APIs and structures are represented in the
 generator has changed to use an OCaml struct instead of a tuple.  This
@@ -357,10 +368,14 @@ The parallel mount-local test has been rewritten in C (RHBZ#838081).
 Ruby 1.8.5 is now supported (though Ruby E<ge> 1.9 is preferred).
 
 Perl bindings can be disabled via C<./configure --disable-perl>
-(Wulf C. Krueger).
+(Wulf C. Krueger).  Note that Perl is still required in order to build
+libguestfs.
 
 Java bindings are now enabled/disabled using C<./configure --with-java>
 or C<./configure --without-java> (Wulf C. Krueger).
+
+New configure options C<./configure --enable-code-profiling> and
+C<./configure --enable-code-coverage>.
 
 Multiple fixes to use of 64 bit integers in language bindings.
 
@@ -368,7 +383,7 @@ The appliance backend now uses sgabios instead of vgabios
 (Dan Berrange).
 
 The C<./run> script now sets enough environment variables that you
-can run OCaml, Python, Ruby, Java, GJS programs.
+can run OCaml, Python, Ruby, Java, GJS, Erlang, Lua programs.
 
 C<./run --test> flag for running tests with minimal output.  It also
 prints the time taken to run each test.
@@ -425,7 +440,11 @@ Olaf Hering).
 
 =head2 Bugs fixed
 
- ./bugs-in-changelog.sh 1.18.0..
+=begin comment
+
+./bugs-in-changelog.sh 1.18.0..
+
+=end comment
 
 =over 4
 
@@ -568,6 +587,10 @@ libguestfs cannot get icon for Windows 8
 =item L<https://bugzilla.redhat.com/798979>
 
 Ubuntu install CDs from oneiric onwards are not recognized: "multi-boot operating systems are not supported"
+
+=item L<https://bugzilla.redhat.com/782167>
+
+libguestfs doesn't recognize Windows Dynamic disks in some configurations, eg. spanned
 
 =item L<https://bugzilla.redhat.com/713678>
 
