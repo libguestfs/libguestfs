@@ -187,7 +187,7 @@ check_filesystem (guestfs_h *g, const char *device,
   if (guestfs_is_file (g, "/grub/menu.lst") > 0 ||
       guestfs_is_file (g, "/grub/grub.conf") > 0 ||
       guestfs_is_file (g, "/grub2/grub.cfg") > 0)
-    fs->content = FS_CONTENT_LINUX_BOOT;
+    ;
   /* FreeBSD root? */
   else if (is_dir_etc &&
            is_dir_bin &&
@@ -201,7 +201,6 @@ check_filesystem (guestfs_h *g, const char *device,
       return 0;
 
     fs->is_root = 1;
-    fs->content = FS_CONTENT_FREEBSD_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs___check_freebsd_root (g, fs) == -1)
       return -1;
@@ -218,7 +217,6 @@ check_filesystem (guestfs_h *g, const char *device,
       return 0;
 
     fs->is_root = 1;
-    fs->content = FS_CONTENT_NETBSD_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs___check_netbsd_root (g, fs) == -1)
       return -1;
@@ -228,7 +226,6 @@ check_filesystem (guestfs_h *g, const char *device,
            guestfs_is_file (g, "/hurd/hello") > 0 &&
            guestfs_is_file (g, "/hurd/null") > 0) {
     fs->is_root = 1;
-    fs->content = FS_CONTENT_HURD_ROOT;
     fs->format = OS_FORMAT_INSTALLED; /* XXX could be more specific */
     if (guestfs___check_hurd_root (g, fs) == -1)
       return -1;
@@ -240,7 +237,6 @@ check_filesystem (guestfs_h *g, const char *device,
              guestfs_is_dir (g, "/usr/bin") > 0)) &&
            guestfs_is_file (g, "/etc/fstab") > 0) {
     fs->is_root = 1;
-    fs->content = FS_CONTENT_LINUX_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs___check_linux_root (g, fs) == -1)
       return -1;
@@ -251,23 +247,22 @@ check_filesystem (guestfs_h *g, const char *device,
            is_dir_share &&
            guestfs_exists (g, "/local") == 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
-    fs->content = FS_CONTENT_LINUX_USR_LOCAL;
+    ;
   /* Linux /usr? */
   else if (is_dir_etc &&
            is_dir_bin &&
            is_dir_share &&
            guestfs_exists (g, "/local") > 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
-    fs->content = FS_CONTENT_LINUX_USR;
+    ;
   /* Linux /var? */
   else if (guestfs_is_dir (g, "/log") > 0 &&
            guestfs_is_dir (g, "/run") > 0 &&
            guestfs_is_dir (g, "/spool") > 0)
-    fs->content = FS_CONTENT_LINUX_VAR;
+    ;
   /* Windows root? */
   else if (guestfs___has_windows_systemroot (g) >= 0) {
     fs->is_root = 1;
-    fs->content = FS_CONTENT_WINDOWS_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs___check_windows_root (g, fs) == -1)
       return -1;
@@ -275,15 +270,14 @@ check_filesystem (guestfs_h *g, const char *device,
   /* Windows volume with installed applications (but not root)? */
   else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0 &&
            guestfs___is_dir_nocase (g, "/Program Files") > 0)
-    fs->content = FS_CONTENT_WINDOWS_VOLUME_WITH_APPS;
+    ;
   /* Windows volume (but not root)? */
   else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0)
-    fs->content = FS_CONTENT_WINDOWS_VOLUME;
+    ;
   /* FreeDOS? */
   else if (guestfs___is_dir_nocase (g, "/FDOS") > 0 &&
            guestfs___is_file_nocase (g, "/FDOS/FREEDOS.BSS") > 0) {
     fs->is_root = 1;
-    fs->content = FS_CONTENT_FREEBSD_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     fs->type = OS_TYPE_DOS;
     fs->distro = OS_DISTRO_FREEDOS;
@@ -311,7 +305,6 @@ check_filesystem (guestfs_h *g, const char *device,
             guestfs_is_file (g, "/amd64/txtsetup.sif") > 0 ||
             guestfs_is_file (g, "/freedos/freedos.ico") > 0)) {
     fs->is_root = 1;
-    fs->content = FS_CONTENT_INSTALLER;
     fs->format = OS_FORMAT_INSTALLER;
     if (guestfs___check_installer_root (g, fs) == -1)
       return -1;

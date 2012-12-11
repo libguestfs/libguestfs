@@ -354,23 +354,6 @@ struct guestfs_h
 };
 
 /* Per-filesystem data stored for inspect_os. */
-enum inspect_fs_content {
-  FS_CONTENT_UNKNOWN = 0,
-  FS_CONTENT_LINUX_ROOT,
-  FS_CONTENT_WINDOWS_ROOT,
-  FS_CONTENT_WINDOWS_VOLUME_WITH_APPS,
-  FS_CONTENT_WINDOWS_VOLUME,
-  FS_CONTENT_LINUX_BOOT,
-  FS_CONTENT_LINUX_USR,
-  FS_CONTENT_LINUX_USR_LOCAL,
-  FS_CONTENT_LINUX_VAR,
-  FS_CONTENT_FREEBSD_ROOT,
-  FS_CONTENT_NETBSD_ROOT,
-  FS_CONTENT_INSTALLER,
-  FS_CONTENT_HURD_ROOT,
-  FS_CONTENT_FREEDOS_ROOT,
-};
-
 enum inspect_os_format {
   OS_FORMAT_UNKNOWN = 0,
   OS_FORMAT_INSTALLED,
@@ -444,7 +427,6 @@ struct inspect_fs {
   char *device;
   int is_mountable;
   int is_swap;
-  enum inspect_fs_content content;
   enum inspect_os_type type;
   enum inspect_os_distro distro;
   enum inspect_os_package_format package_format;
