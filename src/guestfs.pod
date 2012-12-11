@@ -3851,6 +3851,10 @@ which is a wrapper to pull the latest translated C<*.po> files.
 
 =item *
 
+Consider updating gnulib to latest upstream version.
+
+=item *
+
 Create new stable and development directories under
 L<http://libguestfs.org/download>.
 
