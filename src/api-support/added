@@ -1,3 +1,6 @@
+guestfs_acl_delete_def_file 1.19.63
+guestfs_acl_get_file 1.19.63
+guestfs_acl_set_file 1.19.63
 guestfs_add_cdrom 0.3
 guestfs_add_domain 1.7.4
 guestfs_add_domain_argv 1.7.4
@@ -61,6 +64,8 @@ guestfs_btrfssubvolume_list 1.17.35
 guestfs_btrfs_subvolume_set_default 1.17.35
 guestfs_btrfs_subvolume_snapshot 1.17.35
 guestfs_canonical_device_name 1.19.7
+guestfs_cap_get_file 1.19.63
+guestfs_cap_set_file 1.19.63
 guestfs_case_sensitive_path 1.0.75
 guestfs_cat 0.4
 guestfs_checksum 1.0.2
