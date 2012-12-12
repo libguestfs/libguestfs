@@ -445,6 +445,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
       virt-sparsify should use a more robust method to detect the input
       format
 
+    https://bugzilla.redhat.com/853393
+
+      libvirt doesn't label console, serial sockets
+
     https://bugzilla.redhat.com/853159
 
       virt-rescue in Fedora 18 is completely broken

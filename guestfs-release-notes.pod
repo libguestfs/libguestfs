@@ -508,6 +508,10 @@ virt-inspector fail to work with some windows guests
 
 virt-sparsify should use a more robust method to detect the input format
 
+=item L<https://bugzilla.redhat.com/853393>
+
+libvirt doesn't label console, serial sockets
+
 =item L<https://bugzilla.redhat.com/853159>
 
 virt-rescue in Fedora 18 is completely broken
