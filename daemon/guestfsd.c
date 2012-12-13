@@ -66,6 +66,10 @@ static char *read_cmdline (void);
 # define O_CLOEXEC 0
 #endif
 
+/* For improved readability dealing with pipe arrays */
+#define PIPE_READ 0
+#define PIPE_WRITE 1
+
 /* If root device is an ext2 filesystem, this is the major and minor.
  * This is so we can ignore this device from the point of view of the
  * user, eg. in guestfs_list_devices and many other places.
@@ -834,22 +838,22 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     signal (SIGPIPE, SIG_DFL);
     close (0);
     if (flag_copy_stdin) {
-      dup2 (stdin_fd[0], 0);
-      close (stdin_fd[0]);
-      close (stdin_fd[1]);
+      dup2 (stdin_fd[PIPE_READ], STDIN_FILENO);
+      close (stdin_fd[PIPE_READ]);
+      close (stdin_fd[PIPE_WRITE]);
     } else {
       /* Set stdin to /dev/null (ignore failure) */
       ignore_value (open ("/dev/null", O_RDONLY|O_CLOEXEC));
     }
-    close (so_fd[0]);
-    close (se_fd[0]);
+    close (so_fd[PIPE_READ]);
+    close (se_fd[PIPE_READ]);
     if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR))
-      dup2 (so_fd[1], 1);
+      dup2 (so_fd[PIPE_WRITE], STDOUT_FILENO);
     else
-      dup2 (se_fd[1], 1);
-    dup2 (se_fd[1], 2);
-    close (so_fd[1]);
-    close (se_fd[1]);
+      dup2 (se_fd[PIPE_WRITE], STDOUT_FILENO);
+    dup2 (se_fd[PIPE_WRITE], STDERR_FILENO);
+    close (so_fd[PIPE_WRITE]);
+    close (se_fd[PIPE_WRITE]);
 
     execvp (argv[0], (void *) argv);
     perror (argv[0]);
@@ -866,15 +870,15 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     }
 
     if (stdin_pid == 0) {       /* Child process copying stdin. */
-      close (so_fd[0]);
-      close (so_fd[1]);
-      close (se_fd[0]);
-      close (se_fd[1]);
+      close (so_fd[PIPE_READ]);
+      close (so_fd[PIPE_WRITE]);
+      close (se_fd[PIPE_READ]);
+      close (se_fd[PIPE_WRITE]);
 
-      close (1);
-      dup2 (stdin_fd[1], 1);
-      close (stdin_fd[0]);
-      close (stdin_fd[1]);
+      close (STDOUT_FILENO);
+      dup2 (stdin_fd[PIPE_WRITE], STDOUT_FILENO);
+      close (stdin_fd[PIPE_READ]);
+      close (stdin_fd[PIPE_WRITE]);
 
       if (chroot (sysroot) == -1) {
         perror ("chroot");
@@ -884,7 +888,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       ssize_t n;
       char buffer[BUFSIZ];
       while ((n = read (fd, buffer, sizeof buffer)) > 0) {
-        if (xwrite (1, buffer, n) == -1)
+        if (xwrite (STDOUT_FILENO, buffer, n) == -1)
           /* EPIPE error indicates the command process has exited
            * early.  If the command process fails that will be caught
            * by the daemon, and if not, then it's not an error.
@@ -906,23 +910,24 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     }
 
     close (fd);
-    close (stdin_fd[0]);
-    close (stdin_fd[1]);
+    close (stdin_fd[PIPE_READ]);
+    close (stdin_fd[PIPE_WRITE]);
   }
 
   /* Parent process. */
-  close (so_fd[1]);
-  close (se_fd[1]);
+  close (so_fd[PIPE_WRITE]);
+  close (se_fd[PIPE_WRITE]);
 
   FD_ZERO (&rset);
-  FD_SET (so_fd[0], &rset);
-  FD_SET (se_fd[0], &rset);
+  FD_SET (so_fd[PIPE_READ], &rset);
+  FD_SET (se_fd[PIPE_READ], &rset);
 
   quit = 0;
   while (quit < 2) {
   again:
     rset2 = rset;
-    r = select (MAX (so_fd[0], se_fd[0]) + 1, &rset2, NULL, NULL, NULL);
+    r = select (MAX (so_fd[PIPE_READ], se_fd[PIPE_READ]) + 1, &rset2,
+                NULL, NULL, NULL);
     if (r == -1) {
       if (errno == EINTR)
         goto again;
@@ -943,20 +948,20 @@ commandrvf (char **stdoutput, char **stderror, int flags,
         *stderror = strdup ("error running external command, "
                             "see debug output for details");
       }
-      close (so_fd[0]);
-      close (se_fd[0]);
+      close (so_fd[PIPE_READ]);
+      close (se_fd[PIPE_READ]);
       waitpid (pid, NULL, 0);
       if (stdin_pid >= 0) waitpid (stdin_pid, NULL, 0);
       return -1;
     }
 
-    if (FD_ISSET (so_fd[0], &rset2)) { /* something on stdout */
-      r = read (so_fd[0], buf, sizeof buf);
+    if (FD_ISSET (so_fd[PIPE_READ], &rset2)) { /* something on stdout */
+      r = read (so_fd[PIPE_READ], buf, sizeof buf);
       if (r == -1) {
         perror ("read");
         goto quit;
       }
-      if (r == 0) { FD_CLR (so_fd[0], &rset); quit++; }
+      if (r == 0) { FD_CLR (so_fd[PIPE_READ], &rset); quit++; }
 
       if (r > 0 && stdoutput) {
         so_size += r;
@@ -970,17 +975,17 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       }
     }
 
-    if (FD_ISSET (se_fd[0], &rset2)) { /* something on stderr */
-      r = read (se_fd[0], buf, sizeof buf);
+    if (FD_ISSET (se_fd[PIPE_READ], &rset2)) { /* something on stderr */
+      r = read (se_fd[PIPE_READ], buf, sizeof buf);
       if (r == -1) {
         perror ("read");
         goto quit;
       }
-      if (r == 0) { FD_CLR (se_fd[0], &rset); quit++; }
+      if (r == 0) { FD_CLR (se_fd[PIPE_READ], &rset); quit++; }
 
       if (r > 0) {
         if (verbose)
-          ignore_value (write (2, buf, r));
+          ignore_value (write (STDERR_FILENO, buf, r));
 
         if (stderror) {
           se_size += r;
@@ -996,8 +1001,8 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     }
   }
 
-  close (so_fd[0]);
-  close (se_fd[0]);
+  close (so_fd[PIPE_READ]);
+  close (se_fd[PIPE_READ]);
 
   /* Make sure the output buffers are \0-terminated.  Also remove any
    * trailing \n characters from the error buffer (not from stdout).
