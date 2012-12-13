@@ -1295,26 +1295,29 @@ fi
 AM_CONDITIONAL([HAVE_ERLANG], [test "x$ERLANG" != "xno" && test "x$ERLC" != "xno"])
 
 dnl Lua
-LUA=no
 AC_ARG_ENABLE([lua],
     AS_HELP_STRING([--disable-lua], [disable Lua language bindings]),
         [],
         [enable_lua=yes])
 AS_IF([test "x$enable_lua" != "xno"],[
-        LUA=
         AC_CHECK_PROG([LUA],[lua],[lua],[no])
-        AC_CHECK_HEADER([lua.h],[have_lua_h=yes])
-        AC_CHECK_HEADER([lauxlib.h],[have_lauxlib_h=yes])
-        AC_CHECK_LIB([lua],[lua_checkstack],[have_lua_lib=yes])
-
         AS_IF([test "x$LUA" != "xno"],[
             AC_MSG_CHECKING([for Lua version])
             LUA_VERSION=`$LUA -e 'print(_VERSION)' | awk '{print $2}'`
             AC_MSG_RESULT([$LUA_VERSION])
-            AC_SUBST([LUA_VERSION])
+            PKG_CHECK_MODULES([LUA], [lua$LUA_VERSION],
+              [
+                AC_SUBST([LUA_CFLAGS])
+                AC_SUBST([LUA_LIBS])
+                AC_SUBST([LUA_VERSION])
+                AC_DEFINE([HAVE_LUA],[1],[Lua library found at compile time])
+              ],
+              [AC_MSG_WARN([pkg-info for lua$LUA_VERSION not found])]
+            )
         ])
 ])
-AM_CONDITIONAL([HAVE_LUA], [test "x$LUA" != "xno" && test "x$have_lua_h" = "xyes" && test "x$have_lauxlib_h" = "xyes" && test "x$have_lua_lib" = "xyes"])
+AM_CONDITIONAL([HAVE_LUA],
+               [test "x$LUA_LIBS" != "x"])
 
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
 AS_IF([test "x$PERL" != "xno"],
