@@ -914,6 +914,11 @@ qemu_supports_virtio_scsi (guestfs_h *g)
 {
   int r;
 
+  if (!g->app.qemu_help) {
+    if (test_qemu (g) == -1)
+      return 0;                 /* safe option? */
+  }
+
   /* g->app.virtio_scsi has these values:
    *   0 = untested (after handle creation)
    *   1 = supported
@@ -921,13 +926,18 @@ qemu_supports_virtio_scsi (guestfs_h *g)
    *   3 = test failed (use virtio-blk)
    */
   if (g->app.virtio_scsi == 0) {
-    r = qemu_supports_device (g, "virtio-scsi-pci");
-    if (r > 0)
-      g->app.virtio_scsi = 1;
-    else if (r == 0)
+    /* qemu 1.1 claims to support virtio-scsi but in reality it's broken. */
+    if (g->app.qemu_version_major == 1 && g->app.qemu_version_minor < 2)
       g->app.virtio_scsi = 2;
-    else
-      g->app.virtio_scsi = 3;
+    else {
+      r = qemu_supports_device (g, "virtio-scsi-pci");
+      if (r > 0)
+        g->app.virtio_scsi = 1;
+      else if (r == 0)
+        g->app.virtio_scsi = 2;
+      else
+        g->app.virtio_scsi = 3;
+    }
   }
 
   return g->app.virtio_scsi == 1;
