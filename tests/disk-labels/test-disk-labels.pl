@@ -23,6 +23,8 @@ use warnings;
 
 use Sys::Guestfs;
 
+exit 77 if $ENV{SKIP_TEST_DISK_LABELS_PL};
+
 my $g = Sys::Guestfs->new ();
 
 # Add two drives.
