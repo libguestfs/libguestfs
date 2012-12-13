@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-12-11 17:13+0000\n"
+"POT-Creation-Date: 2012-12-13 14:10+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -3962,63 +3962,63 @@ msgstr ""
 "%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट साधणसह "
 "फंक्शनद्वारेच कॉल करा"
 
-#: src/launch-appliance.c:94
+#: src/launch-appliance.c:132
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:109
+#: src/launch-appliance.c:147
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:140
+#: src/launch-appliance.c:178
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch-appliance.c:634 src/launch-libvirt.c:419
+#: src/launch-appliance.c:672 src/launch-libvirt.c:430
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch-appliance.c:767
+#: src/launch-appliance.c:808
 msgid ""
 "qemu command failed\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:158
+#: src/launch-libvirt.c:165
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:165
+#: src/launch-libvirt.c:172
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:180
+#: src/launch-libvirt.c:187
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:196
+#: src/launch-libvirt.c:203
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:342
+#: src/launch-libvirt.c:353
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:495
+#: src/launch-libvirt.c:577
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:826
+#: src/launch-libvirt.c:908
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:906
+#: src/launch-libvirt.c:988
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4026,34 +4026,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1195
+#: src/launch-libvirt.c:1277
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1222
+#: src/launch-libvirt.c:1304
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1267
+#: src/launch-libvirt.c:1349
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1299
+#: src/launch-libvirt.c:1381
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1351
+#: src/launch-libvirt.c:1433
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1385
+#: src/launch-libvirt.c:1467
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1442
+#: src/launch-libvirt.c:1524
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4261,73 +4261,73 @@ msgstr ""
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
 
-#: src/proto.c:354
+#: src/proto.c:355
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: डिमन पासून 0x%x वाचा, 0x%x अपेक्षीत\n"
 
-#: src/proto.c:476
+#: src/proto.c:477
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
 "the debug messages output prior to this error.\n"
 msgstr ""
 
-#: src/proto.c:482
+#: src/proto.c:483
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:572
+#: src/proto.c:573
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd पासून मॅजीक स्वाक्षरी प्राप्त, परंतु स्तर %d असे आढळले"
 
-#: src/proto.c:591
+#: src/proto.c:592
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "संदेश लांबी (%u) > कमाल शक्य आकार (%d)"
 
-#: src/proto.c:768
+#: src/proto.c:769
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header अपयशी"
 
-#: src/proto.c:777
+#: src/proto.c:778
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:873 src/proto.c:1171
+#: src/proto.c:874 src/proto.c:1172
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:936
+#: src/proto.c:937
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1097
+#: src/proto.c:1098
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:1125
+#: src/proto.c:1126
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:1148
+#: src/proto.c:1149
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:1153
+#: src/proto.c:1154
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:1161
+#: src/proto.c:1162
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:1175
+#: src/proto.c:1176
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
