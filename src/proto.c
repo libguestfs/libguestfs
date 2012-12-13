@@ -169,6 +169,7 @@ child_cleanup (guestfs_h *g)
   g->fd[1] = -1;
   g->sock = -1;
   memset (&g->launch_t, 0, sizeof g->launch_t);
+  guestfs___free_drives (g);
   g->state = CONFIG;
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
 }
