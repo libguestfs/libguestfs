@@ -339,6 +339,9 @@ struct guestfs_h
     char *qemu_version;         /* Output of qemu -version. */
     char *qemu_devices;         /* Output of qemu -device ? */
 
+    /* qemu version (0, 0 if unable to parse). */
+    int qemu_version_major, qemu_version_minor;
+
     char **cmdline;   /* Only used in child, does not need freeing. */
     size_t cmdline_size;
 

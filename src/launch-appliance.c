@@ -31,10 +31,48 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 
+#include <pcre.h>
+
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
+
+/* Compile all the regular expressions once when the shared library is
+ * loaded.  PCRE is thread safe so we're supposedly OK here if
+ * multiple threads call into the libguestfs API functions below
+ * simultaneously.
+ */
+static pcre *re_major_minor;
+
+static void compile_regexps (void) __attribute__((constructor));
+static void free_regexps (void) __attribute__((destructor));
+
+static void
+compile_regexps (void)
+{
+  const char *err;
+  int offset;
+
+#define COMPILE(re,pattern,options)                                     \
+  do {                                                                  \
+    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
+    if (re == NULL) {                                                   \
+      ignore_value (write (2, err, strlen (err)));                      \
+      abort ();                                                         \
+    }                                                                   \
+  } while (0)
+
+  COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
+}
+
+static void
+free_regexps (void)
+{
+  pcre_free (re_major_minor);
+}
 
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
@@ -704,6 +742,7 @@ print_qemu_command_line (guestfs_h *g, char **argv)
   }
 }
 
+static void parse_qemu_version (guestfs_h *g);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 
 /* Test qemu binary (or wrapper) runs, and do 'qemu -help' and
@@ -745,6 +784,8 @@ test_qemu (guestfs_h *g)
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
+  parse_qemu_version (g);
+
   cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, g->qemu);
   guestfs___cmd_add_arg (cmd, "-nographic");
@@ -766,6 +807,46 @@ test_qemu (guestfs_h *g)
  error:
   error (g, _("qemu command failed\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."));
   return -1;
+}
+
+/* Parse g->app.qemu_version (if not NULL) into the major and minor
+ * version of qemu, but don't fail if parsing is not possible.
+ */
+static void
+parse_qemu_version (guestfs_h *g)
+{
+  char *major_s = NULL, *minor_s = NULL;
+  int major_i, minor_i;
+
+  g->app.qemu_version_major = 0;
+  g->app.qemu_version_minor = 0;
+
+  if (!g->app.qemu_version)
+    return;
+
+  if (!match2 (g, g->app.qemu_version, re_major_minor, &major_s, &minor_s)) {
+  parse_failed:
+    debug (g, "%s: failed to parse qemu version string '%s'",
+           __func__, g->app.qemu_version);
+    goto out;
+  }
+
+  major_i = guestfs___parse_unsigned_int (g, major_s);
+  if (major_i == -1)
+    goto parse_failed;
+
+  minor_i = guestfs___parse_unsigned_int (g, minor_s);
+  if (minor_i == -1)
+    goto parse_failed;
+
+  g->app.qemu_version_major = major_i;
+  g->app.qemu_version_minor = minor_i;
+
+  debug (g, "qemu version %d.%d", major_i, minor_i);
+
+ out:
+  free (major_s);
+  free (minor_s);
 }
 
 static void
