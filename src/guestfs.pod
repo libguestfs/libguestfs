@@ -3860,6 +3860,10 @@ L<http://libguestfs.org/download>.
 
 =item *
 
+Edit C<index.html.in> on website.
+
+=item *
+
 Create the branch in git:
 
  git tag -a 1.XX.0 -m "Version 1.XX.0 (stable)"
