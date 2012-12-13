@@ -48,6 +48,10 @@ let generate_lua_c () =
 #include <lua.h>
 #include <lauxlib.h>
 
+#if LUA_VERSION_NUM >= 502
+#define lua_objlen lua_rawlen
+#endif
+
 #include <guestfs.h>
 
 #define GUESTFS_LUA_HANDLE \"guestfs handle\"
@@ -928,11 +932,19 @@ luaopen_guestfs (lua_State *L)
 
   /* Create metatable. */
   luaL_newmetatable (L, GUESTFS_LUA_HANDLE);
+#if LUA_VERSION_NUM >= 502
+  luaL_setfuncs (L, metamethods, 0);
+#else
   luaL_register (L, NULL, metamethods);
+#endif
 
   /* Create methods table. */
   lua_newtable (L);
+#if LUA_VERSION_NUM >= 502
+  luaL_setfuncs (L, methods, 0);
+#else
   luaL_register (L, NULL, methods);
+#endif
 
   /* Set __index field of metatable to point to methods table. */
   lua_setfield (L, -2, \"__index\");
@@ -942,7 +954,11 @@ luaopen_guestfs (lua_State *L)
 
   /* Create module functions table. */
   lua_newtable (L);
+#if LUA_VERSION_NUM >= 502
+  luaL_setfuncs (L, functions, 0);
+#else
   luaL_register (L, NULL, functions);
+#endif
 
   /* Globals in the module namespace. */
   lua_pushliteral (L, \"event_all\");
