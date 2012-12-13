@@ -851,6 +851,8 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     close (so_fd[1]);
     close (se_fd[1]);
 
+    ignore_value (chdir ("/"));
+
     execvp (argv[0], (void *) argv);
     perror (argv[0]);
     _exit (EXIT_FAILURE);

@@ -404,6 +404,7 @@ Makefile.in
 /tests/c-api/test-last-errno
 /tests/c-api/test.log
 /tests/c-api/test-private-data
+/tests/c-api/test-pwd
 /tests/c-api/tests
 /tests/c-api/tests.c
 /tests/c-api/test*.tmp

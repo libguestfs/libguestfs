@@ -34,7 +34,8 @@ check_PROGRAMS = \
 	test-private-data \
 	test-user-cancel \
 	test-debug-to-file \
-	test-environment
+	test-environment \
+	test-pwd
 
 TESTS = \
 	tests \
@@ -63,6 +64,7 @@ EXTRA_DIST += test-add-libvirt-dom.c
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
+	SKIP_TEST_COMMAND=$(shell ldd test-pwd | grep -sq 'not a dynamic executable' || echo 1) \
 	$(top_builddir)/run --test $(VG)
 
 #SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi)
@@ -79,6 +81,9 @@ tests_LDADD = $(top_builddir)/src/libguestfs.la
 
 test_command_SOURCES = test-command.c
 test_command_LDFLAGS = -all-static
+
+test_pwd_SOURCES = test-pwd.c
+test_pwd_LDFLAGS = -all-static
 
 # Hand-written C API tests.
 

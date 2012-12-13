@@ -3687,7 +3687,12 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
         [["mkdir"; "/command12"];
          ["upload"; "test-command"; "/command12/test-command"];
          ["chmod"; "0o755"; "/command12/test-command"];
-         ["command"; "/command12/test-command"]])
+         ["command"; "/command12/test-command"]]);
+      InitScratchFS, Always, TestOutput (
+        [["mkdir"; "/pwd"];
+         ["upload"; "test-pwd"; "/pwd/test-pwd"];
+         ["chmod"; "0o755"; "/pwd/test-pwd"];
+         ["command"; "/pwd/test-pwd"]], "/");
     ];
     shortdesc = "run a command from the guest filesystem";
     longdesc = "\
