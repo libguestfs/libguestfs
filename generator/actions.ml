@@ -10728,6 +10728,37 @@ Rename a file to a new place on the same filesystem.  This is
 the same as the Linux L<rename(2)> system call.  In most cases
 you are better to use C<guestfs_mv> instead." };
 
+  { defaults with
+    name = "part_set_gpt_type";
+    style = RErr, [Device "device"; Int "partnum"; String "guid"], [];
+    proc_nr = Some 392;
+    tests = [];
+    shortdesc = "set the type GUID of a GPT partition";
+    longdesc = "\
+Set the type GUID of numbered GPT partition C<partnum> to C<guid>. Return an
+error if the partition table of C<device> isn't GPT, or if C<guid> is not a
+valid GUID.
+
+See L<http://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs>
+for a useful list of type GUIDs." };
+
+  { defaults with
+    name = "part_get_gpt_type";
+    style = RString "guid", [Device "device"; Int "partnum"], [];
+    proc_nr = Some 393;
+    tests = [
+      InitGPT, Always, TestOutput (
+        [["part_set_gpt_type"; "/dev/sda"; "1";
+          "01234567-89AB-CDEF-0123-456789ABCDEF"];
+         ["part_get_gpt_type"; "/dev/sda"; "1"]],
+         "01234567-89AB-CDEF-0123-456789ABCDEF");
+    ];
+    shortdesc = "get the type GUID of a GPT partition";
+    longdesc = "\
+Return the type GUID of numbered GPT partition C<partnum>. For MBR partitions,
+return an appropriate GUID corresponding to the MBR type. Behaviour is undefined
+for other partition types." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

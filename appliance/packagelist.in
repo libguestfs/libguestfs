@@ -120,6 +120,7 @@ dosfstools
 file
 findutils
 gawk
+gdisk
 grep
 gzip
 jfsutils

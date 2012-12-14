@@ -317,6 +317,11 @@ and test_init =
      *)
   | InitPartition
 
+    (* Identical to InitPartition, except that the partition table is GPT
+     * instead of MBR.
+     *)
+  | InitGPT
+
     (* /dev/sda contains a single partition /dev/sda1, which is formatted
      * as ext2, empty [except for lost+found] and mounted on /.
      * No LVM.

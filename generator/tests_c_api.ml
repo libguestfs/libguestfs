@@ -408,6 +408,13 @@ and generate_one_test_body name i test_name init test =
           ["umount_all"];
           ["lvm_remove_all"];
           ["part_disk"; "/dev/sda"; "mbr"]]
+   | InitGPT ->
+       pr "  /* InitGPT for %s: create /dev/sda1 */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["part_disk"; "/dev/sda"; "gpt"]]
    | InitBasicFS ->
        pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
        List.iter (generate_test_command_call test_name)
