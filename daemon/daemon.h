@@ -100,9 +100,9 @@ extern char **split_lines (char *str);
 #define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 2048
 
 extern int commandf (char **stdoutput, char **stderror, int flags,
-                     const char *name, ...);
+                     const char *name, ...) __attribute__((sentinel));
 extern int commandrf (char **stdoutput, char **stderror, int flags,
-                      const char *name, ...);
+                      const char *name, ...) __attribute__((sentinel));
 extern int commandvf (char **stdoutput, char **stderror, int flags,
                       char const *const *argv);
 extern int commandrvf (char **stdoutput, char **stderror, int flags,
