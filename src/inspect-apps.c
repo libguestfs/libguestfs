@@ -527,8 +527,8 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   list_applications_windows_from_path (g, ret, hivepath2,
                                        sizeof hivepath2 / sizeof hivepath2[0]);
 
- out:
   guestfs_hivex_close (g);
+ out:
   free (software_path);
 
   return ret;

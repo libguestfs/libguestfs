@@ -237,18 +237,18 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
-    goto out;
+    goto out0;
 
   node = guestfs_hivex_root (g);
   for (i = 0; node > 0 && i < sizeof hivepath / sizeof hivepath[0]; ++i)
     node = guestfs_hivex_node_get_child (g, node, hivepath[i]);
 
   if (node == -1)
-    goto out;
+    goto out1;
 
   if (node == 0) {
     perrorf (g, "hivex: cannot locate HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion");
-    goto out;
+    goto out1;
   }
 
   values = guestfs_hivex_node_values (g, node);
@@ -308,8 +308,9 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 
  out2:
   guestfs_free_hivex_value_list (values);
- out:
+ out1:
   guestfs_hivex_close (g);
+ out0:
   free (software_path);
 
   return ret;
@@ -349,36 +350,36 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
   if (guestfs_hivex_open (g, system_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
-    goto out;
+    goto out0;
 
   root = guestfs_hivex_root (g);
   if (root == 0)
-    goto out;
+    goto out1;
 
   /* Get the CurrentControlSet. */
   node = guestfs_hivex_node_get_child (g, root, "Select");
   if (node == -1)
-    goto out;
+    goto out1;
 
   if (node == 0) {
     error (g, "hivex: could not locate HKLM\\SYSTEM\\Select");
-    goto out;
+    goto out1;
   }
 
   value = guestfs_hivex_node_get_value (g, node, "Current");
   if (value == -1)
-    goto out;
+    goto out1;
 
   if (value == 0) {
     error (g, "hivex: HKLM\\System\\Select Default entry not found");
-    goto out;
+    goto out1;
   }
 
   /* XXX Should check the type. */
   buf = guestfs_hivex_value_value (g, value, &buflen);
   if (buflen != 4) {
     error (g, "hivex: HKLM\\System\\Select\\Current expected to be DWORD");
-    goto out;
+    goto out1;
   }
   dword = le32toh (*(int32_t *)buf);
   fs->windows_current_control_set = safe_asprintf (g, "ControlSet%03d", dword);
@@ -389,7 +390,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
    */
   node = guestfs_hivex_node_get_child (g, root, "MountedDevices");
   if (node == -1)
-    goto out;
+    goto out1;
 
   if (node == 0)
     /* Not found: skip getting drive letter mappings (RHBZ#803664). */
@@ -404,7 +405,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   for (i = count = 0; i < values->len; ++i) {
     char *key = guestfs_hivex_value_key (g, values->val[i].hivex_value_h);
     if (key == NULL)
-      goto out;
+      goto out1;
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':')
       count++;
@@ -417,7 +418,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     int64_t v = values->val[i].hivex_value_h;
     char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
-      goto out;
+      goto out1;
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':') {
       /* Get the binary value.  Is it a fixed disk? */
@@ -450,30 +451,30 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   }
 
   if (node == -1)
-    goto out;
+    goto out1;
 
   if (node == 0) {
     perrorf (g, "hivex: cannot locate HKLM\\SYSTEM\\%s\\Services\\Tcpip\\Parameters",
              fs->windows_current_control_set);
-    goto out;
+    goto out1;
   }
 
   guestfs_free_hivex_value_list (values);
   values = guestfs_hivex_node_values (g, node);
   if (values == NULL)
-    goto out;
+    goto out1;
 
   for (i = 0; i < values->len; ++i) {
     int64_t v = values->val[i].hivex_value_h;
     char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
-      goto out;
+      goto out1;
 
     if (STRCASEEQ (key, "Hostname")) {
       fs->hostname = guestfs_hivex_value_utf8 (g, v);
       if (!fs->hostname) {
         free (key);
-        goto out;
+        goto out1;
       }
     }
     /* many other interesting fields here ... */
@@ -483,8 +484,9 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
   ret = 0;
 
- out:
+ out1:
   guestfs_hivex_close (g);
+ out0:
   if (values) guestfs_free_hivex_value_list (values);
   free (system_path);
   free (buf);
