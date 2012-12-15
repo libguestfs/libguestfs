@@ -416,6 +416,14 @@ extern \"C\" {
 
 #if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40000 /* gcc >= 4.0 */
 # define GUESTFS_DLL_PUBLIC __attribute__((visibility (\"default\")))
+#else
+# define GUESTFS_DLL_PUBLIC
+#endif
+
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 30100 /* gcc >= 3.1 */
+# define GUESTFS_NORETURN __attribute__((noreturn))
+#else
+# define GUESTFS_NORETURN
 #endif
 
 /* The handle. */
@@ -444,7 +452,7 @@ typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *opaque, const char
 
 #ifndef GUESTFS_TYPEDEF_ABORT_CB
 #define GUESTFS_TYPEDEF_ABORT_CB 1
-typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));
+typedef void (*guestfs_abort_cb) (void) GUESTFS_NORETURN;
 #endif
 
 extern GUESTFS_DLL_PUBLIC void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
