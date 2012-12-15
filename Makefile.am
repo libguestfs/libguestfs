@@ -372,22 +372,22 @@ check-with-upstream-libvirt:
 
 help:
 	@echo
-	@echo "make                  Build everything."
+	@echo "make                              Build everything."
 	@echo
-	@echo "make check            Run the standard tests"
-	@echo "make -k check           ... and display all errors at once."
-	@echo "make check-valgrind   Run a subset of the tests under valgrind."
+	@echo "make check                        Run the standard tests"
+	@echo "make -k check                       ... and display all errors at once."
+	@echo "make check-valgrind               Run a subset of the tests under valgrind."
 	@echo "make check-valgrind-local-guests  Test under valgrind using local guests."
 	@echo "make check-with-appliance         Test using appliance attach-method."
 	@echo "make check-with-upstream-qemu     Test using upstream qemu."
 	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
-	@echo "make check-slow       Slow/long-running tests."
-	@echo "make extra-tests      Same as check-* (but not 'make check')"
-	@echo "make syntax-check     Check syntax and style problems in the code."
+	@echo "make check-slow                   Slow/long-running tests."
+	@echo "make extra-tests                  Same as check-* (but not 'make check')"
+	@echo "make syntax-check                 Check syntax and style problems in the code."
 	@echo
-	@echo "make install          Install everything."
+	@echo "make install                      Install everything."
 	@echo
-	@echo "make clean            Clean everything."
+	@echo "make clean                        Clean everything."
 	@echo
 	@echo "To run programs without installing:"
 	@echo "  ./run ./fish/guestfish [or any other program]"
