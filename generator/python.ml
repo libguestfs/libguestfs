@@ -35,6 +35,12 @@ let rec generate_python_c () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
+/* This has to be included first, else definitions conflict with
+ * glibc header files.  Python is broken.
+ */
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
 #include <config.h>
 
 #include <stdio.h>
@@ -567,12 +573,16 @@ moduleinit (void)
 }
 
 #if PY_MAJOR_VERSION >= 3
+extern PyMODINIT_FUNC PyInit_libguestfsmod (void);
+
 PyMODINIT_FUNC
 PyInit_libguestfsmod (void)
 {
   return moduleinit ();
 }
 #else
+extern void initlibguestfsmod (void);
+
 void
 initlibguestfsmod (void)
 {
