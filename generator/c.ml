@@ -677,20 +677,23 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
   pr "\
 
+#if GUESTFS_PRIVATE_FUNCTIONS
+
 /* Private functions.
  *
  * These are NOT part of the public, stable API, and can change at any
  * time!  We export them because they are used by some of the language
  * bindings.
  */
-extern GUESTFS_DLL_PUBLIC void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
-extern GUESTFS_DLL_PUBLIC void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
-extern GUESTFS_DLL_PUBLIC char *guestfs_safe_strdup (guestfs_h *g, const char *str);
-extern GUESTFS_DLL_PUBLIC void *guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-#ifdef GUESTFS_PRIVATE_FOR_EACH_DISK
-extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
-#endif
-/* End of private functions. */
+
+extern GUESTFS_DLL_PUBLIC void *guestfs___safe_malloc (guestfs_h *g, size_t nbytes);
+extern GUESTFS_DLL_PUBLIC void *guestfs___safe_calloc (guestfs_h *g, size_t n, size_t s);
+extern GUESTFS_DLL_PUBLIC char *guestfs___safe_strdup (guestfs_h *g, const char *str);
+extern GUESTFS_DLL_PUBLIC void *guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size);
+
+extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomainPtr */ void *dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+
+#endif /* End of private functions. */
 
 #ifdef __cplusplus
 }
@@ -1594,10 +1597,10 @@ and generate_linker_script () =
     (* Unofficial parts of the API: the bindings code use these
      * functions, so it is useful to export them.
      *)
-    "guestfs_safe_calloc";
-    "guestfs_safe_malloc";
-    "guestfs_safe_strdup";
-    "guestfs_safe_memdup";
+    "guestfs___safe_calloc";
+    "guestfs___safe_malloc";
+    "guestfs___safe_strdup";
+    "guestfs___safe_memdup";
     "guestfs___for_each_disk";
   ] in
   let functions =

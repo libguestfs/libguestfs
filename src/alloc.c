@@ -27,7 +27,7 @@
 #include "guestfs-internal.h"
 
 void *
-guestfs_safe_malloc (guestfs_h *g, size_t nbytes)
+guestfs___safe_malloc (guestfs_h *g, size_t nbytes)
 {
   void *ptr = malloc (nbytes);
   if (nbytes > 0 && !ptr) g->abort_cb ();
@@ -60,7 +60,7 @@ guestfs_safe_malloc (guestfs_h *g, size_t nbytes)
 /* Allocate zeroed memory for N elements of S bytes, with error
    checking.  S must be nonzero.  */
 void *
-guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s)
+guestfs___safe_calloc (guestfs_h *g, size_t n, size_t s)
 {
   /* From gnulib's calloc function in xmalloc.c.  */
   void *p;
@@ -75,7 +75,7 @@ guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s)
 }
 
 void *
-guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes)
+guestfs___safe_realloc (guestfs_h *g, void *ptr, size_t nbytes)
 {
   void *p = realloc (ptr, nbytes);
   if (nbytes > 0 && !p) g->abort_cb ();
@@ -83,7 +83,7 @@ guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes)
 }
 
 char *
-guestfs_safe_strdup (guestfs_h *g, const char *str)
+guestfs___safe_strdup (guestfs_h *g, const char *str)
 {
   char *s = strdup (str);
   if (!s) g->abort_cb ();
@@ -91,7 +91,7 @@ guestfs_safe_strdup (guestfs_h *g, const char *str)
 }
 
 char *
-guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n)
+guestfs___safe_strndup (guestfs_h *g, const char *str, size_t n)
 {
   char *s = strndup (str, n);
   if (!s) g->abort_cb ();
@@ -99,7 +99,7 @@ guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n)
 }
 
 void *
-guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size)
+guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size)
 {
   void *p = malloc (size);
   if (!p) g->abort_cb ();
@@ -108,7 +108,7 @@ guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size)
 }
 
 char *
-guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
+guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   char *msg;

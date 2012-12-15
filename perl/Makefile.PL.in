@@ -27,5 +27,5 @@ WriteMakefile (
     LIBS => '-L@top_builddir@/src/.libs -lguestfs',
     INC => '-I@top_builddir@/src -I@top_srcdir@/src',
     TYPEMAPS => [ '@srcdir@/typemap' ],
-    CCFLAGS => $Config{ccflags} . ' @CFLAGS@',
+    CCFLAGS => $Config{ccflags} . ' -DGUESTFS_PRIVATE_FUNCTIONS=1 @CFLAGS@',
     );

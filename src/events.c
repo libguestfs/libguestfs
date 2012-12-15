@@ -57,8 +57,8 @@ guestfs_set_event_callback (guestfs_h *g,
 
   int event_handle = (int) g->nr_events;
   g->events =
-    guestfs_safe_realloc (g, g->events,
-                          (g->nr_events+1) * sizeof (struct event));
+    safe_realloc (g, g->events,
+                  (g->nr_events+1) * sizeof (struct event));
   g->nr_events++;
 
   g->events[event_handle].event_bitmask = event_bitmask;
@@ -242,8 +242,8 @@ replace_old_style_event_callback (guestfs_h *g,
 
   /* i == g->nr_events */
   g->events =
-    guestfs_safe_realloc (g, g->events,
-                          (g->nr_events+1) * sizeof (struct event));
+    safe_realloc (g, g->events,
+                  (g->nr_events+1) * sizeof (struct event));
   g->nr_events++;
 
  replace:
