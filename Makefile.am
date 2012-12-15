@@ -374,7 +374,8 @@ help:
 	@echo
 	@echo "make                  Build everything."
 	@echo
-	@echo "make check            Run the standard tests."
+	@echo "make check            Run the standard tests"
+	@echo "make -k check           ... and display all errors at once."
 	@echo "make check-valgrind   Run a subset of the tests under valgrind."
 	@echo "make check-valgrind-local-guests  Test under valgrind using local guests."
 	@echo "make check-with-appliance         Test using appliance attach-method."
