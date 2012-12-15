@@ -29,5 +29,9 @@ unless have_library("guestfs", "guestfs_create", "guestfs.h")
   raise "libguestfs not found"
 end
 
+$CFLAGS =
+  "#{$CFLAGS} @CFLAGS@ -DGUESTFS_PRIVATE=1 " <<
+  "@WARN_CFLAGS@ @WERROR_CFLAGS@"
+
 create_header
 create_makefile(extension_name)

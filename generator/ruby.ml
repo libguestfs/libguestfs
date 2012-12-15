@@ -418,6 +418,11 @@ ruby_user_cancel (VALUE gv)
         let doc = String.concat "\n * " doc in
         let doc = trim doc in
 
+        (* Because Ruby documentation appears as C comments, we must
+         * replace any instance of "/*".
+         *)
+        let doc = replace_str doc "/*" "/ *" in
+
         let args = List.map name_of_argt args in
         let args = if optargs <> [] then args @ ["{optargs...}"] else args in
         let args = String.concat ", " args in
@@ -672,15 +677,18 @@ ruby_user_cancel (VALUE gv)
   ) external_functions;
 
   pr "\
+extern void Init__guestfs (void); /* keep GCC warnings happy */
+
 /* Initialize the module. */
-void Init__guestfs ()
+void
+Init__guestfs (void)
 {
   m_guestfs = rb_define_module (\"Guestfs\");
   c_guestfs = rb_define_class_under (m_guestfs, \"Guestfs\", rb_cObject);
   e_Error = rb_define_class_under (m_guestfs, \"Error\", rb_eStandardError);
 
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
-  rb_define_alloc_func (c_guestfs, ruby_guestfs_create);
+  rb_define_alloc_func (c_guestfs, (rb_alloc_func_t) ruby_guestfs_create);
 #endif
 
   rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, -1);

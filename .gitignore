@@ -345,6 +345,7 @@ Makefile.in
 /ruby/examples/guestfs-ruby.3
 /ruby/examples/stamp-guestfs-ruby.pod
 /ruby/ext/guestfs/extconf.h
+/ruby/ext/guestfs/extconf.rb
 /ruby/ext/guestfs/_guestfs.bundle
 /ruby/ext/guestfs/_guestfs.c
 /ruby/ext/guestfs/_guestfs.so
