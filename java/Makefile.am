@@ -77,9 +77,10 @@ libguestfs_jni_la_SOURCES = \
 libguestfs_jni_la_LIBADD = $(top_builddir)/src/libguestfs.la
 libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO) -shared
 libguestfs_jni_la_CFLAGS = \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS) \
-  -I$(top_srcdir)/src -I$(top_builddir)/src \
-  $(JNI_CFLAGS)
+	-DGUESTFS_PRIVATE_FUNCTIONS=1 \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(JNI_CFLAGS)
 
 BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 

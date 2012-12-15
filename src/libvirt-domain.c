@@ -33,10 +33,6 @@
 #include <libxml/tree.h>
 #endif
 
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
-#define GUESTFS_PRIVATE_FOR_EACH_DISK 1
-#endif
-
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
@@ -161,16 +157,20 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
  * The callback function 'f' is called once for each disk.
  *
  * Returns number of disks, or -1 if there was an error.
+ *
+ * 'domv' is declared void* for convenience so it can appear as a
+ * private function in the public <guestfs.h> header.
  */
 int
 guestfs___for_each_disk (guestfs_h *g,
-                         virDomainPtr dom,
+                         void *domv,
                          int (*f) (guestfs_h *g,
                                    const char *filename, const char *format,
                                    int readonly,
                                    void *data),
                          void *data)
 {
+  virDomainPtr dom = domv;
   int i, nr_added = 0, r = -1;
   virErrorPtr err;
   xmlDocPtr doc = NULL;

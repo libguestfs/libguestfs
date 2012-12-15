@@ -503,14 +503,14 @@ copy_table (char * const * argv)
         | FileOut n
         | Key n ->
             (* Copy strings in case the GC moves them: RHBZ#604691 *)
-            pr "  char *%s = guestfs_safe_strdup (g, String_val (%sv));\n" n n
+            pr "  char *%s = guestfs___safe_strdup (g, String_val (%sv));\n" n n
         | OptString n ->
             pr "  char *%s =\n" n;
             pr "    %sv != Val_int (0) ?\n" n;
-            pr "      guestfs_safe_strdup (g, String_val (Field (%sv, 0))) : NULL;\n" n
+            pr "      guestfs___safe_strdup (g, String_val (Field (%sv, 0))) : NULL;\n" n
         | BufferIn n ->
             pr "  size_t %s_size = caml_string_length (%sv);\n" n n;
-            pr "  char *%s = guestfs_safe_memdup (g, String_val (%sv), %s_size);\n" n n n
+            pr "  char *%s = guestfs___safe_memdup (g, String_val (%sv), %s_size);\n" n n n
         | StringList n | DeviceList n ->
             pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
         | Bool n ->
@@ -539,7 +539,7 @@ copy_table (char * const * argv)
              | OInt _ -> pr "Int_val (Field (%sv, 0))" n
              | OInt64 _ -> pr "Int64_val (Field (%sv, 0))" n
              | OString _ ->
-                 pr "guestfs_safe_strdup (g, String_val (Field (%sv, 0)))" n
+                 pr "guestfs___safe_strdup (g, String_val (Field (%sv, 0)))" n
              | OStringList n ->
                  pr "ocaml_guestfs_strings_val (g, Field (%sv, 0))\n" n
             );

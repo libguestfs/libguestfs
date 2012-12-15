@@ -195,6 +195,7 @@ libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
 libguestfs_la_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DGUESTFS_PRIVATE_FUNCTIONS=1 \
 	-DLIBOSINFO_DB_PATH='"$(datadir)/libosinfo/db"' \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \

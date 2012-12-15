@@ -459,20 +459,20 @@ struct guestfs_message_error;
 struct guestfs_progress;
 
 /* alloc.c */
-extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
-extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
-extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
-extern void *guestfs_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-extern char *guestfs_safe_asprintf (guestfs_h *g, const char *fs, ...)
+extern void *guestfs___safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
+extern char *guestfs___safe_strdup (guestfs_h *g, const char *str);
+extern char *guestfs___safe_strndup (guestfs_h *g, const char *str, size_t n);
+extern void *guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size);
+extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 
-#define safe_calloc guestfs_safe_calloc
-#define safe_malloc guestfs_safe_malloc
-#define safe_realloc guestfs_safe_realloc
-#define safe_strdup guestfs_safe_strdup
-#define safe_strndup guestfs_safe_strndup
-#define safe_memdup guestfs_safe_memdup
-#define safe_asprintf guestfs_safe_asprintf
+#define safe_calloc guestfs___safe_calloc
+#define safe_malloc guestfs___safe_malloc
+#define safe_realloc guestfs___safe_realloc
+#define safe_strdup guestfs___safe_strdup
+#define safe_strndup guestfs___safe_strndup
+#define safe_memdup guestfs___safe_memdup
+#define safe_asprintf guestfs___safe_asprintf
 
 /* errors.c */
 extern void guestfs___init_error_handler (guestfs_h *g);

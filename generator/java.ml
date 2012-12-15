@@ -622,7 +622,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  %s_size = (*env)->GetArrayLength (env, j%s);\n" n n
         | StringList n | DeviceList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-            pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  %s = guestfs___safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
@@ -648,7 +648,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
                 n n
           | OStringList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-            pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  %s = guestfs___safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
