@@ -47,10 +47,6 @@ CLEANFILES = \
 
 if HAVE_RUBY
 
-TESTS = run-bindtests run-ruby-tests
-
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
-
 all: $(generator_built)
 	$(RAKE) build
 	$(RAKE) rdoc
@@ -63,5 +59,9 @@ install:
 	$(MKDIR_P) $(DESTDIR)$(RUBY_SITEARCH)
 	$(INSTALL) -p -m 0644 $(srcdir)/lib/guestfs.rb $(DESTDIR)$(RUBY_SITELIB)
 	$(INSTALL) -p -m 0755 $(builddir)/ext/guestfs/_guestfs.so $(DESTDIR)$(RUBY_SITEARCH)
+
+TESTS = run-bindtests run-ruby-tests
+
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 endif

@@ -1464,6 +1464,7 @@ AC_CONFIG_FILES([Makefile
                  ruby/Makefile
                  ruby/Rakefile
                  ruby/examples/Makefile
+                 ruby/ext/guestfs/extconf.rb
                  sparsify/Makefile
                  src/Makefile
                  src/libguestfs.pc

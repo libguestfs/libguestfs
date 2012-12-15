@@ -1,6 +1,6 @@
 # libguestfs Ruby bindings -*- ruby -*-
 # @configure_input@
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,6 +28,10 @@ end
 unless have_library("guestfs", "guestfs_create", "guestfs.h")
   raise "libguestfs not found"
 end
+
+$CFLAGS =
+  "#{$CFLAGS} @CFLAGS@ -DGUESTFS_PRIVATE_FUNCTIONS=1 " <<
+  "@WARN_CFLAGS@ @WERROR_CFLAGS@"
 
 create_header
 create_makefile(extension_name)
