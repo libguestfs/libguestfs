@@ -376,13 +376,15 @@ help:
 	@echo
 	@echo "make check                        Run the standard tests"
 	@echo "make -k check                       ... and display all errors at once."
-	@echo "make check-valgrind               Run a subset of the tests under valgrind."
-	@echo "make check-valgrind-local-guests  Test under valgrind using local guests."
-	@echo "make check-with-appliance         Test using appliance attach-method."
-	@echo "make check-with-upstream-qemu     Test using upstream qemu."
-	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
-	@echo "make check-slow                   Slow/long-running tests."
-	@echo "make extra-tests                  Same as check-* (but not 'make check')"
+	@echo
+	@echo "make extra-tests                  ... runs all of the following tests:"
+	@echo "  make check-valgrind               Run a subset of the tests under valgrind."
+	@echo "  make check-valgrind-local-guests  Test under valgrind using local guests."
+	@echo "  make check-with-appliance         Test using appliance attach-method."
+	@echo "  make check-with-upstream-qemu     Test using upstream qemu."
+	@echo "  make check-with-upstream-libvirt  Test using upstream libvirt."
+	@echo "  make check-slow                   Slow/long-running tests."
+	@echo
 	@echo "make syntax-check                 Check syntax and style problems in the code."
 	@echo
 	@echo "make install                      Install everything."
