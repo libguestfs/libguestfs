@@ -114,7 +114,6 @@ struct drive_libvirt {
  * keep them all in a structure for convenience!
  */
 struct libvirt_xml_params {
-  char *capabilities_xml;       /* libvirt capabilities XML */
   char *kernel;                 /* paths to kernel and initrd */
   char *initrd;
   char *appliance_overlay;      /* path to qcow2 overlay backed by appliance */
@@ -126,6 +125,7 @@ struct libvirt_xml_params {
   bool is_kvm;                  /* false = qemu, true = kvm */
 };
 
+static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct libvirt_xml_params *params);
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params);
 static void libvirt_error (guestfs_h *g, const char *fs, ...);
 static int is_custom_qemu (guestfs_h *g);
@@ -145,8 +145,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   int is_root = geteuid () == 0;
   virConnectPtr conn = NULL;
   virDomainPtr dom = NULL;
+  char *capabilities_xml = NULL;
   struct libvirt_xml_params params = {
-    .capabilities_xml = NULL,
     .kernel = NULL,
     .initrd = NULL,
     .appliance_overlay = NULL,
@@ -198,11 +198,21 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   if (g->verbose)
     guestfs___print_timestamped_message (g, "get libvirt capabilities");
 
-  params.capabilities_xml = virConnectGetCapabilities (conn);
-  if (!params.capabilities_xml) {
+  capabilities_xml = virConnectGetCapabilities (conn);
+  if (!capabilities_xml) {
     libvirt_error (g, _("could not get libvirt capabilities"));
     goto cleanup;
   }
+
+  /* Parse capabilities XML.  This fills in various fields in 'params'
+   * struct, and can also fail if we detect that the hypervisor cannot
+   * run qemu guests (RHBZ#886915).
+   */
+  if (g->verbose)
+    guestfs___print_timestamped_message (g, "parsing capabilities XML");
+
+  if (parse_capabilities (g, capabilities_xml, &params) == -1)
+    goto cleanup;
 
   /* Locate and/or build the appliance. */
   TRACE0 (launch_build_libvirt_appliance_start);
@@ -337,8 +347,6 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   strcpy (params.appliance_dev, "/dev/sd");
   guestfs___drive_name (params.appliance_index, &params.appliance_dev[7]);
   params.enable_svirt = ! is_custom_qemu (g);
-  /* XXX big hack, instead of actually parsing the capabilities XML. */
-  params.is_kvm = strstr (params.capabilities_xml, "'kvm'") != NULL;
 
   xml = construct_libvirt_xml (g, &params);
   if (!xml)
@@ -445,7 +453,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   free (params.initrd);
   free (appliance);
   free (params.appliance_overlay);
-  free (params.capabilities_xml);
+  free (capabilities_xml);
   free (xml);
 
   return 0;
@@ -479,12 +487,95 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   free (params.initrd);
   free (appliance);
   free (params.appliance_overlay);
-  free (params.capabilities_xml);
+  free (capabilities_xml);
   free (xml);
 
   g->state = CONFIG;
 
   return -1;
+}
+
+static int
+parse_capabilities (guestfs_h *g, const char *capabilities_xml,
+                    struct libvirt_xml_params *params)
+{
+  int ret = -1;
+  xmlDocPtr doc = NULL;
+  xmlXPathContextPtr xpathCtx = NULL;
+  xmlXPathObjectPtr xpathObj = NULL;
+  size_t i;
+  xmlNodeSetPtr nodes;
+  xmlAttrPtr attr;
+  char *type;
+  size_t seen_qemu, seen_kvm;
+
+  doc = xmlParseMemory (capabilities_xml, strlen (capabilities_xml));
+  if (doc == NULL) {
+    error (g, _("unable to parse capabilities XML returned by libvirt"));
+    goto cleanup;
+  }
+
+  xpathCtx = xmlXPathNewContext (doc);
+  if (xpathCtx == NULL) {
+    error (g, _("unable to create new XPath context"));
+    goto cleanup;
+  }
+
+  /* This gives us a set of all the supported domain types.
+   * XXX It ignores architecture, but let's not worry about that.
+   */
+#define XPATH_EXPR "/capabilities/guest/arch/domain/@type"
+  xpathObj = xmlXPathEvalExpression (BAD_CAST XPATH_EXPR, xpathCtx);
+  if (xpathObj == NULL) {
+    error (g, _("unable to evaluate XPath expression: %s"), XPATH_EXPR);
+    goto cleanup;
+  }
+#undef XPATH_EXPR
+
+  nodes = xpathObj->nodesetval;
+  seen_qemu = seen_kvm = 0;
+  for (i = 0; i < (size_t) nodes->nodeNr && (!seen_qemu || !seen_kvm); ++i) {
+    assert (nodes->nodeTab[i]);
+    assert (nodes->nodeTab[i]->type == XML_ATTRIBUTE_NODE);
+    attr = (xmlAttrPtr) nodes->nodeTab[i];
+    type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+    if (STREQ (type, "qemu"))
+      seen_qemu++;
+    else if (STREQ (type, "kvm"))
+      seen_kvm++;
+
+    free (type);
+  }
+
+  /* This was RHBZ#886915: in that case the default libvirt URI
+   * pointed to a Xen hypervisor, and so could not create the
+   * appliance VM.
+   */
+  if (!seen_qemu && !seen_kvm) {
+    error (g,
+           _("libvirt hypervisor doesn't support qemu or KVM,\n"
+             "so we cannot create the libguestfs appliance.\n"
+             "The current attach-method is:\n"
+             "  %s\n"
+             "Try setting:\n"
+             "  export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session\n"
+             "or if you want to have libguestfs run qemu directly, try:\n"
+             "  export LIBGUESTFS_ATTACH_METHOD=appliance\n"
+             "or read the guestfs(3) man page"),
+           guestfs__get_attach_method (g));
+    goto cleanup;
+  }
+
+  params->is_kvm = seen_kvm;
+  ret = 0;
+
+ cleanup:
+  if (xpathObj) xmlXPathFreeObject (xpathObj);
+  if (xpathCtx) xmlXPathFreeContext (xpathCtx);
+  if (doc) xmlFreeDoc (doc);
+
+  return ret;
 }
 
 static int
