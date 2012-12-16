@@ -171,7 +171,9 @@ if_not_mounted_run_e2fsck (const char *device)
     return -1;
 
   if (!mounted) {
-    r = command (NULL, &err, str_e2fsck, "-fy", device, NULL);
+    r = commandf (NULL, &err,
+                  COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                  str_e2fsck, "-fy", device, NULL);
     if (r == -1) {
       reply_with_error ("%s", err);
       free (err);
@@ -291,7 +293,9 @@ do_e2fsck (const char *device,
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (NULL, &err, argv);
+  r = commandvf (NULL, &err,
+                 COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                 argv);
   /* 0 = no errors, 1 = errors corrected.
    *
    * >= 4 means uncorrected or other errors.
