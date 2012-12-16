@@ -534,7 +534,10 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
 
   nodes = xpathObj->nodesetval;
   seen_qemu = seen_kvm = 0;
-  for (i = 0; i < (size_t) nodes->nodeNr && (!seen_qemu || !seen_kvm); ++i) {
+  for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
+    if (seen_qemu && seen_kvm)
+      break;
+
     assert (nodes->nodeTab[i]);
     assert (nodes->nodeTab[i]->type == XML_ATTRIBUTE_NODE);
     attr = (xmlAttrPtr) nodes->nodeTab[i];
