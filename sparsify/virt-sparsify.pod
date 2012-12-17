@@ -22,8 +22,9 @@ Virt-sparsify can also convert between some disk formats, for example
 converting a raw disk image to a thin-provisioned qcow2 image.
 
 Virt-sparsify can operate on any disk image, not just ones from
-virtual machines.  If a virtual machine has more than one attached
-disk, you must sparsify each one separately.
+virtual machines.  However if a virtual machine has multiple disks
+and uses volume management, then virt-sparsify will work but not be
+very effective (L<http://bugzilla.redhat.com/887826>).
 
 =head2 IMPORTANT NOTE ABOUT SPARSE OUTPUT IMAGES
 
