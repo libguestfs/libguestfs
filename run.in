@@ -116,6 +116,7 @@ fi
 export PATH
 
 # For Lua.
+export LUA=@LUA@
 if [ -z "$LUA_CPATH" ]; then
     LUA_CPATH="$b/lua/?.so"
 else

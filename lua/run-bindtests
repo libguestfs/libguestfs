@@ -16,5 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-lua bindtests.lua > bindtests.tmp
+set -e
+
+$LUA $srcdir/bindtests.lua > bindtests.tmp
 diff -u $srcdir/../bindtests bindtests.tmp
