@@ -1305,15 +1305,22 @@ AS_IF([test "x$enable_lua" != "xno"],[
             AC_MSG_CHECKING([for Lua version])
             LUA_VERSION=`$LUA -e 'print(_VERSION)' | awk '{print $2}'`
             AC_MSG_RESULT([$LUA_VERSION])
-            PKG_CHECK_MODULES([LUA], [lua$LUA_VERSION],
-              [
+            dnl On Debian it's 'lua5.1', 'lua5.2' etc.  On Fedora, just 'lua'.
+            PKG_CHECK_MODULES([LUA], [lua$LUA_VERSION],[
                 AC_SUBST([LUA_CFLAGS])
                 AC_SUBST([LUA_LIBS])
                 AC_SUBST([LUA_VERSION])
                 AC_DEFINE([HAVE_LUA],[1],[Lua library found at compile time])
-              ],
-              [AC_MSG_WARN([pkg-info for lua$LUA_VERSION not found])]
-            )
+            ],[
+                PKG_CHECK_MODULES([LUA], [lua],[
+                    AC_SUBST([LUA_CFLAGS])
+                    AC_SUBST([LUA_LIBS])
+                    AC_SUBST([LUA_VERSION])
+                    AC_DEFINE([HAVE_LUA],[1],[Lua library found at compile time])
+                ],[
+                    AC_MSG_WARN([lua $LUA_VERSION not found])
+                ])
+            ])
         ])
 ])
 AM_CONDITIONAL([HAVE_LUA],
