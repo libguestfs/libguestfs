@@ -191,7 +191,7 @@ do_pvcreate (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "pvcreate", device, NULL);
+               str_lvm, "pvcreate", "--force", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
