@@ -1817,55 +1817,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 Set the method that libguestfs uses to connect to the back end
 guestfsd daemon.
 
-Possible attach methods are:
-
-=over 4
-
-=item C<appliance>
-
-Launch an appliance and connect to it.
-
-This is the ordinary method and normally the default, but see the
-note below.
-
-=item C<libvirt>
-
-=item C<libvirt:I<URI>>
-
-Use libvirt to launch the appliance.  The optional I<URI> is the
-libvirt connection URI to use (see L<http://libvirt.org/uri.html>).
-
-=item C<unix:I<path>>
-
-Connect to the Unix domain socket I<path>.
-
-This method lets you connect to an existing daemon or (using
-virtio-serial) to a live guest.  For more information, see
-L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>.
-
-=back
-
-C<appliance> is usually the default attach method.  However since
-libguestfs E<ge> 1.19.24 it has been possible to change the default
-in two ways:
-
-=over 4
-
-=item Setting LIBGUESTFS_ATTACH_METHOD
-
-Users can set this environment variable to change the default.
-
-=item Configuring the default attach method when building libguestfs
-
-Distributors can override the default when libguestfs is built
-(using C<./configure --with-default-attach-method=...>).
-
-To find out if libguestfs was compiled with a different default
-attach method, do:
-
- guestfish get-attach-method
-
-=back" };
+See L<guestfs(3)/ATTACH METHOD>." };
 
   { defaults with
     name = "get_attach_method";
@@ -1877,7 +1829,9 @@ attach method, do:
     ];
     shortdesc = "get the attach method";
     longdesc = "\
-Return the current attach method.  See C<guestfs_set_attach_method>." };
+Return the current attach method.
+
+See C<guestfs_set_attach_method> and L<guestfs(3)/ATTACH METHOD>." };
 
   { defaults with
     name = "inspect_get_product_variant";

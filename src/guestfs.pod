@@ -1169,6 +1169,62 @@ options into the C<args> array.
  
  exec qemu-kvm -machine pc,accel=tcg "${args[@]}"
 
+=head2 ATTACH METHOD
+
+The attach method controls how libguestfs creates and/or connects to
+the back-end daemon, eg. by starting qemu directly, or by using
+libvirt to manage an appliance, or connecting to an already running
+daemon.
+
+You can set the attach method by calling
+L</guestfs_set_attach_method>, or by setting the environment variable
+C<LIBGUESTFS_ATTACH_METHOD>.
+
+Possible attach methods are described below:
+
+=over 4
+
+=item C<appliance>
+
+Run qemu directly to launch an appliance.
+
+This is the ordinary method and normally the default, but see the
+note below.
+
+=item C<libvirt>
+
+=item C<libvirt:I<URI>>
+
+Use libvirt to launch and manage the appliance.
+
+The optional I<URI> is the libvirt connection URI to use (see
+L<http://libvirt.org/uri.html>).  The typical libvirt attach method
+with a URI would be C<libvirt:qemu:///session>
+
+The libvirt attach method supports more features, including
+hotplugging (see L</HOTPLUGGING>) and sVirt.
+
+=item C<unix:I<path>>
+
+Connect to the Unix domain socket I<path>.
+
+This method lets you connect to an existing daemon or (using
+virtio-serial) to a live guest.  For more information, see
+L</ATTACHING TO RUNNING DAEMONS>.
+
+=back
+
+C<appliance> is usually the default attach method.  However since
+libguestfs E<ge> 1.19.24, libguestfs can be built with a different
+default by doing:
+
+ ./configure --with-default-attach-method=...
+
+To find out if libguestfs was compiled with a different default
+attach method, do:
+
+ guestfish get-attach-method
+
 =head2 ATTACHING TO RUNNING DAEMONS
 
 I<Note (1):> This is B<highly experimental> and has a tendency to eat
@@ -4016,7 +4072,7 @@ Pass additional options to the guest kernel.
 =item LIBGUESTFS_ATTACH_METHOD
 
 Choose the default way to create the appliance.  See
-L</guestfs_set_attach_method>.
+L</guestfs_set_attach_method> and L</ATTACH METHOD>.
 
 =item LIBGUESTFS_CACHEDIR
 
