@@ -423,6 +423,12 @@ C<$http_proxy> and C<$ftp_proxy> are pointing to it.
 With Squid running and correctly configured, appliance builds should
 be reduced to a few minutes.
 
+=head3 How can I speed up libguestfs builds (Debian)?
+
+Hilko Bengen suggests using "approx" which is a Debian archive proxy
+(L<http://packages.debian.org/approx>).  This tool is documented on
+Debian in the approx(8) manual page.
+
 =head1 SPEED, DISK SPACE USED BY LIBGUESTFS
 
 Note: Most of the information in this section has moved:
