@@ -35,6 +35,11 @@ if ! $guestfish add /dev/null : run : available "ntfs3g"; then
     exit 77
 fi
 
+if [ ! -s ../guests/windows.img ]; then
+    echo "$0: skipped because windows.img is zero-sized"
+    exit 77
+fi
+
 # Export the filesystems to the backup file.
 $guestfish --ro -a ../guests/windows.img <<EOF
 run

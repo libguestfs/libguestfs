@@ -23,7 +23,10 @@ set -e
 # to be able to sysprep any of our test guests.
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
-    $VG ./virt-sysprep -q -n -a $f
+    # Ignore zero-sized windows.img if ntfs-3g is not installed.
+    if [ -s "$f" ]; then
+	$VG ./virt-sysprep -q -n -a $f
+    fi
 done
 
 # We could also test this image, but mdadm is problematic for
