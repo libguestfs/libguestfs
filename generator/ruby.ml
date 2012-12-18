@@ -41,7 +41,10 @@ let rec generate_ruby_c () =
 #include <stdlib.h>
 #include <stdint.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored \"-Wstrict-prototypes\"
 #include <ruby.h>
+#pragma GCC diagnostic pop
 
 #include \"guestfs.h\"
 
