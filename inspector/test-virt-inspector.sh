@@ -20,7 +20,10 @@ export LANG=C
 set -e
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
-    $VG ./virt-inspector -a $f
+    # Ignore zero-sized windows.img if ntfs-3g is not installed.
+    if [ -s "$f" ]; then
+	$VG ./virt-inspector -a $f
+    fi
 done
 
 # We could also test this image, but mdadm is problematic for
