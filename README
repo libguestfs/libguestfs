@@ -118,6 +118,9 @@ For basic functionality and the C tools:
 - yajl >= 2 (optional)
   JSON parser, needed to handle the output of ldmtool.
 
+- gdisk (optional)
+  For managing some aspects of GPT disks.
+
 - netpbm, icoutils (optional)
   These programs are used to render icons from guests.
 
