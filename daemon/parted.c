@@ -27,6 +27,7 @@
 
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_parted, parted);
 GUESTFSD_EXT_CMD(str_sfdisk, sfdisk);
@@ -749,6 +750,12 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
   udev_settle ();
 
   return 0;
+}
+
+int
+optgroup_gdisk_available (void)
+{
+  return prog_exists (str_sgdisk);
 }
 
 int
