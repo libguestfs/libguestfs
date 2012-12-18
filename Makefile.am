@@ -368,6 +368,21 @@ check-with-upstream-libvirt:
 	  $(LIBVIRTDIR)/run $(MAKE) check || exit $$?; \
 	fi
 
+# Print subdirs.
+#
+# If you want to selectively run tests, or if the test suite fails half
+# way through, use:
+#
+#   make print-subdirs
+#
+# to print the subdirectories, select the ones you want to run / the
+# remaining ones, and do:
+#
+#   make check SUBDIRS="..."
+
+print-subdirs:
+	@echo $(SUBDIRS)
+
 # Provide help on common Makefile targets.
 
 help:
@@ -386,6 +401,7 @@ help:
 	@echo "  make check-slow                   Slow/long-running tests."
 	@echo
 	@echo "make syntax-check                 Check syntax and style problems in the code."
+	@echo "make print-subdirs                Print subdirectories."
 	@echo
 	@echo "make install                      Install everything."
 	@echo
