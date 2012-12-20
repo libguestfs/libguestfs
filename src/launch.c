@@ -825,6 +825,9 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
   ret = safe_asprintf
     (g,
      "panic=1"             /* force kernel to panic if daemon exits */
+#ifdef __i386__
+     " noapic"                  /* workaround for RHBZ#857026 */
+#endif
      " console=" SERIAL_CONSOLE /* serial console */
      " udevtimeout=600" /* good for very slow systems (RHBZ#480319) */
      " no_timer_check"  /* fix for RHBZ#502058 */
