@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-12-13 14:10+0000\n"
+"POT-Creation-Date: 2012-12-20 16:54+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -20,38 +20,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: align/domains.c:111 df/domains.c:115
+#: align/domains.c:107 df/domains.c:111
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:120 df/domains.c:124
+#: align/domains.c:116 df/domains.c:120
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:130 df/domains.c:134
+#: align/domains.c:126 df/domains.c:130
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:141 df/domains.c:145
+#: align/domains.c:137 df/domains.c:141
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:151 df/domains.c:155
+#: align/domains.c:147 df/domains.c:151
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:200 df/domains.c:211
+#: align/domains.c:196 df/domains.c:207
 #, c-format
 msgid "%s: failed to analyze a disk, see error(s) above\n"
 msgstr ""
 
-#: align/domains.c:351 align/scan.c:129 cat/virt-cat.c:121
-#: cat/virt-filesystems.c:196 cat/virt-ls.c:190 df/domains.c:437 df/main.c:138
+#: align/domains.c:347 align/scan.c:129 cat/virt-cat.c:121
+#: cat/virt-filesystems.c:196 cat/virt-ls.c:190 df/domains.c:433 df/main.c:138
 #: edit/virt-edit.c:143 fish/fish.c:234 format/format.c:137
 #: fuse/guestmount.c:208 inspector/virt-inspector.c:138
 #: rescue/virt-rescue.c:146
@@ -239,7 +239,7 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:289
+#: df/domains.c:285
 #, c-format
 msgid "%s: ignoring %s, it has too many disks (%zu > %zu)\n"
 msgstr ""
@@ -3796,8 +3796,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:546
-#: src/inspect-fs.c:591 src/inspect.c:654
+#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:547
+#: src/inspect-fs.c:592 src/inspect.c:654
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3806,7 +3806,7 @@ msgstr ""
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
-#: src/inspect-fs.c:375 src/inspect-fs.c:388
+#: src/inspect-fs.c:376 src/inspect-fs.c:389
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
@@ -3849,7 +3849,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
 
-#: src/launch-appliance.c:672 src/launch-libvirt.c:430
+#: src/launch-appliance.c:672 src/launch-libvirt.c:438
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
@@ -3878,20 +3878,47 @@ msgstr ""
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:353
+#: src/launch-libvirt.c:361
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:577
+#: src/launch-libvirt.c:514
+msgid "unable to parse capabilities XML returned by libvirt"
+msgstr ""
+
+#: src/launch-libvirt.c:520 src/libvirt-domain.c:203 src/libvirt-domain.c:529
+msgid "unable to create new XPath context"
+msgstr ""
+
+#: src/launch-libvirt.c:530
+#, c-format
+msgid "unable to evaluate XPath expression: %s"
+msgstr ""
+
+#: src/launch-libvirt.c:560
+#, c-format
+msgid ""
+"libvirt hypervisor doesn't support qemu or KVM,\n"
+"so we cannot create the libguestfs appliance.\n"
+"The current attach-method is:\n"
+"  %s\n"
+"Try setting:\n"
+"  export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session\n"
+"or if you want to have libguestfs run qemu directly, try:\n"
+"  export LIBGUESTFS_ATTACH_METHOD=appliance\n"
+"or read the guestfs(3) man page"
+msgstr ""
+
+#: src/launch-libvirt.c:671
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:908
+#: src/launch-libvirt.c:1002
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:988
+#: src/launch-libvirt.c:1082
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -3899,34 +3926,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1277
+#: src/launch-libvirt.c:1371
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1304
+#: src/launch-libvirt.c:1398
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1349
+#: src/launch-libvirt.c:1443
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1381
+#: src/launch-libvirt.c:1475
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1433
+#: src/launch-libvirt.c:1527
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1467
+#: src/launch-libvirt.c:1561
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1524
+#: src/launch-libvirt.c:1618
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4043,16 +4070,16 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:97 src/libvirt-domain.c:391
+#: src/libvirt-domain.c:93 src/libvirt-domain.c:391
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
-#: src/libvirt-domain.c:105
+#: src/libvirt-domain.c:101
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: src/libvirt-domain.c:126
+#: src/libvirt-domain.c:122
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
@@ -4064,10 +4091,6 @@ msgstr ""
 
 #: src/libvirt-domain.c:197 src/libvirt-domain.c:523
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-
-#: src/libvirt-domain.c:203 src/libvirt-domain.c:529
-msgid "unable to create new XPath context"
 msgstr ""
 
 #: src/libvirt-domain.c:210 src/libvirt-domain.c:544
