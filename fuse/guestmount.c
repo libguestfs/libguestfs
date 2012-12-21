@@ -79,7 +79,6 @@ fuse_opt_add_opt_escaped (char **opts, const char *opt)
 
 guestfs_h *g = NULL;
 int read_only = 0;
-int live = 0;
 int verbose = 0;
 int inspector = 0;
 int keys_from_stdin = 0;
@@ -124,7 +123,6 @@ usage (int status)
               "  --help               Display help message and exit\n"
               "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
-              "  --live               Connect to a live virtual machine\n"
               "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
               "  --no-fork            Don't daemonize\n"
               "  -n|--no-sync         Don't autosync\n"
@@ -248,7 +246,8 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "live")) {
-        live = 1;
+        error (EXIT_FAILURE, 0,
+               _("libguestfs live support was removed in libguestfs 1.48"));
       } else if (STREQ (long_options[option_index].name, "pid-file")) {
         pid_file = optarg;
       } else if (STREQ (long_options[option_index].name, "no-fork")) {
@@ -327,41 +326,15 @@ main (int argc, char *argv[])
   CHECK_OPTION_blocksize_consumed;
 
   /* Check we have the right options. */
-  if (!live) {
-    if (drvs == NULL) {
-      fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-               getprogname ());
-      usage (EXIT_FAILURE);
-    }
-    if (!(mps || inspector)) {
-      fprintf (stderr, _("%s: error: you must specify either -i at least one -m option.\n"),
-               getprogname ());
-      usage (EXIT_FAILURE);
-    }
-  } else {
-    size_t count_d = 0, count_other = 0;
-    struct drv *drv;
-
-    if (read_only)
-      error (EXIT_FAILURE, 0, _("--live is not compatible with --ro option"));
-
-    if (inspector)
-      error (EXIT_FAILURE, 0, _("--live is not compatible with -i option"));
-
-    /* --live: make sure there was one -d option and no -a options */
-    for (drv = drvs; drv; drv = drv->next) {
-      if (drv->type == drv_d)
-        count_d++;
-      else
-        count_other++;
-    }
-
-    if (count_d != 1)
-      error (EXIT_FAILURE, 0,
-             _("with --live, you must use exactly one -d option"));
-
-    if (count_other != 0)
-      error (EXIT_FAILURE, 0, _("--live is not compatible with -a option"));
+  if (drvs == NULL) {
+    fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
+             getprogname ());
+    usage (EXIT_FAILURE);
+  }
+  if (!(mps || inspector)) {
+    fprintf (stderr, _("%s: error: you must specify either -i at least one -m option.\n"),
+             getprogname ());
+    usage (EXIT_FAILURE);
   }
 
   /* We'd better have a mountpoint. */

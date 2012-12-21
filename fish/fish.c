@@ -90,7 +90,6 @@ static int pipe_error = 0;
 guestfs_h *g = NULL;
 
 int read_only = 0;
-int live = 0;
 int quit = 0;
 int verbose = 0;
 int remote_control_listen = 0;
@@ -137,7 +136,6 @@ usage (int status)
               "  --key selector       Specify a LUKS key\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  --listen             Listen for remote commands\n"
-              "  --live               Connect to a live virtual machine\n"
               "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
               "                       Mount dev on mnt (if omitted, /)\n"
               "  --network            Enable network\n"
@@ -292,7 +290,8 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "csh")) {
         remote_control_csh = 1;
       } else if (STREQ (long_options[option_index].name, "live")) {
-        live = 1;
+        error (EXIT_FAILURE, 0,
+               _("libguestfs live support was removed in libguestfs 1.48"));
       } else if (STREQ (long_options[option_index].name, "pipe-error")) {
         pipe_error = 1;
       } else if (STREQ (long_options[option_index].name, "network")) {

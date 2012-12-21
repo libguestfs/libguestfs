@@ -813,7 +813,6 @@ void guestfs_int_init_direct_backend (void) __attribute__((constructor));
 void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
 #endif
 void guestfs_int_init_uml_backend (void) __attribute__((constructor));
-void guestfs_int_init_unix_backend (void) __attribute__((constructor));
 
 /* qemu.c */
 struct qemu_data;

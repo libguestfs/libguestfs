@@ -1492,14 +1492,6 @@ User-Mode Linux can be much faster, simpler and more lightweight than
 using a full-blown virtual machine, but it also has some shortcomings.
 See L</USER-MODE LINUX BACKEND> below.
 
-=item C<unix:I<path>>
-
-Connect to the Unix domain socket I<path>.
-
-This method lets you connect to an existing daemon or (using
-virtio-serial) to a live guest.  For more information, see
-L</ATTACHING TO RUNNING DAEMONS>.
-
 =back
 
 C<direct> is usually the default backend.  However since libguestfs
@@ -1560,64 +1552,6 @@ tip: look in the kernel C<log_buf>).
 On Fedora, install C<kernel-debuginfo> for the C<vmlinux> file
 (containing symbols).  Make sure the symbols precisely match the
 kernel being used.
-
-=head2 ATTACHING TO RUNNING DAEMONS
-
-I<Note (1):> This is B<highly experimental> and has a tendency to eat
-babies.  Use with caution.
-
-I<Note (2):> This section explains how to attach to a running daemon
-from a low level perspective.  For most users, simply using virt tools
-such as L<guestfish(1)> with the I<--live> option will "just work".
-
-=head3 Using guestfs_set_backend
-
-By calling L</guestfs_set_backend> you can change how the library
-connects to the C<guestfsd> daemon in L</guestfs_launch> (read
-L<guestfs-internals(1)/ARCHITECTURE> for some background).
-
-The normal backend is C<direct>, where a small appliance is created
-containing the daemon, and then the library connects to this.
-C<libvirt> or C<libvirt:I<URI>> are alternatives that use libvirt to
-start the appliance.
-
-Setting the backend to C<unix:I<path>> (where I<path> is the path of a
-Unix domain socket) causes L</guestfs_launch> to connect to an
-existing daemon over the Unix domain socket.
-
-The normal use for this is to connect to a running virtual machine
-that contains a C<guestfsd> daemon, and send commands so you can read
-and write files inside the live virtual machine.
-
-=head3 Using guestfs_add_domain with live flag
-
-L</guestfs_add_domain> provides some help for getting the correct
-backend.  If you pass the C<live> option to this function, then (if
-the virtual machine is running) it will examine the libvirt XML
-looking for a virtio-serial channel to connect to:
-
- <domain>
-   ...
-   <devices>
-     ...
-     <channel type='unix'>
-       <source mode='bind' path='/path/to/socket'/>
-       <target type='virtio' name='org.libguestfs.channel.0'/>
-     </channel>
-     ...
-   </devices>
- </domain>
-
-L</guestfs_add_domain> extracts F</path/to/socket> and sets the
-backend to C<unix:/path/to/socket>.
-
-Some of the libguestfs tools (including guestfish) support a I<--live>
-option which is passed through to L</guestfs_add_domain> thus allowing
-you to attach to and modify live virtual machines.
-
-The virtual machine needs to have been set up beforehand so that it
-has the virtio-serial channel and so that guestfsd is running inside
-it.
 
 =head2 USER-MODE LINUX BACKEND
 

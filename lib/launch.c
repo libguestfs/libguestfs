@@ -432,5 +432,4 @@ guestfs_int_force_load_backends[] = {
   guestfs_int_init_libvirt_backend,
 #endif
   guestfs_int_init_uml_backend,
-  guestfs_int_init_unix_backend,
 };

@@ -280,7 +280,6 @@ AC_CONFIG_FILES([Makefile
                  test-data/phony-guests/guests.xml
                  test-tool/Makefile
                  tests/Makefile
-                 tests/daemon/captive-daemon.pm
                  tests/disks/test-qemu-drive-libvirt.xml
                  website/index.html])
 

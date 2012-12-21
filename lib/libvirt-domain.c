@@ -93,8 +93,8 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
   copyonread = optargs->bitmask & GUESTFS_ADD_DOMAIN_COPYONREAD_BITMASK
     ? optargs->copyonread : false;
 
-  if (live && readonly) {
-    error (g, _("you cannot set both live and readonly flags"));
+  if (live) {
+    error (g, _("libguestfs live support was removed in libguestfs 1.48"));
     return -1;
   }
 
@@ -141,8 +141,8 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
     optargs2.iface = iface;
   }
   if (live) {
-    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_LIVE_BITMASK;
-    optargs2.live = live;
+    error (g, _("libguestfs live support was removed in libguestfs 1.48"));
+    goto cleanup;
   }
   if (readonlydisk) {
     optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
@@ -171,7 +171,6 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
 }
 
 static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, int blocksize, void *data);
-static int connect_live (guestfs_h *g, virDomainPtr dom);
 
 enum readonlydisk {
   readonlydisk_error,
@@ -243,8 +242,8 @@ guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
     optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_COPYONREAD_BITMASK
     ? optargs->copyonread : false;
 
-  if (live && readonly) {
-    error (g, _("you cannot set both live and readonly flags"));
+  if (live) {
+    error (g, _("libguestfs live support was removed in libguestfs 1.48"));
     return -1;
   }
 
@@ -259,21 +258,11 @@ guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
       return -1;
     }
     vm_running = info.state != VIR_DOMAIN_SHUTOFF;
-
     if (vm_running) {
-      /* If the caller specified the 'live' flag, then they want us to
-       * try to connect to guestfsd if the domain is running.  Note
-       * that live readonly connections are not possible.
-       */
-      if (live)
-        return connect_live (g, dom);
-
       /* Dangerous to modify the disks of a running VM. */
       error (g, _("error: domain is a live virtual machine.\n"
                   "Writing to the disks of a running virtual machine can cause disk corruption.\n"
-                  "Either use read-only access, or if the guest is running the guestfsd daemon\n"
-                  "specify live access.  In most libguestfs tools these options are --ro or\n"
-                  "--live respectively.  Consult the documentation for further information."));
+                  "Use read-only access.  In most libguestfs tools use --ro."));
       return -1;
     }
   }
@@ -813,71 +802,6 @@ for_each_disk (guestfs_h *g,
 
   /* Successful. */
   return nr_added;
-}
-
-static int
-connect_live (guestfs_h *g, virDomainPtr dom)
-{
-  int i;
-  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
-  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
-  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
-  CLEANUP_FREE char *path = NULL, *backend = NULL;
-  xmlNodeSetPtr nodes;
-
-  /* Domain XML. */
-  if ((doc = get_domain_xml (g, dom)) == NULL)
-    return -1;
-
-  xpathCtx = xmlXPathNewContext (doc);
-  if (xpathCtx == NULL) {
-    error (g, _("unable to create new XPath context"));
-    return -1;
-  }
-
-  /* This gives us a set of all the <channel> nodes related to the
-   * guestfsd virtio-serial channel.
-   */
-  xpathObj = xmlXPathEvalExpression (BAD_CAST
-				     "//devices/channel[@type=\"unix\" and "
-				     "./source/@mode=\"bind\" and "
-				     "./source/@path and "
-				     "./target/@type=\"virtio\" and "
-				     "./target/@name=\"org.libguestfs.channel.0\"]",
-                                     xpathCtx);
-  if (xpathObj == NULL) {
-    error (g, _("unable to evaluate XPath expression"));
-    return -1;
-  }
-
-  nodes = xpathObj->nodesetval;
-  if (nodes != NULL) {
-    for (i = 0; i < nodes->nodeNr; ++i) {
-      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
-
-      /* See note in function above. */
-      xpathCtx->node = nodes->nodeTab[i];
-
-      /* The path is in <source path=..> attribute. */
-      xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
-      if (xpath_object_is_empty (xppath)) {
-        xmlXPathFreeObject (xppath);
-        continue;               /* no type attribute, skip it */
-      }
-      path = xpath_object_get_string (doc, xppath);
-      break;
-    }
-  }
-
-  if (path == NULL) {
-    error (g, _("this guest has no libvirt <channel> definition for guestfsd\n"
-                "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."));
-    return -1;
-  }
-
-  /* Got a path. */
-  backend = safe_asprintf (g, "unix:%s", path);
-  return guestfs_set_backend (g, backend);
 }
 
 static xmlDocPtr

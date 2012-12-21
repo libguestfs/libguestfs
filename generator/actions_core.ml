@@ -510,12 +510,7 @@ we connect to the default libvirt URI (or one set through an
 environment variable, see the libvirt documentation for full
 details).
 
-The optional C<live> flag controls whether this call will try
-to connect to a running virtual machine C<guestfsd> process if
-it sees a suitable E<lt>channelE<gt> element in the libvirt
-XML definition.  The default (if the flag is omitted) is never
-to try.  See L<guestfs(3)/ATTACHING TO RUNNING DAEMONS> for more
-information.
+The optional C<live> flag is ignored in libguestfs E<ge> 1.48.
 
 If the C<allowuuid> flag is true (default is false) then a UUID
 I<may> be passed instead of the domain name.  The C<dom> string is
@@ -600,12 +595,7 @@ from a remote libvirt connection (see L<https://libvirt.org/remote.html>)
 will fail unless those disks are accessible via the same device path
 locally too.
 
-The optional C<live> flag controls whether this call will try
-to connect to a running virtual machine C<guestfsd> process if
-it sees a suitable E<lt>channelE<gt> element in the libvirt
-XML definition.  The default (if the flag is omitted) is never
-to try.  See L<guestfs(3)/ATTACHING TO RUNNING DAEMONS> for more
-information.
+The optional C<live> flag is ignored in libguestfs E<ge> 1.48.
 
 The optional C<readonlydisk> parameter controls what we do for
 disks which are marked E<lt>readonly/E<gt> in the libvirt XML.

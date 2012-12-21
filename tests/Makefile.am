@@ -326,15 +326,6 @@ charsets_test_charset_fidelity_LDADD = \
 TESTS += create/test-disk-create.sh
 EXTRA_DIST += create/test-disk-create.sh
 
-check_DATA = daemon/captive-daemon.pm
-
-TESTS += \
-	daemon/test-daemon-start.pl \
-	daemon/test-btrfs.pl
-EXTRA_DIST += \
-	daemon/test-daemon-start.pl \
-	daemon/test-btrfs.pl
-
 TESTS += \
 	discard/test-blkdiscard.pl \
 	discard/test-discard.pl \
