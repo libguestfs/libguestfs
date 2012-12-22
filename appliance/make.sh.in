@@ -28,8 +28,10 @@ done
 exec 5<&-
 
 # Run febootstrap on the package list.
-if [ "x@FEBOOTSTRAP_YUM_CONFIG@" != "xno" ]; then
-    extra="--yum-config @FEBOOTSTRAP_YUM_CONFIG@"
+# NB: Keep using --yum-config (deprecated alias) here since both old
+# and new febootstrap still support it.
+if [ "x@FEBOOTSTRAP_PACKAGER_CONFIG@" != "xno" ]; then
+    extra="--yum-config @FEBOOTSTRAP_PACKAGER_CONFIG@"
 fi
 
 echo @FEBOOTSTRAP@ -v -o supermin.d --names $(< packagelist ) $excludes $extra

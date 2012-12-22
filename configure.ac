@@ -365,14 +365,27 @@ AC_CHECK_PROG([FEBOOTSTRAP],
               [febootstrap],[febootstrap],[no])
 
 dnl Pass a febootstrap --yum-config option.
-AC_MSG_CHECKING([if user requested febootstrap --yum-config option])
+dnl
+dnl Note that in febootstrap >= 3.21, this option is now called
+dnl --packager-config, although --yum-config can still be used
+dnl as a deprecated alias.
+AC_MSG_CHECKING([for --with-febootstrap-yum-config option (deprecated)])
 AC_ARG_WITH([febootstrap-yum-config],
     [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
-      [pass febootstrap --yum-config option @<:@default=no@:>@])],
-    [FEBOOTSTRAP_YUM_CONFIG="$withval"],
-    [FEBOOTSTRAP_YUM_CONFIG=no])
-AC_MSG_RESULT([$FEBOOTSTRAP_YUM_CONFIG])
-AC_SUBST([FEBOOTSTRAP_YUM_CONFIG])
+      [pass febootstrap --packager-config option @<:@default=no@:>@])],
+    [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
+    [FEBOOTSTRAP_PACKAGER_CONFIG=no])
+AC_MSG_RESULT([$FEBOOTSTRAP_PACKAGER_CONFIG])
+AC_SUBST([FEBOOTSTRAP_PACKAGER_CONFIG])
+
+AC_MSG_CHECKING([for --with-febootstrap-packager-config option])
+AC_ARG_WITH([febootstrap-packager-config],
+    [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
+      [pass febootstrap --packager-config option @<:@default=no@:>@])],
+    [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
+    [FEBOOTSTRAP_PACKAGER_CONFIG=no])
+AC_MSG_RESULT([$FEBOOTSTRAP_PACKAGER_CONFIG])
+AC_SUBST([FEBOOTSTRAP_PACKAGER_CONFIG])
 
 if test "x$enable_appliance" = "xyes"; then
     test "x$FEBOOTSTRAP" = "xno" &&
