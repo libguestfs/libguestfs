@@ -373,17 +373,15 @@ AC_MSG_CHECKING([for --with-febootstrap-yum-config option (deprecated)])
 AC_ARG_WITH([febootstrap-yum-config],
     [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
       [pass febootstrap --packager-config option @<:@default=no@:>@])],
-    [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
-    [FEBOOTSTRAP_PACKAGER_CONFIG=no])
-AC_MSG_RESULT([$FEBOOTSTRAP_PACKAGER_CONFIG])
-AC_SUBST([FEBOOTSTRAP_PACKAGER_CONFIG])
-
-AC_MSG_CHECKING([for --with-febootstrap-packager-config option])
-AC_ARG_WITH([febootstrap-packager-config],
-    [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
-      [pass febootstrap --packager-config option @<:@default=no@:>@])],
-    [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
-    [FEBOOTSTRAP_PACKAGER_CONFIG=no])
+    [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],[
+    AC_MSG_RESULT([not set])
+    AC_MSG_CHECKING([for --with-febootstrap-packager-config option])
+    AC_ARG_WITH([febootstrap-packager-config],
+        [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
+          [pass febootstrap --packager-config option @<:@default=no@:>@])],
+        [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
+        [FEBOOTSTRAP_PACKAGER_CONFIG=no])
+])
 AC_MSG_RESULT([$FEBOOTSTRAP_PACKAGER_CONFIG])
 AC_SUBST([FEBOOTSTRAP_PACKAGER_CONFIG])
 
