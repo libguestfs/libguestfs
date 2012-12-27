@@ -239,7 +239,7 @@ getenv_from_strings (const void *stringsv, const char *name)
 
   for (i = 0; strings[i] != NULL; ++i)
     if (STRPREFIX (strings[i], name) && strings[i][len] == '=')
-      return (char *) &strings[i][len+1];
+      return &strings[i][len+1];
   return NULL;
 }
 
