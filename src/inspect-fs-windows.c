@@ -81,7 +81,7 @@ free_regexps (void)
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
-static char *map_registry_disk_blob (guestfs_h *g, const char *blob);
+static char *map_registry_disk_blob (guestfs_h *g, const void *blob);
 
 /* XXX Handling of boot.ini in the Perl version was pretty broken.  It
  * essentially didn't do anything for modern Windows guests.
@@ -343,7 +343,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   struct guestfs_hivex_value_list *values = NULL;
   int32_t dword;
   size_t i, count;
-  char *buf = NULL;
+  void *buf = NULL;
   size_t buflen;
   const char *hivepath[] =
     { NULL /* current control set */, "Services", "Tcpip", "Parameters" };
@@ -501,7 +501,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
  * name, if possible.
  */
 static char *
-map_registry_disk_blob (guestfs_h *g, const char *blob)
+map_registry_disk_blob (guestfs_h *g, const void *blob)
 {
   char **devices = NULL;
   struct guestfs_partition_list *partitions = NULL;
@@ -538,8 +538,14 @@ map_registry_disk_blob (guestfs_h *g, const char *blob)
   /* Next 8 bytes are the offset of the partition in bytes(!) given as
    * a 64 bit little endian number.  Luckily it's easy to get the
    * partition byte offset from guestfs_part_list.
+   *
+   * Note deliberate cast-align violation here since the data is in a
+   * very odd place within the blob.  Thanks Microsoft!
    */
-  part_offset = le64toh (* (uint64_t *) &blob[4]);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+  part_offset = le64toh (* (uint64_t *) ((char *) blob + 4));
+#pragma GCC diagnostic pop
 
   partitions = guestfs_part_list (g, devices[i]);
   if (partitions == NULL)

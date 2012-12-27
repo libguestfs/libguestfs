@@ -43,6 +43,9 @@ static int inotify_fd = -1;
 static char inotify_buf[64*1024*1024];	/* Event buffer, [0..posn-1] is valid */
 static size_t inotify_posn = 0;
 
+/* Because of use of arbitrary offsets within inotify_buf. */
+#pragma GCC diagnostic ignored "-Wcast-align"
+
 /* Clean up the inotify handle on daemon exit. */
 static void inotify_finalize (void) __attribute__((destructor));
 static void
