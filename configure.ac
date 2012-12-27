@@ -34,10 +34,10 @@ AC_CONFIG_MACRO_DIR([m4])
 dnl Stable or unstable version?
 AC_MSG_CHECKING([if this is a stable or unstable branch of libguestfs])
 AS_IF([test "$((libguestfs_minor % 2))" -eq 0 ],[
-            AC_MSG_RESULT([stable])
-       ],[
-            AC_MSG_RESULT([unstable])
-            AC_MSG_NOTICE([
+    AC_MSG_RESULT([stable])
+],[
+    AC_MSG_RESULT([unstable])
+    AC_MSG_NOTICE([
 ***
 This is a development version of libguestfs. Some APIs may be unstable
 until they appear in a stable release of libguestfs (at which point
@@ -45,14 +45,14 @@ the C API and ABI is guaranteed to remain stable forever).  For
 more information about stable and development branches of libguestfs
 please see the section "LIBGUESTFS VERSION NUMBERS" in guestfs(3).
 ***])
-       ])
+])
 
 dnl Extra string, a freeform string defined by packagers.
 AC_ARG_WITH([extra],
-  [AS_HELP_STRING([--with-extra],
-                  [extra version string (for use by packagers)])],
-  [libguestfs_extra="$withval"],
-  [libguestfs_extra=]
+    [AS_HELP_STRING([--with-extra],
+                    [extra version string (for use by packagers)])],
+    [libguestfs_extra="$withval"],
+    [libguestfs_extra=]
 )
 
 AC_MSG_NOTICE([libguestfs version libguestfs_major.libguestfs_minor.libguestfs_release$libguestfs_extra])
@@ -94,75 +94,75 @@ AC_PROG_INSTALL
 AC_PROG_CPP
 
 AC_ARG_ENABLE([gcc-warnings],
-  [AS_HELP_STRING([--enable-gcc-warnings],
-                  [turn on lots of GCC warnings (for developers)])],
-  [case $enableval in
+    [AS_HELP_STRING([--enable-gcc-warnings],
+                    [turn on lots of GCC warnings (for developers)])],
+    [case $enableval in
      yes|no) ;;
      *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
-   esac
-   gl_gcc_warnings=$enableval],
-  [gl_gcc_warnings=no]
+     esac
+     gl_gcc_warnings=$enableval],
+    [gl_gcc_warnings=no]
 )
 
 if test "$gl_gcc_warnings" = yes; then
-  gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
-  AC_SUBST([WERROR_CFLAGS])
+    gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
+    AC_SUBST([WERROR_CFLAGS])
 
-  nw=
-  # This, $nw, is the list of warnings we disable.
-  nw="$nw -Wdeclaration-after-statement" # too useful to forbid
-  nw="$nw -Waggregate-return"       # anachronistic
-  nw="$nw -Wc++-compat"             # We don't care about C++ compilers
-  nw="$nw -Wundef"                  # Warns on '#if GNULIB_FOO' etc in gnulib
-  nw="$nw -Wtraditional"            # Warns on #elif which we use often
-  nw="$nw -Wcast-qual"              # Too many warnings for now
-  nw="$nw -Wconversion"             # Too many warnings for now
-  nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
-  nw="$nw -Wsign-conversion"        # Not an error
-  nw="$nw -Wtraditional-conversion" # Don't care about pre-ANSI compilers
-  nw="$nw -Wpadded"                 # Our structs are not padded
-  nw="$nw -Wredundant-decls"        # openat.h declares e.g., mkdirat
-  nw="$nw -Wlogical-op"             # any use of fwrite provokes this
-  nw="$nw -Wvla"                    # two warnings in mount.c
-  # things I might fix soon:
-  nw="$nw -Wmissing-format-attribute" # daemon.h's asprintf_nowarn
-  nw="$nw -Winline"                 # daemon.h's asprintf_nowarn
-  nw="$nw -Wshadow"                 # numerous, plus we're not unanimous
-  nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
-                                    # was not possible, safe to ignore
-  nw="$nw -Wpacked"                 # Allow attribute((packed)) on structs
-  nw="$nw -Wlong-long"              # Allow long long since it's required
-                                    # by Python, Ruby and xstrtoll.
-  nw="$nw -Wsuggest-attribute=pure" # Don't suggest pure functions.
-  nw="$nw -Wsuggest-attribute=const" # Don't suggest const functions.
-  nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
+    nw=
+    # This, $nw, is the list of warnings we disable.
+    nw="$nw -Wdeclaration-after-statement" # too useful to forbid
+    nw="$nw -Waggregate-return"      # anachronistic
+    nw="$nw -Wc++-compat"            # We don't care about C++ compilers
+    nw="$nw -Wundef"                 # Warns on '#if GNULIB_FOO' etc in gnulib
+    nw="$nw -Wtraditional"           # Warns on #elif which we use often
+    nw="$nw -Wcast-qual"             # Too many warnings for now
+    nw="$nw -Wconversion"            # Too many warnings for now
+    nw="$nw -Wsystem-headers"        # Don't let system headers trigger warnings
+    nw="$nw -Wsign-conversion"       # Not an error
+    nw="$nw -Wtraditional-conversion" # Don't care about pre-ANSI compilers
+    nw="$nw -Wpadded"                # Our structs are not padded
+    nw="$nw -Wredundant-decls"       # openat.h declares e.g., mkdirat
+    nw="$nw -Wlogical-op"            # any use of fwrite provokes this
+    nw="$nw -Wvla"                   # two warnings in mount.c
+    # things I might fix soon:
+    nw="$nw -Wmissing-format-attribute" # daemon.h's asprintf_nowarn
+    nw="$nw -Winline"                # daemon.h's asprintf_nowarn
+    nw="$nw -Wshadow"                # numerous, plus we're not unanimous
+    nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
+                                     # was not possible, safe to ignore
+    nw="$nw -Wpacked"                # Allow attribute((packed)) on structs
+    nw="$nw -Wlong-long"             # Allow long long since it's required
+                                     # by Python, Ruby and xstrtoll.
+    nw="$nw -Wsuggest-attribute=pure" # Don't suggest pure functions.
+    nw="$nw -Wsuggest-attribute=const" # Don't suggest const functions.
+    nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
 
-  gl_MANYWARN_ALL_GCC([ws])
-  gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
-  for w in $ws; do
-    gl_WARN_ADD([$w])
-  done
+    gl_MANYWARN_ALL_GCC([ws])
+    gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
+    for w in $ws; do
+        gl_WARN_ADD([$w])
+    done
 
-  # Normally we disable warnings in $nw above.  However $nw only
-  # filters out exact matching warning strings from a list inside
-  # gnulib (see m4/manywarnings.m4).  So we need to explicitly list a
-  # few disabled warnings below.
+    # Normally we disable warnings in $nw above.  However $nw only
+    # filters out exact matching warning strings from a list inside
+    # gnulib (see m4/manywarnings.m4).  So we need to explicitly list a
+    # few disabled warnings below.
 
-  # Unused parameters are not a bug.
-  gl_WARN_ADD([-Wno-unused-parameter])
+    # Unused parameters are not a bug.
+    gl_WARN_ADD([-Wno-unused-parameter])
 
-  # Missing field initializers is not a bug in C.
-  gl_WARN_ADD([-Wno-missing-field-initializers])
+    # Missing field initializers is not a bug in C.
+    gl_WARN_ADD([-Wno-missing-field-initializers])
 
-  # Display the name of the warning option with the warning.
-  gl_WARN_ADD([-fdiagnostics-show-option])
+    # Display the name of the warning option with the warning.
+    gl_WARN_ADD([-fdiagnostics-show-option])
 
-  AC_SUBST([WARN_CFLAGS])
+    AC_SUBST([WARN_CFLAGS])
 
-  AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
-  AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
-  AH_VERBATIM([FORTIFY_SOURCE],
-    [/* Enable compile-time and run-time bounds-checking, and some warnings. */
+    AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
+    AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
+    AH_VERBATIM([FORTIFY_SOURCE],[
+/* Enable compile-time and run-time bounds-checking, and some warnings. */
 #if __OPTIMIZE__
 # define _FORTIFY_SOURCE 2
 #endif])
@@ -197,52 +197,52 @@ AC_STRUCT_DIRENT_D_TYPE
 dnl Check if stat has the required fields.
 AC_STRUCT_ST_BLOCKS
 AC_CHECK_MEMBER([struct stat.st_blksize],[
-        AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'.])])
+    AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'.])])
 
 dnl Define a C symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl Headers.
 AC_CHECK_HEADERS([\
-        attr/xattr.h \
-        byteswap.h \
-        endian.h \
-        errno.h \
-        printf.h \
-        sys/inotify.h \
-        sys/socket.h \
-        sys/statvfs.h \
-        sys/types.h \
-        sys/un.h \
-        sys/wait.h \
-        windows.h \
-        sys/xattr.h])
+    attr/xattr.h \
+    byteswap.h \
+    endian.h \
+    errno.h \
+    printf.h \
+    sys/inotify.h \
+    sys/socket.h \
+    sys/statvfs.h \
+    sys/types.h \
+    sys/un.h \
+    sys/wait.h \
+    windows.h \
+    sys/xattr.h])
 
 dnl Functions.
 AC_CHECK_FUNCS([\
-        fsync \
-        futimens \
-        getxattr \
-        htonl \
-        htons \
-        inotify_init1 \
-        lgetxattr \
-        listxattr \
-        llistxattr \
-        lsetxattr \
-        lremovexattr \
-        mknod \
-        ntohl \
-        ntohs \
-        posix_fallocate \
-        posix_fadvise \
-        realpath \
-        removexattr \
-        setitimer \
-        setxattr \
-        sigaction \
-        statvfs \
-        sync])
+    fsync \
+    futimens \
+    getxattr \
+    htonl \
+    htons \
+    inotify_init1 \
+    lgetxattr \
+    listxattr \
+    llistxattr \
+    lsetxattr \
+    lremovexattr \
+    mknod \
+    ntohl \
+    ntohs \
+    posix_fallocate \
+    posix_fadvise \
+    realpath \
+    removexattr \
+    setitimer \
+    setxattr \
+    sigaction \
+    statvfs \
+    sync])
 
 dnl tgetent, tputs and UP [sic] are all required.  They come from libtinfo
 dnl which is pulled in as a dependency of libncurses.
@@ -273,75 +273,75 @@ else
 fi
 AC_MSG_RESULT([$msgfmt_is_gnu])
 AM_CONDITIONAL([HAVE_GNU_GETTEXT],
-        [test "x$XGETTEXT" != "xno" && test "x$MSGCAT" != "xno" && test "x$MSGFMT" != "xno" && test "x$MSGMERGE" != "xno" && test "x$msgfmt_is_gnu" != "xno"])
+    [test "x$XGETTEXT" != "xno" && test "x$MSGCAT" != "xno" && test "x$MSGFMT" != "xno" && test "x$MSGMERGE" != "xno" && test "x$msgfmt_is_gnu" != "xno"])
 
 dnl Build the daemon?
 AC_MSG_CHECKING([if we should build the daemon])
 AC_ARG_ENABLE([daemon],
-        [AS_HELP_STRING([--enable-daemon],
-          [enable building the daemon @<:@default=yes@:>@])],
-        [],
-        [enable_daemon=yes])
+    [AS_HELP_STRING([--enable-daemon],
+        [enable building the daemon @<:@default=yes@:>@])],
+    [],
+    [enable_daemon=yes])
 AM_CONDITIONAL([ENABLE_DAEMON],[test "x$enable_daemon" = "xyes"])
 AC_MSG_RESULT([$enable_daemon])
 
 if test "x$enable_daemon" = "xyes"; then
-	dnl Install the daemon (for libguestfs live service)
-        AC_MSG_CHECKING([if we should install the daemon])
-        AC_ARG_ENABLE([install-daemon],
-                [AS_HELP_STRING([--enable-install-daemon],
-                  [enable installing the daemon under $sbindir @<:@default=no@:>@])],
-                [],
-                [enable_install_daemon=no])
-        AC_MSG_RESULT([$enable_install_daemon])
+    dnl Install the daemon (for libguestfs live service)
+    AC_MSG_CHECKING([if we should install the daemon])
+    AC_ARG_ENABLE([install-daemon],
+        [AS_HELP_STRING([--enable-install-daemon],
+            [enable installing the daemon under $sbindir @<:@default=no@:>@])],
+            [],
+            [enable_install_daemon=no])
+    AC_MSG_RESULT([$enable_install_daemon])
 
-        dnl Enable valgrind in the daemon.
-        AC_MSG_CHECKING([if we should run the daemon under valgrind])
-        AC_ARG_ENABLE([valgrind-daemon],
-                [AS_HELP_STRING([--enable-valgrind-daemon],
-                  [run the daemon under valgrind (developers only) @<:@default=no@:>@])],
-                  [],
-                  [enable_valgrind_daemon=no])
-        AC_MSG_RESULT([$enable_valgrind_daemon])
+    dnl Enable valgrind in the daemon.
+    AC_MSG_CHECKING([if we should run the daemon under valgrind])
+    AC_ARG_ENABLE([valgrind-daemon],
+        [AS_HELP_STRING([--enable-valgrind-daemon],
+            [run the daemon under valgrind (developers only) @<:@default=no@:>@])],
+            [],
+            [enable_valgrind_daemon=no])
+    AC_MSG_RESULT([$enable_valgrind_daemon])
 
-        if test "x$enable_valgrind_daemon" = "xyes"; then
-            AC_DEFINE([VALGRIND_DAEMON],[1],[Define to 1 to run the daemon under valgrind.])
-            AC_DEFINE_UNQUOTED([VALGRIND_LOG_PATH],["$(pwd)"],[Path to save valgrind log files.])
-        fi
+    if test "x$enable_valgrind_daemon" = "xyes"; then
+        AC_DEFINE([VALGRIND_DAEMON],[1],[Define to 1 to run the daemon under valgrind.])
+        AC_DEFINE_UNQUOTED([VALGRIND_LOG_PATH],["$(pwd)"],[Path to save valgrind log files.])
+    fi
 
-        dnl Which directory should we put the daemon in?  NOTE: This
-        dnl is the "virtual" directory inside the appliance, not the
-        dnl install directory for libguestfs live.  Since Fedora 17
-        dnl /sbin is a symlink to /usr/sbin.  We have to put the
-        dnl daemon into a real (non-symlink) directory.
-        dirs="/sbin /usr/sbin /bin /usr/bin"
-        AC_MSG_CHECKING([which of $dirs is a real directory])
-        for dir in $dirs; do
-            parent=`dirname $dir`
-            if test ! -L $parent && test -d $parent \
+    dnl Which directory should we put the daemon in?  NOTE: This
+    dnl is the "virtual" directory inside the appliance, not the
+    dnl install directory for libguestfs live.  Since Fedora 17
+    dnl /sbin is a symlink to /usr/sbin.  We have to put the
+    dnl daemon into a real (non-symlink) directory.
+    dirs="/sbin /usr/sbin /bin /usr/bin"
+    AC_MSG_CHECKING([which of $dirs is a real directory])
+    for dir in $dirs; do
+        parent=`dirname $dir`
+        if test ! -L $parent && test -d $parent \
             && test ! -L $dir && test -d $dir
-            then
-                DAEMON_SUPERMIN_DIR=$dir
-                break
-            fi
-        done
-        if test "x$DAEMON_SUPERMIN_DIR" = "x"; then
-            AC_MSG_ERROR([non-symlink binary directory not found])
+        then
+            DAEMON_SUPERMIN_DIR=$dir
+            break
         fi
-        AC_MSG_RESULT([$DAEMON_SUPERMIN_DIR])
-        AC_SUBST([DAEMON_SUPERMIN_DIR])
+    done
+    if test "x$DAEMON_SUPERMIN_DIR" = "x"; then
+        AC_MSG_ERROR([non-symlink binary directory not found])
+    fi
+    AC_MSG_RESULT([$DAEMON_SUPERMIN_DIR])
+    AC_SUBST([DAEMON_SUPERMIN_DIR])
 
-        dnl For modified printf in the daemon, we need glibc either (old-style)
-        dnl register_printf_function or (new-style) register_printf_specifier.
-        AC_CHECK_FUNC([register_printf_specifier],[
-                AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
-                        [Define to 1 if you have new-style register_printf_specifier.])
-                ],[
-                AC_CHECK_FUNC([register_printf_function],[
-                        AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
-                                [Define to 1 if you have old-style register_printf_function.])
-                        ],[
-                        AC_MSG_FAILURE(
+    dnl For modified printf in the daemon, we need glibc either (old-style)
+    dnl register_printf_function or (new-style) register_printf_specifier.
+    AC_CHECK_FUNC([register_printf_specifier],[
+        AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
+                  [Define to 1 if you have new-style register_printf_specifier.])
+    ],[
+        AC_CHECK_FUNC([register_printf_function],[
+            AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
+                      [Define to 1 if you have old-style register_printf_function.])
+        ],[
+            AC_MSG_FAILURE(
 [No support for glibc-style extended printf formatters.
 
 This means you either have a very old glibc (pre-2.0) or you
@@ -353,8 +353,8 @@ AM_CONDITIONAL([VALGRIND_DAEMON],[test "x$enable_valgrind_daemon" = "xyes"])
 dnl Build the appliance?
 AC_MSG_CHECKING([if we should build the appliance])
 AC_ARG_ENABLE([appliance],
-        [AS_HELP_STRING([--enable-appliance],
-          [enable building the appliance @<:@default=yes@:>@])],
+    [AS_HELP_STRING([--enable-appliance],
+        [enable building the appliance @<:@default=yes@:>@])],
         [],
         [enable_appliance=yes])
 AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
@@ -372,13 +372,13 @@ dnl as a deprecated alias.
 AC_MSG_CHECKING([for --with-febootstrap-yum-config option (deprecated)])
 AC_ARG_WITH([febootstrap-yum-config],
     [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
-      [pass febootstrap --packager-config option @<:@default=no@:>@])],
+        [pass febootstrap --packager-config option @<:@default=no@:>@])],
     [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],[
     AC_MSG_RESULT([not set])
     AC_MSG_CHECKING([for --with-febootstrap-packager-config option])
     AC_ARG_WITH([febootstrap-packager-config],
         [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
-          [pass febootstrap --packager-config option @<:@default=no@:>@])],
+            [pass febootstrap --packager-config option @<:@default=no@:>@])],
         [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
         [FEBOOTSTRAP_PACKAGER_CONFIG=no])
 ])
@@ -417,54 +417,54 @@ dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
-        AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
-        ])
+    AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
+])
 AC_SEARCH_LIBS([xdr_u_int64_t],[portablexdr rpc xdr nsl],[
-        AC_DEFINE([HAVE_XDR_U_INT64_T],[1],[Define to 1 if xdr_u_int64_t() exists.])
-        ])
+    AC_DEFINE([HAVE_XDR_U_INT64_T],[1],[Define to 1 if xdr_u_int64_t() exists.])
+])
 AC_SEARCH_LIBS([xdr_uint64_t],[portablexdr rpc xdr nsl],[
-        AC_DEFINE([HAVE_XDR_UINT64_T],[1],[Define to 1 if xdr_uint64_t() exists.])
-        ])
-AM_CONDITIONAL([HAVE_XDR_U_INT64_T],[test "x$ac_cv_search_xdr_u_int64_t" != "xno"])
-AM_CONDITIONAL([HAVE_XDR_UINT64_T],[test "x$ac_cv_search_xdr_uint64_t" != "xno"])
+    AC_DEFINE([HAVE_XDR_UINT64_T],[1],[Define to 1 if xdr_uint64_t() exists.])
+])
+AM_CONDITIONAL([HAVE_XDR_U_INT64_T],
+               [test "x$ac_cv_search_xdr_u_int64_t" != "xno"])
+AM_CONDITIONAL([HAVE_XDR_UINT64_T],
+               [test "x$ac_cv_search_xdr_uint64_t" != "xno"])
 
 dnl Check for Augeas (optional).
-PKG_CHECK_MODULES([AUGEAS], [augeas],
-        [AC_SUBST([AUGEAS_CFLAGS])
-         AC_SUBST([AUGEAS_LIBS])
-         AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas.])
+PKG_CHECK_MODULES([AUGEAS],[augeas],[
+    AC_SUBST([AUGEAS_CFLAGS])
+    AC_SUBST([AUGEAS_LIBS])
+    AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas.])
 
-         old_LIBS="$LIBS"
-         LIBS="$LIBS $AUGEAS_LIBS"
-         dnl Check for functions not available in earlier versions of Augeas.
-         AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
-         LIBS="$old_LIBS"
-        ],
-        [AC_MSG_WARN([augeas not found, some core features will be disabled])])
+    old_LIBS="$LIBS"
+    LIBS="$LIBS $AUGEAS_LIBS"
+    dnl Check for functions not available in earlier versions of Augeas.
+    AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
+    LIBS="$old_LIBS"
+],[AC_MSG_WARN([augeas not found, some core features will be disabled])])
 
 dnl Check for libselinux (optional).
 AC_CHECK_HEADERS([selinux/selinux.h])
 AC_CHECK_LIB([selinux],[setexeccon],[
-        have_libselinux="$ac_cv_header_selinux_selinux_h"
-        SELINUX_LIB="-lselinux"
+    have_libselinux="$ac_cv_header_selinux_selinux_h"
+    SELINUX_LIB="-lselinux"
 
-        old_LIBS="$LIBS"
-        LIBS="$LIBS $SELINUX_LIB"
-        AC_CHECK_FUNCS([setcon getcon])
-        LIBS="$old_LIBS"
-
-        ],[have_libselinux=no])
+    old_LIBS="$LIBS"
+    LIBS="$LIBS $SELINUX_LIB"
+    AC_CHECK_FUNCS([setcon getcon])
+    LIBS="$old_LIBS"
+],[have_libselinux=no])
 if test "x$have_libselinux" = "xyes"; then
-        AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux.])
+    AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux.])
 fi
 AC_SUBST([SELINUX_LIB])
 
 dnl Check for systemtap/DTrace userspace probes (optional).
 dnl Since the probe points break under clang, allow this to be disabled.
 AC_ARG_ENABLE([probes],
-        AS_HELP_STRING([--disable-probes], [disable systemtap/DTrace userspace probes]),
-        [],
-        [enable_probes=yes])
+    AS_HELP_STRING([--disable-probes], [disable systemtap/DTrace userspace probes]),
+    [],
+    [enable_probes=yes])
 AS_IF([test "x$enable_probes" != "xno"],[
     dnl http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
     AC_CHECK_HEADERS([sys/sdt.h])
@@ -477,17 +477,17 @@ AS_IF([test "x$enable_probes" != "xno"],[
 dnl Check for cpio which isn't in the default Pardus install amazingly.
 AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
 test "x$CPIO" = "xno" &&
-     AC_MSG_ERROR([cpio must be installed])
+    AC_MSG_ERROR([cpio must be installed])
 
 dnl Check for gperf.
 AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
 test "x$GPERF" = "xno" &&
-     AC_MSG_ERROR([gperf must be installed])
+    AC_MSG_ERROR([gperf must be installed])
 
 dnl Check for perl.
 AC_CHECK_PROG([PERL],[perl],[perl],[no])
 test "x$PERL" = "xno" &&
-     AC_MSG_ERROR([perl must be installed])
+    AC_MSG_ERROR([perl must be installed])
 
 dnl Check for Pod::Man, Pod::Simple.
 AC_MSG_CHECKING([for Pod::Man])
@@ -509,7 +509,7 @@ AC_SUBST([PODWRAPPER])
 
 dnl Check for genisoimage/mkisofs
 AC_PATH_PROGS([GENISOIMAGE],[genisoimage mkisofs],[no],
-        [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
+    [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$GENISOIMAGE" = "xno" && AC_MSG_ERROR([genisoimage must be installed])
 
 dnl Check for optional xmllint.
@@ -561,12 +561,12 @@ dnl back to basic 'qemu'.  Allow the user to override it.
 qemu_system="`echo qemu-system-$host_cpu | $SED 's/i@<:@456@:>@86/i386/g'`"
 default_qemu="qemu-kvm kvm $qemu_system qemu"
 AC_ARG_WITH([qemu],
-        [AS_HELP_STRING([--with-qemu],
-          [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
+    [AS_HELP_STRING([--with-qemu],
+        [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
         [],
         [with_qemu="$default_qemu"])
 AC_PATH_PROGS([QEMU],[$with_qemu],[no],
-        [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
+    [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
@@ -662,22 +662,22 @@ fi
 
 dnl Enable packet dumps when in verbose mode.  This generates lots
 dnl of debug info, only useful for people debugging the RPC mechanism.
-AC_ARG_ENABLE([packet-dump],
-        [AS_HELP_STRING([--enable-packet-dump],
-          [enable packet dumps in verbose mode @<:@default=no@:>@])],
-        [AC_DEFINE([ENABLE_PACKET_DUMP],[1],[Enable packet dumps in verbose mode.])],
-        [])
+AC_ARG_ENABLE([packet-dump],[
+    AS_HELP_STRING([--enable-packet-dump],
+        [enable packet dumps in verbose mode @<:@default=no@:>@])],
+    [AC_DEFINE([ENABLE_PACKET_DUMP],[1],[Enable packet dumps in verbose mode.])],
+    [])
 
 dnl Readline.
-AC_ARG_WITH([readline],
-    [AS_HELP_STRING([--with-readline],
+AC_ARG_WITH([readline],[
+    AS_HELP_STRING([--with-readline],
         [support fancy command line editing @<:@default=check@:>@])],
     [],
     [with_readline=check])
 
 LIBREADLINE=
-AS_IF([test "x$with_readline" != xno],
-    [AC_CHECK_LIB([readline], [main],
+AS_IF([test "x$with_readline" != xno],[
+    AC_CHECK_LIB([readline], [main],
         [AC_SUBST([LIBREADLINE], ["-lreadline -lncurses"])
          AC_DEFINE([HAVE_LIBREADLINE], [1],
                    [Define if you have libreadline.])
@@ -687,55 +687,52 @@ AS_IF([test "x$with_readline" != xno],
              [--with-readline was given, but test for readline failed])
          fi
         ], -lncurses)
-     old_LIBS="$LIBS"
-     LIBS="$LIBS $LIBREADLINE"
-     AC_CHECK_FUNCS([append_history completion_matches rl_completion_matches])
-     LIBS="$old_LIBS"
+    old_LIBS="$LIBS"
+    LIBS="$LIBS $LIBREADLINE"
+    AC_CHECK_FUNCS([append_history completion_matches rl_completion_matches])
+    LIBS="$old_LIBS"
     ])
 
 dnl Check for PCRE (required)
 PKG_CHECK_MODULES([PCRE], [libpcre])
 
 dnl libmagic (highly recommended)
-AC_CHECK_LIB([magic],[magic_file],
-        [AC_CHECK_HEADER([magic.h],
-                [AC_SUBST([MAGIC_LIBS], ["-lmagic"])
-                 AC_DEFINE([HAVE_LIBMAGIC],[1],[libmagic found at compile time.])
-                ], [])
-        ],
-        [AC_MSG_WARN([libmagic not found, some core features will be disabled])])
+AC_CHECK_LIB([magic],[magic_file],[
+    AC_CHECK_HEADER([magic.h],[
+        AC_SUBST([MAGIC_LIBS], ["-lmagic"])
+        AC_DEFINE([HAVE_LIBMAGIC],[1],[libmagic found at compile time.])
+    ], [])
+],[AC_MSG_WARN([libmagic not found, some core features will be disabled])])
 
 dnl POSIX acl library (highly recommended)
-AC_CHECK_LIB([acl],[acl_from_text],
-    [AC_CHECK_HEADER([sys/acl.h],
-        [AC_SUBST([ACL_LIBS], [-lacl])
-         AC_DEFINE([HAVE_ACL], [1], [Define to 1 if the POSIX acl library is available.])
-        ], [])
-    ],
-    [AC_MSG_WARN([POSIX acl library not found])])
+AC_CHECK_LIB([acl],[acl_from_text],[
+    AC_CHECK_HEADER([sys/acl.h],[
+        AC_SUBST([ACL_LIBS], [-lacl])
+        AC_DEFINE([HAVE_ACL], [1], [Define to 1 if the POSIX acl library is available.])
+    ], [])
+],[AC_MSG_WARN([POSIX acl library not found])])
 
 dnl Linux capabilities library (libcap) (highly recommended)
-AC_CHECK_LIB([cap],[cap_from_text],
-    [AC_CHECK_HEADER([sys/capability.h],
-        [AC_SUBST([CAP_LIBS], [-lcap])
-         AC_DEFINE([HAVE_CAP], [1], [Define to 1 if the Linux capabilities library (libcap) is available.])
-        ], [])
-    ],
-    [AC_MSG_WARN([Linux capabilities library (libcap) not found])])
+AC_CHECK_LIB([cap],[cap_from_text],[
+    AC_CHECK_HEADER([sys/capability.h],[
+        AC_SUBST([CAP_LIBS], [-lcap])
+        AC_DEFINE([HAVE_CAP], [1], [Define to 1 if the Linux capabilities library (libcap) is available.])
+    ], [])
+],[AC_MSG_WARN([Linux capabilities library (libcap) not found])])
 
 dnl libvirt (highly recommended)
-AC_ARG_WITH([libvirt],
-    [AS_HELP_STRING([--without-libvirt],
-                    [disable libvirt support @<:@default=check@:>@])],
+AC_ARG_WITH([libvirt],[
+    AS_HELP_STRING([--without-libvirt],
+                   [disable libvirt support @<:@default=check@:>@])],
     [],
     [with_libvirt=check])
 AS_IF([test "$with_libvirt" != "no"],[
-    PKG_CHECK_MODULES([LIBVIRT], [libvirt],
-        [AC_SUBST([LIBVIRT_CFLAGS])
-         AC_SUBST([LIBVIRT_LIBS])
-         AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
-        ],
-        [AC_MSG_WARN([libvirt not found, some core features will be disabled])])
+    PKG_CHECK_MODULES([LIBVIRT], [libvirt],[
+        AC_SUBST([LIBVIRT_CFLAGS])
+        AC_SUBST([LIBVIRT_LIBS])
+        AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
+    ],
+    [AC_MSG_WARN([libvirt not found, some core features will be disabled])])
 ])
 AM_CONDITIONAL([HAVE_LIBVIRT],[test "x$LIBVIRT_LIBS" != "x"])
 
@@ -743,57 +740,57 @@ libvirt_ro_uri='qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock-ro'
 AC_SUBST([libvirt_ro_uri])
 
 dnl libxml2 (highly recommended)
-PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],
-        [AC_SUBST([LIBXML2_CFLAGS])
-         AC_SUBST([LIBXML2_LIBS])
-         AC_DEFINE([HAVE_LIBXML2],[1],[libxml2 found at compile time.])
-         old_LIBS="$LIBS"
-         LIBS="$LIBS $LIBXML2_LIBS"
-         AC_CHECK_FUNCS([xmlBufferDetach])
-         LIBS="$old_LIBS"
-        ],
-        [AC_MSG_WARN([libxml2 not found, some core features will be disabled])])
+PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],[
+    AC_SUBST([LIBXML2_CFLAGS])
+    AC_SUBST([LIBXML2_LIBS])
+    AC_DEFINE([HAVE_LIBXML2],[1],[libxml2 found at compile time.])
+    old_LIBS="$LIBS"
+    LIBS="$LIBS $LIBXML2_LIBS"
+    AC_CHECK_FUNCS([xmlBufferDetach])
+    LIBS="$old_LIBS"
+],
+    [AC_MSG_WARN([libxml2 not found, some core features will be disabled])])
 AM_CONDITIONAL([HAVE_LIBXML2],[test "x$LIBXML2_LIBS" != "x"])
 
 dnl libconfig (highly recommended)
-PKG_CHECK_MODULES([LIBCONFIG], [libconfig],
-        [AC_SUBST([LIBCONFIG_CFLAGS])
-         AC_SUBST([LIBCONFIG_LIBS])
-         AC_DEFINE([HAVE_LIBCONFIG],[1],[libconfig found at compile time.])
-        ],
-        [AC_MSG_WARN([libconfig not found, some features will be disabled])])
+PKG_CHECK_MODULES([LIBCONFIG], [libconfig],[
+    AC_SUBST([LIBCONFIG_CFLAGS])
+    AC_SUBST([LIBCONFIG_LIBS])
+    AC_DEFINE([HAVE_LIBCONFIG],[1],[libconfig found at compile time.])
+],
+    [AC_MSG_WARN([libconfig not found, some features will be disabled])])
 AM_CONDITIONAL([HAVE_LIBCONFIG],[test "x$LIBCONFIG_LIBS" != "x"])
 
 dnl hivex library (highly recommended)
 dnl This used to be a part of libguestfs, but was spun off into its
 dnl own separate upstream project in libguestfs 1.0.85.
-PKG_CHECK_MODULES([HIVEX], [hivex],
-        [AC_SUBST([HIVEX_CFLAGS])
-         AC_SUBST([HIVEX_LIBS])
-         AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
-        ],
-        [AC_MSG_WARN([hivex not found, some core features will be disabled])])
+PKG_CHECK_MODULES([HIVEX], [hivex],[
+    AC_SUBST([HIVEX_CFLAGS])
+    AC_SUBST([HIVEX_LIBS])
+    AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
+],
+    [AC_MSG_WARN([hivex not found, some core features will be disabled])])
 AM_CONDITIONAL([HAVE_HIVEX],[test "x$HIVEX_LIBS" != "x"])
 
 dnl FUSE is optional to build the FUSE module.
 AC_ARG_ENABLE([fuse],
-        AS_HELP_STRING([--disable-fuse], [disable FUSE (guestmount) support]),
-        [],
-        [enable_fuse=yes])
-AS_IF([test "x$enable_fuse" != "xno"],
-        [PKG_CHECK_MODULES([FUSE],[fuse],
-            [AC_SUBST([FUSE_CFLAGS])
-             AC_SUBST([FUSE_LIBS])
-             AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE.])
-             old_LIBS="$LIBS"
-             LIBS="$FUSE_LIBS $LIBS"
-             AC_CHECK_FUNCS([fuse_opt_add_opt_escaped])
-             LIBS="$old_LIBS"
-            ],
-            [enable_fuse=no
-             AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])
-            ])
-        ])
+    AS_HELP_STRING([--disable-fuse], [disable FUSE (guestmount) support]),
+    [],
+    [enable_fuse=yes])
+AS_IF([test "x$enable_fuse" != "xno"],[
+    PKG_CHECK_MODULES([FUSE],[fuse],[
+        AC_SUBST([FUSE_CFLAGS])
+        AC_SUBST([FUSE_LIBS])
+        AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE.])
+        old_LIBS="$LIBS"
+        LIBS="$FUSE_LIBS $LIBS"
+        AC_CHECK_FUNCS([fuse_opt_add_opt_escaped])
+        LIBS="$old_LIBS"
+    ],[
+        enable_fuse=no
+        AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])
+    ])
+])
 AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
 dnl Check for yajl JSON library (optional).
@@ -801,7 +798,7 @@ PKG_CHECK_MODULES([YAJL], [yajl >= 2], [
     AC_SUBST([YAJL_CFLAGS])
     AC_SUBST([YAJL_LIBS])
     AC_DEFINE([HAVE_YAJL],[1],[Define to 1 if you have yajl.])
-    ],[AC_MSG_WARN([yajl not found, some features will be disabled])])
+],[AC_MSG_WARN([yajl not found, some features will be disabled])])
 
 dnl Check for C++ (optional, we just use this to test the header works).
 AC_PROG_CXX
@@ -863,17 +860,17 @@ dnl Check for OCaml (optional, for OCaml bindings and OCaml tools).
 OCAMLC=no
 OCAMLFIND=no
 AC_ARG_ENABLE([ocaml],
-        AS_HELP_STRING([--disable-ocaml], [disable OCaml language bindings]),
-        [],
-        [enable_ocaml=yes])
-AS_IF([test "x$enable_ocaml" != "xno"],
-        [dnl OCAMLC and OCAMLFIND have to be unset first, otherwise
-         dnl AC_CHECK_TOOL (inside AC_PROG_OCAML) will not look.
-         OCAMLC=
-         OCAMLFIND=
-         AC_PROG_OCAML
-         AC_PROG_FINDLIB
-        ])
+    AS_HELP_STRING([--disable-ocaml], [disable OCaml language bindings]),
+    [],
+    [enable_ocaml=yes])
+AS_IF([test "x$enable_ocaml" != "xno"],[
+    dnl OCAMLC and OCAMLFIND have to be unset first, otherwise
+    dnl AC_CHECK_TOOL (inside AC_PROG_OCAML) will not look.
+    OCAMLC=
+    OCAMLFIND=
+    AC_PROG_OCAML
+    AC_PROG_FINDLIB
+])
 AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
 AM_CONDITIONAL([HAVE_OCAMLDOC],
@@ -962,34 +959,34 @@ EOF
     done
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
-        [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
+    [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
 
 AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
 AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
-        [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
+    [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings and Perl tools).
 AC_ARG_ENABLE([perl],
-        AS_HELP_STRING([--disable-perl], [disable Perl language bindings]),
-        [],
-        [enable_perl=yes])
+    AS_HELP_STRING([--disable-perl], [disable Perl language bindings]),
+    [],
+    [enable_perl=yes])
 AS_IF([test "x$enable_perl" != "xno"],[
-        dnl Check for Perl modules that must be present to compile and
-        dnl test the Perl bindings.
-        missing_perl_modules=no
-        for pm in Test::More ExtUtils::MakeMaker; do
-            AC_MSG_CHECKING([for $pm])
-            if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
-                AC_MSG_RESULT([no])
-                missing_perl_modules=yes
-            else
-                AC_MSG_RESULT([yes])
-            fi
-        done
-        if test "x$missing_perl_modules" = "xyes"; then
-            AC_MSG_WARN([some Perl modules required to compile or test the Perl bindings are missing])
+    dnl Check for Perl modules that must be present to compile and
+    dnl test the Perl bindings.
+    missing_perl_modules=no
+    for pm in Test::More ExtUtils::MakeMaker; do
+        AC_MSG_CHECKING([for $pm])
+        if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+            AC_MSG_RESULT([no])
+            missing_perl_modules=yes
+        else
+            AC_MSG_RESULT([yes])
         fi
-        ])
+    done
+    if test "x$missing_perl_modules" = "xyes"; then
+        AC_MSG_WARN([some Perl modules required to compile or test the Perl bindings are missing])
+    fi
+])
 AM_CONDITIONAL([HAVE_PERL],
     [test "x$enable_perl" != "xno" && test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
@@ -1000,71 +997,70 @@ PYTHON_INCLUDEDIR=
 PYTHON_INSTALLDIR=
 
 AC_ARG_ENABLE([python],
-        AS_HELP_STRING([--disable-python], [disable Python language bindings]),
-        [],
-        [enable_python=yes])
-AS_IF([test "x$enable_python" != "xno"],
-        [
-        AC_CHECK_PROG([PYTHON],[python],[python],[no])
+    AS_HELP_STRING([--disable-python], [disable Python language bindings]),
+    [],
+    [enable_python=yes])
+AS_IF([test "x$enable_python" != "xno"],[
+    AC_CHECK_PROG([PYTHON],[python],[python],[no])
 
-        if test "x$PYTHON" != "xno"; then
-	    AC_MSG_CHECKING([Python prefix])
-            PYTHON_PREFIX=`$PYTHON -c "import sys; print (sys.prefix)"`
-	    AC_MSG_RESULT([$PYTHON_PREFIX])
+    if test "x$PYTHON" != "xno"; then
+        AC_MSG_CHECKING([Python prefix])
+        PYTHON_PREFIX=`$PYTHON -c "import sys; print (sys.prefix)"`
+        AC_MSG_RESULT([$PYTHON_PREFIX])
 
-	    AC_MSG_CHECKING([Python version])
-            PYTHON_VERSION_MAJOR=`$PYTHON -c "import sys; print (sys.version_info@<:@0@:>@)"`
-            PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info@<:@1@:>@)"`
-            PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
-	    AC_MSG_RESULT([$PYTHON_VERSION])
+	AC_MSG_CHECKING([Python version])
+        PYTHON_VERSION_MAJOR=`$PYTHON -c "import sys; print (sys.version_info@<:@0@:>@)"`
+        PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info@<:@1@:>@)"`
+        PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
+	AC_MSG_RESULT([$PYTHON_VERSION])
 
-            AC_MSG_CHECKING([for Python include path])
-            if test -z "$PYTHON_INCLUDEDIR"; then
-                python_path=`$PYTHON -c "import distutils.sysconfig; \
-                                         print (distutils.sysconfig.get_python_inc ());"`
-                PYTHON_INCLUDEDIR=$python_path
-            fi
-            AC_MSG_RESULT([$PYTHON_INCLUDEDIR])
+        AC_MSG_CHECKING([for Python include path])
+        if test -z "$PYTHON_INCLUDEDIR"; then
+            python_path=`$PYTHON -c "import distutils.sysconfig; \
+                                     print (distutils.sysconfig.get_python_inc ());"`
+            PYTHON_INCLUDEDIR=$python_path
+        fi
+        AC_MSG_RESULT([$PYTHON_INCLUDEDIR])
 
-            AC_ARG_WITH([python-installdir],
-                        [AS_HELP_STRING([--with-python-installdir],
-			                [directory to install python modules @<:@default=check@:>@])],
+        AC_ARG_WITH([python-installdir],
+                    [AS_HELP_STRING([--with-python-installdir],
+	                [directory to install python modules @<:@default=check@:>@])],
 			[PYTHON_INSTALLDIR="$withval"
-			AC_MSG_NOTICE([Python install dir $PYTHON_INSTALLDIR])],
+	                 AC_MSG_NOTICE([Python install dir $PYTHON_INSTALLDIR])],
 			[PYTHON_INSTALLDIR=check])
 
-	    if test "x$PYTHON_INSTALLDIR" = "xcheck"; then
-	        PYTHON_INSTALLDIR=
-                AC_MSG_CHECKING([for Python site-packages path])
-                if test -z "$PYTHON_INSTALLDIR"; then
-                    PYTHON_INSTALLDIR=`$PYTHON -c "import distutils.sysconfig; \
-                                                   print (distutils.sysconfig.get_python_lib(1,0));"`
-                fi
-                AC_MSG_RESULT([$PYTHON_INSTALLDIR])
+        if test "x$PYTHON_INSTALLDIR" = "xcheck"; then
+	    PYTHON_INSTALLDIR=
+            AC_MSG_CHECKING([for Python site-packages path])
+            if test -z "$PYTHON_INSTALLDIR"; then
+                PYTHON_INSTALLDIR=`$PYTHON -c "import distutils.sysconfig; \
+                                               print (distutils.sysconfig.get_python_lib(1,0));"`
             fi
-
-            dnl Look for some optional symbols in libpython.
-            old_LIBS="$LIBS"
-
-            PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
-                                           print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
-            AC_CHECK_LIB([c],[PyCapsule_New],
-                         [AC_DEFINE([HAVE_PYCAPSULE_NEW],1,
-                                    [Found PyCapsule_New in libpython.])],
-                         [],[$PYTHON_BLDLIBRARY])
-            AC_CHECK_LIB([c],[PyString_AsString],
-                         [AC_DEFINE([HAVE_PYSTRING_ASSTRING],1,
-                                    [Found PyString_AsString in libpython.])],
-                         [],[$PYTHON_BLDLIBRARY])
-
-            LIBS="$old_LIBS"
+            AC_MSG_RESULT([$PYTHON_INSTALLDIR])
         fi
 
-        AC_SUBST(PYTHON_PREFIX)
-        AC_SUBST(PYTHON_VERSION)
-        AC_SUBST(PYTHON_INCLUDEDIR)
-        AC_SUBST(PYTHON_INSTALLDIR)
-        ])
+        dnl Look for some optional symbols in libpython.
+        old_LIBS="$LIBS"
+
+        PYTHON_BLDLIBRARY=`$PYTHON -c "import distutils.sysconfig; \
+                                       print (distutils.sysconfig.get_config_var('BLDLIBRARY'))"`
+        AC_CHECK_LIB([c],[PyCapsule_New],
+                     [AC_DEFINE([HAVE_PYCAPSULE_NEW],1,
+                                [Found PyCapsule_New in libpython.])],
+                     [],[$PYTHON_BLDLIBRARY])
+        AC_CHECK_LIB([c],[PyString_AsString],
+                     [AC_DEFINE([HAVE_PYSTRING_ASSTRING],1,
+                                [Found PyString_AsString in libpython.])],
+                     [],[$PYTHON_BLDLIBRARY])
+
+        LIBS="$old_LIBS"
+    fi
+
+    AC_SUBST(PYTHON_PREFIX)
+    AC_SUBST(PYTHON_VERSION)
+    AC_SUBST(PYTHON_INCLUDEDIR)
+    AC_SUBST(PYTHON_INSTALLDIR)
+])
 AM_CONDITIONAL([HAVE_PYTHON],
     [test "x$PYTHON" != "xno" && test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_INSTALLDIR" != "x"])
 
@@ -1261,29 +1257,26 @@ AM_CONDITIONAL([HAVE_JAVA],[test "x$with_java" != "xno" && test -n "$JAVAC"])
 dnl Check for Haskell (GHC).
 GHC=no
 AC_ARG_ENABLE([haskell],
-        AS_HELP_STRING([--disable-haskell], [disable Haskell language bindings]),
-        [],
-        [enable_haskell=yes])
-AS_IF([test "x$enable_haskell" != "xno"],
-        [
-        GHC=
-        AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
-        ])
-AM_CONDITIONAL([HAVE_HASKELL],
-    [test "x$GHC" != "xno"])
+    AS_HELP_STRING([--disable-haskell], [disable Haskell language bindings]),
+    [],
+    [enable_haskell=yes])
+AS_IF([test "x$enable_haskell" != "xno"],[
+    GHC=
+    AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
+])
+AM_CONDITIONAL([HAVE_HASKELL],[test "x$GHC" != "xno"])
 
 dnl PHP
 PHP=no
 AC_ARG_ENABLE([php],
-        AS_HELP_STRING([--disable-php], [disable PHP language bindings]),
-        [],
-        [enable_php=yes])
-AS_IF([test "x$enable_php" != "xno"],
-        [
-        PHP=
-        AC_CHECK_PROG([PHP],[php],[php],[no])
-        AC_CHECK_PROG([PHPIZE],[phpize],[phpize],[no])
-        ])
+    AS_HELP_STRING([--disable-php], [disable PHP language bindings]),
+    [],
+    [enable_php=yes])
+AS_IF([test "x$enable_php" != "xno"],[
+    PHP=
+    AC_CHECK_PROG([PHP],[php],[php],[no])
+    AC_CHECK_PROG([PHPIZE],[phpize],[phpize],[no])
+])
 AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
 dnl Erlang
@@ -1311,49 +1304,47 @@ AC_ARG_ENABLE([lua],
         [],
         [enable_lua=yes])
 AS_IF([test "x$enable_lua" != "xno"],[
-        AC_CHECK_PROG([LUA],[lua],[lua],[no])
-        AS_IF([test "x$LUA" != "xno"],[
-            AC_MSG_CHECKING([for Lua version])
-            LUA_VERSION=`$LUA -e 'print(_VERSION)' | awk '{print $2}'`
-            AC_MSG_RESULT([$LUA_VERSION])
-            dnl On Debian it's 'lua5.1', 'lua5.2' etc.  On Fedora, just 'lua'.
-            PKG_CHECK_MODULES([LUA], [lua$LUA_VERSION],[
+    AC_CHECK_PROG([LUA],[lua],[lua],[no])
+    AS_IF([test "x$LUA" != "xno"],[
+        AC_MSG_CHECKING([for Lua version])
+        LUA_VERSION=`$LUA -e 'print(_VERSION)' | awk '{print $2}'`
+        AC_MSG_RESULT([$LUA_VERSION])
+        dnl On Debian it's 'lua5.1', 'lua5.2' etc.  On Fedora, just 'lua'.
+        PKG_CHECK_MODULES([LUA], [lua$LUA_VERSION],[
+            AC_SUBST([LUA_CFLAGS])
+            AC_SUBST([LUA_LIBS])
+            AC_SUBST([LUA_VERSION])
+            AC_DEFINE([HAVE_LUA],[1],[Lua library found at compile time])
+        ],[
+            PKG_CHECK_MODULES([LUA], [lua],[
                 AC_SUBST([LUA_CFLAGS])
                 AC_SUBST([LUA_LIBS])
                 AC_SUBST([LUA_VERSION])
                 AC_DEFINE([HAVE_LUA],[1],[Lua library found at compile time])
             ],[
-                PKG_CHECK_MODULES([LUA], [lua],[
-                    AC_SUBST([LUA_CFLAGS])
-                    AC_SUBST([LUA_LIBS])
-                    AC_SUBST([LUA_VERSION])
-                    AC_DEFINE([HAVE_LUA],[1],[Lua library found at compile time])
-                ],[
-                    AC_MSG_WARN([lua $LUA_VERSION not found])
-                ])
+                AC_MSG_WARN([lua $LUA_VERSION not found])
             ])
         ])
+    ])
 ])
-AM_CONDITIONAL([HAVE_LUA],
-               [test "x$LUA_LIBS" != "x"])
+AM_CONDITIONAL([HAVE_LUA],[test "x$LUA_LIBS" != "x"])
 
 dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
-AS_IF([test "x$PERL" != "xno"],
-        [
-        missing_perl_modules=no
-        for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper Locale::TextDomain Win::Hivex Win::Hivex::Regedit String::ShellQuote; do
-            AC_MSG_CHECKING([for $pm])
-            if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
-                AC_MSG_RESULT([no])
-                missing_perl_modules=yes
-            else
-                AC_MSG_RESULT([yes])
-            fi
-        done
-        if test "x$missing_perl_modules" = "xyes"; then
-            AC_MSG_WARN([some Perl modules required to compile the Perl virt-* tools are missing])
+AS_IF([test "x$PERL" != "xno"],[
+    missing_perl_modules=no
+    for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper Locale::TextDomain Win::Hivex Win::Hivex::Regedit String::ShellQuote; do
+        AC_MSG_CHECKING([for $pm])
+        if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+            AC_MSG_RESULT([no])
+            missing_perl_modules=yes
+        else
+            AC_MSG_RESULT([yes])
         fi
-        ])
+    done
+    if test "x$missing_perl_modules" = "xyes"; then
+        AC_MSG_WARN([some Perl modules required to compile the Perl virt-* tools are missing])
+    fi
+])
 
 AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
@@ -1363,38 +1354,29 @@ AC_ARG_ENABLE([gobject],
     AS_HELP_STRING([--disable-gobject], [disable GObject bindings]),
     [],
     [enable_gobject=yes])
-AS_IF(
-  [test "x$enable_gobject" != "xno"],
-  [
-    PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.26.0],
-      [
+AS_IF([test "x$enable_gobject" != "xno"],[
+    PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.26.0],[
         AC_SUBST([GOBJECT_CFLAGS])
         AC_SUBST([GOBJECT_LIBS])
         AC_DEFINE([HAVE_GOBJECT],[1],
                   [GObject library found at compile time.])
-      ],
-      [AC_MSG_WARN([gobject library not found, gobject binding will be disabled])]
-    )
+    ],
+    [AC_MSG_WARN([gobject library not found, gobject binding will be disabled])])
 
-    PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.26.0],
-      [
+    PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.26.0],[
         AC_SUBST([GIO_CFLAGS])
         AC_SUBST([GIO_LIBS])
         AC_DEFINE([HAVE_GIO],[1],
                   [gio library found at compile time.])
-      ],
-      [AC_MSG_WARN([gio library not found, gobject binding will be disabled])]
-    )
-  ]
-)
+    ],
+    [AC_MSG_WARN([gio library not found, gobject binding will be disabled])])
+])
 AM_CONDITIONAL([HAVE_GOBJECT],
                [test "x$GOBJECT_LIBS" != "x" -a "x$GIO_LIBS" != "x"])
 
 AC_CHECK_PROG([GJS],[gjs],[gjs])
-AS_IF(
-  [test "x$GJS" = "x"],
-  [AC_MSG_WARN([gjs not found, gobject bindtests will not run])]
-)
+AS_IF([test "x$GJS" = "x"],
+      [AC_MSG_WARN([gjs not found, gobject bindtests will not run])])
 
 dnl gobject introspection
 m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
@@ -1414,9 +1396,9 @@ m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
 
 # check for gtk-doc
 m4_ifdef([GTK_DOC_CHECK], [
-GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
+    GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
 ],[
-AM_CONDITIONAL([ENABLE_GTK_DOC], false)
+    AM_CONDITIONAL([ENABLE_GTK_DOC], false)
 ])
 
 dnl Library versioning.
