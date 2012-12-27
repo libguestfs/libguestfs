@@ -136,8 +136,12 @@ add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
       endp = options + strlen (options);
     }
 
-    if (quote == ' ')
-      nextp = endp+1;
+    if (quote == ' ') {
+      if (endp[0] == '\0')
+        nextp = endp;
+      else
+        nextp = endp+1;
+    }
     else {
       if (!endp[1])
         nextp = endp+1;
