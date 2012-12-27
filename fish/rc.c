@@ -103,7 +103,7 @@ receive_stdout (int s)
 
   else {
     /* Extract the transferred file descriptor from the control data */
-    unsigned char *data = CMSG_DATA (h);
+    void *data = CMSG_DATA (h);
     int fd = *(int *)data;
 
     /* Duplicate the received file descriptor to stdout */
@@ -153,7 +153,7 @@ send_stdout (int s)
   msg.msg_controllen  = controllen;
 
   /* Add STDOUT to the control data */
-  unsigned char *data = CMSG_DATA (cmptr);
+  void *data = CMSG_DATA (cmptr);
   *(int *)data = STDOUT_FILENO;
 
   if (sendmsg (s, &msg, 0) != 1) {

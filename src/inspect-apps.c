@@ -233,6 +233,9 @@ read_rpm_name (guestfs_h *g,
   return 0;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+
 /* tag constants, see rpmtag.h in RPM for complete list */
 #define RPMTAG_VERSION 1001
 #define RPMTAG_RELEASE 1002
@@ -278,6 +281,8 @@ get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
 
   return NULL;
 }
+
+#pragma GCC diagnostic pop
 
 struct read_package_data {
   struct rpm_names_list *list;

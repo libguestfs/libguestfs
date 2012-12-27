@@ -1156,38 +1156,38 @@ guestfs__umount_local (guestfs_h *g,
  * if you like.
  */
 
-struct lsc_entry {              /* lstat cache entry */
+struct entry_common {
   char *pathname;               /* full path to the file */
   time_t timeout;               /* when this entry expires */
+};
+
+struct lsc_entry {              /* lstat cache entry */
+  struct entry_common c;
   struct stat statbuf;          /* statbuf */
 };
 
 struct xac_entry {              /* xattr cache entry */
-  /* NB first two fields must be same as lsc_entry */
-  char *pathname;               /* full path to the file */
-  time_t timeout;               /* when this entry expires */
+  struct entry_common c;
   struct guestfs_xattr_list *xattrs;
 };
 
 struct rlc_entry {              /* readlink cache entry */
-  /* NB first two fields must be same as lsc_entry */
-  char *pathname;               /* full path to the file */
-  time_t timeout;               /* when this entry expires */
+  struct entry_common c;
   char *link;
 };
 
 static size_t
 gen_hash (void const *x, size_t table_size)
 {
-  struct lsc_entry const *p = x;
+  struct entry_common const *p = x;
   return hash_pjw (p->pathname, table_size);
 }
 
 static bool
 gen_compare (void const *x, void const *y)
 {
-  struct lsc_entry const *a = x;
-  struct lsc_entry const *b = y;
+  struct entry_common const *a = x;
+  struct entry_common const *b = y;
   return STREQ (a->pathname, b->pathname);
 }
 
@@ -1195,7 +1195,7 @@ static void
 lsc_free (void *x)
 {
   if (x) {
-    struct lsc_entry *p = x;
+    struct entry_common *p = x;
 
     free (p->pathname);
     free (p);
@@ -1264,7 +1264,7 @@ gen_remove_if_expired (void *x, void *data)
    * with x == NULL.
    */
   if (x) {
-    struct lsc_entry *p = x;
+    struct entry_common *p = x;
     struct gen_remove_data *d = data;
 
     if (p->timeout < d->now)
@@ -1298,9 +1298,9 @@ dir_cache_remove_all_expired (guestfs_h *g, time_t now)
 }
 
 static int
-gen_replace (Hash_table *ht, struct lsc_entry *new_entry, Hash_data_freer freer)
+gen_replace (Hash_table *ht, struct entry_common *new_entry, Hash_data_freer freer)
 {
-  struct lsc_entry *old_entry;
+  struct entry_common *old_entry;
 
   old_entry = hash_delete (ht, new_entry);
   freer (old_entry);
@@ -1330,22 +1330,22 @@ lsc_insert (guestfs_h *g,
   }
 
   size_t len = strlen (path) + strlen (name) + 2;
-  entry->pathname = malloc (len);
-  if (entry->pathname == NULL) {
+  entry->c.pathname = malloc (len);
+  if (entry->c.pathname == NULL) {
     perror ("malloc");
     free (entry);
     return -1;
   }
   if (STREQ (path, "/"))
-    snprintf (entry->pathname, len, "/%s", name);
+    snprintf (entry->c.pathname, len, "/%s", name);
   else
-    snprintf (entry->pathname, len, "%s/%s", path, name);
+    snprintf (entry->c.pathname, len, "%s/%s", path, name);
 
   memcpy (&entry->statbuf, statbuf, sizeof entry->statbuf);
 
-  entry->timeout = now + g->ml_dir_cache_timeout;
+  entry->c.timeout = now + g->ml_dir_cache_timeout;
 
-  return gen_replace (g->lsc_ht, entry, lsc_free);
+  return gen_replace (g->lsc_ht, (struct entry_common *) entry, lsc_free);
 }
 
 static int
@@ -1362,22 +1362,22 @@ xac_insert (guestfs_h *g,
   }
 
   size_t len = strlen (path) + strlen (name) + 2;
-  entry->pathname = malloc (len);
-  if (entry->pathname == NULL) {
+  entry->c.pathname = malloc (len);
+  if (entry->c.pathname == NULL) {
     perror ("malloc");
     free (entry);
     return -1;
   }
   if (STREQ (path, "/"))
-    snprintf (entry->pathname, len, "/%s", name);
+    snprintf (entry->c.pathname, len, "/%s", name);
   else
-    snprintf (entry->pathname, len, "%s/%s", path, name);
+    snprintf (entry->c.pathname, len, "%s/%s", path, name);
 
   entry->xattrs = xattrs;
 
-  entry->timeout = now + g->ml_dir_cache_timeout;
+  entry->c.timeout = now + g->ml_dir_cache_timeout;
 
-  return gen_replace (g->xac_ht, (struct lsc_entry *) entry, xac_free);
+  return gen_replace (g->xac_ht, (struct entry_common *) entry, xac_free);
 }
 
 static int
@@ -1394,35 +1394,35 @@ rlc_insert (guestfs_h *g,
   }
 
   size_t len = strlen (path) + strlen (name) + 2;
-  entry->pathname = malloc (len);
-  if (entry->pathname == NULL) {
+  entry->c.pathname = malloc (len);
+  if (entry->c.pathname == NULL) {
     perror ("malloc");
     free (entry);
     return -1;
   }
   if (STREQ (path, "/"))
-    snprintf (entry->pathname, len, "/%s", name);
+    snprintf (entry->c.pathname, len, "/%s", name);
   else
-    snprintf (entry->pathname, len, "%s/%s", path, name);
+    snprintf (entry->c.pathname, len, "%s/%s", path, name);
 
   entry->link = link;
 
-  entry->timeout = now + g->ml_dir_cache_timeout;
+  entry->c.timeout = now + g->ml_dir_cache_timeout;
 
-  return gen_replace (g->rlc_ht, (struct lsc_entry *) entry, rlc_free);
+  return gen_replace (g->rlc_ht, (struct entry_common *) entry, rlc_free);
 }
 
 static const struct stat *
 lsc_lookup (guestfs_h *g, const char *pathname)
 {
-  const struct lsc_entry key = { .pathname = (char *) pathname };
+  const struct entry_common key = { .pathname = (char *) pathname };
   struct lsc_entry *entry;
   time_t now;
 
   time (&now);
 
   entry = hash_lookup (g->lsc_ht, &key);
-  if (entry && entry->timeout >= now)
+  if (entry && entry->c.timeout >= now)
     return &entry->statbuf;
   else
     return NULL;
@@ -1431,14 +1431,14 @@ lsc_lookup (guestfs_h *g, const char *pathname)
 static const struct guestfs_xattr_list *
 xac_lookup (guestfs_h *g, const char *pathname)
 {
-  const struct xac_entry key = { .pathname = (char *) pathname };
+  const struct entry_common key = { .pathname = (char *) pathname };
   struct xac_entry *entry;
   time_t now;
 
   time (&now);
 
   entry = hash_lookup (g->xac_ht, &key);
-  if (entry && entry->timeout >= now)
+  if (entry && entry->c.timeout >= now)
     return entry->xattrs;
   else
     return NULL;
@@ -1447,24 +1447,24 @@ xac_lookup (guestfs_h *g, const char *pathname)
 static const char *
 rlc_lookup (guestfs_h *g, const char *pathname)
 {
-  const struct rlc_entry key = { .pathname = (char *) pathname };
+  const struct entry_common key = { .pathname = (char *) pathname };
   struct rlc_entry *entry;
   time_t now;
 
   time (&now);
 
   entry = hash_lookup (g->rlc_ht, &key);
-  if (entry && entry->timeout >= now)
+  if (entry && entry->c.timeout >= now)
     return entry->link;
   else
     return NULL;
 }
 
 static void
-lsc_remove (Hash_table *ht, const char *pathname, Hash_data_freer freer)
+gen_remove (Hash_table *ht, const char *pathname, Hash_data_freer freer)
 {
-  const struct lsc_entry key = { .pathname = (char *) pathname };
-  struct lsc_entry *entry;
+  const struct entry_common key = { .pathname = (char *) pathname };
+  struct entry_common *entry;
 
   entry = hash_delete (ht, &key);
 
@@ -1474,9 +1474,9 @@ lsc_remove (Hash_table *ht, const char *pathname, Hash_data_freer freer)
 static void
 dir_cache_invalidate (guestfs_h *g, const char *path)
 {
-  lsc_remove (g->lsc_ht, path, lsc_free);
-  lsc_remove (g->xac_ht, path, xac_free);
-  lsc_remove (g->rlc_ht, path, rlc_free);
+  gen_remove (g->lsc_ht, path, lsc_free);
+  gen_remove (g->xac_ht, path, xac_free);
+  gen_remove (g->rlc_ht, path, rlc_free);
 }
 
 #else /* !HAVE_FUSE */
