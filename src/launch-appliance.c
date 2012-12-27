@@ -910,6 +910,16 @@ is_openable (guestfs_h *g, const char *path, int flags)
   return 1;
 }
 
+static int
+old_or_broken_virtio_scsi (guestfs_h *g)
+{
+  /* qemu 1.1 claims to support virtio-scsi but in reality it's broken. */
+  if (g->app.qemu_version_major == 1 && g->app.qemu_version_minor < 2)
+    return 1;
+
+  return 0;
+}
+
 /* Returns 1 = use virtio-scsi, or 0 = use virtio-blk. */
 static int
 qemu_supports_virtio_scsi (guestfs_h *g)
@@ -928,8 +938,7 @@ qemu_supports_virtio_scsi (guestfs_h *g)
    *   3 = test failed (use virtio-blk)
    */
   if (g->app.virtio_scsi == 0) {
-    /* qemu 1.1 claims to support virtio-scsi but in reality it's broken. */
-    if (g->app.qemu_version_major == 1 && g->app.qemu_version_minor < 2)
+    if (old_or_broken_virtio_scsi (g))
       g->app.virtio_scsi = 2;
     else {
       r = qemu_supports_device (g, "virtio-scsi-pci");
