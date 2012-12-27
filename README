@@ -324,11 +324,11 @@ For example:
         --with-qemu-options="-M versatilepb -cpu arm926"
   ./configure \
         --with-qemu="qemu-system-arm" \
-        --with-qemu-options="-M vexpress-a9 -cpu cortex-a9"
+        --with-qemu-options="-M vexpress-a15 -cpu cortex-a15"
 
 Note that since virtio is required by libguestfs, and virtio is a
-PCI-based architecture, whatever architecture qemu emulates must
-support PCI also.
+PCI-based architecture, whatever architecture qemu emulates MUST
+support PCI.
 
 For PPC64 you will need to specify the IBM pSeries machine type:
 
