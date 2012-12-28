@@ -29,10 +29,10 @@ if HAVE_HASKELL
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
-# Don't run the bindtests: they don't build since the addition of optargs.
+# XXX Don't run the bindtests: they don't build since the addition of optargs.
 # Haskell bindings are incomplete.
 
-TESTS = Guestfs010Load
+TESTS = Guestfs010Load Guestfs030Config
 if ENABLE_APPLIANCE
 TESTS += Guestfs050LVCreate
 endif ENABLE_APPLIANCE
@@ -41,7 +41,7 @@ endif ENABLE_APPLIANCE
 
 GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs -i$(srcdir)
 
-all_targets = Guestfs010Load Guestfs050LVCreate
+all_targets = Guestfs010Load Guestfs030Config Guestfs050LVCreate
 $(all_targets): $(top_builddir)/src/libguestfs.la
 
 all: $(all_targets)
@@ -53,6 +53,9 @@ Bindtests: $(srcdir)/Bindtests.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
 Guestfs010Load: $(srcdir)/Guestfs010Load.hs Guestfs.o
+	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
+
+Guestfs030Config: $(srcdir)/Guestfs030Config.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
 Guestfs050LVCreate: $(srcdir)/Guestfs050LVCreate.hs Guestfs.o

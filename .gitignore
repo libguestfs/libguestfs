@@ -161,6 +161,7 @@ Makefile.in
 /haskell/Bindtests
 /haskell/Bindtests.hs
 /haskell/Guestfs010Load
+/haskell/Guestfs030Config
 /haskell/Guestfs050LVCreate
 /haskell/Guestfs.hs
 /html/guestfish.1.html
