@@ -160,8 +160,8 @@ Makefile.in
 /guestfsd-in-wine.log
 /haskell/Bindtests
 /haskell/Bindtests.hs
-/haskell/Guestfs005Load
-/haskell/Guestfs010Basic
+/haskell/Guestfs010Load
+/haskell/Guestfs050LVCreate
 /haskell/Guestfs.hs
 /html/guestfish.1.html
 /html/guestfs.3.html

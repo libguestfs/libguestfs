@@ -1,5 +1,5 @@
 {- libguestfs Haskell bindings
-   Copyright (C) 2009 Red Hat Inc.
+   Copyright (C) 2009-2012 Red Hat Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,8 +16,24 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -}
 
-module Guestfs005Load where
+module Guestfs050LVCreate where
 import qualified Guestfs
+import System.IO (openFile, hClose, hSetFileSize, IOMode(WriteMode))
+import System.Posix.Files (removeLink)
 
 main = do
-  Guestfs.create
+  g <- Guestfs.create
+  fd <- openFile "test.img" WriteMode
+  hSetFileSize fd (500 * 1024 * 1024)
+  hClose fd
+  Guestfs.add_drive_ro g "test.img"
+  Guestfs.launch g
+
+  Guestfs.pvcreate g "/dev/sda"
+  Guestfs.vgcreate g "VG" ["/dev/sda"]
+  -- Guestfs.lvcreate g "LV1" "VG" 200
+  -- Guestfs.lvcreate g "LV2" "VG" 200
+
+  -- Guestfs.lvs g and check returned list
+
+  removeLink "test.img"
