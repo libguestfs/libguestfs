@@ -31,8 +31,10 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
 # Don't run the bindtests: they don't build since the addition of optargs.
 # Haskell bindings are incomplete.
+
+TESTS = Guestfs010Load
 if ENABLE_APPLIANCE
-TESTS = Guestfs010Load Guestfs050LVCreate
+TESTS += Guestfs050LVCreate
 endif ENABLE_APPLIANCE
 
 #check_DATA = Bindtests
