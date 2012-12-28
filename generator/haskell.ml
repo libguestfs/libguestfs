@@ -39,8 +39,8 @@ let rec generate_haskell_hs () =
     | _, _, (_::_) -> false (* no optional args yet *)
     | RErr, _, []
     | RInt _, _, []
-    | RInt64 _, _, [] -> true
-    | RBool _, _, []
+    | RInt64 _, _, []
+    | RBool _, _, [] -> true
     | RConstString _, _, []
     | RConstOptString _, _, []
     | RString _, _, []
