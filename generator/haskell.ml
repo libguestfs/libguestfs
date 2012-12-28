@@ -51,7 +51,6 @@ let rec generate_haskell_hs () =
     | RBufferOut _, _, [] -> false in
 
   pr "\
-{-# INCLUDE <guestfs.h> #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 
 module Guestfs (
@@ -91,11 +90,11 @@ data Stat = Stat
 data StatVFS = StatVFS
 data Hashtable = Hashtable
 
-foreign import ccall unsafe \"guestfs_create\" c_create
+foreign import ccall unsafe \"guestfs.h guestfs_create\" c_create
   :: IO GuestfsP
-foreign import ccall unsafe \"&guestfs_close\" c_close
+foreign import ccall unsafe \"guestfs.h &guestfs_close\" c_close
   :: FunPtr (GuestfsP -> IO ())
-foreign import ccall unsafe \"guestfs_set_error_handler\" c_set_error_handler
+foreign import ccall unsafe \"guestfs.h guestfs_set_error_handler\" c_set_error_handler
   :: GuestfsP -> Ptr CInt -> Ptr CInt -> IO ()
 
 create :: IO GuestfsH
@@ -105,7 +104,7 @@ create = do
   h <- newForeignPtr c_close p
   return h
 
-foreign import ccall unsafe \"guestfs_last_error\" c_last_error
+foreign import ccall unsafe \"guestfs.h guestfs_last_error\" c_last_error
   :: GuestfsP -> IO CString
 
 -- last_error :: GuestfsH -> IO (Maybe String)
@@ -127,7 +126,8 @@ last_error h = do
     fun { name = name; style = (ret, args, optargs as style);
           c_function = c_function } ->
       if can_generate style then (
-        pr "foreign import ccall unsafe \"%s\" c_%s\n" c_function name;
+        pr "foreign import ccall unsafe \"guestfs.h %s\" c_%s\n"
+          c_function name;
         pr "  :: ";
         generate_haskell_prototype ~handle:"GuestfsP" style;
         pr "\n";
