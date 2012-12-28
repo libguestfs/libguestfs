@@ -40,10 +40,10 @@ let rec generate_haskell_hs () =
     | RErr, _, []
     | RInt _, _, []
     | RInt64 _, _, []
-    | RBool _, _, [] -> true
+    | RBool _, _, []
     | RConstString _, _, []
+    | RString _, _, [] -> true
     | RConstOptString _, _, []
-    | RString _, _, []
     | RStringList _, _, []
     | RStruct _, _, []
     | RStructList _, _, []
@@ -112,7 +112,7 @@ foreign import ccall unsafe \"guestfs.h guestfs_last_error\" c_last_error
 --   str <- withForeignPtr h (\\p -> c_last_error p)
 --   maybePeek peekCString str
 
-last_error :: GuestfsH -> IO (String)
+last_error :: GuestfsH -> IO String
 last_error h = do
   str <- withForeignPtr h (\\p -> c_last_error p)
   if (str == nullPtr)
@@ -191,8 +191,9 @@ last_error h = do
          | RBool _ ->
              pr "    else return (toBool r)\n"
          | RConstString _
+         | RString _ ->
+             pr "    else peekCString r\n"
          | RConstOptString _
-         | RString _
          | RStringList _
          | RStruct _
          | RStructList _
