@@ -34,21 +34,28 @@ let rec generate_haskell_hs () =
   (* XXX We only know how to generate partial FFI for Haskell
    * at the moment.  Please help out!
    *)
-  let can_generate style =
-    match style with
-    | _, _, (_::_) -> false (* no optional args yet *)
-    | RErr, _, []
-    | RInt _, _, []
-    | RInt64 _, _, []
-    | RBool _, _, []
-    | RConstString _, _, []
-    | RString _, _, [] -> true
-    | RConstOptString _, _, []
-    | RStringList _, _, []
-    | RStruct _, _, []
-    | RStructList _, _, []
-    | RHashtable _, _, []
-    | RBufferOut _, _, [] -> false in
+  let can_generate name style =
+    match name with
+    (* GHC error: "Ambiguous occurrence `head'" etc. because these
+     * clash with Prelude functions with the same name.
+     *)
+    | "head" | "tail" -> false
+    | _ ->
+      match style with
+      | _, _, (_::_) -> false (* no optional args yet *)
+      | RErr, _, []
+      | RInt _, _, []
+      | RInt64 _, _, []
+      | RBool _, _, []
+      | RConstString _, _, []
+      | RString _, _, []
+      | RStringList _, _, [] -> true
+      | RStruct _, _, []
+      | RStructList _, _, []
+      | RHashtable _, _, []
+      | RBufferOut _, _, []
+      | RConstOptString _, _, [] -> false
+  in
 
   pr "\
 {-# LANGUAGE ForeignFunctionInterface #-}
@@ -59,7 +66,7 @@ module Guestfs (
   (* List out the names of the actions we want to export. *)
   List.iter (
     fun { name = name; style = style } ->
-      if can_generate style then pr ",\n  %s" name
+      if can_generate name style then pr ",\n  %s" name
   ) all_functions;
 
   pr "
@@ -125,7 +132,7 @@ last_error h = do
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
           c_function = c_function } ->
-      if can_generate style then (
+      if can_generate name style then (
         pr "foreign import ccall unsafe \"guestfs.h %s\" c_%s\n"
           c_function name;
         pr "  :: ";
@@ -193,12 +200,13 @@ last_error h = do
          | RConstString _
          | RString _ ->
              pr "    else peekCString r\n"
-         | RConstOptString _
-         | RStringList _
+         | RStringList _ ->
+             pr "    else peekArray0 nullPtr r >>= mapM peekCString\n"
          | RStruct _
          | RStructList _
          | RHashtable _
-         | RBufferOut _ ->
+         | RBufferOut _
+         | RConstOptString _ ->
              pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
         );
         pr "\n";
@@ -207,46 +215,85 @@ last_error h = do
 
 and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
   pr "%s -> " handle;
-  let string = if hs then "String" else "CString" in
-  let int = if hs then "Int" else "CInt" in
-  let bool = if hs then "Bool" else "CInt" in
-  let int64 = if hs then "Integer" else "Int64" in
-  List.iter (
-    fun arg ->
-      (match arg with
-       | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _ ->
-           pr "%s" string
-       | BufferIn _ ->
-           if hs then pr "String"
-           else pr "CString -> CInt"
-       | OptString _ -> if hs then pr "Maybe String" else pr "CString"
-       | StringList _ | DeviceList _ -> if hs then pr "[String]" else pr "Ptr CString"
-       | Bool _ -> pr "%s" bool
-       | Int _ -> pr "%s" int
-       | Int64 _ -> pr "%s" int
-       | Pointer _ -> pr "%s" int
-       | FileIn _ -> pr "%s" string
-       | FileOut _ -> pr "%s" string
-      );
-      pr " -> ";
-  ) args;
-  pr "IO (";
-  (match ret with
-   | RErr -> if not hs then pr "CInt"
-   | RInt _ -> pr "%s" int
-   | RInt64 _ -> pr "%s" int64
-   | RBool _ -> pr "%s" bool
-   | RConstString _ -> pr "%s" string
-   | RConstOptString _ -> pr "Maybe %s" string
-   | RString _ -> pr "%s" string
-   | RStringList _ -> pr "[%s]" string
-   | RStruct (_, typ) ->
-       let name = camel_name_of_struct typ in
-       pr "%s" name
-   | RStructList (_, typ) ->
-       let name = camel_name_of_struct typ in
-       pr "[%s]" name
-   | RHashtable _ -> pr "Hashtable"
-   | RBufferOut _ -> pr "%s" string
-  );
-  pr ")"
+  if not hs then (
+    List.iter (
+      fun arg ->
+        (match arg with
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _ ->
+          pr "CString"
+        | BufferIn _ ->
+          pr "CString -> CInt"
+        | OptString _ ->
+          pr "CString"
+        | StringList _ | DeviceList _ ->
+          pr "Ptr CString"
+        | Bool _ -> pr "CInt"
+        | Int _ -> pr "CInt"
+        | Int64 _ -> pr "Int64"
+        | Pointer _ -> pr "CInt"
+        | FileIn _ -> pr "CString"
+        | FileOut _ -> pr "CString"
+        );
+        pr " -> ";
+    ) args;
+    pr "IO ";
+    (match ret with
+    | RErr -> pr "CInt"
+    | RInt _ -> pr "CInt"
+    | RInt64 _ -> pr "Int64"
+    | RBool _ -> pr "CInt"
+    | RConstString _ -> pr "CString"
+    | RConstOptString _ -> pr "(Maybe CString)"
+    | RString _ -> pr "CString"
+    | RStringList _ -> pr "(Ptr CString)"
+    | RStruct (_, typ) ->
+      let name = camel_name_of_struct typ in
+      pr "%s" name
+    | RStructList (_, typ) ->
+      let name = camel_name_of_struct typ in
+      pr "[%s]" name
+    | RHashtable _ -> pr "Hashtable"
+    | RBufferOut _ -> pr "CString"
+    )
+  )
+  else (* hs *) (
+    List.iter (
+      fun arg ->
+        (match arg with
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _ ->
+          pr "String"
+        | BufferIn _ ->
+          pr "String"
+        | OptString _ ->
+          pr "Maybe String"
+        | StringList _ | DeviceList _ ->
+          pr "[String]"
+        | Bool _ -> pr "Bool"
+        | Int _ -> pr "Int"
+        | Int64 _ -> pr "Integer"
+        | Pointer _ -> pr "Int"
+        | FileIn _ -> pr "String"
+        | FileOut _ -> pr "String"
+        );
+        pr " -> ";
+    ) args;
+    pr "IO ";
+    (match ret with
+    | RErr -> pr "()"
+    | RInt _ -> pr "Int"
+    | RInt64 _ -> pr "Int64"
+    | RBool _ -> pr "Bool"
+    | RConstString _ -> pr "String"
+    | RConstOptString _ -> pr "(Maybe String)"
+    | RString _ -> pr "String"
+    | RStringList _ -> pr "[String]"
+    | RStruct (_, typ) ->
+      let name = camel_name_of_struct typ in
+      pr "%s" name
+    | RStructList (_, typ) ->
+      let name = camel_name_of_struct typ in
+      pr "[%s]" name
+    | RHashtable _ -> pr "Hashtable"
+    | RBufferOut _ -> pr "String"
+    )
+  )

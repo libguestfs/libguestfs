@@ -20,6 +20,7 @@ module Guestfs050LVCreate where
 import qualified Guestfs
 import System.IO (openFile, hClose, hSetFileSize, IOMode(WriteMode))
 import System.Posix.Files (removeLink)
+import Control.Monad
 
 main = do
   g <- Guestfs.create
@@ -31,9 +32,11 @@ main = do
 
   Guestfs.pvcreate g "/dev/sda"
   Guestfs.vgcreate g "VG" ["/dev/sda"]
-  -- Guestfs.lvcreate g "LV1" "VG" 200
-  -- Guestfs.lvcreate g "LV2" "VG" 200
+  Guestfs.lvcreate g "LV1" "VG" 200
+  Guestfs.lvcreate g "LV2" "VG" 200
 
-  -- Guestfs.lvs g and check returned list
+  lvs <- Guestfs.lvs g
+  when (lvs /= ["/dev/VG/LV1", "/dev/VG/LV2"]) $
+    fail "invalid list of LVs returned"
 
   removeLink "test.img"
