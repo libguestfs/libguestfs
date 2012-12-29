@@ -910,9 +910,52 @@ available.  See the C<gobject> directory in the source.
 
 =item B<Haskell>
 
-This is the only language binding that is working but incomplete.
-Only calls which return simple integers have been bound in Haskell,
-and we are looking for help to complete this binding.
+This language binding is working but incomplete:
+
+=over 4
+
+=item *
+
+Functions with optional arguments are not bound.  Implementing
+optional arguments in Haskell seems to be very complex.
+
+=item *
+
+Events are not bound.
+
+=item *
+
+Functions with the following return types are not bound:
+
+=over 4
+
+=item *
+
+Any function returning a struct.
+
+=item *
+
+Any function returning a lists of structs.
+
+=item *
+
+A few functions that return fixed length buffers (specifically ones
+declared C<RBufferOut> in the generator).
+
+=item *
+
+A tiny number of obscure functions that return constant strings
+(specifically ones declared C<RConstOptString> in the generator).
+
+=back
+
+=item *
+
+The functions L</guestfs_head> and L</guestfs_tail> are not
+bound, because these names conflict with C<Prelude.head> and
+C<Prelude.tail>.
+
+=back
 
 =item B<Java>
 

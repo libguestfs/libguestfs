@@ -31,8 +31,8 @@ open Structs
 let rec generate_haskell_hs () =
   generate_header HaskellStyle LGPLv2plus;
 
-  (* XXX We only know how to generate partial FFI for Haskell
-   * at the moment.  Please help out!
+  (* See guestfs(3)/Haskell for limitations of the current Haskell
+   * bindings.  Please help out! XXX
    *)
   let can_generate name style =
     match name with
