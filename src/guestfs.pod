@@ -935,7 +935,7 @@ Any function returning a struct.
 
 =item *
 
-Any function returning a lists of structs.
+Any function returning a list of structs.
 
 =item *
 
