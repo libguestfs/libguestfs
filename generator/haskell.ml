@@ -81,15 +81,6 @@ data GuestfsS = GuestfsS            -- represents the opaque C struct
 type GuestfsP = Ptr GuestfsS        -- guestfs_h *
 type GuestfsH = ForeignPtr GuestfsS -- guestfs_h * with attached finalizer
 
--- XXX define properly later XXX
-data PV = PV
-data VG = VG
-data LV = LV
-data IntBool = IntBool
-data Stat = Stat
-data StatVFS = StatVFS
-data Hashtable = Hashtable
-
 foreign import ccall unsafe \"guestfs.h guestfs_create\" c_create
   :: IO GuestfsP
 foreign import ccall unsafe \"guestfs.h &guestfs_close\" c_close
