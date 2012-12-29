@@ -64,3 +64,7 @@ Guestfs050LVCreate: $(srcdir)/Guestfs050LVCreate.hs Guestfs.o
 CLEANFILES = $(all_targets) *~ *.hi *.o
 
 endif
+
+# Building in parallel causes linker corruption errors since it
+# appears that multiple runs of ghc conflict with each other.
+.NOTPARALLEL:
