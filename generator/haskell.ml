@@ -34,27 +34,20 @@ let rec generate_haskell_hs () =
   (* See guestfs(3)/Haskell for limitations of the current Haskell
    * bindings.  Please help out! XXX
    *)
-  let can_generate name style =
-    match name with
-    (* GHC error: "Ambiguous occurrence `head'" etc. because these
-     * clash with Prelude functions with the same name.
-     *)
-    | "head" | "tail" -> false
-    | _ ->
-      match style with
-      | _, _, (_::_) -> false (* no optional args yet *)
-      | RErr, _, []
-      | RInt _, _, []
-      | RInt64 _, _, []
-      | RBool _, _, []
-      | RConstString _, _, []
-      | RString _, _, []
-      | RStringList _, _, []
-      | RHashtable _, _, [] -> true
-      | RStruct _, _, []
-      | RStructList _, _, []
-      | RBufferOut _, _, []
-      | RConstOptString _, _, [] -> false
+  let can_generate = function
+    | _, _, (_::_) -> false (* no optional args yet *)
+    | RErr, _, []
+    | RInt _, _, []
+    | RInt64 _, _, []
+    | RBool _, _, []
+    | RConstString _, _, []
+    | RString _, _, []
+    | RStringList _, _, []
+    | RHashtable _, _, [] -> true
+    | RStruct _, _, []
+    | RStructList _, _, []
+    | RBufferOut _, _, []
+    | RConstOptString _, _, [] -> false
   in
 
   pr "\
@@ -66,7 +59,7 @@ module Guestfs (
   (* List out the names of the actions we want to export. *)
   List.iter (
     fun { name = name; style = style } ->
-      if can_generate name style then pr ",\n  %s" name
+      if can_generate style then pr ",\n  %s" name
   ) all_functions;
 
   pr "
@@ -75,7 +68,7 @@ module Guestfs (
 -- Unfortunately some symbols duplicate ones already present
 -- in Prelude.  We don't know which, so we hard-code a list
 -- here.
-import Prelude hiding (truncate)
+import Prelude hiding (head, tail, truncate)
 
 import Foreign
 import Foreign.C
@@ -138,7 +131,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
           c_function = c_function } ->
-      if can_generate name style then (
+      if can_generate style then (
         pr "foreign import ccall unsafe \"guestfs.h %s\" c_%s\n"
           c_function name;
         pr "  :: ";

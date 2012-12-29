@@ -949,12 +949,6 @@ A tiny number of obscure functions that return constant strings
 
 =back
 
-=item *
-
-The functions L</guestfs_head> and L</guestfs_tail> are not
-bound, because these names conflict with C<Prelude.head> and
-C<Prelude.tail>.
-
 =back
 
 =item B<Java>
