@@ -49,10 +49,10 @@ let rec generate_haskell_hs () =
       | RBool _, _, []
       | RConstString _, _, []
       | RString _, _, []
-      | RStringList _, _, [] -> true
+      | RStringList _, _, []
+      | RHashtable _, _, [] -> true
       | RStruct _, _, []
       | RStructList _, _, []
-      | RHashtable _, _, []
       | RBufferOut _, _, []
       | RConstOptString _, _, [] -> false
   in
@@ -125,6 +125,12 @@ last_error h = do
   if (str == nullPtr)
     then return \"no error\"
     else peekCString str
+
+assocListOfHashtable :: Eq a => [a] -> [(a,a)]
+assocListOfHashtable [] = []
+assocListOfHashtable [a] =
+  fail \"RHashtable returned an odd number of elements\"
+assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
 
 ";
 
@@ -202,9 +208,13 @@ last_error h = do
              pr "    else peekCString r\n"
          | RStringList _ ->
              pr "    else peekArray0 nullPtr r >>= mapM peekCString\n"
+         | RHashtable _ ->
+             pr "    else do\n";
+             pr "      arr <- peekArray0 nullPtr r\n";
+             pr "      arr <- mapM peekCString arr\n";
+             pr "      return (assocListOfHashtable arr)\n"
          | RStruct _
          | RStructList _
-         | RHashtable _
          | RBufferOut _
          | RConstOptString _ ->
              pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
@@ -252,7 +262,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
     | RStructList (_, typ) ->
       let name = camel_name_of_struct typ in
       pr "[%s]" name
-    | RHashtable _ -> pr "Hashtable"
+    | RHashtable _ -> pr "(Ptr CString)"
     | RBufferOut _ -> pr "CString"
     )
   )
@@ -293,7 +303,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
     | RStructList (_, typ) ->
       let name = camel_name_of_struct typ in
       pr "[%s]" name
-    | RHashtable _ -> pr "Hashtable"
+    | RHashtable _ -> pr "[(String, String)]"
     | RBufferOut _ -> pr "String"
     )
   )
