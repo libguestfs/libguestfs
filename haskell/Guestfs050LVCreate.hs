@@ -17,25 +17,25 @@
 -}
 
 module Guestfs050LVCreate where
-import qualified Guestfs
+import Guestfs as G
 import System.IO (openFile, hClose, hSetFileSize, IOMode(WriteMode))
 import System.Posix.Files (removeLink)
 import Control.Monad
 
 main = do
-  g <- Guestfs.create
+  g <- G.create
   fd <- openFile "test.img" WriteMode
   hSetFileSize fd (500 * 1024 * 1024)
   hClose fd
-  Guestfs.add_drive_ro g "test.img"
-  Guestfs.launch g
+  G.add_drive_ro g "test.img"
+  G.launch g
 
-  Guestfs.pvcreate g "/dev/sda"
-  Guestfs.vgcreate g "VG" ["/dev/sda"]
-  Guestfs.lvcreate g "LV1" "VG" 200
-  Guestfs.lvcreate g "LV2" "VG" 200
+  G.pvcreate g "/dev/sda"
+  G.vgcreate g "VG" ["/dev/sda"]
+  G.lvcreate g "LV1" "VG" 200
+  G.lvcreate g "LV2" "VG" 200
 
-  lvs <- Guestfs.lvs g
+  lvs <- G.lvs g
   when (lvs /= ["/dev/VG/LV1", "/dev/VG/LV2"]) $
     fail "invalid list of LVs returned"
 

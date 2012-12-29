@@ -17,29 +17,29 @@
 -}
 
 module Guestfs030Config where
-import qualified Guestfs
+import Guestfs as G
 import Control.Monad
 
 main = do
-  g <- Guestfs.create
+  g <- G.create
 
-  Guestfs.set_verbose g True
-  v <- Guestfs.get_verbose g
+  G.set_verbose g True
+  v <- G.get_verbose g
   when (v /= True) $
     fail "get_verbose /= True"
-  Guestfs.set_verbose g False
-  v <- Guestfs.get_verbose g
+  G.set_verbose g False
+  v <- G.get_verbose g
   when (v /= False) $
     fail "get_verbose /= False"
 
-  Guestfs.set_path g (Just ".")
-  p <- Guestfs.get_path g
+  G.set_path g (Just ".")
+  p <- G.get_path g
   when (p /= ".") $
     fail "path not dot"
-  Guestfs.set_path g Nothing
-  p <- Guestfs.get_path g
+  G.set_path g Nothing
+  p <- G.get_path g
   when (p == "") $
     fail "path is empty"
 
-  Guestfs.add_drive_ro g "/dev/null"
-  Guestfs.add_drive_ro g "/dev/zero"
+  G.add_drive_ro g "/dev/null"
+  G.add_drive_ro g "/dev/zero"

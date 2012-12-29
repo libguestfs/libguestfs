@@ -17,7 +17,7 @@
 -}
 
 module Guestfs010Load where
-import qualified Guestfs
+import Guestfs as G
 
 main = do
-  Guestfs.create
+  G.create
