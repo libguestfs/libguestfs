@@ -47,7 +47,7 @@ void
 copy_lvm (void)
 {
   struct stat statbuf;
-  char cmd[64];
+  char cmd[64], env[64];
   int r;
 
   /* If /etc/lvm directory doesn't exist (or isn't a directory) assume
@@ -68,8 +68,8 @@ copy_lvm (void)
     exit (EXIT_FAILURE);
   }
 
-  /* Hopefully no dotfiles in there ... XXX */
-  snprintf (cmd, sizeof cmd, "%s -a /etc/lvm/* %s", str_cp, lvm_system_dir);
+  /* Copy the entire directory */
+  snprintf (cmd, sizeof cmd, "%s -a /etc/lvm/ %s", str_cp, lvm_system_dir);
   r = system (cmd);
   if (r == -1) {
     perror (cmd);
@@ -85,7 +85,8 @@ copy_lvm (void)
   }
 
   /* Set environment variable so we use the copy. */
-  setenv ("LVM_SYSTEM_DIR", lvm_system_dir, 1);
+  snprintf (env, sizeof env, "%s/lvm", lvm_system_dir);
+  setenv ("LVM_SYSTEM_DIR", env, 1);
 
   /* Set a handler to remove the temporary directory at exit. */
   atexit (rm_lvm_system_dir);
