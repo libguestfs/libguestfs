@@ -1,5 +1,5 @@
 # libguestfs Java bindings
-# Copyright (C) 2009-2012 Red Hat Inc.
+# Copyright (C) 2009-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,13 +33,15 @@ include $(srcdir)/Makefile.inc
 
 java_sources = \
 	$(java_built_sources) \
+	com/redhat/et/libguestfs/EventCallback.java \
 	com/redhat/et/libguestfs/LibGuestFSException.java
 
 java_tests = \
 	Bindtests.java \
 	t/GuestFS005Load.java \
 	t/GuestFS010Basic.java \
-	t/GuestFS080OptArgs.java
+	t/GuestFS080OptArgs.java \
+	t/GuestFS400Events.java
 
 EXTRA_DIST = \
 	$(java_sources) \

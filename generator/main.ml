@@ -138,7 +138,8 @@ Run it from the top source directory using the command
       output_to filename (generate_java_struct jtyp cols)
   ) structs;
   delete_except_generated
-    ~skip:["java/com/redhat/et/libguestfs/LibGuestFSException.java"]
+    ~skip:["java/com/redhat/et/libguestfs/LibGuestFSException.java";
+           "java/com/redhat/et/libguestfs/EventCallback.java"]
     "java/com/redhat/et/libguestfs/*.java";
 
   output_to "java/Makefile.inc" generate_java_makefile_inc;
