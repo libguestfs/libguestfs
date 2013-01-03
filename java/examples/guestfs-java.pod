@@ -40,6 +40,36 @@ is the error message (a C<String>).
 
 Calling any method on a closed handle raises the same exception.
 
+=head2 EVENTS
+
+The L<libguestfs event API|guestfs(3)/EVENTS> is fully supported from
+Java.  Create a class which implements the C<EventCallback> interface,
+create an instance of this class, and then call the C<GuestFS#set_event_callback>
+method to register this instance.  The C<event> method of the class is
+called when libguestfs generates an event.
+
+For example, this will print all trace events:
+
+ GuestFS g = new GuestFS ();
+ g.set_trace (true);
+ g.set_event_callback (
+   new EventCallback () {
+     public void event (long event, int eh,
+                        String buffer, long[] array) {
+       System.out.println (GuestFS.eventToString (event) +
+                           ": " + buffer);
+     }
+   },
+   GuestFS.EVENT_TRACE);
+ g.add_drive_ro ("disk.img");
+ // etc.
+
+The output looks similar to this:
+
+ EVENT_TRACE: add_drive_ro "disk.img"
+ EVENT_TRACE: add_drive_ro = 0
+ // etc.
+
 =head1 EXAMPLE 1: CREATE A DISK IMAGE
 
 @EXAMPLE1@
