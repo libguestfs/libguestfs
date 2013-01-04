@@ -57,6 +57,9 @@ libguestfs_gobject_1_0_la_LIBS = $(GOBJECT_LIBS)
 libguestfs_gobject_1_0_la_LDFLAGS = $(LDFLAGS) -L$(top_builddir)/src
 libguestfs_gobject_1_0_la_LIBADD = -lguestfs
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libguestfs-gobject-1.0.pc
+
 # All the headers except <guestfs-gobject.h> should be installed
 # in the subdirectory.
 install-data-hook:

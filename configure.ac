@@ -1440,6 +1440,7 @@ AC_CONFIG_FILES([Makefile
                  generator/Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
+                 gobject/libguestfs-gobject-1.0.pc
                  gobject/Makefile
                  gobject/docs/Makefile
                  gobject/docs/guestfs-docs.sgml
