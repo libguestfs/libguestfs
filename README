@@ -346,7 +346,7 @@ attention to the qemu command line and kernel output.
 Copyright and license information
 ----------------------------------------------------------------------
 
-Copyright (C) 2009-2012 Red Hat Inc.
+Copyright (C) 2009-2013 Red Hat Inc.
 
 The library is distributed under the LGPLv2+.  The programs are
 distributed under the GPLv2+.  Please see the files COPYING and
