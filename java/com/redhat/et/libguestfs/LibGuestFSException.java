@@ -1,5 +1,5 @@
 /* libguestfs Java bindings
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,8 @@
 package com.redhat.et.libguestfs;
 
 /**
+ * Libguestfs error class.
+ * <p>
  * This exception is thrown when some error occurs when using the
  * libguestfs library.  The error message is always a simple
  * printable string.

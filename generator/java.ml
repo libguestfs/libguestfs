@@ -40,7 +40,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The GuestFS object is a libguestfs handle.
+ * Libguestfs handle.
+ * <p>
+ * The <code>GuestFS</code> object corresponds to a libguestfs handle.
+ * <p>
+ * Note that the main documentation for the libguestfs API is in
+ * the following man pages:
+ * <p>
+ * <ol>
+ * <li> <a href=\"http://libguestfs.org/guestfs-java.3.html\"><code>guestfs-java(3)</code></a> and </li>
+ * <li> <a href=\"http://libguestfs.org/guestfs.3.html\"><code>guestfs(3)</code></a>. </li>
+ * </ol>
+ * <p>
+ * This javadoc is <b>not</b> a good introduction to using libguestfs.
  *
  * @author rjones
  */
@@ -384,7 +396,7 @@ and generate_java_struct jtyp cols () =
 package com.redhat.et.libguestfs;
 
 /**
- * Libguestfs %s structure.
+ * %s structure.
  *
  * @author rjones
  * @see GuestFS
