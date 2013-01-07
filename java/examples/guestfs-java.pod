@@ -9,7 +9,13 @@ guestfs-java - How to use libguestfs from Java
  import com.redhat.et.libguestfs.*;
  
  GuestFS g = new GuestFS ();
- g.add_drive_opts ("disk.img");
+ g.add_drive ("disk.img",
+              new HashMap<String,Object>() {
+                {
+                    put ("readonly", Boolean.TRUE);
+                    put ("format", "raw");
+                }
+              });
  g.launch ();
 
 =head1 DESCRIPTION
