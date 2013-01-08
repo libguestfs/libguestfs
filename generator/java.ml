@@ -67,6 +67,10 @@ public class GuestFS {
    */
   long g;
 
+  /* guestfs_create_flags values defined in <guestfs.h> */
+  private static int CREATE_NO_ENVIRONMENT   = 1;
+  private static int CREATE_NO_CLOSE_ON_EXIT = 2;
+
   /**
    * Create a libguestfs handle, setting flags.
    *
@@ -82,11 +86,11 @@ public class GuestFS {
     if (optargs != null)
       _optobj = optargs.get (\"environment\");
     if (_optobj != null && !((Boolean) _optobj).booleanValue())
-      flags |= 1;
+      flags |= CREATE_NO_ENVIRONMENT;
     if (optargs != null)
       _optobj = optargs.get (\"close_on_exit\");
     if (_optobj != null && !((Boolean) _optobj).booleanValue())
-      flags |= 2;
+      flags |= CREATE_NO_CLOSE_ON_EXIT;
 
     g = _create (flags);
   }
@@ -100,6 +104,7 @@ public class GuestFS {
   {
     g = _create (0);
   }
+
   private native long _create (int flags) throws LibGuestFSException;
 
   /**
