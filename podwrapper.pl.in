@@ -32,27 +32,37 @@ use File::Basename;
 
 =head1 NAME
 
-podwrapper.pl - Generate various output formats from POD input files
+podwrapper.pl - Generate libguestfs documentation from POD input files
 
 =head1 SYNOPSIS
 
+ man_MANS = virt-foo.1
+ 
  virt-foo.1 $(top_builddir)/html/virt-foo.1.html: stamp-virt-foo.pod
+ 
  stamp-virt-foo.pod: virt-foo.pod
-   $(PODWRAPPER) --man virt-foo.1 --html virt-foo.1.html $<
-   touch $@
+         $(PODWRAPPER) \
+           --section 1 \
+           --man virt-foo.1 \
+           --html $(top_builddir)/html/virt-foo.1.html \
+           --license GPLv2+ \
+           $<
+         touch $@
+ 
+ CLEANFILES += stamp-virt-foo.pod
 
 =head1 DESCRIPTION
 
-podwrapper is a Perl script that generates various output formats
+podwrapper.pl is a Perl script that generates various output formats
 from POD input files that libguestfs uses for most documentation.
 
-You should specify an input file, and one or more output formats.
-For example:
+You must specify one input file, and one or more output formats.  The
+output options are I<--man>, I<--html> and I<--text> (see below).
 
- podwrapper.pl virt-foo.pod --man virt-foo.1
+In C<Makefile.am> files, use a variation of the boilerplate shown in
+the L</SYNOPSIS> section above.
 
-will turn C<virt-foo.pod> into a man page C<virt-foo.1>.  The output
-options are I<--man>, I<--html> and I<--text> (see below).
+For information about the POD format, see L<perlpod(1)>.
 
 =head1 OPTIONS
 
@@ -70,7 +80,7 @@ Display brief help.
 
 my $html;
 
-=item B<--html=output.html>
+=item B<--html output.html>
 
 Write a web page to C<output.html>.  If this option is not
 given, then no web page output is produced.
@@ -79,7 +89,7 @@ given, then no web page output is produced.
 
 my @inserts;
 
-=item B<--insert=filename:__PATTERN__>
+=item B<--insert filename:__PATTERN__>
 
 In the input file, replace the literal text C<__PATTERN__> with the
 replacement file C<filename>.  You can give this option multiple
@@ -95,7 +105,11 @@ patterns, in fact you can use any string as the pattern.
 
 my @licenses;
 
-=item B<--license=GPLv2+|LGPLv2+|examples>
+=item B<--license GPLv2+>
+
+=item B<--license LGPLv2+>
+
+=item B<--license examples>
 
 Add the given license to the end of the man page.  This parameter
 is required.  The parameter may be given multiple times (eg. for
@@ -105,16 +119,16 @@ mixed content).
 
 my $man;
 
-=item B<--man=output.n>
+=item B<--man output.n>
 
-Write a man page to C<output.n>.  If this option is not
-given, then no man page output is produced.
+Write a man page to C<output.n> (C<n> is the manual section number).
+If this option is not given, then no man page output is produced.
 
 =cut
 
 my $name;
 
-=item B<--name=name>
+=item B<--name name>
 
 Set the name of the man page.  If not set, defaults to the basename
 of the input file.
@@ -123,7 +137,7 @@ of the input file.
 
 my $section;
 
-=item B<--section=N>
+=item B<--section N>
 
 Set the section of the man page (a number such as C<1> for
 command line utilities or C<3> for C API documentation).  If
@@ -143,7 +157,7 @@ subdirectory.
 
 my $text;
 
-=item B<--text=output.txt>
+=item B<--text output.txt>
 
 Write a text file to C<output.txt>.  If this option is not
 given, then no text output is produced.
@@ -152,7 +166,7 @@ given, then no text output is produced.
 
 my @verbatims;
 
-=item B<--verbatim=filename:@PATTERN@>
+=item B<--verbatim filename:__PATTERN__>
 
 In the input file, replace the literal text C<__PATTERN__> with the
 replacement file C<filename>.  You can give this option multiple
@@ -529,11 +543,16 @@ sub read_verbatim_file
     $r;
 }
 
+=head1 SEE ALSO
+
+L<perlpod(1)>,
+L<Pod::Simple(3pm)>,
+libguestfs.git/README.
+
 =head1 AUTHOR
 
 Richard W.M. Jones.
 
-=head1 SEE ALSO
+=head1 COPYRIGHT
 
-libguestfs.git/README,
-L<Pod::Simple>
+Copyright (C) 2012-2013 Red Hat Inc.

@@ -288,11 +288,22 @@ stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 	  $<
 	touch $@
 
+# NB. podwrapper is an internal tool, so the man page mustn't be installed.
+noinst_MANS = podwrapper.1
+podwrapper.1: podwrapper.pl
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man $@-t \
+	  --license GPLv2+ \
+	  $<
+	mv $@-t $@
+
 # Make clean.
 
 CLEANFILES = \
 	html/*.html \
 	pod2htm?.tmp \
+	podwrapper.1 \
 	qemu-wrapper.sh \
 	stamp-guestfs-release-notes.pod
 

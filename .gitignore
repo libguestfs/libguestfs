@@ -320,6 +320,7 @@ Makefile.in
 /po-docs/po4a.conf
 /po-docs/*/*.pod
 /po-docs/*/stamp-update-po
+/podwrapper.1
 /podwrapper.pl
 /po/*.gmo
 /python/bindtests.py
