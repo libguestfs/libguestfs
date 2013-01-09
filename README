@@ -166,12 +166,12 @@ To build the Perl tools:
 Building
 ----------------------------------------------------------------------
 
-Then make the daemon, library and root filesystem:
+Build the daemon, library and root filesystem:
 
   ./configure
   make
 
-Finally run the tests:
+Run the tests:
 
   make check
 
@@ -188,6 +188,10 @@ runs check-valgrind + even more tests, but these require that you have
 some libvirt guests installed, that these guests' disks are accessible
 by the current user, and these tests may fail for other reasons which
 are not necessarily because of real problems.
+
+ make help
+
+lists all 'make' targets.
 
 If everything works, you can install the library and tools by running
 this command as root:
@@ -292,7 +296,7 @@ distributions.  Non-Linux ports are trickier, but we will accept
 patches if they aren't too invasive.
 
 The main porting issues are with the dependencies needed to build the
-appliance.  You will need to port the febootstrap first
+appliance.  You will need to port febootstrap first
 (http://people.redhat.com/~rjones/febootstrap/).
 
 
