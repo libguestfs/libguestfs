@@ -215,6 +215,7 @@ debug_segv (const char *subcmd, size_t argc, char *const *const argv)
    * to trap [...]"
    */
   volatile int *ptr = NULL;
+  /* coverity[var_deref_op] */
   *ptr = 1;
   return NULL;
 }
@@ -595,6 +596,7 @@ debug_qtrace (const char *subcmd, size_t argc, char *const *const argv)
   /* For O_DIRECT, buffer must be aligned too (thanks Matt).
    * Note posix_memalign has this strange errno behaviour.
    */
+  /* coverity[resource_leak] */
   errno = posix_memalign (&buf, QTRACE_SIZE, QTRACE_SIZE);
   if (errno != 0) {
     reply_with_perror ("posix_memalign");
