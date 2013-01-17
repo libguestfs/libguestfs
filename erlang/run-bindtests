@@ -19,5 +19,5 @@
 set -e
 
 # The output is sent to bindtests.tmp.
-./bindtests.erl
+$srcdir/bindtests.erl
 diff -u $srcdir/../bindtests bindtests.tmp
