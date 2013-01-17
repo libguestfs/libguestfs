@@ -130,6 +130,16 @@ Include the full output of L<libguestfs-test-tool(1)>.
 See also L<guestfs(3)/LIBGUESTFS GOTCHAS> for some "gotchas" with
 using the libguestfs API.
 
+=head2 "Could not allocate dynamic translator buffer"
+
+This obscure error is in fact an SELinux failure.  You have to enable
+the following SELinux boolean:
+
+ setsebool -P virt_use_execmem=on
+
+For more information see
+L<https://bugzilla.redhat.com/show_bug.cgi?id=806106>.
+
 =head2 "child process died unexpectedly"
 
 This error indicates that qemu failed or the host kernel could not boot.
