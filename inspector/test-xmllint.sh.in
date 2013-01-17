@@ -25,5 +25,5 @@ if [ -z "$EXAMPLE_XML" ]; then
 fi
 
 for f in $EXAMPLE_XML; do
-    @XMLLINT@ --noout --relaxng $srcdir/virt-inspector.rng $f
+    @XMLLINT@ --noout --relaxng $srcdir/virt-inspector.rng $srcdir/$f
 done
