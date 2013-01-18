@@ -44,18 +44,15 @@ part-disk /dev/sdb mbr
 part-disk /dev/sdc mbr
 
 mkfs ext2 /dev/sda1
-copy-size /dev/sda1 /dev/sdb1 5M
-pvcreate /dev/sdc1
-vgcreate VG /dev/sdc1
-lvcreate LV VG 80
-mkfs ext3 /dev/VG/LV
+mkfs ext2 /dev/sdb1
+mkfs ext2 /dev/sdc1
 
 mkmountpoint /a
 mount /dev/sda1 /a
 mkmountpoint /b
 mount /dev/sdb1 /b
 mkmountpoint /c
-mount /dev/VG/LV /c
+mount /dev/sdc1 /c
 
 write /a/test "This is a test"
 write /b/test "This is a test"
