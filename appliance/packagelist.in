@@ -35,6 +35,7 @@
   iproute
   iputils
   kernel
+  libcap
   libldm /* only Fedora has this for now, but we should add it to others later*/
   MAKEDEV
   nilfs-utils
@@ -62,6 +63,7 @@
   hfsplus
   iproute
   libaugeas0
+  libcap2
   libhivex0
   libyajl2
   linux-image
@@ -86,6 +88,7 @@
   hivex
   iproute2
   iputils
+  libcap
   linux
   lrzip
   nilfs-utils
