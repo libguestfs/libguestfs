@@ -464,11 +464,7 @@ mount_local_rename (const char *from, const char *to)
   dir_cache_invalidate (g, from);
   dir_cache_invalidate (g, to);
 
-  /* XXX It's not clear how close the 'mv' command is to the
-   * rename syscall.  We might need to add the rename syscall
-   * to the guestfs(3) API.
-   */
-  r = guestfs_mv (g, from, to);
+  r = guestfs_rename (g, from, to);
   if (r == -1)
     RETURN_ERRNO;
 
