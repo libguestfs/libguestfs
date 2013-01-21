@@ -32,6 +32,11 @@ perl -MSys::Guestfs '-MSys::Guestfs::Lib qw(feature_available)' -e '
   feature_available ($g, "btrfs") and print "btrfs_available=yes\n";
 ')
 
+# Allow btrfs to be disabled when btrfs is broken (eg. RHBZ#863978).
+if [ -n "$SKIP_TEST_VIRT_MAKE_FS_BTRFS" ]; then
+    btrfs_available=
+fi
+
 declare -a choices
 
 # Return a random element from the array 'choices'.
