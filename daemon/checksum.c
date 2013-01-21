@@ -161,8 +161,7 @@ do_checksums_out (const char *csumtype, const char *dir)
 
   char *cmd;
   if (asprintf_nowarn (&cmd, "cd %Q && %s -type f -print0 | %s -0 %s",
-                       str_find, str_xargs,
-                       sysrootdir, program) == -1) {
+                       sysrootdir, str_find, str_xargs, program) == -1) {
     reply_with_perror ("asprintf");
     free (sysrootdir);
     return -1;
