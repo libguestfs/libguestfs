@@ -8235,7 +8235,7 @@ See also C<guestfs_pwrite>." };
     ];
     shortdesc = "read part of a device";
     longdesc = "\
-This command lets you read part of a file.  It reads C<count>
+This command lets you read part of a block device.  It reads C<count>
 bytes of C<device>, starting at C<offset>.
 
 This may read fewer bytes than requested.  For further details
