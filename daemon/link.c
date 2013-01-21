@@ -102,13 +102,47 @@ do_internal_readlinklist (const char *path, char *const *names)
   return ret.argv;
 }
 
+int
+do_ln (const char *target, const char *linkname)
+{
+  int r;
+
+  CHROOT_IN;
+  r = link (target, linkname);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("link: %s: %s", target, linkname);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_ln_f (const char *target, const char *linkname)
+{
+  int r;
+
+  CHROOT_IN;
+  unlink (linkname);
+  r = link (target, linkname);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("link: %s: %s", target, linkname);
+    return -1;
+  }
+
+  return 0;
+}
+
 static int
-_link (const char *flag, int symbolic, const char *target, const char *linkname)
+_symlink (const char *flag, const char *target, const char *linkname)
 {
   int r;
   char *err;
   char *buf_linkname;
-  char *buf_target;
 
   /* Prefix linkname with sysroot. */
   buf_linkname = sysroot_path (linkname);
@@ -117,36 +151,13 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
     return -1;
   }
 
-  /* Only prefix target if it's _not_ a symbolic link, and if
-   * the target is absolute.  Note that the resulting link will
-   * always be "broken" from the p.o.v. of the appliance, ie:
-   * /a -> /b but the path as seen here is /sysroot/b
-   */
-  buf_target = NULL;
-  if (!symbolic && target[0] == '/') {
-    buf_target = sysroot_path (target);
-    if (!buf_target) {
-      reply_with_perror ("malloc");
-      free (buf_linkname);
-      return -1;
-    }
-  }
-
-  if (flag)
-    r = command (NULL, &err,
-                 str_ln, flag, "--", /* target could begin with '-' */
-                 buf_target ? : target, buf_linkname, NULL);
-  else
-    r = command (NULL, &err,
-                 str_ln, "--",
-                 buf_target ? : target, buf_linkname, NULL);
+  r = command (NULL, &err,
+               str_ln, flag, "--", /* target could begin with '-' */
+               target, buf_linkname, NULL);
   free (buf_linkname);
-  free (buf_target);
   if (r == -1) {
-    reply_with_error ("ln%s%s: %s: %s: %s",
-                      flag ? " " : "",
-                      flag ? : "",
-                      target, linkname, err);
+    reply_with_error ("ln %s: %s: %s: %s",
+                      flag, target, linkname, err);
     free (err);
     return -1;
   }
@@ -157,25 +168,13 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
 }
 
 int
-do_ln (const char *target, const char *linkname)
-{
-  return _link (NULL, 0, target, linkname);
-}
-
-int
-do_ln_f (const char *target, const char *linkname)
-{
-  return _link ("-f", 0, target, linkname);
-}
-
-int
 do_ln_s (const char *target, const char *linkname)
 {
-  return _link ("-s", 1, target, linkname);
+  return _symlink ("-s", target, linkname);
 }
 
 int
 do_ln_sf (const char *target, const char *linkname)
 {
-  return _link ("-sf", 1, target, linkname);
+  return _symlink ("-sf", target, linkname);
 }
