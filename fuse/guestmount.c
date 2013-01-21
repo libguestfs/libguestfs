@@ -112,7 +112,15 @@ static int trace_calls = 0;
 static int
 error (void)
 {
-  return -guestfs_last_errno (g);
+  int ret_errno = guestfs_last_errno (g);
+
+  /* 0 doesn't mean "no error".  It means the errno was not
+   * captured.  Therefore we have to substitute an errno here.
+   */
+  if (ret_errno == 0)
+    ret_errno = EINVAL;
+
+  return -ret_errno;
 }
 
 static struct guestfs_xattr_list *
