@@ -72,7 +72,18 @@ gl_lock_define_initialized (static, mount_local_lock);
            g->localmountpoint, __func__, ## __VA_ARGS__);               \
   }
 
-#define RETURN_ERRNO return -guestfs_last_errno (g)
+#define RETURN_ERRNO                                                 \
+  do {                                                               \
+    int ret_errno = guestfs_last_errno (g);                          \
+                                                                     \
+    /* 0 doesn't mean "no error".  It means the errno was not        \
+     * captured.  Therefore we have to substitute an errno here.     \
+     */                                                              \
+    if (ret_errno == 0)                                              \
+      ret_errno = EINVAL;                                            \
+                                                                     \
+    return -ret_errno;                                               \
+  } while (0)
 
 static struct guestfs_xattr_list *
 copy_xattr_list (const struct guestfs_xattr *first, size_t num)
