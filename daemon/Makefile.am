@@ -158,6 +158,7 @@ guestfsd_SOURCES = \
 	proto.c \
 	readdir.c \
 	realpath.c \
+	rename.c \
 	rsync.c \
 	scrub.c \
 	selinux.c \
