@@ -123,6 +123,7 @@ struct libvirt_xml_params {
   char console_sock[UNIX_PATH_MAX];
   bool enable_svirt;            /* false if we decided to disable sVirt */
   bool is_kvm;                  /* false = qemu, true = kvm */
+  bool is_root;                 /* true = euid is root */
 };
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct libvirt_xml_params *params);
@@ -142,7 +143,6 @@ static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 {
   unsigned long version;
-  int is_root = geteuid () == 0;
   virConnectPtr conn = NULL;
   virDomainPtr dom = NULL;
   char *capabilities_xml = NULL;
@@ -159,6 +159,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   void *buf = NULL;
   struct drive *drv;
   size_t i;
+
+  params.is_root = geteuid () == 0;
 
   /* XXX: It should be possible to make this work. */
   if (g->direct) {
@@ -312,7 +314,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    * (3) SELinux/sVirt will prevent access.  libvirt ought to
    *     label the socket.
    */
-  if (is_root) {
+  if (params.is_root) {
     struct group *grp;
 
     if (chmod (params.guestfsd_sock, 0775) == -1) {
