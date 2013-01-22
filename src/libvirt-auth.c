@@ -186,7 +186,16 @@ guestfs___open_libvirt_connection (guestfs_h *g, const char *uri,
   else
     authdataptr = virConnectAuthPtrDefault;
 
+  debug (g, "opening libvirt handle: URI = %s, auth = %s, flags = %u",
+         uri ? uri : "NULL",
+         authdataptr == virConnectAuthPtrDefault
+         ? "virConnectAuthPtrDefault" : "<virConnectAuth *>",
+         flags);
+
   conn = virConnectOpenAuth (uri, authdataptr, flags);
+
+  if (conn)
+    debug (g, "successfully opened libvirt handle: conn = %p", conn);
 
   /* Restore handle fields to "outside event handler" state. */
   g->saved_libvirt_uri = NULL;
