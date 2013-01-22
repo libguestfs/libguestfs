@@ -707,9 +707,8 @@ construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params)
     goto err;
   if (construct_libvirt_xml_boot (g, params, xo) == -1)
     goto err;
-  if (!params->enable_svirt)
-    if (construct_libvirt_xml_seclabel (g, params, xo) == -1)
-      goto err;
+  if (construct_libvirt_xml_seclabel (g, params, xo) == -1)
+    goto err;
   if (construct_libvirt_xml_lifecycle (g, params, xo) == -1)
     goto err;
   if (construct_libvirt_xml_devices (g, params, xo) == -1)
@@ -861,12 +860,14 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
                                 const struct libvirt_xml_params *params,
                                 xmlTextWriterPtr xo)
 {
-  /* This disables SELinux/sVirt confinement. */
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "none"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  if (!params->enable_svirt) {
+    /* This disables SELinux/sVirt confinement. */
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                           BAD_CAST "none"));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   return 0;
 
