@@ -289,7 +289,7 @@ free_strings (char **argv)
 
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n | Key n
+        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n | Key n
         | FileIn n | FileOut n ->
             pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
@@ -326,7 +326,7 @@ free_strings (char **argv)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ -> pr "s"
         | OptString _ -> pr "z"
         | StringList _ | DeviceList _ -> pr "O"
@@ -347,7 +347,7 @@ free_strings (char **argv)
       pr "                         &py_g";
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n | Key n
+        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n | Key n
         | FileIn n | FileOut n -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
         | StringList n | DeviceList n -> pr ", &py_%s" n
@@ -369,7 +369,7 @@ free_strings (char **argv)
       pr "  g = get_handle (py_g);\n";
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
@@ -505,7 +505,7 @@ free_strings (char **argv)
 
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ | Pointer _ -> ()
         | StringList n | DeviceList n ->
@@ -773,7 +773,7 @@ class GuestFS(object):
        *)
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ | Pointer _ -> ()
         | StringList n | DeviceList n ->

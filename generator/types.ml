@@ -132,6 +132,7 @@ and argt =
   | Int64 of string	(* any 64 bit int *)
   | String of string	(* const char *name, cannot be NULL *)
   | Device of string	(* /dev device name, cannot be NULL *)
+  | Mountable of string	(* location of mountable filesystem, cannot be NULL *)
   | Pathname of string	(* file name, cannot be NULL *)
   | Dev_or_Path of string (* /dev device name or Pathname, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)

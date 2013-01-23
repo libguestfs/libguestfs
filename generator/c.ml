@@ -121,7 +121,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     List.iter (
       function
       | Pathname n
-      | Device n | Dev_or_Path n
+      | Device n | Mountable n | Dev_or_Path n
       | String n
       | OptString n
       | Key n ->
@@ -852,6 +852,7 @@ and generate_client_actions hash () =
       (* parameters which should not be NULL *)
       | String n
       | Device n
+      | Mountable n
       | Pathname n
       | Dev_or_Path n
       | FileIn n
@@ -969,6 +970,7 @@ and generate_client_actions hash () =
       function
       | String n			(* strings *)
       | Device n
+      | Mountable n
       | Pathname n
       | Dev_or_Path n
       | FileIn n
@@ -1284,7 +1286,8 @@ and generate_client_actions hash () =
     ) else (
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
+        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+        | Key n ->
           pr "  args.%s = (char *) %s;\n" n n
         | OptString n ->
           pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n

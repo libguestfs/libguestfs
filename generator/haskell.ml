@@ -140,7 +140,8 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
           function
           | FileIn n
           | FileOut n
-          | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
+          | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+          | Key n ->
               pr "withCString %s $ \\%s -> " n n
           | BufferIn n ->
               pr "withCStringLen %s $ \\(%s, %s_size) -> " n n n
@@ -156,7 +157,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
             | Int n -> sprintf "(fromIntegral %s)" n
             | Int64 n | Pointer (_, n) -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
-            | Pathname n | Device n | Dev_or_Path n
+            | Pathname n | Device n | Mountable n | Dev_or_Path n
             | String n | OptString n
             | StringList n | DeviceList n
             | Key n -> n
@@ -213,7 +214,8 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
     List.iter (
       fun arg ->
         (match arg with
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _ ->
+        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _
+        | Key _ ->
           pr "CString"
         | BufferIn _ ->
           pr "CString -> CInt"
@@ -254,7 +256,8 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
     List.iter (
       fun arg ->
         (match arg with
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _ ->
+        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _
+        | Key _ ->
           pr "String"
         | BufferIn _ ->
           pr "String"

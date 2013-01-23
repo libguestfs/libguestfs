@@ -250,7 +250,7 @@ let map_chars f str =
   List.map f (explode str)
 
 let name_of_argt = function
-  | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+  | Pathname n | Device n | Mountable n | Dev_or_Path n | String n | OptString n
   | StringList n | DeviceList n | Bool n | Int n | Int64 n
   | FileIn n | FileOut n | BufferIn n | Key n | Pointer (_, n) -> n
 

@@ -111,7 +111,7 @@ and generate_daemon_actions () =
         pr "  struct guestfs_%s_args args;\n" name;
         List.iter (
           function
-          | Device n | Dev_or_Path n
+          | Device n | Mountable n | Dev_or_Path n
           | Pathname n
           | String n
           | Key n
@@ -205,7 +205,7 @@ and generate_daemon_actions () =
               pr_args n;
               pr "  ABS_PATH (%s, %s, goto done);\n"
                 n (if is_filein then "cancel_receive ()" else "");
-          | Device n ->
+          | Device n | Mountable n ->
               pr_args n;
               pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
                 n (if is_filein then "cancel_receive ()" else "");

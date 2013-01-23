@@ -324,7 +324,7 @@ Guestfish will prompt for these separately."
       );
       List.iter (
         function
-        | Device n
+        | Device n | Mountable n
         | String n
         | OptString n -> pr "  const char *%s;\n" n
         | Pathname n
@@ -407,7 +407,7 @@ Guestfish will prompt for these separately."
 
       List.iter (
         function
-        | Device name
+        | Device name | Mountable name
         | String name ->
             pr "  %s = argv[i++];\n" name
         | Pathname name
@@ -619,7 +619,7 @@ Guestfish will prompt for these separately."
       ) (List.rev optargs);
       List.iter (
         function
-        | Device _ | String _
+        | Device _ | Mountable _ | String _
         | OptString _
         | BufferIn _ -> ()
         | Bool name
@@ -852,7 +852,7 @@ and generate_fish_actions_pod () =
       pr " %s" name;
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n ->
+        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n ->
             pr " %s" n
         | OptString n -> pr " %s" n
         | StringList n | DeviceList n -> pr " '%s ...'" n
