@@ -293,7 +293,7 @@ extern void free_strings (char **r);
         fun i ->
           function
           | Pathname n
-          | Device n | Mountable n | Dev_or_Path n
+          | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
           | String n
           | FileIn n
           | FileOut n
@@ -386,7 +386,8 @@ extern void free_strings (char **r);
       (* Free strings if we copied them above. *)
       List.iter (
         function
-        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+        | Pathname n | Device n | Mountable n
+        | Dev_or_Path n | Mountable_or_Path n | String n
         | OptString n | FileIn n | FileOut n | Key n ->
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->

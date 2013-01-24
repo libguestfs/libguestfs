@@ -187,7 +187,8 @@ namespace Guestfs
           (c_return_type ()) c_function;
         List.iter (
           function
-          | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+          | Pathname n | Device n | Mountable n
+          | Dev_or_Path n | Mountable_or_Path n | String n
           | OptString n
           | FileIn n | FileOut n
           | Key n
@@ -214,7 +215,8 @@ namespace Guestfs
         in
         List.iter (
           function
-          | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+          | Pathname n | Device n | Mountable n
+          | Dev_or_Path n | Mountable_or_Path n | String n
           | OptString n
           | FileIn n | FileOut n
           | Key n

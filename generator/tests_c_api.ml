@@ -785,7 +785,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Pathname n, arg
         | Device n, arg
         | Mountable n, arg
-        | Dev_or_Path n, arg
+        | Dev_or_Path n, arg | Mountable_or_Path n, arg
         | String n, arg
         | OptString n, arg
         | Key n, arg ->
@@ -894,7 +894,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         function
         | OptString _, "NULL" -> pr ", NULL"
         | Pathname n, _
-        | Device n, _ | Mountable n, _ | Dev_or_Path n, _
+        | Device n, _ | Mountable n, _
+        | Dev_or_Path n, _ | Mountable_or_Path n, _
         | String n, _
         | OptString n, _
         | Key n, _ ->

@@ -505,7 +505,8 @@ ruby_user_cancel (VALUE gv)
 
       List.iter (
         function
-        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n | Key n
+        | Pathname n | Device n | Mountable n
+        | Dev_or_Path n | Mountable_or_Path n | String n | Key n
         | FileIn n | FileOut n ->
           pr "  const char *%s = StringValueCStr (%sv);\n" n n;
         | BufferIn n ->
@@ -607,7 +608,8 @@ ruby_user_cancel (VALUE gv)
 
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _ | Key _
+        | Pathname _ | Device _ | Mountable _
+        | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ | Pointer _ -> ()
         | StringList n | DeviceList n ->

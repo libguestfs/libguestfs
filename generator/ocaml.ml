@@ -497,7 +497,7 @@ copy_table (char * const * argv)
       List.iter (
         function
         | Pathname n
-        | Device n | Mountable n | Dev_or_Path n
+        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
         | String n
         | FileIn n
         | FileOut n
@@ -583,7 +583,8 @@ copy_table (char * const * argv)
       (* Free strings if we copied them above. *)
       List.iter (
         function
-        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+        | Pathname n | Device n | Mountable n
+        | Dev_or_Path n | Mountable_or_Path n | String n
         | OptString n | FileIn n | FileOut n | BufferIn n | Key n ->
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
@@ -712,7 +713,8 @@ and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
   ) optargs;
   List.iter (
     function
-    | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _
+    | Pathname _ | Device _ | Mountable _
+    | Dev_or_Path _ | Mountable_or_Path _ | String _
     | FileIn _ | FileOut _ | BufferIn _ | Key _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | StringList _ | DeviceList _ -> pr "string array -> "

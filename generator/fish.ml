@@ -328,7 +328,7 @@ Guestfish will prompt for these separately."
         | String n
         | OptString n -> pr "  const char *%s;\n" n
         | Pathname n
-        | Dev_or_Path n
+        | Dev_or_Path n | Mountable_or_Path n
         | FileIn n
         | FileOut n
         | Key n -> pr "  char *%s;\n" n
@@ -411,7 +411,7 @@ Guestfish will prompt for these separately."
         | String name ->
             pr "  %s = argv[i++];\n" name
         | Pathname name
-        | Dev_or_Path name ->
+        | Dev_or_Path name | Mountable_or_Path name ->
             pr "  %s = win_prefix (argv[i++]); /* process \"win:\" prefix */\n" name;
             pr "  if (%s == NULL) goto out_%s;\n" name name
         | OptString name ->
@@ -625,8 +625,8 @@ Guestfish will prompt for these separately."
         | Bool name
         | Int name | Int64 name ->
             pr " out_%s:\n" name
-        | Pathname name | Dev_or_Path name | FileOut name
-        | Key name ->
+        | Pathname name | Dev_or_Path name | Mountable_or_Path name
+        | FileOut name | Key name ->
             pr "  free (%s);\n" name;
             pr " out_%s:\n" name
         | FileIn name ->
@@ -852,7 +852,8 @@ and generate_fish_actions_pod () =
       pr " %s" name;
       List.iter (
         function
-        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n ->
+        | Pathname n | Device n | Mountable n
+        | Dev_or_Path n | Mountable_or_Path n | String n ->
             pr " %s" n
         | OptString n -> pr " %s" n
         | StringList n | DeviceList n -> pr " '%s ...'" n

@@ -106,7 +106,8 @@ let generate_xdr () =
            pr "struct %s_args {\n" name;
            List.iter (
              function
-             | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+             | Pathname n | Device n | Mountable n | Dev_or_Path n
+             | Mountable_or_Path n | String n
              | Key n ->
                  pr "  string %s<>;\n" n
              | OptString n -> pr "  guestfs_str *%s;\n" n

@@ -77,7 +77,7 @@ let generate_gobject_proto name ?(single_line = true)
       | String n
       | Device n | Mountable n
       | Pathname n
-      | Dev_or_Path n
+      | Dev_or_Path n | Mountable_or_Path n
       | OptString n
       | Key n
       | FileIn n
@@ -1033,7 +1033,8 @@ guestfs_session_close(GuestfsSession *session, GError **err)
             pr " (transfer none) (type utf8):"
           | OptString _ ->
             pr " (transfer none) (type utf8) (allow-none):"
-          | Device _ | Mountable _ | Pathname _ | Dev_or_Path _
+          | Device _ | Mountable _ | Pathname _
+          | Dev_or_Path _ | Mountable_or_Path _
           | FileIn _ | FileOut _ ->
             pr " (transfer none) (type filename):"
           | StringList _ ->
@@ -1185,7 +1186,8 @@ guestfs_session_close(GuestfsSession *session, GError **err)
           | BufferIn n ->
             pr "%s, %s_size" n n
           | Bool n | Int n | Int64 n | String n | Device n | Mountable n
-          | Pathname n | Dev_or_Path n | OptString n | StringList n
+          | Pathname n | Dev_or_Path n | Mountable_or_Path n
+          | OptString n | StringList n
           | DeviceList n | Key n | FileIn n | FileOut n ->
             pr "%s" n
           | Pointer _ ->

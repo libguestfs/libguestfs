@@ -342,7 +342,8 @@ user_cancel (g)
       iteri (
         fun i ->
           function
-          | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+          | Pathname n | Device n | Mountable n
+          | Dev_or_Path n | Mountable_or_Path n | String n
           | FileIn n | FileOut n | Key n ->
               pr "      char *%s;\n" n
           | BufferIn n ->
@@ -491,7 +492,8 @@ user_cancel (g)
       (* Cleanup any arguments. *)
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _ | Dev_or_Path _ | String _
+        | Pathname _ | Device _ | Mountable _
+        | Dev_or_Path _ | Mountable_or_Path _ | String _
         | OptString _ | Bool _ | Int _ | Int64 _
         | FileIn _ | FileOut _
         | BufferIn _ | Key _ | Pointer _ -> ()
@@ -922,6 +924,8 @@ handlers and threads.
         | Device n -> pr "[ '%s', 'string(device)', %d ]" n i
         | Mountable n -> pr "[ '%s', 'string(mountable)', %d ]" n i
         | Dev_or_Path n -> pr "[ '%s', 'string(dev_or_path)', %d ]" n i
+        | Mountable_or_Path n ->
+          pr "[ '%s', 'string(mountable_or_path)', %d ]" n i
         | String n -> pr "[ '%s', 'string', %d ]" n i
         | FileIn n -> pr "[ '%s', 'string(filename)', %d ]" n i
         | FileOut n -> pr "[ '%s', 'string(filename)', %d ]" n i
@@ -1093,7 +1097,8 @@ and generate_perl_prototype name (ret, args, optargs) =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+      | Pathname n | Device n | Mountable n
+      | Dev_or_Path n | Mountable_or_Path n | String n
       | OptString n | Bool n | Int n | Int64 n | FileIn n | FileOut n
       | BufferIn n | Key n | Pointer (_, n) ->
           pr "$%s" n

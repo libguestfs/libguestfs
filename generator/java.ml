@@ -463,7 +463,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
 
       match arg with
       | Pathname n
-      | Device n | Mountable n | Dev_or_Path n
+      | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
       | String n
       | OptString n
       | FileIn n
@@ -798,7 +798,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       List.iter (
         function
         | Pathname n
-        | Device n | Mountable n | Dev_or_Path n
+        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
         | String n
         | OptString n
         | FileIn n
@@ -867,7 +867,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       List.iter (
         function
         | Pathname n
-        | Device n | Mountable n | Dev_or_Path n
+        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
         | String n
         | OptString n
         | FileIn n
@@ -924,7 +924,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       List.iter (
         function
         | Pathname n
-        | Device n | Mountable n | Dev_or_Path n
+        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
         | String n
         | FileIn n
         | FileOut n
@@ -991,7 +991,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       List.iter (
         function
         | Pathname n
-        | Device n | Mountable n | Dev_or_Path n
+        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
         | String n
         | FileIn n
         | FileOut n

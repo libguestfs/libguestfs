@@ -135,6 +135,7 @@ and argt =
   | Mountable of string	(* location of mountable filesystem, cannot be NULL *)
   | Pathname of string	(* file name, cannot be NULL *)
   | Dev_or_Path of string (* /dev device name or Pathname, cannot be NULL *)
+  | Mountable_or_Path of string (* mount or Pathname, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
   | StringList of string(* list of strings (each string cannot be NULL) *)
   | DeviceList of string(* list of Device names (each cannot be NULL) *)

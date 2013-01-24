@@ -121,7 +121,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     List.iter (
       function
       | Pathname n
-      | Device n | Dev_or_Path n
+      | Device n | Dev_or_Path n | Mountable_or_Path n
       | String n
       | OptString n
       | Key n ->
@@ -953,7 +953,7 @@ and generate_client_actions hash () =
       | Device n
       | Mountable n
       | Pathname n
-      | Dev_or_Path n
+      | Dev_or_Path n | Mountable_or_Path n
       | FileIn n
       | FileOut n
       | BufferIn n
@@ -1071,7 +1071,7 @@ and generate_client_actions hash () =
       | Device n
       | Mountable n
       | Pathname n
-      | Dev_or_Path n
+      | Dev_or_Path n | Mountable_or_Path n
       | FileIn n
       | FileOut n ->
           (* guestfish doesn't support string escaping, so neither do we *)
@@ -1385,7 +1385,8 @@ and generate_client_actions hash () =
     ) else (
       List.iter (
         function
-        | Pathname n | Device n | Mountable n | Dev_or_Path n | String n
+        | Pathname n | Device n | Mountable n | Dev_or_Path n 
+        | Mountable_or_Path n | String n
         | Key n ->
           pr "  args.%s = (char *) %s;\n" n n
         | OptString n ->

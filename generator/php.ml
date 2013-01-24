@@ -188,7 +188,8 @@ PHP_FUNCTION (guestfs_last_error)
 
       List.iter (
         function
-        | String n | Device n | Mountable n | Pathname n | Dev_or_Path n
+        | String n | Device n | Mountable n | Pathname n
+        | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
         | OptString n
         | BufferIn n ->
@@ -232,7 +233,8 @@ PHP_FUNCTION (guestfs_last_error)
       let param_string = String.concat "" (
         List.map (
           function
-          | String n | Device n | Mountable n | Pathname n | Dev_or_Path n
+          | String n | Device n | Mountable n | Pathname n
+          | Dev_or_Path n | Mountable_or_Path n
           | FileIn n | FileOut n | BufferIn n | Key n -> "s"
           | OptString n -> "s!"
           | StringList n | DeviceList n -> "a"
@@ -260,7 +262,8 @@ PHP_FUNCTION (guestfs_last_error)
       pr "        &z_g";
       List.iter (
         function
-        | String n | Device n | Mountable n | Pathname n | Dev_or_Path n
+        | String n | Device n | Mountable n | Pathname n
+        | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | BufferIn n | Key n
         | OptString n ->
             pr ", &%s, &%s_size" n n
@@ -293,7 +296,8 @@ PHP_FUNCTION (guestfs_last_error)
 
       List.iter (
         function
-        | String n | Device n | Mountable n | Pathname n | Dev_or_Path n
+        | String n | Device n | Mountable n | Pathname n
+        | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
         | OptString n ->
             (* Just need to check the string doesn't contain any ASCII
@@ -420,7 +424,8 @@ PHP_FUNCTION (guestfs_last_error)
       (* Free up parameters. *)
       List.iter (
         function
-        | String n | Device n | Mountable n | Pathname n | Dev_or_Path n
+        | String n | Device n | Mountable n | Pathname n
+        | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
         | OptString n -> ()
         | BufferIn n -> ()

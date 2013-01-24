@@ -127,7 +127,7 @@ print_strings (guestfs_h *g, char *const *argv)
       List.iter (
         function
         | Pathname n
-        | Device n | Mountable n | Dev_or_Path n
+        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
         | String n
         | FileIn n
         | FileOut n
