@@ -909,7 +909,7 @@ See also C<guestfs_list_filesystems>." };
 
   { defaults with
     name = "inspect_get_type";
-    style = RString "name", [Device "root"], [];
+    style = RString "name", [Mountable "root"], [];
     shortdesc = "get type of inspected operating system";
     longdesc = "\
 This returns the type of the inspected operating system.
@@ -958,7 +958,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_arch";
-    style = RString "arch", [Device "root"], [];
+    style = RString "arch", [Mountable "root"], [];
     shortdesc = "get architecture of inspected operating system";
     longdesc = "\
 This returns the architecture of the inspected operating system.
@@ -972,7 +972,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_distro";
-    style = RString "distro", [Device "root"], [];
+    style = RString "distro", [Mountable "root"], [];
     shortdesc = "get distro of inspected operating system";
     longdesc = "\
 This returns the distro (distribution) of the inspected operating
@@ -1092,7 +1092,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_major_version";
-    style = RInt "major", [Device "root"], [];
+    style = RInt "major", [Mountable "root"], [];
     shortdesc = "get major version of inspected operating system";
     longdesc = "\
 This returns the major version number of the inspected operating
@@ -1111,7 +1111,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_minor_version";
-    style = RInt "minor", [Device "root"], [];
+    style = RInt "minor", [Mountable "root"], [];
     shortdesc = "get minor version of inspected operating system";
     longdesc = "\
 This returns the minor version number of the inspected operating
@@ -1124,7 +1124,7 @@ See also C<guestfs_inspect_get_major_version>." };
 
   { defaults with
     name = "inspect_get_product_name";
-    style = RString "product", [Device "root"], [];
+    style = RString "product", [Mountable "root"], [];
     shortdesc = "get product name of inspected operating system";
     longdesc = "\
 This returns the product name of the inspected operating
@@ -1139,7 +1139,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_mountpoints";
-    style = RHashtable "mountpoints", [Device "root"], [];
+    style = RHashtable "mountpoints", [Mountable "root"], [];
     shortdesc = "get mountpoints of inspected operating system";
     longdesc = "\
 This returns a hash of where we think the filesystems
@@ -1170,7 +1170,7 @@ See also C<guestfs_inspect_get_filesystems>." };
 
   { defaults with
     name = "inspect_get_filesystems";
-    style = RStringList "filesystems", [Device "root"], [];
+    style = RStringList "filesystems", [Mountable "root"], [];
     shortdesc = "get filesystems associated with inspected operating system";
     longdesc = "\
 This returns a list of all the filesystems that we think
@@ -1214,7 +1214,7 @@ This returns the enable network flag." };
     shortdesc = "list filesystems";
     longdesc = "\
 This inspection command looks for filesystems on partitions,
-block devices and logical volumes, returning a list of devices
+block devices and logical volumes, returning a list of C<mountables>
 containing filesystems and their type.
 
 The return value is a hash, where the keys are the devices
@@ -1225,6 +1225,9 @@ For example:
  \"/dev/sda2\" => \"ext2\"
  \"/dev/vg_guest/lv_root\" => \"ext4\"
  \"/dev/vg_guest/lv_swap\" => \"swap\"
+
+The key is not necessarily a block device. It may also be an opaque
+'mountable' string which can be passed to C<guestfs_mount>.
 
 The value can have the special value \"unknown\", meaning the
 content of the device is undetermined or empty.
@@ -1320,7 +1323,7 @@ See L<guestfs(3)/DISK LABELS>.
 
   { defaults with
     name = "inspect_get_windows_systemroot";
-    style = RString "systemroot", [Device "root"], [];
+    style = RString "systemroot", [Mountable "root"], [];
     shortdesc = "get Windows systemroot of inspected operating system";
     longdesc = "\
 This returns the Windows systemroot of the inspected guest.
@@ -1490,7 +1493,7 @@ C<guestfs_add_drive_opts>." };
 
   { defaults with
     name = "inspect_get_package_format";
-    style = RString "packageformat", [Device "root"], [];
+    style = RString "packageformat", [Mountable "root"], [];
     shortdesc = "get package format used by the operating system";
     longdesc = "\
 This function and C<guestfs_inspect_get_package_management> return
@@ -1511,7 +1514,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_package_management";
-    style = RString "packagemanagement", [Device "root"], [];
+    style = RString "packagemanagement", [Mountable "root"], [];
     shortdesc = "get package management tool used by the operating system";
     longdesc = "\
 C<guestfs_inspect_get_package_format> and this function return
@@ -1533,7 +1536,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_list_applications";
-    style = RStructList ("applications", "application"), [Device "root"], [];
+    style = RStructList ("applications", "application"), [Mountable "root"], [];
     deprecated_by = Some "inspect_list_applications2";
     shortdesc = "get list of applications installed in the operating system";
     longdesc = "\
@@ -1631,7 +1634,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_list_applications2";
-    style = RStructList ("applications2", "application2"), [Device "root"], [];
+    style = RStructList ("applications2", "application2"), [Mountable "root"], [];
     shortdesc = "get list of applications installed in the operating system";
     longdesc = "\
 Return the list of applications installed in the operating system.
@@ -1734,7 +1737,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_hostname";
-    style = RString "hostname", [Device "root"], [];
+    style = RString "hostname", [Mountable "root"], [];
     shortdesc = "get hostname of the operating system";
     longdesc = "\
 This function returns the hostname of the operating system
@@ -1747,7 +1750,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_format";
-    style = RString "format", [Device "root"], [];
+    style = RString "format", [Mountable "root"], [];
     shortdesc = "get format of inspected operating system";
     longdesc = "\
 This returns the format of the inspected operating system.  You
@@ -1779,7 +1782,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_is_live";
-    style = RBool "live", [Device "root"], [];
+    style = RBool "live", [Mountable "root"], [];
     shortdesc = "get live flag for install disk";
     longdesc = "\
 If C<guestfs_inspect_get_format> returns C<installer> (this
@@ -1790,7 +1793,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_is_netinst";
-    style = RBool "netinst", [Device "root"], [];
+    style = RBool "netinst", [Mountable "root"], [];
     shortdesc = "get netinst (network installer) flag for install disk";
     longdesc = "\
 If C<guestfs_inspect_get_format> returns C<installer> (this
@@ -1803,7 +1806,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_is_multipart";
-    style = RBool "multipart", [Device "root"], [];
+    style = RBool "multipart", [Mountable "root"], [];
     shortdesc = "get multipart flag for install disk";
     longdesc = "\
 If C<guestfs_inspect_get_format> returns C<installer> (this
@@ -1840,7 +1843,7 @@ See C<guestfs_set_attach_method> and L<guestfs(3)/ATTACH METHOD>." };
 
   { defaults with
     name = "inspect_get_product_variant";
-    style = RString "variant", [Device "root"], [];
+    style = RString "variant", [Mountable "root"], [];
     shortdesc = "get product variant of inspected operating system";
     longdesc = "\
 This returns the product variant of the inspected operating
@@ -1868,7 +1871,7 @@ C<guestfs_inspect_get_major_version>." };
 
   { defaults with
     name = "inspect_get_windows_current_control_set";
-    style = RString "controlset", [Device "root"], [];
+    style = RString "controlset", [Mountable "root"], [];
     shortdesc = "get Windows CurrentControlSet of inspected operating system";
     longdesc = "\
 This returns the Windows CurrentControlSet of the inspected guest.
@@ -1882,7 +1885,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_drive_mappings";
-    style = RHashtable "drives", [Device "root"], [];
+    style = RHashtable "drives", [Mountable "root"], [];
     shortdesc = "get drive letter mappings";
     longdesc = "\
 This call is useful for Windows which uses a primitive system
@@ -1916,7 +1919,7 @@ C<guestfs_inspect_get_filesystems>." };
 
   { defaults with
     name = "inspect_get_icon";
-    style = RBufferOut "icon", [Device "root"],  [OBool "favicon"; OBool "highquality"];
+    style = RBufferOut "icon", [Mountable "root"],  [OBool "favicon"; OBool "highquality"];
     shortdesc = "get the icon corresponding to this operating system";
     longdesc = "\
 This function returns an icon corresponding to the inspected
@@ -2700,7 +2703,7 @@ Get the directory used by the handle to store the appliance cache." };
 let daemon_functions = [
   { defaults with
     name = "mount";
-    style = RErr, [Device "device"; String "mountpoint"], [];
+    style = RErr, [Mountable "mountable"; String "mountpoint"], [];
     proc_nr = Some 1;
     tests = [
       InitEmpty, Always, TestOutput (
@@ -2716,7 +2719,8 @@ Mount a guest disk at a position in the filesystem.  Block devices
 are named C</dev/sda>, C</dev/sdb> and so on, as they were added to
 the guest.  If those block devices contain partitions, they will have
 the usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style
-names can be used.
+names can be used, or 'mountable' strings returned by
+C<guestfs_list_filesystems> or C<guestfs_inspect_get_mountpoints>.
 
 The rules are the same as for L<mount(2)>:  A filesystem must
 first be mounted on C</> before others can be mounted.  Other
@@ -4191,7 +4195,7 @@ it to local file C<tarball>." };
 
   { defaults with
     name = "mount_ro";
-    style = RErr, [Device "device"; String "mountpoint"], [];
+    style = RErr, [Mountable "mountable"; String "mountpoint"], [];
     proc_nr = Some 73;
     tests = [
       InitBasicFS, Always, TestLastFail (
@@ -4211,7 +4215,7 @@ mounts the filesystem with the read-only (I<-o ro>) flag." };
 
   { defaults with
     name = "mount_options";
-    style = RErr, [String "options"; Device "device"; String "mountpoint"], [];
+    style = RErr, [String "options"; Mountable "mountable"; String "mountpoint"], [];
     proc_nr = Some 74;
     shortdesc = "mount a guest disk with mount options";
     longdesc = "\
@@ -4225,7 +4229,7 @@ the filesystem uses)." };
 
   { defaults with
     name = "mount_vfs";
-    style = RErr, [String "options"; String "vfstype"; Device "device"; String "mountpoint"], [];
+    style = RErr, [String "options"; String "vfstype"; Mountable "mountable"; String "mountpoint"], [];
     proc_nr = Some 75;
     shortdesc = "mount a guest disk with mount options and vfstype";
     longdesc = "\
@@ -6691,7 +6695,7 @@ See also C<guestfs_realpath>." };
 
   { defaults with
     name = "vfs_type";
-    style = RString "fstype", [Device "device"], [];
+    style = RString "fstype", [Mountable "mountable"], [];
     proc_nr = Some 198;
     tests = [
       InitScratchFS, Always, TestOutput (
@@ -6700,7 +6704,7 @@ See also C<guestfs_realpath>." };
     shortdesc = "get the Linux VFS type corresponding to a mounted device";
     longdesc = "\
 This command gets the filesystem type corresponding to
-the filesystem on C<device>.
+the filesystem on C<mountable>.
 
 For most filesystems, the result is the name of the Linux
 VFS module which would be used to mount this filesystem
@@ -7822,7 +7826,7 @@ a file in the host and attach it as a device." };
 
   { defaults with
     name = "vfs_label";
-    style = RString "label", [Device "device"], [];
+    style = RString "label", [Mountable "mountable"], [];
     proc_nr = Some 253;
     tests = [
       InitBasicFS, Always, TestOutput (
@@ -7831,8 +7835,7 @@ a file in the host and attach it as a device." };
     ];
     shortdesc = "get the filesystem label";
     longdesc = "\
-This returns the filesystem label of the filesystem on
-C<device>.
+This returns the label of the filesystem on C<mountable>.
 
 If the filesystem is unlabeled, this returns the empty string.
 
@@ -7840,7 +7843,7 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
 
   { defaults with
     name = "vfs_uuid";
-    style = RString "uuid", [Device "device"], [];
+    style = RString "uuid", [Mountable "mountable"], [];
     proc_nr = Some 254;
     tests =
       (let uuid = uuidgen () in [
@@ -7850,8 +7853,7 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
        ]);
     shortdesc = "get the filesystem UUID";
     longdesc = "\
-This returns the filesystem UUID of the filesystem on
-C<device>.
+This returns the filesystem UUID of the filesystem on C<mountable>.
 
 If the filesystem does not have a UUID, this returns the empty string.
 
@@ -9062,7 +9064,7 @@ any existing contents of this device." };
 
   { defaults with
     name = "set_label";
-    style = RErr, [Device "device"; String "label"], [];
+    style = RErr, [Mountable "mountable"; String "label"], [];
     proc_nr = Some 310;
     tests = [
       InitBasicFS, Always, TestOutput (
@@ -9078,7 +9080,7 @@ any existing contents of this device." };
     ];
     shortdesc = "set filesystem label";
     longdesc = "\
-Set the filesystem label on C<device> to C<label>.
+Set the filesystem label on C<mountable> to C<label>.
 
 Only some filesystem types support labels, and libguestfs supports
 setting labels on only a subset of these.
@@ -9086,6 +9088,9 @@ setting labels on only a subset of these.
 On ext2/3/4 filesystems, labels are limited to 16 bytes.
 
 On NTFS filesystems, labels are limited to 128 unicode characters.
+
+Setting the label on a btrfs subvolume will set the label on its parent
+filesystem.
 
 To read the label on a filesystem, call C<guestfs_vfs_label>." };
 
