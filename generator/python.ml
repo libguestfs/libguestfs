@@ -662,7 +662,7 @@ import libguestfsmod
 class ClosedHandle(ValueError):
     pass
 
-class GuestFS:
+class GuestFS(object):
     \"\"\"Instances of this class are libguestfs API handles.\"\"\"
 
     def __init__ (self, environment=True, close_on_exit=True):

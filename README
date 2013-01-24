@@ -137,7 +137,7 @@ To build language bindings:
 
 - Perl if you want to build the perl bindings (optional)
 
-- Python if you want to build the python bindings (optional)
+- Python >= 2.2 if you want to build the python bindings (optional)
 
 - Ruby, rake if you want to build the ruby bindings (optional)
 
