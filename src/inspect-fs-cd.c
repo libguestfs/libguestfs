@@ -69,7 +69,8 @@ check_debian_installer_root (guestfs_h *g, struct inspect_fs *fs)
   (void) guestfs___parse_major_minor (g, fs);
 
   if (guestfs_is_file (g, "/.disk/cd_type") > 0) {
-    char *cd_type = guestfs___first_line_of_file (g, "/.disk/cd_type");
+    CLEANUP_FREE char *cd_type =
+      guestfs___first_line_of_file (g, "/.disk/cd_type");
     if (!cd_type)
       return -1;
 
@@ -87,8 +88,6 @@ check_debian_installer_root (guestfs_h *g, struct inspect_fs *fs)
       fs->is_multipart_disk = 0;
       fs->is_netinst_disk = 1;
     }
-
-    free (cd_type);
   }
 
   return 0;

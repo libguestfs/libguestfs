@@ -236,7 +236,7 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
 {
   const char *filename = "/etc/lsb-release";
   int64_t size;
-  char **lines;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   size_t i;
   int r = 0;
 
@@ -285,15 +285,12 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
         free (major);
         if (fs->major_version == -1) {
           free (minor);
-          guestfs___free_string_list (lines);
           return -1;
         }
         fs->minor_version = guestfs___parse_unsigned_int (g, minor);
         free (minor);
-        if (fs->minor_version == -1) {
-          guestfs___free_string_list (lines);
+        if (fs->minor_version == -1)
           return -1;
-        }
       }
     }
     else if (fs->product_name == NULL &&
@@ -311,8 +308,6 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
     }
   }
 
-  guestfs___free_string_list (lines);
-
   /* The unnecessary construct in the next line is required to
    * workaround -Wstrict-overflow warning in gcc 4.5.1.
    */
@@ -324,7 +319,7 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
 {
   int64_t size;
   char *major, *minor;
-  char **lines;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   int r = -1;
 
   /* Don't trust guestfs_head_n not to break with very large files.
@@ -390,8 +385,6 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
   r = 0;
 
 out:
-  guestfs___free_string_list (lines);
-
   return r;
 }
 
@@ -838,7 +831,7 @@ check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs)
 {
   const char *filename = "/etc/rc.conf";
   int64_t size;
-  char **lines;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   size_t i;
 
   /* Don't trust guestfs_read_lines not to break with very large files.
@@ -871,58 +864,48 @@ check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs)
     }
   }
 
-  guestfs___free_string_list (lines);
   return 0;
 }
 
 static int
 check_fstab (guestfs_h *g, struct inspect_fs *fs)
 {
-  char **entries, **entry;
+  CLEANUP_FREE_STRING_LIST char **entries = NULL;
+  char **entry;
   char augpath[256];
-  char *spec, *mp;
   int r;
+  CLEANUP_HASH_FREE Hash_table *md_map;
 
   /* Generate a map of MD device paths listed in /etc/mdadm.conf to MD device
    * paths in the guestfs appliance */
-  Hash_table *md_map;
   if (map_md_devices (g, &md_map) == -1) return -1;
 
   entries = guestfs_aug_match (g, "/files/etc/fstab/*[label() != '#comment']");
-  if (entries == NULL) goto error;
+  if (entries == NULL)
+    return -1;
 
   if (entries[0] == NULL) {
     error (g, _("could not parse /etc/fstab or empty file"));
-    goto error;
+    return -1;
   }
 
   for (entry = entries; *entry != NULL; entry++) {
     snprintf (augpath, sizeof augpath, "%s/spec", *entry);
-    spec = guestfs_aug_get (g, augpath);
-    if (spec == NULL) goto error;
+    CLEANUP_FREE char *spec = guestfs_aug_get (g, augpath);
+    if (spec == NULL)
+      return -1;
 
     snprintf (augpath, sizeof augpath, "%s/file", *entry);
-    mp = guestfs_aug_get (g, augpath);
-    if (mp == NULL) {
-      free (spec);
-      goto error;
-    }
+    CLEANUP_FREE char *mp = guestfs_aug_get (g, augpath);
+    if (mp == NULL)
+      return -1;
 
     r = add_fstab_entry (g, fs, spec, mp, md_map);
-    free (spec);
-    free (mp);
-
-    if (r == -1) goto error;
+    if (r == -1)
+      return -1;
   }
 
-  if (md_map) hash_free (md_map);
-  guestfs___free_string_list (entries);
   return 0;
-
-error:
-  if (md_map) hash_free (md_map);
-  if (entries) guestfs___free_string_list (entries);
-  return -1;
 }
 
 /* Add a filesystem and possibly a mountpoint entry for
@@ -1078,7 +1061,7 @@ parse_uuid (const char *str, uint32_t *uuid)
 static ssize_t
 map_app_md_devices (guestfs_h *g, Hash_table **map)
 {
-  char **mds = NULL;
+  CLEANUP_FREE_STRING_LIST char **mds = NULL;
   size_t n = 0;
 
   /* A hash mapping uuids to md device names */
@@ -1089,7 +1072,7 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
   if (mds == NULL) goto error;
 
   for (char **md = mds; *md != NULL; md++) {
-    char **detail = guestfs_md_detail(g, *md);
+    CLEANUP_FREE_STRING_LIST char **detail = guestfs_md_detail (g, *md);
     if (detail == NULL) goto error;
 
     /* Iterate over keys until we find uuid */
@@ -1110,7 +1093,6 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
         /* Invalid UUID is weird, but not fatal. */
         debug(g, "inspect-os: guestfs_md_detail returned invalid "
                  "uuid for %s: %s", *md, *i);
-        guestfs___free_string_list(detail);
         md_uuid_free(entry);
         continue;
       }
@@ -1131,17 +1113,12 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
           n++;
       }
     }
-
-    guestfs___free_string_list(detail);
   }
-
-  guestfs___free_string_list(mds);
 
   return n;
 
 error:
-  hash_free(*map); *map = NULL;
-  guestfs___free_string_list(mds);
+  hash_free (*map); *map = NULL;
 
   return -1;
 }
@@ -1176,8 +1153,8 @@ mdadm_app_free(void *x)
 static int
 map_md_devices(guestfs_h *g, Hash_table **map)
 {
-  Hash_table *app_map = NULL;
-  char **matches = NULL;
+  CLEANUP_HASH_FREE Hash_table *app_map = NULL;
+  CLEANUP_FREE_STRING_LIST char **matches = NULL;
   ssize_t n_app_md_devices;
 
   *map = NULL;
@@ -1187,10 +1164,8 @@ map_md_devices(guestfs_h *g, Hash_table **map)
   if (n_app_md_devices == -1) goto error;
 
   /* Nothing to do if there are no md devices */
-  if (n_app_md_devices == 0) {
-    hash_free(app_map);
+  if (n_app_md_devices == 0)
     return 0;
-  }
 
   /* Get all arrays listed in mdadm.conf */
   matches = guestfs_aug_match(g, "/files/etc/mdadm.conf/array");
@@ -1200,8 +1175,6 @@ map_md_devices(guestfs_h *g, Hash_table **map)
   if (matches[0] == NULL) {
     debug(g, "Appliance has MD devices, but augeas returned no array matches "
              "in mdadm.conf");
-    guestfs___free_string_list(matches);
-    hash_free(app_map);
     return 0;
   }
 
@@ -1211,16 +1184,14 @@ map_md_devices(guestfs_h *g, Hash_table **map)
 
   for (char **m = matches; *m != NULL; m++) {
     /* Get device name and uuid for each array */
-    char *dev_path = safe_asprintf(g, "%s/devicename", *m);
-    char *dev = guestfs_aug_get(g, dev_path);
-    free(dev_path);
+    CLEANUP_FREE char *dev_path = safe_asprintf (g, "%s/devicename", *m);
+    char *dev = guestfs_aug_get (g, dev_path);
     if (!dev) goto error;
 
-    char *uuid_path = safe_asprintf(g, "%s/uuid", *m);
-    char *uuid = guestfs_aug_get(g, uuid_path);
-    free(uuid_path);
+    CLEANUP_FREE char *uuid_path = safe_asprintf (g, "%s/uuid", *m);
+    CLEANUP_FREE char *uuid = guestfs_aug_get (g, uuid_path);
     if (!uuid) {
-      free(dev);
+      free (dev);
       continue;
     }
 
@@ -1232,11 +1203,9 @@ map_md_devices(guestfs_h *g, Hash_table **map)
       /* Invalid uuid. Weird, but not fatal. */
       debug(g, "inspect-os: mdadm.conf contains invalid uuid for %s: %s",
             dev, uuid);
-      free(dev);
-      free(uuid);
+      free (dev);
       continue;
     }
-    free(uuid);
 
     /* If there's a corresponding uuid in the appliance, create a new
      * entry in the transitive map */
@@ -1260,20 +1229,14 @@ map_md_devices(guestfs_h *g, Hash_table **map)
         default:
           ;;
       }
-    } else {
-      free(dev);
-    }
+    } else
+      free (dev);
   }
-
-  hash_free(app_map);
-  guestfs___free_string_list(matches);
 
   return 0;
 
 error:
-  if (app_map) hash_free(app_map);
-  if (matches) guestfs___free_string_list(matches);
-  if (*map) hash_free(*map);
+  if (*map) hash_free (*map);
 
   return -1;
 }
@@ -1282,8 +1245,9 @@ static int
 resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
                            const char *part, char **device_ret)
 {
-  char *name, *device;
-  char **devices;
+  CLEANUP_FREE char *name = NULL;
+  char *device;
+  CLEANUP_FREE_STRING_LIST char **devices = NULL;
   size_t i, count;
   struct drive *drv;
   const char *p;
@@ -1304,13 +1268,12 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
       device = safe_asprintf (g, "%s%s", devices[i], part);
       if (!is_partition (g, device)) {
         free (device);
-        goto out;
+        return 0;
       }
       *device_ret = device;
       break;
     }
   }
-  free (name);
 
   /* Guess the appliance device name if we didn't find a matching hint */
   if (!*device_ret) {
@@ -1332,14 +1295,12 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
       device = safe_asprintf (g, "%s%s", devices[i], part);
       if (!is_partition (g, device)) {
         free (device);
-        goto out;
+        return 0;
       }
       *device_ret = device;
     }
   }
 
- out:
-  guestfs___free_string_list (devices);
   return 0;
 }
 
@@ -1348,7 +1309,7 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
                             char **device_ret)
 {
   char *device;
-  char **devices;
+  CLEANUP_FREE_STRING_LIST char **devices = NULL;
   size_t i;
   struct drive *drv;
 
@@ -1367,7 +1328,7 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
         device = safe_asprintf (g, "%s%s", devices[i], part);
         if (!is_partition (g, device)) {
           free (device);
-          goto out;
+          return 0;
         }
         *device_ret = device;
       }
@@ -1378,9 +1339,6 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
   }
 
   /* We don't try to guess mappings for cciss devices */
-
- out:
-  guestfs___free_string_list (devices);
   return 0;
 }
 
@@ -1470,7 +1428,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
     mdadm_app *app = hash_lookup (md_map, &entry);
     if (app) device = safe_strdup (g, app->app);
 
-    free(disk);
+    free (disk);
   }
   else if (match3 (g, spec, re_freebsd, &disk, &slice, &part)) {
     /* FreeBSD disks are organized quite differently.  See:
@@ -1545,7 +1503,8 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
 #define AUGEAS_LOAD_LEN (strlen(AUGEAS_LOAD))
   size_t conflen = strlen(configfiles[0]);
   size_t buflen = AUGEAS_LOAD_LEN + conflen + 1 /* Closing " */;
-  char *buf = safe_malloc(g, buflen + 2 /* Closing ] + null terminator */);
+  CLEANUP_FREE char *buf =
+    safe_malloc (g, buflen + 2 /* Closing ] + null terminator */);
 
   memcpy(buf, AUGEAS_LOAD, AUGEAS_LOAD_LEN);
   memcpy(buf + AUGEAS_LOAD_LEN, configfiles[0], conflen);
@@ -1572,11 +1531,8 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
   buf[buflen] = ']';
   buf[buflen + 1] = '\0';
 
-  if (guestfs_aug_rm (g, buf) == -1) {
-    free(buf);
+  if (guestfs_aug_rm (g, buf) == -1)
     goto out;
-  }
-  free(buf);
 
   if (guestfs_aug_load (g) == -1)
     goto out;
@@ -1592,7 +1548,7 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
 static int
 is_partition (guestfs_h *g, const char *partition)
 {
-  char *device;
+  CLEANUP_FREE char *device = NULL;
 
   guestfs_push_error_handler (g, NULL, NULL);
 
@@ -1603,12 +1559,10 @@ is_partition (guestfs_h *g, const char *partition)
 
   if (guestfs_device_index (g, device) == -1) {
     guestfs_pop_error_handler (g);
-    free (device);
     return 0;
   }
 
   guestfs_pop_error_handler (g);
-  free (device);
 
   return 1;
 }

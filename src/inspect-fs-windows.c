@@ -108,33 +108,25 @@ int
 guestfs___has_windows_systemroot (guestfs_h *g)
 {
   size_t i;
-  char *systemroot;
   char path[256];
 
   for (i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
-    systemroot = guestfs___case_sensitive_path_silently (g, systemroots[i]);
+    CLEANUP_FREE char *systemroot =
+      guestfs___case_sensitive_path_silently (g, systemroots[i]);
     if (!systemroot)
       continue;
 
     snprintf (path, sizeof path, "%s/system32", systemroot);
-    if (!guestfs___is_dir_nocase (g, path)) {
-      free (systemroot);
+    if (!guestfs___is_dir_nocase (g, path))
       continue;
-    }
 
     snprintf (path, sizeof path, "%s/system32/config", systemroot);
-    if (!guestfs___is_dir_nocase (g, path)) {
-      free (systemroot);
+    if (!guestfs___is_dir_nocase (g, path))
       continue;
-    }
 
     snprintf (path, sizeof path, "%s/system32/cmd.exe", systemroot);
-    if (!guestfs___is_file_nocase (g, path)) {
-      free (systemroot);
+    if (!guestfs___is_file_nocase (g, path))
       continue;
-    }
-
-    free (systemroot);
 
     return (int)i;
   }
@@ -188,12 +180,11 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
   snprintf (cmd_exe, len, "%s/system32/cmd.exe", fs->windows_systemroot);
 
   /* Should exist because of previous check above in has_windows_systemroot. */
-  char *cmd_exe_path = guestfs_case_sensitive_path (g, cmd_exe);
+  CLEANUP_FREE char *cmd_exe_path = guestfs_case_sensitive_path (g, cmd_exe);
   if (!cmd_exe_path)
     return -1;
 
   char *arch = guestfs_file_architecture (g, cmd_exe_path);
-  free (cmd_exe_path);
 
   if (arch)
     fs->arch = arch;        /* freed by guestfs___free_inspect_info */
@@ -216,7 +207,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   snprintf (software, len, "%s/system32/config/software",
             fs->windows_systemroot);
 
-  char *software_path = guestfs_case_sensitive_path (g, software);
+  CLEANUP_FREE char *software_path = guestfs_case_sensitive_path (g, software);
   if (!software_path)
     return -1;
 
@@ -237,7 +228,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
-    goto out0;
+    return -1;
 
   node = guestfs_hivex_root (g);
   for (i = 0; node > 0 && i < sizeof hivepath / sizeof hivepath[0]; ++i)
@@ -255,53 +246,38 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 
   for (i = 0; i < values->len; ++i) {
     int64_t value = values->val[i].hivex_value_h;
-    char *key = guestfs_hivex_value_key (g, value);
+    CLEANUP_FREE char *key = guestfs_hivex_value_key (g, value);
     if (key == NULL)
       goto out2;
 
     if (STRCASEEQ (key, "ProductName")) {
       fs->product_name = guestfs_hivex_value_utf8 (g, value);
-      if (!fs->product_name) {
-        free (key);
+      if (!fs->product_name)
         goto out2;
-      }
     }
     else if (STRCASEEQ (key, "CurrentVersion")) {
-      char *version = guestfs_hivex_value_utf8 (g, value);
-      if (!version) {
-        free (key);
+      CLEANUP_FREE char *version = guestfs_hivex_value_utf8 (g, value);
+      if (!version)
         goto out2;
-      }
       char *major, *minor;
       if (match2 (g, version, re_windows_version, &major, &minor)) {
         fs->major_version = guestfs___parse_unsigned_int (g, major);
         free (major);
         if (fs->major_version == -1) {
           free (minor);
-          free (key);
-          free (version);
           goto out2;
         }
         fs->minor_version = guestfs___parse_unsigned_int (g, minor);
         free (minor);
-        if (fs->minor_version == -1) {
-          free (key);
-          free (version);
+        if (fs->minor_version == -1)
           goto out2;
-        }
       }
-
-      free (version);
     }
     else if (STRCASEEQ (key, "InstallationType")) {
       fs->product_variant = guestfs_hivex_value_utf8 (g, value);
-      if (!fs->product_variant) {
-        free (key);
+      if (!fs->product_variant)
         goto out2;
-      }
     }
-
-    free (key);
   }
 
   ret = 0;
@@ -310,8 +286,6 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   guestfs_free_hivex_value_list (values);
  out1:
   guestfs_hivex_close (g);
- out0:
-  free (software_path);
 
   return ret;
 }
@@ -325,7 +299,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   snprintf (system, len, "%s/system32/config/system",
             fs->windows_systemroot);
 
-  char *system_path = guestfs_case_sensitive_path (g, system);
+  CLEANUP_FREE char *system_path = guestfs_case_sensitive_path (g, system);
   if (!system_path)
     return -1;
 
@@ -343,7 +317,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   struct guestfs_hivex_value_list *values = NULL;
   int32_t dword;
   size_t i, count;
-  void *buf = NULL;
+  CLEANUP_FREE void *buf = NULL;
   size_t buflen;
   const char *hivepath[] =
     { NULL /* current control set */, "Services", "Tcpip", "Parameters" };
@@ -403,26 +377,27 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
    * matter because it just means we'll allocate a few bytes extra.
    */
   for (i = count = 0; i < values->len; ++i) {
-    char *key = guestfs_hivex_value_key (g, values->val[i].hivex_value_h);
+    CLEANUP_FREE char *key =
+      guestfs_hivex_value_key (g, values->val[i].hivex_value_h);
     if (key == NULL)
       goto out1;
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':')
       count++;
-    free (key);
   }
 
   fs->drive_mappings = safe_calloc (g, 2*count + 1, sizeof (char *));
 
   for (i = count = 0; i < values->len; ++i) {
     int64_t v = values->val[i].hivex_value_h;
-    char *key = guestfs_hivex_value_key (g, v);
+    CLEANUP_FREE char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
       goto out1;
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':') {
       /* Get the binary value.  Is it a fixed disk? */
-      char *blob, *device;
+      CLEANUP_FREE char *blob;
+      char *device;
       size_t len;
       int64_t type;
 
@@ -436,9 +411,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
           fs->drive_mappings[count++] = device;
         }
       }
-      free (blob);
     }
-    free (key);
   }
 
  skip_drive_letter_mappings:;
@@ -466,20 +439,16 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
   for (i = 0; i < values->len; ++i) {
     int64_t v = values->val[i].hivex_value_h;
-    char *key = guestfs_hivex_value_key (g, v);
+    CLEANUP_FREE char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
       goto out1;
 
     if (STRCASEEQ (key, "Hostname")) {
       fs->hostname = guestfs_hivex_value_utf8 (g, v);
-      if (!fs->hostname) {
-        free (key);
+      if (!fs->hostname)
         goto out1;
-      }
     }
     /* many other interesting fields here ... */
-
-    free (key);
   }
 
   ret = 0;
@@ -488,8 +457,6 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   guestfs_hivex_close (g);
  out0:
   if (values) guestfs_free_hivex_value_list (values);
-  free (system_path);
-  free (buf);
 
   return ret;
 }
@@ -503,9 +470,8 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 static char *
 map_registry_disk_blob (guestfs_h *g, const void *blob)
 {
-  char **devices = NULL;
+  CLEANUP_FREE_STRING_LIST char **devices = NULL;
   struct guestfs_partition_list *partitions = NULL;
-  char *diskid;
   size_t i, j, len;
   char *ret = NULL;
   uint64_t part_offset;
@@ -519,18 +485,14 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
 
   for (i = 0; devices[i] != NULL; ++i) {
     /* Read the disk ID. */
-    diskid = guestfs_pread_device (g, devices[i], 4, 0x01b8, &len);
+    CLEANUP_FREE char *diskid =
+      guestfs_pread_device (g, devices[i], 4, 0x01b8, &len);
     if (diskid == NULL)
       continue;
-    if (len < 4) {
-      free (diskid);
+    if (len < 4)
       continue;
-    }
-    if (memcmp (diskid, blob, 4) == 0) { /* found it */
-      free (diskid);
+    if (memcmp (diskid, blob, 4) == 0) /* found it */
       goto found_disk;
-    }
-    free (diskid);
   }
   goto out;
 
@@ -562,8 +524,6 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
   ret = safe_asprintf (g, "%s%d", devices[i], partitions->val[j].part_num);
 
  out:
-  if (devices)
-    guestfs___free_string_list (devices);
   if (partitions)
     guestfs_free_partition_list (partitions);
   return ret;
@@ -591,20 +551,18 @@ static char *utf16_to_utf8 (/* const */ char *input, size_t len);
 char *
 guestfs__hivex_value_utf8 (guestfs_h *g, int64_t valueh)
 {
-  char *buf, *ret;
+  char *ret;
   size_t buflen;
 
-  buf = guestfs_hivex_value_value (g, valueh, &buflen);
+  CLEANUP_FREE char *buf = guestfs_hivex_value_value (g, valueh, &buflen);
   if (buf == NULL)
     return NULL;
 
   ret = utf16_to_utf8 (buf, buflen);
   if (ret == NULL) {
     perrorf (g, "hivex: conversion of registry value to UTF8 failed");
-    free (buf);
     return NULL;
   }
-  free (buf);
 
   return ret;
 }

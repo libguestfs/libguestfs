@@ -143,7 +143,7 @@ guestfs__inspect_os (guestfs_h *g)
 static int
 parent_device_already_probed (guestfs_h *g, const char *partition)
 {
-  char *device;
+  CLEANUP_FREE char *device = NULL;
   size_t i;
 
   guestfs_push_error_handler (g, NULL, NULL);
@@ -153,13 +153,10 @@ parent_device_already_probed (guestfs_h *g, const char *partition)
     return 0;
 
   for (i = 0; i < g->nr_fses; ++i) {
-    if (STREQ (device, g->fses[i].device)) {
-      free (device);
+    if (STREQ (device, g->fses[i].device))
       return 1;
-    }
   }
 
-  free (device);
   return 0;
 }
 
