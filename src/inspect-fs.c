@@ -89,7 +89,7 @@ int
 guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
                                    int is_block, int is_partnum)
 {
-  char *vfs_type;
+  CLEANUP_FREE char *vfs_type = NULL;
   int is_swap, r;
   struct inspect_fs *fs;
 
@@ -108,7 +108,6 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
          vfs_type ? vfs_type : "failed to get vfs type");
 
   if (is_swap) {
-    free (vfs_type);
     if (extend_fses (g) == -1)
       return -1;
     fs = &g->fses[g->nr_fses-1];
@@ -145,7 +144,6 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
   } else {
     r = guestfs_mount_ro (g, device, "/");
   }
-  free (vfs_type);
   guestfs_pop_error_handler (g);
   if (r == -1)
     return 0;
@@ -341,28 +339,26 @@ extend_fses (guestfs_h *g)
 int
 guestfs___is_file_nocase (guestfs_h *g, const char *path)
 {
-  char *p;
+  CLEANUP_FREE char *p = NULL;
   int r;
 
   p = guestfs___case_sensitive_path_silently (g, path);
   if (!p)
     return 0;
   r = guestfs_is_file (g, p);
-  free (p);
   return r > 0;
 }
 
 int
 guestfs___is_dir_nocase (guestfs_h *g, const char *path)
 {
-  char *p;
+  CLEANUP_FREE char *p = NULL;
   int r;
 
   p = guestfs___case_sensitive_path_silently (g, path);
   if (!p)
     return 0;
   r = guestfs_is_dir (g, p);
-  free (p);
   return r > 0;
 }
 
@@ -532,7 +528,7 @@ guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
 char *
 guestfs___first_line_of_file (guestfs_h *g, const char *filename)
 {
-  char **lines;
+  CLEANUP_FREE char **lines = NULL; /* sic: not CLEANUP_FREE_STRING_LIST */
   int64_t size;
   char *ret;
 
@@ -560,7 +556,6 @@ guestfs___first_line_of_file (guestfs_h *g, const char *filename)
   /* lines[1] should be NULL because of '1' argument above ... */
 
   ret = lines[0];               /* caller frees */
-  free (lines);                 /* free the array */
 
   return ret;
 }
