@@ -26,6 +26,8 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
+#include "hash.h"
+
 void *
 guestfs___safe_malloc (guestfs_h *g, size_t nbytes)
 {
@@ -121,4 +123,29 @@ guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
     g->abort_cb ();
 
   return msg;
+}
+
+/* These functions are used internally by the CLEANUP_* macros.
+ * Don't call them directly.
+ */
+
+void
+guestfs___cleanup_free (void *ptr)
+{
+  free (* (void **) ptr);
+}
+
+void
+guestfs___cleanup_free_string_list (void *ptr)
+{
+  guestfs___free_string_list (* (char ***) ptr);
+}
+
+void
+guestfs___cleanup_hash_free (void *ptr)
+{
+  Hash_table *h = * (Hash_table **) ptr;
+
+  if (h)
+    hash_free (h);
 }
