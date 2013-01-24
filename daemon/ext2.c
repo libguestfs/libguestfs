@@ -116,13 +116,19 @@ do_tune2fs_l (const char *device)
 int
 do_set_e2label (const char *device, const char *label)
 {
-  return do_set_label (device, label);
+  mountable_t mountable;
+  mountable.type = MOUNTABLE_DEVICE;
+  mountable.device = device;
+  return do_set_label (&mountable, label);
 }
 
 char *
 do_get_e2label (const char *device)
 {
-  return do_vfs_label (device);
+  mountable_t mountable;
+  mountable.type = MOUNTABLE_DEVICE;
+  mountable.device = device;
+  return do_vfs_label (&mountable);
 }
 
 int
@@ -143,7 +149,10 @@ do_set_e2uuid (const char *device, const char *uuid)
 char *
 do_get_e2uuid (const char *device)
 {
-  return do_vfs_uuid (device);
+  mountable_t mountable;
+  mountable.type = MOUNTABLE_DEVICE;
+  mountable.device = device;
+  return do_vfs_uuid (&mountable);
 }
 
 /* If the filesystem is not mounted, run e2fsck -f on it unconditionally. */

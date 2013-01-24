@@ -67,21 +67,21 @@ get_blkid_tag (const char *device, const char *tag)
 }
 
 char *
-do_vfs_type (const char *device)
+do_vfs_type (const mountable_t *mountable)
 {
-  return get_blkid_tag (device, "TYPE");
+  return get_blkid_tag (mountable->device, "TYPE");
 }
 
 char *
-do_vfs_label (const char *device)
+do_vfs_label (const mountable_t *mountable)
 {
-  return get_blkid_tag (device, "LABEL");
+  return get_blkid_tag (mountable->device, "LABEL");
 }
 
 char *
-do_vfs_uuid (const char *device)
+do_vfs_uuid (const mountable_t *mountable)
 {
-  return get_blkid_tag (device, "UUID");
+  return get_blkid_tag (mountable->device, "UUID");
 }
 
 /* RHEL5 blkid doesn't have the -p (low-level probing) option and the

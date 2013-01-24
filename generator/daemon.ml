@@ -38,6 +38,7 @@ let generate_daemon_actions_h () =
   pr "\n";
 
   pr "#include \"guestfs_protocol.h\"\n";
+  pr "#include \"daemon.h\"\n";
   pr "\n";
 
   List.iter (
@@ -111,11 +112,12 @@ and generate_daemon_actions () =
         pr "  struct guestfs_%s_args args;\n" name;
         List.iter (
           function
-          | Device n | Mountable n | Dev_or_Path n
+          | Device n | Dev_or_Path n
           | Pathname n
           | String n
           | Key n
           | OptString n -> pr "  char *%s;\n" n
+          | Mountable n -> pr "  mountable_t %s;\n" n
           | StringList n | DeviceList n -> pr "  char **%s;\n" n
           | Bool n -> pr "  int %s;\n" n
           | Int n -> pr "  int %s;\n" n
@@ -205,10 +207,13 @@ and generate_daemon_actions () =
               pr_args n;
               pr "  ABS_PATH (%s, %s, goto done);\n"
                 n (if is_filein then "cancel_receive ()" else "");
-          | Device n | Mountable n ->
+          | Device n ->
               pr_args n;
               pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
                 n (if is_filein then "cancel_receive ()" else "");
+          | Mountable n ->
+              pr "  RESOLVE_MOUNTABLE(args.%s, %s, %s, goto done);\n"
+                n n (if is_filein then "cancel_receive ()" else "");
           | Dev_or_Path n ->
               pr_args n;
               pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
@@ -257,7 +262,7 @@ and generate_daemon_actions () =
             (function FileIn _ | FileOut _ -> false | _ -> true) args in
         let style = ret, args' @ args_of_optargs optargs, [] in
         pr "  r = do_%s " name;
-        generate_c_call_args style;
+        generate_c_call_args ~in_daemon:true style;
         pr ";\n" in
 
       (match ret with

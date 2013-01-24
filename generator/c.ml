@@ -121,12 +121,18 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     List.iter (
       function
       | Pathname n
-      | Device n | Mountable n | Dev_or_Path n
+      | Device n | Dev_or_Path n
       | String n
       | OptString n
       | Key n ->
           next ();
           pr "const char *%s" n
+      | Mountable n ->
+          next();
+          if in_daemon then
+            pr "const mountable_t *%s" n
+          else
+            pr "const char *%s" n
       | StringList n | DeviceList n ->
           next ();
           pr "char *const *%s" n
@@ -160,6 +166,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
 
 (* Generate C call arguments, eg "(handle, foo, bar)" *)
 and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
+    ?(in_daemon = false)
     (ret, args, optargs) =
   pr "(";
   let comma = ref false in
@@ -176,6 +183,9 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
     | BufferIn n ->
         next ();
         pr "%s, %s_size" n n
+    | Mountable n ->
+        next ();
+        pr (if in_daemon then "&%s" else "%s") n
     | arg ->
         next ();
         pr "%s" (name_of_argt arg)

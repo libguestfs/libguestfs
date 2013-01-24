@@ -49,6 +49,19 @@ extern int xwrite (int sock, const void *buf, size_t len)
 extern int xread (int sock, void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 
+/* Mountables */
+
+typedef enum {
+  MOUNTABLE_DEVICE,
+  MOUNTABLE_BTRFSVOL
+} mountable_type_t;
+
+typedef struct {
+  mountable_type_t type;
+  const char *device;
+  const char *volume;
+} mountable_t;
+
 /* Growable strings buffer. */
 struct stringsbuf {
   char **argv;
@@ -115,6 +128,8 @@ extern int is_power_of_2 (unsigned long v);
 extern void trim (char *str);
 
 extern int device_name_translation (char *device);
+
+extern int parse_btrfsvol (char *desc, mountable_t *mountable);
 
 extern int prog_exists (const char *prog);
 
@@ -327,6 +342,32 @@ is_zero (const char *buffer, size_t size)
       errno = err;                                                      \
       reply_with_perror ("%s: %s", __func__, path);                     \
       fail_stmt;							\
+    }                                                                   \
+  } while (0)
+
+/* All functions that take a mountable argument must call this macro.
+ * It parses the mountable into a mountable_t, ensures any
+ * underlying device exists, and does device name translation
+ * (described in the guestfs(3) manpage).
+ *
+ * Note that the "string" argument may be modified.
+ */
+#define RESOLVE_MOUNTABLE(string,mountable,cancel_stmt,fail_stmt)       \
+  do {                                                                  \
+    if (STRPREFIX ((string), "btrfsvol:")) {   \
+      if (parse_btrfsvol ((string) + strlen ("btrfsvol:"), &(mountable)) == -1)\
+      {                                                                 \
+        cancel_stmt;                                                    \
+        reply_with_error ("%s: %s: expecting a btrfs volume",           \
+                          __func__, (string));                          \
+        fail_stmt;                                                      \
+      }                                                                 \
+    }                                                                   \
+                                                                        \
+    else {                                                              \
+      (mountable).type = MOUNTABLE_DEVICE;                              \
+      (mountable).device = (string);                                    \
+      RESOLVE_DEVICE((string), cancel_stmt, fail_stmt);                 \
     }                                                                   \
   } while (0)
 

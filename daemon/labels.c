@@ -71,21 +71,21 @@ ntfslabel (const char *device, const char *label)
 }
 
 int
-do_set_label (const char *device, const char *label)
+do_set_label (const mountable_t *mountable, const char *label)
 {
   int r;
 
   /* How we set the label depends on the filesystem type. */
-  CLEANUP_FREE char *vfs_type = do_vfs_type (device);
+  CLEANUP_FREE char *vfs_type = do_vfs_type (mountable);
   if (vfs_type == NULL)
     return -1;
 
   if (STREQ (vfs_type, "ext2") || STREQ (vfs_type, "ext3")
       || STREQ (vfs_type, "ext4"))
-    r = e2label (device, label);
+    r = e2label (mountable->device, label);
 
   else if (STREQ (vfs_type, "ntfs"))
-    r = ntfslabel (device, label);
+    r = ntfslabel (mountable->device, label);
 
   else {
     reply_with_error ("don't know how to set the label for '%s' filesystems",

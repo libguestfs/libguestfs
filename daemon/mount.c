@@ -124,7 +124,7 @@ is_device_mounted (const char *device)
 
 int
 do_mount_vfs (const char *options, const char *vfstype,
-              const char *device, const char *mountpoint)
+              const mountable_t *mountable, const char *mountpoint)
 {
   int r;
   CLEANUP_FREE char *mp = NULL;
@@ -149,12 +149,34 @@ do_mount_vfs (const char *options, const char *vfstype,
     return -1;
   }
 
+  CLEANUP_FREE char *options_plus = NULL;
+  const char *device = mountable->device;
+  if (mountable->type == MOUNTABLE_BTRFSVOL) {
+    if (options && strlen (options) > 0) {
+      if (asprintf (&options_plus, "subvol=%s,%s",
+                    mountable->volume, options) == -1)
+      {
+        reply_with_perror ("asprintf");
+        return -1;
+      }
+    }
+    
+    else {
+      if (asprintf (&options_plus, "subvol=%s", mountable->volume) == -1) {
+        reply_with_perror ("asprintf");
+        return -1;
+      }
+    }
+  }
+
   if (vfstype)
     r = command (NULL, &error,
-                 str_mount, "-o", options, "-t", vfstype, device, mp, NULL);
+                 str_mount, "-o", options_plus ? options_plus : options,
+                 "-t", vfstype, device, mp, NULL);
   else
     r = command (NULL, &error,
-                 str_mount, "-o", options, device, mp, NULL);
+                 str_mount, "-o", options_plus ? options_plus : options,
+                 device, mp, NULL);
   if (r == -1) {
     reply_with_error ("%s on %s (options: '%s'): %s",
                       device, mountpoint, options, error);
@@ -165,22 +187,22 @@ do_mount_vfs (const char *options, const char *vfstype,
 }
 
 int
-do_mount (const char *device, const char *mountpoint)
+do_mount (const mountable_t *mountable, const char *mountpoint)
 {
-  return do_mount_vfs ("", NULL, device, mountpoint);
+  return do_mount_vfs ("", NULL, mountable, mountpoint);
 }
 
 int
-do_mount_ro (const char *device, const char *mountpoint)
+do_mount_ro (const mountable_t *mountable, const char *mountpoint)
 {
-  return do_mount_vfs ("ro", NULL, device, mountpoint);
+  return do_mount_vfs ("ro", NULL, mountable, mountpoint);
 }
 
 int
-do_mount_options (const char *options, const char *device,
+do_mount_options (const char *options, const mountable_t *mountable,
                   const char *mountpoint)
 {
-  return do_mount_vfs (options, NULL, device, mountpoint);
+  return do_mount_vfs (options, NULL, mountable, mountpoint);
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */

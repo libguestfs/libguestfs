@@ -358,6 +358,13 @@ read_cmdline (void)
 /* Return true iff device is the root device (and therefore should be
  * ignored from the point of view of user calls).
  */
+static int
+is_root_device_stat (struct stat *statbuf)
+{
+  if (statbuf->st_rdev == root_device) return 1;
+  return 0;
+}
+
 int
 is_root_device (const char *device)
 {
@@ -366,9 +373,8 @@ is_root_device (const char *device)
     perror (device);
     return 0;
   }
-  if (statbuf.st_rdev == root_device)
-    return 1;
-  return 0;
+
+  return is_root_device_stat (&statbuf);
 }
 
 /* Turn "/path" into "/sysroot/path".
@@ -1162,6 +1168,57 @@ device_name_translation (char *device)
 
   device[5] = 's';		/* Restore original device name. */
   return -1;
+}
+
+/* Parse the mountable descriptor for a btrfs subvolume.  Don't call this
+ * directly - use the RESOLVE_MOUNTABLE macro.
+ *
+ * A btrfs subvolume is given as:
+ *
+ * btrfsvol:/dev/sda3/root
+ *
+ * where /dev/sda3 is a block device containing a btrfs filesystem, and root is
+ * the name of a subvolume on it. This function is passed the string following
+ * 'btrfsvol:'.
+ */
+int
+parse_btrfsvol (char *desc, mountable_t *mountable)
+{
+  mountable->type = MOUNTABLE_BTRFSVOL;
+
+  char *device = desc;
+
+  if (strncmp (device, "/dev/", strlen("/dev/")) == -1)
+    return -1;
+
+  char *volume = NULL;
+  char *slash = device + strlen("/dev/") - 1;
+  while ((slash = strchr (slash + 1, '/'))) {
+    *slash = '\0';
+
+    struct stat statbuf;
+    if (stat (device, &statbuf) == -1) {
+      perror (device);
+      return -1;
+    }
+
+    if (!S_ISDIR (statbuf.st_mode) &&
+        !is_root_device_stat(&statbuf) &&
+        device_name_translation (device) == 0)
+    {
+      volume = slash + 1;
+      break;
+    }
+
+    *slash = '/';
+  }
+
+  if (!volume) return -1;
+
+  mountable->device = device;
+  mountable->volume = volume;
+
+  return 0;
 }
 
 /* Check program exists and is executable on $PATH.  Actually, we
