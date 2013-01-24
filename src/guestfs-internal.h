@@ -72,6 +72,18 @@
 #define TRACE4(name, arg1, arg2, arg3, arg4)
 #endif
 
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_FREE __attribute__((cleanup(guestfs___cleanup_free)))
+#define CLEANUP_FREE_STRING_LIST                                \
+  __attribute__((cleanup(guestfs___cleanup_free_string_list)))
+#define CLEANUP_HASH_FREE                               \
+  __attribute__((cleanup(guestfs___cleanup_hash_free)))
+#else
+#define CLEANUP_FREE
+#define CLEANUP_FREE_STRING_LIST
+#define CLEANUP_HASH_FREE
+#endif
+
 #define TMP_TEMPLATE_ON_STACK(g,var)                      \
   char *ttos_tmpdir = guestfs_get_tmpdir (g);             \
   char var[strlen (ttos_tmpdir) + 32];                    \
@@ -473,6 +485,13 @@ extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
 #define safe_strndup guestfs___safe_strndup
 #define safe_memdup guestfs___safe_memdup
 #define safe_asprintf guestfs___safe_asprintf
+
+/* These functions are used internally by the CLEANUP_* macros.
+ * Don't call them directly.
+ */
+extern void guestfs___cleanup_free (void *ptr);
+extern void guestfs___cleanup_free_string_list (void *ptr);
+extern void guestfs___cleanup_hash_free (void *ptr);
 
 /* errors.c */
 extern void guestfs___init_error_handler (guestfs_h *g);
