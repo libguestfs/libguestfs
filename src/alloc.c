@@ -149,3 +149,57 @@ guestfs___cleanup_hash_free (void *ptr)
   if (h)
     hash_free (h);
 }
+
+#ifdef HAVE_LIBXML2
+
+#include <libxml/tree.h>
+#include <libxml/xpath.h>
+#include <libxml/xmlwriter.h>
+
+void
+guestfs___cleanup_xmlBufferFree (void *ptr)
+{
+  xmlBufferPtr xb = * (xmlBufferPtr *) ptr;
+
+  if (xb)
+    xmlBufferFree (xb);
+
+}
+
+void
+guestfs___cleanup_xmlFreeDoc (void *ptr)
+{
+  xmlDocPtr doc = * (xmlDocPtr *) ptr;
+
+  if (doc)
+    xmlFreeDoc (doc);
+}
+
+void
+guestfs___cleanup_xmlFreeTextWriter (void *ptr)
+{
+  xmlTextWriterPtr xo = * (xmlTextWriterPtr *) ptr;
+
+  if (xo)
+    xmlFreeTextWriter (xo);
+}
+
+void
+guestfs___cleanup_xmlXPathFreeContext (void *ptr)
+{
+  xmlXPathContextPtr ctx = * (xmlXPathContextPtr *) ptr;
+
+  if (ctx)
+    xmlXPathFreeContext (ctx);
+}
+
+void
+guestfs___cleanup_xmlXPathFreeObject (void *ptr)
+{
+  xmlXPathObjectPtr obj = * (xmlXPathObjectPtr *) ptr;
+
+  if (obj)
+    xmlXPathFreeObject (obj);
+}
+
+#endif /* HAVE_LIBXML2 */
