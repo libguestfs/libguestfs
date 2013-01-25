@@ -30,6 +30,10 @@ void
 guestfs___free_string_list (char **argv)
 {
   size_t i;
+
+  if (argv == NULL)
+    return;
+
   for (i = 0; argv[i] != NULL; ++i)
     free (argv[i]);
   free (argv);
