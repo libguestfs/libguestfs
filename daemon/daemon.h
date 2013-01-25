@@ -65,6 +65,12 @@ extern int xread (int sock, void *buf, size_t len)
 
 extern char *mountable_to_string (const mountable_t *mountable);
 
+/*-- in mount.c --*/
+
+extern int mount_vfs_nochroot (const char *options, const char *vfstype,
+                               const mountable_t *mountable,
+                               const char *mp, const char *user_mp);
+
 /* Growable strings buffer. */
 struct stringsbuf {
   char **argv;

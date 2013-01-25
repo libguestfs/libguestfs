@@ -126,9 +126,7 @@ int
 do_mount_vfs (const char *options, const char *vfstype,
               const mountable_t *mountable, const char *mountpoint)
 {
-  int r;
   CLEANUP_FREE char *mp = NULL;
-  CLEANUP_FREE char *error = NULL;
   struct stat statbuf;
 
   ABS_PATH (mountpoint, , return -1);
@@ -149,6 +147,14 @@ do_mount_vfs (const char *options, const char *vfstype,
     return -1;
   }
 
+  return mount_vfs_nochroot (options, vfstype, mountable, mp, mountpoint);
+}
+
+int
+mount_vfs_nochroot (const char *options, const char *vfstype,
+                    const mountable_t *mountable,
+                    const char *mp, const char *user_mp)
+{
   CLEANUP_FREE char *options_plus = NULL;
   const char *device = mountable->device;
   if (mountable->type == MOUNTABLE_BTRFSVOL) {
@@ -169,6 +175,8 @@ do_mount_vfs (const char *options, const char *vfstype,
     }
   }
 
+  CLEANUP_FREE char *error = NULL;
+  int r;
   if (vfstype)
     r = command (NULL, &error,
                  str_mount, "-o", options_plus ? options_plus : options,
@@ -179,7 +187,7 @@ do_mount_vfs (const char *options, const char *vfstype,
                  device, mp, NULL);
   if (r == -1) {
     reply_with_error ("%s on %s (options: '%s'): %s",
-                      device, mountpoint, options, error);
+                      device, user_mp, options, error);
     return -1;
   }
 
