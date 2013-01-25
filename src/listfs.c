@@ -136,6 +136,20 @@ remove_from_list (char **list, const char *item)
     }
 }
 
+static void
+add_vfs (guestfs_h *g, char *mountable, char *vfs_type,
+         char ***ret, size_t *ret_size)
+{
+  /* Extend the return array. */
+  size_t i = *ret_size;
+  *ret_size += 2;
+  *ret = safe_realloc (g, *ret, (*ret_size + 1) * sizeof (char *));
+
+  (*ret)[i] = mountable;
+  (*ret)[i+1] = vfs_type;
+  (*ret)[i+2] = NULL;
+}
+
 /* Use vfs-type to look for a filesystem of some sort on 'dev'.
  * Apart from some types which we ignore, add the result to the
  * 'ret' string list.
@@ -157,6 +171,19 @@ check_with_vfs_type (guestfs_h *g, const char *device,
     v = safe_strdup (g, "unknown");
     free (vfs_type);
   }
+  else if (STREQ (vfs_type, "btrfs")) {
+    CLEANUP_FREE_BTRFSSUBVOLUME_LIST struct guestfs_btrfssubvolume_list *vols =
+      guestfs_btrfs_subvolume_list (g, device);
+
+    for (size_t i = 0; i < vols->len; i++) {
+      struct guestfs_btrfssubvolume *this = &vols->val[i];
+      char *mountable = safe_asprintf (g, "btrfsvol:%s/%s",
+                                       device, this->btrfssubvolume_path);
+      add_vfs (g, mountable, safe_strdup (g, "btrfs"), ret, ret_size);
+    }
+
+    v = safe_strdup (g, "btrfs");
+  }
   else {
     /* Ignore all "*_member" strings.  In libblkid these are returned
      * for things which are members of some RAID or LVM set, most
@@ -177,13 +204,7 @@ check_with_vfs_type (guestfs_h *g, const char *device,
     v = vfs_type;
   }
 
-  /* Extend the return array. */
-  size_t i = *ret_size;
-  *ret_size += 2;
-  *ret = safe_realloc (g, *ret, (*ret_size + 1) * sizeof (char *));
-  (*ret)[i] = safe_strdup (g, device);
-  (*ret)[i+1] = v;
-  (*ret)[i+2] = NULL;
+  add_vfs (g, safe_strdup (g, device), v, ret, ret_size);
 }
 
 /* We should ignore partitions that have MBR type byte 0x42, because
