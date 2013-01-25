@@ -9519,7 +9519,7 @@ directory and the name of the snapshot, in the form C</path/to/dest/name>." };
 
   { defaults with
     name = "btrfs_subvolume_list";
-    style = RStructList ("subvolumes", "btrfssubvolume"), [Pathname "fs"], [];
+    style = RStructList ("subvolumes", "btrfssubvolume"), [Mountable_or_Path "fs"], [];
     proc_nr = Some 325;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeList";
     tests = [] (* tested in tests/btrfs *);

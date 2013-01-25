@@ -34,6 +34,7 @@ GUESTFSD_EXT_CMD(str_btrfs, btrfs);
 GUESTFSD_EXT_CMD(str_btrfstune, btrfstune);
 GUESTFSD_EXT_CMD(str_btrfsck, btrfsck);
 GUESTFSD_EXT_CMD(str_mkfs_btrfs, mkfs.btrfs);
+GUESTFSD_EXT_CMD(str_umount, umount);
 
 int
 optgroup_btrfs_available (void)
@@ -307,16 +308,47 @@ do_btrfs_subvolume_create (const char *dest)
 }
 
 guestfs_int_btrfssubvolume_list *
-do_btrfs_subvolume_list (const char *fs)
+do_btrfs_subvolume_list (const mountable_t *fs)
 {
   char **lines;
 
   /* Execute 'btrfs subvolume list <fs>', and split the output into lines */
   {
-    CLEANUP_FREE char *fs_buf = sysroot_path (fs);
-    if (fs_buf == NULL) {
-      reply_with_perror ("malloc");
-      return NULL;
+    CLEANUP_FREE char *fs_buf = NULL;
+
+    if (fs->type == MOUNTABLE_PATH) {
+      fs_buf = sysroot_path (fs->device);
+      if (fs_buf == NULL) {
+        reply_with_perror ("malloc");
+
+      cmderror:
+        if (fs->type != MOUNTABLE_PATH && fs_buf) {
+          CLEANUP_FREE char *err = NULL;
+          if (command (NULL, &err, str_umount, fs_buf, NULL) == -1)
+            fprintf (stderr, "%s\n", err);
+
+          if (rmdir (fs_buf) == -1 && errno != ENOENT)
+            fprintf (stderr, "rmdir: %m\n");
+        }
+        return NULL;
+      }
+    }
+
+    else {
+      fs_buf = strdup ("/tmp/btrfs.XXXXXX");
+      if (fs_buf == NULL) {
+        reply_with_perror ("strdup");
+        goto cmderror;
+      }
+
+      if (mkdtemp (fs_buf) == NULL) {
+        reply_with_perror ("mkdtemp");
+        goto cmderror;
+      }
+
+      if (mount_vfs_nochroot ("", NULL, fs, fs_buf, "<internal>") == -1) {
+        goto cmderror;
+      }
     }
 
     size_t i = 0;
@@ -328,16 +360,33 @@ do_btrfs_subvolume_list (const char *fs)
     ADD_ARG (argv, i, fs_buf);
     ADD_ARG (argv, i, NULL);
 
-    CLEANUP_FREE char *out = NULL, *err = NULL;
-    int r = commandv (&out, &err, argv);
+    CLEANUP_FREE char *out = NULL, *errout = NULL;
+    int r = commandv (&out, &errout, argv);
+
+    if (fs->type != MOUNTABLE_PATH) {
+      CLEANUP_FREE char *err = NULL;
+      if (command (NULL, &err, str_umount, fs_buf, NULL) == -1) {
+        reply_with_error ("%s", err ? err : "malloc");
+        goto cmderror;
+      }
+
+      if (rmdir (fs_buf) == -1 && errno != ENOENT) {
+        reply_with_error ("rmdir: %m\n");
+        goto cmderror;
+      }
+    }
+
     if (r == -1) {
-      reply_with_error ("%s: %s", fs, err);
-      return NULL;
+      CLEANUP_FREE char *fs_desc = mountable_to_string (fs);
+      if (fs_desc == NULL) {
+        fprintf (stderr, "malloc: %m");
+      }
+      reply_with_error ("%s: %s", fs_desc ? fs_desc : "malloc", errout);
+      goto cmderror;
     }
 
     lines = split_lines (out);
-    if (!lines)
-      return NULL;
+    if (!lines) return NULL;
   }
 
   /* Output is:
