@@ -1221,6 +1221,32 @@ parse_btrfsvol (char *desc, mountable_t *mountable)
   return 0;
 }
 
+/* Convert a mountable_t back to its string representation
+ *
+ * This function can be used in an error path, and must not call
+ * reply_with_error().
+ */
+char *
+mountable_to_string (const mountable_t *mountable)
+{
+  char *desc;
+
+  switch (mountable->type) {
+    case MOUNTABLE_DEVICE:
+    case MOUNTABLE_PATH:
+      return strdup (mountable->device);
+
+    case MOUNTABLE_BTRFSVOL:
+      if (asprintf(&desc, "btrfsvol:%s/%s",
+                   mountable->device, mountable->volume) == -1)
+        return NULL;
+      return desc;
+
+    default:
+      return NULL;
+  }
+}
+
 /* Check program exists and is executable on $PATH.  Actually, we
  * just assume PATH contains the default entries (see main() above).
  */

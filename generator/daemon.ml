@@ -112,12 +112,9 @@ and generate_daemon_actions () =
         pr "  struct guestfs_%s_args args;\n" name;
         List.iter (
           function
-          | Device n | Dev_or_Path n | Mountable_or_Path n
-          | Pathname n
-          | String n
-          | Key n
-          | OptString n -> pr "  char *%s;\n" n
-          | Mountable n -> pr "  mountable_t %s;\n" n
+          | Device n | Dev_or_Path n
+          | Pathname n | String n | Key n | OptString n -> pr "  char *%s;\n" n
+          | Mountable n | Mountable_or_Path n -> pr "  mountable_t %s;\n" n
           | StringList n | DeviceList n -> pr "  char **%s;\n" n
           | Bool n -> pr "  int %s;\n" n
           | Int n -> pr "  int %s;\n" n
@@ -214,10 +211,13 @@ and generate_daemon_actions () =
           | Mountable n ->
               pr "  RESOLVE_MOUNTABLE(args.%s, %s, %s, goto done);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
-          | Dev_or_Path n | Mountable_or_Path n ->
+          | Dev_or_Path n ->
               pr_args n;
               pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
                 n (if is_filein then "cancel_receive ()" else "");
+          | Mountable_or_Path n ->
+              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(args.%s, %s, %s, goto done);\n"
+                n n (if is_filein then "cancel_receive ()" else "");
           | String n | Key n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
           | StringList n ->

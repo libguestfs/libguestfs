@@ -32,6 +32,20 @@
 
 #include "guestfs-internal-all.h"
 
+/* Mountables */
+
+typedef enum {
+  MOUNTABLE_DEVICE,     /* A bare device */
+  MOUNTABLE_BTRFSVOL,   /* A btrfs subvolume: device + volume */
+  MOUNTABLE_PATH        /* An already mounted path: device = path */
+} mountable_type_t;
+
+typedef struct {
+  mountable_type_t type;
+  const char *device;
+  const char *volume;
+} mountable_t;
+
 /*-- in guestfsd.c --*/
 extern int verbose;
 
@@ -49,18 +63,7 @@ extern int xwrite (int sock, const void *buf, size_t len)
 extern int xread (int sock, void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 
-/* Mountables */
-
-typedef enum {
-  MOUNTABLE_DEVICE,
-  MOUNTABLE_BTRFSVOL
-} mountable_type_t;
-
-typedef struct {
-  mountable_type_t type;
-  const char *device;
-  const char *volume;
-} mountable_t;
+extern char *mountable_to_string (const mountable_t *mountable);
 
 /* Growable strings buffer. */
 struct stringsbuf {
@@ -398,6 +401,24 @@ is_zero (const char *buffer, size_t size)
       ABS_PATH ((path), cancel_stmt, fail_stmt);                        \
     }									\
   } while (0)
+
+/* Helper for functions which need either an absolute path in the
+ * mounted filesystem, OR a valid mountable description.
+ */
+#define REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(string, mountable,            \
+                                          cancel_stmt, fail_stmt)       \
+  do {                                                                  \
+    if (STREQLEN ((string), "/dev/", strlen ("/dev/")) || (string)[0] != '/') {\
+      RESOLVE_MOUNTABLE (string, mountable, cancel_stmt, fail_stmt);    \
+    }                                                                   \
+                                                                        \
+    else {                                                              \
+      NEED_ROOT (cancel_stmt, fail_stmt);                               \
+      (mountable).type = MOUNTABLE_PATH;                                \
+      (mountable).device = (string);                                    \
+    }                                                                   \
+  } while (0)                                                           \
+
 
 /* NB:
  * (1) You must match CHROOT_IN and CHROOT_OUT even along error paths.

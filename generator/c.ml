@@ -121,13 +121,13 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     List.iter (
       function
       | Pathname n
-      | Device n | Dev_or_Path n | Mountable_or_Path n
+      | Device n | Dev_or_Path n
       | String n
       | OptString n
       | Key n ->
           next ();
           pr "const char *%s" n
-      | Mountable n ->
+      | Mountable n | Mountable_or_Path n ->
           next();
           if in_daemon then
             pr "const mountable_t *%s" n
@@ -183,7 +183,7 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
     | BufferIn n ->
         next ();
         pr "%s, %s_size" n n
-    | Mountable n ->
+    | Mountable n | Mountable_or_Path n ->
         next ();
         pr (if in_daemon then "&%s" else "%s") n
     | arg ->
