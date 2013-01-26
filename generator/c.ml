@@ -383,8 +383,10 @@ and generate_guestfs_h () =
  * To read it, type:           man 3 guestfs
  * Or read it online here:     http://libguestfs.org/guestfs.3.html
  *
- * Go and read it now, I'll be right here waiting for you
- * when you come back.
+ * Go and read it now!  This header file won't make much sense.
+ *
+ * For example code using the C API, see 'guestfs-examples(3)'
+ * available online at: http://libguestfs.org/guestfs-examples.3.html
  *
  * ------------------------------------
  */
