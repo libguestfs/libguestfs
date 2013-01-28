@@ -136,6 +136,11 @@ asprintf_nowarn (char **strp, const char *fmt, ...)
   return r;
 }
 
+/* Use by the CLEANUP_* macros. */
+extern void cleanup_free (void *ptr);
+extern void cleanup_free_string_list (void *ptr);
+extern void cleanup_unlink_free (void *ptr);
+
 /*-- in names.c (auto-generated) --*/
 extern const char *function_names[];
 
@@ -403,5 +408,16 @@ is_zero (const char *buffer, size_t size)
 #define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
 #define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_FREE __attribute__((cleanup(cleanup_free)))
+#define CLEANUP_FREE_STRING_LIST                        \
+    __attribute__((cleanup(cleanup_free_string_list)))
+#define CLEANUP_UNLINK_FREE __attribute__((cleanup(cleanup_unlink_free)))
+#else
+#define CLEANUP_FREE
+#define CLEANUP_FREE_STRING_LIST
+#define CLEANUP_UNLINK_FREE
+#endif
 
 #endif /* GUESTFSD_DAEMON_H */

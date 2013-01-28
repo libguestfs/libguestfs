@@ -1249,3 +1249,27 @@ udev_settle (void)
 {
   (void) command (NULL, NULL, str_udevadm, "settle", NULL);
 }
+
+/* Use by the CLEANUP_* macros.  Do not call these directly. */
+void
+cleanup_free (void *ptr)
+{
+  free (* (void **) ptr);
+}
+
+void
+cleanup_free_string_list (void *ptr)
+{
+  free_strings (* (char ***) ptr);
+}
+
+void
+cleanup_unlink_free (void *ptr)
+{
+  char *filename = * (char **) ptr;
+
+  if (filename) {
+    unlink (filename);
+    free (filename);
+  }
+}
