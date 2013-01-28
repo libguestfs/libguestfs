@@ -517,6 +517,9 @@ free_strings (char **argv)
 {
   size_t argc;
 
+  if (!argv)
+    return;
+
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
   free (argv);
@@ -526,6 +529,9 @@ void
 free_stringslen (char **argv, size_t len)
 {
   size_t i;
+
+  if (!argv)
+    return;
 
   for (i = 0; i < len; ++i)
     free (argv[i]);
