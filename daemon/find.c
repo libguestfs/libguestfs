@@ -66,8 +66,8 @@ do_find0 (const char *dir)
   struct stat statbuf;
   int r;
   FILE *fp;
-  char *cmd;
-  char *sysrootdir;
+  CLEANUP_FREE char *cmd = NULL;
+  CLEANUP_FREE char *sysrootdir = NULL;
   size_t sysrootdirlen, len;
   char str[GUESTFS_MAX_CHUNK_SIZE];
 
@@ -80,12 +80,10 @@ do_find0 (const char *dir)
   r = stat (sysrootdir, &statbuf);
   if (r == -1) {
     reply_with_perror ("%s", dir);
-    free (sysrootdir);
     return -1;
   }
   if (!S_ISDIR (statbuf.st_mode)) {
     reply_with_error ("%s: not a directory", dir);
-    free (sysrootdir);
     return -1;
   }
 
@@ -93,10 +91,8 @@ do_find0 (const char *dir)
 
   if (asprintf_nowarn (&cmd, "%s %Q -print0", str_find, sysrootdir) == -1) {
     reply_with_perror ("asprintf");
-    free (sysrootdir);
     return -1;
   }
-  free (sysrootdir);
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -104,10 +100,8 @@ do_find0 (const char *dir)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error

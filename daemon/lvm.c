@@ -103,7 +103,8 @@ convert_lvm_output (char *out, const char *prefix)
 char **
 do_pvs (void)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (&out, &err,
@@ -111,11 +112,8 @@ do_pvs (void)
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return convert_lvm_output (out, NULL);
 }
@@ -123,7 +121,8 @@ do_pvs (void)
 char **
 do_vgs (void)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (&out, &err,
@@ -131,11 +130,8 @@ do_vgs (void)
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return convert_lvm_output (out, NULL);
 }
@@ -143,7 +139,8 @@ do_vgs (void)
 char **
 do_lvs (void)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (&out, &err,
@@ -153,11 +150,8 @@ do_lvs (void)
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return convert_lvm_output (out, "/dev/");
 }
@@ -187,18 +181,15 @@ do_lvs_full (void)
 int
 do_pvcreate (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "pvcreate", "--force", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -208,9 +199,9 @@ do_pvcreate (const char *device)
 int
 do_vgcreate (const char *volgroup, char *const *physvols)
 {
-  char *err;
   int r, argc, i;
-  const char **argv;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE const char **argv = NULL;
 
   argc = count_strings (physvols) + 3;
   argv = malloc (sizeof (char *) * (argc + 1));
@@ -227,13 +218,8 @@ do_vgcreate (const char *volgroup, char *const *physvols)
   r = commandv (NULL, &err, (const char * const*) argv);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
-    free (argv);
     return -1;
   }
-
-  free (err);
-  free (argv);
 
   udev_settle ();
 
@@ -243,7 +229,7 @@ do_vgcreate (const char *volgroup, char *const *physvols)
 int
 do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
   char size[64];
 
@@ -254,11 +240,8 @@ do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
                "-L", size, "-n", logvol, volgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -268,7 +251,7 @@ do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
 int
 do_lvcreate_free (const char *logvol, const char *volgroup, int percent)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (percent < 0 || percent > 100) {
@@ -284,11 +267,8 @@ do_lvcreate_free (const char *logvol, const char *volgroup, int percent)
                "-l", size, "-n", logvol, volgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -309,7 +289,7 @@ ignore_same_size_error (const char *err)
 int
 do_lvresize (const char *logvol, int mbytes)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
   char size[64];
 
@@ -321,19 +301,17 @@ do_lvresize (const char *logvol, int mbytes)
   if (r == -1) {
     if (!ignore_same_size_error (err)) {
       reply_with_error ("%s", err);
-      free (err);
       return -1;
     }
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_lvresize_free (const char *logvol, int percent)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (percent < 0 || percent > 100) {
@@ -349,12 +327,10 @@ do_lvresize_free (const char *logvol, int percent)
   if (r == -1) {
     if (!ignore_same_size_error (err)) {
       reply_with_error ("%s", err);
-      free (err);
       return -1;
     }
   }
 
-  free (err);
   return 0;
 }
 
@@ -364,71 +340,66 @@ do_lvresize_free (const char *logvol, int percent)
 int
 do_lvm_remove_all (void)
 {
-  char **xs;
   size_t i;
   int r;
-  char *err;
 
-  /* Remove LVs. */
-  xs = do_lvs ();
-  if (xs == NULL)
-    return -1;
-
-  for (i = 0; xs[i] != NULL; ++i) {
-    /* Deactivate the LV first.  On Ubuntu, lvremove '-f' option
-     * does not remove active LVs reliably.
-     */
-    (void) command (NULL, NULL, str_lvm, "lvchange", "-an", xs[i], NULL);
-    udev_settle ();
-
-    r = command (NULL, &err, str_lvm, "lvremove", "-f", xs[i], NULL);
-    if (r == -1) {
-      reply_with_error ("lvremove: %s: %s", xs[i], err);
-      free (err);
-      free_strings (xs);
+  {
+    /* Remove LVs. */
+    CLEANUP_FREE char *err = NULL;
+    CLEANUP_FREE_STRING_LIST char **xs = do_lvs ();
+    if (xs == NULL)
       return -1;
+
+    for (i = 0; xs[i] != NULL; ++i) {
+      /* Deactivate the LV first.  On Ubuntu, lvremove '-f' option
+       * does not remove active LVs reliably.
+       */
+      (void) command (NULL, NULL, str_lvm, "lvchange", "-an", xs[i], NULL);
+      udev_settle ();
+
+      r = command (NULL, &err, str_lvm, "lvremove", "-f", xs[i], NULL);
+      if (r == -1) {
+        reply_with_error ("lvremove: %s: %s", xs[i], err);
+        return -1;
+      }
     }
-    free (err);
   }
-  free_strings (xs);
 
-  /* Remove VGs. */
-  xs = do_vgs ();
-  if (xs == NULL)
-    return -1;
-
-  for (i = 0; xs[i] != NULL; ++i) {
-    /* Deactivate the VG first, see note above. */
-    (void) command (NULL, NULL, str_lvm, "vgchange", "-an", xs[i], NULL);
-    udev_settle ();
-
-    r = command (NULL, &err, str_lvm, "vgremove", "-f", xs[i], NULL);
-    if (r == -1) {
-      reply_with_error ("vgremove: %s: %s", xs[i], err);
-      free (err);
-      free_strings (xs);
+  {
+    /* Remove VGs. */
+    CLEANUP_FREE char *err = NULL;
+    CLEANUP_FREE_STRING_LIST char **xs = do_vgs ();
+    if (xs == NULL)
       return -1;
-    }
-    free (err);
-  }
-  free_strings (xs);
 
+    for (i = 0; xs[i] != NULL; ++i) {
+      /* Deactivate the VG first, see note above. */
+      (void) command (NULL, NULL, str_lvm, "vgchange", "-an", xs[i], NULL);
+      udev_settle ();
+
+      r = command (NULL, &err, str_lvm, "vgremove", "-f", xs[i], NULL);
+      if (r == -1) {
+        reply_with_error ("vgremove: %s: %s", xs[i], err);
+        return -1;
+      }
+    }
+  }
+
+  {
   /* Remove PVs. */
-  xs = do_pvs ();
-  if (xs == NULL)
-    return -1;
-
-  for (i = 0; xs[i] != NULL; ++i) {
-    r = command (NULL, &err, str_lvm, "pvremove", "-f", xs[i], NULL);
-    if (r == -1) {
-      reply_with_error ("pvremove: %s: %s", xs[i], err);
-      free (err);
-      free_strings (xs);
+    CLEANUP_FREE char *err = NULL;
+    CLEANUP_FREE_STRING_LIST char **xs = do_pvs ();
+    if (xs == NULL)
       return -1;
+
+    for (i = 0; xs[i] != NULL; ++i) {
+      r = command (NULL, &err, str_lvm, "pvremove", "-f", xs[i], NULL);
+      if (r == -1) {
+        reply_with_error ("pvremove: %s: %s", xs[i], err);
+        return -1;
+      }
     }
-    free (err);
   }
-  free_strings (xs);
 
   udev_settle ();
 
@@ -439,18 +410,15 @@ do_lvm_remove_all (void)
 int
 do_lvremove (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "lvremove", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -460,18 +428,15 @@ do_lvremove (const char *device)
 int
 do_vgremove (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "vgremove", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -481,18 +446,15 @@ do_vgremove (const char *device)
 int
 do_pvremove (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "pvremove", "-ff", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -502,25 +464,23 @@ do_pvremove (const char *device)
 int
 do_pvresize (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "pvresize", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_pvresize_size (const char *device, int64_t size)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   char buf[32];
@@ -532,20 +492,18 @@ do_pvresize_size (const char *device, int64_t size)
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_vg_activate (int activate, char *const *volgroups)
 {
-  char *err;
   int r, i, argc;
-  const char **argv;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE const char **argv = NULL;
 
   argc = count_strings (volgroups) + 4;
   argv = malloc (sizeof (char *) * (argc+1));
@@ -564,13 +522,8 @@ do_vg_activate (int activate, char *const *volgroups)
   r = commandv (NULL, &err, (const char * const*) argv);
   if (r == -1) {
     reply_with_error ("vgchange: %s", err);
-    free (err);
-    free (argv);
     return -1;
   }
-
-  free (err);
-  free (argv);
 
   udev_settle ();
 
@@ -587,7 +540,7 @@ do_vg_activate_all (int activate)
 int
 do_lvrename (const char *logvol, const char *newlogvol)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
@@ -595,11 +548,8 @@ do_lvrename (const char *logvol, const char *newlogvol)
                logvol, newlogvol, NULL);
   if (r == -1) {
     reply_with_error ("%s -> %s: %s", logvol, newlogvol, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -609,7 +559,7 @@ do_lvrename (const char *logvol, const char *newlogvol)
 int
 do_vgrename (const char *volgroup, const char *newvolgroup)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
@@ -617,11 +567,8 @@ do_vgrename (const char *volgroup, const char *newvolgroup)
                volgroup, newvolgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s -> %s: %s", volgroup, newvolgroup, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -632,7 +579,7 @@ static char *
 get_lvm_field (const char *cmd, const char *field, const char *device)
 {
   char *out;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = command (&out, &err,
                    str_lvm, cmd,
                    "--unbuffered", "--noheadings", "-o", field,
@@ -640,11 +587,8 @@ get_lvm_field (const char *cmd, const char *field, const char *device)
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   trim (out);
   return out;                   /* Caller frees. */
@@ -671,23 +615,18 @@ do_lvuuid (const char *device)
 static char **
 get_lvm_fields (const char *cmd, const char *field, const char *device)
 {
-  char *out;
-  char *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+
   int r = command (&out, &err,
                    str_lvm, cmd,
                    "--unbuffered", "--noheadings", "-o", field,
                    device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (out);
-    free (err);
     return NULL;
   }
 
-  free (err);
-
   char **ret = split_lines (out);
-  free (out);
 
   if (ret == NULL)
     return NULL;
@@ -714,18 +653,16 @@ do_vglvuuids (const char *vgname)
 int
 do_vgscan (void)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "vgscan", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -760,7 +697,7 @@ lv_canonical (const char *device, char **ret)
     return -1;
   }
 
-  char **lvs = do_lvs ();
+  CLEANUP_FREE_STRING_LIST char **lvs = do_lvs ();
   if (lvs == NULL)
     return -1;
 
@@ -769,7 +706,6 @@ lv_canonical (const char *device, char **ret)
     r = stat (lvs[i], &stat2);
     if (r == -1) {
       reply_with_perror ("stat: %s", lvs[i]);
-      free_strings (lvs);
       return -1;
     }
     if (stat1.st_rdev == stat2.st_rdev) { /* found it */
@@ -777,17 +713,14 @@ lv_canonical (const char *device, char **ret)
         *ret = strdup (lvs[i]);
         if (*ret == NULL) {
           reply_with_perror ("strdup");
-          free_strings (lvs);
           return -1;
         }
       }
-      free_strings (lvs);
       return 1;
     }
   }
 
   /* not found */
-  free_strings (lvs);
   return 0;
 }
 
@@ -894,7 +827,7 @@ do_list_dm_devices (void)
 char *
 do_vgmeta (const char *vg, size_t *size_r)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int fd, r;
   char tmp[] = "/tmp/vgmetaXXXXXX";
   size_t alloc, size, max;
@@ -913,10 +846,8 @@ do_vgmeta (const char *vg, size_t *size_r)
   r = command (NULL, &err, str_lvm, "vgcfgbackup", "-f", tmp, vg, NULL);
   if (r == -1) {
     reply_with_error ("vgcfgbackup: %s", err);
-    free (err);
     return NULL;
   }
-  free (err);
 
   /* Now read back the temporary file. */
   fd = open (tmp, O_RDONLY|O_CLOEXEC);
@@ -981,18 +912,15 @@ do_vgmeta (const char *vg, size_t *size_r)
 int
 do_pvchange_uuid (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "pvchange", "-u", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -1002,18 +930,15 @@ do_pvchange_uuid (const char *device)
 int
 do_pvchange_uuid_all (void)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "pvchange", "-u", "-a", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -1023,18 +948,15 @@ do_pvchange_uuid_all (void)
 int
 do_vgchange_uuid (const char *vg)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "vgchange", "-u", vg, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", vg, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -1044,18 +966,15 @@ do_vgchange_uuid (const char *vg)
 int
 do_vgchange_uuid_all (void)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err,
                str_lvm, "vgchange", "-u", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 

@@ -46,7 +46,7 @@ do_fstrim (const char *path,
   const char *argv[MAX_ARGS];
   size_t i = 0;
   char offset_s[64], length_s[64], mfe_s[64];
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   ADD_ARG (argv, i, str_fstrim);
@@ -90,10 +90,8 @@ do_fstrim (const char *path,
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }

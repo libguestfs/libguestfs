@@ -141,8 +141,8 @@ static int
 _symlink (const char *flag, const char *target, const char *linkname)
 {
   int r;
-  char *err;
-  char *buf_linkname;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *buf_linkname = NULL;
 
   /* Prefix linkname with sysroot. */
   buf_linkname = sysroot_path (linkname);
@@ -154,15 +154,11 @@ _symlink (const char *flag, const char *target, const char *linkname)
   r = command (NULL, &err,
                str_ln, flag, "--", /* target could begin with '-' */
                target, buf_linkname, NULL);
-  free (buf_linkname);
   if (r == -1) {
     reply_with_error ("ln %s: %s: %s: %s",
                       flag, target, linkname, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }

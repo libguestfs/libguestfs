@@ -37,7 +37,7 @@ char **
 do_initrd_list (const char *path)
 {
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   char filename[PATH_MAX];
   DECLARE_STRINGSBUF (filenames);
   size_t len;
@@ -54,10 +54,8 @@ do_initrd_list (const char *path)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("popen: %s", cmd);
-    free (cmd);
     return NULL;
   }
-  free (cmd);
 
   while (fgets (filename, sizeof filename, fp) != NULL) {
     len = strlen (filename);
@@ -94,7 +92,7 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
   }
 
   /* "zcat /sysroot/<path> | cpio --quiet -id file", but paths must be quoted */
-  char *cmd;
+  CLEANUP_FREE char *cmd;
   if (asprintf_nowarn (&cmd, "cd %Q && zcat %R | cpio --quiet -id %Q",
                        tmpdir, path, filename) == -1) {
     reply_with_perror ("asprintf");
@@ -110,11 +108,9 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
   int r = system (cmd);
   if (r == -1) {
     reply_with_perror ("command failed: %s", cmd);
-    free (cmd);
     rmdir (tmpdir);
     return NULL;
   }
-  free (cmd);
   if (WEXITSTATUS (r) != 0) {
     reply_with_perror ("command failed with return code %d",
                        WEXITSTATUS (r));

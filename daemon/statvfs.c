@@ -80,7 +80,7 @@ do_statvfs (const char *path)
 #else /* !HAVE_STATVFS */
 #  if WIN32
 
-  char *disk;
+  CLEANUP_FREE char *disk = NULL;
   guestfs_int_statvfs *ret;
   ULONGLONG free_bytes_available; /* for user - similar to bavail */
   ULONGLONG total_number_of_bytes;
@@ -97,10 +97,8 @@ do_statvfs (const char *path)
                            (PULARGE_INTEGER) &total_number_of_bytes,
                            (PULARGE_INTEGER) &total_number_of_free_bytes)) {
     reply_with_perror ("GetDiskFreeSpaceEx");
-    free (disk);
     return NULL;
   }
-  free (disk);
 
   ret = malloc (sizeof *ret);
   if (ret == NULL) {
@@ -142,7 +140,7 @@ do_statvfs (const char *path)
 
 #  else /* !WIN32 */
 
-  char *disk;
+  CLEANUP_FREE char *disk = NULL;
   int r;
   guestfs_int_statvfs *ret;
   struct fs_usage fsu;
@@ -154,7 +152,6 @@ do_statvfs (const char *path)
   }
 
   r = get_fs_usage (disk, disk, &fsu);
-  free (disk);
 
   if (r == -1) {
     reply_with_perror ("get_fs_usage: %s", path);

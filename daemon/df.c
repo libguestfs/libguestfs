@@ -33,7 +33,8 @@ char *
 do_df (void)
 {
   int r;
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
 
   NEED_ROOT (, return NULL);
 
@@ -41,11 +42,8 @@ do_df (void)
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;			/* Caller frees. */
 }
@@ -54,7 +52,8 @@ char *
 do_df_h (void)
 {
   int r;
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
 
   NEED_ROOT (, return NULL);
 
@@ -62,11 +61,8 @@ do_df_h (void)
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;			/* Caller frees. */
 }

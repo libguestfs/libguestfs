@@ -56,7 +56,7 @@ int
 do_rm_rf (const char *path)
 {
   int r;
-  char *buf, *err;
+  CLEANUP_FREE char *buf = NULL, *err = NULL;
 
   if (STREQ (path, "/")) {
     reply_with_error ("cannot remove root directory");
@@ -70,16 +70,11 @@ do_rm_rf (const char *path)
   }
 
   r = command (NULL, &err, str_rm, "-rf", buf, NULL);
-  free (buf);
-
   /* rm -rf is never supposed to fail.  I/O errors perhaps? */
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }
@@ -133,7 +128,7 @@ recursive_mkdir (const char *path)
 {
   int loop = 0;
   int r;
-  char *ppath, *p;
+  char *p;
   struct stat buf;
 
  again:
@@ -153,14 +148,13 @@ recursive_mkdir (const char *path)
       if (path[0] == '/' && path[1] == '\0') return -1;
 
       /* Try to make the parent directory first. */
-      ppath = strdup (path);
+      CLEANUP_FREE char *ppath = strdup (path);
       if (ppath == NULL) return -1;
 
       p = strrchr (ppath, '/');
       if (p) *p = '\0';
 
       r = recursive_mkdir (ppath);
-      free (ppath);
 
       if (r != 0) return r;
 

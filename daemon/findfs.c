@@ -31,6 +31,10 @@ GUESTFSD_EXT_CMD(str_findfs, findfs);
 static char *
 findfs (const char *tag, const char *label_or_uuid)
 {
+  char *out;
+  CLEANUP_FREE char *err = NULL;
+  int r;
+
   /* Kill the cache file, forcing blkid to reread values from the
    * original filesystems.  In blkid there is a '-p' option which is
    * supposed to do this, but (a) it doesn't work and (b) that option
@@ -43,16 +47,12 @@ findfs (const char *tag, const char *label_or_uuid)
   char arg[len];
   snprintf (arg, len, "%s=%s", tag, label_or_uuid);
 
-  char *out, *err;
-  int r = command (&out, &err, str_findfs, arg, NULL);
+  r = command (&out, &err, str_findfs, arg, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   /* Trim trailing \n if present. */
   len = strlen (out);

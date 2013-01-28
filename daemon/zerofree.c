@@ -39,17 +39,14 @@ optgroup_zerofree_available (void)
 int
 do_zerofree (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err, str_zerofree, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }

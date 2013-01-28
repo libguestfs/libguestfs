@@ -440,7 +440,7 @@ do_pwrite_device (const char *device, const char *content, size_t size,
 char *
 do_file (const char *path)
 {
-  char *buf = NULL;
+  CLEANUP_FREE char *buf = NULL;
   const char *display_path = path;
 
   int is_dev = STRPREFIX (path, "/dev/");
@@ -459,14 +459,11 @@ do_file (const char *path)
     struct stat statbuf;
     if (lstat (path, &statbuf) == -1) {
       reply_with_perror ("lstat: %s", display_path);
-      free (buf);
       return NULL;
     }
 
     if (! S_ISREG (statbuf.st_mode)) {
       char *ret;
-
-      free (buf);
 
       if (S_ISDIR (statbuf.st_mode))
         ret = strdup ("directory");
@@ -494,17 +491,15 @@ do_file (const char *path)
    */
   const char *flags = is_dev ? "-zbsL" : "-zb";
 
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err;
   int r = command (&out, &err, str_file, flags, path, NULL);
-  free (buf);
 
   if (r == -1) {
     free (out);
     reply_with_error ("%s: %s", display_path, err);
-    free (err);
     return NULL;
   }
-  free (err);
 
   /* We need to remove the trailing \n from output of file(1). */
   size_t len = strlen (out);
@@ -520,7 +515,7 @@ do_zfile (const char *method, const char *path)
 {
   size_t len;
   const char *zcat;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   FILE *fp;
   char line[256];
 
@@ -544,11 +539,8 @@ do_zfile (const char *method, const char *path)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return NULL;
   }
-
-  free (cmd);
 
   if (fgets (line, sizeof line, fp) == NULL) {
     reply_with_perror ("fgets");

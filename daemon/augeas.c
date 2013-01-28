@@ -68,7 +68,7 @@ optgroup_augeas_available (void)
 int
 do_aug_init (const char *root, int flags)
 {
-  char *buf;
+  CLEANUP_FREE char *buf = NULL;
 
   if (aug) {
     aug_close (aug);
@@ -82,7 +82,6 @@ do_aug_init (const char *root, int flags)
   }
 
   aug = aug_init (buf, NULL, flags);
-  free (buf);
 
   if (!aug) {
     reply_with_error ("Augeas initialization failed");
@@ -338,7 +337,6 @@ char **
 do_aug_ls (const char *path)
 {
   char **matches;
-  char *buf;
   size_t len;
 
   NEED_AUG (NULL);
@@ -358,6 +356,8 @@ do_aug_ls (const char *path)
   if (STREQ (path, "/"))
     matches = do_aug_match ("/*");
   else {
+    CLEANUP_FREE char *buf;
+
     len += 3;			/* / * + terminating \0 */
     buf = malloc (len);
     if (buf == NULL) {
@@ -367,7 +367,6 @@ do_aug_ls (const char *path)
 
     snprintf (buf, len, "%s/*", path);
     matches = do_aug_match (buf);
-    free (buf);
   }
 
   if (matches == NULL)

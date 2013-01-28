@@ -228,7 +228,7 @@ debug_segv (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_sh (const char *subcmd, size_t argc, char *const *const argv)
 {
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   size_t len, i, j;
 
   if (argc < 1) {
@@ -267,8 +267,6 @@ debug_sh (const char *subcmd, size_t argc, char *const *const argv)
   char *err;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
                     "/bin/sh", "-c", cmd, NULL);
-  free (cmd);
-
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -283,17 +281,15 @@ static char *
 debug_env (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
 
   r = command (&out, &err, str_printenv, NULL);
   if (r == -1) {
     reply_with_error ("printenv: %s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;
 }
@@ -327,7 +323,8 @@ static char *
 debug_binaries (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err;
   char cmd[256];
 
   snprintf (cmd, sizeof (cmd),
@@ -341,11 +338,8 @@ debug_binaries (const char *subcmd, size_t argc, char *const *const argv)
   if (r == -1) {
     reply_with_error ("find: %s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;
 }
@@ -357,7 +351,8 @@ static char *
 debug_ldd (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
-  char *out, *err, *ret;
+  char *out, *ret;
+  CLEANUP_FREE char *err = NULL;
 
   if (argc != 1) {
     reply_with_error ("ldd: no file argument");
@@ -374,7 +369,6 @@ debug_ldd (const char *subcmd, size_t argc, char *const *const argv)
   if (r == -1) {
     reply_with_error ("ldd: %s: %s", argv[0], err);
     free (out);
-    free (err);
     return NULL;
   }
 
@@ -383,12 +377,10 @@ debug_ldd (const char *subcmd, size_t argc, char *const *const argv)
   if (ret == NULL) {
     reply_with_perror ("realloc");
     free (out);
-    free (err);
     return NULL;
   }
 
   strcat (ret, err);
-  free (err);
 
   return ret;
 }
@@ -400,6 +392,9 @@ debug_ls (const char *subcmd, size_t argc, char *const *const argv)
   size_t len = count_strings (argv);
   const char *cargv[len+3];
   size_t i;
+  int r;
+  char *out;
+  CLEANUP_FREE char *err;
 
   cargv[0] = str_ls;
   cargv[1] = "-a";
@@ -407,18 +402,12 @@ debug_ls (const char *subcmd, size_t argc, char *const *const argv)
     cargv[2+i] = argv[i];
   cargv[2+len] = NULL;
 
-  int r;
-  char *out, *err;
-
   r = commandv (&out, &err, (void *) cargv);
   if (r == -1) {
     reply_with_error ("ls: %s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;
 }
@@ -430,6 +419,9 @@ debug_ll (const char *subcmd, size_t argc, char *const *const argv)
   size_t len = count_strings (argv);
   const char *cargv[len+3];
   size_t i;
+  int r;
+  char *out;
+  CLEANUP_FREE char *err;
 
   cargv[0] = str_ls;
   cargv[1] = "-la";
@@ -437,18 +429,12 @@ debug_ll (const char *subcmd, size_t argc, char *const *const argv)
     cargv[2+i] = argv[i];
   cargv[2+len] = NULL;
 
-  int r;
-  char *out, *err;
-
   r = commandv (&out, &err, (void *) cargv);
   if (r == -1) {
     reply_with_error ("ll: %s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;
 }
@@ -590,7 +576,7 @@ debug_qtrace (const char *subcmd, size_t argc, char *const *const argv)
     { 2, 15, 21, 2, -1 }, /* disable trace */
     { 2, 21, 15, 2, -1 }  /* enable trace */
   };
-  void *buf;
+  CLEANUP_FREE void *buf = NULL;
   size_t i;
 
   /* For O_DIRECT, buffer must be aligned too (thanks Matt).
@@ -608,20 +594,17 @@ debug_qtrace (const char *subcmd, size_t argc, char *const *const argv)
     if (lseek (fd, patterns[enable][i]*QTRACE_SIZE, SEEK_SET) == -1) {
       reply_with_perror ("qtrace: %s: lseek", argv[0]);
       close (fd);
-      free (buf);
       return NULL;
     }
 
     if (read (fd, buf, QTRACE_SIZE) == -1) {
       reply_with_perror ("qtrace: %s: read", argv[0]);
       close (fd);
-      free (buf);
       return NULL;
     }
   }
 
   close (fd);
-  free (buf);
 
   /* This does a sync and flushes all caches. */
   if (do_drop_caches (3) == -1)

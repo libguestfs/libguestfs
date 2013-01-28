@@ -32,7 +32,8 @@ GUESTFSD_EXT_CMD(str_blkid, blkid);
 static char *
 get_blkid_tag (const char *device, const char *tag)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = commandr (&out, &err,
@@ -46,11 +47,8 @@ get_blkid_tag (const char *device, const char *tag)
     else
       reply_with_error ("%s: %s", device, err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   if (r == 2) {                 /* means UUID etc not found */
     free (out);
@@ -96,32 +94,27 @@ static int
 test_blkid_p_i_opt (void)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL, *err2 = NULL;
 
   r = commandr (NULL, &err, str_blkid, "-p", "/dev/null", NULL);
   if (r == -1) {
     /* This means we couldn't run the blkid command at all. */
   command_failed:
     reply_with_error ("could not run 'blkid' command: %s", err);
-    free (err);
     return -1;
   }
 
   if (strstr (err, "invalid option --")) {
-    free (err);
     return 0;
   }
-  free (err);
 
-  r = commandr (NULL, &err, str_blkid, "-i", NULL);
+  r = commandr (NULL, &err2, str_blkid, "-i", NULL);
   if (r == -1)
     goto command_failed;
 
-  if (strstr (err, "invalid option --")) {
-    free (err);
+  if (strstr (err2, "invalid option --")) {
     return 0;
   }
-  free (err);
 
   /* We have both options. */
   return 1;
@@ -132,8 +125,8 @@ blkid_with_p_i_opt (const char *device)
 {
   size_t i;
   int r;
-  char *out = NULL, *err = NULL;
-  char **lines = NULL;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   DECLARE_STRINGSBUF (ret);
 
   r = command (&out, &err, str_blkid, "-c", "/dev/null",
@@ -184,17 +177,9 @@ blkid_with_p_i_opt (const char *device)
 
   if (end_stringsbuf (&ret) == -1) goto error;
 
-  free (out);
-  free (err);
-  free_strings (lines);
-
   return ret.argv;
 
 error:
-  free (out);
-  free (err);
-  if (lines)
-    free_strings (lines);
   if (ret.argv)
     free_strings (ret.argv);
 

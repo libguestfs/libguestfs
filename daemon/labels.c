@@ -34,7 +34,7 @@ static int
 e2label (const char *device, const char *label)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   if (strlen (label) > EXT2_LABEL_MAX) {
     reply_with_error ("%s: ext2 labels are limited to %d bytes",
@@ -45,11 +45,9 @@ e2label (const char *device, const char *label)
   r = command (NULL, &err, str_e2label, device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -57,7 +55,7 @@ static int
 ntfslabel (const char *device, const char *label)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   /* XXX We should check if the label is longer than 128 unicode
    * characters and return an error.  This is not so easy since we
@@ -66,22 +64,19 @@ ntfslabel (const char *device, const char *label)
   r = command (NULL, &err, str_ntfslabel, device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_set_label (const char *device, const char *label)
 {
-  char *vfs_type;
   int r;
 
   /* How we set the label depends on the filesystem type. */
-  vfs_type = do_vfs_type (device);
+  CLEANUP_FREE char *vfs_type = do_vfs_type (device);
   if (vfs_type == NULL)
     return -1;
 
@@ -98,6 +93,5 @@ do_set_label (const char *device, const char *label)
     r = -1;
   }
 
-  free (vfs_type);
   return r;
 }

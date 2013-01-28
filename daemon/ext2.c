@@ -42,18 +42,15 @@ char **
 do_tune2fs_l (const char *device)
 {
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   char *p, *pend, *colon;
   DECLARE_STRINGSBUF (ret);
 
   r = command (&out, &err, str_tune2fs, "-l", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
-    free (out);
     return NULL;
   }
-  free (err);
 
   p = out;
 
@@ -63,7 +60,6 @@ do_tune2fs_l (const char *device)
     if (p) p++;
     else {
       reply_with_error ("truncated output");
-      free (out);
       return NULL;
     }
   }
@@ -85,38 +81,31 @@ do_tune2fs_l (const char *device)
       do { colon++; } while (*colon && c_isspace (*colon));
 
       if (add_string (&ret, p) == -1) {
-        free (out);
         return NULL;
       }
       if (STREQ (colon, "<none>") ||
           STREQ (colon, "<not available>") ||
           STREQ (colon, "(none)")) {
         if (add_string (&ret, "") == -1) {
-          free (out);
           return NULL;
         }
       } else {
         if (add_string (&ret, colon) == -1) {
-          free (out);
           return NULL;
         }
       }
     }
     else {
       if (add_string (&ret, p) == -1) {
-        free (out);
         return NULL;
       }
       if (add_string (&ret, "") == -1) {
-        free (out);
         return NULL;
       }
     }
 
     p = pend;
   }
-
-  free (out);
 
   if (end_stringsbuf (&ret) == -1)
     return NULL;
@@ -140,16 +129,14 @@ int
 do_set_e2uuid (const char *device, const char *uuid)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   r = command (NULL, &err, str_tune2fs, "-U", uuid, device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -163,7 +150,7 @@ do_get_e2uuid (const char *device)
 static int
 if_not_mounted_run_e2fsck (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r, mounted;
 
   mounted = is_device_mounted (device);
@@ -176,10 +163,8 @@ if_not_mounted_run_e2fsck (const char *device)
                   str_e2fsck, "-fy", device, NULL);
     if (r == -1) {
       reply_with_error ("%s", err);
-      free (err);
       return -1;
     }
-    free (err);
   }
 
   return 0;
@@ -188,7 +173,7 @@ if_not_mounted_run_e2fsck (const char *device)
 int
 do_resize2fs (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (if_not_mounted_run_e2fsck (device) == -1)
@@ -197,18 +182,16 @@ do_resize2fs (const char *device)
   r = command (NULL, &err, str_resize2fs, device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_resize2fs_size (const char *device, int64_t size)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   /* resize2fs itself may impose additional limits.  Since we are
@@ -231,18 +214,16 @@ do_resize2fs_size (const char *device, int64_t size)
   r = command (NULL, &err, str_resize2fs, device, buf, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_resize2fs_M (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (if_not_mounted_run_e2fsck (device) == -1)
@@ -251,11 +232,9 @@ do_resize2fs_M (const char *device)
   r = command (NULL, &err, str_resize2fs, "-M", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -266,7 +245,7 @@ do_e2fsck (const char *device,
            int forceall)
 {
   const char *argv[MAX_ARGS];
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   size_t i = 0;
   int r;
 
@@ -305,11 +284,9 @@ do_e2fsck (const char *device,
    */
   if (r == -1 || r >= 2) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -323,7 +300,7 @@ do_e2fsck_f (const char *device)
 int
 do_mke2journal (int blocksize, const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   char blocksize_s[32];
@@ -334,18 +311,16 @@ do_mke2journal (int blocksize, const char *device)
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_mke2journal_L (int blocksize, const char *label, const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (strlen (label) > EXT2_LABEL_MAX) {
@@ -363,18 +338,16 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
 int
 do_mke2journal_U (int blocksize, const char *uuid, const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   char blocksize_s[32];
@@ -386,11 +359,9 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -398,7 +369,7 @@ int
 do_mke2fs_J (const char *fstype, int blocksize, const char *device,
              const char *journal)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   char blocksize_s[32];
@@ -413,11 +384,9 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -425,7 +394,7 @@ int
 do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
               const char *label)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (strlen (label) > EXT2_LABEL_MAX) {
@@ -446,11 +415,9 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -458,7 +425,7 @@ int
 do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
               const char *uuid)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   char blocksize_s[32];
@@ -473,11 +440,9 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -498,7 +463,7 @@ do_tune2fs (const char *device, /* only required parameter */
   const char *argv[MAX_ARGS];
   size_t i = 0;
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   char maxmountcount_s[64];
   char mountcount_s[64];
   char group_s[64];
@@ -616,11 +581,9 @@ do_tune2fs (const char *device, /* only required parameter */
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -636,8 +599,9 @@ char *
 do_get_e2attrs (const char *filename)
 {
   int r;
-  char *buf;
-  char *out, *err;
+  CLEANUP_FREE char *buf;
+  char *out;
+  CLEANUP_FREE char *err;
   size_t i, j;
 
   buf = sysroot_path (filename);
@@ -647,14 +611,11 @@ do_get_e2attrs (const char *filename)
   }
 
   r = command (&out, &err, str_lsattr, "-d", "--", buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "lsattr", filename, err);
-    free (err);
     free (out);
     return NULL;
   }
-  free (err);
 
   /* Output looks like:
    * -------------e- filename
@@ -678,8 +639,8 @@ int
 do_set_e2attrs (const char *filename, const char *attrs, int clear)
 {
   int r;
-  char *buf;
-  char *err;
+  CLEANUP_FREE char *buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   size_t i, j;
   int lowers[26], uppers[26];
   char attr_arg[26*2+1+1]; /* '+'/'-' + attrs + trailing '\0' */
@@ -741,13 +702,10 @@ do_set_e2attrs (const char *filename, const char *attrs, int clear)
   }
 
   r = command (NULL, &err, str_chattr, attr_arg, "--", buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "chattr", filename, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -756,8 +714,7 @@ int64_t
 do_get_e2generation (const char *filename)
 {
   int r;
-  char *buf;
-  char *out, *err;
+  CLEANUP_FREE char *buf = NULL, *out = NULL, *err = NULL;
   int64_t ret;
 
   buf = sysroot_path (filename);
@@ -767,22 +724,16 @@ do_get_e2generation (const char *filename)
   }
 
   r = command (&out, &err, str_lsattr, "-dv", "--", buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "lsattr", filename, err);
-    free (err);
-    free (out);
     return -1;
   }
-  free (err);
 
   if (sscanf (out, "%" SCNu64, &ret) != 1) {
     reply_with_error ("cannot parse output from '%s' command: %s",
                       "lsattr", out);
-    free (out);
     return -1;
   }
-  free (out);
 
   return ret;
 }
@@ -791,8 +742,7 @@ int
 do_set_e2generation (const char *filename, int64_t generation)
 {
   int r;
-  char *buf;
-  char *err;
+  CLEANUP_FREE char *buf = NULL, *err = NULL;
   char generation_str[64];
 
   buf = sysroot_path (filename);
@@ -805,13 +755,10 @@ do_set_e2generation (const char *filename, int64_t generation)
             "%" PRIu64, (uint64_t) generation);
 
   r = command (NULL, &err, str_chattr, "-v", generation_str, "--", buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "chattr", filename, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -858,7 +805,7 @@ do_mke2fs (const char *device,               /* 0 */
            int uninitbg)
 {
   int r;
-  char *err = NULL;
+  CLEANUP_FREE char *err = NULL;
   const char *argv[MAX_ARGS];
   char blockscount_s[64];
   char blocksize_s[64];
@@ -868,7 +815,7 @@ do_mke2fs (const char *device,               /* 0 */
   char bytesperinode_s[64];
   char inodesize_s[64];
   char journalsize_s[64];
-  char *journaldevice_s = NULL;
+  CLEANUP_FREE char *journaldevice_s = NULL;
   char reservedblockspercentage_s[64];
   char numberofinodes_s[64];
   char mmpupdateinterval_s[84];
@@ -882,7 +829,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_BLOCKSIZE_BITMASK) {
     if (blocksize < 0) {
       reply_with_error ("blocksize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (blocksize_s, sizeof blocksize_s, "%" PRIi64, blocksize);
     ADD_ARG (argv, i, "-b");
@@ -891,7 +838,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_FRAGSIZE_BITMASK) {
     if (fragsize < 0) {
       reply_with_error ("fragsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (fragsize_s, sizeof fragsize_s, "%" PRIi64, fragsize);
     ADD_ARG (argv, i, "-f");
@@ -904,7 +851,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_BLOCKSPERGROUP_BITMASK) {
     if (blockspergroup < 0) {
       reply_with_error ("blockspergroup must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (blockspergroup_s, sizeof blockspergroup_s,
               "%" PRIi64, blockspergroup);
@@ -914,7 +861,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_NUMBEROFGROUPS_BITMASK) {
     if (numberofgroups < 0) {
       reply_with_error ("numberofgroups must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (numberofgroups_s, sizeof numberofgroups_s,
               "%" PRIi64, numberofgroups);
@@ -924,7 +871,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_BYTESPERINODE_BITMASK) {
     if (bytesperinode < 0) {
       reply_with_error ("bytesperinode must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (bytesperinode_s, sizeof bytesperinode_s, "%" PRIi64, bytesperinode);
     ADD_ARG (argv, i, "-i");
@@ -933,7 +880,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_INODESIZE_BITMASK) {
     if (inodesize < 0) {
       reply_with_error ("inodesize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (inodesize_s, sizeof inodesize_s, "%" PRIi64, inodesize);
     ADD_ARG (argv, i, "-I");
@@ -942,7 +889,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_JOURNALSIZE_BITMASK) {
     if (journalsize < 0) {
       reply_with_error ("journalsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (journalsize_s, sizeof journalsize_s,
               "size=" "%" PRIi64, journalsize);
@@ -958,12 +905,12 @@ do_mke2fs (const char *device,               /* 0 */
       journaldevice_s = malloc (strlen (journaldevice) + 8);
       if (!journaldevice_s) {
         reply_with_perror ("malloc");
-        goto error;
+        return -1;
       }
 
       sprintf (journaldevice_s, "device=%s", journaldevice);
       if (STRPREFIX (&journaldevice_s[7], "/dev/"))
-        RESOLVE_DEVICE (&journaldevice_s[7], , goto error);
+        RESOLVE_DEVICE (&journaldevice_s[7], , return -1);
 
       ADD_ARG (argv, i, "-J");
       ADD_ARG (argv, i, journaldevice_s);
@@ -978,7 +925,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_RESERVEDBLOCKSPERCENTAGE_BITMASK) {
     if (reservedblockspercentage < 0) {
       reply_with_error ("reservedblockspercentage must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (reservedblockspercentage_s, sizeof reservedblockspercentage_s,
               "%" PRIi32, reservedblockspercentage);
@@ -994,7 +941,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_NUMBEROFINODES_BITMASK) {
     if (numberofinodes < 0) {
       reply_with_error ("numberofinodes must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (numberofinodes_s, sizeof numberofinodes_s,
               "%" PRIi64, numberofinodes);
@@ -1032,7 +979,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_MMPUPDATEINTERVAL_BITMASK) {
     if (mmpupdateinterval < 0) {
       reply_with_error ("mmpupdateinterval must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (mmpupdateinterval_s, sizeof mmpupdateinterval_s,
               "mmp_update_interval=" "%" PRIi32, mmpupdateinterval);
@@ -1042,7 +989,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_STRIDESIZE_BITMASK) {
     if (stridesize < 0) {
       reply_with_error ("stridesize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (stridesize_s, sizeof stridesize_s,
               "stride=" "%" PRIi64, stridesize);
@@ -1052,7 +999,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_STRIPEWIDTH_BITMASK) {
     if (stripewidth< 0) {
       reply_with_error ("stripewidth must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (stripewidth_s, sizeof stripewidth_s,
               "stripe_width=" "%" PRIi64, stripewidth);
@@ -1062,7 +1009,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_MAXONLINERESIZE_BITMASK) {
     if (maxonlineresize < 0) {
       reply_with_error ("maxonlineresize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (maxonlineresize_s, sizeof maxonlineresize_s,
               "resize=" "%" PRIi64, maxonlineresize);
@@ -1173,7 +1120,7 @@ do_mke2fs (const char *device,               /* 0 */
   if (optargs_bitmask & GUESTFS_MKE2FS_BLOCKSCOUNT_BITMASK) {
     if (blockscount < 0) {
       reply_with_error ("blockscount must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (blockscount_s, sizeof blockscount_s, "%" PRIi64, blockscount);
     ADD_ARG (argv, i, blockscount_s);
@@ -1184,23 +1131,16 @@ do_mke2fs (const char *device,               /* 0 */
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    goto error;
+    return -1;
   }
 
-  free (journaldevice_s);
-  free (err);
   return 0;
-
-error:
-  free (journaldevice_s);
-  free (err);
-  return -1;
 }
 
 int
 do_mklost_and_found (const char *mountpoint)
 {
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   int r;
 
   if (asprintf_nowarn (&cmd, "cd %R && mklost+found", mountpoint) == -1) {
@@ -1211,15 +1151,12 @@ do_mklost_and_found (const char *mountpoint)
   r = system (cmd);
   if (r == -1) {
     reply_with_perror ("system");
-    free (cmd);
     return -1;
   }
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     reply_with_error ("%s: command failed", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   return 0;
 }

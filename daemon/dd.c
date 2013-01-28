@@ -33,8 +33,8 @@ int
 do_dd (const char *src, const char *dest)
 {
   int src_is_dev, dest_is_dev;
-  char *if_arg, *of_arg;
-  char *err;
+  CLEANUP_FREE char *if_arg = NULL, *of_arg = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   src_is_dev = STRPREFIX (src, "/dev/");
@@ -56,20 +56,14 @@ do_dd (const char *src, const char *dest)
     r = asprintf (&of_arg, "of=%s%s", sysroot, dest);
   if (r == -1) {
     reply_with_perror ("asprintf");
-    free (if_arg);
     return -1;
   }
 
   r = command (NULL, &err, str_dd, "bs=1024K", if_arg, of_arg, NULL);
-  free (if_arg);
-  free (of_arg);
-
   if (r == -1) {
     reply_with_error ("%s: %s: %s", src, dest, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -77,19 +71,17 @@ do_dd (const char *src, const char *dest)
 int
 do_copy_size (const char *src, const char *dest, int64_t ssize)
 {
-  char *buf;
   int src_fd, dest_fd;
 
   if (STRPREFIX (src, "/dev/"))
     src_fd = open (src, O_RDONLY | O_CLOEXEC);
   else {
-    buf = sysroot_path (src);
+    CLEANUP_FREE char *buf = sysroot_path (src);
     if (!buf) {
       reply_with_perror ("malloc");
       return -1;
     }
     src_fd = open (buf, O_RDONLY | O_CLOEXEC);
-    free (buf);
   }
   if (src_fd == -1) {
     reply_with_perror ("%s", src);
@@ -99,14 +91,13 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
   if (STRPREFIX (dest, "/dev/"))
     dest_fd = open (dest, O_WRONLY | O_CLOEXEC);
   else {
-    buf = sysroot_path (dest);
+    CLEANUP_FREE char *buf = sysroot_path (dest);
     if (!buf) {
       reply_with_perror ("malloc");
       close (src_fd);
       return -1;
     }
     dest_fd = open (buf, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
-    free (buf);
   }
   if (dest_fd == -1) {
     reply_with_perror ("%s", dest);

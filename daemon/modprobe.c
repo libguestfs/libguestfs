@@ -36,14 +36,13 @@ optgroup_linuxmodules_available (void)
 int
 do_modprobe (const char *module)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = command (NULL, &err, str_modprobe, module, NULL);
 
   if (r == -1) {
     reply_with_error ("%s", err);
+    return -1;
   }
-
-  free (err);
 
   return r;
 }

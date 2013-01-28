@@ -36,7 +36,7 @@ grep (const char *regex, const char *path,
 {
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   int fd, flags, r;
   char **lines;
 
@@ -78,15 +78,10 @@ grep (const char *regex, const char *path,
   r = commandrvf (&out, &err, flags, argv);
   if (r == -1 || r > 1) {
     reply_with_error ("%s: %s", regex, err);
-    free (out);
-    free (err);
     return NULL;
   }
 
-  free (err);
-
   lines = split_lines (out);
-  free (out);
   if (lines == NULL) return NULL;
 
   return lines;

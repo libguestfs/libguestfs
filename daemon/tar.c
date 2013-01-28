@@ -122,7 +122,7 @@ do_tar_in (const char *dir, const char *compress)
   const char *filter;
   int err, r;
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   char error_file[] = "/tmp/tarXXXXXX";
   int fd, chown_supported;
 
@@ -180,10 +180,8 @@ do_tar_in (const char *dir, const char *compress)
     errno = err;
     reply_with_perror ("%s", cmd);
     unlink (error_file);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* The semantics of fwrite are too undefined, so write to the
    * file descriptor directly instead.
@@ -193,9 +191,8 @@ do_tar_in (const char *dir, const char *compress)
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
     cancel_receive ();
-    char *errstr = read_error_file (error_file);
+    CLEANUP_FREE char *errstr = read_error_file (error_file);
     reply_with_error ("write error on directory: %s: %s", dir, errstr);
-    free (errstr);
     unlink (error_file);
     pclose (fp);
     return -1;
@@ -211,10 +208,9 @@ do_tar_in (const char *dir, const char *compress)
   }
 
   if (pclose (fp) != 0) {
-    char *errstr = read_error_file (error_file);
+    CLEANUP_FREE char *errstr = read_error_file (error_file);
     reply_with_error ("tar subcommand failed on directory: %s: %s",
                       dir, errstr);
-    free (errstr);
     unlink (error_file);
     return -1;
   }
@@ -286,8 +282,8 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   const char *filter;
   int r;
   FILE *fp;
-  char *excludes_args;
-  char *cmd;
+  CLEANUP_FREE char *excludes_args = NULL;
+  CLEANUP_FREE char *cmd = NULL;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
   if ((optargs_bitmask & GUESTFS_TAR_OUT_COMPRESS_BITMASK)) {
@@ -330,10 +326,8 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
                        numericowner ? " --numeric-owner" : "",
                        excludes_args) == -1) {
     reply_with_perror ("asprintf");
-    free (excludes_args);
     return -1;
   }
-  free (excludes_args);
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -341,10 +335,8 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error

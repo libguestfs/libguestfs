@@ -70,7 +70,7 @@ hivex_finalize (void)
 int
 do_hivex_open (const char *filename, int verbose, int debug, int write)
 {
-  char *buf;
+  CLEANUP_FREE char *buf = NULL;
   int flags = 0;
 
   if (h) {
@@ -100,11 +100,9 @@ do_hivex_open (const char *filename, int verbose, int debug, int write)
   h = hivex_open (buf, flags);
   if (!h) {
     reply_with_perror ("hivex failed to open %s", filename);
-    free (buf);
     return -1;
   }
 
-  free (buf);
   return 0;
 }
 
@@ -155,7 +153,7 @@ guestfs_int_hivex_node_list *
 do_hivex_node_children (int64_t nodeh)
 {
   guestfs_int_hivex_node_list *ret;
-  hive_node_h *r;
+  CLEANUP_FREE hive_node_h *r = NULL;
   size_t i, len;
 
   NEED_HANDLE (NULL);
@@ -173,7 +171,6 @@ do_hivex_node_children (int64_t nodeh)
   ret = malloc (sizeof *ret);
   if (!ret) {
     reply_with_perror ("malloc");
-    free (r);
     return NULL;
   }
 
@@ -183,14 +180,11 @@ do_hivex_node_children (int64_t nodeh)
   if (ret->guestfs_int_hivex_node_list_val == NULL) {
     reply_with_perror ("malloc");
     free (ret);
-    free (r);
     return NULL;
   }
 
   for (i = 0; i < len; ++i)
     ret->guestfs_int_hivex_node_list_val[i].hivex_node_h = r[i];
-
-  free (r);
 
   return ret;
 }
@@ -232,7 +226,7 @@ guestfs_int_hivex_value_list *
 do_hivex_node_values (int64_t nodeh)
 {
   guestfs_int_hivex_value_list *ret;
-  hive_value_h *r;
+  CLEANUP_FREE hive_value_h *r = NULL;
   size_t i, len;
 
   NEED_HANDLE (NULL);
@@ -250,7 +244,6 @@ do_hivex_node_values (int64_t nodeh)
   ret = malloc (sizeof *ret);
   if (!ret) {
     reply_with_perror ("malloc");
-    free (r);
     return NULL;
   }
 
@@ -260,14 +253,11 @@ do_hivex_node_values (int64_t nodeh)
   if (ret->guestfs_int_hivex_value_list_val == NULL) {
     reply_with_perror ("malloc");
     free (ret);
-    free (r);
     return NULL;
   }
 
   for (i = 0; i < len; ++i)
     ret->guestfs_int_hivex_value_list_val[i].hivex_value_h = (int64_t) r[i];
-
-  free (r);
 
   return ret;
 }

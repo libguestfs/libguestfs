@@ -61,7 +61,7 @@ do_md_create (const char *name, char *const *devices,
   char chunk_s[32];
   size_t j;
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   uint64_t umissingbitmap = (uint64_t) missingbitmap;
 
   /* Check the optional parameters and set defaults where appropriate. */
@@ -161,11 +161,8 @@ do_md_create (const char *name, char *const *devices,
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("mdadm: %s: %s", name, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -241,8 +238,8 @@ do_md_detail(const char *md)
   size_t i;
   int r;
 
-  char *out = NULL, *err = NULL;
-  char **lines = NULL;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
 
   DECLARE_STRINGSBUF (ret);
 
@@ -295,20 +292,12 @@ do_md_detail(const char *md)
     }
   }
 
-  free (out);
-  free (err);
-  free_strings (lines);
-
   if (end_stringsbuf (&ret) == -1)
     return NULL;
 
   return ret.argv;
 
 error:
-  free (out);
-  free (err);
-  if (lines)
-    free_strings (lines);
   if (ret.argv != NULL)
     free_stringslen (ret.argv, ret.size);
 
@@ -319,16 +308,14 @@ int
 do_md_stop(const char *md)
 {
   int r;
-  char *err = NULL;
+  CLEANUP_FREE char *err = NULL;
 
   const char *mdadm[] = { str_mdadm, "--stop", md, NULL};
   r = commandv(NULL, &err, mdadm);
   if (r == -1) {
     reply_with_error("%s", err);
-    free(err);
     return -1;
   }
-  free (err);
   return 0;
 }
 
@@ -454,7 +441,7 @@ do_md_stat (const char *md)
 {
   size_t mdlen;
   FILE *fp;
-  char *line = NULL;
+  CLEANUP_FREE char *line = NULL;
   size_t len = 0;
   ssize_t n;
   guestfs_int_mdstat_list *ret = NULL;
@@ -476,7 +463,6 @@ do_md_stat (const char *md)
       /* Found it. */
       ret = parse_md_stat_line (&line[mdlen+3]);
       if (!ret) {
-        free (line);
         fclose (fp);
         return NULL;
       }
@@ -487,8 +473,6 @@ do_md_stat (const char *md)
       break;
     }
   }
-
-  free (line);
 
   if (fclose (fp) == EOF) {
     reply_with_perror ("fclose: %s", "/proc/mdstat");

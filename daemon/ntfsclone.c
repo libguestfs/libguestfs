@@ -69,7 +69,7 @@ do_ntfsclone_in (const char *device)
 {
   int err, r;
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   char error_file[] = "/tmp/ntfscloneXXXXXX";
   int fd;
 
@@ -102,10 +102,8 @@ do_ntfsclone_in (const char *device)
     errno = err;
     reply_with_perror ("%s", cmd);
     unlink (error_file);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* The semantics of fwrite are too undefined, so write to the
    * file descriptor directly instead.
@@ -115,9 +113,8 @@ do_ntfsclone_in (const char *device)
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
     cancel_receive ();
-    char *errstr = read_error_file (error_file);
+    CLEANUP_FREE char *errstr = read_error_file (error_file);
     reply_with_error ("write error on device: %s: %s", device, errstr);
-    free (errstr);
     unlink (error_file);
     pclose (fp);
     return -1;
@@ -133,10 +130,9 @@ do_ntfsclone_in (const char *device)
   }
 
   if (pclose (fp) != 0) {
-    char *errstr = read_error_file (error_file);
+    CLEANUP_FREE char *errstr = read_error_file (error_file);
     reply_with_error ("ntfsclone subcommand failed on device: %s: %s",
                       device, errstr);
-    free (errstr);
     unlink (error_file);
     return -1;
   }
@@ -155,7 +151,7 @@ do_ntfsclone_out (const char *device,
 {
   int r;
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
   /* Construct the ntfsclone command. */
@@ -177,10 +173,8 @@ do_ntfsclone_out (const char *device,
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error

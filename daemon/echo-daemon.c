@@ -50,7 +50,7 @@ do_echo_daemon (char *const *argv)
     char *out_new = realloc (out, out_len + 1);
     if (NULL == out_new) {
       reply_with_perror ("realloc");
-      free(out);
+      free (out);
       return 0;
     }
     out = out_new;

@@ -363,7 +363,7 @@ receive_file (receive_cb cb, void *opaque)
 {
   guestfs_chunk chunk;
   char lenbuf[4];
-  char *buf;
+  CLEANUP_FREE char *buf = NULL;
   XDR xdr;
   int r;
   uint32_t len;
@@ -402,11 +402,9 @@ receive_file (receive_cb cb, void *opaque)
     memset (&chunk, 0, sizeof chunk);
     if (!xdr_guestfs_chunk (&xdr, &chunk)) {
       xdr_destroy (&xdr);
-      free (buf);
       return -1;
     }
     xdr_destroy (&xdr);
-    free (buf);
 
     if (verbose)
       fprintf (stderr,

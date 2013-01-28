@@ -31,7 +31,8 @@ char *
 do_hexdump (const char *path)
 {
   int fd, flags, r;
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
 
   CHROOT_IN;
   fd = open (path, O_RDONLY|O_CLOEXEC);
@@ -46,12 +47,9 @@ do_hexdump (const char *path)
   r = commandf (&out, &err, flags, "hexdump", "-C", NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
-    free (err);
     free (out);
     return NULL;
   }
-
-  free (err);
 
   return out;			/* caller frees */
 }

@@ -35,8 +35,7 @@ do_du (const char *path)
 {
   int r;
   int64_t rv;
-  char *out, *err;
-  char *buf;
+  CLEANUP_FREE char *out = NULL, *err = NULL, *buf = NULL;
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);
@@ -48,25 +47,17 @@ do_du (const char *path)
   pulse_mode_start ();
 
   r = command (&out, &err, str_du, "-s", buf, NULL);
-  free (buf);
   if (r == -1) {
     pulse_mode_cancel ();
     reply_with_error ("%s: %s", path, err);
-    free (out);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   if (sscanf (out, "%"SCNi64, &rv) != 1) {
     pulse_mode_cancel ();
     reply_with_error ("%s: could not read output: %s", path, out);
-    free (out);
     return -1;
   }
-
-  free (out);
 
   pulse_mode_end ();
 

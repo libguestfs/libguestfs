@@ -31,7 +31,7 @@
 static char **
 headtail (const char *prog, const char *flag, const char *n, const char *path)
 {
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   int fd, flags, r;
   char **lines;
 
@@ -48,12 +48,8 @@ headtail (const char *prog, const char *flag, const char *n, const char *path)
   r = commandf (&out, &err, flags, prog, flag, n, NULL);
   if (r == -1) {
     reply_with_error ("%s %s %s: %s", prog, flag, n, err);
-    free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
 #if 0
   /* Split it at the first whitespace. */
@@ -62,7 +58,6 @@ headtail (const char *prog, const char *flag, const char *n, const char *path)
 #endif
 
   lines = split_lines (out);
-  free (out);
   if (lines == NULL) return NULL;
 
   return lines;

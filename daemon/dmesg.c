@@ -32,17 +32,16 @@ GUESTFSD_EXT_CMD(str_dmesg, dmesg);
 char *
 do_dmesg (void)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (&out, &err, str_dmesg, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
   return out;			/* caller frees */
 }

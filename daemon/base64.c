@@ -42,7 +42,7 @@ do_base64_in (const char *file)
 {
   int err, r;
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
 
   if (asprintf_nowarn (&cmd, "%s -d -i > %R", str_base64, file) == -1) {
     err = errno;
@@ -61,10 +61,8 @@ do_base64_in (const char *file)
     cancel_receive ();
     errno = err;
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* The semantics of fwrite are too undefined, so write to the
    * file descriptor directly instead.
@@ -101,7 +99,7 @@ do_base64_out (const char *file)
 {
   int r;
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
   if (asprintf_nowarn (&cmd, "%s %R", str_base64, file) == -1) {
@@ -115,10 +113,8 @@ do_base64_out (const char *file)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error

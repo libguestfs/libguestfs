@@ -40,10 +40,11 @@ umount_ignore_fail (const char *path)
 char *
 do_command (char *const *argv)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err;
   int r;
-  char *sysroot_dev, *sysroot_dev_pts, *sysroot_proc,
-    *sysroot_selinux, *sysroot_sys;
+  CLEANUP_FREE char *sysroot_dev = NULL, *sysroot_dev_pts = NULL,
+    *sysroot_proc = NULL, *sysroot_selinux = NULL, *sysroot_sys = NULL;
   int dev_ok, dev_pts_ok, proc_ok, selinux_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
@@ -76,11 +77,6 @@ do_command (char *const *argv)
       sysroot_proc == NULL || sysroot_selinux == NULL ||
       sysroot_sys == NULL) {
     reply_with_perror ("malloc");
-    free (sysroot_dev);
-    free (sysroot_dev_pts);
-    free (sysroot_proc);
-    free (sysroot_selinux);
-    free (sysroot_sys);
     return NULL;
   }
 
@@ -105,20 +101,11 @@ do_command (char *const *argv)
   if (dev_pts_ok) umount_ignore_fail (sysroot_dev_pts);
   if (dev_ok) umount_ignore_fail (sysroot_dev);
 
-  free (sysroot_dev);
-  free (sysroot_dev_pts);
-  free (sysroot_proc);
-  free (sysroot_selinux);
-  free (sysroot_sys);
-
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   return out;			/* Caller frees. */
 }
@@ -126,7 +113,7 @@ do_command (char *const *argv)
 char **
 do_command_lines (char *const *argv)
 {
-  char *out;
+  CLEANUP_FREE char *out = NULL;
   char **lines;
 
   out = do_command (argv);
@@ -134,7 +121,6 @@ do_command_lines (char *const *argv)
     return NULL;
 
   lines = split_lines (out);
-  free (out);
 
   if (lines == NULL)
     return NULL;
