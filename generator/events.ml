@@ -42,3 +42,5 @@ let events = [
 ]
 
 let events = mapi (fun i name -> name, 1 lsl i) events
+
+let all_events_bitmask = (1 lsl List.length events) - 1
