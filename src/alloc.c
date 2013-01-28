@@ -150,6 +150,17 @@ guestfs___cleanup_hash_free (void *ptr)
     hash_free (h);
 }
 
+void
+guestfs___cleanup_unlink_free (void *ptr)
+{
+  char *filename = * (char **) ptr;
+
+  if (filename) {
+    unlink (filename);
+    free (filename);
+  }
+}
+
 #ifdef HAVE_LIBXML2
 
 #include <libxml/tree.h>

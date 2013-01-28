@@ -57,7 +57,7 @@ void
 guestfs___warning (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
-  char *msg, *msg2;
+  CLEANUP_FREE char *msg = NULL, *msg2 = NULL;
   int len;
 
   va_start (args, fs);
@@ -67,13 +67,10 @@ guestfs___warning (guestfs_h *g, const char *fs, ...)
   if (len < 0) return;
 
   len = asprintf (&msg2, _("warning: %s"), msg);
-  free (msg);
 
   if (len < 0) return;
 
   guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg2, len);
-
-  free (msg2);
 }
 
 /* Debug messages. */
@@ -81,7 +78,7 @@ void
 guestfs___debug (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
-  char *msg;
+  CLEANUP_FREE char *msg = NULL;
   int len;
 
   /* The cpp macro "debug" has already checked that g->verbose is true
@@ -98,8 +95,6 @@ guestfs___debug (guestfs_h *g, const char *fs, ...)
   if (len < 0) return;
 
   guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg, len);
-
-  free (msg);
 }
 
 /* Call trace messages.  These are enabled by setting g->trace, and
@@ -110,7 +105,7 @@ void
 guestfs___trace (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
-  char *msg;
+  CLEANUP_FREE char *msg = NULL;
   int len;
 
   va_start (args, fs);
@@ -120,15 +115,13 @@ guestfs___trace (guestfs_h *g, const char *fs, ...)
   if (len < 0) return;
 
   guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, msg, len);
-
-  free (msg);
 }
 
 void
 guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 {
   va_list args;
-  char *msg;
+  CLEANUP_FREE char *msg = NULL;
 
   va_start (args, fs);
   int err = vasprintf (&msg, fs, args);
@@ -141,15 +134,13 @@ guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
    */
   set_last_error (g, errnum, msg);
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
-
-  free (msg);
 }
 
 void
 guestfs_perrorf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
-  char *msg;
+  CLEANUP_FREE char *msg = NULL;
   int errnum = errno;
 
   va_start (args, fs);
@@ -170,8 +161,6 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
    */
   set_last_error (g, errnum, msg);
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
-
-  free (msg);
 }
 
 void

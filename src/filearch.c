@@ -205,10 +205,9 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
         goto out;
       }
 
-      char *elf_arch;
-      if ((elf_arch = match1 (g, line, re_file_elf)) != NULL) {
+      CLEANUP_FREE char *elf_arch = match1 (g, line, re_file_elf);
+      if (elf_arch != NULL) {
         ret = canonical_elf_arch (g, elf_arch);
-        free (elf_arch);
         magic_close (m);
         goto out;
       }
@@ -232,8 +231,8 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
 char *
 guestfs__file_architecture (guestfs_h *g, const char *path)
 {
-  char *file = NULL;
-  char *elf_arch = NULL;
+  CLEANUP_FREE char *file = NULL;
+  CLEANUP_FREE char *elf_arch = NULL;
   char *ret = NULL;
 
   /* Get the output of the "file" command.  Note that because this
@@ -254,8 +253,6 @@ guestfs__file_architecture (guestfs_h *g, const char *path)
   else
     error (g, "file_architecture: unknown architecture: %s", path);
 
-  free (file);
-  free (elf_arch);
   return ret;                   /* caller frees */
 }
 

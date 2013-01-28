@@ -94,7 +94,8 @@ guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
 {
   int fd = -1;
   size_t size;
-  char *tmpfile = NULL, *ret = NULL;
+  CLEANUP_UNLINK_FREE char *tmpfile = NULL;
+  char *ret = NULL;
   struct stat statbuf;
 
   tmpfile = safe_asprintf (g, "%s/cat%d", g->tmpdir, ++g->unique);
@@ -107,10 +108,6 @@ guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
     perrorf (g, "open: %s", tmpfile);
     goto err;
   }
-
-  unlink (tmpfile);
-  free (tmpfile);
-  tmpfile = NULL;
 
   /* Read the whole file into memory. */
   if (fstat (fd, &statbuf) == -1) {
@@ -148,10 +145,6 @@ guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
   free (ret);
   if (fd >= 0)
     close (fd);
-  if (tmpfile) {
-    unlink (tmpfile);
-    free (tmpfile);
-  }
   return NULL;
 }
 
@@ -159,7 +152,7 @@ char **
 guestfs__read_lines (guestfs_h *g, const char *file)
 {
   size_t i, count, size, len;
-  char *buf = NULL;
+  CLEANUP_FREE char *buf = NULL;
   char **ret = NULL;
 
   /* Read the whole file into memory. */
@@ -211,12 +204,10 @@ guestfs__read_lines (guestfs_h *g, const char *file)
     if (len > 0 && ret[i][len-1] == '\r')
       ret[i][len-1] = '\0';
   }
-  free (buf);
 
   return ret;
 
  err:
-  free (buf);
   free (ret);
   return NULL;
 }
@@ -226,7 +217,8 @@ guestfs__find (guestfs_h *g, const char *directory)
 {
   int fd = -1;
   struct stat statbuf;
-  char *tmpfile = NULL, *buf = NULL;
+  CLEANUP_UNLINK_FREE char *tmpfile = NULL;
+  CLEANUP_FREE char *buf = NULL;
   char **ret = NULL;
   size_t i, count, size;
 
@@ -240,10 +232,6 @@ guestfs__find (guestfs_h *g, const char *directory)
     perrorf (g, "open: %s", tmpfile);
     goto err;
   }
-
-  unlink (tmpfile);
-  free (tmpfile);
-  tmpfile = NULL;
 
   /* Read the whole file into memory. */
   if (fstat (fd, &statbuf) == -1) {
@@ -306,21 +294,15 @@ guestfs__find (guestfs_h *g, const char *directory)
       goto err;
     }
   }
-  free (buf);
 
   sort_strings (ret, count);
 
   return ret;                   /* caller frees */
 
  err:
-  free (buf);
   free (ret);
   if (fd >= 0)
     close (fd);
-  if (tmpfile) {
-    unlink (tmpfile);
-    free (tmpfile);
-  }
   return NULL;
 }
 
@@ -329,7 +311,7 @@ write_or_append (guestfs_h *g, const char *path,
                  const char *content, size_t size,
                  int append)
 {
-  char *tmpfile;
+  CLEANUP_UNLINK_FREE char *tmpfile = NULL;
   int fd = -1;
   int64_t filesize;
 
@@ -374,15 +356,11 @@ write_or_append (guestfs_h *g, const char *path,
       goto err;
   }
 
-  unlink (tmpfile);
-  free (tmpfile);
   return 0;
 
  err:
   if (fd >= 0)
     close (fd);
-  unlink (tmpfile);
-  free (tmpfile);
   return -1;
 }
 
@@ -406,7 +384,6 @@ struct guestfs_stat_list *
 guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
 {
   size_t len = count_strings (names);
-  char **first;
   size_t old_len;
   struct guestfs_stat_list *ret, *stats;
 
@@ -415,14 +392,14 @@ guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
   ret->val = NULL;
 
   while (len > 0) {
-    first = take_strings (g, names, LSTATLIST_MAX, &names);
-    len = len <= LSTATLIST_MAX ? 0 : len - LSTATLIST_MAX;
-
-    stats = guestfs_internal_lstatlist (g, dir, first);
     /* Note we don't need to free up the strings because take_strings
      * does not do a deep copy.
      */
-    free (first);
+    CLEANUP_FREE char **first = take_strings (g, names, LSTATLIST_MAX, &names);
+
+    len = len <= LSTATLIST_MAX ? 0 : len - LSTATLIST_MAX;
+
+    stats = guestfs_internal_lstatlist (g, dir, first);
 
     if (stats == NULL) {
       guestfs_free_stat_list (ret);
@@ -449,7 +426,6 @@ struct guestfs_xattr_list *
 guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 {
   size_t len = count_strings (names);
-  char **first;
   size_t i, old_len;
   struct guestfs_xattr_list *ret, *xattrs;
 
@@ -458,14 +434,13 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
   ret->val = NULL;
 
   while (len > 0) {
-    first = take_strings (g, names, LXATTRLIST_MAX, &names);
-    len = len <= LXATTRLIST_MAX ? 0 : len - LXATTRLIST_MAX;
-
-    xattrs = guestfs_internal_lxattrlist (g, dir, first);
     /* Note we don't need to free up the strings because take_strings
      * does not do a deep copy.
      */
-    free (first);
+    CLEANUP_FREE char **first = take_strings (g, names, LXATTRLIST_MAX, &names);
+    len = len <= LXATTRLIST_MAX ? 0 : len - LXATTRLIST_MAX;
+
+    xattrs = guestfs_internal_lxattrlist (g, dir, first);
 
     if (xattrs == NULL) {
       guestfs_free_xattr_list (ret);
@@ -499,19 +474,19 @@ char **
 guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
 {
   size_t len = count_strings (names);
-  char **first;
   size_t old_len, ret_len = 0;
-  char **ret = NULL, **links;
+  char **ret = NULL;
 
   while (len > 0) {
-    first = take_strings (g, names, READLINK_MAX, &names);
+    /* Note we don't need to free up the strings because the 'links'
+     * strings are copied to ret, and 'take_strings' does not do a
+     * deep copy.
+     */
+    CLEANUP_FREE char **links = NULL;
+    CLEANUP_FREE char **first = take_strings (g, names, READLINK_MAX, &names);
     len = len <= READLINK_MAX ? 0 : len - READLINK_MAX;
 
     links = guestfs_internal_readlinklist (g, dir, first);
-    /* Note we don't need to free up the strings because take_strings
-     * does not do a deep copy.
-     */
-    free (first);
 
     if (links == NULL) {
       if (ret)
@@ -524,8 +499,6 @@ guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
     ret_len += count_strings (links);
     ret = safe_realloc (g, ret, ret_len * sizeof (char *));
     memcpy (&ret[old_len], links, (ret_len-old_len) * sizeof (char *));
-
-    free (links);
   }
 
   /* NULL-terminate the list. */
@@ -540,7 +513,8 @@ guestfs__ls (guestfs_h *g, const char *directory)
 {
   int fd = -1;
   struct stat statbuf;
-  char *tmpfile = NULL, *buf = NULL;
+  CLEANUP_UNLINK_FREE char *tmpfile = NULL;
+  CLEANUP_FREE char *buf = NULL;
   char **ret = NULL;
   size_t i, count, size;
 
@@ -554,10 +528,6 @@ guestfs__ls (guestfs_h *g, const char *directory)
     perrorf (g, "open: %s", tmpfile);
     goto err;
   }
-
-  unlink (tmpfile);
-  free (tmpfile);
-  tmpfile = NULL;
 
   /* Read the whole file into memory. */
   if (fstat (fd, &statbuf) == -1) {
@@ -619,20 +589,14 @@ guestfs__ls (guestfs_h *g, const char *directory)
       goto err;
     }
   }
-  free (buf);
 
   sort_strings (ret, count);
 
   return ret;                   /* caller frees */
 
  err:
-  free (buf);
   free (ret);
   if (fd >= 0)
     close (fd);
-  if (tmpfile) {
-    unlink (tmpfile);
-    free (tmpfile);
-  }
   return NULL;
 }
