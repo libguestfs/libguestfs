@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-01-21 22:14+0000\n"
+"POT-Creation-Date: 2013-01-28 18:13+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -3787,29 +3787,29 @@ msgstr ""
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
 
-#: src/appliance.c:221
+#: src/appliance.c:215
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:377
+#: src/appliance.c:369
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s, UID %d च्या मालकिचे नाही"
 
-#: src/appliance.c:382
+#: src/appliance.c:374
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s डिरेक्ट्री नाही (मोड %o)"
 
-#: src/appliance.c:387
+#: src/appliance.c:379
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s ग्रूप किंवा इतर द्वारे लेखनजोगी आहे (मोड %o)"
 
-#: src/appliance.c:712
+#: src/appliance.c:698
 msgid "external command failed, see earlier error messages"
 msgstr "बाहेरिल आदेश अपयशी, मागील त्रुटी संदेश पहा"
 
@@ -3823,7 +3823,7 @@ msgstr ""
 msgid "%s: unexpected error or end of output"
 msgstr ""
 
-#: src/dbdump.c:128 src/dbdump.c:144
+#: src/dbdump.c:126 src/dbdump.c:145
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 
@@ -3836,12 +3836,12 @@ msgstr ""
 msgid "warning: %s"
 msgstr ""
 
-#: src/errors.c:247
+#: src/errors.c:236
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: त्रुटी: %s\n"
 
-#: src/errors.c:275
+#: src/errors.c:264
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<आखूड केले, मूळ आकार %zu बाईट्स्>"
@@ -3851,7 +3851,7 @@ msgstr "<आखूड केले, मूळ आकार %zu बाईट्�
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजस आहे (%<PRIi64> बाईट्स्)"
 
-#: src/filearch.c:267
+#: src/filearch.c:264
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3933,40 +3933,40 @@ msgstr ""
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:547
-#: src/inspect-fs.c:592 src/inspect.c:654
+#: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:333
+#: src/inspect-fs-unix.c:845 src/inspect-fs-unix.c:1486 src/inspect-fs.c:543
+#: src/inspect-fs.c:587 src/inspect.c:651
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
 
-#: src/inspect-fs-unix.c:895
+#: src/inspect-fs-unix.c:888
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
-#: src/inspect-fs.c:376 src/inspect-fs.c:389
+#: src/inspect-fs.c:372 src/inspect-fs.c:385
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
 
-#: src/inspect-icon.c:663
+#: src/inspect-icon.c:608
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:327
+#: src/inspect.c:324
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "विंडोज अतिथी नाही, किंवा systemroot शोधणे अशक्य"
 
-#: src/inspect.c:343
+#: src/inspect.c:340
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:690
+#: src/inspect.c:687
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "अधिकृत तपासणी डाटा आढळले नाही: पहिले guestfs_inspect_os कॉल करा"
 
-#: src/inspect.c:702
+#: src/inspect.c:699
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3989,53 +3989,53 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch-appliance.c:678 src/launch-libvirt.c:438
+#: src/launch-appliance.c:669 src/launch-libvirt.c:439
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch-appliance.c:814
+#: src/launch-appliance.c:802
 msgid ""
 "qemu command failed\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:165
+#: src/launch-libvirt.c:167
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:172
+#: src/launch-libvirt.c:174
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:187
+#: src/launch-libvirt.c:189
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:203
+#: src/launch-libvirt.c:205
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:361
+#: src/launch-libvirt.c:363
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:514
+#: src/launch-libvirt.c:507
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:520 src/libvirt-domain.c:203 src/libvirt-domain.c:529
+#: src/launch-libvirt.c:513 src/libvirt-domain.c:203 src/libvirt-domain.c:529
 msgid "unable to create new XPath context"
 msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
 
-#: src/launch-libvirt.c:530
+#: src/launch-libvirt.c:523
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:560
+#: src/launch-libvirt.c:553
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4049,16 +4049,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:671
+#: src/launch-libvirt.c:662
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1002
+#: src/launch-libvirt.c:981
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1082
+#: src/launch-libvirt.c:1061
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4066,34 +4066,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1371
+#: src/launch-libvirt.c:1337
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1398
+#: src/launch-libvirt.c:1364
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1443
+#: src/launch-libvirt.c:1409
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1475
+#: src/launch-libvirt.c:1441
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1527
+#: src/launch-libvirt.c:1493
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1561
+#: src/launch-libvirt.c:1522
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1618
+#: src/launch-libvirt.c:1568
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4192,19 +4192,19 @@ msgstr ""
 msgid "list of supported credentials is too long"
 msgstr ""
 
-#: src/libvirt-auth.c:204
+#: src/libvirt-auth.c:213
 #, c-format
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr ""
 
-#: src/libvirt-auth.c:238 src/libvirt-auth.c:258 src/libvirt-auth.c:278
-#: src/libvirt-auth.c:299
+#: src/libvirt-auth.c:247 src/libvirt-auth.c:267 src/libvirt-auth.c:287
+#: src/libvirt-auth.c:308
 msgid "credential index out of range"
 msgstr ""
 
-#: src/libvirt-auth.c:319
+#: src/libvirt-auth.c:328
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt or libxml2"
@@ -4288,11 +4288,11 @@ msgstr ""
 "libguestfs ची ही आवृत्ती libvirt किंवा libxml2 विना कंपाईल केल्यामुळे add-domain API "
 "अनुपलब्ध आहे"
 
-#: src/osinfo.c:285
+#: src/osinfo.c:284
 msgid "osinfo: unable to create new XPath context"
 msgstr ""
 
-#: src/osinfo.c:296
+#: src/osinfo.c:294
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
@@ -4333,37 +4333,37 @@ msgstr "xdr_guestfs_message_header अपयशी"
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:874 src/proto.c:1172
+#: src/proto.c:869 src/proto.c:1153
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:937
+#: src/proto.c:932
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1098
+#: src/proto.c:1082
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:1126
+#: src/proto.c:1110
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:1149
+#: src/proto.c:1133
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:1154
+#: src/proto.c:1138
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:1162
+#: src/proto.c:1146
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:1176
+#: src/proto.c:1157
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-01-21 22:14+0000\n"
+"POT-Creation-Date: 2013-01-28 18:13+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4190,7 +4190,7 @@ msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
 "%s: невідоме повідомлення про стан завершення дочірнього процесу (%d)\n"
 
-#: src/appliance.c:221
+#: src/appliance.c:215
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -4200,24 +4200,24 @@ msgstr ""
 "або розгортання у застарілому стилі за адресою LIBGUESTFS_PATH (каталог "
 "пошуку: %s)"
 
-#: src/appliance.c:377
+#: src/appliance.c:369
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "безпека: кешований пристрій %s не належить UID %d"
 
-#: src/appliance.c:382
+#: src/appliance.c:374
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
 
-#: src/appliance.c:387
+#: src/appliance.c:379
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/appliance.c:712
+#: src/appliance.c:698
 msgid "external command failed, see earlier error messages"
 msgstr ""
 "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
@@ -4233,7 +4233,7 @@ msgstr "%s: не вдалося виконати команду"
 msgid "%s: unexpected error or end of output"
 msgstr "%s: неочікувана помилка або завершення виведених даних"
 
-#: src/dbdump.c:128 src/dbdump.c:144
+#: src/dbdump.c:126 src/dbdump.c:145
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 "неочікуваний рядок, виведений командою db_dump, не починається з пробілу"
@@ -4247,12 +4247,12 @@ msgstr "неочікувані не шістнадцяткові цифри у �
 msgid "warning: %s"
 msgstr "попередження: %s"
 
-#: src/errors.c:247
+#: src/errors.c:236
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/errors.c:275
+#: src/errors.c:264
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
@@ -4262,7 +4262,7 @@ msgstr "<скорочено, початковий розмір — %zu байт�
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:267
+#: src/filearch.c:264
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -4350,41 +4350,41 @@ msgstr "qemu-img: %s: помилка під час роботи дочірньо
 msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
-#: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:338
-#: src/inspect-fs-unix.c:852 src/inspect-fs-unix.c:1528 src/inspect-fs.c:547
-#: src/inspect-fs.c:592 src/inspect.c:654
+#: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:333
+#: src/inspect-fs-unix.c:845 src/inspect-fs-unix.c:1486 src/inspect-fs.c:543
+#: src/inspect-fs.c:587 src/inspect.c:651
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect-fs-unix.c:895
+#: src/inspect-fs-unix.c:888
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
-#: src/inspect-fs.c:376 src/inspect-fs.c:389
+#: src/inspect-fs.c:372 src/inspect-fs.c:385
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:663
+#: src/inspect-icon.c:608
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/inspect.c:327
+#: src/inspect.c:324
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:343
+#: src/inspect.c:340
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "не є гостьовою системою Windows або не вдалося визначити CurrentControlSet"
 
-#: src/inspect.c:690
+#: src/inspect.c:687
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:702
+#: src/inspect.c:699
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -4408,13 +4408,13 @@ msgstr "не вдалося обробити рядок у лапках побл
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-appliance.c:678 src/launch-libvirt.c:438
+#: src/launch-appliance.c:669 src/launch-libvirt.c:439
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-appliance.c:814
+#: src/launch-appliance.c:802
 msgid ""
 "qemu command failed\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
@@ -4427,46 +4427,46 @@ msgstr ""
 "звернути увагу\n"
 "на помилки, повідомлення про які може бути наведено вище."
 
-#: src/launch-libvirt.c:165
+#: src/launch-libvirt.c:167
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 "у методі attach libvirt ще не передбачено підтримки прапорця безпосереднього "
 "режиму"
 
-#: src/launch-libvirt.c:172
+#: src/launch-libvirt.c:174
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 "щоб скористатися методом attach libvirt, вам слід встановити libvirt >= %d."
 "%d.%d"
 
-#: src/launch-libvirt.c:187
+#: src/launch-libvirt.c:189
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:203
+#: src/launch-libvirt.c:205
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:361
+#: src/launch-libvirt.c:363
 msgid "could not create appliance through libvirt"
 msgstr "не вдалося створити систему для розгортання за допомогою libvirt"
 
-#: src/launch-libvirt.c:514
+#: src/launch-libvirt.c:507
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:520 src/libvirt-domain.c:203 src/libvirt-domain.c:529
+#: src/launch-libvirt.c:513 src/libvirt-domain.c:203 src/libvirt-domain.c:529
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:530
+#: src/launch-libvirt.c:523
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:560
+#: src/launch-libvirt.c:553
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4480,16 +4480,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:671
+#: src/launch-libvirt.c:662
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:1002
+#: src/launch-libvirt.c:981
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr "підтримки параметра «iface» у методі attach libvirt не передбачено"
 
-#: src/launch-libvirt.c:1082
+#: src/launch-libvirt.c:1061
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4502,34 +4502,34 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1371
+#: src/launch-libvirt.c:1337
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr "qemu-img create: не вдалося створити знімок над %s"
 
-#: src/launch-libvirt.c:1398
+#: src/launch-libvirt.c:1364
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1443
+#: src/launch-libvirt.c:1409
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1475
+#: src/launch-libvirt.c:1441
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1527
+#: src/launch-libvirt.c:1493
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1561
+#: src/launch-libvirt.c:1522
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
-#: src/launch-libvirt.c:1618
+#: src/launch-libvirt.c:1568
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4644,19 +4644,19 @@ msgstr "невідомий тип реєстраційних даних, «%s»"
 msgid "list of supported credentials is too long"
 msgstr "список підтримуваних реєстраційних даних є надто довгим"
 
-#: src/libvirt-auth.c:204
+#: src/libvirt-auth.c:213
 #, c-format
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr "%s слід викликати лише з обробника подій GUESTFS_EVENT_LIBVIRT_AUTH"
 
-#: src/libvirt-auth.c:238 src/libvirt-auth.c:258 src/libvirt-auth.c:278
-#: src/libvirt-auth.c:299
+#: src/libvirt-auth.c:247 src/libvirt-auth.c:267 src/libvirt-auth.c:287
+#: src/libvirt-auth.c:308
 msgid "credential index out of range"
 msgstr "індекс реєстраційних даних лежить поза допустимим діапазоном"
 
-#: src/libvirt-auth.c:319
+#: src/libvirt-auth.c:328
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt or libxml2"
@@ -4750,11 +4750,11 @@ msgstr ""
 "програмний інтерфейс add-domain недоступний, оскільки цю версію libguestfs "
 "було зібрано без підтримки бібліотеки libvirt або libxml2"
 
-#: src/osinfo.c:285
+#: src/osinfo.c:284
 msgid "osinfo: unable to create new XPath context"
 msgstr ""
 
-#: src/osinfo.c:296
+#: src/osinfo.c:294
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
@@ -4802,39 +4802,39 @@ msgstr "помилка xdr_guestfs_message_header"
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:874 src/proto.c:1172
+#: src/proto.c:869 src/proto.c:1153
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
-#: src/proto.c:937
+#: src/proto.c:932
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "помилка xdr_guestfs_chunk (буфер = %p, довжина буфера = %zu)"
 
-#: src/proto.c:1098
+#: src/proto.c:1082
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: помилка у кодуванні фрагмента"
 
-#: src/proto.c:1126
+#: src/proto.c:1110
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:1149
+#: src/proto.c:1133
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
 
-#: src/proto.c:1154
+#: src/proto.c:1138
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:1162
+#: src/proto.c:1146
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:1176
+#: src/proto.c:1157
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 

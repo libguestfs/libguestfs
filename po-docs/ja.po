@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-01-21 22:14+0000\n"
+"POT-Creation-Date: 2013-01-28 18:13+0000\n"
 "PO-Revision-Date: 2012-12-11 17:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -63622,9 +63622,12 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:2130
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " #define LIBGUESTFS_HAVE_DD 1\n"
+#| "\n"
 msgid ""
-" #define LIBGUESTFS_HAVE_DD 1\n"
+" #define GUESTFS_HAVE_DD 1\n"
 "\n"
 msgstr ""
 " #define LIBGUESTFS_HAVE_DD 1\n"
@@ -63709,11 +63712,18 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:2164
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " main ()\n"
+#| " {\n"
+#| " #ifdef LIBGUESTFS_HAVE_DD\n"
+#| "   void *dl;\n"
+#| "   int has_function;\n"
+#| " \n"
 msgid ""
 " main ()\n"
 " {\n"
-" #ifdef LIBGUESTFS_HAVE_DD\n"
+" #ifdef GUESTFS_HAVE_DD\n"
 "   void *dl;\n"
 "   int has_function;\n"
 " \n"
