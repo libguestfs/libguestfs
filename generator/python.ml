@@ -656,6 +656,7 @@ import libguestfsmod
     fun (name, bitmask) ->
       pr "EVENT_%s = 0x%x\n" (String.uppercase name) bitmask
   ) events;
+  pr "EVENT_ALL = 0x%x\n" all_events_bitmask;
   pr "\n";
 
   pr "\
