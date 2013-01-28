@@ -127,8 +127,8 @@ do_mount_vfs (const char *options, const char *vfstype,
               const char *device, const char *mountpoint)
 {
   int r;
-  char *mp;
-  char *error;
+  CLEANUP_FREE char *mp = NULL;
+  CLEANUP_FREE char *error = NULL;
   struct stat statbuf;
 
   ABS_PATH (mountpoint, , return -1);
@@ -142,12 +142,10 @@ do_mount_vfs (const char *options, const char *vfstype,
   /* Check the mountpoint exists and is a directory. */
   if (stat (mp, &statbuf) == -1) {
     reply_with_perror ("mount: %s", mountpoint);
-    free (mp);
     return -1;
   }
   if (!S_ISDIR (statbuf.st_mode)) {
     reply_with_perror ("mount: %s: mount point is not a directory", mountpoint);
-    free (mp);
     return -1;
   }
 
@@ -157,15 +155,12 @@ do_mount_vfs (const char *options, const char *vfstype,
   else
     r = command (NULL, &error,
                  str_mount, "-o", options, device, mp, NULL);
-  free (mp);
   if (r == -1) {
     reply_with_error ("%s on %s (options: '%s'): %s",
                       device, mountpoint, options, error);
-    free (error);
     return -1;
   }
 
-  free (error);
   return 0;
 }
 
@@ -194,8 +189,8 @@ do_umount (const char *pathordevice,
            int force, int lazyunmount)
 {
   int r;
-  char *err;
-  char *buf;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *buf = NULL;
   int is_dev;
   const char *argv[MAX_ARGS];
   size_t i = 0;
@@ -227,15 +222,11 @@ do_umount (const char *pathordevice,
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (buf);
 
   if (r == -1) {
     reply_with_error ("%s: %s", pathordevice, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }
@@ -348,7 +339,7 @@ do_umount_all (void)
   FILE *fp;
   struct mntent *m;
   DECLARE_STRINGSBUF (mounts);
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   size_t i;
   int r;
 
@@ -388,11 +379,9 @@ do_umount_all (void)
     r = command (NULL, &err, str_umount, mounts.argv[i], NULL);
     if (r == -1) {
       reply_with_error ("umount: %s: %s", mounts.argv[i], err);
-      free (err);
       free_stringslen (mounts.argv, mounts.size);
       return -1;
     }
-    free (err);
   }
 
   free_stringslen (mounts.argv, mounts.size);
@@ -408,8 +397,7 @@ int
 do_mount_loop (const char *file, const char *mountpoint)
 {
   int r;
-  char *buf, *mp;
-  char *error;
+  CLEANUP_FREE char *buf = NULL, *mp = NULL, *error = NULL;
 
   /* We have to prefix /sysroot on both the filename and the mountpoint. */
   mp = sysroot_path (mountpoint);
@@ -421,20 +409,15 @@ do_mount_loop (const char *file, const char *mountpoint)
   buf = sysroot_path (file);
   if (!buf) {
     reply_with_perror ("malloc");
-    free (mp);
     return -1;
   }
 
   r = command (NULL, &error, str_mount, "-o", "loop", buf, mp, NULL);
-  free (mp);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s on %s: %s", file, mountpoint, error);
-    free (error);
     return -1;
   }
 
-  free (error);
   return 0;
 }
 

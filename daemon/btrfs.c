@@ -44,8 +44,7 @@ int
 do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
 {
   const size_t MAX_ARGS = 64;
-  char *buf;
-  char *err;
+  CLEANUP_FREE char *buf = NULL, *err = NULL;
   int r;
   const char *argv[MAX_ARGS];
   size_t i = 0;
@@ -77,15 +76,12 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (buf);
 
   if (r == -1) {
     reply_with_error ("%s: %s", filesystem, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -107,7 +103,7 @@ do_mkfs_btrfs (char *const *devices,
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   char allocstart_s[64];
   char bytecount_s[64];
   char leafsize_s[64];
@@ -200,11 +196,9 @@ do_mkfs_btrfs (char *const *devices,
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", devices[0], err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -214,8 +208,8 @@ do_btrfs_subvolume_snapshot (const char *source, const char *dest)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *source_buf, *dest_buf;
-  char *err;
+  CLEANUP_FREE char *source_buf = NULL, *dest_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   source_buf = sysroot_path (source);
@@ -226,7 +220,6 @@ do_btrfs_subvolume_snapshot (const char *source, const char *dest)
   dest_buf = sysroot_path (dest);
   if (dest_buf == NULL) {
     reply_with_perror ("malloc");
-    free (source_buf);
     return -1;
   }
 
@@ -238,14 +231,10 @@ do_btrfs_subvolume_snapshot (const char *source, const char *dest)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (source_buf);
-  free (dest_buf);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", source, dest, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -256,8 +245,8 @@ do_btrfs_subvolume_delete (const char *subvolume)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *subvolume_buf;
-  char *err;
+  CLEANUP_FREE char *subvolume_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   subvolume_buf = sysroot_path (subvolume);
@@ -273,13 +262,10 @@ do_btrfs_subvolume_delete (const char *subvolume)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (subvolume_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", subvolume, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -290,8 +276,8 @@ do_btrfs_subvolume_create (const char *dest)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *dest_buf;
-  char *err;
+  CLEANUP_FREE char *dest_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   dest_buf = sysroot_path (dest);
@@ -307,13 +293,10 @@ do_btrfs_subvolume_create (const char *dest)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (dest_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", dest, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -323,10 +306,11 @@ do_btrfs_subvolume_list (const char *fs)
 {
   const size_t MAX_ARGS = 64;
   guestfs_int_btrfssubvolume_list *ret;
-  char *fs_buf;
+  CLEANUP_FREE char *fs_buf = NULL;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *out, *err, **lines, *pos;
+  char **lines, *pos;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   size_t nr_subvolumes;
   int r;
 
@@ -343,16 +327,12 @@ do_btrfs_subvolume_list (const char *fs)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (&out, &err, argv);
-  free (fs_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", fs, err);
-    free (err);
     return NULL;
   }
-  free (err);
 
   lines = split_lines (out);
-  free (out);
   if (!lines)
     return NULL;
 
@@ -420,9 +400,9 @@ do_btrfs_subvolume_set_default (int64_t id, const char *fs)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *fs_buf;
+  CLEANUP_FREE char *fs_buf = NULL;
   char buf[64];
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   snprintf (buf, sizeof buf, "%" PRIi64, id);
@@ -441,13 +421,10 @@ do_btrfs_subvolume_set_default (int64_t id, const char *fs)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (fs_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", fs, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -458,8 +435,8 @@ do_btrfs_filesystem_sync (const char *fs)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *fs_buf;
-  char *err;
+  CLEANUP_FREE char *fs_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   fs_buf = sysroot_path (fs);
@@ -475,13 +452,10 @@ do_btrfs_filesystem_sync (const char *fs)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (fs_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", fs, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -492,8 +466,8 @@ do_btrfs_filesystem_balance (const char *fs)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  char *fs_buf;
-  char *err;
+  CLEANUP_FREE char *fs_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   fs_buf = sysroot_path (fs);
@@ -509,13 +483,10 @@ do_btrfs_filesystem_balance (const char *fs)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (fs_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", fs, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -531,8 +502,8 @@ do_btrfs_device_add (char *const *devices, const char *fs)
   size_t MAX_ARGS = nr_devices + 8;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
-  char *fs_buf;
-  char *err;
+  CLEANUP_FREE char *fs_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   fs_buf = sysroot_path (fs);
@@ -552,13 +523,10 @@ do_btrfs_device_add (char *const *devices, const char *fs)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (fs_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", fs, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -574,8 +542,8 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
   size_t MAX_ARGS = nr_devices + 8;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
-  char *fs_buf;
-  char *err;
+  CLEANUP_FREE char *fs_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   fs_buf = sysroot_path (fs);
@@ -595,13 +563,10 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (fs_buf);
   if (r == -1) {
     reply_with_error ("%s: %s", fs, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return 0;
 }
@@ -609,7 +574,7 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
 int
 do_btrfs_set_seeding (const char *device, int svalue)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   const char *s_value = svalue ? "1" : "0";
@@ -617,11 +582,9 @@ do_btrfs_set_seeding (const char *device, int svalue)
   r = commandr (NULL, &err, str_btrfstune, "-S", s_value, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -629,7 +592,7 @@ do_btrfs_set_seeding (const char *device, int svalue)
 int
 do_btrfs_fsck (const char *device, int64_t superblock, int repair)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
   size_t i = 0;
   const size_t MAX_ARGS = 64;
@@ -661,10 +624,8 @@ do_btrfs_fsck (const char *device, int64_t superblock, int repair)
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }

@@ -154,7 +154,7 @@ set_filter (const char *filter)
     return -1;
   }
 
-  char *line = NULL;
+  CLEANUP_FREE char *line = NULL;
   size_t len = 0;
   while (getline (&line, &len, ifp) != -1) {
     int r;
@@ -168,13 +168,10 @@ set_filter (const char *filter)
       reply_with_error ("%s: write failed", lvm_conf_new);
       fclose (ifp);
       fclose (ofp);
-      free (line);
       unlink (lvm_conf_new);
       return -1;
     }
   }
-
-  free (line);
 
   if (fclose (ifp) == EOF) {
     reply_with_perror ("close: %s", lvm_conf);
@@ -200,15 +197,13 @@ set_filter (const char *filter)
 static int
 vgchange (const char *vgchange_flag)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = command (NULL, &err, str_lvm, "vgchange", vgchange_flag, NULL);
   if (r == -1) {
     reply_with_error ("vgchange: %s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -235,15 +230,13 @@ rescan (void)
 
   unlink (lvm_cache);
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = command (NULL, &err, str_lvm, "vgscan", NULL);
   if (r == -1) {
     reply_with_error ("vgscan: %s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -295,17 +288,14 @@ make_filter_string (char *const *devices)
 int
 do_lvm_set_filter (char *const *devices)
 {
-  char *filter = make_filter_string (devices);
+  CLEANUP_FREE char *filter = make_filter_string (devices);
   if (filter == NULL)
     return -1;
 
-  if (deactivate () == -1) {
-    free (filter);
+  if (deactivate () == -1)
     return -1;
-  }
 
   int r = set_filter (filter);
-  free (filter);
   if (r == -1)
     return -1;
 

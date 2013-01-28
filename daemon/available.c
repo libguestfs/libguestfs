@@ -84,7 +84,7 @@ test_proc_filesystems (const char *filesystem)
 {
   size_t len = strlen (filesystem) + 32;
   char regex[len];
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   snprintf (regex, len, "^[[:space:]]*%s$", filesystem);
@@ -92,10 +92,8 @@ test_proc_filesystems (const char *filesystem)
   r = commandr (NULL, &err, str_grep, regex, "/proc/filesystems", NULL);
   if (r == -1 || r >= 2) {
     fprintf (stderr, "grep /proc/filesystems: %s", err);
-    free (err);
     return -1;
   }
-  free (err);
 
   return r == 0;
 }

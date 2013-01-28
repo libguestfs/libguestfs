@@ -31,7 +31,7 @@
 static int
 wc (const char *flag, const char *path)
 {
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   int fd, flags, r;
 
   CHROOT_IN;
@@ -47,12 +47,8 @@ wc (const char *flag, const char *path)
   r = commandf (&out, &err, flags, "wc", flag, NULL);
   if (r == -1) {
     reply_with_error ("wc %s: %s", flag, err);
-    free (out);
-    free (err);
     return -1;
   }
-
-  free (err);
 
 #if 0
   /* Split it at the first whitespace. */
@@ -63,11 +59,9 @@ wc (const char *flag, const char *path)
   /* Parse the number. */
   if (sscanf (out, "%d", &r) != 1) {
     reply_with_error ("cannot parse number: %s", out);
-    free (out);
     return -1;
   }
 
-  free (out);
   return r;
 }
 

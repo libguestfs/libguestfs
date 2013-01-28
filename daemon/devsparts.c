@@ -247,39 +247,35 @@ do_part_to_partnum (const char *part)
 int
 do_device_index (const char *device)
 {
-  char **devices;
   size_t i;
   int ret = -1;
+  CLEANUP_FREE_STRING_LIST char **devices = do_list_devices ();
 
-  devices = do_list_devices ();
   if (devices == NULL)
     return -1;
 
   for (i = 0; devices[i] != NULL; ++i) {
     if (STREQ (device, devices[i]))
       ret = (int) i;
-    free (devices[i]);
   }
-  free (devices);
 
   if (ret == -1)
     reply_with_error ("device not found");
+
   return ret;
 }
 
 int
 do_nr_devices (void)
 {
-  char **devices;
   size_t i;
+  CLEANUP_FREE_STRING_LIST char **devices = do_list_devices ();
 
-  devices = do_list_devices ();
   if (devices == NULL)
     return -1;
 
   for (i = 0; devices[i] != NULL; ++i)
-    free (devices[i]);
-  free (devices);
+    ;
 
   return (int) i;
 }
@@ -291,7 +287,7 @@ do_list_disk_labels (void)
 {
   DIR *dir = NULL;
   struct dirent *d;
-  char *path = NULL, *rawdev = NULL;
+  char *rawdev = NULL;
   DECLARE_STRINGSBUF (ret);
 
   dir = opendir (GUESTFSDIR);
@@ -302,6 +298,8 @@ do_list_disk_labels (void)
 
   errno = 0;
   while ((d = readdir (dir)) != NULL) {
+    CLEANUP_FREE char *path = NULL;
+
     if (d->d_name[0] == '.')
       continue;
 
@@ -317,9 +315,6 @@ do_list_disk_labels (void)
       free_stringslen (ret.argv, ret.size);
       goto error;
     }
-
-    free (path);
-    path = NULL;
 
     if (add_string (&ret, d->d_name) == -1)
       goto error;
@@ -354,7 +349,6 @@ do_list_disk_labels (void)
  error:
   if (dir)
     closedir (dir);
-  free (path);
   free (rawdev);
   return NULL;
 }

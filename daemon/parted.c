@@ -74,7 +74,7 @@ int
 do_part_init (const char *device, const char *parttype)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   parttype = check_parttype (parttype);
   if (!parttype) {
@@ -88,10 +88,8 @@ do_part_init (const char *device, const char *parttype)
                 str_parted, "-s", "--", device, "mklabel", parttype, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -103,7 +101,7 @@ do_part_add (const char *device, const char *prlogex,
              int64_t startsect, int64_t endsect)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   char startstr[32];
   char endstr[32];
 
@@ -144,10 +142,8 @@ do_part_add (const char *device, const char *prlogex,
                 device, "mkpart", prlogex, startstr, endstr, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -158,7 +154,7 @@ int
 do_part_del (const char *device, int partnum)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
@@ -174,10 +170,8 @@ do_part_del (const char *device, int partnum)
                 str_parted, "-s", "--", device, "rm", partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -188,7 +182,7 @@ int
 do_part_disk (const char *device, const char *parttype)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   parttype = check_parttype (parttype);
   if (!parttype) {
@@ -220,10 +214,8 @@ do_part_disk (const char *device, const char *parttype)
                 startstr, endstr, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -234,7 +226,7 @@ int
 do_part_set_bootable (const char *device, int partnum, int bootable)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
@@ -252,10 +244,8 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
                 device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -266,7 +256,7 @@ int
 do_part_set_name (const char *device, int partnum, const char *name)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
@@ -283,10 +273,8 @@ do_part_set_name (const char *device, int partnum, const char *name)
                 str_parted, "-s", "--", device, "name", partstr, name, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -335,12 +323,11 @@ test_parted_m_opt (void)
   if (result >= 0)
     return result;
 
-  char *err = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r = commandr (NULL, &err, str_parted, "-s", "-m", "/dev/null", NULL);
   if (r == -1) {
     /* Test failed, eg. missing or completely unusable parted binary. */
     reply_with_error ("could not run 'parted' command");
-    free (err);
     return -1;
   }
 
@@ -348,14 +335,14 @@ test_parted_m_opt (void)
     result = 0;
   else
     result = 1;
-  free (err);
   return result;
 }
 
 static char *
 print_partition_table (const char *device, int parted_has_m_opt)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (parted_has_m_opt)
@@ -371,10 +358,8 @@ print_partition_table (const char *device, int parted_has_m_opt)
                       /* Hack for parted 1.x which sends errors to stdout. */
                       *err ? err : out);
     free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
   return out;
 }
@@ -386,7 +371,7 @@ do_part_get_parttype (const char *device)
   if (parted_has_m_opt == -1)
     return NULL;
 
-  char *out = print_partition_table (device, parted_has_m_opt);
+  CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
   if (!out)
     return NULL;
 
@@ -394,8 +379,7 @@ do_part_get_parttype (const char *device)
     /* New-style parsing using the "machine-readable" format from
      * 'parted -m'.
      */
-    char **lines = split_lines (out);
-    free (out);
+    CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
 
     if (!lines)
       return NULL;
@@ -403,13 +387,11 @@ do_part_get_parttype (const char *device)
     if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
       reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
                         lines[0] ? lines[0] : "(signature was null)");
-      free_strings (lines);
       return NULL;
     }
 
     if (lines[1] == NULL) {
       reply_with_error ("parted didn't return a line describing the device");
-      free_strings (lines);
       return NULL;
     }
 
@@ -418,11 +400,8 @@ do_part_get_parttype (const char *device)
      */
     char *r = get_table_field (lines[1], 5);
     if (r == NULL) {
-      free_strings (lines);
       return NULL;
     }
-
-    free_strings (lines);
 
     /* If "loop" return an error (RHBZ#634246). */
     if (STREQ (r, "loop")) {
@@ -438,7 +417,6 @@ do_part_get_parttype (const char *device)
     char *p = strstr (out, "\nPartition Table: ");
     if (!p) {
       reply_with_error ("parted didn't return Partition Table line");
-      free (out);
       return NULL;
     }
 
@@ -446,14 +424,12 @@ do_part_get_parttype (const char *device)
     char *q = strchr (p, '\n');
     if (!q) {
       reply_with_error ("parted Partition Table has no end of line char");
-      free (out);
       return NULL;
     }
 
     *q = '\0';
 
     p = strdup (p);
-    free (out);
     if (!p) {
       reply_with_perror ("strdup");
       return NULL;
@@ -477,12 +453,11 @@ do_part_list (const char *device)
   if (parted_has_m_opt == -1)
     return NULL;
 
-  char *out = print_partition_table (device, parted_has_m_opt);
+  CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
   if (!out)
     return NULL;
 
-  char **lines = split_lines (out);
-  free (out);
+  CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
 
   if (!lines)
     return NULL;
@@ -503,7 +478,7 @@ do_part_list (const char *device)
     r = malloc (sizeof *r);
     if (r == NULL) {
       reply_with_perror ("malloc");
-      goto error1;
+      return NULL;
     }
     r->guestfs_int_partition_list_len = nr_rows;
     r->guestfs_int_partition_list_val =
@@ -540,7 +515,7 @@ do_part_list (const char *device)
 
     if (start == 0) {
       reply_with_error ("parted output has no \"Number\" line");
-      goto error1;
+      return NULL;
     }
 
     for (row = start; lines[row] != NULL; ++row)
@@ -551,7 +526,7 @@ do_part_list (const char *device)
 
     if (end == 0) {
       reply_with_error ("parted output has no blank after end of table");
-      goto error1;
+      return NULL;
     }
 
     size_t nr_rows = end - start;
@@ -559,7 +534,7 @@ do_part_list (const char *device)
     r = malloc (sizeof *r);
     if (r == NULL) {
       reply_with_perror ("malloc");
-      goto error1;
+      return NULL;
     }
     r->guestfs_int_partition_list_len = nr_rows;
     r->guestfs_int_partition_list_val =
@@ -583,15 +558,12 @@ do_part_list (const char *device)
     }
   }
 
-  free_strings (lines);
   return r;
 
  error3:
   free (r->guestfs_int_partition_list_val);
  error2:
   free (r);
- error1:
-  free_strings (lines);
   return NULL;
 }
 
@@ -607,12 +579,11 @@ do_part_get_bootable (const char *device, int partnum)
   if (parted_has_m_opt == -1)
     return -1;
 
-  char *out = print_partition_table (device, parted_has_m_opt);
+  CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
   if (!out)
     return -1;
 
-  char **lines = split_lines (out);
-  free (out);
+  CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
 
   if (!lines)
     return -1;
@@ -627,13 +598,11 @@ do_part_get_bootable (const char *device, int partnum)
     if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
       reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
                         lines[0] ? lines[0] : "(signature was null)");
-      free_strings (lines);
       return -1;
     }
 
     if (lines[1] == NULL) {
       reply_with_error ("parted didn't return a line describing the device");
-      free_strings (lines);
       return -1;
     }
 
@@ -642,7 +611,6 @@ do_part_get_bootable (const char *device, int partnum)
     for (row = 2; lines[row] != NULL; ++row) {
       if (sscanf (lines[row], "%d:", &pnum) != 1) {
         reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-        free_strings (lines);
         return -1;
       }
       if (pnum == partnum)
@@ -651,22 +619,14 @@ do_part_get_bootable (const char *device, int partnum)
 
     if (lines[row] == NULL) {
       reply_with_error ("partition number %d not found", partnum);
-      free_strings (lines);
       return -1;
     }
 
-    char *boot = get_table_field (lines[row], 6);
-    if (boot == NULL) {
-      free_strings (lines);
+    CLEANUP_FREE char *boot = get_table_field (lines[row], 6);
+    if (boot == NULL)
       return -1;
-    }
 
-    int r = STREQ (boot, "boot");
-
-    free (boot);
-    free_strings (lines);
-
-    return r;
+    return STREQ (boot, "boot");
   }
   else {
     /* Old-style: First look for the line matching "^Number". */
@@ -681,7 +641,6 @@ do_part_get_bootable (const char *device, int partnum)
 
     if (start == 0) {
       reply_with_error ("parted output has no \"Number\" line");
-      free_strings (lines);
       return -1;
     }
 
@@ -694,7 +653,6 @@ do_part_get_bootable (const char *device, int partnum)
     char *p = strstr (lines[header], "Flags");
     if (!p) {
       reply_with_error ("parted output has no \"Flags\" field");
-      free_strings (lines);
       return -1;
     }
     size_t col = p - lines[header];
@@ -706,7 +664,6 @@ do_part_get_bootable (const char *device, int partnum)
     for (row = start; lines[row] != NULL; ++row) {
       if (sscanf (lines[row], " %d", &pnum) != 1) {
         reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-        free_strings (lines);
         return -1;
       }
       if (pnum == partnum)
@@ -715,13 +672,10 @@ do_part_get_bootable (const char *device, int partnum)
 
     if (lines[row] == NULL) {
       reply_with_error ("partition number %d not found", partnum);
-      free_strings (lines);
       return -1;
     }
 
-    int r = STRPREFIX (&lines[row][col], "boot");
-    free_strings (lines);
-    return r;
+    return STRPREFIX (&lines[row][col], "boot");
   }
 }
 
@@ -742,7 +696,7 @@ do_part_get_mbr_id (const char *device, int partnum)
   char partnum_str[16];
   snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
 
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   int r;
 
   udev_settle ();
@@ -750,11 +704,8 @@ do_part_get_mbr_id (const char *device, int partnum)
   r = command (&out, &err, str_sfdisk, "--print-id", device, partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk --print-id: %s", err);
-    free (out);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 
@@ -762,11 +713,9 @@ do_part_get_mbr_id (const char *device, int partnum)
   int id;
   if (sscanf (out, "%x", &id) != 1) {
     reply_with_error ("sfdisk --print-id: cannot parse output: %s", out);
-    free (out);
     return -1;
   }
 
-  free (out);
   return id;
 }
 
@@ -784,7 +733,7 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
   char idbyte_str[16];
   snprintf (idbyte_str, sizeof partnum_str, "%x", idbyte); /* NB: hex */
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   udev_settle ();
@@ -793,10 +742,8 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
                "--change-id", device, partnum_str, idbyte_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk --change-id: %s", err);
-    free (err);
     return -1;
   }
-  free (err);
 
   udev_settle ();
 

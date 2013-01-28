@@ -66,7 +66,8 @@ static char *
 checksum (const char *csumtype, int fd)
 {
   const char *program;
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int flags, r;
   size_t len;
 
@@ -84,11 +85,8 @@ checksum (const char *csumtype, int fd)
     pulse_mode_cancel ();
     reply_with_error ("%s: %s", program, err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   /* Split it at the first whitespace. */
   len = strcspn (out, " \t\n");
@@ -141,7 +139,7 @@ do_checksums_out (const char *csumtype, const char *dir)
   if (program == NULL)
     return -1;
 
-  char *sysrootdir = sysroot_path (dir);
+  CLEANUP_FREE char *sysrootdir = sysroot_path (dir);
   if (!sysrootdir) {
     reply_with_perror ("malloc");
     return -1;
@@ -150,23 +148,19 @@ do_checksums_out (const char *csumtype, const char *dir)
   r = stat (sysrootdir, &statbuf);
   if (r == -1) {
     reply_with_perror ("%s", dir);
-    free (sysrootdir);
     return -1;
   }
   if (!S_ISDIR (statbuf.st_mode)) {
     reply_with_error ("%s: not a directory", dir);
-    free (sysrootdir);
     return -1;
   }
 
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   if (asprintf_nowarn (&cmd, "cd %Q && %s -type f -print0 | %s -0 %s",
                        sysrootdir, str_find, str_xargs, program) == -1) {
     reply_with_perror ("asprintf");
-    free (sysrootdir);
     return -1;
   }
-  free (sysrootdir);
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -174,10 +168,8 @@ do_checksums_out (const char *csumtype, const char *dir)
   FILE *fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error

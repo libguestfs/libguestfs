@@ -49,7 +49,7 @@ optgroup_ntfsprogs_available (void)
 int
 do_ntfs_3g_probe (int rw, const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
   const char *rw_flag;
 
@@ -58,11 +58,9 @@ do_ntfs_3g_probe (int rw, const char *device)
   r = commandr (NULL, &err, str_ntfs3g_probe, rw_flag, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return r;
 }
 
@@ -70,7 +68,7 @@ do_ntfs_3g_probe (int rw, const char *device)
 int
 do_ntfsresize (const char *device, int64_t size, int force)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
   const char *argv[MAX_ARGS];
   size_t i = 0;
@@ -99,11 +97,9 @@ do_ntfsresize (const char *device, int64_t size, int force)
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 
@@ -121,7 +117,7 @@ do_ntfsfix (const char *device, int clearbadsectors)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   ADD_ARG (argv, i, str_ntfsfix);
 
@@ -135,10 +131,8 @@ do_ntfsfix (const char *device, int clearbadsectors)
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }

@@ -106,7 +106,7 @@ static guestfs_int_xfsinfo *
 parse_xfs_info (char **lines)
 {
   guestfs_int_xfsinfo *ret;
-  char *buf = NULL, *p;
+  char *p;
   size_t i;
 
   ret = malloc (sizeof *ret);
@@ -150,149 +150,128 @@ parse_xfs_info (char **lines)
       if (ret->xfs_mntpoint == NULL) goto error;
     }
     if ((p = strstr (lines[i], "isize="))) {
-      buf = split_strdup (p + 6);
+      CLEANUP_FREE char *buf = split_strdup (p + 6);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_inodesize, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "agcount="))) {
-      buf = split_strdup (p + 8);
+      CLEANUP_FREE char *buf = split_strdup (p + 8);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_agcount, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "agsize="))) {
-      buf = split_strdup (p + 7);
+      CLEANUP_FREE char *buf = split_strdup (p + 7);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_agsize, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "sectsz="))) {
-      buf = split_strdup (p + 7);
+      CLEANUP_FREE char *buf = split_strdup (p + 7);
       if (buf == NULL) goto error;
       if (i == 1) {
         if (parse_uint32 (&ret->xfs_sectsize, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else if (i == 6) {
         if (parse_uint32 (&ret->xfs_logsectsize, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "attr="))) {
-      buf = split_strdup (p + 5);
+      CLEANUP_FREE char *buf = split_strdup (p + 5);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_attr, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "bsize="))) {
-      buf = split_strdup (p + 6);
+      CLEANUP_FREE char *buf = split_strdup (p + 6);
       if (buf == NULL) goto error;
       if (i == 2) {
         if (parse_uint32 (&ret->xfs_blocksize, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else if (i == 4) {
         if (parse_uint32 (&ret->xfs_dirblocksize, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else if (i == 5) {
         if (parse_uint32 (&ret->xfs_logblocksize, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "blocks="))) {
-      buf = split_strdup (p + 7);
+      CLEANUP_FREE char *buf = split_strdup (p + 7);
       if (buf == NULL) goto error;
       if (i == 2) {
         if (parse_uint64 (&ret->xfs_datablocks, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else if (i == 5) {
         if (parse_uint32 (&ret->xfs_logblocks, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else if (i == 7) {
         if (parse_uint64 (&ret->xfs_rtblocks, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "imaxpct="))) {
-      buf = split_strdup (p + 8);
+      CLEANUP_FREE char *buf = split_strdup (p + 8);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_imaxpct, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "sunit="))) {
-      buf = split_strdup (p + 6);
+      CLEANUP_FREE char *buf = split_strdup (p + 6);
       if (buf == NULL) goto error;
       if (i == 3) {
         if (parse_uint32 (&ret->xfs_sunit, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else if (i == 6) {
         if (parse_uint32 (&ret->xfs_logsunit, buf) == -1)
           goto error;
-        free (buf); buf = NULL;
       } else goto error;
     }
     if ((p = strstr (lines[i], "swidth="))) {
-      buf = split_strdup (p + 7);
+      CLEANUP_FREE char *buf = split_strdup (p + 7);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_swidth, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "naming   =version "))) {
-      buf = split_strdup (p + 18);
+      CLEANUP_FREE char *buf = split_strdup (p + 18);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_dirversion, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "ascii-ci="))) {
-      buf = split_strdup (p + 9);
+      CLEANUP_FREE char *buf = split_strdup (p + 9);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_cimode, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "log      ="))) {
       ret->xfs_logname = split_strdup (p + 10);
       if (ret->xfs_logname == NULL) goto error;
     }
     if ((p = strstr (lines[i], "version="))) {
-      buf = split_strdup (p + 8);
+      CLEANUP_FREE char *buf = split_strdup (p + 8);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_logversion, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "lazy-count="))) {
-      buf = split_strdup (p + 11);
+      CLEANUP_FREE char *buf = split_strdup (p + 11);
       if (buf == NULL) goto error;
       if (parse_uint32 (&ret->xfs_lazycount, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
     if ((p = strstr (lines[i], "realtime ="))) {
       ret->xfs_rtname = split_strdup (p + 10);
       if (ret->xfs_rtname == NULL) goto error;
     }
     if ((p = strstr (lines[i], "rtextents="))) {
-      buf = split_strdup (p + 10);
+      CLEANUP_FREE char *buf = split_strdup (p + 10);
       if (buf == NULL) goto error;
       if (parse_uint64 (&ret->xfs_rtextents, buf) == -1)
         goto error;
-      free (buf); buf = NULL;
     }
   }
 
@@ -312,7 +291,6 @@ parse_xfs_info (char **lines)
   return ret;
 
 error:
-  free (buf);
   free (ret->xfs_mntpoint);
   free (ret->xfs_logname);
   free (ret->xfs_rtname);
@@ -324,10 +302,9 @@ guestfs_int_xfsinfo *
 do_xfs_info (const char *pathordevice)
 {
   int r;
-  char *buf;
-  char *out = NULL, *err = NULL;
-  char **lines = NULL;
-  guestfs_int_xfsinfo *ret = NULL;
+  CLEANUP_FREE char *buf = NULL;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   int is_dev;
 
   is_dev = STREQLEN (pathordevice, "/dev/", 5);
@@ -339,24 +316,16 @@ do_xfs_info (const char *pathordevice)
   }
 
   r = command (&out, &err, str_xfs_info, buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s", err);
-    goto error;
+    return NULL;
   }
 
   lines = split_lines (out);
   if (lines == NULL)
-    goto error;
+    return NULL;
 
-  ret = parse_xfs_info (lines);
-
-error:
-  free (err);
-  free (out);
-  if (lines)
-    free_strings (lines);
-  return ret;
+  return parse_xfs_info (lines);
 }
 
 int
@@ -366,8 +335,7 @@ do_xfs_growfs (const char *path,
                int64_t rtextsize, int32_t maxpct)
 {
   int r;
-  char *buf;
-  char *err = NULL;
+  CLEANUP_FREE char *buf = NULL, *err = NULL;
   const char *argv[MAX_ARGS];
   char datasize_s[64];
   char logsize_s[64];
@@ -402,7 +370,7 @@ do_xfs_growfs (const char *path,
   if (optargs_bitmask & GUESTFS_XFS_GROWFS_DATASIZE_BITMASK) {
     if (datasize < 0) {
       reply_with_error ("datasize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf (datasize_s, sizeof datasize_s, "%" PRIi64, datasize);
     ADD_ARG (argv, i, "-D");
@@ -412,7 +380,7 @@ do_xfs_growfs (const char *path,
   if (optargs_bitmask & GUESTFS_XFS_GROWFS_LOGSIZE_BITMASK) {
     if (logsize < 0) {
       reply_with_error ("logsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(logsize_s, sizeof logsize_s, "%" PRIi64, logsize);
     ADD_ARG (argv, i, "-L");
@@ -422,7 +390,7 @@ do_xfs_growfs (const char *path,
   if (optargs_bitmask & GUESTFS_XFS_GROWFS_RTSIZE_BITMASK) {
     if (rtsize < 0) {
       reply_with_error ("rtsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(rtsize_s, sizeof rtsize_s, "%" PRIi64, rtsize);
     ADD_ARG (argv, i, "-R");
@@ -432,7 +400,7 @@ do_xfs_growfs (const char *path,
   if (optargs_bitmask & GUESTFS_XFS_GROWFS_RTEXTSIZE_BITMASK) {
     if (rtextsize < 0) {
       reply_with_error ("rtextsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(rtextsize_s, sizeof rtextsize_s, "%" PRIi64, rtextsize);
     ADD_ARG (argv, i, "-e");
@@ -442,7 +410,7 @@ do_xfs_growfs (const char *path,
   if (optargs_bitmask & GUESTFS_XFS_GROWFS_MAXPCT_BITMASK) {
     if (maxpct < 0) {
       reply_with_error ("maxpct must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(maxpct_s, sizeof maxpct_s, "%" PRIi32, maxpct);
     ADD_ARG (argv, i, "-m");
@@ -453,19 +421,12 @@ do_xfs_growfs (const char *path,
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
-    goto error;
+    return -1;
   }
 
-  free (err);
   return 0;
-
-error:
-  free (buf);
-  free (err);
-  return -1;
 }
 
 int
@@ -475,7 +436,7 @@ do_xfs_admin (const char *device,
               int lazycounter, const char *label, const char *uuid)
 {
   int r;
-  char *err = NULL;
+  CLEANUP_FREE char *err = NULL;
   const char *argv[MAX_ARGS];
   size_t i = 0;
 
@@ -526,15 +487,10 @@ do_xfs_admin (const char *device,
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    goto error;
+    return -1;
   }
 
-  free (err);
   return 0;
-
-error:
-  free (err);
-  return -1;
 }
 
 int
@@ -546,9 +502,8 @@ do_xfs_repair (const char *device,
                const char *logdev, const char *rtdev)
 {
   int r;
-  char *err = NULL;
+  CLEANUP_FREE char *err = NULL, *buf = NULL;
   const char *argv[MAX_ARGS];
-  char *buf = NULL;
   char maxmem_s[64];
   char ihashsize_s[70];
   char bhashsize_s[70];
@@ -581,7 +536,7 @@ do_xfs_repair (const char *device,
   if (optargs_bitmask & GUESTFS_XFS_REPAIR_MAXMEM_BITMASK) {
     if (maxmem < 0) {
       reply_with_error ("maxmem must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(maxmem_s, sizeof maxmem_s, "%" PRIi64, maxmem);
     ADD_ARG (argv, i, "-m");
@@ -591,7 +546,7 @@ do_xfs_repair (const char *device,
   if (optargs_bitmask & GUESTFS_XFS_REPAIR_IHASHSIZE_BITMASK) {
     if (ihashsize < 0) {
       reply_with_error ("ihashsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(ihashsize_s, sizeof ihashsize_s, "ihash=" "%" PRIi64, ihashsize);
     ADD_ARG (argv, i, "-o");
@@ -601,7 +556,7 @@ do_xfs_repair (const char *device,
   if (optargs_bitmask & GUESTFS_XFS_REPAIR_BHASHSIZE_BITMASK) {
     if (bhashsize < 0) {
       reply_with_error ("bhashsize must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(bhashsize_s, sizeof bhashsize_s, "bhash=" "%" PRIi64, bhashsize);
     ADD_ARG (argv, i, "-o");
@@ -611,7 +566,7 @@ do_xfs_repair (const char *device,
   if (optargs_bitmask & GUESTFS_XFS_REPAIR_AGSTRIDE_BITMASK) {
     if (agstride < 0) {
       reply_with_error ("agstride must be >= 0");
-      goto error;
+      return -1;
     }
     snprintf(agstride_s, sizeof agstride_s, "ag_stride=" "%" PRIi64, agstride);
     ADD_ARG (argv, i, "-o");
@@ -634,7 +589,7 @@ do_xfs_repair (const char *device,
     buf = sysroot_path (device);
     if (buf == NULL) {
       reply_with_perror ("malloc");
-      goto error;
+      return -1;
     }
     ADD_ARG (argv, i, "-f");
     ADD_ARG (argv, i, buf);
@@ -645,16 +600,10 @@ do_xfs_repair (const char *device,
   ADD_ARG (argv, i, NULL);
 
   r = commandrv (NULL, &err, argv);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    goto error;
+    return -1;
   }
 
-  free (err);
   return r;
-
-error:
-  free (err);
-  return -1;
 }

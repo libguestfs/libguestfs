@@ -83,7 +83,7 @@ do_internal_hot_remove_drive_precheck (const char *label)
   size_t len = strlen (label);
   char path[len+64];
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   /* Ensure there are no requests in flight (thanks Paolo Bonzini). */
   udev_settle ();
@@ -94,11 +94,8 @@ do_internal_hot_remove_drive_precheck (const char *label)
   r = commandr (&out, &err, str_fuser, "-v", "-m", path, NULL);
   if (r == -1) {
     reply_with_error ("fuser: %s: %s", path, err);
-    free (out);
-    free (err);
     return -1;
   }
-  free (err);
 
   /* "fuser returns a non-zero return code if none of the specified
    * files is accessed or in case of a fatal error. If at least one
@@ -112,12 +109,8 @@ do_internal_hot_remove_drive_precheck (const char *label)
     if (verbose)
       fprintf (stderr, "%s\n", out);
 
-    free (out);
-
     return -1;
   }
-
-  free (out);
 
   return 0;
 }

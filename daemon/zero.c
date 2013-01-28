@@ -88,19 +88,15 @@ wipefs_has_force_option (void)
 {
   static int flag = -1;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   if (flag == -1) {
     r = command (&out, &err, "wipefs", "--help", NULL);
     if (r == -1) {
       reply_with_error ("%s", err);
-      free (out);
-      free (err);
       return -1;
     }
-    free (err);
     flag = strstr (out, "--force") != NULL;
-    free (out);
   }
 
   return flag;
@@ -111,7 +107,7 @@ do_wipefs (const char *device)
 {
   int force;
   int r;
-  char *err = NULL;
+  CLEANUP_FREE char *err = NULL;
   const size_t MAX_ARGS = 16;
   const char *argv[MAX_ARGS];
   size_t i = 0;
@@ -130,11 +126,9 @@ do_wipefs (const char *device)
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 

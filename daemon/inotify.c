@@ -154,7 +154,7 @@ int64_t
 do_inotify_add_watch (const char *path, int mask)
 {
   int64_t r;
-  char *buf;
+  CLEANUP_FREE char *buf = NULL;
 
   NEED_INOTIFY (-1);
 
@@ -165,7 +165,6 @@ do_inotify_add_watch (const char *path, int mask)
   }
 
   r = inotify_add_watch (inotify_fd, buf, mask);
-  free (buf);
   if (r == -1) {
     reply_with_perror ("%s", path);
     return -1;

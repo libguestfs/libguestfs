@@ -105,15 +105,13 @@ int
 do_ldmtool_create_all (void)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   r = command (NULL, &err, "ldmtool", "create", "all", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-  free (err);
   return 0;
 }
 
@@ -121,15 +119,13 @@ int
 do_ldmtool_remove_all (void)
 {
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   r = command (NULL, &err, "ldmtool", "remove", "all", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-  free (err);
   return 0;
 }
 
@@ -293,9 +289,9 @@ do_ldmtool_scan_devices (char * const * devices)
 {
   char **ret;
   size_t i, nr_devices;
-  const char **argv;
+  CLEANUP_FREE_STRING_LIST const char **argv = NULL;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   nr_devices = count_strings (devices);
   argv = malloc ((3 + nr_devices) * sizeof (char *));
@@ -311,153 +307,113 @@ do_ldmtool_scan_devices (char * const * devices)
   argv[2+i] = NULL;
 
   r = commandv (&out, &err, argv);
-  free (argv);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
   ret = parse_json_get_string_list (out, __func__, "ldmtool scan");
-  free (out);
   return ret;
 }
 
 char *
 do_ldmtool_diskgroup_name (const char *diskgroup)
 {
-  char *ret;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err, str_ldmtool, "show", "diskgroup", diskgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
-  ret = parse_json_get_object_string (out, "name", 0,
-                                      __func__, "ldmtool show diskgroup");
-  free (out);
-  return ret;
+  return parse_json_get_object_string (out, "name", 0,
+                                       __func__, "ldmtool show diskgroup");
 }
 
 char **
 do_ldmtool_diskgroup_volumes (const char *diskgroup)
 {
-  char **ret;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err, str_ldmtool, "show", "diskgroup", diskgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
   free (err);
 
-  ret = parse_json_get_object_string_list (out, "volumes",
-                                           __func__, "ldmtool show diskgroup");
-  free (out);
-  return ret;
+  return parse_json_get_object_string_list (out, "volumes",
+                                            __func__, "ldmtool show diskgroup");
 }
 
 char **
 do_ldmtool_diskgroup_disks (const char *diskgroup)
 {
-  char **ret;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err, str_ldmtool, "show", "diskgroup", diskgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
-  ret = parse_json_get_object_string_list (out, "disks",
-                                           __func__, "ldmtool show diskgroup");
-  free (out);
-  return ret;
+  return parse_json_get_object_string_list (out, "disks",
+                                            __func__, "ldmtool show diskgroup");
 }
 
 char *
 do_ldmtool_volume_type (const char *diskgroup, const char *volume)
 {
-  char *ret;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err,
                str_ldmtool, "show", "volume", diskgroup, volume, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
-  ret = parse_json_get_object_string (out, "type", 0,
-                                      __func__, "ldmtool show volume");
-  free (out);
-  return ret;
+  return parse_json_get_object_string (out, "type", 0,
+                                       __func__, "ldmtool show volume");
 }
 
 char *
 do_ldmtool_volume_hint (const char *diskgroup, const char *volume)
 {
-  char *ret;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err,
                str_ldmtool, "show", "volume", diskgroup, volume, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
-  ret = parse_json_get_object_string (out, "hint", GET_STRING_NULL_TO_EMPTY,
-                                      __func__, "ldmtool show volume");
-  free (out);
-  return ret;
+  return parse_json_get_object_string (out, "hint", GET_STRING_NULL_TO_EMPTY,
+                                       __func__, "ldmtool show volume");
 }
 
 char **
 do_ldmtool_volume_partitions (const char *diskgroup, const char *volume)
 {
-  char **ret;
   int r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err,
                str_ldmtool, "show", "volume", diskgroup, volume, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (out);
-    free (err);
     return NULL;
   }
-  free (err);
 
-  ret = parse_json_get_object_string_list (out, "partitions",
-                                           __func__, "ldmtool show volume");
-  free (out);
-  return ret;
+  return parse_json_get_object_string_list (out, "partitions",
+                                            __func__, "ldmtool show volume");
 }
 
 #else /* !HAVE_YAJL */

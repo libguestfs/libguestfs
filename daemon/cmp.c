@@ -32,8 +32,8 @@ GUESTFSD_EXT_CMD(str_cmp, cmp);
 int
 do_equal (const char *file1, const char *file2)
 {
-  char *file1buf, *file2buf;
-  char *err;
+  CLEANUP_FREE char *file1buf = NULL, *file2buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   file1buf = sysroot_path (file1);
@@ -45,22 +45,14 @@ do_equal (const char *file1, const char *file2)
   file2buf = sysroot_path (file2);
   if (file2buf == NULL) {
     reply_with_perror ("malloc");
-    free (file1buf);
     return -1;
   }
 
   r = commandr (NULL, &err, str_cmp, "-s", file1buf, file2buf, NULL);
-
-  free (file1buf);
-  free (file2buf);
-
   if (r == -1 || r > 1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return r == 0;
 }

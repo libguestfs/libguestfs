@@ -115,17 +115,14 @@ luks_open (const char *device, const char *key, const char *mapname,
   ADD_ARG (argv, i, mapname);
   ADD_ARG (argv, i, NULL);
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = commandv (NULL, &err, (const char * const *) argv);
   remove_temp (tempfile);
 
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -155,15 +152,12 @@ do_luks_close (const char *device)
 
   const char *mapname = &device[12];
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = command (NULL, &err, str_cryptsetup, "luksClose", mapname, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -196,17 +190,14 @@ luks_format (const char *device, const char *key, int keyslot,
   ADD_ARG (argv, i, tempfile);
   ADD_ARG (argv, i, NULL);
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = commandv (NULL, &err, (const char * const *) argv);
   remove_temp (tempfile);
 
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -256,18 +247,15 @@ do_luks_add_key (const char *device, const char *key, const char *newkey,
   ADD_ARG (argv, i, newkeyfile);
   ADD_ARG (argv, i, NULL);
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = commandv (NULL, &err, (const char * const *) argv);
   remove_temp (keyfile);
   remove_temp (newkeyfile);
 
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }
@@ -293,17 +281,14 @@ do_luks_kill_slot (const char *device, const char *key, int keyslot)
   ADD_ARG (argv, i, keyslot_s);
   ADD_ARG (argv, i, NULL);
 
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = commandv (NULL, &err, (const char * const *) argv);
   remove_temp (tempfile);
 
   if (r == -1) {
     reply_with_error ("%s", err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }

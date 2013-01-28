@@ -44,7 +44,7 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   char inode_str[32];
   char sectorsize_str[32];
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int extfs = 0;
 
   if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
@@ -187,11 +187,9 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", fstype, device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return 0;
 }
 

@@ -39,7 +39,7 @@ do_compressX_out (const char *file, const char *filter, int is_device)
 {
   int r;
   FILE *fp;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
   /* The command will look something like:
@@ -71,10 +71,8 @@ do_compressX_out (const char *file, const char *filter, int is_device)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
-    free (cmd);
     return -1;
   }
-  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error

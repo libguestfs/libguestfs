@@ -657,7 +657,8 @@ int
 commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 {
   va_list args;
-  const char **argv;
+  /* NB: Mustn't free the strings which are on the stack. */
+  CLEANUP_FREE const char **argv;
   char *s;
   size_t i;
   int r;
@@ -678,7 +679,6 @@ commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
     const char **p = realloc (argv, sizeof (char *) * (++i));
     if (p == NULL) {
       perror ("realloc");
-      free (argv);
       va_end (args);
       return -1;
     }
@@ -691,9 +691,6 @@ commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 
   r = commandvf (stdoutput, stderror, flags, (const char * const*) argv);
 
-  /* NB: Mustn't free the strings which are on the stack. */
-  free (argv);
-
   return r;
 }
 
@@ -705,7 +702,7 @@ int
 commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 {
   va_list args;
-  const char **argv;
+  CLEANUP_FREE const char **argv;
   char *s;
   int i, r;
 
@@ -725,7 +722,6 @@ commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
     const char **p = realloc (argv, sizeof (char *) * (++i));
     if (p == NULL) {
       perror ("realloc");
-      free (argv);
       va_end (args);
       return -1;
     }
@@ -737,9 +733,6 @@ commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
   va_end (args);
 
   r = commandrvf (stdoutput, stderror, flags, argv);
-
-  /* NB: Mustn't free the strings which are on the stack. */
-  free (argv);
 
   return r;
 }

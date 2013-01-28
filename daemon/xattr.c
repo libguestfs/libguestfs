@@ -120,7 +120,7 @@ getxattrs (const char *path,
                                 void *value, size_t size))
 {
   ssize_t len, vlen;
-  char *buf = NULL;
+  CLEANUP_FREE char *buf = NULL;
   size_t i, j;
   guestfs_int_xattr_list *r = NULL;
 
@@ -202,12 +202,9 @@ getxattrs (const char *path,
     }
   }
 
-  free (buf);
-
   return r;
 
  error:
-  free (buf);
   if (r) {
     if (r->guestfs_int_xattr_list_val) {
       size_t k;
@@ -275,7 +272,7 @@ do_internal_lxattrlist (const char *path, char *const *names)
   size_t i, j;
   size_t k, m, nr_attrs;
   ssize_t len, vlen;
-  char *buf = NULL;
+  CLEANUP_FREE char *buf = NULL;
 
   if (path_len >= PATH_MAX) {
     reply_with_perror ("path longer than PATH_MAX");
@@ -409,8 +406,6 @@ do_internal_lxattrlist (const char *path, char *const *names)
       }
     }
 
-    free (buf); buf = NULL;
-
     char num[16];
     snprintf (num, sizeof num, "%zu", nr_attrs);
     entry[0].attrval.attrval_len = strlen (num) + 1;
@@ -425,7 +420,6 @@ do_internal_lxattrlist (const char *path, char *const *names)
   return ret;
 
  error:
-  free (buf);
   if (ret) {
     if (ret->guestfs_int_xattr_list_val) {
       for (k = 0; k < ret->guestfs_int_xattr_list_len; ++k) {

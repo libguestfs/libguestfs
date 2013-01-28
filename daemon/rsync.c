@@ -46,7 +46,7 @@ rsync (const char *src, const char *src_orig,
   const char *argv[MAX_ARGS];
   size_t i = 0;
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   ADD_ARG (argv, i, str_rsync);
 
@@ -63,11 +63,8 @@ rsync (const char *src, const char *src_orig,
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("'%s' to '%s': %s", src_orig, dest_orig, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }
@@ -77,14 +74,13 @@ int
 do_rsync (const char *src_orig, const char *dest_orig,
           int archive, int deletedest)
 {
-  char *src = NULL, *dest = NULL;
-  int r = -1;
+  CLEANUP_FREE char *src = NULL, *dest = NULL;
 
   src = sysroot_path (src_orig);
   dest = sysroot_path (dest_orig);
   if (!src || !dest) {
     reply_with_perror ("malloc");
-    goto out;
+    return -1;
   }
 
   if (!(optargs_bitmask & GUESTFS_RSYNC_ARCHIVE_BITMASK))
@@ -92,12 +88,7 @@ do_rsync (const char *src_orig, const char *dest_orig,
   if (!(optargs_bitmask & GUESTFS_RSYNC_DELETEDEST_BITMASK))
     deletedest = 0;
 
-  r = rsync (src, src_orig, dest, dest_orig, archive, deletedest);
-
- out:
-  free (src);
-  free (dest);
-  return r;
+  return rsync (src, src_orig, dest, dest_orig, archive, deletedest);
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -105,13 +96,12 @@ int
 do_rsync_in (const char *remote, const char *dest_orig,
              int archive, int deletedest)
 {
-  char *dest = NULL;
-  int r = -1;
+  CLEANUP_FREE char *dest = NULL;
 
   dest = sysroot_path (dest_orig);
   if (!dest) {
     reply_with_perror ("malloc");
-    goto out;
+    return -1;
   }
 
   if (!(optargs_bitmask & GUESTFS_RSYNC_IN_ARCHIVE_BITMASK))
@@ -119,11 +109,7 @@ do_rsync_in (const char *remote, const char *dest_orig,
   if (!(optargs_bitmask & GUESTFS_RSYNC_IN_DELETEDEST_BITMASK))
     deletedest = 0;
 
-  r = rsync (remote, remote, dest, dest_orig, archive, deletedest);
-
- out:
-  free (dest);
-  return r;
+  return rsync (remote, remote, dest, dest_orig, archive, deletedest);
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -131,13 +117,12 @@ int
 do_rsync_out (const char *src_orig, const char *remote,
               int archive, int deletedest)
 {
-  char *src = NULL;
-  int r = -1;
+  CLEANUP_FREE char *src = NULL;
 
   src = sysroot_path (src_orig);
   if (!src) {
     reply_with_perror ("malloc");
-    goto out;
+    return -1;
   }
 
   if (!(optargs_bitmask & GUESTFS_RSYNC_OUT_ARCHIVE_BITMASK))
@@ -145,9 +130,5 @@ do_rsync_out (const char *src_orig, const char *remote,
   if (!(optargs_bitmask & GUESTFS_RSYNC_OUT_DELETEDEST_BITMASK))
     deletedest = 0;
 
-  r = rsync (src, src_orig, remote, remote, archive, deletedest);
-
- out:
-  free (src);
-  return r;
+  return rsync (src, src_orig, remote, remote, archive, deletedest);
 }

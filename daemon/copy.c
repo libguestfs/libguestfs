@@ -177,48 +177,37 @@ int
 do_copy_device_to_file (const char *src, const char *dest,
                         int64_t srcoffset, int64_t destoffset, int64_t size)
 {
-  char *dest_buf;
-  int r;
+  CLEANUP_FREE char *dest_buf = sysroot_path (dest);
 
-  dest_buf = sysroot_path (dest);
   if (!dest_buf) {
     reply_with_perror ("malloc");
     return -1;
   }
 
-  r = copy (src, src, dest_buf, dest, DEST_FILE_FLAGS,
-            srcoffset, destoffset, size);
-  free (dest_buf);
-
-  return r;
+  return copy (src, src, dest_buf, dest, DEST_FILE_FLAGS,
+               srcoffset, destoffset, size);
 }
 
 int
 do_copy_file_to_device (const char *src, const char *dest,
                         int64_t srcoffset, int64_t destoffset, int64_t size)
 {
-  char *src_buf;
-  int r;
+  CLEANUP_FREE char *src_buf = sysroot_path (src);
 
-  src_buf = sysroot_path (src);
   if (!src_buf) {
     reply_with_perror ("malloc");
     return -1;
   }
 
-  r = copy (src_buf, src, dest, dest, DEST_DEVICE_FLAGS,
-            srcoffset, destoffset, size);
-  free (src_buf);
-
-  return r;
+  return copy (src_buf, src, dest, dest, DEST_DEVICE_FLAGS,
+               srcoffset, destoffset, size);
 }
 
 int
 do_copy_file_to_file (const char *src, const char *dest,
                       int64_t srcoffset, int64_t destoffset, int64_t size)
 {
-  char *src_buf, *dest_buf;
-  int r;
+  CLEANUP_FREE char *src_buf = NULL, *dest_buf = NULL;
 
   src_buf = sysroot_path (src);
   if (!src_buf) {
@@ -229,14 +218,9 @@ do_copy_file_to_file (const char *src, const char *dest,
   dest_buf = sysroot_path (dest);
   if (!dest_buf) {
     reply_with_perror ("malloc");
-    free (src_buf);
     return -1;
   }
 
-  r = copy (src_buf, src, dest_buf, dest, DEST_FILE_FLAGS,
-            srcoffset, destoffset, size);
-  free (src_buf);
-  free (dest_buf);
-
-  return r;
+  return copy (src_buf, src, dest_buf, dest, DEST_FILE_FLAGS,
+               srcoffset, destoffset, size);
 }

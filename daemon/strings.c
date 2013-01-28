@@ -31,7 +31,7 @@ char **
 do_strings_e (const char *encoding, const char *path)
 {
   int fd, flags, r;
-  char *out, *err;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
   char **lines;
 
   if (strlen (encoding) != 1 ||
@@ -53,17 +53,11 @@ do_strings_e (const char *encoding, const char *path)
   r = commandf (&out, &err, flags, "strings", "-e", encoding, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
-    free (err);
-    free (out);
     return NULL;
   }
 
-  free (err);
-
   /* Now convert the output to a list of lines. */
   lines = split_lines (out);
-  free (out);
-
   if (lines == NULL)
     return NULL;
 

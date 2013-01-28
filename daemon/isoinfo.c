@@ -239,10 +239,9 @@ parse_isoinfo (char **lines)
 static guestfs_int_isoinfo *
 isoinfo (const char *path)
 {
-  char *out = NULL, *err = NULL;
   int r;
-  char **lines = NULL;
-  guestfs_int_isoinfo *ret = NULL;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
 
   /* --debug is necessary to get additional fields, in particular
    * the date & time fields.
@@ -250,24 +249,14 @@ isoinfo (const char *path)
   r = command (&out, &err, str_isoinfo, "--debug", "-d", "-i", path, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
-    goto done;
+    return NULL;
   }
 
   lines = split_lines (out);
   if (lines == NULL)
-    goto done;
+    return NULL;
 
-  ret = parse_isoinfo (lines);
-  if (ret == NULL)
-    goto done;
-
- done:
-  free (out);
-  free (err);
-  if (lines)
-    free_strings (lines);
-
-  return ret;
+  return parse_isoinfo (lines);
 }
 
 guestfs_int_isoinfo *
@@ -279,17 +268,14 @@ do_isoinfo_device (const char *device)
 guestfs_int_isoinfo *
 do_isoinfo (const char *path)
 {
-  char *buf;
   guestfs_int_isoinfo *ret;
-
-  buf = sysroot_path (path);
+  CLEANUP_FREE char *buf = sysroot_path (path);
   if (!buf) {
     reply_with_perror ("malloc");
     return NULL;
   }
 
   ret = isoinfo (buf);
-  free (buf);
 
   return ret;
 }

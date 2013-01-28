@@ -39,17 +39,14 @@ optgroup_scrub_available (void)
 int
 do_scrub_device (const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (NULL, &err, str_scrub, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }
@@ -57,8 +54,8 @@ do_scrub_device (const char *device)
 int
 do_scrub_file (const char *file)
 {
-  char *buf;
-  char *err;
+  CLEANUP_FREE char *buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   /* Make the path relative to /sysroot. */
@@ -69,14 +66,10 @@ do_scrub_file (const char *file)
   }
 
   r = command (NULL, &err, str_scrub, "-r", buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s", file, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }
@@ -84,8 +77,8 @@ do_scrub_file (const char *file)
 int
 do_scrub_freespace (const char *dir)
 {
-  char *buf;
-  char *err;
+  CLEANUP_FREE char *buf = NULL;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   /* Make the path relative to /sysroot. */
@@ -96,14 +89,10 @@ do_scrub_freespace (const char *dir)
   }
 
   r = command (NULL, &err, str_scrub, "-X", buf, NULL);
-  free (buf);
   if (r == -1) {
     reply_with_error ("%s: %s", dir, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return 0;
 }

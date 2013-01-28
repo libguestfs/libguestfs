@@ -44,7 +44,7 @@ GUESTFSD_EXT_CMD(str_swapoff, swapoff);
 int
 optgroup_linuxfsuuid_available (void)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int av;
 
   /* Upstream util-linux have been gradually changing '--help' to go
@@ -56,7 +56,6 @@ optgroup_linuxfsuuid_available (void)
                           str_mkswap, "--help", NULL));
 
   av = strstr (err, "-U") != NULL;
-  free (err);
   return av;
 }
 
@@ -68,7 +67,7 @@ do_mkswap (const char *device, const char *label, const char *uuid)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   int r;
-  char *err;
+  CLEANUP_FREE char *err = NULL;
 
   ADD_ARG (argv, i, str_mkswap);
   ADD_ARG (argv, i, "-f");
@@ -95,11 +94,8 @@ do_mkswap (const char *device, const char *label, const char *uuid)
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   udev_settle ();
 
@@ -123,8 +119,7 @@ do_mkswap_U (const char *uuid, const char *device)
 int
 do_mkswap_file (const char *path)
 {
-  char *buf;
-  char *err;
+  CLEANUP_FREE char *buf = NULL, *err = NULL;
   int r;
 
   buf = sysroot_path (path);
@@ -134,15 +129,11 @@ do_mkswap_file (const char *path)
   }
 
   r = command (NULL, &err, str_mkswap, "-f", buf, NULL);
-  free (buf);
 
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   return r;
 }
@@ -150,7 +141,7 @@ do_mkswap_file (const char *path)
 static int
 swaponoff (const char *cmd, const char *flag, const char *value)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   if (!flag)
@@ -160,11 +151,8 @@ swaponoff (const char *cmd, const char *flag, const char *value)
 
   if (r == -1) {
     reply_with_error ("%s: %s", value, err);
-    free (err);
     return -1;
   }
-
-  free (err);
 
   /* Possible fix for RHBZ#516096.  It probably doesn't hurt to do
    * this in any case.
@@ -189,8 +177,7 @@ do_swapoff_device (const char *device)
 int
 do_swapon_file (const char *path)
 {
-  char *buf;
-  int r;
+  CLEANUP_FREE char *buf = NULL;
 
   buf = sysroot_path (path);
   if (!buf) {
@@ -198,16 +185,13 @@ do_swapon_file (const char *path)
     return -1;
   }
 
-  r = swaponoff (str_swapon, NULL, buf);
-  free (buf);
-  return r;
+  return swaponoff (str_swapon, NULL, buf);
 }
 
 int
 do_swapoff_file (const char *path)
 {
-  char *buf;
-  int r;
+  CLEANUP_FREE char *buf = NULL;
 
   buf = sysroot_path (path);
   if (!buf) {
@@ -215,9 +199,7 @@ do_swapoff_file (const char *path)
     return -1;
   }
 
-  r = swaponoff (str_swapoff, NULL, buf);
-  free (buf);
-  return r;
+  return swaponoff (str_swapoff, NULL, buf);
 }
 
 int

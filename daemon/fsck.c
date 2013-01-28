@@ -31,16 +31,14 @@ GUESTFSD_EXT_CMD(str_fsck, fsck);
 int
 do_fsck (const char *fstype, const char *device)
 {
-  char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = commandr (NULL, &err, str_fsck, "-a", "-t", fstype, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
-    free (err);
     return -1;
   }
 
-  free (err);
   return r;
 }

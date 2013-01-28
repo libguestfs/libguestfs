@@ -135,18 +135,16 @@ do_sfdiskM (const char *device, char *const *lines)
 static char *
 sfdisk_flag (const char *device, const char *flag)
 {
-  char *out, *err;
+  char *out;
+  CLEANUP_FREE char *err = NULL;
   int r;
 
   r = command (&out, &err, str_sfdisk, flag, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (out);
-    free (err);
     return NULL;
   }
-
-  free (err);
 
   udev_settle ();
 
