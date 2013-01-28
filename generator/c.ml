@@ -436,7 +436,7 @@ typedef struct guestfs_h guestfs_h;
 
 /* Connection management. */
 extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create (void);
-#define LIBGUESTFS_HAVE_CREATE_FLAGS 1
+#define GUESTFS_HAVE_CREATE_FLAGS 1
 extern GUESTFS_DLL_PUBLIC guestfs_h *guestfs_create_flags (unsigned flags, ...);
 #define GUESTFS_CREATE_NO_ENVIRONMENT   (1 << 0)
 #define GUESTFS_CREATE_NO_CLOSE_ON_EXIT (1 << 1)
@@ -444,7 +444,7 @@ extern GUESTFS_DLL_PUBLIC void guestfs_close (guestfs_h *g);
 
 /* Error handling. */
 extern GUESTFS_DLL_PUBLIC const char *guestfs_last_error (guestfs_h *g);
-#define LIBGUESTFS_HAVE_LAST_ERRNO 1
+#define GUESTFS_HAVE_LAST_ERRNO 1
 extern GUESTFS_DLL_PUBLIC int guestfs_last_errno (guestfs_h *g);
 
 #ifndef GUESTFS_TYPEDEF_ERROR_HANDLER_CB
@@ -459,9 +459,9 @@ typedef void (*guestfs_abort_cb) (void) GUESTFS_NORETURN;
 
 extern GUESTFS_DLL_PUBLIC void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
 extern GUESTFS_DLL_PUBLIC guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **opaque_rtn);
-#define LIBGUESTFS_HAVE_PUSH_ERROR_HANDLER 1
+#define GUESTFS_HAVE_PUSH_ERROR_HANDLER 1
 extern GUESTFS_DLL_PUBLIC void guestfs_push_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
-#define LIBGUESTFS_HAVE_POP_ERROR_HANDLER 1
+#define GUESTFS_HAVE_POP_ERROR_HANDLER 1
 extern GUESTFS_DLL_PUBLIC void guestfs_pop_error_handler (guestfs_h *g);
 
 extern GUESTFS_DLL_PUBLIC void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
@@ -491,9 +491,9 @@ typedef void (*guestfs_event_callback) (
                         const uint64_t *array, size_t array_len);
 #endif
 
-#define LIBGUESTFS_HAVE_SET_EVENT_CALLBACK 1
+#define GUESTFS_HAVE_SET_EVENT_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC int guestfs_set_event_callback (guestfs_h *g, guestfs_event_callback cb, uint64_t event_bitmask, int flags, void *opaque);
-#define LIBGUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
+#define GUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
 
 /* Old-style event handling. */
@@ -528,25 +528,25 @@ extern GUESTFS_DLL_PUBLIC void guestfs_set_subprocess_quit_callback (guestfs_h *
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
 extern GUESTFS_DLL_PUBLIC void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
-#define LIBGUESTFS_HAVE_SET_CLOSE_CALLBACK 1
+#define GUESTFS_HAVE_SET_CLOSE_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
-#define LIBGUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
+#define GUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
 
 /* User cancellation. */
-#define LIBGUESTFS_HAVE_USER_CANCEL 1
+#define GUESTFS_HAVE_USER_CANCEL 1
 extern GUESTFS_DLL_PUBLIC void guestfs_user_cancel (guestfs_h *g);
 
 /* Private data area. */
-#define LIBGUESTFS_HAVE_SET_PRIVATE 1
+#define GUESTFS_HAVE_SET_PRIVATE 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_private (guestfs_h *g, const char *key, void *data);
-#define LIBGUESTFS_HAVE_GET_PRIVATE 1
+#define GUESTFS_HAVE_GET_PRIVATE 1
 extern GUESTFS_DLL_PUBLIC void *guestfs_get_private (guestfs_h *g, const char *key);
-#define LIBGUESTFS_HAVE_FIRST_PRIVATE 1
+#define GUESTFS_HAVE_FIRST_PRIVATE 1
 extern GUESTFS_DLL_PUBLIC void *guestfs_first_private (guestfs_h *g, const char **key_rtn);
-#define LIBGUESTFS_HAVE_NEXT_PRIVATE 1
+#define GUESTFS_HAVE_NEXT_PRIVATE 1
 extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char **key_rtn);
 
 /* Structures. */
@@ -608,7 +608,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
     let debug =
       String.length shortname >= 5 && String.sub shortname 0 5 = "debug" in
     if deprecated_by = None && not test && not debug then
-      pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
+      pr "#define GUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
 
     if optargs <> [] then (
       iteri (
@@ -696,6 +696,32 @@ extern GUESTFS_DLL_PUBLIC void *guestfs___safe_memdup (guestfs_h *g, const void 
 extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomainPtr */ void *dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
 
 #endif /* End of private functions. */
+
+/* Deprecated macros.  Use GUESTFS_HAVE_* instead. */
+
+#define LIBGUESTFS_HAVE_CREATE_FLAGS 1
+#define LIBGUESTFS_HAVE_LAST_ERRNO 1
+#define LIBGUESTFS_HAVE_PUSH_ERROR_HANDLER 1
+#define LIBGUESTFS_HAVE_POP_ERROR_HANDLER 1
+#define LIBGUESTFS_HAVE_SET_EVENT_CALLBACK 1
+#define LIBGUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
+#define LIBGUESTFS_HAVE_SET_CLOSE_CALLBACK 1
+#define LIBGUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
+#define LIBGUESTFS_HAVE_USER_CANCEL 1
+#define LIBGUESTFS_HAVE_SET_PRIVATE 1
+#define LIBGUESTFS_HAVE_GET_PRIVATE 1
+#define LIBGUESTFS_HAVE_FIRST_PRIVATE 1
+#define LIBGUESTFS_HAVE_NEXT_PRIVATE 1
+
+";
+
+  List.iter (
+    fun { name = shortname } ->
+      pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
+  ) all_functions_sorted;
+
+  pr "
+/* End of deprecated macros. */
 
 #ifdef __cplusplus
 }
