@@ -696,6 +696,8 @@ void Init__guestfs ()
         (String.uppercase name);
       pr "                   ULL2NUM (UINT64_C (0x%x)));\n" bitmask;
   ) events;
+  pr "  rb_define_const (m_guestfs, \"EVENT_ALL\",\n";
+  pr "                   ULL2NUM (UINT64_C (0x%x)));\n" all_events_bitmask;
   pr "\n";
 
   (* Methods. *)

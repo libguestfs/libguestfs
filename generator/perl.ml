@@ -770,6 +770,15 @@ when the final reference is cleaned up is OK).
       pr "\n"
   ) events;
 
+  pr "=item $Sys::Guestfs::EVENT_ALL\n";
+  pr "\n";
+  pr "See L<guestfs(3)/GUESTFS_EVENT_ALL>.\n";
+  pr "\n";
+  pr "=cut\n";
+  pr "\n";
+  pr "our $EVENT_ALL = 0x%x;\n" all_events_bitmask;
+  pr "\n";
+
   pr "\
 =item $event_handle = $g->set_event_callback (\\&cb, $event_bitmask);
 
