@@ -2127,7 +2127,7 @@ Note however that you have to do C<run> first.
 Since version 1.5.8, C<E<lt>guestfs.hE<gt>> defines symbols
 for each C API function, such as:
 
- #define LIBGUESTFS_HAVE_DD 1
+ #define GUESTFS_HAVE_DD 1
 
 if L</guestfs_dd> is available.
 
@@ -2163,7 +2163,7 @@ need the compile time check as well):
  
  main ()
  {
- #ifdef LIBGUESTFS_HAVE_DD
+ #ifdef GUESTFS_HAVE_DD
    void *dl;
    int has_function;
  
