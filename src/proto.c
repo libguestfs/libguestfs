@@ -743,7 +743,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
   u_int32_t len;
   int serial = g->msg_next_serial++;
   int r;
-  char *msg_out;
+  CLEANUP_FREE char *msg_out = NULL;
   size_t msg_out_size;
 
   /* We have to allocate this message buffer on the heap because
@@ -767,7 +767,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
 
   if (!xdr_guestfs_message_header (&xdr, &hdr)) {
     error (g, _("xdr_guestfs_message_header failed"));
-    goto cleanup1;
+    return -1;
   }
 
   /* Serialize the args.  If any, because some message types
@@ -776,7 +776,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
   if (xdrp) {
     if (!(*xdrp) (&xdr, args)) {
       error (g, _("dispatch failed to marshal args"));
-      goto cleanup1;
+      return -1;
     }
   }
 
@@ -797,14 +797,9 @@ guestfs___send (guestfs_h *g, int proc_nr,
   if (r == -2)                  /* Ignore stray daemon cancellations. */
     goto again;
   if (r == -1)
-    goto cleanup1;
-  free (msg_out);
+    return -1;
 
   return serial;
-
- cleanup1:
-  free (msg_out);
-  return -1;
 }
 
 static void
@@ -919,7 +914,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   int r;
   guestfs_chunk chunk;
   XDR xdr;
-  char *msg_out;
+  CLEANUP_FREE char *msg_out = NULL;
   size_t msg_out_size;
 
   /* Allocate the chunk buffer.  Don't use the stack to avoid
@@ -937,7 +932,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
     error (g, _("xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"),
            buf, buflen);
     xdr_destroy (&xdr);
-    goto cleanup1;
+    return -1;
   }
 
   len = xdr_getpos (&xdr);
@@ -959,15 +954,9 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   }
 
   if (r == -1)
-    goto cleanup1;
-
-  free (msg_out);
+    return -1;
 
   return 0;
-
- cleanup1:
-  free (msg_out);
-  return -1;
 }
 
 /* Receive a reply. */
@@ -978,7 +967,7 @@ guestfs___recv (guestfs_h *g, const char *fn,
                 xdrproc_t xdrp, char *ret)
 {
   XDR xdr;
-  void *buf;
+  CLEANUP_FREE void *buf = NULL;
   uint32_t size;
   int r;
 
@@ -1004,26 +993,22 @@ guestfs___recv (guestfs_h *g, const char *fn,
   if (!xdr_guestfs_message_header (&xdr, hdr)) {
     error (g, "%s: failed to parse reply header", fn);
     xdr_destroy (&xdr);
-    free (buf);
     return -1;
   }
   if (hdr->status == GUESTFS_STATUS_ERROR) {
     if (!xdr_guestfs_message_error (&xdr, err)) {
       error (g, "%s: failed to parse reply error", fn);
       xdr_destroy (&xdr);
-      free (buf);
       return -1;
     }
   } else {
     if (xdrp && ret && !xdrp (&xdr, ret)) {
       error (g, "%s: failed to parse reply", fn);
       xdr_destroy (&xdr);
-      free (buf);
       return -1;
     }
   }
   xdr_destroy (&xdr);
-  free (buf);
 
   return 0;
 }
@@ -1032,13 +1017,12 @@ guestfs___recv (guestfs_h *g, const char *fn,
 int
 guestfs___recv_discard (guestfs_h *g, const char *fn)
 {
-  void *buf;
+  CLEANUP_FREE void *buf = NULL;
   uint32_t size;
   int r;
 
  again:
   r = guestfs___recv_from_daemon (g, &size, &buf);
-  free (buf);
   if (r == -1)
     return -1;
 
@@ -1139,7 +1123,7 @@ static ssize_t
 receive_file_data (guestfs_h *g, void **buf_r)
 {
   int r;
-  void *buf;
+  CLEANUP_FREE void *buf = NULL;
   uint32_t len;
   XDR xdr;
   guestfs_chunk chunk;
@@ -1160,12 +1144,9 @@ receive_file_data (guestfs_h *g, void **buf_r)
   xdrmem_create (&xdr, buf, len, XDR_DECODE);
   if (!xdr_guestfs_chunk (&xdr, &chunk)) {
     error (g, _("failed to parse file chunk"));
-    free (buf);
     return -1;
   }
   xdr_destroy (&xdr);
-  /* After decoding, the original buffer is no longer used. */
-  free (buf);
 
   if (chunk.cancel) {
     if (g->user_cancel) {

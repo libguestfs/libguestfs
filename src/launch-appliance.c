@@ -170,10 +170,10 @@ launch_appliance (guestfs_h *g, const char *arg)
   int wfd[2], rfd[2];
   char guestfsd_sock[256];
   struct sockaddr_un addr;
-  char *kernel = NULL, *initrd = NULL, *appliance = NULL;
+  CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   int has_appliance_drive;
   uint32_t size;
-  void *buf = NULL;
+  CLEANUP_FREE void *buf = NULL;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -311,11 +311,10 @@ launch_appliance (guestfs_h *g, const char *arg)
 
     ITER_DRIVES (g, i, drv) {
       /* Construct the final -drive parameter. */
-      char *buf = qemu_drive_param (g, drv, i);
+      CLEANUP_FREE char *buf = qemu_drive_param (g, drv, i);
 
       add_cmdline (g, "-drive");
       add_cmdline (g, buf);
-      free (buf);
 
       if (virtio_scsi && drv->iface == NULL) {
         char buf2[64];
@@ -473,9 +472,9 @@ launch_appliance (guestfs_h *g, const char *arg)
     add_cmdline (g, initrd);
 
     add_cmdline (g, "-append");
-    char *cmdline = guestfs___appliance_command_line (g, appliance_dev, 0);
+    CLEANUP_FREE char *cmdline =
+      guestfs___appliance_command_line (g, appliance_dev, 0);
     add_cmdline (g, cmdline);
-    free (cmdline);
 
     /* Finish off the command line. */
     incr_cmdline_size (g);
@@ -529,13 +528,6 @@ launch_appliance (guestfs_h *g, const char *arg)
 
   /* Parent (library). */
   g->app.pid = r;
-
-  free (kernel);
-  kernel = NULL;
-  free (initrd);
-  initrd = NULL;
-  free (appliance);
-  appliance = NULL;
 
   /* Fork the recovery process off which will kill qemu if the parent
    * process fails to do so (eg. if the parent segfaults).
@@ -654,7 +646,6 @@ launch_appliance (guestfs_h *g, const char *arg)
   }
 
   r = guestfs___recv_from_daemon (g, &size, &buf);
-  free (buf);
 
   if (r == -1) {
     guestfs___launch_failed_error (g);
@@ -711,9 +702,6 @@ launch_appliance (guestfs_h *g, const char *arg)
     g->sock = -1;
   }
   g->state = CONFIG;
-  free (kernel);
-  free (initrd);
-  free (appliance);
   return -1;
 }
 
@@ -821,7 +809,7 @@ test_qemu (guestfs_h *g)
 static void
 parse_qemu_version (guestfs_h *g)
 {
-  char *major_s = NULL, *minor_s = NULL;
+  CLEANUP_FREE char *major_s = NULL, *minor_s = NULL;
   int major_i, minor_i;
 
   g->app.qemu_version_major = 0;
@@ -834,7 +822,7 @@ parse_qemu_version (guestfs_h *g)
   parse_failed:
     debug (g, "%s: failed to parse qemu version string '%s'",
            __func__, g->app.qemu_version);
-    goto out;
+    return;
   }
 
   major_i = guestfs___parse_unsigned_int (g, major_s);
@@ -849,10 +837,6 @@ parse_qemu_version (guestfs_h *g)
   g->app.qemu_version_minor = minor_i;
 
   debug (g, "qemu version %d.%d", major_i, minor_i);
-
- out:
-  free (major_s);
-  free (minor_s);
 }
 
 static void

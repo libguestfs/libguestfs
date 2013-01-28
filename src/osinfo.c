@@ -263,28 +263,26 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
   const size_t pathname_len =
     strlen (LIBOSINFO_DB_OS_PATH) + strlen (filename) + 2;
   char pathname[pathname_len];
-  xmlDocPtr doc = NULL;
-  xmlXPathContextPtr xpathCtx = NULL;
-  xmlXPathObjectPtr xpathObj = NULL;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
   xmlNodeSetPtr nodes;
   xmlNodePtr iso_node, media_node, os_node;
   struct osinfo *osinfo;
   size_t i;
-  int ret = 0;
 
   snprintf (pathname, pathname_len, "%s/%s", LIBOSINFO_DB_OS_PATH, filename);
 
   doc = xmlParseFile (pathname);
   if (doc == NULL) {
     debug (g, "osinfo: unable to parse XML file %s", pathname);
-    goto cleanup;
+    return 0;
   }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
     error (g, _("osinfo: unable to create new XPath context"));
-    ret = -1;
-    goto cleanup;
+    return -1;
   }
 
   /* Get all <iso> nodes at any depth, then use the parent pointers in
@@ -295,8 +293,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
   if (xpathObj == NULL) {
     error (g, _("osinfo: %s: unable to evaluate XPath expression"),
            pathname);
-    ret = -1;
-    goto cleanup;
+    return -1;
   }
 
   nodes = xpathObj->nodesetval;
@@ -330,8 +327,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
         read_os_node (g, xpathCtx, os_node, osinfo) == -1) {
       free_osinfo_db_entry (osinfo);
       osinfo_db_size--;
-      ret = -1;
-      goto cleanup;
+      return -1;
     }
 
 #if 0
@@ -349,12 +345,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
 #endif
   }
 
- cleanup:
-  if (xpathObj) xmlXPathFreeObject (xpathObj);
-  if (xpathCtx) xmlXPathFreeContext (xpathCtx);
-  if (doc) xmlFreeDoc (doc);
-
-  return ret;
+  return 0;
 }
 
 static int compile_re (guestfs_h *g, xmlNodePtr child, pcre **re);
@@ -393,18 +384,16 @@ read_iso_node (guestfs_h *g, xmlNodePtr iso_node, struct osinfo *osinfo)
 static int
 compile_re (guestfs_h *g, xmlNodePtr node, pcre **re)
 {
-  char *content;
   const char *err;
   int offset;
+  CLEANUP_FREE char *content = (char *) xmlNodeGetContent (node);
 
-  content = (char *) xmlNodeGetContent (node);
   if (content) {
     *re = pcre_compile (content, 0, &err, &offset, NULL);
     if (*re == NULL)
       debug (g, "osinfo: could not parse regular expression '%s': %s (ignored)",
              content, err);
   }
-  free (content);
 
   return 0;
 }
@@ -414,9 +403,8 @@ static int
 read_media_node (guestfs_h *g, xmlXPathContextPtr xpathCtx,
                  xmlNodePtr media_node, struct osinfo *osinfo)
 {
-  xmlXPathObjectPtr xp;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xp = NULL, xp2 = NULL;
   xmlNodePtr attr;
-  char *content;
 
   xpathCtx->node = media_node;
   xp = xmlXPathEvalExpression (BAD_CAST "./@arch", xpathCtx);
@@ -426,21 +414,20 @@ read_media_node (guestfs_h *g, xmlXPathContextPtr xpathCtx,
     assert (attr->type == XML_ATTRIBUTE_NODE);
     osinfo->arch = (char *) xmlNodeGetContent (attr);
   }
-  xmlXPathFreeObject (xp);
 
   osinfo->is_live_disk = 0; /* If no 'live' attr, defaults to false. */
 
   xpathCtx->node = media_node;
-  xp = xmlXPathEvalExpression (BAD_CAST "./@live", xpathCtx);
-  if (xp && xp->nodesetval && xp->nodesetval->nodeNr > 0) {
-    attr = xp->nodesetval->nodeTab[0];
+  xp2 = xmlXPathEvalExpression (BAD_CAST "./@live", xpathCtx);
+  if (xp2 && xp2->nodesetval && xp2->nodesetval->nodeNr > 0) {
+    CLEANUP_FREE char *content = NULL;
+
+    attr = xp2->nodesetval->nodeTab[0];
     assert (attr);
     assert (attr->type == XML_ATTRIBUTE_NODE);
     content = (char *) xmlNodeGetContent (attr);
     osinfo->is_live_disk = STREQ (content, "true");
-    free (content);
   }
-  xmlXPathFreeObject (xp);
 
   return 0;
 }
@@ -479,26 +466,20 @@ read_os_node (guestfs_h *g, xmlXPathContextPtr xpathCtx,
 static int
 parse_version (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
 {
-  char *content;
-  char *major, *minor;
+  CLEANUP_FREE char *content = NULL;
+  CLEANUP_FREE char *major = NULL, *minor = NULL;
 
   content = (char *) xmlNodeGetContent (node);
   if (content) {
     if (match2 (g, content, re_major_minor, &major, &minor)) {
       osinfo->major_version = guestfs___parse_unsigned_int (g, major);
-      free (major);
-      if (osinfo->major_version == -1) {
-        free (minor);
+      if (osinfo->major_version == -1)
         return -1;
-      }
       osinfo->minor_version = guestfs___parse_unsigned_int (g, minor);
-      free (minor);
       if (osinfo->minor_version == -1)
         return -1;
     }
   }
-
-  free (content);
 
   return 0;
 }
@@ -506,7 +487,7 @@ parse_version (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
 static int
 parse_family (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
 {
-  char *content;
+  CLEANUP_FREE char *content = NULL;
 
   osinfo->type = OS_TYPE_UNKNOWN;
 
@@ -528,15 +509,13 @@ parse_family (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
       debug (g, "osinfo: warning: unknown <family> '%s'", content);
   }
 
-  free (content);
-
   return 0;
 }
 
 static int
 parse_distro (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
 {
-  char *content;
+  CLEANUP_FREE char *content = NULL;
 
   osinfo->distro = OS_DISTRO_UNKNOWN;
 
@@ -565,8 +544,6 @@ parse_distro (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
     else
       debug (g, "osinfo: warning: unknown <distro> '%s'", content);
   }
-
-  free (content);
 
   return 0;
 }

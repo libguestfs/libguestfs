@@ -99,8 +99,6 @@ static void
 read_db_dump_line (guestfs_h *g, void *datav, const char *line, size_t len)
 {
   struct cb_data *data = datav;
-  unsigned char *value;
-  size_t valuelen;
 
   switch (data->state) {
   case reading_finished:
@@ -139,7 +137,10 @@ read_db_dump_line (guestfs_h *g, void *datav, const char *line, size_t len)
     data->state = reading_value;
     return;
 
-  case reading_value:
+  case reading_value: {
+    CLEANUP_FREE unsigned char *value = NULL;
+    size_t valuelen;
+
     if (len < 1 || line[0] != ' ') {
       debug (g, _("unexpected line from db_dump command, no space prefix"));
       data->state = reading_failed;
@@ -160,11 +161,10 @@ read_db_dump_line (guestfs_h *g, void *datav, const char *line, size_t len)
 
     free (data->key);
     data->key = NULL;
-    free (value);
-    value = NULL;
 
     data->state = reading_key;
     return;
+  }
 
   default:
     abort ();

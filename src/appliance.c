@@ -140,11 +140,12 @@ guestfs___build_appliance (guestfs_h *g,
 {
   int r;
   uid_t uid = geteuid ();
+  CLEANUP_FREE char *supermin_path = NULL;
+  CLEANUP_FREE char *path = NULL;
 
   gl_lock_lock (building_lock);
 
   /* Step (1). */
-  char *supermin_path;
   r = find_path (g, contains_supermin_appliance, NULL, &supermin_path);
   if (r == -1) {
     gl_lock_unlock (building_lock);
@@ -153,14 +154,13 @@ guestfs___build_appliance (guestfs_h *g,
 
   if (r == 1) {
     /* Step (2): calculate checksum. */
-    char *checksum = calculate_supermin_checksum (g, supermin_path);
+    CLEANUP_FREE char *checksum =
+      calculate_supermin_checksum (g, supermin_path);
     if (checksum) {
       /* Step (3): cached appliance exists? */
       r = check_for_cached_appliance (g, supermin_path, checksum, uid,
                                       kernel, initrd, appliance);
       if (r != 0) {
-        free (supermin_path);
-        free (checksum);
         gl_lock_unlock (building_lock);
         return r == 1 ? 0 : -1;
       }
@@ -168,16 +168,12 @@ guestfs___build_appliance (guestfs_h *g,
       /* Step (4): build supermin appliance. */
       r = build_supermin_appliance (g, supermin_path, checksum, uid,
                                     kernel, initrd, appliance);
-      free (supermin_path);
-      free (checksum);
       gl_lock_unlock (building_lock);
       return r;
     }
-    free (supermin_path);
   }
 
   /* Step (5). */
-  char *path;
   r = find_path (g, contains_fixed_appliance, NULL, &path);
   if (r == -1) {
     gl_lock_unlock (building_lock);
@@ -193,7 +189,6 @@ guestfs___build_appliance (guestfs_h *g,
     sprintf (*initrd, "%s/initrd", path);
     sprintf (*appliance, "%s/root", path);
 
-    free (path);
     gl_lock_unlock (building_lock);
     return 0;
   }
@@ -213,7 +208,6 @@ guestfs___build_appliance (guestfs_h *g,
     sprintf (*initrd, "%s/%s", path, initrd_name);
     *appliance = NULL;
 
-    free (path);
     gl_lock_unlock (building_lock);
     return 0;
   }
@@ -352,7 +346,7 @@ check_for_cached_appliance (guestfs_h *g,
                             uid_t uid,
                             char **kernel, char **initrd, char **appliance)
 {
-  char *tmpdir = guestfs_get_cachedir (g);
+  CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
 
   /* len must be longer than the length of any pathname we can
    * generate in this function.
@@ -362,8 +356,6 @@ check_for_cached_appliance (guestfs_h *g,
   snprintf (cachedir, len, "%s/.guestfs-%d", tmpdir, uid);
   char filename[len];
   snprintf (filename, len, "%s/checksum", cachedir);
-
-  free (tmpdir);
 
   (void) mkdir (cachedir, 0755);
 
@@ -472,13 +464,11 @@ build_supermin_appliance (guestfs_h *g,
                           uid_t uid,
                           char **kernel, char **initrd, char **appliance)
 {
-  char *tmpdir;
+  CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
   size_t len;
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "begin building supermin appliance");
-
-  tmpdir = guestfs_get_cachedir (g);
 
   /* len must be longer than the length of any pathname we can
    * generate in this function.
@@ -491,7 +481,6 @@ build_supermin_appliance (guestfs_h *g,
 
   if (mkdtemp (tmpcd) == NULL) {
     perrorf (g, "mkdtemp");
-    free (tmpdir);
     return -1;
   }
 
@@ -501,7 +490,6 @@ build_supermin_appliance (guestfs_h *g,
   int r = run_supermin_helper (g, supermin_path, tmpcd);
   if (r == -1) {
     guestfs___recursive_remove_dir (g, tmpcd);
-    free (tmpdir);
     return -1;
   }
 
@@ -513,8 +501,6 @@ build_supermin_appliance (guestfs_h *g,
   char filename[len];
   char filename2[len];
   snprintf (filename, len, "%s/checksum", cachedir);
-
-  free (tmpdir);
 
   /* Open and acquire write lock on checksum file.  The file might
    * not exist, in which case we want to create it.

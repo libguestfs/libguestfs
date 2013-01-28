@@ -140,7 +140,7 @@ static int
 read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
 {
   int r;
-  char *buf = NULL;
+  CLEANUP_FREE char *buf = NULL;
 
   guestfs___cmd_set_stdout_callback (cmd, read_all, &buf,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
@@ -149,7 +149,6 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
 
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     debug (g, "%s: external command failed with code %d", func, r);
-    free (buf);
     return -1;
   }
 
@@ -160,11 +159,8 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
 
   if (strlen (buf) < 4 || sscanf (&buf[4], "%d", &r) != 1) {
     debug (g, "%s: invalid buffer returned by grep: %s", func, buf);
-    free (buf);
     return -1;
   }
-
-  free (buf);
 
   debug (g, "%s: calculated lpj=%d", func, r);
 

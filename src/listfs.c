@@ -49,12 +49,12 @@ guestfs__list_filesystems (guestfs_h *g)
   char **ret = NULL;
   size_t ret_size = 0;
 
-  char **devices = NULL;
-  char **partitions = NULL;
-  char **mds = NULL;
-  char **lvs = NULL;
-  char **ldmvols = NULL;
-  char **ldmparts = NULL;
+  CLEANUP_FREE_STRING_LIST char **devices = NULL;
+  CLEANUP_FREE_STRING_LIST char **partitions = NULL;
+  CLEANUP_FREE_STRING_LIST char **mds = NULL;
+  CLEANUP_FREE_STRING_LIST char **lvs = NULL;
+  CLEANUP_FREE_STRING_LIST char **ldmvols = NULL;
+  CLEANUP_FREE_STRING_LIST char **ldmparts = NULL;
 
   /* Look to see if any devices directly contain filesystems
    * (RHBZ#590167).  However vfs-type will fail to tell us anything
@@ -70,10 +70,9 @@ guestfs__list_filesystems (guestfs_h *g)
   if (mds == NULL) goto error;
 
   for (i = 0; partitions[i] != NULL; ++i) {
-    char *dev = guestfs_part_to_dev (g, partitions[i]);
+    CLEANUP_FREE char *dev = guestfs_part_to_dev (g, partitions[i]);
     if (dev)
       remove_from_list (devices, dev);
-    free (dev);
   }
 
   /* Use vfs-type to check for filesystems on devices. */
@@ -114,21 +113,9 @@ guestfs__list_filesystems (guestfs_h *g)
       check_with_vfs_type (g, ldmparts[i], &ret, &ret_size);
   }
 
-  guestfs___free_string_list (devices);
-  guestfs___free_string_list (partitions);
-  guestfs___free_string_list (mds);
-  if (lvs) guestfs___free_string_list (lvs);
-  if (ldmvols) guestfs___free_string_list (ldmvols);
-  if (ldmparts) guestfs___free_string_list (ldmparts);
   return ret;
 
  error:
-  if (devices) guestfs___free_string_list (devices);
-  if (partitions) guestfs___free_string_list (partitions);
-  if (mds) guestfs___free_string_list (mds);
-  if (lvs) guestfs___free_string_list (lvs);
-  if (ldmvols) guestfs___free_string_list (ldmvols);
-  if (ldmparts) guestfs___free_string_list (ldmparts);
   if (ret) guestfs___free_string_list (ret);
   return NULL;
 }
@@ -167,8 +154,8 @@ check_with_vfs_type (guestfs_h *g, const char *device,
   if (!vfs_type)
     v = safe_strdup (g, "unknown");
   else if (STREQ (vfs_type, "")) {
-    free (vfs_type);
     v = safe_strdup (g, "unknown");
+    free (vfs_type);
   }
   else {
     /* Ignore all "*_member" strings.  In libblkid these are returned
@@ -207,7 +194,7 @@ check_with_vfs_type (guestfs_h *g, const char *device,
 static int
 is_mbr_partition_type_42 (guestfs_h *g, const char *partition)
 {
-  char *device = NULL;
+  CLEANUP_FREE char *device = NULL;
   int partnum;
   int mbr_id;
   int ret = 0;
@@ -228,7 +215,6 @@ is_mbr_partition_type_42 (guestfs_h *g, const char *partition)
 
  out:
   guestfs_pop_error_handler (g);
-  free (device);
 
   return ret;
 }

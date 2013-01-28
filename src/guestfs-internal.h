@@ -78,6 +78,8 @@
   __attribute__((cleanup(guestfs___cleanup_free_string_list)))
 #define CLEANUP_HASH_FREE                               \
   __attribute__((cleanup(guestfs___cleanup_hash_free)))
+#define CLEANUP_UNLINK_FREE                                     \
+  __attribute__((cleanup(guestfs___cleanup_unlink_free)))
 #ifdef HAVE_LIBXML2
 #define CLEANUP_XMLBUFFERFREE                                   \
   __attribute__((cleanup(guestfs___cleanup_xmlBufferFree)))
@@ -94,6 +96,7 @@
 #define CLEANUP_FREE
 #define CLEANUP_FREE_STRING_LIST
 #define CLEANUP_HASH_FREE
+#define CLEANUP_UNLINK_FREE
 #ifdef HAVE_LIBXML2
 #define CLEANUP_XMLBUFFERFREE
 #define CLEANUP_XMLFREEDOC
@@ -511,6 +514,7 @@ extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
 extern void guestfs___cleanup_free (void *ptr);
 extern void guestfs___cleanup_free_string_list (void *ptr);
 extern void guestfs___cleanup_hash_free (void *ptr);
+extern void guestfs___cleanup_unlink_free (void *ptr);
 
 #ifdef HAVE_LIBXML2
 extern void guestfs___cleanup_xmlBufferFree (void *ptr);

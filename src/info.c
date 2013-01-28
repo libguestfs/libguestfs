@@ -166,8 +166,8 @@ static int
 run_qemu_img_info (guestfs_h *g, const char *filename,
                    cmd_stdout_callback fn, void *data)
 {
-  char *abs_filename = NULL;
-  char *safe_filename = NULL;
+  CLEANUP_FREE char *abs_filename = NULL;
+  CLEANUP_FREE char *safe_filename = NULL;
   struct command *cmd;
   int r;
 
@@ -180,12 +180,12 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
   abs_filename = realpath (filename, NULL);
   if (abs_filename == NULL) {
     perrorf (g, "realpath");
-    goto error;
+    return -1;
   }
 
   if (symlink (abs_filename, safe_filename) == -1) {
     perrorf (g, "symlink");
-    goto error;
+    return -1;
   }
 
   cmd = guestfs___new_command (g);
@@ -196,19 +196,11 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
   r = guestfs___cmd_run (cmd);
   guestfs___cmd_close (cmd);
   if (r == -1)
-    goto error;
+    return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     error (g, _("qemu-img: %s: child process failed"), filename);
-    goto error;
+    return -1;
   }
 
-  free (safe_filename);
-  free (abs_filename);
   return 0;
-
- error:
-  free (safe_filename);
-  free (abs_filename);
-
-  return -1;
 }
