@@ -148,7 +148,7 @@ public class GuestFS {
   ) events;
 
   pr "  /** Bitmask of all events. */\n";
-  pr "  public static final long EVENT_ALL = 0x%x;\n" ((1 lsl List.length events) - 1);
+  pr "  public static final long EVENT_ALL = 0x%x;\n" all_events_bitmask;
   pr "\n";
 
   pr "  /** Utility function to turn an event number or bitmask into a string. */\n";

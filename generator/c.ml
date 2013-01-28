@@ -475,7 +475,7 @@ extern GUESTFS_DLL_PUBLIC guestfs_abort_cb guestfs_get_out_of_memory_handler (gu
       pr "#define GUESTFS_EVENT_%-16s 0x%04x\n"
         (String.uppercase name) bitmask
   ) events;
-  pr "#define GUESTFS_EVENT_%-16s UINT64_MAX\n" "ALL";
+  pr "#define GUESTFS_EVENT_%-16s 0x%x\n" "ALL" all_events_bitmask;
   pr "\n";
 
   pr "\
