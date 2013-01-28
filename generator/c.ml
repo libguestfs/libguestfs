@@ -678,7 +678,6 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
   ) all_functions_sorted;
 
   pr "\
-
 #if GUESTFS_PRIVATE_FUNCTIONS
 
 /* Private functions.
