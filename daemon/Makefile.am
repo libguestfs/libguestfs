@@ -39,6 +39,17 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	guestfsd.pod
 
+shared_with_library = \
+	guestfs_protocol.c \
+	guestfs_protocol.h \
+	errnostring-gperf.gperf \
+	errnostring.c \
+	errnostring.h
+
+$(shared_with_library): %: $(libsrcdir)/%
+	rm -f $@
+	ln $< $@
+
 noinst_LIBRARIES = libprotocol.a
 
 # This convenience library is solely to compile its generated sources with
@@ -46,12 +57,6 @@ noinst_LIBRARIES = libprotocol.a
 libprotocol_a_SOURCES = guestfs_protocol.c guestfs_protocol.h
 libprotocol_a_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 
-guestfs_protocol.c: $(libsrcdir)/guestfs_protocol.c
-	rm -f $@
-	ln $< $@
-guestfs_protocol.h: $(libsrcdir)/guestfs_protocol.h
-	rm -f $@
-	ln $< $@
 $(libsrcdir)/guestfs_protocol.c: force
 	$(MAKE) -C $(libsrcdir) guestfs_protocol.c
 $(libsrcdir)/guestfs_protocol.h: force
@@ -70,15 +75,6 @@ errnostring-gperf.c: errnostring-gperf.gperf
 	rm -f $@
 	$(GPERF) -t $< > $@-t
 	mv $@-t $@
-errnostring-gperf.gperf: $(libsrcdir)/errnostring-gperf.gperf
-	rm -f $@
-	ln $< $@
-errnostring.c: $(libsrcdir)/errnostring.c
-	rm -f $@
-	ln $< $@
-errnostring.h: $(libsrcdir)/errnostring.h
-	rm -f $@
-	ln $< $@
 
 if INSTALL_DAEMON
 sbin_PROGRAMS = guestfsd
