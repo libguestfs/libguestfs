@@ -331,11 +331,30 @@ do_hivex_value_value (int64_t valueh, size_t *size_r)
 int
 do_hivex_commit (const char *filename)
 {
+  CLEANUP_FREE char *buf = NULL;
+
   NEED_HANDLE (-1);
 
-  if (hivex_commit (h, filename, 0) == -1) {
-    reply_with_perror ("failed");
-    return -1;
+  /* The 'filename' parameter is an optional string, and in most
+   * cases will be NULL.
+   */
+  if (filename) {
+    buf = sysroot_path (filename);
+    if (!buf) {
+      reply_with_perror ("malloc");
+      return -1;
+    }
+
+    if (hivex_commit (h, buf, 0) == -1) {
+      reply_with_perror ("%s: commit failed", filename);
+      return -1;
+    }
+  }
+  else {
+    if (hivex_commit (h, NULL, 0) == -1) {
+      reply_with_perror ("commit failed");
+      return -1;
+    }
   }
 
   return 0;
