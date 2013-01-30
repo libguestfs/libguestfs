@@ -422,7 +422,7 @@ copy_table (char * const * argv)
       pr "  CAMLreturn (rv);\n";
       pr "}\n";
       pr "\n";
-  ) structs;
+  ) external_structs;
 
   (* Emit a copy_TYPE_list function definition only if that function is used. *)
   List.iter (
@@ -686,7 +686,7 @@ and generate_ocaml_structure_decls () =
       ) cols;
       pr "}\n";
       pr "\n"
-  ) structs
+  ) external_structs
 
 and generate_ocaml_prototype ?(is_external = false) name style =
   if is_external then pr "external " else pr "val ";

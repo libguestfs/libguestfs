@@ -234,7 +234,7 @@ free_strings (char **argv)
       pr "};\n";
       pr "\n";
 
-  ) structs;
+  ) external_structs;
 
   (* Emit a put_TYPE_list function definition only if that function is used. *)
   List.iter (

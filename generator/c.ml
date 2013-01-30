@@ -566,7 +566,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
    *)
 
   (* Public structures. *)
-  List.iter (
+  let generate_all_structs = List.iter (
     fun { s_name = typ; s_cols = cols } ->
       pr "struct guestfs_%s {\n" typ;
       List.iter (
@@ -593,7 +593,9 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       pr "extern GUESTFS_DLL_PUBLIC void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
       pr "extern GUESTFS_DLL_PUBLIC void guestfs_free_%s_list (struct guestfs_%s_list *);\n" typ typ;
       pr "\n"
-  ) structs;
+  ) in
+
+  generate_all_structs external_structs;
 
   pr "\
 /* Actions. */
@@ -663,7 +665,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
     pr "\n"
   in
 
-  List.iter (
+  let generate_all_headers = List.iter (
     fun ({ name = name; style = ret, args, _ } as f) ->
       (* If once_had_no_optargs is set, then we need to generate a
        * <name>_opts variant, plus a backwards-compatible wrapper
@@ -675,17 +677,18 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       )
       else
         generate_action_header f
-  ) all_functions_sorted;
+  ) in
+
+  generate_all_headers external_functions_sorted;
 
   pr "\
-#if GUESTFS_PRIVATE_FUNCTIONS
-
-/* Private functions.
- *
- * These are NOT part of the public, stable API, and can change at any
- * time!  We export them because they are used by some of the language
- * bindings.
+#if GUESTFS_PRIVATE
+/* Symbols protected by GUESTFS_PRIVATE are NOT part of the public,
+ * stable API, and can change at any time!  We export them because
+ * they are used by some of the language bindings.
  */
+
+/* Private functions. */
 
 extern GUESTFS_DLL_PUBLIC void *guestfs___safe_malloc (guestfs_h *g, size_t nbytes);
 extern GUESTFS_DLL_PUBLIC void *guestfs___safe_calloc (guestfs_h *g, size_t n, size_t s);
@@ -694,7 +697,30 @@ extern GUESTFS_DLL_PUBLIC void *guestfs___safe_memdup (guestfs_h *g, const void 
 
 extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomainPtr */ void *dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
 
-#endif /* End of private functions. */
+";
+
+  generate_all_headers internal_functions_sorted;
+
+  pr "\
+/* Private structures. */
+
+";
+
+  generate_all_structs internal_structs;
+
+pr "\
+/* Deprecated macros for internal functions. */
+
+";
+
+  List.iter (
+    fun { name = shortname } ->
+      pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
+  ) internal_functions_sorted;
+
+pr "\
+
+#endif /* End of GUESTFS_PRIVATE. */
 
 /* Deprecated macros.  Use GUESTFS_HAVE_* instead. */
 
@@ -717,7 +743,7 @@ extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomai
   List.iter (
     fun { name = shortname } ->
       pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
-  ) all_functions_sorted;
+  ) external_functions_sorted;
 
   pr "
 /* End of deprecated macros. */

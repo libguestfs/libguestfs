@@ -29,8 +29,20 @@ val daemon_functions : Types.action list
 val all_functions : Types.action list
 (** Concatenation of [non_daemon_functions] and [daemon_functions] lists. *)
 
+val external_functions : Types.action list
+(** [all_functions] filtered for external functions **)
+
+val internal_functions : Types.action list
+(** [all_functions] filtered for internal functions **)
+
 val all_functions_sorted : Types.action list
 (** [all_functions] but sorted by name. *)
+
+val external_functions_sorted : Types.action list
+(** [external_functions] but sorted by name. *)
+
+val internal_functions_sorted : Types.action list
+(** [internal_functions] but sorted by name. *)
 
 val test_functions : Types.action list
 (** Internal test functions used to test the language bindings. *)

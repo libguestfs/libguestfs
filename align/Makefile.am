@@ -41,7 +41,7 @@ virt_alignment_scan_SOURCES = \
 
 virt_alignment_scan_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-DGUESTFS_PRIVATE_FUNCTIONS=1 \
+	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \

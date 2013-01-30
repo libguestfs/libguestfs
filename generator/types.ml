@@ -378,6 +378,8 @@ type action = {
   fish_output : fish_output_t option; (* how to display output in guestfish *)
   in_fish : bool;                 (* export via guestfish *)
   in_docs : bool;                 (* add this function to documentation *)
+  internal: bool;                 (* function is not part of the
+                                     external api *)
   deprecated_by : string option;  (* function is deprecated, use .. instead *)
   optional : string option;       (* function is part of an optional group *)
   progress : bool;                (* function can generate progress messages *)

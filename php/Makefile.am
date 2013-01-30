@@ -43,6 +43,7 @@ all: extension/config.h
 	$(MAKE) -C extension \
 	  EXTRA_INCLUDES="-I$(abs_srcdir)/../src" \
 	  EXTRA_LDFLAGS="-L$(abs_srcdir)/../src/.libs -lguestfs" \
+	  EXTRA_CFLAGS="-DGUESTFS_PRIVATE=1" \
 	  all
 
 extension/config.h: extension/config.m4 ../config.status

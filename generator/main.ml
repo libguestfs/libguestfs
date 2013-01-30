@@ -170,7 +170,7 @@ Run it from the top source directory using the command
       output_to filename (generate_gobject_struct_header short typ cols);
       let filename = sprintf "gobject/src/%s.c" short in
       output_to filename (generate_gobject_struct_source short typ cols)
-  ) structs;
+  ) external_structs;
   delete_except_generated "gobject/include/guestfs-gobject/struct-*.h";
   delete_except_generated "gobject/src/struct-*.c";
 

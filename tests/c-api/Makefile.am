@@ -70,6 +70,7 @@ TESTS_ENVIRONMENT = \
 tests_SOURCES = tests.c
 tests_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-DGUESTFS_PRIVATE=1 \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 tests_LDADD = $(top_builddir)/src/libguestfs.la
