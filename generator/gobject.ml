@@ -107,7 +107,7 @@ let filenames =
   "session" :: "tristate" ::
 
   (* structs *)
-  List.map (fun { s_name = typ } -> "struct-" ^ typ) structs @
+  List.map (fun { s_name = typ } -> "struct-" ^ typ) external_structs @
 
   (* optargs *)
   List.map (function { name = name } -> "optargs-" ^ name) (

@@ -279,7 +279,7 @@ Guestfish will prompt for these separately."
       ) cols;
       pr "}\n";
       pr "\n";
-  ) structs;
+  ) external_structs;
 
   (* Emit a print_TYPE_list function definition only if that function is used. *)
   List.iter (

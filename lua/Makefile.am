@@ -41,6 +41,7 @@ libluaguestfs_la_SOURCES = lua-guestfs.c
 libluaguestfs_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-DGUESTFS_PRIVATE=1 \
 	$(LUA_CFLAGS)
 libluaguestfs_la_LIBADD = $(top_builddir)/src/libguestfs.la
 libluaguestfs_la_LDFLAGS = -avoid-version -shared

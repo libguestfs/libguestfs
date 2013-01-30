@@ -64,7 +64,7 @@ mlguestfs.cmxa: libguestfsocaml.a guestfs.cmx
 	  -L$(top_builddir)/src/.libs -lguestfs
 
 libguestfsocaml_a_CFLAGS = \
-	-DGUESTFS_PRIVATE_FUNCTIONS=1 \
+	-DGUESTFS_PRIVATE=1 \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \

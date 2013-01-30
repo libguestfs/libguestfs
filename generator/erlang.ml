@@ -270,7 +270,7 @@ extern void free_strings (char **r);
       pr "  return erl_mk_list (t, %d);\n" (List.length cols);
       pr "}\n";
       pr "\n";
-  ) structs;
+  ) external_structs;
 
   (* Emit a copy_TYPE_list function definition only if that function is used. *)
   List.iter (

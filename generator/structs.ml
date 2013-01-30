@@ -26,6 +26,7 @@ type struc = {
   s_name : string;
   s_cols : cols;
   s_camel_name : string;
+  s_internal : bool;
   s_unused : unit; (* Silences warning 23 when using 'defaults with ...' *)
 }
 
@@ -94,7 +95,8 @@ let lvm_lv_cols = [
   "modules", FString;
 ]
 
-let defaults = { s_name = ""; s_cols = []; s_camel_name = ""; s_unused = () }
+let defaults = { s_name = ""; s_cols = []; s_camel_name = "";
+                 s_internal = false; s_unused = () }
 
 (* Names and fields in all structures (in RStruct and RStructList)
  * that we support.
@@ -369,3 +371,7 @@ let lookup_struct name =
 let camel_name_of_struct name = (lookup_struct name).s_camel_name
 
 let cols_of_struct name = (lookup_struct name).s_cols
+
+let external_structs = List.filter (fun x -> not x.s_internal) structs
+
+let internal_structs = List.filter (fun x -> x.s_internal) structs
