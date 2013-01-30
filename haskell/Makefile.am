@@ -46,25 +46,51 @@ $(all_targets): $(top_builddir)/src/libguestfs.la
 
 all: $(all_targets)
 
-Guestfs.o: $(srcdir)/Guestfs.hs
-	$(GHC)  $(GHCFLAGS) -c $< -o $@
+built_tests = Bindtests Guestfs010Load Guestfs030Config Guestfs050LVCreate
 
-Bindtests: $(srcdir)/Bindtests.hs Guestfs.o
-	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
+# Building with ghc --make doesn't work properly here because it
+# always rebuilds Guestfs.o despite it being up to date. So if you:
+#
+# * build Guestfs010Load, then build it again, the second time it will
+# not be rebuilt.
+#
+# * build Guestfs010Load, then build Guestfs030Config, then build
+# Guestfs010Load again, it will be rebuilt every time.
+#
+# In the second case, building Guestfs030Config rebuilt Guestfs.o. As
+# this is a dependency of Guestfs010Load, Guestfs010Load is now
+# unnecessarily out of date.
+#
+# Because the default target builds all of the above, they will all be
+# rebuilt every time.
+#
+# An obvious choice would be to remove the Guestfs.o dependency, but
+# this would potentially result in corruption during a parallel build
+# as multiple ghc processes rebuild Guestfs.o simultaneously. I had
+# hoped that the solution below would work. It correctly builds
+# Guestfs010Load and Guestfs030Config, but Guestfs050LVCreate requires
+# additional link options which I haven't been able to work out.
 
-Guestfs010Load: $(srcdir)/Guestfs010Load.hs Guestfs.o
-	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
+#Guestfs.o: $(srcdir)/Guestfs.hs
+#	$(GHC)  $(GHCFLAGS) -c $< -o $@
+#
+#$(built_tests:%=%.o): %.o: %.hs Guestfs.o
+#	$(GHC)  $(GHCFLAGS) -main-is $(basename $<) -c $< -o $@
+#
+#$(built_tests): %: %.o Guestfs.o
+#	$(GHC)  $(GHCFLAGS) -main-is $@ -o $@ $< Guestfs.o -lguestfs
 
-Guestfs030Config: $(srcdir)/Guestfs030Config.hs Guestfs.o
-	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
+# The solution below isn't ideal. It uses --make and avoids the
+# parallel make problem by putting object files in separate
+# directories per target.
 
-Guestfs050LVCreate: $(srcdir)/Guestfs050LVCreate.hs Guestfs.o
-	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
+$(built_tests): %: %.hs Guestfs.hs
+	$(GHC)  $(GHCFLAGS) --make -main-is $@ -odir .$@ -o $@ $< Guestfs.hs -lguestfs
 
-CLEANFILES = $(all_targets) *~ *.hi *.o
+
+CLEANFILES = $(all_targets) *~ *.hi *.o test.img
+
+clean-local:
+	-rm -rf $(built_tests:%=.%)
 
 endif
-
-# Building in parallel causes linker corruption errors since it
-# appears that multiple runs of ghc conflict with each other.
-.NOTPARALLEL:
