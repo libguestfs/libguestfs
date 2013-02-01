@@ -117,7 +117,7 @@ Use 'guestfish -N help' to list possible values for the -N parameter.\n"),
   }
 
   for (i = 0; i < data->prep->nr_params; ++i)
-    data->params[i] = bad_cast (data->prep->params[i].pdefault);
+    data->params[i] = (char *) data->prep->params[i].pdefault;
 
   /* Parse the optional parameters. */
   const char *p = type_string + len;

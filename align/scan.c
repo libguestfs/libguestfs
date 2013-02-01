@@ -53,12 +53,6 @@ int inspector = 0;
 
 static int quiet = 0;           /* --quiet */
 
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
-
 static void __attribute__((noreturn))
 usage (int status)
 {
@@ -130,7 +124,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  argv[0] = bad_cast (program_name);
+  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

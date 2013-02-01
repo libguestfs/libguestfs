@@ -86,19 +86,13 @@ guestfs_set_private (guestfs_h *g, const char *key, void *data)
   assert (entry == new_entry);
 }
 
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
-
 void *
 guestfs_get_private (guestfs_h *g, const char *key)
 {
   if (g->pda == NULL)
     return NULL;                /* no keys have been set */
 
-  const struct pda_entry k = { .key = bad_cast (key) };
+  const struct pda_entry k = { .key = (char *) key };
   struct pda_entry *entry = hash_lookup (g->pda, &k);
   if (entry)
     return entry->data;

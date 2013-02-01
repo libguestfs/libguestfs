@@ -146,7 +146,7 @@ extern int add_libvirt_drives (const char *guest);
     exit (EXIT_FAILURE);                        \
   }                                             \
   mp->options = NULL;                           \
-  mp->mountpoint = bad_cast ("/");              \
+  mp->mountpoint = (char *) "/";                \
   p = strchr (optarg, ':');                     \
   if (p) {                                      \
     *p = '\0';                                  \

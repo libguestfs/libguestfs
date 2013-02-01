@@ -80,12 +80,6 @@ static void do_output_end (void);
 static struct guestfs_lvm_pv_list *get_pvs (void);
 static void free_pvs (void);
 
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
-
 static void __attribute__((noreturn))
 usage (int status)
 {
@@ -197,7 +191,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  argv[0] = bad_cast (program_name);
+  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
