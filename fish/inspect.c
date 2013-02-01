@@ -137,7 +137,8 @@ inspect_mount (void)
 void
 inspect_mount_root (const char *root)
 {
-  char **mountpoints = guestfs_inspect_get_mountpoints (g, root);
+  CLEANUP_FREE_STRING_LIST char **mountpoints =
+    guestfs_inspect_get_mountpoints (g, root);
   if (mountpoints == NULL)
     exit (EXIT_FAILURE);
 
@@ -165,8 +166,6 @@ inspect_mount_root (const char *root)
     }
   }
 
-  free_strings (mountpoints);
-
   if (mount_errors)
     fprintf (stderr, _("%s: some filesystems could not be mounted (ignored)\n"),
              program_name);
@@ -179,13 +178,12 @@ void
 print_inspect_prompt (void)
 {
   size_t i;
-  char *name, *dev;
-  char **mountpoints;
+  CLEANUP_FREE char *name = NULL;
+  CLEANUP_FREE_STRING_LIST char **mountpoints;
 
   name = guestfs_inspect_get_product_name (g, root);
   if (name && STRNEQ (name, "unknown"))
     printf (_("Operating system: %s\n"), name);
-  free (name);
 
   mountpoints = guestfs_inspect_get_mountpoints (g, root);
   if (mountpoints == NULL)
@@ -199,14 +197,12 @@ print_inspect_prompt (void)
     /* Try to make the device name canonical for printing, but don't
      * worry if this fails.
      */
-    dev = guestfs_canonical_device_name (g, mountpoints[i+1]);
-    if (!dev)
-      dev = mountpoints[i+1];
+    CLEANUP_FREE char *dev =
+      guestfs_canonical_device_name (g, mountpoints[i+1]);
 
-    printf (_("%s mounted on %s\n"), dev, mountpoints[i]);
+    printf (_("%s mounted on %s\n"),
+            dev ? dev : mountpoints[i+1], mountpoints[i]);
   }
-
-  free_strings (mountpoints);
 }
 
 /* Make a LUKS map name from the partition name,
@@ -244,33 +240,28 @@ make_mapname (const char *device, char *mapname, size_t len)
 void
 inspect_do_decrypt (void)
 {
-  char **partitions = guestfs_list_partitions (g);
+  CLEANUP_FREE_STRING_LIST char **partitions = guestfs_list_partitions (g);
   if (partitions == NULL)
     exit (EXIT_FAILURE);
 
   int need_rescan = 0;
   size_t i;
   for (i = 0; partitions[i] != NULL; ++i) {
-    char *type = guestfs_vfs_type (g, partitions[i]);
+    CLEANUP_FREE char *type = guestfs_vfs_type (g, partitions[i]);
     if (type && STREQ (type, "crypto_LUKS")) {
       char mapname[32];
       make_mapname (partitions[i], mapname, sizeof mapname);
 
-      char *key = read_key (partitions[i]);
+      CLEANUP_FREE char *key = read_key (partitions[i]);
       /* XXX Should we call guestfs_luks_open_ro if readonly flag
        * is set?  This might break 'mount_ro'.
        */
       if (guestfs_luks_open (g, partitions[i], key, mapname) == -1)
         exit (EXIT_FAILURE);
 
-      free (key);
-
       need_rescan = 1;
     }
-    free (type);
   }
-
-  free_strings (partitions);
 
   if (need_rescan) {
     if (guestfs_vgscan (g) == -1)

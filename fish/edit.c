@@ -39,16 +39,17 @@ static int copy_attributes (const char *src, const char *dest);
 int
 run_edit (const char *cmd, size_t argc, char *argv[])
 {
-  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *filename = NULL;
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  CLEANUP_UNLINK_FREE char *filename = NULL;
   char buf[256];
   const char *editor;
-  char *remotefilename, *newname;
+  CLEANUP_FREE char *remotefilename = NULL, *newname = NULL;
   struct stat oldstat, newstat;
   int r, fd;
 
   if (argc != 1) {
     fprintf (stderr, _("use '%s filename' to edit a file\n"), cmd);
-    goto error0;
+    return -1;
   }
 
   /* Choose an editor. */
@@ -65,36 +66,36 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   /* Handle 'win:...' prefix. */
   remotefilename = win_prefix (argv[0]);
   if (remotefilename == NULL)
-    goto error0;
+    return -1;
 
   /* Download the file and write it to a temporary. */
   if (asprintf (&filename, "%s/guestfishXXXXXX", tmpdir) == -1) {
     perror ("asprintf");
-    goto error1;
+    return -1;
   }
 
   fd = mkstemp (filename);
   if (fd == -1) {
     perror ("mkstemp");
-    goto error1;
+    return -1;
   }
 
   snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
 
   if (guestfs_download (g, remotefilename, buf) == -1) {
     close (fd);
-    goto error2;
+    return -1;
   }
 
   if (close (fd) == -1) {
     perror (filename);
-    goto error2;
+    return -1;
   }
 
   /* Get the old stat. */
   if (stat (filename, &oldstat) == -1) {
     perror (filename);
-    goto error2;
+    return -1;
   }
 
   /* Edit it. */
@@ -104,22 +105,19 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   r = system (buf);
   if (r != 0) {
     perror (buf);
-    goto error2;
+    return -1;
   }
 
   /* Get the new stat. */
   if (stat (filename, &newstat) == -1) {
     perror (filename);
-    goto error2;
+    return -1;
   }
 
   /* Changed? */
   if (oldstat.st_ctime == newstat.st_ctime &&
-      oldstat.st_size == newstat.st_size) {
-    unlink (filename);
-    free (remotefilename);
+      oldstat.st_size == newstat.st_size)
     return 0;
-  }
 
   /* Upload to a new file in the same directory, so if it fails we
    * don't end up with a partially written file.  Give the new file
@@ -128,34 +126,22 @@ run_edit (const char *cmd, size_t argc, char *argv[])
    */
   newname = generate_random_name (remotefilename);
   if (!newname)
-    goto error2;
+    return -1;
 
   /* Write new content. */
   if (guestfs_upload (g, filename, newname) == -1)
-    goto error3;
+    return -1;
 
   /* Set the permissions, UID, GID and SELinux context of the new
    * file to match the old file (RHBZ#788641).
    */
   if (copy_attributes (remotefilename, newname) == -1)
-    goto error3;
+    return -1;
 
   if (guestfs_mv (g, newname, remotefilename) == -1)
-    goto error3;
+    return -1;
 
-  free (newname);
-  unlink (filename);
-  free (remotefilename);
   return 0;
-
- error3:
-  free (newname);
- error2:
-  unlink (filename);
- error1:
-  free (remotefilename);
- error0:
-  return -1;
 }
 
 static char
@@ -197,7 +183,7 @@ copy_attributes (const char *src, const char *dest)
 {
   struct guestfs_stat *stat;
   int has_linuxxattrs;
-  char *selinux_context = NULL;
+  CLEANUP_FREE char *selinux_context = NULL;
   size_t selinux_context_size;
 
   has_linuxxattrs = feature_available (g, "linuxxattrs");
@@ -234,12 +220,9 @@ copy_attributes (const char *src, const char *dest)
   /* Set the SELinux context. */
   if (has_linuxxattrs && selinux_context) {
     if (guestfs_setxattr (g, "security.selinux", selinux_context,
-                          (int) selinux_context_size, dest) == -1) {
-      free (selinux_context);
+                          (int) selinux_context_size, dest) == -1)
       return -1;
-    }
   }
-  free (selinux_context);
 
   return 0;
 }

@@ -138,16 +138,11 @@ static void
 display_mountpoints_on_failure (const char *mp_device,
                                 const char *user_supplied_options)
 {
-  char **fses, *p;
+  CLEANUP_FREE_STRING_LIST char **fses = guestfs_list_filesystems (g);
   size_t i;
 
-  fses = guestfs_list_filesystems (g);
-  if (fses == NULL)
+  if (fses == NULL || fses[0] == NULL)
     return;
-  if (fses[0] == NULL) {
-    free (fses);
-    return;
-  }
 
   fprintf (stderr, _("%s: '%s' could not be mounted.\n"),
            program_name, mp_device);
@@ -161,15 +156,10 @@ display_mountpoints_on_failure (const char *mp_device,
            program_name);
 
   for (i = 0; fses[i] != NULL; i += 2) {
-    p = guestfs_canonical_device_name (g, fses[i]);
+    CLEANUP_FREE char *p = guestfs_canonical_device_name (g, fses[i]);
     fprintf (stderr, "%s: \t%s (%s)\n", program_name,
              p ? p : fses[i], fses[i+1]);
-    free (p);
-    free (fses[i]);
-    free (fses[i+1]);
   }
-
-  free (fses);
 }
 
 void

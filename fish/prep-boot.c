@@ -60,7 +60,7 @@ prep_postlaunch_bootroot (const char *filename, prep_data *data, const char *dev
     prep_error (data, filename, _("failed to add root partition: %s"),
                 guestfs_last_error (g));
 
-  char *part;
+  CLEANUP_FREE char *part;
   if (asprintf (&part, "%s1", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
@@ -68,16 +68,15 @@ prep_postlaunch_bootroot (const char *filename, prep_data *data, const char *dev
   if (guestfs_mkfs (g, data->params[0], part) == -1)
     prep_error (data, filename, _("failed to create boot filesystem: %s"),
                 guestfs_last_error (g));
-  free (part);
 
-  if (asprintf (&part, "%s2", device) == -1) {
+  CLEANUP_FREE char *part2;
+  if (asprintf (&part2, "%s2", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
   }
-  if (guestfs_mkfs (g, data->params[1], part) == -1)
+  if (guestfs_mkfs (g, data->params[1], part2) == -1)
     prep_error (data, filename, _("failed to create root filesystem: %s"),
                 guestfs_last_error (g));
-  free (part);
 }
 
 void
@@ -115,12 +114,12 @@ prep_postlaunch_bootrootlv (const char *filename, prep_data *data, const char *d
     prep_error (data, filename, _("failed to add root partition: %s"),
                 guestfs_last_error (g));
 
-  char *vg;
-  char *lv;
+  CLEANUP_FREE char *vg;
+  CLEANUP_FREE char *lv;
   if (vg_lv_parse (data->params[0], &vg, &lv) == -1)
     prep_error (data, filename, _("incorrect format for LV name, use '/dev/VG/LV'"));
 
-  char *part;
+  CLEANUP_FREE char *part;
   if (asprintf (&part, "%s1", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
@@ -128,17 +127,17 @@ prep_postlaunch_bootrootlv (const char *filename, prep_data *data, const char *d
   if (guestfs_mkfs (g, data->params[1], part) == -1)
     prep_error (data, filename, _("failed to create boot filesystem: %s"),
                 guestfs_last_error (g));
-  free (part);
 
-  if (asprintf (&part, "%s2", device) == -1) {
+  CLEANUP_FREE char *part2;
+  if (asprintf (&part2, "%s2", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
   }
-  if (guestfs_pvcreate (g, part) == -1)
+  if (guestfs_pvcreate (g, part2) == -1)
     prep_error (data, filename, _("failed to create PV: %s: %s"),
-                part, guestfs_last_error (g));
+                part2, guestfs_last_error (g));
 
-  char *parts[] = { part, NULL };
+  char *parts[] = { part2, NULL };
   if (guestfs_vgcreate (g, vg, parts) == -1)
     prep_error (data, filename, _("failed to create VG: %s: %s"),
                 vg, guestfs_last_error (g));
@@ -151,8 +150,4 @@ prep_postlaunch_bootrootlv (const char *filename, prep_data *data, const char *d
   if (guestfs_mkfs (g, data->params[2], data->params[0]) == -1)
     prep_error (data, filename, _("failed to create root filesystem: %s"),
                 guestfs_last_error (g));
-
-  free (part);
-  free (vg);
-  free (lv);
 }

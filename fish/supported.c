@@ -29,10 +29,8 @@
 int
 run_supported (const char *cmd, size_t argc, char *argv[])
 {
-  char **groups;
-
   /* As a side-effect this also checks that we've called 'launch'. */
-  groups = guestfs_available_all_groups (g);
+  CLEANUP_FREE_STRING_LIST char **groups = guestfs_available_all_groups (g);
   if (groups == NULL)
     return -1;
 
@@ -66,11 +64,6 @@ run_supported (const char *cmd, size_t argc, char *argv[])
       printf ("%s", _("no"));
     putchar ('\n');
   }
-
-  /* Free groups list. */
-  for (i = 0; groups[i] != NULL; ++i)
-    free (groups[i]);
-  free (groups);
 
   /* Restore error handler. */
   guestfs_pop_error_handler (g);
