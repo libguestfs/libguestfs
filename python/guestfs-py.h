@@ -1,5 +1,5 @@
 /* libguestfs python bindings
- * Copyright (C) 2009-2012 Red Hat Inc.
+ * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@
 #define guestfs_py_h
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;

@@ -21,30 +21,9 @@
 
 #include <guestfs.h>
 
+#include "guestfs-internal-frontend.h"
+
 #include "fish-cmds.h"
-
-#ifndef SOCK_CLOEXEC
-#define SOCK_CLOEXEC 0
-#endif
-
-#define _(str) dgettext(PACKAGE, (str))
-#define N_(str) dgettext(PACKAGE, (str))
-
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
-#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
-#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
-#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
-#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
-#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
-#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
-#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
-
-#define TMP_TEMPLATE_ON_STACK(var)                        \
-  char *ttos_tmpdir = guestfs_get_tmpdir (g);             \
-  char var[strlen (ttos_tmpdir) + 32];                    \
-  sprintf (var, "%s/guestfishXXXXXX", ttos_tmpdir);       \
-  free (ttos_tmpdir)
 
 /* in fish.c */
 extern guestfs_h *g;

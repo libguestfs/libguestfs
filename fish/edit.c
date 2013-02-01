@@ -39,7 +39,7 @@ static int copy_attributes (const char *src, const char *dest);
 int
 run_edit (const char *cmd, size_t argc, char *argv[])
 {
-  TMP_TEMPLATE_ON_STACK (filename);
+  TMP_TEMPLATE_ON_STACK (g, filename);
   char buf[256];
   const char *editor;
   char *remotefilename, *newname;

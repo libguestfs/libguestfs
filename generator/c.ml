@@ -690,11 +690,6 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
 /* Private functions. */
 
-extern GUESTFS_DLL_PUBLIC void *guestfs___safe_malloc (guestfs_h *g, size_t nbytes);
-extern GUESTFS_DLL_PUBLIC void *guestfs___safe_calloc (guestfs_h *g, size_t n, size_t s);
-extern GUESTFS_DLL_PUBLIC char *guestfs___safe_strdup (guestfs_h *g, const char *str);
-extern GUESTFS_DLL_PUBLIC void *guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-
 extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomainPtr */ void *dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
 
 ";
@@ -1650,11 +1645,22 @@ and generate_linker_script () =
     (* Unofficial parts of the API: the bindings code use these
      * functions, so it is useful to export them.
      *)
+    "guestfs___cleanup_free";
+    "guestfs___cleanup_free_string_list";
+    "guestfs___cleanup_hash_free";
+    "guestfs___cleanup_unlink_free";
+(*
+    "guestfs___cleanup_xmlBufferFree";
+    "guestfs___cleanup_xmlFreeDoc";
+    "guestfs___cleanup_xmlFreeTextWriter";
+    "guestfs___cleanup_xmlXPathFreeContext";
+    "guestfs___cleanup_xmlXPathFreeObject";
+*)
+    "guestfs___for_each_disk";
     "guestfs___safe_calloc";
     "guestfs___safe_malloc";
     "guestfs___safe_strdup";
     "guestfs___safe_memdup";
-    "guestfs___for_each_disk";
   ] in
   let functions =
     List.flatten (

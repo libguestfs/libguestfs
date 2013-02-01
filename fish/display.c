@@ -33,7 +33,7 @@
 int
 run_display (const char *cmd, size_t argc, char *argv[])
 {
-  TMP_TEMPLATE_ON_STACK (filename);
+  TMP_TEMPLATE_ON_STACK (g, filename);
   char *remote;
   const char *display;
   char buf[256];

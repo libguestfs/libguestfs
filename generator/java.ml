@@ -549,6 +549,7 @@ and generate_java_c () =
 
 #include \"com_redhat_et_libguestfs_GuestFS.h\"
 #include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
 
 /* This is the opaque data passed between _set_event_callback and
  * the C wrapper which calls the Java event callback.

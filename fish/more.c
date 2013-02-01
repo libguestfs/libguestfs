@@ -31,7 +31,7 @@
 int
 run_more (const char *cmd, size_t argc, char *argv[])
 {
-  TMP_TEMPLATE_ON_STACK (filename);
+  TMP_TEMPLATE_ON_STACK (g, filename);
   char buf[256];
   char *remote;
   const char *pager;

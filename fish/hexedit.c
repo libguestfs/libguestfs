@@ -101,7 +101,7 @@ run_hexedit (const char *cmd, size_t argc, char *argv[])
   int r;
   struct stat oldstat, newstat;
   char buf[BUFSIZ];
-  TMP_TEMPLATE_ON_STACK (tmp);
+  TMP_TEMPLATE_ON_STACK (g, tmp);
   int fd = mkstemp (tmp);
   if (fd == -1) {
     perror ("mkstemp");
