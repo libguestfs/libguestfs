@@ -19,40 +19,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-#ifndef _
-#define _(str) dgettext(PACKAGE, (str))
-#endif
-#ifndef N_
-#define N_(str) dgettext(PACKAGE, (str))
-#endif
-
-#ifndef STREQ
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
-#endif
-#ifndef STRCASEEQ
-#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
-#endif
-#ifndef STRNEQ
-#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
-#endif
-#ifndef STRCASENEQ
-#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
-#endif
-#ifndef STREQLEN
-#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
-#endif
-#ifndef STRCASEEQLEN
-#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
-#endif
-#ifndef STRNEQLEN
-#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
-#endif
-#ifndef STRCASENEQLEN
-#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-#endif
-#ifndef STRPREFIX
-#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
-#endif
+#include "guestfs-internal-frontend.h"
 
 /* Provided by guestfish or guestmount. */
 extern guestfs_h *g;

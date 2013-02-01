@@ -1812,7 +1812,7 @@ file_in (const char *arg)
 static char *
 file_in_heredoc (const char *endmarker)
 {
-  TMP_TEMPLATE_ON_STACK (template);
+  TMP_TEMPLATE_ON_STACK (g, template);
   int fd;
   size_t markerlen;
   char buffer[BUFSIZ];

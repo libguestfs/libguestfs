@@ -34,23 +34,7 @@
 
 #include "hash.h"
 
-#ifndef SOCK_CLOEXEC
-#define SOCK_CLOEXEC 0
-#endif
-
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
-#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
-#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
-#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
-#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
-#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
-#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
-#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
-#define STRSUFFIX(a,b) (strlen((a)) >= strlen((b)) && STREQ((a)+strlen((a))-strlen((b)),(b)))
-
-#define _(str) dgettext(PACKAGE, (str))
-#define N_(str) dgettext(PACKAGE, (str))
+#include "guestfs-internal-frontend.h"
 
 #if ENABLE_PROBES
 #include <sys/sdt.h>
@@ -70,60 +54,6 @@
 #define TRACE2(name, arg1, arg2)
 #define TRACE3(name, arg1, arg2, arg3)
 #define TRACE4(name, arg1, arg2, arg3, arg4)
-#endif
-
-#ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_FREE __attribute__((cleanup(guestfs___cleanup_free)))
-#define CLEANUP_FREE_STRING_LIST                                \
-  __attribute__((cleanup(guestfs___cleanup_free_string_list)))
-#define CLEANUP_HASH_FREE                               \
-  __attribute__((cleanup(guestfs___cleanup_hash_free)))
-#define CLEANUP_UNLINK_FREE                                     \
-  __attribute__((cleanup(guestfs___cleanup_unlink_free)))
-#ifdef HAVE_LIBXML2
-#define CLEANUP_XMLBUFFERFREE                                   \
-  __attribute__((cleanup(guestfs___cleanup_xmlBufferFree)))
-#define CLEANUP_XMLFREEDOC                                      \
-  __attribute__((cleanup(guestfs___cleanup_xmlFreeDoc)))
-#define CLEANUP_XMLFREETEXTWRITER                               \
-  __attribute__((cleanup(guestfs___cleanup_xmlFreeTextWriter)))
-#define CLEANUP_XMLXPATHFREECONTEXT                                     \
-  __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeContext)))
-#define CLEANUP_XMLXPATHFREEOBJECT                                      \
-  __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeObject)))
-#endif
-#else
-#define CLEANUP_FREE
-#define CLEANUP_FREE_STRING_LIST
-#define CLEANUP_HASH_FREE
-#define CLEANUP_UNLINK_FREE
-#ifdef HAVE_LIBXML2
-#define CLEANUP_XMLBUFFERFREE
-#define CLEANUP_XMLFREEDOC
-#define CLEANUP_XMLFREETEXTWRITER
-#define CLEANUP_XMLXPATHFREECONTEXT
-#define CLEANUP_XMLXPATHFREEOBJECT
-#endif
-#endif
-
-#define TMP_TEMPLATE_ON_STACK(g,var)                      \
-  char *ttos_tmpdir = guestfs_get_tmpdir (g);             \
-  char var[strlen (ttos_tmpdir) + 32];                    \
-  sprintf (var, "%s/libguestfsXXXXXX", ttos_tmpdir);      \
-  free (ttos_tmpdir)
-
-#ifdef __APPLE__
-#define UNIX_PATH_MAX 104
-#else
-#define UNIX_PATH_MAX 108
-#endif
-
-#ifndef MAX
-#define MAX(a,b) ((a)>(b)?(a):(b))
-#endif
-
-#ifdef __APPLE__
-#define xdr_uint32_t xdr_u_int32_t
 #endif
 
 /* Some limits on what the inspection code will read, for safety. */
@@ -491,38 +421,6 @@ struct inspect_fstab_entry {
 struct guestfs_message_header;
 struct guestfs_message_error;
 struct guestfs_progress;
-
-/* alloc.c */
-extern void *guestfs___safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
-extern char *guestfs___safe_strdup (guestfs_h *g, const char *str);
-extern char *guestfs___safe_strndup (guestfs_h *g, const char *str, size_t n);
-extern void *guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
-
-#define safe_calloc guestfs___safe_calloc
-#define safe_malloc guestfs___safe_malloc
-#define safe_realloc guestfs___safe_realloc
-#define safe_strdup guestfs___safe_strdup
-#define safe_strndup guestfs___safe_strndup
-#define safe_memdup guestfs___safe_memdup
-#define safe_asprintf guestfs___safe_asprintf
-
-/* These functions are used internally by the CLEANUP_* macros.
- * Don't call them directly.
- */
-extern void guestfs___cleanup_free (void *ptr);
-extern void guestfs___cleanup_free_string_list (void *ptr);
-extern void guestfs___cleanup_hash_free (void *ptr);
-extern void guestfs___cleanup_unlink_free (void *ptr);
-
-#ifdef HAVE_LIBXML2
-extern void guestfs___cleanup_xmlBufferFree (void *ptr);
-extern void guestfs___cleanup_xmlFreeDoc (void *ptr);
-extern void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
-extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
-extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
-#endif
 
 /* errors.c */
 extern void guestfs___init_error_handler (guestfs_h *g);
