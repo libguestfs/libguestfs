@@ -116,10 +116,4 @@ extern char *try_tilde_expansion (char *path);
   "help",				\
   "quit", "exit", "q"
 
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
-
 #endif /* FISH_H */

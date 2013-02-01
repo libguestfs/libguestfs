@@ -242,7 +242,7 @@ main (int argc, char *argv[])
    * of the original, in case it's needed below.
    */
   //char *real_argv0 = argv[0];
-  argv[0] = bad_cast (program_name);
+  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

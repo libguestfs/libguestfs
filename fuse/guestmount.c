@@ -39,7 +39,6 @@
 #include "progname.h"
 #include "ignore-value.h"
 
-#include "guestmount.h"
 #include "options.h"
 
 static int write_pid_file (const char *pid_file, pid_t pid);

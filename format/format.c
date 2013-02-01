@@ -56,12 +56,6 @@ static int do_format (void);
 static int do_rescan (char **devices);
 static int feature_available (guestfs_h *g, const char *feature);
 
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
-
 static void __attribute__((noreturn))
 usage (int status)
 {
@@ -138,7 +132,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  argv[0] = bad_cast (program_name);
+  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

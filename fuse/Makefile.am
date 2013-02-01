@@ -37,8 +37,7 @@ SHARED_SOURCE_FILES = \
 
 guestmount_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	guestmount.c \
-	guestmount.h
+	guestmount.c
 
 guestmount_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \

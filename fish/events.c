@@ -222,7 +222,7 @@ run_delete_event (const char *cmd, size_t argc, char *argv[])
     return -1;
   }
 
-  const struct entry key = { .name = bad_cast (argv[0]) };
+  const struct entry key = { .name = argv[0] };
   struct entry *entry, *p;
 
   entry = hash_delete (event_handlers, &key);
