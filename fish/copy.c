@@ -44,31 +44,29 @@ static int split_path (char *buf, size_t buf_size, const char *path, const char 
 int
 run_copy_in (const char *cmd, size_t argc, char *argv[])
 {
+  CLEANUP_FREE char *remote = NULL;
+
   if (argc < 2) {
     fprintf (stderr,
              _("use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"));
     return -1;
   }
 
-  /* Remote directory is always the last arg. */
-  char *remote = argv[argc-1];
-
-  /* Allow win: prefix on remote. */
-  remote = win_prefix (remote);
+  /* Remote directory is always the last arg.
+   * Allow "win:" prefix on remote.
+   */
+  remote = win_prefix (argv[argc-1]);
   if (remote == NULL)
     return -1;
 
   int nr_locals = argc-1;
 
   int remote_is_dir = guestfs_is_dir (g, remote);
-  if (remote_is_dir == -1) {
-    free (remote);
+  if (remote_is_dir == -1)
     return -1;
-  }
 
   if (!remote_is_dir) {
     fprintf (stderr, _("copy-in: target '%s' is not a directory\n"), remote);
-    free (remote);
     return -1;
   }
 
@@ -76,10 +74,8 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
   int i;
   for (i = 0; i < nr_locals; ++i) {
     struct fd_pid fdpid = make_tar_from_local (argv[i]);
-    if (fdpid.fd == -1) {
-      free (remote);
+    if (fdpid.fd == -1)
       return -1;
-    }
 
     char fdbuf[64];
     snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fdpid.fd);
@@ -94,21 +90,14 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
     int status;
     if (waitpid (fdpid.pid, &status, 0) == -1) {
       perror ("wait (tar-from-local subprocess)");
-      free (remote);
       return -1;
     }
-    if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0)) {
-      free (remote);
+    if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0))
       return -1;
-    }
 
-    if (r == -1) {
-      free (remote);
+    if (r == -1)
       return -1;
-    }
   }
-
-  free (remote);
 
   return 0;
 }
@@ -228,10 +217,10 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
   /* Download each remote one at a time using tar-out. */
   int i, r;
   for (i = 0; i < nr_remotes; ++i) {
-    char *remote = argv[i];
+    CLEANUP_FREE char *remote;
 
     /* Allow win:... prefix on remotes. */
-    remote = win_prefix (remote);
+    remote = win_prefix (argv[i]);
     if (remote == NULL)
       return -1;
 
@@ -239,53 +228,40 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
      * create the directory in local first before using tar-out.
      */
     r = guestfs_is_file (g, remote);
-    if (r == -1) {
-      free (remote);
+    if (r == -1)
       return -1;
-    }
     if (r == 1) {               /* is file */
+      CLEANUP_FREE char *filename = NULL;
       size_t buf_len = strlen (remote) + 1;
       char buf[buf_len];
       const char *basename;
-      if (split_path (buf, buf_len, remote, NULL, &basename) == -1) {
-        free (remote);
-        return -1;
-      }
 
-      char *filename;
+      if (split_path (buf, buf_len, remote, NULL, &basename) == -1)
+        return -1;
+
       if (asprintf (&filename, "%s/%s", local, basename) == -1) {
         perror ("asprintf");
-        free (remote);
         return -1;
       }
-      if (guestfs_download (g, remote, filename) == -1) {
-        free (remote);
-        free (filename);
+      if (guestfs_download (g, remote, filename) == -1)
         return -1;
-      }
-      free (filename);
     }
     else {                      /* not a regular file */
       r = guestfs_is_dir (g, remote);
-      if (r == -1) {
-        free (remote);
+      if (r == -1)
         return -1;
-      }
 
       if (r == 0) {
         fprintf (stderr, _("copy-out: '%s' is not a file or directory\n"),
                  remote);
-        free (remote);
         return -1;
       }
 
       size_t buf_len = strlen (remote) + 1;
       char buf[buf_len];
       const char *basename;
-      if (split_path (buf, buf_len, remote, NULL, &basename) == -1) {
-        free (remote);
+      if (split_path (buf, buf_len, remote, NULL, &basename) == -1)
         return -1;
-      }
 
       /* RHBZ#845522: If remote == "/" then basename would be an empty
        * string.  Replace it with "." so that make_tar_output writes
@@ -295,10 +271,8 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
         basename = ".";
 
       struct fd_pid fdpid = make_tar_output (local, basename);
-      if (fdpid.fd == -1) {
-        free (remote);
+      if (fdpid.fd == -1)
         return -1;
-      }
 
       char fdbuf[64];
       snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fdpid.fd);
@@ -307,28 +281,20 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
 
       if (close (fdpid.fd) == -1) {
         perror ("close (tar-output subprocess)");
-        free (remote);
         r = -1;
       }
 
       int status;
       if (waitpid (fdpid.pid, &status, 0) == -1) {
         perror ("wait (tar-output subprocess)");
-        free (remote);
         return -1;
       }
-      if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0)) {
-        free (remote);
+      if (!(WIFEXITED (status) && WEXITSTATUS (status) == 0))
         return -1;
-      }
 
-      if (r == -1) {
-        free (remote);
+      if (r == -1)
         return -1;
-      }
     }
-
-    free (remote);
   }
 
   return 0;

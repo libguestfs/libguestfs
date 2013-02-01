@@ -34,7 +34,7 @@ int
 run_display (const char *cmd, size_t argc, char *argv[])
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *filename = NULL;
-  char *remote;
+  CLEANUP_FREE char *remote = NULL;
   const char *display;
   char buf[256];
   int r, fd;
@@ -49,24 +49,20 @@ run_display (const char *cmd, size_t argc, char *argv[])
   if (display == NULL)
     display = "display";
 
-  remote = argv[0];
-
   /* Allow win:... prefix on remote. */
-  remote = win_prefix (remote);
+  remote = win_prefix (argv[0]);
   if (remote == NULL)
     return -1;
 
   /* Download the file and write it to a temporary. */
   if (asprintf (&filename, "%s/guestfishXXXXXX", tmpdir) == -1) {
     perror ("asprintf");
-    free (remote);
     return -1;
   }
 
   fd = mkstemp (filename);
   if (fd == -1) {
     perror ("mkstemp");
-    free (remote);
     return -1;
   }
 
@@ -75,14 +71,12 @@ run_display (const char *cmd, size_t argc, char *argv[])
   if (guestfs_download (g, remote, buf) == -1) {
     close (fd);
     unlink (filename);
-    free (remote);
     return -1;
   }
 
   if (close (fd) == -1) {
     perror (filename);
     unlink (filename);
-    free (remote);
     return -1;
   }
 
@@ -93,10 +87,8 @@ run_display (const char *cmd, size_t argc, char *argv[])
   unlink (filename);
   if (r != 0) {
     perror (buf);
-    free (remote);
     return -1;
   }
 
-  free (remote);
   return 0;
 }

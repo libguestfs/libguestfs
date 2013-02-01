@@ -77,12 +77,12 @@ prep_postlaunch_lv (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("failed to partition disk: %s"),
                 guestfs_last_error (g));
 
-  char *vg;
-  char *lv;
+  CLEANUP_FREE char *vg;
+  CLEANUP_FREE char *lv;
   if (vg_lv_parse (data->params[0], &vg, &lv) == -1)
     prep_error (data, filename, _("incorrect format for LV name, use '/dev/VG/LV'"));
 
-  char *part;
+  CLEANUP_FREE char *part;
   if (asprintf (&part, "%s1", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
@@ -101,10 +101,6 @@ prep_postlaunch_lv (const char *filename, prep_data *data, const char *device)
   if (guestfs_lvcreate_free (g, lv, vg, 100) == -1)
     prep_error (data, filename, _("failed to create LV: /dev/%s/%s: %s"),
                 vg, lv, guestfs_last_error (g));
-
-  free (part);
-  free (vg);
-  free (lv);
 }
 
 void
@@ -124,12 +120,12 @@ prep_postlaunch_lvfs (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("failed to partition disk: %s"),
                 guestfs_last_error (g));
 
-  char *vg;
-  char *lv;
+  CLEANUP_FREE char *vg;
+  CLEANUP_FREE char *lv;
   if (vg_lv_parse (data->params[0], &vg, &lv) == -1)
     prep_error (data, filename, _("incorrect format for LV name, use '/dev/VG/LV'"));
 
-  char *part;
+  CLEANUP_FREE char *part;
   if (asprintf (&part, "%s1", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
@@ -153,8 +149,4 @@ prep_postlaunch_lvfs (const char *filename, prep_data *data, const char *device)
   if (guestfs_mkfs (g, data->params[1], data->params[0]) == -1)
     prep_error (data, filename, _("failed to create filesystem (%s): %s"),
                 data->params[1], guestfs_last_error (g));
-
-  free (part);
-  free (vg);
-  free (lv);
 }

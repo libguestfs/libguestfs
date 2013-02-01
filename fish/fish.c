@@ -624,7 +624,7 @@ static char *
 rl_gets (int prompt)
 {
 #ifdef HAVE_LIBREADLINE
-  char *p = NULL;
+  CLEANUP_FREE char *p = NULL;
 
   if (prompt) {
     if (line_read) {
@@ -634,7 +634,6 @@ rl_gets (int prompt)
 
     p = prompt && ps1 ? decode_ps1 (ps1) : NULL;
     line_read = readline (prompt ? (ps1 ? p : FISH) : "");
-    free (p);
 
     if (line_read && *line_read)
       add_history_line (line_read);
@@ -972,7 +971,7 @@ static int
 execute_and_inline (const char *cmd, int global_exit_on_error)
 {
   FILE *pp;
-  char *line = NULL;
+  CLEANUP_FREE char *line = NULL;
   size_t len = 0;
   ssize_t n;
   int exit_on_error;
@@ -1000,8 +999,6 @@ execute_and_inline (const char *cmd, int global_exit_on_error)
       }
     }
   }
-
-  free (line);
 
   if (pclose (pp) != 0) {
     perror ("pclose");
@@ -1695,26 +1692,26 @@ win_prefix (const char *path)
 static char *
 win_prefix_drive_letter (char drive_letter, const char *path)
 {
-  char **roots = NULL;
-  char **drives = NULL;
-  char **mountpoints = NULL;
+  CLEANUP_FREE_STRING_LIST char **roots = NULL;
+  CLEANUP_FREE_STRING_LIST char **drives = NULL;
+  CLEANUP_FREE_STRING_LIST char **mountpoints = NULL;
   char *device, *mountpoint, *ret = NULL;
   size_t i;
 
   /* Resolve the drive letter using the drive mappings table. */
   roots = guestfs_inspect_get_roots (g);
   if (roots == NULL)
-    goto out;
+    return NULL;
   if (roots[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, you must inspect the guest (\"-i\" option or run \"inspect-os\" command)\n"),
              program_name);
-    goto out;
+    return NULL;
   }
   drives = guestfs_inspect_get_drive_mappings (g, roots[0]);
   if (drives == NULL || drives[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
              program_name);
-    goto out;
+    return NULL;
   }
 
   device = NULL;
@@ -1728,13 +1725,13 @@ win_prefix_drive_letter (char drive_letter, const char *path)
   if (device == NULL) {
     fprintf (stderr, _("%s: drive '%c:' not found.  To list available drives do:\n  inspect-get-drive-mappings %s\n"),
              program_name, drive_letter, roots[0]);
-    goto out;
+    return NULL;
   }
 
   /* This drive letter must be mounted somewhere (we won't do it). */
   mountpoints = guestfs_mountpoints (g);
   if (mountpoints == NULL)
-    goto out;
+    return NULL;
 
   mountpoint = NULL;
   for (i = 0; mountpoints[i] != NULL; i += 2) {
@@ -1747,23 +1744,15 @@ win_prefix_drive_letter (char drive_letter, const char *path)
   if (mountpoint == NULL) {
     fprintf (stderr, _("%s: to access '%c:', mount %s first.  One way to do this is:\n  umount-all\n  mount %s /\n"),
              program_name, drive_letter, device, device);
-    goto out;
+    return NULL;
   }
 
   /* Rewrite the path, eg. if C: => /c then C:/foo => /c/foo */
   if (asprintf (&ret, "%s%s%s",
                 mountpoint, STRNEQ (mountpoint, "/") ? "/" : "", path) == -1) {
     perror ("asprintf");
-    goto out;
+    return NULL;
   }
-
- out:
-  if (roots)
-    free_strings (roots);
-  if (drives)
-    free_strings (drives);
-  if (mountpoints)
-    free_strings (mountpoints);
 
   return ret;
 }

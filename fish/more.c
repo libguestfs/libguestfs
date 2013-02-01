@@ -31,9 +31,10 @@
 int
 run_more (const char *cmd, size_t argc, char *argv[])
 {
-  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *filename = NULL;
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  CLEANUP_UNLINK_FREE char *filename = NULL;
   char buf[256];
-  char *remote;
+  CLEANUP_FREE char *remote = NULL;
   const char *pager;
   int r, fd;
 
@@ -51,24 +52,20 @@ run_more (const char *cmd, size_t argc, char *argv[])
       pager = "more";
   }
 
-  remote = argv[0];
-
   /* Allow win:... prefix on remote. */
-  remote = win_prefix (remote);
+  remote = win_prefix (argv[0]);
   if (remote == NULL)
     return -1;
 
   /* Download the file and write it to a temporary. */
   if (asprintf (&filename, "%s/guestfishXXXXXX", tmpdir) == -1) {
     perror ("asprintf");
-    free (remote);
     return -1;
   }
 
   fd = mkstemp (filename);
   if (fd == -1) {
     perror ("mkstemp");
-    free (remote);
     return -1;
   }
 
@@ -76,15 +73,11 @@ run_more (const char *cmd, size_t argc, char *argv[])
 
   if (guestfs_download (g, remote, buf) == -1) {
     close (fd);
-    unlink (filename);
-    free (remote);
     return -1;
   }
 
   if (close (fd) == -1) {
     perror (filename);
-    unlink (filename);
-    free (remote);
     return -1;
   }
 
@@ -93,13 +86,10 @@ run_more (const char *cmd, size_t argc, char *argv[])
   snprintf (buf, sizeof buf, "%s %s", pager, filename);
 
   r = system (buf);
-  unlink (filename);
   if (r != 0) {
     perror (buf);
-    free (remote);
     return -1;
   }
 
-  free (remote);
   return 0;
 }

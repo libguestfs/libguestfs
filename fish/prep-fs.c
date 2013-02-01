@@ -42,7 +42,7 @@ prep_postlaunch_fs (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("failed to partition disk: %s"),
                 guestfs_last_error (g));
 
-  char *part;
+  CLEANUP_FREE char *part;
   if (asprintf (&part, "%s1", device) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
@@ -51,6 +51,4 @@ prep_postlaunch_fs (const char *filename, prep_data *data, const char *device)
   if (guestfs_mkfs (g, data->params[0], part) == -1)
     prep_error (data, filename, _("failed to create filesystem (%s): %s"),
                 data->params[0], guestfs_last_error (g));
-
-  free (part);
 }
