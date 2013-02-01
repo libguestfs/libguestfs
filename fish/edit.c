@@ -39,7 +39,7 @@ static int copy_attributes (const char *src, const char *dest);
 int
 run_edit (const char *cmd, size_t argc, char *argv[])
 {
-  TMP_TEMPLATE_ON_STACK (g, filename);
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *filename = NULL;
   char buf[256];
   const char *editor;
   char *remotefilename, *newname;
@@ -68,6 +68,11 @@ run_edit (const char *cmd, size_t argc, char *argv[])
     goto error0;
 
   /* Download the file and write it to a temporary. */
+  if (asprintf (&filename, "%s/guestfishXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    goto error1;
+  }
+
   fd = mkstemp (filename);
   if (fd == -1) {
     perror ("mkstemp");

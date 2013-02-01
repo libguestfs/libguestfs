@@ -69,12 +69,6 @@
 #endif
 #endif
 
-#define TMP_TEMPLATE_ON_STACK(g,var)                      \
-  char *ttos_tmpdir = guestfs_get_tmpdir (g);             \
-  char var[strlen (ttos_tmpdir) + 32];                    \
-  sprintf (var, "%s/libguestfsXXXXXX", ttos_tmpdir);      \
-  free (ttos_tmpdir)
-
 /* NB: At some point we will stop exporting these safe_* allocation
  * functions outside the library, so don't use them in new tools or
  * bindings code.

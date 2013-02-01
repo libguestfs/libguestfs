@@ -33,7 +33,7 @@
 int
 run_display (const char *cmd, size_t argc, char *argv[])
 {
-  TMP_TEMPLATE_ON_STACK (g, filename);
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *filename = NULL;
   char *remote;
   const char *display;
   char buf[256];
@@ -57,6 +57,12 @@ run_display (const char *cmd, size_t argc, char *argv[])
     return -1;
 
   /* Download the file and write it to a temporary. */
+  if (asprintf (&filename, "%s/guestfishXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    free (remote);
+    return -1;
+  }
+
   fd = mkstemp (filename);
   if (fd == -1) {
     perror ("mkstemp");

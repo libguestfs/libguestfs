@@ -101,7 +101,13 @@ run_hexedit (const char *cmd, size_t argc, char *argv[])
   int r;
   struct stat oldstat, newstat;
   char buf[BUFSIZ];
-  TMP_TEMPLATE_ON_STACK (g, tmp);
+
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *tmp = NULL;
+  if (asprintf (&tmp, "%s/guestfishXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+
   int fd = mkstemp (tmp);
   if (fd == -1) {
     perror ("mkstemp");

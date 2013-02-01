@@ -1812,11 +1812,16 @@ file_in (const char *arg)
 static char *
 file_in_heredoc (const char *endmarker)
 {
-  TMP_TEMPLATE_ON_STACK (g, template);
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *template = NULL;
   int fd;
   size_t markerlen;
   char buffer[BUFSIZ];
   int write_error = 0;
+
+  if (asprintf (&template, "%s/guestfishXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    return NULL;
+  }
 
   file_in_tmpfile = strdup (template);
   if (file_in_tmpfile == NULL) {

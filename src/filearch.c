@@ -127,19 +127,20 @@ is_regular_file (const char *filename)
 static char *
 cpio_arch (guestfs_h *g, const char *file, const char *path)
 {
-  TMP_TEMPLATE_ON_STACK (g, dir);
-#define dir_len (strlen (dir))
-#define initrd_len (dir_len + 16)
-  char initrd[initrd_len];
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *dir = NULL;
+  CLEANUP_FREE char *initrd = NULL;
   struct command *cmd = NULL;
-#define bin_len (dir_len + 32)
-  char bin[bin_len];
   char *ret = NULL;
   const char *method;
   int64_t size;
   int r;
   const char *bins[] = INITRD_BINARIES2;
   size_t i;
+
+  if (asprintf (&dir, "%s/libguestfsXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    return NULL;
+  }
 
   if (strstr (file, "gzip"))
     method = "zcat";
@@ -161,7 +162,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
     goto out;
   }
 
-  snprintf (initrd, initrd_len, "%s/initrd", dir);
+  initrd = safe_asprintf (g, "%s/initrd", dir);
   if (guestfs_download (g, path, initrd) == -1)
     goto out;
 
@@ -180,7 +181,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   }
 
   for (i = 0; i < sizeof bins / sizeof bins[0]; ++i) {
-    snprintf (bin, bin_len, "%s/%s", dir, bins[i]);
+    CLEANUP_FREE char *bin = safe_asprintf (g, "%s/%s", dir, bins[i]);
 
     if (is_regular_file (bin)) {
       int flags = g->verbose ? MAGIC_DEBUG : 0;
@@ -223,9 +224,6 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   guestfs___recursive_remove_dir (g, dir);
 
   return ret;
-#undef dir_len
-#undef initrd_len
-#undef bin_len
 }
 
 char *
