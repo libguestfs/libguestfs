@@ -37,15 +37,14 @@ static const char *home_filename = /* $HOME/ */ ".libguestfs-tools.rc";
 static const char *etc_filename = "/etc/libguestfs-tools.conf";
 
 /* Note that parse_config is called very early, before command line
- * parsing and before the verbose flag has been set.
+ * parsing, before the verbose flag has been set, even before the
+ * global handle 'g' is opened.
  */
 
 void
 parse_config (void)
 {
   const char *home;
-  size_t len;
-  char *path;
   FILE *fp;
   config_t conf;
 
@@ -54,13 +53,12 @@ parse_config (void)
   /* Try $HOME first. */
   home = getenv ("HOME");
   if (home != NULL) {
-    len = strlen (home) + 1 + strlen (home_filename) + 1;
-    path = malloc (len);
-    if (path == NULL) {
-      perror ("malloc");
+    CLEANUP_FREE char *path = NULL;
+
+    if (asprintf (&path, "%s/%s", home, home_filename) == -1) {
+      perror ("asprintf");
       exit (EXIT_FAILURE);
     }
-    snprintf (path, len, "%s/%s", home, home_filename);
 
     fp = fopen (path, "r");
     if (fp != NULL) {
@@ -97,8 +95,6 @@ parse_config (void)
        */
       config_lookup_bool (&conf, "read_only", &read_only);
     }
-
-    free (path);
   }
 
   fp = fopen (etc_filename, "r");
