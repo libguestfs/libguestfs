@@ -41,126 +41,170 @@ Debian/Ubuntu users:
 
 The full requirements are described below.
 
-For basic functionality and the C tools:
-
-- look at appliance/packagelist.in and install as many of the packages
-  that apply to your distro as possible
-
-- QEMU >= 1.1.0.
-
-- kernel >= 2.6.34 with virtio-serial support enabled.
-
-- virtio-block and virtio-net drivers should be compiled into your
-  host kernel (strictly speaking this is optional, but you will have
-  to make complex changes to the ./configure command line to get it
-  to work if you don't have virtio)
-
-- febootstrap >= 3.20
-
-  Notes: (1) febootstrap 2.x WILL NOT WORK
-         (2) febootstrap 3.x is distro-independent, and is required on
-             Debian and other distros as well as Fedora
-         (3) that is the minimum version, but later versions are better
-
-- XDR, rpcgen (on Linux these are provided by glibc)
-
-- cpio
-
-- gperf
-
-- pcre (Perl Compatible Regular Expressions C library)
-
-- genisoimage (NOT mkisofs any more)
-
-- hivex >= 1.2.7 (http://libguestfs.org/download) (optional)
-
-- libmagic (the library that corresponds to the 'file' command) (optional)
-
-- libvirt (optional, >= 0.10.2 to use the libvirt launch method)
-
-- libxml2 (optional)
-
-- libconfig (optional)
-
-- augeas >= 0.5.0 (http://augeas.net/) (optional)
-
-- Berkeley DB 'db_dump' and 'db_load' utilities
-  (db4-utils or db4.X-util or similar) (optional)
-
-- systemtap/DTrace userspace probes (optional)
-  http://sourceware.org/systemtap/wiki/AddingUserSpaceProbingToApps
-
-- perl Pod::Man and Pod::Simple are required.  These are used to
-  generate man pages and other documentation.  Every recent Perl
-  distribution ought to include both.
-
-- Readline to have nicer command-line editing in guestfish (optional)
-
-- xmllint (part of libxml2) to validate virt-inspector
-  RELAX NG schema (optional)
-
-- OCaml compiler.  Optional when compiling from the tarball, but
-  mandatory if you compile from git.
-
-- ocaml-gettext if you want to translate OCaml tools (optional)
-
-- po4a for translating manpages and POD files.
-  This is optional when compiling from the tarball, but mandatory
-  if you compile from git.
-
-- getfacl, getfattr libraries and programs (optional)
-
-- Linux capabilities library (libcap) (optional)
-
-- libldm and ldmtool (optional)
-  This is used to handle Windows dynamic disks.
-
-- yajl >= 2 (optional)
-  JSON parser, needed to handle the output of ldmtool.
-
-- gdisk (optional)
-  For managing some aspects of GPT disks.
-
-- netpbm, icoutils (optional)
-  These programs are used to render icons from guests.
-
-- Perl Expect module (optional)
-  This is used to test virt-rescue.
-
-To build FUSE support in the core library, and guestmount:
-
-- FUSE libraries and kernel module (optional)
-
-To build language bindings:
-
-- OCaml compiler to build the OCaml bindings (optional, but see above)
-
-- Perl if you want to build the perl bindings (optional)
-
-- Python >= 2.2 if you want to build the python bindings (optional)
-
-- Ruby, rake if you want to build the ruby bindings (optional)
-
-- Java, JNI, jpackage-utils if you want to build the java
-  bindings (optional)
-
-- GHC if you want to build the Haskell bindings (optional)
-
-- PHP, phpize if you want to build the PHP bindings (optional)
-
-To build the Perl tools:
-
-- Perl Sys::Virt module (optional)
-
-- Perl Win::Hivex module (optional)
-
-- Perl Pod::Usage module (optional)
-
-- Perl Test::More module (from perl Test::Simple) (optional)
-
-- Perl String::ShellQuote module (optional)
-
-- perl-libintl for translating perl code (optional)
+                               R = Required
+                               O = Optional
++==============+=============+===+=========================================+
+| Package name | Min.version |   | Notes                                   |
++==============+=============+===+=========================================+
+| Install as many packages listed in appliance/packagelist.in as possible. |
+| This installs the disk management tools required by the appliance.  The  |
+| list below is *additional* packages needed on the host.                  |
++--------------+-------------+---+-----------------------------------------+
+| qemu         | 1.2.0       | R | 1.1 may work, but has broken virtio-scsi|
++--------------+-------------+---+-----------------------------------------+
+| qemu-img     |             | R |                                         |
++--------------+-------------+---+-----------------------------------------+
+| kernel       | 2.6.34      | R | Make sure the following are enabled     |
+|              |             |   | compiled in or as a module:             |
+|              |             |   |  - virtio-pci                           |
+|              |             |   |  - virtio-serial                        |
+|              |             |   |  - virtio-block                         |
+|              |             |   |  - virtio-net                           |
++--------------+-------------+---+-----------------------------------------+
+| febootstrap  | 3.20        | R | This is required on all distros.        |
+|              |             |   | For alternatives, see:                  |
+|              |             |   | libguestfs.org/download/binaries/appliance/
+|              |             |   | febootstrap 2.x WILL NOT WORK           |
++--------------+-------------+---+-----------------------------------------+
+| glibc        |             | R | We use various glibc-isms.              |
+|              |             |   | Also glibc provides XDR, rpcgen.        |
++--------------+-------------+---+-----------------------------------------+
+| GCC or LLVM  |             | R | We use __attribute__((cleanup)).        |
++--------------+-------------+---+-----------------------------------------+
+| Perl         |             | R | Various build and test programs need    |
+|              |             |   | Perl.  Not needed at runtime except if  |
+|              |             |   | you need to run a handful of virt-*     |
+|              |             |   | tools that are still written in Perl.   |
++--------------+-------------+---+-----------------------------------------+
+| Pod::Man     |             | R | Part of Perl core.                      |
++--------------+-------------+---+-----------------------------------------+
+| Pod::Simple  |             | R | Part of Perl core.                      |
++--------------+-------------+---+-----------------------------------------+
+| OCaml        |             |R/O| Required if compiling from git.         |
+|              |             |   | Optional if compiling from tarball.     |
+|              |             |   | To build generated files and OCaml bindings.
++--------------+-------------+---+-----------------------------------------+
+| autotools    |             |R/O| Required if compiling from git.         |
+|              |             |   | Optional if compiling from tarball.     |
+|              |             |   | Autotools-based build system.           |
++--------------+-------------+---+-----------------------------------------+
+| cpio         |             | R |                                         |
++--------------+-------------+---+-----------------------------------------+
+| gperf        |             | R |                                         |
++--------------+-------------+---+-----------------------------------------+
+| PCRE         |             | R | Perl-compatible Regular Expression lib. |
++--------------+-------------+---+-----------------------------------------+
+| genisoimage  |             | R | mkisofs may work.                       |
++--------------+-------------+---+-----------------------------------------+
+| po4a         |             |R/O| Required if compiling from git.         |
+|              |             |   | Optional if compiling from tarball.     |
+|              |             |   | For localizing man pages.               |
++--------------+-------------+---+-----------------------------------------+
+| hivex        | 1.2.7       | O | Windows Registry hive parser.           |
++--------------+-------------+---+-----------------------------------------+
+| libmagic     |             | O | The library used by the 'file' command. |
++--------------+-------------+---+-----------------------------------------+
+| libvirt      |             | O | >= 0.10.2 is needed if you want to use  |
+|              |             |   | libvirt to manage transient VMs.        |
++--------------+-------------+---+-----------------------------------------+
+| libxml2      |             | O | Popular XML library.                    |
++--------------+-------------+---+-----------------------------------------+
+| xmllint      |             | O | Part of libxml2.  Used for tests only.  |
++--------------+-------------+---+-----------------------------------------+
+| libconfig    |             | O | Used to parse libguestfs's own config   |
+|              |             |   | files eg. /etc/libguestfs-tools.conf.   |
++--------------+-------------+---+-----------------------------------------+
+| libselinux   |             | O | Used by the libvirt attach-method to    |
+|              |             |   | securely confine the appliance (sVirt). |
++--------------+-------------+---+-----------------------------------------+
+| augeas       | 0.5.0       | O | To inspect configuration of Linux guests.
++--------------+-------------+---+-----------------------------------------+
+| db utils     |             | O | db_dump, db_load etc.  Usually found in |
+|              |             |   | a package called db-utils, db4-utils,   |
+|              |             |   | db4.X-utils, Berkeley DB utils, etc.    |
++--------------+-------------+---+-----------------------------------------+
+| systemtap    |             | O | For userspace probes.                   |
++--------------+-------------+---+-----------------------------------------+
+| readline     |             | O | For nicer command line in guestfish.    |
++--------------+-------------+---+-----------------------------------------+
+| acl          |             | O | Library (libacl) and programs for       |
+|              |             |   | handling POSIX ACLs.                    |
++--------------+-------------+---+-----------------------------------------+
+| libcap       |             | O | Library (libcap) and programs for       |
+|              |             |   | handling Linux capabilities.            |
++--------------+-------------+---+-----------------------------------------+
+| libldm       |             | O | Library (libldm) and 'ldmtool' for      |
+|              |             |   | handling Windows Dynamic Disks.         |
++--------------+-------------+---+-----------------------------------------+
+| yajl         | 2           | O | JSON parser for parsing output of ldmtool.
++--------------+-------------+---+-----------------------------------------+
+| gdisk        |             | O | GPT disk support.                       |
++--------------+-------------+---+-----------------------------------------+
+| netpbm       |             | O | Render icons from guests.               |
++--------------+-------------+---+-----------------------------------------+
+| icoutils     |             | O | Render icons from Windows guests.       |
++--------------+-------------+---+-----------------------------------------+
+| Expect       |             | O | Perl module used to test virt-rescue.   |
++--------------+-------------+---+-----------------------------------------+
+| FUSE         |             | O | fusermount, libfuse, and kernel module  |
+|              |             |   | are all needed if you want guestmount   |
+|              |             |   | and/or 'mount-local' support.           |
++--------------+-------------+---+-----------------------------------------+
+| static glibc |             | O | Used for testing only.                  |
++--------------+-------------+---+-----------------------------------------+
+| findlib      |             | O | For the OCaml bindings.                 |
++--------------+-------------+---+-----------------------------------------+
+| ocaml-gettext|             | O | For localizing OCaml virt-* tools.      |
++--------------+-------------+---+-----------------------------------------+
+| Python       | 2.2         | O | For the Python bindings.                |
++--------------+-------------+---+-----------------------------------------+
+| Ruby         |             | O | >= 1.9 is better than 1.8.              |
++--------------+-------------+---+-----------------------------------------+
+| rake         |             | O | For the Ruby bindings.                  |
++--------------+-------------+---+-----------------------------------------+
+| rubygem-minitest           | O | For the Ruby bindings.                  |
++--------------+-------------+---+-----------------------------------------+
+| Java         |             | O | Java + JNI + jpackage-utils are needed  |
+|              |             |   | for the Java bindings.                  |
++--------------+-------------+---+-----------------------------------------+
+| GHC          |             | O | For the Haskell bindings.               |
++--------------+-------------+---+-----------------------------------------+
+| PHP          |             | O | For the PHP bindings.                   |
++--------------+-------------+---+-----------------------------------------+
+| phpize       |             | O | For the PHP bindings.                   |
++--------------+-------------+---+-----------------------------------------+
+| glib2        |             | O | For the GObject bindings.               |
++--------------+-------------+---+-----------------------------------------+
+| gobject-introspection      | O | For the GObject bindings.               |
++--------------+-------------+---+-----------------------------------------+
+| gjs          |             | O | For testing the GObject bindings.       |
++--------------+-------------+---+-----------------------------------------+
+| LUA          |             | O | For the LUA bindings.                   |
++--------------+-------------+---+-----------------------------------------+
+| Erlang       |             | O | For the Erlang bindings.                |
++--------------+-------------+---+-----------------------------------------+
+| erl_interface|             | O | For the Erlang bindings.                |
++--------------+-------------+---+-----------------------------------------+
+| valgrind     |             | O | For testing for memory problems.        |
++--------------+-------------+---+-----------------------------------------+
+| Sys::Virt    |             | O | Perl bindings for libvirt.              |
++--------------+-------------+---+-----------------------------------------+
+| Win::Hivex   |             | O | Perl bindings for hivex.                |
++--------------+-------------+---+-----------------------------------------+
+| Pod::Usage   |             | O | Perl module used by tests.              |
++--------------+-------------+---+-----------------------------------------+
+| Test::More   |             | O | Perl module used by tests.              |
++--------------+-------------+---+-----------------------------------------+
+| String::Shellquote         | O | Perl module used by some virt-* tools.  |
++--------------+-------------+---+-----------------------------------------+
+| XML::XPath   |             | O | Perl module used by some virt-* tools.  |
++--------------+-------------+---+-----------------------------------------+
+| XML::XPath::XMLParser      | O | Perl module used by some virt-* tools.  |
++--------------+-------------+---+-----------------------------------------+
+| perl-libintl |             | O | Perl module for localization.           |
++==============+=============+===+=========================================+
+                               R = Required
+                               O = Optional
 
 
 Building
