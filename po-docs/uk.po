@@ -1669,7 +1669,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4230
 #: ../test-tool/libguestfs-test-tool.pod:118
 #: ../tools/virt-list-partitions.pl:285
-msgid "Copyright (C) 2009-2012 Red Hat Inc."
+msgid "Copyright (C) 2009-2013 Red Hat Inc."
 msgstr "© Red Hat Inc., 2009–2012"
 
 #. type: textblock

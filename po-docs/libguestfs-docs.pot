@@ -1108,7 +1108,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:159 ../cat/virt-ls.pod:513 ../daemon/guestfsd.pod:103 ../df/virt-df.pod:281 ../edit/virt-edit.pod:388 ../examples/guestfs-recipes.pod:516 ../fish/guestfish.pod:1414 ../fuse/guestmount.pod:415 ../guestfs-release-notes.pod:1989 ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4230 ../test-tool/libguestfs-test-tool.pod:118 ../tools/virt-list-partitions.pl:285
-msgid "Copyright (C) 2009-2012 Red Hat Inc."
+msgid "Copyright (C) 2009-2013 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
