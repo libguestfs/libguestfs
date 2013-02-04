@@ -43,7 +43,13 @@ let rec generate_ruby_c () =
 
 #include <ruby.h>
 
+/* ruby/defines.h defines '_'. */
+#ifdef _
+#undef _
+#endif
+
 #include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
 
 #include \"extconf.h\"
 
