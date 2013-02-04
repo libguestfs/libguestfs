@@ -128,6 +128,8 @@ libguestfs_la_LDFLAGS += $(VERSION_SCRIPT_FLAGS)$(srcdir)/libguestfs.syms
 libguestfs_la_SOURCES = \
 	guestfs.h \
 	guestfs-internal.h \
+	guestfs-internal-all.h \
+	guestfs-internal-frontend.h \
 	guestfs_protocol.h \
 	actions-0.c \
 	actions-1.c \
