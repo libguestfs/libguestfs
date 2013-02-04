@@ -193,6 +193,9 @@ do_mkfs_btrfs (char *const *devices,
 
   ADD_ARG (argv, i, NULL);
 
+  for (j = 0; j < nr_devices; ++j)
+    wipe_device_before_mkfs (devices[j]);
+
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", devices[0], err);

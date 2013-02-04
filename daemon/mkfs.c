@@ -184,6 +184,8 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
+  wipe_device_before_mkfs (device);
+
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", fstype, device, err);

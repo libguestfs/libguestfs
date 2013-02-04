@@ -186,6 +186,9 @@ extern int lv_canonical (const char *device, char **ret);
 /*-- in lvm-filter.c --*/
 extern void copy_lvm (void);
 
+/*-- in zero.c --*/
+extern void wipe_device_before_mkfs (const char *device);
+
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
