@@ -61,7 +61,7 @@ module Guestfs (
   List.iter (
     fun { name = name; style = style } ->
       if can_generate style then pr ",\n  %s" name
-  ) all_functions;
+  ) external_functions;
 
   pr "
   ) where
@@ -202,7 +202,7 @@ last_error h = do
         );
         pr "\n";
       )
-  ) all_functions
+  ) external_functions
 
 and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
   pr "%s -> " handle;

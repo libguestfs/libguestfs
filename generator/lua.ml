@@ -107,7 +107,7 @@ static void free_strings (char **r);
     | typ, (RStructListOnly | RStructAndList) ->
       pr "static void push_%s (lua_State *L, struct guestfs_%s *v);\n" typ typ;
       pr "static void push_%s_list (lua_State *L, struct guestfs_%s_list *v);\n" typ typ
-  ) (rstructs_used_by all_functions);
+  ) (rstructs_used_by external_functions);
 
   pr "\
 
@@ -626,7 +626,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
         pr "  return 1;\n";
       pr "}\n";
       pr "\n"
-  ) all_functions_sorted;
+  ) external_functions_sorted;
 
   pr "\
 static struct userdata *
@@ -863,7 +863,7 @@ push_event (lua_State *L, uint64_t event)
     | typ, (RStructListOnly | RStructAndList) ->
       generate_push_struct typ;
       generate_push_struct_list typ
-  ) (rstructs_used_by all_functions);
+  ) (rstructs_used_by external_functions);
 
   pr "\
 void
@@ -901,7 +901,7 @@ static luaL_Reg methods[] = {
 
   List.iter (
     fun { name = name } -> pr "  { \"%s\", guestfs_lua_%s },\n" name name
-  ) all_functions_sorted;
+  ) external_functions_sorted;
 
   pr "\
 

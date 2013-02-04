@@ -27,8 +27,8 @@ open Utils
 let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  tests = []; shortdesc = ""; longdesc = "";
                  protocol_limit_warning = false; fish_alias = [];
-                 fish_output = None; in_fish = true; in_docs = true;
-                 internal = false; deprecated_by = None; optional = None;
+                 fish_output = None; visibility = VPublic;
+                 deprecated_by = None; optional = None;
                  progress = false; camel_name = "";
                  cancellable = false; config_only = false;
                  once_had_no_optargs = false; blocking = true;
@@ -76,7 +76,7 @@ let test_functions = [
   { defaults with
     name = "internal_test";
     style = RErr, test_all_args, test_all_optargs;
-    in_fish = false; in_docs = false; internal = true; cancellable = true;
+    visibility = VBindTest; cancellable = true;
     blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
@@ -92,7 +92,7 @@ You probably don't want to call this function." };
   { defaults with
     name = "internal_test_only_optargs";
     style = RErr, [], [OInt "test"];
-    in_fish = false; in_docs = false; internal = true; cancellable = true;
+    visibility = VBindTest; cancellable = true;
     blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
@@ -108,7 +108,7 @@ You probably don't want to call this function." };
   { defaults with
     name = "internal_test_63_optargs";
     style = RErr, [], [OInt "opt1"; OInt "opt2"; OInt "opt3"; OInt "opt4"; OInt "opt5"; OInt "opt6"; OInt "opt7"; OInt "opt8"; OInt "opt9"; OInt "opt10"; OInt "opt11"; OInt "opt12"; OInt "opt13"; OInt "opt14"; OInt "opt15"; OInt "opt16"; OInt "opt17"; OInt "opt18"; OInt "opt19"; OInt "opt20"; OInt "opt21"; OInt "opt22"; OInt "opt23"; OInt "opt24"; OInt "opt25"; OInt "opt26"; OInt "opt27"; OInt "opt28"; OInt "opt29"; OInt "opt30"; OInt "opt31"; OInt "opt32"; OInt "opt33"; OInt "opt34"; OInt "opt35"; OInt "opt36"; OInt "opt37"; OInt "opt38"; OInt "opt39"; OInt "opt40"; OInt "opt41"; OInt "opt42"; OInt "opt43"; OInt "opt44"; OInt "opt45"; OInt "opt46"; OInt "opt47"; OInt "opt48"; OInt "opt49"; OInt "opt50"; OInt "opt51"; OInt "opt52"; OInt "opt53"; OInt "opt54"; OInt "opt55"; OInt "opt56"; OInt "opt57"; OInt "opt58"; OInt "opt59"; OInt "opt60"; OInt "opt61"; OInt "opt62"; OInt "opt63"];
-    in_fish = false; in_docs = false; internal = true; cancellable = true;
+    visibility = VBindTest; cancellable = true;
     blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
@@ -128,7 +128,7 @@ You probably don't want to call this function." }
       { defaults with
         name = name;
         style = ret, [String "val"], [];
-        in_fish = false; in_docs = false; internal = true;
+        visibility = VBindTest;
         blocking = false;
         shortdesc = "internal test function - do not use";
         longdesc = "\
@@ -142,7 +142,7 @@ You probably don't want to call this function." };
       { defaults with
         name = name ^ "err";
         style = ret, [], [];
-        in_fish = false; in_docs = false; internal = true;
+        visibility = VBindTest;
         blocking = false;
         shortdesc = "internal test function - do not use";
         longdesc = "\
@@ -166,7 +166,7 @@ let non_daemon_functions = test_functions @ [
   { defaults with
     name = "internal_test_set_output";
     style = RErr, [String "filename"], [];
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VBindTest;
     blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
@@ -181,7 +181,7 @@ You probably don't want to call this function." };
   { defaults with
     name = "internal_test_close_output";
     style = RErr, [], [];
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VBindTest;
     blocking = false;
     shortdesc = "internal test function - do not use";
     longdesc = "\
@@ -214,7 +214,8 @@ very cheap to create, so create a new one for each launch." };
   { defaults with
     name = "wait_ready";
     style = RErr, [], [];
-    in_fish = false; deprecated_by = Some "launch";
+    visibility = VStateTest;
+    deprecated_by = Some "launch";
     blocking = false;
     shortdesc = "wait until the qemu subprocess launches (no op)";
     longdesc = "\
@@ -434,6 +435,7 @@ This returns the verbose messages flag." };
   { defaults with
     name = "is_ready";
     style = RBool "ready", [], [];
+    visibility = VStateTest;
     blocking = false;
     tests = [
       InitNone, Always, TestOutputTrue (
@@ -464,6 +466,7 @@ For more information on states, see L<guestfs(3)>." };
   { defaults with
     name = "is_launching";
     style = RBool "launching", [], [];
+    visibility = VStateTest;
     blocking = false;
     tests = [
       InitNone, Always, TestOutputFalse (
@@ -479,7 +482,7 @@ For more information on states, see L<guestfs(3)>." };
   { defaults with
     name = "is_busy";
     style = RBool "busy", [], [];
-    in_docs = false;
+    visibility = VStateTest;
     blocking = false;
     tests = [
       InitNone, Always, TestOutputFalse (
@@ -487,13 +490,15 @@ For more information on states, see L<guestfs(3)>." };
     ];
     shortdesc = "is busy processing a command";
     longdesc = "\
-This always returns false.  Do not use this function.
+This always returns false.  This function is deprecated with no
+replacement.  Do not use this function.
 
 For more information on states, see L<guestfs(3)>." };
 
   { defaults with
     name = "get_state";
     style = RInt "state", [], [];
+    visibility = VStateTest;
     blocking = false;
     shortdesc = "get the current state";
     longdesc = "\
@@ -1344,7 +1349,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
   { defaults with
     name = "debug_drives";
     style = RStringList "cmdline", [], [];
-    in_docs = false;
+    visibility = VDebug;
     blocking = false;
     shortdesc = "debug the drives (internal use only)";
     longdesc = "\
@@ -4227,7 +4232,7 @@ as for the L<mount(8)> I<-o> and I<-t> flags." };
     name = "debug";
     style = RString "result", [String "subcmd"; StringList "extraargs"], [];
     proc_nr = Some 76;
-    in_docs = false;
+    visibility = VDebug;
     shortdesc = "debugging and internals";
     longdesc = "\
 The C<guestfs_debug> command exposes some internals of
@@ -6821,7 +6826,7 @@ yourself (Augeas support makes this relatively easy)." };
     name = "internal_lstatlist";
     style = RStructList ("statbufs", "stat"), [Pathname "path"; StringList "names"], [];
     proc_nr = Some 204;
-    in_docs = false; in_fish = false; internal = true;
+    visibility = VInternal;
     shortdesc = "lstat on multiple files";
     longdesc = "\
 This call allows you to perform the C<guestfs_lstat> operation
@@ -6845,7 +6850,7 @@ into smaller groups of names." };
     name = "internal_lxattrlist";
     style = RStructList ("xattrs", "xattr"), [Pathname "path"; StringList "names"], [];
     proc_nr = Some 205;
-    in_docs = false; in_fish = false; internal = true;
+    visibility = VInternal;
     optional = Some "linuxxattrs";
     shortdesc = "lgetxattr on multiple files";
     longdesc = "\
@@ -6875,7 +6880,7 @@ into smaller groups of names." };
     name = "internal_readlinklist";
     style = RStringList "links", [Pathname "path"; StringList "names"], [];
     proc_nr = Some 206;
-    in_docs = false; in_fish = false; internal = true;
+    visibility = VInternal;
     shortdesc = "readlink on multiple files";
     longdesc = "\
 This call allows you to do a C<readlink> operation
@@ -7598,7 +7603,8 @@ unless it has been set by calling C<guestfs_umask>." };
     name = "debug_upload";
     style = RErr, [FileIn "filename"; String "tmpname"; Int "mode"], [];
     proc_nr = Some 241;
-    in_docs = false; cancellable = true;
+    visibility = VDebug;
+    cancellable = true;
     shortdesc = "upload a file to the appliance (internal use only)";
     longdesc = "\
 The C<guestfs_debug_upload> command uploads a file to
@@ -7673,7 +7679,7 @@ to ensure the length of the file is exactly C<len> bytes." };
     name = "internal_write";
     style = RErr, [Pathname "path"; BufferIn "content"], [];
     proc_nr = Some 246;
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VInternal;
     protocol_limit_warning = true;
     tests = [
       InitScratchFS, Always, TestOutput (
@@ -8389,7 +8395,7 @@ See also L<guestfs(3)/RESIZE2FS ERRORS>." };
     name = "internal_autosync";
     style = RErr, [], [];
     proc_nr = Some 282;
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VInternal;
     shortdesc = "internal autosync operation";
     longdesc = "\
 This command performs the autosync operation just before the
@@ -8535,7 +8541,7 @@ See also L<btrfs(8)>." };
     name = "internal_write_append";
     style = RErr, [Pathname "path"; BufferIn "content"], [];
     proc_nr = Some 290;
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VInternal;
     protocol_limit_warning = true;
     tests = [
       InitScratchFS, Always, TestOutput (
@@ -10297,7 +10303,7 @@ are the full raw block device and partition names
     name = "internal_hot_add_drive";
     style = RErr, [String "label"], [];
     proc_nr = Some 370;
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VInternal;
     tests = [];
     shortdesc = "internal hotplugging operation";
     longdesc = "\
@@ -10307,7 +10313,7 @@ This function is used internally when hotplugging drives." };
     name = "internal_hot_remove_drive_precheck";
     style = RErr, [String "label"], [];
     proc_nr = Some 371;
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VInternal;
     tests = [];
     shortdesc = "internal hotplugging operation";
     longdesc = "\
@@ -10317,7 +10323,7 @@ This function is used internally when hotplugging drives." };
     name = "internal_hot_remove_drive";
     style = RErr, [String "label"], [];
     proc_nr = Some 372;
-    in_fish = false; in_docs = false; internal = true;
+    visibility = VInternal;
     tests = [];
     shortdesc = "internal hotplugging operation";
     longdesc = "\
@@ -11016,11 +11022,31 @@ let non_daemon_functions, daemon_functions =
 (* All functions. *)
 let all_functions = non_daemon_functions @ daemon_functions
 
+let is_external { visibility = v } = match v with
+  | VPublic | VStateTest | VBindTest | VDebug -> true
+  | VInternal -> false
+
+let is_internal f = not (is_external f)
+
+let is_documented { visibility = v } = match v with
+  | VPublic | VStateTest -> true
+  | VBindTest | VDebug | VInternal -> false
+
+let is_fish { visibility = v } = match v with
+  | VPublic | VDebug -> true
+  | VStateTest | VBindTest | VInternal -> false
+
 let external_functions =
-  List.filter (fun x -> not x.internal) all_functions
+  List.filter is_external all_functions
 
 let internal_functions =
-  List.filter (fun x -> x.internal) all_functions
+  List.filter is_internal all_functions
+
+let documented_functions =
+  List.filter is_documented all_functions
+
+let fish_functions =
+  List.filter is_fish all_functions
 
 (* In some places we want the functions to be displayed sorted
  * alphabetically, so this is useful:
@@ -11032,6 +11058,12 @@ let external_functions_sorted =
 
 let internal_functions_sorted =
   List.sort action_compare internal_functions
+
+let documented_functions_sorted =
+  List.sort action_compare documented_functions
+
+let fish_functions_sorted =
+  List.sort action_compare fish_functions
 
 (* This is used to generate the src/MAX_PROC_NR file which
  * contains the maximum procedure number, a surrogate for the

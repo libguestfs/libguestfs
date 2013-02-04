@@ -29,11 +29,29 @@ val daemon_functions : Types.action list
 val all_functions : Types.action list
 (** Concatenation of [non_daemon_functions] and [daemon_functions] lists. *)
 
+val is_external : Types.action -> bool
+(** Returns true if function is external, false otherwise *)
+
+val is_internal : Types.action -> bool
+(** Returns true if function is internal, false otherwise *)
+
+val is_documented : Types.action -> bool
+(** Returns true if function should be documented, false otherwise *)
+
+val is_fish : Types.action -> bool
+(** Returns true if function should be in guestfish, false otherwise *)
+
 val external_functions : Types.action list
 (** [all_functions] filtered for external functions **)
 
 val internal_functions : Types.action list
 (** [all_functions] filtered for internal functions **)
+
+val documented_functions : Types.action list
+(** [all_functions] filtered for functions requiring documentation **)
+
+val fish_functions : Types.action list
+(** [all_functions] filtered for functions in guestfish **)
 
 val all_functions_sorted : Types.action list
 (** [all_functions] but sorted by name. *)
@@ -43,6 +61,12 @@ val external_functions_sorted : Types.action list
 
 val internal_functions_sorted : Types.action list
 (** [internal_functions] but sorted by name. *)
+
+val documented_functions_sorted : Types.action list
+(** [documented_functions] but sorted by name. *)
+
+val fish_functions_sorted : Types.action list
+(** [fish_functions] but sorted by name. *)
 
 val test_functions : Types.action list
 (** Internal test functions used to test the language bindings. *)

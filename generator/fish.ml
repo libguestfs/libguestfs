@@ -31,6 +31,9 @@ open Prepopts
 open C
 open Events
 
+let fish_functions_and_commands_sorted =
+  List.sort action_compare (fish_functions_sorted @ fish_commands)
+
 let doc_opttype_of = function
   | OBool n -> "true|false"
   | OInt n
@@ -47,13 +50,6 @@ let get_aliases { fish_alias = fish_alias; non_c_aliases = non_c_aliases } =
 let generate_fish_cmds () =
   generate_header CStyle GPLv2plus;
 
-  let all_functions =
-    List.filter (fun { in_fish = b } -> b) all_functions in
-  let all_functions_sorted =
-    List.filter (fun { in_fish = b } -> b) all_functions_sorted in
-
-  let all_functions_and_fish_commands_sorted =
-    List.sort action_compare (all_functions_sorted @ fish_commands) in
 
   pr "#include <config.h>\n";
   pr "\n";
@@ -84,7 +80,7 @@ let generate_fish_cmds () =
     fun { name = name } ->
       pr "static int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
         name
-  ) all_functions;
+  ) fish_functions;
 
   pr "\n";
 
@@ -174,7 +170,7 @@ Guestfish will prompt for these separately."
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
-  ) all_functions;
+  ) fish_functions;
 
   (* list_commands function, which implements guestfish -h *)
   pr "void\n";
@@ -187,7 +183,7 @@ Guestfish will prompt for these separately."
       let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
         name shortdesc
-  ) all_functions_and_fish_commands_sorted;
+  ) fish_functions_and_commands_sorted;
   pr "  printf (\"    %%s\\n\",";
   pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
   pr "}\n";
@@ -288,7 +284,7 @@ Guestfish will prompt for these separately."
         (* generate the function for typ *)
         emit_print_list_function typ
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by all_functions);
+  ) (rstructs_used_by fish_functions);
 
   (* Emit a print_TYPE function definition only if that function is used. *)
   List.iter (
@@ -301,7 +297,7 @@ Guestfish will prompt for these separately."
         pr "}\n";
         pr "\n";
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by all_functions);
+  ) (rstructs_used_by fish_functions);
 
   (* run_<action> actions *)
   List.iter (
@@ -639,7 +635,7 @@ Guestfish will prompt for these separately."
       pr "  return ret;\n";
       pr "}\n";
       pr "\n"
-  ) all_functions;
+  ) fish_functions;
 
   (* run_action function *)
   pr "int\n";
@@ -678,12 +674,6 @@ and generate_fish_cmds_h () =
 and generate_fish_cmds_gperf () =
   generate_header CStyle GPLv2plus;
 
-  let all_functions_sorted =
-    List.filter (fun { in_fish = b } -> b) all_functions_sorted in
-
-  let all_functions_and_fish_commands_sorted =
-    List.sort action_compare (all_functions_sorted @ fish_commands) in
-
   pr "\
 %%language=ANSI-C
 %%define lookup-function-name lookup_fish_command
@@ -705,7 +695,7 @@ and generate_fish_cmds_gperf () =
   List.iter (
     fun { name = name } ->
       pr "extern struct command_entry %s_cmd_entry;\n" name
-  ) all_functions_and_fish_commands_sorted;
+  ) fish_functions_and_commands_sorted;
 
   pr "\
 %%}
@@ -732,14 +722,11 @@ struct command_table;
         fun alias ->
           pr "%s, &%s_cmd_entry\n" alias name;
       ) aliases;
-  ) all_functions_and_fish_commands_sorted
+  ) fish_functions_and_commands_sorted
 
 (* Readline completion for guestfish. *)
 and generate_fish_completion () =
   generate_header CStyle GPLv2plus;
-
-  let all_functions =
-    List.filter (fun { in_fish = b } -> b) all_functions in
 
   pr "\
 #include <config.h>
@@ -769,7 +756,7 @@ static const char *const commands[] = {
         let aliases = get_aliases f in
         let name2 = replace_char name '_' '-' in
         name2 :: aliases
-    ) (all_functions @ fish_commands) in
+    ) (fish_functions_and_commands_sorted) in
   let commands = List.flatten commands in
 
   List.iter (pr "  \"%s\",\n") commands;
@@ -829,10 +816,9 @@ do_completion (const char *text, int start, int end)
 
 (* Generate the POD documentation for guestfish. *)
 and generate_fish_actions_pod () =
-  let all_functions_sorted =
-    List.filter (
-      fun { in_fish = in_fish; in_docs = in_docs } -> in_fish && in_docs
-    ) all_functions_sorted in
+  let fishdoc_functions_sorted =
+    List.filter is_documented fish_functions_sorted
+  in
 
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
 
@@ -894,7 +880,7 @@ Guestfish will prompt for these separately.\n\n";
       match deprecation_notice ~replace_underscores:true f with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
-  ) all_functions_sorted
+  ) fishdoc_functions_sorted
 
 (* Generate documentation for guestfish-only commands. *)
 and generate_fish_commands_pod () =
