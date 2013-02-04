@@ -306,6 +306,8 @@ do_mke2journal (int blocksize, const char *device)
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
+  wipe_device_before_mkfs (device);
+
   r = command (NULL, &err,
                str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
                device, NULL);
@@ -332,6 +334,8 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
+  wipe_device_before_mkfs (device);
+
   r = command (NULL, &err,
                str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-L", label,
@@ -352,6 +356,8 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
 
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
                str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
@@ -378,6 +384,8 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   size_t len = strlen (journal);
   char jdev[len+32];
   snprintf (jdev, len+32, "device=%s", journal);
+
+  wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
                str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
@@ -410,6 +418,8 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   char jdev[len+32];
   snprintf (jdev, len+32, "device=LABEL=%s", label);
 
+  wipe_device_before_mkfs (device);
+
   r = command (NULL, &err,
                str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
@@ -434,6 +444,8 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   size_t len = strlen (uuid);
   char jdev[len+32];
   snprintf (jdev, len+32, "device=UUID=%s", uuid);
+
+  wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
                str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
@@ -1127,6 +1139,8 @@ do_mke2fs (const char *device,               /* 0 */
   }
 
   ADD_ARG (argv, i, NULL);
+
+  wipe_device_before_mkfs (device);
 
   r = commandv (NULL, &err, argv);
   if (r == -1) {

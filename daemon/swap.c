@@ -91,6 +91,8 @@ do_mkswap (const char *device, const char *label, const char *uuid)
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
+  wipe_device_before_mkfs (device);
+
   r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
