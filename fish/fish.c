@@ -1275,12 +1275,27 @@ print_table (char *const *argv)
 int
 is_true (const char *str)
 {
-  return
-    STRCASENEQ (str, "0") &&
-    STRCASENEQ (str, "f") &&
-    STRCASENEQ (str, "false") &&
-    STRCASENEQ (str, "n") &&
-    STRCASENEQ (str, "no");
+  /* Similar to Tcl_GetBoolean. */
+
+  if (STREQ (str, "1") ||
+      STRCASEEQ (str, "true") ||
+      STRCASEEQ (str, "t") ||
+      STRCASEEQ (str, "yes") ||
+      STRCASEEQ (str, "y") ||
+      STRCASEEQ (str, "on"))
+    return 1;
+
+  if (STREQ (str, "0") ||
+      STRCASEEQ (str, "false") ||
+      STRCASEEQ (str, "f") ||
+      STRCASEEQ (str, "no") ||
+      STRCASEEQ (str, "n") ||
+      STRCASEEQ (str, "off"))
+    return 0;
+
+  fprintf (stderr, _("%s: '%s': invalid boolean value, use 'true' or 'false'\n"),
+           program_name, str);
+  return -1;
 }
 
 /* Free strings from a non-NULL terminated char** */
