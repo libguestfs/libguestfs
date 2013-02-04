@@ -44,6 +44,18 @@ let hash_matches h { name = name } =
 
 type optarg_proto = Dots | VA | Argv
 
+let is_public { visibility = v } = match v with
+  | VPublic | VStateTest | VDebug -> true
+  | VBindTest | VInternal -> false
+
+let is_private f = not (is_public f)
+
+let public_functions_sorted =
+  List.filter is_public all_functions_sorted
+
+let private_functions_sorted =
+  List.filter is_private all_functions_sorted
+
 (* Generate a C function prototype. *)
 let rec generate_prototype ?(extern = true) ?(static = false)
     ?(semicolon = true)
@@ -186,13 +198,12 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
 and generate_actions_pod () =
   List.iter (
     function
-    | { in_docs = false } -> ()
-    | ({ in_docs = true; once_had_no_optargs = false } as f) ->
+    | ({ once_had_no_optargs = false } as f) ->
       generate_actions_pod_entry f
-    | ({ in_docs = true; once_had_no_optargs = true } as f) ->
+    | ({ once_had_no_optargs = true } as f) ->
       generate_actions_pod_back_compat_entry f;
       generate_actions_pod_entry f
-  ) all_functions_sorted
+  ) documented_functions_sorted
 
 and generate_actions_pod_entry ({ c_name = c_name;
                                   style = ret, args, optargs as style } as f) =
@@ -679,7 +690,7 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
         generate_action_header f
   ) in
 
-  generate_all_headers external_functions_sorted;
+  generate_all_headers public_functions_sorted;
 
   pr "\
 #if GUESTFS_PRIVATE
@@ -694,7 +705,7 @@ extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomai
 
 ";
 
-  generate_all_headers internal_functions_sorted;
+  generate_all_headers private_functions_sorted;
 
   pr "\
 /* Private structures. */
@@ -711,7 +722,7 @@ pr "\
   List.iter (
     fun { name = shortname } ->
       pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
-  ) internal_functions_sorted;
+  ) private_functions_sorted;
 
 pr "\
 
@@ -738,7 +749,7 @@ pr "\
   List.iter (
     fun { name = shortname } ->
       pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
-  ) external_functions_sorted;
+  ) public_functions_sorted;
 
   pr "
 /* End of deprecated macros. */

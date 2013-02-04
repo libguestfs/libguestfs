@@ -246,11 +246,11 @@ public class GuestFS {
 
   (* Methods. *)
   List.iter (
-    fun ({ name = name; style = (ret, args, optargs as style);
-           in_docs = in_docs; shortdesc = shortdesc;
-           longdesc = longdesc; non_c_aliases = non_c_aliases } as f) ->
-      if in_docs then (
-        let doc = replace_str longdesc "C<guestfs_" "C<g." in
+    fun f ->
+      let ret, args, optargs = f.style in
+
+      if is_documented f then (
+        let doc = replace_str f.longdesc "C<guestfs_" "C<g." in
         let doc =
           if optargs <> [] then
             doc ^ "\n\nOptional arguments are supplied in the final Map<String,Object> parameter, which is a hash of the argument name to its value (cast to Object).  Pass an empty Map or null for no optional arguments."
@@ -263,7 +263,7 @@ public class GuestFS {
           match deprecation_notice f with
           | None -> doc
           | Some txt -> doc ^ "\n\n" ^ txt in
-        let doc = pod2text ~width:60 name doc in
+        let doc = pod2text ~width:60 f.name doc in
         let doc = List.map (		(* RHBZ#501883 *)
           function
           | "" -> "<p>"
@@ -272,19 +272,19 @@ public class GuestFS {
         let doc = String.concat "\n   * " doc in
 
         pr "  /**\n";
-        pr "   * %s\n" shortdesc;
+        pr "   * %s\n" f.shortdesc;
         pr "   * <p>\n";
         pr "   * %s\n" doc;
         pr "   * @throws LibGuestFSException\n";
         pr "   */\n";
       );
       pr "  ";
-      generate_java_prototype ~public:true ~semicolon:false name style;
+      generate_java_prototype ~public:true ~semicolon:false f.name f.style;
       pr "\n";
       pr "  {\n";
       pr "    if (g == 0)\n";
       pr "      throw new LibGuestFSException (\"%s: handle is closed\");\n"
-        name;
+        f.name;
       if optargs <> [] then (
         pr "\n";
         pr "    /* Unpack optional args. */\n";
@@ -313,12 +313,12 @@ public class GuestFS {
       pr "\n";
       (match ret with
        | RErr ->
-           pr "    _%s " name;
-           generate_java_call_args ~handle:"g" style;
+           pr "    _%s " f.name;
+           generate_java_call_args ~handle:"g" f.style;
            pr ";\n"
        | RHashtable _ ->
-           pr "    String[] r = _%s " name;
-           generate_java_call_args ~handle:"g" style;
+           pr "    String[] r = _%s " f.name;
+           generate_java_call_args ~handle:"g" f.style;
            pr ";\n";
            pr "\n";
            pr "    HashMap<String, String> rhash = new HashMap<String, String> ();\n";
@@ -326,8 +326,8 @@ public class GuestFS {
            pr "      rhash.put (r[i], r[i+1]);\n";
            pr "    return rhash;\n"
        | _ ->
-           pr "    return _%s " name;
-           generate_java_call_args ~handle:"g" style;
+           pr "    return _%s " f.name;
+           generate_java_call_args ~handle:"g" f.style;
            pr ";\n"
       );
       pr "  }\n";
@@ -340,14 +340,14 @@ public class GuestFS {
       if optargs <> [] then (
         pr "  ";
         generate_java_prototype ~public:true ~semicolon:false
-          name (ret, args, []);
+          f.name (ret, args, []);
         pr "\n";
         pr "  {\n";
         (match ret with
         | RErr -> pr "    "
         | _ ->    pr "    return "
         );
-        pr "%s (" name;
+        pr "%s (" f.name;
         List.iter (fun arg -> pr "%s, " (name_of_argt arg)) args;
         pr "null);\n";
         pr "  }\n";
@@ -358,14 +358,14 @@ public class GuestFS {
       List.iter (
         fun alias ->
           pr "  ";
-          generate_java_prototype ~public:true ~semicolon:false alias style;
+          generate_java_prototype ~public:true ~semicolon:false alias f.style;
           pr "\n";
           pr "  {\n";
           (match ret with
           | RErr -> pr "    "
           | _ ->    pr "    return "
           );
-          pr "%s (" name;
+          pr "%s (" f.name;
           let needs_comma = ref false in
           List.iter (
             fun arg ->
@@ -392,20 +392,20 @@ public class GuestFS {
             | RErr -> pr "    "
             | _ ->    pr "    return "
             );
-            pr "%s (" name;
+            pr "%s (" f.name;
             List.iter (fun arg -> pr "%s, " (name_of_argt arg)) args;
             pr "null);\n";
             pr "  }\n";
             pr "\n"
           )
-      ) non_c_aliases;
+      ) f.non_c_aliases;
 
       (* Prototype for the native method. *)
       pr "  ";
-      generate_java_prototype ~privat:true ~native:true name style;
+      generate_java_prototype ~privat:true ~native:true f.name f.style;
       pr "\n";
       pr "\n";
-  ) all_functions;
+  ) external_functions;
 
   pr "}\n"
 
@@ -1100,7 +1100,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
 
       pr "}\n";
       pr "\n"
-  ) all_functions
+  ) external_functions
 
 and generate_java_struct_return typ jtyp cols =
   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
@@ -1191,7 +1191,7 @@ and generate_java_struct_list_return typ jtyp cols =
 and generate_java_makefile_inc () =
   generate_header HashStyle GPLv2plus;
 
-  let jtyps = List.map (fun { s_camel_name = jtyp } -> jtyp) structs in
+  let jtyps = List.map (fun { s_camel_name = jtyp } -> jtyp) external_structs in
   let jtyps = List.sort compare jtyps in
 
   pr "java_built_sources = \\\n";
@@ -1201,7 +1201,7 @@ and generate_java_makefile_inc () =
   pr "\tcom/redhat/et/libguestfs/GuestFS.java\n"
 
 and generate_java_gitignore () =
-  let jtyps = List.map (fun { s_camel_name = jtyp } -> jtyp) structs in
+  let jtyps = List.map (fun { s_camel_name = jtyp } -> jtyp) external_structs in
   let jtyps = List.sort compare jtyps in
 
   List.iter (pr "%s.java\n") jtyps

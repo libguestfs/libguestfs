@@ -131,7 +131,7 @@ namespace Guestfs
       ) cols;
       pr "    }\n";
       pr "\n"
-  ) structs;
+  ) external_structs;
 
   (* Generate C# function bindings. *)
   List.iter (
@@ -282,7 +282,7 @@ namespace Guestfs
       pr "\n";
 
       List.iter generate_alias non_c_aliases
-  ) all_functions_sorted;
+  ) external_functions_sorted;
 
   pr "  }
 }
