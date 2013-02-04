@@ -382,8 +382,9 @@ If you are using mock, do:
 
 =head2 How can I add support for sVirt?
 
-Note: We are planning to make this configuration the default in
-S<Fedora 18>.  If you find any problems, please let us know or file a bug.
+Note for Fedora/RHEL users: This configuration is the default starting
+with S<Fedora 18> and S<RHEL 7>.  If you find any problems, please let
+us know or file a bug.
 
 L<SVirt|http://selinuxproject.org/page/SVirt> provides a hardened
 appliance using SELinux, making it very hard for a rogue disk image to
@@ -393,22 +394,26 @@ sVirt provides an extra layer of protection for the host and more
 importantly protects virtual machines on the same host from each
 other).
 
-Currently to enable sVirt you will need the very latest libvirt (from
-git), libguestfs and SELinux policies.  If you are not running
-S<Fedora 18+>, you will need to make changes to your SELinux policy -
-contact us on the mailing list.
+Currently to enable sVirt you will need libvirt E<ge> 0.10.2 (1.0 or
+later preferred), libguestfs E<ge> 1.20, and the SELinux policies from
+recent Fedora.  If you are not running S<Fedora 18+>, you will need to
+make changes to your SELinux policy - contact us on the mailing list.
 
 Once you have the requirements, do:
 
  ./configure --with-default-attach-method=libvirt
  make
 
-Enable SELinux, and sVirt should be used automatically.
+Set SELinux to Enforcing mode, and sVirt should be used automatically.
 
 All, or almost all, features of libguestfs should work under sVirt.
 There is one known shortcoming: L<virt-rescue(1)> will not use libvirt
 (hence sVirt), but falls back to direct launch of qemu.  So you won't
 currently get the benefit of sVirt protection when using virt-rescue.
+
+You can check if sVirt is being used by enabling libvirtd logging (see
+C</etc/libvirt/libvirtd.log>), killing and restarting libvirtd, and
+checking the log files for S<"Setting SELinux context on ..."> messages.
 
 In theory sVirt should support AppArmor, but we have not tried it.  It
 will almost certainly require patching libvirt and writing an AppArmor
