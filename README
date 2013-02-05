@@ -61,7 +61,9 @@ The full requirements are described below.
 |              |             |   |  - virtio-block                         |
 |              |             |   |  - virtio-net                           |
 +--------------+-------------+---+-----------------------------------------+
-| febootstrap  | 3.20        | R | This is required on all distros.        |
+| supermin     | 4.1.0       | R | This is required on all distros.        |
+| febootstrap  | 3.20        |   | 'supermin' is the new name for          |
+|              |             |   | 'febootstrap'.                          |
 |              |             |   | For alternatives, see:                  |
 |              |             |   | libguestfs.org/download/binaries/appliance/
 |              |             |   | febootstrap 2.x WILL NOT WORK           |

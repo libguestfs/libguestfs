@@ -1218,11 +1218,8 @@ set, it uses C<vi>.
 
 =item FEBOOTSTRAP_MODULES
 
-These two environment variables allow the kernel that libguestfs uses
-in the appliance to be selected.  If C<$FEBOOTSTRAP_KERNEL> is not
-set, then the most recent host kernel is chosen.  For more information
-about kernel selection, see L<febootstrap-supermin-helper(8)>.  This
-feature is only available in febootstrap E<ge> 3.8.
+When using supermin E<ge> 4.1.0, these have been renamed
+L</SUPERMIN_KERNEL> and L</SUPERMIN_MODULES>.
 
 =item GUESTFISH_DISPLAY_IMAGE
 
@@ -1311,6 +1308,16 @@ Set C<LIBGUESTFS_TRACE=1> to enable command traces.
 
 The C<more> command uses C<$PAGER> as the pager.  If not
 set, it uses C<more>.
+
+=item SUPERMIN_KERNEL
+
+=item SUPERMIN_MODULES
+
+These two environment variables allow the kernel that libguestfs uses
+in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not
+set, then the most recent host kernel is chosen.  For more information
+about kernel selection, see L<supermin-helper(8)>.  This
+feature is only available in supermin / febootstrap E<ge> 3.8.
 
 =item TMPDIR
 
@@ -1403,7 +1410,7 @@ L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
 L<display(1)>,
 L<hexedit(1)>,
-L<febootstrap-supermin-helper(8)>.
+L<supermin-helper(8)>.
 
 =head1 AUTHORS
 

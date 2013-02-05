@@ -3092,14 +3092,14 @@ debugging (set the environment variable C<LIBGUESTFS_DEBUG=1>).
 
 =item Create the appliance
 
-C<febootstrap-supermin-helper> is invoked to create the kernel, a
+C<supermin-helper> is invoked to create the kernel, a
 small initrd and the appliance.
 
 The appliance is cached in C</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in
 another directory if C<LIBGUESTFS_CACHEDIR> or C<TMPDIR> are set).
 
 For a complete description of how the appliance is created and cached,
-read the L<febootstrap(8)> and L<febootstrap-supermin-helper(8)> man
+read the L<supermin(8)> and L<supermin-helper(8)> man
 pages.
 
 =item Start qemu and boot the kernel
@@ -3108,7 +3108,7 @@ qemu is invoked to boot the kernel.
 
 =item Run the initrd
 
-C<febootstrap-supermin-helper> builds a small initrd.  The initrd is
+C<supermin-helper> builds a small initrd.  The initrd is
 not the appliance.  The purpose of the initrd is to load enough kernel
 modules in order that the appliance itself can be mounted and started.
 
@@ -3118,10 +3118,10 @@ C</var/tmp/.guestfs-E<lt>UIDE<gt>/initrd>.
 When the initrd has started you will see messages showing that kernel
 modules are being loaded, similar to this:
 
- febootstrap: ext2 mini initrd starting up
- febootstrap: mounting /sys
- febootstrap: internal insmod libcrc32c.ko
- febootstrap: internal insmod crc32c-intel.ko
+ supermin: ext2 mini initrd starting up
+ supermin: mounting /sys
+ supermin: internal insmod libcrc32c.ko
+ supermin: internal insmod crc32c-intel.ko
 
 =item Find and mount the appliance device
 
@@ -3141,10 +3141,10 @@ the appliance.
 
 If this works successfully you will see messages such as:
 
- febootstrap: picked /sys/block/vdb/dev as root device
- febootstrap: creating /dev/root as block special 252:16
- febootstrap: mounting new root on /root
- febootstrap: chroot
+ supermin: picked /sys/block/vdb/dev as root device
+ supermin: creating /dev/root as block special 252:16
+ supermin: mounting new root on /root
+ supermin: chroot
  Starting /init script ...
 
 Note that C<Starting /init script ...> indicates that the appliance's
@@ -4096,11 +4096,8 @@ be reached in practice.  See the source code for more information.
 
 =item FEBOOTSTRAP_MODULES
 
-These two environment variables allow the kernel that libguestfs uses
-in the appliance to be selected.  If C<$FEBOOTSTRAP_KERNEL> is not
-set, then the most recent host kernel is chosen.  For more information
-about kernel selection, see L<febootstrap-supermin-helper(8)>.  This
-feature is only available in febootstrap E<ge> 3.8.
+When using supermin E<ge> 4.1.0, these have been renamed
+L</SUPERMIN_KERNEL> and L</SUPERMIN_MODULES>.
 
 =item LIBGUESTFS_APPEND
 
@@ -4162,6 +4159,16 @@ See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>.
 Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This
 has the same effect as calling C<guestfs_set_trace (g, 1)>.
 
+=item SUPERMIN_KERNEL
+
+=item SUPERMIN_MODULES
+
+These two environment variables allow the kernel that libguestfs uses
+in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not
+set, then the most recent host kernel is chosen.  For more information
+about kernel selection, see L<supermin-helper(8)>.  This
+feature is only available in supermin / febootstrap E<ge> 3.8.
+
 =item TMPDIR
 
 See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
@@ -4207,8 +4214,8 @@ L<guestfs-release-notes(1)>,
 L<guestfs-testing(1)>,
 L<libguestfs-test-tool(1)>,
 L<libguestfs-make-fixed-appliance(1)>,
-L<febootstrap(8)>,
-L<febootstrap-supermin-helper(8)>,
+L<supermin(8)>,
+L<supermin-helper(8)>,
 L<qemu(1)>,
 L<hivex(3)>,
 L<stap(1)>,

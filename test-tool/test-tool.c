@@ -198,6 +198,8 @@ main (int argc, char *argv[])
       printf ("%s\n", environ[i]);
     if (STRPREFIX (environ[i], "FEBOOTSTRAP_"))
       printf ("%s\n", environ[i]);
+    if (STRPREFIX (environ[i], "SUPERMIN_"))
+      printf ("%s\n", environ[i]);
     if (STRPREFIX (environ[i], "LIBVIRT_"))
       printf ("%s\n", environ[i]);
     if (STRPREFIX (environ[i], "LIBVIRTD_"))

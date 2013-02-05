@@ -90,7 +90,7 @@ set C<$TMPDIR> or C<$LIBGUESTFS_CACHEDIR> in which case it will be
 under that temporary directory.
 
 For more information about how the appliance is constructed, see
-L<febootstrap(8)/SUPERMIN APPLIANCES>.
+L<supermin(8)/SUPERMIN APPLIANCES>.
 
 Every time libguestfs runs it will check that no host files used by
 the appliance have changed.  If any have, then the appliance is
@@ -166,7 +166,7 @@ times.
 
 =item 2.
 
-By default libguestfs (or rather, L<febootstrap-supermin-helper(8)>)
+By default libguestfs (or rather, L<supermin-helper(8)>)
 searches over the root filesystem to find out if any host files have
 changed and if it needs to rebuild the appliance.  If these files are
 not cached and the root filesystem is on an HDD, then this generates
@@ -302,7 +302,7 @@ timings:
 
  $ annotate-output +'%T.%N' guestfish -a /dev/null run -v
  22:17:53.215784625 I: Started guestfish -a /dev/null run -v
- 22:17:53.240335409 E: libguestfs: [00000ms] febootstrap-supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64
+ 22:17:53.240335409 E: libguestfs: [00000ms] supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64
  22:17:53.266857866 E: supermin helper [00000ms] whitelist = (not specified), host_cpu = x86_64, kernel = (null), initrd = (null), appliance = (null)
  22:17:53.272704072 E: supermin helper [00000ms] inputs[0] = /usr/lib64/guestfs/supermin.d
  22:17:53.276528651 E: checking modpath /lib/modules/3.4.0-1.fc17.x86_64.debug is a directory
@@ -428,8 +428,8 @@ bit.
 
 =head1 SEE ALSO
 
-L<febootstrap(8)>,
-L<febootstrap-supermin-helper(8)>,
+L<supermin(8)>,
+L<supermin-helper(8)>,
 L<guestfish(1)>,
 L<guestfs(3)>,
 L<guestfs-examples(3)>,

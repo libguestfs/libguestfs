@@ -427,7 +427,7 @@ Launch remote sessions over ssh
 -------------------------------
 
 We had an idea you could add a launch method that uses ssh, ie.  all
-febootstrap and qemu commands happen the same as now, but prefixed by
+supermin and qemu commands happen the same as now, but prefixed by
 ssh so it happens on a remote machine.
 
 Note that proper remote support and integration with libvirt is
