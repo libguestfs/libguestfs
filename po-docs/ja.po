@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-01-28 18:13+0000\n"
+"POT-Creation-Date: 2013-02-05 20:26+0000\n"
 "PO-Revision-Date: 2012-12-11 17:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1143,7 +1143,7 @@ msgstr ""
 #: ../format/virt-format.pod:173 ../fuse/guestmount.pod:393
 #: ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:697
 #: ../sparsify/virt-sparsify.pod:273 ../sysprep/virt-sysprep.pod:481
-#: ../test-tool/libguestfs-test-tool.pod:96
+#: ../test-tool/libguestfs-test-tool.pod:98
 msgid "EXIT STATUS"
 msgstr "終了ステータス"
 
@@ -1309,9 +1309,9 @@ msgstr ""
 #: ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389
 #: ../cat/virt-ls.pod:495 ../daemon/guestfsd.pod:92 ../df/virt-df.pod:267
 #: ../edit/virt-edit.pod:368 ../erlang/examples/guestfs-erlang.pod:97
-#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:812
+#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:817
 #: ../examples/guestfs-performance.pod:429 ../examples/guestfs-recipes.pod:496
-#: ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1380
+#: ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1387
 #: ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39
 #: ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41
 #: ../format/virt-format.pod:177 ../fuse/guestmount.pod:398
@@ -1320,8 +1320,8 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40
 #: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:411
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
-#: ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4171
-#: ../sysprep/virt-sysprep.pod:485 ../test-tool/libguestfs-test-tool.pod:106
+#: ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4178
+#: ../sysprep/virt-sysprep.pod:485 ../test-tool/libguestfs-test-tool.pod:108
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
 #: ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294
 #: ../tools/virt-win-reg.pl:753
@@ -1368,9 +1368,9 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404
 #: ../cat/virt-ls.pod:511 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:279
 #: ../edit/virt-edit.pod:386 ../erlang/examples/guestfs-erlang.pod:115
-#: ../examples/guestfs-examples.pod:50 ../examples/guestfs-faq.pod:822
+#: ../examples/guestfs-examples.pod:50 ../examples/guestfs-faq.pod:827
 #: ../examples/guestfs-performance.pod:446 ../examples/guestfs-recipes.pod:514
-#: ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1412
+#: ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1419
 #: ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53
 #: ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55
 #: ../format/virt-format.pod:191 ../fuse/guestmount.pod:413
@@ -1379,8 +1379,8 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:58
 #: ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:424
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53
-#: ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4228
-#: ../sysprep/virt-sysprep.pod:506 ../test-tool/libguestfs-test-tool.pod:116
+#: ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4235
+#: ../sysprep/virt-sysprep.pod:506 ../test-tool/libguestfs-test-tool.pod:118
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
 #: ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313
 #: ../tools/virt-win-reg.pl:772
@@ -1435,8 +1435,8 @@ msgid ""
 "B<Note that ordinary users should not need to run this tool>.  The only "
 "reason to use it is if you want to make a self-contained libguestfs "
 "appliance that can be copied to another machine or platform that doesn't "
-"support L<febootstrap(8)>.  To understand why you might need to use this "
-"tool, read the section L</FIXED APPLIANCE> below."
+"support L<supermin(8)>.  To understand why you might need to use this tool, "
+"read the section L</FIXED APPLIANCE> below."
 msgstr ""
 
 #. type: textblock
@@ -1624,9 +1624,9 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:109
 msgid ""
-"Normally a supermin appliance is located on this path (see L<febootstrap(8)/"
+"Normally a supermin appliance is located on this path (see L<supermin(8)/"
 "SUPERMIN APPLIANCE>).  libguestfs reconstructs this into a full appliance by "
-"running L<febootstrap-supermin-helper(8)>."
+"running L<supermin-helper(8)>."
 msgstr ""
 
 #. type: textblock
@@ -1641,17 +1641,16 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:118
 msgid ""
-"If the fixed appliance is found, libguestfs skips febootstrap entirely and "
-"just runs qemu with the kernel, initrd and root disk from the fixed "
-"appliance."
+"If the fixed appliance is found, libguestfs skips supermin entirely and just "
+"runs qemu with the kernel, initrd and root disk from the fixed appliance."
 msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:122
 msgid ""
 "Thus the fixed appliance can be used when a platform or Linux distro does "
-"not support febootstrap.  You build the fixed appliance on a platform that "
-"does support febootstrap, and copy it over, and use that to run libguestfs."
+"not support supermin.  You build the fixed appliance on a platform that does "
+"support supermin, and copy it over, and use that to run libguestfs."
 msgstr ""
 
 #. type: =head1
@@ -1681,13 +1680,13 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:139
 #: ../edit/virt-edit.pod:343 ../fish/guestfish.pod:1208
 #: ../rescue/virt-rescue.pod:384 ../sparsify/virt-sparsify.pod:278
-#: ../src/guestfs.pod:4091 ../test-tool/libguestfs-test-tool.pod:101
+#: ../src/guestfs.pod:4091 ../test-tool/libguestfs-test-tool.pod:103
 msgid "ENVIRONMENT VARIABLES"
 msgstr "環境変数"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:141
-#: ../test-tool/libguestfs-test-tool.pod:103
+#: ../test-tool/libguestfs-test-tool.pod:105
 msgid ""
 "For the full list of environment variables which may affect libguestfs, "
 "please see the L<guestfs(3)> manual page."
@@ -1697,9 +1696,13 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:146
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<xz"
+#| "(1)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 msgid ""
-"L<guestfs(3)>, L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<xz(1)"
-">, L<http://libguestfs.org/>, L<http://qemu.org/>."
+"L<guestfs(3)>, L<supermin(8)>, L<supermin-helper(8)>, L<xz(1)>, L<http://"
+"libguestfs.org/>, L<http://qemu.org/>."
 msgstr ""
 "L<guestfs(3)>, L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<xz(1)"
 ">, L<http://libguestfs.org/>, L<http://qemu.org/>."
@@ -1707,44 +1710,44 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:153
 #: ../erlang/examples/guestfs-erlang.pod:111
-#: ../examples/guestfs-examples.pod:46 ../examples/guestfs-faq.pod:818
+#: ../examples/guestfs-examples.pod:46 ../examples/guestfs-faq.pod:823
 #: ../examples/guestfs-performance.pod:442 ../examples/guestfs-recipes.pod:510
-#: ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1408
+#: ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1415
 #: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
 #: ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51
 #: ../fuse/guestmount.pod:409 ../inspector/virt-inspector.pod:510
 #: ../java/examples/guestfs-java.pod:95 ../lua/examples/guestfs-lua.pod:152
 #: ../ocaml/examples/guestfs-ocaml.pod:92 ../perl/examples/guestfs-perl.pod:54
 #: ../python/examples/guestfs-python.pod:55
-#: ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4224
-#: ../sysprep/virt-sysprep.pod:500 ../test-tool/libguestfs-test-tool.pod:112
+#: ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4231
+#: ../sysprep/virt-sysprep.pod:500 ../test-tool/libguestfs-test-tool.pod:114
 msgid "AUTHORS"
 msgstr "著者"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:155
 #: ../erlang/examples/guestfs-erlang.pod:113
-#: ../examples/guestfs-examples.pod:48 ../examples/guestfs-faq.pod:820
+#: ../examples/guestfs-examples.pod:48 ../examples/guestfs-faq.pod:825
 #: ../examples/guestfs-performance.pod:444 ../examples/guestfs-recipes.pod:512
-#: ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1410
+#: ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1417
 #: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
 #: ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53
 #: ../fuse/guestmount.pod:411 ../java/examples/guestfs-java.pod:97
 #: ../lua/examples/guestfs-lua.pod:154 ../ocaml/examples/guestfs-ocaml.pod:94
 #: ../perl/examples/guestfs-perl.pod:56
 #: ../python/examples/guestfs-python.pod:57
-#: ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4226
-#: ../test-tool/libguestfs-test-tool.pod:114
+#: ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4233
+#: ../test-tool/libguestfs-test-tool.pod:116
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:159 ../cat/virt-ls.pod:513
 #: ../daemon/guestfsd.pod:103 ../df/virt-df.pod:281 ../edit/virt-edit.pod:388
-#: ../examples/guestfs-recipes.pod:516 ../fish/guestfish.pod:1414
+#: ../examples/guestfs-recipes.pod:516 ../fish/guestfish.pod:1421
 #: ../fuse/guestmount.pod:415 ../guestfs-release-notes.pod:1989
-#: ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4230
-#: ../test-tool/libguestfs-test-tool.pod:118
+#: ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4237
+#: ../test-tool/libguestfs-test-tool.pod:120
 #: ../tools/virt-list-partitions.pl:285
 msgid "Copyright (C) 2009-2013 Red Hat Inc."
 msgstr "Copyright (C) 2009-2013 Red Hat Inc."
@@ -3940,7 +3943,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../daemon/guestfsd.pod:78 ../fish/guestfish.pod:1321
+#: ../daemon/guestfsd.pod:78 ../fish/guestfish.pod:1328
 #: ../fuse/guestmount.pod:378 ../rescue/virt-rescue.pod:396
 msgid "FILES"
 msgstr "ファイル"
@@ -5756,8 +5759,8 @@ msgstr ""
 
 #. type: =end
 #: ../examples/guestfs-faq.pod:227 ../examples/guestfs-faq.pod:232
-#: ../examples/guestfs-faq.pod:520 ../examples/guestfs-faq.pod:525
-#: ../examples/guestfs-faq.pod:646 ../examples/guestfs-faq.pod:651
+#: ../examples/guestfs-faq.pod:525 ../examples/guestfs-faq.pod:530
+#: ../examples/guestfs-faq.pod:651 ../examples/guestfs-faq.pod:656
 #: ../src/guestfs.pod:2975 ../src/guestfs.pod:2980
 msgid "html"
 msgstr "HTML"
@@ -6044,23 +6047,23 @@ msgstr ""
 #. type: textblock
 #: ../examples/guestfs-faq.pod:348
 msgid ""
-"If your Linux distro has a working port of febootstrap (that is, Fedora, "
-"S<Red Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)  then "
-"you should just be able to compile from source in the usual way.  Download "
-"the latest tarball from L<http://libguestfs.org/download>, unpack it, and "
-"start by reading the README file."
+"If your Linux distro has a working port of supermin (that is, Fedora, S<Red "
+"Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)  then you "
+"should just be able to compile from source in the usual way.  Download the "
+"latest tarball from L<http://libguestfs.org/download>, unpack it, and start "
+"by reading the README file."
 msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:354
 msgid ""
-"If you I<don't> have febootstrap, you will need to use the \"fixed appliance "
+"If you I<don't> have supermin, you will need to use the \"fixed appliance "
 "method\".  See: L<http://libguestfs.org/download/binaries/appliance/>"
 msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:358
-msgid "Patches to port febootstrap to more Linux distros are welcome."
+msgid "Patches to port supermin to more Linux distros are welcome."
 msgstr ""
 
 #. type: =head2
@@ -6127,12 +6130,13 @@ msgstr "どのように sVirt をサポートしますか?"
 #. type: textblock
 #: ../examples/guestfs-faq.pod:385
 msgid ""
-"Note: We are planning to make this configuration the default in S<Fedora "
-"18>.  If you find any problems, please let us know or file a bug."
+"Note for Fedora/RHEL users: This configuration is the default starting with "
+"S<Fedora 18> and S<RHEL 7>.  If you find any problems, please let us know or "
+"file a bug."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:388
+#: ../examples/guestfs-faq.pod:389
 msgid ""
 "L<SVirt|http://selinuxproject.org/page/SVirt> provides a hardened appliance "
 "using SELinux, making it very hard for a rogue disk image to \"escape\" from "
@@ -6143,21 +6147,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:396
+#: ../examples/guestfs-faq.pod:397
 msgid ""
-"Currently to enable sVirt you will need the very latest libvirt (from git), "
-"libguestfs and SELinux policies.  If you are not running S<Fedora 18+>, you "
-"will need to make changes to your SELinux policy - contact us on the mailing "
-"list."
+"Currently to enable sVirt you will need libvirt E<ge> 0.10.2 (1.0 or later "
+"preferred), libguestfs E<ge> 1.20, and the SELinux policies from recent "
+"Fedora.  If you are not running S<Fedora 18+>, you will need to make changes "
+"to your SELinux policy - contact us on the mailing list."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:401
+#: ../examples/guestfs-faq.pod:402
 msgid "Once you have the requirements, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:403
+#: ../examples/guestfs-faq.pod:404
 #, no-wrap
 msgid ""
 " ./configure --with-default-attach-method=libvirt\n"
@@ -6169,12 +6173,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:406
-msgid "Enable SELinux, and sVirt should be used automatically."
+#: ../examples/guestfs-faq.pod:407
+#, fuzzy
+#| msgid "Enable SELinux, and sVirt should be used automatically."
+msgid "Set SELinux to Enforcing mode, and sVirt should be used automatically."
 msgstr "SELinux を有効にすると、sVirt が自動的に使用されます。"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:408
+#: ../examples/guestfs-faq.pod:409
 msgid ""
 "All, or almost all, features of libguestfs should work under sVirt.  There "
 "is one known shortcoming: L<virt-rescue(1)> will not use libvirt (hence "
@@ -6183,29 +6189,37 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:413
+#: ../examples/guestfs-faq.pod:414
+msgid ""
+"You can check if sVirt is being used by enabling libvirtd logging (see C</"
+"etc/libvirt/libvirtd.log>), killing and restarting libvirtd, and checking "
+"the log files for S<\"Setting SELinux context on ...\"> messages."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:418
 msgid ""
 "In theory sVirt should support AppArmor, but we have not tried it.  It will "
 "almost certainly require patching libvirt and writing an AppArmor policy."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:417
+#: ../examples/guestfs-faq.pod:422
 msgid "Libguestfs has a really long list of dependencies!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:419
+#: ../examples/guestfs-faq.pod:424
 msgid "That's because it does a lot of things."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:421
+#: ../examples/guestfs-faq.pod:426
 msgid "How can I speed up libguestfs builds?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:423
+#: ../examples/guestfs-faq.pod:428
 msgid ""
 "By far the most important thing you can do is to install and properly "
 "configure Squid.  Note that the default configuration that ships with Squid "
@@ -6213,7 +6227,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:427
+#: ../examples/guestfs-faq.pod:432
 msgid ""
 "A very good place to start with Squid configuration is here: L<https://"
 "fedoraproject.org/wiki/Extras/"
@@ -6221,26 +6235,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:430
+#: ../examples/guestfs-faq.pod:435
 msgid ""
 "Make sure Squid is running, and that the environment variables C<"
 "$http_proxy> and C<$ftp_proxy> are pointing to it."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:433
+#: ../examples/guestfs-faq.pod:438
 msgid ""
 "With Squid running and correctly configured, appliance builds should be "
 "reduced to a few minutes."
 msgstr ""
 
 #. type: =head3
-#: ../examples/guestfs-faq.pod:436
+#: ../examples/guestfs-faq.pod:441
 msgid "How can I speed up libguestfs builds (Debian)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:438
+#: ../examples/guestfs-faq.pod:443
 msgid ""
 "Hilko Bengen suggests using \"approx\" which is a Debian archive proxy "
 "(L<http://packages.debian.org/approx>).  This tool is documented on Debian "
@@ -6248,24 +6262,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:442
+#: ../examples/guestfs-faq.pod:447
 msgid "SPEED, DISK SPACE USED BY LIBGUESTFS"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:444
+#: ../examples/guestfs-faq.pod:449
 msgid ""
 "Note: Most of the information in this section has moved: L<guestfs-"
 "performance(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:447
+#: ../examples/guestfs-faq.pod:452
 msgid "Upload or write seem very slow."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:449
+#: ../examples/guestfs-faq.pod:454
 msgid ""
 "In libguestfs E<lt> 1.13.16, the mount command (L<guestfs(3)/guestfs_mount>) "
 "enabled option C<-o sync> implicitly.  This causes very poor write "
@@ -6273,14 +6287,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:454
+#: ../examples/guestfs-faq.pod:459
 msgid ""
 "For libguestfs E<lt> 1.13.16, replace mount with C<mount-options>, leaving "
 "the first parameter as an empty string."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:457
+#: ../examples/guestfs-faq.pod:462
 msgid ""
 "You can also do this with more recent versions of libguestfs, but if you "
 "know that you are using libguestfs ≥ 1.13.16 then it's safe to use plain "
@@ -6288,7 +6302,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:461
+#: ../examples/guestfs-faq.pod:466
 msgid ""
 "If the underlying disk is not fully allocated (eg. sparse raw or qcow2) then "
 "writes can be slow because the host operating system has to do costly disk "
@@ -6298,17 +6312,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:467
+#: ../examples/guestfs-faq.pod:472
 msgid "Libguestfs uses too much disk space!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:469
+#: ../examples/guestfs-faq.pod:474
 msgid "libguestfs caches a large-ish appliance in:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:471
+#: ../examples/guestfs-faq.pod:476
 #, no-wrap
 msgid ""
 " /var/tmp/.guestfs-<UID>\n"
@@ -6318,7 +6332,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:473
+#: ../examples/guestfs-faq.pod:478
 msgid ""
 "If the environment variable C<TMPDIR> is defined, then C<$TMPDIR/.guestfs-"
 "E<lt>UIDE<gt>> is used instead."
@@ -6327,20 +6341,20 @@ msgstr ""
 "E<lt>UIDE<gt>> が使用されます。"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:476
+#: ../examples/guestfs-faq.pod:481
 msgid "It is safe to delete this directory when you are not using libguestfs."
 msgstr ""
 "libguestfs を使用していないとき、このディレクトリーを安全に削除できます。"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:478
+#: ../examples/guestfs-faq.pod:483
 msgid ""
 "virt-sparsify seems to make the image grow to the full size of the virtual "
 "disk"
 msgstr "virt-sparsify は仮想ディスクの全容量までイメージを拡大します。"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:481
+#: ../examples/guestfs-faq.pod:486
 msgid ""
 "If the input to L<virt-sparsify(1)> is raw, then the output will be raw "
 "sparse.  Make sure you are measuring the output with a tool which "
@@ -6348,7 +6362,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:485 ../sparsify/virt-sparsify.pod:35
+#: ../examples/guestfs-faq.pod:490 ../sparsify/virt-sparsify.pod:35
 #, no-wrap
 msgid ""
 " $ ls -lh test1.img\n"
@@ -6364,19 +6378,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:490 ../sparsify/virt-sparsify.pod:40
+#: ../examples/guestfs-faq.pod:495 ../sparsify/virt-sparsify.pod:40
 msgid "(Compare the apparent size B<100M> vs the actual size B<3.6M>)"
 msgstr "(見た目の容量 B<100M> と実際の容量 B<3.6M> を比較します)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:492
+#: ../examples/guestfs-faq.pod:497
 msgid ""
 "If all this confuses you, use a non-sparse output by specifying the I<--"
 "convert> option, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:495
+#: ../examples/guestfs-faq.pod:500
 #, no-wrap
 msgid ""
 " virt-sparsify --convert qcow2 disk.raw disk.qcow2\n"
@@ -6384,24 +6398,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:497
+#: ../examples/guestfs-faq.pod:502
 msgid "USING LIBGUESTFS IN YOUR OWN PROGRAMS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:499
+#: ../examples/guestfs-faq.pod:504
 msgid "The API has hundreds of methods, where do I start?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:501
+#: ../examples/guestfs-faq.pod:506
 msgid ""
 "We recommend you start by reading the API overview: L<guestfs(3)/API "
 "OVERVIEW>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:504
+#: ../examples/guestfs-faq.pod:509
 msgid ""
 "Although the API overview covers the C API, it is still worth reading even "
 "if you are going to use another programming language, because the API is the "
@@ -6409,7 +6423,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:509
+#: ../examples/guestfs-faq.pod:514
 #, no-wrap
 msgid ""
 "                  C  guestfs_ln_sf (g, target, linkname);\n"
@@ -6429,7 +6443,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:516
+#: ../examples/guestfs-faq.pod:521
 msgid ""
 "Once you're familiar with the API overview, you should look at this list of "
 "starting points for other language bindings: L<guestfs(3)/USING LIBGUESTFS "
@@ -6437,25 +6451,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:522
+#: ../examples/guestfs-faq.pod:527
 msgid "<!-- old anchor for the next section --> <a name=\"debug\"/>"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:527
+#: ../examples/guestfs-faq.pod:532
 msgid ""
 "Can I use libguestfs in my proprietary / closed source / commercial program?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:530
+#: ../examples/guestfs-faq.pod:535
 msgid ""
 "In general, yes.  However this is not legal advice - read the license that "
 "comes with libguestfs, and if you have specific questions contact a lawyer."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:534
+#: ../examples/guestfs-faq.pod:539
 msgid ""
 "In the source tree the license is in the file C<COPYING.LIB> (LGPLv2+ for "
 "the library and bindings) and C<COPYING> (GPLv2+ for the standalone "
@@ -6463,43 +6477,43 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:538
+#: ../examples/guestfs-faq.pod:543
 msgid "DEBUGGING LIBGUESTFS"
 msgstr "libguestfs のデバッグ"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:540
+#: ../examples/guestfs-faq.pod:545
 msgid ""
 "How do I debug when using any libguestfs program or tool (eg. virt-v2v or "
 "virt-df)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:543
+#: ../examples/guestfs-faq.pod:548
 msgid ""
 "There are two C<LIBGUESTFS_*> environment variables you can set in order to "
 "get more information from libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:548
+#: ../examples/guestfs-faq.pod:553
 msgid "C<LIBGUESTFS_TRACE>"
 msgstr "C<LIBGUESTFS_TRACE>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:550
+#: ../examples/guestfs-faq.pod:555
 msgid ""
 "Set this to 1 and libguestfs will print out each command / API call in a "
 "format which is similar to guestfish commands."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:553
+#: ../examples/guestfs-faq.pod:558
 msgid "C<LIBGUESTFS_DEBUG>"
 msgstr "C<LIBGUESTFS_DEBUG>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:555
+#: ../examples/guestfs-faq.pod:560
 msgid ""
 "Set this to 1 in order to enable massive amounts of debug messages.  If you "
 "think there is some problem inside the libguestfs appliance, then you should "
@@ -6507,12 +6521,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:561
+#: ../examples/guestfs-faq.pod:566
 msgid "To set these from the shell, do this before running the program:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:563
+#: ../examples/guestfs-faq.pod:568
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_TRACE=1\n"
@@ -6521,12 +6535,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:566
+#: ../examples/guestfs-faq.pod:571
 msgid "For csh/tcsh the equivalent commands would be:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:568
+#: ../examples/guestfs-faq.pod:573
 #, no-wrap
 msgid ""
 " setenv LIBGUESTFS_TRACE 1\n"
@@ -6538,17 +6552,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:571
+#: ../examples/guestfs-faq.pod:576
 msgid "For further information, see: L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr "詳細は L<guestfs(3)/ENVIRONMENT VARIABLES> 参照。"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:573
+#: ../examples/guestfs-faq.pod:578
 msgid "How do I debug when using guestfish?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:575
+#: ../examples/guestfs-faq.pod:580
 msgid ""
 "You can use the same environment variables above.  Alternatively use the "
 "guestfish options -x (to trace commands) or -v (to get the full debug "
@@ -6556,60 +6570,60 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:579
+#: ../examples/guestfs-faq.pod:584
 msgid "For further information, see: L<guestfish(1)>."
 msgstr "詳細は L<guestfish(1)> を参照してください。"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:581
+#: ../examples/guestfs-faq.pod:586
 msgid "How do I debug when using the API?"
 msgstr "API を使用するとき、どのようにデバッグしますか?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:583
+#: ../examples/guestfs-faq.pod:588
 msgid ""
 "Call L<guestfs(3)/guestfs_set_trace> to enable command traces, and/or "
 "L<guestfs(3)/guestfs_set_verbose> to enable debug messages."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:586
+#: ../examples/guestfs-faq.pod:591
 msgid ""
 "For best results, call these functions as early as possible, just after "
 "creating the guestfs handle if you can, and definitely before calling launch."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:590
+#: ../examples/guestfs-faq.pod:595
 msgid "How do I capture debug output and put it into my logging system?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:592
+#: ../examples/guestfs-faq.pod:597
 msgid ""
 "Use the event API.  For examples, see: L<guestfs(3)/SETTING CALLBACKS TO "
 "HANDLE EVENTS>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:595
+#: ../examples/guestfs-faq.pod:600
 msgid "Digging deeper into the appliance boot process."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:597
+#: ../examples/guestfs-faq.pod:602
 msgid ""
 "Enable debugging and then read this documentation on the appliance boot "
 "process: L<guestfs(3)/INTERNALS>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:600
+#: ../examples/guestfs-faq.pod:605
 msgid "libguestfs hangs or fails during run/launch."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:602
+#: ../examples/guestfs-faq.pod:607
 msgid ""
 "Enable debugging and look at the full output.  If you cannot work out what "
 "is going on, file a bug report, including the I<complete> output of "
@@ -6617,17 +6631,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:606
+#: ../examples/guestfs-faq.pod:611
 msgid "DESIGN/INTERNALS OF LIBGUESTFS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:608
+#: ../examples/guestfs-faq.pod:613
 msgid "Why don't you do everything through the FUSE / filesystem interface?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:611
+#: ../examples/guestfs-faq.pod:616
 msgid ""
 "We offer a command called L<guestmount(1)> which lets you mount guest "
 "filesystems on the host.  This is implemented as a FUSE module.  Why don't "
@@ -6636,7 +6650,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:616
+#: ../examples/guestfs-faq.pod:621
 msgid ""
 "The reasons are twofold.  Firstly, libguestfs offers API calls for doing "
 "things like creating and deleting partitions and logical volumes, which "
@@ -6650,7 +6664,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:626
+#: ../examples/guestfs-faq.pod:631
 msgid ""
 "The second reason is for efficiency.  FUSE itself is reasonably efficient, "
 "but it does make lots of small, independent calls into the FUSE module.  In "
@@ -6663,17 +6677,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:636
+#: ../examples/guestfs-faq.pod:641
 msgid "Why don't you do everything through GVFS?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:638
+#: ../examples/guestfs-faq.pod:643
 msgid "The problems are similar to the problems with FUSE."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:640
+#: ../examples/guestfs-faq.pod:645
 msgid ""
 "GVFS is a better abstraction than POSIX/FUSE.  There is an FTP backend for "
 "GVFS, which is encouraging because FTP is conceptually similar to the "
@@ -6683,17 +6697,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:648
+#: ../examples/guestfs-faq.pod:653
 msgid "<!-- old anchor for the next section --> <a name=\"backup\"/>"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:653
+#: ../examples/guestfs-faq.pod:658
 msgid "Can I use C<guestfish --ro> as a way to backup my virtual machines?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:655
+#: ../examples/guestfs-faq.pod:660
 msgid ""
 "Usually this is not a good idea.  The question is answered in more detail in "
 "this mailing list posting: L<https://www.redhat.com/archives/libguestfs/2010-"
@@ -6701,17 +6715,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:659
+#: ../examples/guestfs-faq.pod:664
 msgid "Why can I write to the disk, even though I added it read-only?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:661
+#: ../examples/guestfs-faq.pod:666
 msgid "Why does C<--ro> appear to have no effect?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:663
+#: ../examples/guestfs-faq.pod:668
 msgid ""
 "When you add a disk read-only, libguestfs places a writable overlay on top "
 "of the underlying disk.  Writes go into this overlay, and are discarded when "
@@ -6719,7 +6733,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:667
+#: ../examples/guestfs-faq.pod:672
 msgid ""
 "There are two reasons for doing it this way: Firstly read-only disks aren't "
 "possible in many cases (eg. IDE simply doesn't support them, so you couldn't "
@@ -6728,7 +6742,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:672
+#: ../examples/guestfs-faq.pod:677
 msgid ""
 "Secondly and more importantly, even if read-only disks were possible, you "
 "wouldn't want them.  Mounting any filesystem that has a journal, even "
@@ -6738,7 +6752,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:678
+#: ../examples/guestfs-faq.pod:683
 msgid ""
 "To make it usable, we create the overlay as a place to temporarily store "
 "these writes, and then we discard it afterwards.  This ensures that the "
@@ -6746,7 +6760,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:682
+#: ../examples/guestfs-faq.pod:687
 msgid ""
 "Note also that there is a regression test for this when building libguestfs "
 "(in C<tests/qemu>).  This is one reason why it's important for packagers to "
@@ -6754,12 +6768,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:686
+#: ../examples/guestfs-faq.pod:691
 msgid "Does C<--ro> make all disks read-only?"
 msgstr "C<--ro> はすべてのディスクを読み込み専用にしますか?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:688
+#: ../examples/guestfs-faq.pod:693
 msgid ""
 "I<No!> The C<--ro> option only affects disks added on the command line, ie. "
 "using C<-a> and C<-d> options."
@@ -6768,26 +6782,26 @@ msgstr ""
 "C<-d> オプションを使用して追加されたディスクのみに影響します。"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:691
+#: ../examples/guestfs-faq.pod:696
 msgid ""
 "In guestfish, if you use the C<add> command, then disk is added read-write "
 "(unless you specify the C<readonly:true> flag explicitly with the command)."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:695
+#: ../examples/guestfs-faq.pod:700
 msgid "What's the difference between guestfish and virt-rescue?"
 msgstr "guestfish と virt-rescue の違いは何でしょうか?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:697
+#: ../examples/guestfs-faq.pod:702
 msgid ""
 "A lot of people are confused by the two superficially similar tools we "
 "provide:"
 msgstr "多くの人々が私たちの提供している 2 つの似たツールにより混乱しています:"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:700
+#: ../examples/guestfs-faq.pod:705
 #, no-wrap
 msgid ""
 " $ guestfish --ro -a guest.img\n"
@@ -6801,7 +6815,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:704
+#: ../examples/guestfs-faq.pod:709
 #, no-wrap
 msgid ""
 " $ virt-rescue --ro guest.img\n"
@@ -6813,7 +6827,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:707
+#: ../examples/guestfs-faq.pod:712
 msgid ""
 "And the related question which then arises is why you can't type in full "
 "shell commands with all the --options in guestfish (but you can in L<virt-"
@@ -6821,7 +6835,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:711
+#: ../examples/guestfs-faq.pod:716
 msgid ""
 "L<guestfish(1)> is a program providing structured access to the L<guestfs(3)"
 "> API.  It happens to be a nice interactive shell too, but its primary "
@@ -6832,7 +6846,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:718
+#: ../examples/guestfs-faq.pod:723
 msgid ""
 "L<virt-rescue(1)> is a free-for-all freeform way to boot the libguestfs "
 "appliance and make arbitrary changes to your VM. It's not structured, you "
@@ -6841,7 +6855,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:723
+#: ../examples/guestfs-faq.pod:728
 msgid ""
 "But, libguestfs also has a \"backdoor\" into the appliance allowing you to "
 "send arbitrary shell commands.  It's not as flexible as virt-rescue, because "
@@ -6849,7 +6863,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:728
+#: ../examples/guestfs-faq.pod:733
 #, no-wrap
 msgid ""
 " ><fs> debug sh \"cmd arg1 arg2 ...\"\n"
@@ -6859,7 +6873,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:730
+#: ../examples/guestfs-faq.pod:735
 msgid ""
 "Note that you should B<not> rely on this.  It could be removed or changed in "
 "future. If your program needs some operation, please add it to the "
@@ -6867,45 +6881,45 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:734
+#: ../examples/guestfs-faq.pod:739
 msgid "What's the deal with C<guestfish -i>?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:736
+#: ../examples/guestfs-faq.pod:741
 msgid ""
 "Why does virt-cat only work on a real VM image, but virt-df works on any "
 "disk image?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:739
+#: ../examples/guestfs-faq.pod:744
 msgid "What does \"no root device found in this operating system image\" mean?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:742
+#: ../examples/guestfs-faq.pod:747
 msgid ""
 "These questions are all related at a fundamental level which may not be "
 "immediately obvious."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:745
+#: ../examples/guestfs-faq.pod:750
 msgid ""
 "At the L<guestfs(3)> API level, a \"disk image\" is just a pile of "
 "partitions and filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:748
+#: ../examples/guestfs-faq.pod:753
 msgid ""
 "In contrast, when the virtual machine boots, it mounts those filesystems "
 "into a consistent hierarchy such as:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:751
+#: ../examples/guestfs-faq.pod:756
 #, no-wrap
 msgid ""
 " /          (/dev/sda2)\n"
@@ -6931,12 +6945,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:761
+#: ../examples/guestfs-faq.pod:766
 msgid "(or drive letters on Windows)."
 msgstr "(または Windows におけるドライブレター)。"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:763
+#: ../examples/guestfs-faq.pod:768
 msgid ""
 "The API first of all sees the disk image at the \"pile of filesystems\" "
 "level.  But it also has a way to inspect the disk image to see if it "
@@ -6945,12 +6959,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:768
+#: ../examples/guestfs-faq.pod:773
 msgid "Users expect some tools (like L<virt-cat(1)>) to work with VM paths:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:770
+#: ../examples/guestfs-faq.pod:775
 #, no-wrap
 msgid ""
 " virt-cat fedora.img /var/log/messages\n"
@@ -6958,7 +6972,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:772
+#: ../examples/guestfs-faq.pod:777
 msgid ""
 "How does virt-cat know that C</var> is a separate partition? The trick is "
 "that virt-cat performs inspection on the disk image, and uses that to "
@@ -6966,7 +6980,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:776
+#: ../examples/guestfs-faq.pod:781
 msgid ""
 "Some tools (including L<virt-cat(1)>, L<virt-edit(1)>, L<virt-ls(1)>)  use "
 "inspection to map VM paths.  Other tools, such as L<virt-df(1)> and L<virt-"
@@ -6975,7 +6989,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:781
+#: ../examples/guestfs-faq.pod:786
 msgid ""
 "L<guestfish(1)> is in an interesting middle ground.  If you use the I<-a> "
 "and I<-m> command line options, then you have to tell guestfish exactly how "
@@ -6983,14 +6997,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:786
+#: ../examples/guestfs-faq.pod:791
 msgid ""
 "If you use the I<-i> option, libguestfs performs inspection and mounts the "
 "filesystems for you."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:789
+#: ../examples/guestfs-faq.pod:794
 msgid ""
 "The error C<no root device found in this operating system image> is related "
 "to this.  It means inspection was unable to locate an operating system "
@@ -7000,19 +7014,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:795
+#: ../examples/guestfs-faq.pod:800
 msgid "What do these C<debug*> and C<internal-*> functions do?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:797
+#: ../examples/guestfs-faq.pod:802
 msgid ""
 "There are some functions which are used for debugging and internal purposes "
 "which are I<not> part of the stable API."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:800
+#: ../examples/guestfs-faq.pod:805
 msgid ""
 "The C<debug*> (or C<guestfs_debug*>) functions, primarily L<guestfs(3)/"
 "guestfs_debug> and a handful of others, are used for debugging libguestfs.  "
@@ -7022,7 +7036,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:806
+#: ../examples/guestfs-faq.pod:811
 msgid ""
 "The C<internal-*> (or C<guestfs_internal_*>) functions are purely to be used "
 "by libguestfs itself.  There is no reason for programs to call them, and "
@@ -7031,12 +7045,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:814
+#: ../examples/guestfs-faq.pod:819
 msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:824 ../examples/guestfs-performance.pod:448
+#: ../examples/guestfs-faq.pod:829 ../examples/guestfs-performance.pod:448
 #: ../format/virt-format.pod:193 ../lua/examples/guestfs-lua.pod:158
 msgid "Copyright (C) 2012 Red Hat Inc."
 msgstr "Copyright (C) 2012 Red Hat Inc."
@@ -7225,8 +7239,8 @@ msgstr ""
 #. type: textblock
 #: ../examples/guestfs-performance.pod:92
 msgid ""
-"For more information about how the appliance is constructed, see "
-"L<febootstrap(8)/SUPERMIN APPLIANCES>."
+"For more information about how the appliance is constructed, see L<supermin"
+"(8)/SUPERMIN APPLIANCES>."
 msgstr ""
 
 #. type: textblock
@@ -7379,11 +7393,11 @@ msgstr "2."
 #. type: textblock
 #: ../examples/guestfs-performance.pod:169
 msgid ""
-"By default libguestfs (or rather, L<febootstrap-supermin-helper(8)>)  "
-"searches over the root filesystem to find out if any host files have changed "
-"and if it needs to rebuild the appliance.  If these files are not cached and "
-"the root filesystem is on an HDD, then this generates lots of seeks.  Using "
-"a fixed appliance avoids this."
+"By default libguestfs (or rather, L<supermin-helper(8)>)  searches over the "
+"root filesystem to find out if any host files have changed and if it needs "
+"to rebuild the appliance.  If these files are not cached and the root "
+"filesystem is on an HDD, then this generates lots of seeks.  Using a fixed "
+"appliance avoids this."
 msgstr ""
 
 #. type: =item
@@ -7625,11 +7639,20 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-performance.pod:303
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " $ annotate-output +'%T.%N' guestfish -a /dev/null run -v\n"
+#| " 22:17:53.215784625 I: Started guestfish -a /dev/null run -v\n"
+#| " 22:17:53.240335409 E: libguestfs: [00000ms] febootstrap-supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64\n"
+#| " 22:17:53.266857866 E: supermin helper [00000ms] whitelist = (not specified), host_cpu = x86_64, kernel = (null), initrd = (null), appliance = (null)\n"
+#| " 22:17:53.272704072 E: supermin helper [00000ms] inputs[0] = /usr/lib64/guestfs/supermin.d\n"
+#| " 22:17:53.276528651 E: checking modpath /lib/modules/3.4.0-1.fc17.x86_64.debug is a directory\n"
+#| " [etc]\n"
+#| "\n"
 msgid ""
 " $ annotate-output +'%T.%N' guestfish -a /dev/null run -v\n"
 " 22:17:53.215784625 I: Started guestfish -a /dev/null run -v\n"
-" 22:17:53.240335409 E: libguestfs: [00000ms] febootstrap-supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64\n"
+" 22:17:53.240335409 E: libguestfs: [00000ms] supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64\n"
 " 22:17:53.266857866 E: supermin helper [00000ms] whitelist = (not specified), host_cpu = x86_64, kernel = (null), initrd = (null), appliance = (null)\n"
 " 22:17:53.272704072 E: supermin helper [00000ms] inputs[0] = /usr/lib64/guestfs/supermin.d\n"
 " 22:17:53.276528651 E: checking modpath /lib/modules/3.4.0-1.fc17.x86_64.debug is a directory\n"
@@ -7980,10 +8003,15 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:431
+#, fuzzy
+#| msgid ""
+#| "L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<guestfish(1)>, "
+#| "L<guestfs(3)>, L<guestfs-examples(3)>, L<libguestfs-make-fixed-appliance"
+#| "(1)>, L<stap(1)>, L<qemu(1)>, L<gdb(1)>, L<http://libguestfs.org/>."
 msgid ""
-"L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<guestfish(1)>, "
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<libguestfs-make-fixed-appliance(1)"
-">, L<stap(1)>, L<qemu(1)>, L<gdb(1)>, L<http://libguestfs.org/>."
+"L<supermin(8)>, L<supermin-helper(8)>, L<guestfish(1)>, L<guestfs(3)>, "
+"L<guestfs-examples(3)>, L<libguestfs-make-fixed-appliance(1)>, L<stap(1)>, "
+"L<qemu(1)>, L<gdb(1)>, L<http://libguestfs.org/>."
 msgstr ""
 "L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<guestfish(1)>, "
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<libguestfs-make-fixed-appliance(1)"
@@ -30982,66 +31010,63 @@ msgstr "FEBOOTSTRAP_MODULES"
 #. type: textblock
 #: ../fish/guestfish.pod:1221 ../src/guestfs.pod:4099
 msgid ""
-"These two environment variables allow the kernel that libguestfs uses in the "
-"appliance to be selected.  If C<$FEBOOTSTRAP_KERNEL> is not set, then the "
-"most recent host kernel is chosen.  For more information about kernel "
-"selection, see L<febootstrap-supermin-helper(8)>.  This feature is only "
-"available in febootstrap E<ge> 3.8."
+"When using supermin E<ge> 4.1.0, these have been renamed L</SUPERMIN_KERNEL> "
+"and L</SUPERMIN_MODULES>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1227
+#: ../fish/guestfish.pod:1224
 msgid "GUESTFISH_DISPLAY_IMAGE"
 msgstr "GUESTFISH_DISPLAY_IMAGE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1229
+#: ../fish/guestfish.pod:1226
 msgid ""
 "The C<display> command uses C<$GUESTFISH_DISPLAY_IMAGE> to display images.  "
 "If not set, it uses L<display(1)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1232
+#: ../fish/guestfish.pod:1229
 msgid "GUESTFISH_PID"
 msgstr "GUESTFISH_PID"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1234
+#: ../fish/guestfish.pod:1231
 msgid ""
 "Used with the I<--remote> option to specify the remote guestfish process to "
 "control.  See section L</REMOTE CONTROL GUESTFISH OVER A SOCKET>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1238
+#: ../fish/guestfish.pod:1235
 msgid "GUESTFISH_PS1"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1240
+#: ../fish/guestfish.pod:1237
 msgid "Set the command prompt.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1242
+#: ../fish/guestfish.pod:1239
 msgid "HEXEDITOR"
 msgstr "HEXEDITOR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1244
+#: ../fish/guestfish.pod:1241
 msgid ""
 "The L</hexedit> command uses C<$HEXEDITOR> as the external hex editor.  If "
 "not specified, the external L<hexedit(1)> program is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1248
+#: ../fish/guestfish.pod:1245
 msgid "HOME"
 msgstr "HOME"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1250
+#: ../fish/guestfish.pod:1247
 msgid ""
 "If compiled with GNU readline support, various files in the home directory "
 "can be used.  See L</FILES>."
@@ -31050,34 +31075,34 @@ msgstr ""
 "さまざまなファイルを使用できます。 L</ファイル> 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1253 ../src/guestfs.pod:4105
+#: ../fish/guestfish.pod:1250 ../src/guestfs.pod:4102
 msgid "LIBGUESTFS_APPEND"
 msgstr "LIBGUESTFS_APPEND"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1255 ../src/guestfs.pod:4107
+#: ../fish/guestfish.pod:1252 ../src/guestfs.pod:4104
 msgid "Pass additional options to the guest kernel."
 msgstr "仮想マシンのカーネルに追加のオプションを渡します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1257 ../src/guestfs.pod:4109
+#: ../fish/guestfish.pod:1254 ../src/guestfs.pod:4106
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1259
+#: ../fish/guestfish.pod:1256
 msgid ""
 "Choose the default way to create the appliance.  See L<guestfs(3)/"
 "guestfs_set_attach_method>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1262 ../src/guestfs.pod:4114
+#: ../fish/guestfish.pod:1259 ../src/guestfs.pod:4111
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1264 ../src/guestfs.pod:4116
+#: ../fish/guestfish.pod:1261 ../src/guestfs.pod:4113
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -31085,42 +31110,42 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1268 ../src/guestfs.pod:4120
+#: ../fish/guestfish.pod:1265 ../src/guestfs.pod:4117
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then C</var/tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1271
+#: ../fish/guestfish.pod:1268
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1273 ../src/guestfs.pod:4125
+#: ../fish/guestfish.pod:1270 ../src/guestfs.pod:4122
 msgid "LIBGUESTFS_DEBUG"
 msgstr "LIBGUESTFS_DEBUG"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1275
+#: ../fish/guestfish.pod:1272
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as using the B<-v> option."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1278 ../src/guestfs.pod:4130
+#: ../fish/guestfish.pod:1275 ../src/guestfs.pod:4127
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr "LIBGUESTFS_MEMSIZE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1280 ../src/guestfs.pod:4132
+#: ../fish/guestfish.pod:1277 ../src/guestfs.pod:4129
 msgid ""
 "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1283 ../src/guestfs.pod:4135
+#: ../fish/guestfish.pod:1280 ../src/guestfs.pod:4132
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -31130,100 +31155,120 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../fish/guestfish.pod:1285 ../src/guestfs.pod:4137
+#: ../fish/guestfish.pod:1282 ../src/guestfs.pod:4134
 msgid "LIBGUESTFS_PATH"
 msgstr "LIBGUESTFS_PATH"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1287
+#: ../fish/guestfish.pod:1284
 msgid ""
 "Set the path that guestfish uses to search for kernel and initrd.img.  See "
 "the discussion of paths in L<guestfs(3)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1290 ../src/guestfs.pod:4142
+#: ../fish/guestfish.pod:1287 ../src/guestfs.pod:4139
 msgid "LIBGUESTFS_QEMU"
 msgstr "LIBGUESTFS_QEMU"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1292 ../src/guestfs.pod:4144
+#: ../fish/guestfish.pod:1289 ../src/guestfs.pod:4141
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1296 ../src/guestfs.pod:4150
+#: ../fish/guestfish.pod:1293 ../src/guestfs.pod:4147
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1298 ../src/guestfs.pod:4152
+#: ../fish/guestfish.pod:1295 ../src/guestfs.pod:4149
 msgid ""
 "The location where libguestfs will store temporary files used by each handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1301 ../src/guestfs.pod:4155
+#: ../fish/guestfish.pod:1298 ../src/guestfs.pod:4152
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then C</tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1304
+#: ../fish/guestfish.pod:1301
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1306 ../src/guestfs.pod:4160
+#: ../fish/guestfish.pod:1303 ../src/guestfs.pod:4157
 msgid "LIBGUESTFS_TRACE"
 msgstr "LIBGUESTFS_TRACE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1308
+#: ../fish/guestfish.pod:1305
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
 msgstr ""
 "コマンドトレースを有効にするには C<LIBGUESTFS_TRACE=1> を設定してください。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1310
+#: ../fish/guestfish.pod:1307
 msgid "PAGER"
 msgstr "PAGER"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1312
+#: ../fish/guestfish.pod:1309
 msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1315 ../sparsify/virt-sparsify.pod:282
-#: ../src/guestfs.pod:4165
+#: ../fish/guestfish.pod:1312 ../src/guestfs.pod:4162
+msgid "SUPERMIN_KERNEL"
+msgstr ""
+
+#. type: =item
+#: ../fish/guestfish.pod:1314 ../src/guestfs.pod:4164
+msgid "SUPERMIN_MODULES"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1316 ../src/guestfs.pod:4166
+msgid ""
+"These two environment variables allow the kernel that libguestfs uses in the "
+"appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
+"recent host kernel is chosen.  For more information about kernel selection, "
+"see L<supermin-helper(8)>.  This feature is only available in supermin / "
+"febootstrap E<ge> 3.8."
+msgstr ""
+
+#. type: =item
+#: ../fish/guestfish.pod:1322 ../sparsify/virt-sparsify.pod:282
+#: ../src/guestfs.pod:4172
 msgid "TMPDIR"
 msgstr "TMPDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1317 ../src/guestfs.pod:4167
+#: ../fish/guestfish.pod:1324 ../src/guestfs.pod:4174
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1325 ../fuse/guestmount.pod:382
+#: ../fish/guestfish.pod:1332 ../fuse/guestmount.pod:382
 #: ../rescue/virt-rescue.pod:400
 msgid "$HOME/.libguestfs-tools.rc"
 msgstr "$HOME/.libguestfs-tools.rc"
 
 #. type: =item
-#: ../fish/guestfish.pod:1327 ../fuse/guestmount.pod:384
+#: ../fish/guestfish.pod:1334 ../fuse/guestmount.pod:384
 #: ../rescue/virt-rescue.pod:402
 msgid "/etc/libguestfs-tools.conf"
 msgstr "/etc/libguestfs-tools.conf"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1329 ../fuse/guestmount.pod:386
+#: ../fish/guestfish.pod:1336 ../fuse/guestmount.pod:386
 #: ../rescue/virt-rescue.pod:404
 msgid ""
 "This configuration file controls the default read-only or read-write mode "
@@ -31231,17 +31276,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1332
+#: ../fish/guestfish.pod:1339
 msgid "See L</OPENING DISKS FOR READ AND WRITE>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1334
+#: ../fish/guestfish.pod:1341
 msgid "$HOME/.guestfish"
 msgstr "$HOME/.guestfish"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1336
+#: ../fish/guestfish.pod:1343
 msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
@@ -31250,17 +31295,17 @@ msgstr ""
 "イルに保存されます。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1339
+#: ../fish/guestfish.pod:1346
 msgid "$HOME/.inputrc"
 msgstr "$HOME/.inputrc"
 
 #. type: =item
-#: ../fish/guestfish.pod:1341
+#: ../fish/guestfish.pod:1348
 msgid "/etc/inputrc"
 msgstr "/etc/inputrc"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1343
+#: ../fish/guestfish.pod:1350
 msgid ""
 "If compiled with GNU readline support, then these files can be used to "
 "configure readline.  For further information, please see L<readline(3)/"
@@ -31271,12 +31316,12 @@ msgstr ""
 "FILE> を参照してください。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1347
+#: ../fish/guestfish.pod:1354
 msgid "To write rules which only apply to guestfish, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1349
+#: ../fish/guestfish.pod:1356
 #, no-wrap
 msgid ""
 " $if guestfish\n"
@@ -31290,26 +31335,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1353
+#: ../fish/guestfish.pod:1360
 msgid ""
 "Variables that you can set in inputrc that change the behaviour of guestfish "
 "in useful ways include:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1358
+#: ../fish/guestfish.pod:1365
 msgid "completion-ignore-case (default: on)"
 msgstr "completion-ignore-case (初期値: on)"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1360
+#: ../fish/guestfish.pod:1367
 msgid ""
 "By default, guestfish will ignore case when tab-completing paths on the "
 "disk.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1363
+#: ../fish/guestfish.pod:1370
 #, no-wrap
 msgid ""
 " set completion-ignore-case off\n"
@@ -31319,22 +31364,22 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1365
+#: ../fish/guestfish.pod:1372
 msgid "to make guestfish case sensitive."
 msgstr "guestfish が大文字小文字を区別するようになります。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1369
+#: ../fish/guestfish.pod:1376
 msgid "test1.img"
 msgstr "test1.img"
 
 #. type: =item
-#: ../fish/guestfish.pod:1371
+#: ../fish/guestfish.pod:1378
 msgid "test2.img (etc)"
 msgstr "test2.img (etc)"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1373
+#: ../fish/guestfish.pod:1380
 msgid ""
 "When using the I<-N> or I<--new> option, the prepared disk or filesystem "
 "will be created in the file C<test1.img> in the current directory.  The "
@@ -31343,7 +31388,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1382
+#: ../fish/guestfish.pod:1389
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, "
+#| "L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, "
+#| "L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-"
+#| "list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-"
+#| "make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, "
+#| "L<virt-sysprep(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)"
+#| ">, L<virt-win-reg(1)>, L<display(1)>, L<hexedit(1)>, L<febootstrap-"
+#| "supermin-helper(8)>."
 msgid ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, L<virt-"
 "cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit"
@@ -31351,7 +31406,7 @@ msgid ""
 "(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-"
 "rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, "
 "L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg(1)>, "
-"L<display(1)>, L<hexedit(1)>, L<febootstrap-supermin-helper(8)>."
+"L<display(1)>, L<hexedit(1)>, L<supermin-helper(8)>."
 msgstr ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, L<virt-"
 "cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit"
@@ -65578,9 +65633,13 @@ msgstr "アプライアンスを作成します"
 
 #. type: textblock
 #: ../src/guestfs.pod:3095
+#, fuzzy
+#| msgid ""
+#| "C<febootstrap-supermin-helper> is invoked to create the kernel, a small "
+#| "initrd and the appliance."
 msgid ""
-"C<febootstrap-supermin-helper> is invoked to create the kernel, a small "
-"initrd and the appliance."
+"C<supermin-helper> is invoked to create the kernel, a small initrd and the "
+"appliance."
 msgstr ""
 "C<febootstrap-supermin-helper> はカーネル、小さな initrd およびアプライアンス"
 "を作成するために呼び出されます。"
@@ -65594,9 +65653,14 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:3101
+#, fuzzy
+#| msgid ""
+#| "For a complete description of how the appliance is created and cached, "
+#| "read the L<febootstrap(8)> and L<febootstrap-supermin-helper(8)> man "
+#| "pages."
 msgid ""
 "For a complete description of how the appliance is created and cached, read "
-"the L<febootstrap(8)> and L<febootstrap-supermin-helper(8)> man pages."
+"the L<supermin(8)> and L<supermin-helper(8)> man pages."
 msgstr ""
 "アプライアンスがどのように作成されキャッシュされるかに関する完全な説明は、"
 "L<febootstrap(8)> および L<febootstrap-supermin-helper(8)> マニュアルページを"
@@ -65619,10 +65683,15 @@ msgstr "initrd を実行します"
 
 #. type: textblock
 #: ../src/guestfs.pod:3111
+#, fuzzy
+#| msgid ""
+#| "C<febootstrap-supermin-helper> builds a small initrd.  The initrd is not "
+#| "the appliance.  The purpose of the initrd is to load enough kernel "
+#| "modules in order that the appliance itself can be mounted and started."
 msgid ""
-"C<febootstrap-supermin-helper> builds a small initrd.  The initrd is not the "
-"appliance.  The purpose of the initrd is to load enough kernel modules in "
-"order that the appliance itself can be mounted and started."
+"C<supermin-helper> builds a small initrd.  The initrd is not the appliance.  "
+"The purpose of the initrd is to load enough kernel modules in order that the "
+"appliance itself can be mounted and started."
 msgstr ""
 "C<febootstrap-supermin-helper> は小さな initrd を構築します。 initrd はアプラ"
 "イアンスではありません。 initrd の目的は、アプライアンス自身がマウントでき開"
@@ -65648,12 +65717,18 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:3121
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " febootstrap: ext2 mini initrd starting up\n"
+#| " febootstrap: mounting /sys\n"
+#| " febootstrap: internal insmod libcrc32c.ko\n"
+#| " febootstrap: internal insmod crc32c-intel.ko\n"
+#| "\n"
 msgid ""
-" febootstrap: ext2 mini initrd starting up\n"
-" febootstrap: mounting /sys\n"
-" febootstrap: internal insmod libcrc32c.ko\n"
-" febootstrap: internal insmod crc32c-intel.ko\n"
+" supermin: ext2 mini initrd starting up\n"
+" supermin: mounting /sys\n"
+" supermin: internal insmod libcrc32c.ko\n"
+" supermin: internal insmod crc32c-intel.ko\n"
 "\n"
 msgstr ""
 " febootstrap: ext2 mini initrd starting up\n"
@@ -65703,12 +65778,19 @@ msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:3144
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " febootstrap: picked /sys/block/vdb/dev as root device\n"
+#| " febootstrap: creating /dev/root as block special 252:16\n"
+#| " febootstrap: mounting new root on /root\n"
+#| " febootstrap: chroot\n"
+#| " Starting /init script ...\n"
+#| "\n"
 msgid ""
-" febootstrap: picked /sys/block/vdb/dev as root device\n"
-" febootstrap: creating /dev/root as block special 252:16\n"
-" febootstrap: mounting new root on /root\n"
-" febootstrap: chroot\n"
+" supermin: picked /sys/block/vdb/dev as root device\n"
+" supermin: creating /dev/root as block special 252:16\n"
+" supermin: mounting new root on /root\n"
+" supermin: chroot\n"
 " Starting /init script ...\n"
 "\n"
 msgstr ""
@@ -67713,43 +67795,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4111
+#: ../src/guestfs.pod:4108
 msgid ""
 "Choose the default way to create the appliance.  See L</"
 "guestfs_set_attach_method> and L</ATTACH METHOD>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4123
+#: ../src/guestfs.pod:4120
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4127
+#: ../src/guestfs.pod:4124
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as calling C<guestfs_set_verbose (g, 1)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4139
+#: ../src/guestfs.pod:4136
 msgid ""
 "Set the path that libguestfs uses to search for a supermin appliance.  See "
 "the discussion of paths in section L</PATH> above."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4148
+#: ../src/guestfs.pod:4145
 msgid "See also L</QEMU WRAPPERS> above."
 msgstr "上の L</QEMU WRAPPERS> 参照。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4158
+#: ../src/guestfs.pod:4155
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4162
+#: ../src/guestfs.pod:4159
 msgid ""
 "Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This has the same "
 "effect as calling C<guestfs_set_trace (g, 1)>."
@@ -67758,7 +67840,17 @@ msgstr ""
 "C<guestfs_set_trace (g, 1)> の呼び出しと同じ効果があります。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4173
+#: ../src/guestfs.pod:4180
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, "
+#| "L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, "
+#| "L<virt-edit(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-"
+#| "list-filesystems(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-"
+#| "make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, "
+#| "L<virt-sysprep(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)"
+#| ">, L<virt-win-reg(1)>, L<display(1)>, L<hexedit(1)>, L<febootstrap-"
+#| "supermin-helper(8)>."
 msgid ""
 "L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-java(3)>, L<guestfs-"
 "lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-python(3)>, "
@@ -67770,13 +67862,20 @@ msgid ""
 "L<virt-sparsify(1)>, L<virt-sysprep(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, "
 "L<virt-tar-out(1)>, L<virt-win-reg(1)>, L<guestfs-faq(1)>, L<guestfs-"
 "performance(1)>, L<guestfs-release-notes(1)>, L<guestfs-testing(1)>, "
-"L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-appliance(1)>, "
-"L<febootstrap(8)>, L<febootstrap-supermin-helper(8)>, L<qemu(1)>, L<hivex(3)"
-">, L<stap(1)>, L<http://libguestfs.org/>."
+"L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-appliance(1)>, L<supermin"
+"(8)>, L<supermin-helper(8)>, L<qemu(1)>, L<hivex(3)>, L<stap(1)>, L<http://"
+"libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, L<virt-"
+"cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-df(1)>, L<virt-edit"
+"(1)>, L<virt-filesystems(1)>, L<virt-inspector(1)>, L<virt-list-filesystems"
+"(1)>, L<virt-list-partitions(1)>, L<virt-ls(1)>, L<virt-make-fs(1)>, L<virt-"
+"rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virt-sysprep(1)>, "
+"L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<virt-win-reg(1)>, "
+"L<display(1)>, L<hexedit(1)>, L<febootstrap-supermin-helper(8)>。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4217
+#: ../src/guestfs.pod:4224
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
 "(8)>, L<disktype(1)>."
@@ -69521,25 +69620,25 @@ msgstr ""
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:84
 msgid ""
-"If you are using febootstrap E<ge> 3.8 then you can select which kernel "
-"libguestfs tries.  You do this by setting the environment variables "
-"C<FEBOOTSTRAP_KERNEL> and/or C<FEBOOTSTRAP_MODULES>."
+"If you are using supermin / febootstrap E<ge> 3.8 then you can select which "
+"kernel libguestfs tries.  You do this by setting the environment variables "
+"C<SUPERMIN_KERNEL> and/or C<SUPERMIN_MODULES> (C<FEBOOTSTRAP_KERNEL> and "
+"C<FEBOOTSTRAP_MODULES> if still using the old febootstrap 3.21 program)."
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:88
+#: ../test-tool/libguestfs-test-tool.pod:90
 msgid ""
-"Refer to L<febootstrap-supermin-helper(8)/ENVIRONMENT VARIABLES> for further "
-"information."
+"Refer to L<supermin-helper(8)/ENVIRONMENT VARIABLES> for further information."
 msgstr ""
 
 #. type: =head1
-#: ../test-tool/libguestfs-test-tool.pod:91
+#: ../test-tool/libguestfs-test-tool.pod:93
 msgid "SELF-DIAGNOSIS"
 msgstr "自己診断"
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:93
+#: ../test-tool/libguestfs-test-tool.pod:95
 msgid ""
 "Refer to L<guestfs(3)/APPLIANCE BOOT PROCESS> to understand the messages "
 "produced by libguestfs-test-tool and/or possible errors."
@@ -69548,14 +69647,14 @@ msgstr ""
 "を理解するには L<guestfs(3)/アプライアンス起動プロセス> を参照してください。"
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:98
+#: ../test-tool/libguestfs-test-tool.pod:100
 msgid ""
 "libguestfs-test-tool returns I<0> if the tests completed without error, or "
 "I<1> if there was an error."
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:108
+#: ../test-tool/libguestfs-test-tool.pod:110
 msgid "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 msgstr "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 
