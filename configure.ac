@@ -402,38 +402,54 @@ AC_ARG_ENABLE([appliance],
 AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
 AC_MSG_RESULT([$enable_appliance])
 
-dnl Check for febootstrap >= 3.0
-AC_CHECK_PROG([FEBOOTSTRAP],
-              [febootstrap],[febootstrap],[no])
+dnl Check for supermin >= 4.1.0 or febootstrap >= 3.20.
+AC_CHECK_PROGS([SUPERMIN],
+               [supermin febootstrap],[no])
+AC_CHECK_PROGS([SUPERMIN_HELPER],
+               [supermin-helper febootstrap-supermin-helper],[no])
 
-dnl Pass a febootstrap --yum-config option.
+dnl Pass supermin --packager-config option.
 dnl
-dnl Note that in febootstrap >= 3.21, this option is now called
-dnl --packager-config, although --yum-config can still be used
-dnl as a deprecated alias.
+dnl Note that in febootstrap >= 3.21 / supermin >= 4.1.0, this option
+dnl is now called --packager-config, although --yum-config can still
+dnl be used as a deprecated alias.
+SUPERMIN_PACKAGER_CONFIG=no
+
+AC_MSG_CHECKING([for --with-supermin-packager-config option])
+AC_ARG_WITH([supermin-packager-config],
+    [AS_HELP_STRING([--with-supermin-packager-config=FILE],
+        [pass supermin --packager-config option @<:@default=no@:>@])],
+    [SUPERMIN_PACKAGER_CONFIG="$withval"
+     AC_MSG_RESULT([$SUPERMIN_PACKAGER_CONFIG"])],
+    [AC_MSG_RESULT([not set])])
+
 AC_MSG_CHECKING([for --with-febootstrap-yum-config option (deprecated)])
 AC_ARG_WITH([febootstrap-yum-config],
     [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
-        [pass febootstrap --packager-config option @<:@default=no@:>@])],
-    [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],[
-    AC_MSG_RESULT([not set])
-    AC_MSG_CHECKING([for --with-febootstrap-packager-config option])
-    AC_ARG_WITH([febootstrap-packager-config],
-        [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
-            [pass febootstrap --packager-config option @<:@default=no@:>@])],
-        [FEBOOTSTRAP_PACKAGER_CONFIG="$withval"],
-        [FEBOOTSTRAP_PACKAGER_CONFIG=no])
-])
-AC_MSG_RESULT([$FEBOOTSTRAP_PACKAGER_CONFIG])
-AC_SUBST([FEBOOTSTRAP_PACKAGER_CONFIG])
+        [pass supermin --packager-config option @<:@default=no@:>@])],
+    [SUPERMIN_PACKAGER_CONFIG="$withval"
+     AC_MSG_RESULT([$SUPERMIN_PACKAGER_CONFIG"])],
+    [AC_MSG_RESULT([not set])])
+
+AC_MSG_CHECKING([for --with-febootstrap-packager-config option (deprecated)])
+AC_ARG_WITH([febootstrap-packager-config],
+    [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
+        [pass supermin --packager-config option @<:@default=no@:>@])],
+    [SUPERMIN_PACKAGER_CONFIG="$withval"
+     AC_MSG_RESULT([$SUPERMIN_PACKAGER_CONFIG"])],
+    [AC_MSG_RESULT([not set])])
+
+AC_SUBST([SUPERMIN_PACKAGER_CONFIG])
 
 if test "x$enable_appliance" = "xyes"; then
-    test "x$FEBOOTSTRAP" = "xno" &&
-        AC_MSG_ERROR([febootstrap must be installed])
+    test "x$SUPERMIN" = "xno" &&
+        AC_MSG_ERROR([supermin (formerly called febootstrap) must be installed])
     dnl febootstrap 2.x did not support the --version parameter
-    $FEBOOTSTRAP --version >&AS_MESSAGE_LOG_FD 2>&1 ||
-        AC_MSG_ERROR([febootstrap >= 3.0 must be installed, your version is too old])
+    $SUPERMIN --version >&AS_MESSAGE_LOG_FD 2>&1 ||
+        AC_MSG_ERROR([supermin (formerly called febootstrap) >= 3.20 must be installed, your version is too old])
 fi
+
+AC_DEFINE_UNQUOTED([SUPERMIN_HELPER],["$SUPERMIN_HELPER"],[Name of supermin-helper program.])
 
 dnl Which distro?
 dnl

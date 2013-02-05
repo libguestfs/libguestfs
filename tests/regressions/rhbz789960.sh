@@ -36,7 +36,7 @@ run
 # Should fail even though the device exists.
 -mount /dev/sda /
 
-# In some configurations, this is the febootstrap appliance.  This
+# In some configurations, this is the supermin appliance.  This
 # should fail.
 -mount /dev/vdb /
 

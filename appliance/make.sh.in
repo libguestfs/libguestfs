@@ -27,15 +27,15 @@ while read regexp <&5; do
 done
 exec 5<&-
 
-# Run febootstrap on the package list.
+# Run supermin on the package list.
 # NB: Keep using --yum-config (deprecated alias) here since both old
-# and new febootstrap still support it.
-if [ "x@FEBOOTSTRAP_PACKAGER_CONFIG@" != "xno" ]; then
-    extra="--yum-config @FEBOOTSTRAP_PACKAGER_CONFIG@"
+# and new supermin still support it.
+if [ "x@SUPERMIN_PACKAGER_CONFIG@" != "xno" ]; then
+    extra="--yum-config @SUPERMIN_PACKAGER_CONFIG@"
 fi
 
-echo @FEBOOTSTRAP@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
-@FEBOOTSTRAP@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
+echo @SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
+@SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
 
 # Remove some things that we don't want in the appliance.  This is
 # copied from the old febootstrap-minimize.  However minimization is

@@ -103,7 +103,7 @@ gl_lock_define_initialized (static, building_lock);
  *
  *   $TMPDIR/.guestfs-$UID/checksum       - the checksum
  *   $TMPDIR/.guestfs-$UID/kernel         - the kernel
- *   $TMPDIR/.guestfs-$UID/initrd         - the febootstrap initrd
+ *   $TMPDIR/.guestfs-$UID/initrd         - the supermin initrd
  *   $TMPDIR/.guestfs-$UID/root           - the appliance
  *
  * Since multiple instances of libguestfs with the same UID may be
@@ -251,7 +251,7 @@ read_checksum (guestfs_h *g, void *checksumv, const char *line, size_t len)
 }
 
 /* supermin_path is a path which is known to contain a supermin
- * appliance.  Using febootstrap-supermin-helper -f checksum calculate
+ * appliance.  Using supermin-helper -f checksum calculate
  * the checksum so we can see if it is cached.
  */
 static char *
@@ -264,7 +264,7 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
   char checksum[MAX_CHECKSUM_LEN + 1] = { 0 };
 
   cmd = guestfs___new_command (g);
-  guestfs___cmd_add_arg (cmd, "febootstrap-supermin-helper");
+  guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
   if (g->verbose)
     guestfs___cmd_add_arg (cmd, "--verbose");
   if (pass_u_g_args) {
@@ -289,7 +289,7 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
 
   len = strlen (checksum);
   if (len < 16) {               /* sanity check */
-    warning (g, "febootstrap-supermin-helper -f checksum returned a short string");
+    warning (g, "supermin-helper -f checksum returned a short string");
     return NULL;
   }
 
@@ -485,7 +485,7 @@ build_supermin_appliance (guestfs_h *g,
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "run febootstrap-supermin-helper");
+    guestfs___print_timestamped_message (g, "run supermin-helper");
 
   int r = run_supermin_helper (g, supermin_path, tmpcd);
   if (r == -1) {
@@ -656,7 +656,7 @@ hard_link_to_cached_appliance (guestfs_h *g,
   return -1;
 }
 
-/* Run febootstrap-supermin-helper and tell it to generate the
+/* Run supermin-helper and tell it to generate the
  * appliance.
  */
 static int
@@ -672,7 +672,7 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   int pass_u_g_args = uid != euid || gid != egid;
 
   cmd = guestfs___new_command (g);
-  guestfs___cmd_add_arg (cmd, "febootstrap-supermin-helper");
+  guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
   if (g->verbose)
     guestfs___cmd_add_arg (cmd, "--verbose");
   if (pass_u_g_args) {

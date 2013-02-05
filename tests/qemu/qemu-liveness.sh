@@ -18,7 +18,7 @@
 
 # Boot and check that writes work.
 # Note this is the first boot test that we run, so it's looking for
-# all sorts of qemu/kernel/febootstrap problems.
+# all sorts of qemu/kernel/supermin problems.
 
 set -e
 

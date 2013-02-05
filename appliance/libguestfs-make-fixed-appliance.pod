@@ -18,7 +18,7 @@ appliance for libguestfs.
 B<Note that ordinary users should not need to run this tool>.  The
 only reason to use it is if you want to make a self-contained
 libguestfs appliance that can be copied to another machine or platform
-that doesn't support L<febootstrap(8)>.  To understand why you might
+that doesn't support L<supermin(8)>.  To understand why you might
 need to use this tool, read the section L</FIXED APPLIANCE> below.
 
 Instead of running this tool, you can download fixed appliances from
@@ -107,21 +107,21 @@ looking for an appliance.  The path is built into libguestfs, or can
 be set using the C<LIBGUESTFS_PATH> environment variable.
 
 Normally a supermin appliance is located on this path (see
-L<febootstrap(8)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
-into a full appliance by running L<febootstrap-supermin-helper(8)>.
+L<supermin(8)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
+into a full appliance by running L<supermin-helper(8)>.
 
 However, a simpler "fixed appliance" can also be used.  libguestfs
 detects this by looking for a directory on the path containing four
 files called C<kernel>, C<initrd>, C<root> and C<README.fixed> (note
 the C<README.fixed> file must be present as well).
 
-If the fixed appliance is found, libguestfs skips febootstrap entirely
+If the fixed appliance is found, libguestfs skips supermin entirely
 and just runs qemu with the kernel, initrd and root disk from the
 fixed appliance.
 
 Thus the fixed appliance can be used when a platform or Linux distro
-does not support febootstrap.  You build the fixed appliance on a
-platform that does support febootstrap, and copy it over, and use that
+does not support supermin.  You build the fixed appliance on a
+platform that does support supermin, and copy it over, and use that
 to run libguestfs.
 
 =head1 LICENSING
@@ -144,8 +144,8 @@ libguestfs, please see the L<guestfs(3)> manual page.
 =head1 SEE ALSO
 
 L<guestfs(3)>,
-L<febootstrap(8)>,
-L<febootstrap-supermin-helper(8)>,
+L<supermin(8)>,
+L<supermin-helper(8)>,
 L<xz(1)>,
 L<http://libguestfs.org/>,
 L<http://qemu.org/>.

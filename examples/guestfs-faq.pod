@@ -345,17 +345,17 @@ You'll have to compile from source, and port it.
 
 =head2 How can I compile and install libguestfs from source?
 
-If your Linux distro has a working port of febootstrap (that is,
+If your Linux distro has a working port of supermin (that is,
 Fedora, S<Red Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)
 then you should just be able to compile from source in the usual way.
 Download the latest tarball from L<http://libguestfs.org/download>,
 unpack it, and start by reading the README file.
 
-If you I<don't> have febootstrap, you will need to use the "fixed
+If you I<don't> have supermin, you will need to use the "fixed
 appliance method".  See:
 L<http://libguestfs.org/download/binaries/appliance/>
 
-Patches to port febootstrap to more Linux distros are welcome.
+Patches to port supermin to more Linux distros are welcome.
 
 =head2 Why do I get an error when I try to rebuild from the source
 RPMs supplied by Red Hat / Fedora?
