@@ -22,6 +22,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "read-file.h"
 
@@ -279,12 +282,14 @@ int
 do_tar_out (const char *dir, const char *compress, int numericowner,
             char *const *excludes)
 {
+  CLEANUP_FREE char *buf = NULL;
+  struct stat statbuf;
   const char *filter;
   int r;
   FILE *fp;
   CLEANUP_FREE char *excludes_args = NULL;
   CLEANUP_FREE char *cmd = NULL;
-  char buf[GUESTFS_MAX_CHUNK_SIZE];
+  char buffer[GUESTFS_MAX_CHUNK_SIZE];
 
   if ((optargs_bitmask & GUESTFS_TAR_OUT_COMPRESS_BITMASK)) {
     if (STREQ (compress, "compress"))
@@ -319,10 +324,27 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
     }
   }
 
+  /* Check the filename exists and is a directory (RHBZ#908322). */
+  buf = sysroot_path (dir);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  if (stat (buf, &statbuf) == -1) {
+    reply_with_perror ("stat: %s", dir);
+    return -1;
+  }
+
+  if (! S_ISDIR (statbuf.st_mode)) {
+    reply_with_error ("%s: not a directory", dir);
+    return -1;
+  }
+
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "%s -C %R%s%s%s -cf - .",
+  if (asprintf_nowarn (&cmd, "%s -C %s%s%s%s -cf - .",
                        str_tar,
-                       dir, filter,
+                       buf, filter,
                        numericowner ? " --numeric-owner" : "",
                        excludes_args) == -1) {
     reply_with_perror ("asprintf");
@@ -344,8 +366,8 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
    */
   reply (NULL, NULL);
 
-  while ((r = fread (buf, 1, sizeof buf, fp)) > 0) {
-    if (send_file_write (buf, r) < 0) {
+  while ((r = fread (buffer, 1, sizeof buffer, fp)) > 0) {
+    if (send_file_write (buffer, r) < 0) {
       pclose (fp);
       return -1;
     }
