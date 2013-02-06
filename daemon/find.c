@@ -122,14 +122,14 @@ do_find0 (const char *dir)
   }
 
   if (ferror (fp)) {
-    perror (dir);
+    fprintf (stderr, "fgetc: %s: %m\n", dir);
     send_file_end (1);                /* Cancel. */
     pclose (fp);
     return -1;
   }
 
   if (pclose (fp) != 0) {
-    perror (dir);
+    fprintf (stderr, "pclose: %s: %m\n", dir);
     send_file_end (1);                /* Cancel. */
     return -1;
   }

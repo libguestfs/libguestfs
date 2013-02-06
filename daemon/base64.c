@@ -130,14 +130,14 @@ do_base64_out (const char *file)
   }
 
   if (ferror (fp)) {
-    perror (file);
+    fprintf (stderr, "fread: %s: %m\n", file);
     send_file_end (1);		/* Cancel. */
     pclose (fp);
     return -1;
   }
 
   if (pclose (fp) != 0) {
-    perror (file);
+    fprintf (stderr, "pclose: %s: %m\n", file);
     send_file_end (1);		/* Cancel. */
     return -1;
   }

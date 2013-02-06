@@ -147,7 +147,7 @@ read_whole_file (const char *filename)
      */
     ssize_t n = read (fd, r + size, alloc - size - 1);
     if (n == -1) {
-      perror (filename);
+      fprintf (stderr, "read: %s: %m\n", filename);
       free (r);
       close (fd);
       return NULL;
@@ -158,7 +158,7 @@ read_whole_file (const char *filename)
   }
 
   if (close (fd) == -1) {
-    perror (filename);
+    fprintf (stderr, "close: %s: %m\n", filename);
     free (r);
     return NULL;
   }

@@ -134,7 +134,7 @@ fsync_devices (void)
 
   /* Close the directory handle */
   if (closedir (dir) == -1)
-    perror ("closedir");
+    perror ("closedir: /sys/block");
 }
 #endif /* HAVE_FSYNC */
 

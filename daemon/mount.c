@@ -50,7 +50,7 @@ is_root_mounted (void)
    */
   fp = setmntent ("/proc/mounts", "r");
   if (fp == NULL) {
-    perror ("/proc/mounts");
+    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
     exit (EXIT_FAILURE);
   }
 
@@ -92,7 +92,7 @@ is_device_mounted (const char *device)
    */
   fp = setmntent ("/proc/mounts", "r");
   if (fp == NULL) {
-    perror ("/proc/mounts");
+    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
     exit (EXIT_FAILURE);
   }
 
@@ -246,7 +246,7 @@ mounts_or_mountpoints (int mp)
    */
   fp = setmntent ("/proc/mounts", "r");
   if (fp == NULL) {
-    perror ("/proc/mounts");
+    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
     exit (EXIT_FAILURE);
   }
 
@@ -348,7 +348,7 @@ do_umount_all (void)
    */
   fp = setmntent ("/proc/mounts", "r");
   if (fp == NULL) {
-    perror ("/proc/mounts");
+    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
     exit (EXIT_FAILURE);
   }
 

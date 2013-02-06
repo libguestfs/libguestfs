@@ -70,7 +70,7 @@ copy_lvm (void)
   }
 
   if (mkdtemp (lvm_system_dir) == NULL) {
-    perror (lvm_system_dir);
+    fprintf (stderr, "mkdtemp: %s: %m\n", lvm_system_dir);
     exit (EXIT_FAILURE);
   }
 
