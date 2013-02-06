@@ -1546,6 +1546,7 @@ AC_CONFIG_FILES([Makefile
                  tests/lvm/Makefile
                  tests/md/Makefile
                  tests/mount-local/Makefile
+                 tests/mountable/Makefile
                  tests/ntfsclone/Makefile
                  tests/parallel/Makefile
                  tests/protocol/Makefile

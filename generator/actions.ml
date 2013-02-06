@@ -10726,6 +10726,15 @@ you are better to use C<guestfs_mv> instead." };
 This returns C<true> if and only if C<device> refers to a whole block
 device. That is, not a partition or a logical device." };
 
+  { defaults with
+    name = "internal_parse_mountable";
+    style = RStruct ("mountable", "internal_mountable"), [Mountable "mountable"], [];
+    visibility = VInternal;
+    proc_nr = Some 396;
+    shortdesc = "parse a mountable string";
+    longdesc = "\
+Parse a mountable string." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

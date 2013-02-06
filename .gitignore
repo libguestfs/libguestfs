@@ -437,6 +437,7 @@ Makefile.in
 /tests/guests/ubuntu.img
 /tests/guests/windows.img
 /tests/mount-local/test-parallel-mount-local
+/tests/mountable/test-internal-parse-mountable
 /tests/parallel/test-parallel
 /tests/regressions/rhbz501893
 /tests/regressions/rhbz790721

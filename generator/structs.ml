@@ -360,6 +360,16 @@ let structs = [
     "hivex_value_h", FInt64;
     ];
     s_camel_name = "HivexValue" };
+  { defaults with
+    s_name = "internal_mountable";
+    s_internal = true;
+    s_cols = [
+    "im_type", FInt32;
+    "im_device", FString;
+    "im_volume", FString;
+    ];
+    s_camel_name = "InternalMountable";
+  };
 ] (* end of structs *)
 
 let lookup_struct name =

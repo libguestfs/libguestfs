@@ -34,12 +34,6 @@
 
 /* Mountables */
 
-typedef enum {
-  MOUNTABLE_DEVICE,     /* A bare device */
-  MOUNTABLE_BTRFSVOL,   /* A btrfs subvolume: device + volume */
-  MOUNTABLE_PATH        /* An already mounted path: device = path */
-} mountable_type_t;
-
 typedef struct {
   mountable_type_t type;
   const char *device;

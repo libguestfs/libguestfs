@@ -36,6 +36,7 @@ endif
 
 # Tests - order is important.
 if ENABLE_APPLIANCE
+SUBDIRS += tests/mountable
 SUBDIRS += tests/qemu
 SUBDIRS += tests/guests
 SUBDIRS += tests/c-api

@@ -64,6 +64,7 @@ daemon/mknod.c
 daemon/mktemp.c
 daemon/modprobe.c
 daemon/mount.c
+daemon/mountable.c
 daemon/names.c
 daemon/ntfs.c
 daemon/ntfsclone.c

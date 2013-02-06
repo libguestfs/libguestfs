@@ -66,4 +66,16 @@
 #define xdr_uint32_t xdr_u_int32_t
 #endif
 
+/* The type field of a parsed mountable.
+ *
+ * This is used both by mountable_t in the daemon, and
+ * struct guestfs_int_mountable_internal in the library.
+ */
+
+typedef enum {
+  MOUNTABLE_DEVICE,     /* A bare device */
+  MOUNTABLE_BTRFSVOL,   /* A btrfs subvolume: device + volume */
+  MOUNTABLE_PATH        /* An already mounted path: device = path */
+} mountable_type_t;
+
 #endif /* GUESTFS_INTERNAL_ALL_H_ */
