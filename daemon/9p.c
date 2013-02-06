@@ -48,8 +48,10 @@ do_list_9p (void)
   dir = opendir (BUS_PATH);
   if (!dir) {
     perror ("opendir: " BUS_PATH);
-    if (errno != ENOENT)
+    if (errno != ENOENT) {
+      reply_with_perror ("opendir: " BUS_PATH);
       return NULL;
+    }
 
     /* If this directory doesn't exist, it probably means that
      * the virtio driver isn't loaded.  Don't return an error
