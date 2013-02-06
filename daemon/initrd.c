@@ -185,8 +185,7 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
 
   /* Remove the file. */
   if (unlink (fullpath) == -1) {
-    fprintf (stderr, "unlink: ");
-    perror (fullpath);
+    fprintf (stderr, "unlink: %s: %m\n", fullpath);
     /* non-fatal */
   }
 
@@ -196,8 +195,7 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
     if (!p) break;
     *p = '\0';
     if (rmdir (fullpath) == -1) {
-      fprintf (stderr, "rmdir: ");
-      perror (fullpath);
+      fprintf (stderr, "rmdir: %s: %m\n", fullpath);
       /* non-fatal */
     }
   } while (STRNEQ (fullpath, tmpdir));

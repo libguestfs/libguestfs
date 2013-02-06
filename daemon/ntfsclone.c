@@ -190,14 +190,14 @@ do_ntfsclone_out (const char *device,
   }
 
   if (ferror (fp)) {
-    perror (device);
+    fprintf (stderr, "fread: %s: %m\n", device);
     send_file_end (1);		/* Cancel. */
     pclose (fp);
     return -1;
   }
 
   if (pclose (fp) != 0) {
-    perror (device);
+    fprintf (stderr, "pclose: %s: %m\n", device);
     send_file_end (1);		/* Cancel. */
     return -1;
   }

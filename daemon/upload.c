@@ -183,14 +183,14 @@ do_download (const char *filename)
   }
 
   if (r == -1) {
-    perror (filename);
+    fprintf (stderr, "read: %s: %m\n", filename);
     send_file_end (1);		/* Cancel. */
     close (fd);
     return -1;
   }
 
   if (close (fd) == -1) {
-    perror (filename);
+    fprintf (stderr, "close: %s: %m\n", filename);
     send_file_end (1);		/* Cancel. */
     return -1;
   }
@@ -248,7 +248,7 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   while (usize > 0) {
     r = read (fd, buf, usize > sizeof buf ? sizeof buf : usize);
     if (r == -1) {
-      perror (filename);
+      fprintf (stderr, "read: %s: %m\n", filename);
       send_file_end (1);        /* Cancel. */
       close (fd);
       return -1;
@@ -271,7 +271,7 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   }
 
   if (close (fd) == -1) {
-    perror (filename);
+    fprintf (stderr, "close: %s: %m\n", filename);
     send_file_end (1);		/* Cancel. */
     return -1;
   }

@@ -77,14 +77,14 @@ do_ls0 (const char *path)
   }
 
   if (errno != 0) {
-    perror (path);
+    fprintf (stderr, "readdir: %s: %m\n", path);
     send_file_end (1);          /* Cancel. */
     closedir (dir);
     return -1;
   }
 
   if (closedir (dir) == -1) {
-    perror (path);
+    fprintf (stderr, "closedir: %s: %m\n", path);
     send_file_end (1);          /* Cancel. */
     return -1;
   }
