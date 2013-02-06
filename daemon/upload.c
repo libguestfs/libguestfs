@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,6 +129,24 @@ do_upload_offset (const char *filename, int64_t offset)
   return upload (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, offset);
 }
 
+/* Extra check to prevent RHBZ#908321. */
+static int
+check_not_directory (const char *filename, int fd)
+{
+  struct stat statbuf;
+
+  if (fstat (fd, &statbuf) == -1) {
+    reply_with_perror ("fstat: %s", filename);
+    return -1;
+  }
+  if (S_ISDIR (statbuf.st_mode)) {
+    reply_with_error ("%s: is a directory", filename);
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Has one FileOut parameter. */
 int
 do_download (const char *filename)
@@ -143,6 +161,11 @@ do_download (const char *filename)
   if (!is_dev) CHROOT_OUT;
   if (fd == -1) {
     reply_with_perror ("%s", filename);
+    return -1;
+  }
+
+  if (check_not_directory (filename, fd) == -1) {
+    close (fd);
     return -1;
   }
 
@@ -226,6 +249,11 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   if (!is_dev) CHROOT_OUT;
   if (fd == -1) {
     reply_with_perror ("%s", filename);
+    return -1;
+  }
+
+  if (check_not_directory (filename, fd) == -1) {
+    close (fd);
     return -1;
   }
 
