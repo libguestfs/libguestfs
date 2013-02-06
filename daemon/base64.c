@@ -22,6 +22,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
@@ -97,12 +100,32 @@ do_base64_in (const char *file)
 int
 do_base64_out (const char *file)
 {
+  CLEANUP_FREE char *buf = NULL;
+  struct stat statbuf;
   int r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
-  char buf[GUESTFS_MAX_CHUNK_SIZE];
+  char buffer[GUESTFS_MAX_CHUNK_SIZE];
 
-  if (asprintf_nowarn (&cmd, "%s %R", str_base64, file) == -1) {
+  /* Check the filename exists and is not a directory (RHBZ#908322). */
+  buf = sysroot_path (file);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  if (stat (buf, &statbuf) == -1) {
+    reply_with_perror ("stat: %s", file);
+    return -1;
+  }
+
+  if (S_ISDIR (statbuf.st_mode)) {
+    reply_with_error ("%s: is a directory", file);
+    return -1;
+  }
+
+  /* Construct the command. */
+  if (asprintf_nowarn (&cmd, "%s %s", str_base64, buf) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
@@ -122,8 +145,8 @@ do_base64_out (const char *file)
    */
   reply (NULL, NULL);
 
-  while ((r = fread (buf, 1, sizeof buf, fp)) > 0) {
-    if (send_file_write (buf, r) < 0) {
+  while ((r = fread (buffer, 1, sizeof buffer, fp)) > 0) {
+    if (send_file_write (buffer, r) < 0) {
       pclose (fp);
       return -1;
     }
