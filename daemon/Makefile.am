@@ -194,7 +194,8 @@ guestfsd_LDADD = \
 	$(LIBSOCKET) \
 	$(LIB_CLOCK_GETTIME) \
 	$(LIBINTL) \
-	$(SERVENT_LIB)
+	$(SERVENT_LIB) \
+	$(PCRE_LIBS)
 
 guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \
@@ -204,7 +205,8 @@ guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(AUGEAS_CFLAGS) \
 	$(HIVEX_CFLAGS) \
-	$(YAJL_CFLAGS)
+	$(YAJL_CFLAGS) \
+	$(PCRE_CFLAGS)
 
 # Manual pages and HTML files for the website.
 man_MANS = guestfsd.8
