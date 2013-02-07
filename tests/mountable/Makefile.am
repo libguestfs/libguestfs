@@ -19,7 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-TESTS=test-internal-parse-mountable
+TESTS=test-internal-parse-mountable test-mountable-inspect.sh
 check_PROGRAMS = test-internal-parse-mountable
 
 test_internal_parse_mountable_SOURCES = test-internal-parse-mountable.c
