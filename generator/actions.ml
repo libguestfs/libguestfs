@@ -10704,6 +10704,23 @@ Rename a file to a new place on the same filesystem.  This is
 the same as the Linux L<rename(2)> system call.  In most cases
 you are better to use C<guestfs_mv> instead." };
 
+  { defaults with
+    name = "is_whole_device";
+    style = RBool "flag", [Device "device"], [];
+    proc_nr = Some 395;
+    tests = [
+      InitEmpty, Always, TestOutputTrue (
+        [["is_whole_device"; "/dev/sda"]]);
+      InitPartition, Always, TestOutputFalse (
+        [["is_whole_device"; "/dev/sda1"]]);
+      InitBasicFSonLVM, Always, TestOutputFalse (
+        [["is_whole_device"; "/dev/VG/LV"]]);
+    ];
+    shortdesc = "test if a device is a whole device";
+    longdesc = "\
+This returns C<true> if and only if C<device> refers to a whole block
+device. That is, not a partition or a logical device." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

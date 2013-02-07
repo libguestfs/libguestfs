@@ -245,6 +245,30 @@ do_part_to_partnum (const char *part)
 }
 
 int
+do_is_whole_device (const char *device)
+{
+  /* A 'whole' block device will have a symlink to the device in its
+   * /sys/block directory */
+  CLEANUP_FREE char *devpath = NULL;
+  if (asprintf (&devpath, "/sys/block/%s/device",
+                device + strlen ("/dev/")) == -1)
+  {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
+
+  struct stat statbuf;
+  if (stat (devpath, &statbuf) == -1) {
+    if (errno == ENOENT || errno == ENOTDIR) return 0;
+
+    reply_with_perror ("stat");
+    return -1;
+  }
+
+  return 1;
+}
+
+int
 do_device_index (const char *device)
 {
   size_t i;
