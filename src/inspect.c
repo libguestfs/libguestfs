@@ -41,8 +41,6 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static int parent_device_already_probed (guestfs_h *g, const char *partition);
-
 /* The main inspection code. */
 char **
 guestfs__inspect_os (guestfs_h *g)
@@ -53,77 +51,18 @@ guestfs__inspect_os (guestfs_h *g)
   if (guestfs_umount_all (g) == -1)
     return NULL;
 
-  /* Iterate over all possible devices.  Try to mount each
-   * (read-only).  Examine ones which contain filesystems and add that
-   * information to the handle.
+  /* Iterate over all detected filesystems.  Inspect each one in turn
+   * and add that information to the handle.
    */
-  /* Look to see if any devices directly contain filesystems (RHBZ#590167). */
-  char **devices = guestfs_list_devices (g);
-  if (devices == NULL)
-    return NULL;
 
-  size_t i;
-  for (i = 0; devices[i] != NULL; ++i) {
-    if (guestfs___check_for_filesystem_on (g, devices[i]) == -1) {
-      guestfs___free_string_list (devices);
+  CLEANUP_FREE_STRING_LIST char **fses = guestfs_list_filesystems (g);
+  if (fses == NULL) return NULL; 
+
+  for (char **fs = fses; *fs; fs += 2) {
+    if (guestfs___check_for_filesystem_on (g, *fs)) {
       guestfs___free_inspect_info (g);
       return NULL;
     }
-  }
-  guestfs___free_string_list (devices);
-
-  /* Look at all partitions. */
-  char **partitions = guestfs_list_partitions (g);
-  if (partitions == NULL) {
-    guestfs___free_inspect_info (g);
-    return NULL;
-  }
-
-  for (i = 0; partitions[i] != NULL; ++i) {
-    if (parent_device_already_probed (g, partitions[i]))
-      continue;
-
-    if (guestfs___check_for_filesystem_on (g, partitions[i]) == -1) {
-      guestfs___free_string_list (partitions);
-      guestfs___free_inspect_info (g);
-      return NULL;
-    }
-  }
-  guestfs___free_string_list (partitions);
-
-  /* Look at MD devices. */
-  char **mds = guestfs_list_md_devices (g);
-  if (mds == NULL) {
-    guestfs___free_inspect_info (g);
-    return NULL;
-  }
-
-  for (i = 0; mds[i] != NULL; ++i) {
-    if (guestfs___check_for_filesystem_on (g, mds[i]) == -1) {
-      guestfs___free_string_list (mds);
-      guestfs___free_inspect_info (g);
-      return NULL;
-    }
-  }
-  guestfs___free_string_list (mds);
-
-  /* Look at all LVs. */
-  if (guestfs___feature_available (g, "lvm2")) {
-    char **lvs;
-    lvs = guestfs_lvs (g);
-    if (lvs == NULL) {
-      guestfs___free_inspect_info (g);
-      return NULL;
-    }
-
-    for (i = 0; lvs[i] != NULL; ++i) {
-      if (guestfs___check_for_filesystem_on (g, lvs[i]) == -1) {
-        guestfs___free_string_list (lvs);
-        guestfs___free_inspect_info (g);
-        return NULL;
-      }
-    }
-    guestfs___free_string_list (lvs);
   }
 
   /* At this point we have, in the handle, a list of all filesystems
@@ -135,29 +74,6 @@ guestfs__inspect_os (guestfs_h *g)
   if (ret == NULL)
     guestfs___free_inspect_info (g);
   return ret;
-}
-
-/* If we found a filesystem on the parent device then ignore the
- * partitions within.
- */
-static int
-parent_device_already_probed (guestfs_h *g, const char *partition)
-{
-  CLEANUP_FREE char *device = NULL;
-  size_t i;
-
-  guestfs_push_error_handler (g, NULL, NULL);
-  device = guestfs_part_to_dev (g, partition);
-  guestfs_pop_error_handler (g);
-  if (!device)
-    return 0;
-
-  for (i = 0; i < g->nr_fses; ++i) {
-    if (STREQ (device, g->fses[i].device))
-      return 1;
-  }
-
-  return 0;
 }
 
 static int
