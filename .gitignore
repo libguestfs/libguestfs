@@ -428,6 +428,7 @@ Makefile.in
 /tests/data/test.iso
 /tests/guests/debian.img
 /tests/guests/fedora.img
+/tests/guests/fedora-btrfs.img
 /tests/guests/fedora-md1.img
 /tests/guests/fedora-md2.img
 /tests/guests/guest-aux/fedora-name.db

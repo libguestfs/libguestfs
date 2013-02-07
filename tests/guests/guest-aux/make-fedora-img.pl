@@ -31,7 +31,6 @@ my @images;
 my $g = Sys::Guestfs->new ();
 
 my $bootdev;
-my $rootdev;
 
 foreach ('LAYOUT', 'SRCDIR') {
   defined ($ENV{$_}) or die "Missing environment variable: $_";
@@ -48,7 +47,6 @@ EOF
   close ($fstab) or die;
 
   $bootdev = '/dev/sda1';
-  $rootdev = '/dev/sda2';
 
   open (my $img, '>', "fedora.img.tmp.$$") or die;
   truncate ($img, 512*1024*1024) or die;
@@ -60,6 +58,8 @@ EOF
   $g->part_init ('/dev/sda', 'mbr');
   $g->part_add ('/dev/sda', 'p', 64, 524287);
   $g->part_add ('/dev/sda', 'p', 524288, -64);
+
+  init_lvm_root ('/dev/sda2');
 }
 
 elsif ($ENV{LAYOUT} eq 'partitions-md') {
@@ -73,7 +73,6 @@ EOF
   close ($fstab) or die;
 
   $bootdev = '/dev/md/boot';
-  $rootdev = '/dev/md/root';
 
   foreach my $img (@images) {
     open (my $fh, '>', $img) or die;
@@ -110,6 +109,41 @@ EOF
   }
 
   close ($mdadm) or die;
+
+  init_lvm_root ('/dev/md/root');
+}
+
+elsif ($ENV{LAYOUT} eq 'btrfs') {
+  push (@images, "fedora-btrfs.img.tmp.$$");
+
+  open (my $fstab, '>', "fstab.tmp.$$") or die;
+  print $fstab <<EOF;
+LABEL=BOOT /boot ext2 default 0 0
+LABEL=ROOT / btrfs subvol=root 0 0
+LABEL=ROOT /home btrfs subvol=home 0 0
+EOF
+  close ($fstab) or die;
+
+  $bootdev = '/dev/sda1';
+
+  open (my $img, '>', "fedora-btrfs.img.tmp.$$") or die;
+  truncate ($img, 512*1024*1024) or die;
+  close ($img) or die;
+
+  $g->add_drive ("fedora-btrfs.img.tmp.$$");
+  $g->launch ();
+
+  $g->part_init ('/dev/sda', 'mbr');
+  $g->part_add ('/dev/sda', 'p', 64, 524287);
+  $g->part_add ('/dev/sda', 'p', 524288, -64);
+
+  $g->mkfs_btrfs (['/dev/sda2'], label => 'ROOT');
+  $g->mount ('/dev/sda2', '/');
+  $g->btrfs_subvolume_create ('/root');
+  $g->btrfs_subvolume_create ('/home');
+  $g->umount ('/');
+
+  $g->mount ('btrfsvol:/dev/sda2/root', '/');
 }
 
 else {
@@ -117,25 +151,36 @@ else {
   exit 1;
 }
 
-$g->pvcreate ($rootdev);
-$g->vgcreate ('VG', [$rootdev]);
-$g->lvcreate ('Root', 'VG', 32);
-$g->lvcreate ('LV1', 'VG', 32);
-$g->lvcreate ('LV2', 'VG', 32);
-$g->lvcreate ('LV3', 'VG', 64);
+sub init_lvm_root {
+  my ($rootdev) = @_;
+
+  $g->pvcreate ($rootdev);
+  $g->vgcreate ('VG', [$rootdev]);
+  $g->lvcreate ('Root', 'VG', 32);
+  $g->lvcreate ('LV1', 'VG', 32);
+  $g->lvcreate ('LV2', 'VG', 32);
+  $g->lvcreate ('LV3', 'VG', 64);
+
+  # Phony root filesystem.
+  $g->mkfs ('ext2', '/dev/VG/Root', blocksize => 4096);
+  $g->set_label ('/dev/VG/Root', 'ROOT');
+  $g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
+
+  # Other filesystems.
+  # Note that these should be empty, for testing virt-df.
+  $g->mkfs ('ext2', '/dev/VG/LV1', blocksize => 4096);
+  $g->mkfs ('ext2', '/dev/VG/LV2', blocksize => 1024);
+  $g->mkfs ('ext2', '/dev/VG/LV3', blocksize => 2048);
+
+  $g->mount ('/dev/VG/Root', '/');
+}
 
 # Phony /boot filesystem
 $g->mkfs ('ext2', $bootdev, blocksize => 4096);
 $g->set_label ($bootdev, 'BOOT');
 $g->set_e2uuid ($bootdev, '01234567-0123-0123-0123-012345678901');
 
-# Phony root filesystem.
-$g->mkfs ('ext2', '/dev/VG/Root', blocksize => 4096);
-$g->set_label ('/dev/VG/Root', 'ROOT');
-$g->set_e2uuid ('/dev/VG/Root', '01234567-0123-0123-0123-012345678902');
-
 # Enough to fool inspection API.
-$g->mount ('/dev/VG/Root', '/');
 $g->mkdir ('/boot');
 $g->mount ($bootdev, '/boot');
 $g->mkdir ('/bin');
@@ -187,12 +232,6 @@ $g->write ('/bin/test4', '');
 $g->ln_s ('/bin/test1', '/bin/test5');
 $g->mkfifo (0777, '/bin/test6');
 $g->mknod (0777, 10, 10, '/bin/test7');
-
-# Other filesystems.
-# Note that these should be empty, for testing virt-df.
-$g->mkfs ('ext2', '/dev/VG/LV1', blocksize => 4096);
-$g->mkfs ('ext2', '/dev/VG/LV2', blocksize => 1024);
-$g->mkfs ('ext2', '/dev/VG/LV3', blocksize => 2048);
 
 # Cleanup
 $g->shutdown ();

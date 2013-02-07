@@ -58,6 +58,11 @@ stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
 	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test $<
 	touch $@
 
+fedora-btrfs.img: guest-aux/make-fedora-img.pl \
+		guest-aux/fedora-name.db \
+		guest-aux/fedora-packages.db
+	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test $<
+
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
 	rm -f $@ $@-t
 	mkdir -p guest-aux
