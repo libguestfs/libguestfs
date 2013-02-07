@@ -524,7 +524,7 @@ extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *r
 /* inspect-fs.c */
 extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
 extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
-extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device, int is_block, int is_partnum);
+extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device);
 extern int guestfs___parse_unsigned_int (guestfs_h *g, const char *str);
 extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);

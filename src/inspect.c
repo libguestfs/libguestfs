@@ -64,7 +64,7 @@ guestfs__inspect_os (guestfs_h *g)
 
   size_t i;
   for (i = 0; devices[i] != NULL; ++i) {
-    if (guestfs___check_for_filesystem_on (g, devices[i], 1, 0) == -1) {
+    if (guestfs___check_for_filesystem_on (g, devices[i]) == -1) {
       guestfs___free_string_list (devices);
       guestfs___free_inspect_info (g);
       return NULL;
@@ -83,7 +83,7 @@ guestfs__inspect_os (guestfs_h *g)
     if (parent_device_already_probed (g, partitions[i]))
       continue;
 
-    if (guestfs___check_for_filesystem_on (g, partitions[i], 0, i+1) == -1) {
+    if (guestfs___check_for_filesystem_on (g, partitions[i]) == -1) {
       guestfs___free_string_list (partitions);
       guestfs___free_inspect_info (g);
       return NULL;
@@ -99,7 +99,7 @@ guestfs__inspect_os (guestfs_h *g)
   }
 
   for (i = 0; mds[i] != NULL; ++i) {
-    if (guestfs___check_for_filesystem_on (g, mds[i], 0, i+1) == -1) {
+    if (guestfs___check_for_filesystem_on (g, mds[i]) == -1) {
       guestfs___free_string_list (mds);
       guestfs___free_inspect_info (g);
       return NULL;
@@ -117,7 +117,7 @@ guestfs__inspect_os (guestfs_h *g)
     }
 
     for (i = 0; lvs[i] != NULL; ++i) {
-      if (guestfs___check_for_filesystem_on (g, lvs[i], 0, 0) == -1) {
+      if (guestfs___check_for_filesystem_on (g, lvs[i]) == -1) {
         guestfs___free_string_list (lvs);
         guestfs___free_inspect_info (g);
         return NULL;

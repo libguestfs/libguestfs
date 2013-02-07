@@ -79,15 +79,15 @@ free_regexps (void)
   pcre_free (re_major_minor);
 }
 
-static int check_filesystem (guestfs_h *g, const char *device, int is_block, int is_partnum);
+static int check_filesystem (guestfs_h *g, const char *device,
+                             int whole_device);
 static int extend_fses (guestfs_h *g);
 
 /* Find out if 'device' contains a filesystem.  If it does, add
  * another entry in g->fses.
  */
 int
-guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
-                                   int is_block, int is_partnum)
+guestfs___check_for_filesystem_on (guestfs_h *g, const char *device)
 {
   CLEANUP_FREE char *vfs_type = NULL;
   int is_swap, r;
@@ -102,10 +102,8 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
   guestfs_pop_error_handler (g);
 
   is_swap = vfs_type && STREQ (vfs_type, "swap");
-
-  debug (g, "check_for_filesystem_on: %s %d %d (%s)",
-         device, is_block, is_partnum,
-         vfs_type ? vfs_type : "failed to get vfs type");
+  debug (g, "check_for_filesystem_on: %s (%s)",
+         device, vfs_type ? vfs_type : "failed to get vfs type");
 
   if (is_swap) {
     if (extend_fses (g) == -1)
@@ -116,7 +114,12 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
   }
 
   /* If it's a whole device, see if it is an install ISO. */
-  if (is_block) {
+  int whole_device = guestfs_is_whole_device (g, device);
+  if (whole_device == -1) {
+    return -1;
+  }
+
+  if (whole_device) {
     if (extend_fses (g) == -1)
       return -1;
     fs = &g->fses[g->nr_fses-1];
@@ -149,7 +152,7 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
     return 0;
 
   /* Do the rest of the checks. */
-  r = check_filesystem (g, device, is_block, is_partnum);
+  r = check_filesystem (g, device, whole_device);
 
   /* Unmount the filesystem. */
   if (guestfs_umount_all (g) == -1)
@@ -165,11 +168,16 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device,
  * (eg. /dev/sda1 => is_partnum == 1).
  */
 static int
-check_filesystem (guestfs_h *g, const char *device,
-                  int is_block, int is_partnum)
+check_filesystem (guestfs_h *g, const char *device, int whole_device)
 {
   if (extend_fses (g) == -1)
     return -1;
+
+  int partnum = -1;
+  if (!whole_device) {
+    partnum = guestfs_part_to_partnum (g, device);
+    /* If this returns an error it just means it's not a partition */
+  }
 
   struct inspect_fs *fs = &g->fses[g->nr_fses-1];
 
@@ -292,7 +300,7 @@ check_filesystem (guestfs_h *g, const char *device,
    * Skip these checks if it's not a whole device (eg. CD) or the
    * first partition (eg. bootable USB key).
    */
-  else if ((is_block || is_partnum == 1) &&
+  else if ((whole_device || partnum == 1) &&
            (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0 ||
             guestfs_is_dir (g, "/EFI/BOOT") > 0 ||
             guestfs_is_file (g, "/images/install.img") > 0 ||
