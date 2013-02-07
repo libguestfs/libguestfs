@@ -79,7 +79,8 @@ free_regexps (void)
   pcre_free (re_major_minor);
 }
 
-static int check_filesystem (guestfs_h *g, const char *device,
+static int check_filesystem (guestfs_h *g, const char *mountable,
+                             const struct guestfs_internal_mountable *m,
                              int whole_device);
 static int extend_fses (guestfs_h *g);
 
@@ -87,7 +88,7 @@ static int extend_fses (guestfs_h *g);
  * another entry in g->fses.
  */
 int
-guestfs___check_for_filesystem_on (guestfs_h *g, const char *device)
+guestfs___check_for_filesystem_on (guestfs_h *g, const char *mountable)
 {
   CLEANUP_FREE char *vfs_type = NULL;
   int is_swap, r;
@@ -98,25 +99,31 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device)
    * temporarily replace the error handler with a null one.
    */
   guestfs_push_error_handler (g, NULL, NULL);
-  vfs_type = guestfs_vfs_type (g, device);
+  vfs_type = guestfs_vfs_type (g, mountable);
   guestfs_pop_error_handler (g);
 
   is_swap = vfs_type && STREQ (vfs_type, "swap");
   debug (g, "check_for_filesystem_on: %s (%s)",
-         device, vfs_type ? vfs_type : "failed to get vfs type");
+         mountable, vfs_type ? vfs_type : "failed to get vfs type");
 
   if (is_swap) {
     if (extend_fses (g) == -1)
       return -1;
     fs = &g->fses[g->nr_fses-1];
-    fs->device = safe_strdup (g, device);
+    fs->mountable = safe_strdup (g, mountable);
     return 0;
   }
 
+  CLEANUP_FREE_INTERNAL_MOUNTABLE struct guestfs_internal_mountable *m =
+    guestfs_internal_parse_mountable (g, mountable);
+
   /* If it's a whole device, see if it is an install ISO. */
-  int whole_device = guestfs_is_whole_device (g, device);
-  if (whole_device == -1) {
-    return -1;
+  int whole_device = 0;
+  if (m->im_type == MOUNTABLE_DEVICE) {
+    whole_device = guestfs_is_whole_device (g, m->im_device);
+    if (whole_device == -1) {
+      return -1;
+    }
   }
 
   if (whole_device) {
@@ -124,7 +131,7 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device)
       return -1;
     fs = &g->fses[g->nr_fses-1];
 
-    r = guestfs___check_installer_iso (g, fs, device);
+    r = guestfs___check_installer_iso (g, fs, m->im_device);
     if (r == -1) {              /* Fatal error. */
       g->nr_fses--;
       return -1;
@@ -140,19 +147,19 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device)
   guestfs_push_error_handler (g, NULL, NULL);
   if (vfs_type && STREQ (vfs_type, "ufs")) { /* Hack for the *BSDs. */
     /* FreeBSD fs is a variant of ufs called ufs2 ... */
-    r = guestfs_mount_vfs (g, "ro,ufstype=ufs2", "ufs", device, "/");
+    r = guestfs_mount_vfs (g, "ro,ufstype=ufs2", "ufs", mountable, "/");
     if (r == -1)
       /* while NetBSD and OpenBSD use another variant labeled 44bsd */
-      r = guestfs_mount_vfs (g, "ro,ufstype=44bsd", "ufs", device, "/");
+      r = guestfs_mount_vfs (g, "ro,ufstype=44bsd", "ufs", mountable, "/");
   } else {
-    r = guestfs_mount_ro (g, device, "/");
+    r = guestfs_mount_ro (g, mountable, "/");
   }
   guestfs_pop_error_handler (g);
   if (r == -1)
     return 0;
 
   /* Do the rest of the checks. */
-  r = check_filesystem (g, device, whole_device);
+  r = check_filesystem (g, mountable, m, whole_device);
 
   /* Unmount the filesystem. */
   if (guestfs_umount_all (g) == -1)
@@ -161,28 +168,24 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *device)
   return r;
 }
 
-/* is_block and is_partnum are just hints: is_block is true if the
- * filesystem is a whole block device (eg. /dev/sda).  is_partnum
- * is > 0 if the filesystem is a direct partition, and in this case
- * it is the partition number counting from 1
- * (eg. /dev/sda1 => is_partnum == 1).
- */
 static int
-check_filesystem (guestfs_h *g, const char *device, int whole_device)
+check_filesystem (guestfs_h *g, const char *mountable,
+                  const struct guestfs_internal_mountable *m,
+                  int whole_device)
 {
   if (extend_fses (g) == -1)
     return -1;
 
   int partnum = -1;
-  if (!whole_device) {
+  if (!whole_device && m->im_type == MOUNTABLE_DEVICE) {
     guestfs_push_error_handler (g, NULL, NULL);
-    partnum = guestfs_part_to_partnum (g, device);
+    partnum = guestfs_part_to_partnum (g, m->im_device);
     guestfs_pop_error_handler (g);
   }
 
   struct inspect_fs *fs = &g->fses[g->nr_fses-1];
 
-  fs->device = safe_strdup (g, device);
+  fs->mountable = safe_strdup (g, mountable);
 
   /* Optimize some of the tests by avoiding multiple tests of the same thing. */
   int is_dir_etc = guestfs_is_dir (g, "/etc") > 0;
@@ -203,7 +206,8 @@ check_filesystem (guestfs_h *g, const char *device, int whole_device)
      * that is probably /dev/sda5 (see:
      * http://www.freebsd.org/doc/handbook/disk-organization.html)
      */
-    if (match (g, device, re_first_partition))
+    if (m->im_type == MOUNTABLE_DEVICE &&
+        match (g, m->im_device, re_first_partition))
       return 0;
 
     fs->is_root = 1;
@@ -219,7 +223,8 @@ check_filesystem (guestfs_h *g, const char *device, int whole_device)
      * that is probably /dev/sda5 (see:
      * http://www.freebsd.org/doc/handbook/disk-organization.html)
      */
-    if (match (g, device, re_first_partition))
+    if (m->im_type == MOUNTABLE_DEVICE &&
+        match (g, m->im_device, re_first_partition))
       return 0;
 
     fs->is_root = 1;

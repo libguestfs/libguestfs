@@ -160,8 +160,7 @@ static int check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
-                            const char *spec, const char *mp,
-                            Hash_table *md_map);
+                            const char *mountable, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec,
                                    Hash_table *md_map);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
@@ -873,7 +872,6 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
   CLEANUP_FREE_STRING_LIST char **entries = NULL;
   char **entry;
   char augpath[256];
-  int r;
   CLEANUP_HASH_FREE Hash_table *md_map;
 
   /* Generate a map of MD device paths listed in /etc/mdadm.conf to MD device
@@ -895,14 +893,75 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
     if (spec == NULL)
       return -1;
 
+    /* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives. */
+    if ((STRPREFIX (spec, "/dev/fd") && c_isdigit (spec[7])) ||
+        STREQ (spec, "/dev/floppy") ||
+        STREQ (spec, "/dev/cdrom"))
+      continue;
+
     snprintf (augpath, sizeof augpath, "%s/file", *entry);
     CLEANUP_FREE char *mp = guestfs_aug_get (g, augpath);
     if (mp == NULL)
       return -1;
 
-    r = add_fstab_entry (g, fs, spec, mp, md_map);
-    if (r == -1)
-      return -1;
+    /* Ignore certain mountpoints. */
+    if (STRPREFIX (mp, "/dev/") ||
+        STREQ (mp, "/dev") ||
+        STRPREFIX (mp, "/media/") ||
+        STRPREFIX (mp, "/proc/") ||
+        STREQ (mp, "/proc") ||
+        STRPREFIX (mp, "/selinux/") ||
+        STREQ (mp, "/selinux") ||
+        STRPREFIX (mp, "/sys/") ||
+        STREQ (mp, "/sys"))
+      continue;
+
+    /* Resolve UUID= and LABEL= to the actual device. */
+    CLEANUP_FREE char *mountable = NULL;
+    if (STRPREFIX (spec, "UUID="))
+      mountable = guestfs_findfs_uuid (g, &spec[5]);
+    else if (STRPREFIX (spec, "LABEL="))
+      mountable = guestfs_findfs_label (g, &spec[6]);
+    /* Ignore "/.swap" (Pardus) and pseudo-devices like "tmpfs". */
+    else if (STREQ (spec, "/dev/root"))
+      /* Resolve /dev/root to the current device. */
+      mountable = safe_strdup (g, fs->mountable);
+    else if (STRPREFIX (spec, "/dev/"))
+      /* Resolve guest block device names. */
+      mountable = resolve_fstab_device (g, spec, md_map);
+
+    /* If we haven't resolved the device successfully by this point,
+     * we don't care, just ignore it.
+     */
+    if (mountable == NULL)
+      continue;
+
+    snprintf (augpath, sizeof augpath, "%s/vfstype", *entry);
+    CLEANUP_FREE char *vfstype = guestfs_aug_get (g, augpath);
+    if (vfstype == NULL) return -1;
+
+    if (STREQ (vfstype, "btrfs")) {
+      snprintf (augpath, sizeof augpath, "%s/opt", *entry);
+      CLEANUP_FREE_STRING_LIST char **opts = guestfs_aug_match (g, augpath);
+      if (opts == NULL) return -1;
+
+      for (char **opt = opts; *opt; opt++) {
+        CLEANUP_FREE char *optname = guestfs_aug_get (g, augpath);
+        if (optname == NULL) return -1;
+
+        if (STREQ (optname, "subvol")) {
+          snprintf (augpath, sizeof augpath, "%s/value", *opt);
+          CLEANUP_FREE char *subvol = guestfs_aug_get (g, augpath);
+          if (subvol == NULL) return -1;
+
+          char *new = safe_asprintf (g, "btrfsvol:%s/%s", mountable, subvol);
+          free (mountable);
+          mountable = new;
+        }
+      }
+    }
+
+    if  (add_fstab_entry (g, fs, mountable, mp) == -1) return -1;
   }
 
   return 0;
@@ -918,48 +977,8 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
  */
 static int
 add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
-                 const char *spec, const char *mp, Hash_table *md_map)
+                 const char *mountable, const char *mountpoint)
 {
-  /* Ignore certain mountpoints. */
-  if (STRPREFIX (mp, "/dev/") ||
-      STREQ (mp, "/dev") ||
-      STRPREFIX (mp, "/media/") ||
-      STRPREFIX (mp, "/proc/") ||
-      STREQ (mp, "/proc") ||
-      STRPREFIX (mp, "/selinux/") ||
-      STREQ (mp, "/selinux") ||
-      STRPREFIX (mp, "/sys/") ||
-      STREQ (mp, "/sys"))
-    return 0;
-
-  /* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives. */
-  if ((STRPREFIX (spec, "/dev/fd") && c_isdigit (spec[7])) ||
-      STREQ (spec, "/dev/floppy") ||
-      STREQ (spec, "/dev/cdrom"))
-    return 0;
-
-  /* Resolve UUID= and LABEL= to the actual device. */
-  char *device = NULL;
-  if (STRPREFIX (spec, "UUID="))
-    device = guestfs_findfs_uuid (g, &spec[5]);
-  else if (STRPREFIX (spec, "LABEL="))
-    device = guestfs_findfs_label (g, &spec[6]);
-  /* Ignore "/.swap" (Pardus) and pseudo-devices like "tmpfs". */
-  else if (STREQ (spec, "/dev/root"))
-    /* Resolve /dev/root to the current device. */
-    device = safe_strdup (g, fs->device);
-  else if (STRPREFIX (spec, "/dev/"))
-    /* Resolve guest block device names. */
-    device = resolve_fstab_device (g, spec, md_map);
-
-  /* If we haven't resolved the device successfully by this point,
-   * we don't care, just ignore it.
-   */
-  if (device == NULL)
-    return 0;
-
-  char *mountpoint = safe_strdup (g, mp);
-
   /* Add this to the fstab entry in 'fs'.
    * Note these are further filtered by guestfs_inspect_get_mountpoints
    * and guestfs_inspect_get_filesystems.
@@ -970,8 +989,6 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   p = realloc (fs->fstab, n * sizeof (struct inspect_fstab_entry));
   if (p == NULL) {
     perrorf (g, "realloc");
-    free (device);
-    free (mountpoint);
     return -1;
   }
 
@@ -979,10 +996,10 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   fs->nr_fstab = n;
 
   /* These are owned by the handle and freed by guestfs___free_inspect_info. */
-  fs->fstab[n-1].device = device;
-  fs->fstab[n-1].mountpoint = mountpoint;
+  fs->fstab[n-1].mountable = safe_strdup (g, mountable);
+  fs->fstab[n-1].mountpoint = safe_strdup (g, mountpoint);
 
-  debug (g, "fstab: device=%s mountpoint=%s", device, mountpoint);
+  debug (g, "fstab: mountable=%s mountpoint=%s", mountable, mountpoint);
 
   return 0;
 }

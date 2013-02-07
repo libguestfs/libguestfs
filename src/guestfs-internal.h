@@ -391,7 +391,7 @@ enum inspect_os_package_management {
 
 struct inspect_fs {
   int is_root;
-  char *device;
+  char *mountable;
   enum inspect_os_type type;
   enum inspect_os_distro distro;
   enum inspect_os_package_format package_format;
@@ -414,7 +414,7 @@ struct inspect_fs {
 };
 
 struct inspect_fstab_entry {
-  char *device;
+  char *mountable;
   char *mountpoint;
 };
 
@@ -524,7 +524,8 @@ extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *r
 /* inspect-fs.c */
 extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
 extern int guestfs___is_dir_nocase (guestfs_h *g, const char *);
-extern int guestfs___check_for_filesystem_on (guestfs_h *g, const char *device);
+extern int guestfs___check_for_filesystem_on (guestfs_h *g,
+                                              const char *mountable);
 extern int guestfs___parse_unsigned_int (guestfs_h *g, const char *str);
 extern int guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 extern int guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs);

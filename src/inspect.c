@@ -107,7 +107,7 @@ guestfs__inspect_get_roots (guestfs_h *g)
   count = 0;
   for (i = 0; i < g->nr_fses; ++i) {
     if (g->fses[i].is_root) {
-      ret[count] = safe_strdup (g, g->fses[i].device);
+      ret[count] = safe_strdup (g, g->fses[i].mountable);
       count++;
     }
   }
@@ -347,7 +347,7 @@ guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
   for (i = 0; i < nr; ++i)
     if (CRITERION (fs, i)) {
       ret[2*count] = safe_strdup (g, fs->fstab[i].mountpoint);
-      ret[2*count+1] = safe_strdup (g, fs->fstab[i].device);
+      ret[2*count+1] = safe_strdup (g, fs->fstab[i].mountable);
       count++;
     }
 #undef CRITERION
@@ -379,7 +379,7 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
   }
 
   for (i = 0; i < nr; ++i)
-    ret[i] = safe_strdup (g, fs->fstab[i].device);
+    ret[i] = safe_strdup (g, fs->fstab[i].mountable);
 
   return ret;
 }
@@ -485,7 +485,7 @@ guestfs___free_inspect_info (guestfs_h *g)
 {
   size_t i;
   for (i = 0; i < g->nr_fses; ++i) {
-    free (g->fses[i].device);
+    free (g->fses[i].mountable);
     free (g->fses[i].product_name);
     free (g->fses[i].product_variant);
     free (g->fses[i].arch);
@@ -494,7 +494,7 @@ guestfs___free_inspect_info (guestfs_h *g)
     free (g->fses[i].windows_current_control_set);
     size_t j;
     for (j = 0; j < g->fses[i].nr_fstab; ++j) {
-      free (g->fses[i].fstab[j].device);
+      free (g->fses[i].fstab[j].mountable);
       free (g->fses[i].fstab[j].mountpoint);
     }
     free (g->fses[i].fstab);
@@ -608,7 +608,7 @@ guestfs___search_for_root (guestfs_h *g, const char *root)
   struct inspect_fs *fs;
   for (i = 0; i < g->nr_fses; ++i) {
     fs = &g->fses[i];
-    if (fs->is_root && STREQ (root, fs->device))
+    if (fs->is_root && STREQ (root, fs->mountable))
       return fs;
   }
 
