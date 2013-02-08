@@ -764,12 +764,20 @@ pr "\
 (* Generate the guestfs-internal-actions.h file. *)
 and generate_internal_actions_h () =
   generate_header CStyle LGPLv2plus;
+
+  pr "#ifndef GUESTFS_INTERNAL_ACTIONS_H_\n";
+  pr "#define GUESTFS_INTERNAL_ACTIONS_H_\n";
+  pr "\n";
+
   List.iter (
     fun { c_name = c_name; style = style } ->
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         ~prefix:"guestfs__" ~optarg_proto:Argv
         c_name style
-  ) non_daemon_functions
+  ) non_daemon_functions;
+
+  pr "\n";
+  pr "#endif /* GUESTFS_INTERNAL_ACTIONS_H_ */\n"
 
 (* Functions to free structures. *)
 and generate_client_free_structs () =
