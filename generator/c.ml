@@ -806,16 +806,21 @@ and generate_client_free_structs () =
       pr "GUESTFS_DLL_PUBLIC void\n";
       pr "guestfs_free_%s (struct guestfs_%s *x)\n" typ typ;
       pr "{\n";
-      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
-      pr "  free (x);\n";
+      pr "  if (x) {\n";
+      pr "    xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
+      pr "    free (x);\n";
+      pr "  }\n";
       pr "}\n";
       pr "\n";
 
       pr "GUESTFS_DLL_PUBLIC void\n";
       pr "guestfs_free_%s_list (struct guestfs_%s_list *x)\n" typ typ;
       pr "{\n";
-      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n" typ;
-      pr "  free (x);\n";
+      pr "  if (x) {\n";
+      pr "    xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n"
+        typ;
+      pr "    free (x);\n";
+      pr "  }\n";
       pr "}\n";
       pr "\n";
 
