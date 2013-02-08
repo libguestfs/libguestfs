@@ -57,6 +57,8 @@
  * (6) Close the handle:
  *
  *   guestfs___cmd_close (cmd);
+ *
+ * (or use CLEANUP_CMD_CLOSE).
  */
 
 #include <config.h>
@@ -631,6 +633,9 @@ guestfs___cmd_close (struct command *cmd)
 {
   size_t i;
 
+  if (!cmd)
+    return;
+
   switch (cmd->style) {
   case COMMAND_STYLE_NOT_SELECTED:
     /* nothing */
@@ -662,6 +667,12 @@ guestfs___cmd_close (struct command *cmd)
     waitpid (cmd->pid, NULL, 0);
 
   free (cmd);
+}
+
+void
+guestfs___cleanup_cmd_close (void *ptr)
+{
+  guestfs___cmd_close (* (struct command **) ptr);
 }
 
 /* Deal with buffering stdout for the callback. */

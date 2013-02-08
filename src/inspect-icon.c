@@ -362,7 +362,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_FREE char *type = NULL;
   CLEANUP_FREE char *local = NULL;
   CLEANUP_FREE char *pngfile = NULL;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
 
   r = guestfs_exists (g, CIRROS_LOGO);
@@ -386,13 +386,11 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   /* Use pbmtext to render it. */
   pngfile = safe_asprintf (g, "%s/cirros.png", g->tmpdir);
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, PBMTEXT " < ");
   guestfs___cmd_add_string_quoted   (cmd, local);
   guestfs___cmd_add_string_unquoted (cmd, " | " PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   if (r == -1)
     return NOT_FOUND;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -431,9 +429,9 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_FREE char *filename_case = NULL;
   CLEANUP_FREE char *filename_downloaded = NULL;
   CLEANUP_FREE char *pngfile = NULL;
-  char *ret;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
+  char *ret;
 
   /* Download %systemroot%\explorer.exe */
   filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
@@ -449,14 +447,12 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=143 ");
   guestfs___cmd_add_string_quoted   (cmd, filename_downloaded);
   guestfs___cmd_add_string_unquoted (cmd,
                                      " | " BMPTOPNM " | " PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -475,9 +471,9 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_FREE char *filename_case = NULL;
   CLEANUP_FREE char *filename_downloaded = NULL;
   CLEANUP_FREE char *pngfile = NULL;
-  char *ret;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
+  char *ret;
 
   /* Download %systemroot%\explorer.exe */
   filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
@@ -493,7 +489,6 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=6801 ");
   guestfs___cmd_add_string_quoted   (cmd, filename_downloaded);
   guestfs___cmd_add_string_unquoted (cmd,
@@ -502,7 +497,6 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
                                      PNMTOPNG " > ");
   guestfs___cmd_add_string_quoted   (cmd, pngfile);
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)

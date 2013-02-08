@@ -129,7 +129,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *dir = NULL;
   CLEANUP_FREE char *initrd = NULL;
-  struct command *cmd = NULL;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   char *ret = NULL;
   const char *method;
   int64_t size;
@@ -166,7 +166,6 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   if (guestfs_download (g, path, initrd) == -1)
     goto out;
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, "cd ");
   guestfs___cmd_add_string_quoted   (cmd, dir);
   guestfs___cmd_add_string_unquoted (cmd, " && ");
@@ -218,9 +217,6 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   error (g, "file_architecture: could not determine architecture of cpio archive");
 
  out:
-  if (cmd)
-    guestfs___cmd_close (cmd);
-
   guestfs___recursive_remove_dir (g, dir);
 
   return ret;

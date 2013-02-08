@@ -609,4 +609,11 @@ extern void guestfs___cmd_clear_capture_errors (struct command *);
 extern int guestfs___cmd_run (struct command *);
 extern void guestfs___cmd_close (struct command *);
 
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_CMD_CLOSE __attribute__((cleanup(guestfs___cleanup_cmd_close)))
+#else
+#define CLEANUP_CMD_CLOSE
+#endif
+extern void guestfs___cleanup_cmd_close (void *ptr);
+
 #endif /* GUESTFS_INTERNAL_H_ */
