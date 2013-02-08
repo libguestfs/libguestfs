@@ -27,9 +27,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ignore-value.h"
-
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
+
+#include "ignore-value.h"
 
 static void
 debug_to_file (guestfs_h *g,

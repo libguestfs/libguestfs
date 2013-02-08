@@ -27,6 +27,7 @@
 #include <assert.h>
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 #define PREFIX "test_"
 

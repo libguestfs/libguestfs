@@ -34,13 +34,12 @@
 #include <pthread.h>
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
 
 #define TOTAL_TIME 600          /* Seconds, excluding launch. */
 #define NR_THREADS 5
-
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
 
 struct thread_state {
   pthread_t thread;             /* Thread handle. */

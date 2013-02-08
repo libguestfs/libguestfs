@@ -24,6 +24,7 @@
 #include <assert.h>
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 int
 main (int argc, char *argv[])

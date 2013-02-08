@@ -29,6 +29,7 @@
 #include <libvirt/virterror.h>
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 static void
 make_test_xml (FILE *fp, const char *cwd)
