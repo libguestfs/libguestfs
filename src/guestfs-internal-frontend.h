@@ -108,4 +108,9 @@ extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
 extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
 #endif
 
+/* These are in a separate header so the header can be generated.
+ * Don't include the following file directly:
+ */
+#include "guestfs-internal-frontend-cleanups.h"
+
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */

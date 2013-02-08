@@ -84,6 +84,8 @@ Run it from the top source directory using the command
   output_to "src/guestfs_protocol.x" generate_xdr;
   output_to "src/guestfs.h" generate_guestfs_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
+  output_to "src/guestfs-internal-frontend-cleanups.h"
+    generate_internal_frontend_cleanups_h;
   output_to "src/bindtests.c" generate_bindtests;
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
