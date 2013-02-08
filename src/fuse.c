@@ -1048,8 +1048,6 @@ guestfs__umount_local (guestfs_h *g,
   size_t i, tries;
   char *localmountpoint;
   char *fusermount_log = NULL;
-  struct command *cmd;
-  int r;
   FILE *fp;
   char error_message[4096];
   size_t n;
@@ -1082,7 +1080,9 @@ guestfs__umount_local (guestfs_h *g,
   fusermount_log = safe_asprintf (g, "%s/fusermount%d", g->tmpdir, ++g->unique);
 
   for (i = 0; i < tries; ++i) {
-    cmd = guestfs___new_command (g);
+    int r;
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+
     guestfs___cmd_add_string_unquoted (cmd, "fusermount -u ");
     guestfs___cmd_add_string_quoted   (cmd, localmountpoint);
     guestfs___cmd_add_string_unquoted (cmd, " > ");
@@ -1090,7 +1090,6 @@ guestfs__umount_local (guestfs_h *g,
     guestfs___cmd_add_string_unquoted (cmd, " 2>&1");
     guestfs___cmd_clear_capture_errors (cmd);
     r = guestfs___cmd_run (cmd);
-    guestfs___cmd_close (cmd);
     if (r == -1)
       goto out;
     if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS) {

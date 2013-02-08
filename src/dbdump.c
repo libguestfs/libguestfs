@@ -63,7 +63,7 @@ guestfs___read_db_dump (guestfs_h *g,
                         guestfs___db_dump_callback callback)
 {
   struct cb_data data;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
 
   data.callback = callback;
@@ -71,14 +71,12 @@ guestfs___read_db_dump (guestfs_h *g,
   data.state = reading_header;
   data.key = NULL;
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, DB_DUMP);
   guestfs___cmd_add_arg (cmd, "-k");
   guestfs___cmd_add_arg (cmd, dumpfile);
   guestfs___cmd_set_stdout_callback (cmd, read_db_dump_line, &data, 0);
 
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   free (data.key);
 
   if (r == -1)

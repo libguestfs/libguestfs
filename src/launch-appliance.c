@@ -746,7 +746,9 @@ static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int
 test_qemu (guestfs_h *g)
 {
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd1 = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd2 = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd3 = guestfs___new_command (g);
   int r;
 
   free (g->app.qemu_help);
@@ -756,43 +758,37 @@ test_qemu (guestfs_h *g)
   free (g->app.qemu_devices);
   g->app.qemu_devices = NULL;
 
-  cmd = guestfs___new_command (g);
-  guestfs___cmd_add_arg (cmd, g->qemu);
-  guestfs___cmd_add_arg (cmd, "-nographic");
-  guestfs___cmd_add_arg (cmd, "-help");
-  guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_help,
+  guestfs___cmd_add_arg (cmd1, g->qemu);
+  guestfs___cmd_add_arg (cmd1, "-nographic");
+  guestfs___cmd_add_arg (cmd1, "-help");
+  guestfs___cmd_set_stdout_callback (cmd1, read_all, &g->app.qemu_help,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
+  r = guestfs___cmd_run (cmd1);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
-  cmd = guestfs___new_command (g);
-  guestfs___cmd_add_arg (cmd, g->qemu);
-  guestfs___cmd_add_arg (cmd, "-nographic");
-  guestfs___cmd_add_arg (cmd, "-version");
-  guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_version,
+  guestfs___cmd_add_arg (cmd2, g->qemu);
+  guestfs___cmd_add_arg (cmd2, "-nographic");
+  guestfs___cmd_add_arg (cmd2, "-version");
+  guestfs___cmd_set_stdout_callback (cmd2, read_all, &g->app.qemu_version,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
+  r = guestfs___cmd_run (cmd2);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
   parse_qemu_version (g);
 
-  cmd = guestfs___new_command (g);
-  guestfs___cmd_add_arg (cmd, g->qemu);
-  guestfs___cmd_add_arg (cmd, "-nographic");
-  guestfs___cmd_add_arg (cmd, "-machine");
-  guestfs___cmd_add_arg (cmd, "accel=kvm:tcg");
-  guestfs___cmd_add_arg (cmd, "-device");
-  guestfs___cmd_add_arg (cmd, "?");
-  guestfs___cmd_clear_capture_errors (cmd);
-  guestfs___cmd_set_stderr_to_stdout (cmd);
-  guestfs___cmd_set_stdout_callback (cmd, read_all, &g->app.qemu_devices,
+  guestfs___cmd_add_arg (cmd3, g->qemu);
+  guestfs___cmd_add_arg (cmd3, "-nographic");
+  guestfs___cmd_add_arg (cmd3, "-machine");
+  guestfs___cmd_add_arg (cmd3, "accel=kvm:tcg");
+  guestfs___cmd_add_arg (cmd3, "-device");
+  guestfs___cmd_add_arg (cmd3, "?");
+  guestfs___cmd_clear_capture_errors (cmd3);
+  guestfs___cmd_set_stderr_to_stdout (cmd3);
+  guestfs___cmd_set_stdout_callback (cmd3, read_all, &g->app.qemu_devices,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
+  r = guestfs___cmd_run (cmd3);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 

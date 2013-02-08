@@ -1308,7 +1308,7 @@ static char *
 make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
 {
   char *tmpfile = NULL;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
 
   /* Path must be absolute. */
@@ -1317,7 +1317,6 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
 
   tmpfile = safe_asprintf (g, "%s/snapshot%d", g->tmpdir, ++g->unique);
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, "qemu-img");
   guestfs___cmd_add_arg (cmd, "create");
   guestfs___cmd_add_arg (cmd, "-f");
@@ -1330,7 +1329,6 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
   }
   guestfs___cmd_add_arg (cmd, tmpfile);
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   if (r == -1)
     goto error;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {

@@ -103,10 +103,9 @@ read_lpj_from_dmesg (guestfs_h *g)
 static int
 read_lpj_from_files (guestfs_h *g)
 {
-  struct command *cmd;
   size_t files = 0;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, "grep");
   guestfs___cmd_add_arg (cmd, GREP_FLAGS);
   guestfs___cmd_add_arg (cmd, GREP_REGEX);
@@ -122,7 +121,6 @@ read_lpj_from_files (guestfs_h *g)
   if (files > 0)
     return read_lpj_common (g, __func__, cmd);
 
-  guestfs___cmd_close (cmd);
   debug (g, "%s: no boot messages files are readable", __func__);
   return -1;
 }
@@ -145,8 +143,6 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
   guestfs___cmd_set_stdout_callback (cmd, read_all, &buf,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
-
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     debug (g, "%s: external command failed with code %d", func, r);
     return -1;

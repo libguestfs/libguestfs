@@ -168,7 +168,7 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
 {
   CLEANUP_FREE char *abs_filename = NULL;
   CLEANUP_FREE char *safe_filename = NULL;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
 
   if (guestfs___lazy_make_tmpdir (g) == -1)
@@ -188,13 +188,11 @@ run_qemu_img_info (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, "qemu-img");
   guestfs___cmd_add_arg (cmd, "info");
   guestfs___cmd_add_arg (cmd, safe_filename);
   guestfs___cmd_set_stdout_callback (cmd, fn, data, 0);
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {

@@ -258,12 +258,10 @@ static char *
 calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
 {
   size_t len;
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
-  int r;
   char checksum[MAX_CHECKSUM_LEN + 1] = { 0 };
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
   if (g->verbose)
     guestfs___cmd_add_arg (cmd, "--verbose");
@@ -279,10 +277,8 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
   guestfs___cmd_add_arg (cmd, host_cpu);
   guestfs___cmd_set_stdout_callback (cmd, read_checksum, checksum, 0);
 
-  r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   /* Errors here are non-fatal, so we don't need to call error(). */
-  if (r == -1)
+  if (guestfs___cmd_run (cmd) == -1)
     return NULL;
 
   debug (g, "checksum of existing appliance: %s", checksum);
@@ -663,7 +659,7 @@ static int
 run_supermin_helper (guestfs_h *g, const char *supermin_path,
                      const char *cachedir)
 {
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
   uid_t uid = getuid ();
   uid_t euid = geteuid ();
@@ -671,7 +667,6 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   gid_t egid = getegid ();
   int pass_u_g_args = uid != euid || gid != egid;
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
   if (g->verbose)
     guestfs___cmd_add_arg (cmd, "--verbose");
@@ -691,7 +686,6 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   guestfs___cmd_add_arg_format (cmd, "%s/root", cachedir);
 
   r = guestfs___cmd_run (cmd);
-  guestfs___cmd_close (cmd);
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
