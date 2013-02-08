@@ -26,6 +26,9 @@
 #include <sys/time.h>
 #include <langinfo.h>
 
+#include "guestfs.h"
+#include "guestfs-internal-frontend.h"
+
 #include "progress.h"
 
 /* Include these last since they redefine symbols such as 'lines'
@@ -38,8 +41,6 @@
  * in any header file.
  */
 extern const char *UP;
-
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
 
 /* Compute the running mean and standard deviation from the
  * series of estimated values.

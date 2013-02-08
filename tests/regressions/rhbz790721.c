@@ -42,8 +42,7 @@
 #include <pthread.h>
 
 #include "guestfs.h"
-
-#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
+#include "guestfs-internal-frontend.h"
 
 /* Number of worker threads running the test. */
 #define NR_THREADS 20

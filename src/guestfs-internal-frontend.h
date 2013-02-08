@@ -17,7 +17,7 @@
  */
 
 /* NB: This contains ONLY definitions which are shared by libguestfs
- * library, bindings and tools (NOT the daemon).
+ * library, bindings, tools and tests (NOT the daemon).
  *
  * If a definition is only needed by a single component of libguestfs,
  * then it should NOT be here!

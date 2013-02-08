@@ -36,6 +36,7 @@ instead of erl_interface.
 #include "full-write.h"
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 guestfs_h *g;
 

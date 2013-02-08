@@ -31,10 +31,7 @@
 #include <error.h>
 
 #include "guestfs.h"
-
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
-#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
-#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
+#include "guestfs-internal-frontend.h"
 
 struct filesystem {
   const char *fs_name;          /* Name of filesystem. */

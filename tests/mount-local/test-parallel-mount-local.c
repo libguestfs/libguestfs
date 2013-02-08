@@ -38,6 +38,7 @@
 #include <pthread.h>
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
 
@@ -46,8 +47,6 @@
 #define MIN_THREADS 2
 #define MAX_THREADS 12
 #define MBYTES_PER_THREAD 900
-
-#define STREQ(a,b) (strcmp((a),(b)) == 0)
 
 struct thread_state {
   pthread_t thread;             /* Thread handle. */
