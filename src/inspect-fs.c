@@ -175,8 +175,9 @@ check_filesystem (guestfs_h *g, const char *device, int whole_device)
 
   int partnum = -1;
   if (!whole_device) {
+    guestfs_push_error_handler (g, NULL, NULL);
     partnum = guestfs_part_to_partnum (g, device);
-    /* If this returns an error it just means it's not a partition */
+    guestfs_pop_error_handler (g);
   }
 
   struct inspect_fs *fs = &g->fses[g->nr_fses-1];
