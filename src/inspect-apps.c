@@ -378,8 +378,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 
  error:
   free_rpm_names_list (&list);
-  if (apps != NULL)
-    guestfs_free_application2_list (apps);
+  guestfs_free_application2_list (apps);
 
   return NULL;
 }
@@ -472,7 +471,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   ret = apps;
 
  out:
-  if (ret == NULL && apps != NULL)
+  if (ret == NULL)
     guestfs_free_application2_list (apps);
   /*
   if (fp)
@@ -529,7 +528,7 @@ list_applications_windows_from_path (guestfs_h *g,
                                      struct guestfs_application2_list *apps,
                                      const char **path, size_t path_len)
 {
-  struct guestfs_hivex_node_list *children = NULL;
+  CLEANUP_FREE_HIVEX_NODE_LIST struct guestfs_hivex_node_list *children = NULL;
   int64_t node;
   size_t i;
 
@@ -592,8 +591,6 @@ list_applications_windows_from_path (guestfs_h *g,
       }
     }
   }
-
-  guestfs_free_hivex_node_list (children);
 }
 
 static void

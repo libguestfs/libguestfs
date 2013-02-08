@@ -224,7 +224,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   const char *hivepath[] =
     { "Microsoft", "Windows NT", "CurrentVersion" };
   size_t i;
-  struct guestfs_hivex_value_list *values = NULL;
+  CLEANUP_FREE_HIVEX_VALUE_LIST struct guestfs_hivex_value_list *values = NULL;
 
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
@@ -235,11 +235,11 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
     node = guestfs_hivex_node_get_child (g, node, hivepath[i]);
 
   if (node == -1)
-    goto out1;
+    goto out;
 
   if (node == 0) {
     perrorf (g, "hivex: cannot locate HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion");
-    goto out1;
+    goto out;
   }
 
   values = guestfs_hivex_node_values (g, node);
@@ -248,43 +248,41 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
     int64_t value = values->val[i].hivex_value_h;
     CLEANUP_FREE char *key = guestfs_hivex_value_key (g, value);
     if (key == NULL)
-      goto out2;
+      goto out;
 
     if (STRCASEEQ (key, "ProductName")) {
       fs->product_name = guestfs_hivex_value_utf8 (g, value);
       if (!fs->product_name)
-        goto out2;
+        goto out;
     }
     else if (STRCASEEQ (key, "CurrentVersion")) {
       CLEANUP_FREE char *version = guestfs_hivex_value_utf8 (g, value);
       if (!version)
-        goto out2;
+        goto out;
       char *major, *minor;
       if (match2 (g, version, re_windows_version, &major, &minor)) {
         fs->major_version = guestfs___parse_unsigned_int (g, major);
         free (major);
         if (fs->major_version == -1) {
           free (minor);
-          goto out2;
+          goto out;
         }
         fs->minor_version = guestfs___parse_unsigned_int (g, minor);
         free (minor);
         if (fs->minor_version == -1)
-          goto out2;
+          goto out;
       }
     }
     else if (STRCASEEQ (key, "InstallationType")) {
       fs->product_variant = guestfs_hivex_value_utf8 (g, value);
       if (!fs->product_variant)
-        goto out2;
+        goto out;
     }
   }
 
   ret = 0;
 
- out2:
-  guestfs_free_hivex_value_list (values);
- out1:
+ out:
   guestfs_hivex_close (g);
 
   return ret;
@@ -314,7 +312,8 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
   int ret = -1;
   int64_t root, node, value;
-  struct guestfs_hivex_value_list *values = NULL;
+  CLEANUP_FREE_HIVEX_VALUE_LIST struct guestfs_hivex_value_list *values = NULL;
+  CLEANUP_FREE_HIVEX_VALUE_LIST struct guestfs_hivex_value_list *values2 = NULL;
   int32_t dword;
   size_t i, count;
   CLEANUP_FREE void *buf = NULL;
@@ -324,36 +323,36 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 
   if (guestfs_hivex_open (g, system_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
-    goto out0;
+    goto out;
 
   root = guestfs_hivex_root (g);
   if (root == 0)
-    goto out1;
+    goto out;
 
   /* Get the CurrentControlSet. */
   node = guestfs_hivex_node_get_child (g, root, "Select");
   if (node == -1)
-    goto out1;
+    goto out;
 
   if (node == 0) {
     error (g, "hivex: could not locate HKLM\\SYSTEM\\Select");
-    goto out1;
+    goto out;
   }
 
   value = guestfs_hivex_node_get_value (g, node, "Current");
   if (value == -1)
-    goto out1;
+    goto out;
 
   if (value == 0) {
     error (g, "hivex: HKLM\\System\\Select Default entry not found");
-    goto out1;
+    goto out;
   }
 
   /* XXX Should check the type. */
   buf = guestfs_hivex_value_value (g, value, &buflen);
   if (buflen != 4) {
     error (g, "hivex: HKLM\\System\\Select\\Current expected to be DWORD");
-    goto out1;
+    goto out;
   }
   dword = le32toh (*(int32_t *)buf);
   fs->windows_current_control_set = safe_asprintf (g, "ControlSet%03d", dword);
@@ -364,7 +363,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
    */
   node = guestfs_hivex_node_get_child (g, root, "MountedDevices");
   if (node == -1)
-    goto out1;
+    goto out;
 
   if (node == 0)
     /* Not found: skip getting drive letter mappings (RHBZ#803664). */
@@ -380,7 +379,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     CLEANUP_FREE char *key =
       guestfs_hivex_value_key (g, values->val[i].hivex_value_h);
     if (key == NULL)
-      goto out1;
+      goto out;
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':')
       count++;
@@ -392,7 +391,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     int64_t v = values->val[i].hivex_value_h;
     CLEANUP_FREE char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
-      goto out1;
+      goto out;
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':') {
       /* Get the binary value.  Is it a fixed disk? */
@@ -424,39 +423,36 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   }
 
   if (node == -1)
-    goto out1;
+    goto out;
 
   if (node == 0) {
     perrorf (g, "hivex: cannot locate HKLM\\SYSTEM\\%s\\Services\\Tcpip\\Parameters",
              fs->windows_current_control_set);
-    goto out1;
+    goto out;
   }
 
-  guestfs_free_hivex_value_list (values);
-  values = guestfs_hivex_node_values (g, node);
-  if (values == NULL)
-    goto out1;
+  values2 = guestfs_hivex_node_values (g, node);
+  if (values2 == NULL)
+    goto out;
 
-  for (i = 0; i < values->len; ++i) {
-    int64_t v = values->val[i].hivex_value_h;
+  for (i = 0; i < values2->len; ++i) {
+    int64_t v = values2->val[i].hivex_value_h;
     CLEANUP_FREE char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
-      goto out1;
+      goto out;
 
     if (STRCASEEQ (key, "Hostname")) {
       fs->hostname = guestfs_hivex_value_utf8 (g, v);
       if (!fs->hostname)
-        goto out1;
+        goto out;
     }
     /* many other interesting fields here ... */
   }
 
   ret = 0;
 
- out1:
+ out:
   guestfs_hivex_close (g);
- out0:
-  if (values) guestfs_free_hivex_value_list (values);
 
   return ret;
 }
@@ -471,9 +467,8 @@ static char *
 map_registry_disk_blob (guestfs_h *g, const void *blob)
 {
   CLEANUP_FREE_STRING_LIST char **devices = NULL;
-  struct guestfs_partition_list *partitions = NULL;
+  CLEANUP_FREE_PARTITION_LIST struct guestfs_partition_list *partitions = NULL;
   size_t i, j, len;
-  char *ret = NULL;
   uint64_t part_offset;
 
   /* First 4 bytes are the disk ID.  Search all devices to find the
@@ -481,7 +476,7 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
    */
   devices = guestfs_list_devices (g);
   if (devices == NULL)
-    goto out;
+    return NULL;
 
   for (i = 0; devices[i] != NULL; ++i) {
     /* Read the disk ID. */
@@ -494,7 +489,7 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
     if (memcmp (diskid, blob, 4) == 0) /* found it */
       goto found_disk;
   }
-  goto out;
+  return NULL;
 
  found_disk:
   /* Next 8 bytes are the offset of the partition in bytes(!) given as
@@ -511,22 +506,17 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
 
   partitions = guestfs_part_list (g, devices[i]);
   if (partitions == NULL)
-    goto out;
+    return NULL;
 
   for (j = 0; j < partitions->len; ++j) {
     if (partitions->val[j].part_start == part_offset) /* found it */
       goto found_partition;
   }
-  goto out;
+  return NULL;
 
  found_partition:
   /* Construct the full device name. */
-  ret = safe_asprintf (g, "%s%d", devices[i], partitions->val[j].part_num);
-
- out:
-  if (partitions)
-    guestfs_free_partition_list (partitions);
-  return ret;
+  return safe_asprintf (g, "%s%d", devices[i], partitions->val[j].part_num);
 }
 
 char *

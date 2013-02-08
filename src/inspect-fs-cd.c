@@ -486,7 +486,7 @@ int
 guestfs___check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
                                const char *device)
 {
-  struct guestfs_isoinfo *isoinfo;
+  CLEANUP_FREE_ISOINFO struct guestfs_isoinfo *isoinfo = NULL;
   const struct osinfo *osinfo;
   int r;
 
@@ -497,7 +497,6 @@ guestfs___check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
     return 0;
 
   r = guestfs___osinfo_map (g, isoinfo, &osinfo);
-  guestfs_free_isoinfo (isoinfo);
   if (r == -1)                  /* Fatal error. */
     return -1;
   if (r == 0)                   /* Could not locate any matching ISO. */
