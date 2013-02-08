@@ -779,6 +779,60 @@ and generate_internal_actions_h () =
   pr "\n";
   pr "#endif /* GUESTFS_INTERNAL_ACTIONS_H_ */\n"
 
+(* Generate guestfs-internal-frontend-cleanups.h file. *)
+and generate_internal_frontend_cleanups_h () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+/* These CLEANUP_* macros automatically free the struct or struct list
+ * pointed to by the local variable at the end of the current scope.
+ *
+ * Don't include this file directly!  To use these cleanups in library
+ * bindings and tools, include \"guestfs-internal-frontend.h\" only.
+ */
+
+#ifndef GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_
+#define GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+";
+
+  List.iter (
+    fun { s_name = name } ->
+      pr "#define CLEANUP_FREE_%s \\\n" (String.uppercase name);
+      pr "  __attribute__((cleanup(guestfs___cleanup_free_%s)))\n" name;
+      pr "#define CLEANUP_FREE_%s_LIST \\\n" (String.uppercase name);
+      pr "  __attribute__((cleanup(guestfs___cleanup_free_%s_list)))\n" name
+  ) structs;
+
+  pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
+
+  List.iter (
+    fun { s_name = name } ->
+      pr "#define CLEANUP_FREE_%s\n" (String.uppercase name);
+      pr "#define CLEANUP_FREE_%s_LIST\n" (String.uppercase name)
+  ) structs;
+
+  pr "\
+#endif /* !HAVE_ATTRIBUTE_CLEANUP */
+
+/* These functions are used internally by the CLEANUP_* macros.
+ * Don't call them directly.
+ */
+
+";
+
+  List.iter (
+    fun { s_name = name } ->
+      pr "extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free_%s (void *ptr);\n"
+        name;
+      pr "extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free_%s_list (void *ptr);\n"
+        name
+  ) structs;
+
+  pr "\n";
+  pr "#endif /* GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_ */\n"
+
 (* Functions to free structures. *)
 and generate_client_free_structs () =
   generate_header CStyle LGPLv2plus;
@@ -821,6 +875,28 @@ and generate_client_free_structs () =
         typ;
       pr "    free (x);\n";
       pr "  }\n";
+      pr "}\n";
+      pr "\n";
+
+  ) structs;
+
+  pr "/* Cleanup functions used by CLEANUP_* macros. */\n";
+  pr "\n";
+
+  List.iter (
+    fun { s_name = typ } ->
+      pr "GUESTFS_DLL_PUBLIC void\n";
+      pr "guestfs___cleanup_free_%s (void *ptr)\n" typ;
+      pr "{\n";
+      pr "  guestfs_free_%s (* (struct guestfs_%s **) ptr);\n" typ typ;
+      pr "}\n";
+      pr "\n";
+
+      pr "GUESTFS_DLL_PUBLIC void\n";
+      pr "guestfs___cleanup_free_%s_list (void *ptr)\n" typ;
+      pr "{\n";
+      pr "  guestfs_free_%s_list (* (struct guestfs_%s_list **) ptr);\n"
+        typ typ;
       pr "}\n";
       pr "\n";
 
@@ -1704,13 +1780,24 @@ and generate_linker_script () =
              "guestfs_" ^ c_name ^ "_argv"]
       ) all_functions
     ) in
-  let structs =
+  let struct_frees =
     List.concat (
       List.map (fun { s_name = typ } ->
-                  ["guestfs_free_" ^ typ; "guestfs_free_" ^ typ ^ "_list"])
+                  ["guestfs_free_" ^ typ;
+                   "guestfs_free_" ^ typ ^ "_list"])
         structs
     ) in
-  let globals = List.sort compare (globals @ functions @ structs) in
+  let struct_cleanups =
+    List.concat (
+      List.map (fun { s_name = typ } ->
+                  ["guestfs___cleanup_free_" ^ typ;
+                   "guestfs___cleanup_free_" ^ typ ^ "_list"])
+        structs
+    ) in
+  let globals = List.sort compare (globals @
+                                     functions @
+                                     struct_frees @
+                                     struct_cleanups) in
 
   pr "{\n";
   pr "    global:\n";

@@ -23,6 +23,7 @@ generator_built = \
 	guestfs_protocol.x \
 	guestfs.h \
 	guestfs-internal-actions.h \
+	guestfs-internal-frontend-cleanups.h \
 	actions-0.c \
 	actions-1.c \
 	actions-2.c \
