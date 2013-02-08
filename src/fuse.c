@@ -127,9 +127,8 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
 
   dir_cache_remove_all_expired (g, now);
 
-  struct guestfs_dirent_list *ents;
-
-  ents = guestfs_readdir (g, path);
+  CLEANUP_FREE_DIRENT_LIST struct guestfs_dirent_list *ents =
+    guestfs_readdir (g, path);
   if (ents == NULL)
     RETURN_ERRNO;
 
@@ -169,7 +168,8 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
       names[i] = ents->val[i].name;
     names[i] = NULL;
 
-    struct guestfs_stat_list *ss = guestfs_lstatlist (g, path, names);
+    CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *ss =
+      guestfs_lstatlist (g, path, names);
     if (ss) {
       for (i = 0; i < ss->len; ++i) {
         if (ss->val[i].ino >= 0) {
@@ -192,10 +192,10 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
           lsc_insert (g, path, names[i], now, &statbuf);
         }
       }
-      guestfs_free_stat_list (ss);
     }
 
-    struct guestfs_xattr_list *xattrs = guestfs_lxattrlist (g, path, names);
+    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs =
+      guestfs_lxattrlist (g, path, names);
     if (xattrs) {
       size_t ni, num;
       struct guestfs_xattr *first;
@@ -216,7 +216,6 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
           i--;
         }
       }
-      guestfs_free_xattr_list (xattrs);
     }
 
     char **links = guestfs_readlinklist (g, path, names);
@@ -235,8 +234,6 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
     free (names);
   }
 
-  guestfs_free_dirent_list (ents);
-
   return 0;
 }
 
@@ -254,9 +251,7 @@ mount_local_getattr (const char *path, struct stat *statbuf)
     return 0;
   }
 
-  struct guestfs_stat *r;
-
-  r = guestfs_lstat (g, path);
+  CLEANUP_FREE_STAT struct guestfs_stat *r = guestfs_lstat (g, path);
   if (r == NULL)
     RETURN_ERRNO;
 
@@ -273,8 +268,6 @@ mount_local_getattr (const char *path, struct stat *statbuf)
   statbuf->st_atime = r->atime;
   statbuf->st_mtime = r->mtime;
   statbuf->st_ctime = r->ctime;
-
-  guestfs_free_stat (r);
 
   return 0;
 }
@@ -671,9 +664,7 @@ mount_local_statfs (const char *path, struct statvfs *stbuf)
   DECL_G ();
   DEBUG_CALL ("%s, %p", path, stbuf);
 
-  struct guestfs_statvfs *r;
-
-  r = guestfs_statvfs (g, path);
+  CLEANUP_FREE_STATVFS struct guestfs_statvfs *r = guestfs_statvfs (g, path);
   if (r == NULL)
     RETURN_ERRNO;
 
@@ -688,8 +679,6 @@ mount_local_statfs (const char *path, struct statvfs *stbuf)
   stbuf->f_fsid = r->fsid;
   stbuf->f_flag = r->flag;
   stbuf->f_namemax = r->namemax;
-
-  guestfs_free_statvfs (r);
 
   return 0;
 }

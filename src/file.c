@@ -385,13 +385,15 @@ guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
 {
   size_t len = count_strings (names);
   size_t old_len;
-  struct guestfs_stat_list *ret, *stats;
+  struct guestfs_stat_list *ret;
 
   ret = safe_malloc (g, sizeof *ret);
   ret->len = 0;
   ret->val = NULL;
 
   while (len > 0) {
+    CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *stats = NULL;
+
     /* Note we don't need to free up the strings because take_strings
      * does not do a deep copy.
      */
@@ -413,8 +415,6 @@ guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
                              ret->len * sizeof (struct guestfs_stat));
     memcpy (&ret->val[old_len], stats->val,
             stats->len * sizeof (struct guestfs_stat));
-
-    guestfs_free_stat_list (stats);
   }
 
   return ret;
@@ -427,13 +427,15 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 {
   size_t len = count_strings (names);
   size_t i, old_len;
-  struct guestfs_xattr_list *ret, *xattrs;
+  struct guestfs_xattr_list *ret;
 
   ret = safe_malloc (g, sizeof *ret);
   ret->len = 0;
   ret->val = NULL;
 
   while (len > 0) {
+    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
+
     /* Note we don't need to free up the strings because take_strings
      * does not do a deep copy.
      */
@@ -461,8 +463,6 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
       memcpy (ret->val[old_len].attrval, xattrs->val[i].attrval,
               xattrs->val[i].attrval_len);
     }
-
-    guestfs_free_xattr_list (xattrs);
   }
 
   return ret;
