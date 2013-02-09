@@ -603,13 +603,15 @@ set_socket_create_context (guestfs_h *g)
     goto out2;
   }
 
+#define SETSOCKCREATECON_WARNING_NOTICE "[you can ignore this UNLESS using SELinux + sVirt]"
+
   /* Note that setsockcreatecon sets the per-thread socket creation
    * context (/proc/self/task/<tid>/attr/sockcreate) so this is
    * thread-safe.
    */
   if (setsockcreatecon (context_str (con)) == -1) {
-    debug (g, "%s: setsockcreatecon (%s) failed: %m",
-           __func__, context_str (con));
+    debug (g, "%s: setsockcreatecon (%s) failed: %m %s",
+           __func__, context_str (con), SETSOCKCREATECON_WARNING_NOTICE);
     goto out2;
   }
 
@@ -623,7 +625,8 @@ static void
 clear_socket_create_context (guestfs_h *g)
 {
   if (setsockcreatecon (NULL) == -1)
-    debug (g, "%s: setsockcreatecon (NULL) failed: %m", __func__);
+    debug (g, "%s: setsockcreatecon (NULL) failed: %m %s", __func__,
+           SETSOCKCREATECON_WARNING_NOTICE);
 }
 
 #else /* !HAVE_LIBSELINUX */
