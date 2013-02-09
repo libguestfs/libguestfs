@@ -338,7 +338,7 @@ multi_df (struct domain *domains, size_t n, size_t *errors_r)
   size_t nd;
   size_t count;
   int r;
-  char **devices;
+  CLEANUP_FREE_STRING_LIST char **devices = NULL;
   char **domain_devices;
 
   /* Add all the disks to the handle (since they were added in reverse
@@ -380,10 +380,6 @@ multi_df (struct domain *domains, size_t n, size_t *errors_r)
       break;
     }
   }
-
-  for (i = 0; devices[i] != NULL; ++i)
-    free (devices[i]);
-  free (devices);
 
   /* Reset the handle. */
   reset_guestfs_handle ();

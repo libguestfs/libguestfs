@@ -315,11 +315,10 @@ parse_vg_lv (const char *lvm)
 static int
 do_format (void)
 {
-  char **devices;
   size_t i;
-  int ret;
 
-  devices = guestfs_list_devices (g);
+  CLEANUP_FREE_STRING_LIST char **devices =
+    guestfs_list_devices (g);
   if (devices == NULL)
     exit (EXIT_FAILURE);
 
@@ -341,10 +340,8 @@ do_format (void)
     }
   }
 
-  if (do_rescan (devices)) {
-    ret = 1; /* which means, reopen the handle and retry */
-    goto out;
-  }
+  if (do_rescan (devices))
+    return 1; /* which means, reopen the handle and retry */
 
   /* Format each disk. */
   for (i = 0; devices[i] != NULL; ++i) {
@@ -405,15 +402,7 @@ do_format (void)
   if (guestfs_sync (g) == -1)
     exit (EXIT_FAILURE);
 
-  ret = 0;
-
- out:
-  /* Free device list. */
-  for (i = 0; devices[i] != NULL; ++i)
-    free (devices[i]);
-  free (devices);
-
-  return ret;
+  return 0;
 }
 
 /* Rescan everything so the kernel knows that there are no partition

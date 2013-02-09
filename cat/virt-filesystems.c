@@ -373,7 +373,6 @@ static int is_md (char *device);
 static char **parents_of_md (char *device);
 static char **parents_of_vg (char *vg);
 
-static void free_strings (char **strings);
 static size_t count_strings (char **strings);
 
 static void
@@ -432,22 +431,21 @@ do_output (void)
 static void
 do_output_filesystems (void)
 {
-  char **fses;
   size_t i;
 
-  fses = guestfs_list_filesystems (g);
+  CLEANUP_FREE_STRING_LIST char **fses = guestfs_list_filesystems (g);
   if (fses == NULL)
     exit (EXIT_FAILURE);
 
   for (i = 0; fses[i] != NULL; i += 2) {
-    char *dev, *vfs_label = NULL, *vfs_uuid = NULL;
-    char **parents;
+    CLEANUP_FREE char *dev = NULL, *vfs_label = NULL, *vfs_uuid = NULL;
+    CLEANUP_FREE_STRING_LIST char **parents = NULL;
     int64_t size = -1;
 
     /* Skip swap and unknown, unless --extra flag was given. */
     if (!(output & OUTPUT_FILESYSTEMS_EXTRA) &&
         (STREQ (fses[i+1], "swap") || STREQ (fses[i+1], "unknown")))
-      goto next;
+      continue;
 
     dev = guestfs_canonical_device_name (g, fses[i]);
     if (dev == NULL)
@@ -493,32 +491,20 @@ do_output_filesystems (void)
 
     write_row (dev, "filesystem",
                fses[i+1], vfs_label, -1, size, parents, vfs_uuid);
-
-    free_strings (parents);
-    free (dev);
-    free (vfs_label);
-    free (vfs_uuid);
-
-  next:
-    free (fses[i]);
-    free (fses[i+1]);
   }
-
-  free (fses);
 }
 
 static void
 do_output_lvs (void)
 {
-  char **lvs;
   size_t i;
 
-  lvs = guestfs_lvs (g);
+  CLEANUP_FREE_STRING_LIST char **lvs = guestfs_lvs (g);
   if (lvs == NULL)
     exit (EXIT_FAILURE);
 
   for (i = 0; lvs[i] != NULL; ++i) {
-    char *uuid = NULL, *parent_name = NULL;
+    CLEANUP_FREE char *uuid = NULL, *parent_name = NULL;
     const char *parents[2];
     int64_t size = -1;
 
@@ -547,29 +533,23 @@ do_output_lvs (void)
 
     write_row (lvs[i], "lv",
                NULL, NULL, -1, size, (char **) parents, uuid);
-
-    free (uuid);
-    free (parent_name);
-    free (lvs[i]);
   }
-
-  free (lvs);
 }
 
 static void
 do_output_vgs (void)
 {
-  struct guestfs_lvm_vg_list *vgs;
   size_t i;
 
-  vgs = guestfs_vgs_full (g);
+  CLEANUP_FREE_LVM_VG_LIST struct guestfs_lvm_vg_list *vgs =
+    guestfs_vgs_full (g);
   if (vgs == NULL)
     exit (EXIT_FAILURE);
 
   for (i = 0; i < vgs->len; ++i) {
-    char *name;
+    CLEANUP_FREE char *name = NULL;
     char uuid[33];
-    char **parents;
+    CLEANUP_FREE_STRING_LIST char **parents = NULL;
 
     if (asprintf (&name, "/dev/%s", vgs->val[i].vg_name) == -1) {
       perror ("asprintf");
@@ -583,12 +563,7 @@ do_output_vgs (void)
 
     write_row (name, "vg",
                NULL, NULL, -1, (int64_t) vgs->val[i].vg_size, parents, uuid);
-
-    free (name);
-    free_strings (parents);
   }
-
-  guestfs_free_lvm_vg_list (vgs);
 }
 
 /* Cache the output of guestfs_pvs_full, since we use it in a few places. */
@@ -623,11 +598,11 @@ do_output_pvs (void)
   struct guestfs_lvm_pv_list *pvs = get_pvs ();
 
   for (i = 0; i < pvs->len; ++i) {
-    char *dev;
     char uuid[33];
     const char *parents[1] = { NULL };
 
-    dev = guestfs_canonical_device_name (g, pvs->val[i].pv_name);
+    CLEANUP_FREE char *dev =
+      guestfs_canonical_device_name (g, pvs->val[i].pv_name);
     if (!dev)
       exit (EXIT_FAILURE);
 
@@ -636,15 +611,13 @@ do_output_pvs (void)
     write_row (dev, "pv",
                NULL, NULL, -1, (int64_t) pvs->val[i].pv_size,
                (char **) parents, uuid);
-
-    free (dev);
   }
 }
 
 static int
 get_mbr_id (const char *dev, const char *parent_name)
 {
-  char *parttype = NULL;
+  CLEANUP_FREE char *parttype = NULL;
   int mbr_id = -1, partnum;
 
   guestfs_push_error_handler (g, NULL, NULL);
@@ -657,8 +630,6 @@ get_mbr_id (const char *dev, const char *parent_name)
       mbr_id = guestfs_part_get_mbr_id (g, parent_name, partnum);
   }
 
-  free (parttype);
-
   guestfs_pop_error_handler (g);
 
   return mbr_id;
@@ -667,15 +638,14 @@ get_mbr_id (const char *dev, const char *parent_name)
 static void
 do_output_partitions (void)
 {
-  char **parts;
   size_t i;
 
-  parts = guestfs_list_partitions (g);
+  CLEANUP_FREE_STRING_LIST char **parts = guestfs_list_partitions (g);
   if (parts == NULL)
     exit (EXIT_FAILURE);
 
   for (i = 0; parts[i] != NULL; ++i) {
-    char *dev, *parent_name = NULL;
+    CLEANUP_FREE char *dev = NULL, *parent_name = NULL, *canonical_name = NULL;
     const char *parents[2];
     int64_t size = -1;
     int mbr_id = -1;
@@ -697,41 +667,32 @@ do_output_partitions (void)
       if ((columns & COLUMN_MBR))
         mbr_id = get_mbr_id (parts[i], parent_name);
 
-      char *p = guestfs_canonical_device_name (g, parent_name);
-      if (!p)
+      canonical_name = guestfs_canonical_device_name (g, parent_name);
+      if (!canonical_name)
         exit (EXIT_FAILURE);
-      free (parent_name);
-      parent_name = p;
 
-      parents[0] = parent_name;
+      parents[0] = canonical_name;
       parents[1] = NULL;
     }
 
     write_row (dev, "partition",
                NULL, NULL, mbr_id, size, (char **) parents, NULL);
-
-    free (dev);
-    free (parent_name);
-    free (parts[i]);
   }
-
-  free (parts);
 }
 
 static void
 do_output_blockdevs (void)
 {
-  char **devices;
   size_t i;
 
-  devices = guestfs_list_devices (g);
+  CLEANUP_FREE_STRING_LIST char **devices = guestfs_list_devices (g);
   if (devices == NULL)
     exit (EXIT_FAILURE);
 
   for (i = 0; devices[i] != NULL; ++i) {
     int64_t size = -1;
-    char *dev;
-    char **parents;
+    CLEANUP_FREE_STRING_LIST char **parents = NULL;
+    CLEANUP_FREE char *dev;
 
     dev = guestfs_canonical_device_name (g, devices[i]);
     if (!dev)
@@ -750,18 +711,10 @@ do_output_blockdevs (void)
 
     write_row (dev, "device",
                NULL, NULL, -1, size, parents, NULL);
-
-    free (dev);
-    free (devices[i]);
-    free_strings (parents);
   }
-
-  free (devices);
 }
 
-/* Returns an empty list of parents.  Note this must be freed using
- * free_strings.
- */
+/* Returns an empty list of parents.  Note this must be freed. */
 static char **
 no_parents (void)
 {
@@ -800,11 +753,11 @@ is_md (char *device)
 static char **
 parents_of_md (char *device)
 {
-  struct guestfs_mdstat_list *stats;
   char **ret;
   size_t i;
 
-  stats = guestfs_md_stat (g, device);
+  CLEANUP_FREE_MDSTAT_LIST struct guestfs_mdstat_list *stats =
+    guestfs_md_stat (g, device);
   if (!stats)
     exit (EXIT_FAILURE);
 
@@ -821,8 +774,6 @@ parents_of_md (char *device)
   }
 
   ret[stats->len] = NULL;
-
-  guestfs_free_mdstat_list (stats);
 
   return ret;
 }
@@ -855,11 +806,10 @@ static char **
 parents_of_vg (char *vg)
 {
   struct guestfs_lvm_pv_list *pvs = get_pvs ();
-  char **pvuuids;
   char **ret;
   size_t n, i, j;
 
-  pvuuids = guestfs_vgpvuuids (g, vg);
+  CLEANUP_FREE_STRING_LIST char **pvuuids = guestfs_vgpvuuids (g, vg);
   if (!pvuuids)
     exit (EXIT_FAILURE);
 
@@ -894,8 +844,6 @@ parents_of_vg (char *vg)
   }
 
   ret[i] = NULL;
-
-  free_strings (pvuuids);
 
   return ret;
 }
@@ -935,7 +883,7 @@ write_row (const char *name, const char *type,
            int64_t size, char **parents, const char *uuid)
 {
   const char *strings[NR_COLUMNS];
-  char *parents_str = NULL;
+  CLEANUP_FREE char *parents_str = NULL;
   size_t len = 0;
   char hum[LONGEST_HUMAN_READABLE];
   char num[256];
@@ -983,8 +931,6 @@ write_row (const char *name, const char *type,
   assert (len <= NR_COLUMNS);
 
   write_row_strings ((char **) strings, len);
-
-  free (parents_str);
 }
 
 static void add_row (char **strings, size_t len);
@@ -1152,16 +1098,6 @@ do_output_end (void)
     free (row);
   }
   free (rows);
-}
-
-static void
-free_strings (char **strings)
-{
-  size_t i;
-
-  for (i = 0; strings[i] != NULL; ++i)
-    free (strings[i]);
-  free (strings);
 }
 
 static size_t

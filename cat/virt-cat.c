@@ -45,6 +45,7 @@ int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 1;
 
+static int do_cat (int argc, char *argv[]);
 static int is_windows (guestfs_h *g, const char *root);
 static char *windows_path (guestfs_h *g, const char *root, const char *filename);
 
@@ -108,6 +109,7 @@ main (int argc, char *argv[])
   struct drv *drv;
   const char *format = NULL;
   int c;
+  int r;
   int option_index;
 
   g = guestfs_create ();
@@ -234,24 +236,34 @@ main (int argc, char *argv[])
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
 
+  r = do_cat (argc - optind, &argv[optind]);
+
+  guestfs_close (g);
+
+  exit (r == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+}
+
+static int
+do_cat (int argc, char *argv[])
+{
   unsigned errors = 0;
-  int windows;
-  char *root, **roots;
+  int windows, i;
+  char *root;
 
   /* Get root mountpoint.  See: fish/inspect.c:inspect_mount */
-  roots = guestfs_inspect_get_roots (g);
+  CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_get_roots (g);
+
   assert (roots);
   assert (roots[0] != NULL);
   assert (roots[1] == NULL);
   root = roots[0];
-  free (roots);
 
   /* Windows?  Special handling is required. */
   windows = is_windows (g, root);
 
-  for (; optind < argc; optind++) {
-    char *filename_to_free = NULL;
-    const char *filename = argv[optind];
+  for (i = 0; i < argc; ++i) {
+    CLEANUP_FREE char *filename_to_free = NULL;
+    const char *filename = argv[i];
 
     if (windows) {
       filename = filename_to_free = windows_path (g, root, filename);
@@ -263,15 +275,9 @@ main (int argc, char *argv[])
 
     if (guestfs_download (g, filename, "/dev/stdout") == -1)
       errors++;
-
-    free (filename_to_free);
   }
 
-  free (root);
-
-  guestfs_close (g);
-
-  exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+  return errors == 0 ? 0 : -1;
 }
 
 static int
