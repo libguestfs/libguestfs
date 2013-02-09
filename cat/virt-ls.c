@@ -82,8 +82,6 @@ static int is_fifo (int64_t mode);
 static int is_lnk (int64_t mode);
 static int is_sock (int64_t mode);
 
-static void free_strings (char **);
-
 static void __attribute__((noreturn))
 usage (int status)
 {
@@ -402,18 +400,14 @@ main (int argc, char *argv[])
 static int
 do_ls (const char *dir)
 {
-  char **lines;
   size_t i;
+  CLEANUP_FREE_STRING_LIST char **lines = guestfs_ls (g, dir);
 
-  if ((lines = guestfs_ls (g, dir)) == NULL) {
+  if (lines == NULL)
     return -1;
-  }
 
-  for (i = 0; lines[i] != NULL; ++i) {
+  for (i = 0; lines[i] != NULL; ++i)
     printf ("%s\n", lines[i]);
-    free (lines[i]);
-  }
-  free (lines);
 
   return 0;
 }
@@ -421,13 +415,12 @@ do_ls (const char *dir)
 static int
 do_ls_l (const char *dir)
 {
-  char *out;
+  CLEANUP_FREE char *out = guestfs_ll (g, dir);
 
-  if ((out = guestfs_ll (g, dir)) == NULL)
+  if (out == NULL)
     return -1;
 
   printf ("%s", out);
-  free (out);
 
   return 0;
 }
@@ -435,18 +428,14 @@ do_ls_l (const char *dir)
 static int
 do_ls_R (const char *dir)
 {
-  char **dirs;
   size_t i;
+  CLEANUP_FREE_STRING_LIST char **dirs = guestfs_find (g, dir);
 
-  dirs = guestfs_find (g, dir);
   if (dirs == NULL)
     return -1;
 
-  for (i = 0; dirs[i] != NULL; ++i) {
+  for (i = 0; dirs[i] != NULL; ++i)
     puts (dirs[i]);
-    free (dirs[i]);
-  }
-  free (dirs);
 
   return 0;
 }
@@ -467,8 +456,8 @@ visit (int depth, const char *dir, visitor_function f)
    * case.
    */
   if (depth == 0) {
-    struct guestfs_stat *stat;
-    struct guestfs_xattr_list *xattrs;
+    CLEANUP_FREE_STAT struct guestfs_stat *stat = NULL;
+    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
     int r;
 
     stat = guestfs_lstat (g, dir);
@@ -476,40 +465,35 @@ visit (int depth, const char *dir, visitor_function f)
       return -1;
 
     xattrs = guestfs_lgetxattrs (g, dir);
-    if (xattrs == NULL) {
-      guestfs_free_stat (stat);
+    if (xattrs == NULL)
       return -1;
-    }
 
     r = f (dir, NULL, stat, xattrs);
-    guestfs_free_stat (stat);
-    guestfs_free_xattr_list (xattrs);
 
     if (r == -1)
       return -1;
   }
 
-  int ret = -1;
-  char **names = NULL;
-  char *path = NULL;
   size_t i, xattrp;
-  struct guestfs_stat_list *stats = NULL;
-  struct guestfs_xattr_list *xattrs = NULL;
+  CLEANUP_FREE_STRING_LIST char **names = NULL;
+  CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *stats = NULL;
+  CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
 
   names = guestfs_ls (g, dir);
   if (names == NULL)
-    goto out;
+    return -1;
 
   stats = guestfs_lstatlist (g, dir, names);
   if (stats == NULL)
-    goto out;
+    return -1;
 
   xattrs = guestfs_lxattrlist (g, dir, names);
   if (xattrs == NULL)
-    goto out;
+    return -1;
 
   /* Call function on everything in this directory. */
   for (i = 0, xattrp = 0; names[i] != NULL; ++i, ++xattrp) {
+    CLEANUP_FREE char *path = NULL;
     struct guestfs_xattr_list file_xattrs;
     size_t nr_xattrs;
 
@@ -522,7 +506,7 @@ visit (int depth, const char *dir, visitor_function f)
     if (xattrs->val[xattrp].attrval_len == 0) {
       fprintf (stderr, _("%s: error getting extended attrs for %s %s\n"),
                program_name, dir, names[i]);
-      goto out;
+      return -1;
     }
     /* attrval is not \0-terminated. */
     char attrval[xattrs->val[xattrp].attrval_len+1];
@@ -532,7 +516,7 @@ visit (int depth, const char *dir, visitor_function f)
     if (sscanf (attrval, "%zu", &nr_xattrs) != 1) {
       fprintf (stderr, _("%s: error: cannot parse xattr count for %s %s\n"),
                program_name, dir, names[i]);
-      goto out;
+      return -1;
     }
 
     file_xattrs.len = nr_xattrs;
@@ -541,28 +525,17 @@ visit (int depth, const char *dir, visitor_function f)
 
     /* Call the function. */
     if (f (dir, names[i], &stats->val[i], &file_xattrs) == -1)
-      goto out;
+      return -1;
 
     /* Recursively call visit, but only on directories. */
     if (is_dir (stats->val[i].mode)) {
       path = full_path (dir, names[i]);
       if (visit (depth + 1, path, f) == -1)
-        goto out;
-      free (path); path = NULL;
+        return -1;
     }
   }
 
-  ret = 0;
-
- out:
-  free (path);
-  if (names)
-    free_strings (names);
-  if (stats)
-    guestfs_free_stat_list (stats);
-  if (xattrs)
-    guestfs_free_xattr_list (xattrs);
-  return ret;
+  return 0;
 }
 
 static char *
@@ -605,7 +578,7 @@ show_file (const char *dir, const char *name,
            const struct guestfs_xattr_list *xattrs)
 {
   char filetype[2];
-  char *path, *csum = NULL, *link = NULL;
+  CLEANUP_FREE char *path = NULL, *csum = NULL, *link = NULL;
 
   /* Display the basic fields. */
   output_start_line ();
@@ -676,10 +649,6 @@ show_file (const char *dir, const char *name,
     output_string_link (link);
 
   output_end_line ();
-
-  free (path);
-  free (csum);
-  free (link);
 
   return 0;
 }
@@ -959,15 +928,4 @@ static int
 is_sock (int64_t mode)
 {
   return (mode & 0170000) == 0140000;
-}
-
-/* String functions. */
-static void
-free_strings (char **names)
-{
-  size_t i;
-
-  for (i = 0; names[i] != NULL; ++i)
-    free (names[i]);
-  free (names);
 }

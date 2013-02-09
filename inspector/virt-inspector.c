@@ -59,7 +59,6 @@ static void output_mountpoints (xmlTextWriterPtr xo, char *root);
 static void output_filesystems (xmlTextWriterPtr xo, char *root);
 static void output_drive_mappings (xmlTextWriterPtr xo, char *root);
 static void output_applications (xmlTextWriterPtr xo, char *root);
-static void free_strings (char **argv);
 static size_t count_strings (char *const*argv);
 static void do_xpath (const char *query);
 
@@ -271,16 +270,16 @@ main (int argc, char *argv[])
    */
   inspect_do_decrypt ();
 
-  char **roots = guestfs_inspect_os (g);
-  if (roots == NULL) {
-    fprintf (stderr, _("%s: no operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by libguestfs.\n\nNOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\ninstall the separate libguestfs-winsupport package.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n"),
-             program_name);
-    exit (EXIT_FAILURE);
+  {
+    CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_os (g);
+    if (roots == NULL) {
+      fprintf (stderr, _("%s: no operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by libguestfs.\n\nNOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\ninstall the separate libguestfs-winsupport package.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    output (roots);
   }
-
-  output (roots);
-
-  free_strings (roots);
 
   guestfs_close (g);
 
@@ -306,7 +305,8 @@ output (char **roots)
     exit (EXIT_FAILURE);
   }
 
-  xmlTextWriterPtr xo = xmlNewTextWriter (ob);
+  /* 'ob' is freed when 'xo' is freed.. */
+  CLEANUP_XMLFREETEXTWRITER xmlTextWriterPtr xo = xmlNewTextWriter (ob);
   if (xo == NULL) {
     fprintf (stderr,
              _("%s: xmlNewTextWriter: failed to create libxml2 writer\n"),
@@ -321,9 +321,6 @@ output (char **roots)
   XMLERROR (-1, xmlTextWriterStartDocument (xo, NULL, NULL, NULL));
   output_roots (xo, roots);
   XMLERROR (-1, xmlTextWriterEndDocument (xo));
-
-  /* 'ob' is freed by this too. */
-  xmlFreeTextWriter (xo);
 }
 
 static void
@@ -540,10 +537,10 @@ compare_keys_len (const void *p1, const void *p2)
 static void
 output_mountpoints (xmlTextWriterPtr xo, char *root)
 {
-  char **mountpoints, *p;
   size_t i;
 
-  mountpoints = guestfs_inspect_get_mountpoints (g, root);
+  CLEANUP_FREE_STRING_LIST char **mountpoints =
+    guestfs_inspect_get_mountpoints (g, root);
   if (mountpoints == NULL)
     exit (EXIT_FAILURE);
 
@@ -556,7 +553,7 @@ output_mountpoints (xmlTextWriterPtr xo, char *root)
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "mountpoints"));
 
   for (i = 0; mountpoints[i] != NULL; i += 2) {
-    p = guestfs_canonical_device_name (g, mountpoints[i+1]);
+    CLEANUP_FREE char *p = guestfs_canonical_device_name (g, mountpoints[i+1]);
     if (!p)
       exit (EXIT_FAILURE);
 
@@ -567,23 +564,19 @@ output_mountpoints (xmlTextWriterPtr xo, char *root)
     XMLERROR (-1,
               xmlTextWriterWriteString (xo, BAD_CAST mountpoints[i]));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-    free (p);
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  free_strings (mountpoints);
 }
 
 static void
 output_filesystems (xmlTextWriterPtr xo, char *root)
 {
-  char **filesystems;
   char *str;
   size_t i;
 
-  filesystems = guestfs_inspect_get_filesystems (g, root);
+  CLEANUP_FREE_STRING_LIST char **filesystems =
+    guestfs_inspect_get_filesystems (g, root);
   if (filesystems == NULL)
     exit (EXIT_FAILURE);
 
@@ -632,14 +625,12 @@ output_filesystems (xmlTextWriterPtr xo, char *root)
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  free_strings (filesystems);
 }
 
 static void
 output_drive_mappings (xmlTextWriterPtr xo, char *root)
 {
-  char **drive_mappings = NULL;
+  CLEANUP_FREE_STRING_LIST char **drive_mappings = NULL;
   char *str;
   size_t i;
 
@@ -649,10 +640,8 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
   if (drive_mappings == NULL)
     return;
 
-  if (drive_mappings[0] == NULL) {
-    free_strings (drive_mappings);
+  if (drive_mappings[0] == NULL)
     return;
-  }
 
   /* Sort by key. */
   qsort (drive_mappings,
@@ -679,20 +668,18 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  free_strings (drive_mappings);
 }
 
 static void
 output_applications (xmlTextWriterPtr xo, char *root)
 {
-  struct guestfs_application2_list *apps;
   size_t i;
 
   /* This returns an empty list if we simply couldn't determine the
    * applications, so if it returns NULL then it's a real error.
    */
-  apps = guestfs_inspect_list_applications2 (g, root);
+  CLEANUP_FREE_APPLICATION2_LIST struct guestfs_application2_list *apps =
+    guestfs_inspect_list_applications2 (g, root);
   if (apps == NULL)
     exit (EXIT_FAILURE);
 
@@ -761,18 +748,6 @@ output_applications (xmlTextWriterPtr xo, char *root)
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  guestfs_free_application2_list (apps);
-}
-
-static void
-free_strings (char **argv)
-{
-  size_t argc;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    free (argv[argc]);
-  free (argv);
 }
 
 static size_t
@@ -789,14 +764,13 @@ count_strings (char *const *argv)
 static void
 do_xpath (const char *query)
 {
-  xmlDocPtr doc;
-  xmlXPathContextPtr xpathCtx;
-  xmlXPathObjectPtr xpathObj;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
   xmlNodeSetPtr nodes;
   char *r;
   size_t i;
   xmlSaveCtxtPtr saveCtx;
-  xmlDocPtr wrdoc;
   xmlNodePtr wrnode;
 
   doc = xmlReadFd (STDIN_FILENO, NULL, "utf8", 0);
@@ -830,7 +804,7 @@ do_xpath (const char *query)
     }
 
     for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
-      wrdoc = xmlNewDoc (BAD_CAST "1.0");
+      CLEANUP_XMLFREEDOC xmlDocPtr wrdoc = xmlNewDoc (BAD_CAST "1.0");
       if (wrdoc == NULL) {
         fprintf (stderr, _("%s: xmlNewDoc failed\n"), program_name);
         exit (EXIT_FAILURE);
@@ -847,8 +821,6 @@ do_xpath (const char *query)
         fprintf (stderr, _("%s: xmlSaveDoc failed\n"), program_name);
         exit (EXIT_FAILURE);
       }
-
-      xmlFreeDoc (wrdoc);
     }
 
     xmlSaveClose (saveCtx);
@@ -876,10 +848,4 @@ do_xpath (const char *query)
     printf ("%s\n", r);
     free (r);
   }
-
-  xmlXPathFreeObject (xpathObj);
-  xmlXPathFreeContext (xpathCtx);
-  xmlFreeDoc (doc);
-
-  exit (EXIT_SUCCESS);
 }

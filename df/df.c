@@ -48,7 +48,7 @@ df_on_handle (const char *name, const char *uuid, char **devices, int offset)
 {
   int ret = -1;
   size_t i;
-  char **fses = NULL;
+  CLEANUP_FREE_STRING_LIST char **fses = NULL;
   int free_devices = 0, is_lv;
 
   if (verbose) {
@@ -101,12 +101,6 @@ df_on_handle (const char *name, const char *uuid, char **devices, int offset)
   ret = 0;
 
  cleanup:
-  if (fses) {
-    for (i = 0; fses[i] != NULL; ++i)
-      free (fses[i]);
-    free (fses);
-  }
-
   if (free_devices) {
     for (i = 0; devices[i] != NULL; ++i)
       free (devices[i]);
@@ -163,7 +157,7 @@ static void
 try_df (const char *name, const char *uuid,
         const char *dev, int offset)
 {
-  struct guestfs_statvfs *stat = NULL;
+  CLEANUP_FREE_STATVFS struct guestfs_statvfs *stat = NULL;
 
   if (verbose)
     fprintf (stderr, "try_df %s %s %d\n", name, dev, offset);
@@ -180,8 +174,6 @@ try_df (const char *name, const char *uuid,
 
   guestfs_pop_error_handler (g);
 
-  if (stat) {
+  if (stat)
     print_stat (name, uuid, dev, offset, stat);
-    guestfs_free_statvfs (stat);
-  }
 }

@@ -52,6 +52,7 @@ int inspector = 1;
 static const char *backup_extension = NULL;
 static const char *perl_expr = NULL;
 
+static void edit_files (int argc, char *argv[]);
 static void edit (const char *filename, const char *root);
 static char *edit_interactively (const char *tmpfile);
 static char *edit_non_interactively (const char *tmpfile);
@@ -130,7 +131,6 @@ main (int argc, char *argv[])
   const char *format = NULL;
   int c;
   int option_index;
-  char *root, **roots;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -272,21 +272,7 @@ main (int argc, char *argv[])
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
 
-  /* Get root mountpoint. */
-  roots = guestfs_inspect_get_roots (g);
-  if (!roots)
-    exit (EXIT_FAILURE);
-  /* see fish/inspect.c:inspect_mount */
-  assert (roots[0] != NULL && roots[1] == NULL);
-  root = roots[0];
-  free (roots);
-
-  while (optind < argc) {
-    edit (argv[optind], root);
-    optind++;
-  }
-
-  free (root);
+  edit_files (argc - optind, &argv[optind]);
 
   /* Cleanly unmount the disks after editing. */
   if (guestfs_shutdown (g) == -1)
@@ -298,19 +284,37 @@ main (int argc, char *argv[])
 }
 
 static void
+edit_files (int argc, char *argv[])
+{
+  int i;
+  char *root;
+  CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_get_roots (g);
+
+  if (!roots)
+    exit (EXIT_FAILURE);
+
+  /* Get root mountpoint. */
+  /* see fish/inspect.c:inspect_mount */
+  assert (roots[0] != NULL && roots[1] == NULL);
+  root = roots[0];
+
+  for (i = 0; i < argc; ++i)
+    edit (argv[i], root);
+}
+
+static void
 edit (const char *filename, const char *root)
 {
-  char *filename_to_free = NULL;
-  char *tmpdir = guestfs_get_tmpdir (g);
+  CLEANUP_FREE char *filename_to_free = NULL;
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
   char tmpfile[strlen (tmpdir) + 32];
   sprintf (tmpfile, "%s/virteditXXXXXX", tmpdir);
-  free (tmpdir);
 
   int fd;
   char fdbuf[32];
-  char *upload_from = NULL;
-  char *newname = NULL;
-  char *backupname = NULL;
+  CLEANUP_FREE char *upload_from = NULL;
+  CLEANUP_FREE char *newname = NULL;
+  CLEANUP_FREE char *backupname = NULL;
 
   /* Windows?  Special handling is required. */
   if (is_windows (g, root))
@@ -369,10 +373,6 @@ edit (const char *filename, const char *root)
   }
 
   unlink (tmpfile);
-  free (filename_to_free);
-  free (upload_from);
-  free (newname);
-  free (backupname);
   return;
 
  error:
@@ -386,7 +386,7 @@ edit_interactively (const char *tmpfile)
   struct utimbuf times;
   struct stat oldstat, newstat;
   const char *editor;
-  char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   int r;
   char *ret;
 
@@ -428,8 +428,6 @@ edit_interactively (const char *tmpfile)
   if (r == -1 || WEXITSTATUS (r) != 0)
     exit (EXIT_FAILURE);
 
-  free (cmd);
-
   if (stat (tmpfile, &newstat) == -1) {
     perror (tmpfile);
     exit (EXIT_FAILURE);
@@ -453,7 +451,8 @@ edit_interactively (const char *tmpfile)
 static char *
 edit_non_interactively (const char *tmpfile)
 {
-  char *cmd, *outfile, *ret;
+  CLEANUP_FREE char *cmd = NULL, *outfile = NULL;
+  char *ret;
   int r;
 
   assert (perl_expr != NULL);
@@ -488,8 +487,6 @@ edit_non_interactively (const char *tmpfile)
   if (r == -1 || WEXITSTATUS (r) != 0)
     exit (EXIT_FAILURE);
 
-  free (cmd);
-
   if (asprintf (&outfile, "%s.out", tmpfile) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
@@ -499,8 +496,6 @@ edit_non_interactively (const char *tmpfile)
     perror ("rename");
     exit (EXIT_FAILURE);
   }
-
-  free (outfile);
 
   ret = strdup (tmpfile);
   if (!ret) {
@@ -514,9 +509,9 @@ edit_non_interactively (const char *tmpfile)
 static int
 copy_attributes (const char *src, const char *dest)
 {
-  struct guestfs_stat *stat;
+  CLEANUP_FREE_STAT struct guestfs_stat *stat = NULL;
   int has_linuxxattrs;
-  char *selinux_context = NULL;
+  CLEANUP_FREE char *selinux_context = NULL;
   size_t selinux_context_size;
 
   has_linuxxattrs = feature_available (g, "linuxxattrs");
@@ -540,25 +535,17 @@ copy_attributes (const char *src, const char *dest)
   }
 
   /* Set the permissions (inc. sticky and set*id bits), UID, GID. */
-  if (guestfs_chmod (g, stat->mode & 07777, dest) == -1) {
-    guestfs_free_stat (stat);
+  if (guestfs_chmod (g, stat->mode & 07777, dest) == -1)
     return -1;
-  }
-  if (guestfs_chown (g, stat->uid, stat->gid, dest) == -1) {
-    guestfs_free_stat (stat);
+  if (guestfs_chown (g, stat->uid, stat->gid, dest) == -1)
     return -1;
-  }
-  guestfs_free_stat (stat);
 
   /* Set the SELinux context. */
   if (has_linuxxattrs && selinux_context) {
     if (guestfs_setxattr (g, "security.selinux", selinux_context,
-                          (int) selinux_context_size, dest) == -1) {
-      free (selinux_context);
+                          (int) selinux_context_size, dest) == -1)
       return -1;
-    }
   }
-  free (selinux_context);
 
   return 0;
 }
@@ -582,15 +569,12 @@ feature_available (guestfs_h *g, const char *feature)
 static int
 is_windows (guestfs_h *g, const char *root)
 {
-  char *type;
   int w;
-
-  type = guestfs_inspect_get_type (g, root);
+  CLEANUP_FREE char *type = guestfs_inspect_get_type (g, root);
   if (!type)
     return 0;
 
   w = STREQ (type, "windows");
-  free (type);
   return w;
 }
 
@@ -645,12 +629,12 @@ windows_path (guestfs_h *g, const char *root, const char *path)
 static void
 mount_drive_letter (char drive_letter, const char *root)
 {
-  char **drives;
   char *device;
   size_t i;
 
   /* Resolve the drive letter using the drive mappings table. */
-  drives = guestfs_inspect_get_drive_mappings (g, root);
+  CLEANUP_FREE_STRING_LIST char **drives =
+    guestfs_inspect_get_drive_mappings (g, root);
   if (drives == NULL || drives[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
              program_name);
@@ -678,9 +662,6 @@ mount_drive_letter (char drive_letter, const char *root)
   if (guestfs_mount (g, device, "/") == -1)
     exit (EXIT_FAILURE);
 
-  for (i = 0; drives[i] != NULL; ++i)
-    free (drives[i]);
-  free (drives);
   /* Don't need to free (device) because that string was in the
    * drives array.
    */

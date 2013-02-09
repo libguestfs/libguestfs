@@ -265,7 +265,7 @@ main (int argc, char *argv[])
 #endif
   }
   else {
-    char *name;
+    CLEANUP_FREE char *name = NULL;
 
     /* Add domains/drives from the command line (for a single guest). */
     add_drives (drvs, 'a');
@@ -285,8 +285,6 @@ main (int argc, char *argv[])
      * single '-d' command-line options.
      */
     (void) df_on_handle (name, NULL, NULL, 0);
-
-    free (name);
 
     /* Free up data structures, no longer needed after this point. */
     free_drives (drvs);

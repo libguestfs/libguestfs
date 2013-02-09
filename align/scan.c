@@ -239,27 +239,26 @@ main (int argc, char *argv[])
 void
 scan (size_t *worst_alignment, const char *prefix)
 {
-  char **devices, *p;
   size_t i, j;
   size_t alignment;
   uint64_t start;
-  struct guestfs_partition_list *parts;
 
-  devices = guestfs_list_devices (g);
+  CLEANUP_FREE_STRING_LIST char **devices = guestfs_list_devices (g);
   if (devices == NULL)
     exit (EXIT_FAILURE);
 
   for (i = 0; devices[i] != NULL; ++i) {
-    parts = guestfs_part_list (g, devices[i]);
+    CLEANUP_FREE char *name = NULL;
+
+    CLEANUP_FREE_PARTITION_LIST struct guestfs_partition_list *parts =
+      guestfs_part_list (g, devices[i]);
     if (parts == NULL)
       exit (EXIT_FAILURE);
 
     /* Canonicalize the name of the device for printing. */
-    p = guestfs_canonical_device_name (g, devices[i]);
-    if (p == NULL)
+    name = guestfs_canonical_device_name (g, devices[i]);
+    if (name == NULL)
       exit (EXIT_FAILURE);
-    free (devices[i]);
-    devices[i] = p;
 
     for (j = 0; j < parts->len; ++j) {
       /* Start offset of the partition in bytes. */
@@ -270,7 +269,7 @@ scan (size_t *worst_alignment, const char *prefix)
           printf ("%s:", prefix);
 
         printf ("%s%d %12" PRIu64 " ",
-                devices[i], (int) parts->val[j].part_num, start);
+                name, (int) parts->val[j].part_num, start);
       }
 
       /* What's the alignment? */
@@ -303,9 +302,5 @@ scan (size_t *worst_alignment, const char *prefix)
           printf ("ok\n");
       }
     }
-
-    guestfs_free_partition_list (parts);
-    free (devices[i]);
   }
-  free (devices);
 }
