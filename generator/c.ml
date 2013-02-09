@@ -1749,13 +1749,11 @@ and generate_linker_script () =
     "guestfs___cleanup_free_string_list";
     "guestfs___cleanup_hash_free";
     "guestfs___cleanup_unlink_free";
-(*
     "guestfs___cleanup_xmlBufferFree";
     "guestfs___cleanup_xmlFreeDoc";
     "guestfs___cleanup_xmlFreeTextWriter";
     "guestfs___cleanup_xmlXPathFreeContext";
     "guestfs___cleanup_xmlXPathFreeObject";
-*)
     "guestfs___for_each_disk";
     "guestfs___safe_calloc";
     "guestfs___safe_malloc";
