@@ -475,14 +475,25 @@ do_suggestion (struct drv *drvs)
 static void
 suggest_filesystems (void)
 {
-  size_t i;
+  size_t i, count;
 
   CLEANUP_FREE_STRING_LIST char **fses = guestfs_list_filesystems (g);
   if (fses == NULL)
     exit (EXIT_FAILURE);
 
-  if (fses[0] == NULL) {
-    printf (_("This disk contains no filesystems that we recognize.\n\n"
+  /* Count how many are not swap or unknown.  Possibly we should try
+   * mounting to see which are mountable, but that has a high
+   * probability of breaking.
+   */
+#define TEST_MOUNTABLE(fs) STRNEQ ((fs), "swap") && STRNEQ ((fs), "unknown")
+  count = 0;
+  for (i = 0; fses[i] != NULL; i += 2) {
+    if (TEST_MOUNTABLE (fses[i+1]))
+      count++;
+  }
+
+  if (count == 0) {
+    printf (_("This disk contains no mountable filesystems that we recognize.\n\n"
               "However you can still use virt-rescue on the disk image, to try to mount\n"
               "filesystems that are not recognized by libguestfs, or to create partitions,\n"
               "logical volumes and filesystems on a blank disk.\n"));
@@ -496,11 +507,12 @@ suggest_filesystems (void)
   for (i = 0; fses[i] != NULL; i += 2) {
     printf (_("# %s has type '%s'\n"), fses[i], fses[i+1]);
 
-    if (STRNEQ (fses[i+1], "swap") && STRNEQ (fses[i+1], "unknown"))
+    if (TEST_MOUNTABLE (fses[i+1]))
       printf ("mount %s /sysroot\n", fses[i]);
 
     printf ("\n");
   }
+#undef TEST_MOUNTABLE
 }
 
 struct scratch_disk {
