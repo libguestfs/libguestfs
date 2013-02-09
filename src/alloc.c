@@ -23,6 +23,12 @@
 #include <unistd.h>
 #include <string.h>
 
+#ifdef HAVE_LIBXML2
+#include <libxml/tree.h>
+#include <libxml/xpath.h>
+#include <libxml/xmlwriter.h>
+#endif
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
@@ -161,56 +167,67 @@ guestfs___cleanup_unlink_free (void *ptr)
   }
 }
 
-#ifdef HAVE_LIBXML2
-
-#include <libxml/tree.h>
-#include <libxml/xpath.h>
-#include <libxml/xmlwriter.h>
-
 void
 guestfs___cleanup_xmlBufferFree (void *ptr)
 {
+#ifdef HAVE_LIBXML2
   xmlBufferPtr xb = * (xmlBufferPtr *) ptr;
 
   if (xb)
     xmlBufferFree (xb);
-
+#else
+  abort ();
+#endif
 }
 
 void
 guestfs___cleanup_xmlFreeDoc (void *ptr)
 {
+#ifdef HAVE_LIBXML2
   xmlDocPtr doc = * (xmlDocPtr *) ptr;
 
   if (doc)
     xmlFreeDoc (doc);
+#else
+  abort ();
+#endif
 }
 
 void
 guestfs___cleanup_xmlFreeTextWriter (void *ptr)
 {
+#ifdef HAVE_LIBXML2
   xmlTextWriterPtr xo = * (xmlTextWriterPtr *) ptr;
 
   if (xo)
     xmlFreeTextWriter (xo);
+#else
+  abort ();
+#endif
 }
 
 void
 guestfs___cleanup_xmlXPathFreeContext (void *ptr)
 {
+#ifdef HAVE_LIBXML2
   xmlXPathContextPtr ctx = * (xmlXPathContextPtr *) ptr;
 
   if (ctx)
     xmlXPathFreeContext (ctx);
+#else
+  abort ();
+#endif
 }
 
 void
 guestfs___cleanup_xmlXPathFreeObject (void *ptr)
 {
+#ifdef HAVE_LIBXML2
   xmlXPathObjectPtr obj = * (xmlXPathObjectPtr *) ptr;
 
   if (obj)
     xmlXPathFreeObject (obj);
+#else
+  abort ();
+#endif
 }
-
-#endif /* HAVE_LIBXML2 */

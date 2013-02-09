@@ -43,7 +43,6 @@
   __attribute__((cleanup(guestfs___cleanup_hash_free)))
 #define CLEANUP_UNLINK_FREE                                     \
   __attribute__((cleanup(guestfs___cleanup_unlink_free)))
-#ifdef HAVE_LIBXML2
 #define CLEANUP_XMLBUFFERFREE                                   \
   __attribute__((cleanup(guestfs___cleanup_xmlBufferFree)))
 #define CLEANUP_XMLFREEDOC                                      \
@@ -54,19 +53,16 @@
   __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeContext)))
 #define CLEANUP_XMLXPATHFREEOBJECT                                      \
   __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeObject)))
-#endif
 #else
 #define CLEANUP_FREE
 #define CLEANUP_FREE_STRING_LIST
 #define CLEANUP_HASH_FREE
 #define CLEANUP_UNLINK_FREE
-#ifdef HAVE_LIBXML2
 #define CLEANUP_XMLBUFFERFREE
 #define CLEANUP_XMLFREEDOC
 #define CLEANUP_XMLFREETEXTWRITER
 #define CLEANUP_XMLXPATHFREECONTEXT
 #define CLEANUP_XMLXPATHFREEOBJECT
-#endif
 #endif
 
 /* NB: At some point we will stop exporting these safe_* allocation
@@ -99,14 +95,11 @@ extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free (void *ptr);
 extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free_string_list (void *ptr);
 extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_hash_free (void *ptr);
 extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_unlink_free (void *ptr);
-
-#ifdef HAVE_LIBXML2
-extern void guestfs___cleanup_xmlBufferFree (void *ptr);
-extern void guestfs___cleanup_xmlFreeDoc (void *ptr);
-extern void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
-extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
-extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
-#endif
+extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlBufferFree (void *ptr);
+extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlFreeDoc (void *ptr);
+extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
+extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
+extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
 
 /* These are in a separate header so the header can be generated.
  * Don't include the following file directly:
