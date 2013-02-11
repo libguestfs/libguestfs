@@ -38,6 +38,8 @@ gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 
 modules='
 accept4
+areadlink
+areadlinkat
 arpa_inet
 byteswap
 c-ctype

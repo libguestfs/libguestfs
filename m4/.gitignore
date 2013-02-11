@@ -169,6 +169,7 @@
 /rawmemchr.m4
 /readdir.m4
 /read-file.m4
+/readlinkat.m4
 /readlink.m4
 /read.m4
 /realloc.m4
@@ -233,6 +234,7 @@
 /ungetc.m4
 /unistd_h.m4
 /unistd-safer.m4
+/unlinkat.m4
 /unlinkdir.m4
 /unlink.m4
 /usleep.m4

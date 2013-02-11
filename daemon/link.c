@@ -25,6 +25,8 @@
 #include <unistd.h>
 #include <limits.h>
 
+#include "areadlink.h"
+
 #include "daemon.h"
 #include "actions.h"
 
@@ -33,25 +35,17 @@ GUESTFSD_EXT_CMD(str_ln, ln);
 char *
 do_readlink (const char *path)
 {
-  ssize_t r;
-  char *ret;
-  char link[PATH_MAX];
+  char *link;
 
   CHROOT_IN;
-  r = readlink (path, link, sizeof link);
+  link = areadlink (path);
   CHROOT_OUT;
-  if (r == -1) {
+  if (link == NULL) {
     reply_with_perror ("readlink");
     return NULL;
   }
 
-  ret = strndup (link, r);
-  if (ret == NULL) {
-    reply_with_perror ("strndup");
-    return NULL;
-  }
-
-  return ret;			/* caller frees */
+  return link;			/* caller frees */
 }
 
 char **
@@ -59,9 +53,6 @@ do_internal_readlinklist (const char *path, char *const *names)
 {
   int fd_cwd;
   size_t i;
-  ssize_t r;
-  char link[PATH_MAX];
-  const char *str;
   DECLARE_STRINGSBUF (ret);
 
   CHROOT_IN;
@@ -74,23 +65,20 @@ do_internal_readlinklist (const char *path, char *const *names)
   }
 
   for (i = 0; names[i] != NULL; ++i) {
-    r = readlinkat (fd_cwd, names[i], link, sizeof link);
-    if (r >= PATH_MAX) {
-      reply_with_perror ("readlinkat: returned link is too long");
-      close (fd_cwd);
-      return NULL;
-    }
     /* Because of the way this function is intended to be used,
      * we actually expect to see errors here, and they are not fatal.
      */
-    if (r >= 0) {
-      link[r] = '\0';
-      str = link;
-    } else
-      str = "";
-    if (add_string (&ret, str) == -1) {
-      close (fd_cwd);
-      return NULL;
+    CLEANUP_FREE char *link = areadlinkat (fd_cwd, names[i]);
+
+    if (link != NULL) {
+      if (add_string (&ret, link) == -1) {
+      add_string_failed:
+        close (fd_cwd);
+        return NULL;
+      }
+    } else {
+      if (add_string (&ret, "") == -1)
+        goto add_string_failed;
     }
   }
 
