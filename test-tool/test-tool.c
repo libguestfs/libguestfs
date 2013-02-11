@@ -44,10 +44,9 @@
 
 static int timeout = DEFAULT_TIMEOUT;
 static char tmpf[] = P_tmpdir "/libguestfs-test-tool-sda-XXXXXX";
-static guestfs_h *g;
 
 static void make_files (void);
-static void set_qemu (const char *path, int use_wrapper);
+static void set_qemu (guestfs_h *g, const char *path, int use_wrapper);
 
 static void
 usage (void)
@@ -91,6 +90,9 @@ main (int argc, char *argv[])
   int i;
   struct guestfs_version *vers;
   char *p;
+  guestfs_h *g;
+  char *qemu = NULL;
+  int qemu_use_wrapper;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -98,10 +100,14 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "qemu"))
-        set_qemu (optarg, 0);
-      else if (STREQ (long_options[option_index].name, "qemudir"))
-        set_qemu (optarg, 1);
+      if (STREQ (long_options[option_index].name, "qemu")) {
+        qemu = optarg;
+        qemu_use_wrapper = 0;
+      }
+      else if (STREQ (long_options[option_index].name, "qemudir")) {
+        qemu = optarg;
+        qemu_use_wrapper = 1;
+      }
       else {
         fprintf (stderr,
                  _("libguestfs-test-tool: unknown long option: %s (%d)\n"),
@@ -175,6 +181,9 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
   guestfs_set_verbose (g, 1);
+
+  if (qemu)
+    set_qemu (g, qemu, qemu_use_wrapper);
 
   make_files ();
 
@@ -316,7 +325,7 @@ cleanup_wrapper (void)
  * a wrapper shell script.
  */
 static void
-set_qemu (const char *path, int use_wrapper)
+set_qemu (guestfs_h *g, const char *path, int use_wrapper)
 {
   char *buffer;
   struct stat statbuf;
