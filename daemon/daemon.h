@@ -255,6 +255,11 @@ extern void pulse_mode_start (void);
 extern void pulse_mode_end (void);
 extern void pulse_mode_cancel (void);
 
+/* Send a progress message without rate-limiting.  This is just
+ * for debugging - DON'T use it in regular code!
+ */
+extern void notify_progress_no_ratelimit (uint64_t position, uint64_t total, const struct timeval *now);
+
 /* Return true iff the buffer is all zero bytes.
  *
  * Note that gcc is smart enough to optimize this properly:

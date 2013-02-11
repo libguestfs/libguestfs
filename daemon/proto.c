@@ -598,19 +598,22 @@ void
 notify_progress (uint64_t position, uint64_t total)
 {
   struct timeval now_t;
+  int64_t last_us, now_us, elapsed_us;
+
   gettimeofday (&now_t, NULL);
 
   /* Always send a notification at 100%.  This simplifies callers by
    * allowing them to 'finish' the progress bar at 100% without
    * needing special code.
    */
-  if (count_progress > 0 && position == total)
-    goto send;
+  if (count_progress > 0 && position == total) {
+    notify_progress_no_ratelimit (position, total, &now_t);
+    return;
+  }
 
   /* Calculate time in microseconds since the last progress message
    * was sent out (or since the start of the call).
    */
-  int64_t last_us, now_us, elapsed_us;
   last_us =
     (int64_t) last_progress_t.tv_sec * 1000000 + last_progress_t.tv_usec;
   now_us = (int64_t) now_t.tv_sec * 1000000 + now_t.tv_usec;
@@ -621,16 +624,24 @@ notify_progress (uint64_t position, uint64_t total)
       (count_progress > 0 && elapsed_us < NOTIFICATION_PERIOD))
     return;
 
- send:
-  /* We're going to send a message now ... */
-  count_progress++;
-  last_progress_t = now_t;
+  notify_progress_no_ratelimit (position, total, &now_t);
+}
 
-  /* Send the header word. */
+void
+notify_progress_no_ratelimit (uint64_t position, uint64_t total,
+                              const struct timeval *now_t)
+{
   XDR xdr;
   char buf[128];
-  uint32_t i = GUESTFS_PROGRESS_FLAG;
+  uint32_t i;
   size_t len;
+  guestfs_progress message;
+
+  count_progress++;
+  last_progress_t = *now_t;
+
+  /* Send the header word. */
+  i = GUESTFS_PROGRESS_FLAG;
   xdrmem_create (&xdr, buf, 4, XDR_ENCODE);
   xdr_u_int (&xdr, &i);
   xdr_destroy (&xdr);
@@ -640,12 +651,10 @@ notify_progress (uint64_t position, uint64_t total)
     exit (EXIT_FAILURE);
   }
 
-  guestfs_progress message = {
-    .proc = proc_nr,
-    .serial = serial,
-    .position = position,
-    .total = total,
-  };
+  message.proc = proc_nr;
+  message.serial = serial;
+  message.position = position;
+  message.total = total;
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
   if (!xdr_guestfs_progress (&xdr, &message)) {
