@@ -33,7 +33,8 @@ TESTS = \
 	test-noexec-stack.pl
 
 tests_not_run = \
-	rhbz727178.sh
+	rhbz727178.sh \
+	rhbz909624.sh
 
 TESTS_ENVIRONMENT = \
 	NOEXEC_CHECK="$(top_builddir)/src/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd" \
@@ -65,3 +66,6 @@ EXTRA_DIST = \
 	$(tests_not_run) \
 	rhbz557655-expected.stdout \
 	rhbz557655-expected.stderr
+
+check-slow:
+	$(MAKE) TESTS="rhbz909624.sh" check
