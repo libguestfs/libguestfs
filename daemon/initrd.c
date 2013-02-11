@@ -38,9 +38,10 @@ do_initrd_list (const char *path)
 {
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
-  char filename[PATH_MAX];
   DECLARE_STRINGSBUF (filenames);
-  size_t len;
+  CLEANUP_FREE char *filename = NULL;
+  size_t allocsize;
+  ssize_t len;
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
   if (asprintf_nowarn (&cmd, "%s %R | %s --quiet -it", str_zcat, path, str_cpio) == -1) {
@@ -57,11 +58,10 @@ do_initrd_list (const char *path)
     return NULL;
   }
 
-  while (fgets (filename, sizeof filename, fp) != NULL) {
-    len = strlen (filename);
+  allocsize = 0;
+  while ((len = getline (&filename, &allocsize, fp)) != -1) {
     if (len > 0 && filename[len-1] == '\n')
       filename[len-1] = '\0';
-
     if (add_string (&filenames, filename) == -1) {
       pclose (fp);
       return NULL;
@@ -86,17 +86,14 @@ char *
 do_initrd_cat (const char *path, const char *filename, size_t *size_r)
 {
   char tmpdir[] = "/tmp/initrd-cat-XXXXXX";
+  CLEANUP_FREE char *cmd;
+  struct stat statbuf;
+  int fd, r;
+  char *ret = NULL;
+  CLEANUP_FREE char *fullpath = NULL;
+
   if (mkdtemp (tmpdir) == NULL) {
     reply_with_perror ("mkdtemp");
-    return NULL;
-  }
-
-  /* "zcat /sysroot/<path> | cpio --quiet -id file", but paths must be quoted */
-  CLEANUP_FREE char *cmd;
-  if (asprintf_nowarn (&cmd, "cd %Q && zcat %R | cpio --quiet -id %Q",
-                       tmpdir, path, filename) == -1) {
-    reply_with_perror ("asprintf");
-    rmdir (tmpdir);
     return NULL;
   }
 
@@ -105,7 +102,15 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
    * (eg. if the named file does not exist in the cpio archive) --
    * cpio is silent in this case.
    */
-  int r = system (cmd);
+  /* "zcat /sysroot/<path> | cpio --quiet -id file", but paths must be quoted */
+  if (asprintf_nowarn (&cmd, "cd %Q && zcat %R | cpio --quiet -id %Q",
+                       tmpdir, path, filename) == -1) {
+    reply_with_perror ("asprintf");
+    rmdir (tmpdir);
+    return NULL;
+  }
+
+  r = system (cmd);
   if (r == -1) {
     reply_with_perror ("command failed: %s", cmd);
     rmdir (tmpdir);
@@ -118,13 +123,14 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
     return NULL;
   }
 
+  /* Construct the expected name of the extracted file. */
+  if (asprintf (&fullpath, "%s/%s", tmpdir, filename) == -1) {
+    reply_with_perror ("asprintf");
+    rmdir (tmpdir);
+    return NULL;
+  }
+
   /* See if we got a file. */
-  char fullpath[PATH_MAX];
-  snprintf (fullpath, sizeof fullpath, "%s/%s", tmpdir, filename);
-
-  struct stat statbuf;
-  int fd;
-
   fd = open (fullpath, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
     reply_with_perror ("open: %s:%s", path, filename);
@@ -135,8 +141,6 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
   /* From this point, we know the file exists, so we require full
    * cleanup.
    */
-  char *ret = NULL;
-
   if (fstat (fd, &statbuf) == -1) {
     reply_with_perror ("fstat: %s:%s", path, filename);
     goto cleanup;
