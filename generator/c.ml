@@ -413,7 +413,7 @@ extern \"C\" {
 #include <stdint.h>
 #include <stdarg.h>
 
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(GUESTFS_GCC_VERSION)
 # define GUESTFS_GCC_VERSION \\
     (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #endif

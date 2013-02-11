@@ -23,6 +23,20 @@
 #ifndef GUESTFS_INTERNAL_ALL_H_
 #define GUESTFS_INTERNAL_ALL_H_
 
+/* This is also defined in <guestfs.h>, so don't redefine it. */
+#if defined(__GNUC__) && !defined(GUESTFS_GCC_VERSION)
+# define GUESTFS_GCC_VERSION \
+    (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#endif
+
+#if !defined(__attribute__) && defined(__GNUC__) && GUESTFS_GCC_VERSION < 20800 /* gcc < 2.8 */
+# define __attribute__(x) /* empty */
+#endif
+
+#ifndef ATTRIBUTE_UNUSED
+# define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
+#endif
+
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
 #define STRNEQ(a,b) (strcmp((a),(b)) != 0)
@@ -50,16 +64,6 @@
 
 #ifdef __APPLE__
 #define xdr_uint32_t xdr_u_int32_t
-#endif
-
-#ifndef __attribute__
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
-#  define __attribute__(x) /* empty */
-# endif
-#endif
-
-#ifndef ATTRIBUTE_UNUSED
-# define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
 #endif
 
 #endif /* GUESTFS_INTERNAL_ALL_H_ */
