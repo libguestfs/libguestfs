@@ -41,7 +41,7 @@ read_key (const char *param)
   char *ret = NULL;
   int tty;
   int tcset = 0;
-  size_t n = 0;
+  size_t allocsize = 0;
   ssize_t len;
 
   /* Read and write to /dev/tty if available. */
@@ -69,7 +69,7 @@ read_key (const char *param)
     }
   }
 
-  len = getline (&ret, &n, infp);
+  len = getline (&ret, &allocsize, infp);
   if (len == -1) {
     perror ("getline");
     ret = NULL;

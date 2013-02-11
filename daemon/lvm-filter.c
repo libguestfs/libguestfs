@@ -155,8 +155,8 @@ set_filter (const char *filter)
   }
 
   CLEANUP_FREE char *line = NULL;
-  size_t len = 0;
-  while (getline (&line, &len, ifp) != -1) {
+  size_t allocsize = 0;
+  while (getline (&line, &allocsize, ifp) != -1) {
     int r;
     if (is_filter_line (line)) {
       r = fprintf (ofp, "    filter = [ %s ]\n", filter);

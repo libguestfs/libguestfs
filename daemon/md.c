@@ -442,7 +442,7 @@ do_md_stat (const char *md)
   size_t mdlen;
   FILE *fp;
   CLEANUP_FREE char *line = NULL;
-  size_t len = 0;
+  size_t allocsize = 0;
   ssize_t n;
   guestfs_int_mdstat_list *ret = NULL;
 
@@ -457,7 +457,7 @@ do_md_stat (const char *md)
   }
 
   /* Search for a line which begins with "<md> : ". */
-  while ((n = getline (&line, &len, fp)) != -1) {
+  while ((n = getline (&line, &allocsize, fp)) != -1) {
     if (STRPREFIX (line, md) &&
         line[mdlen] == ' ' && line[mdlen+1] == ':' && line[mdlen+2] == ' ') {
       /* Found it. */

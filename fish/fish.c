@@ -972,7 +972,7 @@ execute_and_inline (const char *cmd, int global_exit_on_error)
 {
   FILE *pp;
   CLEANUP_FREE char *line = NULL;
-  size_t len = 0;
+  size_t allocsize = 0;
   ssize_t n;
   int exit_on_error;
   struct parsed_command pcmd;
@@ -983,7 +983,7 @@ execute_and_inline (const char *cmd, int global_exit_on_error)
     return -1;
   }
 
-  while ((n = getline (&line, &len, pp)) != -1) {
+  while ((n = getline (&line, &allocsize, pp)) != -1) {
     exit_on_error = global_exit_on_error;
 
     /* Chomp final line ending which parse_command_line would not expect. */
