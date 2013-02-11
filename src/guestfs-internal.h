@@ -502,7 +502,7 @@ extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd
 
 /* launch.c */
 extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);
-extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
+extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);

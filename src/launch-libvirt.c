@@ -128,7 +128,7 @@ struct libvirt_xml_params {
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct libvirt_xml_params *params);
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params);
-static void libvirt_error (guestfs_h *g, const char *fs, ...);
+static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 static int is_custom_qemu (guestfs_h *g);
 static int is_blk (const char *path);
 static int random_chars (char *ret, size_t len);
