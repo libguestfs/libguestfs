@@ -90,6 +90,21 @@ old febootstrap 3.21 program).
 Refer to L<supermin-helper(8)/ENVIRONMENT VARIABLES>
 for further information.
 
+=head1 TRYING OUT A DIFFERENT VERSION OF LIBVIRT
+
+If you are using the libvirt attach-method, then you can try out a
+different (eg. upstream) version of libvirt by running these commands
+(I<not> as root):
+
+ killall libvirtd lt-libvirtd
+ ~/path/to/libvirt/run libguestfs-test-tool
+
+The first command kills any session C<libvirtd> process(es) that may
+be running on the machine.  The second command uses libvirt's C<run>
+script (in the top-level libvirt build directory) to set some
+environment variables so that the alternate version of libvirt is used
+to run the program.
+
 =head1 SELF-DIAGNOSIS
 
 Refer to L<guestfs(3)/APPLIANCE BOOT PROCESS> to understand the
