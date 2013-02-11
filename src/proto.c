@@ -35,6 +35,7 @@
 #include <sys/types.h>
 #include <sys/un.h>
 #include <sys/wait.h>
+#include <assert.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -482,11 +483,13 @@ UNEXPEOF_TEST_TOOL));
 UNEXPEOF_TEST_TOOL));
 }
 
-int
-guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+static int
+recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
-  char summary[MAX_MESSAGE_SUMMARY];
   fd_set rset, rset2;
+  int max_fd;
+  char lenbuf[4];
+  ssize_t nr;
 
   FD_ZERO (&rset);
 
@@ -494,16 +497,15 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     FD_SET (g->fd[1], &rset);
   FD_SET (g->sock, &rset);      /* Read socket for data & EOF. */
 
-  int max_fd = MAX (g->sock, g->fd[1]);
+  max_fd = MAX (g->sock, g->fd[1]);
 
   *size_rtn = 0;
   *buf_rtn = NULL;
 
-  char lenbuf[4];
   /* nr is the size of the message, but we prime it as -4 because we
    * have to read the message length word first.
    */
-  ssize_t nr = -4;
+  nr = -4;
 
   for (;;) {
     ssize_t message_size =
@@ -644,6 +646,20 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   }
 #endif
 
+  return 0;
+}
+
+int
+guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+{
+  int r;
+  char summary[MAX_MESSAGE_SUMMARY];
+
+ again:
+  r = recv_from_daemon (g, size_rtn, buf_rtn);
+  if (r == -1)
+    return -1;
+
   if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
     guestfs_progress message;
     XDR xdr;
@@ -658,8 +674,16 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     *buf_rtn = NULL;
 
     /* Process next message. */
-    return guestfs___recv_from_daemon (g, size_rtn, buf_rtn);
+    goto again;
   }
+
+  if (*size_rtn == GUESTFS_LAUNCH_FLAG || *size_rtn == GUESTFS_CANCEL_FLAG)
+    return 0;
+
+  /* ... it's a normal message (not progress/launch/cancel) so display
+   * it if we're debugging.
+   */
+  assert (*buf_rtn != NULL);
 
   debug (g, "recv_from_daemon: %" PRIu32 " bytes: %s", *size_rtn,
          message_summary (*buf_rtn, *size_rtn, summary));
