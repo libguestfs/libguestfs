@@ -36,6 +36,8 @@
 #include <guestfs.h>
 #include "guestfs-internal-frontend.h"
 
+#include "ignore-value.h"
+
 #ifndef P_tmpdir
 #define P_tmpdir "/tmp"
 #endif
@@ -210,6 +212,13 @@ main (int argc, char *argv[])
   p = getenv ("PATH");
   if (p)
     printf ("PATH=%s\n", p);
+
+  /* Print SELinux mode (don't worry if this fails, or if the command
+   * doesn't even exist).
+   */
+  printf ("SELinux: ");
+  fflush (stdout); /* because getenforce prints output on stderr :-( */
+  ignore_value (system ("getenforce"));
 
   /* Configure the handle. */
   if (guestfs_add_drive_opts (g, tmpf,
