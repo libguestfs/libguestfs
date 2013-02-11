@@ -51,14 +51,6 @@ input_to_nul (FILE *fp, char *buf, size_t maxlen)
   return -1;
 }
 
-/* The code below assumes each path returned can fit into a protocol
- * chunk.  If this turns out not to be true at some point in the
- * future then we'll need to modify the code a bit to handle it.
- */
-#if PATH_MAX > GUESTFS_MAX_CHUNK_SIZE
-#error "PATH_MAX > GUESTFS_MAX_CHUNK_SIZE"
-#endif
-
 /* Has one FileOut parameter. */
 int
 do_find0 (const char *dir)
@@ -68,7 +60,7 @@ do_find0 (const char *dir)
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
   CLEANUP_FREE char *sysrootdir = NULL;
-  size_t sysrootdirlen, len;
+  size_t sysrootdirlen;
   char str[GUESTFS_MAX_CHUNK_SIZE];
 
   sysrootdir = sysroot_path (dir);
@@ -109,8 +101,13 @@ do_find0 (const char *dir)
    */
   reply (NULL, NULL);
 
+  /* The code below assumes each path returned can fit into a protocol
+   * chunk (if not you'll get a runtime protocol error).  If this
+   * turns out not to be a problem at some point in the future then
+   * we'll need to modify the code to handle it.  XXX
+   */
   while ((r = input_to_nul (fp, str, GUESTFS_MAX_CHUNK_SIZE)) > 0) {
-    len = strlen (str);
+    size_t len = strlen (str);
     if (len <= sysrootdirlen)
       continue;
 
