@@ -33,11 +33,6 @@
 #include "optgroups.h"
 #include "actions.h"
 
-/* On Windows, NAME_MAX is not defined. */
-#ifndef NAME_MAX
-#define NAME_MAX FILENAME_MAX
-#endif
-
 #ifdef HAVE_REALPATH
 
 int
@@ -68,17 +63,21 @@ OPTGROUP_REALPATH_NOT_AVAILABLE
 
 #endif /* !HAVE_REALPATH */
 
-static int find_path_element (int fd_cwd, int is_end, char *name, size_t *name_len_ret);
+static int find_path_element (int fd_cwd, int is_end, const char *name, char **name_ret);
 
 char *
 do_case_sensitive_path (const char *path)
 {
-  char ret[PATH_MAX+1] = "/";
-  char name[NAME_MAX+1];
-  size_t next = 1;
+  size_t next;
   int fd_cwd, fd2, err, is_end;
-  size_t i;
-  char *retp;
+  char *ret;
+
+  ret = strdup ("/");
+  if (ret == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+  next = 1; /* next position in 'ret' buffer */
 
   /* 'fd_cwd' here is a surrogate for the current working directory, so
    * that we don't have to actually call chdir(2).
@@ -86,13 +85,17 @@ do_case_sensitive_path (const char *path)
   fd_cwd = open (sysroot, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
   if (fd_cwd == -1) {
     reply_with_perror ("%s", sysroot);
-    return NULL;
+    goto error;
   }
 
   /* First character is a '/'.  Take each subsequent path element
    * and follow it.
    */
   while (*path) {
+    char *t;
+    size_t i, len;
+    CLEANUP_FREE char *name_in = NULL, *name_out = NULL;
+
     i = strcspn (path, "/");
     if (i == 0) {
       path++;
@@ -104,13 +107,12 @@ do_case_sensitive_path (const char *path)
       reply_with_error ("path contained . or .. elements");
       goto error;
     }
-    if (i > NAME_MAX) {
-      reply_with_error ("path element too long");
+
+    name_in = strndup (path, i);
+    if (name_in == NULL) {
+      reply_with_perror ("strdup");
       goto error;
     }
-
-    memcpy (name, path, i);
-    name[i] = '\0';
 
     /* Skip to next element in path (for the next loop iteration). */
     path += i;
@@ -120,23 +122,26 @@ do_case_sensitive_path (const char *path)
      * this element of the path.  This replaces 'name' with the
      * correct case version.
      */
-    if (find_path_element (fd_cwd, is_end, name, &i) == -1)
+    if (find_path_element (fd_cwd, is_end, name_in, &name_out) == -1)
       goto error;
+    len = strlen (name_out);
 
     /* Add the real name of this path element to the return value. */
     if (next > 1)
       ret[next++] = '/';
 
-    if (next + i >= PATH_MAX) {
-      reply_with_error ("final path too long");
+    t = realloc (ret, next+len+1);
+    if (t == NULL) {
+      reply_with_perror ("realloc");
       goto error;
     }
+    ret = t;
 
-    strcpy (&ret[next], name);
-    next += i;
+    strcpy (&ret[next], name_out);
+    next += len;
 
     /* Is it a directory?  Try going into it. */
-    fd2 = openat (fd_cwd, name, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
+    fd2 = openat (fd_cwd, name_out, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
     err = errno;
     close (fd_cwd);
     fd_cwd = fd2;
@@ -146,7 +151,7 @@ do_case_sensitive_path (const char *path)
       if (is_end && (errno == ENOTDIR || errno == ENOENT))
         break;
 
-      reply_with_perror ("openat: %s", name);
+      reply_with_perror ("openat: %s", name_out);
       goto error;
     }
   }
@@ -154,34 +159,28 @@ do_case_sensitive_path (const char *path)
   if (fd_cwd >= 0)
     close (fd_cwd);
 
-  ret[next] = '\0';
-  retp = strdup (ret);
-  if (retp == NULL) {
-    reply_with_perror ("strdup");
-    return NULL;
-  }
-  return retp;                  /* caller frees */
+  return ret;                   /* caller frees */
 
  error:
   if (fd_cwd >= 0)
     close (fd_cwd);
+  free (ret);
 
   return NULL;
 }
 
 /* 'fd_cwd' is a file descriptor pointing to an open directory.
- * 'name' is a buffer of NAME_MAX+1 characters in size which initially
- * contains the path element to search for.  'is_end' is a flag
+ * 'name' is the path element to search for.  'is_end' is a flag
  * indicating if this is the last path element.
  *
  * We search the directory looking for a path element that case
- * insensitively matches 'name' and update the 'name' buffer.
+ * insensitively matches 'name', returning the actual name in '*name_ret'.
  *
  * If this is successful, return 0.  If it fails, reply with an error
  * and return -1.
  */
 static int
-find_path_element (int fd_cwd, int is_end, char *name, size_t *name_len_ret)
+find_path_element (int fd_cwd, int is_end, const char *name, char **name_ret)
 {
   int fd2;
   DIR *dir;
@@ -219,6 +218,11 @@ find_path_element (int fd_cwd, int is_end, char *name, size_t *name_len_ret)
      * create a new file or directory (RHBZ#840115).
      */
     closedir (dir);
+    *name_ret = strdup (name);
+    if (*name_ret == NULL) {
+      reply_with_perror ("strdup");
+      return -1;
+    }
     return 0;
   }
 
@@ -228,16 +232,12 @@ find_path_element (int fd_cwd, int is_end, char *name, size_t *name_len_ret)
     return -1;
   }
 
-  *name_len_ret = strlen (d->d_name);
-  if (*name_len_ret > NAME_MAX) {
-    /* Should never happen? */
-    reply_with_error ("path element longer than NAME_MAX");
+  *name_ret = strdup (d->d_name);
+  if (*name_ret == NULL) {
+    reply_with_perror ("strdup");
     closedir (dir);
     return -1;
   }
-
-  /* Safe because name is a buffer of NAME_MAX+1 characters. */
-  strcpy (name, d->d_name);
 
   /* NB: closedir frees the structure associated with 'd', so we must
    * do this last.
