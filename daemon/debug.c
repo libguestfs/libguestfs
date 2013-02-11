@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -443,29 +444,56 @@ debug_ll (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_progress (const char *subcmd, size_t argc, char *const *const argv)
 {
+  uint64_t secs, rate = 0;
+  char *ret;
+
   if (argc < 1) {
   error:
-    reply_with_error ("progress: expecting arg (time in seconds as string)");
+    reply_with_error ("progress: expecting one or more args: time in seconds [, rate in microseconds]");
     return NULL;
   }
 
-  char *secs_str = argv[0];
-  unsigned secs;
-  if (sscanf (secs_str, "%u", &secs) != 1)
+  if (sscanf (argv[0], "%" SCNu64, &secs) != 1)
     goto error;
   if (secs == 0 || secs > 1000000) { /* RHBZ#816839 */
     reply_with_error ("progress: argument is 0, less than 0, or too large");
     return NULL;
   }
 
-  unsigned i;
-  unsigned tsecs = secs * 10;   /* 1/10ths of seconds */
-  for (i = 1; i <= tsecs; ++i) {
-    usleep (100000);
-    notify_progress ((uint64_t) i, (uint64_t) tsecs);
+  if (argc >= 2) {
+    if (sscanf (argv[1], "%" SCNu64, &rate) != 1)
+      goto error;
+    if (rate == 0 || rate > 1000000) {
+      reply_with_error ("progress: rate is 0 or too large");
+      return NULL;
+    }
   }
 
-  char *ret = strdup ("ok");
+  /* Note the inner loops go to '<= limit' because we want to ensure
+   * that the final 100% completed message is set.
+   */
+  if (rate == 0) {              /* Ordinary rate-limited progress messages. */
+    uint64_t tsecs = secs * 10; /* 1/10ths of seconds */
+    uint64_t i;
+
+    for (i = 1; i <= tsecs; ++i) {
+      usleep (100000);
+      notify_progress (i, tsecs);
+    }
+  }
+  else {                        /* Send messages at a given rate. */
+    uint64_t usecs = secs * 1000000; /* microseconds */
+    uint64_t i;
+    struct timeval now;
+
+    for (i = rate; i <= usecs; i += rate) {
+      usleep (rate);
+      gettimeofday (&now, NULL);
+      notify_progress_no_ratelimit (i, usecs, &now);
+    }
+  }
+
+  ret = strdup ("ok");
   if (ret == NULL) {
     reply_with_perror ("strdup");
     return NULL;
