@@ -39,12 +39,14 @@ guestmount_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
 	guestmount.c
 
-guestmount_CFLAGS = \
+guestmount_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
-	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+guestmount_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS) \

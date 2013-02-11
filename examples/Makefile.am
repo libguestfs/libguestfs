@@ -43,9 +43,10 @@ endif
 
 if HAVE_LIBVIRT
 copy_over_SOURCES = copy_over.c
-copy_over_CFLAGS = \
+copy_over_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+copy_over_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -55,9 +56,10 @@ copy_over_LDADD = \
 	$(LIBVIRT_LIBS)
 
 libvirt_auth_SOURCES = libvirt_auth.c
-libvirt_auth_CFLAGS = \
+libvirt_auth_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+libvirt_auth_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -68,27 +70,30 @@ libvirt_auth_LDADD = \
 endif
 
 create_disk_SOURCES = create_disk.c
-create_disk_CFLAGS = \
+create_disk_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+create_disk_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 create_disk_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 display_icon_SOURCES = display_icon.c
-display_icon_CFLAGS = \
+display_icon_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+display_icon_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 display_icon_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 inspect_vm_SOURCES = inspect_vm.c
-inspect_vm_CFLAGS = \
+inspect_vm_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+inspect_vm_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 inspect_vm_LDADD = \
@@ -96,6 +101,9 @@ inspect_vm_LDADD = \
 
 if HAVE_FUSE
 mount_local_SOURCES = mount_local.c
+mount_local_CPPFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 mount_local_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
@@ -109,9 +117,10 @@ endif
 
 if HAVE_HIVEX
 virt_dhcp_address_SOURCES = virt-dhcp-address.c
-virt_dhcp_address_CFLAGS = \
+virt_dhcp_address_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+virt_dhcp_address_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 virt_dhcp_address_LDADD = \

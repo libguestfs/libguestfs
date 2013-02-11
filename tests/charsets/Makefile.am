@@ -25,8 +25,9 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 check_PROGRAMS = $(TESTS)
 
 test_charset_fidelity_SOURCES = test-charset-fidelity.c
+test_charset_fidelity_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_charset_fidelity_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_charset_fidelity_LDADD = \

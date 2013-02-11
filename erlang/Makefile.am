@@ -41,11 +41,13 @@ bin_PROGRAMS = erl-guestfs
 
 erl_guestfs_SOURCES = erl-guestfs.c erl-guestfs-proto.c
 
-erl_guestfs_CFLAGS = \
+erl_guestfs_CPPFLAGS = \
+	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	-I$(ERLANG_LIB_DIR_erl_interface)/include \
-	-DGUESTFS_PRIVATE=1 \
+	-I$(ERLANG_LIB_DIR_erl_interface)/include
+
+erl_guestfs_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 
