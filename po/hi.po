@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-09 21:00+0000\n"
+"POT-Creation-Date: 2013-02-11 19:35+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -3912,16 +3912,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:662
+#: src/launch-libvirt.c:665
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:981
+#: src/launch-libvirt.c:984
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1061
+#: src/launch-libvirt.c:1064
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -3929,34 +3929,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1335
+#: src/launch-libvirt.c:1338
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1362
+#: src/launch-libvirt.c:1365
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1407
+#: src/launch-libvirt.c:1410
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1439
+#: src/launch-libvirt.c:1442
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1491
+#: src/launch-libvirt.c:1494
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1520
+#: src/launch-libvirt.c:1523
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1566
+#: src/launch-libvirt.c:1569
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4151,73 +4151,73 @@ msgstr ""
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
 
-#: src/proto.c:353
+#: src/proto.c:354
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/proto.c:475
+#: src/proto.c:476
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
 "the debug messages output prior to this error.\n"
 msgstr ""
 
-#: src/proto.c:481
+#: src/proto.c:482
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:571
+#: src/proto.c:573
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd से जादुई हस्ताक्षर पाया , लेकिन %d स्थिति में"
 
-#: src/proto.c:590
+#: src/proto.c:592
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "message length (%u) > maximum possible size (%d)"
 
-#: src/proto.c:767
+#: src/proto.c:791
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header failed"
 
-#: src/proto.c:776
+#: src/proto.c:800
 msgid "dispatch failed to marshal args"
 msgstr "dispatch failed to marshal args"
 
-#: src/proto.c:867 src/proto.c:1151
+#: src/proto.c:891 src/proto.c:1175
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:930
+#: src/proto.c:954
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1080
+#: src/proto.c:1104
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1108
+#: src/proto.c:1132
 msgid "write to daemon socket"
 msgstr "डेमॉन सॉकेट में लिखें"
 
-#: src/proto.c:1131
+#: src/proto.c:1155
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/proto.c:1136
+#: src/proto.c:1160
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: unexpected flag received when reading file chunks"
 
-#: src/proto.c:1144
+#: src/proto.c:1168
 msgid "failed to parse file chunk"
 msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
 
-#: src/proto.c:1155
+#: src/proto.c:1179
 msgid "file receive cancelled by daemon"
 msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
 
@@ -4236,7 +4236,7 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: को अस्थायी निर्देशिका नहीं बना सकता है"
 
-#: test-tool/test-tool.c:55
+#: test-tool/test-tool.c:54
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
@@ -4253,74 +4253,74 @@ msgid ""
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
 
-#: test-tool/test-tool.c:107
+#: test-tool/test-tool.c:113
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: unknown long option: %s (%d)\n"
 
-#: test-tool/test-tool.c:116
+#: test-tool/test-tool.c:122
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: invalid timeout: %s\n"
 
-#: test-tool/test-tool.c:126 test-tool/test-tool.c:168
+#: test-tool/test-tool.c:132 test-tool/test-tool.c:174
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: failed to create libguestfs handle\n"
 
-#: test-tool/test-tool.c:131 test-tool/test-tool.c:218
+#: test-tool/test-tool.c:137 test-tool/test-tool.c:227
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version failed\n"
 
-#: test-tool/test-tool.c:147
+#: test-tool/test-tool.c:153
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: unexpected command line option 0x%x\n"
 
-#: test-tool/test-tool.c:173
+#: test-tool/test-tool.c:179
 #, c-format
 msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:210
+#: test-tool/test-tool.c:219
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: failed to add drive '%s'\n"
 
-#: test-tool/test-tool.c:258
+#: test-tool/test-tool.c:267
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
-#: test-tool/test-tool.c:270
+#: test-tool/test-tool.c:279
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:276
+#: test-tool/test-tool.c:285
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
 
-#: test-tool/test-tool.c:282
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:295
+#: test-tool/test-tool.c:304
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:328
+#: test-tool/test-tool.c:337
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4329,12 +4329,12 @@ msgstr ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 
-#: test-tool/test-tool.c:336
+#: test-tool/test-tool.c:345
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "द्विपदीय '%s' मौजूद नहीं है या निष्पादनीय नहीं है\n"
 
-#: test-tool/test-tool.c:353
+#: test-tool/test-tool.c:362
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत निर्देशिका की तरह नहीं दिखता है\n"

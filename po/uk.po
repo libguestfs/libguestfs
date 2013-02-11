@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-09 21:00+0000\n"
+"POT-Creation-Date: 2013-02-11 19:35+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4465,16 +4465,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:662
+#: src/launch-libvirt.c:665
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:981
+#: src/launch-libvirt.c:984
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr "підтримки параметра «iface» у методі attach libvirt не передбачено"
 
-#: src/launch-libvirt.c:1061
+#: src/launch-libvirt.c:1064
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4487,34 +4487,34 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1335
+#: src/launch-libvirt.c:1338
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr "qemu-img create: не вдалося створити знімок над %s"
 
-#: src/launch-libvirt.c:1362
+#: src/launch-libvirt.c:1365
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1407
+#: src/launch-libvirt.c:1410
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1439
+#: src/launch-libvirt.c:1442
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1491
+#: src/launch-libvirt.c:1494
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1520
+#: src/launch-libvirt.c:1523
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
-#: src/launch-libvirt.c:1566
+#: src/launch-libvirt.c:1569
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4744,7 +4744,7 @@ msgstr ""
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
 
-#: src/proto.c:353
+#: src/proto.c:354
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -4752,7 +4752,7 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: від фонової служби отримано значення 0x"
 "%x, мало бути 0x%x\n"
 
-#: src/proto.c:475
+#: src/proto.c:476
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
@@ -4765,61 +4765,61 @@ msgstr ""
 "потім ознайомтеся з діагностичними повідомленнями до повідомлення про "
 "помилку.\n"
 
-#: src/proto.c:481
+#: src/proto.c:482
 msgid "See earlier debug messages.\n"
 msgstr "Ознайомтеся з попередніми діагностичними повідомленнями.\n"
 
-#: src/proto.c:571
+#: src/proto.c:573
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "отримано керівну послідовність байтів від guestfsd, але маємо стан %d"
 
-#: src/proto.c:590
+#: src/proto.c:592
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "довжина повідомлення (%u) перевищує максимальний можливий розмір (%d)"
 
-#: src/proto.c:767
+#: src/proto.c:791
 msgid "xdr_guestfs_message_header failed"
 msgstr "помилка xdr_guestfs_message_header"
 
-#: src/proto.c:776
+#: src/proto.c:800
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:867 src/proto.c:1151
+#: src/proto.c:891 src/proto.c:1175
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
-#: src/proto.c:930
+#: src/proto.c:954
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "помилка xdr_guestfs_chunk (буфер = %p, довжина буфера = %zu)"
 
-#: src/proto.c:1080
+#: src/proto.c:1104
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: помилка у кодуванні фрагмента"
 
-#: src/proto.c:1108
+#: src/proto.c:1132
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:1131
+#: src/proto.c:1155
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
 
-#: src/proto.c:1136
+#: src/proto.c:1160
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:1144
+#: src/proto.c:1168
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:1155
+#: src/proto.c:1179
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
@@ -4838,7 +4838,7 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: test-tool/test-tool.c:55
+#: test-tool/test-tool.c:54
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
@@ -4867,75 +4867,75 @@ msgstr ""
 "  --version\n"
 "  -V             Показати дані щодо версії libguestfs і завершити роботу\n"
 
-#: test-tool/test-tool.c:107
+#: test-tool/test-tool.c:113
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: невідомий довгий запис параметра: %s (%d)\n"
 
-#: test-tool/test-tool.c:116
+#: test-tool/test-tool.c:122
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: некоректне значення часу очікування: %s\n"
 
-#: test-tool/test-tool.c:126 test-tool/test-tool.c:168
+#: test-tool/test-tool.c:132 test-tool/test-tool.c:174
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
 
-#: test-tool/test-tool.c:131 test-tool/test-tool.c:218
+#: test-tool/test-tool.c:137 test-tool/test-tool.c:227
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: помилка guestfs_version\n"
 
-#: test-tool/test-tool.c:147
+#: test-tool/test-tool.c:153
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
-#: test-tool/test-tool.c:173
+#: test-tool/test-tool.c:179
 #, c-format
 msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:210
+#: test-tool/test-tool.c:219
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
 
-#: test-tool/test-tool.c:258
+#: test-tool/test-tool.c:267
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:270
+#: test-tool/test-tool.c:279
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося запустити part-disk\n"
 
-#: test-tool/test-tool.c:276
+#: test-tool/test-tool.c:285
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:282
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: не вдалося виконати touch для файла\n"
 
-#: test-tool/test-tool.c:295
+#: test-tool/test-tool.c:304
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: спроба завершення роботи зазнала невдачі\n"
 
-#: test-tool/test-tool.c:328
+#: test-tool/test-tool.c:337
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4944,12 +4944,12 @@ msgstr ""
 "Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:336
+#: test-tool/test-tool.c:345
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:353
+#: test-tool/test-tool.c:362
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
