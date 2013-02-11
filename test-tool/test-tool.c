@@ -381,7 +381,7 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
            "host_cpu=%s\n"
            "qemudir='%s'\n"
            "qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-$host_cpu\"\n"
-           "\"$qemu\" -L \"$qemudir/pc-bios\" \"$@\"\n",
+           "exec \"$qemu\" -L \"$qemudir/pc-bios\" \"$@\"\n",
            host_cpu, path);
   fclose (fp);
 
