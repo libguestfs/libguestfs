@@ -29,6 +29,7 @@ libguestfs_test_tool_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 libguestfs_test_tool_LDADD = \
