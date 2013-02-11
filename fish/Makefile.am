@@ -119,13 +119,15 @@ cmds-gperf.c: cmds-gperf.gperf
 	$(GPERF) -t $< > $@-t
 	mv $@-t $@
 
-guestfish_CFLAGS = \
+guestfish_CPPFLAGS = \
 	-DCOMPILING_GUESTFISH=1 \
 	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
-	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+guestfish_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS)

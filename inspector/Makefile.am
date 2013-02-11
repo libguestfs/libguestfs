@@ -63,12 +63,14 @@ virt_inspector_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
 	virt-inspector.c
 
-virt_inspector_CFLAGS = \
+virt_inspector_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
-	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+virt_inspector_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBXML2_CFLAGS) \

@@ -25,13 +25,17 @@ bin_PROGRAMS = libguestfs-test-tool
 man_MANS = libguestfs-test-tool.1
 
 libguestfs_test_tool_SOURCES = test-tool.c
-libguestfs_test_tool_CFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
-	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+
+libguestfs_test_tool_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
+
+libguestfs_test_tool_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 

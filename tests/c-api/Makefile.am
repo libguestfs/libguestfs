@@ -70,9 +70,10 @@ TESTS_ENVIRONMENT = \
 #SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi)
 
 tests_SOURCES = tests.c
-tests_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+tests_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 tests_LDADD = $(top_builddir)/src/libguestfs.la
@@ -89,8 +90,9 @@ test_pwd_LDFLAGS = -all-static
 # Hand-written C API tests.
 
 test_just_header_SOURCES = test-just-header.c
+test_just_header_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_just_header_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_just_header_LDADD = \
@@ -98,8 +100,9 @@ test_just_header_LDADD = \
 
 if HAVE_CXX
 test_just_header_cxx_SOURCES = test-just-header-cxx.cpp
+test_just_header_cxx_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_just_header_cxx_CXXFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_just_header_cxx_LDADD = \
@@ -107,59 +110,66 @@ test_just_header_cxx_LDADD = \
 endif
 
 test_create_handle_SOURCES = test-create-handle.c
+test_create_handle_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_create_handle_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_create_handle_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_config_SOURCES = test-config.c
+test_config_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_config_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_config_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_add_drive_opts_SOURCES = test-add-drive-opts.c
+test_add_drive_opts_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_add_drive_opts_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_add_drive_opts_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_last_errno_SOURCES = test-last-errno.c
+test_last_errno_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_last_errno_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_last_errno_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_private_data_SOURCES = test-private-data.c
+test_private_data_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_private_data_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_private_data_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 test_user_cancel_SOURCES = test-user-cancel.c
+test_user_cancel_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_user_cancel_CFLAGS = \
 	-pthread \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_user_cancel_LDADD = \
 	$(top_builddir)/src/libguestfs.la -lm
 
 test_debug_to_file_SOURCES = test-debug-to-file.c
-test_debug_to_file_CFLAGS = \
+test_debug_to_file_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib \
-	-I$(top_builddir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib
+test_debug_to_file_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_debug_to_file_LDADD = \
@@ -167,10 +177,11 @@ test_debug_to_file_LDADD = \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_environment_SOURCES = test-environment.c
-test_environment_CFLAGS = \
+test_environment_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib \
-	-I$(top_builddir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib
+test_environment_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_environment_LDADD = \
@@ -179,8 +190,9 @@ test_environment_LDADD = \
 
 #if HAVE_LIBVIRT
 #test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
+#test_add_libvirt_dom_CPPFLAGS = \
+#	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib
 #test_add_libvirt_dom_CFLAGS = \
-#	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib \
 #	$(LIBVIRT_CFLAGS) \
 #	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 #	$(GPROF_CFLAGS) $(GCOV_CFLAGS)

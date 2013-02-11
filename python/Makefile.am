@@ -40,12 +40,17 @@ python_DATA = guestfs.py
 python_LTLIBRARIES = libguestfsmod.la
 
 libguestfsmod_la_SOURCES = guestfs-py.c guestfs-py.h guestfs-py-byhand.c
-libguestfsmod_la_CFLAGS = \
+
+libguestfsmod_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	-I$(PYTHON_INCLUDEDIR) \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
+
+libguestfsmod_la_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+
 libguestfsmod_la_LIBADD = $(top_builddir)/src/libguestfs.la
+
 libguestfsmod_la_LDFLAGS = -avoid-version -shared
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
