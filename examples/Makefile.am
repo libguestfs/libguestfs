@@ -1,5 +1,5 @@
 # libguestfs C examples
-# Copyright (C) 2010-2012 Red Hat Inc.
+# Copyright (C) 2010-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -147,8 +147,13 @@ stamp-guestfs-examples.pod: guestfs-examples.pod create_disk.c inspect_vm.c
 	  --section 3 \
 	  --man guestfs-examples.3 \
 	  --html $(top_builddir)/html/guestfs-examples.3.html \
-	  --verbatim $(srcdir)/create_disk.c:@EXAMPLE1@ \
-	  --verbatim $(srcdir)/inspect_vm.c:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/copy_over.c:@COPY_OVER@ \
+	  --verbatim $(srcdir)/create_disk.c:@CREATE_DISK@ \
+	  --verbatim $(srcdir)/display_icon.c:@DISPLAY_ICON@ \
+	  --verbatim $(srcdir)/inspect_vm.c:@INSPECT_VM@ \
+	  --verbatim $(srcdir)/libvirt_auth.c:@LIBVIRT_AUTH@ \
+	  --verbatim $(srcdir)/mount_local.c:@MOUNT_LOCAL@ \
+	  --verbatim $(srcdir)/virt-dhcp-address.c:@VIRT_DHCP_ADDRESS@ \
 	  --license examples \
 	  $<
 	touch $@

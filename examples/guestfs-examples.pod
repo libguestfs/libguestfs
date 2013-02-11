@@ -22,13 +22,38 @@ This manual page contains examples of calling libguestfs from
 the C programming language.  If you are not familiar with using
 libguestfs, you also need to read L<guestfs(3)>.
 
-=head1 EXAMPLE 1: CREATE A DISK IMAGE
+=head1 EXAMPLE: CREATE A DISK IMAGE
 
-@EXAMPLE1@
+@CREATE_DISK@
 
-=head1 EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE
+=head1 EXAMPLE: INSPECT A VIRTUAL MACHINE DISK IMAGE
 
-@EXAMPLE2@
+@INSPECT_VM@
+
+=head1 EXAMPLE: DISPLAY THE OPERATING SYSTEM ICON OF A GUEST
+
+This example inspects a guest using
+L<libguestfs inspection|guestfs(3)/INSPECTION>,
+and if possible displays a representative icon or logo for the guest's
+operating system.
+
+@DISPLAY_ICON@
+
+=head1 EXAMPLE: THE LIBVIRT AUTHENTICATION API
+
+@LIBVIRT_AUTH@
+
+=head1 EXAMPLE: THE MOUNT LOCAL API
+
+@MOUNT_LOCAL@
+
+=head1 EXAMPLE: MULTIPLE HANDLES AND THREADS
+
+@COPY_OVER@
+
+=head1 EXAMPLE: FETCH DHCP ADDRESS FROM A GUEST
+
+@VIRT_DHCP_ADDRESS@
 
 =head1 SEE ALSO
 
@@ -49,4 +74,4 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010-2012 Red Hat Inc.
+Copyright (C) 2010-2013 Red Hat Inc.
