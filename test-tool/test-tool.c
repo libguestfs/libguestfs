@@ -378,19 +378,11 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
   fp = fdopen (fd, "w");
   fprintf (fp,
            "#!/bin/sh -\n"
+           "host_cpu=%s\n"
            "qemudir='%s'\n"
-           "\"$qemudir\"/",
-           path);
-
-  /* Select the right qemu binary for the wrapper script. */
-#ifdef __i386__
-  fprintf (fp, "i386-softmmu/qemu");
-#else
-  fprintf (fp, host_cpu "-softmmu/qemu-system-" host_cpu);
-#endif
-
-  fprintf (fp, " -L \"$qemudir\"/pc-bios \"$@\"\n");
-
+           "qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-$host_cpu\"\n"
+           "\"$qemu\" -L \"$qemudir/pc-bios\" \"$@\"\n",
+           host_cpu, path);
   fclose (fp);
 
   guestfs_set_qemu (g, qemuwrapper);
