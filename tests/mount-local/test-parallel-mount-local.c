@@ -466,13 +466,13 @@ read_line_from (const char *cmd)
 {
   FILE *pp;
   char *ret = NULL;
-  size_t n;
+  size_t allocsize;
 
   pp = popen (cmd, "r");
   if (pp == NULL)
     error (EXIT_FAILURE, errno, "%s: external command failed", cmd);
 
-  if (getline (&ret, &n, pp) == -1)
+  if (getline (&ret, &allocsize, pp) == -1)
     error (EXIT_FAILURE, errno, "could not read line from external command");
 
   if (pclose (pp) == -1)

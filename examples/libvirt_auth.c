@@ -104,7 +104,7 @@ auth_callback (guestfs_h *g,
   size_t i;
   char *prompt;
   char *reply = NULL;
-  size_t replylen;
+  size_t allocsize;
   char *pass;
   ssize_t len;
   int r;
@@ -129,7 +129,7 @@ auth_callback (guestfs_h *g,
         printf ("%s: ", prompt);
       free (prompt);
 
-      len = getline (&reply, &replylen, stdin);
+      len = getline (&reply, &allocsize, stdin);
       if (len == -1) {
         perror ("getline");
         exit (EXIT_FAILURE);
