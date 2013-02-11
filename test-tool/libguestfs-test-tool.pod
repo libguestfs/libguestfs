@@ -105,6 +105,23 @@ script (in the top-level libvirt build directory) to set some
 environment variables so that the alternate version of libvirt is used
 to run the program.
 
+=head1 TRYING OUT DIFFERENT SELINUX SETTINGS
+
+If you are using libvirt, SELinux and sVirt, then you can try to see
+if changing SELinux to "permissive" mode makes any difference.  Use
+this command as root:
+
+ setenforce Permissive
+
+If this makes a difference, look in the audit logs for recent
+failures:
+
+ ausearch -m avc -ts recent
+
+To reenable SELinux and sVirt, do:
+
+ setenforce Enforcing
+
 =head1 SELF-DIAGNOSIS
 
 Refer to L<guestfs(3)/APPLIANCE BOOT PROCESS> to understand the
