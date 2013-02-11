@@ -139,8 +139,13 @@ extern int random_name (char *template);
 
 /* This just stops gcc from giving a warning about our custom printf
  * formatters %Q and %R.  See guestfs(3)/EXTENDING LIBGUESTFS for more
- * info about these.
+ * info about these.  In GCC 4.8.0 the warning is even harder to
+ * 'trick', hence the need for the #pragma directives.
  */
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=format"
+#endif
 static inline int
 asprintf_nowarn (char **strp, const char *fmt, ...)
 {
@@ -152,6 +157,9 @@ asprintf_nowarn (char **strp, const char *fmt, ...)
   va_end (args);
   return r;
 }
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
 
 /* Use by the CLEANUP_* macros. */
 extern void cleanup_free (void *ptr);
