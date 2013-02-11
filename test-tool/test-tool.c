@@ -189,8 +189,6 @@ main (int argc, char *argv[])
 
   make_files ();
 
-  printf ("===== Test starts here =====\n");
-
   /* Print out any environment variables which may relate to this test. */
   for (i = 0; environ[i] != NULL; ++i) {
     if (STRPREFIX (environ[i], "LIBGUESTFS_"))
