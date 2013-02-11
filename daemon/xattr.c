@@ -263,23 +263,11 @@ guestfs_int_xattr_list *
 do_internal_lxattrlist (const char *path, char *const *names)
 {
 #if defined(HAVE_LLISTXATTR) && defined(HAVE_LGETXATTR)
-  /* XXX This would be easier if the kernel had lgetxattrat.  In the
-   * meantime we use this buffer to store the whole path name.
-   */
-  char pathname[PATH_MAX];
-  size_t path_len = strlen (path);
   guestfs_int_xattr_list *ret = NULL;
   size_t i, j;
   size_t k, m, nr_attrs;
   ssize_t len, vlen;
   CLEANUP_FREE char *buf = NULL;
-
-  if (path_len >= PATH_MAX) {
-    reply_with_perror ("path longer than PATH_MAX");
-    goto error;
-  }
-
-  strcpy (pathname, path);
 
   ret = malloc (sizeof (*ret));
   if (ret == NULL) {
@@ -291,22 +279,28 @@ do_internal_lxattrlist (const char *path, char *const *names)
   ret->guestfs_int_xattr_list_val = NULL;
 
   for (k = 0; names[k] != NULL; ++k) {
-    /* Be careful in here about which errors cause the whole call
+    void *newptr;
+    CLEANUP_FREE char *pathname;
+
+    /* Be careful in this loop about which errors cause the whole call
      * to abort, and which errors allow us to continue processing
      * the call, recording a special "error attribute" in the
      * outgoing struct list.
      */
-    if (path_len + strlen (names[k]) + 2 > PATH_MAX) {
-      reply_with_perror ("path and name longer than PATH_MAX");
+
+    /* XXX This would be easier if the kernel had lgetxattrat.  In the
+     * meantime we use the 'pathname' buffer to store the whole path
+     * name.
+     */
+    if (asprintf (&pathname, "%s/%s", path, names[k]) == -1) {
+      reply_with_perror ("asprintf");
       goto error;
     }
-    pathname[path_len] = '/';
-    strcpy (&pathname[path_len+1], names[k]);
 
     /* Reserve space for the special attribute. */
-    void *newptr =
-      realloc (ret->guestfs_int_xattr_list_val,
-               (ret->guestfs_int_xattr_list_len+1)*sizeof (guestfs_int_xattr));
+    newptr = realloc (ret->guestfs_int_xattr_list_val,
+                      (ret->guestfs_int_xattr_list_len+1) *
+                      sizeof (guestfs_int_xattr));
     if (newptr == NULL) {
       reply_with_perror ("realloc");
       goto error;
