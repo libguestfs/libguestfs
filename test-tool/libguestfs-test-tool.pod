@@ -114,9 +114,13 @@ this command as root:
  setenforce Permissive
 
 If this makes a difference, look in the audit logs for recent
-failures:
+failures ("AVCs"):
 
  ausearch -m avc -ts recent
+
+You can convert AVCs into suggested SELinux policy rules using tools
+like L<audit2allow(1)>.  For more information, see the "Security
+Enhanced Linux User Guide".
 
 To reenable SELinux and sVirt, do:
 
