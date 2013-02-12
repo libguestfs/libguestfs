@@ -1,4 +1,7 @@
-/* Example of using the libvirt authentication event-driven API. */
+/* Example of using the libvirt authentication event-driven API.
+ *
+ * See "LIBVIRT AUTHENTICATION" in guestfs(3).
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

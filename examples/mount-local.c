@@ -3,6 +3,8 @@
  * Run this program as (eg) mount-local /tmp/test.img.  Note that
  * '/tmp/test.img' is created or overwritten.  Follow the instructions
  * on screen.
+ *
+ * See "MOUNT LOCAL" in guestfs(3).
  */
 
 #include <stdio.h>
