@@ -1,3 +1,5 @@
+/* Inspect a disk image and display operating systems it may contain. */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

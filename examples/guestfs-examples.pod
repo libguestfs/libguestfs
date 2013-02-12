@@ -32,11 +32,6 @@ libguestfs, you also need to read L<guestfs(3)>.
 
 =head1 EXAMPLE: DISPLAY THE OPERATING SYSTEM ICON OF A GUEST
 
-This example inspects a guest using
-L<libguestfs inspection|guestfs(3)/INSPECTION>,
-and if possible displays a representative icon or logo for the guest's
-operating system.
-
 @DISPLAY_ICON@
 
 =head1 EXAMPLE: THE LIBVIRT AUTHENTICATION API

@@ -1,3 +1,8 @@
+/* This example inspects a guest using libguestfs inspection (see
+ * "INSPECTION" in guestfs(3)), and if possible displays a
+ * representative icon or logo for the guest's operating system.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
