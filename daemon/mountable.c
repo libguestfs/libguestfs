@@ -36,23 +36,28 @@ do_internal_parse_mountable (const mountable_t *mountable)
   }
 
   ret->im_type = mountable->type;
-  if (mountable->device) {
+
+  if (mountable->device)
     ret->im_device = strdup (mountable->device);
-    if (!ret->im_device) {
-      reply_with_perror ("strdup");
-      free (ret);
-      return NULL;
-    }
+  else
+    ret->im_device = strdup ("");
+
+  if (!ret->im_device) {
+    reply_with_perror ("strdup");
+    free (ret);
+    return NULL;
   }
 
-  if (mountable->volume) {
+  if (mountable->volume)
     ret->im_volume = strdup (mountable->volume);
-    if (!ret->im_volume) {
-      reply_with_perror ("strdup");
-      free (ret->im_device);
-      free (ret);
-      return NULL;
-    }
+  else
+    ret->im_volume = strdup ("");
+
+  if (!ret->im_volume) {
+    reply_with_perror ("strdup");
+    free (ret->im_device);
+    free (ret);
+    return NULL;
   }
 
   return ret;

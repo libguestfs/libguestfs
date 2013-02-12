@@ -370,7 +370,7 @@ is_zero (const char *buffer, size_t size)
  */
 #define RESOLVE_MOUNTABLE(string,mountable,cancel_stmt,fail_stmt)       \
   do {                                                                  \
-    if (STRPREFIX ((string), "btrfsvol:")) {   \
+    if (STRPREFIX ((string), "btrfsvol:")) {                            \
       if (parse_btrfsvol ((string) + strlen ("btrfsvol:"), &(mountable)) == -1)\
       {                                                                 \
         cancel_stmt;                                                    \
@@ -383,6 +383,7 @@ is_zero (const char *buffer, size_t size)
     else {                                                              \
       (mountable).type = MOUNTABLE_DEVICE;                              \
       (mountable).device = (string);                                    \
+      (mountable).volume = NULL;                                        \
       RESOLVE_DEVICE((string), cancel_stmt, fail_stmt);                 \
     }                                                                   \
   } while (0)
