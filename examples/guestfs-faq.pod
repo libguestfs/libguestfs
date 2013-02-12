@@ -480,7 +480,7 @@ full size of the virtual disk
 
 If the input to L<virt-sparsify(1)> is raw, then the output will be
 raw sparse.  Make sure you are measuring the output with a tool which
-understands sparseness such as C<du-sh>.  It can make a huge difference:
+understands sparseness such as C<du -sh>.  It can make a huge difference:
 
  $ ls -lh test1.img
  -rw-rw-r--. 1 rjones rjones 100M Aug  8 08:08 test1.img
@@ -489,8 +489,8 @@ understands sparseness such as C<du-sh>.  It can make a huge difference:
 
 (Compare the apparent size B<100M> vs the actual size B<3.6M>)
 
-If all this confuses you, use a non-sparse output by specifying the
-I<--convert> option, eg:
+If all this confuses you, use a non-sparse output format by specifying
+the I<--convert> option, eg:
 
  virt-sparsify --convert qcow2 disk.raw disk.qcow2
 
