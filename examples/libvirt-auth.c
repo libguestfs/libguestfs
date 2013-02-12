@@ -13,7 +13,7 @@ usage (void)
   fprintf (stderr,
     "Usage:\n"
     "\n"
-    "  libvirt_auth URI domain\n"
+    "  libvirt-auth URI domain\n"
     "\n"
     "where:\n"
     "\n"
@@ -22,7 +22,7 @@ usage (void)
     "\n"
     "Example:\n"
     "\n"
-    "  libvirt_auth 'qemu+libssh2://USER@localhost/system' 'foo'\n"
+    "  libvirt-auth 'qemu+libssh2://USER@localhost/system' 'foo'\n"
     "\n"
     "would connect (read-only) to libvirt URI given and open the guest\n"
     "called 'foo' and list some information about its filesystems.\n"
@@ -109,7 +109,7 @@ auth_callback (guestfs_h *g,
   ssize_t len;
   int r;
 
-  printf ("libvirt_auth.c: authentication required for libvirt URI '%s'\n\n",
+  printf ("libvirt-auth.c: authentication required for libvirt URI '%s'\n\n",
           buf);
 
   /* Ask libguestfs what credentials libvirt is demanding. */
@@ -120,7 +120,7 @@ auth_callback (guestfs_h *g,
   /* Now ask the user for answers. */
   for (i = 0; creds[i] != NULL; ++i)
   {
-    printf ("libvirt_auth.c: credential '%s'\n", creds[i]);
+    printf ("libvirt-auth.c: credential '%s'\n", creds[i]);
 
     if (strcmp (creds[i], "authname") == 0 ||
         strcmp (creds[i], "echoprompt") == 0) {

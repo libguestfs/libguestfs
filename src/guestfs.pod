@@ -2644,7 +2644,7 @@ L</guestfs_get_libvirt_requested_credential_defresult>.
 The example program below should make this clearer.
 
 There is also a more substantial working example program supplied with
-the libguestfs sources, called C<libvirt_auth.c>.
+the libguestfs sources, called C<libvirt-auth.c>.
 
  main ()
  {

@@ -31,7 +31,7 @@ main (int argc, char *argv[])
   FILE *fp;
 
   if (argc != 2) {
-    fprintf (stderr, "usage: display_icon disk.img\n");
+    fprintf (stderr, "usage: display-icon disk.img\n");
     exit (EXIT_FAILURE);
   }
   disk = argv[1];
@@ -59,7 +59,7 @@ main (int argc, char *argv[])
   if (roots == NULL)
     exit (EXIT_FAILURE);
   if (roots[0] == NULL) {
-    fprintf (stderr, "display_icon: no operating systems found\n");
+    fprintf (stderr, "display-icon: no operating systems found\n");
     exit (EXIT_FAILURE);
   }
 
