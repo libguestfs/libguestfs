@@ -36,7 +36,6 @@ endif
 
 # Tests - order is important.
 if ENABLE_APPLIANCE
-SUBDIRS += tests/mountable
 SUBDIRS += tests/qemu
 SUBDIRS += tests/guests
 SUBDIRS += tests/c-api
@@ -44,6 +43,7 @@ SUBDIRS += tests/tmpdirs
 SUBDIRS += tests/protocol
 SUBDIRS += tests/parallel
 SUBDIRS += tests/disks
+SUBDIRS += tests/mountable
 SUBDIRS += tests/lvm
 SUBDIRS += tests/luks
 SUBDIRS += tests/md
