@@ -21,7 +21,14 @@ EXTRA_DIST = \
 	guestfs-faq.pod \
 	guestfs-performance.pod \
 	guestfs-recipes.pod \
-	guestfs-testing.pod
+	guestfs-testing.pod \
+	copy-over.c \
+	create-disk.c \
+	display-icon.c \
+	inspect-vm.c \
+	libvirt-auth.c \
+	mount-local.c \
+	virt-dhcp-address.c
 
 CLEANFILES = \
 	stamp-guestfs-examples.pod \
@@ -30,19 +37,19 @@ CLEANFILES = \
 	stamp-guestfs-recipes.pod \
 	stamp-guestfs-testing.pod
 
-noinst_PROGRAMS = create_disk display_icon inspect_vm
+noinst_PROGRAMS = create-disk display-icon inspect-vm
 if HAVE_LIBVIRT
-noinst_PROGRAMS += copy_over libvirt_auth
+noinst_PROGRAMS += copy-over libvirt-auth
 endif
 if HAVE_HIVEX
 noinst_PROGRAMS += virt-dhcp-address
 endif
 if HAVE_FUSE
-noinst_PROGRAMS += mount_local
+noinst_PROGRAMS += mount-local
 endif
 
 if HAVE_LIBVIRT
-copy_over_SOURCES = copy_over.c
+copy_over_SOURCES = copy-over.c
 copy_over_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -55,7 +62,7 @@ copy_over_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBVIRT_LIBS)
 
-libvirt_auth_SOURCES = libvirt_auth.c
+libvirt_auth_SOURCES = libvirt-auth.c
 libvirt_auth_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -69,7 +76,7 @@ libvirt_auth_LDADD = \
 	$(LIBVIRT_LIBS)
 endif
 
-create_disk_SOURCES = create_disk.c
+create_disk_SOURCES = create-disk.c
 create_disk_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -79,7 +86,7 @@ create_disk_CFLAGS = \
 create_disk_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
-display_icon_SOURCES = display_icon.c
+display_icon_SOURCES = display-icon.c
 display_icon_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -89,7 +96,7 @@ display_icon_CFLAGS = \
 display_icon_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
-inspect_vm_SOURCES = inspect_vm.c
+inspect_vm_SOURCES = inspect-vm.c
 inspect_vm_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -100,7 +107,7 @@ inspect_vm_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 if HAVE_FUSE
-mount_local_SOURCES = mount_local.c
+mount_local_SOURCES = mount-local.c
 mount_local_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -142,13 +149,13 @@ noinst_DATA = \
 
 guestfs-examples.3 $(top_builddir)/html/guestfs-examples.3.html: stamp-guestfs-examples.pod
 
-stamp-guestfs-examples.pod: guestfs-examples.pod create_disk.c inspect_vm.c
+stamp-guestfs-examples.pod: guestfs-examples.pod copy-over.c create-disk.c display-icon.c inspect-vm.c libvirt-auth.c mount-local.c virt-dhcp-address.c
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-examples.3 \
 	  --html $(top_builddir)/html/guestfs-examples.3.html \
-	  --verbatim $(srcdir)/create_disk.c:@EXAMPLE1@ \
-	  --verbatim $(srcdir)/inspect_vm.c:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/create-disk.c:@EXAMPLE1@ \
+	  --verbatim $(srcdir)/inspect-vm.c:@EXAMPLE2@ \
 	  --license examples \
 	  $<
 	touch $@

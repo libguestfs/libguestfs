@@ -39,14 +39,14 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "Usage: copy_over source srcdir dest destdir\n"
+    "Usage: copy-over source srcdir dest destdir\n"
     "\n"
     "  source  : the source domain (a libvirt guest name)\n"
     "  srcdir  : the directory to copy from the source guest\n"
     "  dest    : the destination domain (a libvirt guest name)\n"
     "  destdir : the destination directory (must exist at destination)\n"
     "\n"
-    "eg: copy_over Src /home/rjones Dest /tmp/dir\n"
+    "eg: copy-over Src /home/rjones Dest /tmp/dir\n"
     "would copy /home/rjones from Src to /tmp/dir on Dest\n"
     "\n"
     "The destination guest cannot be running.\n");
@@ -196,7 +196,7 @@ start_srcthread (void *arg)
 
 /* This function deals with the complexity of adding the domain,
  * launching the handle, and mounting up filesystems.  See
- * 'examples/inspect_vm.c' to understand how this works.
+ * 'examples/inspect-vm.c' to understand how this works.
  */
 static int
 open_guest (guestfs_h *g, const char *dom, int readonly)
@@ -219,7 +219,7 @@ open_guest (guestfs_h *g, const char *dom, int readonly)
     return -1;
 
   if (roots[0] == NULL || roots[1] != NULL) {
-    fprintf (stderr, "copy_over: %s: no operating systems or multiple operating systems found\n", dom);
+    fprintf (stderr, "copy-over: %s: no operating systems or multiple operating systems found\n", dom);
     return -1;
   }
 
