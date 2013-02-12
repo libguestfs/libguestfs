@@ -26,25 +26,21 @@ generator_built = \
 	stubs.c \
 	names.c
 
-BUILT_SOURCES = \
-	$(generator_built) \
-	guestfs_protocol.c \
-	guestfs_protocol.h \
-	errnostring-gperf.c \
-	errnostring-gperf.gperf \
-	errnostring.c \
-	errnostring.h
-
-EXTRA_DIST = \
-	$(BUILT_SOURCES) \
-	guestfsd.pod
-
 shared_with_library = \
 	guestfs_protocol.c \
 	guestfs_protocol.h \
 	errnostring-gperf.gperf \
 	errnostring.c \
 	errnostring.h
+
+BUILT_SOURCES = \
+	$(generator_built) \
+	$(shared_with_library) \
+	errnostring-gperf.c
+
+EXTRA_DIST = \
+	$(BUILT_SOURCES) \
+	guestfsd.pod
 
 $(shared_with_library): %: $(libsrcdir)/%
 	rm -f $@
