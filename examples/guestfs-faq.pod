@@ -253,21 +253,16 @@ L<http://koji.fedoraproject.org/koji/packageinfo?packageID=8391>
 Use the package from EPEL 5:
 L<https://fedoraproject.org/wiki/EPEL>
 
-=item RHEL 6.2-6.3
+=item RHEL 6.2-6.4
 
 It is part of the default install.  On RHEL 6 (only) you have to
 install C<libguestfs-winsupport> to get Windows guest support.
 
-=item RHEL 6.4
-
-A preview repository is available.  See the announcement here:
-L<https://www.redhat.com/archives/libguestfs/2012-September/msg00074.html>
-
 =item RHEL 7
 
-It will be part of the default install, and based on libguestfs 1.20.
-As with RHEL 6 you will need to install C<libguestfs-winsupport>
-separately to get Windows guest support.
+It will be part of the default install, and based on libguestfs 1.20
+or 1.22.  As with RHEL 6 you will need to install
+C<libguestfs-winsupport> separately to get Windows guest support.
 
 =back
 
