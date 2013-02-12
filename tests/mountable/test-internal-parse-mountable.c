@@ -53,6 +53,7 @@ main (int argc, char *argv[])
 
   guestfs_h *g = guestfs_create ();
   if (g == NULL) {
+    perror ("could not create handle");
     exit (EXIT_FAILURE);
   }
 
