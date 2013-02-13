@@ -941,7 +941,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
 
   let urls = Str.regexp "L<\\(https?\\)://\\([^>]*\\)>" in
   let bz = Str.regexp "RHBZ#\\([0-9]+\\)" in
-  let cve = Str.regexp "\\(CVE-[0-9]+-[0-9]+\\)" in
+  let cve = Str.regexp "\\(\\s\\)\\(CVE-[0-9]+-[0-9]+\\)" in
   let api_crossref = Str.regexp "C<guestfs_\\([-_0-9a-zA-Z]+\\)>" in
   let nonapi_crossref = Str.regexp "C<\\([-_0-9a-zA-Z]+\\)>" in
   let escaped = Str.regexp "E<\\([0-9a-zA-Z]+\\)>" in
@@ -973,11 +973,13 @@ guestfs_session_close(GuestfsSession *session, GError **err)
         ) longdesc in
       let longdesc = Str.global_substitute cve (
           fun s ->
-            let cve = Str.matched_group 1 s in
+            let space_lead = Str.matched_group 1 s in
+            let cve = Str.matched_group 2 s in
             (* The spaces below are deliberate: they give pod2text somewhere to
                split that isn't the middle of a URL. *)
+            space_lead ^
             "<ulink url='https://cve.mitre.org/cgi-bin/cvename.cgi?name=" ^
-              cve ^ "'> " ^ cve ^ " </ulink>"
+            cve ^ "'> " ^ cve ^ " </ulink>"
         ) longdesc in
       let longdesc = Str.global_substitute api_crossref (
           fun s ->
