@@ -10629,7 +10629,7 @@ the list returned by C<guestfs_ldmtool_scan>." };
     shortdesc = "return the type of a Windows dynamic disk volume";
     longdesc = "\
 Return the type of the volume named C<volume> in the disk
-group with GUID <diskgroup>.
+group with GUID C<diskgroup>.
 
 Possible volume types that can be returned here include:
 C<simple>, C<spanned>, C<striped>, C<mirrored>, C<raid5>.
@@ -10644,7 +10644,7 @@ Other types may also be returned." };
     shortdesc = "return the hint field of a Windows dynamic disk volume";
     longdesc = "\
 Return the hint field of the volume named C<volume> in the disk
-group with GUID <diskgroup>.  This may not be defined, in which
+group with GUID C<diskgroup>.  This may not be defined, in which
 case the empty string is returned.  The hint field is often, though
 not always, the name of a Windows drive, eg. C<E:>." };
 
@@ -10657,7 +10657,7 @@ not always, the name of a Windows drive, eg. C<E:>." };
     shortdesc = "return the partitions in a Windows dynamic disk volume";
     longdesc = "\
 Return the list of partitions in the volume named C<volume> in the disk
-group with GUID <diskgroup>." };
+group with GUID C<diskgroup>." };
 
   { defaults with
     name = "part_set_gpt_type";
