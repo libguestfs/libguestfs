@@ -10,6 +10,16 @@ RUNLEVEL=S
 PREVLEVEL=N
 export RUNLEVEL PREVLEVEL
 
+# Try to print a stack trace for segfaults inside the appliance.
+for d in /lib64 /lib; do
+  f=$d/libSegFault.so
+  if [ -f "$f" ]; then
+    LD_PRELOAD=$f
+    export LD_PRELOAD
+    break
+  fi
+done
+
 mkdir -p /sysroot
 
 if [ ! -d /proc ]; then rm -f /proc; fi
