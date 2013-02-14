@@ -17,6 +17,9 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+EXTRA_DIST = \
+	test-mountable-inspect.sh
+
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS=test-internal-parse-mountable test-mountable-inspect.sh
