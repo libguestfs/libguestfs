@@ -150,11 +150,6 @@ To get further information about the failure, you have to run:
 If, after using this, you still don't understand the failure, contact
 us (see previous section).
 
-=head2 "guestfs_java_callback: jvm->GetEnv failed! (JNI_* error code = -3)"
-
-This is caused by the JVM version being too old.  JVM E<ge> 1.6 is
-required.
-
 =head2 Non-ASCII characters don't appear on VFAT filesystems.
 
 Typical symptoms of this problem:
