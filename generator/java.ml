@@ -652,6 +652,11 @@ guestfs_java_callback (guestfs_h *g,
                __func__, event, event_handle);
       return;
 
+    case JNI_EVERSION:
+      fprintf (stderr, \"%%s: event %%\" PRIu64 \" (eh %%d) failed because the JVM version is too old.  JVM >= 1.6 is required.\\n\",
+               __func__, event, event_handle);
+      return;
+
     default:
       fprintf (stderr, \"%%s: jvm->GetEnv failed! (JNI_* error code = %%d)\\n\",
                __func__, r);
