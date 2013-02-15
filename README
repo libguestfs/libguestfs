@@ -166,7 +166,7 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | rubygem-minitest           | O | For the Ruby bindings.                  |
 +--------------+-------------+---+-----------------------------------------+
-| Java         |             | O | Java + JNI + jpackage-utils are needed  |
+| Java         | 1.6         | O | Java + JNI + jpackage-utils are needed  |
 |              |             |   | for the Java bindings.                  |
 +--------------+-------------+---+-----------------------------------------+
 | GHC          |             | O | For the Haskell bindings.               |
