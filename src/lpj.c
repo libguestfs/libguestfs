@@ -89,9 +89,8 @@ guestfs___get_lpj (guestfs_h *g)
 static int
 read_lpj_from_dmesg (guestfs_h *g)
 {
-  struct command *cmd;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
 
-  cmd = guestfs___new_command (g);
   guestfs___cmd_add_string_unquoted (cmd, "dmesg | " GREP_CMD);
 
   return read_lpj_common (g, __func__, cmd);
