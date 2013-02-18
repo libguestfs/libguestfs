@@ -101,7 +101,7 @@ guestfs_create_flags (unsigned flags, ...)
   g->recovery_proc = 1;
   g->autosync = 1;
 
-  g->memsize = 500;
+  g->memsize = DEFAULT_MEMSIZE;
 
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
@@ -202,7 +202,7 @@ parse_environment (guestfs_h *g,
 
   str = do_getenv (data, "LIBGUESTFS_MEMSIZE");
   if (str) {
-    if (sscanf (str, "%d", &memsize) != 1 || memsize < 128) {
+    if (sscanf (str, "%d", &memsize) != 1 || memsize < MIN_MEMSIZE) {
       error (g, _("non-numeric or too small value for LIBGUESTFS_MEMSIZE"));
       return -1;
     }
