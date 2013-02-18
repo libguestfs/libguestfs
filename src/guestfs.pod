@@ -2533,6 +2533,26 @@ Delete a callback that was previously registered.  C<event_handle>
 should be the integer that was returned by a previous call to
 C<guestfs_set_event_callback> on the same handle.
 
+=head3 guestfs_event_to_string
+
+ char *guestfs_event_to_string (uint64_t event);
+
+C<event> is either a single event or a bitmask of events.  This
+returns a string representation (useful for debugging or printing
+events).
+
+A single event is returned as the name in lower case, eg. C<"close">.
+
+A bitmask of several events is returned as a comma-separated list,
+eg. C<"close,progress">.
+
+If zero is passed, then the empty string C<""> is returned.
+
+On success this returns a string.  On error it returns NULL and sets
+C<errno>.
+
+The returned string must be freed by the caller.
+
 =head3 guestfs_event_callback
 
  typedef void (*guestfs_event_callback) (

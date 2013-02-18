@@ -240,6 +240,7 @@ src/dbdump.c
 src/errnostring-gperf.c
 src/errnostring.c
 src/errors.c
+src/event-string.c
 src/events.c
 src/file.c
 src/filearch.c

@@ -35,7 +35,8 @@ check_PROGRAMS = \
 	test-user-cancel \
 	test-debug-to-file \
 	test-environment \
-	test-pwd
+	test-pwd \
+	test-event-string
 
 TESTS = \
 	tests \
@@ -47,7 +48,8 @@ TESTS = \
 	test-private-data \
 	test-user-cancel \
 	test-debug-to-file \
-	test-environment
+	test-environment \
+	test-event-string
 
 if HAVE_CXX
 check_PROGRAMS += test-just-header-cxx
@@ -185,6 +187,18 @@ test_environment_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_environment_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/gnulib/lib/libgnu.la
+
+test_event_string_SOURCES = test-event-string.c
+test_event_string_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib
+test_event_string_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+test_event_string_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 

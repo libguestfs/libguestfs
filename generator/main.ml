@@ -93,6 +93,7 @@ Run it from the top source directory using the command
   output_to "src/errnostring-gperf.gperf" generate_errnostring_gperf;
   output_to "src/errnostring.c" generate_errnostring_c;
   output_to "src/errnostring.h" generate_errnostring_h;
+  output_to "src/event-string.c" generate_event_string_c;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
   output_to "src/libguestfs.syms" generate_linker_script;
 

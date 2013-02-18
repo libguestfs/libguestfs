@@ -365,6 +365,7 @@ Makefile.in
 /src/errnostring-gperf.c
 /src/errnostring-gperf.gperf
 /src/errnostring.h
+/src/event-string.c
 /src/free-structs.c
 /src/guestfs.3
 /src/guestfs-actions.pod
@@ -402,6 +403,7 @@ Makefile.in
 /tests/c-api/test-create-handle
 /tests/c-api/test-debug-to-file
 /tests/c-api/test-environment
+/tests/c-api/test-event-string
 /tests/c-api/test*.img
 /tests/c-api/test-just-header
 /tests/c-api/test-just-header-cxx

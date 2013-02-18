@@ -516,6 +516,8 @@ typedef void (*guestfs_event_callback) (
 extern GUESTFS_DLL_PUBLIC int guestfs_set_event_callback (guestfs_h *g, guestfs_event_callback cb, uint64_t event_bitmask, int flags, void *opaque);
 #define GUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_delete_event_callback (guestfs_h *g, int event_handle);
+#define GUESTFS_HAVE_EVENT_TO_STRING 1
+extern GUESTFS_DLL_PUBLIC char *guestfs_event_to_string (uint64_t event);
 
 /* Old-style event handling. */
 #ifndef GUESTFS_TYPEDEF_LOG_MESSAGE_CB
@@ -1724,6 +1726,72 @@ and generate_client_actions_variants () =
       generate_back_compat_wrapper f
   ) all_functions_sorted
 
+(* Code for turning events and event bitmasks into printable strings. *)
+and generate_event_string_c () =
+  generate_header CStyle LGPLv2plus;
+
+  (* Longest event name. *)
+  let longest = List.fold_left (
+    fun longest (name, _) ->
+      let len = String.length name in
+      if len > longest then len else longest
+  ) 0 events in
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <libintl.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+
+GUESTFS_DLL_PUBLIC char *
+guestfs_event_to_string (uint64_t event)
+{
+  char *ret;
+  uint64_t i;
+  size_t len;
+
+  /* Count how long the final string will be. */
+  len = 1;
+  for (i = 0; i < %d; ++i) {
+    if ((event & (UINT64_C(1) << i)) != 0)
+      len += %d; /* overestimate */
+  }
+
+  /* Allocate the final string and construct it. */
+  ret = malloc (len);
+  if (!ret)
+    return NULL;
+
+  len = 0;
+
+" (List.length events) (longest + 1);
+
+  (* Sort the events alphabetically so the events are returned sorted. *)
+  let sorted_event_names = List.sort compare (List.map fst events) in
+
+  List.iter (
+    fun name ->
+      pr "  if ((event & GUESTFS_EVENT_%s) != 0) {\n" (String.uppercase name);
+      pr "    strcpy (&ret[len], \"%s,\");\n" name;
+      pr "    len += %d + 1;\n" (String.length name);
+      pr "  }\n";
+  ) sorted_event_names;
+
+  pr "
+  if (len > 0)
+    ret[len-1] = '\\0'; /* truncates the final trailing comma */
+  else
+    ret[0] = '\\0';
+
+  return ret;
+}
+"
+
 (* Generate the linker script which controls the visibility of
  * symbols in the public ABI and ensures no other symbols get
  * exported accidentally.
@@ -1736,6 +1804,7 @@ and generate_linker_script () =
     "guestfs_create_flags";
     "guestfs_close";
     "guestfs_delete_event_callback";
+    "guestfs_event_to_string";
     "guestfs_first_private";
     "guestfs_get_error_handler";
     "guestfs_get_out_of_memory_handler";
