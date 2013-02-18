@@ -56,6 +56,10 @@
 #define TRACE4(name, arg1, arg2, arg3, arg4)
 #endif
 
+/* Default, minimum appliance memory size. */
+#define DEFAULT_MEMSIZE 500
+#define MIN_MEMSIZE 128
+
 /* Some limits on what the inspection code will read, for safety. */
 
 /* Small text configuration files.
