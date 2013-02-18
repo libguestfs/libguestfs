@@ -19,8 +19,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 CLEANFILES = stamp-guestfsd.pod
 
-libsrcdir = $(top_builddir)/src
-
 generator_built = \
 	actions.h \
 	stubs.c \
@@ -42,7 +40,7 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	guestfsd.pod
 
-$(shared_with_library): %: $(libsrcdir)/%
+$(shared_with_library): %: $(top_srcdir)/src/%
 	rm -f $@
 	ln $< $@
 
@@ -53,10 +51,10 @@ noinst_LIBRARIES = libprotocol.a
 libprotocol_a_SOURCES = guestfs_protocol.c guestfs_protocol.h
 libprotocol_a_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 
-$(libsrcdir)/guestfs_protocol.c: force
-	$(MAKE) -C $(libsrcdir) guestfs_protocol.c
-$(libsrcdir)/guestfs_protocol.h: force
-	$(MAKE) -C $(libsrcdir) guestfs_protocol.h
+$(top_builddir)/src/guestfs_protocol.c: force
+	$(MAKE) -C $(top_builddir)/src guestfs_protocol.c
+$(top_builddir)/src/guestfs_protocol.h: force
+	$(MAKE) -C $(top_builddir)/src guestfs_protocol.h
 
 # Build the errnostring perfect hash code.  The generated code has lots
 # of warnings so we must compile it in a separate mini-library.
@@ -197,6 +195,7 @@ guestfsd_LDADD = \
 guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src \
 	-I$(top_builddir)/src
 guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
