@@ -112,6 +112,10 @@ val delete_event_callback : t -> event_handle -> unit
 (** [delete_event_callback g eh] removes a previously registered
     event callback.  See {!set_event_callback}. *)
 
+val event_to_string : event list -> string
+(** [event_to_string events] returns the event(s) as a printable string
+    for debugging etc. *)
+
 val last_errno : t -> int
 (** [last_errno g] returns the last errno that happened on the handle [g]
     (or [0] if there was no errno).  Note that the returned integer is the
@@ -249,6 +253,8 @@ external set_event_callback : t -> event_callback -> event list -> event_handle
   = \"ocaml_guestfs_set_event_callback\"
 external delete_event_callback : t -> event_handle -> unit
   = \"ocaml_guestfs_delete_event_callback\"
+external event_to_string : event list -> string
+  = \"ocaml_guestfs_event_to_string\"
 
 external last_errno : t -> int = \"ocaml_guestfs_last_errno\"
 

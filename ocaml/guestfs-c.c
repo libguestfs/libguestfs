@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #include <guestfs.h>
 
@@ -32,6 +33,13 @@
 #include <caml/mlvalues.h>
 #include <caml/printexc.h>
 #include <caml/signals.h>
+
+#ifdef HAVE_CAML_UNIXSUPPORT_H
+#include <caml/unixsupport.h>
+#else
+#define Nothing ((value) 0)
+extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
+#endif
 
 #include "guestfs-c.h"
 
@@ -52,6 +60,7 @@ value ocaml_guestfs_create (value environmentv, value close_on_exitv, value unit
 value ocaml_guestfs_close (value gv);
 value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
 value ocaml_guestfs_delete_event_callback (value gv, value eh);
+value ocaml_guestfs_event_to_string (value events);
 value ocaml_guestfs_last_errno (value gv);
 value ocaml_guestfs_user_cancel (value gv);
 
@@ -289,6 +298,26 @@ ocaml_guestfs_delete_event_callback (value gv, value ehv)
   }
 
   CAMLreturn (Val_unit);
+}
+
+/* Guestfs.event_to_string */
+value
+ocaml_guestfs_event_to_string (value events)
+{
+  CAMLparam1 (events);
+  CAMLlocal1 (rv);
+  char *r;
+  uint64_t event_bitmask;
+
+  event_bitmask = event_bitmask_of_event_list (events);
+
+  r = guestfs_event_to_string (event_bitmask);
+  if (r == NULL)
+    unix_error (errno, (char *) "Guestfs.event_to_string", Nothing);
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
 }
 
 static value **

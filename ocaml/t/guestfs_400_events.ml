@@ -19,22 +19,10 @@
 open Printf
 
 let log g ev eh buf array =
-  let ev =
-    match ev with
-    | Guestfs.EVENT_CLOSE -> "close"
-    | Guestfs.EVENT_SUBPROCESS_QUIT -> "subprocess_quit"
-    | Guestfs.EVENT_LAUNCH_DONE -> "launch_done"
-    | Guestfs.EVENT_PROGRESS -> "progress"
-    | Guestfs.EVENT_APPLIANCE -> "appliance"
-    | Guestfs.EVENT_LIBRARY -> "library"
-    | Guestfs.EVENT_TRACE -> "trace"
-    | Guestfs.EVENT_ENTER -> "enter"
-    | Guestfs.EVENT_LIBVIRT_AUTH -> "libvirt_auth" in
-
   let eh : int = Obj.magic eh in
 
   printf "ocaml event logged: event=%s eh=%d buf=%S array=[%s]\n"
-    ev eh buf
+    (Guestfs.event_to_string [ev]) eh buf
     (String.concat ", " (List.map Int64.to_string (Array.to_list array)))
 
 let close_invoked = ref 0

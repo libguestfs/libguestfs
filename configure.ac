@@ -934,6 +934,14 @@ AM_CONDITIONAL([HAVE_OCAML],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
+AS_IF([test "x$OCAMLC" != "xno"],[
+    dnl Check for <caml/unixsupport.h> header.
+    old_CPPFLAGS="$CPPFLAGS"
+    CPPFLAGS="$CPPFLAGS -I`$OCAMLC -where`"
+    AC_CHECK_HEADERS([caml/unixsupport.h],[],[],[#include <caml/mlvalues.h>])
+    CPPFLAGS="$old_CPPFLAGS"
+])
+
 OCAML_PKG_gettext=no
 AS_IF([test "x$OCAMLC" != "xno"],[
     dnl Check for ocaml-gettext package to translate OCaml tools.

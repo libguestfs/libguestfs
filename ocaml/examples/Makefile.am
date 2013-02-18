@@ -52,7 +52,7 @@ create_disk: create_disk.ml
           -warn-error A -I .. mlguestfs.cmxa $< -o $@
 
 inspect_vm: inspect_vm.ml
-	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) \
+	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) -package unix -linkpkg \
           -warn-error A -I .. mlguestfs.cmxa $< -o $@
 
 endif
