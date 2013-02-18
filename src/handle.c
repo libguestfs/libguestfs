@@ -203,7 +203,7 @@ parse_environment (guestfs_h *g,
   str = do_getenv (data, "LIBGUESTFS_MEMSIZE");
   if (str) {
     if (sscanf (str, "%d", &memsize) != 1 || memsize < 128) {
-      error (g, "non-numeric or too small value for LIBGUESTFS_MEMSIZE");
+      error (g, _("non-numeric or too small value for LIBGUESTFS_MEMSIZE"));
       return -1;
     }
     guestfs_set_memsize (g, memsize);
