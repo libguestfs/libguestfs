@@ -28,7 +28,8 @@ class TestLoad < Test::Unit::TestCase
       if event == Guestfs::EVENT_APPLIANCE
         buf.chomp!
       end
-      puts "ruby event logged: event=#{event} eh=#{event_handle} buf='#{buf}' array=#{array}"
+      event_string = Guestfs::event_to_string(event)
+      puts "ruby event logged: event=#{event_string} eh=#{event_handle} buf='#{buf}' array=#{array}"
     }
 
     close_invoked = 0

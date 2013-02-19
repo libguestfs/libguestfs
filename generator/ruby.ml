@@ -40,6 +40,8 @@ let rec generate_ruby_c () =
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
+#include <errno.h>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored \"-Wstrict-prototypes\"
@@ -263,6 +265,31 @@ ruby_delete_event_callback (VALUE gv, VALUE event_handlev)
   }
 
   return Qnil;
+}
+
+/*
+ * call-seq:
+ *   Guestfs::Guestfs.event_to_string(events) -> string
+ *
+ * Call
+ * +guestfs_event_to_string+[http://libguestfs.org/guestfs.3.html#guestfs_event_to_string]
+ * to convert an event or event bitmask into a printable string.
+ */
+static VALUE
+ruby_event_to_string (VALUE modulev, VALUE eventsv)
+{
+  uint64_t events;
+  char *str;
+
+  events = NUM2ULL (eventsv);
+  str = guestfs_event_to_string (events);
+  if (str == NULL)
+    rb_raise (e_Error, \"%%s\", strerror (errno));
+
+  volatile VALUE rv = rb_str_new2 (str);
+  free (str);
+
+  return rv;
 }
 
 static void
@@ -702,6 +729,8 @@ Init__guestfs (void)
                     ruby_set_event_callback, 2);
   rb_define_method (c_guestfs, \"delete_event_callback\",
                     ruby_delete_event_callback, 1);
+  rb_define_module_function (m_guestfs, \"event_to_string\",
+                    ruby_event_to_string, 1);
   rb_define_method (c_guestfs, \"user_cancel\",
                     ruby_user_cancel, 0);
 
