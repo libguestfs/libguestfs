@@ -151,31 +151,15 @@ public class GuestFS {
   pr "  public static final long EVENT_ALL = 0x%x;\n" all_events_bitmask;
   pr "\n";
 
-  pr "  /** Utility function to turn an event number or bitmask into a string. */\n";
-  pr "  public static String eventToString (long events)\n";
-  pr "  {\n";
-  pr "    if (events == 0)\n";
-  pr "      return \"\";\n";
-  pr "\n";
-  pr "    String ret = \"\";\n";
-  pr "\n";
-  List.iter (
-    fun (name, bitmask) ->
-      pr "    if ((events & EVENT_%s) != 0) {\n" (String.uppercase name);
-      pr "      ret = ret + \"|EVENT_%s\";\n" (String.uppercase name);
-      pr "      events &= ~0x%x;\n" bitmask;
-      pr "    }\n";
-  ) events;
-  pr "\n";
-  pr "    if (events != 0)\n";
-  pr "      ret = events + ret;\n";
-  pr "    else\n";
-  pr "       ret = ret.substring (1);\n";
-  pr "\n";
-  pr "    return ret;\n";
-  pr "  }\n";
+  pr "\
+  /** Utility function to turn an event number or bitmask into a string. */
+  public static String eventToString (long events)
+  {
+    return _event_to_string (events);
+  }
 
-  pr "
+  private static native String _event_to_string (long events);
+
   /**
    * Set an event handler.
    * <p>
@@ -743,6 +727,26 @@ Java_com_redhat_et_libguestfs_GuestFS__1delete_1event_1callback
     guestfs_set_private (g, key, NULL);
     guestfs_delete_event_callback (g, eh);
   }
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1event_1to_1string
+  (JNIEnv *env, jclass cl, jlong jevents)
+{
+  uint64_t events = (uint64_t) jevents;
+  char *str;
+  jstring jr;
+
+  str = guestfs_event_to_string (events);
+  if (str == NULL) {
+    perror (\"guestfs_event_to_string\");
+    return NULL;
+  }
+
+  jr = (*env)->NewStringUTF (env, str);
+  free (str);
+
+  return jr;
 }
 
 static struct callback_data **
