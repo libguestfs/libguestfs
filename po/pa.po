@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-14 15:36+0000\n"
+"POT-Creation-Date: 2013-02-19 16:47+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -2733,27 +2733,27 @@ msgstr "ਫਾਇਲ-ਨਾਂ ਵੇਖਾਓ\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "ਇੱਕ ਫਾਇਲ ਸੋਧ ਕਰਨ ਲਈ '%s filename' ਵਰਤੋ\n"
 
-#: fish/event-names.c:149
+#: fish/event-names.c:66
 #, c-format
 msgid "unknown event name: %s\n"
 msgstr ""
 
-#: fish/events.c:162
+#: fish/events.c:166
 #, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
 msgstr ""
 
-#: fish/events.c:221
+#: fish/events.c:225
 #, c-format
 msgid "use 'delete-event <name>' to delete an event handler\n"
 msgstr ""
 
-#: fish/events.c:230
+#: fish/events.c:234
 #, c-format
 msgid "delete-event: %s: no such event handler\n"
 msgstr ""
 
-#: fish/events.c:267
+#: fish/events.c:286
 #, c-format
 msgid "use 'list-events' to list event handlers\n"
 msgstr ""
@@ -3915,6 +3915,10 @@ msgstr ""
 msgid ""
 "libguestfs was built with an invalid default attach-method, using "
 "'appliance' instead"
+msgstr ""
+
+#: src/handle.c:206
+msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 #: src/handle.c:260
