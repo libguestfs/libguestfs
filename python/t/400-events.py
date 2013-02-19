@@ -25,8 +25,8 @@ def log_callback (ev,eh,buf,array):
         buf = buf.rstrip()
 
     # Log what happened.
-    print ("python event logged: event=0x%x eh=%d buf='%s' array=%s" %
-           (ev, eh, buf, array))
+    print ("python event logged: event=%s eh=%d buf='%s' array=%s" %
+           (guestfs.event_to_string (ev), eh, buf, array))
 
 close_invoked = 0
 

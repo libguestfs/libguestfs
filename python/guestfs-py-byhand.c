@@ -207,6 +207,32 @@ py_guestfs_delete_event_callback (PyObject *self, PyObject *args)
   return Py_None;
 }
 
+PyObject *
+py_guestfs_event_to_string (PyObject *self, PyObject *args)
+{
+  unsigned PY_LONG_LONG events;
+  char *str;
+  PyObject *py_r;
+
+  if (!PyArg_ParseTuple (args, (char *) "K", &events))
+    return NULL;
+
+  str = guestfs_event_to_string (events);
+  if (str == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, strerror (errno));
+    return NULL;
+  }
+
+#ifdef HAVE_PYSTRING_ASSTRING
+  py_r = PyString_FromString (str);
+#else
+  py_r = PyUnicode_FromString (str);
+#endif
+  free (str);
+
+  return py_r;
+}
+
 static PyObject **
 get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
 {

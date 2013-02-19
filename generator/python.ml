@@ -538,6 +538,8 @@ free_strings (char **argv)
   pr "    py_guestfs_set_event_callback, METH_VARARGS, NULL },\n";
   pr "  { (char *) \"delete_event_callback\",\n";
   pr "    py_guestfs_delete_event_callback, METH_VARARGS, NULL },\n";
+  pr "  { (char *) \"event_to_string\",\n";
+  pr "    py_guestfs_event_to_string, METH_VARARGS, NULL },\n";
   List.iter (
     fun { name = name } ->
       pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
@@ -663,8 +665,12 @@ import libguestfsmod
   ) events;
   pr "EVENT_ALL = 0x%x\n" all_events_bitmask;
   pr "\n";
-
   pr "\
+
+def event_to_string (events):
+    \"\"\"Return a printable string from an event or event bitmask\"\"\"
+    return libguestfsmod.event_to_string (events)
+
 class ClosedHandle(ValueError):
     pass
 
