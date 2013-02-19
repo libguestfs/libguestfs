@@ -112,11 +112,15 @@ do_event_handler (guestfs_h *g,
   }
 
   if (pid == 0) {               /* Child process. */
+    char *str;
+
     shell = getenv ("SHELL");
     if (!shell)
       shell = "/bin/sh";
 
-    setenv ("EVENT", event_name_of_event_bitmask (event), 1);
+    str = guestfs_event_to_string (event);
+    setenv ("EVENT", str, 1);
+    free (str);
 
     /* Construct the command and arguments. */
     i = 0;
@@ -242,6 +246,21 @@ run_delete_event (const char *cmd, size_t argc, char *argv[])
   entry_free (entry);
 
   return 0;
+}
+
+static void
+print_event_set (uint64_t event_bitmask, FILE *fp)
+{
+  if (event_bitmask == GUESTFS_EVENT_ALL)
+    fputs ("*", fp);
+  else {
+    CLEANUP_FREE char *str = guestfs_event_to_string (event_bitmask);
+    if (!str) {
+      perror ("guestfs_event_to_string");
+      exit (EXIT_FAILURE);
+    }
+    fputs (str, fp);
+  }
 }
 
 static bool

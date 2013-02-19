@@ -1000,48 +1000,6 @@ and generate_fish_event_names () =
 
 #include \"fish.h\"
 
-const char *
-event_name_of_event_bitmask (uint64_t ev)
-{
-  switch (ev) {
-";
-
-  List.iter (
-    fun (name, _) ->
-      pr "  case GUESTFS_EVENT_%s:\n" (String.uppercase name);
-      pr "    return \"%s\";\n" name
-  ) events;
-
-  pr "  default:
-    abort (); /* should not happen */
-  }
-}
-
-void
-print_event_set (uint64_t event_bitmask, FILE *fp)
-{
-  int comma = 0;
-
-  if (event_bitmask == GUESTFS_EVENT_ALL) {
-    fputs (\"*\", fp);
-    return;
-  }
-
-";
-
-  iteri (
-    fun i (name, _) ->
-      pr "  if (event_bitmask & GUESTFS_EVENT_%s) {\n" (String.uppercase name);
-      if i > 0 then
-        pr "    if (comma) fputc (',', fp);\n";
-      pr "    comma = 1;\n";
-      pr "    fputs (\"%s\", fp);\n" name;
-      pr "  }\n"
-  ) events;
-
-  pr "\
-}
-
 int
 event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
 {

@@ -71,8 +71,6 @@ extern void init_event_handlers (void);
 extern void free_event_handlers (void);
 
 /* in event-names.c (auto-generated) */
-extern const char *event_name_of_event_bitmask (uint64_t);
-extern void print_event_set (uint64_t, FILE *);
 extern int event_bitmask_of_event_set (const char *arg, uint64_t *);
 
 /* in alloc.c */
