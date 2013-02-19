@@ -34,8 +34,9 @@ sub log_callback {
 
     # We don't get to see this output because it is eaten up by the
     # test harness, but generate it anyway.
-    printf("perl event logged: event=0x%x eh=%d buf='%s' array=[%s]\n",
-           $ev, $eh, $buf, join (", ", @$array));
+    printf("perl event logged: event=%s eh=%d buf='%s' array=[%s]\n",
+           Sys::Guestfs->event_to_string ($ev),
+           $eh, $buf, join (", ", @$array));
 }
 
 my $close_invoked = 0;
