@@ -55,7 +55,10 @@ erl_guestfs_LDADD = \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/liberl_interface.a \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/libei.a \
 	-lpthread \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test

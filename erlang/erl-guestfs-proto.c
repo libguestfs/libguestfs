@@ -1,5 +1,5 @@
 /* libguestfs Erlang bindings.
- * Copyright (C) 2011 Red Hat Inc.
+ * Copyright (C) 2011-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,6 @@ extern char **get_string_list (ETERM *term);
 extern int get_bool (ETERM *term);
 extern int get_int (ETERM *term);
 extern int64_t get_int64 (ETERM *term);
-extern void free_strings (char **r);
 
 /* This stops things getting out of hand, but also lets us detect
  * protocol problems quickly.
@@ -313,14 +312,4 @@ get_int64 (ETERM *term)
     /* XXX fail in some way */
     return -1;
   }
-}
-
-void
-free_strings (char **r)
-{
-  size_t i;
-
-  for (i = 0; r[i] != NULL; ++i)
-    free (r[i]);
-  free (r);
 }
