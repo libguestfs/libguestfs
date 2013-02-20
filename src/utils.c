@@ -38,3 +38,14 @@ guestfs___free_string_list (char **argv)
     free (argv[i]);
   free (argv);
 }
+
+size_t
+guestfs___count_strings (char *const *argv)
+{
+  size_t r;
+
+  for (r = 0; argv[r]; ++r)
+    ;
+
+  return r;
+}
