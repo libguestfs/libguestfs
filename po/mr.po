@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-19 16:47+0000\n"
+"POT-Creation-Date: 2013-02-20 21:24+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -54,7 +54,7 @@ msgstr ""
 #: align/domains.c:347 align/scan.c:123 cat/virt-cat.c:117
 #: cat/virt-filesystems.c:190 cat/virt-ls.c:182 df/domains.c:429 df/main.c:132
 #: edit/virt-edit.c:137 fish/fish.c:234 format/format.c:131
-#: fuse/guestmount.c:207 inspector/virt-inspector.c:131
+#: fuse/guestmount.c:207 inspector/virt-inspector.c:130
 #: rescue/virt-rescue.c:138
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -62,7 +62,7 @@ msgstr "guestfs_create: हँडल निर्माण करण्यास
 
 #: align/scan.c:60 cat/virt-cat.c:56 cat/virt-filesystems.c:87
 #: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:70 fish/fish.c:104
-#: fuse/guestmount.c:99 inspector/virt-inspector.c:69 rescue/virt-rescue.c:57
+#: fuse/guestmount.c:99 inspector/virt-inspector.c:68 rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: align/scan.c:143 cat/virt-cat.c:139 cat/virt-filesystems.c:244
 #: cat/virt-ls.c:232 df/main.c:156 edit/virt-edit.c:159 fish/fish.c:297
-#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:155
+#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:154
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -153,7 +153,7 @@ msgstr ""
 "  -x                   libguestfs API कॉल्स् ट्रेस करा\n"
 "अधिक माहितीकरीता, manpage %s(1) पहा.\n"
 
-#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1727
+#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1707
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2931,31 +2931,31 @@ msgstr ""
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1296
+#: fish/fish.c:1276
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
 
-#: fish/fish.c:1404
+#: fish/fish.c:1384
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
 
-#: fish/fish.c:1721
+#: fish/fish.c:1701
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1741
+#: fish/fish.c:1721
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1760
+#: fish/fish.c:1740
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3032,12 +3032,12 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: अवैध व्याप्ती\n"
 
-#: fish/inspect.c:78
+#: fish/inspect.c:58
 #, c-format
 msgid "%s: don't use --live and -i options together\n"
 msgstr "%s: --live व -i पर्यायचा एकत्र वाप करू नका\n"
 
-#: fish/inspect.c:91
+#: fish/inspect.c:71
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -3056,7 +3056,7 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:112
+#: fish/inspect.c:92
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -3075,17 +3075,17 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:170
+#: fish/inspect.c:151
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: काहिक फाइलप्रणाली माऊंट करणे अशक्य (दुर्लक्ष केले)\n"
 
-#: fish/inspect.c:186
+#: fish/inspect.c:167
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "कार्यप्रणाली: %s\n"
 
-#: fish/inspect.c:203
+#: fish/inspect.c:185
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s ला %s वर माऊंट केले\n"
@@ -3443,7 +3443,7 @@ msgstr ""
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: यजमान फाइलप्रणालीत तुम्ही माऊंटपॉईंट निर्देशीत करायला हवे\n"
 
-#: inspector/virt-inspector.c:73
+#: inspector/virt-inspector.c:72
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -3466,12 +3466,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:242
+#: inspector/virt-inspector.c:241
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:276
+#: inspector/virt-inspector.c:275
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3498,52 +3498,52 @@ msgstr ""
 "ही त्रुटी आहे असे आढळल्यास, कृपया बग अहवाल सादर करा ज्यामध्ये \n"
 "डिस्क प्रतिमाविषयी जास्तित जास्त माहिती समाविष्टीत असेल.\n"
 
-#: inspector/virt-inspector.c:291
+#: inspector/virt-inspector.c:290
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: \"%s\" येथे XML लेखन त्रुटी आढळली: %m\n"
 
-#: inspector/virt-inspector.c:303
+#: inspector/virt-inspector.c:302
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: stdout उघडण्यास अपयशी\n"
 
-#: inspector/virt-inspector.c:312
+#: inspector/virt-inspector.c:311
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: libxml2 राइटर निर्माण करण्यास अपयशी\n"
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:768
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:784
+#: inspector/virt-inspector.c:774
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:781
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:802
+#: inspector/virt-inspector.c:792
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:809
+#: inspector/virt-inspector.c:799
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:814
+#: inspector/virt-inspector.c:804
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:821
+#: inspector/virt-inspector.c:811
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
@@ -3726,14 +3726,14 @@ msgid ""
 "at the moment.  As a workaround, forcing attach-method = 'appliance'.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:410
+#: rescue/virt-rescue.c:400
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:429
+#: rescue/virt-rescue.c:419
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3741,7 +3741,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:439
+#: rescue/virt-rescue.c:429
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3750,7 +3750,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:496
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -3760,7 +3760,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:503
+#: rescue/virt-rescue.c:493
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3769,12 +3769,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:508
+#: rescue/virt-rescue.c:498
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:713
+#: rescue/virt-rescue.c:703
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: अपरिचीत चाइल्ड एक्जिट स्टेटस् (%d)\n"
@@ -3848,6 +3848,27 @@ msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
 msgstr ""
+
+#: src/for-each-disk.c:83 src/libvirt-domain.c:331
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "libvirt XML माहिती वाचतेवेळी त्रुटी आढळली: %s"
+
+#: src/for-each-disk.c:94 src/libvirt-domain.c:339
+msgid "unable to parse XML information returned by libvirt"
+msgstr "libvirt द्वारे पुरवलेली XML माहिती वाचण्यास अशक्य"
+
+#: src/for-each-disk.c:100 src/launch-libvirt.c:513 src/libvirt-domain.c:345
+msgid "unable to create new XPath context"
+msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
+
+#: src/for-each-disk.c:107 src/libvirt-domain.c:360
+msgid "unable to evaluate XPath expression"
+msgstr "XPath वाकप्रचार मुल्यमापन करणे अशक्य"
+
+#: src/for-each-disk.c:201
+msgid "libvirt domain has no disks"
+msgstr "libvirt डोमेनमध्ये डिस्क्स् आढळले नाही"
 
 #: src/fuse.c:921
 msgid "filesystem is already mounted in another thread"
@@ -4021,10 +4042,6 @@ msgstr ""
 #: src/launch-libvirt.c:507
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
-
-#: src/launch-libvirt.c:513 src/libvirt-domain.c:203 src/libvirt-domain.c:529
-msgid "unable to create new XPath context"
-msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
 
 #: src/launch-libvirt.c:523
 #, c-format
@@ -4206,7 +4223,7 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:93 src/libvirt-domain.c:391
+#: src/libvirt-domain.c:93 src/libvirt-domain.c:209
 msgid "you cannot set both live and readonly flags"
 msgstr "दोंही लाइव्ह व फक्तवाचणीय फ्लॅग्स् सेट करणे शक्य नाही"
 
@@ -4220,33 +4237,16 @@ msgstr "libvirt शी संपर्क करणे शक्य नाही
 msgid "no libvirt domain called '%s': %s"
 msgstr "'%s' नावाचे libvirt डोमेन आढळले नाही: %s"
 
-#: src/libvirt-domain.c:187 src/libvirt-domain.c:515
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "libvirt XML माहिती वाचतेवेळी त्रुटी आढळली: %s"
-
-#: src/libvirt-domain.c:197 src/libvirt-domain.c:523
-msgid "unable to parse XML information returned by libvirt"
-msgstr "libvirt द्वारे पुरवलेली XML माहिती वाचण्यास अशक्य"
-
-#: src/libvirt-domain.c:210 src/libvirt-domain.c:544
-msgid "unable to evaluate XPath expression"
-msgstr "XPath वाकप्रचार मुल्यमापन करणे अशक्य"
-
-#: src/libvirt-domain.c:319
-msgid "libvirt domain has no disks"
-msgstr "libvirt डोमेनमध्ये डिस्क्स् आढळले नाही"
-
-#: src/libvirt-domain.c:385
+#: src/libvirt-domain.c:203
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/libvirt-domain.c:402
+#: src/libvirt-domain.c:220
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "डोमेन माहिती प्राप्त करतेवेळी त्रुटी आढळली: %s"
 
-#: src/libvirt-domain.c:416
+#: src/libvirt-domain.c:234
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4261,14 +4261,14 @@ msgstr ""
 "live प्रवेश निर्देशीत करा.  बहुतांश libguestfs साधनांमध्ये हे पर्याय --ro किंवा\n"
 "--live असे असतात.  पुढील माहितीकरीता दस्तऐवजीकरणचा सल्ला घ्या."
 
-#: src/libvirt-domain.c:481
+#: src/libvirt-domain.c:299
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:572
+#: src/libvirt-domain.c:388
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -4276,7 +4276,7 @@ msgstr ""
 "या अतिथीकडे guestfsd करीता libvirt <channel> व्याख्या नाही\n"
 "पुढील माहितीसाठी guestfs(3) मध्ये सुरू डिमन्स्ला कसे जोडायचे पहा."
 
-#: src/libvirt-domain.c:595
+#: src/libvirt-domain.c:401
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"

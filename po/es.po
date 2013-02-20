@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-19 16:47+0000\n"
+"POT-Creation-Date: 2013-02-20 21:24+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: align/domains.c:347 align/scan.c:123 cat/virt-cat.c:117
 #: cat/virt-filesystems.c:190 cat/virt-ls.c:182 df/domains.c:429 df/main.c:132
 #: edit/virt-edit.c:137 fish/fish.c:234 format/format.c:131
-#: fuse/guestmount.c:207 inspector/virt-inspector.c:131
+#: fuse/guestmount.c:207 inspector/virt-inspector.c:130
 #: rescue/virt-rescue.c:138
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -62,7 +62,7 @@ msgstr "guestfs_create: falló al crear manipulador\n"
 
 #: align/scan.c:60 cat/virt-cat.c:56 cat/virt-filesystems.c:87
 #: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:70 fish/fish.c:104
-#: fuse/guestmount.c:99 inspector/virt-inspector.c:69 rescue/virt-rescue.c:57
+#: fuse/guestmount.c:99 inspector/virt-inspector.c:68 rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: align/scan.c:143 cat/virt-cat.c:139 cat/virt-filesystems.c:244
 #: cat/virt-ls.c:232 df/main.c:156 edit/virt-edit.c:159 fish/fish.c:297
-#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:155
+#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:154
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -169,7 +169,7 @@ msgstr ""
 "  -x                   Rastrea llamados API de libguestfs\n"
 "Para obtener mayor información, consulte la página man %s(1).\n"
 
-#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1727
+#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1707
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -3001,17 +3001,17 @@ msgstr ""
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: error: %s\n"
 
-#: fish/fish.c:1296
+#: fish/fish.c:1276
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
 
-#: fish/fish.c:1404
+#: fish/fish.c:1384
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1721
+#: fish/fish.c:1701
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3020,7 +3020,7 @@ msgstr ""
 "%s: para utilizar letras de unidad Windows, debe inspeccionar el huésped  "
 "(opción \"-i\"o ejecute el comando \"inspect-os\")\n"
 
-#: fish/fish.c:1741
+#: fish/fish.c:1721
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3030,7 +3030,7 @@ msgstr ""
 "disponibles ejecute:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1760
+#: fish/fish.c:1740
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3110,12 +3110,12 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: rango inválido\n"
 
-#: fish/inspect.c:78
+#: fish/inspect.c:58
 #, c-format
 msgid "%s: don't use --live and -i options together\n"
 msgstr "%s: no utilice al mismo tiempo las opciones --live e -i\n"
 
-#: fish/inspect.c:91
+#: fish/inspect.c:71
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -3134,7 +3134,7 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:112
+#: fish/inspect.c:92
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -3153,19 +3153,19 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:170
+#: fish/inspect.c:151
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 "%s: algunos sistemas de archivos no han podido ser montados (se han "
 "ignorado)\n"
 
-#: fish/inspect.c:186
+#: fish/inspect.c:167
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Sistema operativo: %s\n"
 
-#: fish/inspect.c:203
+#: fish/inspect.c:185
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s montado en %s\n"
@@ -3533,7 +3533,7 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 "%s: debe indicar un punto de montaje en el sistema de archivos del equipo\n"
 
-#: inspector/virt-inspector.c:73
+#: inspector/virt-inspector.c:72
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -3556,12 +3556,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:242
+#: inspector/virt-inspector.c:241
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:276
+#: inspector/virt-inspector.c:275
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3594,52 +3594,52 @@ msgstr ""
 " mayor cantidad de información relacionada con la imagen de disco que le sea "
 "posible.\n"
 
-#: inspector/virt-inspector.c:291
+#: inspector/virt-inspector.c:290
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: error de escritura XML en \"%s\": %m\n"
 
-#: inspector/virt-inspector.c:303
+#: inspector/virt-inspector.c:302
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: falló al abrir stdout\n"
 
-#: inspector/virt-inspector.c:312
+#: inspector/virt-inspector.c:311
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: falló al crear escritor libxml2\n"
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:768
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:784
+#: inspector/virt-inspector.c:774
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:781
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:802
+#: inspector/virt-inspector.c:792
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:809
+#: inspector/virt-inspector.c:799
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:814
+#: inspector/virt-inspector.c:804
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:821
+#: inspector/virt-inspector.c:811
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
@@ -3831,14 +3831,14 @@ msgid ""
 "at the moment.  As a workaround, forcing attach-method = 'appliance'.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:410
+#: rescue/virt-rescue.c:400
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:429
+#: rescue/virt-rescue.c:419
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3846,7 +3846,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:439
+#: rescue/virt-rescue.c:429
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3855,7 +3855,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:496
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -3865,7 +3865,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:503
+#: rescue/virt-rescue.c:493
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3874,12 +3874,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:508
+#: rescue/virt-rescue.c:498
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:713
+#: rescue/virt-rescue.c:703
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr "%s: estado de salida de proceso hijo desconocido (%d)\n"
@@ -3957,6 +3957,27 @@ msgid ""
 msgstr ""
 "no está disponible la arquitectura del archivo API debido a que esta versión "
 "de libguestfs ha sido compilada sin la biblioteca libmagic"
+
+#: src/for-each-disk.c:83 src/libvirt-domain.c:331
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "error leyendo información XML de libvirt: %s"
+
+#: src/for-each-disk.c:94 src/libvirt-domain.c:339
+msgid "unable to parse XML information returned by libvirt"
+msgstr "no es posible analizar la información XML devuelta por libvirt"
+
+#: src/for-each-disk.c:100 src/launch-libvirt.c:513 src/libvirt-domain.c:345
+msgid "unable to create new XPath context"
+msgstr "no es posible crear un nuevo contexto XPath"
+
+#: src/for-each-disk.c:107 src/libvirt-domain.c:360
+msgid "unable to evaluate XPath expression"
+msgstr "no es posible evaluar la expression XPath"
+
+#: src/for-each-disk.c:201
+msgid "libvirt domain has no disks"
+msgstr "el dominio libvirt no posee discos"
 
 #: src/fuse.c:921
 msgid "filesystem is already mounted in another thread"
@@ -4131,10 +4152,6 @@ msgstr ""
 #: src/launch-libvirt.c:507
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
-
-#: src/launch-libvirt.c:513 src/libvirt-domain.c:203 src/libvirt-domain.c:529
-msgid "unable to create new XPath context"
-msgstr "no es posible crear un nuevo contexto XPath"
 
 #: src/launch-libvirt.c:523
 #, c-format
@@ -4317,7 +4334,7 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:93 src/libvirt-domain.c:391
+#: src/libvirt-domain.c:93 src/libvirt-domain.c:209
 msgid "you cannot set both live and readonly flags"
 msgstr "no puede definir al mismo tiempo las marcas live y readonly"
 
@@ -4331,33 +4348,16 @@ msgstr "no se pudo conectar con libvirt (código %d, dominio %d): %s"
 msgid "no libvirt domain called '%s': %s"
 msgstr "no existe un dominio libvirt denominado '%s': %s"
 
-#: src/libvirt-domain.c:187 src/libvirt-domain.c:515
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "error leyendo información XML de libvirt: %s"
-
-#: src/libvirt-domain.c:197 src/libvirt-domain.c:523
-msgid "unable to parse XML information returned by libvirt"
-msgstr "no es posible analizar la información XML devuelta por libvirt"
-
-#: src/libvirt-domain.c:210 src/libvirt-domain.c:544
-msgid "unable to evaluate XPath expression"
-msgstr "no es posible evaluar la expression XPath"
-
-#: src/libvirt-domain.c:319
-msgid "libvirt domain has no disks"
-msgstr "el dominio libvirt no posee discos"
-
-#: src/libvirt-domain.c:385
+#: src/libvirt-domain.c:203
 msgid "unknown readonlydisk parameter"
 msgstr "parámetro readonlydisk desconocido"
 
-#: src/libvirt-domain.c:402
+#: src/libvirt-domain.c:220
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "error al obtener información de dominio: %s"
 
-#: src/libvirt-domain.c:416
+#: src/libvirt-domain.c:234
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4376,7 +4376,7 @@ msgstr ""
 "--live\n"
 "Consulte la documentación para obtener mayor información."
 
-#: src/libvirt-domain.c:481
+#: src/libvirt-domain.c:299
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
@@ -4385,7 +4385,7 @@ msgstr ""
 "%s: disco está marcado como <readonly/> en libvirt XML, y readonlydisk "
 "establecido a \"error\""
 
-#: src/libvirt-domain.c:572
+#: src/libvirt-domain.c:388
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -4394,7 +4394,7 @@ msgstr ""
 "Para obtener mayor información, consulte ATTACHING TO RUNNING DAEMONS en "
 "guestfs(3)."
 
-#: src/libvirt-domain.c:595
+#: src/libvirt-domain.c:401
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
