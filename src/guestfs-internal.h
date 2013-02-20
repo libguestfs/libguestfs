@@ -429,11 +429,9 @@ struct guestfs_progress;
 /* errors.c */
 extern void guestfs___init_error_handler (guestfs_h *g);
 
-extern void guestfs_error (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
-extern void guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
+extern void guestfs___error_errno (guestfs_h *g, int errnum, const char *fs, ...)
   __attribute__((format (printf,3,4)));
-extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
+extern void guestfs___perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 
 extern void guestfs___warning (guestfs_h *g, const char *fs, ...)
@@ -446,15 +444,15 @@ extern void guestfs___trace (guestfs_h *g, const char *fs, ...)
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size);
 
-#define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
-#define perrorf guestfs_perrorf
+#define error(g,...) guestfs___error_errno((g),0,__VA_ARGS__)
+#define perrorf guestfs___perrorf
 #define warning(g,...) guestfs___warning((g),__VA_ARGS__)
 #define debug(g,...) \
   do { if ((g)->verbose) guestfs___debug ((g),__VA_ARGS__); } while (0)
 
 #define NOT_SUPPORTED(g,errcode,...)                     \
   do {                                                   \
-    guestfs_error_errno ((g), ENOTSUP, __VA_ARGS__);     \
+    guestfs___error_errno ((g), ENOTSUP, __VA_ARGS__);   \
     return (errcode);                                    \
   }                                                      \
   while (0)

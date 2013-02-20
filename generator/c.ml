@@ -1511,7 +1511,7 @@ and generate_client_actions hash () =
     pr "      error (g, \"%%s: %%s\", \"%s\", err.error_message);\n"
       name;
     pr "    else\n";
-    pr "      guestfs_error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
+    pr "      guestfs___error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
       name;
     pr "                           err.error_message);\n";
     pr "    free (err.error_message);\n";
