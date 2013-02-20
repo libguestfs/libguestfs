@@ -171,12 +171,12 @@ guestfs___for_each_disk (guestfs_h *g,
                          void *data)
 {
   virDomainPtr dom = domv;
-  int i, nr_added = 0, r = -1;
+  int i, nr_added = 0;
   virErrorPtr err;
-  xmlDocPtr doc = NULL;
-  xmlXPathContextPtr xpathCtx = NULL;
-  xmlXPathObjectPtr xpathObj = NULL;
-  char *xml = NULL;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
+  CLEANUP_FREE char *xml = NULL;
   xmlNodeSetPtr nodes;
 
   /* Domain XML. */
@@ -186,7 +186,7 @@ guestfs___for_each_disk (guestfs_h *g,
     err = virGetLastError ();
     error (g, _("error reading libvirt XML information: %s"),
            err->message);
-    goto cleanup;
+    return -1;
   }
 
   /* Now the horrible task of parsing out the fields we need from the XML.
@@ -195,25 +195,32 @@ guestfs___for_each_disk (guestfs_h *g,
   doc = xmlParseMemory (xml, strlen (xml));
   if (doc == NULL) {
     error (g, _("unable to parse XML information returned by libvirt"));
-    goto cleanup;
+    return -1;
   }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
     error (g, _("unable to create new XPath context"));
-    goto cleanup;
+    return -1;
   }
 
   /* This gives us a set of all the <disk> nodes. */
   xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk", xpathCtx);
   if (xpathObj == NULL) {
     error (g, _("unable to evaluate XPath expression"));
-    goto cleanup;
+    return -1;
   }
 
   nodes = xpathObj->nodesetval;
   for (i = 0; i < nodes->nodeNr; ++i) {
-    xmlXPathObjectPtr xptype;
+    CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
+    xmlAttrPtr attr;
+    int readonly;
+    int t;
 
     /* Change the context to the current <disk> node.
      * DV advises to reset this before each search since older versions of
@@ -228,55 +235,42 @@ guestfs___for_each_disk (guestfs_h *g,
     if (xptype == NULL ||
         xptype->nodesetval == NULL ||
         xptype->nodesetval->nodeNr == 0) {
-      xmlXPathFreeObject (xptype);
       continue;                 /* no type attribute, skip it */
     }
     assert (xptype->nodesetval->nodeTab[0]);
     assert (xptype->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    xmlAttrPtr attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
-    char *type = (char *) xmlNodeListGetString (doc, attr->children, 1);
-    xmlXPathFreeObject (xptype);
-
-    xmlXPathObjectPtr xpfilename;
+    attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
+    type = (char *) xmlNodeListGetString (doc, attr->children, 1);
 
     if (STREQ (type, "file")) { /* type = "file" so look at source/@file */
-      free (type);
-
       xpathCtx->node = nodes->nodeTab[i];
       xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@file", xpathCtx);
       if (xpfilename == NULL ||
           xpfilename->nodesetval == NULL ||
           xpfilename->nodesetval->nodeNr == 0) {
-        xmlXPathFreeObject (xpfilename);
         continue;             /* disk filename not found, skip this */
       }
     } else if (STREQ (type, "block")) { /* type = "block", use source/@dev */
-      free (type);
-
       xpathCtx->node = nodes->nodeTab[i];
       xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev", xpathCtx);
       if (xpfilename == NULL ||
           xpfilename->nodesetval == NULL ||
           xpfilename->nodesetval->nodeNr == 0) {
-        xmlXPathFreeObject (xpfilename);
         continue;             /* disk filename not found, skip this */
       }
-    } else {
-      free (type);
+    } else
       continue;               /* type <> "file" or "block", skip it */
-    }
 
+    assert (xpfilename);
+    assert (xpfilename->nodesetval);
     assert (xpfilename->nodesetval->nodeTab[0]);
     assert (xpfilename->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
     attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
-    char *filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+    filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
 
     /* Get the disk format (may not be set). */
-    xmlXPathObjectPtr xpformat;
-
     xpathCtx->node = nodes->nodeTab[i];
     xpformat = xmlXPathEvalExpression (BAD_CAST "./driver/@type", xpathCtx);
-    char *format = NULL;
     if (xpformat != NULL &&
         xpformat->nodesetval &&
         xpformat->nodesetval->nodeNr > 0) {
@@ -287,49 +281,32 @@ guestfs___for_each_disk (guestfs_h *g,
     }
 
     /* Get the <readonly/> flag. */
-    xmlXPathObjectPtr xpreadonly;
-
     xpathCtx->node = nodes->nodeTab[i];
     xpreadonly = xmlXPathEvalExpression (BAD_CAST "./readonly", xpathCtx);
-    int readonly = 0;
+    readonly = 0;
     if (xpreadonly != NULL &&
         xpreadonly->nodesetval &&
         xpreadonly->nodesetval->nodeNr > 0)
       readonly = 1;
 
-    int t;
     if (f)
       t = f (g, filename, format, readonly, data);
     else
       t = 0;
 
-    xmlFree (filename);
-    xmlFree (format);
-    xmlXPathFreeObject (xpfilename);
-    xmlXPathFreeObject (xpformat);
-    xmlXPathFreeObject (xpreadonly);
-
     if (t == -1)
-      goto cleanup;
+      return -1;
 
     nr_added++;
   }
 
   if (nr_added == 0) {
     error (g, _("libvirt domain has no disks"));
-    goto cleanup;
+    return -1;
   }
 
   /* Successful. */
-  r = nr_added;
-
- cleanup:
-  free (xml);
-  if (xpathObj) xmlXPathFreeObject (xpathObj);
-  if (xpathCtx) xmlXPathFreeContext (xpathCtx);
-  if (doc) xmlFreeDoc (doc);
-
-  return r;
+  return nr_added;
 }
 
 /* This was proposed as an external API, but it's not quite baked yet. */
@@ -497,14 +474,12 @@ add_disk (guestfs_h *g,
 static int
 connect_live (guestfs_h *g, virDomainPtr dom)
 {
-  int i, r = -1;
+  int i;
   virErrorPtr err;
-  xmlDocPtr doc = NULL;
-  xmlXPathContextPtr xpathCtx = NULL;
-  xmlXPathObjectPtr xpathObj = NULL;
-  char *xml = NULL;
-  char *path = NULL;
-  char *attach_method = NULL;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
+  CLEANUP_FREE char *xml = NULL, *path = NULL, *attach_method = NULL;
   xmlNodeSetPtr nodes;
 
   /* Domain XML. */
@@ -514,20 +489,20 @@ connect_live (guestfs_h *g, virDomainPtr dom)
     err = virGetLastError ();
     error (g, _("error reading libvirt XML information: %s"),
            err->message);
-    goto cleanup;
+    return -1;
   }
 
   /* Parse XML to document. */
   doc = xmlParseMemory (xml, strlen (xml));
   if (doc == NULL) {
     error (g, _("unable to parse XML information returned by libvirt"));
-    goto cleanup;
+    return -1;
   }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
     error (g, _("unable to create new XPath context"));
-    goto cleanup;
+    return -1;
   }
 
   /* This gives us a set of all the <channel> nodes related to the
@@ -542,12 +517,13 @@ connect_live (guestfs_h *g, virDomainPtr dom)
                                      xpathCtx);
   if (xpathObj == NULL) {
     error (g, _("unable to evaluate XPath expression"));
-    goto cleanup;
+    return -1;
   }
 
   nodes = xpathObj->nodesetval;
   for (i = 0; i < nodes->nodeNr; ++i) {
-    xmlXPathObjectPtr xppath;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
+    xmlAttrPtr attr;
 
     /* See note in function above. */
     xpathCtx->node = nodes->nodeTab[i];
@@ -562,31 +538,20 @@ connect_live (guestfs_h *g, virDomainPtr dom)
     }
     assert (xppath->nodesetval->nodeTab[0]);
     assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    xmlAttrPtr attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
+    attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
     path = (char *) xmlNodeListGetString (doc, attr->children, 1);
-    xmlXPathFreeObject (xppath);
     break;
   }
 
   if (path == NULL) {
     error (g, _("this guest has no libvirt <channel> definition for guestfsd\n"
                 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."));
-    goto cleanup;
+    return -1;
   }
 
   /* Got a path. */
   attach_method = safe_asprintf (g, "unix:%s", path);
-  r = guestfs_set_attach_method (g, attach_method);
-
- cleanup:
-  free (path);
-  free (attach_method);
-  free (xml);
-  if (xpathObj) xmlXPathFreeObject (xpathObj);
-  if (xpathCtx) xmlXPathFreeContext (xpathCtx);
-  if (doc) xmlFreeDoc (doc);
-
-  return r;
+  return guestfs_set_attach_method (g, attach_method);
 }
 
 #else /* no libvirt or libxml2 at compile time */
