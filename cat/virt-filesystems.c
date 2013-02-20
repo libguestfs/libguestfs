@@ -373,8 +373,6 @@ static int is_md (char *device);
 static char **parents_of_md (char *device);
 static char **parents_of_vg (char *vg);
 
-static size_t count_strings (char **strings);
-
 static void
 do_output_title (void)
 {
@@ -813,7 +811,7 @@ parents_of_vg (char *vg)
   if (!pvuuids)
     exit (EXIT_FAILURE);
 
-  n = count_strings (pvuuids);
+  n = guestfs___count_strings (pvuuids);
 
   ret = malloc ((n + 1) * sizeof (char *));
   if (!ret) {
@@ -1098,14 +1096,4 @@ do_output_end (void)
     free (row);
   }
   free (rows);
-}
-
-static size_t
-count_strings (char **strings)
-{
-  size_t i;
-
-  for (i = 0; strings[i] != NULL; ++i)
-    ;
-  return i;
 }

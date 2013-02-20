@@ -376,16 +376,6 @@ compare_keys_len (const void *p1, const void *p2)
   return strlen (key1) - strlen (key2);
 }
 
-static size_t
-count_strings (char *const *argv)
-{
-  size_t i;
-
-  for (i = 0; argv[i]; ++i)
-    ;
-  return i;
-}
-
 /* virt-rescue --suggest flag does a kind of inspection on the
  * drives and suggests mount commands that you should use.
  */
@@ -450,7 +440,7 @@ do_suggestion (struct drv *drvs)
     /* Sort by key length, shortest key first, so that we end up
      * mounting the filesystems in the correct order.
      */
-    qsort (mps, count_strings (mps) / 2, 2 * sizeof (char *),
+    qsort (mps, guestfs___count_strings (mps) / 2, 2 * sizeof (char *),
            compare_keys_len);
 
     for (j = 0; mps[j] != NULL; j += 2)
