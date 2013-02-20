@@ -71,16 +71,6 @@ take_strings (guestfs_h *g, char *const *names, size_t n, char *const **lastp)
   return ret;
 }
 
-static size_t
-count_strings (char * const*names)
-{
-  size_t ret = 0;
-
-  while (names[ret] != NULL)
-    ret++;
-  return ret;
-}
-
 char *
 guestfs__cat (guestfs_h *g, const char *path)
 {
@@ -383,7 +373,7 @@ guestfs__write_append (guestfs_h *g, const char *path,
 struct guestfs_stat_list *
 guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
 {
-  size_t len = count_strings (names);
+  size_t len = guestfs___count_strings (names);
   size_t old_len;
   struct guestfs_stat_list *ret;
 
@@ -425,7 +415,7 @@ guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
 struct guestfs_xattr_list *
 guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 {
-  size_t len = count_strings (names);
+  size_t len = guestfs___count_strings (names);
   size_t i, old_len;
   struct guestfs_xattr_list *ret;
 
@@ -473,7 +463,7 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 char **
 guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
 {
-  size_t len = count_strings (names);
+  size_t len = guestfs___count_strings (names);
   size_t old_len, ret_len = 0;
   char **ret = NULL;
 
@@ -496,7 +486,7 @@ guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
 
     /* Append links to ret. */
     old_len = ret_len;
-    ret_len += count_strings (links);
+    ret_len += guestfs___count_strings (links);
     ret = safe_realloc (g, ret, ret_len * sizeof (char *));
     memcpy (&ret[old_len], links, (ret_len-old_len) * sizeof (char *));
   }

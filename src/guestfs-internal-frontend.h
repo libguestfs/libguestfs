@@ -90,6 +90,7 @@ extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
 
 /* utils.c */
 extern void guestfs___free_string_list (char **);
+extern size_t guestfs___count_strings (char *const *);
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
