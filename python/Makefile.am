@@ -49,7 +49,12 @@ libguestfsmod_la_CPPFLAGS = \
 libguestfsmod_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
-libguestfsmod_la_LIBADD = $(top_builddir)/src/libguestfs.la
+libguestfsmod_la_LIBADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	../gnulib/lib/libgnu.la
 
 libguestfsmod_la_LDFLAGS = -avoid-version -shared
 
