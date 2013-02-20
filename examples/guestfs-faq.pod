@@ -854,6 +854,32 @@ them, and programs should not try to use them.  Using them will often
 cause bad things to happen, as well as not being part of the
 documented stable API.
 
+=head1 DEVELOPERS
+
+=head2 Where do I send patches?
+
+Please send patches to the libguestfs mailing list
+L<https://www.redhat.com/mailman/listinfo/libguestfs>.  You don't have
+to be subscribed, but there will be a delay until your posting is
+manually approved.
+
+Please don't use github pull requests - they will be ignored.  The
+reasons are (a) we want to discuss and dissect patches on the mailing
+list, and (b) github pull requests turn into merge commits which we
+don't want.
+
+=head2 How do I propose a feature?
+
+Large new features that you intend to contribute should be discussed
+on the mailing list first
+(L<https://www.redhat.com/mailman/listinfo/libguestfs>).  This avoids
+disappointment and wasted work if we don't think the feature would fit
+into the libguestfs project.
+
+If you want to suggest a useful feature but don't want to write the
+code, you can file a bug (see L</GETTING HELP AND REPORTING BUGS>)
+with C<"RFE: "> at the beginning of the Summary line.
+
 =head1 SEE ALSO
 
 L<guestfish(1)>,
