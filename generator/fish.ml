@@ -569,7 +569,7 @@ Guestfish will prompt for these separately."
            pr "  if (r == NULL) goto out;\n";
            pr "  ret = 0;\n";
            pr "  print_strings (r);\n";
-           pr "  free_strings (r);\n"
+           pr "  guestfs___free_string_list (r);\n"
        | RStruct (_, typ) ->
            pr "  if (r == NULL) goto out;\n";
            pr "  ret = 0;\n";
@@ -584,7 +584,7 @@ Guestfish will prompt for these separately."
            pr "  if (r == NULL) goto out;\n";
            pr "  ret = 0;\n";
            pr "  print_table (r);\n";
-           pr "  free_strings (r);\n"
+           pr "  guestfs___free_string_list (r);\n"
        | RBufferOut _ ->
            pr "  if (r == NULL) goto out;\n";
            pr "  if (full_write (1, r, size) != size) {\n";
@@ -607,7 +607,7 @@ Guestfish will prompt for these separately."
           pr "  if ((optargs_s.bitmask & %s_%s_BITMASK) &&\n"
             c_optarg_prefix uc_n;
           pr "      optargs_s.%s != NULL)\n" n;
-          pr "    free_strings ((char **) optargs_s.%s);\n" n
+          pr "    guestfs___free_string_list ((char **) optargs_s.%s);\n" n
         | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
       ) (List.rev optargs);
       List.iter (
@@ -625,7 +625,7 @@ Guestfish will prompt for these separately."
             pr "  free_file_in (%s);\n" name;
             pr " out_%s:\n" name
         | StringList name | DeviceList name ->
-            pr "  free_strings (%s);\n" name;
+            pr "  guestfs___free_string_list (%s);\n" name;
             pr " out_%s:\n" name
         | Pointer _ -> assert false
       ) (List.rev args);

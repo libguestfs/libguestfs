@@ -103,7 +103,7 @@ run_glob (const char *cmd, size_t argc, char *argv[])
     }
 
     globs[i] = pp;
-    count[i] = count_strings (pp);
+    count[i] = guestfs___count_strings (pp);
   }
 
   /* Issue the commands. */
@@ -113,7 +113,7 @@ run_glob (const char *cmd, size_t argc, char *argv[])
  error:
   for (i = 1; i < argc; ++i)
     if (globs[i])
-      free_strings (globs[i]);
+      guestfs___free_string_list (globs[i]);
   return r;
 }
 
@@ -169,23 +169,23 @@ expand_devicename (guestfs_h *g, const char *device)
   pp = guestfs_list_devices (g);
   if (pp == NULL) goto error;
   if (add_strings_matching (pp, device, &ret, &size) == -1) goto error;
-  free_strings (pp);
+  guestfs___free_string_list (pp);
 
   pp = guestfs_list_partitions (g);
   if (pp == NULL) goto error;
   if (add_strings_matching (pp, device, &ret, &size) == -1) goto error;
-  free_strings (pp);
+  guestfs___free_string_list (pp);
 
   pp = guestfs_list_md_devices (g);
   if (pp == NULL) goto error;
   if (add_strings_matching (pp, device, &ret, &size) == -1) goto error;
-  free_strings (pp);
+  guestfs___free_string_list (pp);
 
   if (feature_available (g, "lvm2")) {
     pp = guestfs_lvs (g);
     if (pp == NULL) goto error;
     if (add_strings_matching (pp, device, &ret, &size) == -1) goto error;
-    free_strings (pp);
+    guestfs___free_string_list (pp);
     pp = NULL;
   }
 
@@ -196,9 +196,9 @@ expand_devicename (guestfs_h *g, const char *device)
 
  error:
   if (pp)
-    free_strings (pp);
+    guestfs___free_string_list (pp);
   if (ret)
-    free_strings (ret);
+    guestfs___free_string_list (ret);
 
   return NULL;
 }
