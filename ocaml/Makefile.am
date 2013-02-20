@@ -66,13 +66,17 @@ mlguestfs.cmxa: libguestfsocaml.a guestfs.cmx
 libguestfsocaml_a_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/gnulib/lib -I../gnulib/lib
 
 libguestfsocaml_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	-fPIC
 
-libguestfsocaml_a_SOURCES = guestfs-c.c guestfs-c-actions.c
+libguestfsocaml_a_SOURCES = \
+	guestfs-c.c \
+	guestfs-c-actions.c \
+	../src/utils.c
 
 if HAVE_OCAMLDOC
 
