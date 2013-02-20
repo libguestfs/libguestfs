@@ -118,7 +118,7 @@ guestfs___trace (guestfs_h *g, const char *fs, ...)
 }
 
 void
-guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
+guestfs___error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
@@ -137,7 +137,7 @@ guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 }
 
 void
-guestfs_perrorf (guestfs_h *g, const char *fs, ...)
+guestfs___perrorf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
