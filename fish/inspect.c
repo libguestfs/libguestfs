@@ -34,26 +34,6 @@
  */
 static char *root = NULL;
 
-static void
-free_strings (char **argv)
-{
-  size_t argc;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    free (argv[argc]);
-  free (argv);
-}
-
-static size_t
-count_strings (char *const *argv)
-{
-  size_t i;
-
-  for (i = 0; argv[i]; ++i)
-    ;
-  return i;
-}
-
 static int
 compare_keys_len (const void *p1, const void *p2)
 {
@@ -103,7 +83,7 @@ inspect_mount (void)
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
              program_name);
-    free_strings (roots);
+    guestfs___free_string_list (roots);
     exit (EXIT_FAILURE);
   }
 
@@ -124,7 +104,7 @@ inspect_mount (void)
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
              program_name);
-    free_strings (roots);
+    guestfs___free_string_list (roots);
     exit (EXIT_FAILURE);
   }
 
@@ -145,7 +125,8 @@ inspect_mount_root (const char *root)
   /* Sort by key length, shortest key first, so that we end up
    * mounting the filesystems in the correct order.
    */
-  qsort (mountpoints, count_strings (mountpoints) / 2, 2 * sizeof (char *),
+  qsort (mountpoints, guestfs___count_strings (mountpoints) / 2,
+         2 * sizeof (char *),
          compare_keys_len);
 
   size_t i;
@@ -190,7 +171,8 @@ print_inspect_prompt (void)
     return;
 
   /* Sort by key. */
-  qsort (mountpoints, count_strings (mountpoints) / 2, 2 * sizeof (char *),
+  qsort (mountpoints, guestfs___count_strings (mountpoints) / 2,
+         2 * sizeof (char *),
          compare_keys);
 
   for (i = 0; mountpoints[i] != NULL; i += 2) {

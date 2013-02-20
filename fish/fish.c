@@ -1235,26 +1235,6 @@ error_cb (guestfs_h *g, void *data, const char *msg)
 }
 
 void
-free_strings (char **argv)
-{
-  size_t argc;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    free (argv[argc]);
-  free (argv);
-}
-
-size_t
-count_strings (char *const *argv)
-{
-  size_t c;
-
-  for (c = 0; argv[c]; ++c)
-    ;
-  return c;
-}
-
-void
 print_strings (char *const *argv)
 {
   size_t argc;
