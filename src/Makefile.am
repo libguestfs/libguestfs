@@ -62,25 +62,6 @@ include_HEADERS = guestfs.h
 
 lib_LTLIBRARIES = libguestfs.la
 
-# This convenience library is solely to compile its generated sources with
-# custom flags.
-libprotocol_la_SOURCES = guestfs_protocol.c  guestfs_protocol.h
-libprotocol_la_CFLAGS = \
-	-Wall -Wno-unused -fno-strict-aliasing $(GCC_VISIBILITY_HIDDEN)
-
-# Build the errnostring perfect hash code.  The generated code has lots
-# of warnings so we must compile it in a separate mini-library.
-liberrnostring_la_SOURCES = \
-	errnostring-gperf.c \
-	errnostring.h \
-	errnostring.c
-liberrnostring_la_CFLAGS = $(GCC_VISIBILITY_HIDDEN)
-
-errnostring-gperf.c: errnostring-gperf.gperf
-	rm -f $@
-	$(GPERF) -t $< > $@-t
-	mv $@-t $@
-
 # From the libtool info file, with comments:
 #
 # |  1. Start with version information of `0:0:0' for each libtool library.
@@ -178,23 +159,6 @@ libguestfs_la_SOURCES = \
 	utils.c \
 	libguestfs.syms
 
-libguestfs_la_LIBADD = \
-	$(PCRE_LIBS) $(MAGIC_LIBS) \
-	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
-	../gnulib/lib/libgnu.la \
-	$(GETADDRINFO_LIB) \
-	$(HOSTENT_LIB) \
-	$(INET_NTOP_LIB) \
-	$(LIBSOCKET) \
-	$(LIB_CLOCK_GETTIME) \
-	$(LIBINTL) \
-	$(LTLIBTHREAD) \
-	$(SERVENT_LIB)
-
-# Make libguestfs include the convenience libraries.
-noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
-libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
-
 libguestfs_la_CPPFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DGUESTFS_WARN_DEPRECATED=1 \
@@ -210,11 +174,48 @@ libguestfs_la_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
+libguestfs_la_LIBADD = \
+	liberrnostring.la \
+	libprotocol.la \
+	$(PCRE_LIBS) $(MAGIC_LIBS) \
+	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
+	../gnulib/lib/libgnu.la \
+	$(GETADDRINFO_LIB) \
+	$(HOSTENT_LIB) \
+	$(INET_NTOP_LIB) \
+	$(LIBSOCKET) \
+	$(LIB_CLOCK_GETTIME) \
+	$(LIBINTL) \
+	$(LTLIBTHREAD) \
+	$(SERVENT_LIB)
+
 if HAVE_FUSE
 # XXX Unfortunately FUSE_CFLAGS defines _FILE_OFFSET_BITS=64.
 libguestfs_la_CFLAGS += $(FUSE_CFLAGS)
 libguestfs_la_LIBADD += $(FUSE_LIBS)
 endif
+
+# Convenience libraries.
+noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
+
+# Build the errnostring perfect hash code.  The generated code has lots
+# of warnings so we must compile it in a separate mini-library.
+liberrnostring_la_SOURCES = \
+	errnostring-gperf.c \
+	errnostring.h \
+	errnostring.c
+liberrnostring_la_CFLAGS = $(GCC_VISIBILITY_HIDDEN)
+
+errnostring-gperf.c: errnostring-gperf.gperf
+	rm -f $@
+	$(GPERF) -t $< > $@-t
+	mv $@-t $@
+
+# This convenience library is solely to compile its generated sources with
+# custom flags.
+libprotocol_la_SOURCES = guestfs_protocol.c  guestfs_protocol.h
+libprotocol_la_CFLAGS = \
+	-Wall -Wno-unused -fno-strict-aliasing $(GCC_VISIBILITY_HIDDEN)
 
 if HAVE_RPCGEN
 RPCGEN_DEFS =
