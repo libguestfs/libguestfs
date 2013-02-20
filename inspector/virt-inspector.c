@@ -59,7 +59,6 @@ static void output_mountpoints (xmlTextWriterPtr xo, char *root);
 static void output_filesystems (xmlTextWriterPtr xo, char *root);
 static void output_drive_mappings (xmlTextWriterPtr xo, char *root);
 static void output_applications (xmlTextWriterPtr xo, char *root);
-static size_t count_strings (char *const*argv);
 static void do_xpath (const char *query);
 
 static void __attribute__((noreturn))
@@ -547,7 +546,8 @@ output_mountpoints (xmlTextWriterPtr xo, char *root)
   /* Sort by key length, shortest key first, and then name, so the
    * output is stable.
    */
-  qsort (mountpoints, count_strings (mountpoints) / 2, 2 * sizeof (char *),
+  qsort (mountpoints, guestfs___count_strings (mountpoints) / 2,
+         2 * sizeof (char *),
          compare_keys_len);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "mountpoints"));
@@ -581,7 +581,7 @@ output_filesystems (xmlTextWriterPtr xo, char *root)
     exit (EXIT_FAILURE);
 
   /* Sort by name so the output is stable. */
-  qsort (filesystems, count_strings (filesystems), sizeof (char *),
+  qsort (filesystems, guestfs___count_strings (filesystems), sizeof (char *),
          compare_keys);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "filesystems"));
@@ -645,7 +645,7 @@ output_drive_mappings (xmlTextWriterPtr xo, char *root)
 
   /* Sort by key. */
   qsort (drive_mappings,
-         count_strings (drive_mappings) / 2, 2 * sizeof (char *),
+         guestfs___count_strings (drive_mappings) / 2, 2 * sizeof (char *),
          compare_keys_nocase);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "drive_mappings"));
@@ -748,16 +748,6 @@ output_applications (xmlTextWriterPtr xo, char *root)
   }
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
-}
-
-static size_t
-count_strings (char *const *argv)
-{
-  size_t c;
-
-  for (c = 0; argv[c]; ++c)
-    ;
-  return c;
 }
 
 /* Run an XPath query on XML on stdin, print results to stdout. */

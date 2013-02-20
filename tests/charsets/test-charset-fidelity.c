@@ -68,7 +68,6 @@ static void test_latin1 (guestfs_h *g, const struct filesystem *fs);
 static void test_latin2 (guestfs_h *g, const struct filesystem *fs);
 static void test_chinese (guestfs_h *g, const struct filesystem *fs);
 static void ignore_lost_and_found (char **);
-static size_t count_strings (char **);
 static int feature_available (guestfs_h *g, const char *feature);
 
 int
@@ -196,7 +195,7 @@ test_ascii (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = count_strings (files);
+  count = guestfs___count_strings (files);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 2)
@@ -261,7 +260,7 @@ test_latin1 (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = count_strings (files);
+  count = guestfs___count_strings (files);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 1)
@@ -323,7 +322,7 @@ test_latin2 (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = count_strings (files);
+  count = guestfs___count_strings (files);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 1)
@@ -388,7 +387,7 @@ test_chinese (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = count_strings (files);
+  count = guestfs___count_strings (files);
 
   if (count != nr_filenames)
     error (EXIT_FAILURE, 0,
@@ -427,16 +426,6 @@ ignore_lost_and_found (char **files)
       files[j++] = files[i];
   }
   files[j] = NULL;
-}
-
-static size_t
-count_strings (char **argv)
-{
-  size_t argc;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    ;
-  return argc;
 }
 
 static int
