@@ -55,9 +55,11 @@ virt_alignment_scan_CFLAGS = \
 
 virt_alignment_scan_LDADD = \
 	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
-	../gnulib/lib/libgnu.la \
+	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	../gnulib/lib/libgnu.la \
 	-lm
 
 # Manual pages and HTML files for the website.

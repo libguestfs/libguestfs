@@ -97,6 +97,7 @@ Run it from the top source directory using the command
   output_to "src/libguestfs.syms" generate_linker_script;
 
   output_to "src/free-structs.c" generate_client_free_structs;
+  output_to "src/cleanup-structs.c" generate_client_cleanup_structs;
   output_to "src/actions-variants.c" generate_client_actions_variants;
 
   for i = 0 to nr_actions_files-1 do

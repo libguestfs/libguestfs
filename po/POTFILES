@@ -234,6 +234,8 @@ src/alloc.c
 src/appliance.c
 src/bindtests.c
 src/canonical-name.c
+src/cleanup-structs.c
+src/cleanup.c
 src/command.c
 src/dbdump.c
 src/errnostring-gperf.c
@@ -242,6 +244,7 @@ src/errors.c
 src/events.c
 src/file.c
 src/filearch.c
+src/for-each-disk.c
 src/free-structs.c
 src/fuse.c
 src/handle.c

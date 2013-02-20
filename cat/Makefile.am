@@ -55,7 +55,10 @@ virt_cat_CFLAGS = \
 
 virt_cat_LDADD = \
 	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
 virt_filesystems_SOURCES = \
@@ -76,7 +79,10 @@ virt_filesystems_CFLAGS = \
 
 virt_filesystems_LDADD = \
 	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
 virt_ls_SOURCES = \
@@ -97,7 +103,10 @@ virt_ls_CFLAGS = \
 
 virt_ls_LDADD = \
 	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.

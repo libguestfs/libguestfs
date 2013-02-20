@@ -263,7 +263,7 @@ add_domain (virDomainPtr dom)
     domain->uuid = NULL;
 
   domain->disks = NULL;
-  int n = guestfs___for_each_disk (g, dom, add_disk, domain);
+  int n = guestfs___for_each_disk (g, dom, add_disk, domain, NULL);
   if (n == -1)
     exit (EXIT_FAILURE);
   domain->nr_disks = n;
