@@ -361,6 +361,7 @@ Makefile.in
 /src/actions-?.c
 /src/actions-variants.c
 /src/bindtests.c
+/src/cleanup-structs.c
 /src/errnostring.c
 /src/errnostring-gperf.c
 /src/errnostring-gperf.gperf

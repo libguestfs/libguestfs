@@ -51,9 +51,11 @@ virt_format_CFLAGS = \
 
 virt_format_LDADD = \
 	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
-	../gnulib/lib/libgnu.la \
-	$(LIBVIRT_LIBS)
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-format.1

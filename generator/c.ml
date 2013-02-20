@@ -713,8 +713,6 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
 
 /* Private functions. */
 
-extern GUESTFS_DLL_PUBLIC int guestfs___for_each_disk (guestfs_h *g, /* virDomainPtr */ void *dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
-
 ";
 
   generate_all_headers private_functions_sorted;
@@ -836,9 +834,9 @@ and generate_internal_frontend_cleanups_h () =
 
   List.iter (
     fun { s_name = name } ->
-      pr "extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free_%s (void *ptr);\n"
+      pr "extern void guestfs___cleanup_free_%s (void *ptr);\n"
         name;
-      pr "extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free_%s_list (void *ptr);\n"
+      pr "extern void guestfs___cleanup_free_%s_list (void *ptr);\n"
         name
   ) structs;
 
@@ -890,21 +888,38 @@ and generate_client_free_structs () =
       pr "}\n";
       pr "\n";
 
-  ) structs;
+  ) structs
 
-  pr "/* Cleanup functions used by CLEANUP_* macros. */\n";
+(* Functions to free structures used by the CLEANUP_* macros. *)
+and generate_client_cleanup_structs () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+
+";
+
+  pr "/* Cleanup functions used by CLEANUP_* macros.  Do not call\n";
+  pr " * these functions directly.\n";
+  pr " */\n";
   pr "\n";
 
   List.iter (
     fun { s_name = typ } ->
-      pr "GUESTFS_DLL_PUBLIC void\n";
+      pr "void\n";
       pr "guestfs___cleanup_free_%s (void *ptr)\n" typ;
       pr "{\n";
       pr "  guestfs_free_%s (* (struct guestfs_%s **) ptr);\n" typ typ;
       pr "}\n";
       pr "\n";
 
-      pr "GUESTFS_DLL_PUBLIC void\n";
+      pr "void\n";
       pr "guestfs___cleanup_free_%s_list (void *ptr)\n" typ;
       pr "{\n";
       pr "  guestfs_free_%s_list (* (struct guestfs_%s_list **) ptr);\n"
@@ -1828,16 +1843,6 @@ and generate_linker_script () =
     (* Unofficial parts of the API: the bindings code use these
      * functions, so it is useful to export them.
      *)
-    "guestfs___cleanup_free";
-    "guestfs___cleanup_free_string_list";
-    "guestfs___cleanup_hash_free";
-    "guestfs___cleanup_unlink_free";
-    "guestfs___cleanup_xmlBufferFree";
-    "guestfs___cleanup_xmlFreeDoc";
-    "guestfs___cleanup_xmlFreeTextWriter";
-    "guestfs___cleanup_xmlXPathFreeContext";
-    "guestfs___cleanup_xmlXPathFreeObject";
-    "guestfs___for_each_disk";
     "guestfs___safe_calloc";
     "guestfs___safe_malloc";
     "guestfs___safe_strdup";
@@ -1868,17 +1873,9 @@ and generate_linker_script () =
                    "guestfs_free_" ^ typ ^ "_list"])
         structs
     ) in
-  let struct_cleanups =
-    List.concat (
-      List.map (fun { s_name = typ } ->
-                  ["guestfs___cleanup_free_" ^ typ;
-                   "guestfs___cleanup_free_" ^ typ ^ "_list"])
-        structs
-    ) in
   let globals = List.sort compare (globals @
                                      functions @
-                                     struct_frees @
-                                     struct_cleanups) in
+                                     struct_frees) in
 
   pr "{\n";
   pr "    global:\n";

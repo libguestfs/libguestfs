@@ -457,9 +457,6 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
   }                                                      \
   while (0)
 
-/* utils.c */
-extern void guestfs___free_string_list (char **);
-
 /* actions-support.c */
 extern int guestfs___check_reply_header (guestfs_h *g, const struct guestfs_message_header *hdr, unsigned int proc_nr, unsigned int serial);
 extern int guestfs___check_appliance_up (guestfs_h *g, const char *caller);

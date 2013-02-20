@@ -135,7 +135,10 @@ guestfish_CFLAGS = \
 guestfish_LDADD = \
 	$(LIBCONFIG_LIBS) \
 	$(LIBREADLINE) \
-	$(top_builddir)/src/libguestfs.la -lm
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/src/libutils.la \
+	$(LIBXML2_LIBS) \
+	-lm
 
 # Make guestfish use the convenience libraries.
 noinst_LTLIBRARIES = libcmds.la librc_protocol.la

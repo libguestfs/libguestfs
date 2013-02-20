@@ -88,22 +88,38 @@ extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
 #define safe_memdup guestfs___safe_memdup
 #define safe_asprintf guestfs___safe_asprintf
 
+/* utils.c */
+extern void guestfs___free_string_list (char **);
+
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
  */
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_free_string_list (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_hash_free (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_unlink_free (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlBufferFree (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlFreeDoc (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
-extern GUESTFS_DLL_PUBLIC void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
+extern void guestfs___cleanup_free (void *ptr);
+extern void guestfs___cleanup_free_string_list (void *ptr);
+extern void guestfs___cleanup_hash_free (void *ptr);
+extern void guestfs___cleanup_unlink_free (void *ptr);
+extern void guestfs___cleanup_xmlBufferFree (void *ptr);
+extern void guestfs___cleanup_xmlFreeDoc (void *ptr);
+extern void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
+extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
+extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
 
 /* These are in a separate header so the header can be generated.
  * Don't include the following file directly:
  */
 #include "guestfs-internal-frontend-cleanups.h"
+
+#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+
+#ifdef HAVE_LIBVIRT
+#include <libvirt/libvirt.h>
+#endif
+
+/* This type must be compatible with guestfs___error_errno. */
+typedef void error_function_t (guestfs_h *g, int errnum, const char *fs, ...) __attribute__((format (printf,3,4)));
+
+extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data, error_function_t error_function);
+
+#endif /* HAVE_LIBVIRT && HAVE_LIBXML2 */
 
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */

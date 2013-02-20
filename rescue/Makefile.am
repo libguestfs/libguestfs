@@ -51,7 +51,10 @@ virt_rescue_CFLAGS = \
 
 virt_rescue_LDADD = \
 	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.

@@ -33,6 +33,7 @@ generator_built = \
 	actions-6.c \
 	actions-variants.c \
 	bindtests.c \
+	cleanup-structs.c \
 	errnostring-gperf.gperf \
 	errnostring.c \
 	errnostring.h \
@@ -68,6 +69,7 @@ libguestfs_la_SOURCES = \
 	guestfs-internal.h \
 	guestfs-internal-all.h \
 	guestfs-internal-frontend.h \
+	guestfs-internal-frontend-cleanups.h \
 	guestfs_protocol.h \
 	actions-0.c \
 	actions-1.c \
@@ -113,7 +115,6 @@ libguestfs_la_SOURCES = \
 	private-data.c \
 	proto.c \
 	tmpdirs.c \
-	utils.c \
 	libguestfs.syms
 
 libguestfs_la_CPPFLAGS = \
@@ -134,6 +135,7 @@ libguestfs_la_CFLAGS = \
 libguestfs_la_LIBADD = \
 	liberrnostring.la \
 	libprotocol.la \
+	libutils.la \
 	$(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	../gnulib/lib/libgnu.la \
@@ -159,7 +161,7 @@ libguestfs_la_LIBADD += $(FUSE_LIBS)
 endif
 
 # Convenience libraries.
-noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
+noinst_LTLIBRARIES = liberrnostring.la libprotocol.la libutils.la
 
 # Build the errnostring perfect hash code.  The generated code has lots
 # of warnings so we must compile it in a separate mini-library.
@@ -202,6 +204,16 @@ guestfs_protocol.h: guestfs_protocol.x
 	$(RPCGEN) $(RPCGEN_DEFS) -h -o $@-t $(srcdir)/$<
 	mv $@-t $@
 endif
+
+# libutils.la contains code outside libguestfs which is also
+# included in tools and bindings.
+libutils_la_SOURCES = \
+	cleanup.c \
+	cleanup-structs.c \
+	for-each-disk.c \
+	utils.c
+libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
+libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)
 
 # Pkgconfig.
 
