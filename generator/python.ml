@@ -131,16 +131,6 @@ put_table (char * const * const argv)
   return list;
 }
 
-static void
-free_strings (char **argv)
-{
-  size_t argc;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    free (argv[argc]);
-  free (argv);
-}
-
 ";
 
   let emit_put_list_function typ =
@@ -475,7 +465,7 @@ free_strings (char **argv)
            pr "  free (r);\n"
        | RStringList _ ->
            pr "  py_r = put_string_list (r);\n";
-           pr "  free_strings (r);\n"
+           pr "  guestfs___free_string_list (r);\n"
        | RStruct (_, typ) ->
            pr "  py_r = put_%s (r);\n" typ;
            pr "  guestfs_free_%s (r);\n" typ
@@ -484,7 +474,7 @@ free_strings (char **argv)
            pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable n ->
            pr "  py_r = put_table (r);\n";
-           pr "  free_strings (r);\n"
+           pr "  guestfs___free_string_list (r);\n"
        | RBufferOut _ ->
            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
            pr "  py_r = PyString_FromStringAndSize (r, size);\n";
