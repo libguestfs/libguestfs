@@ -1603,6 +1603,53 @@ time.
 This section discusses security implications of using libguestfs,
 particularly with untrusted or malicious guests or disk images.
 
+=head2 SECURITY OF MOUNTING FILESYSTEMS
+
+You should never mount an untrusted guest filesystem directly on your
+host kernel (eg. using loopback or kpartx).
+
+When you mount a filesystem, mistakes in the kernel filesystem (VFS)
+can be escalated into exploits by attackers creating a malicious
+filesystem.  These exploits are very severe for two reasons.  Firstly
+there are very many filesystem drivers in the kernel, and many of them
+are infrequently used and not much developer attention has been paid
+to the code.  Linux userspace helps potential crackers by detecting
+the filesystem type and automatically choosing the right VFS driver,
+even if that filesystem type is unexpected.  Secondly, a kernel-level
+exploit is like a local root exploit (worse in some ways), giving
+immediate and total access to the system right down to the hardware
+level.
+
+These exploits can be present in the kernel for a very long time
+(L<https://lwn.net/Articles/538898/>).
+
+Libguestfs provides a layered approach to protecting you from
+exploits:
+
+   untrusted filesystem
+ --------------------------------------
+   appliance kernel
+ --------------------------------------
+   qemu process running as non-root
+ --------------------------------------
+   sVirt [if using libvirt + SELinux]
+ --------------------------------------
+   host kernel
+
+We run a Linux kernel inside a qemu virtual machine, usually running
+as a non-root user.  The attacker would need to write a filesystem
+which first exploited the kernel, and then exploited either qemu
+virtualization (eg. a faulty qemu driver) or the libguestfs protocol,
+and finally to be as serious as the host kernel exploit it would need
+to escalate its privileges to root.  Additionally if you use the
+libvirt back end and SELinux, sVirt is used to confine the qemu
+process.  This multi-step escalation, performed by a static piece of
+data, is thought to be extremely hard to do, although we never say
+'never' about security issues.
+
+Callers can also reduce the attack surface by forcing the filesystem
+type when mounting (use L</guestfs_mount_vfs>).
+
 =head2 GENERAL SECURITY CONSIDERATIONS
 
 Be careful with any files or data that you download from a guest (by
@@ -1638,35 +1685,6 @@ being in an unexpected character encoding
 containing homoglyphs.
 
 =back
-
-=head2 SECURITY OF MOUNTING FILESYSTEMS
-
-When you mount a filesystem under Linux, mistakes in the kernel
-filesystem (VFS) module can sometimes be escalated into exploits by
-deliberately creating a malicious, malformed filesystem.  These
-exploits are very severe for two reasons.  Firstly there are very many
-filesystem drivers in the kernel, and many of them are infrequently
-used and not much developer attention has been paid to the code.
-Linux userspace helps potential crackers by detecting the filesystem
-type and automatically choosing the right VFS driver, even if that
-filesystem type is obscure or unexpected for the administrator.
-Secondly, a kernel-level exploit is like a local root exploit (worse
-in some ways), giving immediate and total access to the system right
-down to the hardware level.
-
-That explains why you should never mount a filesystem from an
-untrusted guest on your host kernel.  How about libguestfs?  We run a
-Linux kernel inside a qemu virtual machine, usually running as a
-non-root user.  The attacker would need to write a filesystem which
-first exploited the kernel, and then exploited either qemu
-virtualization (eg. a faulty qemu driver) or the libguestfs protocol,
-and finally to be as serious as the host kernel exploit it would need
-to escalate its privileges to root.  This multi-step escalation,
-performed by a static piece of data, is thought to be extremely hard
-to do, although we never say 'never' about security issues.
-
-In any case callers can reduce the attack surface by forcing the
-filesystem type when mounting (use L</guestfs_mount_vfs>).
 
 =head2 PROTOCOL SECURITY
 
