@@ -199,6 +199,7 @@ instead of erl_interface.
 */
 
 #include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
 
 extern guestfs_h *g;
 
@@ -214,7 +215,6 @@ extern char **get_string_list (ETERM *term);
 extern int get_bool (ETERM *term);
 extern int get_int (ETERM *term);
 extern int64_t get_int64 (ETERM *term);
-extern void free_strings (char **r);
 
 #define ARG(i) (ERL_TUPLE_ELEMENT(message,(i)+1))
 
@@ -390,7 +390,7 @@ extern void free_strings (char **r);
         | FileIn n | FileOut n | Key n ->
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
-            pr "  free_strings (%s);\n" n;
+            pr "  guestfs___free_string_list (%s);\n" n;
         | Bool _ | Int _ | Int64 _ | Pointer _ | BufferIn _ -> ()
       ) args;
       List.iter (
@@ -405,7 +405,7 @@ extern void free_strings (char **r);
             let uc_n = String.uppercase n in
             pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
               c_optarg_prefix uc_n;
-            pr "    free_strings ((char **) optargs_s.%s);\n" n
+            pr "    guestfs___free_string_list ((char **) optargs_s.%s);\n" n
       ) optargs;
 
       (match errcode_of_ret ret with
@@ -438,7 +438,7 @@ extern void free_strings (char **r);
            pr "  return rt;\n"
        | RStringList _ ->
            pr "  ETERM *rt = make_string_list (r);\n";
-           pr "  free_strings (r);\n\n";
+           pr "  guestfs___free_string_list (r);\n\n";
            pr "  return rt;\n"
        | RStruct (_, typ) ->
            pr "  ETERM *rt = make_%s (r);\n" typ;
@@ -450,7 +450,7 @@ extern void free_strings (char **r);
            pr "  return rt;\n"
        | RHashtable _ ->
            pr "  ETERM *rt = make_table (r);\n";
-           pr "  free_strings (r);\n";
+           pr "  guestfs___free_string_list (r);\n";
            pr "  return rt;\n"
        | RBufferOut _ ->
            pr "  ETERM *rt = erl_mk_estring (r, size);\n";
