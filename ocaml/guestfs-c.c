@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include <guestfs.h>
+#include "guestfs-internal-frontend.h"
 
 #include <caml/config.h>
 #include <caml/alloc.h>
@@ -207,17 +208,6 @@ ocaml_guestfs_strings_val (guestfs_h *g, value sv)
   r[i] = NULL;
 
   CAMLreturnT (char **, r);
-}
-
-/* Free array of strings. */
-void
-ocaml_guestfs_free_strings (char **argv)
-{
-  size_t i;
-
-  for (i = 0; argv[i] != NULL; ++i)
-    free (argv[i]);
-  free (argv);
 }
 
 static uint64_t
