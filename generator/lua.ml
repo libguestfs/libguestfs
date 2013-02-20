@@ -53,6 +53,7 @@ let generate_lua_c () =
 #endif
 
 #include <guestfs.h>
+#include \"guestfs-internal-frontend.h\"
 
 #define GUESTFS_LUA_HANDLE \"guestfs handle\"
 
@@ -95,8 +96,6 @@ static void event_callback_wrapper (guestfs_h *g, void *esvp, uint64_t event, in
 static uint64_t get_event (lua_State *L, int index);
 static uint64_t get_event_bitmask (lua_State *L, int index);
 static void push_event (lua_State *L, uint64_t event);
-
-static void free_strings (char **r);
 
 ";
 
@@ -605,10 +604,10 @@ guestfs_lua_delete_event_callback (lua_State *L)
         pr "  free (r);\n"
       | RStringList _ ->
         pr "  push_string_list (L, r);\n";
-        pr "  free_strings (r);\n"
+        pr "  guestfs___free_string_list (r);\n"
       | RHashtable _ ->
         pr "  push_table (L, r);\n";
-        pr "  free_strings (r);\n"
+        pr "  guestfs___free_string_list (r);\n"
       | RStruct (_, typ) ->
         pr "  push_%s (L, r);\n" typ;
         pr "  guestfs_free_%s (r);\n" typ
@@ -866,16 +865,6 @@ push_event (lua_State *L, uint64_t event)
   ) (rstructs_used_by external_functions);
 
   pr "\
-void
-free_strings (char **r)
-{
-  size_t i;
-
-  for (i = 0; r[i] != NULL; ++i)
-    free (r[i]);
-  free (r);
-}
-
 /* Metamethods.
  * See: http://article.gmane.org/gmane.comp.lang.lua.general/95065
  */
