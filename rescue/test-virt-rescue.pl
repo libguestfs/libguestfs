@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # libguestfs
-# Copyright (C) 2012 Red Hat Inc.
+# Copyright (C) 2012-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,25 +18,34 @@
 
 use strict;
 
+my $progname = $0;
+$progname =~ s{.*/}{};
+
 # This test requires the perl 'Expect' module.  If it doesn't
 # exist, skip the test.
 eval "use Expect";
 
 unless (exists $INC{"Expect.pm"}) {
-    print STDERR "$0: test skipped because there is no perl Expect module\n";
+    print STDERR "$progname: test skipped because there is no perl Expect module\n";
     exit 77
 }
 
 # Run virt-rescue and make sure we get to the rescue prompt.
 my $exp = Expect->spawn ("./virt-rescue", "--scratch")
-    or die "$0: Expect could not spawn virt-rescue: $!\n";
+    or die "$progname: Expect could not spawn virt-rescue: $!\n";
 
 my $timeout = 5 * 60;
 my $r;
 $r = $exp->expect ($timeout, '><rescue>');
 
 unless (defined $r) {
-    die "$0: virt-rescue did not reach the '><rescue>' prompt within $timeout seconds\n";
+    my $see_errors;
+    if ($ENV{LIBGUESTFS_DEBUG}) {
+        $see_errors = "Look for errors in the debug output above."
+    } else {
+        $see_errors = "Try setting LIBGUESTFS_DEBUG=1 and running the test again."
+    }
+    die "$progname: virt-rescue did not print the '><rescue>' prompt within\n$timeout seconds, or exited before getting to the prompt.\n$see_errors\n";
 }
 
 # Send a simple command; expect to get back to the prompt.
@@ -46,7 +55,7 @@ $timeout = 60;
 $r = $exp->expect ($timeout, '><rescue>');
 
 unless (defined $r) {
-    die "$0: virt-rescue did not return to the prompt after sending a command\n";
+    die "$progname: virt-rescue did not return to the prompt after sending a command\n";
 }
 
 # Check virt-rescue shell exits when we send the 'exit' command.
