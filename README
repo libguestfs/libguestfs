@@ -257,8 +257,7 @@ command will also work:
 
   ../run ./guestfish [...]
 
-You can also make a symlink (note: NOT a hard link) from your $PATH to
-the run script, eg:
+You can also make a link from your $PATH to the run script, eg:
 
   cd ~/bin
   ln -s ~/libguestfs/run libguestfs-run
