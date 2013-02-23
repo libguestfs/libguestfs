@@ -363,12 +363,13 @@ receive_file (receive_cb cb, void *opaque)
 {
   guestfs_chunk chunk;
   char lenbuf[4];
-  CLEANUP_FREE char *buf = NULL;
   XDR xdr;
   int r;
   uint32_t len;
 
   for (;;) {
+    CLEANUP_FREE char *buf = NULL;
+
     if (verbose)
       fprintf (stderr, "guestfsd: receive_file: reading length word\n");
 
