@@ -73,6 +73,7 @@ static char *debug_qtrace (const char *subcmd, size_t argc, char *const *const a
 static char *debug_segv (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_setenv (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, size_t argc, char *const *const argv);
+static void deliberately_cause_a_segfault (void);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
@@ -210,14 +211,7 @@ debug_fds (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_segv (const char *subcmd, size_t argc, char *const *const argv)
 {
-  /* http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html
-   * "Dereferencing a NULL Pointer: contrary to popular belief,
-   * dereferencing a null pointer in C is undefined. It is not defined
-   * to trap [...]"
-   */
-  volatile int *ptr = NULL;
-  /* coverity[var_deref_op] */
-  *ptr = 1;
+  deliberately_cause_a_segfault ();
   return NULL;
 }
 
@@ -688,4 +682,65 @@ do_debug_upload (const char *filename, int mode)
   }
 
   return 0;
+}
+
+/* Internal function used only when testing
+ * https://bugzilla.redhat.com/show_bug.cgi?id=914931
+ */
+
+static int
+crash_cb (void *countv, const void *buf, size_t len)
+{
+  int *countp = countv;
+
+  (*countp)--;
+  sleep (1);
+
+  if (*countp == 0)
+    deliberately_cause_a_segfault ();
+
+  return 0;
+}
+
+/* Has one FileIn parameter. */
+int
+do_internal_rhbz914931 (int count)
+{
+  int r;
+
+  if (count <= 0 || count > 1000) {
+    reply_with_error ("count out of range");
+    return -1;
+  }
+
+  r = receive_file (crash_cb, &count);
+  if (r == -1) {		/* write error */
+    int err = errno;
+    cancel_receive ();
+    errno = err;
+    reply_with_error ("write error");
+    return -1;
+  }
+  if (r == -2) {		/* cancellation from library */
+    /* This error is ignored by the library since it initiated the
+     * cancel.  Nevertheless we must send an error reply here.
+     */
+    reply_with_error ("file upload cancelled");
+    return -1;
+  }
+
+  return 0;
+}
+
+static void
+deliberately_cause_a_segfault (void)
+{
+  /* http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html
+   * "Dereferencing a NULL Pointer: contrary to popular belief,
+   * dereferencing a null pointer in C is undefined. It is not defined
+   * to trap [...]"
+   */
+  volatile int *ptr = NULL;
+  /* coverity[var_deref_op] */
+  *ptr = 1;
 }

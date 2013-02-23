@@ -10735,6 +10735,17 @@ device. That is, not a partition or a logical device." };
     longdesc = "\
 Parse a mountable string." };
 
+  { defaults with
+    name = "internal_rhbz914931";
+    style = RErr, [FileIn "filename"; Int "count"], [];
+    proc_nr = Some 397;
+    visibility = VInternal;
+    cancellable = true;
+    shortdesc = "used only to test rhbz914931 (internal use only)";
+    longdesc = "\
+This is only used to debug RHBZ#914931.  Note that this
+deliberately crashes guestfsd." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

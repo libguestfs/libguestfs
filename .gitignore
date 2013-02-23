@@ -444,6 +444,7 @@ Makefile.in
 /tests/parallel/test-parallel
 /tests/regressions/rhbz501893
 /tests/regressions/rhbz790721
+/tests/regressions/rhbz914931
 /tests/rsync/rsyncd.pid
 /test-tool/libguestfs-test-tool
 /test-tool/libguestfs-test-tool.1
