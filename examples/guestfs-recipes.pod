@@ -70,6 +70,38 @@ To export just a subdirectory, eg. C</files>, do:
 
  guestfish --ro -a cd.iso -m /dev/sda tgz-out /files cd.tar.gz
 
+=head1 Convert from one format/filesystem to another
+
+If you have a data disk in one format / filesystem / partition /
+volume manager, you can convert it another using this technique.
+
+In this example, we start with a data disk that has a single partition
+containing a filesystem, and we want to create another disk that
+contains the same files but on an ext3 filesystem embedded in a
+logical volume on a sparse raw-format disk.
+
+First create the formatted-but-empty target disk:
+
+ truncate -s 10G target.img
+ virt-format -a target.img --partition=mbr --lvm --filesystem=ext3
+
+Now, pipe two guestfish instances together to transfer the old data to
+the new disk:
+
+ guestfish --ro -a source.img -m /dev/sda1  -- tar-out / - | \
+ guestfish --rw -a target.img -m /dev/VG/LV -- tar-in - /
+
+To browse the final disk image, do:
+
+ guestfish --ro -a target.img -m /dev/VG/LV
+ ><fs> ll /
+
+This technique is quite powerful, allowing you for example to split up
+source directories over the target filesystems.
+
+Note this won't work (at least, not directly) for bootable virtual
+machine disks because it doesn't copy over the boot loader.
+
 =head1 Create empty disk images
 
 The L<virt-format(1)> tool can do this directly.
