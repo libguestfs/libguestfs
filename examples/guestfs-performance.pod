@@ -267,6 +267,107 @@ Linux but expensive on Windows.
 
 =back
 
+=head1 PARALLEL APPLIANCES
+
+Libguestfs appliances are mostly I/O bound and you can launch multiple
+appliances in parallel.  Provided there is enough free memory, there
+should be little difference in launching 1 appliance vs N appliances
+in parallel.
+
+On a 2-core (4-thread) laptop with 16 GB of RAM, using the (not
+especially realistic) test Perl script below, the following plot shows
+excellent scalability when running between 1 and 20 appliances in
+parallel:
+
+  12 ++---+----+----+----+-----+----+----+----+----+---++
+     +    +    +    +    +     +    +    +    +    +    *
+     |                                                  |
+     |                                               *  |
+  11 ++                                                ++
+     |                                                  |
+     |                                                  |
+     |                                          *  *    |
+  10 ++                                                ++
+     |                                        *         |
+     |                                                  |
+ s   |                                                  |
+   9 ++                                                ++
+ e   |                                                  |
+     |                                     *            |
+ c   |                                                  |
+   8 ++                                  *             ++
+ o   |                                *                 |
+     |                                                  |
+ n 7 ++                                                ++
+     |                              *                   |
+ d   |                           *                      |
+     |                                                  |
+ s 6 ++                                                ++
+     |                      *  *                        |
+     |                   *                              |
+     |                                                  |
+   5 ++                                                ++
+     |                                                  |
+     |                 *                                |
+     |            * *                                   |
+   4 ++                                                ++
+     |                                                  |
+     |                                                  |
+     +    *  * *    +    +     +    +    +    +    +    +
+   3 ++-*-+----+----+----+-----+----+----+----+----+---++
+     0    2    4    6    8     10   12   14   16   18   20
+               number of parallel appliances
+
+It is possible to run many more than 20 appliances in parallel, but if
+you are using the libvirt backend then you should be aware that out of
+the box libvirt limits the number of client connections to 20.
+
+The simple Perl script below was used to collect the data for the plot
+above, but there is much more information on this subject, including
+more advanced test scripts and graphs, available in the following blog
+postings:
+
+L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-appliances-in-parallel-part-1/>
+L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-appliances-in-parallel-part-2/>
+L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-appliances-in-parallel-part-3/>
+L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-appliances-in-parallel-part-4/>
+
+ #!/usr/bin/perl -w
+ 
+ use strict;
+ use threads;
+ use Sys::Guestfs;
+ use Time::HiRes qw(time);
+ 
+ sub test {
+     my $g = Sys::Guestfs->new;
+     $g->add_drive_ro ("/dev/null");
+     $g->launch ();
+     
+     # You could add some work for libguestfs to do here.
+     
+     $g->close ();
+ }
+ 
+ # Get everything into cache.
+ test (); test (); test ();
+ 
+ for my $nr_threads (1..20) {
+     my $start_t = time ();
+     my @threads;
+     foreach (1..$nr_threads) {
+         push @threads, threads->create (\&test)
+     }
+     foreach (@threads) {
+         $_->join ();
+         if (my $err = $_->error ()) {
+             die "launch failed with $nr_threads threads: $err"
+         }
+     }
+     my $end_t = time ();
+     printf ("%d %.2f\n", $nr_threads, $end_t - $start_t);
+ }
+
 =head1 TROUBLESHOOTING POOR PERFORMANCE
 
 =head2 ENSURE HARDWARE VIRTUALIZATION IS AVAILABLE
