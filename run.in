@@ -24,9 +24,10 @@
 #   ./run ./inspector/virt-inspector [args ...]
 #
 # This works for any C program, virt tools, and most non-C bindings
-# and programs in the libguestfs distribution.  Also you can make a
-# symbolic [not hard] link to this 'run' script from anywhere
-# (eg. $HOME/bin/run) if you wish.
+# and programs in the libguestfs distribution.
+#
+# For lots more ways to use this script, see the libguestfs README
+# file.
 #
 # The script can also be used to make the output of tests shorter:
 #   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test [$(VG)]
