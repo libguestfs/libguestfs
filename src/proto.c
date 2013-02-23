@@ -483,6 +483,20 @@ UNEXPEOF_TEST_TOOL));
 UNEXPEOF_TEST_TOOL));
 }
 
+static inline void
+unexpected_closed_connection_from_daemon_error (guestfs_h *g)
+{
+#define UNEXPCLO_ERROR "connection to daemon was closed unexpectedly.\n"
+  if (!g->verbose)
+    error (g, _(UNEXPCLO_ERROR
+"This usually means the libguestfs appliance crashed.  Please enable\n"
+"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
+"debug messages output prior to this error."));
+  else
+    error (g, _(UNEXPCLO_ERROR
+"See earlier debug messages."));
+}
+
 static int
 recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
@@ -490,6 +504,15 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   int max_fd;
   char lenbuf[4];
   ssize_t nr;
+
+  /* RHBZ#914931: Along some (rare) paths, we might have closed the
+   * socket connection just before this function is called, so just
+   * return an error if this happens.
+   */
+  if (g->sock == -1) {
+    unexpected_closed_connection_from_daemon_error (g);
+    return -1;
+  }
 
   FD_ZERO (&rset);
 
@@ -1035,7 +1058,12 @@ guestfs___recv (guestfs_h *g, const char *fn,
   return 0;
 }
 
-/* Same as guestfs___recv, but it discards the reply message. */
+/* Same as guestfs___recv, but it discards the reply message.
+ *
+ * Notes (XXX):
+ * (1) This returns an int, but all current callers ignore it.
+ * (2) The error string may end up being set twice on error paths.
+ */
 int
 guestfs___recv_discard (guestfs_h *g, const char *fn)
 {
