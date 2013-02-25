@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-20 21:24+0000\n"
+"POT-Creation-Date: 2013-02-25 17:38+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -4173,55 +4173,66 @@ msgstr ""
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:573
+#: src/proto.c:492
+msgid ""
+"This usually means the libguestfs appliance crashed.  Please enable\n"
+"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
+"debug messages output prior to this error."
+msgstr ""
+
+#: src/proto.c:497
+msgid "See earlier debug messages."
+msgstr ""
+
+#: src/proto.c:596
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ରୁ ଚମତ୍କାର ହସ୍ତାକ୍ଷର ଗ୍ରହଣ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା %d ରେ"
 
-#: src/proto.c:592
+#: src/proto.c:615
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "ସନ୍ଦେଶ ଲମ୍ବ (%u) > ସର୍ବାଧିକ ସମ୍ଭାବ୍ୟ ଆକାର (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:814
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header ବିଫଳ ହୋଇଛି"
 
-#: src/proto.c:800
+#: src/proto.c:823
 msgid "dispatch failed to marshal args"
 msgstr "ମାର୍ଶାଲ args କୁ ପଠାଇବା ବିଫଳ ହୋଇଛି"
 
-#: src/proto.c:891 src/proto.c:1175
+#: src/proto.c:914 src/proto.c:1203
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:954
+#: src/proto.c:977
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk ବିଫଳ ହୋଇଛି (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1104
+#: src/proto.c:1132
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ମିଶ୍ରିତ ସାଙ୍କେତିକରଣରେ ତ୍ରୁଟି"
 
-#: src/proto.c:1132
+#: src/proto.c:1160
 msgid "write to daemon socket"
 msgstr "ଡେମନ ସକେଟରେ ଲେଖନ୍ତୁ"
 
-#: src/proto.c:1155
+#: src/proto.c:1183
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ଉତ୍ତର ଡ଼ାକରାରେ ବିଶ୍ଳେଷଣ ତ୍ରୁଟି"
 
-#: src/proto.c:1160
+#: src/proto.c:1188
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
 
-#: src/proto.c:1168
+#: src/proto.c:1196
 msgid "failed to parse file chunk"
 msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
 
-#: src/proto.c:1179
+#: src/proto.c:1207
 msgid "file receive cancelled by daemon"
 msgstr "ଫାଇଲ ଗ୍ରହଣ ଡେମନ ଦ୍ଵାରା ବାତିଲ ହୋଇଛି"
 

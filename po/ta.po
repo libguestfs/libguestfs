@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-20 21:24+0000\n"
+"POT-Creation-Date: 2013-02-25 17:38+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -4175,55 +4175,66 @@ msgstr ""
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:573
+#: src/proto.c:492
+msgid ""
+"This usually means the libguestfs appliance crashed.  Please enable\n"
+"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
+"debug messages output prior to this error."
+msgstr ""
+
+#: src/proto.c:497
+msgid "See earlier debug messages."
+msgstr ""
+
+#: src/proto.c:596
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "received magic signature from guestfsd, but in state %d"
 
-#: src/proto.c:592
+#: src/proto.c:615
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "செய்தி அளவு (%u) > குறைந்தபட்ச சாத்தியமான அளவு (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:814
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header தோல்வியுற்றது"
 
-#: src/proto.c:800
+#: src/proto.c:823
 msgid "dispatch failed to marshal args"
 msgstr "marshal args ஐ அனுப்ப முடியவில்லை"
 
-#: src/proto.c:891 src/proto.c:1175
+#: src/proto.c:914 src/proto.c:1203
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:954
+#: src/proto.c:977
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk தோல்வியுற்றது (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1104
+#: src/proto.c:1132
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1132
+#: src/proto.c:1160
 msgid "write to daemon socket"
 msgstr "டொமைன் சாக்கெட்டிற்கு எழுது"
 
-#: src/proto.c:1155
+#: src/proto.c:1183
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: பதில் பின்அழைப்பில் உள்ள பிழையை பகுக்கவும்"
 
-#: src/proto.c:1160
+#: src/proto.c:1188
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
-#: src/proto.c:1168
+#: src/proto.c:1196
 msgid "failed to parse file chunk"
 msgstr "கோப்பு சங்க்கை பகுக்க முடியவில்லை"
 
-#: src/proto.c:1179
+#: src/proto.c:1207
 msgid "file receive cancelled by daemon"
 msgstr "கோப்பினை பெறுதல் டொமைனால் ரத்து செய்யப்பட்டது"
 
