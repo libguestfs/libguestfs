@@ -1,4 +1,4 @@
-/* virt-df
+/* virt-df & virt-alignment-scan domains code.
  * Copyright (C) 2010-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,22 +16,30 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef GUESTFS_VIRT_DF_H_
-#define GUESTFS_VIRT_DF_H_
+#ifndef GUESTFS_DOMAINS_H_
+#define GUESTFS_DOMAINS_H_
 
-extern int csv;                 /* --csv */
-extern int human;               /* --human-readable|-h */
-extern int inodes;              /* --inodes */
-extern int uuid;                /* --uuid */
-
-/* df.c */
-extern int df_on_handle (guestfs_h *g, const char *name, const char *uuid, FILE *fp);
 #if defined(HAVE_LIBVIRT)
-extern void df_work (guestfs_h *g, size_t i, FILE *fp);
-#endif
 
-/* output.c */
-extern void print_title (void);
-extern void print_stat (FILE *fp, const char *name, const char *uuid, const char *dev, const struct guestfs_statvfs *stat);
+/* The list of domains that we build up in get_all_libvirt_guests. */
+struct domain {
+  virDomainPtr dom;
+  char *name;
+  char *uuid;
+};
 
-#endif /* GUESTFS_VIRT_DF_H_ */
+extern struct domain *domains;
+extern size_t nr_domains;
+
+/* Frees up everything used by 'domains.c'. */
+extern void free_domains (void);
+
+/* Read all libguest guests into the global variables 'domains' and
+ * 'nr_domains'.  The guests are ordered by name.  This exits on any
+ * error.
+ */
+extern void get_all_libvirt_domains (const char *libvirt_uri);
+
+#endif /* HAVE_LIBVIRT */
+
+#endif /* GUESTFS_DOMAINS_H_ */

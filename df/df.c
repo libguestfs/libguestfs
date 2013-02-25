@@ -23,157 +23,93 @@
 #include <stdint.h>
 #include <string.h>
 #include <inttypes.h>
-
-#ifdef HAVE_LIBVIRT
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
-#endif
+#include <unistd.h>
+#include <error.h>
+#include <errno.h>
 
 #include "progname.h"
-#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "options.h"
+#include "domains.h"
 #include "virt-df.h"
-
-static void try_df (const char *name, const char *uuid, const char *dev, int offset);
-static int find_dev_in_devices (const char *dev, char **devices);
 
 /* Since we want this function to be robust against very bad failure
  * cases (hello, https://bugzilla.kernel.org/show_bug.cgi?id=18792) it
  * won't exit on guestfs failures.
  */
 int
-df_on_handle (const char *name, const char *uuid, char **devices, int offset)
+df_on_handle (guestfs_h *g, const char *name, const char *uuid, FILE *fp)
 {
-  int ret = -1;
   size_t i;
+  CLEANUP_FREE_STRING_LIST char **devices = NULL;
   CLEANUP_FREE_STRING_LIST char **fses = NULL;
-  int free_devices = 0, is_lv;
 
-  if (verbose) {
-    fprintf (stderr, "df_on_handle %s devices=", name);
-    if (devices) {
-      fputc ('[', stderr);
-      for (i = 0; devices[i] != NULL; ++i) {
-        if (i > 0)
-          fputc (' ', stderr);
-        fputs (devices[i], stderr);
-      }
-      fputc (']', stderr);
-    }
-    else
-      fprintf (stderr, "null");
-    fputc ('\n', stderr);
-  }
+  if (verbose)
+    fprintf (stderr, "df_on_handle: %s\n", name);
 
-  if (devices == NULL) {
-    devices = guestfs_list_devices (g);
-    if (devices == NULL)
-      goto cleanup;
-    free_devices = 1;
-  } else {
-    /* Mask LVM for just the devices in the set. */
-    if (guestfs_lvm_set_filter (g, devices) == -1)
-      goto cleanup;
-  }
+  devices = guestfs_list_devices (g);
+  if (devices == NULL)
+    return -1;
 
-  /* list-filesystems will return filesystems on every device ... */
   fses = guestfs_list_filesystems (g);
   if (fses == NULL)
-    goto cleanup;
+    return -1;
 
-  /* ... so we need to filter out only the devices we are interested in. */
   for (i = 0; fses[i] != NULL; i += 2) {
     if (STRNEQ (fses[i+1], "") &&
         STRNEQ (fses[i+1], "swap") &&
         STRNEQ (fses[i+1], "unknown")) {
-      is_lv = guestfs_is_lv (g, fses[i]);
-      if (is_lv > 0)        /* LVs are OK because of the LVM filter */
-        try_df (name, uuid, fses[i], -1);
-      else if (is_lv == 0) {
-        if (find_dev_in_devices (fses[i], devices))
-          try_df (name, uuid, fses[i], offset);
+      const char *dev = fses[i];
+      CLEANUP_FREE_STATVFS struct guestfs_statvfs *stat = NULL;
+
+      if (verbose)
+        fprintf (stderr, "df_on_handle: %s dev %s\n", name, dev);
+
+      /* Try mounting and stating the device.  This might reasonably
+       * fail, so don't show errors.
+       */
+      guestfs_push_error_handler (g, NULL, NULL);
+
+      if (guestfs_mount_ro (g, dev, "/") == 0) {
+        stat = guestfs_statvfs (g, "/");
+        guestfs_umount_all (g);
       }
+
+      guestfs_pop_error_handler (g);
+
+      if (stat)
+        print_stat (fp, name, uuid, dev, stat);
     }
   }
 
-  ret = 0;
-
- cleanup:
-  if (free_devices) {
-    for (i = 0; devices[i] != NULL; ++i)
-      free (devices[i]);
-    free (devices);
-  }
-
-  return ret;
+  return 0;
 }
 
-/* dev is a device or partition name such as "/dev/sda" or "/dev/sda1".
- * See if dev occurs somewhere in the list of devices.
+#if defined(HAVE_LIBVIRT)
+
+/* The multi-threaded version.  This callback is called from the code
+ * in "parallel.c".
  */
-static int
-find_dev_in_devices (const char *dev, char **devices)
+
+void
+df_work (guestfs_h *g, size_t i, FILE *fp)
 {
-  size_t i, len;
-  char *whole_disk;
-  int free_whole_disk;
-  int ret = 0;
+  struct guestfs___add_libvirt_dom_argv optargs;
 
-  /* Convert 'dev' to a whole disk name. */
-  len = strlen (dev);
-  if (len > 0 && c_isdigit (dev[len-1])) {
-    guestfs_push_error_handler (g, NULL, NULL);
+  optargs.bitmask =
+    GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK |
+    GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
+  optargs.readonly = 1;
+  optargs.readonlydisk = "read";
 
-    whole_disk = guestfs_part_to_dev (g, dev);
+  if (guestfs___add_libvirt_dom (g, domains[i].dom, &optargs) == -1)
+    return;
 
-    guestfs_pop_error_handler (g);
+  if (guestfs_launch (g) == -1)
+    return;
 
-    if (!whole_disk) /* probably an MD device or similar */
-      return 0;
-
-    free_whole_disk = 1;
-  }
-  else {
-    whole_disk = (char *) dev;
-    free_whole_disk = 0;
-  }
-
-  for (i = 0; devices[i] != NULL; ++i) {
-    if (STREQ (whole_disk, devices[i])) {
-      ret = 1;
-      break;
-    }
-  }
-
-  if (free_whole_disk)
-    free (whole_disk);
-
-  return ret;
+  (void) df_on_handle (g, domains[i].name, domains[i].uuid, fp);
 }
 
-static void
-try_df (const char *name, const char *uuid,
-        const char *dev, int offset)
-{
-  CLEANUP_FREE_STATVFS struct guestfs_statvfs *stat = NULL;
-
-  if (verbose)
-    fprintf (stderr, "try_df %s %s %d\n", name, dev, offset);
-
-  /* Try mounting and stating the device.  This might reasonably fail,
-   * so don't show errors.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-
-  if (guestfs_mount_ro (g, dev, "/") == 0) {
-    stat = guestfs_statvfs (g, "/");
-    guestfs_umount_all (g);
-  }
-
-  guestfs_pop_error_handler (g);
-
-  if (stat)
-    print_stat (name, uuid, dev, offset, stat);
-}
+#endif /* HAVE_LIBVIRT */

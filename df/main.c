@@ -38,6 +38,8 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "domains.h"
+#include "parallel.h"
 #include "virt-df.h"
 
 /* These globals are shared with options.c. */
@@ -54,7 +56,6 @@ int inspector = 0;
 int csv = 0;                    /* --csv */
 int human = 0;                  /* --human-readable|-h */
 int inodes = 0;                 /* --inodes */
-int one_per_guest = 0;          /* --one-per-guest */
 int uuid = 0;                   /* --uuid */
 
 static char *make_display_name (struct drv *drvs);
@@ -82,6 +83,7 @@ usage (int status)
              "  --help               Display brief help\n"
              "  -i|--inodes          Display inodes\n"
              "  --one-per-guest      Separate appliance per guest\n"
+             "  -P nr_threads        Use at most nr_threads\n"
              "  --uuid               Add UUIDs to --long output\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
@@ -105,7 +107,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:c:d:hivVx";
+  static const char *options = "a:c:d:hiP:vVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "connect", 1, 0, 'c' },
@@ -126,6 +128,7 @@ main (int argc, char *argv[])
   const char *format = NULL;
   int c;
   int option_index;
+  size_t max_threads = 0;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -149,7 +152,7 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "csv")) {
         csv = 1;
       } else if (STREQ (long_options[option_index].name, "one-per-guest")) {
-        one_per_guest = 1;
+        /* nothing - left for backwards compatibility */
       } else if (STREQ (long_options[option_index].name, "uuid")) {
         uuid = 1;
       } else {
@@ -177,6 +180,13 @@ main (int argc, char *argv[])
 
     case 'i':
       inodes = 1;
+      break;
+
+    case 'P':
+      if (sscanf (optarg, "%zu", &max_threads) != 1) {
+        fprintf (stderr, _("%s: -P option is not numeric\n"), program_name);
+        exit (EXIT_FAILURE);
+      }
       break;
 
     case 'v':
@@ -252,19 +262,24 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  /* If the user didn't specify any drives, then we ask libvirt for
-   * the full list of guests and drives, which we add in batches.
+  /* virt-df has two modes.  If the user didn't specify any drives,
+   * then we do the df on every libvirt guest.  That's the if-clause
+   * below.  If the user specified domains/drives, then we assume they
+   * belong to a single guest.  That's the else-clause below.
    */
   if (drvs == NULL) {
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
-    get_domains_from_libvirt ();
+#if defined(HAVE_LIBVIRT)
+    get_all_libvirt_domains (libvirt_uri);
+    print_title ();
+    start_threads (max_threads, g, df_work);
+    free_domains ();
 #else
-    fprintf (stderr, _("%s: compiled without support for libvirt and/or libxml2.\n"),
+    fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
              program_name);
     exit (EXIT_FAILURE);
 #endif
   }
-  else {
+  else {                        /* Single guest. */
     CLEANUP_FREE char *name = NULL;
 
     /* Add domains/drives from the command line (for a single guest). */
@@ -284,7 +299,7 @@ main (int argc, char *argv[])
      * guestfs_add_domain so the UUID is not available easily for
      * single '-d' command-line options.
      */
-    (void) df_on_handle (name, NULL, NULL, 0);
+    (void) df_on_handle (g, name, NULL, stdout);
 
     /* Free up data structures, no longer needed after this point. */
     free_drives (drvs);

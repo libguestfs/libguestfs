@@ -102,6 +102,7 @@ df/domains.c
 df/estimate-max-threads.c
 df/main.c
 df/output.c
+df/parallel.c
 edit/virt-edit.c
 erlang/erl-guestfs-proto.c
 erlang/erl-guestfs.c

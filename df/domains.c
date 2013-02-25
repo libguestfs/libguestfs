@@ -31,30 +31,14 @@
 #include "progname.h"
 
 #include "guestfs.h"
-#include "options.h"
-#include "virt-df.h"
+#include "guestfs-internal-frontend.h"
+#include "domains.h"
 
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+#if defined(HAVE_LIBVIRT)
 
-/* The list of domains and disks that we build up in
- * get_domains_from_libvirt.
- */
-struct disk {
-  struct disk *next;
-  char *filename;
-  char *format;                 /* could be NULL */
-  int failed;                   /* flag if disk failed when adding */
-};
-
-struct domain {
-  char *name;
-  char *uuid;
-  struct disk *disks;
-  size_t nr_disks;
-};
-
+virConnectPtr conn = NULL;
 struct domain *domains = NULL;
-size_t nr_domains;
+size_t nr_domains = 0;
 
 static int
 compare_domain_names (const void *p1, const void *p2)
@@ -65,43 +49,33 @@ compare_domain_names (const void *p1, const void *p2)
   return strcmp (d1->name, d2->name);
 }
 
-static void
-free_domain (struct domain *domain)
+void
+free_domains (void)
 {
-  struct disk *disk, *next;
+  size_t i;
 
-  for (disk = domain->disks; disk; disk = next) {
-    next = disk->next;
-    free (disk->filename);
-    free (disk->format);
-    free (disk);
+  for (i = 0; i < nr_domains; ++i) {
+    free (domains[i].name);
+    free (domains[i].uuid);
+    virDomainFree (domains[i].dom);
   }
 
-  free (domain->name);
-  free (domain->uuid);
+  free (domains);
+
+  if (conn)
+    virConnectClose (conn);
 }
 
-static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n, size_t max_disks);
-static void add_domains_by_name (virConnectPtr conn, char **names, size_t n, size_t max_disks);
-static void add_domain (virDomainPtr dom, size_t max_disks);
-static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *domain_vp);
-static void multi_df (struct domain *, size_t n, size_t *errors);
+static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n);
+static void add_domains_by_name (virConnectPtr conn, char **names, size_t n);
+static void add_domain (virDomainPtr dom);
 
 void
-get_domains_from_libvirt (void)
+get_all_libvirt_domains (const char *libvirt_uri)
 {
   virErrorPtr err;
-  virConnectPtr conn;
-  int n, r;
-  size_t i, j, nr_disks_added, errors, max_disks;
-
-  r = guestfs_max_disks (g);
-  if (r == -1)
-    exit (EXIT_FAILURE);
-  max_disks = (size_t) r;
-
-  nr_domains = 0;
-  domains = NULL;
+  int n;
+  size_t i;
 
   /* Get the list of all domains. */
   conn = virConnectOpenReadOnly (libvirt_uri);
@@ -132,7 +106,7 @@ get_domains_from_libvirt (void)
     exit (EXIT_FAILURE);
   }
 
-  add_domains_by_id (conn, ids, n, max_disks);
+  add_domains_by_id (conn, ids, n);
 
   n = virConnectNumOfDefinedDomains (conn);
   if (n == -1) {
@@ -153,7 +127,7 @@ get_domains_from_libvirt (void)
     exit (EXIT_FAILURE);
   }
 
-  add_domains_by_name (conn, names, n, max_disks);
+  add_domains_by_name (conn, names, n);
 
   /* You must free these even though the libvirt documentation doesn't
    * mention it.
@@ -161,57 +135,16 @@ get_domains_from_libvirt (void)
   for (i = 0; i < (size_t) n; ++i)
     free (names[i]);
 
-  virConnectClose (conn);
-
   /* No domains? */
   if (nr_domains == 0)
     return;
 
   /* Sort the domains alphabetically by name for display. */
   qsort (domains, nr_domains, sizeof (struct domain), compare_domain_names);
-
-  print_title ();
-
-  /* To minimize the number of times we have to launch the appliance,
-   * shuffle as many domains together as we can, but not exceeding
-   * max_disks per request.  If --one-per-guest was requested then only
-   * request disks from a single guest each time.
-   * Interesting application for NP-complete knapsack problem here.
-   */
-  errors = 0;
-  if (one_per_guest) {
-    for (i = 0; i < nr_domains; ++i)
-      multi_df (&domains[i], 1, &errors);
-  } else {
-    for (i = 0; i < nr_domains; /**/) {
-      nr_disks_added = 0;
-
-      /* Make a request with domains [i..j-1]. */
-      for (j = i; j < nr_domains; ++j) {
-        if (nr_disks_added + domains[j].nr_disks > max_disks)
-          break;
-        nr_disks_added += domains[j].nr_disks;
-      }
-      multi_df (&domains[i], j-i, &errors);
-
-      i = j;
-    }
-  }
-
-  /* Free up domains structure. */
-  for (i = 0; i < nr_domains; ++i)
-    free_domain (&domains[i]);
-  free (domains);
-
-  if (errors > 0) {
-    fprintf (stderr, _("%s: failed to analyze a disk, see error(s) above\n"),
-             program_name);
-    exit (EXIT_FAILURE);
-  }
 }
 
 static void
-add_domains_by_id (virConnectPtr conn, int *ids, size_t n, size_t max_disks)
+add_domains_by_id (virConnectPtr conn, int *ids, size_t n)
 {
   size_t i;
   virDomainPtr dom;
@@ -219,32 +152,27 @@ add_domains_by_id (virConnectPtr conn, int *ids, size_t n, size_t max_disks)
   for (i = 0; i < n; ++i) {
     if (ids[i] != 0) {          /* RHBZ#538041 */
       dom = virDomainLookupByID (conn, ids[i]);
-      if (dom) { /* transient errors are possible here, ignore them */
-        add_domain (dom, max_disks);
-        virDomainFree (dom);
-      }
+      if (dom)   /* transient errors are possible here, ignore them */
+        add_domain (dom);
     }
   }
 }
 
 static void
-add_domains_by_name (virConnectPtr conn, char **names, size_t n,
-                     size_t max_disks)
+add_domains_by_name (virConnectPtr conn, char **names, size_t n)
 {
   size_t i;
   virDomainPtr dom;
 
   for (i = 0; i < n; ++i) {
     dom = virDomainLookupByName (conn, names[i]);
-    if (dom) { /* transient errors are possible here, ignore them */
-      add_domain (dom, max_disks);
-      virDomainFree (dom);
-    }
+    if (dom)     /* transient errors are possible here, ignore them */
+      add_domain (dom);
   }
 }
 
 static void
-add_domain (virDomainPtr dom, size_t max_disks)
+add_domain (virDomainPtr dom)
 {
   struct domain *domain;
 
@@ -256,6 +184,8 @@ add_domain (virDomainPtr dom, size_t max_disks)
 
   domain = &domains[nr_domains];
   nr_domains++;
+
+  domain->dom = dom;
 
   domain->name = strdup (virDomainGetName (dom));
   if (domain->name == NULL) {
@@ -273,193 +203,6 @@ add_domain (virDomainPtr dom, size_t max_disks)
   }
   else
     domain->uuid = NULL;
-
-  domain->disks = NULL;
-  int n = guestfs___for_each_disk (g, dom, add_disk, domain, NULL);
-  if (n == -1)
-    exit (EXIT_FAILURE);
-  domain->nr_disks = n;
-
-  if (domain->nr_disks > max_disks) {
-    fprintf (stderr,
-             _("%s: ignoring %s, it has too many disks (%zu > %zu)\n"),
-             program_name, domain->name, domain->nr_disks, max_disks);
-    free_domain (domain);
-    nr_domains--;
-    return;
-  }
 }
 
-static int
-add_disk (guestfs_h *g,
-          const char *filename, const char *format, int readonly,
-          void *domain_vp)
-{
-  struct domain *domain = domain_vp;
-  struct disk *disk;
-
-  disk = calloc (1, sizeof *disk);
-  if (disk == NULL) {
-    perror ("malloc");
-    return -1;
-  }
-
-  disk->next = domain->disks;
-  domain->disks = disk;
-
-  disk->filename = strdup (filename);
-  if (disk->filename == NULL) {
-    perror ("malloc");
-    return -1;
-  }
-  if (format) {
-    disk->format = strdup (format);
-    if (disk->format == NULL) {
-      perror ("malloc");
-      return -1;
-    }
-  }
-  else
-    disk->format = NULL;
-
-  return 0;
-}
-
-static void reset_guestfs_handle (void);
-static size_t add_disks_to_handle_reverse (struct disk *disk, size_t *errors_r);
-static size_t count_non_failed_disks (struct disk *disk);
-static char **duplicate_first_n (char **, size_t n);
-
-/* Perform 'df' operation on the domain(s) given in the list. */
-static void
-multi_df (struct domain *domains, size_t n, size_t *errors_r)
-{
-  size_t i;
-  size_t nd;
-  size_t count;
-  int r;
-  CLEANUP_FREE_STRING_LIST char **devices = NULL;
-  char **domain_devices;
-
-  /* Add all the disks to the handle (since they were added in reverse
-   * order, we must add them here in reverse too).
-   */
-  for (i = 0, count = 0; i < n; ++i)
-    count += add_disks_to_handle_reverse (domains[i].disks, errors_r);
-  if (count == 0)
-    return;
-
-  /* Launch the handle. */
-  if (guestfs_launch (g) == -1)
-    exit (EXIT_FAILURE);
-
-  devices = guestfs_list_devices (g);
-  if (devices == NULL)
-    exit (EXIT_FAILURE);
-
-  for (i = 0, nd = 0; i < n; ++i) {
-    /* Find out how many non-failed disks this domain has. */
-    count = count_non_failed_disks (domains[i].disks);
-    if (count == 0)
-      continue;
-
-    /* Duplicate the devices into a separate list for convenience.
-     * Note this doesn't duplicate the strings themselves.
-     */
-    domain_devices = duplicate_first_n (&devices[nd], count);
-
-    r = df_on_handle (domains[i].name, domains[i].uuid, domain_devices, nd);
-    nd += count;
-    free (domain_devices);
-
-    /* Something broke in df_on_handle.  Give up on the remaining
-     * devices for this handle, but keep going on the next handle.
-     */
-    if (r == -1) {
-      (*errors_r)++;
-      break;
-    }
-  }
-
-  /* Reset the handle. */
-  reset_guestfs_handle ();
-}
-
-static size_t
-add_disks_to_handle_reverse (struct disk *disk, size_t *errors_r)
-{
-  size_t nr_disks_added;
-
-  if (disk == NULL)
-    return 0;
-
-  nr_disks_added = add_disks_to_handle_reverse (disk->next, errors_r);
-
-  struct guestfs_add_drive_opts_argv optargs = { .bitmask = 0 };
-
-  optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
-  optargs.readonly = 1;
-
-  if (disk->format) {
-    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
-    optargs.format = disk->format;
-  }
-
-  if (guestfs_add_drive_opts_argv (g, disk->filename, &optargs) == -1) {
-    (*errors_r)++;
-    disk->failed = 1;
-    return nr_disks_added;
-  }
-
-  return nr_disks_added+1;
-}
-
-/* Close and reopen the libguestfs handle. */
-static void
-reset_guestfs_handle (void)
-{
-  /* Copy the settings from the old handle. */
-  int verbose = guestfs_get_verbose (g);
-  int trace = guestfs_get_trace (g);
-
-  guestfs_close (g);
-
-  g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
-
-  guestfs_set_verbose (g, verbose);
-  guestfs_set_trace (g, trace);
-}
-
-static size_t
-count_non_failed_disks (struct disk *disk)
-{
-  if (disk == NULL)
-    return 0;
-  else if (disk->failed)
-    return count_non_failed_disks (disk->next);
-  else
-    return 1 + count_non_failed_disks (disk->next);
-}
-
-static char **
-duplicate_first_n (char **strs, size_t n)
-{
-  char **ret;
-
-  ret = malloc ((n+1) * sizeof (char *));
-  if (ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-
-  memcpy (ret, strs, n * sizeof (char *));
-  ret[n] = NULL;
-
-  return ret;
-}
-
-#endif
+#endif /* HAVE_LIBVIRT */

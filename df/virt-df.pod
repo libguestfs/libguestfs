@@ -152,27 +152,19 @@ Print inodes instead of blocks.
 
 =item B<--one-per-guest>
 
-Run one libguestfs appliance per guest.  Normally C<virt-df> will
-add the disks from several guests to a single libguestfs appliance.
+Since libguestfs 1.22, this is the default.  This option does nothing
+and is left here for backwards compatibility with older scripts.
 
-You might use this option in the following circumstances:
+=item B<-P> nr_threads
 
-=over 4
+Since libguestfs 1.22, virt-df is multithreaded and examines guests in
+parallel.  By default the number of threads to use is chosen based on
+the amount of free memory available at the time that virt-df is
+started.  You can force virt-df to use at most C<nr_threads> by using
+the I<-P> option.
 
-=item *
-
-If you think an untrusted guest might actively try to exploit the
-libguestfs appliance kernel, then this prevents one guest from
-interfering with the stats printed for another guest.
-
-=item *
-
-If the kernel has a bug which stops it from accessing a
-filesystem in one guest (see for example RHBZ#635373) then
-this allows libguestfs to continue and report stats for further
-guests.
-
-=back
+Note that I<-P 0> means to autodetect, and I<-P 1> means to use a
+single thread.
 
 =item B<--uuid>
 
