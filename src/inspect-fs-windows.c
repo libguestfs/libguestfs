@@ -495,14 +495,9 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
   /* Next 8 bytes are the offset of the partition in bytes(!) given as
    * a 64 bit little endian number.  Luckily it's easy to get the
    * partition byte offset from guestfs_part_list.
-   *
-   * Note deliberate cast-align violation here since the data is in a
-   * very odd place within the blob.  Thanks Microsoft!
    */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-  part_offset = le64toh (* (uint64_t *) ((char *) blob + 4));
-#pragma GCC diagnostic pop
+  memcpy (&part_offset, (char *) blob + 4, sizeof (part_offset));
+  part_offset = le64toh (part_offset);
 
   partitions = guestfs_part_list (g, devices[i]);
   if (partitions == NULL)
