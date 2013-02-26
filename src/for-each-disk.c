@@ -40,17 +40,7 @@
 
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 
-static void default_error_function (guestfs_h *g, int errnum, const char *fs, ...) __attribute__((format (printf,3,4)));
-
-/* This function is also used in tools code (virt-df and others) to
- * avoid having all that stupid XPath code repeated.  This is
- * something that libvirt should really provide.
- *
- * The callback function 'f' is called once for each disk.
- *
- * The error function can be NULL, in which case errors are printed on
- * stderr (usually fine for tools).  Or in the library you can pass in
- * guestfs___error_errno.
+/* The callback function 'f' is called once for each disk.
  *
  * Returns number of disks, or -1 if there was an error.
  */
@@ -61,8 +51,7 @@ guestfs___for_each_disk (guestfs_h *g,
                                    const char *filename, const char *format,
                                    int readonly,
                                    void *data),
-                         void *data,
-                         error_function_t error_function)
+                         void *data)
 {
   int i, nr_added = 0;
   virErrorPtr err;
@@ -72,16 +61,12 @@ guestfs___for_each_disk (guestfs_h *g,
   CLEANUP_FREE char *xml = NULL;
   xmlNodeSetPtr nodes;
 
-  if (!error_function)
-    error_function = default_error_function;
-
   /* Domain XML. */
   xml = virDomainGetXMLDesc (dom, 0);
 
   if (!xml) {
     err = virGetLastError ();
-    error_function (g, 0, _("error reading libvirt XML information: %s"),
-                    err->message);
+    error (g, _("error reading libvirt XML information: %s"), err->message);
     return -1;
   }
 
@@ -90,21 +75,20 @@ guestfs___for_each_disk (guestfs_h *g,
    */
   doc = xmlParseMemory (xml, strlen (xml));
   if (doc == NULL) {
-    error_function (g, 0,
-                    _("unable to parse XML information returned by libvirt"));
+    error (g, _("unable to parse XML information returned by libvirt"));
     return -1;
   }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
-    error_function (g, 0, _("unable to create new XPath context"));
+    error (g, _("unable to create new XPath context"));
     return -1;
   }
 
   /* This gives us a set of all the <disk> nodes. */
   xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk", xpathCtx);
   if (xpathObj == NULL) {
-    error_function (g, 0, _("unable to evaluate XPath expression"));
+    error (g, _("unable to evaluate XPath expression"));
     return -1;
   }
 
@@ -198,27 +182,12 @@ guestfs___for_each_disk (guestfs_h *g,
   }
 
   if (nr_added == 0) {
-    error_function (g, 0, _("libvirt domain has no disks"));
+    error (g, _("libvirt domain has no disks"));
     return -1;
   }
 
   /* Successful. */
   return nr_added;
-}
-
-static void
-default_error_function (guestfs_h *g, int errnum, const char *fs, ...)
-{
-  va_list args;
-
-  va_start (args, fs);
-  vfprintf (stderr, fs, args);
-  va_end (args);
-
-  if (errnum != 0)
-    fprintf (stderr, "%s", strerror (errnum));
-
-  fprintf (stderr, "\n");
 }
 
 #endif /* no libvirt or libxml2 at compile time */

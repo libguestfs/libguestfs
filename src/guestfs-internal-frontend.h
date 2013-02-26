@@ -116,11 +116,6 @@ extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
 #include <libvirt/libvirt.h>
 #endif
 
-/* This type must be compatible with guestfs___error_errno. */
-typedef void error_function_t (guestfs_h *g, int errnum, const char *fs, ...) __attribute__((format (printf,3,4)));
-
-extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data, error_function_t error_function);
-
 /* This was proposed as an external API, but there's a problem: the
  * generator is unable to bind a virDomainPtr in any language other
  * than C.  For now this API is only used by virt-df and

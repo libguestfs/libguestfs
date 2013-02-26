@@ -91,6 +91,7 @@ libguestfs_la_SOURCES = \
 	events.c \
 	file.c \
 	filearch.c \
+	for-each-disk.c \
 	free-structs.c \
 	fuse.c \
 	handle.c \
@@ -210,7 +211,6 @@ endif
 libutils_la_SOURCES = \
 	cleanup.c \
 	cleanup-structs.c \
-	for-each-disk.c \
 	utils.c
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)

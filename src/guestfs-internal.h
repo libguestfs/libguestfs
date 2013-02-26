@@ -514,6 +514,9 @@ extern char *guestfs___appliance_command_line (guestfs_h *g, const char *applian
 /* launch-appliance.c */
 extern char *guestfs___drive_name (size_t index, char *ret);
 
+/* for-each-disk.c */
+extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+
 /* inspect.c */
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern int guestfs___feature_available (guestfs_h *g, const char *feature);

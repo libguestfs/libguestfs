@@ -238,7 +238,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
    * all disks are added or none are added.
    */
   size_t cp = guestfs___checkpoint_drives (g);
-  r = guestfs___for_each_disk (g, dom, add_disk, &data, guestfs___error_errno);
+  r = guestfs___for_each_disk (g, dom, add_disk, &data);
   if (r == -1)
     guestfs___rollback_drives (g, cp);
 
