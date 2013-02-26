@@ -34,13 +34,36 @@ EXTRA_DIST = \
 	guest-aux/windows-software.reg \
 	guest-aux/windows-system \
 	guest-aux/windows-system.reg \
-	guest-aux/minimal-hive
+	guest-aux/minimal-hive \
+	guests.xml.in
 
 # This is 'check_DATA' because we don't need it until 'make check'
 # time and we need the tools we have built in order to make it.
-check_DATA = debian.img fedora.img fedora-md1.img fedora-md2.img fedora-btrfs.img ubuntu.img windows.img
+check_DATA = \
+	blank-disk.img \
+	blank-part.img \
+	blank-fs.img \
+	blank-bootroot.img \
+	blank-bootrootlv.img \
+	debian.img \
+	fedora.img \
+	fedora-md1.img \
+	fedora-md2.img \
+	fedora-btrfs.img \
+	ubuntu.img \
+	windows.img
 
 CLEANFILES = $(check_DATA) stamp-fedora-md.img *.tmp.*
+
+# Make several different blank images.  These are not guests, but we
+# include them in the libvirt fake XML to make sure that virt-df and
+# virt-alignment-scan don't break when they encounter them.
+blank-%.img:
+	rm -f $@ test1.img
+	$(top_builddir)/run \
+	  ../../fish/guestfish \
+	    -N "$$(echo $@ | sed -e 's/blank-//' -e 's/.img//')" exit
+	mv test1.img $@
 
 # Make a (dummy) Fedora image.
 fedora.img: guest-aux/make-fedora-img.pl \
@@ -105,4 +128,7 @@ guest-aux/windows-system: guest-aux/windows-system.reg
 # Don't construct the guests in parallel.  In automake 1.13, check_DATA
 # was changed so it can now run in parallel, but this causes everything
 # to fall over on machines with limited memory.
+#
+# ALSO: the guestfish rules above for making the blank-*.img files are
+# NOT safe to run in parallel.
 .NOTPARALLEL:

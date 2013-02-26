@@ -429,11 +429,13 @@ Makefile.in
 /tests/data/initrd-x86_64.img.gz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
+/tests/guests/blank-*.img
 /tests/guests/debian.img
 /tests/guests/fedora.img
 /tests/guests/fedora-btrfs.img
 /tests/guests/fedora-md1.img
 /tests/guests/fedora-md2.img
+/tests/guests/guests.xml
 /tests/guests/guest-aux/fedora-name.db
 /tests/guests/guest-aux/fedora-packages.db
 /tests/guests/stamp-fedora-md.img
