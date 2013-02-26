@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	test-virt-alignment-scan.sh \
+	test-virt-alignment-scan-guests.sh \
 	virt-alignment-scan.pod
 
 CLEANFILES = stamp-virt-alignment-scan.pod
@@ -90,7 +91,8 @@ TESTS =
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-virt-alignment-scan.sh
+	test-virt-alignment-scan.sh \
+	test-virt-alignment-scan-guests.sh
 endif
 
 check-valgrind:

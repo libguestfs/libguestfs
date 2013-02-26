@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	README \
 	test-virt-df.sh \
+	test-virt-df-guests.sh \
 	virt-df.pod
 
 CLEANFILES = stamp-virt-df.pod
@@ -92,7 +93,9 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS =
 
 if ENABLE_APPLIANCE
-TESTS += test-virt-df.sh
+TESTS += \
+	test-virt-df.sh \
+	test-virt-df-guests.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
