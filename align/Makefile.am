@@ -26,6 +26,12 @@ CLEANFILES = stamp-virt-alignment-scan.pod
 bin_PROGRAMS = virt-alignment-scan
 
 SHARED_SOURCE_FILES = \
+	../df/domains.c \
+	../df/domains.h \
+	../df/estimate-max-threads.c \
+	../df/estimate-max-threads.h \
+	../df/parallel.c \
+	../df/parallel.h \
 	../fish/config.c \
 	../fish/domain.c \
 	../fish/inspect.c \
@@ -35,19 +41,19 @@ SHARED_SOURCE_FILES = \
 
 virt_alignment_scan_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	domains.c \
-	scan.c \
-	scan.h
+	scan.c
 
 virt_alignment_scan_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/df \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
 
 virt_alignment_scan_CFLAGS = \
+	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS) \

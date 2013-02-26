@@ -1,4 +1,3 @@
-align/domains.c
 align/scan.c
 cat/virt-cat.c
 cat/virt-filesystems.c

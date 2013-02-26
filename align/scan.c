@@ -29,6 +29,8 @@
 #include <assert.h>
 #include <libintl.h>
 
+#include <pthread.h>
+
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
@@ -38,7 +40,18 @@
 
 #include "guestfs.h"
 #include "options.h"
-#include "scan.h"
+#include "parallel.h"
+#include "domains.h"
+
+/* This just needs to be larger than any alignment we care about. */
+static size_t worst_alignment = UINT_MAX;
+static pthread_mutex_t worst_alignment_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+static void scan (guestfs_h *g, const char *prefix, FILE *fp);
+
+#ifdef HAVE_LIBVIRT
+static void scan_work (guestfs_h *g, size_t i, FILE *fp);
+#endif
 
 /* These globals are shared with options.c. */
 guestfs_h *g;
@@ -52,6 +65,7 @@ const char *libvirt_uri = NULL;
 int inspector = 0;
 
 static int quiet = 0;           /* --quiet */
+static int uuid = 0;            /* --uuid */
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -72,6 +86,7 @@ usage (int status)
              "  -d|--domain guest    Add disks from libvirt guest\n"
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --help               Display brief help\n"
+             "  -P nr_threads        Use at most nr_threads\n"
              "  -q|--quiet           No output, just exit code\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
@@ -95,7 +110,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:c:d:qvVx";
+  static const char *options = "a:c:d:P:qvVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "connect", 1, 0, 'c' },
@@ -113,10 +128,8 @@ main (int argc, char *argv[])
   const char *format = NULL;
   int c;
   int option_index;
-  int uuid = 0;
-  /* This just needs to be larger than any alignment we care about. */
-  size_t worst_alignment = UINT_MAX;
   int exit_code;
+  size_t max_threads = 0;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -158,6 +171,13 @@ main (int argc, char *argv[])
       OPTION_d;
       break;
 
+    case 'P':
+      if (sscanf (optarg, "%zu", &max_threads) != 1) {
+        fprintf (stderr, _("%s: -P option is not numeric\n"), program_name);
+        exit (EXIT_FAILURE);
+      }
+      break;
+
     case 'q':
       quiet = 1;
       break;
@@ -194,16 +214,23 @@ main (int argc, char *argv[])
   if (optind != argc)
     usage (EXIT_FAILURE);
 
-  /* The user didn't specify any drives to scan. */
+  /* virt-alignment-scan has two modes.  If the user didn't specify
+   * any drives, then we do the scan on every libvirt guest.  That's
+   * the if-clause below.  If the user specified domains/drives, then
+   * we assume they belong to a single guest.  That's the else-clause
+   * below.
+   */
   if (drvs == NULL) {
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
-    get_domains_from_libvirt (uuid, &worst_alignment);
+    get_all_libvirt_domains (libvirt_uri);
+    start_threads (max_threads, g, scan_work);
+    free_domains ();
 #else
     fprintf (stderr, _("%s: compiled without support for libvirt and/or libxml2.\n"),
              program_name);
     exit (EXIT_FAILURE);
 #endif
-  } else {
+  } else {                      /* Single guest. */
     if (uuid) {
       fprintf (stderr, _("%s: --uuid option cannot be used with -a or -d\n"),
                program_name);
@@ -220,7 +247,7 @@ main (int argc, char *argv[])
     free_drives (drvs);
 
     /* Perform the scan. */
-    scan (&worst_alignment, NULL);
+    scan (g, NULL, stdout);
 
     guestfs_close (g);
   }
@@ -236,12 +263,13 @@ main (int argc, char *argv[])
   exit (exit_code);
 }
 
-void
-scan (size_t *worst_alignment, const char *prefix)
+static void
+scan (guestfs_h *g, const char *prefix, FILE *fp)
 {
   size_t i, j;
   size_t alignment;
   uint64_t start;
+  int err;
 
   CLEANUP_FREE_STRING_LIST char **devices = guestfs_list_devices (g);
   if (devices == NULL)
@@ -266,10 +294,10 @@ scan (size_t *worst_alignment, const char *prefix)
 
       if (!quiet) {
         if (prefix)
-          printf ("%s:", prefix);
+          fprintf (fp, "%s:", prefix);
 
-        printf ("%s%d %12" PRIu64 " ",
-                name, (int) parts->val[j].part_num, start);
+        fprintf (fp, "%s%d %12" PRIu64 " ",
+                 name, (int) parts->val[j].part_num, start);
       }
 
       /* What's the alignment? */
@@ -281,26 +309,58 @@ scan (size_t *worst_alignment, const char *prefix)
 
       if (!quiet) {
         if (alignment < 10)
-          printf ("%12" PRIu64 "    ", UINT64_C(1) << alignment);
+          fprintf (fp, "%12" PRIu64 "    ", UINT64_C(1) << alignment);
         else if (alignment < 64)
-          printf ("%12" PRIu64 "K   ", UINT64_C(1) << (alignment - 10));
+          fprintf (fp, "%12" PRIu64 "K   ", UINT64_C(1) << (alignment - 10));
         else
-          printf ("- ");
+          fprintf (fp, "- ");
       }
 
-      if (alignment < *worst_alignment)
-        *worst_alignment = alignment;
+      err = pthread_mutex_lock (&worst_alignment_mutex);
+      assert (err == 0);
+      if (alignment < worst_alignment)
+        worst_alignment = alignment;
+      err = pthread_mutex_unlock (&worst_alignment_mutex);
+      assert (err == 0);
 
       if (alignment < 12) {     /* Bad in general: < 4K alignment */
         if (!quiet)
-          printf ("bad (%s)\n", _("alignment < 4K"));
+          fprintf (fp, "bad (%s)\n", _("alignment < 4K"));
       } else if (alignment < 16) { /* Bad on NetApps: < 64K alignment */
         if (!quiet)
-          printf ("bad (%s)\n", _("alignment < 64K"));
+          fprintf (fp, "bad (%s)\n", _("alignment < 64K"));
       } else {
         if (!quiet)
-          printf ("ok\n");
+          fprintf (fp, "ok\n");
       }
     }
   }
 }
+
+#if defined(HAVE_LIBVIRT)
+
+/* The multi-threaded version.  This callback is called from the code
+ * in "parallel.c".
+ */
+
+static void
+scan_work (guestfs_h *g, size_t i, FILE *fp)
+{
+  struct guestfs___add_libvirt_dom_argv optargs;
+
+  optargs.bitmask =
+    GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK |
+    GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
+  optargs.readonly = 1;
+  optargs.readonlydisk = "read";
+
+  if (guestfs___add_libvirt_dom (g, domains[i].dom, &optargs) == -1)
+    return;
+
+  if (guestfs_launch (g) == -1)
+    return;
+
+  (void) scan (g, !uuid ? domains[i].name : domains[i].uuid, fp);
+}
+
+#endif /* HAVE_LIBVIRT */
